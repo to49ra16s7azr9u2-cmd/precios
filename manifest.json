@@ -1,0 +1,14 @@
+{
+  "name": "ComparaMX — Compara precios",
+  "short_name": "ComparaMX",
+  "description": "Compara precios entre tiendas mexicanas y consulta el tiempo de entrega estimado por región.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f5f7",
+  "theme_color": "#e0301e",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

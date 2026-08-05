@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ComparaMX — Compara precios y tiempos de entrega</title>
+<meta name="description" content="Compara precios entre tiendas mexicanas y consulta el tiempo de entrega estimado por región en el mapa.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e0301e">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#/" data-nav="home">
+      <span class="brand-mark">Compara<span class="brand-mx">MX</span></span>
+    </a>
+    <div class="search-wrap">
+      <input id="searchInput" type="search" placeholder="Buscar productos: iPhone, TV, laptop..." autocomplete="off">
+      <button id="searchBtn" aria-label="Buscar">🔍</button>
+    </div>
+    <nav class="cats" id="catNav"></nav>
+  </div>
+</header>
+
+<main id="app">
+
+  <section id="viewList" class="view">
+    <div class="container">
+      <h1 id="listTitle">Productos populares</h1>
+      <div id="productGrid" class="product-grid"></div>
+    </div>
+  </section>
+
+  <section id="viewDetail" class="view hidden">
+    <div class="container">
+      <button class="back-btn" id="backBtn">← Volver</button>
+      <div class="detail-head">
+        <div class="detail-icon" id="detailIcon"></div>
+        <div>
+          <h1 id="detailName"></h1>
+          <p class="muted" id="detailCat"></p>
+        </div>
+      </div>
+
+      <div class="panel compare-panel">
+        <div class="compare-panel-head">
+          <h2>Comparación de precios</h2>
+          <button class="location-btn" id="locationBtn">
+            <span class="location-btn-icon">📍</span>
+            <span id="locationBtnLabel">Comparar tiempos de entrega</span>
+          </button>
+        </div>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Tienda</th>
+              <th>Precio</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="offerRows"></tbody>
+        </table>
+        <p class="disclaimer">* Tiempos de entrega estimados a partir del centro de distribución de cada tienda. Datos de demostración.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="mapModal" class="modal-overlay hidden">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Elige tu municipio o alcaldía</h2>
+      <button class="modal-close" id="mapModalClose" aria-label="Cerrar">✕</button>
+    </div>
+    <p class="muted small">La cobertura completa de México varía mucho por infraestructura; por ahora comparamos estas 3 zonas metropolitanas, pero puedes elegir tu municipio o alcaldía exacta en el mapa.</p>
+    <div class="metro-tabs" id="metroTabs"></div>
+    <div id="map" class="map"></div>
+    <div class="region-chips" id="regionChips"></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>ComparaMX — comparador de precios estilo Kakaku.com para México. Proyecto de demostración (MVP), sin afiliación con las tiendas listadas.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

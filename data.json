@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "currency": "MXN",
+    "updated": "2026-08-04",
+    "note": "Datos de demostración (MVP). Sustituir por feeds reales de tiendas/afiliados."
+  },
+  "metros": [
+    { "id": "cdmx", "name": "Ciudad de México", "center": { "lat": 19.4020, "lng": -99.1450 }, "zoom": 11 },
+    { "id": "gdl", "name": "Guadalajara", "center": { "lat": 20.6300, "lng": -103.3300 }, "zoom": 11 },
+    { "id": "mty", "name": "Monterrey", "center": { "lat": 25.7100, "lng": -100.3200 }, "zoom": 10.5 }
+  ],
+  "regions": [
+    { "id": "cdmx_cuauhtemoc", "metro": "cdmx", "name": "Cuauhtémoc", "lat": 19.4326, "lng": -99.1332, "infraDays": 0 },
+    { "id": "cdmx_miguel_hidalgo", "metro": "cdmx", "name": "Miguel Hidalgo", "lat": 19.4284, "lng": -99.1996, "infraDays": 0 },
+    { "id": "cdmx_benito_juarez", "metro": "cdmx", "name": "Benito Juárez", "lat": 19.3910, "lng": -99.1620, "infraDays": 0 },
+    { "id": "cdmx_coyoacan", "metro": "cdmx", "name": "Coyoacán", "lat": 19.3467, "lng": -99.1618, "infraDays": 0 },
+    { "id": "cdmx_iztapalapa", "metro": "cdmx", "name": "Iztapalapa", "lat": 19.3552, "lng": -99.0658, "infraDays": 1 },
+    { "id": "cdmx_xochimilco", "metro": "cdmx", "name": "Xochimilco", "lat": 19.2647, "lng": -99.1032, "infraDays": 1 },
+
+    { "id": "gdl_guadalajara", "metro": "gdl", "name": "Guadalajara centro", "lat": 20.6597, "lng": -103.3496, "infraDays": 0 },
+    { "id": "gdl_zapopan", "metro": "gdl", "name": "Zapopan", "lat": 20.7236, "lng": -103.3848, "infraDays": 0 },
+    { "id": "gdl_tlaquepaque", "metro": "gdl", "name": "San Pedro Tlaquepaque", "lat": 20.6096, "lng": -103.3131, "infraDays": 0 },
+    { "id": "gdl_tonala", "metro": "gdl", "name": "Tonalá", "lat": 20.6233, "lng": -103.2335, "infraDays": 0 },
+    { "id": "gdl_tlajomulco", "metro": "gdl", "name": "Tlajomulco de Zúñiga", "lat": 20.4742, "lng": -103.4429, "infraDays": 1 },
+    { "id": "gdl_elsalto", "metro": "gdl", "name": "El Salto", "lat": 20.5222, "lng": -103.1857, "infraDays": 1 },
+
+    { "id": "mty_monterrey", "metro": "mty", "name": "Monterrey centro", "lat": 25.6866, "lng": -100.3161, "infraDays": 0 },
+    { "id": "mty_sanpedro", "metro": "mty", "name": "San Pedro Garza García", "lat": 25.6504, "lng": -100.4022, "infraDays": 0 },
+    { "id": "mty_sannicolas", "metro": "mty", "name": "San Nicolás de los Garza", "lat": 25.7469, "lng": -100.3021, "infraDays": 0 },
+    { "id": "mty_guadalupe", "metro": "mty", "name": "Guadalupe", "lat": 25.6768, "lng": -100.2560, "infraDays": 0 },
+    { "id": "mty_apodaca", "metro": "mty", "name": "Apodaca", "lat": 25.7815, "lng": -100.1888, "infraDays": 0 },
+    { "id": "mty_garcia", "metro": "mty", "name": "García", "lat": 25.8161, "lng": -100.5981, "infraDays": 1 }
+  ],
+  "stores": [
+    { "id": "amazon_mx", "name": "Amazon México", "hubRegion": "cdmx_cuauhtemoc", "color": "#FF9900", "logo": "A" },
+    { "id": "mercadolibre", "name": "Mercado Libre", "hubRegion": "cdmx_benito_juarez", "color": "#FFE600", "logo": "ML" },
+    { "id": "walmart_mx", "name": "Walmart México", "hubRegion": "mty_monterrey", "color": "#0071CE", "logo": "W" },
+    { "id": "liverpool", "name": "Liverpool", "hubRegion": "cdmx_miguel_hidalgo", "color": "#E4002B", "logo": "L" },
+    { "id": "costco_mx", "name": "Costco México", "hubRegion": "gdl_zapopan", "color": "#005DAA", "logo": "C" }
+  ],
+  "products": [
+    {
+      "id": "p1",
+      "name": "iPhone 15 128GB",
+      "category": "Celulares",
+      "image": "📱",
+      "offers": [
+        { "storeId": "amazon_mx", "price": 16999, "url": "#" },
+        { "storeId": "mercadolibre", "price": 16499, "url": "#" },
+        { "storeId": "liverpool", "price": 17999, "url": "#" },
+        { "storeId": "walmart_mx", "price": 17299, "url": "#" }
+      ]
+    },
+    {
+      "id": "p2",
+      "name": "Samsung Galaxy S24 256GB",
+      "category": "Celulares",
+      "image": "📱",
+      "offers": [
+        { "storeId": "amazon_mx", "price": 14999, "url": "#" },
+        { "storeId": "mercadolibre", "price": 14299, "url": "#" },
+        { "storeId": "costco_mx", "price": 14799, "url": "#" }
+      ]
+    },
+    {
+      "id": "p3",
+      "name": "Smart TV LG 55'' 4K",
+      "category": "Televisores",
+      "image": "📺",
+      "offers": [
+        { "storeId": "walmart_mx", "price": 8999, "url": "#" },
+        { "storeId": "liverpool", "price": 9499, "url": "#" },
+        { "storeId": "costco_mx", "price": 8799, "url": "#" },
+        { "storeId": "mercadolibre", "price": 9199, "url": "#" }
+      ]
+    },
+    {
+      "id": "p4",
+      "name": "Laptop HP Pavilion 15 (i5, 16GB)",
+      "category": "Computadoras",
+      "image": "💻",
+      "offers": [
+        { "storeId": "amazon_mx", "price": 13499, "url": "#" },
+        { "storeId": "mercadolibre", "price": 12999, "url": "#" },
+        { "storeId": "walmart_mx", "price": 13999, "url": "#" }
+      ]
+    },
+    {
+      "id": "p5",
+      "name": "Refrigerador Mabe 400L",
+      "category": "Electrodomésticos",
+      "image": "🧊",
+      "offers": [
+        { "storeId": "liverpool", "price": 11999, "url": "#" },
+        { "storeId": "walmart_mx", "price": 11499, "url": "#" },
+        { "storeId": "costco_mx", "price": 11299, "url": "#" }
+      ]
+    },
+    {
+      "id": "p6",
+      "name": "Consola PlayStation 5",
+      "category": "Videojuegos",
+      "image": "🎮",
+      "offers": [
+        { "storeId": "amazon_mx", "price": 11999, "url": "#" },
+        { "storeId": "mercadolibre", "price": 12299, "url": "#" },
+        { "storeId": "liverpool", "price": 12799, "url": "#" }
+      ]
+    }
+  ]
+}
