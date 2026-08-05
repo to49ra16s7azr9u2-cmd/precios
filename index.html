@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ComparaMX — Compara precios y tiempos de entrega</title>
-<meta name="description" content="Compara precios entre tiendas mexicanas y consulta el tiempo de entrega estimado por región en el mapa.">
+<meta name="description" content="Compara precios entre tiendas mexicanas: rankings, fichas de producto con reseñas y comparador de precios por tienda.">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#e0301e">
+<meta name="theme-color" content="#FF0211">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="css/style.css">
@@ -14,35 +14,83 @@
 <body>
 
 <header class="topbar">
-  <div class="topbar-inner">
-    <a class="brand" href="#/" data-nav="home">
-      <span class="brand-mark">Compara<span class="brand-mx">MX</span></span>
-    </a>
-    <div class="search-wrap">
-      <input id="searchInput" type="search" placeholder="Buscar productos: iPhone, TV, laptop..." autocomplete="off">
-      <button id="searchBtn" aria-label="Buscar">🔍</button>
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="#/" data-nav="home">
+        <span class="brand-mark">Compara<span class="brand-mx">MX</span></span>
+      </a>
+      <div class="search-wrap">
+        <input id="searchInput" type="search" placeholder="Buscar productos: iPhone, TV, laptop..." autocomplete="off">
+        <button id="searchBtn" aria-label="Buscar">🔍</button>
+      </div>
+      <nav class="util-nav">
+        <a href="#/">⭐ Favoritos</a>
+        <a href="#/">👤 Mi cuenta</a>
+      </nav>
     </div>
+  </div>
+  <div class="topbar-cats">
     <nav class="cats" id="catNav"></nav>
   </div>
 </header>
 
 <main id="app">
 
-  <section id="viewList" class="view">
+  <!-- Inicio: rankings por categoría -->
+  <section id="viewHome" class="view">
     <div class="container">
-      <h1 id="listTitle">Productos populares</h1>
-      <div id="productGrid" class="product-grid"></div>
+      <div class="hero">
+        <h1>Compara precios entre tiendas mexicanas</h1>
+        <p class="muted">Encuentra el mejor precio y, si quieres, el tiempo de entrega estimado a tu municipio.</p>
+      </div>
+      <div class="ranking-grid" id="rankingGrid"></div>
     </div>
   </section>
 
+  <!-- Resultados: búsqueda o categoría -->
+  <section id="viewList" class="view hidden">
+    <div class="container">
+      <nav class="breadcrumb" id="listBreadcrumb"></nav>
+      <div class="list-layout">
+        <aside class="filters">
+          <h2>Filtros</h2>
+          <div class="filter-group">
+            <h3>Categoría</h3>
+            <div id="filterCategory" class="filter-options"></div>
+          </div>
+          <div class="filter-group">
+            <h3>Precio</h3>
+            <div id="filterPrice" class="filter-options"></div>
+          </div>
+        </aside>
+        <div class="list-main">
+          <div class="list-head">
+            <h1 id="listTitle">Productos</h1>
+            <select id="sortSelect" class="sort-select">
+              <option value="relevance">Relevancia</option>
+              <option value="price_asc">Precio: menor a mayor</option>
+              <option value="price_desc">Precio: mayor a menor</option>
+              <option value="rating_desc">Mejor calificados</option>
+            </select>
+          </div>
+          <div id="productList" class="product-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ficha de producto -->
   <section id="viewDetail" class="view hidden">
     <div class="container">
-      <button class="back-btn" id="backBtn">← Volver</button>
+      <nav class="breadcrumb" id="detailBreadcrumb"></nav>
+
       <div class="detail-head">
         <div class="detail-icon" id="detailIcon"></div>
-        <div>
+        <div class="detail-headinfo">
+          <p class="muted small" id="detailBrand"></p>
           <h1 id="detailName"></h1>
-          <p class="muted" id="detailCat"></p>
+          <div class="detail-rating" id="detailRating"></div>
+          <p class="detail-fromprice" id="detailFromPrice"></p>
         </div>
       </div>
 
@@ -54,17 +102,31 @@
             <span id="locationBtnLabel">Comparar tiempos de entrega</span>
           </button>
         </div>
+        <div class="sort-tabs" id="sortTabs"></div>
         <table class="compare-table">
           <thead>
             <tr>
               <th>Tienda</th>
               <th>Precio</th>
+              <th>Envío</th>
+              <th>Puntos</th>
+              <th>Calificación</th>
               <th></th>
             </tr>
           </thead>
           <tbody id="offerRows"></tbody>
         </table>
         <p class="disclaimer">* Tiempos de entrega estimados a partir del centro de distribución de cada tienda. Datos de demostración.</p>
+      </div>
+
+      <div class="panel">
+        <h2>Especificaciones</h2>
+        <table class="spec-table" id="specTable"></table>
+      </div>
+
+      <div class="panel">
+        <h2>Opiniones de compradores <span class="muted small" id="reviewCount"></span></h2>
+        <div id="reviewList" class="review-list"></div>
       </div>
     </div>
   </section>
@@ -86,7 +148,7 @@
 
 <footer class="site-footer">
   <div class="container">
-    <p>ComparaMX — comparador de precios estilo Kakaku.com para México. Proyecto de demostración (MVP), sin afiliación con las tiendas listadas.</p>
+    <p>ComparaMX — comparador de precios estilo Kakaku.com para México (colores inspirados en Mercari). Proyecto de demostración (MVP), sin afiliación con las tiendas listadas.</p>
   </div>
 </footer>
 

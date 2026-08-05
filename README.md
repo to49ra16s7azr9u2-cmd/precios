@@ -4,9 +4,13 @@ Comparador de precios entre tiendas mexicanas, inspirado en [Kakaku.com](https:/
 
 ## Qué hace
 
-- Busca un producto y compara su precio entre varias tiendas (Amazon México, Mercado Libre, Walmart México, Liverpool, Costco México).
-- A diferencia de Kakaku.com (que cubre todo Japón), aquí la cobertura de entrega se limita a **3 zonas metropolitanas** (CDMX, Guadalajara, Monterrey), porque fuera de esas zonas la infraestructura logística de México es demasiado irregular para dar una estimación confiable. Dentro de cada zona, el pin se elige **por municipio/alcaldía** (p. ej. Cuauhtémoc, Zapopan, San Pedro Garza García), no por la zona metropolitana completa.
-- Al tocar un pin del mapa (o un chip de municipio), la tabla de comparación recalcula al instante el **precio más barato** y la **entrega más rápida** para ese municipio, según la distancia al centro de distribución de cada tienda y un factor de confiabilidad logística local (`infraDays`).
+La estructura y funcionalidad siguen de cerca a **Kakaku.com** (excepto el mapa, que es propio de ComparaMX); el color es el de **Mercari** (rojo `#FF0211` sobre blanco) en vez del naranja de Kakaku.
+
+- **Inicio**: rankings por categoría (los más baratos de cada categoría, con medalla de posición), como la portada de Kakaku.
+- **Barra de categorías** (bajo el header): navega a una página de listado por categoría.
+- **Página de listado** (búsqueda o categoría): barra lateral de filtros (categoría, rango de precio) + selector de orden (relevancia, precio, mejor calificado), como las páginas de categoría de Kakaku.
+- **Ficha de producto**: breadcrumb, especificaciones, opiniones de compradores, y una **tabla de comparación de precios** por tienda con envío, puntos de recompensa y calificación de la tienda — el corazón de Kakaku.com.
+- **Diferencia con Kakaku (única parte no clonada)**: en vez de cubrir todo México, la entrega se compara solo en **3 zonas metropolitanas** (CDMX, Guadalajara, Monterrey), porque fuera de ellas la infraestructura logística es demasiado irregular para una estimación confiable. Dentro de cada zona el pin se elige **por municipio/alcaldía** (p. ej. Cuauhtémoc, Zapopan, San Pedro Garza García). El botón 📍 "Comparar tiempos de entrega" (arriba a la derecha de la tabla) abre el mapa en una ventana modal; al elegir un municipio, la tabla muestra el **precio más barato** y la **entrega más rápida** justo debajo del precio de cada tienda.
 
 ## Costo: cero, salvo el hosting
 
@@ -20,10 +24,10 @@ Es un sitio 100% estático (HTML/CSS/JS sin build step):
 ## Estructura
 
 ```
-index.html          página única (lista de productos + vista de comparación)
-css/style.css        estilos
-js/app.js             lógica: búsqueda, filtro, mapa, tabla de comparación
-data/data.json        productos, tiendas, regiones y precios/tiempos de entrega (datos de demo)
+index.html          página única con 3 vistas: inicio (rankings), listado (filtros) y ficha de producto
+css/style.css        estilos (paleta Mercari)
+js/app.js             lógica: rutas por hash, rankings, filtros/orden, mapa, tabla de comparación
+data/data.json        categorías, productos (specs, reseñas, ofertas), tiendas, regiones (datos de demo)
 icons/, manifest.json, sw.js   PWA
 ```
 
