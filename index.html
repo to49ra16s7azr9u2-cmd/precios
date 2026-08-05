@@ -24,8 +24,8 @@
         <button id="searchBtn" aria-label="Buscar">🔍</button>
       </div>
       <nav class="util-nav">
-        <a href="#/">⭐ Favoritos</a>
-        <a href="#/">👤 Mi cuenta</a>
+        <a href="#/favorites">⭐ Favoritos</a>
+        <a href="#/account">👤 Mi cuenta</a>
       </nav>
     </div>
   </div>
@@ -62,6 +62,14 @@
             <h3>Precio</h3>
             <div id="filterPrice" class="filter-options"></div>
           </div>
+          <div class="filter-group">
+            <h3>Marca</h3>
+            <div id="filterBrand" class="filter-options"></div>
+          </div>
+          <div class="filter-group">
+            <h3>Calificación</h3>
+            <div id="filterRating" class="filter-options"></div>
+          </div>
         </aside>
         <div class="list-main">
           <div class="list-head">
@@ -74,6 +82,12 @@
             </select>
           </div>
           <div id="productList" class="product-list"></div>
+
+          <div id="liveSearchSection" class="live-search-section hidden">
+            <h2>🌐 Más resultados en vivo de Mercado Libre</h2>
+            <p class="muted small">Estos no son parte del catálogo de ComparaMX: llevan directo al anuncio real en Mercado Libre.</p>
+            <div id="liveSearchResults" class="product-list"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -92,6 +106,12 @@
           <div class="detail-rating" id="detailRating"></div>
           <p class="detail-fromprice" id="detailFromPrice"></p>
         </div>
+        <button class="fav-btn" id="detailFavBtn" aria-label="Guardar en favoritos"></button>
+      </div>
+
+      <div class="panel">
+        <h2>Evolución de precio <span class="muted small">(últimos 30 días, más barato entre tiendas)</span></h2>
+        <div id="priceHistoryChart"></div>
       </div>
 
       <div class="panel compare-panel">
@@ -103,20 +123,53 @@
           </button>
         </div>
         <div class="sort-tabs" id="sortTabs"></div>
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>Tienda</th>
-              <th>Precio</th>
-              <th>Envío</th>
-              <th>Puntos</th>
-              <th>Calificación</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="offerRows"></tbody>
-        </table>
-        <p class="disclaimer">* Tiempos de entrega estimados a partir del centro de distribución de cada tienda. Datos de demostración.</p>
+
+        <div class="offer-group offer-group-verified">
+          <div class="offer-group-head">
+            <span class="offer-group-badge verified">✅ Precios verificados en tiempo real</span>
+          </div>
+          <div class="table-scroll">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Tienda</th>
+                  <th>Precio</th>
+                  <th>Envío</th>
+                  <th>Disponibilidad</th>
+                  <th>Puntos</th>
+                  <th>Calificación</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="offerRowsVerified"></tbody>
+            </table>
+          </div>
+          <p class="empty-note" id="verifiedEmptyNote">Todavía no hay tiendas conectadas a una API real para este producto.</p>
+        </div>
+
+        <div class="offer-group offer-group-reference">
+          <div class="offer-group-head">
+            <span class="offer-group-badge reference">🔶 Precios de referencia (no verificados)</span>
+          </div>
+          <div class="table-scroll">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Tienda</th>
+                  <th>Precio</th>
+                  <th>Envío</th>
+                  <th>Disponibilidad</th>
+                  <th>Puntos</th>
+                  <th>Calificación</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="offerRowsReference"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="disclaimer">* Los precios de referencia son datos de demostración, no confirmados con la tienda. Los tiempos de entrega se estiman a partir del centro de distribución de cada tienda.</p>
       </div>
 
       <div class="panel">
@@ -127,6 +180,61 @@
       <div class="panel">
         <h2>Opiniones de compradores <span class="muted small" id="reviewCount"></span></h2>
         <div id="reviewList" class="review-list"></div>
+
+        <form id="reviewForm" class="review-form">
+          <h3>Escribe tu reseña</h3>
+          <p class="muted small">Se guarda solo en este navegador (demo sin servidor, no la verán otros usuarios).</p>
+          <div class="review-form-row">
+            <label>Tu nombre
+              <input type="text" id="reviewAuthor" required maxlength="40">
+            </label>
+            <label>Calificación
+              <select id="reviewRating">
+                <option value="5">★★★★★ (5)</option>
+                <option value="4">★★★★☆ (4)</option>
+                <option value="3">★★★☆☆ (3)</option>
+                <option value="2">★★☆☆☆ (2)</option>
+                <option value="1">★☆☆☆☆ (1)</option>
+              </select>
+            </label>
+          </div>
+          <label>Comentario
+            <textarea id="reviewComment" required maxlength="300" rows="3"></textarea>
+          </label>
+          <button type="submit" class="buy-btn">Publicar reseña</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Favoritos -->
+  <section id="viewFavorites" class="view hidden">
+    <div class="container">
+      <nav class="breadcrumb"><a href="#/">Inicio</a> &gt; Favoritos</nav>
+      <h1>Tus favoritos</h1>
+      <p class="muted small">Guardados solo en este navegador.</p>
+      <div id="favoritesList" class="product-list"></div>
+    </div>
+  </section>
+
+  <!-- Mi cuenta -->
+  <section id="viewAccount" class="view hidden">
+    <div class="container">
+      <nav class="breadcrumb"><a href="#/">Inicio</a> &gt; Mi cuenta</nav>
+      <h1>Mi cuenta</h1>
+      <div class="panel">
+        <h2>Perfil local</h2>
+        <p class="muted small">No hay servidor ni inicio de sesión real: este nombre se guarda solo en tu navegador y se usa para firmar las reseñas que escribas.</p>
+        <form id="profileForm" class="review-form">
+          <label>Nombre para mostrar
+            <input type="text" id="profileName" maxlength="40" placeholder="Tu nombre">
+          </label>
+          <button type="submit" class="buy-btn">Guardar</button>
+        </form>
+      </div>
+      <div class="panel">
+        <h2>Resumen</h2>
+        <p id="accountSummary" class="muted small"></p>
       </div>
     </div>
   </section>

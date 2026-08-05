@@ -9,6 +9,111 @@
     { id: "o15", label: "Más de $15,000", min: 15000, max: Infinity },
   ];
 
+  const RATING_FILTERS = [
+    { id: "all", label: "Todas", min: 0 },
+    { id: "r4", label: "4★ o más", min: 4 },
+    { id: "r45", label: "4.5★ o más", min: 4.5 },
+  ];
+
+  const STOCK_INFO = {
+    in_stock: { text: "En stock", cls: "stock-in", extraDays: 0 },
+    low_stock: { text: "Últimas piezas", cls: "stock-low", extraDays: 0 },
+    backorder: { text: "Sobre pedido", cls: "stock-back", extraDays: 3 },
+  };
+
+  const LS_KEYS = {
+    favorites: "comparamx_favorites",
+    profile: "comparamx_profile",
+    reviews: "comparamx_reviews",
+  };
+
+  // ---------- Precios en vivo desde APIs reales (desactivado por defecto) ----------
+  // Mercado Libre exige ahora una app registrada + OAuth para leer su API (ya no
+  // hay endpoints públicos sin autenticación); y el client_secret no puede vivir
+  // en JS de un sitio estático, así que la llamada real debe pasar por un backend
+  // propio (p. ej. una función serverless gratuita) que guarde las credenciales y
+  // haga de proxy. Para activar esto:
+  //   1) Registra una app en https://developers.mercadolibre.com.mx y obtén
+  //      client_id/client_secret, completa el flujo OAuth para un access_token.
+  //   2) Monta un endpoint propio (p. ej. Cloudflare Worker) que reciba una
+  //      búsqueda, llame a la API de Mercado Libre con el token, y devuelva
+  //      { price, url, shippingFree, stock } en JSON.
+  //   3) Pon esa URL en LIVE_API_CONFIG.mercadolibre.proxyUrl y cambia
+  //      `enabled` a true.
+  // Con eso desactivado (como está por defecto), esta tienda simplemente se
+  // queda en el grupo "de referencia" como las demás.
+  //
+  // `searchProxyUrl` es un segundo endpoint opcional (puede ser la misma
+  // función serverless con otra ruta) para búsqueda abierta: recibe
+  // cualquier término que el usuario escriba (no solo los 16 productos del
+  // catálogo) y devuelve varios resultados reales de Mercado Libre. Es lo
+  // que hace falta para llegar a "busca cualquier producto y lo encuentra",
+  // como Kakaku.com — el catálogo local (data.json) por sí solo nunca lo
+  // logrará por más productos que se agreguen a mano.
+  const LIVE_API_CONFIG = {
+    mercadolibre: { enabled: false, proxyUrl: null, searchProxyUrl: null },
+  };
+
+  async function fetchLiveOffer(storeId, product) {
+    const cfg = LIVE_API_CONFIG[storeId];
+    if (!cfg || !cfg.enabled || !cfg.proxyUrl) return null;
+    try {
+      const q = encodeURIComponent(product.mlQuery || `${product.brand} ${product.name}`);
+      const res = await fetch(`${cfg.proxyUrl}?q=${q}`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      if (!data || !data.price) return null;
+      return {
+        storeId,
+        price: data.price,
+        url: data.url || "#",
+        shippingFee: data.shippingFree ? 0 : data.shippingFee ?? null,
+        points: null,
+        rating: data.rating ?? null,
+        reviewCount: data.reviewCount ?? 0,
+        stock: data.stock || "in_stock",
+        verified: true,
+      };
+    } catch {
+      return null; // sin conexión, proxy caído, etc.: se ignora y no se muestra nada "en vivo"
+    }
+  }
+
+  // Intenta reemplazar la oferta de referencia de cada tienda "en vivo" por el
+  // resultado real, y vuelve a pintar la tabla si algo cambió. No hace nada
+  // mientras LIVE_API_CONFIG esté desactivado.
+  async function refreshLiveOffers(product) {
+    const storeIds = Object.keys(LIVE_API_CONFIG).filter((id) => LIVE_API_CONFIG[id].enabled);
+    if (storeIds.length === 0) return;
+    const results = await Promise.all(storeIds.map((id) => fetchLiveOffer(id, product)));
+    let changed = false;
+    results.forEach((liveOffer) => {
+      if (!liveOffer) return;
+      const idx = product.offers.findIndex((o) => o.storeId === liveOffer.storeId);
+      if (idx >= 0) product.offers[idx] = { ...product.offers[idx], ...liveOffer };
+      else product.offers.push(liveOffer);
+      changed = true;
+    });
+    if (changed && currentProduct() === product) renderOfferTable(product);
+  }
+
+  // Búsqueda abierta: le pasa el término tal cual al proxy de Mercado Libre
+  // (no busca solo dentro de los 16 productos curados) y espera de vuelta
+  // { items: [{ id, title, price, url, thumbnail, shippingFree, stock }] }.
+  // Devuelve [] si está desactivado, falla la red, o no hay resultados.
+  async function fetchLiveSearchResults(query) {
+    const cfg = LIVE_API_CONFIG.mercadolibre;
+    if (!cfg.enabled || !cfg.searchProxyUrl || !query) return [];
+    try {
+      const res = await fetch(`${cfg.searchProxyUrl}?q=${encodeURIComponent(query)}&limit=8`);
+      if (!res.ok) return [];
+      const data = await res.json();
+      return Array.isArray(data.items) ? data.items : [];
+    } catch {
+      return [];
+    }
+  }
+
   const state = {
     data: null,
     selectedMetro: null,
@@ -16,6 +121,8 @@
     query: "",
     category: null, // filtro activo en la vista de lista
     priceRange: "all",
+    brands: new Set(), // marcas seleccionadas; vacío = todas
+    minRating: "all",
     sort: "relevance",
     offerSort: "price", // 'price' | 'rating' — orden de la tabla de comparación
   };
@@ -33,8 +140,12 @@
     listTitle: document.getElementById("listTitle"),
     filterCategory: document.getElementById("filterCategory"),
     filterPrice: document.getElementById("filterPrice"),
+    filterBrand: document.getElementById("filterBrand"),
+    filterRating: document.getElementById("filterRating"),
     sortSelect: document.getElementById("sortSelect"),
     productList: document.getElementById("productList"),
+    liveSearchSection: document.getElementById("liveSearchSection"),
+    liveSearchResults: document.getElementById("liveSearchResults"),
 
     viewDetail: document.getElementById("viewDetail"),
     detailBreadcrumb: document.getElementById("detailBreadcrumb"),
@@ -43,13 +154,29 @@
     detailName: document.getElementById("detailName"),
     detailRating: document.getElementById("detailRating"),
     detailFromPrice: document.getElementById("detailFromPrice"),
+    detailFavBtn: document.getElementById("detailFavBtn"),
+    priceHistoryChart: document.getElementById("priceHistoryChart"),
     locationBtn: document.getElementById("locationBtn"),
     locationBtnLabel: document.getElementById("locationBtnLabel"),
     sortTabs: document.getElementById("sortTabs"),
-    offerRows: document.getElementById("offerRows"),
+    offerRowsVerified: document.getElementById("offerRowsVerified"),
+    offerRowsReference: document.getElementById("offerRowsReference"),
+    verifiedEmptyNote: document.getElementById("verifiedEmptyNote"),
     specTable: document.getElementById("specTable"),
     reviewCount: document.getElementById("reviewCount"),
     reviewList: document.getElementById("reviewList"),
+    reviewForm: document.getElementById("reviewForm"),
+    reviewAuthor: document.getElementById("reviewAuthor"),
+    reviewRating: document.getElementById("reviewRating"),
+    reviewComment: document.getElementById("reviewComment"),
+
+    viewFavorites: document.getElementById("viewFavorites"),
+    favoritesList: document.getElementById("favoritesList"),
+
+    viewAccount: document.getElementById("viewAccount"),
+    profileForm: document.getElementById("profileForm"),
+    profileName: document.getElementById("profileName"),
+    accountSummary: document.getElementById("accountSummary"),
 
     mapModal: document.getElementById("mapModal"),
     mapModalClose: document.getElementById("mapModalClose"),
@@ -113,21 +240,162 @@
   }
 
   // Estima días de entrega según distancia tienda->municipio y confiabilidad
-  // logística local (infraDays). No usa datos reales de paquetería.
-  function estimateDeliveryDays(hubRegionId, targetRegionId) {
+  // logística local (infraDays), más un margen si el producto está sobre
+  // pedido. No usa datos reales de paquetería.
+  function estimateDeliveryDays(hubRegionId, targetRegionId, stock) {
     const hub = regionById(hubRegionId);
     const target = regionById(targetRegionId);
-    if (hub.id === target.id) return 1 + target.infraDays;
+    const base = hub.id === target.id ? 1 : (() => {
+      const dist = distanceKm(hub, target);
+      const sameMetro = hub.metro === target.metro;
+      if (sameMetro) return dist < 15 ? 1 : dist < 40 ? 2 : 3;
+      return 3 + Math.round(dist / 500);
+    })();
+    const stockExtra = (STOCK_INFO[stock] || STOCK_INFO.in_stock).extraDays;
+    return Math.min(base + target.infraDays + stockExtra, 10);
+  }
 
-    const dist = distanceKm(hub, target);
-    const sameMetro = hub.metro === target.metro;
-    let base;
-    if (sameMetro) {
-      base = dist < 15 ? 1 : dist < 40 ? 2 : 3;
-    } else {
-      base = 3 + Math.round(dist / 500);
+  // ---------- Almacenamiento local (favoritos, perfil, reseñas propias) ----------
+  // Todo esto vive solo en localStorage: no hay servidor ni cuentas reales.
+
+  function readLS(key, fallback) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : fallback;
+    } catch {
+      return fallback;
     }
-    return Math.min(base + target.infraDays, 8);
+  }
+  function writeLS(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      /* almacenamiento no disponible (modo privado, etc.): se ignora */
+    }
+  }
+
+  function getFavorites() {
+    return readLS(LS_KEYS.favorites, []);
+  }
+  function isFavorite(productId) {
+    return getFavorites().includes(productId);
+  }
+  function toggleFavorite(productId) {
+    const favs = getFavorites();
+    const idx = favs.indexOf(productId);
+    if (idx === -1) favs.push(productId);
+    else favs.splice(idx, 1);
+    writeLS(LS_KEYS.favorites, favs);
+    return idx === -1;
+  }
+
+  function getProfile() {
+    return readLS(LS_KEYS.profile, { name: "" });
+  }
+  function setProfileName(name) {
+    writeLS(LS_KEYS.profile, { name });
+  }
+
+  function getAllUserReviews() {
+    return readLS(LS_KEYS.reviews, {});
+  }
+  function getUserReviews(productId) {
+    return getAllUserReviews()[productId] || [];
+  }
+  function addUserReview(productId, review) {
+    const all = getAllUserReviews();
+    all[productId] = all[productId] || [];
+    all[productId].unshift(review);
+    writeLS(LS_KEYS.reviews, all);
+  }
+
+  function favIconHtml(productId) {
+    return isFavorite(productId) ? "❤" : "🤍";
+  }
+
+  // Botón de favorito reutilizable: alterna el estado y vuelve a pintar la
+  // vista actual para que el ícono quede sincronizado en todos lados.
+  function bindFavToggle(btnEl, productId, onToggle) {
+    btnEl.classList.toggle("is-fav", isFavorite(productId));
+    btnEl.onclick = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      toggleFavorite(productId);
+      onToggle();
+    };
+  }
+
+  // ---------- Historial de precio (sintético, determinista por producto) ----------
+
+  function seededRandom(seedStr) {
+    let seed = 0;
+    for (let i = 0; i < seedStr.length; i++) seed = (Math.imul(31, seed) + seedStr.charCodeAt(i)) | 0;
+    return function () {
+      seed = (seed + 0x6d2b79f5) | 0;
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  // Genera 30 días de precio "más barato entre tiendas" terminando exactamente
+  // en el precio actual, con una caminata aleatoria determinista (misma
+  // semilla = mismo gráfico en cada carga). Es una simulación para la demo.
+  function generatePriceHistory(product) {
+    const days = 30;
+    const current = minPrice(product);
+    const rand = seededRandom(product.id);
+    const floor = Math.max(Math.round(current * 0.75), 1);
+    const values = [current];
+    let val = current;
+    for (let i = 1; i < days; i++) {
+      const delta = (rand() - 0.5) * current * 0.05;
+      val = Math.max(Math.round(val + delta), floor);
+      values.push(val);
+    }
+    values.reverse(); // [hace 29 días, ..., ayer, hoy]
+    return values;
+  }
+
+  function renderPriceHistoryChart(product) {
+    const history = generatePriceHistory(product);
+    const min = Math.min(...history);
+    const max = Math.max(...history);
+    const current = history[history.length - 1];
+    const minIndex = history.indexOf(min);
+    const daysAgo = history.length - 1 - minIndex;
+
+    const w = 600, h = 120, pad = 6;
+    const range = max - min || 1;
+    const pts = history.map((v, i) => {
+      const x = pad + (i / (history.length - 1)) * (w - pad * 2);
+      const y = pad + (1 - (v - min) / range) * (h - pad * 2);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    });
+    const areaPts = `${pad},${h - pad} ${pts.join(" ")} ${w - pad},${h - pad}`;
+    const lastPt = pts[pts.length - 1].split(",");
+
+    const svg = `
+      <svg viewBox="0 0 ${w} ${h}" class="price-chart-svg" preserveAspectRatio="none" role="img" aria-label="Evolución de precio en los últimos 30 días">
+        <polygon points="${areaPts}" fill="var(--red-tint)" />
+        <polyline points="${pts.join(" ")}" fill="none" stroke="var(--red)" stroke-width="2" />
+        <circle cx="${lastPt[0]}" cy="${lastPt[1]}" r="3.5" fill="var(--red)" />
+      </svg>`;
+
+    const isAtMin = current <= min;
+    const note = isAtMin
+      ? `<span class="price-chart-note good">✓ Es el precio más bajo de los últimos 30 días</span>`
+      : `<span class="price-chart-note neutral">El mínimo de 30 días fue ${money(min)}, hace ${daysAgo} día${daysAgo === 1 ? "" : "s"}</span>`;
+
+    el.priceHistoryChart.innerHTML = `
+      <div class="price-chart-summary">
+        <div>Precio actual (más barato): <strong>${money(current)}</strong></div>
+        <div>Mínimo 30 días: <strong>${money(min)}</strong></div>
+        <div>Máximo 30 días: <strong>${money(max)}</strong></div>
+      </div>
+      ${svg}
+      ${note}
+    `;
   }
 
   async function loadData() {
@@ -141,6 +409,8 @@
     el.viewHome.classList.toggle("hidden", name !== "home");
     el.viewList.classList.toggle("hidden", name !== "list");
     el.viewDetail.classList.toggle("hidden", name !== "detail");
+    el.viewFavorites.classList.toggle("hidden", name !== "favorites");
+    el.viewAccount.classList.toggle("hidden", name !== "account");
     if (name !== "detail") closeMapModal();
   }
 
@@ -174,6 +444,10 @@
       renderDetail(detailMatch[1]);
     } else if (hash === "#/list") {
       renderList();
+    } else if (hash === "#/favorites") {
+      renderFavorites();
+    } else if (hash === "#/account") {
+      renderAccount();
     } else {
       renderHome();
     }
@@ -226,8 +500,11 @@
           <span class="row-icon">${p.image}</span>
           <span class="row-name">${p.name}</span>
           <span class="row-price">${money(minPrice(p))}</span>
+          <button class="row-fav-btn" aria-label="Favorito"></button>
         `;
         row.onclick = () => goDetail(p.id);
+        bindFavToggle(row.querySelector(".row-fav-btn"), p.id, renderHome);
+        row.querySelector(".row-fav-btn").textContent = favIconHtml(p.id);
         card.appendChild(row);
       });
       el.rankingGrid.appendChild(card);
@@ -236,14 +513,30 @@
 
   // ---------- Vista: Lista (búsqueda / categoría) ----------
 
+  function brandsInScope() {
+    const scoped = state.category
+      ? state.data.products.filter((p) => p.category === state.category)
+      : state.data.products;
+    return [...new Set(scoped.map((p) => p.brand))].sort();
+  }
+
   function filteredProducts() {
     const range = PRICE_RANGES.find((r) => r.id === state.priceRange) || PRICE_RANGES[0];
+    const ratingMin = (RATING_FILTERS.find((r) => r.id === state.minRating) || RATING_FILTERS[0]).min;
     return state.data.products.filter((p) => {
-      const matchesQuery = !state.query || p.name.toLowerCase().includes(state.query.toLowerCase());
+      const q = state.query.toLowerCase();
+      const matchesQuery =
+        !q ||
+        p.name.toLowerCase().includes(q) ||
+        p.brand.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q);
       const matchesCat = !state.category || p.category === state.category;
       const price = minPrice(p);
       const matchesPrice = price >= range.min && price < range.max;
-      return matchesQuery && matchesCat && matchesPrice;
+      const matchesBrand = state.brands.size === 0 || state.brands.has(p.brand);
+      // Redondeado a 1 decimal para que coincida con el valor mostrado en pantalla.
+      const matchesRating = Math.round(aggregateRating(p).avg * 10) / 10 >= ratingMin;
+      return matchesQuery && matchesCat && matchesPrice && matchesBrand && matchesRating;
     });
   }
 
@@ -272,17 +565,65 @@
 
     renderFilterCategory();
     renderFilterPrice();
+    renderFilterBrand();
+    renderFilterRating();
 
-    const products = sortedProducts(filteredProducts());
+    renderProductListInto(el.productList, sortedProducts(filteredProducts()), {
+      emptyText: "No se encontraron productos con estos filtros.",
+      onFavToggle: renderList,
+    });
+
+    const products = filteredProducts();
     el.listTitle.textContent = state.query
       ? `Resultados para "${state.query}" (${products.length})`
       : state.category
       ? `${categoryById(state.category).name} (${products.length})`
       : `Todos los productos (${products.length})`;
 
-    el.productList.innerHTML = "";
+    renderLiveSearchSection();
+  }
+
+  // Busca en vivo en Mercado Libre (si está activado) para complementar el
+  // catálogo local. Se queda oculta y no hace ninguna llamada mientras
+  // LIVE_API_CONFIG.mercadolibre esté desactivado.
+  async function renderLiveSearchSection() {
+    const query = state.query;
+    if (!query || !LIVE_API_CONFIG.mercadolibre.enabled) {
+      el.liveSearchSection.classList.add("hidden");
+      el.liveSearchResults.innerHTML = "";
+      return;
+    }
+    const items = await fetchLiveSearchResults(query);
+    if (state.query !== query || location.hash !== "#/list") return; // el usuario ya cambió de búsqueda/vista
+
+    el.liveSearchSection.classList.toggle("hidden", items.length === 0);
+    el.liveSearchResults.innerHTML = "";
+    items.forEach((item) => {
+      const row = document.createElement("div");
+      row.className = "product-row is-external";
+      const shippingText = item.shippingFree ? "Envío gratis" : "";
+      row.innerHTML = `
+        <span class="row-icon">🔎</span>
+        <div class="row-info">
+          <div class="row-brand">Mercado Libre</div>
+          <div class="row-name">${item.title}</div>
+          <div class="row-stars muted">${shippingText}</div>
+        </div>
+        <div class="row-priceblock">
+          <div class="row-price">${money(item.price)}</div>
+          <div class="row-external-badge">Ver en Mercado Libre ↗</div>
+        </div>
+      `;
+      row.onclick = () => window.open(item.url, "_blank");
+      el.liveSearchResults.appendChild(row);
+    });
+  }
+
+  // Renderiza una lista de filas de producto (usada en /list y /favorites)
+  function renderProductListInto(container, products, opts) {
+    container.innerHTML = "";
     if (products.length === 0) {
-      el.productList.innerHTML = `<p class="muted">No se encontraron productos.</p>`;
+      container.innerHTML = `<p class="empty-state">${opts.emptyText}</p>`;
       return;
     }
     products.forEach((p) => {
@@ -301,9 +642,12 @@
           <div class="row-price">${money(minPrice(p))}</div>
           <div class="row-stores">${p.offers.length} tiendas</div>
         </div>
+        <button class="row-fav-btn" aria-label="Favorito"></button>
       `;
       row.onclick = () => goDetail(p.id);
-      el.productList.appendChild(row);
+      bindFavToggle(row.querySelector(".row-fav-btn"), p.id, opts.onFavToggle);
+      row.querySelector(".row-fav-btn").textContent = favIconHtml(p.id);
+      container.appendChild(row);
     });
   }
 
@@ -312,7 +656,7 @@
     const allOpt = document.createElement("label");
     allOpt.className = "filter-option" + (!state.category ? " active" : "");
     allOpt.innerHTML = `<input type="radio" name="fcat" ${!state.category ? "checked" : ""}> Todas`;
-    allOpt.onclick = () => { state.category = null; renderList(); };
+    allOpt.onclick = () => { state.category = null; state.brands.clear(); renderList(); };
     el.filterCategory.appendChild(allOpt);
 
     state.data.categories.forEach((c) => {
@@ -320,7 +664,7 @@
       const isActive = state.category === c.id;
       opt.className = "filter-option" + (isActive ? " active" : "");
       opt.innerHTML = `<input type="radio" name="fcat" ${isActive ? "checked" : ""}> ${c.icon} ${c.name}`;
-      opt.onclick = () => { state.category = c.id; renderList(); };
+      opt.onclick = () => { state.category = c.id; state.brands.clear(); renderList(); };
       el.filterCategory.appendChild(opt);
     });
   }
@@ -335,6 +679,63 @@
       opt.onclick = () => { state.priceRange = r.id; renderList(); };
       el.filterPrice.appendChild(opt);
     });
+  }
+
+  function renderFilterBrand() {
+    el.filterBrand.innerHTML = "";
+    const brands = brandsInScope();
+    // Si una marca seleccionada ya no aplica en el alcance actual, se descarta.
+    [...state.brands].forEach((b) => { if (!brands.includes(b)) state.brands.delete(b); });
+
+    brands.forEach((b) => {
+      const opt = document.createElement("label");
+      const isActive = state.brands.has(b);
+      opt.className = "filter-option" + (isActive ? " active" : "");
+      opt.innerHTML = `<input type="checkbox" ${isActive ? "checked" : ""}> ${b}`;
+      opt.onclick = (e) => {
+        e.preventDefault();
+        if (state.brands.has(b)) state.brands.delete(b);
+        else state.brands.add(b);
+        renderList();
+      };
+      el.filterBrand.appendChild(opt);
+    });
+  }
+
+  function renderFilterRating() {
+    el.filterRating.innerHTML = "";
+    RATING_FILTERS.forEach((r) => {
+      const opt = document.createElement("label");
+      const isActive = state.minRating === r.id;
+      opt.className = "filter-option" + (isActive ? " active" : "");
+      opt.innerHTML = `<input type="radio" name="frating" ${isActive ? "checked" : ""}> ${r.label}`;
+      opt.onclick = () => { state.minRating = r.id; renderList(); };
+      el.filterRating.appendChild(opt);
+    });
+  }
+
+  // ---------- Vista: Favoritos ----------
+
+  function renderFavorites() {
+    setActiveView("favorites");
+    renderCatNav();
+    const favIds = getFavorites();
+    const products = state.data.products.filter((p) => favIds.includes(p.id));
+    renderProductListInto(el.favoritesList, products, {
+      emptyText: "Aún no tienes favoritos. Toca el corazón 🤍 en cualquier producto para guardarlo aquí.",
+      onFavToggle: renderFavorites,
+    });
+  }
+
+  // ---------- Vista: Mi cuenta ----------
+
+  function renderAccount() {
+    setActiveView("account");
+    renderCatNav();
+    el.profileName.value = getProfile().name || "";
+    const favCount = getFavorites().length;
+    const reviewCount = Object.values(getAllUserReviews()).reduce((sum, arr) => sum + arr.length, 0);
+    el.accountSummary.textContent = `${favCount} favorito(s) guardado(s) · ${reviewCount} reseña(s) escritas en este navegador.`;
   }
 
   // ---------- Vista: Ficha de producto ----------
@@ -363,30 +764,42 @@
     el.detailIcon.textContent = product.image;
     el.detailBrand.textContent = product.brand;
     el.detailName.textContent = product.name;
+    el.detailFavBtn.textContent = favIconHtml(product.id);
+    bindFavToggle(el.detailFavBtn, product.id, () => renderDetail(product.id));
 
     const { avg, count } = aggregateRating(product);
     el.detailRating.innerHTML = `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${count} calificaciones)</span>`;
     el.detailFromPrice.innerHTML = `Desde <strong>${money(minPrice(product))}</strong> en ${product.offers.length} tiendas`;
 
+    renderPriceHistoryChart(product);
+
     el.specTable.innerHTML = product.specs
       .map((s) => `<tr><th>${s.label}</th><td>${s.value}</td></tr>`)
       .join("");
 
-    el.reviewCount.textContent = `(${product.reviews.length})`;
-    el.reviewList.innerHTML = product.reviews
-      .map(
-        (r) => `
-        <div class="review-item">
-          <div class="review-stars">${starsHtml(r.rating)}</div>
-          <div class="review-meta">${r.author} · ${r.date}</div>
-          <p class="review-comment">${r.comment}</p>
-        </div>`
-      )
-      .join("");
+    renderReviews(product);
 
     updateLocationBtn();
     renderSortTabs();
     renderOfferTable(product);
+    refreshLiveOffers(product);
+  }
+
+  function renderReviews(product) {
+    el.reviewAuthor.value = getProfile().name || "";
+    const userReviews = getUserReviews(product.id);
+    const allReviews = [...userReviews, ...product.reviews];
+    el.reviewCount.textContent = `(${allReviews.length})`;
+    el.reviewList.innerHTML = allReviews
+      .map(
+        (r) => `
+        <div class="review-item">
+          <div class="review-stars">${starsHtml(r.rating)}</div>
+          <div class="review-meta">${r.author}${r.isLocal ? " · tú" : ""} · ${r.date}</div>
+          <p class="review-comment">${r.comment}</p>
+        </div>`
+      )
+      .join("");
   }
 
   function renderSortTabs() {
@@ -425,22 +838,12 @@
     return { text: `Entrega en ${days} días`, cls: "" };
   }
 
-  function renderOfferTable(product) {
-    let rows = product.offers.map((o) => {
-      const store = storeById(o.storeId);
-      const days = state.selectedRegion
-        ? estimateDeliveryDays(store.hubRegion, state.selectedRegion)
-        : null;
-      return { ...o, store, days };
-    });
-
-    if (state.offerSort === "rating") rows.sort((a, b) => b.rating - a.rating);
-    else rows.sort((a, b) => a.price - b.price);
-
-    const bestPrice = Math.min(...rows.map((r) => r.price));
-    const fastestDays = state.selectedRegion ? Math.min(...rows.map((r) => r.days)) : null;
-
-    el.offerRows.innerHTML = "";
+  // Pinta un grupo de filas (verificado o de referencia) en su <tbody>.
+  // bestPrice/fastestDays se calculan sobre TODAS las ofertas (ambos grupos),
+  // para que "MÁS BARATO"/"MÁS RÁPIDO" reflejen la comparación completa aunque
+  // se muestren en tablas separadas.
+  function renderOfferRows(tbody, rows, bestPrice, fastestDays) {
+    tbody.innerHTML = "";
     rows.forEach((r) => {
       const tr = document.createElement("tr");
       let deliveryHtml = "";
@@ -449,6 +852,7 @@
         deliveryHtml = `<div class="delivery-sub ${d.cls}">${d.text}${r.days === fastestDays ? '<span class="best-tag">MÁS RÁPIDO</span>' : ""}</div>`;
       }
       const shippingText = r.shippingFee === 0 ? "Gratis" : money(r.shippingFee);
+      const stockInfo = STOCK_INFO[r.stock] || STOCK_INFO.in_stock;
       tr.innerHTML = `
         <td>
           <span class="store-badge">
@@ -461,13 +865,37 @@
           ${deliveryHtml}
         </td>
         <td>${shippingText}</td>
+        <td><span class="stock-badge ${stockInfo.cls}">${stockInfo.text}</span></td>
         <td>${r.points}%</td>
         <td class="stars-cell">${starsHtml(r.rating)} <span class="rc">${r.rating.toFixed(1)}</span></td>
         <td><button class="buy-btn">Ver oferta</button></td>
       `;
       tr.querySelector(".buy-btn").onclick = () => window.open(r.url, "_blank");
-      el.offerRows.appendChild(tr);
+      tbody.appendChild(tr);
     });
+  }
+
+  function renderOfferTable(product) {
+    let rows = product.offers.map((o) => {
+      const store = storeById(o.storeId);
+      const days = state.selectedRegion
+        ? estimateDeliveryDays(store.hubRegion, state.selectedRegion, o.stock)
+        : null;
+      return { ...o, store, days };
+    });
+
+    if (state.offerSort === "rating") rows.sort((a, b) => b.rating - a.rating);
+    else rows.sort((a, b) => a.price - b.price);
+
+    const bestPrice = Math.min(...rows.map((r) => r.price));
+    const fastestDays = state.selectedRegion ? Math.min(...rows.map((r) => r.days)) : null;
+
+    const verifiedRows = rows.filter((r) => r.verified);
+    const referenceRows = rows.filter((r) => !r.verified);
+
+    renderOfferRows(el.offerRowsVerified, verifiedRows, bestPrice, fastestDays);
+    renderOfferRows(el.offerRowsReference, referenceRows, bestPrice, fastestDays);
+    el.verifiedEmptyNote.classList.toggle("hidden", verifiedRows.length > 0);
   }
 
   // ---------- Mapa de entrega (modal) ----------
@@ -592,6 +1020,32 @@
     el.mapModalClose.addEventListener("click", closeMapModal);
     el.mapModal.addEventListener("click", (e) => {
       if (e.target === el.mapModal) closeMapModal();
+    });
+
+    el.reviewForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const product = currentProduct();
+      if (!product) return;
+      const author = el.reviewAuthor.value.trim() || "Anónimo";
+      const rating = Number(el.reviewRating.value);
+      const comment = el.reviewComment.value.trim();
+      if (!comment) return;
+      addUserReview(product.id, {
+        author,
+        rating,
+        comment,
+        date: new Date().toISOString().slice(0, 10),
+        isLocal: true,
+      });
+      setProfileName(author);
+      el.reviewComment.value = "";
+      renderReviews(product);
+    });
+
+    el.profileForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      setProfileName(el.profileName.value.trim());
+      renderAccount();
     });
 
     window.addEventListener("hashchange", onHashChange);
