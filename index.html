@@ -115,12 +115,20 @@
       </div>
 
       <div class="panel compare-panel">
-        <div class="compare-panel-head">
-          <h2>Comparación de precios</h2>
+        <div class="delivery-banner" id="deliveryBanner">
+          <div class="delivery-banner-icon">🗺️</div>
+          <div class="delivery-banner-text">
+            <strong id="deliveryBannerTitle">¿Cuándo llega a tu casa?</strong>
+            <span id="deliveryBannerSubtitle">Elige tu municipio y compara el tiempo de entrega de cada tienda.</span>
+          </div>
           <button class="location-btn" id="locationBtn">
             <span class="location-btn-icon">📍</span>
-            <span id="locationBtnLabel">Comparar tiempos de entrega</span>
+            <span id="locationBtnLabel">Elegir mi ubicación</span>
           </button>
+        </div>
+
+        <div class="compare-panel-head">
+          <h2>Comparación de precios</h2>
         </div>
         <div class="sort-tabs" id="sortTabs"></div>
 
@@ -169,7 +177,7 @@
           </div>
         </div>
 
-        <p class="disclaimer">* Los precios de referencia son datos de demostración, no confirmados con la tienda. Los tiempos de entrega se estiman a partir del centro de distribución de cada tienda.</p>
+        <p class="disclaimer">* Los precios de referencia son datos de demostración, no confirmados con la tienda. Los tiempos de entrega y el costo de envío se estiman a partir de la distancia al centro de distribución de cada tienda y pueden variar según el municipio elegido.</p>
       </div>
 
       <div class="panel">
@@ -210,9 +218,11 @@
   <!-- Favoritos -->
   <section id="viewFavorites" class="view hidden">
     <div class="container">
-      <nav class="breadcrumb"><a href="#/">Inicio</a> &gt; Favoritos</nav>
-      <h1>Tus favoritos</h1>
-      <p class="muted small">Guardados solo en este navegador.</p>
+      <div class="page-band">
+        <nav class="breadcrumb"><a href="#/">Inicio</a> &gt; Favoritos</nav>
+        <h1>Tus favoritos</h1>
+        <p class="muted small">Guardados solo en este navegador.</p>
+      </div>
       <div id="favoritesList" class="product-list"></div>
     </div>
   </section>
@@ -220,8 +230,11 @@
   <!-- Mi cuenta -->
   <section id="viewAccount" class="view hidden">
     <div class="container">
-      <nav class="breadcrumb"><a href="#/">Inicio</a> &gt; Mi cuenta</nav>
-      <h1>Mi cuenta</h1>
+      <div class="page-band">
+        <nav class="breadcrumb"><a href="#/">Inicio</a> &gt; Mi cuenta</nav>
+        <h1>Mi cuenta</h1>
+        <p class="muted small">Tu perfil y tu actividad, guardados solo en este navegador.</p>
+      </div>
       <div class="panel">
         <h2>Perfil local</h2>
         <p class="muted small">No hay servidor ni inicio de sesión real: este nombre se guarda solo en tu navegador y se usa para firmar las reseñas que escribas.</p>

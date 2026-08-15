@@ -1,0 +1,6 @@
+name = "comparamx-mercadolibre-proxy"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# Los secrets (ML_CLIENT_ID, ML_CLIENT_SECRET, ML_REFRESH_TOKEN) NO van aquí.
+# Se configuran con `wrangler secret put <NOMBRE>` (ver README.md).

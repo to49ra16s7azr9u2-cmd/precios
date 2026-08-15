@@ -12,9 +12,21 @@ La estructura y funcionalidad siguen de cerca a **Kakaku.com** (excepto el mapa,
 - **Ficha de producto**: breadcrumb, **evolución de precio (gráfico de los últimos 30 días)**, especificaciones, opiniones de compradores (con formulario para agregar tu propia reseña), y una **tabla de comparación de precios** por tienda con envío, disponibilidad, puntos de recompensa y calificación — el corazón de Kakaku.com.
 - **Favoritos** (♡/❤️ en cada producto) y **Mi cuenta** (perfil local + resumen), accesibles desde el header, como el "お気に入り" / "マイページ" de Kakaku.
 - **Filtros de listado**: categoría, precio, **marca** y **calificación mínima**, más ordenar por relevancia/precio/calificación.
-- **Diferencia con Kakaku (única parte no clonada)**: en vez de cubrir todo México, la entrega se compara solo en **3 zonas metropolitanas** (CDMX, Guadalajara, Monterrey), porque fuera de ellas la infraestructura logística es demasiado irregular para una estimación confiable. Dentro de cada zona el pin se elige **por municipio/alcaldía** (p. ej. Cuauhtémoc, Zapopan, San Pedro Garza García). El botón 📍 "Comparar tiempos de entrega" (arriba a la derecha de la tabla) abre el mapa en una ventana modal; al elegir un municipio, la tabla muestra el **precio más barato** y la **entrega más rápida** justo debajo del precio de cada tienda.
+- **Búsqueda abierta (lista para conectar)**: la página de listado tiene una sección "🌐 Más resultados en vivo de Mercado Libre" que se activa sola cuando se conecte la API de búsqueda (ver "Estado de la integración con Mercado Libre" más abajo). El catálogo local (16 productos) sigue existiendo para las fichas con specs/reseñas/gráfico de precio, pero esta sección permite además encontrar productos que no están en ese catálogo, como en Kakaku.com.
 - **Precios verificados vs. de referencia**: la tabla de comparación está dividida en dos bloques. Arriba, en un recuadro verde destacado, van las tiendas cuyo precio viene **en vivo de una API real** (ninguna todavía — ver abajo). Debajo, en un bloque más discreto, van las tiendas sin API conectada, marcadas explícitamente como "precio de referencia (no verificado)". Esto evita presentar datos de demostración como si fueran precios reales.
-- **Búsqueda abierta (lista para conectar)**: la página de listado ya tiene una sección "🌐 Más resultados en vivo de Mercado Libre" que se activa sola cuando se conecte la API de búsqueda (ver "Estado de las integraciones" más abajo). El catálogo local (16 productos) seguirá existiendo para las fichas con specs/reseñas/gráfico de precio, pero esta sección permite además encontrar productos que no están en ese catálogo, como en Kakaku.com.
+- **Banner de entrega destacado**: en la ficha de producto, justo arriba de la tabla de comparación, un banner grande (no un botón pequeño escondido) invita a elegir tu municipio; una vez elegido, se pone verde y confirma "✓ Mostrando entrega a {municipio}".
+- **Entrega y envío marcados como estimación**: junto a cada línea de "Entrega en N días · envío $X" aparece una etiqueta "🔶 estimado", igual que el bloque de precios de referencia — porque hoy ningún sitio tiene una API de paquetería conectada, esto sigue siendo 100% cálculo por distancia (ver `estimateDeliveryDays`/`estimateShippingFee`), nunca un dato confirmado con la tienda.
+- **Diferencia con Kakaku (única parte no clonada)**: en vez de cubrir todo México, la entrega se compara solo en **3 zonas metropolitanas** (CDMX, Guadalajara, Monterrey), porque fuera de ellas la infraestructura logística es demasiado irregular para una estimación confiable. Dentro de cada zona el pin se elige **por municipio/alcaldía** (p. ej. Cuauhtémoc, Zapopan, San Pedro Garza García). Al elegir un municipio, la tabla muestra el **precio más barato**, la **entrega más rápida** y el **costo de envío ajustado a esa distancia** — los tres juntos, justo debajo del precio de cada tienda (no solo en la columna "Envío" aparte, que se sigue mostrando y queda siempre consistente con lo que dice esa línea). Un envío que ya es gratis se mantiene gratis sin importar la distancia; el resto sube un poco por cada ~200 km fuera de la zona metropolitana de origen y por zonas con `infraDays` (menor confiabilidad logística).
+
+### Diseño informado por psicología del consumidor / economía conductual
+
+Cada elemento de esta lista usa **datos reales que ya existían en la app** (no números inventados ni contadores falsos) para reforzar la decisión de compra en el momento adecuado:
+
+- **"Ahorras $X" junto al %** (efecto de encuadre / *framing*, Tversky & Kahneman): el mismo descuento se percibe distinto en porcentaje que en dinero; se muestran los dos a la vez para no depender de que cada persona haga la cuenta.
+- **"🔥 Precio mínimo del mes"**: aparece junto al precio principal (no solo al fondo, en el gráfico) cuando el precio de hoy es real y verificablemente el más bajo de los últimos 30 días — mismo cálculo que ya alimenta `renderPriceHistoryChart`, solo movido a donde se decide la compra. Es una señal de urgencia honesta (aversión a la pérdida), no una cuenta regresiva ni un "solo por hoy" falso.
+- **"🏆 Recomendado"** (arquitectura de decisión / reduce la sobrecarga de elección, Iyengar & Lepper): una segunda etiqueta, visualmente distinta de "MÁS BARATO" (dorada, no roja), que pondera precio + calificación + disponibilidad inmediata. Solo aparece cuando de verdad difiere de la oferta más barata — p. ej. cuando la más barata está sobre pedido y otra, casi al mismo precio, tiene entrega inmediata — nunca para empujar hacia una opción más cara sin una razón real.
+- **Punto pulsante en "Últimas piezas"** (escasez, Cialdini): llama la atención sobre una escasez que ya estaba en los datos (`stock: "low_stock"`), sin agregar un número ni un temporizador inventado.
+- **"🔒 Compra en el sitio real de la tienda"** junto a cada botón: reduce la incertidumbre de salir del sitio antes de hacer clic, sin prometer nada que ComparaMX no hace (no hay checkout propio).
 
 ### Favoritos, perfil y reseñas: solo en tu navegador
 
@@ -37,6 +49,9 @@ css/style.css        estilos (paleta Mercari)
 js/app.js             lógica: rutas por hash, rankings, filtros/orden, mapa, comparación, favoritos/perfil/reseñas (localStorage)
 data/data.json        categorías, productos (specs, reseñas, ofertas con stock), tiendas, regiones (datos de demo)
 icons/, manifest.json, sw.js   PWA
+backend/mercadolibre-worker/   Cloudflare Worker + guía para conectar la API real de Mercado Libre (opcional, desactivado por defecto)
+scripts/generate_seo_pages.py  genera producto/, categoria/, sitemap.xml y robots.txt (ver "Páginas estáticas para SEO" más abajo)
+producto/<id>/, categoria/<slug>/   páginas estáticas generadas, una por producto y por categoría — no se editan a mano
 ```
 
 ## Cómo probarlo
@@ -53,42 +68,68 @@ python3 -m http.server 8000
 - `stores`: tiendas comparadas, con `hubRegion` (municipio donde está el centro de distribución de la tienda).
 - `products[].offers[]`: por tienda, `price`, `url`, `shippingFee`, `points` (% de recompensa), `rating`/`reviewCount` (de esa tienda) y `stock` (`in_stock` / `low_stock` / `backorder`). El tiempo de entrega **no** se guarda por región: se calcula en `js/app.js` (`estimateDeliveryDays`) a partir de la distancia (fórmula de Haversine) entre `hubRegion` de la tienda y el municipio elegido, más `infraDays` del municipio destino y un margen extra si el `stock` es `backorder`.
 - El **historial de precio de 30 días** que se ve en la ficha de producto no está en `data.json`: se genera en el navegador (`generatePriceHistory`) con una caminata aleatoria determinista (misma semilla = mismo gráfico siempre) que termina en el precio actual. Es una simulación, no datos reales.
+- `products[].offers[].verified`: `true` si el precio viene de una API real (ninguna oferta lo tiene por ahora), `false` si es dato de demostración. Controla en cuál de los dos bloques de la tabla aparece la oferta.
+- `products[].image`: emoji que representa al producto. Es lo que se ve por defecto, porque el catálogo local **no incluye fotos** (ver "Fotos de producto" más abajo).
+- `products[].photo` (opcional): URL de la foto real del producto. Si está presente, sustituye al emoji en la portada, el listado y la ficha. El repo no trae ninguna; la llena sola la API de Mercado Libre cuando se conecta.
 
-## Estado de las integraciones de API reales
+## Fotos de producto
 
-Ninguna tienda tiene datos en vivo todavía — **todas las ofertas en `data.json` están marcadas `"verified": false`** y aparecen en el bloque "de referencia". Lo que sí está listo de antemano es la mecánica del frontend (ver "Cómo activar Mercado Libre" más abajo): en cuanto haya credenciales reales, no hace falta rediseñar nada, solo apuntar `LIVE_API_CONFIG` a un backend propio.
+La ficha muestra un emoji, no una foto. No es una limitación técnica —el soporte de fotos ya está implementado y probado— sino de **derechos sobre las imágenes**: las fotos de producto son de las tiendas o de los fabricantes, y enlazarlas directamente desde sus servidores (*hotlinking*) consume su ancho de banda, suele violar sus términos de servicio y se rompe en cuanto cambian la URL. Por eso el repo no incluye ninguna foto ni ninguna URL a fotos ajenas.
 
-**Hallazgo importante:** al investigar más a fondo, todas las opciones comparten el mismo obstáculo estructural, no solo Mercado Libre. En ningún caso esto se puede resolver escribiendo más código o investigando más — hace falta que **el dueño del proyecto** (no un asistente) se registre como negocio/publisher y pase por una aprobación:
+La vía legítima es la API: la respuesta de Mercado Libre incluye la foto del anuncio (`secure_thumbnail`), y usarla para mostrar el producto al que se enlaza es justamente para lo que sirve. El Worker ya la devuelve como `photo`, y el frontend la adopta automáticamente (`refreshLiveOffers` → `product.photo`). Es decir: **en cuanto conectes la API de Mercado Libre, sus productos pasan a mostrar la foto real sin tocar más código**; las tiendas sin API se quedan con el emoji.
 
-| Tienda | ¿API/afiliados disponible? | Notas |
-|---|---|---|
-| Mercado Libre | 🟡 Requiere app + OAuth | Probado en vivo: ya no hay endpoints públicos sin autenticación (403 `PolicyAgent`). Hace falta una app registrada en developers.mercadolibre.com.mx, flujo OAuth 2.0, y un backend propio para guardar el `client_secret` |
-| Walmart México, Coppel, Elektra | 🟡 Requiere cuenta de publisher aprobada en Admitad | Admitad sí ofrece feeds de productos, pero solo **después de que Admitad apruebe tu cuenta como publisher y te acepten en el programa de esa tienda específica** — no es autoservicio inmediato, y una cuenta nueva sin tráfico puede ser rechazada |
-| Liverpool | 🟡 Requiere cuenta de publisher aprobada en Awin | Mismo mecanismo que Admitad: cuenta de publisher + aprobación por programa, y no todos los anunciantes de Awin publican feed de productos |
-| Walmart Marketplace API (developer.walmart.com/mx) | ❌ No sirve para esto | Corrección: **esta API es para vendedores que publican SUS productos en el marketplace de Walmart**, no para leer los precios de Walmart como tercero. No resuelve nuestro caso de uso |
-| Amazon México | 🔴 No disponible ahora | PA-API dejó de aceptar clientes nuevos y se retiró (abr–may 2026). Su reemplazo (Creators API) exige 10 ventas calificadas en los últimos 30 días como afiliado — imposible para un sitio nuevo sin tráfico |
-| Costco México | 🔴 Probablemente no | El programa de afiliados de Costco es explícitamente solo para EE. UU. |
-| Best Buy México, Office Depot México, Chedraui, Soriana, Sears/Sanborns, Linio | 🔴 No encontrado | Sin programa de afiliados/API público confirmado |
+Esto no es algo cableado solo para Mercado Libre: `fetchLiveOffer()` recibe la foto en un campo genérico (`photo`) y `LIVE_API_CONFIG` ya trae una entrada `{ enabled: false, proxyUrl: null }` para las 5 tiendas del catálogo (Amazon México, Mercado Libre, Walmart México, Liverpool, Costco México), no solo para Mercado Libre. Hoy las otras 4 no tienen ningún backend real detrás, así que se quedan en `false`/`null` y siguen mostrando su emoji. Pero si en el futuro alguna ofrece un partner API accesible, el mismo patrón que usa `backend/mercadolibre-worker/` (un Worker que guarda las credenciales y devuelve `{ price, photo, ... }`) se replica para esa tienda, se pega su URL en su entrada de `LIVE_API_CONFIG`, se pone `enabled: true`, y su precio y su foto real aparecen solos, sin tocar `renderProductMedia` ni ningún otro código de render.
 
-**En resumen: hoy, ninguna integración real es técnicamente accionable por un asistente.** Todas requieren que tú, como negocio, te registres y esperes aprobación en Admitad, Awin y/o Mercado Libre — y ni así hay garantía de aceptación para un sitio nuevo sin tráfico.
+Detalles de la implementación (`renderProductMedia` en `js/app.js`):
 
-### Cómo activar Mercado Libre cuando tengas las credenciales
+- Si no hay `photo`, se muestra el emoji de siempre — el diseño actual no cambia en absoluto.
+- Si la URL falla (enlace roto, CDN caído, bloqueo de hotlinking), el `onerror` vuelve al emoji en vez de dejar el icono de imagen rota.
+- La imagen se ajusta con `object-fit: contain`, así que no se deforma ni se sale del recuadro sea cual sea su proporción.
 
-1. Regístrate en developers.mercadolibre.com.mx, crea una app y obtén `client_id`/`client_secret`.
-2. Completa el flujo OAuth 2.0 (requiere que un usuario de Mercado Libre autorice la app) para obtener un `access_token` (y su renovación vía `refresh_token`).
-3. Monta un endpoint propio (función serverless, capa gratuita de Cloudflare Workers o similar) con dos rutas:
-   - Una que reciba la búsqueda de **un producto ya conocido del catálogo** y devuelva un único resultado `{ price, url, shippingFree, stock }` — usada para poner precios reales a los 16 productos curados.
-   - Otra de **búsqueda abierta**, que reciba cualquier término escrito por el usuario y devuelva varios resultados: `{ items: [{ id, title, price, url, shippingFree, stock }] }` — esta es la que hace posible "busca cualquier producto y lo encuentra", como Kakaku.com, en vez de limitarse a los productos ya cargados a mano.
-4. En `js/app.js`, en `LIVE_API_CONFIG`, pon `mercadolibre: { enabled: true, proxyUrl: "https://tu-endpoint/item", searchProxyUrl: "https://tu-endpoint/search" }`.
-   - `refreshLiveOffers` ya está lista para tomar la respuesta de la primera ruta, marcarla `verified: true` y moverla automáticamente al bloque destacado de la ficha de producto.
-   - `fetchLiveSearchResults`/`renderLiveSearchSection` ya están listas para tomar la respuesta de la segunda ruta y mostrar una sección "🌐 Más resultados en vivo de Mercado Libre" en la página de listado cada vez que una búsqueda no encuentre (o para complementar lo que sí encuentre) en el catálogo local. Esos resultados no tienen ficha de producto propia (sin specs/reseñas nuestras): al hacer clic llevan directo al anuncio real en Mercado Libre.
-   - No hace falta tocar nada más del frontend — mientras `enabled` esté en `false` (como está por defecto), ninguna de las dos rutas se llama y el comportamiento actual (catálogo local únicamente) no cambia.
+### ¿Por qué Amazon México (amazon_mx) no está conectado?
+
+Sí existe una API de productos de Amazon (**Product Advertising API**, sustituida en 2026 por la **Creators API** — la PA-API v5 se retiró el 15 de mayo de 2026) y sí cubre el marketplace de México (`amazon.com.mx`, credenciales propias por marketplace). El problema no es que no exista, sino a quién se la dan: es exclusiva del programa de afiliados **Amazon Associates**, y no basta con estar inscrito — la Creators API exige que la cuenta ya tenga **10 ventas de afiliado calificadas en los últimos 30 días** para obtener y mantener el acceso (antes, con la PA-API, eran 3 ventas en 180 días para el acceso inicial y >10/mes para mantenerlo). Es un problema de huevo y gallina para un sitio nuevo: no hay forma de conseguir acceso a la API sin ventas de afiliado ya en marcha, y no hay ventas sin el sitio ya funcionando con tráfico real. Por eso `amazon_mx` se queda con la misma entrada vacía que las demás tiendas sin API — no por falta de investigación, sino porque el acceso está condicionado a un volumen de negocio que ComparaMX no tiene todavía.
+
+La Selling Partner API (SP-API) de Amazon tampoco sirve para esto: es para que un vendedor ya registrado administre su propio inventario y pedidos, no para consultar el catálogo general de la tienda.
+
+## Páginas estáticas para SEO
+
+ComparaMX es una SPA: todo el contenido se pinta con JavaScript y las rutas van por `#hash` (`#/p/p1`). Para un buscador eso es un problema doble — una página que no ejecute JS ve una pantalla en blanco, y aunque la ejecute, un `#` no cuenta como una URL distinta para indexar, así que las 16 fichas de producto competirían todas por la misma URL "/". Kakaku.com, la referencia de este proyecto, sí tiene una URL real por producto; eso es lo que replica esta parte.
+
+`scripts/generate_seo_pages.py` lee `data/data.json` y genera, ya con el contenido renderizado en el HTML (visible sin ejecutar JS):
+
+- `producto/<id>/index.html` — una página por producto, con `<title>`/`<meta description>`/Open Graph/canonical, datos estructurados `schema.org Product` (JSON-LD, con `AggregateOffer` y `AggregateRating`) y la tabla comparativa de precios ya en el HTML.
+- `categoria/<slug>/index.html` — una por categoría, con la lista de productos y su precio.
+- `sitemap.xml` y `robots.txt` en la raíz, listando todas las URLs anteriores.
+
+Cada página estática enlaza de vuelta a la SPA interactiva (mapa de entrega, historial de precio, reseñas) con un botón "Abrir ComparaMX interactivo →" — sirven para que un buscador indexe contenido real y para la primera impresión de quien llega desde una búsqueda, no para reemplazar la app.
+
+**Cuándo correrlo**: cada vez que cambie `data/data.json` (precio, producto o tienda nueva).
+
+```
+python3 scripts/generate_seo_pages.py
+```
+
+No es un paso de build obligatorio — `index.html` sigue funcionando igual sin esto —, es un generador opcional que hay que volver a correr y commitear cuando cambien los datos; no se regenera solo en cada visita ni en cada deploy.
+
+**Antes de desplegar a producción**: edita `SITE_URL` al inicio del script con el dominio real y vuelve a correrlo. Ahora mismo genera con `https://comparamx.example` como placeholder — un canonical o una URL de Open Graph apuntando a un dominio de ejemplo es peor para SEO que no tenerlas, así que el script imprime un aviso si detecta que sigue en ese valor.
+
+## Estado de la integración con Mercado Libre
+
+Por decisión explícita, ComparaMX solo integra la unidad de negocio **Mercado Libre** de su plataforma de desarrolladores (no Global Selling, Mercado Envíos ni Mercado Pago — esas sirven para vender, enviar o cobrar, y ComparaMX no hace ninguna de las tres cosas; solo compara y enlaza a la tienda real).
+
+Ninguna tienda tiene datos en vivo todavía — **todas las ofertas están marcadas `"verified": false`**. Lo que sí está listo de antemano:
+
+- **El frontend** (`js/app.js` → `LIVE_API_CONFIG`): apenas se le da una URL de backend y se pone `enabled: true`, empieza a mostrar precios reales sin tocar nada más del código.
+- **El backend**: `backend/mercadolibre-worker/` tiene un Cloudflare Worker completo (capa gratuita) listo para desplegar, más una guía paso a paso (`backend/mercadolibre-worker/README.md`) para registrar tu app en Mercado Libre, completar el flujo OAuth 2.0 y desplegarlo. **No lo pude probar en vivo**: este entorno no tiene tus credenciales ni acceso de red a la API de Mercado Libre (bloquea las peticiones desde este sandbox con 403, tanto al API como al portal de desarrolladores) — verifica tú las respuestas reales una vez desplegado.
+
+Una vez que sigas esa guía y despliegues el Worker, solo falta pegar sus dos URLs en `LIVE_API_CONFIG.mercadolibre` (`proxyUrl` y `searchProxyUrl`).
 
 ## Límites conocidos (no es un clon 1:1 de verdad)
 
 Esto sigue siendo una demo de un solo desarrollador, no Kakaku.com. Lo que falta y por qué no está:
 
-- **Datos e inventario reales**: no hay convenios con tiendas reales; sin eso, "en stock" y los precios son inventados. Requiere partnerships/APIs reales de cada tienda (ver tabla de arriba).
+- **Datos e inventario reales**: no hay convenios con tiendas reales; sin eso, "en stock" y los precios son inventados. Requiere partnerships/APIs reales de cada tienda.
 - **Cuentas de usuario reales**: "Mi cuenta"/favoritos/reseñas viven solo en `localStorage` de tu navegador (ver arriba). Una cuenta real necesita backend + autenticación + base de datos.
 - **Reseñas y foro de preguntas (掲示板) a escala**: las reseñas que escribes solo las ves tú; no hay moderación, verificación de compra ni comunidad real detrás.
 - **Motor de búsqueda avanzado**: la búsqueda es un `includes()` sobre nombre/marca/categoría; no hay autocompletado, tolerancia a errores de tipeo ni búsqueda por especificación técnica.

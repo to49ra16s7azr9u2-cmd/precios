@@ -31,27 +31,42 @@
   // Mercado Libre exige ahora una app registrada + OAuth para leer su API (ya no
   // hay endpoints públicos sin autenticación); y el client_secret no puede vivir
   // en JS de un sitio estático, así que la llamada real debe pasar por un backend
-  // propio (p. ej. una función serverless gratuita) que guarde las credenciales y
-  // haga de proxy. Para activar esto:
-  //   1) Registra una app en https://developers.mercadolibre.com.mx y obtén
-  //      client_id/client_secret, completa el flujo OAuth para un access_token.
-  //   2) Monta un endpoint propio (p. ej. Cloudflare Worker) que reciba una
-  //      búsqueda, llame a la API de Mercado Libre con el token, y devuelva
-  //      { price, url, shippingFree, stock } en JSON.
-  //   3) Pon esa URL en LIVE_API_CONFIG.mercadolibre.proxyUrl y cambia
-  //      `enabled` a true.
-  // Con eso desactivado (como está por defecto), esta tienda simplemente se
-  // queda en el grupo "de referencia" como las demás.
+  // propio (ver backend/mercadolibre-worker/). Para activar esto:
+  //   1) Sigue backend/mercadolibre-worker/README.md para registrar tu app,
+  //      completar el flujo OAuth y desplegar el Worker.
+  //   2) Pon las dos URLs del Worker aquí abajo y cambia `enabled` a true.
+  // Con eso desactivado (como está por defecto), Mercado Libre simplemente se
+  // queda en el grupo "de referencia" como las demás tiendas.
   //
-  // `searchProxyUrl` es un segundo endpoint opcional (puede ser la misma
-  // función serverless con otra ruta) para búsqueda abierta: recibe
-  // cualquier término que el usuario escriba (no solo los 16 productos del
-  // catálogo) y devuelve varios resultados reales de Mercado Libre. Es lo
-  // que hace falta para llegar a "busca cualquier producto y lo encuentra",
-  // como Kakaku.com — el catálogo local (data.json) por sí solo nunca lo
-  // logrará por más productos que se agreguen a mano.
+  // Las otras 4 tiendas (amazon_mx, walmart_mx, liverpool, costco_mx) llevan
+  // aquí la misma entrada `{ enabled: false, proxyUrl: null }`, aunque hoy
+  // ninguna tiene un backend real detrás. No es decoración: fetchLiveOffer()
+  // y refreshLiveOffers() ya son genéricos por storeId (no hay nada
+  // hardcodeado a Mercado Libre en el camino precio→foto), así que el día
+  // que exista un partner API accesible para alguna de ellas, el mismo
+  // patrón que usa el Worker de Mercado Libre (backend/mercadolibre-worker/)
+  // se replica para esa tienda, se pega su proxyUrl aquí, se pone
+  // `enabled: true`, y sus precios y fotos reales aparecen solos —
+  // exactamente como pasa hoy con Mercado Libre — sin tocar el resto del
+  // código. Mientras siga en `null`/`false`, esa tienda se queda en el
+  // grupo "de referencia" con su emoji, igual que ahora.
+  //
+  // Nota sobre Amazon México (amazon_mx): sí existe una API de productos de
+  // Amazon (Product Advertising API, sustituida en 2026 por "Creators API"),
+  // y sí cubre el marketplace de México. Pero es exclusiva del programa de
+  // afiliados: para obtener acceso hace falta una cuenta de Amazon Associates
+  // ya aprobada Y con ventas de afiliado reales (10 ventas calificadas en los
+  // últimos 30 días con la Creators API), no solo estar registrado. Es un
+  // problema de huevo y gallina para un sitio nuevo sin tráfico: no se puede
+  // conseguir acceso a la API sin ventas, y no hay ventas sin el sitio ya
+  // funcionando. Por eso amazon_mx se queda igual que las demás: la entrada
+  // está lista, pero no hay nada que conectar todavía.
   const LIVE_API_CONFIG = {
     mercadolibre: { enabled: false, proxyUrl: null, searchProxyUrl: null },
+    amazon_mx: { enabled: false, proxyUrl: null },
+    walmart_mx: { enabled: false, proxyUrl: null },
+    liverpool: { enabled: false, proxyUrl: null },
+    costco_mx: { enabled: false, proxyUrl: null },
   };
 
   async function fetchLiveOffer(storeId, product) {
@@ -67,6 +82,9 @@
         storeId,
         price: data.price,
         url: data.url || "#",
+        // Foto real del producto publicada por la tienda. Solo llega por API;
+        // el catálogo local no trae fotos (ver renderProductMedia).
+        photo: data.photo || null,
         shippingFee: data.shippingFree ? 0 : data.shippingFee ?? null,
         points: null,
         rating: data.rating ?? null,
@@ -87,19 +105,30 @@
     if (storeIds.length === 0) return;
     const results = await Promise.all(storeIds.map((id) => fetchLiveOffer(id, product)));
     let changed = false;
+    let gotPhoto = false;
     results.forEach((liveOffer) => {
       if (!liveOffer) return;
       const idx = product.offers.findIndex((o) => o.storeId === liveOffer.storeId);
       if (idx >= 0) product.offers[idx] = { ...product.offers[idx], ...liveOffer };
       else product.offers.push(liveOffer);
+      // La primera foto real que llegue se adopta como foto del producto. El
+      // catálogo local no tiene fotos propias, así que esta es la única vía
+      // legítima para mostrar el producto de verdad y no un emoji.
+      if (liveOffer.photo && !product.photo) {
+        product.photo = liveOffer.photo;
+        gotPhoto = true;
+      }
       changed = true;
     });
-    if (changed && currentProduct() === product) renderOfferTable(product);
+    if (changed && currentProduct() === product) {
+      renderOfferTable(product);
+      if (gotPhoto) renderProductMedia(el.detailIcon, product, "detail");
+    }
   }
 
   // Búsqueda abierta: le pasa el término tal cual al proxy de Mercado Libre
   // (no busca solo dentro de los 16 productos curados) y espera de vuelta
-  // { items: [{ id, title, price, url, thumbnail, shippingFree, stock }] }.
+  // { items: [{ id, title, price, url, shippingFree, stock }] }.
   // Devuelve [] si está desactivado, falla la red, o no hay resultados.
   async function fetchLiveSearchResults(query) {
     const cfg = LIVE_API_CONFIG.mercadolibre;
@@ -156,6 +185,9 @@
     detailFromPrice: document.getElementById("detailFromPrice"),
     detailFavBtn: document.getElementById("detailFavBtn"),
     priceHistoryChart: document.getElementById("priceHistoryChart"),
+    deliveryBanner: document.getElementById("deliveryBanner"),
+    deliveryBannerTitle: document.getElementById("deliveryBannerTitle"),
+    deliveryBannerSubtitle: document.getElementById("deliveryBannerSubtitle"),
     locationBtn: document.getElementById("locationBtn"),
     locationBtnLabel: document.getElementById("locationBtnLabel"),
     sortTabs: document.getElementById("sortTabs"),
@@ -215,6 +247,66 @@
     return Math.min(...product.offers.map((o) => o.price));
   }
 
+  // Descuento de la oferta más barata, si tiene listPrice (precio de lista)
+  // más alto que el precio actual. Devuelve el % o null.
+  function bestDiscountPct(product) {
+    const cheapest = product.offers.reduce((a, b) => (b.price < a.price ? b : a));
+    if (!cheapest.listPrice || cheapest.listPrice <= cheapest.price) return null;
+    return Math.round((1 - cheapest.price / cheapest.listPrice) * 100);
+  }
+
+  // Monto ahorrado (en pesos) de la oferta más barata frente a su listPrice.
+  // Se muestra junto al % de descuento: un mismo descuento se "siente" más
+  // grande o más chico según se enmarque en % o en dinero real (efecto de
+  // encuadre / framing, Tversky & Kahneman), así que mostrar ambos a la vez
+  // no deja el tamaño del ahorro a la interpretación de cada quien.
+  function bestSavingsAmount(product) {
+    const cheapest = product.offers.reduce((a, b) => (b.price < a.price ? b : a));
+    if (!cheapest.listPrice || cheapest.listPrice <= cheapest.price) return null;
+    return cheapest.listPrice - cheapest.price;
+  }
+
+  // Compara el precio más barato de hoy contra el mínimo real de los últimos
+  // 30 días (el mismo cálculo que ya alimenta el gráfico de abajo, no un
+  // número nuevo inventado). Sirve para una señal de urgencia honesta: no es
+  // una cuenta regresiva falsa ni un "quedan 3" inventado, solo el hecho
+  // verificable de que hoy es el mejor momento de los últimos 30 días para
+  // comprarlo (aversión a la pérdida: importa más no perder un precio bajo
+  // que la posibilidad simétrica de ganar uno).
+  function isPriceAtMonthMin(product) {
+    const history = generatePriceHistory(product);
+    const min = Math.min(...history);
+    return history[history.length - 1] <= min;
+  }
+
+  // Recomendación transparente ("mejor opción"), no solo "más barato": pondera
+  // precio (peso 0.4), calificación (0.3) y disponibilidad inmediata (0.3)
+  // por oferta. Reduce la sobrecarga de elección (Iyengar & Lepper) dando un
+  // default razonable en vez de dejar 4-5 filas sin ningún orden sugerido;
+  // se muestra solo cuando difiere de la oferta más barata, para no duplicar
+  // la misma fila con dos etiquetas redundantes. El precio sigue pesando más
+  // que cualquier otro factor individual, así que solo gana una oferta algo
+  // más cara cuando la diferencia es real (p. ej. la más barata está sobre
+  // pedido y otra, casi al mismo precio, tiene entrega inmediata) — no basta
+  // con tener mejor calificación para justificar pagar más.
+  function bestValueOffer(product) {
+    const prices = product.offers.map((o) => o.price);
+    const minP = Math.min(...prices);
+    const maxP = Math.max(...prices);
+    const priceRange = maxP - minP || 1;
+    let best = null;
+    let bestScore = -Infinity;
+    product.offers.forEach((o) => {
+      const priceScore = 1 - (o.price - minP) / priceRange; // 1 = más barato
+      const ratingScore = (o.rating || 0) / 5;
+      const stockScore = o.stock === "in_stock" ? 1 : o.stock === "low_stock" ? 0.5 : 0;
+      const score = priceScore * 0.4 + ratingScore * 0.3 + stockScore * 0.3;
+      if (score > bestScore) { bestScore = score; best = o; }
+    });
+    const cheapest = product.offers.reduce((a, b) => (b.price < a.price ? b : a));
+    return best && best.storeId !== cheapest.storeId ? best : null;
+  }
+
   function aggregateRating(product) {
     const totalReviews = product.offers.reduce((sum, o) => sum + o.reviewCount, 0);
     if (totalReviews === 0) return { avg: 0, count: 0 };
@@ -225,6 +317,37 @@
   function starsHtml(avg) {
     const filled = Math.round(avg);
     return "★".repeat(filled) + "☆".repeat(5 - filled);
+  }
+
+  // Pinta la imagen de un producto dentro de `container`.
+  //
+  // El catálogo local NO trae fotos: no hay una fuente propia con derechos
+  // para las fotos de producto, así que por defecto se ve un emoji. Cuando
+  // hay una API conectada (hoy solo Mercado Libre), la foto real llega en la
+  // respuesta y se guarda en product.photo; entonces se muestra esa.
+  //
+  // Si la URL falla (enlace roto, caída del CDN, bloqueo de hotlinking), el
+  // onerror vuelve al emoji en vez de dejar el icono de imagen rota.
+  function renderProductMedia(container, product, variant) {
+    if (!container) return;
+    const emoji = product.image || "📦";
+    if (!product.photo) {
+      container.textContent = emoji;
+      container.classList.remove("has-photo");
+      return;
+    }
+    container.classList.add("has-photo");
+    container.textContent = "";
+    const img = document.createElement("img");
+    img.className = variant === "detail" ? "product-photo product-photo-detail" : "product-photo";
+    img.src = product.photo;
+    img.alt = product.name || "";
+    img.loading = "lazy";
+    img.onerror = () => {
+      container.classList.remove("has-photo");
+      container.textContent = emoji;
+    };
+    container.appendChild(img);
   }
 
   // Distancia aproximada entre dos puntos (km), fórmula de Haversine
@@ -253,6 +376,26 @@
     })();
     const stockExtra = (STOCK_INFO[stock] || STOCK_INFO.in_stock).extraDays;
     return Math.min(base + target.infraDays + stockExtra, 10);
+  }
+
+  // Ajusta el costo de envío según qué tan lejos está el municipio elegido
+  // del centro de distribución de la tienda: más distancia y zonas con
+  // infraestructura más difícil cuestan un poco más. Si el envío base ya es
+  // gratis, se mantiene gratis (una promoción de "envío gratis" normalmente
+  // aplica a todo el país). baseFee puede ser null (dato en vivo sin costo
+  // de envío conocido): en ese caso no se ajusta, se deja tal cual.
+  function estimateShippingFee(baseFee, hubRegionId, targetRegionId) {
+    if (baseFee == null || baseFee === 0) return baseFee;
+    const hub = regionById(hubRegionId);
+    const target = regionById(targetRegionId);
+    if (hub.id === target.id) return baseFee;
+    const sameMetro = hub.metro === target.metro;
+    let extra = target.infraDays * 20; // zona con logística menos confiable
+    if (!sameMetro) {
+      const dist = distanceKm(hub, target);
+      extra += Math.round(dist / 200) * 15; // ~$15 extra cada ~200 km fuera de la zona
+    }
+    return baseFee + extra;
   }
 
   // ---------- Almacenamiento local (favoritos, perfil, reseñas propias) ----------
@@ -442,7 +585,13 @@
     const detailMatch = hash.match(/#\/p\/(.+)/);
     if (detailMatch) {
       renderDetail(detailMatch[1]);
-    } else if (hash === "#/list") {
+    } else if (hash === "#/list" || hash.startsWith("#/list?")) {
+      // Permite enlazar directo a una categoría filtrada (p. ej. desde las
+      // páginas estáticas de SEO: #/list?cat=Celulares), sin lo cual esos
+      // enlaces caían al inicio en vez de abrir el listado ya filtrado.
+      const qs = hash.includes("?") ? new URLSearchParams(hash.split("?")[1]) : null;
+      const cat = qs && qs.get("cat");
+      if (cat) state.category = cat;
       renderList();
     } else if (hash === "#/favorites") {
       renderFavorites();
@@ -493,15 +642,18 @@
       card.querySelector(".see-all").onclick = () => goList({ category: cat.id, query: "" });
 
       products.forEach((p) => {
+        const rank = products.indexOf(p) + 1;
         const row = document.createElement("div");
         row.className = "ranking-row";
         row.innerHTML = `
-          <span class="rank-badge">${products.indexOf(p) + 1}</span>
+          <span class="rank-badge">${rank === 1 ? "👑" : rank}</span>
           <span class="row-icon">${p.image}</span>
           <span class="row-name">${p.name}</span>
+          ${bestDiscountPct(p) ? `<span class="discount-badge">-${bestDiscountPct(p)}%</span>` : ""}
           <span class="row-price">${money(minPrice(p))}</span>
           <button class="row-fav-btn" aria-label="Favorito"></button>
         `;
+        renderProductMedia(row.querySelector(".row-icon"), p);
         row.onclick = () => goDetail(p.id);
         bindFavToggle(row.querySelector(".row-fav-btn"), p.id, renderHome);
         row.querySelector(".row-fav-btn").textContent = favIconHtml(p.id);
@@ -614,6 +766,9 @@
           <div class="row-external-badge">Ver en Mercado Libre ↗</div>
         </div>
       `;
+      // Los resultados en vivo sí traen foto real de la tienda; si no viene,
+      // se queda la lupa como marcador.
+      renderProductMedia(row.querySelector(".row-icon"), { photo: item.photo, image: "🔎", name: item.title });
       row.onclick = () => window.open(item.url, "_blank");
       el.liveSearchResults.appendChild(row);
     });
@@ -639,11 +794,12 @@
         </div>
         <div class="row-priceblock">
           <div class="row-from">Desde</div>
-          <div class="row-price">${money(minPrice(p))}</div>
+          <div class="row-price">${money(minPrice(p))}${bestDiscountPct(p) ? `<span class="discount-badge">-${bestDiscountPct(p)}%</span>` : ""}</div>
           <div class="row-stores">${p.offers.length} tiendas</div>
         </div>
         <button class="row-fav-btn" aria-label="Favorito"></button>
       `;
+      renderProductMedia(row.querySelector(".row-icon"), p);
       row.onclick = () => goDetail(p.id);
       bindFavToggle(row.querySelector(".row-fav-btn"), p.id, opts.onFavToggle);
       row.querySelector(".row-fav-btn").textContent = favIconHtml(p.id);
@@ -761,7 +917,7 @@
       goList({ category: product.category, query: "" });
     };
 
-    el.detailIcon.textContent = product.image;
+    renderProductMedia(el.detailIcon, product, "detail");
     el.detailBrand.textContent = product.brand;
     el.detailName.textContent = product.name;
     el.detailFavBtn.textContent = favIconHtml(product.id);
@@ -769,7 +925,14 @@
 
     const { avg, count } = aggregateRating(product);
     el.detailRating.innerHTML = `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${count} calificaciones)</span>`;
-    el.detailFromPrice.innerHTML = `Desde <strong>${money(minPrice(product))}</strong> en ${product.offers.length} tiendas`;
+    const discountPct = bestDiscountPct(product);
+    const savings = bestSavingsAmount(product);
+    const atMonthMin = isPriceAtMonthMin(product);
+    el.detailFromPrice.innerHTML = `
+      Desde <strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${product.offers.length} tiendas
+      ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
+      ${atMonthMin ? `<span class="min-price-badge" title="Es el precio más bajo registrado en los últimos 30 días para este producto">🔥 Precio mínimo del mes</span>` : ""}
+    `;
 
     renderPriceHistoryChart(product);
 
@@ -825,11 +988,17 @@
   function updateLocationBtn() {
     if (state.selectedRegion) {
       const region = regionById(state.selectedRegion);
-      el.locationBtnLabel.textContent = region.name;
+      el.locationBtnLabel.textContent = "Cambiar ubicación";
       el.locationBtn.classList.add("is-set");
+      el.deliveryBanner.classList.add("is-set");
+      el.deliveryBannerTitle.textContent = `✓ Mostrando entrega a ${region.name}`;
+      el.deliveryBannerSubtitle.textContent = "¿Otro municipio? Puedes cambiarlo cuando quieras.";
     } else {
-      el.locationBtnLabel.textContent = "Comparar tiempos de entrega";
+      el.locationBtnLabel.textContent = "Elegir mi ubicación";
       el.locationBtn.classList.remove("is-set");
+      el.deliveryBanner.classList.remove("is-set");
+      el.deliveryBannerTitle.textContent = "¿Cuándo llega a tu casa?";
+      el.deliveryBannerSubtitle.textContent = "Elige tu municipio y compara el tiempo de entrega de cada tienda.";
     }
   }
 
@@ -842,17 +1011,48 @@
   // bestPrice/fastestDays se calculan sobre TODAS las ofertas (ambos grupos),
   // para que "MÁS BARATO"/"MÁS RÁPIDO" reflejen la comparación completa aunque
   // se muestren en tablas separadas.
-  function renderOfferRows(tbody, rows, bestPrice, fastestDays) {
+  function renderOfferRows(tbody, rows, bestPrice, fastestDays, recommendedStoreId) {
     tbody.innerHTML = "";
     rows.forEach((r) => {
       const tr = document.createElement("tr");
+      // r puede venir de una API en vivo (fetchLiveOffer) donde shippingFee,
+      // points y rating pueden faltar (null/undefined): nunca deben tronar el
+      // render, solo mostrarse como "—" cuando no hay dato.
+      const shippingHtml =
+        r.shippingFee === 0 ? '<span class="ship-badge">Envío gratis</span>'
+        : r.shippingFee == null ? "—"
+        : money(r.shippingFee);
+      // Texto corto de envío para mostrar junto a la entrega, en el momento
+      // en que el usuario elige su municipio en el mapa (no solo en la
+      // columna aparte). El costo ya viene ajustado por distancia/zona
+      // (ver estimateShippingFee) cuando hay una región seleccionada.
+      const shippingShort = r.shippingFee === 0 ? "envío gratis" : r.shippingFee == null ? null : `envío ${money(r.shippingFee)}`;
       let deliveryHtml = "";
       if (r.days !== null) {
         const d = deliveryLabel(r.days);
-        deliveryHtml = `<div class="delivery-sub ${d.cls}">${d.text}${r.days === fastestDays ? '<span class="best-tag">MÁS RÁPIDO</span>' : ""}</div>`;
+        // La entrega y el envío por municipio son siempre nuestra propia
+        // estimación por distancia (no hay ninguna fuente en vivo conectada
+        // todavía, a diferencia del precio) — se marca igual que los
+        // precios "de referencia", para no dar a entender que es un dato
+        // confirmado con la tienda.
+        deliveryHtml = `<div class="delivery-sub ${d.cls}">${d.text}${r.days === fastestDays ? '<span class="best-tag">MÁS RÁPIDO</span>' : ""}${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Estimado por distancia, no confirmado con la tienda">🔶 estimado</span></div>`;
       }
-      const shippingText = r.shippingFee === 0 ? "Gratis" : money(r.shippingFee);
       const stockInfo = STOCK_INFO[r.stock] || STOCK_INFO.in_stock;
+      let discountHtml = "";
+      if (r.listPrice && r.listPrice > r.price) {
+        const pct = Math.round((1 - r.price / r.listPrice) * 100);
+        // Se muestra el % junto con el monto ahorrado en pesos: el mismo
+        // descuento "se siente" distinto según se enmarque en porcentaje o
+        // en dinero real (efecto de encuadre), así que se dan los dos.
+        discountHtml = `<span class="list-price">${money(r.listPrice)}</span><span class="discount-badge">-${pct}%</span><span class="save-amount">Ahorras ${money(r.listPrice - r.price)}</span>`;
+      }
+      const pointsHtml = r.points == null ? "—" : `${r.points}%`;
+      const ratingHtml = r.rating == null ? "—" : `${starsHtml(r.rating)} <span class="rc">${r.rating.toFixed(1)}</span>`;
+      // "Recomendado" es una etiqueta aparte de "MÁS BARATO": no repite la
+      // misma fila (renderOfferTable ya evita eso), y su criterio se explica
+      // en el tooltip para que se lea como una sugerencia transparente y no
+      // como un sello arbitrario.
+      const isRecommended = r.storeId === recommendedStoreId;
       tr.innerHTML = `
         <td>
           <span class="store-badge">
@@ -861,14 +1061,20 @@
           </span>
         </td>
         <td class="price-cell">
-          <div class="price-line">${money(r.price)}${r.price === bestPrice ? '<span class="best-tag">MÁS BARATO</span>' : ""}</div>
+          <div>${discountHtml}</div>
+          <div class="price-line">
+            ${money(r.price)}${r.price === bestPrice ? '<span class="best-tag">MÁS BARATO</span>' : ""}${isRecommended ? '<span class="best-tag recommended-tag" title="Mejor combinación de precio, calificación y disponibilidad">🏆 RECOMENDADO</span>' : ""}
+          </div>
           ${deliveryHtml}
         </td>
-        <td>${shippingText}</td>
+        <td>${shippingHtml}</td>
         <td><span class="stock-badge ${stockInfo.cls}">${stockInfo.text}</span></td>
-        <td>${r.points}%</td>
-        <td class="stars-cell">${starsHtml(r.rating)} <span class="rc">${r.rating.toFixed(1)}</span></td>
-        <td><button class="buy-btn">Ver oferta</button></td>
+        <td>${pointsHtml}</td>
+        <td class="stars-cell">${ratingHtml}</td>
+        <td>
+          <button class="buy-btn">Ver oferta</button>
+          <div class="buy-trust">🔒 Compra en el sitio real de la tienda</div>
+        </td>
       `;
       tr.querySelector(".buy-btn").onclick = () => window.open(r.url, "_blank");
       tbody.appendChild(tr);
@@ -881,7 +1087,10 @@
       const days = state.selectedRegion
         ? estimateDeliveryDays(store.hubRegion, state.selectedRegion, o.stock)
         : null;
-      return { ...o, store, days };
+      const shippingFee = state.selectedRegion
+        ? estimateShippingFee(o.shippingFee, store.hubRegion, state.selectedRegion)
+        : o.shippingFee;
+      return { ...o, store, days, shippingFee };
     });
 
     if (state.offerSort === "rating") rows.sort((a, b) => b.rating - a.rating);
@@ -889,12 +1098,14 @@
 
     const bestPrice = Math.min(...rows.map((r) => r.price));
     const fastestDays = state.selectedRegion ? Math.min(...rows.map((r) => r.days)) : null;
+    const recommended = bestValueOffer(product);
+    const recommendedStoreId = recommended ? recommended.storeId : null;
 
     const verifiedRows = rows.filter((r) => r.verified);
     const referenceRows = rows.filter((r) => !r.verified);
 
-    renderOfferRows(el.offerRowsVerified, verifiedRows, bestPrice, fastestDays);
-    renderOfferRows(el.offerRowsReference, referenceRows, bestPrice, fastestDays);
+    renderOfferRows(el.offerRowsVerified, verifiedRows, bestPrice, fastestDays, recommendedStoreId);
+    renderOfferRows(el.offerRowsReference, referenceRows, bestPrice, fastestDays, recommendedStoreId);
     el.verifiedEmptyNote.classList.toggle("hidden", verifiedRows.length > 0);
   }
 
