@@ -11,17 +11,6 @@
   --radius: 10px;
   --green: #0a8a3c;
   --green-tint: #e7f7ee;
-  --shadow-sm: 0 1px 3px rgba(20, 20, 20, 0.08);
-  --shadow-md: 0 4px 16px rgba(20, 20, 20, 0.12);
-  /* Degradados reutilizables. Se mantienen dentro de la paleta Mercari
-     (rojo sobre blanco): el degradado da relieve y viveza, no colores
-     nuevos que compitan con la marca. */
-  --grad-red: linear-gradient(135deg, #ff3b3b 0%, var(--red) 45%, var(--red-dark) 100%);
-  --grad-red-soft: linear-gradient(135deg, #fff6f6 0%, var(--red-tint) 60%, #ffe4e4 100%);
-  --grad-green: linear-gradient(135deg, #16a34a 0%, var(--green) 100%);
-  --grad-gold: linear-gradient(135deg, #ffc65c 0%, var(--gold) 100%);
-  --grad-page: linear-gradient(180deg, #fbf7f7 0%, var(--bg) 260px);
-  --shadow-red: 0 4px 14px rgba(255, 2, 17, 0.28);
 }
 
 * { box-sizing: border-box; }
@@ -30,9 +19,6 @@ body {
   margin: 0;
   font-family: "Hiragino Sans", "Noto Sans", "Segoe UI", Arial, sans-serif;
   background: var(--bg);
-  background-image: var(--grad-page);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   color: var(--ink);
 }
 
@@ -46,20 +32,12 @@ a { color: inherit; text-decoration: none; }
 .small { font-size: 12px; }
 
 /* ---------- Header ---------- */
-/* Filo degradado arriba de todo, como remate de la marca. */
 .topbar {
-  background: linear-gradient(180deg, #ffffff 0%, #fffafa 100%);
+  background: var(--card);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 20;
-  box-shadow: 0 2px 10px rgba(20, 20, 20, .06);
-}
-.topbar::before {
-  content: "";
-  display: block;
-  height: 3px;
-  background: var(--grad-red);
 }
 .topbar-top { border-bottom: 1px solid var(--border); }
 .topbar-inner {
@@ -71,23 +49,13 @@ a { color: inherit; text-decoration: none; }
   gap: 16px;
   flex-wrap: wrap;
 }
-/* El logotipo usa el degradado rojo como relleno del texto (con respaldo
-   de color sólido para navegadores sin background-clip: text). */
 .brand-mark {
   font-size: 26px;
   font-weight: 800;
   letter-spacing: -.5px;
   color: var(--red);
-  background: var(--grad-red);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
-.brand-mx {
-  color: var(--ink);
-  background: none;
-  -webkit-text-fill-color: var(--ink);
-}
+.brand-mx { color: var(--ink); }
 .search-wrap {
   flex: 1;
   min-width: 220px;
@@ -95,7 +63,6 @@ a { color: inherit; text-decoration: none; }
   border: 2px solid var(--red);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(255, 2, 17, .12);
 }
 .search-wrap input {
   flex: 1;
@@ -107,14 +74,13 @@ a { color: inherit; text-decoration: none; }
 }
 .search-wrap button {
   border: none;
-  background: var(--grad-red);
+  background: var(--red);
   color: #fff;
   padding: 0 22px;
   cursor: pointer;
   font-size: 17px;
-  transition: filter .15s;
 }
-.search-wrap button:hover { filter: brightness(1.08); }
+.search-wrap button:hover { background: var(--red-dark); }
 .util-nav {
   display: flex;
   gap: 16px;
@@ -123,7 +89,7 @@ a { color: inherit; text-decoration: none; }
 }
 .util-nav a:hover { color: var(--red); }
 
-.topbar-cats { background: linear-gradient(180deg, #fffafa 0%, #ffffff 100%); }
+.topbar-cats { background: var(--card); }
 .cats {
   max-width: 1120px;
   margin: 0 auto;
@@ -142,66 +108,30 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink);
   border-bottom: 3px solid transparent;
   white-space: nowrap;
-  border-radius: 6px 6px 0 0;
-  transition: background .15s, color .15s;
 }
-.cats span:hover { color: var(--red); background: var(--red-tint); }
+.cats span:hover { color: var(--red); }
 .cats span.active {
   color: var(--red);
   border-bottom-color: var(--red);
-  background: var(--grad-red-soft);
 }
 
 /* ---------- Home / hero / rankings ---------- */
-/* ---------- Bandas de sección a todo color ----------
-   Encabezado de página con degradado rojo pleno y texto en blanco. Lo usan
-   la portada (.hero) y las cabeceras de Favoritos / Mi cuenta / listado, para
-   que cada vista abra igual y no con un título suelto sobre gris. */
+/* Encabezado de página en texto plano sobre el mismo fondo que el resto:
+   nada de bloque de color ni degradado — lo único que debe llamar la
+   atención en la página es el precio, no el título. */
 .hero,
 .page-band {
-  position: relative;
-  overflow: hidden;
-  border-radius: 14px;
-  background: var(--grad-red);
-  color: #fff;
-  box-shadow: 0 8px 24px rgba(255, 2, 17, .26);
-}
-.hero { margin: 20px 0 4px; padding: 30px 28px; }
-.page-band { margin: 12px 0 18px; padding: 22px 24px; }
-
-/* Dos destellos radiales para que el rojo no se vea como un bloque plano. */
-.hero::before, .hero::after,
-.page-band::before, .page-band::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-}
-.hero::before, .page-band::before {
-  width: 320px; height: 320px;
-  top: -170px; right: -60px;
-  background: radial-gradient(circle, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 70%);
-}
-.hero::after, .page-band::after {
-  width: 260px; height: 260px;
-  bottom: -160px; left: 8%;
-  background: radial-gradient(circle, rgba(255,214,0,.30) 0%, rgba(255,214,0,0) 70%);
+  padding: 20px 0 6px;
 }
 .hero h1,
 .page-band h1 {
-  position: relative;
   margin: 0 0 6px;
-  color: #fff;
-  letter-spacing: -.4px;
-  text-shadow: 0 2px 6px rgba(0,0,0,.18);
+  color: var(--ink);
 }
-.hero h1 { font-size: 30px; }
-.page-band h1 { font-size: 24px; }
-.hero p, .page-band p { position: relative; margin: 0; font-size: 15px; color: rgba(255,255,255,.94); }
-.hero .muted, .page-band .muted { color: rgba(255,255,255,.94); }
-/* El breadcrumb dentro de una banda tiene que leerse sobre rojo. */
-.page-band .breadcrumb { position: relative; padding: 0 0 6px; color: rgba(255,255,255,.85); }
-.page-band .breadcrumb a:hover { color: #fff; text-decoration: underline; }
+.hero h1 { font-size: 26px; }
+.page-band h1 { font-size: 22px; }
+.hero p, .page-band p { margin: 0; font-size: 14px; color: var(--muted); }
+.page-band .breadcrumb { padding: 0 0 6px; }
 
 .ranking-grid {
   display: grid;
@@ -210,14 +140,11 @@ a { color: inherit; text-decoration: none; }
   padding: 18px 0 40px;
 }
 .ranking-card {
-  background: linear-gradient(180deg, #ffffff 0%, #fdfbfb 100%);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow .15s, transform .15s;
 }
-.ranking-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
 /* La barra roja de la izquierda se dibuja con un pseudo-elemento y no con
    border-image: border-image pinta las CUATRO orillas, así que teñiría de
    rojo también la línea divisoria de abajo. */
@@ -227,15 +154,15 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   gap: 8px;
   padding: 14px 16px;
-  background: var(--grad-red-soft);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
 .ranking-card-head::before {
   content: "";
   position: absolute;
   left: 0; top: 0; bottom: 0;
-  width: 5px;
-  background: var(--grad-red);
+  width: 4px;
+  background: var(--red);
 }
 .ranking-card-head .cat-icon { font-size: 21px; }
 .ranking-card-head h2 { font-size: 16px; margin: 0; }
@@ -248,27 +175,25 @@ a { color: inherit; text-decoration: none; }
   padding: 13px 16px;
   border-bottom: 1px solid var(--border);
   cursor: pointer;
-  transition: background .12s;
 }
 .ranking-row:last-child { border-bottom: none; }
-.ranking-row:hover { background: linear-gradient(90deg, var(--red-tint) 0%, rgba(255,255,255,0) 90%); }
+.ranking-row:hover { background: var(--bg); }
 .rank-badge {
   width: 30px; height: 30px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #9a9a9a, #6f6f6f);
+  background: var(--muted);
   color: #fff;
   font-size: 13px;
   font-weight: 800;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.35);
 }
-/* Medallero estilo Rakuten para el top 3. La cabecera .ranking-card-head es
-   el primer hijo de .ranking-card, así que la 1a/2a/3a fila son los hijos
-   2/3/4, no 1/2/3. */
-.ranking-row:nth-child(2) .rank-badge { background: linear-gradient(145deg, #ffe28a, #e8a800 70%, #c98a00); color: #5c3d00; font-size: 13px; }
-.ranking-row:nth-child(3) .rank-badge { background: linear-gradient(145deg, #f2f2f2, #b5b5b5 70%, #9a9a9a); color: #3a3a3a; }
-.ranking-row:nth-child(4) .rank-badge { background: linear-gradient(145deg, #e5b483, #a9662f 70%, #8d5426); color: #fff; }
+/* Medallero estilo Rakuten para el top 3 (colores planos, sin degradado).
+   La cabecera .ranking-card-head es el primer hijo de .ranking-card, así
+   que la 1a/2a/3a fila son los hijos 2/3/4, no 1/2/3. */
+.ranking-row:nth-child(2) .rank-badge { background: #d9a300; color: #fff; }
+.ranking-row:nth-child(3) .rank-badge { background: #a8a8a8; color: #fff; }
+.ranking-row:nth-child(4) .rank-badge { background: #a9662f; color: #fff; }
 .ranking-row .row-icon { font-size: 26px; width: 34px; text-align: center; flex-shrink: 0; }
 .ranking-row .row-name {
   flex: 1;
@@ -280,7 +205,8 @@ a { color: inherit; text-decoration: none; }
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-.ranking-row .row-price { font-size: 15px; font-weight: 800; color: var(--red-dark); flex-shrink: 0; }
+/* El precio es lo único que debe saltar a la vista en cada fila. */
+.ranking-row .row-price { font-size: 16px; font-weight: 800; color: var(--red-dark); flex-shrink: 0; }
 .ranking-row .row-fav-btn { font-size: 17px; }
 
 /* ---------- List / search results ---------- */
@@ -304,7 +230,6 @@ a { color: inherit; text-decoration: none; }
   padding: 18px;
   align-self: start;
   margin-top: 14px;
-  box-shadow: var(--shadow-sm);
 }
 .filters h2 {
   position: relative;
@@ -312,15 +237,15 @@ a { color: inherit; text-decoration: none; }
   margin: -18px -18px 16px;
   padding: 13px 16px 13px 20px;
   border-radius: var(--radius) var(--radius) 0 0;
-  background: linear-gradient(100deg, #fff1f1 0%, #fff7f2 55%, rgba(255,255,255,0) 100%);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
 .filters h2::before {
   content: "";
   position: absolute;
   left: 0; top: 0; bottom: 0;
-  width: 5px;
-  background: var(--grad-red);
+  width: 4px;
+  background: var(--red);
 }
 .filter-group { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
 .filter-group:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
@@ -335,10 +260,9 @@ a { color: inherit; text-decoration: none; }
   padding: 9px 8px;
   margin: 0 -8px;
   border-radius: 6px;
-  transition: background .12s;
 }
 .filter-option:hover { background: var(--bg); }
-.filter-option.active { color: var(--red); font-weight: 700; background: var(--grad-red-soft); }
+.filter-option.active { color: var(--red); font-weight: 700; }
 .filter-option input { accent-color: var(--red); width: 18px; height: 18px; }
 
 .list-main { margin-top: 14px; }
@@ -356,7 +280,7 @@ a { color: inherit; text-decoration: none; }
   border-radius: 8px;
   padding: 9px 12px;
   font-size: 14px;
-  background: linear-gradient(180deg, #ffffff, #f7f7f7);
+  background: var(--card);
   color: var(--ink);
 }
 
@@ -365,20 +289,13 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   gap: 16px;
-  background: linear-gradient(135deg, #ffffff 0%, #fdfbfb 100%);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 16px 18px;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow .15s, transform .15s, border-color .15s, background .15s;
 }
-.product-row:hover {
-  border-color: var(--red);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #ffffff 0%, var(--red-tint) 100%);
-}
+.product-row:hover { border-color: var(--red); }
 .product-row .row-icon { font-size: 40px; width: 56px; text-align: center; flex-shrink: 0; }
 .product-row .row-info { flex: 1; min-width: 0; }
 .product-row .row-brand { font-size: 12px; color: var(--muted); }
@@ -402,17 +319,17 @@ a { color: inherit; text-decoration: none; }
   font-size: 64px;
   width: 108px; height: 108px;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(145deg, #ffffff 0%, #fff3f3 100%);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   flex-shrink: 0;
-  box-shadow: var(--shadow-md);
 }
 .detail-headinfo h1 { margin: 2px 0 8px; font-size: 25px; }
 .detail-rating { font-size: 14px; color: var(--gold); margin-bottom: 8px; }
 .detail-rating .rc { color: var(--muted); margin-left: 4px; }
 .detail-fromprice { margin: 0; font-size: 14px; color: var(--muted); }
-.detail-fromprice strong { color: var(--red-dark); font-size: 21px; }
+/* El precio de la ficha es el punto de mayor énfasis de toda la página. */
+.detail-fromprice strong { color: var(--red-dark); font-size: 22px; }
 
 .panel {
   background: var(--card);
@@ -420,26 +337,22 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--radius);
   padding: 20px;
   margin-bottom: 22px;
-  box-shadow: var(--shadow-sm);
 }
-/* Cada encabezado de panel va sobre una franja degradada, no sobre blanco,
-   para que las secciones se distingan entre sí a simple vista. El degradado
-   se desvanece hacia la derecha para no cortar el panel en dos. */
 .panel h2 {
   position: relative;
   font-size: 17px;
   margin: -20px -20px 14px;
   padding: 13px 16px 13px 20px;
   border-radius: var(--radius) var(--radius) 0 0;
-  background: linear-gradient(100deg, #fff1f1 0%, #fff7f2 45%, rgba(255,255,255,0) 92%);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
 .panel h2::before {
   content: "";
   position: absolute;
   left: 0; top: 0; bottom: 0;
-  width: 5px;
-  background: var(--grad-red);
+  width: 4px;
+  background: var(--red);
 }
 /* Texto secundario que va pegado al encabezado (ej. "últimos 30 días"). */
 .panel h2 .h2-sub { font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 6px; }
@@ -463,18 +376,17 @@ a { color: inherit; text-decoration: none; }
   min-width: 200px;
 }
 
-/* Banner de entrega: destacado, arriba de todo el panel de comparación, para
-   que sea lo primero que se ve (estilo "Delivery to..." de Amazon). */
+/* Banner de entrega: plano, con borde en vez de bloque de color, para que
+   siga distinguiéndose como acción principal sin competir con el precio. */
 .delivery-banner {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: linear-gradient(120deg, #fff2f2 0%, #fff6ea 55%, #fff9e6 100%);
-  border: 2px solid var(--red);
+  background: var(--card);
+  border: 1px solid var(--red);
   border-radius: var(--radius);
   padding: 18px 20px;
   margin-bottom: 20px;
-  box-shadow: 0 3px 12px rgba(255, 2, 17, .12);
   flex-wrap: wrap;
 }
 .delivery-banner-icon {
@@ -482,9 +394,8 @@ a { color: inherit; text-decoration: none; }
   width: 54px; height: 54px;
   flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(145deg, #ffffff, #fdf0f0);
+  background: var(--bg);
   border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.9);
 }
 .delivery-banner-text {
   flex: 1;
@@ -496,9 +407,8 @@ a { color: inherit; text-decoration: none; }
 .delivery-banner-text strong { font-size: 17px; color: var(--ink); }
 .delivery-banner-text span { font-size: 13px; color: var(--muted); }
 .delivery-banner.is-set {
-  background: linear-gradient(120deg, #eafaf1 0%, var(--green-tint) 60%, #ddf5e8 100%);
+  background: var(--green-tint);
   border-color: var(--green);
-  box-shadow: 0 3px 12px rgba(10, 138, 60, .12);
 }
 .delivery-banner.is-set .delivery-banner-text strong { color: var(--green); }
 
@@ -506,7 +416,7 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--grad-red);
+  background: var(--red);
   border: 2px solid var(--red);
   color: #fff;
   border-radius: 24px;
@@ -514,18 +424,15 @@ a { color: inherit; text-decoration: none; }
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: var(--shadow-red);
   flex-shrink: 0;
-  transition: transform .1s, filter .12s, box-shadow .12s;
 }
-.location-btn:hover { filter: brightness(1.08); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,2,17,.34); }
+.location-btn:hover { background: var(--red-dark); }
 .location-btn.is-set {
-  background: linear-gradient(135deg, #ffffff 0%, var(--green-tint) 100%);
+  background: var(--card);
   border-color: var(--green);
   color: var(--green);
-  box-shadow: 0 4px 14px rgba(10, 138, 60, .22);
 }
-.location-btn.is-set:hover { background: linear-gradient(135deg, var(--green-tint) 0%, #d6f2e2 100%); }
+.location-btn.is-set:hover { background: var(--green-tint); }
 .location-btn-icon { font-size: 18px; }
 
 .sort-tabs {
@@ -536,21 +443,18 @@ a { color: inherit; text-decoration: none; }
 }
 .sort-tab {
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, #ffffff, #f7f7f7);
+  background: var(--card);
   border-radius: 20px;
   padding: 8px 16px;
   font-size: 13px;
   cursor: pointer;
   color: var(--muted);
-  transition: background .12s, color .12s, border-color .12s;
 }
 .sort-tab:hover { color: var(--ink); }
 .sort-tab.active {
   border-color: var(--red);
   color: var(--red);
   font-weight: 700;
-  background: var(--grad-red-soft);
-  box-shadow: 0 2px 6px rgba(255,2,17,.14);
 }
 
 /* Map modal */
@@ -570,14 +474,11 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   border-bottom: 3px solid transparent;
   margin-bottom: -1px;
-  border-radius: 6px 6px 0 0;
-  transition: background .12s, color .12s;
 }
-.metro-tab:hover { color: var(--ink); background: #fafafa; }
+.metro-tab:hover { color: var(--ink); }
 .metro-tab.active {
   color: var(--red);
   border-bottom-color: var(--red);
-  background: var(--grad-red-soft);
 }
 
 .map {
@@ -596,20 +497,18 @@ a { color: inherit; text-decoration: none; }
 }
 .region-chip {
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, #ffffff, #f4f4f4);
+  background: var(--card);
   border-radius: 22px;
   padding: 10px 18px;
   font-size: 14px;
   cursor: pointer;
-  transition: transform .1s, box-shadow .12s, border-color .12s;
 }
-.region-chip:hover { border-color: var(--red); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+.region-chip:hover { border-color: var(--red); }
 .region-chip.active {
-  background: var(--grad-red);
+  background: var(--red);
   border-color: var(--red);
   color: #fff;
   font-weight: 600;
-  box-shadow: var(--shadow-red);
 }
 
 .modal-overlay {
@@ -623,17 +522,14 @@ a { color: inherit; text-decoration: none; }
   z-index: 100;
 }
 .modal {
-  background: linear-gradient(180deg, #ffffff 0%, #fdfbfb 100%);
+  background: var(--card);
   border-radius: var(--radius);
   padding: 22px;
   max-width: 540px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 12px 40px rgba(0,0,0,.3);
 }
-/* La cabecera del modal usa la misma banda roja que la portada, para que
-   elegir municipio se sienta parte del mismo sistema visual. */
 .modal-head {
   display: flex;
   align-items: center;
@@ -642,24 +538,23 @@ a { color: inherit; text-decoration: none; }
   margin: -22px -22px 4px;
   padding: 16px 20px;
   border-radius: var(--radius) var(--radius) 0 0;
-  background: var(--grad-red);
-  box-shadow: 0 2px 10px rgba(255,2,17,.2);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
 }
-.modal-head h2 { margin: 0; font-size: 19px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.2); }
+.modal-head h2 { margin: 0; font-size: 19px; color: var(--ink); }
 .modal-close {
   border: none;
-  background: rgba(255,255,255,.18);
+  background: none;
   border-radius: 50%;
   width: 32px; height: 32px;
   font-size: 18px;
   cursor: pointer;
-  color: #fff;
+  color: var(--muted);
   line-height: 1;
   padding: 0;
   flex-shrink: 0;
-  transition: background .12s;
 }
-.modal-close:hover { background: rgba(255,255,255,.32); color: #fff; }
+.modal-close:hover { color: var(--ink); background: var(--border); }
 
 /* Compare table */
 .compare-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
@@ -676,13 +571,9 @@ a { color: inherit; text-decoration: none; }
   font-size: 14px;
   vertical-align: middle;
 }
-.compare-table tbody tr:nth-child(even) { background: #fafafa; }
-/* La fila más barata va resaltada con un degradado suave y una barra roja
-   a la izquierda. La barra va solo en la primera celda: si se pone en
-   todos los <td> aparece una línea roja entre cada columna. */
-.compare-table tr:first-child td {
-  background: linear-gradient(90deg, #fff2f2 0%, #fff8f8 60%, #ffffff 100%);
-}
+.compare-table tbody tr:nth-child(even) { background: var(--bg); }
+/* La fila más barata va resaltada con una barra roja a la izquierda, ya
+   sin degradado de fondo: el precio y la etiqueta bastan para destacarla. */
 .compare-table tr:first-child td:first-child {
   border-left: 3px solid var(--red);
   padding-left: 8px;
@@ -693,70 +584,51 @@ a { color: inherit; text-decoration: none; }
   gap: 9px;
   font-weight: 600;
 }
-/* Insignia de tienda estilo "app icon": sin logos oficiales reales (no
-   están disponibles/verificados para las 5 tiendas), pero con relieve y
-   brillo en vez de un cuadro plano de color con una letra, para que se
-   lea como un icono real y no como texto pegado sobre un fondo. */
+/* Insignia de tienda: color plano de la marca con una letra, sin relieve
+   ni brillo — solo sirve para identificar la tienda de un vistazo. */
 .store-dot {
-  position: relative;
   width: 32px; height: 32px;
-  border-radius: 9px;
+  border-radius: 8px;
   color: #fff;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: -.2px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
-  overflow: hidden;
-  text-shadow: 0 1px 1px rgba(0,0,0,.25);
-  box-shadow:
-    0 2px 5px rgba(0,0,0,.25),
-    inset 0 1px 0 rgba(255,255,255,.4),
-    inset 0 -10px 14px rgba(0,0,0,.18);
-}
-/* Brillo diagonal encima del color de la tienda (que llega por style=""). */
-.store-dot::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(140deg, rgba(255,255,255,.45) 0%, rgba(255,255,255,.12) 42%, rgba(0,0,0,.12) 100%);
-  pointer-events: none;
 }
 .price-cell { vertical-align: top; }
-.price-line { font-weight: 800; color: var(--red-dark); font-size: 19px; }
+/* El precio es el elemento con más peso visual de toda la tabla. */
+.price-line { font-weight: 800; color: var(--red-dark); font-size: 20px; }
 .list-price { font-size: 13px; color: var(--muted); text-decoration: line-through; margin-right: 4px; }
 .discount-badge {
   display: inline-block;
   font-size: 12px;
   font-weight: 800;
   color: #fff;
-  background: linear-gradient(135deg, #ff4d4d 0%, var(--red-dark) 100%);
+  background: var(--red-dark);
   padding: 2px 7px;
   border-radius: 4px;
   margin-left: 4px;
   vertical-align: middle;
-  box-shadow: 0 1px 3px rgba(212,0,9,.35);
 }
 .best-tag {
   display: inline-block;
   margin-left: 6px;
   font-size: 11px;
   font-weight: 700;
-  background: var(--grad-red);
+  background: var(--red);
   color: #fff;
   padding: 2px 7px;
   border-radius: 4px;
   vertical-align: middle;
-  box-shadow: 0 1px 3px rgba(255,2,17,.32);
 }
 /* Insignia "recomendado": deliberadamente NO roja como MÁS BARATO/MÁS
    RÁPIDO, para que se lea como una sugerencia distinta (mejor combinación
    de precio+calificación+stock) y no como una tercera copia del mismo
    mensaje de "más barato". */
 .recommended-tag {
-  background: linear-gradient(135deg, #ffc65c 0%, var(--gold) 100%);
+  background: var(--gold);
   color: #5c3d00;
-  box-shadow: 0 1px 3px rgba(245,166,35,.4);
 }
 /* Monto ahorrado en pesos, junto al % de descuento (ver bestSavingsAmount). */
 .save-amount {
@@ -776,7 +648,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 12px;
   font-weight: 700;
   color: #b8860b;
-  background: linear-gradient(135deg, #fff8ec 0%, #ffefd4 100%);
+  background: #fff8ec;
   padding: 3px 10px;
   border-radius: 12px;
   border: 1px solid #f3ddb5;
@@ -791,7 +663,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 12px;
   font-weight: 700;
   color: var(--green);
-  background: linear-gradient(135deg, #eafaf1 0%, var(--green-tint) 100%);
+  background: var(--green-tint);
   padding: 3px 10px;
   border-radius: 10px;
   white-space: nowrap;
@@ -803,7 +675,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 11px;
   font-weight: 700;
   color: #a15c00;
-  background: linear-gradient(135deg, #fff8ec 0%, #ffefd4 100%);
+  background: #fff8ec;
   padding: 2px 8px;
   border-radius: 10px;
   white-space: nowrap;
@@ -811,7 +683,7 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid #f3ddb5;
 }
 .buy-btn {
-  background: var(--grad-red);
+  background: var(--red);
   color: #fff;
   border: none;
   padding: 11px 20px;
@@ -820,11 +692,8 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
-  box-shadow: var(--shadow-red);
-  transition: filter .12s, box-shadow .12s, transform .1s;
 }
-.buy-btn:hover { filter: brightness(1.08); box-shadow: 0 6px 18px rgba(255,2,17,.34); transform: translateY(-1px); }
-.buy-btn:active { transform: translateY(0); }
+.buy-btn:hover { background: var(--red-dark); }
 /* Micro-copy de confianza pegado al botón: reduce el riesgo percibido de
    salir del sitio (aversión a la incertidumbre) sin prometer nada que no
    se cumpla — es un enlace directo a la tienda real, no un checkout propio. */
@@ -858,14 +727,12 @@ a { color: inherit; text-decoration: none; }
 .review-comment { font-size: 13px; line-height: 1.5; margin: 0; }
 
 .site-footer {
-  background: linear-gradient(135deg, #3a2a2c 0%, #2a2a2a 55%, #1f1f1f 100%);
+  background: #2a2a2a;
   color: #bbb;
   font-size: 12px;
   padding: 20px 0;
   margin-top: 20px;
-  border-top: 3px solid transparent;
-  border-image: var(--grad-red) 1;
-  border-image-slice: 1;
+  border-top: 3px solid var(--red);
 }
 
 .leaflet-popup-content { font-size: 13px; }
@@ -873,7 +740,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Favoritos (corazón) ---------- */
 .fav-btn {
   border: 1px solid var(--border);
-  background: linear-gradient(145deg, #ffffff, #f7f7f7);
+  background: var(--card);
   border-radius: 50%;
   width: 48px; height: 48px;
   font-size: 21px;
@@ -881,16 +748,13 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   color: var(--muted);
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow .15s, transform .1s, border-color .12s;
 }
 .fav-btn:active { transform: scale(0.92); }
-.fav-btn:hover { border-color: var(--red); box-shadow: var(--shadow-md); }
+.fav-btn:hover { border-color: var(--red); }
 .fav-btn.is-fav {
   color: var(--red);
   border-color: var(--red);
-  background: linear-gradient(145deg, #fff6f6, var(--red-tint));
-  box-shadow: 0 2px 10px rgba(255,2,17,.22);
+  background: var(--red-tint);
 }
 
 .row-fav-btn {
@@ -945,8 +809,8 @@ a { color: inherit; text-decoration: none; }
   padding: 3px 10px;
   border-radius: 12px;
 }
-.price-chart-note.good { background: linear-gradient(135deg, #eafaf1, var(--green-tint)); color: #0a8a3c; }
-.price-chart-note.neutral { background: linear-gradient(135deg, #f7f7f7, #efefef); color: var(--muted); }
+.price-chart-note.good { background: var(--green-tint); color: #0a8a3c; }
+.price-chart-note.neutral { background: var(--bg); color: var(--muted); }
 .price-chart-svg { width: 100%; height: 110px; display: block; }
 
 .table-scroll { overflow-x: auto; }
@@ -961,22 +825,21 @@ a { color: inherit; text-decoration: none; }
   padding: 6px 13px;
   border-radius: 20px;
 }
-.offer-group-badge.verified { background: linear-gradient(135deg, #eafaf1 0%, #d8f3e4 100%); color: #0a8a3c; border: 1px solid #bfe9d3; }
-.offer-group-badge.reference { background: linear-gradient(135deg, #fff8ec 0%, #ffefd4 100%); color: #a15c00; border: 1px solid #f3ddb5; }
+.offer-group-badge.verified { background: var(--green-tint); color: #0a8a3c; border: 1px solid #bfe9d3; }
+.offer-group-badge.reference { background: #fff8ec; color: #a15c00; border: 1px solid #f3ddb5; }
 
 .offer-group-verified {
   border: 2px solid #b7ecce;
   border-radius: var(--radius);
   padding: 10px 10px 4px;
-  box-shadow: var(--shadow-sm);
-  background: linear-gradient(180deg, #f7fdfa 0%, #ffffff 100%);
+  background: var(--card);
 }
 .offer-group-reference {
   opacity: 0.94;
   border: 1px dashed var(--border);
   border-radius: var(--radius);
   padding: 10px 10px 4px;
-  background: linear-gradient(180deg, #fdfcfa 0%, #ffffff 100%);
+  background: var(--card);
 }
 
 .empty-note {
@@ -1036,20 +899,19 @@ a { color: inherit; text-decoration: none; }
   font-size: 14px;
   font-family: inherit;
   color: var(--ink);
-  background: linear-gradient(180deg, #ffffff, #fbfbfb);
+  background: var(--card);
 }
 .review-form input[type="text"]:focus,
 .review-form select:focus,
 .review-form textarea:focus {
   outline: none;
   border-color: var(--red);
-  box-shadow: 0 0 0 3px rgba(255,2,17,.12);
 }
 .review-form textarea { resize: vertical; margin-top: 10px; }
 .review-form .buy-btn { margin-top: 10px; padding: 11px 20px; font-size: 14px; }
 
 .empty-state {
-  background: linear-gradient(180deg, #ffffff 0%, #fdfbfb 100%);
+  background: var(--card);
   border: 1px dashed var(--border);
   border-radius: var(--radius);
   padding: 30px;
