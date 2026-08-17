@@ -154,6 +154,7 @@
     minRating: "all",
     sort: "relevance",
     offerSort: "price", // 'price' | 'rating' — orden de la tabla de comparación
+    brandCategory: null, // filtro activo en /marcas; null = todas las categorías
   };
 
   const el = {
@@ -201,6 +202,11 @@
     reviewAuthor: document.getElementById("reviewAuthor"),
     reviewRating: document.getElementById("reviewRating"),
     reviewComment: document.getElementById("reviewComment"),
+
+    viewBrands: document.getElementById("viewBrands"),
+    brandCategoryFilter: document.getElementById("brandCategoryFilter"),
+    brandsTitle: document.getElementById("brandsTitle"),
+    brandGrid: document.getElementById("brandGrid"),
 
     viewFavorites: document.getElementById("viewFavorites"),
     favoritesList: document.getElementById("favoritesList"),
@@ -544,6 +550,14 @@
   async function loadData() {
     const res = await fetch("data/data.json");
     state.data = await res.json();
+    // Catálogo de marcas/afiliados (Admitad): independiente del comparador de
+    // electrónica, así que un fallo aquí no debe tumbar el resto del sitio.
+    try {
+      const res2 = await fetch("data/brands.json");
+      state.brandsData = await res2.json();
+    } catch {
+      state.brandsData = { brands: [] };
+    }
   }
 
   // ---------- Navegación entre vistas ----------
@@ -552,6 +566,7 @@
     el.viewHome.classList.toggle("hidden", name !== "home");
     el.viewList.classList.toggle("hidden", name !== "list");
     el.viewDetail.classList.toggle("hidden", name !== "detail");
+    el.viewBrands.classList.toggle("hidden", name !== "brands");
     el.viewFavorites.classList.toggle("hidden", name !== "favorites");
     el.viewAccount.classList.toggle("hidden", name !== "account");
     if (name !== "detail") closeMapModal();
@@ -597,6 +612,11 @@
       renderFavorites();
     } else if (hash === "#/account") {
       renderAccount();
+    } else if (hash === "#/marcas" || hash.startsWith("#/marcas?")) {
+      const qs = hash.includes("?") ? new URLSearchParams(hash.split("?")[1]) : null;
+      const cat = qs && qs.get("cat");
+      if (cat) state.brandCategory = cat;
+      renderBrands();
     } else {
       renderHome();
     }
@@ -880,6 +900,63 @@
     renderProductListInto(el.favoritesList, products, {
       emptyText: "Aún no tienes favoritos. Toca el corazón 🤍 en cualquier producto para guardarlo aquí.",
       onFavToggle: renderFavorites,
+    });
+  }
+
+  // ---------- Vista: Marcas y ofertas (catálogo de afiliados, Admitad) ----------
+
+  function brandCategories() {
+    const list = state.brandsData.brands.map((b) => b.category);
+    return [...new Set(list)].sort();
+  }
+
+  function renderBrandCategoryFilter() {
+    el.brandCategoryFilter.innerHTML = "";
+    const allOpt = document.createElement("label");
+    allOpt.className = "filter-option" + (!state.brandCategory ? " active" : "");
+    allOpt.innerHTML = `<input type="radio" name="fbrandcat" ${!state.brandCategory ? "checked" : ""}> Todas`;
+    allOpt.onclick = () => { state.brandCategory = null; renderBrands(); };
+    el.brandCategoryFilter.appendChild(allOpt);
+
+    brandCategories().forEach((cat) => {
+      const opt = document.createElement("label");
+      const isActive = state.brandCategory === cat;
+      opt.className = "filter-option" + (isActive ? " active" : "");
+      opt.innerHTML = `<input type="radio" name="fbrandcat" ${isActive ? "checked" : ""}> ${cat}`;
+      opt.onclick = () => { state.brandCategory = cat; renderBrands(); };
+      el.brandCategoryFilter.appendChild(opt);
+    });
+  }
+
+  function renderBrands() {
+    setActiveView("brands");
+    renderCatNav();
+    renderBrandCategoryFilter();
+
+    const all = state.brandsData.brands;
+    const shown = state.brandCategory ? all.filter((b) => b.category === state.brandCategory) : all;
+    el.brandsTitle.textContent = state.brandCategory ? `${state.brandCategory} (${shown.length})` : `Todas las marcas (${shown.length})`;
+
+    el.brandGrid.innerHTML = "";
+    if (shown.length === 0) {
+      el.brandGrid.innerHTML = `<p class="empty-state">No hay marcas en esta categoría todavía.</p>`;
+      return;
+    }
+    shown.forEach((b) => {
+      const card = document.createElement("a");
+      card.className = "brand-card";
+      card.href = b.url;
+      card.target = "_blank";
+      card.rel = "noopener sponsored";
+      card.innerHTML = `
+        <div class="brand-card-logo"><img src="${b.logo}" alt="${b.name}" loading="lazy"></div>
+        <div class="brand-card-body">
+          <div class="brand-card-cat">${b.category}</div>
+          <div class="brand-card-name">${b.name}</div>
+          <p class="brand-card-desc">${b.description}</p>
+        </div>
+      `;
+      el.brandGrid.appendChild(card);
     });
   }
 

@@ -28,6 +28,17 @@ Cada elemento de esta lista usa **datos reales que ya existían en la app** (no 
 - **Punto pulsante en "Últimas piezas"** (escasez, Cialdini): llama la atención sobre una escasez que ya estaba en los datos (`stock: "low_stock"`), sin agregar un número ni un temporizador inventado.
 - **"🔒 Compra en el sitio real de la tienda"** junto a cada botón: reduce la incertidumbre de salir del sitio antes de hacer clic, sin prometer nada que ComparaMX no hace (no hay checkout propio).
 
+## Marcas y ofertas (`#/marcas`)
+
+Catálogo de programas de afiliados de **Admitad**, aparte del comparador de electrónica: **52 marcas** de moda, viajes, educación, software/IA, VPN, hosting, belleza, joyería, hogar y finanzas, agrupadas en 13 categorías con filtro lateral. Cada tarjeta enlaza directo al programa de afiliado real (`rel="sponsored"`, se abre en pestaña nueva) — a diferencia del resto del sitio, **estos son enlaces reales**, no `#` de demostración.
+
+- **Origen de los datos**: `data/brands.json`, construido a partir de los 54 programas a los que el operador del sitio se unió en Admitad (nombre, categoría y descripción tomados de una hoja de cálculo que llevaba; los enlaces y logos, de las capturas de cada pantalla "Join program").
+- **Qué se excluyó y por qué**: de 54 programas originales quedaron 52 —
+  - **LoveMachines** (contenido para adultos): fuera de lugar en un sitio de comparación de propósito general sin una sección o aviso de edad dedicados.
+  - **Admitad**: es la propia red de afiliados, no una tienda a la que enlazar.
+- **Por qué es una sección aparte y no está mezclada con la electrónica**: son marcas de rubros completamente distintos (VPN, tours, cursos de inglés, joyería...) sin relación con "comparar el precio de un iPhone entre tiendas mexicanas". Meterlas en el mismo catálogo habría diluido lo que hace específico a ComparaMX.
+- **Logos**: recortados de las capturas de pantalla de Admitad (no hay archivos de marca oficiales), en `icons/brands/`. Cargan con `loading="lazy"` porque son 52 imágenes.
+
 ### Favoritos, perfil y reseñas: solo en tu navegador
 
 No hay servidor, base de datos ni login real. "Mi cuenta", los favoritos y las reseñas que escribas se guardan con `localStorage` **solo en el navegador donde los creaste**: no se sincronizan entre dispositivos, no las ve nadie más y se pierden si borras los datos del sitio. Es una simulación de cuenta de usuario, no una cuenta real — lo digo explícitamente para no dar una impresión falsa de "comunidad" que en realidad no existe todavía.
@@ -44,10 +55,12 @@ Es un sitio 100% estático (HTML/CSS/JS sin build step):
 ## Estructura
 
 ```
-index.html          página única con 5 vistas: inicio, listado, ficha de producto, favoritos y mi cuenta
+index.html          página única con 6 vistas: inicio, listado, ficha de producto, marcas y ofertas, favoritos y mi cuenta
 css/style.css        estilos (paleta Mercari)
-js/app.js             lógica: rutas por hash, rankings, filtros/orden, mapa, comparación, favoritos/perfil/reseñas (localStorage)
+js/app.js             lógica: rutas por hash, rankings, filtros/orden, mapa, comparación, marcas y ofertas, favoritos/perfil/reseñas (localStorage)
 data/data.json        categorías, productos (specs, reseñas, ofertas con stock), tiendas, regiones (datos de demo)
+data/brands.json      catálogo de 52 marcas afiliadas (Admitad), fuera del comparador de electrónica
+icons/brands/          logos de las 52 marcas, recortados de las capturas de Admitad
 icons/, manifest.json, sw.js   PWA
 backend/mercadolibre-worker/   Cloudflare Worker + guía para conectar la API real de Mercado Libre (opcional, desactivado por defecto)
 scripts/generate_seo_pages.py  genera producto/, categoria/, sitemap.xml y robots.txt (ver "Páginas estáticas para SEO" más abajo)

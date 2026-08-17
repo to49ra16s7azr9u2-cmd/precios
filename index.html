@@ -25,6 +25,7 @@
         <button id="searchBtn" aria-label="Buscar">🔍</button>
       </div>
       <nav class="util-nav">
+        <a href="#/marcas">🛍️ Marcas y ofertas</a>
         <a href="#/favorites">⭐ Favoritos</a>
         <a href="#/account">👤 Mi cuenta</a>
       </nav>
@@ -212,6 +213,32 @@
           </label>
           <button type="submit" class="buy-btn">Publicar reseña</button>
         </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marcas y ofertas: catálogo de programas de afiliados (Admitad), fuera del
+       comparador de electrónica. Enlaces reales de afiliado: al hacer clic se
+       gana comisión si hay compra, según cómo esté configurado cada programa. -->
+  <section id="viewBrands" class="view hidden">
+    <div class="container">
+      <div class="page-band">
+        <nav class="breadcrumb"><a href="#/">Inicio</a> &gt; Marcas y ofertas</nav>
+        <h1>Marcas y ofertas</h1>
+        <p class="muted small">Enlaces de afiliado a marcas y servicios fuera del catálogo de electrónica — moda, viajes, educación, software y más.</p>
+      </div>
+      <div class="list-layout">
+        <aside class="filters">
+          <h2>Categoría</h2>
+          <div id="brandCategoryFilter" class="filter-options"></div>
+        </aside>
+        <div class="list-main">
+          <div class="list-head">
+            <h1 id="brandsTitle">Todas las marcas</h1>
+          </div>
+          <div id="brandGrid" class="brand-grid"></div>
+          <p class="disclaimer">Estos enlaces son de afiliado: ComparaMX puede recibir una comisión si haces una compra a través de ellos, sin costo adicional para ti. No son parte del comparador de precios de electrónica de arriba.</p>
+        </div>
       </div>
     </div>
   </section>
