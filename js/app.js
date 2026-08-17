@@ -164,6 +164,7 @@
 
     viewHome: document.getElementById("viewHome"),
     rankingGrid: document.getElementById("rankingGrid"),
+    comparisonGrid: document.getElementById("comparisonGrid"),
 
     viewList: document.getElementById("viewList"),
     listBreadcrumb: document.getElementById("listBreadcrumb"),
@@ -639,10 +640,65 @@
 
   // ---------- Vista: Inicio (rankings) ----------
 
+  // Producto "popular" de una categoría para la comparación tienda por
+  // tienda: el que tiene más reseñas sumando todas sus ofertas, entre los
+  // que tienen al menos 3 ofertas (para poder mostrar 1er-3er lugar). Si
+  // ninguno llega a 3 ofertas, se usa el que más ofertas tenga.
+  function mostPopularProduct(categoryId) {
+    const products = state.data.products.filter((p) => p.category === categoryId);
+    if (products.length === 0) return null;
+    const totalReviews = (p) => p.offers.reduce((sum, o) => sum + (o.reviewCount || 0), 0);
+    const withThree = products.filter((p) => p.offers.length >= 3);
+    const pool = withThree.length > 0 ? withThree : products;
+    return pool
+      .slice()
+      .sort((a, b) => (withThree.length > 0 ? totalReviews(b) - totalReviews(a) : b.offers.length - a.offers.length))[0];
+  }
+
+  function renderComparisonRankings() {
+    el.comparisonGrid.innerHTML = "";
+    state.data.categories.forEach((cat) => {
+      const product = mostPopularProduct(cat.id);
+      if (!product) return;
+      const top3 = product.offers
+        .slice()
+        .sort((a, b) => a.price - b.price)
+        .slice(0, 3);
+
+      const card = document.createElement("div");
+      card.className = "ranking-card";
+      card.innerHTML = `
+        <div class="ranking-card-head">
+          <span class="cat-icon">${cat.icon}</span>
+          <h2>${product.name}</h2>
+          <span class="see-all">Ver producto</span>
+        </div>
+      `;
+      card.querySelector(".see-all").onclick = () => goDetail(product.id);
+
+      top3.forEach((o, i) => {
+        const rank = i + 1;
+        const store = storeById(o.storeId);
+        const row = document.createElement("div");
+        row.className = "ranking-row";
+        row.innerHTML = `
+          <span class="rank-badge">${rank === 1 ? "👑" : rank}</span>
+          <span class="row-icon"><span class="store-dot" style="background:${store.color}">${store.logo}</span></span>
+          <span class="row-name">${store.name}</span>
+          <span class="row-price">${money(o.price)}</span>
+        `;
+        row.onclick = () => goDetail(product.id);
+        card.appendChild(row);
+      });
+      el.comparisonGrid.appendChild(card);
+    });
+  }
+
   function renderHome() {
     setActiveView("home");
     renderCatNav();
     el.rankingGrid.innerHTML = "";
+    renderComparisonRankings();
     state.data.categories.forEach((cat) => {
       const products = state.data.products
         .filter((p) => p.category === cat.id)

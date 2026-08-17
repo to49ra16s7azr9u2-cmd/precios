@@ -131,6 +131,13 @@ a { color: inherit; text-decoration: none; }
 .hero h1 { font-size: 26px; }
 .page-band h1 { font-size: 22px; }
 .hero p, .page-band p { margin: 0; font-size: 14px; color: var(--muted); }
+.hero h2 {
+  margin: 22px 0 6px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  color: var(--ink);
+  font-size: 19px;
+}
 .page-band .breadcrumb { padding: 0 0 6px; }
 
 .ranking-grid {
