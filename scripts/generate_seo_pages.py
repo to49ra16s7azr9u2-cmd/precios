@@ -307,7 +307,7 @@ def render_product_page(product, data):
 {related_html}
 <div class="panel" style="text-align:center">
   <h2>Ver la comparación interactiva</h2>
-  <p class="muted small">Mapa de tiempo de entrega por municipio, historial de precio de 30 días y reseñas de compradores.</p>
+  <p class="muted small">Mapa de tiempo de entrega por municipio, comparación completa por tienda y reseñas de compradores.</p>
   <a class="buy-btn" href="../../index.html#/p/{product['id']}">Abrir ComparaMX interactivo →</a>
 </div>
 """

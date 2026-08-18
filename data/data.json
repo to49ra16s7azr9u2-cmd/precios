@@ -2,7 +2,7 @@
   "meta": {
     "currency": "MXN",
     "updated": "2026-08-19",
-    "note": "Catálogo en reconstrucción con datos reales: 11 productos de Celulares, Computadoras y Electrodomésticos con precio/foto/URL reales de SUNSKY y Geekbuying (feeds de Admitad, envío internacional directo desde esas tiendas, no hay tienda mexicana equivalente todavía). Precios convertidos de USD/EUR a MXN a un tipo de cambio aproximado (no es el precio que cobraría la tienda en MXN). Televisores y Videojuegos siguen vacíos: no se encontró ninguna fuente de datos reales para esas categorías todavía."
+    "note": "Catálogo en reconstrucción con datos reales: 21 productos con precio/foto/URL reales de SUNSKY y Geekbuying (feeds de Admitad), envío internacional directo desde esas tiendas (no hay tienda mexicana equivalente todavía). Precios convertidos de USD/EUR a MXN a un tipo de cambio aproximado. Televisores son proyectores con Android TV (no hay smart TV de pantalla plana en las fuentes disponibles) y Videojuegos es una sola consola retro — se marca así de forma honesta en vez de forzar productos que no encajan."
   },
   "categories": [
     {
@@ -728,6 +728,404 @@
           "verified": false,
           "priceOriginal": {
             "amount": 145.0,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p12",
+      "name": "HUAWEI Mate 60 12GB+512GB",
+      "brand": "Huawei",
+      "category": "Celulares",
+      "image": "📱",
+      "photo": "https://img.myipadbox.com/upload/store/product_l/EDA005453301A.jpg",
+      "specs": [
+        {
+          "label": "RAM + Almacenamiento",
+          "value": "12 GB + 512 GB"
+        },
+        {
+          "label": "Pantalla",
+          "value": "6.69\" HarmonyOS 4.0, huella en pantalla"
+        },
+        {
+          "label": "Procesador",
+          "value": "Kirin 9000S Octa Core"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "sunsky",
+          "price": 16320,
+          "url": "https://dorinebeaumont.com/g/7npkd4cs1i43517c81ee869a299fda/?f_id=15762&ulp=https%3A%2F%2Fwww.sunsky-online.com%2Fv%2F2927793",
+          "photo": "https://img.myipadbox.com/upload/store/product_l/EDA005453301A.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 960.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p13",
+      "name": "OPPO Find X7 Ultra AI Phone 16GB+256GB",
+      "brand": "OPPO",
+      "category": "Celulares",
+      "image": "📱",
+      "photo": "https://img.myipadbox.com/upload/store/product_l/EDA006276802B.jpg",
+      "specs": [
+        {
+          "label": "RAM + Almacenamiento",
+          "value": "16 GB + 256 GB"
+        },
+        {
+          "label": "Pantalla",
+          "value": "6.82\" ColorOS 14.0, huella en pantalla"
+        },
+        {
+          "label": "Procesador",
+          "value": "Qualcomm Snapdragon 8 Gen 3"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "sunsky",
+          "price": 17697,
+          "url": "https://dorinebeaumont.com/g/7npkd4cs1i43517c81ee869a299fda/?f_id=15762&ulp=https%3A%2F%2Fwww.sunsky-online.com%2Fv%2F3139916",
+          "photo": "https://img.myipadbox.com/upload/store/product_l/EDA006276802B.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 1041.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p14",
+      "name": "Xiaomi Redmi 13C 5G 6GB+128GB",
+      "brand": "Xiaomi",
+      "category": "Celulares",
+      "image": "📱",
+      "photo": "https://img.myipadbox.com/upload/store/product_l/EDA006156002B.jpg",
+      "specs": [
+        {
+          "label": "RAM + Almacenamiento",
+          "value": "6 GB + 128 GB"
+        },
+        {
+          "label": "Pantalla",
+          "value": "6.74\" MIUI 14"
+        },
+        {
+          "label": "Procesador",
+          "value": "MediaTek Dimensity 6100+ Octa Core 2.2GHz"
+        },
+        {
+          "label": "Conectividad",
+          "value": "5G, NFC"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "sunsky",
+          "price": 2380,
+          "url": "https://dorinebeaumont.com/g/7npkd4cs1i43517c81ee869a299fda/?f_id=15762&ulp=https%3A%2F%2Fwww.sunsky-online.com%2Fv%2F3094578",
+          "photo": "https://img.myipadbox.com/upload/store/product_l/EDA006156002B.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 140.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p15",
+      "name": "Proyector ETOE Seal Pro 1080P Android TV 11.0",
+      "brand": "ETOE",
+      "category": "Televisores",
+      "image": "📽️",
+      "photo": "https://img.gkbcdn.com/s3/p/2024-09-26/etoe-seal-pro-projector-eu-plug-826654-1727346455149.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Proyector con Android TV 11.0 (no es pantalla plana)"
+        },
+        {
+          "label": "Brillo",
+          "value": "1000 ANSI"
+        },
+        {
+          "label": "Resolución nativa",
+          "value": "1080P"
+        },
+        {
+          "label": "Extras",
+          "value": "Enfoque automático, corrección trapezoidal automática, 2 altavoces de 10W"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 6284,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FETOE-Seal-Pro-Projector-EU-Plug-525712.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2024-09-26/etoe-seal-pro-projector-eu-plug-826654-1727346455149.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 319.0,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p16",
+      "name": "Proyector de TV Android ETOE Whale Pro",
+      "brand": "ETOE",
+      "category": "Televisores",
+      "image": "📽️",
+      "photo": "https://img.gkbcdn.com/s3/p/2025-06-16/etoe-whale-pro-1500lm--android-tv-11-projector-74cd38-1750057362251.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Proyector con Android TV 11.0 (no es pantalla plana)"
+        },
+        {
+          "label": "Brillo",
+          "value": "1500 lúmenes"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 7860,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FETOE-Whale-Pro-1500LM-Android-TV-11-Projector-528352.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2025-06-16/etoe-whale-pro-1500lm--android-tv-11-projector-74cd38-1750057362251.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 399.0,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p17",
+      "name": "Proyector ETOE Starfish 2 500 ANSI",
+      "brand": "ETOE",
+      "category": "Televisores",
+      "image": "📽️",
+      "photo": "https://img.gkbcdn.com/s3/p/2026-06-26/ETOE-Starfish-2-500-ANSI-Projector-531669-0.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Proyector (no es pantalla plana)"
+        },
+        {
+          "label": "Brillo",
+          "value": "500 ANSI"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 5890,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FETOE-Starfish-2-500-ANSI-Projector-531669.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2026-06-26/ETOE-Starfish-2-500-ANSI-Projector-531669-0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 299.0,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p18",
+      "name": "Mini PC MINIX NR660 Ryzen 5 6600H 16GB+512GB",
+      "brand": "MINIX",
+      "category": "Computadoras",
+      "image": "🖥️",
+      "photo": "https://img.gkbcdn.com/s3/p/2025-05-07/MINIX-NR660-Mini-PC---AMD-Ryzen-5-6600H-16GB-RAM-512GB-SSD-EU-Plug--528722-0.jpg",
+      "specs": [
+        {
+          "label": "Procesador",
+          "value": "AMD Ryzen 5 6600H"
+        },
+        {
+          "label": "RAM + Almacenamiento",
+          "value": "16 GB + 512 GB SSD"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 10027,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FMINIX-NR660-Mini-PC-AMD-Ryzen-5-6600H-16GB-RAM-512GB-SSD-528722.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2025-05-07/MINIX-NR660-Mini-PC---AMD-Ryzen-5-6600H-16GB-RAM-512GB-SSD-EU-Plug--528722-0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 509.0,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p19",
+      "name": "Mini PC BMAX B8 A Pro AMD R7 8745HS 16GB+512GB",
+      "brand": "BMAX",
+      "category": "Computadoras",
+      "image": "🖥️",
+      "photo": "https://img.gkbcdn.com/s3/p/2025-10-15/BMAX-B8A-Pro-Mini-PC-AMD-R7-8745HS-16GB-512GB-530337-0.jpg",
+      "specs": [
+        {
+          "label": "Procesador",
+          "value": "AMD Ryzen 7 8745HS"
+        },
+        {
+          "label": "RAM + Almacenamiento",
+          "value": "16 GB + 512 GB"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 8648,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FBMAX-B8-A-Pro-Mini-PC-AMD-R7-8745HS-16GB-512GB-530337.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2025-10-15/BMAX-B8A-Pro-Mini-PC-AMD-R7-8745HS-16GB-512GB-530337-0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 439.0,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p20",
+      "name": "Mini PC BMAX B6 Turbo Intel Core i5-8257U 16GB+512GB",
+      "brand": "BMAX",
+      "category": "Computadoras",
+      "image": "🖥️",
+      "photo": "https://img.gkbcdn.com/s3/p/2026-03-06/BMAX-B6-Turbo-Mini-PC-Intel-Core-i5-8257U-16GB-DDR4-512GB-SSD-531137-0.jpg",
+      "specs": [
+        {
+          "label": "Procesador",
+          "value": "Intel Core i5-8257U"
+        },
+        {
+          "label": "RAM + Almacenamiento",
+          "value": "16 GB DDR4 + 512 GB SSD"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 5496,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FBMAX-B6-Turbo-Mini-PC-Intel-Core-i5-8257U-16GB-DDR4-512GB-SSD-531137.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2026-03-06/BMAX-B6-Turbo-Mini-PC-Intel-Core-i5-8257U-16GB-DDR4-512GB-SSD-531137-0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 279.0,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p21",
+      "name": "Consola de juegos retro Magicx Zero 40 64GB",
+      "brand": "Magicx",
+      "category": "Videojuegos",
+      "image": "🎮",
+      "photo": "https://img.gkbcdn.com/s3/p/2025-07-03/Magicx-Zero-40-Retro-Game-Console-64GB-Black-529511-0.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Consola portátil de juegos retro"
+        },
+        {
+          "label": "Almacenamiento",
+          "value": "64 GB"
+        },
+        {
+          "label": "Color",
+          "value": "Negro"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 1639,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FMagicx-Zero-40-Retro-Game-Console-64GB-Black-529511.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2025-07-03/Magicx-Zero-40-Retro-Game-Console-64GB-Black-529511-0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 83.18,
             "currency": "EUR"
           }
         }
