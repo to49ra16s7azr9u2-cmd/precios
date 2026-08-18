@@ -232,6 +232,16 @@
     return state.data.stores.find((s) => s.id === id);
   }
 
+  // Logo real de la tienda si hay uno (icons/stores/*.png); si no, cae en
+  // las iniciales de siempre sobre el color de marca — nunca deja el badge
+  // vacío.
+  function storeDotHtml(store) {
+    if (store.logoImg) {
+      return `<span class="store-dot has-logo"><img src="${store.logoImg}" alt="${store.name}" loading="lazy"></span>`;
+    }
+    return `<span class="store-dot" style="background:${store.color}">${store.logo}</span>`;
+  }
+
   function categoryById(id) {
     return state.data.categories.find((c) => c.id === id);
   }
@@ -1101,7 +1111,7 @@
       tr.innerHTML = `
         <td>
           <span class="store-badge">
-            <span class="store-dot" style="background:${r.store.color}">${r.store.logo}</span>
+            ${storeDotHtml(r.store)}
             ${r.store.name}
           </span>
         </td>

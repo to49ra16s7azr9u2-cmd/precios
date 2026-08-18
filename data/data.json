@@ -212,49 +212,56 @@
       "name": "Amazon México",
       "hubRegion": "cdmx_cuauhtemoc",
       "color": "#FF9900",
-      "logo": "A"
+      "logo": "A",
+      "logoImg": "icons/stores/amazon_mx.png"
     },
     {
       "id": "mercadolibre",
       "name": "Mercado Libre",
       "hubRegion": "cdmx_benito_juarez",
       "color": "#FFE600",
-      "logo": "ML"
+      "logo": "ML",
+      "logoImg": "icons/stores/mercadolibre.png"
     },
     {
       "id": "walmart_mx",
       "name": "Walmart México",
       "hubRegion": "mty_monterrey",
       "color": "#0071CE",
-      "logo": "W"
+      "logo": "W",
+      "logoImg": "icons/stores/walmart_mx.png"
     },
     {
       "id": "liverpool",
       "name": "Liverpool",
       "hubRegion": "cdmx_miguel_hidalgo",
       "color": "#E4002B",
-      "logo": "L"
+      "logo": "L",
+      "logoImg": "icons/stores/liverpool.png"
     },
     {
       "id": "costco_mx",
       "name": "Costco México",
       "hubRegion": "gdl_zapopan",
       "color": "#005DAA",
-      "logo": "C"
+      "logo": "C",
+      "logoImg": "icons/stores/costco_mx.png"
     },
     {
       "id": "sunsky",
       "name": "SUNSKY",
       "hubRegion": null,
       "color": "#003F87",
-      "logo": "SK"
+      "logo": "SK",
+      "logoImg": "icons/stores/sunsky.png"
     },
     {
       "id": "geekbuying",
       "name": "Geekbuying",
       "hubRegion": null,
       "color": "#1A1A1A",
-      "logo": "GB"
+      "logo": "GB",
+      "logoImg": "icons/stores/geekbuying.png"
     }
   ],
   "products": [

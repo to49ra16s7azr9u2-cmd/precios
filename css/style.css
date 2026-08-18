@@ -545,6 +545,19 @@ a { color: inherit; text-decoration: none; }
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
+/* Cuando hay foto real del logo, el fondo pasa a blanco con un borde
+   sutil: el logo trae su propio color, no necesita el fondo de marca. */
+.store-dot.has-logo {
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 4px;
+  overflow: hidden;
+}
+.store-dot.has-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 .price-cell { vertical-align: top; }
 /* El precio es el elemento con más peso visual de toda la tabla. */
 .price-line { font-weight: 800; color: var(--red-dark); font-size: 20px; }

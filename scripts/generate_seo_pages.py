@@ -230,8 +230,15 @@ def render_product_page(product, data):
             "backorder": "Sobre pedido",
         }.get(o["stock"], o["stock"])
         rating_label = "—" if o["rating"] is None else f"{o['rating']} / 5 ({o['reviewCount']} reseñas)"
+        if store.get("logoImg"):
+            dot = (
+                f'<span class="store-dot has-logo">'
+                f'<img src="../../{store["logoImg"]}" alt="{html_escape(store["name"])}" loading="lazy"></span>'
+            )
+        else:
+            dot = f'<span class="store-dot" style="background:{store["color"]}">{store["logo"]}</span>'
         table_rows.append(
-            f"<tr><td>{html_escape(store['name'])}</td>"
+            f'<tr><td><span class="store-badge">{dot} {html_escape(store["name"])}</span></td>'
             f"<td class=\"price-cell\"><span class=\"price-line\">{money(o['price'])}</span></td>"
             f"<td>{ship}</td><td>{stock_label}</td>"
             f"<td>{rating_label}</td></tr>"
