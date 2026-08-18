@@ -39,8 +39,7 @@ import unicodedata
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PATH = os.path.join(ROOT, "data", "data.json")
 
-# TODO: cambiar por el dominio real antes de desplegar a producción.
-SITE_URL = "https://comparamx.example"
+SITE_URL = "https://to49ra16s7azr9u2-cmd.github.io/precios"
 
 STORE_ORDER_NOTE = (
     "Los precios de esta página son de referencia para propósitos de "
@@ -132,6 +131,19 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 """
 
 
+def breadcrumb_json_ld(items):
+    """items: lista de (nombre, url|None). url=None para el último elemento
+    (la página actual no necesita item en BreadcrumbList)."""
+    entries = []
+    for i, (name, url) in enumerate(items, start=1):
+        entry = {"@type": "ListItem", "position": i, "name": name}
+        if url:
+            entry["item"] = url
+        entries.append(entry)
+    ld = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": entries}
+    return json.dumps(ld, ensure_ascii=False, indent=2)
+
+
 def product_json_ld(product, data, canonical):
     avg, count = aggregate_rating(product)
     offers = [
@@ -175,6 +187,16 @@ def product_json_ld(product, data, canonical):
     return json.dumps(ld, ensure_ascii=False, indent=2)
 
 
+def related_products(product, all_products, n=4):
+    """Mismos criterios que un bloque 'productos relacionados' de Kakaku:
+    misma categoría, ordenados por cercanía de precio (no aleatorio), sin
+    incluir el producto actual."""
+    same_cat = [p for p in all_products if p["category"] == product["category"] and p["id"] != product["id"]]
+    price = min_price(product)
+    same_cat.sort(key=lambda p: abs(min_price(p) - price))
+    return same_cat[:n]
+
+
 def render_product_page(product, data):
     cat = next(c for c in data["categories"] if c["id"] == product["category"])
     cat_slug = slugify(cat["name"])
@@ -211,6 +233,38 @@ def render_product_page(product, data):
         for s in product["specs"]
     )
 
+    # Texto de reseñas real (no simulado, viene del catálogo curado) para que
+    # los buscadores tengan contenido único que indexar, no solo la tabla de
+    # precios: es el punto "UGC" del comparativo con Kakaku.com.
+    review_items = "".join(
+        f'<div class="review-item">'
+        f'<div class="review-stars">{"★" * r["rating"]}{"☆" * (5 - r["rating"])}</div>'
+        f'<div class="review-meta"><strong>{html_escape(r["author"])}</strong> — {html_escape(r["date"])}</div>'
+        f'<p class="review-comment">{html_escape(r["comment"])}</p>'
+        f"</div>"
+        for r in product["reviews"]
+    )
+    reviews_html = (
+        f'<div class="panel"><h2>Reseñas de compradores</h2><div class="review-list">{review_items}</div></div>'
+        if product["reviews"]
+        else ""
+    )
+
+    related = related_products(product, data["products"])
+    related_items = "".join(
+        f'<a class="related-item" href="../../producto/{r["id"]}/index.html">'
+        f'<span class="row-icon">{r.get("image", "📦")}</span>'
+        f'<span class="related-name">{html_escape(r["name"])}</span>'
+        f'<span class="related-price">Desde {money(min_price(r))}</span>'
+        f"</a>"
+        for r in related
+    )
+    related_html = (
+        f'<div class="panel"><h2>Productos relacionados</h2><div class="related-grid">{related_items}</div></div>'
+        if related
+        else ""
+    )
+
     body = f"""
 <nav class="breadcrumb">
   <a href="../../index.html">Inicio</a> &gt;
@@ -240,13 +294,23 @@ def render_product_page(product, data):
   <h2>Especificaciones</h2>
   <table class="spec-table">{specs_rows}</table>
 </div>
+{reviews_html}
+{related_html}
 <div class="panel" style="text-align:center">
   <h2>Ver la comparación interactiva</h2>
   <p class="muted small">Mapa de tiempo de entrega por municipio, historial de precio de 30 días y reseñas de compradores.</p>
   <a class="buy-btn" href="../../index.html#/p/{product['id']}">Abrir ComparaMX interactivo →</a>
 </div>
 """
-    extra_head = f'<script type="application/ld+json">\n{product_json_ld(product, data, canonical)}\n</script>'
+    breadcrumbs = breadcrumb_json_ld([
+        ("Inicio", f"{SITE_URL}/index.html"),
+        (cat["name"], f"{SITE_URL}/categoria/{cat_slug}/"),
+        (product["name"], None),
+    ])
+    extra_head = (
+        f'<script type="application/ld+json">\n{product_json_ld(product, data, canonical)}\n</script>\n'
+        f'<script type="application/ld+json">\n{breadcrumbs}\n</script>'
+    )
     title = f"{product['name']} — Compara precios en México | ComparaMX"
     return page_shell(title, description, canonical_path, body, depth=2, extra_head=extra_head)
 
@@ -282,8 +346,13 @@ def render_category_page(cat, products, data):
   <a class="buy-btn" href="../../index.html#/list?cat={cat['id']}">Ver con filtros interactivos →</a>
 </div>
 """
+    breadcrumbs = breadcrumb_json_ld([
+        ("Inicio", f"{SITE_URL}/index.html"),
+        (cat["name"], None),
+    ])
+    extra_head = f'<script type="application/ld+json">\n{breadcrumbs}\n</script>'
     title = f"{cat['name']} — Comparar precios en México | ComparaMX"
-    return page_shell(title, description, canonical_path, body, depth=2)
+    return page_shell(title, description, canonical_path, body, depth=2, extra_head=extra_head)
 
 
 def build_sitemap(data):
@@ -337,12 +406,6 @@ def main():
     print(f"Generadas {len(written)} páginas/archivos SEO en {ROOT}:")
     for path in written:
         print(" -", os.path.relpath(path, ROOT))
-    if SITE_URL == "https://comparamx.example":
-        print(
-            "\nAVISO: SITE_URL sigue en el valor de ejemplo. Antes de desplegar a "
-            "producción, edita SITE_URL en scripts/generate_seo_pages.py con el "
-            "dominio real y vuelve a correr este script."
-        )
 
 
 if __name__ == "__main__":
