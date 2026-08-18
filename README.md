@@ -140,7 +140,7 @@ Una vez que sigas esa guía y despliegues el Worker, solo falta pegar sus dos UR
 
 ## Juntar el mismo producto entre tiendas (`scripts/product_matcher.py`)
 
-Cada producto real que hay hoy en el catálogo viene de **una sola tienda** (SUNSKY o Geekbuying) porque todavía no hay dos fuentes con el mismo producto físico. `scripts/product_matcher.py` es el algoritmo para cuando sí las haya: dado un lote de ofertas de varias tiendas/feeds, decide cuáles son el mismo producto y las junta en un grupo (una ficha, N ofertas), en vez de crear una ficha por tienda.
+Cada producto real que hay hoy en el catálogo viene de **una sola tienda** (SUNSKY, Geekbuying, Molnija Shop, StyleWE, Glasseslit o Woodestic) porque todavía no hay dos fuentes con el mismo producto físico. `scripts/product_matcher.py` es el algoritmo para cuando sí las haya: dado un lote de ofertas de varias tiendas/feeds, decide cuáles son el mismo producto y las junta en un grupo (una ficha, N ofertas), en vez de crear una ficha por tienda.
 
 Sigue un pipeline de 5 pasos, cada uno con un umbral de confianza más bajo que el anterior:
 

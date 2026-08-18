@@ -2,7 +2,7 @@
   "meta": {
     "currency": "MXN",
     "updated": "2026-08-19",
-    "note": "Catálogo en reconstrucción con datos reales: 21 productos con precio/foto/URL reales de SUNSKY y Geekbuying (feeds de Admitad), envío internacional directo desde esas tiendas (no hay tienda mexicana equivalente todavía). Precios convertidos de USD/EUR a MXN a un tipo de cambio aproximado. Televisores son proyectores con Android TV (no hay smart TV de pantalla plana en las fuentes disponibles) y Videojuegos es una sola consola retro — se marca así de forma honesta en vez de forzar productos que no encajan."
+    "note": "Catálogo en reconstrucción con datos reales: 42 productos con precio/foto/URL reales tomados de feeds de Admitad (SUNSKY, Geekbuying, Molnija Shop, StyleWE, Glasseslit, Woodestic). Todas las tiendas son de envío internacional directo (no hay tienda mexicana equivalente todavía). Precios convertidos de USD/EUR/RUB a MXN a un tipo de cambio aproximado. Celulares/Computadoras/Electrodomésticos/Televisores/Videojuegos vienen de electrónica real de SUNSKY y Geekbuying (Televisores son proyectores con Android TV y Videojuegos es una sola consola retro, honestamente marcados así en vez de forzar productos que no encajan). Joyería y relojes son relojes reales de la fábrica rusa Molnija. Moda y accesorios combina ropa de StyleWE y lentes de Glasseslit. Juegos de mesa son crokinole, shuffleboard y carrom de madera de Woodestic."
   },
   "categories": [
     {
@@ -29,6 +29,21 @@
       "id": "Videojuegos",
       "name": "Videojuegos",
       "icon": "🎮"
+    },
+    {
+      "id": "Joyería y relojes",
+      "name": "Joyería y relojes",
+      "icon": "⌚"
+    },
+    {
+      "id": "Moda y accesorios",
+      "name": "Moda y accesorios",
+      "icon": "👗"
+    },
+    {
+      "id": "Juegos de mesa",
+      "name": "Juegos de mesa",
+      "icon": "🎲"
     }
   ],
   "metros": [
@@ -262,6 +277,37 @@
       "color": "#1A1A1A",
       "logo": "GB",
       "logoImg": "icons/stores/geekbuying.png"
+    },
+    {
+      "id": "molnija",
+      "name": "Molnija Shop",
+      "hubRegion": null,
+      "color": "#1A1A1A",
+      "logo": "M",
+      "logoImg": "icons/stores/molnija.png"
+    },
+    {
+      "id": "stylewe",
+      "name": "StyleWE",
+      "hubRegion": null,
+      "color": "#2E2E2E",
+      "logo": "SW"
+    },
+    {
+      "id": "glasseslit",
+      "name": "Glasseslit",
+      "hubRegion": null,
+      "color": "#8B6F47",
+      "logo": "GL",
+      "logoImg": "icons/stores/glasseslit.png"
+    },
+    {
+      "id": "woodestic",
+      "name": "Woodestic",
+      "hubRegion": null,
+      "color": "#8B6F47",
+      "logo": "WD",
+      "logoImg": "icons/stores/woodestic.png"
     }
   ],
   "products": [
@@ -1134,6 +1180,923 @@
           "priceOriginal": {
             "amount": 83.18,
             "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p22",
+      "name": "Molnija АЧС Pilot 3603S 42mm Cuerda Manual Negro",
+      "brand": "Molnija",
+      "category": "Joyería y relojes",
+      "image": "⌚",
+      "photo": "https://molnija.shop/upload/iblock/253/7gq8ax49rbf2zowme21822f9x0nx3t1j.png",
+      "specs": [
+        {
+          "label": "Movimiento",
+          "value": "Cuerda manual (mecánico), calibre Молния 3603S"
+        },
+        {
+          "label": "Diámetro",
+          "value": "42 mm"
+        },
+        {
+          "label": "Resistencia",
+          "value": "Antigolpes"
+        },
+        {
+          "label": "Estilo",
+          "value": "Aviador"
+        },
+        {
+          "label": "Color",
+          "value": "Negro"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "molnija",
+          "price": 14600,
+          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fachs-pilot%2Fachs-pilot-3603s-42-mm-ruchnoy-podzavod-black%2F",
+          "photo": "https://molnija.shop/upload/iblock/253/7gq8ax49rbf2zowme21822f9x0nx3t1j.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 73000,
+            "currency": "RUB"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p23",
+      "name": "Molnija Tank 8215 42mm Automático Negro",
+      "brand": "Molnija",
+      "category": "Joyería y relojes",
+      "image": "⌚",
+      "photo": "https://molnija.shop/upload/iblock/e22/ru57qf6mnh25h1vu4i1wajc0v8fxbo1m.png",
+      "specs": [
+        {
+          "label": "Movimiento",
+          "value": "Automático, calibre 8215"
+        },
+        {
+          "label": "Diámetro",
+          "value": "42 mm"
+        },
+        {
+          "label": "Resistencia",
+          "value": "Antigolpes, uso militar"
+        },
+        {
+          "label": "Color",
+          "value": "Negro"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "molnija",
+          "price": 11600,
+          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftank%2Ftank-8215-42-mm-avtopodzavod-black%2F",
+          "photo": "https://molnija.shop/upload/iblock/e22/ru57qf6mnh25h1vu4i1wajc0v8fxbo1m.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 58000,
+            "currency": "RUB"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p24",
+      "name": "Molnija Grand 8215 42mm Automático Verde",
+      "brand": "Molnija",
+      "category": "Joyería y relojes",
+      "image": "⌚",
+      "photo": "https://molnija.shop/upload/iblock/43f/c64frykjdlsjstyjzwefkcmzkyqpmwrk.png",
+      "specs": [
+        {
+          "label": "Movimiento",
+          "value": "Automático con fecha, calibre 8215"
+        },
+        {
+          "label": "Diámetro",
+          "value": "42 mm"
+        },
+        {
+          "label": "Cristal",
+          "value": "Antirreflejante, tapa trasera transparente"
+        },
+        {
+          "label": "Color",
+          "value": "Verde"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "molnija",
+          "price": 13000,
+          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fgrand%2Fgrand-tcb-8215-42-mm-avtopodzavod-green%2F",
+          "photo": "https://molnija.shop/upload/iblock/43f/c64frykjdlsjstyjzwefkcmzkyqpmwrk.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 65000,
+            "currency": "RUB"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p25",
+      "name": "Molnija АЧС-1 44mm Automático Negro",
+      "brand": "Molnija",
+      "category": "Joyería y relojes",
+      "image": "⌚",
+      "photo": "https://molnija.shop/upload/iblock/9ad/iw5hjz9g0k09a0cwi3jp09ct15w9az3j.png",
+      "specs": [
+        {
+          "label": "Movimiento",
+          "value": "Automático con fecha"
+        },
+        {
+          "label": "Diámetro",
+          "value": "44 mm"
+        },
+        {
+          "label": "Acabado",
+          "value": "Pulido mate, tapa trasera transparente"
+        },
+        {
+          "label": "Estilo",
+          "value": "Aviador"
+        },
+        {
+          "label": "Color",
+          "value": "Negro"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "molnija",
+          "price": 9900,
+          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fachs-1%2Fachs-1-tsv-8215-44-mm-avtopodzavod-black-black%2F",
+          "photo": "https://molnija.shop/upload/iblock/9ad/iw5hjz9g0k09a0cwi3jp09ct15w9az3j.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 49500,
+            "currency": "RUB"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p26",
+      "name": "Molnija Hyron Z60 44mm Cuarzo Cronógrafo Azul",
+      "brand": "Molnija",
+      "category": "Joyería y relojes",
+      "image": "⌚",
+      "photo": "https://molnija.shop/upload/iblock/585/9arvtkmiz4dtia3sabquidnmxhq3dpyx.png",
+      "specs": [
+        {
+          "label": "Movimiento",
+          "value": "Cuarzo (mecanismo suizo), cronógrafo"
+        },
+        {
+          "label": "Diámetro",
+          "value": "44 mm"
+        },
+        {
+          "label": "Caja",
+          "value": "Acero mate"
+        },
+        {
+          "label": "Iluminación",
+          "value": "Super-LumiNova"
+        },
+        {
+          "label": "Color",
+          "value": "Azul"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "molnija",
+          "price": 10800,
+          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-z60-44-mm-kvarts-khronograf-blue%2F",
+          "photo": "https://molnija.shop/upload/iblock/585/9arvtkmiz4dtia3sabquidnmxhq3dpyx.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 54000,
+            "currency": "RUB"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p27",
+      "name": "Molnija Hyron TCB 8215 44mm Automático Azul",
+      "brand": "Molnija",
+      "category": "Joyería y relojes",
+      "image": "⌚",
+      "photo": "https://molnija.shop/upload/iblock/485/arhs3ng9wabaozams243dwr11okoxn2a.png",
+      "specs": [
+        {
+          "label": "Movimiento",
+          "value": "Automático con fecha, calibre 8215"
+        },
+        {
+          "label": "Diámetro",
+          "value": "44 mm"
+        },
+        {
+          "label": "Caja",
+          "value": "Acero mate, antigolpes"
+        },
+        {
+          "label": "Iluminación",
+          "value": "Super-LumiNova"
+        },
+        {
+          "label": "Color",
+          "value": "Azul"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "molnija",
+          "price": 12400,
+          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-tcb-8215-44-mm-avtopodzavod-blue%2F",
+          "photo": "https://molnija.shop/upload/iblock/485/arhs3ng9wabaozams243dwr11okoxn2a.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 62000,
+            "currency": "RUB"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p28",
+      "name": "StyleWE Blusa Asimétrica de un Hombro con Elasticidad",
+      "brand": "StyleWE",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/prod/images/2024-05-29/2a425b6a9e7dde6c865eb15ebd72bafa.jpg",
+      "specs": [
+        {
+          "label": "Color",
+          "value": "Blanco"
+        },
+        {
+          "label": "Talla",
+          "value": "XXL"
+        },
+        {
+          "label": "Tipo",
+          "value": "Blusa sin mangas, cuello alto"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "stylewe",
+          "price": 595,
+          "url": "https://codeaven.com/g/r9ybpohdxo43517c81ee806f4427c0/?f_id=21470&ulp=https%3A%2F%2Fwww.stylewe.com%2Fproducts%2Fhigh-elasticity-casual-stand-collar-sleeveless-loose-shirt-16316855%3Fsku%3DSH4K6997535D",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/prod/images/2024-05-29/2a425b6a9e7dde6c865eb15ebd72bafa.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 34.99,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p29",
+      "name": "StyleWE Pantalón Urbano Estampado de Leopardo",
+      "brand": "StyleWE",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2024-08/08/71179b725c763e162a08279e5b736c5f.jpg",
+      "specs": [
+        {
+          "label": "Color",
+          "value": "Café"
+        },
+        {
+          "label": "Talla",
+          "value": "XXL"
+        },
+        {
+          "label": "Largo",
+          "value": "Tobillero"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "stylewe",
+          "price": 816,
+          "url": "https://codeaven.com/g/r9ybpohdxo43517c81ee806f4427c0/?f_id=21470&ulp=https%3A%2F%2Fwww.stylewe.com%2Fproducts%2Fleopard-pocket-stitching-regular-fit-urban-fashion-pants-16430351%3Fsku%3DFA8880045C67",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2024-08/08/71179b725c763e162a08279e5b736c5f.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 48.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p30",
+      "name": "StyleWE Falda Urbana Corte Regular Lisa",
+      "brand": "StyleWE",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2024-08/06/1c1d550c29bccef99460aebc1b4cc7ce.png",
+      "specs": [
+        {
+          "label": "Color",
+          "value": "Rojo"
+        },
+        {
+          "label": "Talla",
+          "value": "XXL"
+        },
+        {
+          "label": "Cintura",
+          "value": "Media"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "stylewe",
+          "price": 680,
+          "url": "https://codeaven.com/g/r9ybpohdxo43517c81ee806f4427c0/?f_id=21470&ulp=https%3A%2F%2Fwww.stylewe.com%2Fproducts%2Furban-regular-fit-plain-skirt-16436106%3Fsku%3DSK8666388CA6",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2024-08/06/1c1d550c29bccef99460aebc1b4cc7ce.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 39.99,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p31",
+      "name": "StyleWE Vestido Maxi Elegante Cuello con Perlas",
+      "brand": "StyleWE",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2026-07/28/aa109ef66eed8b5b60eed58518bb7284.png",
+      "specs": [
+        {
+          "label": "Color",
+          "value": "Negro"
+        },
+        {
+          "label": "Talla",
+          "value": "XXL"
+        },
+        {
+          "label": "Largo",
+          "value": "Maxi"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "stylewe",
+          "price": 1131,
+          "url": "https://codeaven.com/g/r9ybpohdxo43517c81ee806f4427c0/?f_id=21470&ulp=https%3A%2F%2Fwww.stylewe.com%2Fproducts%2Felegant-plain-pearl-stand-collar-maxi-dress-17157165%3Fsku%3DDR7N83E95EAD",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2026-07/28/aa109ef66eed8b5b60eed58518bb7284.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 66.53,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p32",
+      "name": "StyleWE Playera Cuello Tortuga Manga Larga Abstracta",
+      "brand": "StyleWE",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2023-09/07/1f59c6feb13fd28cce782ec0eabb4eb4.jpg",
+      "specs": [
+        {
+          "label": "Color",
+          "value": "Estampado"
+        },
+        {
+          "label": "Talla",
+          "value": "XXL"
+        },
+        {
+          "label": "Corte",
+          "value": "Entallado"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "stylewe",
+          "price": 561,
+          "url": "https://codeaven.com/g/r9ybpohdxo43517c81ee806f4427c0/?f_id=21470&ulp=https%3A%2F%2Fwww.stylewe.com%2Fproducts%2Fturtleneck-long-sleeve-urban-abstract-tight-t-shirt-16001421%3Fsku%3DT-986FBA5E61",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2023-09/07/1f59c6feb13fd28cce782ec0eabb4eb4.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 32.99,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p33",
+      "name": "StyleWE Jeans de Mezclilla Corte Regular Urbano",
+      "brand": "StyleWE",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2022-12-31/64a3ce54f6aca930ec34aeb0f9570091.jpg",
+      "specs": [
+        {
+          "label": "Color",
+          "value": "Azul"
+        },
+        {
+          "label": "Talla",
+          "value": "XXL"
+        },
+        {
+          "label": "Corte",
+          "value": "Regular / Slim fit"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "stylewe",
+          "price": 799,
+          "url": "https://codeaven.com/g/r9ybpohdxo43517c81ee806f4427c0/?f_id=21470&ulp=https%3A%2F%2Fwww.stylewe.com%2Fproducts%2Fwomen-plain-all-season-urban-zipper-natural-daily-denim-h-line-regular-jeans-14762995%3Fsku%3DJEC021770FCC",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2022-12-31/64a3ce54f6aca930ec34aeb0f9570091.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 46.99,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p34",
+      "name": "Glasseslit Bella Lentes Cat-Eye",
+      "brand": "Glasseslit",
+      "category": "Moda y accesorios",
+      "image": "🕶️",
+      "photo": "https://www.glasseslit.com/Public/img/products/200353/C4_0.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Armazón graduable (eyeglasses)"
+        },
+        {
+          "label": "Color",
+          "value": "Café cameo"
+        },
+        {
+          "label": "Material temple",
+          "value": "Metal"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "glasseslit",
+          "price": 119,
+          "url": "https://codeaven.com/g/mmjnepjawo43517c81eede0721ef8d/?f_id=17760&ulp=https%3A%2F%2Fwww.glasseslit.com%2Fproinfo%2Fbella-cameo_brown-200353",
+          "photo": "https://www.glasseslit.com/Public/img/products/200353/C4_0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 7.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p35",
+      "name": "Glasseslit 400173 Lentes de Sol Ovalados",
+      "brand": "Glasseslit",
+      "category": "Moda y accesorios",
+      "image": "🕶️",
+      "photo": "https://www.glasseslit.com/Public/img/products/400173/C2_0.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Lentes de sol"
+        },
+        {
+          "label": "Color",
+          "value": "Carey (tortoiseshell)"
+        },
+        {
+          "label": "Detalle",
+          "value": "Remaches en el brazo"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "glasseslit",
+          "price": 390,
+          "url": "https://codeaven.com/g/mmjnepjawo43517c81eede0721ef8d/?f_id=17760&ulp=https%3A%2F%2Fwww.glasseslit.com%2Fproinfo%2F400173-tortoiseshell-400173",
+          "photo": "https://www.glasseslit.com/Public/img/products/400173/C2_0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 22.95,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p36",
+      "name": "Glasseslit Kira Lentes de Lectura Rectangulares",
+      "brand": "Glasseslit",
+      "category": "Moda y accesorios",
+      "image": "🕶️",
+      "photo": "https://www.glasseslit.com/Public/img/products/200415/brown_0.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Lentes de lectura"
+        },
+        {
+          "label": "Color",
+          "value": "Café"
+        },
+        {
+          "label": "Detalle",
+          "value": "Puntas antideslizantes"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "glasseslit",
+          "price": 85,
+          "url": "https://codeaven.com/g/mmjnepjawo43517c81eede0721ef8d/?f_id=17760&ulp=https%3A%2F%2Fwww.glasseslit.com%2Fproinfo%2Fkira--200415",
+          "photo": "https://www.glasseslit.com/Public/img/products/200415/brown_0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 5.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p37",
+      "name": "Glasseslit 100284 Lentes de Sol Cuadrados",
+      "brand": "Glasseslit",
+      "category": "Moda y accesorios",
+      "image": "🕶️",
+      "photo": "https://www.glasseslit.com/Public/img/products/100284/grey_0.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Lentes de sol"
+        },
+        {
+          "label": "Color",
+          "value": "Gris"
+        },
+        {
+          "label": "Material",
+          "value": "TR90 flexible y ligero"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "glasseslit",
+          "price": 390,
+          "url": "https://codeaven.com/g/mmjnepjawo43517c81eede0721ef8d/?f_id=17760&ulp=https%3A%2F%2Fwww.glasseslit.com%2Fproinfo%2F100284-grey-100284",
+          "photo": "https://www.glasseslit.com/Public/img/products/100284/grey_0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 22.95,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p38",
+      "name": "Woodestic Crokinole Mini Gold Set Nogal-Ébano",
+      "brand": "Woodestic",
+      "category": "Juegos de mesa",
+      "image": "🎲",
+      "photo": "https://woodestic.com/wp-content/uploads/walnut-ebony.webp",
+      "specs": [
+        {
+          "label": "Juego",
+          "value": "Crokinole (tamaño mini)"
+        },
+        {
+          "label": "Madera del tablero",
+          "value": "Nogal"
+        },
+        {
+          "label": "Cuero de la zanja",
+          "value": "Ébano"
+        },
+        {
+          "label": "Jugadores",
+          "value": "2-4"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "woodestic",
+          "price": 7463,
+          "url": "https://naiawork.com/g/do86ucnzhx43517c81eec586cc6aee/?f_id=26480&ulp=https%3A%2F%2Fwoodestic.com%2Fshop%2Fwoodestic-crokinole-mini-gold-set%2F%3Fattribute_board-color%3DWalnut%26attribute_ditch-leather-color%3DEbony",
+          "photo": "https://woodestic.com/wp-content/uploads/walnut-ebony.webp",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 439.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p39",
+      "name": "Woodestic Crokinole Tournament Bronze Set Haya-Cognac",
+      "brand": "Woodestic",
+      "category": "Juegos de mesa",
+      "image": "🎲",
+      "photo": "https://woodestic.com/wp-content/uploads/beech-cognac-0960-2000x2000-1.png",
+      "specs": [
+        {
+          "label": "Juego",
+          "value": "Crokinole (tamaño torneo)"
+        },
+        {
+          "label": "Madera del tablero",
+          "value": "Haya vaporizada"
+        },
+        {
+          "label": "Color de zanja",
+          "value": "Cognac"
+        },
+        {
+          "label": "Jugadores",
+          "value": "2-4"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "woodestic",
+          "price": 9843,
+          "url": "https://naiawork.com/g/do86ucnzhx43517c81eec586cc6aee/?f_id=26480&ulp=https%3A%2F%2Fwoodestic.com%2Fshop%2Fwoodestic-crokinole-tournament-bronze-set%2F%3Fattribute_pa_board-color%3Dsteamed-beech%26attribute_pa_ditch-color%3Dcognac",
+          "photo": "https://woodestic.com/wp-content/uploads/beech-cognac-0960-2000x2000-1.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 579.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p40",
+      "name": "Woodestic Shuffleboard Cerezo / Blanco Elegante Bronze",
+      "brand": "Woodestic",
+      "category": "Juegos de mesa",
+      "image": "🎲",
+      "photo": "https://woodestic.com/wp-content/uploads/bronze-cherry-white-9201-scaled-1.webp",
+      "specs": [
+        {
+          "label": "Juego",
+          "value": "Shuffleboard de mesa"
+        },
+        {
+          "label": "Dimensiones",
+          "value": "149 x 30 x 5 cm"
+        },
+        {
+          "label": "Peso",
+          "value": "10 kg"
+        },
+        {
+          "label": "Jugadores",
+          "value": "2-4, desde 7 años"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "woodestic",
+          "price": 9673,
+          "url": "https://naiawork.com/g/do86ucnzhx43517c81eec586cc6aee/?f_id=26480&ulp=https%3A%2F%2Fwoodestic.com%2Fshop%2Fshuffleboard-cherry-elegant-white%2F%3Fattribute_set-type%3DBronze",
+          "photo": "https://woodestic.com/wp-content/uploads/bronze-cherry-white-9201-scaled-1.webp",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 569.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p41",
+      "name": "Woodestic PitRush Cerezo-Ébano",
+      "brand": "Woodestic",
+      "category": "Juegos de mesa",
+      "image": "🎲",
+      "photo": "https://woodestic.com/wp-content/uploads/pitrush-cherry-ebony.webp",
+      "specs": [
+        {
+          "label": "Juego",
+          "value": "PitRush (juego de mesa de madera)"
+        },
+        {
+          "label": "Madera del tablero",
+          "value": "Cerezo"
+        },
+        {
+          "label": "Color de zanja",
+          "value": "Ébano"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "woodestic",
+          "price": 4913,
+          "url": "https://naiawork.com/g/do86ucnzhx43517c81eec586cc6aee/?f_id=26480&ulp=https%3A%2F%2Fwoodestic.com%2Fshop%2Fwoodestic-pitrush%2F%3Fattribute_board-color%3DCherry%26attribute_ditch-color%3DEbony",
+          "photo": "https://woodestic.com/wp-content/uploads/pitrush-cherry-ebony.webp",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 289.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p42",
+      "name": "Woodestic Carrom Plata Cerezo-Ébano",
+      "brand": "Woodestic",
+      "category": "Juegos de mesa",
+      "image": "🎲",
+      "photo": "https://woodestic.com/wp-content/uploads/Carrom-Cseresznye-Eben-1-scaled.webp",
+      "specs": [
+        {
+          "label": "Juego",
+          "value": "Carrom"
+        },
+        {
+          "label": "Madera del tablero",
+          "value": "Cerezo"
+        },
+        {
+          "label": "Color de zanja",
+          "value": "Ébano"
+        },
+        {
+          "label": "Acabado del set",
+          "value": "Plata"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "woodestic",
+          "price": 10523,
+          "url": "https://naiawork.com/g/do86ucnzhx43517c81eec586cc6aee/?f_id=26480&ulp=https%3A%2F%2Fwoodestic.com%2Fshop%2Fwoodestic-carrom%2F%3Fattribute_set-type%3DSilver%26attribute_board-color%3DCherry%26attribute_ditch-color%3DEbony",
+          "photo": "https://woodestic.com/wp-content/uploads/Carrom-Cseresznye-Eben-1-scaled.webp",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 619.0,
+            "currency": "USD"
           }
         }
       ]
