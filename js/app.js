@@ -228,6 +228,14 @@
     return n.toLocaleString("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 });
   }
 
+  // Los textos de variante (color/talla) y sus URLs vienen tal cual del feed
+  // de la tienda, no de un input del usuario, pero igual pueden traer
+  // comillas o símbolos raros — se escapan antes de meterlos en un atributo
+  // HTML para no depender de que el feed nunca traiga algo inesperado.
+  function htmlEscapeAttr(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
   function storeById(id) {
     return state.data.stores.find((s) => s.id === id);
   }
@@ -738,6 +746,11 @@
     products.forEach((p, i) => {
       const { avg, count } = aggregateRating(p);
       const rank = i + 1;
+      // Un pequeño aviso "de un vistazo" en la lista, sin abrir la ficha,
+      // de que este producto tiene más colores/tallas disponibles (los
+      // pills completos, con link a cada uno, viven en la tabla de la
+      // ficha de producto — ver renderOfferRows).
+      const variantCount = Math.max(0, ...p.offers.map((o) => (o.variants ? o.variants.length : 0)));
       const row = document.createElement("div");
       row.className = "product-row" + (opts.withRank ? " has-rank" : "");
       row.innerHTML = `
@@ -745,7 +758,7 @@
         <span class="row-icon">${p.image}</span>
         <div class="row-info">
           <div class="row-brand">${p.brand}</div>
-          <div class="row-name">${p.name}</div>
+          <div class="row-name">${p.name}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">🎨 +${variantCount}</span>` : ""}</div>
           <div class="row-stars">${starsHtml(avg)} <span class="muted">${avg.toFixed(1)} (${count})</span></div>
         </div>
         <div class="row-priceblock">
@@ -1108,12 +1121,30 @@
       // en el tooltip para que se lea como una sugerencia transparente y no
       // como un sello arbitrario.
       const isRecommended = r.storeId === recommendedStoreId;
+      // Cuando el feed de origen traía la misma variante en otros
+      // colores/tallas, se guardó como r.variants en vez de crear una
+      // ficha de producto aparte por cada una (evita inflar el catálogo
+      // con "el mismo mueble en 6 acabados"). Se muestran como pastillas
+      // clicables junto al nombre de la tienda para que sea obvio de un
+      // vistazo que hay más opciones, sin abrir la tabla completa.
+      // Cada pastilla lleva su propia foto en miniatura (como el selector de
+      // color de Kakaku.com) para que la diferencia entre variantes se vea
+      // de un vistazo, no solo se lea en texto.
+      const variantsHtml = r.variants && r.variants.length
+        ? `<div class="variant-pills" title="También disponible en otras variantes">
+            <span class="variant-pills-label">🎨 ${r.variants.length + 1} variantes:</span>
+            ${[{ label: "Esta", url: r.url, photo: r.photo }, ...r.variants].map(
+              (v, i) => `<button class="variant-pill${i === 0 ? " active" : ""}" data-url="${htmlEscapeAttr(v.url)}">${v.photo ? `<img src="${htmlEscapeAttr(v.photo)}" alt="" loading="lazy">` : ""}<span>${htmlEscapeAttr(v.label)}</span></button>`
+            ).join("")}
+          </div>`
+        : "";
       tr.innerHTML = `
         <td>
           <span class="store-badge">
             ${storeDotHtml(r.store)}
             ${r.store.name}
           </span>
+          ${variantsHtml}
         </td>
         <td class="price-cell">
           <div>${discountHtml}</div>
@@ -1132,6 +1163,14 @@
         </td>
       `;
       tr.querySelector(".buy-btn").onclick = () => window.open(r.url, "_blank");
+      tr.querySelectorAll(".variant-pill").forEach((btn) => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          tr.querySelectorAll(".variant-pill").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          window.open(btn.dataset.url, "_blank");
+        };
+      });
       tbody.appendChild(tr);
     });
   }

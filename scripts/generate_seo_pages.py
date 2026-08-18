@@ -237,8 +237,21 @@ def render_product_page(product, data):
             )
         else:
             dot = f'<span class="store-dot" style="background:{store["color"]}">{store["logo"]}</span>'
+        variants = o.get("variants") or []
+        variants_html = ""
+        if variants:
+            pills = "".join(
+                f'<a class="variant-pill" href="{v["url"]}" target="_blank" rel="nofollow noopener">'
+                f'<img src="{v["photo"]}" alt="" loading="lazy"><span>{html_escape(v["label"])}</span></a>'
+                for v in variants
+            )
+            variants_html = (
+                f'<div class="variant-pills"><span class="variant-pills-label">🎨 {len(variants) + 1} variantes:</span>'
+                f'<a class="variant-pill active" href="{o["url"]}" target="_blank" rel="nofollow noopener">'
+                f'<img src="{o["photo"]}" alt="" loading="lazy"><span>Esta</span></a>{pills}</div>'
+            )
         table_rows.append(
-            f'<tr><td><span class="store-badge">{dot} {html_escape(store["name"])}</span></td>'
+            f'<tr><td><span class="store-badge">{dot} {html_escape(store["name"])}</span>{variants_html}</td>'
             f"<td class=\"price-cell\"><span class=\"price-line\">{money(o['price'])}</span></td>"
             f"<td>{ship}</td><td>{stock_label}</td>"
             f"<td>{rating_label}</td></tr>"
@@ -348,13 +361,15 @@ def render_category_page(cat, products, data):
     rows = []
     for i, p in enumerate(ranked, start=1):
         rank_badge = "👑" if i == 1 else str(i)
+        variant_count = max([len(o.get("variants") or []) for o in p["offers"]], default=0)
+        variant_badge = f'<span class="variant-count-badge" title="También disponible en otros colores/tallas">🎨 +{variant_count}</span>' if variant_count else ""
         rows.append(
             f'<div class="product-row has-rank">'
             f'<span class="rank-badge">{rank_badge}</span>'
             f'<span class="row-icon">{p.get("image", "📦")}</span>'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
-            f'<div class="row-name"><a href="../../producto/{p["id"]}/index.html">{html_escape(p["name"])}</a></div>'
+            f'<div class="row-name"><a href="../../producto/{p["id"]}/index.html">{html_escape(p["name"])}</a>{variant_badge}</div>'
             f'</div>'
             f'<div class="row-priceblock">'
             f'<div class="row-from">Desde</div>'
