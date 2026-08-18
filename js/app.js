@@ -925,6 +925,7 @@
     "Software e IA": "🤖",
     "Hosting y dominios": "🌐",
     "Otros": "📦",
+    "Salud y bienestar": "🌿",
   };
 
   function brandCategories() {
