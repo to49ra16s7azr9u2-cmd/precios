@@ -588,21 +588,6 @@ a { color: inherit; text-decoration: none; }
   color: var(--green);
   vertical-align: middle;
 }
-/* Insignia de "precio mínimo del mes": señal de urgencia honesta basada en
-   el mismo histórico de 30 días que ya se grafica más abajo, no un dato
-   inventado ni una cuenta regresiva. */
-.min-price-badge {
-  display: inline-block;
-  margin-left: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #b8860b;
-  background: #fff8ec;
-  padding: 3px 10px;
-  border-radius: 12px;
-  border: 1px solid #f3ddb5;
-  vertical-align: middle;
-}
 .delivery-sub { margin-top: 5px; font-size: 13px; color: var(--muted); }
 .delivery-fast { color: var(--green); font-weight: 700; }
 .stars-cell { color: var(--gold); white-space: nowrap; font-size: 14px; }
@@ -766,26 +751,6 @@ a { color: inherit; text-decoration: none; }
 .stock-back { color: var(--muted); }
 
 /* ---------- Historial de precio ---------- */
-#priceHistoryChart { margin-top: 8px; }
-.price-chart-summary {
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-  font-size: 13px;
-}
-.price-chart-summary strong { color: var(--red-dark); }
-.price-chart-note {
-  display: inline-block;
-  margin-top: 6px;
-  font-size: 12px;
-  padding: 3px 10px;
-  border-radius: 12px;
-}
-.price-chart-note.good { background: var(--green-tint); color: #0a8a3c; }
-.price-chart-note.neutral { background: var(--bg); color: var(--muted); }
-.price-chart-svg { width: 100%; height: 110px; display: block; }
-
 .table-scroll { overflow-x: auto; }
 
 /* ---------- Grupos de ofertas: verificado vs. referencia ---------- */

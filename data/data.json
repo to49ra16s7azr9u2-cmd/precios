@@ -1,8 +1,8 @@
 {
   "meta": {
     "currency": "MXN",
-    "updated": "2026-08-18",
-    "note": "Catálogo en reconstrucción: se retiraron los 16 productos de demostración (precios/fotos ficticios). Se irán agregando productos reales uno por uno, con datos verificados por tienda/afiliado."
+    "updated": "2026-08-19",
+    "note": "Catálogo en reconstrucción con datos reales: 11 productos de Celulares, Computadoras y Electrodomésticos con precio/foto/URL reales de SUNSKY y Geekbuying (feeds de Admitad, envío internacional directo desde esas tiendas, no hay tienda mexicana equivalente todavía). Precios convertidos de USD/EUR a MXN a un tipo de cambio aproximado (no es el precio que cobraría la tienda en MXN). Televisores y Videojuegos siguen vacíos: no se encontró ninguna fuente de datos reales para esas categorías todavía."
   },
   "categories": [
     {
@@ -241,7 +241,497 @@
       "hubRegion": "gdl_zapopan",
       "color": "#005DAA",
       "logo": "C"
+    },
+    {
+      "id": "sunsky",
+      "name": "SUNSKY",
+      "hubRegion": null,
+      "color": "#003F87",
+      "logo": "SK"
+    },
+    {
+      "id": "geekbuying",
+      "name": "Geekbuying",
+      "hubRegion": null,
+      "color": "#1A1A1A",
+      "logo": "GB"
     }
   ],
-  "products": []
+  "products": [
+    {
+      "id": "p1",
+      "name": "OnePlus Ace 5 Racing 16GB+512GB",
+      "brand": "OnePlus",
+      "category": "Celulares",
+      "image": "📱",
+      "photo": "https://img.myipadbox.com/upload/store/product_l/MPH3563G.jpg",
+      "specs": [
+        {
+          "label": "RAM + Almacenamiento",
+          "value": "16 GB + 512 GB"
+        },
+        {
+          "label": "Pantalla",
+          "value": "6.77\" ColorOS 15.0"
+        },
+        {
+          "label": "Procesador",
+          "value": "MediaTek Dimensity 9400e Octa Core"
+        },
+        {
+          "label": "Conectividad",
+          "value": "5G, NFC"
+        },
+        {
+          "label": "Color",
+          "value": "Verde"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "sunsky",
+          "price": 7854,
+          "url": "https://dorinebeaumont.com/g/7npkd4cs1i43517c81ee869a299fda/?f_id=15762&ulp=https%3A%2F%2Fwww.sunsky-online.com%2Fv%2F3823322",
+          "photo": "https://img.myipadbox.com/upload/store/product_l/MPH3563G.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 462.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p2",
+      "name": "vivo S30 Pro mini 16GB+512GB",
+      "brand": "vivo",
+      "category": "Celulares",
+      "image": "📱",
+      "photo": "https://img.myipadbox.com/upload/store/product_l/MPH5425F.jpg",
+      "specs": [
+        {
+          "label": "RAM + Almacenamiento",
+          "value": "16 GB + 512 GB"
+        },
+        {
+          "label": "Pantalla",
+          "value": "6.31\" Android 15, huella en pantalla"
+        },
+        {
+          "label": "Procesador",
+          "value": "Dimensity 9300+ Octa Core"
+        },
+        {
+          "label": "Conectividad",
+          "value": "5G, NFC, OTG"
+        },
+        {
+          "label": "Color",
+          "value": "Rosa"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "sunsky",
+          "price": 10591,
+          "url": "https://dorinebeaumont.com/g/7npkd4cs1i43517c81ee869a299fda/?f_id=15762&ulp=https%3A%2F%2Fwww.sunsky-online.com%2Fv%2F3878251",
+          "photo": "https://img.myipadbox.com/upload/store/product_l/MPH5425F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 623.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p3",
+      "name": "Xiaomi POCO X8 Pro Global 12GB+512GB",
+      "brand": "Xiaomi",
+      "category": "Celulares",
+      "image": "📱",
+      "photo": "https://img.myipadbox.com/upload/store/product_l/MPH1021B.jpg",
+      "specs": [
+        {
+          "label": "RAM + Almacenamiento",
+          "value": "12 GB + 512 GB"
+        },
+        {
+          "label": "Pantalla",
+          "value": "6.59\" Xiaomi HyperOS 3, huella en pantalla"
+        },
+        {
+          "label": "Procesador",
+          "value": "Dimensity 8500-Ultra Octa Core"
+        },
+        {
+          "label": "Conectividad",
+          "value": "5G, NFC"
+        },
+        {
+          "label": "Color",
+          "value": "Negro"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "sunsky",
+          "price": 8109,
+          "url": "https://dorinebeaumont.com/g/7npkd4cs1i43517c81ee869a299fda/?f_id=15762&ulp=https%3A%2F%2Fwww.sunsky-online.com%2Fv%2F4477353",
+          "photo": "https://img.myipadbox.com/upload/store/product_l/MPH1021B.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 477.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p4",
+      "name": "Honor 100 Pro 12GB+256GB",
+      "brand": "Honor",
+      "category": "Celulares",
+      "image": "📱",
+      "photo": "https://img.myipadbox.com/upload/store/product_l/EDA006003001A.jpg",
+      "specs": [
+        {
+          "label": "RAM + Almacenamiento",
+          "value": "12 GB + 256 GB"
+        },
+        {
+          "label": "Pantalla",
+          "value": "6.78\" MagicOS 7.2, huella en pantalla"
+        },
+        {
+          "label": "Procesador",
+          "value": "Snapdragon 8 Gen 2 Octa Core hasta 3.19GHz"
+        },
+        {
+          "label": "Conectividad",
+          "value": "5G, NFC, OTG, Google Play"
+        },
+        {
+          "label": "Color",
+          "value": "Negro"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "sunsky",
+          "price": 9792,
+          "url": "https://dorinebeaumont.com/g/7npkd4cs1i43517c81ee869a299fda/?f_id=15762&ulp=https%3A%2F%2Fwww.sunsky-online.com%2Fv%2F3031990",
+          "photo": "https://img.myipadbox.com/upload/store/product_l/EDA006003001A.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 576.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p5",
+      "name": "Blackview Oscal Marine 2 4GB+64GB",
+      "brand": "Blackview",
+      "category": "Celulares",
+      "image": "📱",
+      "photo": "https://img.myipadbox.com/upload/store/product_l/MPH2932B.jpg",
+      "specs": [
+        {
+          "label": "RAM + Almacenamiento",
+          "value": "4 GB + 64 GB"
+        },
+        {
+          "label": "Pantalla",
+          "value": "6.56\" Android 15"
+        },
+        {
+          "label": "Procesador",
+          "value": "Unisoc T615 Octa Core"
+        },
+        {
+          "label": "Conectividad",
+          "value": "4G, NFC, OTG"
+        },
+        {
+          "label": "Color",
+          "value": "Negro"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "sunsky",
+          "price": 1921,
+          "url": "https://dorinebeaumont.com/g/7npkd4cs1i43517c81ee869a299fda/?f_id=15762&ulp=https%3A%2F%2Fwww.sunsky-online.com%2Fv%2F3844641",
+          "photo": "https://img.myipadbox.com/upload/store/product_l/MPH2932B.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 113.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p6",
+      "name": "TITAN ARMY P2510S PLUS 24.5\" 240Hz",
+      "brand": "TITAN ARMY",
+      "category": "Computadoras",
+      "image": "🖥️",
+      "photo": "https://img.gkbcdn.com/s3/p/2025-03-28/titan-army-p2510s-plus-24-5-inch-240hz-gaming-monitor-c2941a-1743154406973.jpg",
+      "specs": [
+        {
+          "label": "Tamaño de pantalla",
+          "value": "24.5 pulgadas"
+        },
+        {
+          "label": "Frecuencia de actualización",
+          "value": "240 Hz"
+        },
+        {
+          "label": "Tipo",
+          "value": "Monitor para juegos"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 3152,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FTITAN-ARMY-P2510S-PLUS-24-5-inch-240Hz-Gaming-Monitor-528077.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2025-03-28/titan-army-p2510s-plus-24-5-inch-240hz-gaming-monitor-c2941a-1743154406973.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 159.99,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p7",
+      "name": "KTC H27T6 27\" 210Hz HDR400",
+      "brand": "KTC",
+      "category": "Computadoras",
+      "image": "🖥️",
+      "photo": "https://img.gkbcdn.com/s3/p/2025-10-22/KTC-H27T6-Gaming-Monitor-530386-0.jpg",
+      "specs": [
+        {
+          "label": "Tamaño de pantalla",
+          "value": "27 pulgadas"
+        },
+        {
+          "label": "Frecuencia de actualización",
+          "value": "210 Hz"
+        },
+        {
+          "label": "HDR",
+          "value": "HDR400"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 2758,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FKTC-H27T6-27-inch-Gaming-Monitor-210Hz-HDR400-530386.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2025-10-22/KTC-H27T6-Gaming-Monitor-530386-0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 139.99,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p8",
+      "name": "MINIX SF16T Monitor portátil táctil 16.5\"",
+      "brand": "MINIX",
+      "category": "Computadoras",
+      "image": "🖥️",
+      "photo": "https://img.gkbcdn.com/s3/p/2025-04-25/MINIX--SF16T--Portable-Monitor-with-touch-panel-528645-0.jpg",
+      "specs": [
+        {
+          "label": "Tamaño de pantalla",
+          "value": "16.5 pulgadas, pantalla táctil"
+        },
+        {
+          "label": "Resolución",
+          "value": "1920 x 1200"
+        },
+        {
+          "label": "Ángulo de visión",
+          "value": "178°, 2 altavoces estéreo"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 3743,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FMINIX-SF16T-16-5-Portable-Touchscreen-Monitor-528645.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2025-04-25/MINIX--SF16T--Portable-Monitor-with-touch-panel-528645-0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 189.99,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p9",
+      "name": "HiBREW H4C Cafetera espresso portátil",
+      "brand": "HiBREW",
+      "category": "Electrodomésticos",
+      "image": "☕",
+      "photo": "https://img.gkbcdn.com/s3/p/2025-07-21/HIBREW-H4C-Portable-Espresso-Maker-Explorer-529684-0.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Cafetera manual portátil"
+        },
+        {
+          "label": "Uso",
+          "value": "Camping y viajes"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 2660,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FHiBREW-H4C-Portable-Espresso-Maker-Explorer-529684.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2025-07-21/HIBREW-H4C-Portable-Espresso-Maker-Explorer-529684-0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 135.0,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "name": "HiBREW H21 Cafetera espresso",
+      "brand": "HiBREW",
+      "category": "Electrodomésticos",
+      "image": "☕",
+      "photo": "https://img.gkbcdn.com/s3/p/2026-01-04/HiBREW-H21-Espresso-Machine-530909-0.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Cafetera espresso de mostrador"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 11800,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FHiBREW-H21-Espresso-Machine-530909.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2026-01-04/HiBREW-H21-Espresso-Machine-530909-0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 599.0,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p11",
+      "name": "HUMILABS Deshumidificador 20L WiFi",
+      "brand": "HUMILABS",
+      "category": "Electrodomésticos",
+      "image": "💧",
+      "photo": "https://img.gkbcdn.com/s3/p/2025-10-18/HUMILABS-OL20-BD068CF-20L-Portable-Dehumidifier-530363-0.jpg",
+      "specs": [
+        {
+          "label": "Capacidad",
+          "value": "20 litros"
+        },
+        {
+          "label": "Conectividad",
+          "value": "Wi-Fi, control por app"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "geekbuying",
+          "price": 2856,
+          "url": "https://bywiola.com/g/78tuvzaw8k43517c81ee0267b86f6e/?f_id=19717&ulp=https%3A%2F%2Fwww.geekbuying.com%2Fitem%2FHUMILABS-20L-Dehumidifier-with-WiFi-APP-Control-530363.html",
+          "photo": "https://img.gkbcdn.com/s3/p/2025-10-18/HUMILABS-OL20-BD068CF-20L-Portable-Dehumidifier-530363-0.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 145.0,
+            "currency": "EUR"
+          }
+        }
+      ]
+    }
+  ]
 }

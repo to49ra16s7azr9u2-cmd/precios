@@ -219,17 +219,22 @@ def render_product_page(product, data):
     table_rows = []
     for o in rows:
         store = store_by_id(data, o["storeId"])
-        ship = "Envío gratis" if o["shippingFee"] == 0 else money(o["shippingFee"])
+        ship = (
+            "Envío gratis" if o["shippingFee"] == 0
+            else "—" if o["shippingFee"] is None
+            else money(o["shippingFee"])
+        )
         stock_label = {
             "in_stock": "En stock",
             "low_stock": "Últimas piezas",
             "backorder": "Sobre pedido",
         }.get(o["stock"], o["stock"])
+        rating_label = "—" if o["rating"] is None else f"{o['rating']} / 5 ({o['reviewCount']} reseñas)"
         table_rows.append(
             f"<tr><td>{html_escape(store['name'])}</td>"
             f"<td class=\"price-cell\"><span class=\"price-line\">{money(o['price'])}</span></td>"
             f"<td>{ship}</td><td>{stock_label}</td>"
-            f"<td>{o['rating']} / 5 ({o['reviewCount']} reseñas)</td></tr>"
+            f"<td>{rating_label}</td></tr>"
         )
 
     specs_rows = "".join(

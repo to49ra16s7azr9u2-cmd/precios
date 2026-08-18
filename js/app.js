@@ -185,7 +185,6 @@
     detailRating: document.getElementById("detailRating"),
     detailFromPrice: document.getElementById("detailFromPrice"),
     detailFavBtn: document.getElementById("detailFavBtn"),
-    priceHistoryChart: document.getElementById("priceHistoryChart"),
     deliveryBanner: document.getElementById("deliveryBanner"),
     deliveryBannerTitle: document.getElementById("deliveryBannerTitle"),
     deliveryBannerSubtitle: document.getElementById("deliveryBannerSubtitle"),
@@ -276,19 +275,6 @@
     const cheapest = product.offers.reduce((a, b) => (b.price < a.price ? b : a));
     if (!cheapest.listPrice || cheapest.listPrice <= cheapest.price) return null;
     return cheapest.listPrice - cheapest.price;
-  }
-
-  // Compara el precio más barato de hoy contra el mínimo real de los últimos
-  // 30 días (el mismo cálculo que ya alimenta el gráfico de abajo, no un
-  // número nuevo inventado). Sirve para una señal de urgencia honesta: no es
-  // una cuenta regresiva falsa ni un "quedan 3" inventado, solo el hecho
-  // verificable de que hoy es el mejor momento de los últimos 30 días para
-  // comprarlo (aversión a la pérdida: importa más no perder un precio bajo
-  // que la posibilidad simétrica de ganar uno).
-  function isPriceAtMonthMin(product) {
-    const history = generatePriceHistory(product);
-    const min = Math.min(...history);
-    return history[history.length - 1] <= min;
   }
 
   // Recomendación transparente ("mejor opción"), no solo "más barato": pondera
@@ -478,79 +464,6 @@
       toggleFavorite(productId);
       onToggle();
     };
-  }
-
-  // ---------- Historial de precio (sintético, determinista por producto) ----------
-
-  function seededRandom(seedStr) {
-    let seed = 0;
-    for (let i = 0; i < seedStr.length; i++) seed = (Math.imul(31, seed) + seedStr.charCodeAt(i)) | 0;
-    return function () {
-      seed = (seed + 0x6d2b79f5) | 0;
-      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-  }
-
-  // Genera 30 días de precio "más barato entre tiendas" terminando exactamente
-  // en el precio actual, con una caminata aleatoria determinista (misma
-  // semilla = mismo gráfico en cada carga). Es una simulación para la demo.
-  function generatePriceHistory(product) {
-    const days = 30;
-    const current = minPrice(product);
-    const rand = seededRandom(product.id);
-    const floor = Math.max(Math.round(current * 0.75), 1);
-    const values = [current];
-    let val = current;
-    for (let i = 1; i < days; i++) {
-      const delta = (rand() - 0.5) * current * 0.05;
-      val = Math.max(Math.round(val + delta), floor);
-      values.push(val);
-    }
-    values.reverse(); // [hace 29 días, ..., ayer, hoy]
-    return values;
-  }
-
-  function renderPriceHistoryChart(product) {
-    const history = generatePriceHistory(product);
-    const min = Math.min(...history);
-    const max = Math.max(...history);
-    const current = history[history.length - 1];
-    const minIndex = history.indexOf(min);
-    const daysAgo = history.length - 1 - minIndex;
-
-    const w = 600, h = 120, pad = 6;
-    const range = max - min || 1;
-    const pts = history.map((v, i) => {
-      const x = pad + (i / (history.length - 1)) * (w - pad * 2);
-      const y = pad + (1 - (v - min) / range) * (h - pad * 2);
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    });
-    const areaPts = `${pad},${h - pad} ${pts.join(" ")} ${w - pad},${h - pad}`;
-    const lastPt = pts[pts.length - 1].split(",");
-
-    const svg = `
-      <svg viewBox="0 0 ${w} ${h}" class="price-chart-svg" preserveAspectRatio="none" role="img" aria-label="Evolución de precio en los últimos 30 días">
-        <polygon points="${areaPts}" fill="var(--red-tint)" />
-        <polyline points="${pts.join(" ")}" fill="none" stroke="var(--red)" stroke-width="2" />
-        <circle cx="${lastPt[0]}" cy="${lastPt[1]}" r="3.5" fill="var(--red)" />
-      </svg>`;
-
-    const isAtMin = current <= min;
-    const note = isAtMin
-      ? `<span class="price-chart-note good">✓ Es el precio más bajo de los últimos 30 días</span>`
-      : `<span class="price-chart-note neutral">El mínimo de 30 días fue ${money(min)}, hace ${daysAgo} día${daysAgo === 1 ? "" : "s"}</span>`;
-
-    el.priceHistoryChart.innerHTML = `
-      <div class="price-chart-summary">
-        <div>Precio actual (más barato): <strong>${money(current)}</strong></div>
-        <div>Mínimo 30 días: <strong>${money(min)}</strong></div>
-        <div>Máximo 30 días: <strong>${money(max)}</strong></div>
-      </div>
-      ${svg}
-      ${note}
-    `;
   }
 
   async function loadData() {
@@ -1058,14 +971,10 @@
     el.detailRating.innerHTML = `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${count} calificaciones)</span>`;
     const discountPct = bestDiscountPct(product);
     const savings = bestSavingsAmount(product);
-    const atMonthMin = isPriceAtMonthMin(product);
     el.detailFromPrice.innerHTML = `
       Desde <strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${product.offers.length} tiendas
       ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
-      ${atMonthMin ? `<span class="min-price-badge" title="Es el precio más bajo registrado en los últimos 30 días para este producto">🔥 Precio mínimo del mes</span>` : ""}
     `;
-
-    renderPriceHistoryChart(product);
 
     el.specTable.innerHTML = product.specs
       .map((s) => `<tr><th>${s.label}</th><td>${s.value}</td></tr>`)
@@ -1167,6 +1076,11 @@
         // precios "de referencia", para no dar a entender que es un dato
         // confirmado con la tienda.
         deliveryHtml = `<div class="delivery-sub ${d.cls}">${d.text}${r.days === fastestDays ? '<span class="best-tag">MÁS RÁPIDO</span>' : ""}${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Estimado por distancia, no confirmado con la tienda">🔶 estimado</span></div>`;
+      } else if (state.selectedRegion && !r.store.hubRegion) {
+        // Tiendas que envían directo desde el extranjero (sin centro de
+        // distribución mexicano): no hay con qué estimar días por
+        // municipio, así que se avisa en vez de dejar la celda en blanco.
+        deliveryHtml = `<div class="delivery-sub">Envío internacional${shippingShort ? ` · ${shippingShort}` : ""}</div>`;
       }
       const stockInfo = STOCK_INFO[r.stock] || STOCK_INFO.in_stock;
       let discountHtml = "";
@@ -1215,10 +1129,14 @@
   function renderOfferTable(product) {
     let rows = product.offers.map((o) => {
       const store = storeById(o.storeId);
-      const days = state.selectedRegion
+      // Tiendas sin hubRegion (envío internacional directo, p. ej. SUNSKY o
+      // Geekbuying) no tienen un centro de distribución mexicano desde el
+      // cual estimar distancia/días por municipio: se deja sin estimar en
+      // vez de tronar contra una región inexistente.
+      const days = state.selectedRegion && store.hubRegion
         ? estimateDeliveryDays(store.hubRegion, state.selectedRegion, o.stock)
         : null;
-      const shippingFee = state.selectedRegion
+      const shippingFee = state.selectedRegion && store.hubRegion
         ? estimateShippingFee(o.shippingFee, store.hubRegion, state.selectedRegion)
         : o.shippingFee;
       return { ...o, store, days, shippingFee };
@@ -1228,7 +1146,8 @@
     else rows.sort((a, b) => a.price - b.price);
 
     const bestPrice = Math.min(...rows.map((r) => r.price));
-    const fastestDays = state.selectedRegion ? Math.min(...rows.map((r) => r.days)) : null;
+    const knownDays = rows.map((r) => r.days).filter((d) => d !== null);
+    const fastestDays = state.selectedRegion && knownDays.length ? Math.min(...knownDays) : null;
     const recommended = bestValueOffer(product);
     const recommendedStoreId = recommended ? recommended.storeId : null;
 
