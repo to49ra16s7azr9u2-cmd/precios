@@ -407,11 +407,20 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* Map modal */
+/* 32 estados no caben en una sola fila: la barra se vuelve horizontalmente
+   desplazable (scroll táctil o con rueda) en vez de envolver en varias
+   líneas o recortar pestañas. white-space:nowrap evita que un nombre largo
+   ("Santiago de Querétaro") rompa la fila. */
 .metro-tabs {
   display: flex;
   gap: 6px;
   margin-top: 12px;
   border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
 }
 .metro-tab {
   border: none;
@@ -423,6 +432,8 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   border-bottom: 3px solid transparent;
   margin-bottom: -1px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .metro-tab:hover { color: var(--ink); }
 .metro-tab.active {

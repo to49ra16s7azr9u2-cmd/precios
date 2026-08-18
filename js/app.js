@@ -1187,6 +1187,7 @@
 
   function renderMetroTabs() {
     el.metroTabs.innerHTML = "";
+    let activeTab = null;
     state.data.metros.forEach((m) => {
       const tab = document.createElement("button");
       tab.className = "metro-tab" + (m.id === state.selectedMetro ? " active" : "");
@@ -1198,8 +1199,13 @@
         panToMetro(m);
         renderMarkersForMetro();
       };
+      if (m.id === state.selectedMetro) activeTab = tab;
       el.metroTabs.appendChild(tab);
     });
+    // Con 32 estados la barra es más ancha que la pantalla: al elegir uno
+    // que quedó fuera de vista (o al abrir el modal) la pestaña activa se
+    // trae a la vista en vez de dejarla escondida a la izquierda o derecha.
+    if (activeTab) activeTab.scrollIntoView({ block: "nearest", inline: "center" });
   }
 
   function renderRegionChips() {
