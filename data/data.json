@@ -44,6 +44,21 @@
       "id": "Juegos de mesa",
       "name": "Juegos de mesa",
       "icon": "🎲"
+    },
+    {
+      "id": "Herramientas y refacciones",
+      "name": "Herramientas y refacciones",
+      "icon": "🔧"
+    },
+    {
+      "id": "Decoración del hogar",
+      "name": "Decoración del hogar",
+      "icon": "🏺"
+    },
+    {
+      "id": "Componentes electrónicos",
+      "name": "Componentes electrónicos",
+      "icon": "🔌"
     }
   ],
   "metros": [
@@ -801,6 +816,13 @@
       "color": "#8B6F47",
       "logo": "WD",
       "logoImg": "icons/stores/woodestic.png"
+    },
+    {
+      "id": "aliexpress",
+      "name": "AliExpress",
+      "hubRegion": null,
+      "color": "#E62E04",
+      "logo": "AE"
     }
   ],
   "products": [
@@ -2589,6 +2611,1015 @@
           "verified": false,
           "priceOriginal": {
             "amount": 619.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p43",
+      "name": "Mancuernillas Pegasus Acero Inoxidable 316L",
+      "brand": "AliExpress",
+      "category": "Joyería y relojes",
+      "image": "💍",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S0b771a71c2e0494e90ce1151b35a93f7s.jpg",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Acero inoxidable 316L"
+        },
+        {
+          "label": "Diseño",
+          "value": "Pegasus (caballo alado)"
+        },
+        {
+          "label": "Uso",
+          "value": "Traje / cuello de camisa"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 52,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005012810631932.html%253Fpdp_npi%253D6%252540dis%252521USD%2525213.21%2525213.04%252521%252521%25252121.50%25252120.33%252521%252540212a7b8d17870056288685188e0db9%25252112000059442912691%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S0b771a71c2e0494e90ce1151b35a93f7s.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 3.04,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p44",
+      "name": "Mancuernillas KFLK Diseño Dinosaurio",
+      "brand": "AliExpress",
+      "category": "Joyería y relojes",
+      "image": "💍",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S63fab02cf40d4083babdcd7d7affdff6s.jpg",
+      "specs": [
+        {
+          "label": "Marca",
+          "value": "KFLK"
+        },
+        {
+          "label": "Diseño",
+          "value": "Dinosaurio"
+        },
+        {
+          "label": "Uso",
+          "value": "Regalo para caballero"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 158,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005004523259732.html%253Fpdp_npi%253D6%252540dis%252521USD%2525219.99%2525219.29%252521%252521%2525219.99%2525219.29%252521%2525402140f88817870056291622918e0f15%25252112000029466869083%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S63fab02cf40d4083babdcd7d7affdff6s.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 9.29,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p45",
+      "name": "Aretes de Jade Verde Estilo Chino",
+      "brand": "AliExpress",
+      "category": "Joyería y relojes",
+      "image": "💍",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S6215e5121f7743e6af09bd3b28a44df5m.png",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Gema tipo jade / esmeralda verde"
+        },
+        {
+          "label": "Estilo",
+          "value": "Chino, delicado"
+        },
+        {
+          "label": "Tipo",
+          "value": "Arete de botón"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 167,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005008366982102.html%253Fpdp_npi%253D6%252540dis%252521USD%2525219.80%2525219.80%252521%252521%2525219.80%2525219.80%252521%2525402140f88817870056291622918e0f15%25252112000044738404022%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S6215e5121f7743e6af09bd3b28a44df5m.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 9.8,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p46",
+      "name": "Aretes Grandes Colgantes Estilo Nigeriano",
+      "brand": "AliExpress",
+      "category": "Joyería y relojes",
+      "image": "💍",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S7d9489f95b5a44e187e6f58b6ee74ec9D.jpg",
+      "specs": [
+        {
+          "label": "Estilo",
+          "value": "Nigeriano, elegante"
+        },
+        {
+          "label": "Tipo",
+          "value": "Arete largo colgante"
+        },
+        {
+          "label": "Ocasión",
+          "value": "Boda / fiesta"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 191,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005005989994895.html%253Fpdp_npi%253D6%252540dis%252521USD%25252114.89%25252111.25%252521%252521%25252199.87%25252175.42%252521%2525402140d36217870056294083916e0e10%25252112000035203418099%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S7d9489f95b5a44e187e6f58b6ee74ec9D.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 11.25,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p47",
+      "name": "Aretes Colgantes Moño y Flor Estilo Barroco",
+      "brand": "AliExpress",
+      "category": "Joyería y relojes",
+      "image": "💍",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/Sc5f856caccb64066be830e70e73362deg.jpg",
+      "specs": [
+        {
+          "label": "Estilo",
+          "value": "Barroco / medieval vintage"
+        },
+        {
+          "label": "Diseño",
+          "value": "Moño y flor"
+        },
+        {
+          "label": "Tipo",
+          "value": "Arete colgante"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 162,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005004626193529.html%253Fpdp_npi%253D6%252540dis%252521USD%2525219.50%2525219.50%252521%252521%2525219.50%2525219.50%252521%2525402140f88817870056290544330e0ef4%25252112000029980390981%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/Sc5f856caccb64066be830e70e73362deg.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 9.5,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p48",
+      "name": "Playera de Tirantes Ship of Theseus (básica, casual)",
+      "brand": "AliExpress",
+      "category": "Moda y accesorios",
+      "image": "👕",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S5e7cca05a8ac45b0baca02e9c65d3f6eS.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Tank top / playera de tirantes"
+        },
+        {
+          "label": "Corte",
+          "value": "Casual, ligera, básica"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 204,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005012136304230.html%253Fpdp_npi%253D6%252540dis%252521USD%25252112.00%25252112.00%252521%252521%25252180.47%25252180.47%252521%2525402151fca717870040189434910e0ffe%25252112000057588527847%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S5e7cca05a8ac45b0baca02e9c65d3f6eS.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 12.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p49",
+      "name": "Polo Hombre Color Sólido Transpirable Verano",
+      "brand": "AliExpress",
+      "category": "Moda y accesorios",
+      "image": "👕",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S0b8e36826dff4816962418269281e475F.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Polo manga corta"
+        },
+        {
+          "label": "Material",
+          "value": "Transpirable"
+        },
+        {
+          "label": "Temporada",
+          "value": "Verano"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 181,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005007386241151.html%253Fpdp_npi%253D6%252540dis%252521USD%25252110.64%25252110.64%252521%252521%25252171.34%25252171.34%252521%252540214114e317870040191054698e0e11%25252112000040530474921%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S0b8e36826dff4816962418269281e475F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 10.64,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p50",
+      "name": "Polo Hombre Manga Corta Estampado Moda Verano",
+      "brand": "AliExpress",
+      "category": "Moda y accesorios",
+      "image": "👕",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S649f34e211db4087af5057544db38e02T.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Polo manga corta"
+        },
+        {
+          "label": "Diseño",
+          "value": "Estampado"
+        },
+        {
+          "label": "Temporada",
+          "value": "Verano"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 444,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005008919447718.html%253Fpdp_npi%253D6%252540dis%252521USD%25252134.80%25252126.10%252521%252521%252521233.37%252521175.03%252521%2525402151fd2c17870040195827713e0f2a%25252112000047205279090%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S649f34e211db4087af5057544db38e02T.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 26.1,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p51",
+      "name": "Camisa Casual Manga Corta Estampado de Puntos",
+      "brand": "AliExpress",
+      "category": "Moda y accesorios",
+      "image": "👕",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S415b9a2ee9ba48fa8f9a400ebfcb1584C.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Camisa de botones manga corta"
+        },
+        {
+          "label": "Diseño",
+          "value": "Estampado de puntos"
+        },
+        {
+          "label": "Corte",
+          "value": "Casual"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 202,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005012454559039.html%253Fpdp_npi%253D6%252540dis%252521USD%25252111.99%25252111.87%252521%252521%25252111.99%25252111.87%252521%2525402141149b17870040193917537e0d11%25252112000058445038147%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S415b9a2ee9ba48fa8f9a400ebfcb1584C.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 11.87,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p52",
+      "name": "Polo Hombre Dos Piezas Manga Corta Moda Casual",
+      "brand": "AliExpress",
+      "category": "Moda y accesorios",
+      "image": "👕",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S9bae825189e04c53848715d9e6a2fbecr.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Conjunto polo de 2 piezas"
+        },
+        {
+          "label": "Corte",
+          "value": "Casual, cuello con collar"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 408,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005012593750582.html%253Fpdp_npi%253D6%252540dis%252521USD%25252144.43%25252123.99%252521%252521%252521298.00%252521160.92%252521%2525402102f1cd17870040195614099e0d11%25252112000058799784864%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S9bae825189e04c53848715d9e6a2fbecr.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 23.99,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p53",
+      "name": "Motor Sincrónico de Plato Giratorio para Horno de Microondas TYJ50-8A7",
+      "brand": "AliExpress",
+      "category": "Herramientas y refacciones",
+      "image": "🔧",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S6dd85e13845c4a3ebfbb74ca6379ce5d7.jpg",
+      "specs": [
+        {
+          "label": "Modelo",
+          "value": "TYJ50-8A7"
+        },
+        {
+          "label": "Uso",
+          "value": "Refacción de horno de microondas"
+        },
+        {
+          "label": "Función",
+          "value": "Motor del plato giratorio"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 146,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005010787877774.html%253Fpdp_npi%253D6%252540dis%252521USD%25252113.23%2525218.60%252521%252521%25252188.71%25252157.66%252521%2525402102f1cd17870040266378922e0dd7%25252112000053508730031%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S6dd85e13845c4a3ebfbb74ca6379ce5d7.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 8.6,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p54",
+      "name": "Barra Redonda de Aluminio 7075 T6 para CNC (500mm)",
+      "brand": "AliExpress",
+      "category": "Herramientas y refacciones",
+      "image": "🔧",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S8bf0f244685d432c81abeb97d8719394E.jpg",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Aluminio 7075 T6"
+        },
+        {
+          "label": "Diámetro",
+          "value": "5-30 mm (según variante)"
+        },
+        {
+          "label": "Longitud",
+          "value": "500 mm"
+        },
+        {
+          "label": "Uso",
+          "value": "Maquinado CNC"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 152,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005010470201118.html%253Fpdp_npi%253D6%252540dis%252521USD%2525218.93%2525218.93%252521%252521%25252159.92%25252159.92%252521%2525402102f1cd17870040266378922e0dd7%25252112000052518516589%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S8bf0f244685d432c81abeb97d8719394E.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 8.93,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p55",
+      "name": "Portalámparas de Microscopio U-LS30-5 (cerámico)",
+      "brand": "AliExpress",
+      "category": "Herramientas y refacciones",
+      "image": "🔧",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/Sd3d318151c474360a6b5f536cb0aa1afS.jpg",
+      "specs": [
+        {
+          "label": "Modelo",
+          "value": "U-LS30-5"
+        },
+        {
+          "label": "Compatibilidad",
+          "value": "Microscopios CKX31, CX41, BX31/41/43"
+        },
+        {
+          "label": "Material",
+          "value": "Cerámico"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 329,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005008804935388.html%253Fpdp_npi%253D6%252540dis%252521USD%25252119.34%25252119.34%252521%252521%252521129.68%252521129.68%252521%2525402151fca717870040274412221e0f4c%25252112000046734236309%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/Sd3d318151c474360a6b5f536cb0aa1afS.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 19.34,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p56",
+      "name": "Interruptor de Repuesto para Esmeriladora Angular Bosch GWS180-LI",
+      "brand": "AliExpress",
+      "category": "Herramientas y refacciones",
+      "image": "🔧",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S824218c262644cfdb8fbec11c148aef7F.jpg",
+      "specs": [
+        {
+          "label": "Compatible con",
+          "value": "Bosch GWS180-LI / GWS18V-10"
+        },
+        {
+          "label": "Tipo",
+          "value": "Interruptor / botón de encendido"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 237,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005012842283733.html%253Fpdp_npi%253D6%252540dis%252521USD%25252126.81%25252113.94%252521%252521%252521179.84%25252193.52%252521%2525402151fca717870040360573181e0f4b%25252112000059529486785%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S824218c262644cfdb8fbec11c148aef7F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 13.94,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p57",
+      "name": "Ventilador de Anillo de Aire para RV (aluminio/plástico, 1-1/4\")",
+      "brand": "AliExpress",
+      "category": "Herramientas y refacciones",
+      "image": "🔧",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S4ff961aad9254e31a1207c7cd2f53ad0O.jpg",
+      "specs": [
+        {
+          "label": "Uso",
+          "value": "Casa rodante (RV)"
+        },
+        {
+          "label": "Diámetro",
+          "value": "1-1/4 pulgada"
+        },
+        {
+          "label": "Material",
+          "value": "Aluminio y plástico"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 486,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005010063453318.html%253Fpdp_npi%253D6%252540dis%252521USD%25252129.18%25252128.60%252521%252521%252521195.74%252521191.83%252521%252540212a7b8d17870040352076003e108c%25252112000051002336777%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S4ff961aad9254e31a1207c7cd2f53ad0O.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 28.6,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p58",
+      "name": "Figura de Cristal Grabada 3D Montaña Nevada y Diente de León (20mm)",
+      "brand": "AliExpress",
+      "category": "Decoración del hogar",
+      "image": "🏺",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/Hf41197ab195141919b3ec544ea237f7eV.jpg",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Vidrio K9 transparente"
+        },
+        {
+          "label": "Diámetro",
+          "value": "20 mm"
+        },
+        {
+          "label": "Diseño",
+          "value": "Grabado 3D interior"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 24,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005003004911649.html%253Fpdp_npi%253D6%252540dis%252521USD%2525213.00%2525211.41%252521%252521%2525213.00%2525211.41%252521%25254021013cc617870045769556795e0f4c%25252112000023174899968%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/Hf41197ab195141919b3ec544ea237f7eV.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 1.41,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p59",
+      "name": "Número de Puerta 3D Bronce Autoadherible",
+      "brand": "AliExpress",
+      "category": "Decoración del hogar",
+      "image": "🏺",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S8f8347d3475949b8a3ad544b6c4b6e8cQ.jpg",
+      "specs": [
+        {
+          "label": "Acabado",
+          "value": "Bronce 3D"
+        },
+        {
+          "label": "Instalación",
+          "value": "Autoadherible"
+        },
+        {
+          "label": "Uso",
+          "value": "Número de casa/departamento"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 44,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005010328833663.html%253Fpdp_npi%253D6%252540dis%252521USD%2525212.60%2525212.60%252521%252521%25252117.45%25252117.45%252521%25254021013cc617870045769556795e0f4c%25252112000051978492243%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S8f8347d3475949b8a3ad544b6c4b6e8cQ.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 2.6,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p60",
+      "name": "Abanico Plegable Estilo Japonés con Encaje y Flor de Seda",
+      "brand": "AliExpress",
+      "category": "Decoración del hogar",
+      "image": "🏺",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S0e1b5106f41a4aea838227fcdaf6802bY.jpg",
+      "specs": [
+        {
+          "label": "Estilo",
+          "value": "Japonés, plegable"
+        },
+        {
+          "label": "Material",
+          "value": "Encaje y flor de seda"
+        },
+        {
+          "label": "Uso",
+          "value": "Boda / fiesta / decoración"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 50,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005004480614134.html%253Fpdp_npi%253D6%252540dis%252521USD%2525213.09%2525212.95%252521%252521%2525213.09%2525212.95%252521%2525402140da8b17870045825136923e0dcd%25252112000029311164413%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S0e1b5106f41a4aea838227fcdaf6802bY.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 2.95,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p61",
+      "name": "Par de Figuras Miniatura 'Pareja en Silla' para Jardín de Hadas",
+      "brand": "AliExpress",
+      "category": "Decoración del hogar",
+      "image": "🏺",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S99e1ff0df09f41b79a0e11300b0b5cb40.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Miniatura decorativa (set de 2)"
+        },
+        {
+          "label": "Uso",
+          "value": "Jardín de hadas / manualidades"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 44,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005003296443463.html%253Fpdp_npi%253D6%252540dis%252521USD%2525212.58%2525212.58%252521%252521%2525212.58%2525212.58%252521%2525402101611117870045819193625e0e19%25252112000025074056801%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S99e1ff0df09f41b79a0e11300b0b5cb40.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 2.58,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p62",
+      "name": "Ganchos de Pared Metálicos con Colgador de Llaves y Ropa",
+      "brand": "AliExpress",
+      "category": "Decoración del hogar",
+      "image": "🏺",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S871e7ab845964993992c6ce662cc7248Z.jpg",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Metal (hierro forjado)"
+        },
+        {
+          "label": "Instalación",
+          "value": "Montaje en pared"
+        },
+        {
+          "label": "Uso",
+          "value": "Llaves / abrigos, cocina o entrada"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 64,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005012585804057.html%253Fpdp_npi%253D6%252540dis%252521USD%25252113.89%2525213.75%252521%252521%25252193.17%25252125.16%252521%2525402151fd3a17870045814112392e0fc5%25252112000058748475372%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S871e7ab845964993992c6ce662cc7248Z.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 3.75,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p63",
+      "name": "Amplificador Operacional de Precisión OPA121/OPA124/OPA130/OPA131 (paquete)",
+      "brand": "AliExpress",
+      "category": "Componentes electrónicos",
+      "image": "🔌",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S6495d4d5a8b741b6becf96e2881b2b12x.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Amplificador operacional (op-amp) de precisión"
+        },
+        {
+          "label": "Modelos incluidos",
+          "value": "OPA121KU, OPA124UA, OPA129UB, OPA131UA, OPA130UA"
+        },
+        {
+          "label": "Uso",
+          "value": "Electrónica analógica / instrumentación"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 12,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005009880796869.html%253Fpdp_npi%253D6%252540dis%252521USD%2525210.75%2525210.68%252521%252521%2525215.00%2525214.50%252521%2525402101611117870054446528082e0d74%25252112000050461581228%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S6495d4d5a8b741b6becf96e2881b2b12x.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 0.68,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p64",
+      "name": "MOSFET de Potencia IRFP150N/IRFP250N/IRFP260N (paquete)",
+      "brand": "AliExpress",
+      "category": "Componentes electrónicos",
+      "image": "🔌",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S04bbd5cb2a754eed8f6a47aa73648139e.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Transistor MOSFET de potencia"
+        },
+        {
+          "label": "Modelos incluidos",
+          "value": "IRFP150N/M, IRFP250N/M, IRFP260N/M, IRFP254N, IRFP264"
+        },
+        {
+          "label": "Uso",
+          "value": "Amplificadores de audio / fuentes de poder"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 11,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005010158644972.html%253Fpdp_npi%253D6%252540dis%252521USD%2525210.69%2525210.62%252521%252521%2525214.60%2525214.14%252521%2525402101611117870054446528082e0d74%25252112000051355966748%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S04bbd5cb2a754eed8f6a47aa73648139e.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 0.62,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p65",
+      "name": "Multiplexor Analógico CMOS MC14053B/MC14052B (paquete)",
+      "brand": "AliExpress",
+      "category": "Componentes electrónicos",
+      "image": "🔌",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/Sde72863d5cd546d78d5ef9a2f03a6c099.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Circuito lógico CMOS (multiplexor/timer)"
+        },
+        {
+          "label": "Modelos incluidos",
+          "value": "MC14053B, MC14052B, MC14050B, MC14094B, MC14046B, MC14060B, MC14051B"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 5,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005010281253316.html%253Fpdp_npi%253D6%252540dis%252521USD%2525210.35%2525210.31%252521%252521%2525212.37%2525212.13%252521%2525402101611117870054446528082e0d74%25252112000051768117535%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/Sde72863d5cd546d78d5ef9a2f03a6c099.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 0.31,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p66",
+      "name": "Circuito Cargador de Batería de Litio BQ25890/BQ25892/BQ25896 (paquete)",
+      "brand": "AliExpress",
+      "category": "Componentes electrónicos",
+      "image": "🔌",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S00637bc3c2d34f1982e2658f2a4efe44o.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Circuito integrado cargador de batería de litio"
+        },
+        {
+          "label": "Modelos incluidos",
+          "value": "BQ25890, BQ25601, BQ25892, BQ25896, BQ25895"
+        },
+        {
+          "label": "Uso",
+          "value": "Reparación de celulares/tablets"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 7,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005008920198703.html%253Fpdp_npi%253D6%252540dis%252521USD%2525210.46%2525210.42%252521%252521%2525213.06%2525212.82%252521%2525402101611117870054446528082e0d74%25252112000047208585442%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S00637bc3c2d34f1982e2658f2a4efe44o.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 0.42,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p67",
+      "name": "Microcontrolador PIC12F508/PIC12F629/PIC12F675 (paquete)",
+      "brand": "AliExpress",
+      "category": "Componentes electrónicos",
+      "image": "🔌",
+      "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S62a0daf225b8433fb444f8a5406521a5m.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Microcontrolador de 8 pines"
+        },
+        {
+          "label": "Modelos incluidos",
+          "value": "PIC12F508, PIC12F509, PIC12F510, PIC12F615, PIC12F629, PIC12F635, PIC12F675"
+        },
+        {
+          "label": "Fabricante",
+          "value": "Microchip"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "aliexpress",
+          "price": 8,
+          "url": "https://rzekl.com/g/1e8d11449443517c81ee16525dc3e8/?ulp=https%3A%2F%2Fs.click.aliexpress.com%2Fdeep_link.htm%3Faff_short_key%3D_c3s1yQkJ%26dl_target_url%3Dhttps%253A%252F%252Fwww.aliexpress.com%252Fitem%252F1005007482760087.html%253Fpdp_npi%253D6%252540dis%252521USD%2525210.51%2525210.47%252521%252521%2525213.40%2525213.13%252521%2525402101611117870054446528082e0d74%25252112000044332768263%252521affd%252521%252521%252521%2525211%2525210%252521%26hot_product%3D1&i=5&f_id=50003",
+          "photo": "https://ae-pic-a1.aliexpress-media.com/kf/S62a0daf225b8433fb444f8a5406521a5m.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 0.47,
             "currency": "USD"
           }
         }
