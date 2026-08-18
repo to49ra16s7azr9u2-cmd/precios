@@ -322,10 +322,12 @@ def render_product_page(product, data):
 def render_category_page(cat, products, data):
     slug = slugify(cat["name"])
     canonical_path = f"/categoria/{slug}/"
+    brands_note = (
+        f" Marcas: {', '.join(sorted({p['brand'] for p in products}))}." if products else ""
+    )
     description = (
-        f"Compara precios de {cat['name'].lower()} entre tiendas mexicanas: "
-        f"{', '.join(sorted({p['brand'] for p in products}))}. "
-        f"{len(products)} productos comparados."
+        f"Compara precios de {cat['name'].lower()} entre tiendas mexicanas."
+        f"{brands_note} {len(products)} productos comparados."
     )
     # Mismo criterio de "popular" que la SPA (sortedProducts con
     # sort=popularity en js/app.js): ranking por reseñas totales, no por
