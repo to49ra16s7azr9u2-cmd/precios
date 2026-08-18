@@ -138,6 +138,25 @@ Ninguna tienda tiene datos en vivo todavía — **todas las ofertas están marca
 
 Una vez que sigas esa guía y despliegues el Worker, solo falta pegar sus dos URLs en `LIVE_API_CONFIG.mercadolibre` (`proxyUrl` y `searchProxyUrl`).
 
+## Juntar el mismo producto entre tiendas (`scripts/product_matcher.py`)
+
+Cada producto real que hay hoy en el catálogo viene de **una sola tienda** (SUNSKY o Geekbuying) porque todavía no hay dos fuentes con el mismo producto físico. `scripts/product_matcher.py` es el algoritmo para cuando sí las haya: dado un lote de ofertas de varias tiendas/feeds, decide cuáles son el mismo producto y las junta en un grupo (una ficha, N ofertas), en vez de crear una ficha por tienda.
+
+Sigue un pipeline de 5 pasos, cada uno con un umbral de confianza más bajo que el anterior:
+
+1. **Identificador único** (JAN/EAN/UPC/ASIN/barcode) — coincidencia exacta. Se descarta si el identificador es sospechoso (todo ceros, longitud rara) o si dos ofertas comparten identificador pero su marca/specs se contradicen (barcode reciclado por error en el feed de origen — pasa de verdad, ver los tests).
+2. **Preprocesamiento de texto** — quita ruido de marketing (`[HK Warehouse]`, `Global`, etc.) y extrae specs estructuradas (RAM+almacenamiento, tamaño de pantalla, Hz) y "tokens de modelo" (tanto pegados: `H27T6`, como separados: `Ace 5` → `ACE5`).
+3. **Marca + modelo + specs** — mismo fabricante, al menos un token de modelo en común, specs compatibles.
+4. **Similitud de texto** — Jaccard de tokens de contenido + similitud de caracteres (sustituto sin dependencias de comparar por embeddings; cambiar solo `similarity_score()` si más adelante hay una API de embeddings disponible). Compara solo dentro del mismo bucket de marca, no todo contra todo, para no ser O(n²) sobre el catálogo completo.
+5. **Cola de pendientes** — lo que queda debajo del umbral no se agrupa a ciegas: se guarda con su mejor candidato y un prompt ya armado para que lo resuelva un LLM o una persona.
+
+Probado contra los feeds reales completos de SUNSKY + Geekbuying (3,063 ofertas, corre en <1s): cero falsos positivos, incluidas parejas trampa como "OUKITEL P2001 Plus" (central eléctrica) vs. "Oukitel WP23 Plus" (celular) — misma marca, nombre parecido, pero el score de similitud (0.13-0.16) queda muy por debajo del umbral (0.60) y no se agrupan.
+
+```bash
+python3 scripts/test_product_matcher.py   # 20 casos (sintéticos + sobre datos reales)
+python3 scripts/product_matcher.py sunsky.csv:sunsky geekbuying.csv:geekbuying
+```
+
 ## Límites conocidos (no es un clon 1:1 de verdad)
 
 Esto sigue siendo una demo de un solo desarrollador, no Kakaku.com. Lo que falta y por qué no está:
