@@ -660,6 +660,18 @@
     setActiveView("home");
     renderCatNav();
     el.homeCategoryGrid.innerHTML = "";
+
+    const allCard = document.createElement("button");
+    allCard.type = "button";
+    allCard.className = "category-card";
+    allCard.innerHTML = `
+      <span class="category-card-icon">🗂️</span>
+      <span class="category-card-name">Todas</span>
+      <span class="category-card-count">${state.data.products.length} productos</span>
+    `;
+    allCard.onclick = () => { state.sort = "relevance"; goList({ category: null, query: "" }); };
+    el.homeCategoryGrid.appendChild(allCard);
+
     state.data.categories.forEach((cat) => {
       const count = state.data.products.filter((p) => p.category === cat.id).length;
       const card = document.createElement("button");

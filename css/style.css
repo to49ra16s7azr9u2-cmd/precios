@@ -861,18 +861,6 @@ a { color: inherit; text-decoration: none; }
 .category-card-count { font-size: 11px; color: var(--muted); }
 .category-card.active .category-card-count { color: var(--red); }
 
-/* Variante grande: grilla de categorías de Inicio (solo 5-6 tarjetas, paso 1
-   del recorrido categoría → ranking → precio) */
-.category-card-grid-lg {
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 16px;
-  padding: 10px 0 30px;
-}
-.category-card-grid-lg .category-card { padding: 22px 12px; gap: 12px; }
-.category-card-grid-lg .category-card-icon { width: 76px; height: 76px; font-size: 40px; }
-.category-card-grid-lg .category-card-name { font-size: 15px; }
-.category-card-grid-lg .category-card-count { font-size: 12px; }
-
 .brand-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
