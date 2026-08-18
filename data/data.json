@@ -2,7 +2,7 @@
   "meta": {
     "currency": "MXN",
     "updated": "2026-08-19",
-    "note": "Catálogo en reconstrucción con datos reales: 42 productos con precio/foto/URL reales tomados de feeds de Admitad (SUNSKY, Geekbuying, Molnija Shop, StyleWE, Glasseslit, Woodestic). Todas las tiendas son de envío internacional directo (no hay tienda mexicana equivalente todavía). Precios convertidos de USD/EUR/RUB a MXN a un tipo de cambio aproximado. Celulares/Computadoras/Electrodomésticos/Televisores/Videojuegos vienen de electrónica real de SUNSKY y Geekbuying (Televisores son proyectores con Android TV y Videojuegos es una sola consola retro, honestamente marcados así en vez de forzar productos que no encajan). Joyería y relojes son relojes reales de la fábrica rusa Molnija. Moda y accesorios combina ropa de StyleWE y lentes de Glasseslit. Juegos de mesa son crokinole, shuffleboard y carrom de madera de Woodestic."
+    "note": "Catálogo en reconstrucción con datos reales: 87 productos con precio/foto/URL reales tomados de feeds de Admitad (SUNSKY, Geekbuying, Molnija Shop, StyleWE, Glasseslit, Woodestic, AliExpress, Alibaba, The Luxury Closet, Noracora). Todas las tiendas son de envío internacional directo (no hay tienda mexicana equivalente todavía). Precios convertidos de USD/EUR/RUB a MXN a un tipo de cambio aproximado. Celulares/Computadoras/Electrodomésticos/Televisores/Videojuegos vienen de electrónica real de SUNSKY y Geekbuying. Joyería y relojes combina relojes de la fábrica rusa Molnija con mancuernillas/aretes de AliExpress. Moda y accesorios combina StyleWE, Glasseslit, AliExpress y Noracora. Juegos de mesa son piezas de madera de Woodestic. Herramientas y refacciones y Decoración del hogar y Componentes electrónicos vienen del feed \"Hot Products\" de AliExpress (algunos son B2B/industriales genuinos, no solo consumo). Belleza viene de Alibaba (incluye equipo profesional de salón). Artículos de lujo son productos preowned autenticados de The Luxury Closet. Se excluyeron a propósito: contenido para adultos (Lovemachines), un feed de flores que no puede entregar en México (Floraexpress, servicio ruso local), un feed vacío (ChicMe) y productos con riesgo de seguridad como rellenos dérmicos inyectables o dispositivos de criocirugía para lunares (del feed de Alibaba)."
   },
   "categories": [
     {
@@ -59,6 +59,16 @@
       "id": "Componentes electrónicos",
       "name": "Componentes electrónicos",
       "icon": "🔌"
+    },
+    {
+      "id": "Belleza",
+      "name": "Belleza",
+      "icon": "💄"
+    },
+    {
+      "id": "Artículos de lujo",
+      "name": "Artículos de lujo",
+      "icon": "👜"
     }
   ],
   "metros": [
@@ -823,6 +833,27 @@
       "hubRegion": null,
       "color": "#E62E04",
       "logo": "AE"
+    },
+    {
+      "id": "alibaba",
+      "name": "Alibaba",
+      "hubRegion": null,
+      "color": "#FF6A00",
+      "logo": "AB"
+    },
+    {
+      "id": "theluxurycloset",
+      "name": "The Luxury Closet",
+      "hubRegion": null,
+      "color": "#000000",
+      "logo": "TLC"
+    },
+    {
+      "id": "noracora",
+      "name": "Noracora",
+      "hubRegion": null,
+      "color": "#D63384",
+      "logo": "NC"
     }
   ],
   "products": [
@@ -3620,6 +3651,774 @@
           "verified": false,
           "priceOriginal": {
             "amount": 0.47,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p68",
+      "name": "Esponja Exfoliante de Sisal para Baño",
+      "brand": "Alibaba",
+      "category": "Belleza",
+      "image": "💄",
+      "photo": "https://sc02.alicdn.com/kf/HTB1j1tiXUrrK1RkSne1q6ArVVXaV.jpg_200x200.jpg",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Fibra de sisal"
+        },
+        {
+          "label": "Uso",
+          "value": "Exfoliación corporal en ducha"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "alibaba",
+          "price": 12,
+          "url": "https://rzekl.com/g/pm1aev55cl43517c81ee219aa26f6f/?ulp=https%3A%2F%2Foffer.alibaba.com%2Fcps%2Fm8irg4a8%3Fbm%3Dcps%26src%3Dsaf%26productId%3D60526952564&i=5&f_id=50001",
+          "photo": "https://sc02.alicdn.com/kf/HTB1j1tiXUrrK1RkSne1q6ArVVXaV.jpg_200x200.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 0.69,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p69",
+      "name": "Set de 13 Labiales Mate de Larga Duración",
+      "brand": "Alibaba",
+      "category": "Belleza",
+      "image": "💄",
+      "photo": "https://sc02.alicdn.com/kf/HTB1moZvcEGF3KVjSZFvq6z_nXXaw.jpg_200x200.jpg",
+      "specs": [
+        {
+          "label": "Cantidad",
+          "value": "13 colores"
+        },
+        {
+          "label": "Acabado",
+          "value": "Mate"
+        },
+        {
+          "label": "Duración",
+          "value": "Larga duración"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "alibaba",
+          "price": 144,
+          "url": "https://rzekl.com/g/pm1aev55cl43517c81ee219aa26f6f/?ulp=https%3A%2F%2Foffer.alibaba.com%2Fcps%2Fm8irg4a8%3Fbm%3Dcps%26src%3Dsaf%26productId%3D62159585552&i=5&f_id=50001",
+          "photo": "https://sc02.alicdn.com/kf/HTB1moZvcEGF3KVjSZFvq6z_nXXaw.jpg_200x200.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 8.5,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p70",
+      "name": "Mascarilla Facial Hidrogel Reafirmante de Mentón y Contorno",
+      "brand": "Alibaba",
+      "category": "Belleza",
+      "image": "💄",
+      "photo": "https://sc02.alicdn.com/kf/Hb6bc45d19e714986af08ef74b6d59eea5.jpg_200x200.jpg",
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Hidrogel"
+        },
+        {
+          "label": "Función",
+          "value": "Reafirmar contorno de mandíbula / reducir papada"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "alibaba",
+          "price": 6,
+          "url": "https://rzekl.com/g/pm1aev55cl43517c81ee219aa26f6f/?ulp=https%3A%2F%2Foffer.alibaba.com%2Fcps%2Fm8irg4a8%3Fbm%3Dcps%26src%3Dsaf%26productId%3D62227743039&i=5&f_id=50001",
+          "photo": "https://sc02.alicdn.com/kf/Hb6bc45d19e714986af08ef74b6d59eea5.jpg_200x200.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 0.38,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p71",
+      "name": "Sillón de Pedicure para Salón de Belleza (equipo profesional)",
+      "brand": "Alibaba",
+      "category": "Belleza",
+      "image": "💄",
+      "photo": "https://sc02.alicdn.com/kf/HTB1b2TAayDxK1RjSsphq6zHrpXaK.jpg_200x200.jpg",
+      "specs": [
+        {
+          "label": "Uso",
+          "value": "Salón de belleza / spa profesional"
+        },
+        {
+          "label": "Tipo",
+          "value": "Sillón banco para pedicure"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "alibaba",
+          "price": 17000,
+          "url": "https://rzekl.com/g/pm1aev55cl43517c81ee219aa26f6f/?ulp=https%3A%2F%2Foffer.alibaba.com%2Fcps%2Fm8irg4a8%3Fbm%3Dcps%26src%3Dsaf%26productId%3D60836282784&i=5&f_id=50001",
+          "photo": "https://sc02.alicdn.com/kf/HTB1b2TAayDxK1RjSsphq6zHrpXaK.jpg_200x200.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 1000.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p72",
+      "name": "Kit Eléctrico Limpiador de Poros y Extractor de Puntos Negros",
+      "brand": "Alibaba",
+      "category": "Belleza",
+      "image": "💄",
+      "photo": "https://sc02.alicdn.com/kf/HTB1WxLBaK6sK1RjSsrbq6xbDXXat.jpg_200x200.jpg",
+      "specs": [
+        {
+          "label": "Tipo",
+          "value": "Aspiradora facial de poros"
+        },
+        {
+          "label": "Función",
+          "value": "Extracción de puntos negros"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "alibaba",
+          "price": 119,
+          "url": "https://rzekl.com/g/pm1aev55cl43517c81ee219aa26f6f/?ulp=https%3A%2F%2Foffer.alibaba.com%2Fcps%2Fm8irg4a8%3Fbm%3Dcps%26src%3Dsaf%26productId%3D60780708409&i=5&f_id=50001",
+          "photo": "https://sc02.alicdn.com/kf/HTB1WxLBaK6sK1RjSsrbq6xbDXXat.jpg_200x200.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 7.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p73",
+      "name": "Espejo de Maquillaje con Luz LED, Montaje en Pared y Aumento",
+      "brand": "Alibaba",
+      "category": "Belleza",
+      "image": "💄",
+      "photo": "https://sc02.alicdn.com/kf/Hadf48db5457e4dc8800795f495f4418e7.jpg_200x200.jpg",
+      "specs": [
+        {
+          "label": "Iluminación",
+          "value": "LED"
+        },
+        {
+          "label": "Instalación",
+          "value": "Montaje en pared"
+        },
+        {
+          "label": "Función",
+          "value": "Espejo con aumento"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "alibaba",
+          "price": 59,
+          "url": "https://rzekl.com/g/pm1aev55cl43517c81ee219aa26f6f/?ulp=https%3A%2F%2Foffer.alibaba.com%2Fcps%2Fm8irg4a8%3Fbm%3Dcps%26src%3Dsaf%26productId%3D62295900771&i=5&f_id=50001",
+          "photo": "https://sc02.alicdn.com/kf/Hadf48db5457e4dc8800795f495f4418e7.jpg_200x200.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 3.45,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p74",
+      "name": "Chloe Zapatillas de Tacón Redondo Piel Negra (talla 41, preowned)",
+      "brand": "Chloe",
+      "category": "Artículos de lujo",
+      "image": "👜",
+      "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-chloe-used-shoes-p1078756-003.jpg",
+      "specs": [
+        {
+          "label": "Condición",
+          "value": "Preowned, autenticado por The Luxury Closet"
+        },
+        {
+          "label": "Categoría",
+          "value": "Zapatos"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "theluxurycloset",
+          "price": 2771,
+          "url": "https://ad.admitad.com/g/quh26xvvn843517c81ee4413e8fc1b/?f_id=25781&ulp=https%3A%2F%2Ftheluxurycloset.com%2Fus-en%2Fwomen%2Fchloe-black-leather-round-toe-pumps-size-41-p1078756",
+          "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-chloe-used-shoes-p1078756-003.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 163,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p75",
+      "name": "Jimmy Choo Tenis Miami Piel Python y Gamuza Beige (talla 40, preowned)",
+      "brand": "Jimmy Choo",
+      "category": "Artículos de lujo",
+      "image": "👜",
+      "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-jimmy-choo-used-shoes-p1077509-001.jpg",
+      "specs": [
+        {
+          "label": "Condición",
+          "value": "Preowned, autenticado por The Luxury Closet"
+        },
+        {
+          "label": "Categoría",
+          "value": "Tenis"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "theluxurycloset",
+          "price": 2771,
+          "url": "https://ad.admitad.com/g/quh26xvvn843517c81ee4413e8fc1b/?f_id=25781&ulp=https%3A%2F%2Ftheluxurycloset.com%2Fus-en%2Fwomen%2Fjimmy-choo-beige-python-embossed-leather-and-suede-miami-lace-up-sneakers-size-40-p1077509",
+          "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-jimmy-choo-used-shoes-p1077509-001.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 163,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p76",
+      "name": "Air Jordans Jordan 4 Retro Shimmer Beige (talla 38, preowned)",
+      "brand": "Air Jordans",
+      "category": "Artículos de lujo",
+      "image": "👜",
+      "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-air-jordans-used-shoes-p1077444-001.jpg",
+      "specs": [
+        {
+          "label": "Condición",
+          "value": "Preowned, autenticado por The Luxury Closet"
+        },
+        {
+          "label": "Categoría",
+          "value": "Tenis"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "theluxurycloset",
+          "price": 2771,
+          "url": "https://ad.admitad.com/g/quh26xvvn843517c81ee4413e8fc1b/?f_id=25781&ulp=https%3A%2F%2Ftheluxurycloset.com%2Fus-en%2Fwomen%2Fair-jordans-beige-durabuck-leather-jordan-4-retro-shimmer-sneakers-size-38-p1077444",
+          "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-air-jordans-used-shoes-p1077444-001.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 163,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p77",
+      "name": "Michael Kors Bolsa de Hombro Signature Multicolor (preowned)",
+      "brand": "Michael Kors",
+      "category": "Artículos de lujo",
+      "image": "👜",
+      "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-michael-kors-used-handbags-p1077702-015.jpg",
+      "specs": [
+        {
+          "label": "Condición",
+          "value": "Preowned, autenticado por The Luxury Closet"
+        },
+        {
+          "label": "Categoría",
+          "value": "Bolsa"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "theluxurycloset",
+          "price": 2975,
+          "url": "https://ad.admitad.com/g/quh26xvvn843517c81ee4413e8fc1b/?f_id=25781&ulp=https%3A%2F%2Ftheluxurycloset.com%2Fus-en%2Fwomen%2Fmichael-kors-multicolor-signature-coated-canvas-and-leather-shoulder-bag-p1077702",
+          "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-michael-kors-used-handbags-p1077702-015.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 175,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p78",
+      "name": "Michael Kors Reloj Blair MK5165 Dial Plata 39mm (preowned)",
+      "brand": "Michael Kors",
+      "category": "Artículos de lujo",
+      "image": "👜",
+      "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-michael-kors-used-watches-p1072243-011.jpg",
+      "specs": [
+        {
+          "label": "Condición",
+          "value": "Preowned, autenticado por The Luxury Closet"
+        },
+        {
+          "label": "Categoría",
+          "value": "Reloj"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "theluxurycloset",
+          "price": 2771,
+          "url": "https://ad.admitad.com/g/quh26xvvn843517c81ee4413e8fc1b/?f_id=25781&ulp=https%3A%2F%2Ftheluxurycloset.com%2Fus-en%2Fwomen%2Fmichael-kors-silver-stainless-steel-crystal-blair-mk5165-womens-wristwatch-39-mm-p1072243",
+          "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-michael-kors-used-watches-p1072243-011.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 163,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p79",
+      "name": "Boss by Hugo Boss Lentes de Sol Degradado Negro HG1055/S (preowned)",
+      "brand": "Boss By Hugo Boss",
+      "category": "Artículos de lujo",
+      "image": "👜",
+      "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-men-boss-by-hugo-boss-used-accessories-p1061546-003.jpg",
+      "specs": [
+        {
+          "label": "Condición",
+          "value": "Preowned, autenticado por The Luxury Closet"
+        },
+        {
+          "label": "Categoría",
+          "value": "Lentes de sol"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "theluxurycloset",
+          "price": 3077,
+          "url": "https://ad.admitad.com/g/quh26xvvn843517c81ee4413e8fc1b/?f_id=25781&ulp=https%3A%2F%2Ftheluxurycloset.com%2Fus-en%2Fmen%2Fboss-by-hugo-boss-black-hg1055s-gradient-sunglasses-p1061546",
+          "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-men-boss-by-hugo-boss-used-accessories-p1061546-003.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 181,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p80",
+      "name": "Coach Lentes de Sol Emma Oversized Carey Oscuro (preowned)",
+      "brand": "Coach",
+      "category": "Artículos de lujo",
+      "image": "👜",
+      "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-coach-used-accessories-p1138720-003.jpg",
+      "specs": [
+        {
+          "label": "Condición",
+          "value": "Preowned, autenticado por The Luxury Closet"
+        },
+        {
+          "label": "Categoría",
+          "value": "Lentes de sol"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "theluxurycloset",
+          "price": 2771,
+          "url": "https://ad.admitad.com/g/quh26xvvn843517c81ee4413e8fc1b/?f_id=25781&ulp=https%3A%2F%2Ftheluxurycloset.com%2Fus-en%2Fwomen%2Fcoach-dark-tortoiseblack-hc-8001-emma-oversized-sunglasses-p1138720",
+          "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-coach-used-accessories-p1138720-003.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 163,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p81",
+      "name": "Cartier Anillo Love Diamante Oro Rosa 18k Talla 51 (preowned)",
+      "brand": "Cartier",
+      "category": "Artículos de lujo",
+      "image": "👜",
+      "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-cartier-used-fine-jewelry-p1305590-007.jpg",
+      "specs": [
+        {
+          "label": "Condición",
+          "value": "Preowned, autenticado por The Luxury Closet"
+        },
+        {
+          "label": "Categoría",
+          "value": "Joyería fina"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "theluxurycloset",
+          "price": 79662,
+          "url": "https://ad.admitad.com/g/quh26xvvn843517c81ee4413e8fc1b/?f_id=25781&ulp=https%3A%2F%2Ftheluxurycloset.com%2Fus-en%2Fwomen%2Fcartier-love-diamond-18k-rose-gold-solitaire-ring-size-51-p1305590",
+          "photo": "https://cdn.theluxurycloset.com/uploads/products/full/luxury-women-cartier-used-fine-jewelry-p1305590-007.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 4686,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p82",
+      "name": "Sandalias Cuña Baja con Hebilla, Lisas",
+      "brand": "Noracora",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2024-04/12/ca5d359a2c3a66ae96782c7270431c39.jpg",
+      "specs": [
+        {
+          "label": "Color",
+          "value": "Dorado"
+        },
+        {
+          "label": "Talla",
+          "value": "40"
+        },
+        {
+          "label": "Tipo",
+          "value": "Sandalia de cuña baja"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "noracora",
+          "price": 510,
+          "url": "https://qwpeg.com/g/of8pqgktr243517c81eec8dbeb8f0d/?f_id=24535&ulp=https%3A%2F%2Fnoracora.com%2Fproducts%2Felegant-plain-slip-on-low-heel-wedge-sandals-16309898%3Fsku%3DST440D2A7415",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2024-04/12/ca5d359a2c3a66ae96782c7270431c39.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 30.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p83",
+      "name": "Vestido Midi Rayas Manga Corta con Hebilla",
+      "brand": "Noracora",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2023-06/21/a8be63c6c05794c87965872b27c01bb8.png",
+      "specs": [
+        {
+          "label": "Color",
+          "value": "Caqui"
+        },
+        {
+          "label": "Talla",
+          "value": "XS"
+        },
+        {
+          "label": "Largo",
+          "value": "Midi"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "noracora",
+          "price": 714,
+          "url": "https://qwpeg.com/g/of8pqgktr243517c81eec8dbeb8f0d/?f_id=24535&ulp=https%3A%2F%2Fnoracora.com%2Fproducts%2Fwomen-striped-notched-short-sleeve-comfy-vacation-buckle-midi-dress-16316762%3Fsku%3DDR50FE18A082",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2023-06/21/a8be63c6c05794c87965872b27c01bb8.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 42.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p84",
+      "name": "Blusa Túnica Cuello V Manga 3/4 Estampado de Lunares",
+      "brand": "Noracora",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2022-08-04/70c25cbd654eb300fad321159b1f3e52.jpg",
+      "specs": [
+        {
+          "label": "Color",
+          "value": "Verde"
+        },
+        {
+          "label": "Talla",
+          "value": "XXL"
+        },
+        {
+          "label": "Estampado",
+          "value": "Lunares (polka dot)"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "noracora",
+          "price": 493,
+          "url": "https://qwpeg.com/g/of8pqgktr243517c81eec8dbeb8f0d/?f_id=24535&ulp=https%3A%2F%2Fnoracora.com%2Fproducts%2Fv-neck-three-quarter-sleeve-geometric-regular-loose-tunic-shirt-for-women-16153107%3Fsku%3DTO84D403D450",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2022-08-04/70c25cbd654eb300fad321159b1f3e52.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 29.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p85",
+      "name": "Vestido Maxi Ombré Cuello Redondo Manga Larga con Bolsillos",
+      "brand": "Noracora",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2024-09/02/9c9e9b258905dad647c097e83670da31.jpg",
+      "specs": [
+        {
+          "label": "Color",
+          "value": "Azul"
+        },
+        {
+          "label": "Talla",
+          "value": "XL"
+        },
+        {
+          "label": "Largo",
+          "value": "Maxi"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "noracora",
+          "price": 867,
+          "url": "https://qwpeg.com/g/of8pqgktr243517c81eec8dbeb8f0d/?f_id=24535&ulp=https%3A%2F%2Fnoracora.com%2Fproducts%2Fwomen-ombre-crew-neck-long-sleeve-comfy-casual-pocket-stitching-maxi-dress-16468058%3Fsku%3DDR92F2AE310D",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2024-09/02/9c9e9b258905dad647c097e83670da31.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 51.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p86",
+      "name": "Sudadera Casual Cuello Redondo Diseño Étnico",
+      "brand": "Noracora",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2024-11/16/203788a3649c6772e557027629fb1355.png",
+      "specs": [
+        {
+          "label": "Talla",
+          "value": "XXL"
+        },
+        {
+          "label": "Tipo",
+          "value": "Sudadera casual"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "noracora",
+          "price": 544,
+          "url": "https://qwpeg.com/g/of8pqgktr243517c81eec8dbeb8f0d/?f_id=24535&ulp=https%3A%2F%2Fnoracora.com%2Fproducts%2Fcasual-crew-neck-ethnic-sweatshirt-16563995%3Fsku%3DSWBG60361FE6",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2024-11/16/203788a3649c6772e557027629fb1355.png",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 32.0,
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    {
+      "id": "p87",
+      "name": "Vestido Maxi Floral Cuello Redondo Manga Media",
+      "brand": "Noracora",
+      "category": "Moda y accesorios",
+      "image": "👗",
+      "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2025-02/25/02941952821de285de4130b1466569cb.jpg",
+      "specs": [
+        {
+          "label": "Color",
+          "value": "Azul"
+        },
+        {
+          "label": "Talla",
+          "value": "3XL"
+        },
+        {
+          "label": "Estampado",
+          "value": "Floral"
+        }
+      ],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "noracora",
+          "price": 782,
+          "url": "https://qwpeg.com/g/of8pqgktr243517c81eec8dbeb8f0d/?f_id=24535&ulp=https%3A%2F%2Fnoracora.com%2Fproducts%2Fwomen-floral-crew-neck-half-sleeve-comfy-casual-maxi-dress-16682183%3Fsku%3DDR2P0D226B15",
+          "photo": "https://img.chicv.com/image_cache/resize/450x600/image/catalog/product/2025-02/25/02941952821de285de4130b1466569cb.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": "in_stock",
+          "verified": false,
+          "priceOriginal": {
+            "amount": 46.0,
             "currency": "USD"
           }
         }
