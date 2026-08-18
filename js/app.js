@@ -961,26 +961,66 @@
 
   // ---------- Vista: Marcas y ofertas (catálogo de afiliados, Admitad) ----------
 
+  // Iconos ilustrados (subidos por el usuario) para las categorías que tienen
+  // uno; el resto usa un emoji plano como respaldo, mismo criterio visual
+  // que el resto del sitio (ver cat.icon en renderCatNav).
+  const CATEGORY_ICONS = {
+    "Electrónica y gaming": "icons/categories/electronica-gaming.png",
+    "VPN y seguridad": "icons/categories/vpn-seguridad.png",
+    "Moda y accesorios": "icons/categories/moda-accesorios.png",
+    "Electrodomésticos y hogar": "icons/categories/electrodomesticos-hogar.png",
+    "Joyería y relojes": "icons/categories/joyeria-relojes.png",
+    "Finanzas": "icons/categories/finanzas.png",
+  };
+  const CATEGORY_EMOJI_FALLBACK = {
+    "Compras generales": "🛍️",
+    "Belleza": "💄",
+    "Viajes": "✈️",
+    "Educación": "🎓",
+    "Software e IA": "🤖",
+    "Hosting y dominios": "🌐",
+    "Otros": "📦",
+  };
+
   function brandCategories() {
     const list = state.brandsData.brands.map((b) => b.category);
     return [...new Set(list)].sort();
   }
 
+  function categoryCardIconHtml(cat) {
+    const photo = CATEGORY_ICONS[cat];
+    if (photo) return `<img src="${photo}" alt="" loading="lazy">`;
+    return CATEGORY_EMOJI_FALLBACK[cat] || "🏷️";
+  }
+
   function renderBrandCategoryFilter() {
     el.brandCategoryFilter.innerHTML = "";
-    const allOpt = document.createElement("label");
-    allOpt.className = "filter-option" + (!state.brandCategory ? " active" : "");
-    allOpt.innerHTML = `<input type="radio" name="fbrandcat" ${!state.brandCategory ? "checked" : ""}> Todas`;
-    allOpt.onclick = () => { state.brandCategory = null; renderBrands(); };
-    el.brandCategoryFilter.appendChild(allOpt);
+    const all = state.brandsData.brands;
+
+    const allCard = document.createElement("button");
+    allCard.type = "button";
+    allCard.className = "category-card" + (!state.brandCategory ? " active" : "");
+    allCard.innerHTML = `
+      <span class="category-card-icon">🛍️</span>
+      <span class="category-card-name">Todas</span>
+      <span class="category-card-count">${all.length}</span>
+    `;
+    allCard.onclick = () => { state.brandCategory = null; renderBrands(); };
+    el.brandCategoryFilter.appendChild(allCard);
 
     brandCategories().forEach((cat) => {
-      const opt = document.createElement("label");
+      const count = all.filter((b) => b.category === cat).length;
       const isActive = state.brandCategory === cat;
-      opt.className = "filter-option" + (isActive ? " active" : "");
-      opt.innerHTML = `<input type="radio" name="fbrandcat" ${isActive ? "checked" : ""}> ${cat}`;
-      opt.onclick = () => { state.brandCategory = cat; renderBrands(); };
-      el.brandCategoryFilter.appendChild(opt);
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "category-card" + (isActive ? " active" : "");
+      card.innerHTML = `
+        <span class="category-card-icon">${categoryCardIconHtml(cat)}</span>
+        <span class="category-card-name">${cat}</span>
+        <span class="category-card-count">${count}</span>
+      `;
+      card.onclick = () => { state.brandCategory = cat; renderBrands(); };
+      el.brandCategoryFilter.appendChild(card);
     });
   }
 

@@ -856,6 +856,45 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ---------- Marcas y ofertas (catálogo de afiliados) ---------- */
+.category-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  padding: 4px 0 22px;
+}
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: center;
+  font: inherit;
+  color: var(--ink);
+}
+.category-card:hover { border-color: var(--red); }
+.category-card.active { border-color: var(--red); color: var(--red); }
+.category-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.category-card-icon img { width: 100%; height: 100%; object-fit: cover; }
+.category-card-name { font-size: 12px; font-weight: 700; line-height: 1.25; }
+.category-card-count { font-size: 11px; color: var(--muted); }
+.category-card.active .category-card-count { color: var(--red); }
+
 .brand-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
