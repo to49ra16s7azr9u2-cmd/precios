@@ -39,21 +39,15 @@
 
 <main id="app">
 
-  <!-- Inicio: rankings por categoría -->
+  <!-- Inicio: solo selección de categoría (estilo Kakaku.com: categoría → -->
+  <!-- ranking de productos populares → comparación de precios) -->
   <section id="viewHome" class="view">
     <div class="container">
       <div class="hero">
         <h1>Compara precios entre tiendas mexicanas</h1>
-        <p class="muted">Encuentra el mejor precio y, si quieres, el tiempo de entrega estimado a tu municipio.</p>
+        <p class="muted">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</p>
       </div>
-      <div class="ranking-grid" id="rankingGrid"></div>
-
-      <div class="hero">
-        <h2>🏆 Comparación de precios: el más popular de cada categoría</h2>
-        <p class="muted">El producto más buscado de cada categoría, comparado tienda por tienda — del más barato al tercer lugar.</p>
-        <p class="disclaimer">* Precios de referencia (no verificados en tiempo real) — mismo criterio que el resto del catálogo. Ver ficha del producto para el detalle por tienda.</p>
-      </div>
-      <div class="ranking-grid" id="comparisonGrid"></div>
+      <div id="homeCategoryGrid" class="category-card-grid category-card-grid-lg"></div>
     </div>
   </section>
 
@@ -85,6 +79,7 @@
           <div class="list-head">
             <h1 id="listTitle">Productos</h1>
             <select id="sortSelect" class="sort-select">
+              <option value="popularity">Popularidad</option>
               <option value="relevance">Relevancia</option>
               <option value="price_asc">Precio: menor a mayor</option>
               <option value="price_desc">Precio: mayor a menor</option>

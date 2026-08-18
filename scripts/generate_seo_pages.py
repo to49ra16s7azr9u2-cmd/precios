@@ -78,6 +78,10 @@ def min_price(product):
     return min(o["price"] for o in product["offers"])
 
 
+def total_review_count(product):
+    return sum(o["reviewCount"] for o in product["offers"])
+
+
 def aggregate_rating(product):
     total_reviews = sum(o["reviewCount"] for o in product["offers"])
     if total_reviews == 0:
@@ -323,10 +327,16 @@ def render_category_page(cat, products, data):
         f"{', '.join(sorted({p['brand'] for p in products}))}. "
         f"{len(products)} productos comparados."
     )
+    # Mismo criterio de "popular" que la SPA (sortedProducts con
+    # sort=popularity en js/app.js): ranking por reseñas totales, no por
+    # precio — es el paso 2 del recorrido categoría → populares → precio.
+    ranked = sorted(products, key=total_review_count, reverse=True)
     rows = []
-    for p in sorted(products, key=min_price):
+    for i, p in enumerate(ranked, start=1):
+        rank_badge = "👑" if i == 1 else str(i)
         rows.append(
-            f'<div class="product-row">'
+            f'<div class="product-row has-rank">'
+            f'<span class="rank-badge">{rank_badge}</span>'
             f'<span class="row-icon">{p.get("image", "📦")}</span>'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
@@ -340,7 +350,7 @@ def render_category_page(cat, products, data):
         )
     body = f"""
 <nav class="breadcrumb"><a href="../../index.html">Inicio</a> &gt; {html_escape(cat['name'])}</nav>
-<div class="list-head"><h1>{html_escape(cat['name'])} ({len(products)})</h1></div>
+<div class="list-head"><h1>🏆 {html_escape(cat['name'])} — más populares ({len(products)})</h1></div>
 <div class="product-list">{''.join(rows)}</div>
 <div class="panel" style="text-align:center; margin-top:20px">
   <a class="buy-btn" href="../../index.html#/list?cat={cat['id']}">Ver con filtros interactivos →</a>

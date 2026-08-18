@@ -163,8 +163,7 @@
     searchBtn: document.getElementById("searchBtn"),
 
     viewHome: document.getElementById("viewHome"),
-    rankingGrid: document.getElementById("rankingGrid"),
-    comparisonGrid: document.getElementById("comparisonGrid"),
+    homeCategoryGrid: document.getElementById("homeCategoryGrid"),
 
     viewList: document.getElementById("viewList"),
     listBreadcrumb: document.getElementById("listBreadcrumb"),
@@ -252,6 +251,12 @@
 
   function minPrice(product) {
     return Math.min(...product.offers.map((o) => o.price));
+  }
+
+  // Proxy de "popularidad" para el ranking de cada categoría: suma de
+  // reseñas entre todas las tiendas del producto.
+  function totalReviews(product) {
+    return product.offers.reduce((sum, o) => sum + (o.reviewCount || 0), 0);
   }
 
   // Descuento de la oferta más barata, si tiene listPrice (precio de lista)
@@ -591,6 +596,14 @@
     navigateTo("#/list", renderList);
   }
 
+  // Entrar a una categoría (desde Inicio, la barra de categorías o el
+  // filtro) siempre parte del ranking de popularidad, como en Kakaku.com:
+  // ahí es donde vive el paso 2 del recorrido (categoría → ranking → precio).
+  function goCategoryRanking(categoryId) {
+    state.sort = "popularity";
+    goList({ category: categoryId, query: "" });
+  }
+
   function goDetail(productId) {
     navigateTo(`#/p/${productId}`, () => renderDetail(productId));
   }
@@ -633,109 +646,32 @@
       span.textContent = `${c.icon} ${c.name}`;
       const isActive = location.hash === "#/list" && state.category === c.id;
       span.className = isActive ? "active" : "";
-      span.onclick = () => goList({ category: c.id, query: "" });
+      span.onclick = () => goCategoryRanking(c.id);
       el.catNav.appendChild(span);
     });
   }
 
-  // ---------- Vista: Inicio (rankings) ----------
+  // ---------- Vista: Inicio (solo selección de categoría) ----------
 
-  // Producto "popular" de una categoría para la comparación tienda por
-  // tienda: el que tiene más reseñas sumando todas sus ofertas, entre los
-  // que tienen al menos 3 ofertas (para poder mostrar 1er-3er lugar). Si
-  // ninguno llega a 3 ofertas, se usa el que más ofertas tenga.
-  function mostPopularProduct(categoryId) {
-    const products = state.data.products.filter((p) => p.category === categoryId);
-    if (products.length === 0) return null;
-    const totalReviews = (p) => p.offers.reduce((sum, o) => sum + (o.reviewCount || 0), 0);
-    const withThree = products.filter((p) => p.offers.length >= 3);
-    const pool = withThree.length > 0 ? withThree : products;
-    return pool
-      .slice()
-      .sort((a, b) => (withThree.length > 0 ? totalReviews(b) - totalReviews(a) : b.offers.length - a.offers.length))[0];
-  }
-
-  function renderComparisonRankings() {
-    el.comparisonGrid.innerHTML = "";
-    state.data.categories.forEach((cat) => {
-      const product = mostPopularProduct(cat.id);
-      if (!product) return;
-      const top3 = product.offers
-        .slice()
-        .sort((a, b) => a.price - b.price)
-        .slice(0, 3);
-
-      const card = document.createElement("div");
-      card.className = "ranking-card";
-      card.innerHTML = `
-        <div class="ranking-card-head">
-          <span class="cat-icon">${cat.icon}</span>
-          <h2>${product.name}</h2>
-          <span class="see-all">Ver producto</span>
-        </div>
-      `;
-      card.querySelector(".see-all").onclick = () => goDetail(product.id);
-
-      top3.forEach((o, i) => {
-        const rank = i + 1;
-        const store = storeById(o.storeId);
-        const row = document.createElement("div");
-        row.className = "ranking-row";
-        row.innerHTML = `
-          <span class="rank-badge">${rank === 1 ? "👑" : rank}</span>
-          <span class="row-icon"><span class="store-dot" style="background:${store.color}">${store.logo}</span></span>
-          <span class="row-name">${store.name}</span>
-          <span class="row-price">${money(o.price)}</span>
-        `;
-        row.onclick = () => goDetail(product.id);
-        card.appendChild(row);
-      });
-      el.comparisonGrid.appendChild(card);
-    });
-  }
-
+  // Inicio ahora es puramente el primer paso del recorrido estilo
+  // Kakaku.com: categoría → ranking de productos populares → comparación de
+  // precios. Los rankings en sí viven en la vista de categoría (renderList).
   function renderHome() {
     setActiveView("home");
     renderCatNav();
-    el.rankingGrid.innerHTML = "";
-    renderComparisonRankings();
+    el.homeCategoryGrid.innerHTML = "";
     state.data.categories.forEach((cat) => {
-      const products = state.data.products
-        .filter((p) => p.category === cat.id)
-        .slice()
-        .sort((a, b) => minPrice(a) - minPrice(b))
-        .slice(0, 5);
-
-      const card = document.createElement("div");
-      card.className = "ranking-card";
+      const count = state.data.products.filter((p) => p.category === cat.id).length;
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "category-card";
       card.innerHTML = `
-        <div class="ranking-card-head">
-          <span class="cat-icon">${cat.icon}</span>
-          <h2>${cat.name} más buscados</h2>
-          <span class="see-all">Ver todos</span>
-        </div>
+        <span class="category-card-icon">${cat.icon}</span>
+        <span class="category-card-name">${cat.name}</span>
+        <span class="category-card-count">${count} productos</span>
       `;
-      card.querySelector(".see-all").onclick = () => goList({ category: cat.id, query: "" });
-
-      products.forEach((p) => {
-        const rank = products.indexOf(p) + 1;
-        const row = document.createElement("div");
-        row.className = "ranking-row";
-        row.innerHTML = `
-          <span class="rank-badge">${rank === 1 ? "👑" : rank}</span>
-          <span class="row-icon">${p.image}</span>
-          <span class="row-name">${p.name}</span>
-          ${bestDiscountPct(p) ? `<span class="discount-badge">-${bestDiscountPct(p)}%</span>` : ""}
-          <span class="row-price">${money(minPrice(p))}</span>
-          <button class="row-fav-btn" aria-label="Favorito"></button>
-        `;
-        renderProductMedia(row.querySelector(".row-icon"), p);
-        row.onclick = () => goDetail(p.id);
-        bindFavToggle(row.querySelector(".row-fav-btn"), p.id, renderHome);
-        row.querySelector(".row-fav-btn").textContent = favIconHtml(p.id);
-        card.appendChild(row);
-      });
-      el.rankingGrid.appendChild(card);
+      card.onclick = () => goCategoryRanking(cat.id);
+      el.homeCategoryGrid.appendChild(card);
     });
   }
 
@@ -770,7 +706,8 @@
 
   function sortedProducts(products) {
     const list = products.slice();
-    if (state.sort === "price_asc") list.sort((a, b) => minPrice(a) - minPrice(b));
+    if (state.sort === "popularity") list.sort((a, b) => totalReviews(b) - totalReviews(a));
+    else if (state.sort === "price_asc") list.sort((a, b) => minPrice(a) - minPrice(b));
     else if (state.sort === "price_desc") list.sort((a, b) => minPrice(b) - minPrice(a));
     else if (state.sort === "rating_desc") list.sort((a, b) => aggregateRating(b).avg - aggregateRating(a).avg);
     return list;
@@ -796,16 +733,22 @@
     renderFilterBrand();
     renderFilterRating();
 
+    // Paso 2 del recorrido estilo Kakaku.com (categoría → ranking de
+    // populares → precio): al entrar por una categoría, sin búsqueda de
+    // texto, la lista se muestra como ranking numerado en vez de lista plana.
+    const isCategoryRanking = !!state.category && !state.query;
+
     renderProductListInto(el.productList, sortedProducts(filteredProducts()), {
       emptyText: "No se encontraron productos con estos filtros.",
       onFavToggle: renderList,
+      withRank: isCategoryRanking,
     });
 
     const products = filteredProducts();
     el.listTitle.textContent = state.query
       ? `Resultados para "${state.query}" (${products.length})`
       : state.category
-      ? `${categoryById(state.category).name} (${products.length})`
+      ? `🏆 ${categoryById(state.category).name} — más populares (${products.length})`
       : `Todos los productos (${products.length})`;
 
     renderLiveSearchSection();
@@ -857,11 +800,13 @@
       container.innerHTML = `<p class="empty-state">${opts.emptyText}</p>`;
       return;
     }
-    products.forEach((p) => {
+    products.forEach((p, i) => {
       const { avg, count } = aggregateRating(p);
+      const rank = i + 1;
       const row = document.createElement("div");
-      row.className = "product-row";
+      row.className = "product-row" + (opts.withRank ? " has-rank" : "");
       row.innerHTML = `
+        ${opts.withRank ? `<span class="rank-badge">${rank === 1 ? "👑" : rank}</span>` : ""}
         <span class="row-icon">${p.image}</span>
         <div class="row-info">
           <div class="row-brand">${p.brand}</div>
@@ -888,7 +833,7 @@
     const allOpt = document.createElement("label");
     allOpt.className = "filter-option" + (!state.category ? " active" : "");
     allOpt.innerHTML = `<input type="radio" name="fcat" ${!state.category ? "checked" : ""}> Todas`;
-    allOpt.onclick = () => { state.category = null; state.brands.clear(); renderList(); };
+    allOpt.onclick = () => { state.category = null; state.brands.clear(); state.sort = "relevance"; renderList(); };
     el.filterCategory.appendChild(allOpt);
 
     state.data.categories.forEach((c) => {
@@ -896,7 +841,7 @@
       const isActive = state.category === c.id;
       opt.className = "filter-option" + (isActive ? " active" : "");
       opt.innerHTML = `<input type="radio" name="fcat" ${isActive ? "checked" : ""}> ${c.icon} ${c.name}`;
-      opt.onclick = () => { state.category = c.id; state.brands.clear(); renderList(); };
+      opt.onclick = () => { state.category = c.id; state.brands.clear(); state.sort = "popularity"; renderList(); };
       el.filterCategory.appendChild(opt);
     });
   }

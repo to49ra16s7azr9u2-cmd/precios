@@ -140,51 +140,9 @@ a { color: inherit; text-decoration: none; }
 }
 .page-band .breadcrumb { padding: 0 0 6px; }
 
-.ranking-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 18px;
-  padding: 18px 0 40px;
-}
-.ranking-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-/* La barra roja de la izquierda se dibuja con un pseudo-elemento y no con
-   border-image: border-image pinta las CUATRO orillas, así que teñiría de
-   rojo también la línea divisoria de abajo. */
-.ranking-card-head {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 16px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-}
-.ranking-card-head::before {
-  content: "";
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 4px;
-  background: var(--red);
-}
-.ranking-card-head .cat-icon { font-size: 21px; }
-.ranking-card-head h2 { font-size: 16px; margin: 0; }
-.ranking-card-head .see-all { margin-left: auto; font-size: 13px; color: var(--red); font-weight: 700; }
-
-.ranking-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 16px;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-}
-.ranking-row:last-child { border-bottom: none; }
-.ranking-row:hover { background: var(--bg); }
+/* Insignia de posición para las listas en modo ranking (ver .has-rank en
+   .product-row, más abajo): número plano sin degradado, con medallero
+   dorado/plata/bronce para el top 3. */
 .rank-badge {
   width: 30px; height: 30px;
   border-radius: 50%;
@@ -195,26 +153,6 @@ a { color: inherit; text-decoration: none; }
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-/* Medallero estilo Rakuten para el top 3 (colores planos, sin degradado).
-   La cabecera .ranking-card-head es el primer hijo de .ranking-card, así
-   que la 1a/2a/3a fila son los hijos 2/3/4, no 1/2/3. */
-.ranking-row:nth-child(2) .rank-badge { background: #d9a300; color: #fff; }
-.ranking-row:nth-child(3) .rank-badge { background: #a8a8a8; color: #fff; }
-.ranking-row:nth-child(4) .rank-badge { background: #a9662f; color: #fff; }
-.ranking-row .row-icon { font-size: 26px; width: 34px; text-align: center; flex-shrink: 0; }
-.ranking-row .row-name {
-  flex: 1;
-  font-size: 14px;
-  line-height: 1.3;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-/* El precio es lo único que debe saltar a la vista en cada fila. */
-.ranking-row .row-price { font-size: 16px; font-weight: 800; color: var(--red-dark); flex-shrink: 0; }
-.ranking-row .row-fav-btn { font-size: 17px; }
 
 /* ---------- List / search results ---------- */
 .breadcrumb { font-size: 12px; color: var(--muted); padding: 14px 0 0; }
@@ -312,6 +250,10 @@ a { color: inherit; text-decoration: none; }
 .product-row .row-from { font-size: 12px; color: var(--muted); }
 .product-row .row-price { font-size: 21px; font-weight: 800; color: var(--red-dark); }
 .product-row .row-stores { font-size: 12px; color: var(--muted); }
+.product-row.has-rank .rank-badge { flex-shrink: 0; }
+.product-list .product-row.has-rank:nth-child(2) .rank-badge { background: #d9a300; color: #fff; }
+.product-list .product-row.has-rank:nth-child(3) .rank-badge { background: #a8a8a8; color: #fff; }
+.product-list .product-row.has-rank:nth-child(4) .rank-badge { background: #a9662f; color: #fff; }
 
 /* ---------- Product detail ---------- */
 .detail-head {
@@ -919,6 +861,18 @@ a { color: inherit; text-decoration: none; }
 .category-card-count { font-size: 11px; color: var(--muted); }
 .category-card.active .category-card-count { color: var(--red); }
 
+/* Variante grande: grilla de categorías de Inicio (solo 5-6 tarjetas, paso 1
+   del recorrido categoría → ranking → precio) */
+.category-card-grid-lg {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 10px 0 30px;
+}
+.category-card-grid-lg .category-card { padding: 22px 12px; gap: 12px; }
+.category-card-grid-lg .category-card-icon { width: 76px; height: 76px; font-size: 40px; }
+.category-card-grid-lg .category-card-name { font-size: 15px; }
+.category-card-grid-lg .category-card-count { font-size: 12px; }
+
 .brand-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -967,7 +921,6 @@ a { color: inherit; text-decoration: none; }
   border-radius: 8px;
   background: #fff;
 }
-.ranking-row .row-icon.has-photo { height: 34px; }
 .product-row .row-icon.has-photo {
   height: 56px;
   border: 1px solid var(--border);
