@@ -20,12 +20,44 @@ body {
   font-family: "Hiragino Sans", "Noto Sans", "Segoe UI", Arial, sans-serif;
   background: var(--bg);
   color: var(--ink);
+  line-height: 1.55;
   /* Pie pegado abajo: en las vistas cortas (Inicio, Favoritos vacío, Mi
      cuenta) el pie quedaba a media pantalla con un vacío gris debajo, como
      si la página se hubiera cortado a la mitad al cargar. */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Transiciones suaves centralizadas: antes casi ninguna regla :hover tenía
+   "transition" (el color cambiaba de golpe), así que se agrega acá una sola
+   vez para todo lo interactivo en vez de repetirla en cada regla :hover de
+   la hoja -- misma duración/curva en todos lados (principio de repetición). */
+a, button, input, select,
+.product-row, .category-card, .brand-card, .filter-option,
+.cats span, .cat-label, .cat-submenu a, .page-btn, .sort-tab, .metro-tab,
+.region-chip, .variant-pill, .related-item, .ranking-block-more {
+  transition: border-color .15s ease, color .15s ease, background-color .15s ease,
+    box-shadow .15s ease, opacity .15s ease;
+}
+
+/* Transición sutil de una vista a otra: como .hidden usa display:none, no se
+   puede animar directamente, pero una animación (a diferencia de una
+   transición) sí se vuelve a disparar cada vez que el elemento pasa de
+   none a block, así que basta con esto -- sin tocar el JS de setActiveView. */
+.view:not(.hidden) { animation: view-fade-in .22s ease; }
+@keyframes view-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .view:not(.hidden) { animation: none; }
+  a, button, input, select,
+  .product-row, .category-card, .brand-card, .filter-option,
+  .cats span, .cat-label, .cat-submenu a, .page-btn, .sort-tab, .metro-tab,
+  .region-chip, .variant-pill, .related-item, .ranking-block-more {
+    transition: none;
+  }
 }
 
 a { color: inherit; text-decoration: none; }
@@ -182,22 +214,28 @@ a { color: inherit; text-decoration: none; }
    atención en la página es el precio, no el título. */
 .hero,
 .page-band {
-  padding: 20px 0 6px;
+  padding: 32px 0 10px;
 }
 .hero h1,
 .page-band h1 {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   color: var(--ink);
+  letter-spacing: -.01em;
 }
-.hero h1 { font-size: 26px; }
-.page-band h1 { font-size: 22px; }
-.hero p, .page-band p { margin: 0; font-size: 14px; color: var(--muted); }
-.hero h2 {
-  margin: 22px 0 6px;
-  padding-top: 22px;
+/* Más salto tipográfico entre el título y el texto de apoyo (14px) del que
+   había (26px, 1.9x) -- un h1 más grande se lee más "de portada" y ayuda a
+   la jerarquía en el primer vistazo. */
+.hero h1 { font-size: 34px; }
+.page-band h1 { font-size: 26px; }
+.hero p, .page-band p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted); }
+.hero h2,
+.section-title {
+  margin: 26px 0 16px;
+  padding-top: 26px;
   border-top: 1px solid var(--border);
   color: var(--ink);
-  font-size: 19px;
+  font-size: 20px;
+  letter-spacing: -.005em;
 }
 .page-band .breadcrumb { padding: 0 0 6px; }
 
@@ -221,8 +259,12 @@ a { color: inherit; text-decoration: none; }
 
 .list-layout {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 20px;
+  /* Ancho por proporción con un piso fijo en vez de un ancho fijo puro: el
+     panel de filtros gana algo de aire en pantallas medianas/grandes (hasta
+     los 1120px del .container) en vez de quedarse siempre en los mismos
+     220px mientras el resto del layout sí respira más. */
+  grid-template-columns: minmax(220px, 22%) 1fr;
+  gap: 24px;
   padding-bottom: 40px;
 }
 @media (max-width: 760px) {
@@ -301,10 +343,10 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
   flex-wrap: wrap;
 }
-.list-head h1 { font-size: 21px; margin: 0; }
+.list-head h1 { font-size: 24px; margin: 0; letter-spacing: -.01em; }
 .sort-select {
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -314,7 +356,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink);
 }
 
-.product-list { display: flex; flex-direction: column; gap: 12px; }
+.product-list { display: flex; flex-direction: column; gap: 14px; }
 .pagination {
   display: flex;
   align-items: center;
@@ -337,11 +379,11 @@ a { color: inherit; text-decoration: none; }
 .product-row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 16px 18px;
+  padding: 18px 20px;
   cursor: pointer;
 }
 .product-row:hover { border-color: var(--red); }
@@ -367,14 +409,14 @@ a { color: inherit; text-decoration: none; }
 .home-rankings {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-  padding-bottom: 26px;
+  gap: 20px;
+  padding-bottom: 32px;
 }
 .ranking-block {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
 }
@@ -1049,16 +1091,16 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Marcas y ofertas (catálogo de afiliados) ---------- */
 .category-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 10px;
-  padding: 4px 0 22px;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 14px;
+  padding: 6px 0 30px;
 }
 .category-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 14px 8px;
+  gap: 10px;
+  padding: 18px 12px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
