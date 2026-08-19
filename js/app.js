@@ -1211,6 +1211,25 @@
   }
 
   // ---------- Mapa de entrega (modal) ----------
+  // Leaflet se carga de forma perezosa (recién al abrir el mapa) para no
+  // bloquear la carga inicial de la página con un <script> externo síncrono.
+  let leafletLoadPromise = null;
+  function ensureLeafletLoaded() {
+    if (window.L) return Promise.resolve();
+    if (leafletLoadPromise) return leafletLoadPromise;
+    leafletLoadPromise = new Promise((resolve, reject) => {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+      document.head.appendChild(link);
+      const script = document.createElement("script");
+      script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error("No se pudo cargar el mapa."));
+      document.head.appendChild(script);
+    });
+    return leafletLoadPromise;
+  }
 
   function openMapModal() {
     if (!state.selectedMetro) {
@@ -1219,7 +1238,9 @@
     renderMetroTabs();
     renderRegionChips();
     el.mapModal.classList.remove("hidden");
-    initOrUpdateMap();
+    ensureLeafletLoaded()
+      .then(() => initOrUpdateMap())
+      .catch(() => closeMapModal());
   }
 
   function closeMapModal() {
