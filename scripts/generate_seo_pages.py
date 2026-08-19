@@ -365,14 +365,22 @@ def render_category_page(cat, products, data):
     # sort=popularity en js/app.js): ranking por reseñas totales, no por
     # precio — es el paso 2 del recorrido categoría → populares → precio.
     ranked = sorted(products, key=total_review_count, reverse=True)
+    # La página estática no es interactiva (no hay paginación de JS aquí),
+    # así que se limita a un top fijo en vez de volcar la categoría entera:
+    # sin esto, "Moda y accesorios" generaba un solo archivo HTML de ~4MB
+    # con miles de filas. El resto queda a un clic con el link de abajo,
+    # que ya manda a la SPA con filtros interactivos (y ahí sí paginada).
+    STATIC_LIST_CAP = 100
+    shown = ranked[:STATIC_LIST_CAP]
     rows = []
-    for i, p in enumerate(ranked, start=1):
+    for i, p in enumerate(shown, start=1):
         rank_badge = "👑" if i == 1 else str(i)
+        rank_class = f" rank-{i}" if 2 <= i <= 4 else ""
         variant_count = max([len(o.get("variants") or []) for o in p["offers"]], default=0)
         variant_badge = f'<span class="variant-count-badge" title="También disponible en otros colores/tallas">🎨 +{variant_count}</span>' if variant_count else ""
         used_badge = f'<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>' if is_used(p) else ""
         rows.append(
-            f'<div class="product-row has-rank">'
+            f'<div class="product-row has-rank{rank_class}">'
             f'<span class="rank-badge">{rank_badge}</span>'
             f'<span class="row-icon">{p.get("image", "📦")}</span>'
             f'<div class="row-info">'
@@ -385,12 +393,18 @@ def render_category_page(cat, products, data):
             f'</div>'
             f'</div>'
         )
+    more_note = (
+        f"<p class=\"muted small\" style=\"text-align:center; margin-top:10px\">"
+        f"Mostrando los {len(shown)} más populares de {len(products)}.</p>"
+        if len(products) > len(shown) else ""
+    )
     body = f"""
 <nav class="breadcrumb"><a href="../../index.html">Inicio</a> &gt; {html_escape(cat['name'])}</nav>
 <div class="list-head"><h1>🏆 {html_escape(cat['name'])} — más populares ({len(products)})</h1></div>
 <div class="product-list">{''.join(rows)}</div>
 <div class="panel" style="text-align:center; margin-top:20px">
   <a class="buy-btn" href="../../index.html#/list?cat={cat['id']}">Ver con filtros interactivos →</a>
+  {more_note}
 </div>
 """
     breadcrumbs = breadcrumb_json_ld([

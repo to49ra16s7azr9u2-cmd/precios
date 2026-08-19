@@ -1,6 +1,14 @@
 (() => {
   "use strict";
 
+  // Cuántos productos se dibujan a la vez en una lista/ranking. Sin esto,
+  // una categoría grande (o "Todos los productos") crea miles de filas de
+  // DOM de una sola vez -- con el catálogo ya en ~15,000 productos, la
+  // categoría más grande tardaba varios segundos en pintarse y "Todos"
+  // llegaba a 200,000 nodos de DOM. Con paginación cada vista solo dibuja
+  // PAGE_SIZE filas sin importar cuánto crezca el catálogo.
+  const PAGE_SIZE = 60;
+
   const PRICE_RANGES = [
     { id: "all", label: "Todos los precios", min: 0, max: Infinity },
     { id: "u5", label: "Menos de $5,000", min: 0, max: 5000 },
@@ -153,6 +161,7 @@
     brands: new Set(), // marcas seleccionadas; vacío = todas
     minRating: "all",
     excludeUsed: false, // filtro "Excluir usados"
+    page: 1, // página actual de la lista/ranking (ver PAGE_SIZE)
     sort: "relevance",
     offerSort: "price", // 'price' | 'rating' — orden de la tabla de comparación
     brandCategory: null, // filtro activo en /marcas; null = todas las categorías
@@ -178,6 +187,7 @@
     filterCondition: document.getElementById("filterCondition"),
     sortSelect: document.getElementById("sortSelect"),
     productList: document.getElementById("productList"),
+    pagination: document.getElementById("pagination"),
     liveSearchSection: document.getElementById("liveSearchSection"),
     liveSearchResults: document.getElementById("liveSearchResults"),
 
@@ -671,6 +681,7 @@
   }
 
   function renderList() {
+    state.page = 1; // toda entrada "de cero" a la lista arranca en la página 1
     setActiveView("list");
     renderCatNav();
 
@@ -691,25 +702,61 @@
     renderFilterRating();
     renderFilterCondition();
 
+    renderProductListPage();
+    renderLiveSearchSection();
+  }
+
+  // Dibuja solo el cuerpo de la lista (filas + paginación + título) sin
+  // tocar filtros/breadcrumb -- lo usan tanto renderList() (vista nueva) como
+  // los controles de paginación y el toggle de favorito (para no perder la
+  // página en la que está el usuario ni repintar todo de nuevo).
+  function renderProductListPage() {
     // Paso 2 del recorrido estilo Kakaku.com (categoría → ranking de
     // populares → precio): al entrar por una categoría, sin búsqueda de
     // texto, la lista se muestra como ranking numerado en vez de lista plana.
     const isCategoryRanking = !!state.category && !state.query;
 
-    renderProductListInto(el.productList, sortedProducts(filteredProducts()), {
+    const filtered = filteredProducts();
+    const sorted = sortedProducts(filtered);
+    const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+    state.page = Math.min(Math.max(1, state.page), totalPages);
+    const startIdx = (state.page - 1) * PAGE_SIZE;
+    const pageItems = sorted.slice(startIdx, startIdx + PAGE_SIZE);
+
+    renderProductListInto(el.productList, pageItems, {
       emptyText: "No se encontraron productos con estos filtros.",
-      onFavToggle: renderList,
+      onFavToggle: renderProductListPage,
       withRank: isCategoryRanking,
+      rankOffset: startIdx,
     });
+    renderPagination(totalPages);
 
-    const products = filteredProducts();
     el.listTitle.textContent = state.query
-      ? `Resultados para "${state.query}" (${products.length})`
+      ? `Resultados para "${state.query}" (${filtered.length})`
       : state.category
-      ? `🏆 ${categoryById(state.category).name} — más populares (${products.length})`
-      : `Todos los productos (${products.length})`;
+      ? `🏆 ${categoryById(state.category).name} — más populares (${filtered.length})`
+      : `Todos los productos (${filtered.length})`;
+  }
 
-    renderLiveSearchSection();
+  function renderPagination(totalPages) {
+    if (totalPages <= 1) {
+      el.pagination.innerHTML = "";
+      return;
+    }
+    const goToPage = (p) => {
+      state.page = p;
+      renderProductListPage();
+      el.productList.scrollIntoView({ block: "start", behavior: "instant" });
+    };
+    const prevDisabled = state.page <= 1;
+    const nextDisabled = state.page >= totalPages;
+    el.pagination.innerHTML = `
+      <button class="page-btn" id="pagePrev" ${prevDisabled ? "disabled" : ""}>&laquo; Anterior</button>
+      <span class="page-indicator">Página ${state.page} de ${totalPages}</span>
+      <button class="page-btn" id="pageNext" ${nextDisabled ? "disabled" : ""}>Siguiente &raquo;</button>
+    `;
+    if (!prevDisabled) el.pagination.querySelector("#pagePrev").onclick = () => goToPage(state.page - 1);
+    if (!nextDisabled) el.pagination.querySelector("#pageNext").onclick = () => goToPage(state.page + 1);
   }
 
   // Busca en vivo en Mercado Libre (si está activado) para complementar el
@@ -760,7 +807,7 @@
     }
     products.forEach((p, i) => {
       const { avg, count } = aggregateRating(p);
-      const rank = i + 1;
+      const rank = (opts.rankOffset || 0) + i + 1;
       // Un pequeño aviso "de un vistazo" en la lista, sin abrir la ficha,
       // de que este producto tiene más colores/tallas disponibles (los
       // pills completos, con link a cada uno, viven en la tabla de la
@@ -770,7 +817,8 @@
         ? `<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>`
         : "";
       const row = document.createElement("div");
-      row.className = "product-row" + (opts.withRank ? " has-rank" : "");
+      const rankClass = opts.withRank && rank >= 2 && rank <= 4 ? ` rank-${rank}` : "";
+      row.className = "product-row" + (opts.withRank ? " has-rank" + rankClass : "");
       row.innerHTML = `
         ${opts.withRank ? `<span class="rank-badge">${rank === 1 ? "👑" : rank}</span>` : ""}
         <span class="row-icon">${p.image}</span>
