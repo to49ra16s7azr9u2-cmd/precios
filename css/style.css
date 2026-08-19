@@ -137,6 +137,40 @@ a { color: inherit; text-decoration: none; }
   color: var(--red);
   border-bottom-color: var(--red);
 }
+.cat-item { display: inline-flex; }
+/* position:fixed (asignado por JS en mouseenter) para escapar del
+   overflow:hidden de .cats -- ver comentario en renderCatNav(). */
+.cat-submenu {
+  display: none;
+  position: fixed;
+  z-index: 50;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  padding: 6px;
+  min-width: 200px;
+}
+/* El submenú vive en document.body (no es descendiente de .cat-item en el
+   DOM), así que su visibilidad la controla JS con esta clase en vez de
+   :hover en CSS. */
+.cat-submenu.visible { display: block; }
+.cat-submenu a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.cat-submenu a:hover { background: #f7f7f7; color: var(--red); }
+.cat-submenu a.active { color: var(--red); background: #fff0f0; }
+.filter-suboption {
+  margin-left: 20px;
+  font-size: 13px;
+}
 
 /* ---------- Home / hero / rankings ---------- */
 /* Encabezado de página en texto plano sobre el mismo fondo que el resto:

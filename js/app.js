@@ -157,6 +157,7 @@
     selectedRegion: null, // null hasta que el usuario elige un municipio en el mapa
     query: "",
     category: null, // filtro activo en la vista de lista
+    subcategory: null, // sub-nivel dentro de la categoría (si tiene)
     priceRange: "all",
     brands: new Set(), // marcas seleccionadas; vacío = todas
     minRating: "all",
@@ -266,6 +267,13 @@
 
   function categoryById(id) {
     return state.data.categories.find((c) => c.id === id);
+  }
+
+  function subcategoryById(categoryId, subId) {
+    if (!subId) return null;
+    const cat = categoryById(categoryId);
+    if (!cat || !cat.subcategories) return null;
+    return cat.subcategories.find((s) => s.id === subId) || null;
   }
 
   function regionById(id) {
@@ -546,6 +554,11 @@
 
   function goList(opts) {
     if (opts && opts.category !== undefined) state.category = opts.category;
+    // A diferencia de category/query, subcategory se resetea a null salvo
+    // que quien llama la pase explícita -- así ningún caller (buscador,
+    // tarjeta "Todas", etc.) puede olvidarse de "soltar" una subcategoría
+    // de una navegación anterior y dejarla pegada donde ya no aplica.
+    state.subcategory = opts && opts.subcategory !== undefined ? opts.subcategory : null;
     if (opts && opts.query !== undefined) state.query = opts.query;
     navigateTo("#/list", renderList);
   }
@@ -553,9 +566,9 @@
   // Entrar a una categoría (desde Inicio, la barra de categorías o el
   // filtro) siempre parte del ranking de popularidad, como en Kakaku.com:
   // ahí es donde vive el paso 2 del recorrido (categoría → ranking → precio).
-  function goCategoryRanking(categoryId) {
+  function goCategoryRanking(categoryId, subcategoryId) {
     state.sort = "popularity";
-    goList({ category: categoryId, query: "" });
+    goList({ category: categoryId, subcategory: subcategoryId || null, query: "" });
   }
 
   function goDetail(productId) {
@@ -570,11 +583,25 @@
       renderDetail(detailMatch[1]);
     } else if (hash === "#/list" || hash.startsWith("#/list?")) {
       // Permite enlazar directo a una categoría filtrada (p. ej. desde las
-      // páginas estáticas de SEO: #/list?cat=Celulares), sin lo cual esos
-      // enlaces caían al inicio en vez de abrir el listado ya filtrado.
+      // páginas estáticas de SEO: #/list?cat=Celulares&sub=Celulares), sin
+      // lo cual esos enlaces caían al inicio en vez de abrir el listado ya
+      // filtrado.
+      // Un hash con "?" es siempre un link externo/profundo (páginas
+      // estáticas de SEO, o una URL pegada a mano) y se trata como
+      // especificación completa: category/subcategory se derivan enteros
+      // de la URL (subcategory cae a null si no viene "sub", igual que
+      // goList()). Un hash "#/list" sin "?" en cambio solo puede venir de
+      // una navegación interna (goList() ya deja el state listo en JS
+      // antes de cambiar el hash, sin codificarlo en la URL), así que ahí
+      // no se toca nada -- si se pisara siempre iguial, un link profundo a
+      // una categoría sin "sub" no limpiaba una subcategoría que hubiera
+      // quedado puesta de la navegación anterior (iban a parar 0
+      // resultados: categoría nueva + subcategoría de otra categoría).
       const qs = hash.includes("?") ? new URLSearchParams(hash.split("?")[1]) : null;
-      const cat = qs && qs.get("cat");
-      if (cat) state.category = cat;
+      if (qs) {
+        state.category = qs.get("cat") || null;
+        state.subcategory = qs.get("sub") || null;
+      }
       renderList();
     } else if (hash === "#/favorites") {
       renderFavorites();
@@ -595,13 +622,62 @@
 
   function renderCatNav() {
     el.catNav.innerHTML = "";
+    // Los submenús viven en document.body (ver más abajo), no dentro de
+    // #catNav, así que hay que limpiarlos aparte en cada repintado.
+    document.querySelectorAll(".cat-submenu").forEach((node) => node.remove());
     state.data.categories.forEach((c) => {
-      const span = document.createElement("span");
-      span.textContent = `${c.icon} ${c.name}`;
-      const isActive = location.hash === "#/list" && state.category === c.id;
-      span.className = isActive ? "active" : "";
-      span.onclick = () => goCategoryRanking(c.id);
-      el.catNav.appendChild(span);
+      const hasSub = c.subcategories && c.subcategories.length > 0;
+      const item = document.createElement("div");
+      item.className = "cat-item";
+
+      const label = document.createElement("span");
+      label.textContent = `${c.icon} ${c.name}${hasSub ? " ▾" : ""}`;
+      const isActive = location.hash === "#/list" && state.category === c.id && !state.subcategory;
+      label.className = isActive ? "active" : "";
+      label.onclick = () => goCategoryRanking(c.id);
+      item.appendChild(label);
+
+      if (hasSub) {
+        const submenu = document.createElement("div");
+        submenu.className = "cat-submenu";
+        c.subcategories.forEach((s) => {
+          const link = document.createElement("a");
+          link.textContent = `${s.icon} ${s.name}`;
+          const subActive =
+            location.hash === "#/list" && state.category === c.id && state.subcategory === s.id;
+          link.className = subActive ? "active" : "";
+          link.onclick = (e) => {
+            e.stopPropagation();
+            goCategoryRanking(c.id, s.id);
+          };
+          submenu.appendChild(link);
+        });
+        // position:fixed (en vez de absolute) para que el submenú escape del
+        // overflow:hidden de .cats (necesario para el plegado de la barra de
+        // categorías) -- si no, el submenú quedaría cortado detrás de la
+        // barra en vez de flotar por encima.
+        //
+        // El submenú tampoco es descendiente de .cat-item en el DOM (está en
+        // document.body), así que moverse del item al submenú cuenta como
+        // "salir" de .cat-item -- de ahí el pequeño retraso antes de
+        // esconderlo, cancelable si el mouse entra al submenú a tiempo.
+        let hideTimer = null;
+        const cancelHide = () => { if (hideTimer) clearTimeout(hideTimer); };
+        const scheduleHide = () => { hideTimer = setTimeout(() => submenu.classList.remove("visible"), 120); };
+        item.addEventListener("mouseenter", () => {
+          cancelHide();
+          const r = item.getBoundingClientRect();
+          submenu.style.left = `${r.left}px`;
+          submenu.style.top = `${r.bottom}px`;
+          submenu.classList.add("visible");
+        });
+        item.addEventListener("mouseleave", scheduleHide);
+        submenu.addEventListener("mouseenter", cancelHide);
+        submenu.addEventListener("mouseleave", scheduleHide);
+        document.body.appendChild(submenu);
+      }
+
+      el.catNav.appendChild(item);
     });
   }
 
@@ -661,13 +737,14 @@
         p.brand.toLowerCase().includes(q) ||
         p.category.toLowerCase().includes(q);
       const matchesCat = !state.category || p.category === state.category;
+      const matchesSub = !state.subcategory || p.subcategory === state.subcategory;
       const price = minPrice(p);
       const matchesPrice = price >= range.min && price < range.max;
       const matchesBrand = state.brands.size === 0 || state.brands.has(p.brand);
       // Redondeado a 1 decimal para que coincida con el valor mostrado en pantalla.
       const matchesRating = Math.round(aggregateRating(p).avg * 10) / 10 >= ratingMin;
       const matchesCondition = !state.excludeUsed || !isUsed(p);
-      return matchesQuery && matchesCat && matchesPrice && matchesBrand && matchesRating && matchesCondition;
+      return matchesQuery && matchesCat && matchesSub && matchesPrice && matchesBrand && matchesRating && matchesCondition;
     });
   }
 
@@ -687,11 +764,22 @@
 
     el.listBreadcrumb.innerHTML = `<a href="#/">Inicio</a>`;
     if (state.category) {
-      el.listBreadcrumb.innerHTML += ` &gt; ${categoryById(state.category).name}`;
+      const cat = categoryById(state.category);
+      el.listBreadcrumb.innerHTML += ` &gt; <a href="#" id="breadcrumbCatOnly">${cat.name}</a>`;
+      const sub = subcategoryById(state.category, state.subcategory);
+      if (sub) el.listBreadcrumb.innerHTML += ` &gt; ${sub.name}`;
     } else if (state.query) {
       el.listBreadcrumb.innerHTML += ` &gt; Resultados de búsqueda`;
     } else {
       el.listBreadcrumb.innerHTML += ` &gt; Todos los productos`;
+    }
+    const breadcrumbCatOnly = document.getElementById("breadcrumbCatOnly");
+    if (breadcrumbCatOnly) {
+      breadcrumbCatOnly.onclick = (e) => {
+        e.preventDefault();
+        state.subcategory = null;
+        renderList();
+      };
     }
 
     el.sortSelect.value = state.sort;
@@ -731,10 +819,11 @@
     });
     renderPagination(totalPages);
 
+    const subLabel = subcategoryById(state.category, state.subcategory);
     el.listTitle.textContent = state.query
       ? `Resultados para "${state.query}" (${filtered.length})`
       : state.category
-      ? `🏆 ${categoryById(state.category).name} — más populares (${filtered.length})`
+      ? `🏆 ${categoryById(state.category).name}${subLabel ? " › " + subLabel.name : ""} — más populares (${filtered.length})`
       : `Todos los productos (${filtered.length})`;
   }
 
@@ -847,16 +936,45 @@
     const allOpt = document.createElement("label");
     allOpt.className = "filter-option" + (!state.category ? " active" : "");
     allOpt.innerHTML = `<input type="radio" name="fcat" ${!state.category ? "checked" : ""}> Todas`;
-    allOpt.onclick = () => { state.category = null; state.brands.clear(); state.sort = "relevance"; renderList(); };
+    allOpt.onclick = () => {
+      state.category = null;
+      state.subcategory = null;
+      state.brands.clear();
+      state.sort = "relevance";
+      renderList();
+    };
     el.filterCategory.appendChild(allOpt);
 
     state.data.categories.forEach((c) => {
-      const opt = document.createElement("label");
       const isActive = state.category === c.id;
-      opt.className = "filter-option" + (isActive ? " active" : "");
-      opt.innerHTML = `<input type="radio" name="fcat" ${isActive ? "checked" : ""}> ${c.icon} ${c.name}`;
-      opt.onclick = () => { state.category = c.id; state.brands.clear(); state.sort = "popularity"; renderList(); };
+      const opt = document.createElement("label");
+      opt.className = "filter-option" + (isActive && !state.subcategory ? " active" : "");
+      opt.innerHTML = `<input type="radio" name="fcat" ${isActive && !state.subcategory ? "checked" : ""}> ${c.icon} ${c.name}`;
+      opt.onclick = () => {
+        state.category = c.id;
+        state.subcategory = null;
+        state.brands.clear();
+        state.sort = "popularity";
+        renderList();
+      };
       el.filterCategory.appendChild(opt);
+
+      // Las subcategorías solo se muestran, sangradas, cuando su categoría
+      // ya está activa -- así el filtro no se vuelve una lista gigante con
+      // las ~40 subcategorías de las 15 categorías todas a la vez.
+      if (isActive && c.subcategories && c.subcategories.length > 0) {
+        c.subcategories.forEach((s) => {
+          const subActive = state.subcategory === s.id;
+          const subOpt = document.createElement("label");
+          subOpt.className = "filter-option filter-suboption" + (subActive ? " active" : "");
+          subOpt.innerHTML = `<input type="radio" name="fcat" ${subActive ? "checked" : ""}> ${s.icon} ${s.name}`;
+          subOpt.onclick = () => {
+            state.subcategory = s.id;
+            renderList();
+          };
+          el.filterCategory.appendChild(subOpt);
+        });
+      }
     });
   }
 
@@ -1056,12 +1174,22 @@
     renderCatNav();
 
     const cat = categoryById(product.category);
+    const sub = subcategoryById(product.category, product.subcategory);
+    const subCrumb = sub
+      ? ` &gt; <a href="#/list" id="breadcrumbSub">${sub.name}</a>`
+      : "";
     el.detailBreadcrumb.innerHTML =
-      `<a href="#/">Inicio</a> &gt; <a href="#/list" id="breadcrumbCat">${cat.name}</a> &gt; ${product.name}`;
+      `<a href="#/">Inicio</a> &gt; <a href="#/list" id="breadcrumbCat">${cat.name}</a>${subCrumb} &gt; ${product.name}`;
     document.getElementById("breadcrumbCat").onclick = (e) => {
       e.preventDefault();
-      goList({ category: product.category, query: "" });
+      goList({ category: product.category, subcategory: null, query: "" });
     };
+    if (sub) {
+      document.getElementById("breadcrumbSub").onclick = (e) => {
+        e.preventDefault();
+        goList({ category: product.category, subcategory: product.subcategory, query: "" });
+      };
+    }
 
     renderProductMedia(el.detailIcon, product, "detail");
     el.detailBrand.textContent = product.brand;

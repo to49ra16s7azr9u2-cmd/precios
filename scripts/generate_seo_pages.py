@@ -211,6 +211,11 @@ def related_products(product, all_products, n=4):
 def render_product_page(product, data):
     cat = next(c for c in data["categories"] if c["id"] == product["category"])
     cat_slug = slugify(cat["name"])
+    sub = None
+    if product.get("subcategory"):
+        sub = next(
+            (s for s in cat.get("subcategories", []) if s["id"] == product["subcategory"]), None
+        )
     price = min_price(product)
     avg, count = aggregate_rating(product)
     canonical_path = f"/producto/{product['id']}/"
@@ -301,10 +306,15 @@ def render_product_page(product, data):
         else ""
     )
 
+    sub_crumb = (
+        f'<a href="../../index.html#/list?cat={cat["id"]}&sub={sub["id"]}">{html_escape(sub["name"])}</a> &gt;'
+        if sub else ""
+    )
     body = f"""
 <nav class="breadcrumb">
   <a href="../../index.html">Inicio</a> &gt;
   <a href="../../categoria/{cat_slug}/index.html">{html_escape(cat['name'])}</a> &gt;
+  {sub_crumb}
   {html_escape(product['name'])}
 </nav>
 <div class="detail-head">
