@@ -506,8 +506,18 @@
     writeLS(LS_KEYS.reviews, all);
   }
 
+  // El corazón usaba los emoji 🤍/❤, que en Windows (Segoe UI Emoji) se ven
+  // con degradado y brillo -- justo el efecto "3D" que se quería quitar. Un
+  // SVG plano con fill="currentColor" se ve igual de flat en cualquier
+  // sistema y hereda el color por CSS (.fav-btn / .row-fav-btn.is-fav), sin
+  // depender de qué fuente de emoji tenga instalada quien lo mire.
+  const HEART_FILLED_PATH =
+    "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z";
+  const HEART_OUTLINE_PATH =
+    "M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z";
   function favIconHtml(productId) {
-    return isFavorite(productId) ? "❤" : "🤍";
+    const path = isFavorite(productId) ? HEART_FILLED_PATH : HEART_OUTLINE_PATH;
+    return `<svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="${path}"/></svg>`;
   }
 
   // Botón de favorito reutilizable: alterna el estado y vuelve a pintar la
@@ -960,7 +970,7 @@
       renderProductMedia(row.querySelector(".row-icon"), p);
       row.onclick = () => goDetail(p.id);
       bindFavToggle(row.querySelector(".row-fav-btn"), p.id, opts.onFavToggle);
-      row.querySelector(".row-fav-btn").textContent = favIconHtml(p.id);
+      row.querySelector(".row-fav-btn").innerHTML = favIconHtml(p.id);
       container.appendChild(row);
     });
   }
@@ -1230,7 +1240,7 @@
     el.detailName.innerHTML = `${htmlEscapeAttr(product.name)}${
       isUsed(product) ? `<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>` : ""
     }`;
-    el.detailFavBtn.textContent = favIconHtml(product.id);
+    el.detailFavBtn.innerHTML = favIconHtml(product.id);
     bindFavToggle(el.detailFavBtn, product.id, () => renderDetail(product.id));
 
     const { avg, count } = aggregateRating(product);
