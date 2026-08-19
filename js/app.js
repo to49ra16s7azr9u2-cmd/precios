@@ -1571,6 +1571,19 @@
       renderList();
     });
 
+    // Marca y Categoría se pueden plegar: son las listas más largas del
+    // panel de filtros (categorías con sus subcategorías, o decenas de
+    // marcas), así que quedan colapsables para no empujar Precio/
+    // Calificación/Condición fuera de la vista. El contenido interno
+    // (filterCategory/filterBrand) se re-genera en cada renderList(), pero
+    // el <h3> y el .filter-group que lo envuelven son estáticos del HTML,
+    // así que este listener se registra una sola vez acá.
+    document.querySelectorAll(".filter-group-collapsible > h3").forEach((h3) => {
+      h3.addEventListener("click", () => {
+        h3.closest(".filter-group").classList.toggle("collapsed");
+      });
+    });
+
     el.locationBtn.addEventListener("click", openMapModal);
     el.mapModalClose.addEventListener("click", closeMapModal);
     el.mapModal.addEventListener("click", (e) => {
