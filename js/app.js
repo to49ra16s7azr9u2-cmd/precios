@@ -152,6 +152,7 @@
     priceRange: "all",
     brands: new Set(), // marcas seleccionadas; vacío = todas
     minRating: "all",
+    excludeUsed: false, // filtro "Excluir usados"
     sort: "relevance",
     offerSort: "price", // 'price' | 'rating' — orden de la tabla de comparación
     brandCategory: null, // filtro activo en /marcas; null = todas las categorías
@@ -174,6 +175,7 @@
     filterPrice: document.getElementById("filterPrice"),
     filterBrand: document.getElementById("filterBrand"),
     filterRating: document.getElementById("filterRating"),
+    filterCondition: document.getElementById("filterCondition"),
     sortSelect: document.getElementById("sortSelect"),
     productList: document.getElementById("productList"),
     liveSearchSection: document.getElementById("liveSearchSection"),
@@ -270,6 +272,15 @@
 
   function minPrice(product) {
     return Math.min(...product.offers.map((o) => o.price));
+  }
+
+  // Detecta productos usados/preowned (p.ej. The Luxury Closet, donde nuevo
+  // y preowned del mismo modelo se agrupan como un solo producto) para
+  // poder mostrarlo de un vistazo y ofrecer un filtro "Excluir usados".
+  function isUsed(product) {
+    return (product.specs || []).some(
+      (s) => s.label === "Condición" && /preowned|usado/i.test(s.value)
+    );
   }
 
   // Proxy de "popularidad" para el ranking de cada categoría: suma de
@@ -645,7 +656,8 @@
       const matchesBrand = state.brands.size === 0 || state.brands.has(p.brand);
       // Redondeado a 1 decimal para que coincida con el valor mostrado en pantalla.
       const matchesRating = Math.round(aggregateRating(p).avg * 10) / 10 >= ratingMin;
-      return matchesQuery && matchesCat && matchesPrice && matchesBrand && matchesRating;
+      const matchesCondition = !state.excludeUsed || !isUsed(p);
+      return matchesQuery && matchesCat && matchesPrice && matchesBrand && matchesRating && matchesCondition;
     });
   }
 
@@ -677,6 +689,7 @@
     renderFilterPrice();
     renderFilterBrand();
     renderFilterRating();
+    renderFilterCondition();
 
     // Paso 2 del recorrido estilo Kakaku.com (categoría → ranking de
     // populares → precio): al entrar por una categoría, sin búsqueda de
@@ -753,6 +766,9 @@
       // pills completos, con link a cada uno, viven en la tabla de la
       // ficha de producto — ver renderOfferRows).
       const variantCount = Math.max(0, ...p.offers.map((o) => (o.variants ? o.variants.length : 0)));
+      const usedBadge = isUsed(p)
+        ? `<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>`
+        : "";
       const row = document.createElement("div");
       row.className = "product-row" + (opts.withRank ? " has-rank" : "");
       row.innerHTML = `
@@ -760,7 +776,7 @@
         <span class="row-icon">${p.image}</span>
         <div class="row-info">
           <div class="row-brand">${p.brand}</div>
-          <div class="row-name">${p.name}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">🎨 +${variantCount}</span>` : ""}</div>
+          <div class="row-name">${p.name}${usedBadge}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">🎨 +${variantCount}</span>` : ""}</div>
           <div class="row-stars">${starsHtml(avg)} <span class="muted">${avg.toFixed(1)} (${count})</span></div>
         </div>
         <div class="row-priceblock">
@@ -839,6 +855,19 @@
       opt.onclick = () => { state.minRating = r.id; renderList(); };
       el.filterRating.appendChild(opt);
     });
+  }
+
+  function renderFilterCondition() {
+    el.filterCondition.innerHTML = "";
+    const opt = document.createElement("label");
+    opt.className = "filter-option" + (state.excludeUsed ? " active" : "");
+    opt.innerHTML = `<input type="checkbox" ${state.excludeUsed ? "checked" : ""}> Excluir usados`;
+    opt.onclick = (e) => {
+      e.preventDefault();
+      state.excludeUsed = !state.excludeUsed;
+      renderList();
+    };
+    el.filterCondition.appendChild(opt);
   }
 
   // ---------- Vista: Favoritos ----------
@@ -988,7 +1017,9 @@
 
     renderProductMedia(el.detailIcon, product, "detail");
     el.detailBrand.textContent = product.brand;
-    el.detailName.textContent = product.name;
+    el.detailName.innerHTML = `${htmlEscapeAttr(product.name)}${
+      isUsed(product) ? `<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>` : ""
+    }`;
     el.detailFavBtn.textContent = favIconHtml(product.id);
     bindFavToggle(el.detailFavBtn, product.id, () => renderDetail(product.id));
 

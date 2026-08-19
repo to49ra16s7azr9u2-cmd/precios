@@ -82,6 +82,13 @@ def total_review_count(product):
     return sum(o["reviewCount"] for o in product["offers"])
 
 
+def is_used(product):
+    return any(
+        s.get("label") == "Condición" and re.search(r"preowned|usado", s.get("value", ""), re.I)
+        for s in product.get("specs", [])
+    )
+
+
 def aggregate_rating(product):
     total_reviews = sum(o["reviewCount"] for o in product["offers"])
     if total_reviews == 0:
@@ -304,7 +311,7 @@ def render_product_page(product, data):
   <div class="detail-icon" style="font-size:56px">{product.get('image', '📦')}</div>
   <div class="detail-headinfo">
     <p class="muted small">{html_escape(product['brand'])}</p>
-    <h1>{html_escape(product['name'])}</h1>
+    <h1>{html_escape(product['name'])}{f'<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>' if is_used(product) else ''}</h1>
     <p class="detail-rating">{avg} / 5 ({count} calificaciones)</p>
     <p class="detail-fromprice">Desde <strong>{money(price)}</strong> en {n_stores} tiendas</p>
   </div>
@@ -363,13 +370,14 @@ def render_category_page(cat, products, data):
         rank_badge = "👑" if i == 1 else str(i)
         variant_count = max([len(o.get("variants") or []) for o in p["offers"]], default=0)
         variant_badge = f'<span class="variant-count-badge" title="También disponible en otros colores/tallas">🎨 +{variant_count}</span>' if variant_count else ""
+        used_badge = f'<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>' if is_used(p) else ""
         rows.append(
             f'<div class="product-row has-rank">'
             f'<span class="rank-badge">{rank_badge}</span>'
             f'<span class="row-icon">{p.get("image", "📦")}</span>'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
-            f'<div class="row-name"><a href="../../producto/{p["id"]}/index.html">{html_escape(p["name"])}</a>{variant_badge}</div>'
+            f'<div class="row-name"><a href="../../producto/{p["id"]}/index.html">{html_escape(p["name"])}</a>{used_badge}{variant_badge}</div>'
             f'</div>'
             f'<div class="row-priceblock">'
             f'<div class="row-from">Desde</div>'
