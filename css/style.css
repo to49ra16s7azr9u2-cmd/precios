@@ -167,10 +167,6 @@ a { color: inherit; text-decoration: none; }
 }
 .cat-submenu a:hover { background: #f7f7f7; color: var(--red); }
 .cat-submenu a.active { color: var(--red); background: #fff0f0; }
-.filter-suboption {
-  margin-left: 20px;
-  font-size: 13px;
-}
 
 /* ---------- Home / hero / rankings ---------- */
 /* Encabezado de página en texto plano sobre el mismo fondo que el resto:
@@ -266,6 +262,19 @@ a { color: inherit; text-decoration: none; }
 .filter-option:hover { background: var(--bg); }
 .filter-option.active { color: var(--red); font-weight: 700; }
 .filter-option input { accent-color: var(--red); width: 18px; height: 18px; }
+/* Doble clase (más específico que .filter-option a secas) para que este
+   margin-left le gane pase lo que pase al "margin: 0 -8px" de arriba, sin
+   depender del orden de las reglas en la hoja de estilos -- ahí estaba el
+   bug real: antes eran dos reglas de la misma especificidad y ganaba la que
+   apareciera después en el archivo, anulando la sangría por completo. */
+.filter-option.filter-suboption {
+  margin-left: 20px;
+  padding-left: 20px;
+  font-size: 13px;
+  color: var(--muted);
+  border-left: 2px solid var(--border);
+}
+.filter-option.filter-suboption.active { color: var(--red); border-left-color: var(--red); }
 
 .list-main { margin-top: 14px; }
 .list-head {
