@@ -2,7 +2,7 @@
   "meta": {
     "currency": "MXN",
     "updated": "2026-08-19",
-    "note": "Catálogo en reconstrucción con datos reales: 2407 productos. SUNSKY y Geekbuying ya están \"terminadas\" a fondo (feeds completos procesados, agrupados por producto base — las variantes de color/talla se muestran como pastillas con foto, no se pierden). Quedan 10 tiendas con una muestra más chica de sus feeds completos (Molnija, StyleWE, Glasseslit, Woodestic, AliExpress, Alibaba, The Luxury Closet, Noracora, JustFashionNow); se van a ir terminando una por una. 18 categorías: se agrega Deportes y aire libre (Geekbuying). Precios convertidos de USD/EUR/RUB a MXN a un tipo de cambio aproximado. Se excluyeron a propósito: contenido para adultos, un feed de flores que no puede entregar en México, un feed vacío, mercancía con nombres de bandas/famosos reales sin licencia, y productos con riesgo real de seguridad (rellenos inyectables, mesoterapia, crioterapia casera). SHEIN pendiente de aprobación en Admitad."
+    "note": "Catálogo en reconstrucción con datos reales: 2396 productos. SUNSKY, Geekbuying y Molnija ya están \"terminadas\" a fondo (feeds completos procesados, agrupados por producto base — las variantes de color/talla se muestran como pastillas con foto, no se pierden). Terminar Molnija también sacó a la luz 11 productos duplicados de una pasada de importación anterior (el mismo reloj agregado dos veces con nombres traducidos distintos); se fusionaron en un solo producto con sus variantes. Quedan 9 tiendas con una muestra más chica de sus feeds completos (StyleWE, Glasseslit, Woodestic, AliExpress, Alibaba, The Luxury Closet, Noracora, JustFashionNow); se van a ir terminando una por una. Precios convertidos de USD/EUR/RUB a MXN a un tipo de cambio aproximado. Se excluyeron a propósito: contenido para adultos, un feed de flores que no puede entregar en México, un feed vacío, mercancía con nombres de bandas/famosos reales sin licencia, y productos con riesgo real de seguridad (rellenos inyectables, mesoterapia, crioterapia casera). SHEIN pendiente de aprobación en Admitad."
   },
   "categories": [
     {
@@ -1828,7 +1828,14 @@
           "priceOriginal": {
             "amount": 73000,
             "currency": "RUB"
-          }
+          },
+          "variants": [
+            {
+              "label": "Acero",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fachs-pilot%2Fachs-pilot-3603s-42-mm-ruchnoy-podzavod-steel%2F",
+              "photo": "https://molnija.shop/upload/iblock/5bc/5kupnruq2kc51sof6o9tymhwm8bwi8e5.png"
+            }
+          ]
         }
       ]
     },
@@ -1873,7 +1880,24 @@
           "priceOriginal": {
             "amount": 58000,
             "currency": "RUB"
-          }
+          },
+          "variants": [
+            {
+              "label": "Negro",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftank%2Ftank-2416-42-mm-avtopodzavod-black%2F",
+              "photo": "https://molnija.shop/upload/iblock/a18/xg5mxzur1bnce24q4aqaotv0nbqo5x4d.png"
+            },
+            {
+              "label": "Tank 42mm Automático",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftank%2Ftank-8215-42-mm-avtopodzavod%2F",
+              "photo": "https://molnija.shop/upload/iblock/f97/il23apbirrlqdou7amxntzxwplcss843.png"
+            },
+            {
+              "label": "Tank 2416 42mm Automático",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftank%2Ftank-2416-42-mm-avtopodzavod-steel%2F",
+              "photo": "https://molnija.shop/upload/iblock/3c1/fkum2wvw0s0eqgh7iiyf8ap6i82iegt5.png"
+            }
+          ]
         }
       ]
     },
@@ -1918,7 +1942,24 @@
           "priceOriginal": {
             "amount": 65000,
             "currency": "RUB"
-          }
+          },
+          "variants": [
+            {
+              "label": "Gris",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fgrand%2Fgrand-tcb-8215-42-mm-avtopodzavod-grey%2F",
+              "photo": "https://molnija.shop/upload/iblock/f2a/ugkij83iew77rlaqd2pgjuo3g6g13l0x.png"
+            },
+            {
+              "label": "Negro",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fgrand%2Fgrand-tcb-2416-42-mm-avtopodzavod-black%2F",
+              "photo": "https://molnija.shop/upload/iblock/1ca/h1m6il8vch5kyufck4ca1k904zy9d8pk.png"
+            },
+            {
+              "label": "Blanco",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fgrand%2Fgrand-tcb-8215-42-mm-avtopodzavod-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/662/49ixrh2fnasicoig5v6vvcbdyzy3og01.png"
+            }
+          ]
         }
       ]
     },
@@ -1967,7 +2008,24 @@
           "priceOriginal": {
             "amount": 49500,
             "currency": "RUB"
-          }
+          },
+          "variants": [
+            {
+              "label": "Negro",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fachs-1%2Fachs-1-tsv-8215-44-mm-avtopodzavod-black-green%2F",
+              "photo": "https://molnija.shop/upload/iblock/c17/3glc6ychp7rlyqd9bdqz0npkn1dnrmio.png"
+            },
+            {
+              "label": "ACHS-1 44mm Automático",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fachs-1%2Fachs-1-tsv-8215-44-mm-avtopodzavod-steel%2F",
+              "photo": "https://molnija.shop/upload/iblock/c84/dhf4q3pc70leuuox7omteja32zwa7t4m.png"
+            },
+            {
+              "label": "ACHS-1 44mm Automático",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fachs-1%2Fachs-1-tsv-8215-44-mm-avtopodzavod-steel-green%2F",
+              "photo": "https://molnija.shop/upload/iblock/d41/czlt97lm8v54q8tptwkne7eshj467yu5.png"
+            }
+          ]
         }
       ]
     },
@@ -2016,7 +2074,34 @@
           "priceOriginal": {
             "amount": 54000,
             "currency": "RUB"
-          }
+          },
+          "variants": [
+            {
+              "label": "Verde",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-z60-44-mm-kvarts-khronograf-green%2F",
+              "photo": "https://molnija.shop/upload/iblock/4e9/naq1xsr6kv1ilbujvbc0iip3j4m41yed.png"
+            },
+            {
+              "label": "HYRON 44mm Cuarzo Cronógrafo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-z60-44-mm-kvarts-khronograf-black%2F",
+              "photo": "https://molnija.shop/upload/iblock/938/kuvgkuw3caah32pl0cajusb9f0slp2m2.png"
+            },
+            {
+              "label": "HYRON 44mm Cuarzo Cronógrafo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-z60-44-mm-kvarts-khronograf-black-red%2F",
+              "photo": "https://molnija.shop/upload/iblock/13a/ryf8088jant0h1lhsjvhg8711yawxpy9.png"
+            },
+            {
+              "label": "HYRON 44mm Cuarzo Cronógrafo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-z60-44-mm-kvarts-khronograf-pink%2F",
+              "photo": "https://molnija.shop/upload/iblock/43c/5h7uwu8aeuu6z521o3erf3pdt46qfv7c.png"
+            },
+            {
+              "label": "HYRON 44mm Cuarzo Cronógrafo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-z60-44-mm-kvarts-khronograf-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/542/vgafhilsoq37v3c9b0sxz9jkr51wy8a2.png"
+            }
+          ]
         }
       ]
     },
@@ -2065,7 +2150,34 @@
           "priceOriginal": {
             "amount": 62000,
             "currency": "RUB"
-          }
+          },
+          "variants": [
+            {
+              "label": "Verde",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-tcb-8215-44-mm-avtopodzavod-green%2F",
+              "photo": "https://molnija.shop/upload/iblock/06c/0s2cxvga4bty7uo01gbh3zf9z29dz54t.png"
+            },
+            {
+              "label": "HYRON 44mm Automático",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-tcb-8215-44-mm-avtopodzavod-black-red%2F",
+              "photo": "https://molnija.shop/upload/iblock/29e/sf8pkkk6prdh5ndsaepdrfa5afheypx8.png"
+            },
+            {
+              "label": "HYRON 44mm Automático",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-tcb-8215-44-mm-avtopodzavod-pink%2F",
+              "photo": "https://molnija.shop/upload/iblock/36c/mkaahp6kvhcxlqzew7fclaapo5dc4goa.png"
+            },
+            {
+              "label": "HYRON 44mm Automático",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-tcb-8215-44-mm-avtopodzavod-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/457/zrfjaoon5hrdro5zwrn0ntzt5z8l0g1v.png"
+            },
+            {
+              "label": "HYRON 44mm Automático",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-tcb-8215-44-mm-avtopodzavod-black-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/d88/hiaoid613g51hw3c2h06p3z2zdpihggu.png"
+            }
+          ]
         }
       ]
     },
@@ -10421,154 +10533,6 @@
       ]
     },
     {
-      "id": "p239",
-      "name": "Molnija Grand 42mm Automático Gris",
-      "brand": "Molnija",
-      "category": "Joyería y relojes",
-      "image": "⌚",
-      "photo": "https://molnija.shop/upload/iblock/f2a/ugkij83iew77rlaqd2pgjuo3g6g13l0x.png",
-      "specs": [
-        {
-          "label": "Movimiento",
-          "value": "Automático"
-        },
-        {
-          "label": "Diámetro",
-          "value": "42 mm"
-        }
-      ],
-      "reviews": [],
-      "offers": [
-        {
-          "storeId": "molnija",
-          "price": 13000,
-          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fgrand%2Fgrand-tcb-8215-42-mm-avtopodzavod-grey%2F",
-          "photo": "https://molnija.shop/upload/iblock/f2a/ugkij83iew77rlaqd2pgjuo3g6g13l0x.png",
-          "shippingFee": null,
-          "points": null,
-          "rating": null,
-          "reviewCount": 0,
-          "stock": "in_stock",
-          "verified": false,
-          "priceOriginal": {
-            "amount": 65000.0,
-            "currency": "RUR"
-          }
-        }
-      ]
-    },
-    {
-      "id": "p240",
-      "name": "Molnija ACHS-1 44mm Automático Negro",
-      "brand": "Molnija",
-      "category": "Joyería y relojes",
-      "image": "⌚",
-      "photo": "https://molnija.shop/upload/iblock/c17/3glc6ychp7rlyqd9bdqz0npkn1dnrmio.png",
-      "specs": [
-        {
-          "label": "Movimiento",
-          "value": "Automático"
-        },
-        {
-          "label": "Diámetro",
-          "value": "44 mm"
-        }
-      ],
-      "reviews": [],
-      "offers": [
-        {
-          "storeId": "molnija",
-          "price": 9900,
-          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fachs-1%2Fachs-1-tsv-8215-44-mm-avtopodzavod-black-green%2F",
-          "photo": "https://molnija.shop/upload/iblock/c17/3glc6ychp7rlyqd9bdqz0npkn1dnrmio.png",
-          "shippingFee": null,
-          "points": null,
-          "rating": null,
-          "reviewCount": 0,
-          "stock": "in_stock",
-          "verified": false,
-          "priceOriginal": {
-            "amount": 49500.0,
-            "currency": "RUR"
-          }
-        }
-      ]
-    },
-    {
-      "id": "p241",
-      "name": "Molnija HYRON 44mm Automático Verde",
-      "brand": "Molnija",
-      "category": "Joyería y relojes",
-      "image": "⌚",
-      "photo": "https://molnija.shop/upload/iblock/06c/0s2cxvga4bty7uo01gbh3zf9z29dz54t.png",
-      "specs": [
-        {
-          "label": "Movimiento",
-          "value": "Automático"
-        },
-        {
-          "label": "Diámetro",
-          "value": "44 mm"
-        }
-      ],
-      "reviews": [],
-      "offers": [
-        {
-          "storeId": "molnija",
-          "price": 12400,
-          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-tcb-8215-44-mm-avtopodzavod-green%2F",
-          "photo": "https://molnija.shop/upload/iblock/06c/0s2cxvga4bty7uo01gbh3zf9z29dz54t.png",
-          "shippingFee": null,
-          "points": null,
-          "rating": null,
-          "reviewCount": 0,
-          "stock": "in_stock",
-          "verified": false,
-          "priceOriginal": {
-            "amount": 62000.0,
-            "currency": "RUR"
-          }
-        }
-      ]
-    },
-    {
-      "id": "p242",
-      "name": "Molnija Evolution 42mm Cuarzo Cronógrafo Azul",
-      "brand": "Molnija",
-      "category": "Joyería y relojes",
-      "image": "⌚",
-      "photo": "https://molnija.shop/upload/iblock/d72/w9z42f0o2dr8bp5j46wjmn704bnv6gce.png",
-      "specs": [
-        {
-          "label": "Movimiento",
-          "value": "Cuarzo"
-        },
-        {
-          "label": "Diámetro",
-          "value": "42 mm"
-        }
-      ],
-      "reviews": [],
-      "offers": [
-        {
-          "storeId": "molnija",
-          "price": 7800,
-          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fevolution%2Fevolution-3-0-blue%2F",
-          "photo": "https://molnija.shop/upload/iblock/d72/w9z42f0o2dr8bp5j46wjmn704bnv6gce.png",
-          "shippingFee": null,
-          "points": null,
-          "rating": null,
-          "reviewCount": 0,
-          "stock": "in_stock",
-          "verified": false,
-          "priceOriginal": {
-            "amount": 39000.0,
-            "currency": "RUR"
-          }
-        }
-      ]
-    },
-    {
       "id": "p243",
       "name": "Molnija Tribute 1984 3603S 42mm Cuerda manual Negro",
       "brand": "Molnija",
@@ -10601,7 +10565,34 @@
           "priceOriginal": {
             "amount": 53000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-tcb-3603s-42-mm-ruchnoy-zavod-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/c3e/xqs5hal4wtrk59aof6sj3f68thv5d66g.png"
+            },
+            {
+              "label": "Tribute 1984 3603S 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-tcb-3603s-42-mm-ruchnoy-zavod-white-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/963/clxdy54tb275ichmsklrwwdvb6ywsxiz.png"
+            },
+            {
+              "label": "Tribute 1984 3603S 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-tcb-3603s-42-mm-ruchnoy-zavod-white-black%2F",
+              "photo": "https://molnija.shop/upload/iblock/6b8/h54f22x99z5fscefrydnr5liqbw9p9if.png"
+            },
+            {
+              "label": "Tribute 1984 3603S 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-tcb-3603s-42-mm-ruchnoy-zavod-white-steel%2F",
+              "photo": "https://molnija.shop/upload/iblock/6fb/273fvjm3pbp6ns2c0o3fo9pytinstxax.png"
+            },
+            {
+              "label": "Tribute 1984 3603S 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-tcb-3603s-42-mm-ruchnoy-zavod-sand%2F",
+              "photo": "https://molnija.shop/upload/iblock/646/2acor04ahbl4y0c46gvqk856mq88epvb.png"
+            }
+          ]
         }
       ]
     },
@@ -10638,7 +10629,24 @@
           "priceOriginal": {
             "amount": 62000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Blanco",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fakinak%2Fakinak-tcb-3603-41-mm-ruchnoy-zavod-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/53a/b3wvkhb7lzf46u8bm2shyw1trm7r6uzi.png"
+            },
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fakinak%2Fakinak-tcb-3603-41-mm-ruchnoy-zavod-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/201/useky26020rnqeli78lgnjlvji9tia95.png"
+            },
+            {
+              "label": "Arena",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fakinak%2Fakinak-tcb-3603-41-mm-ruchnoy-zavod-sand%2F",
+              "photo": "https://molnija.shop/upload/iblock/056/io6hdxfd1gr93xgdx1rzlh9j5gkx8ncl.png"
+            }
+          ]
         }
       ]
     },
@@ -10675,7 +10683,24 @@
           "priceOriginal": {
             "amount": 46000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Negro",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fachs-1%2Fachs-1-44-mm-kvarts-khronograf-sinie-matovye%2F",
+              "photo": "https://molnija.shop/upload/iblock/73c/gw0auc08yc22j18tu2h0yqmbl1az9lj2.png"
+            },
+            {
+              "label": "ACHS-1 44mm Cuarzo Cronógrafo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fachs-1%2Fachs-1-7-0-green-steel%2F",
+              "photo": "https://molnija.shop/upload/iblock/5b9/kksf588bqkq6oc6kh1r1wvgvhl7y8cwp.png"
+            },
+            {
+              "label": "ACHS-1 44mm Cuarzo Cronógrafo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fachs-1%2Fachs-1-7-0-black-steel%2F",
+              "photo": "https://molnija.shop/upload/iblock/bac/kcplfazhvkjb69ijh6v5a7gxapi2uhn4.png"
+            }
+          ]
         }
       ]
     },
@@ -10712,7 +10737,14 @@
           "priceOriginal": {
             "amount": 69000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Gris",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fgrand%2Fgrand-tcb-3603-42-mm-ruchnoy-zavod-grey%2F",
+              "photo": "https://molnija.shop/upload/iblock/7c1/hl3cl8wlvfejia1jf672elmx18orei98.png"
+            }
+          ]
         }
       ]
     },
@@ -10749,7 +10781,24 @@
           "priceOriginal": {
             "amount": 54000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Blanco",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fberkut%2Fberkut-tcb-8215-42-mm-avtopodzavod-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/787/cup0f125rmlkfh4a1k4253mojbs1u6ls.png"
+            },
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fberkut%2Fberkut-tcb-8215-42-mm-avtopodzavod-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/841/az4xvlj9n8n6oiuhjxklx5tvl51olmgy.png"
+            },
+            {
+              "label": "Verde",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fberkut%2Fberkut-tcb-8215-42-mm-avtopodzavod-green%2F",
+              "photo": "https://molnija.shop/upload/iblock/da1/v21cg2j0qks090uneehz37agnujds1vv.png"
+            }
+          ]
         }
       ]
     },
@@ -10786,7 +10835,24 @@
           "priceOriginal": {
             "amount": 56000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Blanco",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fberkut%2Fberkut-tcb-3603-42mm-ruchnoy-zavod-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/81c/zwfw3k3aaa8qqf8zuqckr9w03r12nkfz.png"
+            },
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fberkut%2Fberkut-tcb-3603-42mm-ruchnoy-zavod-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/99e/nq0uxl46xaurqbco2d7wspozg8sch75k.png"
+            },
+            {
+              "label": "Verde",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fberkut%2Fberkut-tcb-3603-42mm-ruchnoy-zavod-green%2F",
+              "photo": "https://molnija.shop/upload/iblock/f57/v2enpub5y2n65gzgbcxb415wdyhxumli.png"
+            }
+          ]
         }
       ]
     },
@@ -10823,7 +10889,64 @@
           "priceOriginal": {
             "amount": 54000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Negro",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-ruchnoy-zavod-gold-black%2F",
+              "photo": "https://molnija.shop/upload/iblock/96c/xsa8qcawppbarabtid5dw60auu7qhfl2.png"
+            },
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-ruchnoy-zavod-gold-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/c76/ibvs8hkieh6rpcg7e8a7n4l995vdgw72.png"
+            },
+            {
+              "label": "Celeste",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-ruchnoy-zavod-gold-blue-2%2F",
+              "photo": "https://molnija.shop/upload/iblock/292/neox5hd2avlkacdzhocyjw5muhat2dhl.png"
+            },
+            {
+              "label": "Blanco",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-ruchnoy-zavod-steel-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/ecc/iy5qycy0kddey30bb12tgj341xloq5yo.png"
+            },
+            {
+              "label": "Negro",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-ruchnoy-zavod-steel-black%2F",
+              "photo": "https://molnija.shop/upload/iblock/72a/lhcip5jk9z2yqtzom3warmrrg5rw0l91.png"
+            },
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-ruchnoy-zavod-steel-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/17c/lo6r2enkwu9pz3sv7paq5w05g07qjf7z.png"
+            },
+            {
+              "label": "Verde",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-ruchnoy-zavod-steel-green%2F",
+              "photo": "https://molnija.shop/upload/iblock/c61/7frgk51r6nk4te8c5rbjxzefblyqgkje.png"
+            },
+            {
+              "label": "Celeste",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-ruchnoy-zavod-steel-blue-2%2F",
+              "photo": "https://molnija.shop/upload/iblock/b41/74hxc2b5fmxkt6mp9i54u8kybvprbfv4.png"
+            },
+            {
+              "label": "Verde",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-ruchnoy-zavod-gold-green%2F",
+              "photo": "https://molnija.shop/upload/iblock/baa/z64yduql0gfxnoptfputcsi945x9oith.png"
+            },
+            {
+              "label": "Debut 3603 41mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-ruchnoy-zavod-gold-burgundy%2F",
+              "photo": "https://molnija.shop/upload/iblock/29b/jf5kg6qf7o1u6aaan513gp5ojxlnr6hn.png"
+            },
+            {
+              "label": "Debut 3603 41mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-ruchnoy-zavod-steel-burgundy%2F",
+              "photo": "https://molnija.shop/upload/iblock/59e/vurntq6vxedrs0u9fkerzf2t4l2ffvu0.png"
+            }
+          ]
         }
       ]
     },
@@ -10860,7 +10983,24 @@
           "priceOriginal": {
             "amount": 76000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fprestizh%2Fprestizh-tcb-3603s-42-mm-ruchnoy-zavod-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/c9f/gh1ac723s0c1capzxs9w24xknphhm2eq.png"
+            },
+            {
+              "label": "Verde",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fprestizh%2Fprestizh-tcb-3603s-42-mm-ruchnoy-zavod-green%2F",
+              "photo": "https://molnija.shop/upload/iblock/f0b/4pbiqkgjiebvt03uxqggxeium3ra6mly.png"
+            },
+            {
+              "label": "Negro",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fprestizh%2Fprestizh-tcb-3603s-42-mm-ruchnoy-zavod-black%2F",
+              "photo": "https://molnija.shop/upload/iblock/820/h1ln81a2416ux5bpcmjcbec9nbkqsgri.png"
+            }
+          ]
         }
       ]
     },
@@ -10897,7 +11037,14 @@
           "priceOriginal": {
             "amount": 58000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fbaikal%2Fbaykal-8215-42-mm-avtopodzavod-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/33e/ryszhmjhk0zqhfw1erv2a5xi1hrtb1rt.png"
+            }
+          ]
         }
       ]
     },
@@ -10934,7 +11081,34 @@
           "priceOriginal": {
             "amount": 45000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fenergy%2Fenergy-z60-42-mm-kvarts-khronograf_blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/fad/k7cinrqncwbth4k2d93yzrnviueewavt.png"
+            },
+            {
+              "label": "Verde",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fenergy%2Fenergy-z60-42-mm-kvarts-khronograf_green%2F",
+              "photo": "https://molnija.shop/upload/iblock/d82/zon6uxk7503egh5e71tf5iwb88c5k44p.png"
+            },
+            {
+              "label": "Energy 42mm Cuarzo Cronógrafo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fenergy%2Fenergy-z60-42-mm-kvarts-khronograf_steel%2F",
+              "photo": "https://molnija.shop/upload/iblock/f7c/ae7ivbfmd46syycbai423usib125nrup.png"
+            },
+            {
+              "label": "Energy 42mm Cuarzo Cronógrafo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fenergy%2Fenergy-z60-42-mm-kvarts-khronograf_grey%2F",
+              "photo": "https://molnija.shop/upload/iblock/006/m0uctdsi2sk2o7iryz3b5bpai4l0ojmk.png"
+            },
+            {
+              "label": "Energy 42mm Cuarzo Cronógrafo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fenergy%2Fenergy-z60-42-mm-kvarts-khronograf_vinous%2F",
+              "photo": "https://molnija.shop/upload/iblock/b09/12cir9peh62amaqyedo5k2uy2x81ixkt.png"
+            }
+          ]
         }
       ]
     },
@@ -10971,44 +11145,49 @@
           "priceOriginal": {
             "amount": 54000.0,
             "currency": "RUR"
-          }
-        }
-      ]
-    },
-    {
-      "id": "p254",
-      "name": "Molnija ACHS Pilot 3603S 42mm Cuerda manual Acero",
-      "brand": "Molnija",
-      "category": "Joyería y relojes",
-      "image": "⌚",
-      "photo": "https://molnija.shop/upload/iblock/5bc/5kupnruq2kc51sof6o9tymhwm8bwi8e5.png",
-      "specs": [
-        {
-          "label": "Movimiento",
-          "value": "Cuerda manual"
-        },
-        {
-          "label": "Diámetro",
-          "value": "42 mm"
-        }
-      ],
-      "reviews": [],
-      "offers": [
-        {
-          "storeId": "molnija",
-          "price": 14400,
-          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fachs-pilot%2Fachs-pilot-3603s-42-mm-ruchnoy-podzavod-steel%2F",
-          "photo": "https://molnija.shop/upload/iblock/5bc/5kupnruq2kc51sof6o9tymhwm8bwi8e5.png",
-          "shippingFee": null,
-          "points": null,
-          "rating": null,
-          "reviewCount": 0,
-          "stock": "in_stock",
-          "verified": false,
-          "priceOriginal": {
-            "amount": 72000.0,
-            "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-tcb-3603-42-mm-ruchnoy-zavod-4-1-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/7b5/d2f4pvv6uas8doqqj7zpugf3kykm32wf.png"
+            },
+            {
+              "label": "Negro",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-tcb-3603-42-mm-ruchnoy-zavod-4-1-black%2F",
+              "photo": "https://molnija.shop/upload/iblock/322/6dk3xt6ilgsxqrprwl933ww8bja90eas.png"
+            },
+            {
+              "label": "Tribute 1984 3603 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-tcb-3603-42-mm-ruchnoy-zavod-4-1-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/91f/gg9ujgqd38mgtjbc36zbolmdsjfmqryn.png"
+            },
+            {
+              "label": "Tribute 1984 3603 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-tcb-3603-42-mm-ruchnoy-zavod-4-1-sand%2F",
+              "photo": "https://molnija.shop/upload/iblock/1eb/7yd9dvmi8xncoml7v3mopld34g9kfh27.png"
+            },
+            {
+              "label": "Tribute 1984 3603 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-4-0-sand%2F",
+              "photo": "https://molnija.shop/upload/iblock/b46/1jukr7w6r9mjza8db6easb4op37awn1n.png"
+            },
+            {
+              "label": "Tribute 1984 3603 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-tcb-3603-42-mm-ruchnoy-zavod-white-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/f2f/c725oelii5moccxu482el9zu4j4233qo.png"
+            },
+            {
+              "label": "Tribute 1984 3603 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-tcb-3603-42-mm-ruchnoy-zavod-4-1-white-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/aa5/ale07slumflgnz6u8frv9cry57sprwqx.png"
+            },
+            {
+              "label": "Tribute 1984 3603 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftribute-1984%2Ftribute-1984-4-0-black-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/21c/bw4tarfnagecwd7afoxa0xpti4q4rgi8.png"
+            }
+          ]
         }
       ]
     },
@@ -11045,7 +11224,24 @@
           "priceOriginal": {
             "amount": 49000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Negro",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-2416-41-mm-avtopodzavod-black%2F",
+              "photo": "https://molnija.shop/upload/iblock/b85/yk4e2dq3o1ilz2bv66rultu09goddkir.png"
+            },
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-3603-41-mm-avtopodzavod-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/e18/6d3uwj13k337mxl8pruz71aqd21oy9y0.png"
+            },
+            {
+              "label": "Verde",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fdebut%2Fdebyut-tcb-2416-41-mm-avtopodzavod%2F",
+              "photo": "https://molnija.shop/upload/iblock/bdb/xc9uw8zrjhkc6fal6tznsg885vy3xb1r.png"
+            }
+          ]
         }
       ]
     },
@@ -11082,7 +11278,34 @@
           "priceOriginal": {
             "amount": 59000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fextreme%2Fekstrim-42-mm-avtopodzavod_blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/e92/nimuv0r3mytwpd1din7z3tja9jw7zhxe.png"
+            },
+            {
+              "label": "Verde",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fextreme%2Fekstrim-42-mm-avtopodzavod_green%2F",
+              "photo": "https://molnija.shop/upload/iblock/69c/szcu3xptl5h028g80b2bgg0qpo2hlz3d.png"
+            },
+            {
+              "label": "Gris",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fextreme%2Fekstrim-42-mm-avtopodzavod_grey%2F",
+              "photo": "https://molnija.shop/upload/iblock/c60/rqm5hjlngcmqys7dsbz1edrazvvb0nw3.png"
+            },
+            {
+              "label": "Blanco",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fextreme%2Fekstrim-42-mm-avtopodzavod_white%2F",
+              "photo": "https://molnija.shop/upload/iblock/638/1s6cs1j8iqz0d0hh4b3va7nse3xgcg5e.png"
+            },
+            {
+              "label": "Extreme 42mm Automático",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fextreme%2Fekstrim-42-mm-avtopodzavod_black%2F",
+              "photo": "https://molnija.shop/upload/iblock/555/hijaqv2bo86i4llecxuwt3bjaghc5480.png"
+            }
+          ]
         }
       ]
     },
@@ -11119,44 +11342,24 @@
           "priceOriginal": {
             "amount": 86000.0,
             "currency": "RUR"
-          }
-        }
-      ]
-    },
-    {
-      "id": "p258",
-      "name": "Molnija Akinak 3603S 41mm Cuerda manual Negro",
-      "brand": "Molnija",
-      "category": "Joyería y relojes",
-      "image": "⌚",
-      "photo": "https://molnija.shop/upload/iblock/0aa/bxzw95j5xras9s0keah4utn21zxca9ss.png",
-      "specs": [
-        {
-          "label": "Movimiento",
-          "value": "Cuerda manual"
-        },
-        {
-          "label": "Diámetro",
-          "value": "41 mm"
-        }
-      ],
-      "reviews": [],
-      "offers": [
-        {
-          "storeId": "molnija",
-          "price": 13800,
-          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fakinak%2Fakinak-tcb-3603s-41-mm-ruchnoy-zavod%2F",
-          "photo": "https://molnija.shop/upload/iblock/0aa/bxzw95j5xras9s0keah4utn21zxca9ss.png",
-          "shippingFee": null,
-          "points": null,
-          "rating": null,
-          "reviewCount": 0,
-          "stock": "in_stock",
-          "verified": false,
-          "priceOriginal": {
-            "amount": 69000.0,
-            "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Blanco",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Famulet%2Famulet-tcb-3605-42-mm-ruchnoy-zavod-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/483/dzcirn38s1gfoji936zkspkj2s6vcefi.png"
+            },
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Famulet%2Famulet-tcb-3605-42-mm-ruchnoy-zavod-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/e95/0bxgw1heh2ivjxl0d48kdybi0erbscav.png"
+            },
+            {
+              "label": "Amulet 3605 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Famulet%2Famulet-tcb-3605-42-mm-ruchnoy-zavod-gray-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/79a/cnw1kozcbbkiivhtyf46guyavae8ffv6.png"
+            }
+          ]
         }
       ]
     },
@@ -11193,81 +11396,14 @@
           "priceOriginal": {
             "amount": 108000.0,
             "currency": "RUR"
-          }
-        }
-      ]
-    },
-    {
-      "id": "p260",
-      "name": "Molnija Tank 42mm Automático",
-      "brand": "Molnija",
-      "category": "Joyería y relojes",
-      "image": "⌚",
-      "photo": "https://molnija.shop/upload/iblock/f97/il23apbirrlqdou7amxntzxwplcss843.png",
-      "specs": [
-        {
-          "label": "Movimiento",
-          "value": "Automático"
-        },
-        {
-          "label": "Diámetro",
-          "value": "42 mm"
-        }
-      ],
-      "reviews": [],
-      "offers": [
-        {
-          "storeId": "molnija",
-          "price": 11400,
-          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftank%2Ftank-8215-42-mm-avtopodzavod%2F",
-          "photo": "https://molnija.shop/upload/iblock/f97/il23apbirrlqdou7amxntzxwplcss843.png",
-          "shippingFee": null,
-          "points": null,
-          "rating": null,
-          "reviewCount": 0,
-          "stock": "in_stock",
-          "verified": false,
-          "priceOriginal": {
-            "amount": 57000.0,
-            "currency": "RUR"
-          }
-        }
-      ]
-    },
-    {
-      "id": "p261",
-      "name": "Molnija HYRON 44mm Cuarzo Cronógrafo",
-      "brand": "Molnija",
-      "category": "Joyería y relojes",
-      "image": "⌚",
-      "photo": "https://molnija.shop/upload/iblock/938/kuvgkuw3caah32pl0cajusb9f0slp2m2.png",
-      "specs": [
-        {
-          "label": "Movimiento",
-          "value": "Cuarzo"
-        },
-        {
-          "label": "Diámetro",
-          "value": "44 mm"
-        }
-      ],
-      "reviews": [],
-      "offers": [
-        {
-          "storeId": "molnija",
-          "price": 10800,
-          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-z60-44-mm-kvarts-khronograf-black%2F",
-          "photo": "https://molnija.shop/upload/iblock/938/kuvgkuw3caah32pl0cajusb9f0slp2m2.png",
-          "shippingFee": null,
-          "points": null,
-          "rating": null,
-          "reviewCount": 0,
-          "stock": "in_stock",
-          "verified": false,
-          "priceOriginal": {
-            "amount": 54000.0,
-            "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Negro",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fregulator%2Fregulyator-3603rs-41-mm-ruchnoy-zavod-black%2F",
+              "photo": "https://molnija.shop/upload/iblock/f77/17d0pz509kemjnnmw32pmjuagns03qbr.png"
+            }
+          ]
         }
       ]
     },
@@ -11304,7 +11440,24 @@
           "priceOriginal": {
             "amount": 28500.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Zhemchug 715 36mm Cuarzo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fpearl%2Fzhemchug-715-36-mm-kvarts-grey%2F",
+              "photo": "https://molnija.shop/upload/iblock/b1b/51w6u2pjf94ji091sctsd3p879rd8shk.jpg"
+            },
+            {
+              "label": "Zhemchug 715 36mm Cuarzo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fpearl%2Fzhemchug-715-36-mm-kvarts-pink%2F",
+              "photo": "https://molnija.shop/upload/iblock/837/ppwajioqm72w28i5onic837n8vaxk37c.png"
+            },
+            {
+              "label": "Zhemchug 715 36mm Cuarzo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fpearl%2Fzhemchug-715-36-mm-kvarts-beige%2F",
+              "photo": "https://molnija.shop/upload/iblock/5bc/ob2i30ie1dsx0gtlsx546nu4jtyxwfxs.png"
+            }
+          ]
         }
       ]
     },
@@ -11341,44 +11494,14 @@
           "priceOriginal": {
             "amount": 46000.0,
             "currency": "RUR"
-          }
-        }
-      ]
-    },
-    {
-      "id": "p264",
-      "name": "Molnija Tank 3603 42mm Cuerda manual",
-      "brand": "Molnija",
-      "category": "Joyería y relojes",
-      "image": "⌚",
-      "photo": "https://molnija.shop/upload/iblock/158/gyv8nfqi1c1a19zatrrm54gfo3hvij8g.png",
-      "specs": [
-        {
-          "label": "Movimiento",
-          "value": "Cuerda manual"
-        },
-        {
-          "label": "Diámetro",
-          "value": "42 mm"
-        }
-      ],
-      "reviews": [],
-      "offers": [
-        {
-          "storeId": "molnija",
-          "price": 12600,
-          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftank%2Ftank-steel-1%2F",
-          "photo": "https://molnija.shop/upload/iblock/158/gyv8nfqi1c1a19zatrrm54gfo3hvij8g.png",
-          "shippingFee": null,
-          "points": null,
-          "rating": null,
-          "reviewCount": 0,
-          "stock": "in_stock",
-          "verified": false,
-          "priceOriginal": {
-            "amount": 63000.0,
-            "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Piligrim 42mm Automático",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fpiligrim%2Fpiligrim-8215-42-mm-avtopodzavod_green%2F",
+              "photo": "https://molnija.shop/upload/iblock/7a0/mzo4eqb9b0v7yivxkuip1bvffd70kq02.png"
+            }
+          ]
         }
       ]
     },
@@ -20341,80 +20464,6 @@
       ]
     },
     {
-      "id": "p504",
-      "name": "Molnija HYRON 44mm Cuarzo Cronógrafo Verde",
-      "brand": "Molnija",
-      "category": "Joyería y relojes",
-      "image": "⌚",
-      "photo": "https://molnija.shop/upload/iblock/4e9/naq1xsr6kv1ilbujvbc0iip3j4m41yed.png",
-      "specs": [
-        {
-          "label": "Movimiento",
-          "value": "Cuarzo"
-        },
-        {
-          "label": "Diámetro",
-          "value": "44 mm"
-        }
-      ],
-      "reviews": [],
-      "offers": [
-        {
-          "storeId": "molnija",
-          "price": 10800,
-          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fhyron%2Fhyron-z60-44-mm-kvarts-khronograf-green%2F",
-          "photo": "https://molnija.shop/upload/iblock/4e9/naq1xsr6kv1ilbujvbc0iip3j4m41yed.png",
-          "shippingFee": null,
-          "points": null,
-          "rating": null,
-          "reviewCount": 0,
-          "stock": "in_stock",
-          "verified": false,
-          "priceOriginal": {
-            "amount": 54000.0,
-            "currency": "RUR"
-          }
-        }
-      ]
-    },
-    {
-      "id": "p505",
-      "name": "Molnija Tank 2416 42mm Automático Negro",
-      "brand": "Molnija",
-      "category": "Joyería y relojes",
-      "image": "⌚",
-      "photo": "https://molnija.shop/upload/iblock/a18/xg5mxzur1bnce24q4aqaotv0nbqo5x4d.png",
-      "specs": [
-        {
-          "label": "Movimiento",
-          "value": "Automático"
-        },
-        {
-          "label": "Diámetro",
-          "value": "42 mm"
-        }
-      ],
-      "reviews": [],
-      "offers": [
-        {
-          "storeId": "molnija",
-          "price": 12000,
-          "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftank%2Ftank-2416-42-mm-avtopodzavod-black%2F",
-          "photo": "https://molnija.shop/upload/iblock/a18/xg5mxzur1bnce24q4aqaotv0nbqo5x4d.png",
-          "shippingFee": null,
-          "points": null,
-          "rating": null,
-          "reviewCount": 0,
-          "stock": "in_stock",
-          "verified": false,
-          "priceOriginal": {
-            "amount": 60000.0,
-            "currency": "RUR"
-          }
-        }
-      ]
-    },
-    {
       "id": "p507",
       "name": "Molnija Akinak 3603S 41mm Cuerda manual Arena",
       "brand": "Molnija",
@@ -20447,7 +20496,14 @@
           "priceOriginal": {
             "amount": 69000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Negro",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fakinak%2Fakinak-tcb-3603s-41-mm-ruchnoy-zavod%2F",
+              "photo": "https://molnija.shop/upload/iblock/0aa/bxzw95j5xras9s0keah4utn21zxca9ss.png"
+            }
+          ]
         }
       ]
     },
@@ -20484,7 +20540,24 @@
           "priceOriginal": {
             "amount": 39000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Azul",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fevolution%2Fevolution-3-0-blue%2F",
+              "photo": "https://molnija.shop/upload/iblock/d72/w9z42f0o2dr8bp5j46wjmn704bnv6gce.png"
+            },
+            {
+              "label": "Rojo",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fevolution%2Fevolution-3-0-red%2F",
+              "photo": "https://molnija.shop/upload/iblock/8b6/m6ftd91d2e5pzhz4guufop3oluygt8jv.png"
+            },
+            {
+              "label": "Blanco",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Fevolution%2Fevolution-3-0-white%2F",
+              "photo": "https://molnija.shop/upload/iblock/4d8/e2jiou3o1kel4idm5868al01x8n4krg5.png"
+            }
+          ]
         }
       ]
     },
@@ -20521,7 +20594,14 @@
           "priceOriginal": {
             "amount": 64000.0,
             "currency": "RUR"
-          }
+          },
+          "variants": [
+            {
+              "label": "Tank 3603 42mm Cuerda manual",
+              "url": "https://rzekl.com/g/h8f6ydwll243517c81ee26e097ca3d/?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405&ulp=https%3A%2F%2Fmolnija.shop%2Fcatalog%2Ftank%2Ftank-steel-1%2F",
+              "photo": "https://molnija.shop/upload/iblock/158/gyv8nfqi1c1a19zatrrm54gfo3hvij8g.png"
+            }
+          ]
         }
       ]
     },
