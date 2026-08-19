@@ -383,6 +383,16 @@
   //
   // Si la URL falla (enlace roto, caída del CDN, bloqueo de hotlinking), el
   // onerror vuelve al emoji en vez de dejar el icono de imagen rota.
+  // Reintentos con backoff antes de caer al emoji: probando en serio contra
+  // el catálogo real, la gran mayoría de las fotos de AliExpress (y del
+  // resto de las tiendas) cargan bien -- pero bajo carga alta (muchas fotos
+  // del mismo CDN pidiéndose a la vez, que es justo lo que pasa al abrir
+  // una lista de 60 productos) una fracción falla de forma transitoria y
+  // sí carga bien si se reintenta unos segundos después. Antes cualquier
+  // fallo, transitorio o no, se rendía al emoji para siempre sin reintentar.
+  const IMG_MAX_RETRIES = 2;
+  const IMG_RETRY_DELAY_MS = 900;
+
   function renderProductMedia(container, product, variant) {
     if (!container) return;
     const emoji = product.image || "📦";
@@ -393,16 +403,37 @@
     }
     container.classList.add("has-photo");
     container.textContent = "";
-    const img = document.createElement("img");
-    img.className = variant === "detail" ? "product-photo product-photo-detail" : "product-photo";
-    img.src = product.photo;
-    img.alt = product.name || "";
-    img.loading = "lazy";
-    img.onerror = () => {
-      container.classList.remove("has-photo");
-      container.textContent = emoji;
+    const className = variant === "detail" ? "product-photo product-photo-detail" : "product-photo";
+    let attempt = 0;
+    // Crea un <img> nuevo en cada intento (en vez de reasignar .src al
+    // mismo elemento): reasignar el mismo string a un <img> que ya falló no
+    // siempre dispara una carga de red nueva en Chromium (lo trata como
+    // "sin cambios"), lo cual se confirmó armando una prueba real con un
+    // fallo simulado -- un elemento nuevo no tiene ese historial y sí
+    // vuelve a pedir la imagen.
+    const attach = () => {
+      const img = document.createElement("img");
+      img.className = className;
+      img.alt = product.name || "";
+      img.loading = "lazy";
+      // Algunos CDN de terceros aplican protección anti-hotlink por
+      // Referer; sin referrer de por medio, ese chequeo nunca puede
+      // rechazar la carga.
+      img.referrerPolicy = "no-referrer";
+      img.onerror = () => {
+        attempt += 1;
+        if (attempt <= IMG_MAX_RETRIES) {
+          setTimeout(attach, IMG_RETRY_DELAY_MS * attempt);
+        } else {
+          container.classList.remove("has-photo");
+          container.textContent = emoji;
+        }
+      };
+      container.textContent = "";
+      container.appendChild(img);
+      img.src = product.photo;
     };
-    container.appendChild(img);
+    attach();
   }
 
   // Distancia aproximada entre dos puntos (km), fórmula de Haversine
