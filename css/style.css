@@ -89,7 +89,11 @@ a { color: inherit; text-decoration: none; }
 }
 .util-nav a:hover { color: var(--red); }
 
-.topbar-cats { background: var(--card); }
+.topbar-cats { background: var(--card); position: relative; }
+/* Con 18 categorías la barra ya no cabe en una fila: por default se
+   recorta a una sola línea (46px, la altura de un span) y el botón de
+   abajo la despliega. overflow:hidden en vez de max-height:0 para que,
+   ya colapsada, la primera fila siga totalmente visible y clicable. */
 .cats {
   max-width: 1120px;
   margin: 0 auto;
@@ -98,8 +102,27 @@ a { color: inherit; text-decoration: none; }
   gap: 4px;
   font-size: 13px;
   flex-wrap: wrap;
-  overflow-x: auto;
+  overflow: hidden;
+  max-height: 46px;
+  transition: max-height .22s ease;
 }
+.cats.expanded { max-height: 300px; }
+.cat-nav-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 auto 8px;
+  padding: 3px 12px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cat-nav-toggle:hover { color: var(--red); }
+.cat-nav-toggle-arrow { transition: transform .18s ease; display: inline-block; }
+.cat-nav-toggle[aria-expanded="true"] .cat-nav-toggle-arrow { transform: rotate(180deg); }
 .cats span {
   cursor: pointer;
   padding: 13px 14px;

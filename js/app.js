@@ -159,6 +159,8 @@
 
   const el = {
     catNav: document.getElementById("catNav"),
+    catNavToggle: document.getElementById("catNavToggle"),
+    catNavToggleLabel: document.getElementById("catNavToggleLabel"),
     searchInput: document.getElementById("searchInput"),
     searchBtn: document.getElementById("searchBtn"),
 
@@ -1326,6 +1328,15 @@
       if (e.key === "Enter") goList({ query: el.searchInput.value.trim(), category: null });
     });
     el.searchBtn.addEventListener("click", () => goList({ query: el.searchInput.value.trim(), category: null }));
+
+    // Con tantas categorías la barra ya no cabe en una fila (ver .cats en
+    // style.css): arranca colapsada a una línea y este botón la despliega,
+    // en vez de dejarla siempre abierta empujando el resto de la página.
+    el.catNavToggle.addEventListener("click", () => {
+      const expanded = el.catNav.classList.toggle("expanded");
+      el.catNavToggle.setAttribute("aria-expanded", String(expanded));
+      el.catNavToggleLabel.textContent = expanded ? "Menos categorías" : "Más categorías";
+    });
 
     el.sortSelect.addEventListener("change", (e) => {
       state.sort = e.target.value;
