@@ -363,6 +363,52 @@ a { color: inherit; text-decoration: none; }
 .product-list .product-row.has-rank.rank-3 .rank-badge { background: #a8a8a8; color: #fff; }
 .product-list .product-row.has-rank.rank-4 .rank-badge { background: #a9662f; color: #fff; }
 
+/* ---------- Rankings de Inicio (general + top 3 categorías) ---------- */
+.home-rankings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  padding-bottom: 26px;
+}
+.ranking-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+}
+.ranking-block-head {
+  font-weight: 800;
+  font-size: 14px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--red);
+}
+.ranking-block-list { display: flex; flex-direction: column; gap: 8px; }
+/* Filas más chicas que en la lista completa: son una vitrina de 3, no la
+   vista para comparar a fondo (esa sigue siendo la lista paginada). */
+.ranking-block-list .product-row { padding: 8px 10px; gap: 10px; }
+.ranking-block-list .row-icon { font-size: 26px; width: 40px; }
+.ranking-block-list .row-icon.has-photo { width: 40px; height: 40px; }
+.ranking-block-list .row-name { font-size: 13px; margin: 2px 0; }
+.ranking-block-list .row-price { font-size: 16px; }
+.ranking-block-list .rank-badge { width: 24px; height: 24px; font-size: 11px; }
+.ranking-block-list .row-fav-btn { padding: 2px; }
+.ranking-block-list .row-fav-btn .heart-icon { width: 15px; height: 15px; }
+.ranking-block-more {
+  align-self: flex-start;
+  margin-top: 10px;
+  border: none;
+  background: none;
+  color: var(--red-dark);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+}
+.ranking-block-more:hover { text-decoration: underline; }
+
 /* ---------- Product detail ---------- */
 .detail-head {
   display: flex;

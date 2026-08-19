@@ -177,6 +177,7 @@
 
     viewHome: document.getElementById("viewHome"),
     homeCategoryGrid: document.getElementById("homeCategoryGrid"),
+    homeRankings: document.getElementById("homeRankings"),
 
     viewList: document.getElementById("viewList"),
     listBreadcrumb: document.getElementById("listBreadcrumb"),
@@ -731,6 +732,62 @@
       `;
       card.onclick = () => goCategoryRanking(cat.id);
       el.homeCategoryGrid.appendChild(card);
+    });
+
+    renderHomeRankings();
+  }
+
+  // Top N por el mismo criterio de "popularidad" que ya usa el resto del
+  // sitio (reseñas totales, ver totalReviews) -- no es un ranking de ventas
+  // reales, es el mismo proxy que ya se muestra como "más populares" en
+  // cualquier categoría, solo que acá se arma un resumen de 3 en 3 para la
+  // portada en vez de la lista completa paginada.
+  function topByPopularity(products, n) {
+    return products.slice().sort((a, b) => totalReviews(b) - totalReviews(a)).slice(0, n);
+  }
+
+  // Resumen de rankings en Inicio, estilo Kakaku.com: un bloque general con
+  // el top 3 de todo el catálogo, más un bloque por cada una de las 3
+  // categorías con más productos (esa es la señal de "categoría popular"
+  // que sí se puede calcular de forma honesta con los datos que hay --
+  // "Otros" se excluye del top 3 porque es la bolsa de misceláneos sin
+  // equivalente en la taxonomía, no una categoría real que alguien busque).
+  function renderHomeRankings() {
+    el.homeRankings.innerHTML = "";
+
+    const topCategories = state.data.categories
+      .filter((c) => c.id !== "Otros")
+      .map((c) => ({ cat: c, count: state.data.products.filter((p) => p.category === c.id).length }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 3);
+
+    const blocks = [
+      { title: "🏆 Ranking general ComparaMX", products: state.data.products, onMore: () => { state.sort = "popularity"; goList({ category: null, query: "" }); } },
+      ...topCategories.map(({ cat }) => ({
+        title: `${cat.icon} ${cat.name} — ranking`,
+        products: state.data.products.filter((p) => p.category === cat.id),
+        onMore: () => goCategoryRanking(cat.id),
+      })),
+    ];
+
+    blocks.forEach((block) => {
+      const top3 = topByPopularity(block.products, 3);
+      if (top3.length === 0) return;
+      const section = document.createElement("div");
+      section.className = "ranking-block";
+      section.innerHTML = `
+        <div class="ranking-block-head">${block.title}</div>
+        <div class="ranking-block-list"></div>
+        <button type="button" class="ranking-block-more">Ver ranking completo →</button>
+      `;
+      renderProductListInto(section.querySelector(".ranking-block-list"), top3, {
+        emptyText: "",
+        withRank: true,
+        medals: true,
+        onFavToggle: renderHomeRankings,
+      });
+      section.querySelector(".ranking-block-more").onclick = block.onMore;
+      el.homeRankings.appendChild(section);
     });
   }
 
