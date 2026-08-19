@@ -60,6 +60,12 @@ def money(n):
     return "$" + format(round(n), ",d")
 
 
+def plural(n, singular, plural_form):
+    """Mismo criterio que plural() en js/app.js: con casi todos los productos
+    en una sola tienda, "1 tiendas" salía en cada ficha y cada ranking."""
+    return f"{n} {singular if n == 1 else plural_form}"
+
+
 def html_escape(text):
     return (
         str(text)
@@ -296,7 +302,7 @@ def render_product_page(product, data):
         f'<a class="related-item" href="../../producto/{r["id"]}/index.html">'
         f'<span class="row-icon">{r.get("image", "📦")}</span>'
         f'<span class="related-name">{html_escape(r["name"])}</span>'
-        f'<span class="related-price">Desde {money(min_price(r))}</span>'
+        f'<span class="related-price">{"Desde " if len(r["offers"]) > 1 else ""}{money(min_price(r))}</span>'
         f"</a>"
         for r in related
     )
@@ -322,8 +328,8 @@ def render_product_page(product, data):
   <div class="detail-headinfo">
     <p class="muted small">{html_escape(product['brand'])}</p>
     <h1>{html_escape(product['name'])}{f'<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>' if is_used(product) else ''}</h1>
-    <p class="detail-rating">{avg} / 5 ({count} calificaciones)</p>
-    <p class="detail-fromprice">Desde <strong>{money(price)}</strong> en {n_stores} tiendas</p>
+    <p class="detail-rating">{f'{avg} / 5 ({plural(count, "calificación", "calificaciones")})' if count else 'Sin calificaciones todavía'}</p>
+    <p class="detail-fromprice">{'Desde ' if n_stores > 1 else ''}<strong>{money(price)}</strong> en {plural(n_stores, "tienda", "tiendas")}</p>
   </div>
 </div>
 <div class="panel">
@@ -398,8 +404,8 @@ def render_category_page(cat, products, data):
             f'<div class="row-name"><a href="../../producto/{p["id"]}/index.html">{html_escape(p["name"])}</a>{used_badge}{variant_badge}</div>'
             f'</div>'
             f'<div class="row-priceblock">'
-            f'<div class="row-from">Desde</div>'
-            f'<div class="row-price">{money(min_price(p))}</div>'
+            + (f'<div class="row-from">Desde</div>' if len(p["offers"]) > 1 else "")
+            + f'<div class="row-price">{money(min_price(p))}</div>'
             f'</div>'
             f'</div>'
         )

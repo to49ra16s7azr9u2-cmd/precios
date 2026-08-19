@@ -208,7 +208,7 @@
     sortTabs: document.getElementById("sortTabs"),
     offerRowsVerified: document.getElementById("offerRowsVerified"),
     offerRowsReference: document.getElementById("offerRowsReference"),
-    verifiedEmptyNote: document.getElementById("verifiedEmptyNote"),
+    offerGroupVerified: document.getElementById("offerGroupVerified"),
     specTable: document.getElementById("specTable"),
     reviewCount: document.getElementById("reviewCount"),
     reviewList: document.getElementById("reviewList"),
@@ -241,6 +241,13 @@
 
   function money(n) {
     return n.toLocaleString("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 });
+  }
+
+  // "1 tiendas"/"0 calificaciones" salían en cada fila del catálogo y en
+  // cada ficha: con casi todos los productos en una sola tienda, el plural
+  // mal puesto era lo primero que se veía al entrar.
+  function plural(n, singular, pluralForm) {
+    return `${n} ${n === 1 ? singular : pluralForm}`;
   }
 
   // Los textos de variante (color/talla) y sus URLs vienen tal cual del feed
@@ -815,16 +822,34 @@
       emptyText: "No se encontraron productos con estos filtros.",
       onFavToggle: renderProductListPage,
       withRank: isCategoryRanking,
+      // La corona y las medallas de color solo significan algo cuando la
+      // lista de verdad está ordenada por popularidad. Con orden por precio
+      // o relevancia seguían apareciendo, dándole un "🏆 #1" al primero de
+      // una lista que no es un ranking; ahí se deja la numeración a secas.
+      medals: state.sort === "popularity",
       rankOffset: startIdx,
     });
     renderPagination(totalPages);
 
     const subLabel = subcategoryById(state.category, state.subcategory);
+    // El título decía siempre "más populares" aunque el orden fuera otro:
+    // al entrar por un enlace directo (#/list?cat=...), que es justo como
+    // llega alguien desde Google o desde las páginas estáticas de
+    // categoría, el orden queda en "Relevancia" y el título contradecía al
+    // selector de orden que tenía al lado.
+    const SORT_LABELS = {
+      popularity: "más populares",
+      relevance: "por relevancia",
+      price_asc: "del más barato al más caro",
+      price_desc: "del más caro al más barato",
+      rating_desc: "mejor calificados",
+    };
+    const sortLabel = SORT_LABELS[state.sort] || SORT_LABELS.relevance;
     el.listTitle.textContent = state.query
       ? `Resultados para "${state.query}" (${filtered.length})`
       : state.category
-      ? `🏆 ${categoryById(state.category).name}${subLabel ? " › " + subLabel.name : ""} — más populares (${filtered.length})`
-      : `Todos los productos (${filtered.length})`;
+      ? `${categoryById(state.category).name}${subLabel ? " › " + subLabel.name : ""} — ${sortLabel} (${filtered.length})`
+      : `Todos los productos — ${sortLabel} (${filtered.length})`;
   }
 
   function renderPagination(totalPages) {
@@ -906,20 +931,29 @@
         ? `<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>`
         : "";
       const row = document.createElement("div");
-      const rankClass = opts.withRank && rank >= 2 && rank <= 4 ? ` rank-${rank}` : "";
+      const rankClass = opts.medals && rank >= 2 && rank <= 4 ? ` rank-${rank}` : "";
       row.className = "product-row" + (opts.withRank ? " has-rank" + rankClass : "");
       row.innerHTML = `
-        ${opts.withRank ? `<span class="rank-badge">${rank === 1 ? "👑" : rank}</span>` : ""}
+        ${opts.withRank ? `<span class="rank-badge">${opts.medals && rank === 1 ? "👑" : rank}</span>` : ""}
         <span class="row-icon">${p.image}</span>
         <div class="row-info">
           <div class="row-brand">${p.brand}</div>
           <div class="row-name">${p.name}${usedBadge}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">🎨 +${variantCount}</span>` : ""}</div>
-          <div class="row-stars">${starsHtml(avg)} <span class="muted">${avg.toFixed(1)} (${count})</span></div>
+          ${
+            // Sin reseñas propias todavía, la fila mostraba "☆☆☆☆☆ 0.0 (0)"
+            // en los 16 mil productos: 60 veces por página de puro ruido que
+            // además hacía ver el sitio como si no hubiera cargado. Cuando
+            // no hay calificaciones simplemente no se pinta la línea (la
+            // ficha del producto sí lo dice, una sola vez y en contexto).
+            count > 0
+              ? `<div class="row-stars">${starsHtml(avg)} <span class="muted">${avg.toFixed(1)} (${count})</span></div>`
+              : ""
+          }
         </div>
         <div class="row-priceblock">
-          <div class="row-from">Desde</div>
+          ${p.offers.length > 1 ? `<div class="row-from">Desde</div>` : ""}
           <div class="row-price">${money(minPrice(p))}${bestDiscountPct(p) ? `<span class="discount-badge">-${bestDiscountPct(p)}%</span>` : ""}</div>
-          <div class="row-stores">${p.offers.length} tiendas</div>
+          <div class="row-stores">${plural(p.offers.length, "tienda", "tiendas")}</div>
         </div>
         <button class="row-fav-btn" aria-label="Favorito"></button>
       `;
@@ -1200,11 +1234,14 @@
     bindFavToggle(el.detailFavBtn, product.id, () => renderDetail(product.id));
 
     const { avg, count } = aggregateRating(product);
-    el.detailRating.innerHTML = `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${count} calificaciones)</span>`;
+    el.detailRating.innerHTML =
+      count > 0
+        ? `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${plural(count, "calificación", "calificaciones")})</span>`
+        : `<span class="rc">Sin calificaciones todavía</span>`;
     const discountPct = bestDiscountPct(product);
     const savings = bestSavingsAmount(product);
     el.detailFromPrice.innerHTML = `
-      Desde <strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${product.offers.length} tiendas
+      ${product.offers.length > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(product.offers.length, "tienda", "tiendas")}
       ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
     `;
 
@@ -1414,7 +1451,12 @@
 
     renderOfferRows(el.offerRowsVerified, verifiedRows, bestPrice, fastestDays, recommendedStoreId);
     renderOfferRows(el.offerRowsReference, referenceRows, bestPrice, fastestDays, recommendedStoreId);
-    el.verifiedEmptyNote.classList.toggle("hidden", verifiedRows.length > 0);
+    // Hoy ninguna tienda tiene API en vivo conectada, así que el grupo
+    // "verificados" saldría vacío en el 100% de las fichas: una tabla con
+    // sus 6 encabezados y ni una fila se lee como si el sitio estuviera
+    // roto. Se esconde entero mientras no haya nada que mostrar, y vuelve
+    // solo cuando alguna tienda sí traiga precio en vivo.
+    el.offerGroupVerified.classList.toggle("hidden", verifiedRows.length === 0);
   }
 
   // ---------- Mapa de entrega (modal) ----------
