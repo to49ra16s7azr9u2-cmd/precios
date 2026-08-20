@@ -151,11 +151,62 @@ async function handleSearch(url, env) {
 // prueba más corta es pedir /item?q=iphone a este Worker: si devuelve un
 // precio en vez de un error 500, volvió a funcionar.
 
+// Tercera ronda: la búsqueda de ítems (/sites/MLM/search) está cerrada, pero
+// Mercado Libre tiene otras familias de endpoints que no se habían probado —
+// sobre todo el CATÁLOGO (/products/search, /products/{id}), que es
+// infraestructura distinta de la búsqueda de publicaciones. Este barrido las
+// prueba todas con token, para no ir de a un despliegue por vez.
+//
+// Igual que /diag: no toca ningún recurso de cuenta, solo catálogo y datos
+// de referencia, cuyo cuerpo es público.
+async function handleProbe(env) {
+  let token = null;
+  let tokenError = null;
+  try {
+    token = await getAccessToken(env);
+  } catch (err) {
+    tokenError = String(err.message || err);
+  }
+  const endpoints = {
+    // Catálogo (familia distinta de la búsqueda de publicaciones)
+    products_search: "https://api.mercadolibre.com/products/search?site_id=MLM&q=iphone&status=active",
+    products_search_cat: "https://api.mercadolibre.com/products/search?site_id=MLM&category_id=MLM1055",
+    // Predicción de categoría a partir de un texto
+    domain_discovery: "https://api.mercadolibre.com/sites/MLM/domain_discovery/search?q=iphone",
+    // Datos de referencia puros (si esto falla, el bloqueo es total)
+    currencies: "https://api.mercadolibre.com/currencies",
+    sites: "https://api.mercadolibre.com/sites",
+    site_mlm: "https://api.mercadolibre.com/sites/MLM",
+    category_detail: "https://api.mercadolibre.com/categories/MLM1055",
+    listing_types: "https://api.mercadolibre.com/sites/MLM/listing_types",
+    // Variantes de búsqueda que no se habían probado
+    search_by_category: "https://api.mercadolibre.com/sites/MLM/search?category=MLM1055&limit=1",
+    search_by_nickname: "https://api.mercadolibre.com/sites/MLM/search?nickname=TEST&limit=1",
+    trends: "https://api.mercadolibre.com/trends/MLM",
+  };
+  const results = { token_ok: token ? true : tokenError };
+  for (const [name, endpoint] of Object.entries(endpoints)) {
+    for (const mode of ["con_token", "sin_token"]) {
+      if (mode === "con_token" && !token) continue;
+      const init = mode === "con_token" ? { headers: { Authorization: `Bearer ${token}` } } : {};
+      try {
+        const res = await fetch(endpoint, init);
+        const body = await res.text();
+        results[`${name}__${mode}`] = { status: res.status, body: body.slice(0, 160) };
+      } catch (err) {
+        results[`${name}__${mode}`] = { status: "fetch_error", body: String(err.message || err) };
+      }
+    }
+  }
+  return json(results);
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders() });
     try {
+      if (url.pathname === "/probe") return await handleProbe(env);
       if (url.pathname === "/item") return await handleItem(url, env);
       if (url.pathname === "/search") return await handleSearch(url, env);
       return json({ error: "ruta no encontrada. Usa /item?q=... o /search?q=..." }, 404);
