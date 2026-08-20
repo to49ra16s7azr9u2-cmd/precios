@@ -120,6 +120,34 @@ async function handleSearch(url, env) {
   return json({ items });
 }
 
+// Diagnóstico: Mercado Libre restringió /sites/MLM/search (403) a partir de
+// 2025. Este endpoint prueba varias rutas de una vez y reporta cuáles siguen
+// accesibles con estas credenciales, para saber qué se puede usar sin ir
+// adivinando de a un despliegue por vez.
+async function handleDebug(env) {
+  const token = await getAccessToken(env);
+  const auth = { headers: { Authorization: `Bearer ${token}` } };
+  const probes = {
+    site_search: `https://api.mercadolibre.com/sites/MLM/search?q=iphone&limit=1`,
+    item_by_id: `https://api.mercadolibre.com/items/MLM1234567890`,
+    categories: `https://api.mercadolibre.com/sites/MLM/categories`,
+    category_items: `https://api.mercadolibre.com/sites/MLM/search?category=MLM1051&limit=1`,
+    me: `https://api.mercadolibre.com/users/me`,
+    highlights: `https://api.mercadolibre.com/highlights/MLM/category/MLM1051`,
+  };
+  const results = {};
+  for (const [name, endpoint] of Object.entries(probes)) {
+    try {
+      const res = await fetch(endpoint, auth);
+      const body = await res.text();
+      results[name] = { status: res.status, body: body.slice(0, 300) };
+    } catch (err) {
+      results[name] = { status: "fetch_error", body: String(err.message || err) };
+    }
+  }
+  return json(results);
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -127,6 +155,7 @@ export default {
     try {
       if (url.pathname === "/item") return await handleItem(url, env);
       if (url.pathname === "/search") return await handleSearch(url, env);
+      if (url.pathname === "/debug") return await handleDebug(env);
       return json({ error: "ruta no encontrada. Usa /item?q=... o /search?q=..." }, 404);
     } catch (err) {
       return json({ error: String(err.message || err) }, 500);
