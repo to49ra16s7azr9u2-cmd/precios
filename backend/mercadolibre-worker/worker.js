@@ -136,57 +136,26 @@ async function handleSearch(url, env) {
 // /users/me, es decir, los datos de la propia cuenta. No es un problema de
 // configuración ni de scopes: es la restricción de acceso al catálogo que
 // Mercado Libre aplicó en 2025.
-
-// Segunda ronda de diagnóstico. A diferencia del /debug que se eliminó,
-// aquí NO se consulta /users/me ni ningún recurso de cuenta: todas las
-// pruebas son contra endpoints de catálogo, cuyo cuerpo son datos públicos
-// de producto. Aun así solo se devuelve el status y un recorte corto.
 //
-// Hipótesis que prueba: el 403 de PolicyAgent aparece al llamar CON token de
-// una app no certificada. Si el mismo endpoint responde 200 SIN token (era
-// público históricamente), el proxy puede seguir funcionando sin OAuth.
-async function handleDiag() {
-  const probes = {
-    search_sin_token: {
-      url: "https://api.mercadolibre.com/sites/MLM/search?q=iphone&limit=1",
-      init: {},
-    },
-    search_sin_token_mx: {
-      url: "https://api.mercadolibre.com.mx/sites/MLM/search?q=iphone&limit=1",
-      init: {},
-    },
-    search_sin_token_ua: {
-      url: "https://api.mercadolibre.com/sites/MLM/search?q=iphone&limit=1",
-      init: { headers: { "User-Agent": "Mozilla/5.0 (compatible; ComparaMX/1.0)" } },
-    },
-    item_sin_token: {
-      url: "https://api.mercadolibre.com/items/MLM1234567890",
-      init: {},
-    },
-    categorias_sin_token: {
-      url: "https://api.mercadolibre.com/sites/MLM/categories",
-      init: {},
-    },
-  };
-  const results = {};
-  for (const [name, { url: endpoint, init }] of Object.entries(probes)) {
-    try {
-      const res = await fetch(endpoint, init);
-      const body = await res.text();
-      results[name] = { status: res.status, body: body.slice(0, 200) };
-    } catch (err) {
-      results[name] = { status: "fetch_error", body: String(err.message || err) };
-    }
-  }
-  return json(results);
-}
+// Segunda ronda (también 2026-08), para descartar que el bloqueo fuera por
+// el token o por la IP del Worker: se llamaron los mismos endpoints SIN
+// cabecera Authorization, con otro User-Agent y contra api.mercadolibre.com.mx.
+// Todos 403 igual. Y abriendo
+// https://api.mercadolibre.com/sites/MLM/search?q=iphone&limit=1 en un
+// navegador doméstico (IP residencial, sin token) la respuesta es el mismo
+// 403 "forbidden". O sea: no es el token, no es el scope y no es la IP de
+// datacenter — el endpoint de búsqueda está cerrado para todos. Por eso
+// LIVE_API_CONFIG.mercadolibre sigue en `enabled: false` en js/app.js.
+//
+// Si algún día se recupera el acceso (p. ej. tras certificar la app), la
+// prueba más corta es pedir /item?q=iphone a este Worker: si devuelve un
+// precio en vez de un error 500, volvió a funcionar.
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders() });
     try {
-      if (url.pathname === "/diag") return await handleDiag();
       if (url.pathname === "/item") return await handleItem(url, env);
       if (url.pathname === "/search") return await handleSearch(url, env);
       return json({ error: "ruta no encontrada. Usa /item?q=... o /search?q=..." }, 404);
