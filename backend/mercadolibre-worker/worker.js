@@ -159,7 +159,17 @@ async function handleSearch(url, env) {
 //
 // Igual que /diag: no toca ningún recurso de cuenta, solo catálogo y datos
 // de referencia, cuyo cuerpo es público.
-async function handleProbe(env) {
+//
+// Además de la lista fija, acepta ?path=/lo/que/sea para probar un endpoint
+// suelto sin volver a desplegar. Ese parámetro está acotado a propósito:
+//
+//   - solo se arma la URL contra api.mercadolibre.com (nunca un host
+//     arbitrario), porque a la petición se le adjunta el access_token y
+//     mandarlo a un host de terceros sería filtrarlo;
+//   - se rechaza cualquier ruta de /users (incluido /users/me), que es la
+//     que devuelve nombre, email y CURP del titular. Ese fue justamente el
+//     error del /debug anterior y no se repite.
+async function handleProbe(env, reqUrl) {
   let token = null;
   let tokenError = null;
   try {
@@ -167,6 +177,29 @@ async function handleProbe(env) {
   } catch (err) {
     tokenError = String(err.message || err);
   }
+
+  const custom = reqUrl.searchParams.get("path");
+  if (custom) {
+    if (!custom.startsWith("/")) return json({ error: "path debe empezar con /" }, 400);
+    if (/^\/users(\/|$)/.test(custom)) {
+      return json({ error: "ruta bloqueada: /users expone datos personales" }, 403);
+    }
+    const target = `https://api.mercadolibre.com${custom}`;
+    const out = { target };
+    for (const mode of ["con_token", "sin_token"]) {
+      if (mode === "con_token" && !token) continue;
+      const init = mode === "con_token" ? { headers: { Authorization: `Bearer ${token}` } } : {};
+      try {
+        const res = await fetch(target, init);
+        const body = await res.text();
+        out[mode] = { status: res.status, body: body.slice(0, 1200) };
+      } catch (err) {
+        out[mode] = { status: "fetch_error", body: String(err.message || err) };
+      }
+    }
+    return json(out);
+  }
+
   const endpoints = {
     // Catálogo (familia distinta de la búsqueda de publicaciones)
     products_search: "https://api.mercadolibre.com/products/search?site_id=MLM&q=iphone&status=active",
@@ -206,7 +239,7 @@ export default {
     const url = new URL(request.url);
     if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders() });
     try {
-      if (url.pathname === "/probe") return await handleProbe(env);
+      if (url.pathname === "/probe") return await handleProbe(env, url);
       if (url.pathname === "/item") return await handleItem(url, env);
       if (url.pathname === "/search") return await handleSearch(url, env);
       return json({ error: "ruta no encontrada. Usa /item?q=... o /search?q=..." }, 404);
