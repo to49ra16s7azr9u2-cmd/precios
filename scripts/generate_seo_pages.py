@@ -237,13 +237,22 @@ def render_product_page(product, data):
     table_rows = []
     for o in rows:
         store = store_by_id(data, o["storeId"])
+        # Igual que en el SPA (ver renderOfferRows en js/app.js): 6 de las
+        # 11 tiendas del catálogo publican un umbral fijo de envío gratis en
+        # USD, investigado por tienda -- se compara contra el precio real de
+        # esta oferta (priceOriginal, todas estas 6 cotizan en USD).
+        price_original = o.get("priceOriginal") or {}
+        price_usd = price_original.get("amount") if price_original.get("currency") == "USD" else None
+        threshold = store.get("freeShippingThresholdUSD")
+        qualifies_free = threshold is not None and price_usd is not None and price_usd >= threshold
         ship = (
             "Envío gratis" if o["shippingFee"] == 0
             else money(o["shippingFee"]) if o["shippingFee"] is not None
-            # Igual que en el SPA: ninguna tienda trae shippingFee numérico
-            # real todavía, y las que sí tienen productos son de envío
-            # internacional directo (sin hubRegion) -- se dice eso en vez de
-            # dejar la columna en blanco.
+            else "Envío gratis" if qualifies_free
+            # Ninguna tienda trae shippingFee numérico real todavía, y las
+            # que sí tienen productos son de envío internacional directo
+            # (sin hubRegion) -- se dice eso en vez de dejar la columna en
+            # blanco.
             else "Envío internacional" if not store.get("hubRegion")
             else "—"
         )

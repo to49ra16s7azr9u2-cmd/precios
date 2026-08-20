@@ -1434,10 +1434,27 @@
       // muestra "Envío internacional" en la columna (dato honesto que sí se
       // conoce: la tienda no tiene centro de distribución en México) en vez
       // de dejarla vacía; el costo exacto sigue sin inventarse.
+      //
+      // Además, 6 de esas 11 tiendas publican un umbral fijo de envío
+      // gratis en USD en su propia página de envíos (investigado por
+      // tienda, no inventado) -- como cada oferta ya trae su precio real en
+      // priceOriginal, se puede comparar contra ese umbral y afirmar "Envío
+      // gratis" con la misma base que si viniera del feed. Las otras 5 no
+      // publican un umbral numérico único y consistente, así que en su
+      // lugar llevan una nota informativa sobre su política real de envío.
+      const threshold = r.store.freeShippingThresholdUSD;
+      const priceUSD = r.priceOriginal && r.priceOriginal.currency === "USD" ? r.priceOriginal.amount : null;
+      const qualifiesFreeShipping = threshold != null && priceUSD != null && priceUSD >= threshold;
+      const intlTooltip = threshold != null
+        ? `Envío gratis en compras mayores a $${threshold} USD según ${r.store.name}; este producto ($${priceUSD} USD) no alcanza el mínimo.`
+        : r.store.shippingNote || `${r.store.name} no tiene centro de distribución en México; el costo de envío se cotiza en su sitio.`;
       const shippingHtml =
         r.shippingFee === 0 ? '<span class="ship-badge">Envío gratis</span>'
         : r.shippingFee != null ? money(r.shippingFee)
-        : !r.store.hubRegion ? '<span class="ship-badge ship-badge-intl">🌍 Envío internacional</span>'
+        : qualifiesFreeShipping
+        ? `<span class="ship-badge" title="${htmlEscapeAttr(`Según la política pública de ${r.store.name}: envío gratis en compras de $${threshold}+ USD, y este producto ($${priceUSD} USD) sí alcanza el mínimo.`)}">Envío gratis</span>`
+        : !r.store.hubRegion
+        ? `<span class="ship-badge ship-badge-intl" title="${htmlEscapeAttr(intlTooltip)}">🌍 Envío internacional</span>`
         : "—";
       // Texto corto de envío para mostrar junto a la entrega, en el momento
       // en que el usuario elige su municipio en el mapa (no solo en la
