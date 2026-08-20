@@ -130,6 +130,7 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
   <div class="topbar-top">
     <div class="topbar-inner">
       <a class="brand" href="{prefix}index.html">
+        <img class="brand-icon" src="{prefix}icons/icon.svg" alt="" width="30" height="30">
         <span class="brand-mark">Compara<span class="brand-mx">MX</span></span>
       </a>
     </div>
