@@ -1453,6 +1453,14 @@
         // precios "de referencia", para no dar a entender que es un dato
         // confirmado con la tienda.
         deliveryHtml = `<div class="delivery-sub ${d.cls}">${d.text}${r.days === fastestDays ? '<span class="best-tag">MÁS RÁPIDO</span>' : ""}${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Estimado por distancia, no confirmado con la tienda">🔶 estimado</span></div>`;
+      } else if (r.store.typicalShippingDays) {
+        // Mismo hueco que el de "Envío": sin hubRegion nunca se calcula un
+        // estimado por distancia, así que esta celda se quedaba vacía en el
+        // 100% de las filas del sitio. Se usa el rango de días típico
+        // publicado en la página de envíos de cada tienda (investigado por
+        // tienda, no inventado) en vez de dejarla en blanco.
+        const [lo, hi] = r.store.typicalShippingDays;
+        deliveryHtml = `<div class="delivery-sub">Entrega en ${lo}–${hi} días${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Rango típico publicado por la tienda para envío internacional, no una estimación por distancia ni un dato confirmado por pedido">🔶 estimado</span></div>`;
       }
       const stockInfo = STOCK_INFO[r.stock] || STOCK_INFO.in_stock;
       let discountHtml = "";
