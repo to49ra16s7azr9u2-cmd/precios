@@ -120,33 +120,22 @@ async function handleSearch(url, env) {
   return json({ items });
 }
 
-// Diagnóstico: Mercado Libre restringió /sites/MLM/search (403) a partir de
-// 2025. Este endpoint prueba varias rutas de una vez y reporta cuáles siguen
-// accesibles con estas credenciales, para saber qué se puede usar sin ir
-// adivinando de a un despliegue por vez.
-async function handleDebug(env) {
-  const token = await getAccessToken(env);
-  const auth = { headers: { Authorization: `Bearer ${token}` } };
-  const probes = {
-    site_search: `https://api.mercadolibre.com/sites/MLM/search?q=iphone&limit=1`,
-    item_by_id: `https://api.mercadolibre.com/items/MLM1234567890`,
-    categories: `https://api.mercadolibre.com/sites/MLM/categories`,
-    category_items: `https://api.mercadolibre.com/sites/MLM/search?category=MLM1051&limit=1`,
-    me: `https://api.mercadolibre.com/users/me`,
-    highlights: `https://api.mercadolibre.com/highlights/MLM/category/MLM1051`,
-  };
-  const results = {};
-  for (const [name, endpoint] of Object.entries(probes)) {
-    try {
-      const res = await fetch(endpoint, auth);
-      const body = await res.text();
-      results[name] = { status: res.status, body: body.slice(0, 300) };
-    } catch (err) {
-      results[name] = { status: "fetch_error", body: String(err.message || err) };
-    }
-  }
-  return json(results);
-}
+// NOTA: aquí vivía un endpoint /debug que probaba varias rutas de la API y
+// devolvía sus respuestas crudas. Se eliminó porque /users/me responde con
+// datos personales del titular de la cuenta (nombre, email, CURP) y este
+// Worker es una URL pública sin autenticación: cualquiera que la visitara
+// los veía. Si hace falta volver a diagnosticar, hazlo con `wrangler tail`
+// (los logs van a tu terminal, no a una respuesta pública) y nunca
+// devuelvas el cuerpo de /users/me en una respuesta HTTP.
+//
+// Resultado de ese diagnóstico (2026-08): con credenciales válidas de una
+// app no certificada, Mercado Libre bloquea con 403 PolicyAgent
+// ("PA_UNAUTHORIZED_RESULT_FROM_POLICIES") TODOS los endpoints de datos de
+// producto — /sites/MLM/search, /items/{id}, /sites/MLM/categories,
+// búsqueda por categoría y /highlights. Lo único que respondió 200 fue
+// /users/me, es decir, los datos de la propia cuenta. No es un problema de
+// configuración ni de scopes: es la restricción de acceso al catálogo que
+// Mercado Libre aplicó en 2025.
 
 export default {
   async fetch(request, env) {
@@ -155,7 +144,6 @@ export default {
     try {
       if (url.pathname === "/item") return await handleItem(url, env);
       if (url.pathname === "/search") return await handleSearch(url, env);
-      if (url.pathname === "/debug") return await handleDebug(env);
       return json({ error: "ruta no encontrada. Usa /item?q=... o /search?q=..." }, 404);
     } catch (err) {
       return json({ error: String(err.message || err) }, 500);
