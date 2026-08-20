@@ -1425,10 +1425,20 @@
       // r puede venir de una API en vivo (fetchLiveOffer) donde shippingFee,
       // points y rating pueden faltar (null/undefined): nunca deben tronar el
       // render, solo mostrarse como "—" cuando no hay dato.
+      //
+      // Ninguna tienda del catálogo tiene todavía un shippingFee numérico
+      // real (viene siempre null de los feeds de origen), y las 11 marcas
+      // que sí tienen productos son todas de envío internacional directo
+      // (hubRegion null) -- así que antes la columna "Envío" salía en blanco
+      // ("—") en el 100% de las filas del sitio entero, sin excepción. Se
+      // muestra "Envío internacional" en la columna (dato honesto que sí se
+      // conoce: la tienda no tiene centro de distribución en México) en vez
+      // de dejarla vacía; el costo exacto sigue sin inventarse.
       const shippingHtml =
         r.shippingFee === 0 ? '<span class="ship-badge">Envío gratis</span>'
-        : r.shippingFee == null ? "—"
-        : money(r.shippingFee);
+        : r.shippingFee != null ? money(r.shippingFee)
+        : !r.store.hubRegion ? '<span class="ship-badge ship-badge-intl">🌍 Envío internacional</span>'
+        : "—";
       // Texto corto de envío para mostrar junto a la entrega, en el momento
       // en que el usuario elige su municipio en el mapa (no solo en la
       // columna aparte). El costo ya viene ajustado por distancia/zona
@@ -1443,11 +1453,6 @@
         // precios "de referencia", para no dar a entender que es un dato
         // confirmado con la tienda.
         deliveryHtml = `<div class="delivery-sub ${d.cls}">${d.text}${r.days === fastestDays ? '<span class="best-tag">MÁS RÁPIDO</span>' : ""}${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Estimado por distancia, no confirmado con la tienda">🔶 estimado</span></div>`;
-      } else if (state.selectedRegion && !r.store.hubRegion) {
-        // Tiendas que envían directo desde el extranjero (sin centro de
-        // distribución mexicano): no hay con qué estimar días por
-        // municipio, así que se avisa en vez de dejar la celda en blanco.
-        deliveryHtml = `<div class="delivery-sub">Envío internacional${shippingShort ? ` · ${shippingShort}` : ""}</div>`;
       }
       const stockInfo = STOCK_INFO[r.stock] || STOCK_INFO.in_stock;
       let discountHtml = "";

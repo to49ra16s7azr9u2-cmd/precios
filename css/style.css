@@ -897,6 +897,14 @@ a { color: inherit; text-decoration: none; }
   white-space: nowrap;
   border: 1px solid #c9edd9;
 }
+/* Envío internacional (sin centro de distribución en México): tono neutro,
+   ni verde (implicaría gratis) ni ámbar (implicaría estimado numérico) --
+   es simplemente informativo. */
+.ship-badge-intl {
+  color: var(--muted);
+  background: var(--bg);
+  border-color: var(--border);
+}
 .est-badge {
   display: inline-block;
   margin-left: 6px;

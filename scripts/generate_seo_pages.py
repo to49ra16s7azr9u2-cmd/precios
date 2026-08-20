@@ -239,8 +239,13 @@ def render_product_page(product, data):
         store = store_by_id(data, o["storeId"])
         ship = (
             "Envío gratis" if o["shippingFee"] == 0
-            else "—" if o["shippingFee"] is None
-            else money(o["shippingFee"])
+            else money(o["shippingFee"]) if o["shippingFee"] is not None
+            # Igual que en el SPA: ninguna tienda trae shippingFee numérico
+            # real todavía, y las que sí tienen productos son de envío
+            # internacional directo (sin hubRegion) -- se dice eso en vez de
+            # dejar la columna en blanco.
+            else "Envío internacional" if not store.get("hubRegion")
+            else "—"
         )
         stock_label = {
             "in_stock": "En stock",
