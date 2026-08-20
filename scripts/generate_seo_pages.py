@@ -273,8 +273,18 @@ def render_product_page(product, data):
                 f'<a class="variant-pill active" href="{o["url"]}" target="_blank" rel="nofollow noopener">'
                 f'<img src="{o["photo"]}" alt="" loading="lazy"><span>Esta</span></a>{pills}</div>'
             )
+        # Alibaba es mayorista, a diferencia del resto de las tiendas del
+        # catálogo: mismo aviso que en el SPA (ver renderOfferRows en
+        # js/app.js) para no dar a entender que 1 unidad siempre se puede
+        # comprar y enviar sola.
+        wholesale_html = (
+            '<span class="wholesale-badge" title="Alibaba es una plataforma mayorista: '
+            "este producto puede tener un pedido mínimo (MOQ) mayor a 1 unidad. Verifica "
+            'la cantidad mínima en la página del producto antes de comprar.">'
+            "⚠️ Posible pedido mínimo</span>"
+        ) if o["storeId"] == "alibaba" else ""
         table_rows.append(
-            f'<tr><td><span class="store-badge">{dot} {html_escape(store["name"])}</span>{variants_html}</td>'
+            f'<tr><td><span class="store-badge">{dot} {html_escape(store["name"])}</span>{wholesale_html}{variants_html}</td>'
             f"<td class=\"price-cell\"><span class=\"price-line\">{money(o['price'])}</span></td>"
             f"<td>{ship}</td><td>{stock_label}</td>"
             f"<td>{rating_label}</td></tr>"

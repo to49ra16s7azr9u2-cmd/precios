@@ -1495,12 +1495,25 @@
             ).join("")}
           </div>`
         : "";
+      // Alibaba.com es una plataforma mayorista, a diferencia de las demás
+      // tiendas del catálogo (que sí son de venta al menudeo): buena parte
+      // de sus publicaciones tienen un pedido mínimo (MOQ) -- en una
+      // revisión real del catálogo, ~39% de los productos de Alibaba traían
+      // "wholesale"/"bulk"/"OEM"/"private label" directo en el título, y
+      // es casi seguro que el MOQ real alcance a más (muchas publicaciones
+      // no lo dicen en el título, solo en la página del producto). Se avisa
+      // en todas las ofertas de Alibaba, no solo en esa fracción detectable
+      // por palabra clave.
+      const wholesaleHtml = r.storeId === "alibaba"
+        ? `<span class="wholesale-badge" title="Alibaba es una plataforma mayorista: este producto puede tener un pedido mínimo (MOQ) mayor a 1 unidad. Verifica la cantidad mínima en la página del producto antes de comprar.">⚠️ Posible pedido mínimo</span>`
+        : "";
       tr.innerHTML = `
         <td>
           <span class="store-badge">
             ${storeDotHtml(r.store)}
             ${r.store.name}
           </span>
+          ${wholesaleHtml}
           ${variantsHtml}
         </td>
         <td class="price-cell">

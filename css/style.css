@@ -814,6 +814,21 @@ a { color: inherit; text-decoration: none; }
   margin-left: 7px;
   vertical-align: middle;
 }
+/* Aviso de posible pedido mínimo (MOQ) en ofertas de Alibaba: mismo tono de
+   advertencia que used-badge, pero como bloque propio debajo del nombre de
+   la tienda en vez de inline junto a texto (necesita más espacio). */
+.wholesale-badge {
+  display: block;
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 700;
+  color: #8a5a00;
+  background: #fff2d9;
+  border: 1px solid #ffdd99;
+  border-radius: 10px;
+  padding: 2px 8px;
+  margin-top: 5px;
+}
 /* Insignia de tienda: color plano de la marca con una letra, sin relieve
    ni brillo — solo sirve para identificar la tienda de un vistazo. */
 .store-dot {
