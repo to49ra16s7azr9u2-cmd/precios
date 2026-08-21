@@ -248,10 +248,18 @@ function hasForeignAccessoryWord(query, title) {
 // Un resultado se acepta solo si trae TODOS los números del texto buscado (son
 // los que distinguen "Honor 100" de "Honor 400", o 256 GB de 512 GB) y además
 // la mayoría de sus palabras.
+// Sufijos que cambian el modelo. "POCO X8 Pro" y "POCO X8 Pro Max" comparten
+// todas las palabras y todos los números (12 GB, 512 GB), así que el resto de
+// las reglas los daba por iguales — pero son teléfonos distintos y a distinto
+// precio. Si el título trae uno de estos y la consulta no, no es el mismo.
+const VARIANT_WORDS = ["max", "plus", "ultra", "lite", "mini", "pro", "neo", "se"];
+
 function matchesQuery(query, title) {
   if (hasForeignAccessoryWord(query, title)) return false;
   const qt = tokensOf(query);
   const tt = new Set(tokensOf(title));
+  const qset = new Set(qt);
+  if (VARIANT_WORDS.some((w) => tt.has(w) && !qset.has(w))) return false;
   const numbers = qt.filter((t) => /^\d+$/.test(t));
   if (numbers.some((n) => !tt.has(n))) return false;
   const words = [...new Set(qt.filter((t) => !/^\d+$/.test(t) && !NOISE.has(t)))];
