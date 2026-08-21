@@ -869,8 +869,14 @@
       const card = document.createElement("button");
       card.type = "button";
       card.className = "category-card";
+      // cat.iconImage (ilustración propia) reemplaza al emoji cuando existe;
+      // el emoji sigue siendo el ícono en la barra de navegación y filtros,
+      // donde una imagen quedaría fuera de lugar dentro de una línea de texto.
+      const iconHtml = cat.iconImage
+        ? `<img src="${htmlEscapeAttr(cat.iconImage)}" alt="">`
+        : cat.icon;
       card.innerHTML = `
-        <span class="category-card-icon">${cat.icon}</span>
+        <span class="category-card-icon">${iconHtml}</span>
         <span class="category-card-name">${cat.name}</span>
         <span class="category-card-count">${count} productos</span>
       `;
