@@ -443,11 +443,18 @@ async function handleCatalog(url, env) {
     // Recorrido paginado del catálogo completo de una categoría (domain_id),
     // para ampliarla más allá de los más vendidos. `offset` permite pedir
     // páginas sucesivas sin repetir productos ya traídos.
+    //
+    // products/search exige `q` (palabra clave) siempre — probando salió
+    // "Field 'keywords', ... must be provided" con domain_id solo, sin q. El
+    // valor por defecto es genérico a propósito: sirve de ancla mínima para
+    // que domain_id sea el que de verdad acota los resultados.
     const offset = Math.max(parseInt(url.searchParams.get("offset") || "0", 10) || 0, 0);
+    const keywords = url.searchParams.get("q") || "producto";
     const params = new URLSearchParams({
       site_id: SITE,
       status: "active",
       domain_id: domain,
+      q: keywords,
       limit: String(MAX_CATALOG_CANDIDATES),
       offset: String(offset),
     });
