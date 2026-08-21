@@ -330,7 +330,9 @@ async function handleItem(url, env) {
   const results = await offersFor(token, candidates);
   // Solo sirve un resultado que de verdad sea el producto pedido: dar el precio
   // de un modelo parecido sería presentarlo como si fuera el de este.
-  const hit = results.find((r) => r && matchesQuery(q, r.product.name));
+  const hit = results.find(
+    (r) => r && matchesQuery(q, r.product.name) && !REFURB_PATTERN.test(r.product.name)
+  );
   if (!hit) return json({ error: "sin coincidencia confiable" }, 404);
 
   let photo = photoFrom(hit.product);
@@ -362,7 +364,7 @@ async function handleSearch(url, env) {
   const results = await offersFor(token, candidates);
 
   const items = results
-    .filter((r) => r && !hasForeignAccessoryWord(q, r.product.name))
+    .filter((r) => r && !hasForeignAccessoryWord(q, r.product.name) && !REFURB_PATTERN.test(r.product.name))
     .slice(0, limit)
     .map(({ product, offer }) => ({
       id: product.id,
@@ -388,22 +390,68 @@ async function handleSearch(url, env) {
 // subpeticiones de un Worker, MAX_CATALOG_CANDIDATES deja margen de sobra.
 const MAX_CATALOG_CANDIDATES = 22;
 
+// Mercado Libre marca sus listados oficiales de "Reacondicionado" con
+// condition:"new" igual que uno de verdad nuevo — apareció probando /catalog
+// con datos reales: "iPhone 14 ... Excelente (Reacondicionado)" traía
+// condition:"new". El campo `condition` de la API no alcanza para
+// distinguirlos; el título sí los delata siempre.
+const REFURB_PATTERN = /reacondicionad|renewed|reembalad|remanufactur|segunda mano/i;
+
+async function resolveCandidates(token, product) {
+  if (REFURB_PATTERN.test(product.name)) return null; // "new" engañoso, ver comentario de REFURB_PATTERN
+  const offer = await cheapestOffer(token, product.id);
+  if (!offer) return null;
+  return {
+    id: product.id,
+    title: product.name,
+    brand: brandFrom(product),
+    specs: specsFrom(product),
+    domainId: product.domain_id || null,
+    url: catalogUrl(product.id),
+    photo: photoFrom(product),
+    ...offer,
+  };
+}
+
 async function handleCatalog(url, env) {
   const category = url.searchParams.get("category");
-  if (!category) return json({ error: "falta ?category=MLM1055" }, 400);
+  const domain = url.searchParams.get("domain");
+  if (!category && !domain) return json({ error: "falta ?category=MLM1055 o ?domain=MLM-CELLPHONES" }, 400);
   const limit = Math.min(parseInt(url.searchParams.get("limit") || "20", 10) || 20, MAX_CATALOG_CANDIDATES);
   const token = await getAccessToken(env);
 
-  let highlights;
-  try {
-    highlights = await mlGet(token, `/highlights/MLM/category/${category}?limit=${MAX_CATALOG_CANDIDATES}`);
-  } catch (err) {
-    return json({ error: `highlights falló: ${err.message}` }, 502);
+  let ids;
+  if (category) {
+    // Los más vendidos de la categoría — buena primera pasada, pero es una
+    // lista fija (no pagina) así que no alcanza para cubrir todo un rubro.
+    let highlights;
+    try {
+      highlights = await mlGet(token, `/highlights/MLM/category/${category}?limit=${MAX_CATALOG_CANDIDATES}`);
+    } catch (err) {
+      return json({ error: `highlights falló: ${err.message}` }, 502);
+    }
+    ids = (highlights.content || []).map((c) => c.id).filter((id) => /^MLM\d+$/.test(id));
+  } else {
+    // Recorrido paginado del catálogo completo de una categoría (domain_id),
+    // para ampliarla más allá de los más vendidos. `offset` permite pedir
+    // páginas sucesivas sin repetir productos ya traídos.
+    const offset = Math.max(parseInt(url.searchParams.get("offset") || "0", 10) || 0, 0);
+    const params = new URLSearchParams({
+      site_id: SITE,
+      status: "active",
+      domain_id: domain,
+      limit: String(MAX_CATALOG_CANDIDATES),
+      offset: String(offset),
+    });
+    let data;
+    try {
+      data = await mlGet(token, `/products/search?${params}`);
+    } catch (err) {
+      return json({ error: `products/search falló: ${err.message}` }, 502);
+    }
+    ids = (data.results || []).map((p) => p.id);
   }
-  const ids = (highlights.content || [])
-    .map((c) => c.id)
-    .filter((id) => /^MLM\d+$/.test(id))
-    .slice(0, MAX_CATALOG_CANDIDATES);
+  ids = ids.slice(0, MAX_CATALOG_CANDIDATES);
 
   const results = await Promise.all(
     ids.map(async (id) => {
@@ -413,18 +461,7 @@ async function handleCatalog(url, env) {
       } catch {
         return null;
       }
-      const offer = await cheapestOffer(token, id);
-      if (!offer) return null;
-      return {
-        id,
-        title: product.name,
-        brand: brandFrom(product),
-        specs: specsFrom(product),
-        domainId: product.domain_id || null,
-        url: catalogUrl(id),
-        photo: photoFrom(product),
-        ...offer,
-      };
+      return resolveCandidates(token, product);
     })
   );
   return json({ items: results.filter(Boolean).slice(0, limit) });
