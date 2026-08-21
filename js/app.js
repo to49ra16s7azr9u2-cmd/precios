@@ -204,6 +204,7 @@
     filterCategory: document.getElementById("filterCategory"),
     filterPrice: document.getElementById("filterPrice"),
     filterBrand: document.getElementById("filterBrand"),
+    filterBrandSearch: document.getElementById("filterBrandSearch"),
     filterRating: document.getElementById("filterRating"),
     filterCondition: document.getElementById("filterCondition"),
     filterMagsafeGroup: document.getElementById("filterMagsafeGroup"),
@@ -1296,7 +1297,21 @@
     // Si una marca seleccionada ya no aplica en el alcance actual, se descarta.
     [...state.brands].forEach((b) => { if (!brands.includes(b)) state.brands.delete(b); });
 
-    brands.forEach((b) => {
+    // El cuadro de búsqueda solo filtra qué checkboxes se muestran; no toca
+    // state.brands, así que una marca ya marcada sigue activa aunque quede
+    // oculta al escribir otra búsqueda.
+    const query = (el.filterBrandSearch.value || "").trim().toLowerCase();
+    const visibleBrands = query ? brands.filter((b) => b.toLowerCase().includes(query)) : brands;
+
+    if (query && visibleBrands.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "filter-empty";
+      empty.textContent = `Sin marcas para "${el.filterBrandSearch.value.trim()}"`;
+      el.filterBrand.appendChild(empty);
+      return;
+    }
+
+    visibleBrands.forEach((b) => {
       const opt = document.createElement("label");
       const isActive = state.brands.has(b);
       opt.className = "filter-option" + (isActive ? " active" : "");
@@ -1994,6 +2009,11 @@
     // (filterCategory/filterBrand) se re-genera en cada renderList(), pero
     // el <h3> y el .filter-group que lo envuelven son estáticos del HTML,
     // así que este listener se registra una sola vez acá.
+    // Filtra la lista de checkboxes de Marca en vivo, sin disparar
+    // renderList() completo (no cambia el catálogo, solo qué checkboxes
+    // se muestran), así que el input no pierde el foco al escribir.
+    el.filterBrandSearch.addEventListener("input", () => renderFilterBrand());
+
     document.querySelectorAll(".filter-group-collapsible > h3").forEach((h3) => {
       h3.addEventListener("click", () => {
         h3.closest(".filter-group").classList.toggle("collapsed");

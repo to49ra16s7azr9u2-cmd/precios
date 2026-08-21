@@ -320,7 +320,21 @@ a { color: inherit; text-decoration: none; }
 .filter-group-toggle { font-size: 10px; transition: transform .15s; }
 .filter-group-collapsible.collapsed h3 { margin-bottom: 0; }
 .filter-group-collapsible.collapsed .filter-group-toggle { transform: rotate(-90deg); }
-.filter-group-collapsible.collapsed .filter-options { display: none; }
+.filter-group-collapsible.collapsed .filter-options,
+.filter-group-collapsible.collapsed .filter-search { display: none; }
+.filter-search {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 13px;
+  margin-bottom: 8px;
+  color: var(--ink);
+  font-family: inherit;
+}
+.filter-search:focus { outline: none; border-color: var(--red); }
+.filter-empty { font-size: 13px; color: var(--muted); padding: 6px 0; margin: 0; }
 .filter-options { display: flex; flex-direction: column; gap: 4px; }
 .filter-option {
   display: flex;
