@@ -162,62 +162,102 @@ async function searchProducts(token, q, limit) {
   return data.results || [];
 }
 
+// Categoría que Mercado Libre le asigna al texto buscado. Sirve para separar el
+// producto en sí de sus accesorios: "iphone 15" devuelve en el catálogo cables y
+// fundas antes que el teléfono, y sin esto la ficha mostraría el precio de una
+// funda como si fuera el del celular.
+//
+// OJO: este endpoint responde 200 SIN cabecera Authorization y 403 CON ella
+// (al revés que el resto de la API), así que se llama sin token a propósito.
+async function expectedDomain(q) {
+  try {
+    const res = await fetch(`${API}/sites/${SITE}/domain_discovery/search?q=${encodeURIComponent(q)}&limit=1`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data?.[0]?.domain_id || null;
+  } catch {
+    return null;
+  }
+}
+
+// Ordena los productos del catálogo poniendo delante los que caen en la
+// categoría que se esperaba para la búsqueda. No descarta el resto: si la
+// predicción falla, los demás siguen disponibles como respaldo.
+function preferDomain(products, domain) {
+  if (!domain) return products;
+  const match = products.filter((p) => p.domain_id === domain);
+  return match.length ? [...match, ...products.filter((p) => p.domain_id !== domain)] : products;
+}
+
+// Buena parte del catálogo no tiene ningún vendedor activo — esos productos
+// responden 404 "No winners found". Por eso se piden bastantes más candidatos
+// de los que hacen falta y se consultan sus ofertas en paralelo, quedándose con
+// los primeros que sí tengan. Cada consulta es una subpetición y un Worker
+// tiene un tope por invocación, así que el número de candidatos va acotado.
+const MAX_CANDIDATES = 24;
+
+async function offersFor(token, products) {
+  return Promise.all(
+    products.map(async (product) => {
+      const offer = await cheapestOffer(token, product.id);
+      return offer ? { product, offer } : null;
+    })
+  );
+}
+
 async function handleItem(url, env) {
   const q = url.searchParams.get("q");
   if (!q) return json({ error: "falta ?q=" }, 400);
   const token = await getAccessToken(env);
 
-  const products = await searchProducts(token, q, 5);
-  if (products.length === 0) return json({ error: "sin resultados" }, 404);
+  const [domain, found] = await Promise.all([expectedDomain(q), searchProducts(token, q, MAX_CANDIDATES)]);
+  if (found.length === 0) return json({ error: "sin resultados" }, 404);
 
-  // El primer producto del catálogo no siempre tiene ofertas activas, así que
-  // se recorren unos pocos hasta encontrar uno que sí las tenga.
-  for (const product of products) {
-    const offer = await cheapestOffer(token, product.id);
-    if (!offer) continue;
-    let photo = photoFrom(product);
-    if (!photo) {
-      try {
-        photo = photoFrom(await mlGet(token, `/products/${product.id}`));
-      } catch {
-        photo = null;
-      }
+  const candidates = preferDomain(found, domain).slice(0, MAX_CANDIDATES);
+  const results = await offersFor(token, candidates);
+  const hit = results.find(Boolean); // el primero en el orden ya priorizado
+  if (!hit) return json({ error: "sin ofertas activas" }, 404);
+
+  let photo = photoFrom(hit.product);
+  if (!photo) {
+    try {
+      photo = photoFrom(await mlGet(token, `/products/${hit.product.id}`));
+    } catch {
+      photo = null;
     }
-    return json({
-      id: product.id,
-      title: product.name,
-      url: catalogUrl(product.id),
-      photo,
-      ...offer,
-    });
   }
-  return json({ error: "sin ofertas activas" }, 404);
+  return json({
+    id: hit.product.id,
+    title: hit.product.name,
+    url: catalogUrl(hit.product.id),
+    photo,
+    ...hit.offer,
+  });
 }
 
 async function handleSearch(url, env) {
   const q = url.searchParams.get("q");
   if (!q) return json({ items: [] });
-  // Cada producto cuesta una subpetición extra para traer sus ofertas, y un
-  // Worker tiene un tope de subpeticiones por invocación. 12 deja margen.
   const limit = Math.min(parseInt(url.searchParams.get("limit") || "8", 10) || 8, 12);
   const token = await getAccessToken(env);
 
-  const products = await searchProducts(token, q, limit);
-  const items = await Promise.all(
-    products.map(async (product) => {
-      const offer = await cheapestOffer(token, product.id);
-      if (!offer) return null; // sin ofertas activas: no se muestra
-      return {
-        id: product.id,
-        title: product.name,
-        url: catalogUrl(product.id),
-        photo: photoFrom(product),
-        ...offer,
-      };
-    })
-  );
-  return json({ items: items.filter(Boolean) });
+  const [domain, found] = await Promise.all([expectedDomain(q), searchProducts(token, q, MAX_CANDIDATES)]);
+  const candidates = preferDomain(found, domain).slice(0, MAX_CANDIDATES);
+  const results = await offersFor(token, candidates);
+
+  const items = results
+    .filter(Boolean)
+    .slice(0, limit)
+    .map(({ product, offer }) => ({
+      id: product.id,
+      title: product.name,
+      url: catalogUrl(product.id),
+      photo: photoFrom(product),
+      ...offer,
+    }));
+  return json({ items });
 }
+
 
 // Sonda de diagnóstico. Acepta ?path=/lo/que/sea para probar un endpoint suelto
 // sin volver a desplegar. Va acotada a propósito:
