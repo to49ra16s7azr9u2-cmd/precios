@@ -36,6 +36,7 @@
     profile: "comparamx_profile",
     reviews: "comparamx_reviews",
     includeShipping: "comparamx_include_shipping",
+    categoryClicks: "comparamx_category_clicks",
   };
 
   // ---------- Precios en vivo desde APIs reales (desactivado por defecto) ----------
@@ -193,6 +194,7 @@
 
     viewHome: document.getElementById("viewHome"),
     homeCategoryGrid: document.getElementById("homeCategoryGrid"),
+    homeTopCategoriesList: document.getElementById("homeTopCategoriesList"),
     homeRankings: document.getElementById("homeRankings"),
 
     viewList: document.getElementById("viewList"),
@@ -753,6 +755,26 @@
     }
   }
 
+  // "Top 5 más visitadas" en Inicio: cuenta reales de clics hacia cada
+  // categoría en ESTE navegador (localStorage), nunca un número inventado
+  // -- un sitio estático sin backend no tiene forma honesta de medir
+  // clics agregados de todos los visitantes, así que el ranking es
+  // siempre "lo que tú más visitaste", no "lo más popular del sitio".
+  function trackCategoryClick(categoryId) {
+    if (!categoryId) return;
+    const counts = readLS(LS_KEYS.categoryClicks, {});
+    counts[categoryId] = (counts[categoryId] || 0) + 1;
+    writeLS(LS_KEYS.categoryClicks, counts);
+  }
+  function topClickedCategories(n) {
+    const counts = readLS(LS_KEYS.categoryClicks, {});
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([id, count]) => ({ cat: categoryById(id), count }))
+      .filter((x) => x.cat) // por si una categoría se renombró/eliminó desde el último clic
+      .slice(0, n);
+  }
+
   function getFavorites() {
     return readLS(LS_KEYS.favorites, []);
   }
@@ -866,6 +888,7 @@
   // filtro) siempre parte del ranking de popularidad, como en Kakaku.com:
   // ahí es donde vive el paso 2 del recorrido (categoría → ranking → precio).
   function goCategoryRanking(categoryId, subcategoryId) {
+    trackCategoryClick(categoryId);
     state.sort = "popularity";
     goList({ category: categoryId, subcategory: subcategoryId || null, query: "" });
   }
@@ -1039,7 +1062,32 @@
       el.homeCategoryGrid.appendChild(card);
     });
 
+    renderHomeTopCategories();
     renderHomeRankings();
+  }
+
+  function renderHomeTopCategories() {
+    const top = topClickedCategories(5);
+    el.homeTopCategoriesList.innerHTML = "";
+    if (top.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "home-top-categories-empty";
+      empty.textContent = "Todavía no hay categorías visitadas en este navegador. Explora el catálogo y aparecerán aquí.";
+      el.homeTopCategoriesList.appendChild(empty);
+      return;
+    }
+    top.forEach(({ cat, count }, i) => {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.className = "home-top-category-item";
+      item.innerHTML = `
+        <span class="home-top-category-rank">${i + 1}</span>
+        <span class="home-top-category-name">${cat.icon} ${cat.name}</span>
+        <span class="home-top-category-count">${plural(count, "clic", "clics")}</span>
+      `;
+      item.onclick = () => goCategoryRanking(cat.id);
+      el.homeTopCategoriesList.appendChild(item);
+    });
   }
 
   // Top N por el mismo criterio de "popularidad" que ya usa el resto del
