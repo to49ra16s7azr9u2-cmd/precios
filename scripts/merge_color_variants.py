@@ -46,7 +46,7 @@ COLOR_PHRASES = [
     ("rosado", "Rosa"), ("rosada", "Rosa"), ("rosa", "Rosa"), ("pink", "Rosa"),
     ("amarillo", "Amarillo"), ("amarilla", "Amarillo"), ("yellow", "Amarillo"),
     ("verde", "Verde"), ("green", "Verde"),
-    ("morado", "Morado"), ("morada", "Morado"), ("purpura", "Morado"),
+    ("morado", "Morado"), ("morada", "Morado"), ("purpura", "Morado"), ("violeta", "Morado"),
     ("lila", "Morado"), ("lavanda", "Morado"), ("purple", "Morado"),
     ("naranja", "Naranja"), ("orange", "Naranja"),
     ("dorado", "Dorado"), ("dorada", "Dorado"), ("oro", "Dorado"), ("gold", "Dorado"),
@@ -80,6 +80,9 @@ def strip_accents(s):
     return "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn")
 
 
+UNIT_WORDS = r"gb|mb|tb|kg|mah|watts?|hz|kpa|pulgadas?|in"
+
+
 def normalize_key(s):
     """Distintos vendedores/lotes escriben el mismo modelo con puntuación
     distinta: "iPhone 15 (128 GB) - Azul" vs "iPhone 15 128 GB Negro". Se
@@ -87,19 +90,31 @@ def normalize_key(s):
     para que la comparación de la clave no dependa de ese formato -- ya el
     requisito de que todos los tokens numéricos coincidan sigue intacto."""
     s = re.sub(r"[(),\-/|]", " ", s)
+    # "128GB" vs "128 GB" vs "128 Gb": junta dígito+unidad sin espacio y sin
+    # mayúsculas para que la variación de formato entre vendedores no rompa
+    # la comparación (esto opera sobre texto ya en minúsculas).
+    s = re.sub(r"(\d)\s*(" + UNIT_WORDS + r")\b", r"\1\2", s, flags=re.I)
     return re.sub(r"\s{2,}", " ", s).strip()
 
 
 def find_color_span(stripped_lower, start_from=0):
-    """Busca la primera aparición (como palabra completa) de una frase de color.
-    Devuelve (start, end, canonical_name) o None."""
+    """Busca la ÚLTIMA aparición (como palabra completa) de una frase de
+    color. Devuelve (start, end, canonical_name) o None.
+
+    Se prefiere la última en vez de la primera porque varios títulos de
+    Mercado Libre repiten una palabra de color como parte del NOMBRE DEL
+    MODELO antes del color real de venta, p.ej. "Redragon Dragonborn White
+    K630-pd Teclado Negro" -- "White" es parte del modelo (todas las
+    variantes de color se llaman igual), "Negro" es el color que de verdad
+    se está vendiendo, y va al final. Tomar la primera aparición quitaba
+    "White" y dejaba "Negro" pegado en el texto, así que dos anuncios del
+    mismo teclado en distinto color no coincidían."""
     best = None
     for phrase, canon in COLOR_PHRASES:
         pat = r"\b" + re.escape(phrase) + r"\b"
-        m = re.search(pat, stripped_lower[start_from:])
-        if m:
+        for m in re.finditer(pat, stripped_lower[start_from:]):
             s, e = m.start() + start_from, m.end() + start_from
-            if best is None or s < best[0]:
+            if best is None or s > best[0]:
                 best = (s, e, canon)
     return best
 

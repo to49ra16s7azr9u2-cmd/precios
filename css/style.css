@@ -766,6 +766,11 @@ a { color: inherit; text-decoration: none; }
   gap: 9px;
   font-weight: 600;
 }
+/* Distingue cada fila cuando un producto fusionado por color (ver
+   merge_color_variants.py) muestra sus N colores como N filas de la misma
+   tienda -- sin esto todas dirían "Mercado Libre" sin explicar por qué
+   hay varias. */
+.store-color-label { font-weight: 400; color: var(--muted); }
 /* Pastillas de variante (color/talla) bajo el nombre de la tienda: se ve
    de un vistazo que hay más opciones sin tener que salir de la tabla.
    "Esta" queda marcada activa porque es la fila que ya se está mostrando;

@@ -5,7 +5,7 @@
 // versión cacheada anterior a los visitantes que ya lo tenían instalado
 // (cache-first: la página nueva llega recién en la SEGUNDA carga, y solo si
 // el número cambió — con el mismo número nunca se refresca).
-const CACHE = "comparamx-v13";
+const CACHE = "comparamx-v14";
 const FILES = [
   "./",
   "./index.html",

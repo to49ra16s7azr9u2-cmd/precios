@@ -1661,7 +1661,7 @@
         <td>
           <span class="store-badge">
             ${storeDotHtml(r.store)}
-            ${r.store.name}
+            ${r.store.name}${r.colorLabel ? ` <span class="store-color-label">— ${htmlEscapeAttr(r.colorLabel)}</span>` : ""}
           </span>
           ${wholesaleHtml}
           ${variantsHtml}
@@ -1696,7 +1696,26 @@
   }
 
   function renderOfferTable(product) {
-    let rows = product.offers.map((o) => {
+    // Un producto fusionado por color (colorVariants, ver
+    // merge_color_variants.py) tiene una sola oferta guardada en
+    // product.offers -- la del color más barato -- pero "N tiendas" en la
+    // cabecera ya cuenta cada color como una opción aparte (ver
+    // offerCount()). La tabla de comparación tiene que mostrar esa misma
+    // cantidad de filas o el resumen de arriba no cuadra con el detalle de
+    // abajo: se arma una fila por cada color/condición, reusando los demás
+    // campos (tienda, puntos, calificación, stock) de la oferta base, que
+    // son iguales para todos los colores.
+    const baseOffers = product.colorVariants && product.colorVariants.length > 1
+      ? product.colorVariants.map((v) => ({
+          ...product.offers[0],
+          price: v.price,
+          url: v.url,
+          photo: v.photo,
+          listPrice: null,
+          colorLabel: v.color ? `${v.color}${v.condition === "refurbished" ? " (Reacondicionado)" : ""}` : null,
+        }))
+      : product.offers;
+    let rows = baseOffers.map((o) => {
       const store = storeById(o.storeId);
       // Tiendas sin hubRegion (envío internacional directo, p. ej. SUNSKY o
       // Geekbuying) no tienen un centro de distribución mexicano desde el
