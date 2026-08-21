@@ -404,6 +404,15 @@ a { color: inherit; text-decoration: none; }
 .product-row .row-brand { font-size: 12px; color: var(--muted); }
 .product-row .row-name { font-size: 15px; font-weight: 600; margin: 3px 0; }
 .product-row .row-stars { font-size: 13px; color: var(--gold); }
+.row-colors { display: flex; align-items: center; gap: 5px; margin-top: 4px; }
+.color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+.color-dot-extra { font-size: 11px; color: var(--muted); }
 .product-row .row-priceblock { text-align: right; flex-shrink: 0; }
 .product-row .row-from { font-size: 12px; color: var(--muted); }
 .product-row .row-price { font-size: 21px; font-weight: 800; color: var(--red-dark); }
@@ -484,6 +493,11 @@ a { color: inherit; text-decoration: none; }
 .detail-headinfo h1 { margin: 2px 0 8px; font-size: 25px; }
 .detail-rating { font-size: 14px; color: var(--gold); margin-bottom: 8px; }
 .detail-rating .rc { color: var(--muted); margin-left: 4px; }
+.detail-colors:empty { display: none; }
+.detail-colors-inner { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+.color-dot-link { display: inline-flex; line-height: 0; }
+.color-dot-link .color-dot { width: 18px; height: 18px; cursor: pointer; }
+.color-dot-link .color-dot:hover { box-shadow: 0 0 0 2px var(--red); }
 .detail-fromprice { margin: 0; font-size: 14px; color: var(--muted); }
 /* El precio de la ficha es el punto de mayor énfasis de toda la página. */
 .detail-fromprice strong { color: var(--red-dark); font-size: 22px; }

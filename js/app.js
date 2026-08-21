@@ -206,6 +206,7 @@
     detailBrand: document.getElementById("detailBrand"),
     detailName: document.getElementById("detailName"),
     detailRating: document.getElementById("detailRating"),
+    detailColors: document.getElementById("detailColors"),
     detailFromPrice: document.getElementById("detailFromPrice"),
     detailFavBtn: document.getElementById("detailFavBtn"),
     deliveryBanner: document.getElementById("deliveryBanner"),
@@ -401,6 +402,79 @@
   function starsHtml(avg) {
     const filled = Math.round(avg);
     return "★".repeat(filled) + "☆".repeat(5 - filled);
+  }
+
+  // Mapea el nombre de color (ya normalizado por merge_color_variants.py,
+  // p.ej. "Gris espacial") a un color de fondo real para pintar el punto.
+  const COLOR_SWATCH_HEX = {
+    "Negro": "#1a1a1a",
+    "Blanco": "#f5f5f5",
+    "Gris": "#9e9e9e",
+    "Gris espacial": "#54524f",
+    "Gris oscuro": "#4a4a4a",
+    "Azul": "#2563eb",
+    "Azul marino": "#1e3a5f",
+    "Celeste": "#7dd3fc",
+    "Rojo": "#dc2626",
+    "Rosa": "#f472b6",
+    "Oro rosa": "#e8b4b8",
+    "Amarillo": "#facc15",
+    "Verde": "#22c55e",
+    "Verde oliva": "#6b7f3a",
+    "Morado": "#9333ea",
+    "Naranja": "#f97316",
+    "Dorado": "#d4af37",
+    "Plata": "#c0c0c0",
+    "Café": "#6b4423",
+    "Beige": "#d9c8a9",
+    "Turquesa": "#14b8a6",
+    "Coral": "#ff6f61",
+    "Grafito": "#383838",
+    "Transparente": "transparent",
+    "Multicolor": "linear-gradient(135deg,#dc2626,#facc15,#22c55e,#2563eb)",
+    "Vino": "#722f37",
+    "Medianoche": "#191932",
+    "Starlight": "#f0ead6",
+  };
+
+  function colorSwatchHtml(colorVariants) {
+    if (!colorVariants || colorVariants.length === 0) return "";
+    // Un punto por color único (si el mismo color aparece nuevo y
+    // reacondicionado, cuenta una sola vez para el resumen visual).
+    const seen = [];
+    colorVariants.forEach((v) => {
+      if (v.color && !seen.includes(v.color)) seen.push(v.color);
+    });
+    if (seen.length === 0) return "";
+    const maxDots = 6;
+    const shown = seen.slice(0, maxDots);
+    const extra = seen.length - shown.length;
+    const dots = shown
+      .map((c) => {
+        const bg = COLOR_SWATCH_HEX[c] || "#bbb";
+        const border = c === "Blanco" || c === "Transparente" || c === "Starlight" ? "border:1px solid #ccc;" : "";
+        return `<span class="color-dot" style="background:${bg};${border}" title="${htmlEscapeAttr(c)}"></span>`;
+      })
+      .join("");
+    return `<div class="row-colors">${dots}${extra > 0 ? `<span class="color-dot-extra">+${extra}</span>` : ""}</div>`;
+  }
+
+  // Versión para la ficha de producto: cada punto es un link directo al
+  // anuncio de ese color/condición en Mercado Libre, con el precio de esa
+  // variante en el tooltip.
+  function detailColorSwatchHtml(product) {
+    const variants = product.colorVariants;
+    if (!variants || variants.length === 0) return "";
+    const dots = variants
+      .map((v) => {
+        const bg = COLOR_SWATCH_HEX[v.color] || "#bbb";
+        const border = v.color === "Blanco" || v.color === "Transparente" || v.color === "Starlight" ? "border:1px solid #ccc;" : "";
+        const refurb = v.condition === "refurbished" ? " · Reacondicionado" : "";
+        const label = `${v.color || "Otro"}${refurb} — ${money(v.price)}`;
+        return `<a class="color-dot-link" href="${htmlEscapeAttr(v.url)}" target="_blank" rel="noopener" title="${htmlEscapeAttr(label)}"><span class="color-dot" style="background:${bg};${border}"></span></a>`;
+      })
+      .join("");
+    return `<div class="detail-colors-inner"><span class="detail-colors-label">Colores disponibles:</span> ${dots}</div>`;
   }
 
   // Pinta la imagen de un producto dentro de `container`.
@@ -1070,13 +1144,16 @@
             // además hacía ver el sitio como si no hubiera cargado. Cuando
             // no hay calificaciones simplemente no se pinta la línea (la
             // ficha del producto sí lo dice, una sola vez y en contexto).
+            // En su lugar, si el producto junta varios colores (fusionados
+            // por merge_color_variants.py), ese mismo espacio muestra los
+            // puntos de color disponibles.
             count > 0
               ? `<div class="row-stars">${starsHtml(avg)} <span class="muted">${avg.toFixed(1)} (${count})</span></div>`
-              : ""
+              : colorSwatchHtml(p.colorVariants)
           }
         </div>
         <div class="row-priceblock">
-          ${p.offers.length > 1 ? `<div class="row-from">Desde</div>` : ""}
+          ${p.offers.length > 1 || (p.colorVariants && p.colorVariants.length > 1) ? `<div class="row-from">Desde</div>` : ""}
           <div class="row-price">${money(minPrice(p))}${bestDiscountPct(p) ? `<span class="discount-badge">-${bestDiscountPct(p)}%</span>` : ""}</div>
           <div class="row-stores">${plural(p.offers.length, "tienda", "tiendas")}</div>
         </div>
@@ -1361,10 +1438,12 @@
       count > 0
         ? `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${plural(count, "calificación", "calificaciones")})</span>`
         : `<span class="rc">Sin calificaciones todavía</span>`;
+    el.detailColors.innerHTML = detailColorSwatchHtml(product);
     const discountPct = bestDiscountPct(product);
     const savings = bestSavingsAmount(product);
+    const hasColorVariants = product.colorVariants && product.colorVariants.length > 1;
     el.detailFromPrice.innerHTML = `
-      ${product.offers.length > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(product.offers.length, "tienda", "tiendas")}
+      ${product.offers.length > 1 || hasColorVariants ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(product.offers.length, "tienda", "tiendas")}
       ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
     `;
 
