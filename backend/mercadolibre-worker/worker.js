@@ -195,6 +195,71 @@ async function candidatesFor(token, q, limit) {
   return searchProducts(token, q, limit);
 }
 
+// ---------------------------------------------------------------------------
+// FILTRO DE COINCIDENCIA
+//
+// La búsqueda del catálogo devuelve lo que se le parezca, no lo que se pidió.
+// Probando con productos reales de ComparaMX salió, por ejemplo:
+//
+//   "Honor 100 Pro 12GB+256GB"        -> HONOR 400 LITE 256 GB   (otro modelo)
+//   "Blackview Oscal Marine 2 4GB"    -> Pantalla LCD para Blackview Shark 8
+//   "Xiaomi POCO X8 Pro 12GB+512GB"   -> POCO X8 Pro MAX          (otra variante)
+//
+// Publicar esos precios sería inventarlos: diría "Blackview Oscal Marine 2:
+// $388" cuando esos $388 son un repuesto de pantalla de otro teléfono. Ante la
+// duda se prefiere no mostrar nada — el producto se queda con sus precios de
+// referencia, que es justo lo que hacía antes de conectar la API.
+// ---------------------------------------------------------------------------
+
+// Palabras que delatan un accesorio o un repuesto. Si aparecen en el título
+// pero no en lo que se buscó, el resultado no es el producto pedido.
+const ACCESSORY_WORDS = [
+  "funda", "case", "carcasa", "protector", "mica", "vidrio", "templado",
+  "pantalla", "lcd", "display", "cable", "cargador", "adaptador", "bateria",
+  "soporte", "cover", "estuche", "correa", "mochila", "maletin", "repuesto",
+  "juguete", "para nino", "para nina",
+];
+
+// Minúsculas, sin acentos, y separando letra de número ("16GB" -> "16 gb",
+// "X8" -> "x 8") para que "512GB" y "512 GB" se comparen igual.
+function normalize(s) {
+  return String(s || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/(\d)([a-z])/g, "$1 $2")
+    .replace(/([a-z])(\d)/g, "$1 $2")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+const tokensOf = (s) => normalize(s).split(" ").filter(Boolean);
+
+// Palabras genéricas que casi todos los títulos traen: no dicen nada sobre si
+// el producto es el correcto, así que no cuentan para la cobertura.
+const NOISE = new Set(["gb", "ram", "dual", "sim", "celular", "smartphone", "global", "version", "g", "tb", "mah"]);
+
+function hasForeignAccessoryWord(query, title) {
+  const q = normalize(query);
+  const t = normalize(title);
+  return ACCESSORY_WORDS.some((w) => t.includes(normalize(w)) && !q.includes(normalize(w)));
+}
+
+// Un resultado se acepta solo si trae TODOS los números del texto buscado (son
+// los que distinguen "Honor 100" de "Honor 400", o 256 GB de 512 GB) y además
+// la mayoría de sus palabras.
+function matchesQuery(query, title) {
+  if (hasForeignAccessoryWord(query, title)) return false;
+  const qt = tokensOf(query);
+  const tt = new Set(tokensOf(title));
+  const numbers = qt.filter((t) => /^\d+$/.test(t));
+  if (numbers.some((n) => !tt.has(n))) return false;
+  const words = [...new Set(qt.filter((t) => !/^\d+$/.test(t) && !NOISE.has(t)))];
+  if (words.length === 0) return numbers.length > 0;
+  const covered = words.filter((w) => tt.has(w)).length;
+  return covered / words.length >= 0.6;
+}
+
 // Buena parte del catálogo no tiene ningún vendedor activo — esos productos
 // responden 404 "No winners found". Por eso se piden bastantes más candidatos
 // de los que hacen falta y se consultan sus ofertas en paralelo, quedándose con
@@ -220,8 +285,10 @@ async function handleItem(url, env) {
   if (candidates.length === 0) return json({ error: "sin resultados" }, 404);
 
   const results = await offersFor(token, candidates);
-  const hit = results.find(Boolean); // el primero en el orden ya priorizado
-  if (!hit) return json({ error: "sin ofertas activas" }, 404);
+  // Solo sirve un resultado que de verdad sea el producto pedido: dar el precio
+  // de un modelo parecido sería presentarlo como si fuera el de este.
+  const hit = results.find((r) => r && matchesQuery(q, r.product.name));
+  if (!hit) return json({ error: "sin coincidencia confiable" }, 404);
 
   let photo = photoFrom(hit.product);
   if (!photo) {
@@ -250,7 +317,7 @@ async function handleSearch(url, env) {
   const results = await offersFor(token, candidates);
 
   const items = results
-    .filter(Boolean)
+    .filter((r) => r && !hasForeignAccessoryWord(q, r.product.name))
     .slice(0, limit)
     .map(({ product, offer }) => ({
       id: product.id,
