@@ -70,7 +70,11 @@
   // funcionando. Por eso amazon_mx se queda igual que las demás: la entrada
   // está lista, pero no hay nada que conectar todavía.
   const LIVE_API_CONFIG = {
-    mercadolibre: { enabled: false, proxyUrl: null, searchProxyUrl: null },
+    mercadolibre: {
+      enabled: true,
+      proxyUrl: "https://comparamx-mercadolibre-proxy.comparamx.workers.dev/item",
+      searchProxyUrl: "https://comparamx-mercadolibre-proxy.comparamx.workers.dev/search",
+    },
     amazon_mx: { enabled: false, proxyUrl: null },
     walmart_mx: { enabled: false, proxyUrl: null },
     liverpool: { enabled: false, proxyUrl: null },
@@ -97,7 +101,10 @@
         points: null,
         rating: data.rating ?? null,
         reviewCount: data.reviewCount ?? 0,
-        stock: data.stock || "in_stock",
+        // La API de catálogo de Mercado Libre no informa la cantidad
+        // disponible, así que el stock queda desconocido. Se deja en null
+        // a propósito: mostrar "En stock" por defecto sería inventarlo.
+        stock: data.stock ?? null,
         verified: true,
       };
     } catch {
@@ -354,7 +361,13 @@
     product.offers.forEach((o) => {
       const priceScore = 1 - (o.price - minP) / priceRange; // 1 = más barato
       const ratingScore = (o.rating || 0) / 5;
-      const stockScore = o.stock === "in_stock" ? 1 : o.stock === "low_stock" ? 0.5 : 0;
+      // Stock desconocido (las ofertas en vivo de Mercado Libre no lo
+      // informan) puntúa neutro: castigarlo como "sobre pedido" hundiría
+      // injustamente a esas ofertas por un dato que nadie afirmó.
+      const stockScore = o.stock == null ? 0.5
+        : o.stock === "in_stock" ? 1
+        : o.stock === "low_stock" ? 0.5
+        : 0;
       const score = priceScore * 0.4 + ratingScore * 0.3 + stockScore * 0.3;
       if (score > bestScore) { bestScore = score; best = o; }
     });
@@ -1479,7 +1492,7 @@
         const [lo, hi] = r.store.typicalShippingDays;
         deliveryHtml = `<div class="delivery-sub">Entrega en ${lo}–${hi} días${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Rango típico publicado por la tienda para envío internacional, no una estimación por distancia ni un dato confirmado por pedido">🔶 estimado</span></div>`;
       }
-      const stockInfo = STOCK_INFO[r.stock] || STOCK_INFO.in_stock;
+      const stockInfo = STOCK_INFO[r.stock] || null;
       let discountHtml = "";
       if (r.listPrice && r.listPrice > r.price) {
         const pct = Math.round((1 - r.price / r.listPrice) * 100);
@@ -1541,7 +1554,7 @@
           ${deliveryHtml}
         </td>
         <td>${shippingHtml}</td>
-        <td><span class="stock-badge ${stockInfo.cls}">${stockInfo.text}</span></td>
+        <td>${stockInfo ? `<span class="stock-badge ${stockInfo.cls}">${stockInfo.text}</span>` : "—"}</td>
         <td>${pointsHtml}</td>
         <td class="stars-cell">${ratingHtml}</td>
         <td>

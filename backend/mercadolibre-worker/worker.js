@@ -3,18 +3,40 @@
 // Qué hace: guarda tus credenciales de Mercado Libre (nunca en el frontend
 // estático) y expone dos endpoints simples que js/app.js ya sabe consumir:
 //
-//   GET /item?q=<búsqueda>          -> { price, url, photo, shippingFree, stock }
-//   GET /search?q=<búsqueda>&limit  -> { items: [{ id, title, price, url, photo, shippingFree, stock }] }
+//   GET /item?q=<búsqueda>          -> { price, url, photo, shippingFree, ... }
+//   GET /search?q=<búsqueda>&limit  -> { items: [{ id, title, price, url, photo, shippingFree }] }
 //
 // Requiere 3 secrets (ver README.md de esta carpeta para cómo obtenerlos):
 //   ML_CLIENT_ID, ML_CLIENT_SECRET, ML_REFRESH_TOKEN
 //
-// No probado contra la API real (este entorno no tiene credenciales ni
-// acceso de red a Mercado Libre) — está escrito según la documentación
-// pública de la API de Mercado Libre (OAuth 2.0 + /sites/MLM/search).
-// Verifica las respuestas reales una vez que lo despliegues con tus
-// credenciales; el formato exacto de algunos campos (p. ej. shipping)
-// puede variar y quizás haya que ajustarlo.
+// ---------------------------------------------------------------------------
+// POR QUÉ USA LA API DE CATÁLOGO Y NO LA BÚSQUEDA DE PUBLICACIONES
+//
+// La versión anterior pedía /sites/MLM/search, que es lo que documenta casi
+// todo el material viejo sobre esta API. Ese endpoint hoy responde 403 a
+// todo el mundo: con token, sin token, desde una IP de datacenter y desde
+// una IP residencial. Está cerrado, no es un problema de configuración.
+//
+// Lo que sí funciona es la familia de CATÁLOGO, que es infraestructura
+// distinta y sigue abierta para apps con los permisos concedidos:
+//
+//   /products/search?site_id=MLM&q=…&status=active   -> productos de catálogo
+//   /products/{id}/items                             -> TODAS las ofertas de ese producto
+//   /products/{id}                                   -> fotos y variantes
+//   /highlights/MLM/category/{cat}                   -> más vendidos
+//   /categories/{id}                                 -> metadatos de categoría
+//
+// Para un comparador esto es mejor que la búsqueda vieja: /products/{id}/items
+// devuelve varios vendedores del MISMO producto con su precio, su envío y su
+// condición, que es exactamente la tabla que arma ComparaMX.
+//
+// OJO con los permisos: estos endpoints devuelven 403 PolicyAgent si la app
+// tiene los "Permisos" del devcenter en "Sin acceso". Hay que concederlos y
+// volver a autorizar (el refresh_token viejo conserva los permisos viejos).
+// ---------------------------------------------------------------------------
+
+const SITE = "MLM"; // México
+const API = "https://api.mercadolibre.com";
 
 let cachedToken = null; // { access_token, expires_at } en memoria (por invocación del Worker)
 
@@ -22,7 +44,7 @@ async function getAccessToken(env) {
   if (cachedToken && Date.now() < cachedToken.expires_at - 60_000) {
     return cachedToken.access_token;
   }
-  const res = await fetch("https://api.mercadolibre.com/oauth/token", {
+  const res = await fetch(`${API}/oauth/token`, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
@@ -33,16 +55,14 @@ async function getAccessToken(env) {
     }),
   });
   if (!res.ok) {
-    throw new Error(`No se pudo refrescar el token de Mercado Libre (HTTP ${res.status}): ${await res.text()}`);
+    throw new Error(`No se pudo refrescar el token de Mercado Libre (HTTP ${res.status})`);
   }
   const data = await res.json();
   cachedToken = { access_token: data.access_token, expires_at: Date.now() + data.expires_in * 1000 };
   // OJO: Mercado Libre puede devolver un refresh_token NUEVO en cada refresh
   // (rotación). Si guardas el refresh_token como secret fijo, este Worker
-  // dejará de funcionar cuando el primero expire/rote. Para producción real,
-  // conviene guardar el refresh_token en Workers KV y actualizarlo aquí con
-  // `data.refresh_token` en cada llamada. Se deja así (secret fijo) por
-  // simplicidad para la primera prueba.
+  // dejará de funcionar cuando el primero rote. Para producción real conviene
+  // guardarlo en Workers KV y actualizarlo aquí con `data.refresh_token`.
   return cachedToken.access_token;
 }
 
@@ -60,178 +80,181 @@ function json(body, status = 200) {
   });
 }
 
-function stockFromQuantity(qty) {
-  if (!qty || qty <= 0) return "backorder";
-  if (qty <= 3) return "low_stock";
-  return "in_stock";
-}
-
-async function mlSearch(env, q, limit) {
-  const token = await getAccessToken(env);
-  const res = await fetch(
-    `https://api.mercadolibre.com/sites/MLM/search?q=${encodeURIComponent(q)}&limit=${limit}`,
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
-  if (!res.ok) throw new Error(`Mercado Libre search falló (HTTP ${res.status})`);
+async function mlGet(token, path) {
+  const res = await fetch(`${API}${path}`, { headers: { Authorization: `Bearer ${token}` } });
+  if (!res.ok) throw new Error(`Mercado Libre ${path} respondió HTTP ${res.status}`);
   return res.json();
 }
 
-// Foto del producto tal como la publica Mercado Libre. Se prefiere
-// secure_thumbnail (https) porque el sitio se sirve por https y un http://
-// quedaría bloqueado como contenido mixto. La miniatura de búsqueda es
-// pequeña; se pide una versión mayor cambiando el sufijo -I/-V por -O, que
-// es el formato de imagen original de su CDN (si no existe, el navegador se
-// queda sin foto y el frontend cae al icono, así que no rompe nada).
-function pictureFrom(item) {
-  const thumb = item.secure_thumbnail || item.thumbnail;
-  if (!thumb) return null;
-  return thumb.replace(/-[IVO]\.jpg$/, "-O.jpg");
+// La miniatura que publica Mercado Libre termina en -I.jpg (chica). El mismo
+// archivo con sufijo -O.jpg es el original, que se ve bien en la ficha. Si esa
+// variante no existiera, el navegador se queda sin foto y el frontend cae al
+// emoji, así que no rompe nada.
+function biggerPicture(url) {
+  return url ? url.replace(/-[IVO]\.jpg$/, "-O.jpg") : null;
+}
+
+// La foto puede venir en `pictures` (respuesta de /products/search) o en el
+// picker de variantes (respuesta de /products/{id}), donde la variante activa
+// es la que trae el tag "selected".
+function photoFrom(product) {
+  const direct = product?.pictures?.[0]?.url || product?.pictures?.[0]?.secure_url;
+  if (direct) return biggerPicture(direct);
+  for (const picker of product?.pickers || []) {
+    for (const variant of picker.products || []) {
+      if (variant.thumbnail && (variant.tags || []).includes("selected")) {
+        return biggerPicture(variant.thumbnail);
+      }
+    }
+  }
+  const anyThumb = product?.pickers?.[0]?.products?.[0]?.thumbnail;
+  return anyThumb ? biggerPicture(anyThumb) : null;
+}
+
+// Página del producto en el catálogo: es la que muestra a todos los vendedores
+// compitiendo por el mismo artículo, así que es el destino correcto para un
+// comparador. El campo `permalink` de la API viene vacío en estos productos.
+function catalogUrl(productId) {
+  return `https://www.mercadolibre.com.mx/p/${productId}`;
+}
+
+// De todas las ofertas de un producto de catálogo se queda con la más barata,
+// que es la que compite en la tabla de ComparaMX. Devuelve null si el producto
+// no tiene ofertas activas (pasa: el catálogo incluye productos descatalogados).
+async function cheapestOffer(token, productId) {
+  let data;
+  try {
+    data = await mlGet(token, `/products/${productId}/items?limit=20`);
+  } catch {
+    return null;
+  }
+  const offers = (data.results || []).filter((o) => typeof o.price === "number");
+  if (offers.length === 0) return null;
+  const best = offers.reduce((a, b) => (b.price < a.price ? b : a));
+  return {
+    price: best.price,
+    // `original_price` es el precio tachado. Solo se manda si de verdad es
+    // mayor que el vigente; si no, no hay descuento que mostrar.
+    priceOriginal: typeof best.original_price === "number" && best.original_price > best.price
+      ? best.original_price
+      : null,
+    currency: best.currency_id || "MXN",
+    condition: best.condition || null,
+    shippingFree: !!best.shipping?.free_shipping,
+    // Mercado Libre solo informa el costo cuando el envío es gratis (0). Si no
+    // lo es, no manda monto, así que se deja en null y el frontend muestra "—"
+    // en vez de inventar una cifra.
+    shippingFee: best.shipping?.free_shipping ? 0 : null,
+    sellerCount: data.paging?.total ?? offers.length,
+    // Ubicación del vendedor de la oferta ganadora. Sirve para estimar entrega.
+    sellerState: best.seller_address?.state?.name || null,
+  };
+}
+
+async function searchProducts(token, q, limit) {
+  const params = new URLSearchParams({
+    site_id: SITE,
+    q,
+    status: "active",
+    limit: String(limit),
+  });
+  const data = await mlGet(token, `/products/search?${params}`);
+  return data.results || [];
 }
 
 async function handleItem(url, env) {
   const q = url.searchParams.get("q");
   if (!q) return json({ error: "falta ?q=" }, 400);
-  const data = await mlSearch(env, q, 1);
-  const item = data.results && data.results[0];
-  if (!item) return json({ error: "sin resultados" }, 404);
-  return json({
-    price: item.price,
-    url: item.permalink,
-    photo: pictureFrom(item),
-    shippingFree: !!(item.shipping && item.shipping.free_shipping),
-    stock: stockFromQuantity(item.available_quantity),
-  });
+  const token = await getAccessToken(env);
+
+  const products = await searchProducts(token, q, 5);
+  if (products.length === 0) return json({ error: "sin resultados" }, 404);
+
+  // El primer producto del catálogo no siempre tiene ofertas activas, así que
+  // se recorren unos pocos hasta encontrar uno que sí las tenga.
+  for (const product of products) {
+    const offer = await cheapestOffer(token, product.id);
+    if (!offer) continue;
+    let photo = photoFrom(product);
+    if (!photo) {
+      try {
+        photo = photoFrom(await mlGet(token, `/products/${product.id}`));
+      } catch {
+        photo = null;
+      }
+    }
+    return json({
+      id: product.id,
+      title: product.name,
+      url: catalogUrl(product.id),
+      photo,
+      ...offer,
+    });
+  }
+  return json({ error: "sin ofertas activas" }, 404);
 }
 
 async function handleSearch(url, env) {
   const q = url.searchParams.get("q");
-  const limit = url.searchParams.get("limit") || "8";
   if (!q) return json({ items: [] });
-  const data = await mlSearch(env, q, limit);
-  const items = (data.results || []).map((item) => ({
-    id: item.id,
-    title: item.title,
-    price: item.price,
-    url: item.permalink,
-    photo: pictureFrom(item),
-    shippingFree: !!(item.shipping && item.shipping.free_shipping),
-    stock: stockFromQuantity(item.available_quantity),
-  }));
-  return json({ items });
+  // Cada producto cuesta una subpetición extra para traer sus ofertas, y un
+  // Worker tiene un tope de subpeticiones por invocación. 12 deja margen.
+  const limit = Math.min(parseInt(url.searchParams.get("limit") || "8", 10) || 8, 12);
+  const token = await getAccessToken(env);
+
+  const products = await searchProducts(token, q, limit);
+  const items = await Promise.all(
+    products.map(async (product) => {
+      const offer = await cheapestOffer(token, product.id);
+      if (!offer) return null; // sin ofertas activas: no se muestra
+      return {
+        id: product.id,
+        title: product.name,
+        url: catalogUrl(product.id),
+        photo: photoFrom(product),
+        ...offer,
+      };
+    })
+  );
+  return json({ items: items.filter(Boolean) });
 }
 
-// NOTA: aquí vivía un endpoint /debug que probaba varias rutas de la API y
-// devolvía sus respuestas crudas. Se eliminó porque /users/me responde con
-// datos personales del titular de la cuenta (nombre, email, CURP) y este
-// Worker es una URL pública sin autenticación: cualquiera que la visitara
-// los veía. Si hace falta volver a diagnosticar, hazlo con `wrangler tail`
-// (los logs van a tu terminal, no a una respuesta pública) y nunca
-// devuelvas el cuerpo de /users/me en una respuesta HTTP.
+// Sonda de diagnóstico. Acepta ?path=/lo/que/sea para probar un endpoint suelto
+// sin volver a desplegar. Va acotada a propósito:
 //
-// Resultado de ese diagnóstico (2026-08): con credenciales válidas de una
-// app no certificada, Mercado Libre bloquea con 403 PolicyAgent
-// ("PA_UNAUTHORIZED_RESULT_FROM_POLICIES") TODOS los endpoints de datos de
-// producto — /sites/MLM/search, /items/{id}, /sites/MLM/categories,
-// búsqueda por categoría y /highlights. Lo único que respondió 200 fue
-// /users/me, es decir, los datos de la propia cuenta. No es un problema de
-// configuración ni de scopes: es la restricción de acceso al catálogo que
-// Mercado Libre aplicó en 2025.
-//
-// Segunda ronda (también 2026-08), para descartar que el bloqueo fuera por
-// el token o por la IP del Worker: se llamaron los mismos endpoints SIN
-// cabecera Authorization, con otro User-Agent y contra api.mercadolibre.com.mx.
-// Todos 403 igual. Y abriendo
-// https://api.mercadolibre.com/sites/MLM/search?q=iphone&limit=1 en un
-// navegador doméstico (IP residencial, sin token) la respuesta es el mismo
-// 403 "forbidden". O sea: no es el token, no es el scope y no es la IP de
-// datacenter — el endpoint de búsqueda está cerrado para todos. Por eso
-// LIVE_API_CONFIG.mercadolibre sigue en `enabled: false` en js/app.js.
-//
-// Si algún día se recupera el acceso (p. ej. tras certificar la app), la
-// prueba más corta es pedir /item?q=iphone a este Worker: si devuelve un
-// precio en vez de un error 500, volvió a funcionar.
-
-// Tercera ronda: la búsqueda de ítems (/sites/MLM/search) está cerrada, pero
-// Mercado Libre tiene otras familias de endpoints que no se habían probado —
-// sobre todo el CATÁLOGO (/products/search, /products/{id}), que es
-// infraestructura distinta de la búsqueda de publicaciones. Este barrido las
-// prueba todas con token, para no ir de a un despliegue por vez.
-//
-// Igual que /diag: no toca ningún recurso de cuenta, solo catálogo y datos
-// de referencia, cuyo cuerpo es público.
-//
-// Además de la lista fija, acepta ?path=/lo/que/sea para probar un endpoint
-// suelto sin volver a desplegar. Ese parámetro está acotado a propósito:
-//
-//   - solo se arma la URL contra api.mercadolibre.com (nunca un host
+//   - la URL se arma siempre contra api.mercadolibre.com (nunca un host
 //     arbitrario), porque a la petición se le adjunta el access_token y
-//     mandarlo a un host de terceros sería filtrarlo;
-//   - se rechaza cualquier ruta de /users (incluido /users/me), que es la
-//     que devuelve nombre, email y CURP del titular. Ese fue justamente el
-//     error del /debug anterior y no se repite.
+//     mandarlo a un tercero sería filtrarlo;
+//   - se rechaza cualquier ruta de /users (incluida /users/me), que devuelve
+//     nombre, email y CURP del titular. Una versión anterior de este Worker
+//     los expuso en una URL pública; por eso el bloqueo es explícito.
 async function handleProbe(env, reqUrl) {
+  const custom = reqUrl.searchParams.get("path");
+  if (!custom) return json({ error: "usa ?path=/algo" }, 400);
+  if (!custom.startsWith("/")) return json({ error: "path debe empezar con /" }, 400);
+  if (/^\/users(\/|$)/.test(custom)) {
+    return json({ error: "ruta bloqueada: /users expone datos personales" }, 403);
+  }
   let token = null;
-  let tokenError = null;
   try {
     token = await getAccessToken(env);
-  } catch (err) {
-    tokenError = String(err.message || err);
+  } catch {
+    token = null;
   }
-
-  const custom = reqUrl.searchParams.get("path");
-  if (custom) {
-    if (!custom.startsWith("/")) return json({ error: "path debe empezar con /" }, 400);
-    if (/^\/users(\/|$)/.test(custom)) {
-      return json({ error: "ruta bloqueada: /users expone datos personales" }, 403);
-    }
-    const target = `https://api.mercadolibre.com${custom}`;
-    const out = { target };
-    for (const mode of ["con_token", "sin_token"]) {
-      if (mode === "con_token" && !token) continue;
-      const init = mode === "con_token" ? { headers: { Authorization: `Bearer ${token}` } } : {};
-      try {
-        const res = await fetch(target, init);
-        const body = await res.text();
-        out[mode] = { status: res.status, body: body.slice(0, 1200) };
-      } catch (err) {
-        out[mode] = { status: "fetch_error", body: String(err.message || err) };
-      }
-    }
-    return json(out);
-  }
-
-  const endpoints = {
-    // Catálogo (familia distinta de la búsqueda de publicaciones)
-    products_search: "https://api.mercadolibre.com/products/search?site_id=MLM&q=iphone&status=active",
-    products_search_cat: "https://api.mercadolibre.com/products/search?site_id=MLM&category_id=MLM1055",
-    // Predicción de categoría a partir de un texto
-    domain_discovery: "https://api.mercadolibre.com/sites/MLM/domain_discovery/search?q=iphone",
-    // Datos de referencia puros (si esto falla, el bloqueo es total)
-    currencies: "https://api.mercadolibre.com/currencies",
-    sites: "https://api.mercadolibre.com/sites",
-    site_mlm: "https://api.mercadolibre.com/sites/MLM",
-    category_detail: "https://api.mercadolibre.com/categories/MLM1055",
-    listing_types: "https://api.mercadolibre.com/sites/MLM/listing_types",
-    // Variantes de búsqueda que no se habían probado
-    search_by_category: "https://api.mercadolibre.com/sites/MLM/search?category=MLM1055&limit=1",
-    search_by_nickname: "https://api.mercadolibre.com/sites/MLM/search?nickname=TEST&limit=1",
-    trends: "https://api.mercadolibre.com/trends/MLM",
-  };
-  const results = { token_ok: token ? true : tokenError };
-  for (const [name, endpoint] of Object.entries(endpoints)) {
-    for (const mode of ["con_token", "sin_token"]) {
-      if (mode === "con_token" && !token) continue;
-      const init = mode === "con_token" ? { headers: { Authorization: `Bearer ${token}` } } : {};
-      try {
-        const res = await fetch(endpoint, init);
-        const body = await res.text();
-        results[`${name}__${mode}`] = { status: res.status, body: body.slice(0, 160) };
-      } catch (err) {
-        results[`${name}__${mode}`] = { status: "fetch_error", body: String(err.message || err) };
-      }
+  const target = `${API}${custom}`;
+  const out = { target };
+  for (const mode of ["con_token", "sin_token"]) {
+    if (mode === "con_token" && !token) continue;
+    const init = mode === "con_token" ? { headers: { Authorization: `Bearer ${token}` } } : {};
+    try {
+      const res = await fetch(target, init);
+      const body = await res.text();
+      out[mode] = { status: res.status, body: body.slice(0, 1200) };
+    } catch (err) {
+      out[mode] = { status: "fetch_error", body: String(err.message || err) };
     }
   }
-  return json(results);
+  return json(out);
 }
 
 export default {
@@ -239,9 +262,9 @@ export default {
     const url = new URL(request.url);
     if (request.method === "OPTIONS") return new Response(null, { headers: corsHeaders() });
     try {
-      if (url.pathname === "/probe") return await handleProbe(env, url);
       if (url.pathname === "/item") return await handleItem(url, env);
       if (url.pathname === "/search") return await handleSearch(url, env);
+      if (url.pathname === "/probe") return await handleProbe(env, url);
       return json({ error: "ruta no encontrada. Usa /item?q=... o /search?q=..." }, 404);
     } catch (err) {
       return json({ error: String(err.message || err) }, 500);
