@@ -169,6 +169,7 @@
     brands: new Set(), // marcas seleccionadas; vacío = todas
     minRating: "all",
     excludeUsed: false, // filtro "Excluir usados"
+    magsafeOnly: false, // filtro "Solo compatibles con MagSafe" (Baterías portátiles)
     page: 1, // página actual de la lista/ranking (ver PAGE_SIZE)
     sort: "relevance",
     offerSort: "price", // 'price' | 'rating' — orden de la tabla de comparación
@@ -194,6 +195,8 @@
     filterBrand: document.getElementById("filterBrand"),
     filterRating: document.getElementById("filterRating"),
     filterCondition: document.getElementById("filterCondition"),
+    filterMagsafeGroup: document.getElementById("filterMagsafeGroup"),
+    filterMagsafe: document.getElementById("filterMagsafe"),
     sortSelect: document.getElementById("sortSelect"),
     productList: document.getElementById("productList"),
     pagination: document.getElementById("pagination"),
@@ -316,6 +319,13 @@
   // vea de un vistazo cuántas opciones hay, no solo cuántos vendedores.
   function offerCount(product) {
     return Math.max(product.offers.length, (product.colorVariants || []).length);
+  }
+
+  // Compatibilidad con MagSafe (especificación "MagSafe: Sí" que agrega
+  // scripts/add_powerbanks.py cuando el título de Mercado Libre lo dice
+  // explícitamente) -- usado por el filtro de Baterías portátiles.
+  function isMagSafe(product) {
+    return (product.specs || []).some((s) => s.label === "MagSafe" && /s[ií]/i.test(s.value));
   }
 
   // Detecta productos usados/preowned (p.ej. The Luxury Closet, donde nuevo
@@ -981,7 +991,8 @@
       // Redondeado a 1 decimal para que coincida con el valor mostrado en pantalla.
       const matchesRating = Math.round(aggregateRating(p).avg * 10) / 10 >= ratingMin;
       const matchesCondition = !state.excludeUsed || !isUsed(p);
-      return matchesQuery && matchesCat && matchesSub && matchesPrice && matchesBrand && matchesRating && matchesCondition;
+      const matchesMagsafe = !state.magsafeOnly || isMagSafe(p);
+      return matchesQuery && matchesCat && matchesSub && matchesPrice && matchesBrand && matchesRating && matchesCondition && matchesMagsafe;
     });
   }
 
@@ -1026,6 +1037,7 @@
     renderFilterBrand();
     renderFilterRating();
     renderFilterCondition();
+    renderFilterMagsafe();
 
     renderProductListPage();
     renderLiveSearchSection();
@@ -1300,6 +1312,31 @@
       renderList();
     };
     el.filterCondition.appendChild(opt);
+  }
+
+  // Filtro "Solo compatibles con MagSafe": solo tiene sentido en Baterías
+  // portátiles (un power bank sin MagSafe sigue siendo un power bank
+  // válido, así que no se excluye del catálogo, pero el usuario que
+  // específicamente busca uno magnético necesita poder filtrarlo). El
+  // grupo entero se esconde fuera de esa categoría en vez de mostrar un
+  // filtro que no aplicaría a nada.
+  function renderFilterMagsafe() {
+    const relevant = state.category === "Baterías portátiles";
+    el.filterMagsafeGroup.classList.toggle("hidden", !relevant);
+    if (!relevant) {
+      state.magsafeOnly = false;
+      return;
+    }
+    el.filterMagsafe.innerHTML = "";
+    const opt = document.createElement("label");
+    opt.className = "filter-option" + (state.magsafeOnly ? " active" : "");
+    opt.innerHTML = `<input type="checkbox" ${state.magsafeOnly ? "checked" : ""}> Solo compatibles con MagSafe`;
+    opt.onclick = (e) => {
+      e.preventDefault();
+      state.magsafeOnly = !state.magsafeOnly;
+      renderList();
+    };
+    el.filterMagsafe.appendChild(opt);
   }
 
   // ---------- Vista: Favoritos ----------
