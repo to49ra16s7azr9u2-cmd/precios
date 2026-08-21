@@ -128,15 +128,24 @@ a { color: inherit; text-decoration: none; }
   color: #fff;
   padding: 0 22px;
   cursor: pointer;
-  font-size: 17px;
+  display: flex;
+  align-items: center;
 }
 .search-wrap button:hover { background: var(--red-dark); }
+/* Iconos de línea en vez de emoji: un emoji se dibuja distinto según el
+   SO/navegador de quien mire (Windows/Mac/Android/fuente instalada), así
+   que la barra superior nunca se ve igual dos veces; un SVG inline con
+   stroke="currentColor" hereda el color del texto (incluido el hover) y
+   se ve idéntico en cualquier lado. */
+.nav-icon { width: 15px; height: 15px; flex-shrink: 0; }
+.search-wrap button .nav-icon { width: 18px; height: 18px; }
 .util-nav {
   display: flex;
   gap: 16px;
   font-size: 14px;
   color: var(--muted);
 }
+.util-nav a { display: inline-flex; align-items: center; gap: 5px; }
 .util-nav a:hover { color: var(--red); }
 .ship-toggle {
   display: flex; align-items: center; gap: 6px;
@@ -238,27 +247,27 @@ a { color: inherit; text-decoration: none; }
    atención en la página es el precio, no el título. */
 .hero,
 .page-band {
-  padding: 32px 0 10px;
+  padding: 18px 0 8px;
 }
 .hero h1,
 .page-band h1 {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   color: var(--ink);
   letter-spacing: -.01em;
 }
 /* Más salto tipográfico entre el título y el texto de apoyo (14px) del que
    había (26px, 1.9x) -- un h1 más grande se lee más "de portada" y ayuda a
    la jerarquía en el primer vistazo. */
-.hero h1 { font-size: 34px; }
-.page-band h1 { font-size: 26px; }
-.hero p, .page-band p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted); }
+.hero h1 { font-size: 28px; }
+.page-band h1 { font-size: 22px; }
+.hero p, .page-band p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
 .hero h2,
 .section-title {
-  margin: 26px 0 16px;
-  padding-top: 26px;
+  margin: 16px 0 12px;
+  padding-top: 16px;
   border-top: 1px solid var(--border);
   color: var(--ink);
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: -.005em;
 }
 .page-band .breadcrumb { padding: 0 0 6px; }
@@ -1242,16 +1251,16 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Marcas y ofertas (catálogo de afiliados) ---------- */
 .category-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 14px;
-  padding: 6px 0 30px;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: 8px;
+  padding: 4px 0 18px;
 }
 .category-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 18px 12px;
+  gap: 6px;
+  padding: 10px 8px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -1263,15 +1272,15 @@ a { color: inherit; text-decoration: none; }
 .category-card:hover { border-color: var(--red); }
 .category-card.active { border-color: var(--red); color: var(--red); }
 .category-card-icon {
-  width: 56px;
-  height: 56px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--bg);
-  font-size: 26px;
+  font-size: 20px;
   flex-shrink: 0;
 }
 .category-card-icon img { width: 100%; height: 100%; object-fit: cover; }
@@ -1281,8 +1290,8 @@ a { color: inherit; text-decoration: none; }
    fotos, y object-fit: contain (en vez de cover) garantiza que se vea la
    ilustración completa sin recortes. */
 .category-card-icon--photo {
-  width: 88px;
-  height: 48px;
+  width: 72px;
+  height: 40px;
   border-radius: var(--radius);
 }
 .category-card-icon--photo img { object-fit: contain; }
