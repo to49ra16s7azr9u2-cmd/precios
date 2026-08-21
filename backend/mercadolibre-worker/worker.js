@@ -128,7 +128,17 @@ async function cheapestOffer(token, productId) {
   } catch {
     return null;
   }
-  const offers = (data.results || []).filter((o) => typeof o.price === "number");
+  // Casi todo el catálogo cotiza en MXN, pero algunos vendedores (sobre todo
+  // listados "gold_pro"/mayoristas) cotizan en USD con el mismo campo
+  // `price` — apareció con datos reales: un iPhone 15 Plus a "$6,000" que en
+  // realidad eran 6,000 USD (~$102,000 MXN), no 6,000 pesos. El frontend
+  // formatea `price` directamente como pesos (money()), así que tomar un
+  // monto en USD tal cual sería mostrar un precio 17 veces más barato del
+  // real. Ante la duda se excluye en vez de convertir: no hay tipo de cambio
+  // fiable para un dato marcado "verificado en tiempo real".
+  const offers = (data.results || []).filter(
+    (o) => typeof o.price === "number" && (o.currency_id || "MXN") === "MXN"
+  );
   if (offers.length === 0) return null;
   const best = offers.reduce((a, b) => (b.price < a.price ? b : a));
   return {
