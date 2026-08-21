@@ -333,6 +333,16 @@
     return "";
   }
 
+  // Equipo de uso comercial/industrial (p.ej. refrigeradores de
+  // restaurante, aspiradoras industriales): se incluye en el catálogo,
+  // pero se marca claramente para no confundirlo con la versión doméstica
+  // del mismo tipo de producto.
+  function usageBadge(product) {
+    const u = (product.specs || []).find((s) => s.label === "Uso");
+    if (!u || !/comercial|industrial/i.test(u.value)) return "";
+    return `<span class="commercial-badge" title="Equipo de uso comercial/industrial, no doméstico">🏭 Uso comercial</span>`;
+  }
+
   // Proxy de "popularidad" para el ranking de cada categoría: suma de
   // reseñas entre todas las tiendas del producto.
   function totalReviews(product) {
@@ -1129,6 +1139,7 @@
       // ficha de producto — ver renderOfferRows).
       const variantCount = Math.max(0, ...p.offers.map((o) => (o.variants ? o.variants.length : 0)));
       const usedBadge = conditionBadge(p);
+      const commercialBadge = usageBadge(p);
       const row = document.createElement("div");
       const rankClass = opts.medals && rank >= 2 && rank <= 4 ? ` rank-${rank}` : "";
       row.className = "product-row" + (opts.withRank ? " has-rank" + rankClass : "");
@@ -1137,7 +1148,7 @@
         <span class="row-icon">${p.image}</span>
         <div class="row-info">
           <div class="row-brand">${p.brand}</div>
-          <div class="row-name">${p.name}${usedBadge}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">🎨 +${variantCount}</span>` : ""}</div>
+          <div class="row-name">${p.name}${usedBadge}${commercialBadge}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">🎨 +${variantCount}</span>` : ""}</div>
           ${
             // Sin reseñas propias todavía, la fila mostraba "☆☆☆☆☆ 0.0 (0)"
             // en los 16 mil productos: 60 veces por página de puro ruido que
@@ -1429,7 +1440,7 @@
 
     renderProductMedia(el.detailIcon, product, "detail");
     el.detailBrand.textContent = product.brand;
-    el.detailName.innerHTML = `${htmlEscapeAttr(product.name)}${conditionBadge(product)}`;
+    el.detailName.innerHTML = `${htmlEscapeAttr(product.name)}${conditionBadge(product)}${usageBadge(product)}`;
     el.detailFavBtn.innerHTML = favIconHtml(product.id);
     bindFavToggle(el.detailFavBtn, product.id, () => renderDetail(product.id));
 
