@@ -23,6 +23,16 @@
     { id: "r45", label: "4.5★ o más", min: 4.5 },
   ];
 
+  // Filtro de tamaño físico (distinto de la capacidad, que ya se navega
+  // como subcategoría): solo se usa en Baterías portátiles, vía la
+  // especificación "Tamaño" que agrega add_powerbanks.py.
+  const SIZE_FILTERS = [
+    { id: "all", label: "Todos los tamaños" },
+    { id: "Pequeño", label: "Pequeño" },
+    { id: "Mediano", label: "Mediano" },
+    { id: "Grande", label: "Grande" },
+  ];
+
   const STOCK_INFO = {
     in_stock: { text: "En stock", cls: "stock-in", extraDays: 0 },
     low_stock: { text: "Últimas piezas", cls: "stock-low", extraDays: 0 },
@@ -170,6 +180,7 @@
     minRating: "all",
     excludeUsed: false, // filtro "Excluir usados"
     magsafeOnly: false, // filtro "Solo compatibles con MagSafe" (Baterías portátiles)
+    sizeFilter: "all", // filtro "Tamaño" (Baterías portátiles)
     page: 1, // página actual de la lista/ranking (ver PAGE_SIZE)
     sort: "relevance",
     offerSort: "price", // 'price' | 'rating' — orden de la tabla de comparación
@@ -197,6 +208,8 @@
     filterCondition: document.getElementById("filterCondition"),
     filterMagsafeGroup: document.getElementById("filterMagsafeGroup"),
     filterMagsafe: document.getElementById("filterMagsafe"),
+    filterSizeGroup: document.getElementById("filterSizeGroup"),
+    filterSize: document.getElementById("filterSize"),
     sortSelect: document.getElementById("sortSelect"),
     productList: document.getElementById("productList"),
     pagination: document.getElementById("pagination"),
@@ -326,6 +339,13 @@
   // explícitamente) -- usado por el filtro de Baterías portátiles.
   function isMagSafe(product) {
     return (product.specs || []).some((s) => s.label === "MagSafe" && /s[ií]/i.test(s.value));
+  }
+
+  // Tamaño físico (especificación "Tamaño" que agrega add_powerbanks.py),
+  // eje aparte de la capacidad (que ya se navega como subcategoría).
+  function productSize(product) {
+    const s = (product.specs || []).find((s) => s.label === "Tamaño");
+    return s ? s.value : null;
   }
 
   // Detecta productos usados/preowned (p.ej. The Luxury Closet, donde nuevo
@@ -992,7 +1012,8 @@
       const matchesRating = Math.round(aggregateRating(p).avg * 10) / 10 >= ratingMin;
       const matchesCondition = !state.excludeUsed || !isUsed(p);
       const matchesMagsafe = !state.magsafeOnly || isMagSafe(p);
-      return matchesQuery && matchesCat && matchesSub && matchesPrice && matchesBrand && matchesRating && matchesCondition && matchesMagsafe;
+      const matchesSize = state.sizeFilter === "all" || productSize(p) === state.sizeFilter;
+      return matchesQuery && matchesCat && matchesSub && matchesPrice && matchesBrand && matchesRating && matchesCondition && matchesMagsafe && matchesSize;
     });
   }
 
@@ -1038,6 +1059,7 @@
     renderFilterRating();
     renderFilterCondition();
     renderFilterMagsafe();
+    renderFilterSize();
 
     renderProductListPage();
     renderLiveSearchSection();
@@ -1337,6 +1359,28 @@
       renderList();
     };
     el.filterMagsafe.appendChild(opt);
+  }
+
+  // Filtro "Tamaño" (Baterías portátiles): eje aparte de la capacidad, que
+  // ya se navega como subcategoría (Hasta 10,000 mAh / etc.) -- un power
+  // bank puede ser chico en mAh pero seguir siendo un ladrillo grande, o
+  // al revés, así que se ofrecen ambos por separado.
+  function renderFilterSize() {
+    const relevant = state.category === "Baterías portátiles";
+    el.filterSizeGroup.classList.toggle("hidden", !relevant);
+    if (!relevant) {
+      state.sizeFilter = "all";
+      return;
+    }
+    el.filterSize.innerHTML = "";
+    SIZE_FILTERS.forEach((s) => {
+      const opt = document.createElement("label");
+      const isActive = state.sizeFilter === s.id;
+      opt.className = "filter-option" + (isActive ? " active" : "");
+      opt.innerHTML = `<input type="radio" name="fsize" ${isActive ? "checked" : ""}> ${s.label}`;
+      opt.onclick = () => { state.sizeFilter = s.id; renderList(); };
+      el.filterSize.appendChild(opt);
+    });
   }
 
   // ---------- Vista: Favoritos ----------
