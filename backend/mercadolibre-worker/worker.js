@@ -151,13 +151,14 @@ async function cheapestOffer(token, productId) {
   };
 }
 
-async function searchProducts(token, q, limit) {
+async function searchProducts(token, q, limit, domain) {
   const params = new URLSearchParams({
     site_id: SITE,
     q,
     status: "active",
     limit: String(limit),
   });
+  if (domain) params.set("domain_id", domain);
   const data = await mlGet(token, `/products/search?${params}`);
   return data.results || [];
 }
@@ -180,13 +181,18 @@ async function expectedDomain(q) {
   }
 }
 
-// Ordena los productos del catálogo poniendo delante los que caen en la
-// categoría que se esperaba para la búsqueda. No descarta el resto: si la
-// predicción falla, los demás siguen disponibles como respaldo.
-function preferDomain(products, domain) {
-  if (!domain) return products;
-  const match = products.filter((p) => p.domain_id === domain);
-  return match.length ? [...match, ...products.filter((p) => p.domain_id !== domain)] : products;
+// Busca primero acotado a la categoría que predijo domain_discovery y, si eso
+// no da nada (o no hubo predicción), repite sin filtro. El filtro va en la
+// consulta y no reordenando lo que vuelve: para "iphone 15" el catálogo
+// devuelve tantas fundas y cables que el teléfono no aparece en las primeras
+// dos docenas de resultados, así que reordenar no alcanzaba.
+async function candidatesFor(token, q, limit) {
+  const domain = await expectedDomain(q);
+  if (domain) {
+    const inDomain = await searchProducts(token, q, limit, domain);
+    if (inDomain.length) return inDomain;
+  }
+  return searchProducts(token, q, limit);
 }
 
 // Buena parte del catálogo no tiene ningún vendedor activo — esos productos
@@ -210,10 +216,9 @@ async function handleItem(url, env) {
   if (!q) return json({ error: "falta ?q=" }, 400);
   const token = await getAccessToken(env);
 
-  const [domain, found] = await Promise.all([expectedDomain(q), searchProducts(token, q, MAX_CANDIDATES)]);
-  if (found.length === 0) return json({ error: "sin resultados" }, 404);
+  const candidates = await candidatesFor(token, q, MAX_CANDIDATES);
+  if (candidates.length === 0) return json({ error: "sin resultados" }, 404);
 
-  const candidates = preferDomain(found, domain).slice(0, MAX_CANDIDATES);
   const results = await offersFor(token, candidates);
   const hit = results.find(Boolean); // el primero en el orden ya priorizado
   if (!hit) return json({ error: "sin ofertas activas" }, 404);
@@ -241,8 +246,7 @@ async function handleSearch(url, env) {
   const limit = Math.min(parseInt(url.searchParams.get("limit") || "8", 10) || 8, 12);
   const token = await getAccessToken(env);
 
-  const [domain, found] = await Promise.all([expectedDomain(q), searchProducts(token, q, MAX_CANDIDATES)]);
-  const candidates = preferDomain(found, domain).slice(0, MAX_CANDIDATES);
+  const candidates = await candidatesFor(token, q, MAX_CANDIDATES);
   const results = await offersFor(token, candidates);
 
   const items = results
