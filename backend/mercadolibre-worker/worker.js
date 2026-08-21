@@ -284,6 +284,41 @@ async function offersFor(token, products) {
   );
 }
 
+// Marca y ficha técnica tal como las publica Mercado Libre. Se toman de los
+// `attributes` del producto de catálogo, que vienen ya normalizados por ellos
+// (no se deducen del título, que es texto libre del vendedor). La lista está
+// acotada a los atributos que el comparador muestra: volcarlos todos llenaría
+// la ficha de campos internos como el id de la publicación.
+const SPEC_ATTRS = [
+  ["MODEL", "Modelo"],
+  ["LINE", "Línea"],
+  ["INTERNAL_MEMORY", "Almacenamiento"],
+  ["RAM", "Memoria RAM"],
+  ["MAIN_COLOR", "Color"],
+  ["SCREEN_SIZE", "Pantalla"],
+  ["MAIN_REAR_CAMERA_RESOLUTION", "Cámara principal"],
+  ["PROCESSOR_MODEL", "Procesador"],
+  ["CAPACITY", "Capacidad"],
+  ["WEIGHT", "Peso"],
+  ["IS_SMART", "Smart TV"],
+  ["DISPLAY_RESOLUTION", "Resolución"],
+];
+
+function attrValue(product, id) {
+  const a = (product?.attributes || []).find((x) => x.id === id);
+  return a?.value_name || null;
+}
+
+function brandFrom(product) {
+  return attrValue(product, "BRAND");
+}
+
+function specsFrom(product) {
+  return SPEC_ATTRS
+    .map(([id, label]) => ({ label, value: attrValue(product, id) }))
+    .filter((s) => s.value);
+}
+
 async function handleItem(url, env) {
   const q = url.searchParams.get("q");
   if (!q) return json({ error: "falta ?q=" }, 400);
@@ -309,6 +344,8 @@ async function handleItem(url, env) {
   return json({
     id: hit.product.id,
     title: hit.product.name,
+    brand: brandFrom(hit.product),
+    specs: specsFrom(hit.product),
     url: catalogUrl(hit.product.id),
     photo,
     ...hit.offer,
@@ -331,6 +368,8 @@ async function handleSearch(url, env) {
       id: product.id,
       title: product.name,
       url: catalogUrl(product.id),
+      brand: brandFrom(product),
+      specs: specsFrom(product),
       photo: photoFrom(product),
       ...offer,
     }));
