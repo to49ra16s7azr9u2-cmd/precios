@@ -423,7 +423,7 @@ const MAX_CATALOG_CANDIDATES = 22;
 // specs y badge — ahí se incluyen, pero marcados con isRefurb para que quien
 // arma el producto le ponga la etiqueta "Reacondicionado" en vez de tratarlo
 // como nuevo.
-const REFURB_PATTERN = /reacondicionad|renewed|reembalad|remanufactur|segunda mano/i;
+const REFURB_PATTERN = /reacondicionad|renewed|reembalad|remanufactur|segunda mano|seminuevo|semi.?nuevo|\busado\b/i;
 
 async function resolveCandidates(token, product) {
   const offer = await cheapestOffer(token, product.id);
