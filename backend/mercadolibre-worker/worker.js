@@ -259,13 +259,23 @@ function matchesQuery(query, title) {
   const qt = tokensOf(query);
   const tt = new Set(tokensOf(title));
   const qset = new Set(qt);
-  if (VARIANT_WORDS.some((w) => tt.has(w) && !qset.has(w))) return false;
+  // Antes solo rechazaba si el TÍTULO traía un sufijo de variante que la
+  // consulta no pedía (para separar Pro de Pro Max). Buscando "Honor X5
+  // Plus" coló "Honor X9d" — comparten "honor" y "x", y el "5" de la consulta
+  // hizo match por casualidad con el "5G" del título, no con un modelo X5.
+  // Ahora también rechaza al revés: si la consulta pide un sufijo que el
+  // título no tiene, tampoco es el mismo producto.
+  if (VARIANT_WORDS.some((w) => tt.has(w) !== qset.has(w))) return false;
   const numbers = qt.filter((t) => /^\d+$/.test(t));
   if (numbers.some((n) => !tt.has(n))) return false;
   const words = [...new Set(qt.filter((t) => !/^\d+$/.test(t) && !NOISE.has(t)))];
   if (words.length === 0) return numbers.length > 0;
   const covered = words.filter((w) => tt.has(w)).length;
-  return covered / words.length >= 0.6;
+  // Con pocas palabras de por medio, cada una pesa mucho: "Honor X9b" contra
+  // "Honor X9d" comparte 2 de 3 (honor, x) y pasaba el 60% aunque "b" y "d"
+  // son justamente lo que distingue un modelo del otro. Con 3 palabras o
+  // menos hace falta que calcen todas; con más, sigue bastando la mayoría.
+  return words.length <= 3 ? covered === words.length : covered / words.length >= 0.6;
 }
 
 // Buena parte del catálogo no tiene ningún vendedor activo — esos productos
