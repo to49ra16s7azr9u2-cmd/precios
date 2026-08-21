@@ -308,6 +308,16 @@
     return Math.min(...product.offers.map((o) => o.price));
   }
 
+  // Cantidad de opciones de compra a mostrar junto al precio ("N tiendas").
+  // Para un producto fusionado por color (colorVariants, ver
+  // merge_color_variants.py) todas las variantes son del mismo vendedor
+  // (Mercado Libre), pero cada una es un anuncio propio con su propio
+  // precio -- se cuentan igual que tiendas distintas para que el usuario
+  // vea de un vistazo cuántas opciones hay, no solo cuántos vendedores.
+  function offerCount(product) {
+    return Math.max(product.offers.length, (product.colorVariants || []).length);
+  }
+
   // Detecta productos usados/preowned (p.ej. The Luxury Closet, donde nuevo
   // y preowned del mismo modelo se agrupan como un solo producto) para
   // poder mostrarlo de un vistazo y ofrecer un filtro "Excluir usados".
@@ -1173,9 +1183,9 @@
           }
         </div>
         <div class="row-priceblock">
-          ${p.offers.length > 1 || (p.colorVariants && p.colorVariants.length > 1) ? `<div class="row-from">Desde</div>` : ""}
+          ${offerCount(p) > 1 ? `<div class="row-from">Desde</div>` : ""}
           <div class="row-price">${money(minPrice(p))}${bestDiscountPct(p) ? `<span class="discount-badge">-${bestDiscountPct(p)}%</span>` : ""}</div>
-          <div class="row-stores">${plural(p.offers.length, "tienda", "tiendas")}</div>
+          <div class="row-stores">${plural(offerCount(p), "tienda", "tiendas")}</div>
         </div>
         <button class="row-fav-btn" aria-label="Favorito"></button>
       `;
@@ -1461,9 +1471,8 @@
     el.detailColors.innerHTML = detailColorSwatchHtml(product);
     const discountPct = bestDiscountPct(product);
     const savings = bestSavingsAmount(product);
-    const hasColorVariants = product.colorVariants && product.colorVariants.length > 1;
     el.detailFromPrice.innerHTML = `
-      ${product.offers.length > 1 || hasColorVariants ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(product.offers.length, "tienda", "tiendas")}
+      ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}
       ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
     `;
 

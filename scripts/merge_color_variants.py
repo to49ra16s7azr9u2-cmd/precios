@@ -1,10 +1,10 @@
 """
 Consolida productos de Mercado Libre que son el mismo modelo pero se agregaron
 como entradas separadas por diferir solo en color y/o condición
-(nuevo vs. reacondicionado). Solo toca productos con "mlQuery" (agregados
-desde el proxy de Mercado Libre) -- los productos legacy (geekbuying, etc.)
-usan un campo "variants" con otro significado (enlaces por región/moneda) y
-no se tocan.
+(nuevo vs. reacondicionado). Solo toca productos con "mlQuery" o
+"colorVariants" (agregados/fusionados antes desde el proxy de Mercado
+Libre) -- los productos legacy (geekbuying, etc.) usan un campo "variants"
+con otro significado (enlaces por región/moneda) y no se tocan.
 
 Para cada grupo de productos que, tras quitarles la palabra de color y las
 menciones de condición, dejan un texto idéntico (misma categoría, misma
@@ -12,6 +12,12 @@ marca), se conserva el de precio más bajo como producto principal y se le
 agrega un campo "colorVariants" con el resto (color, precio, condición,
 url, foto) para que la interfaz pueda mostrar pastillas de color y el
 precio "Desde".
+
+Es seguro correr este script varias veces (p.ej. después de cada categoría
+nueva): un producto que ya tiene "colorVariants" de una corrida anterior se
+vuelve a agrupar usando TODAS sus variantes ya conocidas (no solo el color
+que quedó como principal la vez pasada), así que una corrida nueva puede
+sumarle más colores sin perder los que ya tenía.
 
 Uso: python3 merge_color_variants.py data/data.json
 """
@@ -56,6 +62,8 @@ COLOR_PHRASES = [
     ("borgona", "Vino"),
     ("medianoche", "Medianoche"), ("midnight", "Medianoche"),
     ("starlight", "Starlight"),
+    ("natural", "Natural"),
+    ("desierto", "Desierto"), ("desert", "Desierto"),
 ]
 COLOR_PHRASES.sort(key=lambda x: -len(x[0]))
 
@@ -70,6 +78,16 @@ CONDITION_PATTERNS = [
 
 def strip_accents(s):
     return "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn")
+
+
+def normalize_key(s):
+    """Distintos vendedores/lotes escriben el mismo modelo con puntuación
+    distinta: "iPhone 15 (128 GB) - Azul" vs "iPhone 15 128 GB Negro". Se
+    quitan paréntesis, guiones y comas (dejando solo letras/números/espacios)
+    para que la comparación de la clave no dependa de ese formato -- ya el
+    requisito de que todos los tokens numéricos coincidan sigue intacto."""
+    s = re.sub(r"[(),\-/|]", " ", s)
+    return re.sub(r"\s{2,}", " ", s).strip()
 
 
 def find_color_span(stripped_lower, start_from=0):
@@ -137,30 +155,43 @@ def color_from_spec(product):
     return None
 
 
+def entries_for(p):
+    """Todas las variantes (color, condición, precio, url, foto, mlQuery) que
+    representa hoy este producto de nivel superior: si ya viene de una
+    fusión anterior, sus colorVariants; si no, su única oferta actual."""
+    if p.get("colorVariants"):
+        return [dict(v) for v in p["colorVariants"]]
+    title = p.get("mlQuery") or p["name"]
+    _, display, title_color, condition = strip_color_and_condition(title)
+    color = color_from_spec(p) or title_color
+    o = p["offers"][0]
+    return [{
+        "color": color,
+        "condition": condition,
+        "price": o["price"],
+        "url": o["url"],
+        "photo": o.get("photo") or p.get("photo"),
+        "mlQuery": title,
+    }]
+
+
 def main():
     path = sys.argv[1] if len(sys.argv) > 1 else "data/data.json"
     d = json.load(open(path))
     products = d["products"]
 
-    ml_products = [p for p in products if "mlQuery" in p]
-    print(f"Productos de Mercado Libre: {len(ml_products)}")
+    candidates = [p for p in products if "mlQuery" in p or p.get("colorVariants")]
+    print(f"Productos de Mercado Libre: {len(candidates)}")
 
     groups = defaultdict(list)
-    for p in ml_products:
+    for p in candidates:
         title = p.get("mlQuery") or p["name"]
         brand = (p.get("brand") or "").strip()
         if brand:
             title = re.sub(r"^" + re.escape(brand) + r"\s+", "", title, flags=re.I)
-        key_text, display, title_color, condition = strip_color_and_condition(title)
-        spec_color = color_from_spec(p)
-        color = spec_color or title_color
-        group_key = (p["category"], p["brand"].strip().lower(), key_text)
-        groups[group_key].append({
-            "product": p,
-            "display": display,
-            "color": color,
-            "condition": condition,
-        })
+        key_text, _, _, _ = strip_color_and_condition(title)
+        group_key = (p["category"], brand.lower(), normalize_key(key_text))
+        groups[group_key].append(p)
 
     merged_count = 0
     variant_group_count = 0
@@ -170,50 +201,49 @@ def main():
         if len(members) < 2:
             continue
 
+        all_entries = []
+        for p in members:
+            all_entries.extend(entries_for(p))
+
         # Deduplica por (color, condicion), quedándose con el más barato de cada combo.
         by_combo = {}
-        for m in members:
-            combo = (m["color"], m["condition"])
-            price = m["product"]["offers"][0]["price"]
-            if combo not in by_combo or price < by_combo[combo]["product"]["offers"][0]["price"]:
-                by_combo[combo] = m
+        for e in all_entries:
+            combo = (e["color"], e["condition"])
+            if combo not in by_combo or e["price"] < by_combo[combo]["price"]:
+                by_combo[combo] = e
 
-        combos = list(by_combo.values())
-        combos.sort(key=lambda m: m["product"]["offers"][0]["price"])
-        primary = combos[0]
-        primary_p = primary["product"]
+        combos = sorted(by_combo.values(), key=lambda e: e["price"])
+        primary_entry = combos[0]
 
-        # Elimina siempre los miembros del grupo que no quedaron como
-        # representantes de su combo (duplicados exactos de color+condición).
-        kept_ids = {m["product"]["id"] for m in combos}
-        for m in members:
-            if m["product"]["id"] not in kept_ids:
-                to_remove_ids.add(m["product"]["id"])
+        # El producto de nivel superior que sobrevive es el que ya representa
+        # (por url) la variante más barata; si esa variante viene de un
+        # colorVariants existente y no de ningún miembro directo, se usa el
+        # primer miembro como contenedor y se le sobrescribe la oferta.
+        primary_p = next(
+            (p for p in members if any(o.get("url") == primary_entry["url"] for o in p["offers"])),
+            members[0],
+        )
+        for p in members:
+            if p is not primary_p:
+                to_remove_ids.add(p["id"])
                 merged_count += 1
 
+        primary_p["offers"][0]["price"] = primary_entry["price"]
+        primary_p["offers"][0]["url"] = primary_entry["url"]
+        primary_p["offers"][0]["photo"] = primary_entry.get("photo")
+        primary_p["mlQuery"] = primary_entry.get("mlQuery") or primary_p.get("mlQuery")
+        _, display, _, _ = strip_color_and_condition(
+            re.sub(r"^" + re.escape((primary_p.get("brand") or "").strip()) + r"\s+", "",
+                   primary_entry.get("mlQuery") or primary_p["name"], flags=re.I)
+        )
+        primary_p["name"] = display or primary_p["name"]
+
         if len(combos) == 1:
-            # Solo eran duplicados exactos del mismo color/condición: no hace
-            # falta colorVariants, ya se quedó el más barato como único.
+            primary_p.pop("colorVariants", None)
             continue
 
         variant_group_count += 1
-        color_variants = []
-        for m in combos:
-            o = m["product"]["offers"][0]
-            color_variants.append({
-                "color": m["color"],
-                "condition": m["condition"],
-                "price": o["price"],
-                "url": o["url"],
-                "photo": o.get("photo") or m["product"].get("photo"),
-                "mlQuery": m["product"].get("mlQuery"),
-            })
-        primary_p["colorVariants"] = color_variants
-        primary_p["name"] = primary["display"] or primary_p["name"]
-
-        for m in combos[1:]:
-            to_remove_ids.add(m["product"]["id"])
-            merged_count += 1
+        primary_p["colorVariants"] = combos
 
     d["products"] = [p for p in products if p["id"] not in to_remove_ids]
 
