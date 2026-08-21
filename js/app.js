@@ -312,8 +312,24 @@
   // poder mostrarlo de un vistazo y ofrecer un filtro "Excluir usados".
   function isUsed(product) {
     return (product.specs || []).some(
-      (s) => s.label === "Condición" && /preowned|usado/i.test(s.value)
+      (s) => s.label === "Condición" && /preowned|usado|reacondicionad/i.test(s.value)
     );
+  }
+
+  // Reacondicionado (certificado, con garantía del vendedor) no es lo mismo
+  // que usado/preowned (venta entre particulares): se distingue para no
+  // llamarlo "Usado" a secas, que sería impreciso. isUsed() sigue tratando
+  // ambos como "no nuevo" a efectos del filtro "Excluir usados".
+  function conditionBadge(product) {
+    const c = (product.specs || []).find((s) => s.label === "Condición");
+    if (!c) return "";
+    if (/reacondicionad/i.test(c.value)) {
+      return `<span class="used-badge" title="Reacondicionado por Mercado Libre, con garantía del vendedor">♻️ Reacondicionado</span>`;
+    }
+    if (/preowned|usado/i.test(c.value)) {
+      return `<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>`;
+    }
+    return "";
   }
 
   // Proxy de "popularidad" para el ranking de cada categoría: suma de
@@ -1038,9 +1054,7 @@
       // pills completos, con link a cada uno, viven en la tabla de la
       // ficha de producto — ver renderOfferRows).
       const variantCount = Math.max(0, ...p.offers.map((o) => (o.variants ? o.variants.length : 0)));
-      const usedBadge = isUsed(p)
-        ? `<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>`
-        : "";
+      const usedBadge = conditionBadge(p);
       const row = document.createElement("div");
       const rankClass = opts.medals && rank >= 2 && rank <= 4 ? ` rank-${rank}` : "";
       row.className = "product-row" + (opts.withRank ? " has-rank" + rankClass : "");
@@ -1338,9 +1352,7 @@
 
     renderProductMedia(el.detailIcon, product, "detail");
     el.detailBrand.textContent = product.brand;
-    el.detailName.innerHTML = `${htmlEscapeAttr(product.name)}${
-      isUsed(product) ? `<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>` : ""
-    }`;
+    el.detailName.innerHTML = `${htmlEscapeAttr(product.name)}${conditionBadge(product)}`;
     el.detailFavBtn.innerHTML = favIconHtml(product.id);
     bindFavToggle(el.detailFavBtn, product.id, () => renderDetail(product.id));
 

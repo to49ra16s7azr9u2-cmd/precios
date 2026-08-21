@@ -395,10 +395,17 @@ const MAX_CATALOG_CANDIDATES = 22;
 // con datos reales: "iPhone 14 ... Excelente (Reacondicionado)" traía
 // condition:"new". El campo `condition` de la API no alcanza para
 // distinguirlos; el título sí los delata siempre.
+//
+// En /item y /search (lo que consume el frontend en vivo) se descartan: esas
+// respuestas son solo precio/foto/envío, sin lugar para aclarar la condición,
+// así que mostrar el precio de un reacondicionado ahí se leería como el de
+// uno nuevo. /catalog es distinto: alimenta data/data.json, donde sí hay
+// specs y badge — ahí se incluyen, pero marcados con isRefurb para que quien
+// arma el producto le ponga la etiqueta "Reacondicionado" en vez de tratarlo
+// como nuevo.
 const REFURB_PATTERN = /reacondicionad|renewed|reembalad|remanufactur|segunda mano/i;
 
 async function resolveCandidates(token, product) {
-  if (REFURB_PATTERN.test(product.name)) return null; // "new" engañoso, ver comentario de REFURB_PATTERN
   const offer = await cheapestOffer(token, product.id);
   if (!offer) return null;
   return {
@@ -409,6 +416,7 @@ async function resolveCandidates(token, product) {
     domainId: product.domain_id || null,
     url: catalogUrl(product.id),
     photo: photoFrom(product),
+    isRefurb: REFURB_PATTERN.test(product.name),
     ...offer,
   };
 }
