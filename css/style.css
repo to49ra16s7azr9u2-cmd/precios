@@ -138,6 +138,18 @@ a { color: inherit; text-decoration: none; }
   color: var(--muted);
 }
 .util-nav a:hover { color: var(--red); }
+.ship-toggle {
+  display: flex; align-items: center; gap: 6px;
+  cursor: pointer; user-select: none;
+  padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border);
+}
+.ship-toggle:hover { border-color: var(--red); }
+.ship-toggle input { accent-color: var(--red); width: 15px; height: 15px; }
+.ship-toggle.active { color: var(--red); font-weight: 700; border-color: var(--red); background: var(--red-tint); }
+.shipping-estimate-note {
+  display: block; font-size: 11px; font-weight: 700; color: #a15c00;
+  margin-top: 2px;
+}
 
 .topbar-cats { background: var(--card); position: relative; }
 /* Con 18 categorías la barra ya no cabe en una fila: por default se
@@ -336,6 +348,62 @@ a { color: inherit; text-decoration: none; }
 .filter-search:focus { outline: none; border-color: var(--red); }
 .filter-empty { font-size: 13px; color: var(--muted); padding: 6px 0; margin: 0; }
 .filter-options { display: flex; flex-direction: column; gap: 4px; }
+
+/* Reemplaza la vieja lista de rangos fijos (radio buttons "Menos de
+   $5,000" / "$5,000 - $10,000" / ...) por un slider de dos manijas +
+   inputs numéricos: monto libre en vez de casillas predefinidas, y ocupa
+   mucho menos espacio vertical en el panel de filtros. Truco clásico de
+   "doble range input superpuesto": los dos <input type=range> comparten
+   la misma pista pero solo la perilla (::-webkit-slider-thumb /
+   ::-moz-range-thumb) recibe clics -- el resto tiene pointer-events:none
+   para no bloquearse una a la otra.  El de "máximo" queda siempre encima
+   (z-index) porque en el uso normal casi nadie arrastra el mínimo más
+   allá del máximo; el propio JS ya evita que se crucen. */
+.price-range-slider { position: relative; height: 28px; margin: 4px 0 10px; }
+.price-range-track {
+  position: absolute; top: 50%; left: 0; right: 0; height: 4px;
+  transform: translateY(-50%);
+  background: var(--border); border-radius: 2px;
+}
+.price-range-fill {
+  position: absolute; top: 50%; height: 4px; transform: translateY(-50%);
+  background: var(--red); border-radius: 2px;
+}
+.price-range-input {
+  position: absolute; top: 0; left: 0; width: 100%; height: 28px; margin: 0;
+  background: transparent; -webkit-appearance: none; appearance: none;
+  pointer-events: none;
+}
+.price-range-input-max { z-index: 3; }
+.price-range-input-min { z-index: 2; }
+.price-range-input::-webkit-slider-runnable-track { -webkit-appearance: none; background: transparent; height: 28px; }
+.price-range-input::-moz-range-track { background: transparent; height: 28px; border: none; }
+.price-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none; pointer-events: auto;
+  width: 18px; height: 18px; border-radius: 50%; margin-top: 5px;
+  background: var(--red); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--red);
+  cursor: pointer;
+}
+.price-range-input::-moz-range-thumb {
+  pointer-events: auto; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--red); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--red);
+  cursor: pointer;
+}
+.price-range-inputs { display: flex; align-items: center; gap: 8px; }
+.price-range-field {
+  display: flex; align-items: center; gap: 3px; flex: 1;
+  border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;
+}
+.price-range-field:focus-within { border-color: var(--red); }
+.price-range-field span { color: var(--muted); font-size: 13px; }
+.price-range-field input {
+  border: none; outline: none; width: 100%; min-width: 0;
+  font-size: 13px; font-family: inherit; color: var(--ink);
+  -moz-appearance: textfield;
+}
+.price-range-field input::-webkit-outer-spin-button,
+.price-range-field input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.price-range-sep { color: var(--muted); }
 .filter-option {
   display: flex;
   align-items: center;

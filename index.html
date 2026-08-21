@@ -25,6 +25,9 @@
         <button id="searchBtn" aria-label="Buscar">🔍</button>
       </div>
       <nav class="util-nav">
+        <label class="ship-toggle" id="shipToggleLabel" title="Suma el costo de envío al precio mostrado en todo el sitio: monto real cuando se conoce (o envío gratis confirmado), y una tarifa de referencia estimada (marcada como 🔶 estimado) cuando la tienda no expone el costo exacto.">
+          <input type="checkbox" id="shipToggle"> 🚚 Incluir envío
+        </label>
         <a href="#/" class="home-link">🏠 Inicio</a>
         <a href="#/marcas">🛍️ Marcas y ofertas</a>
         <a href="#/favorites">⭐ Favoritos</a>
@@ -65,7 +68,17 @@
           <h2>Filtros</h2>
           <div class="filter-group">
             <h3>Precio</h3>
-            <div id="filterPrice" class="filter-options"></div>
+            <div class="price-range-slider">
+              <div class="price-range-track"></div>
+              <div class="price-range-fill" id="priceRangeFill"></div>
+              <input type="range" id="priceRangeMin" class="price-range-input price-range-input-min">
+              <input type="range" id="priceRangeMax" class="price-range-input price-range-input-max">
+            </div>
+            <div class="price-range-inputs">
+              <label class="price-range-field"><span>$</span><input type="number" id="priceNumMin" inputmode="numeric" min="0" placeholder="Mín"></label>
+              <span class="price-range-sep">–</span>
+              <label class="price-range-field"><span>$</span><input type="number" id="priceNumMax" inputmode="numeric" min="0" placeholder="Máx"></label>
+            </div>
           </div>
           <div class="filter-group filter-group-collapsible">
             <h3>Marca <span class="filter-group-toggle">▾</span></h3>

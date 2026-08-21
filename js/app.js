@@ -9,14 +9,6 @@
   // PAGE_SIZE filas sin importar cuánto crezca el catálogo.
   const PAGE_SIZE = 60;
 
-  const PRICE_RANGES = [
-    { id: "all", label: "Todos los precios", min: 0, max: Infinity },
-    { id: "u5", label: "Menos de $5,000", min: 0, max: 5000 },
-    { id: "5to10", label: "$5,000 – $10,000", min: 5000, max: 10000 },
-    { id: "10to15", label: "$10,000 – $15,000", min: 10000, max: 15000 },
-    { id: "o15", label: "Más de $15,000", min: 15000, max: Infinity },
-  ];
-
   const RATING_FILTERS = [
     { id: "all", label: "Todas", min: 0 },
     { id: "r4", label: "4★ o más", min: 4 },
@@ -43,6 +35,7 @@
     favorites: "comparamx_favorites",
     profile: "comparamx_profile",
     reviews: "comparamx_reviews",
+    includeShipping: "comparamx_include_shipping",
   };
 
   // ---------- Precios en vivo desde APIs reales (desactivado por defecto) ----------
@@ -175,7 +168,9 @@
     query: "",
     category: null, // filtro activo en la vista de lista
     subcategory: null, // sub-nivel dentro de la categoría (si tiene)
-    priceRange: "all",
+    priceMin: null, // null = sin tope inferior
+    priceMax: null, // null = sin tope superior
+    includeShipping: readLS(LS_KEYS.includeShipping, false), // suma envío conocido al precio mostrado en todo el sitio
     brands: new Set(), // marcas seleccionadas; vacío = todas
     minRating: "all",
     excludeUsed: false, // filtro "Excluir usados"
@@ -193,6 +188,8 @@
     catNavToggleLabel: document.getElementById("catNavToggleLabel"),
     searchInput: document.getElementById("searchInput"),
     searchBtn: document.getElementById("searchBtn"),
+    shipToggle: document.getElementById("shipToggle"),
+    shipToggleLabel: document.getElementById("shipToggleLabel"),
 
     viewHome: document.getElementById("viewHome"),
     homeCategoryGrid: document.getElementById("homeCategoryGrid"),
@@ -202,7 +199,11 @@
     listBreadcrumb: document.getElementById("listBreadcrumb"),
     listTitle: document.getElementById("listTitle"),
     filterCategory: document.getElementById("filterCategory"),
-    filterPrice: document.getElementById("filterPrice"),
+    priceRangeMin: document.getElementById("priceRangeMin"),
+    priceRangeMax: document.getElementById("priceRangeMax"),
+    priceRangeFill: document.getElementById("priceRangeFill"),
+    priceNumMin: document.getElementById("priceNumMin"),
+    priceNumMax: document.getElementById("priceNumMax"),
     filterBrand: document.getElementById("filterBrand"),
     filterBrandSearch: document.getElementById("filterBrandSearch"),
     filterRating: document.getElementById("filterRating"),
@@ -321,8 +322,99 @@
     return state.data.regions.filter((r) => r.metro === metroId);
   }
 
+  // Envío ESTIMADO (MXN) para cuando una tienda no expone costo real ni un
+  // umbral de envío gratis verificable (ver shippingFeeInfo). Son valores
+  // de referencia aproximados -- NO cotizaciones reales de paquetería --
+  // calculados a partir de lo que ya se sabe de cada tienda (tipo de
+  // catálogo, días típicos de entrega ya investigados en typicalShippingDays,
+  // y si es nacional o envío internacional directo). Se muestran siempre
+  // marcados como "🔶 estimado" (mismo badge que ya usan los días de
+  // entrega estimados), nunca mezclados con un monto confirmado por la API
+  // o por un umbral de envío gratis real.
+  //   - mercadolibre: envío nacional pagado sin monto expuesto por la API;
+  //     tarifa de paquetería nacional básica de referencia.
+  //   - sunsky / geekbuying / molnija / glasseslit: electrónica/accesorios
+  //     ligeros, envío internacional directo.
+  //   - woodestic: juegos de mesa de madera, más voluminosos/pesados que el
+  //     resto del catálogo internacional.
+  //   - aliexpress: catálogo general, su propia nota de envío dice que el
+  //     estándar suele ser gratis o barato en artículos <2kg.
+  //   - alibaba: plataforma mayorista, envíos de mayor volumen/peso.
+  //   - theluxurycloset: bolsos/joyería de lujo, paquetería asegurada.
+  const SHIPPING_ESTIMATE_MXN = {
+    mercadolibre: 99,
+    sunsky: 150,
+    geekbuying: 180,
+    molnija: 200,
+    glasseslit: 100,
+    woodestic: 280,
+    aliexpress: 130,
+    alibaba: 350,
+    theluxurycloset: 500,
+  };
+
+  // Costo de envío de una oferta: { fee, estimated }. fee nunca es null
+  // (siempre hay un número que sumar), pero estimated:true marca que ese
+  // número es una referencia aproximada y no un dato confirmado, para que
+  // la UI lo distinga de un monto real.
+  //   1) offer.shippingFee ya es un dato conocido (0 = gratis confirmado
+  //      por la API de origen, o un monto real si algún día la API lo
+  //      expone) -> estimated: false.
+  //   2) Si no, el umbral de envío gratis en USD que la propia tienda
+  //      publica (freeShippingThresholdUSD), comparado contra el precio
+  //      real en USD de esa oferta (priceOriginal) -- si lo alcanza, es
+  //      honesto afirmar "$0 de envío" con la misma base que ya se usa
+  //      para el badge "Envío gratis" -> estimated: false.
+  //   3) Si ninguno de los dos aplica, se usa SHIPPING_ESTIMATE_MXN de la
+  //      tienda -> estimated: true. Si la tienda ni siquiera está en esa
+  //      tabla, $0 sin marcar (no debería pasar con el catálogo actual).
+  function shippingFeeInfo(offer) {
+    if (offer.shippingFee != null) return { fee: offer.shippingFee, estimated: false };
+    const store = storeById(offer.storeId);
+    const threshold = store && store.freeShippingThresholdUSD;
+    const priceUSD = offer.priceOriginal && offer.priceOriginal.currency === "USD" ? offer.priceOriginal.amount : null;
+    if (threshold != null && priceUSD != null && priceUSD >= threshold) return { fee: 0, estimated: false };
+    const estimate = SHIPPING_ESTIMATE_MXN[offer.storeId];
+    return estimate != null ? { fee: estimate, estimated: true } : { fee: 0, estimated: false };
+  }
+
+  // true cuando, con el toggle "Incluir envío" activo, el precio mostrado
+  // de esta oferta incluye un envío ESTIMADO (no confirmado) -- para
+  // marcarlo aparte y que no se lea como si ya fuera el costo real final.
+  function shippingIsEstimated(offer) {
+    return state.includeShipping && shippingFeeInfo(offer).estimated;
+  }
+
+  // Precio a mostrar/ordenar/filtrar en toda la app, según el toggle
+  // global "Incluir envío" (state.includeShipping). Con el toggle apagado
+  // se comporta exactamente como antes (solo el precio del artículo).
+  function displayPrice(offer) {
+    if (!state.includeShipping) return offer.price;
+    return offer.price + shippingFeeInfo(offer).fee;
+  }
+
+  // Mismo ajuste que displayPrice(), pero para listPrice (precio de lista
+  // antes del descuento) -- así el % y el monto ahorrado calculados sobre
+  // "precio con envío" siguen siendo correctos (el envío es el mismo en
+  // ambos lados de la resta, así que el ahorro en pesos no cambia, pero el
+  // % sí depende de sumarlo a los dos).
+  function displayListPrice(offer) {
+    if (offer.listPrice == null) return null;
+    if (!state.includeShipping) return offer.listPrice;
+    return offer.listPrice + shippingFeeInfo(offer).fee;
+  }
+
   function minPrice(product) {
-    return Math.min(...product.offers.map((o) => o.price));
+    return Math.min(...product.offers.map((o) => displayPrice(o)));
+  }
+
+  // true cuando, con "Incluir envío" activo, el precio "Desde" mostrado en
+  // una fila de lista incluye un envío ESTIMADO (no confirmado) -- para
+  // avisar ahí mismo, sin tener que entrar a la ficha para enterarse.
+  function cheapestOfferShippingEstimated(product) {
+    if (!state.includeShipping) return false;
+    const cheapest = product.offers.reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+    return shippingIsEstimated(cheapest);
   }
 
   // Cantidad de opciones de compra a mostrar junto al precio ("N tiendas").
@@ -393,9 +485,11 @@
   // Descuento de la oferta más barata, si tiene listPrice (precio de lista)
   // más alto que el precio actual. Devuelve el % o null.
   function bestDiscountPct(product) {
-    const cheapest = product.offers.reduce((a, b) => (b.price < a.price ? b : a));
-    if (!cheapest.listPrice || cheapest.listPrice <= cheapest.price) return null;
-    return Math.round((1 - cheapest.price / cheapest.listPrice) * 100);
+    const cheapest = product.offers.reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+    const price = displayPrice(cheapest);
+    const listPrice = displayListPrice(cheapest);
+    if (!listPrice || listPrice <= price) return null;
+    return Math.round((1 - price / listPrice) * 100);
   }
 
   // Monto ahorrado (en pesos) de la oferta más barata frente a su listPrice.
@@ -404,9 +498,11 @@
   // encuadre / framing, Tversky & Kahneman), así que mostrar ambos a la vez
   // no deja el tamaño del ahorro a la interpretación de cada quien.
   function bestSavingsAmount(product) {
-    const cheapest = product.offers.reduce((a, b) => (b.price < a.price ? b : a));
-    if (!cheapest.listPrice || cheapest.listPrice <= cheapest.price) return null;
-    return cheapest.listPrice - cheapest.price;
+    const cheapest = product.offers.reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+    const price = displayPrice(cheapest);
+    const listPrice = displayListPrice(cheapest);
+    if (!listPrice || listPrice <= price) return null;
+    return listPrice - price;
   }
 
   // Recomendación transparente ("mejor opción"), no solo "más barato": pondera
@@ -420,14 +516,14 @@
   // pedido y otra, casi al mismo precio, tiene entrega inmediata) — no basta
   // con tener mejor calificación para justificar pagar más.
   function bestValueOffer(product) {
-    const prices = product.offers.map((o) => o.price);
+    const prices = product.offers.map((o) => displayPrice(o));
     const minP = Math.min(...prices);
     const maxP = Math.max(...prices);
     const priceRange = maxP - minP || 1;
     let best = null;
     let bestScore = -Infinity;
     product.offers.forEach((o) => {
-      const priceScore = 1 - (o.price - minP) / priceRange; // 1 = más barato
+      const priceScore = 1 - (displayPrice(o) - minP) / priceRange; // 1 = más barato
       const ratingScore = (o.rating || 0) / 5;
       // Stock desconocido (las ofertas en vivo de Mercado Libre no lo
       // informan) puntúa neutro: castigarlo como "sobre pedido" hundiría
@@ -439,7 +535,7 @@
       const score = priceScore * 0.4 + ratingScore * 0.3 + stockScore * 0.3;
       if (score > bestScore) { bestScore = score; best = o; }
     });
-    const cheapest = product.offers.reduce((a, b) => (b.price < a.price ? b : a));
+    const cheapest = product.offers.reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
     return best && best.storeId !== cheapest.storeId ? best : null;
   }
 
@@ -778,6 +874,21 @@
     navigateTo(`#/p/${productId}`, () => renderDetail(productId));
   }
 
+  // Vuelve a pintar la vista que ya esté visible (sin cambiar el hash ni
+  // hacer scroll-to-top como sí hace onHashChange en una navegación real)
+  // -- usado por el toggle "Incluir envío", que cambia el precio en
+  // cualquier vista sin que el usuario haya navegado a ningún lado.
+  function rerenderCurrentView() {
+    const hash = location.hash;
+    const detailMatch = hash.match(/#\/p\/(.+)/);
+    if (detailMatch) renderDetail(detailMatch[1]);
+    else if (hash === "#/list" || hash.startsWith("#/list?")) renderList();
+    else if (hash === "#/favorites") renderFavorites();
+    else if (hash === "#/account") renderAccount();
+    else if (hash === "#/marcas" || hash.startsWith("#/marcas?")) renderBrands();
+    else renderHome();
+  }
+
   function onHashChange() {
     if (!state.data) return;
     const hash = location.hash;
@@ -936,8 +1047,14 @@
   // reales, es el mismo proxy que ya se muestra como "más populares" en
   // cualquier categoría, solo que acá se arma un resumen de 3 en 3 para la
   // portada en vez de la lista completa paginada.
+  // Los usados se excluyen del ranking (a diferencia del listado normal,
+  // donde siguen apareciendo y el usuario puede optar por ocultarlos con
+  // "Excluir usados"): un ranking implica "esto es lo que vas a poder
+  // comprar", pero un artículo usado específico no tiene reproducibilidad
+  // -- para cuando otra persona lo vea, esa pieza en particular puede ya
+  // no estar disponible, así que recomendarla como "top" es engañoso.
   function topByPopularity(products, n) {
-    return products.slice().sort((a, b) => totalReviews(b) - totalReviews(a)).slice(0, n);
+    return products.filter((p) => !isUsed(p)).sort((a, b) => totalReviews(b) - totalReviews(a)).slice(0, n);
   }
 
   // Resumen de rankings en Inicio, estilo Kakaku.com: un bloque general con
@@ -994,8 +1111,23 @@
     return [...new Set(scoped.map((p) => p.brand))].sort();
   }
 
+  // Rango real de precios (con el toggle de envío ya aplicado) del alcance
+  // actual -- misma noción de "alcance" que brandsInScope(), solo por
+  // categoría -- para que el slider de precio siempre cubra el 100% de lo
+  // que hay para ver en vez de un tope fijo global que sería inútil tanto
+  // en una categoría barata como en una cara.
+  function priceScopeBounds() {
+    const scoped = state.category
+      ? state.data.products.filter((p) => p.category === state.category)
+      : state.data.products;
+    if (scoped.length === 0) return { min: 0, max: 1000 };
+    const prices = scoped.map(minPrice);
+    const min = Math.floor(Math.min(...prices));
+    const max = Math.max(Math.ceil(Math.max(...prices)), min + 1);
+    return { min, max };
+  }
+
   function filteredProducts() {
-    const range = PRICE_RANGES.find((r) => r.id === state.priceRange) || PRICE_RANGES[0];
     const ratingMin = (RATING_FILTERS.find((r) => r.id === state.minRating) || RATING_FILTERS[0]).min;
     return state.data.products.filter((p) => {
       const q = state.query.toLowerCase();
@@ -1007,7 +1139,7 @@
       const matchesCat = !state.category || p.category === state.category;
       const matchesSub = !state.subcategory || p.subcategory === state.subcategory;
       const price = minPrice(p);
-      const matchesPrice = price >= range.min && price < range.max;
+      const matchesPrice = (state.priceMin == null || price >= state.priceMin) && (state.priceMax == null || price <= state.priceMax);
       const matchesBrand = state.brands.size === 0 || state.brands.has(p.brand);
       // Redondeado a 1 decimal para que coincida con el valor mostrado en pantalla.
       const matchesRating = Math.round(aggregateRating(p).avg * 10) / 10 >= ratingMin;
@@ -1157,6 +1289,13 @@
       const row = document.createElement("div");
       row.className = "product-row is-external";
       const shippingText = item.shippingFree ? "Envío gratis" : "";
+      // Este resultado viene directo de la búsqueda en vivo de Mercado
+      // Libre (no es una oferta guardada del catálogo): shippingFree ya es
+      // un dato real y confiable (gratis = no suma nada); cuando es false
+      // se suma la misma tarifa de referencia que el resto del catálogo
+      // usa para Mercado Libre (SHIPPING_ESTIMATE_MXN.mercadolibre).
+      const liveShipEstimated = state.includeShipping && !item.shippingFree;
+      const livePrice = item.price + (liveShipEstimated ? SHIPPING_ESTIMATE_MXN.mercadolibre : 0);
       row.innerHTML = `
         <span class="row-icon">🔎</span>
         <div class="row-info">
@@ -1165,7 +1304,8 @@
           <div class="row-stars muted">${shippingText}</div>
         </div>
         <div class="row-priceblock">
-          <div class="row-price">${money(item.price)}</div>
+          <div class="row-price">${money(livePrice)}</div>
+          ${liveShipEstimated ? '<span class="shipping-estimate-note">🔶 envío estimado incluido</span>' : ""}
           <div class="row-external-badge">Ver en Mercado Libre ↗</div>
         </div>
       `;
@@ -1220,6 +1360,7 @@
         <div class="row-priceblock">
           ${offerCount(p) > 1 ? `<div class="row-from">Desde</div>` : ""}
           <div class="row-price">${money(minPrice(p))}${bestDiscountPct(p) ? `<span class="discount-badge">-${bestDiscountPct(p)}%</span>` : ""}</div>
+          ${cheapestOfferShippingEstimated(p) ? '<span class="shipping-estimate-note">🔶 envío estimado incluido</span>' : ""}
           <div class="row-stores">${plural(offerCount(p), "tienda", "tiendas")}</div>
         </div>
         <button class="row-fav-btn" aria-label="Favorito"></button>
@@ -1279,16 +1420,58 @@
     });
   }
 
+  // Slider de dos manijas + inputs numéricos (reemplaza la vieja lista de
+  // rangos fijos). A diferencia de renderFilterBrand()/renderFilterRating()
+  // etc., los <input type=range>/<input type=number> son estáticos en el
+  // HTML (ver index.html) y NO se recrean en cada render -- solo se
+  // actualizan sus atributos min/max/step/value acá, para no perder el
+  // arrastre en curso ni el foco del usuario.
   function renderFilterPrice() {
-    el.filterPrice.innerHTML = "";
-    PRICE_RANGES.forEach((r) => {
-      const opt = document.createElement("label");
-      const isActive = state.priceRange === r.id;
-      opt.className = "filter-option" + (isActive ? " active" : "");
-      opt.innerHTML = `<input type="radio" name="fprice" ${isActive ? "checked" : ""}> ${r.label}`;
-      opt.onclick = () => { state.priceRange = r.id; renderList(); };
-      el.filterPrice.appendChild(opt);
+    const { min, max } = priceScopeBounds();
+    // Redondea los límites al múltiplo "limpio" más cercano hacia afuera
+    // (10/100/500 según el tamaño del rango) para que el slider no
+    // arranque en un número como $9,842.
+    const step = max - min > 20000 ? 500 : max - min > 2000 ? 100 : 10;
+    const boundMin = Math.floor(min / step) * step;
+    const boundMax = Math.max(Math.ceil(max / step) * step, boundMin + step);
+
+    const curMin = state.priceMin == null ? boundMin : Math.min(Math.max(state.priceMin, boundMin), boundMax);
+    const curMax = state.priceMax == null ? boundMax : Math.min(Math.max(state.priceMax, boundMin), boundMax);
+
+    [el.priceRangeMin, el.priceRangeMax].forEach((input) => {
+      input.min = boundMin;
+      input.max = boundMax;
+      input.step = step;
     });
+    el.priceRangeMin.value = curMin;
+    el.priceRangeMax.value = curMax;
+    el.priceNumMin.value = state.priceMin == null ? "" : state.priceMin;
+    el.priceNumMax.value = state.priceMax == null ? "" : state.priceMax;
+    el.priceNumMin.placeholder = money(boundMin);
+    el.priceNumMax.placeholder = money(boundMax);
+
+    updatePriceRangeFill(boundMin, boundMax, curMin, curMax);
+  }
+
+  function updatePriceRangeFill(boundMin, boundMax, curMin, curMax) {
+    const span = boundMax - boundMin || 1;
+    const leftPct = ((curMin - boundMin) / span) * 100;
+    const rightPct = ((curMax - boundMin) / span) * 100;
+    el.priceRangeFill.style.left = `${leftPct}%`;
+    el.priceRangeFill.style.right = `${100 - rightPct}%`;
+  }
+
+  // min/max en pesos reales (null = sin tope, "todos los precios") a partir
+  // de los valores actuales del slider/inputs; null cuando el valor está
+  // pegado al límite del alcance actual (equivale a "sin filtro" en ese
+  // extremo, así el filtro no se queda pegado si luego cambia de categoría
+  // y el alcance se agranda).
+  function commitPriceRange(vMin, vMax) {
+    const boundMin = Number(el.priceRangeMin.min);
+    const boundMax = Number(el.priceRangeMin.max);
+    state.priceMin = vMin <= boundMin ? null : vMin;
+    state.priceMax = vMax >= boundMax ? null : vMax;
+    renderList();
   }
 
   function renderFilterBrand() {
@@ -1570,6 +1753,7 @@
     el.detailFromPrice.innerHTML = `
       ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}
       ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
+      ${cheapestOfferShippingEstimated(product) ? '<span class="shipping-estimate-note">🔶 incluye envío estimado (ver tabla de abajo)</span>' : ""}
     `;
 
     el.specTable.innerHTML = product.specs
@@ -1682,6 +1866,8 @@
         : r.shippingFee != null ? money(r.shippingFee)
         : qualifiesFreeShipping
         ? `<span class="ship-badge" title="${htmlEscapeAttr(`Según la política pública de ${r.store.name}: envío gratis en compras de $${threshold}+ USD, y este producto ($${priceUSD} USD) sí alcanza el mínimo.`)}">Envío gratis</span>`
+        : r.shipEstimateFee != null
+        ? `${money(r.shipEstimateFee)} <span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">🔶 estimado</span>`
         : !r.store.hubRegion
         ? `<span class="ship-badge ship-badge-intl" title="${htmlEscapeAttr(intlTooltip)}">🌍 Envío internacional</span>`
         : "—";
@@ -1689,7 +1875,10 @@
       // en que el usuario elige su municipio en el mapa (no solo en la
       // columna aparte). El costo ya viene ajustado por distancia/zona
       // (ver estimateShippingFee) cuando hay una región seleccionada.
-      const shippingShort = r.shippingFee === 0 ? "envío gratis" : r.shippingFee == null ? null : `envío ${money(r.shippingFee)}`;
+      const shippingShort = r.shippingFee === 0 ? "envío gratis"
+        : r.shippingFee != null ? `envío ${money(r.shippingFee)}`
+        : r.shipEstimateFee != null ? `envío ${money(r.shipEstimateFee)} (estimado)`
+        : null;
       let deliveryHtml = "";
       if (r.days !== null) {
         const d = deliveryLabel(r.days);
@@ -1709,6 +1898,9 @@
         deliveryHtml = `<div class="delivery-sub">Entrega en ${lo}–${hi} días${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Rango típico publicado por la tienda para envío internacional, no una estimación por distancia ni un dato confirmado por pedido">🔶 estimado</span></div>`;
       }
       const stockInfo = STOCK_INFO[r.stock] || null;
+      // r.price/r.listPrice ya vienen ajustados por displayPrice()/
+      // displayListPrice() en renderOfferTable() (o sin ajustar si el
+      // toggle "Incluir envío" está apagado, que es lo mismo que antes).
       let discountHtml = "";
       if (r.listPrice && r.listPrice > r.price) {
         const pct = Math.round((1 - r.price / r.listPrice) * 100);
@@ -1717,6 +1909,13 @@
         // en dinero real (efecto de encuadre), así que se dan los dos.
         discountHtml = `<span class="list-price">${money(r.listPrice)}</span><span class="discount-badge">-${pct}%</span><span class="save-amount">Ahorras ${money(r.listPrice - r.price)}</span>`;
       }
+      // Con "Incluir envío" activo, el precio de arriba ya suma el envío
+      // -- pero cuando ese monto es un ESTIMADO y no un dato confirmado
+      // (ver shippingIsEstimated()), se avisa para que no se lea como el
+      // costo real exacto.
+      const shipEstimateNote = r.shipEstimated
+        ? '<span class="shipping-estimate-note">🔶 incluye envío estimado</span>'
+        : "";
       const pointsHtml = r.points == null ? "—" : `${r.points}%`;
       const ratingHtml = r.rating == null ? "—" : `${starsHtml(r.rating)} <span class="rc">${r.rating.toFixed(1)}</span>`;
       // "Recomendado" es una etiqueta aparte de "MÁS BARATO": no repite la
@@ -1767,6 +1966,7 @@
           <div class="price-line">
             ${money(r.price)}${r.price === bestPrice ? '<span class="best-tag">MÁS BARATO</span>' : ""}${isRecommended ? '<span class="best-tag recommended-tag" title="Mejor combinación de precio, calificación y disponibilidad">🏆 RECOMENDADO</span>' : ""}
           </div>
+          ${shipEstimateNote}
           ${deliveryHtml}
         </td>
         <td>${shippingHtml}</td>
@@ -1823,7 +2023,21 @@
       const shippingFee = state.selectedRegion && store.hubRegion
         ? estimateShippingFee(o.shippingFee, store.hubRegion, state.selectedRegion)
         : o.shippingFee;
-      return { ...o, store, days, shippingFee };
+      // price/listPrice se ajustan acá por displayPrice()/displayListPrice()
+      // (toggle global "Incluir envío" en el precio mostrado); shippingFee
+      // arriba es un ajuste aparte, solo para la columna "Envío" y la
+      // fecha de entrega estimada por municipio -- no son lo mismo.
+      return {
+        ...o, store, days, shippingFee,
+        price: displayPrice(o),
+        listPrice: displayListPrice(o),
+        shipEstimated: shippingIsEstimated(o),
+        // Monto de referencia para la columna "Envío" cuando no hay dato
+        // confirmado -- se muestra siempre (no solo con el toggle activo),
+        // marcado como estimado, en vez de solo el badge "🌍 Envío
+        // internacional" sin ningún monto.
+        shipEstimateFee: shippingFeeInfo(o).estimated ? shippingFeeInfo(o).fee : null,
+      };
     });
 
     if (state.offerSort === "rating") rows.sort((a, b) => b.rating - a.rating);
@@ -1987,6 +2201,62 @@
       if (e.key === "Enter") goList({ query: el.searchInput.value.trim(), category: null });
     });
     el.searchBtn.addEventListener("click", () => goList({ query: el.searchInput.value.trim(), category: null }));
+
+    // Toggle global "Incluir envío": afecta el precio mostrado en toda la
+    // app (inicio, lista, detalle), así que en vez de renderList() se
+    // vuelve a pintar lo que sea que esté visible ahora mismo.
+    el.shipToggle.checked = state.includeShipping;
+    el.shipToggleLabel.classList.toggle("active", state.includeShipping);
+    el.shipToggle.addEventListener("change", () => {
+      state.includeShipping = el.shipToggle.checked;
+      el.shipToggleLabel.classList.toggle("active", state.includeShipping);
+      writeLS(LS_KEYS.includeShipping, state.includeShipping);
+      rerenderCurrentView();
+    });
+
+    // Slider de precio de dos manijas + inputs numéricos. "input" solo
+    // actualiza el dibujo (barra de relleno + campo numérico espejo) sin
+    // volver a filtrar 6,000+ productos en cada pixel de arrastre; el
+    // filtro real (renderList) se dispara en "change" (al soltar la
+    // manija) igual que los campos numéricos al perder el foco/Enter.
+    el.priceRangeMin.addEventListener("input", () => {
+      let vMin = Number(el.priceRangeMin.value);
+      const vMax = Number(el.priceRangeMax.value);
+      if (vMin > vMax) { vMin = vMax; el.priceRangeMin.value = vMin; }
+      el.priceNumMin.value = vMin;
+      updatePriceRangeFill(Number(el.priceRangeMin.min), Number(el.priceRangeMin.max), vMin, vMax);
+    });
+    el.priceRangeMin.addEventListener("change", () => {
+      commitPriceRange(Number(el.priceRangeMin.value), Number(el.priceRangeMax.value));
+    });
+    el.priceRangeMax.addEventListener("input", () => {
+      const vMin = Number(el.priceRangeMin.value);
+      let vMax = Number(el.priceRangeMax.value);
+      if (vMax < vMin) { vMax = vMin; el.priceRangeMax.value = vMax; }
+      el.priceNumMax.value = vMax;
+      updatePriceRangeFill(Number(el.priceRangeMin.min), Number(el.priceRangeMin.max), vMin, vMax);
+    });
+    el.priceRangeMax.addEventListener("change", () => {
+      commitPriceRange(Number(el.priceRangeMin.value), Number(el.priceRangeMax.value));
+    });
+    el.priceNumMin.addEventListener("change", () => {
+      const boundMin = Number(el.priceRangeMin.min);
+      const boundMax = Number(el.priceRangeMin.max);
+      const raw = el.priceNumMin.value.trim();
+      let v = raw === "" ? boundMin : Math.max(0, Number(raw));
+      if (Number.isNaN(v)) v = boundMin;
+      const vMax = state.priceMax == null ? boundMax : state.priceMax;
+      commitPriceRange(Math.min(v, vMax), vMax);
+    });
+    el.priceNumMax.addEventListener("change", () => {
+      const boundMin = Number(el.priceRangeMin.min);
+      const boundMax = Number(el.priceRangeMin.max);
+      const raw = el.priceNumMax.value.trim();
+      let v = raw === "" ? boundMax : Math.max(0, Number(raw));
+      if (Number.isNaN(v)) v = boundMax;
+      const vMin = state.priceMin == null ? boundMin : state.priceMin;
+      commitPriceRange(vMin, Math.max(v, vMin));
+    });
 
     // Con tantas categorías la barra ya no cabe en una fila (ver .cats en
     // style.css): arranca colapsada a una línea y este botón la despliega,
