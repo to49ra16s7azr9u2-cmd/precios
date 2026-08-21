@@ -377,6 +377,59 @@ async function handleSearch(url, env) {
 }
 
 
+// Trae de una sola vez los más vendidos de una categoría, con marca, ficha
+// técnica, foto y oferta más barata ya resueltas — para dar de alta productos
+// reales en data/data.json sin ir uno por uno a mano. No es lo que consume
+// el frontend (eso sigue siendo /item y /search); es una herramienta de carga.
+//
+// /highlights da IDs de catálogo, no si tienen vendedor activo, así que se
+// piden más de los que hacen falta y se descartan los que no tengan oferta.
+// Cada candidato cuesta 2 subpeticiones (ficha + oferta); con el límite de
+// subpeticiones de un Worker, MAX_CATALOG_CANDIDATES deja margen de sobra.
+const MAX_CATALOG_CANDIDATES = 22;
+
+async function handleCatalog(url, env) {
+  const category = url.searchParams.get("category");
+  if (!category) return json({ error: "falta ?category=MLM1055" }, 400);
+  const limit = Math.min(parseInt(url.searchParams.get("limit") || "20", 10) || 20, MAX_CATALOG_CANDIDATES);
+  const token = await getAccessToken(env);
+
+  let highlights;
+  try {
+    highlights = await mlGet(token, `/highlights/MLM/category/${category}?limit=${MAX_CATALOG_CANDIDATES}`);
+  } catch (err) {
+    return json({ error: `highlights falló: ${err.message}` }, 502);
+  }
+  const ids = (highlights.content || [])
+    .map((c) => c.id)
+    .filter((id) => /^MLM\d+$/.test(id))
+    .slice(0, MAX_CATALOG_CANDIDATES);
+
+  const results = await Promise.all(
+    ids.map(async (id) => {
+      let product;
+      try {
+        product = await mlGet(token, `/products/${id}`);
+      } catch {
+        return null;
+      }
+      const offer = await cheapestOffer(token, id);
+      if (!offer) return null;
+      return {
+        id,
+        title: product.name,
+        brand: brandFrom(product),
+        specs: specsFrom(product),
+        domainId: product.domain_id || null,
+        url: catalogUrl(id),
+        photo: photoFrom(product),
+        ...offer,
+      };
+    })
+  );
+  return json({ items: results.filter(Boolean).slice(0, limit) });
+}
+
 // Sonda de diagnóstico. Acepta ?path=/lo/que/sea para probar un endpoint suelto
 // sin volver a desplegar. Va acotada a propósito:
 //
@@ -422,6 +475,7 @@ export default {
     try {
       if (url.pathname === "/item") return await handleItem(url, env);
       if (url.pathname === "/search") return await handleSearch(url, env);
+      if (url.pathname === "/catalog") return await handleCatalog(url, env);
       if (url.pathname === "/probe") return await handleProbe(env, url);
       return json({ error: "ruta no encontrada. Usa /item?q=... o /search?q=..." }, 404);
     } catch (err) {
