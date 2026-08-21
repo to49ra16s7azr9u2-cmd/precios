@@ -1007,7 +1007,7 @@
         <span class="row-icon">🔎</span>
         <div class="row-info">
           <div class="row-brand">Mercado Libre</div>
-          <div class="row-name">${item.title}</div>
+          <div class="row-name">${htmlEscapeAttr(item.title)}</div>
           <div class="row-stars muted">${shippingText}</div>
         </div>
         <div class="row-priceblock">
