@@ -64,6 +64,7 @@ COLOR_PHRASES = [
     ("starlight", "Starlight"),
     ("natural", "Natural"),
     ("desierto", "Desierto"), ("desert", "Desierto"),
+    ("blanco estelar", "Starlight"), ("blanca estelar", "Starlight"),
 ]
 COLOR_PHRASES.sort(key=lambda x: -len(x[0]))
 
@@ -119,11 +120,25 @@ def find_color_span(stripped_lower, start_from=0):
     return best
 
 
+def normalize_bare_gb(original_title):
+    """"256G" como abreviación de "256GB" (común en celulares Samsung/Xiaomi
+    importados) se escribe indistintamente con o sin la "B" final -- sin
+    normalizar, "Galaxy S25 Ultra 256gb Titanium Black" y "...256G Titanium
+    Gray" quedan con distinta clave de agrupación y no se fusionan como
+    variantes del mismo modelo. Se exige "G" mayúscula específicamente (no
+    "g" minúscula, que casi siempre son gramos de peso, p.ej. "172 g") para
+    no confundir ambos casos -- por eso esto corre ANTES de bajar a
+    minúsculas en el resto del pipeline, mientras el mayúsculas/minúsculas
+    original todavía se puede distinguir."""
+    return re.sub(r"(?<=\d)G(?=\s|$|[^a-zA-Z])", "GB", original_title)
+
+
 def strip_color_and_condition(original_title):
     """Devuelve (canonical_key, display_title_sin_color, color_canonico_o_None,
     condicion) operando sobre el texto original (preserva may/minúsculas para
     el título de exhibición) usando una copia sin acentos alineada en
     posición para encontrar los tramos a quitar."""
+    original_title = normalize_bare_gb(original_title)
     stripped = strip_accents(original_title)
     stripped_lower = stripped.lower()
 
@@ -134,11 +149,29 @@ def strip_color_and_condition(original_title):
 
     if color_span:
         s, e, color_canon = color_span
-        # Si justo antes hay "color" o "color del <palabra>", se quita también.
-        prefix = stripped_lower[:s]
-        m2 = re.search(r"(?:^|\s)color(?:\s+del\s+\w+)?\s*$", prefix)
-        if m2:
-            s = m2.start() if prefix[m2.start()] != " " else m2.start() + 1
+
+        # Algunos vendedores encadenan dos palabras de color para el mismo
+        # tono (p.ej. "Morado Color Violeta", donde "morado" y "violeta"
+        # son sinónimos del mismo color pero AMBOS aparecen en el título,
+        # o "Negro Space Gray"). find_color_span ya se quedó con la última
+        # ("violeta"); acá se sigue quitando hacia atrás -- primero un
+        # conector "color"/"color del X" si hay, después cualquier otra
+        # palabra de color que quede pegada justo al final de lo que
+        # sobra -- hasta que no quede ninguna. Así la clave de agrupación
+        # no se queda con un "morado" suelto que no coincide con el resto
+        # de las variantes del mismo modelo.
+        while True:
+            m2 = re.search(r"(?:^|\s)color(?:\s+del\s+\w+)?\s*$", stripped_lower[:s])
+            if m2:
+                s = m2.start() + (1 if stripped_lower[m2.start()] == " " else 0)
+            trailing_color = next(
+                (m for phrase, _ in COLOR_PHRASES
+                 if (m := re.search(r"\b" + re.escape(phrase) + r"\s*$", stripped_lower[:s]))),
+                None,
+            )
+            if not trailing_color:
+                break
+            s = trailing_color.start()
 
         display = (original_title[:s] + " " + original_title[e:]).strip()
         key_text = (stripped_lower[:s] + " " + stripped_lower[e:]).strip()
