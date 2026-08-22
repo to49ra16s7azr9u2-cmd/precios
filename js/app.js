@@ -1070,7 +1070,7 @@
     allCard.type = "button";
     allCard.className = "category-card";
     allCard.innerHTML = `
-      <span class="category-card-icon">🗂️</span>
+      <span class="category-card-icon category-card-icon--photo">🗂️</span>
       <span class="category-card-name">Todas</span>
       <span class="category-card-count">${state.data.products.length} productos</span>
     `;
@@ -1083,7 +1083,7 @@
       card.type = "button";
       card.className = "category-card";
       card.innerHTML = `
-        <span class="category-card-icon"></span>
+        <span class="category-card-icon category-card-icon--photo"></span>
         <span class="category-card-name">${cat.name}</span>
         <span class="category-card-count">${categoryProducts.length} productos</span>
       `;
@@ -1094,14 +1094,19 @@
       // fijo -- así el ícono cambia solo si cambia lo que más se vende.
       // renderProductMedia ya sabe reintentar y caer al emoji del propio
       // producto si la foto falla o no existe, así que no hace falta
-      // duplicar esa lógica acá.
+      // duplicar esa lógica acá. El marco es un rectángulo horizontal
+      // (category-card-icon--photo, con object-fit:contain) en vez del
+      // círculo original -- un círculo recorta los bordes de una foto de
+      // producto real (a diferencia de un emoji, que no tiene "bordes"
+      // que perder), así que se aplica siempre, tanto para las fotos
+      // como para el emoji de respaldo, para que todas las tarjetas
+      // compartan la misma forma de marco.
       const topProduct = topByPopularity(categoryProducts, 1)[0];
       if (topProduct) {
         renderProductMedia(iconEl, topProduct);
       } else if (cat.iconImage) {
         // Categoría sin productos (no debería pasar hoy, pero por si acaso):
         // cae a la ilustración subida a mano, si la categoría tiene una.
-        iconEl.classList.add("category-card-icon--photo");
         iconEl.innerHTML = `<img src="${htmlEscapeAttr(cat.iconImage)}" alt="">`;
       } else {
         iconEl.textContent = cat.icon;
