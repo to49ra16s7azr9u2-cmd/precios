@@ -192,6 +192,7 @@
     catNavToggleLabel: document.getElementById("catNavToggleLabel"),
     searchInput: document.getElementById("searchInput"),
     searchBtn: document.getElementById("searchBtn"),
+    searchSuggestions: document.getElementById("searchSuggestions"),
     shipToggle: document.getElementById("shipToggle"),
     shipToggleLabel: document.getElementById("shipToggleLabel"),
 
@@ -2401,13 +2402,195 @@
     });
   }
 
+  // ---------- Autocompletado de categorías en el buscador ----------
+  //
+  // No busca productos (eso lo sigue haciendo Enter/el botón, como
+  // siempre): sugiere categorías y subcategorías por nombre a medida que
+  // se escribe, tolerando texto parcial ("aud" -> Audífonos) y errores de
+  // tipeo ("audifonso") vía distancia de Levenshtein, para que alguien que
+  // solo tiene una idea aproximada de la categoría no tenga que escribirla
+  // entera ni bien para encontrarla.
+  let searchSuggestionItems = [];
+  let searchActiveIndex = -1;
+
+  function normalizeSearchText(s) {
+    return (s || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
+  }
+
+  // Distancia de edición estándar (inserción/borrado/sustitución) --
+  // ambos textos de acá son cortos (nombres de categoría), así que la
+  // tabla DP es trivial en tamaño y no hace falta optimizarla.
+  function levenshteinDistance(a, b) {
+    const m = a.length;
+    const n = b.length;
+    if (m === 0) return n;
+    if (n === 0) return m;
+    const row = new Array(n + 1);
+    for (let j = 0; j <= n; j++) row[j] = j;
+    for (let i = 1; i <= m; i++) {
+      let prevDiag = row[0];
+      row[0] = i;
+      for (let j = 1; j <= n; j++) {
+        const tmp = row[j];
+        row[j] = Math.min(
+          row[j] + 1,
+          row[j - 1] + 1,
+          prevDiag + (a[i - 1] === b[j - 1] ? 0 : 1)
+        );
+        prevDiag = tmp;
+      }
+    }
+    return row[n];
+  }
+
+  // Menor puntaje = mejor coincidencia; null = ni siquiera tolerando
+  // errores de tipeo se parece lo suficiente como para sugerirlo.
+  function searchMatchScore(query, target) {
+    const q = normalizeSearchText(query);
+    const t = normalizeSearchText(target);
+    if (!q) return null;
+    if (t === q) return 0;
+    if (t.startsWith(q)) return 1;
+    const words = t.split(/\s+/);
+    if (words.some((w) => w.startsWith(q))) return 2;
+    if (t.includes(q)) return 3;
+    let best = Infinity;
+    for (const candidate of [t, ...words]) {
+      const d = levenshteinDistance(q, candidate);
+      if (d < best) best = d;
+    }
+    // Tolerancia proporcional al largo de lo escrito: con "tv" (2
+    // caracteres) un solo error ya cambia demasiado la palabra, pero con
+    // "audifonos" (9) sobran 2-3 errores para seguir siendo reconocible.
+    const tolerance = Math.max(1, Math.floor(q.length * 0.34));
+    return best <= tolerance ? 4 + best : null;
+  }
+
+  function buildSearchSuggestions(query) {
+    if (!state.data || !normalizeSearchText(query)) return [];
+    const pool = [];
+    state.data.categories.forEach((cat) => {
+      pool.push({ matchText: cat.name, label: cat.name, catLabel: null, catId: cat.id, subId: null, icon: cat.icon });
+      (cat.subcategories || []).forEach((sub) => {
+        pool.push({
+          matchText: sub.name,
+          label: sub.name,
+          catLabel: cat.name,
+          catId: cat.id,
+          subId: sub.id,
+          icon: sub.icon,
+        });
+      });
+    });
+    const scored = pool
+      .map((item) => ({ ...item, score: searchMatchScore(query, item.matchText) }))
+      .filter((item) => item.score !== null)
+      .sort((a, b) => a.score - b.score || a.matchText.length - b.matchText.length);
+    const seen = new Set();
+    const out = [];
+    for (const item of scored) {
+      const key = `${item.catId}|${item.subId || ""}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push(item);
+      if (out.length >= 8) break;
+    }
+    return out;
+  }
+
+  function hideSearchSuggestions() {
+    searchSuggestionItems = [];
+    searchActiveIndex = -1;
+    el.searchSuggestions.innerHTML = "";
+    el.searchSuggestions.classList.add("hidden");
+  }
+
+  function selectSearchSuggestion(item) {
+    el.searchInput.value = "";
+    hideSearchSuggestions();
+    goCategoryRanking(item.catId, item.subId);
+  }
+
+  function updateSearchActiveHighlight() {
+    el.searchSuggestions.querySelectorAll(".search-suggestion-item").forEach((node, i) => {
+      node.classList.toggle("active", i === searchActiveIndex);
+    });
+  }
+
+  function renderSearchSuggestions(items) {
+    searchSuggestionItems = items;
+    searchActiveIndex = -1;
+    if (!items.length) {
+      el.searchSuggestions.innerHTML = "";
+      el.searchSuggestions.classList.add("hidden");
+      return;
+    }
+    el.searchSuggestions.innerHTML = items
+      .map(
+        (it, i) => `
+      <div class="search-suggestion-item" data-index="${i}">
+        ${icon(it.icon, "search-suggestion-icon")}
+        <span>${htmlEscapeAttr(it.label)}${it.catLabel ? ` <span class="search-suggestion-cat">— ${htmlEscapeAttr(it.catLabel)}</span>` : ""}</span>
+      </div>
+    `
+      )
+      .join("");
+    el.searchSuggestions.classList.remove("hidden");
+    el.searchSuggestions.querySelectorAll(".search-suggestion-item").forEach((node) => {
+      // mousedown (no click): dispara antes que el blur del input, que si
+      // no se adelantara escondería el desplegable antes de registrar el clic.
+      node.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        selectSearchSuggestion(items[Number(node.dataset.index)]);
+      });
+    });
+  }
+
   // ---------- Eventos globales ----------
 
   function bindEvents() {
-    el.searchInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") goList({ query: el.searchInput.value.trim(), category: null });
+    el.searchInput.addEventListener("input", () => {
+      renderSearchSuggestions(buildSearchSuggestions(el.searchInput.value));
     });
-    el.searchBtn.addEventListener("click", () => goList({ query: el.searchInput.value.trim(), category: null }));
+    el.searchInput.addEventListener("focus", () => {
+      if (el.searchInput.value.trim()) renderSearchSuggestions(buildSearchSuggestions(el.searchInput.value));
+    });
+    el.searchInput.addEventListener("blur", () => setTimeout(hideSearchSuggestions, 120));
+    el.searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown" && searchSuggestionItems.length) {
+        e.preventDefault();
+        searchActiveIndex = Math.min(searchActiveIndex + 1, searchSuggestionItems.length - 1);
+        updateSearchActiveHighlight();
+        return;
+      }
+      if (e.key === "ArrowUp" && searchSuggestionItems.length) {
+        e.preventDefault();
+        searchActiveIndex = Math.max(searchActiveIndex - 1, -1);
+        updateSearchActiveHighlight();
+        return;
+      }
+      if (e.key === "Escape") {
+        hideSearchSuggestions();
+        return;
+      }
+      if (e.key === "Enter") {
+        if (searchActiveIndex >= 0 && searchSuggestionItems[searchActiveIndex]) {
+          e.preventDefault();
+          selectSearchSuggestion(searchSuggestionItems[searchActiveIndex]);
+          return;
+        }
+        hideSearchSuggestions();
+        goList({ query: el.searchInput.value.trim(), category: null });
+      }
+    });
+    el.searchBtn.addEventListener("click", () => {
+      hideSearchSuggestions();
+      goList({ query: el.searchInput.value.trim(), category: null });
+    });
 
     // Toggle global "Incluir envío": afecta el precio mostrado en toda la
     // app (inicio, lista, detalle), así que en vez de renderList() se
