@@ -38,6 +38,7 @@
     includeShipping: "comparamx_include_shipping",
     categoryClicks: "comparamx_category_clicks",
     productViews: "comparamx_product_views",
+    storeClicks: "comparamx_store_clicks",
   };
 
   // ---------- Precios en vivo desde APIs reales (desactivado por defecto) ----------
@@ -480,10 +481,27 @@
     return `<span class="commercial-badge" title="Equipo de uso comercial/industrial, no doméstico">🏭 Uso comercial</span>`;
   }
 
-  // Proxy de "popularidad" para el ranking de cada categoría: suma de
-  // reseñas entre todas las tiendas del producto.
-  function totalReviews(product) {
-    return product.offers.reduce((sum, o) => sum + (o.reviewCount || 0), 0);
+  // Puntaje de "popularidad" para el ranking de cada categoría, sumando
+  // señales reales (nunca inventadas):
+  //   - 3 puntos por cada clic real hacia la tienda en ESTE navegador
+  //     (trackStoreClick, botón "Ver oferta"/variantes de color)
+  //   - 1 punto por cada visita real a la ficha del producto en ESTE
+  //     navegador (trackProductView)
+  //   - 10/8/6 puntos por cada reseña real de 5/4/3 estrellas que tiene el
+  //     producto (reseñas propias del catálogo + las que este usuario
+  //     agregó localmente), 0 para 1-2 estrellas
+  // Clics y visitas son "lo que tú más visitaste" (un sitio estático sin
+  // backend no puede medir eso agregado de todos los visitantes, ver
+  // trackCategoryClick), pero las reseñas sí son un dato compartido real.
+  function reviewStarPoints(product) {
+    const STAR_POINTS = { 5: 10, 4: 8, 3: 6 };
+    const all = [...getUserReviews(product.id), ...(product.reviews || [])];
+    return all.reduce((sum, r) => sum + (STAR_POINTS[r.rating] || 0), 0);
+  }
+  function popularityScore(product) {
+    const clicks = readLS(LS_KEYS.storeClicks, {})[product.id] || 0;
+    const views = readLS(LS_KEYS.productViews, {})[product.id] || 0;
+    return clicks * 3 + views * 1 + reviewStarPoints(product);
   }
 
   // Descuento de la oferta más barata, si tiene listPrice (precio de lista)
@@ -795,6 +813,16 @@
       if (product) return { product, count }; // salta ids de productos ya eliminados del catálogo
     }
     return null;
+  }
+
+  // Clics reales hacia la tienda (botón "Ver oferta"/variantes de color en
+  // la tabla de ofertas), mismo principio honesto que trackProductView():
+  // solo cuenta lo que pasó en ESTE navegador.
+  function trackStoreClick(productId) {
+    if (!productId) return;
+    const counts = readLS(LS_KEYS.storeClicks, {});
+    counts[productId] = (counts[productId] || 0) + 1;
+    writeLS(LS_KEYS.storeClicks, counts);
   }
 
   function getFavorites() {
@@ -1187,10 +1215,10 @@
   }
 
   // Top N por el mismo criterio de "popularidad" que ya usa el resto del
-  // sitio (reseñas totales, ver totalReviews) -- no es un ranking de ventas
-  // reales, es el mismo proxy que ya se muestra como "más populares" en
-  // cualquier categoría, solo que acá se arma un resumen de 3 en 3 para la
-  // portada en vez de la lista completa paginada.
+  // sitio (ver popularityScore) -- no es un ranking de ventas reales, es el
+  // mismo puntaje que ya se muestra como "más populares" en cualquier
+  // categoría, solo que acá se arma un resumen de 3 en 3 para la portada
+  // en vez de la lista completa paginada.
   // Los usados se excluyen del ranking (a diferencia del listado normal,
   // donde siguen apareciendo y el usuario puede optar por ocultarlos con
   // "Excluir usados"): un ranking implica "esto es lo que vas a poder
@@ -1198,7 +1226,7 @@
   // -- para cuando otra persona lo vea, esa pieza en particular puede ya
   // no estar disponible, así que recomendarla como "top" es engañoso.
   function topByPopularity(products, n) {
-    return products.filter((p) => !isUsed(p)).sort((a, b) => totalReviews(b) - totalReviews(a)).slice(0, n);
+    return products.filter((p) => !isUsed(p)).sort((a, b) => popularityScore(b) - popularityScore(a)).slice(0, n);
   }
 
   // Resumen de rankings en Inicio, estilo Kakaku.com: un bloque general con
@@ -1296,7 +1324,7 @@
 
   function sortedProducts(products) {
     const list = products.slice();
-    if (state.sort === "popularity") list.sort((a, b) => totalReviews(b) - totalReviews(a));
+    if (state.sort === "popularity") list.sort((a, b) => popularityScore(b) - popularityScore(a));
     else if (state.sort === "price_asc") list.sort((a, b) => minPrice(a) - minPrice(b));
     else if (state.sort === "price_desc") list.sort((a, b) => minPrice(b) - minPrice(a));
     else if (state.sort === "rating_desc") list.sort((a, b) => aggregateRating(b).avg - aggregateRating(a).avg);
@@ -1975,7 +2003,7 @@
   // bestPrice/fastestDays se calculan sobre TODAS las ofertas (ambos grupos),
   // para que "MÁS BARATO"/"MÁS RÁPIDO" reflejen la comparación completa aunque
   // se muestren en tablas separadas.
-  function renderOfferRows(tbody, rows, bestPrice, fastestDays, recommendedStoreId) {
+  function renderOfferRows(tbody, rows, bestPrice, fastestDays, recommendedStoreId, productId) {
     tbody.innerHTML = "";
     rows.forEach((r) => {
       const tr = document.createElement("tr");
@@ -2122,12 +2150,13 @@
           <div class="buy-trust">🔒 Compra en el sitio real de la tienda</div>
         </td>
       `;
-      tr.querySelector(".buy-btn").onclick = () => window.open(r.url, "_blank");
+      tr.querySelector(".buy-btn").onclick = () => { trackStoreClick(productId); window.open(r.url, "_blank"); };
       tr.querySelectorAll(".variant-pill").forEach((btn) => {
         btn.onclick = (e) => {
           e.stopPropagation();
           tr.querySelectorAll(".variant-pill").forEach((b) => b.classList.remove("active"));
           btn.classList.add("active");
+          trackStoreClick(productId);
           window.open(btn.dataset.url, "_blank");
         };
       });
@@ -2196,8 +2225,8 @@
     const verifiedRows = rows.filter((r) => r.verified);
     const referenceRows = rows.filter((r) => !r.verified);
 
-    renderOfferRows(el.offerRowsVerified, verifiedRows, bestPrice, fastestDays, recommendedStoreId);
-    renderOfferRows(el.offerRowsReference, referenceRows, bestPrice, fastestDays, recommendedStoreId);
+    renderOfferRows(el.offerRowsVerified, verifiedRows, bestPrice, fastestDays, recommendedStoreId, product.id);
+    renderOfferRows(el.offerRowsReference, referenceRows, bestPrice, fastestDays, recommendedStoreId, product.id);
     // Hoy ninguna tienda tiene API en vivo conectada, así que el grupo
     // "verificados" saldría vacío en el 100% de las fichas: una tabla con
     // sus 6 encabezados y ni una fila se lee como si el sitio estuviera

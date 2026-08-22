@@ -296,13 +296,21 @@ a { color: inherit; text-decoration: none; }
   /* Ancho por proporción con un piso fijo en vez de un ancho fijo puro: el
      panel de filtros gana algo de aire en pantallas medianas/grandes (hasta
      los 1120px del .container) en vez de quedarse siempre en los mismos
-     220px mientras el resto del layout sí respira más. */
-  grid-template-columns: minmax(220px, 22%) 1fr;
+     220px mientras el resto del layout sí respira más. Tercera columna
+     (filtro de Categoría) aprovecha el espacio vacío que quedaba a la
+     derecha de la lista en pantallas anchas -- la lista central se achica
+     un poco (1fr compartido) para hacerle lugar. */
+  grid-template-columns: minmax(220px, 22%) 1fr minmax(180px, 18%);
   gap: 24px;
   padding-bottom: 40px;
 }
+@media (max-width: 980px) {
+  .list-layout { grid-template-columns: minmax(220px, 22%) 1fr; }
+  .filters-category { grid-column: 1 / -1; }
+}
 @media (max-width: 760px) {
   .list-layout { grid-template-columns: 1fr; }
+  .filters-category { grid-column: auto; }
 }
 
 .filters {
@@ -1376,8 +1384,8 @@ a { color: inherit; text-decoration: none; }
   min-width: 0;
   padding: 20px 6px 6px;
   margin: 4px 0 18px;
-  border: 2px solid #ffb3b3;
-  background: #ffb3b3;
+  border: 2px solid #f0e4e4;
+  background: #f5eeee;
 }
 .home-category-tab {
   position: absolute;
