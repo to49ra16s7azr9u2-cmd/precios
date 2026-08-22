@@ -267,6 +267,8 @@
     mapModalClose: document.getElementById("mapModalClose"),
     metroTabs: document.getElementById("metroTabs"),
     regionChips: document.getElementById("regionChips"),
+
+    backToTopBtn: document.getElementById("backToTopBtn"),
   };
 
   let map = null;
@@ -2518,6 +2520,22 @@
     });
 
     window.addEventListener("hashchange", onHashChange);
+
+    // Botón "volver arriba": aparece recién después de bajar un poco (no
+    // tiene sentido mostrarlo ya arriba del todo) y queda fijo en la misma
+    // esquina de la pantalla (position:fixed en CSS) sin importar cuánto
+    // se baje, en vez de moverse con el contenido de la página.
+    const BACK_TO_TOP_THRESHOLD = 400;
+    window.addEventListener(
+      "scroll",
+      () => {
+        el.backToTopBtn.classList.toggle("is-hidden", window.scrollY < BACK_TO_TOP_THRESHOLD);
+      },
+      { passive: true }
+    );
+    el.backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   }
 
   async function main() {
