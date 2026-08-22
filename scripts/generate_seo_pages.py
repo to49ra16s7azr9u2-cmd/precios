@@ -154,7 +154,7 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 </main>
 <footer class="site-footer">
   <div class="container">
-    ComparaMX — comparador de precios estilo Kakaku.com para México (colores inspirados en Mercari). Proyecto de demostración (MVP), sin afiliación con las tiendas listadas.
+    ComparaMX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Proyecto de demostración (MVP), sin afiliación con las tiendas listadas.
   </div>
 </footer>
 </body>
