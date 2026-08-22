@@ -198,7 +198,6 @@
     viewHome: document.getElementById("viewHome"),
     homeCategoryGrid: document.getElementById("homeCategoryGrid"),
     homeTopCategoriesList: document.getElementById("homeTopCategoriesList"),
-    homeCategoryNavList: document.getElementById("homeCategoryNavList"),
     homeRankings: document.getElementById("homeRankings"),
     homeMostViewed: document.getElementById("homeMostViewed"),
 
@@ -1170,7 +1169,6 @@
     });
 
     renderHomeTopCategories();
-    renderHomeCategoryNav();
     renderHomeRankings();
     renderHomeMostViewed();
   }
@@ -1233,31 +1231,20 @@
       item.className = "home-top-category-item";
       item.innerHTML = `
         <span class="home-top-category-rank">${i + 1}</span>
-        <span class="home-top-category-name">${icon(cat.icon, "cat-item-icon")} ${cat.name}</span>
+        <span class="home-top-category-photo"></span>
+        <span class="home-top-category-name">${cat.name}</span>
         <span class="home-top-category-count">${plural(count, "clic", "clics")}</span>
       `;
+      // Foto del #2 en popularidad de la categoría (no el #1: esa ya es la
+      // que se ve en la tarjeta de categoría de más arriba en la misma
+      // página -- repetirla acá se vería como que el panel no cargó una
+      // foto distinta). Si la categoría no llega a tener un segundo
+      // producto, renderProductMedia cae sola a la ilustración.
+      const categoryProducts = state.data.products.filter((p) => p.category === cat.id);
+      const second = topByPopularity(categoryProducts, 2)[1];
+      if (second) renderProductMedia(item.querySelector(".home-top-category-photo"), second);
       item.onclick = () => goCategoryRanking(cat.id);
       el.homeTopCategoriesList.appendChild(item);
-    });
-  }
-
-  // Lista de navegación rápida por categoría, mismo estilo que el panel
-  // "Categoría" de la vista de lista (ver #filterCategory) pero acá lleva
-  // directo al ranking de cada categoría en vez de filtrar -- ocupa el
-  // espacio que quedaba vacío debajo del Top 5 en pantallas anchas.
-  function renderHomeCategoryNav() {
-    el.homeCategoryNavList.innerHTML = "";
-    state.data.categories.forEach((cat) => {
-      const count = state.data.products.filter((p) => p.category === cat.id).length;
-      const item = document.createElement("button");
-      item.type = "button";
-      item.className = "home-top-category-item";
-      item.innerHTML = `
-        <span class="home-top-category-name">${icon(cat.icon, "cat-item-icon")} ${cat.name}</span>
-        <span class="home-top-category-count">${plural(count, "producto", "productos")}</span>
-      `;
-      item.onclick = () => goCategoryRanking(cat.id);
-      el.homeCategoryNavList.appendChild(item);
     });
   }
 

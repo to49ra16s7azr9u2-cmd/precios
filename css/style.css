@@ -1360,6 +1360,19 @@ a { color: inherit; text-decoration: none; }
 }
 .home-top-category-name { flex: 1; font-size: 13px; font-weight: 600; }
 .home-top-category-count { font-size: 11px; color: var(--muted); flex-shrink: 0; }
+/* Foto del #2 en popularidad de esa categoría (ver renderHomeTopCategories):
+   mismo contenedor que usa renderProductMedia en el resto del sitio, solo
+   que chico para caber en la fila del Top 5. */
+.home-top-category-photo {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg);
+  flex-shrink: 0;
+}
+.home-top-category-photo .icon { width: 16px; height: 16px; color: var(--muted); }
+.home-top-category-photo.has-photo { background: #fff; border: 1px solid var(--border); }
 /* Sin historial de clics todavía (navegador nuevo): se avisa en vez de
    dejar el panel vacío sin explicación, y nunca se rellena con datos que
    no sean clics reales -- no hay tráfico agregado de otros usuarios que
@@ -1422,9 +1435,9 @@ a { color: inherit; text-decoration: none; }
 }
 /* Borde solo alrededor de las categorías de Inicio (no las de /marcas,
    que reusan la misma .category-card-grid) -- pegado a las tarjetas
-   (padding chico), esquinas rectas (sin border-radius, a diferencia del
-   resto de las tarjetas del sitio) y en un rojo más claro que --red, para
-   que se note sin pesar tanto como el rojo de marca a pantalla completa.
+   (padding chico), esquinas redondeadas como el resto de las tarjetas
+   del sitio, y en un rojo más claro que --red, para que se note sin
+   pesar tanto como el rojo de marca a pantalla completa.
    El wrapper (no el grid mismo) lleva el borde porque necesita
    position:relative para la pestaña "Categorías" que se le monta encima
    -- el grid se limpia y reconstruye en cada render (innerHTML = ""), así
@@ -1436,6 +1449,7 @@ a { color: inherit; text-decoration: none; }
   padding: 20px 6px 6px;
   margin: 4px 0 18px;
   border: 2px solid #f0e4e4;
+  border-radius: var(--radius);
   background: #f5eeee;
 }
 .home-category-tab {
@@ -1447,6 +1461,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 12px;
   font-weight: 700;
   padding: 4px 14px;
+  border-radius: 6px;
 }
 #homeCategoryGrid { padding: 0; margin: 0; }
 .category-card {
