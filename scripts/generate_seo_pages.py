@@ -38,8 +38,21 @@ import unicodedata
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PATH = os.path.join(ROOT, "data", "data.json")
+ICONS_PATH = os.path.join(ROOT, "data", "icons.json")
 
 SITE_URL = "https://to49ra16s7azr9u2-cmd.github.io/precios"
+
+with open(ICONS_PATH, encoding="utf-8") as f:
+    ICONS = json.load(f)
+
+
+def svg_icon(key, cls=""):
+    """Ilustración SVG en línea (data/icons.json), en vez de emoji, para que
+    estas páginas estáticas usen el mismo set de iconos que la SPA (ver
+    icon() en js/app.js)."""
+    inner = ICONS.get(key) or ICONS["box"]
+    css_class = f" {cls}" if cls else ""
+    return f'<svg class="icon{css_class}" viewBox="0 0 24 24" aria-hidden="true">{inner}</svg>'
 
 STORE_ORDER_NOTE = (
     "Los precios de esta página son de referencia para propósitos de "
@@ -279,7 +292,7 @@ def render_product_page(product, data):
                 for v in variants
             )
             variants_html = (
-                f'<div class="variant-pills"><span class="variant-pills-label">🎨 {len(variants) + 1} variantes:</span>'
+                f'<div class="variant-pills"><span class="variant-pills-label">{svg_icon("palette")} {len(variants) + 1} variantes:</span>'
                 f'<a class="variant-pill active" href="{o["url"]}" target="_blank" rel="nofollow noopener">'
                 f'<img src="{o["photo"]}" alt="" loading="lazy"><span>Esta</span></a>{pills}</div>'
             )
@@ -291,7 +304,7 @@ def render_product_page(product, data):
             '<span class="wholesale-badge" title="Alibaba es una plataforma mayorista: '
             "este producto puede tener un pedido mínimo (MOQ) mayor a 1 unidad. Verifica "
             'la cantidad mínima en la página del producto antes de comprar.">'
-            "⚠️ Posible pedido mínimo</span>"
+            + svg_icon("alert-triangle") + " Posible pedido mínimo</span>"
         ) if o["storeId"] == "alibaba" else ""
         table_rows.append(
             f'<tr><td><span class="store-badge">{dot} {html_escape(store["name"])}</span>{wholesale_html}{variants_html}</td>'
@@ -325,7 +338,7 @@ def render_product_page(product, data):
     related = related_products(product, data["products"])
     related_items = "".join(
         f'<a class="related-item" href="../../producto/{r["id"]}/index.html">'
-        f'<span class="row-icon">{r.get("image", "📦")}</span>'
+        f'<span class="row-icon">{svg_icon(r.get("image", "box"))}</span>'
         f'<span class="related-name">{html_escape(r["name"])}</span>'
         f'<span class="related-price">{"Desde " if len(r["offers"]) > 1 else ""}{money(min_price(r))}</span>'
         f"</a>"
@@ -349,10 +362,10 @@ def render_product_page(product, data):
   {html_escape(product['name'])}
 </nav>
 <div class="detail-head">
-  <div class="detail-icon" style="font-size:56px">{product.get('image', '📦')}</div>
+  <div class="detail-icon">{svg_icon(product.get('image', 'box'))}</div>
   <div class="detail-headinfo">
     <p class="muted small">{html_escape(product['brand'])}</p>
-    <h1>{html_escape(product['name'])}{f'<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>' if is_used(product) else ''}</h1>
+    <h1>{html_escape(product['name'])}{f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>' if is_used(product) else ''}</h1>
     <p class="detail-rating">{f'{avg} / 5 ({plural(count, "calificación", "calificaciones")})' if count else 'Sin calificaciones todavía'}</p>
     <p class="detail-fromprice">{'Desde ' if n_stores > 1 else ''}<strong>{money(price)}</strong> en {plural(n_stores, "tienda", "tiendas")}</p>
   </div>
@@ -415,15 +428,15 @@ def render_category_page(cat, products, data):
     shown = ranked[:STATIC_LIST_CAP]
     rows = []
     for i, p in enumerate(shown, start=1):
-        rank_badge = "👑" if i == 1 else str(i)
+        rank_badge = svg_icon("crown") if i == 1 else str(i)
         rank_class = f" rank-{i}" if 2 <= i <= 4 else ""
         variant_count = max([len(o.get("variants") or []) for o in p["offers"]], default=0)
-        variant_badge = f'<span class="variant-count-badge" title="También disponible en otros colores/tallas">🎨 +{variant_count}</span>' if variant_count else ""
-        used_badge = f'<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>' if is_used(p) else ""
+        variant_badge = f'<span class="variant-count-badge" title="También disponible en otros colores/tallas">{svg_icon("palette")} +{variant_count}</span>' if variant_count else ""
+        used_badge = f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>' if is_used(p) else ""
         rows.append(
             f'<div class="product-row has-rank{rank_class}">'
             f'<span class="rank-badge">{rank_badge}</span>'
-            f'<span class="row-icon">{p.get("image", "📦")}</span>'
+            f'<span class="row-icon">{svg_icon(p.get("image", "box"))}</span>'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
             f'<div class="row-name"><a href="../../producto/{p["id"]}/index.html">{html_escape(p["name"])}</a>{used_badge}{variant_badge}</div>'
@@ -441,7 +454,7 @@ def render_category_page(cat, products, data):
     )
     body = f"""
 <nav class="breadcrumb"><a href="../../index.html">Inicio</a> &gt; {html_escape(cat['name'])}</nav>
-<div class="list-head"><h1>🏆 {html_escape(cat['name'])} — más populares ({len(products)})</h1></div>
+<div class="list-head"><h1>{svg_icon("trophy")} {html_escape(cat['name'])} — más populares ({len(products)})</h1></div>
 <div class="product-list">{''.join(rows)}</div>
 <div class="panel" style="text-align:center; margin-top:20px">
   <a class="buy-btn" href="../../index.html#/list?cat={cat['id']}">Ver con filtros interactivos →</a>

@@ -166,6 +166,7 @@
 
   const state = {
     data: null,
+    icons: null, // set de ilustraciones SVG (data/icons.json) que reemplaza a los emoji en todo el sitio
     selectedMetro: null,
     selectedRegion: null, // null hasta que el usuario elige un municipio en el mapa
     query: "",
@@ -466,10 +467,10 @@
     const c = (product.specs || []).find((s) => s.label === "Condición");
     if (!c) return "";
     if (/reacondicionad/i.test(c.value)) {
-      return `<span class="used-badge" title="Reacondicionado por Mercado Libre, con garantía del vendedor">♻️ Reacondicionado</span>`;
+      return `<span class="used-badge" title="Reacondicionado por Mercado Libre, con garantía del vendedor">${icon("recycle")} Reacondicionado</span>`;
     }
     if (/preowned|usado/i.test(c.value)) {
-      return `<span class="used-badge" title="Producto usado/preowned">🔄 Usado</span>`;
+      return `<span class="used-badge" title="Producto usado/preowned">${icon("rotate")} Usado</span>`;
     }
     return "";
   }
@@ -481,7 +482,7 @@
   function usageBadge(product) {
     const u = (product.specs || []).find((s) => s.label === "Uso");
     if (!u || !/comercial|industrial/i.test(u.value)) return "";
-    return `<span class="commercial-badge" title="Equipo de uso comercial/industrial, no doméstico">🏭 Uso comercial</span>`;
+    return `<span class="commercial-badge" title="Equipo de uso comercial/industrial, no doméstico">${icon("factory")} Uso comercial</span>`;
   }
 
   // Puntaje de "popularidad" para el ranking de cada categoría, sumando
@@ -652,27 +653,30 @@
   // Pinta la imagen de un producto dentro de `container`.
   //
   // El catálogo local NO trae fotos: no hay una fuente propia con derechos
-  // para las fotos de producto, así que por defecto se ve un emoji. Cuando
-  // hay una API conectada (hoy solo Mercado Libre), la foto real llega en la
-  // respuesta y se guarda en product.photo; entonces se muestra esa.
+  // para las fotos de producto, así que por defecto se ve una ilustración
+  // de la categoría (ver data/icons.json, product.image guarda la clave).
+  // Cuando hay una API conectada (hoy solo Mercado Libre), la foto real
+  // llega en la respuesta y se guarda en product.photo; entonces se
+  // muestra esa.
   //
   // Si la URL falla (enlace roto, caída del CDN, bloqueo de hotlinking), el
-  // onerror vuelve al emoji en vez de dejar el icono de imagen rota.
-  // Reintentos con backoff antes de caer al emoji: probando en serio contra
-  // el catálogo real, la gran mayoría de las fotos de AliExpress (y del
-  // resto de las tiendas) cargan bien -- pero bajo carga alta (muchas fotos
-  // del mismo CDN pidiéndose a la vez, que es justo lo que pasa al abrir
-  // una lista de 60 productos) una fracción falla de forma transitoria y
-  // sí carga bien si se reintenta unos segundos después. Antes cualquier
-  // fallo, transitorio o no, se rendía al emoji para siempre sin reintentar.
+  // onerror vuelve a la ilustración en vez de dejar el icono de imagen rota.
+  // Reintentos con backoff antes de caer a la ilustración: probando en serio
+  // contra el catálogo real, la gran mayoría de las fotos de AliExpress (y
+  // del resto de las tiendas) cargan bien -- pero bajo carga alta (muchas
+  // fotos del mismo CDN pidiéndose a la vez, que es justo lo que pasa al
+  // abrir una lista de 60 productos) una fracción falla de forma transitoria
+  // y sí carga bien si se reintenta unos segundos después. Antes cualquier
+  // fallo, transitorio o no, se rendía a la ilustración para siempre sin
+  // reintentar.
   const IMG_MAX_RETRIES = 2;
   const IMG_RETRY_DELAY_MS = 900;
 
   function renderProductMedia(container, product, variant) {
     if (!container) return;
-    const emoji = product.image || "📦";
+    const iconKey = product.image || "box";
     if (!product.photo) {
-      container.textContent = emoji;
+      container.innerHTML = icon(iconKey, "product-placeholder-icon");
       container.classList.remove("has-photo");
       return;
     }
@@ -701,7 +705,7 @@
           setTimeout(attach, IMG_RETRY_DELAY_MS * attempt);
         } else {
           container.classList.remove("has-photo");
-          container.textContent = emoji;
+          container.innerHTML = icon(iconKey, "product-placeholder-icon");
         }
       };
       container.textContent = "";
@@ -900,6 +904,25 @@
     } catch {
       state.brandsData = { brands: [] };
     }
+    // Set de iconos ilustrados (SVG en línea) usado en vez de emoji en todo
+    // el sitio; si falla, ICON_FALLBACK cubre cualquier clave pedida.
+    try {
+      const res3 = await fetch("data/icons.json");
+      state.icons = await res3.json();
+    } catch {
+      state.icons = {};
+    }
+  }
+
+  // Markup SVG de línea para un box de 24x24 si el set de iconos no cargó.
+  const ICON_FALLBACK = '<rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/>';
+
+  // Devuelve el <svg> en línea para `key` (clave de data/icons.json). Se usa
+  // en vez de emoji en toda la interfaz: mismo trazo/color en cualquier
+  // sistema operativo, en vez de depender de la fuente de emoji instalada.
+  function icon(key, cls) {
+    const inner = (state.icons && state.icons[key]) || ICON_FALLBACK;
+    return `<svg class="icon${cls ? " " + cls : ""}" viewBox="0 0 24 24" aria-hidden="true">${inner}</svg>`;
   }
 
   // ---------- Navegación entre vistas ----------
@@ -1037,7 +1060,7 @@
       item.className = "cat-item";
 
       const label = document.createElement("span");
-      label.textContent = `${c.icon} ${c.name}${hasSub ? " ▾" : ""}`;
+      label.innerHTML = `${icon(c.icon, "cat-item-icon")} ${c.name}${hasSub ? " ▾" : ""}`;
       const isActive = location.hash === "#/list" && state.category === c.id && !state.subcategory;
       label.className = isActive ? "active" : "";
       label.onclick = () => goCategoryRanking(c.id);
@@ -1048,7 +1071,7 @@
         submenu.className = "cat-submenu";
         c.subcategories.forEach((s) => {
           const link = document.createElement("a");
-          link.textContent = `${s.icon} ${s.name}`;
+          link.innerHTML = `${icon(s.icon, "cat-item-icon")} ${s.name}`;
           const subActive =
             location.hash === "#/list" && state.category === c.id && state.subcategory === s.id;
           link.className = subActive ? "active" : "";
@@ -1101,7 +1124,7 @@
     allCard.type = "button";
     allCard.className = "category-card";
     allCard.innerHTML = `
-      <span class="category-card-icon category-card-icon--photo">🗂️</span>
+      <span class="category-card-icon category-card-icon--photo">${icon("shopping-bag")}</span>
       <span class="category-card-name">Todas</span>
       <span class="category-card-count">${state.data.products.length} productos</span>
     `;
@@ -1140,7 +1163,7 @@
         // cae a la ilustración subida a mano, si la categoría tiene una.
         iconEl.innerHTML = `<img src="${htmlEscapeAttr(cat.iconImage)}" alt="">`;
       } else {
-        iconEl.textContent = cat.icon;
+        iconEl.innerHTML = icon(cat.icon);
       }
       card.onclick = () => goCategoryRanking(cat.id);
       el.homeCategoryGrid.appendChild(card);
@@ -1210,7 +1233,7 @@
       item.className = "home-top-category-item";
       item.innerHTML = `
         <span class="home-top-category-rank">${i + 1}</span>
-        <span class="home-top-category-name">${cat.icon} ${cat.name}</span>
+        <span class="home-top-category-name">${icon(cat.icon, "cat-item-icon")} ${cat.name}</span>
         <span class="home-top-category-count">${plural(count, "clic", "clics")}</span>
       `;
       item.onclick = () => goCategoryRanking(cat.id);
@@ -1230,7 +1253,7 @@
       item.type = "button";
       item.className = "home-top-category-item";
       item.innerHTML = `
-        <span class="home-top-category-name">${cat.icon} ${cat.name}</span>
+        <span class="home-top-category-name">${icon(cat.icon, "cat-item-icon")} ${cat.name}</span>
         <span class="home-top-category-count">${plural(count, "producto", "productos")}</span>
       `;
       item.onclick = () => goCategoryRanking(cat.id);
@@ -1269,9 +1292,9 @@
       .slice(0, 3);
 
     const blocks = [
-      { title: "🏆 Ranking general ComparaMX", products: state.data.products, onMore: () => { state.sort = "popularity"; goList({ category: null, query: "" }); } },
+      { title: `${icon("trophy")} Ranking general ComparaMX`, products: state.data.products, onMore: () => { state.sort = "popularity"; goList({ category: null, query: "" }); } },
       ...topCategories.map(({ cat }) => ({
-        title: `${cat.icon} ${cat.name} — ranking`,
+        title: `${icon(cat.icon, "cat-item-icon")} ${cat.name} — ranking`,
         products: state.data.products.filter((p) => p.category === cat.id),
         onMore: () => goCategoryRanking(cat.id),
       })),
@@ -1493,7 +1516,7 @@
       const liveShipEstimated = state.includeShipping && !item.shippingFree;
       const livePrice = item.price + (liveShipEstimated ? SHIPPING_ESTIMATE_MXN.mercadolibre : 0);
       row.innerHTML = `
-        <span class="row-icon">🔎</span>
+        <span class="row-icon">${icon("search")}</span>
         <div class="row-info">
           <div class="row-brand">Mercado Libre</div>
           <div class="row-name">${htmlEscapeAttr(item.title)}</div>
@@ -1501,13 +1524,13 @@
         </div>
         <div class="row-priceblock">
           <div class="row-price">${money(livePrice)}</div>
-          ${liveShipEstimated ? '<span class="shipping-estimate-note">🔶 envío estimado incluido</span>' : ""}
+          ${liveShipEstimated ? `<span class="shipping-estimate-note">${icon("alert-triangle")} envío estimado incluido</span>` : ""}
           <div class="row-external-badge">Ver en Mercado Libre ↗</div>
         </div>
       `;
       // Los resultados en vivo sí traen foto real de la tienda; si no viene,
       // se queda la lupa como marcador.
-      renderProductMedia(row.querySelector(".row-icon"), { photo: item.photo, image: "🔎", name: item.title });
+      renderProductMedia(row.querySelector(".row-icon"), { photo: item.photo, image: "search", name: item.title });
       row.onclick = () => window.open(item.url, "_blank");
       el.liveSearchResults.appendChild(row);
     });
@@ -1534,11 +1557,11 @@
       const rankClass = opts.medals && rank >= 2 && rank <= 4 ? ` rank-${rank}` : "";
       row.className = "product-row" + (opts.withRank ? " has-rank" + rankClass : "");
       row.innerHTML = `
-        ${opts.withRank ? `<span class="rank-badge">${opts.medals && rank === 1 ? "👑" : rank}</span>` : ""}
-        <span class="row-icon">${p.image}</span>
+        ${opts.withRank ? `<span class="rank-badge">${opts.medals && rank === 1 ? icon("crown") : rank}</span>` : ""}
+        <span class="row-icon"></span>
         <div class="row-info">
           <div class="row-brand">${p.brand}</div>
-          <div class="row-name">${p.name}${usedBadge}${commercialBadge}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">🎨 +${variantCount}</span>` : ""}</div>
+          <div class="row-name">${p.name}${usedBadge}${commercialBadge}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">${icon("palette")} +${variantCount}</span>` : ""}</div>
           ${
             // Sin reseñas propias todavía, la fila mostraba "☆☆☆☆☆ 0.0 (0)"
             // en los 16 mil productos: 60 veces por página de puro ruido que
@@ -1556,7 +1579,7 @@
         <div class="row-priceblock">
           ${offerCount(p) > 1 ? `<div class="row-from">Desde</div>` : ""}
           <div class="row-price">${money(minPrice(p))}${bestDiscountPct(p) ? `<span class="discount-badge">-${bestDiscountPct(p)}%</span>` : ""}</div>
-          ${cheapestOfferShippingEstimated(p) ? '<span class="shipping-estimate-note">🔶 envío estimado incluido</span>' : ""}
+          ${cheapestOfferShippingEstimated(p) ? `<span class="shipping-estimate-note">${icon("alert-triangle")} envío estimado incluido</span>` : ""}
           <div class="row-stores">${plural(offerCount(p), "tienda", "tiendas")}</div>
         </div>
         <button class="row-fav-btn" aria-label="Favorito"></button>
@@ -1587,7 +1610,7 @@
       const isActive = state.category === c.id;
       const opt = document.createElement("label");
       opt.className = "filter-option" + (isActive && !state.subcategory ? " active" : "");
-      opt.innerHTML = `<input type="radio" name="fcat" ${isActive && !state.subcategory ? "checked" : ""}> ${c.icon} ${c.name}`;
+      opt.innerHTML = `<input type="radio" name="fcat" ${isActive && !state.subcategory ? "checked" : ""}> ${icon(c.icon, "cat-item-icon")} ${c.name}`;
       opt.onclick = () => {
         state.category = c.id;
         state.subcategory = null;
@@ -1605,7 +1628,7 @@
           const subActive = state.subcategory === s.id;
           const subOpt = document.createElement("label");
           subOpt.className = "filter-option filter-suboption" + (subActive ? " active" : "");
-          subOpt.innerHTML = `<input type="radio" name="fcat" ${subActive ? "checked" : ""}> ${s.icon} ${s.name}`;
+          subOpt.innerHTML = `<input type="radio" name="fcat" ${subActive ? "checked" : ""}> ${icon(s.icon, "cat-item-icon")} ${s.name}`;
           subOpt.onclick = () => {
             state.subcategory = s.id;
             renderList();
@@ -1785,7 +1808,7 @@
     const favIds = getFavorites();
     const products = state.data.products.filter((p) => favIds.includes(p.id));
     renderProductListInto(el.favoritesList, products, {
-      emptyText: "Aún no tienes favoritos. Toca el corazón 🤍 en cualquier producto para guardarlo aquí.",
+      emptyText: "Aún no tienes favoritos. Toca el corazón en cualquier producto para guardarlo aquí.",
       onFavToggle: renderFavorites,
     });
   }
@@ -1803,15 +1826,15 @@
     "Joyería y relojes": "icons/categories/joyeria-relojes.png",
     "Finanzas": "icons/categories/finanzas.png",
   };
-  const CATEGORY_EMOJI_FALLBACK = {
-    "Compras generales": "🛍️",
-    "Belleza": "💄",
-    "Viajes": "✈️",
-    "Educación": "🎓",
-    "Software e IA": "🤖",
-    "Hosting y dominios": "🌐",
-    "Otros": "📦",
-    "Salud y bienestar": "🌿",
+  const CATEGORY_ICON_FALLBACK = {
+    "Compras generales": "shopping-bag",
+    "Belleza": "sparkle",
+    "Viajes": "plane",
+    "Educación": "graduation-cap",
+    "Software e IA": "robot",
+    "Hosting y dominios": "server",
+    "Otros": "box",
+    "Salud y bienestar": "leaf",
   };
 
   function brandCategories() {
@@ -1822,7 +1845,7 @@
   function categoryCardIconHtml(cat) {
     const photo = CATEGORY_ICONS[cat];
     if (photo) return `<img src="${photo}" alt="" loading="lazy">`;
-    return CATEGORY_EMOJI_FALLBACK[cat] || "🏷️";
+    return icon(CATEGORY_ICON_FALLBACK[cat] || "tag");
   }
 
   function renderBrandCategoryFilter() {
@@ -1833,7 +1856,7 @@
     allCard.type = "button";
     allCard.className = "category-card" + (!state.brandCategory ? " active" : "");
     allCard.innerHTML = `
-      <span class="category-card-icon">🛍️</span>
+      <span class="category-card-icon">${icon("shopping-bag")}</span>
       <span class="category-card-name">Todas</span>
       <span class="category-card-count">${all.length}</span>
     `;
@@ -1949,7 +1972,7 @@
     el.detailFromPrice.innerHTML = `
       ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}
       ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
-      ${cheapestOfferShippingEstimated(product) ? '<span class="shipping-estimate-note">🔶 incluye envío estimado (ver tabla de abajo)</span>' : ""}
+      ${cheapestOfferShippingEstimated(product) ? `<span class="shipping-estimate-note">${icon("alert-triangle")} incluye envío estimado (ver tabla de abajo)</span>` : ""}
     `;
 
     el.specTable.innerHTML = product.specs
@@ -2063,9 +2086,9 @@
         : qualifiesFreeShipping
         ? `<span class="ship-badge" title="${htmlEscapeAttr(`Según la política pública de ${r.store.name}: envío gratis en compras de $${threshold}+ USD, y este producto ($${priceUSD} USD) sí alcanza el mínimo.`)}">Envío gratis</span>`
         : r.shipEstimateFee != null
-        ? `${money(r.shipEstimateFee)} <span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">🔶 estimado</span>`
+        ? `${money(r.shipEstimateFee)} <span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">${icon("alert-triangle")} estimado</span>`
         : !r.store.hubRegion
-        ? `<span class="ship-badge ship-badge-intl" title="${htmlEscapeAttr(intlTooltip)}">🌍 Envío internacional</span>`
+        ? `<span class="ship-badge ship-badge-intl" title="${htmlEscapeAttr(intlTooltip)}">${icon("globe")} Envío internacional</span>`
         : "—";
       // Texto corto de envío para mostrar junto a la entrega, en el momento
       // en que el usuario elige su municipio en el mapa (no solo en la
@@ -2083,7 +2106,7 @@
         // todavía, a diferencia del precio) — se marca igual que los
         // precios "de referencia", para no dar a entender que es un dato
         // confirmado con la tienda.
-        deliveryHtml = `<div class="delivery-sub ${d.cls}">${d.text}${r.days === fastestDays ? '<span class="best-tag">MÁS RÁPIDO</span>' : ""}${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Estimado por distancia, no confirmado con la tienda">🔶 estimado</span></div>`;
+        deliveryHtml = `<div class="delivery-sub ${d.cls}">${d.text}${r.days === fastestDays ? '<span class="best-tag">MÁS RÁPIDO</span>' : ""}${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Estimado por distancia, no confirmado con la tienda">${icon("alert-triangle")} estimado</span></div>`;
       } else if (r.store.typicalShippingDays) {
         // Mismo hueco que el de "Envío": sin hubRegion nunca se calcula un
         // estimado por distancia, así que esta celda se quedaba vacía en el
@@ -2091,7 +2114,7 @@
         // publicado en la página de envíos de cada tienda (investigado por
         // tienda, no inventado) en vez de dejarla en blanco.
         const [lo, hi] = r.store.typicalShippingDays;
-        deliveryHtml = `<div class="delivery-sub">Entrega en ${lo}–${hi} días${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Rango típico publicado por la tienda para envío internacional, no una estimación por distancia ni un dato confirmado por pedido">🔶 estimado</span></div>`;
+        deliveryHtml = `<div class="delivery-sub">Entrega en ${lo}–${hi} días${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Rango típico publicado por la tienda para envío internacional, no una estimación por distancia ni un dato confirmado por pedido">${icon("alert-triangle")} estimado</span></div>`;
       }
       const stockInfo = STOCK_INFO[r.stock] || null;
       // r.price/r.listPrice ya vienen ajustados por displayPrice()/
@@ -2110,7 +2133,7 @@
       // (ver shippingIsEstimated()), se avisa para que no se lea como el
       // costo real exacto.
       const shipEstimateNote = r.shipEstimated
-        ? '<span class="shipping-estimate-note">🔶 incluye envío estimado</span>'
+        ? `<span class="shipping-estimate-note">${icon("alert-triangle")} incluye envío estimado</span>`
         : "";
       const pointsHtml = r.points == null ? "—" : `${r.points}%`;
       const ratingHtml = r.rating == null ? "—" : `${starsHtml(r.rating)} <span class="rc">${r.rating.toFixed(1)}</span>`;
@@ -2130,7 +2153,7 @@
       // de un vistazo, no solo se lea en texto.
       const variantsHtml = r.variants && r.variants.length
         ? `<div class="variant-pills" title="También disponible en otras variantes">
-            <span class="variant-pills-label">🎨 ${r.variants.length + 1} variantes:</span>
+            <span class="variant-pills-label">${icon("palette")} ${r.variants.length + 1} variantes:</span>
             ${[{ label: "Esta", url: r.url, photo: r.photo }, ...r.variants].map(
               (v, i) => `<button class="variant-pill${i === 0 ? " active" : ""}" data-url="${htmlEscapeAttr(v.url)}">${v.photo ? `<img src="${htmlEscapeAttr(v.photo)}" alt="" loading="lazy">` : ""}<span>${htmlEscapeAttr(v.label)}</span></button>`
             ).join("")}
@@ -2146,7 +2169,7 @@
       // en todas las ofertas de Alibaba, no solo en esa fracción detectable
       // por palabra clave.
       const wholesaleHtml = r.storeId === "alibaba"
-        ? `<span class="wholesale-badge" title="Alibaba es una plataforma mayorista: este producto puede tener un pedido mínimo (MOQ) mayor a 1 unidad. Verifica la cantidad mínima en la página del producto antes de comprar.">⚠️ Posible pedido mínimo</span>`
+        ? `<span class="wholesale-badge" title="Alibaba es una plataforma mayorista: este producto puede tener un pedido mínimo (MOQ) mayor a 1 unidad. Verifica la cantidad mínima en la página del producto antes de comprar.">${icon("alert-triangle")} Posible pedido mínimo</span>`
         : "";
       tr.innerHTML = `
         <td>
@@ -2160,7 +2183,7 @@
         <td class="price-cell">
           <div>${discountHtml}</div>
           <div class="price-line">
-            ${money(r.price)}${r.price === bestPrice ? '<span class="best-tag">MÁS BARATO</span>' : ""}${isRecommended ? '<span class="best-tag recommended-tag" title="Mejor combinación de precio, calificación y disponibilidad">🏆 RECOMENDADO</span>' : ""}
+            ${money(r.price)}${r.price === bestPrice ? '<span class="best-tag">MÁS BARATO</span>' : ""}${isRecommended ? `<span class="best-tag recommended-tag" title="Mejor combinación de precio, calificación y disponibilidad">${icon("trophy")} RECOMENDADO</span>` : ""}
           </div>
           ${shipEstimateNote}
           ${deliveryHtml}
@@ -2171,7 +2194,7 @@
         <td class="stars-cell">${ratingHtml}</td>
         <td>
           <button class="buy-btn">Ver oferta</button>
-          <div class="buy-trust">🔒 Compra en el sitio real de la tienda</div>
+          <div class="buy-trust">${icon("lock")} Compra en el sitio real de la tienda</div>
         </td>
       `;
       tr.querySelector(".buy-btn").onclick = () => { trackStoreClick(productId); window.open(r.url, "_blank"); };
