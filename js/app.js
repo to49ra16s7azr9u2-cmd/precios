@@ -1078,24 +1078,34 @@
     el.homeCategoryGrid.appendChild(allCard);
 
     state.data.categories.forEach((cat) => {
-      const count = state.data.products.filter((p) => p.category === cat.id).length;
+      const categoryProducts = state.data.products.filter((p) => p.category === cat.id);
       const card = document.createElement("button");
       card.type = "button";
       card.className = "category-card";
-      // cat.iconImage (ilustración propia) reemplaza al emoji cuando existe;
-      // el emoji sigue siendo el ícono en la barra de navegación y filtros,
-      // donde una imagen quedaría fuera de lugar dentro de una línea de texto.
-      // El marco de estas ilustraciones es rectangular horizontal (no el
-      // círculo de los emoji) porque las fotos son panorámicas y un círculo
-      // les recortaría los bordes.
-      const iconHtml = cat.iconImage
-        ? `<img src="${htmlEscapeAttr(cat.iconImage)}" alt="">`
-        : cat.icon;
       card.innerHTML = `
-        <span class="category-card-icon${cat.iconImage ? " category-card-icon--photo" : ""}">${iconHtml}</span>
+        <span class="category-card-icon"></span>
         <span class="category-card-name">${cat.name}</span>
-        <span class="category-card-count">${count} productos</span>
+        <span class="category-card-count">${categoryProducts.length} productos</span>
       `;
+      const iconEl = card.querySelector(".category-card-icon");
+      // El ícono es la foto real del producto más popular de la categoría
+      // (mismo criterio de "popular" que el resto del sitio -- ver
+      // topByPopularity: reseñas totales, excluyendo usados), no un emoji
+      // fijo -- así el ícono cambia solo si cambia lo que más se vende.
+      // renderProductMedia ya sabe reintentar y caer al emoji del propio
+      // producto si la foto falla o no existe, así que no hace falta
+      // duplicar esa lógica acá.
+      const topProduct = topByPopularity(categoryProducts, 1)[0];
+      if (topProduct) {
+        renderProductMedia(iconEl, topProduct);
+      } else if (cat.iconImage) {
+        // Categoría sin productos (no debería pasar hoy, pero por si acaso):
+        // cae a la ilustración subida a mano, si la categoría tiene una.
+        iconEl.classList.add("category-card-icon--photo");
+        iconEl.innerHTML = `<img src="${htmlEscapeAttr(cat.iconImage)}" alt="">`;
+      } else {
+        iconEl.textContent = cat.icon;
+      }
       card.onclick = () => goCategoryRanking(cat.id);
       el.homeCategoryGrid.appendChild(card);
     });
