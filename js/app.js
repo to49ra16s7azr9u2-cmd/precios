@@ -37,6 +37,7 @@
     reviews: "comparamx_reviews",
     includeShipping: "comparamx_include_shipping",
     categoryClicks: "comparamx_category_clicks",
+    productViews: "comparamx_product_views",
   };
 
   // ---------- Precios en vivo desde APIs reales (desactivado por defecto) ----------
@@ -196,6 +197,7 @@
     homeCategoryGrid: document.getElementById("homeCategoryGrid"),
     homeTopCategoriesList: document.getElementById("homeTopCategoriesList"),
     homeRankings: document.getElementById("homeRankings"),
+    homeMostViewed: document.getElementById("homeMostViewed"),
 
     viewList: document.getElementById("viewList"),
     listBreadcrumb: document.getElementById("listBreadcrumb"),
@@ -775,6 +777,26 @@
       .slice(0, n);
   }
 
+  // "Más visto en este navegador" en Inicio: mismo principio honesto que
+  // trackCategoryClick() -- cuenta real de visitas a cada ficha de
+  // producto EN ESTE navegador, nunca un número agregado de todo el
+  // sitio (no hay backend que lo mida).
+  function trackProductView(productId) {
+    if (!productId) return;
+    const counts = readLS(LS_KEYS.productViews, {});
+    counts[productId] = (counts[productId] || 0) + 1;
+    writeLS(LS_KEYS.productViews, counts);
+  }
+  function mostViewedProduct() {
+    const counts = readLS(LS_KEYS.productViews, {});
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    for (const [id, count] of sorted) {
+      const product = state.data.products.find((p) => p.id === id);
+      if (product) return { product, count }; // salta ids de productos ya eliminados del catálogo
+    }
+    return null;
+  }
+
   function getFavorites() {
     return readLS(LS_KEYS.favorites, []);
   }
@@ -894,6 +916,15 @@
   }
 
   function goDetail(productId) {
+    // Si el hash ya es el de este mismo producto (p. ej. se hace clic de
+    // nuevo en la misma ficha sin haber navegado a otro lado), navigateTo()
+    // llama renderDetail() directo sin cambiar location.hash -- eso nunca
+    // dispara "hashchange", que es donde onHashChange() cuenta la visita
+    // (ver ahí el porqué: renderDetail se re-ejecuta por otras razones,
+    // como marcar favorito, que no son visitas nuevas). Se cuenta acá para
+    // cubrir justo ese caso, sin duplicar el conteo del caso normal
+    // (hash distinto), que sigue contándose únicamente en onHashChange.
+    if (location.hash === `#/p/${productId}`) trackProductView(productId);
     navigateTo(`#/p/${productId}`, () => renderDetail(productId));
   }
 
@@ -917,6 +948,13 @@
     const hash = location.hash;
     const detailMatch = hash.match(/#\/p\/(.+)/);
     if (detailMatch) {
+      // Se cuenta acá (no dentro de renderDetail) porque renderDetail()
+      // también se vuelve a llamar sin que haya una navegación real (p.
+      // ej. al marcar/desmarcar favorito, o al cambiar el toggle "Incluir
+      // envío") -- onHashChange en cambio solo corre cuando el hash
+      // realmente cambió: navegación interna (goDetail), un link directo
+      // a #/p/<id> (páginas SEO estáticas), o adelante/atrás del navegador.
+      trackProductView(detailMatch[1]);
       renderDetail(detailMatch[1]);
     } else if (hash === "#/list" || hash.startsWith("#/list?")) {
       // Permite enlazar directo a una categoría filtrada (p. ej. desde las
@@ -1064,6 +1102,49 @@
 
     renderHomeTopCategories();
     renderHomeRankings();
+    renderHomeMostViewed();
+  }
+
+  // Debajo del ranking: la ficha (resumida) del producto más visto en
+  // este navegador -- mismo principio honesto que renderHomeTopCategories
+  // (ver trackProductView), nunca un "más visto" agregado de todo el
+  // sitio porque no hay backend que lo mida.
+  function renderHomeMostViewed() {
+    const top = mostViewedProduct();
+    el.homeMostViewed.innerHTML = "";
+    if (!top) {
+      const empty = document.createElement("p");
+      empty.className = "most-viewed-empty";
+      empty.textContent = "Todavía no visitaste ninguna ficha de producto en este navegador. Entra a un producto y aparecerá aquí.";
+      el.homeMostViewed.appendChild(empty);
+      return;
+    }
+    const { product, count } = top;
+    const { avg, count: ratingCount } = aggregateRating(product);
+    const discountPct = bestDiscountPct(product);
+    const savings = bestSavingsAmount(product);
+    const card = document.createElement("div");
+    card.className = "most-viewed-card";
+    card.innerHTML = `
+      <div class="most-viewed-icon"></div>
+      <div class="most-viewed-info">
+        <p class="muted small">${htmlEscapeAttr(product.brand)} · ${plural(count, "visita", "visitas")} en este navegador</p>
+        <h3>${htmlEscapeAttr(product.name)}${conditionBadge(product)}${usageBadge(product)}</h3>
+        <div class="detail-rating">
+          ${ratingCount > 0
+            ? `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${plural(ratingCount, "calificación", "calificaciones")})</span>`
+            : colorSwatchHtml(product.colorVariants) || `<span class="rc">Sin calificaciones todavía</span>`}
+        </div>
+        <p class="detail-fromprice">
+          ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}
+          ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
+        </p>
+        <button type="button" class="most-viewed-cta">Ver ficha completa →</button>
+      </div>
+    `;
+    renderProductMedia(card.querySelector(".most-viewed-icon"), product, "detail");
+    card.onclick = () => goDetail(product.id);
+    el.homeMostViewed.appendChild(card);
   }
 
   function renderHomeTopCategories() {

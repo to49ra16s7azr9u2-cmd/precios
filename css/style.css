@@ -1256,6 +1256,9 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   gap: 16px;
   align-items: flex-start;
+  border: 2px solid var(--red);
+  border-radius: var(--radius);
+  padding: 16px;
 }
 .home-top-categories {
   flex: 0 0 240px;
@@ -1310,6 +1313,46 @@ a { color: inherit; text-decoration: none; }
   .home-categories-layout { flex-direction: column; }
   .home-top-categories { flex: 1 1 auto; width: 100%; box-sizing: border-box; }
 }
+
+/* "Más visto en este navegador": misma idea que el Top 5 de categorías
+   (clics reales de este navegador, ver trackProductView), pero mostrando
+   la ficha del único producto más visto en vez de una lista -- una
+   versión compacta de .detail-head (icono/nombre/rating/colores/precio)
+   dentro de una tarjeta clicable que lleva a la ficha completa. */
+.most-viewed-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  cursor: pointer;
+}
+.most-viewed-card:hover { border-color: var(--red); }
+.most-viewed-icon {
+  font-size: 44px;
+  width: 84px; height: 84px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.most-viewed-info { flex: 1; min-width: 0; }
+.most-viewed-info h3 { margin: 2px 0 6px; font-size: 19px; }
+.most-viewed-cta {
+  margin-top: 10px;
+  border: none;
+  background: none;
+  color: var(--red);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0;
+}
+.most-viewed-empty { font-size: 13px; color: var(--muted); line-height: 1.6; margin: 0; }
 
 /* ---------- Marcas y ofertas (catálogo de afiliados) ---------- */
 .category-card-grid {
@@ -1423,6 +1466,11 @@ a { color: inherit; text-decoration: none; }
 }
 .detail-icon.has-photo {
   padding: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+.most-viewed-icon.has-photo {
+  padding: 6px;
   background: #fff;
   overflow: hidden;
 }
