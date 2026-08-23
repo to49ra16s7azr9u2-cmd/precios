@@ -1594,7 +1594,16 @@
     };
     el.filterCategory.appendChild(allOpt);
 
-    state.data.categories.forEach((c) => {
+    // Con una categoría ya elegida, el panel se recorta a mostrar solo esa
+    // categoría y sus subcategorías (más "Todas" arriba, para volver) --
+    // antes seguía listando las otras ~50 categorías aunque ninguna
+    // aplicara ya, obligando a scrollear un montón para ver dónde estaba
+    // parada la selección actual y qué subcategorías tenía.
+    const categoriesToShow = state.category
+      ? state.data.categories.filter((c) => c.id === state.category)
+      : state.data.categories;
+
+    categoriesToShow.forEach((c) => {
       const isActive = state.category === c.id;
       const opt = document.createElement("label");
       opt.className = "filter-option" + (isActive && !state.subcategory ? " active" : "");
