@@ -175,6 +175,7 @@ a { color: inherit; text-decoration: none; }
 .util-nav {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
   font-size: 14px;
   color: var(--muted);
 }

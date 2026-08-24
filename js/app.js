@@ -1958,7 +1958,11 @@
   // así que un paquete grande y ligero (ropa, artículos inflables) puede
   // salir más caro de lo que su peso real sugiere.
   function volumetricWeightKg(lengthCm, widthCm, heightCm, divisor) {
+    // <=0 en cualquier medida se trata como "no dato": un valor negativo no
+    // debe colarse en la multiplicación (dos medidas negativas darían un
+    // peso volumétrico positivo creíble pero sin sentido).
     if (!lengthCm || !widthCm || !heightCm || !divisor) return 0;
+    if (lengthCm < 0 || widthCm < 0 || heightCm < 0) return 0;
     return (lengthCm * widthCm * heightCm) / divisor;
   }
 
@@ -2055,7 +2059,7 @@
             return `<tr>
               <td>${r.method.name}${volNote}</td>
               <td>${money(r.mxn)}</td>
-              <td class="muted small">≈ $${r.usd.toFixed(2)} USD</td>
+              <td class="muted small">≈ $${r.usd.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD</td>
               <td>${r.method.minDays}–${r.method.maxDays} días</td>
             </tr>`;
           })
@@ -2071,6 +2075,24 @@
       .join("");
   }
 
+  // Lee y sanea los 4 inputs de un formulario de la calculadora de envío.
+  // Un valor negativo no es "0 kg"/"0 cm" (sería tratarlo como dato válido
+  // y de paso puede colar cálculos sin sentido, p. ej. dos medidas
+  // negativas dando un peso volumétrico positivo creíble) -- se descarta
+  // igual que un campo vacío o no numérico: peso -> null, medidas -> 0.
+  function readShippingFormInputs(weightEl, lengthEl, widthEl, heightEl) {
+    const w = parseFloat(weightEl.value);
+    const l = parseFloat(lengthEl.value);
+    const wi = parseFloat(widthEl.value);
+    const h = parseFloat(heightEl.value);
+    return {
+      weightKg: isNaN(w) || w < 0 ? null : w,
+      lengthCm: isNaN(l) || l < 0 ? 0 : l,
+      widthCm: isNaN(wi) || wi < 0 ? 0 : wi,
+      heightCm: isNaN(h) || h < 0 ? 0 : h,
+    };
+  }
+
   function renderShippingCalculator() {
     setActiveView("envio");
     renderCatNav();
@@ -2079,18 +2101,13 @@
     if (prefWeight && !el.shipWeightInput.value) el.shipWeightInput.value = prefWeight;
     el.shippingCalcDisclaimer.textContent = state.shippingRates ? state.shippingRates.meta.note : "";
     const recompute = () => {
-      const w = parseFloat(el.shipWeightInput.value);
-      const l = parseFloat(el.shipLengthInput.value);
-      const wi = parseFloat(el.shipWidthInput.value);
-      const h = parseFloat(el.shipHeightInput.value);
-      renderShippingResultsInto(
-        el.shippingCalcResults,
-        isNaN(w) ? null : w,
-        isNaN(l) ? 0 : l,
-        isNaN(wi) ? 0 : wi,
-        isNaN(h) ? 0 : h,
-        null
+      const { weightKg, lengthCm, widthCm, heightCm } = readShippingFormInputs(
+        el.shipWeightInput,
+        el.shipLengthInput,
+        el.shipWidthInput,
+        el.shipHeightInput
       );
+      renderShippingResultsInto(el.shippingCalcResults, weightKg, lengthCm, widthCm, heightCm, null);
     };
     [el.shipWeightInput, el.shipLengthInput, el.shipWidthInput, el.shipHeightInput].forEach((input) => {
       input.oninput = recompute;
@@ -2124,18 +2141,13 @@
     );
     el.detailShippingResults.innerHTML = "";
     const recompute = () => {
-      const w = parseFloat(el.detailShipWeightInput.value);
-      const l = parseFloat(el.detailShipLengthInput.value);
-      const wi = parseFloat(el.detailShipWidthInput.value);
-      const h = parseFloat(el.detailShipHeightInput.value);
-      renderShippingResultsInto(
-        el.detailShippingResults,
-        isNaN(w) ? null : w,
-        isNaN(l) ? 0 : l,
-        isNaN(wi) ? 0 : wi,
-        isNaN(h) ? 0 : h,
-        storeId
+      const { weightKg, lengthCm, widthCm, heightCm } = readShippingFormInputs(
+        el.detailShipWeightInput,
+        el.detailShipLengthInput,
+        el.detailShipWidthInput,
+        el.detailShipHeightInput
       );
+      renderShippingResultsInto(el.detailShippingResults, weightKg, lengthCm, widthCm, heightCm, storeId);
     };
     [el.detailShipWeightInput, el.detailShipLengthInput, el.detailShipWidthInput, el.detailShipHeightInput].forEach(
       (input) => (input.oninput = recompute)
