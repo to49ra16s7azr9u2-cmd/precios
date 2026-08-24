@@ -1194,6 +1194,48 @@ a { color: inherit; text-decoration: none; }
 }
 .spec-table th { width: 40%; color: var(--muted); font-weight: 600; }
 
+/* Calculadora de envío (#/envio y el widget compacto de la ficha de
+   producto) -- comparten el markup de resultados (renderShippingResultsInto
+   en js/app.js), así que las reglas de .shipping-calc-* aplican a ambos. */
+.shipping-calc-panel { max-width: 720px; }
+.shipping-calc-form { display: flex; flex-direction: column; gap: 14px; margin-bottom: 18px; }
+.shipping-calc-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.shipping-calc-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+  flex: 1;
+  min-width: 120px;
+}
+.shipping-calc-row input {
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--card);
+}
+.shipping-calc-row input:focus {
+  outline: none;
+  border-color: var(--red);
+}
+.shipping-calc-hint { margin: 0; }
+.shipping-calc-platform { margin-bottom: 18px; }
+.shipping-calc-platform:last-child { margin-bottom: 0; }
+.shipping-calc-platform h3 { font-size: 14px; margin: 0 0 8px; }
+.shipping-calc-table { width: 100%; border-collapse: collapse; }
+.shipping-calc-table th, .shipping-calc-table td {
+  text-align: left;
+  padding: 8px 6px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+}
+.shipping-calc-table th { color: var(--muted); font-weight: 600; font-size: 12px; }
+.shipping-calc-table tr:last-child td { border-bottom: none; }
+
 /* Reviews */
 .review-list { display: flex; flex-direction: column; gap: 14px; }
 .review-item { border-bottom: 1px solid var(--border); padding-bottom: 14px; }

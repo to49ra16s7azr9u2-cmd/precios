@@ -247,6 +247,21 @@ def render_product_page(product, data):
         f"Desde {money(price)} MXN. Envío, disponibilidad y calificación por tienda."
     )
 
+    SHIPPING_CALC_STORE_IDS = ("aliexpress", "alibaba", "sunsky", "geekbuying")
+    shipping_calc_store_id = next(
+        (o["storeId"] for o in product["offers"] if o["storeId"] in SHIPPING_CALC_STORE_IDS), None
+    )
+    shipping_calc_html = ""
+    if shipping_calc_store_id:
+        shipping_calc_store = store_by_id(data, shipping_calc_store_id)
+        shipping_calc_html = f"""
+<div class="panel">
+  <h2>Estimación de envío internacional</h2>
+  <p class="muted small">Este producto se vende en {html_escape(shipping_calc_store['name'])}. Usa la calculadora de envío por peso y tamaño de ComparaMX para estimar el costo a México.</p>
+  <a class="buy-btn" href="../../index.html#/envio">Abrir calculadora de envío →</a>
+</div>
+"""
+
     rows = sorted(product["offers"], key=lambda o: o["price"])
     table_rows = []
     for o in rows:
@@ -384,6 +399,7 @@ def render_product_page(product, data):
   <h2>Especificaciones</h2>
   <table class="spec-table">{specs_rows}</table>
 </div>
+{shipping_calc_html}
 {reviews_html}
 {related_html}
 <div class="panel" style="text-align:center">

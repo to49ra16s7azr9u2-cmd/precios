@@ -244,6 +244,14 @@
     offerRowsReference: document.getElementById("offerRowsReference"),
     offerGroupVerified: document.getElementById("offerGroupVerified"),
     specTable: document.getElementById("specTable"),
+    detailShippingPanel: document.getElementById("detailShippingPanel"),
+    detailShippingIntro: document.getElementById("detailShippingIntro"),
+    detailShippingCalcLink: document.getElementById("detailShippingCalcLink"),
+    detailShippingResults: document.getElementById("detailShippingResults"),
+    detailShipWeightInput: document.getElementById("detailShipWeightInput"),
+    detailShipLengthInput: document.getElementById("detailShipLengthInput"),
+    detailShipWidthInput: document.getElementById("detailShipWidthInput"),
+    detailShipHeightInput: document.getElementById("detailShipHeightInput"),
     reviewCount: document.getElementById("reviewCount"),
     reviewList: document.getElementById("reviewList"),
     reviewForm: document.getElementById("reviewForm"),
@@ -263,6 +271,15 @@
     profileForm: document.getElementById("profileForm"),
     profileName: document.getElementById("profileName"),
     accountSummary: document.getElementById("accountSummary"),
+
+    viewEnvio: document.getElementById("viewEnvio"),
+    shippingCalcForm: document.getElementById("shippingCalcForm"),
+    shipWeightInput: document.getElementById("shipWeightInput"),
+    shipLengthInput: document.getElementById("shipLengthInput"),
+    shipWidthInput: document.getElementById("shipWidthInput"),
+    shipHeightInput: document.getElementById("shipHeightInput"),
+    shippingCalcResults: document.getElementById("shippingCalcResults"),
+    shippingCalcDisclaimer: document.getElementById("shippingCalcDisclaimer"),
 
     mapModal: document.getElementById("mapModal"),
     mapModalClose: document.getElementById("mapModalClose"),
@@ -912,6 +929,15 @@
     } catch {
       state.icons = {};
     }
+    // Tarifas de referencia (ESTIMADAS) para la calculadora de envío de
+    // AliExpress/Alibaba/SUNSKY/Geekbuying; si falla, la calculadora
+    // muestra un aviso en vez de números inventados en el momento.
+    try {
+      const res4 = await fetch("data/shipping-rates.json");
+      state.shippingRates = await res4.json();
+    } catch {
+      state.shippingRates = null;
+    }
   }
 
   // Markup SVG de línea para un box de 24x24 si el set de iconos no cargó.
@@ -934,6 +960,7 @@
     el.viewBrands.classList.toggle("hidden", name !== "brands");
     el.viewFavorites.classList.toggle("hidden", name !== "favorites");
     el.viewAccount.classList.toggle("hidden", name !== "account");
+    el.viewEnvio.classList.toggle("hidden", name !== "envio");
     if (name !== "detail") closeMapModal();
   }
 
@@ -994,6 +1021,7 @@
     else if (hash === "#/favorites") renderFavorites();
     else if (hash === "#/account") renderAccount();
     else if (hash === "#/marcas" || hash.startsWith("#/marcas?")) renderBrands();
+    else if (hash === "#/envio" || hash.startsWith("#/envio?")) renderShippingCalculator();
     else renderHome();
   }
 
@@ -1041,6 +1069,8 @@
       const cat = qs && qs.get("cat");
       if (cat) state.brandCategory = cat;
       renderBrands();
+    } else if (hash === "#/envio" || hash.startsWith("#/envio?")) {
+      renderShippingCalculator();
     } else {
       renderHome();
     }
@@ -1919,6 +1949,199 @@
     el.accountSummary.textContent = `${favCount} favorito(s) guardado(s) · ${reviewCount} reseña(s) escritas en este navegador.`;
   }
 
+  // ---------- Calculadora de envío (AliExpress/Alibaba/SUNSKY/Geekbuying) ----------
+
+  // Peso volumétrico (kg): fórmula estándar de logística internacional --
+  // Largo×Ancho×Alto en cm dividido entre el divisor del método de envío
+  // (6000 para paquetería económica/postal, 5000 para express aérea). Las
+  // paqueterías cobran el mayor entre el peso real y este peso volumétrico,
+  // así que un paquete grande y ligero (ropa, artículos inflables) puede
+  // salir más caro de lo que su peso real sugiere.
+  function volumetricWeightKg(lengthCm, widthCm, heightCm, divisor) {
+    if (!lengthCm || !widthCm || !heightCm || !divisor) return 0;
+    return (lengthCm * widthCm * heightCm) / divisor;
+  }
+
+  function billableWeightKg(actualKg, volKg) {
+    return Math.max(actualKg || 0, volKg || 0);
+  }
+
+  // Costo en USD de un método de envío cobrado por peso, dado el peso
+  // facturable ya resuelto (mayor entre real y volumétrico). Los métodos
+  // "bulk" (flete marítimo por m³) se resuelven en estimateSeaFreightUSD().
+  function estimateShippingCostUSD(method, billableKg) {
+    const extraKg = Math.max(0, billableKg - method.baseWeightKg);
+    return method.baseCostUSD + extraKg * method.perKgUSD;
+  }
+
+  function estimateSeaFreightUSD(method, lengthCm, widthCm, heightCm) {
+    if (!lengthCm || !widthCm || !heightCm) return null;
+    const cbm = (lengthCm * widthCm * heightCm) / method.cbmDivisor;
+    const billableCbm = Math.max(cbm, method.minCbm || 0);
+    return billableCbm * method.baseCostPerCbmUSD;
+  }
+
+  // Extrae el peso en kg del spec "Peso" de un producto (texto libre del
+  // feed de la tienda, "10 kg" o "350 g") -- null si no hay spec de peso o
+  // no se pudo parsear, para no inventar un peso que el catálogo no trae.
+  function productWeightKg(product) {
+    const spec = (product.specs || []).find((s) => s.label === "Peso");
+    if (!spec) return null;
+    const m = String(spec.value).match(/([\d.,]+)\s*(kg|g)\b/i);
+    if (!m) return null;
+    const n = parseFloat(m[1].replace(",", "."));
+    if (isNaN(n)) return null;
+    return m[2].toLowerCase() === "g" ? n / 1000 : n;
+  }
+
+  function shippingRateMethods(storeId) {
+    const all = (state.shippingRates && state.shippingRates.methods) || [];
+    return storeId ? all.filter((m) => m.storeId === storeId) : all;
+  }
+
+  // Une el cálculo de cada método de envío con el peso/medidas dados.
+  // actualKg puede ser null (aún no se cargó un peso) -- en ese caso los
+  // métodos por peso quedan sin costo (usd: null) para que el llamador
+  // decida qué mostrar en vez de asumir 0.
+  function computeShippingEstimates(actualKg, lengthCm, widthCm, heightCm, storeId) {
+    const rates = state.shippingRates;
+    if (!rates) return [];
+    const usdToMxn = rates.meta.usdToMxn;
+    return shippingRateMethods(storeId).map((method) => {
+      if (method.unit === "cbm") {
+        const usd = estimateSeaFreightUSD(method, lengthCm, widthCm, heightCm);
+        return { method, usd, mxn: usd != null ? usd * usdToMxn : null, usedVolumetric: false };
+      }
+      const volKg = volumetricWeightKg(lengthCm, widthCm, heightCm, method.volumetricDivisor);
+      const billKg = billableWeightKg(actualKg, volKg);
+      const usd = actualKg != null ? estimateShippingCostUSD(method, billKg) : null;
+      return {
+        method,
+        usd,
+        mxn: usd != null ? usd * usdToMxn : null,
+        billKg,
+        usedVolumetric: volKg > (actualKg || 0),
+      };
+    });
+  }
+
+  // Pinta la tabla de resultados agrupada por plataforma en el contenedor
+  // dado -- se reusa tanto en la vista completa (#/envio) como en el
+  // widget compacto de la ficha de producto.
+  function renderShippingResultsInto(container, actualKg, lengthCm, widthCm, heightCm, storeId) {
+    if (!state.shippingRates) {
+      container.innerHTML = `<p class="muted small">No se pudieron cargar las tarifas de referencia. Intenta de nuevo más tarde.</p>`;
+      return;
+    }
+    if (actualKg == null) {
+      container.innerHTML = "";
+      return;
+    }
+    const rows = computeShippingEstimates(actualKg, lengthCm, widthCm, heightCm, storeId);
+    const byPlatform = {};
+    rows.forEach((r) => {
+      (byPlatform[r.method.platformName] = byPlatform[r.method.platformName] || []).push(r);
+    });
+    container.innerHTML = Object.entries(byPlatform)
+      .map(([platform, methods]) => {
+        const rowsHtml = methods
+          .map((r) => {
+            if (r.usd == null) {
+              return `<tr><td>${r.method.name}</td><td colspan="3" class="muted small">Agrega Largo/Ancho/Alto para estimar este método</td></tr>`;
+            }
+            const volNote = r.usedVolumetric
+              ? ` <span class="ship-badge" title="Este método cobra por peso volumétrico (paquete voluminoso), no por el peso real que ingresaste">📦 volumétrico</span>`
+              : "";
+            return `<tr>
+              <td>${r.method.name}${volNote}</td>
+              <td>${money(r.mxn)}</td>
+              <td class="muted small">≈ $${r.usd.toFixed(2)} USD</td>
+              <td>${r.method.minDays}–${r.method.maxDays} días</td>
+            </tr>`;
+          })
+          .join("");
+        return `<div class="shipping-calc-platform">
+          <h3>${platform}</h3>
+          <table class="shipping-calc-table">
+            <thead><tr><th>Método</th><th>Costo estimado</th><th></th><th>Entrega estimada</th></tr></thead>
+            <tbody>${rowsHtml}</tbody>
+          </table>
+        </div>`;
+      })
+      .join("");
+  }
+
+  function renderShippingCalculator() {
+    setActiveView("envio");
+    renderCatNav();
+    const qs = location.hash.includes("?") ? new URLSearchParams(location.hash.split("?")[1]) : null;
+    const prefWeight = qs && qs.get("peso");
+    if (prefWeight && !el.shipWeightInput.value) el.shipWeightInput.value = prefWeight;
+    el.shippingCalcDisclaimer.textContent = state.shippingRates ? state.shippingRates.meta.note : "";
+    const recompute = () => {
+      const w = parseFloat(el.shipWeightInput.value);
+      const l = parseFloat(el.shipLengthInput.value);
+      const wi = parseFloat(el.shipWidthInput.value);
+      const h = parseFloat(el.shipHeightInput.value);
+      renderShippingResultsInto(
+        el.shippingCalcResults,
+        isNaN(w) ? null : w,
+        isNaN(l) ? 0 : l,
+        isNaN(wi) ? 0 : wi,
+        isNaN(h) ? 0 : h,
+        null
+      );
+    };
+    [el.shipWeightInput, el.shipLengthInput, el.shipWidthInput, el.shipHeightInput].forEach((input) => {
+      input.oninput = recompute;
+    });
+    recompute();
+  }
+
+  const SHIPPING_CALC_STORE_IDS = ["aliexpress", "alibaba", "sunsky", "geekbuying"];
+
+  // Widget compacto en la ficha de producto: solo aparece cuando el
+  // producto tiene una oferta de una de las 4 tiendas con calculadora de
+  // envío. El catálogo no trae peso/medidas de estas tiendas (son specs
+  // que solo llegan de mercadolibre), así que es un mini-formulario para
+  // que el comprador escriba el peso/tamaño aproximado del paquete, no un
+  // dato precargado -- por eso arranca vacío en vez de con un placeholder
+  // ya calculado.
+  function renderShippingWidgetForProduct(product) {
+    const storeId = (product.offers || [])
+      .map((o) => o.storeId)
+      .find((id) => SHIPPING_CALC_STORE_IDS.includes(id));
+    if (!storeId || !state.shippingRates) {
+      el.detailShippingPanel.classList.add("hidden");
+      return;
+    }
+    const store = storeById(storeId);
+    el.detailShippingPanel.classList.remove("hidden");
+    el.detailShippingIntro.textContent = `Este producto se vende en ${store ? store.name : storeId}. Escribe el peso y, si lo sabes, el tamaño del paquete para estimar el envío a México.`;
+    el.detailShippingCalcLink.href = "#/envio";
+    [el.detailShipWeightInput, el.detailShipLengthInput, el.detailShipWidthInput, el.detailShipHeightInput].forEach(
+      (input) => (input.value = "")
+    );
+    el.detailShippingResults.innerHTML = "";
+    const recompute = () => {
+      const w = parseFloat(el.detailShipWeightInput.value);
+      const l = parseFloat(el.detailShipLengthInput.value);
+      const wi = parseFloat(el.detailShipWidthInput.value);
+      const h = parseFloat(el.detailShipHeightInput.value);
+      renderShippingResultsInto(
+        el.detailShippingResults,
+        isNaN(w) ? null : w,
+        isNaN(l) ? 0 : l,
+        isNaN(wi) ? 0 : wi,
+        isNaN(h) ? 0 : h,
+        storeId
+      );
+    };
+    [el.detailShipWeightInput, el.detailShipLengthInput, el.detailShipWidthInput, el.detailShipHeightInput].forEach(
+      (input) => (input.oninput = recompute)
+    );
+  }
+
   // ---------- Vista: Ficha de producto ----------
 
   function currentProduct() {
@@ -1975,6 +2198,8 @@
     el.specTable.innerHTML = product.specs
       .map((s) => `<tr><th>${s.label}</th><td>${s.value}</td></tr>`)
       .join("");
+
+    renderShippingWidgetForProduct(product);
 
     renderReviews(product);
 

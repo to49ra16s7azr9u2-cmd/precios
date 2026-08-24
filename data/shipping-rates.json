@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "note": "Tarifas ESTIMADAS de referencia, calculadas con la fórmula estándar de la industria (peso volumétrico = Largo×Ancho×Alto en cm ÷ divisor, cobrando el mayor entre peso real y peso volumétrico) combinada con rangos de costo típicos publicados para cada método de envío. No provienen de una API en vivo de AliExpress/Alibaba/SUNSKY/Geekbuying (esas plataformas cotizan de forma dinámica por vendedor) y pueden diferir del monto real que se muestra al pagar en cada sitio.",
+    "usdToMxn": 17.0,
+    "lastUpdated": "2026-08-24"
+  },
+  "methods": [
+    {
+      "id": "aliexpress_standard",
+      "storeId": "aliexpress",
+      "platformName": "AliExpress",
+      "name": "AliExpress Standard Shipping",
+      "tier": "economy",
+      "volumetricDivisor": 6000,
+      "baseWeightKg": 0.5,
+      "baseCostUSD": 2.5,
+      "perKgUSD": 4.0,
+      "minDays": 15,
+      "maxDays": 35
+    },
+    {
+      "id": "aliexpress_premium",
+      "storeId": "aliexpress",
+      "platformName": "AliExpress",
+      "name": "AliExpress Premium Shipping",
+      "tier": "express",
+      "volumetricDivisor": 6000,
+      "baseWeightKg": 0.5,
+      "baseCostUSD": 7.0,
+      "perKgUSD": 7.5,
+      "minDays": 7,
+      "maxDays": 15
+    },
+    {
+      "id": "alibaba_courier",
+      "storeId": "alibaba",
+      "platformName": "Alibaba",
+      "name": "Alibaba — Paquetería express (DHL/FedEx)",
+      "tier": "express",
+      "volumetricDivisor": 5000,
+      "baseWeightKg": 0.5,
+      "baseCostUSD": 20.0,
+      "perKgUSD": 13.0,
+      "minDays": 4,
+      "maxDays": 9
+    },
+    {
+      "id": "alibaba_sea",
+      "storeId": "alibaba",
+      "platformName": "Alibaba",
+      "name": "Alibaba — Flete marítimo (carga consolidada)",
+      "tier": "bulk",
+      "unit": "cbm",
+      "cbmDivisor": 1000000,
+      "baseCostPerCbmUSD": 220,
+      "minCbm": 0.05,
+      "minDays": 30,
+      "maxDays": 50,
+      "note": "Solo conviene para pedidos grandes/al por mayor; para paquetes sueltos usa la paquetería express."
+    },
+    {
+      "id": "sunsky_post",
+      "storeId": "sunsky",
+      "platformName": "SUNSKY",
+      "name": "SUNSKY Post (económico)",
+      "tier": "economy",
+      "volumetricDivisor": 6000,
+      "baseWeightKg": 0.5,
+      "baseCostUSD": 3.0,
+      "perKgUSD": 5.0,
+      "minDays": 15,
+      "maxDays": 30
+    },
+    {
+      "id": "sunsky_dhl",
+      "storeId": "sunsky",
+      "platformName": "SUNSKY",
+      "name": "SUNSKY — DHL Express",
+      "tier": "express",
+      "volumetricDivisor": 5000,
+      "baseWeightKg": 0.5,
+      "baseCostUSD": 16.0,
+      "perKgUSD": 11.0,
+      "minDays": 4,
+      "maxDays": 8
+    },
+    {
+      "id": "geekbuying_standard",
+      "storeId": "geekbuying",
+      "platformName": "Geekbuying",
+      "name": "Geekbuying — Envío estándar",
+      "tier": "economy",
+      "volumetricDivisor": 6000,
+      "baseWeightKg": 0.5,
+      "baseCostUSD": 3.5,
+      "perKgUSD": 5.5,
+      "minDays": 12,
+      "maxDays": 25
+    },
+    {
+      "id": "geekbuying_express",
+      "storeId": "geekbuying",
+      "platformName": "Geekbuying",
+      "name": "Geekbuying — Express (DHL/FedEx)",
+      "tier": "express",
+      "volumetricDivisor": 5000,
+      "baseWeightKg": 0.5,
+      "baseCostUSD": 17.0,
+      "perKgUSD": 12.0,
+      "minDays": 4,
+      "maxDays": 9
+    }
+  ]
+}
