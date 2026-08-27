@@ -276,6 +276,11 @@ a { color: inherit; text-decoration: none; }
 .cat-submenu a.active { color: var(--red); background: #fff0f0; }
 
 /* ---------- Home / hero / rankings ---------- */
+/* El body usa --bg (gris) como lienzo neutro para que las tarjetas blancas
+   contrasten en el resto del sitio (listado, filtros, etc.), pero en Inicio
+   ese gris se notaba detrás del texto del hero y del cuadro de categorías
+   -- blanco liso solo aquí, sin tocar --bg global. */
+#viewHome { background: var(--card); }
 /* Encabezado de página en texto plano sobre el mismo fondo que el resto:
    nada de bloque de color ni degradado — lo único que debe llamar la
    atención en la página es el precio, no el título. */
@@ -1560,7 +1565,7 @@ a { color: inherit; text-decoration: none; }
   margin: 4px 0 18px;
   border: 2px solid #f0e4e4;
   border-radius: var(--radius);
-  background: #f5eeee;
+  background: var(--card);
 }
 .home-category-tab {
   position: absolute;

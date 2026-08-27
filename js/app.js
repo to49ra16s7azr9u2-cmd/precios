@@ -1127,8 +1127,18 @@
           cancelHide();
           const r = item.getBoundingClientRect();
           submenu.style.left = `${r.left}px`;
-          submenu.style.top = `${r.bottom}px`;
+          // Se hace visible ANTES de medir su alto: oculto (display:none) mide
+          // 0 siempre. Como esto ocurre de forma síncrona antes del próximo
+          // pintado, el usuario nunca ve el submenú en la posición "top"
+          // provisional de abajo.
           submenu.classList.add("visible");
+          const submenuHeight = submenu.offsetHeight;
+          // Categorías de la última fila (con la barra desplegada): abrir
+          // hacia abajo como siempre las dejaba cortadas contra el borde de
+          // la ventana, sin forma de ver ni hacer clic en las últimas
+          // subcategorías. Si no entra hacia abajo, se abre hacia arriba.
+          const opensUp = r.bottom + submenuHeight > window.innerHeight - 8;
+          submenu.style.top = opensUp ? `${Math.max(8, r.top - submenuHeight)}px` : `${r.bottom}px`;
         });
         item.addEventListener("mouseleave", scheduleHide);
         submenu.addEventListener("mouseenter", cancelHide);
