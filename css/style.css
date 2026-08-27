@@ -601,7 +601,7 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
 }
 .product-row:hover { border-color: var(--red); }
-.product-row .row-icon { font-size: 40px; width: 56px; text-align: center; flex-shrink: 0; }
+.product-row .row-icon { position: relative; font-size: 40px; width: 56px; text-align: center; flex-shrink: 0; }
 .product-row .row-info { flex: 1; min-width: 0; }
 .product-row .row-brand { font-size: 12px; color: var(--muted); }
 .product-row .row-name { font-size: 15px; font-weight: 600; margin: 3px 0; }
@@ -704,6 +704,7 @@ a { color: inherit; text-decoration: none; }
 .detail-headinfo { flex: 1; min-width: 0; }
 .detail-head .fav-btn { margin-left: auto; }
 .detail-icon {
+  position: relative;
   font-size: 64px;
   width: 108px; height: 108px;
   display: flex; align-items: center; justify-content: center;
@@ -1137,6 +1138,35 @@ a { color: inherit; text-decoration: none; }
   margin-left: 4px;
   vertical-align: middle;
 }
+/* Sello sobre la esquina de la foto del producto (a pedido explícito del
+   usuario, con captura marcando esa esquina): el -X% que ya va junto al
+   precio (.discount-badge) es fácil de pasar por alto en una grilla de
+   tarjetas -- este sello se ve antes de leer el precio, en la miniatura
+   chica de una fila de lista y en la foto grande de "Más visto"/ficha de
+   producto por igual. Offset no-negativo (no "colgado" del borde) para
+   que no lo recorte el overflow:hidden que ya tienen esos contenedores. */
+.discount-ribbon {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  z-index: 2;
+  background: var(--red-dark);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  padding: 3px 5px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+.most-viewed-icon .discount-ribbon,
+.detail-icon .discount-ribbon {
+  top: 8px;
+  left: 8px;
+  font-size: 13px;
+  padding: 4px 8px;
+}
 .best-tag {
   display: inline-block;
   margin-left: 6px;
@@ -1488,6 +1518,7 @@ a { color: inherit; text-decoration: none; }
 }
 .most-viewed-card:hover { border-color: var(--red); }
 .most-viewed-icon {
+  position: relative;
   font-size: 72px;
   width: 100%; height: 180px;
   display: flex; align-items: center; justify-content: center;

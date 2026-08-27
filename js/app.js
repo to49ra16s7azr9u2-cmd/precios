@@ -142,7 +142,10 @@
     });
     if (changed && currentProduct() === product) {
       renderOfferTable(product);
-      if (gotPhoto) renderProductMedia(el.detailIcon, product, "detail");
+      if (gotPhoto) {
+        renderProductMedia(el.detailIcon, product, "detail");
+        attachDiscountRibbon(el.detailIcon, product);
+      }
     }
   }
 
@@ -531,6 +534,26 @@
     const listPrice = displayListPrice(cheapest);
     if (!listPrice || listPrice <= price) return null;
     return Math.round((1 - price / listPrice) * 100);
+  }
+
+  // Sello de descuento sobre la esquina de la foto/ícono del producto (a
+  // pedido explícito del usuario, con captura marcando esa esquina): el
+  // "-15%" que ya vive junto al precio es fácil de pasar por alto en un
+  // vistazo rápido a una grilla de tarjetas, así que este sello se suma
+  // -- no reemplaza -- para que un descuento salte a la vista antes de
+  // leer el precio. Los contenedores donde se inyecta necesitan
+  // position:relative (ver CSS); se llama después de renderProductMedia
+  // porque esa función limpia el innerHTML del contenedor.
+  function attachDiscountRibbon(container, product) {
+    if (!container) return;
+    const existing = container.querySelector(".discount-ribbon");
+    if (existing) existing.remove();
+    const pct = bestDiscountPct(product);
+    if (!pct) return;
+    const ribbon = document.createElement("span");
+    ribbon.className = "discount-ribbon";
+    ribbon.textContent = `-${pct}%`;
+    container.appendChild(ribbon);
   }
 
   // Monto ahorrado (en pesos) de la oferta más barata frente a su listPrice.
@@ -1226,7 +1249,9 @@
         <button type="button" class="most-viewed-cta">Ver ficha completa →</button>
       </div>
     `;
-    renderProductMedia(card.querySelector(".most-viewed-icon"), product, "detail");
+    const mostViewedIcon = card.querySelector(".most-viewed-icon");
+    renderProductMedia(mostViewedIcon, product, "detail");
+    attachDiscountRibbon(mostViewedIcon, product);
     card.onclick = () => goDetail(product.id);
     el.homeMostViewed.appendChild(card);
   }
@@ -1554,7 +1579,9 @@
         </div>
         <button class="row-fav-btn" aria-label="Favorito"></button>
       `;
-      renderProductMedia(row.querySelector(".row-icon"), p);
+      const rowIcon = row.querySelector(".row-icon");
+      renderProductMedia(rowIcon, p);
+      attachDiscountRibbon(rowIcon, p);
       row.onclick = () => goDetail(p.id);
       bindFavToggle(row.querySelector(".row-fav-btn"), p.id, opts.onFavToggle);
       row.querySelector(".row-fav-btn").innerHTML = favIconHtml(p.id);
@@ -2205,6 +2232,7 @@
     }
 
     renderProductMedia(el.detailIcon, product, "detail");
+    attachDiscountRibbon(el.detailIcon, product);
     el.detailBrand.textContent = product.brand;
     el.detailName.innerHTML = `${htmlEscapeAttr(product.name)}${conditionBadge(product)}${usageBadge(product)}`;
     el.detailFavBtn.innerHTML = favIconHtml(product.id);
