@@ -2977,6 +2977,16 @@
       const expanded = el.catNav.classList.toggle("expanded");
       el.catNavToggle.setAttribute("aria-expanded", String(expanded));
       el.catNavToggleLabel.textContent = expanded ? "Menos categorías" : "Más categorías";
+      // El tope fijo de 300px en .cats.expanded (CSS) se quedó corto según
+      // creció el catálogo de categorías -- con 52 categorías la barra
+      // necesita ~488px, así que el bloque de filas de más quedaba
+      // recortado por el overflow:hidden y esas categorías eran
+      // inalcanzables desde el nav aunque estuviera "expandido". Se fija
+      // el alto real (scrollHeight) por JS al expandir, que siempre
+      // encaja sin importar cuántas categorías haya; al colapsar se
+      // limpia el inline style para que vuelva a mandar el max-height de
+      // 46px del CSS.
+      el.catNav.style.maxHeight = expanded ? `${el.catNav.scrollHeight}px` : "";
     });
 
     el.sortSelect.addEventListener("change", (e) => {

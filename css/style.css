@@ -1563,16 +1563,16 @@ a { color: inherit; text-decoration: none; }
   min-width: 0;
   padding: 20px 6px 6px;
   margin: 4px 0 18px;
-  border: 2px solid #f0e4e4;
+  border: 2px solid #16295f;
   border-radius: var(--radius);
-  background-color: var(--card);
-  /* Retícula de rombos (dos zigzags entrelazados) al estilo de las greca /
-     tejidos textiles mexicanos, en rojo de marca casi transparente (el 0.16
-     de opacidad va codificado en el propio stroke del SVG) -- textura de
-     fondo, no color de bloque, para no competir con las tarjetas blancas
-     que van encima. */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M0 16 L8 0 L16 16' fill='none' stroke='%23FF0211' stroke-opacity='0.16' stroke-width='1' stroke-linejoin='round'/%3E%3Cpath d='M0 0 L8 16 L16 0' fill='none' stroke='%23FF0211' stroke-opacity='0.16' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-size: 16px 16px;
+  background-color: #f4c430;
+  /* Franjas de sarape/greca mexicana (referencia del usuario: bandas
+     verticales doradas y azules con rombos, zigzag de triángulos y
+     puntos de colores separadas por filetes navy/blanco/rojo) -- tile
+     de 48x64 en base64 para no pelear con el escapado de tantas
+     comillas/colores en una URL. */
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDQ4IDY0Ij48cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNjQiIGZpbGw9IiNmNGM0MzAiLz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMiIgaGVpZ2h0PSI2NCIgZmlsbD0iIzFhMmE2YyIvPjxyZWN0IHg9IjIiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZmZmZmZmIi8+PHJlY3QgeD0iMyIgeT0iMCIgd2lkdGg9IjIiIGhlaWdodD0iNjQiIGZpbGw9IiNkNTI4MWYiLz48cmVjdCB4PSI1IiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSI2NCIgZmlsbD0iI2ZmZmZmZiIvPjxyZWN0IHg9IjYiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9IjY0IiBmaWxsPSIjMWEyYTZjIi8+PHJlY3QgeD0iOCIgeT0iMCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZjRjNDMwIi8+PHBhdGggZD0iTTE0IDEwIEwyMCAxNiBMMTQgMjIgTDggMTYgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMWM1YWE4IiBzdHJva2Utd2lkdGg9IjEuNiIvPjxjaXJjbGUgY3g9IjE0IiBjeT0iMTYiIHI9IjEuNiIgZmlsbD0iI2Q1MjgxZiIvPjxwYXRoIGQ9Ik0xNCA0MiBMMjAgNDggTDE0IDU0IEw4IDQ4IFoiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzFjNWFhOCIgc3Ryb2tlLXdpZHRoPSIxLjYiLz48Y2lyY2xlIGN4PSIxNCIgY3k9IjQ4IiByPSIxLjYiIGZpbGw9IiNkNTI4MWYiLz48cmVjdCB4PSIyMCIgeT0iMCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjY0IiBmaWxsPSIjMWM1YWE4Ii8+PHBhdGggZD0iTTIwIDQgTDI2IDEyIEwzMiA0IE0yMCAyMCBMMjYgMjggTDMyIDIwIE0yMCAzNiBMMjYgNDQgTDMyIDM2IE0yMCA1MiBMMjYgNjAgTDMyIDUyIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMS42IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHJlY3QgeD0iMzIiIHk9IjAiIHdpZHRoPSIxMiIgaGVpZ2h0PSI2NCIgZmlsbD0iI2Y0YzQzMCIvPjxjaXJjbGUgY3g9IjM4IiBjeT0iOCIgcj0iMi40IiBmaWxsPSIjMGY5YjhlIi8+PGNpcmNsZSBjeD0iMzgiIGN5PSIyNCIgcj0iMi40IiBmaWxsPSIjZDUyODFmIi8+PGNpcmNsZSBjeD0iMzgiIGN5PSI0MCIgcj0iMi40IiBmaWxsPSIjN2IzZmEwIi8+PGNpcmNsZSBjeD0iMzgiIGN5PSI1NiIgcj0iMi40IiBmaWxsPSIjMmY5ZTQ0Ii8+PHJlY3QgeD0iNDQiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjY0IiBmaWxsPSIjMWEyYTZjIi8+PHJlY3QgeD0iNDUiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZmZmZmZmIi8+PHJlY3QgeD0iNDYiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZDUyODFmIi8+PHJlY3QgeD0iNDciIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjY0IiBmaWxsPSIjMWEyYTZjIi8+PC9zdmc+");
+  background-size: 48px 64px;
 }
 .home-category-tab {
   position: absolute;
