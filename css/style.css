@@ -646,6 +646,9 @@ a { color: inherit; text-decoration: none; }
   padding-bottom: 10px;
   margin-bottom: 10px;
   border-bottom: 2px solid var(--red);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .ranking-block-list { display: flex; flex-direction: column; gap: 8px; }
 /* Filas más chicas que en la lista completa: son una vitrina de 3, no la
@@ -653,7 +656,24 @@ a { color: inherit; text-decoration: none; }
 .ranking-block-list .product-row { padding: 8px 10px; gap: 10px; }
 .ranking-block-list .row-icon { font-size: 26px; width: 40px; }
 .ranking-block-list .row-icon.has-photo { width: 40px; height: 40px; }
-.ranking-block-list .row-name { font-size: 13px; margin: 2px 0; }
+/* Nombres/marcas largos (p.ej. "Mancuernillas Pegasus Acero Inoxidable
+   316L") se cortaban en varias líneas y hacían que esta tarjeta creciera
+   mucho más alto que las otras dos del mismo home-rankings, quedando
+   despareja. Se fuerza una sola línea con "..." al final -- así las 3
+   tarjetas del ranking miden siempre lo mismo sin importar qué tan largo
+   sea el nombre del producto. */
+.ranking-block-list .row-name {
+  font-size: 13px;
+  margin: 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ranking-block-list .row-brand {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .ranking-block-list .row-price { font-size: 16px; }
 .ranking-block-list .rank-badge { width: 24px; height: 24px; font-size: 11px; }
 .ranking-block-list .row-fav-btn { padding: 2px; }
