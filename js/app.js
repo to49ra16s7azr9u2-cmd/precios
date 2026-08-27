@@ -212,6 +212,8 @@
     priceRangeFill: document.getElementById("priceRangeFill"),
     priceNumMin: document.getElementById("priceNumMin"),
     priceNumMax: document.getElementById("priceNumMax"),
+    filtersPanel: document.getElementById("filtersPanel"),
+    filtersPanelHead: document.getElementById("filtersPanelHead"),
     filterBrand: document.getElementById("filterBrand"),
     filterBrandSearch: document.getElementById("filterBrandSearch"),
     filterRating: document.getElementById("filterRating"),
@@ -2993,6 +2995,17 @@
       el.catNav.style.maxHeight = expanded ? `${el.catNav.scrollHeight}px` : "";
     });
 
+    // El submenú de subcategorías (ver renderCatNav) se abre con
+    // mouseenter y se cierra con mouseleave -- en touch no hay "salir con
+    // el mouse", así que el primer toque lo abre (el navegador emula un
+    // hover) y se quedaba abierto para siempre tapando el resto de la
+    // página, sin ninguna forma de cerrarlo. Tocar en cualquier lugar
+    // fuera del ítem y de su propio submenú lo cierra.
+    document.addEventListener("click", (e) => {
+      if (e.target.closest(".cat-item") || e.target.closest(".cat-submenu")) return;
+      document.querySelectorAll(".cat-submenu.visible").forEach((s) => s.classList.remove("visible"));
+    });
+
     el.sortSelect.addEventListener("change", (e) => {
       state.sort = e.target.value;
       renderList();
@@ -3014,6 +3027,16 @@
       h3.addEventListener("click", () => {
         h3.closest(".filter-group").classList.toggle("collapsed");
       });
+    });
+
+    // En mobile el panel completo de Filtros (Precio/Marca/Calificación/...)
+    // arranca cerrado (ver CSS, .filters:not(.filters-category) sin
+    // .filters-open) para que los productos se vean de entrada en vez de
+    // quedar empujados varias pantallas más abajo -- este toggle en el
+    // título es lo único que lo abre/cierra. En desktop el media query no
+    // aplica, así que el click no cambia nada visible ahí.
+    el.filtersPanelHead.addEventListener("click", () => {
+      el.filtersPanel.classList.toggle("filters-open");
     });
 
     el.locationBtn.addEventListener("click", openMapModal);

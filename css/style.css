@@ -414,6 +414,32 @@ a { color: inherit; text-decoration: none; }
   width: 4px;
   background: var(--red);
 }
+/* Flechita del toggle de todo el panel de Filtros -- solo tiene efecto
+   visual/funcional en mobile (ver el bloque @media abajo); en desktop
+   queda oculta porque ahí el panel siempre se ve entero. */
+.filters-panel-toggle { display: none; }
+@media (max-width: 760px) {
+  /* A pedido del usuario: en mobile, Filtros arranca cerrado para que los
+     productos se vean apenas se entra a una categoría, en vez de quedar
+     varias pantallas más abajo del panel completo (Precio + Marca con
+     cientos de checkboxes + Calificación + Condición...). Se excluye
+     .filters-category (el panel de la derecha) porque este pedido fue
+     específicamente sobre el panel de Precio/Marca/etc., y ese ya vive
+     más abajo en la página en una sola columna -- no tapa nada al entrar. */
+  .filters:not(.filters-category) h2 {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .filters-panel-toggle {
+    display: inline-block;
+    font-size: 12px;
+    transition: transform 0.15s;
+  }
+  .filters:not(.filters-category).filters-open .filters-panel-toggle { transform: rotate(180deg); }
+  .filters:not(.filters-category):not(.filters-open) > .filter-group { display: none; }
+}
 /* El panel de Categoría (columna derecha) se angostó para darle más
    ancho a la lista del medio, y ahora se funde con el fondo de la
    página en vez de competir visualmente con la tarjeta blanca de
@@ -604,7 +630,25 @@ a { color: inherit; text-decoration: none; }
 .product-row .row-icon { position: relative; font-size: 40px; width: 56px; text-align: center; flex-shrink: 0; }
 .product-row .row-info { flex: 1; min-width: 0; }
 .product-row .row-brand { font-size: 12px; color: var(--muted); }
-.product-row .row-name { font-size: 15px; font-weight: 600; margin: 3px 0; }
+/* Algunos títulos reales (p. ej. filamentos/telas que listan cada
+   combinación de color en el propio nombre, sin espacios entre
+   "rosa-blanco/azul-morado/...") son una sola palabra kilométrica: sin
+   límite, el navegador la corta letra por letra para no desbordar el
+   ancho angosto de .row-info en mobile, e infla la fila a decenas de
+   líneas -- con align-items:center en .product-row, eso deja el bloque
+   de precio flotando a mitad de esa fila gigante, superpuesto con lo
+   que venga alrededor. Se limita a 2 líneas con "…" en vez de dejar que
+   crezca sin tope. */
+.product-row .row-name {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 3px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
 .product-row .row-stars { font-size: 13px; color: var(--gold); }
 .row-colors { display: flex; align-items: center; gap: 5px; margin-top: 4px; }
 .color-dot {
