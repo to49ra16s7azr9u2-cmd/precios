@@ -292,8 +292,11 @@ a { color: inherit; text-decoration: none; }
   padding-top: 4px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  /* A pedido del usuario (con captura): el texto de apoyo quedaba pegado
+     al borde derecho por el space-between -- flex-start lo deja
+     inmediatamente después del título en vez de empujarlo al extremo. */
+  justify-content: flex-start;
+  gap: 32px;
   flex-wrap: wrap;
 }
 .hero h1,
