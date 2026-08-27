@@ -81,10 +81,10 @@ a { color: inherit; text-decoration: none; }
 .topbar-inner {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 12px 16px;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 .brand {
@@ -150,7 +150,7 @@ a { color: inherit; text-decoration: none; }
 .search-wrap input {
   flex: 1;
   border: none;
-  padding: 12px 14px;
+  padding: 8px 14px;
   font-size: 15px;
   outline: none;
   color: var(--ink);
@@ -174,9 +174,9 @@ a { color: inherit; text-decoration: none; }
 .search-wrap button .nav-icon { width: 18px; height: 18px; }
 .util-nav {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--muted);
 }
 .util-nav a { display: inline-flex; align-items: center; gap: 5px; }
@@ -184,7 +184,7 @@ a { color: inherit; text-decoration: none; }
 .ship-toggle {
   display: flex; align-items: center; gap: 6px;
   cursor: pointer; user-select: none;
-  padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border);
+  padding: 3px 8px; border-radius: 8px; border: 1px solid var(--border);
 }
 .ship-toggle:hover { border-color: var(--red); }
 .ship-toggle input { accent-color: var(--red); width: 15px; height: 15px; }
@@ -208,7 +208,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 13px;
   flex-wrap: wrap;
   overflow: hidden;
-  max-height: 46px;
+  max-height: 34px;
   transition: max-height .22s ease;
 }
 .cats.expanded { max-height: 300px; }
@@ -216,8 +216,8 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   gap: 4px;
-  margin: 0 auto 8px;
-  padding: 3px 12px;
+  margin: 0 auto 4px;
+  padding: 2px 12px;
   border: none;
   background: none;
   color: var(--muted);
@@ -230,8 +230,8 @@ a { color: inherit; text-decoration: none; }
 .cat-nav-toggle[aria-expanded="true"] .cat-nav-toggle-arrow { transform: rotate(180deg); }
 .cats span {
   cursor: pointer;
-  padding: 13px 14px;
-  font-size: 14px;
+  padding: 7px 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--ink);
   border-bottom: 3px solid transparent;
