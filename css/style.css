@@ -617,6 +617,7 @@ a { color: inherit; text-decoration: none; }
 .pagination .page-btn:not(:disabled):hover { border-color: var(--red); color: var(--red); }
 .pagination .page-indicator { font-size: 13px; color: var(--muted); font-weight: 600; }
 .product-row {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -1210,6 +1211,19 @@ a { color: inherit; text-decoration: none; }
   left: 8px;
   font-size: 13px;
   padding: 4px 8px;
+}
+/* En una fila de lista/ranking, sin embargo, el sello no va sobre la
+   miniatura chica del ícono (.row-icon, 56px) sino colgado de la
+   esquina de toda la tarjeta (.product-row) -- a pedido del usuario, en
+   la miniatura pasaba desapercibido. .product-row sí puede "colgar" el
+   sello fuera del borde (a diferencia de los contenedores de foto de
+   arriba) porque no tiene overflow:hidden. */
+.product-row > .discount-ribbon {
+  top: -8px;
+  left: -8px;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 5px;
 }
 .best-tag {
   display: inline-block;

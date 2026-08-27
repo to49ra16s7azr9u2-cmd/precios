@@ -546,7 +546,7 @@
   // leer el precio. Los contenedores donde se inyecta necesitan
   // position:relative (ver CSS); se llama después de renderProductMedia
   // porque esa función limpia el innerHTML del contenedor.
-  function attachDiscountRibbon(container, product) {
+  function attachDiscountRibbon(container, product, short) {
     if (!container) return;
     const existing = container.querySelector(".discount-ribbon");
     if (existing) existing.remove();
@@ -554,7 +554,12 @@
     if (!pct) return;
     const ribbon = document.createElement("span");
     ribbon.className = "discount-ribbon";
-    ribbon.textContent = `-${pct}%`;
+    // "Descuento" explícito además del "%" -- a pedido del usuario, un
+    // "-45%" solo se podía confundir con cualquier otro número en la
+    // tarjeta a un vistazo rápido. Se omite (short=true) solo en
+    // .most-viewed-icon: ahí comparte esquina con el rótulo "Más visto
+    // en este navegador" y el texto largo lo hacía chocar contra él.
+    ribbon.textContent = short ? `-${pct}%` : `Descuento -${pct}%`;
     container.appendChild(ribbon);
   }
 
@@ -1284,7 +1289,7 @@
     `;
     const mostViewedIcon = card.querySelector(".most-viewed-icon");
     const settleMostViewedIcon = () => {
-      attachDiscountRibbon(mostViewedIcon, product);
+      attachDiscountRibbon(mostViewedIcon, product, true);
       attachMostViewedLabel(mostViewedIcon);
     };
     renderProductMedia(mostViewedIcon, product, "detail", settleMostViewedIcon);
@@ -1617,8 +1622,11 @@
         <button class="row-fav-btn" aria-label="Favorito"></button>
       `;
       const rowIcon = row.querySelector(".row-icon");
-      renderProductMedia(rowIcon, p, undefined, () => attachDiscountRibbon(rowIcon, p));
-      attachDiscountRibbon(rowIcon, p);
+      // El sello va en la esquina de toda la tarjeta (.product-row), no
+      // en la miniatura chica del ícono -- a pedido del usuario, ahí
+      // pasaba desapercibido.
+      renderProductMedia(rowIcon, p, undefined, () => attachDiscountRibbon(row, p));
+      attachDiscountRibbon(row, p);
       row.onclick = () => goDetail(p.id);
       bindFavToggle(row.querySelector(".row-fav-btn"), p.id, opts.onFavToggle);
       row.querySelector(".row-fav-btn").innerHTML = favIconHtml(p.id);
