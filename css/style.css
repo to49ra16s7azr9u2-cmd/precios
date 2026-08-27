@@ -286,14 +286,14 @@ a { color: inherit; text-decoration: none; }
    atención en la página es el precio, no el título. */
 .hero,
 .page-band {
-  padding: 18px 0 8px;
+  padding: 10px 0 6px;
 }
 .hero {
-  padding-top: 6px;
+  padding-top: 4px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 .hero h1,
@@ -311,8 +311,8 @@ a { color: inherit; text-decoration: none; }
 .hero p { max-width: 420px; }
 .hero h2,
 .section-title {
-  margin: 16px 0 12px;
-  padding-top: 16px;
+  margin: 10px 0 8px;
+  padding-top: 10px;
   border-top: 1px solid var(--border);
   color: var(--ink);
   font-size: 18px;
@@ -348,8 +348,8 @@ a { color: inherit; text-decoration: none; }
      derecha de la lista en pantallas anchas -- la lista central se achica
      un poco (1fr compartido) para hacerle lugar. */
   grid-template-columns: minmax(220px, 22%) 1fr minmax(130px, 12%);
-  gap: 24px;
-  padding-bottom: 40px;
+  gap: 16px;
+  padding-bottom: 24px;
 }
 @media (max-width: 980px) {
   .list-layout { grid-template-columns: minmax(220px, 22%) 1fr; }
@@ -370,9 +370,9 @@ a { color: inherit; text-decoration: none; }
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 18px;
+  padding: 14px;
   align-self: start;
-  margin-top: 14px;
+  margin-top: 10px;
   /* Con >1200 marcas distintas en el catálogo, el filtro de Marca por sí
      solo puede medir decenas de miles de px de alto -- sin position:sticky
      eso estira la fila del grid entera y, al bajar por la lista, tanto este
@@ -567,13 +567,13 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink);
 }
 
-.product-list { display: flex; flex-direction: column; gap: 14px; }
+.product-list { display: flex; flex-direction: column; gap: 10px; }
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  margin: 24px 0;
+  gap: 12px;
+  margin: 16px 0;
 }
 .pagination .page-btn {
   padding: 8px 16px;
@@ -590,11 +590,11 @@ a { color: inherit; text-decoration: none; }
 .product-row {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 18px 20px;
+  padding: 14px 16px;
   cursor: pointer;
 }
 .product-row:hover { border-color: var(--red); }
@@ -725,14 +725,14 @@ a { color: inherit; text-decoration: none; }
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 22px;
+  padding: 16px;
+  margin-bottom: 16px;
 }
 .panel h2 {
   position: relative;
   font-size: 17px;
-  margin: -20px -20px 14px;
-  padding: 13px 16px 13px 20px;
+  margin: -16px -16px 10px;
+  padding: 10px 16px;
   border-radius: var(--radius) var(--radius) 0 0;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
@@ -1516,6 +1516,18 @@ a { color: inherit; text-decoration: none; }
   grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
   gap: 8px;
   padding: 4px 0 18px;
+}
+/* A pedido del usuario: en mobile, minmax(108px, 1fr) sólo alcanza para
+   2 columnas (108px*3 + 2 gaps ya no entra en ~330px de ancho útil), así
+   que se fuerzan 3 columnas parejas en vez de dejar que auto-fill decida
+   -- las tarjetas se angostan un poco (ver ajustes de íconos abajo) pero
+   caben sin desbordar. */
+@media (max-width: 480px) {
+  .category-card-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .category-card { padding: 6px 4px; }
+  .category-card-icon { width: 36px; height: 36px; font-size: 18px; }
+  .category-card-icon--photo { width: 100%; height: 40px; }
+  .category-card-name { font-size: 11px; }
 }
 /* Borde solo alrededor de las categorías de Inicio (no las de /marcas,
    que reusan la misma .category-card-grid) -- pegado a las tarjetas
