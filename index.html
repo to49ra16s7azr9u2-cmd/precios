@@ -245,9 +245,10 @@
 
       <!-- Solo se muestra cuando el producto viene de AliExpress/Alibaba/
            SUNSKY/Geekbuying -- ver renderShippingWidgetForProduct() en
-           js/app.js. El catálogo no trae peso/medidas de estas tiendas, así
-           que es un formulario para que el comprador las escriba, no un
-           dato precargado. -->
+           js/app.js. El catálogo no trae el peso/medidas reales de estas
+           tiendas, así que los campos arrancan con un estimado automático
+           según la categoría del producto (CATEGORY_SHIPPING_DEFAULTS) en
+           vez de vacíos -- el comprador los ajusta si conoce el dato real. -->
       <div class="panel hidden" id="detailShippingPanel">
         <h2>Estimación de envío internacional</h2>
         <p class="muted small" id="detailShippingIntro"></p>

@@ -2117,13 +2117,77 @@
 
   const SHIPPING_CALC_STORE_IDS = ["aliexpress", "alibaba", "sunsky", "geekbuying"];
 
+  // Peso/medidas TÍPICOS por categoría, en kg/cm -- ninguna de las 4 tiendas
+  // con calculadora de envío expone el peso/tamaño real de cada producto en
+  // su feed (esos datos solo llegan, cuando llegan, en el catálogo curado de
+  // mercadolibre), así que no hay forma de "traer" el dato real del
+  // producto puntual. Esto es lo más cercano a automático que se puede
+  // ofrecer honestamente: un estimado razonable según el tipo de producto,
+  // para que el widget arranque con un cálculo ya hecho en vez de campos
+  // vacíos -- el comprador lo corrige si conoce el peso/tamaño real (el
+  // paquete real casi siempre declara ambos en la página del vendedor).
+  const CATEGORY_SHIPPING_DEFAULTS = {
+    "Celulares": { weightKg: 0.3, lengthCm: 17, widthCm: 8, heightCm: 8 },
+    "Cargadores y adaptadores": { weightKg: 0.2, lengthCm: 12, widthCm: 8, heightCm: 5 },
+    "Baterías portátiles": { weightKg: 0.4, lengthCm: 15, widthCm: 8, heightCm: 3 },
+    "Laptops": { weightKg: 2.2, lengthCm: 36, widthCm: 26, heightCm: 4 },
+    "Tabletas": { weightKg: 0.6, lengthCm: 26, widthCm: 18, heightCm: 3 },
+    "Monitores": { weightKg: 5, lengthCm: 60, widthCm: 45, heightCm: 15 },
+    "Bocinas": { weightKg: 1, lengthCm: 25, widthCm: 20, heightCm: 20 },
+    "Audífonos": { weightKg: 0.3, lengthCm: 20, widthCm: 18, heightCm: 9 },
+    "Teclados": { weightKg: 0.8, lengthCm: 45, widthCm: 15, heightCm: 5 },
+    "Mouse": { weightKg: 0.2, lengthCm: 13, widthCm: 8, heightCm: 5 },
+    "Computadoras": { weightKg: 1.5, lengthCm: 30, widthCm: 25, heightCm: 10 },
+    "Computadoras de escritorio": { weightKg: 6, lengthCm: 45, widthCm: 20, heightCm: 40 },
+    "Televisores": { weightKg: 8, lengthCm: 100, widthCm: 15, heightCm: 65 },
+    "Proyectores y accesorios": { weightKg: 2, lengthCm: 30, widthCm: 25, heightCm: 12 },
+    "Lavadoras": { weightKg: 40, lengthCm: 65, widthCm: 65, heightCm: 90 },
+    "Aspiradoras": { weightKg: 3.5, lengthCm: 40, widthCm: 25, heightCm: 25 },
+    "Cafeteras": { weightKg: 3, lengthCm: 35, widthCm: 25, heightCm: 35 },
+    "Refrigeradores": { weightKg: 45, lengthCm: 70, widthCm: 70, heightCm: 170 },
+    "Electrodomésticos": { weightKg: 3, lengthCm: 35, widthCm: 30, heightCm: 30 },
+    "Videojuegos": { weightKg: 1.5, lengthCm: 35, widthCm: 30, heightCm: 12 },
+    "Muebles": { weightKg: 12, lengthCm: 80, widthCm: 40, heightCm: 20 },
+    "Herramientas": { weightKg: 2, lengthCm: 35, widthCm: 25, heightCm: 15 },
+    "Autos, bicicletas y motos": { weightKg: 15, lengthCm: 120, widthCm: 60, heightCm: 40 },
+    "Refacciones": { weightKg: 0.6, lengthCm: 20, widthCm: 15, heightCm: 10 },
+    "Ropa (hombre y mujer)": { weightKg: 0.4, lengthCm: 30, widthCm: 25, heightCm: 5 },
+    "Calzado": { weightKg: 1, lengthCm: 33, widthCm: 20, heightCm: 13 },
+    "Viajes": { weightKg: 1.5, lengthCm: 45, widthCm: 30, heightCm: 20 },
+    "Relojes inteligentes": { weightKg: 0.2, lengthCm: 12, widthCm: 9, heightCm: 6 },
+    "Cámaras de seguridad": { weightKg: 0.5, lengthCm: 15, widthCm: 12, heightCm: 10 },
+    "Redes": { weightKg: 0.5, lengthCm: 20, widthCm: 15, heightCm: 5 },
+    "Drones": { weightKg: 1.2, lengthCm: 35, widthCm: 30, heightCm: 15 },
+    "Impresoras": { weightKg: 5, lengthCm: 45, widthCm: 38, heightCm: 25 },
+    "Instrumentos musicales": { weightKg: 3, lengthCm: 100, widthCm: 40, heightCm: 15 },
+    "Cámaras y fotografía": { weightKg: 0.7, lengthCm: 15, widthCm: 12, heightCm: 10 },
+    "Almacenamiento": { weightKg: 0.3, lengthCm: 15, widthCm: 10, heightCm: 3 },
+    "Iluminación": { weightKg: 0.6, lengthCm: 25, widthCm: 15, heightCm: 10 },
+    "Juguetes y bebés": { weightKg: 1, lengthCm: 35, widthCm: 25, heightCm: 20 },
+    "Mascotas": { weightKg: 1.5, lengthCm: 35, widthCm: 25, heightCm: 20 },
+    "Salud y belleza": { weightKg: 0.4, lengthCm: 20, widthCm: 15, heightCm: 10 },
+    "Climatización": { weightKg: 6, lengthCm: 45, widthCm: 35, heightCm: 30 },
+    "Deportes y fitness": { weightKg: 3, lengthCm: 50, widthCm: 30, heightCm: 20 },
+    "Papelería y oficina": { weightKg: 0.5, lengthCm: 25, widthCm: 20, heightCm: 10 },
+    "Fitness": { weightKg: 15, lengthCm: 100, widthCm: 50, heightCm: 30 },
+    "Aparatos de belleza": { weightKg: 0.4, lengthCm: 20, widthCm: 12, heightCm: 8 },
+    "Joyería y bisutería": { weightKg: 0.1, lengthCm: 10, widthCm: 8, heightCm: 4 },
+    "Artículos de lujo (preowned)": { weightKg: 0.5, lengthCm: 30, widthCm: 25, heightCm: 12 },
+    "Decoración de hogar y jardín": { weightKg: 1.5, lengthCm: 30, widthCm: 25, heightCm: 20 },
+    "Juegos de mesa": { weightKg: 1, lengthCm: 30, widthCm: 25, heightCm: 8 },
+    "Impresión 3D": { weightKg: 7, lengthCm: 45, widthCm: 45, heightCm: 45 },
+    "Movilidad eléctrica": { weightKg: 15, lengthCm: 110, widthCm: 45, heightCm: 25 },
+    "Blancos y ropa de cama": { weightKg: 1, lengthCm: 35, widthCm: 30, heightCm: 10 },
+    "Otros": { weightKg: 0.5, lengthCm: 20, widthCm: 15, heightCm: 10 },
+  };
+  const DEFAULT_SHIPPING_ESTIMATE = { weightKg: 0.5, lengthCm: 20, widthCm: 15, heightCm: 10 };
+
   // Widget compacto en la ficha de producto: solo aparece cuando el
   // producto tiene una oferta de una de las 4 tiendas con calculadora de
-  // envío. El catálogo no trae peso/medidas de estas tiendas (son specs
-  // que solo llegan de mercadolibre), así que es un mini-formulario para
-  // que el comprador escriba el peso/tamaño aproximado del paquete, no un
-  // dato precargado -- por eso arranca vacío en vez de con un placeholder
-  // ya calculado.
+  // envío. Arranca con el estimado de CATEGORY_SHIPPING_DEFAULTS ya cargado
+  // y calculado (en vez de campos vacíos) para que el comprador vea un
+  // resultado sin escribir nada; los campos siguen siendo editables por si
+  // conoce el peso/tamaño real del paquete.
   function renderShippingWidgetForProduct(product) {
     const storeId = (product.offers || [])
       .map((o) => o.storeId)
@@ -2134,12 +2198,13 @@
     }
     const store = storeById(storeId);
     el.detailShippingPanel.classList.remove("hidden");
-    el.detailShippingIntro.textContent = `Este producto se vende en ${store ? store.name : storeId}. Escribe el peso y, si lo sabes, el tamaño del paquete para estimar el envío a México.`;
+    const defaults = CATEGORY_SHIPPING_DEFAULTS[product.category] || DEFAULT_SHIPPING_ESTIMATE;
+    el.detailShippingIntro.innerHTML = `Este producto se vende en ${store ? store.name : storeId}. Los campos ya traen un peso y tamaño típicos para "${product.category}" -- ajústalos si conoces el dato real del paquete. <span class="shipping-estimate-note">${icon("alert-triangle")} estimado automático según la categoría, no el peso real de este producto</span>`;
     el.detailShippingCalcLink.href = "#/envio";
-    [el.detailShipWeightInput, el.detailShipLengthInput, el.detailShipWidthInput, el.detailShipHeightInput].forEach(
-      (input) => (input.value = "")
-    );
-    el.detailShippingResults.innerHTML = "";
+    el.detailShipWeightInput.value = defaults.weightKg;
+    el.detailShipLengthInput.value = defaults.lengthCm;
+    el.detailShipWidthInput.value = defaults.widthCm;
+    el.detailShipHeightInput.value = defaults.heightCm;
     const recompute = () => {
       const { weightKg, lengthCm, widthCm, heightCm } = readShippingFormInputs(
         el.detailShipWeightInput,
@@ -2152,6 +2217,7 @@
     [el.detailShipWeightInput, el.detailShipLengthInput, el.detailShipWidthInput, el.detailShipHeightInput].forEach(
       (input) => (input.oninput = recompute)
     );
+    recompute();
   }
 
   // ---------- Vista: Ficha de producto ----------
