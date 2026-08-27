@@ -1540,11 +1540,12 @@ a { color: inherit; text-decoration: none; }
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: 4px;
-  max-width: 68%;
+  gap: 3px;
+  max-width: none;
+  white-space: nowrap;
   background: rgba(255, 255, 255, 0.92);
   color: var(--ink);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   line-height: 1.25;
   padding: 4px 8px;
@@ -1552,7 +1553,13 @@ a { color: inherit; text-decoration: none; }
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   pointer-events: none;
 }
-.most-viewed-badge .icon { width: 13px; height: 13px; flex-shrink: 0; }
+/* Selector más específico a propósito: el ícono del rótulo vive dentro de
+   .most-viewed-icon (el marco de la foto), así que sin este extra nivel
+   también calzaba con la regla genérica .most-viewed-icon .icon (64px,
+   pensada para el emoji de reemplazo cuando no hay foto) -- con la misma
+   especificidad de otro modo, esa regla venía después en el archivo y
+   ganaba, dejando el ojo enorme en vez de chico junto al texto. */
+.most-viewed-icon .most-viewed-badge .icon { width: 12px; height: 12px; flex-shrink: 0; color: var(--ink); }
 /* Misma etiqueta pero como texto normal arriba de la tarjeta -- se usa
    solo en el estado vacío (sin producto visto todavía no hay foto donde
    superponerla). */
