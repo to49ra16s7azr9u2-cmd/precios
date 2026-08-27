@@ -351,7 +351,13 @@ a { color: inherit; text-decoration: none; }
   .filters-category { grid-column: 1 / -1; }
 }
 @media (max-width: 760px) {
-  .list-layout { grid-template-columns: 1fr; }
+  /* minmax(0, 1fr) y no 1fr a secas: un grid item hereda min-width:auto por
+     defecto, así que su contenido (aquí, una marca larga sin espacios en
+     el filtro) puede forzar la columna más ancha que el viewport aunque
+     "1fr" diga que ocupe el espacio disponible -- minmax(0, ...) anula ese
+     mínimo implícito y deja que el contenido se ajuste/trunque en vez de
+     desbordar la página. */
+  .list-layout { grid-template-columns: minmax(0, 1fr); }
   .filters-category { grid-column: auto; }
 }
 
