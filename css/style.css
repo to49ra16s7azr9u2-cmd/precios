@@ -1428,11 +1428,16 @@ a { color: inherit; text-decoration: none; }
   align-items: flex-start;
 }
 .home-right-column {
-  flex: 0 0 240px;
+  flex: 0 0 320px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
+/* El panel de "Más visto" vive en la columna angosta (antes iba a todo el
+   ancho, debajo del ranking) -- ver .most-viewed-card más abajo para el
+   diseño vertical/grande que reemplaza al horizontal compacto que tenía
+   cuando ocupaba todo el ancho de la página. */
+.home-most-viewed-panel .section-title { margin-top: 0; }
 /* Banner de afiliados (Admitad), debajo del Top 5 -- mismo marco que el
    resto de las tarjetas de la columna, con la etiqueta "Publicidad" para
    que se distinga con claridad de contenido propio del sitio. */
@@ -1462,21 +1467,26 @@ a { color: inherit; text-decoration: none; }
    (clics reales de este navegador, ver trackProductView), pero mostrando
    la ficha del único producto más visto en vez de una lista -- una
    versión compacta de .detail-head (icono/nombre/rating/colores/precio)
-   dentro de una tarjeta clicable que lleva a la ficha completa. */
+   dentro de una tarjeta clicable que lleva a la ficha completa.
+   Diseño vertical y grande (a pedido del usuario): antes esta tarjeta
+   iba a todo el ancho de la página con el icono chico a un lado del
+   texto; ahora vive apilada en la columna angosta debajo del banner de
+   publicidad, así que el icono pasa a ocupar todo el ancho arriba, bien
+   grande, con el texto debajo en vez de al lado. */
 .most-viewed-card {
   display: flex;
-  align-items: flex-start;
-  gap: 18px;
+  flex-direction: column;
+  gap: 12px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 18px;
+  padding: 16px;
   cursor: pointer;
 }
 .most-viewed-card:hover { border-color: var(--red); }
 .most-viewed-icon {
-  font-size: 44px;
-  width: 84px; height: 84px;
+  font-size: 72px;
+  width: 100%; height: 180px;
   display: flex; align-items: center; justify-content: center;
   background: var(--bg);
   border: 1px solid var(--border);
@@ -1672,7 +1682,7 @@ a { color: inherit; text-decoration: none; }
 .ranking-block-list .row-icon .icon,
 .related-item .row-icon .icon { width: 18px; height: 18px; }
 .detail-icon .icon { width: 46px; height: 46px; color: var(--muted); }
-.most-viewed-icon .icon { width: 36px; height: 36px; color: var(--muted); }
+.most-viewed-icon .icon { width: 64px; height: 64px; color: var(--muted); }
 .category-card-icon .icon { width: 24px; height: 24px; color: var(--muted); }
 .category-card-icon--photo .icon { width: 40px; height: 40px; }
 
