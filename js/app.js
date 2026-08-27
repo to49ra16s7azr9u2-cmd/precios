@@ -38,7 +38,14 @@
     includeShipping: "comparamx_include_shipping",
     productViews: "comparamx_product_views",
     storeClicks: "comparamx_store_clicks",
+    reviewDrafts: "comparamx_review_drafts",
   };
+
+  // A partir de cuántas visitas (ver trackProductView) se le sugiere al
+  // usuario que deje su opinión en un producto que todavía no reseñó --
+  // suficientes visitas como para asumir interés real, sin ser tan bajo
+  // que aparezca en la primera entrada a la ficha.
+  const REVIEW_REMINDER_VIEW_THRESHOLD = 3;
 
   // ---------- Precios en vivo desde APIs reales (desactivado por defecto) ----------
   // Mercado Libre exige ahora una app registrada + OAuth para leer su API (ya no
@@ -257,6 +264,7 @@
     detailShipHeightInput: document.getElementById("detailShipHeightInput"),
     reviewCount: document.getElementById("reviewCount"),
     reviewList: document.getElementById("reviewList"),
+    reviewNudge: document.getElementById("reviewNudge"),
     reviewForm: document.getElementById("reviewForm"),
     reviewAuthor: document.getElementById("reviewAuthor"),
     reviewRating: document.getElementById("reviewRating"),
@@ -913,6 +921,25 @@
     all[productId] = all[productId] || [];
     all[productId].unshift(review);
     writeLS(LS_KEYS.reviews, all);
+  }
+
+  // Borrador de reseña sin enviar: para que no se pierda si el usuario
+  // escribe y se va de la página sin darle a "Publicar reseña" (se cierra
+  // la pestaña, cambia de idea a mitad de camino, etc.) -- un borrador por
+  // producto, ya que cada ficha tiene su propio formulario.
+  function getReviewDraft(productId) {
+    return readLS(LS_KEYS.reviewDrafts, {})[productId] || null;
+  }
+  function saveReviewDraft(productId, draft) {
+    const all = readLS(LS_KEYS.reviewDrafts, {});
+    all[productId] = draft;
+    writeLS(LS_KEYS.reviewDrafts, all);
+  }
+  function clearReviewDraft(productId) {
+    const all = readLS(LS_KEYS.reviewDrafts, {});
+    if (!(productId in all)) return;
+    delete all[productId];
+    writeLS(LS_KEYS.reviewDrafts, all);
   }
 
   // El corazón usaba los emoji 🤍/❤, que en Windows (Segoe UI Emoji) se ven
@@ -2326,6 +2353,68 @@
         </div>`
       )
       .join("");
+
+    renderReviewNudge(product, userReviews, allReviews);
+  }
+
+  // Empuja a escribir la primera reseña (o a no perder una que ya
+  // empezaste). Tres mensajes posibles, en orden de prioridad -- solo se
+  // muestra uno a la vez, el más accionable primero:
+  //   1) Hay un borrador sin enviar (ver saveReviewDraft) -> se recupera
+  //      el texto en el formulario y se avisa, con opción de descartarlo.
+  //   2) El usuario ya visitó el producto varias veces sin dejar su
+  //      propia reseña -> mensaje más personal/urgente que el genérico
+  //      de abajo. Va ANTES que el de "sé el primero": el catálogo no
+  //      trae reseñas semilla (siempre allReviews == userReviews), así
+  //      que si el de "sé el primero" tuviera prioridad, este nunca se
+  //      llegaría a mostrar -- las primeras 1-2 visitas sin reseñar caen
+  //      igual en el genérico de abajo, y recién de la 3ra en adelante
+  //      pasan a este, más específico.
+  //   3) Nadie reseñó todavía este producto -> invita a ser el primero.
+  function renderReviewNudge(product, userReviews, allReviews) {
+    const draft = getReviewDraft(product.id);
+    if (draft && (draft.comment || "").trim()) {
+      if (draft.author) el.reviewAuthor.value = draft.author;
+      if (draft.rating) el.reviewRating.value = draft.rating;
+      el.reviewComment.value = draft.comment;
+      el.reviewNudge.innerHTML = `
+        <div class="review-nudge review-nudge-draft">
+          ${icon("pencil")}
+          <span>Recuperamos una reseña que habías empezado a escribir y no enviaste.</span>
+          <button type="button" class="review-nudge-dismiss" id="reviewDraftDiscard">Descartar</button>
+        </div>`;
+      const discardBtn = document.getElementById("reviewDraftDiscard");
+      if (discardBtn) {
+        discardBtn.onclick = () => {
+          clearReviewDraft(product.id);
+          el.reviewComment.value = "";
+          el.reviewNudge.innerHTML = "";
+          renderReviewNudge(product, userReviews, allReviews);
+        };
+      }
+      return;
+    }
+
+    const views = readLS(LS_KEYS.productViews, {})[product.id] || 0;
+    if (userReviews.length === 0 && views >= REVIEW_REMINDER_VIEW_THRESHOLD) {
+      el.reviewNudge.innerHTML = `
+        <div class="review-nudge review-nudge-remind">
+          ${icon("eye")}
+          <span>Ya entraste a esta ficha ${plural(views, "vez", "veces")}. ¿Qué te pareció? Contarles a otros compradores toma un minuto.</span>
+        </div>`;
+      return;
+    }
+
+    if (allReviews.length === 0) {
+      el.reviewNudge.innerHTML = `
+        <div class="review-nudge review-nudge-first">
+          ${icon("trophy")}
+          <span><strong>Todavía nadie opinó sobre este producto.</strong> Sé la primera persona en dejar tu reseña -- será lo primero que vean los demás compradores.</span>
+        </div>`;
+      return;
+    }
+
+    el.reviewNudge.innerHTML = "";
   }
 
   function renderSortTabs() {
@@ -3070,7 +3159,28 @@
       });
       setProfileName(author);
       el.reviewComment.value = "";
+      clearReviewDraft(product.id);
       renderReviews(product);
+    });
+
+    // Guarda un borrador con cada tecleo en el comentario -- si el usuario
+    // se va de la ficha sin publicar, la próxima vez que vuelva lo
+    // recupera (ver renderReviewNudge). El nombre/calificación se guardan
+    // junto porque van en el mismo borrador, pero lo que dispara el
+    // guardado es el comentario: sin texto no hay nada que recuperar.
+    el.reviewComment.addEventListener("input", () => {
+      const product = currentProduct();
+      if (!product) return;
+      const comment = el.reviewComment.value;
+      if (!comment.trim()) {
+        clearReviewDraft(product.id);
+        return;
+      }
+      saveReviewDraft(product.id, {
+        author: el.reviewAuthor.value,
+        rating: el.reviewRating.value,
+        comment,
+      });
     });
 
     el.profileForm.addEventListener("submit", (e) => {
