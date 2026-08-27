@@ -1532,15 +1532,13 @@ a { color: inherit; text-decoration: none; }
   min-width: 0;
   padding: 20px 6px 6px;
   margin: 4px 0 18px;
-  border: 2px solid #f7c3cd;
+  /* A pedido del usuario se quita el patrón de sarape (llegó a probarse
+     en varias vueltas: rombos sutiles, sarape vívido multicolor, luego
+     acotado a blanco/rosa/rojo -- commits 422af90ba..c5c5f907d) y se
+     deja solo un borde bien marcado, sin textura de fondo. */
+  border: 6px solid #f7c3cd;
   border-radius: var(--radius);
-  background-color: #fffbfc;
-  /* Franjas de sarape/greca mexicana, blanco + rosa + rojo aclarados
-     otra vez a pedido del usuario (versión anterior: commit
-     18ff317e9) -- misma estructura de bandas/rombos/zigzag/puntos,
-     tile de 48x64 en base64. */
-  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDQ4IDY0Ij4KPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZmZmYmZjIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZjdjM2NkIi8+CjxyZWN0IHg9IjIiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjMiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZjdjM2NkIi8+CjxyZWN0IHg9IjUiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjYiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZjdjM2NkIi8+CjxyZWN0IHg9IjgiIHk9IjAiIHdpZHRoPSIxMiIgaGVpZ2h0PSI2NCIgZmlsbD0iI2ZmZmJmYyIvPgo8cGF0aCBkPSJNMTQgMTAgTDIwIDE2IEwxNCAyMiBMOCAxNiBaIiBmaWxsPSJub25lIiBzdHJva2U9IiNmN2MzY2QiIHN0cm9rZS13aWR0aD0iMS42Ii8+CjxjaXJjbGUgY3g9IjE0IiBjeT0iMTYiIHI9IjEuNiIgZmlsbD0iI2ZmZTFlOCIvPgo8cGF0aCBkPSJNMTQgNDIgTDIwIDQ4IEwxNCA1NCBMOCA0OCBaIiBmaWxsPSJub25lIiBzdHJva2U9IiNmN2MzY2QiIHN0cm9rZS13aWR0aD0iMS42Ii8+CjxjaXJjbGUgY3g9IjE0IiBjeT0iNDgiIHI9IjEuNiIgZmlsbD0iI2ZmZTFlOCIvPgo8cmVjdCB4PSIyMCIgeT0iMCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZmZlMWU4Ii8+CjxwYXRoIGQ9Ik0yMCA0IEwyNiAxMiBMMzIgNCBNMjAgMjAgTDI2IDI4IEwzMiAyMCBNMjAgMzYgTDI2IDQ0IEwzMiAzNiBNMjAgNTIgTDI2IDYwIEwzMiA1MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEuNiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cmVjdCB4PSIzMiIgeT0iMCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZmZmYmZjIi8+CjxjaXJjbGUgY3g9IjM4IiBjeT0iOCIgcj0iMi40IiBmaWxsPSIjZjdjM2NkIi8+CjxjaXJjbGUgY3g9IjM4IiBjeT0iMjQiIHI9IjIuNCIgZmlsbD0iI2ZmZmZmZiIvPgo8Y2lyY2xlIGN4PSIzOCIgY3k9IjQwIiByPSIyLjQiIGZpbGw9IiNmN2MzY2QiLz4KPGNpcmNsZSBjeD0iMzgiIGN5PSI1NiIgcj0iMi40IiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjQ0IiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSI2NCIgZmlsbD0iI2Y3YzNjZCIvPgo8cmVjdCB4PSI0NSIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iNjQiIGZpbGw9IiNmZmZmZmYiLz4KPHJlY3QgeD0iNDYiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjY0IiBmaWxsPSIjZjdjM2NkIi8+CjxyZWN0IHg9IjQ3IiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSI2NCIgZmlsbD0iI2ZmZmZmZiIvPgo8L3N2Zz4=");
-  background-size: 48px 64px;
+  background-color: var(--card);
 }
 .home-category-tab {
   position: absolute;

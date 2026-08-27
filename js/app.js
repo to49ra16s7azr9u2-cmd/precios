@@ -2103,7 +2103,6 @@
     "Herramientas": { weightKg: 2, lengthCm: 35, widthCm: 25, heightCm: 15 },
     "Autos, bicicletas y motos": { weightKg: 15, lengthCm: 120, widthCm: 60, heightCm: 40 },
     "Refacciones": { weightKg: 0.6, lengthCm: 20, widthCm: 15, heightCm: 10 },
-    "Ropa (hombre y mujer)": { weightKg: 0.4, lengthCm: 30, widthCm: 25, heightCm: 5 },
     "Calzado": { weightKg: 1, lengthCm: 33, widthCm: 20, heightCm: 13 },
     "Viajes": { weightKg: 1.5, lengthCm: 45, widthCm: 30, heightCm: 20 },
     "Relojes inteligentes": { weightKg: 0.2, lengthCm: 12, widthCm: 9, heightCm: 6 },
