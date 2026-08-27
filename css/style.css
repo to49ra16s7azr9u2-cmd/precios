@@ -1535,8 +1535,10 @@ a { color: inherit; text-decoration: none; }
   /* A pedido del usuario se quita el patrón de sarape (llegó a probarse
      en varias vueltas: rombos sutiles, sarape vívido multicolor, luego
      acotado a blanco/rosa/rojo -- commits 422af90ba..c5c5f907d) y se
-     deja solo un borde bien marcado, sin textura de fondo. */
-  border: 6px solid #f7c3cd;
+     deja solo un borde, sin textura de fondo. El grosor del borde
+     también se probó en ambos extremos a pedido (6px -> ahora 1px, el
+     mínimo que un borde CSS puede tener y seguir siendo visible). */
+  border: 1px solid #f7c3cd;
   border-radius: var(--radius);
   background-color: var(--card);
 }
