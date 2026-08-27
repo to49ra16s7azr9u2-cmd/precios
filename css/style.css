@@ -1521,16 +1521,13 @@ a { color: inherit; text-decoration: none; }
    que reusan la misma .category-card-grid) -- pegado a las tarjetas
    (padding chico), esquinas redondeadas como el resto de las tarjetas
    del sitio, y en un rojo más claro que --red, para que se note sin
-   pesar tanto como el rojo de marca a pantalla completa.
-   El wrapper (no el grid mismo) lleva el borde porque necesita
-   position:relative para la pestaña "Categorías" que se le monta encima
-   -- el grid se limpia y reconstruye en cada render (innerHTML = ""), así
-   que la pestaña no puede vivir adentro o desaparecería con cada repintado. */
+   pesar tanto como el rojo de marca a pantalla completa. La pestaña
+   roja "Categorías" que iba montada arriba del borde se quitó a
+   pedido del usuario. */
 .home-category-box {
-  position: relative;
   flex: 1;
   min-width: 0;
-  padding: 20px 6px 6px;
+  padding: 6px;
   margin: 4px 0 18px;
   /* A pedido del usuario se quita el patrón de sarape (llegó a probarse
      en varias vueltas: rombos sutiles, sarape vívido multicolor, luego
@@ -1541,17 +1538,6 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid #f7c3cd;
   border-radius: var(--radius);
   background-color: var(--card);
-}
-.home-category-tab {
-  position: absolute;
-  top: -13px;
-  left: 14px;
-  background: var(--red);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 14px;
-  border-radius: 6px;
 }
 #homeCategoryGrid { padding: 0; margin: 0; }
 .category-card {
