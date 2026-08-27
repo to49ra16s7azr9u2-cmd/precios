@@ -36,7 +36,6 @@
     profile: "comparamx_profile",
     reviews: "comparamx_reviews",
     includeShipping: "comparamx_include_shipping",
-    categoryClicks: "comparamx_category_clicks",
     productViews: "comparamx_product_views",
     storeClicks: "comparamx_store_clicks",
   };
@@ -198,7 +197,6 @@
 
     viewHome: document.getElementById("viewHome"),
     homeCategoryGrid: document.getElementById("homeCategoryGrid"),
-    homeTopCategoriesList: document.getElementById("homeTopCategoriesList"),
     homeRankings: document.getElementById("homeRankings"),
     homeMostViewed: document.getElementById("homeMostViewed"),
 
@@ -513,7 +511,7 @@
   //     agregó localmente), 0 para 1-2 estrellas
   // Clics y visitas son "lo que tú más visitaste" (un sitio estático sin
   // backend no puede medir eso agregado de todos los visitantes, ver
-  // trackCategoryClick), pero las reseñas sí son un dato compartido real.
+  // trackProductView), pero las reseñas sí son un dato compartido real.
   function reviewStarPoints(product) {
     const STAR_POINTS = { 5: 10, 4: 8, 3: 6 };
     const all = [...getUserReviews(product.id), ...(product.reviews || [])];
@@ -799,30 +797,9 @@
     }
   }
 
-  // "Top 5 más visitadas" en Inicio: cuenta reales de clics hacia cada
-  // categoría en ESTE navegador (localStorage), nunca un número inventado
-  // -- un sitio estático sin backend no tiene forma honesta de medir
-  // clics agregados de todos los visitantes, así que el ranking es
-  // siempre "lo que tú más visitaste", no "lo más popular del sitio".
-  function trackCategoryClick(categoryId) {
-    if (!categoryId) return;
-    const counts = readLS(LS_KEYS.categoryClicks, {});
-    counts[categoryId] = (counts[categoryId] || 0) + 1;
-    writeLS(LS_KEYS.categoryClicks, counts);
-  }
-  function topClickedCategories(n) {
-    const counts = readLS(LS_KEYS.categoryClicks, {});
-    return Object.entries(counts)
-      .sort((a, b) => b[1] - a[1])
-      .map(([id, count]) => ({ cat: categoryById(id), count }))
-      .filter((x) => x.cat) // por si una categoría se renombró/eliminó desde el último clic
-      .slice(0, n);
-  }
-
-  // "Más visto en este navegador" en Inicio: mismo principio honesto que
-  // trackCategoryClick() -- cuenta real de visitas a cada ficha de
-  // producto EN ESTE navegador, nunca un número agregado de todo el
-  // sitio (no hay backend que lo mida).
+  // "Más visto en este navegador" en Inicio: cuenta real de visitas a cada
+  // ficha de producto EN ESTE navegador, nunca un número agregado de todo
+  // el sitio (no hay backend que lo mida).
   function trackProductView(productId) {
     if (!productId) return;
     const counts = readLS(LS_KEYS.productViews, {});
@@ -991,7 +968,6 @@
   // filtro) siempre parte del ranking de popularidad, como en Kakaku.com:
   // ahí es donde vive el paso 2 del recorrido (categoría → ranking → precio).
   function goCategoryRanking(categoryId, subcategoryId) {
-    trackCategoryClick(categoryId);
     state.sort = "popularity";
     goList({ category: categoryId, subcategory: subcategoryId || null, query: "" });
   }
@@ -1209,7 +1185,6 @@
       el.homeCategoryGrid.appendChild(card);
     });
 
-    renderHomeTopCategories();
     renderHomeRankings();
     renderHomeMostViewed();
   }
@@ -1254,39 +1229,6 @@
     renderProductMedia(card.querySelector(".most-viewed-icon"), product, "detail");
     card.onclick = () => goDetail(product.id);
     el.homeMostViewed.appendChild(card);
-  }
-
-  function renderHomeTopCategories() {
-    const top = topClickedCategories(5);
-    el.homeTopCategoriesList.innerHTML = "";
-    if (top.length === 0) {
-      const empty = document.createElement("p");
-      empty.className = "home-top-categories-empty";
-      empty.textContent = "Todavía no hay categorías visitadas en este navegador. Explora el catálogo y aparecerán aquí.";
-      el.homeTopCategoriesList.appendChild(empty);
-      return;
-    }
-    top.forEach(({ cat, count }, i) => {
-      const item = document.createElement("button");
-      item.type = "button";
-      item.className = "home-top-category-item";
-      item.innerHTML = `
-        <span class="home-top-category-rank">${i + 1}</span>
-        <span class="home-top-category-photo"></span>
-        <span class="home-top-category-name">${cat.name}</span>
-        <span class="home-top-category-count">${plural(count, "clic", "clics")}</span>
-      `;
-      // Foto del #2 en popularidad de la categoría (no el #1: esa ya es la
-      // que se ve en la tarjeta de categoría de más arriba en la misma
-      // página -- repetirla acá se vería como que el panel no cargó una
-      // foto distinta). Si la categoría no llega a tener un segundo
-      // producto, renderProductMedia cae sola a la ilustración.
-      const categoryProducts = state.data.products.filter((p) => p.category === cat.id);
-      const second = topByPopularity(categoryProducts, 2)[1];
-      if (second) renderProductMedia(item.querySelector(".home-top-category-photo"), second);
-      item.onclick = () => goCategoryRanking(cat.id);
-      el.homeTopCategoriesList.appendChild(item);
-    });
   }
 
   // Top N por el mismo criterio de "popularidad" que ya usa el resto del
