@@ -143,7 +143,7 @@
     if (changed && currentProduct() === product) {
       renderOfferTable(product);
       if (gotPhoto) {
-        renderProductMedia(el.detailIcon, product, "detail");
+        renderProductMedia(el.detailIcon, product, "detail", () => attachDiscountRibbon(el.detailIcon, product));
         attachDiscountRibbon(el.detailIcon, product);
       }
     }
@@ -710,12 +710,18 @@
   const IMG_MAX_RETRIES = 2;
   const IMG_RETRY_DELAY_MS = 900;
 
-  function renderProductMedia(container, product, variant) {
+  // onSettled (opcional): se llama cada vez que el contenido de container
+  // termina de asentarse -- el primer intento y cada reintento posterior --
+  // porque cada uno vuelve a limpiar container.textContent y borra
+  // cualquier elemento hermano (p. ej. el sello de descuento) que el
+  // llamador haya agregado después de la llamada inicial a esta función.
+  function renderProductMedia(container, product, variant, onSettled) {
     if (!container) return;
     const iconKey = product.image || "box";
     if (!product.photo) {
       container.innerHTML = icon(iconKey, "product-placeholder-icon");
       container.classList.remove("has-photo");
+      if (onSettled) onSettled();
       return;
     }
     container.classList.add("has-photo");
@@ -744,11 +750,13 @@
         } else {
           container.classList.remove("has-photo");
           container.innerHTML = icon(iconKey, "product-placeholder-icon");
+          if (onSettled) onSettled();
         }
       };
       container.textContent = "";
       container.appendChild(img);
       img.src = product.photo;
+      if (onSettled) onSettled();
     };
     attach();
   }
@@ -1250,7 +1258,7 @@
       </div>
     `;
     const mostViewedIcon = card.querySelector(".most-viewed-icon");
-    renderProductMedia(mostViewedIcon, product, "detail");
+    renderProductMedia(mostViewedIcon, product, "detail", () => attachDiscountRibbon(mostViewedIcon, product));
     attachDiscountRibbon(mostViewedIcon, product);
     card.onclick = () => goDetail(product.id);
     el.homeMostViewed.appendChild(card);
@@ -1580,7 +1588,7 @@
         <button class="row-fav-btn" aria-label="Favorito"></button>
       `;
       const rowIcon = row.querySelector(".row-icon");
-      renderProductMedia(rowIcon, p);
+      renderProductMedia(rowIcon, p, undefined, () => attachDiscountRibbon(rowIcon, p));
       attachDiscountRibbon(rowIcon, p);
       row.onclick = () => goDetail(p.id);
       bindFavToggle(row.querySelector(".row-fav-btn"), p.id, opts.onFavToggle);
@@ -2231,7 +2239,7 @@
       };
     }
 
-    renderProductMedia(el.detailIcon, product, "detail");
+    renderProductMedia(el.detailIcon, product, "detail", () => attachDiscountRibbon(el.detailIcon, product));
     attachDiscountRibbon(el.detailIcon, product);
     el.detailBrand.textContent = product.brand;
     el.detailName.innerHTML = `${htmlEscapeAttr(product.name)}${conditionBadge(product)}${usageBadge(product)}`;
