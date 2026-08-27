@@ -556,6 +556,22 @@
     container.appendChild(ribbon);
   }
 
+  // Rótulo del panel "Más visto en este navegador", superpuesto en la
+  // esquina vacía de la foto en vez de ir en un <h2> aparte arriba de la
+  // tarjeta (a pedido del usuario, para no gastar esa línea extra de
+  // alto). Mismo motivo que el onSettled de attachDiscountRibbon: hay que
+  // reenganchar en cada asentado de renderProductMedia porque esa función
+  // limpia el contenedor en cada intento/reintento de carga de imagen.
+  function attachMostViewedLabel(container) {
+    if (!container) return;
+    const existing = container.querySelector(".most-viewed-badge");
+    if (existing) existing.remove();
+    const label = document.createElement("span");
+    label.className = "most-viewed-badge";
+    label.innerHTML = `${icon("eye")} Más visto en este navegador`;
+    container.appendChild(label);
+  }
+
   // Monto ahorrado (en pesos) de la oferta más barata frente a su listPrice.
   // Se muestra junto al % de descuento: un mismo descuento se "siente" más
   // grande o más chico según se enmarque en % o en dinero real (efecto de
@@ -1228,6 +1244,13 @@
     const top = mostViewedProduct();
     el.homeMostViewed.innerHTML = "";
     if (!top) {
+      // Sin producto visto todavía no hay foto donde superponer el
+      // rótulo (ver attachMostViewedLabel más abajo), así que acá se
+      // muestra como encabezado normal, igual que antes.
+      const heading = document.createElement("p");
+      heading.className = "most-viewed-heading";
+      heading.innerHTML = `${icon("eye")} Más visto en este navegador`;
+      el.homeMostViewed.appendChild(heading);
       const empty = document.createElement("p");
       empty.className = "most-viewed-empty";
       empty.textContent = "Todavía no visitaste ninguna ficha de producto en este navegador. Entra a un producto y aparecerá aquí.";
@@ -1258,8 +1281,12 @@
       </div>
     `;
     const mostViewedIcon = card.querySelector(".most-viewed-icon");
-    renderProductMedia(mostViewedIcon, product, "detail", () => attachDiscountRibbon(mostViewedIcon, product));
-    attachDiscountRibbon(mostViewedIcon, product);
+    const settleMostViewedIcon = () => {
+      attachDiscountRibbon(mostViewedIcon, product);
+      attachMostViewedLabel(mostViewedIcon);
+    };
+    renderProductMedia(mostViewedIcon, product, "detail", settleMostViewedIcon);
+    settleMostViewedIcon();
     card.onclick = () => goDetail(product.id);
     el.homeMostViewed.appendChild(card);
   }
