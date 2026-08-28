@@ -299,7 +299,13 @@ def main():
     print(f"Productos fusionados/eliminados: {merged_count}")
     print(f"Total de productos: {len(products)} -> {len(d['products'])}")
 
-    json.dump(d, open(path, "w"), ensure_ascii=False, separators=(",", ":"))
+    # indent=2 (no separators compactos): el resto del pipeline y el
+    # historial de git asumen data.json pretty-printed, una entrada por
+    # línea -- guardarlo compacto (como hacía antes esta función) lo colapsa
+    # a una sola línea gigante, y el próximo commit se ve como "se borró
+    # todo el archivo" en vez de mostrar el diff real de los productos
+    # agregados/tocados.
+    json.dump(d, open(path, "w"), ensure_ascii=False, indent=2)
 
 
 if __name__ == "__main__":
