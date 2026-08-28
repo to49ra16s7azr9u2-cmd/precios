@@ -9,6 +9,18 @@
   // PAGE_SIZE filas sin importar cuánto crezca el catálogo.
   const PAGE_SIZE = 60;
 
+  // El submenú de categorías (ver renderCatNav) se abría/cerraba con
+  // mouseenter/mouseleave, pensado para mouse -- en touch no hay forma de
+  // "salir" del elemento, así que un tap lo abría (el navegador simula
+  // mouseenter al tocar) y quedaba pegado para siempre, sin mouseleave que
+  // lo cierre nunca. supportsHover distingue el caso real de mouse (donde
+  // el hover sigue funcionando como siempre) del caso touch, donde
+  // renderCatNav usa en cambio un tap-para-abrir/tap-afuera-para-cerrar.
+  const supportsHover = window.matchMedia("(hover: hover)").matches;
+  // Único submenú de categoría abierto en este momento en modo touch (o
+  // null) -- así un tap afuera, o abrir otro, puede cerrar el anterior.
+  let openCatSubmenu = null;
+
   const RATING_FILTERS = [
     { id: "all", label: "Todas", min: 0 },
     { id: "r4", label: "4★ o más", min: 4 },
@@ -1180,11 +1192,32 @@
 
   // ---------- Header: navegación de categorías ----------
 
+  // Posiciona y muestra el submenú flotante de una categoría, pegado a su
+  // item en el nav (mismo cálculo para el modo hover y el modo touch).
+  function openCatSubmenuAt(item, submenu) {
+    const r = item.getBoundingClientRect();
+    submenu.style.left = `${r.left}px`;
+    // Se hace visible ANTES de medir su alto: oculto (display:none) mide 0
+    // siempre. Como esto ocurre de forma síncrona antes del próximo pintado,
+    // el usuario nunca ve el submenú en la posición "top" provisional de abajo.
+    submenu.classList.add("visible");
+    const submenuHeight = submenu.offsetHeight;
+    // Categorías de la última fila (con la barra desplegada): abrir hacia
+    // abajo como siempre las dejaba cortadas contra el borde de la ventana,
+    // sin forma de ver ni hacer clic en las últimas subcategorías. Si no
+    // entra hacia abajo, se abre hacia arriba.
+    const opensUp = r.bottom + submenuHeight > window.innerHeight - 8;
+    submenu.style.top = opensUp ? `${Math.max(8, r.top - submenuHeight)}px` : `${r.bottom}px`;
+  }
+
   function renderCatNav() {
     el.catNav.innerHTML = "";
     // Los submenús viven en document.body (ver más abajo), no dentro de
     // #catNav, así que hay que limpiarlos aparte en cada repintado.
     document.querySelectorAll(".cat-submenu").forEach((node) => node.remove());
+    // Referencias a submenús que este repintado va a tirar -- si quedó
+    // alguno "abierto" en modo touch, ya no existe más.
+    openCatSubmenu = null;
     state.data.categories.forEach((c) => {
       const hasSub = c.subcategories && c.subcategories.length > 0;
       const item = document.createElement("div");
@@ -1216,38 +1249,55 @@
         // overflow:hidden de .cats (necesario para el plegado de la barra de
         // categorías) -- si no, el submenú quedaría cortado detrás de la
         // barra en vez de flotar por encima.
-        //
-        // El submenú tampoco es descendiente de .cat-item en el DOM (está en
-        // document.body), así que moverse del item al submenú cuenta como
-        // "salir" de .cat-item -- de ahí el pequeño retraso antes de
-        // esconderlo, cancelable si el mouse entra al submenú a tiempo.
-        let hideTimer = null;
-        const cancelHide = () => { if (hideTimer) clearTimeout(hideTimer); };
-        const scheduleHide = () => { hideTimer = setTimeout(() => submenu.classList.remove("visible"), 120); };
-        item.addEventListener("mouseenter", () => {
-          cancelHide();
-          const r = item.getBoundingClientRect();
-          submenu.style.left = `${r.left}px`;
-          // Se hace visible ANTES de medir su alto: oculto (display:none) mide
-          // 0 siempre. Como esto ocurre de forma síncrona antes del próximo
-          // pintado, el usuario nunca ve el submenú en la posición "top"
-          // provisional de abajo.
-          submenu.classList.add("visible");
-          const submenuHeight = submenu.offsetHeight;
-          // Categorías de la última fila (con la barra desplegada): abrir
-          // hacia abajo como siempre las dejaba cortadas contra el borde de
-          // la ventana, sin forma de ver ni hacer clic en las últimas
-          // subcategorías. Si no entra hacia abajo, se abre hacia arriba.
-          const opensUp = r.bottom + submenuHeight > window.innerHeight - 8;
-          submenu.style.top = opensUp ? `${Math.max(8, r.top - submenuHeight)}px` : `${r.bottom}px`;
-        });
-        item.addEventListener("mouseleave", scheduleHide);
-        submenu.addEventListener("mouseenter", cancelHide);
-        submenu.addEventListener("mouseleave", scheduleHide);
+        if (supportsHover) {
+          // El submenú tampoco es descendiente de .cat-item en el DOM (está
+          // en document.body), así que moverse del item al submenú cuenta
+          // como "salir" de .cat-item -- de ahí el pequeño retraso antes de
+          // esconderlo, cancelable si el mouse entra al submenú a tiempo.
+          let hideTimer = null;
+          const cancelHide = () => { if (hideTimer) clearTimeout(hideTimer); };
+          const scheduleHide = () => { hideTimer = setTimeout(() => submenu.classList.remove("visible"), 120); };
+          item.addEventListener("mouseenter", () => { cancelHide(); openCatSubmenuAt(item, submenu); });
+          item.addEventListener("mouseleave", scheduleHide);
+          submenu.addEventListener("mouseenter", cancelHide);
+          submenu.addEventListener("mouseleave", scheduleHide);
+        } else {
+          // Touch: no existe "salir" del elemento, así que mouseenter/
+          // mouseleave no sirven para cerrar -- un tap simula mouseenter al
+          // abrir, pero nunca llega un mouseleave que lo cierre, y quedaba
+          // pegado para siempre (bug reportado). En su lugar: un tap sobre
+          // la categoría abre su submenú (sin navegar todavía, para dar
+          // tiempo a elegir una subcategoría) y cierra cualquier otro que
+          // hubiera quedado abierto; un segundo tap sobre la misma categoría
+          // navega a su ranking general; y un tap afuera del nav (ver
+          // listener global más abajo) cierra el que esté abierto.
+          label.onclick = (e) => {
+            if (submenu.classList.contains("visible")) {
+              goCategoryRanking(c.id);
+              return;
+            }
+            if (openCatSubmenu && openCatSubmenu !== submenu) openCatSubmenu.classList.remove("visible");
+            openCatSubmenuAt(item, submenu);
+            openCatSubmenu = submenu;
+            e.stopPropagation();
+          };
+        }
         document.body.appendChild(submenu);
       }
 
       el.catNav.appendChild(item);
+    });
+  }
+
+  // Único listener global (no por repintado, para no acumular uno nuevo en
+  // cada renderCatNav): en modo touch, cualquier tap fuera del nav de
+  // categorías cierra el submenú que hubiera quedado abierto.
+  if (!supportsHover) {
+    document.addEventListener("click", () => {
+      if (openCatSubmenu) {
+        openCatSubmenu.classList.remove("visible");
+        openCatSubmenu = null;
+      }
     });
   }
 
