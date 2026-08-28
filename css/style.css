@@ -932,11 +932,34 @@ a { color: inherit; text-decoration: none; }
 }
 
 .map {
-  height: 280px;
+  /* Más alto que antes (280px) para que los pines más grandes y sus
+     etiquetas permanentes (ver .region-marker-label) tengan aire, sobre
+     todo en Ciudad de México con varias alcaldías juntas. */
+  height: 340px;
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid var(--border);
   margin-top: 10px;
+}
+/* Nombre del municipio/alcaldía, siempre visible arriba de su pin (ya no
+   solo al pasar el mouse) -- en celular no hay "pasar el mouse", así que
+   sin esto no había forma de saber qué pin era cuál antes de tocarlo a
+   ciegas. Pill blanco para que se lea encima del mapa sin importar el
+   color del terreno debajo. Selector combinado (.leaflet-tooltip Y esta
+   clase, no solo esta clase sola) a propósito: el CSS de Leaflet se
+   carga recién al abrir el mapa (ver ensureLeafletLoaded), es decir
+   DESPUÉS de este stylesheet -- con la misma especificidad, su propia
+   regla .leaflet-tooltip (fondo/borde/padding por defecto) ganaría por
+   orden de aparición y pisaría esta personalización en silencio. */
+.leaflet-tooltip.region-marker-label {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .region-chips {

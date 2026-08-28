@@ -2745,6 +2745,13 @@
         renderRegionChips();
         panToMetro(m);
         renderMarkersForMetro();
+        // 29 de los 32 estados tienen un solo punto de referencia (la
+        // capital, ver el aviso arriba del mapa) -- ahí no hay nada que
+        // elegir en el mapa, así que un solo toque en la pestaña del
+        // estado ya es la elección completa. Solo CDMX/Guadalajara/
+        // Monterrey (varios municipios) necesitan que se toque un pin.
+        const regions = regionsInMetro(m.id);
+        if (regions.length === 1) selectRegion(regions[0].id);
       };
       if (m.id === state.selectedMetro) activeTab = tab;
       el.metroTabs.appendChild(tab);
@@ -2801,15 +2808,26 @@
     Object.values(regionMarkers).forEach((m) => map.removeLayer(m));
     regionMarkers = {};
 
+    // Pins grandes (antes 10px de radio, 14px activo) y con el nombre
+    // siempre a la vista arriba del pin (antes solo aparecía al pasar el
+    // mouse, así que en celular -- sin cursor que pueda "pasar por
+    // encima" -- no había forma de saber qué pin era cuál sin tocarlo a
+    // ciegas primero). A pedido del usuario: más fácil de ver y de
+    // acertarle al tocar.
     regionsInMetro(state.selectedMetro).forEach((r) => {
       const marker = L.circleMarker([r.lat, r.lng], {
-        radius: 10,
+        radius: 16,
         color: "#FF0211",
-        weight: 2,
+        weight: 3,
         fillColor: "#ffb3b3",
-        fillOpacity: 0.9,
+        fillOpacity: 0.95,
       }).addTo(map);
-      marker.bindTooltip(r.name, { permanent: false });
+      marker.bindTooltip(r.name, {
+        permanent: true,
+        direction: "top",
+        offset: [0, -10],
+        className: "region-marker-label",
+      });
       marker.on("click", () => selectRegion(r.id));
       regionMarkers[r.id] = marker;
     });
@@ -2820,7 +2838,8 @@
     Object.entries(regionMarkers).forEach(([id, marker]) => {
       const isActive = id === state.selectedRegion;
       marker.setStyle({
-        radius: isActive ? 14 : 10,
+        radius: isActive ? 22 : 16,
+        weight: isActive ? 4 : 3,
         fillColor: isActive ? "#FF0211" : "#ffb3b3",
         color: isActive ? "#8c0007" : "#FF0211",
       });
