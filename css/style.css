@@ -346,17 +346,10 @@ a { color: inherit; text-decoration: none; }
   /* Ancho por proporción con un piso fijo en vez de un ancho fijo puro: el
      panel de filtros gana algo de aire en pantallas medianas/grandes (hasta
      los 1120px del .container) en vez de quedarse siempre en los mismos
-     220px mientras el resto del layout sí respira más. Tercera columna
-     (filtro de Categoría) aprovecha el espacio vacío que quedaba a la
-     derecha de la lista en pantallas anchas -- la lista central se achica
-     un poco (1fr compartido) para hacerle lugar. */
-  grid-template-columns: minmax(220px, 22%) 1fr minmax(130px, 12%);
+     220px mientras el resto del layout sí respira más. */
+  grid-template-columns: minmax(220px, 22%) 1fr;
   gap: 16px;
   padding-bottom: 24px;
-}
-@media (max-width: 980px) {
-  .list-layout { grid-template-columns: minmax(220px, 22%) 1fr; }
-  .filters-category { grid-column: 1 / -1; }
 }
 @media (max-width: 760px) {
   /* minmax(0, 1fr) y no 1fr a secas: un grid item hereda min-width:auto por
@@ -366,7 +359,6 @@ a { color: inherit; text-decoration: none; }
      mínimo implícito y deja que el contenido se ajuste/trunque en vez de
      desbordar la página. */
   .list-layout { grid-template-columns: minmax(0, 1fr); }
-  .filters-category { grid-column: auto; }
 }
 
 .filters {
@@ -421,12 +413,9 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 760px) {
   /* A pedido del usuario: en mobile, Filtros arranca cerrado para que los
      productos se vean apenas se entra a una categoría, en vez de quedar
-     varias pantallas más abajo del panel completo (Precio + Marca con
-     cientos de checkboxes + Calificación + Condición...). Se excluye
-     .filters-category (el panel de la derecha) porque este pedido fue
-     específicamente sobre el panel de Precio/Marca/etc., y ese ya vive
-     más abajo en la página en una sola columna -- no tapa nada al entrar. */
-  .filters:not(.filters-category) h2 {
+     varias pantallas más abajo del panel completo (Categoría + Precio +
+     Marca con cientos de checkboxes + Calificación + Condición...). */
+  .filters h2 {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -437,33 +426,9 @@ a { color: inherit; text-decoration: none; }
     font-size: 12px;
     transition: transform 0.15s;
   }
-  .filters:not(.filters-category).filters-open .filters-panel-toggle { transform: rotate(180deg); }
-  .filters:not(.filters-category):not(.filters-open) > .filter-group { display: none; }
+  .filters.filters-open .filters-panel-toggle { transform: rotate(180deg); }
+  .filters:not(.filters-open) > .filter-group { display: none; }
 }
-/* El panel de Categoría (columna derecha) se angostó para darle más
-   ancho a la lista del medio, y ahora se funde con el fondo de la
-   página en vez de competir visualmente con la tarjeta blanca de
-   Filtros -- sin card, sin borde, sin la franja roja del título,
-   texto más chico y apagado. Sigue siendo el mismo componente
-   (.filters), así que solo se pisan las reglas visuales acá. */
-.filters-category {
-  background: transparent;
-  border: none;
-  padding: 14px 6px 0;
-}
-.filters-category h2 {
-  margin: 0 0 8px;
-  padding: 0 2px 8px;
-  background: transparent;
-  border-bottom: 1px solid var(--border);
-  border-radius: 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
-}
-.filters-category h2::before { display: none; }
-.filters-category .filter-option { font-size: 13px; padding: 7px 6px; margin: 0 -6px; }
-.filters-category .filter-option:hover { background: rgba(0, 0, 0, 0.045); }
 
 .filter-group { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
 .filter-group:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }

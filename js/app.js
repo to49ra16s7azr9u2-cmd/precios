@@ -3251,8 +3251,8 @@
       });
     });
 
-    // En mobile el panel completo de Filtros (Precio/Marca/Calificación/...)
-    // arranca cerrado (ver CSS, .filters:not(.filters-category) sin
+    // En mobile el panel completo de Filtros (Categoría/Precio/Marca/
+    // Calificación/...) arranca cerrado (ver CSS, .filters sin
     // .filters-open) para que los productos se vean de entrada en vez de
     // quedar empujados varias pantallas más abajo -- este toggle en el
     // título es lo único que lo abre/cierra. En desktop el media query no
