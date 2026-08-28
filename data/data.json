@@ -1670,6 +1670,21 @@
           "id": "Cortinas y persianas motorizadas",
           "name": "Cortinas y persianas motorizadas",
           "icon": "house"
+        },
+        {
+          "id": "Cerraduras inteligentes",
+          "name": "Cerraduras inteligentes",
+          "icon": "lock"
+        },
+        {
+          "id": "Hubs y controladores",
+          "name": "Hubs y controladores",
+          "icon": "wifi"
+        },
+        {
+          "id": "Iluminación inteligente",
+          "name": "Iluminación inteligente",
+          "icon": "bulb"
         }
       ]
     }
@@ -361316,7 +361331,7 @@
       "name": "Power Bank Nova Mobo Inalámbrico 20000mAh Blanco",
       "brand": "Nova Mobo",
       "category": "Baterías portátiles",
-      "subcategory": "Power banks",
+      "subcategory": "10,000 a 20,000 mAh",
       "image": "battery",
       "photo": "https://http2.mlstatic.com/D_NQ_NP_840100-MLA99854854015_112025-F.jpg",
       "specs": [],
@@ -361423,7 +361438,7 @@
       "name": "Laptop HP 15-eg0528la Core i5 8GB 512GB Plateado",
       "brand": "HP",
       "category": "Laptops",
-      "subcategory": "Laptops",
+      "subcategory": "Oficina y estudio",
       "image": "laptop",
       "photo": "https://http2.mlstatic.com/D_NQ_NP_773191-MLA91294273252_092025-F.jpg",
       "specs": [],
@@ -361449,7 +361464,7 @@
       "name": "Laptop Acer Aspire Lite 14 Core i5 8GB 512GB SSD",
       "brand": "Acer",
       "category": "Laptops",
-      "subcategory": "Laptops",
+      "subcategory": "Oficina y estudio",
       "image": "laptop",
       "photo": "https://http2.mlstatic.com/D_NQ_NP_998467-MLU77055479837_062024-F.jpg",
       "specs": [],
@@ -361475,7 +361490,7 @@
       "name": "Monitor Curvo Gamer 27\" 100Hz HDMI 1ms Negro",
       "brand": "Genérico",
       "category": "Monitores",
-      "subcategory": "Monitores",
+      "subcategory": "Gaming",
       "image": "monitor",
       "photo": "https://http2.mlstatic.com/D_NQ_NP_853185-MLA111838981650_062026-F.jpg",
       "specs": [],
@@ -361653,6 +361668,2849 @@
         }
       ],
       "mlQuery": "Libreta Profesional Norma Jean Book Moda 100 Hojas Rayas"
+    },
+    {
+      "id": "p31985",
+      "name": "Tenis Reebok Classic Leather Negros Mujer",
+      "brand": "Reebok",
+      "category": "Calzado",
+      "subcategory": "Tenis",
+      "image": "shoe",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_998918-MLA105184994004_012026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1998,
+          "url": "https://www.mercadolibre.com.mx/p/MLM64934236",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_998918-MLA105184994004_012026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Tenis Reebok Classic Leather Negros Mujer"
+    },
+    {
+      "id": "p31987",
+      "name": "Mini Drone Villadande 717 Quadcopter con Control Remoto",
+      "brand": "Villadande",
+      "category": "Drones",
+      "subcategory": "Mini drones",
+      "image": "drone",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_966989-MLA99523956842_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 648.9,
+          "url": "https://www.mercadolibre.com.mx/p/MLM19891561",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_966989-MLA99523956842_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Mini Drone Villadande 717 Quadcopter con Control Remoto"
+    },
+    {
+      "id": "p31988",
+      "name": "Aqara Cámara Hub G3",
+      "brand": "Aqara",
+      "category": "Domótica y hogar inteligente",
+      "subcategory": "Hubs y controladores",
+      "image": "wifi",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_817834-MLA99452129372_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 5499,
+          "url": "https://www.mercadolibre.com.mx/p/MLM23494309",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_817834-MLA99452129372_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Aqara Cámara Hub G3"
+    },
+    {
+      "id": "p31989",
+      "name": "Aqara Enchufe Inteligente con Corte Automático",
+      "brand": "Aqara",
+      "category": "Domótica y hogar inteligente",
+      "subcategory": "Enchufes inteligentes",
+      "image": "wifi",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_662039-MLA102762203422_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 630,
+          "url": "https://www.mercadolibre.com.mx/p/MLM63738210",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_662039-MLA102762203422_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 874.89
+        }
+      ],
+      "mlQuery": "Aqara Enchufe Inteligente con Corte Automático"
+    },
+    {
+      "id": "p31990",
+      "name": "Aqara Smart Hub M200 (Matter, Thread, Zigbee, Wi-Fi)",
+      "brand": "Aqara",
+      "category": "Domótica y hogar inteligente",
+      "subcategory": "Hubs y controladores",
+      "image": "wifi",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_881094-MLA113988466045_072026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1628.92,
+          "url": "https://www.mercadolibre.com.mx/p/MLM65099247",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_881094-MLA113988466045_072026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 2399
+        }
+      ],
+      "mlQuery": "Aqara Smart Hub M200 (Matter, Thread, Zigbee, Wi-Fi)"
+    },
+    {
+      "id": "p31991",
+      "name": "Aqara Tarjeta NFC para Cerradura sin Llave",
+      "brand": "Aqara",
+      "category": "Domótica y hogar inteligente",
+      "subcategory": "Cerraduras inteligentes",
+      "image": "lock",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_830205-MLA112428834988_062026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 274.45,
+          "url": "https://www.mercadolibre.com.mx/p/MLM65131159",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_830205-MLA112428834988_062026-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 499
+        }
+      ],
+      "mlQuery": "Aqara Tarjeta NFC para Cerradura sin Llave"
+    },
+    {
+      "id": "p31992",
+      "name": "Bombilla Inteligente Bluetooth Sengled B11-N11",
+      "brand": "Sengled",
+      "category": "Domótica y hogar inteligente",
+      "subcategory": "Iluminación inteligente",
+      "image": "wifi",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_713683-MLA99469800124_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 974,
+          "url": "https://www.mercadolibre.com.mx/p/MLM25824430",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_713683-MLA99469800124_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Bombilla Inteligente Bluetooth Sengled B11-N11"
+    },
+    {
+      "id": "p31993",
+      "name": "Interruptor de Luz WiFi con Regulador de Intensidad",
+      "brand": "Genérico",
+      "category": "Domótica y hogar inteligente",
+      "subcategory": "Interruptores inteligentes",
+      "image": "wifi",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_850903-MLA109852740128_042026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 876,
+          "url": "https://www.mercadolibre.com.mx/p/MLM68413399",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_850903-MLA109852740128_042026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Interruptor de Luz WiFi con Regulador de Intensidad"
+    },
+    {
+      "id": "p31994",
+      "name": "Proyector HD 1080p WiFi Bluetooth Fangor 230",
+      "brand": "Fangor",
+      "category": "Proyectores y accesorios",
+      "subcategory": "Proyectores",
+      "image": "projector",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_861079-MLA99451927424_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1999,
+          "url": "https://www.mercadolibre.com.mx/p/MLM27739365",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_861079-MLA99451927424_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 4690
+        }
+      ],
+      "mlQuery": "Proyector HD 1080p WiFi Bluetooth Fangor 230"
+    },
+    {
+      "id": "p31995",
+      "name": "Mini Proyector WiFi Bluetooth Adir 150 Pulgadas",
+      "brand": "Adir",
+      "category": "Proyectores y accesorios",
+      "subcategory": "Proyectores",
+      "image": "projector",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_935389-MLA100090337668_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 862.33,
+          "url": "https://www.mercadolibre.com.mx/p/MLM62911304",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_935389-MLA100090337668_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 1499
+        }
+      ],
+      "mlQuery": "Mini Proyector WiFi Bluetooth Adir 150 Pulgadas"
+    },
+    {
+      "id": "p31996",
+      "name": "Soporte de Techo para Proyector Manhattan Ajustable Giratorio",
+      "brand": "Manhattan",
+      "category": "Proyectores y accesorios",
+      "subcategory": "Accesorios",
+      "image": "projector",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_663897-MLA96084916805_102025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1459,
+          "url": "https://www.mercadolibre.com.mx/p/MLM34809965",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_663897-MLA96084916805_102025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Soporte de Techo para Proyector Manhattan Ajustable Giratorio"
+    },
+    {
+      "id": "p31997",
+      "name": "Batería Externa Inalámbrica para iPhone 5000mAh",
+      "brand": "Genérico",
+      "category": "Baterías portátiles",
+      "subcategory": "Hasta 10,000 mAh",
+      "image": "battery",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_950638-MLA98003766350_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 279.65,
+          "url": "https://www.mercadolibre.com.mx/p/MLM62213570",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_950638-MLA98003766350_112025-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 329
+        }
+      ],
+      "mlQuery": "Batería Externa Inalámbrica para iPhone 5000mAh"
+    },
+    {
+      "id": "p31998",
+      "name": "Batería Externa Inalámbrica 5000mAh para iPhone y Android",
+      "brand": "Genérico",
+      "category": "Baterías portátiles",
+      "subcategory": "Hasta 10,000 mAh",
+      "image": "battery",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_692451-MLA104860968043_012026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 285,
+          "url": "https://www.mercadolibre.com.mx/p/MLM64295157",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_692451-MLA104860968043_012026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Batería Externa Inalámbrica 5000mAh para iPhone y Android"
+    },
+    {
+      "id": "p31999",
+      "name": "Batería Externa Magnética iBox 5000mAh para iPhone 12/13/14",
+      "brand": "iBox",
+      "category": "Baterías portátiles",
+      "subcategory": "Hasta 10,000 mAh",
+      "image": "battery",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_741078-MLA95635565397_102025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 280,
+          "url": "https://www.mercadolibre.com.mx/p/MLM44487296",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_741078-MLA95635565397_102025-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Batería Externa Magnética iBox 5000mAh para iPhone 12/13/14"
+    },
+    {
+      "id": "p32000",
+      "name": "Glucómetro Digital Pulsovital con 50 Tiras y 50 Lancetas (Negro)",
+      "brand": "Pulsovital",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_943107-MLA112297526720_062026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 298,
+          "url": "https://www.mercadolibre.com.mx/p/MLM73993852",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_943107-MLA112297526720_062026-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 498
+        }
+      ],
+      "mlQuery": "Glucómetro Digital Pulsovital con 50 Tiras y 50 Lancetas (Negro)"
+    },
+    {
+      "id": "p32001",
+      "name": "Glucómetro Digital Muinaifte con 50 Tiras y 50 Lancetas (Azul)",
+      "brand": "Muinaifte",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_976500-MLA92966626360_092025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 349.92,
+          "url": "https://www.mercadolibre.com.mx/p/MLM56382426",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_976500-MLA92966626360_092025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 492.85
+        }
+      ],
+      "mlQuery": "Glucómetro Digital Muinaifte con 50 Tiras y 50 Lancetas (Azul)"
+    },
+    {
+      "id": "p32002",
+      "name": "Glucómetro Digital Medclean Solutions con Lancetas",
+      "brand": "Medclean Solutions",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_631375-MLA82295020415_022025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 299,
+          "url": "https://www.mercadolibre.com.mx/p/MLM45938817",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_631375-MLA82295020415_022025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Glucómetro Digital Medclean Solutions con Lancetas"
+    },
+    {
+      "id": "p32003",
+      "name": "Glucómetro Digital Yasee 3 en 1 con Oxímetro y Termómetro",
+      "brand": "Yasee",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_711861-MLA89212740285_082025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 449,
+          "url": "https://www.mercadolibre.com.mx/p/MLM53286889",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_711861-MLA89212740285_082025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Glucómetro Digital Yasee 3 en 1 con Oxímetro y Termómetro"
+    },
+    {
+      "id": "p32004",
+      "name": "Glucómetro y Medidor de Presión Arterial Digital Clinical Home",
+      "brand": "Clinical Home",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_885347-MLA94891632205_102025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 610,
+          "url": "https://www.mercadolibre.com.mx/p/MLM60004278",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_885347-MLA94891632205_102025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Glucómetro y Medidor de Presión Arterial Digital Clinical Home"
+    },
+    {
+      "id": "p32005",
+      "name": "Glucómetro Digital 3 en 1 con Oxímetro y Termómetro (Blanco)",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_739292-MLA101497303292_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 343.77,
+          "url": "https://www.mercadolibre.com.mx/p/MLM63374420",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_739292-MLA101497303292_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Glucómetro Digital 3 en 1 con Oxímetro y Termómetro (Blanco)"
+    },
+    {
+      "id": "p32006",
+      "name": "Silla de Ruedas de Lujo Plegable Compacta Reactiv",
+      "brand": "Reactiv",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_901923-MLA80868725698_122024-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 2391.15,
+          "url": "https://www.mercadolibre.com.mx/p/MLM44378732",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_901923-MLA80868725698_122024-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 2517
+        }
+      ],
+      "mlQuery": "Silla de Ruedas de Lujo Plegable Compacta Reactiv"
+    },
+    {
+      "id": "p32007",
+      "name": "Silla de Ruedas Todo Terreno Plegable Eko Mobility con Cojín",
+      "brand": "Eko Mobility",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_781183-MLA92697468565_092025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 4961,
+          "url": "https://www.mercadolibre.com.mx/p/MLM29609867",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_781183-MLA92697468565_092025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Silla de Ruedas Todo Terreno Plegable Eko Mobility con Cojín"
+    },
+    {
+      "id": "p32008",
+      "name": "Silla de Ruedas PCA Adulto Reclinable Speedy",
+      "brand": "Speedy",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_943549-MLA106775598900_022026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 8744.93,
+          "url": "https://www.mercadolibre.com.mx/p/MLM22607690",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_943549-MLA106775598900_022026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 9716.59
+        }
+      ],
+      "mlQuery": "Silla de Ruedas PCA Adulto Reclinable Speedy"
+    },
+    {
+      "id": "p32009",
+      "name": "Bastón para Caminar Mango Cuello de Ganso Ajustable de Aluminio",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_875888-MLA113209990852_072026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 189,
+          "url": "https://www.mercadolibre.com.mx/p/MLM75400668",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_875888-MLA113209990852_072026-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 399
+        }
+      ],
+      "mlQuery": "Bastón para Caminar Mango Cuello de Ganso Ajustable de Aluminio"
+    },
+    {
+      "id": "p32010",
+      "name": "Bastón para Caminar de Altura Ajustable Bsts Handy",
+      "brand": "Handy",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_842976-MLU75169351741_032024-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 159,
+          "url": "https://www.mercadolibre.com.mx/p/MLM28587767",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_842976-MLU75169351741_032024-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Bastón para Caminar de Altura Ajustable Bsts Handy"
+    },
+    {
+      "id": "p32011",
+      "name": "Bastón para Caminar Retráctil 2 Secciones Mobicare",
+      "brand": "Mobicare",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_647311-MLA100585037831_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 599,
+          "url": "https://www.mercadolibre.com.mx/p/MLM62917545",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_647311-MLA100585037831_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Bastón para Caminar Retráctil 2 Secciones Mobicare"
+    },
+    {
+      "id": "p32012",
+      "name": "Andadera Vertical para Adultos Mayores Andafacil",
+      "brand": "Andafacil",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_770124-MLA92467490625_092025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 5399,
+          "url": "https://www.mercadolibre.com.mx/p/MLM38474290",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_770124-MLA92467490625_092025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 5999
+        }
+      ],
+      "mlQuery": "Andadera Vertical para Adultos Mayores Andafacil"
+    },
+    {
+      "id": "p32013",
+      "name": "Andadera Rollator Ortopédica Ajustable Plegable",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_933023-MLA106672644892_022026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1454.03,
+          "url": "https://www.mercadolibre.com.mx/p/MLM65694545",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_933023-MLA106672644892_022026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 3699
+        }
+      ],
+      "mlQuery": "Andadera Rollator Ortopédica Ajustable Plegable"
+    },
+    {
+      "id": "p32014",
+      "name": "Andadera para Adulto Rollator con Canastilla",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_863498-MLA79657231630_102024-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 2968,
+          "url": "https://www.mercadolibre.com.mx/p/MLM41821342",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_863498-MLA79657231630_102024-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Andadera para Adulto Rollator con Canastilla"
+    },
+    {
+      "id": "p32015",
+      "name": "Andadera para Adulto Plegable de 3 Ruedas Handy",
+      "brand": "Handy",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_647153-MLA79273288584_092024-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 3299,
+          "url": "https://www.mercadolibre.com.mx/p/MLM37171762",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_647153-MLA79273288584_092024-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Andadera para Adulto Plegable de 3 Ruedas Handy"
+    },
+    {
+      "id": "p32016",
+      "name": "Andadera para Adulto Plegable y Ajustable con Asiento",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_832986-MLA84556560366_052025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 3359,
+          "url": "https://www.mercadolibre.com.mx/p/MLM30033154",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_832986-MLA84556560366_052025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Andadera para Adulto Plegable y Ajustable con Asiento"
+    },
+    {
+      "id": "p32017",
+      "name": "Andadera para Adulto Ortopédica Onof Aluminio Doble Agarre",
+      "brand": "Onof",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_924688-MLA84850079521_052025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 689,
+          "url": "https://www.mercadolibre.com.mx/p/MLM28335697",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_924688-MLA84850079521_052025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 1299
+        }
+      ],
+      "mlQuery": "Andadera para Adulto Ortopédica Onof Aluminio Doble Agarre"
+    },
+    {
+      "id": "p32018",
+      "name": "Muletas Ajustables de Aluminio Super Market Ortopedic",
+      "brand": "Super Market Ortopedic",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_871422-MLA83306630303_032025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 629.1,
+          "url": "https://www.mercadolibre.com.mx/p/MLM47405369",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_871422-MLA83306630303_032025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 699
+        }
+      ],
+      "mlQuery": "Muletas Ajustables de Aluminio Super Market Ortopedic"
+    },
+    {
+      "id": "p32019",
+      "name": "Muletas Ajustables Equate para Niños y Adultos",
+      "brand": "Equate",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_630382-MLA115400820203_072026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1400,
+          "url": "https://www.mercadolibre.com.mx/p/MLM76153622",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_630382-MLA115400820203_072026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Muletas Ajustables Equate para Niños y Adultos"
+    },
+    {
+      "id": "p32020",
+      "name": "Muletas Telescópicas Ajustables (Par)",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_695964-MLU70614595789_072023-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 530,
+          "url": "https://www.mercadolibre.com.mx/p/MLM24622963",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_695964-MLU70614595789_072023-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Muletas Telescópicas Ajustables (Par)"
+    },
+    {
+      "id": "p32021",
+      "name": "Muletas Canadienses Ajustables Handy",
+      "brand": "Handy",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_835833-MLA110257040943_042026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 799,
+          "url": "https://www.mercadolibre.com.mx/p/MLM67791301",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_835833-MLA110257040943_042026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Muletas Canadienses Ajustables Handy"
+    },
+    {
+      "id": "p32022",
+      "name": "Muletas Ortopédicas Axilares Ajustables (Medianas)",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_779431-MLA110165614432_042026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 505,
+          "url": "https://www.mercadolibre.com.mx/p/MLM68922676",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_779431-MLA110165614432_042026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Muletas Ortopédicas Axilares Ajustables (Medianas)"
+    },
+    {
+      "id": "p32023",
+      "name": "Collarín Cervical Aspen Vista Deportivo",
+      "brand": "Aspen",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_977787-MLA112265361034_062026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 2770,
+          "url": "https://www.mercadolibre.com.mx/p/MLM73963752",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_977787-MLA112265361034_062026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Collarín Cervical Aspen Vista Deportivo"
+    },
+    {
+      "id": "p32024",
+      "name": "Collarín Cervical Tipo Ambu Adulto",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_748452-MLA110738345832_052026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 199,
+          "url": "https://www.mercadolibre.com.mx/p/MLM69655867",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_748452-MLA110738345832_052026-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 300
+        }
+      ],
+      "mlQuery": "Collarín Cervical Tipo Ambu Adulto"
+    },
+    {
+      "id": "p32025",
+      "name": "Collarín Cervical Blando Plegable Homecare",
+      "brand": "Homecare",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_739280-MLA103773965806_012026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 156.75,
+          "url": "https://www.mercadolibre.com.mx/p/MLM64118843",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_739280-MLA103773965806_012026-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 165
+        }
+      ],
+      "mlQuery": "Collarín Cervical Blando Plegable Homecare"
+    },
+    {
+      "id": "p32026",
+      "name": "Collarín Cervical Tipo Miami Ajustable Ortopédico",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_911905-MLA103728999194_012026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 899,
+          "url": "https://www.mercadolibre.com.mx/p/MLM64072301",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_911905-MLA103728999194_012026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Collarín Cervical Tipo Miami Ajustable Ortopédico"
+    },
+    {
+      "id": "p32027",
+      "name": "Collarín Cervical Tipo Philadelphia",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_918155-MLA111244677802_052026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 449,
+          "url": "https://www.mercadolibre.com.mx/p/MLM70297501",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_918155-MLA111244677802_052026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Collarín Cervical Tipo Philadelphia"
+    },
+    {
+      "id": "p32028",
+      "name": "Tobillera Ortopédica",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_604344-MLA110025035944_042026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 299,
+          "url": "https://www.mercadolibre.com.mx/p/MLM63936274",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_604344-MLA110025035944_042026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Tobillera Ortopédica"
+    },
+    {
+      "id": "p32029",
+      "name": "Cabestrillo para Brazo de Poliéster Mediano Edigar",
+      "brand": "Edigar",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_673408-MLA103327859785_012026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 141.45,
+          "url": "https://www.mercadolibre.com.mx/p/MLM63744292",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_673408-MLA103327859785_012026-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 148.9
+        }
+      ],
+      "mlQuery": "Cabestrillo para Brazo de Poliéster Mediano Edigar"
+    },
+    {
+      "id": "p32030",
+      "name": "Cabestrillo para Brazo Infantil de Dubetina Zanik",
+      "brand": "Zanik",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_743587-MLA111344413575_052026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 155.55,
+          "url": "https://www.mercadolibre.com.mx/p/MLM69312382",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_743587-MLA111344413575_052026-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Cabestrillo para Brazo Infantil de Dubetina Zanik"
+    },
+    {
+      "id": "p32031",
+      "name": "Cabestrillo para Brazo Transpirable con Almohadilla",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_756802-MLA113915123360_072026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 399,
+          "url": "https://www.mercadolibre.com.mx/p/MLM75811508",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_756802-MLA113915123360_072026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Cabestrillo para Brazo Transpirable con Almohadilla"
+    },
+    {
+      "id": "p32032",
+      "name": "Nebulizador Portátil para Adultos y Niños",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_696749-MLA94963922282_102025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 280,
+          "url": "https://www.mercadolibre.com.mx/p/MLM60250841",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_696749-MLA94963922282_102025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Nebulizador Portátil para Adultos y Niños"
+    },
+    {
+      "id": "p32033",
+      "name": "Nebulizador Portátil / Inhalador Portátil",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_727818-MLU74825600920_032024-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 529,
+          "url": "https://www.mercadolibre.com.mx/p/MLM34201921",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_727818-MLU74825600920_032024-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Nebulizador Portátil / Inhalador Portátil"
+    },
+    {
+      "id": "p32034",
+      "name": "Electroestimulador TENS Muscular Portátil Archy",
+      "brand": "Archy",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_920189-MLA113914790724_072026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 209.99,
+          "url": "https://www.mercadolibre.com.mx/p/MLM75808317",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_920189-MLA113914790724_072026-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 249
+        }
+      ],
+      "mlQuery": "Electroestimulador TENS Muscular Portátil Archy"
+    },
+    {
+      "id": "p32035",
+      "name": "Electroestimulador TENS Muscular Digital Ultra EMS Reactiv",
+      "brand": "Reactiv",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_882785-MLU71896716195_092023-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1084.9,
+          "url": "https://www.mercadolibre.com.mx/p/MLM27235047",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_882785-MLU71896716195_092023-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 1142
+        }
+      ],
+      "mlQuery": "Electroestimulador TENS Muscular Digital Ultra EMS Reactiv"
+    },
+    {
+      "id": "p32036",
+      "name": "Electroestimulador TENS 3000",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_983000-MLA89836646834_082025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 999,
+          "url": "https://www.mercadolibre.com.mx/p/MLM34232142",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_983000-MLA89836646834_082025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Electroestimulador TENS 3000"
+    },
+    {
+      "id": "p32037",
+      "name": "Kit de Sutura Quirúrgica para Práctica Lawan",
+      "brand": "Lawan",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_676651-MLA92565250502_092025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 298.8,
+          "url": "https://www.mercadolibre.com.mx/p/MLM48929887",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_676651-MLA92565250502_092025-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 459
+        }
+      ],
+      "mlQuery": "Kit de Sutura Quirúrgica para Práctica Lawan"
+    },
+    {
+      "id": "p32038",
+      "name": "Gasas Estériles Protec Absorbentes 10x10cm (20 Pz)",
+      "brand": "Protec",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_996105-MLA88113347948_072025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 79,
+          "url": "https://www.mercadolibre.com.mx/p/MLM25368878",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_996105-MLA88113347948_072025-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Gasas Estériles Protec Absorbentes 10x10cm (20 Pz)"
+    },
+    {
+      "id": "p32039",
+      "name": "Gasas Estériles Quirmex Absorbentes de Algodón 10x10cm",
+      "brand": "Quirmex",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_745743-MLM48855678982_012022-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 165,
+          "url": "https://www.mercadolibre.com.mx/p/MLM19589315",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_745743-MLM48855678982_012022-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Gasas Estériles Quirmex Absorbentes de Algodón 10x10cm"
+    },
+    {
+      "id": "p32040",
+      "name": "Gasas Estériles Quirmex Absorbentes 7.5x5cm (C/100)",
+      "brand": "Quirmex",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_785077-MLA80542364392_112024-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 129,
+          "url": "https://www.mercadolibre.com.mx/p/MLM19590579",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_785077-MLA80542364392_112024-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Gasas Estériles Quirmex Absorbentes 7.5x5cm (C/100)"
+    },
+    {
+      "id": "p32041",
+      "name": "Gasas Estériles Dibar Absorbentes 10x10cm (Pack 10 Pz)",
+      "brand": "Dibar",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_639686-MLU77743812830_072024-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 56.05,
+          "url": "https://www.mercadolibre.com.mx/p/MLM25803905",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_639686-MLU77743812830_072024-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 59
+        }
+      ],
+      "mlQuery": "Gasas Estériles Dibar Absorbentes 10x10cm (Pack 10 Pz)"
+    },
+    {
+      "id": "p32042",
+      "name": "Cubrebocas KN95 Certificado (200 Pz)",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_828477-MLA111500690677_052026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 479,
+          "url": "https://www.mercadolibre.com.mx/p/MLM69436661",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_828477-MLA111500690677_052026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 1437
+        }
+      ],
+      "mlQuery": "Cubrebocas KN95 Certificado (200 Pz)"
+    },
+    {
+      "id": "p32043",
+      "name": "Cubrebocas KN95 (Caja 20 Pz)",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_822642-MLU73954281919_012024-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 390,
+          "url": "https://www.mercadolibre.com.mx/p/MLM29654249",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_822642-MLU73954281919_012024-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Cubrebocas KN95 (Caja 20 Pz)"
+    },
+    {
+      "id": "p32044",
+      "name": "Guantes de Látex Desechables Ambiderm Confort (50 Pares, M)",
+      "brand": "Ambiderm",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_607507-MLA111356778420_052026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 246.05,
+          "url": "https://www.mercadolibre.com.mx/p/MLM70446065",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_607507-MLA111356778420_052026-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 259
+        }
+      ],
+      "mlQuery": "Guantes de Látex Desechables Ambiderm Confort (50 Pares, M)"
+    },
+    {
+      "id": "p32045",
+      "name": "Guantes de Látex Estériles para Cirugía Protexis",
+      "brand": "Protexis",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_896220-MLA82791363765_022025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 2830,
+          "url": "https://www.mercadolibre.com.mx/p/MLM46539709",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_896220-MLA82791363765_022025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Guantes de Látex Estériles para Cirugía Protexis"
+    },
+    {
+      "id": "p32046",
+      "name": "Guantes de Látex Ambidiestro Estéril Protec (Pack 100)",
+      "brand": "Protec",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_731342-MLA115303730444_082026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 430,
+          "url": "https://www.mercadolibre.com.mx/p/MLM78294273",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_731342-MLA115303730444_082026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Guantes de Látex Ambidiestro Estéril Protec (Pack 100)"
+    },
+    {
+      "id": "p32047",
+      "name": "Audífono para Sordera Recargable USB",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_732762-MLA95284414808_102025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 699,
+          "url": "https://www.mercadolibre.com.mx/p/MLM60709647",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_732762-MLA95284414808_102025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Audífono para Sordera Recargable USB"
+    },
+    {
+      "id": "p32048",
+      "name": "Audífono Amplificador de Sonido para Sordera",
+      "brand": "Genérico",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_962928-MLA87476342499_072025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 249,
+          "url": "https://www.mercadolibre.com.mx/p/MLM48950760",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_962928-MLA87476342499_072025-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 999
+        }
+      ],
+      "mlQuery": "Audífono Amplificador de Sonido para Sordera"
+    },
+    {
+      "id": "p32049",
+      "name": "Cojín Antiescaras Inflable Medimetrics (45x45cm)",
+      "brand": "Medimetrics",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_608055-MLA92179720968_092025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 110,
+          "url": "https://www.mercadolibre.com.mx/p/MLM24773293",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_608055-MLA92179720968_092025-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 249
+        }
+      ],
+      "mlQuery": "Cojín Antiescaras Inflable Medimetrics (45x45cm)"
+    },
+    {
+      "id": "p32050",
+      "name": "Cojín Antiescaras Ortopédico para Silla de Ruedas (110x50cm)",
+      "brand": "Creaciones Pimp",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_634274-MLA116275470151_082026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 592,
+          "url": "https://www.mercadolibre.com.mx/p/MLM24869308",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_634274-MLA116275470151_082026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Cojín Antiescaras Ortopédico para Silla de Ruedas (110x50cm)"
+    },
+    {
+      "id": "p32051",
+      "name": "Cojín Antiescaras de Gel Roho para Silla de Ruedas",
+      "brand": "Roho",
+      "category": "Salud y belleza",
+      "subcategory": "Salud",
+      "image": "heart-pulse",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_895497-MLU78005017972_082024-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 3895,
+          "url": "https://www.mercadolibre.com.mx/p/MLM39119042",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_895497-MLU78005017972_082024-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Cojín Antiescaras de Gel Roho para Silla de Ruedas"
+    },
+    {
+      "id": "p32052",
+      "name": "Taladro Inalámbrico DeWalt DCD791D2",
+      "brand": "DeWalt",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_658765-MLA100010539593_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 6499,
+          "url": "https://www.mercadolibre.com.mx/p/MLM36638882",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_658765-MLA100010539593_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Taladro Inalámbrico DeWalt DCD791D2"
+    },
+    {
+      "id": "p32053",
+      "name": "Taladro Inalámbrico DeWalt DCD740B-B3",
+      "brand": "DeWalt",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_891737-MLU77074338449_062024-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 4658,
+          "url": "https://www.mercadolibre.com.mx/p/MLM37786598",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_891737-MLU77074338449_062024-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Taladro Inalámbrico DeWalt DCD740B-B3"
+    },
+    {
+      "id": "p32054",
+      "name": "Taladro Inalámbrico DeWalt DCD771C2 13mm",
+      "brand": "DeWalt",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_805307-MLA99953890083_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 2716,
+          "url": "https://www.mercadolibre.com.mx/p/MLM17969202",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_805307-MLA99953890083_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Taladro Inalámbrico DeWalt DCD771C2 13mm"
+    },
+    {
+      "id": "p32055",
+      "name": "Taladro Inalámbrico DeWalt Brushless DCD991B 20V",
+      "brand": "DeWalt",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_961008-MLM48907426425_012022-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 6173,
+          "url": "https://www.mercadolibre.com.mx/p/MLM19730382",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_961008-MLM48907426425_012022-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Taladro Inalámbrico DeWalt Brushless DCD991B 20V"
+    },
+    {
+      "id": "p32056",
+      "name": "Esmeriladora Angular Inalámbrica Milwaukee 2981-20",
+      "brand": "Milwaukee",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_822538-MLA99545898468_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 4790,
+          "url": "https://www.mercadolibre.com.mx/p/MLM24549941",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_822538-MLA99545898468_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Esmeriladora Angular Inalámbrica Milwaukee 2981-20"
+    },
+    {
+      "id": "p32057",
+      "name": "Esmeriladora Angular Makita 9557HPYG",
+      "brand": "Makita",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_961389-MLA99563677688_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1650,
+          "url": "https://www.mercadolibre.com.mx/p/MLM45059247",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_961389-MLA99563677688_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Esmeriladora Angular Makita 9557HPYG"
+    },
+    {
+      "id": "p32058",
+      "name": "Esmeriladora Angular Igoto 800W",
+      "brand": "Igoto",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_769070-MLA100770296349_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 699,
+          "url": "https://www.mercadolibre.com.mx/p/MLM62976019",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_769070-MLA100770296349_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Esmeriladora Angular Igoto 800W"
+    },
+    {
+      "id": "p32059",
+      "name": "Esmeriladora Angular Craftsman CMEG100 con Accesorio",
+      "brand": "Craftsman",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_672799-MLA99969800785_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 2549,
+          "url": "https://www.mercadolibre.com.mx/p/MLM14276758",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_672799-MLA99969800785_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Esmeriladora Angular Craftsman CMEG100 con Accesorio"
+    },
+    {
+      "id": "p32060",
+      "name": "Esmeriladora Angular Ingco UAG900285",
+      "brand": "Ingco",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_784046-MLA100057045071_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1183.9,
+          "url": "https://www.mercadolibre.com.mx/p/MLM51857436",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_784046-MLA100057045071_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Esmeriladora Angular Ingco UAG900285"
+    },
+    {
+      "id": "p32061",
+      "name": "Sierra Caladora Stanley SJ60K-B3C 600W",
+      "brand": "Stanley",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_641651-MLA100033467843_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 4104.75,
+          "url": "https://www.mercadolibre.com.mx/p/MLM28713254",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_641651-MLA100033467843_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Sierra Caladora Stanley SJ60K-B3C 600W"
+    },
+    {
+      "id": "p32062",
+      "name": "Sierra Caladora Eléctrica Inalámbrica Motor Brushless",
+      "brand": "Genérico",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_886816-MLA98873863915_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 903.12,
+          "url": "https://www.mercadolibre.com.mx/p/MLM62323571",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_886816-MLA98873863915_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 1891.44
+        }
+      ],
+      "mlQuery": "Sierra Caladora Eléctrica Inalámbrica Motor Brushless"
+    },
+    {
+      "id": "p32063",
+      "name": "Sierra Caladora Eléctrica Profesional 6 Velocidades",
+      "brand": "Genérico",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_610299-MLA113159494893_062026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 353,
+          "url": "https://www.mercadolibre.com.mx/p/MLM73445395",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_610299-MLA113159494893_062026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 469
+        }
+      ],
+      "mlQuery": "Sierra Caladora Eléctrica Profesional 6 Velocidades"
+    },
+    {
+      "id": "p32064",
+      "name": "Sierra Caladora Eléctrica Profesional Stanew 650W",
+      "brand": "Stanew",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_627622-MLA103478737387_012026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 950,
+          "url": "https://www.mercadolibre.com.mx/p/MLM63652993",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_627622-MLA103478737387_012026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 1000
+        }
+      ],
+      "mlQuery": "Sierra Caladora Eléctrica Profesional Stanew 650W"
+    },
+    {
+      "id": "p32065",
+      "name": "Sierra Caladora Ryobi ONE+ HP",
+      "brand": "Ryobi",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_899019-MLA99866516267_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1900,
+          "url": "https://www.mercadolibre.com.mx/p/MLM26654663",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_899019-MLA99866516267_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Sierra Caladora Ryobi ONE+ HP"
+    },
+    {
+      "id": "p32066",
+      "name": "Sierra Caladora 420W KS501",
+      "brand": "Genérico",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_835687-MLA100024442899_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 979,
+          "url": "https://www.mercadolibre.com.mx/p/MLM22956151",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_835687-MLA100024442899_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Sierra Caladora 420W KS501"
+    },
+    {
+      "id": "p32067",
+      "name": "Rotomartillo Electroneumático DeWalt DCH273 Inalámbrico",
+      "brand": "DeWalt",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_733188-MLA102457592484_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 6299,
+          "url": "https://www.mercadolibre.com.mx/p/MLM18533937",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_733188-MLA102457592484_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Rotomartillo Electroneumático DeWalt DCH273 Inalámbrico"
+    },
+    {
+      "id": "p32068",
+      "name": "Atornillador Eléctrico Industrial Desoutter ELS12-600-P",
+      "brand": "Desoutter",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_624416-MLA100078706725_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 5472,
+          "url": "https://www.mercadolibre.com.mx/p/MLM14786630",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_624416-MLA100078706725_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Atornillador Eléctrico Industrial Desoutter ELS12-600-P"
+    },
+    {
+      "id": "p32069",
+      "name": "Grabador Láser CNC con Rodillo Giratorio para Latas y Vasos",
+      "brand": "Genérico",
+      "category": "Herramientas",
+      "subcategory": "Grabado y corte láser",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_699647-MLA99524589046_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 880.5,
+          "url": "https://www.mercadolibre.com.mx/p/MLM27809138",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_699647-MLA99524589046_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Grabador Láser CNC con Rodillo Giratorio para Latas y Vasos"
+    },
+    {
+      "id": "p32070",
+      "name": "Grabador Láser Algolaser Pixi 10W",
+      "brand": "Algolaser",
+      "category": "Herramientas",
+      "subcategory": "Grabado y corte láser",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_604285-MLA111936255915_052026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 5800,
+          "url": "https://www.mercadolibre.com.mx/p/MLM52617737",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_604285-MLA111936255915_052026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 8536.89
+        }
+      ],
+      "mlQuery": "Grabador Láser Algolaser Pixi 10W"
+    },
+    {
+      "id": "p32071",
+      "name": "Grabador Láser Creality Falcon2 Pro 60W",
+      "brand": "Creality",
+      "category": "Herramientas",
+      "subcategory": "Grabado y corte láser",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_946230-MLU78585406116_082024-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 49999,
+          "url": "https://www.mercadolibre.com.mx/p/MLM40003946",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_946230-MLU78585406116_082024-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Grabador Láser Creality Falcon2 Pro 60W"
+    },
+    {
+      "id": "p32072",
+      "name": "Grabadora y Cortadora Láser Two Trees TTS-10W",
+      "brand": "Two Trees",
+      "category": "Herramientas",
+      "subcategory": "Grabado y corte láser",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_898907-MLA99854777251_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 4460.06,
+          "url": "https://www.mercadolibre.com.mx/p/MLM54993906",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_898907-MLA99854777251_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 6050
+        }
+      ],
+      "mlQuery": "Grabadora y Cortadora Láser Two Trees TTS-10W"
+    },
+    {
+      "id": "p32073",
+      "name": "Accesorio Cilíndrico Giratorio para Cortadora Láser xTool D1",
+      "brand": "xTool",
+      "category": "Herramientas",
+      "subcategory": "Grabado y corte láser",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_945864-MLA99927340611_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 299.99,
+          "url": "https://www.mercadolibre.com.mx/p/MLM27642291",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_945864-MLA99927340611_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Accesorio Cilíndrico Giratorio para Cortadora Láser xTool D1"
+    },
+    {
+      "id": "p32074",
+      "name": "Soldadora Inverter Infra MMA250",
+      "brand": "Infra",
+      "category": "Herramientas",
+      "subcategory": "Soldadura y reparación",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_633968-MLA99967199493_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 2744,
+          "url": "https://www.mercadolibre.com.mx/p/MLM26983345",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_633968-MLA99967199493_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Soldadora Inverter Infra MMA250"
+    },
+    {
+      "id": "p32075",
+      "name": "Soldadora Inverter Urrea CT2420",
+      "brand": "Urrea",
+      "category": "Herramientas",
+      "subcategory": "Soldadura y reparación",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_785978-MLA96433933978_102025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 466.45,
+          "url": "https://www.mercadolibre.com.mx/p/MLM44141254",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_785978-MLA96433933978_102025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 491
+        }
+      ],
+      "mlQuery": "Soldadora Inverter Urrea CT2420"
+    },
+    {
+      "id": "p32076",
+      "name": "Soldadora Inverter Urrea CT1620",
+      "brand": "Urrea",
+      "category": "Herramientas",
+      "subcategory": "Soldadura y reparación",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_946784-MLA95639176941_102025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 456,
+          "url": "https://www.mercadolibre.com.mx/p/MLM44123981",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_946784-MLA95639176941_102025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 480
+        }
+      ],
+      "mlQuery": "Soldadora Inverter Urrea CT1620"
+    },
+    {
+      "id": "p32077",
+      "name": "Cautín para Soldar Ingco 60W",
+      "brand": "Ingco",
+      "category": "Herramientas",
+      "subcategory": "Soldadura y reparación",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_908344-MLA99417562032_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 249,
+          "url": "https://www.mercadolibre.com.mx/p/MLM44705736",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_908344-MLA99417562032_112025-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Cautín para Soldar Ingco 60W"
+    },
+    {
+      "id": "p32078",
+      "name": "Cautín Pistola para Soldar Weller D550",
+      "brand": "Weller",
+      "category": "Herramientas",
+      "subcategory": "Soldadura y reparación",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_911416-MLA112771396584_062026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1399,
+          "url": "https://www.mercadolibre.com.mx/p/MLM74598422",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_911416-MLA112771396584_062026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Cautín Pistola para Soldar Weller D550"
+    },
+    {
+      "id": "p32079",
+      "name": "Cautín para Soldar Profesional Weller Alta Resistencia",
+      "brand": "Weller",
+      "category": "Herramientas",
+      "subcategory": "Soldadura y reparación",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_649513-MLA112025371338_062026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1617.92,
+          "url": "https://www.mercadolibre.com.mx/p/MLM73451460",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_649513-MLA112025371338_062026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Cautín para Soldar Profesional Weller Alta Resistencia"
+    },
+    {
+      "id": "p32080",
+      "name": "Kit Cautín para Soldar Weller 5 Piezas 30W LED",
+      "brand": "Weller",
+      "category": "Herramientas",
+      "subcategory": "Soldadura y reparación",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_736936-MLA100066482185_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 541,
+          "url": "https://www.mercadolibre.com.mx/p/MLM25278382",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_736936-MLA100066482185_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Kit Cautín para Soldar Weller 5 Piezas 30W LED"
+    },
+    {
+      "id": "p32081",
+      "name": "Escalera de Tijera Cuprum C221312 de Aluminio",
+      "brand": "Cuprum",
+      "category": "Herramientas",
+      "subcategory": "Escaleras",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_957485-MLA109469477669_032026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 5230.01,
+          "url": "https://www.mercadolibre.com.mx/p/MLM67155968",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_957485-MLA109469477669_032026-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Escalera de Tijera Cuprum C221312 de Aluminio"
+    },
+    {
+      "id": "p32082",
+      "name": "Escalera de Tijera con 3 Escalones Truper",
+      "brand": "Truper",
+      "category": "Herramientas",
+      "subcategory": "Escaleras",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_749842-MLA99510054274_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1100,
+          "url": "https://www.mercadolibre.com.mx/p/MLM22254499",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_749842-MLA99510054274_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Escalera de Tijera con 3 Escalones Truper"
+    },
+    {
+      "id": "p32083",
+      "name": "Escalera de Tijera Extensible 5m BOWOHEN (150kg)",
+      "brand": "BOWOHEN",
+      "category": "Herramientas",
+      "subcategory": "Escaleras",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_715859-MLA113398465999_062026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 2576.98,
+          "url": "https://www.mercadolibre.com.mx/p/MLM37737371",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_715859-MLA113398465999_062026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 4442.11
+        }
+      ],
+      "mlQuery": "Escalera de Tijera Extensible 5m BOWOHEN (150kg)"
+    },
+    {
+      "id": "p32084",
+      "name": "Escalera de Tijera Cuprum C-2012-02N de Aluminio (225kg)",
+      "brand": "Cuprum",
+      "category": "Herramientas",
+      "subcategory": "Escaleras",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_774028-MLA99906620237_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1653,
+          "url": "https://www.mercadolibre.com.mx/p/MLM10985258",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_774028-MLA99906620237_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true,
+          "listPrice": 1740
+        }
+      ],
+      "mlQuery": "Escalera de Tijera Cuprum C-2012-02N de Aluminio (225kg)"
+    },
+    {
+      "id": "p32085",
+      "name": "Juego de Llaves Combinadas Milimétricas (15 Pz)",
+      "brand": "Genérico",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_988850-MLA99455667018_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1619,
+          "url": "https://www.mercadolibre.com.mx/p/MLM33109947",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_988850-MLA99455667018_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Juego de Llaves Combinadas Milimétricas (15 Pz)"
+    },
+    {
+      "id": "p32086",
+      "name": "Juego de Llaves Hex-L Pulgadas (13 Pz)",
+      "brand": "Genérico",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_985409-MLA99531484332_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 434.13,
+          "url": "https://www.mercadolibre.com.mx/p/MLM27524955",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_985409-MLA99531484332_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Juego de Llaves Hex-L Pulgadas (13 Pz)"
+    },
+    {
+      "id": "p32087",
+      "name": "Juego de Llaves Española Pulida Milimétricas (9 Pz)",
+      "brand": "Genérico",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_924071-MLA99560793522_122025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1407,
+          "url": "https://www.mercadolibre.com.mx/p/MLM33426647",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_924071-MLA99560793522_122025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Juego de Llaves Española Pulida Milimétricas (9 Pz)"
+    },
+    {
+      "id": "p32088",
+      "name": "Juego de Llaves Ajustables BGS 1446 (3 Pz)",
+      "brand": "BGS",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_945261-MLA99464968892_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 659,
+          "url": "https://www.mercadolibre.com.mx/p/MLM37274813",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_945261-MLA99464968892_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Juego de Llaves Ajustables BGS 1446 (3 Pz)"
+    },
+    {
+      "id": "p32089",
+      "name": "Juego de Llaves Hex-L Torx (7 Pz)",
+      "brand": "Genérico",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_976024-MLA115382616453_072026-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 685.03,
+          "url": "https://www.mercadolibre.com.mx/p/MLM76108958",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_976024-MLA115382616453_072026-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Juego de Llaves Hex-L Torx (7 Pz)"
+    },
+    {
+      "id": "p32090",
+      "name": "Compresor de Aire Portátil AstroAI para Neumáticos A220B",
+      "brand": "AstroAI",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_998930-MLA96426788936_102025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1465,
+          "url": "https://www.mercadolibre.com.mx/p/MLM41441487",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_998930-MLA96426788936_102025-F.jpg",
+          "shippingFee": null,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Compresor de Aire Portátil AstroAI para Neumáticos A220B"
+    },
+    {
+      "id": "p32091",
+      "name": "Pistola de Calor Concentrado 1500W Profesional Aksi",
+      "brand": "Aksi",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_669350-MLA99504938656_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1050,
+          "url": "https://www.mercadolibre.com.mx/p/MLM22803182",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_669350-MLA99504938656_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Pistola de Calor Concentrado 1500W Profesional Aksi"
+    },
+    {
+      "id": "p32092",
+      "name": "Pistola de Calor 1800W Stanley STXH2000K-B3",
+      "brand": "Stanley",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_901901-MLA99477490050_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1027,
+          "url": "https://www.mercadolibre.com.mx/p/MLM22855631",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_901901-MLA99477490050_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Pistola de Calor 1800W Stanley STXH2000K-B3"
+    },
+    {
+      "id": "p32093",
+      "name": "Pistola de Calor 1800W Ajustable Surtek PC618",
+      "brand": "Surtek",
+      "category": "Herramientas",
+      "subcategory": "Herramientas eléctricas",
+      "image": "wrench",
+      "photo": "https://http2.mlstatic.com/D_NQ_NP_830751-MLA99955498013_112025-F.jpg",
+      "specs": [],
+      "reviews": [],
+      "offers": [
+        {
+          "storeId": "mercadolibre",
+          "price": 1170,
+          "url": "https://www.mercadolibre.com.mx/p/MLM26212264",
+          "photo": "https://http2.mlstatic.com/D_NQ_NP_830751-MLA99955498013_112025-F.jpg",
+          "shippingFee": 0,
+          "points": null,
+          "rating": null,
+          "reviewCount": 0,
+          "stock": null,
+          "verified": true
+        }
+      ],
+      "mlQuery": "Pistola de Calor 1800W Ajustable Surtek PC618"
     }
   ]
 }
