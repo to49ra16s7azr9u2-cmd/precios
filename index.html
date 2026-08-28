@@ -83,8 +83,8 @@
       <div class="list-layout">
         <aside class="filters" id="filtersPanel">
           <h2 id="filtersPanelHead">Filtros <span class="filters-panel-toggle">▾</span></h2>
-          <div class="filter-group">
-            <h3>Precio</h3>
+          <div class="filter-group filter-group-collapsible collapsed">
+            <h3>Precio <span class="filter-group-toggle">▾</span></h3>
             <div class="price-range-slider">
               <div class="price-range-track"></div>
               <div class="price-range-fill" id="priceRangeFill"></div>
@@ -97,25 +97,25 @@
               <label class="price-range-field"><span>$</span><input type="number" id="priceNumMax" inputmode="numeric" min="0" placeholder="Máx"></label>
             </div>
           </div>
-          <div class="filter-group filter-group-collapsible">
+          <div class="filter-group filter-group-collapsible collapsed">
             <h3>Marca <span class="filter-group-toggle">▾</span></h3>
             <input type="text" id="filterBrandSearch" class="filter-search" placeholder="Buscar marca..." autocomplete="off">
             <div id="filterBrand" class="filter-options"></div>
           </div>
-          <div class="filter-group">
-            <h3>Calificación</h3>
+          <div class="filter-group filter-group-collapsible collapsed">
+            <h3>Calificación <span class="filter-group-toggle">▾</span></h3>
             <div id="filterRating" class="filter-options"></div>
           </div>
-          <div class="filter-group">
-            <h3>Condición</h3>
+          <div class="filter-group filter-group-collapsible collapsed">
+            <h3>Condición <span class="filter-group-toggle">▾</span></h3>
             <div id="filterCondition" class="filter-options"></div>
           </div>
-          <div class="filter-group hidden" id="filterMagsafeGroup">
-            <h3>MagSafe</h3>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterMagsafeGroup">
+            <h3>MagSafe <span class="filter-group-toggle">▾</span></h3>
             <div id="filterMagsafe" class="filter-options"></div>
           </div>
-          <div class="filter-group hidden" id="filterSizeGroup">
-            <h3>Tamaño</h3>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterSizeGroup">
+            <h3>Tamaño <span class="filter-group-toggle">▾</span></h3>
             <div id="filterSize" class="filter-options"></div>
           </div>
         </aside>

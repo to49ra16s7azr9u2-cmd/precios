@@ -3233,13 +3233,13 @@
       renderList();
     });
 
-    // Marca y Categoría se pueden plegar: son las listas más largas del
-    // panel de filtros (categorías con sus subcategorías, o decenas de
-    // marcas), así que quedan colapsables para no empujar Precio/
-    // Calificación/Condición fuera de la vista. El contenido interno
-    // (filterCategory/filterBrand) se re-genera en cada renderList(), pero
-    // el <h3> y el .filter-group que lo envuelven son estáticos del HTML,
-    // así que este listener se registra una sola vez acá.
+    // Todos los grupos del panel de Filtros (Precio/Marca/Calificación/
+    // Condición/MagSafe/Tamaño) son colapsables y arrancan cerrados (clase
+    // "collapsed" en el HTML) -- a pedido del usuario, para que el panel no
+    // aparezca de entrada como una pared de opciones. El contenido interno
+    // de cada uno (filterBrand, filterRating, etc.) se re-genera en cada
+    // renderList(), pero el <h3> y el .filter-group que lo envuelven son
+    // estáticos del HTML, así que este listener se registra una sola vez acá.
     // Filtra la lista de checkboxes de Marca en vivo, sin disparar
     // renderList() completo (no cambia el catálogo, solo qué checkboxes
     // se muestran), así que el input no pierde el foco al escribir.

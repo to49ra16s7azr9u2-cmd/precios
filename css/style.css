@@ -478,8 +478,13 @@ a { color: inherit; text-decoration: none; }
 .filter-group-toggle { font-size: 10px; transition: transform .15s; }
 .filter-group-collapsible.collapsed h3 { margin-bottom: 0; }
 .filter-group-collapsible.collapsed .filter-group-toggle { transform: rotate(-90deg); }
-.filter-group-collapsible.collapsed .filter-options,
-.filter-group-collapsible.collapsed .filter-search { display: none; }
+/* Un solo selector genérico (todo hijo directo salvo el <h3>) en vez de
+   listar cada tipo de contenido interno -- ahora que TODOS los grupos son
+   colapsables (Precio, Marca, Calificación, Condición, MagSafe, Tamaño),
+   cada uno esconde algo distinto (slider de precio, buscador de marca,
+   lista de opciones), y un selector por tipo se habría ido desactualizando
+   con cada grupo nuevo. */
+.filter-group-collapsible.collapsed > *:not(h3) { display: none; }
 .filter-search {
   width: 100%;
   box-sizing: border-box;
