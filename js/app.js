@@ -587,6 +587,42 @@
     container.appendChild(label);
   }
 
+  // Categorías con más descuentos activos ahora mismo (top 10, según
+  // cuántos de sus productos tienen descuento real) -- a pedido del
+  // usuario, se recalcula cada vez que se pinta Inicio a partir de los
+  // datos actuales (no es una lista fija a mano), así que si mañana
+  // cambian los descuentos del catálogo, este top 10 cambia solo con el
+  // próximo repintado.
+  function topDiscountCategoryIds(n) {
+    const counts = state.data.categories.map((cat) => {
+      const products = state.data.products.filter((p) => p.category === cat.id);
+      const discounted = products.filter((p) => bestDiscountPct(p)).length;
+      return { id: cat.id, discounted };
+    });
+    return new Set(
+      counts
+        .filter((c) => c.discounted > 0)
+        .sort((a, b) => b.discounted - a.discounted)
+        .slice(0, n)
+        .map((c) => c.id)
+    );
+  }
+
+  // Sello en la esquina de la tarjeta de categoría (Inicio), para las
+  // categorías del top 10 de arriba -- mismo motivo que
+  // attachDiscountRibbon/attachMostViewedLabel para reengancharse en
+  // cada asentado de renderProductMedia (limpia el contenedor en cada
+  // intento/reintento de carga de imagen).
+  function attachCategoryDiscountBadge(container) {
+    if (!container) return;
+    const existing = container.querySelector(".category-discount-badge");
+    if (existing) existing.remove();
+    const badge = document.createElement("span");
+    badge.className = "category-discount-badge";
+    badge.innerHTML = `${icon("flame")} Muchas ofertas`;
+    container.appendChild(badge);
+  }
+
   // Monto ahorrado (en pesos) de la oferta más barata frente a su listPrice.
   // Se muestra junto al % de descuento: un mismo descuento se "siente" más
   // grande o más chico según se enmarque en % o en dinero real (efecto de
@@ -1228,6 +1264,8 @@
     allCard.onclick = () => { state.sort = "relevance"; goList({ category: null, query: "" }); };
     el.homeCategoryGrid.appendChild(allCard);
 
+    const topDiscountIds = topDiscountCategoryIds(10);
+
     state.data.categories.forEach((cat) => {
       const categoryProducts = state.data.products.filter((p) => p.category === cat.id);
       const card = document.createElement("button");
@@ -1239,6 +1277,9 @@
         <span class="category-card-count">${categoryProducts.length} productos</span>
       `;
       const iconEl = card.querySelector(".category-card-icon");
+      const settleCategoryBadge = () => {
+        if (topDiscountIds.has(cat.id)) attachCategoryDiscountBadge(iconEl);
+      };
       // El ícono es la foto real del producto más popular de la categoría
       // (mismo criterio de "popular" que el resto del sitio -- ver
       // topByPopularity: reseñas totales, excluyendo usados), no un emoji
@@ -1254,13 +1295,16 @@
       // compartan la misma forma de marco.
       const topProduct = topByPopularity(categoryProducts, 1)[0];
       if (topProduct) {
-        renderProductMedia(iconEl, topProduct);
+        renderProductMedia(iconEl, topProduct, undefined, settleCategoryBadge);
+        settleCategoryBadge();
       } else if (cat.iconImage) {
         // Categoría sin productos (no debería pasar hoy, pero por si acaso):
         // cae a la ilustración subida a mano, si la categoría tiene una.
         iconEl.innerHTML = `<img src="${htmlEscapeAttr(cat.iconImage)}" alt="">`;
+        settleCategoryBadge();
       } else {
         iconEl.innerHTML = icon(cat.icon);
+        settleCategoryBadge();
       }
       card.onclick = () => goCategoryRanking(cat.id);
       el.homeCategoryGrid.appendChild(card);
