@@ -342,8 +342,19 @@ a { color: inherit; text-decoration: none; }
   background: var(--bg);
   border-radius: 50%;
   color: var(--red);
+  /* overflow:hidden como red de seguridad: si por lo que sea el ícono de
+     adentro no toma su tamaño chico (ver comentario de más abajo), que
+     quede recortado al círculo en vez de desbordar gigante por toda la
+     página, como pasó -- reportado con captura por el usuario. */
+  overflow: hidden;
 }
 .hero-map-btn.is-set .hero-map-btn-icon { color: var(--green); }
+/* El <svg> también lleva width/height="16" como atributos HTML (ver
+   index.html), no solo esta regla CSS -- así el tamaño correcto no
+   depende de que esta clase le gane en cascada a ninguna otra regla
+   .icon del archivo (la explicación más probable de por qué se vio
+   gigante: alguna caché de service worker sirviendo una combinación
+   vieja de CSS/HTML). Belt-and-suspenders. */
 .hero-map-btn-icon .icon { width: 16px; height: 16px; }
 .hero-map-btn-text { display: flex; flex-direction: column; gap: 1px; }
 .hero-map-btn-text strong { font-size: 13px; color: var(--ink); }
