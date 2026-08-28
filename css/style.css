@@ -1228,6 +1228,11 @@ a { color: inherit; text-decoration: none; }
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
+/* Descuentos de 30% o menos, en rojo más pálido (misma base --red-dark,
+   con transparencia) -- a pedido del usuario, para que el color del sello
+   ya adelante qué tan grande es el descuento sin tener que leer el
+   número. */
+.discount-ribbon--low { background: rgba(212, 0, 9, 0.55); }
 .most-viewed-icon .discount-ribbon,
 .detail-icon .discount-ribbon {
   top: 8px;

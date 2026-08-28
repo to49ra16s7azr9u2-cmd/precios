@@ -579,7 +579,11 @@
     const pct = bestDiscountPct(product);
     if (!pct) return;
     const ribbon = document.createElement("span");
-    ribbon.className = "discount-ribbon";
+    // Descuentos chicos (30% o menos) llevan un rojo más pálido -- a
+    // pedido del usuario, para que de un vistazo el color mismo ya
+    // adelante qué tan bueno es el descuento, y un -10% no grite tan
+    // fuerte como un -45%.
+    ribbon.className = "discount-ribbon" + (pct <= 30 ? " discount-ribbon--low" : "");
     // "Descuento" explícito además del "%" -- a pedido del usuario, un
     // "-45%" solo se podía confundir con cualquier otro número en la
     // tarjeta a un vistazo rápido. Se omite (short=true) solo en
