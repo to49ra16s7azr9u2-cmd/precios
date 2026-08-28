@@ -1744,6 +1744,7 @@ a { color: inherit; text-decoration: none; }
 }
 #homeCategoryGrid { padding: 0; margin: 0; }
 .category-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1783,12 +1784,14 @@ a { color: inherit; text-decoration: none; }
 /* Sello "Muchas ofertas" para las categorías del top 10 con más
    descuentos activos ahora mismo (ver topDiscountCategoryIds) -- a
    pedido del usuario, en la esquina de la tarjeta de categoría de
-   Inicio. Offset no-negativo (no "colgado" del borde) porque el marco
-   tiene overflow:hidden. */
+   Inicio. Colgado del borde superior-izquierdo de la tarjeta completa
+   (no del marco de la foto, que tiene overflow:hidden y lo recortaba /
+   lo dejaba tapando la foto) -- mismo criterio que el "corner flag" de
+   .product-row > .discount-ribbon, para no cubrir la ilustración. */
 .category-discount-badge {
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: -6px;
+  left: -6px;
   z-index: 2;
   display: flex;
   align-items: center;
@@ -1808,12 +1811,13 @@ a { color: inherit; text-decoration: none; }
   text-overflow: ellipsis;
 }
 /* Selector con un nivel extra de anidamiento (no solo .category-discount-badge
-   .icon) a propósito: el ícono vive dentro de .category-card-icon /
-   .category-card-icon--photo, y esas reglas generales para .icon (24px/40px)
-   aparecen más abajo en este archivo -- con la misma especificidad,
-   ganarían por orden de aparición y dejarían la flamita gigante en vez de
-   chica. */
-.category-card-icon .category-discount-badge .icon { width: 8px; height: 8px; flex-shrink: 0; }
+   .icon) a propósito: las reglas generales para .icon (24px/40px) dentro de
+   .category-card-icon / .category-card-icon--photo aparecen más abajo en
+   este archivo -- con la misma especificidad, ganarían por orden de
+   aparición y dejarían la flamita gigante en vez de chica. El sello ya no
+   vive dentro de .category-card-icon (ver comentario arriba), así que se
+   ancla a .category-card, su nuevo contenedor. */
+.category-card .category-discount-badge .icon { width: 8px; height: 8px; flex-shrink: 0; }
 /* Las ilustraciones propias (Celulares/Tabletas, Laptops, Monitores) son
    panorámicas (~1024x559): un marco circular les recortaba los bordes.
    Este marco rectangular horizontal, con la misma proporción que las

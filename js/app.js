@@ -611,16 +611,18 @@
   // Sello en la esquina de la tarjeta de categoría (Inicio), para las
   // categorías del top 10 de arriba -- mismo motivo que
   // attachDiscountRibbon/attachMostViewedLabel para reengancharse en
-  // cada asentado de renderProductMedia (limpia el contenedor en cada
-  // intento/reintento de carga de imagen).
-  function attachCategoryDiscountBadge(container) {
-    if (!container) return;
-    const existing = container.querySelector(".category-discount-badge");
+  // cada asentado de renderProductMedia (limpia el contenedor del ÍCONO
+  // en cada intento/reintento de carga de imagen), aunque el sello en sí
+  // se cuelga de la tarjeta completa (card), no del marco de la foto,
+  // para no taparla.
+  function attachCategoryDiscountBadge(card) {
+    if (!card) return;
+    const existing = card.querySelector(".category-discount-badge");
     if (existing) existing.remove();
     const badge = document.createElement("span");
     badge.className = "category-discount-badge";
     badge.innerHTML = `${icon("flame")} Muchas ofertas`;
-    container.appendChild(badge);
+    card.appendChild(badge);
   }
 
   // Monto ahorrado (en pesos) de la oferta más barata frente a su listPrice.
@@ -1278,7 +1280,7 @@
       `;
       const iconEl = card.querySelector(".category-card-icon");
       const settleCategoryBadge = () => {
-        if (topDiscountIds.has(cat.id)) attachCategoryDiscountBadge(iconEl);
+        if (topDiscountIds.has(cat.id)) attachCategoryDiscountBadge(card);
       };
       // El ícono es la foto real del producto más popular de la categoría
       // (mismo criterio de "popular" que el resto del sitio -- ver
