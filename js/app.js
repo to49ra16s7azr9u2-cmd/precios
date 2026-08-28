@@ -517,14 +517,19 @@
   // señales reales (nunca inventadas):
   //   - 3 puntos por cada clic real hacia la tienda en ESTE navegador
   //     (trackStoreClick, botón "Ver oferta"/variantes de color)
+  //   - 3 puntos si el producto está en Favoritos en ESTE navegador
+  //     (isFavorite) -- a pedido explícito del usuario, mismo peso que un
+  //     clic hacia la tienda: guardarlo en favoritos es una señal de
+  //     interés tan fuerte como ir a comprarlo.
   //   - 1 punto por cada visita real a la ficha del producto en ESTE
   //     navegador (trackProductView)
   //   - 10/8/6 puntos por cada reseña real de 5/4/3 estrellas que tiene el
   //     producto (reseñas propias del catálogo + las que este usuario
   //     agregó localmente), 0 para 1-2 estrellas
-  // Clics y visitas son "lo que tú más visitaste" (un sitio estático sin
-  // backend no puede medir eso agregado de todos los visitantes, ver
-  // trackProductView), pero las reseñas sí son un dato compartido real.
+  // Clics, favoritos y visitas son "lo que tú más visitaste" (un sitio
+  // estático sin backend no puede medir eso agregado de todos los
+  // visitantes, ver trackProductView), pero las reseñas sí son un dato
+  // compartido real.
   function reviewStarPoints(product) {
     const STAR_POINTS = { 5: 10, 4: 8, 3: 6 };
     const all = [...getUserReviews(product.id), ...(product.reviews || [])];
@@ -533,7 +538,8 @@
   function popularityScore(product) {
     const clicks = readLS(LS_KEYS.storeClicks, {})[product.id] || 0;
     const views = readLS(LS_KEYS.productViews, {})[product.id] || 0;
-    return clicks * 3 + views * 1 + reviewStarPoints(product);
+    const favoritePoints = isFavorite(product.id) ? 3 : 0;
+    return clicks * 3 + views * 1 + favoritePoints + reviewStarPoints(product);
   }
 
   // Descuento de la oferta más barata, si tiene listPrice (precio de lista)
