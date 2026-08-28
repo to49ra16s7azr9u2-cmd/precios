@@ -312,6 +312,43 @@ a { color: inherit; text-decoration: none; }
 .page-band h1 { font-size: 22px; }
 .hero p, .page-band p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
 .hero p { max-width: 420px; }
+/* Banner chico para elegir ubicación, en la esquina vacía de la derecha
+   del hero (a pedido del usuario, con captura marcando ese espacio) --
+   margin-left:auto lo empuja al extremo derecho de la fila flex sin
+   afectar el empaquetado a la izquierda de h1+p. Mismo ícono/acción que
+   el botón grande "Elegir mi ubicación" de la ficha de producto
+   (abre el mismo mapModal), pero en formato banner chico para esta
+   franja angosta. */
+.hero-map-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  background: var(--card);
+  border: 1px solid var(--red);
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  flex-shrink: 0;
+}
+.hero-map-btn:hover { background: var(--red-tint); }
+.hero-map-btn.is-set { border-color: var(--green); }
+.hero-map-btn-icon {
+  width: 32px; height: 32px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg);
+  border-radius: 50%;
+  color: var(--red);
+}
+.hero-map-btn.is-set .hero-map-btn-icon { color: var(--green); }
+.hero-map-btn-icon .icon { width: 16px; height: 16px; }
+.hero-map-btn-text { display: flex; flex-direction: column; gap: 1px; }
+.hero-map-btn-text strong { font-size: 13px; color: var(--ink); }
+.hero-map-btn-text span { font-size: 12px; color: var(--muted); }
+.hero-map-btn.is-set .hero-map-btn-text span { color: var(--green); }
 .hero h2,
 .section-title {
   margin: 10px 0 8px;

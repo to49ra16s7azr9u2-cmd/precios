@@ -262,6 +262,8 @@
     deliveryBannerSubtitle: document.getElementById("deliveryBannerSubtitle"),
     locationBtn: document.getElementById("locationBtn"),
     locationBtnLabel: document.getElementById("locationBtnLabel"),
+    homeLocationBtn: document.getElementById("homeLocationBtn"),
+    homeLocationBtnLabel: document.getElementById("homeLocationBtnLabel"),
     sortTabs: document.getElementById("sortTabs"),
     offerRowsVerified: document.getElementById("offerRowsVerified"),
     offerRowsReference: document.getElementById("offerRowsReference"),
@@ -2624,12 +2626,16 @@
       el.deliveryBanner.classList.add("is-set");
       el.deliveryBannerTitle.textContent = `✓ Mostrando entrega a ${region.name}`;
       el.deliveryBannerSubtitle.textContent = "¿Otro municipio? Puedes cambiarlo cuando quieras.";
+      el.homeLocationBtnLabel.textContent = region.name;
+      el.homeLocationBtn.classList.add("is-set");
     } else {
       el.locationBtnLabel.textContent = "Elegir mi ubicación";
       el.locationBtn.classList.remove("is-set");
       el.deliveryBanner.classList.remove("is-set");
       el.deliveryBannerTitle.textContent = "¿Cuándo llega a tu casa?";
       el.deliveryBannerSubtitle.textContent = "Elige tu municipio y compara el tiempo de entrega de cada tienda.";
+      el.homeLocationBtnLabel.textContent = "Elegir mi ubicación";
+      el.homeLocationBtn.classList.remove("is-set");
     }
   }
 
@@ -3336,6 +3342,7 @@
     });
 
     el.locationBtn.addEventListener("click", openMapModal);
+    el.homeLocationBtn.addEventListener("click", openMapModal);
     el.mapModalClose.addEventListener("click", closeMapModal);
     el.mapModal.addEventListener("click", (e) => {
       if (e.target === el.mapModal) closeMapModal();
