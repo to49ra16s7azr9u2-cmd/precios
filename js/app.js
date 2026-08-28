@@ -2409,6 +2409,7 @@
     "Impresión 3D": { weightKg: 7, lengthCm: 45, widthCm: 45, heightCm: 45 },
     "Movilidad eléctrica": { weightKg: 15, lengthCm: 110, widthCm: 45, heightCm: 25 },
     "Blancos y ropa de cama": { weightKg: 1, lengthCm: 35, widthCm: 30, heightCm: 10 },
+    "Ropa y accesorios": { weightKg: 0.4, lengthCm: 30, widthCm: 25, heightCm: 5 },
     "Otros": { weightKg: 0.5, lengthCm: 20, widthCm: 15, heightCm: 10 },
   };
   const DEFAULT_SHIPPING_ESTIMATE = { weightKg: 0.5, lengthCm: 20, widthCm: 15, heightCm: 10 };
