@@ -226,6 +226,7 @@
     listBreadcrumb: document.getElementById("listBreadcrumb"),
     listTitle: document.getElementById("listTitle"),
     filterCategory: document.getElementById("filterCategory"),
+    filterCategorySearch: document.getElementById("filterCategorySearch"),
     priceRangeMin: document.getElementById("priceRangeMin"),
     priceRangeMax: document.getElementById("priceRangeMax"),
     priceRangeFill: document.getElementById("priceRangeFill"),
@@ -1516,15 +1517,50 @@
     return { min, max };
   }
 
+  // Un typo ("televicion" en vez de "televisión") no matchea ninguna
+  // palabra literal, así que la búsqueda quedaba en 0 resultados aunque la
+  // categoría existiera -- se prueba primero la búsqueda literal de
+  // siempre (barata, de una sola pasada) y SOLO si esa pasada no encuentra
+  // absolutamente nada se repite con tolerancia a errores de tipeo
+  // (distancia de Levenshtein palabra por palabra, mismo criterio que ya
+  // usa el autocompletado de categorías). Este segundo paso es más caro
+  // por producto, pero solo corre en el caso raro de "cero resultados", no
+  // en cada tecla ni en cada búsqueda que sí encuentra algo.
+  function literalQueryMatch(p, ql) {
+    return (
+      p.name.toLowerCase().includes(ql) ||
+      p.brand.toLowerCase().includes(ql) ||
+      p.category.toLowerCase().includes(ql)
+    );
+  }
+  function fuzzyQueryMatch(p, query) {
+    const nq = normalizeSearchText(query);
+    if (!nq) return true;
+    // Con una consulta muy corta cualquier palabra sirve de "prefijo" en
+    // algún sentido (y hasta una distancia de Levenshtein chica dice poco),
+    // así que no vale la pena tolerar errores de tipeo ahí -- sin este
+    // piso, un típico "de"/"con"/una letra suelta en CUALQUIER producto del
+    // catálogo satisfacía nq.startsWith(w) y aparecía en resultados sin
+    // relación alguna con lo buscado.
+    if (nq.length < 4) return false;
+    const tolerance = Math.max(1, Math.floor(nq.length * 0.34));
+    // Se ignoran las palabras de 1-2 letras del producto por el mismo
+    // motivo: "t", "de", "en" son casi siempre prefijo de cualquier
+    // consulta de 4+ letras vía nq.startsWith(w).
+    const words = normalizeSearchText(`${p.name} ${p.brand} ${p.category}`)
+      .split(/\s+/)
+      .filter((w) => w.length >= 3);
+    return words.some(
+      (w) => w.startsWith(nq) || nq.startsWith(w) || levenshteinDistance(nq, w) <= tolerance
+    );
+  }
+
   function filteredProducts() {
     const ratingMin = (RATING_FILTERS.find((r) => r.id === state.minRating) || RATING_FILTERS[0]).min;
+    const q = state.query.toLowerCase();
+    const useFuzzy = !!q && !state.data.products.some((p) => literalQueryMatch(p, q));
     return state.data.products.filter((p) => {
-      const q = state.query.toLowerCase();
-      const matchesQuery =
-        !q ||
-        p.name.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q);
+      const matchesQuery = !q || (useFuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, q));
       const matchesCat = !state.category || p.category === state.category;
       const matchesSub = !state.subcategory || p.subcategory === state.subcategory;
       const price = minPrice(p);
@@ -1769,57 +1805,94 @@
 
   function renderFilterCategory() {
     el.filterCategory.innerHTML = "";
-    const allOpt = document.createElement("label");
-    allOpt.className = "filter-option" + (!state.category ? " active" : "");
-    allOpt.innerHTML = `<input type="radio" name="fcat" ${!state.category ? "checked" : ""}> Todas`;
-    allOpt.onclick = () => {
-      state.category = null;
-      state.subcategory = null;
-      state.brands.clear();
-      state.sort = "relevance";
-      renderList();
-    };
-    el.filterCategory.appendChild(allOpt);
 
-    // Con una categoría ya elegida, el panel se recorta a mostrar solo esa
-    // categoría y sus subcategorías (más "Todas" arriba, para volver) --
-    // antes seguía listando las otras ~50 categorías aunque ninguna
-    // aplicara ya, obligando a scrollear un montón para ver dónde estaba
-    // parada la selección actual y qué subcategorías tenía.
-    const categoriesToShow = state.category
+    // El cuadro de búsqueda no toca state.category/subcategory, solo qué se
+    // muestra acá -- igual que filterBrandSearch con renderFilterBrand().
+    // Mientras se busca, se levanta la restricción de "solo la categoría
+    // activa" de más abajo: se listan TODAS las categorías y subcategorías
+    // que matcheen, para poder saltar directo a una aunque no sea la que
+    // está activa ahora mismo.
+    // normalizeSearchText (no solo toLowerCase) para que un acento de menos
+    // al escribir -- "audi" en vez de "audí[fonos]" -- no rompa el match.
+    const query = normalizeSearchText(el.filterCategorySearch.value || "");
+
+    if (!query) {
+      const allOpt = document.createElement("label");
+      allOpt.className = "filter-option" + (!state.category ? " active" : "");
+      allOpt.innerHTML = `<input type="radio" name="fcat" ${!state.category ? "checked" : ""}> Todas`;
+      allOpt.onclick = () => {
+        state.category = null;
+        state.subcategory = null;
+        state.brands.clear();
+        state.sort = "relevance";
+        renderList();
+      };
+      el.filterCategory.appendChild(allOpt);
+    }
+
+    // Con una categoría ya elegida (y sin búsqueda activa), el panel se
+    // recorta a mostrar solo esa categoría y sus subcategorías (más
+    // "Todas" arriba, para volver) -- antes seguía listando las otras ~50
+    // categorías aunque ninguna aplicara ya, obligando a scrollear un
+    // montón para ver dónde estaba parada la selección actual y qué
+    // subcategorías tenía.
+    const categoriesToShow = query
+      ? state.data.categories.filter((c) =>
+          normalizeSearchText(c.name).includes(query) ||
+          (c.subcategories || []).some((s) => normalizeSearchText(s.name).includes(query))
+        )
+      : state.category
       ? state.data.categories.filter((c) => c.id === state.category)
       : state.data.categories;
 
+    if (query && categoriesToShow.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "filter-empty";
+      empty.textContent = `Sin categorías para "${el.filterCategorySearch.value.trim()}"`;
+      el.filterCategory.appendChild(empty);
+      return;
+    }
+
     categoriesToShow.forEach((c) => {
       const isActive = state.category === c.id;
-      const opt = document.createElement("label");
-      opt.className = "filter-option" + (isActive && !state.subcategory ? " active" : "");
-      opt.innerHTML = `<input type="radio" name="fcat" ${isActive && !state.subcategory ? "checked" : ""}> ${icon(c.icon, "cat-item-icon")} ${c.name}`;
-      opt.onclick = () => {
-        state.category = c.id;
-        state.subcategory = null;
-        state.brands.clear();
-        state.sort = "popularity";
-        renderList();
-      };
-      el.filterCategory.appendChild(opt);
-
-      // Las subcategorías solo se muestran, sangradas, cuando su categoría
-      // ya está activa -- así el filtro no se vuelve una lista gigante con
-      // las ~40 subcategorías de las 15 categorías todas a la vez.
-      if (isActive && c.subcategories && c.subcategories.length > 0) {
-        c.subcategories.forEach((s) => {
-          const subActive = state.subcategory === s.id;
-          const subOpt = document.createElement("label");
-          subOpt.className = "filter-option filter-suboption" + (subActive ? " active" : "");
-          subOpt.innerHTML = `<input type="radio" name="fcat" ${subActive ? "checked" : ""}> ${icon(s.icon, "cat-item-icon")} ${s.name}`;
-          subOpt.onclick = () => {
-            state.subcategory = s.id;
-            renderList();
-          };
-          el.filterCategory.appendChild(subOpt);
-        });
+      const catNameMatches = !query || normalizeSearchText(c.name).includes(query);
+      if (catNameMatches) {
+        const opt = document.createElement("label");
+        opt.className = "filter-option" + (isActive && !state.subcategory ? " active" : "");
+        opt.innerHTML = `<input type="radio" name="fcat" ${isActive && !state.subcategory ? "checked" : ""}> ${icon(c.icon, "cat-item-icon")} ${c.name}`;
+        opt.onclick = () => {
+          state.category = c.id;
+          state.subcategory = null;
+          state.brands.clear();
+          state.sort = "popularity";
+          renderList();
+        };
+        el.filterCategory.appendChild(opt);
       }
+
+      // Sin búsqueda, las subcategorías solo se muestran, sangradas, cuando
+      // su categoría ya está activa -- así el filtro no se vuelve una lista
+      // gigante con las ~40 subcategorías de las 15 categorías todas a la
+      // vez. Buscando, en cambio, se listan las subcategorías que matcheen
+      // aunque su categoría no esté activa (y aunque el nombre de la
+      // categoría en sí no haya matcheado), para poder saltar directo ahí.
+      const subsToShow = (c.subcategories || []).filter(
+        (s) => (query ? normalizeSearchText(s.name).includes(query) : isActive)
+      );
+      subsToShow.forEach((s) => {
+        const subActive = state.subcategory === s.id;
+        const subOpt = document.createElement("label");
+        subOpt.className = "filter-option filter-suboption" + (subActive ? " active" : "");
+        subOpt.innerHTML = `<input type="radio" name="fcat" ${subActive ? "checked" : ""}> ${icon(s.icon, "cat-item-icon")} ${s.name}`;
+        subOpt.onclick = () => {
+          state.category = c.id;
+          state.subcategory = s.id;
+          state.brands.clear();
+          state.sort = "popularity";
+          renderList();
+        };
+        el.filterCategory.appendChild(subOpt);
+      });
     });
   }
 
@@ -3244,6 +3317,7 @@
     // renderList() completo (no cambia el catálogo, solo qué checkboxes
     // se muestran), así que el input no pierde el foco al escribir.
     el.filterBrandSearch.addEventListener("input", () => renderFilterBrand());
+    el.filterCategorySearch.addEventListener("input", () => renderFilterCategory());
 
     document.querySelectorAll(".filter-group-collapsible > h3").forEach((h3) => {
       h3.addEventListener("click", () => {
