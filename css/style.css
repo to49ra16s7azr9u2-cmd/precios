@@ -612,11 +612,29 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 18px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
-.list-head h1 { font-size: 24px; margin: 0; letter-spacing: -.01em; }
+/* El título se achica con ellipsis en vez de forzar un salto de línea en
+   toda la fila -- a pedido del usuario, con captura marcando cómo el
+   selector de orden se caía a una segunda línea cuando el título era
+   largo. min-width:0 es lo que permite que un item de flex se encoja
+   por debajo de su ancho de contenido natural. */
+.list-head h1 {
+  font-size: 24px;
+  margin: 0;
+  letter-spacing: -.01em;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.list-head .ship-toggle,
+.list-head #shipEstimateHint,
+.list-head .sort-select {
+  flex-shrink: 0;
+}
 .sort-select {
   border: 1px solid var(--border);
   border-radius: 8px;
