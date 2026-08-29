@@ -160,11 +160,12 @@
       changed = true;
     });
     if (changed && currentProduct() === product) {
+      renderDetailPriceHeader(product);
       renderOfferTable(product);
       if (gotPhoto) {
         renderProductMedia(el.detailIcon, product, "detail", () => attachDiscountRibbon(el.detailIcon, product));
-        attachDiscountRibbon(el.detailIcon, product);
       }
+      attachDiscountRibbon(el.detailIcon, product);
     }
   }
 
@@ -2460,6 +2461,21 @@
     return state.data.products.find((p) => p.id === match[1]) || null;
   }
 
+  // Precio "Desde $X en N tiendas" arriba de la ficha. Se recalcula sobre
+  // product.offers en cada llamada (no cachea nada), así que se puede -- y
+  // se debe -- volver a invocar cuando refreshLiveOffers() actualiza los
+  // precios en vivo, o el encabezado se queda mostrando el precio viejo del
+  // catálogo mientras la tabla de abajo ya muestra el precio real.
+  function renderDetailPriceHeader(product) {
+    const discountPct = bestDiscountPct(product);
+    const savings = bestSavingsAmount(product);
+    el.detailFromPrice.innerHTML = `
+      ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}
+      ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
+      ${cheapestOfferShippingEstimated(product) ? `<span class="shipping-estimate-note">${icon("alert-triangle")} incluye envío estimado (ver tabla de abajo)</span>` : ""}
+    `;
+  }
+
   function renderDetail(productId) {
     const product = state.data.products.find((p) => p.id === productId);
     if (!product) { goHome(); return; }
@@ -2498,13 +2514,7 @@
         ? `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${plural(count, "calificación", "calificaciones")})</span>`
         : `<span class="rc">Sin calificaciones todavía</span>`;
     el.detailColors.innerHTML = detailColorSwatchHtml(product);
-    const discountPct = bestDiscountPct(product);
-    const savings = bestSavingsAmount(product);
-    el.detailFromPrice.innerHTML = `
-      ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}
-      ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
-      ${cheapestOfferShippingEstimated(product) ? `<span class="shipping-estimate-note">${icon("alert-triangle")} incluye envío estimado (ver tabla de abajo)</span>` : ""}
-    `;
+    renderDetailPriceHeader(product);
 
     el.specTable.innerHTML = product.specs
       .map((s) => `<tr><th>${s.label}</th><td>${s.value}</td></tr>`)
