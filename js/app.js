@@ -217,6 +217,7 @@
     searchSuggestions: document.getElementById("searchSuggestions"),
     shipToggle: document.getElementById("shipToggle"),
     shipToggleLabel: document.getElementById("shipToggleLabel"),
+    shipEstimateHint: document.getElementById("shipEstimateHint"),
 
     viewHome: document.getElementById("viewHome"),
     homeCategoryGrid: document.getElementById("homeCategoryGrid"),
@@ -3237,6 +3238,15 @@
     // vuelve a pintar lo que sea que esté visible ahora mismo.
     el.shipToggle.checked = state.includeShipping;
     el.shipToggleLabel.classList.toggle("active", state.includeShipping);
+    // Aviso fijo junto al toggle (no depende de state.includeShipping): la
+    // tooltip de arriba explica el detalle, pero un tooltip pasa
+    // desapercibido -- esto deja visible sin hover que "Incluir envío"
+    // puede sumar un monto estimado, no siempre uno confirmado por la
+    // tienda.
+    if (el.shipEstimateHint) {
+      el.shipEstimateHint.innerHTML = `${icon("alert-triangle")} a veces estimado`;
+      el.shipEstimateHint.classList.remove("hidden");
+    }
     el.shipToggle.addEventListener("change", () => {
       state.includeShipping = el.shipToggle.checked;
       el.shipToggleLabel.classList.toggle("active", state.includeShipping);
