@@ -20,6 +20,12 @@ import {
   signOut,
   updateProfile,
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyABXhT-z1-61Ghb_H32X5o2pOdedFX0_zU",
@@ -32,6 +38,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
 let currentUser = null;
@@ -123,6 +130,30 @@ window.ComparaMXAuth = {
         }
       });
     });
+  },
+};
+
+// Datos de cuenta en Firestore (colección "users", un documento por uid):
+// favoritos, municipio/región elegidos en el mapa. Reseñas e historial se
+// suman en un paso posterior -- esto solo cubre favoritos y ubicación.
+window.ComparaMXData = {
+  async getUserData(uid) {
+    try {
+      const snap = await getDoc(doc(db, "users", uid));
+      return snap.exists() ? snap.data() : null;
+    } catch {
+      return null; // sin conexión, reglas de seguridad, etc.: se ignora
+    }
+  },
+  async setUserData(uid, partial) {
+    try {
+      // merge:true para no pisar otros campos del documento (p. ej. subir
+      // solo favoritos no debe borrar la ubicación ya guardada, y viceversa).
+      await setDoc(doc(db, "users", uid), partial, { merge: true });
+      return { ok: true };
+    } catch (err) {
+      return { ok: false, message: mapAuthError(err && err.code) };
+    }
   },
 };
 

@@ -987,6 +987,7 @@
     if (idx === -1) favs.push(productId);
     else favs.splice(idx, 1);
     writeLS(LS_KEYS.favorites, favs);
+    if (state.user && window.ComparaMXData) window.ComparaMXData.setUserData(state.user.uid, { favorites: favs });
     return idx === -1;
   }
 
@@ -1072,8 +1073,46 @@
         state.user = user;
         renderHeaderAuthStatus();
         if (!el.viewAccount.classList.contains("hidden")) renderAccount();
+        // onChange puede repetirse para el mismo usuario (p. ej. al
+        // refrescar el token) -- solo se sincroniza con la nube cuando
+        // realmente cambia de cuenta (o se cierra sesión), no en cada
+        // aviso repetido del mismo uid.
+        const uid = user ? user.uid : null;
+        if (uid !== lastSyncedUid) {
+          lastSyncedUid = uid;
+          if (user) syncAccountFromCloud(user);
+        }
       });
     });
+  }
+
+  // uid de la última cuenta ya sincronizada con Firestore en esta carga de
+  // página (ver initAccountAuth) -- evita volver a pisar el estado local
+  // con el de la nube en cada aviso repetido de Auth.onChange().
+  let lastSyncedUid = null;
+
+  // Al iniciar sesión: si la cuenta ya tiene datos guardados en Firestore
+  // (favoritos, ubicación elegida en el mapa), la nube manda y reemplaza lo
+  // que hubiera en este navegador -- así se ve lo mismo en cualquier
+  // dispositivo donde se inicie sesión. Si es la primera vez que esta
+  // cuenta inicia sesión (no hay documento todavía), se sube lo que ya
+  // había guardado localmente para no perderlo.
+  async function syncAccountFromCloud(user) {
+    if (!window.ComparaMXData) return;
+    const cloud = await window.ComparaMXData.getUserData(user.uid);
+    if (cloud) {
+      if (Array.isArray(cloud.favorites)) writeLS(LS_KEYS.favorites, cloud.favorites);
+      if (cloud.selectedMetro) state.selectedMetro = cloud.selectedMetro;
+      if (cloud.selectedRegion) state.selectedRegion = cloud.selectedRegion;
+    } else {
+      window.ComparaMXData.setUserData(user.uid, {
+        favorites: getFavorites(),
+        selectedMetro: state.selectedMetro,
+        selectedRegion: state.selectedRegion,
+      });
+    }
+    updateLocationBtn();
+    onHashChange();
   }
 
   // El corazón usaba los emoji 🤍/❤, que en Windows (Segoe UI Emoji) se ven
@@ -3056,6 +3095,12 @@
 
   function selectRegion(regionId) {
     state.selectedRegion = regionId;
+    if (state.user && window.ComparaMXData) {
+      window.ComparaMXData.setUserData(state.user.uid, {
+        selectedRegion: regionId,
+        selectedMetro: state.selectedMetro,
+      });
+    }
     renderRegionChips();
     highlightMarker();
     updateLocationBtn();
