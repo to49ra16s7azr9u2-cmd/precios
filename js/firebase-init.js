@@ -29,6 +29,8 @@ import {
   addDoc,
   query,
   where,
+  orderBy,
+  limit,
   getDocs,
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
@@ -202,6 +204,34 @@ window.ComparaMXData = {
       // límite de una reseña por minuto se aplique de verdad.
       await setDoc(doc(db, "users", uid), { lastReviewAt: serverTimestamp() }, { merge: true });
     });
+  },
+  // Historial de vistas (subcolección "history" DENTRO de cada
+  // users/{uid}, a diferencia de "reviews": el historial sí es privado del
+  // dueño de la cuenta, nadie más lo consulta). El id del documento es el
+  // propio productId (no un id autogenerado): así, volver a ver el mismo
+  // producto solo actualiza viewedAt en vez de acumular una entrada nueva
+  // por cada visita -- el historial no crece sin límite con el tiempo.
+  recordView(uid, productId, category) {
+    return guarded(() =>
+      setDoc(
+        doc(db, "users", uid, "history", productId),
+        { category, viewedAt: serverTimestamp() },
+        { merge: true }
+      )
+    );
+  },
+  async getHistory(uid, maxItems) {
+    try {
+      const q = query(
+        collection(db, "users", uid, "history"),
+        orderBy("viewedAt", "desc"),
+        limit(maxItems || 20)
+      );
+      const snap = await getDocs(q);
+      return snap.docs.map((d) => ({ productId: d.id, category: d.data().category }));
+    } catch {
+      return []; // sin conexión, reglas de seguridad, etc.: se ignora
+    }
   },
 };
 

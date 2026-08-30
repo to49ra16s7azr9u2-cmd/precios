@@ -229,6 +229,11 @@
     homeCategoryGrid: document.getElementById("homeCategoryGrid"),
     homeRankings: document.getElementById("homeRankings"),
     homeMostViewed: document.getElementById("homeMostViewed"),
+    homeAccountSections: document.getElementById("homeAccountSections"),
+    homeHistoryBlock: document.getElementById("homeHistoryBlock"),
+    homeHistoryList: document.getElementById("homeHistoryList"),
+    homeRecommendedBlock: document.getElementById("homeRecommendedBlock"),
+    homeRecommendedList: document.getElementById("homeRecommendedList"),
 
     viewList: document.getElementById("viewList"),
     listBreadcrumb: document.getElementById("listBreadcrumb"),
@@ -295,6 +300,8 @@
     reviewFormIntro: document.getElementById("reviewFormIntro"),
     reviewAuthorField: document.getElementById("reviewAuthorField"),
     reviewFormError: document.getElementById("reviewFormError"),
+    reviewFormSuccess: document.getElementById("reviewFormSuccess"),
+    reviewFormWriteAnother: document.getElementById("reviewFormWriteAnother"),
 
     viewBrands: document.getElementById("viewBrands"),
     brandCategoryFilter: document.getElementById("brandCategoryFilter"),
@@ -1490,6 +1497,7 @@
 
     renderHomeRankings();
     renderHomeMostViewed();
+    renderHomeAccountSections();
   }
 
   // Debajo del ranking: la ficha (resumida) del producto más visto en
@@ -1545,6 +1553,50 @@
     settleMostViewedIcon();
     card.onclick = () => goDetail(product.id);
     el.homeMostViewed.appendChild(card);
+  }
+
+  // "Visto recientemente" y "Recomendado para ti": a diferencia de "Más
+  // visto en este navegador" (local, arriba), esto viene del historial en
+  // Firestore y solo existe con sesión iniciada -- mismo patrón async que
+  // refreshLiveOffers/loadProductCloudReviews: no hay nada que mostrar la
+  // primera vez (la sección arranca oculta) y se revela recién cuando
+  // llega la respuesta real.
+  async function renderHomeAccountSections() {
+    el.homeAccountSections.classList.add("hidden");
+    el.homeRecommendedBlock.classList.add("hidden");
+    if (!state.user || !window.ComparaMXData) return;
+
+    const history = await window.ComparaMXData.getHistory(state.user.uid, 20);
+    // Mientras se esperaba la respuesta, la sesión pudo cerrarse o el
+    // usuario pudo navegar a otra vista -- si ya no aplica, se descarta.
+    if (!state.user || el.viewHome.classList.contains("hidden")) return;
+    if (history.length === 0) return;
+
+    const historyProducts = history
+      .map((h) => state.data.products.find((p) => p.id === h.productId))
+      .filter(Boolean)
+      .slice(0, 6);
+    const renderHistoryBlock = () =>
+      renderProductListInto(el.homeHistoryList, historyProducts, { emptyText: "", onFavToggle: renderHistoryBlock });
+    if (historyProducts.length > 0) renderHistoryBlock();
+
+    // Recomendaciones: mismas categorías que aparecen en el historial,
+    // excluyendo lo que ya se vio, ordenado por el mismo popularityScore
+    // que el resto del sitio (ver topByPopularity más abajo).
+    const viewedIds = new Set(history.map((h) => h.productId));
+    const categories = new Set(history.map((h) => h.category));
+    const recommended = topByPopularity(
+      state.data.products.filter((p) => categories.has(p.category) && !viewedIds.has(p.id)),
+      6
+    );
+    const renderRecommendedBlock = () =>
+      renderProductListInto(el.homeRecommendedList, recommended, { emptyText: "", onFavToggle: renderRecommendedBlock });
+    if (recommended.length > 0) {
+      renderRecommendedBlock();
+      el.homeRecommendedBlock.classList.remove("hidden");
+    }
+
+    el.homeAccountSections.classList.remove("hidden");
   }
 
   // Top N por el mismo criterio de "popularidad" que ya usa el resto del
@@ -2607,6 +2659,14 @@
     const product = state.data.products.find((p) => p.id === productId);
     if (!product) { goHome(); return; }
 
+    // Historial en la nube (para "Visto recientemente" y "Recomendado para
+    // ti" en Inicio): solo con sesión iniciada -- sin cuenta, el historial
+    // sigue siendo el contador local de siempre (ver trackProductView),
+    // sin cambios.
+    if (state.user && window.ComparaMXData) {
+      window.ComparaMXData.recordView(state.user.uid, product.id, product.category);
+    }
+
     setActiveView("detail");
     renderCatNav();
 
@@ -2649,6 +2709,13 @@
 
     renderShippingWidgetForProduct(product);
 
+    // Reinicia el formulario de reseña a su estado normal (no el de "ya la
+    // publicaste") -- esto es al entrar a la ficha, distinto del mensaje de
+    // éxito que se activa recién al publicar (ver el submit handler más
+    // abajo), para que ese mensaje no desaparezca solo cuando
+    // loadProductCloudReviews() vuelve a pintar tras la publicación.
+    el.reviewForm.classList.remove("hidden");
+    el.reviewFormSuccess.classList.add("hidden");
     renderReviews(product, []);
     loadProductCloudReviews(product);
 
@@ -3568,6 +3635,8 @@
         el.reviewComment.value = "";
         clearReviewDraft(product.id);
         loadProductCloudReviews(product);
+        el.reviewForm.classList.add("hidden");
+        el.reviewFormSuccess.classList.remove("hidden");
         return;
       }
 
@@ -3586,6 +3655,13 @@
       // borrar de la vista las reseñas públicas de otros compradores que
       // ya se habían cargado.
       loadProductCloudReviews(product);
+      el.reviewForm.classList.add("hidden");
+      el.reviewFormSuccess.classList.remove("hidden");
+    });
+
+    el.reviewFormWriteAnother.addEventListener("click", () => {
+      el.reviewFormSuccess.classList.add("hidden");
+      el.reviewForm.classList.remove("hidden");
     });
 
     // Guarda un borrador con cada tecleo en el comentario -- si el usuario

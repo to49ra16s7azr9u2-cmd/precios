@@ -75,6 +75,21 @@
           </div>
         </div>
       </div>
+
+      <!-- Historial y recomendaciones de la cuenta (Firestore): solo se
+           muestra con sesión iniciada y una vez que hay datos que mostrar
+           -- ver renderHomeAccountSections en js/app.js. -->
+      <div id="homeAccountSections" class="home-account-sections hidden">
+        <div class="home-account-block" id="homeHistoryBlock">
+          <h2 class="section-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Visto recientemente</h2>
+          <div id="homeHistoryList" class="product-list"></div>
+        </div>
+        <div class="home-account-block hidden" id="homeRecommendedBlock">
+          <h2 class="section-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c.5 3 1.9 4.4 4.9 4.9-3 .5-4.4 1.9-4.9 4.9-.5-3-1.9-4.4-4.9-4.9 3-.5 4.4-1.9 4.9-4.9Z" fill="currentColor" stroke="currentColor" stroke-width="0.5" stroke-linejoin="round"/><path d="M18.5 14c.3 1.6 1 2.3 2.6 2.6-1.6.3-2.3 1-2.6 2.6-.3-1.6-1-2.3-2.6-2.6 1.6-.3 2.3-1 2.6-2.6Z" fill="currentColor" stroke="currentColor" stroke-width="0.4" stroke-linejoin="round"/></svg> Recomendado para ti</h2>
+          <div id="homeRecommendedList" class="product-list"></div>
+        </div>
+      </div>
+
       <h2 class="section-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v6a5 5 0 0 1-10 0V4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 5H4a3 3 0 0 0 3 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 5h3a3 3 0 0 1-3 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="15" x2="12" y2="18.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 21.5h8l-1-3H9l-1 3Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Ranking de popularidad</h2>
       <div id="homeRankings" class="home-rankings"></div>
     </div>
@@ -299,6 +314,11 @@
           <p id="reviewFormError" class="account-auth-error hidden"></p>
           <button type="submit" class="buy-btn">Publicar reseña</button>
         </form>
+        <div id="reviewFormSuccess" class="review-form-success hidden">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="currentColor"/><path d="M8 12.3l2.6 2.6L16.3 9" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p>¡Gracias por tu reseña! Ya se publicó.</p>
+          <button type="button" class="link-btn" id="reviewFormWriteAnother">Escribir otra reseña</button>
+        </div>
       </div>
     </div>
   </section>

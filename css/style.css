@@ -1743,6 +1743,12 @@ a { color: inherit; text-decoration: none; }
   .home-right-column { flex: 1 1 auto; width: 100%; box-sizing: border-box; }
 }
 
+/* "Visto recientemente" / "Recomendado para ti": solo con sesión iniciada
+   (ver renderHomeAccountSections en js/app.js), reutiliza .product-list y
+   .section-title tal cual, así que no hace falta mucho más que el margen
+   entre los dos bloques. */
+.home-account-block { margin-bottom: 8px; }
+
 /* "Más visto en este navegador": misma idea que el Top 5 de categorías
    (clics reales de este navegador, ver trackProductView), pero mostrando
    la ficha del único producto más visto en vez de una lista -- una
@@ -2108,6 +2114,18 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Formularios (reseña / perfil) ---------- */
 .review-form { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+/* Reemplaza al formulario (ver el submit handler en js/app.js) justo
+   después de publicar, para que quede claro que la reseña se envió de
+   verdad -- en vez de solo vaciar el textarea y dejar el mismo formulario
+   a la vista, como si nada hubiera pasado. */
+.review-form-success {
+  margin-top: 16px;
+  padding: 20px 14px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.review-form-success .icon { width: 34px; height: 34px; color: var(--green); margin-bottom: 8px; }
+.review-form-success p { margin: 0 0 8px; font-weight: 700; color: var(--ink); }
 .review-form h3 { font-size: 13px; margin: 0 0 4px; }
 .review-form-row { display: flex; gap: 14px; flex-wrap: wrap; margin: 10px 0; }
 .review-form label {
