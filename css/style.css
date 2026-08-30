@@ -181,6 +181,10 @@ a { color: inherit; text-decoration: none; }
 }
 .util-nav a { display: inline-flex; align-items: center; gap: 5px; }
 .util-nav a:hover { color: var(--red); }
+.account-nav-avatar {
+  width: 16px; height: 16px; border-radius: 50%;
+  object-fit: cover; flex-shrink: 0;
+}
 .ship-toggle {
   display: flex; align-items: center; gap: 6px;
   cursor: pointer; user-select: none;
@@ -1383,6 +1387,66 @@ a { color: inherit; text-decoration: none; }
   white-space: nowrap;
 }
 .buy-btn:hover { background: var(--red-dark); }
+.buy-btn--outline {
+  background: #fff;
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+.buy-btn--outline:hover { background: #fff5f5; }
+.google-signin-btn {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: #fff;
+  color: #1f1f1f;
+  border: 1px solid var(--border);
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.google-signin-btn:hover { background: #f7f7f7; }
+.google-icon { width: 18px; height: 18px; flex-shrink: 0; }
+.account-divider {
+  display: flex; align-items: center; gap: 10px;
+  margin: 14px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.account-divider::before, .account-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.account-auth-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.account-auth-error {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--red);
+}
+.account-profile-head {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 10px;
+}
+.account-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  object-fit: cover; flex-shrink: 0;
+  background: var(--border);
+}
+.account-email { margin: 0; }
+.link-btn {
+  display: inline-block;
+  margin-top: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--red);
+  font-size: 12.5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.link-btn:hover { text-decoration: underline; }
 /* Micro-copy de confianza pegado al botón: reduce el riesgo percibido de
    salir del sitio (aversión a la incertidumbre) sin prometer nada que no
    se cumpla — es un enlace directo a la tienda real, no un checkout propio. */

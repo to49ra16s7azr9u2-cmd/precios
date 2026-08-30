@@ -206,6 +206,7 @@
     sort: "relevance",
     offerSort: "price", // 'price' | 'rating' — orden de la tabla de comparación
     brandCategory: null, // filtro activo en /marcas; null = todas las categorías
+    user: null, // {uid, displayName, email, photoURL} si hay sesión de Firebase Auth; null si no
   };
 
   const el = {
@@ -215,6 +216,11 @@
     searchInput: document.getElementById("searchInput"),
     searchBtn: document.getElementById("searchBtn"),
     searchSuggestions: document.getElementById("searchSuggestions"),
+
+    accountNavLink: document.getElementById("accountNavLink"),
+    accountNavIcon: document.getElementById("accountNavIcon"),
+    accountNavAvatar: document.getElementById("accountNavAvatar"),
+    accountNavLabel: document.getElementById("accountNavLabel"),
     shipToggle: document.getElementById("shipToggle"),
     shipToggleLabel: document.getElementById("shipToggleLabel"),
     shipEstimateHint: document.getElementById("shipEstimateHint"),
@@ -296,6 +302,22 @@
     favoritesList: document.getElementById("favoritesList"),
 
     viewAccount: document.getElementById("viewAccount"),
+    accountIntro: document.getElementById("accountIntro"),
+    accountLoginPanel: document.getElementById("accountLoginPanel"),
+    googleSignInBtn: document.getElementById("googleSignInBtn"),
+    emailAuthForm: document.getElementById("emailAuthForm"),
+    authEmail: document.getElementById("authEmail"),
+    authPassword: document.getElementById("authPassword"),
+    signInBtn: document.getElementById("signInBtn"),
+    signUpBtn: document.getElementById("signUpBtn"),
+    forgotPasswordLink: document.getElementById("forgotPasswordLink"),
+    authError: document.getElementById("authError"),
+    profilePanelTitle: document.getElementById("profilePanelTitle"),
+    profilePanelDesc: document.getElementById("profilePanelDesc"),
+    accountSignedInHead: document.getElementById("accountSignedInHead"),
+    accountAvatar: document.getElementById("accountAvatar"),
+    accountEmail: document.getElementById("accountEmail"),
+    signOutBtn: document.getElementById("signOutBtn"),
     profileForm: document.getElementById("profileForm"),
     profileName: document.getElementById("profileName"),
     accountSummary: document.getElementById("accountSummary"),
@@ -1005,6 +1027,53 @@
     if (!(productId in all)) return;
     delete all[productId];
     writeLS(LS_KEYS.reviewDrafts, all);
+  }
+
+  // ---------- Cuenta (Firebase Auth) ----------
+
+  // js/firebase-init.js se carga como <script type="module">, que se
+  // ejecuta diferido -- puede terminar antes o después que este script
+  // clásico según cuándo termine de bajar cada archivo. Por eso no se puede
+  // asumir que window.ComparaMXAuth ya existe al llamar a esta función: si
+  // todavía no está, se espera al evento "comparamx-auth-ready" que dispara
+  // ese módulo al terminar de inicializarse.
+  function whenAuthReady(callback) {
+    if (window.ComparaMXAuth) {
+      callback(window.ComparaMXAuth);
+    } else {
+      window.addEventListener(
+        "comparamx-auth-ready",
+        () => callback(window.ComparaMXAuth),
+        { once: true }
+      );
+    }
+  }
+
+  function showAuthError(message) {
+    el.authError.textContent = message;
+    el.authError.classList.remove("hidden");
+  }
+
+  function renderHeaderAuthStatus() {
+    const user = state.user;
+    el.accountNavIcon.classList.toggle("hidden", !!(user && user.photoURL));
+    if (user && user.photoURL) {
+      el.accountNavAvatar.src = user.photoURL;
+      el.accountNavAvatar.classList.remove("hidden");
+    } else {
+      el.accountNavAvatar.classList.add("hidden");
+    }
+    el.accountNavLabel.textContent = user ? (user.displayName || "Mi cuenta") : "Mi cuenta";
+  }
+
+  function initAccountAuth() {
+    whenAuthReady((Auth) => {
+      Auth.onChange((user) => {
+        state.user = user;
+        renderHeaderAuthStatus();
+        if (!el.viewAccount.classList.contains("hidden")) renderAccount();
+      });
+    });
   }
 
   // El corazón usaba los emoji 🤍/❤, que en Windows (Segoe UI Emoji) se ven
@@ -2177,7 +2246,22 @@
   function renderAccount() {
     setActiveView("account");
     renderCatNav();
-    el.profileName.value = getProfile().name || "";
+    const user = state.user;
+    el.accountLoginPanel.classList.toggle("hidden", !!user);
+    el.accountSignedInHead.classList.toggle("hidden", !user);
+    if (user) {
+      el.accountIntro.textContent = "Tu perfil, guardado con tu cuenta de ComparaMX.";
+      el.profilePanelTitle.textContent = "Perfil";
+      el.profilePanelDesc.textContent = "Este nombre se usa para firmar las reseñas que escribas.";
+      el.accountAvatar.src = user.photoURL || "icons/icon.svg";
+      el.accountEmail.textContent = user.email || "";
+      el.profileName.value = getProfile().name || user.displayName || "";
+    } else {
+      el.accountIntro.textContent = "Inicia sesión para guardar tu perfil, favoritos y reseñas.";
+      el.profilePanelTitle.textContent = "Perfil local";
+      el.profilePanelDesc.textContent = "No hay servidor ni inicio de sesión real: este nombre se guarda solo en tu navegador y se usa para firmar las reseñas que escribas.";
+      el.profileName.value = getProfile().name || "";
+    }
     const favCount = getFavorites().length;
     const reviewCount = Object.values(getAllUserReviews()).reduce((sum, arr) => sum + arr.length, 0);
     el.accountSummary.textContent = `${favCount} favorito(s) guardado(s) · ${reviewCount} reseña(s) escritas en este navegador.`;
@@ -3412,8 +3496,63 @@
 
     el.profileForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      setProfileName(el.profileName.value.trim());
+      const name = el.profileName.value.trim();
+      setProfileName(name);
+      if (state.user && window.ComparaMXAuth) window.ComparaMXAuth.updateDisplayName(name);
       renderAccount();
+    });
+
+    el.googleSignInBtn.addEventListener("click", async () => {
+      el.authError.classList.add("hidden");
+      if (!window.ComparaMXAuth) {
+        showAuthError("Cargando, intenta de nuevo en un momento.");
+        return;
+      }
+      const res = await window.ComparaMXAuth.signInGoogle();
+      if (!res.ok) showAuthError(res.message);
+    });
+
+    el.emailAuthForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      el.authError.classList.add("hidden");
+      if (!window.ComparaMXAuth) {
+        showAuthError("Cargando, intenta de nuevo en un momento.");
+        return;
+      }
+      const res = await window.ComparaMXAuth.signInEmail(el.authEmail.value.trim(), el.authPassword.value);
+      if (!res.ok) showAuthError(res.message);
+    });
+
+    el.signUpBtn.addEventListener("click", async () => {
+      el.authError.classList.add("hidden");
+      if (!window.ComparaMXAuth) {
+        showAuthError("Cargando, intenta de nuevo en un momento.");
+        return;
+      }
+      const res = await window.ComparaMXAuth.signUpEmail(el.authEmail.value.trim(), el.authPassword.value);
+      if (!res.ok) showAuthError(res.message);
+    });
+
+    el.forgotPasswordLink.addEventListener("click", async (e) => {
+      e.preventDefault();
+      el.authError.classList.add("hidden");
+      if (!window.ComparaMXAuth) {
+        showAuthError("Cargando, intenta de nuevo en un momento.");
+        return;
+      }
+      const email = el.authEmail.value.trim();
+      if (!email) {
+        showAuthError("Escribe tu correo arriba y vuelve a hacer clic para recuperar tu contraseña.");
+        return;
+      }
+      const res = await window.ComparaMXAuth.resetPassword(email);
+      if (!res.ok) showAuthError(res.message);
+      else showAuthError("Te enviamos un correo para restablecer tu contraseña.");
+    });
+
+    el.signOutBtn.addEventListener("click", async () => {
+      if (!window.ComparaMXAuth) return;
+      await window.ComparaMXAuth.signOutUser();
     });
 
     window.addEventListener("hashchange", onHashChange);
@@ -3436,6 +3575,7 @@
   }
 
   async function main() {
+    initAccountAuth();
     await loadData();
     bindEvents();
     onHashChange();
