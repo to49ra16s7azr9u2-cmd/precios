@@ -292,6 +292,9 @@
     reviewAuthor: document.getElementById("reviewAuthor"),
     reviewRating: document.getElementById("reviewRating"),
     reviewComment: document.getElementById("reviewComment"),
+    reviewFormIntro: document.getElementById("reviewFormIntro"),
+    reviewAuthorField: document.getElementById("reviewAuthorField"),
+    reviewFormError: document.getElementById("reviewFormError"),
 
     viewBrands: document.getElementById("viewBrands"),
     brandCategoryFilter: document.getElementById("brandCategoryFilter"),
@@ -2646,7 +2649,8 @@
 
     renderShippingWidgetForProduct(product);
 
-    renderReviews(product);
+    renderReviews(product, []);
+    loadProductCloudReviews(product);
 
     updateLocationBtn();
     renderSortTabs();
@@ -2654,10 +2658,38 @@
     refreshLiveOffers(product);
   }
 
-  function renderReviews(product) {
+  // Muestra u oculta el campo "Tu nombre" y cambia el texto de aviso del
+  // formulario según haya sesión iniciada o no: con sesión, el nombre viene
+  // de la cuenta (no se pide de nuevo) y la reseña queda pública para
+  // cualquier visitante; sin sesión, sigue siendo el demo local de siempre.
+  function updateReviewFormForAuth() {
+    const signedIn = !!state.user;
+    el.reviewAuthorField.classList.toggle("hidden", signedIn);
+    el.reviewFormIntro.textContent = signedIn
+      ? "Se publica con el nombre de tu cuenta y la verán todos los compradores."
+      : "Se guarda solo en este navegador (demo sin servidor, no la verán otros usuarios). Inicia sesión para publicar una reseña pública.";
+  }
+
+  function showReviewFormError(message) {
+    el.reviewFormError.textContent = message;
+    el.reviewFormError.classList.remove("hidden");
+  }
+
+  // cloudReviews llega vacío en el primer pintado (síncrono, con lo que ya
+  // había en este navegador) y de nuevo con datos reales una vez que
+  // loadProductCloudReviews() termina de consultar Firestore -- mismo
+  // patrón que refreshLiveOffers() con los precios en vivo: se pinta rápido
+  // con lo que se tiene a mano y se corrige apenas llega lo real.
+  function renderReviews(product, cloudReviews) {
     el.reviewAuthor.value = getProfile().name || "";
+    updateReviewFormForAuth();
+    el.reviewFormError.classList.add("hidden");
     const userReviews = getUserReviews(product.id);
-    const allReviews = [...userReviews, ...product.reviews];
+    const cloud = (cloudReviews || []).map((r) => ({
+      ...r,
+      isLocal: !!(state.user && r.authorUid === state.user.uid),
+    }));
+    const allReviews = [...userReviews, ...cloud, ...product.reviews];
     el.reviewCount.textContent = `(${allReviews.length})`;
     el.reviewList.innerHTML = allReviews
       .map(
@@ -2671,6 +2703,21 @@
       .join("");
 
     renderReviewNudge(product, userReviews, allReviews);
+  }
+
+  // Consulta Firestore por las reseñas públicas de este producto y vuelve a
+  // pintar con ellas incluidas. Se descarta el resultado si para cuando
+  // vuelve la respuesta el usuario ya navegó a otra ficha -- currentProduct()
+  // lee el hash actual, así que si cambió, este resultado ya es viejo.
+  async function loadProductCloudReviews(product) {
+    // Si window.ComparaMXData nunca cargó (red bloqueada, etc.) igual hay
+    // que volver a pintar con [] -- si no, quien acaba de publicar una
+    // reseña local/anónima (ver el submit handler) nunca ve su propia
+    // reseña reflejada, porque esta función es la única que vuelve a
+    // llamar a renderReviews() después de publicar.
+    const cloud = window.ComparaMXData ? await window.ComparaMXData.getProductReviews(product.id) : [];
+    if (currentProduct() !== product) return;
+    renderReviews(product, cloud);
   }
 
   // Empuja a escribir la primera reseña (o a no perder una que ya
@@ -3498,14 +3545,33 @@
       if (e.target === el.mapModal) closeMapModal();
     });
 
-    el.reviewForm.addEventListener("submit", (e) => {
+    el.reviewForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const product = currentProduct();
       if (!product) return;
-      const author = el.reviewAuthor.value.trim() || "Anónimo";
       const rating = Number(el.reviewRating.value);
       const comment = el.reviewComment.value.trim();
       if (!comment) return;
+      el.reviewFormError.classList.add("hidden");
+
+      if (state.user) {
+        if (!window.ComparaMXData) {
+          showReviewFormError("Cargando, intenta de nuevo en un momento.");
+          return;
+        }
+        const authorName = getProfile().name || state.user.displayName || "Usuario de ComparaMX";
+        const res = await window.ComparaMXData.postReview(state.user.uid, authorName, product.id, rating, comment);
+        if (!res.ok) {
+          showReviewFormError(res.message);
+          return;
+        }
+        el.reviewComment.value = "";
+        clearReviewDraft(product.id);
+        loadProductCloudReviews(product);
+        return;
+      }
+
+      const author = el.reviewAuthor.value.trim() || "Anónimo";
       addUserReview(product.id, {
         author,
         rating,
@@ -3516,7 +3582,10 @@
       setProfileName(author);
       el.reviewComment.value = "";
       clearReviewDraft(product.id);
-      renderReviews(product);
+      // Se relee de Firestore (no renderReviews(product, [])) para no
+      // borrar de la vista las reseñas públicas de otros compradores que
+      // ya se habían cargado.
+      loadProductCloudReviews(product);
     });
 
     // Guarda un borrador con cada tecleo en el comentario -- si el usuario

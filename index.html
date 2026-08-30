@@ -278,10 +278,10 @@
 
         <form id="reviewForm" class="review-form">
           <h3>Escribe tu reseña</h3>
-          <p class="muted small">Se guarda solo en este navegador (demo sin servidor, no la verán otros usuarios).</p>
+          <p class="muted small" id="reviewFormIntro">Se guarda solo en este navegador (demo sin servidor, no la verán otros usuarios).</p>
           <div class="review-form-row">
-            <label>Tu nombre
-              <input type="text" id="reviewAuthor" required maxlength="40">
+            <label id="reviewAuthorField">Tu nombre
+              <input type="text" id="reviewAuthor" maxlength="40">
             </label>
             <label>Calificación
               <select id="reviewRating">
@@ -296,6 +296,7 @@
           <label>Comentario
             <textarea id="reviewComment" required maxlength="300" rows="3"></textarea>
           </label>
+          <p id="reviewFormError" class="account-auth-error hidden"></p>
           <button type="submit" class="buy-btn">Publicar reseña</button>
         </form>
       </div>

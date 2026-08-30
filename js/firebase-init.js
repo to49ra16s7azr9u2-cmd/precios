@@ -25,6 +25,12 @@ import {
   doc,
   getDoc,
   setDoc,
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
+  serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -78,6 +84,7 @@ function mapAuthError(code) {
     "auth/popup-blocked": "Tu navegador bloqueó la ventana emergente. Permite ventanas emergentes para este sitio e intenta de nuevo.",
     "auth/network-request-failed": "Problema de conexión. Revisa tu internet e intenta de nuevo.",
     "auth/too-many-requests": "Demasiados intentos. Espera un momento e intenta de nuevo.",
+    "permission-denied": "No se pudo publicar: espera al menos un minuto entre reseñas, o vuelve a iniciar sesión.",
   };
   return map[code] || "Ocurrió un error. Intenta de nuevo.";
 }
@@ -134,8 +141,10 @@ window.ComparaMXAuth = {
 };
 
 // Datos de cuenta en Firestore (colección "users", un documento por uid):
-// favoritos, municipio/región elegidos en el mapa. Reseñas e historial se
-// suman en un paso posterior -- esto solo cubre favoritos y ubicación.
+// favoritos, municipio/región elegidos en el mapa, y la marca de tiempo de
+// la última reseña publicada (lastReviewAt, usada por las reglas de
+// seguridad para el límite de una reseña por minuto). Historial y
+// recomendaciones se suman en un paso posterior.
 window.ComparaMXData = {
   async getUserData(uid) {
     try {
@@ -154,6 +163,45 @@ window.ComparaMXData = {
     } catch (err) {
       return { ok: false, message: mapAuthError(err && err.code) };
     }
+  },
+  // Reseñas públicas (colección "reviews" al nivel raíz, no subcolección de
+  // "users": una reseña no le pertenece al perfil privado del autor, sino
+  // al producto, y la tiene que poder leer cualquier visitante sin sesión).
+  async getProductReviews(productId) {
+    try {
+      const q = query(collection(db, "reviews"), where("productId", "==", productId));
+      const snap = await getDocs(q);
+      return snap.docs.map((d) => {
+        const data = d.data();
+        const jsDate = data.createdAt && data.createdAt.toDate ? data.createdAt.toDate() : new Date();
+        return {
+          author: data.authorName,
+          authorUid: data.authorUid,
+          rating: data.rating,
+          comment: data.comment,
+          date: jsDate.toISOString().slice(0, 10),
+        };
+      });
+    } catch {
+      return []; // sin conexión, reglas de seguridad, etc.: se ignora
+    }
+  },
+  postReview(uid, authorName, productId, rating, comment) {
+    return guarded(async () => {
+      await addDoc(collection(db, "reviews"), {
+        productId,
+        authorUid: uid,
+        authorName,
+        rating,
+        comment,
+        createdAt: serverTimestamp(),
+      });
+      // Se actualiza DESPUÉS de crear la reseña (no antes ni junto): las
+      // reglas de seguridad comparan la hora de este intento contra el
+      // lastReviewAt YA GUARDADO, así que el orden importa para que el
+      // límite de una reseña por minuto se aplique de verdad.
+      await setDoc(doc(db, "users", uid), { lastReviewAt: serverTimestamp() }, { merge: true });
+    });
   },
 };
 
