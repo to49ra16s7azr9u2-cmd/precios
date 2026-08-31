@@ -105,14 +105,51 @@
     costco_mx: { enabled: false, proxyUrl: null },
   };
 
+  // Id de catálogo (MLM…) de una URL de Mercado Libre. Todas las ofertas del
+  // catálogo guardan su URL .../p/MLM…, así que casi siempre se puede pedir el
+  // precio del producto EXACTO al que enlazamos en vez de volver a buscarlo por
+  // texto (que puede resolver a otro producto parecido y publicar su precio).
+  function mlCatalogId(url) {
+    const m = /\/p\/(MLM\d+)/.exec(String(url || ""));
+    return m ? m[1] : null;
+  }
+
+  // Precio vigente de una publicación de Mercado Libre. Prefiere ?id= (exacto);
+  // si el Worker todavía no tiene ese endpoint desplegado (404/400) o la oferta
+  // no trae id, cae a la búsqueda por texto de siempre.
+  async function fetchLiveCatalogData(cfg, { url, query }) {
+    const id = mlCatalogId(url);
+    if (id) {
+      try {
+        const res = await fetch(`${cfg.proxyUrl}?id=${encodeURIComponent(id)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.price) return data;
+        }
+      } catch {
+        /* sigue con la búsqueda por texto */
+      }
+    }
+    if (!query) return null;
+    try {
+      const res = await fetch(`${cfg.proxyUrl}?q=${encodeURIComponent(query)}`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      return data && data.price ? data : null;
+    } catch {
+      return null;
+    }
+  }
+
   async function fetchLiveOffer(storeId, product) {
     const cfg = LIVE_API_CONFIG[storeId];
     if (!cfg || !cfg.enabled || !cfg.proxyUrl) return null;
     try {
-      const q = encodeURIComponent(product.mlQuery || `${product.brand} ${product.name}`);
-      const res = await fetch(`${cfg.proxyUrl}?q=${q}`);
-      if (!res.ok) return null;
-      const data = await res.json();
+      const storeOffer = (product.offers || []).find((o) => o.storeId === storeId);
+      const data = await fetchLiveCatalogData(cfg, {
+        url: storeOffer && storeOffer.url,
+        query: product.mlQuery || `${product.brand} ${product.name}`,
+      });
       if (!data || !data.price) return null;
       return {
         storeId,
@@ -136,14 +173,46 @@
     }
   }
 
+  // Un producto fusionado por color (ver merge_color_variants.py) arma las
+  // filas de la tabla desde product.colorVariants, NO desde product.offers. Si
+  // solo se refresca la oferta base, la cabecera queda con el precio en vivo y
+  // las filas con el precio guardado: es exactamente la contradicción que
+  // reportó el usuario en el iPhone 17 ("Desde $15,500" arriba contra
+  // "$15,896" en la primera fila). Cada variante tiene su propia URL de
+  // catálogo, así que se refrescan todas por id, en paralelo.
+  //
+  // El tope existe porque cada variante es una petición: un producto con
+  // decenas de colores dispararía decenas de llamadas al abrir la ficha.
+  const MAX_LIVE_VARIANTS = 12;
+  async function refreshLiveVariants(product) {
+    const cfg = LIVE_API_CONFIG.mercadolibre;
+    if (!cfg.enabled || !cfg.proxyUrl) return false;
+    const variants = (product.colorVariants || []).slice(0, MAX_LIVE_VARIANTS);
+    if (variants.length < 2) return false;
+    const fresh = await Promise.all(
+      variants.map((v) => fetchLiveCatalogData(cfg, { url: v.url, query: v.mlQuery }))
+    );
+    let changed = false;
+    fresh.forEach((data, i) => {
+      if (!data || !data.price || data.price === variants[i].price) return;
+      variants[i].price = data.price;
+      if (data.photo && !variants[i].photo) variants[i].photo = data.photo;
+      changed = true;
+    });
+    return changed;
+  }
+
   // Intenta reemplazar la oferta de referencia de cada tienda "en vivo" por el
   // resultado real, y vuelve a pintar la tabla si algo cambió. No hace nada
   // mientras LIVE_API_CONFIG esté desactivado.
   async function refreshLiveOffers(product) {
     const storeIds = Object.keys(LIVE_API_CONFIG).filter((id) => LIVE_API_CONFIG[id].enabled);
     if (storeIds.length === 0) return;
-    const results = await Promise.all(storeIds.map((id) => fetchLiveOffer(id, product)));
-    let changed = false;
+    const [results, variantsChanged] = await Promise.all([
+      Promise.all(storeIds.map((id) => fetchLiveOffer(id, product))),
+      refreshLiveVariants(product),
+    ]);
+    let changed = variantsChanged;
     let gotPhoto = false;
     results.forEach((liveOffer) => {
       if (!liveOffer) return;
@@ -491,8 +560,44 @@
     return offer.listPrice + shippingFeeInfo(offer).fee;
   }
 
+  // LAS opciones de compra de un producto, en una sola definición usada tanto
+  // por el precio "Desde …" de la cabecera y las listas como por la tabla de
+  // comparación de la ficha.
+  //
+  // Un producto fusionado por color (colorVariants, ver
+  // merge_color_variants.py) guarda UNA sola oferta en product.offers -- la
+  // del color más barato al momento de cargarlo -- pero cada color es un
+  // anuncio propio con su propio precio, y "N tiendas" ya los cuenta por
+  // separado (ver offerCount()). Antes la cabecera calculaba su mínimo solo
+  // sobre product.offers y la tabla se armaba sobre colorVariants: en cuanto
+  // los dos dejaban de coincidir (precio en vivo, o precios guardados
+  // desactualizados) la ficha se contradecía a sí misma -- el caso que
+  // reportó el usuario en el iPhone 17, "Desde $15,500" arriba y $15,896 en
+  // la fila más barata de abajo. Con una única fuente eso no puede volver a
+  // pasar: los dos leen exactamente la misma lista.
+  function purchaseOptions(product) {
+    if (product.colorVariants && product.colorVariants.length > 1) {
+      const base = product.offers[0];
+      return product.colorVariants.map((v) => ({
+        ...base,
+        price: v.price,
+        url: v.url,
+        photo: v.photo,
+        // El catálogo no guarda precio de lista por variante: el único
+        // listPrice que existe es el de la oferta base. Se conserva solo en
+        // la variante que ES esa misma publicación (misma URL) y se anula en
+        // las demás -- si no, un "-30%" calculado contra el precio de lista
+        // del color negro aparecería junto al precio del color blanco, que es
+        // otro anuncio y otro precio.
+        listPrice: v.url === base.url ? base.listPrice : null,
+        colorLabel: v.color ? `${v.color}${v.condition === "refurbished" ? " (Reacondicionado)" : ""}` : null,
+      }));
+    }
+    return product.offers;
+  }
+
   function minPrice(product) {
-    return Math.min(...product.offers.map((o) => displayPrice(o)));
+    return Math.min(...purchaseOptions(product).map((o) => displayPrice(o)));
   }
 
   // true cuando, con "Incluir envío" activo, el precio "Desde" mostrado en
@@ -500,7 +605,7 @@
   // avisar ahí mismo, sin tener que entrar a la ficha para enterarse.
   function cheapestOfferShippingEstimated(product) {
     if (!state.includeShipping) return false;
-    const cheapest = product.offers.reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+    const cheapest = purchaseOptions(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
     return shippingIsEstimated(cheapest);
   }
 
@@ -595,7 +700,7 @@
   // Descuento de la oferta más barata, si tiene listPrice (precio de lista)
   // más alto que el precio actual. Devuelve el % o null.
   function bestDiscountPct(product) {
-    const cheapest = product.offers.reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+    const cheapest = purchaseOptions(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
     const price = displayPrice(cheapest);
     const listPrice = displayListPrice(cheapest);
     if (!listPrice || listPrice <= price) return null;
@@ -691,7 +796,7 @@
   // encuadre / framing, Tversky & Kahneman), así que mostrar ambos a la vez
   // no deja el tamaño del ahorro a la interpretación de cada quien.
   function bestSavingsAmount(product) {
-    const cheapest = product.offers.reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+    const cheapest = purchaseOptions(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
     const price = displayPrice(cheapest);
     const listPrice = displayListPrice(cheapest);
     if (!listPrice || listPrice <= price) return null;
@@ -3077,25 +3182,7 @@
   }
 
   function renderOfferTable(product) {
-    // Un producto fusionado por color (colorVariants, ver
-    // merge_color_variants.py) tiene una sola oferta guardada en
-    // product.offers -- la del color más barato -- pero "N tiendas" en la
-    // cabecera ya cuenta cada color como una opción aparte (ver
-    // offerCount()). La tabla de comparación tiene que mostrar esa misma
-    // cantidad de filas o el resumen de arriba no cuadra con el detalle de
-    // abajo: se arma una fila por cada color/condición, reusando los demás
-    // campos (tienda, puntos, calificación, stock) de la oferta base, que
-    // son iguales para todos los colores.
-    const baseOffers = product.colorVariants && product.colorVariants.length > 1
-      ? product.colorVariants.map((v) => ({
-          ...product.offers[0],
-          price: v.price,
-          url: v.url,
-          photo: v.photo,
-          listPrice: null,
-          colorLabel: v.color ? `${v.color}${v.condition === "refurbished" ? " (Reacondicionado)" : ""}` : null,
-        }))
-      : product.offers;
+    const baseOffers = purchaseOptions(product);
     let rows = baseOffers.map((o) => {
       const store = storeById(o.storeId);
       // Tiendas sin hubRegion (envío internacional directo, p. ej. SUNSKY o

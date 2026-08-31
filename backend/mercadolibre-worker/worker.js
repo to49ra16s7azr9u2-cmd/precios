@@ -3,7 +3,8 @@
 // Qué hace: guarda tus credenciales de Mercado Libre (nunca en el frontend
 // estático) y expone dos endpoints simples que js/app.js ya sabe consumir:
 //
-//   GET /item?q=<búsqueda>          -> { price, url, photo, shippingFree, ... }
+//   GET /item?id=MLM123456          -> { price, url, photo, shippingFree, ... }  (exacto, preferido)
+//   GET /item?q=<búsqueda>          -> lo mismo, resolviendo el producto por texto
 //   GET /search?q=<búsqueda>&limit  -> { items: [{ id, title, price, url, photo, shippingFree }] }
 //
 // Requiere 3 secrets (ver README.md de esta carpeta para cómo obtenerlos):
@@ -118,10 +119,23 @@ function catalogUrl(productId) {
   return `https://www.mercadolibre.com.mx/p/${productId}`;
 }
 
-// De todas las ofertas de un producto de catálogo se queda con la más barata,
-// que es la que compite en la tabla de ComparaMX. Devuelve null si el producto
-// no tiene ofertas activas (pasa: el catálogo incluye productos descatalogados).
-async function cheapestOffer(token, productId) {
+// De todas las ofertas de un producto de catálogo se queda con la GANADORA de
+// la caja de compra (buy box), que es la que Mercado Libre muestra como precio
+// en la página del producto. Devuelve null si el producto no tiene ofertas
+// activas (pasa: el catálogo incluye productos descatalogados).
+//
+// ANTES tomaba la MÁS BARATA de las hasta 20 ofertas, y eso publicaba precios
+// que el comprador nunca llegaba a ver. Ejemplo real que reportó el usuario
+// (iPhone 17 256 GB Negro, MLM55308917): entre sus 13 vendedores el mínimo era
+// $15,500, pero la página del producto cobra $18,485.12 — una diferencia del
+// 19% contra lo que decía ComparaMX. Un comparador que manda a una página con
+// otro precio no sirve: el precio publicado tiene que ser el que se paga al
+// hacer clic. `/products/{id}/items` devuelve las ofertas en el orden de
+// ranking de Mercado Libre, con la ganadora primero, así que se toma esa.
+//
+// El mínimo se sigue calculando y se devuelve aparte (`lowestPrice`), como
+// dato informativo de "hay ofertas desde X si comparas vendedores".
+async function winnerOffer(token, productId) {
   let data;
   try {
     data = await mlGet(token, `/products/${productId}/items?limit=20`);
@@ -140,9 +154,17 @@ async function cheapestOffer(token, productId) {
     (o) => typeof o.price === "number" && (o.currency_id || "MXN") === "MXN"
   );
   if (offers.length === 0) return null;
-  const best = offers.reduce((a, b) => (b.price < a.price ? b : a));
+  // La ganadora es la primera del ranking que cotice en pesos (si la primera
+  // absoluta viniera en USD ya quedó filtrada arriba, y la siguiente en el
+  // ranking es la que Mercado Libre muestra en su lugar).
+  const best = offers[0];
+  const lowest = offers.reduce((a, b) => (b.price < a.price ? b : a));
   return {
     price: best.price,
+    // Precio de la oferta más barata entre todos los vendedores del mismo
+    // producto. Puede ser menor que `price` (el de la caja de compra): son
+    // vendedores que existen pero que Mercado Libre no muestra por defecto.
+    lowestPrice: lowest.price < best.price ? lowest.price : null,
     // `original_price` es el precio tachado. Solo se manda si de verdad es
     // mayor que el vigente; si no, no hay descuento que mostrar.
     priceOriginal: typeof best.original_price === "number" && best.original_price > best.price
@@ -298,7 +320,7 @@ const MAX_CANDIDATES = 24;
 async function offersFor(token, products) {
   return Promise.all(
     products.map(async (product) => {
-      const offer = await cheapestOffer(token, product.id);
+      const offer = await winnerOffer(token, product.id);
       return offer ? { product, offer } : null;
     })
   );
@@ -339,9 +361,44 @@ function specsFrom(product) {
     .filter((s) => s.value);
 }
 
+// Precio vigente de un producto de catálogo CONCRETO, por su id (MLM…).
+//
+// Es el camino correcto cuando ya se sabe a qué publicación se está enlazando,
+// que es el caso de todo el catálogo de ComparaMX: cada oferta guarda su URL
+// .../p/MLM…. Buscar otra vez por texto (?q=) para un producto que ya tiene id
+// es a la vez más caro (hasta 24 productos candidatos × 1 subpetición de
+// ofertas cada uno, contra 2 en total acá) y menos exacto: la búsqueda puede
+// devolver un producto parecido y publicar su precio como si fuera el de este.
+async function handleItemById(id, env) {
+  const token = await getAccessToken(env);
+  let product;
+  try {
+    product = await mlGet(token, `/products/${id}`);
+  } catch {
+    return json({ error: `producto ${id} no encontrado` }, 404);
+  }
+  const offer = await winnerOffer(token, id);
+  if (!offer) return json({ error: `producto ${id} sin ofertas activas` }, 404);
+  return json({
+    id,
+    title: product.name || null,
+    brand: brandFrom(product),
+    specs: specsFrom(product),
+    url: catalogUrl(id),
+    photo: photoFrom(product),
+    ...offer,
+  });
+}
+
 async function handleItem(url, env) {
+  // ?id=MLM… tiene prioridad sobre ?q=: es exacto y mucho más barato.
+  const id = url.searchParams.get("id");
+  if (id) {
+    if (!/^MLM\d+$/.test(id)) return json({ error: "id inválido (se espera MLM…)" }, 400);
+    return handleItemById(id, env);
+  }
   const q = url.searchParams.get("q");
-  if (!q) return json({ error: "falta ?q=" }, 400);
+  if (!q) return json({ error: "falta ?q= o ?id=" }, 400);
   const token = await getAccessToken(env);
 
   const candidates = await candidatesFor(token, q, MAX_CANDIDATES);
@@ -426,7 +483,7 @@ const MAX_CATALOG_CANDIDATES = 22;
 const REFURB_PATTERN = /reacondicionad|renewed|reembalad|remanufactur|segunda mano|seminuevo|semi.?nuevo|\busado\b/i;
 
 async function resolveCandidates(token, product) {
-  const offer = await cheapestOffer(token, product.id);
+  const offer = await winnerOffer(token, product.id);
   if (!offer) return null;
   return {
     id: product.id,
@@ -549,7 +606,7 @@ export default {
       if (url.pathname === "/search") return await handleSearch(url, env);
       if (url.pathname === "/catalog") return await handleCatalog(url, env);
       if (url.pathname === "/probe") return await handleProbe(env, url);
-      return json({ error: "ruta no encontrada. Usa /item?q=... o /search?q=..." }, 404);
+      return json({ error: "ruta no encontrada. Usa /item?id=MLM... , /item?q=... o /search?q=..." }, 404);
     } catch (err) {
       return json({ error: String(err.message || err) }, 500);
     }
