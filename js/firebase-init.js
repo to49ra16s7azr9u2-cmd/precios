@@ -1,4 +1,4 @@
-// ComparaMX — puente de Firebase Authentication.
+// ComparaMEX — puente de Firebase Authentication.
 //
 // Este archivo se carga como <script type="module">, así que puede usar
 // import de ES modules, pero el resto del sitio (js/app.js) es un script

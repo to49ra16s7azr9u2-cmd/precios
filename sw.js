@@ -1,11 +1,11 @@
-// ComparaMX — soporte offline básico
+// ComparaMEX — soporte offline básico
 //
 // IMPORTANTE: sube este número cada vez que cambie index.html, css/style.js
 // o js/app.js y hagas push. Si no, el Service Worker sigue sirviendo la
 // versión cacheada anterior a los visitantes que ya lo tenían instalado
 // (cache-first: la página nueva llega recién en la SEGUNDA carga, y solo si
 // el número cambió — con el mismo número nunca se refresca).
-const CACHE = "comparamx-v88";
+const CACHE = "comparamx-v89";
 const FILES = [
   "./",
   "./index.html",

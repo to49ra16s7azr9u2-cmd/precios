@@ -1,6 +1,6 @@
 """Algoritmo de "product matching": une el mismo producto físico publicado
 por distintas tiendas/fuentes (SUNSKY, Geekbuying, un futuro feed de
-Mercado Libre, etc.) en un solo grupo, para que ComparaMX pueda mostrar una
+Mercado Libre, etc.) en un solo grupo, para que ComparaMEX pueda mostrar una
 comparación de precios real entre tiendas en vez de un producto por tienda.
 
 Implementa el flujo de 5 pasos:

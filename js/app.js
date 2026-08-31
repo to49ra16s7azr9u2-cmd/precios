@@ -1630,7 +1630,7 @@
       .slice(0, 3);
 
     const blocks = [
-      { title: `${icon("trophy")} Ranking general ComparaMX`, products: state.data.products, onMore: () => { state.sort = "popularity"; goList({ category: null, query: "" }); } },
+      { title: `${icon("trophy")} Ranking general ComparaMEX`, products: state.data.products, onMore: () => { state.sort = "popularity"; goList({ category: null, query: "" }); } },
       ...topCategories.map(({ cat }) => ({
         title: `${icon(cat.icon, "cat-item-icon")} ${cat.name} — ranking`,
         products: state.data.products.filter((p) => p.category === cat.id),
@@ -2344,7 +2344,7 @@
     el.accountLoginPanel.classList.toggle("hidden", !!user);
     el.accountSignedInHead.classList.toggle("hidden", !user);
     if (user) {
-      el.accountIntro.textContent = "Tu perfil, guardado con tu cuenta de ComparaMX.";
+      el.accountIntro.textContent = "Tu perfil, guardado con tu cuenta de ComparaMEX.";
       el.profilePanelTitle.textContent = "Perfil";
       el.profilePanelDesc.textContent = "Este nombre se usa para firmar las reseñas que escribas.";
       el.accountAvatar.src = user.photoURL || "icons/icon.svg";
@@ -3626,7 +3626,7 @@
           showReviewFormError("Cargando, intenta de nuevo en un momento.");
           return;
         }
-        const authorName = getProfile().name || state.user.displayName || "Usuario de ComparaMX";
+        const authorName = getProfile().name || state.user.displayName || "Usuario de ComparaMEX";
         const res = await window.ComparaMXData.postReview(state.user.uid, authorName, product.id, rating, comment);
         if (!res.ok) {
           showReviewFormError(res.message);

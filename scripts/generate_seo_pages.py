@@ -3,7 +3,7 @@
 
 Por qué existen estas páginas además de index.html
 ----------------------------------------------------
-ComparaMX es una SPA: todo el contenido (nombre de producto, precios,
+ComparaMEX es una SPA: todo el contenido (nombre de producto, precios,
 specs, reseñas) se pinta con JavaScript después de cargar la página, con
 rutas por hash (#/p/p1). Un buscador que no ejecute JS ve una página en
 blanco, y aunque la ejecute, una URL con "#" no es una página distinta
@@ -144,7 +144,7 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
     <div class="topbar-inner">
       <a class="brand" href="{prefix}index.html">
         <img class="brand-icon" src="{prefix}icons/icon.svg" alt="" width="30" height="30">
-        <span class="brand-mark">Compara<span class="brand-mx">MX</span></span>
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
       </a>
     </div>
   </div>
@@ -154,7 +154,7 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 </main>
 <footer class="site-footer">
   <div class="container">
-    ComparaMX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Proyecto de demostración (MVP), sin afiliación con las tiendas listadas.
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Proyecto de demostración (MVP), sin afiliación con las tiendas listadas.
   </div>
 </footer>
 </body>
@@ -257,7 +257,7 @@ def render_product_page(product, data):
         shipping_calc_html = f"""
 <div class="panel">
   <h2>Estimación de envío internacional</h2>
-  <p class="muted small">Este producto se vende en {html_escape(shipping_calc_store['name'])}. Usa la calculadora de envío por peso y tamaño de ComparaMX para estimar el costo a México.</p>
+  <p class="muted small">Este producto se vende en {html_escape(shipping_calc_store['name'])}. Usa la calculadora de envío por peso y tamaño de ComparaMEX para estimar el costo a México.</p>
   <a class="buy-btn" href="../../index.html#/envio">Abrir calculadora de envío →</a>
 </div>
 """
@@ -405,7 +405,7 @@ def render_product_page(product, data):
 <div class="panel" style="text-align:center">
   <h2>Ver la comparación interactiva</h2>
   <p class="muted small">Mapa de tiempo de entrega por municipio, comparación completa por tienda y reseñas de compradores.</p>
-  <a class="buy-btn" href="../../index.html#/p/{product['id']}">Abrir ComparaMX interactivo →</a>
+  <a class="buy-btn" href="../../index.html#/p/{product['id']}">Abrir ComparaMEX interactivo →</a>
 </div>
 """
     breadcrumbs = breadcrumb_json_ld([
@@ -417,7 +417,7 @@ def render_product_page(product, data):
         f'<script type="application/ld+json">\n{product_json_ld(product, data, canonical)}\n</script>\n'
         f'<script type="application/ld+json">\n{breadcrumbs}\n</script>'
     )
-    title = f"{product['name']} — Compara precios en México | ComparaMX"
+    title = f"{product['name']} — Compara precios en México | ComparaMEX"
     return page_shell(title, description, canonical_path, body, depth=2, extra_head=extra_head)
 
 
@@ -482,7 +482,7 @@ def render_category_page(cat, products, data):
         (cat["name"], None),
     ])
     extra_head = f'<script type="application/ld+json">\n{breadcrumbs}\n</script>'
-    title = f"{cat['name']} — Comparar precios en México | ComparaMX"
+    title = f"{cat['name']} — Comparar precios en México | ComparaMEX"
     return page_shell(title, description, canonical_path, body, depth=2, extra_head=extra_head)
 
 
