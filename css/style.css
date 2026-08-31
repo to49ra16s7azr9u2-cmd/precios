@@ -268,6 +268,10 @@ a { color: inherit; text-decoration: none; }
   border-radius: 8px;
   padding: 6px;
   min-width: 200px;
+  /* Alto tope de reserva; JS ajusta esto por instancia según el espacio
+     real disponible arriba/abajo del item (ver renderCatNav()). */
+  max-height: calc(100vh - 16px);
+  overflow-y: auto;
 }
 /* El submenú vive en document.body (no es descendiente de .cat-item en el
    DOM), así que su visibilidad la controla JS con esta clase en vez de

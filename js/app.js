@@ -1324,6 +1324,7 @@
   function openCatSubmenuAt(item, submenu) {
     const r = item.getBoundingClientRect();
     submenu.style.left = `${r.left}px`;
+    submenu.style.maxHeight = "";
     // Se hace visible ANTES de medir su alto: oculto (display:none) mide 0
     // siempre. Como esto ocurre de forma síncrona antes del próximo pintado,
     // el usuario nunca ve el submenú en la posición "top" provisional de abajo.
@@ -1332,9 +1333,17 @@
     // Categorías de la última fila (con la barra desplegada): abrir hacia
     // abajo como siempre las dejaba cortadas contra el borde de la ventana,
     // sin forma de ver ni hacer clic en las últimas subcategorías. Si no
-    // entra hacia abajo, se abre hacia arriba.
-    const opensUp = r.bottom + submenuHeight > window.innerHeight - 8;
-    submenu.style.top = opensUp ? `${Math.max(8, r.top - submenuHeight)}px` : `${r.bottom}px`;
+    // entra hacia abajo, se abre hacia arriba (el lado con más espacio).
+    const spaceBelow = window.innerHeight - r.bottom - 8;
+    const spaceAbove = r.top - 8;
+    const opensUp = submenuHeight > spaceBelow && spaceAbove > spaceBelow;
+    const available = Math.max(80, opensUp ? spaceAbove : spaceBelow);
+    // Con muchas subcategorías el submenú puede no caber ni así: se recorta
+    // a ese espacio y se vuelve desplazable dentro de sí mismo, en vez de
+    // salirse de la ventana o alargar el scroll de toda la página.
+    if (submenuHeight > available) submenu.style.maxHeight = `${available}px`;
+    const actualHeight = Math.min(submenuHeight, available);
+    submenu.style.top = opensUp ? `${Math.max(8, r.top - actualHeight)}px` : `${r.bottom}px`;
   }
 
   function renderCatNav() {
