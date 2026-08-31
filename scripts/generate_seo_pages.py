@@ -42,6 +42,17 @@ ICONS_PATH = os.path.join(ROOT, "data", "icons.json")
 
 SITE_URL = "https://comparamex.com"
 
+# Mismo tag de Google Analytics (GA4) que index.html, para que las visitas
+# que aterrizan directo en una página estática de producto/categoría desde
+# el buscador (sin pasar por la SPA) también se cuenten.
+GA_SNIPPET = """<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>"""
+
 with open(ICONS_PATH, encoding="utf-8") as f:
     ICONS = json.load(f)
 
@@ -136,6 +147,7 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 <meta name="theme-color" content="#FF0211">
 <link rel="icon" href="{prefix}icons/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="{prefix}css/style.css">
+{GA_SNIPPET}
 {extra_head}
 </head>
 <body>
