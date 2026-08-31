@@ -40,7 +40,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PATH = os.path.join(ROOT, "data", "data.json")
 ICONS_PATH = os.path.join(ROOT, "data", "icons.json")
 
-SITE_URL = "https://to49ra16s7azr9u2-cmd.github.io/precios"
+SITE_URL = "https://comparamex.com"
 
 with open(ICONS_PATH, encoding="utf-8") as f:
     ICONS = json.load(f)
