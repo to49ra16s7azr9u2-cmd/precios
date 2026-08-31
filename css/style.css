@@ -111,6 +111,13 @@ a { color: inherit; text-decoration: none; }
   min-width: 360px;
   position: relative;
 }
+/* En celulares angostos (iPhone SE/mini, ~375px), 360px de mínimo no deja
+   nada de margen para el padding de .topbar-inner y desborda el ancho de
+   la pantalla por unos pocos px -- a pedido del usuario, que reportó la
+   barra superior rota en su teléfono. */
+@media (max-width: 420px) {
+  .search-container { min-width: 0; flex-basis: 100%; }
+}
 .search-wrap {
   display: flex;
   border: 2px solid var(--red);
