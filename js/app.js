@@ -161,7 +161,7 @@
     });
     if (changed && currentProduct() === product) {
       renderDetailPriceHeader(product);
-      renderOfferTable(product);
+      renderDetailTopOffers(product, renderOfferTable(product));
       if (gotPhoto) {
         renderProductMedia(el.detailIcon, product, "detail", () => attachDiscountRibbon(el.detailIcon, product));
       }
@@ -270,6 +270,7 @@
     detailColors: document.getElementById("detailColors"),
     detailFromPrice: document.getElementById("detailFromPrice"),
     detailFavBtn: document.getElementById("detailFavBtn"),
+    detailTopOffers: document.getElementById("detailTopOffers"),
     deliveryBanner: document.getElementById("deliveryBanner"),
     deliveryBannerTitle: document.getElementById("deliveryBannerTitle"),
     deliveryBannerSubtitle: document.getElementById("deliveryBannerSubtitle"),
@@ -2730,7 +2731,8 @@
 
     updateLocationBtn();
     renderSortTabs();
-    renderOfferTable(product);
+    const offerRows = renderOfferTable(product);
+    renderDetailTopOffers(product, offerRows);
     refreshLiveOffers(product);
   }
 
@@ -2902,6 +2904,28 @@
     return { text: `Entrega en ${days} días`, cls: "" };
   }
 
+  // Extraído de renderOfferRows() para reusarse también en el resumen
+  // compacto de arriba de la ficha (renderDetailTopOffers) -- misma lógica,
+  // sin duplicarla (ver los comentarios largos junto al uso original más
+  // abajo para el porqué de cada caso).
+  function shippingBadgeHtml(r) {
+    const threshold = r.store.freeShippingThresholdUSD;
+    const priceUSD = r.priceOriginal && r.priceOriginal.currency === "USD" ? r.priceOriginal.amount : null;
+    const qualifiesFreeShipping = threshold != null && priceUSD != null && priceUSD >= threshold;
+    const intlTooltip = threshold != null
+      ? `Envío gratis en compras mayores a $${threshold} USD según ${r.store.name}; este producto ($${priceUSD} USD) no alcanza el mínimo.`
+      : r.store.shippingNote || `${r.store.name} no tiene centro de distribución en México; el costo de envío se cotiza en su sitio.`;
+    return r.shippingFee === 0 ? '<span class="ship-badge">Envío gratis</span>'
+      : r.shippingFee != null ? money(r.shippingFee)
+      : qualifiesFreeShipping
+      ? `<span class="ship-badge" title="${htmlEscapeAttr(`Según la política pública de ${r.store.name}: envío gratis en compras de $${threshold}+ USD, y este producto ($${priceUSD} USD) sí alcanza el mínimo.`)}">Envío gratis</span>`
+      : r.shipEstimateFee != null
+      ? `${money(r.shipEstimateFee)} <span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">${icon("alert-triangle")} estimado</span>`
+      : !r.store.hubRegion
+      ? `<span class="ship-badge ship-badge-intl" title="${htmlEscapeAttr(intlTooltip)}">${icon("globe")} Envío internacional</span>`
+      : "—";
+  }
+
   // Pinta un grupo de filas (verificado o de referencia) en su <tbody>.
   // bestPrice/fastestDays se calculan sobre TODAS las ofertas (ambos grupos),
   // para que "MÁS BARATO"/"MÁS RÁPIDO" reflejen la comparación completa aunque
@@ -2930,22 +2954,7 @@
       // gratis" con la misma base que si viniera del feed. Las otras 5 no
       // publican un umbral numérico único y consistente, así que en su
       // lugar llevan una nota informativa sobre su política real de envío.
-      const threshold = r.store.freeShippingThresholdUSD;
-      const priceUSD = r.priceOriginal && r.priceOriginal.currency === "USD" ? r.priceOriginal.amount : null;
-      const qualifiesFreeShipping = threshold != null && priceUSD != null && priceUSD >= threshold;
-      const intlTooltip = threshold != null
-        ? `Envío gratis en compras mayores a $${threshold} USD según ${r.store.name}; este producto ($${priceUSD} USD) no alcanza el mínimo.`
-        : r.store.shippingNote || `${r.store.name} no tiene centro de distribución en México; el costo de envío se cotiza en su sitio.`;
-      const shippingHtml =
-        r.shippingFee === 0 ? '<span class="ship-badge">Envío gratis</span>'
-        : r.shippingFee != null ? money(r.shippingFee)
-        : qualifiesFreeShipping
-        ? `<span class="ship-badge" title="${htmlEscapeAttr(`Según la política pública de ${r.store.name}: envío gratis en compras de $${threshold}+ USD, y este producto ($${priceUSD} USD) sí alcanza el mínimo.`)}">Envío gratis</span>`
-        : r.shipEstimateFee != null
-        ? `${money(r.shipEstimateFee)} <span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">${icon("alert-triangle")} estimado</span>`
-        : !r.store.hubRegion
-        ? `<span class="ship-badge ship-badge-intl" title="${htmlEscapeAttr(intlTooltip)}">${icon("globe")} Envío internacional</span>`
-        : "—";
+      const shippingHtml = shippingBadgeHtml(r);
       // Texto corto de envío para mostrar junto a la entrega, en el momento
       // en que el usuario elige su municipio en el mapa (no solo en la
       // columna aparte). El costo ya viene ajustado por distancia/zona
@@ -3136,6 +3145,46 @@
     // roto. Se esconde entero mientras no haya nada que mostrar, y vuelve
     // solo cuando alguna tienda sí traiga precio en vivo.
     el.offerGroupVerified.classList.toggle("hidden", verifiedRows.length === 0);
+    return rows;
+  }
+
+  // Resumen compacto arriba de la ficha (foto + nombre + top de tiendas en
+  // una sola tarjeta, a pedido del usuario con una captura de referencia
+  // estilo Kakaku.com) -- la tabla completa de abajo (con pestañas,
+  // columnas de existencia/puntos/calificación, banner de entrega, etc.)
+  // sigue intacta para quien quiera el detalle completo; esto es solo un
+  // adelanto de las TOP_N ofertas más baratas con lo esencial (tienda,
+  // precio, envío, botón).
+  const DETAIL_TOP_OFFERS_N = 5;
+  function renderDetailTopOffers(product, rows) {
+    const sorted = [...rows].sort((a, b) => a.price - b.price);
+    const top = sorted.slice(0, DETAIL_TOP_OFFERS_N);
+    const remaining = sorted.length - top.length;
+    const bestPrice = sorted.length ? sorted[0].price : null;
+    el.detailTopOffers.innerHTML = top
+      .map((r) => `
+        <div class="detail-top-offer-row">
+          <span class="detail-top-offer-store">
+            ${storeDotHtml(r.store)}
+            <span class="detail-top-offer-storename">${r.store.name}${r.colorLabel ? ` — ${htmlEscapeAttr(r.colorLabel)}` : ""}</span>
+          </span>
+          <span class="detail-top-offer-price">${money(r.price)}${r.price === bestPrice ? '<span class="best-tag">MÁS BARATO</span>' : ""}</span>
+          <span class="detail-top-offer-ship">${shippingBadgeHtml(r)}</span>
+          <button type="button" class="buy-btn detail-top-offer-btn">Ver oferta</button>
+        </div>
+      `)
+      .join("");
+    el.detailTopOffers.querySelectorAll(".detail-top-offer-btn").forEach((btn, i) => {
+      btn.onclick = () => { trackStoreClick(product.id); window.open(top[i].url, "_blank"); };
+    });
+    const moreBtn = document.createElement("button");
+    moreBtn.type = "button";
+    moreBtn.className = "detail-top-offers-more";
+    moreBtn.textContent = remaining > 0 ? `Ver más tiendas (${remaining}) ▾` : "Ver comparación completa ▾";
+    moreBtn.onclick = () => {
+      document.querySelector(".compare-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    el.detailTopOffers.appendChild(moreBtn);
   }
 
   // ---------- Mapa de entrega (modal) ----------
@@ -3228,7 +3277,7 @@
     highlightMarker();
     updateLocationBtn();
     const product = currentProduct();
-    if (product) renderOfferTable(product);
+    if (product) renderDetailTopOffers(product, renderOfferTable(product));
     closeMapModal();
   }
 
