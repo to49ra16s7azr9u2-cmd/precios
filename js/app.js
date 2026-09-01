@@ -598,12 +598,15 @@
         // del color negro aparecería junto al precio del color blanco, que es
         // otro anuncio y otro precio.
         listPrice: v.url === base.url ? base.listPrice : null,
-        // Mismo criterio que listPrice: el número de vendedores y el precio
-        // más bajo se midieron sobre UNA publicación de catálogo, la de la
-        // oferta base. Colgárselos a las demás variantes diría "5 vendedores"
-        // de un anuncio que no se consultó.
-        sellerCount: v.url === base.url ? base.sellerCount : null,
-        lowestPrice: v.url === base.url ? base.lowestPrice : null,
+        // A diferencia de listPrice, acá NO hay que caer al dato de la oferta
+        // base: refresh_prices.py consulta cada variante por separado (ver
+        // targets_of), así que cada color trae su propio número de vendedores
+        // y su propio precio más bajo, medidos sobre su propia publicación.
+        // Usarlos es lo correcto; heredar los de la base contaba de menos
+        // (el iPhone 17 256 GB tiene 13 + 11 + 4 = 28 vendedores entre sus
+        // tres colores, y el encabezado decía 15).
+        sellerCount: v.sellerCount ?? null,
+        lowestPrice: v.lowestPrice ?? null,
         colorLabel: v.color ? `${v.color}${v.condition === "refurbished" ? " (Reacondicionado)" : ""}` : null,
       }));
     }
