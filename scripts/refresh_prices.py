@@ -205,6 +205,30 @@ def main():
                 continue
             new_price = res["price"]
             old_price = node.get("price")
+            # Cuántos vendedores tiene ese producto de catálogo y a cuánto lo
+            # da el más barato. El Worker ya calculaba las dos cosas y las
+            # tiraba: no se guardaban en ningún lado. Midiendo sobre una
+            # muestra de 119 productos, el 41% tiene MÁS DE UN vendedor, así
+            # que sin este dato la ficha decía "1 opción de compra" en miles
+            # de productos donde sí hay comparación posible.
+            #
+            # Se escriben ANTES del corte por "precio sin cambios" de abajo:
+            # si no, un producto cuyo precio no se movió nunca llegaría a
+            # actualizar su número de vendedores.
+            sc = res.get("sellerCount")
+            if isinstance(sc, int) and sc > 0 and node.get("sellerCount") != sc:
+                node["sellerCount"] = sc
+                changed = True
+            lowest = res.get("lowestPrice")
+            # lowestPrice solo tiene sentido si de verdad es más barato que
+            # el de la caja de compra; el Worker ya manda null cuando no.
+            if lowest and lowest < new_price:
+                if node.get("lowestPrice") != lowest:
+                    node["lowestPrice"] = lowest
+                    changed = True
+            elif node.get("lowestPrice") is not None:
+                node["lowestPrice"] = None
+                changed = True
             if old_price is not None and abs(new_price - old_price) < 0.005:
                 stats["sin_cambio"] += 1
                 continue

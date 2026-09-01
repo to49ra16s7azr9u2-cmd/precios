@@ -359,8 +359,25 @@ def render_product_page(product, data):
             'la cantidad mínima en la página del producto antes de comprar.">'
             + svg_icon("alert-triangle") + " Posible pedido mínimo</span>"
         ) if o["storeId"] == "alibaba" else ""
+        # "N vendedores · desde $X": mismo dato y mismo criterio que en el SPA
+        # (ver renderOfferRows en js/app.js). Un producto de catálogo de
+        # Mercado Libre puede tener varios vendedores con precios distintos, y
+        # el precio publicado es el de la caja de compra.
+        sellers_html = ""
+        if o["storeId"] == "mercadolibre" and (o.get("sellerCount") or 0) > 1:
+            lowest = o.get("lowestPrice")
+            cheaper = ""
+            if lowest and lowest < o["price"]:
+                pct = round((1 - lowest / o["price"]) * 100)
+                cheaper = f' · desde {money(lowest)} <span class="sellers-save">-{pct}%</span>'
+            sellers_html = (
+                '<span class="sellers-badge" title="Mercado Libre lista varios vendedores '
+                "para este mismo producto. El precio de arriba es el de la caja de compra, "
+                'que es el que se cobra al entrar.">'
+                + svg_icon("shopping-bag") + f' {o["sellerCount"]} vendedores{cheaper}</span>'
+            )
         table_rows.append(
-            f'<tr><td><span class="store-badge">{dot} {html_escape(store["name"])}</span>{wholesale_html}{variants_html}</td>'
+            f'<tr><td><span class="store-badge">{dot} {html_escape(store["name"])}</span>{sellers_html}{wholesale_html}{variants_html}</td>'
             f"<td class=\"price-cell\"><span class=\"price-line\">{money(o['price'])}</span></td>"
             f"<td>{ship}</td><td>{stock_label}</td>"
             f"<td>{rating_label}</td></tr>"

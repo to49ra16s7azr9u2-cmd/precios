@@ -598,6 +598,12 @@
         // del color negro aparecería junto al precio del color blanco, que es
         // otro anuncio y otro precio.
         listPrice: v.url === base.url ? base.listPrice : null,
+        // Mismo criterio que listPrice: el número de vendedores y el precio
+        // más bajo se midieron sobre UNA publicación de catálogo, la de la
+        // oferta base. Colgárselos a las demás variantes diría "5 vendedores"
+        // de un anuncio que no se consultó.
+        sellerCount: v.url === base.url ? base.sellerCount : null,
+        lowestPrice: v.url === base.url ? base.lowestPrice : null,
         colorLabel: v.color ? `${v.color}${v.condition === "refurbished" ? " (Reacondicionado)" : ""}` : null,
       }));
     }
@@ -625,6 +631,14 @@
   // vea de un vistazo cuántas opciones hay, no solo cuántos vendedores.
   function offerCount(product) {
     return Math.max(product.offers.length, (product.colorVariants || []).length);
+  }
+
+  // Vendedores distintos dentro de las tiendas que sí los informan (hoy solo
+  // Mercado Libre, que lista varios por producto de catálogo). Sirve para que
+  // el encabezado no diga "en 1 tienda" mientras la fila de abajo dice "2
+  // vendedores": son dos cosas distintas y juntas se leían como contradicción.
+  function sellerTotal(product) {
+    return purchaseOptions(product).reduce((sum, o) => sum + (o.sellerCount || 1), 0);
   }
 
   // Compatibilidad con MagSafe (especificación "MagSafe: Sí" que agrega
@@ -2836,7 +2850,7 @@
     const discountPct = bestDiscountPct(product);
     const savings = bestSavingsAmount(product);
     el.detailFromPrice.innerHTML = `
-      ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}
+      ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}${sellerTotal(product) > offerCount(product) ? ` · ${plural(sellerTotal(product), "vendedor", "vendedores")}` : ""}
       ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
       ${cheapestOfferShippingEstimated(product) ? `<span class="shipping-estimate-note">${icon("alert-triangle")} incluye envío estimado (ver tabla de abajo)</span>` : ""}
     `;
@@ -3210,6 +3224,27 @@
       // no lo dicen en el título, solo en la página del producto). Se avisa
       // en todas las ofertas de Alibaba, no solo en esa fracción detectable
       // por palabra clave.
+      // Un producto de catálogo de Mercado Libre puede tener varios
+      // vendedores con precios distintos; el precio que se publica acá es el
+      // de la caja de compra (el que se cobra al hacer clic, ver winnerOffer
+      // en el Worker). Midiendo sobre una muestra de 119 productos, el 41%
+      // tiene más de un vendedor, y donde el más barato no es el de la caja
+      // la diferencia promedia 40%.
+      //
+      // No se arma una fila por vendedor porque no hay forma de obtener el
+      // enlace de cada publicación: el token de la app recibe 403 en
+      // /items/{id}, así que el permalink habría que inventarlo. En vez de
+      // eso se dice cuántos hay y desde cuánto -- los dos datos vienen
+      // verificados de la API -- y el botón lleva a la página de catálogo,
+      // que es donde Mercado Libre lista a todos los vendedores.
+      const sellerCount = r.sellerCount;
+      let sellersHtml = "";
+      if (r.storeId === "mercadolibre" && sellerCount > 1) {
+        const cheaper = r.lowestPrice && r.lowestPrice < r.price
+          ? ` · desde ${money(r.lowestPrice)} <span class="sellers-save">-${Math.round((1 - r.lowestPrice / r.price) * 100)}%</span>`
+          : "";
+        sellersHtml = `<span class="sellers-badge" title="Mercado Libre lista varios vendedores para este mismo producto. El precio de arriba es el de la caja de compra, que es el que se cobra al entrar. Al abrir la oferta puedes ver y comparar el resto.">${icon("shopping-bag")} ${sellerCount} vendedores${cheaper}</span>`;
+      }
       const wholesaleHtml = r.storeId === "alibaba"
         ? `<span class="wholesale-badge" title="Alibaba es una plataforma mayorista: este producto puede tener un pedido mínimo (MOQ) mayor a 1 unidad. Verifica la cantidad mínima en la página del producto antes de comprar.">${icon("alert-triangle")} Posible pedido mínimo</span>`
         : "";
@@ -3219,6 +3254,7 @@
             ${storeDotHtml(r.store)}
             ${r.store.name}${r.colorLabel ? ` <span class="store-color-label">— ${htmlEscapeAttr(r.colorLabel)}</span>` : ""}
           </span>
+          ${sellersHtml}
           ${wholesaleHtml}
           ${variantsHtml}
         </td>

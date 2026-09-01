@@ -1349,6 +1349,26 @@ a { color: inherit; text-decoration: none; }
   padding: 2px 8px;
   margin-top: 5px;
 }
+/* "N vendedores · desde $X": un producto de catálogo de Mercado Libre puede
+   tener varios vendedores con precios distintos. Va en azul informativo (no
+   en el ámbar de advertencia de .wholesale-badge) porque no avisa de un
+   riesgo, invita a comparar. */
+.sellers-badge {
+  display: block;
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1b4f8a;
+  background: #e8f1fb;
+  border: 1px solid #b9d4f0;
+  border-radius: 10px;
+  padding: 2px 8px;
+  margin-top: 5px;
+}
+.sellers-badge .sellers-save {
+  color: var(--red-dark);
+  margin-left: 2px;
+}
 /* Insignia de tienda: color plano de la marca con una letra, sin relieve
    ni brillo — solo sirve para identificar la tienda de un vistazo. */
 .store-dot {
@@ -2276,6 +2296,7 @@ a { color: inherit; text-decoration: none; }
 .variant-pills-label .icon,
 .est-badge .icon,
 .wholesale-badge .icon,
+.sellers-badge .icon,
 .shipping-estimate-note .icon,
 .ship-badge .icon,
 .offer-group-badge .icon,
