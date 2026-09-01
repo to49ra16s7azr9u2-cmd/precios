@@ -266,6 +266,38 @@ def related_products(product, all_products, n=4):
     return same_cat[:n]
 
 
+def seller_rows(product):
+    """Una fila por vendedor, igual que sellerRows() en js/app.js.
+
+    Una publicación de catálogo de Mercado Libre puede tener varios
+    vendedores con precios distintos. Cada fila lleva su propia URL
+    (?pdp_filters=item_id:...), así que el precio que se publica es el que se
+    paga al hacer clic EN ESA fila.
+    """
+    out = []
+    for o in product["offers"]:
+        sellers = o.get("sellers") or []
+        if len(sellers) < 2:
+            out.append(o)
+            continue
+        for i, sl in enumerate(sellers):
+            row = dict(o)
+            row["price"] = sl["price"]
+            row["url"] = sl["url"]
+            # listPrice/lowestPrice se midieron sobre la publicación entera,
+            # no sobre este vendedor: mostrarlos en su fila sería un "-30%"
+            # contra un precio que no es el suyo.
+            row["listPrice"] = sl.get("listPrice")
+            row["lowestPrice"] = None
+            row["sellerCount"] = None
+            row["shippingFee"] = sl.get("shippingFee")
+            row["sellerState"] = sl.get("state")
+            row["sellerOfficial"] = bool(sl.get("official"))
+            row["isBuyBox"] = i == 0
+            out.append(row)
+    return out
+
+
 def render_product_page(product, data):
     cat = next(c for c in data["categories"] if c["id"] == product["category"])
     cat_slug = slugify(cat["name"])
@@ -300,7 +332,7 @@ def render_product_page(product, data):
 </div>
 """
 
-    rows = sorted(product["offers"], key=lambda o: o["price"])
+    rows = sorted(seller_rows(product), key=lambda o: o["price"])
     table_rows = []
     for o in rows:
         store = store_by_id(data, o["storeId"])
@@ -377,7 +409,12 @@ def render_product_page(product, data):
                 + svg_icon("shopping-bag") + f' {o["sellerCount"]} vendedores{cheaper}</span>'
             )
         table_rows.append(
-            f'<tr><td><span class="store-badge">{dot} {html_escape(store["name"])}</span>{sellers_html}{wholesale_html}{variants_html}</td>'
+            f'<tr><td><span class="store-badge">{dot} {html_escape(store["name"])}'
+            + (f' <span class="store-color-label">· {html_escape(o["sellerState"])}</span>' if o.get("sellerState") else "")
+            + '</span>'
+            + ('<span class="seller-tag official">Tienda oficial</span>' if o.get("sellerOfficial") else "")
+            + ('<span class="seller-tag buybox">Vendedor por defecto</span>' if o.get("isBuyBox") else "")
+            + f'{sellers_html}{wholesale_html}{variants_html}</td>'
             f"<td class=\"price-cell\"><span class=\"price-line\">{money(o['price'])}</span></td>"
             f"<td>{ship}</td><td>{stock_label}</td>"
             f"<td>{rating_label}</td></tr>"

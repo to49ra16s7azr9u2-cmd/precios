@@ -252,7 +252,7 @@
           </button>
         </div>
 
-        <div class="offer-group offer-group-reference">
+        <div class="offer-group offer-group-reference" id="offerGroupReference">
           <div class="offer-group-head">
             <span class="offer-group-badge reference"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 22 20.5H2L12 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="9.5" x2="12" y2="14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor" stroke="none"/></svg> Precios de referencia</span>
             <span class="offer-group-hint">Tomados del catálogo de cada tienda, no consultados en vivo. Confirma el precio final en el sitio de la tienda.</span>
@@ -274,6 +274,10 @@
             </table>
           </div>
         </div>
+        <!-- "Mostrando N de M vendedores": la tabla trae hasta 8 vendedores
+             por publicación, pero el encabezado cuenta todos los que hay. Sin
+             esta línea las dos cifras se contradicen a la vista. -->
+        <p class="offer-table-note hidden" id="offerTableNote"></p>
       </div>
 
       <div class="panel">

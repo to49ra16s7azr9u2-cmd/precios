@@ -135,6 +135,12 @@ function catalogUrl(productId) {
 //
 // El mínimo se sigue calculando y se devuelve aparte (`lowestPrice`), como
 // dato informativo de "hay ofertas desde X si comparas vendedores".
+// Cuántos vendedores se devuelven uno por uno (ver `sellers` más abajo). La
+// tabla del sitio es para comparar de un vistazo: pasado cierto punto son
+// filas que nadie lee, y cada una engorda data/data.json para los ~7,700
+// productos de Mercado Libre del catálogo.
+const MAX_SELLERS = 8;
+
 async function winnerOffer(token, productId) {
   let data;
   try {
@@ -180,6 +186,34 @@ async function winnerOffer(token, productId) {
     sellerCount: data.paging?.total ?? offers.length,
     // Ubicación del vendedor de la oferta ganadora. Sirve para estimar entrega.
     sellerState: best.seller_address?.state?.name || null,
+    // Los vendedores uno por uno, para poder armar una fila por vendedor en
+    // la tabla de comparación en vez de una sola con la caja de compra.
+    //
+    // `item_id` es lo único que identifica a cada publicación: la API no da
+    // su permalink (el campo viene vacío en /products/{id}, y /items/{id}
+    // responde 403 con el token de esta app). El enlace se arma agregando
+    // `?pdp_filters=item_id:<item_id>` a la URL del producto de catálogo, que
+    // es la que el sitio ya usaba: Mercado Libre abre ahí la oferta de ese
+    // vendedor concreto (verificado a mano contra dos publicaciones del
+    // iPhone 17, que abrieron $18,855 y $19,499 en vez del precio de la caja
+    // de compra). Si algún día dejara de reconocer el parámetro, la URL sigue
+    // siendo la del producto: se degrada a lo que se mostraba antes, nunca a
+    // un enlace roto.
+    //
+    // Se mandan hasta MAX_SELLERS: es una tabla para comparar de un vistazo,
+    // no el listado completo de Mercado Libre, y `sellerCount` de arriba
+    // sigue diciendo cuántos hay en total.
+    sellers: offers.slice(0, MAX_SELLERS).map((o) => ({
+      itemId: o.item_id,
+      price: o.price,
+      listPrice: typeof o.original_price === "number" && o.original_price > o.price
+        ? o.original_price
+        : null,
+      shippingFee: o.shipping?.free_shipping ? 0 : null,
+      state: o.seller_address?.state?.name || null,
+      condition: o.condition || null,
+      official: !!o.official_store_id,
+    })),
   };
 }
 

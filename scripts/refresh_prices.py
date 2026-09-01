@@ -63,6 +63,45 @@ def catalog_id(url):
     return m.group(1) if m else None
 
 
+def seller_url(product_id, item_id):
+    """Enlace a la oferta de UN vendedor dentro de un producto de catálogo.
+
+    La API no da el permalink de cada publicación (viene vacío en
+    /products/{id} y /items/{id} responde 403 con el token de esta app), así
+    que se arma sobre la URL del producto de catálogo -- la que el sitio ya
+    usaba -- agregándole el filtro que Mercado Libre entiende para abrir a un
+    vendedor concreto. Verificado a mano contra dos publicaciones del iPhone
+    17: abrieron $18,855 y $19,499 en vez del precio de la caja de compra.
+
+    Si Mercado Libre dejara de reconocer el parámetro, la URL sigue siendo la
+    del producto: se degrada a lo que se mostraba antes, no a un 404.
+    """
+    return f"https://www.mercadolibre.com.mx/p/{product_id}?pdp_filters=item_id:{item_id}"
+
+
+def sellers_of(res, product_id):
+    """Vendedores normalizados de la respuesta del Worker, listos para guardar."""
+    out = []
+    for s in res.get("sellers") or []:
+        item_id, price = s.get("itemId"), s.get("price")
+        if not item_id or not isinstance(price, (int, float)) or price <= 0:
+            continue
+        row = {"itemId": item_id, "price": price, "url": seller_url(product_id, item_id)}
+        # Solo se guardan los campos que de verdad traen dato: un null por
+        # vendedor multiplicado por ~7,700 productos es peso muerto en el JSON
+        # que el navegador descarga en cada visita.
+        if s.get("listPrice"):
+            row["listPrice"] = s["listPrice"]
+        if s.get("shippingFee") == 0:
+            row["shippingFee"] = 0
+        if s.get("state"):
+            row["state"] = s["state"]
+        if s.get("official"):
+            row["official"] = True
+        out.append(row)
+    return out
+
+
 def fetch_by_id(mlm_id, retries=2):
     """Precio vigente de un producto de catálogo. None si no se pudo."""
     url = f"{PROXY}?id={urllib.parse.quote(mlm_id)}"
@@ -228,6 +267,16 @@ def main():
                     changed = True
             elif node.get("lowestPrice") is not None:
                 node["lowestPrice"] = None
+                changed = True
+            # Vendedores uno por uno, para armar una fila por vendedor en la
+            # tabla. Va junto a los dos campos de arriba, antes del corte por
+            # "precio sin cambios".
+            sellers = sellers_of(res, cid)
+            if sellers and node.get("sellers") != sellers:
+                node["sellers"] = sellers
+                changed = True
+            elif not sellers and node.get("sellers"):
+                del node["sellers"]
                 changed = True
             if old_price is not None and abs(new_price - old_price) < 0.005:
                 stats["sin_cambio"] += 1

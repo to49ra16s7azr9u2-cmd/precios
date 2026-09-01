@@ -351,6 +351,8 @@
     offerRowsVerified: document.getElementById("offerRowsVerified"),
     offerRowsReference: document.getElementById("offerRowsReference"),
     offerGroupVerified: document.getElementById("offerGroupVerified"),
+    offerGroupReference: document.getElementById("offerGroupReference"),
+    offerTableNote: document.getElementById("offerTableNote"),
     specTable: document.getElementById("specTable"),
     detailShippingPanel: document.getElementById("detailShippingPanel"),
     detailShippingIntro: document.getElementById("detailShippingIntro"),
@@ -607,14 +609,52 @@
         // tres colores, y el encabezado decía 15).
         sellerCount: v.sellerCount ?? null,
         lowestPrice: v.lowestPrice ?? null,
+        sellers: v.sellers || null,
         colorLabel: v.color ? `${v.color}${v.condition === "refurbished" ? " (Reacondicionado)" : ""}` : null,
       }));
     }
     return product.offers;
   }
 
+  // Una publicación de catálogo de Mercado Libre puede tener varios
+  // vendedores, cada uno con su propio precio. Acá cada opción de compra se
+  // abre en una fila POR VENDEDOR, para que la tabla compare de verdad en vez
+  // de mostrar solo la caja de compra.
+  //
+  // Antes esto no se podía: no había forma de enlazar a un vendedor concreto,
+  // y publicar su precio sin poder mandar a su oferta habría repetido el
+  // problema que se arregló con winnerOffer -- un precio que el comprador
+  // nunca llega a ver. Ahora cada fila lleva su propia URL
+  // (?pdp_filters=item_id:…), así que el precio de la fila es el que se paga
+  // al hacer clic en ESA fila, que es la regla que importa.
+  //
+  // La oferta ganadora se marca aparte: es la que Mercado Libre cobra si
+  // entras al producto sin elegir vendedor, y conviene que se note cuál es.
+  function sellerRows(product) {
+    return purchaseOptions(product).flatMap((o) => {
+      const sellers = o.sellers;
+      if (!sellers || sellers.length < 2) return [o];
+      return sellers.map((s, i) => ({
+        ...o,
+        price: s.price,
+        url: s.url,
+        // listPrice y lowestPrice se midieron sobre la publicación completa,
+        // no sobre este vendedor: colgárselos a su fila mostraría un "-30%"
+        // contra un precio que no es el suyo.
+        listPrice: s.listPrice || null,
+        lowestPrice: null,
+        shippingFee: s.shippingFee ?? null,
+        sellerState: s.state || null,
+        sellerOfficial: !!s.official,
+        isBuyBox: i === 0,
+        // La insignia "N vendedores" sobra cuando ya están todos en filas.
+        sellerCount: null,
+      }));
+    });
+  }
+
   function minPrice(product) {
-    return Math.min(...purchaseOptions(product).map((o) => displayPrice(o)));
+    return Math.min(...sellerRows(product).map((o) => displayPrice(o)));
   }
 
   // true cuando, con "Incluir envío" activo, el precio "Desde" mostrado en
@@ -622,7 +662,7 @@
   // avisar ahí mismo, sin tener que entrar a la ficha para enterarse.
   function cheapestOfferShippingEstimated(product) {
     if (!state.includeShipping) return false;
-    const cheapest = purchaseOptions(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+    const cheapest = sellerRows(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
     return shippingIsEstimated(cheapest);
   }
 
@@ -725,7 +765,7 @@
   // Descuento de la oferta más barata, si tiene listPrice (precio de lista)
   // más alto que el precio actual. Devuelve el % o null.
   function bestDiscountPct(product) {
-    const cheapest = purchaseOptions(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+    const cheapest = sellerRows(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
     const price = displayPrice(cheapest);
     const listPrice = displayListPrice(cheapest);
     if (!listPrice || listPrice <= price) return null;
@@ -821,7 +861,7 @@
   // encuadre / framing, Tversky & Kahneman), así que mostrar ambos a la vez
   // no deja el tamaño del ahorro a la interpretación de cada quien.
   function bestSavingsAmount(product) {
-    const cheapest = purchaseOptions(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+    const cheapest = sellerRows(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
     const price = displayPrice(cheapest);
     const listPrice = displayListPrice(cheapest);
     if (!listPrice || listPrice <= price) return null;
@@ -3255,8 +3295,10 @@
         <td>
           <span class="store-badge">
             ${storeDotHtml(r.store)}
-            ${r.store.name}${r.colorLabel ? ` <span class="store-color-label">— ${htmlEscapeAttr(r.colorLabel)}</span>` : ""}
+            ${r.store.name}${r.colorLabel ? ` <span class="store-color-label">— ${htmlEscapeAttr(r.colorLabel)}</span>` : ""}${r.sellerState ? ` <span class="store-color-label">· ${htmlEscapeAttr(r.sellerState)}</span>` : ""}
           </span>
+          ${r.sellerOfficial ? `<span class="seller-tag official">Tienda oficial</span>` : ""}
+          ${r.isBuyBox ? `<span class="seller-tag buybox" title="Es el vendedor que Mercado Libre cobra si entras al producto sin elegir vendedor.">Vendedor por defecto</span>` : ""}
           ${sellersHtml}
           ${wholesaleHtml}
           ${variantsHtml}
@@ -3293,7 +3335,7 @@
   }
 
   function renderOfferTable(product) {
-    const baseOffers = purchaseOptions(product);
+    const baseOffers = sellerRows(product);
     let rows = baseOffers.map((o) => {
       const store = storeById(o.storeId);
       // Tiendas sin hubRegion (envío internacional directo, p. ej. SUNSKY o
@@ -3343,6 +3385,26 @@
     // roto. Se esconde entero mientras no haya nada que mostrar, y vuelve
     // solo cuando alguna tienda sí traiga precio en vivo.
     el.offerGroupVerified.classList.toggle("hidden", verifiedRows.length === 0);
+    // Mismo criterio para el grupo de precios de referencia. Faltaba: en
+    // cualquier producto cuyas ofertas fueran todas verificadas, la tabla de
+    // referencia se dibujaba con sus seis encabezados y ni una fila debajo,
+    // que se lee como si el sitio hubiera fallado al cargarlas.
+    el.offerGroupReference.classList.toggle("hidden", referenceRows.length === 0);
+
+    // La tabla trae hasta MAX_SELLERS vendedores por publicación (ver
+    // winnerOffer en el Worker), pero el encabezado cuenta todos los que hay:
+    // sin decirlo, "22 vendedores" arriba y 4 filas abajo se contradicen.
+    const shown = rows.filter((r) => r.storeId === "mercadolibre").length;
+    const total = sellerTotal(product);
+    if (total > shown && rows.some((r) => r.sellers || r.isBuyBox)) {
+      const url = purchaseOptions(product)[0].url;
+      el.offerTableNote.innerHTML =
+        `Mostrando ${shown} de ${total} vendedores de Mercado Libre, los más baratos primero. ` +
+        `<a href="${htmlEscapeAttr(url)}" target="_blank" rel="nofollow noopener">Ver todos en Mercado Libre</a>.`;
+      el.offerTableNote.classList.remove("hidden");
+    } else {
+      el.offerTableNote.classList.add("hidden");
+    }
     return rows;
   }
 

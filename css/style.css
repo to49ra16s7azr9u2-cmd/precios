@@ -1349,6 +1349,28 @@ a { color: inherit; text-decoration: none; }
   padding: 2px 8px;
   margin-top: 5px;
 }
+/* Etiquetas de la fila de un vendedor concreto dentro de una publicación de
+   Mercado Libre: cuál es tienda oficial y cuál es el que cobra por defecto. */
+.seller-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 9px;
+  padding: 1px 7px;
+  margin-top: 4px;
+  margin-right: 4px;
+}
+.seller-tag.official {
+  color: #0a6b33;
+  background: var(--green-tint);
+  border: 1px solid #b6e2c8;
+}
+.seller-tag.buybox {
+  color: #6b5300;
+  background: #fff7e0;
+  border: 1px solid #f0dca6;
+}
+
 /* "N vendedores · desde $X": un producto de catálogo de Mercado Libre puede
    tener varios vendedores con precios distintos. Va en azul informativo (no
    en el ámbar de advertencia de .wholesale-badge) porque no avisa de un
@@ -2412,3 +2434,11 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 480px) {
   .back-to-top-btn { right: 16px; bottom: 16px; width: 44px; height: 44px; }
 }
+
+/* "Mostrando N de M vendedores" bajo la tabla de comparación. */
+.offer-table-note {
+  margin: 10px 2px 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.offer-table-note a { color: var(--red-dark); }
