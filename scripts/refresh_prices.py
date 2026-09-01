@@ -80,7 +80,13 @@ def seller_url(product_id, item_id):
 
 
 def sellers_of(res, product_id):
-    """Vendedores normalizados de la respuesta del Worker, listos para guardar."""
+    """Vendedores normalizados de la respuesta del Worker, listos para guardar.
+
+    Solo tiene sentido guardar la lista cuando hay MÁS DE UNO: con uno solo
+    el frontend no expande filas (sellerRows exige length >= 2) y el dato es
+    peso muerto -- guardarlo igual infló data.json en ~4,800 productos sin
+    ningún beneficio antes de que se notara acá.
+    """
     out = []
     for s in res.get("sellers") or []:
         item_id, price = s.get("itemId"), s.get("price")
@@ -99,7 +105,7 @@ def sellers_of(res, product_id):
         if s.get("official"):
             row["official"] = True
         out.append(row)
-    return out
+    return out if len(out) > 1 else []
 
 
 def fetch_by_id(mlm_id, retries=2):
