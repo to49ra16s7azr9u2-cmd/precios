@@ -217,6 +217,55 @@ def extract_price(html, target_url=None):
     return None
 
 
+# ---------------------------------------------------------------------------
+# PESO/TAMAÑO REAL DEL PAQUETE (para la calculadora de envío)
+#
+# La calculadora de envío (js/app.js, CATEGORY_SHIPPING_DEFAULTS) arranca
+# siempre con un peso/tamaño TÍPICO por categoría -- nunca el real de ESE
+# producto -- porque ninguna tienda expone esos datos en el feed que ya se
+# consumía. Pero la página del producto sí los trae, para el propio cálculo
+# de envío de la tienda: SUNSKY los da en una tabla de specs ("One Package
+# Weight"/"One Package Size"), GeekBuying en texto plano ("Package Weight: /
+# Package Size:"). Se extraen acá, del mismo HTML que ya se bajó para el
+# precio (sin pedidos extra), y se guardan en la oferta para que el widget
+# de envío de la ficha los use en vez de adivinar por categoría.
+# ---------------------------------------------------------------------------
+
+SUNSKY_WEIGHT_RE = re.compile(r'One Package Weight</td>\s*<td class="params_value">\s*([\d.]+)kgs', re.I)
+SUNSKY_SIZE_RE = re.compile(
+    r'One Package Size</td>\s*<td class="params_value">\s*([\d.]+)cm\s*\*\s*([\d.]+)cm\s*\*\s*([\d.]+)cm', re.I
+)
+GEEKBUYING_WEIGHT_RE = re.compile(r'Package Weight:\s*([\d.]+)\s*kg', re.I)
+GEEKBUYING_SIZE_RE = re.compile(r'Package Size:\s*([\d.]+)\s*[×x]\s*([\d.]+)\s*[×x]\s*([\d.]+)\s*mm', re.I)
+
+
+def extract_shipping_spec(html, store_id):
+    """(weightKg, lengthCm, widthCm, heightCm) del paquete real, o None si
+    esta tienda no trae el dato en un formato reconocido. Solo SUNSKY y
+    GeekBuying lo exponen de forma consistente (ver arriba); las otras 2
+    tiendas soportadas (theluxurycloset, Glasseslit) no participan de la
+    calculadora de envío (SHIPPING_CALC_STORE_IDS en js/app.js), así que no
+    hace falta un parser para ellas."""
+    if store_id == "sunsky":
+        w = SUNSKY_WEIGHT_RE.search(html)
+        s = SUNSKY_SIZE_RE.search(html)
+        if w and s:
+            return float(w.group(1)), float(s.group(1)), float(s.group(2)), float(s.group(3))
+    elif store_id == "geekbuying":
+        w = GEEKBUYING_WEIGHT_RE.search(html)
+        s = GEEKBUYING_SIZE_RE.search(html)
+        if w and s:
+            # GeekBuying da la caja en mm; el resto del catálogo (specs
+            # "Peso", calculadora de envío) trabaja siempre en cm.
+            return (
+                float(w.group(1)),
+                float(s.group(1)) / 10,
+                float(s.group(2)) / 10,
+                float(s.group(3)) / 10,
+            )
+    return None
+
+
 def targets_of(product):
     out = []
     for i, o in enumerate(product.get("offers") or []):
@@ -298,7 +347,7 @@ def main():
     rate = get_usd_mxn_rate()
     print(f"Tipo de cambio USD/MXN de hoy: {rate}")
 
-    stats = {"revisados": 0, "precios": 0, "sin_cambio": 0, "sin_datos": 0, "sin_stock": 0}
+    stats = {"revisados": 0, "precios": 0, "sin_cambio": 0, "sin_datos": 0, "sin_stock": 0, "specs_envio": 0}
     dead_urls = set()
     max_delta = []
 
@@ -325,6 +374,22 @@ def main():
             if price_usd is None:
                 stats["sin_datos"] += 1
                 continue
+
+            # Peso/tamaño real del paquete (SUNSKY/GeekBuying) -- mismo HTML
+            # ya descargado, sin pedido extra. Se actualiza siempre que se
+            # pueda leer, cambie o no el precio: es dato del producto, no de
+            # esta corrida.
+            store_id = node.get("storeId") or (product.get("offers") or [{}])[0].get("storeId")
+            spec = extract_shipping_spec(html, store_id)
+            if spec:
+                w, l, wi, h = spec
+                if node.get("shippingWeightKg") != w or node.get("shippingLengthCm") != l:
+                    node["shippingWeightKg"] = w
+                    node["shippingLengthCm"] = l
+                    node["shippingWidthCm"] = wi
+                    node["shippingHeightCm"] = h
+                    stats["specs_envio"] += 1
+                    changed = True
             fx = rate if currency == "USD" else 1.0
             if currency not in ("USD", "MXN"):
                 # Moneda no contemplada (p. ej. si algún producto cambia de

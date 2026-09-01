@@ -2711,22 +2711,37 @@
 
   // Widget compacto en la ficha de producto: solo aparece cuando el
   // producto tiene una oferta de una de las 4 tiendas con calculadora de
-  // envío. Arranca con el estimado de CATEGORY_SHIPPING_DEFAULTS ya cargado
-  // y calculado (en vez de campos vacíos) para que el comprador vea un
-  // resultado sin escribir nada; los campos siguen siendo editables por si
-  // conoce el peso/tamaño real del paquete.
+  // envío. Arranca con un peso/tamaño ya cargado y calculado (en vez de
+  // campos vacíos) para que el comprador vea un resultado sin escribir
+  // nada; los campos siguen siendo editables por si conoce el dato real.
+  //
+  // Ese punto de partida es el peso/tamaño REAL del paquete cuando se pudo
+  // leer de la página de la tienda (scripts/refresh_other_stores.py lo
+  // extrae de SUNSKY/GeekBuying, que sí publican esos datos, y los guarda
+  // en shippingWeightKg/shippingLengthCm/etc. de la oferta) -- y solo cae
+  // al estimado típico de CATEGORY_SHIPPING_DEFAULTS cuando no hay dato
+  // real (AliExpress/Alibaba, o SUNSKY/GeekBuying antes del primer
+  // refresco). El aviso de "estimado" cambia según cuál de los dos es.
   function renderShippingWidgetForProduct(product) {
-    const storeId = (product.offers || [])
-      .map((o) => o.storeId)
-      .find((id) => SHIPPING_CALC_STORE_IDS.includes(id));
-    if (!storeId || !state.shippingRates) {
+    const offer = (product.offers || []).find((o) => SHIPPING_CALC_STORE_IDS.includes(o.storeId));
+    if (!offer || !state.shippingRates) {
       el.detailShippingPanel.classList.add("hidden");
       return;
     }
+    const storeId = offer.storeId;
     const store = storeById(storeId);
     el.detailShippingPanel.classList.remove("hidden");
-    const defaults = CATEGORY_SHIPPING_DEFAULTS[product.category] || DEFAULT_SHIPPING_ESTIMATE;
-    el.detailShippingIntro.innerHTML = `Este producto se vende en ${store ? store.name : storeId}. Los campos ya traen un peso y tamaño típicos para "${product.category}" -- ajústalos si conoces el dato real del paquete. <span class="shipping-estimate-note">${icon("alert-triangle")} estimado automático según la categoría, no el peso real de este producto</span>`;
+    const hasRealSpec = offer.shippingWeightKg != null && offer.shippingLengthCm != null;
+    const defaults = hasRealSpec
+      ? { weightKg: offer.shippingWeightKg, lengthCm: offer.shippingLengthCm, widthCm: offer.shippingWidthCm, heightCm: offer.shippingHeightCm }
+      : CATEGORY_SHIPPING_DEFAULTS[product.category] || DEFAULT_SHIPPING_ESTIMATE;
+    const estimateNote = hasRealSpec
+      ? `<span class="ship-badge" title="Peso y tamaño de empaque reportados por ${store ? store.name : storeId} para este producto exacto">✓ peso real del paquete</span>`
+      : `<span class="shipping-estimate-note">${icon("alert-triangle")} estimado automático según la categoría, no el peso real de este producto</span>`;
+    const introText = hasRealSpec
+      ? `Este producto se vende en ${store ? store.name : storeId}. Los campos ya traen el peso y tamaño reales de este paquete, publicados por la tienda -- ajústalos si el envío final trae otro empaque.`
+      : `Este producto se vende en ${store ? store.name : storeId}. Los campos ya traen un peso y tamaño típicos para "${product.category}" -- ajústalos si conoces el dato real del paquete.`;
+    el.detailShippingIntro.innerHTML = `${introText} ${estimateNote}`;
     el.detailShippingCalcLink.href = "#/envio";
     el.detailShipWeightInput.value = defaults.weightKg;
     el.detailShipLengthInput.value = defaults.lengthCm;
