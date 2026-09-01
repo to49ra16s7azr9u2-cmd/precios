@@ -172,6 +172,9 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 <meta property="og:url" content="{canonical}">
 <meta name="theme-color" content="#FF0211">
 <link rel="icon" href="{prefix}icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="{prefix}icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="{prefix}icons/apple-touch-icon.png">
 <link rel="stylesheet" href="{prefix}css/style.css">
 {GA_SNIPPET}
 {extra_head}
@@ -340,7 +343,7 @@ def render_product_page(product, data):
     if shipping_calc_store_id:
         shipping_calc_store = store_by_id(data, shipping_calc_store_id)
         shipping_calc_html = f"""
-<div class="panel">
+<div class="panel detail-anchor-target" id="shippingPanel">
   <h2>Estimación de envío internacional</h2>
   <p class="muted small">Este producto se vende en {html_escape(shipping_calc_store['name'])}. Usa la calculadora de envío por peso y tamaño de ComparaMEX para estimar el costo a México.</p>
   <a class="buy-btn" href="../../index.html#/envio">Abrir calculadora de envío →</a>
@@ -452,7 +455,7 @@ def render_product_page(product, data):
         for r in product["reviews"]
     )
     reviews_html = (
-        f'<div class="panel"><h2>Reseñas de compradores</h2><div class="review-list">{review_items}</div></div>'
+        f'<div class="panel detail-anchor-target" id="reviewsPanel"><h2>Reseñas de compradores</h2><div class="review-list">{review_items}</div></div>'
         if product["reviews"]
         else ""
     )
@@ -476,6 +479,29 @@ def render_product_page(product, data):
         f'<a href="../../index.html#/list?cat={cat["id"]}&sub={sub["id"]}">{html_escape(sub["name"])}</a> &gt;'
         if sub else ""
     )
+
+    # Mismo menú que el SPA (renderDetailQuickNav en js/app.js), en el mismo
+    # hueco junto al nombre. Acá son <a href="#id"> lisos: el salto lo hace el
+    # navegador y .detail-anchor-target (scroll-margin-top) evita que el
+    # título quede tapado. "Envío" y "Comentarios" solo se listan si la página
+    # de verdad tiene esa sección -- la calculadora de envío existe solo para
+    # AliExpress/Alibaba/SUNSKY/Geekbuying, y las reseñas solo si el producto
+    # ya tiene alguna.
+    quicknav_items = [("comparePanel", "tag", "Precios"),
+                      ("specsPanel", "pencil", "Especificaciones")]
+    if shipping_calc_html:
+        quicknav_items.append(("shippingPanel", "pin", "Envío"))
+    if reviews_html:
+        quicknav_items.append(("reviewsPanel", "trophy", "Comentarios"))
+    quicknav_html = (
+        '<nav class="detail-quicknav">'
+        + "".join(
+            f'<a class="detail-quicknav-btn" href="#{qid}">{svg_icon(ic)} {label}</a>'
+            for qid, ic, label in quicknav_items
+        )
+        + "</nav>"
+    )
+
     body = f"""
 <nav class="breadcrumb">
   <a href="../../index.html">Inicio</a> &gt;
@@ -491,8 +517,9 @@ def render_product_page(product, data):
     <p class="detail-rating">{f'{avg} / 5 ({plural(count, "calificación", "calificaciones")})' if count else 'Sin calificaciones todavía'}</p>
     <p class="detail-fromprice">{'Desde ' if n_sellers > 1 else ''}<strong>{money(price)}</strong> en {plural(n_sellers, "vendedor", "vendedores")}</p>
   </div>
+  {quicknav_html}
 </div>
-<div class="panel">
+<div class="panel detail-anchor-target" id="comparePanel">
   <h2>Comparación de precios</h2>
   <div class="table-scroll">
     <table class="compare-table">
@@ -502,7 +529,7 @@ def render_product_page(product, data):
   </div>
   <p class="disclaimer">{STORE_ORDER_NOTE}</p>
 </div>
-<div class="panel">
+<div class="panel detail-anchor-target" id="specsPanel">
   <h2>Especificaciones</h2>
   <table class="spec-table">{specs_rows}</table>
 </div>

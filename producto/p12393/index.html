@@ -13,6 +13,9 @@
 <meta property="og:url" content="https://comparamex.com/producto/p12393/">
 <meta name="theme-color" content="#FF0211">
 <link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
 <link rel="stylesheet" href="../../css/style.css">
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -124,8 +127,9 @@
     <p class="detail-rating">Sin calificaciones todavía</p>
     <p class="detail-fromprice"><strong>$241</strong> en 1 vendedor</p>
   </div>
+  <nav class="detail-quicknav"><a class="detail-quicknav-btn" href="#comparePanel"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Precios</a><a class="detail-quicknav-btn" href="#specsPanel"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l.9-4.2L15.6 5.1a1.8 1.8 0 0 1 2.6 0l1.7 1.7a1.8 1.8 0 0 1 0 2.6L9.2 19.1 4 20Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><line x1="13.6" y1="7.1" x2="16.9" y2="10.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Especificaciones</a><a class="detail-quicknav-btn" href="#shippingPanel"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.6 7-12.2A7 7 0 0 0 5 9.3c0 5.6 7 12.2 7 12.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.2" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Envío</a></nav>
 </div>
-<div class="panel">
+<div class="panel detail-anchor-target" id="comparePanel">
   <h2>Comparación de precios</h2>
   <div class="table-scroll">
     <table class="compare-table">
@@ -135,12 +139,12 @@
   </div>
   <p class="disclaimer">Los precios de esta página son de referencia para propósitos de demostración y no están confirmados en tiempo real con cada tienda. Para ver la comparación interactiva, con mapa de tiempos de entrega por municipio y reseñas, usa el enlace a la versión completa.</p>
 </div>
-<div class="panel">
+<div class="panel detail-anchor-target" id="specsPanel">
   <h2>Especificaciones</h2>
   <table class="spec-table"></table>
 </div>
 
-<div class="panel">
+<div class="panel detail-anchor-target" id="shippingPanel">
   <h2>Estimación de envío internacional</h2>
   <p class="muted small">Este producto se vende en AliExpress. Usa la calculadora de envío por peso y tamaño de ComparaMEX para estimar el costo a México.</p>
   <a class="buy-btn" href="../../index.html#/envio">Abrir calculadora de envío →</a>

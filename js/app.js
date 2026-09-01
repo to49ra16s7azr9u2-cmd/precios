@@ -339,6 +339,7 @@
     detailColors: document.getElementById("detailColors"),
     detailFromPrice: document.getElementById("detailFromPrice"),
     detailTopOffers: document.getElementById("detailTopOffers"),
+    detailQuickNav: document.getElementById("detailQuickNav"),
     deliveryBanner: document.getElementById("deliveryBanner"),
     deliveryBannerTitle: document.getElementById("deliveryBannerTitle"),
     deliveryBannerSubtitle: document.getElementById("deliveryBannerSubtitle"),
@@ -2898,6 +2899,40 @@
     `;
   }
 
+  // Desplaza suave hasta una sección de la ficha, descontando la altura REAL
+  // del topbar sticky (se mide en el clic, no se supone un valor fijo: en
+  // móvil el menú de categorías puede ocupar una o dos líneas según el ancho,
+  // y eso cambia cuánto tapa). Sin el descuento la sección arrancaría con su
+  // título escondido detrás del header.
+  function scrollToDetailSection(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const topbar = document.querySelector(".topbar");
+    const headerH = topbar ? topbar.getBoundingClientRect().height : 0;
+    const y = target.getBoundingClientRect().top + window.scrollY - headerH - 12;
+    window.scrollTo({ top: Math.max(y, 0), behavior: "smooth" });
+  }
+
+  // Ocupa el hueco que quedaba vacío junto al nombre del producto (a pedido
+  // del usuario, con una captura marcando el recuadro) con accesos a cada
+  // sección. Las cuatro existen en toda ficha del SPA, así que no hace falta
+  // esconder ninguna según el producto.
+  const DETAIL_QUICKNAV_ITEMS = [
+    ["comparePanel", "tag", "Precios"],
+    ["specsPanel", "pencil", "Especificaciones"],
+    ["deliveryBanner", "pin", "Envío"],
+    ["reviewsPanel", "trophy", "Comentarios"],
+  ];
+  function renderDetailQuickNav() {
+    el.detailQuickNav.innerHTML = DETAIL_QUICKNAV_ITEMS.map(
+      ([id, ic, label]) =>
+        `<button type="button" class="detail-quicknav-btn" data-target="${id}">${icon(ic)} ${label}</button>`
+    ).join("");
+    el.detailQuickNav.querySelectorAll(".detail-quicknav-btn").forEach((btn) => {
+      btn.onclick = () => scrollToDetailSection(btn.dataset.target);
+    });
+  }
+
   function renderDetail(productId) {
     const product = state.data.products.find((p) => p.id === productId);
     if (!product) { goHome(); return; }
@@ -2942,6 +2977,7 @@
         : `<span class="rc">Sin calificaciones todavía</span>`;
     el.detailColors.innerHTML = detailColorSwatchHtml(product);
     renderDetailPriceHeader(product);
+    renderDetailQuickNav();
 
     el.specTable.innerHTML = product.specs
       .map((s) => `<tr><th>${s.label}</th><td>${s.value}</td></tr>`)

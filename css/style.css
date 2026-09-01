@@ -864,6 +864,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Product detail ---------- */
 .detail-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: 20px;
   margin: 16px 0 22px;
@@ -897,6 +898,45 @@ a { color: inherit; text-decoration: none; }
 .detail-fromprice { margin: 0; font-size: 14px; color: var(--muted); }
 /* El precio de la ficha es el punto de mayor énfasis de toda la página. */
 .detail-fromprice strong { color: var(--red-dark); font-size: 22px; }
+
+/* Accesos rápidos a las secciones de la ficha (Precios, Especificaciones,
+   Envío, Comentarios). En escritorio ocupa el hueco a la derecha del texto
+   que quedó vacío al quitar el corazón de favoritos; en móvil ya no cabe
+   junto al ícono+texto (min-width) y cae solo a la fila siguiente, para lo
+   cual .detail-head lleva flex-wrap:wrap. */
+.detail-quicknav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  flex: 1 1 220px;
+  min-width: 180px;
+  align-self: stretch;
+}
+.detail-quicknav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+}
+.detail-quicknav-btn:hover { border-color: var(--red); color: var(--red-dark); }
+.detail-quicknav-btn .icon { width: 15px; height: 15px; flex-shrink: 0; }
+@media (max-width: 620px) {
+  .detail-quicknav { flex-basis: 100%; margin-top: 4px; }
+}
+/* Las páginas estáticas de SEO usan enlaces <a href="#id"> lisos (no hay JS
+   que mida el topbar en cada clic como en el SPA), así que el salto lo hace
+   el navegador -- este descuento es lo que evita que el título de la sección
+   quede tapado detrás del topbar sticky. */
+.detail-anchor-target { scroll-margin-top: 120px; }
 
 /* Tarjeta superior de la ficha (foto + nombre + top de tiendas en un solo
    bloque, en vez de repartir la foto arriba y la comparación de precios en
