@@ -27,6 +27,19 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  /* Red de seguridad, a pedido del usuario ("que no sea posible scrollear
+     horizontalmente"): con miles de filas de datos reales (nombres de
+     producto larguísimos, filtros con muchas marcas, etc.) siempre puede
+     aparecer un elemento nuevo que se pase del ancho de la ventana por unos
+     px. Cada caso puntual se sigue arreglando en su origen (ver p. ej.
+     minmax(0, 1fr) en .list-layout más abajo, para el desborde real que
+     reportó el usuario en la barra de "Incluir envío" + selector de orden);
+     esto solo evita que un desborde que se nos escape abra una barra de
+     scroll horizontal de toda la página -- .cat-submenu sigue escapando
+     bien (position:fixed no lo recorta un overflow:hidden del body, solo
+     un ancestro que además cree su propio "containing block", que body no
+     hace acá). */
+  overflow-x: hidden;
 }
 
 /* Transiciones suaves centralizadas: antes casi ninguna regla :hover tenía
@@ -409,8 +422,16 @@ a { color: inherit; text-decoration: none; }
   /* Ancho por proporción con un piso fijo en vez de un ancho fijo puro: el
      panel de filtros gana algo de aire en pantallas medianas/grandes (hasta
      los 1120px del .container) en vez de quedarse siempre en los mismos
-     220px mientras el resto del layout sí respira más. */
-  grid-template-columns: minmax(220px, 22%) 1fr;
+     220px mientras el resto del layout sí respira más.
+     minmax(0, 1fr) y no 1fr a secas en la segunda columna: un track de
+     grid en 1fr todavía tiene un mínimo implícito de auto (el ancho de su
+     contenido), así que si .list-head (título + "Incluir envío" + aviso de
+     estimado + selector de orden, ninguno de los tres últimos se encoge)
+     no entra en el espacio disponible, esta columna se ensancha en vez de
+     recortar, y empuja TODA la página a desbordar horizontalmente. Mismo
+     mecanismo que ya se documentaba abajo solo para el breakpoint móvil;
+     hacía falta también en desktop angosto. */
+  grid-template-columns: minmax(220px, 22%) minmax(0, 1fr);
   gap: 16px;
   padding-bottom: 24px;
 }
@@ -1665,6 +1686,56 @@ a { color: inherit; text-decoration: none; }
      vale 0 y la separación la da el borde rojo + el fondo oscuro. */
   margin-top: auto;
   border-top: 3px solid var(--red);
+}
+.footer-legal-links { display: flex; gap: 16px; margin-top: 8px; }
+.footer-legal-links a { color: #bbb; text-decoration: underline; }
+.footer-legal-links a:hover { color: #fff; }
+
+/* ---------- Privacidad / términos ---------- */
+/* Varios <h2> de sección dentro de un solo .panel: se resetea el estilo de
+   "título de panel" (barra roja, fondo, ancho completo) que .panel h2 le da
+   por defecto a UN encabezado -- repetido en cada sección se vería como una
+   fila de banners apilados en vez de un documento legible. */
+.legal-content h2 {
+  position: static;
+  margin: 24px 0 8px;
+  padding: 0;
+  background: none;
+  border-bottom: none;
+  border-radius: 0;
+  font-size: 16px;
+}
+.legal-content h2::before { content: none; }
+.legal-content h2:first-child { margin-top: 0; }
+.legal-content p { margin: 0 0 12px; line-height: 1.6; color: var(--ink); }
+.legal-content ul { margin: 0 0 12px; padding-left: 20px; line-height: 1.6; }
+.legal-content li { margin-bottom: 4px; }
+.legal-content a { color: var(--red-dark); text-decoration: underline; }
+
+/* ---------- Aviso de cookies ---------- */
+.cookie-consent {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 200;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
+}
+.cookie-consent-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.cookie-consent-inner p { flex: 1 1 320px; margin: 0; font-size: 13px; color: var(--muted); }
+.cookie-consent-inner a { color: var(--red-dark); }
+.cookie-consent-actions { display: flex; gap: 8px; flex: 0 0 auto; }
+@media (max-width: 480px) {
+  .cookie-consent-actions { width: 100%; }
+  .cookie-consent-actions .buy-btn { flex: 1; }
 }
 
 .leaflet-popup-content { font-size: 13px; }

@@ -45,10 +45,36 @@ SITE_URL = "https://comparamex.com"
 # Mismo tag de Google Analytics (GA4) que index.html, para que las visitas
 # que aterrizan directo en una página estática de producto/categoría desde
 # el buscador (sin pasar por la SPA) también se cuenten.
-GA_SNIPPET = """<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
-<script>
+#
+# Estas páginas no tienen el aviso de cookies (viven fuera de la SPA, sin
+# app.js) -- por defecto Consent Mode queda denegado, igual que en la SPA
+# antes de que alguien responda al aviso, y solo se concede solo si ya
+# había una elección guardada en localStorage de una visita anterior a la
+# SPA (mismo origen, mismo storage). Un visitante nuevo que aterriza
+# directo en una de estas páginas no se cuenta hasta que entre a la SPA y
+# responda al aviso ahí.
+GA_SNIPPET = """<script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
   gtag('js', new Date());
   gtag('config', 'G-NZ0RG4S274');
 </script>"""

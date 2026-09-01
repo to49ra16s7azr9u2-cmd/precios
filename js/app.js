@@ -411,6 +411,14 @@
     shippingCalcResults: document.getElementById("shippingCalcResults"),
     shippingCalcDisclaimer: document.getElementById("shippingCalcDisclaimer"),
 
+    viewPrivacy: document.getElementById("viewPrivacy"),
+    privacyLastUpdated: document.getElementById("privacyLastUpdated"),
+    viewTerms: document.getElementById("viewTerms"),
+    termsLastUpdated: document.getElementById("termsLastUpdated"),
+    cookieConsent: document.getElementById("cookieConsent"),
+    cookieConsentAccept: document.getElementById("cookieConsentAccept"),
+    cookieConsentReject: document.getElementById("cookieConsentReject"),
+
     mapModal: document.getElementById("mapModal"),
     mapModalClose: document.getElementById("mapModalClose"),
     metroTabs: document.getElementById("metroTabs"),
@@ -1308,6 +1316,8 @@
     el.viewFavorites.classList.toggle("hidden", name !== "favorites");
     el.viewAccount.classList.toggle("hidden", name !== "account");
     el.viewEnvio.classList.toggle("hidden", name !== "envio");
+    el.viewPrivacy.classList.toggle("hidden", name !== "privacidad");
+    el.viewTerms.classList.toggle("hidden", name !== "terminos");
     if (name !== "detail") closeMapModal();
   }
 
@@ -1368,6 +1378,8 @@
     else if (hash === "#/account") renderAccount();
     else if (hash === "#/marcas" || hash.startsWith("#/marcas?")) renderBrands();
     else if (hash === "#/envio" || hash.startsWith("#/envio?")) renderShippingCalculator();
+    else if (hash === "#/privacidad") renderPrivacy();
+    else if (hash === "#/terminos") renderTerms();
     else renderHome();
   }
 
@@ -1417,6 +1429,10 @@
       renderBrands();
     } else if (hash === "#/envio" || hash.startsWith("#/envio?")) {
       renderShippingCalculator();
+    } else if (hash === "#/privacidad") {
+      renderPrivacy();
+    } else if (hash === "#/terminos") {
+      renderTerms();
     } else {
       renderHome();
     }
@@ -2642,6 +2658,23 @@
     recompute();
   }
 
+  // Fecha fija del texto vigente de privacidad/términos (no la fecha de
+  // hoy): solo debe cambiar cuando de verdad se edite el contenido de esas
+  // páginas, no en cada visita.
+  const LEGAL_LAST_UPDATED = "1 de septiembre de 2026";
+
+  function renderPrivacy() {
+    setActiveView("privacidad");
+    renderCatNav();
+    el.privacyLastUpdated.textContent = LEGAL_LAST_UPDATED;
+  }
+
+  function renderTerms() {
+    setActiveView("terminos");
+    renderCatNav();
+    el.termsLastUpdated.textContent = LEGAL_LAST_UPDATED;
+  }
+
   const SHIPPING_CALC_STORE_IDS = ["aliexpress", "alibaba", "sunsky", "geekbuying"];
 
   // Peso/medidas TÍPICOS por categoría, en kg/cm -- ninguna de las 4 tiendas
@@ -3594,6 +3627,54 @@
     });
   }
 
+  // ---------- Aviso de cookies / Consent Mode ----------
+
+  // gtag ya arranca denegado por defecto (consent 'default' en el <head> de
+  // index.html, ANTES de cargar gtag.js) -- acá solo se decide si hay que
+  // mostrar el aviso, y qué hacer según la elección guardada.
+  const COOKIE_CONSENT_KEY = "comparamexCookieConsent";
+
+  function grantAnalyticsConsent() {
+    if (typeof gtag === "function") {
+      gtag("consent", "update", {
+        analytics_storage: "granted",
+        ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+      });
+    }
+  }
+
+  function initCookieConsent() {
+    let choice = null;
+    try {
+      choice = localStorage.getItem(COOKIE_CONSENT_KEY);
+    } catch {
+      // localStorage bloqueado (modo privado estricto, política del
+      // navegador, etc.): se trata igual que "sin elección todavía" -- el
+      // aviso se muestra, solo que la elección no persistirá entre visitas.
+    }
+    if (choice === "accepted") {
+      grantAnalyticsConsent();
+      return;
+    }
+    if (choice === "rejected") return;
+    el.cookieConsent.classList.remove("hidden");
+    el.cookieConsentAccept.addEventListener("click", () => {
+      try {
+        localStorage.setItem(COOKIE_CONSENT_KEY, "accepted");
+      } catch {}
+      grantAnalyticsConsent();
+      el.cookieConsent.classList.add("hidden");
+    });
+    el.cookieConsentReject.addEventListener("click", () => {
+      try {
+        localStorage.setItem(COOKIE_CONSENT_KEY, "rejected");
+      } catch {}
+      el.cookieConsent.classList.add("hidden");
+    });
+  }
+
   // ---------- Eventos globales ----------
 
   function bindEvents() {
@@ -3925,6 +4006,7 @@
   }
 
   async function main() {
+    initCookieConsent();
     initAccountAuth();
     await loadData();
     bindEvents();

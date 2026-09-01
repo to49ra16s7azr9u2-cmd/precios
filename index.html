@@ -11,10 +11,23 @@
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/style.css">
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
 <script>
+  // Consent Mode: por defecto TODO denegado hasta que el aviso de cookies
+  // reciba una respuesta -- gtag.js entiende esta señal y no manda datos de
+  // analítica reales mientras esté así (ver initCookieConsent en js/app.js,
+  // que la actualiza a 'granted' si el usuario ya había aceptado antes, o
+  // cuando acepta desde el aviso). Debe declararse ANTES de cargar gtag.js.
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
   gtag('js', new Date());
   gtag('config', 'G-NZ0RG4S274');
 </script>
@@ -463,6 +476,98 @@
     </div>
   </section>
 
+  <!-- Política de privacidad -->
+  <section id="viewPrivacy" class="view hidden">
+    <div class="container">
+      <div class="page-band">
+        <nav class="breadcrumb"><a href="#/">Inicio</a> &gt; Política de privacidad</nav>
+        <h1>Política de privacidad</h1>
+        <p class="muted small">Última actualización: <span id="privacyLastUpdated"></span></p>
+      </div>
+      <div class="panel legal-content">
+        <h2>1. Quiénes somos</h2>
+        <p>ComparaMEX (<a href="https://comparamex.com" target="_blank" rel="noopener">comparamex.com</a>) es un comparador de precios independiente enfocado en el mercado mexicano. No vendemos productos directamente: enlazamos a las páginas de las tiendas donde el producto está a la venta, algunas de ellas mediante enlaces de afiliado (ver el aviso de afiliación al pie de cada página).</p>
+
+        <h2>2. Qué datos recopilamos</h2>
+        <ul>
+          <li><strong>Datos de navegación (Google Analytics 4):</strong> páginas visitadas, tiempo en el sitio, dispositivo/navegador aproximado, y clics en los botones "Ver oferta" hacia las tiendas. Estos datos son agregados y no identifican a una persona por nombre.</li>
+          <li><strong>Cuenta (opcional, Firebase Authentication):</strong> si inicias sesión con Google o correo/contraseña, guardamos tu correo, nombre y foto de perfil (si Google los provee) para asociarlos a tus favoritos y reseñas.</li>
+          <li><strong>Favoritos, ubicación elegida y reseñas:</strong> sin sesión iniciada se guardan solo en tu navegador (localStorage). Con sesión iniciada se guardan también en nuestra base de datos (Firebase Firestore, de Google) para que estén disponibles en cualquier dispositivo.</li>
+          <li><strong>Preferencia de cookies:</strong> tu elección en el aviso de cookies se guarda en tu navegador para no volver a preguntarte.</li>
+        </ul>
+        <p>No procesamos pagos ni recopilamos datos de tarjetas de crédito/débito: toda compra ocurre en el sitio de la tienda, fuera de ComparaMEX.</p>
+
+        <h2>3. Cookies y tecnologías similares</h2>
+        <p>Usamos cookies propias (preferencias, sesión) y de terceros (Google Analytics, Google Firebase) para medir el tráfico del sitio y, si iniciaste sesión, mantenerla activa. Puedes aceptar o rechazar las cookies de analítica desde el aviso que aparece en tu primera visita, o cambiar tu elección borrando los datos de este sitio en la configuración de tu navegador. Rechazarlas no te impide usar el comparador; solo desactiva la medición de Google Analytics.</p>
+
+        <h2>4. Con quién compartimos datos</h2>
+        <ul>
+          <li><strong>Google</strong> (Analytics y Firebase), como encargado del tratamiento de los datos de navegación y de cuenta.</li>
+          <li><strong>Admitad</strong> y otras redes de afiliados, que reciben un clic anónimo (sin datos personales) cuando sigues un enlace de afiliado, para efectos de la comisión.</li>
+          <li>Las tiendas enlazadas (Mercado Libre, Amazon, Walmart, Liverpool, AliExpress, etc.) no reciben ningún dato tuyo de parte de ComparaMEX antes de que hagas clic; a partir de ahí, la relación es directamente entre tú y esa tienda, bajo su propia política de privacidad.</li>
+        </ul>
+        <p>No vendemos tus datos personales a terceros.</p>
+
+        <h2>5. Tus derechos</h2>
+        <p>Si iniciaste sesión, puedes eliminar tu cuenta y los datos asociados (favoritos, reseñas) desde "Mi cuenta", o escribiéndonos a <a href="mailto:contacto@comparamex.com">contacto@comparamex.com</a>. Puedes borrar en cualquier momento los datos guardados localmente (favoritos sin cuenta, preferencia de cookies) desde la configuración de tu navegador.</p>
+
+        <h2>6. Menores de edad</h2>
+        <p>ComparaMEX no está dirigido a menores de 13 años y no recopila conscientemente datos de menores de esa edad.</p>
+
+        <h2>7. Cambios a esta política</h2>
+        <p>Podemos actualizar esta política conforme el sitio evolucione. La fecha de "Última actualización" arriba refleja la versión vigente.</p>
+
+        <h2>8. Contacto</h2>
+        <p>Para dudas sobre esta política o tus datos: <a href="mailto:contacto@comparamex.com">contacto@comparamex.com</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Términos y condiciones -->
+  <section id="viewTerms" class="view hidden">
+    <div class="container">
+      <div class="page-band">
+        <nav class="breadcrumb"><a href="#/">Inicio</a> &gt; Términos y condiciones</nav>
+        <h1>Términos y condiciones</h1>
+        <p class="muted small">Última actualización: <span id="termsLastUpdated"></span></p>
+      </div>
+      <div class="panel legal-content">
+        <h2>1. Aceptación</h2>
+        <p>Al usar ComparaMEX (<a href="https://comparamex.com" target="_blank" rel="noopener">comparamex.com</a>) aceptas estos términos. Si no estás de acuerdo, por favor no uses el sitio.</p>
+
+        <h2>2. Qué es ComparaMEX</h2>
+        <p>ComparaMEX es un comparador de precios: reúne información de precios publicada por distintas tiendas en línea y la muestra en un solo lugar para facilitar la comparación. <strong>No somos una tienda, no vendemos productos ni procesamos pagos.</strong> Cada botón "Ver oferta" te lleva al sitio real de la tienda, donde ocurre la compra bajo los términos, precios y disponibilidad de esa tienda — no los nuestros.</p>
+
+        <h2>3. Enlaces de afiliado</h2>
+        <p>Algunos enlaces hacia las tiendas son de afiliado (a través de redes como Admitad): si compras después de seguir uno de esos enlaces, ComparaMEX puede recibir una comisión de la tienda, sin costo adicional para ti. Esto no influye en qué precio mostramos ni en el orden de la comparación.</p>
+
+        <h2>4. Exactitud de los precios y la disponibilidad</h2>
+        <p>Nos esforzamos por mantener los precios actualizados (algunos se verifican automáticamente contra la tienda; ver la insignia "Precios verificados en tiempo real" cuando aplica), pero un precio, existencia o promoción puede cambiar en la tienda antes de que la reflejemos. <strong>El precio y la disponibilidad válidos son siempre los que confirma la tienda al momento de comprar</strong>, no los que muestra ComparaMEX.</p>
+
+        <h2>5. Reseñas de usuarios</h2>
+        <p>Las reseñas publicadas por usuarios reflejan la opinión de quien las escribió, no la de ComparaMEX. Nos reservamos el derecho de retirar una reseña que sea spam, ofensiva, falsa o que infrinja derechos de terceros.</p>
+
+        <h2>6. Cuentas de usuario</h2>
+        <p>Iniciar sesión es opcional y solo se requiere para sincronizar favoritos/reseñas entre dispositivos y para que tu reseña se publique con tu nombre. Eres responsable de mantener segura tu cuenta.</p>
+
+        <h2>7. Propiedad intelectual</h2>
+        <p>El diseño, código y textos propios de ComparaMEX son de sus autores. Los nombres, logotipos y fotografías de productos y tiendas de terceros pertenecen a sus respectivos dueños y se usan únicamente con fines informativos de comparación.</p>
+
+        <h2>8. Limitación de responsabilidad</h2>
+        <p>ComparaMEX se ofrece "tal cual", sin garantía de que la información esté siempre libre de errores. No somos responsables de disputas, defectos del producto, tiempos de entrega o cualquier problema que surja de una compra realizada en el sitio de un tercero.</p>
+
+        <h2>9. Cambios a estos términos</h2>
+        <p>Podemos actualizar estos términos conforme el sitio evolucione. La fecha de "Última actualización" arriba refleja la versión vigente.</p>
+
+        <h2>10. Ley aplicable</h2>
+        <p>Estos términos se rigen por las leyes de México.</p>
+
+        <h2>11. Contacto</h2>
+        <p>Para dudas sobre estos términos: <a href="mailto:contacto@comparamex.com">contacto@comparamex.com</a>.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <button id="backToTopBtn" class="back-to-top-btn is-hidden" type="button" aria-label="Volver arriba">
@@ -485,8 +590,22 @@
 <footer class="site-footer">
   <div class="container">
     <p>ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Proyecto de demostración (MVP), sin afiliación con las tiendas listadas.</p>
+    <nav class="footer-legal-links">
+      <a href="#/privacidad">Política de privacidad</a>
+      <a href="#/terminos">Términos y condiciones</a>
+    </nav>
   </div>
 </footer>
+
+<div id="cookieConsent" class="cookie-consent hidden">
+  <div class="cookie-consent-inner">
+    <p>Usamos cookies propias y de Google Analytics para medir el tráfico del sitio. Puedes aceptarlas o rechazarlas; rechazarlas no te impide usar el comparador. Más información en nuestra <a href="#/privacidad">política de privacidad</a>.</p>
+    <div class="cookie-consent-actions">
+      <button type="button" class="buy-btn buy-btn--outline" id="cookieConsentReject">Rechazar</button>
+      <button type="button" class="buy-btn" id="cookieConsentAccept">Aceptar</button>
+    </div>
+  </div>
+</div>
 
 <script type="module" src="js/firebase-init.js"></script>
 <script src="js/app.js"></script>

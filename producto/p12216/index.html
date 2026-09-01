@@ -14,10 +14,28 @@
 <meta name="theme-color" content="#FF0211">
 <link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../../css/style.css">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
   gtag('js', new Date());
   gtag('config', 'G-NZ0RG4S274');
 </script>
