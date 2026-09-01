@@ -338,7 +338,6 @@
     detailRating: document.getElementById("detailRating"),
     detailColors: document.getElementById("detailColors"),
     detailFromPrice: document.getElementById("detailFromPrice"),
-    detailFavBtn: document.getElementById("detailFavBtn"),
     detailTopOffers: document.getElementById("detailTopOffers"),
     deliveryBanner: document.getElementById("deliveryBanner"),
     deliveryBannerTitle: document.getElementById("deliveryBannerTitle"),
@@ -2936,9 +2935,6 @@
     attachDiscountRibbon(el.detailIcon, product);
     el.detailBrand.textContent = product.brand;
     el.detailName.innerHTML = `${htmlEscapeAttr(product.name)}${conditionBadge(product)}${usageBadge(product)}`;
-    el.detailFavBtn.innerHTML = favIconHtml(product.id);
-    bindFavToggle(el.detailFavBtn, product.id, () => renderDetail(product.id));
-
     const { avg, count } = aggregateRating(product);
     el.detailRating.innerHTML =
       count > 0
