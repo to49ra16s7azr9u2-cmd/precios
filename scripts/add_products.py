@@ -63,6 +63,10 @@ BANNED = [
     "limpiador", "perfume", "maquillaje", "labial", "medicamento", "pastillas",
     "pegamento", "agujeta", "cordones para", "plantilla para", "solo funda",
     "unicamente el", "no incluye",
+    # La cámara desechable se usa una vez y se tira: es un consumible, y
+    # además no es una cámara instantánea aunque el dominio las mezcle.
+    "camara desechable", "desechable",
+    "kit limpieza", "rollo de etiquetas", "papel termico",
 ]
 
 # El domain_id acota el rubro pero no separa el aparato de sus accesorios:
@@ -80,6 +84,27 @@ ACCESSORY = [
 ]
 
 STOPWORDS = {"de", "la", "el", "para", "con", "y", "en", "a", "por", "del", "los", "las"}
+
+# Lote de mayoreo ("30pz Audifonos ..."): no es un producto de consumo, es una
+# venta al por mayor, y en una lista de comparación de precios se ve como si
+# el mismo artículo costara diez veces más. Se dejan pasar los packs chicos
+# (2, 3, 4 piezas), que sí son presentación de venta normal.
+BULK_RE = re.compile(
+    r"\b(\d{2,})\s*(?:pz|pzs|piezas|unidades|pack)\b"      # "30pz ..."
+    r"|\b(?:pack|paquete|lote|caja)\s*(?:de\s*)?(\d{2,})\b"  # "Pack 100 ..."
+)
+
+# Algunos vendedores meten un precio dentro del título ("Persiana ... $1,312"),
+# que además no coincide con el precio real de la oferta. Mostrarlo sería
+# contradecir en el nombre el precio que la propia fila indica.
+PRICE_IN_TITLE_RE = re.compile(r"\$\s*\d")
+
+
+def is_junk_title(title):
+    m = BULK_RE.search(norm(title))
+    if m and int(next(g for g in m.groups() if g)) >= 10:
+        return True
+    return bool(PRICE_IN_TITLE_RE.search(title))
 
 
 def get(path):
@@ -173,7 +198,7 @@ def main():
                 if it.get("isRefurb"):
                     skipped["refurb"] += 1
                     continue
-                if any(b in n for b in (norm(x) for x in BANNED + ACCESSORY)):
+                if any(b in n for b in (norm(x) for x in BANNED + ACCESSORY)) or is_junk_title(title):
                     skipped["banned"] += 1
                     continue
                 if (must and not any(m in n for m in must)) or any(x in n for x in never):
