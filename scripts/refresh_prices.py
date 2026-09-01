@@ -53,6 +53,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PATH = os.path.join(ROOT, "data", "data.json")
+SHIPPING_RATES_PATH = os.path.join(ROOT, "data", "shipping-rates.json")
 PROXY = "https://comparamx-mercadolibre-proxy.comparamx.workers.dev/item"
 
 CATALOG_ID = re.compile(r"/p/(MLM\d+)")
@@ -189,6 +190,45 @@ def prune_dead(products, dead_ids):
     return survivors, removed, trimmed
 
 
+def refresh_usd_mxn_rate():
+    """Actualiza el tipo de cambio de la calculadora de envío.
+
+    data/shipping-rates.json guarda las tarifas en USD y un `usdToMxn` que
+    js/app.js usa para mostrarlas en pesos. Ese número estaba escrito a mano
+    y nada lo tocaba: los precios de producto sí se recalculaban con el tipo
+    de cambio del día (refresh_other_stores.py), pero el del envío se
+    quedaba congelado, así que con el tiempo la columna "Costo estimado"
+    iba a decir pesos calculados con un dólar viejo.
+
+    Si la consulta falla se deja el valor que había: es preferible una
+    cotización de ayer que romper la corrida diaria entera.
+    """
+    try:
+        req = urllib.request.Request(
+            "https://api.exchangerate-api.com/v4/latest/USD",
+            headers={"User-Agent": "ComparaMEX-bot/1.0"},
+        )
+        with urllib.request.urlopen(req, timeout=15) as r:
+            rate = json.loads(r.read().decode("utf-8"))["rates"]["MXN"]
+    except Exception as e:
+        print(f"  tipo de cambio: no se pudo consultar ({e}); se deja el guardado")
+        return False
+    with open(SHIPPING_RATES_PATH, encoding="utf-8") as f:
+        rates = json.load(f)
+    old = rates["meta"].get("usdToMxn")
+    rate = round(float(rate), 2)
+    if old == rate:
+        print(f"  tipo de cambio: sin cambio ({rate} MXN/USD)")
+        return False
+    rates["meta"]["usdToMxn"] = rate
+    rates["meta"]["lastUpdated"] = time.strftime("%Y-%m-%d")
+    with open(SHIPPING_RATES_PATH, "w", encoding="utf-8") as f:
+        json.dump(rates, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print(f"  tipo de cambio: {old} -> {rate} MXN/USD")
+    return True
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=0, help="máximo de productos a procesar (0 = todos)")
@@ -201,6 +241,9 @@ def main():
     ap.add_argument("--no-prune", dest="prune", action="store_false",
                      help="solo actualiza precios, no borra nada")
     args = ap.parse_args()
+
+    if not args.dry_run:
+        refresh_usd_mxn_rate()
 
     with open(DATA_PATH, encoding="utf-8") as f:
         data = json.load(f)
