@@ -228,7 +228,14 @@ def main():
                 if it.get("isRefurb"):
                     skipped["refurb"] += 1
                     continue
-                if any(b in n for b in (norm(x) for x in BANNED + ACCESSORY)) or is_junk_title(title):
+                # `allow` levanta el veto de palabras concretas SOLO para este
+                # target. Hace falta porque el veto es global y hay
+                # subcategorías donde el consumible ES el producto: Impresoras
+                # tiene "Consumibles", y ahí un cartucho de tinta es
+                # exactamente lo que se busca, no algo que colar por error.
+                allowed = {norm(x) for x in t.get("allow", [])}
+                vetoes = [norm(x) for x in BANNED + ACCESSORY if norm(x) not in allowed]
+                if any(b in n for b in vetoes) or is_junk_title(title):
                     skipped["banned"] += 1
                     continue
                 if (must and not any(m in n for m in must)) or any(x in n for x in never):
