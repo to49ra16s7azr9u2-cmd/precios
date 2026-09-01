@@ -81,6 +81,7 @@ ACCESSORY = [
     "juego de agujas", "set de agujas", "aguja para", "bobina para", "pedal para",
     "motor para maquina", "iluminacion para", "refaccion",
     "cable de alimentacion", "cable de señal", "contra chapa", "simulada", "dummy",
+    "barboquejo", "puntas de", "puntas para", "juego de puntas",
 ]
 
 STOPWORDS = {"de", "la", "el", "para", "con", "y", "en", "a", "por", "del", "los", "las"}
