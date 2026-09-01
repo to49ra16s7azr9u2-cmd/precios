@@ -13,6 +13,7 @@ vendedor y ninguna consulta va a devolver nada, por más keywords que se
 prueben. Conviene descartarlos antes de armar una lista larga de targets.
 """
 import json
+import re
 import sys
 import urllib.parse
 import urllib.request
@@ -27,18 +28,33 @@ def get(path):
         return json.load(r)
 
 
+# El Worker recorta el cuerpo de /probe a 1200 caracteres (es una sonda de
+# diagnóstico, no un proxy). Cuando domain_discovery devuelve muchas filas el
+# recorte parte el JSON a la mitad y json.loads revienta, así que se leen los
+# pares domain_id/domain_name con una expresión regular: lo que llegó entero
+# se aprovecha y lo que quedó cortado simplemente no aparece, en vez de
+# perderse la consulta completa por un ValueError.
+PAIR_RE = re.compile(
+    r'"domain_id"\s*:\s*"([^"]+)"(?:.*?"domain_name"\s*:\s*"([^"]*)")?',
+    re.DOTALL,
+)
+
+
 def domains_for(phrase):
     inner = f"/sites/MLM/domain_discovery/search?q={phrase}"
     data = get("/probe?path=" + urllib.parse.quote(inner, safe=""))
     body = data.get("con_token", {}).get("body") or data.get("sin_token", {}).get("body")
     if not body:
         return []
+    try:
+        rows = [(r.get("domain_id"), r.get("domain_name") or "") for r in json.loads(body)]
+    except ValueError:
+        rows = [(m.group(1), m.group(2) or "") for m in PAIR_RE.finditer(body)]
     seen, out = set(), []
-    for r in json.loads(body):
-        d = r.get("domain_id")
+    for d, name in rows:
         if d and d not in seen:
             seen.add(d)
-            out.append((d, r.get("domain_name") or ""))
+            out.append((d, name))
     return out
 
 
