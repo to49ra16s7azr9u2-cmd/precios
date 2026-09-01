@@ -15,6 +15,19 @@
 
 * { box-sizing: border-box; }
 
+/* Complemento del overflow-x:hidden de body (más abajo): body ya bloquea el
+   scroll horizontal, pero se confirmó con datos reales (ficha de producto
+   en un iPhone SE emulado, 320px) que el viewport de LAYOUT del navegador
+   se sigue calculando más ancho que el dispositivo (innerWidth medía 381px
+   contra un visualViewport.width real de 320px) cuando hay una tabla ancha
+   en la página -- acá la de comparación de precios, que ya vive dentro de
+   su propio .table-scroll con overflow-x:auto y se ve bien (se desliza
+   dentro de su caja), pero igual "contagiaba" el cálculo del viewport para
+   TODA la página, corriendo y achicando visualmente todo lo demás (el logo,
+   las migas de pan, etc. aparecían recortados/desplazados en la captura).
+   html{max-width:100vw} le pone un techo duro a ese cálculo. */
+html { max-width: 100vw; overflow-x: hidden; }
+
 body {
   margin: 0;
   font-family: "Hiragino Sans", "Noto Sans", "Segoe UI", Arial, sans-serif;
@@ -671,6 +684,20 @@ a { color: inherit; text-decoration: none; }
 .list-head .sort-select {
   flex-shrink: 0;
 }
+/* En un teléfono, el título (ya reducido a 0 por el ellipsis de arriba) más
+   "Incluir envío" + el aviso de estimado + el selector de orden NUNCA
+   entran en una sola línea sin encogerse -- ninguno de esos 3 controles
+   puede encogerse (checkbox, texto de aviso, <select>), así que a este
+   ancho la fila entera se salía de la pantalla (confirmado con capturas
+   reales en 320–430px: el contenido medía ~494px). Se detectó real
+   solo en un teléfono, no en desktop, así que el ellipsis de arriba se
+   deja intacto -- acá se permite que la fila pase a varias líneas: el
+   título ocupa su propia línea completa (flex-basis:100%) y los 3
+   controles se acomodan debajo, envolviendo entre sí si hace falta. */
+@media (max-width: 760px) {
+  .list-head { flex-wrap: wrap; }
+  .list-head h1 { flex: 1 1 100%; }
+}
 .sort-select {
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -749,6 +776,17 @@ a { color: inherit; text-decoration: none; }
 .product-row .row-price { font-size: 21px; font-weight: 800; color: var(--red-dark); }
 .product-row .row-stores { font-size: 12px; color: var(--muted); }
 .product-row.has-rank .rank-badge { flex-shrink: 0; }
+/* En los teléfonos más angostos (320px, iPhone SE y equivalentes) el resto
+   de la fila (ícono 56px + precio + corazón, ninguno se encoge) más los
+   gaps/padding de siempre dejaban la fila completa un puñado de px más
+   ancha que la pantalla -- confirmado con captura real (328px de contenido
+   en un viewport de 320px). Se recorta el aire entre elementos y el
+   padding de la tarjeta solo en este rango, en vez de encoger el ícono o
+   el precio (que ya están en su tamaño mínimo legible). */
+@media (max-width: 380px) {
+  .product-row { gap: 8px; padding: 12px 10px; }
+  .row-fav-btn { padding: 4px; }
+}
 /* Antes esto usaba :nth-child (posición en el DOM), que con paginación
    dejó de coincidir con el puesto real del ranking (la página 2 también
    tiene una fila en la posición 2) -- ahora la clase la pone JS según el
