@@ -507,6 +507,10 @@
   //     estándar suele ser gratis o barato en artículos <2kg.
   //   - alibaba: plataforma mayorista, envíos de mayor volumen/peso.
   //   - theluxurycloset: bolsos/joyería de lujo, paquetería asegurada.
+  //   - whirlpool: envío nacional (tienda mexicana, no internacional), pero
+  //     de electrodomésticos grandes/pesados (refrigeradores, lavadoras,
+  //     estufas) que suelen cobrar flete especializado más caro que un
+  //     paquete normal -- referencia aproximada, no un monto de whirlpool.mx.
   const SHIPPING_ESTIMATE_MXN = {
     mercadolibre: 99,
     sunsky: 150,
@@ -517,6 +521,7 @@
     aliexpress: 130,
     alibaba: 350,
     theluxurycloset: 500,
+    whirlpool: 550,
   };
 
   // Costo de envío de una oferta: { fee, estimated }. fee nunca es null

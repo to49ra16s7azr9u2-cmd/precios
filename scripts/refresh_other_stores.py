@@ -1,18 +1,27 @@
 #!/usr/bin/env python3
 """Refresca precios y poda bajas para las tiendas SIN API en vivo conectada
-(SUNSKY, theluxurycloset, GeekBuying, Glasseslit — ver LIVE_API_CONFIG en
-js/app.js, donde solo mercadolibre está enabled). scripts/refresh_prices.py
-ya cubre Mercado Libre; este script es su equivalente para estas 4.
+(SUNSKY, theluxurycloset, GeekBuying, Glasseslit, Whirlpool — ver
+LIVE_API_CONFIG en js/app.js, donde solo mercadolibre está enabled).
+scripts/refresh_prices.py ya cubre Mercado Libre; este script es su
+equivalente para estas 5.
 
-POR QUÉ ESTAS 4 Y NO LAS OTRAS
-------------------------------
+POR QUÉ ESTAS Y NO LAS OTRAS
+-----------------------------
 Se probó primero a mano (curl a una URL real de cada tienda) qué tan
 confiable es leer el precio vigente sin una API oficial:
 
-  - SUNSKY, theluxurycloset, GeekBuying, Glasseslit: la página del producto
-    trae datos estructurados legibles a máquina -- JSON-LD schema.org/Product
-    (precio, moneda, disponibilidad) o al menos meta og:price:amount/currency.
-    Ninguna bloqueó el pedido ni exigió JavaScript.
+  - SUNSKY, theluxurycloset, GeekBuying, Glasseslit, Whirlpool: la página
+    del producto trae datos estructurados legibles a máquina -- JSON-LD
+    schema.org/Product (precio, moneda, disponibilidad) o al menos meta
+    og:price:amount/currency. Ninguna bloqueó el pedido ni exigió
+    JavaScript. Whirlpool (whirlpool.mx) es además marca única (no
+    marketplace): siempre una sola oferta por producto, y su JSON-LD anida
+    el Offer real dentro de un AggregateOffer (ver el desenvuelto en
+    extract_price) en vez de exponerlo directo como las otras 4. Coppel y
+    Liverpool.com.mx se evaluaron y se descartaron: Coppel prohíbe /p/* y
+    /c/* en robots.txt (y no tiene feed de productos en Admitad); Liverpool
+    protege el precio con Akamai Bot Manager y ni siquiera lo expone en el
+    HTML inicial.
   - AliExpress: redirige según la región detectada del pedido a un id de
     producto DISTINTO (probado con datos reales: pedir el id X devolvió una
     página del id Y, "adaptado" a EE.UU.) -- el precio que se leería no
@@ -22,8 +31,6 @@ confiable es leer el precio vigente sin una API oficial:
     cantidad); Molnija (ruso) y Woodestic (WooCommerce) tienen precio en
     texto plano sin marcado estándar, piden un parser dedicado por sitio con
     volumen demasiado chico (28 y 64 productos) para justificarlo todavía.
-
-Estas 4 suman 2,506 de los ~4,500 productos "de referencia" del catálogo.
 
 CÓMO LLEGA A LA URL REAL
 -------------------------
@@ -36,12 +43,14 @@ estadísticas del programa sin que haya un visitante de verdad detrás.
 
 MONEDA
 ------
-Las 4 cotizan en USD; el catálogo guarda todo en MXN. Se convierte con el
-tipo de cambio del día (api.exchangerate-api.com, gratis, sin API key) --
-mismo mecanismo que ya se usa (implícito) para los precios existentes: el
-guardado de un producto SUNSKY de prueba, $7,854 MXN, contra sus $462.00 USD
-reales, implica ~17.0 MXN/USD, casi exacto al tipo de cambio del día en que
-se escribió este script (17.03).
+SUNSKY/theluxurycloset/GeekBuying/Glasseslit cotizan en USD; Whirlpool ya
+cotiza en MXN (whirlpool.mx es la tienda mexicana, sin conversión). El
+catálogo guarda todo en MXN: los USD se convierten con el tipo de cambio del
+día (api.exchangerate-api.com, gratis, sin API key) -- mismo mecanismo que
+ya se usa (implícito) para los precios existentes: el guardado de un
+producto SUNSKY de prueba, $7,854 MXN, contra sus $462.00 USD reales,
+implica ~17.0 MXN/USD, casi exacto al tipo de cambio del día en que se
+escribió este script (17.03).
 
 USO
 ---
@@ -64,7 +73,7 @@ from concurrent.futures import ThreadPoolExecutor
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PATH = os.path.join(ROOT, "data", "data.json")
 
-SUPPORTED_STORES = {"sunsky", "theluxurycloset", "geekbuying", "glasseslit"}
+SUPPORTED_STORES = {"sunsky", "theluxurycloset", "geekbuying", "glasseslit", "whirlpool"}
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -186,6 +195,15 @@ def extract_price(html, target_url=None):
             continue
         if isinstance(offers, list):
             offers = offers[0] if offers else None
+        if not isinstance(offers, dict):
+            continue
+        # AggregateOffer (whirlpool.mx, y potencialmente otras tiendas de una
+        # sola marca en vez de marketplace): el precio/disponibilidad real
+        # está en su "offers" anidado (Offer o lista de Offer), no en el
+        # AggregateOffer mismo -- que solo trae lowPrice/highPrice/offerCount.
+        if str(offers.get("@type")) == "AggregateOffer" and offers.get("offers"):
+            nested = offers["offers"]
+            offers = nested[0] if isinstance(nested, list) else nested
         if not isinstance(offers, dict):
             continue
         avail = str(offers.get("availability") or "")
