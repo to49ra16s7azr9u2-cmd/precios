@@ -96,7 +96,17 @@ def _throttle():
         _last_request[0] = time.time()
 
 
+def _safe_url(url):
+    """Codifica caracteres no-ASCII en la ruta (el sitemap de whirlpool.mx
+    trae algunas URLs con comillas tipográficas “”/pulgadas o ³ sin escapar,
+    que rompen la línea de petición HTTP si se mandan tal cual)."""
+    parts = urllib.parse.urlsplit(url)
+    path = urllib.parse.quote(parts.path, safe="/-_.~")
+    return urllib.parse.urlunsplit((parts.scheme, parts.netloc, path, parts.query, parts.fragment))
+
+
 def fetch(url, retries=2):
+    url = _safe_url(url)
     for attempt in range(retries + 1):
         _throttle()
         try:
@@ -178,7 +188,7 @@ def extract_product(page_html, url):
                 "price": price,
                 "currency": currency,
                 "in_stock": in_stock,
-                "url": url,
+                "url": _safe_url(url),
             }
     return None
 
@@ -199,10 +209,15 @@ def categorize(name):
         return "Refrigeradores", sub, "fridge"
     if "congelador" in n:
         return "Refrigeradores", "Congeladores", "fridge"
-    if "minisplit" in n or "mini split" in n or "aire acondicionado" in n or "climatizacion" in n:
+    if (
+        "minisplit" in n or "mini split" in n or "aire acondicionado" in n
+        or "climatizacion" in n or "equipo piso techo" in n or "toneladas" in n
+    ):
         return "Climatización", "Aires acondicionados", "snowflake"
     if "deshumidificador" in n:
         return "Climatización", "Deshumidificadores", "snowflake"
+    if "enfriador de aire evaporativo" in n or "climatizador evaporativo" in n:
+        return "Climatización", "Climatizadores evaporativos", "snowflake"
     if "torre de lavado" in n or "centro de lavado" in n:
         return "Lavadoras", "Centros de lavado", "washer"
     if "secadora" in n and "lavadora" not in n:
