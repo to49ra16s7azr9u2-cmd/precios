@@ -1749,7 +1749,7 @@
             : colorSwatchHtml(product.colorVariants) || `<span class="rc">Sin calificaciones todavía</span>`}
         </div>
         <p class="detail-fromprice">
-          ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}
+          ${sellerTotal(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(sellerTotal(product), "vendedor", "vendedores")}
           ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
         </p>
         <button type="button" class="most-viewed-cta">Ver ficha completa →</button>
@@ -2161,10 +2161,10 @@
           }
         </div>
         <div class="row-priceblock">
-          ${offerCount(p) > 1 ? `<div class="row-from">Desde</div>` : ""}
+          ${sellerTotal(p) > 1 ? `<div class="row-from">Desde</div>` : ""}
           <div class="row-price">${money(minPrice(p))}${bestDiscountPct(p) ? `<span class="discount-badge">-${bestDiscountPct(p)}%</span>` : ""}</div>
           ${cheapestOfferShippingEstimated(p) ? `<span class="shipping-estimate-note">${icon("alert-triangle")} envío estimado incluido</span>` : ""}
-          <div class="row-stores">${plural(offerCount(p), "tienda", "tiendas")}</div>
+          <div class="row-stores">${plural(sellerTotal(p), "vendedor", "vendedores")}</div>
         </div>
         <button class="row-fav-btn" aria-label="Favorito"></button>
       `;

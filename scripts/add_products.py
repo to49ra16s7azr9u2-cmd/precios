@@ -82,6 +82,7 @@ ACCESSORY = [
     "motor para maquina", "iluminacion para", "refaccion",
     "cable de alimentacion", "cable de señal", "contra chapa", "simulada", "dummy",
     "barboquejo", "puntas de", "puntas para", "juego de puntas",
+    "carcasa para", "case para", "gabinete para disco",
 ]
 
 STOPWORDS = {"de", "la", "el", "para", "con", "y", "en", "a", "por", "del", "los", "las"}
@@ -135,6 +136,34 @@ def sig(name):
 def ml_id(url):
     m = re.search(r"(MLM\d+)", url or "")
     return m.group(1) if m else None
+
+
+def sellers_of(item, product_id):
+    """Vendedores normalizados, mismo formato que refresh_prices.py.
+
+    Solo con MÁS DE UNO: el frontend no expande filas con uno solo
+    (sellerRows exige length >= 2) y guardarlo sería peso muerto.
+    """
+    out = []
+    for s in item.get("sellers") or []:
+        item_id, price = s.get("itemId"), s.get("price")
+        if not item_id or not isinstance(price, (int, float)) or price <= 0:
+            continue
+        row = {
+            "itemId": item_id,
+            "price": price,
+            "url": f"https://www.mercadolibre.com.mx/p/{product_id}?pdp_filters=item_id:{item_id}",
+        }
+        if s.get("listPrice"):
+            row["listPrice"] = s["listPrice"]
+        if s.get("shippingFee") == 0:
+            row["shippingFee"] = 0
+        if s.get("state"):
+            row["state"] = s["state"]
+        if s.get("official"):
+            row["official"] = True
+        out.append(row)
+    return out if len(out) > 1 else []
 
 
 def build_index(products):
@@ -220,6 +249,18 @@ def main():
                 }
                 if it.get("priceOriginal"):
                     offer["listPrice"] = it["priceOriginal"]
+                # El Worker ya manda cuántos vendedores tiene la publicación y
+                # la lista de ellos (winnerOffer los calcula igual para
+                # /catalog que para /item). Guardarlos acá cuesta cero: si no,
+                # el producto nace diciendo "1 vendedor" hasta que pase
+                # refresh_prices.py al día siguiente.
+                if isinstance(it.get("sellerCount"), int) and it["sellerCount"] > 1:
+                    offer["sellerCount"] = it["sellerCount"]
+                if it.get("lowestPrice") and it["lowestPrice"] < it["price"]:
+                    offer["lowestPrice"] = it["lowestPrice"]
+                sellers = sellers_of(it, iid)
+                if sellers:
+                    offer["sellers"] = sellers
 
                 products.append({
                     "id": f"p{next_num}",

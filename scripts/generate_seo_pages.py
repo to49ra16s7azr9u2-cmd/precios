@@ -266,6 +266,21 @@ def related_products(product, all_products, n=4):
     return same_cat[:n]
 
 
+def seller_total(product):
+    """Vendedores distintos, mismo criterio que sellerTotal() en js/app.js.
+
+    Casi todo el catálogo viene de Mercado Libre, así que "1 tienda" no
+    informaba nada; lo que varía es cuántos vendedores compiten por el mismo
+    producto, que es además sobre lo que se calcula el precio "Desde".
+    """
+    # Mismas opciones de compra que purchaseOptions() en js/app.js: las
+    # variantes de color SUSTITUYEN a la oferta base (no se suman), o se
+    # contaría dos veces la misma publicación.
+    variants = product.get("colorVariants") or []
+    options = variants if len(variants) > 1 else product["offers"]
+    return sum((o.get("sellerCount") or 1) for o in options) or 1
+
+
 def seller_rows(product):
     """Una fila por vendedor, igual que sellerRows() en js/app.js.
 
@@ -310,10 +325,10 @@ def render_product_page(product, data):
     avg, count = aggregate_rating(product)
     canonical_path = f"/producto/{product['id']}/"
     canonical = f"{SITE_URL}{canonical_path}"
-    n_stores = len(product["offers"])
+    n_sellers = seller_total(product)
 
     description = (
-        f"Compara el precio de {product['name']} entre {n_stores} tiendas mexicanas. "
+        f"Compara el precio de {product['name']} entre {plural(n_sellers, 'vendedor', 'vendedores')} en México. "
         f"Desde {money(price)} MXN. Envío, disponibilidad y calificación por tienda."
     )
 
@@ -474,7 +489,7 @@ def render_product_page(product, data):
     <p class="muted small">{html_escape(product['brand'])}</p>
     <h1>{html_escape(product['name'])}{f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>' if is_used(product) else ''}</h1>
     <p class="detail-rating">{f'{avg} / 5 ({plural(count, "calificación", "calificaciones")})' if count else 'Sin calificaciones todavía'}</p>
-    <p class="detail-fromprice">{'Desde ' if n_stores > 1 else ''}<strong>{money(price)}</strong> en {plural(n_stores, "tienda", "tiendas")}</p>
+    <p class="detail-fromprice">{'Desde ' if n_sellers > 1 else ''}<strong>{money(price)}</strong> en {plural(n_sellers, "vendedor", "vendedores")}</p>
   </div>
 </div>
 <div class="panel">
