@@ -1265,9 +1265,33 @@
     };
   }
 
+  // Una subcategoría sin productos se pintaba igual en el nav, en el buscador
+  // y en la portada de su categoría: un enlace que sólo lleva a una lista
+  // vacía. Pasa solo, sin que nadie edite la taxonomía -- la limpieza de
+  // listados caídos vació cuatro subcategorías de lujo de golpe, y otras
+  // nunca tuvieron fuente de datos. Filtrarlas aquí, contra los productos ya
+  // cargados, hace que el nav se corrija solo cada vez que eso vuelva a
+  // pasar, en vez de tener que acordarse de borrarlas a mano.
+  function hideEmptyTaxonomy(data) {
+    const withProducts = new Set();
+    for (const p of data.products || []) {
+      withProducts.add(`${p.category} ${p.subcategory || ""}`);
+      withProducts.add(p.category);
+    }
+    data.categories = (data.categories || [])
+      .map((c) => ({
+        ...c,
+        subcategories: (c.subcategories || []).filter((s) =>
+          withProducts.has(`${c.id} ${s.id}`)
+        ),
+      }))
+      .filter((c) => withProducts.has(c.id));
+    return data;
+  }
+
   async function loadData() {
     const res = await fetch("data/data.json");
-    state.data = await res.json();
+    state.data = hideEmptyTaxonomy(await res.json());
     // Catálogo de marcas/afiliados (Admitad): independiente del comparador de
     // electrónica, así que un fallo aquí no debe tumbar el resto del sitio.
     try {

@@ -538,9 +538,33 @@ def build_robots():
     return f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n"
 
 
+def hide_empty_taxonomy(data):
+    """Quita categorías y subcategorías que se quedaron sin productos.
+
+    Mismo criterio que `hideEmptyTaxonomy` en js/app.js: una subcategoría
+    vacía es un enlace a una lista vacía, y como página estática además sería
+    contenido indexable sin nada dentro.
+    """
+    with_products = set()
+    for p in data.get("products", []):
+        with_products.add((p["category"], p.get("subcategory") or ""))
+        with_products.add(p["category"])
+    cats = []
+    for c in data.get("categories", []):
+        if c["id"] not in with_products:
+            continue
+        c = dict(c)
+        c["subcategories"] = [
+            s for s in c.get("subcategories", []) if (c["id"], s["id"]) in with_products
+        ]
+        cats.append(c)
+    data["categories"] = cats
+    return data
+
+
 def main():
     with open(DATA_PATH, encoding="utf-8") as f:
-        data = json.load(f)
+        data = hide_empty_taxonomy(json.load(f))
 
     written = []
 
