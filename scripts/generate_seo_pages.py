@@ -496,7 +496,7 @@ def render_product_page(product, data):
   <h2>Comparación de precios</h2>
   <div class="table-scroll">
     <table class="compare-table">
-      <thead><tr><th>Tienda</th><th>Precio</th><th>Envío</th><th>Disponibilidad</th><th>Calificación</th></tr></thead>
+      <thead><tr><th>Vendedor</th><th>Precio</th><th>Envío</th><th>Disponibilidad</th><th>Calificación</th></tr></thead>
       <tbody>{''.join(table_rows)}</tbody>
     </table>
   </div>

@@ -1219,10 +1219,10 @@ a { color: inherit; text-decoration: none; }
   font-size: 13px;
   color: var(--muted);
   border-bottom: 2px solid var(--border);
-  padding: 10px 8px;
+  padding: 8px 8px;
 }
 .compare-table td {
-  padding: 14px 10px;
+  padding: 9px 10px;
   border-bottom: 1px solid var(--border);
   font-size: 14px;
   vertical-align: middle;
@@ -1553,6 +1553,11 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   white-space: nowrap;
 }
+/* .buy-btn se comparte con botones que no son filas de esta tabla (iniciar
+   sesión, publicar reseña, el aviso de cookies): el achicado de "más
+   delgado" pedido va solo acá, para no encoger esos otros botones sin que
+   nadie lo pidiera. */
+.compare-table .buy-btn { padding: 8px 18px; }
 .buy-btn:hover { background: var(--red-dark); }
 .buy-btn--outline {
   background: #fff;
@@ -1618,7 +1623,7 @@ a { color: inherit; text-decoration: none; }
    salir del sitio (aversión a la incertidumbre) sin prometer nada que no
    se cumpla — es un enlace directo a la tienda real, no un checkout propio. */
 .buy-trust {
-  margin-top: 6px;
+  margin-top: 4px;
   font-size: 10px;
   color: var(--muted);
   text-align: center;
