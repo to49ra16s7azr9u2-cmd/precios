@@ -131,7 +131,11 @@
       <div class="list-layout">
         <aside class="filters" id="filtersPanel">
           <h2 id="filtersPanelHead">Filtros <span class="filters-panel-toggle">▾</span></h2>
-          <div class="filter-group filter-group-collapsible collapsed">
+          <!-- Categoría es el único grupo que arranca ABIERTO (sin "collapsed"),
+               a pedido del usuario: es el filtro que más se usa y el que da
+               contexto de dónde está parado el visitante. El resto sigue
+               cerrado para que el panel no sea una pared de opciones. -->
+          <div class="filter-group filter-group-collapsible">
             <h3><span class="filter-group-title-row"><span class="filter-group-title">Categoría</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Muestra solo productos de una categoría o subcategoría.</span></h3>
             <input type="text" id="filterCategorySearch" class="filter-search" placeholder="Buscar categoría..." autocomplete="off">
             <div id="filterCategory" class="filter-options"></div>

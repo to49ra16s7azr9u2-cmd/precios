@@ -4021,10 +4021,11 @@
       renderList();
     });
 
-    // Todos los grupos del panel de Filtros (Precio/Marca/Calificación/
-    // Condición/MagSafe/Tamaño) son colapsables y arrancan cerrados (clase
-    // "collapsed" en el HTML) -- a pedido del usuario, para que el panel no
-    // aparezca de entrada como una pared de opciones. El contenido interno
+    // Todos los grupos del panel de Filtros son colapsables. Arrancan
+    // cerrados (clase "collapsed" en el HTML) -- a pedido del usuario, para
+    // que el panel no aparezca de entrada como una pared de opciones --
+    // MENOS Categoría, que arranca abierto (también a pedido): es el filtro
+    // más usado y el que muestra dónde está parado el visitante. El contenido
     // de cada uno (filterBrand, filterRating, etc.) se re-genera en cada
     // renderList(), pero el <h3> y el .filter-group que lo envuelven son
     // estáticos del HTML, así que este listener se registra una sola vez acá.
