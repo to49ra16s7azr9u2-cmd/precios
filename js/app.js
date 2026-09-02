@@ -822,41 +822,72 @@
     container.appendChild(label);
   }
 
-  // Categorías con más descuentos activos ahora mismo (top 10, según
-  // cuántos de sus productos tienen descuento real) -- a pedido del
-  // usuario, se recalcula cada vez que se pinta Inicio a partir de los
-  // datos actuales (no es una lista fija a mano), así que si mañana
-  // cambian los descuentos del catálogo, este top 10 cambia solo con el
-  // próximo repintado.
-  function topDiscountCategoryIds(n) {
-    const counts = state.data.categories.map((cat) => {
-      const products = state.data.products.filter((p) => p.category === cat.id);
-      const discounted = products.filter((p) => bestDiscountPct(p)).length;
-      return { id: cat.id, discounted };
-    });
-    return new Set(
-      counts
-        .filter((c) => c.discounted > 0)
-        .sort((a, b) => b.discounted - a.discounted)
-        .slice(0, n)
-        .map((c) => c.id)
+  // Sello de ofertas por categoría (Inicio). Se recalcula en cada pintado a
+  // partir de los datos actuales -- no es una lista fija a mano -- así que si
+  // mañana cambian los descuentos del catálogo, los sellos cambian solos.
+  //
+  // La regla original era "top 10 por CANTIDAD de productos con descuento", y
+  // estaba mal calibrada: premiaba a las categorías grandes por ser grandes.
+  // Televisores tiene el 74% de su catálogo rebajado y no mostraba nada,
+  // mientras que categorías con muchos más productos pero una minoría en
+  // oferta sí lo mostraban. Ahora manda la TASA de descuento (qué porción de
+  // la categoría está rebajada) más un piso de descuento máximo real, y se
+  // conserva el top 10 por cantidad para que ninguna categoría que ya tenía
+  // sello lo pierda.
+  //
+  // El texto lleva el descuento máximo REAL de la categoría ("Hasta -70%")
+  // en vez de un "Muchas ofertas" genérico: comunica mejor el tamaño de la
+  // rebaja y, al salir del dato, no puede prometer una oferta que no existe.
+  const SALE_BADGE_MIN_MAX_PCT = 65; // el mejor descuento de la categoría
+  const SALE_BADGE_MIN_SHARE = 0.45; // porción de la categoría en oferta
+
+  // Devuelve Map(categoryId -> descuento máximo %) para las categorías que
+  // ameritan sello. Una sola pasada por el catálogo (antes se filtraba el
+  // catálogo entero una vez POR categoría: ~49 x 87k productos por pintado).
+  function categorySaleBadges() {
+    const stats = new Map();
+    for (const p of state.data.products) {
+      let e = stats.get(p.category);
+      if (!e) { e = { total: 0, discounted: 0, max: 0 }; stats.set(p.category, e); }
+      e.total++;
+      const d = bestDiscountPct(p);
+      if (d) {
+        e.discounted++;
+        if (d > e.max) e.max = d;
+      }
+    }
+    const topByCount = new Set(
+      [...stats.entries()]
+        .filter(([, e]) => e.discounted > 0)
+        .sort((a, b) => b[1].discounted - a[1].discounted)
+        .slice(0, 10)
+        .map(([id]) => id)
     );
+    const badges = new Map();
+    for (const [id, e] of stats) {
+      if (!e.max) continue;
+      const share = e.total ? e.discounted / e.total : 0;
+      const strong = e.max >= SALE_BADGE_MIN_MAX_PCT && share >= SALE_BADGE_MIN_SHARE;
+      if (strong || topByCount.has(id)) badges.set(id, e.max);
+    }
+    return badges;
   }
 
-  // Sello en la esquina de la tarjeta de categoría (Inicio), para las
-  // categorías del top 10 de arriba -- mismo motivo que
-  // attachDiscountRibbon/attachMostViewedLabel para reengancharse en
+  // Sello en la esquina de la tarjeta de categoría (Inicio) -- mismo motivo
+  // que attachDiscountRibbon/attachMostViewedLabel para reengancharse en
   // cada asentado de renderProductMedia (limpia el contenedor del ÍCONO
   // en cada intento/reintento de carga de imagen), aunque el sello en sí
   // se cuelga de la tarjeta completa (card), no del marco de la foto,
   // para no taparla.
-  function attachCategoryDiscountBadge(card) {
+  function attachCategoryDiscountBadge(card, maxPct) {
     if (!card) return;
     const existing = card.querySelector(".category-discount-badge");
     if (existing) existing.remove();
     const badge = document.createElement("span");
     badge.className = "category-discount-badge";
-    badge.innerHTML = `${icon("flame")} Muchas ofertas`;
+    badge.innerHTML = maxPct
+      ? `${icon("flame")} Hasta -${maxPct}%`
+      : `${icon("flame")} Muchas ofertas`;
     card.appendChild(badge);
   }
 
@@ -1677,7 +1708,7 @@
     allCard.onclick = () => { state.sort = "relevance"; goList({ category: null, query: "" }); };
     el.homeCategoryGrid.appendChild(allCard);
 
-    const topDiscountIds = topDiscountCategoryIds(10);
+    const saleBadges = categorySaleBadges();
 
     state.data.categories.forEach((cat) => {
       const categoryProducts = state.data.products.filter((p) => p.category === cat.id);
@@ -1691,7 +1722,7 @@
       `;
       const iconEl = card.querySelector(".category-card-icon");
       const settleCategoryBadge = () => {
-        if (topDiscountIds.has(cat.id)) attachCategoryDiscountBadge(card);
+        if (saleBadges.has(cat.id)) attachCategoryDiscountBadge(card, saleBadges.get(cat.id));
       };
       // El ícono es la foto real del producto más popular de la categoría
       // (mismo criterio de "popular" que el resto del sitio -- ver
