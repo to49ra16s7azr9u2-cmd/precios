@@ -1455,18 +1455,34 @@
   }
 
   async function loadData() {
-    const res = await fetch("data/data.json");
-    const manifest = await res.json();
     // El catálogo pasó de un solo data.json (llegó a 62MB, cerca del
     // límite de GitHub) a un manifiesto chico + varios data/products-N.json
     // -- se piden todos en paralelo y se concatenan, mismo resultado final
     // que antes para el resto del código (state.data.products).
-    const productFiles = manifest.productFiles || [];
+    let manifest = await (await fetch("data/data.json")).json();
+    let productFiles = manifest.productFiles || [];
+
+    // Auto-reparación: si el manifiesto que llegó no trae NI la lista de
+    // archivos NI productos adentro, es un data.json viejo servido por una
+    // caché (el Service Worker lo servía cache-first, ver sw.js). Ese caso
+    // dejaba el catálogo en cero y TODAS las páginas decían "No se
+    // encontraron productos", así que se vuelve a pedir saltando la caché en
+    // vez de pintar un sitio vacío.
+    if (!productFiles.length && !Array.isArray(manifest.products)) {
+      manifest = await (await fetch("data/data.json", { cache: "reload" })).json();
+      productFiles = manifest.productFiles || [];
+    }
     delete manifest.productFiles;
-    const productBatches = await Promise.all(
-      productFiles.map((f) => fetch(f).then((r) => r.json()))
-    );
-    manifest.products = productBatches.flat();
+
+    if (productFiles.length) {
+      const productBatches = await Promise.all(
+        productFiles.map((f) => fetch(f).then((r) => r.json()))
+      );
+      manifest.products = productBatches.flat();
+    }
+    // Un data.json anterior a la partición traía los productos adentro; se
+    // respeta tal cual en vez de dejarlo indefinido.
+    manifest.products = manifest.products || [];
     manifest.products.forEach((p, i) => productIndexById.set(p.id, i));
     state.data = hideEmptyTaxonomy(manifest);
     // Catálogo de marcas/afiliados (Admitad): independiente del comparador de
