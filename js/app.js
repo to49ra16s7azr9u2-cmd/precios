@@ -1386,6 +1386,53 @@
     return data;
   }
 
+  // --- Detalle bajo demanda -------------------------------------------
+  // La url de cada oferta y el desglose de vendedores solo se usan en la
+  // ficha de producto (tabla de ofertas y botones "Ver oferta"), nunca en
+  // portada/listas/búsqueda, pero eran 10.6 MB en crudo del payload inicial
+  // que TODO visitante bajaba. Ahora viven en data/details-N.json y se piden
+  // al abrir una ficha: un chunk son ~25-50 KB con gzip (ver
+  // DETAIL_OFFER_FIELDS en scripts/data_io.py).
+  //
+  // A qué chunk ir se deduce de la POSICIÓN del producto en el arreglo
+  // (products-N.json y details-N.json se escriben en el mismo orden desde
+  // save_catalog), así que no hace falta bajar un índice id -> archivo de
+  // 87,000 entradas.
+  const productIndexById = new Map();
+  const detailChunkCache = new Map();
+
+  async function ensureDetail(product) {
+    if (!product || product.__detailLoaded) return;
+    const files = (state.data && state.data.detailFiles) || [];
+    const size = (state.data && state.data.detailChunkSize) || 0;
+    const i = productIndexById.get(product.id);
+    if (!files.length || !size || i == null) return;
+    const file = files[Math.floor(i / size)];
+    if (!file) return;
+    try {
+      if (!detailChunkCache.has(file)) {
+        detailChunkCache.set(file, fetch(file).then((r) => r.json()));
+      }
+      const chunk = await detailChunkCache.get(file);
+      const detail = chunk[product.id];
+      if (detail) {
+        for (const [field, byIndex] of Object.entries(detail)) {
+          for (const [idx, value] of Object.entries(byIndex)) {
+            const offer = (product.offers || [])[Number(idx)];
+            if (offer && offer[field] == null) offer[field] = value;
+          }
+        }
+      }
+      product.__detailLoaded = true;
+    } catch (e) {
+      // Sin detalle la ficha se pinta igual (precio, specs, envío); lo único
+      // que queda sin enlace es el botón de la tienda. Se reintenta en la
+      // próxima visita: no se marca como cargado ni se cachea el fallo.
+      detailChunkCache.delete(file);
+      console.error("No se pudo cargar el detalle de ofertas", e);
+    }
+  }
+
   async function loadData() {
     const res = await fetch("data/data.json");
     const manifest = await res.json();
@@ -1399,6 +1446,7 @@
       productFiles.map((f) => fetch(f).then((r) => r.json()))
     );
     manifest.products = productBatches.flat();
+    manifest.products.forEach((p, i) => productIndexById.set(p.id, i));
     state.data = hideEmptyTaxonomy(manifest);
     // Catálogo de marcas/afiliados (Admitad): independiente del comparador de
     // electrónica, así que un fallo aquí no debe tumbar el resto del sitio.
@@ -2984,9 +3032,14 @@
     });
   }
 
-  function renderDetail(productId) {
+  async function renderDetail(productId) {
     const product = state.data.products.find((p) => p.id === productId);
     if (!product) { goHome(); return; }
+
+    // Las urls de las ofertas viajan aparte (ver ensureDetail): se esperan
+    // ANTES de pintar para que la tabla de ofertas nunca aparezca con
+    // botones "Ver oferta" sin destino.
+    await ensureDetail(product);
 
     // Historial en la nube (para "Visto recientemente" y "Recomendado para
     // ti" en Inicio): solo con sesión iniciada -- sin cuenta, el historial
