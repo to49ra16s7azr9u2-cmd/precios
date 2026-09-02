@@ -62,15 +62,284 @@ HEADERS = {
 }
 PAGE_SIZE = 50
 
+def norm(name):
+    """minúsculas y sin acentos -- el catálogo de Elektra mezcla formas
+    acentuadas/sin acentuar del mismo producto (p. ej. "Batería portatil" y
+    "Bateria Portátil" en el mismo listado), así que cada categorizador
+    compara sobre esta forma normalizada en vez de repetir cada variante."""
+    import unicodedata
+    nfkd = unicodedata.normalize("NFKD", name.lower())
+    return "".join(c for c in nfkd if not unicodedata.combining(c))
+
+
+EARBUDS_RE = re.compile(
+    r"airpods|galaxy buds|enco buds|enco air|redmi buds|earbuds|"
+    r"audifono|auricular",
+    re.I,
+)
+
+
+def cat_audio(name):
+    n = norm(name)
+    if EARBUDS_RE.search(n):
+        wireless = "inalambric" in n or "bluetooth" in n or "airpods" in n or "buds" in n
+        return "Audífonos", ("Earbuds inalámbricos" if wireless else "Diadema con cable"), "headphones"
+    if any(k in n for k in (
+        "barra de sonido", "soundbar", "home theater", "home cinema",
+        "minicomponente", "mini componente", "torre de sonido", "teatro en casa",
+    )):
+        return "Bocinas", "Barras de sonido y home theater", "speaker"
+    if "bocina" in n or "altavoz" in n or "parlante" in n or "speaker" in n or "bafle" in n:
+        return "Bocinas", None, "speaker"
+    if "tocadiscos" in n or "consola de sonido" in n:
+        return "Instrumentos musicales", "DJ y producción", "guitar"
+    return None
+
+
+def cat_computo_accesorios(name):
+    n = norm(name)
+    if "teclado" in n:
+        return "Teclados", "Mecánicos" if "mecanic" in n else "Membrana", "keyboard"
+    if re.search(r"\bmouse\b|\bmause\b|\bratonn?\b", n):
+        return "Mouse", "Gaming" if "gaming" in n or "gamer" in n else "Oficina", "mouse"
+    if "webcam" in n or "camara web" in n:
+        return "Computadoras", "Webcams", "cpu"
+    if "memoria ram" in n or re.search(r"\bram\b", n):
+        return "Computadoras", "Memoria RAM", "cpu"
+    if any(k in n for k in ("disco duro", "ssd", "memoria usb", "unidad flash", "microsd", "micro sd", "tarjeta sd", "memoria micro sd")):
+        return "Almacenamiento", None, "storage"
+    if any(k in n for k in ("router", "repetidor wifi", "extensor de red", "punto de acceso", "access point", "modem", "módem")):
+        return "Redes", None, "wifi"
+    return cat_audio(name)
+
+
+def cat_telefonia_accesorios(name):
+    n = norm(name)
+    if "cargador" in n or "adaptador de corriente" in n:
+        return "Cargadores y adaptadores", "Cargadores", "charger"
+    if EARBUDS_RE.search(n):
+        wireless = "inalambric" in n or "bluetooth" in n or "airpods" in n or "buds" in n
+        return "Audífonos", ("Earbuds inalámbricos" if wireless else "Earbuds con cable"), "headphones"
+    if any(k in n for k in ("power bank", "cargador portatil")) or re.search(r"bateri?a\s*portatil", n):
+        return "Baterías portátiles", None, "battery"
+    if any(k in n for k in ("microsd", "micro sd", "tarjeta sd", "memoria micro sd")):
+        return "Almacenamiento", None, "storage"
+    return None
+
+
+def cat_electronica_accesorios(name):
+    return cat_telefonia_accesorios(name) or cat_audio(name)
+
+
+def cat_tv(name):
+    n = norm(name)
+    if "proyector" in n:
+        return "Proyectores y accesorios", "Proyectores", "projector"
+    if any(k in n for k in ("roku", "chromecast", "fire tv", "apple tv", "reproductor de streaming", "convertidor a smart tv")):
+        return "Televisores", "Dispositivos de streaming", "tv"
+    if "televisor" in n or "pantalla" in n or "smart tv" in n or re.search(r"\btv\b", n):
+        return "Televisores", ("4K y QLED" if any(k in n for k in ("4k", "qled", "uhd", "oled")) else "Full HD y HD"), "tv"
+    return None
+
+
+def cat_monitores_proyeccion(name):
+    n = norm(name)
+    if "monitor" in n:
+        return "Monitores", "Gaming" if "gaming" in n or "gamer" in n else "Oficina", "monitor"
+    if "proyector" in n:
+        return "Proyectores y accesorios", "Proyectores", "projector"
+    return None
+
+
+def cat_videojuegos(name):
+    n = norm(name)
+    if "consola" in n:
+        return "Videojuegos", "Consolas", "gamepad"
+    if any(k in n for k in (
+        "control ", "controlador", "mando ", "joystick", "volante", "headset gamer",
+        "audifono gamer", "chatpad", "grip", "almohadilla", "adaptador para control",
+        "adaptador para juegos", "base de carga", "cargador para control",
+    )):
+        return "Videojuegos", "Accesorios", "gamepad"
+    if any(k in n for k in ("figura", "funko", "peluche", "playera", "taza", "mochila", "poster")):
+        return None  # merchandising/coleccionables, no es el tipo de producto de este catálogo
+    return "Videojuegos", "Software", "gamepad"
+
+
+def cat_cocina(name):
+    n = norm(name)
+    if "microondas" in n:
+        return "Electrodomésticos", "Microondas", "appliance"
+    if "lavavajilla" in n:
+        return "Electrodomésticos", "Lavavajillas", "appliance"
+    if "campana" in n:
+        return "Electrodomésticos", "Campanas de cocina", "appliance"
+    if "cafetera" in n or "espresso" in n or "molino de cafe" in n or "molinillo de cafe" in n:
+        return "Cafeteras", None, "coffee"
+    if "freidora de aire" in n or "air fryer" in n:
+        return "Electrodomésticos", "Freidoras de aire", "appliance"
+    if "licuadora" in n or "extractor de jugos" in n:
+        return "Electrodomésticos", "Licuadoras y extractores", "appliance"
+    if "estufa" in n or "horno" in n or "parrilla" in n:
+        return "Electrodomésticos", "Estufas y hornos", "appliance"
+    if any(k in n for k in ("olla", "batidora", "tostador", "sandwichera", "waflera", "vaporera", "arrocera")):
+        return "Electrodomésticos", "Pequeños electrodomésticos de cocina", "appliance"
+    return None
+
+
+# Accesorios (correas, fundas, cargadores, protectores) que se cuelan en
+# categorías de "el aparato en sí" -- Wearables y Tablets y Accesorios de
+# Elektra mezclan el dispositivo real con todos sus accesorios en la misma
+# categoría del árbol.
+WEARABLE_ACCESSORY_RE = re.compile(
+    r"correa|banda(?!\s+de actividad)|pulsera(?!\s*inteligente)|funda|protector|"
+    r"mica|cargador|cable|estuche|cristal templado|vidrio templado|"
+    r"base de carga|repuesto|cubierta",
+    re.I,
+)
+
+
+def cat_wearables(name):
+    n = norm(name)
+    if WEARABLE_ACCESSORY_RE.search(n):
+        return None
+    if "banda de actividad" in n or "pulsera inteligente" in n or "rastreador de actividad" in n:
+        return "Relojes inteligentes", "Bandas de actividad", "watch"
+    if "reloj" in n or "smartwatch" in n or "smart watch" in n or "ring" in n:
+        return "Relojes inteligentes", "Smartwatches", "watch"
+    return None
+
+
+TABLET_ACCESSORY_RE = re.compile(
+    r"funda|estuche|protector|mica|cristal templado|vidrio templado|teclado|"
+    r"lapiz|pluma|stylus|soporte|cable|cargador|correa",
+    re.I,
+)
+
+
+def cat_tabletas(name):
+    n = norm(name)
+    if TABLET_ACCESSORY_RE.search(n):
+        return None
+    if "tablet" in n or "ipad" in n:
+        return "Tabletas", ("Apple" if "ipad" in n or "apple" in n else "Android"), "tablet"
+    return None
+
+
+def cat_impresion(name):
+    n = norm(name)
+    if "impresora 3d" in n or "escaner 3d" in n:
+        return "Impresión 3D", "Impresoras" if "impresora" in n else "Escáneres 3D", "printer3d"
+    if "filamento" in n:
+        return "Impresión 3D", "Filamentos", "printer3d"
+    if "resina" in n and "impresion" in n:
+        return "Impresión 3D", "Accesorios y repuestos", "printer3d"
+    if any(k in n for k in (
+        "cartucho de tinta", "cartucho de toner", "cartucho de tóner", "toner",
+        "tóner", "tinta para impresora", "etiquetas termorretractiles",
+        "papel fotografico", "papel termico", "cinta para impresora",
+    )):
+        return "Impresoras", "Consumibles", "printer"
+    if "impresora" in n or "multifuncional" in n or "escaner" in n or "scanner" in n or "plotter" in n:
+        tipo = "Térmica" if "termica" in n else ("Láser" if "laser" in n else "Inyección de tinta")
+        return "Impresoras", tipo, "printer"
+    return None
+
+
+def cat_climatizacion(name):
+    n = norm(name)
+    if "ventilador" in n:
+        return "Climatización", "Ventiladores", "snowflake"
+    if "calefactor" in n or "calentador de ambiente" in n:
+        return "Climatización", "Calefactores", "snowflake"
+    if "deshumidificador" in n:
+        return "Climatización", "Deshumidificadores", "snowflake"
+    if "humidificador" in n:
+        return "Climatización", "Humidificadores", "snowflake"
+    if "purificador de aire" in n:
+        return "Climatización", "Purificadores de aire", "snowflake"
+    if "climatizador evaporativo" in n or "enfriador evaporativo" in n:
+        return "Climatización", "Climatizadores evaporativos", "snowflake"
+    if "minisplit" in n or "mini split" in n or "aire acondicionado" in n:
+        return "Climatización", "Aires acondicionados", "snowflake"
+    return None
+
+
+def cat_electrodomesticos(name):
+    base = cat_cocina(name)
+    if base:
+        return base
+    n = norm(name)
+    if "aspiradora robot" in n:
+        return "Aspiradoras", "Robots aspiradores", "vacuum"
+    if "aspiradora" in n:
+        return "Aspiradoras", "Inalámbricas y de mano", "vacuum"
+    if "secadora de pelo" in n or "secadora de cabello" in n:
+        return "Electrodomésticos", "Secadoras de pelo", "appliance"
+    if "plancha" in n and "cabello" not in n:
+        return "Electrodomésticos", "Planchas", "appliance"
+    if "purificador de agua" in n:
+        return "Electrodomésticos", "Purificadores de agua", "appliance"
+    if "maquina de coser" in n:
+        return "Electrodomésticos", "Máquinas de coser", "appliance"
+    if "robot limpiacristales" in n:
+        return "Electrodomésticos", "Robots limpiacristales", "appliance"
+    return None
+
+
 # category_path (padre/hijo de category/tree) -> (categoría, subcategoría, icono)
-# del catálogo. Presets agrupan varias rutas relacionadas.
+# fijos, O un callable name(str)->(categoría, subcategoría, icono)|None para
+# categorías "cajón de sastre" de Elektra donde el producto real varía
+# renglón a renglón (se resuelve por palabras clave del nombre; None = no
+# es el tipo de producto que compara este catálogo, se descarta).
 CATEGORY_MAP = {
+    # Línea blanca
     "1371645/1371678": ("Refrigeradores", "Refrigeradores", "fridge"),
     "1371645/1371679": ("Lavadoras", None, "washer"),
+    "1371645/1371680": cat_cocina,
+    "1371645/1371681": cat_climatizacion,
+    "1371645/1371682": cat_electrodomesticos,
+    # Electrónica
+    "1371643/1371670": cat_tv,
+    "1371643/1371672": cat_audio,
+    "1371643/1371671": cat_electronica_accesorios,
+    "1371643/1371674": ("Cámaras y fotografía", None, "camera"),
+    "1371643/831911": ("Domótica y hogar inteligente", None, "house"),
+    "1371643/4642048": ("Instrumentos musicales", None, "guitar"),
+    # Cómputo
+    "1371654/1371720": ("Laptops", "Oficina y estudio", "laptop"),
+    "1371654/1371721": ("Computadoras de escritorio", None, "desktop"),
+    "1371654/1371722": cat_monitores_proyeccion,
+    "1371654/1371724": ("Almacenamiento", None, "storage"),
+    "1371654/1371725": cat_impresion,
+    "1371654/1371727": cat_computo_accesorios,
+    "1371654/1371728": cat_tabletas,
+    # Telefonía
+    "1371655/1371729": ("Celulares", "Android", "phone"),
+    "1371655/1371730": cat_telefonia_accesorios,
+    "1371655/1371733": cat_wearables,
+    # Videojuegos
+    "1371652/127631": cat_videojuegos,
+    "1371652/127647": cat_videojuegos,
+    "1371652/127682": cat_videojuegos,
+    "1371652/4754776": cat_videojuegos,
+    "1371652/4754782": cat_videojuegos,
+    # Herramientas
+    "4845836/4845852": ("Herramientas", "Herramientas eléctricas", "wrench"),
 }
 PRESETS = {
     "linea_blanca": ["1371645/1371678", "1371645/1371679"],
+    "linea_blanca_resto": ["1371645/1371680", "1371645/1371681", "1371645/1371682"],
+    "electronica": ["1371643/1371670", "1371643/1371672", "1371643/1371671", "1371643/1371674", "1371643/831911", "1371643/4642048"],
+    "computo": ["1371654/1371720", "1371654/1371721", "1371654/1371722", "1371654/1371724", "1371654/1371725", "1371654/1371727", "1371654/1371728"],
+    "telefonia": ["1371655/1371729", "1371655/1371730", "1371655/1371733"],
+    "videojuegos": ["1371652/127631", "1371652/127647", "1371652/127682", "1371652/4754776", "1371652/4754782"],
+    "herramientas": ["4845836/4845852"],
 }
+PRESETS["todo"] = (
+    PRESETS["linea_blanca"] + PRESETS["linea_blanca_resto"] + PRESETS["electronica"]
+    + PRESETS["computo"] + PRESETS["telefonia"] + PRESETS["videojuegos"] + PRESETS["herramientas"]
+)
 
 # Marcas/rutas que no aportan al catálogo o son de terceros claramente
 # fuera de foco (p. ej. refacciones sueltas) -- mismo criterio que
@@ -162,14 +431,14 @@ def main():
             max_id = max(max_id, int(m.group(1)))
 
     added, seen_product_ids = [], set()
-    stats = {"revisados": 0, "sin_stock": 0, "junk": 0, "sin_precio": 0, "duplicada": 0}
+    stats = {"revisados": 0, "sin_stock": 0, "junk": 0, "sin_precio": 0, "duplicada": 0, "sin_categoria": 0}
     for path in paths:
         mapping = CATEGORY_MAP.get(path)
         if not mapping:
             print(f"AVISO: sin mapeo de categoría para {path}, se omite", file=sys.stderr)
             continue
-        category, subcategory, icon_key = mapping
-        print(f"\n== {path} -> {category}/{subcategory} ==")
+        dynamic = callable(mapping)
+        print(f"\n== {path} -> {'(por palabra clave)' if dynamic else '/'.join(str(x) for x in mapping[:2])} ==")
         for p in iter_category(path, limit=args.limit or None):
             stats["revisados"] += 1
             pid = p.get("productId")
@@ -180,6 +449,14 @@ def main():
             if JUNK_RE.search(name):
                 stats["junk"] += 1
                 continue
+            if dynamic:
+                resolved = mapping(name)
+                if not resolved:
+                    stats["sin_categoria"] += 1
+                    continue
+                category, subcategory, icon_key = resolved
+            else:
+                category, subcategory, icon_key = mapping
             items = p.get("items") or []
             if not items:
                 stats["sin_stock"] += 1
