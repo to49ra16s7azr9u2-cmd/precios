@@ -287,6 +287,113 @@ def cat_electrodomesticos(name):
     return None
 
 
+def cat_muebles(name):
+    n = norm(name)
+    if "colchon" in n or "box spring" in n or "boxspring" in n:
+        return "Muebles", "Colchones", "sofa"
+    if "escritorio" in n:
+        return "Muebles", "Escritorios", "sofa"
+    if "silla" in n and "mesa" not in n:
+        return "Muebles", "Sillas", "sofa"
+    if "mesa de centro" in n or "mesa de sala" in n:
+        return "Muebles", "Mesas de centro", "sofa"
+    if "repisa" in n or "estante" in n:
+        return "Muebles", "Repisas y estantes", "sofa"
+    if "cama" in n and "camara" not in n:
+        return "Muebles", "Camas", "sofa"
+    if "closet" in n or "ropero" in n:
+        return "Muebles", "Closets y roperos", "sofa"
+    if "librero" in n:
+        return "Muebles", "Libreros", "sofa"
+    if "buro" in n or "mesa de noche" in n:
+        return "Muebles", "Burós", "sofa"
+    if "mesa" in n or "comedor" in n or "antecomedor" in n or "sala" in n or "sofa" in n or "sillon" in n:
+        return "Muebles", "Otros", "sofa"
+    return None
+
+
+def cat_mascotas(name):
+    n = norm(name)
+    if "cama" in n:
+        return "Mascotas", "Camas", "paw"
+    if "arenero" in n or "arena para gato" in n:
+        return "Mascotas", "Areneros e higiene", "paw"
+    if "comedero" in n or "bebedero" in n or "fuente" in n:
+        return "Mascotas", "Comederos y bebederos", "paw"
+    if "correa" in n or "transportadora" in n or "transportador" in n:
+        return "Mascotas", "Correas y transportadoras", "paw"
+    if "casa para" in n or "caseta" in n:
+        return "Mascotas", "Casas para mascotas", "paw"
+    if "juguete" in n:
+        return "Mascotas", "Juguetes", "paw"
+    return None
+
+
+def cat_deportes(name):
+    n = norm(name)
+    if "bicicleta fija" in n or "bicicleta estatica" in n or "caminadora" in n or "eliptica" in n or "banda para correr" in n:
+        return "Deportes y fitness", "Bicicletas fijas" if "bicicleta" in n else "Equipo de gimnasio", "dumbbell"
+    if "bicicleta" in n:
+        return "Autos, bicicletas y motos", None, "car"
+    if "yoga" in n or "tapete de ejercicio" in n:
+        return "Deportes y fitness", "Yoga y tapetes", "dumbbell"
+    if "pesa" in n or "mancuerna" in n or "banda de resistencia" in n or "kettlebell" in n or "barra olimpica" in n or "banca de pesas" in n:
+        return "Deportes y fitness", "Pesas y bandas", "dumbbell"
+    if "guante de box" in n or "costal de box" in n or "artes marciales" in n or "protector bucal" in n:
+        return "Deportes y fitness", "Boxeo y artes marciales", "dumbbell"
+    if "balon de futbol" in n or "balon de voleibol" in n or "balon de basquetbol" in n:
+        return "Deportes y fitness", "Voleibol" if "voleibol" in n else "Balones", "dumbbell"
+    if "ping pong" in n or "tenis de mesa" in n:
+        return "Deportes y fitness", "Ping pong", "dumbbell"
+    if "dardo" in n:
+        return "Deportes y fitness", "Dardos", "dumbbell"
+    if "patineta electrica" in n or "scooter electric" in n or "monopatin electric" in n:
+        return "Movilidad eléctrica", "Patinetes eléctricos", "scooter"
+    if "patineta" in n or "patines" in n or "monopatin" in n:
+        return "Deportes y fitness", "Otros", "dumbbell"
+    # Sin match específico: no se usa un "Otros" abierto acá -- esta
+    # categoría de Elektra mezcla equipo deportivo real con accesorios para
+    # moto, juegos de cartas, etc. sin relación con deportes.
+    return None
+
+
+def cat_joyeria(name):
+    n = norm(name)
+    if "reloj" in n:
+        return "Joyería y bisutería", "Relojes", "ring"
+    if "lente" in n or "gafas" in n:
+        return "Joyería y bisutería", "Lentes y gafas", "ring"
+    if "arete" in n:
+        return "Joyería y bisutería", "Aretes", "ring"
+    if "collar" in n:
+        return "Joyería y bisutería", "Collares", "ring"
+    if "pulsera" in n:
+        return "Joyería y bisutería", "Pulseras", "ring"
+    if "anillo" in n:
+        return "Joyería y bisutería", "Anillos", "ring"
+    return "Joyería y bisutería", "Otros", "ring"
+
+
+def cat_lentes(name):
+    return "Joyería y bisutería", "Lentes y gafas", "ring"
+
+
+def cat_relojes(name):
+    n = norm(name)
+    if any(k in n for k in ("pila", "bateria", "correa para reloj", "malla para reloj",
+                             "estuche para reloj", "kit de reparacion", "cristal para reloj",
+                             "vidrio para reloj", "caja para reloj")):
+        return None
+    return "Joyería y bisutería", "Relojes", "ring"
+
+
+def cat_papeleria(name):
+    n = norm(name)
+    if "mochila" in n:
+        return "Papelería y oficina", "Mochilas", "pencil"
+    return "Papelería y oficina", None, "pencil"
+
+
 # category_path (padre/hijo de category/tree) -> (categoría, subcategoría, icono)
 # fijos, O un callable name(str)->(categoría, subcategoría, icono)|None para
 # categorías "cajón de sastre" de Elektra donde el producto real varía
@@ -326,6 +433,49 @@ CATEGORY_MAP = {
     "1371652/4754782": cat_videojuegos,
     # Herramientas
     "4845836/4845852": ("Herramientas", "Herramientas eléctricas", "wrench"),
+    "4845836/4845997": ("Herramientas", "Medición e instrumentos", "wrench"),
+    "4845836/4846017": ("Herramientas", "Seguridad industrial", "wrench"),
+    "4845836/4911305": ("Herramientas", "Seguridad industrial", "wrench"),
+    "4845836/4846023": ("Iluminación", None, "bulb"),
+    # Fase 2 -- categorías fuera de electrónica/línea blanca. Se excluyen a
+    # propósito: Refacciones Automotrices (247,853 productos -- piezas por
+    # ajuste de modelo de auto, sin valor de comparación por especificación,
+    # y hubiera hecho crecer el catálogo x7 de un salto); Ropa, Zapatos,
+    # Alimentos y Bebidas, y el resto de "Moda y accesorios" que es ropa
+    # (mismo criterio: sin comparación por especificación, y ya se habían
+    # colado 150 productos de ropa/calzado de rondas anteriores que se
+    # borraron del catálogo en esta misma ronda).
+    "1371640/1371662": ("Muebles", "Colchones", "sofa"),
+    "1371640/1371663": ("Muebles", "Colchones", "sofa"),
+    "1371640/1371664": ("Muebles", "Colchones", "sofa"),
+    "1371640/4699293": ("Muebles", "Colchones", "sofa"),
+    "1371649/1371695": ("Deportes y fitness", "Equipo de gimnasio", "dumbbell"),
+    "1371649/1371696": cat_deportes,
+    "1371649/1371697": cat_deportes,
+    "1371649/1371700": cat_deportes,
+    "1371649/4651146": cat_deportes,
+    "1371649/4652621": ("Deportes y fitness", "Pesas y bandas", "dumbbell"),
+    "1371649/5093972": ("Deportes y fitness", "Boxeo y artes marciales", "dumbbell"),
+    "1371649/5093979": ("Deportes y fitness", "Balones", "dumbbell"),
+    "4667693/4667694": cat_mascotas,
+    "4667693/4667699": cat_mascotas,
+    "4667693/4667709": cat_mascotas,
+    "4667693/4667715": cat_mascotas,
+    "4667693/4667727": cat_mascotas,
+    "4667693/4667733": cat_mascotas,
+    "4667693/4690703": cat_mascotas,
+    "4673714/1371657": cat_muebles,
+    "4673714/1371658": cat_muebles,
+    "4673714/1371659": cat_muebles,
+    "4673714/1371660": cat_muebles,
+    "4673714/1371661": cat_muebles,
+    "4673714/4673719": cat_muebles,
+    "1371647/147441": cat_relojes,
+    "1371647/645247": ("Papelería y oficina", None, "pencil"),
+    "1371647/1371687": cat_lentes,
+    "1371647/1371688": cat_joyeria,
+    "1371647/1371689": ("Viajes", "Maletas y equipaje", "suitcase"),
+    "1371647/4670072": ("Papelería y oficina", "Mochilas", "pencil"),
 }
 PRESETS = {
     "linea_blanca": ["1371645/1371678", "1371645/1371679"],
@@ -334,11 +484,18 @@ PRESETS = {
     "computo": ["1371654/1371720", "1371654/1371721", "1371654/1371722", "1371654/1371724", "1371654/1371725", "1371654/1371727", "1371654/1371728"],
     "telefonia": ["1371655/1371729", "1371655/1371730", "1371655/1371733"],
     "videojuegos": ["1371652/127631", "1371652/127647", "1371652/127682", "1371652/4754776", "1371652/4754782"],
-    "herramientas": ["4845836/4845852"],
+    "herramientas": ["4845836/4845852", "4845836/4845997", "4845836/4846017", "4845836/4911305", "4845836/4846023"],
+    "muebles_colchones": ["1371640/1371662", "1371640/1371663", "1371640/1371664", "1371640/4699293", "4673714/1371657", "4673714/1371658", "4673714/1371659", "4673714/1371660", "4673714/1371661", "4673714/4673719"],
+    "deportes": ["1371649/1371695", "1371649/1371696", "1371649/1371697", "1371649/1371700", "1371649/4651146", "1371649/4652621", "1371649/5093972", "1371649/5093979"],
+    "mascotas": ["4667693/4667694", "4667693/4667699", "4667693/4667709", "4667693/4667715", "4667693/4667727", "4667693/4667733", "4667693/4690703"],
+    "joyeria_viajes": ["1371647/147441", "1371647/645247", "1371647/1371687", "1371647/1371688", "1371647/1371689", "1371647/4670072"],
 }
 PRESETS["todo"] = (
     PRESETS["linea_blanca"] + PRESETS["linea_blanca_resto"] + PRESETS["electronica"]
     + PRESETS["computo"] + PRESETS["telefonia"] + PRESETS["videojuegos"] + PRESETS["herramientas"]
+)
+PRESETS["fase2"] = (
+    PRESETS["muebles_colchones"] + PRESETS["deportes"] + PRESETS["mascotas"] + PRESETS["joyeria_viajes"]
 )
 
 # Marcas/rutas que no aportan al catálogo o son de terceros claramente
