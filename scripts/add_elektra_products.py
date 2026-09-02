@@ -50,8 +50,10 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from data_io import load_catalog, save_catalog  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_PATH = os.path.join(ROOT, "data", "data.json")
 SEARCH_URL = "https://www.elektra.mx/api/catalog_system/pub/products/search"
 
 HEADERS = {
@@ -362,7 +364,7 @@ def cat_joyeria(name):
     if "reloj" in n:
         return "Joyería y bisutería", "Relojes", "ring"
     if "lente" in n or "gafas" in n:
-        return "Joyería y bisutería", "Lentes y gafas", "ring"
+        return None  # lentes/gafas: excluidos a pedido, ver nota en CATEGORY_MAP
     if "arete" in n:
         return "Joyería y bisutería", "Aretes", "ring"
     if "collar" in n:
@@ -374,24 +376,135 @@ def cat_joyeria(name):
     return "Joyería y bisutería", "Otros", "ring"
 
 
-def cat_lentes(name):
-    return "Joyería y bisutería", "Lentes y gafas", "ring"
-
-
 def cat_relojes(name):
     n = norm(name)
     if any(k in n for k in ("pila", "bateria", "correa para reloj", "malla para reloj",
                              "estuche para reloj", "kit de reparacion", "cristal para reloj",
-                             "vidrio para reloj", "caja para reloj")):
+                             "vidrio para reloj", "caja para reloj",
+                             "gafas", "lentes de sol", "lentes de lectura", "lentes inteligentes",
+                             "correa para gafas")):
         return None
     return "Joyería y bisutería", "Relojes", "ring"
 
 
-def cat_papeleria(name):
+# Fase 3: "Accesorios" de Elektra para Automotriz (1371651/312938) y Motos
+# (1371644/1371677) resultaron ser, en la práctica, casi solo llantas/
+# baterías/cascos -- el resto de la categoría es un cajón de sastre
+# (ambientadores, cojines, emblemas, "Prueba QA5") sin valor de comparación.
+# Mismo criterio que cat_deportes: nada de fallback abierto.
+def cat_auto_accesorios(name):
     n = norm(name)
-    if "mochila" in n:
-        return "Papelería y oficina", "Mochilas", "pencil"
-    return "Papelería y oficina", None, "pencil"
+    if "llanta" in n:
+        return "Autos, bicicletas y motos", "Llantas", "car"
+    if "bateria" in n:
+        return "Autos, bicicletas y motos", "Baterías para auto", "car"
+    if "casco" in n and ("moto" in n or "integral" in n or "abatible" in n or "cross" in n or "jet" in n):
+        return "Autos, bicicletas y motos", "Cascos para moto", "car"
+    return None
+
+
+# Fase 3: "Baño" (1371641/4664643) mezcla toallas/tapetes con neceseres
+# (bolsas, excluidas a pedido), tinas, cortinas, básculas y una larga cola
+# de artículos de bajo valor (esponjas, gorros de ducha, kits de higiene de
+# viaje). Se usan categorías EXISTENTES del catálogo (no se crea "Baño"
+# como categoría nueva) para no sumar páginas estáticas de más.
+def cat_bano(name):
+    n = norm(name)
+    if "neceser" in n or "bolsa" in n or "mochila" in n:
+        return None
+    if "toalla" in n or "paño" in n or "pano de" in n:
+        return "Blancos y ropa de cama", "Toallas", "pillow"
+    if "tapete de bano" in n:
+        return "Blancos y ropa de cama", "Tapetes de baño", "pillow"
+    if "tina de bano" in n or "banera" in n:
+        return "Otros", "Baño", "box"
+    if "cortina de bano" in n or "cortina de ducha" in n:
+        return "Otros", "Baño", "box"
+    if "regadera" in n:
+        return "Otros", "Baño", "box"
+    if "bascula" in n:
+        return "Salud y belleza", "Básculas", "heart-pulse"
+    return None
+
+
+# Fase 3: "Closets y Lavandería" (1371641/346528) mezcla muebles reales
+# (closets, zapateras, percheros) con organizadores de tela/plástico,
+# planchado y una cola larga sin relación (libros decorativos, cebos de
+# pesca, quitamanchas). Los muebles reales van a la subcategoría que ya usa
+# cat_muebles(); el resto de organización va a "Otros" existente.
+def cat_closets(name):
+    n = norm(name)
+    if "closet" in n or "ropero" in n:
+        return "Muebles", "Closets y roperos", "sofa"
+    if "zapatera" in n or "zapatero" in n:
+        return "Muebles", "Zapateras", "sofa"
+    if "perchero" in n:
+        return "Muebles", "Percheros", "sofa"
+    if "vaporizador de ropa" in n:
+        return "Electrodomésticos", "Vaporizadores de ropa", "appliance"
+    if "cesto de ropa" in n or "cesto ropa" in n or "canasto de ropa" in n:
+        return "Otros", "Organización del hogar", "box"
+    if "caja organizadora" in n or "caja de almacenamiento" in n or "cajas organizadoras" in n:
+        return "Otros", "Organización del hogar", "box"
+    if "burro de planchar" in n:
+        return "Otros", "Organización del hogar", "box"
+    return None
+
+
+# Fase 3: "Estética y Spa" (1371646/886458) es mobiliario/equipo profesional
+# de salón de belleza más una cola de consumibles de skincare ya excluidos
+# a propósito (cremas, mascarillas -- mismo criterio que "Cuidado de la
+# piel"/"Perfumes y lociones").
+def cat_estetica(name):
+    n = norm(name)
+    if any(k in n for k in ("sillon", "silla de corte", "silla estetica", "silla barber",
+                             "camilla", "lavacabezas", "mesa de manicura", "lavabo portatil")):
+        return "Aparatos de belleza", "Mobiliario para salón", "sparkle"
+    if "masajeador" in n or "almohada masajeadora" in n:
+        return "Aparatos de belleza", "Masajeadores", "sparkle"
+    if "cera de parafina" in n or "maquina de cera" in n:
+        return "Aparatos de belleza", "Depilación", "sparkle"
+    if "peluca" in n or ("extension" in n and "cabello" in n) or "mechones de cabello" in n or "cabello para trenzas" in n:
+        return "Aparatos de belleza", "Pelucas y extensiones", "sparkle"
+    if "vaporizador" in n and ("facial" in n or "ozono" in n):
+        return "Aparatos de belleza", "Faciales", "sparkle"
+    if "lima de unas" in n or "pulidor de unas" in n or "puntas de unas" in n or "gel polish" in n:
+        return "Aparatos de belleza", "Manicure y pedicure", "sparkle"
+    return None
+
+
+# Fase 3: "Cuidado del cabello" (1371646/1371686) son casi todo herramientas
+# reales (secadoras, planchas, rizadores, trimmers) -- algunos nombres
+# vienen truncados/corruptos desde el feed de Elektra ("Posee placas de
+# cerámica. con bloqueo de"), esos se descartan (no son un nombre de
+# producto usable, no un error de categorización).
+def cat_cuidado_cabello(name):
+    n = norm(name)
+    if "secador" in n or "secadora" in n:
+        return "Aparatos de belleza", "Secadoras de cabello", "sparkle"
+    if "plancha" in n or "rizador" in n or "rizadora" in n or "tenaza" in n:
+        return "Aparatos de belleza", "Planchas y rizadores", "sparkle"
+    if "recortadora" in n or "afeitadora" in n or "trimmer" in n or "shaver" in n:
+        return "Salud y belleza", "Rasuradoras y afeitado", "heart-pulse"
+    if "estilizador" in n or "multiestilizador" in n or "cepillo alisador" in n or "cepillo secador" in n:
+        return "Aparatos de belleza", "Estilizadores", "sparkle"
+    return None
+
+
+# Fase 3: "Juguetes" (1371648/1371693) -- montables/trampolines/figuras.
+def cat_juguetes(name):
+    n = norm(name)
+    if any(k in n for k in ("montable", "cuatrimoto", "triciclo", "patin electric", "patineta electric", "moto montable")):
+        return "Juguetes y bebés", "Montables y triciclos", "toy"
+    if "trampolin" in n or "brincolin" in n:
+        return "Juguetes y bebés", "Trampolines", "toy"
+    if "inflable" in n:
+        return "Juguetes y bebés", "Juguetes para exterior", "toy"
+    if "figura de accion" in n or "funko" in n or "peluche" in n or "muñeco" in n or "muneco" in n:
+        return "Juguetes y bebés", "Figuras y peluches", "toy"
+    if "maquina garra" in n or "arcade" in n:
+        return "Juguetes y bebés", "Juegos arcade", "toy"
+    return None
 
 
 # category_path (padre/hijo de category/tree) -> (categoría, subcategoría, icono)
@@ -437,6 +550,27 @@ CATEGORY_MAP = {
     "4845836/4846017": ("Herramientas", "Seguridad industrial", "wrench"),
     "4845836/4911305": ("Herramientas", "Seguridad industrial", "wrench"),
     "4845836/4846023": ("Iluminación", None, "bulb"),
+    # Fase 3
+    "1371651/713201": ("Refacciones", "Refacciones para autos y motos", "gear"),
+    "1371644/4882323": ("Refacciones", "Refacciones para autos y motos", "gear"),
+    "1371651/312938": cat_auto_accesorios,
+    "1371644/1371676": ("Autos, bicicletas y motos", "Motocicletas", "car"),
+    "1371644/1371677": cat_auto_accesorios,
+    "1371641/1371665": ("Decoración de hogar y jardín", None, "vase"),
+    "1371641/1371669": ("Decoración de hogar y jardín", "Jardín y exterior", "vase"),
+    "1371641/1371666": ("Blancos y ropa de cama", None, "pillow"),
+    "1371641/4664643": cat_bano,
+    "1371641/1371667": ("Otros", "Varios", "box"),
+    "1371641/398955": ("Otros", "Varios", "box"),
+    "1371641/346528": cat_closets,
+    "1371641/4767700": ("Papelería y oficina", None, "pencil"),
+    "1371646/577967": ("Aparatos de belleza", "Maquillaje", "sparkle"),
+    "1371646/886458": cat_estetica,
+    "1371646/1371684": ("Salud y belleza", "Rasuradoras y afeitado", "heart-pulse"),
+    "1371646/1371686": cat_cuidado_cabello,
+    "1371648/1371692": ("Juguetes y bebés", "Bebés", "toy"),
+    "1371648/1371693": cat_juguetes,
+    "1371648/255619": ("Juegos de mesa", None, "dice"),
     # Fase 2 -- categorías fuera de electrónica/línea blanca. Se excluyen a
     # propósito: Refacciones Automotrices (247,853 productos -- piezas por
     # ajuste de modelo de auto, sin valor de comparación por especificación,
@@ -472,10 +606,12 @@ CATEGORY_MAP = {
     "4673714/4673719": cat_muebles,
     "1371647/147441": cat_relojes,
     "1371647/645247": ("Papelería y oficina", None, "pencil"),
-    "1371647/1371687": cat_lentes,
+    # 1371647/1371687 (Lentes) y 1371647/4670072 (Mochilas) se agregaron y
+    # luego se quitaron a pedido: el usuario decidió que lentes/gafas y
+    # mochilas/bolsas no encajan en el catálogo, y se borraron también los
+    # que ya se habían cargado.
     "1371647/1371688": cat_joyeria,
     "1371647/1371689": ("Viajes", "Maletas y equipaje", "suitcase"),
-    "1371647/4670072": ("Papelería y oficina", "Mochilas", "pencil"),
 }
 PRESETS = {
     "linea_blanca": ["1371645/1371678", "1371645/1371679"],
@@ -488,7 +624,17 @@ PRESETS = {
     "muebles_colchones": ["1371640/1371662", "1371640/1371663", "1371640/1371664", "1371640/4699293", "4673714/1371657", "4673714/1371658", "4673714/1371659", "4673714/1371660", "4673714/1371661", "4673714/4673719"],
     "deportes": ["1371649/1371695", "1371649/1371696", "1371649/1371697", "1371649/1371700", "1371649/4651146", "1371649/4652621", "1371649/5093972", "1371649/5093979"],
     "mascotas": ["4667693/4667694", "4667693/4667699", "4667693/4667709", "4667693/4667715", "4667693/4667727", "4667693/4667733", "4667693/4690703"],
-    "joyeria_viajes": ["1371647/147441", "1371647/645247", "1371647/1371687", "1371647/1371688", "1371647/1371689", "1371647/4670072"],
+    "joyeria_viajes": ["1371647/147441", "1371647/645247", "1371647/1371688", "1371647/1371689"],
+    # Fase 3. Refacciones aparte del resto: son ~257k productos (247,853 +
+    # 8,875) y tardan mucho más en bajarse -- se corren como job separado.
+    "fase3_refacciones": ["1371651/713201", "1371644/4882323"],
+    "fase3_resto": [
+        "1371651/312938", "1371644/1371676", "1371644/1371677",
+        "1371641/1371665", "1371641/1371669", "1371641/1371666", "1371641/4664643",
+        "1371641/1371667", "1371641/398955", "1371641/346528", "1371641/4767700",
+        "1371646/577967", "1371646/886458", "1371646/1371684", "1371646/1371686",
+        "1371648/1371692", "1371648/1371693", "1371648/255619",
+    ],
 }
 PRESETS["todo"] = (
     PRESETS["linea_blanca"] + PRESETS["linea_blanca_resto"] + PRESETS["electronica"]
@@ -497,6 +643,7 @@ PRESETS["todo"] = (
 PRESETS["fase2"] = (
     PRESETS["muebles_colchones"] + PRESETS["deportes"] + PRESETS["mascotas"] + PRESETS["joyeria_viajes"]
 )
+PRESETS["fase3"] = PRESETS["fase3_refacciones"] + PRESETS["fase3_resto"]
 
 # Marcas/rutas que no aportan al catálogo o son de terceros claramente
 # fuera de foco (p. ej. refacciones sueltas) -- mismo criterio que
@@ -509,9 +656,25 @@ JUNK_RE = re.compile(
     # son el tipo de aparato que este catálogo compara.
     r"hielera|enfriador de almuerzo|enfriador t[eé]rmico|lonchera t[eé]rmica|"
     r"fiambrera|bolsas? de hielo reutilizable|bombilla|everydrop|"
-    r"affresh|tabletas? limpiadora",
+    r"affresh|tabletas? limpiadora|"
+    # Bolsas/mochilas y lentes/gafas: excluidos del catálogo a pedido (ver
+    # nota en CATEGORY_MAP) -- se filtran acá también para que no se cuelen
+    # por accidente desde categorías nuevas que no son específicamente de
+    # bolsas o lentes (p. ej. Hogar/Papelería).
+    r"\bbolsa (de almuerzo|termica|isot[eé]rmica)\b|\bmochila\b|"
+    r"\bgafas\b|\blentes de (sol|lectura|contacto)\b",
     re.I,
 )
+
+# Las dos categorías de refacciones reales (autos y motos) quedan EXENTAS
+# del JUNK_RE general: son, por definición, "refacciones"/"repuestos", y
+# términos pensados para otras categorías (bombilla, manguera de, kit de
+# instalación) también son piezas automotrices legítimas acá (foco/luces
+# LED, mangueras de combustible, kits de encendido). Solo se filtra el
+# ruido de servicios (garantía extendida, instalación) que sí puede colarse
+# igual.
+REFACCIONES_AUTO_PATHS = {"1371651/713201", "1371644/4882323"}
+REFACCIONES_JUNK_RE = re.compile(r"garant[ií]a extendida|servicio de instalaci[oó]n", re.I)
 
 
 def fetch_json(url, retries=3):
@@ -573,8 +736,7 @@ def main():
         print("Se requiere --category-path o --preset", file=sys.stderr)
         sys.exit(2)
 
-    with open(DATA_PATH, encoding="utf-8") as f:
-        data = json.load(f)
+    data = load_catalog()
     existing_urls = {o["url"] for p in data["products"] for o in (p.get("offers") or [])}
     existing_target_urls = {
         urllib.parse.parse_qs(urllib.parse.urlparse(u).query).get("ulp", [u])[0]
@@ -595,6 +757,7 @@ def main():
             print(f"AVISO: sin mapeo de categoría para {path}, se omite", file=sys.stderr)
             continue
         dynamic = callable(mapping)
+        junk_re = REFACCIONES_JUNK_RE if path in REFACCIONES_AUTO_PATHS else JUNK_RE
         print(f"\n== {path} -> {'(por palabra clave)' if dynamic else '/'.join(str(x) for x in mapping[:2])} ==")
         for p in iter_category(path, limit=args.limit or None):
             stats["revisados"] += 1
@@ -603,7 +766,7 @@ def main():
                 stats["duplicada"] += 1
                 continue
             name = p.get("productName") or ""
-            if JUNK_RE.search(name):
+            if junk_re.search(name):
                 stats["junk"] += 1
                 continue
             if dynamic:
@@ -695,9 +858,8 @@ def main():
         })
 
     data["products"].extend(added)
-    with open(DATA_PATH, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"data/data.json actualizado: +{len(added)} productos, total {len(data['products'])}")
+    save_catalog(data)
+    print(f"Catálogo actualizado: +{len(added)} productos, total {len(data['products'])}")
 
 
 if __name__ == "__main__":

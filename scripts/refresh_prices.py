@@ -51,8 +51,10 @@ import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from data_io import load_catalog, save_catalog  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_PATH = os.path.join(ROOT, "data", "data.json")
 SHIPPING_RATES_PATH = os.path.join(ROOT, "data", "shipping-rates.json")
 PROXY = "https://comparamx-mercadolibre-proxy.comparamx.workers.dev/item"
 
@@ -245,8 +247,7 @@ def main():
     if not args.dry_run:
         refresh_usd_mxn_rate()
 
-    with open(DATA_PATH, encoding="utf-8") as f:
-        data = json.load(f)
+    data = load_catalog()
 
     all_products = data["products"]
     products = all_products[args.offset:]
@@ -355,8 +356,7 @@ def main():
             if i % 25 == 0:
                 print(f"  {i}/{len(products)} — {stats['precios']} precios actualizados, {len(dead_ids)} sin ofertas", flush=True)
             if not args.dry_run and args.save_every and i % args.save_every == 0:
-                with open(DATA_PATH, "w", encoding="utf-8") as f:
-                    json.dump(data, f, ensure_ascii=False, indent=2)
+                save_catalog(data)
 
     removed_ids = []
     trimmed = 0
@@ -368,8 +368,7 @@ def main():
               f"{trimmed} variantes de color individuales recortadas (producto sobrevive con las demás).")
 
     if not args.dry_run:
-        with open(DATA_PATH, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+        save_catalog(data)
 
     print("\n=== Resumen ===")
     for k, v in stats.items():

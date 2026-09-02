@@ -1353,7 +1353,18 @@
 
   async function loadData() {
     const res = await fetch("data/data.json");
-    state.data = hideEmptyTaxonomy(await res.json());
+    const manifest = await res.json();
+    // El catálogo pasó de un solo data.json (llegó a 62MB, cerca del
+    // límite de GitHub) a un manifiesto chico + varios data/products-N.json
+    // -- se piden todos en paralelo y se concatenan, mismo resultado final
+    // que antes para el resto del código (state.data.products).
+    const productFiles = manifest.productFiles || [];
+    delete manifest.productFiles;
+    const productBatches = await Promise.all(
+      productFiles.map((f) => fetch(f).then((r) => r.json()))
+    );
+    manifest.products = productBatches.flat();
+    state.data = hideEmptyTaxonomy(manifest);
     // Catálogo de marcas/afiliados (Admitad): independiente del comparador de
     // electrónica, así que un fallo aquí no debe tumbar el resto del sitio.
     try {

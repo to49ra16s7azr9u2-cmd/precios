@@ -70,8 +70,10 @@ import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from data_io import load_catalog, save_catalog  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_PATH = os.path.join(ROOT, "data", "data.json")
 
 SUPPORTED_STORES = {"sunsky", "theluxurycloset", "geekbuying", "glasseslit", "whirlpool"}
 
@@ -350,8 +352,7 @@ def main():
     ap.add_argument("--no-prune", dest="prune", action="store_false")
     args = ap.parse_args()
 
-    with open(DATA_PATH, encoding="utf-8") as f:
-        data = json.load(f)
+    data = load_catalog()
     all_products = data["products"]
 
     candidates = [p for p in all_products if targets_of(p)]
@@ -432,8 +433,7 @@ def main():
             if i % 50 == 0:
                 print(f"  {i}/{len(products)} — {stats['precios']} precios, {len(dead_urls)} sin stock", flush=True)
             if not args.dry_run and args.save_every and i % args.save_every == 0:
-                with open(DATA_PATH, "w", encoding="utf-8") as f:
-                    json.dump(data, f, ensure_ascii=False, indent=2)
+                save_catalog(data)
 
     removed_ids, trimmed = [], 0
     if args.prune and dead_urls:
@@ -444,8 +444,7 @@ def main():
               f"{trimmed} variantes recortadas.")
 
     if not args.dry_run:
-        with open(DATA_PATH, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+        save_catalog(data)
 
     print("\n=== Resumen ===")
     for k, v in stats.items():

@@ -34,10 +34,13 @@ equivocado (o a localhost) es peor para SEO que no tenerlas.
 import json
 import os
 import re
+import sys
 import unicodedata
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from data_io import load_catalog  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_PATH = os.path.join(ROOT, "data", "data.json")
 ICONS_PATH = os.path.join(ROOT, "data", "icons.json")
 
 SITE_URL = "https://comparamex.com"
@@ -705,8 +708,7 @@ def hide_empty_taxonomy(data):
 
 
 def main():
-    with open(DATA_PATH, encoding="utf-8") as f:
-        data = hide_empty_taxonomy(json.load(f))
+    data = hide_empty_taxonomy(load_catalog())
 
     written = []
 

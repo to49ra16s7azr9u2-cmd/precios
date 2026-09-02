@@ -20,8 +20,10 @@ import re
 import sys
 import urllib.request
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from data_io import load_catalog, save_catalog  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_PATH = os.path.join(ROOT, "data", "data.json")
 
 # categoryId del feed -> (categoría, subcategoría) del catálogo. "MotoCare"
 # (planes de garantía/protección extendida, no un producto físico) se
@@ -83,8 +85,7 @@ def main():
     rows = load_rows(args.feed_url, args.feed_file)
     print(f"Filas en el feed: {len(rows)}")
 
-    with open(DATA_PATH, encoding="utf-8") as f:
-        data = json.load(f)
+    data = load_catalog()
     existing_urls = {o["url"] for p in data["products"] for o in (p.get("offers") or [])}
 
     max_id = 0
@@ -174,9 +175,8 @@ def main():
         })
 
     data["products"].extend(added)
-    with open(DATA_PATH, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"data/data.json actualizado: +{len(added)} productos, total {len(data['products'])}")
+    save_catalog(data)
+    print(f"Catálogo actualizado: +{len(added)} productos, total {len(data['products'])}")
 
 
 if __name__ == "__main__":

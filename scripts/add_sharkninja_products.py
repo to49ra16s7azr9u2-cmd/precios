@@ -23,11 +23,11 @@ import re
 import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from add_whirlpool_products import fetch, extract_product, _safe_url  # noqa: E402
+from data_io import load_catalog, save_catalog  # noqa: E402
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_PATH = os.path.join(ROOT, "data", "data.json")
 SITEMAP_URL = "https://www.sharkninja.mx/sitemap_0-product.xml"
 
 ACCESSORY_RE = re.compile(
@@ -99,8 +99,7 @@ def main():
     urls = candidate_urls()
     print(f"Candidatas en el sitemap: {len(urls)}")
 
-    with open(DATA_PATH, encoding="utf-8") as f:
-        data = json.load(f)
+    data = load_catalog()
     existing_urls = {o["url"] for p in data["products"] for o in (p.get("offers") or [])}
     existing_target_urls = {
         urllib.parse.parse_qs(urllib.parse.urlparse(u).query).get("ulp", [u])[0]
@@ -196,9 +195,8 @@ def main():
         })
 
     data["products"].extend(added)
-    with open(DATA_PATH, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"data/data.json actualizado: +{len(added)} productos, total {len(data['products'])}")
+    save_catalog(data)
+    print(f"Catálogo actualizado: +{len(added)} productos, total {len(data['products'])}")
 
 
 if __name__ == "__main__":
