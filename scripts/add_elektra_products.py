@@ -714,7 +714,10 @@ CATEGORY_MAP = {
     "1371641/1371667": ("Otros", "Varios", "box"),
     "1371641/398955": ("Otros", "Varios", "box"),
     "1371641/346528": cat_closets,
-    "1371641/4767700": ("Papelería y oficina", None, "pencil"),
+    # 1371641/4767700 (Papelería, Mercería y Arte) y 1371647/645247
+    # (Artículos Escolares) se agregaron y luego se quitaron a pedido: la
+    # papelería es consumible, mismo criterio que alimentos/perfumes/
+    # skincare -- la categoría "Papelería y oficina" se eliminó completa.
     "1371646/577967": ("Aparatos de belleza", "Maquillaje", "sparkle"),
     "1371646/886458": cat_estetica,
     "1371646/1371684": ("Salud y belleza", "Rasuradoras y afeitado", "heart-pulse"),
@@ -756,7 +759,6 @@ CATEGORY_MAP = {
     "4673714/1371661": cat_muebles,
     "4673714/4673719": cat_muebles,
     "1371647/147441": cat_relojes,
-    "1371647/645247": ("Papelería y oficina", None, "pencil"),
     # 1371647/1371687 (Lentes) y 1371647/4670072 (Mochilas) se agregaron y
     # luego se quitaron a pedido: el usuario decidió que lentes/gafas y
     # mochilas/bolsas no encajan en el catálogo, y se borraron también los
@@ -791,14 +793,14 @@ PRESETS = {
     "muebles_colchones": ["1371640/1371662", "1371640/1371663", "1371640/1371664", "1371640/4699293", "4673714/1371657", "4673714/1371658", "4673714/1371659", "4673714/1371660", "4673714/1371661", "4673714/4673719"],
     "deportes": ["1371649/1371695", "1371649/1371696", "1371649/1371697", "1371649/1371700", "1371649/4651146", "1371649/4652621", "1371649/5093972", "1371649/5093979"],
     "mascotas": ["4667693/4667694", "4667693/4667699", "4667693/4667709", "4667693/4667715", "4667693/4667727", "4667693/4667733", "4667693/4690703"],
-    "joyeria_viajes": ["1371647/147441", "1371647/645247", "1371647/1371688", "1371647/1371689"],
+    "joyeria_viajes": ["1371647/147441", "1371647/1371688", "1371647/1371689"],
     # Fase 3. Refacciones aparte del resto: son ~257k productos (247,853 +
     # 8,875) y tardan mucho más en bajarse -- se corren como job separado.
     "fase3_refacciones": ["1371651/713201", "1371644/4882323"],
     "fase3_resto": [
         "1371651/312938", "1371644/1371676", "1371644/1371677",
         "1371641/1371666", "1371641/4664643",
-        "1371641/1371667", "1371641/398955", "1371641/346528", "1371641/4767700",
+        "1371641/1371667", "1371641/398955", "1371641/346528",
         "1371646/577967", "1371646/886458", "1371646/1371684", "1371646/1371686",
         "1371648/1371692", "1371648/1371693", "1371648/255619",
     ],
