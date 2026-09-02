@@ -152,6 +152,19 @@ def extract_product(page_html, url):
             candidates = data
         else:
             candidates = [data]
+        # ProductGroup (sharkninja.mx): el Offer real vive en hasVariant[],
+        # no en el nodo de arriba. Se agregan como candidatos aparte,
+        # priorizando el variant cuya url coincide con la página pedida
+        # (una página puede listar más de un color).
+        expanded = []
+        for node in candidates:
+            if isinstance(node, dict) and "ProductGroup" in (
+                node.get("@type") if isinstance(node.get("@type"), list) else [node.get("@type")]
+            ):
+                variants = node.get("hasVariant") or []
+                matching = [v for v in variants if isinstance(v, dict) and v.get("url") == url]
+                expanded.extend(matching or [v for v in variants if isinstance(v, dict)])
+        candidates = expanded + candidates
         for node in candidates:
             if not isinstance(node, dict):
                 continue
