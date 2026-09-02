@@ -146,6 +146,18 @@ def total_review_count(product):
     return sum(o.get("reviewCount") or 0 for o in product["offers"])
 
 
+def seller_total(product):
+    """Cuántos vendedores ofrecen el producto -- el mismo número que la SPA
+    muestra como "N vendedores" (ver sellerTotal en js/app.js). Un producto
+    de catálogo de Mercado Libre puede tener varios vendedores en una sola
+    oferta; una ficha fusionada por color los tiene repartidos por variante.
+    Se usa para desempatar el ranking (ver más abajo)."""
+    variants = product.get("colorVariants") or []
+    if len(variants) > 1:
+        return sum((v.get("sellerCount") or 1) for v in variants)
+    return sum((o.get("sellerCount") or 1) for o in (product.get("offers") or []))
+
+
 def is_used(product):
     return any(
         s.get("label") == "Condición" and re.search(r"preowned|usado", s.get("value", ""), re.I)
@@ -573,10 +585,13 @@ def render_category_page(cat, products, data):
         f"Compara precios de {cat['name'].lower()} entre tiendas mexicanas."
         f"{brands_note} {len(products)} productos comparados."
     )
-    # Mismo criterio de "popular" que la SPA (sortedProducts con
-    # sort=popularity en js/app.js): ranking por reseñas totales, no por
-    # precio — es el paso 2 del recorrido categoría → populares → precio.
-    ranked = sorted(products, key=total_review_count, reverse=True)
+    # Mismo criterio de "popular" que la SPA (sortByPopularity en
+    # js/app.js): ranking por reseñas totales, no por precio — es el paso 2
+    # del recorrido categoría → populares → precio. Y con el mismo
+    # desempate por número de vendedores: hoy ninguna oferta del catálogo
+    # trae reseñas, así que sin él TODA la categoría empataba en 0 y el
+    # "top 100" que ve el buscador era el orden crudo de importación.
+    ranked = sorted(products, key=lambda p: (total_review_count(p), seller_total(p)), reverse=True)
     # La página estática no es interactiva (no hay paginación de JS aquí),
     # así que se limita a un top fijo en vez de volcar la categoría entera:
     # sin esto, "Moda y accesorios" generaba un solo archivo HTML de ~4MB

@@ -767,6 +767,27 @@
     return clicks * 3 + views * 1 + favoritePoints + reviewStarPoints(product);
   }
 
+  // Orden por puntos de popularidad, con el NÚMERO DE VENDEDORES como
+  // desempate -- a pedido del usuario. Hace falta porque el puntaje de
+  // arriba es 0 para la enorme mayoría del catálogo (a un producto que
+  // nadie vio, marcó ni reseñó le quedan 0 puntos): sin desempate, "más
+  // popular" dejaba decenas de miles de productos empatados en 0 y los
+  // mostraba en el orden crudo en que se importaron. Cuántos vendedores
+  // ofrecen un producto sí es una señal de qué tan buscado es, y de paso
+  // sube los productos donde este sitio tiene algo que comparar.
+  //
+  // El puntaje se calcula UNA vez por producto (decorate-sort-undecorate)
+  // en vez de dentro del comparador: popularityScore lee y parsea
+  // localStorage en cada llamada, y ordenar el catálogo completo son ~1.4
+  // millones de comparaciones -- calcularlo dentro del comparador eran
+  // millones de lecturas de localStorage por ordenamiento.
+  function sortByPopularity(products) {
+    return products
+      .map((p) => ({ p, score: popularityScore(p), sellers: sellerTotal(p) }))
+      .sort((a, b) => b.score - a.score || b.sellers - a.sellers)
+      .map((x) => x.p);
+  }
+
   // Descuento de la oferta más barata, si tiene listPrice (precio de lista)
   // más alto que el precio actual. Devuelve el % o null.
   function bestDiscountPct(product) {
@@ -1922,7 +1943,7 @@
   // -- para cuando otra persona lo vea, esa pieza en particular puede ya
   // no estar disponible, así que recomendarla como "top" es engañoso.
   function topByPopularity(products, n) {
-    return products.filter((p) => !isUsed(p)).sort((a, b) => popularityScore(b) - popularityScore(a)).slice(0, n);
+    return sortByPopularity(products.filter((p) => !isUsed(p))).slice(0, n);
   }
 
   // Resumen de rankings en Inicio, estilo Kakaku.com: un bloque general con
@@ -2053,12 +2074,35 @@
     });
   }
 
+  // Igual que sortByPopularity, pero solo por número de vendedores. Se
+  // decora una vez por producto en vez de llamar a sellerTotal dentro del
+  // comparador (ver la nota de sortByPopularity).
+  function sortBySellers(products) {
+    return products
+      .map((p) => ({ p, sellers: sellerTotal(p) }))
+      .sort((a, b) => b.sellers - a.sellers)
+      .map((x) => x.p);
+  }
+
   function sortedProducts(products) {
     const list = products.slice();
-    if (state.sort === "popularity") list.sort((a, b) => popularityScore(b) - popularityScore(a));
+    if (state.sort === "popularity") return sortByPopularity(list);
     else if (state.sort === "price_asc") list.sort((a, b) => minPrice(a) - minPrice(b));
     else if (state.sort === "price_desc") list.sort((a, b) => minPrice(b) - minPrice(a));
-    else if (state.sort === "rating_desc") list.sort((a, b) => aggregateRating(b).avg - aggregateRating(a).avg);
+    // "Mejor calificados" empata igual de seguido que "más popular" (hoy
+    // ninguna oferta del catálogo trae calificación), así que usa el mismo
+    // desempate por número de vendedores.
+    else if (state.sort === "rating_desc") {
+      list.sort((a, b) => aggregateRating(b).avg - aggregateRating(a).avg
+        || sellerTotal(b) - sellerTotal(a));
+    }
+    // "Relevancia" es el orden POR DEFECTO (y el de "Todas"), y no tenía
+    // ningún criterio: devolvía la lista tal como quedó al importarla, así
+    // que lo primero que veía el visitante en Celulares era un OnePlus Ace
+    // 5 Racing en vez de un iPhone. Sin búsqueda activa no hay ninguna
+    // señal de relevancia que ordenar, así que se usa la misma que pidió el
+    // usuario para los empates: cuántos vendedores ofrecen el producto.
+    else return sortBySellers(list);
     return list;
   }
 
