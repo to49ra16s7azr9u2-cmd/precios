@@ -938,10 +938,14 @@
     return best && best.storeId !== cheapest.storeId ? best : null;
   }
 
+  // Los campos que valen su default en TODO el catálogo (reviewCount=0,
+  // rating=null, reviews=[], verified=false, ...) ya no viajan en
+  // data/products-N.json -- ver scripts/trim_catalog.py. Leerlos sin
+  // default acá daría NaN (sum + undefined), así que se normalizan.
   function aggregateRating(product) {
-    const totalReviews = product.offers.reduce((sum, o) => sum + o.reviewCount, 0);
+    const totalReviews = product.offers.reduce((sum, o) => sum + (o.reviewCount || 0), 0);
     if (totalReviews === 0) return { avg: 0, count: 0 };
-    const weighted = product.offers.reduce((sum, o) => sum + o.rating * o.reviewCount, 0);
+    const weighted = product.offers.reduce((sum, o) => sum + (o.rating || 0) * (o.reviewCount || 0), 0);
     return { avg: weighted / totalReviews, count: totalReviews };
   }
 
@@ -3080,7 +3084,7 @@
       ...r,
       isLocal: !!(state.user && r.authorUid === state.user.uid),
     }));
-    const allReviews = [...userReviews, ...cloud, ...product.reviews];
+    const allReviews = [...userReviews, ...cloud, ...(product.reviews || [])];
     el.reviewCount.textContent = `(${allReviews.length})`;
     el.reviewList.innerHTML = allReviews
       .map(
@@ -3245,6 +3249,11 @@
   // se muestren en tablas separadas.
   function renderOfferRows(tbody, rows, bestPrice, fastestDays, recommendedStoreId, productId) {
     tbody.innerHTML = "";
+    // La foto de la oferta ya no se guarda cuando es idéntica a la del
+    // producto (era el 100% de los casos: ~10 MB de strings repetidas, ver
+    // scripts/trim_catalog.py). La pastilla "Esta" del selector de variantes
+    // la necesita, así que se resuelve acá desde el producto.
+    const basePhoto = (state.data.products.find((p) => p.id === productId) || {}).photo || null;
     rows.forEach((r) => {
       const tr = document.createElement("tr");
       // r puede venir de una API en vivo (fetchLiveOffer) donde shippingFee,
@@ -3332,7 +3341,7 @@
       const variantsHtml = r.variants && r.variants.length
         ? `<div class="variant-pills" title="También disponible en otras variantes">
             <span class="variant-pills-label">${icon("palette")} ${r.variants.length + 1} variantes:</span>
-            ${[{ label: "Esta", url: r.url, photo: r.photo }, ...r.variants].map(
+            ${[{ label: "Esta", url: r.url, photo: r.photo || basePhoto }, ...r.variants].map(
               (v, i) => `<button class="variant-pill${i === 0 ? " active" : ""}" data-url="${htmlEscapeAttr(v.url)}">${v.photo ? `<img src="${htmlEscapeAttr(v.photo)}" alt="" loading="lazy">` : ""}<span>${htmlEscapeAttr(v.label)}</span></button>`
             ).join("")}
           </div>`
@@ -3444,7 +3453,7 @@
       };
     });
 
-    if (state.offerSort === "rating") rows.sort((a, b) => b.rating - a.rating);
+    if (state.offerSort === "rating") rows.sort((a, b) => (b.rating || 0) - (a.rating || 0));
     else rows.sort((a, b) => a.price - b.price);
 
     const bestPrice = Math.min(...rows.map((r) => r.price));

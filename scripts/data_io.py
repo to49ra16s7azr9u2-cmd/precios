@@ -31,6 +31,15 @@ MANIFEST_PATH = os.path.join(DATA_DIR, "data.json")
 # GitHub incluso si el promedio por producto crece.
 CHUNK_SIZE = 15000
 
+# Los archivos de productos se escriben SIN indentación. Con 87k productos
+# el sangrado eran ~18 MB de espacios que el navegador igual tiene que
+# descargar y parsear (gzip los comprime bien, pero el parseo y la memoria
+# no se benefician). Nadie lee estos archivos a mano -- un diff de 87,000
+# productos no es revisable con o sin sangrado -- así que el formato legible
+# no compra nada. El manifiesto (data.json) sí queda indentado: es chico y
+# sí se lee/edita a mano.
+COMPACT = {"ensure_ascii": False, "separators": (",", ":")}
+
 
 def load_catalog():
     with open(MANIFEST_PATH, encoding="utf-8") as f:
@@ -52,7 +61,7 @@ def save_catalog(data):
         fname = f"data/products-{i}.json"
         product_files.append(fname)
         with open(os.path.join(ROOT, fname), "w", encoding="utf-8") as f:
-            json.dump(chunk, f, ensure_ascii=False, indent=2)
+            json.dump(chunk, f, **COMPACT)
 
     # Si el catálogo se redujo, borra los archivos de productos que ya
     # sobran (si no, quedarían productos fantasma que loadData() de

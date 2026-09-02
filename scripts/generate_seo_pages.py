@@ -137,8 +137,13 @@ def min_price(product):
     return min(o["price"] for o in product["offers"])
 
 
+# Los campos que valen su default en TODO el catálogo (reviewCount=0,
+# rating=null, reviews=[], ...) ya no se guardan en data/products-N.json
+# -- ver scripts/trim_catalog.py. Acá se leen siempre con .get() y un
+# default explícito: si faltan, el resultado tiene que ser el mismo que
+# cuando estaban escritos.
 def total_review_count(product):
-    return sum(o["reviewCount"] for o in product["offers"])
+    return sum(o.get("reviewCount") or 0 for o in product["offers"])
 
 
 def is_used(product):
@@ -149,10 +154,10 @@ def is_used(product):
 
 
 def aggregate_rating(product):
-    total_reviews = sum(o["reviewCount"] for o in product["offers"])
+    total_reviews = sum(o.get("reviewCount") or 0 for o in product["offers"])
     if total_reviews == 0:
         return 0, 0
-    weighted = sum(o["rating"] * o["reviewCount"] for o in product["offers"])
+    weighted = sum((o.get("rating") or 0) * (o.get("reviewCount") or 0) for o in product["offers"])
     return round(weighted / total_reviews, 1), total_reviews
 
 
@@ -366,8 +371,8 @@ def render_product_page(product, data):
         threshold = store.get("freeShippingThresholdUSD")
         qualifies_free = threshold is not None and price_usd is not None and price_usd >= threshold
         ship = (
-            "Envío gratis" if o["shippingFee"] == 0
-            else money(o["shippingFee"]) if o["shippingFee"] is not None
+            "Envío gratis" if o.get("shippingFee") == 0
+            else money(o["shippingFee"]) if o.get("shippingFee") is not None
             else "Envío gratis" if qualifies_free
             # Ninguna tienda trae shippingFee numérico real todavía, y las
             # que sí tienen productos son de envío internacional directo
@@ -381,7 +386,7 @@ def render_product_page(product, data):
             "low_stock": "Últimas piezas",
             "backorder": "Sobre pedido",
         }.get(o["stock"], o["stock"])
-        rating_label = "—" if o["rating"] is None else f"{o['rating']} / 5 ({o['reviewCount']} reseñas)"
+        rating_label = "—" if o.get("rating") is None else f"{o['rating']} / 5 ({o.get('reviewCount') or 0} reseñas)"
         if store.get("logoImg"):
             dot = (
                 f'<span class="store-dot has-logo">'
@@ -400,7 +405,7 @@ def render_product_page(product, data):
             variants_html = (
                 f'<div class="variant-pills"><span class="variant-pills-label">{svg_icon("palette")} {len(variants) + 1} variantes:</span>'
                 f'<a class="variant-pill active" href="{o["url"]}" target="_blank" rel="nofollow noopener">'
-                f'<img src="{o["photo"]}" alt="" loading="lazy"><span>Esta</span></a>{pills}</div>'
+                f'<img src="{o.get("photo") or product.get("photo") or ""}" alt="" loading="lazy"><span>Esta</span></a>{pills}</div>'
             )
         # Alibaba es mayorista, a diferencia del resto de las tiendas del
         # catálogo: mismo aviso que en el SPA (ver renderOfferRows en
@@ -455,11 +460,11 @@ def render_product_page(product, data):
         f'<div class="review-meta"><strong>{html_escape(r["author"])}</strong> — {html_escape(r["date"])}</div>'
         f'<p class="review-comment">{html_escape(r["comment"])}</p>'
         f"</div>"
-        for r in product["reviews"]
+        for r in (product.get("reviews") or [])
     )
     reviews_html = (
         f'<div class="panel detail-anchor-target" id="reviewsPanel"><h2>Reseñas de compradores</h2><div class="review-list">{review_items}</div></div>'
-        if product["reviews"]
+        if product.get("reviews")
         else ""
     )
 
