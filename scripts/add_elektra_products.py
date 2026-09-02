@@ -507,6 +507,156 @@ def cat_juguetes(name):
     return None
 
 
+# Fase 4: "Accesorios para cámaras" (1371643/1371675) mezcla fotografía/
+# video real con objetos sin relación (caña de pesca, empuñadura de arma).
+# Allowlist explícito de vocabulario de foto/video en vez de un fallback
+# abierto -- precisamente para no dejar pasar accesorios de armas.
+CAMERA_ACCESSORY_RE = re.compile(
+    r"lente|objetivo fotografico|bateria.*(cámara|camara|gopro|sony|canon|nikon|fujifilm)|"
+    r"memoria (sd|microsd|cfexpress|compactflash)|tarjeta (sd|cf)\b|cfexpress|"
+    r"tripie|tripode|monopie|monopode|estabilizador|gimbal|"
+    r"luz led.*(foto|video)|panel led|flash para camara|difusor|softbox|"
+    r"filtro (uv|nd|polarizador)|parasol|"
+    r"protector de pantalla.*(nikon|canon|sony|fujifilm|gopro)|"
+    r"correa para camara|bolsa para camara|mochila para camara|funda para camara|"
+    r"binocular|telescopio|microfono|adaptador de lente|anillo adaptador|"
+    r"pelicula instantanea|\bdvr\b|\bnvr\b|camara de seguridad",
+    re.I,
+)
+WEAPON_RE = re.compile(r"empu[ñn]adura de arma|\barma\b|\brifle\b|municion|calibre \d", re.I)
+
+
+def cat_accesorios_camaras(name):
+    n = norm(name)
+    if WEAPON_RE.search(n):
+        return None
+    if "camara de seguridad" in n or re.search(r"\bdvr\b|\bnvr\b", n):
+        return "Cámaras de seguridad", None, "security-cam"
+    if CAMERA_ACCESSORY_RE.search(n):
+        return "Cámaras y fotografía", "Accesorios", "camera"
+    return None
+
+
+# Fase 4: "Equipo Médico" mezcla dispositivos reales (sillas de ruedas,
+# andaderas, glucómetros) con ropa clínica (scrubs) -- se excluye la ropa,
+# mismo criterio del resto del catálogo.
+MEDICAL_CLOTHING_RE = re.compile(
+    r"\bscrub|bata clinica|bata medica|uniforme clinico|filipina|pantalon barco",
+    re.I,
+)
+
+
+def cat_equipo_medico(name):
+    n = norm(name)
+    if MEDICAL_CLOTHING_RE.search(n):
+        return None
+    if any(k in n for k in ("silla de ruedas", "andadera", "andador", "baston",
+                             "silla de transferencia", "cama de hospital", "camilla")):
+        return "Salud y belleza", "Movilidad y equipo médico", "heart-pulse"
+    if any(k in n for k in ("glucometro", "oximetro", "tensiometro", "monitor de presion",
+                             "electrocardiograma", "concentrador de oxigeno", "nebulizador",
+                             "electroestimulador")):
+        return "Salud y belleza", "Equipo de monitoreo médico", "heart-pulse"
+    if "bascula" in n or "balanza" in n:
+        return "Salud y belleza", "Básculas", "heart-pulse"
+    return None
+
+
+# Fase 4: "Manuales" (herramientas) mezcla herramienta real con tablas de
+# cortar y tijeras que se colaron en la misma categoría de Elektra.
+HERR_MANUAL_JUNK_RE = re.compile(r"tabla de cortar|tijeras (plus|scotch|de oficina|escolares)", re.I)
+
+
+def cat_herr_manuales(name):
+    n = norm(name)
+    if HERR_MANUAL_JUNK_RE.search(n):
+        return None
+    if ("juego de" in n or "kit de" in n) and "herramientas" in n:
+        return "Herramientas", "Herramientas manuales", "wrench"
+    if any(k in n for k in (
+        "caja de herramientas", "desarmador", "pinza",
+        "gato hidraulico", "llave", "martillo", "cincel", "cuter", "expansor",
+        "pedestal de elevacion", "prensa", "sargento", "nivel", "flexometro", "cinta metrica",
+    )):
+        return "Herramientas", "Herramientas manuales", "wrench"
+    return None
+
+
+# Fase 4: "Organización y Almacenaje" (herramientas) es sobre todo bolsas de
+# viaje/oficina sin relación -- solo se incluye almacenaje específicamente
+# de herramientas.
+def cat_herr_organizacion(name):
+    n = norm(name)
+    if "herramienta" in n and any(k in n for k in ("caja", "gaveta", "organizador", "gabinete", "carrito")):
+        return "Herramientas", "Organización y almacenaje", "wrench"
+    return None
+
+
+# Fase 4: "Audio para autos" es en su mayoría autoestéreos/bocinas/subs
+# reales, pero más adentro de la paginación se cuelan bocinas domésticas
+# (Amazon Echo) que no son audio automotriz.
+def cat_audio_auto(name):
+    n = norm(name)
+    if "amazon echo" in n or "alexa" in n:
+        return None
+    return "Autos, bicicletas y motos", "Audio y multimedia para auto", "car"
+
+
+# Fase 4: "Plomería" (herramientas) es en su mayoría accesorios reales de
+# plomería/gas LP, pero se cuelan tubos de tatuaje y tubería quirúrgica
+# (nada que ver con plomería doméstica).
+PLOMERIA_JUNK_RE = re.compile(r"tubo(s)? de tatuaje|tubo quirurgico", re.I)
+
+
+def cat_plomeria(name):
+    n = norm(name)
+    if PLOMERIA_JUNK_RE.search(n):
+        return None
+    return "Herramientas", "Plomería y gas LP", "wrench"
+
+
+# Fase 4: "Construcción" (herramientas) mezcla equipo real (compactadoras,
+# selladores, EPP) con manualidades/arte y un disfraz suelto.
+def cat_herr_construccion(name):
+    n = norm(name)
+    if "compactadora" in n or "apisonadora" in n:
+        return "Herramientas", "Construcción", "wrench"
+    if any(k in n for k in ("gafas de seguridad", "guante de trabajo", "guantes de trabajo",
+                             "casco de seguridad", "arnes de seguridad", "casco de soldadura")):
+        return "Herramientas", "Seguridad industrial", "wrench"
+    if "masilla" in n or "sellador" in n:
+        return "Herramientas", "Construcción", "wrench"
+    if "piso autoadhesivo" in n or "piso laminado" in n or "piso vinilico" in n:
+        return "Herramientas", "Construcción", "wrench"
+    return None
+
+
+# Fase 4: "Boilers" (línea blanca) se ve limpia en las primeras páginas
+# pero más adentro trae tiza de billar, arandelas, gorro de sauna, etc. --
+# se exige la palabra "calentador"/"boiler" en el nombre en vez de mapeo fijo.
+def cat_calentadores(name):
+    n = norm(name)
+    if "calentador" in n or "boiler" in n:
+        return "Electrodomésticos", "Calentadores de agua", "appliance"
+    return None
+
+
+# Fase 4: "Material Eléctrico" -- paneles solares/estaciones de energía van
+# a la subcategoría de energía portátil que ya existe (Otros); el resto de
+# material eléctrico real (interruptores, detectores) a Herramientas.
+def cat_material_electrico(name):
+    n = norm(name)
+    if "panel solar" in n or "estacion de energia" in n or "power station" in n or "generador solar" in n:
+        return "Otros", "Energía portátil y paneles solares", "box"
+    if any(k in n for k in (
+        "detector de montantes", "interruptor", "enchufe", "clavija", "sonda",
+        "monitor de energia", "detector de monoxido", "detector de gas", "carrete de cable",
+        "cubierta de dispositivo", "contacto electrico", "supresor",
+    )):
+        return "Herramientas", "Material eléctrico", "wrench"
+    return None
+
+
 # category_path (padre/hijo de category/tree) -> (categoría, subcategoría, icono)
 # fijos, O un callable name(str)->(categoría, subcategoría, icono)|None para
 # categorías "cajón de sastre" de Elektra donde el producto real varía
@@ -613,6 +763,22 @@ CATEGORY_MAP = {
     # que ya se habían cargado.
     "1371647/1371688": cat_joyeria,
     "1371647/1371689": ("Viajes", "Maletas y equipaje", "suitcase"),
+    # Fase 4
+    "1371645/127833": cat_calentadores,
+    "1371643/1371673": cat_audio_auto,
+    "1371643/1371675": cat_accesorios_camaras,
+    "1371655/1371731": ("Celulares", "Teléfonos fijos", "phone"),
+    "1371655/368713": cat_telefonia_accesorios,
+    "1371652/127669": cat_videojuegos,
+    "4690361/857702": cat_equipo_medico,
+    "4845836/4845838": cat_herr_manuales,
+    "4845836/4845989": ("Herramientas", "Herramientas neumáticas y de impacto", "wrench"),
+    "4845836/4846005": ("Herramientas", "Accesorios para herramientas eléctricas", "wrench"),
+    "4845836/4846013": cat_herr_organizacion,
+    "4845836/4846030": cat_herr_construccion,
+    "4845836/4846075": cat_material_electrico,
+    "4845836/4846083": cat_plomeria,
+    "4845836/4846092": ("Herramientas", "Jardinería", "wrench"),
 }
 PRESETS = {
     "linea_blanca": ["1371645/1371678", "1371645/1371679"],
@@ -635,6 +801,12 @@ PRESETS = {
         "1371641/1371667", "1371641/398955", "1371641/346528", "1371641/4767700",
         "1371646/577967", "1371646/886458", "1371646/1371684", "1371646/1371686",
         "1371648/1371692", "1371648/1371693", "1371648/255619",
+    ],
+    "fase4": [
+        "1371645/127833", "1371643/1371673", "1371643/1371675", "1371655/1371731",
+        "1371655/368713", "1371652/127669", "4690361/857702", "4845836/4845838",
+        "4845836/4845989", "4845836/4846005", "4845836/4846013", "4845836/4846030",
+        "4845836/4846075", "4845836/4846083", "4845836/4846092",
     ],
 }
 PRESETS["todo"] = (
