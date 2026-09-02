@@ -620,14 +620,60 @@ def render_category_page(cat, products, data):
     return page_shell(title, description, canonical_path, body, depth=2, extra_head=extra_head)
 
 
-def build_sitemap(data):
-    urls = [f"{SITE_URL}/index.html"]
-    for cat in data["categories"]:
-        urls.append(f"{SITE_URL}/categoria/{slugify(cat['name'])}/")
-    for p in data["products"]:
-        urls.append(f"{SITE_URL}/producto/{p['id']}/")
+# Límite real de Google es 50,000 URLs (y 50MB) por archivo de sitemap;
+# se corta antes, en 40,000, para dejar margen y no rozarlo justo cuando el
+# catálogo crezca un poco más entre una corrida y la siguiente.
+SITEMAP_CHUNK_SIZE = 40000
+
+
+def _urlset_xml(urls):
     entries = "\n".join(f"  <url><loc>{u}</loc></url>" for u in urls)
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{entries}\n</urlset>\n'
+
+
+def write_sitemaps(data, root):
+    """Escribe el árbol de sitemaps y devuelve las rutas escritas.
+
+    Un solo sitemap.xml con más de 50,000 URLs es inválido para Google; en
+    vez de eso, sitemap.xml pasa a ser un ÍNDICE (sitemapindex) que apunta a
+    archivos separados -- las páginas de producto (la parte que más crece,
+    se cortan en tandas de SITEMAP_CHUNK_SIZE) y un archivo aparte para el
+    inicio + categorías (chico, no necesita cortarse). robots.txt sigue
+    apuntando a sitemap.xml sin cambios: los buscadores siguen el índice
+    solos hasta las URLs reales.
+    """
+    written = []
+
+    page_urls = [f"{SITE_URL}/index.html"]
+    for cat in data["categories"]:
+        page_urls.append(f"{SITE_URL}/categoria/{slugify(cat['name'])}/")
+    pages_path = os.path.join(root, "sitemap-pages.xml")
+    with open(pages_path, "w", encoding="utf-8") as f:
+        f.write(_urlset_xml(page_urls))
+    written.append(pages_path)
+    sitemap_files = ["sitemap-pages.xml"]
+
+    product_urls = [f"{SITE_URL}/producto/{p['id']}/" for p in data["products"]]
+    chunks = [product_urls[i:i + SITEMAP_CHUNK_SIZE] for i in range(0, len(product_urls), SITEMAP_CHUNK_SIZE)] or [[]]
+    for i, chunk in enumerate(chunks, 1):
+        name = f"sitemap-products-{i}.xml"
+        path = os.path.join(root, name)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(_urlset_xml(chunk))
+        written.append(path)
+        sitemap_files.append(name)
+
+    index_entries = "\n".join(f"  <sitemap><loc>{SITE_URL}/{name}</loc></sitemap>" for name in sitemap_files)
+    index_xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{index_entries}\n</sitemapindex>\n"
+    )
+    index_path = os.path.join(root, "sitemap.xml")
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(index_xml)
+    written.append(index_path)
+    return written
 
 
 def build_robots():
@@ -682,10 +728,7 @@ def main():
             f.write(render_category_page(cat, products, data))
         written.append(out_path)
 
-    sitemap_path = os.path.join(ROOT, "sitemap.xml")
-    with open(sitemap_path, "w", encoding="utf-8") as f:
-        f.write(build_sitemap(data))
-    written.append(sitemap_path)
+    written += write_sitemaps(data, ROOT)
 
     robots_path = os.path.join(ROOT, "robots.txt")
     with open(robots_path, "w", encoding="utf-8") as f:
