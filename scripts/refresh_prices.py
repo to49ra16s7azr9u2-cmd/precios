@@ -276,7 +276,7 @@ def main():
         )
         raise SystemExit(2)
 
-    stats = {"revisados": 0, "actualizados": 0, "sin_cambio": 0, "sin_oferta": 0, "error": 0, "precios": 0}
+    stats = {"revisados": 0, "actualizados": 0, "sin_cambio": 0, "sin_oferta": 0, "error": 0, "precios": 0, "fotos": 0}
     max_delta = []
     dead_ids = set()
 
@@ -328,6 +328,22 @@ def main():
             elif not sellers and node.get("sellers"):
                 del node["sellers"]
                 changed = True
+            # Foto faltante: 343 productos de Mercado Libre no tenían NINGUNA
+            # imagen (ni en el producto ni en la oferta) y se pintaban como
+            # una tarjeta vacía. El Worker ya devuelve la foto en cada
+            # consulta y no se estaba usando. Va junto a los campos de arriba,
+            # antes del corte por "precio sin cambios": si no, un producto con
+            # precio estable no recuperaría nunca su imagen. Solo se rellena
+            # lo que falta -- una foto ya elegida no se pisa.
+            photo = res.get("photo")
+            if photo:
+                if not product.get("photo"):
+                    product["photo"] = photo
+                    stats["fotos"] += 1
+                    changed = True
+                if not node.get("photo"):
+                    node["photo"] = photo
+                    changed = True
             if old_price is not None and abs(new_price - old_price) < 0.005:
                 stats["sin_cambio"] += 1
                 continue

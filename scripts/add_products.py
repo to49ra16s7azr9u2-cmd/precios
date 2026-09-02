@@ -43,10 +43,14 @@ import argparse
 import json
 import os
 import re
+import sys
 import time
 import unicodedata
 import urllib.parse
 import urllib.request
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from data_io import load_catalog, save_catalog  # noqa: E402
 
 BASE = "https://comparamx-mercadolibre-proxy.comparamx.workers.dev"
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; ComparaMEX-bot/1.0)"}
@@ -180,12 +184,13 @@ def build_index(products):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("targets")
-    ap.add_argument("--data", default=os.path.join(ROOT, "data", "data.json"))
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
-    with open(args.data, encoding="utf-8") as f:
-        data = json.load(f)
+    # data/data.json dejó de ser el catálogo entero: ahora es un manifiesto
+    # que apunta a data/products-N.json (ver data_io). Este script seguía
+    # leyéndolo a mano y reventaba en data["products"], que ya no existe ahí.
+    data = load_catalog()
     products = data["products"]
     cat_ids = {c["id"]: {s["id"] for s in c.get("subcategories", [])} for c in data["categories"]}
     seen_ml, seen_sig = build_index(products)
@@ -298,9 +303,8 @@ def main():
     if args.dry_run:
         print("\n(dry-run: no se guardó nada)")
     elif added:
-        with open(args.data, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=1)
-        print(f"\nGuardado {args.data}: {len(products)} productos")
+        save_catalog(data)
+        print(f"\nCatálogo guardado: {len(products)} productos")
 
 
 if __name__ == "__main__":
