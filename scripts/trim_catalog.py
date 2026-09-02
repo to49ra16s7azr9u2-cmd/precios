@@ -62,12 +62,21 @@ def trim(products):
     stats = {k: 0 for k in OFFER_DEFAULTS}
     stats["reviews"] = 0
     stats["photo_oferta"] = 0
+    stats["listPrice_sin_descuento"] = 0
     for p in products:
         if p.get("reviews") == []:
             del p["reviews"]
             stats["reviews"] += 1
         photo = p.get("photo")
         for o in p.get("offers") or []:
+            # Un listPrice que NO es mayor que el precio no es un precio de
+            # lista: es un descuento que ya se terminó y quedó escrito. No
+            # llega a mostrarse (la interfaz exige listPrice > price), pero
+            # se arrastra en cada refresco y en el payload, así que se borra.
+            if o.get("listPrice") is not None and o.get("price") is not None \
+                    and o["listPrice"] <= o["price"]:
+                del o["listPrice"]
+                stats["listPrice_sin_descuento"] += 1
             for field, default in OFFER_DEFAULTS.items():
                 if field in o and o[field] == default:
                     del o[field]

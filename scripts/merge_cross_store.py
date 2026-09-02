@@ -89,6 +89,31 @@ def mergeable_groups(products):
     return out
 
 
+def same_url_groups(products):
+    """Fichas distintas que apuntan a la MISMA url de tienda: es literalmente
+    la misma publicación cargada dos veces (pasó con SUNSKY, una vez con el
+    título corto y otra con el título largo del proveedor). No hay nada que
+    interpretar acá -- misma url es el mismo producto -- así que se fusionan
+    aunque los nombres no coincidan palabra por palabra."""
+    by_url = defaultdict(list)
+    for p in products:
+        for o in p.get("offers") or []:
+            url = o.get("url")
+            if url:
+                by_url[url].append(p)
+    groups, seen = [], set()
+    for url, ps in by_url.items():
+        uniq = {p["id"]: p for p in ps}
+        if len(uniq) < 2:
+            continue
+        key = tuple(sorted(uniq))
+        if key in seen:
+            continue
+        seen.add(key)
+        groups.append((url, sorted(uniq.values(), key=id_num)))
+    return groups
+
+
 def merge_group(ps):
     """Fusiona una lista de fichas en la primera (la de id más bajo).
     Devuelve (principal, sobrantes)."""
@@ -123,12 +148,21 @@ def main():
     args = ap.parse_args()
 
     data = load_catalog()
+    absorbed = set()
+
+    url_groups = same_url_groups(data["products"])
+    print(f"Fichas duplicadas (misma url de tienda): {len(url_groups)}")
+    for url, ps in url_groups:
+        primary, rest = merge_group(ps)
+        absorbed.update(p["id"] for p in rest)
+        print(f"  {primary['id']} <- {', '.join(p['id'] for p in rest)}   {url[:60]}")
+        print(f"      se conserva: {primary['name'][:70]}")
+
     groups = mergeable_groups(data["products"])
-    print(f"Grupos fusionables (mismo producto en tiendas distintas): {len(groups)}")
-    if not groups:
+    print(f"\nGrupos fusionables (mismo producto en tiendas distintas): {len(groups)}")
+    if not groups and not url_groups:
         return
 
-    absorbed = set()
     for category, name, ps in groups:
         primary, rest = merge_group(ps)
         absorbed.update(p["id"] for p in rest)

@@ -631,6 +631,46 @@ def cat_herr_construccion(name):
     return None
 
 
+# Fase 5: "Equipos de Radiofrecuencia" son radios de dos vías / walkie
+# talkies. Se pide que el nombre lo diga (radio "de dos vías" o
+# "bidireccional", o walkie/talkie) para no arrastrar lo que comparte
+# categoría sin ser una radio: controladores de radiocontrol, sistemas de
+# paginado para restaurantes y accesorios sueltos.
+def cat_radios(name):
+    n = norm(name)
+    if "accesorio" in n:
+        return None
+    if "walkie" in n or "talkie" in n:
+        return "Otros", "Radios y walkie-talkies", "box"
+    if "radio" in n and ("dos vias" in n or "bidireccional" in n):
+        return "Otros", "Radios y walkie-talkies", "box"
+    return None
+
+
+# Fase 5: "Sublimación" mezcla el EQUIPO (prensas de calor, impresoras de
+# sublimación, encuadernadoras) con sus consumibles (vinilo de transferencia,
+# papel, tazas en blanco, almohadillas). Solo entra el equipo, mismo criterio
+# que con el resto de consumibles del catálogo.
+def cat_sublimacion(name):
+    n = norm(name)
+    if "prensa de calor" in n or "impresora" in n or "maquina de" in n:
+        return "Equipo comercial", "Sublimación y prensas", "factory"
+    return None
+
+
+# Fase 5: "Armables y Posters" son kits de armado y miniaturas (Gundam,
+# Games Workshop, rompecabezas de metal). Los sets que la propia tienda
+# llama juego de mesa van a la categoría de juegos de mesa que ya existe.
+def cat_armables(name):
+    n = norm(name)
+    if "juego de mesa" in n:
+        return "Juegos de mesa", None, "dice"
+    if any(k in n for k in ("kit de modelo", "miniatura", "rompecabezas", "armable",
+                            "construible", "kit de montaje", "maqueta", "modelo a escala")):
+        return "Juguetes y bebés", "Armables y maquetas", "toy"
+    return None
+
+
 # Fase 4: "Boilers" (línea blanca) se ve limpia en las primeras páginas
 # pero más adentro trae tiza de billar, arandelas, gorro de sauna, etc. --
 # se exige la palabra "calentador"/"boiler" en el nombre en vez de mapeo fijo.
@@ -781,6 +821,19 @@ CATEGORY_MAP = {
     "4845836/4846075": cat_material_electrico,
     "4845836/4846083": cat_plomeria,
     "4845836/4846092": ("Herramientas", "Jardinería", "wrench"),
+    # Fase 5 -- lo que quedaba del árbol de Elektra que sí compara este
+    # catálogo. Se dejan fuera a propósito: Ropa/Zapatos/Alimentos (ya
+    # excluidos), "Accesorios de Moda" (gorras, cinturones, tirantes: es
+    # ropa), "Otros accesorios" (plumas: papelería, que se eliminó por ser
+    # consumible), Perfumes/Cuidado de la piel/Higiene/Farmacia
+    # (consumibles), Nutrición deportiva (suplementos), Películas/música/
+    # libros y Servicios/Tarjetas (no son un bien durable comparable), y
+    # Software de Cómputo (el surtido es software retro en caja: Windows 7,
+    # CD-ROMs de los 90; no hay comparación de precio útil).
+    "1371643/717996": cat_radios,
+    "1371654/845647": cat_sublimacion,
+    "1371652/4666014": cat_videojuegos,
+    "1371648/737112": cat_armables,
 }
 PRESETS = {
     "linea_blanca": ["1371645/1371678", "1371645/1371679"],
@@ -809,6 +862,9 @@ PRESETS = {
         "1371655/368713", "1371652/127669", "4690361/857702", "4845836/4845838",
         "4845836/4845989", "4845836/4846005", "4845836/4846013", "4845836/4846030",
         "4845836/4846075", "4845836/4846083", "4845836/4846092",
+    ],
+    "fase5": [
+        "1371643/717996", "1371654/845647", "1371652/4666014", "1371648/737112",
     ],
 }
 PRESETS["todo"] = (

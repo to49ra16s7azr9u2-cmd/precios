@@ -67,6 +67,11 @@ def words(s):
     return {t for t in re.split(r"[^a-z]+", _norm(s)) if len(t) >= 4} - STOP
 
 
+def capacities(s):
+    """Capacidades tipo "256 GB" / "1 TB" que aparecen en un texto."""
+    return set(re.findall(r"(\d+)\s*(gb|tb)\b", _norm(s).replace("-", " ")))
+
+
 def real_url(offer_url):
     qs = urllib.parse.parse_qs(urllib.parse.urlparse(offer_url or "").query)
     ulp = qs.get("ulp", [None])[0]
@@ -80,6 +85,7 @@ def mismatches(products):
         if len({o.get("storeId") for o in offers}) < 2:
             continue
         name_words = words(p.get("name"))
+        name_caps = capacities(p.get("name"))
         if not name_words:
             continue
         brand = _norm(p.get("brand") or "")
@@ -89,6 +95,18 @@ def mismatches(products):
             if not url or "/p/MLM" in url:
                 continue
             slug = _norm(urllib.parse.unquote(url))
+
+            # Regla 2: capacidades que se contradicen. Cuando el código de
+            # modelo coincide pero el producto es OTRO de la misma familia
+            # (dos laptops, dos SSD), las palabras sí se parecen y la regla
+            # de abajo no lo ve; lo que no se puede contradecir es la
+            # capacidad. Ej.: "Asus ... 64gb ... 4gb" contra un
+            # "laptop-lm-7500 ... 6gb-ram-128gb": no comparten ninguna.
+            slug_caps = capacities(slug)
+            if name_caps and slug_caps and not (name_caps & slug_caps):
+                out.append((p, o, url))
+                continue
+
             if brand0 and len(brand0) >= 3 and brand0 in slug:
                 continue
             slug_words = words(slug.split("/")[-2] if slug.endswith("/p") else slug)
