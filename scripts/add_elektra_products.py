@@ -556,8 +556,9 @@ CATEGORY_MAP = {
     "1371651/312938": cat_auto_accesorios,
     "1371644/1371676": ("Autos, bicicletas y motos", "Motocicletas", "car"),
     "1371644/1371677": cat_auto_accesorios,
-    "1371641/1371665": ("Decoración de hogar y jardín", None, "vase"),
-    "1371641/1371669": ("Decoración de hogar y jardín", "Jardín y exterior", "vase"),
+    # 1371641/1371665 (Decoración) y 1371641/1371669 (Jardín y exterior) se
+    # agregaron y luego se quitaron a pedido: "Decoración de hogar y jardín"
+    # completa se eliminó del catálogo (sin valor de comparación real).
     "1371641/1371666": ("Blancos y ropa de cama", None, "pillow"),
     "1371641/4664643": cat_bano,
     "1371641/1371667": ("Otros", "Varios", "box"),
@@ -630,7 +631,7 @@ PRESETS = {
     "fase3_refacciones": ["1371651/713201", "1371644/4882323"],
     "fase3_resto": [
         "1371651/312938", "1371644/1371676", "1371644/1371677",
-        "1371641/1371665", "1371641/1371669", "1371641/1371666", "1371641/4664643",
+        "1371641/1371666", "1371641/4664643",
         "1371641/1371667", "1371641/398955", "1371641/346528", "1371641/4767700",
         "1371646/577967", "1371646/886458", "1371646/1371684", "1371646/1371686",
         "1371648/1371692", "1371648/1371693", "1371648/255619",
