@@ -71,7 +71,7 @@ COLORS = (
     "red", "amarillo", "yellow", "grafito", "graphite", "medianoche",
     "media noche", "midnight", "salvia", "sage", "oro", "crema", "coral",
     "beige", "turquesa", "champan", "champán", "champagne", "perla",
-    "cobre", "vino", "burgundy", "lavanda", "lavender",
+    "cobre", "vino", "burgundy", "lavanda", "lavender", "cereza", "cherry",
 )
 # color_of() devolvía la palabra encontrada TAL CUAL, así que sinónimos
 # del mismo color en idiomas/formas distintas ("violeta" vs "morado" vs
@@ -101,7 +101,7 @@ COLOR_CANON = {
     # del título quedaba en None.
     "plateado": "plata", "plateada": "plata",
     "champagne": "champan", "champán": "champan",
-    "burgundy": "vino", "lavender": "lavanda",
+    "burgundy": "vino", "lavender": "lavanda", "cherry": "cereza",
 }
 MIN_SCORE = 3
 
@@ -294,8 +294,13 @@ _MODEL_PATTERNS = {
          lambda m: "findx" + m.group(1) + (m.group(2) or "") + (m.group(3) or "")),
         (re.compile(r"reno\s*(\d{1,2})([a-z])?\s*(pro\+?|ultra)?"),
          lambda m: "reno" + m.group(1) + (m.group(2) or "") + _plus(m.group(3))),
-        (re.compile(r"\ba(\d{1,2})([a-z])?\b"),
-         lambda m: "a" + m.group(1) + (m.group(2) or "")),
+        # "Pro" es un equipo distinto del "A6" base (precio y specs
+        # distintos), no una forma alternativa de nombrar el mismo -- sin
+        # capturarlo acá, model_of("OPPO A6 Pro...") y model_of("OPPO A6...")
+        # devolvían la misma clave ("oppo:a6") y un merge/otro_libre podía
+        # confirmar como "iguales" un A6 Pro contra un A6 sin Pro.
+        (re.compile(r"\ba(\d{1,2})([a-z])?\s*(pro)?\b"),
+         lambda m: "a" + m.group(1) + (m.group(2) or "") + (m.group(3) or "")),
     ),
     "realme": (
         (re.compile(r"(gt|neo)\s*(\d{1,2})\s*(pro\+?|pro|ultra|se|t)?"),
@@ -338,12 +343,27 @@ def variant_of(s):
     return m.group(1) if m else None
 
 
+_COLOR_RE = re.compile(r"\b(" + "|".join(re.escape(c) for c in COLORS) + r")\b")
+
+
 def color_of(s):
-    n = norm(s)
-    for c in COLORS:
-        if re.search(rf"\b{c}\b", n):
-            return COLOR_CANON.get(c, c)
-    return None
+    # Antes esto recorría COLORS en su orden fijo y devolvía el primer color
+    # que matcheara EN CUALQUIER PARTE del texto -- no el que aparece
+    # primero en el texto. Un título como "...Naranja con FreeBuds Pro 5
+    # Blanco" (el color del regalo mencionado DESPUÉS del color real del
+    # equipo) devolvía "blanco" en vez de "naranja" simplemente porque
+    # "blanco" está antes que "naranja" en la tupla COLORS, sin relación
+    # con dónde aparece cada uno en el título. Ahora se arma un solo regex
+    # con todos los colores y se toma el que aparece MÁS A LA IZQUIERDA en
+    # el texto -- los compuestos ("titanio natural") siguen ganándole a su
+    # prefijo ("titanio") cuando empiezan en la misma posición porque
+    # siguen listados primero en COLORS (el orden de alternancia del regex
+    # es el desempate cuando dos matchean en el mismo punto de inicio).
+    m = _COLOR_RE.search(norm(s))
+    if not m:
+        return None
+    c = m.group(1)
+    return COLOR_CANON.get(c, c)
 
 
 def candidates_for(item, products):
