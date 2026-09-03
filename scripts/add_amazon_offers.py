@@ -155,6 +155,8 @@ def main():
             existing["url"] = url
             if row.get("photo"):
                 existing["photo"] = row["photo"]
+            if row.get("bundleNote"):
+                existing["bundleNote"] = row["bundleNote"]
             print(f"  = actualizado {pid} ({product['name'][:40]}) -> ${price:,.2f}")
             skipped["ya_existe"] += 1
             continue
@@ -169,6 +171,12 @@ def main():
         }
         if row.get("photo"):
             offer["photo"] = row["photo"]
+        # bundleNote: el listado de Amazon trae un regalo (audífonos, etc.)
+        # incluido en el precio pero el product_id apunta al equipo SIN
+        # regalo (mismo criterio que merge_bundle_offers.py) -- se anota
+        # acá para que se muestre junto al precio en vez de perderse.
+        if row.get("bundleNote"):
+            offer["bundleNote"] = row["bundleNote"]
         offers.append(offer)
         added.append((pid, product["name"], price))
         print(f"  + {pid}  {product['name'][:50]}  -> ${price:,.2f} MXN")
