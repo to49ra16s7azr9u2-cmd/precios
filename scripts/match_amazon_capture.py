@@ -71,7 +71,7 @@ COLORS = (
     "red", "amarillo", "yellow", "grafito", "graphite", "medianoche",
     "media noche", "midnight", "salvia", "sage", "oro", "crema", "coral",
     "beige", "turquesa", "champan", "champán", "champagne", "perla",
-    "cobre",
+    "cobre", "vino", "burgundy", "lavanda", "lavender",
 )
 # color_of() devolvía la palabra encontrada TAL CUAL, así que sinónimos
 # del mismo color en idiomas/formas distintas ("violeta" vs "morado" vs
@@ -101,6 +101,7 @@ COLOR_CANON = {
     # del título quedaba en None.
     "plateado": "plata", "plateada": "plata",
     "champagne": "champan", "champán": "champan",
+    "burgundy": "vino", "lavender": "lavanda",
 }
 MIN_SCORE = 3
 
@@ -223,6 +224,15 @@ BRAND_WORDS = {
 # ningún nombre de equipo individual del catálogo (esos siempre escriben
 # "4GB 128GB"/"4GB RAM 128GB", nunca "4-128GB").
 MULTI_UNIT_PACK_RE = re.compile(r"\bcombo\s*\d+\b.*\b\d{1,2}-\d{2,4}gb\b", re.IGNORECASE)
+
+# "Desbloqueado" en el título capturado es una afirmación positiva de que
+# el equipo NO está atado a ninguna compañía -- un candidato con AT&T/
+# Telcel/Movistar explícito en el nombre lo contradice directamente
+# (Libre/Otro no, esos sí son compatibles con "desbloqueado"). Se vio un
+# caso real: "Motorola Moto Edge 50 ... Desbloqueado" resolvió solo
+# contra un candidato "... AT&T Verde" porque nada comparaba esto.
+UNLOCKED_HINT_RE = re.compile(r"\bdesbloqueado\b|\bdesbloqueada\b|\bunlocked\b", re.IGNORECASE)
+LOCKED_CARRIER_RE = re.compile(r"\b(AT&T|Telcel|Movistar)\b", re.IGNORECASE)
 
 # Número/línea de modelo para las marcas más comunes en las capturas de
 # Amazon, con el mismo criterio que generation_of() para iPhone: ancla
@@ -347,12 +357,15 @@ def candidates_for(item, products):
     tg = generation_of(title)
     tm = model_of(title)
     t_brands = BRAND_WORDS & tw
+    t_unlocked = bool(UNLOCKED_HINT_RE.search(title))
 
     scored = []
     for p in products:
         pw = words(p["name"])
         overlap = tw & pw
         if not overlap:
+            continue
+        if t_unlocked and LOCKED_CARRIER_RE.search(p["name"]):
             continue
         # Si el título capturado trae una palabra de marca (iphone, samsung,
         # motorola...), el candidato tiene que traerla también -- si no, se
