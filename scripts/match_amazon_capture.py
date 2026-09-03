@@ -65,11 +65,13 @@ COLORS = (
     "titanio natural", "natural titanium", "titanio del desierto",
     "desert titanium",
     "negro", "black", "blanco", "white", "azul", "blue", "rosa", "pink",
-    "dorado", "gold", "plata", "silver", "gris", "gray", "grey", "verde",
-    "green", "morado", "purpura", "purple", "violeta", "lila", "naranja",
-    "orange", "titanio", "titanium", "rojo", "red", "amarillo", "yellow",
-    "grafito", "graphite", "medianoche", "media noche", "midnight",
-    "salvia", "sage", "oro",
+    "dorado", "gold", "plata", "silver", "plateado", "plateada", "gris",
+    "gray", "grey", "verde", "green", "morado", "purpura", "purple",
+    "violeta", "lila", "naranja", "orange", "titanio", "titanium", "rojo",
+    "red", "amarillo", "yellow", "grafito", "graphite", "medianoche",
+    "media noche", "midnight", "salvia", "sage", "oro", "crema", "coral",
+    "beige", "turquesa", "champan", "champán", "champagne", "perla",
+    "cobre",
 )
 # color_of() devolvía la palabra encontrada TAL CUAL, así que sinónimos
 # del mismo color en idiomas/formas distintas ("violeta" vs "morado" vs
@@ -89,6 +91,16 @@ COLOR_CANON = {
     "midnight": "medianoche", "sage": "salvia",
     "natural titanium": "titanio natural",
     "desert titanium": "titanio del desierto",
+    # "plateado"/"plateada" (adjetivo: "acabado plateado") no es la misma
+    # palabra que "plata" (sustantivo, el color en sí) así que \bplata\b
+    # nunca la encontraba -- color_of() devolvía None para "Plateado" y
+    # eso DESACTIVABA por completo el chequeo de contradicción de color
+    # (si ninguno de los dos lados declara color, no hay nada que
+    # comparar). Se vio un caso real: un iPhone 17 Pro "Plateado"
+    # resolvió solo contra un candidato "Azul profundo" porque el color
+    # del título quedaba en None.
+    "plateado": "plata", "plateada": "plata",
+    "champagne": "champan", "champán": "champan",
 }
 MIN_SCORE = 3
 
@@ -168,6 +180,17 @@ def generation_of(s):
     # palabras (apple/iphone/gb/color/...) que el puntaje los daba por
     # iguales; así fue como salieron auto-confirmados varios pares de
     # generación distinta en la primera corrida real.
+    # Los modelos con nombre en vez de número (X, XR, XS, XS Max) no traen
+    # NINGÚN dígito de generación -- sin este caso aparte, generation_of()
+    # devolvía None para un "iPhone XR" tal como para uno sin generación
+    # reconocible, así que el hard-exclude de generación (tg != pg) nunca
+    # se activaba entre ellos y un numerado, y "iPhone XR" resolvió solo
+    # contra "iPhone 12" (modelos completamente distintos) en una corrida
+    # real. Se anclan como su propio "número" de generación (xr/xs/xsmax/x)
+    # para que sigan siendo comparables entre sí y contra los numerados.
+    m = re.search(r"iphone\s*(xs\s*max|xr|xs|x)\b", norm(s))
+    if m:
+        return re.sub(r"\s+", "", m.group(1))
     m = re.search(r"iphone\s*(\d{1,2})\s*(e)?\b", norm(s))
     if not m:
         return None
