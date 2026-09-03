@@ -1,0 +1,9 @@
+[
+  {"domain": "MLM-COMBUSTION_LAWN_MOWERS", "q": "podadora combustion", "cat": "Herramientas", "sub": "Jardinería", "max": 30, "pages": 2, "icon": "wrench"},
+  {"domain": "MLM-MANUAL_LAWN_MOWERS", "q": "podadora manual", "cat": "Herramientas", "sub": "Jardinería", "max": 15, "pages": 2, "icon": "wrench"},
+  {"domain": "MLM-ELECTRIC_LAWN_MOWERS", "q": "podadora electrica", "cat": "Herramientas", "sub": "Jardinería", "max": 10, "pages": 2, "icon": "wrench"},
+  {"domain": "MLM-ELECTRIC_BRUSH_CUTTERS_AND_STRING_TRIMMERS", "q": "desbrozadora electrica", "cat": "Herramientas", "sub": "Jardinería", "max": 10, "pages": 2, "icon": "wrench"},
+  {"domain": "MLM-COMBUSTION_POLE_SAWS", "q": "podadora de altura", "cat": "Herramientas", "sub": "Jardinería", "max": 5, "pages": 2, "icon": "wrench"},
+  {"domain": "MLM-AIR_PURIFIERS", "q": "purificador de aire", "cat": "Climatización", "sub": "Purificadores de aire", "max": 20, "pages": 2, "icon": "snowflake", "not": ["smokebuddy"]},
+  {"domain": "MLM-WATER_PURIFIERS_AND_FILTERS", "q": "purificador de agua", "cat": "Electrodomésticos", "sub": "Purificadores de agua", "max": 10, "pages": 2, "icon": "appliance"}
+]

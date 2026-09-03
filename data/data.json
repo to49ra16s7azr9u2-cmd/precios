@@ -25,6 +25,11 @@
           "id": "Resistentes",
           "name": "Resistentes",
           "icon": "phone"
+        },
+        {
+          "id": "Teléfonos fijos",
+          "name": "Teléfonos fijos",
+          "icon": "phone"
         }
       ]
     },
@@ -504,6 +509,16 @@
           "id": "Campanas de cocina",
           "name": "Campanas de cocina",
           "icon": "appliance"
+        },
+        {
+          "id": "Estufas y hornos",
+          "name": "Estufas y hornos",
+          "icon": "appliance"
+        },
+        {
+          "id": "Calentadores de agua",
+          "name": "Calentadores de agua",
+          "icon": "appliance"
         }
       ]
     },
@@ -593,6 +608,16 @@
           "id": "Colchones",
           "name": "Colchones",
           "icon": "sofa"
+        },
+        {
+          "id": "Zapateras",
+          "name": "Zapateras",
+          "icon": "sofa"
+        },
+        {
+          "id": "Percheros",
+          "name": "Percheros",
+          "icon": "sofa"
         }
       ]
     },
@@ -630,6 +655,46 @@
           "id": "Seguridad industrial",
           "name": "Seguridad industrial",
           "icon": "wrench"
+        },
+        {
+          "id": "Plomería y gas LP",
+          "name": "Plomería y gas LP",
+          "icon": "wrench"
+        },
+        {
+          "id": "Accesorios para herramientas eléctricas",
+          "name": "Accesorios para herramientas eléctricas",
+          "icon": "wrench"
+        },
+        {
+          "id": "Herramientas manuales",
+          "name": "Herramientas manuales",
+          "icon": "wrench"
+        },
+        {
+          "id": "Jardinería",
+          "name": "Jardinería",
+          "icon": "wrench"
+        },
+        {
+          "id": "Herramientas neumáticas y de impacto",
+          "name": "Herramientas neumáticas y de impacto",
+          "icon": "wrench"
+        },
+        {
+          "id": "Material eléctrico",
+          "name": "Material eléctrico",
+          "icon": "wrench"
+        },
+        {
+          "id": "Organización y almacenaje",
+          "name": "Organización y almacenaje",
+          "icon": "wrench"
+        },
+        {
+          "id": "Construcción",
+          "name": "Construcción",
+          "icon": "wrench"
         }
       ]
     },
@@ -651,6 +716,26 @@
         {
           "id": "Motocicletas",
           "name": "Motocicletas",
+          "icon": "car"
+        },
+        {
+          "id": "Audio y multimedia para auto",
+          "name": "Audio y multimedia para auto",
+          "icon": "car"
+        },
+        {
+          "id": "Llantas",
+          "name": "Llantas",
+          "icon": "car"
+        },
+        {
+          "id": "Cascos para moto",
+          "name": "Cascos para moto",
+          "icon": "car"
+        },
+        {
+          "id": "Baterías para auto",
+          "name": "Baterías para auto",
           "icon": "car"
         }
       ]
@@ -755,6 +840,21 @@
           "id": "Generadores e inversores",
           "name": "Generadores e inversores",
           "icon": "battery"
+        },
+        {
+          "id": "Baño",
+          "name": "Baño",
+          "icon": "box"
+        },
+        {
+          "id": "Organización del hogar",
+          "name": "Organización del hogar",
+          "icon": "box"
+        },
+        {
+          "id": "Radios y walkie-talkies",
+          "name": "Radios y walkie-talkies",
+          "icon": "box"
         }
       ]
     },
@@ -994,6 +1094,11 @@
           "id": "Videocámaras",
           "name": "Videocámaras",
           "icon": "camera"
+        },
+        {
+          "id": "Accesorios",
+          "name": "Accesorios",
+          "icon": "camera"
         }
       ]
     },
@@ -1135,6 +1240,41 @@
           "id": "Otros",
           "name": "Otros",
           "icon": "box"
+        },
+        {
+          "id": "Bebés",
+          "name": "Bebés",
+          "icon": "toy"
+        },
+        {
+          "id": "Figuras y peluches",
+          "name": "Figuras y peluches",
+          "icon": "toy"
+        },
+        {
+          "id": "Armables y maquetas",
+          "name": "Armables y maquetas",
+          "icon": "toy"
+        },
+        {
+          "id": "Montables y triciclos",
+          "name": "Montables y triciclos",
+          "icon": "toy"
+        },
+        {
+          "id": "Juguetes para exterior",
+          "name": "Juguetes para exterior",
+          "icon": "toy"
+        },
+        {
+          "id": "Trampolines",
+          "name": "Trampolines",
+          "icon": "toy"
+        },
+        {
+          "id": "Juegos arcade",
+          "name": "Juegos arcade",
+          "icon": "toy"
         }
       ]
     },
@@ -1203,6 +1343,21 @@
         {
           "id": "Masajeadores",
           "name": "Masajeadores",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Movilidad y equipo médico",
+          "name": "Movilidad y equipo médico",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Equipo de monitoreo médico",
+          "name": "Equipo de monitoreo médico",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Básculas",
+          "name": "Básculas",
           "icon": "heart-pulse"
         }
       ]
@@ -1393,6 +1548,46 @@
         {
           "id": "Uñas",
           "name": "Uñas",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Masajeadores",
+          "name": "Masajeadores",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Mobiliario para salón",
+          "name": "Mobiliario para salón",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Manicure y pedicure",
+          "name": "Manicure y pedicure",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Planchas y rizadores",
+          "name": "Planchas y rizadores",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Secadoras de cabello",
+          "name": "Secadoras de cabello",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Pelucas y extensiones",
+          "name": "Pelucas y extensiones",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Depilación",
+          "name": "Depilación",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Estilizadores",
+          "name": "Estilizadores",
           "icon": "sparkle"
         }
       ]
@@ -1793,6 +1988,11 @@
         {
           "id": "Mobiliario y carros",
           "name": "Mobiliario y carros",
+          "icon": "factory"
+        },
+        {
+          "id": "Sublimación y prensas",
+          "name": "Sublimación y prensas",
           "icon": "factory"
         }
       ]
