@@ -52,6 +52,18 @@ STOP = {
 }
 VARIANTS = ("pro max", "pro", "plus", "mini", "air", "se")
 COLORS = (
+    # "titanio natural" y "titanio del desierto" van primero y a propósito:
+    # son colores DISTINTOS del iPhone Pro, y ni "natural" ni "desierto" son
+    # palabras de color por sí solas -- así que sin esta entrada compuesta
+    # los dos colapsaban al "titanio" genérico y se leían como el mismo
+    # color (se vio un caso real: un 16 Pro Titanio del Desierto resolvió
+    # solo contra un candidato Titanio Natural). "Titanio Negro"/"Titanio
+    # Blanco" NO necesitan esto -- "negro"/"blanco" ya son colores por sí
+    # solos más abajo en la lista, y agregarlos acá como compuestos
+    # rompía la comparación contra un candidato que dice apenas "Negro"
+    # sin la palabra "titanio".
+    "titanio natural", "natural titanium", "titanio del desierto",
+    "desert titanium",
     "negro", "black", "blanco", "white", "azul", "blue", "rosa", "pink",
     "dorado", "gold", "plata", "silver", "gris", "gray", "grey", "verde",
     "green", "morado", "purpura", "purple", "naranja", "orange", "titanio",
@@ -213,11 +225,25 @@ def candidates_for(item, products):
 
 
 def resolve(item, products):
+    title = item.get("title") or ""
     scored = candidates_for(item, products)
     if not scored:
         return None, []
     top_score = scored[0][0]
     tied = [p for s, p in scored if s == top_score]
+    if "iphone" not in words(title):
+        # generation_of()/VARIANT_RE -- las dos protecciones que evitan
+        # confundir un modelo con otro -- están ancladas a la palabra
+        # "iphone" y no hacen nada para el resto del catálogo. Sin ellas
+        # acá solo queda overlap de palabras + capacidad + color, que
+        # resultó insuficiente: en una corrida real con celulares que no
+        # son iPhone, un Huawei se confirmó solo contra un Samsung, otro
+        # contra unos audífonos, y varios pares Galaxy/Redmi/Pura con
+        # número de modelo distinto (S23+ vs S24+, Note 14 vs Note 15,
+        # Pura 70 vs Pura 90s) se dieron por iguales. Hasta que haya un
+        # chequeo de marca/modelo tan estricto como el de iPhone, todo lo
+        # que no diga "iphone" va a revisión manual sin excepción.
+        return None, scored[:5]
     if len(tied) == 1 and top_score >= MIN_SCORE:
         match = tied[0]
         tcol = color_of(item.get("title") or "")
