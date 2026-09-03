@@ -2041,33 +2041,45 @@
   // usa el autocompletado de categorías). Este segundo paso es más caro
   // por producto, pero solo corre en el caso raro de "cero resultados", no
   // en cada tecla ni en cada búsqueda que sí encuentra algo.
+  // "celular iphone" (dos o más palabras) antes buscaba el string
+  // COMPLETO "celular iphone" como una sola subcadena literal -- y eso casi
+  // nunca aparece pegado así en ningún campo (el nombre dice "Apple iPhone
+  // 15...", la categoría dice "Celulares"), así que la búsqueda quedaba en
+  // cero resultados aunque cada palabra por separado sí tuviera sentido.
+  // Ahora se exige que CADA palabra de la consulta aparezca en alguna parte
+  // del texto combinado (no necesariamente la misma palabra ni en orden),
+  // igual que hace cualquier buscador ("AND" entre palabras).
   function literalQueryMatch(p, ql) {
-    return (
-      p.name.toLowerCase().includes(ql) ||
-      p.brand.toLowerCase().includes(ql) ||
-      p.category.toLowerCase().includes(ql)
-    );
+    const text = `${p.name} ${p.brand} ${p.category} ${p.subcategory || ""}`.toLowerCase();
+    const qWords = ql.split(/\s+/).filter(Boolean);
+    return qWords.length > 0 && qWords.every((w) => text.includes(w));
   }
   function fuzzyQueryMatch(p, query) {
     const nq = normalizeSearchText(query);
     if (!nq) return true;
-    // Con una consulta muy corta cualquier palabra sirve de "prefijo" en
-    // algún sentido (y hasta una distancia de Levenshtein chica dice poco),
-    // así que no vale la pena tolerar errores de tipeo ahí -- sin este
-    // piso, un típico "de"/"con"/una letra suelta en CUALQUIER producto del
-    // catálogo satisfacía nq.startsWith(w) y aparecía en resultados sin
-    // relación alguna con lo buscado.
-    if (nq.length < 4) return false;
-    const tolerance = Math.max(1, Math.floor(nq.length * 0.34));
+    const qWords = nq.split(/\s+/).filter(Boolean);
+    if (qWords.length === 0) return false;
     // Se ignoran las palabras de 1-2 letras del producto por el mismo
-    // motivo: "t", "de", "en" son casi siempre prefijo de cualquier
-    // consulta de 4+ letras vía nq.startsWith(w).
-    const words = normalizeSearchText(`${p.name} ${p.brand} ${p.category}`)
+    // motivo que antes: "t", "de", "en" son casi siempre prefijo de
+    // cualquier palabra de consulta de 4+ letras vía qw.startsWith(w).
+    const words = normalizeSearchText(`${p.name} ${p.brand} ${p.category} ${p.subcategory || ""}`)
       .split(/\s+/)
       .filter((w) => w.length >= 3);
-    return words.some(
-      (w) => w.startsWith(nq) || nq.startsWith(w) || levenshteinDistance(nq, w) <= tolerance
-    );
+    // Cada palabra de la consulta se evalúa por separado (misma lógica de
+    // antes: prefijo o Levenshtein) y TODAS tienen que encontrar algún
+    // acierto -- así "celular iphone" solo matchea si hay una palabra del
+    // producto parecida a "celular" Y otra parecida a "iphone", en
+    // cualquier orden. Con una palabra muy corta cualquier palabra del
+    // producto sirve de "prefijo" en algún sentido (y hasta una distancia
+    // de Levenshtein chica dice poco), así que esa palabra individual no
+    // cuenta como acierto y toda la consulta queda descartada.
+    return qWords.every((qw) => {
+      if (qw.length < 4) return false;
+      const tolerance = Math.max(1, Math.floor(qw.length * 0.34));
+      return words.some(
+        (w) => w.startsWith(qw) || qw.startsWith(w) || levenshteinDistance(qw, w) <= tolerance
+      );
+    });
   }
 
   function filteredProducts() {
@@ -3876,11 +3888,14 @@
 
   function buildSearchSuggestions(query) {
     if (!state.data || !normalizeSearchText(query)) return [];
+    const catIconByName = new Map();
     const pool = [];
     state.data.categories.forEach((cat) => {
-      pool.push({ matchText: cat.name, label: cat.name, catLabel: null, catId: cat.id, subId: null, icon: cat.icon });
+      catIconByName.set(cat.name, cat.icon);
+      pool.push({ type: "category", matchText: cat.name, label: cat.name, catLabel: null, catId: cat.id, subId: null, icon: cat.icon });
       (cat.subcategories || []).forEach((sub) => {
         pool.push({
+          type: "category",
           matchText: sub.name,
           label: sub.name,
           catLabel: cat.name,
@@ -3895,15 +3910,47 @@
       .filter((item) => item.score !== null)
       .sort((a, b) => a.score - b.score || a.matchText.length - b.matchText.length);
     const seen = new Set();
-    const out = [];
+    const catOut = [];
     for (const item of scored) {
       const key = `${item.catId}|${item.subId || ""}`;
       if (seen.has(key)) continue;
       seen.add(key);
-      out.push(item);
-      if (out.length >= 8) break;
+      catOut.push(item);
+      // Se deja lugar para hasta 5 sugerencias de producto debajo (ver
+      // abajo), así que acá alcanza con un puñado de categorías -- si el
+      // desplegable se llenara solo de categorías, alguien buscando un
+      // modelo concreto ("iphone 15 128") nunca vería el producto en sí.
+      if (catOut.length >= 4) break;
     }
-    return out;
+
+    // Sugerencias de PRODUCTOS concretos (p. ej. "iphone 15 128" ->
+    // sugiere la ficha exacta), no solo la categoría a la que pertenecen
+    // -- a pedido explícito de "reforzar la asistencia del buscador".
+    // Mismo criterio "cada palabra tiene que aparecer" que ya usa
+    // literalQueryMatch para la búsqueda real (así lo que se sugiere acá
+    // es consistente con lo que después aparece al confirmar la
+    // búsqueda), pero SIN tolerancia a errores de tipeo -- repetir
+    // Levenshtein por cada tecla sobre ~90 mil productos sería demasiado
+    // costoso para un simple autocompletado.
+    const qWords = normalizeSearchText(query).split(/\s+/).filter(Boolean);
+    const productOut = [];
+    if (qWords.length && state.data.products) {
+      for (const p of state.data.products) {
+        const text = normalizeSearchText(`${p.name} ${p.brand} ${p.category} ${p.subcategory || ""}`);
+        if (!qWords.every((w) => text.includes(w))) continue;
+        productOut.push({
+          type: "product",
+          label: p.name,
+          catLabel: null,
+          price: minPrice(p),
+          productId: p.id,
+          icon: catIconByName.get(p.category) || "search",
+        });
+        if (productOut.length >= 5) break;
+      }
+    }
+
+    return [...productOut, ...catOut].slice(0, 10);
   }
 
   function hideSearchSuggestions() {
@@ -3916,6 +3963,10 @@
   function selectSearchSuggestion(item) {
     el.searchInput.value = "";
     hideSearchSuggestions();
+    if (item.type === "product") {
+      goDetail(item.productId);
+      return;
+    }
     goCategoryRanking(item.catId, item.subId);
   }
 
@@ -3938,7 +3989,8 @@
         (it, i) => `
       <div class="search-suggestion-item" data-index="${i}">
         ${icon(it.icon, "search-suggestion-icon")}
-        <span>${htmlEscapeAttr(it.label)}${it.catLabel ? ` <span class="search-suggestion-cat">— ${htmlEscapeAttr(it.catLabel)}</span>` : ""}</span>
+        <span class="search-suggestion-label">${htmlEscapeAttr(it.label)}${it.catLabel ? ` <span class="search-suggestion-cat">— ${htmlEscapeAttr(it.catLabel)}</span>` : ""}</span>
+        ${it.type === "product" ? `<span class="search-suggestion-price">${money(it.price)}</span>` : ""}
       </div>
     `
       )
@@ -4005,8 +4057,18 @@
   // ---------- Eventos globales ----------
 
   function bindEvents() {
+    // buildSearchSuggestions ahora también recorre el catálogo completo
+    // (~90 mil productos) para sugerir fichas concretas, no solo
+    // categorías -- demasiado como para repetirlo en CADA tecla sin
+    // espaciarlo, así que se espera una pausa breve de tipeo antes de
+    // recalcular (typeahead estándar).
+    let searchSuggestDebounce = null;
     el.searchInput.addEventListener("input", () => {
-      renderSearchSuggestions(buildSearchSuggestions(el.searchInput.value));
+      clearTimeout(searchSuggestDebounce);
+      const value = el.searchInput.value;
+      searchSuggestDebounce = setTimeout(() => {
+        renderSearchSuggestions(buildSearchSuggestions(value));
+      }, 150);
     });
     el.searchInput.addEventListener("focus", () => {
       if (el.searchInput.value.trim()) renderSearchSuggestions(buildSearchSuggestions(el.searchInput.value));

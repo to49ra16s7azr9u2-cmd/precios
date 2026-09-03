@@ -180,6 +180,8 @@ a { color: inherit; text-decoration: none; }
 .search-suggestion-item.active { background: var(--bg); }
 .search-suggestion-item .icon { width: 16px; height: 16px; color: var(--muted); flex-shrink: 0; }
 .search-suggestion-cat { color: var(--muted); font-weight: 400; }
+.search-suggestion-label { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search-suggestion-price { flex-shrink: 0; margin-left: 8px; font-weight: 700; color: var(--ink); }
 .search-wrap input {
   flex: 1;
   border: none;
