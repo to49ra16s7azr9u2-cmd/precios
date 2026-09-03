@@ -2055,7 +2055,7 @@
     return qWords.length > 0 && qWords.every((w) => text.includes(w));
   }
   function fuzzyQueryMatch(p, query) {
-    const nq = normalizeSearchText(query);
+    const nq = splitAlphaNumeric(normalizeSearchText(query));
     if (!nq) return true;
     const qWords = nq.split(/\s+/).filter(Boolean);
     if (qWords.length === 0) return false;
@@ -2084,7 +2084,7 @@
 
   function filteredProducts() {
     const ratingMin = (RATING_FILTERS.find((r) => r.id === state.minRating) || RATING_FILTERS[0]).min;
-    const q = state.query.toLowerCase();
+    const q = splitAlphaNumeric(state.query.toLowerCase());
     const useFuzzy = !!q && !state.data.products.some((p) => literalQueryMatch(p, q));
     return state.data.products.filter((p) => {
       const matchesQuery = !q || (useFuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, q));
@@ -2112,6 +2112,26 @@
       .map((x) => x.p);
   }
 
+  // Puntaje de qué tan bien matchea CADA palabra de la consulta contra este
+  // producto puntual -- coincidencia de palabra completa en el nombre pesa
+  // más que aparecer solo como subcadena, y aparecer en el nombre pesa más
+  // que aparecer solo en marca/categoría/subcategoría. Se usa para poder
+  // ordenar por relevancia de verdad (ver sortedProducts) en vez de que
+  // "iPhone 17" y "iPhone 14" queden empatados solo por matchear la
+  // consulta, quedando el orden librado a la popularidad de cada uno.
+  function queryRelevanceScore(p, qWords) {
+    const nameWords = normalizeSearchText(p.name).split(/\s+/);
+    const name = normalizeSearchText(p.name);
+    const rest = normalizeSearchText(`${p.brand} ${p.category} ${p.subcategory || ""}`);
+    let score = 0;
+    for (const w of qWords) {
+      if (nameWords.includes(w)) score += 3;
+      else if (name.includes(w)) score += 2;
+      else if (rest.includes(w)) score += 1;
+    }
+    return score;
+  }
+
   function sortedProducts(products) {
     const list = products.slice();
     if (state.sort === "popularity") return sortByPopularity(list);
@@ -2123,14 +2143,29 @@
     else if (state.sort === "rating_desc") {
       list.sort((a, b) => aggregateRating(b).avg - aggregateRating(a).avg
         || sellerTotal(b) - sellerTotal(a));
+    } else {
+      // "Relevancia" es el orden POR DEFECTO (y el de "Todas"). Con una
+      // búsqueda activa, antes no tenía NINGÚN criterio propio de qué tan
+      // bien matcheaba cada resultado -- caía derecho al desempate por
+      // vendedores, así que un "iPhone 14" muy vendido podía listarse por
+      // encima de un "iPhone 17" recién buscado con ese nombre exacto. Acá
+      // se ordena primero por queryRelevanceScore (coincidencia real con lo
+      // escrito) y SOLO se usa vendedores para desempatar productos
+      // igual de relevantes -- así los que de verdad matchean el término
+      // buscado quedan arriba de todo.
+      const q = splitAlphaNumeric(state.query.toLowerCase());
+      const qWords = q.split(/\s+/).filter(Boolean);
+      if (qWords.length) {
+        return list
+          .map((p) => ({ p, score: queryRelevanceScore(p, qWords), sellers: sellerTotal(p) }))
+          .sort((a, b) => b.score - a.score || b.sellers - a.sellers)
+          .map((x) => x.p);
+      }
+      // Sin búsqueda activa no hay ninguna señal de relevancia que ordenar,
+      // así que se usa la misma que pidió el usuario para los empates:
+      // cuántos vendedores ofrecen el producto.
+      return sortBySellers(list);
     }
-    // "Relevancia" es el orden POR DEFECTO (y el de "Todas"), y no tenía
-    // ningún criterio: devolvía la lista tal como quedó al importarla, así
-    // que lo primero que veía el visitante en Celulares era un OnePlus Ace
-    // 5 Racing en vez de un iPhone. Sin búsqueda activa no hay ninguna
-    // señal de relevancia que ordenar, así que se usa la misma que pidió el
-    // usuario para los empates: cuántos vendedores ofrecen el producto.
-    else return sortBySellers(list);
     return list;
   }
 
@@ -3837,6 +3872,19 @@
       .trim();
   }
 
+  // "iphone17" (sin espacio, muy com\u00fan al escribir r\u00e1pido en el buscador)
+  // no aparece pegado as\u00ed en ning\u00fan nombre de producto real ("iPhone 17"
+  // siempre lleva espacio) -- sin este split, ni la b\u00fasqueda literal ni la
+  // difusa encontraban NADA con el n\u00famero pegado, y la difusa terminaba
+  // matcheando CUALQUIER iPhone (14, 16 Pro...) porque su fallback de
+  // prefijo ("iphone17".startsWith("iphone")) no exige que el n\u00famero
+  // coincida. Insertar un espacio en cada l\u00edmite letra<->d\u00edgito antes de
+  // partir en palabras alcanza para que "iphone17" se compare como
+  // ["iphone", "17"] igual que si se hubiera escrito con espacio.
+  function splitAlphaNumeric(s) {
+    return (s || "").replace(/([a-zA-Z])(\d)/g, "$1 $2").replace(/(\d)([a-zA-Z])/g, "$1 $2");
+  }
+
   // Distancia de edición estándar (inserción/borrado/sustitución) --
   // ambos textos de acá son cortos (nombres de categoría), así que la
   // tabla DP es trivial en tamaño y no hace falta optimizarla.
@@ -3932,7 +3980,7 @@
     // búsqueda), pero SIN tolerancia a errores de tipeo -- repetir
     // Levenshtein por cada tecla sobre ~90 mil productos sería demasiado
     // costoso para un simple autocompletado.
-    const qWords = normalizeSearchText(query).split(/\s+/).filter(Boolean);
+    const qWords = splitAlphaNumeric(normalizeSearchText(query)).split(/\s+/).filter(Boolean);
     const productOut = [];
     if (qWords.length && state.data.products) {
       for (const p of state.data.products) {
@@ -4098,11 +4146,19 @@
           return;
         }
         hideSearchSuggestions();
+        // Una búsqueda nueva es una intención de orden nueva -- si el
+        // visitante venía de una categoría con "Popularidad" elegido, ese
+        // orden se quedaba pegado en los resultados de la búsqueda y un
+        // resultado más vendido pero menos relevante (p. ej. un iPhone 14
+        // buscando "iphone17") podía listarse antes que el que sí matchea
+        // bien el término escrito.
+        state.sort = "relevance";
         goList({ query: el.searchInput.value.trim(), category: null });
       }
     });
     el.searchBtn.addEventListener("click", () => {
       hideSearchSuggestions();
+      state.sort = "relevance";
       goList({ query: el.searchInput.value.trim(), category: null });
     });
 
