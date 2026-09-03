@@ -1978,42 +1978,14 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Historial de precio ---------- */
 .table-scroll { overflow-x: auto; }
 
-/* ---------- Grupos de ofertas: verificado vs. referencia ---------- */
+/* ---------- Grupo de ofertas ---------- */
+/* Antes esto se partía en dos tablas ("verificados" vs "referencia") según
+   un flag interno que Amazon (y toda tienda salvo Mercado Libre) siempre
+   trae en false -- terminaba en una segunda tabla, separada de la de
+   Mercado Libre por el banner de envío, y se leía como si esa tienda no
+   estuviera en la comparación. Ahora es un solo grupo con todas las tiendas
+   juntas, ordenadas por precio (ver renderOfferTable en js/app.js). */
 .offer-group { margin-top: 14px; }
-.offer-group-head { margin-bottom: 4px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-/* La etiqueta sola ("Precios de referencia") no le dice nada a quien entra
-   por primera vez; esta línea explica qué significa ahí mismo, sin mandarlo
-   a la nota al pie. */
-.offer-group-hint { font-size: 12px; color: var(--muted); line-height: 1.45; }
-.offer-group-badge {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 6px 13px;
-  border-radius: 20px;
-}
-.offer-group-badge.verified { background: var(--green-tint); color: #0a8a3c; border: 1px solid #bfe9d3; }
-.offer-group-badge.reference { background: #fff8ec; color: #a15c00; border: 1px solid #f3ddb5; }
-
-/* Antes: verificado/envío/referencia eran 3 tarjetas separadas con su
-   propio borde y hueco entre ellas -- se leían como 3 bloques sueltos en
-   vez de una sola comparación. Ahora comparten el mismo panel exterior
-   (compare-panel ya trae su propio borde) y se distinguen entre sí con
-   una línea divisoria fina, no con una tarjeta propia. */
-.offer-group-verified {
-  border: none;
-  border-radius: 0;
-  padding: 6px 2px 4px;
-  background: transparent;
-}
-.offer-group-reference {
-  opacity: 1;
-  border: none;
-  border-top: 1px dashed var(--border);
-  border-radius: 0;
-  padding: 14px 2px 4px;
-  background: transparent;
-}
 
 .empty-note {
   font-size: 12px;
@@ -2426,14 +2398,12 @@ a { color: inherit; text-decoration: none; }
 .sellers-badge .icon,
 .shipping-estimate-note .icon,
 .ship-badge .icon,
-.offer-group-badge .icon,
 .best-tag .icon,
 .buy-trust .icon {
   width: 12px; height: 12px;
   vertical-align: -2px;
   margin-right: 1px;
 }
-.offer-group-badge .icon { width: 15px; height: 15px; vertical-align: -3px; }
 
 /* ---------- Formularios (reseña / perfil) ---------- */
 .review-form { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }

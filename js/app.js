@@ -348,10 +348,7 @@
     homeLocationBtn: document.getElementById("homeLocationBtn"),
     homeLocationBtnLabel: document.getElementById("homeLocationBtnLabel"),
     sortTabs: document.getElementById("sortTabs"),
-    offerRowsVerified: document.getElementById("offerRowsVerified"),
-    offerRowsReference: document.getElementById("offerRowsReference"),
-    offerGroupVerified: document.getElementById("offerGroupVerified"),
-    offerGroupReference: document.getElementById("offerGroupReference"),
+    offerRows: document.getElementById("offerRows"),
     offerTableNote: document.getElementById("offerTableNote"),
     specTable: document.getElementById("specTable"),
     detailShippingPanel: document.getElementById("detailShippingPanel"),
@@ -2010,9 +2007,16 @@
   // ---------- Vista: Lista (búsqueda / categoría) ----------
 
   function brandsInScope() {
-    const scoped = state.category
+    // Antes esto solo miraba state.category, no state.subcategory: al
+    // entrar a una subcategoría (p.ej. Celulares > Resistentes) el checkbox
+    // de una marca sin ningún producto AHÍ (aunque sí tenga en otras
+    // subcategorías de Celulares) seguía apareciendo -- marcarlo daba
+    // "No se encontraron productos con estos filtros" siempre, no por un
+    // filtro real sino porque la combinación nunca podía tener resultados.
+    let scoped = state.category
       ? state.data.products.filter((p) => p.category === state.category)
       : state.data.products;
+    if (state.subcategory) scoped = scoped.filter((p) => p.subcategory === state.subcategory);
     return [...new Set(scoped.map((p) => p.brand))].sort();
   }
 
@@ -3623,22 +3627,15 @@
     const recommended = bestValueOffer(product);
     const recommendedStoreId = recommended ? recommended.storeId : null;
 
-    const verifiedRows = rows.filter((r) => r.verified);
-    const referenceRows = rows.filter((r) => !r.verified);
-
-    renderOfferRows(el.offerRowsVerified, verifiedRows, bestPrice, fastestDays, recommendedStoreId, product.id);
-    renderOfferRows(el.offerRowsReference, referenceRows, bestPrice, fastestDays, recommendedStoreId, product.id);
-    // Hoy ninguna tienda tiene API en vivo conectada, así que el grupo
-    // "verificados" saldría vacío en el 100% de las fichas: una tabla con
-    // sus 6 encabezados y ni una fila se lee como si el sitio estuviera
-    // roto. Se esconde entero mientras no haya nada que mostrar, y vuelve
-    // solo cuando alguna tienda sí traiga precio en vivo.
-    el.offerGroupVerified.classList.toggle("hidden", verifiedRows.length === 0);
-    // Mismo criterio para el grupo de precios de referencia. Faltaba: en
-    // cualquier producto cuyas ofertas fueran todas verificadas, la tabla de
-    // referencia se dibujaba con sus seis encabezados y ni una fila debajo,
-    // que se lee como si el sitio hubiera fallado al cargarlas.
-    el.offerGroupReference.classList.toggle("hidden", referenceRows.length === 0);
+    // Antes esto se partía en dos tablas ("verificados" vs "referencia")
+    // según r.verified. El problema real: Mercado Libre se guarda con
+    // verified=true (add_products.py) y todas las demás tiendas (Amazon
+    // incluida) con verified=false, así que cualquier producto con oferta de
+    // Amazon la mandaba a una SEGUNDA tabla, separada de la de Mercado Libre
+    // por el banner de envío -- se leía como si Amazon no estuviera en la
+    // comparación, aunque sí aparecía (correctamente) en el resumen de
+    // arriba, que nunca tuvo ese split. Una sola tabla, todo junto.
+    renderOfferRows(el.offerRows, rows, bestPrice, fastestDays, recommendedStoreId, product.id);
 
     // La tabla trae hasta MAX_SELLERS vendedores por publicación (ver
     // winnerOffer en el Worker), pero el encabezado cuenta todos los que hay:
