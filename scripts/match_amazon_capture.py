@@ -117,7 +117,21 @@ def capacities(s):
     # real de un 64GB capturado resolviendo solo contra un candidato de
     # 128G porque no había nada con qué contradecirlo.
     caps |= {(num, "gb") for num in re.findall(r"\b(\d{2,4})g\b", n)}
-    return caps
+    if not caps:
+        return caps
+    # Los celulares que no son iPhone suelen anunciar RAM y almacenamiento
+    # juntos ("4GB+8GB(Boost)+64GB", "8GB RAM 256GB ROM") -- sin este
+    # recorte, la CIFRA DE RAM de un candidato coincidía por casualidad con
+    # la de RAM del título capturado aunque el ALMACENAMIENTO real fuera
+    # distinto (64GB vs 128GB, ambos con "4GB" de RAM), y como alcanza con
+    # que haya AL MENOS una coincidencia para no descartar el candidato,
+    # la contradicción de capacidad real quedaba sin detectar. El
+    # almacenamiento es prácticamente siempre el número más grande de la
+    # lista (ninguna RAM real iguala o supera el almacenamiento del mismo
+    # equipo), así que sólo ese cuenta.
+    def _gb(t):
+        return int(t[0]) * (1024 if t[1] == "tb" else 1)
+    return {max(caps, key=_gb)}
 
 
 def generation_of(s):
@@ -132,6 +146,101 @@ def generation_of(s):
     if not m:
         return None
     return m.group(1) + (m.group(2) or "")
+
+
+# Palabras que, si aparecen en el título capturado, TIENEN que aparecer
+# también en el nombre del candidato -- si no, se descarta sin más vueltas.
+# "iphone" ya cumplía este rol de entrada; se generaliza acá porque sin
+# esto un Huawei se confirmó solo contra un Samsung, y otro contra un par
+# de audífonos, en una corrida real con celulares que no son iPhone.
+# "xiaomi"/"moto" quedan afuera a propósito: varios anuncios reales de
+# catálogo (y de Amazon) nombran la línea ("Poco X8 Pro", "Motorola Edge
+# 60") sin repetir la marca completa, y exigirla ahí habría descartado
+# coincidencias correctas.
+BRAND_WORDS = {
+    "iphone", "samsung", "motorola", "huawei", "oppo", "realme", "redmi",
+    "poco",
+}
+
+# Número/línea de modelo para las marcas más comunes en las capturas de
+# Amazon, con el mismo criterio que generation_of() para iPhone: ancla
+# justo después de la línea del producto (Galaxy S/A/Z, Redmi Note, Poco,
+# Edge, Pura, Reno/Find X, GT/Neo de realme) en vez de comparar dígitos
+# sueltos, que words() ya descarta como separadores. Calibrado contra
+# nombres reales del catálogo (ver `python3 -c "...grep Galaxy S2..."` en
+# el historial) -- p.ej. "Galaxy S25 Ultra" vs "Galaxy S25 Edge" vs
+# "Galaxy S25 FE" son tres equipos distintos con el mismo número base.
+# Cada clave del resultado lleva el nombre de marca como prefijo para que
+# nunca choque con el de otra marca (el "A17" de Samsung no es el mismo
+# equipo que un hipotético "A17" de otra marca).
+def _plus(s):
+    # "S25+" y "S25 Plus" son el mismo sufijo escrito distinto -- normaliza
+    # antes de armar la clave. Importante: un grupo que puede terminar en
+    # "+" no puede llevar un \b después en el regex ("+" no es \w, así que
+    # si lo que sigue es un espacio o el final del string tampoco lo es,
+    # \b no encuentra límite y el grupo completo no matchea -- se vio pasar
+    # esto real con "Redmi Note 15 Pro+" y "Galaxy S25+", que sin este
+    # arreglo colapsaban a la misma clave que la versión sin "+"/"Pro").
+    return (s or "").replace("+", "plus")
+
+
+_MODEL_PATTERNS = {
+    "samsung": (
+        (re.compile(r"galaxy\s*s\s*(\d{2})\s*(\+|plus|ultra|edge|fe)?"),
+         lambda m: "s" + m.group(1) + _plus(m.group(2))),
+        (re.compile(r"galaxy\s*z\s*(fold|flip)\s*(\d{1,2})\s*(ultra)?\b"),
+         lambda m: "z" + m.group(1) + m.group(2) + (m.group(3) or "")),
+        (re.compile(r"galaxy\s*a\s*(\d{2})(\+)?"),
+         lambda m: "a" + m.group(1) + _plus(m.group(2))),
+    ),
+    "redmi": (
+        (re.compile(r"redmi\s*note\s*(\d{1,2})\s*(pro)?\s*(\+)?"),
+         lambda m: "note" + m.group(1) + (m.group(2) or "") + _plus(m.group(3))),
+        (re.compile(r"redmi\s*(\d{1,2}[a-z]?)\b"),
+         lambda m: "redmi" + m.group(1)),
+    ),
+    "poco": (
+        (re.compile(r"poco\s*([a-z])\s*(\d{1,2})\s*(pro|ultra)?\b"),
+         lambda m: m.group(1) + m.group(2) + (m.group(3) or "")),
+    ),
+    "motorola": (
+        (re.compile(r"edge\s*(\d{2})\s*(fusion|pro|neo)?\b"),
+         lambda m: "edge" + m.group(1) + (m.group(2) or "")),
+        (re.compile(r"\bg\s*(\d{2,3})\b"),
+         lambda m: "g" + m.group(1)),
+    ),
+    "huawei": (
+        (re.compile(r"pura\s*(\d{2})(s)?\s*(pro\s*max|pro|ultra)?\b"),
+         lambda m: "pura" + m.group(1) + (m.group(2) or "") + re.sub(r"\s+", "", m.group(3) or "")),
+    ),
+    "oppo": (
+        (re.compile(r"find\s*x\s*(\d{1,2})(s)?\s*(pro|ultra)?\b"),
+         lambda m: "findx" + m.group(1) + (m.group(2) or "") + (m.group(3) or "")),
+        (re.compile(r"reno\s*(\d{1,2})([a-z])?\s*(pro\+?|ultra)?"),
+         lambda m: "reno" + m.group(1) + (m.group(2) or "") + _plus(m.group(3))),
+        (re.compile(r"\ba(\d{1,2})([a-z])?\b"),
+         lambda m: "a" + m.group(1) + (m.group(2) or "")),
+    ),
+    "realme": (
+        (re.compile(r"(gt|neo)\s*(\d{1,2})\s*(pro\+?|pro|ultra|se|t)?"),
+         lambda m: m.group(1) + m.group(2) + _plus(m.group(3))),
+        (re.compile(r"\bp\s*(\d{1,2})\b"), lambda m: "p" + m.group(1)),
+        (re.compile(r"\bv\s*(\d{1,2})\b"), lambda m: "v" + m.group(1)),
+        (re.compile(r"\bc\s*(\d{1,2})\b"), lambda m: "c" + m.group(1)),
+    ),
+}
+
+
+def model_of(s):
+    n = norm(s)
+    for brand, patterns in _MODEL_PATTERNS.items():
+        if brand not in n:
+            continue
+        for rx, keyfn in patterns:
+            m = rx.search(n)
+            if m:
+                return f"{brand}:{keyfn(m)}"
+    return None
 
 
 VARIANT_RE = re.compile(
@@ -170,6 +279,8 @@ def candidates_for(item, products):
     tv = variant_of(title)
     tcol = color_of(title)
     tg = generation_of(title)
+    tm = model_of(title)
+    t_brands = BRAND_WORDS & tw
 
     scored = []
     for p in products:
@@ -177,15 +288,17 @@ def candidates_for(item, products):
         overlap = tw & pw
         if not overlap:
             continue
-        # "iphone" es la palabra que más importa de todas para este catálogo
-        # -- si el título capturado la trae, el candidato tiene que traerla
-        # también. Sin este chequeo, un "iPhone XR" resolvió solo contra un
-        # iPad de la misma capacidad y color: nada en el puntaje exigía que
-        # el candidato fuera siquiera un iPhone, porque "iphone" en sí no es
-        # una de las palabras que se comparan a propósito (capacidad,
+        # Si el título capturado trae una palabra de marca (iphone, samsung,
+        # motorola...), el candidato tiene que traerla también -- si no, se
+        # descarta sin más vueltas. Sin este chequeo, un "iPhone XR" resolvió
+        # solo contra un iPad de la misma capacidad y color, y en otra
+        # corrida real un Huawei resolvió solo contra un Samsung, y otro
+        # contra un par de audífonos: nada en el puntaje exigía que el
+        # candidato fuera siquiera de la misma marca, porque la marca en sí
+        # no es una de las cosas que se comparan a propósito (capacidad,
         # generación, variante, color) y una palabra ausente de un lado no
         # resta puntos, solo deja de sumarlos.
-        if "iphone" in tw and "iphone" not in pw:
+        if t_brands and not (t_brands & pw):
             continue
         pc = capacities(p["name"])
         if tc and pc and not (tc & pc):
@@ -193,6 +306,11 @@ def candidates_for(item, products):
         pg = generation_of(p["name"])
         if tg and pg and tg != pg:
             continue  # contradicción de generación (14 vs 15 Pro, 16 vs 16e, ...): descartado
+        pm = model_of(p["name"])
+        if tm and pm and tm != pm:
+            continue  # contradicción de línea/número de modelo (Galaxy S25 vs S25
+            # Edge, Redmi Note 14 vs Note 15, Pura 70 vs Pura 90s...): mismo
+            # criterio que la generación de iPhone -- son equipos distintos.
         pcol = color_of(p["name"])
         if tcol and pcol and tcol != pcol:
             continue  # contradicción de color: descartado (a diferencia de capacidad y
@@ -219,6 +337,8 @@ def candidates_for(item, products):
             score += 2
         if tg and pg and tg == pg:
             score += 2
+        if tm and pm and tm == pm:
+            score += 2
         scored.append((score, p))
     scored.sort(key=lambda sp: -sp[0])
     return scored
@@ -231,18 +351,25 @@ def resolve(item, products):
         return None, []
     top_score = scored[0][0]
     tied = [p for s, p in scored if s == top_score]
-    if "iphone" not in words(title):
-        # generation_of()/VARIANT_RE -- las dos protecciones que evitan
-        # confundir un modelo con otro -- están ancladas a la palabra
-        # "iphone" y no hacen nada para el resto del catálogo. Sin ellas
-        # acá solo queda overlap de palabras + capacidad + color, que
-        # resultó insuficiente: en una corrida real con celulares que no
-        # son iPhone, un Huawei se confirmó solo contra un Samsung, otro
+    tw = words(title)
+    if "iphone" in tw:
+        pass  # generation_of()/VARIANT_RE cubren iPhone -- protección de sobra.
+    elif model_of(title):
+        pass  # una de las marcas con línea/número de modelo reconocido
+        # (Samsung, Redmi/Poco, Motorola, Huawei, OPPO, realme) Y el título
+        # capturado trae un número de modelo que se pudo extraer -- misma
+        # garantía que generation_of() le da a iPhone.
+    else:
+        # Ni "iphone" ni un número de modelo reconocido para ninguna marca
+        # con chequeo propio. Sin eso, lo único que queda es overlap de
+        # palabras + capacidad + color, que resultó insuficiente en una
+        # corrida real: un Huawei se confirmó solo contra un Samsung, otro
         # contra unos audífonos, y varios pares Galaxy/Redmi/Pura con
         # número de modelo distinto (S23+ vs S24+, Note 14 vs Note 15,
-        # Pura 70 vs Pura 90s) se dieron por iguales. Hasta que haya un
-        # chequeo de marca/modelo tan estricto como el de iPhone, todo lo
-        # que no diga "iphone" va a revisión manual sin excepción.
+        # Pura 70 vs Pura 90s) se dieron por iguales -- antes de que
+        # existiera model_of(). Esto incluye marcas/formatos que
+        # model_of() no reconoce todavía (títulos raros, marcas chicas):
+        # van a revisión manual sin excepción, igual que antes.
         return None, scored[:5]
     if len(tied) == 1 and top_score >= MIN_SCORE:
         match = tied[0]
@@ -256,6 +383,19 @@ def resolve(item, products):
             # (se vio un caso real: dos capturas de colores distintos
             # resolviendo las DOS al mismo producto sin color declarado).
             # Mejor mandar a revisión manual que asumir.
+            return None, scored[:5]
+        tm = model_of(title)
+        if tm and not model_of(match["name"]):
+            # Mismo problema que el color, pero con la marca/número de
+            # modelo: candidates_for() solo descarta por contradicción de
+            # modelo cuando LOS DOS lados tienen uno reconocido -- si el
+            # candidato no tiene ninguno (nombre en otro formato, o
+            # directamente OTRO tipo de producto), no hay nada que lo
+            # excluya y puede ganar por overlap de palabras nomás. Se vio
+            # un caso real: un "Galaxy A34" (celular) resolvió solo contra
+            # una "Galaxy Tab A11+" (tablet) porque la tablet no matcheaba
+            # ningún patrón de modelo y por lo tanto no había contradicción
+            # que detectar.
             return None, scored[:5]
         return match, scored[:5]
     return None, scored[:5]
