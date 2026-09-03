@@ -66,10 +66,30 @@ COLORS = (
     "desert titanium",
     "negro", "black", "blanco", "white", "azul", "blue", "rosa", "pink",
     "dorado", "gold", "plata", "silver", "gris", "gray", "grey", "verde",
-    "green", "morado", "purpura", "purple", "naranja", "orange", "titanio",
-    "titanium", "rojo", "red", "amarillo", "yellow", "grafito", "graphite",
-    "medianoche", "media noche", "midnight", "salvia", "sage", "oro",
+    "green", "morado", "purpura", "purple", "violeta", "lila", "naranja",
+    "orange", "titanio", "titanium", "rojo", "red", "amarillo", "yellow",
+    "grafito", "graphite", "medianoche", "media noche", "midnight",
+    "salvia", "sage", "oro",
 )
+# color_of() devolvía la palabra encontrada TAL CUAL, así que sinónimos
+# del mismo color en idiomas/formas distintas ("violeta" vs "morado" vs
+# "purple") se leían como colores DISTINTOS -- eso dejó pasar sin marcar
+# contradicción un caso real: una captura en "Violeta" resolvió sola
+# contra un candidato "(Black)" del catálogo porque tcol quedaba None
+# (violeta no estaba siquiera en COLORS) y por lo tanto nunca se
+# comparaba. Este mapa canoniza cada sinónimo a un único nombre para que
+# la comparación tcol != pcol funcione entre idiomas/variantes.
+COLOR_CANON = {
+    "black": "negro", "white": "blanco", "blue": "azul", "pink": "rosa",
+    "gold": "dorado", "silver": "plata", "gray": "gris", "grey": "gris",
+    "green": "verde", "purpura": "morado", "purple": "morado",
+    "violeta": "morado", "lila": "morado", "orange": "naranja",
+    "titanium": "titanio", "red": "rojo", "yellow": "amarillo",
+    "graphite": "grafito", "media noche": "medianoche",
+    "midnight": "medianoche", "sage": "salvia",
+    "natural titanium": "titanio natural",
+    "desert titanium": "titanio del desierto",
+}
 MIN_SCORE = 3
 
 
@@ -108,7 +128,13 @@ def words(s):
 
 def capacities(s):
     n = norm(s).replace("-", " ")
-    caps = set(re.findall(r"(\d+)\s*(gb|tb)\b", n))
+    # ", ?" entre el número y la unidad (no solo espacio): Amazon a veces
+    # aplana el selector de variantes (color/RAM/almacenamiento) DENTRO
+    # del título como una lista separada por comas -- "(Negro, 512, GB,
+    # GB, 16)" en vez de "512GB" -- y sin tolerar la coma ahí capacities()
+    # no encontraba NADA, así que un 512GB se auto-confirmaba sin
+    # contradicción contra un candidato de 256GB. Se vio un caso real.
+    caps = set(re.findall(r"(\d+)\s*,?\s*(gb|tb)\b", n))
     # Algunos anuncios escriben "128G" en vez de "128GB" -- pero una "G"
     # suelta también es como se escribe la generación de red ("4G", "5G"),
     # así que solo cuenta como almacenamiento cuando el número tiene 2+
@@ -161,6 +187,19 @@ BRAND_WORDS = {
     "iphone", "samsung", "motorola", "huawei", "oppo", "realme", "redmi",
     "poco",
 }
+
+# "Combo 2 Motorola Moto G06 4-256GB Verde-Verde" es un PAQUETE DE 2
+# EQUIPOS (mismo modelo, un color por unidad -- de ahí el color repetido
+# tras el guion) a un precio que ya es el de las dos unidades juntas, no
+# el de una sola. Una captura de Amazon de una sola unidad (siempre lo
+# que se ve en estas capturas) nunca debería auto-confirmarse contra
+# esto: el precio y hasta la cantidad de equipos no coinciden aunque
+# marca/modelo/color/capacidad sí. Detectado por la firma de nombre que
+# usa Elektra para estos paquetes -- "N-NNNGB" con la RAM SIN "GB" propio
+# pegada por guion a la capacidad SÍ con "GB" -- que no aparece en
+# ningún nombre de equipo individual del catálogo (esos siempre escriben
+# "4GB 128GB"/"4GB RAM 128GB", nunca "4-128GB").
+MULTI_UNIT_PACK_RE = re.compile(r"\bcombo\s*\d+\b.*\b\d{1,2}-\d{2,4}gb\b", re.IGNORECASE)
 
 # Número/línea de modelo para las marcas más comunes en las capturas de
 # Amazon, con el mismo criterio que generation_of() para iPhone: ancla
@@ -270,7 +309,7 @@ def color_of(s):
     n = norm(s)
     for c in COLORS:
         if re.search(rf"\b{c}\b", n):
-            return c
+            return COLOR_CANON.get(c, c)
     return None
 
 
@@ -410,6 +449,15 @@ def resolve(item, products):
             # que no repite la capacidad en su propio nombre -- no
             # menciona ninguna, así que no hay contradicción que detectar
             # y puede ganar por overlap de palabras nomás.
+            return None, scored[:5]
+        if MULTI_UNIT_PACK_RE.search(match["name"]) and not MULTI_UNIT_PACK_RE.search(title):
+            # El candidato es un paquete de varias unidades (ver
+            # MULTI_UNIT_PACK_RE) pero la captura es de una sola unidad --
+            # se vio un caso real: "Motorola Moto G06 4+256gb Dual Sim
+            # Verde" (una unidad) resolvió solo contra "Combo 2 Motorola
+            # Moto G06 4-256GB Verde-Verde" (dos unidades, precio del
+            # paquete) porque marca/modelo/color/capacidad coincidían sin
+            # que nada chequeara la cantidad de equipos.
             return None, scored[:5]
         return match, scored[:5]
     return None, scored[:5]
