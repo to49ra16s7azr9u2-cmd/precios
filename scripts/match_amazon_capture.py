@@ -55,13 +55,38 @@ COLORS = (
     "negro", "black", "blanco", "white", "azul", "blue", "rosa", "pink",
     "dorado", "gold", "plata", "silver", "gris", "gray", "grey", "verde",
     "green", "morado", "purpura", "purple", "naranja", "orange", "titanio",
-    "titanium", "rojo", "red", "amarillo", "yellow",
+    "titanium", "rojo", "red", "amarillo", "yellow", "grafito", "graphite",
+    "medianoche", "media noche", "midnight", "salvia", "sage",
 )
 MIN_SCORE = 3
 
 
 def norm(s):
-    s = unicodedata.normalize("NFKD", (s or "").lower())
+    # Separar transiciones minúscula->mayúscula ANTES de pasar todo a
+    # minúsculas -- varios títulos capturados vienen con palabras pegadas
+    # por un salto de línea que se perdió al leer la página ("EsimMorado",
+    # "128GBNegroDesbloqueado"). Sin este split, "\bmorado\b" no encuentra
+    # límite de palabra dentro de "esimmorado" y el color desaparece sin
+    # aviso -- eso fue lo que dejó pasar una coincidencia con la variante
+    # equivocada de color en la corrida real de esta captura.
+    #
+    # OJO: "iPhone" en sí mismo es una transición minúscula->mayúscula
+    # ("i" + "Phone") -- sin esta excepción, el split de arriba rompe
+    # "iphone" en "i phone" y con eso deja de encontrar el ancla que usan
+    # generation_of/VARIANT_RE, lo cual fue MUCHO peor que el bug que se
+    # quería arreglar (varias generaciones distintas volvieron a
+    # confirmarse solas). Se normaliza el nombre de marca primero para que
+    # no le quede ninguna transición de mayúscula que partir.
+    s = re.sub(r"iphone", "iphone", s or "", flags=re.IGNORECASE)
+    s = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", s)
+    # "128GBNegro": GB y la palabra siguiente quedan mayúscula-mayúscula, así
+    # que el split de arriba no lo separa -- y sin el espacio, capacities()
+    # no encuentra el límite de palabra que necesita después de "gb"/"tb" y
+    # la capacidad del propio título capturado desaparece (se vio un caso
+    # real: un 128GB así resolvió solo contra un candidato de 256GB porque
+    # ya no había nada con qué contradecirlo).
+    s = re.sub(r"(\d+\s*(?:gb|tb))(?=[a-zA-Z])", r"\1 ", s, flags=re.IGNORECASE)
+    s = unicodedata.normalize("NFKD", s.lower())
     return "".join(c for c in s if not unicodedata.combining(c))
 
 
@@ -73,12 +98,37 @@ def capacities(s):
     return set(re.findall(r"(\d+)\s*(gb|tb)\b", norm(s).replace("-", " ")))
 
 
+def generation_of(s):
+    # El número de generación ("14", "15", "16e", "17"...) es el dato que MÁS
+    # importa para no confundir un iPhone con otro -- y words() lo descarta
+    # por completo, porque el regex de tokenización trata los dígitos como
+    # separadores. Sin esto, "iPhone 14" y "iPhone 15 Pro" comparten tantas
+    # palabras (apple/iphone/gb/color/...) que el puntaje los daba por
+    # iguales; así fue como salieron auto-confirmados varios pares de
+    # generación distinta en la primera corrida real.
+    m = re.search(r"iphone\s*(\d{1,2})\s*(e)?\b", norm(s))
+    if not m:
+        return None
+    return m.group(1) + (m.group(2) or "")
+
+
+VARIANT_RE = re.compile(
+    r"iphone\s*(?:\d{1,2}e?)?\s*(" + "|".join(re.escape(v) for v in VARIANTS) + r")\b"
+)
+
+
 def variant_of(s):
-    n = norm(s)
-    for v in VARIANTS:
-        if v in n:
-            return v
-    return None
+    # Tiene que anclarse justo después de "iphone" (como aparece siempre en
+    # un título/nombre real: "iPhone 17 Pro Max", "iPhone Air"...), y no
+    # buscar la palabra suelta en cualquier parte del texto. Dos bugs reales
+    # que dio esa versión más simple:
+    #   - "se" como substring aparece dentro de "disenado", "trasera", etc.
+    #     (arreglado antes con \b, pero \b solo no alcanza)
+    #   - "Chip A19 Pro" aparece en la descripción de CUALQUIER iPhone de
+    #     gama alta, incluido el iPhone Air -- así que "pro" suelto se
+    #     detectaba como si el propio teléfono fuera el modelo Pro.
+    m = VARIANT_RE.search(norm(s))
+    return m.group(1) if m else None
 
 
 def color_of(s):
@@ -97,6 +147,7 @@ def candidates_for(item, products):
     tc = capacities(title)
     tv = variant_of(title)
     tcol = color_of(title)
+    tg = generation_of(title)
 
     scored = []
     for p in products:
@@ -107,16 +158,34 @@ def candidates_for(item, products):
         pc = capacities(p["name"])
         if tc and pc and not (tc & pc):
             continue  # contradicción de capacidad: descartado sin más vueltas
-        score = len(overlap)
-        pv = variant_of(p["name"])
-        if tv and pv:
-            score += 2 if tv == pv else -3
-        elif tv and not pv:
-            score -= 1  # el candidato no menciona la variante que sí trae el título capturado
+        pg = generation_of(p["name"])
+        if tg and pg and tg != pg:
+            continue  # contradicción de generación (14 vs 15 Pro, 16 vs 16e, ...): descartado
         pcol = color_of(p["name"])
-        if tcol and pcol:
-            score += 1 if tcol == pcol else -2
+        if tcol and pcol and tcol != pcol:
+            continue  # contradicción de color: descartado (a diferencia de capacidad y
+            # generación, el color a veces se corrige con un bonus más abajo,
+            # pero un choque directo -- grafito vs azul -- es tan mal candidato
+            # como una capacidad distinta: se vio un caso real donde ganaba por
+            # el bonus de variante a pesar del color equivocado)
+        pv = variant_of(p["name"])
+        if tv != pv:
+            continue  # Pro Max, Pro, Plus, Mini, Air, SE y "base" (ninguno de esos)
+            # son equipos DISTINTOS con precio distinto, no una diferencia de
+            # redacción -- mismo criterio que capacidad/generación/color. Un
+            # nombre de catálogo bien armado dice "Pro" cuando lo es y no lo
+            # dice cuando no lo es (y lo mismo vale para el título capturado),
+            # así que si no coinciden ninguno de los dos es el otro -- se vio
+            # un caso real donde un "iPhone 15" base ganaba por pura suerte de
+            # palabras contra un "iPhone 15 Plus" en el catálogo.
+        score = len(overlap)
+        if tv and pv:
+            score += 2
+        if tcol and pcol and tcol == pcol:
+            score += 1
         if tc and pc and (tc & pc):
+            score += 2
+        if tg and pg and tg == pg:
             score += 2
         scored.append((score, p))
     scored.sort(key=lambda sp: -sp[0])
@@ -130,7 +199,19 @@ def resolve(item, products):
     top_score = scored[0][0]
     tied = [p for s, p in scored if s == top_score]
     if len(tied) == 1 and top_score >= MIN_SCORE:
-        return tied[0], scored[:5]
+        match = tied[0]
+        tcol = color_of(item.get("title") or "")
+        pcol = color_of(match["name"])
+        if tcol and not pcol:
+            # El título capturado trae color pero el nombre del candidato no
+            # menciona ninguno -- no hay forma de confirmar que sea el mismo
+            # color, y un nombre "genérico" así le gana por overlap de
+            # palabras a cualquier variante de color real del mismo modelo
+            # (se vio un caso real: dos capturas de colores distintos
+            # resolviendo las DOS al mismo producto sin color declarado).
+            # Mejor mandar a revisión manual que asumir.
+            return None, scored[:5]
+        return match, scored[:5]
     return None, scored[:5]
 
 
