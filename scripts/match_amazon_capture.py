@@ -56,7 +56,7 @@ COLORS = (
     "dorado", "gold", "plata", "silver", "gris", "gray", "grey", "verde",
     "green", "morado", "purpura", "purple", "naranja", "orange", "titanio",
     "titanium", "rojo", "red", "amarillo", "yellow", "grafito", "graphite",
-    "medianoche", "media noche", "midnight", "salvia", "sage",
+    "medianoche", "media noche", "midnight", "salvia", "sage", "oro",
 )
 MIN_SCORE = 3
 
@@ -95,7 +95,17 @@ def words(s):
 
 
 def capacities(s):
-    return set(re.findall(r"(\d+)\s*(gb|tb)\b", norm(s).replace("-", " ")))
+    n = norm(s).replace("-", " ")
+    caps = set(re.findall(r"(\d+)\s*(gb|tb)\b", n))
+    # Algunos anuncios escriben "128G" en vez de "128GB" -- pero una "G"
+    # suelta también es como se escribe la generación de red ("4G", "5G"),
+    # así que solo cuenta como almacenamiento cuando el número tiene 2+
+    # dígitos: ningún almacenamiento real es de 1-9 GB, y no existe una red
+    # "64G". Sin este piso, "128G" se perdía por completo -- se vio un caso
+    # real de un 64GB capturado resolviendo solo contra un candidato de
+    # 128G porque no había nada con qué contradecirlo.
+    caps |= {(num, "gb") for num in re.findall(r"\b(\d{2,4})g\b", n)}
+    return caps
 
 
 def generation_of(s):
@@ -154,6 +164,16 @@ def candidates_for(item, products):
         pw = words(p["name"])
         overlap = tw & pw
         if not overlap:
+            continue
+        # "iphone" es la palabra que más importa de todas para este catálogo
+        # -- si el título capturado la trae, el candidato tiene que traerla
+        # también. Sin este chequeo, un "iPhone XR" resolvió solo contra un
+        # iPad de la misma capacidad y color: nada en el puntaje exigía que
+        # el candidato fuera siquiera un iPhone, porque "iphone" en sí no es
+        # una de las palabras que se comparan a propósito (capacidad,
+        # generación, variante, color) y una palabra ausente de un lado no
+        # resta puntos, solo deja de sumarlos.
+        if "iphone" in tw and "iphone" not in pw:
             continue
         pc = capacities(p["name"])
         if tc and pc and not (tc & pc):
