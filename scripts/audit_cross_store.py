@@ -34,7 +34,12 @@ producto en el slug, así que se compara contra el nombre guardado:
      negro-...-whirlpool").
 
 Las urls de Mercado Libre (/p/MLM…) no se revisan: son numéricas, no
-describen el producto.
+describen el producto. Tampoco las de Amazon MX (/dp/ASIN): a propósito no
+llevan slug descriptivo (ver affiliate_url() en add_amazon_offers.py), así
+que lo único "alfabético" que hay para comparar es "amazon"/"https" -- eso
+no comparte nada con ningún nombre de producto real y marcaba como
+sospechosas TODAS las ofertas de Amazon por igual, sin importar si eran
+correctas.
 
 USO
 ---
@@ -92,7 +97,7 @@ def mismatches(products):
         brand0 = re.split(r"[^a-z0-9]+", brand)[0] if brand else ""
         for o in offers:
             url = real_url(o.get("url"))
-            if not url or "/p/MLM" in url:
+            if not url or "/p/MLM" in url or ("amazon.com" in url and "/dp/" in url):
                 continue
             slug = _norm(urllib.parse.unquote(url))
 

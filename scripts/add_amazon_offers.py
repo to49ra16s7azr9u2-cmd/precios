@@ -50,6 +50,12 @@ USO
     # Agregar las ofertas del archivo:
     python3 scripts/add_amazon_offers.py ofertas.json --tag comparamex0d-20 --dry-run
     python3 scripts/add_amazon_offers.py ofertas.json --tag comparamex0d-20
+
+    # --tag es opcional: sin él se agrega con link normal (sin comisión) --
+    # útil mientras Amazon México Afiliados no acepta solicitudes nuevas.
+    # Correr de nuevo con --tag más adelante actualiza el link de lo ya
+    # cargado, sin tener que rehacer el matching.
+    python3 scripts/add_amazon_offers.py ofertas.json
 """
 import argparse
 import json
@@ -68,7 +74,16 @@ def affiliate_url(asin, tag):
     # Forma canónica y estable -- sin los parámetros de sesión/búsqueda
     # (crid, dib, sprefix, sr...) que trae un link copiado de una página de
     # resultados, que además delatan que no es un link de afiliado real.
-    return f"https://www.amazon.com.mx/dp/{asin}/?tag={urllib.parse.quote(tag)}"
+    base = f"https://www.amazon.com.mx/dp/{asin}/"
+    if not tag:
+        # Amazon México Afiliados no está aceptando solicitudes nuevas por
+        # ahora (visto en afiliados.amazon.com.mx: "No estamos aceptando
+        # nuevos solicitantes en este momento"). El link funciona igual sin
+        # tag -- solo no genera comisión hasta que haya uno. Cuando se
+        # consiga, correr este mismo script de nuevo con --tag actualiza el
+        # link de las ofertas ya cargadas (no hace falta recargar nada).
+        return base
+    return f"{base}?tag={urllib.parse.quote(tag)}"
 
 
 def search(data, query):
@@ -100,10 +115,13 @@ def main():
         search(data, args.search)
         return
 
-    if not args.input or not args.tag:
-        print("Se requiere <input.json> y --tag (o usar --search para buscar product_id primero)",
+    if not args.input:
+        print("Se requiere <input.json> (o usar --search para buscar product_id primero)",
               file=sys.stderr)
         sys.exit(2)
+    if not args.tag:
+        print("AVISO: sin --tag -- se agrega con link normal (sin comisión) hasta "
+              "que haya un tracking id de Amazon Associates.", file=sys.stderr)
 
     with open(args.input, encoding="utf-8") as f:
         rows = json.load(f)
