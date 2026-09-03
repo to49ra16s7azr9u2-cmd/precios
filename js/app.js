@@ -3509,6 +3509,7 @@
           <div class="price-line">
             ${money(r.price)}${r.price === bestPrice ? '<span class="best-tag">MÁS BARATO</span>' : ""}${isRecommended ? `<span class="best-tag recommended-tag" title="Mejor combinación de precio, calificación y disponibilidad">${icon("trophy")} RECOMENDADO</span>` : ""}
           </div>
+          ${r.bundleNote ? `<span class="bundle-badge">${icon("headphones")} ${htmlEscapeAttr(r.bundleNote)}</span>` : ""}
           ${shipEstimateNote}
           ${deliveryHtml}
         </td>

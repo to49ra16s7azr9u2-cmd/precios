@@ -453,7 +453,9 @@ def render_product_page(product, data):
             + ('<span class="seller-tag official">Tienda oficial</span>' if o.get("sellerOfficial") else "")
             + ('<span class="seller-tag buybox">Vendedor por defecto</span>' if o.get("isBuyBox") else "")
             + f'{sellers_html}{wholesale_html}{variants_html}</td>'
-            f"<td class=\"price-cell\"><span class=\"price-line\">{money(o['price'])}</span></td>"
+            f"<td class=\"price-cell\"><span class=\"price-line\">{money(o['price'])}</span>"
+            + (f'<span class="bundle-badge">{svg_icon("headphones")} {html_escape(o["bundleNote"])}</span>' if o.get("bundleNote") else "")
+            + "</td>"
             f"<td>{ship}</td><td>{stock_label}</td>"
             f"<td>{rating_label}</td></tr>"
         )

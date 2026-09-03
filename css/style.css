@@ -1483,6 +1483,25 @@ a { color: inherit; text-decoration: none; }
   color: var(--red-dark);
   margin-left: 2px;
 }
+/* Cuando la oferta trae un regalo real del vendedor (audífonos, smartwatch,
+   bocina...) en vez de crear una ficha de producto aparte por cada
+   combinación de regalo -- eso infla el catálogo con "el mismo celular"
+   repetido según qué le hayan agregado -- se anota junto al precio de esa
+   oferta puntual (ver scripts/merge_bundle_offers.py). Verde de "incluido"
+   (mismo tono que .seller-tag.official), no azul informativo ni ámbar de
+   advertencia: es un plus, no un dato a evaluar. */
+.bundle-badge {
+  display: block;
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 700;
+  color: #0a6b33;
+  background: var(--green-tint);
+  border: 1px solid #b6e2c8;
+  border-radius: 10px;
+  padding: 2px 8px;
+  margin-top: 5px;
+}
 /* Insignia de tienda: color plano de la marca con una letra, sin relieve
    ni brillo — solo sirve para identificar la tienda de un vistazo. */
 .store-dot {
