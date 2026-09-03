@@ -344,6 +344,23 @@ def variant_of(s):
 
 
 _COLOR_RE = re.compile(r"\b(" + "|".join(re.escape(c) for c in COLORS) + r")\b")
+# "titanio"/"titanium" SUELTO (sin "natural"/"del desierto" pegado) no es un
+# color en sí, es el prefijo que Apple usa para nombrar el acabado real:
+# "Titanio Negro", "Titanio Azul" -- el color que importa para comparar es
+# "negro"/"azul", no "titanio". Antes de que color_of() mirara la POSICIÓN
+# en el texto, esto funcionaba por accidente (la tupla COLORS tiene
+# "negro"/"azul" antes que "titanio", así que ganaban igual sin importar
+# dónde aparecía cada uno). Al pasar a "el que aparece más a la izquierda"
+# se rompió: "titanio" aparece ANTES que "negro" en el texto, así que
+# empezó a devolver el prefijo genérico en vez del acabado real -- un
+# "iPhone 15 Pro 128GB Titanio Negro" resolvía contra una ficha genérica
+# "iPhone 15 Pro (128 GB) - Titanio" (sin acabado específico) en vez de
+# mandarse a revisión manual por color no confirmado, exactamente el tipo
+# de match que resolve() está diseñado para rechazar.
+_BARE_TITANIO = {"titanio", "titanium"}
+_COLOR_RE_NO_BARE_TITANIO = re.compile(
+    r"\b(" + "|".join(re.escape(c) for c in COLORS if c not in _BARE_TITANIO) + r")\b"
+)
 
 
 def color_of(s):
@@ -359,7 +376,15 @@ def color_of(s):
     # prefijo ("titanio") cuando empiezan en la misma posición porque
     # siguen listados primero en COLORS (el orden de alternancia del regex
     # es el desempate cuando dos matchean en el mismo punto de inicio).
-    m = _COLOR_RE.search(norm(s))
+    #
+    # "titanio" suelto se prueba en una SEGUNDA pasada, solo si ningún otro
+    # color aparece en el texto -- así "Titanio Negro" da "negro" (el
+    # acabado real) y un "... - Titanio" sin nada más sigue dando "titanio"
+    # (ver _BARE_TITANIO arriba).
+    n = norm(s)
+    m = _COLOR_RE_NO_BARE_TITANIO.search(n)
+    if not m:
+        m = _COLOR_RE.search(n)
     if not m:
         return None
     c = m.group(1)
