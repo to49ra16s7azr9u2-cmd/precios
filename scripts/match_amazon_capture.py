@@ -206,8 +206,12 @@ _MODEL_PATTERNS = {
     "motorola": (
         (re.compile(r"edge\s*(\d{2})\s*(fusion|pro|neo)?\b"),
          lambda m: "edge" + m.group(1) + (m.group(2) or "")),
-        (re.compile(r"\bg\s*(\d{2,3})\b"),
-         lambda m: "g" + m.group(1)),
+        # "Power" es una variante real del G-series (más batería), no una
+        # forma distinta de nombrar el mismo equipo -- se vio pasar un "Moto
+        # G15" (base) resolviendo solo contra un "Moto G15 Power" sin que
+        # nada marcara la diferencia.
+        (re.compile(r"\bg\s*(\d{2,3})\s*(power)?\b"),
+         lambda m: "g" + m.group(1) + (m.group(2) or "")),
     ),
     "huawei": (
         (re.compile(r"pura\s*(\d{2})(s)?\s*(pro\s*max|pro|ultra)?\b"),
@@ -396,6 +400,16 @@ def resolve(item, products):
             # una "Galaxy Tab A11+" (tablet) porque la tablet no matcheaba
             # ningún patrón de modelo y por lo tanto no había contradicción
             # que detectar.
+            return None, scored[:5]
+        tc = capacities(title)
+        if tc and not capacities(match["name"]):
+            # Mismo problema otra vez, ahora con la capacidad: el título
+            # capturado trae "512GB" pero el candidato -- a veces un
+            # anuncio-combo con parlante y audífonos de regalo, o
+            # directamente un sub-modelo distinto ("G15" vs "G15 Power")
+            # que no repite la capacidad en su propio nombre -- no
+            # menciona ninguna, así que no hay contradicción que detectar
+            # y puede ganar por overlap de palabras nomás.
             return None, scored[:5]
         return match, scored[:5]
     return None, scored[:5]
