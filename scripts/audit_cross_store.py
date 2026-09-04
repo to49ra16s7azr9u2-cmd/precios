@@ -107,14 +107,44 @@ def mismatches(products):
             # de abajo no lo ve; lo que no se puede contradecir es la
             # capacidad. Ej.: "Asus ... 64gb ... 4gb" contra un
             # "laptop-lm-7500 ... 6gb-ram-128gb": no comparten ninguna.
+            #
+            # Algunas tiendas arman el slug pegando RAM+almacenamiento sin
+            # separador ("12+512GB" -> "12512gb"): el número que capacities()
+            # extrae ("12512") nunca va a ser IGUAL a "512" aunque el equipo
+            # sea el mismo -- se vieron 2 casos reales (Elektra, Galaxy Z
+            # Fold8/Flip8) marcados como "mismatch" por esto solo. Alcanza
+            # con que el número del slug TERMINE en el de la ficha (el orden
+            # RAM-primero-luego-almacenamiento es el que usan estos feeds).
             slug_caps = capacities(slug)
-            if name_caps and slug_caps and not (name_caps & slug_caps):
+            if name_caps and slug_caps and not (
+                name_caps & slug_caps
+                or any(
+                    s_unit == n_unit and s_num.endswith(n_num)
+                    for s_num, s_unit in slug_caps
+                    for n_num, n_unit in name_caps
+                )
+            ):
                 out.append((p, o, url))
                 continue
 
             if brand0 and len(brand0) >= 3 and brand0 in slug:
                 continue
-            slug_words = words(slug.split("/")[-2] if slug.endswith("/p") else slug)
+            # Solo el PATH de la url describe el producto -- el dominio
+            # ("sunsky-online.com") no dice nada del producto, pero antes se
+            # incluía igual cuando la url no terminaba en "/p" (el caso de
+            # Sunsky, cuyo link real es solo un id numérico: /v/3164753).
+            # words("https://www.sunsky-online.com/v/3164753") daba
+            # {"sunsky", "online", "https"} -- palabras que NUNCA van a
+            # aparecer en el nombre de ningún producto, así que CUALQUIER
+            # oferta de Sunsky con url puramente numérica quedaba marcada
+            # como "mismatch" sin serlo. Usar solo el path evita eso.
+            # words() sobre el PATH entero (no solo el último segmento): un
+            # slug de Elektra termina en "/p" y tomar nada más ese último
+            # segmento dejaba "p" -- ni una palabra de 4+ letras, así que
+            # slug_words quedaba vacío y la regla de abajo nunca comparaba
+            # nada (ningún mismatch real de Elektra se detectaba más).
+            path = urllib.parse.urlparse(slug).path or slug
+            slug_words = words(path)
             if slug_words and not (name_words & slug_words):
                 out.append((p, o, url))
     return out
