@@ -3640,10 +3640,28 @@
     // La tabla trae hasta MAX_SELLERS vendedores por publicación (ver
     // winnerOffer en el Worker), pero el encabezado cuenta todos los que hay:
     // sin decirlo, "22 vendedores" arriba y 4 filas abajo se contradicen.
-    const shown = rows.filter((r) => r.storeId === "mercadolibre").length;
-    const total = sellerTotal(product);
-    if (total > shown && rows.some((r) => r.sellers || r.isBuyBox)) {
-      const url = purchaseOptions(product)[0].url;
+    // El total tiene que contar SOLO los vendedores de Mercado Libre: la
+    // frase habla de "vendedores de Mercado Libre" y sellerTotal() suma
+    // TODAS las opciones de compra, así que en un producto que además tiene
+    // Elektra o Amazon esas tiendas entraban al total y la nota mentía dos
+    // veces -- decía que faltaba un vendedor de ML cuando estaban todos, y
+    // contaba a Amazon como si fuera uno de ellos ("Mostrando 7 de 8
+    // vendedores de Mercado Libre" en un producto con 7 vendedores de ML y
+    // una oferta de Amazon). Pasaba en 87 productos, y cada consolidación
+    // entre tiendas suma otro.
+    const mlShown = rows.filter((r) => r.storeId === "mercadolibre").length;
+    const mlOptions = purchaseOptions(product).filter((o) => o.storeId === "mercadolibre");
+    const mlTotal = mlOptions.reduce((sum, o) => sum + (o.sellerCount || 1), 0);
+    const shown = mlShown;
+    const total = mlTotal;
+    // Antes esto además exigía que alguna fila trajera el desglose de
+    // vendedores (r.sellers/r.isBuyBox). Cuando la publicación declara
+    // sellerCount pero el desglose no se guardó (12 ofertas del catálogo),
+    // la tabla mostraba 1 fila, el encabezado "2 vendedores" y ninguna
+    // explicación de la diferencia. Con que falte alguno alcanza para
+    // avisar.
+    if (total > shown && mlOptions.length > 0) {
+      const url = mlOptions[0].url || purchaseOptions(product)[0].url;
       el.offerTableNote.innerHTML =
         `Mostrando ${shown} de ${total} vendedores de Mercado Libre, los más baratos primero. ` +
         `<a href="${htmlEscapeAttr(url)}" target="_blank" rel="nofollow noopener">Ver todos en Mercado Libre</a>.`;
