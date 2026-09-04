@@ -2856,7 +2856,7 @@
   function openSpecsModal() {
     SPEC_FACETS.forEach((cfg) => {
       const groupEl = el[cfg.groupEl];
-      groupEl.classList.remove("collapsed"); // dentro del modal van SIEMPRE desplegados
+      groupEl.classList.add("collapsed"); // arrancan cerrados -- con 12 tarjetas posibles, todas abiertas de entrada es una pared de opciones
       el.specsModalBody.appendChild(groupEl);
     });
     el.specsModal.classList.remove("hidden");
