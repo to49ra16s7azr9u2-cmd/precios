@@ -1,0 +1,357 @@
+#!/usr/bin/env python3
+"""Extrae specs estructuradas (RAM, almacenamiento, pantalla, chip, GPU, etc.)
+del NOMBRE de un producto, para poder ofrecer filtros de "Memoria",
+"Almacenamiento", "Procesador", "Tarjeta gráfica", etc. en la interfaz.
+
+POR QUÉ DEL NOMBRE Y NO DE product.specs
+------------------------------------------
+specs[] (label/value) solo existe en una minoría del catálogo -- 28% de
+Celulares, 19% de Tabletas, 7% de Laptops tienen algo ahí. El resto solo
+tiene el nombre libre capturado de la tienda. Cualquier filtro que dependa
+SOLO de specs[] dejaría fuera a la mayoría del catálogo, así que estos
+extractores leen primero specs[] (más confiable cuando existe) y si no
+hay nada útil, caen al nombre.
+
+CRITERIO: nunca adivinar. Si el nombre es ambiguo (dos números de RAM
+posibles, un chip que no matchea ningún patrón conocido), la función
+devuelve None para ESE campo en particular -- el producto simplemente no
+aparece bajo ningún valor de ese filtro puntual, pero sigue apareciendo
+en "todos". Es el mismo criterio que match_amazon_capture.py y
+phone_signature.py vienen usando toda la sesión.
+"""
+import re
+import unicodedata
+
+
+def _norm(s):
+    s = unicodedata.normalize("NFD", (s or ""))
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return s.lower()
+
+
+# ---------------------------------------------------------------------
+# RAM / Almacenamiento
+# ---------------------------------------------------------------------
+# Set para el paso "número suelto + 'G' sin 'B'" ("778G" de un chip Snapdragon,
+# "256G" que Sunsky escribe sin la B). A propósito NO incluye valores chicos
+# (4, 8, 16...): "Network: 4G" / "5G" son con diferencia el uso más común de
+# un número chico pegado a "G" sin B en estas fichas -- convertirlos a
+# "4GB"/"5GB" inventaría una capacidad de la red del teléfono. Es el mismo
+# set (y el mismo motivo) que _REAL_CAPS de phone_signature.py.
+_REAL_CAPS_BARE_G = {16, 32, 64, 128, 256, 512, 1024, 2048}
+# Set general de "esto es una capacidad real" para cuando el número SÍ trae
+# la "B" explícita ("4GB RAM") -- ahí no hay ambigüedad con la red, así que
+# se permiten los valores chicos que sí usan RAM de laptop/tablet.
+_REAL_CAPS = {2, 3, 4, 6, 8, 12, 16, 18, 24, 32, 36, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024, 1536, 2048, 4096}
+
+
+def _cap_numbers(name):
+    """Todas las capacidades ('NN gb'/'NN tb') que aparecen en el nombre,
+    normalizadas a GB, junto con su posición en el texto normalizado."""
+    n = _norm(name).replace("+", " + ")
+    # "12+512GB", "8GB RAM+256GB ROM", "256gb 8gb ram" ya vienen con "gb"/"tb"
+    # pegados casi siempre; el caso sin "b" ("778G" de un chip) se filtra
+    # exigiendo que el número sea una capacidad real (y no chica, ver arriba)
+    # antes de tratarlo como tal.
+    n = re.sub(
+        r"\b(\d{1,4})\s*g\b(?!b)",
+        lambda m: m.group(1) + "gb" if int(m.group(1)) in _REAL_CAPS_BARE_G else m.group(0),
+        n,
+    )
+    # "512 SSD", "512ssd", "128 SSD" (laptops que omiten la "GB" y confían
+    # en "SSD" como unidad implícita) -- sin esto, "Core I7 ... 512 SSD +
+    # 8GB" solo veía el "8GB" y lo tomaba como almacenamiento (única
+    # capacidad encontrada, sin la palabra "ram" cerca), perdiendo el 512
+    # real y quedándose con 8GB como si fuera el disco.
+    n = re.sub(r"\b(\d{2,4})\s*(?=ssd|hdd|emmc)\b", r"\1gb ", n)
+    out = []
+    for m in re.finditer(r"(\d+(?:\.\d+)?)\s*(gb|tb)\b", n):
+        num = float(m.group(1))
+        if m.group(2) == "tb":
+            num *= 1024
+        out.append((int(num), m.start()))
+    return out, n
+
+
+_RAM_HINT = re.compile(r"\bram\b")
+
+
+def ram_storage_gb(name):
+    """(ram_gb, storage_gb), cualquiera puede ser None.
+
+    Con 1 o 2 valores de capacidad distintos en el nombre, se aplica el
+    mismo criterio ya probado en phone_signature.py: el mayor es
+    almacenamiento, el menor es RAM (nunca al revés en un equipo real), y
+    con un solo valor se decide por si la palabra "ram" aparece pegada.
+
+    Con 3+ valores distintos NO se adivina cuál es cuál -- se vio en
+    laptops reales un tercer número que es la capacidad MÁXIMA de
+    expansión ("512GB SSD Extensiones 4TB"), no el almacenamiento
+    configurado; tomar el máximo a ciegas ahí habría dicho 4TB en vez de
+    los 512GB reales.
+    """
+    caps, n = _cap_numbers(name)
+    if not caps:
+        return None, None
+    nums = sorted({c[0] for c in caps})
+    if len(nums) == 1:
+        val = nums[0]
+        pos = caps[0][1]
+        tail = n[pos:pos + 20]
+        if _RAM_HINT.search(tail):
+            return val, None
+        return None, val
+    if len(nums) == 2:
+        return nums[0], nums[1]
+    return None, None
+
+
+_STORAGE_TYPE_RE = (
+    ("nvme", re.compile(r"\bnvme\b")),
+    ("ssd", re.compile(r"\bssd\b")),
+    ("emmc", re.compile(r"\bemmc\b")),
+    ("hdd", re.compile(r"\bhdd\b|\bdisco duro\b")),
+)
+
+
+def storage_type_of(name):
+    """'ssd'/'nvme'/'emmc'/'hdd', o None si el nombre no lo dice."""
+    n = _norm(name)
+    for key, rx in _STORAGE_TYPE_RE:
+        if rx.search(n):
+            return "ssd" if key == "nvme" else key
+    return None
+
+
+# ---------------------------------------------------------------------
+# Pantalla: tamaño en pulgadas y frecuencia de refresco
+# ---------------------------------------------------------------------
+# "6.7 pulgadas", "15.6\"", "14 inch", "16.2\"" -- exige un separador de
+# palabra/comilla para no capturar un decimal cualquiera de la ficha
+# (precio, versión de Android, etc.).
+# El decimal permite 1 O 2 dígitos: "6.7 inch" y "6.59 inch" son igual de
+# comunes en las fichas de Sunsky -- con solo 1 dígito permitido, "6.59
+# inch" no matcheaba nada (el "9" sobrante rompía el límite de palabra
+# justo antes de "inch").
+_SCREEN_SIZE_RE = re.compile(
+    r"(\d{1,2}(?:[.,]\d{1,2})?)\s*(?:\"|''|pulgadas?|pulg\.?|inch(?:es)?)\b"
+)
+
+
+def screen_size_in(name):
+    """Tamaño de pantalla en pulgadas (float), o None.
+
+    Rango 3–20": fuera de eso es casi siempre otra cosa (un precio, un
+    modelo de RAM tipo "8" pulgadas no existe, una resolución mal
+    puntuada). Si hay más de un tamaño distinto mencionado (raro, pero
+    pasa en combos "laptop + tablet"), no se adivina cuál es el del
+    equipo principal.
+    """
+    n = _norm(name).replace(",", ".")
+    sizes = set()
+    for m in _SCREEN_SIZE_RE.finditer(n):
+        try:
+            v = float(m.group(1))
+        except ValueError:
+            continue
+        if 3.0 <= v <= 20.0:
+            sizes.add(v)
+    if len(sizes) == 1:
+        return next(iter(sizes))
+    return None
+
+
+_REFRESH_RE = re.compile(r"\b(60|90|120|144|165|180|240)\s*hz\b")
+
+
+def refresh_hz(name):
+    n = _norm(name)
+    vals = {int(m.group(1)) for m in _REFRESH_RE.finditer(n)}
+    if len(vals) == 1:
+        return next(iter(vals))
+    return None
+
+
+# ---------------------------------------------------------------------
+# Red: 4G / 5G (celulares y tablets)
+# ---------------------------------------------------------------------
+def network_gen(name):
+    n = _norm(name)
+    has5 = re.search(r"\b5g\b", n) is not None
+    has4 = re.search(r"\b4g\b|\blte\b", n) is not None
+    if has5:
+        return "5g"
+    if has4:
+        return "4g"
+    return None
+
+
+# ---------------------------------------------------------------------
+# Chipset (celulares y tablets): familia, no el número exacto -- "Snapdragon
+# 8 Gen 3" y "Snapdragon 8 Gen 2" son procesadores distintos, pero agruparlos
+# en la familia "Snapdragon" da un filtro usable sin miles de valores
+# únicos casi todos con 1 solo producto.
+_CHIPSET_FAMILIES = (
+    ("Apple", re.compile(r"\bapple\s*a\d{2}\b|\bbionic\b")),
+    ("Snapdragon", re.compile(r"\bsnapdragon\b|\bsnap\s*dragon\b|\bqualcomm\b")),
+    ("Dimensity", re.compile(r"\bdimensity\b")),
+    ("Exynos", re.compile(r"\bexynos\b")),
+    ("Kirin", re.compile(r"\bkirin\b")),
+    ("Tensor", re.compile(r"\bgoogle tensor\b|\btensor g\d\b")),
+    ("Unisoc", re.compile(r"\bunisoc\b|\bspreadtrum\b")),
+    ("Helio", re.compile(r"\bhelio\b")),
+)
+
+
+def chipset_family(name):
+    n = _norm(name)
+    for label, rx in _CHIPSET_FAMILIES:
+        if rx.search(n):
+            return label
+    return None
+
+
+# ---------------------------------------------------------------------
+# Cámara principal (MP) y batería (mAh) -- celulares/tablets
+# ---------------------------------------------------------------------
+# El número más ALTO de "NNmp"/"NN mpx" es casi siempre la cámara
+# principal (las secundarias/macro/profundidad son menores) -- "50MP+2MP"
+# -> 50. Con un techo de 250 se descarta ruido tipo "108MP" mal escrito
+# junto a specs de otra cosa (no se ha visto en la práctica, pero es una
+# cámara real de gama alta hoy, así que el techo se deja holgado).
+_CAMERA_RE = re.compile(r"\b(\d{1,3})\s*mp(?:x)?\b")
+
+
+def camera_mp(name):
+    n = _norm(name)
+    vals = [int(m.group(1)) for m in _CAMERA_RE.finditer(n)]
+    vals = [v for v in vals if 2 <= v <= 250]
+    return max(vals) if vals else None
+
+
+_BATTERY_RE = re.compile(r"\b(\d{3,5})\s*mah\b")
+
+
+def battery_mah(name):
+    n = _norm(name)
+    vals = {int(m.group(1)) for m in _BATTERY_RE.finditer(n)}
+    vals = {v for v in vals if 1000 <= v <= 15000}
+    if len(vals) == 1:
+        return next(iter(vals))
+    return None
+
+
+# ---------------------------------------------------------------------
+# Laptops: marca+familia de CPU
+# ---------------------------------------------------------------------
+_CPU_FAMILIES = (
+    # Apple Silicon primero: "Apple M4" no debe caer en ningún patrón Intel/AMD.
+    ("Apple M", re.compile(r"\bapple\s*(m\d)\b|\bchip\s*(m\d)\b(?!\s*pro)")),
+    ("Apple M Pro/Max", re.compile(r"\bm\d\s*(pro|max|ultra)\b")),
+    ("Intel Core Ultra", re.compile(r"\bcore\s*ultra\s*[3579x]?\b|\bultra\s*[3579]\s*\d{2,3}[a-z]?\b")),
+    ("Intel Core i9", re.compile(r"\bi9[\s-]?\d{3,5}[a-z]*\b|\bcore\s*i9\b")),
+    ("Intel Core i7", re.compile(r"\bi7[\s-]?\d{3,5}[a-z]*\b|\bcore\s*i7\b")),
+    ("Intel Core i5", re.compile(r"\bi5[\s-]?\d{3,5}[a-z]*\b|\bcore\s*i5\b")),
+    ("Intel Core i3", re.compile(r"\bi3[\s-]?\d{3,5}[a-z]*\b|\bcore\s*i3\b")),
+    ("Intel Core (3/5/7)", re.compile(r"\bintel\s*core\s*[357]\b(?!\s*i)")),
+    ("Intel Celeron/Pentium", re.compile(r"\bceleron\b|\bpentium\b")),
+    ("Intel N-series", re.compile(r"\bn\d{3,4}\b")),
+    ("AMD Ryzen 9", re.compile(r"\bryzen\s*9\b|\br9[\s-]?\d{3,4}\w*\b")),
+    ("AMD Ryzen 7", re.compile(r"\bryzen\s*7\b|\br7[\s-]?\d{3,4}\w*\b")),
+    ("AMD Ryzen 5", re.compile(r"\bryzen\s*5\b|\br5[\s-]?\d{3,4}\w*\b")),
+    ("AMD Ryzen 3", re.compile(r"\bryzen\s*3\b|\br3[\s-]?\d{3,4}\w*\b")),
+    ("AMD Ryzen AI", re.compile(r"\bryzen\s*ai\b")),
+    ("AMD Athlon", re.compile(r"\bathlon\b")),
+    ("Qualcomm Snapdragon X", re.compile(r"\bsnapdragon\s*x\b")),
+    ("MediaTek Kompanio", re.compile(r"\bkompanio\b")),
+)
+
+
+_APPLE_BARE_M_RE = re.compile(r"\bm([1-5])\s*(pro|max|ultra)?\b")
+# La línea "MacBook Neo" (vista repetidas veces en capturas de Amazon esta
+# sesión) usa el chip A-series de iPhone/iPad, no el M-series de MacBook --
+# "Chip A16 Pro de Apple", "Chip A18 Pro". Sin este patrón quedaban sin CPU
+# detectado a pesar de que el nombre sí lo dice.
+_APPLE_A_SERIES_RE = re.compile(r"\ba(1[5-9]|2[0-9])\s*(pro)?\b")
+
+
+def cpu_family(name, brand=None):
+    """`brand`, si se pasa, solo se usa para permitir los patrones de Apple
+    Silicon SUELTOS (sin la palabra "Apple" ni "chip" antes) -- "MacBook
+    Air 13 M5 16GB..." no trae ninguna de esas dos palabras. Fuera de
+    Apple no se activan esos patrones: un "M5" suelto en cualquier otra
+    marca es demasiado ambiguo (existió una línea real "Intel Core M5"
+    hace años) para adivinarlo solo por el número.
+    """
+    n = _norm(name)
+    if brand and _norm(brand) == "apple":
+        m = _APPLE_BARE_M_RE.search(n)
+        if m:
+            return "Apple M" if not m.group(2) else "Apple M Pro/Max"
+        if _APPLE_A_SERIES_RE.search(n):
+            return "Apple A-series"
+    for label, rx in _CPU_FAMILIES:
+        if rx.search(n):
+            return label
+    return None
+
+
+# ---------------------------------------------------------------------
+# Laptops: GPU -- discreta (marca + serie) o integrada
+# ---------------------------------------------------------------------
+_GPU_DISCRETE = (
+    ("NVIDIA RTX 50", re.compile(r"\brtx\s*50[5-9]0(?:\s*ti)?\b")),
+    ("NVIDIA RTX 40", re.compile(r"\brtx\s*40[0-9]0(?:\s*ti)?\b")),
+    ("NVIDIA RTX 30", re.compile(r"\brtx\s*30[0-9]0(?:\s*ti)?\b")),
+    ("NVIDIA GTX", re.compile(r"\bgtx\s*\d{3,4}\b")),
+    ("NVIDIA Quadro/RTX Pro", re.compile(r"\bquadro\b|\brtx\s*pro\b")),
+    ("NVIDIA (otra)", re.compile(r"\bnvidia\b|\bgeforce\b")),
+    ("AMD Radeon (dedicada)", re.compile(r"\bradeon\s*rx\b")),
+)
+_GPU_INTEGRATED = (
+    ("AMD Radeon (integrada)", re.compile(r"\bradeon\s*(?:780m|760m|740m|680m|660m|graphics)\b")),
+    ("Intel Arc", re.compile(r"\bintel\s*arc\b|\barc\s*\d{3}[a-z]?\b|\barc\s*graphics\b")),
+    ("Intel Iris Xe", re.compile(r"\biris\s*xe\b")),
+    ("Intel UHD", re.compile(r"\buhd\s*graphics\b")),
+    ("Qualcomm Adreno", re.compile(r"\badreno\b")),
+    ("Apple GPU integrada", re.compile(r"\bapple\s*m\d\b")),
+)
+
+
+def gpu_of(name):
+    """Devuelve una etiqueta de GPU o None. Se prueba primero contra los
+    patrones de GPU DISCRETA (dedicada) -- son los que de verdad importan
+    para un comprador que filtra por esto -- y solo si no hay ninguna
+    mención de GPU dedicada se cae a los patrones de integrada. Nunca se
+    asume "integrada" por default cuando el nombre simplemente no
+    menciona ninguna GPU: eso sería inventar un dato que la ficha no
+    trae.
+    """
+    n = _norm(name)
+    for label, rx in _GPU_DISCRETE:
+        if rx.search(n):
+            return label
+    for label, rx in _GPU_INTEGRATED:
+        if rx.search(n):
+            return label
+    return None
+
+
+# ---------------------------------------------------------------------
+# Laptops: sistema operativo
+# ---------------------------------------------------------------------
+_OS_PATTERNS = (
+    ("macOS", re.compile(r"\bmacos\b|\bmac os\b")),
+    ("ChromeOS", re.compile(r"\bchrome\s*os\b|\bchromebook\b|\bcromado os\b")),
+    ("Windows 11", re.compile(r"\bwindows\s*11\b|\bwin\s*11\b|\bw11\b")),
+    ("Windows 10", re.compile(r"\bwindows\s*10\b|\bwin\s*10\b|\bw10\b")),
+    ("Linux", re.compile(r"\blinux\b|\bubuntu\b")),
+)
+
+
+def os_of(name):
+    n = _norm(name)
+    for label, rx in _OS_PATTERNS:
+        if rx.search(n):
+            return label
+    return None
