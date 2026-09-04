@@ -263,75 +263,46 @@
   // "todos". Se define acá arriba (antes de `state`) porque buildSpecFilterState()
   // necesita SPEC_FACETS ya armado para inicializar state.specFilters.
 
-  const STORAGE_BUCKETS = [
-    { id: "s64", label: "Hasta 64 GB", min: 0, max: 64 },
-    { id: "s128", label: "128 GB", min: 65, max: 128 },
-    { id: "s256", label: "256 GB", min: 129, max: 256 },
-    { id: "s512", label: "512 GB", min: 257, max: 512 },
-    { id: "s1024", label: "1 TB", min: 513, max: 1024 },
-    { id: "s2048", label: "2 TB", min: 1025, max: 2048 },
-    { id: "sMax", label: "Más de 2 TB", min: 2049, max: Infinity },
-  ];
-
-  const BATTERY_BUCKETS = [
-    { id: "b4000", label: "Hasta 4,000 mAh", min: 0, max: 4000 },
-    { id: "b5000", label: "4,001–5,000 mAh", min: 4001, max: 5000 },
-    { id: "b6000", label: "5,001–6,000 mAh", min: 5001, max: 6000 },
-    { id: "bMax", label: "Más de 6,000 mAh", min: 6001, max: Infinity },
-  ];
-
-  // Rangos distintos por categoría: un "6.9\" o más" de celular y un "16\"
-  // o más" de laptop no son el mismo corte, así que no comparten una sola
-  // lista de buckets.
-  const SCREEN_BUCKETS = {
-    Celulares: [
-      { id: "sc61", label: "Hasta 6.1\"", min: 0, max: 6.1 },
-      { id: "sc65", label: "6.2\"–6.5\"", min: 6.2, max: 6.5 },
-      { id: "sc68", label: "6.6\"–6.8\"", min: 6.6, max: 6.8 },
-      { id: "scMax", label: "6.9\" o más", min: 6.9, max: Infinity },
-    ],
-    Laptops: [
-      { id: "sc13", label: "Hasta 13\"", min: 0, max: 13.0 },
-      { id: "sc14", label: "13.1\"–14\"", min: 13.1, max: 14.0 },
-      { id: "sc156", label: "14.1\"–15.6\"", min: 14.1, max: 15.6 },
-      { id: "scMax", label: "16\" o más", min: 16.0, max: Infinity },
-    ],
-    Tabletas: [
-      { id: "sc8", label: "Hasta 8\"", min: 0, max: 8.0 },
-      { id: "sc10", label: "8.1\"–10\"", min: 8.1, max: 10.0 },
-      { id: "sc11", label: "10.1\"–11\"", min: 10.1, max: 11.0 },
-      { id: "scMax", label: "11.1\" o más", min: 11.1, max: Infinity },
-    ],
-  };
-
-  function bucketOf(buckets, val) {
-    if (val == null) return null;
-    const b = buckets.find((b) => val >= b.min && val <= b.max);
-    return b ? b.id : null;
-  }
-
   const STORAGE_TYPE_LABELS = { ssd: "SSD", hdd: "Disco duro (HDD)", emmc: "eMMC" };
   const NETWORK_LABELS = { "5g": "5G", "4g": "4G" };
 
+  // Capacidad en GB -> "512 GB" / "1 TB" / "1.5 TB" (arriba de 1024 se
+  // muestra en TB, como en cualquier ficha técnica real).
+  function formatStorageGB(v) {
+    if (v >= 1024) {
+      const tb = Math.round((v / 1024) * 10) / 10;
+      return `${tb} TB`;
+    }
+    return `${v} GB`;
+  }
+
+  // Pulgadas (float) -> "6.7\"" / "14\"" -- sin ceros de más (6.70 -> 6.7,
+  // 14.0 -> 14) pero sin perder el segundo decimal cuando sí hace falta
+  // (6.78 -> 6.78, no 6.8).
+  function formatScreenIn(v) {
+    const rounded = Math.round(v * 100) / 100;
+    return `${Number.isInteger(rounded) ? rounded : rounded}"`;
+  }
+
   // categories: en qué categorías se muestra este filtro (el grupo entero
-  // se oculta fuera de ellas, igual que MagSafe/Tamaño). type "exact": el
-  // valor de facets[facetField] tal cual es la opción a marcar (RAM, MP,
-  // Hz, chipset...). type "bucket": se agrupa en rangos (arriba) porque el
-  // valor crudo trae demasiadas variantes/decimales para listarlos uno por
-  // uno (57 tamaños de pantalla distintos en Celulares, por ejemplo).
+  // se oculta fuera de ellas, igual que MagSafe/Tamaño). El valor de
+  // facets[facetField] tal cual (o pasado por `format` para mostrarlo) es
+  // la opción a marcar -- a pedido del usuario, el máximo detalle posible
+  // en vez de agrupar en rangos: cada RAM/capacidad/pulgada/mAh exacto
+  // que aparezca en el catálogo es su propio checkbox.
   const SPEC_FACETS = [
-    { key: "ram", facetField: "ram_gb", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterRamGroup", listEl: "filterRam", type: "exact", sortNum: true, format: (v) => `${v} GB` },
-    { key: "storage", facetField: "storage_gb", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterStorageGroup", listEl: "filterStorage", type: "bucket", buckets: () => STORAGE_BUCKETS },
-    { key: "storageType", facetField: "storage_type", categories: ["Laptops", "Tabletas"], groupEl: "filterStorageTypeGroup", listEl: "filterStorageType", type: "exact", format: (v) => STORAGE_TYPE_LABELS[v] || v },
-    { key: "screen", facetField: "screen_in", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterScreenGroup", listEl: "filterScreen", type: "bucket", buckets: (cat) => SCREEN_BUCKETS[cat] || [] },
-    { key: "refresh", facetField: "refresh_hz", categories: ["Celulares", "Laptops"], groupEl: "filterRefreshGroup", listEl: "filterRefresh", type: "exact", sortNum: true, format: (v) => `${v} Hz` },
-    { key: "network", facetField: "network_gen", categories: ["Celulares", "Tabletas"], groupEl: "filterNetworkGroup", listEl: "filterNetwork", type: "exact", format: (v) => NETWORK_LABELS[v] || v },
-    { key: "chipset", facetField: "chipset_family", categories: ["Celulares", "Tabletas"], groupEl: "filterChipsetGroup", listEl: "filterChipset", type: "exact", format: (v) => v },
-    { key: "cpu", facetField: "cpu_family", categories: ["Laptops"], groupEl: "filterCpuGroup", listEl: "filterCpu", type: "exact", format: (v) => v },
-    { key: "gpu", facetField: "gpu", categories: ["Laptops"], groupEl: "filterGpuGroup", listEl: "filterGpu", type: "exact", format: (v) => v },
-    { key: "os", facetField: "os", categories: ["Laptops"], groupEl: "filterOsGroup", listEl: "filterOs", type: "exact", format: (v) => v },
-    { key: "camera", facetField: "camera_mp", categories: ["Celulares", "Tabletas"], groupEl: "filterCameraGroup", listEl: "filterCamera", type: "exact", sortNum: true, format: (v) => `${v} MP` },
-    { key: "battery", facetField: "battery_mah", categories: ["Celulares", "Tabletas"], groupEl: "filterBatteryGroup", listEl: "filterBattery", type: "bucket", buckets: () => BATTERY_BUCKETS },
+    { key: "ram", facetField: "ram_gb", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterRamGroup", listEl: "filterRam", sortNum: true, format: (v) => `${v} GB` },
+    { key: "storage", facetField: "storage_gb", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterStorageGroup", listEl: "filterStorage", sortNum: true, format: formatStorageGB },
+    { key: "storageType", facetField: "storage_type", categories: ["Laptops", "Tabletas"], groupEl: "filterStorageTypeGroup", listEl: "filterStorageType", format: (v) => STORAGE_TYPE_LABELS[v] || v },
+    { key: "screen", facetField: "screen_in", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterScreenGroup", listEl: "filterScreen", sortNum: true, format: formatScreenIn },
+    { key: "refresh", facetField: "refresh_hz", categories: ["Celulares", "Laptops"], groupEl: "filterRefreshGroup", listEl: "filterRefresh", sortNum: true, format: (v) => `${v} Hz` },
+    { key: "network", facetField: "network_gen", categories: ["Celulares", "Tabletas"], groupEl: "filterNetworkGroup", listEl: "filterNetwork", format: (v) => NETWORK_LABELS[v] || v },
+    { key: "chipset", facetField: "chipset_family", categories: ["Celulares", "Tabletas"], groupEl: "filterChipsetGroup", listEl: "filterChipset", format: (v) => v },
+    { key: "cpu", facetField: "cpu_family", categories: ["Laptops"], groupEl: "filterCpuGroup", listEl: "filterCpu", format: (v) => v },
+    { key: "gpu", facetField: "gpu", categories: ["Laptops"], groupEl: "filterGpuGroup", listEl: "filterGpu", format: (v) => v },
+    { key: "os", facetField: "os", categories: ["Laptops"], groupEl: "filterOsGroup", listEl: "filterOs", format: (v) => v },
+    { key: "camera", facetField: "camera_mp", categories: ["Celulares", "Tabletas"], groupEl: "filterCameraGroup", listEl: "filterCamera", sortNum: true, format: (v) => `${v} MP` },
+    { key: "battery", facetField: "battery_mah", categories: ["Celulares", "Tabletas"], groupEl: "filterBatteryGroup", listEl: "filterBattery", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} mAh` },
   ];
 
   function buildSpecFilterState() {
@@ -2206,14 +2177,10 @@
   }
 
   // Valor efectivo de un producto para un filtro puntual de SPEC_FACETS: el
-  // crudo para "exact", el id del bucket al que cae para "bucket". null si
-  // el producto no trae ese campo en absoluto (nunca se adivina, ver
-  // compute_facets.py) o si el valor no cae en ningún bucket definido.
+  // valor crudo de facets[facetField], o null si el producto no trae ese
+  // campo en absoluto (nunca se adivina, ver compute_facets.py).
   function specValueOf(cfg, p) {
-    const raw = p.facets ? p.facets[cfg.facetField] : null;
-    if (raw == null) return null;
-    if (cfg.type === "bucket") return bucketOf(cfg.buckets(p.category), raw);
-    return raw;
+    return p.facets ? p.facets[cfg.facetField] ?? null : null;
   }
 
   function matchesSpecFilters(p) {
@@ -2832,15 +2799,9 @@
       el[cfg.groupEl].classList.add("hidden");
       return;
     }
-    let items;
-    if (cfg.type === "bucket") {
-      const buckets = cfg.buckets(state.category);
-      items = buckets.filter((b) => values.has(b.id)).map((b) => ({ id: b.id, label: b.label }));
-    } else {
-      let vals = [...values];
-      vals = cfg.sortNum ? vals.sort((a, b) => a - b) : vals.sort((a, b) => String(a).localeCompare(String(b)));
-      items = vals.map((v) => ({ id: v, label: cfg.format(v) }));
-    }
+    let vals = [...values];
+    vals = cfg.sortNum ? vals.sort((a, b) => a - b) : vals.sort((a, b) => String(a).localeCompare(String(b)));
+    const items = vals.map((v) => ({ id: v, label: cfg.format(v) }));
     items.forEach((item) => {
       const opt = document.createElement("label");
       const isActive = state.specFilters[cfg.key].has(item.id);

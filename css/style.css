@@ -762,6 +762,12 @@ a { color: inherit; text-decoration: none; }
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 14px;
   align-content: start;
+  /* Con el máximo detalle posible (cada RAM/capacidad/pulgada exacta como
+     su propio checkbox, sin agrupar en rangos) una tarjeta como "Tamaño
+     de pantalla" puede traer 50+ opciones -- sin align-items:start, el
+     default (stretch) estira TODAS las tarjetas de esa fila a la altura
+     de la más alta, dejando a las cortas con un hueco vacío enorme. */
+  align-items: start;
 }
 /* Los grupos son los MISMOS elementos del sidebar (reubicados, no
    clonados) -- acá se ven como tarjetas en grilla en vez de items
@@ -771,13 +777,24 @@ a { color: inherit; text-decoration: none; }
   padding: 14px 16px;
   border: 1px solid var(--border);
   border-radius: 10px;
-  /* SIN max-height/overflow acá -- un item de grid con overflow != visible
-     colapsa su tamaño mínimo automático a 0 (lo manda la spec de CSS
-     Grid), así que la tarjeta se achicaba al alto del <h3> nomás y el
-     resto de los checkboxes quedaba pintado fuera de su propia caja sin
-     que el scroll (que nunca se activaba) lo alcanzara. El scroll largo
-     lo maneja .specs-modal-body entero.
+  /* SIN max-height/overflow en la tarjeta misma -- un item de grid con
+     overflow != visible colapsa su tamaño mínimo automático a 0 (lo manda
+     la spec de CSS Grid), así que la tarjeta se achicaba al alto del <h3>
+     nomás y el resto de los checkboxes quedaba pintado fuera de su propia
+     caja sin que el scroll (que nunca se activaba) lo alcanzara. El límite
+     de alto va en .filter-options (dos niveles más adentro, ver abajo) en
+     vez de acá: como esa caja no es ella misma un item de grid, puede
+     recortar/scrollear su contenido sin disparar el bug.
   */
+}
+/* Con el máximo detalle ("Procesador"/"Chipset" pueden traer 100+
+   valores) una lista sin límite de alto infla la fila del grid entero a
+   miles de píxeles -- acá sí se puede limitar sin el bug de arriba,
+   porque .filter-options no es el item de grid (lo es .filter-group). */
+.specs-modal-body .filter-group .filter-options {
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
 }
 .specs-modal-foot {
   display: flex;

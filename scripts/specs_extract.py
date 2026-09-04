@@ -195,10 +195,10 @@ def network_gen(name):
 
 
 # ---------------------------------------------------------------------
-# Chipset (celulares y tablets): familia, no el número exacto -- "Snapdragon
-# 8 Gen 3" y "Snapdragon 8 Gen 2" son procesadores distintos, pero agruparlos
-# en la familia "Snapdragon" da un filtro usable sin miles de valores
-# únicos casi todos con 1 solo producto.
+# Chipset (celulares y tablets): se intenta primero el MODELO EXACTO
+# ("Snapdragon 8 Elite Gen 5", "Dimensity 9400e") y solo si el nombre no
+# trae el número específico se cae a la FAMILIA ("Snapdragon", "Dimensity")
+# -- nunca se inventa el número si no está.
 _CHIPSET_FAMILIES = (
     ("Apple", re.compile(r"\bapple\s*a\d{2}\b|\bbionic\b")),
     ("Snapdragon", re.compile(r"\bsnapdragon\b|\bsnap\s*dragon\b|\bqualcomm\b")),
@@ -210,9 +210,62 @@ _CHIPSET_FAMILIES = (
     ("Helio", re.compile(r"\bhelio\b")),
 )
 
+# "Snapdragon 8 Elite Gen 5" / "Snapdragon 8 Gen 3" / "Snapdragon 7+ Gen 3"
+# / "Snapdragon 8 Elite" -- el número de serie es obligatorio (1-2 dígitos,
+# "+" opcional), "Elite" y "Gen N" son opcionales e independientes.
+_SNAPDRAGON_CODE_RE = re.compile(
+    r"\bsnap\s*dragon\s+(\d{1,2}\+?)(\s*elite)?(\s*gen\s*\d)?\b"
+)
+_DIMENSITY_CODE_RE = re.compile(r"\bdimensity\s*(\d{3,4}\+?[a-z]?)\b")
+_EXYNOS_CODE_RE = re.compile(r"\bexynos\s*(\d{3,4}[a-z]?)\b")
+_KIRIN_CODE_RE = re.compile(r"\bkirin\s*(\d{3,4}[a-z]?)\b")
+_TENSOR_CODE_RE = re.compile(r"\btensor\s*(g\d)\b")
+_HELIO_CODE_RE = re.compile(r"\bhelio\s*([a-z]\d{2,3}[a-z]?)\b")
+_UNISOC_CODE_RE = re.compile(r"\b(ums\d{3,4}[a-z]?|t\d{3}[a-z]?)\b")
+_CHIPSET_APPLE_CODE_RE = re.compile(r"\ba(1[0-9]|2[0-9])(x|z)?\s*(pro)?\b")
+
+
+def _fmt_snapdragon(m):
+    parts = [f"Snapdragon {m.group(1)}"]
+    if m.group(2):
+        parts.append("Elite")
+    if m.group(3):
+        gen_digit = re.search(r"\d", m.group(3)).group(0)
+        parts.append(f"Gen {gen_digit}")
+    return " ".join(parts)
+
 
 def chipset_family(name):
     n = _norm(name)
+
+    m = _SNAPDRAGON_CODE_RE.search(n)
+    if m:
+        return _fmt_snapdragon(m)
+    m = _DIMENSITY_CODE_RE.search(n)
+    if m:
+        return f"Dimensity {m.group(1)}"
+    m = _EXYNOS_CODE_RE.search(n)
+    if m:
+        return f"Exynos {m.group(1)}"
+    m = _KIRIN_CODE_RE.search(n)
+    if m:
+        return f"Kirin {m.group(1)}"
+    m = _TENSOR_CODE_RE.search(n)
+    if m:
+        return f"Tensor {m.group(1).upper()}"
+    m = _HELIO_CODE_RE.search(n)
+    if m:
+        return f"Helio {m.group(1).upper()}"
+    if re.search(r"\bunisoc\b|\bspreadtrum\b", n):
+        m = _UNISOC_CODE_RE.search(n)
+        if m:
+            return f"Unisoc {m.group(1).upper()}"
+    if re.search(r"\bapple\s*a\d{2}\b|\bbionic\b", n):
+        m = _CHIPSET_APPLE_CODE_RE.search(n)
+        if m:
+            suffix = m.group(2).upper() if m.group(2) else ""
+            return f"Apple A{m.group(1)}{suffix}" + (" Pro" if m.group(3) else "")
+
     for label, rx in _CHIPSET_FAMILIES:
         if rx.search(n):
             return label
@@ -282,6 +335,17 @@ _APPLE_BARE_M_RE = re.compile(r"\bm([1-5])\s*(pro|max|ultra)?\b")
 # detectado a pesar de que el nombre sí lo dice.
 _APPLE_A_SERIES_RE = re.compile(r"\ba(1[5-9]|2[0-9])\s*(pro)?\b")
 
+# Modelo EXACTO de CPU cuando el nombre lo trae -- "i5-13420H", "Ryzen 7
+# 7735HS", "Core Ultra 7 155H" -- antes de caer a la familia sola ("Core
+# i5", "Ryzen 7"). El código real de Intel/AMD siempre son 3-5 dígitos
+# pegados directamente (un solo espacio o guion) a la marca de familia;
+# eso además excluye, sin buscarlo a propósito, a los marcadores de
+# generación en español tipo "10a Gen"/"11ª generación", que nunca traen
+# ese patrón exacto.
+_INTEL_IX_CODE_RE = re.compile(r"\bi([3579])[\s-](\d{4,5}[a-z]{0,3})\b")
+_INTEL_ULTRA_CODE_RE = re.compile(r"\bultra\s*([3579])?[\s-]*(\d{3}[a-z]{0,2})\b")
+_RYZEN_CODE_RE = re.compile(r"\bryzen\s*([3579])(\s*pro)?[\s-]*(\d{3,4}[a-z]{0,3})\b")
+
 
 def cpu_family(name, brand=None):
     """`brand`, si se pasa, solo se usa para permitir los patrones de Apple
@@ -298,6 +362,19 @@ def cpu_family(name, brand=None):
             return "Apple M" if not m.group(2) else "Apple M Pro/Max"
         if _APPLE_A_SERIES_RE.search(n):
             return "Apple A-series"
+
+    m = _INTEL_IX_CODE_RE.search(n)
+    if m:
+        return f"Intel Core i{m.group(1)}-{m.group(2).upper()}"
+    m = _INTEL_ULTRA_CODE_RE.search(n)
+    if m and "core ultra" in n:
+        tier = f"{m.group(1)} " if m.group(1) else ""
+        return f"Intel Core Ultra {tier}{m.group(2).upper()}"
+    m = _RYZEN_CODE_RE.search(n)
+    if m:
+        pro = " PRO" if m.group(2) else ""
+        return f"AMD Ryzen {m.group(1)}{pro} {m.group(3).upper()}"
+
     for label, rx in _CPU_FAMILIES:
         if rx.search(n):
             return label
@@ -307,11 +384,16 @@ def cpu_family(name, brand=None):
 # ---------------------------------------------------------------------
 # Laptops: GPU -- discreta (marca + serie) o integrada
 # ---------------------------------------------------------------------
+# Modelo EXACTO cuando el número está en el nombre ("RTX 4060", "GTX 1650
+# Ti", "Radeon RX 7600S") -- las familias de abajo son solo el fallback
+# cuando la ficha menciona la marca sin el número específico.
+_RTX_CODE_RE = re.compile(r"\brtx\s*(5[0-9]{3}|4[0-9]{3}|3[0-9]{3}|2[0-9]{3})\s*(ti)?\b")
+_GTX_CODE_RE = re.compile(r"\bgtx\s*(1[0-9]{3}|9[0-9]{2})\s*(ti)?\b")
+_RADEON_RX_CODE_RE = re.compile(r"\bradeon\s*rx\s*(\d{3,4}[a-z]?)\b")
+_RADEON_IGPU_CODE_RE = re.compile(r"\bradeon\s*(780m|760m|740m|680m|660m)\b")
+_ARC_CODE_RE = re.compile(r"\barc\s*(\d{3}[a-z]?)\b")
+
 _GPU_DISCRETE = (
-    ("NVIDIA RTX 50", re.compile(r"\brtx\s*50[5-9]0(?:\s*ti)?\b")),
-    ("NVIDIA RTX 40", re.compile(r"\brtx\s*40[0-9]0(?:\s*ti)?\b")),
-    ("NVIDIA RTX 30", re.compile(r"\brtx\s*30[0-9]0(?:\s*ti)?\b")),
-    ("NVIDIA GTX", re.compile(r"\bgtx\s*\d{3,4}\b")),
     ("NVIDIA Quadro/RTX Pro", re.compile(r"\bquadro\b|\brtx\s*pro\b")),
     ("NVIDIA (otra)", re.compile(r"\bnvidia\b|\bgeforce\b")),
     ("AMD Radeon (dedicada)", re.compile(r"\bradeon\s*rx\b")),
@@ -327,18 +409,38 @@ _GPU_INTEGRATED = (
 
 
 def gpu_of(name):
-    """Devuelve una etiqueta de GPU o None. Se prueba primero contra los
-    patrones de GPU DISCRETA (dedicada) -- son los que de verdad importan
-    para un comprador que filtra por esto -- y solo si no hay ninguna
-    mención de GPU dedicada se cae a los patrones de integrada. Nunca se
-    asume "integrada" por default cuando el nombre simplemente no
-    menciona ninguna GPU: eso sería inventar un dato que la ficha no
-    trae.
+    """Devuelve una etiqueta de GPU o None. Primero se intenta el modelo
+    EXACTO (RTX/GTX/Radeon RX/Radeon integrada/Arc con su número), luego
+    los patrones de GPU DISCRETA sin número específico -- son los que de
+    verdad importan para un comprador que filtra por esto -- y solo si no
+    hay ninguna mención de GPU dedicada se cae a los patrones de
+    integrada. Nunca se asume "integrada" por default cuando el nombre
+    simplemente no menciona ninguna GPU: eso sería inventar un dato que
+    la ficha no trae.
     """
     n = _norm(name)
+
+    m = _RTX_CODE_RE.search(n)
+    if m:
+        return f"NVIDIA RTX {m.group(1)}" + (" Ti" if m.group(2) else "")
+    m = _GTX_CODE_RE.search(n)
+    if m:
+        return f"NVIDIA GTX {m.group(1)}" + (" Ti" if m.group(2) else "")
+    m = _RADEON_RX_CODE_RE.search(n)
+    if m:
+        return f"AMD Radeon RX {m.group(1).upper()}"
+
     for label, rx in _GPU_DISCRETE:
         if rx.search(n):
             return label
+
+    m = _RADEON_IGPU_CODE_RE.search(n)
+    if m:
+        return f"AMD Radeon {m.group(1).upper()}"
+    m = _ARC_CODE_RE.search(n)
+    if m:
+        return f"Intel Arc {m.group(1).upper()}"
+
     for label, rx in _GPU_INTEGRATED:
         if rx.search(n):
             return label
