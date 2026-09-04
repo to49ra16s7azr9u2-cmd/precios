@@ -228,6 +228,17 @@ def facets_for(product):
         if batt:
             f["battery_mah"] = batt
 
+    if category == "Celulares":
+        # Solo celulares: "iPhone 15"/"Galaxy S24"/"Redmi Note 14 Pro" le
+        # dice al comprador mucho más que el chip que trae adentro. No se
+        # extiende a Tabletas -- el nombre de línea de iPad/Galaxy Tab/
+        # Redmi Pad sigue un patrón totalmente distinto al de sus
+        # celulares homónimos, y model_name() asume la convención de
+        # nombres de teléfono de cada marca.
+        model = se.model_name(name, brand)
+        if model:
+            f["model_name"] = model
+
     if category == "Laptops":
         cpu = _cpu(name, spec_map, brand)
         if cpu:

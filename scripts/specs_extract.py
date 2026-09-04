@@ -273,6 +273,172 @@ def chipset_family(name):
 
 
 # ---------------------------------------------------------------------
+# Modelo (celulares): SOLO para las marcas donde el nombre de línea de
+# producto sigue un patrón lo bastante regular para extraerlo sin
+# adivinar -- Apple (iPhone), Samsung (Galaxy S/A/Z) y el ecosistema
+# Xiaomi (Xiaomi/Redmi/POCO). Para el comprador, "iPhone 15" o "Galaxy
+# S24" dice mucho más que el chip que trae adentro (a diferencia de
+# Android donde Snapdragon/Dimensity sí es un criterio de compra) -- de
+# ahí que este filtro exista aparte de chipset_family, no en su lugar.
+# Cada marca se activa solo si `brand` coincide (gate explícito, igual
+# que Apple Silicon en cpu_family) para no arriesgar falsos cruces entre
+# marcas con números de modelo parecidos.
+# ---------------------------------------------------------------------
+def _squash(s):
+    """Quita TODOS los espacios internos -- normaliza "pro max"/"pro  max"/
+    "promax" (variantes de espaciado que la propia tienda mezcla) a una
+    sola forma antes de buscarla en los diccionarios de formato de abajo."""
+    return re.sub(r"\s+", "", s.strip())
+
+
+_IPHONE_MODEL_RE = re.compile(
+    r"\biphone\s*(x[rs]?|se|air|\d{1,2}e?)\s*(pro\s*max|pro|plus|mini)?\b"
+)
+_IPHONE_SUFFIX_FMT = {"promax": "Pro Max", "pro": "Pro", "plus": "Plus", "mini": "Mini"}
+
+
+def _iphone_model(name):
+    n = _norm(name)
+    m = _IPHONE_MODEL_RE.search(n)
+    if not m:
+        return None
+    base, suffix = m.group(1), m.group(2)
+    if base in ("x", "xr", "xs"):
+        base = base.upper()
+    elif base == "se":
+        base = "SE"
+    elif base == "air":
+        base = "Air"
+    label = f"iPhone {base}"
+    if suffix:
+        label += " " + _IPHONE_SUFFIX_FMT[_squash(suffix)]
+    return label
+
+
+_GALAXY_NOTE_RE = re.compile(r"\bnote\s*(\d{1,2})\b")
+_GALAXY_Z_RE = re.compile(r"\b(?:z\s*)?(fold|flip)\s*(\d{1,2})?\b")
+_GALAXY_S_RE = re.compile(r"\bs(\d{1,2})(e)?\s*(ultra|\+|plus|fe\s*dual|fe)?\b")
+_GALAXY_A_RE = re.compile(r"\ba(\d{2})(e)?\b")
+_GALAXY_J_RE = re.compile(r"\bj(\d{1,2})\b")
+_GALAXY_S_SUFFIX_FMT = {"ultra": "Ultra", "+": "+", "plus": "+", "fedual": "FE Dual", "fe": "FE"}
+
+
+def _galaxy_model(name):
+    n = _norm(name)
+    m = _GALAXY_NOTE_RE.search(n)
+    if m:
+        return f"Galaxy Note {m.group(1)}"
+    # "z" es opcional -- varias fichas escriben "Galaxy Flip 4" sin la Z,
+    # pero "fold"/"flip" seguido de número solo existe en la línea
+    # plegable de Samsung, así que igual identifica el modelo sin
+    # ambigüedad.
+    m = _GALAXY_Z_RE.search(n)
+    if m:
+        line = m.group(1).capitalize()
+        return f"Galaxy Z {line}" + (f" {m.group(2)}" if m.group(2) else "")
+    m = _GALAXY_S_RE.search(n)
+    if m:
+        num, e, variant = m.group(1), m.group(2), m.group(3)
+        label = f"Galaxy S{num}" + ("e" if e else "")
+        if variant:
+            label += " " + _GALAXY_S_SUFFIX_FMT[_squash(variant)]
+        return label
+    m = _GALAXY_A_RE.search(n)
+    if m:
+        return f"Galaxy A{m.group(1)}" + ("e" if m.group(2) else "")
+    m = _GALAXY_J_RE.search(n)
+    if m:
+        return f"Galaxy J{m.group(1)}"
+    return None
+
+
+_REDMI_TURBO_RE = re.compile(r"\bredmi\s*turbo\s*(\d{1,2})\s*(max|pro)?\b")
+_REDMI_NOTE_RE = re.compile(r"\bredmi\s*note\s*(\d{1,2})(s)?\s*(pro\s*max|pro\s*plus|pro\+|pro|plus)?\b")
+_REDMI_K_RE = re.compile(r"\bredmi\s*k(\d{1,2})(s)?\s*(pro\s*max|pro)?\b")
+_REDMI_A_RE = re.compile(r"\bredmi\s*a(\d{1,2})\s*(pro)?\b")
+_REDMI_BARE_RE = re.compile(r"\bredmi\s*(\d{1,2})(c)?\s*(pro)?\b")
+_POCO_RE = re.compile(r"\bpoco\s*([xmcf])(\d{1,2})(s)?\s*(pro\s*max|ultra|pro)?\b")
+_XIAOMI_CIVI_RE = re.compile(r"\bcivi\s*(\d{1,2})\s*(pro|ultra)?\b")
+_XIAOMI_BARE_RE = re.compile(r"\bxiaomi\s*(\d{1,2})([st])?\s*(ultra|pro\s*max|pro|max)?\b")
+_NOTE_SUFFIX_FMT = {"promax": "Pro Max", "proplus": "Pro+", "pro+": "Pro+", "pro": "Pro", "plus": "Plus"}
+_K_SUFFIX_FMT = {"promax": "Pro Max", "pro": "Pro"}
+_POCO_SUFFIX_FMT = {"promax": "Pro Max", "ultra": "Ultra", "pro": "Pro"}
+_XIAOMI_SUFFIX_FMT = {"ultra": "Ultra", "promax": "Pro Max", "pro": "Pro", "max": "Max"}
+
+
+def _xiaomi_model(name):
+    n = _norm(name)
+
+    m = _REDMI_TURBO_RE.search(n)
+    if m:
+        label = f"Redmi Turbo {m.group(1)}"
+        if m.group(2):
+            label += " " + m.group(2).capitalize()
+        return label
+
+    m = _REDMI_NOTE_RE.search(n)
+    if m:
+        label = f"Redmi Note {m.group(1)}" + ("S" if m.group(2) else "")
+        if m.group(3):
+            label += " " + _NOTE_SUFFIX_FMT[_squash(m.group(3))]
+        return label
+
+    m = _REDMI_K_RE.search(n)
+    if m:
+        label = f"Redmi K{m.group(1)}" + ("S" if m.group(2) else "")
+        if m.group(3):
+            label += " " + _K_SUFFIX_FMT[_squash(m.group(3))]
+        return label
+
+    m = _REDMI_A_RE.search(n)
+    if m:
+        return f"Redmi A{m.group(1)}" + (" Pro" if m.group(2) else "")
+
+    m = _POCO_RE.search(n)
+    if m:
+        letter, num, s_suffix, variant = m.group(1), m.group(2), m.group(3), m.group(4)
+        label = f"POCO {letter.upper()}{num}" + ("s" if s_suffix else "")
+        if variant:
+            label += " " + _POCO_SUFFIX_FMT[_squash(variant)]
+        return label
+
+    m = _REDMI_BARE_RE.search(n)
+    if m:
+        label = f"Redmi {m.group(1)}" + ("C" if m.group(2) else "")
+        if m.group(3):
+            label += " Pro"
+        return label
+
+    m = _XIAOMI_CIVI_RE.search(n)
+    if m:
+        label = f"Xiaomi Civi {m.group(1)}"
+        if m.group(2):
+            label += " " + m.group(2).capitalize()
+        return label
+
+    m = _XIAOMI_BARE_RE.search(n)
+    if m:
+        label = f"Xiaomi {m.group(1)}" + (m.group(2).upper() if m.group(2) else "")
+        if m.group(3):
+            label += " " + _XIAOMI_SUFFIX_FMT[_squash(m.group(3))]
+        return label
+    return None
+
+
+def model_name(name, brand):
+    """Modelo exacto (línea de producto) o None -- ver comentario arriba
+    de por qué solo estas 3 marcas."""
+    b = _norm(brand or "")
+    if b == "apple":
+        return _iphone_model(name)
+    if b == "samsung":
+        return _galaxy_model(name)
+    if b in ("xiaomi", "poco", "redmi"):
+        return _xiaomi_model(name)
+    return None
+
+
+# ---------------------------------------------------------------------
 # Cámara principal (MP) y batería (mAh) -- celulares/tablets
 # ---------------------------------------------------------------------
 # El número más ALTO de "NNmp"/"NN mpx" es casi siempre la cámara
