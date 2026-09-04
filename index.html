@@ -244,11 +244,11 @@
               <option value="rating_desc">Mejor calificados</option>
             </select>
           </div>
-          <a href="#" id="specsBannerLink" class="specs-banner hidden">
+          <button type="button" id="specsBannerLink" class="specs-banner hidden">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="14" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
             <span>Buscar por especificaciones detalladas: memoria, almacenamiento, procesador, gráficos y más</span>
             <span class="specs-banner-arrow">›</span>
-          </a>
+          </button>
           <div id="productList" class="product-list"></div>
           <nav id="pagination" class="pagination"></nav>
 
@@ -648,6 +648,24 @@
     <div class="metro-tabs" id="metroTabs"></div>
     <div id="map" class="map"></div>
     <div class="region-chips" id="regionChips"></div>
+  </div>
+</div>
+
+<!-- Modal "Buscar por especificaciones detalladas" -- reutiliza los MISMOS
+     elementos de los filtros de SPEC_FACETS del panel de la izquierda
+     (los reubica acá adentro mientras está abierto, ver openSpecsModal()
+     en app.js), así que el body queda vacío en el HTML: se llena en JS. -->
+<div id="specsModal" class="modal-overlay hidden">
+  <div class="modal specs-modal">
+    <div class="modal-head">
+      <h2>Buscar por especificaciones detalladas</h2>
+      <button class="modal-close" id="specsModalClose" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="specs-modal-body" id="specsModalBody"></div>
+    <div class="specs-modal-foot">
+      <span id="specsModalCount" class="specs-modal-count"></span>
+      <button type="button" class="buy-btn" id="specsModalApply">Ver resultados</button>
+    </div>
   </div>
 </div>
 
