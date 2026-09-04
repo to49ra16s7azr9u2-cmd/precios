@@ -72,6 +72,7 @@ COLORS = (
     "media noche", "midnight", "salvia", "sage", "oro", "crema", "coral",
     "beige", "turquesa", "champan", "champán", "champagne", "perla",
     "cobre", "vino", "burgundy", "lavanda", "lavender", "cereza", "cherry",
+    "menta", "mint",
 )
 # color_of() devolvía la palabra encontrada TAL CUAL, así que sinónimos
 # del mismo color en idiomas/formas distintas ("violeta" vs "morado" vs
@@ -102,6 +103,7 @@ COLOR_CANON = {
     "plateado": "plata", "plateada": "plata",
     "champagne": "champan", "champán": "champan",
     "burgundy": "vino", "lavender": "lavanda", "cherry": "cereza",
+    "mint": "menta",
 }
 MIN_SCORE = 3
 
@@ -124,6 +126,19 @@ def norm(s):
     # no le quede ninguna transición de mayúscula que partir.
     s = re.sub(r"iphone", "iphone", s or "", flags=re.IGNORECASE)
     s = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", s)
+    # "15Pro", "13Mini": un dígito pegado a una palabra en mayúscula-inicial
+    # tampoco es una transición minúscula->mayúscula (no hay ninguna letra
+    # minúscula antes), así que el split de arriba no lo separaba.
+    # generation_of() exige un límite de palabra justo después del número
+    # (\b), y entre "5" y "P" de "15Pro" NO hay límite de palabra (los dos
+    # son \w) -- la generación del candidato quedaba en None, lo mismo que
+    # si el nombre no tuviera ninguna generación reconocible, y eso
+    # DESACTIVABA el chequeo de contradicción de generación por completo:
+    # un "iPhone 12 Pro" capturado resolvió solo contra un candidato de
+    # catálogo "iPHONE 15Pro" (dos generaciones distintas) en una corrida
+    # real. Exigir una minúscula después de la mayúscula ("Pro", "Mini")
+    # evita cortar abreviaturas de una sola letra como "5G"/"4K"/"2TB".
+    s = re.sub(r"(?<=\d)(?=[A-Z][a-z])", " ", s)
     # "128GBNegro": GB y la palabra siguiente quedan mayúscula-mayúscula, así
     # que el split de arriba no lo separa -- y sin el espacio, capacities()
     # no encuentra el límite de palabra que necesita después de "gb"/"tb" y
