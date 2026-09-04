@@ -64,6 +64,14 @@ def _cap_numbers(name):
     # capacidad encontrada, sin la palabra "ram" cerca), perdiendo el 512
     # real y quedándose con 8GB como si fuera el disco.
     n = re.sub(r"\b(\d{2,4})\s*(?=ssd|hdd|emmc)\b", r"\1gb ", n)
+    # "128GB 6 RAM" (storage con unidad, RAM suelta sin unidad justo antes
+    # de la palabra) -- sin esto solo se veía el "128gb" capturado, y como
+    # "ram" cae dentro de los 20 caracteres siguientes (ver ram_storage_gb)
+    # el único valor encontrado se clasificaba como RAM -- exactamente al
+    # revés: 128 es el almacenamiento, 6 (el que de verdad describe "ram")
+    # se perdía entero. 1-3 dígitos porque la RAM de estos equipos nunca
+    # llega a 4 dígitos.
+    n = re.sub(r"\b(\d{1,3})\s*(?=ram\b)", r"\1gb ", n)
     out = []
     for m in re.finditer(r"(\d+(?:\.\d+)?)\s*(gb|tb)\b", n):
         num = float(m.group(1))

@@ -79,6 +79,33 @@ _SCREEN_RANGE = {
     "Tabletas": (6.0, 16.0),
 }
 
+# Mismo criterio que el rango de pantalla: un valor de RAM/almacenamiento
+# fuera de lo que existe de verdad en el mercado no se "corrige" -- se
+# descarta (None). Aparece sobre todo en dos casos reales del catálogo:
+# specs[] con un error de captura de la tienda ("Memoria RAM: 256 GB" en
+# un iPhone -- la tienda copió el almacenamiento en el campo de RAM) y
+# títulos con anuncios de almacenamiento inflados tipo spam ("4GB RAM
+# 112TB" en laptops de $6,000 que en la vida real traen 128GB eMMC).
+# Los topes son generosos a propósito (el equipo real más caro del
+# catálogo, no un promedio) para no descartar nada legítimo.
+_RAM_RANGE = {
+    "Celulares": (1, 24),      # ROG Phone 9 (24GB) es el flagship real más alto visto
+    "Laptops": (2, 128),       # ASUS ROG Flow Z13 / ProArt con memoria unificada de 128GB
+    "Tabletas": (1, 32),
+}
+_STORAGE_RANGE = {
+    "Celulares": (4, 2048),    # 2TB ya es un buque insignia excepcional
+    "Laptops": (4, 8192),      # 8TB cubre workstations reales (RAID/NVMe dobles)
+    "Tabletas": (4, 2048),
+}
+
+
+def _in_range(val, ranges, category):
+    if val is None:
+        return None
+    lo, hi = ranges[category]
+    return val if lo <= val <= hi else None
+
 
 def _screen_in(category, name, spec_map):
     val = None
@@ -170,6 +197,8 @@ def facets_for(product):
     spec_map = _spec_map(product)
 
     ram, storage = _ram_storage(category, name, spec_map)
+    ram = _in_range(ram, _RAM_RANGE, category)
+    storage = _in_range(storage, _STORAGE_RANGE, category)
     f = {}
     if ram is not None:
         f["ram_gb"] = ram
