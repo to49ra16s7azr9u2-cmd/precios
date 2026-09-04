@@ -360,6 +360,19 @@
     // SPEC_FACETS, vacío = todos. Se arma dinámicamente (no a mano como
     // brands/minRating) porque son 12 campos con el mismo comportamiento.
     specFilters: buildSpecFilterState(),
+    // true al entrar por #/list?cat=...&specs=1 (banner "Buscar por
+    // especificaciones detalladas") -- abre el panel de Filtros y
+    // despliega de entrada los grupos de SPEC_FACETS en vez de dejarlos
+    // colapsados, para que el usuario no tenga que ir abriendo uno por
+    // uno. Se resetea a false en cualquier otra entrada a #/list (ver
+    // onHashChange), igual que category/subcategory.
+    specsMode: false,
+    // Se pone en true junto con specsMode y se apaga apenas se aplica --
+    // el despliegue forzado de los grupos de specs es UNA sola vez al
+    // entrar en modo specs, no en cada renderList() (si no, se pisaría
+    // cada vez que el usuario colapsa a mano uno de los grupos ya
+    // desplegados).
+    specsModePending: false,
     page: 1, // página actual de la lista/ranking (ver PAGE_SIZE)
     sort: "relevance",
     offerSort: "price", // 'price' | 'rating' — orden de la tabla de comparación
@@ -437,6 +450,7 @@
     filterCamera: document.getElementById("filterCamera"),
     filterBatteryGroup: document.getElementById("filterBatteryGroup"),
     filterBattery: document.getElementById("filterBattery"),
+    specsBannerLink: document.getElementById("specsBannerLink"),
     sortSelect: document.getElementById("sortSelect"),
     productList: document.getElementById("productList"),
     pagination: document.getElementById("pagination"),
@@ -1743,6 +1757,8 @@
       if (qs) {
         state.category = qs.get("cat") || null;
         state.subcategory = qs.get("sub") || null;
+        state.specsMode = qs.get("specs") === "1";
+        state.specsModePending = state.specsMode;
       }
       renderList();
     } else if (hash === "#/favorites") {
@@ -2342,6 +2358,7 @@
     renderFilterMagsafe();
     renderFilterSize();
     renderSpecFilters();
+    renderSpecsBanner();
 
     renderProductListPage();
     renderLiveSearchSection();
@@ -2549,6 +2566,8 @@
         state.subcategory = null;
         state.brands.clear();
         state.specFilters = buildSpecFilterState();
+        state.specsMode = false;
+        state.specsModePending = false;
         state.sort = "relevance";
         renderList();
       };
@@ -2590,6 +2609,8 @@
           state.subcategory = null;
           state.brands.clear();
         state.specFilters = buildSpecFilterState();
+        state.specsMode = false;
+        state.specsModePending = false;
           state.sort = "popularity";
           renderList();
         };
@@ -2615,6 +2636,8 @@
           state.subcategory = s.id;
           state.brands.clear();
         state.specFilters = buildSpecFilterState();
+        state.specsMode = false;
+        state.specsModePending = false;
           state.sort = "popularity";
           renderList();
         };
@@ -2851,6 +2874,36 @@
 
   function renderSpecFilters() {
     SPEC_FACETS.forEach(renderSpecFacetFilter);
+    // Modo specs (banner "Buscar por especificaciones detalladas"): abre
+    // el panel de Filtros (en mobile arranca cerrado, ver .filters-open)
+    // y despliega de una sola vez todos los grupos de SPEC_FACETS que
+    // quedaron visibles para esta categoría -- después de esta pasada el
+    // usuario manda: puede colapsar cualquiera sin que se vuelva a abrir
+    // solo porque disparó un renderList() (ver specsModePending).
+    if (state.specsModePending) {
+      el.filtersPanel.classList.add("filters-open");
+      SPEC_FACETS.forEach((cfg) => {
+        const groupEl = el[cfg.groupEl];
+        if (!groupEl.classList.contains("hidden")) groupEl.classList.remove("collapsed");
+      });
+      state.specsModePending = false;
+    }
+  }
+
+  // Banner delgado "Buscar por especificaciones detalladas" -- solo en
+  // las categorías con facets calculados (compute_facets.py todavía no
+  // cubre Computadoras/Computadoras de escritorio). Lleva a la MISMA
+  // vista de lista pero con ?specs=1, que abre los filtros de specs de
+  // entrada (ver renderSpecFilters()) en vez de dejarlos colapsados uno
+  // por uno.
+  const SPECS_BANNER_CATEGORIES = ["Celulares", "Laptops", "Tabletas"];
+
+  function renderSpecsBanner() {
+    const relevant = SPECS_BANNER_CATEGORIES.includes(state.category) && !state.specsMode;
+    el.specsBannerLink.classList.toggle("hidden", !relevant);
+    if (relevant) {
+      el.specsBannerLink.href = `#/list?cat=${encodeURIComponent(state.category)}&specs=1`;
+    }
   }
 
   // ---------- Vista: Favoritos ----------
