@@ -185,7 +185,7 @@ FILLER = {
     "sim", "5g", "4g", "lte", "nfc", "ram", "rom", "gb", "tb", "pantalla",
     "camara", "bateria", "mah", "pulgadas", "android", "color", "con", "de",
     "la", "el", "y", "para", "version", "global", "nacional", "esim", "psim",
-    "solo", "hd", "fhd", "amoled", "oled", "lcd", "hz", "mp", "mpx", "core",
+    "solo", "hd", "fhd", "amoled", "oled", "poled", "lcd", "hz", "mp", "mpx", "core",
     "octa", "procesador", "carga", "rapida", "resistencia", "agua", "polvo",
     "smarphone", "unidades", "cellular_phone", "internacional", "inteligente",
     "desbloqueado", "desbloqueada", "unlocked", "libre", "reacondicionado",
@@ -228,7 +228,20 @@ def model_of(name, brand):
     # Ram", "(8+16)"). El patrón exige que la palabra empiece en un límite
     # de palabra, así que el "gb" de "64gb" no cuenta como palabra.
     n = re.sub(r"\b([a-z]+)\s*\+", lambda m: m.group(1) + " plus", n)
-    n = re.sub(r"[(),:;/|\"'+.-]", " ", n)
+    # El "." se borraba junto con el resto de la puntuación ANTES de que el
+    # filtro de números decimales (más abajo) pudiera verlo -- partía "6.6"
+    # (tamaño de pantalla en pulgadas) en dos tokens sueltos "6" y "6", que
+    # sí sobreviven como si fueran parte del modelo (un número suelto se
+    # conserva a propósito, ver el comentario de más abajo). Eso impidió
+    # fusionar "MOTOROLA MOTO G86 ... POLED 6.6 PULGADAS" con "Motorola Moto
+    # G86 256GB Libre Lila" -- ambos el mismo equipo, mismo color (Lila y
+    # Violeta canonicalizan al mismo color en color_of()), pero con firmas
+    # de modelo distintas ("moto g 86 poled 6 6" vs "moto g 86"). Se separa
+    # el punto de los demás signos de puntuación y solo se borra cuando NO
+    # es un punto decimal, para que "6.6" llegue completo al filtro de más
+    # abajo y se descarte igual que cualquier otro dato de pantalla.
+    n = re.sub(r"[(),:;/|\"'+-]", " ", n)
+    n = re.sub(r"(?<!\d)\.(?!\d)", " ", n)
     b = _norm(brand)
     toks = []
     for t in n.split():
