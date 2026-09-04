@@ -255,6 +255,91 @@
     }
   }
 
+  // ---------- Filtros de especificaciones (Celulares/Laptops/Tabletas) ----------
+  // product.facets (ver scripts/compute_facets.py) ya trae los valores
+  // extraídos del nombre/specs[] con el mismo criterio de "nunca adivinar"
+  // que el resto del catálogo: un producto sin un campo puntual simplemente
+  // no aparece bajo NINGÚN valor de ESE filtro, pero sigue apareciendo en
+  // "todos". Se define acá arriba (antes de `state`) porque buildSpecFilterState()
+  // necesita SPEC_FACETS ya armado para inicializar state.specFilters.
+
+  const STORAGE_BUCKETS = [
+    { id: "s64", label: "Hasta 64 GB", min: 0, max: 64 },
+    { id: "s128", label: "128 GB", min: 65, max: 128 },
+    { id: "s256", label: "256 GB", min: 129, max: 256 },
+    { id: "s512", label: "512 GB", min: 257, max: 512 },
+    { id: "s1024", label: "1 TB", min: 513, max: 1024 },
+    { id: "s2048", label: "2 TB", min: 1025, max: 2048 },
+    { id: "sMax", label: "Más de 2 TB", min: 2049, max: Infinity },
+  ];
+
+  const BATTERY_BUCKETS = [
+    { id: "b4000", label: "Hasta 4,000 mAh", min: 0, max: 4000 },
+    { id: "b5000", label: "4,001–5,000 mAh", min: 4001, max: 5000 },
+    { id: "b6000", label: "5,001–6,000 mAh", min: 5001, max: 6000 },
+    { id: "bMax", label: "Más de 6,000 mAh", min: 6001, max: Infinity },
+  ];
+
+  // Rangos distintos por categoría: un "6.9\" o más" de celular y un "16\"
+  // o más" de laptop no son el mismo corte, así que no comparten una sola
+  // lista de buckets.
+  const SCREEN_BUCKETS = {
+    Celulares: [
+      { id: "sc61", label: "Hasta 6.1\"", min: 0, max: 6.1 },
+      { id: "sc65", label: "6.2\"–6.5\"", min: 6.2, max: 6.5 },
+      { id: "sc68", label: "6.6\"–6.8\"", min: 6.6, max: 6.8 },
+      { id: "scMax", label: "6.9\" o más", min: 6.9, max: Infinity },
+    ],
+    Laptops: [
+      { id: "sc13", label: "Hasta 13\"", min: 0, max: 13.0 },
+      { id: "sc14", label: "13.1\"–14\"", min: 13.1, max: 14.0 },
+      { id: "sc156", label: "14.1\"–15.6\"", min: 14.1, max: 15.6 },
+      { id: "scMax", label: "16\" o más", min: 16.0, max: Infinity },
+    ],
+    Tabletas: [
+      { id: "sc8", label: "Hasta 8\"", min: 0, max: 8.0 },
+      { id: "sc10", label: "8.1\"–10\"", min: 8.1, max: 10.0 },
+      { id: "sc11", label: "10.1\"–11\"", min: 10.1, max: 11.0 },
+      { id: "scMax", label: "11.1\" o más", min: 11.1, max: Infinity },
+    ],
+  };
+
+  function bucketOf(buckets, val) {
+    if (val == null) return null;
+    const b = buckets.find((b) => val >= b.min && val <= b.max);
+    return b ? b.id : null;
+  }
+
+  const STORAGE_TYPE_LABELS = { ssd: "SSD", hdd: "Disco duro (HDD)", emmc: "eMMC" };
+  const NETWORK_LABELS = { "5g": "5G", "4g": "4G" };
+
+  // categories: en qué categorías se muestra este filtro (el grupo entero
+  // se oculta fuera de ellas, igual que MagSafe/Tamaño). type "exact": el
+  // valor de facets[facetField] tal cual es la opción a marcar (RAM, MP,
+  // Hz, chipset...). type "bucket": se agrupa en rangos (arriba) porque el
+  // valor crudo trae demasiadas variantes/decimales para listarlos uno por
+  // uno (57 tamaños de pantalla distintos en Celulares, por ejemplo).
+  const SPEC_FACETS = [
+    { key: "ram", facetField: "ram_gb", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterRamGroup", listEl: "filterRam", type: "exact", sortNum: true, format: (v) => `${v} GB` },
+    { key: "storage", facetField: "storage_gb", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterStorageGroup", listEl: "filterStorage", type: "bucket", buckets: () => STORAGE_BUCKETS },
+    { key: "storageType", facetField: "storage_type", categories: ["Laptops", "Tabletas"], groupEl: "filterStorageTypeGroup", listEl: "filterStorageType", type: "exact", format: (v) => STORAGE_TYPE_LABELS[v] || v },
+    { key: "screen", facetField: "screen_in", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterScreenGroup", listEl: "filterScreen", type: "bucket", buckets: (cat) => SCREEN_BUCKETS[cat] || [] },
+    { key: "refresh", facetField: "refresh_hz", categories: ["Celulares", "Laptops"], groupEl: "filterRefreshGroup", listEl: "filterRefresh", type: "exact", sortNum: true, format: (v) => `${v} Hz` },
+    { key: "network", facetField: "network_gen", categories: ["Celulares", "Tabletas"], groupEl: "filterNetworkGroup", listEl: "filterNetwork", type: "exact", format: (v) => NETWORK_LABELS[v] || v },
+    { key: "chipset", facetField: "chipset_family", categories: ["Celulares", "Tabletas"], groupEl: "filterChipsetGroup", listEl: "filterChipset", type: "exact", format: (v) => v },
+    { key: "cpu", facetField: "cpu_family", categories: ["Laptops"], groupEl: "filterCpuGroup", listEl: "filterCpu", type: "exact", format: (v) => v },
+    { key: "gpu", facetField: "gpu", categories: ["Laptops"], groupEl: "filterGpuGroup", listEl: "filterGpu", type: "exact", format: (v) => v },
+    { key: "os", facetField: "os", categories: ["Laptops"], groupEl: "filterOsGroup", listEl: "filterOs", type: "exact", format: (v) => v },
+    { key: "camera", facetField: "camera_mp", categories: ["Celulares", "Tabletas"], groupEl: "filterCameraGroup", listEl: "filterCamera", type: "exact", sortNum: true, format: (v) => `${v} MP` },
+    { key: "battery", facetField: "battery_mah", categories: ["Celulares", "Tabletas"], groupEl: "filterBatteryGroup", listEl: "filterBattery", type: "bucket", buckets: () => BATTERY_BUCKETS },
+  ];
+
+  function buildSpecFilterState() {
+    const obj = {};
+    SPEC_FACETS.forEach((cfg) => { obj[cfg.key] = new Set(); });
+    return obj;
+  }
+
   const state = {
     data: null,
     icons: null, // set de ilustraciones SVG (data/icons.json) que reemplaza a los emoji en todo el sitio
@@ -271,6 +356,10 @@
     excludeUsed: false, // filtro "Excluir usados"
     magsafeOnly: false, // filtro "Solo compatibles con MagSafe" (Baterías portátiles)
     sizeFilter: "all", // filtro "Tamaño" (Baterías portátiles)
+    // Filtros de specs (Celulares/Laptops/Tabletas) -- un Set por campo de
+    // SPEC_FACETS, vacío = todos. Se arma dinámicamente (no a mano como
+    // brands/minRating) porque son 12 campos con el mismo comportamiento.
+    specFilters: buildSpecFilterState(),
     page: 1, // página actual de la lista/ranking (ver PAGE_SIZE)
     sort: "relevance",
     offerSort: "price", // 'price' | 'rating' — orden de la tabla de comparación
@@ -324,6 +413,30 @@
     filterMagsafe: document.getElementById("filterMagsafe"),
     filterSizeGroup: document.getElementById("filterSizeGroup"),
     filterSize: document.getElementById("filterSize"),
+    filterRamGroup: document.getElementById("filterRamGroup"),
+    filterRam: document.getElementById("filterRam"),
+    filterStorageGroup: document.getElementById("filterStorageGroup"),
+    filterStorage: document.getElementById("filterStorage"),
+    filterStorageTypeGroup: document.getElementById("filterStorageTypeGroup"),
+    filterStorageType: document.getElementById("filterStorageType"),
+    filterScreenGroup: document.getElementById("filterScreenGroup"),
+    filterScreen: document.getElementById("filterScreen"),
+    filterRefreshGroup: document.getElementById("filterRefreshGroup"),
+    filterRefresh: document.getElementById("filterRefresh"),
+    filterNetworkGroup: document.getElementById("filterNetworkGroup"),
+    filterNetwork: document.getElementById("filterNetwork"),
+    filterChipsetGroup: document.getElementById("filterChipsetGroup"),
+    filterChipset: document.getElementById("filterChipset"),
+    filterCpuGroup: document.getElementById("filterCpuGroup"),
+    filterCpu: document.getElementById("filterCpu"),
+    filterGpuGroup: document.getElementById("filterGpuGroup"),
+    filterGpu: document.getElementById("filterGpu"),
+    filterOsGroup: document.getElementById("filterOsGroup"),
+    filterOs: document.getElementById("filterOs"),
+    filterCameraGroup: document.getElementById("filterCameraGroup"),
+    filterCamera: document.getElementById("filterCamera"),
+    filterBatteryGroup: document.getElementById("filterBatteryGroup"),
+    filterBattery: document.getElementById("filterBattery"),
     sortSelect: document.getElementById("sortSelect"),
     productList: document.getElementById("productList"),
     pagination: document.getElementById("pagination"),
@@ -2086,6 +2199,26 @@
     });
   }
 
+  // Valor efectivo de un producto para un filtro puntual de SPEC_FACETS: el
+  // crudo para "exact", el id del bucket al que cae para "bucket". null si
+  // el producto no trae ese campo en absoluto (nunca se adivina, ver
+  // compute_facets.py) o si el valor no cae en ningún bucket definido.
+  function specValueOf(cfg, p) {
+    const raw = p.facets ? p.facets[cfg.facetField] : null;
+    if (raw == null) return null;
+    if (cfg.type === "bucket") return bucketOf(cfg.buckets(p.category), raw);
+    return raw;
+  }
+
+  function matchesSpecFilters(p) {
+    for (const cfg of SPEC_FACETS) {
+      const sel = state.specFilters[cfg.key];
+      if (sel.size === 0) continue;
+      if (!sel.has(specValueOf(cfg, p))) return false;
+    }
+    return true;
+  }
+
   function filteredProducts() {
     const ratingMin = (RATING_FILTERS.find((r) => r.id === state.minRating) || RATING_FILTERS[0]).min;
     const q = splitAlphaNumeric(state.query.toLowerCase());
@@ -2102,7 +2235,8 @@
       const matchesCondition = !state.excludeUsed || !isUsed(p);
       const matchesMagsafe = !state.magsafeOnly || isMagSafe(p);
       const matchesSize = state.sizeFilter === "all" || productSize(p) === state.sizeFilter;
-      return matchesQuery && matchesCat && matchesSub && matchesPrice && matchesBrand && matchesRating && matchesCondition && matchesMagsafe && matchesSize;
+      const matchesSpec = matchesSpecFilters(p);
+      return matchesQuery && matchesCat && matchesSub && matchesPrice && matchesBrand && matchesRating && matchesCondition && matchesMagsafe && matchesSize && matchesSpec;
     });
   }
 
@@ -2207,6 +2341,7 @@
     renderFilterCondition();
     renderFilterMagsafe();
     renderFilterSize();
+    renderSpecFilters();
 
     renderProductListPage();
     renderLiveSearchSection();
@@ -2413,6 +2548,7 @@
         state.category = null;
         state.subcategory = null;
         state.brands.clear();
+        state.specFilters = buildSpecFilterState();
         state.sort = "relevance";
         renderList();
       };
@@ -2453,6 +2589,7 @@
           state.category = c.id;
           state.subcategory = null;
           state.brands.clear();
+        state.specFilters = buildSpecFilterState();
           state.sort = "popularity";
           renderList();
         };
@@ -2477,6 +2614,7 @@
           state.category = c.id;
           state.subcategory = s.id;
           state.brands.clear();
+        state.specFilters = buildSpecFilterState();
           state.sort = "popularity";
           renderList();
         };
@@ -2644,6 +2782,75 @@
       opt.onclick = () => { state.sizeFilter = s.id; renderList(); };
       el.filterSize.appendChild(opt);
     });
+  }
+
+  // Mismo "alcance" que brandsInScope(): categoría+subcategoría, ignorando
+  // el resto de los filtros activos -- así las opciones de un spec no se
+  // van reduciendo a nada a medida que el usuario marca otros (un "16GB
+  // RAM" no debería desaparecer solo porque ya se marcó "SSD").
+  function categoryScopedProducts() {
+    let scoped = state.category
+      ? state.data.products.filter((p) => p.category === state.category)
+      : state.data.products;
+    if (state.subcategory) scoped = scoped.filter((p) => p.subcategory === state.subcategory);
+    return scoped;
+  }
+
+  // Dibuja UN filtro de SPEC_FACETS -- reemplaza a tener una función
+  // renderFilterX() a mano por cada uno de los 12 campos (mismo patrón que
+  // renderFilterMagsafe/renderFilterSize arriba, pero parametrizado).
+  function renderSpecFacetFilter(cfg) {
+    const relevant = cfg.categories.includes(state.category);
+    el[cfg.groupEl].classList.toggle("hidden", !relevant);
+    if (!relevant) {
+      state.specFilters[cfg.key].clear();
+      return;
+    }
+    const scoped = categoryScopedProducts();
+    const values = new Set();
+    scoped.forEach((p) => {
+      const v = specValueOf(cfg, p);
+      if (v != null) values.add(v);
+    });
+    // Si un valor ya marcado deja de aplicar en el alcance actual, se
+    // descarta (mismo criterio que brandsInScope()).
+    [...state.specFilters[cfg.key]].forEach((v) => { if (!values.has(v)) state.specFilters[cfg.key].delete(v); });
+
+    const listEl = el[cfg.listEl];
+    listEl.innerHTML = "";
+    // Sin ningún producto en este alcance con este campo, no tiene caso
+    // mostrar un filtro vacío -- se oculta el grupo entero (p.ej.
+    // "Frecuencia de actualización" en Tabletas, casi sin cobertura).
+    if (values.size === 0) {
+      el[cfg.groupEl].classList.add("hidden");
+      return;
+    }
+    let items;
+    if (cfg.type === "bucket") {
+      const buckets = cfg.buckets(state.category);
+      items = buckets.filter((b) => values.has(b.id)).map((b) => ({ id: b.id, label: b.label }));
+    } else {
+      let vals = [...values];
+      vals = cfg.sortNum ? vals.sort((a, b) => a - b) : vals.sort((a, b) => String(a).localeCompare(String(b)));
+      items = vals.map((v) => ({ id: v, label: cfg.format(v) }));
+    }
+    items.forEach((item) => {
+      const opt = document.createElement("label");
+      const isActive = state.specFilters[cfg.key].has(item.id);
+      opt.className = "filter-option" + (isActive ? " active" : "");
+      opt.innerHTML = `<input type="checkbox" ${isActive ? "checked" : ""}> ${item.label}`;
+      opt.onclick = (e) => {
+        e.preventDefault();
+        if (state.specFilters[cfg.key].has(item.id)) state.specFilters[cfg.key].delete(item.id);
+        else state.specFilters[cfg.key].add(item.id);
+        renderList();
+      };
+      listEl.appendChild(opt);
+    });
+  }
+
+  function renderSpecFilters() {
+    SPEC_FACETS.forEach(renderSpecFacetFilter);
   }
 
   // ---------- Vista: Favoritos ----------

@@ -175,6 +175,59 @@
             <h3><span class="filter-group-title-row"><span class="filter-group-title">Tamaño</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Muestra solo los tamaños o tallas que elijas.</span></h3>
             <div id="filterSize" class="filter-options"></div>
           </div>
+          <!-- Filtros de especificaciones (Celulares/Laptops/Tabletas): cada
+               grupo se muestra u oculta según la categoría activa, igual que
+               MagSafe/Tamaño arriba -- ver renderFilterSpec() en app.js, que
+               los dibuja todos a partir de SPEC_FACETS en vez de tener una
+               función renderFilterX() a mano por cada uno. -->
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterRamGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Memoria RAM</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Filtra por la memoria RAM del equipo.</span></h3>
+            <div id="filterRam" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterStorageGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Almacenamiento</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Filtra por la capacidad de almacenamiento.</span></h3>
+            <div id="filterStorage" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterStorageTypeGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Tipo de almacenamiento</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">SSD, eMMC o disco duro tradicional.</span></h3>
+            <div id="filterStorageType" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterScreenGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Tamaño de pantalla</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Filtra por el tamaño de la pantalla en pulgadas.</span></h3>
+            <div id="filterScreen" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterRefreshGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Frecuencia de actualización</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Tasa de refresco de la pantalla, en Hz.</span></h3>
+            <div id="filterRefresh" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterNetworkGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Red móvil</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Compatibilidad con red 4G o 5G.</span></h3>
+            <div id="filterNetwork" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterChipsetGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Chipset</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Familia del procesador (Snapdragon, Dimensity, Apple, etc.).</span></h3>
+            <div id="filterChipset" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterCpuGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Procesador</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Familia del procesador (Intel Core i5, AMD Ryzen 7, Apple M, etc.).</span></h3>
+            <div id="filterCpu" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterGpuGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Tarjeta gráfica</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">GPU dedicada o integrada.</span></h3>
+            <div id="filterGpu" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterOsGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Sistema operativo</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Windows, macOS, ChromeOS o Linux.</span></h3>
+            <div id="filterOs" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterCameraGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Cámara principal</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Resolución de la cámara principal, en MP.</span></h3>
+            <div id="filterCamera" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterBatteryGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Batería</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Capacidad de la batería, en mAh.</span></h3>
+            <div id="filterBattery" class="filter-options"></div>
+          </div>
         </aside>
         <div class="list-main">
           <div class="list-head">
