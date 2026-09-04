@@ -130,10 +130,19 @@ def condition_of(name):
 
 
 # ---- almacenamiento y RAM -------------------------------------------
+_REAL_CAPS = {16, 32, 64, 128, 256, 512, 1024, 2048}
 # "8+256GB", "8GB RAM 256GB", "256gb 8gb ram", "12GB+512GB", "4+64GB"
 def _caps(name):
     n = _norm(name).replace("+", " + ")
     out = []
+    # Varias fichas escriben la capacidad sin la "B": "12+256G", "8G RAM+256G
+    # ROM", "Galaxy S25 Ultra 256G". Solo se aceptan valores que son
+    # capacidades reales (potencias de dos): "5G"/"4G" son la RED, y
+    # "Snapdragon 778G"/"782G" son el PROCESADOR -- con un piso numérico
+    # simple, esos chips entraban como "778 GB" y cambiaban la capacidad de
+    # 26 fichas de Sunsky.
+    n = re.sub(r"\b(\d{2,})\s*g\b(?!b)", lambda m: m.group(1) + "gb"
+               if int(m.group(1)) in _REAL_CAPS else m.group(0), n)
     for m in re.finditer(r"(\d+(?:\.\d+)?)\s*(gb|tb)\b", n):
         num = float(m.group(1))
         if m.group(2) == "tb":
