@@ -5,14 +5,14 @@
 // versión cacheada anterior a los visitantes que ya lo tenían instalado
 // (cache-first: la página nueva llega recién en la SEGUNDA carga, y solo si
 // el número cambió — con el mismo número nunca se refresca).
-const CACHE = "comparamx-v143";
+const CACHE = "comparamx-v144";
 const FILES = [
   "./",
   "./index.html",
   "./manifest.json",
-  "./css/style.css",
-  "./js/app.js",
-  "./js/firebase-init.js",
+  "./css/style.min.css",
+  "./js/app.min.js",
+  "./js/firebase-init.min.js",
   "./data/data.json",
   "./data/icons.json",
   "./data/shipping-rates.json",

@@ -1,0 +1,24 @@
+{
+  "name": "precios",
+  "version": "1.0.0",
+  "description": "Comparador de precios entre tiendas mexicanas, inspirado en [Kakaku.com](https://kakaku.com). MVP de demostración.",
+  "main": "sw.js",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/to49ra16s7azr9u2-cmd/precios.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/to49ra16s7azr9u2-cmd/precios/issues"
+  },
+  "homepage": "https://github.com/to49ra16s7azr9u2-cmd/precios#readme",
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}
