@@ -962,19 +962,27 @@
   const SALE_BADGE_MIN_SHARE = 0.45; // porción de la categoría en oferta
 
   // Devuelve Map(categoryId -> descuento máximo %) para las categorías que
-  // ameritan sello. Una sola pasada por el catálogo (antes se filtraba el
-  // catálogo entero una vez POR categoría: ~49 x 87k productos por pintado).
+  // ameritan sello.
+  //
+  // Los tres números por categoría (cuántos productos, cuántos con
+  // descuento y el descuento máximo) ya vienen calculados en el manifiesto
+  // -- ver build_summary() en scripts/web_summary.py, que aplica el mismo
+  // bestDiscountPct() de acá sobre exactamente los mismos datos. Inicio ya
+  // no baja el catálogo, así que no hay dónde recorrerlo; la regla de qué
+  // categoría se lleva el sello sigue viviendo acá.
+  //
+  // Vienen los dos escenarios del toggle "Incluir envío", porque el
+  // descuento se mide sobre el precio mostrado y ese toggle lo cambia.
   function categorySaleBadges() {
+    const raw = (state.data && state.data.categoryStats) || {};
+    const suffix = state.includeShipping ? "Ship" : "";
     const stats = new Map();
-    for (const p of state.data.products) {
-      let e = stats.get(p.category);
-      if (!e) { e = { total: 0, discounted: 0, max: 0 }; stats.set(p.category, e); }
-      e.total++;
-      const d = bestDiscountPct(p);
-      if (d) {
-        e.discounted++;
-        if (d > e.max) e.max = d;
-      }
+    for (const [catId, s] of Object.entries(raw)) {
+      stats.set(catId, {
+        total: s.n || 0,
+        discounted: s["discounted" + suffix] || 0,
+        max: s["max" + suffix] || 0,
+      });
     }
     const topByCount = new Set(
       [...stats.entries()]
@@ -1489,45 +1497,219 @@
   // nunca tuvieron fuente de datos. Filtrarlas aquí, contra los productos ya
   // cargados, hace que el nav se corrija solo cada vez que eso vuelva a
   // pasar, en vez de tener que acordarse de borrarlas a mano.
+  // Los conteos salen de categoryStats del manifiesto (ver
+  // scripts/web_summary.py) en vez de recorrer el catálogo: desde que los
+  // productos se bajan por categoría y bajo demanda, en Inicio no hay
+  // catálogo que recorrer.
   function hideEmptyTaxonomy(data) {
-    const withProducts = new Set();
-    for (const p of data.products || []) {
-      withProducts.add(`${p.category} ${p.subcategory || ""}`);
-      withProducts.add(p.category);
-    }
+    const stats = data.categoryStats || {};
     data.categories = (data.categories || [])
       .map((c) => ({
         ...c,
-        subcategories: (c.subcategories || []).filter((s) =>
-          withProducts.has(`${c.id} ${s.id}`)
+        subcategories: (c.subcategories || []).filter(
+          (s) => ((stats[c.id] || {}).subs || {})[s.id]
         ),
       }))
-      .filter((c) => withProducts.has(c.id));
+      .filter((c) => (stats[c.id] || {}).n);
     return data;
+  }
+
+  // --- Carga del catálogo por categoría --------------------------------
+  // Antes TODO visitante bajaba el catálogo entero (data/products-1..6.json:
+  // 35 MB en crudo, 5.3 MB con gzip, 84 mil productos) antes de ver nada,
+  // aunque fuera a mirar una sola categoría. Ahora los productos viven
+  // partidos por categoría (data/cat/<slug>-N.json, ver save_catalog en
+  // scripts/data_io.py) y se bajan recién cuando la vista los necesita:
+  //
+  //   Inicio          data.json + data/home.json (~55 KB) -- ni un producto,
+  //                   los conteos/sellos/rankings vienen precalculados
+  //   una categoría   su propia shard (Monitores 48 KB, Celulares 162 KB)
+  //   una ficha       la shard de SU categoría (y de ahí su chunk de detalle)
+  //   búsqueda        todas las shards, ver ensureAllProducts()
+  //
+  // state.data.products deja de ser "el catálogo" para ser "lo que se bajó
+  // hasta ahora". Todo lo que recorra ese arreglo tiene que asegurarse
+  // primero de que su alcance esté cargado (ensureScope más abajo).
+  const productIndexById = new Map();   // id -> índice en state.data.products
+  const productMeta = new Map();        // id -> {cat, i} (i = posición DENTRO de su categoría)
+  const categoryLoads = new Map();      // catId -> Promise (una sola por categoría)
+  const loadedCategories = new Set();   // categorías YA fusionadas (la promesa puede seguir en vuelo)
+  const detailChunkCache = new Map();
+  let productIndexPromise = null;       // data/index.json (id -> categoría)
+  let allProductsPromise = null;
+
+  function mergeProducts(list, catId) {
+    list.forEach((p, i) => {
+      // La posición dentro de la categoría es la que ubica el chunk de
+      // detalle, así que se guarda aunque el producto ya estuviera cargado
+      // (los rankings de Inicio traen algunos productos sueltos, sin
+      // posición, antes de que se baje su categoría).
+      if (catId != null) productMeta.set(p.id, { cat: catId, i });
+      if (productIndexById.has(p.id)) return;
+      productIndexById.set(p.id, state.data.products.length);
+      state.data.products.push(p);
+    });
+  }
+
+  // Baja (una sola vez) las shards de una categoría y las fusiona.
+  function ensureCategory(catId) {
+    if (!catId) return Promise.resolve();
+    if (categoryLoads.has(catId)) return categoryLoads.get(catId);
+    const files = ((state.data && state.data.categoryFiles) || {})[catId] || [];
+    const load = Promise.all(files.map((f) => fetch(f).then((r) => r.json())))
+      .then((batches) => {
+        mergeProducts(batches.flat(), catId);
+        loadedCategories.add(catId);
+      })
+      .catch((e) => {
+        // Un fallo no se cachea: la próxima navegación a esa categoría lo
+        // reintenta en vez de dejarla vacía para siempre.
+        categoryLoads.delete(catId);
+        console.error("No se pudo cargar la categoría", catId, e);
+      });
+    categoryLoads.set(catId, load);
+    return load;
+  }
+
+  // Catálogo completo. Lo necesitan la búsqueda, "Todas" y Favoritos: son
+  // las únicas vistas que cruzan categorías. Se dispara también al enfocar
+  // el buscador (ver bindEvents), para que cuando el usuario termine de
+  // escribir ya esté bajado.
+  function ensureAllProducts() {
+    if (!allProductsPromise) {
+      const ids = Object.keys((state.data && state.data.categoryFiles) || {});
+      allProductsPromise = Promise.all(ids.map(ensureCategory)).then(orderLoadedProducts);
+    }
+    return allProductsPromise;
+  }
+
+  // Deja state.data.products en un orden que no dependa de cuál shard llegó
+  // primero. Importa porque los ordenamientos de la lista son estables: los
+  // empates (y con un catálogo donde casi todo tiene un solo vendedor, son
+  // la mayoría) se resuelven por el orden del arreglo, así que sin esto
+  // "Todas" se vería en un orden distinto en cada visita.
+  function orderLoadedProducts() {
+    const rank = new Map(
+      Object.keys((state.data && state.data.categoryFiles) || {}).map((c, i) => [c, i])
+    );
+    state.data.products.sort((a, b) => {
+      const ma = productMeta.get(a.id) || {};
+      const mb = productMeta.get(b.id) || {};
+      const ra = rank.has(ma.cat) ? rank.get(ma.cat) : Number.MAX_SAFE_INTEGER;
+      const rb = rank.has(mb.cat) ? rank.get(mb.cat) : Number.MAX_SAFE_INTEGER;
+      return ra - rb || (ma.i || 0) - (mb.i || 0);
+    });
+    productIndexById.clear();
+    state.data.products.forEach((p, i) => productIndexById.set(p.id, i));
+  }
+
+  // id -> categoría, para las rutas que llegan con un id y sin categoría:
+  // enlace directo a una ficha (#/p/pNNN), favoritos e historial. Son
+  // ~4,200 tramos [primer id, categoría] (13 KB con gzip), no un mapa de
+  // 84 mil entradas -- ver _product_index() en scripts/data_io.py.
+  function ensureProductIndex() {
+    if (!productIndexPromise) {
+      const file = (state.data && state.data.indexFile) || "data/index.json";
+      productIndexPromise = fetch(file)
+        .then((r) => r.json())
+        .catch((e) => {
+          productIndexPromise = null;
+          console.error("No se pudo cargar el índice de productos", e);
+          return null;
+        });
+    }
+    return productIndexPromise;
+  }
+
+  function categoryOfId(index, id) {
+    if (!index) return null;
+    if (index.extra && index.extra[id] != null) return index.categories[index.extra[id]];
+    const m = /^p(\d+)$/.exec(id);
+    if (!m) return null;
+    const num = Number(m[1]);
+    // Búsqueda binaria sobre los tramos: el último que empieza en <= num.
+    const runs = index.runs || [];
+    let lo = 0;
+    let hi = runs.length - 1;
+    let found = -1;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (runs[mid][0] <= num) {
+        found = mid;
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+    return found < 0 ? null : index.categories[runs[found][1]];
+  }
+
+  async function ensureProductsByIds(ids) {
+    const missing = ids.filter((id) => !productIndexById.has(id));
+    if (!missing.length) return;
+    const index = await ensureProductIndex();
+    const cats = new Set(missing.map((id) => categoryOfId(index, id)).filter(Boolean));
+    await Promise.all([...cats].map(ensureCategory));
+  }
+
+  // Los productos que Inicio muestra sin bajar ninguna categoría: la foto de
+  // cada tarjeta (el más popular de esa categoría) y los candidatos de los
+  // rankings. Vienen precalculados en data/home.json -- ver RANKING_POOL en
+  // scripts/web_summary.py, que explica por qué es un POOL y no el ranking
+  // ya resuelto.
+  let homePromise = null;
+
+  function homeLoaded() {
+    return !!(state.data && state.data.homeProducts);
+  }
+
+  function ensureHome() {
+    if (!homePromise) {
+      const file = (state.data && state.data.homeFile) || "data/home.json";
+      homePromise = fetch(file)
+        .then((r) => r.json())
+        .then((list) => {
+          // Sin categoría: su posición dentro de la shard todavía no se
+          // conoce (mergeProducts la fija cuando se baje esa categoría).
+          mergeProducts(list, null);
+          state.data.homeProducts = list;
+        })
+        .catch((e) => {
+          homePromise = null;
+          console.error("No se pudo cargar el resumen de Inicio", e);
+        });
+    }
+    return homePromise;
+  }
+
+  // Candidatos ya cargados de un pool de Inicio ("general" o un id de
+  // categoría), en el orden precalculado.
+  function homePool(key) {
+    const ids = ((state.data && state.data.homePools) || {})[key] || [];
+    return ids
+      .map((id) => state.data.products[productIndexById.get(id)])
+      .filter(Boolean);
   }
 
   // --- Detalle bajo demanda -------------------------------------------
   // La url de cada oferta y el desglose de vendedores solo se usan en la
   // ficha de producto (tabla de ofertas y botones "Ver oferta"), nunca en
   // portada/listas/búsqueda, pero eran 10.6 MB en crudo del payload inicial
-  // que TODO visitante bajaba. Ahora viven en data/details-N.json y se piden
-  // al abrir una ficha: un chunk son ~25-50 KB con gzip (ver
+  // que TODO visitante bajaba. Ahora viven en data/det/<slug>-N.json y se
+  // piden al abrir una ficha: un chunk son ~25-50 KB con gzip (ver
   // DETAIL_OFFER_FIELDS en scripts/data_io.py).
   //
-  // A qué chunk ir se deduce de la POSICIÓN del producto en el arreglo
-  // (products-N.json y details-N.json se escriben en el mismo orden desde
+  // A qué chunk ir se deduce de la POSICIÓN del producto DENTRO de su
+  // categoría (la shard y sus detalles se escriben en el mismo orden desde
   // save_catalog), así que no hace falta bajar un índice id -> archivo de
-  // 87,000 entradas.
-  const productIndexById = new Map();
-  const detailChunkCache = new Map();
-
+  // 84,000 entradas.
   async function ensureDetail(product) {
     if (!product || product.__detailLoaded) return;
-    const files = (state.data && state.data.detailFiles) || [];
+    const meta = productMeta.get(product.id);
     const size = (state.data && state.data.detailChunkSize) || 0;
-    const i = productIndexById.get(product.id);
-    if (!files.length || !size || i == null) return;
-    const file = files[Math.floor(i / size)];
+    if (!meta || !size) return;
+    const files = ((state.data && state.data.detailFiles) || {})[meta.cat] || [];
+    const file = files[Math.floor(meta.i / size)];
     if (!file) return;
     try {
       if (!detailChunkCache.has(file)) {
@@ -1554,35 +1736,22 @@
   }
 
   async function loadData() {
-    // El catálogo pasó de un solo data.json (llegó a 62MB, cerca del
-    // límite de GitHub) a un manifiesto chico + varios data/products-N.json
-    // -- se piden todos en paralelo y se concatenan, mismo resultado final
-    // que antes para el resto del código (state.data.products).
+    // Solo el manifiesto: la taxonomía, las tiendas, las estadísticas de
+    // Inicio y la lista de archivos por categoría. Los productos se bajan
+    // después, y solo los de la vista que se abra (ver ensureCategory).
     let manifest = await (await fetch("data/data.json")).json();
-    let productFiles = manifest.productFiles || [];
 
-    // Auto-reparación: si el manifiesto que llegó no trae NI la lista de
-    // archivos NI productos adentro, es un data.json viejo servido por una
-    // caché (el Service Worker lo servía cache-first, ver sw.js). Ese caso
-    // dejaba el catálogo en cero y TODAS las páginas decían "No se
-    // encontraron productos", así que se vuelve a pedir saltando la caché en
-    // vez de pintar un sitio vacío.
-    if (!productFiles.length && !Array.isArray(manifest.products)) {
+    // Auto-reparación: si el manifiesto que llegó no trae la lista de
+    // archivos por categoría, es un data.json viejo servido por una caché
+    // (el Service Worker lo sirve cache-first, ver sw.js). Ese caso dejaba
+    // el catálogo en cero y TODAS las páginas decían "No se encontraron
+    // productos", así que se vuelve a pedir saltando la caché en vez de
+    // pintar un sitio vacío.
+    if (!manifest.categoryFiles) {
       manifest = await (await fetch("data/data.json", { cache: "reload" })).json();
-      productFiles = manifest.productFiles || [];
     }
-    delete manifest.productFiles;
 
-    if (productFiles.length) {
-      const productBatches = await Promise.all(
-        productFiles.map((f) => fetch(f).then((r) => r.json()))
-      );
-      manifest.products = productBatches.flat();
-    }
-    // Un data.json anterior a la partición traía los productos adentro; se
-    // respeta tal cual en vez de dejarlo indefinido.
-    manifest.products = manifest.products || [];
-    manifest.products.forEach((p, i) => productIndexById.set(p.id, i));
+    manifest.products = [];
     state.data = hideEmptyTaxonomy(manifest);
     // Catálogo de marcas/afiliados (Admitad): independiente del comparador de
     // electrónica, así que un fallo aquí no debe tumbar el resto del sitio.
@@ -1883,15 +2052,25 @@
   function renderHome() {
     setActiveView("home");
     renderCatNav();
+    // Inicio no baja ninguna categoría: le alcanza con las estadísticas del
+    // manifiesto y con data/home.json (los candidatos de los rankings y la
+    // foto de cada tarjeta). Mientras eso llega se pinta lo que ya hay y se
+    // vuelve a entrar cuando termina.
+    if (!homeLoaded()) {
+      ensureHome().then(() => {
+        if (!el.viewHome.classList.contains("hidden")) renderHome();
+      });
+    }
     el.homeCategoryGrid.innerHTML = "";
 
+    const stats = (state.data && state.data.categoryStats) || {};
     const allCard = document.createElement("button");
     allCard.type = "button";
     allCard.className = "category-card";
     allCard.innerHTML = `
       <span class="category-card-icon category-card-icon--photo">${icon("shopping-bag")}</span>
       <span class="category-card-name">Todas</span>
-      <span class="category-card-count">${state.data.products.length} productos</span>
+      <span class="category-card-count">${state.data.totalProducts || 0} productos</span>
     `;
     allCard.onclick = () => { state.sort = "relevance"; goList({ category: null, query: "" }); };
     el.homeCategoryGrid.appendChild(allCard);
@@ -1899,14 +2078,14 @@
     const saleBadges = categorySaleBadges();
 
     state.data.categories.forEach((cat) => {
-      const categoryProducts = state.data.products.filter((p) => p.category === cat.id);
+      const categoryProducts = homePool(cat.id);
       const card = document.createElement("button");
       card.type = "button";
       card.className = "category-card";
       card.innerHTML = `
         <span class="category-card-icon category-card-icon--photo"></span>
         <span class="category-card-name">${cat.name}</span>
-        <span class="category-card-count">${categoryProducts.length} productos</span>
+        <span class="category-card-count">${(stats[cat.id] || {}).n || 0} productos</span>
       `;
       const iconEl = card.querySelector(".category-card-icon");
       const settleCategoryBadge = () => {
@@ -1952,6 +2131,18 @@
   // (ver trackProductView), nunca un "más visto" agregado de todo el
   // sitio porque no hay backend que lo mida.
   function renderHomeMostViewed() {
+    // El más visto es un id guardado en ESTE navegador, así que su
+    // categoría puede no estar bajada todavía (Inicio no baja ninguna).
+    // Se baja solo la del candidato más visto, no todas.
+    const viewedIds = Object.entries(readLS(LS_KEYS.productViews, {}))
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 1)
+      .map(([id]) => id);
+    if (viewedIds.length && !productIndexById.has(viewedIds[0])) {
+      ensureProductsByIds(viewedIds).then(() => {
+        if (!el.viewHome.classList.contains("hidden")) renderHomeMostViewed();
+      });
+    }
     const top = mostViewedProduct();
     el.homeMostViewed.innerHTML = "";
     if (!top) {
@@ -2019,6 +2210,13 @@
     if (!state.user || el.viewHome.classList.contains("hidden")) return;
     if (history.length === 0) return;
 
+    // El historial son ids y categorías que vienen de la nube: se bajan las
+    // categorías involucradas (que son también las que alimentan las
+    // recomendaciones de más abajo) antes de armar los dos bloques.
+    await Promise.all([...new Set(history.map((h) => h.category))].filter(Boolean).map(ensureCategory));
+    await ensureProductsByIds(history.map((h) => h.productId));
+    if (!state.user || el.viewHome.classList.contains("hidden")) return;
+
     const historyProducts = history
       .map((h) => state.data.products.find((p) => p.id === h.productId))
       .filter(Boolean)
@@ -2070,17 +2268,22 @@
   function renderHomeRankings() {
     el.homeRankings.innerHTML = "";
 
+    const stats = (state.data && state.data.categoryStats) || {};
     const topCategories = state.data.categories
       .filter((c) => c.id !== "Otros")
-      .map((c) => ({ cat: c, count: state.data.products.filter((p) => p.category === c.id).length }))
+      .map((c) => ({ cat: c, count: (stats[c.id] || {}).n || 0 }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 3);
 
+    // Cada bloque ordena su POOL precalculado (ver homePool), no el
+    // catálogo: Inicio no lo tiene bajado. El orden final se decide igual
+    // que siempre con topByPopularity, así que los clics/vistas/favoritos
+    // de este navegador siguen pesando -- pero dentro del pool.
     const blocks = [
-      { title: `${icon("trophy")} Ranking general ComparaMEX`, products: state.data.products, onMore: () => { state.sort = "popularity"; goList({ category: null, query: "" }); } },
+      { title: `${icon("trophy")} Ranking general ComparaMEX`, products: homePool("general"), onMore: () => { state.sort = "popularity"; goList({ category: null, query: "" }); } },
       ...topCategories.map(({ cat }) => ({
         title: `${icon(cat.icon, "cat-item-icon")} ${cat.name} — ranking`,
-        products: state.data.products.filter((p) => p.category === cat.id),
+        products: homePool(cat.id),
         onMore: () => goCategoryRanking(cat.id),
       })),
     ];
@@ -2292,10 +2495,46 @@
     return list;
   }
 
+  // Qué hay que tener bajado para pintar la lista con el estado actual: una
+  // categoría concreta, o el catálogo entero si es una búsqueda o "Todas".
+  // La clave sirve además para descartar una carga que llegó tarde (el
+  // usuario ya se fue a otro lado).
+  function listScopeKey() {
+    return state.query || !state.category ? "*" : state.category;
+  }
+
+  function ensureListScope() {
+    return listScopeKey() === "*" ? ensureAllProducts() : ensureCategory(state.category);
+  }
+
+  function listScopeReady() {
+    const key = listScopeKey();
+    return key === "*"
+      ? Object.keys(state.data.categoryFiles || {}).every((c) => loadedCategories.has(c))
+      : loadedCategories.has(key);
+  }
+
+  function showListLoading() {
+    el.productList.innerHTML = `<p class="muted">Cargando productos…</p>`;
+    el.pagination.innerHTML = "";
+  }
+
   function renderList() {
     state.page = 1; // toda entrada "de cero" a la lista arranca en la página 1
     setActiveView("list");
     renderCatNav();
+
+    // La lista sí necesita productos. Si su alcance todavía no se bajó, se
+    // muestra el aviso de carga y se vuelve a entrar cuando llegue -- salvo
+    // que para entonces el usuario ya esté mirando otra cosa.
+    if (!listScopeReady()) {
+      const key = listScopeKey();
+      showListLoading();
+      ensureListScope().then(() => {
+        if (listScopeKey() === key && !el.viewList.classList.contains("hidden")) renderList();
+      });
+      return;
+    }
 
     el.listBreadcrumb.innerHTML = `<a href="#/">Inicio</a>`;
     if (state.category) {
@@ -2887,6 +3126,15 @@
     setActiveView("favorites");
     renderCatNav();
     const favIds = getFavorites();
+    // Los favoritos son ids sueltos guardados en este navegador: pueden ser
+    // de categorías que todavía no se bajaron (ver ensureProductsByIds).
+    if (favIds.some((id) => !productIndexById.has(id))) {
+      el.favoritesList.innerHTML = `<p class="muted">Cargando favoritos…</p>`;
+      ensureProductsByIds(favIds).then(() => {
+        if (!el.viewFavorites.classList.contains("hidden")) renderFavorites();
+      });
+      return;
+    }
     const products = state.data.products.filter((p) => favIds.includes(p.id));
     renderProductListInto(el.favoritesList, products, {
       emptyText: "Aún no tienes favoritos. Toca el corazón en cualquier producto para guardarlo aquí.",
@@ -3379,6 +3627,16 @@
   }
 
   async function renderDetail(productId) {
+    // La ficha se puede abrir por enlace directo (#/p/pNNN, que es a donde
+    // llevan las páginas SEO estáticas) sin que la categoría de ese
+    // producto esté bajada: se resuelve su categoría por el índice y se
+    // baja esa shard antes de buscarlo.
+    if (!productIndexById.has(productId)) {
+      await ensureProductsByIds([productId]);
+      // Si mientras tanto el usuario navegó a otro lado, esta ficha ya no
+      // es la que corresponde pintar.
+      if (location.hash !== `#/p/${productId}`) return;
+    }
     const product = state.data.products.find((p) => p.id === productId);
     if (!product) { goHome(); return; }
 
@@ -4369,6 +4627,17 @@
       }, 150);
     });
     el.searchInput.addEventListener("focus", () => {
+      // La búsqueda es lo único que cruza todas las categorías, así que es
+      // lo único que necesita el catálogo entero. Se empieza a bajar apenas
+      // el usuario toca el buscador -- para cuando termine de escribir suele
+      // estar listo, y quien nunca busca no lo baja nunca.
+      ensureAllProducts().then(() => {
+        // Si para cuando llegó ya había algo escrito, se repintan las
+        // sugerencias: las primeras se armaron con menos catálogo.
+        if (document.activeElement === el.searchInput && el.searchInput.value.trim()) {
+          renderSearchSuggestions(buildSearchSuggestions(el.searchInput.value));
+        }
+      });
       if (el.searchInput.value.trim()) renderSearchSuggestions(buildSearchSuggestions(el.searchInput.value));
     });
     el.searchInput.addEventListener("blur", () => setTimeout(hideSearchSuggestions, 120));
