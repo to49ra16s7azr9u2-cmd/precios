@@ -353,6 +353,13 @@ a { color: inherit; text-decoration: none; }
    la jerarquía en el primer vistazo. */
 .hero h1 { font-size: 28px; }
 .page-band h1 { font-size: 22px; }
+/* Logo "Compara precios" (imagen) en vez del texto plano del <h1> de
+   Inicio -- altura fija y ancho automático para no deformar el logo;
+   el archivo ya viene exportado al doble de esta altura (retina). */
+.hero-logo { display: block; height: 56px; width: auto; }
+@media (max-width: 480px) {
+  .hero-logo { height: 42px; }
+}
 .hero p, .page-band p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
 .hero p { max-width: 420px; }
 /* Banner chico para elegir ubicación, en la esquina vacía de la derecha
