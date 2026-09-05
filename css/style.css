@@ -356,9 +356,9 @@ a { color: inherit; text-decoration: none; }
 /* Logo "Compara precios" (imagen) en vez del texto plano del <h1> de
    Inicio -- altura fija y ancho automático para no deformar el logo;
    el archivo ya viene exportado al doble de esta altura (retina). */
-.hero-logo { display: block; height: 56px; width: auto; }
+.hero-logo { display: block; height: 24px; width: auto; }
 @media (max-width: 480px) {
-  .hero-logo { height: 42px; }
+  .hero-logo { height: 20px; }
 }
 .hero p, .page-band p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
 .hero p { max-width: 420px; }
@@ -740,6 +740,7 @@ a { color: inherit; text-decoration: none; }
   transition: background .15s;
 }
 .specs-banner:hover { background: #ffe1e1; }
+.specs-banner-logo { display: block; height: 16px; width: auto; flex-shrink: 0; }
 .specs-banner .icon { width: 20px; height: 20px; flex-shrink: 0; }
 .specs-banner span:not(.specs-banner-arrow) { flex: 1; min-width: 0; }
 .specs-banner-arrow { font-size: 20px; line-height: 1; flex-shrink: 0; }
