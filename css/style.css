@@ -361,7 +361,13 @@ a { color: inherit; text-decoration: none; }
   .hero-logo { height: 20px; }
 }
 .hero p, .page-band p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
-.hero p { max-width: 420px; }
+/* En una sola línea (a pedido del usuario, con captura) -- el max-width
+   de 420px de antes forzaba el salto a dos líneas. En mobile, donde no
+   entra ni en una línea larga, se vuelve a permitir el salto normal. */
+.hero p { white-space: nowrap; }
+@media (max-width: 600px) {
+  .hero p { white-space: normal; max-width: 420px; }
+}
 /* Banner chico para elegir ubicación, en la esquina vacía de la derecha
    del hero (a pedido del usuario, con captura marcando ese espacio) --
    margin-left:auto lo empuja al extremo derecho de la fila flex sin
