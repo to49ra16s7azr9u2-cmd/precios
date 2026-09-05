@@ -631,3 +631,92 @@ def os_of(name):
         if rx.search(n):
             return label
     return None
+
+
+# ---------------------------------------------------------------------
+# Monitores: tipo de panel y resolución
+# ---------------------------------------------------------------------
+# OLED antes que IPS/VA/TN -- "QD-OLED"/"WOLED" son variantes de OLED, y un
+# monitor OLED nunca es TAMBIÉN IPS/VA/TN (son tecnologías de panel
+# excluyentes), así que el primer match que aparezca es el correcto.
+_PANEL_TYPE_PATTERNS = (
+    ("OLED", re.compile(r"\boled\b|\bqd-oled\b|\bwoled\b")),
+    ("IPS", re.compile(r"\bips\b")),
+    ("VA", re.compile(r"\bva\b")),
+    ("TN", re.compile(r"\btn\b")),
+)
+
+
+def panel_type(name):
+    n = _norm(name)
+    for label, rx in _PANEL_TYPE_PATTERNS:
+        if rx.search(n):
+            return label
+    return None
+
+
+# Del más específico al más genérico -- "4K"/"UWQHD"/"DQHD" son también
+# técnicamente "HD", así que si "HD" (el patrón más suelto) se probara
+# primero se comería todo lo demás. Cada patrón exige su propia palabra
+# clave o su propia resolución en píxeles (nunca solo "ancho x alto"
+# suelto, que podría ser cualquier otra cosa en la ficha).
+_RESOLUTION_PATTERNS = (
+    ("4K UHD", re.compile(r"\b4k\b|\buhd\b|\b3840\s*x\s*2160\b")),
+    ("DQHD", re.compile(r"\bdqhd\b|\b5120\s*x\s*1440\b")),
+    ("UWQHD", re.compile(r"\buwqhd\b|\b3440\s*x\s*1440\b")),
+    ("QHD", re.compile(r"\bqhd\b|\bwqhd\b|\bquad\s*hd\b|\b2560\s*x\s*1440\b|\b2k\b")),
+    ("WFHD", re.compile(r"\bwfhd\b")),
+    ("FHD", re.compile(r"\bfhd\b|\bfull\s*hd\b|\b1920\s*x\s*1080\b|\b1080p\b")),
+    ("WSXGA+", re.compile(r"\bwsxga\+?\b|\b1680\s*x\s*1050\b")),
+    ("HD+", re.compile(r"\bhd\+\b|\b1440\s*x\s*900\b")),
+    ("HD", re.compile(r"\bhd\b|\b1366\s*x\s*768\b|\b1280\s*x\s*720\b")),
+)
+
+
+def resolution_of(name):
+    n = _norm(name)
+    for label, rx in _RESOLUTION_PATTERNS:
+        if rx.search(n):
+            return label
+    return None
+
+
+# screen_size_in() (arriba) exige una unidad explícita ("/pulgadas/inch) --
+# conservador para celulares/laptops, pero en Monitores la convención más
+# común es "Monitor {N} Marca Modelo" con el número SUELTO justo después
+# de la palabra "Monitor", sin unidad. Acotado a Monitores nomás (no se
+# toca screen_size_in, que sigue siendo lo que usan las demás categorías):
+# exige que el número esté a lo sumo a 25 caracteres de "monitor" Y dentro
+# del rango real de un monitor (14"-55") para no adivinar con un código de
+# modelo o una frecuencia cualquiera. Excluye explícitamente "NN cm" --
+# unas pocas fichas dan el tamaño en centímetros, no pulgadas, y sin este
+# descarte "48 cm" (en realidad ~19") se leía como un monitor de 48".
+_MONITOR_BARE_SIZE_RE = re.compile(r"\bmonitor(?:es)?\b[^0-9]{0,25}?(\d{2}(?:[.,]\d)?)\b(?!\s*cm\b)")
+
+
+def monitor_screen_in(name):
+    explicit = screen_size_in(name)
+    if explicit is not None:
+        return explicit
+    n = _norm(name).replace(",", ".")
+    m = _MONITOR_BARE_SIZE_RE.search(n)
+    if m:
+        try:
+            v = float(m.group(1))
+        except ValueError:
+            return None
+        if 14.0 <= v <= 55.0:
+            return v
+    return None
+
+
+_CURVED_RE = re.compile(r"\bcurv[ao]\b|\bcurved\b|\b\d{3,4}r\b")
+
+
+def is_curved(name):
+    """True si el nombre dice explícitamente que es curvo, None si no dice
+    nada (nunca False -- un monitor plano normalmente no se anuncia como
+    "no curvo", así que la ausencia de la palabra no confirma que sea
+    plano)."""
+    n = _norm(name)
+    return True if _CURVED_RE.search(n) else None

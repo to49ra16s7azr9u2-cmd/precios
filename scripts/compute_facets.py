@@ -190,16 +190,39 @@ def _network(spec_map, name):
 
 def facets_for(product):
     category = product.get("category")
-    if category not in ("Celulares", "Laptops", "Tabletas"):
+    if category not in ("Celulares", "Laptops", "Tabletas", "Monitores"):
         return None
     name = product.get("name", "")
     brand = product.get("brand")
     spec_map = _spec_map(product)
 
+    f = {}
+
+    if category == "Monitores":
+        # Los monitores no tienen RAM/almacenamiento/tipo de almacenamiento
+        # que filtrar, y el tamaño de pantalla sigue una convención de
+        # nombre distinta a la de celulares/laptops/tabletas (número
+        # SUELTO justo después de "Monitor", ver monitor_screen_in) -- de
+        # ahí que este bloque no reuse _screen_in()/_SCREEN_RANGE.
+        screen = se.monitor_screen_in(name)
+        if screen is not None:
+            f["screen_in"] = screen
+        refresh = se.refresh_hz(name)
+        if refresh:
+            f["refresh_hz"] = refresh
+        resolution = se.resolution_of(name)
+        if resolution:
+            f["resolution"] = resolution
+        panel = se.panel_type(name)
+        if panel:
+            f["panel_type"] = panel
+        if se.is_curved(name):
+            f["curved"] = True
+        return f or None
+
     ram, storage = _ram_storage(category, name, spec_map)
     ram = _in_range(ram, _RAM_RANGE, category)
     storage = _in_range(storage, _STORAGE_RANGE, category)
-    f = {}
     if ram is not None:
         f["ram_gb"] = ram
     if storage is not None:
@@ -267,7 +290,7 @@ def main():
     for p in products:
         f = facets_for(p)
         if f is None:
-            if p.get("category") in ("Celulares", "Laptops", "Tabletas"):
+            if p.get("category") in ("Celulares", "Laptops", "Tabletas", "Monitores"):
                 per_cat_total[p["category"]] += 1
             continue
         per_cat_total[p["category"]] += 1
@@ -279,7 +302,7 @@ def main():
             p["facets"] = f
 
     print("Cobertura por campo:")
-    for cat_name in ("Celulares", "Laptops", "Tabletas"):
+    for cat_name in ("Celulares", "Laptops", "Tabletas", "Monitores"):
         total = per_cat_total[cat_name]
         print(f"  {cat_name} (n={total}):")
         for (c, k), n in sorted(per_field.items()):

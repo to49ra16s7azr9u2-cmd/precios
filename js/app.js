@@ -294,8 +294,11 @@
     { key: "ram", facetField: "ram_gb", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterRamGroup", listEl: "filterRam", sortNum: true, format: (v) => `${v} GB` },
     { key: "storage", facetField: "storage_gb", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterStorageGroup", listEl: "filterStorage", sortNum: true, format: formatStorageGB },
     { key: "storageType", facetField: "storage_type", categories: ["Laptops", "Tabletas"], groupEl: "filterStorageTypeGroup", listEl: "filterStorageType", format: (v) => STORAGE_TYPE_LABELS[v] || v },
-    { key: "screen", facetField: "screen_in", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterScreenGroup", listEl: "filterScreen", sortNum: true, format: formatScreenIn },
-    { key: "refresh", facetField: "refresh_hz", categories: ["Celulares", "Laptops"], groupEl: "filterRefreshGroup", listEl: "filterRefresh", sortNum: true, format: (v) => `${v} Hz` },
+    { key: "screen", facetField: "screen_in", categories: ["Celulares", "Laptops", "Tabletas", "Monitores"], groupEl: "filterScreenGroup", listEl: "filterScreen", sortNum: true, format: formatScreenIn },
+    { key: "refresh", facetField: "refresh_hz", categories: ["Celulares", "Laptops", "Monitores"], groupEl: "filterRefreshGroup", listEl: "filterRefresh", sortNum: true, format: (v) => `${v} Hz` },
+    { key: "resolution", facetField: "resolution", categories: ["Monitores"], groupEl: "filterResolutionGroup", listEl: "filterResolution", format: (v) => v },
+    { key: "panelType", facetField: "panel_type", categories: ["Monitores"], groupEl: "filterPanelTypeGroup", listEl: "filterPanelType", format: (v) => v },
+    { key: "curved", facetField: "curved", categories: ["Monitores"], groupEl: "filterCurvedGroup", listEl: "filterCurved", format: () => "Curvo" },
     { key: "network", facetField: "network_gen", categories: ["Celulares", "Tabletas"], groupEl: "filterNetworkGroup", listEl: "filterNetwork", format: (v) => NETWORK_LABELS[v] || v },
     { key: "chipset", facetField: "chipset_family", categories: ["Celulares", "Tabletas"], groupEl: "filterChipsetGroup", listEl: "filterChipset", format: (v) => v },
     { key: "model", facetField: "model_name", categories: ["Celulares"], groupEl: "filterModelGroup", listEl: "filterModel", format: (v) => v },
@@ -395,6 +398,12 @@
     filterScreen: document.getElementById("filterScreen"),
     filterRefreshGroup: document.getElementById("filterRefreshGroup"),
     filterRefresh: document.getElementById("filterRefresh"),
+    filterResolutionGroup: document.getElementById("filterResolutionGroup"),
+    filterResolution: document.getElementById("filterResolution"),
+    filterPanelTypeGroup: document.getElementById("filterPanelTypeGroup"),
+    filterPanelType: document.getElementById("filterPanelType"),
+    filterCurvedGroup: document.getElementById("filterCurvedGroup"),
+    filterCurved: document.getElementById("filterCurved"),
     filterNetworkGroup: document.getElementById("filterNetworkGroup"),
     filterNetwork: document.getElementById("filterNetwork"),
     filterChipsetGroup: document.getElementById("filterChipsetGroup"),
@@ -2834,7 +2843,7 @@
   // cubre Computadoras/Computadoras de escritorio). Abre un modal con
   // TODOS los filtros de SPEC_FACETS desplegados de una (en vez de
   // navegar a otra vista) para no perder el listado de fondo.
-  const SPECS_BANNER_CATEGORIES = ["Celulares", "Laptops", "Tabletas"];
+  const SPECS_BANNER_CATEGORIES = ["Celulares", "Laptops", "Tabletas", "Monitores"];
 
   function renderSpecsBanner() {
     const relevant = SPECS_BANNER_CATEGORIES.includes(state.category);
