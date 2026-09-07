@@ -50,6 +50,7 @@ import argparse
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 import urllib.error
@@ -59,6 +60,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import load_catalog, save_catalog  # noqa: E402
+from phone_signature import condition_of  # noqa: E402  -- nuevo/reacondicionado
 
 BY_GTIN = "https://comparamx-mercadolibre-proxy.comparamx.workers.dev/by-gtin"
 ITEM = "https://comparamx-mercadolibre-proxy.comparamx.workers.dev/item"
@@ -91,6 +93,25 @@ def normalize_gtin(raw):
     return stripped
 
 
+def _get_curl(url):
+    """Plan B para entornos detrás de un proxy que rechaza a urllib.
+
+    En el contenedor donde se probó esto, urllib recibe 403 del proxy de
+    salida mientras curl pasa sin problema contra la MISMA url. No es un
+    problema del Worker ni del script -- en una máquina normal el camino de
+    arriba funciona -- pero sin esta salida el script no se puede ni medir
+    desde ahí: la sonda de "¿está desplegado /by-gtin?" daba siempre que no.
+    """
+    try:
+        out = subprocess.run(
+            ["curl", "-s", "--max-time", "30", url],
+            capture_output=True, text=True, timeout=40,
+        )
+        return json.loads(out.stdout) if out.stdout.strip() else None
+    except Exception:
+        return None
+
+
 def get_json(url, retries=2):
     for attempt in range(retries + 1):
         try:
@@ -102,12 +123,17 @@ def get_json(url, retries=2):
                     return json.load(e)
                 except Exception:
                     return None
+            if e.code == 403:
+                # Proxy de salida, no el Worker: se reintenta con curl.
+                got = _get_curl(url)
+                if got is not None:
+                    return got
             if attempt == retries:
                 return None
             time.sleep(1.5 * (attempt + 1))
         except Exception:
             if attempt == retries:
-                return None
+                return _get_curl(url)
             time.sleep(1.5 * (attempt + 1))
     return None
 
@@ -128,7 +154,7 @@ def candidates(products):
     return out
 
 
-def ml_offer_for(gtin):
+def ml_offer_for(gtin, our_name=""):
     """(oferta_lista_para_guardar, producto_ml) del producto de catálogo con
     ESE código de barras, o (None, motivo)."""
     res = get_json(f"{BY_GTIN}?gtin={urllib.parse.quote(gtin)}")
@@ -161,6 +187,12 @@ def ml_offer_for(gtin):
         publicados.discard(None)
         if publicados and gtin not in publicados:
             return None, "gtin_no_confirma"
+    # El código de barras identifica el PRODUCTO, no en qué estado se vende.
+    # Un iPhone reacondicionado de Elektra y uno nuevo de Mercado Libre
+    # comparten GTIN, y unirlos pondría el precio de uno en la ficha del
+    # otro -- que es justo el error que este script existe para evitar.
+    if condition_of(our_name) != condition_of(ml.get("name") or ""):
+        return None, "condicion_distinta"
     detail = get_json(f"{ITEM}?id={urllib.parse.quote(ml['id'])}")
     if not detail or not detail.get("price"):
         return None, "sin_ofertas_activas"
@@ -212,8 +244,8 @@ def main():
         raise SystemExit(2)
 
     stats = {"consultados": 0, "unidos": 0, "sin_coincidencia": 0, "ambiguo": 0,
-             "sin_ofertas_activas": 0, "gtin_no_confirma": 0, "error_worker": 0,
-             "sin_respuesta": 0}
+             "sin_ofertas_activas": 0, "gtin_no_confirma": 0, "condicion_distinta": 0,
+             "error_worker": 0, "sin_respuesta": 0}
     unidos = []
 
     # Las peticiones van en paralelo, pero el conteo y la escritura en el
@@ -225,7 +257,7 @@ def main():
 
     def work(item):
         product, gtin = item
-        offer, info = ml_offer_for(gtin)
+        offer, info = ml_offer_for(gtin, product.get("name", ""))
         with lock:
             stats["consultados"] += 1
             if offer is None:
