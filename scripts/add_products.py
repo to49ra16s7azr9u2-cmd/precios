@@ -174,7 +174,14 @@ def build_index(products):
     seen_ml, seen_sig = set(), set()
     for p in products:
         seen_sig.add(sig(p["name"]))
-        for o in list(p.get("offers", [])) + list(p.get("colorVariants") or []):
+        nodos = list(p.get("offers", []))
+        for v in p.get("colorVariants") or []:
+            # Las variantes del formato nuevo (merge_by_color.py) guardan sus
+            # ofertas adentro. Sin mirarlas, este índice no veía las
+            # publicaciones de los productos fusionados por color y una
+            # importación las habría vuelto a dar de alta como duplicados.
+            nodos += list(v.get("offers") or []) if "offers" in v else [v]
+        for o in nodos:
             i = ml_id(o.get("url"))
             if i:
                 seen_ml.add(i)

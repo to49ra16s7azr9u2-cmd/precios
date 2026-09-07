@@ -57,7 +57,10 @@ def main(data_path, limit):
     data = json.load(open(data_path, encoding="utf-8"))
     todo = []
     for p in data["products"]:
-        for node in (p.get("offers") or []) + (p.get("colorVariants") or []):
+        nodos = list(p.get("offers") or [])
+        for v in p.get("colorVariants") or []:
+            nodos += list(v.get("offers") or []) if "offers" in v else [v]
+        for node in nodos:
             m = re.search(r"/p/(MLM\d+)", node.get("url") or "")
             if m and (node.get("sellerCount") or 0) > 1 and not node.get("sellers"):
                 todo.append((p, node, m.group(1), node["sellerCount"]))

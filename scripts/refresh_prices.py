@@ -153,8 +153,18 @@ def targets_of(product):
         if catalog_id(o.get("url")):
             out.append((f"offer[{i}]", o))
     for i, v in enumerate(product.get("colorVariants") or []):
+        # Formato viejo (merge_color_variants.py): la variante ES la oferta,
+        # con url/price sueltos.
         if catalog_id(v.get("url")):
             out.append((f"variant[{i}]", v))
+            continue
+        # Formato nuevo (merge_by_color.py): la variante tiene sus propias
+        # ofertas. Sin esta rama, el precio de Mercado Libre de un producto
+        # fusionado por color no se refrescaba nunca: la variante no tiene
+        # url propia, así que catalog_id() daba None y se saltaba entera.
+        for j, oferta in enumerate(v.get("offers") or []):
+            if catalog_id(oferta.get("url")):
+                out.append((f"variant[{i}].offer[{j}]", oferta))
     return out
 
 
@@ -170,7 +180,11 @@ def prune_dead(products, dead_ids):
     for p in products:
         offers = p.get("offers") or []
         variants = p.get("colorVariants") or []
-        if len(variants) > 1:
+        # Solo el formato viejo se poda por variante: ahí la variante ES la
+        # publicación, así que si murió, murió el color entero. En el formato
+        # nuevo las ofertas viven dentro de la variante y se podan abajo,
+        # junto con las del producto, por el camino normal de offers[].
+        if len(variants) > 1 and not any("offers" in v for v in variants):
             alive = [v for v in variants if catalog_id(v.get("url")) not in dead_ids]
             if not alive:
                 removed.append(p["id"])

@@ -152,10 +152,7 @@ def seller_total(product):
     de catálogo de Mercado Libre puede tener varios vendedores en una sola
     oferta; una ficha fusionada por color los tiene repartidos por variante.
     Se usa para desempatar el ranking (ver más abajo)."""
-    variants = product.get("colorVariants") or []
-    if len(variants) > 1:
-        return sum((v.get("sellerCount") or 1) for v in variants)
-    return sum((o.get("sellerCount") or 1) for o in (product.get("offers") or []))
+    return sum((o.get("sellerCount") or 1) for o in purchase_options(product))
 
 
 def is_used(product):
@@ -302,12 +299,50 @@ def seller_total(product):
     informaba nada; lo que varía es cuántos vendedores compiten por el mismo
     producto, que es además sobre lo que se calcula el precio "Desde".
     """
-    # Mismas opciones de compra que purchaseOptions() en js/app.js: las
-    # variantes de color SUSTITUYEN a la oferta base (no se suman), o se
-    # contaría dos veces la misma publicación.
+    return sum((o.get("sellerCount") or 1) for o in purchase_options(product)) or 1
+
+
+def purchase_options(product):
+    """Espejo de purchaseOptions() en js/app.js. Las variantes de color
+    SUSTITUYEN a la oferta base (no se suman), o se contaría dos veces la
+    misma publicación.
+
+    Hay dos formatos de variante conviviendo en el catálogo y este archivo
+    solo entendía el viejo:
+      viejo (merge_color_variants.py): {"color", "price", "url", ...}
+      nuevo (merge_by_color.py):       {"color", "offers": [ ... ]}
+    Con el nuevo, contar `v.get("sellerCount")` daba 1 por color (sin
+    importar cuántos vendedores tuviera de verdad), y seller_rows() leía
+    product["offers"], que tras la fusión son solo las del color más barato
+    -- o sea que la página estática se publicaba sin las ofertas de los
+    demás colores.
+    """
     variants = product.get("colorVariants") or []
-    options = variants if len(variants) > 1 else product["offers"]
-    return sum((o.get("sellerCount") or 1) for o in options) or 1
+    offers = product.get("offers") or []
+    if len(variants) > 1 and any("offers" in v for v in variants):
+        out = []
+        for v in variants:
+            for oferta in v.get("offers") or []:
+                copia = dict(oferta)
+                copia["colorLabel"] = v.get("color")
+                out.append(copia)
+        return out or offers
+    if len(variants) > 1 and offers:
+        base = offers[0]
+        out = []
+        for v in variants:
+            copia = dict(base)
+            copia["price"] = v.get("price")
+            copia["url"] = v.get("url")
+            copia["photo"] = v.get("photo")
+            copia["listPrice"] = base.get("listPrice") if v.get("url") == base.get("url") else None
+            copia["sellerCount"] = v.get("sellerCount")
+            copia["lowestPrice"] = v.get("lowestPrice")
+            copia["sellers"] = v.get("sellers")
+            copia["colorLabel"] = v.get("color")
+            out.append(copia)
+        return out
+    return offers
 
 
 def seller_rows(product):
@@ -319,7 +354,7 @@ def seller_rows(product):
     paga al hacer clic EN ESA fila.
     """
     out = []
-    for o in product["offers"]:
+    for o in purchase_options(product):
         sellers = o.get("sellers") or []
         if len(sellers) < 2:
             out.append(o)

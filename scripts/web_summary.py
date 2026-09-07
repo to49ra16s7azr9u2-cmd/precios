@@ -89,6 +89,18 @@ def purchase_options(product):
     """Espejo de purchaseOptions() en js/app.js."""
     variants = product.get("colorVariants") or []
     offers = product.get("offers") or []
+    # Formato nuevo (merge_by_color.py): cada variante trae SUS PROPIAS
+    # ofertas. Sin esta rama, v.get("price") y v.get("url") daban None y las
+    # páginas estáticas de los productos fusionados por color se publicaban
+    # sin precio y sin enlace.
+    if len(variants) > 1 and any("offers" in v for v in variants):
+        out = []
+        for v in variants:
+            for oferta in v.get("offers") or []:
+                copia = dict(oferta)
+                copia["colorLabel"] = v.get("color")
+                out.append(copia)
+        return out or offers
     if len(variants) > 1 and offers:
         base = offers[0]
         out = []

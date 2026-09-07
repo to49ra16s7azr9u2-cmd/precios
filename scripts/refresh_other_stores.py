@@ -292,10 +292,18 @@ def targets_of(product):
         if o.get("storeId") in SUPPORTED_STORES:
             out.append((f"offer[{i}]", o))
     for i, v in enumerate(product.get("colorVariants") or []):
-        # Los colorVariants heredan storeId de offers[0] (ver purchaseOptions
-        # en js/app.js); mismo criterio acá.
+        # Formato nuevo (merge_by_color.py): la variante trae sus propias
+        # ofertas, cada una con su storeId. Devolver la variante entera como
+        # nodo hacía tronar el bucle de abajo con KeyError: 'url'.
+        if "offers" in v:
+            for j, oferta in enumerate(v.get("offers") or []):
+                if oferta.get("storeId") in SUPPORTED_STORES and oferta.get("url"):
+                    out.append((f"variant[{i}].offer[{j}]", oferta))
+            continue
+        # Formato viejo: los colorVariants heredan storeId de offers[0] (ver
+        # purchaseOptions en js/app.js); mismo criterio acá.
         base_store = (product.get("offers") or [{}])[0].get("storeId")
-        if base_store in SUPPORTED_STORES:
+        if base_store in SUPPORTED_STORES and v.get("url"):
             out.append((f"variant[{i}]", v))
     return out
 
