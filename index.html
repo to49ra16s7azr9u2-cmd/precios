@@ -23,7 +23,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=cdfecc97">
+<link rel="stylesheet" href="css/style.min.css?v=1dcd82fe">
 <!-- Google tag (gtag.js) -->
 <script>
   // Consent Mode: por defecto TODO denegado hasta que el aviso de cookies
@@ -362,6 +362,11 @@
                  de la tabla de precios. -->
             <div class="color-filter hidden" id="detailColorFilter"></div>
             <p class="detail-fromprice" id="detailFromPrice"></p>
+            <!-- Agregar ESTE producto a la comparación de specs. Existía
+                 solo en las filas de la lista, así que quien llegaba a la
+                 ficha desde una búsqueda o un enlace no tenía cómo
+                 compararlo con nada. Lo llena renderDetailCompare(). -->
+            <button type="button" class="detail-compare" id="detailCompareBtn"></button>
           </div>
           <!-- Ocupa el hueco que quedó vacío al quitar el corazón de
                favoritos (a pedido del usuario, con una captura marcando el
@@ -402,6 +407,12 @@
              estuviera en la comparación. Una sola tabla, todas las tiendas
              juntas y ordenadas por precio. -->
         <div class="offer-group" id="offerGroup">
+          <!-- Aviso de que la tabla está mostrando solo las ofertas
+               marcadas. Lo controla applyOfferCompare() en js/app.js. -->
+          <div class="offer-compare-note hidden">
+            <span class="offer-compare-count"></span>
+            <button type="button" class="link-btn offer-compare-clear">Ver todas</button>
+          </div>
           <div class="table-scroll">
             <table class="compare-table">
               <thead>
@@ -412,6 +423,7 @@
                   <th>Disponibilidad</th>
                   <th>Puntos</th>
                   <th>Calificación</th>
+                  <th></th>
                   <th></th>
                 </tr>
               </thead>
@@ -820,7 +832,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=92288073"></script>
+<script src="js/app.min.js?v=5699c43b"></script>
 </div>
 </body>
 </html>

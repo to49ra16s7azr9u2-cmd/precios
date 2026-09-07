@@ -472,6 +472,7 @@
     detailColorFilter: document.getElementById("detailColorFilter"),
     offerColorFilter: document.getElementById("offerColorFilter"),
     detailFromPrice: document.getElementById("detailFromPrice"),
+    detailCompareBtn: document.getElementById("detailCompareBtn"),
     detailTopOffers: document.getElementById("detailTopOffers"),
     detailQuickNav: document.getElementById("detailQuickNav"),
     deliveryBanner: document.getElementById("deliveryBanner"),
@@ -4460,6 +4461,32 @@
     `;
   }
 
+  // Botón "Comparar" de la ficha: agrega ESTE producto a la comparación de
+  // specs, la misma que alimentan los checkboxes de la lista. Hasta ahora
+  // solo se podía agregar desde la lista, así que quien llegaba a la ficha
+  // desde una búsqueda, un enlace compartido o una página de SEO no tenía
+  // forma de comparar lo que estaba viendo.
+  function renderDetailCompare(product) {
+    const btn = el.detailCompareBtn;
+    if (!btn) return;
+    const dentro = isInCompare(product.id);
+    btn.classList.toggle("active", dentro);
+    btn.innerHTML = dentro
+      ? `${icon("check-circle")} En la comparación`
+      : `${icon("tag")} Comparar con otro producto`;
+    btn.title = dentro
+      ? "Quitar este producto de la comparación"
+      : "Guárdalo y elige otro producto de la misma categoría para verlos lado a lado";
+    btn.onclick = () => {
+      const res = toggleCompareItem(product);
+      if (!res.ok && res.reason === "full") {
+        btn.title = `La comparación admite ${COMPARE_MAX} productos: quita uno para agregar este.`;
+        return;
+      }
+      renderDetailCompare(product);
+    };
+  }
+
   // Desplaza suave hasta una sección de la ficha, descontando la altura REAL
   // del topbar sticky (se mide en el clic, no se supone un valor fijo: en
   // móvil el menú de categorías puede ocupar una o dos líneas según el ancho,
@@ -4553,6 +4580,7 @@
     el.detailColors.innerHTML = detailColorSwatchHtml(product);
     colorFilterButtons(el.detailColorFilter, product);
     renderDetailPriceHeader(product);
+    renderDetailCompare(product);
     renderDetailQuickNav();
 
     el.specTable.innerHTML = product.specs
@@ -4775,8 +4803,55 @@
   // bestPrice/fastestDays se calculan sobre TODAS las ofertas (ambos grupos),
   // para que "MÁS BARATO"/"MÁS RÁPIDO" reflejen la comparación completa aunque
   // se muestren en tablas separadas.
+  // Ofertas marcadas para comparar DENTRO de la tabla de una ficha. Vive
+  // acá y no en state porque no debe sobrevivir a cambiar de producto: son
+  // las filas de esta tabla, no una selección del sitio.
+  let offerCompareSel = new Set();
+  let offerCompareProduct = null;
+
+  // Con 2 o más ofertas marcadas, la tabla se queda solo con esas. Es lo
+  // único que la tabla no sabía hacer ya: mostrarlas todas juntas sí, pero
+  // con 8 vendedores comparar la 2ª contra la 7ª obliga a saltar filas.
+  // Con 0 o 1 marcada no se oculta nada -- una sola oferta no es una
+  // comparación, y esconder el resto sería perder la tabla por un clic.
+  function applyOfferCompare(tbody) {
+    const activo = offerCompareSel.size >= 2;
+    tbody.querySelectorAll("tr[data-offer-key]").forEach((tr) => {
+      const marcada = offerCompareSel.has(tr.dataset.offerKey);
+      tr.classList.toggle("offer-compare-on", marcada);
+      tr.classList.toggle("offer-compare-off", activo && !marcada);
+    });
+    // El aviso es HERMANO de .table-scroll, no descendiente: hay que subir
+    // hasta .offer-group para encontrarlo.
+    const grupo = tbody.closest(".offer-group");
+    const nota = grupo ? grupo.querySelector(".offer-compare-note") : null;
+    if (nota) {
+      nota.classList.toggle("hidden", !activo);
+      const limpiar = nota.querySelector(".offer-compare-clear");
+      if (limpiar && !limpiar.dataset.wired) {
+        limpiar.dataset.wired = "1";
+        limpiar.onclick = () => {
+          offerCompareSel = new Set();
+          tbody.querySelectorAll(".offer-compare-input").forEach((c) => { c.checked = false; });
+          applyOfferCompare(tbody);
+        };
+      }
+      const n = offerCompareSel.size;
+      nota.querySelector(".offer-compare-count").textContent =
+        `Comparando ${n} ofertas de las ${tbody.querySelectorAll("tr[data-offer-key]").length}`;
+    }
+  }
+
   function renderOfferRows(tbody, rows, bestPrice, fastestDays, recommendedStoreId, productId) {
     tbody.innerHTML = "";
+    // La tabla se vuelve a dibujar sola cuando llegan los precios en vivo
+    // (refreshLiveOffers). Vaciar la selección en cada dibujado le borraba
+    // al usuario lo que acababa de marcar, así que solo se limpia al
+    // cambiar de producto.
+    if (offerCompareProduct !== productId) {
+      offerCompareSel = new Set();
+      offerCompareProduct = productId;
+    }
     // La foto de la oferta ya no se guarda cuando es idéntica a la del
     // producto (era el 100% de los casos: ~10 MB de strings repetidas, ver
     // scripts/trim_catalog.py). La pastilla "Esta" del selector de variantes
@@ -4932,11 +5007,25 @@
         <td>${stockInfo ? `<span class="stock-badge ${stockInfo.cls}">${stockInfo.text}</span>` : "—"}</td>
         <td>${pointsHtml}</td>
         <td class="stars-cell">${ratingHtml}</td>
+        <td class="offer-compare-cell">
+          <label class="offer-compare" title="Marca dos o más ofertas para dejar solo esas en la tabla">
+            <input type="checkbox" class="offer-compare-input"><span>Comparar</span>
+          </label>
+        </td>
         <td>
           <button class="buy-btn">Ver oferta</button>
           <div class="buy-trust">${icon("lock")} Compra en el sitio real de la tienda</div>
         </td>
       `;
+      // Clave estable por fila: la url identifica la oferta mejor que el
+      // índice, que cambia al reordenar la tabla.
+      tr.dataset.offerKey = r.url || `${r.storeId}-${r.price}`;
+      tr.querySelector(".offer-compare-input").checked = offerCompareSel.has(tr.dataset.offerKey);
+      tr.querySelector(".offer-compare-input").onchange = (e) => {
+        if (e.target.checked) offerCompareSel.add(tr.dataset.offerKey);
+        else offerCompareSel.delete(tr.dataset.offerKey);
+        applyOfferCompare(tbody);
+      };
       tr.querySelector(".buy-btn").onclick = () => { trackStoreClick(productId); window.open(r.url, "_blank"); };
       tr.querySelectorAll(".variant-pill").forEach((btn) => {
         btn.onclick = (e) => {
@@ -4949,6 +5038,10 @@
       });
       tbody.appendChild(tr);
     });
+    // Reaplica el estado a las filas recién creadas: si el usuario tenía
+    // ofertas marcadas y llegó una actualización en vivo, la tabla vuelve
+    // a quedar como la había dejado.
+    applyOfferCompare(tbody);
   }
 
   function renderOfferTable(product) {
