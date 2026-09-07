@@ -58,6 +58,12 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHIPPING_RATES_PATH = os.path.join(ROOT, "data", "shipping-rates.json")
 PROXY = "https://comparamx-mercadolibre-proxy.comparamx.workers.dev/item"
 
+# Por encima de esta proporción de "sin ofertas activas" NO se poda nada (ver
+# el bloque de poda en main): a partir de ahí es mucho más creíble que falle
+# la API a que se haya muerto esa parte del catálogo. Medido contra el
+# catálogo real: una corrida sana ronda el 5-10%.
+PRUNE_ABORT_RATE = 0.25
+
 CATALOG_ID = re.compile(r"/p/(MLM\d+)")
 
 
@@ -67,19 +73,25 @@ def catalog_id(url):
 
 
 def seller_url(product_id, item_id):
-    """Enlace a la oferta de UN vendedor dentro de un producto de catálogo.
+    """Enlace a la PUBLICACIÓN de un vendedor concreto.
+
+    Antes esto armaba la URL del producto de CATÁLOGO con el filtro del
+    vendedor (`/p/{catalogo}?pdp_filters=item_id:{item}`). Eso abre la página
+    de catálogo -- la de "Ver opciones de compra", con el panel de "Otras
+    opciones de compra" al costado -- y no la publicación del vendedor cuyo
+    precio estamos publicando, que es la que trae el botón "Comprar ahora"
+    con ese precio. A pedido del usuario (con captura de las dos páginas),
+    el enlace va ahora directo a la publicación.
 
     La API no da el permalink de cada publicación (viene vacío en
-    /products/{id} y /items/{id} responde 403 con el token de esta app), así
-    que se arma sobre la URL del producto de catálogo -- la que el sitio ya
-    usaba -- agregándole el filtro que Mercado Libre entiende para abrir a un
-    vendedor concreto. Verificado a mano contra dos publicaciones del iPhone
-    17: abrieron $18,855 y $19,499 en vez del precio de la caja de compra.
-
-    Si Mercado Libre dejara de reconocer el parámetro, la URL sigue siendo la
-    del producto: se degrada a lo que se mostraba antes, no a un 404.
+    /products/{id}, y /items/{id} responde 403 con el token de esta app), así
+    que se arma con el formato canónico de Mercado Libre
+    (articulo.mercadolibre.com.mx/MLM-<numero>-_JM): el slug del título es
+    opcional, alcanza con el id para que Mercado Libre resuelva y redirija a
+    la publicación real.
     """
-    return f"https://www.mercadolibre.com.mx/p/{product_id}?pdp_filters=item_id:{item_id}"
+    numeric = item_id[3:] if item_id.upper().startswith("MLM") else item_id
+    return f"https://articulo.mercadolibre.com.mx/MLM-{numeric}-_JM"
 
 
 def sellers_of(res, product_id):
@@ -377,11 +389,32 @@ def main():
     removed_ids = []
     trimmed = 0
     if args.prune and dead_ids:
-        before = len(all_products)
-        survivors, removed_ids, trimmed = prune_dead(all_products, dead_ids)
-        data["products"] = survivors
-        print(f"\nPoda: {before - len(survivors)} productos sin ninguna oferta activa, "
-              f"{trimmed} variantes de color individuales recortadas (producto sobrevive con las demás).")
+        # Freno de mano para las corridas automáticas (ver
+        # .github/workflows/refresh-precios.yml): "sin ofertas activas" es un
+        # veredicto que BORRA productos del catálogo, y se apoya en que la
+        # respuesta del Worker sea confiable. Si Mercado Libre tiene un mal
+        # día (token vencido, rate limit, respuestas sin `price`), medio
+        # catálogo puede parecer muerto de golpe -- y sin nadie mirando, eso
+        # se commitea solo. Una tasa así de alta es mucho más probable que
+        # sea un problema del lado de la API que un catálogo que se murió de
+        # verdad: se avisa y NO se poda, para que un humano lo revise.
+        checked = stats["revisados"] or 1
+        dead_rate = stats["sin_oferta"] / checked
+        if dead_rate > PRUNE_ABORT_RATE:
+            print(
+                f"\nPoda CANCELADA: {stats['sin_oferta']} de {checked} productos revisados "
+                f"({dead_rate:.0%}) respondieron sin ofertas activas, por encima del "
+                f"{PRUNE_ABORT_RATE:.0%} que se considera normal. Es más probable que sea "
+                "un problema de la API que un catálogo muerto. No se borró nada; "
+                "revisa el Worker y vuelve a correr.",
+                file=sys.stderr,
+            )
+        else:
+            before = len(all_products)
+            survivors, removed_ids, trimmed = prune_dead(all_products, dead_ids)
+            data["products"] = survivors
+            print(f"\nPoda: {before - len(survivors)} productos sin ninguna oferta activa, "
+                  f"{trimmed} variantes de color individuales recortadas (producto sobrevive con las demás).")
 
     if not args.dry_run:
         save_catalog(data)

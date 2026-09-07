@@ -679,9 +679,8 @@ def write_sitemaps(data, root):
     for cat in data["categories"]:
         page_urls.append(f"{SITE_URL}/categoria/{slugify(cat['name'])}/")
     pages_path = os.path.join(root, "sitemap-pages.xml")
-    with open(pages_path, "w", encoding="utf-8") as f:
-        f.write(_urlset_xml(page_urls))
-    written.append(pages_path)
+    if write_if_changed(pages_path, _urlset_xml(page_urls)):
+        written.append(pages_path)
     sitemap_files = ["sitemap-pages.xml"]
 
     product_urls = [f"{SITE_URL}/producto/{p['id']}/" for p in data["products"]]
@@ -689,9 +688,8 @@ def write_sitemaps(data, root):
     for i, chunk in enumerate(chunks, 1):
         name = f"sitemap-products-{i}.xml"
         path = os.path.join(root, name)
-        with open(path, "w", encoding="utf-8") as f:
-            f.write(_urlset_xml(chunk))
-        written.append(path)
+        if write_if_changed(path, _urlset_xml(chunk)):
+            written.append(path)
         sitemap_files.append(name)
 
     index_entries = "\n".join(f"  <sitemap><loc>{SITE_URL}/{name}</loc></sitemap>" for name in sitemap_files)
@@ -701,9 +699,8 @@ def write_sitemaps(data, root):
         f"{index_entries}\n</sitemapindex>\n"
     )
     index_path = os.path.join(root, "sitemap.xml")
-    with open(index_path, "w", encoding="utf-8") as f:
-        f.write(index_xml)
-    written.append(index_path)
+    if write_if_changed(index_path, index_xml):
+        written.append(index_path)
     return written
 
 
@@ -760,6 +757,25 @@ _AI_BOT_USER_AGENTS = [
 ]
 
 
+def write_if_changed(path, body):
+    """Escribe solo si el contenido cambió; devuelve True si escribió.
+
+    Con 84 mil páginas de producto, reescribirlas todas en cada corrida de
+    precios (ver .github/workflows/refresh-prices.yml) metería 84 mil
+    archivos "modificados" en cada commit aunque solo se hubiera movido un
+    precio -- el historial de git crecería varios GB al año y el diff de
+    cada corrida sería ilegible. Comparando antes de escribir, el commit
+    muestra exactamente qué páginas cambiaron de verdad.
+    """
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            if f.read() == body:
+                return False
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(body)
+    return True
+
+
 def build_robots():
     ai_block = "".join(f"User-agent: {ua}\nDisallow: /\n\n" for ua in _AI_BOT_USER_AGENTS)
     return (
@@ -809,9 +825,8 @@ def main():
         out_dir = os.path.join(ROOT, "producto", product["id"])
         os.makedirs(out_dir, exist_ok=True)
         out_path = os.path.join(out_dir, "index.html")
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(render_product_page(product, data))
-        written.append(out_path)
+        if write_if_changed(out_path, render_product_page(product, data)):
+            written.append(out_path)
 
     for cat in data["categories"]:
         products = [p for p in data["products"] if p["category"] == cat["id"]]
@@ -819,16 +834,14 @@ def main():
         out_dir = os.path.join(ROOT, "categoria", slug)
         os.makedirs(out_dir, exist_ok=True)
         out_path = os.path.join(out_dir, "index.html")
-        with open(out_path, "w", encoding="utf-8") as f:
-            f.write(render_category_page(cat, products, data))
-        written.append(out_path)
+        if write_if_changed(out_path, render_category_page(cat, products, data)):
+            written.append(out_path)
 
     written += write_sitemaps(data, ROOT)
 
     robots_path = os.path.join(ROOT, "robots.txt")
-    with open(robots_path, "w", encoding="utf-8") as f:
-        f.write(build_robots())
-    written.append(robots_path)
+    if write_if_changed(robots_path, build_robots()):
+        written.append(robots_path)
 
     print(f"Generadas {len(written)} páginas/archivos SEO en {ROOT}:")
     for path in written:

@@ -181,10 +181,25 @@ def load_catalog():
 
 
 def _write(fname, payload):
+    """Escribe el archivo SOLO si su contenido cambió.
+
+    Importa desde que hay una corrida automática de precios (ver
+    .github/workflows/refresh-prices.yml): save_catalog reescribe las 49
+    shards de categoría en cada corrida, y si se reescriben todas aunque no
+    haya cambiado nada, cada corrida mete ~5 MB de blobs nuevos en el
+    historial de git -- varios GB al año por precios que casi siempre son
+    los mismos. Comparando antes de escribir, el commit de cada corrida
+    toca solo las categorías donde de verdad se movió un precio.
+    """
     path = os.path.join(ROOT, fname)
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    body = json.dumps(payload, **COMPACT)
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            if f.read() == body:
+                return
     with open(path, "w", encoding="utf-8") as f:
-        json.dump(payload, f, **COMPACT)
+        f.write(body)
 
 
 def _remove_stale(dirname, keep):
