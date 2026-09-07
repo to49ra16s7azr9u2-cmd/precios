@@ -3,8 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ComparaMEX — Compara precios y tiempos de entrega</title>
-<meta name="description" content="Compara precios entre tiendas mexicanas: rankings, fichas de producto con reseñas y comparador de precios por tienda.">
+<title>ComparaMEX — Compara precios entre tiendas mexicanas</title>
+<!-- La frescura del precio va adelante en las dos, porque es lo que
+     distingue al sitio de un directorio: el catálogo se actualiza solo
+     todos los días (.github/workflows/refresh-precios.yml, 09:00 UTC) y la
+     ficha vuelve a pedir el precio al abrirse.
+     Se dice "desde Mercado Libre" y no "en vivo" a secas a propósito: hoy
+     solo esa tienda tiene API en vivo conectada (LIVE_API_CONFIG en
+     js/app.js; el resto está en enabled:false), así que prometer precio en
+     vivo de todas las tiendas sería falso. Si mañana se conecta otra, se
+     amplía la frase acá. -->
+<meta name="description" content="Precios de Mercado Libre actualizados a diario y consultados otra vez al abrir cada ficha. Compara entre tiendas mexicanas: rankings y reseñas.">
 <!-- noai/noimageai: señal informal (no estándar, pero varios rastreadores de
      IA ya la respetan) de que este contenido no debe usarse para entrenar
      modelos. index/follow se mantiene para que buscadores normales sí
@@ -23,7 +32,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=1dcd82fe">
+<link rel="stylesheet" href="css/style.min.css?v=458aa3b7">
 <!-- Google tag (gtag.js) -->
 <script>
   // Consent Mode: por defecto TODO denegado hasta que el aviso de cookies
@@ -80,6 +89,12 @@
       <div class="hero">
         <h1><img class="hero-logo" src="icons/logo-comparaprecios.png" alt="Compara precios"></h1>
         <p class="muted">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</p>
+        <!-- La misma promesa que la meta description, pero en la página: sin
+             ella Google arma el resumen con el texto que sí encuentra acá y
+             la frescura del precio no aparece por ningún lado. Dice
+             "Mercado Libre" por lo mismo que la meta (ver el comentario del
+             <head>): es la única tienda que hoy se actualiza sola. -->
+        <p class="hero-freshness"><span class="hero-freshness-dot"></span>Los precios de Mercado Libre se actualizan todos los días, y se vuelven a consultar al abrir cada producto.</p>
         <button class="hero-map-btn" id="homeLocationBtn">
           <span class="hero-map-btn-icon"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.6 7-12.2A7 7 0 0 0 5 9.3c0 5.6 7 12.2 7 12.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.2" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           <span class="hero-map-btn-text">

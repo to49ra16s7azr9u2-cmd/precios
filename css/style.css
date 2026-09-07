@@ -824,6 +824,31 @@ tr.offer-compare-off { display: none; }
 }
 .offer-compare-note .link-btn { font-size: 12px; }
 
+/* Línea de frescura del precio bajo el logo de la portada. Discreta: es
+   una promesa que se cumple, no un cartel. */
+.hero-freshness {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 2px 0 0;
+  padding: 5px 12px;
+  border: 1px solid var(--green);
+  border-radius: 999px;
+  background: var(--green-tint);
+  font-size: 12px;
+  font-weight: 700;
+  color: #0a6b30;
+  line-height: 1.4;
+  text-align: left;
+}
+.hero-freshness-dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
 /* Botón "Comparar" de la ficha de producto. Discreto a propósito: la
    acción principal de la ficha es ver la oferta, no comparar. */
 .detail-compare {
