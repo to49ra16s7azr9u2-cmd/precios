@@ -389,6 +389,14 @@ function brandFrom(product) {
   return attrValue(product, "BRAND");
 }
 
+// Código de barras del fabricante. Mercado Libre lo publica como atributo
+// GTIN del producto de catálogo; algunos productos traen EAN/UPC en su
+// lugar. No va en specs (a un comprador no le dice nada): se manda como
+// campo propio, para poder cruzar el mismo producto entre tiendas.
+function gtinFrom(product) {
+  return attrValue(product, "GTIN") || attrValue(product, "EAN") || attrValue(product, "UPC");
+}
+
 function specsFrom(product) {
   return SPEC_ATTRS
     .map(([id, label]) => ({ label, value: attrValue(product, id) }))
@@ -418,10 +426,57 @@ async function handleItemById(id, env) {
     title: product.name || null,
     brand: brandFrom(product),
     specs: specsFrom(product),
+    // Código de barras del fabricante. No se muestra en el sitio: sirve para
+    // reconocer que un producto de OTRA tienda es exactamente este mismo
+    // (ver handleByGtin más abajo y scripts/match_by_gtin.py).
+    gtin: gtinFrom(product),
     url: catalogUrl(id),
     photo: photoFrom(product),
     ...offer,
   });
+}
+
+// Producto de catálogo que corresponde a un código de barras (EAN/UPC/GTIN).
+//
+// PARA QUÉ
+// --------
+// Casi todo el catálogo de ComparaMEX viene de Elektra (~76,000 ofertas) y
+// no tiene ninguna oferta de Mercado Libre, así que en esos productos no
+// hay nada que comparar: una sola tienda y ya. Buscar el equivalente POR
+// NOMBRE ya se intentó y salió mal (ver scripts/audit_cross_store.py: al
+// Motorola G100 se le pegó el precio de un sistema de guitarra Gemini
+// GMU-G100, y a la Canon T100 el de un foco LED T100). El código de barras
+// es el identificador que no admite esa ambigüedad: o es exactamente el
+// mismo producto, o no aparece.
+//
+// `product_identifier` es el parámetro de la API de catálogo para esto. Si
+// Mercado Libre lo rechazara, este endpoint devuelve el error tal cual y NO
+// cae a una búsqueda por texto: para este uso "no encontré nada" es una
+// respuesta correcta, y "encontré algo parecido" es justo el error que se
+// está tratando de evitar.
+async function handleByGtin(url, env) {
+  const gtin = (url.searchParams.get("gtin") || "").trim();
+  if (!gtin) return json({ error: "falta ?gtin=" }, 400);
+  const token = await getAccessToken(env);
+  const params = new URLSearchParams({
+    site_id: SITE,
+    status: "active",
+    product_identifier: gtin,
+  });
+  let data;
+  try {
+    data = await mlGet(token, `/products/search?${params}`);
+  } catch (err) {
+    return json({ gtin, error: String(err.message || err), results: [] }, 502);
+  }
+  const results = (data.results || []).map((p) => ({
+    id: p.id,
+    name: p.name || null,
+    brand: brandFrom(p),
+    gtin: gtinFrom(p),
+    url: catalogUrl(p.id),
+  }));
+  return json({ gtin, results });
 }
 
 async function handleItem(url, env) {
@@ -639,8 +694,9 @@ export default {
       if (url.pathname === "/item") return await handleItem(url, env);
       if (url.pathname === "/search") return await handleSearch(url, env);
       if (url.pathname === "/catalog") return await handleCatalog(url, env);
+      if (url.pathname === "/by-gtin") return await handleByGtin(url, env);
       if (url.pathname === "/probe") return await handleProbe(env, url);
-      return json({ error: "ruta no encontrada. Usa /item?id=MLM... , /item?q=... o /search?q=..." }, 404);
+      return json({ error: "ruta no encontrada. Usa /item?id=MLM... , /item?q=... , /search?q=... o /by-gtin?gtin=..." }, 404);
     } catch (err) {
       return json({ error: String(err.message || err) }, 500);
     }

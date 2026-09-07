@@ -89,18 +89,35 @@ def walk_category(path):
 
 
 def current_offer(product):
-    """(precio, listPrice, disponible) vigentes de un producto de la API."""
+    """(precio, listPrice, disponible, ean) vigentes de un producto de la API.
+
+    El `ean` no se usa para mostrar nada: es el código de barras del
+    fabricante, y sirve para reconocer que este producto de Elektra es
+    EXACTAMENTE el mismo que uno de Mercado Libre y poder comparar precios
+    de verdad entre tiendas (ver scripts/match_by_gtin.py). Se aprovecha
+    que este recorrido ya pasa por los ~76,000 productos de Elektra: pedirlo
+    aparte serían 76,000 peticiones más.
+
+    OJO: no todos los `ean` de Elektra son códigos del fabricante. Se ven
+    tres casos en datos reales: GTIN real (Motorola Edge 60 ->
+    0840023287053), un código con prefijo GS1 de México (7502316438988) y
+    códigos internos de la tienda (iPhone 17 Pro -> 0400064180616). Los dos
+    últimos simplemente no van a encontrar nada del otro lado; el filtro de
+    plausibilidad vive en match_by_gtin.py, no acá -- este script guarda lo
+    que la tienda publica, sin interpretarlo.
+    """
     items = product.get("items") or []
     if not items:
-        return None, None, False
+        return None, None, False, None
+    ean = (items[0].get("ean") or "").strip() or None
     sellers = items[0].get("sellers") or []
     if not sellers:
-        return None, None, False
+        return None, None, False, ean
     offer = sellers[0].get("commertialOffer") or {}
     price = offer.get("Price")
     list_price = offer.get("ListPrice")
     available = bool(price) and offer.get("AvailableQuantity", 0) > 0
-    return price, list_price, available
+    return price, list_price, available, ean
 
 
 def elektra_offers(product):
@@ -142,8 +159,7 @@ def main():
             url = p.get("link")
             if not url:
                 continue
-            price, list_price, available = current_offer(p)
-            live[url] = (price, list_price, available)
+            live[url] = current_offer(p)
             seen += 1
         print(f"  [{i}/{len(paths)}] {path}: {seen} productos ({len(live)} acumulados)")
 
@@ -172,7 +188,12 @@ def main():
                 stats["no_visto"] += 1
                 missing_urls.add(o["url"])
                 continue
-            price, list_price, available = entry
+            price, list_price, available, ean = entry
+            # El código de barras se guarda aunque el producto esté agotado o
+            # el precio no se haya movido: es un dato del producto, no de la
+            # oferta de hoy.
+            if ean and o.get("ean") != ean:
+                o["ean"] = ean
             if not available:
                 stats["agotado"] += 1
                 dead_urls.add(o["url"])
