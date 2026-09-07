@@ -305,6 +305,8 @@
     { key: "driveCapacity", facetField: "drive_gb", categories: ["Almacenamiento"], label: "Capacidad", groupEl: "filterDriveCapacityGroup", listEl: "filterDriveCapacity", sortNum: true, format: formatStorageGB },
     { key: "acBtu", facetField: "ac_btu", categories: ["Climatización"], label: "Capacidad de enfriamiento", groupEl: "filterAcBtuGroup", listEl: "filterAcBtu", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} BTU` },
     { key: "fanIn", facetField: "fan_in", categories: ["Climatización"], label: "Medida del aspa", groupEl: "filterFanInGroup", listEl: "filterFanIn", sortNum: true, format: (v) => `${v}"` },
+    { key: "compatModel", facetField: "compat_model", categories: ["Refacciones"], multi: true, label: "Compatible con", groupEl: "filterCompatModelGroup", listEl: "filterCompatModel", format: (v) => v },
+    { key: "compatYear", facetField: "compat_year", categories: ["Refacciones"], multi: true, label: "Año del modelo", groupEl: "filterCompatYearGroup", listEl: "filterCompatYear", sortNum: true, format: (v) => v },
     { key: "battery", facetField: "battery_mah", categories: ["Celulares", "Tabletas"], label: "Batería", groupEl: "filterBatteryGroup", listEl: "filterBattery", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} mAh` },
   ];
 
@@ -437,6 +439,10 @@
     filterPlatform: document.getElementById("filterPlatform"),
     filterWashKgGroup: document.getElementById("filterWashKgGroup"),
     filterWashKg: document.getElementById("filterWashKg"),
+    filterCompatModelGroup: document.getElementById("filterCompatModelGroup"),
+    filterCompatModel: document.getElementById("filterCompatModel"),
+    filterCompatYearGroup: document.getElementById("filterCompatYearGroup"),
+    filterCompatYear: document.getElementById("filterCompatYear"),
     filterDriveCapacityGroup: document.getElementById("filterDriveCapacityGroup"),
     filterDriveCapacity: document.getElementById("filterDriveCapacity"),
     filterAcBtuGroup: document.getElementById("filterAcBtuGroup"),
@@ -1683,8 +1689,8 @@
       .map((cfg) => ({
         label: cfg.label || cfg.key,
         values: products.map((p) => {
-          const v = specValueOf(cfg, p);
-          return v == null ? null : cfg.format(v);
+          const vs = specValuesOf(cfg, p);
+          return vs.length ? vs.map((v) => cfg.format(v)).join(", ") : null;
         }),
       }))
       .filter((r) => r.values.some((v) => v != null));
@@ -2679,11 +2685,24 @@
     return p.facets ? p.facets[cfg.facetField] ?? null : null;
   }
 
+  // Un producto puede tener VARIOS valores del mismo campo: una refacción le
+  // queda a media docena de modelos de moto y a varios años. Los campos así
+  // se marcan con `multi` en SPEC_FACETS y guardan una lista en la faceta;
+  // el resto sigue guardando un valor suelto.
+  function specValuesOf(cfg, p) {
+    const v = specValueOf(cfg, p);
+    if (v == null) return [];
+    return Array.isArray(v) ? v : [v];
+  }
+
   function matchesSpecFilters(p) {
     for (const cfg of SPEC_FACETS) {
       const sel = state.specFilters[cfg.key];
       if (sel.size === 0) continue;
-      if (!sel.has(specValueOf(cfg, p))) return false;
+      // Con varios valores basta que UNO coincida: quien filtra por su moto
+      // quiere las refacciones que le quedan a ella, no las que le quedan
+      // SOLO a ella.
+      if (!specValuesOf(cfg, p).some((v) => sel.has(v))) return false;
     }
     return true;
   }
@@ -3383,8 +3402,7 @@
     const scoped = categoryScopedProducts();
     const values = new Set();
     scoped.forEach((p) => {
-      const v = specValueOf(cfg, p);
-      if (v != null) values.add(v);
+      specValuesOf(cfg, p).forEach((v) => values.add(v));
     });
     // Si un valor ya marcado deja de aplicar en el alcance actual, se
     // descarta (mismo criterio que brandsInScope()).

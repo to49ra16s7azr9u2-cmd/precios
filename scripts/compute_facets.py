@@ -80,6 +80,7 @@ FACET_CATEGORIES = (
     "Televisores", "Videojuegos", "Lavadoras", "Refrigeradores",
     "Blancos y ropa de cama", "Muebles",
     "Computadoras de escritorio", "Almacenamiento", "Climatización",
+    "Refacciones",
 )
 
 _FOLDABLE_RE = re.compile(r"\bplegable\b|\bfold\b|\bflip\b")
@@ -223,6 +224,34 @@ def _network(spec_map, name):
     return se.network_gen(name)
 
 
+# "DS 150" y "DS150" son el mismo modelo escrito de dos formas. Se agrupan
+# por el nombre sin espacios y se muestra la grafía que la tienda usa más
+# veces -- que hay que contar sobre el catálogo entero, así que se arma en
+# main() antes de recalcular nada.
+_COMPAT_CANON = {}
+
+
+def _compat_key(modelo):
+    return re.sub(r"\s+", "", (modelo or "")).upper()
+
+
+def build_compat_canon(products):
+    conteo = {}
+    for p in products:
+        if p.get("category") != "Refacciones":
+            continue
+        compat = _spec_map(p).get("compatibilidad")
+        if not compat:
+            continue
+        for m in se.compat_of(compat)[0]:
+            conteo.setdefault(_compat_key(m), {}).setdefault(m, 0)
+            conteo[_compat_key(m)][m] += 1
+    _COMPAT_CANON.clear()
+    for clave, grafias in conteo.items():
+        _COMPAT_CANON[clave] = max(grafias.items(), key=lambda kv: (kv[1], -len(kv[0])))[0]
+    return len(_COMPAT_CANON)
+
+
 def facets_for(product):
     category = product.get("category")
     if category not in FACET_CATEGORIES:
@@ -314,6 +343,20 @@ def facets_for(product):
             ft3 = se.fridge_capacity_ft3(name)
         if ft3 is not None:
             f["fridge_ft3"] = ft3
+        return f or None
+
+    if category == "Refacciones":
+        # Con qué moto/coche es compatible y de qué años. Solo del formato
+        # con viñeta de la ficha de Elektra; ver compat_of() para por qué el
+        # resto no se toca.
+        compat = spec_map.get("compatibilidad")
+        if compat:
+            modelos, anios = se.compat_of(compat)
+            modelos = [_COMPAT_CANON.get(_compat_key(m), m) for m in modelos]
+            if modelos:
+                f["compat_model"] = sorted(set(modelos))
+            if anios:
+                f["compat_year"] = anios
         return f or None
 
     if category == "Almacenamiento":
@@ -419,6 +462,10 @@ def main():
 
     cat = load_catalog()
     products = cat["products"]
+
+    n = build_compat_canon(products)
+    if n:
+        print(f"Modelos compatibles distintos en Refacciones: {n}")
 
     per_field = Counter()
     per_cat_total = Counter()

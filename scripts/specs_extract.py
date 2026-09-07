@@ -1021,3 +1021,41 @@ def drive_capacity_gb(name):
         if 1 <= v <= 32768:
             vals.add(v)
     return next(iter(vals)) if len(vals) == 1 else None
+
+
+# ---------------------------------------------------------------------
+# Refacciones: con qué modelo y de qué años es compatible
+# ---------------------------------------------------------------------
+# La ficha técnica de Elektra trae "Compatibilidad", y en 1,592 de las
+# 3,323 refacciones que la declaran viene en un formato legible a máquina:
+#
+#     • VORT-X 250 2022,2023,2024 • RT200 2020,2021
+#
+# viñeta, modelo, y los años en que ese modelo lo lleva. Son las dos
+# preguntas de la categoría: "¿le queda a mi moto?" y "¿de qué año?".
+#
+# El resto de los valores NO se toca: 223 dicen "Generico"/"Universal" (no
+# es un modelo) y 1,508 son prosa ("Diseñado para usar con aceite Mobil 1",
+# "Consulte la descripción para detalles de compatibilidad", "Acura MDX y
+# otros SUVs asiáticos"). Sacar un modelo de ahí sería adivinar, y una
+# refacción que no le queda al coche es justo el error que no se puede
+# cometer.
+_COMPAT_RE = re.compile(
+    r"•\s*([A-Z0-9][A-Z0-9\- ]*?)\s+((?:\d{4})(?:\s*,\s*\d{4})*)")
+
+
+def compat_of(text):
+    """(modelos, años) de un campo "Compatibilidad", o ([], []).
+
+    Los modelos vienen tal como los escribe la tienda; unificar "DS 150" con
+    "DS150" necesita ver el catálogo entero y se hace en compute_facets.py.
+    """
+    modelos, anios = [], []
+    for modelo, años in _COMPAT_RE.findall(text or ""):
+        m = re.sub(r"\s+", " ", modelo).strip()
+        if m and m not in modelos:
+            modelos.append(m)
+        for a in re.findall(r"\d{4}", años):
+            if 1990 <= int(a) <= 2030 and a not in anios:
+                anios.append(a)
+    return modelos, sorted(anios)
