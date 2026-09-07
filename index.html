@@ -276,10 +276,6 @@
         <div class="list-main">
           <div class="list-head">
             <h1 id="listTitle">Productos</h1>
-            <label class="ship-toggle" id="shipToggleLabel" title="Suma el costo de envío al precio mostrado en todo el sitio: monto real cuando se conoce (o envío gratis confirmado), y una tarifa de referencia estimada (marcada como “estimado”) cuando la tienda no expone el costo exacto.">
-              <input type="checkbox" id="shipToggle"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Incluir envío
-            </label>
-            <span class="shipping-estimate-note hidden" id="shipEstimateHint" title="Monto real cuando la tienda lo expone; tarifa de referencia estimada cuando no."></span>
           </div>
           <!-- Compara calidad: dos filas de tres tarjetas (nivel y tamaño) que
                resuelven de un clic la pregunta con la que llega casi todo el
@@ -317,13 +313,22 @@
                y se cambia con un clic. El estado activo lo marca
                renderSortBar() en js/app.js. -->
           <div class="sort-bar" id="sortBar" role="group" aria-label="Ordenar la lista">
-            <span class="sort-bar-label">Ordenar por</span>
             <div class="sort-bar-options">
               <button type="button" class="sort-opt" data-sort="popularity">Popularidad</button>
               <button type="button" class="sort-opt" data-sort="relevance">Relevancia</button>
               <button type="button" class="sort-opt" data-sort="price_asc">Más baratos</button>
               <button type="button" class="sort-opt" data-sort="price_desc">Más caros</button>
               <button type="button" class="sort-opt" data-sort="rating_desc">Mejor calificados</button>
+            </div>
+            <!-- "Incluir envío" vivía en el encabezado, al lado del título.
+                 Es una opción sobre CÓMO se muestran los precios de la
+                 lista, igual que el orden, así que va en la misma barra y
+                 pegada a la lista que modifica. -->
+            <div class="sort-bar-ship">
+              <label class="ship-toggle" id="shipToggleLabel" title="Suma el costo de envío al precio mostrado en todo el sitio: monto real cuando se conoce (o envío gratis confirmado), y una tarifa de referencia estimada (marcada como “estimado”) cuando la tienda no expone el costo exacto.">
+                <input type="checkbox" id="shipToggle"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Incluir envío
+              </label>
+              <span class="shipping-estimate-note hidden" id="shipEstimateHint" title="Monto real cuando la tienda lo expone; tarifa de referencia estimada cuando no."></span>
             </div>
           </div>
           <div id="productList" class="product-list"></div>

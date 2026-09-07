@@ -641,20 +641,12 @@ a { color: inherit; text-decoration: none; }
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.list-head .ship-toggle,
-.list-head #shipEstimateHint {
-  flex-shrink: 0;
-}
-/* En un teléfono, el título (ya reducido a 0 por el ellipsis de arriba) más
-   "Incluir envío" + el aviso de estimado + el selector de orden NUNCA
-   entran en una sola línea sin encogerse -- ninguno de esos 3 controles
-   puede encogerse (checkbox, texto de aviso, <select>), así que a este
-   ancho la fila entera se salía de la pantalla (confirmado con capturas
-   reales en 320–430px: el contenido medía ~494px). Se detectó real
-   solo en un teléfono, no en desktop, así que el ellipsis de arriba se
-   deja intacto -- acá se permite que la fila pase a varias líneas: el
-   título ocupa su propia línea completa (flex-basis:100%) y los 3
-   controles se acomodan debajo, envolviendo entre sí si hace falta. */
+/* El encabezado del listado se quedó solo con el título: "Incluir envío" y
+   el aviso de "estimado" se mudaron a la barra de orden (ver .sort-bar),
+   que es donde están las otras opciones de cómo se muestra la lista. Eso
+   resolvió de paso el apretujón en teléfonos que documentaba esta regla:
+   ya no hay 3 controles que no se encogen peleando por la misma línea que
+   el título. */
 @media (max-width: 760px) {
   .list-head { flex-wrap: wrap; }
   .list-head h1 { flex: 1 1 100%; }
@@ -666,34 +658,55 @@ a { color: inherit; text-decoration: none; }
    línea y no una pared de botones. */
 .sort-bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 10px;
-  padding: 7px 10px;
+  padding: 7px 8px;
   border: 1px solid var(--border);
   border-radius: 10px;
   background: var(--card);
 }
-.sort-bar-label {
-  flex-shrink: 0;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: .03em;
-}
+/* Sin etiqueta "ORDENAR POR": medía 86px con su gap y era justo lo que
+   impedía que la fila (etiqueta + 5 botones + control de envío = 787px)
+   cerrara en los 780px útiles de la columna, así que el envío bajaba de
+   renglón en vez de quedar a la derecha, que es donde se pidió. La pastilla
+   roja ya dice cómo está ordenado, y el lector de pantalla lo recibe por el
+   aria-label del contenedor. Ahora la fila cierra sola hasta ~1000px de
+   ventana, con 103px de holgura en el ancho máximo del sitio. */
 .sort-bar-options {
   display: flex;
   gap: 6px;
+  /* No se encoge: si el control de envío no cabe al lado, baja de renglón.
+     Con flex-shrink los botones de orden se comprimían hasta esconder
+     "Mejor calificados" detrás del scroll interno mientras "Incluir envío"
+     se quedaba con el espacio. */
+  flex-shrink: 0;
   overflow-x: auto;
   scrollbar-width: none;
 }
+/* "Incluir envío" y su aviso van al extremo derecho de la barra, separados
+   de los botones de orden: son otra decisión (qué precio se muestra), no
+   una sexta forma de ordenar.
+   El aviso va DEBAJO del control y no a su lado: en línea, los dos sumaban
+   270px y la barra no cerraba en una sola fila dentro del ancho real de la
+   columna (780px útiles contra 924 que pedía el contenido). Apilados miden
+   153 y además el aviso queda pegado a lo que explica. */
+.sort-bar-ship {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.sort-bar .shipping-estimate-note { margin-top: 0; }
 .sort-bar-options::-webkit-scrollbar { display: none; }
 .sort-opt {
   flex-shrink: 0;
   border: 1px solid var(--border);
   border-radius: 999px;
-  padding: 7px 14px;
+  padding: 7px 12px;
   font-size: 13px;
   font-family: inherit;
   background: var(--card);
@@ -709,9 +722,15 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
   cursor: default;
 }
+@media (max-width: 760px) {
+  /* En pantallas angostas los botones de orden se quedan con su fila (se
+     desplazan en horizontal) y el control de envío baja a la siguiente en
+     vez de comprimir la fila entera. */
+  .sort-bar-options { flex: 1 1 100%; min-width: 0; }
+  .sort-bar-ship { margin-left: 0; align-items: center; flex-direction: row; gap: 8px; }
+}
 @media (max-width: 560px) {
   .sort-bar { gap: 8px; padding: 6px 8px; }
-  .sort-bar-label { display: none; }
 }
 
 /* ---------- "Compara calidad" (arriba de la lista) ---------- */
