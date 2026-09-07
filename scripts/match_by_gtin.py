@@ -145,10 +145,22 @@ def ml_offer_for(gtin):
         return None, "ambiguo"
     ml = results[0]
     # Confirmación: el código que devuelve Mercado Libre para ESE producto
-    # tiene que ser el mismo que pedimos. Si el endpoint alguna vez devolviera
+    # tiene que incluir el que pedimos. Si el endpoint alguna vez devolviera
     # resultados aproximados, esto lo corta acá.
-    if ml.get("gtin") and normalize_gtin(ml["gtin"]) != gtin:
-        return None, "gtin_no_confirma"
+    #
+    # OJO: el campo viene con VARIOS códigos separados por coma cuando el
+    # mismo producto se fabricó con más de un empaque. Probado contra la API
+    # real, la PlayStation 5 Standard (MLM37361084) devuelve
+    # "711719541028, 711719548560". Normalizando la cadena entera se pegaban
+    # los dos números en uno de 24 dígitos, que no es un largo de GTIN
+    # válido: normalize_gtin devolvía None y la comprobación rechazaba una
+    # coincidencia BUENA. Hay que partir por coma y ver si el nuestro está
+    # entre ellos.
+    if ml.get("gtin"):
+        publicados = {normalize_gtin(x) for x in str(ml["gtin"]).split(",")}
+        publicados.discard(None)
+        if publicados and gtin not in publicados:
+            return None, "gtin_no_confirma"
     detail = get_json(f"{ITEM}?id={urllib.parse.quote(ml['id'])}")
     if not detail or not detail.get("price"):
         return None, "sin_ofertas_activas"
