@@ -693,9 +693,13 @@ a { color: inherit; text-decoration: none; }
    la categoría entera. */
 .quality-row-note { font-size: 11px; color: var(--muted); }
 
+/* auto-fit y no repeat(3): casi todas las filas tienen tres opciones, pero
+   Videojuegos tiene una tarjeta por consola (seis) y con tres columnas fijas
+   quedaban apretadas en dos filas irregulares. Con auto-fit, tres siguen
+   ocupando el ancho completo y seis se acomodan solas. */
 .quality-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 8px;
 }
 .quality-card {
@@ -780,7 +784,7 @@ a { color: inherit; text-decoration: none; }
    fila siguen viéndose juntas, que es lo que las hace comparables. */
 @media (max-width: 700px) {
   .quality-row { padding: 9px 10px; }
-  .quality-grid { gap: 6px; }
+  .quality-grid { gap: 6px; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); }
   .quality-card {
     flex-direction: column;
     align-items: center;

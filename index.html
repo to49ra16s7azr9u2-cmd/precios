@@ -180,6 +180,18 @@
                MagSafe/Tamaño arriba -- ver renderFilterSpec() en app.js, que
                los dibuja todos a partir de SPEC_FACETS en vez de tener una
                función renderFilterX() a mano por cada uno. -->
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterPlatformGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Consola</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Filtra por la consola a la que pertenece el juego.</span></h3>
+            <div id="filterPlatform" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterWashKgGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Capacidad de carga</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Filtra por los kilos de ropa que lava de una vez.</span></h3>
+            <div id="filterWashKg" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterFridgeFtGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Capacidad</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Filtra por los pies cúbicos del refrigerador.</span></h3>
+            <div id="filterFridgeFt" class="filter-options"></div>
+          </div>
           <div class="filter-group filter-group-collapsible collapsed hidden" id="filterRamGroup">
             <h3><span class="filter-group-title-row"><span class="filter-group-title">Memoria RAM</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Filtra por la memoria RAM del equipo.</span></h3>
             <div id="filterRam" class="filter-options"></div>
@@ -284,7 +296,7 @@
             <div id="qualityRows"></div>
             <button type="button" id="specsBannerLink" class="quality-more">
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="14" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
-              <span>Más detalle: memoria, almacenamiento, procesador, gráficos y más</span>
+              <span id="qualityMoreText">Más detalle</span>
               <span class="quality-more-arrow">›</span>
             </button>
           </section>

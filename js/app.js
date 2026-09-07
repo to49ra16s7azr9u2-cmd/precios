@@ -286,9 +286,9 @@
     { key: "ram", facetField: "ram_gb", categories: ["Celulares", "Laptops", "Tabletas"], label: "Memoria RAM", groupEl: "filterRamGroup", listEl: "filterRam", sortNum: true, format: (v) => `${v} GB` },
     { key: "storage", facetField: "storage_gb", categories: ["Celulares", "Laptops", "Tabletas"], label: "Almacenamiento", groupEl: "filterStorageGroup", listEl: "filterStorage", sortNum: true, format: formatStorageGB },
     { key: "storageType", facetField: "storage_type", categories: ["Laptops", "Tabletas"], label: "Tipo de almacenamiento", groupEl: "filterStorageTypeGroup", listEl: "filterStorageType", format: (v) => STORAGE_TYPE_LABELS[v] || v },
-    { key: "screen", facetField: "screen_in", categories: ["Celulares", "Laptops", "Tabletas", "Monitores"], label: "Tamaño de pantalla", groupEl: "filterScreenGroup", listEl: "filterScreen", sortNum: true, format: formatScreenIn },
+    { key: "screen", facetField: "screen_in", categories: ["Celulares", "Laptops", "Tabletas", "Monitores", "Televisores"], label: "Tamaño de pantalla", groupEl: "filterScreenGroup", listEl: "filterScreen", sortNum: true, format: formatScreenIn },
     { key: "refresh", facetField: "refresh_hz", categories: ["Celulares", "Laptops", "Monitores"], label: "Frecuencia de actualización", groupEl: "filterRefreshGroup", listEl: "filterRefresh", sortNum: true, format: (v) => `${v} Hz` },
-    { key: "resolution", facetField: "resolution", categories: ["Monitores"], label: "Resolución", groupEl: "filterResolutionGroup", listEl: "filterResolution", format: (v) => v },
+    { key: "resolution", facetField: "resolution", categories: ["Monitores", "Televisores"], label: "Resolución", groupEl: "filterResolutionGroup", listEl: "filterResolution", format: (v) => v },
     { key: "panelType", facetField: "panel_type", categories: ["Monitores"], label: "Tipo de panel", groupEl: "filterPanelTypeGroup", listEl: "filterPanelType", format: (v) => v },
     { key: "curved", facetField: "curved", categories: ["Monitores"], label: "Curvatura", groupEl: "filterCurvedGroup", listEl: "filterCurved", format: () => "Curvo" },
     { key: "network", facetField: "network_gen", categories: ["Celulares", "Tabletas"], label: "Red móvil", groupEl: "filterNetworkGroup", listEl: "filterNetwork", format: (v) => NETWORK_LABELS[v] || v },
@@ -298,6 +298,9 @@
     { key: "gpu", facetField: "gpu", categories: ["Laptops"], label: "Tarjeta gráfica", groupEl: "filterGpuGroup", listEl: "filterGpu", format: (v) => v },
     { key: "os", facetField: "os", categories: ["Laptops"], label: "Sistema operativo", groupEl: "filterOsGroup", listEl: "filterOs", format: (v) => v },
     { key: "camera", facetField: "camera_mp", categories: ["Celulares", "Tabletas"], label: "Cámara principal", groupEl: "filterCameraGroup", listEl: "filterCamera", sortNum: true, format: (v) => `${v} MP` },
+    { key: "platform", facetField: "platform", categories: ["Videojuegos"], label: "Consola", groupEl: "filterPlatformGroup", listEl: "filterPlatform", format: (v) => v },
+    { key: "washKg", facetField: "wash_kg", categories: ["Lavadoras"], label: "Capacidad de carga", groupEl: "filterWashKgGroup", listEl: "filterWashKg", sortNum: true, format: (v) => `${v} kg` },
+    { key: "fridgeFt", facetField: "fridge_ft3", categories: ["Refrigeradores"], label: "Capacidad", groupEl: "filterFridgeFtGroup", listEl: "filterFridgeFt", sortNum: true, format: (v) => `${v} pies` },
     { key: "battery", facetField: "battery_mah", categories: ["Celulares", "Tabletas"], label: "Batería", groupEl: "filterBatteryGroup", listEl: "filterBattery", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} mAh` },
   ];
 
@@ -416,9 +419,16 @@
     specsBannerLink: document.getElementById("specsBannerLink"),
     subcatPicker: document.getElementById("subcatPicker"),
     subcatGrid: document.getElementById("subcatGrid"),
+    filterPlatformGroup: document.getElementById("filterPlatformGroup"),
+    filterPlatform: document.getElementById("filterPlatform"),
+    filterWashKgGroup: document.getElementById("filterWashKgGroup"),
+    filterWashKg: document.getElementById("filterWashKg"),
+    filterFridgeFtGroup: document.getElementById("filterFridgeFtGroup"),
+    filterFridgeFt: document.getElementById("filterFridgeFt"),
     qualityPicker: document.getElementById("qualityPicker"),
     qualityRows: document.getElementById("qualityRows"),
     qualitySub: document.getElementById("qualitySub"),
+    qualityMoreText: document.getElementById("qualityMoreText"),
     specsModal: document.getElementById("specsModal"),
     specsModalClose: document.getElementById("specsModalClose"),
     specsModalBody: document.getElementById("specsModalBody"),
@@ -3258,7 +3268,8 @@
   // Televisores). El pie del bloque abre un modal con TODOS los filtros de
   // SPEC_FACETS desplegados de una (en vez de navegar a otra vista) para no
   // perder el listado de fondo.
-  const SPECS_BANNER_CATEGORIES = ["Celulares", "Laptops", "Tabletas", "Monitores"];
+  const SPECS_BANNER_CATEGORIES = ["Celulares", "Laptops", "Tabletas", "Monitores",
+    "Televisores", "Videojuegos", "Lavadoras", "Refrigeradores"];
 
   // ---------- Paso 1 del recorrido: el tipo dentro de la categoría ----------
   // Entrar a "Audífonos y auriculares" y recibir 1,752 productos mezclados
@@ -3400,6 +3411,65 @@
         ],
       },
     ],
+    // Televisores: lo que decide una compra es cuántas pulgadas caben en el
+    // mueble y qué resolución tiene. Ni RAM ni almacenamiento aplican.
+    Televisores: [
+      {
+        key: "level", label: "Nivel", field: "resolution", criterion: "por resolución",
+        tiers: [
+          { id: "bajo", name: "Básico", use: "Cuarto chico, TV de diario", spec: "HD", match: (v) => v === "HD" || v === "HD+" },
+          { id: "medio", name: "Intermedio", use: "Series y deportes con buena nitidez", spec: "Full HD", match: (v) => ["FHD", "WFHD", "QHD"].includes(v) },
+          { id: "alto", name: "Alto", use: "Películas y consolas al máximo detalle", spec: "4K y 8K", match: (v) => ["4K UHD", "8K UHD"].includes(v) },
+        ],
+      },
+      {
+        key: "size", label: "Tamaño", field: "screen_in", criterion: "por pantalla",
+        tiers: [
+          { id: "chica", name: "Chica", use: "Recámara o cocina", spec: 'Menos de 40"', match: (v) => v < 40 },
+          { id: "mediana", name: "Mediana", use: "El tamaño más común", spec: '40" a 54"', match: (v) => v >= 40 && v < 55 },
+          { id: "grande", name: "Grande", use: "Sala y cine en casa", spec: '55" o más', match: (v) => v >= 55 },
+        ],
+      },
+    ],
+    // Videojuegos: acá no hay "nivel" que valga -- la primera pregunta, y
+    // casi la única, es para qué consola es. Por eso esta categoría lleva
+    // una sola fila, con una tarjeta por consola en vez de tres niveles.
+    Videojuegos: [
+      {
+        key: "level", label: "Consola", field: "platform", criterion: "a la que pertenece el juego",
+        tiers: [
+          { id: "switch2", name: "Switch 2", use: "La nueva de Nintendo", spec: "Nintendo Switch 2", match: (v) => v === "Nintendo Switch 2" },
+          { id: "switch", name: "Switch", use: "Portátil y de mesa", spec: "Nintendo Switch", match: (v) => v === "Nintendo Switch" },
+          { id: "ps5", name: "PlayStation 5", use: "La generación actual de Sony", spec: "PlayStation 5", match: (v) => v === "PlayStation 5" },
+          { id: "ps4", name: "PlayStation 4", use: "Catálogo grande y más barato", spec: "PlayStation 4", match: (v) => v === "PlayStation 4" },
+          { id: "xbsx", name: "Xbox Series", use: "La generación actual de Xbox", spec: "Xbox Series X|S", match: (v) => v === "Xbox Series X|S" },
+          { id: "xbone", name: "Xbox One", use: "Generación anterior de Xbox", spec: "Xbox One", match: (v) => v === "Xbox One" },
+        ],
+      },
+    ],
+    // Lavadoras: la capacidad de carga es la decisión, y se elige por
+    // cuánta gente vive en la casa.
+    Lavadoras: [
+      {
+        key: "level", label: "Capacidad", field: "wash_kg", criterion: "por carga",
+        tiers: [
+          { id: "chica", name: "Chica", use: "Una o dos personas", spec: "Hasta 12 kg", match: (v) => v <= 12 },
+          { id: "mediana", name: "Mediana", use: "Familia de 3 o 4", spec: "13 a 18 kg", match: (v) => v > 12 && v <= 18 },
+          { id: "grande", name: "Grande", use: "Familia grande, cobijas y edredones", spec: "19 kg o más", match: (v) => v > 18 },
+        ],
+      },
+    ],
+    // Refrigeradores: mismo criterio, en pies cúbicos.
+    Refrigeradores: [
+      {
+        key: "level", label: "Capacidad", field: "fridge_ft3", criterion: "por pies cúbicos",
+        tiers: [
+          { id: "chico", name: "Chico", use: "Oficina, cuarto o una persona", spec: "Hasta 8 pies", match: (v) => v <= 8 },
+          { id: "mediano", name: "Mediano", use: "Familia de 3 o 4", spec: "9 a 15 pies", match: (v) => v > 8 && v <= 15 },
+          { id: "grande", name: "Grande", use: "Familia grande, despensa de la semana", spec: "16 pies o más", match: (v) => v > 15 },
+        ],
+      },
+    ],
     Monitores: [
       {
         key: "level", label: "Nivel", field: "resolution", criterion: "por resolución",
@@ -3419,6 +3489,17 @@
       },
     ],
   };
+
+  // Una línea por categoría para el encabezado del bloque. La genérica
+  // ("elige por lo que vas a hacer con él") no aplica en todas: en
+  // Videojuegos la pregunta no es qué vas a hacer, es para qué consola es.
+  const QUALITY_INTRO = {
+    Videojuegos: "Empieza por tu consola: un juego solo corre en la suya.",
+    Lavadoras: "Elige por cuánta gente vive en casa, no por la ficha técnica.",
+    Refrigeradores: "Elige por cuánta gente vive en casa, no por la ficha técnica.",
+    Televisores: "Elige por dónde lo vas a poner y qué vas a ver.",
+  };
+  const QUALITY_INTRO_DEFAULT = "Elige por lo que vas a hacer con él, no por la ficha técnica.";
 
   function qualityAxes() {
     return QUALITY_AXES[state.category] || [];
@@ -3471,7 +3552,25 @@
     const active = axes.some((a) => state.quality[a.key]);
     el.qualitySub.textContent = active
       ? "Elige otra opción para cambiar, o toca la marcada para quitarla."
-      : "Elige por lo que vas a hacer con él, no por la ficha técnica.";
+      : (QUALITY_INTRO[state.category] || QUALITY_INTRO_DEFAULT);
+
+    // El pie enumeraba siempre "memoria, almacenamiento, procesador,
+    // gráficos" -- que en Videojuegos o Lavadoras no existen. Ahora lista
+    // los filtros que de verdad tiene esta categoría.
+    const detalles = SPEC_FACETS
+      .filter((cfg) => cfg.categories.includes(state.category) && cfg.label)
+      .map((cfg) => cfg.label.toLowerCase());
+    el.qualityMoreText.textContent = detalles.length
+      ? `Más detalle: ${detalles.slice(0, 5).join(", ")}${detalles.length > 5 ? " y más" : ""}`
+      : "Más detalle";
+    // Si el único filtro de la categoría es el que ya está arriba en
+    // tarjetas, el pie no lleva a ningún detalle nuevo: en Videojuegos
+    // decía "Más detalle: consola" y el modal ofrecía otra vez la consola.
+    const camposEjes = new Set(axes.map((a) => a.field));
+    const hayExtra = SPEC_FACETS.some(
+      (cfg) => cfg.categories.includes(state.category) && !camposEjes.has(cfg.facetField)
+    );
+    el.specsBannerLink.classList.toggle("hidden", !hayExtra);
 
     axes.forEach((axis) => {
       // Para contar y para elegir la foto, cada fila mira el alcance

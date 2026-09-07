@@ -685,6 +685,9 @@ def panel_type(name):
 # clave o su propia resolución en píxeles (nunca solo "ancho x alto"
 # suelto, que podría ser cualquier otra cosa en la ficha).
 _RESOLUTION_PATTERNS = (
+    # 8K va primero: su ficha casi siempre dice también "UHD", así que con
+    # 4K delante todo televisor 8K se leía como 4K.
+    ("8K UHD", re.compile(r"\b8k\b|\b7680\s*x\s*4320\b")),
     ("4K UHD", re.compile(r"\b4k\b|\buhd\b|\b3840\s*x\s*2160\b")),
     ("DQHD", re.compile(r"\bdqhd\b|\b5120\s*x\s*1440\b")),
     ("UWQHD", re.compile(r"\buwqhd\b|\b3440\s*x\s*1440\b")),
@@ -744,3 +747,138 @@ def is_curved(name):
     plano)."""
     n = _norm(name)
     return True if _CURVED_RE.search(n) else None
+
+
+# ---------------------------------------------------------------------
+# Televisores
+# ---------------------------------------------------------------------
+# Misma situación que en Monitores: la convención de la categoría es
+# "Pantalla 55 Pulgadas ..." o "Smart TV 43 ...", muchas veces con el
+# número suelto. Se acota a un rango real de televisor (24"-110") y se
+# exige que el número esté cerca de la palabra que lo introduce, para no
+# confundirlo con un código de modelo o los Hz.
+_TV_BARE_SIZE_RE = re.compile(
+    r"\b(?:pantalla|televisor(?:es)?|smart\s*tv|tv|led|qled|oled)\b[^0-9]{0,18}?"
+    r"(\d{2,3}(?:[.,]\d)?)\b(?!\s*(?:cm|hz|w|v)\b)"
+)
+
+
+# screen_size_in() corta en 20" (es para celulares, tablets y laptops), así
+# que un televisor de 75" no pasaba por ahí: la unidad explícita se vuelve a
+# buscar acá con el rango de la categoría.
+_TV_UNIT_SIZE_RE = re.compile(
+    r"(?<![\d.,])(\d{2,3}(?:[.,]\d)?)\s*(?:\"|''|”|″|pulgadas?\b|pulg\.?|inch(?:es)?\b)"
+)
+
+
+# "Soporte para TV de 32 a 70 pulgadas": solo el segundo número trae la
+# unidad, así que se leía como un televisor de 70". Un rango describe qué
+# tamaños ACEPTA un accesorio, no el tamaño de un televisor.
+_TV_RANGE_RE = re.compile(r"\bde\s*\d{2,3}\s*(?:\"|pulgadas?|pulg)?\s*a\s*\d{2,3}\b")
+
+
+def tv_screen_in(name):
+    """Pulgadas de un televisor, o None."""
+    n = _norm(name).replace(",", ".")
+    if _TV_RANGE_RE.search(n):
+        return None
+    tallas = set()
+    for m in _TV_UNIT_SIZE_RE.finditer(n):
+        try:
+            v = float(m.group(1))
+        except ValueError:
+            continue
+        if 24.0 <= v <= 110.0:
+            tallas.add(v)
+    if len(tallas) == 1:
+        return next(iter(tallas))
+    if tallas:
+        return None  # dos tamaños distintos en el nombre: no se adivina
+    m = _TV_BARE_SIZE_RE.search(n)
+    if m:
+        try:
+            v = float(m.group(1))
+        except ValueError:
+            return None
+        if 24.0 <= v <= 110.0:
+            return v
+    return None
+
+
+# ---------------------------------------------------------------------
+# Videojuegos: la consola para la que es el juego
+# ---------------------------------------------------------------------
+# El orden importa: "Nintendo Switch 2" tiene que probarse antes que
+# "Nintendo Switch", y "Xbox Series" antes que "Xbox One", porque el
+# nombre más corto es prefijo del más largo.
+_PLATFORM_PATTERNS = (
+    ("Nintendo Switch 2", re.compile(r"\bnintendo\s*switch\s*2\b|\bswitch\s*2\b")),
+    ("Nintendo Switch", re.compile(r"\bnintendo\s*switch\b|\bswitch\b")),
+    ("PlayStation 5", re.compile(r"\bps\s*5\b|\bplaystation\s*5\b")),
+    ("PlayStation 4", re.compile(r"\bps\s*4\b|\bplaystation\s*4\b")),
+    ("Xbox Series X|S", re.compile(r"\bxbox\s*series\b")),
+    ("Xbox One", re.compile(r"\bxbox\s*one\b")),
+    ("PC", re.compile(r"\bpara\s*pc\b|\bpc\s*digital\b|\bsteam\b")),
+)
+
+
+def platform_of(name):
+    """Consola a la que pertenece el juego, o None si el nombre no la dice.
+
+    Si el nombre menciona DOS consolas distintas no se elige ninguna: pasa
+    en los packs y en los accesorios "compatible con PS4/PS5", y quedarse
+    con la primera sería inventar para cuál es.
+    """
+    n = _norm(name)
+    hits = [label for label, rx in _PLATFORM_PATTERNS if rx.search(n)]
+    if not hits:
+        return None
+    # "Nintendo Switch 2" matchea también el patrón de "Nintendo Switch":
+    # eso no es ambigüedad, es el mismo juego escrito una vez, y se queda el
+    # más específico (el primero de la lista).
+    #
+    # Dos consolas que NO son una prefijo de la otra sí son ambigüedad real:
+    # "compatible PS4 y PS5" no dice para cuál es. Con una regla por familia
+    # ("PlayStation" para las dos) esto devolvía PS5 a ciegas.
+    if len(hits) > 1:
+        base = hits[0]
+        if not all(h == base or base.startswith(h) or h.startswith(base) for h in hits):
+            return None
+    return hits[0]
+
+
+# ---------------------------------------------------------------------
+# Lavadoras y refrigeradores: capacidad
+# ---------------------------------------------------------------------
+_WASH_KG_RE = re.compile(r"(\d{1,2}(?:[.,]\d)?)\s*(?:kg|kilos?)\b")
+_FRIDGE_FT_RE = re.compile(r"(\d{1,2}(?:[.,]\d)?)\s*(?:pies|p3|ft3|pies\s*c[uú]bicos)\b")
+
+
+def wash_capacity_kg(name):
+    """Carga de una lavadora en kg, o None. Rango 5-30: por debajo es un
+    peso de envío o un accesorio, por arriba es una lavadora industrial que
+    no comparte estante con las del catálogo."""
+    n = _norm(name).replace(",", ".")
+    vals = set()
+    for m in _WASH_KG_RE.finditer(n):
+        try:
+            v = float(m.group(1))
+        except ValueError:
+            continue
+        if 5.0 <= v <= 30.0:
+            vals.add(v)
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+def fridge_capacity_ft3(name):
+    """Capacidad de un refrigerador en pies cúbicos, o None. Rango 3-35."""
+    n = _norm(name).replace(",", ".")
+    vals = set()
+    for m in _FRIDGE_FT_RE.finditer(n):
+        try:
+            v = float(m.group(1))
+        except ValueError:
+            continue
+        if 3.0 <= v <= 35.0:
+            vals.add(v)
+    return next(iter(vals)) if len(vals) == 1 else None

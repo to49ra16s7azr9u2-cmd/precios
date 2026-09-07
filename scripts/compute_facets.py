@@ -71,6 +71,15 @@ def _spec_map(product):
 # Celulares: un plegable tipo libro (Mate XT, Fold) sí llega a ~10-11" en
 # la etiqueta de pantalla interior -- de ahí el rango ampliado cuando el
 # nombre trae una palabra de plegable.
+# Categorías con facets calculados. Es la misma lista que decide dónde se
+# muestra el bloque "Compara calidad" del sitio (SPECS_BANNER_CATEGORIES en
+# js/app.js): una categoría entra acá cuando de sus nombres se puede sacar
+# un atributo REAL, no cuando nos gustaría tenerlo.
+FACET_CATEGORIES = (
+    "Celulares", "Laptops", "Tabletas", "Monitores",
+    "Televisores", "Videojuegos", "Lavadoras", "Refrigeradores",
+)
+
 _FOLDABLE_RE = re.compile(r"\bplegable\b|\bfold\b|\bflip\b")
 _SCREEN_RANGE = {
     "Celulares": (3.0, 7.5),
@@ -190,7 +199,7 @@ def _network(spec_map, name):
 
 def facets_for(product):
     category = product.get("category")
-    if category not in ("Celulares", "Laptops", "Tabletas", "Monitores"):
+    if category not in FACET_CATEGORIES:
         return None
     name = product.get("name", "")
     brand = product.get("brand")
@@ -218,6 +227,37 @@ def facets_for(product):
             f["panel_type"] = panel
         if se.is_curved(name):
             f["curved"] = True
+        return f or None
+
+    if category == "Televisores":
+        # Los televisores no comparten casi nada con celulares/laptops: lo
+        # que importa es cuántas pulgadas y qué resolución. El tamaño usa su
+        # propio extractor porque el rango es otro (24"-110") y la
+        # convención del nombre también ("Pantalla 55 Pulgadas ...").
+        screen = se.tv_screen_in(name)
+        if screen is not None:
+            f["screen_in"] = screen
+        resolution = se.resolution_of(name)
+        if resolution:
+            f["resolution"] = resolution
+        return f or None
+
+    if category == "Videojuegos":
+        plataforma = se.platform_of(name)
+        if plataforma:
+            f["platform"] = plataforma
+        return f or None
+
+    if category == "Lavadoras":
+        kg = se.wash_capacity_kg(name)
+        if kg is not None:
+            f["wash_kg"] = kg
+        return f or None
+
+    if category == "Refrigeradores":
+        ft3 = se.fridge_capacity_ft3(name)
+        if ft3 is not None:
+            f["fridge_ft3"] = ft3
         return f or None
 
     ram, storage = _ram_storage(category, name, spec_map)
@@ -290,7 +330,7 @@ def main():
     for p in products:
         f = facets_for(p)
         if f is None:
-            if p.get("category") in ("Celulares", "Laptops", "Tabletas", "Monitores"):
+            if p.get("category") in FACET_CATEGORIES:
                 per_cat_total[p["category"]] += 1
             continue
         per_cat_total[p["category"]] += 1
@@ -302,7 +342,7 @@ def main():
             p["facets"] = f
 
     print("Cobertura por campo:")
-    for cat_name in ("Celulares", "Laptops", "Tabletas", "Monitores"):
+    for cat_name in FACET_CATEGORIES:
         total = per_cat_total[cat_name]
         print(f"  {cat_name} (n={total}):")
         for (c, k), n in sorted(per_field.items()):
