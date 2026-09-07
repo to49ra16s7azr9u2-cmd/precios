@@ -61,7 +61,41 @@ def id_num(product):
     return int(m.group(1)) if m else 10**9
 
 
+# El apellido del acabado ("Azul neblina", "Azul claro") es la parte del
+# color que a veces distingue dos equipos y a veces es la misma cosa dicha
+# de dos formas. Leyendo UN nombre no hay manera de saber cuál de los dos
+# casos es; leyendo el CATÁLOGO ENTERO, sí:
+#
+#   iPhone 17, azul  -> el único apellido que aparece es "neblina" (y su
+#                       traducción "Mist"). Si no hay un segundo azul, el
+#                       "Azul" a secas de otra tienda no puede ser otro:
+#                       es el mismo, escrito corto.
+#   Galaxy S25 FE, azul -> aparecen "marino", "claro" y "oscuro". Con dos o
+#                       más azules reales conviviendo, un "Azul" pelado es
+#                       AMBIGUO: no se sabe cuál de ellos es, así que no se
+#                       fusiona con ninguno.
+#
+# Se mira por (marca, modelo) y no por firma completa a propósito: la
+# paleta la define el modelo, no la capacidad ni la compañía. Que el
+# catálogo tenga el "Azul Claro" en 128 GB y el "Azul Marino" en 512 GB ya
+# prueba que el modelo tiene dos azules.
+def _palette(products):
+    """(marca, modelo, color_base) -> conjunto de apellidos vistos."""
+    pal = defaultdict(set)
+    for p in products:
+        if p.get("category") != "Celulares":
+            continue
+        sig = signature(p)
+        if sig is None:
+            continue
+        brand, model, _, _, (base, quals), *_ = sig
+        if quals:
+            pal[(brand, model, base)].update(quals)
+    return pal
+
+
 def mergeable_groups(products):
+    pal = _palette(products)
     groups = defaultdict(list)
     for p in products:
         if p.get("category") != "Celulares":
@@ -69,7 +103,16 @@ def mergeable_groups(products):
         sig = signature(p)
         if sig is None:
             continue  # firma incompleta -> no se fusiona con nadie
-        groups[sig].append(p)
+        brand, model, storage, ram, (base, quals), *rest = sig
+        # Con UN solo apellido para ese color en todo el modelo, el apellido
+        # no distingue nada: se normaliza a None para que "Azul neblina" y
+        # "Azul" caigan en el mismo grupo. Con dos o más, se conserva tal
+        # cual y cada uno se queda en su grupo -- incluido el "Azul" pelado,
+        # que no se fusiona con ninguno porque no se sabe cuál es.
+        if len(pal.get((brand, model, base), ())) == 1:
+            quals = None
+        key = (brand, model, storage, ram, (base, quals), *rest)
+        groups[key].append(p)
     return [sorted(ps, key=id_num) for ps in groups.values() if len(ps) > 1]
 
 

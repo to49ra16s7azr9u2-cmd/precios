@@ -85,6 +85,16 @@ def bundle_of(name):
     # "Combo"/"Bundle" sin decir qué trae: se marca aparte, no como "sin regalo"
     if re.search(r"\bcombo\b|\bbundle\b|\bde regalo\b", n):
         return ("_sin_detallar",)
+    # Un "+" seguido de algo que NO es otra capacidad es un extra que la
+    # tienda no explica. Elektra publica "APPLE IPHONE 14 PRO MAX 128GB
+    # NEGRO+W" a $17,699 mientras el mismo teléfono a secas está a $7,500:
+    # sea lo que sea esa "W", no es el mismo producto. Como no se puede
+    # confirmar qué trae, se marca como extra sin detallar y la ficha no se
+    # fusiona con la que no lo tiene -- que es la respuesta correcta cuando
+    # el nombre no alcanza para saberlo. Las capacidades no cuentan:
+    # "12GB+512GB" y "8+256GB" usan el "+" como separador, no como extra.
+    if re.search(r"\+\s*(?![0-9])(?!gb\b|tb\b|ram\b|rom\b)[a-z]", n):
+        return ("_extra_sin_detallar",)
     return ()
 
 
@@ -189,6 +199,11 @@ FILLER = {
     "octa", "procesador", "carga", "rapida", "resistencia", "agua", "polvo",
     "smarphone", "unidades", "cellular_phone", "internacional", "inteligente",
     "desbloqueado", "desbloqueada", "unlocked", "libre", "reacondicionado",
+    # La compañía ya es un campo propio de la firma (carrier_of): dejarla
+    # TAMBIÉN dentro del modelo partía la línea en dos ("galaxy s 25 fe" y
+    # "galaxy s 25 fe telcel"), y con la línea partida la regla de paleta de
+    # merge_by_signature.py no veía que ese modelo tiene tres azules.
+    "telcel", "att", "at&t", "movistar", "unefon", "iusacell", "nextel",
     "reacondicionada", "premium", "renovado", "grado", "seminuevo", "bundle",
     "combo", "regalo", "audifonos", "smartwatch", "watch", "earbuds", "buds",
     "bocina", "w", "nits", "fps", "ip", "ai", "ia", "plus_bundle",
@@ -205,6 +220,93 @@ MODEL_STOP_RE = re.compile(
     r"screen fingerprint|side fingerprint|in-screen|face id|"
     r"inch|camera|cameras|battery|network|fingerprint)\b"
 )
+
+
+# Apellidos de acabado que las marcas cuelgan de un color: "Azul neblina",
+# "Naranja cósmico", "Titanio del desierto", "Mist Blue", "Azul claro".
+# Ninguno es un color por sí solo, así que color_of() no los reconoce y
+# terminaban DENTRO del modelo -- por eso el mismo iPhone daba
+# "iphone 17 neblina" en una tienda e "iphone 17" en otra.
+#
+# OJO: sacarlos del modelo NO alcanza, y borrarlos sin más es peor que el
+# problema original. Elektra vende el MISMO Galaxy S25 FE 128GB Telcel en
+# "Azul Oscuro" y "Azul Claro": son dos equipos distintos, y lo único que
+# los separa es justamente el apellido. Borrándolo se fusionan dos colores
+# que no son el mismo -- exactamente el error que este archivo existe para
+# evitar. Así que el apellido sale del modelo y entra al COLOR
+# (color_full_of), y quién puede fusionarse con quién lo decide después
+# merge_by_signature.py mirando qué apellidos conviven de verdad en el
+# catálogo para ese mismo equipo.
+FINISH_QUALIFIERS = {
+    "neblina", "mist", "desierto", "desert", "natural", "estelar",
+    "starlight", "cosmico", "cosmic", "profundo", "deep", "ultramarino",
+    "ultramarine", "sierra", "espacial", "space",
+    "intenso", "oscuro", "claro", "titanio", "titanium", "del", "de",
+    "nocturno", "nebula", "aurora", "marino", "navy", "cielo", "sky",
+    "hielo", "ice", "menta", "lima", "medianoche", "midnight",
+}
+
+
+# Español e inglés del MISMO acabado. Sin esto, "Azul neblina" y "Mist
+# Blue" (los dos, el único azul del iPhone 17) cuentan como dos apellidos
+# distintos, y la regla de convivencia de merge_by_signature.py los lee
+# como prueba de que existen dos azules -- justo al revés de lo que son.
+QUALIFIER_CANON = {
+    "mist": "neblina", "desert": "desierto", "starlight": "estelar",
+    "cosmic": "cosmico", "deep": "profundo", "ultramarine": "ultramarino",
+    "space": "espacial", "navy": "marino", "sky": "cielo",
+    "titanium": "titanio", "ice": "hielo", "midnight": "medianoche",
+}
+
+
+def canon_qualifier(q):
+    return QUALIFIER_CANON.get(q, q)
+
+
+def color_full_of(name):
+    """(color_canonico, apellido_del_acabado) -- el apellido puede ser None.
+
+    color_of() ya canoniza el color base ("Mist Blue" y "Azul" dan los dos
+    'azul'). Acá se rescata además el apellido que lo acompaña, porque a
+    veces distingue dos equipos reales ("Azul Claro" vs "Azul Oscuro") y a
+    veces es la misma cosa dicha de dos formas ("Azul neblina" y "Azul" del
+    iPhone 17, que solo existe en un azul). Cuál de los dos casos es no se
+    puede saber leyendo UN nombre: lo resuelve merge_by_signature.py con lo
+    que hay en el catálogo.
+    """
+    base = color_of(name)
+    if not base:
+        return None, None
+    toks = _norm(name).split()
+    region = _color_region(toks)
+    quals = tuple(sorted({
+        canon_qualifier(toks[i]) for i in region
+        if toks[i] in FINISH_QUALIFIERS and toks[i] not in ("del", "de")
+    }))
+    return base, (quals or None)
+
+
+def _color_region(toks):
+    """Índices que forman el NOMBRE DEL COLOR completo, no solo la palabra
+    de color.
+
+    Se parte de las palabras que color_of() sí reconoce y se crece hacia los
+    lados mientras el vecino sea un apellido de acabado. Crecer en cadena es
+    lo que hace falta para "titanio del desierto": "del" toca a "titanio"
+    (color), y recién entonces "desierto" toca a "del". Mirando un solo
+    vecino, "desierto" se quedaba adentro del modelo.
+    """
+    region = {i for i, t in enumerate(toks) if color_of(t)}
+    changed = True
+    while changed:
+        changed = False
+        for i, t in enumerate(toks):
+            if i in region or t not in FINISH_QUALIFIERS:
+                continue
+            if (i - 1 in region) or (i + 1 in region):
+                region.add(i)
+                changed = True
+    return region
 
 
 def model_of(name, brand):
@@ -227,7 +329,23 @@ def model_of(name, brand):
     # separador cuando lo precede una capacidad ("12GB+512GB", "64GB + 3GB
     # Ram", "(8+16)"). El patrón exige que la palabra empiece en un límite
     # de palabra, así que el "gb" de "64gb" no cuenta como palabra.
-    n = re.sub(r"\b([a-z]+)\s*\+", lambda m: m.group(1) + " plus", n)
+    # (?<![0-9]) además del \b: en "512GB/8RAM + BUDS" el "+" separa el
+    # teléfono de su regalo, pero la parte de letras de "8RAM" empieza en un
+    # límite de palabra, así que la regla lo leía como un "RAM+" tipo "Pro+"
+    # y metía la palabra inventada "plus" en el modelo. Un sufijo de unidad
+    # va siempre pegado a un dígito; el "Pro+" de un modelo real, nunca.
+    def _plus(m):
+        w = m.group(1)
+        # "AZUL MARINO + BUDS": el "+" separa el teléfono del regalo, no es
+        # un "Pro+". Se reconoce porque lo que lo precede es el color, no
+        # una palabra de modelo -- y el regalo ya lo registra bundle_of().
+        # Sin esto el modelo quedaba "galaxy s 25 fe plus" solo en las
+        # fichas con regalo, partiendo la línea en dos paletas de color
+        # distintas y dejando pasar una fusión que no correspondía.
+        if color_of(w) or w in FINISH_QUALIFIERS:
+            return w + " "
+        return w + " plus"
+    n = re.sub(r"(?<![0-9])\b([a-z]+)\s*\+", _plus, n)
     # El "." se borraba junto con el resto de la puntuación ANTES de que el
     # filtro de números decimales (más abajo) pudiera verlo -- partía "6.6"
     # (tamaño de pantalla en pulgadas) en dos tokens sueltos "6" y "6", que
@@ -243,8 +361,10 @@ def model_of(name, brand):
     n = re.sub(r"[(),:;/|\"'+-]", " ", n)
     n = re.sub(r"(?<!\d)\.(?!\d)", " ", n)
     b = _norm(brand)
+    raw = n.split()
+    color_region = _color_region(raw)
     toks = []
-    for t in n.split():
+    for i, t in enumerate(raw):
         if not t:
             continue
         if t == b or t in b.split():
@@ -254,13 +374,32 @@ def model_of(name, brand):
         # que "Honor 500" y "Honor 300" quedaran con el mismo modelo en la
         # primera prueba. Solo se descartan los números que traen unidad
         # pegada (capacidad/specs) o los decimales (pulgadas de pantalla).
-        if re.fullmatch(r"\d+(gb|tb|mah|mpx|mp|w|hz|nits|fps|ghz)", t):
+        if re.fullmatch(r"\d+(gb|tb|ram|mah|mpx|mp|w|hz|nits|fps|ghz)", t):
+            continue
+        # ...y el mismo número con la unidad SEPARADA. "256GB" ya se
+        # descartaba, pero "(256 GB)" -- como lo escribe Mercado Libre --
+        # llega partido en dos tokens, y el "256" suelto sobrevivía como si
+        # fuera parte del modelo. Resultado: el MISMO teléfono daba
+        # "iphone 17 pro max 256" desde Mercado Libre y "iphone 17 pro max"
+        # desde Elektra, y no se fusionaba nunca. La capacidad ya es un
+        # campo propio de la firma; acá no aporta nada.
+        if re.fullmatch(r"\d+", t) and i + 1 < len(raw) and raw[i + 1] in ("gb", "tb"):
+            continue
+        if t in ("gb", "tb") and i and re.fullmatch(r"\d+", raw[i - 1]):
             continue
         if re.fullmatch(r"\d+\.\d+\w*", t):
             continue
         if t in FILLER:
             continue
-        if color_of(t):  # es una palabra de color
+        # El nombre del color COMPLETO, no solo la palabra de color: "Azul
+        # neblina", "Naranja cósmico", "Titanio del desierto", "Mist Blue".
+        # Los apellidos de acabado no son colores por sí solos, así que
+        # color_of() no los reconocía y se colaban al modelo: la misma ficha
+        # daba "iphone 17 neblina" en una tienda e "iphone 17" en otra, y no
+        # se fusionaban nunca. El color real no se pierde -- color_of() lee
+        # el nombre entero y ya distingue "titanio natural" de "titanio del
+        # desierto" (van como compuestos en COLORS).
+        if i in color_region:
             continue
         toks.append(t)
     # normaliza "magic8" -> "magic 8", "note14" -> "note 14", "x7d" queda
@@ -277,7 +416,7 @@ def signature(product):
     if not brand:
         return None
     storage, ram = storage_ram_of(name)
-    color = color_of(name)
+    color, color_qual = color_full_of(name)
     model = model_of(name, brand)
     carrier = carrier_of(name)
     # Firma INCOMPLETA -> no se fusiona con nadie.
@@ -288,7 +427,7 @@ def signature(product):
         model,
         storage,
         ram,                    # None cuenta como "no declarado" y separa grupos
-        color,
+        (color, color_qual),    # color base + apellido del acabado (ver color_full_of)
         carrier,                # None cuenta como "no declarado" y separa grupos
         bundle_of(name),        # accesorios de regalo concretos
         condition_of(name),
