@@ -1,0 +1,16 @@
+# Cabeceras para Cloudflare Pages / Netlify (ambos leen este archivo con el
+# mismo formato). No es lo que "bloquea" nada -- eso lo hace robots.txt (por
+# nombre de bot) y, de forma realmente confiable, el "Block AI Bots" del
+# panel de Cloudflare (Security -> Bots), que huella la conexión en vez de
+# creerle al User-Agent que dice traer. Esto es una señal EXTRA a nivel de
+# cabecera HTTP, por si algún rastreador de IA lee X-Robots-Tag en vez de
+# (o además de) la etiqueta <meta name="robots"> del HTML.
+
+/*
+  X-Robots-Tag: noai, noimageai
+
+# Los JSON crudos del catálogo (ver scripts/data_io.py) no son páginas para
+# indexar -- nofollow además de noindex porque no hay nada que "seguir"
+# desde un archivo de datos.
+/data/*
+  X-Robots-Tag: noindex, nofollow, noai, noimageai

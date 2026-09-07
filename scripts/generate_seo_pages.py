@@ -177,6 +177,12 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
     """depth = niveles bajo la raíz del sitio (para las rutas relativas ../)."""
     prefix = "../" * depth
     canonical = f"{SITE_URL}{canonical_path}"
+    # noai/noimageai va SIEMPRE, sin importar qué valor de robots use cada
+    # llamador (index/follow normal, o noindex en alguna página puntual):
+    # es una señal aparte, de entrenamiento de IA, no de indexado en
+    # buscadores -- las dos cosas no deberían tener que decidirse juntas en
+    # cada call site.
+    robots_full = f"{robots}, noai, noimageai"
     return f"""<!DOCTYPE html>
 <html lang="es-MX">
 <head>
@@ -184,7 +190,7 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{html_escape(title)}</title>
 <meta name="description" content="{html_escape(description)}">
-<meta name="robots" content="{robots}">
+<meta name="robots" content="{robots_full}">
 <link rel="canonical" href="{canonical}">
 <meta property="og:type" content="product">
 <meta property="og:title" content="{html_escape(title)}">
@@ -701,8 +707,73 @@ def write_sitemaps(data, root):
     return written
 
 
+# Bots de IA conocidos (entrenamiento de modelos, o que un asistente de IA
+# use en el momento para "leer" una página y contestar con eso) -- se
+# bloquean explícitamente por nombre, aparte del "Allow: /" general para
+# buscadores normales (Googlebot, Bingbot, etc.), que se deja intacto para
+# no perder el tráfico de búsqueda que scripts/generate_seo_pages.py existe
+# para conseguir.
+#
+# OJO, esto es best-effort: robots.txt es una convención que un bot
+# CUMPLIDOR respeta porque quiere (así lo hacen OpenAI/Anthropic/Google
+# según sus propias políticas publicadas), pero nada impide que un scraper
+# que no le importa las reglas lo ignore -- no hay forma de "garantizar"
+# el bloqueo solo con este archivo. El bloqueo real, a nivel de red (que sí
+# corta tráfico que miente sobre su User-Agent), depende de si el hosting
+# lo ofrece -- p. ej. el toggle "Block AI Bots" del panel de Cloudflare
+# (Security -> Bots), que huella la conexión en vez de confiar en el
+# nombre que el visitante dice tener.
+_AI_BOT_USER_AGENTS = [
+    # OpenAI
+    "GPTBot", "ChatGPT-User", "OAI-SearchBot",
+    # Anthropic
+    "ClaudeBot", "Claude-Web", "anthropic-ai", "Claude-SearchBot", "Claude-User",
+    # Common Crawl (fuente de entrenamiento de facto para casi todo modelo grande)
+    "CCBot",
+    # Google (entrenamiento de modelos -- Googlebot normal, de búsqueda, NO se toca)
+    "Google-Extended",
+    # Apple (Apple Intelligence -- Applebot normal, de búsqueda, NO se toca)
+    "Applebot-Extended",
+    # Meta / Facebook
+    "FacebookBot", "Meta-ExternalAgent", "Meta-ExternalFetcher",
+    # ByteDance / TikTok
+    "Bytespider",
+    # Perplexity
+    "PerplexityBot", "Perplexity-User",
+    # Amazon
+    "Amazonbot",
+    # Cohere
+    "cohere-ai", "cohere-training-data-crawler",
+    # You.com
+    "YouBot",
+    # Diffbot
+    "Diffbot",
+    # webz.io (vende datos de entrenamiento)
+    "Omgilibot", "Omgili", "Webzio-Extended",
+    "ICC-Crawler",
+    "Timpibot",
+    "ImagesiftBot",
+    # Allen Institute for AI (dataset Dolma/OLMo)
+    "Ai2Bot", "Ai2Bot-Dolma",
+    # Mistral
+    "MistralAI-User",
+]
+
+
 def build_robots():
-    return f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n"
+    ai_block = "".join(f"User-agent: {ua}\nDisallow: /\n\n" for ua in _AI_BOT_USER_AGENTS)
+    return (
+        f"{ai_block}"
+        "User-agent: *\n"
+        "Allow: /\n"
+        # data/ son los archivos JSON crudos del catálogo (ver
+        # scripts/data_io.py) -- ni Google ni Bing necesitan indexarlos (lo
+        # que indexan son las páginas HTML de producto/categoría, que ya
+        # traen el contenido renderizado), y de paso quita la ruta más
+        # directa para bajarse el catálogo entero saltándose las páginas.
+        "Disallow: /data/\n"
+        f"Sitemap: {SITE_URL}/sitemap.xml\n"
+    )
 
 
 def hide_empty_taxonomy(data):
