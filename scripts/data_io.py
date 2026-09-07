@@ -79,6 +79,17 @@ COMPACT = {"ensure_ascii": False, "separators": (",", ":")}
 # productos, no mueve la aguja).
 DETAIL_OFFER_FIELDS = ("url", "sellers")
 
+# La ficha técnica completa (importada de Elektra, hasta 16 campos por
+# producto) NO puede viajar en la shard que el navegador baja al entrar a una
+# categoría: son ~45 MB repartidos entre las shards, y sola la de
+# Herramientas pasaría de 3.4 MB a ~8 MB. Se va al detalle, que se pide
+# recién al abrir la ficha.
+#
+# Menos estas etiquetas, que el LISTADO sí lee para filtrar y ordenar (ver
+# isUsed/hasMagSafe/sizeOf/usageBadge/productWeightKg en js/app.js): si se
+# fueran al detalle, los filtros dejarían de funcionar en la lista.
+SPEC_LABELS_EN_LISTADO = ("Condición", "MagSafe", "Tamaño", "Uso", "Peso")
+
 # Chunks de detalle chicos (~2,000 productos, ~100 KB con gzip): abrir una
 # ficha baja UN chunk, no el catálogo entero de detalles.
 DETAIL_CHUNK_SIZE = 2000
@@ -88,8 +99,17 @@ def _split_detail(product):
     """Devuelve (producto_para_el_navegador, detalle) separando los campos
     que solo hace falta bajar al abrir la ficha."""
     offers = product.get("offers") or []
+    specs = product.get("specs") or []
+    specs_pesadas = [s for s in specs if s.get("label") not in SPEC_LABELS_EN_LISTADO]
     if not offers or product.get("colorVariants"):
-        return product, None
+        # Aun sin ofertas que aligerar, la ficha técnica sí se puede mover.
+        if not specs_pesadas:
+            return product, None
+        light = dict(product)
+        light["specs"] = [s for s in specs if s.get("label") in SPEC_LABELS_EN_LISTADO]
+        if not light["specs"]:
+            light.pop("specs", None)
+        return light, {"_specs": specs}
     detail = {}
     light_offers = []
     for i, o in enumerate(offers):
@@ -100,10 +120,18 @@ def _split_detail(product):
                     light = dict(o)
                 detail.setdefault(field, {})[str(i)] = light.pop(field)
         light_offers.append(light)
+    if specs_pesadas:
+        detail["_specs"] = specs
     if not detail:
         return product, None
     light_product = dict(product)
     light_product["offers"] = light_offers
+    if specs_pesadas:
+        ligeras = [s for s in specs if s.get("label") in SPEC_LABELS_EN_LISTADO]
+        if ligeras:
+            light_product["specs"] = ligeras
+        else:
+            light_product.pop("specs", None)
     return light_product, detail
 
 
@@ -166,6 +194,9 @@ def load_catalog():
             if not d:
                 continue
             for field, by_index in d.items():
+                if field == "_specs":
+                    p["specs"] = by_index
+                    continue
                 for idx, value in by_index.items():
                     i = int(idx)
                     if i < len(p.get("offers") or []):

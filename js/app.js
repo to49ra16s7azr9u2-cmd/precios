@@ -2106,6 +2106,14 @@
       const detail = chunk[product.id];
       if (detail) {
         for (const [field, byIndex] of Object.entries(detail)) {
+          // La ficha técnica completa viaja acá, no en la shard de la
+          // categoría: son ~45 MB entre todas las shards y solo hace falta
+          // al abrir un producto (ver SPEC_LABELS_EN_LISTADO en data_io.py,
+          // que deja en la lista las etiquetas que sí filtran).
+          if (field === "_specs") {
+            product.specs = byIndex;
+            continue;
+          }
           for (const [idx, value] of Object.entries(byIndex)) {
             const offer = (product.offers || [])[Number(idx)];
             if (offer && offer[field] == null) offer[field] = value;

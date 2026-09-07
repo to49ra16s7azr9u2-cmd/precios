@@ -3163,8 +3163,7 @@
       "data/det/mascotas-1.json"
     ],
     "Salud y belleza": [
-      "data/det/salud-y-belleza-1.json",
-      "data/det/salud-y-belleza-2.json"
+      "data/det/salud-y-belleza-1.json"
     ],
     "Juguetes y bebés": [
       "data/det/juguetes-y-bebes-1.json",
@@ -3216,31 +3215,31 @@
   },
   "indexFile": "data/index.json",
   "homeFile": "data/home.json",
-  "totalProducts": 81603,
+  "totalProducts": 81199,
   "categoryStats": {
     "Celulares": {
-      "n": 2079,
+      "n": 2070,
       "subs": {
-        "Android": 1609,
+        "Android": 1604,
         "Resistentes": 125,
-        "iPhone": 303,
+        "iPhone": 299,
         "Teléfonos fijos": 42
       },
-      "discounted": 902,
+      "discounted": 898,
       "max": 80,
-      "discountedShip": 902,
+      "discountedShip": 898,
       "maxShip": 80
     },
     "Monitores": {
-      "n": 595,
+      "n": 593,
       "subs": {
         "Gaming": 250,
         "Portátiles": 58,
-        "Oficina": 287
+        "Oficina": 285
       },
-      "discounted": 169,
+      "discounted": 167,
       "max": 67,
-      "discountedShip": 169,
+      "discountedShip": 167,
       "maxShip": 67
     },
     "Cafeteras": {
@@ -3259,31 +3258,31 @@
       "maxShip": 80
     },
     "Climatización": {
-      "n": 1508,
+      "n": 1505,
       "subs": {
         "Deshumidificadores": 44,
-        "Ventiladores": 922,
+        "Ventiladores": 920,
         "Purificadores de aire": 62,
         "Calefactores": 86,
-        "Aires acondicionados": 333,
+        "Aires acondicionados": 332,
         "Humidificadores": 36,
         "Climatizadores evaporativos": 25
       },
-      "discounted": 941,
+      "discounted": 939,
       "max": 90,
-      "discountedShip": 942,
+      "discountedShip": 940,
       "maxShip": 90
     },
     "Proyectores y accesorios": {
-      "n": 203,
+      "n": 201,
       "subs": {
-        "Proyectores": 137,
+        "Proyectores": 135,
         "Pantallas de proyección": 44,
         "Accesorios": 22
       },
-      "discounted": 107,
+      "discounted": 106,
       "max": 72,
-      "discountedShip": 107,
+      "discountedShip": 106,
       "maxShip": 72
     },
     "Computadoras de escritorio": {
@@ -3300,130 +3299,130 @@
       "maxShip": 71
     },
     "Videojuegos": {
-      "n": 6425,
+      "n": 6395,
       "subs": {
-        "Consolas": 120,
-        "Accesorios": 579,
-        "Software": 5719,
+        "Consolas": 119,
+        "Accesorios": 574,
+        "Software": 5695,
         "Otros": 7
       },
-      "discounted": 4144,
+      "discounted": 4106,
       "max": 85,
-      "discountedShip": 4148,
+      "discountedShip": 4110,
       "maxShip": 85
     },
     "Joyería y bisutería": {
-      "n": 4569,
+      "n": 4555,
       "subs": {
-        "Relojes": 2326,
+        "Relojes": 2317,
         "Otros": 953,
-        "Aretes": 307,
-        "Anillos": 349,
-        "Pulseras": 350,
-        "Collares": 284
+        "Aretes": 306,
+        "Anillos": 347,
+        "Pulseras": 349,
+        "Collares": 283
       },
-      "discounted": 3598,
+      "discounted": 3587,
       "max": 77,
-      "discountedShip": 3598,
+      "discountedShip": 3587,
       "maxShip": 77
     },
     "Juegos de mesa": {
-      "n": 1834,
+      "n": 1812,
       "subs": {
         "Woodestic": 63,
         "Rompecabezas": 62,
         "Otros juegos": 43,
         "Ajedrez, damas y Go": 50,
-        "": 1616
+        "": 1594
       },
-      "discounted": 1423,
+      "discounted": 1402,
       "max": 67,
-      "discountedShip": 1443,
+      "discountedShip": 1422,
       "maxShip": 67
     },
     "Refacciones": {
-      "n": 5308,
+      "n": 5274,
       "subs": {
         "Refacciones para electrodomésticos": 40,
         "Refacciones para patinetas y bicicletas eléctricas": 73,
-        "Refacciones para autos y motos": 5058,
+        "Refacciones para autos y motos": 5024,
         "Bombas y motores": 137
       },
-      "discounted": 2002,
+      "discounted": 1964,
       "max": 55,
-      "discountedShip": 2002,
+      "discountedShip": 1964,
       "maxShip": 55
     },
     "Herramientas": {
-      "n": 7268,
+      "n": 7243,
       "subs": {
         "Grabado y corte láser": 180,
         "Soldadura y reparación": 200,
-        "Herramientas eléctricas": 1439,
+        "Herramientas eléctricas": 1435,
         "Escaleras": 21,
         "Medición e instrumentos": 390,
-        "Seguridad industrial": 280,
-        "Herramientas manuales": 1044,
+        "Seguridad industrial": 277,
+        "Herramientas manuales": 1042,
         "Herramientas neumáticas y de impacto": 133,
-        "Accesorios para herramientas eléctricas": 1291,
+        "Accesorios para herramientas eléctricas": 1286,
         "Organización y almacenaje": 118,
         "Construcción": 75,
         "Material eléctrico": 129,
-        "Plomería y gas LP": 1371,
-        "Jardinería": 597
+        "Plomería y gas LP": 1364,
+        "Jardinería": 593
       },
-      "discounted": 4976,
+      "discounted": 4947,
       "max": 80,
-      "discountedShip": 5080,
+      "discountedShip": 5051,
       "maxShip": 76
     },
     "Muebles": {
-      "n": 9537,
+      "n": 9513,
       "subs": {
-        "Sillas": 1378,
-        "Escritorios": 433,
-        "Otros": 1696,
+        "Sillas": 1369,
+        "Escritorios": 430,
+        "Otros": 1693,
         "Mesas de juego y recreación": 26,
         "Mesas de centro": 120,
-        "Repisas y estantes": 179,
-        "Camas": 169,
+        "Repisas y estantes": 176,
+        "Camas": 166,
         "Closets y roperos": 56,
-        "Libreros": 109,
+        "Libreros": 107,
         "Burós": 28,
-        "Colchones": 5299,
+        "Colchones": 5298,
         "Zapateras": 33,
         "Percheros": 11
       },
-      "discounted": 8700,
+      "discounted": 8677,
       "max": 82,
-      "discountedShip": 8701,
+      "discountedShip": 8678,
       "maxShip": 82
     },
     "Cargadores y adaptadores": {
-      "n": 469,
+      "n": 466,
       "subs": {
-        "Cargadores": 397,
+        "Cargadores": 394,
         "Adaptadores": 72
       },
-      "discounted": 288,
+      "discounted": 285,
       "max": 70,
-      "discountedShip": 287,
+      "discountedShip": 284,
       "maxShip": 62
     },
     "Otros": {
-      "n": 3418,
+      "n": 3403,
       "subs": {
         "Energía portátil y paneles solares": 71,
-        "Varios": 3034,
+        "Varios": 3019,
         "Generadores e inversores": 112,
         "": 3,
         "Baño": 150,
         "Organización del hogar": 23,
         "Radios y walkie-talkies": 25
       },
-      "discounted": 2589,
+      "discounted": 2572,
       "max": 70,
-      "discountedShip": 2590,
+      "discountedShip": 2573,
       "maxShip": 69
     },
     "Aspiradoras": {
@@ -3439,11 +3438,11 @@
       "maxShip": 72
     },
     "Impresión 3D": {
-      "n": 376,
+      "n": 374,
       "subs": {
-        "Impresoras": 54,
+        "Impresoras": 53,
         "Accesorios y repuestos": 198,
-        "Filamentos": 103,
+        "Filamentos": 102,
         "Escáneres 3D": 18,
         "": 3
       },
@@ -3453,16 +3452,16 @@
       "maxShip": 48
     },
     "Audífonos": {
-      "n": 1701,
+      "n": 1691,
       "subs": {
-        "Earbuds inalámbricos": 1059,
-        "Earbuds con cable": 191,
+        "Earbuds inalámbricos": 1052,
+        "Earbuds con cable": 189,
         "Diadema inalámbrica": 152,
-        "Diadema con cable": 299
+        "Diadema con cable": 298
       },
-      "discounted": 1208,
+      "discounted": 1201,
       "max": 79,
-      "discountedShip": 1208,
+      "discountedShip": 1201,
       "maxShip": 78
     },
     "Fitness": {
@@ -3478,82 +3477,82 @@
       "maxShip": 69
     },
     "Aparatos de belleza": {
-      "n": 2486,
+      "n": 2467,
       "subs": {
         "Faciales": 62,
         "Estilizadores y afeitado": 38,
-        "Maquillaje": 1890,
+        "Maquillaje": 1875,
         "Uñas": 27,
         "Corporales": 21,
         "Mobiliario para salón": 116,
-        "Manicure y pedicure": 54,
-        "Masajeadores": 164,
+        "Manicure y pedicure": 53,
+        "Masajeadores": 163,
         "Pelucas y extensiones": 24,
         "Depilación": 18,
-        "Secadoras de cabello": 30,
+        "Secadoras de cabello": 28,
         "Planchas y rizadores": 37,
         "Estilizadores": 5
       },
-      "discounted": 2180,
+      "discounted": 2165,
       "max": 71,
-      "discountedShip": 2189,
+      "discountedShip": 2174,
       "maxShip": 71
     },
     "Movilidad eléctrica": {
-      "n": 287,
+      "n": 285,
       "subs": {
-        "Patinetes eléctricos": 207,
+        "Patinetes eléctricos": 205,
         "Bicicletas eléctricas": 60,
         "Accesorios": 20
       },
-      "discounted": 70,
+      "discounted": 68,
       "max": 70,
-      "discountedShip": 70,
+      "discountedShip": 68,
       "maxShip": 70
     },
     "Autos, bicicletas y motos": {
-      "n": 3691,
+      "n": 3658,
       "subs": {
         "Autos": 156,
         "Motocicletas": 156,
         "Bicicletas": 62,
-        "": 1232,
-        "Baterías para auto": 154,
-        "Llantas": 1105,
-        "Cascos para moto": 467,
-        "Audio y multimedia para auto": 359
+        "": 1221,
+        "Baterías para auto": 151,
+        "Llantas": 1094,
+        "Cascos para moto": 465,
+        "Audio y multimedia para auto": 353
       },
-      "discounted": 2167,
+      "discounted": 2141,
       "max": 93,
-      "discountedShip": 2209,
+      "discountedShip": 2183,
       "maxShip": 93
     },
     "Cámaras y fotografía": {
-      "n": 1313,
+      "n": 1304,
       "subs": {
         "Lentes y accesorios": 115,
         "Cámaras de acción": 21,
         "Instantáneas": 15,
         "Mirrorless y réflex": 44,
         "Videocámaras": 21,
-        "": 627,
-        "Accesorios": 470
+        "": 621,
+        "Accesorios": 467
       },
-      "discounted": 1041,
+      "discounted": 1029,
       "max": 77,
-      "discountedShip": 1042,
+      "discountedShip": 1030,
       "maxShip": 77
     },
     "Viajes": {
-      "n": 776,
+      "n": 774,
       "subs": {
         "Camping y exteriores": 93,
         "Pesca": 38,
-        "Maletas y equipaje": 645
+        "Maletas y equipaje": 643
       },
-      "discounted": 484,
+      "discounted": 480,
       "max": 67,
-      "discountedShip": 484,
+      "discountedShip": 480,
       "maxShip": 62
     },
     "Drones": {
@@ -3587,21 +3586,21 @@
       "maxShip": 69
     },
     "Almacenamiento": {
-      "n": 544,
+      "n": 543,
       "subs": {
         "NAS y red": 19,
         "Externo": 26,
         "Memorias y tarjetas": 67,
         "Interno": 33,
-        "": 399
+        "": 398
       },
-      "discounted": 320,
+      "discounted": 322,
       "max": 69,
-      "discountedShip": 331,
+      "discountedShip": 332,
       "maxShip": 69
     },
     "Electrodomésticos": {
-      "n": 2609,
+      "n": 2607,
       "subs": {
         "Robots limpiacristales": 11,
         "Purificadores de agua": 34,
@@ -3612,29 +3611,29 @@
         "Secadoras de pelo": 21,
         "Freidoras de aire": 158,
         "Máquinas de coser": 58,
-        "Estufas y hornos": 727,
+        "Estufas y hornos": 726,
         "Campanas de cocina": 422,
         "Lavavajillas": 39,
         "Microondas": 158,
-        "Calentadores de agua": 239
+        "Calentadores de agua": 238
       },
-      "discounted": 1809,
+      "discounted": 1806,
       "max": 80,
-      "discountedShip": 1819,
+      "discountedShip": 1816,
       "maxShip": 80
     },
     "Bocinas": {
-      "n": 1165,
+      "n": 1160,
       "subs": {
         "Grande": 40,
         "Pequeña": 49,
         "Mediana": 78,
-        "Barras de sonido y home theater": 187,
-        "": 811
+        "Barras de sonido y home theater": 186,
+        "": 807
       },
-      "discounted": 868,
+      "discounted": 864,
       "max": 72,
-      "discountedShip": 868,
+      "discountedShip": 864,
       "maxShip": 72
     },
     "Teclados": {
@@ -3649,12 +3648,12 @@
       "maxShip": 67
     },
     "Deportes y fitness": {
-      "n": 1639,
+      "n": 1632,
       "subs": {
         "Otros": 68,
-        "Equipo de gimnasio": 309,
-        "Pesas y bandas": 393,
-        "Balones": 440,
+        "Equipo de gimnasio": 306,
+        "Pesas y bandas": 391,
+        "Balones": 438,
         "Yoga y tapetes": 89,
         "Boxeo y artes marciales": 154,
         "Bicicletas fijas": 23,
@@ -3662,68 +3661,68 @@
         "Dardos": 59,
         "Ping pong": 46
       },
-      "discounted": 1009,
+      "discounted": 1005,
       "max": 71,
-      "discountedShip": 1008,
+      "discountedShip": 1004,
       "maxShip": 71
     },
     "Mouse": {
-      "n": 194,
+      "n": 191,
       "subs": {
         "Gaming": 64,
         "Ergonómicos": 41,
-        "Oficina": 89
+        "Oficina": 86
       },
-      "discounted": 94,
+      "discounted": 90,
       "max": 70,
-      "discountedShip": 94,
+      "discountedShip": 90,
       "maxShip": 62
     },
     "Tabletas": {
-      "n": 602,
+      "n": 599,
       "subs": {
-        "Android": 459,
-        "Apple": 143
+        "Android": 457,
+        "Apple": 142
       },
-      "discounted": 258,
+      "discounted": 256,
       "max": 76,
-      "discountedShip": 258,
+      "discountedShip": 256,
       "maxShip": 76
     },
     "Mascotas": {
-      "n": 686,
+      "n": 684,
       "subs": {
         "Areneros e higiene": 54,
-        "Juguetes": 203,
+        "Juguetes": 202,
         "Correas y transportadoras": 117,
         "Comederos y bebederos": 144,
-        "Camas": 130,
+        "Camas": 129,
         "Casas para mascotas": 38
       },
-      "discounted": 538,
+      "discounted": 534,
       "max": 75,
-      "discountedShip": 539,
+      "discountedShip": 535,
       "maxShip": 71
     },
     "Salud y belleza": {
-      "n": 2006,
+      "n": 1992,
       "subs": {
         "Cuidado del cabello": 41,
         "Cuidado dental": 25,
-        "Rasuradoras y afeitado": 1449,
+        "Rasuradoras y afeitado": 1435,
         "Salud": 123,
         "Masajeadores": 18,
         "Básculas": 68,
         "Movilidad y equipo médico": 211,
         "Equipo de monitoreo médico": 71
       },
-      "discounted": 1551,
+      "discounted": 1541,
       "max": 75,
-      "discountedShip": 1552,
+      "discountedShip": 1542,
       "maxShip": 70
     },
     "Juguetes y bebés": {
-      "n": 3386,
+      "n": 3355,
       "subs": {
         "Juguetes musicales": 15,
         "Muñecas": 60,
@@ -3739,17 +3738,17 @@
         "Triciclos": 19,
         "Corrales": 30,
         "Monitores de bebé": 14,
-        "Bebés": 2094,
+        "Bebés": 2079,
         "Montables y triciclos": 44,
         "Trampolines": 7,
         "Juguetes para exterior": 16,
-        "Figuras y peluches": 762,
+        "Figuras y peluches": 746,
         "Juegos arcade": 4,
         "Armables y maquetas": 85
       },
-      "discounted": 2539,
+      "discounted": 2507,
       "max": 75,
-      "discountedShip": 2547,
+      "discountedShip": 2515,
       "maxShip": 75
     },
     "Cámaras de seguridad": {
@@ -3772,7 +3771,7 @@
       "maxShip": 71
     },
     "Iluminación": {
-      "n": 1485,
+      "n": 1477,
       "subs": {
         "Lámparas de escritorio": 18,
         "Iluminación industrial y exterior": 37,
@@ -3780,49 +3779,49 @@
         "Tiras LED": 30,
         "Lámparas de techo y pie": 19,
         "Lámparas de emergencia": 22,
-        "": 1312
+        "": 1304
       },
-      "discounted": 1105,
+      "discounted": 1095,
       "max": 70,
-      "discountedShip": 1121,
+      "discountedShip": 1111,
       "maxShip": 64
     },
     "Relojes inteligentes": {
-      "n": 751,
+      "n": 750,
       "subs": {
-        "Smartwatches": 721,
+        "Smartwatches": 720,
         "Bandas de actividad": 30
       },
-      "discounted": 257,
+      "discounted": 255,
       "max": 70,
-      "discountedShip": 257,
+      "discountedShip": 255,
       "maxShip": 70
     },
     "Laptops": {
-      "n": 1420,
+      "n": 1408,
       "subs": {
-        "Oficina y estudio": 1333,
+        "Oficina y estudio": 1321,
         "Gamer": 87
       },
-      "discounted": 910,
+      "discounted": 899,
       "max": 67,
-      "discountedShip": 910,
+      "discountedShip": 899,
       "maxShip": 67
     },
     "Televisores": {
-      "n": 743,
+      "n": 739,
       "subs": {
-        "Full HD y HD": 231,
-        "4K y QLED": 354,
-        "Dispositivos de streaming": 158
+        "Full HD y HD": 229,
+        "4K y QLED": 353,
+        "Dispositivos de streaming": 157
       },
-      "discounted": 478,
+      "discounted": 476,
       "max": 70,
-      "discountedShip": 479,
+      "discountedShip": 477,
       "maxShip": 70
     },
     "Lavadoras": {
-      "n": 574,
+      "n": 570,
       "subs": {
         "Carga superior": 112,
         "Semiautomáticas": 43,
@@ -3830,11 +3829,11 @@
         "Lavasecadoras": 29,
         "Secadoras": 22,
         "Centros de lavado": 3,
-        "": 350
+        "": 346
       },
-      "discounted": 296,
+      "discounted": 292,
       "max": 76,
-      "discountedShip": 310,
+      "discountedShip": 305,
       "maxShip": 76
     },
     "Refrigeradores": {
@@ -3845,9 +3844,9 @@
         "Uso comercial": 34,
         "Congeladores": 7
       },
-      "discounted": 518,
+      "discounted": 522,
       "max": 76,
-      "discountedShip": 526,
+      "discountedShip": 530,
       "maxShip": 76
     },
     "Baterías portátiles": {
@@ -3872,62 +3871,62 @@
         "Switches y hubs": 74,
         "": 5
       },
-      "discounted": 46,
+      "discounted": 45,
       "max": 64,
-      "discountedShip": 46,
+      "discountedShip": 45,
       "maxShip": 55
     },
     "Impresoras": {
-      "n": 1022,
+      "n": 1008,
       "subs": {
         "Térmica": 88,
-        "Inyección de tinta": 230,
+        "Inyección de tinta": 229,
         "Láser": 56,
-        "Consumibles": 648
+        "Consumibles": 635
       },
-      "discounted": 750,
+      "discounted": 736,
       "max": 60,
-      "discountedShip": 750,
+      "discountedShip": 736,
       "maxShip": 60
     },
     "Instrumentos musicales": {
-      "n": 1956,
+      "n": 1939,
       "subs": {
         "Guitarras": 22,
         "Teclados y pianos": 17,
         "Cuerdas": 50,
-        "DJ y producción": 127,
+        "DJ y producción": 126,
         "Baterías": 20,
         "Amplificadores y micrófonos": 23,
         "Viento": 24,
-        "": 1673
+        "": 1657
       },
-      "discounted": 1396,
+      "discounted": 1383,
       "max": 84,
-      "discountedShip": 1396,
+      "discountedShip": 1382,
       "maxShip": 84
     },
     "Blancos y ropa de cama": {
-      "n": 2610,
+      "n": 2597,
       "subs": {
         "Almohadas": 30,
         "Edredones y cobertores": 45,
         "Sábanas": 36,
         "Protectores de colchón": 38,
         "Cobijas eléctricas": 14,
-        "Toallas": 227,
+        "Toallas": 225,
         "Tapetes de baño": 34,
         "Fundas para muebles": 6,
         "Cortinas": 20,
-        "": 2160
+        "": 2149
       },
-      "discounted": 2076,
+      "discounted": 2065,
       "max": 68,
-      "discountedShip": 2077,
+      "discountedShip": 2066,
       "maxShip": 68
     },
     "Domótica y hogar inteligente": {
-      "n": 728,
+      "n": 725,
       "subs": {
         "Bocinas y asistentes inteligentes": 32,
         "Enchufes inteligentes": 27,
@@ -3936,11 +3935,11 @@
         "Cerraduras inteligentes": 42,
         "Hubs y controladores": 11,
         "Iluminación inteligente": 32,
-        "": 545
+        "": 542
       },
-      "discounted": 494,
+      "discounted": 488,
       "max": 80,
-      "discountedShip": 498,
+      "discountedShip": 492,
       "maxShip": 80
     },
     "Equipo comercial": {
@@ -4120,12 +4119,12 @@
       "p102469"
     ],
     "Movilidad eléctrica": [
-      "p73570",
       "p73585",
       "p73478",
       "p73555",
       "p73477",
-      "p73583"
+      "p73583",
+      "p73481"
     ],
     "Autos, bicicletas y motos": [
       "p115269",

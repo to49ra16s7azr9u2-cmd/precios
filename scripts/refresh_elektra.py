@@ -54,6 +54,7 @@ import urllib.parse
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from add_elektra_products import CATEGORY_MAP, PAGE_SIZE, SEARCH_URL, fetch_json  # noqa: E402
+from elektra_specs import specs_from  # noqa: E402
 from data_io import load_catalog, save_catalog  # noqa: E402
 
 # Si el recorrido junta menos de esta fracción de las urls de Elektra que ya
@@ -153,6 +154,7 @@ def main():
         paths = paths[: args.limit_categories]
 
     live = {}
+    fichas = {}
     for i, path in enumerate(paths, 1):
         seen = 0
         for p in walk_category(path):
@@ -160,6 +162,10 @@ def main():
             if not url:
                 continue
             live[url] = current_offer(p)
+            # La ficha técnica viene en la MISMA respuesta que el precio: se
+            # aprovecha el recorrido que ya se está haciendo (ver
+            # elektra_specs.py). Antes se descargaba y se tiraba.
+            fichas[url] = specs_from(p)
             seen += 1
         print(f"  [{i}/{len(paths)}] {path}: {seen} productos ({len(live)} acumulados)")
 
@@ -173,7 +179,8 @@ def main():
               file=sys.stderr)
         sys.exit(2)
 
-    stats = {"revisados": 0, "precio": 0, "sin_cambio": 0, "agotado": 0, "no_visto": 0}
+    stats = {"revisados": 0, "precio": 0, "sin_cambio": 0, "agotado": 0, "no_visto": 0,
+             "ficha_tecnica": 0}
     deltas = []
     dead_urls, missing_urls = set(), set()
 
@@ -188,6 +195,15 @@ def main():
                 stats["no_visto"] += 1
                 missing_urls.add(o["url"])
                 continue
+            # Ficha técnica: se escribe en el PRODUCTO (no en la oferta) y
+            # solo si trae algo. No se pisa una ficha que ya tenga el
+            # producto de otra fuente con MÁS campos: la de Elektra es buena,
+            # pero no es razón para tirar una mejor.
+            ficha = fichas.get(url) or []
+            if ficha and len(ficha) > len(p.get("specs") or []):
+                if p.get("specs") != ficha:
+                    p["specs"] = ficha
+                    stats["ficha_tecnica"] += 1
             price, list_price, available, ean = entry
             # El código de barras se guarda aunque el producto esté agotado o
             # el precio no se haya movido: es un dato del producto, no de la

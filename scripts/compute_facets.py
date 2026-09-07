@@ -124,8 +124,12 @@ def _in_range(val, ranges, category):
 
 def _screen_in(category, name, spec_map):
     val = None
-    if "pantalla" in spec_map:
-        val = se.screen_size_in(spec_map["pantalla"])
+    # "tamaño de la pantalla" es como lo llama la ficha técnica de Elektra.
+    for lbl in ("pantalla", "tamano de la pantalla"):
+        if lbl in spec_map:
+            val = se.screen_size_in(spec_map[lbl])
+            if val is not None:
+                break
     if val is None:
         val = se.screen_size_in(name)
     if val is None:
@@ -141,16 +145,32 @@ def _screen_in(category, name, spec_map):
 def _ram_storage(category, name, spec_map):
     # Caso más confiable: la tienda separó RAM y Almacenamiento en dos
     # campos propios -- no hay ambigüedad alguna que resolver.
-    ram = _gb_of(spec_map["memoria ram"]) if "memoria ram" in spec_map else None
+    ram = None
+    for lbl in ("memoria ram", "ram"):
+        if lbl in spec_map:
+            ram = _gb_of(spec_map[lbl])
+            break
     storage = None
-    for lbl in ("almacenamiento", "capacidad"):
+    # "disco duro" y "capacidad de almacenamiento" los trae la ficha técnica
+    # de Elektra (ver elektra_specs.py); "memoria interna" es como llama
+    # Elektra al almacenamiento de un celular.
+    for lbl in ("almacenamiento", "capacidad de almacenamiento", "disco duro",
+                "memoria interna", "capacidad"):
         if lbl in spec_map:
             storage = _gb_of(spec_map[lbl])
             break
     if ram is not None or storage is not None:
-        if ram is None or storage is not None:
-            # si falta uno de los dos, se completa con el nombre pero sin
-            # pisar el que ya vino confirmado por specs[]
+        # Lo que la ficha no diga se completa con el nombre, sin pisar lo que
+        # sí vino confirmado por specs[].
+        #
+        # La condición de antes ("if ram is None or storage is not None")
+        # dejaba fuera justo el caso de una ficha que declara la RAM y no el
+        # almacenamiento: devolvía (ram, None) sin mirar el nombre. Empezó a
+        # doler al importar las fichas de Elektra, donde las torres traen
+        # "Memoria RAM" pero el almacenamiento se llama "Disco Duro": la
+        # cobertura de storage_gb en Computadoras de escritorio se desplomó
+        # de 94% a 29%.
+        if ram is None or storage is None:
             n_ram, n_storage = se.ram_storage_gb(name)
             if ram is None:
                 ram = n_ram
@@ -241,7 +261,14 @@ def facets_for(product):
         # confianza en estas dos categorías. En el resto de Muebles
         # (escritorios, libreros...) simplemente no aparece y el producto
         # queda sin facet, como corresponde.
-        medida = se.bed_size_of(name)
+        medida = None
+        for lbl in ("tamano de colchon", "tamano"):
+            if lbl in spec_map:
+                medida = se.bed_size_of(spec_map[lbl])
+                if medida:
+                    break
+        if not medida:
+            medida = se.bed_size_of(name)
         if medida:
             f["bed_size"] = medida
         return f or None
@@ -266,13 +293,25 @@ def facets_for(product):
         return f or None
 
     if category == "Lavadoras":
-        kg = se.wash_capacity_kg(name)
+        # La ficha técnica lo declara; el nombre hay que interpretarlo.
+        kg = None
+        for lbl in ("capacidad de carga lavadora (kg)", "capacidad de carga"):
+            if lbl in spec_map:
+                kg = se.wash_capacity_kg(spec_map[lbl])
+                if kg is not None:
+                    break
+        if kg is None:
+            kg = se.wash_capacity_kg(name)
         if kg is not None:
             f["wash_kg"] = kg
         return f or None
 
     if category == "Refrigeradores":
-        ft3 = se.fridge_capacity_ft3(name)
+        ft3 = None
+        if "capacidad en pies" in spec_map:
+            ft3 = se.fridge_capacity_ft3(spec_map["capacidad en pies"] + " pies")
+        if ft3 is None:
+            ft3 = se.fridge_capacity_ft3(name)
         if ft3 is not None:
             f["fridge_ft3"] = ft3
         return f or None
@@ -337,7 +376,11 @@ def facets_for(product):
         cam = _camera(spec_map, name)
         if cam:
             f["camera_mp"] = cam
-        batt = se.battery_mah(name)
+        batt = None
+        if "capacidad de bateria (mah)" in spec_map:
+            batt = se.battery_mah(spec_map["capacidad de bateria (mah)"] + " mAh")
+        if batt is None:
+            batt = se.battery_mah(name)
         if batt:
             f["battery_mah"] = batt
 
