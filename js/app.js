@@ -336,7 +336,13 @@
     specFilters: buildSpecFilterState(),
     // "Compara calidad": nivel y tamaño elegidos con las tarjetas de arriba
     // de la lista (ver QUALITY_AXES). null = sin elegir.
-    quality: { level: null, size: null },
+    // Cada eje guarda una LISTA de niveles elegidos (vacía = ninguno). Era
+    // un id suelto; con la selección múltiple pasa a ser lista para no
+    // tener dos formas de representar lo mismo según el modo.
+    quality: { level: [], size: [] },
+    // Selección múltiple por eje, off por defecto: el recorrido de un clic
+    // ("elijo Intermedio y veo Intermedios") sigue siendo el de siempre.
+    qualityMulti: { level: false, size: false },
     // Color elegido en la ficha (pastillas bajo el precio). null = todos.
     colorFilter: null,
     qualityCategory: null, // categoría a la que pertenece `quality` (ver renderSpecsBanner)
@@ -2997,6 +3003,15 @@
         ${opts.withRank ? `<span class="rank-badge">${opts.medals && rank === 1 ? icon("crown") : rank}</span>` : ""}
         <span class="row-icon"></span>
         <div class="row-info">
+          ${
+            // Sellos de nivel: con varios niveles marcados a la vez, la
+            // lista mezcla básicos con altos y desde la fila no se sabía
+            // cuál era cuál. Solo aparecen cuando el eje tiene 2+ niveles
+            // elegidos (ver qualityBadgeAxes).
+            qualityTiersOf(p)
+              .map((t) => `<span class="row-tier" title="${htmlEscapeAttr(t.axis)}">${t.name}</span>`)
+              .join("")
+          }
           <div class="row-brand">${p.brand}</div>
           <div class="row-name">${p.name}${usedBadge}${commercialBadge}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">${icon("palette")} +${variantCount}</span>` : ""}</div>
           ${
@@ -3781,17 +3796,42 @@
     return tier ? tier.id : null;
   }
 
+  // Niveles elegidos de un eje, siempre como lista.
+  function qualitySel(key) {
+    const v = state.quality[key];
+    return Array.isArray(v) ? v : v ? [v] : [];
+  }
+
   function matchesQuality(p) {
     for (const axis of qualityAxes()) {
-      const sel = state.quality[axis.key];
-      if (!sel) continue;
-      if (qualityTierOf(axis, p) !== sel) return false;
+      const sel = qualitySel(axis.key);
+      if (!sel.length) continue;
+      if (!sel.includes(qualityTierOf(axis, p))) return false;
     }
     return true;
   }
 
   function clearQuality() {
-    state.quality = { level: null, size: null };
+    state.quality = { level: [], size: [] };
+  }
+
+  // Los sellos de nivel en las filas solo tienen sentido cuando el eje
+  // tiene DOS o más niveles elegidos: con uno solo, todos los productos de
+  // la lista son de ese nivel y el sello repetido no distingue nada.
+  function qualityBadgeAxes() {
+    return qualityAxes().filter((a) => qualitySel(a.key).length > 1);
+  }
+
+  // [{label, name}] de los niveles a los que pertenece este producto, para
+  // las filas de la lista. Vacío cuando no hay selección múltiple activa.
+  function qualityTiersOf(p) {
+    const out = [];
+    qualityBadgeAxes().forEach((axis) => {
+      const id = qualityTierOf(axis, p);
+      const tier = axis.tiers.find((t) => t.id === id);
+      if (tier) out.push({ axis: axis.label, name: tier.name });
+    });
+    return out;
   }
 
   // La foto de cada tarjeta es la de un producto REAL de ese rango, no una
@@ -3818,7 +3858,7 @@
     // tarjetas de esa misma fila dirían siempre "0 productos" y no se podría
     // cambiar de opinión.
     const base = categoryScopedProducts();
-    const active = axes.some((a) => state.quality[a.key]);
+    const active = axes.some((a) => qualitySel(a.key).length);
     el.qualitySub.textContent = active
       ? "Elige otra opción para cambiar, o toca la marcada para quitarla."
       : qualityIntro();
@@ -3845,16 +3885,34 @@
       // Para contar y para elegir la foto, cada fila mira el alcance
       // filtrado por LA OTRA fila (el tamaño elegido sí acota los niveles
       // que se ofrecen, y al revés), pero nunca por sí misma.
-      const other = axes.filter((a) => a !== axis && state.quality[a.key]);
-      const scoped = base.filter((p) => other.every((a) => qualityTierOf(a, p) === state.quality[a.key]));
+      const other = axes.filter((a) => a !== axis && qualitySel(a.key).length);
+      const scoped = base.filter((p) =>
+        other.every((a) => qualitySel(a.key).includes(qualityTierOf(a, p))));
       const withField = scoped.filter((p) => p.facets && p.facets[axis.field] != null).length;
 
       const row = document.createElement("div");
       row.className = "quality-row";
       const head = document.createElement("div");
       head.className = "quality-row-head";
+      const multi = !!state.qualityMulti[axis.key];
       head.innerHTML = `<span class="quality-row-label">${axis.label}</span>
-        <span class="quality-row-note">${axis.criterion} · ${withField.toLocaleString("es-MX")} de ${scoped.length.toLocaleString("es-MX")} productos lo indican</span>`;
+        <span class="quality-row-note">${axis.criterion} · ${withField.toLocaleString("es-MX")} de ${scoped.length.toLocaleString("es-MX")} productos lo indican</span>
+        <button type="button" class="quality-multi${multi ? " active" : ""}" aria-pressed="${multi}"
+          title="Con la selección múltiple activada puedes marcar varios ${axis.label.toLowerCase()}s a la vez, y cada producto de la lista muestra a cuál pertenece.">
+          <span class="quality-multi-box">${multi ? "✓" : ""}</span>Varios a la vez</button>`;
+      head.querySelector(".quality-multi").onclick = () => {
+        const ahora = !state.qualityMulti[axis.key];
+        state.qualityMulti[axis.key] = ahora;
+        // Al apagarla no se puede quedar más de un nivel marcado: se
+        // conserva el primero en vez de vaciar la selección, que sería
+        // perder el filtro por cambiar de modo.
+        if (!ahora) {
+          const sel = qualitySel(axis.key);
+          if (sel.length > 1) state.quality[axis.key] = [sel[0]];
+        }
+        state.page = 1;
+        renderList();
+      };
       row.appendChild(head);
 
       const grid = document.createElement("div");
@@ -3862,7 +3920,7 @@
       axis.tiers.forEach((tier) => {
         const n = scoped.filter((p) => qualityTierOf(axis, p) === tier.id).length;
         const sample = qualityTierSample(axis, tier.id, scoped);
-        const isActive = state.quality[axis.key] === tier.id;
+        const isActive = qualitySel(axis.key).includes(tier.id);
         const card = document.createElement("button");
         card.type = "button";
         card.className = "quality-card" + (isActive ? " active" : "") + (n === 0 ? " empty" : "");
@@ -3880,7 +3938,15 @@
         // caída a la ilustración si el CDN de la tienda falla.
         if (sample) renderProductMedia(card.querySelector(".quality-card-photo"), sample);
         card.onclick = () => {
-          state.quality[axis.key] = isActive ? null : tier.id;
+          const sel = qualitySel(axis.key);
+          if (state.qualityMulti[axis.key]) {
+            state.quality[axis.key] = isActive
+              ? sel.filter((x) => x !== tier.id)
+              : sel.concat(tier.id);
+          } else {
+            state.quality[axis.key] = isActive ? [] : [tier.id];
+          }
+          state.page = 1;
           renderList();
         };
         grid.appendChild(card);
