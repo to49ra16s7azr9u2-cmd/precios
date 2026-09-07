@@ -298,6 +298,7 @@
     { key: "gpu", facetField: "gpu", categories: ["Laptops"], label: "Tarjeta gráfica", groupEl: "filterGpuGroup", listEl: "filterGpu", format: (v) => v },
     { key: "os", facetField: "os", categories: ["Laptops"], label: "Sistema operativo", groupEl: "filterOsGroup", listEl: "filterOs", format: (v) => v },
     { key: "camera", facetField: "camera_mp", categories: ["Celulares", "Tabletas"], label: "Cámara principal", groupEl: "filterCameraGroup", listEl: "filterCamera", sortNum: true, format: (v) => `${v} MP` },
+    { key: "bedSize", facetField: "bed_size", categories: ["Blancos y ropa de cama", "Muebles"], label: "Medida de cama", groupEl: "filterBedSizeGroup", listEl: "filterBedSize", format: (v) => v },
     { key: "platform", facetField: "platform", categories: ["Videojuegos"], label: "Consola", groupEl: "filterPlatformGroup", listEl: "filterPlatform", format: (v) => v },
     { key: "washKg", facetField: "wash_kg", categories: ["Lavadoras"], label: "Capacidad de carga", groupEl: "filterWashKgGroup", listEl: "filterWashKg", sortNum: true, format: (v) => `${v} kg` },
     { key: "fridgeFt", facetField: "fridge_ft3", categories: ["Refrigeradores"], label: "Capacidad", groupEl: "filterFridgeFtGroup", listEl: "filterFridgeFt", sortNum: true, format: (v) => `${v} pies` },
@@ -419,6 +420,8 @@
     specsBannerLink: document.getElementById("specsBannerLink"),
     subcatPicker: document.getElementById("subcatPicker"),
     subcatGrid: document.getElementById("subcatGrid"),
+    filterBedSizeGroup: document.getElementById("filterBedSizeGroup"),
+    filterBedSize: document.getElementById("filterBedSize"),
     filterPlatformGroup: document.getElementById("filterPlatformGroup"),
     filterPlatform: document.getElementById("filterPlatform"),
     filterWashKgGroup: document.getElementById("filterWashKgGroup"),
@@ -2730,7 +2733,7 @@
       // La casilla "Comparar" solo aparece donde hay specs que comparar:
       // las mismas categorías con facets calculados que muestran el bloque
       // Compara calidad. En el resto del catálogo la tabla saldría vacía.
-      withCompare: SPECS_BANNER_CATEGORIES.includes(state.category),
+      withCompare: hasQualityBlock(),
     });
     renderPagination(totalPages);
 
@@ -3263,13 +3266,11 @@
     if (!el.specsModal.classList.contains("hidden")) updateSpecsModalCount();
   }
 
-  // "Compara calidad" -- solo en las categorías con facets calculados
-  // (compute_facets.py todavía no cubre Computadoras de escritorio ni
-  // Televisores). El pie del bloque abre un modal con TODOS los filtros de
+  // "Compara calidad": dónde se muestra lo decide hasQualityBlock() a partir
+  // de QUALITY_AXES, no una lista aparte que hay que acordarse de
+  // actualizar. El pie del bloque abre un modal con los filtros de
   // SPEC_FACETS desplegados de una (en vez de navegar a otra vista) para no
   // perder el listado de fondo.
-  const SPECS_BANNER_CATEGORIES = ["Celulares", "Laptops", "Tabletas", "Monitores",
-    "Televisores", "Videojuegos", "Lavadoras", "Refrigeradores"];
 
   // ---------- Paso 1 del recorrido: el tipo dentro de la categoría ----------
   // Entrar a "Audífonos y auriculares" y recibir 1,752 productos mezclados
@@ -3326,11 +3327,12 @@
     // en cada lugar que toca state.category, porque este es el único punto
     // por el que pasan TODAS las entradas a la lista (incluido un link
     // profundo con ?cat= en el hash).
-    if (state.category !== state.qualityCategory) {
+    const scope = `${state.category}/${state.subcategory || ""}`;
+    if (scope !== state.qualityCategory) {
       clearQuality();
-      state.qualityCategory = state.category;
+      state.qualityCategory = scope;
     }
-    const relevant = SPECS_BANNER_CATEGORIES.includes(state.category);
+    const relevant = hasQualityBlock();
     el.qualityPicker.classList.toggle("hidden", !relevant);
     if (relevant) renderQualityPicker();
   }
@@ -3470,6 +3472,41 @@
         ],
       },
     ],
+    // La medida de cama es la primera pregunta al comprar ropa de cama:
+    // unas sábanas queen no entran en una matrimonial.
+    "Blancos y ropa de cama": [
+      {
+        key: "level", label: "Medida", field: "bed_size", criterion: "de la cama",
+        tiers: [
+          { id: "ind", name: "Individual", use: "Una persona", spec: "Individual / Twin", match: (v) => v === "Individual" },
+          { id: "mat", name: "Matrimonial", use: "Dos personas, cama estándar", spec: "Matrimonial / Full", match: (v) => v === "Matrimonial" },
+          { id: "queen", name: "Queen", use: "Dos personas con más espacio", spec: "Queen", match: (v) => v === "Queen" },
+          { id: "king", name: "King", use: "La más ancha", spec: "King y California King", match: (v) => v === "King" || v === "California King" },
+        ],
+      },
+    ],
+    "Muebles/Colchones": [
+      {
+        key: "level", label: "Medida", field: "bed_size", criterion: "del colchón",
+        tiers: [
+          { id: "ind", name: "Individual", use: "Una persona", spec: "Individual / Twin", match: (v) => v === "Individual" },
+          { id: "mat", name: "Matrimonial", use: "Dos personas, cama estándar", spec: "Matrimonial / Full", match: (v) => v === "Matrimonial" },
+          { id: "queen", name: "Queen", use: "Dos personas con más espacio", spec: "Queen", match: (v) => v === "Queen" },
+          { id: "king", name: "King", use: "La más ancha", spec: "King y California King", match: (v) => v === "King" || v === "California King" },
+        ],
+      },
+    ],
+    "Muebles/Camas": [
+      {
+        key: "level", label: "Medida", field: "bed_size", criterion: "de la cama",
+        tiers: [
+          { id: "ind", name: "Individual", use: "Una persona", spec: "Individual / Twin", match: (v) => v === "Individual" },
+          { id: "mat", name: "Matrimonial", use: "Dos personas, cama estándar", spec: "Matrimonial / Full", match: (v) => v === "Matrimonial" },
+          { id: "queen", name: "Queen", use: "Dos personas con más espacio", spec: "Queen", match: (v) => v === "Queen" },
+          { id: "king", name: "King", use: "La más ancha", spec: "King y California King", match: (v) => v === "King" || v === "California King" },
+        ],
+      },
+    ],
     Monitores: [
       {
         key: "level", label: "Nivel", field: "resolution", criterion: "por resolución",
@@ -3501,8 +3538,23 @@
   };
   const QUALITY_INTRO_DEFAULT = "Elige por lo que vas a hacer con él, no por la ficha técnica.";
 
+  // La clave puede ser "Categoría" o "Categoría/Subcategoría", y la más
+  // específica gana. Hace falta para Colchones: la medida de cama es LA
+  // pregunta ahí (5,134 productos), pero no significa nada en el resto de
+  // Muebles -- un escritorio no es queen ni king.
   function qualityAxes() {
+    if (state.subcategory) {
+      const scoped = QUALITY_AXES[`${state.category}/${state.subcategory}`];
+      if (scoped) return scoped;
+    }
     return QUALITY_AXES[state.category] || [];
+  }
+
+  // El bloque se muestra donde hay ejes definidos, no contra una lista
+  // aparte de categorías: así una subcategoría con ejes propios (Colchones)
+  // lo tiene aunque su categoría no.
+  function hasQualityBlock() {
+    return qualityAxes().length > 0;
   }
 
   function qualityTierOf(axis, p) {

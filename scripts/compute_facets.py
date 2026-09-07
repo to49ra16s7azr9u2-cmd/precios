@@ -78,6 +78,7 @@ def _spec_map(product):
 FACET_CATEGORIES = (
     "Celulares", "Laptops", "Tabletas", "Monitores",
     "Televisores", "Videojuegos", "Lavadoras", "Refrigeradores",
+    "Blancos y ropa de cama", "Muebles",
 )
 
 _FOLDABLE_RE = re.compile(r"\bplegable\b|\bfold\b|\bflip\b")
@@ -227,6 +228,17 @@ def facets_for(product):
             f["panel_type"] = panel
         if se.is_curved(name):
             f["curved"] = True
+        return f or None
+
+    if category in ("Blancos y ropa de cama", "Muebles"):
+        # La medida de cama es el dato que decide la compra en colchones,
+        # bases y ropa de cama, y el único que se puede leer del nombre con
+        # confianza en estas dos categorías. En el resto de Muebles
+        # (escritorios, libreros...) simplemente no aparece y el producto
+        # queda sin facet, como corresponde.
+        medida = se.bed_size_of(name)
+        if medida:
+            f["bed_size"] = medida
         return f or None
 
     if category == "Televisores":

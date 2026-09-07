@@ -882,3 +882,41 @@ def fridge_capacity_ft3(name):
         if 3.0 <= v <= 35.0:
             vals.add(v)
     return next(iter(vals)) if len(vals) == 1 else None
+
+
+# ---------------------------------------------------------------------
+# Medida de cama (colchones, bases, sábanas, edredones)
+# ---------------------------------------------------------------------
+# Es LA pregunta de la categoría: unas sábanas queen no sirven en una cama
+# matrimonial. Las tiendas mexicanas usan indistintamente el nombre local y
+# el de EE.UU. para la misma medida, así que se canonizan: twin=individual,
+# full=matrimonial. "California King" se deja aparte de "King" porque es
+# otra medida real (más larga y menos ancha).
+_BED_SIZE_PATTERNS = (
+    ("California King", re.compile(r"\bcalifornia\s*king\b|\bcal\.?\s*king\b")),
+    ("King", re.compile(r"\bking\b")),
+    ("Queen", re.compile(r"\bqueen\b")),
+    ("Matrimonial", re.compile(r"\bmatrimonial\b|\bfull\s*size\b|\bcama\s*full\b")),
+    ("Individual", re.compile(r"\bindividual\b|\btwin\b")),
+)
+
+
+def bed_size_of(name):
+    """Medida de cama, o None si el nombre no la dice o dice más de una.
+
+    Un anuncio que menciona DOS medidas ("disponible en individual y
+    matrimonial", o un paquete) no se clasifica: elegir una sería inventar
+    cuál se está vendiendo. "California King" contiene "King", y eso no es
+    ambigüedad -- es la medida más específica, que gana por ir primero.
+    """
+    n = _norm(name)
+    hits = [label for label, rx in _BED_SIZE_PATTERNS if rx.search(n)]
+    if not hits:
+        return None
+    if len(hits) > 1:
+        # Único solapamiento legítimo: "California King" dispara también
+        # "King". Cualquier otro par son dos medidas distintas de verdad.
+        if set(hits) == {"California King", "King"}:
+            return "California King"
+        return None
+    return hits[0]
