@@ -64,7 +64,9 @@ from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import load_catalog, save_catalog  # noqa: E402
-from phone_signature import FINISH_QUALIFIERS, color_full_of, signature  # noqa: E402
+from phone_signature import (  # noqa: E402
+    FINISH_QUALIFIERS, color_full_of, condition_of, signature,
+)
 from match_amazon_capture import COLOR_CANON, COLORS  # noqa: E402
 
 # palabra tal como la escriben las tiendas -> color canónico
@@ -72,10 +74,75 @@ COLORS_CANON = {c: COLOR_CANON.get(c, c) for c in COLORS}
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Por ahora solo Celulares: phone_signature.py está construido y probado
-# para teléfonos (capacidad, RAM, compañía, eSIM). Aplicarlo a un sillón o
-# a una licuadora leería "modelo" donde no hay.
+# La firma estructurada de phone_signature.py está construida y probada para
+# teléfonos (capacidad, RAM, compañía, eSIM). Aplicarla a un sillón leería
+# "modelo" donde no hay, así que solo Celulares pasa por ese camino.
 CATEGORIES = ("Celulares",)
+
+# El resto del catálogo va por el camino GENÉRICO de abajo (generic_key):
+# dos fichas se juntan solo si su nombre es IDÉNTICO una vez quitado el
+# color. Sin modelos, sin parecidos, sin adivinar.
+#
+# Estas categorías quedan fuera porque ahí el color NO es un acabado, es el
+# producto:
+#   - Iluminación: "luz blanca" y "luz cálida" son focos distintos.
+#   - Joyería: un anillo de oro y uno de plata no son el mismo anillo en
+#     otro color -- ni cuestan lo mismo.
+#   - Salud y belleza: el tono de un tinte o de una base de maquillaje es
+#     lo que se compra.
+CATEGORIES_SIN_COLOR = ("Iluminación", "Joyería y bisutería", "Salud y belleza")
+
+
+_ACENTOS = str.maketrans("áéíóúüñÁÉÍÓÚÜÑ", "aeiouunAEIOUUN")
+_NO_PALABRA_RE = re.compile(r"[^a-z0-9]+")
+
+
+def _tokens(texto):
+    """Tokens comparables de un nombre: sin acentos, sin puntuación, en
+    minúscula y EN ORDEN.
+
+    En orden a propósito, no como conjunto: "Adaptador HDMI a VGA" y
+    "Adaptador VGA a HDMI" tienen las mismas palabras y son dos productos
+    distintos. Perder alguna fusión por el orden es barato; juntar dos
+    productos que no son el mismo, no.
+    """
+    return [t for t in _NO_PALABRA_RE.split(texto.translate(_ACENTOS).lower()) if t]
+
+
+def generic_key(product):
+    """Clave de agrupación para las categorías que NO son Celulares, o None.
+
+    Dos fichas comparten clave cuando, quitado el color, les queda el mismo
+    nombre palabra por palabra, la misma marca, la misma categoría y la
+    misma condición. Es deliberadamente estricto: acá no hay firma
+    estructurada que diga qué es capacidad y qué es modelo, así que lo
+    único en lo que se puede confiar es en que el resto del nombre coincida
+    exactamente.
+
+    Devuelve None -- y la ficha no se junta con nadie -- cuando:
+      * la categoría es una en la que el color es el producto,
+      * el nombre no declara color (no hay nada que separar),
+      * quitarle el color no cambia el nombre (el color venía de un campo
+        que no está en el título, así que no se puede comparar el resto),
+      * lo que queda son menos de 4 palabras: "Funda para iPhone" describe
+        cientos de productos distintos.
+    """
+    if product.get("category") in CATEGORIES_SIN_COLOR:
+        return None
+    marca = (product.get("brand") or "").strip().lower()
+    if not marca:
+        return None
+    nombre = product.get("name") or ""
+    etiqueta = color_label(product)
+    if not etiqueta:
+        return None
+    resto = strip_color_from_name(nombre, [etiqueta])
+    if resto == nombre:
+        return None
+    toks = _tokens(resto)
+    if len(toks) < 4:
+        return None
+    return (product.get("category"), marca, " ".join(toks), condition_of(nombre))
 
 
 def id_num(product):
@@ -83,9 +150,26 @@ def id_num(product):
     return int(m.group(1)) if m else 10**9
 
 
+# Una palabra de color que en realidad es parte de un nombre propio no
+# describe el producto: "Aspiradora Black & Decker Ciclónica Roja" es ROJA,
+# no negra, y "Xiaomi Black Shark ... Negro" es negro por el "Negro" del
+# final, no por el "Black" del modelo. Se borran esas apariciones ANTES de
+# leer el color, con el mismo criterio que ya usa la limpieza del nombre.
+def _sin_colores_de_nombre_propio(name):
+    texto = name
+    for palabra in sorted(COLORS, key=len, reverse=True):
+        texto = re.sub(
+            rf"(?<![\w]){re.escape(palabra)}(?![\w])",
+            lambda m: "" if _quita_si_es_color(m) == m.group(0) else m.group(0),
+            texto,
+            flags=re.I,
+        )
+    return texto
+
+
 def color_parts(product):
     """(color base, apellidos) del nombre, o (None, ()) si no dice color."""
-    base, quals = color_full_of(product.get("name", ""))
+    base, quals = color_full_of(_sin_colores_de_nombre_propio(product.get("name", "")))
     if not base:
         return None, ()
     # Los apellidos que YA están dentro del color base sobran: color_of
@@ -211,6 +295,17 @@ def _quita_si_es_color(m):
     "Negro Medianoche" sí se quita entero, "Black Shark" no se toca.
     """
     resto = m.string[m.end():]
+    # "Black+Decker" y "Black & Decker" son UNA marca: quitarle el color
+    # dejaba "Licuadora +Decker".
+    #
+    # El "+" tiene que ir PEGADO a la palabra siguiente. Con espacio, "+"
+    # es el separador de paquete que usan las tiendas de blancos ("Sabanas
+    # Trinity King Size Rosa+ Almohada Frosty"), y protegerlo ahí dejaba
+    # sin fusionar 106 juegos de sábanas que solo se diferencian en el
+    # color. El "&" sí se acepta con espacios: nadie arma un paquete con
+    # "&", pero media docena de marcas lo llevan en el nombre.
+    if re.match(r"\+[A-Za-zÁÉÍÓÚÑáéíóúñ]", resto) or re.match(r"\s*&\s*[A-ZÁÉÍÓÚÑ]", resto):
+        return m.group(0)
     siguiente = re.match(r"\s+([A-Za-zÁÉÍÓÚÑáéíóúñ]+)", resto)
     if siguiente:
         palabra = siguiente.group(1)
@@ -306,13 +401,16 @@ def main():
     data = load_catalog()
     grupos = defaultdict(list)
     for p in data["products"]:
-        if p.get("category") not in CATEGORIES:
-            continue
-        sig = signature(p)
-        if not sig:
-            continue  # firma incompleta -> no se junta con nadie
-        brand, model, storage, ram, _color, carrier, bundle, cond, esim, net = sig
-        grupos[(brand, model, storage, ram, carrier, bundle, cond, esim, net)].append(p)
+        if p.get("category") in CATEGORIES:
+            sig = signature(p)
+            if not sig:
+                continue  # firma incompleta -> no se junta con nadie
+            brand, model, storage, ram, _color, carrier, bundle, cond, esim, net = sig
+            grupos[("tel", brand, model, storage, ram, carrier, bundle, cond, esim, net)].append(p)
+        else:
+            clave = generic_key(p)
+            if clave:
+                grupos[("gen",) + clave].append(p)
 
     fusionables = []
     for clave, ps in grupos.items():
@@ -368,7 +466,8 @@ def main():
         # product.offers se queda con las de la variante más barata: es lo
         # que ve cualquier lector viejo que no sepa de colorVariants.
         principal["offers"] = list(variantes[0]["offers"])
-        resumen.append((principal["id"], principal["name"], [v["color"] for v in variantes]))
+        resumen.append((principal["id"], principal["name"],
+                        [v["color"] for v in variantes], principal.get("category")))
 
     # Limpieza de nombres de fichas que YA estaban fusionadas de una corrida
     # anterior: sin esto, cambiar la regla de limpieza no arreglaba nada de lo
@@ -386,9 +485,14 @@ def main():
             renombradas += 1
     print(f"Nombres limpiados de color: {renombradas}")
 
+    por_cat = defaultdict(int)
+    for pid, _n, _c, cat in resumen:
+        por_cat[cat] += 1
     print(f"Grupos fusionables (mismo equipo, distinto color): {len(resumen)}")
+    print("  por categoría: " + ", ".join(
+        f"{c} {n}" for c, n in sorted(por_cat.items(), key=lambda kv: -kv[1])))
     print(f"Fichas absorbidas: {len(drop)}")
-    for pid, name, colores in resumen[:25]:
+    for pid, name, colores, _cat in resumen[:25]:
         print(f"   {pid:9} {name[:52]:52} <- {', '.join(colores)[:60]}")
     if len(resumen) > 25:
         print(f"   ... y {len(resumen) - 25} grupos más")

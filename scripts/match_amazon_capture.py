@@ -73,6 +73,12 @@ COLORS = (
     "beige", "turquesa", "champan", "champán", "champagne", "perla",
     "cobre", "vino", "burgundy", "lavanda", "lavender", "cereza", "cherry",
     "menta", "mint",
+    # Formas femeninas: en electrodomésticos, muebles y blancos la tienda
+    # concuerda el color con el sustantivo ("Cafetera Negra", "Silla
+    # Blanca", "Maleta Roja") y sin estas entradas color_of() devolvía None
+    # justo en las categorías donde el color es lo único que separa dos
+    # fichas idénticas. Mismo criterio que "plateado"/"plateada" abajo.
+    "negra", "blanca", "roja", "amarilla", "morada", "dorada",
 )
 # color_of() devolvía la palabra encontrada TAL CUAL, así que sinónimos
 # del mismo color en idiomas/formas distintas ("violeta" vs "morado" vs
@@ -101,6 +107,8 @@ COLOR_CANON = {
     # resolvió solo contra un candidato "Azul profundo" porque el color
     # del título quedaba en None.
     "plateado": "plata", "plateada": "plata",
+    "negra": "negro", "blanca": "blanco", "roja": "rojo",
+    "amarilla": "amarillo", "morada": "morado", "dorada": "dorado",
     "champagne": "champan", "champán": "champan",
     "burgundy": "vino", "lavender": "lavanda", "cherry": "cereza",
     "mint": "menta",
