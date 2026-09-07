@@ -26,7 +26,14 @@
    TODA la página, corriendo y achicando visualmente todo lo demás (el logo,
    las migas de pan, etc. aparecían recortados/desplazados en la captura).
    html{max-width:100vw} le pone un techo duro a ese cálculo. */
-html { max-width: 100vw; overflow-x: hidden; }
+/* clip y no hidden: "hidden" convierte al elemento en contenedor de scroll,
+   y eso ROMPE position:sticky de todo lo que tenga adentro -- el panel de
+   filtros se iba con la página en vez de quedarse a la vista, que es justo
+   lo que su sticky existe para evitar (medido: al bajar 600px, el panel
+   estaba en top:-505 en vez de fijo en 58). "clip" recorta igual el
+   desborde horizontal pero no crea contenedor de scroll, así que sticky
+   sigue funcionando. */
+html { max-width: 100vw; overflow-x: clip; }
 
 body {
   margin: 0;
@@ -48,8 +55,10 @@ body {
      minmax(0, 1fr) en .list-layout más abajo, para el desborde real que
      reportó el usuario en la barra de "Incluir envío" + selector de orden);
      esto solo evita que un desborde que se nos escape abra una barra de
-     scroll horizontal de toda la página. */
-  overflow-x: hidden;
+     scroll horizontal de toda la página.
+     clip y no hidden por lo mismo que en html: hidden rompe position:sticky
+     del panel de filtros. */
+  overflow-x: clip;
 }
 
 /* Transiciones suaves centralizadas: antes casi ninguna regla :hover tenía
@@ -385,7 +394,11 @@ a { color: inherit; text-decoration: none; }
      recortar, y empuja TODA la página a desbordar horizontalmente. Mismo
      mecanismo que ya se documentaba abajo solo para el breakpoint móvil;
      hacía falta también en desktop angosto. */
-  grid-template-columns: minmax(220px, 22%) minmax(0, 1fr);
+  /* 220px dejaba la bajada de cada filtro ("Filtra por calificación mínima
+     de otros usuarios") partida en dos renglones: 13 grupos plegados x un
+     renglón de más son ~120px de alto desperdiciados, que es alto que hay
+     que scrollear. Ensanchar la columna un poco ACORTA el panel. */
+  grid-template-columns: minmax(260px, 25%) minmax(0, 1fr);
   gap: 16px;
   padding-bottom: 24px;
 }
@@ -418,8 +431,8 @@ a { color: inherit; text-decoration: none; }
      el panel arrancaba 107px más abajo de lo necesario y se recortaba
      antes de tiempo: se veían dos subcategorías y el resto quedaba detrás
      del scroll interno, con la mitad de la columna vacía debajo. */
-  top: 64px;
-  max-height: calc(100vh - 78px);
+  top: 58px;
+  max-height: calc(100vh - 68px);
   overflow-y: auto;
 }
 @media (max-width: 760px) {
@@ -436,7 +449,10 @@ a { color: inherit; text-decoration: none; }
 .filters h2 {
   position: relative;
   font-size: 15px;
-  margin: -18px -18px 16px;
+  /* Los -18px venían de cuando el panel tenía 18px de padding. Con 14px, el
+     encabezado sobresalía 4px por cada lado de su propio contenedor -- y 4px
+     de desborde bastan para que aparezca la barra de scroll horizontal. */
+  margin: -14px -14px 14px;
   padding: 13px 16px 13px 20px;
   border-radius: var(--radius) var(--radius) 0 0;
   background: var(--bg);
@@ -473,7 +489,7 @@ a { color: inherit; text-decoration: none; }
   .filters:not(.filters-open) > .filter-group { display: none; }
 }
 
-.filter-group { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.filter-group { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
 .filter-group:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
 .filter-group h3 { font-size: 11px; color: var(--muted); margin: 0 0 10px; text-transform: uppercase; letter-spacing: .03em; }
 .filter-group-collapsible h3 {
