@@ -822,7 +822,10 @@
   function sellerRows(product) {
     return purchaseOptions(product).flatMap((o) => {
       const sellers = o.sellers;
-      if (!sellers || sellers.length < 2) return [o];
+      // Todos tienen que traer su enlace: una fila con el precio de un
+      // vendedor y el enlace de otro llevaría a pagar otro precio. Sin
+      // enlace propio, la oferta se queda como una sola fila.
+      if (!sellers || sellers.length < 2 || !sellers.every((s) => s.url)) return [o];
       return sellers.map((s, i) => ({
         ...o,
         price: s.price,

@@ -207,6 +207,16 @@ def ml_offer_for(gtin, our_name=""):
                      ("lowestPrice", "lowestPrice"), ("sellers", "sellers")):
         if detail.get(src) is not None:
             offer[dst] = detail[src]
+    # Cada vendedor necesita SU enlace, o la fila que lo muestra no lleva a
+    # ningún lado (y el generador de páginas estáticas se cae leyendo
+    # sl["url"]). El Worker devuelve el itemId de cada uno; la url por
+    # vendedor es la del producto de catálogo con ?pdp_filters=item_id:, que
+    # es la convención que ya usan add_products.py, refresh_prices.py y el
+    # propio Worker. No se inventa nada: es la misma página, filtrada.
+    for s in offer.get("sellers") or []:
+        if not s.get("url") and s.get("itemId") and offer.get("url"):
+            base = offer["url"].split("?")[0]
+            s["url"] = f"{base}?pdp_filters=item_id:{s['itemId']}"
     if detail.get("priceOriginal"):
         offer["listPrice"] = detail["priceOriginal"]
     return offer, ml

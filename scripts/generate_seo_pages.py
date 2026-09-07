@@ -249,9 +249,9 @@ def product_json_ld(product, data, canonical):
             "price": o["price"],
             "availability": (
                 "https://schema.org/InStock"
-                if o["stock"] == "in_stock"
+                if o.get("stock") == "in_stock"
                 else "https://schema.org/LimitedAvailability"
-                if o["stock"] == "low_stock"
+                if o.get("stock") == "low_stock"
                 else "https://schema.org/PreOrder"
             ),
             "seller": {"@type": "Organization", "name": store_by_id(data, o["storeId"])["name"]},
@@ -356,7 +356,11 @@ def seller_rows(product):
     out = []
     for o in purchase_options(product):
         sellers = o.get("sellers") or []
-        if len(sellers) < 2:
+        # Se abre en filas por vendedor solo si TODOS tienen su enlace: una
+        # fila con el precio de un vendedor y el enlace de otro publicaría un
+        # precio que no es el que se paga al hacer clic. Sin enlace propio se
+        # deja la oferta como una sola fila.
+        if len(sellers) < 2 or not all(sl.get("url") for sl in sellers):
             out.append(o)
             continue
         for i, sl in enumerate(sellers):
@@ -438,7 +442,7 @@ def render_product_page(product, data):
             "in_stock": "En stock",
             "low_stock": "Últimas piezas",
             "backorder": "Sobre pedido",
-        }.get(o["stock"], o["stock"])
+        }.get(o.get("stock"), o.get("stock") or "—")
         rating_label = "—" if o.get("rating") is None else f"{o['rating']} / 5 ({o.get('reviewCount') or 0} reseñas)"
         if store.get("logoImg"):
             dot = (
