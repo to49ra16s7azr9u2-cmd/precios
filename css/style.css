@@ -2625,6 +2625,29 @@ a { color: inherit; text-decoration: none; }
 .review-form-success .icon { width: 34px; height: 34px; color: var(--green); margin-bottom: 8px; }
 .review-form-success p { margin: 0 0 8px; font-weight: 700; color: var(--ink); }
 .review-form h3 { font-size: 12px; margin: 0 0 4px; }
+/* Aviso de publicidad de la reseña, pegado al botón de publicar. En caja
+   ámbar y no en el gris de las notas: es lo único del formulario que hay
+   que leer sí o sí antes de escribir. */
+.review-public-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 12px 0;
+  padding: 9px 11px;
+  border: 1px solid #f0d08a;
+  border-radius: 8px;
+  background: #fff8e8;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.review-public-note .icon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--gold);
+}
 .review-form-row { display: flex; gap: 14px; flex-wrap: wrap; margin: 10px 0; }
 .review-form label {
   display: flex;

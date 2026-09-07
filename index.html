@@ -492,6 +492,14 @@
             <textarea id="reviewComment" required maxlength="300" rows="3"></textarea>
           </label>
           <p id="reviewFormError" class="account-auth-error hidden"></p>
+          <!-- Aviso fijo, no depende de si hay sesión: quien escribe tiene
+               que saber ANTES de escribir que lo publicado lo lee
+               cualquiera. Va pegado al botón, que es lo último que se mira
+               antes de enviar. -->
+          <p class="review-public-note">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l8.5 15.3H3.5L12 3.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 9.6v4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.5" r="1" fill="currentColor"/></svg>
+            <span>Las reseñas publicadas son <strong>públicas</strong>: cualquier visitante del sitio puede leerlas, junto con el nombre con el que las firmas. No escribas datos personales ni de contacto.</span>
+          </p>
           <button type="submit" class="buy-btn">Publicar reseña</button>
         </form>
         <div id="reviewFormSuccess" class="review-form-success hidden">
