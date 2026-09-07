@@ -1245,7 +1245,25 @@
     "Vino": "#722f37",
     "Medianoche": "#191932",
     "Starlight": "#f0ead6",
+    // Colores que aparecieron al extender la fusión por color a todo el
+    // catálogo (termos, blancos, muebles): sin entrada acá caían al gris
+    // genérico y la pastilla no decía nada.
+    "Menta": "#98e2c6",
+    "Crema": "#f5efe0",
+    "Champan": "#f0e2c8",
+    "Lavanda": "#b8a4dd",
+    "Cereza": "#b3122d",
+    "Salvia": "#a3b18a",
+    "Titanio": "#8f8f8a",
+    "Oro": "#d4af37",
   };
+
+  // Se prueba de la etiqueta MÁS larga a la más corta: "Azul" está antes
+  // que "Azul marino" en la tabla, y con el orden de inserción un azul
+  // marino se pintaba del azul genérico. Igual "Gris" vs "Gris espacial"
+  // y "Oro" vs "Oro rosa".
+  const COLOR_SWATCH_ORDEN = Object.entries(COLOR_SWATCH_HEX)
+    .sort((a, b) => b[0].length - a[0].length);
 
   function colorSwatchHtml(colorVariants) {
     if (!colorVariants || colorVariants.length === 0) return "";
@@ -1317,7 +1335,7 @@
   // variantes nuevas salían grises.
   function colorDotHex(label) {
     const n = (label || "").toLowerCase();
-    for (const [nombre, hex] of Object.entries(COLOR_SWATCH_HEX)) {
+    for (const [nombre, hex] of COLOR_SWATCH_ORDEN) {
       if (n.startsWith(nombre.toLowerCase())) return hex;
     }
     return "#bbb";
