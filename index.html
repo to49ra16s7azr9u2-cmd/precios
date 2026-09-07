@@ -135,8 +135,8 @@
                a pedido del usuario: es el filtro que más se usa y el que da
                contexto de dónde está parado el visitante. El resto sigue
                cerrado para que el panel no sea una pared de opciones. -->
-          <div class="filter-group filter-group-collapsible">
-            <h3><span class="filter-group-title-row"><span class="filter-group-title">Categoría</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Muestra solo productos de una categoría o subcategoría.</span></h3>
+          <div class="filter-group filter-group-collapsible filter-group-category">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Categoría</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Empieza por acá: elige una categoría y después el tipo dentro de ella.</span></h3>
             <input type="text" id="filterCategorySearch" class="filter-search" placeholder="Buscar categoría..." autocomplete="off">
             <div id="filterCategory" class="filter-options"></div>
           </div>
@@ -265,6 +265,17 @@
                mundo ("¿cuál me alcanza para lo que hago?"), y abajo el acceso
                al detalle completo de especificaciones de siempre. Las tarjetas
                las llena renderQualityPicker() en js/app.js. -->
+          <!-- Paso previo del recorrido: si la categoría elegida tiene tipos
+               adentro, se ofrecen PRIMERO esos tipos. Ver renderSubcatPicker()
+               en js/app.js. -->
+          <section id="subcatPicker" class="subcat-picker hidden">
+            <div class="subcat-head">
+              <span class="subcat-title">¿Qué tipo buscas?</span>
+              <span class="subcat-sub">Elige uno para afinar la lista, o sigue viendo todos.</span>
+            </div>
+            <div id="subcatGrid" class="subcat-grid"></div>
+          </section>
+
           <section id="qualityPicker" class="quality-picker hidden">
             <div class="quality-head">
               <img class="quality-logo" src="icons/logo-comparacalidad.png" alt="Compara calidad">

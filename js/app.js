@@ -414,6 +414,8 @@
     filterBatteryGroup: document.getElementById("filterBatteryGroup"),
     filterBattery: document.getElementById("filterBattery"),
     specsBannerLink: document.getElementById("specsBannerLink"),
+    subcatPicker: document.getElementById("subcatPicker"),
+    subcatGrid: document.getElementById("subcatGrid"),
     qualityPicker: document.getElementById("qualityPicker"),
     qualityRows: document.getElementById("qualityRows"),
     qualitySub: document.getElementById("qualitySub"),
@@ -2681,6 +2683,7 @@
     renderFilterMagsafe();
     renderFilterSize();
     renderSpecFilters();
+    renderSubcatPicker();
     renderSpecsBanner();
 
     renderProductListPage();
@@ -3256,6 +3259,54 @@
   // SPEC_FACETS desplegados de una (en vez de navegar a otra vista) para no
   // perder el listado de fondo.
   const SPECS_BANNER_CATEGORIES = ["Celulares", "Laptops", "Tabletas", "Monitores"];
+
+  // ---------- Paso 1 del recorrido: el tipo dentro de la categoría ----------
+  // Entrar a "Audífonos y auriculares" y recibir 1,752 productos mezclados
+  // (de diadema, earbuds, con cable, inalámbricos) obliga a filtrar antes de
+  // poder mirar nada. Cuando la categoría tiene tipos adentro y todavía no se
+  // eligió uno, se ofrecen primero esos tipos.
+  //
+  // No bloquea: la lista sigue abajo. Obligar a elegir dejaría fuera al que
+  // llega buscando "lo más popular de la categoría", que es el recorrido que
+  // el sitio ya tenía.
+  function renderSubcatPicker() {
+    const cat = state.category ? categoryById(state.category) : null;
+    const subs = (cat && cat.subcategories) || [];
+    const relevant = !!cat && subs.length > 1 && !state.subcategory && !state.query;
+    el.subcatPicker.classList.toggle("hidden", !relevant);
+    if (!relevant) return;
+
+    const scoped = state.data.products.filter((p) => p.category === state.category);
+    const porSub = new Map();
+    scoped.forEach((p) => {
+      if (!p.subcategory) return;
+      if (!porSub.has(p.subcategory)) porSub.set(p.subcategory, []);
+      porSub.get(p.subcategory).push(p);
+    });
+
+    el.subcatGrid.innerHTML = "";
+    subs.forEach((sub) => {
+      const items = porSub.get(sub.id) || [];
+      // Un tipo sin productos en el catálogo no se ofrece: llevaría a una
+      // lista vacía.
+      if (!items.length) return;
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "subcat-card";
+      card.innerHTML = `<span class="subcat-card-photo"></span>
+        <span class="subcat-card-text">
+          <span class="subcat-card-name">${sub.name}</span>
+          <span class="subcat-card-count">${items.length.toLocaleString("es-MX")} productos</span>
+        </span>`;
+      const sample = sortByPopularity(items.filter((p) => p.photo))[0];
+      if (sample) renderProductMedia(card.querySelector(".subcat-card-photo"), sample);
+      card.onclick = () => {
+        state.subcategory = sub.id;
+        renderList();
+      };
+      el.subcatGrid.appendChild(card);
+    });
+  }
 
   function renderSpecsBanner() {
     // Los ids de nivel/tamaño son por categoría (el "Alto" de Laptops son
