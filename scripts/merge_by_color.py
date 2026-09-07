@@ -64,7 +64,11 @@ from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import load_catalog, save_catalog  # noqa: E402
-from phone_signature import color_full_of, signature  # noqa: E402
+from phone_signature import FINISH_QUALIFIERS, color_full_of, signature  # noqa: E402
+from match_amazon_capture import COLOR_CANON, COLORS  # noqa: E402
+
+# palabra tal como la escriben las tiendas -> color canónico
+COLORS_CANON = {c: COLOR_CANON.get(c, c) for c in COLORS}
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -183,6 +187,89 @@ def collapse_colors(productos):
     return etiquetas
 
 
+# Conectores que quedan colgando cuando se quita el color: "... - Color
+# plata" -> "... -", "... con cámara azul" -> "... con cámara".
+_COLA_RE = re.compile(
+    r"(?:\s*[-–—,:/]\s*|\s+)(?:de\s+)?(?:color(?:es)?|con|en|tono)?\s*$", re.I
+)
+_ESPACIOS_RE = re.compile(r"\s{2,}")
+_SEPARADORES_RE = re.compile(r"\s*[-–—]\s*[-–—]\s*")
+
+
+# Palabras que sí pueden seguir a un color sin que deje de ser un color:
+# son los apellidos de acabado ("Negro Medianoche", "Titanio del desierto").
+_TRAS_COLOR_OK = {q.lower() for q in FINISH_QUALIFIERS} | {c.lower() for c in COLORS}
+
+
+def _quita_si_es_color(m):
+    """Reemplazo del color por un espacio, salvo cuando la palabra parece
+    parte del NOMBRE del modelo.
+
+    "Xiaomi Black Shark" perdía el "Black" y quedaba "Xiaomi Shark": ahí
+    "Black" no describe el color, es el modelo. La señal es que lo sigue otra
+    palabra con mayúscula que no es un color ni un apellido de acabado --
+    "Negro Medianoche" sí se quita entero, "Black Shark" no se toca.
+    """
+    resto = m.string[m.end():]
+    siguiente = re.match(r"\s+([A-Za-zÁÉÍÓÚÑáéíóúñ]+)", resto)
+    if siguiente:
+        palabra = siguiente.group(1)
+        if palabra[:1].isupper() and palabra.lower() not in _TRAS_COLOR_OK:
+            return m.group(0)
+    return " "
+
+
+def strip_color_from_name(name, labels):
+    """Quita del nombre el color, para que la ficha fusionada no se llame por
+    uno solo de los colores que contiene.
+
+    Se quitan TODAS las formas del color que aparecen en el grupo ("Salvia",
+    "Azul neblina", "Negro medianoche"), porque el nombre que sobrevive es el
+    de una ficha y puede traer cualquiera de ellas.
+
+    Si lo que queda es demasiado corto para identificar el producto, se
+    devuelve el nombre original: una ficha llamada "Apple iPhone" no le sirve
+    a nadie, y un nombre con un color de más es mejor que uno sin modelo.
+    """
+    fuera = set()
+    for lab in labels:
+        for parte in [lab] + lab.split():
+            if len(parte) >= 3:
+                fuera.add(parte.lower())
+    # Las etiquetas están canonizadas ("Morado", "Negro titanio") pero el
+    # nombre trae la palabra tal como la escribió la tienda ("Violeta",
+    # "Titanium Black"). Sin esto, esos nombres se quedaban con el color
+    # puesto. Solo se quita la palabra si canoniza a un color que este grupo
+    # de verdad tiene: así "Black" se va de un Galaxy negro, pero un modelo
+    # que se llamara "Black Shark" no pierde su nombre.
+    bases = {l.split()[0].lower() for l in labels if l}
+    for palabra, canonico in COLORS_CANON.items():
+        if canonico.lower() in bases and re.search(rf"(?<![\w]){re.escape(palabra)}(?![\w])", name, re.I):
+            fuera.add(palabra.lower())
+    texto = name
+    for palabra in sorted(fuera, key=len, reverse=True):
+        texto = re.sub(
+            rf"(?<![\w]){re.escape(palabra)}(?![\w])",
+            lambda m: _quita_si_es_color(m),
+            texto,
+            flags=re.I,
+        )
+    texto = _SEPARADORES_RE.sub(" - ", texto)
+    texto = _ESPACIOS_RE.sub(" ", texto).strip()
+    # Se limpia la cola varias veces: "- Color" deja "-" al quitar "Color".
+    for _ in range(3):
+        nuevo = _COLA_RE.sub("", texto).strip()
+        if nuevo == texto:
+            break
+        texto = nuevo
+    texto = texto.strip(" -–—,:/")
+    texto = _ESPACIOS_RE.sub(" ", texto).strip()
+    # Menos de 3 palabras o menos de 12 caracteres: se quedó sin producto.
+    if len(texto) < 12 or len(texto.split()) < 3:
+        return name
+    return texto
+
+
 def variants_of(product, etiqueta=None):
     """Variantes de color de una ficha, ya en el formato nuevo.
 
@@ -273,10 +360,31 @@ def main():
             continue
         variantes.sort(key=variant_min_price)
         principal["colorVariants"] = variantes
+        # El nombre no puede seguir siendo el de un solo color cuando la
+        # ficha ya contiene todos (a pedido del usuario).
+        principal["name"] = strip_color_from_name(
+            principal["name"], [v["color"] for v in variantes]
+        )
         # product.offers se queda con las de la variante más barata: es lo
         # que ve cualquier lector viejo que no sepa de colorVariants.
         principal["offers"] = list(variantes[0]["offers"])
         resumen.append((principal["id"], principal["name"], [v["color"] for v in variantes]))
+
+    # Limpieza de nombres de fichas que YA estaban fusionadas de una corrida
+    # anterior: sin esto, cambiar la regla de limpieza no arreglaba nada de lo
+    # ya hecho, porque esas fichas no vuelven a entrar en ningún grupo.
+    renombradas = 0
+    for p in data["products"]:
+        if p["id"] in drop:
+            continue
+        vs = p.get("colorVariants") or []
+        if len(vs) < 2 or not any("offers" in v for v in vs):
+            continue
+        nuevo = strip_color_from_name(p["name"], [v.get("color") for v in vs if v.get("color")])
+        if nuevo != p["name"]:
+            p["name"] = nuevo
+            renombradas += 1
+    print(f"Nombres limpiados de color: {renombradas}")
 
     print(f"Grupos fusionables (mismo equipo, distinto color): {len(resumen)}")
     print(f"Fichas absorbidas: {len(drop)}")
@@ -288,8 +396,8 @@ def main():
     if args.dry_run:
         print("\n(--dry-run: no se escribió nada)")
         return
-    if not drop:
-        print("\nNada que fusionar.")
+    if not drop and not renombradas:
+        print("\nNada que fusionar ni que renombrar.")
         return
     data["products"] = [p for p in data["products"] if p["id"] not in drop]
     save_catalog(data)

@@ -920,3 +920,104 @@ def bed_size_of(name):
             return "California King"
         return None
     return hits[0]
+
+
+# ---------------------------------------------------------------------
+# Aire acondicionado: capacidad de enfriamiento
+# ---------------------------------------------------------------------
+# La pregunta al comprar un minisplit es cuántos BTU necesita el cuarto, y
+# en México se anuncia de dos formas para el MISMO equipo: en BTU ("12,000
+# BTU") o en toneladas de refrigeración ("1 Tonelada", "1.5 Ton", "1T").
+# La equivalencia no es una estimación nuestra: 1 tonelada de refrigeración
+# son 12,000 BTU/h por definición, y las fichas de los fabricantes usan las
+# dos etiquetas de forma intercambiable.
+#
+# Se prefiere el BTU explícito cuando está; la tonelada es el respaldo. Con
+# eso la categoría pasa de 24% a 89% de nombres con capacidad legible.
+_AC_BTU_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,\s]\d{3})|\d{4,6})\s*btus?\b")
+_AC_TON_RE = re.compile(r"(?<![\d.,])(\d(?:[.,]\d)?)\s*(?:toneladas?\b|tons?\b|t\b)")
+
+
+def ac_btu(name):
+    """Capacidad de enfriamiento en BTU/h, o None.
+
+    Rango 5,000-60,000: por debajo es un ventilador o un accesorio, por
+    arriba es equipo industrial que no comparte estante con el minisplit
+    de una casa. Dos capacidades distintas en el mismo nombre no se
+    resuelven -- elegir una sería inventar cuál se vende.
+    """
+    n = _norm(name)
+    vals = set()
+    for m in _AC_BTU_RE.finditer(n):
+        try:
+            v = int(re.sub(r"[.,\s]", "", m.group(1)))
+        except ValueError:
+            continue
+        if 5000 <= v <= 60000:
+            vals.add(v)
+    if len(vals) == 1:
+        return next(iter(vals))
+    if vals:
+        return None
+    for m in _AC_TON_RE.finditer(n):
+        try:
+            v = int(float(m.group(1).replace(",", ".")) * 12000)
+        except ValueError:
+            continue
+        if 5000 <= v <= 60000:
+            vals.add(v)
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+# ---------------------------------------------------------------------
+# Ventiladores: medida del aspa
+# ---------------------------------------------------------------------
+# Es la medida con la que se venden y con la que el comprador decide: un
+# extractor de baño de 6" y un ventilador de techo de 52" son el mismo
+# renglón de catálogo y no se comparan entre sí.
+_FAN_IN_RE = re.compile(
+    r"(?<![\d./-])(\d{1,2})\s*(?:\"|''|”|″|pulgadas?\b|pulg\.?)")
+
+
+def fan_size_in(name):
+    """Pulgadas de un ventilador, o None. Rango 4-60.
+
+    El guardia de la izquierda descarta las fracciones de ferretería
+    ("1-1/4\"" de un anillo de aire), donde el número que precede a las
+    comillas es el denominador, no la medida del aspa.
+    """
+    n = _norm(name)
+    vals = set()
+    for m in _FAN_IN_RE.finditer(n):
+        v = int(m.group(1))
+        if 4 <= v <= 60:
+            vals.add(v)
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+# ---------------------------------------------------------------------
+# Almacenamiento (SSD, discos duros, USB, microSD): capacidad
+# ---------------------------------------------------------------------
+# En esta categoría la capacidad ES la compra. Se reusa el lector de
+# ram_storage_gb() para las unidades pero NO su heurística de "el mayor de
+# dos números es el almacenamiento": acá no hay RAM que separar, hay una
+# sola capacidad, y dos capacidades distintas en un nombre son un paquete
+# ("SSD 512GB + funda 64GB") que no se clasifica.
+_DRIVE_CAP_RE = re.compile(r"(?<![\d.,])(\d{1,5})\s*(gb|tb)\b")
+
+
+def drive_capacity_gb(name):
+    """Capacidad de una unidad de almacenamiento en GB, o None.
+
+    Rango 1 GB - 32 TB: por debajo no existe como producto y por arriba
+    es un arreglo de servidor, no un disco de estante.
+    """
+    n = _norm(name)
+    vals = set()
+    for m in _DRIVE_CAP_RE.finditer(n):
+        v = int(m.group(1))
+        if m.group(2) == "tb":
+            v *= 1024
+        if 1 <= v <= 32768:
+            vals.add(v)
+    return next(iter(vals)) if len(vals) == 1 else None

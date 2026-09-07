@@ -283,9 +283,9 @@
   // en vez de agrupar en rangos: cada RAM/capacidad/pulgada/mAh exacto
   // que aparezca en el catálogo es su propio checkbox.
   const SPEC_FACETS = [
-    { key: "ram", facetField: "ram_gb", categories: ["Celulares", "Laptops", "Tabletas"], label: "Memoria RAM", groupEl: "filterRamGroup", listEl: "filterRam", sortNum: true, format: (v) => `${v} GB` },
-    { key: "storage", facetField: "storage_gb", categories: ["Celulares", "Laptops", "Tabletas"], label: "Almacenamiento", groupEl: "filterStorageGroup", listEl: "filterStorage", sortNum: true, format: formatStorageGB },
-    { key: "storageType", facetField: "storage_type", categories: ["Laptops", "Tabletas"], label: "Tipo de almacenamiento", groupEl: "filterStorageTypeGroup", listEl: "filterStorageType", format: (v) => STORAGE_TYPE_LABELS[v] || v },
+    { key: "ram", facetField: "ram_gb", categories: ["Celulares", "Laptops", "Tabletas", "Computadoras de escritorio"], label: "Memoria RAM", groupEl: "filterRamGroup", listEl: "filterRam", sortNum: true, format: (v) => `${v} GB` },
+    { key: "storage", facetField: "storage_gb", categories: ["Celulares", "Laptops", "Tabletas", "Computadoras de escritorio"], label: "Almacenamiento", groupEl: "filterStorageGroup", listEl: "filterStorage", sortNum: true, format: formatStorageGB },
+    { key: "storageType", facetField: "storage_type", categories: ["Laptops", "Tabletas", "Computadoras de escritorio", "Almacenamiento"], label: "Tipo de almacenamiento", groupEl: "filterStorageTypeGroup", listEl: "filterStorageType", format: (v) => STORAGE_TYPE_LABELS[v] || v },
     { key: "screen", facetField: "screen_in", categories: ["Celulares", "Laptops", "Tabletas", "Monitores", "Televisores"], label: "Tamaño de pantalla", groupEl: "filterScreenGroup", listEl: "filterScreen", sortNum: true, format: formatScreenIn },
     { key: "refresh", facetField: "refresh_hz", categories: ["Celulares", "Laptops", "Monitores"], label: "Frecuencia de actualización", groupEl: "filterRefreshGroup", listEl: "filterRefresh", sortNum: true, format: (v) => `${v} Hz` },
     { key: "resolution", facetField: "resolution", categories: ["Monitores", "Televisores"], label: "Resolución", groupEl: "filterResolutionGroup", listEl: "filterResolution", format: (v) => v },
@@ -294,14 +294,17 @@
     { key: "network", facetField: "network_gen", categories: ["Celulares", "Tabletas"], label: "Red móvil", groupEl: "filterNetworkGroup", listEl: "filterNetwork", format: (v) => NETWORK_LABELS[v] || v },
     { key: "chipset", facetField: "chipset_family", categories: ["Celulares", "Tabletas"], label: "Chipset", groupEl: "filterChipsetGroup", listEl: "filterChipset", format: (v) => v },
     { key: "model", facetField: "model_name", categories: ["Celulares"], label: "Modelo", groupEl: "filterModelGroup", listEl: "filterModel", format: (v) => v },
-    { key: "cpu", facetField: "cpu_family", categories: ["Laptops"], label: "Procesador", groupEl: "filterCpuGroup", listEl: "filterCpu", format: (v) => v },
-    { key: "gpu", facetField: "gpu", categories: ["Laptops"], label: "Tarjeta gráfica", groupEl: "filterGpuGroup", listEl: "filterGpu", format: (v) => v },
+    { key: "cpu", facetField: "cpu_family", categories: ["Laptops", "Computadoras de escritorio"], label: "Procesador", groupEl: "filterCpuGroup", listEl: "filterCpu", format: (v) => v },
+    { key: "gpu", facetField: "gpu", categories: ["Laptops", "Computadoras de escritorio"], label: "Tarjeta gráfica", groupEl: "filterGpuGroup", listEl: "filterGpu", format: (v) => v },
     { key: "os", facetField: "os", categories: ["Laptops"], label: "Sistema operativo", groupEl: "filterOsGroup", listEl: "filterOs", format: (v) => v },
     { key: "camera", facetField: "camera_mp", categories: ["Celulares", "Tabletas"], label: "Cámara principal", groupEl: "filterCameraGroup", listEl: "filterCamera", sortNum: true, format: (v) => `${v} MP` },
     { key: "bedSize", facetField: "bed_size", categories: ["Blancos y ropa de cama", "Muebles"], label: "Medida de cama", groupEl: "filterBedSizeGroup", listEl: "filterBedSize", format: (v) => v },
     { key: "platform", facetField: "platform", categories: ["Videojuegos"], label: "Consola", groupEl: "filterPlatformGroup", listEl: "filterPlatform", format: (v) => v },
     { key: "washKg", facetField: "wash_kg", categories: ["Lavadoras"], label: "Capacidad de carga", groupEl: "filterWashKgGroup", listEl: "filterWashKg", sortNum: true, format: (v) => `${v} kg` },
     { key: "fridgeFt", facetField: "fridge_ft3", categories: ["Refrigeradores"], label: "Capacidad", groupEl: "filterFridgeFtGroup", listEl: "filterFridgeFt", sortNum: true, format: (v) => `${v} pies` },
+    { key: "driveCapacity", facetField: "drive_gb", categories: ["Almacenamiento"], label: "Capacidad", groupEl: "filterDriveCapacityGroup", listEl: "filterDriveCapacity", sortNum: true, format: formatStorageGB },
+    { key: "acBtu", facetField: "ac_btu", categories: ["Climatización"], label: "Capacidad de enfriamiento", groupEl: "filterAcBtuGroup", listEl: "filterAcBtu", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} BTU` },
+    { key: "fanIn", facetField: "fan_in", categories: ["Climatización"], label: "Medida del aspa", groupEl: "filterFanInGroup", listEl: "filterFanIn", sortNum: true, format: (v) => `${v}"` },
     { key: "battery", facetField: "battery_mah", categories: ["Celulares", "Tabletas"], label: "Batería", groupEl: "filterBatteryGroup", listEl: "filterBattery", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} mAh` },
   ];
 
@@ -428,6 +431,12 @@
     filterPlatform: document.getElementById("filterPlatform"),
     filterWashKgGroup: document.getElementById("filterWashKgGroup"),
     filterWashKg: document.getElementById("filterWashKg"),
+    filterDriveCapacityGroup: document.getElementById("filterDriveCapacityGroup"),
+    filterDriveCapacity: document.getElementById("filterDriveCapacity"),
+    filterAcBtuGroup: document.getElementById("filterAcBtuGroup"),
+    filterAcBtu: document.getElementById("filterAcBtu"),
+    filterFanInGroup: document.getElementById("filterFanInGroup"),
+    filterFanIn: document.getElementById("filterFanIn"),
     filterFridgeFtGroup: document.getElementById("filterFridgeFtGroup"),
     filterFridgeFt: document.getElementById("filterFridgeFt"),
     qualityPicker: document.getElementById("qualityPicker"),
@@ -3640,6 +3649,57 @@
         ],
       },
     ],
+    // Una torre se elige por la RAM igual que una laptop, pero no por
+    // pulgadas: la mayoría se vende sin monitor, así que este bloque lleva
+    // un solo eje en vez de dos.
+    "Computadoras de escritorio": [
+      {
+        key: "level", label: "Nivel", field: "ram_gb", criterion: "por memoria RAM",
+        tiers: [
+          { id: "bajo", name: "Básico", use: "Oficina, navegar y clases", spec: "Hasta 8 GB de RAM", match: (v) => v <= 8 },
+          { id: "medio", name: "Intermedio", use: "Varias apps a la vez, edición ligera", spec: "12 a 16 GB de RAM", match: (v) => v >= 12 && v <= 16 },
+          { id: "alto", name: "Alto", use: "Juegos, edición de video y 3D", spec: "24 GB de RAM o más", match: (v) => v >= 24 },
+        ],
+      },
+    ],
+    // En almacenamiento la capacidad no es una característica más: es la
+    // compra. El tipo de unidad (SSD, disco duro, USB) ya es la
+    // subcategoría, así que no se repite como eje.
+    Almacenamiento: [
+      {
+        key: "level", label: "Capacidad", field: "drive_gb", criterion: "por lo que guarda",
+        tiers: [
+          { id: "chica", name: "Chica", use: "Documentos y pasar archivos", spec: "Hasta 128 GB", match: (v) => v <= 128 },
+          { id: "mediana", name: "Mediana", use: "Fotos, música y respaldos", spec: "256 a 512 GB", match: (v) => v > 128 && v <= 512 },
+          { id: "grande", name: "Grande", use: "Video, juegos y respaldo completo", spec: "1 TB o más", match: (v) => v > 512 },
+        ],
+      },
+    ],
+    // Un minisplit se elige por el tamaño del cuarto, y eso se mide en BTU.
+    // La regla de dedo de la industria en México es una tonelada (12,000
+    // BTU) por recámara, dos para una sala.
+    "Climatización/Aires acondicionados": [
+      {
+        key: "level", label: "Capacidad", field: "ac_btu", criterion: "por el tamaño del cuarto",
+        tiers: [
+          { id: "chico", name: "Recámara", use: "Un cuarto o una oficina chica", spec: "Hasta 12,000 BTU (1 tonelada)", match: (v) => v <= 12000 },
+          { id: "mediano", name: "Sala", use: "Sala, comedor o cuarto grande", spec: "13,000 a 24,000 BTU", match: (v) => v > 12000 && v <= 24000 },
+          { id: "grande", name: "Área grande", use: "Planta abierta o local", spec: "25,000 BTU o más", match: (v) => v > 24000 },
+        ],
+      },
+    ],
+    // El ventilador se compra por dónde va a estar, y la medida del aspa
+    // es lo que lo dice: 6" es un extractor de baño, 52" es de techo.
+    "Climatización/Ventiladores": [
+      {
+        key: "level", label: "Medida", field: "fan_in", criterion: "por el tamaño del aspa",
+        tiers: [
+          { id: "chico", name: "Chico", use: "Escritorio, baño o buró", spec: 'Menos de 14"', match: (v) => v < 14 },
+          { id: "mediano", name: "Mediano", use: "Piso o pared de una recámara", spec: '14" a 22"', match: (v) => v >= 14 && v <= 22 },
+          { id: "grande", name: "Grande", use: "Techo, torre o sala entera", spec: 'Más de 22"', match: (v) => v > 22 },
+        ],
+      },
+    ],
   };
 
   // Una línea por categoría para el encabezado del bloque. La genérica
@@ -3650,8 +3710,22 @@
     Lavadoras: "Elige por cuánta gente vive en casa, no por la ficha técnica.",
     Refrigeradores: "Elige por cuánta gente vive en casa, no por la ficha técnica.",
     Televisores: "Elige por dónde lo vas a poner y qué vas a ver.",
+    Almacenamiento: "Elige por cuánto necesitas guardar, no por la marca.",
+    "Climatización/Aires acondicionados": "Elige por el cuarto que vas a enfriar: de más no enfría mejor.",
+    "Climatización/Ventiladores": "Elige por dónde lo vas a poner.",
   };
   const QUALITY_INTRO_DEFAULT = "Elige por lo que vas a hacer con él, no por la ficha técnica.";
+
+  // Misma regla de precedencia que qualityAxes(): la clave con
+  // subcategoría gana. Sin esto un minisplit heredaba la línea genérica
+  // aunque su eje sí sea específico.
+  function qualityIntro() {
+    if (state.subcategory) {
+      const scoped = QUALITY_INTRO[`${state.category}/${state.subcategory}`];
+      if (scoped) return scoped;
+    }
+    return QUALITY_INTRO[state.category] || QUALITY_INTRO_DEFAULT;
+  }
 
   // La clave puede ser "Categoría" o "Categoría/Subcategoría", y la más
   // específica gana. Hace falta para Colchones: la medida de cama es LA
@@ -3719,7 +3793,7 @@
     const active = axes.some((a) => state.quality[a.key]);
     el.qualitySub.textContent = active
       ? "Elige otra opción para cambiar, o toca la marcada para quitarla."
-      : (QUALITY_INTRO[state.category] || QUALITY_INTRO_DEFAULT);
+      : qualityIntro();
 
     // El pie enumeraba siempre "memoria, almacenamiento, procesador,
     // gráficos" -- que en Videojuegos o Lavadoras no existen. Ahora lista

@@ -79,6 +79,7 @@ FACET_CATEGORIES = (
     "Celulares", "Laptops", "Tabletas", "Monitores",
     "Televisores", "Videojuegos", "Lavadoras", "Refrigeradores",
     "Blancos y ropa de cama", "Muebles",
+    "Computadoras de escritorio", "Almacenamiento", "Climatización",
 )
 
 _FOLDABLE_RE = re.compile(r"\bplegable\b|\bfold\b|\bflip\b")
@@ -102,11 +103,15 @@ _RAM_RANGE = {
     "Celulares": (1, 24),      # ROG Phone 9 (24GB) es el flagship real más alto visto
     "Laptops": (2, 128),       # ASUS ROG Flow Z13 / ProArt con memoria unificada de 128GB
     "Tabletas": (1, 32),
+    # Una torre acepta más módulos que cualquier laptop: 256GB es una
+    # estación de trabajo real, no un error de captura.
+    "Computadoras de escritorio": (2, 256),
 }
 _STORAGE_RANGE = {
     "Celulares": (4, 2048),    # 2TB ya es un buque insignia excepcional
     "Laptops": (4, 8192),      # 8TB cubre workstations reales (RAID/NVMe dobles)
     "Tabletas": (4, 2048),
+    "Computadoras de escritorio": (4, 16384),
 }
 
 
@@ -272,6 +277,34 @@ def facets_for(product):
             f["fridge_ft3"] = ft3
         return f or None
 
+    if category == "Almacenamiento":
+        # La capacidad ES la compra acá. El tipo (SSD, disco duro, USB,
+        # microSD) se lee del nombre con el mismo extractor que ya usan
+        # laptops y tabletas.
+        cap = se.drive_capacity_gb(name)
+        if cap is not None:
+            f["drive_gb"] = cap
+        tipo = se.storage_type_of(name)
+        if tipo:
+            f["storage_type"] = tipo
+        return f or None
+
+    if category == "Climatización":
+        # Dos subcategorías con un dato legible y ninguna relación entre
+        # sí: el minisplit se compra por BTU y el ventilador por pulgadas
+        # de aspa. El resto (purificadores, humidificadores) no dice nada
+        # comparable en el nombre y se queda sin facet.
+        sub = product.get("subcategory")
+        if sub == "Aires acondicionados":
+            btu = se.ac_btu(name)
+            if btu is not None:
+                f["ac_btu"] = btu
+        elif sub == "Ventiladores":
+            pulg = se.fan_size_in(name)
+            if pulg is not None:
+                f["fan_in"] = pulg
+        return f or None
+
     ram, storage = _ram_storage(category, name, spec_map)
     ram = _in_range(ram, _RAM_RANGE, category)
     storage = _in_range(storage, _STORAGE_RANGE, category)
@@ -282,12 +315,17 @@ def facets_for(product):
     storage_type = se.storage_type_of(name)
     if storage_type:
         f["storage_type"] = storage_type
-    screen = _screen_in(category, name, spec_map)
-    if screen is not None:
-        f["screen_in"] = screen
-    refresh = se.refresh_hz(name)
-    if refresh:
-        f["refresh_hz"] = refresh
+    if category != "Computadoras de escritorio":
+        screen = _screen_in(category, name, spec_map)
+        if screen is not None:
+            f["screen_in"] = screen
+    # Una torre no tiene frecuencia de actualización: los dos aciertos que
+    # daba acá venían de paquetes que incluyen monitor, y el dato quedaba
+    # colgado del gabinete.
+    if category != "Computadoras de escritorio":
+        refresh = se.refresh_hz(name)
+        if refresh:
+            f["refresh_hz"] = refresh
 
     if category in ("Celulares", "Tabletas"):
         net = _network(spec_map, name)
@@ -314,7 +352,10 @@ def facets_for(product):
         if model:
             f["model_name"] = model
 
-    if category == "Laptops":
+    # El procesador, la gráfica y el sistema operativo se leen igual en una
+    # torre que en una laptop: son las mismas familias de piezas y los
+    # mismos nombres comerciales.
+    if category in ("Laptops", "Computadoras de escritorio"):
         cpu = _cpu(name, spec_map, brand)
         if cpu:
             f["cpu_family"] = cpu
