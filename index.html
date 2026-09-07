@@ -260,12 +260,23 @@
               <option value="rating_desc">Mejor calificados</option>
             </select>
           </div>
-          <button type="button" id="specsBannerLink" class="specs-banner hidden">
-            <img class="specs-banner-logo" src="icons/logo-comparacalidad.png" alt="">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="14" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
-            <span>Buscar por especificaciones detalladas: memoria, almacenamiento, procesador, gráficos y más</span>
-            <span class="specs-banner-arrow">›</span>
-          </button>
+          <!-- Compara calidad: dos filas de tres tarjetas (nivel y tamaño) que
+               resuelven de un clic la pregunta con la que llega casi todo el
+               mundo ("¿cuál me alcanza para lo que hago?"), y abajo el acceso
+               al detalle completo de especificaciones de siempre. Las tarjetas
+               las llena renderQualityPicker() en js/app.js. -->
+          <section id="qualityPicker" class="quality-picker hidden">
+            <div class="quality-head">
+              <img class="quality-logo" src="icons/logo-comparacalidad.png" alt="Compara calidad">
+              <span class="quality-sub" id="qualitySub"></span>
+            </div>
+            <div id="qualityRows"></div>
+            <button type="button" id="specsBannerLink" class="quality-more">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="19" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="14" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+              <span>Más detalle: memoria, almacenamiento, procesador, gráficos y más</span>
+              <span class="quality-more-arrow">›</span>
+            </button>
+          </section>
           <div id="productList" class="product-list"></div>
           <nav id="pagination" class="pagination"></nav>
 

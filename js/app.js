@@ -327,6 +327,10 @@
     // SPEC_FACETS, vacío = todos. Se arma dinámicamente (no a mano como
     // brands/minRating) porque son 12 campos con el mismo comportamiento.
     specFilters: buildSpecFilterState(),
+    // "Compara calidad": nivel y tamaño elegidos con las tarjetas de arriba
+    // de la lista (ver QUALITY_AXES). null = sin elegir.
+    quality: { level: null, size: null },
+    qualityCategory: null, // categoría a la que pertenece `quality` (ver renderSpecsBanner)
     page: 1, // página actual de la lista/ranking (ver PAGE_SIZE)
     sort: "relevance",
     offerSort: "price", // 'price' | 'rating' — orden de la tabla de comparación
@@ -410,6 +414,9 @@
     filterBatteryGroup: document.getElementById("filterBatteryGroup"),
     filterBattery: document.getElementById("filterBattery"),
     specsBannerLink: document.getElementById("specsBannerLink"),
+    qualityPicker: document.getElementById("qualityPicker"),
+    qualityRows: document.getElementById("qualityRows"),
+    qualitySub: document.getElementById("qualitySub"),
     specsModal: document.getElementById("specsModal"),
     specsModalClose: document.getElementById("specsModalClose"),
     specsModalBody: document.getElementById("specsModalBody"),
@@ -2391,7 +2398,8 @@
       const matchesMagsafe = !state.magsafeOnly || isMagSafe(p);
       const matchesSize = state.sizeFilter === "all" || productSize(p) === state.sizeFilter;
       const matchesSpec = matchesSpecFilters(p);
-      return matchesQuery && matchesCat && matchesSub && matchesPrice && matchesBrand && matchesRating && matchesCondition && matchesMagsafe && matchesSize && matchesSpec;
+      const matchesQual = matchesQuality(p);
+      return matchesQuery && matchesCat && matchesSub && matchesPrice && matchesBrand && matchesRating && matchesCondition && matchesMagsafe && matchesSize && matchesSpec && matchesQual;
     });
   }
 
@@ -2791,6 +2799,7 @@
         state.subcategory = null;
         state.brands.clear();
         state.specFilters = buildSpecFilterState();
+        clearQuality();
         state.sort = "relevance";
         renderList();
       };
@@ -2831,7 +2840,8 @@
           state.category = c.id;
           state.subcategory = null;
           state.brands.clear();
-        state.specFilters = buildSpecFilterState();
+          state.specFilters = buildSpecFilterState();
+          clearQuality();
           state.sort = "popularity";
           renderList();
         };
@@ -2856,7 +2866,8 @@
           state.category = c.id;
           state.subcategory = s.id;
           state.brands.clear();
-        state.specFilters = buildSpecFilterState();
+          state.specFilters = buildSpecFilterState();
+          clearQuality();
           state.sort = "popularity";
           renderList();
         };
@@ -3094,16 +3105,225 @@
     if (!el.specsModal.classList.contains("hidden")) updateSpecsModalCount();
   }
 
-  // Banner delgado "Buscar por especificaciones detalladas" -- solo en
-  // las categorías con facets calculados (compute_facets.py todavía no
-  // cubre Computadoras/Computadoras de escritorio). Abre un modal con
-  // TODOS los filtros de SPEC_FACETS desplegados de una (en vez de
-  // navegar a otra vista) para no perder el listado de fondo.
+  // "Compara calidad" -- solo en las categorías con facets calculados
+  // (compute_facets.py todavía no cubre Computadoras de escritorio ni
+  // Televisores). El pie del bloque abre un modal con TODOS los filtros de
+  // SPEC_FACETS desplegados de una (en vez de navegar a otra vista) para no
+  // perder el listado de fondo.
   const SPECS_BANNER_CATEGORIES = ["Celulares", "Laptops", "Tabletas", "Monitores"];
 
   function renderSpecsBanner() {
+    // Los ids de nivel/tamaño son por categoría (el "Alto" de Laptops son
+    // 24 GB de RAM; el de Monitores, 4K), así que al cambiar de categoría
+    // una selección vieja no significa nada y se suelta. Se hace acá, y no
+    // en cada lugar que toca state.category, porque este es el único punto
+    // por el que pasan TODAS las entradas a la lista (incluido un link
+    // profundo con ?cat= en el hash).
+    if (state.category !== state.qualityCategory) {
+      clearQuality();
+      state.qualityCategory = state.category;
+    }
     const relevant = SPECS_BANNER_CATEGORIES.includes(state.category);
-    el.specsBannerLink.classList.toggle("hidden", !relevant);
+    el.qualityPicker.classList.toggle("hidden", !relevant);
+    if (relevant) renderQualityPicker();
+  }
+
+  // ---------- Compara calidad: nivel y tamaño en dos clics ----------
+  //
+  // El modal de especificaciones ya deja filtrar por RAM, almacenamiento,
+  // pulgadas, chip, etc. con el máximo detalle -- pero exige saber de
+  // antemano cuántos GB necesita uno. La pregunta con la que llega casi
+  // todo el mundo es otra ("¿cuál me alcanza para estudiar?", "¿cuál no se
+  // me va a hacer enorme?"), y para eso este bloque agrupa el mismo dato en
+  // tres niveles y tres tamaños.
+  //
+  // REGLA: el corte es siempre UN campo de facets que la tienda publicó, y
+  // la tarjeta DICE cuál es ("Hasta 8 GB de RAM"). No se inventa una
+  // puntuación de calidad ni se mezclan campos con pesos elegidos a dedo:
+  // el usuario tiene que poder ver por qué una laptop cayó en "Básico" y no
+  // creerle a un número que salió de la nada. La línea de uso ("Estudiar,
+  // oficina y navegar") es orientación sobre el RANGO, no una afirmación
+  // sobre cada producto.
+  //
+  // Un producto sin ese campo en su ficha no cae en ninguna de las tres
+  // tarjetas -- mismo criterio que el resto de los filtros de specs: se
+  // prefiere no mostrarlo antes que adivinarle un nivel. Por eso cada fila
+  // muestra cuántos productos del alcance actual sí tienen el dato.
+  const QUALITY_AXES = {
+    Celulares: [
+      {
+        key: "level", label: "Nivel", field: "storage_gb", criterion: "por almacenamiento",
+        tiers: [
+          { id: "bajo", name: "Básico", use: "Llamadas, mensajes y redes", spec: "Hasta 64 GB", match: (v) => v <= 64 },
+          { id: "medio", name: "Intermedio", use: "Fotos, apps y streaming a diario", spec: "128 o 256 GB", match: (v) => v >= 128 && v <= 256 },
+          { id: "alto", name: "Alto", use: "Mucho video, juegos pesados", spec: "512 GB o más", match: (v) => v >= 512 },
+        ],
+      },
+      {
+        key: "size", label: "Tamaño", field: "screen_in", criterion: "por pantalla",
+        tiers: [
+          { id: "chica", name: "Chica", use: "Se usa con una mano", spec: 'Menos de 6.1"', match: (v) => v < 6.1 },
+          { id: "mediana", name: "Mediana", use: "El tamaño más común", spec: '6.1" a 6.6"', match: (v) => v >= 6.1 && v < 6.7 },
+          { id: "grande", name: "Grande", use: "Para ver video y jugar", spec: '6.7" o más', match: (v) => v >= 6.7 },
+        ],
+      },
+    ],
+    Laptops: [
+      {
+        key: "level", label: "Nivel", field: "ram_gb", criterion: "por memoria RAM",
+        tiers: [
+          { id: "bajo", name: "Básico", use: "Estudiar, oficina y navegar", spec: "Hasta 8 GB de RAM", match: (v) => v <= 8 },
+          { id: "medio", name: "Intermedio", use: "Varias apps a la vez, edición ligera", spec: "12 a 16 GB de RAM", match: (v) => v >= 12 && v <= 16 },
+          { id: "alto", name: "Alto", use: "Juegos, edición de video y 3D", spec: "24 GB de RAM o más", match: (v) => v >= 24 },
+        ],
+      },
+      {
+        key: "size", label: "Tamaño", field: "screen_in", criterion: "por pantalla",
+        tiers: [
+          { id: "chica", name: "Chica", use: "Ligera, para cargar todos los días", spec: 'Menos de 14"', match: (v) => v < 14 },
+          { id: "mediana", name: "Mediana", use: "El tamaño más común", spec: '14" a 14.9"', match: (v) => v >= 14 && v < 15 },
+          { id: "grande", name: "Grande", use: "Más espacio en pantalla", spec: '15" o más', match: (v) => v >= 15 },
+        ],
+      },
+    ],
+    Tabletas: [
+      {
+        key: "level", label: "Nivel", field: "storage_gb", criterion: "por almacenamiento",
+        tiers: [
+          { id: "bajo", name: "Básico", use: "Ver video y navegar", spec: "Hasta 32 GB", match: (v) => v <= 32 },
+          { id: "medio", name: "Intermedio", use: "Apps, juegos y clases en línea", spec: "64 o 128 GB", match: (v) => v >= 64 && v <= 128 },
+          { id: "alto", name: "Alto", use: "Trabajo, dibujo y archivos pesados", spec: "256 GB o más", match: (v) => v >= 256 },
+        ],
+      },
+      {
+        key: "size", label: "Tamaño", field: "screen_in", criterion: "por pantalla",
+        tiers: [
+          { id: "chica", name: "Chica", use: "Cabe en una mano", spec: 'Menos de 9"', match: (v) => v < 9 },
+          { id: "mediana", name: "Mediana", use: "El tamaño más común", spec: '9" a 10.9"', match: (v) => v >= 9 && v < 11 },
+          { id: "grande", name: "Grande", use: "Como una laptop chica", spec: '11" o más', match: (v) => v >= 11 },
+        ],
+      },
+    ],
+    Monitores: [
+      {
+        key: "level", label: "Nivel", field: "resolution", criterion: "por resolución",
+        tiers: [
+          { id: "bajo", name: "Básico", use: "Oficina, estudio y navegar", spec: "HD y Full HD", match: (v) => ["HD", "HD+", "FHD", "WFHD", "WSXGA+"].includes(v) },
+          { id: "medio", name: "Intermedio", use: "Trabajar con varias ventanas", spec: "QHD y ultrapanorámico", match: (v) => ["QHD", "UWQHD"].includes(v) },
+          { id: "alto", name: "Alto", use: "Juegos y edición de imagen", spec: "4K y QHD doble", match: (v) => ["4K UHD", "DQHD"].includes(v) },
+        ],
+      },
+      {
+        key: "size", label: "Tamaño", field: "screen_in", criterion: "por pantalla",
+        tiers: [
+          { id: "chica", name: "Chica", use: "Escritorios chicos", spec: 'Menos de 22"', match: (v) => v < 22 },
+          { id: "mediana", name: "Mediana", use: "El tamaño más común", spec: '22" a 26.9"', match: (v) => v >= 22 && v < 27 },
+          { id: "grande", name: "Grande", use: "Más espacio de trabajo", spec: '27" o más', match: (v) => v >= 27 },
+        ],
+      },
+    ],
+  };
+
+  function qualityAxes() {
+    return QUALITY_AXES[state.category] || [];
+  }
+
+  function qualityTierOf(axis, p) {
+    const v = p.facets ? p.facets[axis.field] ?? null : null;
+    if (v == null) return null;
+    const tier = axis.tiers.find((t) => t.match(v));
+    return tier ? tier.id : null;
+  }
+
+  function matchesQuality(p) {
+    for (const axis of qualityAxes()) {
+      const sel = state.quality[axis.key];
+      if (!sel) continue;
+      if (qualityTierOf(axis, p) !== sel) return false;
+    }
+    return true;
+  }
+
+  function clearQuality() {
+    state.quality = { level: null, size: null };
+  }
+
+  // La foto de cada tarjeta es la de un producto REAL de ese rango, no una
+  // ilustración de archivo: el más popular del alcance actual que caiga ahí
+  // (mismo orden que usa la lista). Se exige product.photo -- la foto de
+  // verdad que llega de la tienda, no product.image, que es la clave de la
+  // ilustración de categoría y la tienen todos. Sin ningún candidato con
+  // foto, la tarjeta cae a la ilustración por renderProductMedia; nunca se
+  // recicla la foto de otro rango, que sería mostrar una laptop de 32 GB
+  // ilustrando el rango de 8 GB.
+  function qualityTierSample(axis, tierId, scoped) {
+    const pool = scoped.filter((p) => p.photo && qualityTierOf(axis, p) === tierId);
+    if (!pool.length) return null;
+    return sortByPopularity(pool)[0];
+  }
+
+  function renderQualityPicker() {
+    const axes = qualityAxes();
+    el.qualityRows.innerHTML = "";
+    if (!axes.length) return;
+    // Mismo alcance que las opciones del panel de filtros
+    // (renderSpecFacetFilter): la categoría/subcategoría, sin los filtros de
+    // calidad ya elegidos. Si contara el nivel elegido, las otras dos
+    // tarjetas de esa misma fila dirían siempre "0 productos" y no se podría
+    // cambiar de opinión.
+    const base = categoryScopedProducts();
+    const active = axes.some((a) => state.quality[a.key]);
+    el.qualitySub.textContent = active
+      ? "Elige otra opción para cambiar, o toca la marcada para quitarla."
+      : "Elige por lo que vas a hacer con él, no por la ficha técnica.";
+
+    axes.forEach((axis) => {
+      // Para contar y para elegir la foto, cada fila mira el alcance
+      // filtrado por LA OTRA fila (el tamaño elegido sí acota los niveles
+      // que se ofrecen, y al revés), pero nunca por sí misma.
+      const other = axes.filter((a) => a !== axis && state.quality[a.key]);
+      const scoped = base.filter((p) => other.every((a) => qualityTierOf(a, p) === state.quality[a.key]));
+      const withField = scoped.filter((p) => p.facets && p.facets[axis.field] != null).length;
+
+      const row = document.createElement("div");
+      row.className = "quality-row";
+      const head = document.createElement("div");
+      head.className = "quality-row-head";
+      head.innerHTML = `<span class="quality-row-label">${axis.label}</span>
+        <span class="quality-row-note">${axis.criterion} · ${withField.toLocaleString("es-MX")} de ${scoped.length.toLocaleString("es-MX")} productos lo indican</span>`;
+      row.appendChild(head);
+
+      const grid = document.createElement("div");
+      grid.className = "quality-grid";
+      axis.tiers.forEach((tier) => {
+        const n = scoped.filter((p) => qualityTierOf(axis, p) === tier.id).length;
+        const sample = qualityTierSample(axis, tier.id, scoped);
+        const isActive = state.quality[axis.key] === tier.id;
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "quality-card" + (isActive ? " active" : "") + (n === 0 ? " empty" : "");
+        card.disabled = n === 0 && !isActive;
+        card.innerHTML = `
+          <span class="quality-card-photo"></span>
+          <span class="quality-card-body">
+            <span class="quality-card-name">${tier.name}</span>
+            <span class="quality-card-use">${tier.use}</span>
+            <span class="quality-card-spec">${tier.spec}</span>
+            <span class="quality-card-count">${n.toLocaleString("es-MX")} ${n === 1 ? "producto" : "productos"}</span>
+          </span>`;
+        // Por renderProductMedia y no con un <img> a mano: es la misma
+        // función que usan las filas de la lista, con sus reintentos y su
+        // caída a la ilustración si el CDN de la tienda falla.
+        if (sample) renderProductMedia(card.querySelector(".quality-card-photo"), sample);
+        card.onclick = () => {
+          state.quality[axis.key] = isActive ? null : tier.id;
+          renderList();
+        };
+        grid.appendChild(card);
+      });
+      row.appendChild(grid);
+      el.qualityRows.appendChild(row);
+    });
   }
 
   function updateSpecsModalCount() {
