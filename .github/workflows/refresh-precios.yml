@@ -1,5 +1,5 @@
-# Actualiza los precios guardados del catálogo contra Mercado Libre, todos
-# los días, y publica el resultado.
+# Actualiza los precios guardados del catálogo contra Mercado Libre y
+# Elektra, todos los días, y publica el resultado.
 #
 # POR QUÉ HACE FALTA
 # ------------------
@@ -12,6 +12,18 @@
 # catálogo: 8 seguían bien, 6 estaban desfasados (hasta -26%) y 4 ya ni se
 # vendían. Un comparador que publica un precio y al hacer clic muestra otro
 # es exactamente lo que no debe pasar, así que esto pasa a correr solo.
+#
+# POR QUÉ TAMBIÉN ELEKTRA
+# -----------------------
+# Mercado Libre son 8,119 de los 83,438 productos (9%). Elektra es el 85%
+# (70,953) y se refrescaba solo corriendo refresh_elektra.py a mano, o sea
+# casi nunca -- justo la parte más grande del catálogo era la más vieja.
+# Con este paso, el 94% del catálogo se actualiza solo todos los días, que
+# es lo que la portada y la meta description del sitio prometen.
+#
+# Es barato: no pide producto por producto, re-recorre las 95 categorías de
+# la API pública de VTEX de a 50 productos (~1,500 pedidos). Medido en 4
+# categorías tardó 80s, o sea ~32 min para las 95.
 #
 # No hace falta ningún secreto: refresh_prices.py habla con el Worker
 # público (backend/mercadolibre-worker), no con la API de Mercado Libre
@@ -47,9 +59,10 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    # El catálogo son ~8,200 productos de Mercado Libre a 4 en paralelo, más
-    # la regeneración de las páginas SEO. Ronda la hora; el tope es holgado
-    # para que un día lento no la corte por la mitad.
+    # ~8,200 productos de Mercado Libre a 4 en paralelo (~1 h), más el
+    # recorrido de Elektra (~32 min), más la regeneración de las páginas
+    # SEO. El tope es holgado para que un día lento no la corte por la
+    # mitad.
     timeout-minutes: 300
 
     steps:
@@ -74,6 +87,23 @@ jobs:
           echo "Corriendo: refresh_prices.py $ARGS"
           python3 scripts/refresh_prices.py $ARGS
 
+      - name: Actualizar precios contra Elektra
+        # continue-on-error a propósito: refresh_elektra.py sale con 2
+        # cuando el recorrido cubre menos de la mitad del catálogo (señal de
+        # que la API de VTEX respondió mal, ver MIN_WALK_RATIO). Ese caso no
+        # debe tirar el job entero -- si lo hiciera, un hipo de Elektra
+        # descartaría también el refresco de Mercado Libre que ya terminó,
+        # porque los pasos de abajo (SEO + commit) no correrían. Falla
+        # visible en la UI, pero el resto se publica igual.
+        continue-on-error: true
+        env:
+          PRUNE: ${{ inputs.prune }}
+        run: |
+          ARGS=""
+          if [ "$PRUNE" = "false" ]; then ARGS="--no-prune"; fi
+          echo "Corriendo: refresh_elektra.py $ARGS"
+          python3 scripts/refresh_elektra.py $ARGS
+
       - name: Recalcular facetas (filtros de specs)
         # Los precios no cambian las specs, pero la poda sí puede sacar
         # productos: sin esto los conteos por categoría del manifiesto
@@ -96,11 +126,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Actualizar precios contra Mercado Libre (automático)
+          git commit -m "Actualizar precios contra Mercado Libre y Elektra (automático)
 
-          Corrida automática de scripts/refresh_prices.py + compute_facets.py
-          + generate_seo_pages.py. Ver el log del workflow para el resumen de
-          cuántos precios se movieron y qué se podó."
+          Corrida automática de scripts/refresh_prices.py +
+          refresh_elektra.py + compute_facets.py + generate_seo_pages.py.
+          Ver el log del workflow para el resumen de cuántos precios se
+          movieron y qué se podó."
           # La corrida dura ~1 h: si en el medio se pushó algo a main (un lote
           # de productos, un cambio de código), se reintenta sobre eso en vez
           # de fallar. --rebase mantiene el commit de precios arriba.
