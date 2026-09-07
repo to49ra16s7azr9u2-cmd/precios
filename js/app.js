@@ -777,7 +777,9 @@
     }
     if (variants && variants.length > 1) {
       const base = product.offers[0];
-      return product.colorVariants.map((v) => ({
+      const activoViejo = state.colorFilter;
+      const usarViejo = activoViejo ? variants.filter((v) => v.color === activoViejo) : variants;
+      return (usarViejo.length ? usarViejo : variants).map((v) => ({
         ...base,
         price: v.price,
         url: v.url,
@@ -1309,7 +1311,13 @@
   // es el que trae las ofertas de cada color. El formato viejo de Mercado
   // Libre sigue mostrando puntos que llevan al anuncio de ese color.
   function colorFilterButtons(container, product) {
-    const variants = (product.colorVariants || []).filter((v) => v.offers && v.offers.length);
+    // Sirve para los DOS formatos de variante. Antes solo entendía el nuevo
+    // (v.offers), así que las fichas del formato viejo caían en otro control
+    // -- unos puntitos que se iban a la tienda en vez de filtrar -- y el
+    // mismo sitio tenía dos maneras distintas de elegir color.
+    const variants = (product.colorVariants || []).filter(
+      (v) => v.color && ((v.offers && v.offers.length) || v.url)
+    );
     if (!container) return;
     if (variants.length < 2) {
       container.innerHTML = "";
@@ -1351,23 +1359,6 @@
     return "#bbb";
   }
 
-  function detailColorSwatchHtml(product) {
-    const variants = product.colorVariants;
-    if (!variants || variants.length === 0) return "";
-    // Formato nuevo: los colores se eligen con los botones de filtro
-    // (colorFilterButtons), no con puntos que se van a otra página.
-    if (variants.some((v) => v.offers)) return "";
-    const dots = variants
-      .map((v) => {
-        const bg = COLOR_SWATCH_HEX[v.color] || "#bbb";
-        const border = v.color === "Blanco" || v.color === "Transparente" || v.color === "Starlight" ? "border:1px solid #ccc;" : "";
-        const refurb = v.condition === "refurbished" ? " · Reacondicionado" : "";
-        const label = `${v.color || "Otro"}${refurb} — ${money(v.price)}`;
-        return `<a class="color-dot-link" href="${htmlEscapeAttr(v.url)}" target="_blank" rel="noopener" title="${htmlEscapeAttr(label)}"><span class="color-dot" style="background:${bg};${border}"></span></a>`;
-      })
-      .join("");
-    return `<div class="detail-colors-inner"><span class="detail-colors-label">Colores disponibles:</span> ${dots}</div>`;
-  }
 
   // Pinta la imagen de un producto dentro de `container`.
   //
@@ -4524,6 +4515,10 @@
     });
   }
 
+  // Ficha sobre la que se eligió el color actual, para saber cuándo hay que
+  // volver a "Todos" (ver renderDetail).
+  let colorFilterProduct = null;
+
   async function renderDetail(productId) {
     // La ficha se puede abrir por enlace directo (#/p/pNNN, que es a donde
     // llevan las páginas SEO estáticas) sin que la categoría de ese
@@ -4537,6 +4532,14 @@
     }
     const product = state.data.products.find((p) => p.id === productId);
     if (!product) { goHome(); return; }
+    // Cada ficha arranca en "Todos". state.colorFilter es global y no se
+    // limpiaba al cambiar de producto: abrir un teléfono azul y después otro
+    // dejaba el segundo filtrado por un color que ni siquiera tiene (o, si
+    // lo tenía, escondiendo el resto sin que nadie lo hubiera pedido).
+    if (colorFilterProduct !== productId) {
+      state.colorFilter = null;
+      colorFilterProduct = productId;
+    }
 
     // Las urls de las ofertas viajan aparte (ver ensureDetail): se esperan
     // ANTES de pintar para que la tabla de ofertas nunca aparezca con
@@ -4580,7 +4583,10 @@
       count > 0
         ? `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${plural(count, "calificación", "calificaciones")})</span>`
         : `<span class="rc">Sin calificaciones todavía</span>`;
-    el.detailColors.innerHTML = detailColorSwatchHtml(product);
+    // El bloque "Colores disponibles:" con puntitos que abrían la tienda
+    // quedó reemplazado por las pastillas de filtro (colorFilterButtons),
+    // que es el mismo control para todas las fichas.
+    el.detailColors.innerHTML = "";
     colorFilterButtons(el.detailColorFilter, product);
     renderDetailPriceHeader(product);
     renderDetailCompare(product);
