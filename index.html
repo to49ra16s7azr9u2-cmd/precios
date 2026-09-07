@@ -459,6 +459,20 @@
   </section>
 
   <!-- Favoritos -->
+  <!-- Comparación de especificaciones lado a lado. Se llega desde la barra
+       flotante que aparece al marcar "Comparar" en la lista (ver
+       renderCompareBar / renderCompare en js/app.js). -->
+  <section id="viewCompare" class="view hidden">
+    <div class="container">
+      <div class="page-band">
+        <nav class="breadcrumb"><a href="#/">Inicio</a> &gt; Comparar</nav>
+        <h1>Comparar especificaciones</h1>
+        <p class="muted" id="compareIntro"></p>
+      </div>
+      <div id="compareBody"></div>
+    </div>
+  </section>
+
   <section id="viewFavorites" class="view hidden">
     <div class="container">
       <div class="page-band">
@@ -718,6 +732,18 @@
 </div>
 
 <script type="module" src="js/firebase-init.min.js"></script>
+<!-- Barra flotante del comparador: sigue visible al cambiar de vista, por eso
+     vive fuera de <main> y no dentro de la vista de lista. -->
+<div id="compareBar" class="compare-bar hidden">
+  <div class="compare-bar-inner">
+    <div id="compareBarItems" class="compare-bar-items"></div>
+    <div class="compare-bar-actions">
+      <button type="button" id="compareBarClear" class="compare-bar-clear">Limpiar</button>
+      <button type="button" id="compareBarGo" class="compare-bar-go">Comparar</button>
+    </div>
+  </div>
+
 <script src="js/app.min.js"></script>
+</div>
 </body>
 </html>

@@ -283,22 +283,22 @@
   // en vez de agrupar en rangos: cada RAM/capacidad/pulgada/mAh exacto
   // que aparezca en el catálogo es su propio checkbox.
   const SPEC_FACETS = [
-    { key: "ram", facetField: "ram_gb", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterRamGroup", listEl: "filterRam", sortNum: true, format: (v) => `${v} GB` },
-    { key: "storage", facetField: "storage_gb", categories: ["Celulares", "Laptops", "Tabletas"], groupEl: "filterStorageGroup", listEl: "filterStorage", sortNum: true, format: formatStorageGB },
-    { key: "storageType", facetField: "storage_type", categories: ["Laptops", "Tabletas"], groupEl: "filterStorageTypeGroup", listEl: "filterStorageType", format: (v) => STORAGE_TYPE_LABELS[v] || v },
-    { key: "screen", facetField: "screen_in", categories: ["Celulares", "Laptops", "Tabletas", "Monitores"], groupEl: "filterScreenGroup", listEl: "filterScreen", sortNum: true, format: formatScreenIn },
-    { key: "refresh", facetField: "refresh_hz", categories: ["Celulares", "Laptops", "Monitores"], groupEl: "filterRefreshGroup", listEl: "filterRefresh", sortNum: true, format: (v) => `${v} Hz` },
-    { key: "resolution", facetField: "resolution", categories: ["Monitores"], groupEl: "filterResolutionGroup", listEl: "filterResolution", format: (v) => v },
-    { key: "panelType", facetField: "panel_type", categories: ["Monitores"], groupEl: "filterPanelTypeGroup", listEl: "filterPanelType", format: (v) => v },
-    { key: "curved", facetField: "curved", categories: ["Monitores"], groupEl: "filterCurvedGroup", listEl: "filterCurved", format: () => "Curvo" },
-    { key: "network", facetField: "network_gen", categories: ["Celulares", "Tabletas"], groupEl: "filterNetworkGroup", listEl: "filterNetwork", format: (v) => NETWORK_LABELS[v] || v },
-    { key: "chipset", facetField: "chipset_family", categories: ["Celulares", "Tabletas"], groupEl: "filterChipsetGroup", listEl: "filterChipset", format: (v) => v },
-    { key: "model", facetField: "model_name", categories: ["Celulares"], groupEl: "filterModelGroup", listEl: "filterModel", format: (v) => v },
-    { key: "cpu", facetField: "cpu_family", categories: ["Laptops"], groupEl: "filterCpuGroup", listEl: "filterCpu", format: (v) => v },
-    { key: "gpu", facetField: "gpu", categories: ["Laptops"], groupEl: "filterGpuGroup", listEl: "filterGpu", format: (v) => v },
-    { key: "os", facetField: "os", categories: ["Laptops"], groupEl: "filterOsGroup", listEl: "filterOs", format: (v) => v },
-    { key: "camera", facetField: "camera_mp", categories: ["Celulares", "Tabletas"], groupEl: "filterCameraGroup", listEl: "filterCamera", sortNum: true, format: (v) => `${v} MP` },
-    { key: "battery", facetField: "battery_mah", categories: ["Celulares", "Tabletas"], groupEl: "filterBatteryGroup", listEl: "filterBattery", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} mAh` },
+    { key: "ram", facetField: "ram_gb", categories: ["Celulares", "Laptops", "Tabletas"], label: "Memoria RAM", groupEl: "filterRamGroup", listEl: "filterRam", sortNum: true, format: (v) => `${v} GB` },
+    { key: "storage", facetField: "storage_gb", categories: ["Celulares", "Laptops", "Tabletas"], label: "Almacenamiento", groupEl: "filterStorageGroup", listEl: "filterStorage", sortNum: true, format: formatStorageGB },
+    { key: "storageType", facetField: "storage_type", categories: ["Laptops", "Tabletas"], label: "Tipo de almacenamiento", groupEl: "filterStorageTypeGroup", listEl: "filterStorageType", format: (v) => STORAGE_TYPE_LABELS[v] || v },
+    { key: "screen", facetField: "screen_in", categories: ["Celulares", "Laptops", "Tabletas", "Monitores"], label: "Tamaño de pantalla", groupEl: "filterScreenGroup", listEl: "filterScreen", sortNum: true, format: formatScreenIn },
+    { key: "refresh", facetField: "refresh_hz", categories: ["Celulares", "Laptops", "Monitores"], label: "Frecuencia de actualización", groupEl: "filterRefreshGroup", listEl: "filterRefresh", sortNum: true, format: (v) => `${v} Hz` },
+    { key: "resolution", facetField: "resolution", categories: ["Monitores"], label: "Resolución", groupEl: "filterResolutionGroup", listEl: "filterResolution", format: (v) => v },
+    { key: "panelType", facetField: "panel_type", categories: ["Monitores"], label: "Tipo de panel", groupEl: "filterPanelTypeGroup", listEl: "filterPanelType", format: (v) => v },
+    { key: "curved", facetField: "curved", categories: ["Monitores"], label: "Curvatura", groupEl: "filterCurvedGroup", listEl: "filterCurved", format: () => "Curvo" },
+    { key: "network", facetField: "network_gen", categories: ["Celulares", "Tabletas"], label: "Red móvil", groupEl: "filterNetworkGroup", listEl: "filterNetwork", format: (v) => NETWORK_LABELS[v] || v },
+    { key: "chipset", facetField: "chipset_family", categories: ["Celulares", "Tabletas"], label: "Chipset", groupEl: "filterChipsetGroup", listEl: "filterChipset", format: (v) => v },
+    { key: "model", facetField: "model_name", categories: ["Celulares"], label: "Modelo", groupEl: "filterModelGroup", listEl: "filterModel", format: (v) => v },
+    { key: "cpu", facetField: "cpu_family", categories: ["Laptops"], label: "Procesador", groupEl: "filterCpuGroup", listEl: "filterCpu", format: (v) => v },
+    { key: "gpu", facetField: "gpu", categories: ["Laptops"], label: "Tarjeta gráfica", groupEl: "filterGpuGroup", listEl: "filterGpu", format: (v) => v },
+    { key: "os", facetField: "os", categories: ["Laptops"], label: "Sistema operativo", groupEl: "filterOsGroup", listEl: "filterOs", format: (v) => v },
+    { key: "camera", facetField: "camera_mp", categories: ["Celulares", "Tabletas"], label: "Cámara principal", groupEl: "filterCameraGroup", listEl: "filterCamera", sortNum: true, format: (v) => `${v} MP` },
+    { key: "battery", facetField: "battery_mah", categories: ["Celulares", "Tabletas"], label: "Batería", groupEl: "filterBatteryGroup", listEl: "filterBattery", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} mAh` },
   ];
 
   function buildSpecFilterState() {
@@ -476,6 +476,13 @@
     brandGrid: document.getElementById("brandGrid"),
 
     viewFavorites: document.getElementById("viewFavorites"),
+    viewCompare: document.getElementById("viewCompare"),
+    compareIntro: document.getElementById("compareIntro"),
+    compareBody: document.getElementById("compareBody"),
+    compareBar: document.getElementById("compareBar"),
+    compareBarItems: document.getElementById("compareBarItems"),
+    compareBarClear: document.getElementById("compareBarClear"),
+    compareBarGo: document.getElementById("compareBarGo"),
     favoritesList: document.getElementById("favoritesList"),
 
     viewAccount: document.getElementById("viewAccount"),
@@ -1432,6 +1439,136 @@
     writeCompareState({ category: null, ids: [] });
   }
 
+  // Barra flotante con lo que se lleva elegido. Vive fuera de <main> (ver
+  // index.html) para que no desaparezca al navegar de la lista a una ficha
+  // y de vuelta: la selección sobrevive a la navegación, así que la barra
+  // que la muestra también tiene que sobrevivir.
+  //
+  // Los productos elegidos pueden no estar cargados en memoria -- las
+  // shards se bajan por categoría (ver ensureCategory), y la selección
+  // vive en localStorage de una visita anterior. Por eso se dibuja con lo
+  // que haya y se pide lo que falte, volviendo a dibujar cuando llega.
+  function productById(id) {
+    const i = productIndexById.get(id);
+    return i === undefined ? null : state.data.products[i];
+  }
+
+  // Alto real del aviso de cookies -> variable CSS que usa .compare-bar
+  // para no quedar tapada. Se recalcula al mostrarlo/ocultarlo y al cambiar
+  // el ancho de la ventana (el texto reflowea y el alto cambia).
+  function setConsentHeightVar() {
+    const c = el.cookieConsent;
+    const visible = c && !c.classList.contains("hidden");
+    document.body.style.setProperty("--consent-h", visible ? `${c.offsetHeight}px` : "0px");
+  }
+
+  function renderCompareBar() {
+    const cs = getCompareState();
+    if (!el.compareBar) return;
+    el.compareBar.classList.toggle("hidden", cs.ids.length === 0);
+    if (cs.ids.length === 0) return;
+    const found = cs.ids.map((id) => productById(id)).filter(Boolean);
+    if (found.length < cs.ids.length) {
+      ensureProductsByIds(cs.ids).then(renderCompareBar);
+    }
+    el.compareBarItems.innerHTML = "";
+    found.forEach((p) => {
+      const chip = document.createElement("div");
+      chip.className = "compare-chip";
+      chip.innerHTML = `<span class="compare-chip-photo"></span>
+        <span class="compare-chip-name">${p.name}</span>
+        <button type="button" class="compare-chip-x" aria-label="Quitar de la comparación">×</button>`;
+      renderProductMedia(chip.querySelector(".compare-chip-photo"), p);
+      chip.querySelector(".compare-chip-x").onclick = () => {
+        removeFromCompare(p.id);
+        // La lista de fondo tiene los checkboxes marcados: hay que
+        // refrescarlos o quedan marcados productos que ya no están.
+        if (el.productList) refreshCompareCheckboxes(el.productList);
+      };
+      el.compareBarItems.appendChild(chip);
+    });
+    // Con un solo producto no hay nada contra qué compararlo.
+    el.compareBarGo.disabled = cs.ids.length < 2;
+    el.compareBarGo.textContent = cs.ids.length < 2
+      ? "Elige otro para comparar"
+      : `Comparar (${cs.ids.length})`;
+  }
+
+  // ---------- Vista: comparación lado a lado ----------
+  // Una fila por especificación, una columna por producto. Solo se muestran
+  // las filas que AL MENOS UN producto declara: una tabla llena de guiones
+  // no ayuda a decidir nada.
+  //
+  // Las filas donde los productos NO coinciden se marcan, porque son las
+  // únicas que sirven para elegir: si los tres tienen 8 GB de RAM, esa fila
+  // no está aportando a la decisión.
+  function renderCompare() {
+    setActiveView("compare");
+    const cs = getCompareState();
+    const products = cs.ids.map((id) => productById(id)).filter(Boolean);
+    if (products.length < cs.ids.length) {
+      el.compareBody.innerHTML = `<div class="panel muted">Cargando productos…</div>`;
+      ensureProductsByIds(cs.ids).then(() => {
+        if (!el.viewCompare.classList.contains("hidden")) renderCompare();
+      });
+      return;
+    }
+    if (products.length < 2) {
+      el.compareIntro.textContent = "";
+      el.compareBody.innerHTML = `<div class="panel muted">Elige al menos dos productos de una misma categoría, con la casilla “Comparar” de la lista.</div>`;
+      return;
+    }
+    el.compareIntro.textContent = `${products.length} productos de ${cs.category}. Se marcan las filas donde no coinciden.`;
+
+    const rows = SPEC_FACETS
+      .filter((cfg) => cfg.categories.includes(cs.category))
+      .map((cfg) => ({
+        label: cfg.label || cfg.key,
+        values: products.map((p) => {
+          const v = specValueOf(cfg, p);
+          return v == null ? null : cfg.format(v);
+        }),
+      }))
+      .filter((r) => r.values.some((v) => v != null));
+
+    const priceRow = {
+      label: "Precio más bajo",
+      values: products.map((p) => {
+        const price = minPrice(p);
+        return price == null ? null : money(price);
+      }),
+      isPrice: true,
+    };
+
+    const head = products.map((p) => `<th><div class="compare-th">
+        <span class="compare-th-photo" data-pid="${p.id}"></span>
+        <a href="#/p/${p.id}" class="compare-th-name">${p.name}</a>
+      </div></th>`).join("");
+
+    const body = [priceRow, ...rows].map((r) => {
+      const shown = r.values.filter((v) => v != null);
+      // "Distinto" solo si TODOS lo declaran y hay más de un valor: con un
+      // dato faltante no se puede afirmar que difieran.
+      const differs = shown.length === r.values.length && new Set(shown).size > 1;
+      const cells = r.values.map((v) => `<td>${v == null ? '<span class="compare-na">No lo indica</span>' : v}</td>`).join("");
+      return `<tr class="${differs ? "compare-differs" : ""}${r.isPrice ? " compare-price-row" : ""}">
+        <th scope="row">${r.label}</th>${cells}</tr>`;
+    }).join("");
+
+    el.compareBody.innerHTML = `<div class="panel compare-panel">
+      <div class="compare-scroll">
+        <table class="compare-table">
+          <thead><tr><th></th>${head}</tr></thead>
+          <tbody>${body}</tbody>
+        </table>
+      </div>
+    </div>`;
+    products.forEach((p) => {
+      const holder = el.compareBody.querySelector(`.compare-th-photo[data-pid="${p.id}"]`);
+      renderProductMedia(holder, p);
+    });
+  }
+
   function getProfile() {
     return readLS(LS_KEYS.profile, { name: "" });
   }
@@ -1891,6 +2028,7 @@
     el.viewDetail.classList.toggle("hidden", name !== "detail");
     el.viewBrands.classList.toggle("hidden", name !== "brands");
     el.viewFavorites.classList.toggle("hidden", name !== "favorites");
+    el.viewCompare.classList.toggle("hidden", name !== "compare");
     el.viewAccount.classList.toggle("hidden", name !== "account");
     el.viewEnvio.classList.toggle("hidden", name !== "envio");
     el.viewPrivacy.classList.toggle("hidden", name !== "privacidad");
@@ -1952,6 +2090,7 @@
     if (detailMatch) renderDetail(detailMatch[1]);
     else if (hash === "#/list" || hash.startsWith("#/list?")) renderList();
     else if (hash === "#/favorites") renderFavorites();
+    else if (hash === "#/comparar") renderCompare();
     else if (hash === "#/account") renderAccount();
     else if (hash === "#/marcas" || hash.startsWith("#/marcas?")) renderBrands();
     else if (hash === "#/envio" || hash.startsWith("#/envio?")) renderShippingCalculator();
@@ -1995,6 +2134,8 @@
         state.subcategory = qs.get("sub") || null;
       }
       renderList();
+    } else if (hash === "#/comparar") {
+      renderCompare();
     } else if (hash === "#/favorites") {
       renderFavorites();
     } else if (hash === "#/account") {
@@ -2573,6 +2714,10 @@
       // una lista que no es un ranking; ahí se deja la numeración a secas.
       medals: state.sort === "popularity",
       rankOffset: startIdx,
+      // La casilla "Comparar" solo aparece donde hay specs que comparar:
+      // las mismas categorías con facets calculados que muestran el bloque
+      // Compara calidad. En el resto del catálogo la tabla saldría vacía.
+      withCompare: SPECS_BANNER_CATEGORIES.includes(state.category),
     });
     renderPagination(totalPages);
 
@@ -4832,18 +4977,23 @@
     }
     if (choice === "rejected") return;
     el.cookieConsent.classList.remove("hidden");
+    // La barra del comparador también vive fija abajo: se la corre para
+    // arriba justo lo que mide este aviso (ver --consent-h en style.css).
+    setConsentHeightVar();
     el.cookieConsentAccept.addEventListener("click", () => {
       try {
         localStorage.setItem(COOKIE_CONSENT_KEY, "accepted");
       } catch {}
       grantAnalyticsConsent();
       el.cookieConsent.classList.add("hidden");
+      setConsentHeightVar();
     });
     el.cookieConsentReject.addEventListener("click", () => {
       try {
         localStorage.setItem(COOKIE_CONSENT_KEY, "rejected");
       } catch {}
       el.cookieConsent.classList.add("hidden");
+      setConsentHeightVar();
     });
   }
 
@@ -5026,6 +5176,19 @@
     el.mapModal.addEventListener("click", (e) => {
       if (e.target === el.mapModal) closeMapModal();
     });
+
+    el.compareBarGo.addEventListener("click", () => { location.hash = "#/comparar"; });
+    el.compareBarClear.addEventListener("click", () => {
+      clearCompare();
+      if (el.productList) refreshCompareCheckboxes(el.productList);
+    });
+    // Primer pintado: la selección puede venir de una visita anterior
+    // (localStorage), así que la barra tiene que aparecer sola al abrir.
+    renderCompareBar();
+    // El aviso de cookies cambia de alto al reflowear el texto: si no se
+    // recalcula, la barra del comparador queda mal ubicada al girar el
+    // teléfono o redimensionar la ventana.
+    window.addEventListener("resize", setConsentHeightVar);
 
     el.specsBannerLink.addEventListener("click", openSpecsModal);
     el.specsModalClose.addEventListener("click", closeSpecsModal);

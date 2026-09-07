@@ -2668,3 +2668,140 @@ a { color: inherit; text-decoration: none; }
   color: var(--muted);
 }
 .offer-table-note a { color: var(--red-dark); }
+
+/* ---------- Comparador de specs lado a lado ---------- */
+/* Casilla "Comparar" en la fila de la lista. Solo se dibuja en las
+   categorías con facets calculados (ver withCompare en renderList). */
+.row-compare {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.row-compare input { accent-color: var(--red); width: 15px; height: 15px; margin: 0; }
+.row-compare:hover { color: var(--red); }
+/* Deshabilitada al llegar al cupo: se apaga entera, no solo la casilla, o
+   parece que el texto sigue siendo clicable. */
+.row-compare input:disabled { cursor: default; }
+.row-compare:has(input:disabled) { opacity: .45; cursor: default; }
+
+/* Barra flotante. position:fixed y fuera de <main> para que sobreviva a la
+   navegación entre vistas -- la selección vive en localStorage y no se
+   pierde al entrar a una ficha, así que la barra tampoco debe perderse. */
+.compare-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  /* El aviso de cookies también está fijo abajo y con z-index mayor (es
+     legal, tiene que ganar): sin este desplazamiento tapaba la barra por
+     completo y no se podía llegar al botón "Comparar". La altura real del
+     aviso la publica el JS en --consent-h cuando lo muestra, y la borra al
+     ocultarlo -- con :has() no alcanzaba, porque hace falta el ALTO, que
+     depende de cuánto texto entre en cada ancho de pantalla. */
+  bottom: var(--consent-h, 0px);
+  z-index: 40;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, .08);
+}
+.compare-bar-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.compare-bar-items { display: flex; gap: 8px; flex: 1; min-width: 0; overflow-x: auto; }
+.compare-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  max-width: 220px;
+  flex-shrink: 0;
+}
+.compare-chip-photo {
+  width: 30px; height: 30px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff; border-radius: 5px; overflow: hidden;
+}
+.compare-chip-photo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.compare-chip-photo .product-placeholder-icon { width: 18px; height: 18px; }
+.compare-chip-name {
+  font-size: 11px;
+  line-height: 1.25;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.compare-chip-x {
+  border: none; background: none; cursor: pointer;
+  font-size: 15px; line-height: 1; color: var(--muted); padding: 0 2px; flex-shrink: 0;
+}
+.compare-chip-x:hover { color: var(--red); }
+.compare-bar-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.compare-bar-clear {
+  border: 1px solid var(--border); background: var(--card); color: var(--muted);
+  border-radius: 8px; padding: 7px 11px; font: inherit; font-size: 12px; cursor: pointer;
+}
+.compare-bar-clear:hover { color: var(--red); border-color: var(--red); }
+.compare-bar-go {
+  border: none; background: var(--red); color: #fff;
+  border-radius: 8px; padding: 7px 14px; font: inherit; font-size: 12px;
+  font-weight: 700; cursor: pointer;
+}
+.compare-bar-go:disabled { background: #d0d0d0; cursor: default; }
+
+/* Tabla de comparación */
+.compare-panel { padding: 0; overflow: hidden; }
+/* La tabla puede ser más ancha que la pantalla con 3 columnas de producto:
+   scrollea DENTRO de su panel, nunca la página entera (misma regla que el
+   resto de las tablas anchas de la hoja). */
+.compare-scroll { overflow-x: auto; }
+.compare-table { border-collapse: collapse; width: 100%; min-width: 520px; }
+.compare-table th,
+.compare-table td {
+  border-bottom: 1px solid var(--border);
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 12px;
+  vertical-align: top;
+}
+.compare-table tbody th {
+  width: 150px;
+  color: var(--muted);
+  font-weight: 600;
+  background: var(--bg);
+  white-space: nowrap;
+}
+.compare-th { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; }
+.compare-th-photo {
+  width: 54px; height: 54px;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff; border-radius: 6px; overflow: hidden;
+}
+.compare-th-photo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.compare-th-photo .product-placeholder-icon { width: 28px; height: 28px; }
+.compare-th-name { font-size: 12px; font-weight: 700; line-height: 1.3; }
+.compare-th-name:hover { color: var(--red); }
+/* Las filas donde los productos NO coinciden son las únicas que sirven para
+   decidir: si los tres traen la misma RAM, esa fila no aporta nada. */
+.compare-differs td { background: #fffdf3; font-weight: 700; }
+.compare-differs > th { color: var(--ink); }
+.compare-price-row td { color: var(--red-dark); font-weight: 700; font-size: 14px; }
+.compare-na { color: var(--muted); font-weight: 400; }
+
+@media (max-width: 700px) {
+  .compare-chip-name { display: none; }
+  .compare-chip { max-width: none; }
+  .compare-table tbody th { width: 106px; white-space: normal; }
+}
