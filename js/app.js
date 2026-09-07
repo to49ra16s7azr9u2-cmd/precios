@@ -9,18 +9,6 @@
   // PAGE_SIZE filas sin importar cuánto crezca el catálogo.
   const PAGE_SIZE = 60;
 
-  // El submenú de categorías (ver renderCatNav) se abría/cerraba con
-  // mouseenter/mouseleave, pensado para mouse -- en touch no hay forma de
-  // "salir" del elemento, así que un tap lo abría (el navegador simula
-  // mouseenter al tocar) y quedaba pegado para siempre, sin mouseleave que
-  // lo cierre nunca. supportsHover distingue el caso real de mouse (donde
-  // el hover sigue funcionando como siempre) del caso touch, donde
-  // renderCatNav usa en cambio un tap-para-abrir/tap-afuera-para-cerrar.
-  const supportsHover = window.matchMedia("(hover: hover)").matches;
-  // Único submenú de categoría abierto en este momento en modo touch (o
-  // null) -- así un tap afuera, o abrir otro, puede cerrar el anterior.
-  let openCatSubmenu = null;
-
   const RATING_FILTERS = [
     { id: "all", label: "Todas", min: 0 },
     { id: "r4", label: "4★ o más", min: 4 },
@@ -51,7 +39,11 @@
     productViews: "comparamx_product_views",
     storeClicks: "comparamx_store_clicks",
     reviewDrafts: "comparamx_review_drafts",
+    compare: "comparamx_compare",
   };
+
+  // Cuántos productos entran en el comparador de specs lado a lado.
+  const COMPARE_MAX = 3;
 
   // A partir de cuántas visitas (ver trackProductView) se le sugiere al
   // usuario que deje su opinión en un producto que todavía no reseñó --
@@ -343,9 +335,6 @@
   };
 
   const el = {
-    catNav: document.getElementById("catNav"),
-    catNavToggle: document.getElementById("catNavToggle"),
-    catNavToggleLabel: document.getElementById("catNavToggleLabel"),
     searchInput: document.getElementById("searchInput"),
     searchBtn: document.getElementById("searchBtn"),
     searchSuggestions: document.getElementById("searchSuggestions"),
@@ -637,7 +626,12 @@
   //      para el badge "Envío gratis" -> estimated: false.
   //   3) Si ninguno de los dos aplica, se usa SHIPPING_ESTIMATE_MXN de la
   //      tienda -> estimated: true. Si la tienda ni siquiera está en esa
-  //      tabla, $0 sin marcar (no debería pasar con el catálogo actual).
+  //      tabla (Elektra, la mayoría del catálogo, y otras 9 más: ver la
+  //      lista completa más abajo), $0 sin marcar -- es la simplificación
+  //      correcta para displayPrice() (no hay nada real que sumarle), pero
+  //      NUNCA se lee como "confirmado $0/gratis": shippingCaptionOf() y
+  //      shippingBadgeHtml() usan el offer.shippingFee CRUDO para esa
+  //      afirmación, no este fee ya resuelto.
   function shippingFeeInfo(offer) {
     if (offer.shippingFee != null) return { fee: offer.shippingFee, estimated: false };
     const store = storeById(offer.storeId);
@@ -653,6 +647,34 @@
   // marcarlo aparte y que no se lea como si ya fuera el costo real final.
   function shippingIsEstimated(offer) {
     return state.includeShipping && shippingFeeInfo(offer).estimated;
+  }
+
+  // Leyenda corta de envío para una oferta, SIEMPRE visible (no depende del
+  // toggle "Incluir envío" -- a diferencia de shippingIsEstimated, esto es
+  // para que el usuario vea el costo real de un vistazo sin tener que
+  // activar nada). Mismo criterio honesto que shippingBadgeHtml() en la
+  // tabla de ofertas de la ficha (y el mismo orden de prioridad: dato real
+  // primero, después el umbral público de envío gratis, después la
+  // referencia estimada) -- con envío desconocido devuelve null en vez de
+  // inventar un "gratis" que no se puede afirmar (ver shippingFeeInfo).
+  // Devuelve {text, cls} (cls para el color: "free"/"estimated"/"" neutro)
+  // o null si no hay nada honesto que decir.
+  function shippingCaptionOf(offer) {
+    if (offer.shippingFee === 0) return { text: "Envío gratis", cls: "free" };
+    if (offer.shippingFee != null) return { text: `+ ${money(offer.shippingFee)} envío`, cls: "" };
+    const store = storeById(offer.storeId);
+    const threshold = store && store.freeShippingThresholdUSD;
+    const priceUSD = offer.priceOriginal && offer.priceOriginal.currency === "USD" ? offer.priceOriginal.amount : null;
+    if (threshold != null && priceUSD != null && priceUSD >= threshold) return { text: "Envío gratis", cls: "free" };
+    const info = shippingFeeInfo(offer);
+    if (info.estimated) return { text: `+ ${money(info.fee)} envío (estimado)`, cls: "estimated" };
+    if (store && !store.hubRegion) return { text: "Envío internacional", cls: "" };
+    return null;
+  }
+
+  function shippingCaptionHtml(offer) {
+    const c = shippingCaptionOf(offer);
+    return c ? `<span class="ship-caption ship-caption--${c.cls || "neutral"}">${c.text}</span>` : "";
   }
 
   // Precio a mostrar/ordenar/filtrar en toda la app, según el toggle
@@ -757,8 +779,20 @@
     });
   }
 
+  // La oferta que decide el precio "Desde" mostrado (la más barata según
+  // displayPrice, que ya respeta el toggle "Incluir envío"). Se extrae una
+  // sola vez porque minPrice/bestDiscountPct/cheapestOfferShippingEstimated/
+  // el nuevo shippingCaptionOf necesitan preguntarle cosas a ESA MISMA
+  // oferta -- si cada uno volviera a elegir "la más barata" por su cuenta
+  // con un criterio ligeramente distinto, dos datos de la misma tarjeta
+  // podrían contradecirse (el precio de una oferta arriba, el envío de otra
+  // abajo).
+  function cheapestOffer(product) {
+    return sellerRows(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+  }
+
   function minPrice(product) {
-    return Math.min(...sellerRows(product).map((o) => displayPrice(o)));
+    return displayPrice(cheapestOffer(product));
   }
 
   // true cuando, con "Incluir envío" activo, el precio "Desde" mostrado en
@@ -766,8 +800,7 @@
   // avisar ahí mismo, sin tener que entrar a la ficha para enterarse.
   function cheapestOfferShippingEstimated(product) {
     if (!state.includeShipping) return false;
-    const cheapest = sellerRows(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
-    return shippingIsEstimated(cheapest);
+    return shippingIsEstimated(cheapestOffer(product));
   }
 
   // Cantidad de opciones de compra a mostrar junto al precio ("N tiendas").
@@ -890,7 +923,7 @@
   // Descuento de la oferta más barata, si tiene listPrice (precio de lista)
   // más alto que el precio actual. Devuelve el % o null.
   function bestDiscountPct(product) {
-    const cheapest = sellerRows(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+    const cheapest = cheapestOffer(product);
     const price = displayPrice(cheapest);
     const listPrice = displayListPrice(cheapest);
     if (!listPrice || listPrice <= price) return null;
@@ -1338,6 +1371,58 @@
     writeLS(LS_KEYS.favorites, favs);
     if (state.user && window.ComparaMXData) window.ComparaMXData.setUserData(state.user.uid, { favorites: favs });
     return idx === -1;
+  }
+
+  // ---------- Comparador de specs lado a lado ----------
+  // A diferencia de favoritos (cualquier mezcla de categorías tiene
+  // sentido), comparar specs de un celular contra un sillón no dice nada:
+  // se guarda junto con la categoría a la que pertenece la selección
+  // actual, y elegir un producto de OTRA categoría empieza una selección
+  // nueva en vez de mezclarlas.
+  function getCompareState() {
+    return readLS(LS_KEYS.compare, { category: null, ids: [] });
+  }
+  function writeCompareState(next) {
+    writeLS(LS_KEYS.compare, next);
+    renderCompareBar();
+  }
+  function isInCompare(productId) {
+    return getCompareState().ids.includes(productId);
+  }
+  // Devuelve el resultado para que el llamador pueda avisar por qué no se
+  // agregó (cupo lleno) sin necesidad de un sistema de toasts nuevo -- el
+  // checkbox de la fila ya se deshabilita solo en ese caso (ver
+  // renderProductListInto), así que en la práctica toggleCompareItem con
+  // "full" casi no debería llamarse.
+  function toggleCompareItem(product) {
+    const cur = getCompareState();
+    const idx = cur.ids.indexOf(product.id);
+    if (idx !== -1) {
+      cur.ids.splice(idx, 1);
+      if (cur.ids.length === 0) cur.category = null;
+      writeCompareState(cur);
+      return { ok: true };
+    }
+    if (cur.category && cur.category !== product.category) {
+      // Cambiar de categoría reinicia la selección con este producto solo
+      // -- comparar specs de categorías distintas no tiene columnas en común.
+      writeCompareState({ category: product.category, ids: [product.id] });
+      return { ok: true, reset: true };
+    }
+    if (cur.ids.length >= COMPARE_MAX) return { ok: false, reason: "full" };
+    cur.category = product.category;
+    cur.ids.push(product.id);
+    writeCompareState(cur);
+    return { ok: true };
+  }
+  function removeFromCompare(productId) {
+    const cur = getCompareState();
+    cur.ids = cur.ids.filter((id) => id !== productId);
+    if (cur.ids.length === 0) cur.category = null;
+    writeCompareState(cur);
+  }
+  function clearCompare() {
+    writeCompareState({ category: null, ids: [] });
   }
 
   function getProfile() {
@@ -1924,125 +2009,8 @@
     window.scrollTo(0, 0);
   }
 
-  // ---------- Header: navegación de categorías ----------
 
-  // Posiciona y muestra el submenú flotante de una categoría, pegado a su
-  // item en el nav (mismo cálculo para el modo hover y el modo touch).
-  function openCatSubmenuAt(item, submenu) {
-    const r = item.getBoundingClientRect();
-    submenu.style.left = `${r.left}px`;
-    submenu.style.maxHeight = "";
-    // Se hace visible ANTES de medir su alto: oculto (display:none) mide 0
-    // siempre. Como esto ocurre de forma síncrona antes del próximo pintado,
-    // el usuario nunca ve el submenú en la posición "top" provisional de abajo.
-    submenu.classList.add("visible");
-    const submenuHeight = submenu.offsetHeight;
-    // Categorías de la última fila (con la barra desplegada): abrir hacia
-    // abajo como siempre las dejaba cortadas contra el borde de la ventana,
-    // sin forma de ver ni hacer clic en las últimas subcategorías. Si no
-    // entra hacia abajo, se abre hacia arriba (el lado con más espacio).
-    const spaceBelow = window.innerHeight - r.bottom - 8;
-    const spaceAbove = r.top - 8;
-    const opensUp = submenuHeight > spaceBelow && spaceAbove > spaceBelow;
-    const available = Math.max(80, opensUp ? spaceAbove : spaceBelow);
-    // Con muchas subcategorías el submenú puede no caber ni así: se recorta
-    // a ese espacio y se vuelve desplazable dentro de sí mismo, en vez de
-    // salirse de la ventana o alargar el scroll de toda la página.
-    if (submenuHeight > available) submenu.style.maxHeight = `${available}px`;
-    const actualHeight = Math.min(submenuHeight, available);
-    submenu.style.top = opensUp ? `${Math.max(8, r.top - actualHeight)}px` : `${r.bottom}px`;
-  }
 
-  function renderCatNav() {
-    el.catNav.innerHTML = "";
-    // Los submenús viven en document.body (ver más abajo), no dentro de
-    // #catNav, así que hay que limpiarlos aparte en cada repintado.
-    document.querySelectorAll(".cat-submenu").forEach((node) => node.remove());
-    // Referencias a submenús que este repintado va a tirar -- si quedó
-    // alguno "abierto" en modo touch, ya no existe más.
-    openCatSubmenu = null;
-    state.data.categories.forEach((c) => {
-      const hasSub = c.subcategories && c.subcategories.length > 0;
-      const item = document.createElement("div");
-      item.className = "cat-item";
-
-      const label = document.createElement("span");
-      label.innerHTML = `${icon(c.icon, "cat-item-icon")} ${c.name}${hasSub ? " ▾" : ""}`;
-      const isActive = location.hash === "#/list" && state.category === c.id && !state.subcategory;
-      label.className = isActive ? "active" : "";
-      label.onclick = () => goCategoryRanking(c.id);
-      item.appendChild(label);
-
-      if (hasSub) {
-        const submenu = document.createElement("div");
-        submenu.className = "cat-submenu";
-        c.subcategories.forEach((s) => {
-          const link = document.createElement("a");
-          link.innerHTML = `${icon(s.icon, "cat-item-icon")} ${s.name}`;
-          const subActive =
-            location.hash === "#/list" && state.category === c.id && state.subcategory === s.id;
-          link.className = subActive ? "active" : "";
-          link.onclick = (e) => {
-            e.stopPropagation();
-            goCategoryRanking(c.id, s.id);
-          };
-          submenu.appendChild(link);
-        });
-        // position:fixed (en vez de absolute) para que el submenú escape del
-        // overflow:hidden de .cats (necesario para el plegado de la barra de
-        // categorías) -- si no, el submenú quedaría cortado detrás de la
-        // barra en vez de flotar por encima.
-        if (supportsHover) {
-          // El submenú tampoco es descendiente de .cat-item en el DOM (está
-          // en document.body), así que moverse del item al submenú cuenta
-          // como "salir" de .cat-item -- de ahí el pequeño retraso antes de
-          // esconderlo, cancelable si el mouse entra al submenú a tiempo.
-          let hideTimer = null;
-          const cancelHide = () => { if (hideTimer) clearTimeout(hideTimer); };
-          const scheduleHide = () => { hideTimer = setTimeout(() => submenu.classList.remove("visible"), 120); };
-          item.addEventListener("mouseenter", () => { cancelHide(); openCatSubmenuAt(item, submenu); });
-          item.addEventListener("mouseleave", scheduleHide);
-          submenu.addEventListener("mouseenter", cancelHide);
-          submenu.addEventListener("mouseleave", scheduleHide);
-        } else {
-          // Touch: no existe "salir" del elemento, así que mouseenter/
-          // mouseleave no sirven para cerrar -- un tap simula mouseenter al
-          // abrir, pero nunca llega un mouseleave que lo cierre, y quedaba
-          // pegado para siempre (bug reportado). En su lugar: un tap sobre
-          // la categoría abre su submenú (sin navegar todavía, para dar
-          // tiempo a elegir una subcategoría) y cierra cualquier otro que
-          // hubiera quedado abierto; un segundo tap sobre la misma categoría
-          // navega a su ranking general; y un tap afuera del nav (ver
-          // listener global más abajo) cierra el que esté abierto.
-          label.onclick = (e) => {
-            if (submenu.classList.contains("visible")) {
-              goCategoryRanking(c.id);
-              return;
-            }
-            if (openCatSubmenu && openCatSubmenu !== submenu) openCatSubmenu.classList.remove("visible");
-            openCatSubmenuAt(item, submenu);
-            openCatSubmenu = submenu;
-            e.stopPropagation();
-          };
-        }
-        document.body.appendChild(submenu);
-      }
-
-      el.catNav.appendChild(item);
-    });
-  }
-
-  // Único listener global (no por repintado, para no acumular uno nuevo en
-  // cada renderCatNav): en modo touch, cualquier tap fuera del nav de
-  // categorías cierra el submenú que hubiera quedado abierto.
-  if (!supportsHover) {
-    document.addEventListener("click", () => {
-      if (openCatSubmenu) {
-        openCatSubmenu.classList.remove("visible");
-        openCatSubmenu = null;
-      }
-    });
-  }
 
   // ---------- Vista: Inicio (solo selección de categoría) ----------
 
@@ -2051,7 +2019,6 @@
   // precios. Los rankings en sí viven en la vista de categoría (renderList).
   function renderHome() {
     setActiveView("home");
-    renderCatNav();
     // Inicio no baja ninguna categoría: le alcanza con las estadísticas del
     // manifiesto y con data/home.json (los candidatos de los rankings y la
     // foto de cada tarjeta). Mientras eso llega se pinta lo que ya hay y se
@@ -2522,7 +2489,6 @@
   function renderList() {
     state.page = 1; // toda entrada "de cero" a la lista arranca en la página 1
     setActiveView("list");
-    renderCatNav();
 
     // La lista sí necesita productos. Si su alcance todavía no se bajó, se
     // muestra el aviso de carga y se vuelve a entrar cuando llegue -- salvo
@@ -2662,12 +2628,16 @@
     items.forEach((item) => {
       const row = document.createElement("div");
       row.className = "product-row is-external";
-      const shippingText = item.shippingFree ? "Envío gratis" : "";
       // Este resultado viene directo de la búsqueda en vivo de Mercado
       // Libre (no es una oferta guardada del catálogo): shippingFree ya es
       // un dato real y confiable (gratis = no suma nada); cuando es false
       // se suma la misma tarifa de referencia que el resto del catálogo
-      // usa para Mercado Libre (SHIPPING_ESTIMATE_MXN.mercadolibre).
+      // usa para Mercado Libre (SHIPPING_ESTIMATE_MXN.mercadolibre). Se
+      // muestra siempre, no solo con el toggle activo -- mismo criterio
+      // que shippingCaptionHtml() para el resto del catálogo.
+      const shippingText = item.shippingFree
+        ? `<span class="ship-caption ship-caption--free">Envío gratis</span>`
+        : `<span class="ship-caption ship-caption--estimated">+ ${money(SHIPPING_ESTIMATE_MXN.mercadolibre)} envío (estimado)</span>`;
       const liveShipEstimated = state.includeShipping && !item.shippingFree;
       const livePrice = item.price + (liveShipEstimated ? SHIPPING_ESTIMATE_MXN.mercadolibre : 0);
       row.innerHTML = `
@@ -2709,6 +2679,7 @@
       const usedBadge = conditionBadge(p);
       const commercialBadge = usageBadge(p);
       const row = document.createElement("div");
+      row.dataset.id = p.id;
       const rankClass = opts.medals && rank >= 2 && rank <= 4 ? ` rank-${rank}` : "";
       row.className = "product-row" + (opts.withRank ? " has-rank" + rankClass : "");
       row.innerHTML = `
@@ -2734,9 +2705,25 @@
         <div class="row-priceblock">
           ${sellerTotal(p) > 1 ? `<div class="row-from">Desde</div>` : ""}
           <div class="row-price">${money(minPrice(p))}${bestDiscountPct(p) ? `<span class="discount-badge">-${bestDiscountPct(p)}%</span>` : ""}</div>
-          ${cheapestOfferShippingEstimated(p) ? `<span class="shipping-estimate-note">${icon("alert-triangle")} envío estimado incluido</span>` : ""}
+          ${
+            // Siempre visible (no solo con el toggle "Incluir envío" activo):
+            // a diferencia del monto sumado al precio, esta leyenda es la
+            // MISMA oferta que decide el "Desde" de arriba, así que nunca
+            // contradice lo que ya se está mostrando -- ver cheapestOffer().
+            state.includeShipping
+              ? cheapestOfferShippingEstimated(p) ? `<span class="shipping-estimate-note">${icon("alert-triangle")} envío estimado incluido</span>` : ""
+              : shippingCaptionHtml(cheapestOffer(p))
+          }
           <div class="row-stores">${plural(sellerTotal(p), "vendedor", "vendedores")}</div>
         </div>
+        ${
+          // Comparador de specs: solo tiene sentido con una categoría
+          // concreta activa (ver renderList) -- comparar un celular contra
+          // un sillón no dice nada, así que "Todas"/búsqueda no lo ofrecen.
+          opts.withCompare
+            ? `<label class="row-compare" title="Agregar a comparar specs"><input type="checkbox" class="row-compare-input"><span>Comparar</span></label>`
+            : ""
+        }
         <button class="row-fav-btn" aria-label="Favorito"></button>
       `;
       const rowIcon = row.querySelector(".row-icon");
@@ -2748,7 +2735,37 @@
       row.onclick = () => goDetail(p.id);
       bindFavToggle(row.querySelector(".row-fav-btn"), p.id, opts.onFavToggle);
       row.querySelector(".row-fav-btn").innerHTML = favIconHtml(p.id);
+      if (opts.withCompare) {
+        const label = row.querySelector(".row-compare");
+        const input = label.querySelector("input");
+        label.onclick = (e) => e.stopPropagation();
+        input.onchange = () => {
+          toggleCompareItem(p);
+          refreshCompareCheckboxes(container);
+        };
+      }
       container.appendChild(row);
+    });
+    if (opts.withCompare) refreshCompareCheckboxes(container);
+  }
+
+  // Sincroniza los checkboxes "Comparar" ya pintados con el estado actual
+  // (sin volver a construir las filas) -- se llama después de cada cambio,
+  // para que elegir/quitar un producto en una fila se refleje también en
+  // el resto de la lista (p. ej. las demás se deshabilitan al llegar al
+  // cupo de COMPARE_MAX, o se habilitan de nuevo al quitar uno).
+  function refreshCompareCheckboxes(container) {
+    const cs = getCompareState();
+    container.querySelectorAll(".row-compare").forEach((label) => {
+      const id = label.closest(".product-row").dataset.id;
+      const product = state.data.products[productIndexById.get(id)];
+      const input = label.querySelector("input");
+      const already = cs.ids.includes(id);
+      const atCap = !already && product && cs.category === product.category && cs.ids.length >= COMPARE_MAX;
+      input.checked = already;
+      input.disabled = !!atCap;
+      label.classList.toggle("is-disabled", !!atCap);
+      label.title = atCap ? `Ya elegiste ${COMPARE_MAX} productos para comparar` : "Agregar a comparar specs";
     });
   }
 
@@ -3124,7 +3141,6 @@
 
   function renderFavorites() {
     setActiveView("favorites");
-    renderCatNav();
     const favIds = getFavorites();
     // Los favoritos son ids sueltos guardados en este navegador: pueden ser
     // de categorías que todavía no se bajaron (ver ensureProductsByIds).
@@ -3210,7 +3226,6 @@
 
   function renderBrands() {
     setActiveView("brands");
-    renderCatNav();
     renderBrandCategoryFilter();
 
     const all = state.brandsData.brands;
@@ -3244,7 +3259,6 @@
 
   function renderAccount() {
     setActiveView("account");
-    renderCatNav();
     const user = state.user;
     el.accountLoginPanel.classList.toggle("hidden", !!user);
     el.accountSignedInHead.classList.toggle("hidden", !user);
@@ -3412,7 +3426,6 @@
 
   function renderShippingCalculator() {
     setActiveView("envio");
-    renderCatNav();
     const qs = location.hash.includes("?") ? new URLSearchParams(location.hash.split("?")[1]) : null;
     const prefWeight = qs && qs.get("peso");
     if (prefWeight && !el.shipWeightInput.value) el.shipWeightInput.value = prefWeight;
@@ -3439,13 +3452,11 @@
 
   function renderPrivacy() {
     setActiveView("privacidad");
-    renderCatNav();
     el.privacyLastUpdated.textContent = LEGAL_LAST_UPDATED;
   }
 
   function renderTerms() {
     setActiveView("terminos");
-    renderCatNav();
     el.termsLastUpdated.textContent = LEGAL_LAST_UPDATED;
   }
 
@@ -3585,10 +3596,17 @@
   function renderDetailPriceHeader(product) {
     const discountPct = bestDiscountPct(product);
     const savings = bestSavingsAmount(product);
+    // Misma leyenda de envío que las tarjetas de lista (ver
+    // shippingCaptionHtml), siempre visible con el toggle apagado; con el
+    // toggle activo el precio de arriba ya suma el envío, así que solo hace
+    // falta el aviso de "estimado" cuando corresponde (igual que antes).
+    const shipHtml = state.includeShipping
+      ? (cheapestOfferShippingEstimated(product) ? `<span class="shipping-estimate-note">${icon("alert-triangle")} incluye envío estimado (ver tabla de abajo)</span>` : "")
+      : shippingCaptionHtml(cheapestOffer(product));
     el.detailFromPrice.innerHTML = `
       ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}${sellerTotal(product) > offerCount(product) ? ` · ${plural(sellerTotal(product), "vendedor", "vendedores")}` : ""}
       ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
-      ${cheapestOfferShippingEstimated(product) ? `<span class="shipping-estimate-note">${icon("alert-triangle")} incluye envío estimado (ver tabla de abajo)</span>` : ""}
+      ${shipHtml}
     `;
   }
 
@@ -3654,7 +3672,6 @@
     }
 
     setActiveView("detail");
-    renderCatNav();
 
     const cat = categoryById(product.category);
     const sub = subcategoryById(product.category, product.subcategory);
@@ -4746,35 +4763,7 @@
       commitPriceRange(vMin, Math.max(v, vMin));
     });
 
-    // Con tantas categorías la barra ya no cabe en una fila (ver .cats en
-    // style.css): arranca colapsada a una línea y este botón la despliega,
-    // en vez de dejarla siempre abierta empujando el resto de la página.
-    el.catNavToggle.addEventListener("click", () => {
-      const expanded = el.catNav.classList.toggle("expanded");
-      el.catNavToggle.setAttribute("aria-expanded", String(expanded));
-      el.catNavToggleLabel.textContent = expanded ? "Menos categorías" : "Más categorías";
-      // El tope fijo de 300px en .cats.expanded (CSS) se quedó corto según
-      // creció el catálogo de categorías -- con 52 categorías la barra
-      // necesita ~488px, así que el bloque de filas de más quedaba
-      // recortado por el overflow:hidden y esas categorías eran
-      // inalcanzables desde el nav aunque estuviera "expandido". Se fija
-      // el alto real (scrollHeight) por JS al expandir, que siempre
-      // encaja sin importar cuántas categorías haya; al colapsar se
-      // limpia el inline style para que vuelva a mandar el max-height de
-      // 46px del CSS.
-      el.catNav.style.maxHeight = expanded ? `${el.catNav.scrollHeight}px` : "";
-    });
 
-    // El submenú de subcategorías (ver renderCatNav) se abre con
-    // mouseenter y se cierra con mouseleave -- en touch no hay "salir con
-    // el mouse", así que el primer toque lo abre (el navegador emula un
-    // hover) y se quedaba abierto para siempre tapando el resto de la
-    // página, sin ninguna forma de cerrarlo. Tocar en cualquier lugar
-    // fuera del ítem y de su propio submenú lo cierra.
-    document.addEventListener("click", (e) => {
-      if (e.target.closest(".cat-item") || e.target.closest(".cat-submenu")) return;
-      document.querySelectorAll(".cat-submenu.visible").forEach((s) => s.classList.remove("visible"));
-    });
 
     el.sortSelect.addEventListener("change", (e) => {
       state.sort = e.target.value;

@@ -48,10 +48,7 @@ body {
      minmax(0, 1fr) en .list-layout más abajo, para el desborde real que
      reportó el usuario en la barra de "Incluir envío" + selector de orden);
      esto solo evita que un desborde que se nos escape abra una barra de
-     scroll horizontal de toda la página -- .cat-submenu sigue escapando
-     bien (position:fixed no lo recorta un overflow:hidden del body, solo
-     un ancestro que además cree su propio "containing block", que body no
-     hace acá). */
+     scroll horizontal de toda la página. */
   overflow-x: hidden;
 }
 
@@ -61,7 +58,7 @@ body {
    la hoja -- misma duración/curva en todos lados (principio de repetición). */
 a, button, input, select,
 .product-row, .category-card, .brand-card, .filter-option,
-.cats span, .cat-label, .cat-submenu a, .page-btn, .sort-tab, .metro-tab,
+.page-btn, .sort-tab, .metro-tab,
 .region-chip, .variant-pill, .related-item, .ranking-block-more {
   transition: border-color .15s ease, color .15s ease, background-color .15s ease,
     box-shadow .15s ease, opacity .15s ease;
@@ -80,7 +77,7 @@ a, button, input, select,
   .view:not(.hidden) { animation: none; }
   a, button, input, select,
   .product-row, .category-card, .brand-card, .filter-option,
-  .cats span, .cat-label, .cat-submenu a, .page-btn, .sort-tab, .metro-tab,
+  .page-btn, .sort-tab, .metro-tab,
   .region-chip, .variant-pill, .related-item, .ranking-block-more {
     transition: none;
   }
@@ -232,91 +229,20 @@ a { color: inherit; text-decoration: none; }
   display: block; font-size: 11px; font-weight: 700; color: #a15c00;
   margin-top: 2px;
 }
-
-.topbar-cats { background: var(--card); position: relative; }
-/* Con 18 categorías la barra ya no cabe en una fila: por default se
-   recorta a una sola línea (46px, la altura de un span) y el botón de
-   abajo la despliega. overflow:hidden en vez de max-height:0 para que,
-   ya colapsada, la primera fila siga totalmente visible y clicable. */
-.cats {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 16px;
-  display: flex;
-  gap: 4px;
-  font-size: 13px;
-  flex-wrap: wrap;
-  overflow: hidden;
-  max-height: 34px;
-  transition: max-height .22s ease;
-}
-.cats.expanded { max-height: 300px; }
-.cat-nav-toggle {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin: 0 auto 4px;
-  padding: 2px 12px;
-  border: none;
-  background: none;
+/* Leyenda de envío SIEMPRE visible en tarjetas de lista y en la ficha (ver
+   shippingCaptionHtml en js/app.js), no solo con el toggle "Incluir envío"
+   activo -- el precio.com-style que pidió el usuario: el costo real de
+   envío a simple vista, sin tener que activar nada. Neutro por defecto
+   (dato real conocido, o "Envío internacional"); verde cuando es gratis
+   confirmado; ámbar cuando es una referencia estimada, mismo tono que
+   .shipping-estimate-note/.est-badge para que "estimado" siempre se lea
+   igual en todo el sitio. */
+.ship-caption {
+  display: block; font-size: 11px; font-weight: 700; margin-top: 2px;
   color: var(--muted);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
 }
-.cat-nav-toggle:hover { color: var(--red); }
-.cat-nav-toggle-arrow { transition: transform .18s ease; display: inline-block; }
-.cat-nav-toggle[aria-expanded="true"] .cat-nav-toggle-arrow { transform: rotate(180deg); }
-.cats span {
-  cursor: pointer;
-  padding: 7px 12px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-  border-bottom: 3px solid transparent;
-  white-space: nowrap;
-}
-.cats span:hover { color: var(--red); }
-.cats span.active {
-  color: var(--red);
-  border-bottom-color: var(--red);
-}
-.cat-item { display: inline-flex; }
-/* position:fixed (asignado por JS en mouseenter) para escapar del
-   overflow:hidden de .cats -- ver comentario en renderCatNav(). */
-.cat-submenu {
-  display: none;
-  position: fixed;
-  z-index: 50;
-  background: #fff;
-  /* Diseño plano: el submenú se separa del fondo con un borde definido, no
-     con una sombra de elevación (era la única sombra de profundidad que
-     quedaba en la hoja). */
-  border: 1px solid #bdbdbd;
-  border-radius: 8px;
-  padding: 6px;
-  min-width: 200px;
-  /* Alto tope de reserva; JS ajusta esto por instancia según el espacio
-     real disponible arriba/abajo del item (ver renderCatNav()). */
-  max-height: calc(100vh - 16px);
-  overflow-y: auto;
-}
-/* El submenú vive en document.body (no es descendiente de .cat-item en el
-   DOM), así que su visibilidad la controla JS con esta clase en vez de
-   :hover en CSS. */
-.cat-submenu.visible { display: block; }
-.cat-submenu a {
-  display: block;
-  padding: 9px 12px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-  white-space: nowrap;
-  cursor: pointer;
-}
-.cat-submenu a:hover { background: #f7f7f7; color: var(--red); }
-.cat-submenu a.active { color: var(--red); background: #fff0f0; }
+.ship-caption--free { color: var(--green); }
+.ship-caption--estimated { color: #a15c00; }
 
 /* ---------- Home / hero / rankings ---------- */
 /* El body usa --bg (gris) como lienzo neutro para que las tarjetas blancas
