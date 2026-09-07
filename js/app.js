@@ -449,6 +449,8 @@
     detailBrand: document.getElementById("detailBrand"),
     detailName: document.getElementById("detailName"),
     detailRating: document.getElementById("detailRating"),
+    storeReviews: document.getElementById("storeReviews"),
+    storeReviewsBody: document.getElementById("storeReviewsBody"),
     detailColors: document.getElementById("detailColors"),
     detailFromPrice: document.getElementById("detailFromPrice"),
     detailTopOffers: document.getElementById("detailTopOffers"),
@@ -1137,6 +1139,45 @@
     if (totalReviews === 0) return { avg: 0, count: 0 };
     const weighted = product.offers.reduce((sum, o) => sum + (o.rating || 0) * (o.reviewCount || 0), 0);
     return { avg: weighted / totalReviews, count: totalReviews };
+  }
+
+  // Calificación y reseña destacada POR TIENDA. No se promedia entre
+  // tiendas ni se inventa nada: se muestra el número que publica cada una,
+  // con su nombre al lado, y solo las que lo publican aparecen. Hoy eso es
+  // Mercado Libre -- Amazon no tiene API abierta y Elektra no publica
+  // reseñas (ver scripts/refresh_ml_reviews.py).
+  function renderStoreReviews(product) {
+    const conReseñas = (product.offers || []).filter(
+      (o) => o.reviewCount && (o.rating != null || o.topReview)
+    );
+    el.storeReviews.classList.toggle("hidden", conReseñas.length === 0);
+    if (!conReseñas.length) return;
+    el.storeReviewsBody.innerHTML = conReseñas
+      .map((o) => {
+        const tienda = storeById(o.storeId);
+        const nombre = tienda ? tienda.name : o.storeId;
+        const nota = o.rating != null
+          ? `<span class="store-review-stars">${starsHtml(o.rating)}</span>
+             <span class="store-review-avg">${o.rating.toFixed(1)}</span>`
+          : "";
+        const t = o.topReview;
+        const cita = t
+          ? `<blockquote class="store-review-quote">
+               ${t.title ? `<span class="store-review-quote-title">${htmlEscapeAttr(t.title)}</span>` : ""}
+               <p>${htmlEscapeAttr(t.content)}</p>
+               <footer>${t.rate ? `${starsHtml(t.rate)} · ` : ""}${plural(t.likes, "persona la encontró útil", "personas la encontraron útil")}</footer>
+             </blockquote>`
+          : "";
+        return `<div class="store-review">
+            <div class="store-review-head">
+              <span class="store-review-store">${nombre}</span>
+              ${nota}
+              <span class="store-review-count">${plural(o.reviewCount, "calificación", "calificaciones")}</span>
+            </div>
+            ${cita}
+          </div>`;
+      })
+      .join("");
   }
 
   function starsHtml(avg) {
@@ -4275,6 +4316,7 @@
       .map((s) => `<tr><th>${s.label}</th><td>${s.value}</td></tr>`)
       .join("");
 
+    renderStoreReviews(product);
     renderShippingWidgetForProduct(product);
 
     // Reinicia el formulario de reseña a su estado normal (no el de "ya la

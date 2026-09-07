@@ -2885,3 +2885,26 @@ a { color: inherit; text-decoration: none; }
   .subcat-grid { grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); }
   .subcat-card-photo { width: 32px; height: 32px; }
 }
+
+/* ---------- Calificación y reseña destacada por tienda ---------- */
+/* Una fila por tienda que publique reseñas. Hoy solo Mercado Libre; el
+   bloque entero se oculta cuando ninguna oferta trae datos, en vez de
+   mostrar cero estrellas (que se leería como "malo" y no como "no hay
+   dato"). */
+.store-reviews-title { font-size: 15px; margin: 0 0 10px; }
+.store-review + .store-review { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+.store-review-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.store-review-store { font-weight: 700; font-size: 13px; }
+.store-review-stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; }
+.store-review-avg { font-weight: 700; font-size: 13px; }
+.store-review-count { font-size: 11px; color: var(--muted); }
+.store-review-quote {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  background: var(--bg);
+  border-left: 3px solid var(--border);
+  border-radius: 0 6px 6px 0;
+}
+.store-review-quote-title { font-weight: 700; font-size: 12px; display: block; margin-bottom: 2px; }
+.store-review-quote p { margin: 0; font-size: 12px; line-height: 1.45; }
+.store-review-quote footer { margin-top: 5px; font-size: 11px; color: var(--muted); }

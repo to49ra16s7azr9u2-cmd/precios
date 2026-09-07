@@ -344,6 +344,14 @@
         <div class="detail-top-offers" id="detailTopOffers"></div>
       </div>
 
+      <!-- Calificación y reseña destacada de cada tienda que las publique.
+           Hoy solo Mercado Libre (ver scripts/refresh_ml_reviews.py). Lo
+           llena renderStoreReviews() en js/app.js. -->
+      <section class="panel store-reviews hidden" id="storeReviews">
+        <h2 class="store-reviews-title">Lo que dicen los compradores</h2>
+        <div id="storeReviewsBody"></div>
+      </section>
+
       <div class="panel compare-panel detail-anchor-target" id="comparePanel">
         <div class="compare-panel-head">
           <h2>Comparación de precios</h2>
