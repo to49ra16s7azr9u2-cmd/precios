@@ -3064,21 +3064,22 @@ tr.offer-compare-off { display: none; }
    veía igual que Precio, Marca o Calificación, que son refinamientos
    opcionales. Se le da fondo y borde propios para que se lea como "empieza
    por acá" y no como una opción más de la lista. */
+/* Sin caja: el recuadro rojo (fondo + borde) se quitó a pedido del usuario.
+   Lo que marca que este grupo es el punto de partida es su bajada, el
+   título en negro y el radio rojo del que está elegido -- no un cartel
+   alrededor. Se queda con el mismo separador gris que los demás grupos, que
+   viene de .filter-group. */
 .filter-group-category {
-  background: var(--red-tint);
-  border: 1px solid var(--red);
-  border-radius: 10px;
-  padding: 10px 12px;
-  margin: -2px 0 14px;
+  padding: 0 0 12px;
+  margin: -2px 0 12px;
 }
-/* El borde inferior gris de .filter-group sobra cuando el grupo ya tiene
-   su propia caja: dejaría una línea suelta dentro del recuadro. */
-.filter-group-category { border-bottom: 1px solid var(--red); padding-bottom: 10px; }
 .filter-group-category h3 { color: var(--ink); }
 .filter-group-category .filter-group-title { font-weight: 800; }
 .filter-group-category .filter-group-desc { color: var(--ink); opacity: .75; text-transform: none; }
 .filter-group-category .filter-search { background: var(--card); }
-.filter-group-category .filter-option:hover { background: #ffe1e1; }
+/* El hover rosa se veía sobre el fondo rojo del recuadro; sin recuadro,
+   se usa el mismo gris suave del resto del panel. */
+.filter-group-category .filter-option:hover { background: #f2f2f2; }
 
 /* ---------- Paso 1: el tipo dentro de la categoría ---------- */
 .subcat-picker {
