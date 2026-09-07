@@ -134,16 +134,39 @@ def storage_type_of(name):
 # ---------------------------------------------------------------------
 # Pantalla: tamaño en pulgadas y frecuencia de refresco
 # ---------------------------------------------------------------------
-# "6.7 pulgadas", "15.6\"", "14 inch", "16.2\"" -- exige un separador de
-# palabra/comilla para no capturar un decimal cualquiera de la ficha
-# (precio, versión de Android, etc.).
+# "6.7 pulgadas", "15.6\"", "14 inch", "16.2\"" -- exige una unidad explícita
+# para no capturar un decimal cualquiera de la ficha (precio, versión de
+# Android, etc.).
 # El decimal permite 1 O 2 dígitos: "6.7 inch" y "6.59 inch" son igual de
 # comunes en las fichas de Sunsky -- con solo 1 dígito permitido, "6.59
 # inch" no matcheaba nada (el "9" sobrante rompía el límite de palabra
 # justo antes de "inch").
-_SCREEN_SIZE_RE = re.compile(
-    r"(\d{1,2}(?:[.,]\d{1,2})?)\s*(?:\"|''|pulgadas?|pulg\.?|inch(?:es)?)\b"
+#
+# La unidad va en DOS expresiones a propósito:
+#
+#   1. _SCREEN_UNIT_RE: comillas y palabras. Antes esto era una sola
+#      expresión terminada en \b, y ese \b se aplicaba a TODA la
+#      alternación -- o sea también a la comilla. Después de un `"` (que no
+#      es carácter de palabra) solo hay límite de palabra si viene una letra
+#      pegada, así que 15.6" FHD no matcheaba y 15.6"FHD sí: la forma más
+#      común de escribir el tamaño quedaba fuera. Se veía en los conteos --
+#      Laptops tenía 134 de 1,429 productos con pulgadas; con la comilla
+#      arreglada son 908. El \b queda solo en las alternativas de palabra,
+#      que sí lo necesitan (para que "inch" no matchee dentro de otra
+#      palabra).
+#   2. _SCREEN_IN_RE: el sufijo "in" pegado al número ("15.6in"). Va aparte
+#      porque NO puede aceptar espacio antes: "8 in 1" (kits y laptops
+#      convertibles escritos en inglés) daría 8 pulgadas de la nada. Pegado
+#      al número, "15.6in" no tiene otra lectura.
+#
+# El (?<![\d.,]) del arranque corta el número por la izquierda: sin él,
+# "Galaxy Tab S10 FE 109\"" matcheaba los dos últimos dígitos de 109 y dejaba
+# una tablet de 9 pulgadas.
+_SCREEN_NUM = r"(?<![\d.,])(\d{1,2}(?:[.,]\d{1,2})?)"
+_SCREEN_UNIT_RE = re.compile(
+    _SCREEN_NUM + r"\s*(?:\"|''|”|″|pulgadas?\b|pulg\.?|inch(?:es)?\b)"
 )
+_SCREEN_IN_RE = re.compile(_SCREEN_NUM + r"in\b")
 
 
 def screen_size_in(name):
@@ -157,13 +180,14 @@ def screen_size_in(name):
     """
     n = _norm(name).replace(",", ".")
     sizes = set()
-    for m in _SCREEN_SIZE_RE.finditer(n):
-        try:
-            v = float(m.group(1))
-        except ValueError:
-            continue
-        if 3.0 <= v <= 20.0:
-            sizes.add(v)
+    for rx in (_SCREEN_UNIT_RE, _SCREEN_IN_RE):
+        for m in rx.finditer(n):
+            try:
+                v = float(m.group(1))
+            except ValueError:
+                continue
+            if 3.0 <= v <= 20.0:
+                sizes.add(v)
     if len(sizes) == 1:
         return next(iter(sizes))
     return None
