@@ -678,12 +678,77 @@ async function handleProbe(env, reqUrl) {
     try {
       const res = await fetch(target, init);
       const body = await res.text();
-      out[mode] = { status: res.status, body: body.slice(0, 1200) };
+      out[mode] = { status: res.status, body: body.slice(0, 4000) };
     } catch (err) {
       out[mode] = { status: "fetch_error", body: String(err.message || err) };
     }
   }
   return json(out);
+}
+
+// Reseñas de un producto, tal como las publica Mercado Libre.
+//
+// PARA QUÉ
+// --------
+// El sitio compara precios pero no dice nada sobre si el producto es bueno.
+// Mercado Libre publica reseñas reales con su calificación, y es el único
+// de los tres orígenes del catálogo que las expone: Amazon no tiene API
+// abierta y Elektra no publica reseñas (probado: /reviews-and-ratings/api/
+// devuelve 404).
+//
+// OJO CON EL ID
+// -------------
+// El endpoint de reseñas quiere un id de PUBLICACIÓN (el itemId de un
+// vendedor), no el id de producto de catálogo que guardamos en la url de
+// cada oferta: con el de catálogo responde 404 "not found item id". Las
+// reseñas igual son del producto, no de la publicación -- dos vendedores
+// del mismo producto devuelven exactamente las mismas.
+//
+// QUÉ DEVUELVE
+// ------------
+//   total    cuántas reseñas tiene el producto
+//   average  promedio de calificación, si Mercado Libre lo publica; null
+//            si no. NO se calcula con la página que bajamos: promediar 5
+//            reseñas de 20,929 daría un número que parece el promedio del
+//            producto y no lo es.
+//   top      la reseña con más "me gusta" -- la que la gente encontró más
+//            útil, que es la que vale la pena mostrar.
+async function handleReviews(url, env) {
+  const id = (url.searchParams.get("id") || "").trim().toUpperCase();
+  if (!/^MLM\d+$/.test(id)) {
+    return json({ error: "usa ?id=MLM… (el itemId de un vendedor, no el id de catálogo)" }, 400);
+  }
+  const token = await getAccessToken(env);
+  let data;
+  try {
+    // limit=50: alcanza para que la reseña más votada del producto esté
+    // entre las que bajamos (vienen ordenadas por relevancia) sin traer
+    // miles.
+    data = await mlGet(token, `/reviews/item/${id}?limit=50`);
+  } catch {
+    return json({ id, total: 0, average: null, top: null, found: false });
+  }
+  const reviews = Array.isArray(data?.reviews) ? data.reviews : [];
+  let top = null;
+  for (const r of reviews) {
+    if (!r || typeof r.rate !== "number") continue;
+    if (!top || (r.likes || 0) > (top.likes || 0)) top = r;
+  }
+  return json({
+    id,
+    productId: reviews[0]?.reviewable_object?.id || null,
+    total: data?.paging?.total ?? reviews.length,
+    average: typeof data?.rating_average === "number" ? data.rating_average : null,
+    levels: data?.rating_levels || null,
+    top: top && {
+      rate: top.rate,
+      title: top.title || null,
+      content: top.content || null,
+      likes: top.likes || 0,
+      date: top.date_created || null,
+    },
+    found: true,
+  });
 }
 
 export default {
@@ -695,8 +760,9 @@ export default {
       if (url.pathname === "/search") return await handleSearch(url, env);
       if (url.pathname === "/catalog") return await handleCatalog(url, env);
       if (url.pathname === "/by-gtin") return await handleByGtin(url, env);
+      if (url.pathname === "/reviews") return await handleReviews(url, env);
       if (url.pathname === "/probe") return await handleProbe(env, url);
-      return json({ error: "ruta no encontrada. Usa /item?id=MLM... , /item?q=... , /search?q=... o /by-gtin?gtin=..." }, 404);
+      return json({ error: "ruta no encontrada. Usa /item?id=MLM... , /search?q=... , /by-gtin?gtin=... o /reviews?id=MLM..." }, 404);
     } catch (err) {
       return json({ error: String(err.message || err) }, 500);
     }
