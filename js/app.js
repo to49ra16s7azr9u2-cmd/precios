@@ -448,7 +448,7 @@
     specsModalBody: document.getElementById("specsModalBody"),
     specsModalCount: document.getElementById("specsModalCount"),
     specsModalApply: document.getElementById("specsModalApply"),
-    sortSelect: document.getElementById("sortSelect"),
+    sortBar: document.getElementById("sortBar"),
     productList: document.getElementById("productList"),
     pagination: document.getElementById("pagination"),
     liveSearchSection: document.getElementById("liveSearchSection"),
@@ -2810,7 +2810,7 @@
       };
     }
 
-    el.sortSelect.value = state.sort;
+    renderSortBar();
 
     renderFilterCategory();
     renderFilterPrice();
@@ -3405,6 +3405,16 @@
   // No bloquea: la lista sigue abajo. Obligar a elegir dejaría fuera al que
   // llega buscando "lo más popular de la categoría", que es el recorrido que
   // el sitio ya tenía.
+  // Marca cuál de los cinco órdenes está activo. Se llama desde renderList()
+  // igual que hacía `el.sortSelect.value = state.sort`.
+  function renderSortBar() {
+    el.sortBar.querySelectorAll(".sort-opt").forEach((b) => {
+      const activo = b.dataset.sort === state.sort;
+      b.classList.toggle("active", activo);
+      b.setAttribute("aria-pressed", activo ? "true" : "false");
+    });
+  }
+
   function renderSubcatPicker() {
     const cat = state.category ? categoryById(state.category) : null;
     const subs = (cat && cat.subcategories) || [];
@@ -5530,8 +5540,13 @@
 
 
 
-    el.sortSelect.addEventListener("change", (e) => {
-      state.sort = e.target.value;
+    // Un solo listener delegado en la barra: los botones son estáticos del
+    // HTML, así que no hace falta re-registrarlos en cada renderList().
+    el.sortBar.addEventListener("click", (e) => {
+      const btn = e.target.closest(".sort-opt");
+      if (!btn || btn.dataset.sort === state.sort) return;
+      state.sort = btn.dataset.sort;
+      state.page = 1; // ordenar de nuevo y quedarse en la página 7 no tiene sentido
       renderList();
     });
 

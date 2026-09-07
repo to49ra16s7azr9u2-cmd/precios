@@ -280,13 +280,6 @@
               <input type="checkbox" id="shipToggle"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Incluir envío
             </label>
             <span class="shipping-estimate-note hidden" id="shipEstimateHint" title="Monto real cuando la tienda lo expone; tarifa de referencia estimada cuando no."></span>
-            <select id="sortSelect" class="sort-select">
-              <option value="popularity">Popularidad</option>
-              <option value="relevance">Relevancia</option>
-              <option value="price_asc">Precio: menor a mayor</option>
-              <option value="price_desc">Precio: mayor a menor</option>
-              <option value="rating_desc">Mejor calificados</option>
-            </select>
           </div>
           <!-- Compara calidad: dos filas de tres tarjetas (nivel y tamaño) que
                resuelven de un clic la pregunta con la que llega casi todo el
@@ -316,6 +309,22 @@
               <span class="quality-more-arrow">›</span>
             </button>
           </section>
+          <!-- Orden de la lista. Era un <select> arrinconado en el encabezado,
+               al lado del título: había que abrirlo para saber siquiera qué
+               opciones existían. Acá, pegado a la lista que ordena y con las
+               cinco opciones a la vista, se ve de un golpe cómo está ordenado
+               y se cambia con un clic. El estado activo lo marca
+               renderSortBar() en js/app.js. -->
+          <div class="sort-bar" id="sortBar" role="group" aria-label="Ordenar la lista">
+            <span class="sort-bar-label">Ordenar por</span>
+            <div class="sort-bar-options">
+              <button type="button" class="sort-opt" data-sort="popularity">Popularidad</button>
+              <button type="button" class="sort-opt" data-sort="relevance">Relevancia</button>
+              <button type="button" class="sort-opt" data-sort="price_asc">Más baratos</button>
+              <button type="button" class="sort-opt" data-sort="price_desc">Más caros</button>
+              <button type="button" class="sort-opt" data-sort="rating_desc">Mejor calificados</button>
+            </div>
+          </div>
           <div id="productList" class="product-list"></div>
           <nav id="pagination" class="pagination"></nav>
 
