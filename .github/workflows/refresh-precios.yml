@@ -1,5 +1,7 @@
-# Actualiza los precios guardados del catálogo contra Mercado Libre y
-# Elektra, todos los días, y publica el resultado.
+# Actualiza los precios guardados del catálogo contra todas las tiendas que
+# se pueden leer sin API oficial (Mercado Libre, Elektra, GeekBuying,
+# SUNSKY, Whirlpool, theluxurycloset, Glasseslit), todos los días, y publica
+# el resultado.
 #
 # POR QUÉ HACE FALTA
 # ------------------
@@ -59,10 +61,10 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    # ~8,200 productos de Mercado Libre a 4 en paralelo (~1 h), más el
-    # recorrido de Elektra (~32 min), más la regeneración de las páginas
-    # SEO. El tope es holgado para que un día lento no la corte por la
-    # mitad.
+    # ~8,200 productos de Mercado Libre a 4 en paralelo (~1 h), el recorrido
+    # de Elektra (~32 min), las 1,679 fichas de las demás tiendas (~13 min)
+    # y la regeneración de las páginas SEO. El tope es holgado para que un
+    # día lento no la corte por la mitad.
     timeout-minutes: 300
 
     steps:
@@ -104,6 +106,27 @@ jobs:
           echo "Corriendo: refresh_elektra.py $ARGS"
           python3 scripts/refresh_elektra.py $ARGS
 
+      - name: Actualizar precios de las demás tiendas
+        # GeekBuying, SUNSKY, Whirlpool, theluxurycloset y Glasseslit: 1,679
+        # productos (2% del catálogo) que hasta ahora solo se refrescaban a
+        # mano. Son las tiendas sin API cuya página sí trae JSON-LD o
+        # og:price legible; Amazon, AliExpress y Alibaba NO están y no pueden
+        # estar (ver el encabezado de refresh_other_stores.py: Amazon no
+        # tiene API abierta, AliExpress redirige a otro id de producto según
+        # la región y Alibaba cotiza por cantidad).
+        #
+        # Mismo continue-on-error que Elektra y por lo mismo: si el tipo de
+        # cambio USD/MXN no responde el script sale con 2, y eso no debe
+        # descartar los dos refrescos grandes que ya terminaron.
+        continue-on-error: true
+        env:
+          PRUNE: ${{ inputs.prune }}
+        run: |
+          ARGS=""
+          if [ "$PRUNE" = "false" ]; then ARGS="--no-prune"; fi
+          echo "Corriendo: refresh_other_stores.py $ARGS"
+          python3 scripts/refresh_other_stores.py $ARGS
+
       - name: Recalcular facetas (filtros de specs)
         # Los precios no cambian las specs, pero la poda sí puede sacar
         # productos: sin esto los conteos por categoría del manifiesto
@@ -126,12 +149,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Actualizar precios contra Mercado Libre y Elektra (automático)
+          git commit -m "Actualizar precios de todas las tiendas leíbles (automático)
 
           Corrida automática de scripts/refresh_prices.py +
-          refresh_elektra.py + compute_facets.py + generate_seo_pages.py.
-          Ver el log del workflow para el resumen de cuántos precios se
-          movieron y qué se podó."
+          refresh_elektra.py + refresh_other_stores.py + compute_facets.py
+          + generate_seo_pages.py. Ver el log del workflow para el resumen
+          de cuántos precios se movieron y qué se podó."
           # La corrida dura ~1 h: si en el medio se pushó algo a main (un lote
           # de productos, un cambio de código), se reintenta sobre eso en vez
           # de fallar. --rebase mantiene el commit de precios arriba.

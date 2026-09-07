@@ -312,22 +312,63 @@ def get_usd_mxn_rate():
         raise SystemExit(2)
 
 
+# Una variante de color puede venir en dos formatos y hay que soportar los
+# dos, porque conviven en el catálogo:
+#   viejo (merge_color_variants.py):  {"color", "price", "url", "photo"}
+#   nuevo (merge_by_color.py):        {"color", "offers": [ ...ofertas... ]}
+# Asumir el viejo tronaba con KeyError: 'url' en cuanto una ficha traía el
+# nuevo, que es el que produce la fusión por color de todo el catálogo.
+def _variant_urls(v):
+    if "offers" in v:
+        return {o.get("url") for o in (v.get("offers") or []) if o.get("url")}
+    return {v["url"]} if v.get("url") else set()
+
+
+def _variant_price(v):
+    if "offers" in v:
+        precios = [o.get("price") for o in (v.get("offers") or []) if o.get("price")]
+        return min(precios) if precios else float("inf")
+    return v.get("price", float("inf"))
+
+
+def _variant_sin_muertas(v, dead_urls):
+    """La variante sin sus ofertas dadas de baja, o None si no le queda
+    ninguna. Una variante sin urls (dato incompleto) se deja intacta: no hay
+    con qué probar que esté muerta."""
+    urls = _variant_urls(v)
+    if not urls:
+        return v
+    if "offers" in v:
+        vivas = [o for o in v["offers"] if o.get("url") not in dead_urls]
+        return {**v, "offers": vivas} if vivas else None
+    return None if urls <= dead_urls else v
+
+
 def prune_dead(products, dead_urls):
     survivors, removed, trimmed = [], [], 0
     for p in products:
         offers = p.get("offers") or []
         variants = p.get("colorVariants") or []
-        if len(variants) > 1 and any(v["url"] in dead_urls for v in variants):
-            alive = [v for v in variants if v["url"] not in dead_urls]
+        if len(variants) > 1 and any(_variant_urls(v) & dead_urls for v in variants):
+            alive = [nv for nv in (_variant_sin_muertas(v, dead_urls) for v in variants) if nv]
             if not alive:
                 removed.append(p["id"])
                 continue
             if len(alive) < len(variants):
                 trimmed += len(variants) - len(alive)
-                p["colorVariants"] = alive
-                if offers and offers[0].get("url") not in {v["url"] for v in alive}:
-                    cheapest = min(alive, key=lambda v: v["price"])
-                    offers[0] = {**offers[0], "price": cheapest["price"], "url": cheapest["url"], "photo": cheapest.get("photo")}
+            p["colorVariants"] = alive
+            urls_vivas = set().union(*(_variant_urls(v) for v in alive)) if alive else set()
+            if offers and offers[0].get("url") not in urls_vivas:
+                barata = min(alive, key=_variant_price)
+                if "offers" in barata:
+                    # Formato nuevo: product.offers es una copia de las
+                    # ofertas de la variante más barata (misma regla que
+                    # merge_by_color.py), no un remiendo del campo suelto.
+                    p["offers"] = list(barata["offers"])
+                    offers = p["offers"]
+                else:
+                    offers[0] = {**offers[0], "price": barata["price"],
+                                 "url": barata["url"], "photo": barata.get("photo")}
             survivors.append(p)
             continue
         alive_offers = [o for o in offers if o["url"] not in dead_urls]
