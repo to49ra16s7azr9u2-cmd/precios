@@ -330,6 +330,10 @@
             <h1 id="detailName"></h1>
             <div class="detail-rating" id="detailRating"></div>
             <div class="detail-colors" id="detailColors"></div>
+            <!-- Botones para ver solo un color (ver colorFilterButtons en
+                 js/app.js). Van acá y también junto a las pestañas de orden
+                 de la tabla de precios. -->
+            <div class="color-filter hidden" id="detailColorFilter"></div>
             <p class="detail-fromprice" id="detailFromPrice"></p>
           </div>
           <!-- Ocupa el hueco que quedó vacío al quitar el corazón de
@@ -356,7 +360,10 @@
         <div class="compare-panel-head">
           <h2>Comparación de precios</h2>
         </div>
-        <div class="sort-tabs" id="sortTabs"></div>
+        <div class="sort-tabs-row">
+          <div class="sort-tabs" id="sortTabs"></div>
+          <div class="color-filter hidden" id="offerColorFilter"></div>
+        </div>
 
         <!-- Antes esto era dos tablas separadas ("verificados" vs
              "referencia", partidas por el banner de envío de abajo) según un

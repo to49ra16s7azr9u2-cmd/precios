@@ -334,6 +334,8 @@
     // "Compara calidad": nivel y tamaño elegidos con las tarjetas de arriba
     // de la lista (ver QUALITY_AXES). null = sin elegir.
     quality: { level: null, size: null },
+    // Color elegido en la ficha (pastillas bajo el precio). null = todos.
+    colorFilter: null,
     qualityCategory: null, // categoría a la que pertenece `quality` (ver renderSpecsBanner)
     page: 1, // página actual de la lista/ranking (ver PAGE_SIZE)
     sort: "relevance",
@@ -452,6 +454,8 @@
     storeReviews: document.getElementById("storeReviews"),
     storeReviewsBody: document.getElementById("storeReviewsBody"),
     detailColors: document.getElementById("detailColors"),
+    detailColorFilter: document.getElementById("detailColorFilter"),
+    offerColorFilter: document.getElementById("offerColorFilter"),
     detailFromPrice: document.getElementById("detailFromPrice"),
     detailTopOffers: document.getElementById("detailTopOffers"),
     detailQuickNav: document.getElementById("detailQuickNav"),
@@ -743,7 +747,19 @@
   // la fila más barata de abajo. Con una única fuente eso no puede volver a
   // pasar: los dos leen exactamente la misma lista.
   function purchaseOptions(product) {
-    if (product.colorVariants && product.colorVariants.length > 1) {
+    const variants = product.colorVariants;
+    // Formato nuevo (merge_by_color.py): cada variante trae SUS PROPIAS
+    // ofertas, así que un color de Elektra y otro de Mercado Libre conviven
+    // sin que uno herede la tienda del otro. El formato viejo (variantes de
+    // Mercado Libre con price/url sueltos) sigue abajo.
+    if (variants && variants.length > 1 && variants.some((v) => v.offers)) {
+      const activo = state.colorFilter;
+      const usar = activo ? variants.filter((v) => v.color === activo) : variants;
+      return (usar.length ? usar : variants).flatMap((v) =>
+        (v.offers || []).map((o) => ({ ...o, colorLabel: v.color }))
+      );
+    }
+    if (variants && variants.length > 1) {
       const base = product.offers[0];
       return product.colorVariants.map((v) => ({
         ...base,
@@ -841,7 +857,11 @@
   // precio -- se cuentan igual que tiendas distintas para que el usuario
   // vea de un vistazo cuántas opciones hay, no solo cuántos vendedores.
   function offerCount(product) {
-    return Math.max(product.offers.length, (product.colorVariants || []).length);
+    const variants = product.colorVariants || [];
+    if (variants.some((v) => v.offers)) {
+      return variants.reduce((n, v) => n + ((v.offers || []).length), 0);
+    }
+    return Math.max(product.offers.length, variants.length);
   }
 
   // Vendedores distintos dentro de las tiendas que sí los informan (hoy solo
@@ -1243,9 +1263,63 @@
   // Versión para la ficha de producto: cada punto es un link directo al
   // anuncio de ese color/condición en Mercado Libre, con el precio de esa
   // variante en el tooltip.
+  // Botones para ver solo un color. Van en dos lugares de la ficha porque
+  // el usuario los pidió en los dos: bajo el precio "Desde" (donde se ve al
+  // entrar) y junto a las pestañas de orden de la tabla de precios (donde se
+  // está comparando y da ganas de acotar).
+  //
+  // Solo aparecen con el formato nuevo de variantes (merge_by_color.py), que
+  // es el que trae las ofertas de cada color. El formato viejo de Mercado
+  // Libre sigue mostrando puntos que llevan al anuncio de ese color.
+  function colorFilterButtons(container, product) {
+    const variants = (product.colorVariants || []).filter((v) => v.offers && v.offers.length);
+    if (!container) return;
+    if (variants.length < 2) {
+      container.innerHTML = "";
+      container.classList.add("hidden");
+      return;
+    }
+    container.classList.remove("hidden");
+    const opciones = [{ color: null, label: "Todos" }].concat(
+      variants.map((v) => ({ color: v.color, label: v.color }))
+    );
+    container.innerHTML = opciones
+      .map((o) => {
+        const activo = (state.colorFilter || null) === o.color;
+        const bg = o.color ? (COLOR_SWATCH_HEX[o.color] || colorDotHex(o.color)) : null;
+        const punto = bg
+          ? `<span class="color-chip-dot" style="background:${bg}"></span>`
+          : "";
+        return `<button type="button" class="color-chip${activo ? " active" : ""}" data-color="${htmlEscapeAttr(o.color || "")}">${punto}${htmlEscapeAttr(o.label)}</button>`;
+      })
+      .join("");
+    container.querySelectorAll(".color-chip").forEach((btn) => {
+      btn.onclick = () => {
+        const c = btn.dataset.color || null;
+        state.colorFilter = state.colorFilter === c ? null : c;
+        const p = currentProduct();
+        if (p) renderDetail(p.id);
+      };
+    });
+  }
+
+  // El punto de color: si el nombre completo ("Azul marino") no está en la
+  // tabla, se prueba con el color base ("azul"). Sin esto casi todas las
+  // variantes nuevas salían grises.
+  function colorDotHex(label) {
+    const n = (label || "").toLowerCase();
+    for (const [nombre, hex] of Object.entries(COLOR_SWATCH_HEX)) {
+      if (n.startsWith(nombre.toLowerCase())) return hex;
+    }
+    return "#bbb";
+  }
+
   function detailColorSwatchHtml(product) {
     const variants = product.colorVariants;
     if (!variants || variants.length === 0) return "";
+    // Formato nuevo: los colores se eligen con los botones de filtro
+    // (colorFilterButtons), no con puntos que se van a otra página.
+    if (variants.some((v) => v.offers)) return "";
     const dots = variants
       .map((v) => {
         const bg = COLOR_SWATCH_HEX[v.color] || "#bbb";
@@ -4309,6 +4383,7 @@
         ? `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${plural(count, "calificación", "calificaciones")})</span>`
         : `<span class="rc">Sin calificaciones todavía</span>`;
     el.detailColors.innerHTML = detailColorSwatchHtml(product);
+    colorFilterButtons(el.detailColorFilter, product);
     renderDetailPriceHeader(product);
     renderDetailQuickNav();
 
@@ -4476,6 +4551,8 @@
       };
       el.sortTabs.appendChild(btn);
     });
+    const product = currentProduct();
+    if (product) colorFilterButtons(el.offerColorFilter, product);
   }
 
   function updateLocationBtn() {

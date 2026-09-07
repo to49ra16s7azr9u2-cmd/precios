@@ -2908,3 +2908,36 @@ a { color: inherit; text-decoration: none; }
 .store-review-quote-title { font-weight: 700; font-size: 12px; display: block; margin-bottom: 2px; }
 .store-review-quote p { margin: 0; font-size: 12px; line-height: 1.45; }
 .store-review-quote footer { margin-top: 5px; font-size: 11px; color: var(--muted); }
+
+/* ---------- Filtro de color en la ficha ---------- */
+/* Con las fichas fusionadas por color (merge_by_color.py) un producto tiene
+   varios colores adentro; estos botones acotan la tabla de precios a uno.
+   Aparecen en dos lugares porque son dos momentos distintos: al entrar, bajo
+   el precio "Desde", y mientras se compara, junto a las pestañas de orden. */
+.color-filter { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.sort-tabs-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.sort-tabs-row .color-filter { margin-top: 0; }
+.color-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.color-chip:hover { border-color: var(--red); }
+.color-chip.active { border-color: var(--red); background: var(--red-tint); color: var(--red-dark); }
+.color-chip-dot {
+  width: 11px; height: 11px; border-radius: 50%;
+  /* Borde siempre: sin él, un punto blanco o crema desaparece sobre la
+     pastilla blanca y el botón parece no tener color. */
+  border: 1px solid rgba(0, 0, 0, .25);
+  flex-shrink: 0;
+}
