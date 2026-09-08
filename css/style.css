@@ -2524,6 +2524,13 @@ tr.offer-compare-off { display: none; }
   display: flex;
   gap: 16px;
   align-items: flex-start;
+  /* Aire entre la fila de la promesa de frescura y las categorías, a pedido
+     del usuario. Va acá y no en .home-category-box: si lo llevara solo la
+     caja de la izquierda, volvería a quedar más abajo que la columna de la
+     derecha, que es lo que se acaba de alinear. Los sellos "Hasta -70%"
+     cuelgan 8px por encima de las tarjetas, así que el hueco que se ve es
+     menor que este número. */
+  margin-top: 12px;
 }
 .home-right-column {
   flex: 0 0 320px;
