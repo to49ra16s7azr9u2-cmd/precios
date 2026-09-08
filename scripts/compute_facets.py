@@ -82,6 +82,7 @@ FACET_CATEGORIES = (
     "Computadoras de escritorio", "Almacenamiento", "Climatización",
     "Refacciones", "Herramientas", "Bocinas",
     "Autos, bicicletas y motos", "Electrodomésticos", "Joyería y bisutería",
+    "Cargadores y adaptadores",
 )
 
 _FOLDABLE_RE = re.compile(r"\bplegable\b|\bfold\b|\bflip\b")
@@ -473,6 +474,15 @@ def facets_for(product):
                 f["compat_model"] = sorted(set(modelos))
             if anios:
                 f["compat_year"] = anios
+        return f or None
+
+    if category == "Cargadores y adaptadores":
+        # El tipo ya es la subcategoría (ver classify_cargadores.py); acá
+        # solo la potencia, que es lo otro que decide: 20 W cargan un
+        # teléfono y 65 W una laptop.
+        w = se.charger_watts(name)
+        if w is not None:
+            f["charger_w"] = w
         return f or None
 
     if category == "Almacenamiento":

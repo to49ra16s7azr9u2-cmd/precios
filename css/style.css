@@ -3143,8 +3143,10 @@ tr.offer-compare-off { display: none; }
    abajo desde el primer momento. El aviso va a la derecha, en la misma
    línea del título, que es donde se mira antes de decidir si hay que
    elegir algo. */
+.subcat-picker .quality-multi { margin-left: auto; }
+/* Con el interruptor al lado, el aviso ya no necesita empujarse solo. */
 .subcat-optional {
-  margin-left: auto;
+  margin-left: 8px;
   flex-shrink: 0;
   font-size: 11px;
   font-weight: 700;
@@ -3155,7 +3157,7 @@ tr.offer-compare-off { display: none; }
   padding: 3px 10px;
 }
 @media (max-width: 560px) {
-  .subcat-optional { margin-left: 0; }
+  .subcat-optional, .subcat-picker .quality-multi { margin-left: 0; }
 }
 .subcat-grid {
   display: grid;
@@ -3175,6 +3177,12 @@ tr.offer-compare-off { display: none; }
   text-align: left;
   cursor: pointer;
   min-width: 0;
+}
+/* Tipo elegido: mismo rojo que el resto de las selecciones del sitio. */
+.subcat-card.active {
+  border-color: var(--red);
+  background: var(--red-tint);
+  box-shadow: inset 0 0 0 1px var(--red);
 }
 .subcat-card:hover { border-color: var(--red); }
 .subcat-card-photo {

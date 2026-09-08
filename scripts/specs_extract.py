@@ -1059,3 +1059,72 @@ def compat_of(text):
             if 1990 <= int(a) <= 2030 and a not in anios:
                 anios.append(a)
     return modelos, sorted(anios)
+
+
+# ---------------------------------------------------------------------
+# Cargadores: de qué tipo es y cuántos watts entrega
+# ---------------------------------------------------------------------
+# La categoría venía partida en "Cargadores" (391) y "Adaptadores" (69),
+# que no ayuda a elegir: un cargador de auto, uno inalámbrico y una
+# estación de energía caían todos en el mismo cajón. Lo que separa de
+# verdad es DÓNDE se enchufa y para qué, y eso el nombre sí lo dice.
+#
+# El orden importa y no es alfabético: se pregunta primero por lo más
+# específico.
+#
+# No hay tipo "power bank": una batería externa NO es un cargador y tiene
+# su propia categoría, con sus tramos de mAh. classify_cargadores.py las
+# saca de acá antes de clasificar el resto.
+_CARGADOR_TIPOS = (
+    ("Estación de energía", re.compile(r"estacion de energia|power station|generador solar")),
+    ("De pilas y baterías", re.compile(r"\bpilas?\b|baterias? recargables?|battery charger|cargador de bateria")),
+    ("De auto", re.compile(r"\bauto\b|\bcoche\b|encendedor|vehicul|car charger|manillar|\bmoto\b|\b12v\b")),
+    ("Inalámbrico", re.compile(r"inalambric|magsafe|\bqi2?\b|magnetic|induccion")),
+    ("Para laptop", re.compile(r"\blaptop\b|\bnotebook\b|macbook")),
+    ("Base de carga", re.compile(r"base de carga|base cargadora|\bdock\b|estacion de carga|soporte de carga")),
+    ("Cable", re.compile(r"\bcable\b|\bcordon\b")),
+    ("Adaptador de corriente", re.compile(
+        r"adaptador de corriente|clavij|\bviaje\b|convertidor|transformador|eliminador|"
+        r"fuente de (poder|alimentacion)|power supply|adapter for")),
+    # Último y a propósito: un "Cargador USB-C de 65 W con 4 puertos" no
+    # dice "pared" en ninguna parte, pero es exactamente eso. Solo llega
+    # acá lo que ninguna regla más específica reclamó.
+    ("De pared", re.compile(
+        r"\bpared\b|\bmuro\b|\bwall\b|enchufe|contacto|tomacorriente|multicontacto|"
+        r"usb|\bpd\b|\bgan\b|tipo ?c|type-?c|quick charge|\bqc3|puertos?\b|\bw\b")),
+)
+
+
+def charger_type_of(name):
+    """Tipo de cargador según el nombre, o None si no se puede decir."""
+    n = _norm(name)
+    for etiqueta, rx in _CARGADOR_TIPOS:
+        if rx.search(n):
+            return etiqueta
+    return None
+
+
+_WATTS_RE = re.compile(r"(?<![\d.,])(\d{1,4}(?:\.\d)?)\s*w\b")
+
+
+def charger_watts(name):
+    """Potencia en watts, o None. Rango 3-3,000: por debajo no existe como
+    cargador y por arriba es una estación de energía declarando su
+    capacidad de salida, no la carga de un equipo.
+
+    Dos potencias distintas en el mismo nombre ("65W PD, 20W USB-A") no se
+    resuelven: cuál es "la" potencia del cargador es justo lo ambiguo.
+    """
+    n = _norm(name)
+    vals = set()
+    for m in _WATTS_RE.finditer(n):
+        try:
+            v = float(m.group(1))
+        except ValueError:
+            continue
+        if 3 <= v <= 3000:
+            vals.add(v)
+    if len(vals) != 1:
+        return None
+    v = next(iter(vals))
+    return int(v) if v == int(v) else v

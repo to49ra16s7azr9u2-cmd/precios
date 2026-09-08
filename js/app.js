@@ -305,6 +305,7 @@
     { key: "driveCapacity", facetField: "drive_gb", categories: ["Almacenamiento"], label: "Capacidad", groupEl: "filterDriveCapacityGroup", listEl: "filterDriveCapacity", sortNum: true, format: formatStorageGB },
     { key: "acBtu", facetField: "ac_btu", categories: ["Climatización"], label: "Capacidad de enfriamiento", groupEl: "filterAcBtuGroup", listEl: "filterAcBtu", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} BTU` },
     { key: "fanIn", facetField: "fan_in", categories: ["Climatización"], label: "Medida del aspa", groupEl: "filterFanInGroup", listEl: "filterFanIn", sortNum: true, format: (v) => `${v}"` },
+    { key: "chargerW", facetField: "charger_w", categories: ["Cargadores y adaptadores"], label: "Potencia", groupEl: "filterChargerWGroup", listEl: "filterChargerW", sortNum: true, format: (v) => `${v} W` },
     { key: "ageRating", facetField: "age_rating", categories: ["Videojuegos"], label: "Edad recomendada", groupEl: "filterAgeRatingGroup", listEl: "filterAgeRating", format: (v) => v },
     { key: "rimSize", facetField: "rim_size", categories: ["Autos, bicicletas y motos"], label: "Medida de rin", groupEl: "filterRimSizeGroup", listEl: "filterRimSize", format: (v) => v },
     { key: "wheelSize", facetField: "wheel_size", categories: ["Autos, bicicletas y motos"], label: "Rodada", groupEl: "filterWheelSizeGroup", listEl: "filterWheelSize", format: (v) => v },
@@ -358,6 +359,10 @@
     // y con ella apagada el segundo clic borraba el primero sin avisar.
     // Apagarla deja un nivel por eje, no vacía la selección.
     qualityMulti: { level: true, size: true },
+    // Igual que los otros dos interruptores de selección múltiple del sitio:
+    // encendido por defecto. Elegir dos tipos a la vez ("de pared o de
+    // auto") es tan normal como elegir uno.
+    subcatMulti: true,
     // Los filtros de especificaciones SIEMPRE aceptaron varias opciones a la
     // vez; lo que no había era forma de saberlo ni de pedir lo contrario.
     // Arranca encendido para no quitarle a nadie lo que ya tenía.
@@ -451,12 +456,15 @@
     specsBannerLink: document.getElementById("specsBannerLink"),
     subcatPicker: document.getElementById("subcatPicker"),
     subcatGrid: document.getElementById("subcatGrid"),
+    subcatMultiToggle: document.getElementById("subcatMultiToggle"),
     filterBedSizeGroup: document.getElementById("filterBedSizeGroup"),
     filterBedSize: document.getElementById("filterBedSize"),
     filterPlatformGroup: document.getElementById("filterPlatformGroup"),
     filterPlatform: document.getElementById("filterPlatform"),
     filterWashKgGroup: document.getElementById("filterWashKgGroup"),
     filterWashKg: document.getElementById("filterWashKg"),
+    filterChargerWGroup: document.getElementById("filterChargerWGroup"),
+    filterChargerW: document.getElementById("filterChargerW"),
     filterAgeRatingGroup: document.getElementById("filterAgeRatingGroup"),
     filterAgeRating: document.getElementById("filterAgeRating"),
     filterRimSizeGroup: document.getElementById("filterRimSizeGroup"),
@@ -2265,7 +2273,10 @@
     // que quien llama la pase explícita -- así ningún caller (buscador,
     // tarjeta "Todas", etc.) puede olvidarse de "soltar" una subcategoría
     // de una navegación anterior y dejarla pegada donde ya no aplica.
-    state.subcategory = opts && opts.subcategory !== undefined ? opts.subcategory : null;
+    // Lista, no valor suelto: el paso "¿Qué tipo buscas?" acepta varios
+    // tipos a la vez (un cargador de pared O uno de auto). Se sigue
+    // aceptando null/string de quien llame, para no tocar cada goList().
+    state.subcategory = toSubList(opts && opts.subcategory !== undefined ? opts.subcategory : null);
     if (opts && opts.query !== undefined) state.query = opts.query;
     navigateTo("#/list", renderList);
   }
@@ -2342,7 +2353,9 @@
       const qs = hash.includes("?") ? new URLSearchParams(hash.split("?")[1]) : null;
       if (qs) {
         state.category = qs.get("cat") || null;
-        state.subcategory = qs.get("sub") || null;
+        // El parámetro admite varios separados por coma; las páginas de SEO
+        // siguen mandando uno solo y eso no cambia.
+        state.subcategory = toSubList(qs.get("sub"));
       }
       renderList();
     } else if (hash === "#/comparar") {
@@ -2647,7 +2660,7 @@
     let scoped = state.category
       ? state.data.products.filter((p) => p.category === state.category)
       : state.data.products;
-    if (state.subcategory) scoped = scoped.filter((p) => p.subcategory === state.subcategory);
+    if (state.subcategory.length) scoped = scoped.filter((p) => state.subcategory.includes(p.subcategory));
     return [...new Set(scoped.map((p) => p.brand))].sort();
   }
 
@@ -2760,7 +2773,7 @@
       const matchesQuery = terms.length === 0
         || (useFuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, terms));
       const matchesCat = !state.category || p.category === state.category;
-      const matchesSub = !state.subcategory || p.subcategory === state.subcategory;
+      const matchesSub = !state.subcategory.length || state.subcategory.includes(p.subcategory);
       const price = minPrice(p);
       const matchesPrice = (state.priceMin == null || price >= state.priceMin) && (state.priceMax == null || price <= state.priceMax);
       const matchesBrand = state.brands.size === 0 || state.brands.has(p.brand);
@@ -2915,7 +2928,7 @@
     if (state.category) {
       const cat = categoryById(state.category);
       el.listBreadcrumb.innerHTML += ` &gt; <a href="#" id="breadcrumbCatOnly">${cat.name}</a>`;
-      const sub = subcategoryById(state.category, state.subcategory);
+      const sub = subcategoryById(state.category, singleSub());
       if (sub) el.listBreadcrumb.innerHTML += ` &gt; ${sub.name}`;
     } else if (state.query) {
       el.listBreadcrumb.innerHTML += ` &gt; Resultados de búsqueda`;
@@ -2926,7 +2939,7 @@
     if (breadcrumbCatOnly) {
       breadcrumbCatOnly.onclick = (e) => {
         e.preventDefault();
-        state.subcategory = null;
+        state.subcategory = [];
         renderList();
       };
     }
@@ -2982,7 +2995,7 @@
     });
     renderPagination(totalPages);
 
-    const subLabel = subcategoryById(state.category, state.subcategory);
+    const subLabel = subcategoryById(state.category, singleSub());
     // El título decía siempre "más populares" aunque el orden fuera otro:
     // al entrar por un enlace directo (#/list?cat=...), que es justo como
     // llega alguien desde Google o desde las páginas estáticas de
@@ -3217,7 +3230,7 @@
       allOpt.innerHTML = `<input type="radio" name="fcat" ${!state.category ? "checked" : ""}> Todas`;
       allOpt.onclick = () => {
         state.category = null;
-        state.subcategory = null;
+        state.subcategory = [];
         state.brands.clear();
         state.specFilters = buildSpecFilterState();
         clearQuality();
@@ -3255,11 +3268,11 @@
       const catNameMatches = !query || normalizeSearchText(c.name).includes(query);
       if (catNameMatches) {
         const opt = document.createElement("label");
-        opt.className = "filter-option" + (isActive && !state.subcategory ? " active" : "");
-        opt.innerHTML = `<input type="radio" name="fcat" ${isActive && !state.subcategory ? "checked" : ""}> ${icon(c.icon, "cat-item-icon")} ${c.name}`;
+        opt.className = "filter-option" + (isActive && !state.subcategory.length ? " active" : "");
+        opt.innerHTML = `<input type="radio" name="fcat" ${isActive && !state.subcategory.length ? "checked" : ""}> ${icon(c.icon, "cat-item-icon")} ${c.name}`;
         opt.onclick = () => {
           state.category = c.id;
-          state.subcategory = null;
+          state.subcategory = [];
           state.brands.clear();
           state.specFilters = buildSpecFilterState();
           clearQuality();
@@ -3279,13 +3292,13 @@
         (s) => (query ? normalizeSearchText(s.name).includes(query) : isActive)
       );
       subsToShow.forEach((s) => {
-        const subActive = state.subcategory === s.id;
+        const subActive = state.subcategory.includes(s.id);
         const subOpt = document.createElement("label");
         subOpt.className = "filter-option filter-suboption" + (subActive ? " active" : "");
         subOpt.innerHTML = `<input type="radio" name="fcat" ${subActive ? "checked" : ""}> ${icon(s.icon, "cat-item-icon")} ${s.name}`;
         subOpt.onclick = () => {
           state.category = c.id;
-          state.subcategory = s.id;
+          state.subcategory = [s.id];
           state.brands.clear();
           state.specFilters = buildSpecFilterState();
           clearQuality();
@@ -3462,11 +3475,27 @@
   // el resto de los filtros activos -- así las opciones de un spec no se
   // van reduciendo a nada a medida que el usuario marca otros (un "16GB
   // RAM" no debería desaparecer solo porque ya se marcó "SSD").
+  // Normaliza a lista: null, "" , "Uno" o ["Uno","Dos"].
+  function toSubList(v) {
+    if (Array.isArray(v)) return v.filter(Boolean);
+    if (typeof v === "string" && v) return v.split(",").map((x) => x.trim()).filter(Boolean);
+    return [];
+  }
+
+  // El scope con subcategoría (para QUALITY_AXES/QUALITY_INTRO) solo aplica
+  // cuando hay UNA elegida: con dos, no hay una ficha de "Colchones" que
+  // valga para las dos mitades.
+  function singleSub() {
+    return state.subcategory.length === 1 ? state.subcategory[0] : null;
+  }
+
   function categoryScopedProducts() {
     let scoped = state.category
       ? state.data.products.filter((p) => p.category === state.category)
       : state.data.products;
-    if (state.subcategory) scoped = scoped.filter((p) => p.subcategory === state.subcategory);
+    if (state.subcategory.length) {
+      scoped = scoped.filter((p) => state.subcategory.includes(p.subcategory));
+    }
     return scoped;
   }
 
@@ -3587,12 +3616,34 @@
     });
   }
 
+  // Mismo interruptor que Compara calidad y el modal de especificaciones.
+  function renderSubcatMultiToggle() {
+    const btn = el.subcatMultiToggle;
+    if (!btn) return;
+    btn.classList.toggle("active", state.subcatMulti);
+    btn.setAttribute("aria-pressed", state.subcatMulti ? "true" : "false");
+    btn.querySelector(".quality-multi-box").textContent = state.subcatMulti ? "\u2713" : "";
+    if (btn.dataset.wired) return;
+    btn.dataset.wired = "1";
+    btn.onclick = () => {
+      state.subcatMulti = !state.subcatMulti;
+      // Al apagarla se conserva el primero, no se vacía: cambiar de modo no
+      // debería costar el filtro que ya estaba puesto.
+      if (!state.subcatMulti && state.subcategory.length > 1) {
+        state.subcategory = [state.subcategory[0]];
+      }
+      state.page = 1;
+      renderList();
+    };
+  }
+
   function renderSubcatPicker() {
     const cat = state.category ? categoryById(state.category) : null;
     const subs = (cat && cat.subcategories) || [];
-    const relevant = !!cat && subs.length > 1 && !state.subcategory && !state.query;
+    const relevant = !!cat && subs.length > 1 && !state.query;
     el.subcatPicker.classList.toggle("hidden", !relevant);
     if (!relevant) return;
+    renderSubcatMultiToggle();
 
     const scoped = state.data.products.filter((p) => p.category === state.category);
     const porSub = new Map();
@@ -3610,7 +3661,7 @@
       if (!items.length) return;
       const card = document.createElement("button");
       card.type = "button";
-      card.className = "subcat-card";
+      card.className = "subcat-card" + (state.subcategory.includes(sub.id) ? " active" : "");
       card.innerHTML = `<span class="subcat-card-photo"></span>
         <span class="subcat-card-text">
           <span class="subcat-card-name">${sub.name}</span>
@@ -3619,7 +3670,17 @@
       const sample = sortByPopularity(items.filter((p) => p.photo))[0];
       if (sample) renderProductMedia(card.querySelector(".subcat-card-photo"), sample);
       card.onclick = () => {
-        state.subcategory = sub.id;
+        const marcado = state.subcategory.includes(sub.id);
+        if (state.subcatMulti) {
+          state.subcategory = marcado
+            ? state.subcategory.filter((x) => x !== sub.id)
+            : state.subcategory.concat(sub.id);
+        } else {
+          // Sin selección múltiple, volver a tocar el elegido lo quita: es
+          // la forma de volver a ver la categoría entera sin ir al panel.
+          state.subcategory = marcado ? [] : [sub.id];
+        }
+        state.page = 1;
         renderList();
       };
       el.subcatGrid.appendChild(card);
@@ -3633,7 +3694,7 @@
     // en cada lugar que toca state.category, porque este es el único punto
     // por el que pasan TODAS las entradas a la lista (incluido un link
     // profundo con ?cat= en el hash).
-    const scope = `${state.category}/${state.subcategory || ""}`;
+    const scope = `${state.category}/${state.subcategory.join(",")}`;
     if (scope !== state.qualityCategory) {
       clearQuality();
       state.qualityCategory = scope;
@@ -3898,6 +3959,20 @@
     ],
     // El ventilador se compra por dónde va a estar, y la medida del aspa
     // es lo que lo dice: 6" es un extractor de baño, 52" es de techo.
+    // El tipo de cargador ya es la subcategoría (de pared, de auto,
+    // inalámbrico...), así que el bloque va por lo otro que decide: cuántos
+    // watts entrega. Es la diferencia entre cargar el teléfono de noche y
+    // cargar la laptop mientras se usa.
+    "Cargadores y adaptadores": [
+      {
+        key: "level", label: "Potencia", field: "charger_w", criterion: "en watts",
+        tiers: [
+          { id: "baja", name: "Hasta 20 W", use: "Teléfono, audífonos, reloj", spec: "20 W o menos", match: (v) => v <= 20 },
+          { id: "media", name: "21 a 45 W", use: "Carga rápida de teléfono y tablet", spec: "21 a 45 W", match: (v) => v > 20 && v <= 45 },
+          { id: "alta", name: "46 W o más", use: "Laptop, o varios equipos a la vez", spec: "46 W en adelante", match: (v) => v > 45 },
+        ],
+      },
+    ],
     "Climatización/Ventiladores": [
       {
         // El tipo manda sobre las pulgadas: uno de techo y uno de escritorio
@@ -3940,8 +4015,8 @@
   // subcategoría gana. Sin esto un minisplit heredaba la línea genérica
   // aunque su eje sí sea específico.
   function qualityIntro() {
-    if (state.subcategory) {
-      const scoped = QUALITY_INTRO[`${state.category}/${state.subcategory}`];
+    if (singleSub()) {
+      const scoped = QUALITY_INTRO[`${state.category}/${singleSub()}`];
       if (scoped) return scoped;
     }
     return QUALITY_INTRO[state.category] || QUALITY_INTRO_DEFAULT;
@@ -3952,8 +4027,8 @@
   // pregunta ahí (5,134 productos), pero no significa nada en el resto de
   // Muebles -- un escritorio no es queen ni king.
   function qualityAxes() {
-    if (state.subcategory) {
-      const scoped = QUALITY_AXES[`${state.category}/${state.subcategory}`];
+    if (singleSub()) {
+      const scoped = QUALITY_AXES[`${state.category}/${singleSub()}`];
       if (scoped) return scoped;
     }
     return QUALITY_AXES[state.category] || [];

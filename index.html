@@ -32,7 +32,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=934303f4">
+<link rel="stylesheet" href="css/style.min.css?v=f6513a14">
 <!-- Google tag (gtag.js) -->
 <script>
   // Consent Mode: por defecto TODO denegado hasta que el aviso de cookies
@@ -210,6 +210,10 @@
             <h3><span class="filter-group-title-row"><span class="filter-group-title">Capacidad</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Filtra por los pies cúbicos del refrigerador.</span></h3>
             <div id="filterFridgeFt" class="filter-options"></div>
           </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterChargerWGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Potencia</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Watts que entrega el cargador.</span></h3>
+            <div id="filterChargerW" class="filter-options"></div>
+          </div>
           <div class="filter-group filter-group-collapsible collapsed hidden" id="filterAgeRatingGroup">
             <h3><span class="filter-group-title-row"><span class="filter-group-title">Edad recomendada</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Clasificación por edad del juego.</span></h3>
             <div id="filterAgeRating" class="filter-options"></div>
@@ -355,6 +359,8 @@
             <div class="subcat-head">
               <span class="subcat-title">¿Qué tipo buscas?</span>
               <span class="subcat-sub">Elige uno para afinar la lista, o sigue viendo todos.</span>
+              <button type="button" class="quality-multi" id="subcatMultiToggle" aria-pressed="true"
+                title="Con la selección múltiple activada puedes marcar varios tipos a la vez y ver los productos de todos ellos."><span class="quality-multi-box">✓</span>Varios a la vez</button>
               <span class="subcat-optional">No es obligatorio: abajo está la lista completa</span>
             </div>
             <div id="subcatGrid" class="subcat-grid"></div>
@@ -903,7 +909,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=22d5e8a7"></script>
+<script src="js/app.min.js?v=f23f4c98"></script>
 </div>
 </body>
 </html>

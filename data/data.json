@@ -39,13 +39,53 @@
       "icon": "charger",
       "subcategories": [
         {
-          "id": "Cargadores",
-          "name": "Cargadores",
+          "id": "De pared",
+          "name": "De pared",
           "icon": "charger"
         },
         {
-          "id": "Adaptadores",
-          "name": "Adaptadores",
+          "id": "Inalámbrico",
+          "name": "Inalámbrico",
+          "icon": "charger"
+        },
+        {
+          "id": "Otros",
+          "name": "Otros",
+          "icon": "charger"
+        },
+        {
+          "id": "De auto",
+          "name": "De auto",
+          "icon": "charger"
+        },
+        {
+          "id": "De pilas y baterías",
+          "name": "De pilas y baterías",
+          "icon": "charger"
+        },
+        {
+          "id": "Cable",
+          "name": "Cable",
+          "icon": "charger"
+        },
+        {
+          "id": "Adaptador de corriente",
+          "name": "Adaptador de corriente",
+          "icon": "charger"
+        },
+        {
+          "id": "Para laptop",
+          "name": "Para laptop",
+          "icon": "charger"
+        },
+        {
+          "id": "Estación de energía",
+          "name": "Estación de energía",
+          "icon": "charger"
+        },
+        {
+          "id": "Base de carga",
+          "name": "Base de carga",
           "icon": "charger"
         }
       ]
@@ -2934,6 +2974,9 @@
     "Cargadores y adaptadores": [
       "data/cat/cargadores-y-adaptadores-1.json"
     ],
+    "Baterías portátiles": [
+      "data/cat/baterias-portatiles-1.json"
+    ],
     "Otros": [
       "data/cat/otros-1.json"
     ],
@@ -3021,9 +3064,6 @@
     "Refrigeradores": [
       "data/cat/refrigeradores-1.json"
     ],
-    "Baterías portátiles": [
-      "data/cat/baterias-portatiles-1.json"
-    ],
     "Redes": [
       "data/cat/redes-1.json"
     ],
@@ -3097,6 +3137,9 @@
     ],
     "Cargadores y adaptadores": [
       "data/det/cargadores-y-adaptadores-1.json"
+    ],
+    "Baterías portátiles": [
+      "data/det/baterias-portatiles-1.json"
     ],
     "Otros": [
       "data/det/otros-1.json",
@@ -3189,9 +3232,6 @@
     ],
     "Refrigeradores": [
       "data/det/refrigeradores-1.json"
-    ],
-    "Baterías portátiles": [
-      "data/det/baterias-portatiles-1.json"
     ],
     "Redes": [
       "data/det/redes-1.json"
@@ -3399,15 +3439,36 @@
       "maxShip": 82
     },
     "Cargadores y adaptadores": {
-      "n": 460,
+      "n": 432,
       "subs": {
-        "Cargadores": 391,
-        "Adaptadores": 69
+        "Estación de energía": 5,
+        "Inalámbrico": 89,
+        "De pared": 106,
+        "Adaptador de corriente": 38,
+        "Base de carga": 4,
+        "De auto": 41,
+        "Otros": 48,
+        "Cable": 39,
+        "De pilas y baterías": 42,
+        "Para laptop": 20
       },
-      "discounted": 285,
+      "discounted": 261,
       "max": 70,
-      "discountedShip": 284,
+      "discountedShip": 260,
       "maxShip": 62
+    },
+    "Baterías portátiles": {
+      "n": 207,
+      "subs": {
+        "": 76,
+        "Hasta 10,000 mAh": 82,
+        "Más de 20,000 mAh": 23,
+        "10,000 a 20,000 mAh": 26
+      },
+      "discounted": 130,
+      "max": 74,
+      "discountedShip": 130,
+      "maxShip": 72
     },
     "Otros": {
       "n": 3386,
@@ -3849,19 +3910,6 @@
       "discountedShip": 534,
       "maxShip": 76
     },
-    "Baterías portátiles": {
-      "n": 179,
-      "subs": {
-        "Hasta 10,000 mAh": 64,
-        "10,000 a 20,000 mAh": 20,
-        "Más de 20,000 mAh": 20,
-        "": 75
-      },
-      "discounted": 106,
-      "max": 74,
-      "discountedShip": 106,
-      "maxShip": 72
-    },
     "Redes": {
       "n": 194,
       "subs": {
@@ -4063,12 +4111,20 @@
       "p70755"
     ],
     "Cargadores y adaptadores": [
-      "p53234",
       "p118248",
       "p44089",
       "p32356",
       "p30778",
-      "p53133"
+      "p53133",
+      "p29766"
+    ],
+    "Baterías portátiles": [
+      "p53234",
+      "p28227",
+      "p28200",
+      "p28231",
+      "p53277",
+      "p28196"
     ],
     "Otros": [
       "p35882",
@@ -4301,14 +4357,6 @@
       "p37047",
       "p37087",
       "p36623"
-    ],
-    "Baterías portátiles": [
-      "p28227",
-      "p28200",
-      "p28231",
-      "p53277",
-      "p28196",
-      "p28217"
     ],
     "Redes": [
       "p28545",
