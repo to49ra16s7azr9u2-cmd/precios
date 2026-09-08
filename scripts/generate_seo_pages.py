@@ -31,6 +31,8 @@ Antes de desplegar a producción, edita SITE_URL más abajo con el dominio
 real: un canonical o una URL de Open Graph apuntando a un dominio
 equivocado (o a localhost) es peor para SEO que no tenerlas.
 """
+import collections
+import datetime
 import json
 import os
 import re
@@ -694,15 +696,180 @@ def render_product_page(product, data):
                       extra_head=extra_head, og_image=product.get("photo"))
 
 
+# Una subcategoría con menos productos que esto no llega a página propia: la
+# lista quedaría casi vacía, sería casi idéntica a la de la categoría padre
+# (contenido duplicado) y solo gastaría presupuesto de rastreo. Con 30 hay
+# 193 subcategorías con página; con 100, 98.
+MIN_PRODUCTOS_SUBCATEGORIA = 30
+
+# "Otros" es el cajón de sastre de cada categoría: nadie busca "otros
+# muebles", y una página así solo sería una lista sin tema. No lleva página
+# propia por más productos que tenga (los suyos siguen en la de la categoría).
+SUBCATEGORIAS_SIN_PAGINA = {"otros", "otras", "otro", "otra", "varios", "general"}
+
+# La página estática no es interactiva (no hay paginación de JS acá), así que
+# se limita a un top fijo en vez de volcar la categoría entera: sin esto,
+# "Moda y accesorios" generaba un solo archivo HTML de ~4MB con miles de
+# filas. El resto queda a un clic con el link a la SPA, que sí pagina.
+STATIC_LIST_CAP = 100
+
+
+def subcategorias_con_pagina(cat, products_de_la_cat):
+    """[(sub, productos)] de las subcategorías que llegan al mínimo.
+
+    Se usa en tres sitios (generación, enlaces desde la categoría padre y
+    sitemap), así que el criterio vive en un solo lugar.
+    """
+    salida = []
+    for sub in cat.get("subcategories", []):
+        if sub["name"].strip().lower() in SUBCATEGORIAS_SIN_PAGINA:
+            continue
+        items = [p for p in products_de_la_cat if p.get("subcategory") == sub["id"]]
+        if len(items) >= MIN_PRODUCTOS_SUBCATEGORIA:
+            salida.append((sub, items))
+    return salida
+
+
+def render_subcategory_page(cat, sub, products, data):
+    """Página de una subcategoría ("Sillas de oficina", "Cargadores USB-C").
+
+    Es el hueco más grande que tenía el sitio: había 48 páginas de categoría
+    y ~82 mil de producto, y NADA en medio. Las consultas de mitad de embudo
+    ("sillas de oficina precio", "cargadores usb c baratos") son justo las
+    que un comparador puede ganar, y no había ninguna página a la que
+    llevaran. Además le dan a las fichas un enlace interno desde una página
+    temática, en vez de colgar todas del listado general de la categoría.
+    """
+    cat_slug = slugify(cat["name"])
+    sub_slug = slugify(sub["name"])
+    canonical_path = f"/categoria/{cat_slug}/{sub_slug}/"
+    precios = [min_price(p) for p in products if p.get("offers")]
+    rango = ""
+    if precios:
+        rango = f" Precios desde {money(min(precios))} hasta {money(max(precios))} MXN."
+    # Google corta la descripción alrededor de los 160 caracteres, así que
+    # volcar 40 marcas ahí no aporta nada y se lee como relleno de palabras
+    # clave. Van las marcas con más productos, pocas, y el resto de la lista
+    # queda en el cuerpo de la página, que es donde sí se puede leer entera.
+    por_marca = collections.Counter(p["brand"] for p in products if p.get("brand"))
+    top_marcas = [m for m, _ in por_marca.most_common(5)]
+    marcas_note = f" Marcas como {', '.join(top_marcas)}." if top_marcas else ""
+    description = (
+        f"Compara precios de {sub['name'].lower()} en México entre tiendas: "
+        f"{len(products)} productos.{rango}{marcas_note}"
+    )
+
+    ranked = sorted(products, key=lambda p: (total_review_count(p), seller_total(p)), reverse=True)
+    shown = ranked[:STATIC_LIST_CAP]
+    rows = []
+    for i, p in enumerate(shown, start=1):
+        rank_badge = svg_icon("crown") if i == 1 else str(i)
+        rank_class = f" rank-{i}" if 2 <= i <= 4 else ""
+        used_badge = (
+            f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>'
+            if is_used(p) else ""
+        )
+        rows.append(
+            f'<div class="product-row has-rank{rank_class}">'
+            f'<span class="rank-badge">{rank_badge}</span>'
+            f'{product_photo_html(p, "row-icon")}'
+            f'<div class="row-info">'
+            f'<div class="row-brand">{html_escape(p["brand"])}</div>'
+            f'<div class="row-name"><a href="../../../producto/{p["id"]}/">{html_escape(p["name"])}</a>{used_badge}</div>'
+            f'</div>'
+            f'<div class="row-priceblock">'
+            + (f'<div class="row-from">Desde</div>' if len(p["offers"]) > 1 else "")
+            + f'<div class="row-price">{money(min_price(p))}</div>'
+            f'</div>'
+            f'</div>'
+        )
+    more_note = (
+        f'<p class="muted small" style="text-align:center; margin-top:10px">'
+        f'Mostrando los {len(shown)} más populares de {len(products)}.</p>'
+        if len(products) > len(shown) else ""
+    )
+
+    marcas_todas = [m for m, _ in por_marca.most_common()]
+    marcas_html = (
+        f'<p class="muted small">Marcas comparadas: '
+        f'{html_escape(", ".join(marcas_todas[:60]))}'
+        + (f' y {len(marcas_todas) - 60} más.' if len(marcas_todas) > 60 else '.')
+        + '</p>'
+        if marcas_todas else ""
+    )
+
+    # Enlaces a las subcategorías hermanas: sin esto cada página quedaría en
+    # una rama muerta del sitio, alcanzable solo desde el sitemap.
+    hermanas = []
+    for otra in cat.get("subcategories", []):
+        if otra["id"] == sub["id"]:
+            continue
+        n = sum(1 for p in data["products"]
+                if p["category"] == cat["id"] and p.get("subcategory") == otra["id"])
+        if n >= MIN_PRODUCTOS_SUBCATEGORIA:
+            hermanas.append(
+                f'<a class="chip" href="../{slugify(otra["name"])}/">{html_escape(otra["name"])} ({n})</a>'
+            )
+    hermanas_html = (
+        f'<div class="panel"><h2>Otras subcategorías de {html_escape(cat["name"])}</h2>'
+        f'<div class="chip-row">{"".join(hermanas)}</div></div>'
+        if hermanas else ""
+    )
+
+    body = f"""
+<nav class="breadcrumb"><a href="../../../">Inicio</a> &gt; <a href="../">{html_escape(cat['name'])}</a> &gt; {html_escape(sub['name'])}</nav>
+<div class="list-head"><h1>{svg_icon("trophy")} {html_escape(sub['name'])} — comparar precios ({len(products)})</h1></div>
+<p class="muted small">{html_escape(description)}</p>
+{marcas_html}
+<div class="product-list">{''.join(rows)}</div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  <a class="buy-btn" href="../../../#/list?cat={cat['id']}&amp;sub={sub['id']}">Ver con filtros interactivos →</a>
+  {more_note}
+</div>
+{hermanas_html}
+"""
+    breadcrumbs = breadcrumb_json_ld([
+        ("Inicio", f"{SITE_URL}/"),
+        (cat["name"], f"{SITE_URL}/categoria/{cat_slug}/"),
+        (sub["name"], None),
+    ])
+    lista_ld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": f"{sub['name']} — comparar precios en México",
+        "numberOfItems": len(shown),
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": i,
+                "url": f"{SITE_URL}/producto/{p['id']}/",
+                "name": p["name"],
+            }
+            for i, p in enumerate(shown, start=1)
+        ],
+    }, ensure_ascii=False, indent=2)
+    extra_head = (
+        f'<script type="application/ld+json">\n{breadcrumbs}\n</script>\n'
+        f'<script type="application/ld+json">\n{lista_ld}\n</script>'
+    )
+    title = f"{sub['name']} — Comparar precios en México | ComparaMEX"
+    return page_shell(title, description, canonical_path, body, depth=3,
+                      extra_head=extra_head, og_image=next((p.get("photo") for p in shown if p.get("photo")), None))
+
+
 def render_category_page(cat, products, data):
     slug = slugify(cat["name"])
     canonical_path = f"/categoria/{slug}/"
-    brands_note = (
-        f" Marcas: {', '.join(sorted({p['brand'] for p in products}))}." if products else ""
-    )
+    # Igual que en la de subcategoría: Google corta cerca de los 160
+    # caracteres. Acá se volcaban TODAS las marcas de la categoría (la de
+    # Componentes de PC listaba más de 200), o sea una descripción que nadie
+    # llega a leer y que se ve como relleno de palabras clave.
+    por_marca = collections.Counter(p["brand"] for p in products if p.get("brand"))
+    top_marcas = [m for m, _ in por_marca.most_common(5)]
+    brands_note = f" Marcas como {', '.join(top_marcas)}." if top_marcas else ""
     description = (
-        f"Compara precios de {cat['name'].lower()} entre tiendas mexicanas."
-        f"{brands_note} {len(products)} productos comparados."
+        f"Compara precios de {cat['name'].lower()} entre tiendas mexicanas: "
+        f"{len(products)} productos.{brands_note}"
     )
     # Mismo criterio de "popular" que la SPA (sortByPopularity en
     # js/app.js): ranking por reseñas totales, no por precio — es el paso 2
@@ -716,7 +883,6 @@ def render_category_page(cat, products, data):
     # sin esto, "Moda y accesorios" generaba un solo archivo HTML de ~4MB
     # con miles de filas. El resto queda a un clic con el link de abajo,
     # que ya manda a la SPA con filtros interactivos (y ahí sí paginada).
-    STATIC_LIST_CAP = 100
     shown = ranked[:STATIC_LIST_CAP]
     rows = []
     for i, p in enumerate(shown, start=1):
@@ -744,9 +910,25 @@ def render_category_page(cat, products, data):
         f"Mostrando los {len(shown)} más populares de {len(products)}.</p>"
         if len(products) > len(shown) else ""
     )
+    # Enlaces a las subcategorías con página propia. Sin esto esas páginas
+    # solo serían alcanzables desde el sitemap, que es la peor forma de que
+    # un buscador las encuentre y les dé importancia.
+    subs_html = ""
+    subs = subcategorias_con_pagina(cat, products)
+    if subs:
+        chips = "".join(
+            f'<a class="chip" href="{slugify(sub["name"])}/">{html_escape(sub["name"])} ({len(items)})</a>'
+            for sub, items in subs
+        )
+        subs_html = (
+            f'<div class="panel"><h2>Buscar por tipo de {html_escape(cat["name"].lower())}</h2>'
+            f'<div class="chip-row">{chips}</div></div>'
+        )
+
     body = f"""
 <nav class="breadcrumb"><a href="../../">Inicio</a> &gt; {html_escape(cat['name'])}</nav>
 <div class="list-head"><h1>{svg_icon("trophy")} {html_escape(cat['name'])} — más populares ({len(products)})</h1></div>
+{subs_html}
 <div class="product-list">{''.join(rows)}</div>
 <div class="panel" style="text-align:center; margin-top:20px">
   <a class="buy-btn" href="../../#/list?cat={cat['id']}">Ver con filtros interactivos →</a>
@@ -768,12 +950,35 @@ def render_category_page(cat, products, data):
 SITEMAP_CHUNK_SIZE = 40000
 
 
-def _urlset_xml(urls):
-    entries = "\n".join(f"  <url><loc>{u}</loc></url>" for u in urls)
+# Fecha del último cambio REAL de cada página, para el <lastmod> del sitemap.
+# Sin esto, un buscador que ve 82 mil URLs sin fecha no tiene forma de saber
+# cuáles volver a rastrear y reparte el presupuesto a ciegas -- justo el
+# problema de un catálogo donde cada día cambian de precio unas pocas miles de
+# fichas y el resto queda igual. write_if_changed() ya sabe exactamente cuáles
+# cambiaron; acá solo se guarda esa fecha entre corridas.
+LASTMOD_FILE = os.path.join(ROOT, "data", "seo-lastmod.json")
+
+
+def load_lastmod():
+    try:
+        with open(LASTMOD_FILE, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+def _urlset_xml(urls, lastmod=None):
+    lastmod = lastmod or {}
+    filas = []
+    for u in urls:
+        fecha = lastmod.get(u)
+        sufijo = f"<lastmod>{fecha}</lastmod>" if fecha else ""
+        filas.append(f"  <url><loc>{u}</loc>{sufijo}</url>")
+    entries = "\n".join(filas)
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{entries}\n</urlset>\n'
 
 
-def write_sitemaps(data, root):
+def write_sitemaps(data, root, lastmod=None):
     """Escribe el árbol de sitemaps y devuelve las rutas escritas.
 
     Un solo sitemap.xml con más de 50,000 URLs es inválido para Google; en
@@ -788,9 +993,13 @@ def write_sitemaps(data, root):
 
     page_urls = [f"{SITE_URL}/"]
     for cat in data["categories"]:
-        page_urls.append(f"{SITE_URL}/categoria/{slugify(cat['name'])}/")
+        cat_slug = slugify(cat["name"])
+        page_urls.append(f"{SITE_URL}/categoria/{cat_slug}/")
+        productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
+        for sub, _ in subcategorias_con_pagina(cat, productos_cat):
+            page_urls.append(f"{SITE_URL}/categoria/{cat_slug}/{slugify(sub['name'])}/")
     pages_path = os.path.join(root, "sitemap-pages.xml")
-    if write_if_changed(pages_path, _urlset_xml(page_urls)):
+    if write_if_changed(pages_path, _urlset_xml(page_urls, lastmod)):
         written.append(pages_path)
     sitemap_files = ["sitemap-pages.xml"]
 
@@ -799,7 +1008,7 @@ def write_sitemaps(data, root):
     for i, chunk in enumerate(chunks, 1):
         name = f"sitemap-products-{i}.xml"
         path = os.path.join(root, name)
-        if write_if_changed(path, _urlset_xml(chunk)):
+        if write_if_changed(path, _urlset_xml(chunk, lastmod)):
             written.append(path)
         sitemap_files.append(name)
 
@@ -931,6 +1140,11 @@ def main():
     data = hide_empty_taxonomy(load_catalog())
 
     written = []
+    lastmod = load_lastmod()
+    hoy = datetime.date.today().isoformat()
+
+    def marcar(url):
+        lastmod[url] = hoy
 
     for product in data["products"]:
         out_dir = os.path.join(ROOT, "producto", product["id"])
@@ -938,7 +1152,9 @@ def main():
         out_path = os.path.join(out_dir, "index.html")
         if write_if_changed(out_path, render_product_page(product, data)):
             written.append(out_path)
+            marcar(f"{SITE_URL}/producto/{product['id']}/")
 
+    subcats_generadas = 0
     for cat in data["categories"]:
         products = [p for p in data["products"] if p["category"] == cat["id"]]
         slug = slugify(cat["name"])
@@ -947,16 +1163,51 @@ def main():
         out_path = os.path.join(out_dir, "index.html")
         if write_if_changed(out_path, render_category_page(cat, products, data)):
             written.append(out_path)
+            marcar(f"{SITE_URL}/categoria/{slug}/")
 
-    written += write_sitemaps(data, ROOT)
+        for sub, items in subcategorias_con_pagina(cat, products):
+            sub_slug = slugify(sub["name"])
+            sub_dir = os.path.join(out_dir, sub_slug)
+            os.makedirs(sub_dir, exist_ok=True)
+            sub_path = os.path.join(sub_dir, "index.html")
+            subcats_generadas += 1
+            if write_if_changed(sub_path, render_subcategory_page(cat, sub, items, data)):
+                written.append(sub_path)
+                marcar(f"{SITE_URL}/categoria/{slug}/{sub_slug}/")
+
+    # La portada no la escribe este script, pero su contenido (los carruseles
+    # de data/home.json) sale del mismo catálogo: si cambió alguna ficha,
+    # cambió también lo que se ve en la portada.
+    if written:
+        marcar(f"{SITE_URL}/")
+
+    # Las urls que ya no existen (productos borrados, subcategorías que
+    # bajaron del mínimo) se sacan del registro para que no crezca sin fin.
+    vigentes = {f"{SITE_URL}/"}
+    vigentes |= {f"{SITE_URL}/producto/{p['id']}/" for p in data["products"]}
+    for cat in data["categories"]:
+        slug = slugify(cat["name"])
+        vigentes.add(f"{SITE_URL}/categoria/{slug}/")
+        productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
+        for sub, _ in subcategorias_con_pagina(cat, productos_cat):
+            vigentes.add(f"{SITE_URL}/categoria/{slug}/{slugify(sub['name'])}/")
+    lastmod = {u: f for u, f in lastmod.items() if u in vigentes}
+
+    written += write_sitemaps(data, ROOT, lastmod)
+
+    if write_if_changed(LASTMOD_FILE, json.dumps(lastmod, ensure_ascii=False, indent=0, sort_keys=True)):
+        written.append(LASTMOD_FILE)
 
     robots_path = os.path.join(ROOT, "robots.txt")
     if write_if_changed(robots_path, build_robots()):
         written.append(robots_path)
 
+    print(f"Subcategorías con página propia: {subcats_generadas}")
     print(f"Generadas {len(written)} páginas/archivos SEO en {ROOT}:")
-    for path in written:
+    for path in written[:200]:
         print(" -", os.path.relpath(path, ROOT))
+    if len(written) > 200:
+        print(f" ... y {len(written) - 200} más")
 
 
 if __name__ == "__main__":
