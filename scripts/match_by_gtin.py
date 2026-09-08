@@ -71,6 +71,18 @@ ITEM = "https://comparamx-mercadolibre-proxy.comparamx.workers.dev/item"
 VALID_GTIN_LENGTHS = {12, 13, 14}
 
 
+def similitud_de_nombres(a, b):
+    """Se importa perezosamente para no crear un ciclo: audit_gtin_matches
+    importa BY_GTIN y get_json de este módulo."""
+    from audit_gtin_matches import similitud
+    return similitud(a, b)
+
+
+def _min_similitud():
+    from audit_gtin_matches import MIN_SIMILITUD
+    return MIN_SIMILITUD
+
+
 def normalize_gtin(raw):
     """Deja el código en dígitos y sin ceros de relleno a la izquierda.
 
@@ -187,6 +199,19 @@ def ml_offer_for(gtin, our_name=""):
         publicados.discard(None)
         if publicados and gtin not in publicados:
             return None, "gtin_no_confirma"
+    # El código de barras dice que es el mismo producto, pero SOLO si el código
+    # es de fabricante. El `ean` de Elektra a veces es un consecutivo interno
+    # de la tienda, y entonces choca con el de otro artículo: así se llegaron a
+    # unir una bomba de agua agrícola de $76,115 con una llave stilson de $130
+    # (las herramientas Hyundai comparten el prefijo 6426138 en Elektra), y la
+    # ficha terminaba diciendo "desde $130". El nombre es lo que lo desempata:
+    # dos publicaciones del mismo artículo comparten casi todas las palabras y
+    # dos artículos distintos no comparten ninguna. Ver la revisión completa en
+    # scripts/audit_gtin_matches.py, de donde sale este mismo criterio.
+    parecido = similitud_de_nombres(our_name, ml.get("name") or "")
+    if parecido is not None and parecido < _min_similitud():
+        return None, "nombre_no_coincide"
+
     # El código de barras identifica el PRODUCTO, no en qué estado se vende.
     # Un iPhone reacondicionado de Elektra y uno nuevo de Mercado Libre
     # comparten GTIN, y unirlos pondría el precio de uno en la ficha del
@@ -255,7 +280,7 @@ def main():
 
     stats = {"consultados": 0, "unidos": 0, "sin_coincidencia": 0, "ambiguo": 0,
              "sin_ofertas_activas": 0, "gtin_no_confirma": 0, "condicion_distinta": 0,
-             "error_worker": 0, "sin_respuesta": 0}
+             "error_worker": 0, "sin_respuesta": 0, "nombre_no_coincide": 0}
     unidos = []
 
     # Las peticiones van en paralelo, pero el conteo y la escritura en el
