@@ -2677,7 +2677,11 @@ tr.offer-compare-off { display: none; }
   flex: 1;
   min-width: 0;
   padding: 6px;
-  margin: 4px 0 18px;
+  /* Sin margen arriba: los 4px que tenía dejaban el marco de las categorías
+     4px más abajo que el de la columna de la derecha, y las dos cajas
+     arrancan a la misma altura en la misma fila. A pedido del usuario, con
+     captura marcando la línea. */
+  margin: 0 0 18px;
   /* A pedido del usuario se quita el patrón de sarape (llegó a probarse
      en varias vueltas: rombos sutiles, sarape vívido multicolor, luego
      acotado a blanco/rosa/rojo -- commits 422af90ba..c5c5f907d) y se
