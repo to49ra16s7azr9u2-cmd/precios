@@ -52,7 +52,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=bb9fd2eb">
+<link rel="stylesheet" href="css/style.min.css?v=94dbe778">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -572,6 +572,16 @@
         </div>
       </div>
 
+      <!-- Evolución del precio. Se llena desde data/hist/<slug>-<n>.json
+           (ver renderPriceHistory en js/app.js), que se pide aparte y solo
+           al abrir una ficha: el listado no lo necesita. Arranca oculto
+           porque un producto cuyo precio todavía no se movió no tiene nada
+           que mostrar. -->
+      <div class="panel detail-anchor-target hidden" id="historyPanel">
+        <h2>Evolución del precio</h2>
+        <div id="historyBody"></div>
+      </div>
+
       <div class="panel detail-anchor-target" id="specsPanel">
         <h2>Especificaciones</h2>
         <table class="spec-table" id="specTable"></table>
@@ -960,7 +970,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=0b29c423"></script>
+<script src="js/app.min.js?v=77ce03f6"></script>
 </div>
 </body>
 </html>

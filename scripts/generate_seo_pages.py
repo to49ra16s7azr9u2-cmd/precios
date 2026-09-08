@@ -465,6 +465,156 @@ def seller_rows(product):
     return out
 
 
+# ---------------------------------------------------------------- historial
+
+# data/hist/<slug>-<n>.json, escrito por scripts/record_price_history.py.
+# Se carga entero una vez (3.4 MB) en vez de por producto: son 82 mil fichas.
+_HIST = None
+
+
+def historial_de(product_id):
+    global _HIST
+    if _HIST is None:
+        _HIST = {}
+        carpeta = os.path.join(ROOT, "data", "hist")
+        if os.path.isdir(carpeta):
+            for nombre in os.listdir(carpeta):
+                if not nombre.endswith(".json"):
+                    continue
+                try:
+                    with open(os.path.join(carpeta, nombre), encoding="utf-8") as f:
+                        _HIST.update(json.load(f))
+                except (OSError, ValueError):
+                    continue
+    return _HIST.get(product_id) or {}
+
+
+MESES = ("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
+         "agosto", "septiembre", "octubre", "noviembre", "diciembre")
+
+
+def fecha_larga(dia):
+    d = HIST_EPOCH + datetime.timedelta(days=dia)
+    return f"{d.day} de {MESES[d.month - 1]} de {d.year}"
+
+
+def serie_diaria(por_tienda, hasta=None):
+    """[(día, precio mínimo entre tiendas)] día a día, sin huecos.
+
+    El archivo guarda solo los cambios, así que para dibujar hay que arrastrar
+    el último precio conocido de cada tienda hasta que cambie. Se arrastra
+    hasta HOY, no hasta el último cambio: que un precio no se haya movido no
+    significa que se dejara de mirar, y si la serie terminara en el último
+    cambio la ficha diría "entre el 2 y el 7" cuando el 8 también se anotó.
+    """
+    puntos = {}
+    for serie in por_tienda.values():
+        for i in range(0, len(serie) - 1, 2):
+            puntos.setdefault(serie[i], []).append(serie[i + 1])
+    if not puntos:
+        return []
+    cambios = {t: dict(zip(s[::2], s[1::2])) for t, s in por_tienda.items()}
+    if hasta is None:
+        hasta = (datetime.date.today() - HIST_EPOCH).days
+    primero = min(puntos)
+    ultimo = max(hasta, max(max(c) for c in cambios.values()))
+    vigente, salida = {}, []
+    for dia in range(primero, ultimo + 1):
+        for tienda, c in cambios.items():
+            if dia in c:
+                vigente[tienda] = c[dia]
+        if vigente:
+            salida.append((dia, min(vigente.values())))
+    return salida
+
+
+def sparkline_svg(serie, ancho=560, alto=90):
+    """Gráfico de la evolución, en SVG inline.
+
+    Sin JavaScript ni librería a propósito: estas páginas son estáticas y las
+    ve un rastreador antes que una persona. Un <svg> se pinta igual con el
+    JS apagado y no agrega ninguna petición.
+    """
+    if len(serie) < 2:
+        return ""
+    precios = [p for _, p in serie]
+    lo, hi = min(precios), max(precios)
+    # Un respiro debajo del mínimo: sin él, un tramo plano al precio más bajo
+    # queda pegado al borde de abajo y el área sombreada no se ve.
+    span = (hi - lo) or max(hi * 0.1, 1)
+    lo -= span * 0.12
+    span = hi - lo
+    dias = [d for d, _ in serie]
+    d0, d1 = dias[0], dias[-1]
+    ancho_dias = (d1 - d0) or 1
+    pad = 10
+    def xy(d, p):
+        x = pad + (d - d0) / ancho_dias * (ancho - 2 * pad)
+        y = pad + (1 - (p - lo) / span) * (alto - 2 * pad)
+        return f"{x:.1f},{y:.1f}"
+    linea = " ".join(xy(d, p) for d, p in serie)
+    area = f"{pad},{alto - pad} " + linea + f" {ancho - pad},{alto - pad}"
+    return (
+        f'<svg class="price-spark" viewBox="0 0 {ancho} {alto}" '
+        f'role="img" aria-label="Evolución del precio: de {money(precios[0])} a {money(precios[-1])}">'
+        f'<polygon points="{area}" fill="rgba(255,2,17,.08)"/>'
+        f'<polyline points="{linea}" fill="none" stroke="var(--red)" stroke-width="2" '
+        f'stroke-linejoin="round" stroke-linecap="round"/>'
+        f'</svg>'
+    )
+
+
+def render_price_history(product):
+    """Panel de evolución del precio, o "" si todavía no hay dos puntos.
+
+    Es la parte de la ficha que ninguna otra página tiene: se construye día a
+    día desde que empezamos a anotar y no se puede reconstruir después. Para
+    las fichas de una sola tienda --el 81% del catálogo-- es además lo único
+    con lo que se puede comparar algo.
+    """
+    por_tienda = historial_de(product["id"])
+    serie = serie_diaria(por_tienda)
+    if len(serie) < 2:
+        return ""
+    precios = [p for _, p in serie]
+    lo, hi = min(precios), max(precios)
+    dia_lo = next(d for d, p in serie if p == lo)
+    dia_hi = next(d for d, p in serie if p == hi)
+    hoy = precios[-1]
+
+    if hoy <= lo:
+        veredicto = (
+            f'<p class="history-verdict history-low">Hoy está en '
+            f'<strong>{money(hoy)}</strong>: el precio más bajo que le registramos.</p>'
+        )
+    else:
+        subida = round(100 * (hoy - lo) / lo)
+        veredicto = (
+            f'<p class="history-verdict">Hoy está en <strong>{money(hoy)}</strong>, '
+            f'{money(hoy - lo)} ({subida}%) por encima de su mínimo registrado.</p>'
+        )
+
+    rango = (
+        f"<p>Entre el {fecha_larga(serie[0][0])} y el {fecha_larga(serie[-1][0])} "
+        f"osciló entre {money(lo)} (el {fecha_larga(dia_lo)}) y {money(hi)} "
+        f"(el {fecha_larga(dia_hi)})."
+        if hi != lo else
+        f"<p>No se ha movido de {money(lo)} desde el {fecha_larga(serie[0][0])}."
+    ) + "</p>"
+
+    return f"""
+<div class="panel detail-anchor-target" id="historyPanel">
+  <h2>Evolución del precio</h2>
+  {veredicto}
+  {rango}
+  {sparkline_svg(serie)}
+  <p class="muted small">Anotamos el precio de esta ficha todos los días. El
+  historial arranca el {fecha_larga(serie[0][0])}, que es cuando empezamos a
+  guardarlo — no antes.</p>
+</div>
+"""
+
+
 def render_product_page(product, data, subs_con_pagina=None):
     cat = next(c for c in data["categories"] if c["id"] == product["category"])
     cat_slug = slugify(cat["name"])
@@ -489,9 +639,19 @@ def render_product_page(product, data, subs_con_pagina=None):
     canonical = f"{SITE_URL}{canonical_path}"
     n_sellers = seller_total(product)
 
+    # Si el historial dice algo que ninguna otra página puede decir, va en la
+    # descripción: es lo que decide si alguien hace clic desde el buscador.
+    nota_historial = ""
+    serie_desc = serie_diaria(historial_de(product["id"]))
+    if len(serie_desc) >= 2:
+        precios_desc = [x for _, x in serie_desc]
+        if precios_desc[-1] <= min(precios_desc):
+            nota_historial = " Hoy está en su precio más bajo registrado."
+        elif precios_desc[-1] < precios_desc[0]:
+            nota_historial = f" Bajó de {money(precios_desc[0])} a {money(precios_desc[-1])}."
     description = (
         f"Compara el precio de {product['name']} entre {plural(n_sellers, 'vendedor', 'vendedores')} en México. "
-        f"Desde {money(price)} MXN. Envío, disponibilidad y calificación por tienda."
+        f"Desde {money(price)} MXN.{nota_historial} Envío, disponibilidad y calificación por tienda."
     )
 
     SHIPPING_CALC_STORE_IDS = ("aliexpress", "alibaba", "sunsky", "geekbuying")
@@ -655,8 +815,11 @@ def render_product_page(product, data, subs_con_pagina=None):
     # de verdad tiene esa sección -- la calculadora de envío existe solo para
     # AliExpress/Alibaba/SUNSKY/Geekbuying, y las reseñas solo si el producto
     # ya tiene alguna.
-    quicknav_items = [("comparePanel", "tag", "Precios"),
-                      ("specsPanel", "pencil", "Especificaciones")]
+    history_html = render_price_history(product)
+    quicknav_items = [("comparePanel", "tag", "Precios")]
+    if history_html:
+        quicknav_items.append(("historyPanel", "chart", "Evolución"))
+    quicknav_items.append(("specsPanel", "pencil", "Especificaciones"))
     if shipping_calc_html:
         quicknav_items.append(("shippingPanel", "pin", "Envío"))
     if reviews_html:
@@ -697,6 +860,7 @@ def render_product_page(product, data, subs_con_pagina=None):
   </div>
   <p class="disclaimer">{STORE_ORDER_NOTE}</p>
 </div>
+{history_html}
 <div class="panel detail-anchor-target" id="specsPanel">
   <h2>Especificaciones</h2>
   <table class="spec-table">{specs_rows}</table>
@@ -731,6 +895,10 @@ def render_product_page(product, data, subs_con_pagina=None):
 # lista quedaría casi vacía, sería casi idéntica a la de la categoría padre
 # (contenido duplicado) y solo gastaría presupuesto de rastreo. Con 30 hay
 # 193 subcategorías con página; con 100, 98.
+# Mismo día 0 que scripts/record_price_history.py: los días del historial son
+# la cantidad de días desde acá.
+HIST_EPOCH = datetime.date(2026, 9, 1)
+
 MIN_PRODUCTOS_SUBCATEGORIA = 30
 
 # "Otros" es el cajón de sastre de cada categoría: nadie busca "otros

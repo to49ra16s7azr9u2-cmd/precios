@@ -3286,3 +3286,17 @@ tr.offer-compare-off { display: none; }
   border-color: var(--red);
   color: var(--red);
 }
+
+/* ---------- Evolución del precio ----------
+   El gráfico es un <svg> inline sin JavaScript: estas páginas son estáticas y
+   las ve un rastreador antes que una persona, así que tiene que pintarse sin
+   depender de nada (ver sparkline_svg en scripts/generate_seo_pages.py). */
+.price-spark {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  display: block;
+  margin: 10px 0 4px;
+}
+.history-verdict { font-size: 15px; margin: 0 0 6px; }
+.history-verdict.history-low { color: var(--red); font-weight: 700; }

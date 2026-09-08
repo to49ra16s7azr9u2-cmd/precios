@@ -516,6 +516,8 @@
     viewDetail: document.getElementById("viewDetail"),
     detailBreadcrumb: document.getElementById("detailBreadcrumb"),
     detailIcon: document.getElementById("detailIcon"),
+    historyPanel: document.getElementById("historyPanel"),
+    historyBody: document.getElementById("historyBody"),
     detailBrand: document.getElementById("detailBrand"),
     detailName: document.getElementById("detailName"),
     detailRating: document.getElementById("detailRating"),
@@ -2143,6 +2145,125 @@
   // categoría (la shard y sus detalles se escriben en el mismo orden desde
   // save_catalog), así que no hace falta bajar un índice id -> archivo de
   // 84,000 entradas.
+  // ---------------------------------------------------------- historial
+  //
+  // El precio de cada día vive en data/hist/<slug>-<n>.json, partido igual
+  // que data/det (misma categoría, misma posición, mismo tamaño de chunk),
+  // así que el archivo se deduce del mismo productMeta que usa
+  // ensureDetail() -- sin agregar un índice al manifiesto.
+  //
+  // Se pide APARTE del detalle y sin bloquear: la ficha se pinta ya, y el
+  // panel de evolución aparece cuando llega. Que el precio de un producto no
+  // se haya movido todavía es lo normal al principio, y en ese caso no se
+  // muestra nada.
+  const HIST_EPOCH = Date.UTC(2026, 8, 1); // 1 de septiembre de 2026, mismo día 0 que record_price_history.py
+  const histChunkCache = new Map();
+
+  function histFileFor(product) {
+    const meta = productMeta.get(product.id);
+    const size = (state.data && state.data.detailChunkSize) || 0;
+    if (!meta || !size) return null;
+    const files = ((state.data && state.data.detailFiles) || {})[meta.cat] || [];
+    const file = files[Math.floor(meta.i / size)];
+    return file ? file.replace("/det/", "/hist/") : null;
+  }
+
+  // De la serie guardada (solo cambios) al precio mínimo de cada día,
+  // arrastrando el último conocido de cada tienda hasta hoy.
+  function dailySeries(byStore) {
+    const changes = {};
+    let first = Infinity;
+    for (const [store, flat] of Object.entries(byStore || {})) {
+      const m = (changes[store] = new Map());
+      for (let i = 0; i + 1 < flat.length; i += 2) {
+        m.set(flat[i], flat[i + 1]);
+        if (flat[i] < first) first = flat[i];
+      }
+    }
+    if (!isFinite(first)) return [];
+    const today = Math.floor((Date.now() - HIST_EPOCH) / 86400000);
+    let last = first;
+    for (const m of Object.values(changes)) for (const d of m.keys()) if (d > last) last = d;
+    const end = Math.max(today, last);
+    const current = new Map();
+    const out = [];
+    for (let d = first; d <= end; d++) {
+      for (const [store, m] of Object.entries(changes)) if (m.has(d)) current.set(store, m.get(d));
+      if (current.size) out.push([d, Math.min(...current.values())]);
+    }
+    return out;
+  }
+
+  const HIST_MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
+                      "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  function histDateLabel(day) {
+    const d = new Date(HIST_EPOCH + day * 86400000);
+    return `${d.getUTCDate()} de ${HIST_MESES[d.getUTCMonth()]} de ${d.getUTCFullYear()}`;
+  }
+
+  // Mismo dibujo que sparkline_svg() en scripts/generate_seo_pages.py, para
+  // que la ficha estática y la interactiva se vean igual.
+  function sparklineSvg(serie, ancho = 560, alto = 90) {
+    if (serie.length < 2) return "";
+    const precios = serie.map((s) => s[1]);
+    const hi = Math.max(...precios);
+    // Un respiro debajo del mínimo, igual que sparkline_svg() en Python: sin
+    // él un tramo plano al precio más bajo queda pegado al borde de abajo y
+    // el área sombreada no se ve.
+    const rango = hi - Math.min(...precios) || Math.max(hi * 0.1, 1);
+    const lo = Math.min(...precios) - rango * 0.12;
+    const span = hi - lo;
+    const d0 = serie[0][0];
+    const spanDias = serie[serie.length - 1][0] - d0 || 1;
+    const pad = 10;
+    const xy = ([d, p]) =>
+      `${(pad + ((d - d0) / spanDias) * (ancho - 2 * pad)).toFixed(1)},` +
+      `${(pad + (1 - (p - lo) / span) * (alto - 2 * pad)).toFixed(1)}`;
+    const linea = serie.map(xy).join(" ");
+    return `<svg class="price-spark" viewBox="0 0 ${ancho} ${alto}" role="img" aria-label="Evolución del precio: de ${money(precios[0])} a ${money(precios[precios.length - 1])}">
+        <polygon points="${pad},${alto - pad} ${linea} ${ancho - pad},${alto - pad}" fill="rgba(255,2,17,.08)"/>
+        <polyline points="${linea}" fill="none" stroke="var(--red)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      </svg>`;
+  }
+
+  async function renderPriceHistory(product) {
+    if (!el.historyPanel) return;
+    el.historyPanel.classList.add("hidden");
+    const file = histFileFor(product);
+    if (!file) return;
+    let serie = [];
+    try {
+      if (!histChunkCache.has(file)) {
+        histChunkCache.set(file, fetch(file).then((r) => (r.ok ? r.json() : {})));
+      }
+      const chunk = await histChunkCache.get(file);
+      serie = dailySeries(chunk[product.id]);
+    } catch (e) {
+      // Sin historial la ficha se pinta igual; no se cachea el fallo.
+      histChunkCache.delete(file);
+      return;
+    }
+    // El usuario pudo cambiar de ficha mientras llegaba el archivo.
+    if (currentProduct() !== product || serie.length < 2) return;
+
+    const precios = serie.map((s) => s[1]);
+    const lo = Math.min(...precios);
+    const hi = Math.max(...precios);
+    const hoy = precios[precios.length - 1];
+    const diaLo = serie.find((s) => s[1] === lo)[0];
+    const diaHi = serie.find((s) => s[1] === hi)[0];
+    const veredicto = hoy <= lo
+      ? `<p class="history-verdict history-low">Hoy está en <strong>${money(hoy)}</strong>: el precio más bajo que le registramos.</p>`
+      : `<p class="history-verdict">Hoy está en <strong>${money(hoy)}</strong>, ${money(hoy - lo)} (${Math.round((100 * (hoy - lo)) / lo)}%) por encima de su mínimo registrado.</p>`;
+    const rango = hi !== lo
+      ? `<p>Entre el ${histDateLabel(serie[0][0])} y el ${histDateLabel(serie[serie.length - 1][0])} osciló entre ${money(lo)} (el ${histDateLabel(diaLo)}) y ${money(hi)} (el ${histDateLabel(diaHi)}).</p>`
+      : `<p>No se ha movido de ${money(lo)} desde el ${histDateLabel(serie[0][0])}.</p>`;
+    el.historyBody.innerHTML = `${veredicto}${rango}${sparklineSvg(serie)}
+      <p class="muted small">Anotamos el precio de esta ficha todos los días. El historial arranca el ${histDateLabel(serie[0][0])}, que es cuando empezamos a guardarlo — no antes.</p>`;
+    el.historyPanel.classList.remove("hidden");
+    renderDetailQuickNav();
+  }
+
   async function ensureDetail(product) {
     if (!product || product.__detailLoaded) return;
     const meta = productMeta.get(product.id);
@@ -4784,16 +4905,22 @@
 
   // Ocupa el hueco que quedaba vacío junto al nombre del producto (a pedido
   // del usuario, con una captura marcando el recuadro) con accesos a cada
-  // sección. Las cuatro existen en toda ficha del SPA, así que no hace falta
-  // esconder ninguna según el producto.
+  // sección. "Evolución" solo aparece si esa ficha tiene historial con al
+  // menos dos precios distintos, así que el menú se arma salteando los
+  // paneles ocultos -- y renderPriceHistory() lo vuelve a armar cuando el
+  // archivo llega y destapa el suyo.
   const DETAIL_QUICKNAV_ITEMS = [
     ["comparePanel", "tag", "Precios"],
+    ["historyPanel", "chart", "Evolución"],
     ["specsPanel", "pencil", "Especificaciones"],
     ["deliveryBanner", "pin", "Envío"],
     ["reviewsPanel", "trophy", "Comentarios"],
   ];
   function renderDetailQuickNav() {
-    el.detailQuickNav.innerHTML = DETAIL_QUICKNAV_ITEMS.map(
+    el.detailQuickNav.innerHTML = DETAIL_QUICKNAV_ITEMS.filter(([id]) => {
+      const panel = document.getElementById(id);
+      return panel && !panel.classList.contains("hidden");
+    }).map(
       ([id, ic, label]) =>
         `<button type="button" class="detail-quicknav-btn" data-target="${id}">${icon(ic)} ${label}</button>`
     ).join("");
@@ -4884,6 +5011,7 @@
       .join("");
 
     renderStoreReviews(product);
+    renderPriceHistory(product);
     renderShippingWidgetForProduct(product);
 
     // Reinicia el formulario de reseña a su estado normal (no el de "ya la
