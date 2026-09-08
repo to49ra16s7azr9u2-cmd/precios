@@ -72,9 +72,33 @@ def _norm(s):
     return "".join(c for c in s if not unicodedata.combining(c)).lower()
 
 
+# Un aparato que declara la capacidad de SU batería no es un power bank. Un
+# celular ("OPPO A6x Desbloqueado, 128GB+4GB, Pantalla 6.75\" 120 Hz, Batería
+# de Larga Duración (6100 mAh)") entra en cualquier búsqueda de "baterías
+# portátiles" y, mirando solo el mAh, terminaba en el tramo "Hasta 10,000 mAh".
+# Lo que lo delata es lo que un power bank NO tiene: pulgadas de pantalla,
+# hercios, RAM+almacenamiento, o decirse teléfono. "Pantalla" a secas no
+# cuenta: muchos power banks traen una pantallita con el porcentaje.
+_APARATO_CON_BATERIA = re.compile(
+    r'pantalla\s*(?:de\s*)?\d+(?:[.,]\d+)?\s*(?:"|\x27\x27|pulgada)'
+    r"|\d+\s*gb\s*\+\s*\d+\s*gb|\d+\s*gb\s*ram|\bram\b\s*\d+\s*gb"
+    r"|\d+\s*hz\b|desbloqueado|dual\s*sim|\besim\b"
+    r"|camara de \d+\s*mp|\d+\s*mp\b"
+)
+# A propósito NO están celular / teléfono / laptop / tablet: un power bank los
+# nombra todo el tiempo para decir a qué le sirve ("Cargador Portátil para
+# Celular 5000 mAh", "AsperX Power Bank para Laptop"). Lo que queda son datos
+# que solo tiene el aparato: pulgadas de pantalla, hercios, RAM+almacenamiento,
+# megapíxeles, desbloqueado / dual SIM.
+
+
 def es_power_bank(nombre):
     n = _norm(nombre)
     if _PB_NO.search(n):
+        return False
+    # Antes que nada: si es un aparato con batería propia, no es un power bank
+    # -- ni siquiera si además dice "power bank" en el título de otra cosa.
+    if _APARATO_CON_BATERIA.search(n) and not _PB_FUERTE.search(n):
         return False
     if _PB_FUERTE.search(n):
         return True

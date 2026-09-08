@@ -28,7 +28,9 @@ USO
 """
 import sys, re, json, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from classify_cargadores import es_power_bank, tramo_mah, _norm
+from classify_cargadores import (
+    es_power_bank, tramo_mah, _norm, _APARATO_CON_BATERIA,
+)
 
 # Una estación de energía se mide en Wh y no cabe en un bolsillo.
 _ESTACION = re.compile(r"estacion de energia|central electrica|\d{3,5}\s*wh\b|"
@@ -40,11 +42,25 @@ _AUTO = re.compile(r"arrancador|jump ?start|booster de|cargador de bateria|"
 MARCAS = ["INIU", "UGREEN", "ANKER", "CUKTECH", "DJI", "NOCO", "ASPERX",
           "TONEOF", "BELOSIN", "BASEUS", "XIAOMI", "SAMSUNG", "1 HORA", "1HORA"]
 
+# La marca solo se busca en el ARRANQUE del título. Amazon los empieza con la
+# marca, y más adelante viene la lista de compatibilidad: "1 Hora Power Bank
+# 20000mAh ... Compatible con IP Samsung Xiaomi" se guardaba como XIAOMI, que
+# es la última marca nombrada y la única que seguro NO lo fabrica.
+# 45 y no 30: "Estación de energía portátil DJI Power 1000 Mini" pone la marca
+# recién en el carácter 30.
+_LARGO_MARCA = 45
+
 
 def marca(titulo):
     n = _norm(titulo)
+    # Todo lo que viene después de "compatible con" / "para" es de otra marca.
+    corte = min(
+        [m.start() for m in re.finditer(r"\b(compatible con|compatible|para)\b", n)]
+        or [len(n)]
+    )
+    cabeza = n[:min(corte, _LARGO_MARCA)]
     for m in MARCAS:
-        if _norm(m) in n:
+        if _norm(m) in cabeza:
             return "1 HORA" if m in ("1 HORA", "1HORA") else m
     return "GENERICO"
 
@@ -60,6 +76,11 @@ def clasificar(titulo):
         # Sin mAh declarado no se inventa un tramo: queda sin subcategoría,
         # que es un estado que la categoría ya tiene.
         return "Baterías portátiles", tramo_mah(titulo), "battery"
+    if _APARATO_CON_BATERIA.search(n):
+        # Un celular o una tablet que anuncia su batería entra en cualquier
+        # búsqueda de "baterías portátiles". No es un error de la captura ni
+        # algo que este script deba dar de alta: se avisa aparte.
+        return None, None, "OTRO APARATO"
     return None, None, "battery"
 
 
@@ -68,10 +89,13 @@ def main():
         print(__doc__)
         sys.exit(1)
     datos = json.load(open(sys.argv[1], encoding="utf-8"))
-    salida, sin_clasificar, sin_precio = [], [], []
+    salida, sin_clasificar, otros, sin_precio = [], [], [], []
     for d in datos:
         cat, sub, img = clasificar(d["title"])
-        if cat is None:
+        if img == "OTRO APARATO":
+            otros.append(d)
+            img = "box"
+        elif cat is None:
             sin_clasificar.append(d)
         if d.get("price") is None:
             sin_precio.append(d)
@@ -84,6 +108,11 @@ def main():
     print(f"Clasificados: {len(salida)}")
     for k, v in collections.Counter((d["category"], d["subcategory"]) for d in salida).most_common():
         print(f"  {v:>3}  {k[0]} / {k[1]}")
+    if otros:
+        print(f"\nNO SON BATERÍAS ({len(otros)}) -- son otro aparato que la búsqueda "
+              f"arrastró; van por su propio importador, no por acá:")
+        for d in otros:
+            print(f"  {d['asin']}  {d['title'][:76]}")
     if sin_clasificar:
         print(f"\nSIN CLASIFICAR ({len(sin_clasificar)}) -- revisar a mano:")
         for d in sin_clasificar:

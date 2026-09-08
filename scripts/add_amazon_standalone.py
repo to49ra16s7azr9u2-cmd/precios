@@ -49,6 +49,7 @@ USO
     python3 scripts/add_amazon_standalone.py nuevos.json --tag comparamex0d-20
 """
 import argparse
+import collections
 import json
 import os
 import re
@@ -81,6 +82,39 @@ def existing_asins(products):
     return out
 
 
+# Cuántas veces el precio más caro que ya tiene esa subcategoría puede
+# superarse antes de sospechar de la captura. Tres es holgado: deja pasar un
+# producto legítimamente más caro que todo lo que hay, y frena los órdenes de
+# magnitud, que es lo que produce una captura mal alineada.
+FACTOR_PRECIO_ABSURDO = 3
+# Con menos productos que esto la comparación no dice nada.
+MIN_PARA_COMPARAR = 10
+
+
+def techos_por_subcategoria(products):
+    """{(categoria, subcategoria): precio máximo del catálogo} para el control.
+
+    Una captura de Amazon puede traer el precio de OTRO anuncio (pasó: en un
+    lote de 41, diecisiete compartían valor con un producto distinto, y una
+    UGREEN de 10,000 mAh y una AsperX de 27,600 mAh 162.5W tenían el mismo
+    número). El precio de un power bank no se puede verificar sin volver a
+    Amazon, pero sí se puede comparar contra lo que ya vale esa misma
+    subcategoría: los 26 productos de "10,000 a 20,000 mAh" del catálogo van
+    de $197 a $2,184, así que un $56,999 no es un producto caro, es un dato
+    malo.
+    """
+    por = collections.defaultdict(list)
+    for p in products:
+        precios = [o["price"] for o in (p.get("offers") or []) if o.get("price")]
+        for v in p.get("colorVariants") or []:
+            precios += [o["price"] for o in (v.get("offers") or []) if o.get("price")]
+            if v.get("price"):
+                precios.append(v["price"])
+        if precios:
+            por[(p["category"], p.get("subcategory"))].append(min(precios))
+    return {k: max(v) for k, v in por.items() if len(v) >= MIN_PARA_COMPARAR}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("input", help="JSON con los productos nuevos")
@@ -96,6 +130,7 @@ def main():
     cat_ids = {c["id"]: {s["id"] for s in (c.get("subcategories") or [])}
                for c in data["categories"]}
     nid = next_id(data["products"])
+    techos = techos_por_subcategoria(data["products"])
 
     created, skipped = [], []
     for it in items:
@@ -116,6 +151,15 @@ def main():
         sub = it.get("subcategory")
         if sub and sub not in cat_ids[cat]:
             skipped.append((it.get("title", "?"), f"subcategoría desconocida: {cat}/{sub}"))
+            continue
+        techo = techos.get((cat, sub))
+        precio = it["price"]
+        if techo and precio > techo * FACTOR_PRECIO_ABSURDO:
+            skipped.append((
+                it.get("title", "?"),
+                f"precio inverosímil: ${precio:,.2f} cuando lo más caro de "
+                f"{cat}/{sub} en el catálogo es ${techo:,.2f} -- revisar la captura",
+            ))
             continue
 
         url = f"https://www.amazon.com.mx/dp/{asin}/"
