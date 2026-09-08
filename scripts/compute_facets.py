@@ -81,6 +81,7 @@ FACET_CATEGORIES = (
     "Blancos y ropa de cama", "Muebles",
     "Computadoras de escritorio", "Almacenamiento", "Climatización",
     "Refacciones", "Herramientas", "Bocinas",
+    "Autos, bicicletas y motos", "Electrodomésticos", "Joyería y bisutería",
 )
 
 _FOLDABLE_RE = re.compile(r"\bplegable\b|\bfold\b|\bflip\b")
@@ -268,15 +269,86 @@ SPEC_DIRECTAS = (
     # Herramientas es la categoría más grande sin una sola faceta (7,243).
     ("Herramientas", None, "tipo de herramienta", "tool_type"),
     ("Bocinas", None, "numero de bocinas", "speaker_count"),
+    # Medida de la llanta y de la rueda: la primera pregunta al comprar
+    # cualquiera de las dos, y la tienda las escribe siempre igual (R14,
+    # R16, R26, R29...).
+    ("Autos, bicicletas y motos", "Llantas", "rin", "rim_size"),
+    ("Autos, bicicletas y motos", None, "rodada", "wheel_size"),
+    # Con qué funciona la estufa: gas LP, natural o electricidad. Cambia si
+    # se puede instalar en la casa, no es un detalle de ficha.
+    ("Electrodomésticos", "Estufas y hornos", "emplea", "fuel"),
+    ("Joyería y bisutería", "Relojes", "genero", "gender", "_gender"),
+    ("Videojuegos", "Software", "clasificacion", "age_rating", "_age"),
+    ("Electrodomésticos", "Estufas y hornos", "numero de quemadores", "burners", "_burners"),
 )
+
+
+# La clasificación por edad mezcla DOS sistemas y el mismo código significa
+# cosas opuestas en cada uno: "C Adultos +18" es 18+ en el sistema mexicano
+# y "C Infancia Temprana" es la EC de la ESRB, o sea preescolar. Normalizar
+# por la letra pondría los juegos de adultos junto a los de niños -- el
+# error más caro posible en este filtro.
+#
+# Por eso la tabla es EXPLÍCITA, valor por valor, y lo que no está en ella
+# no se clasifica: quedan fuera los 119 "C" a secas (no se sabe de qué
+# sistema es), los 26 "A 18 Años en adelante" (la A es "todo público": el
+# valor se contradice solo) y los "RP" sin clasificar.
+_EDADES = {
+    "a": "Todo público",
+    "e todas las edades": "Todo público",
+    "c infancia temprana": "Todo público",
+    "e10 10 años en adelante": "10 años o más",
+    "b": "12 años o más",
+    "b 12 años en adelante": "12 años o más",
+    "t 13 años en adelante": "13 años o más",
+    "b 15 años en adelante": "15 años o más",
+    "m 17 años en adelante": "17 años o más",
+    "c adultos +18": "18 años o más",
+}
+
+_GENEROS = {"caballero": "Hombre", "hombre": "Hombre", "dama": "Mujer",
+            "mujer": "Mujer", "unisex": "Unisex", "niño": "Niño", "niña": "Niña"}
+
+
+# Las claves de las dos tablas se escriben con acentos para que se lean,
+# pero _norm_label() los quita ("años" -> "anos"): sin pasar las claves por
+# la misma función, solo acertaban las que no llevaban ninguno -- y de las
+# diez clasificaciones por edad entraban tres.
+_EDADES = {_norm_label(k): v for k, v in _EDADES.items()}
+_GENEROS = {_norm_label(k): v for k, v in _GENEROS.items()}
+
+
+def _age(valor):
+    return _EDADES.get(_norm_label(valor))
+
+
+def _gender(valor):
+    return _GENEROS.get(_norm_label(valor))
+
+
+def _burners(valor):
+    """Solo el número, y solo si es uno solo y plausible. La tienda escribe
+    "4", "5 quemadores", "4 zonas de inducción" y también "NA" o "5,5"."""
+    nums = re.findall(r"\d+", valor or "")
+    if len(nums) != 1:
+        return None
+    n = int(nums[0])
+    return str(n) if 1 <= n <= 8 else None
 
 
 def _spec_directa(product, spec_map, f):
     cat, sub = product.get("category"), product.get("subcategory")
-    for c, s_, etiqueta, campo in SPEC_DIRECTAS:
+    for regla in SPEC_DIRECTAS:
+        c, s_, etiqueta, campo = regla[:4]
         if c != cat or (s_ is not None and s_ != sub):
             continue
         val = spec_map.get(etiqueta)
+        if not val:
+            continue
+        # Quinta posición opcional: el nombre de la función que normaliza el
+        # valor. Sin ella se copia tal cual.
+        if len(regla) > 4:
+            val = globals()[regla[4]](val)
         if val:
             f[campo] = val
 
@@ -382,7 +454,11 @@ def facets_for(product):
     # categoría de la tabla; se aplican antes de las ramas propias.
     _spec_directa(product, spec_map, f)
 
-    if category in ("Herramientas", "Bocinas"):
+    # Categorías cuyas facetas salen ENTERAS de la ficha técnica: no tienen
+    # nada que leerle al nombre, así que devuelven acá mismo en vez de caer
+    # en la lógica de RAM/almacenamiento de más abajo.
+    if category in ("Herramientas", "Bocinas", "Autos, bicicletas y motos",
+                    "Electrodomésticos", "Joyería y bisutería"):
         return f or None
 
     if category == "Refacciones":
