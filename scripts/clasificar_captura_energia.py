@@ -105,6 +105,18 @@ def main():
         json.dump(salida, f, ensure_ascii=False, indent=1)
 
     import collections
+    # Un precio repetido entre productos distintos delata una captura mal
+    # alineada. La causa está identificada: cuando la tarjeta de Amazon tiene
+    # variantes muestra "Ver opciones" EN LUGAR del precio, así que en esa
+    # tarjeta no hay ningún precio y el que se guarda es el de la tarjeta de
+    # al lado. Se vio en dos capturas del mismo día: la AsperX 27,600mAh salió
+    # una vez con $56,999 y otra con $489.22 -- las dos veces el precio de su
+    # vecina. Un producto con "Ver opciones" tiene que llegar SIN price.
+    repetidos = collections.Counter(
+        d["price"] for d in salida if d.get("price") is not None
+    )
+    sospechosos = {v: n for v, n in repetidos.items() if n > 1}
+
     print(f"Clasificados: {len(salida)}")
     for k, v in collections.Counter((d["category"], d["subcategory"]) for d in salida).most_common():
         print(f"  {v:>3}  {k[0]} / {k[1]}")
@@ -117,6 +129,15 @@ def main():
         print(f"\nSIN CLASIFICAR ({len(sin_clasificar)}) -- revisar a mano:")
         for d in sin_clasificar:
             print(f"  {d['asin']}  {d['title'][:76]}")
+    if sospechosos:
+        print(f"\nPRECIO REPETIDO entre productos distintos ({len(sospechosos)} valores) "
+              f"-- casi seguro son tarjetas con \"Ver opciones\", que no muestran precio "
+              f"y le prestan el de la vecina. Habría que recapturarlos SIN price:")
+        for v, n in sorted(sospechosos.items(), key=lambda x: -x[1]):
+            print(f"  ${v:,} en {n} productos:")
+            for d in salida:
+                if d.get("price") == v:
+                    print(f"      {d['asin']}  {d['title'][:66]}")
     if sin_precio:
         print(f"\nSIN PRECIO ({len(sin_precio)}) -- add_amazon_standalone.py los salta:")
         for d in sin_precio:
