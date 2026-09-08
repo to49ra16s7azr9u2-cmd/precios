@@ -15,22 +15,42 @@ y se unieron entre sí. Ejemplos reales que estaban publicados:
 
 La ficha decía "desde $130" para una bomba de $76,115.
 
-EL CRITERIO
------------
-Se vuelve a preguntar por el código y se compara NUESTRO nombre con el que
-publica Mercado Libre para ese producto de catálogo. Si no comparten
-suficientes palabras, no son el mismo artículo y se saca la oferta de Mercado
-Libre; la de la tienda original queda intacta.
+EL CRITERIO: LAS DOS SEÑALES A LA VEZ
+-------------------------------------
+Se deshace un cruce solo cuando FALLAN LAS DOS cosas: el nombre no se parece
+Y el precio entre tiendas se va a 5x o más. Ninguna de las dos alcanza sola, y
+esto se comprobó sobre el catálogo entero, no se supuso:
 
-No se decide por el precio. Un hueco grande entre tiendas puede ser real
---Elektra vende a crédito y marca mucho: un DualSense a $2,549 contra $799 en
-Mercado Libre es el mismo control-- así que el precio solo sirve para elegir
-QUÉ revisar, nunca para decidir. Lo que decide es el nombre.
+  - Solo el nombre NO alcanza. Los nombres de tiendas mexicanas usan sinónimos
+    para el mismo artículo (rasuradora / afeitadora / máquina, cortadora /
+    recortadora / trimmer), y hasta idiomas distintos: "Mantén a los Hermanos,
+    Pierde la Rivalidad" y "Keep the Siblings Lose the Rivalry" son el mismo
+    libro y no comparten una palabra. Aplicando solo el nombre salían 1,042
+    cruces a deshacer y al revisarlos a mano una buena parte eran correctos
+    (la Babyliss UVFoil FXLFS2 contra "BaByliss FX UV Doble Cabezal" es la
+    misma afeitadora). Deshacerlos habría roto comparaciones buenas, que es
+    justo lo que el sitio existe para dar.
 
-Tampoco se toca el caso contrario: si los nombres coinciden y el precio no
-(un asiento de bicicleta a $40,000 en Elektra contra $285), las dos tiendas
-publican de verdad ese precio y mostrar los dos es justamente para lo que
-existe un comparador.
+  - Solo el precio NO alcanza. Elektra vende a crédito y marca muchísimo: un
+    DualSense a $2,549 contra $799 en Mercado Libre es el MISMO control, y
+    huecos de 3x a 5x aparecen en 1,140 cruces perfectamente buenos.
+
+  - Juntas sí discriminan. Entre los cruces de nombre distinto, el 2.4% tiene
+    un hueco de 10x o más; entre los de nombre parecido, el 0.15%. Dieciséis
+    veces más. De los 40 casos que cumplen las dos condiciones, 39 son
+    claramente artículos distintos revisándolos a mano (una bomba de agua
+    contra una llave stilson, un minisplit contra su control remoto).
+
+Lo que queda fuera a propósito:
+
+  - Nombre distinto pero precio parecido (unos 1,000 cruces). Puede haber
+    errores ahí, pero no se pueden separar de los sinónimos, y como los
+    precios se parecen la ficha no queda muy mal aunque el cruce esté mal.
+    Sin evidencia para decidir, no se toca.
+
+  - Nombre parecido y precio disparatado (un asiento de bicicleta a $40,000 en
+    Elektra contra $285). Las dos tiendas publican de verdad ese precio, y
+    mostrar los dos es exactamente para lo que existe un comparador.
 
 Es reanudable: cada tanda de respuestas se anota en data/gtin-auditoria.json
 (el nombre que publica Mercado Libre para cada producto), asi que una corrida
@@ -81,6 +101,13 @@ rojo roja verde plata dorado unisex mexico mx pulgada pulgadas cms centimetros
 # Con eso, en la revisión manual los cruces malos quedaron en 0.00-0.29 y los
 # buenos en 0.40 para arriba.
 MIN_SIMILITUD = 0.34
+
+# La segunda señal: cuánto se tiene que ir el precio entre tiendas para que,
+# SUMADO a que el nombre no coincide, se considere que no es el mismo
+# artículo. Ver la explicación de arriba: 5x deja fuera el rango donde los
+# huecos grandes son reales (Elektra a crédito llega a 3x-5x sobre Mercado
+# Libre en productos que sí son el mismo).
+RATIO_PARA_DESHACER = 5.0
 
 CHECKPOINT = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
@@ -202,6 +229,44 @@ def candidatos(products, min_ratio):
             yield p, g
 
 
+def limpiar_historial(deshechos, dry_run=False):
+    """Saca de data/hist/ la serie de Mercado Libre de los cruces deshechos.
+
+    El historial es de solo-agregar: record_price_history.py anota lo que ve
+    hoy y nunca borra, que es lo correcto para una tienda que deja de vender
+    un producto --eso es historia de verdad--. Pero acá el precio de Mercado
+    Libre nunca fue de este producto: era el de otro artículo que compartía
+    el código de barras. Dejarlo haría que la ficha siguiera diciendo "bajó
+    de $76,115 a $130".
+    """
+    from record_price_history import HIST_DIR, cargar, escribir
+    from data_io import ROOT as _ROOT
+
+    ids = {d[1] for d in deshechos}
+    if not ids:
+        return 0
+    carpeta = os.path.join(_ROOT, HIST_DIR)
+    if not os.path.isdir(carpeta):
+        return 0
+    quitadas = 0
+    for nombre in sorted(os.listdir(carpeta)):
+        if not nombre.endswith(".json"):
+            continue
+        fname = f"{HIST_DIR}/{nombre}"
+        hist = cargar(fname)
+        toco = False
+        for pid in ids & set(hist):
+            if "mercadolibre" in hist[pid]:
+                del hist[pid]["mercadolibre"]
+                quitadas += 1
+                toco = True
+                if not hist[pid]:
+                    del hist[pid]
+        if toco and not dry_run:
+            escribir(fname, hist)
+    return quitadas
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
@@ -253,7 +318,8 @@ def main():
                 guardar_checkpoint(nombres)
 
     # 2) Juzgar TODO lo anotado (gratis, y repetible con otro criterio).
-    stats.update({"ok": 0, "deshechos": 0, "sin_nombre": 0, "sin_consultar": 0})
+    stats.update({"ok": 0, "deshechos": 0, "sin_nombre": 0, "sin_consultar": 0,
+                  "nombre_distinto_precio_normal": 0})
     deshechos = []
     for p, _ in todos:
         nombre_ml = nombres.get(p["id"])
@@ -270,31 +336,40 @@ def main():
         if s >= MIN_SIMILITUD:
             stats["ok"] += 1
             continue
+        # Nombre distinto, pero sin la segunda señal no se toca (ver arriba).
+        r = ratio_de_precios(p)
+        if r < RATIO_PARA_DESHACER:
+            stats["nombre_distinto_precio_normal"] += 1
+            continue
         quitadas = [o for o in p["offers"] if o.get("storeId") == "mercadolibre"]
         if not quitadas:
             continue
         p["offers"] = [o for o in p["offers"] if o.get("storeId") != "mercadolibre"]
         stats["deshechos"] += 1
         deshechos.append((s, p["id"], p.get("name", ""), nombre_ml,
-                          [o.get("price") for o in quitadas]))
+                          [o.get("price") for o in quitadas], r))
 
     deshechos.sort(key=lambda x: (x[0], x[1]))
     print("\n=== Cruces deshechos ===")
-    for s, pid, nuestro, ml, precios in deshechos[:40]:
-        print(f"  sim {s:.2f}  {pid}")
+    for s, pid, nuestro, ml, precios, r in deshechos[:60]:
+        print(f"  sim {s:.2f}  {r:.0f}x  {pid}")
         print(f"     nuestro: {nuestro[:74]}")
         print(f"     ML     : {ml[:74]}   (se quita la oferta de ${precios})")
-    if len(deshechos) > 40:
-        print(f"  ... y {len(deshechos) - 40} más")
+    if len(deshechos) > 60:
+        print(f"  ... y {len(deshechos) - 60} más")
 
     print("\n=== Resumen ===")
     for k, v in stats.items():
         print(f"  {k}: {v:,}")
 
     if args.dry_run:
+        n = limpiar_historial(deshechos, dry_run=True)
+        print(f"  (se quitarían {n:,} series de Mercado Libre del historial)")
         print("(--dry-run: no se escribió nada)")
         return
     if stats["deshechos"]:
+        n = limpiar_historial(deshechos)
+        print(f"Series de Mercado Libre quitadas del historial: {n:,}")
         save_catalog(data)
         print("Guardado.")
 
