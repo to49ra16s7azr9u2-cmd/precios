@@ -93,15 +93,19 @@ def purchase_options(product):
     # ofertas. Sin esta rama, v.get("price") y v.get("url") daban None y las
     # páginas estáticas de los productos fusionados por color se publicaban
     # sin precio y sin enlace.
-    if len(variants) > 1 and any("offers" in v for v in variants):
+    if variants and any("offers" in v for v in variants):
         out = []
         for v in variants:
             for oferta in v.get("offers") or []:
                 copia = dict(oferta)
                 copia["colorLabel"] = v.get("color")
                 out.append(copia)
+        # Ofertas base que no están en ninguna variante (otra tienda pegada
+        # por match_by_gtin.py): son publicaciones distintas y cuentan.
+        urls = {o.get("url") for o in out if o.get("url")}
+        out.extend(dict(o) for o in offers if o.get("url") and o["url"] not in urls)
         return out or offers
-    if len(variants) > 1 and offers:
+    if variants and offers:
         base = offers[0]
         out = []
         for v in variants:
@@ -116,6 +120,8 @@ def purchase_options(product):
             o["lowestPrice"] = v.get("lowestPrice")
             o["sellers"] = v.get("sellers")
             out.append(o)
+        urls = {o.get("url") for o in out if o.get("url")}
+        out.extend(dict(o) for o in offers if o.get("url") and o["url"] not in urls)
         return out
     return offers
 

@@ -157,7 +157,17 @@ def store_by_id(data, store_id):
 
 
 def min_price(product):
-    return min(o["price"] for o in product["offers"])
+    """Precio "desde", contando las variantes de color.
+
+    Leía solo product["offers"], que tras la fusión por color son solo las
+    del color más barato AL MOMENTO de fusionar. Si después otro color bajó,
+    el mínimo real vive en colorVariants y la ficha decía "desde $13,999" para
+    un iPhone 16 que estaba a $13,749 en otro color (79 productos, medidos
+    contra el mínimo real). purchase_options() ya sabe expandir los dos
+    formatos de variante; se reutiliza en vez de repetir la regla.
+    """
+    precios = [o["price"] for o in purchase_options(product) if o.get("price")]
+    return min(precios) if precios else min(o["price"] for o in product["offers"])
 
 
 # Los campos que valen su default en TODO el catálogo (reviewCount=0,
@@ -301,6 +311,7 @@ def breadcrumb_json_ld(items):
 
 def product_json_ld(product, data, canonical):
     avg, count = aggregate_rating(product)
+    opciones = [o for o in purchase_options(product) if o.get("price")] or product["offers"]
     offers = [
         {
             "@type": "Offer",
@@ -316,7 +327,9 @@ def product_json_ld(product, data, canonical):
             ),
             "seller": {"@type": "Organization", "name": store_by_id(data, o["storeId"])["name"]},
         }
-        for o in product["offers"]
+        # Mismas opciones de compra que la tabla de la página: con las
+        # variantes de color expandidas, no solo product["offers"].
+        for o in opciones
     ]
     ld = {
         "@context": "https://schema.org",
@@ -328,9 +341,9 @@ def product_json_ld(product, data, canonical):
         "offers": {
             "@type": "AggregateOffer",
             "priceCurrency": "MXN",
-            "lowPrice": min(o["price"] for o in product["offers"]),
-            "highPrice": max(o["price"] for o in product["offers"]),
-            "offerCount": len(product["offers"]),
+            "lowPrice": min(o["price"] for o in opciones),
+            "highPrice": max(o["price"] for o in opciones),
+            "offerCount": len(opciones),
             "offers": offers,
         },
     }
@@ -403,15 +416,25 @@ def purchase_options(product):
     """
     variants = product.get("colorVariants") or []
     offers = product.get("offers") or []
-    if len(variants) > 1 and any("offers" in v for v in variants):
+    # Con UNA sola variante también se expande (antes el umbral era > 1): son
+    # 7 productos donde ese único color es otra publicación, más barata, que
+    # quedaba invisible. Con el dedupe por url de abajo no se cuenta doble.
+    if variants and any("offers" in v for v in variants):
         out = []
         for v in variants:
             for oferta in v.get("offers") or []:
                 copia = dict(oferta)
                 copia["colorLabel"] = v.get("color")
                 out.append(copia)
+        # Las ofertas de product["offers"] que NO están en ninguna variante
+        # son publicaciones distintas (otra tienda, pegada después por
+        # match_by_gtin.py) y se muestran también. Sin esto, la oferta de
+        # Mercado Libre a $12,161 de un teléfono que Elektra tenía a $13,999
+        # en todos sus colores no aparecía en ningún lado: ni en la ficha ni
+        # en el "desde". 37 productos con la oferta más barata escondida.
+        out.extend(_ofertas_fuera_de_variantes(offers, out))
         return out or offers
-    if len(variants) > 1 and offers:
+    if variants and offers:
         base = offers[0]
         out = []
         for v in variants:
@@ -425,8 +448,15 @@ def purchase_options(product):
             copia["sellers"] = v.get("sellers")
             copia["colorLabel"] = v.get("color")
             out.append(copia)
+        out.extend(_ofertas_fuera_de_variantes(offers, out))
         return out
     return offers
+
+
+def _ofertas_fuera_de_variantes(offers, ya):
+    """Las ofertas base cuya url no aparece entre las ya expandidas."""
+    urls = {o.get("url") for o in ya if o.get("url")}
+    return [dict(o) for o in offers if o.get("url") and o["url"] not in urls]
 
 
 def seller_rows(product):
@@ -507,22 +537,23 @@ def serie_diaria(por_tienda, hasta=None):
     significa que se dejara de mirar, y si la serie terminara en el último
     cambio la ficha diría "entre el 2 y el 7" cuando el 8 también se anotó.
     """
-    puntos = {}
-    for serie in por_tienda.values():
-        for i in range(0, len(serie) - 1, 2):
-            puntos.setdefault(serie[i], []).append(serie[i + 1])
-    if not puntos:
-        return []
     cambios = {t: dict(zip(s[::2], s[1::2])) for t, s in por_tienda.items()}
+    cambios = {t: c for t, c in cambios.items() if c}
+    if not cambios:
+        return []
     if hasta is None:
         hasta = (datetime.date.today() - HIST_EPOCH).days
-    primero = min(puntos)
+    primero = min(min(c) for c in cambios.values())
     ultimo = max(hasta, max(max(c) for c in cambios.values()))
     vigente, salida = {}, []
     for dia in range(primero, ultimo + 1):
         for tienda, c in cambios.items():
             if dia in c:
-                vigente[tienda] = c[dia]
+                # null = la tienda dejó de vender ese día: sale del mínimo.
+                if c[dia] is None:
+                    vigente.pop(tienda, None)
+                else:
+                    vigente[tienda] = c[dia]
         if vigente:
             salida.append((dia, min(vigente.values())))
     return salida
@@ -593,7 +624,8 @@ def bajada_de(product_id):
         if len(pares) < 2:
             continue
         (dia_antes, antes), (dia_ahora, ahora) = pares[-2], pares[-1]
-        if ahora >= antes or not antes:
+        # null al final = la tienda ya no lo vende: no hay bajada vigente.
+        if ahora is None or antes is None or ahora >= antes or not antes:
             continue
         if dia_ahora - dia_antes < DIAS_SOSTENIDO:
             continue
@@ -622,6 +654,11 @@ def render_price_history(product):
     dia_lo = next(d for d, p in serie if p == lo)
     dia_hi = next(d for d, p in serie if p == hi)
     hoy = precios[-1]
+
+    # Si la serie no llega a hoy es que ninguna tienda lo vende ya (todas las
+    # series terminan en null). No se dice "hoy está en": no está.
+    if serie[-1][0] < (datetime.date.today() - HIST_EPOCH).days:
+        return ""
 
     if hoy <= lo:
         veredicto = (

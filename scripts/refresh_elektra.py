@@ -122,9 +122,23 @@ def current_offer(product):
 
 
 def elektra_offers(product):
+    """Todas las ofertas de Elektra del producto, INCLUIDAS las que viven
+    dentro de colorVariants[].offers (formato de merge_by_color.py).
+
+    Antes solo recorría product["offers"]. Un producto fusionado por color
+    guarda cada color con sus propias ofertas, y la ficha muestra ESAS (ver
+    purchaseOptions en js/app.js), así que el precio que la gente veía en un
+    teléfono de Elektra con varios colores no se refrescaba nunca: el Vivo
+    Y11D estaba a $5,999 en la oferta base (refrescada) y a $6,999 en la
+    variante Negro --misma url-- que es la que se mostraba. 63 ofertas así.
+    """
     for o in product.get("offers") or []:
         if o.get("storeId") == "elektra":
             yield o
+    for v in product.get("colorVariants") or []:
+        for o in v.get("offers") or []:
+            if o.get("storeId") == "elektra":
+                yield o
 
 
 def main():
@@ -256,7 +270,23 @@ def main():
         for p in data["products"]:
             offers = p.get("offers") or []
             alive = [o for o in offers if o.get("url") not in to_drop]
-            if offers and not alive:
+            # Las ofertas de Elektra dentro de las variantes de color también
+            # se dan de baja; una variante que se queda sin ofertas se va.
+            variantes = p.get("colorVariants") or []
+            if variantes and any("offers" in v for v in variantes):
+                nuevas = []
+                for v in variantes:
+                    vivas = [o for o in (v.get("offers") or []) if o.get("url") not in to_drop]
+                    if vivas:
+                        nuevas.append({**v, "offers": vivas})
+                if len(nuevas) != len(variantes) or any(
+                    len(n["offers"]) != len(v.get("offers") or []) for n, v in zip(nuevas, variantes)
+                ):
+                    p["colorVariants"] = nuevas
+                if not alive and not nuevas:
+                    removed += 1
+                    continue
+            elif offers and not alive:
                 removed += 1
                 continue
             if len(alive) < len(offers):

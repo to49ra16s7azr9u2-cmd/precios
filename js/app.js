@@ -817,20 +817,38 @@
   // reportó el usuario en el iPhone 17, "Desde $15,500" arriba y $15,896 en
   // la fila más barata de abajo. Con una única fuente eso no puede volver a
   // pasar: los dos leen exactamente la misma lista.
+  // Ofertas base cuya url no aparece en ninguna variante de color (en ninguno
+  // de los dos formatos): se devuelven tal cual, sin colorLabel.
+  function ofertasFueraDeVariantes(product, variants) {
+    const urls = new Set();
+    for (const v of variants) {
+      if (v.url) urls.add(v.url);
+      for (const o of v.offers || []) if (o.url) urls.add(o.url);
+    }
+    return (product.offers || []).filter((o) => o.url && !urls.has(o.url)).map((o) => ({ ...o }));
+  }
+
   function purchaseOptions(product) {
     const variants = product.colorVariants;
     // Formato nuevo (merge_by_color.py): cada variante trae SUS PROPIAS
     // ofertas, así que un color de Elektra y otro de Mercado Libre conviven
     // sin que uno herede la tienda del otro. El formato viejo (variantes de
     // Mercado Libre con price/url sueltos) sigue abajo.
-    if (variants && variants.length > 1 && variants.some((v) => v.offers)) {
+    if (variants && variants.length && variants.some((v) => v.offers)) {
       const activo = state.colorFilter;
       const usar = activo ? variants.filter((v) => v.color === activo) : variants;
-      return (usar.length ? usar : variants).flatMap((v) =>
+      const expandidas = (usar.length ? usar : variants).flatMap((v) =>
         (v.offers || []).map((o) => ({ ...o, colorLabel: v.color }))
       );
+      // Las ofertas de product.offers que NO viven en ninguna variante son
+      // publicaciones distintas (otra tienda, pegada después por
+      // match_by_gtin.py) y se muestran también -- sin filtro de color, porque
+      // no tienen. Sin esto, la oferta de Mercado Libre a $12,161 de un
+      // teléfono que Elektra tenía a $13,999 en todos sus colores no salía en
+      // la ficha: 37 productos con la más barata escondida.
+      return expandidas.concat(ofertasFueraDeVariantes(product, variants));
     }
-    if (variants && variants.length > 1) {
+    if (variants && variants.length) {
       const base = product.offers[0];
       const activoViejo = state.colorFilter;
       const usarViejo = activoViejo ? variants.filter((v) => v.color === activoViejo) : variants;
@@ -857,7 +875,7 @@
         lowestPrice: v.lowestPrice ?? null,
         sellers: v.sellers || null,
         colorLabel: v.color ? `${v.color}${v.condition === "refurbished" ? " (Reacondicionado)" : ""}` : null,
-      }));
+      })).concat(ofertasFueraDeVariantes(product, variants));
     }
     return product.offers;
   }
@@ -2188,7 +2206,12 @@
     const current = new Map();
     const out = [];
     for (let d = first; d <= end; d++) {
-      for (const [store, m] of Object.entries(changes)) if (m.has(d)) current.set(store, m.get(d));
+      for (const [store, m] of Object.entries(changes)) {
+        if (!m.has(d)) continue;
+        // null = la tienda dejó de vender ese día: sale del mínimo.
+        if (m.get(d) == null) current.delete(store);
+        else current.set(store, m.get(d));
+      }
       if (current.size) out.push([d, Math.min(...current.values())]);
     }
     return out;

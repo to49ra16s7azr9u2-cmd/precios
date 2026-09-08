@@ -33,6 +33,12 @@ Los pares son (día, precio) y el día es la cantidad de días desde EPOCH. Solo
 se anota cuando el precio CAMBIA respecto del último anotado: un producto que
 no se movió en un mes ocupa un par, no treinta.
 
+Cuando una tienda DEJA de vender el producto se anota (día, null): la serie
+queda cerrada en esa fecha. Sin eso el último precio se arrastraba para
+siempre como si fuera el de hoy, y la página de bajadas llegó a anunciar
+"bajó en Elektra" de productos que Elektra ya no tenía. Si la tienda vuelve,
+la serie sigue con un precio nuevo después del null.
+
 De cada tienda se guarda su precio MÍNIMO en ese producto, que es el que la
 ficha muestra como "desde".
 """
@@ -97,7 +103,12 @@ def anotar(serie, dia, precio):
     if serie and serie[-1] == precio:
         return False
     if serie and serie[-2] == dia:
-        serie[-1] = precio
+        # Corrección del punto de hoy. Si con eso vuelve al valor de ayer, el
+        # punto sobra: se quita en vez de dejar dos iguales seguidos.
+        if len(serie) >= 4 and serie[-3] == precio:
+            del serie[-2:]
+        else:
+            serie[-1] = precio
         return True
     serie.extend([dia, precio])
     return True
@@ -169,7 +180,7 @@ def registrar(products, fecha, donde, dry_run=False, podar_viejo=True):
     algo que ninguna página puede mostrar.
     """
     dia = dia_de(fecha)
-    stats = {"series_nuevas": 0, "puntos": 0, "archivos": 0, "ignorados": 0}
+    stats = {"series_nuevas": 0, "puntos": 0, "cierres": 0, "archivos": 0, "ignorados": 0}
 
     por_archivo = {}
     for p in products:
@@ -183,15 +194,23 @@ def registrar(products, fecha, donde, dry_run=False, podar_viejo=True):
         hist = cargar(fname)
         for p in items:
             por_tienda = hist.setdefault(p["id"], {})
-            for tienda, precio in precios_por_tienda(p).items():
+            hoy = precios_por_tienda(p)
+            for tienda, precio in hoy.items():
                 serie = por_tienda.get(tienda)
                 if serie is None:
                     serie = por_tienda[tienda] = []
                     stats["series_nuevas"] += 1
                 if anotar(serie, dia, precio):
                     stats["puntos"] += 1
-                if podar_viejo:
-                    por_tienda[tienda] = podar(serie, dia)
+            # Tiendas con serie que hoy no venden el producto: se cierra la
+            # serie con null. Una serie que ya termina en null no se toca.
+            for tienda, serie in por_tienda.items():
+                if tienda not in hoy and serie and serie[-1] is not None:
+                    if anotar(serie, dia, None):
+                        stats["cierres"] += 1
+            if podar_viejo:
+                for tienda in list(por_tienda):
+                    por_tienda[tienda] = podar(por_tienda[tienda], dia)
             if not por_tienda:
                 del hist[p["id"]]
         if not dry_run and escribir(fname, hist):
@@ -244,6 +263,7 @@ def main():
     print(f"Fecha {fecha} (día {dia_de(fecha)})")
     print(f"  series nuevas: {stats['series_nuevas']:,}")
     print(f"  puntos anotados: {stats['puntos']:,}")
+    print(f"  series cerradas (la tienda dejó de vender): {stats['cierres']:,}")
     print(f"  archivos escritos: {stats['archivos']:,}")
     if quitados or archivos_borrados:
         print(f"  historial huérfano quitado: {quitados:,} productos, {archivos_borrados} archivos")
