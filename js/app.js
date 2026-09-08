@@ -398,6 +398,7 @@
     viewList: document.getElementById("viewList"),
     listBreadcrumb: document.getElementById("listBreadcrumb"),
     listTitle: document.getElementById("listTitle"),
+    searchNote: document.getElementById("searchNote"),
     filterCategory: document.getElementById("filterCategory"),
     filterCategorySearch: document.getElementById("filterCategorySearch"),
     priceRangeMin: document.getElementById("priceRangeMin"),
@@ -2683,10 +2684,16 @@
   // Ahora se exige que CADA palabra de la consulta aparezca en alguna parte
   // del texto combinado (no necesariamente la misma palabra ni en orden),
   // igual que hace cualquier buscador ("AND" entre palabras).
-  function literalQueryMatch(p, ql) {
-    const text = `${p.name} ${p.brand} ${p.category} ${p.subcategory || ""}`.toLowerCase();
-    const qWords = ql.split(/\s+/).filter(Boolean);
-    return qWords.length > 0 && qWords.every((w) => text.includes(w));
+  // Cada palabra escrita tiene que encontrar algo: o su raiz (o la de un
+  // sinonimo) es una palabra del producto, o el texto la contiene tal cual
+  // -- esto ultimo mantiene vivo el que escribe a medias ("lapt").
+  function literalQueryMatch(p, terms) {
+    if (!terms.length) return false;
+    const text = normalizeSearchText(`${p.name} ${p.brand} ${p.category} ${p.subcategory || ""}`);
+    const st = productStems(p);
+    return terms.every((t) =>
+      t.stems.some((r) => st.nombre.has(r) || st.cat.has(r) || st.marca.has(r)) ||
+      text.includes(t.word));
   }
   function fuzzyQueryMatch(p, query) {
     const nq = splitAlphaNumeric(normalizeSearchText(query));
@@ -2747,10 +2754,11 @@
 
   function filteredProducts() {
     const ratingMin = (RATING_FILTERS.find((r) => r.id === state.minRating) || RATING_FILTERS[0]).min;
-    const q = splitAlphaNumeric(state.query.toLowerCase());
-    const useFuzzy = !!q && !state.data.products.some((p) => literalQueryMatch(p, q));
+    const terms = queryTerms(state.query);
+    const useFuzzy = terms.length > 0 && !state.data.products.some((p) => literalQueryMatch(p, terms));
     return state.data.products.filter((p) => {
-      const matchesQuery = !q || (useFuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, q));
+      const matchesQuery = terms.length === 0
+        || (useFuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, terms));
       const matchesCat = !state.category || p.category === state.category;
       const matchesSub = !state.subcategory || p.subcategory === state.subcategory;
       const price = minPrice(p);
@@ -2784,17 +2792,47 @@
   // ordenar por relevancia de verdad (ver sortedProducts) en vez de que
   // "iPhone 17" y "iPhone 14" queden empatados solo por matchear la
   // consulta, quedando el orden librado a la popularidad de cada uno.
-  function queryRelevanceScore(p, qWords) {
-    const nameWords = normalizeSearchText(p.name).split(/\s+/);
+  function queryRelevanceScore(p, terms) {
     const name = normalizeSearchText(p.name);
     const rest = normalizeSearchText(`${p.brand} ${p.category} ${p.subcategory || ""}`);
+    const st = productStems(p);
     let score = 0;
-    for (const w of qWords) {
-      if (nameWords.includes(w)) score += 3;
-      else if (name.includes(w)) score += 2;
-      else if (rest.includes(w)) score += 1;
+    for (const t of terms) {
+      // La CATEGORIA suma aparte, no en lugar del nombre: buscar "laptops"
+      // devolvia arriba memorias RAM "para Laptops" -- la palabra estaba en
+      // su nombre y punto -- mientras las laptops de verdad, que ademas SON
+      // de la categoria Laptops, quedaban abajo. Sumando las dos señales, un
+      // producto que es de lo que se busca le gana a uno que solo lo
+      // menciona.
+      if (t.stems.some((r) => st.nombre.has(r))) score += 4;
+      else if (name.includes(t.word)) score += 2;
+      if (t.stems.some((r) => st.cat.has(r))) score += 3;
+      if (t.stems.some((r) => st.marca.has(r))) score += 2;
+      else if (rest.includes(t.word)) score += 1;
     }
     return score;
+  }
+
+  // Aviso de que la búsqueda se amplió, al estilo del "también se muestran
+  // resultados de..." de un buscador: sin decirlo, alguien que escribe
+  // "notebook" y ve laptops cree que el sitio le entendió mal.
+  //
+  // Solo se nombran las palabras que de verdad ampliaron la búsqueda (las
+  // de un grupo de sinónimos), no el singular/plural: que "laptops"
+  // encuentre "Laptop" no es un resultado ajeno, es la misma palabra.
+  function renderSearchNote() {
+    if (!el.searchNote) return;
+    const extras = [];
+    if (state.query) {
+      queryTerms(state.query).forEach((t) => {
+        t.stems.forEach((r) => { if (r !== t.stem && !extras.includes(r)) extras.push(r); });
+      });
+    }
+    el.searchNote.classList.toggle("hidden", extras.length === 0);
+    if (extras.length) {
+      el.searchNote.textContent =
+        `Tambi\u00e9n se incluyen resultados de: ${extras.map((r) => SYNONYM_LABEL.get(r) || r).join(", ")}.`;
+    }
   }
 
   function sortedProducts(products) {
@@ -2818,11 +2856,10 @@
       // escrito) y SOLO se usa vendedores para desempatar productos
       // igual de relevantes -- así los que de verdad matchean el término
       // buscado quedan arriba de todo.
-      const q = splitAlphaNumeric(state.query.toLowerCase());
-      const qWords = q.split(/\s+/).filter(Boolean);
-      if (qWords.length) {
+      const terms = queryTerms(state.query);
+      if (terms.length) {
         return list
-          .map((p) => ({ p, score: queryRelevanceScore(p, qWords), sellers: sellerTotal(p) }))
+          .map((p) => ({ p, score: queryRelevanceScore(p, terms), sellers: sellerTotal(p) }))
           .sort((a, b) => b.score - a.score || b.sellers - a.sellers)
           .map((x) => x.p);
       }
@@ -2959,6 +2996,7 @@
       rating_desc: "mejor calificados",
     };
     const sortLabel = SORT_LABELS[state.sort] || SORT_LABELS.relevance;
+    renderSearchNote();
     el.listTitle.textContent = state.query
       ? `Resultados para "${state.query}" (${filtered.length})`
       : state.category
@@ -5533,6 +5571,76 @@
   // coincida. Insertar un espacio en cada l\u00edmite letra<->d\u00edgito antes de
   // partir en palabras alcanza para que "iphone17" se compare como
   // ["iphone", "17"] igual que si se hubiera escrito con espacio.
+  // ---------- Plurales y sinonimos de la busqueda ----------
+  // Buscar "laptops" devolvia arriba memorias RAM "para Laptops" y bases
+  // refrigerantes, y las laptops de verdad quedaban sepultadas: sus nombres
+  // dicen "Laptop" en singular, asi que la palabra completa no coincidia y
+  // solo puntuaban por su categoria. El singular "laptop" si funcionaba.
+  //
+  // Se compara por RAIZ, no por la palabra escrita: se le quita el plural a
+  // los dos lados. Solo -s y -es, y solo en palabras largas -- "gas",
+  // "mouse" o "tres" no son plurales de nada.
+  function searchStem(w) {
+    if (w.length >= 7 && w.endsWith("es")) return w.slice(0, -2);
+    if (w.length >= 5 && w.endsWith("s")) return w.slice(0, -1);
+    return w;
+  }
+
+  // Palabras que la gente usa para lo mismo. Al escribir una se incluyen los
+  // resultados de las otras y se avisa cuales (ver renderSearchNote).
+  //
+  // Son sinonimos DE VERDAD para comprar, no parecidos: "notebook" y
+  // "laptop" son el mismo producto, pero "tablet" no entra en ese grupo
+  // aunque se le parezca -- quien busca una laptop no quiere tablets.
+  const SEARCH_SYNONYMS = [
+    ["laptop", "notebook", "port\u00e1til", "ultrabook"],
+    ["celular", "smartphone", "tel\u00e9fono", "m\u00f3vil"],
+    ["televisor", "tv", "pantalla", "televisi\u00f3n"],
+    ["aud\u00edfono", "auricular", "headphone", "earbuds"],
+    ["bocina", "altavoz", "parlante", "speaker"],
+    ["refrigerador", "refri", "nevera", "frigorifico"],
+    ["computadora", "pc", "ordenador"],
+    ["lavadora", "lavarropas"],
+    ["cargador", "adaptador"],
+    ["reloj", "smartwatch"],
+    ["licuadora", "batidora"],
+  ];
+
+  const SYNONYM_INDEX = new Map();
+  // raiz -> palabra tal como se escribe, con acentos, para el aviso.
+  const SYNONYM_LABEL = new Map();
+  SEARCH_SYNONYMS.forEach((grupo) => {
+    const raices = grupo.map((w) => searchStem(normalizeSearchText(w)));
+    raices.forEach((r, i) => {
+      SYNONYM_INDEX.set(r, raices);
+      if (!SYNONYM_LABEL.has(r)) SYNONYM_LABEL.set(r, grupo[i]);
+    });
+  });
+
+  // Cada palabra escrita se convierte en el conjunto de raices que la
+  // satisfacen: la suya y las de sus sinonimos.
+  function queryTerms(query) {
+    return splitAlphaNumeric(normalizeSearchText(query))
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((w) => {
+        const raiz = searchStem(w);
+        return { word: w, stem: raiz, stems: SYNONYM_INDEX.get(raiz) || [raiz] };
+      });
+  }
+
+  // Raices de un producto, separadas por donde aparecen, para poder pesar
+  // distinto el nombre, la categoria y el resto.
+  function productStems(p) {
+    const raices = (t) => new Set(splitAlphaNumeric(normalizeSearchText(t))
+      .split(/\s+/).filter(Boolean).map(searchStem));
+    return {
+      nombre: raices(p.name),
+      cat: raices(`${p.category} ${p.subcategory || ""}`),
+      marca: raices(p.brand || ""),
+    };
+  }
+
   function splitAlphaNumeric(s) {
     return (s || "").replace(/([a-zA-Z])(\d)/g, "$1 $2").replace(/(\d)([a-zA-Z])/g, "$1 $2");
   }

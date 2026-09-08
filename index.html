@@ -32,7 +32,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=665ce743">
+<link rel="stylesheet" href="css/style.min.css?v=934303f4">
 <!-- Google tag (gtag.js) -->
 <script>
   // Consent Mode: por defecto TODO denegado hasta que el aviso de cookies
@@ -338,6 +338,10 @@
         <div class="list-main">
           <div class="list-head">
             <h1 id="listTitle">Productos</h1>
+            <!-- "También se incluyen resultados de ..." cuando la búsqueda se
+                 amplió con sinónimos o con el singular/plural. Lo llena
+                 renderSearchNote() en js/app.js. -->
+            <p class="search-note hidden" id="searchNote"></p>
           </div>
           <!-- Compara calidad: dos filas de tres tarjetas (nivel y tamaño) que
                resuelven de un clic la pregunta con la que llega casi todo el
@@ -899,7 +903,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=21cbef7e"></script>
+<script src="js/app.min.js?v=22d5e8a7"></script>
 </div>
 </body>
 </html>
