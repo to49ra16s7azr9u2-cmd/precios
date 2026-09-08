@@ -2808,6 +2808,7 @@
       ? state.data.products.filter((p) => p.category === state.category)
       : state.data.products;
     if (state.subcategory.length) scoped = scoped.filter((p) => state.subcategory.includes(p.subcategory));
+    else scoped = scoped.filter((p) => !esOptIn(p));
     return [...new Set(scoped.map((p) => p.brand))].sort();
   }
 
@@ -2912,6 +2913,18 @@
     return true;
   }
 
+  // Subcategorías que NO entran en el listado por defecto: hay que elegirlas.
+  // "Accesorios y repuestos" son piezas sueltas (filtros, mopas, bolsas) que
+  // se compran cuando ya se tiene el aparato. Mezcladas con el resto, el
+  // ranking de Aspiradoras abría con un kit de mopas de $257 y unos paños de
+  // $317 -- tres filas sin nada que comparar para quien viene a comparar
+  // aspiradoras. Siguen estando: aparecen al elegir esa subcategoría, al
+  // buscarlas por nombre y en su propia página (ver scripts/split_accesorios.py).
+  const SUBCATEGORIAS_OPT_IN = new Set(["Accesorios y repuestos"]);
+  function esOptIn(p) {
+    return SUBCATEGORIAS_OPT_IN.has(p.subcategory);
+  }
+
   function filteredProducts() {
     const ratingMin = (RATING_FILTERS.find((r) => r.id === state.minRating) || RATING_FILTERS[0]).min;
     const terms = queryTerms(state.query);
@@ -2920,7 +2933,12 @@
       const matchesQuery = terms.length === 0
         || (useFuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, terms));
       const matchesCat = !state.category || p.category === state.category;
-      const matchesSub = !state.subcategory.length || state.subcategory.includes(p.subcategory);
+      // Con una subcategoría elegida manda esa (aunque sea de las opt-in);
+      // sin ninguna, las opt-in quedan fuera. La búsqueda por texto sí las
+      // encuentra: quien escribe "filtro hepa" las está pidiendo.
+      const matchesSub = state.subcategory.length
+        ? state.subcategory.includes(p.subcategory)
+        : (terms.length > 0 || !esOptIn(p));
       const price = minPrice(p);
       const matchesPrice = (state.priceMin == null || price >= state.priceMin) && (state.priceMax == null || price <= state.priceMax);
       const matchesBrand = state.brands.size === 0 || state.brands.has(p.brand);

@@ -982,6 +982,13 @@ def render_product_page(product, data, subs_con_pagina=None):
 # la cantidad de días desde acá.
 HIST_EPOCH = datetime.date(2026, 9, 1)
 
+# Subcategorías que NO entran en el listado por defecto de su categoría: son
+# piezas sueltas (filtros, mopas, cartuchos) que se compran cuando ya se tiene
+# el aparato, y mezcladas con el resto el ranking de Aspiradoras abría con un
+# kit de mopas. Mismo criterio que SUBCATEGORIAS_OPT_IN en js/app.js. Siguen
+# teniendo su propia página, que es donde alguien que busca un filtro llega.
+SUBCATEGORIAS_OPT_IN = {"Accesorios y repuestos"}
+
 MIN_PRODUCTOS_SUBCATEGORIA = 30
 
 # "Otros" es el cajón de sastre de cada categoría: nadie busca "otros
@@ -1265,6 +1272,11 @@ tienda corrigió.</p>
 
 def render_category_page(cat, products, data):
     slug = slugify(cat["name"])
+    # El ranking de la categoría no lista las piezas sueltas; el conteo y los
+    # enlaces a subcategorías sí las cuentan, porque su página existe.
+    productos_listables = [
+        p for p in products if p.get("subcategory") not in SUBCATEGORIAS_OPT_IN
+    ]
     canonical_path = f"/categoria/{slug}/"
     # Igual que en la de subcategoría: Google corta cerca de los 160
     # caracteres. Acá se volcaban TODAS las marcas de la categoría (la de
@@ -1313,8 +1325,8 @@ def render_category_page(cat, products, data):
         )
     more_note = (
         f"<p class=\"muted small\" style=\"text-align:center; margin-top:10px\">"
-        f"Mostrando los {len(shown)} más populares de {len(products)}.</p>"
-        if len(products) > len(shown) else ""
+        f"Mostrando los {len(shown)} más populares de {len(productos_listables)}.</p>"
+        if len(productos_listables) > len(shown) else ""
     )
     # Enlaces a las subcategorías con página propia. Sin esto esas páginas
     # solo serían alcanzables desde el sitemap, que es la peor forma de que
@@ -1344,7 +1356,7 @@ def render_category_page(cat, products, data):
 
     body = f"""
 <nav class="breadcrumb"><a href="../../">Inicio</a> &gt; {html_escape(cat['name'])}</nav>
-<div class="list-head"><h1>{svg_icon("trophy")} {html_escape(cat['name'])} — más populares ({len(products)})</h1></div>
+<div class="list-head"><h1>{svg_icon("trophy")} {html_escape(cat['name'])} — más populares ({len(productos_listables)})</h1></div>
 {ofertas_link}
 {subs_html}
 <div class="product-list">{''.join(rows)}</div>
