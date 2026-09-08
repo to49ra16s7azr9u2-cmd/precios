@@ -265,8 +265,8 @@
       ]
     },
     {
-      "id": "Computadoras",
-      "name": "Computadoras",
+      "id": "Componentes y accesorios de PC",
+      "name": "Componentes y accesorios de PC",
       "icon": "cpu",
       "subcategories": [
         {
@@ -2959,6 +2959,9 @@
     "Joyería y bisutería": [
       "data/cat/joyeria-y-bisuteria-1.json"
     ],
+    "Relojes inteligentes": [
+      "data/cat/relojes-inteligentes-1.json"
+    ],
     "Juegos de mesa": [
       "data/cat/juegos-de-mesa-1.json"
     ],
@@ -3010,8 +3013,8 @@
     "Drones": [
       "data/cat/drones-1.json"
     ],
-    "Computadoras": [
-      "data/cat/computadoras-1.json"
+    "Componentes y accesorios de PC": [
+      "data/cat/componentes-y-accesorios-de-pc-1.json"
     ],
     "Almacenamiento": [
       "data/cat/almacenamiento-1.json"
@@ -3048,9 +3051,6 @@
     ],
     "Iluminación": [
       "data/cat/iluminacion-1.json"
-    ],
-    "Relojes inteligentes": [
-      "data/cat/relojes-inteligentes-1.json"
     ],
     "Laptops": [
       "data/cat/laptops-1.json"
@@ -3113,6 +3113,9 @@
       "data/det/joyeria-y-bisuteria-1.json",
       "data/det/joyeria-y-bisuteria-2.json",
       "data/det/joyeria-y-bisuteria-3.json"
+    ],
+    "Relojes inteligentes": [
+      "data/det/relojes-inteligentes-1.json"
     ],
     "Juegos de mesa": [
       "data/det/juegos-de-mesa-1.json"
@@ -3177,8 +3180,8 @@
     "Drones": [
       "data/det/drones-1.json"
     ],
-    "Computadoras": [
-      "data/det/computadoras-1.json"
+    "Componentes y accesorios de PC": [
+      "data/det/componentes-y-accesorios-de-pc-1.json"
     ],
     "Almacenamiento": [
       "data/det/almacenamiento-1.json"
@@ -3217,9 +3220,6 @@
     ],
     "Iluminación": [
       "data/det/iluminacion-1.json"
-    ],
-    "Relojes inteligentes": [
-      "data/det/relojes-inteligentes-1.json"
     ],
     "Laptops": [
       "data/det/laptops-1.json"
@@ -3352,19 +3352,30 @@
       "maxShip": 85
     },
     "Joyería y bisutería": {
-      "n": 4543,
+      "n": 4440,
       "subs": {
-        "Relojes": 2311,
+        "Relojes": 2208,
         "Otros": 952,
         "Aretes": 303,
         "Anillos": 347,
         "Pulseras": 348,
         "Collares": 282
       },
-      "discounted": 3591,
+      "discounted": 3495,
       "max": 77,
-      "discountedShip": 3591,
+      "discountedShip": 3495,
       "maxShip": 77
+    },
+    "Relojes inteligentes": {
+      "n": 845,
+      "subs": {
+        "Smartwatches": 818,
+        "Bandas de actividad": 27
+      },
+      "discounted": 348,
+      "max": 76,
+      "discountedShip": 348,
+      "maxShip": 76
     },
     "Juegos de mesa": {
       "n": 1801,
@@ -3632,7 +3643,7 @@
       "discountedShip": 35,
       "maxShip": 61
     },
-    "Computadoras": {
+    "Componentes y accesorios de PC": {
       "n": 252,
       "subs": {
         "Accesorios de monitor": 18,
@@ -3846,17 +3857,6 @@
       "max": 72,
       "discountedShip": 1111,
       "maxShip": 66
-    },
-    "Relojes inteligentes": {
-      "n": 742,
-      "subs": {
-        "Smartwatches": 715,
-        "Bandas de actividad": 27
-      },
-      "discounted": 252,
-      "max": 76,
-      "discountedShip": 252,
-      "maxShip": 76
     },
     "Laptops": {
       "n": 1394,
@@ -4078,6 +4078,14 @@
       "p77038",
       "p33332"
     ],
+    "Relojes inteligentes": [
+      "p53996",
+      "p54022",
+      "p35967",
+      "p32339",
+      "p30085",
+      "p53496"
+    ],
     "Juegos de mesa": [
       "p32766",
       "p32765",
@@ -4214,7 +4222,7 @@
       "p31007",
       "p28605"
     ],
-    "Computadoras": [
+    "Componentes y accesorios de PC": [
       "p30673",
       "p31578",
       "p33380",
@@ -4317,14 +4325,6 @@
       "p87222",
       "p30169",
       "p87221"
-    ],
-    "Relojes inteligentes": [
-      "p53996",
-      "p54022",
-      "p35967",
-      "p32339",
-      "p30085",
-      "p53496"
     ],
     "Laptops": [
       "p47283",
