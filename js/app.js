@@ -305,6 +305,10 @@
     { key: "driveCapacity", facetField: "drive_gb", categories: ["Almacenamiento"], label: "Capacidad", groupEl: "filterDriveCapacityGroup", listEl: "filterDriveCapacity", sortNum: true, format: formatStorageGB },
     { key: "acBtu", facetField: "ac_btu", categories: ["Climatización"], label: "Capacidad de enfriamiento", groupEl: "filterAcBtuGroup", listEl: "filterAcBtu", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} BTU` },
     { key: "fanIn", facetField: "fan_in", categories: ["Climatización"], label: "Medida del aspa", groupEl: "filterFanInGroup", listEl: "filterFanIn", sortNum: true, format: (v) => `${v}"` },
+    { key: "toolType", facetField: "tool_type", categories: ["Herramientas"], label: "Tipo de herramienta", groupEl: "filterToolTypeGroup", listEl: "filterToolType", format: (v) => v },
+    { key: "firmness", facetField: "firmness", categories: ["Muebles"], label: "Firmeza", groupEl: "filterFirmnessGroup", listEl: "filterFirmness", format: (v) => v },
+    { key: "fanType", facetField: "fan_type", categories: ["Climatización"], label: "Tipo de ventilador", groupEl: "filterFanTypeGroup", listEl: "filterFanType", format: (v) => v },
+    { key: "speakerCount", facetField: "speaker_count", categories: ["Bocinas"], label: "Número de bocinas", groupEl: "filterSpeakerCountGroup", listEl: "filterSpeakerCount", sortNum: true, format: (v) => v },
     { key: "compatModel", facetField: "compat_model", categories: ["Refacciones"], multi: true, label: "Compatible con", groupEl: "filterCompatModelGroup", listEl: "filterCompatModel", format: (v) => v },
     { key: "compatYear", facetField: "compat_year", categories: ["Refacciones"], multi: true, label: "Año del modelo", groupEl: "filterCompatYearGroup", listEl: "filterCompatYear", sortNum: true, format: (v) => v },
     { key: "battery", facetField: "battery_mah", categories: ["Celulares", "Tabletas"], label: "Batería", groupEl: "filterBatteryGroup", listEl: "filterBattery", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} mAh` },
@@ -345,6 +349,10 @@
     // Selección múltiple por eje, off por defecto: el recorrido de un clic
     // ("elijo Intermedio y veo Intermedios") sigue siendo el de siempre.
     qualityMulti: { level: false, size: false },
+    // Los filtros de especificaciones SIEMPRE aceptaron varias opciones a la
+    // vez; lo que no había era forma de saberlo ni de pedir lo contrario.
+    // Arranca encendido para no quitarle a nadie lo que ya tenía.
+    specMulti: true,
     // Color elegido en la ficha (pastillas bajo el precio). null = todos.
     colorFilter: null,
     qualityCategory: null, // categoría a la que pertenece `quality` (ver renderSpecsBanner)
@@ -439,6 +447,14 @@
     filterPlatform: document.getElementById("filterPlatform"),
     filterWashKgGroup: document.getElementById("filterWashKgGroup"),
     filterWashKg: document.getElementById("filterWashKg"),
+    filterToolTypeGroup: document.getElementById("filterToolTypeGroup"),
+    filterToolType: document.getElementById("filterToolType"),
+    filterFirmnessGroup: document.getElementById("filterFirmnessGroup"),
+    filterFirmness: document.getElementById("filterFirmness"),
+    filterFanTypeGroup: document.getElementById("filterFanTypeGroup"),
+    filterFanType: document.getElementById("filterFanType"),
+    filterSpeakerCountGroup: document.getElementById("filterSpeakerCountGroup"),
+    filterSpeakerCount: document.getElementById("filterSpeakerCount"),
     filterCompatModelGroup: document.getElementById("filterCompatModelGroup"),
     filterCompatModel: document.getElementById("filterCompatModel"),
     filterCompatYearGroup: document.getElementById("filterCompatYearGroup"),
@@ -457,6 +473,7 @@
     qualityMoreText: document.getElementById("qualityMoreText"),
     specsModal: document.getElementById("specsModal"),
     specsModalClose: document.getElementById("specsModalClose"),
+    specsMultiToggle: document.getElementById("specsMultiToggle"),
     specsModalBody: document.getElementById("specsModalBody"),
     specsModalCount: document.getElementById("specsModalCount"),
     specsModalApply: document.getElementById("specsModalApply"),
@@ -3427,12 +3444,49 @@
       opt.innerHTML = `<input type="checkbox" ${isActive ? "checked" : ""}> ${item.label}`;
       opt.onclick = (e) => {
         e.preventDefault();
-        if (state.specFilters[cfg.key].has(item.id)) state.specFilters[cfg.key].delete(item.id);
-        else state.specFilters[cfg.key].add(item.id);
+        const sel = state.specFilters[cfg.key];
+        if (sel.has(item.id)) sel.delete(item.id);
+        else {
+          // Con la selección múltiple apagada, elegir una opción reemplaza a
+          // la anterior DE ESE CAMPO -- no toca los demás campos, que se
+          // siguen combinando entre sí.
+          if (!state.specMulti) sel.clear();
+          sel.add(item.id);
+        }
         renderList();
       };
       listEl.appendChild(opt);
     });
+  }
+
+  // Interruptor de selección múltiple del modal de especificaciones. Se
+  // registra una vez: el botón es estático del HTML.
+  function initSpecsMultiToggle() {
+    const btn = el.specsMultiToggle;
+    if (!btn) return;
+    const pinta = () => {
+      btn.classList.toggle("active", state.specMulti);
+      btn.setAttribute("aria-pressed", state.specMulti ? "true" : "false");
+      btn.querySelector(".quality-multi-box").textContent = state.specMulti ? "✓" : "";
+    };
+    btn.onclick = () => {
+      state.specMulti = !state.specMulti;
+      // Al apagarla, cada campo se queda con UNA opción en vez de vaciarse:
+      // cambiar de modo no debería costar el filtro que ya estaba puesto.
+      if (!state.specMulti) {
+        SPEC_FACETS.forEach((cfg) => {
+          const sel = state.specFilters[cfg.key];
+          if (sel.size > 1) {
+            const primera = [...sel][0];
+            sel.clear();
+            sel.add(primera);
+          }
+        });
+      }
+      pinta();
+      renderList();
+    };
+    pinta();
   }
 
   function renderSpecFilters() {
@@ -3522,7 +3576,11 @@
     }
     const relevant = hasQualityBlock();
     el.qualityPicker.classList.toggle("hidden", !relevant);
+    // Se vacía cuando no aplica: si no, las tarjetas de la categoría
+    // anterior quedan en el DOM (escondidas, pero ahí) y cualquier cosa que
+    // lea .quality-card las encuentra.
     if (relevant) renderQualityPicker();
+    else el.qualityRows.innerHTML = "";
   }
 
   // ---------- Compara calidad: nivel y tamaño en dos clics ----------
@@ -3675,7 +3733,17 @@
     ],
     "Muebles/Colchones": [
       {
-        key: "level", label: "Medida", field: "bed_size", criterion: "del colchón",
+        // La firmeza va PRIMERO: la medida la impone la cama que ya se
+        // tiene, la firmeza es la que de verdad se elige.
+        key: "level", label: "Firmeza", field: "firmness", criterion: "del colchón",
+        tiers: [
+          { id: "suave", name: "Suave", use: "Para dormir de lado", spec: "Suave", match: (v) => v === "Suave" },
+          { id: "medio", name: "Medio", use: "El más común, sirve a casi todos", spec: "Medio", match: (v) => v === "Medio" },
+          { id: "firme", name: "Firme", use: "Para dormir boca arriba o de espalda", spec: "Firme y Extra Firme", match: (v) => v === "Firme" || v === "Extra Firme" },
+        ],
+      },
+      {
+        key: "size", label: "Medida", field: "bed_size", criterion: "del colchón",
         tiers: [
           { id: "ind", name: "Individual", use: "Una persona", spec: "Individual / Twin", match: (v) => v === "Individual" },
           { id: "mat", name: "Matrimonial", use: "Dos personas, cama estándar", spec: "Matrimonial / Full", match: (v) => v === "Matrimonial" },
@@ -3756,7 +3824,19 @@
     // es lo que lo dice: 6" es un extractor de baño, 52" es de techo.
     "Climatización/Ventiladores": [
       {
-        key: "level", label: "Medida", field: "fan_in", criterion: "por el tamaño del aspa",
+        // El tipo manda sobre las pulgadas: uno de techo y uno de escritorio
+        // no se comparan aunque midan igual. Y la tienda lo declara en el
+        // 78% de los ventiladores, contra el 43% que se leía del nombre.
+        key: "level", label: "Tipo", field: "fan_type", criterion: "de ventilador",
+        tiers: [
+          { id: "personal", name: "Personal", use: "Escritorio, buró o de mano", spec: "Personal", match: (v) => v === "Personal" },
+          { id: "piso", name: "De piso", use: "Mueve el aire de un cuarto entero", spec: "Pedestal y de piso", match: (v) => ["Pedestal", "Piso", "De piso"].includes(v) },
+          { id: "torre", name: "Torre", use: "Ocupa poco suelo", spec: "Torre", match: (v) => v === "Torre" },
+          { id: "techo", name: "De techo", use: "Fijo, para todo el cuarto", spec: "Techo", match: (v) => v === "Techo" },
+        ],
+      },
+      {
+        key: "size", label: "Medida", field: "fan_in", criterion: "por el tamaño del aspa",
         tiers: [
           { id: "chico", name: "Chico", use: "Escritorio, baño o buró", spec: 'Menos de 14"', match: (v) => v < 14 },
           { id: "mediano", name: "Mediano", use: "Piso o pared de una recámara", spec: '14" a 22"', match: (v) => v >= 14 && v <= 22 },
@@ -5973,6 +6053,7 @@
 
   async function main() {
     initCookieConsent();
+    initSpecsMultiToggle();
     initAccountAuth();
     await loadData();
     bindEvents();

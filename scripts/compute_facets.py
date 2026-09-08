@@ -80,7 +80,7 @@ FACET_CATEGORIES = (
     "Televisores", "Videojuegos", "Lavadoras", "Refrigeradores",
     "Blancos y ropa de cama", "Muebles",
     "Computadoras de escritorio", "Almacenamiento", "Climatización",
-    "Refacciones",
+    "Refacciones", "Herramientas", "Bocinas",
 )
 
 _FOLDABLE_RE = re.compile(r"\bplegable\b|\bfold\b|\bflip\b")
@@ -252,6 +252,35 @@ def build_compat_canon(products):
     return len(_COMPAT_CANON)
 
 
+# Facetas que la ficha técnica ya declara y que solo hay que copiar. Nacen
+# de un barrido del catálogo buscando (categoría, etiqueta) con al menos 35%
+# de cobertura y entre 2 y 12 valores distintos -- o sea, campos que la
+# tienda llena de forma consistente y que enumeran, no texto libre.
+#
+#   (categoría, subcategoría o None, etiqueta, campo de la faceta)
+SPEC_DIRECTAS = (
+    # La firmeza es la segunda pregunta de un colchón, después de la medida.
+    ("Muebles", "Colchones", "nivel de firmeza", "firmness"),
+    # Para un ventilador, el tipo manda sobre las pulgadas: uno de techo y
+    # uno de escritorio no se comparan aunque midan lo mismo. Y la tienda lo
+    # declara en el 78% contra el 43% que se leía del nombre.
+    ("Climatización", "Ventiladores", "tipo de ventilador", "fan_type"),
+    # Herramientas es la categoría más grande sin una sola faceta (7,243).
+    ("Herramientas", None, "tipo de herramienta", "tool_type"),
+    ("Bocinas", None, "numero de bocinas", "speaker_count"),
+)
+
+
+def _spec_directa(product, spec_map, f):
+    cat, sub = product.get("category"), product.get("subcategory")
+    for c, s_, etiqueta, campo in SPEC_DIRECTAS:
+        if c != cat or (s_ is not None and s_ != sub):
+            continue
+        val = spec_map.get(etiqueta)
+        if val:
+            f[campo] = val
+
+
 def facets_for(product):
     category = product.get("category")
     if category not in FACET_CATEGORIES:
@@ -261,6 +290,10 @@ def facets_for(product):
     spec_map = _spec_map(product)
 
     f = {}
+    # Los campos que la tienda declara tal cual se copian ANTES de las ramas
+    # propias de cada categoría: varias de ellas devuelven ahí mismo (Muebles
+    # es una), así que si esto fuera más abajo no llegaría nunca.
+    _spec_directa(product, spec_map, f)
 
     if category == "Monitores":
         # Los monitores no tienen RAM/almacenamiento/tipo de almacenamiento
@@ -343,6 +376,13 @@ def facets_for(product):
             ft3 = se.fridge_capacity_ft3(name)
         if ft3 is not None:
             f["fridge_ft3"] = ft3
+        return f or None
+
+    # Los campos que la tienda declara tal cual valen para cualquier
+    # categoría de la tabla; se aplican antes de las ramas propias.
+    _spec_directa(product, spec_map, f)
+
+    if category in ("Herramientas", "Bocinas"):
         return f or None
 
     if category == "Refacciones":
@@ -448,7 +488,9 @@ def facets_for(product):
         gpu = se.gpu_of(name)
         if gpu:
             f["gpu"] = gpu
-        os_ = se.os_of(name)
+        # La ficha técnica lo declara en el 66% de las laptops; del nombre
+        # se leía en el 36%.
+        os_ = se.os_of(spec_map.get("sistema operativo") or "") or se.os_of(name)
         if os_:
             f["os"] = os_
 

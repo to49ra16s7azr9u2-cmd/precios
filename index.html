@@ -32,7 +32,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=b00bf5c2">
+<link rel="stylesheet" href="css/style.min.css?v=81c560c9">
 <!-- Google tag (gtag.js) -->
 <script>
   // Consent Mode: por defecto TODO denegado hasta que el aviso de cookies
@@ -209,6 +209,22 @@
           <div class="filter-group filter-group-collapsible collapsed hidden" id="filterFridgeFtGroup">
             <h3><span class="filter-group-title-row"><span class="filter-group-title">Capacidad</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Filtra por los pies cúbicos del refrigerador.</span></h3>
             <div id="filterFridgeFt" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterToolTypeGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Tipo de herramienta</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Manuales, eléctricas, de medición y más.</span></h3>
+            <div id="filterToolType" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterFirmnessGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Firmeza</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Qué tan firme es el colchón.</span></h3>
+            <div id="filterFirmness" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterFanTypeGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Tipo de ventilador</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">De techo, de piso, torre o personal.</span></h3>
+            <div id="filterFanType" class="filter-options"></div>
+          </div>
+          <div class="filter-group filter-group-collapsible collapsed hidden" id="filterSpeakerCountGroup">
+            <h3><span class="filter-group-title-row"><span class="filter-group-title">Número de bocinas</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Cuántas bocinas trae el equipo.</span></h3>
+            <div id="filterSpeakerCount" class="filter-options"></div>
           </div>
           <div class="filter-group filter-group-collapsible collapsed hidden" id="filterCompatModelGroup">
             <h3><span class="filter-group-title-row"><span class="filter-group-title">Compatible con</span><span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Modelo de moto o vehículo al que le queda la refacción.</span></h3>
@@ -812,6 +828,11 @@
   <div class="modal specs-modal">
     <div class="modal-head">
       <h2>Buscar por especificaciones detalladas</h2>
+      <!-- Mismo interruptor que las filas de "Compara calidad": acá los
+           filtros ya aceptaban varias opciones, pero nada lo decía. Ver
+           renderSpecsMultiToggle() en js/app.js. -->
+      <button type="button" class="quality-multi" id="specsMultiToggle" aria-pressed="true"
+        title="Con la selección múltiple activada puedes marcar varias opciones del mismo campo y se muestran los productos que cumplen cualquiera de ellas."><span class="quality-multi-box">✓</span>Varios a la vez</button>
       <button class="modal-close" id="specsModalClose" aria-label="Cerrar">✕</button>
     </div>
     <div class="specs-modal-body" id="specsModalBody"></div>
@@ -854,7 +875,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=a81e8c62"></script>
+<script src="js/app.min.js?v=d2744f7b"></script>
 </div>
 </body>
 </html>
