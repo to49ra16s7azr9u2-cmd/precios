@@ -79,6 +79,10 @@ COMPACT = {"ensure_ascii": False, "separators": (",", ":")}
 #              renderStoreReviews(), que corre en la ficha DESPUÉS de
 #              `await ensureDetail(product)` (js/app.js), no en el listado.
 #              -2.1% en la misma shard.
+#   photo      la foto DE LA OFERTA (no la del producto, que se queda). Solo
+#              la lee renderOfferRows() para las pastillas de variantes, en la
+#              ficha; la tarjeta del listado usa product.photo. 1.64 MB en
+#              crudo entre todas las shards, -5% a -7% con gzip.
 #
 # `specs` NO se saca aunque también parezca "de ficha": los filtros de
 # Condición/MagSafe/Tamaño del listado lo leen, así que sacarlo rompería el
@@ -86,7 +90,7 @@ COMPACT = {"ensure_ascii": False, "separators": (",", ":")}
 # purchaseOptions() compara `v.url === base.url` para decidir a qué variante
 # le corresponde el listPrice, y eso corre también en el listado (son 286
 # productos, no mueve la aguja).
-DETAIL_OFFER_FIELDS = ("url", "sellers", "ean", "topReview")
+DETAIL_OFFER_FIELDS = ("url", "sellers", "ean", "topReview", "photo")
 
 # Con colorVariants la url TIENE que quedarse en la shard (purchaseOptions()
 # compara `v.url === base.url` para saber a qué variante le toca cada
@@ -106,9 +110,26 @@ DETAIL_OFFER_FIELDS_CON_VARIANTES = tuple(
 # fueran al detalle, los filtros dejarían de funcionar en la lista.
 SPEC_LABELS_EN_LISTADO = ("Condición", "MagSafe", "Tamaño", "Uso", "Peso")
 
+# Campos del PRODUCTO (no de cada oferta) que tampoco hacen falta en el
+# listado. Viajan en el detalle con el nombre prefijado por "_", igual que
+# "_specs".
+#
+#   mlQuery  el término de búsqueda para pedirle el precio en vivo a Mercado
+#            Libre. Solo lo usa fetchLiveOffer(), que corre desde renderDetail
+#            después de `await ensureDetail(product)`. 0.47 MB en crudo, y en
+#            Celulares --donde casi todo lo tiene-- vale un 7% de la shard.
+DETAIL_PRODUCT_FIELDS = ("mlQuery",)
+
 # Chunks de detalle chicos (~2,000 productos, ~100 KB con gzip): abrir una
 # ficha baja UN chunk, no el catálogo entero de detalles.
 DETAIL_CHUNK_SIZE = 2000
+
+
+def _mover_campos_de_producto(product, light, detail):
+    """Pasa DETAIL_PRODUCT_FIELDS de `light` a `detail` (prefijados con _)."""
+    for field in DETAIL_PRODUCT_FIELDS:
+        if product.get(field) is not None:
+            detail["_" + field] = light.pop(field)
 
 
 def _split_detail(product):
@@ -119,13 +140,17 @@ def _split_detail(product):
     specs_pesadas = [s for s in specs if s.get("label") not in SPEC_LABELS_EN_LISTADO]
     if not offers:
         # Aun sin ofertas que aligerar, la ficha técnica sí se puede mover.
-        if not specs_pesadas:
-            return product, None
         light = dict(product)
-        light["specs"] = [s for s in specs if s.get("label") in SPEC_LABELS_EN_LISTADO]
-        if not light["specs"]:
-            light.pop("specs", None)
-        return light, {"_specs": specs}
+        detail = {}
+        if specs_pesadas:
+            detail["_specs"] = specs
+            light["specs"] = [s for s in specs if s.get("label") in SPEC_LABELS_EN_LISTADO]
+            if not light["specs"]:
+                light.pop("specs", None)
+        _mover_campos_de_producto(product, light, detail)
+        if not detail:
+            return product, None
+        return light, detail
     campos = (
         DETAIL_OFFER_FIELDS_CON_VARIANTES if product.get("colorVariants")
         else DETAIL_OFFER_FIELDS
@@ -142,9 +167,10 @@ def _split_detail(product):
         light_offers.append(light)
     if specs_pesadas:
         detail["_specs"] = specs
+    light_product = dict(product)
+    _mover_campos_de_producto(product, light_product, detail)
     if not detail:
         return product, None
-    light_product = dict(product)
     light_product["offers"] = light_offers
     if specs_pesadas:
         ligeras = [s for s in specs if s.get("label") in SPEC_LABELS_EN_LISTADO]
@@ -214,8 +240,10 @@ def load_catalog():
             if not d:
                 continue
             for field, by_index in d.items():
-                if field == "_specs":
-                    p["specs"] = by_index
+                # "_algo" es un campo del PRODUCTO (_specs, _mlQuery), no un
+                # mapa índice-de-oferta -> valor.
+                if field.startswith("_"):
+                    p[field[1:]] = by_index
                     continue
                 for idx, value in by_index.items():
                     i = int(idx)

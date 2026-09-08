@@ -127,6 +127,15 @@ jobs:
           echo "Corriendo: refresh_other_stores.py $ARGS"
           python3 scripts/refresh_other_stores.py $ARGS
 
+      - name: Anotar el precio del día en el historial
+        # ANTES de las facetas y del SEO, y después de los tres refrescos:
+        # este paso es el único del workflow cuyo dato NO se puede rehacer
+        # después. Si se saltea un día, ese día se pierde para siempre --el
+        # precio viejo ya fue sobreescrito-- mientras que las facetas y las
+        # páginas se pueden regenerar cuando sea.
+        # Por eso NO lleva continue-on-error: si esto falla, hay que verlo.
+        run: python3 scripts/record_price_history.py
+
       - name: Recalcular facetas (filtros de specs)
         # Los precios no cambian las specs, pero la poda sí puede sacar
         # productos: sin esto los conteos por categoría del manifiesto
@@ -152,8 +161,9 @@ jobs:
           git commit -m "Actualizar precios de todas las tiendas leíbles (automático)
 
           Corrida automática de scripts/refresh_prices.py +
-          refresh_elektra.py + refresh_other_stores.py + compute_facets.py
-          + generate_seo_pages.py. Ver el log del workflow para el resumen
+          refresh_elektra.py + refresh_other_stores.py +
+          record_price_history.py + compute_facets.py +
+          generate_seo_pages.py. Ver el log del workflow para el resumen
           de cuántos precios se movieron y qué se podó."
           # La corrida dura ~1 h: si en el medio se pushó algo a main (un lote
           # de productos, un cambio de código), se reintenta sobre eso en vez
