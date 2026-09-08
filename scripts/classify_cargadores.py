@@ -57,8 +57,14 @@ _PB_MAH = re.compile(r"\d{3,6}\s*mah")
 # Accesorios PARA power banks y cargadores DE baterías de aparatos, que no
 # son power banks. Ojo con "cable": un power bank "con 4 cables integrados"
 # sigue siendo un power bank, así que la palabra sola no descarta nada.
+# "pila" a secas NO descalifica: en México "pila portátil" es como se le dice
+# a un power bank, y así quedaban fuera cuatro de cada diez capturas de Amazon
+# ("1 Hora Power Bank 20000mAh ... Pila Portatil"). Lo que descalifica es
+# cargar pilas AA/AAA, que es otro aparato.
 _PB_NO = re.compile(r"load resistor|\btester\b|estuche|funda|soporte para|"
-                    r"cargador de bateria|cargador de baterias|\bpilas?\b")
+                    r"cargador de bateria|cargador de baterias|"
+                    r"cargador de pilas|pilas? (?:aa|aaa|recargables|alcalinas|c\b|d\b)|"
+                    r"\b(?:aa|aaa)\b.{0,20}\bpilas?\b")
 
 
 def _norm(s):
