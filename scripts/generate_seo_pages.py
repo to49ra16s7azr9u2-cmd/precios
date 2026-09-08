@@ -226,6 +226,11 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
     # buscadores -- las dos cosas no deberían tener que decidirse juntas en
     # cada call site.
     robots_full = f"{robots}, noai, noimageai"
+    # Una página noindex (el 404) no declara canonical: decir "la versión
+    # buena de esto soy yo" en una página de error es contradictorio.
+    canonical_tag = (
+        "" if "noindex" in robots else f'<link rel="canonical" href="{canonical}">\n'
+    )
     og_image_tag = (
         f'<meta property="og:image" content="{html_escape(og_image)}">\n' if og_image else ""
     )
@@ -237,12 +242,18 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 <title>{html_escape(title)}</title>
 <meta name="description" content="{html_escape(description)}">
 <meta name="robots" content="{robots_full}">
-<link rel="canonical" href="{canonical}">
+{canonical_tag}
 <meta property="og:type" content="product">
 <meta property="og:title" content="{html_escape(title)}">
 <meta property="og:description" content="{html_escape(description)}">
 <meta property="og:url" content="{canonical}">
 {og_image_tag}<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
 <link rel="icon" href="{prefix}icons/icon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="{prefix}icons/icon-32.png" type="image/png" sizes="32x32">
@@ -454,7 +465,7 @@ def seller_rows(product):
     return out
 
 
-def render_product_page(product, data):
+def render_product_page(product, data, subs_con_pagina=None):
     cat = next(c for c in data["categories"] if c["id"] == product["category"])
     cat_slug = slugify(cat["name"])
     sub = None
@@ -462,6 +473,16 @@ def render_product_page(product, data):
         sub = next(
             (s for s in cat.get("subcategories", []) if s["id"] == product["subcategory"]), None
         )
+    # Si la subcategoría tiene página propia, la miga apunta AHÍ. Antes iba a
+    # "../../#/list?cat=..&sub=..", una url con # que un buscador no sigue
+    # como página aparte: las ~82 mil fichas colgaban todas del listado
+    # general de su categoría y las páginas de subcategoría no recibían un
+    # solo enlace interno.
+    # La clave es el PAR (categoría, subcategoría): 18 ids se repiten entre
+    # categorías ("Otros" en 12, "Accesorios" en 6, "Android" en 2), así que
+    # con solo el id de la subcategoría un celular podía terminar enlazando a
+    # la página "Android" de otra categoría.
+    sub_tiene_pagina = bool(sub) and (cat["id"], sub["id"]) in (subs_con_pagina or set())
     price = min_price(product)
     avg, count = aggregate_rating(product)
     canonical_path = f"/producto/{product['id']}/"
@@ -615,10 +636,17 @@ def render_product_page(product, data):
         else ""
     )
 
-    sub_crumb = (
-        f'<a href="../../#/list?cat={cat["id"]}&sub={sub["id"]}">{html_escape(sub["name"])}</a> &gt;'
-        if sub else ""
-    )
+    if sub_tiene_pagina:
+        sub_crumb = (
+            f'<a href="../../categoria/{cat_slug}/{slugify(sub["name"])}/">'
+            f'{html_escape(sub["name"])}</a> &gt;'
+        )
+    elif sub:
+        sub_crumb = (
+            f'<a href="../../#/list?cat={cat["id"]}&sub={sub["id"]}">{html_escape(sub["name"])}</a> &gt;'
+        )
+    else:
+        sub_crumb = ""
 
     # Mismo menú que el SPA (renderDetailQuickNav en js/app.js), en el mismo
     # hueco junto al nombre. Acá son <a href="#id"> lisos: el salto lo hace el
@@ -682,11 +710,14 @@ def render_product_page(product, data):
   <a class="buy-btn" href="../../#/p/{product['id']}">Abrir ComparaMEX interactivo →</a>
 </div>
 """
-    breadcrumbs = breadcrumb_json_ld([
+    migas = [
         ("Inicio", f"{SITE_URL}/"),
         (cat["name"], f"{SITE_URL}/categoria/{cat_slug}/"),
-        (product["name"], None),
-    ])
+    ]
+    if sub_tiene_pagina:
+        migas.append((sub["name"], f"{SITE_URL}/categoria/{cat_slug}/{slugify(sub['name'])}/"))
+    migas.append((product["name"], None))
+    breadcrumbs = breadcrumb_json_ld(migas)
     extra_head = (
         f'<script type="application/ld+json">\n{product_json_ld(product, data, canonical)}\n</script>\n'
         f'<script type="application/ld+json">\n{breadcrumbs}\n</script>'
@@ -894,7 +925,7 @@ def render_category_page(cat, products, data):
         rows.append(
             f'<div class="product-row has-rank{rank_class}">'
             f'<span class="rank-badge">{rank_badge}</span>'
-            f'<span class="row-icon">{svg_icon(p.get("image", "box"))}</span>'
+            f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
             f'<div class="row-name"><a href="../../producto/{p["id"]}/">{html_escape(p["name"])}</a>{used_badge}{variant_badge}</div>'
@@ -967,15 +998,42 @@ def load_lastmod():
         return {}
 
 
-def _urlset_xml(urls, lastmod=None):
+def _xml_escape(text):
+    return (
+        str(text).replace("&", "&amp;").replace("<", "&lt;")
+        .replace(">", "&gt;").replace('"', "&quot;")
+    )
+
+
+def _urlset_xml(urls, lastmod=None, images=None):
+    """urls: lista de URLs. images: {url: foto} para el sitemap de imágenes.
+
+    La extensión image: es la forma de decirle a Google que estas páginas
+    tienen una foto asociada; sin ella tiene que descubrirlas rastreando el
+    HTML. Con 80,632 fichas con foto, es la puerta a Búsqueda de Imágenes,
+    que para un comparador de productos es tráfico de intención de compra.
+    """
     lastmod = lastmod or {}
+    images = images or {}
     filas = []
     for u in urls:
+        partes = [f"<loc>{_xml_escape(u)}</loc>"]
         fecha = lastmod.get(u)
-        sufijo = f"<lastmod>{fecha}</lastmod>" if fecha else ""
-        filas.append(f"  <url><loc>{u}</loc>{sufijo}</url>")
+        if fecha:
+            partes.append(f"<lastmod>{fecha}</lastmod>")
+        foto = images.get(u)
+        if foto:
+            partes.append(f"<image:image><image:loc>{_xml_escape(foto)}</image:loc></image:image>")
+        filas.append("  <url>" + "".join(partes) + "</url>")
     entries = "\n".join(filas)
-    return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{entries}\n</urlset>\n'
+    ns_image = (
+        ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"' if images else ""
+    )
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"{ns_image}>\n'
+        f"{entries}\n</urlset>\n"
+    )
 
 
 def write_sitemaps(data, root, lastmod=None):
@@ -1003,12 +1061,18 @@ def write_sitemaps(data, root, lastmod=None):
         written.append(pages_path)
     sitemap_files = ["sitemap-pages.xml"]
 
-    product_urls = [f"{SITE_URL}/producto/{p['id']}/" for p in data["products"]]
+    product_urls = []
+    product_images = {}
+    for p in data["products"]:
+        u = f"{SITE_URL}/producto/{p['id']}/"
+        product_urls.append(u)
+        if p.get("photo"):
+            product_images[u] = p["photo"]
     chunks = [product_urls[i:i + SITEMAP_CHUNK_SIZE] for i in range(0, len(product_urls), SITEMAP_CHUNK_SIZE)] or [[]]
     for i, chunk in enumerate(chunks, 1):
         name = f"sitemap-products-{i}.xml"
         path = os.path.join(root, name)
-        if write_if_changed(path, _urlset_xml(chunk, lastmod)):
+        if write_if_changed(path, _urlset_xml(chunk, lastmod, product_images)):
             written.append(path)
         sitemap_files.append(name)
 
@@ -1096,6 +1160,36 @@ def write_if_changed(path, body):
     return True
 
 
+def render_404(data):
+    """Página de error de GitHub Pages.
+
+    Sin un 404.html propio, cualquier url mala del dominio caía en la página
+    genérica de GitHub: sin la marca, sin un solo enlace de vuelta al sitio y
+    sin forma de seguir buscando. Un rastreador que llega ahí no tiene por
+    dónde continuar. Va con noindex, que es lo correcto para un error.
+    """
+    cats = "".join(
+        f'<a class="chip" href="/categoria/{slugify(c["name"])}/">{html_escape(c["name"])}</a>'
+        for c in data["categories"]
+    )
+    body = f"""
+<div class="panel" style="text-align:center">
+  <h1>Esta página no existe</h1>
+  <p class="muted">Puede que el producto ya no esté en el catálogo, o que la dirección tenga un error.</p>
+  <p><a class="buy-btn" href="/">Volver al inicio de ComparaMEX →</a></p>
+</div>
+<div class="panel">
+  <h2>Buscar por categoría</h2>
+  <div class="chip-row">{cats}</div>
+</div>
+"""
+    return page_shell(
+        "Página no encontrada | ComparaMEX",
+        "La página que buscas no existe. Vuelve al inicio de ComparaMEX o busca por categoría.",
+        "/404.html", body, depth=0, robots="noindex, follow",
+    )
+
+
 def build_robots():
     ai_block = "".join(f"User-agent: {ua}\nDisallow: /\n\n" for ua in _AI_BOT_USER_AGENTS)
     return (
@@ -1146,11 +1240,20 @@ def main():
     def marcar(url):
         lastmod[url] = hoy
 
+    # Qué subcategorías tienen página propia, calculado UNA vez: cada ficha
+    # necesita saberlo para su miga, y hacerlo por producto sería recorrer el
+    # catálogo entero 82 mil veces.
+    subs_con_pagina = set()
+    for cat in data["categories"]:
+        productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
+        for sub, _ in subcategorias_con_pagina(cat, productos_cat):
+            subs_con_pagina.add((cat["id"], sub["id"]))
+
     for product in data["products"]:
         out_dir = os.path.join(ROOT, "producto", product["id"])
         os.makedirs(out_dir, exist_ok=True)
         out_path = os.path.join(out_dir, "index.html")
-        if write_if_changed(out_path, render_product_page(product, data)):
+        if write_if_changed(out_path, render_product_page(product, data, subs_con_pagina)):
             written.append(out_path)
             marcar(f"{SITE_URL}/producto/{product['id']}/")
 
@@ -1201,6 +1304,10 @@ def main():
     robots_path = os.path.join(ROOT, "robots.txt")
     if write_if_changed(robots_path, build_robots()):
         written.append(robots_path)
+
+    path_404 = os.path.join(ROOT, "404.html")
+    if write_if_changed(path_404, render_404(data)):
+        written.append(path_404)
 
     print(f"Subcategorías con página propia: {subcats_generadas}")
     print(f"Generadas {len(written)} páginas/archivos SEO en {ROOT}:")
