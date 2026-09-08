@@ -1442,7 +1442,12 @@ tr.offer-compare-off { display: none; }
   font-size: 13px;
   font-weight: 600;
 }
+.detail-top-offer-names { display: flex; min-width: 0; gap: 4px; }
 .detail-top-offer-storename { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* En escritorio el color va en la misma línea, precedido por la raya, como
+   estaba antes ("Mercado Libre — Azul profundo"). */
+.detail-top-offer-color { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.detail-top-offer-color::before { content: "— "; }
 .detail-top-offer-price {
   flex: 0 0 auto;
   font-size: 16px;
@@ -1466,9 +1471,94 @@ tr.offer-compare-off { display: none; }
   text-align: center;
 }
 .detail-top-offers-more:hover { color: var(--red); }
+/* En móvil cada oferta ocupaba TRES renglones: la tienda en uno, el precio y
+   el envío en otro, y el botón "Ver oferta" a lo ancho de la pantalla en un
+   tercero. Con cinco ofertas eso era una pantalla entera para comparar cinco
+   precios, que es justo lo que se viene a hacer acá.
+   A pedido del usuario (con captura): cada oferta en UN renglón. El botón deja
+   de ocupar el ancho completo y se achica; el nombre de la tienda se corta con
+   puntos suspensivos, que es lo que se puede ceder porque el logo ya la
+   identifica; y el envío pasa a texto corto ("Gratis" en vez de "Envío
+   gratis", ver el parámetro `compacto` de shippingBadgeHtml en js/app.js),
+   que con el precio al lado se entiende igual. */
 @media (max-width: 640px) {
-  .detail-top-offer-row { gap: 8px 12px; }
-  .detail-top-offer-btn { flex-basis: 100%; margin-left: 0; }
+  .detail-top-offer-row {
+    gap: 8px;
+    flex-wrap: nowrap;
+    padding: 7px 2px;
+  }
+  .detail-top-offer-store { flex: 1 1 auto; min-width: 0; font-size: 12px; gap: 6px; }
+  /* El alto de la fila lo fija el botón, así que apilar tienda y color no la
+     hace más alta: entran los dos datos sin perder el renglón único. Puestos
+     en una sola línea, el nombre quedaba en "Mercado Lib..." y el color se
+     perdía entero -- y con tres ofertas de la misma tienda, las tres filas se
+     leían iguales y no había con qué elegir. */
+  .detail-top-offer-names { flex-direction: column; gap: 0; line-height: 1.25; }
+  .detail-top-offer-color {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .detail-top-offer-color::before { content: none; }
+  .detail-top-offer-price { font-size: 14px; }
+  /* La etiqueta "MÁS BARATO" no cabe en el renglón, pero perder la señal
+     sería un retroceso: se reemplaza por una barra roja al costado de esa
+     fila, que ocupa 3px en vez de 90 y se ve igual de rápido. */
+  .detail-top-offer-price .best-tag { display: none; }
+  .detail-top-offer-best {
+    border-left: 3px solid var(--red);
+    padding-left: 7px;
+    margin-left: -5px;
+    border-radius: 2px 0 0 2px;
+  }
+  /* El envío NO se encoge: recortarlo por la mitad ("Gratis" cortado en
+     "Grati") se lee como un error, no como una abreviatura. Lo que cede es el
+     nombre de la tienda, que además ya está identificada por su logo. */
+  .detail-top-offer-ship {
+    min-width: 0;
+    flex: 0 0 auto;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .detail-top-offer-ship .ship-badge { padding: 1px 6px; font-size: 11px; }
+  .detail-top-offer-ship .ship-badge-intl .icon { display: none; }
+  /* Logos más chicos: a este tamaño el logo solo tiene que hacer reconocible
+     la tienda de un vistazo, no lucirse. */
+  .detail-top-offer-store .store-dot { width: 26px; height: 26px; }
+  /* El bloque rojo lleno era lo más pesado de la pantalla: cinco rectángulos
+     grandes compitiendo entre sí y con el precio, que es lo que en realidad
+     hay que leer. Pasa a ser un botón de contorno --letra roja sobre blanco--
+     pegado al borde derecho con margin-left:auto. Sigue siendo un botón de
+     tamaño tocable (36px de alto), pero deja de gritar. */
+  /* .buy-btn se define más abajo en este archivo, así que con la misma
+     especificidad ganaba él y el botón seguía rojo lleno. Se califica con
+     .buy-btn para que este bloque pese más. */
+  .buy-btn.detail-top-offer-btn {
+    flex: 0 0 auto;
+    margin-left: auto;
+    padding: 8px 12px;
+    font-size: 12px;
+    background: #fff;
+    color: var(--red);
+    border: 1px solid var(--red);
+    font-weight: 700;
+  }
+  .buy-btn.detail-top-offer-btn:hover,
+  .buy-btn.detail-top-offer-btn:active { background: var(--red-tint); color: var(--red-dark); }
+}
+
+/* Casi todos los teléfonos miden 390-430px, así que a esa medida el envío
+   TIENE que seguir viéndose: lo que cede ahí es el nombre de la tienda, que se
+   corta con puntos suspensivos. Recién por debajo de 360px --pantallas viejas
+   y chicas-- se cae el envío, que es el menos decisivo de los cuatro datos y
+   que la tabla completa de abajo sigue mostrando entero. */
+@media (max-width: 360px) {
+  .detail-top-offer-row { gap: 6px; }
+  .detail-top-offer-store { font-size: 11px; }
+  .detail-top-offer-store .store-dot { width: 22px; height: 22px; }
+  .detail-top-offer-price { font-size: 13px; }
+  .detail-top-offer-ship { display: none; }
+  .detail-top-offer-btn { padding: 6px 9px; font-size: 11px; }
 }
 
 .panel {

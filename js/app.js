@@ -5205,21 +5205,27 @@
   // compacto de arriba de la ficha (renderDetailTopOffers) -- misma lógica,
   // sin duplicarla (ver los comentarios largos junto al uso original más
   // abajo para el porqué de cada caso).
-  function shippingBadgeHtml(r) {
+  // `compacto` acorta los textos para el resumen de arriba de la ficha, donde
+  // cada oferta tiene que entrar en un renglón de teléfono: "Gratis" en vez de
+  // "Envío gratis", "Internacional" en vez de "Envío internacional". La tabla
+  // completa de abajo los sigue mostrando enteros.
+  function shippingBadgeHtml(r, compacto = false) {
+    const txtGratis = compacto ? "Gratis" : "Envío gratis";
+    const txtIntl = compacto ? "Internacional" : "Envío internacional";
     const threshold = r.store.freeShippingThresholdUSD;
     const priceUSD = r.priceOriginal && r.priceOriginal.currency === "USD" ? r.priceOriginal.amount : null;
     const qualifiesFreeShipping = threshold != null && priceUSD != null && priceUSD >= threshold;
     const intlTooltip = threshold != null
       ? `Envío gratis en compras mayores a $${threshold} USD según ${r.store.name}; este producto ($${priceUSD} USD) no alcanza el mínimo.`
       : r.store.shippingNote || `${r.store.name} no tiene centro de distribución en México; el costo de envío se cotiza en su sitio.`;
-    return r.shippingFee === 0 ? '<span class="ship-badge">Envío gratis</span>'
+    return r.shippingFee === 0 ? `<span class="ship-badge">${txtGratis}</span>`
       : r.shippingFee != null ? money(r.shippingFee)
       : qualifiesFreeShipping
-      ? `<span class="ship-badge" title="${htmlEscapeAttr(`Según la política pública de ${r.store.name}: envío gratis en compras de $${threshold}+ USD, y este producto ($${priceUSD} USD) sí alcanza el mínimo.`)}">Envío gratis</span>`
+      ? `<span class="ship-badge" title="${htmlEscapeAttr(`Según la política pública de ${r.store.name}: envío gratis en compras de $${threshold}+ USD, y este producto ($${priceUSD} USD) sí alcanza el mínimo.`)}">${txtGratis}</span>`
       : r.shipEstimateFee != null
       ? `${money(r.shipEstimateFee)} <span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">${icon("alert-triangle")} estimado</span>`
       : !r.store.hubRegion
-      ? `<span class="ship-badge ship-badge-intl" title="${htmlEscapeAttr(intlTooltip)}">${icon("globe")} Envío internacional</span>`
+      ? `<span class="ship-badge ship-badge-intl" title="${htmlEscapeAttr(intlTooltip)}">${icon("globe")} ${txtIntl}</span>`
       : "—";
   }
 
@@ -5568,13 +5574,15 @@
     const bestPrice = sorted.length ? sorted[0].price : null;
     el.detailTopOffers.innerHTML = top
       .map((r) => `
-        <div class="detail-top-offer-row">
+        <div class="detail-top-offer-row${r.price === bestPrice ? " detail-top-offer-best" : ""}">
           <span class="detail-top-offer-store">
             ${storeDotHtml(r.store)}
-            <span class="detail-top-offer-storename">${r.store.name}${r.colorLabel ? ` — ${htmlEscapeAttr(r.colorLabel)}` : ""}</span>
+            <span class="detail-top-offer-names">
+              <span class="detail-top-offer-storename">${r.store.name}</span>${r.colorLabel ? `<span class="detail-top-offer-color">${htmlEscapeAttr(r.colorLabel)}</span>` : ""}
+            </span>
           </span>
           <span class="detail-top-offer-price">${money(r.price)}${r.price === bestPrice ? '<span class="best-tag">MÁS BARATO</span>' : ""}</span>
-          <span class="detail-top-offer-ship">${shippingBadgeHtml(r)}</span>
+          <span class="detail-top-offer-ship">${shippingBadgeHtml(r, true)}</span>
           <button type="button" class="buy-btn detail-top-offer-btn">Ver oferta</button>
         </div>
       `)
