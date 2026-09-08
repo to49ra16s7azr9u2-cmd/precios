@@ -3069,7 +3069,12 @@
             // cuál era cuál. Solo aparecen cuando el eje tiene 2+ niveles
             // elegidos (ver qualityBadgeAxes).
             qualityTiersOf(p)
-              .map((t) => `<span class="row-tier" title="${htmlEscapeAttr(t.axis)}">${t.name}</span>`)
+              .map((t) => {
+                const estilo = t.ramp >= 0
+                  ? ` style="--tier:${TIER_RAMP[t.ramp]};--tier-bg:${TIER_RAMP_BG[t.ramp]}"`
+                  : "";
+                return `<span class="row-tier"${estilo} title="${htmlEscapeAttr(t.axis)}">${t.name}</span>`;
+              })
               .join("")
           }
           <div class="row-brand">${p.brand}</div>
@@ -3705,7 +3710,7 @@
     // una sola fila, con una tarjeta por consola en vez de tres niveles.
     Videojuegos: [
       {
-        key: "level", label: "Consola", field: "platform", criterion: "a la que pertenece el juego",
+        key: "level", label: "Consola", field: "platform", criterion: "a la que pertenece el juego", ramp: false,
         tiers: [
           { id: "switch2", name: "Switch 2", use: "La nueva de Nintendo", spec: "Nintendo Switch 2", match: (v) => v === "Nintendo Switch 2" },
           { id: "switch", name: "Switch", use: "Portátil y de mesa", spec: "Nintendo Switch", match: (v) => v === "Nintendo Switch" },
@@ -3860,7 +3865,7 @@
         // El tipo manda sobre las pulgadas: uno de techo y uno de escritorio
         // no se comparan aunque midan igual. Y la tienda lo declara en el
         // 78% de los ventiladores, contra el 43% que se leía del nombre.
-        key: "level", label: "Tipo", field: "fan_type", criterion: "de ventilador",
+        key: "level", label: "Tipo", field: "fan_type", criterion: "de ventilador", ramp: false,
         tiers: [
           { id: "personal", name: "Personal", use: "Escritorio, buró o de mano", spec: "Personal", match: (v) => v === "Personal" },
           { id: "piso", name: "De piso", use: "Mueve el aire de un cuarto entero", spec: "Pedestal y de piso", match: (v) => ["Pedestal", "Piso", "De piso"].includes(v) },
@@ -3923,6 +3928,27 @@
     return qualityAxes().length > 0;
   }
 
+  // Amarillo -> naranja -> rojo según en qué escalón del eje cae el nivel.
+  // Es la escala completa la que da el significado: el primero es el más
+  // básico/chico y el último el más alto/grande, así que el color se saca de
+  // la POSICIÓN, no del nombre.
+  //
+  // Los ejes que no son una escala llevan ramp:false y no se colorean: la
+  // consola de un juego o el tipo de ventilador no van de menos a más, y
+  // pintarlos de amarillo a rojo diría que una Switch es "menos" que una
+  // Xbox, que no significa nada.
+  const TIER_RAMP = ["#c58a00", "#e07b1a", "#d33b2e"];
+  const TIER_RAMP_BG = ["#fff6dd", "#fff0e2", "#fdeceb"];
+
+  function tierRampIndex(axis, tierId) {
+    const i = axis.tiers.findIndex((t) => t.id === tierId);
+    if (i < 0 || axis.ramp === false || axis.tiers.length < 2) return -1;
+    // Con más de tres escalones se reparten sobre los tres colores: el
+    // primero siempre amarillo, el último siempre rojo.
+    const p = i / (axis.tiers.length - 1);
+    return Math.min(TIER_RAMP.length - 1, Math.round(p * (TIER_RAMP.length - 1)));
+  }
+
   function qualityTierOf(axis, p) {
     const v = p.facets ? p.facets[axis.field] ?? null : null;
     if (v == null) return null;
@@ -3963,7 +3989,7 @@
     qualityBadgeAxes().forEach((axis) => {
       const id = qualityTierOf(axis, p);
       const tier = axis.tiers.find((t) => t.id === id);
-      if (tier) out.push({ axis: axis.label, name: tier.name });
+      if (tier) out.push({ axis: axis.label, name: tier.name, ramp: tierRampIndex(axis, id) });
     });
     return out;
   }
@@ -4058,6 +4084,12 @@
         const card = document.createElement("button");
         card.type = "button";
         card.className = "quality-card" + (isActive ? " active" : "") + (n === 0 ? " empty" : "");
+        const rampIdx = tierRampIndex(axis, tier.id);
+        if (rampIdx >= 0) {
+          card.style.setProperty("--tier", TIER_RAMP[rampIdx]);
+          card.style.setProperty("--tier-bg", TIER_RAMP_BG[rampIdx]);
+          card.classList.add("has-tier");
+        }
         card.disabled = n === 0 && !isActive;
         card.innerHTML = `
           <span class="quality-card-photo"></span>
