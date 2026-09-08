@@ -20,6 +20,26 @@
      indexen el sitio -- el bloqueo específico de bots de IA por nombre vive
      en robots.txt (ver build_robots() en scripts/generate_seo_pages.py). -->
 <meta name="robots" content="index, follow, noai, noimageai">
+<!-- Sin canonical, comparamex.com, comparamex.com/ y comparamex.com/index.html
+     eran tres URLs distintas para Google, repartiendo la autoridad de la
+     portada entre las tres. Las páginas SEO ya apuntan acá con la barra
+     final (ver breadcrumb_json_ld en scripts/generate_seo_pages.py). -->
+<link rel="canonical" href="https://comparamex.com/">
+<!-- Open Graph / Twitter: sin esto, pegar el enlace del sitio en WhatsApp,
+     Facebook o X mostraba una tarjeta vacía, que en México es la vía por la
+     que más se comparte un enlace. Las fichas de producto ya las tenían
+     (page_shell en scripts/generate_seo_pages.py); la portada no. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ComparaMEX">
+<meta property="og:locale" content="es_MX">
+<meta property="og:title" content="ComparaMEX — Compara precios actualizados todos los días">
+<meta property="og:description" content="Compara precios entre tiendas mexicanas con el catálogo actualizado todos los días, y el precio de Mercado Libre consultado al abrir cada ficha.">
+<meta property="og:url" content="https://comparamex.com/">
+<meta property="og:image" content="https://comparamex.com/icons/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ComparaMEX — Compara precios actualizados todos los días">
+<meta name="twitter:description" content="Compara precios entre tiendas mexicanas con el catálogo actualizado todos los días.">
+<meta name="twitter:image" content="https://comparamex.com/icons/icon-512.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#FF0211">
 <meta name="verify-admitad" content="43517c81ee" />
@@ -33,6 +53,37 @@
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.min.css?v=f6513a14">
+<!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
+     llevaban Product + BreadcrumbList, pero la portada -- que es la que
+     Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
+     No se declara SearchAction: Google retiró el cuadro de búsqueda de
+     sitelinks, así que solo sería ruido. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://comparamex.com/#organization",
+  "name": "ComparaMEX",
+  "url": "https://comparamex.com/",
+  "logo": "https://comparamex.com/icons/icon-512.png",
+  "description": "Comparador de precios de tiendas en México, con el catálogo actualizado automáticamente todos los días.",
+  "areaServed": {
+    "@type": "Country",
+    "name": "México"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://comparamex.com/#website",
+  "name": "ComparaMEX",
+  "url": "https://comparamex.com/",
+  "inLanguage": "es-MX",
+  "publisher": { "@id": "https://comparamex.com/#organization" }
+}
+</script>
 <!-- Google tag (gtag.js) -->
 <script>
   // Consent Mode: por defecto TODO denegado hasta que el aviso de cookies

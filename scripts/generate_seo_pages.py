@@ -94,11 +94,32 @@ def svg_icon(key, cls=""):
     css_class = f" {cls}" if cls else ""
     return f'<svg class="icon{css_class}" viewBox="0 0 24 24" aria-hidden="true">{inner}</svg>'
 
+# Estas páginas cargaban css/style.css SIN minificar: 114 KB en vez de 56 KB,
+# en las ~82 mil páginas, y son justo las que reciben la primera visita desde
+# un buscador.
+#
+# A propósito NO llevan la huella de contenido (?v=<hash>) que index.html sí
+# lleva: el hash cambia con cada retoque del CSS y eso reescribiría las 82 mil
+# páginas --y las metería en el commit-- por un cambio de color. La portada,
+# que es donde un cambio invisible sí molestó de verdad, la conserva (ver
+# stampCacheBusting() en build.mjs); acá alcanza con el max-age de 10 minutos
+# de GitHub Pages, porque a una ficha se llega desde Google una vez, no se
+# vuelve a ella cada día.
+CSS_HREF = "css/style.min.css"
+
+# Antes esta nota decía "precios de referencia para propósitos de
+# demostración". Iba en las ~82 mil fichas y es exactamente la clase de
+# autodeclaración que un buscador lee como contenido de poco valor, además de
+# contradecir lo que el sitio hace de verdad: los precios se rehacen todos los
+# días con el workflow refresh-precios.yml. Lo que sí hay que decir --que un
+# precio puede cambiar entre la actualización y la compra-- se dice sin
+# llamarse demo.
 STORE_ORDER_NOTE = (
-    "Los precios de esta página son de referencia para propósitos de "
-    "demostración y no están confirmados en tiempo real con cada tienda. "
-    "Para ver la comparación interactiva, con mapa de tiempos de entrega "
-    "por municipio y reseñas, usa el enlace a la versión completa."
+    "Los precios se actualizan automáticamente todos los días desde cada "
+    "tienda. Aun así pueden cambiar en cualquier momento: confirma el precio "
+    "final en la tienda antes de comprar. Para ver la comparación "
+    "interactiva, con mapa de tiempos de entrega por municipio y reseñas, "
+    "usa el enlace a la versión completa."
 )
 
 
@@ -170,7 +191,30 @@ def aggregate_rating(product):
     return round(weighted / total_reviews, 1), total_reviews
 
 
-def page_shell(title, description, canonical_path, body, depth, extra_head="", robots="index, follow"):
+def product_photo_html(product, css_class="detail-icon"):
+    """La foto del producto, o la ilustración de la categoría si no hay.
+
+    Estas páginas mostraban SIEMPRE el SVG de la categoría, aunque el 99.9%
+    del catálogo (80,632 de 80,697) tiene foto: ninguna ficha entraba en
+    Google Imágenes y el JSON-LD quedaba sin `image`, que es obligatorio para
+    que Google considere el resultado enriquecido de Producto.
+
+    referrerpolicy="no-referrer" por lo mismo que renderProductMedia() en
+    js/app.js: algunos CDN rechazan la carga por Referer.
+    """
+    foto = product.get("photo")
+    if not foto:
+        return f'<div class="{css_class}">{svg_icon(product.get("image", "box"))}</div>'
+    return (
+        f'<div class="{css_class} has-photo">'
+        f'<img class="product-photo product-photo-detail" src="{html_escape(foto)}" '
+        f'alt="{html_escape(product["name"])}" referrerpolicy="no-referrer" '
+        f'loading="lazy" decoding="async">'
+        f'</div>'
+    )
+
+
+def page_shell(title, description, canonical_path, body, depth, extra_head="", robots="index, follow", og_image=None):
     """depth = niveles bajo la raíz del sitio (para las rutas relativas ../)."""
     prefix = "../" * depth
     canonical = f"{SITE_URL}{canonical_path}"
@@ -180,6 +224,9 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
     # buscadores -- las dos cosas no deberían tener que decidirse juntas en
     # cada call site.
     robots_full = f"{robots}, noai, noimageai"
+    og_image_tag = (
+        f'<meta property="og:image" content="{html_escape(og_image)}">\n' if og_image else ""
+    )
     return f"""<!DOCTYPE html>
 <html lang="es-MX">
 <head>
@@ -193,12 +240,12 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 <meta property="og:title" content="{html_escape(title)}">
 <meta property="og:description" content="{html_escape(description)}">
 <meta property="og:url" content="{canonical}">
-<meta name="theme-color" content="#FF0211">
+{og_image_tag}<meta name="theme-color" content="#FF0211">
 <link rel="icon" href="{prefix}icons/icon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="{prefix}icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="{prefix}icons/apple-touch-icon.png">
-<link rel="stylesheet" href="{prefix}css/style.css">
+<link rel="stylesheet" href="{prefix}{CSS_HREF}">
 {GA_SNIPPET}
 {extra_head}
 </head>
@@ -206,7 +253,7 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 <header class="topbar">
   <div class="topbar-top">
     <div class="topbar-inner">
-      <a class="brand" href="{prefix}index.html">
+      <a class="brand" href="{prefix}">
         <img class="brand-icon" src="{prefix}icons/icon.svg" alt="" width="30" height="30">
         <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
       </a>
@@ -218,7 +265,7 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 </main>
 <footer class="site-footer">
   <div class="container">
-    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Proyecto de demostración (MVP), sin afiliación con las tiendas listadas.
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Precios actualizados automáticamente todos los días; sin afiliación con las tiendas listadas.
   </div>
 </footer>
 </body>
@@ -264,6 +311,7 @@ def product_json_ld(product, data, canonical):
         "name": product["name"],
         "brand": {"@type": "Brand", "name": product["brand"]},
         "category": product["category"],
+        "url": canonical,
         "offers": {
             "@type": "AggregateOffer",
             "priceCurrency": "MXN",
@@ -273,6 +321,29 @@ def product_json_ld(product, data, canonical):
             "offers": offers,
         },
     }
+    # `image` es requisito de Google para el resultado enriquecido de
+    # Producto: sin él la ficha no califica, por más completo que esté el
+    # resto. Lo teníamos guardado y no lo declarábamos.
+    if product.get("photo"):
+        ld["image"] = product["photo"]
+
+    # El código de barras es la señal más fuerte para que Google entienda que
+    # nuestra ficha y la de otra tienda son el MISMO artículo. Solo se declara
+    # el que Mercado Libre confirmó (scripts/confirm_gtins.py deja
+    # product["gtin"]): el `ean` suelto de Elektra incluye consecutivos
+    # internos de la tienda, y declarar uno equivocado haría que Google
+    # fusionara nuestra ficha con otro producto -- peor que no declarar nada.
+    gtin = str(product.get("gtin") or "")
+    propiedad = {8: "gtin8", 12: "gtin12", 13: "gtin13", 14: "gtin14"}.get(len(gtin))
+    if propiedad:
+        ld[propiedad] = gtin
+
+    if product.get("specs"):
+        # Descripción a partir de la ficha técnica real. No se inventa texto:
+        # son las mismas etiquetas y valores que se ven en la tabla.
+        partes = [f"{sp['label']}: {sp['value']}" for sp in product["specs"][:6]]
+        ld["description"] = f"{product['name']}. " + ". ".join(partes) + "."
+
     if count > 0:
         ld["aggregateRating"] = {
             "@type": "AggregateRating",
@@ -411,7 +482,7 @@ def render_product_page(product, data):
 <div class="panel detail-anchor-target" id="shippingPanel">
   <h2>Estimación de envío internacional</h2>
   <p class="muted small">Este producto se vende en {html_escape(shipping_calc_store['name'])}. Usa la calculadora de envío por peso y tamaño de ComparaMEX para estimar el costo a México.</p>
-  <a class="buy-btn" href="../../index.html#/envio">Abrir calculadora de envío →</a>
+  <a class="buy-btn" href="../../#/envio">Abrir calculadora de envío →</a>
 </div>
 """
 
@@ -529,7 +600,7 @@ def render_product_page(product, data):
 
     related = related_products(product, data["products"])
     related_items = "".join(
-        f'<a class="related-item" href="../../producto/{r["id"]}/index.html">'
+        f'<a class="related-item" href="../../producto/{r["id"]}/">'
         f'<span class="row-icon">{svg_icon(r.get("image", "box"))}</span>'
         f'<span class="related-name">{html_escape(r["name"])}</span>'
         f'<span class="related-price">{"Desde " if len(r["offers"]) > 1 else ""}{money(min_price(r))}</span>'
@@ -543,7 +614,7 @@ def render_product_page(product, data):
     )
 
     sub_crumb = (
-        f'<a href="../../index.html#/list?cat={cat["id"]}&sub={sub["id"]}">{html_escape(sub["name"])}</a> &gt;'
+        f'<a href="../../#/list?cat={cat["id"]}&sub={sub["id"]}">{html_escape(sub["name"])}</a> &gt;'
         if sub else ""
     )
 
@@ -571,13 +642,13 @@ def render_product_page(product, data):
 
     body = f"""
 <nav class="breadcrumb">
-  <a href="../../index.html">Inicio</a> &gt;
-  <a href="../../categoria/{cat_slug}/index.html">{html_escape(cat['name'])}</a> &gt;
+  <a href="../../">Inicio</a> &gt;
+  <a href="../../categoria/{cat_slug}/">{html_escape(cat['name'])}</a> &gt;
   {sub_crumb}
   {html_escape(product['name'])}
 </nav>
 <div class="detail-head">
-  <div class="detail-icon">{svg_icon(product.get('image', 'box'))}</div>
+  {product_photo_html(product)}
   <div class="detail-headinfo">
     <p class="muted small">{html_escape(product['brand'])}</p>
     <h1>{html_escape(product['name'])}{f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>' if is_used(product) else ''}</h1>
@@ -606,11 +677,11 @@ def render_product_page(product, data):
 <div class="panel" style="text-align:center">
   <h2>Ver la comparación interactiva</h2>
   <p class="muted small">Mapa de tiempo de entrega por municipio, comparación completa por tienda y reseñas de compradores.</p>
-  <a class="buy-btn" href="../../index.html#/p/{product['id']}">Abrir ComparaMEX interactivo →</a>
+  <a class="buy-btn" href="../../#/p/{product['id']}">Abrir ComparaMEX interactivo →</a>
 </div>
 """
     breadcrumbs = breadcrumb_json_ld([
-        ("Inicio", f"{SITE_URL}/index.html"),
+        ("Inicio", f"{SITE_URL}/"),
         (cat["name"], f"{SITE_URL}/categoria/{cat_slug}/"),
         (product["name"], None),
     ])
@@ -619,7 +690,8 @@ def render_product_page(product, data):
         f'<script type="application/ld+json">\n{breadcrumbs}\n</script>'
     )
     title = f"{product['name']} — Compara precios en México | ComparaMEX"
-    return page_shell(title, description, canonical_path, body, depth=2, extra_head=extra_head)
+    return page_shell(title, description, canonical_path, body, depth=2,
+                      extra_head=extra_head, og_image=product.get("photo"))
 
 
 def render_category_page(cat, products, data):
@@ -659,7 +731,7 @@ def render_category_page(cat, products, data):
             f'<span class="row-icon">{svg_icon(p.get("image", "box"))}</span>'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
-            f'<div class="row-name"><a href="../../producto/{p["id"]}/index.html">{html_escape(p["name"])}</a>{used_badge}{variant_badge}</div>'
+            f'<div class="row-name"><a href="../../producto/{p["id"]}/">{html_escape(p["name"])}</a>{used_badge}{variant_badge}</div>'
             f'</div>'
             f'<div class="row-priceblock">'
             + (f'<div class="row-from">Desde</div>' if len(p["offers"]) > 1 else "")
@@ -673,16 +745,16 @@ def render_category_page(cat, products, data):
         if len(products) > len(shown) else ""
     )
     body = f"""
-<nav class="breadcrumb"><a href="../../index.html">Inicio</a> &gt; {html_escape(cat['name'])}</nav>
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; {html_escape(cat['name'])}</nav>
 <div class="list-head"><h1>{svg_icon("trophy")} {html_escape(cat['name'])} — más populares ({len(products)})</h1></div>
 <div class="product-list">{''.join(rows)}</div>
 <div class="panel" style="text-align:center; margin-top:20px">
-  <a class="buy-btn" href="../../index.html#/list?cat={cat['id']}">Ver con filtros interactivos →</a>
+  <a class="buy-btn" href="../../#/list?cat={cat['id']}">Ver con filtros interactivos →</a>
   {more_note}
 </div>
 """
     breadcrumbs = breadcrumb_json_ld([
-        ("Inicio", f"{SITE_URL}/index.html"),
+        ("Inicio", f"{SITE_URL}/"),
         (cat["name"], None),
     ])
     extra_head = f'<script type="application/ld+json">\n{breadcrumbs}\n</script>'
@@ -714,7 +786,7 @@ def write_sitemaps(data, root):
     """
     written = []
 
-    page_urls = [f"{SITE_URL}/index.html"]
+    page_urls = [f"{SITE_URL}/"]
     for cat in data["categories"]:
         page_urls.append(f"{SITE_URL}/categoria/{slugify(cat['name'])}/")
     pages_path = os.path.join(root, "sitemap-pages.xml")

@@ -68,8 +68,17 @@ COMPACT = {"ensure_ascii": False, "separators": (",", ":")}
 # Se sacan del archivo que el navegador descarga al abrir y viven en
 # data/details-N.json, que el SPA pide recién al abrir una ficha:
 #
-#   url      8.5 MB en crudo -- la parte más pesada después de las fotos
-#   sellers  2.1 MB -- el desglose por vendedor de Mercado Libre
+#   url        8.5 MB en crudo -- la parte más pesada después de las fotos
+#   sellers    2.1 MB -- el desglose por vendedor de Mercado Libre
+#   ean        el código de barras de la publicación. js/ no lo lee NUNCA
+#              (0 referencias); solo lo usan match_by_gtin.py y
+#              refresh_elektra.py, del lado de Python. Son dígitos al azar, o
+#              sea lo peor que le puede pasar a gzip: sacarlo solo de la shard
+#              de Muebles baja 536 -> 495 KB comprimidos (-7.7%).
+#   topReview  la reseña destacada por tienda. Solo la pinta
+#              renderStoreReviews(), que corre en la ficha DESPUÉS de
+#              `await ensureDetail(product)` (js/app.js), no en el listado.
+#              -2.1% en la misma shard.
 #
 # `specs` NO se saca aunque también parezca "de ficha": los filtros de
 # Condición/MagSafe/Tamaño del listado lo leen, así que sacarlo rompería el
@@ -77,7 +86,14 @@ COMPACT = {"ensure_ascii": False, "separators": (",", ":")}
 # purchaseOptions() compara `v.url === base.url` para decidir a qué variante
 # le corresponde el listPrice, y eso corre también en el listado (son 286
 # productos, no mueve la aguja).
-DETAIL_OFFER_FIELDS = ("url", "sellers")
+DETAIL_OFFER_FIELDS = ("url", "sellers", "ean", "topReview")
+
+# Con colorVariants la url TIENE que quedarse en la shard (purchaseOptions()
+# compara `v.url === base.url` para saber a qué variante le toca cada
+# listPrice, y eso corre en el listado). El resto sí se puede mover.
+DETAIL_OFFER_FIELDS_CON_VARIANTES = tuple(
+    f for f in DETAIL_OFFER_FIELDS if f != "url"
+)
 
 # La ficha técnica completa (importada de Elektra, hasta 16 campos por
 # producto) NO puede viajar en la shard que el navegador baja al entrar a una
@@ -101,7 +117,7 @@ def _split_detail(product):
     offers = product.get("offers") or []
     specs = product.get("specs") or []
     specs_pesadas = [s for s in specs if s.get("label") not in SPEC_LABELS_EN_LISTADO]
-    if not offers or product.get("colorVariants"):
+    if not offers:
         # Aun sin ofertas que aligerar, la ficha técnica sí se puede mover.
         if not specs_pesadas:
             return product, None
@@ -110,11 +126,15 @@ def _split_detail(product):
         if not light["specs"]:
             light.pop("specs", None)
         return light, {"_specs": specs}
+    campos = (
+        DETAIL_OFFER_FIELDS_CON_VARIANTES if product.get("colorVariants")
+        else DETAIL_OFFER_FIELDS
+    )
     detail = {}
     light_offers = []
     for i, o in enumerate(offers):
         light = o
-        for field in DETAIL_OFFER_FIELDS:
+        for field in campos:
             if o.get(field) is not None:
                 if light is o:
                     light = dict(o)

@@ -24,8 +24,10 @@ import { readFileSync, writeFileSync } from "node:fs";
 // URL y el navegador lo vuelve a pedir; si no cambió, sigue usando su
 // copia y no se pierde el cacheo.
 //
-// Las páginas estáticas de SEO (categoria/, producto/) no cargan estos
-// archivos -- son autónomas -- así que solo hay que sellar index.html.
+// Las páginas estáticas de SEO (categoria/, producto/) sí cargan
+// css/style.min.css, pero SIN huella: sellarlas obligaría a reescribir las
+// ~82 mil por cada retoque de CSS (ver CSS_HREF en
+// scripts/generate_seo_pages.py). Acá solo se sella index.html.
 function stampCacheBusting() {
   const archivos = ["css/style.min.css", "js/app.min.js", "js/firebase-init.min.js"];
   let html = readFileSync("index.html", "utf8");
