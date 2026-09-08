@@ -61,13 +61,39 @@ from data_io import load_catalog, save_catalog  # noqa: E402
 AMAZON_STORE = "amazon_mx"
 
 
-def next_id(products):
+def next_id(products, data=None):
+    """Primer id libre, y NUNCA uno que ya se haya usado.
+
+    Antes devolvía max(ids existentes) + 1. Si un producto se daba de baja
+    --refresh_prices.py poda las publicaciones que Mercado Libre retira, y
+    alguna vez se borra a mano-- ese id volvía a quedar libre y el siguiente
+    alta se lo llevaba. Pasó de verdad: se dio de baja p125291 (una UGREEN de
+    10,000 mAh con precio mal capturado) y el alta siguiente reusó el mismo
+    id para otro power bank. Eso rompe cosas que no se ven:
+
+      - /producto/p125291/ ya está indexada por Google apuntando al primero.
+      - Los favoritos y el historial de la cuenta guardan ids (Firestore).
+      - data/hist/ guarda la serie de precios por id: dos productos
+        distintos terminarían compartiendo una sola serie.
+
+    Así que el máximo histórico se guarda en data.json (meta.maxProductId) y
+    el id siguiente sale de ahí, no de lo que hay hoy en el catálogo.
+    """
     top = 0
     for p in products:
         m = re.match(r"p(\d+)$", p.get("id", ""))
         if m:
             top = max(top, int(m.group(1)))
+    if data is not None:
+        top = max(top, int((data.get("meta") or {}).get("maxProductId") or 0))
     return top + 1
+
+
+def registrar_max_id(data, ultimo_id):
+    """Deja anotado en el manifiesto el id más alto que se llegó a usar."""
+    n = int(re.sub(r"\D", "", str(ultimo_id)) or 0)
+    meta = data.setdefault("meta", {})
+    meta["maxProductId"] = max(int(meta.get("maxProductId") or 0), n)
 
 
 def existing_asins(products):
@@ -129,7 +155,7 @@ def main():
     known = existing_asins(data["products"])
     cat_ids = {c["id"]: {s["id"] for s in (c.get("subcategories") or [])}
                for c in data["categories"]}
-    nid = next_id(data["products"])
+    nid = next_id(data["products"], data)
     techos = techos_por_subcategoria(data["products"])
 
     created, skipped = [], []
@@ -200,6 +226,7 @@ def main():
     if not created:
         print("\nNada que guardar.")
         return
+    registrar_max_id(data, nid - 1)
     save_catalog(data)
     print(f"\nGuardado. Catálogo: {len(data['products'])} productos")
     print("Recordá correr compute_facets.py y generate_seo_pages.py después.")

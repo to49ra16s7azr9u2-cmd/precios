@@ -36,6 +36,7 @@ import datetime
 import json
 import os
 import re
+import shutil
 import sys
 import unicodedata
 
@@ -1560,6 +1561,71 @@ def write_if_changed(path, body):
     return True
 
 
+def borrar_paginas_huerfanas(data, dry_run=False):
+    """Borra las páginas de productos y categorías que ya no están.
+
+    write_if_changed() solo escribe; nada borraba. Cuando refresh_prices.py
+    poda una publicación que Mercado Libre dio de baja, el producto sale del
+    catálogo pero su página seguía publicada, con el precio del día que
+    murió. Medido: 1,078 fichas así, indexables y con un precio que ya no
+    existe -- exactamente lo que un comparador no puede tener.
+
+    Solo se borra lo que este mismo script genera (producto/<id>/,
+    categoria/<slug>/ y sus subcategorías, ofertas/<slug>/) y solo si el id o
+    el slug no está en el catálogo de esta corrida.
+    """
+    vivos = {p["id"] for p in data["products"]}
+    borrados = {"producto": 0, "categoria": 0, "ofertas": 0}
+
+    carpeta = os.path.join(ROOT, "producto")
+    if os.path.isdir(carpeta):
+        for nombre in os.listdir(carpeta):
+            ruta = os.path.join(carpeta, nombre)
+            if os.path.isdir(ruta) and nombre not in vivos:
+                borrados["producto"] += 1
+                if not dry_run:
+                    shutil.rmtree(ruta)
+
+    slugs_cat = {slugify(c["name"]) for c in data["categories"]}
+    subs_por_cat = {}
+    for cat in data["categories"]:
+        productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
+        subs_por_cat[slugify(cat["name"])] = {
+            slugify(sub["name"]) for sub, _ in subcategorias_con_pagina(cat, productos_cat)
+        }
+
+    carpeta = os.path.join(ROOT, "categoria")
+    if os.path.isdir(carpeta):
+        for nombre in os.listdir(carpeta):
+            ruta = os.path.join(carpeta, nombre)
+            if not os.path.isdir(ruta):
+                continue
+            if nombre not in slugs_cat:
+                borrados["categoria"] += 1
+                if not dry_run:
+                    shutil.rmtree(ruta)
+                continue
+            # Subcategorías que dejaron de tener página propia (bajaron del
+            # mínimo, o se renombraron).
+            for sub in os.listdir(ruta):
+                sub_ruta = os.path.join(ruta, sub)
+                if os.path.isdir(sub_ruta) and sub not in subs_por_cat[nombre]:
+                    borrados["categoria"] += 1
+                    if not dry_run:
+                        shutil.rmtree(sub_ruta)
+
+    carpeta = os.path.join(ROOT, "ofertas")
+    if os.path.isdir(carpeta):
+        for nombre in os.listdir(carpeta):
+            ruta = os.path.join(carpeta, nombre)
+            if os.path.isdir(ruta) and nombre not in slugs_cat:
+                borrados["ofertas"] += 1
+                if not dry_run:
+                    shutil.rmtree(ruta)
+
+    return borrados
+
+
 def render_404(data):
     """Página de error de GitHub Pages.
 
@@ -1753,6 +1819,11 @@ def main():
     robots_path = os.path.join(ROOT, "robots.txt")
     if write_if_changed(robots_path, build_robots()):
         written.append(robots_path)
+
+    borrados = borrar_paginas_huerfanas(data)
+    if any(borrados.values()):
+        print("Páginas borradas (el producto o la categoría ya no está): "
+              + ", ".join(f"{v:,} de {k}/" for k, v in borrados.items() if v))
 
     path_404 = os.path.join(ROOT, "404.html")
     if write_if_changed(path_404, render_404(data)):

@@ -334,7 +334,13 @@
     selectedRegion: null, // null hasta que el usuario elige un municipio en el mapa
     query: "",
     category: null, // filtro activo en la vista de lista
-    subcategory: null, // sub-nivel dentro de la categoría (si tiene)
+    // LISTA, no un valor suelto: el filtro es multi-selección (ver toSubList
+    // y renderSubcatMultiToggle). Se quedó en null desde antes de ese cambio y
+    // reventaba en cuanto algo lo leía sin haber navegado a una categoría:
+    // singleSub() hacía state.subcategory.length sobre null y tiraba abajo el
+    // render de Inicio y el de "#/list" sin categoría (los dos quedaban en
+    // cero productos). Ver renderProductListInto -> qualityTiersOf.
+    subcategory: [], // sub-niveles elegidos dentro de la categoría; vacío = todos
     priceMin: null, // null = sin tope inferior
     priceMax: null, // null = sin tope superior
     includeShipping: readLS(LS_KEYS.includeShipping, false), // suma envío conocido al precio mostrado en todo el sitio
@@ -3667,6 +3673,36 @@
   // Dibuja UN filtro de SPEC_FACETS -- reemplaza a tener una función
   // renderFilterX() a mano por cada uno de los 12 campos (mismo patrón que
   // renderFilterMagsafe/renderFilterSize arriba, pero parametrizado).
+  // A partir de cuántas opciones un grupo de filtro necesita buscador. Doce
+  // entran de un vistazo; más que eso ya hay que recorrer con el scroll.
+  const FACET_CON_BUSCADOR = 12;
+
+  // Crea (una sola vez) el <input> de búsqueda de un grupo de filtro y lo
+  // devuelve, o null si ese grupo es corto. Se conserva entre renders: cada
+  // clic en la lista dispara renderList() y volver a crearlo perdería lo
+  // tecleado y el foco.
+  function ensureFacetSearch(cfg, cantidad) {
+    const listEl = el[cfg.listEl];
+    if (!listEl) return null;
+    const previo = listEl.parentElement.querySelector(`[data-facet-search="${cfg.key}"]`);
+    if (cantidad <= FACET_CON_BUSCADOR) {
+      if (previo) previo.remove();
+      return null;
+    }
+    if (previo) return previo;
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "filter-search";
+    input.dataset.facetSearch = cfg.key;
+    input.autocomplete = "off";
+    input.placeholder = `Buscar ${String(cfg.label || "").toLowerCase()}...`;
+    // Solo repinta ESTE grupo: no hace falta rehacer la lista de productos
+    // porque escribir acá no cambia ningún filtro aplicado.
+    input.addEventListener("input", () => renderSpecFacetFilter(cfg));
+    listEl.parentElement.insertBefore(input, listEl);
+    return input;
+  }
+
   function renderSpecFacetFilter(cfg) {
     const relevant = cfg.categories.includes(state.category);
     el[cfg.groupEl].classList.toggle("hidden", !relevant);
@@ -3695,7 +3731,24 @@
     let vals = [...values];
     vals = cfg.sortNum ? vals.sort((a, b) => a - b) : vals.sort((a, b) => String(a).localeCompare(String(b)));
     const items = vals.map((v) => ({ id: v, label: cfg.format(v) }));
-    items.forEach((item) => {
+    // Buscador cuando la lista es larga. "Marca" ya lo tenía y a su lado
+    // quedaban grupos de 162 opciones (Modelo en Celulares), 123 (Chipset) y
+    // 79 (Batería) sin ninguna forma de llegar a una: la misma pantalla
+    // resolvía el problema para un campo y no para los demás. Se arma acá y
+    // no en index.html porque son quince grupos y todos se pintan igual.
+    const buscador = ensureFacetSearch(cfg, items.length);
+    const filtro = buscador ? normalizeSearchText(buscador.value.trim()) : "";
+    const visibles = filtro
+      ? items.filter((i) => normalizeSearchText(String(i.label)).includes(filtro)
+                         || normalizeSearchText(String(i.id)).includes(filtro))
+      : items;
+    if (buscador && !visibles.length) {
+      const vacio = document.createElement("p");
+      vacio.className = "filter-empty muted small";
+      vacio.textContent = `Sin resultados para "${buscador.value.trim()}"`;
+      listEl.appendChild(vacio);
+    }
+    visibles.forEach((item) => {
       const opt = document.createElement("label");
       const isActive = state.specFilters[cfg.key].has(item.id);
       opt.className = "filter-option" + (isActive ? " active" : "");
