@@ -346,9 +346,12 @@
     // un id suelto; con la selección múltiple pasa a ser lista para no
     // tener dos formas de representar lo mismo según el modo.
     quality: { level: [], size: [] },
-    // Selección múltiple por eje, off por defecto: el recorrido de un clic
-    // ("elijo Intermedio y veo Intermedios") sigue siendo el de siempre.
-    qualityMulti: { level: false, size: false },
+    // Selección múltiple por eje, ENCENDIDA por defecto (a pedido del
+    // usuario, igual que la del modal de especificaciones): elegir dos
+    // niveles a la vez es lo normal -- "me sirve un Intermedio o un Alto" --
+    // y con ella apagada el segundo clic borraba el primero sin avisar.
+    // Apagarla deja un nivel por eje, no vacía la selección.
+    qualityMulti: { level: true, size: true },
     // Los filtros de especificaciones SIEMPRE aceptaron varias opciones a la
     // vez; lo que no había era forma de saberlo ni de pedir lo contrario.
     // Arranca encendido para no quitarle a nadie lo que ya tenía.
