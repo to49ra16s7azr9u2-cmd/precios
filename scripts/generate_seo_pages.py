@@ -564,6 +564,47 @@ def sparkline_svg(serie, ancho=560, alto=90):
     )
 
 
+# Cuántos días tiene que haberse sostenido el precio anterior para creerle a
+# una bajada. Un precio que aparece un solo día y desaparece es casi siempre
+# un dato malo que se corrigió --Elektra publicó un juego de Xbox a $10,933--
+# y anunciarlo como "88% de descuento" mandaría a la gente a una tienda donde
+# no hay tal descuento. Una promoción de verdad dura.
+DIAS_SOSTENIDO = 2
+
+# Debajo de esto la bajada no vale una fila en un ranking.
+BAJADA_MINIMA_PCT = 10.0
+
+
+def bajada_de(product_id):
+    """La mayor bajada VIGENTE de este producto, o None.
+
+    (pct, tienda, precio_antes, precio_ahora, día_del_cambio)
+
+    Se mide DENTRO de una misma tienda, nunca sobre el mínimo entre tiendas.
+    Cuando a un producto se le suma una segunda tienda más barata, el mínimo
+    cae de golpe, pero nadie bajó ningún precio: solo apareció otro vendedor.
+    Medido así, el ranking se llenaba de "Minecraft bajó 93%" que en realidad
+    era "Elektra lo tenía a $9,864 y ahora también está en Mercado Libre a
+    $699".
+    """
+    mejor = None
+    for tienda, flat in (historial_de(product_id) or {}).items():
+        pares = list(zip(flat[::2], flat[1::2]))
+        if len(pares) < 2:
+            continue
+        (dia_antes, antes), (dia_ahora, ahora) = pares[-2], pares[-1]
+        if ahora >= antes or not antes:
+            continue
+        if dia_ahora - dia_antes < DIAS_SOSTENIDO:
+            continue
+        pct = 100 * (antes - ahora) / antes
+        if pct < BAJADA_MINIMA_PCT:
+            continue
+        if mejor is None or pct > mejor[0]:
+            mejor = (pct, tienda, antes, ahora, dia_ahora)
+    return mejor
+
+
 def render_price_history(product):
     """Panel de evolución del precio, o "" si todavía no hay dos puntos.
 
@@ -816,6 +857,11 @@ def render_product_page(product, data, subs_con_pagina=None):
     # AliExpress/Alibaba/SUNSKY/Geekbuying, y las reseñas solo si el producto
     # ya tiene alguna.
     history_html = render_price_history(product)
+    if bajada_de(product["id"]):
+        history_html += (
+            f'<p style="text-align:center; margin:-6px 0 14px"><a class="chip" '
+            f'href="../../ofertas/">{svg_icon("chart")} Ver todo lo que bajó de precio hoy</a></p>'
+        )
     quicknav_items = [("comparePanel", "tag", "Precios")]
     if history_html:
         quicknav_items.append(("historyPanel", "chart", "Evolución"))
@@ -1056,6 +1102,130 @@ def render_subcategory_page(cat, sub, products, data):
                       extra_head=extra_head, og_image=next((p.get("photo") for p in shown if p.get("photo")), None))
 
 
+# ------------------------------------------------------------------ ofertas
+
+OFERTAS_TOPE = 100
+
+# Mínimo de bajadas para que una categoría tenga su propia página de ofertas.
+MIN_BAJADAS_PARA_PAGINA = 30
+
+# [(nombre de categoría, cuántas bajadas)] para los enlaces de la página
+# general. Lo llena main() antes de pintar, porque contarlo dentro sería
+# recorrer el catálogo entero otra vez.
+_por_categoria = []
+
+
+def _fila_de_oferta(p, bajada, prefijo):
+    pct, tienda, antes, ahora, dia = bajada
+    return (
+        f'<div class="product-row oferta-row">'
+        f'{product_photo_html(p, "row-icon")}'
+        f'<div class="row-info">'
+        f'<div class="row-brand">{html_escape(p["brand"])}</div>'
+        f'<div class="row-name"><a href="{prefijo}producto/{p["id"]}/">{html_escape(p["name"])}</a></div>'
+        f'<div class="muted small">En {html_escape(store_by_id_name(p, tienda))}, '
+        f'desde el {fecha_larga(dia)}</div>'
+        f'</div>'
+        f'<div class="row-priceblock">'
+        f'<div class="oferta-antes">{money(antes)}</div>'
+        f'<div class="row-price">{money(ahora)}</div>'
+        f'<div class="oferta-pct">-{pct:.0f}%</div>'
+        f'</div>'
+        f'</div>'
+    )
+
+
+def store_by_id_name(product, store_id):
+    """Nombre legible de la tienda, con el id como respaldo."""
+    return _NOMBRES_TIENDA.get(store_id, store_id)
+
+
+# Se llena en main() desde data["stores"], que es donde vive el nombre
+# legible de cada tienda.
+_NOMBRES_TIENDA = {}
+
+
+def render_ofertas_page(items, data, cat=None):
+    """Ranking de bajadas de precio. `items` = [(bajada, producto)] ya ordenado.
+
+    Es la página que más se mueve del sitio --cambia todos los días con el
+    refresco-- y la única que se puede armar con datos que no tiene nadie más:
+    hay que haber estado mirando el precio ayer para saber que hoy bajó.
+    """
+    donde = f" en {cat['name'].lower()}" if cat else ""
+    slug = slugify(cat["name"]) if cat else None
+    canonical_path = f"/ofertas/{slug}/" if cat else "/ofertas/"
+    prefijo = "../../" if cat else "../"
+    mostrados = items[:OFERTAS_TOPE]
+    description = (
+        f"Productos que bajaron de precio{donde} en tiendas de México, "
+        f"según nuestro registro diario. {len(items)} bajadas detectadas; "
+        f"se listan las {len(mostrados)} mayores."
+    )
+    filas = "".join(_fila_de_oferta(p, b, prefijo) for b, p in mostrados)
+
+    if cat:
+        migas = (
+            f'<nav class="breadcrumb"><a href="{prefijo}">Inicio</a> &gt; '
+            f'<a href="../">Bajaron de precio</a> &gt; {html_escape(cat["name"])}</nav>'
+        )
+        titulo = f"{cat['name']}: productos que bajaron de precio"
+        otras = ""
+    else:
+        migas = f'<nav class="breadcrumb"><a href="{prefijo}">Inicio</a> &gt; Bajaron de precio</nav>'
+        titulo = "Productos que bajaron de precio"
+        chips = "".join(
+            f'<a class="chip" href="{slugify(nombre)}/">{html_escape(nombre)} ({n})</a>'
+            for nombre, n in sorted(_por_categoria, key=lambda x: -x[1])
+            if n >= MIN_BAJADAS_PARA_PAGINA
+        )
+        otras = (
+            f'<div class="panel"><h2>Por categoría</h2>'
+            f'<div class="chip-row">{chips}</div></div>' if chips else ""
+        )
+
+    body = f"""
+{migas}
+<div class="list-head"><h1>{svg_icon("chart")} {html_escape(titulo)}</h1></div>
+<p class="muted small">Comparamos el precio de cada producto con el que tenía
+antes en la MISMA tienda. No entran los productos que aparecen más baratos
+solo porque se les sumó otro vendedor: eso no es una bajada. Tampoco los
+precios que estuvieron un solo día, que casi siempre son un dato que la
+tienda corrigió.</p>
+<div class="product-list">{filas}</div>
+{{otras}}
+<div class="panel" style="text-align:center; margin-top:20px">
+  <a class="buy-btn" href="{prefijo}#/list">Ver el catálogo completo con filtros →</a>
+</div>
+"""
+    body = body.replace("{otras}", otras)
+    breadcrumbs = breadcrumb_json_ld(
+        [("Inicio", f"{SITE_URL}/"), ("Bajaron de precio", f"{SITE_URL}/ofertas/"),
+         (cat["name"], None)]
+        if cat else
+        [("Inicio", f"{SITE_URL}/"), ("Bajaron de precio", None)]
+    )
+    lista_ld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": titulo,
+        "numberOfItems": len(mostrados),
+        "itemListElement": [
+            {"@type": "ListItem", "position": i,
+             "url": f"{SITE_URL}/producto/{p['id']}/", "name": p["name"]}
+            for i, (_, p) in enumerate(mostrados, start=1)
+        ],
+    }, ensure_ascii=False, indent=2)
+    extra_head = (
+        f'<script type="application/ld+json">\n{breadcrumbs}\n</script>\n'
+        f'<script type="application/ld+json">\n{lista_ld}\n</script>'
+    )
+    title = f"{titulo} — México | ComparaMEX"
+    return page_shell(title, description, canonical_path, body,
+                      depth=2 if cat else 1, extra_head=extra_head,
+                      og_image=next((p.get("photo") for _, p in mostrados if p.get("photo")), None))
+
+
 def render_category_page(cat, products, data):
     slug = slugify(cat["name"])
     canonical_path = f"/categoria/{slug}/"
@@ -1124,9 +1294,21 @@ def render_category_page(cat, products, data):
             f'<div class="chip-row">{chips}</div></div>'
         )
 
+    # Enlace a las bajadas de precio de esta categoría, si tiene página. Sin
+    # esto /ofertas/<cat>/ solo colgaría del sitemap.
+    ofertas_link = ""
+    n_bajadas = sum(1 for p in products if bajada_de(p["id"]))
+    if n_bajadas >= MIN_BAJADAS_PARA_PAGINA:
+        ofertas_link = (
+            f'<p style="text-align:center; margin:10px 0"><a class="chip" '
+            f'href="../../ofertas/{slug}/">{svg_icon("chart")} '
+            f'{n_bajadas} productos bajaron de precio en {html_escape(cat["name"].lower())}</a></p>'
+        )
+
     body = f"""
 <nav class="breadcrumb"><a href="../../">Inicio</a> &gt; {html_escape(cat['name'])}</nav>
 <div class="list-head"><h1>{svg_icon("trophy")} {html_escape(cat['name'])} — más populares ({len(products)})</h1></div>
+{ofertas_link}
 {subs_html}
 <div class="product-list">{''.join(rows)}</div>
 <div class="panel" style="text-align:center; margin-top:20px">
@@ -1204,7 +1386,7 @@ def _urlset_xml(urls, lastmod=None, images=None):
     )
 
 
-def write_sitemaps(data, root, lastmod=None):
+def write_sitemaps(data, root, lastmod=None, ofertas_urls=()):
     """Escribe el árbol de sitemaps y devuelve las rutas escritas.
 
     Un solo sitemap.xml con más de 50,000 URLs es inválido para Google; en
@@ -1224,6 +1406,7 @@ def write_sitemaps(data, root, lastmod=None):
         productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
         for sub, _ in subcategorias_con_pagina(cat, productos_cat):
             page_urls.append(f"{SITE_URL}/categoria/{cat_slug}/{slugify(sub['name'])}/")
+    page_urls.extend(ofertas_urls)
     pages_path = os.path.join(root, "sitemap-pages.xml")
     if write_if_changed(pages_path, _urlset_xml(page_urls, lastmod)):
         written.append(pages_path)
@@ -1446,6 +1629,55 @@ def main():
                 written.append(sub_path)
                 marcar(f"{SITE_URL}/categoria/{slug}/{sub_slug}/")
 
+    # Ranking de bajadas de precio. Va después de las fichas porque usa el
+    # mismo historial ya cargado, y antes del sitemap para que sus urls entren.
+    _NOMBRES_TIENDA.update(
+        {st["id"]: st.get("name") or st["id"] for st in (data.get("stores") or [])}
+    )
+    bajadas_por_cat = {}
+    todas_bajadas = []
+    for product in data["products"]:
+        b = bajada_de(product["id"])
+        if not b:
+            continue
+        todas_bajadas.append((b, product))
+        bajadas_por_cat.setdefault(product["category"], []).append((b, product))
+    todas_bajadas.sort(key=lambda x: -x[0][0])
+
+    _por_categoria.clear()
+    for cat in data["categories"]:
+        n = len(bajadas_por_cat.get(cat["id"]) or [])
+        if n:
+            _por_categoria.append((cat["name"], n))
+
+    ofertas_dir = os.path.join(ROOT, "ofertas")
+    os.makedirs(ofertas_dir, exist_ok=True)
+    ofertas_urls = []
+    if todas_bajadas:
+        path = os.path.join(ofertas_dir, "index.html")
+        if write_if_changed(path, render_ofertas_page(todas_bajadas, data)):
+            written.append(path)
+            marcar(f"{SITE_URL}/ofertas/")
+        ofertas_urls.append(f"{SITE_URL}/ofertas/")
+
+    # Una categoría con cuatro bajadas no merece página propia: sería casi
+    # igual a la general y solo gastaría presupuesto de rastreo.
+    for cat in data["categories"]:
+        items = sorted(bajadas_por_cat.get(cat["id"]) or [], key=lambda x: -x[0][0])
+        if len(items) < MIN_BAJADAS_PARA_PAGINA:
+            continue
+        slug = slugify(cat["name"])
+        d = os.path.join(ofertas_dir, slug)
+        os.makedirs(d, exist_ok=True)
+        path = os.path.join(d, "index.html")
+        if write_if_changed(path, render_ofertas_page(items, data, cat)):
+            written.append(path)
+            marcar(f"{SITE_URL}/ofertas/{slug}/")
+        ofertas_urls.append(f"{SITE_URL}/ofertas/{slug}/")
+
+    print(f"Bajadas de precio publicables: {len(todas_bajadas):,} "
+          f"({len(ofertas_urls)} páginas)")
+
     # La portada no la escribe este script, pero su contenido (los carruseles
     # de data/home.json) sale del mismo catálogo: si cambió alguna ficha,
     # cambió también lo que se ve en la portada.
@@ -1454,7 +1686,7 @@ def main():
 
     # Las urls que ya no existen (productos borrados, subcategorías que
     # bajaron del mínimo) se sacan del registro para que no crezca sin fin.
-    vigentes = {f"{SITE_URL}/"}
+    vigentes = {f"{SITE_URL}/"} | set(ofertas_urls)
     vigentes |= {f"{SITE_URL}/producto/{p['id']}/" for p in data["products"]}
     for cat in data["categories"]:
         slug = slugify(cat["name"])
@@ -1464,7 +1696,7 @@ def main():
             vigentes.add(f"{SITE_URL}/categoria/{slug}/{slugify(sub['name'])}/")
     lastmod = {u: f for u, f in lastmod.items() if u in vigentes}
 
-    written += write_sitemaps(data, ROOT, lastmod)
+    written += write_sitemaps(data, ROOT, lastmod, ofertas_urls)
 
     if write_if_changed(LASTMOD_FILE, json.dumps(lastmod, ensure_ascii=False, indent=0, sort_keys=True)):
         written.append(LASTMOD_FILE)
