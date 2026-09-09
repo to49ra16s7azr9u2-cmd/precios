@@ -58,6 +58,14 @@ concurrency:
   group: refresh-precios
   cancel-in-progress: false
 
+
+# Dos corridas a la vez se pisarían el catálogo entre ellas. La segunda
+# espera a que termine la primera en vez de cancelarla: cancelarla tiraría
+# a la basura las dos horas de lectura de tiendas que ya lleva hecha.
+concurrency:
+  group: refresh-precios
+  cancel-in-progress: false
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -157,6 +165,10 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Los precios que consiguió esta corrida, por url de oferta, ANTES
+          # de tocar git: si el rebase choca hay que poder volver a
+          # aplicarlos sobre el main nuevo. Ver scripts/precios_de_ofertas.py.
+          python3 scripts/precios_de_ofertas.py --guardar "$RUNNER_TEMP/precios-corrida.json"
           git add -A
           git commit -m "Actualizar precios de todas las tiendas leíbles (automático)
 
@@ -165,12 +177,44 @@ jobs:
           record_price_history.py + compute_facets.py +
           generate_seo_pages.py. Ver el log del workflow para el resumen
           de cuántos precios se movieron y qué se podó."
-          # La corrida dura ~1 h: si en el medio se pushó algo a main (un lote
-          # de productos, un cambio de código), se reintenta sobre eso en vez
-          # de fallar. --rebase mantiene el commit de precios arriba.
+          # La corrida dura ~2 h: si en el medio se pushó algo a main, se
+          # reintenta sobre eso en vez de fallar.
           for i in 1 2 3; do
-            git pull --rebase origin main && git push origin main && exit 0
+            if git pull --rebase origin main && git push origin main; then
+              exit 0
+            fi
+            # Un rebase que choca deja el árbol a medias, y entonces TODOS
+            # los reintentos mueren con "Pulling is not possible because you
+            # have unmerged files" sin haber intentado nada. Así se
+            # perdieron las tres corridas programadas que hubo: dos horas de
+            # trabajo hecho y tirado. Se deshace antes de reintentar.
+            git rebase --abort 2>/dev/null || true
             echo "Reintento $i..."
             sleep 15
           done
-          exit 1
+
+          # Chocó de verdad. Cada archivo de data/cat es UNA línea de JSON,
+          # así que dos cambios en la misma categoría no se juntan solos y no
+          # hay rebase que valga. Se parte del main de verdad --que puede
+          # traer fichas fusionadas o dadas de baja-- y se le vuelven a
+          # aplicar SOLO los precios de esta corrida, sin resucitar nada, y
+          # se rehace lo que se deriva de ellos.
+          echo "El rebase chocó con main; se reaplican los precios encima."
+          git rebase --abort 2>/dev/null || true
+          git fetch origin main
+          git reset --hard origin/main
+          python3 scripts/precios_de_ofertas.py --aplicar "$RUNNER_TEMP/precios-corrida.json"
+          python3 scripts/record_price_history.py
+          python3 scripts/compute_facets.py
+          python3 scripts/generate_seo_pages.py
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Sobre el main nuevo no queda ningún cambio que publicar."
+            exit 0
+          fi
+          git add -A
+          git commit -m "Actualizar precios de todas las tiendas leíbles (automático)
+
+          Reaplicados sobre un main que se movió durante la corrida (ver
+          scripts/precios_de_ofertas.py): se conservan los precios leídos y
+          se respeta lo que main haya cambiado en el catálogo."
+          git push origin main
