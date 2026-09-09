@@ -31,6 +31,7 @@ Antes de desplegar a producción, edita SITE_URL más abajo con el dominio
 real: un canonical o una URL de Open Graph apuntando a un dominio
 equivocado (o a localhost) es peor para SEO que no tenerlas.
 """
+import argparse
 import collections
 import datetime
 import json
@@ -1727,6 +1728,15 @@ def hide_empty_taxonomy(data):
 
 
 def main():
+    # Este script NO tiene --dry-run: escribe las 80 mil páginas siempre (con
+    # write_if_changed, así que solo toca las que cambiaron). Antes ignoraba
+    # en silencio cualquier argumento, y "generate_seo_pages.py --dry-run"
+    # --que es como se prueban todos los demás scripts de esta carpeta--
+    # hacía una regeneración completa creyendo uno que no escribía nada.
+    argparse.ArgumentParser(
+        description="Genera las páginas estáticas. No tiene modo de prueba: "
+                    "usa write_if_changed, así que reescribe solo lo que cambió."
+    ).parse_args()
     data = hide_empty_taxonomy(load_catalog())
 
     written = []

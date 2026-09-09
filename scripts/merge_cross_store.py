@@ -41,6 +41,12 @@ buscadores), para no romper su URL. Si a esa le falta foto o specs y la
 otra las tiene, se las queda: se conserva la URL vieja Y el mejor dato de
 las dos.
 
+NO ES ESTE SCRIPT
+-----------------
+Las fichas que comparten la MISMA url (el mismo anuncio cargado dos veces)
+las junta scripts/merge_by_url.py, que para eso pide varias señales más.
+Acá solo se miran fichas de tiendas DISTINTAS con el nombre exacto igual.
+
 USO
 ---
     python3 scripts/merge_cross_store.py --dry-run
@@ -89,29 +95,18 @@ def mergeable_groups(products):
     return out
 
 
-def same_url_groups(products):
-    """Fichas distintas que apuntan a la MISMA url de tienda: es literalmente
-    la misma publicación cargada dos veces (pasó con SUNSKY, una vez con el
-    título corto y otra con el título largo del proveedor). No hay nada que
-    interpretar acá -- misma url es el mismo producto -- así que se fusionan
-    aunque los nombres no coincidan palabra por palabra."""
-    by_url = defaultdict(list)
-    for p in products:
-        for o in p.get("offers") or []:
-            url = o.get("url")
-            if url:
-                by_url[url].append(p)
-    groups, seen = [], set()
-    for url, ps in by_url.items():
-        uniq = {p["id"]: p for p in ps}
-        if len(uniq) < 2:
-            continue
-        key = tuple(sorted(uniq))
-        if key in seen:
-            continue
-        seen.add(key)
-        groups.append((url, sorted(uniq.values(), key=id_num)))
-    return groups
+# La regla "misma url = mismo producto" vivía acá sin ninguna guarda más, y
+# hoy absorbería ~700 fichas de una sentada. No sirve sola: en Mercado Libre
+# varios colores de un mismo modelo cuelgan de la misma página de catálogo y
+# son SKU distintos. Este script proponía, por ejemplo, fusionar el "Apple
+# iPhone Air 256 GB eSIM" con el "iPhone Air 256GB Libre Light Gold", que
+# tienen GTIN confirmados distintos.
+#
+# Ese trabajo pasó a scripts/merge_by_url.py, que pide además misma
+# categoría, ningún GTIN en conflicto, ninguna variante de color ya
+# fusionada, nombres que se parezcan y las mismas medidas y marcadores de
+# versión. Acá queda solo la fusión por nombre exacto entre tiendas
+# distintas, que es para lo que se escribió este archivo.
 
 
 def merge_group(ps):
@@ -150,17 +145,10 @@ def main():
     data = load_catalog()
     absorbed = set()
 
-    url_groups = same_url_groups(data["products"])
-    print(f"Fichas duplicadas (misma url de tienda): {len(url_groups)}")
-    for url, ps in url_groups:
-        primary, rest = merge_group(ps)
-        absorbed.update(p["id"] for p in rest)
-        print(f"  {primary['id']} <- {', '.join(p['id'] for p in rest)}   {url[:60]}")
-        print(f"      se conserva: {primary['name'][:70]}")
-
     groups = mergeable_groups(data["products"])
-    print(f"\nGrupos fusionables (mismo producto en tiendas distintas): {len(groups)}")
-    if not groups and not url_groups:
+    print(f"Grupos fusionables (mismo producto en tiendas distintas): {len(groups)}")
+    if not groups:
+        print("(las fichas que comparten url las mira scripts/merge_by_url.py)")
         return
 
     for category, name, ps in groups:
