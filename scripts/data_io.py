@@ -151,6 +151,11 @@ def _vendedor_mas_barato(sellers, precio_oferta):
     barato = {"price": mejor["price"]}
     if mejor.get("shippingFee") is not None:
         barato["shippingFee"] = mejor["shippingFee"]
+    # El precio de lista DE ESE VENDEDOR (no el de la publicación entera):
+    # sin él, la ficha marcaba el descuento y la fila del listado no, para el
+    # mismo producto y el mismo precio. Son 71 ofertas.
+    if mejor.get("listPrice"):
+        barato["listPrice"] = mejor["listPrice"]
     return barato
 
 

@@ -647,6 +647,13 @@
   // de la tienda, no de un input del usuario, pero igual pueden traer
   // comillas o símbolos raros — se escapan antes de meterlos en un atributo
   // HTML para no depender de que el feed nunca traiga algo inesperado.
+  // El nombre y la marca de un producto son texto de TIENDA (lo escribe quien
+  // publica el anuncio), así que van escapados en todos lados donde se
+  // inyectan con innerHTML -- la ficha ya lo hacía y la lista, el comparador
+  // y las migas no. Además de la inyección, sin escapar se leían distinto
+  // según el lugar: un 32&quot; guardado así en el título salía como 32" en
+  // la fila y como 32&quot; en la ficha (ver scripts/limpiar_nombres.py, que
+  // deja los títulos guardados en texto plano de una vez).
   function htmlEscapeAttr(s) {
     return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
@@ -920,8 +927,9 @@
             ...o,
             price: o.cheapestSeller.price,
             shippingFee: o.cheapestSeller.shippingFee ?? o.shippingFee ?? null,
-            // Medidos sobre la publicación entera, no sobre este vendedor.
-            listPrice: null,
+            // El de ESE vendedor, si lo trae. El de la publicación entera no
+            // vale acá: un "-30%" contra un precio de lista que no es el suyo.
+            listPrice: o.cheapestSeller.listPrice ?? null,
             lowestPrice: null,
           }];
         }
@@ -1733,7 +1741,7 @@
       const chip = document.createElement("div");
       chip.className = "compare-chip";
       chip.innerHTML = `<span class="compare-chip-photo"></span>
-        <span class="compare-chip-name">${p.name}</span>
+        <span class="compare-chip-name">${htmlEscapeAttr(p.name)}</span>
         <button type="button" class="compare-chip-x" aria-label="Quitar de la comparación">×</button>`;
       renderProductMedia(chip.querySelector(".compare-chip-photo"), p);
       chip.querySelector(".compare-chip-x").onclick = () => {
@@ -1799,7 +1807,7 @@
 
     const head = products.map((p) => `<th><div class="compare-th">
         <span class="compare-th-photo" data-pid="${p.id}"></span>
-        <a href="#/p/${p.id}" class="compare-th-name">${p.name}</a>
+        <a href="#/p/${p.id}" class="compare-th-name">${htmlEscapeAttr(p.name)}</a>
       </div></th>`).join("");
 
     const body = [priceRow, ...rows].map((r) => {
@@ -3369,8 +3377,8 @@
               })
               .join("")
           }
-          <div class="row-brand">${p.brand}</div>
-          <div class="row-name">${p.name}${usedBadge}${commercialBadge}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">${icon("palette")} +${variantCount}</span>` : ""}</div>
+          <div class="row-brand">${htmlEscapeAttr(p.brand)}</div>
+          <div class="row-name">${htmlEscapeAttr(p.name)}${usedBadge}${commercialBadge}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">${icon("palette")} +${variantCount}</span>` : ""}</div>
           ${
             // Sin reseñas propias todavía, la fila mostraba "☆☆☆☆☆ 0.0 (0)"
             // en los 16 mil productos: 60 veces por página de puro ruido que
@@ -5140,7 +5148,7 @@
       ? ` &gt; <a href="#/list" id="breadcrumbSub">${sub.name}</a>`
       : "";
     el.detailBreadcrumb.innerHTML =
-      `<a href="#/">Inicio</a> &gt; <a href="#/list" id="breadcrumbCat">${cat.name}</a>${subCrumb} &gt; ${product.name}`;
+      `<a href="#/">Inicio</a> &gt; <a href="#/list" id="breadcrumbCat">${cat.name}</a>${subCrumb} &gt; ${htmlEscapeAttr(product.name)}`;
     document.getElementById("breadcrumbCat").onclick = (e) => {
       e.preventDefault();
       goList({ category: product.category, subcategory: null, query: "" });
