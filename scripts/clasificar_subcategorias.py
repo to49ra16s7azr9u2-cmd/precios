@@ -77,7 +77,20 @@ ACCESORIO_AL_FRENTE = re.compile(
     r"^(funda|estuche|maleta|bolsa|mochila|soporte|base|atril|banco|banqueta|"
     r"correa|cable|adaptador|cargador|bateria|pila|repuesto|refaccion|kit de limpieza|"
     r"protector de pantalla|mica|pua|puas|plumilla|afinador|metronomo|capo|cejilla|"
-    r"filtro|boton|anillo|cartucho|cana|canas|boquilla|aceite|limpiador)\b"
+    r"filtro|boton|anillo|cartucho|cana|canas|boquilla|aceite|limpiador|"
+    # Encontrados auditando la primera corrida: "Difusor trompeta para
+    # driver" es una bocina, no un instrumento de viento, y "Tapa
+    # amplificadora Fender" es una tapa. Iban a Viento y a Amplificadores.
+    r"difusor|tapa|jarra|vaso|rack|gancho|dispensador|porta|montura|abrazadera|"
+    r"espumador|conector|convertidor)\b"
+)
+
+# Y esto, en cualquier parte del título, dice que el producto es para
+# mantener otro producto: "Kit desincrustante compatible con Nespresso" no
+# es una cafetera de cápsulas.
+CONSUMIBLE_DE_MANTENIMIENTO = re.compile(
+    r"\bdesincrustante\b|\bdescalcificad|\bkit de limpieza\b|"
+    r"\bpastillas de limpieza\b|\brepuesto\b"
 )
 
 # "Juego de sábanas" es sábanas; "Paquete de 6 focos" son focos. Se le quita
@@ -97,7 +110,14 @@ MODELO = re.compile(r"^[a-z0-9]*[a-z][a-z0-9]*\d[a-z0-9]*$")
 # "lampara de techo" (que engancha como frase desde la palabra 0).
 VENTANA_CABEZA = 2
 
-CABEZA, LIBRE = "cabeza", "libre"
+# Ámbitos de una regla:
+#   CABEZA   la palabra ES el producto -> tiene que estar al principio.
+#   LIBRE    la palabra lo CALIFICA -> puede estar en cualquier parte.
+#   RESIDUAL red de seguridad de la categoría -> solo si NINGUNA otra
+#            enganchó. Sin esto, un residual gana por posición: "PC HP 800
+#            G4 Mini" enganchaba "pc" en la palabra 0 y "mini" en la 3, así
+#            que 9 mini PCs terminaban en Torre / Escritorio.
+CABEZA, LIBRE, RESIDUAL = "cabeza", "libre", "residual"
 
 # (subcategoría, patrón). El orden acá no decide nada: decide en qué
 # posición del nombre engancha cada uno (ver el módulo de arriba).
@@ -140,19 +160,23 @@ REGLAS = {
     "Cafeteras": [
         ("De cápsulas", r"\bcapsula|\bkeurig\b|\bnespresso\b|\bdolce gusto\b|\bk cup\b", LIBRE),
         ("Molinillos de café", r"\bmolino\b|\bmolinillo\b|\bmoledor\b", CABEZA),
-        ("Uso comercial", r"\bcomercial\b|\bindustrial\b|\b2 grupos\b|\bpercoladora\b|\b\d{2,3} tazas\b", LIBRE),
+        # 30 tazas para arriba. Con \d{2,3} entraban las de 12 y 15 tazas,
+        # que son cafeteras de casa: 29 quedaron marcadas como comerciales.
+        # "percoladora" tampoco alcanza sola (las hay de casa).
+        ("Uso comercial", r"\bcomercial\b|\bindustrial\b|\b2 grupos\b|\b([3-9]\d|[1-9]\d{2}) tazas\b", LIBRE),
         ("Portátiles", r"\bportatil\b|\bde viaje\b|\bitaliana\b|\bmoka\b|\bprensa francesa\b", LIBRE),
         ("Espresso automáticas y semiautomáticas", r"\bespresso\b|\bexpreso\b|\bsemiautomatica\b", LIBRE),
     ],
     "Computadoras de escritorio": [
         ("All in One", r"\ball in one\b|\baio\b|\bimac\b|\btodo en uno\b", LIBRE),
-        ("Mini PC", r"\bmini pc\b|\bminipc\b|\btiny\b|\bmicro pc\b|\bnuc\b", LIBRE),
-        # Catch-all deliberado y acotado: una computadora de escritorio que
-        # no es all-in-one ni mini es, por definición, de torre. Va último y
-        # solo engancha si ninguna de las dos anteriores lo hizo (ver
-        # subcategoria_de: gana la posición, y estas dos son más específicas
-        # porque aparecen antes en el título cuando aplican).
-        ("Torre / Escritorio", r"\b(pc|computadora|desktop|gamer|gaming|torre|cpu|workstation)\b", LIBRE),
+        # "mini" a secas también: así se venden ("HP 800 G4 Mini", "Lenovo
+        # ThinkCentre Tiny"). SFF/USFF NO entran acá a propósito: son
+        # gabinetes de torre chicos, no mini PCs, y son 30 equipos.
+        ("Mini PC", r"\bmini\b|\bminipc\b|\btiny\b|\bnuc\b", LIBRE),
+        # Red de seguridad: una computadora de escritorio que no es
+        # all-in-one ni mini es, por definición, de torre. RESIDUAL, así que
+        # solo entra si las dos de arriba no engancharon.
+        ("Torre / Escritorio", r"\b(pc|computadora|desktop|gamer|gaming|torre|cpu|workstation)\b", RESIDUAL),
     ],
     "Lavadoras": [
         ("Lavasecadoras", r"\blavasecadora", CABEZA),
@@ -200,7 +224,9 @@ def buckets_mah(nombre):
     mah = int(m.group(1))
     if mah <= 0 or mah > 500000:
         return None
-    if mah < 10000:
+    # 10,000 justo va en "Hasta 10,000 mAh": es lo que dice la etiqueta y es
+    # donde estaban los 36 que ya había clasificados.
+    if mah <= 10000:
         return "Hasta 10,000 mAh"
     if mah <= 20000:
         return "10,000 a 20,000 mAh"
@@ -249,13 +275,18 @@ def subcategoria_de(categoria, nombre, marca=""):
     n = recortar_encabezado(n, marca)
     if ACCESORIO_AL_FRENTE.match(n):
         return None, "accesorio"
+    if CONSUMIBLE_DE_MANTENIMIENTO.search(n):
+        return None, "consumible"
     reglas = COMPILADAS.get(categoria)
     if not reglas:
         return None, "sin reglas"
-    mejor, empate = None, False
+    mejor, empate, residual = None, False, None
     for sub, rx, ambito in reglas:
         m = rx.search(n)
         if not m:
+            continue
+        if ambito == RESIDUAL:
+            residual = sub
             continue
         if ambito == CABEZA and n[:m.start()].count(" ") >= VENTANA_CABEZA:
             # La palabra ES el producto, pero llega demasiado tarde: el
@@ -266,6 +297,8 @@ def subcategoria_de(categoria, nombre, marca=""):
         elif m.start() == mejor[1] and sub != mejor[0]:
             empate = True
     if mejor is None:
+        if residual:
+            return residual, "residual"
         return None, "ninguna regla"
     if empate:
         return None, "empate"
@@ -292,7 +325,7 @@ def main():
         if cat not in declaradas:
             errores.append(f"{cat}: la categoría no existe")
             continue
-        for sub, _, _ambito in reglas:
+        for sub, _, _ambito in reglas:  # noqa: B007
             if sub not in declaradas[cat]:
                 errores.append(f"{cat}: no declara la subcategoría {sub!r}")
     for cat, fn in REGLAS_ESPECIALES.items():
@@ -347,6 +380,24 @@ def main():
 
     corregidos = collections.Counter()
     if args.corregir:
+        # Las subcategorías que salen de una MEDIDA del nombre (los tramos de
+        # mAh) se recalculan siempre, tengan o no una puesta: son una función
+        # del título, así que si no coinciden es que alguna quedó de una
+        # versión anterior de la regla. Pasó con el corte de los 10,000
+        # justos, que antes caía en el tramo de arriba.
+        for p in data["products"]:
+            medir = REGLAS_ESPECIALES.get(p["category"])
+            if not medir:
+                continue
+            nueva = medir(norm(p["name"]))
+            if not nueva or nueva == p.get("subcategory"):
+                continue
+            if nueva not in declaradas[p["category"]]:
+                continue
+            corregidos[(p["category"], p.get("subcategory"), nueva)] += 1
+            if not args.dry_run:
+                p["subcategory"] = nueva
+
         for p in data["products"]:
             for desde, hacia, rx in CORRECCIONES_COMPILADAS.get(p["category"], []):
                 if p.get("subcategory") != desde or not rx.search(norm(p["name"])):
