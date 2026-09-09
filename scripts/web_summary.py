@@ -131,7 +131,12 @@ def seller_rows(product):
     out = []
     for o in purchase_options(product):
         sellers = o.get("sellers") or []
-        if len(sellers) < 2:
+        # Todos tienen que traer su enlace, igual que en js/app.js y en
+        # generate_seo_pages.py: una fila con el precio de un vendedor y el
+        # enlace de otro publicaría un precio que no se paga. Acá faltaba esa
+        # mitad de la regla, así que este espejo abría en filas publicaciones
+        # que los otros dos dejaban enteras.
+        if len(sellers) < 2 or not all(sl.get("url") for sl in sellers):
             out.append(o)
             continue
         for i, s in enumerate(sellers):

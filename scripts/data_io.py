@@ -125,6 +125,35 @@ DETAIL_PRODUCT_FIELDS = ("mlQuery",)
 DETAIL_CHUNK_SIZE = 2000
 
 
+# El precio más barato entre los vendedores de una publicación, calculado con
+# la MISMA regla que sellerRows() en js/app.js y seller_rows() en
+# generate_seo_pages.py: solo si son 2 o más y TODOS traen su propio enlace
+# (una fila con el precio de un vendedor y el enlace de otro publicaría un
+# precio que no se paga).
+#
+# Se guarda en la shard porque `sellers` se va al detalle: sin este número, la
+# lista mostraba el precio de la caja de compra y la ficha --ya con los
+# detalles bajados-- mostraba el del vendedor más barato. Eran 608 productos
+# diciendo dos precios distintos para el mismo artículo, con diferencias de
+# hasta 5x (un refrigerador "Desde $37,998" en la lista que por dentro estaba
+# a $6,565), y además el orden por precio los ponía donde no correspondía.
+def _vendedor_mas_barato(sellers, precio_oferta):
+    if not sellers or len(sellers) < 2:
+        return None
+    if not all(sl.get("url") for sl in sellers):
+        return None
+    con_precio = [sl for sl in sellers if sl.get("price") is not None]
+    if not con_precio:
+        return None
+    mejor = min(con_precio, key=lambda sl: sl["price"])
+    if precio_oferta is not None and mejor["price"] >= precio_oferta:
+        return None
+    barato = {"price": mejor["price"]}
+    if mejor.get("shippingFee") is not None:
+        barato["shippingFee"] = mejor["shippingFee"]
+    return barato
+
+
 def _mover_campos_de_producto(product, light, detail):
     """Pasa DETAIL_PRODUCT_FIELDS de `light` a `detail` (prefijados con _)."""
     for field in DETAIL_PRODUCT_FIELDS:
@@ -164,6 +193,15 @@ def _split_detail(product):
                 if light is o:
                     light = dict(o)
                 detail.setdefault(field, {})[str(i)] = light.pop(field)
+        # Los vendedores acaban de irse al detalle: queda su precio mínimo,
+        # que es lo único que el listado necesita de ellos (ver
+        # _vendedor_mas_barato).
+        if "sellers" in campos and o.get("sellers"):
+            barato = _vendedor_mas_barato(o["sellers"], o.get("price"))
+            if barato:
+                if light is o:
+                    light = dict(o)
+                light["cheapestSeller"] = barato
         light_offers.append(light)
     if specs_pesadas:
         detail["_specs"] = specs
@@ -249,6 +287,12 @@ def load_catalog():
                     i = int(idx)
                     if i < len(p.get("offers") or []):
                         p["offers"][i][field] = value
+    # cheapestSeller es un derivado de `sellers` que solo existe para la
+    # shard (ver _vendedor_mas_barato): con el catálogo ya completo sobra, y
+    # se recalcula solo en el próximo save_catalog.
+    for p in products:
+        for o in p.get("offers") or []:
+            o.pop("cheapestSeller", None)
 
     manifest["products"] = products
     for key in (

@@ -49,6 +49,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import web_summary
 from data_io import (
     DETAIL_CHUNK_SIZE, ROOT, load_catalog, slugify, _category_slugs,
 )
@@ -70,17 +71,21 @@ def dia_de(fecha):
 
 
 def precios_por_tienda(product):
-    """{storeId: precio mínimo de esa tienda en este producto}."""
+    """{storeId: precio mínimo de esa tienda en este producto}.
+
+    Mínimo sobre las MISMAS filas que el sitio publica, no sobre
+    product["offers"]: las variantes de color se expanden y una publicación
+    de catálogo de Mercado Libre se abre por vendedor cuando son 2 o más y
+    todos tienen su propio enlace. Se reutiliza el espejo de web_summary.py
+    en vez de repetir la regla acá, que era justo de donde venía la
+    diferencia: el historial medía la caja de compra y la ficha mostraba el
+    vendedor más barato, así que la gráfica dibujaba una línea que no pasaba
+    por el precio que el visitante estaba leyendo justo encima (763 series,
+    con diferencias de hasta 5x), y de los productos fusionados por color en
+    el formato viejo (sin storeId propio) no se anotaba ningún color.
+    """
     minimos = {}
-    fuentes = list(product.get("offers") or [])
-    # Un producto fusionado por color guarda las ofertas dentro de cada
-    # variante (ver merge_by_color.py); si no se miran, esos productos no
-    # tendrían historial.
-    for v in product.get("colorVariants") or []:
-        fuentes.extend(v.get("offers") or [])
-        if v.get("price") is not None and v.get("storeId"):
-            fuentes.append(v)
-    for o in fuentes:
+    for o in web_summary.seller_rows(product):
         tienda, precio = o.get("storeId"), o.get("price")
         if not tienda or precio is None:
             continue

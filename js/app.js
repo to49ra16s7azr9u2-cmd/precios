@@ -906,7 +906,27 @@
       // Todos tienen que traer su enlace: una fila con el precio de un
       // vendedor y el enlace de otro llevaría a pagar otro precio. Sin
       // enlace propio, la oferta se queda como una sola fila.
-      if (!sellers || sellers.length < 2 || !sellers.every((s) => s.url)) return [o];
+      if (!sellers || sellers.length < 2 || !sellers.every((s) => s.url)) {
+        // Sin la ficha abierta (listas, Inicio, favoritos, comparador) los
+        // vendedores todavía no se bajaron: viajan en data/det. El build
+        // deja precalculado el más barato de los que sí tienen enlace
+        // propio, con la MISMA regla de arriba (ver _vendedor_mas_barato en
+        // scripts/data_io.py). Sin esto la lista decía "Desde $37,998" y al
+        // abrir la ficha aparecía $6,565: 608 productos con dos precios
+        // distintos para el mismo artículo, y el orden por precio los
+        // colocaba donde no correspondía.
+        if (!sellers && o.cheapestSeller) {
+          return [{
+            ...o,
+            price: o.cheapestSeller.price,
+            shippingFee: o.cheapestSeller.shippingFee ?? o.shippingFee ?? null,
+            // Medidos sobre la publicación entera, no sobre este vendedor.
+            listPrice: null,
+            lowestPrice: null,
+          }];
+        }
+        return [o];
+      }
       return sellers.map((s, i) => ({
         ...o,
         price: s.price,
@@ -2548,7 +2568,14 @@
         // El parámetro admite varios separados por coma; las páginas de SEO
         // siguen mandando uno solo y eso no cambia. Sin categoría válida la
         // subcategoría tampoco significa nada.
-        state.subcategory = existe ? toSubList(qs.get("sub")) : [];
+        // Igual con la subcategoría: cada producto declara una que existe en
+        // su categoría (lo garantiza el build), así que un "sub" que no está
+        // declarado solo puede venir de un link viejo. Dejarlo puesto daba
+        // una lista de cero productos con el título de la categoría llena;
+        // se descarta y se muestra la categoría entera.
+        state.subcategory = existe
+          ? toSubList(qs.get("sub")).filter((sub) => subcategoryById(pedida, sub))
+          : [];
       }
       renderList();
     } else if (hash === "#/comparar") {

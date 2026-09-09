@@ -166,7 +166,19 @@ def min_price(product):
     un iPhone 16 que estaba a $13,749 en otro color (79 productos, medidos
     contra el mínimo real). purchase_options() ya sabe expandir los dos
     formatos de variante; se reutiliza en vez de repetir la regla.
+
+    Y se mide sobre seller_rows(), no sobre purchase_options(): una
+    publicación de catálogo de Mercado Libre puede traer varios vendedores,
+    cada uno con SU precio y SU enlace, y la tabla de ofertas de esta misma
+    página ya los abre en filas (ver seller_rows). Midiendo sobre
+    purchase_options() la cabecera decía "desde $13,749" justo encima de una
+    tabla cuya primera fila era $13,000 -- 627 productos con el precio de
+    portada más caro que el que se paga al hacer clic. minPrice() en
+    js/app.js siempre midió sobre sellerRows(); esto es lo mismo.
     """
+    precios = [o["price"] for o in seller_rows(product) if o.get("price") is not None]
+    if precios:
+        return min(precios)
     precios = [o["price"] for o in purchase_options(product) if o.get("price")]
     return min(precios) if precios else min(o["price"] for o in product["offers"])
 
@@ -312,7 +324,12 @@ def breadcrumb_json_ld(items):
 
 def product_json_ld(product, data, canonical):
     avg, count = aggregate_rating(product)
-    opciones = [o for o in purchase_options(product) if o.get("price")] or product["offers"]
+    # seller_rows() y no purchase_options(): mismas filas que la tabla de
+    # ofertas de la página y que min_price(), así el lowPrice que ve Google
+    # es el mismo precio que ve el visitante. Con purchase_options() los
+    # datos estructurados declaraban un precio MÁS ALTO que el visible, que
+    # es justo lo que invalida el resultado enriquecido de Producto.
+    opciones = [o for o in seller_rows(product) if o.get("price") is not None] or product["offers"]
     offers = [
         {
             "@type": "Offer",
