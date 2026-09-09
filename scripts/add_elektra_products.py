@@ -118,7 +118,13 @@ def cat_computo_accesorios(name):
 def cat_telefonia_accesorios(name):
     n = norm(name)
     if "cargador" in n or "adaptador de corriente" in n:
-        return "Cargadores y adaptadores", "Cargadores", "charger"
+        # Sin subcategoría a propósito. Acá se ponía "Cargadores", que no es
+        # ninguno de los tipos que la categoría declara (De pared, De auto,
+        # Inalámbrico, Cable, Para laptop...) y quedaba como un cajón
+        # paralelo: un "Cargador de coche MagSafe" caía en "Cargadores" en
+        # vez de en "De auto". Quién es cada uno lo decide
+        # scripts/classify_cargadores.py, que es el que tiene esas reglas.
+        return "Cargadores y adaptadores", None, "charger"
     if EARBUDS_RE.search(n):
         wireless = "inalambric" in n or "bluetooth" in n or "airpods" in n or "buds" in n
         return "Audífonos", ("Earbuds inalámbricos" if wireless else "Earbuds con cable"), "headphones"
@@ -198,6 +204,27 @@ WEARABLE_ACCESSORY_RE = re.compile(
     r"mica|cargador|cable|estuche|cristal templado|vidrio templado|"
     r"base de carga|repuesto|cubierta",
     re.I,
+)
+
+
+def cat_celulares(name):
+    """Celulares de Elektra: iPhone o Android según lo que diga el título.
+
+    La categoría de Elektra estaba mapeada a ("Celulares", "Android") fijo,
+    así que TODOS sus teléfonos entraban como Android -- incluidos 177
+    iPhones, que quedaban en la lista de Android y fuera de la de iPhone,
+    que es justo el filtro que alguien abre para compararlos.
+    """
+    n = norm(name)
+    if TELEFONO_FIJO_RE.search(n):
+        return "Celulares", "Teléfonos fijos", "phone"
+    if "iphone" in n:
+        return "Celulares", "iPhone", "phone"
+    return "Celulares", "Android", "phone"
+
+
+TELEFONO_FIJO_RE = re.compile(
+    r"\btelefono (fijo|alambrico|inalambrico)\b|\btelefono de casa\b", re.I
 )
 
 
@@ -725,7 +752,7 @@ CATEGORY_MAP = {
     "1371654/1371727": cat_computo_accesorios,
     "1371654/1371728": cat_tabletas,
     # Telefonía
-    "1371655/1371729": ("Celulares", "Android", "phone"),
+    "1371655/1371729": cat_celulares,
     "1371655/1371730": cat_telefonia_accesorios,
     "1371655/1371733": cat_wearables,
     # Videojuegos

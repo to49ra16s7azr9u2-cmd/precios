@@ -172,6 +172,26 @@ REGLAS = {
 }
 
 
+# Correcciones: subcategorías que están puestas y que se sabe que están
+# MAL, con la prueba en el propio nombre. No es "reclasificar todo": cada
+# entrada dice de qué subcategoría, a cuál, y con qué patrón. Solo corren
+# con --corregir.
+#
+# La de Celulares viene de add_elektra_products.py, que tenía la categoría
+# de teléfonos de Elektra mapeada a ("Celulares", "Android") fijo: 177
+# iPhones quedaron etiquetados Android, o sea fuera del filtro "iPhone" que
+# es justo el que alguien abre para compararlos. El importador ya decide
+# bien (ver cat_celulares); esto arregla los que ya estaban cargados.
+CORRECCIONES = {
+    "Celulares": [("Android", "iPhone", r"\biphone\b")],
+}
+
+CORRECCIONES_COMPILADAS = {
+    cat: [(desde, hacia, re.compile(pat)) for desde, hacia, pat in reglas]
+    for cat, reglas in CORRECCIONES.items()
+}
+
+
 def buckets_mah(nombre):
     """Baterías portátiles: los tres tramos salen del mAh del título."""
     m = re.search(r"\b(\d{3,6})\s*m\s*ah\b", nombre)
@@ -256,6 +276,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--categorias", nargs="*", help="solo estas categorías")
+    ap.add_argument("--corregir", action="store_true",
+                    help="además, arregla las subcategorías de CORRECCIONES")
     ap.add_argument("--muestra", type=int, default=6,
                     help="cuántos ejemplos imprimir por subcategoría")
     args = ap.parse_args()
@@ -323,8 +345,25 @@ def main():
             for e in sin_tocar[cat][:3]:
                 print("          ", e)
 
-    total = sum(puestas.values())
-    print(f"\nTotal clasificados: {total:,}")
+    corregidos = collections.Counter()
+    if args.corregir:
+        for p in data["products"]:
+            for desde, hacia, rx in CORRECCIONES_COMPILADAS.get(p["category"], []):
+                if p.get("subcategory") != desde or not rx.search(norm(p["name"])):
+                    continue
+                if hacia not in declaradas[p["category"]]:
+                    print(f"AVISO: {p['category']} no declara {hacia!r}, se omite")
+                    break
+                corregidos[(p["category"], desde, hacia)] += 1
+                if not args.dry_run:
+                    p["subcategory"] = hacia
+                break
+        for (cat, desde, hacia), n in corregidos.most_common():
+            print(f"\nCorregidos en {cat}: {n:,} de {desde!r} a {hacia!r}")
+
+    total = sum(puestas.values()) + sum(corregidos.values())
+    print(f"\nTotal clasificados: {sum(puestas.values()):,}"
+          + (f", corregidos: {sum(corregidos.values()):,}" if args.corregir else ""))
     if args.dry_run:
         print("(--dry-run: no se escribió nada)")
         return 0
