@@ -51,7 +51,7 @@ import urllib.parse
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, next_id, registrar_max_id, save_catalog  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SEARCH_URL = "https://www.elektra.mx/api/catalog_system/pub/products/search"
@@ -974,11 +974,10 @@ def main():
         for u in existing_urls
     }
 
-    max_id = 0
-    for p in data["products"]:
-        m = re.match(r"p(\d+)$", p["id"])
-        if m:
-            max_id = max(max_id, int(m.group(1)))
+    # El id sale del máximo HISTÓRICO (data.json -> meta.maxProductId), no
+    # del máximo que hay hoy: si no, el alta siguiente a una baja se lleva
+    # el id del producto dado de baja. Ver next_id() en data_io.py.
+    max_id = next_id(data["products"], data) - 1
 
     added, seen_product_ids = [], set()
     stats = {"revisados": 0, "sin_stock": 0, "junk": 0, "sin_precio": 0, "duplicada": 0, "sin_categoria": 0}
@@ -1089,6 +1088,9 @@ def main():
         })
 
     data["products"].extend(added)
+    # Queda anotado el id más alto que se usó, para que una baja futura no
+    # deje ese id libre para el alta siguiente (ver next_id en data_io.py).
+    registrar_max_id(data, max_id)
     save_catalog(data)
     print(f"Catálogo actualizado: +{len(added)} productos, total {len(data['products'])}")
 

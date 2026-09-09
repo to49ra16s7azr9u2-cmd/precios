@@ -66,7 +66,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from add_elektra_products import fetch_json  # noqa: E402
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, next_id, registrar_max_id, save_catalog  # noqa: E402
 
 # Atributos que describen CUÁL variante es. En ese orden: el primero que
 # difiera dentro del grupo es el que va al nombre.
@@ -175,41 +175,6 @@ def variant_of(url):
             return {f: (p.get(f) or [None])[0] for f in VARIANT_FIELDS if p.get(f)}
         time.sleep(1.5 * (intento + 1))
     return None
-
-
-def next_id(products, data=None):
-    """Primer id libre, y NUNCA uno que ya se haya usado.
-
-    Antes devolvía max(ids existentes) + 1. Si un producto se daba de baja
-    --refresh_prices.py poda las publicaciones que Mercado Libre retira, y
-    alguna vez se borra a mano-- ese id volvía a quedar libre y el siguiente
-    alta se lo llevaba. Pasó de verdad: se dio de baja p125291 (una UGREEN de
-    10,000 mAh con precio mal capturado) y el alta siguiente reusó el mismo
-    id para otro power bank. Eso rompe cosas que no se ven:
-
-      - /producto/p125291/ ya está indexada por Google apuntando al primero.
-      - Los favoritos y el historial de la cuenta guardan ids (Firestore).
-      - data/hist/ guarda la serie de precios por id: dos productos
-        distintos terminarían compartiendo una sola serie.
-
-    Así que el máximo histórico se guarda en data.json (meta.maxProductId) y
-    el id siguiente sale de ahí, no de lo que hay hoy en el catálogo.
-    """
-    top = 0
-    for p in products:
-        m = re.match(r"p(\d+)$", p.get("id", ""))
-        if m:
-            top = max(top, int(m.group(1)))
-    if data is not None:
-        top = max(top, int((data.get("meta") or {}).get("maxProductId") or 0))
-    return top + 1
-
-
-def registrar_max_id(data, ultimo_id):
-    """Deja anotado en el manifiesto el id más alto que se llegó a usar."""
-    n = int(re.sub(r"\D", "", str(ultimo_id)) or 0)
-    meta = data.setdefault("meta", {})
-    meta["maxProductId"] = max(int(meta.get("maxProductId") or 0), n)
 
 
 def main():

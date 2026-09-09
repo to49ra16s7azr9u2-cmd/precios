@@ -224,6 +224,41 @@ def _split_detail(product):
     return light_product, detail
 
 
+# Los ids de producto NO se reciclan. Vivían copiados en tres importadores;
+# el cuarto (add_elektra_products.py) se los perdió y volvió a calcular el id
+# como max(los que hay hoy) + 1, que es justo el error que esto arregla.
+#
+# Si un producto se da de baja --refresh_prices.py poda las publicaciones que
+# Mercado Libre retira, merge_by_url.py junta fichas repetidas, y alguna vez
+# se borra a mano-- su id quedaba libre y el alta siguiente se lo llevaba.
+# Pasó de verdad con p125291. Lo que rompe no se ve de inmediato:
+#
+#   - /producto/pNNN/ ya está indexada por Google apuntando al primero.
+#   - Los favoritos y el historial de la cuenta guardan ids (Firestore).
+#   - data/hist/ guarda la serie de precios por id: dos productos distintos
+#     terminarían compartiendo una sola serie.
+#
+# Por eso el máximo histórico se guarda en data.json (meta.maxProductId) y el
+# id siguiente sale de ahí, no de lo que hay hoy en el catálogo.
+def next_id(products, data=None):
+    """Primer id libre, y NUNCA uno que ya se haya usado."""
+    top = 0
+    for p in products:
+        m = re.match(r"p(\d+)$", p.get("id", ""))
+        if m:
+            top = max(top, int(m.group(1)))
+    if data is not None:
+        top = max(top, int((data.get("meta") or {}).get("maxProductId") or 0))
+    return top + 1
+
+
+def registrar_max_id(data, ultimo_id):
+    """Deja anotado en el manifiesto el id más alto que se llegó a usar."""
+    n = int(re.sub(r"\D", "", str(ultimo_id)) or 0)
+    meta = data.setdefault("meta", {})
+    meta["maxProductId"] = max(int(meta.get("maxProductId") or 0), n)
+
+
 def slugify(text):
     """Mismo slug que scripts/generate_seo_pages.py (categoria/<slug>/), para
     que el archivo de una categoría se llame igual que su página."""
