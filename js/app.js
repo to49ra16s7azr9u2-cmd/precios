@@ -5400,7 +5400,13 @@
       : qualifiesFreeShipping
       ? `<span class="ship-badge" title="${htmlEscapeAttr(`Según la política pública de ${r.store.name}: envío gratis en compras de $${threshold}+ USD, y este producto ($${priceUSD} USD) sí alcanza el mínimo.`)}">${txtGratis}</span>`
       : r.shipEstimateFee != null
-      ? `${money(r.shipEstimateFee)} <span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">${icon("alert-triangle")} estimado</span>`
+      // En las barras de la ficha (compacto) el monto y la palabra
+      // "estimado" iban como dos elementos, y en pantalla angosta empujaban
+      // el nombre de la tienda hasta dejarlo en "Mer…". Van juntos en una
+      // sola pastilla, con el mismo aviso al tocarla.
+      ? compacto
+        ? `<span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">${money(r.shipEstimateFee)} est.</span>`
+        : `${money(r.shipEstimateFee)} <span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">${icon("alert-triangle")} estimado</span>`
       : !r.store.hubRegion
       ? `<span class="ship-badge ship-badge-intl" title="${htmlEscapeAttr(intlTooltip)}">${icon("globe")} ${txtIntl}</span>`
       : "—";
