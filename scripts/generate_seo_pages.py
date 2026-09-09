@@ -1494,6 +1494,19 @@ def write_sitemaps(data, root, lastmod=None, ofertas_urls=()):
             written.append(path)
         sitemap_files.append(name)
 
+    # Si el catálogo encogió, sobran archivos de una tanda anterior. El
+    # índice deja de nombrarlos, pero el archivo se queda publicado con sus
+    # URLs viejas -- sitemap-products-3.xml sobrevivió así con 703 productos,
+    # uno de ellos ya dado de baja (404 servido desde un sitemap). Se borran.
+    sobrante = len(chunks) + 1
+    while True:
+        viejo = os.path.join(root, f"sitemap-products-{sobrante}.xml")
+        if not os.path.exists(viejo):
+            break
+        os.remove(viejo)
+        written.append(viejo + " (borrado)")
+        sobrante += 1
+
     index_entries = "\n".join(f"  <sitemap><loc>{SITE_URL}/{name}</loc></sitemap>" for name in sitemap_files)
     index_xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
