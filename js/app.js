@@ -926,7 +926,12 @@
           return [{
             ...o,
             price: o.cheapestSeller.price,
-            shippingFee: o.cheapestSeller.shippingFee ?? o.shippingFee ?? null,
+            // Sin heredar el envío de la caja de compra: es de OTRO
+            // vendedor. En 55 ofertas la caja dice "envío gratis" y del
+            // vendedor barato no se sabe, así que la fila del listado
+            // habría prometido gratis mientras la ficha --que ya usa
+            // s.shippingFee ?? null-- no decía nada.
+            shippingFee: o.cheapestSeller.shippingFee ?? null,
             // El de ESE vendedor, si lo trae. El de la publicación entera no
             // vale acá: un "-30%" contra un precio de lista que no es el suyo.
             listPrice: o.cheapestSeller.listPrice ?? null,
