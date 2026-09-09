@@ -1705,7 +1705,7 @@
     el.compareBar.classList.toggle("hidden", cs.ids.length === 0);
     if (cs.ids.length === 0) return;
     const found = cs.ids.map((id) => productById(id)).filter(Boolean);
-    if (found.length < cs.ids.length) {
+    if (faltanPorBajar(cs.ids).length) {
       ensureProductsByIds(cs.ids).then(renderCompareBar);
     }
     el.compareBarItems.innerHTML = "";
@@ -1743,7 +1743,7 @@
     setActiveView("compare");
     const cs = getCompareState();
     const products = cs.ids.map((id) => productById(id)).filter(Boolean);
-    if (products.length < cs.ids.length) {
+    if (faltanPorBajar(cs.ids).length) {
       el.compareBody.innerHTML = `<div class="panel muted">Cargando productos…</div>`;
       ensureProductsByIds(cs.ids).then(() => {
         if (!el.viewCompare.classList.contains("hidden")) renderCompare();
@@ -1917,8 +1917,14 @@
     const cloud = await window.ComparaMXData.getUserData(user.uid);
     if (cloud) {
       if (Array.isArray(cloud.favorites)) writeLS(LS_KEYS.favorites, cloud.favorites);
-      if (cloud.selectedMetro) state.selectedMetro = cloud.selectedMetro;
-      if (cloud.selectedRegion) state.selectedRegion = cloud.selectedRegion;
+      // La zona guardada en la nube puede ser de una versión anterior del
+      // catálogo (un municipio que se quitó o al que se le cambió el id).
+      // Se comprueba que siga existiendo antes de adoptarla: si no,
+      // metroById()/regionById() devuelven undefined y revientan el botón
+      // de ubicación (updateLocationBtn) y el mapa (initOrUpdateMap), que
+      // corren en el arranque de la sesión.
+      if (cloud.selectedMetro && metroById(cloud.selectedMetro)) state.selectedMetro = cloud.selectedMetro;
+      if (cloud.selectedRegion && regionById(cloud.selectedRegion)) state.selectedRegion = cloud.selectedRegion;
     } else {
       window.ComparaMXData.setUserData(user.uid, {
         favorites: getFavorites(),
@@ -2110,12 +2116,38 @@
     return found < 0 ? null : index.categories[runs[found][1]];
   }
 
+  // Ids que ya se intentaron bajar y NO aparecieron: productos que se
+  // borraron del catálogo pero siguen guardados en este navegador
+  // (favoritos, comparador, "más visto"), o un id inventado en la URL.
+  //
+  // Sin esta memoria, las vistas que hacen
+  //   ensureProductsByIds(ids).then(() => volver a renderizar)
+  // se quedaban en un bucle infinito: la promesa resuelve enseguida (no hay
+  // ninguna categoría que bajar para ese id), el id sigue sin estar, se
+  // vuelve a renderizar, se vuelve a pedir... y la pestaña se colgaba sin
+  // ningún error en consola. Pasaba de verdad: basta con haber entrado
+  // alguna vez a una ficha que después se dio de baja del catálogo.
+  // Ver renderFavorites, renderCompare, renderCompareBar y
+  // renderHomeMostViewed, que preguntan con faltanPorBajar().
+  const idsIrrecuperables = new Set();
+
+  // De estos ids, cuáles todavía vale la pena esperar: los que no están
+  // cargados y no se dieron ya por perdidos.
+  function faltanPorBajar(ids) {
+    return ids.filter((id) => !productIndexById.has(id) && !idsIrrecuperables.has(id));
+  }
+
   async function ensureProductsByIds(ids) {
-    const missing = ids.filter((id) => !productIndexById.has(id));
+    const missing = faltanPorBajar(ids);
     if (!missing.length) return;
     const index = await ensureProductIndex();
     const cats = new Set(missing.map((id) => categoryOfId(index, id)).filter(Boolean));
     await Promise.all([...cats].map(ensureCategory));
+    // Lo que sigue faltando después de bajar su categoría (o que ni
+    // siquiera tenía categoría) ya no va a aparecer nunca.
+    missing.forEach((id) => {
+      if (!productIndexById.has(id)) idsIrrecuperables.add(id);
+    });
   }
 
   // Los productos que Inicio muestra sin bajar ninguna categoría: la foto de
@@ -2505,10 +2537,18 @@
       // resultados: categoría nueva + subcategoría de otra categoría).
       const qs = hash.includes("?") ? new URLSearchParams(hash.split("?")[1]) : null;
       if (qs) {
-        state.category = qs.get("cat") || null;
+        // Una categoría que no existe (un link viejo a una categoría que se
+        // renombró o se fusionó, o una URL escrita a mano) se descarta en
+        // vez de quedarse puesta: si no, el breadcrumb y el título de la
+        // lista hacen categoryById(...).name sobre undefined y se cae la
+        // vista entera -- pantalla en blanco, no una lista vacía.
+        const pedida = qs.get("cat");
+        const existe = !!pedida && !!categoryById(pedida);
+        state.category = existe ? pedida : null;
         // El parámetro admite varios separados por coma; las páginas de SEO
-        // siguen mandando uno solo y eso no cambia.
-        state.subcategory = toSubList(qs.get("sub"));
+        // siguen mandando uno solo y eso no cambia. Sin categoría válida la
+        // subcategoría tampoco significa nada.
+        state.subcategory = existe ? toSubList(qs.get("sub")) : [];
       }
       renderList();
     } else if (hash === "#/comparar") {
@@ -2630,7 +2670,7 @@
       .sort((a, b) => b[1] - a[1])
       .slice(0, 1)
       .map(([id]) => id);
-    if (viewedIds.length && !productIndexById.has(viewedIds[0])) {
+    if (faltanPorBajar(viewedIds).length) {
       ensureProductsByIds(viewedIds).then(() => {
         if (!el.viewHome.classList.contains("hidden")) renderHomeMostViewed();
       });
@@ -3098,7 +3138,10 @@
     el.listBreadcrumb.innerHTML = `<a href="#/">Inicio</a>`;
     if (state.category) {
       const cat = categoryById(state.category);
-      el.listBreadcrumb.innerHTML += ` &gt; <a href="#" id="breadcrumbCatOnly">${cat.name}</a>`;
+      // El nombre crudo como red de seguridad: onHashChange ya descarta las
+      // categorías inexistentes, pero acá también se llega desde goList().
+      const nombreCat = (cat && cat.name) || state.category;
+      el.listBreadcrumb.innerHTML += ` &gt; <a href="#" id="breadcrumbCatOnly">${nombreCat}</a>`;
       const sub = subcategoryById(state.category, singleSub());
       if (sub) el.listBreadcrumb.innerHTML += ` &gt; ${sub.name}`;
     } else if (state.query) {
@@ -3184,7 +3227,7 @@
     el.listTitle.textContent = state.query
       ? `Resultados para "${state.query}" (${filtered.length})`
       : state.category
-      ? `${categoryById(state.category).name}${subLabel ? " › " + subLabel.name : ""} — ${sortLabel} (${filtered.length})`
+      ? `${(categoryById(state.category) || {}).name || state.category}${subLabel ? " › " + subLabel.name : ""} — ${sortLabel} (${filtered.length})`
       : `Todos los productos — ${sortLabel} (${filtered.length})`;
   }
 
@@ -4491,7 +4534,7 @@
     const favIds = getFavorites();
     // Los favoritos son ids sueltos guardados en este navegador: pueden ser
     // de categorías que todavía no se bajaron (ver ensureProductsByIds).
-    if (favIds.some((id) => !productIndexById.has(id))) {
+    if (faltanPorBajar(favIds).length) {
       el.favoritesList.innerHTML = `<p class="muted">Cargando favoritos…</p>`;
       ensureProductsByIds(favIds).then(() => {
         if (!el.viewFavorites.classList.contains("hidden")) renderFavorites();
