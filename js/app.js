@@ -2095,6 +2095,9 @@
     const changes = {};
     let first = Infinity;
     for (const [store, flat] of Object.entries(byStore || {})) {
+      // "_v" (qué vendedor ponía el mínimo, ver record_price_history.py)
+      // no es una tienda: se salta.
+      if (store.startsWith("_")) continue;
       const m = (changes[store] = new Map());
       for (let i = 0; i + 1 < flat.length; i += 2) {
         m.set(flat[i], flat[i + 1]);
@@ -2191,7 +2194,7 @@
       ? `<p>Entre el ${histDateLabel(serie[0][0])} y el ${histDateLabel(serie[serie.length - 1][0])} osciló entre ${money(lo)} (el ${histDateLabel(diaLo)}) y ${money(hi)} (el ${histDateLabel(diaHi)}).</p>`
       : `<p>No se ha movido de ${money(lo)} desde el ${histDateLabel(serie[0][0])}.</p>`;
     el.historyBody.innerHTML = `${veredicto}${rango}${sparklineSvg(serie)}
-      <p class="muted small">Anotamos el precio de esta ficha todos los días. El historial arranca el ${histDateLabel(serie[0][0])}, que es cuando empezamos a guardarlo — no antes.</p>`;
+      <p class="muted small">El historial arranca el ${histDateLabel(serie[0][0])}, que es cuando empezamos a guardarlo — no antes.</p>`;
     el.historyPanel.classList.remove("hidden");
     renderDetailQuickNav();
   }

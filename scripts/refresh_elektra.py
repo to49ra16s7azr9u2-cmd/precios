@@ -53,7 +53,7 @@ import sys
 import urllib.parse
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from add_elektra_products import CATEGORY_MAP, PAGE_SIZE, SEARCH_URL, fetch_json  # noqa: E402
+from add_elektra_products import CATEGORY_MAP, PAGE_SIZE, SEARCH_URL, fetch_json, vendedor_publicable  # noqa: E402
 from elektra_specs import specs_from  # noqa: E402
 from data_io import load_catalog, save_catalog, url_real  # noqa: E402
 
@@ -87,7 +87,10 @@ def walk_category(path):
 
 
 def current_offer(product):
-    """(precio, listPrice, disponible, ean) vigentes de un producto de la API.
+    """(precio, listPrice, disponible, ean, sellerId) vigentes de un producto
+    de la API. El precio es el del vendedor que elige vendedor_publicable()
+    (el más barato con existencia, Elektra a igual precio), no el del primero
+    de la lista.
 
     El `ean` no se usa para mostrar nada: es el código de barras del
     fabricante, y sirve para reconocer que este producto de Elektra es
@@ -106,16 +109,14 @@ def current_offer(product):
     """
     items = product.get("items") or []
     if not items:
-        return None, None, False, None
+        return None, None, False, None, None
     ean = (items[0].get("ean") or "").strip() or None
-    sellers = items[0].get("sellers") or []
-    if not sellers:
-        return None, None, False, ean
-    offer = sellers[0].get("commertialOffer") or {}
-    price = offer.get("Price")
-    list_price = offer.get("ListPrice")
-    available = bool(price) and offer.get("AvailableQuantity", 0) > 0
-    return price, list_price, available, ean
+    vendedor = vendedor_publicable(items[0])
+    if not vendedor:
+        return None, None, False, ean, None
+    offer = vendedor.get("commertialOffer") or {}
+    seller_id = str(vendedor["sellerId"]) if vendedor.get("sellerId") is not None else None
+    return offer.get("Price"), offer.get("ListPrice"), True, ean, seller_id
 
 
 def elektra_offers(product):
@@ -215,7 +216,7 @@ def main():
                 if p.get("specs") != ficha:
                     p["specs"] = ficha
                     stats["ficha_tecnica"] += 1
-            price, list_price, available, ean = entry
+            price, list_price, available, ean, seller_id = entry
             # El código de barras se guarda aunque el producto esté agotado o
             # el precio no se haya movido: es un dato del producto, no de la
             # oferta de hoy.
@@ -225,6 +226,11 @@ def main():
                 stats["agotado"] += 1
                 dead_urls.add(o["url"])
                 continue
+            # Quién vende a este precio se anota aunque el precio no se haya
+            # movido: es lo que le permite al historial saber si mañana
+            # cambió el precio o cambió el vendedor.
+            if seller_id and o.get("sellerId") != seller_id:
+                o["sellerId"] = seller_id
             old = o.get("price")
             if old is not None and abs(price - old) < 0.01:
                 stats["sin_cambio"] += 1

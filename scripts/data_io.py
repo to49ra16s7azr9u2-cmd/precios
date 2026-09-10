@@ -91,7 +91,7 @@ COMPACT = {"ensure_ascii": False, "separators": (",", ":")}
 # purchaseOptions() compara `v.url === base.url` para decidir a qué variante
 # le corresponde el listPrice, y eso corre también en el listado (son 286
 # productos, no mueve la aguja).
-DETAIL_OFFER_FIELDS = ("url", "sellers", "ean", "topReview", "photo")
+DETAIL_OFFER_FIELDS = ("url", "sellers", "ean", "topReview", "photo", "sellerId")
 
 # Con colorVariants la url TIENE que quedarse en la shard (purchaseOptions()
 # compara `v.url === base.url` para saber a qué variante le toca cada

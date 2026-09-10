@@ -36,7 +36,7 @@ from data_io import load_catalog, save_catalog
 # Lo que se guarda de cada oferta. El precio es lo que la corrida fue a
 # buscar; el stock cambia con él y sin él la ficha diría "en stock" de algo
 # que la tienda ya marcó agotado.
-CAMPOS = ("price", "listPrice", "stock")
+CAMPOS = ("price", "listPrice", "stock", "sellerId")
 
 
 def ofertas_de(product):

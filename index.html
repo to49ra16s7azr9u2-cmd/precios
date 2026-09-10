@@ -3,17 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ComparaMEX — Compara precios actualizados todos los días</title>
-<!-- La frescura del precio va adelante en las dos, porque es lo que
-     distingue al sitio de un directorio: el catálogo se actualiza solo
-     todos los días (.github/workflows/refresh-precios.yml, 09:00 UTC) y la
-     ficha vuelve a pedir el precio al abrirse.
+<title>ComparaMEX — Compara precios entre tiendas de México</title>
+<!-- Antes el título y la descripción prometían "precios actualizados todos
+     los días". El workflow diario (.github/workflows/refresh-precios.yml)
+     sí refresca Mercado Libre, Elektra y cinco tiendas más, pero 3,128
+     productos (Amazon, AliExpress, Alibaba, SharkNinja, Motorola...) no
+     tienen de dónde refrescarse y conservan el precio del día que se
+     cargaron. Prometer "todos los días" para todo el catálogo era falso
+     para ese 4%, así que se quitó de todas partes (también del pie de las
+     páginas estáticas, ver page_shell en scripts/generate_seo_pages.py).
      Se dice "desde Mercado Libre" y no "en vivo" a secas a propósito: hoy
      solo esa tienda tiene API en vivo conectada (LIVE_API_CONFIG en
      js/app.js; el resto está en enabled:false), así que prometer precio en
      vivo de todas las tiendas sería falso. Si mañana se conecta otra, se
      amplía la frase acá. -->
-<meta name="description" content="Compara precios entre tiendas mexicanas con el catálogo actualizado todos los días, y el precio de Mercado Libre consultado al abrir cada ficha.">
+<meta name="description" content="Compara precios entre tiendas mexicanas, con el precio de Mercado Libre consultado al abrir cada ficha.">
 <!-- noai/noimageai: señal informal (no estándar, pero varios rastreadores de
      IA ya la respetan) de que este contenido no debe usarse para entrenar
      modelos. index/follow se mantiene para que buscadores normales sí
@@ -32,13 +36,13 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ComparaMEX">
 <meta property="og:locale" content="es_MX">
-<meta property="og:title" content="ComparaMEX — Compara precios actualizados todos los días">
-<meta property="og:description" content="Compara precios entre tiendas mexicanas con el catálogo actualizado todos los días, y el precio de Mercado Libre consultado al abrir cada ficha.">
+<meta property="og:title" content="ComparaMEX — Compara precios entre tiendas de México">
+<meta property="og:description" content="Compara precios entre tiendas mexicanas, con el precio de Mercado Libre consultado al abrir cada ficha.">
 <meta property="og:url" content="https://comparamex.com/">
 <meta property="og:image" content="https://comparamex.com/icons/icon-512.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ComparaMEX — Compara precios actualizados todos los días">
-<meta name="twitter:description" content="Compara precios entre tiendas mexicanas con el catálogo actualizado todos los días.">
+<meta name="twitter:title" content="ComparaMEX — Compara precios entre tiendas de México">
+<meta name="twitter:description" content="Compara precios entre tiendas mexicanas.">
 <meta name="twitter:image" content="https://comparamex.com/icons/icon-512.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#FF0211">
@@ -66,7 +70,7 @@
   "name": "ComparaMEX",
   "url": "https://comparamex.com/",
   "logo": "https://comparamex.com/icons/icon-512.png",
-  "description": "Comparador de precios de tiendas en México, con el catálogo actualizado automáticamente todos los días.",
+  "description": "Comparador de precios de tiendas en México.",
   "areaServed": {
     "@type": "Country",
     "name": "México"
@@ -145,10 +149,10 @@
         <h1><img class="hero-logo" src="icons/logo-comparaprecios.png" alt="Compara precios"></h1>
         <p class="muted">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</p>
         <!-- La misma promesa que la meta description, pero en la página: sin
-             ella Google arma el resumen con el texto que sí encuentra acá y
-             la frescura del precio no aparece por ningún lado. Ver el
-             comentario del <head> para qué la respalda. -->
-        <p class="hero-freshness"><span class="hero-freshness-dot"></span>Actualizamos los precios del catálogo todos los días, y volvemos a consultar el de Mercado Libre al abrir cada producto.</p>
+             ella Google arma el resumen con el texto que sí encuentra acá.
+             Solo se promete lo que se cumple para todo el catálogo (ver el
+             comentario del <head>): la consulta en vivo a Mercado Libre. -->
+        <p class="hero-freshness"><span class="hero-freshness-dot"></span>Volvemos a consultar el precio de Mercado Libre al abrir cada producto.</p>
         <button class="hero-map-btn" id="homeLocationBtn">
           <span class="hero-map-btn-icon"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.6 7-12.2A7 7 0 0 0 5 9.3c0 5.6 7 12.2 7 12.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.2" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           <span class="hero-map-btn-text">
@@ -974,7 +978,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=3a46605f"></script>
+<script src="js/app.min.js?v=7ab03b12"></script>
 </div>
 </body>
 </html>

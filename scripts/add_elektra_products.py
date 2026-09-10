@@ -56,6 +56,40 @@ from data_io import load_catalog, next_id, registrar_max_id, save_catalog, sin_a
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SEARCH_URL = "https://www.elektra.mx/api/catalog_system/pub/products/search"
 
+# sellerId con el que VTEX identifica a la propia tienda; los demás
+# vendedores son terceros del marketplace de elektra.mx.
+ELEKTRA_SELLER_ID = "1"
+
+
+def vendedor_publicable(item):
+    """El vendedor cuyo precio se publica, o None si nadie tiene existencia.
+
+    La API trae varios vendedores por artículo: Elektra mismo (sellerId "1")
+    y terceros del marketplace. Hasta ahora se tomaba sellers[0] a ciegas, y
+    ese orden no es fijo: cuando Elektra se queda sin existencia el primero
+    pasa a ser un tercero, a veces con un precio disparatado --un ventilador
+    Taurus a $8,205 por "ecomsellers" cuando Elektra lo tenía a $445-- y al
+    reponerse vuelve. Ese vaivén se publicaba como "bajó 95%" (7 de las 21
+    bajadas de Elektra de 70% o más eran esto, ninguna una rebaja).
+
+    Se toma el más barato CON existencia --es lo que se paga en elektra.mx--
+    y, a igual precio, Elektra. Quién lo vende se guarda en la oferta
+    (sellerId) para que el historial distinga a un vendedor que baja su
+    precio de un vendedor que reemplaza a otro (ver record_price_history.py).
+    """
+    con_existencia = []
+    for s in item.get("sellers") or []:
+        co = s.get("commertialOffer") or {}
+        if co.get("Price") and co.get("AvailableQuantity", 0) > 0:
+            con_existencia.append(s)
+    if not con_existencia:
+        return None
+    return min(
+        con_existencia,
+        key=lambda s: (s["commertialOffer"]["Price"],
+                       str(s.get("sellerId")) != ELEKTRA_SELLER_ID),
+    )
+
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/120.0 Safari/537.36",
@@ -1025,16 +1059,12 @@ def main():
             if not items:
                 stats["sin_stock"] += 1
                 continue
-            sellers = items[0].get("sellers") or []
-            if not sellers:
+            vendedor = vendedor_publicable(items[0])
+            if not vendedor:
                 stats["sin_stock"] += 1
                 continue
-            offer = sellers[0].get("commertialOffer") or {}
+            offer = vendedor.get("commertialOffer") or {}
             price = offer.get("Price")
-            avail_qty = offer.get("AvailableQuantity", 0)
-            if not price or avail_qty <= 0:
-                stats["sin_stock"] += 1
-                continue
             url = p.get("link")
             if not url or url in existing_urls or url in existing_target_urls:
                 stats["duplicada"] += 1
@@ -1057,6 +1087,8 @@ def main():
                 "stock": "in_stock",
                 "verified": False,
             }
+            if vendedor.get("sellerId") is not None:
+                offer_out["sellerId"] = str(vendedor["sellerId"])
             if list_price and list_price > price:
                 offer_out["listPrice"] = list_price
             product = {

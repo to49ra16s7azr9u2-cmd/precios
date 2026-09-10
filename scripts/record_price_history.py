@@ -41,11 +41,37 @@ la serie sigue con un precio nuevo después del null.
 
 De cada tienda se guarda su precio MÍNIMO en ese producto, que es el que la
 ficha muestra como "desde".
+
+QUIÉN PONE ESE PRECIO
+---------------------
+Junto a las series de precio va "_v": por tienda, QUÉ VENDEDOR era el que
+tenía el mínimo ese día, también solo cuando cambia:
+
+    {"p123": {"mercadolibre": [7, 530, 12, 300],
+              "_v": {"mercadolibre": [7, "MLM3083968918", 12, "MLM4756848484"]}}}
+
+Sin esto una bajada de precio y un cambio de vendedor eran indistinguibles.
+En Mercado Libre una publicación de catálogo tiene varios vendedores, y
+cuando aparece uno nuevo más barato el mínimo de la tienda cae de golpe sin
+que nadie haya rebajado nada (un teclado "bajó" de $2,980 a $300: el de
+$2,980 sigue ahí, se sumó otro). En Elektra pasa al revés: cuando Elektra
+se queda sin existencia, el precio publicado pasa a ser el de un tercero
+del marketplace, a veces disparatado, y al reponerse "baja" 95%. De las 40
+bajadas de 70% o más que había, 13 eran esto. Con "_v", el ranking de
+bajadas solo cuenta las de un MISMO vendedor (ver bajada_de() en
+generate_seo_pages.py). Las claves que empiezan con "_" no son tiendas: los
+lectores del historial (serie_diaria, dailySeries en js/app.js) las saltan.
+
+El vendedor es el id de la publicación en Mercado Libre (MLM…), el sellerId
+en Elektra ("1" es Elektra mismo) y la tienda en las demás, que solo tienen
+un vendedor. Si no se sabe (una fila de Elektra de antes de que se guardara
+el sellerId) se anota null: desconocido, no "el mismo".
 """
 import argparse
 import datetime
 import json
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -70,8 +96,24 @@ def dia_de(fecha):
     return (fecha - EPOCH).days
 
 
+_ML_ITEM = re.compile(r"MLM-?(\d+)")
+
+
+def vendedor_de(row):
+    """Quién pone el precio de esta fila, o None si no se sabe."""
+    tienda = row.get("storeId")
+    if row.get("sellerId"):
+        return str(row["sellerId"])
+    if tienda == "elektra":
+        return None
+    if tienda == "mercadolibre":
+        m = _ML_ITEM.search(str(row.get("url") or ""))
+        return f"MLM{m.group(1)}" if m else None
+    return tienda
+
+
 def precios_por_tienda(product):
-    """{storeId: precio mínimo de esa tienda en este producto}.
+    """{storeId: (precio mínimo de esa tienda en este producto, vendedor)}.
 
     Mínimo sobre las MISMAS filas que el sitio publica, no sobre
     product["offers"]: las variantes de color se expanden y una publicación
@@ -93,8 +135,8 @@ def precios_por_tienda(product):
             precio = round(float(precio), 2)
         except (TypeError, ValueError):
             continue
-        if tienda not in minimos or precio < minimos[tienda]:
-            minimos[tienda] = precio
+        if tienda not in minimos or precio < minimos[tienda][0]:
+            minimos[tienda] = (precio, vendedor_de(o))
     return minimos
 
 
@@ -199,23 +241,43 @@ def registrar(products, fecha, donde, dry_run=False, podar_viejo=True):
         hist = cargar(fname)
         for p in items:
             por_tienda = hist.setdefault(p["id"], {})
+            vendedores = por_tienda.setdefault("_v", {})
             hoy = precios_por_tienda(p)
-            for tienda, precio in hoy.items():
+            for tienda, (precio, vendedor) in hoy.items():
                 serie = por_tienda.get(tienda)
                 if serie is None:
                     serie = por_tienda[tienda] = []
                     stats["series_nuevas"] += 1
                 if anotar(serie, dia, precio):
                     stats["puntos"] += 1
+                # "No se sabe" solo se anota cuando antes sí se sabía: ahí
+                # corta la cadena del mismo vendedor. Una serie que sería
+                # solo nulls no dice nada y pesaría (68 mil filas de Elektra
+                # sin sellerId el primer día: +2.8 MB de historial).
+                if vendedor is not None or vendedores.get(tienda):
+                    anotar(vendedores.setdefault(tienda, []), dia, vendedor)
             # Tiendas con serie que hoy no venden el producto: se cierra la
             # serie con null. Una serie que ya termina en null no se toca.
             for tienda, serie in por_tienda.items():
+                if tienda.startswith("_"):
+                    continue
                 if tienda not in hoy and serie and serie[-1] is not None:
                     if anotar(serie, dia, None):
                         stats["cierres"] += 1
             if podar_viejo:
                 for tienda in list(por_tienda):
-                    por_tienda[tienda] = podar(por_tienda[tienda], dia)
+                    if tienda == "_v":
+                        for t in list(vendedores):
+                            vendedores[t] = podar(vendedores[t], dia)
+                    else:
+                        por_tienda[tienda] = podar(por_tienda[tienda], dia)
+            # Un vendedor sin serie de precio (la tienda salió del producto
+            # hace más de un año y se podó) no dice nada de nadie.
+            for t in list(vendedores):
+                if t not in por_tienda:
+                    del vendedores[t]
+            if not vendedores:
+                del por_tienda["_v"]
             if not por_tienda:
                 del hist[p["id"]]
         if not dry_run and escribir(fname, hist):

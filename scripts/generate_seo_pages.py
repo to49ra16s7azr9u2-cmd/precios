@@ -113,14 +113,15 @@ CSS_HREF = "css/style.min.css"
 
 # Antes esta nota decía "precios de referencia para propósitos de
 # demostración". Iba en las ~82 mil fichas y es exactamente la clase de
-# autodeclaración que un buscador lee como contenido de poco valor, además de
-# contradecir lo que el sitio hace de verdad: los precios se rehacen todos los
-# días con el workflow refresh-precios.yml. Lo que sí hay que decir --que un
-# precio puede cambiar entre la actualización y la compra-- se dice sin
-# llamarse demo.
+# autodeclaración que un buscador lee como contenido de poco valor. Después
+# decía "se actualizan automáticamente todos los días desde cada tienda", que
+# tampoco es verdad para todo el catálogo: Amazon, AliExpress, Alibaba y
+# otras tiendas chicas (3,128 productos) no tienen de dónde refrescarse y
+# conservan el precio del día que se cargaron. Lo que sí hay que decir --que
+# un precio puede cambiar entre la actualización y la compra-- se dice sin
+# prometer una frecuencia.
 STORE_ORDER_NOTE = (
-    "Los precios se actualizan automáticamente todos los días desde cada "
-    "tienda. Aun así pueden cambiar en cualquier momento: confirma el precio "
+    "Los precios pueden cambiar en cualquier momento: confirma el precio "
     "final en la tienda antes de comprar. Para ver la comparación "
     "interactiva, con mapa de tiempos de entrega por municipio y reseñas, "
     "usa el enlace a la versión completa."
@@ -297,7 +298,7 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 </main>
 <footer class="site-footer">
   <div class="container">
-    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Precios actualizados automáticamente todos los días; sin afiliación con las tiendas listadas.
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento; sin afiliación con las tiendas listadas.
   </div>
 </footer>
 </body>
@@ -445,7 +446,9 @@ def serie_diaria(por_tienda, hasta=None):
     significa que se dejara de mirar, y si la serie terminara en el último
     cambio la ficha diría "entre el 2 y el 7" cuando el 8 también se anotó.
     """
-    cambios = {t: dict(zip(s[::2], s[1::2])) for t, s in por_tienda.items()}
+    # "_v" (qué vendedor ponía el mínimo) no es una tienda: se salta.
+    cambios = {t: dict(zip(s[::2], s[1::2])) for t, s in por_tienda.items()
+               if not t.startswith("_")}
     cambios = {t: c for t, c in cambios.items() if c}
     if not cambios:
         return []
@@ -514,6 +517,18 @@ DIAS_SOSTENIDO = 2
 BAJADA_MINIMA_PCT = 10.0
 
 
+def vendedor_en(serie_v, dia):
+    """Quién ponía el mínimo de la tienda el día `dia` según "_v", o None si
+    el historial no lo sabe (no hay anotación de ese día ni de antes)."""
+    quien = None
+    visto = False
+    for d, v in zip(serie_v[::2], serie_v[1::2]):
+        if d > dia:
+            break
+        quien, visto = v, True
+    return quien if visto else None
+
+
 def bajada_de(product_id):
     """La mayor bajada VIGENTE de este producto, o None.
 
@@ -525,9 +540,23 @@ def bajada_de(product_id):
     Medido así, el ranking se llenaba de "Minecraft bajó 93%" que en realidad
     era "Elektra lo tenía a $9,864 y ahora también está en Mercado Libre a
     $699".
+
+    Y dentro de la tienda, de un MISMO vendedor. Lo mismo pasaba puertas
+    adentro: en Mercado Libre un vendedor nuevo más barato en la misma
+    publicación, y en Elektra el vaivén entre Elektra y un tercero del
+    marketplace cuando a Elektra se le acaba la existencia. Se comprobaron
+    contra las tiendas las 40 bajadas de 70% o más: 27 eran reales y 13 eran
+    un cambio de vendedor (el precio "de antes" seguía ahí, de otro). Por eso
+    se exige que quien tenía el precio de antes el día anterior a la bajada
+    sea quien tiene el de ahora (ver "_v" en record_price_history.py). Si el
+    historial no sabe quién era, no es una bajada: no se adivina.
     """
     mejor = None
-    for tienda, flat in (historial_de(product_id) or {}).items():
+    historial = historial_de(product_id) or {}
+    vendedores = historial.get("_v") or {}
+    for tienda, flat in historial.items():
+        if tienda.startswith("_"):
+            continue
         pares = list(zip(flat[::2], flat[1::2]))
         if len(pares) < 2:
             continue
@@ -536,6 +565,11 @@ def bajada_de(product_id):
         if ahora is None or antes is None or ahora >= antes or not antes:
             continue
         if dia_ahora - dia_antes < DIAS_SOSTENIDO:
+            continue
+        serie_v = vendedores.get(tienda) or []
+        quien_antes = vendedor_en(serie_v, dia_ahora - 1)
+        quien_ahora = vendedor_en(serie_v, dia_ahora)
+        if quien_antes is None or quien_antes != quien_ahora:
             continue
         pct = 100 * (antes - ahora) / antes
         if pct < BAJADA_MINIMA_PCT:
@@ -594,9 +628,8 @@ def render_price_history(product):
   {veredicto}
   {rango}
   {sparkline_svg(serie)}
-  <p class="muted small">Anotamos el precio de esta ficha todos los días. El
-  historial arranca el {fecha_larga(serie[0][0])}, que es cuando empezamos a
-  guardarlo — no antes.</p>
+  <p class="muted small">El historial arranca el {fecha_larga(serie[0][0])},
+  que es cuando empezamos a guardarlo — no antes.</p>
 </div>
 """
 
@@ -1113,8 +1146,20 @@ def render_ofertas_page(items, data, cat=None):
         f"Productos que bajaron de precio{donde} en tiendas de México, "
         f"según nuestro registro diario. {len(items)} bajadas detectadas; "
         f"se listan las {len(mostrados)} mayores."
+        if items else
+        f"Productos que bajaron de precio{donde} en tiendas de México, "
+        f"según nuestro registro diario. Hoy no hay ninguna bajada confirmada."
     )
-    filas = "".join(_fila_de_oferta(p, b, prefijo) for b, p in mostrados)
+    # La página general se publica aunque hoy no haya nada: cuelga del menú
+    # principal, y un 404 ahí es peor que decir que hoy no hay bajadas. Pasa
+    # el día en que se estrena una regla nueva (la de mismo vendedor dejó sin
+    # respaldo a todas las bajadas anteriores) y volvería a pasar si un día
+    # ningún precio se moviera.
+    filas = "".join(_fila_de_oferta(p, b, prefijo) for b, p in mostrados) or (
+        '<p class="empty-state">Hoy no hay ninguna bajada que podamos confirmar. '
+        'Volvemos a revisar los precios cada día; en cuanto un vendedor baje el '
+        'suyo y lo sostenga, aparece acá.</p>'
+    )
 
     if cat:
         migas = (
@@ -1140,8 +1185,9 @@ def render_ofertas_page(items, data, cat=None):
 {migas}
 <div class="list-head"><h1>{svg_icon("chart")} {html_escape(titulo)}</h1></div>
 <p class="muted small">Comparamos el precio de cada producto con el que tenía
-antes en la MISMA tienda. No entran los productos que aparecen más baratos
-solo porque se les sumó otro vendedor: eso no es una bajada. Tampoco los
+antes en la MISMA tienda y del MISMO vendedor. No entran los productos que
+aparecen más baratos solo porque se les sumó otro vendedor, ni los que
+cambian de vendedor dentro de la tienda: eso no es una bajada. Tampoco los
 precios que estuvieron un solo día, que casi siempre son un dato que la
 tienda corrigió.</p>
 <div class="product-list">{filas}</div>
@@ -1481,8 +1527,13 @@ def write_if_changed(path, body):
     return True
 
 
-def borrar_paginas_huerfanas(data, dry_run=False):
+def borrar_paginas_huerfanas(data, ofertas_vigentes, dry_run=False):
     """Borra las páginas de productos y categorías que ya no están.
+
+    `ofertas_vigentes` son los slugs de categoría que SÍ tuvieron página de
+    bajadas en esta corrida ("" es la general). Las demás se borran: una
+    página de bajadas que dejó de reescribirse seguía publicada con las
+    bajadas del día que se escribió, ya sin respaldo en el historial.
 
     write_if_changed() solo escribe; nada borraba. Cuando refresh_prices.py
     poda una publicación que Mercado Libre dio de baja, el producto sale del
@@ -1538,10 +1589,15 @@ def borrar_paginas_huerfanas(data, dry_run=False):
     if os.path.isdir(carpeta):
         for nombre in os.listdir(carpeta):
             ruta = os.path.join(carpeta, nombre)
-            if os.path.isdir(ruta) and nombre not in slugs_cat:
+            if os.path.isdir(ruta) and nombre not in ofertas_vigentes:
                 borrados["ofertas"] += 1
                 if not dry_run:
                     shutil.rmtree(ruta)
+        general = os.path.join(carpeta, "index.html")
+        if "" not in ofertas_vigentes and os.path.exists(general):
+            borrados["ofertas"] += 1
+            if not dry_run:
+                os.remove(general)
 
     return borrados
 
@@ -1697,12 +1753,12 @@ def main():
     ofertas_dir = os.path.join(ROOT, "ofertas")
     os.makedirs(ofertas_dir, exist_ok=True)
     ofertas_urls = []
-    if todas_bajadas:
-        path = os.path.join(ofertas_dir, "index.html")
-        if write_if_changed(path, render_ofertas_page(todas_bajadas, data)):
-            written.append(path)
-            marcar(f"{SITE_URL}/ofertas/")
-        ofertas_urls.append(f"{SITE_URL}/ofertas/")
+    ofertas_vigentes = {""}
+    path = os.path.join(ofertas_dir, "index.html")
+    if write_if_changed(path, render_ofertas_page(todas_bajadas, data)):
+        written.append(path)
+        marcar(f"{SITE_URL}/ofertas/")
+    ofertas_urls.append(f"{SITE_URL}/ofertas/")
 
     # Una categoría con cuatro bajadas no merece página propia: sería casi
     # igual a la general y solo gastaría presupuesto de rastreo.
@@ -1718,6 +1774,7 @@ def main():
             written.append(path)
             marcar(f"{SITE_URL}/ofertas/{slug}/")
         ofertas_urls.append(f"{SITE_URL}/ofertas/{slug}/")
+        ofertas_vigentes.add(slug)
 
     print(f"Bajadas de precio publicables: {len(todas_bajadas):,} "
           f"({len(ofertas_urls)} páginas)")
@@ -1749,7 +1806,7 @@ def main():
     if write_if_changed(robots_path, build_robots()):
         written.append(robots_path)
 
-    borrados = borrar_paginas_huerfanas(data)
+    borrados = borrar_paginas_huerfanas(data, ofertas_vigentes)
     if any(borrados.values()):
         print("Páginas borradas (el producto o la categoría ya no está): "
               + ", ".join(f"{v:,} de {k}/" for k, v in borrados.items() if v))
