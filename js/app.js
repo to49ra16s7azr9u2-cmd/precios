@@ -2171,6 +2171,12 @@
     }
     // El usuario pudo cambiar de ficha mientras llegaba el archivo.
     if (currentProduct() !== product || serie.length < 2) return;
+    // Si la serie no llega a hoy es que ninguna tienda lo vende ya (todas las
+    // series terminan en null): no se dice "hoy está en", porque no está.
+    // Mismo corte que render_price_history() en scripts/generate_seo_pages.py
+    // -- sin él la ficha interactiva anunciaba como precio de hoy el último
+    // que se alcanzó a anotar antes de que se dejara de vender.
+    if (serie[serie.length - 1][0] < Math.floor((Date.now() - HIST_EPOCH) / 86400000)) return;
 
     const precios = serie.map((s) => s[1]);
     const lo = Math.min(...precios);
