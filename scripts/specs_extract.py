@@ -1083,7 +1083,17 @@ _CARGADOR_TIPOS = (
     ("Inalámbrico", re.compile(r"inalambric|magsafe|\bqi2?\b|magnetic|induccion")),
     ("Para laptop", re.compile(r"\blaptop\b|\bnotebook\b|macbook")),
     ("Base de carga", re.compile(r"base de carga|base cargadora|\bdock\b|estacion de carga|soporte de carga")),
-    ("Cable", re.compile(r"\bcable\b|\bcordon\b")),
+    # Ojo con "cable": la palabra aparece dos veces más seguido como lo que
+    # el cargador TRAE que como lo que el producto ES ("Belkin Cargador
+    # Pared 30w Usb-c Con Cable", "Cargador 65w Gan + Cable Usb-c"). Con la
+    # palabra suelta, 30 de los 41 productos de esta subcategoría no eran
+    # cables sino cargadores -- el Belkin decía "Pared" en el nombre y aun
+    # así no aparecía en "De pared". Cuenta solo cuando es el sustantivo del
+    # producto, o sea antes de que el nombre empiece a enumerar lo que
+    # incluye. Es el mismo criterio de cabeza de nombre que usa
+    # clasificar_subcategorias.py con VENTANA_CABEZA.
+    ("Cable", re.compile(r"^(?:(?!\b(?:con|sin|incluye|mas|y)\b|\+).)*"
+                         r"\b(?:cable|cordon)\b")),
     ("Adaptador de corriente", re.compile(
         r"adaptador de corriente|clavij|\bviaje\b|convertidor|transformador|eliminador|"
         r"fuente de (poder|alimentacion)|power supply|adapter for")),
