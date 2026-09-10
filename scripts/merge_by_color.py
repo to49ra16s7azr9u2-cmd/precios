@@ -63,7 +63,7 @@ import sys
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import id_num, load_catalog, save_catalog  # noqa: E402
 from phone_signature import (  # noqa: E402
     FINISH_QUALIFIERS, color_full_of, condition_of, signature,
 )
@@ -145,9 +145,6 @@ def generic_key(product):
     return (product.get("category"), marca, " ".join(toks), condition_of(nombre))
 
 
-def id_num(product):
-    m = re.match(r"p(\d+)$", product.get("id", ""))
-    return int(m.group(1)) if m else 10**9
 
 
 # Una palabra de color que en realidad es parte de un nombre propio no

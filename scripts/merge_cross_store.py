@@ -61,7 +61,7 @@ import unicodedata
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import id_num, load_catalog, save_catalog  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -72,9 +72,6 @@ def norm_name(s):
     return re.sub(r"\s+", " ", s).strip()
 
 
-def id_num(product):
-    m = re.match(r"p(\d+)$", product.get("id", ""))
-    return int(m.group(1)) if m else 10**9
 
 
 def mergeable_groups(products):

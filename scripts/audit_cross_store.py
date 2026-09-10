@@ -50,11 +50,10 @@ import argparse
 import os
 import re
 import sys
-import unicodedata
 import urllib.parse
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, save_catalog, sin_acentos as _norm, url_real  # noqa: E402
 
 STOP = {
     "para", "con", "del", "los", "las", "por", "que", "este", "esta", "color",
@@ -63,9 +62,11 @@ STOP = {
 }
 
 
-def _norm(s):
-    s = unicodedata.normalize("NFKD", (s or "").lower())
-    return "".join(c for c in s if not unicodedata.combining(c))
+
+
+def real_url(offer_url):
+    # Sin ulp=, el propio enlace: acá se audita lo que hay, no se descarta.
+    return url_real(offer_url) or (offer_url or "")
 
 
 def words(s):
@@ -77,10 +78,6 @@ def capacities(s):
     return set(re.findall(r"(\d+)\s*(gb|tb)\b", _norm(s).replace("-", " ")))
 
 
-def real_url(offer_url):
-    qs = urllib.parse.parse_qs(urllib.parse.urlparse(offer_url or "").query)
-    ulp = qs.get("ulp", [None])[0]
-    return urllib.parse.unquote(ulp) if ulp else (offer_url or "")
 
 
 def mismatches(products):

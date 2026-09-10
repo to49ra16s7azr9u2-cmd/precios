@@ -20,13 +20,14 @@ en "todos". Es el mismo criterio que match_amazon_capture.py y
 phone_signature.py vienen usando toda la sesión.
 """
 import re
-import unicodedata
+
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from data_io import sin_acentos as _norm  # noqa: E402
 
 
-def _norm(s):
-    s = unicodedata.normalize("NFD", (s or ""))
-    s = "".join(c for c in s if not unicodedata.combining(c))
-    return s.lower()
 
 
 # ---------------------------------------------------------------------

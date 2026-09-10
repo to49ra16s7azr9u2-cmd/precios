@@ -85,14 +85,40 @@ def _display_list_price(offer, stores_by_id, include_shipping):
     return list_price + _shipping_fee(offer, stores_by_id) if include_shipping else list_price
 
 
+# ---------------------------------------------------------------------------
+# Las opciones de compra de un producto, UNA sola definición para todo Python
+# (resumen de Inicio, páginas estáticas, historial de precios). Espejo de
+# purchaseOptions()/sellerRows()/sellerTotal() en js/app.js: si cambia una
+# regla allá, cambia acá, y en ningún otro lado -- generate_seo_pages.py
+# tenía su propia copia, más completa (url por vendedor, isBuyBox,
+# colorLabel), y la de acá se había quedado atrás; ahora vive acá la completa.
+
+def _ofertas_fuera_de_variantes(offers, ya):
+    """Las ofertas base cuya url no aparece entre las ya expandidas."""
+    urls = {o.get("url") for o in ya if o.get("url")}
+    return [dict(o) for o in offers if o.get("url") and o["url"] not in urls]
+
+
 def purchase_options(product):
-    """Espejo de purchaseOptions() en js/app.js."""
+    """Espejo de purchaseOptions() en js/app.js. Las variantes de color
+    SUSTITUYEN a la oferta base (no se suman), o se contaría dos veces la
+    misma publicación.
+
+    Hay dos formatos de variante conviviendo en el catálogo y este archivo
+    solo entendía el viejo:
+      viejo (merge_color_variants.py): {"color", "price", "url", ...}
+      nuevo (merge_by_color.py):       {"color", "offers": [ ... ]}
+    Con el nuevo, contar `v.get("sellerCount")` daba 1 por color (sin
+    importar cuántos vendedores tuviera de verdad), y seller_rows() leía
+    product["offers"], que tras la fusión son solo las del color más barato
+    -- o sea que la página estática se publicaba sin las ofertas de los
+    demás colores.
+    """
     variants = product.get("colorVariants") or []
     offers = product.get("offers") or []
-    # Formato nuevo (merge_by_color.py): cada variante trae SUS PROPIAS
-    # ofertas. Sin esta rama, v.get("price") y v.get("url") daban None y las
-    # páginas estáticas de los productos fusionados por color se publicaban
-    # sin precio y sin enlace.
+    # Con UNA sola variante también se expande (antes el umbral era > 1): son
+    # 7 productos donde ese único color es otra publicación, más barata, que
+    # quedaba invisible. Con el dedupe por url de abajo no se cuenta doble.
     if variants and any("offers" in v for v in variants):
         out = []
         for v in variants:
@@ -100,54 +126,77 @@ def purchase_options(product):
                 copia = dict(oferta)
                 copia["colorLabel"] = v.get("color")
                 out.append(copia)
-        # Ofertas base que no están en ninguna variante (otra tienda pegada
-        # por match_by_gtin.py): son publicaciones distintas y cuentan.
-        urls = {o.get("url") for o in out if o.get("url")}
-        out.extend(dict(o) for o in offers if o.get("url") and o["url"] not in urls)
+        # Las ofertas de product["offers"] que NO están en ninguna variante
+        # son publicaciones distintas (otra tienda, pegada después por
+        # match_by_gtin.py) y se muestran también. Sin esto, la oferta de
+        # Mercado Libre a $12,161 de un teléfono que Elektra tenía a $13,999
+        # en todos sus colores no aparecía en ningún lado: ni en la ficha ni
+        # en el "desde". 37 productos con la oferta más barata escondida.
+        out.extend(_ofertas_fuera_de_variantes(offers, out))
         return out or offers
     if variants and offers:
         base = offers[0]
         out = []
         for v in variants:
-            o = dict(base)
-            o["price"] = v.get("price")
-            o["url"] = v.get("url")
-            o["photo"] = v.get("photo")
-            # Igual que en la SPA: el listPrice de la oferta base solo vale
-            # para la variante que ES esa misma publicación.
-            o["listPrice"] = base.get("listPrice") if v.get("url") == base.get("url") else None
-            o["sellerCount"] = v.get("sellerCount")
-            o["lowestPrice"] = v.get("lowestPrice")
-            o["sellers"] = v.get("sellers")
-            out.append(o)
-        urls = {o.get("url") for o in out if o.get("url")}
-        out.extend(dict(o) for o in offers if o.get("url") and o["url"] not in urls)
+            copia = dict(base)
+            copia["price"] = v.get("price")
+            copia["url"] = v.get("url")
+            copia["photo"] = v.get("photo")
+            copia["listPrice"] = base.get("listPrice") if v.get("url") == base.get("url") else None
+            copia["sellerCount"] = v.get("sellerCount")
+            copia["lowestPrice"] = v.get("lowestPrice")
+            copia["sellers"] = v.get("sellers")
+            copia["colorLabel"] = v.get("color")
+            out.append(copia)
+        out.extend(_ofertas_fuera_de_variantes(offers, out))
         return out
     return offers
 
 
 def seller_rows(product):
-    """Espejo de sellerRows() en js/app.js."""
+    """Una fila por vendedor, igual que sellerRows() en js/app.js.
+
+    Una publicación de catálogo de Mercado Libre puede tener varios
+    vendedores con precios distintos. Cada fila lleva su propia URL
+    (?pdp_filters=item_id:...), así que el precio que se publica es el que se
+    paga al hacer clic EN ESA fila.
+    """
     out = []
     for o in purchase_options(product):
         sellers = o.get("sellers") or []
-        # Todos tienen que traer su enlace, igual que en js/app.js y en
-        # generate_seo_pages.py: una fila con el precio de un vendedor y el
-        # enlace de otro publicaría un precio que no se paga. Acá faltaba esa
-        # mitad de la regla, así que este espejo abría en filas publicaciones
-        # que los otros dos dejaban enteras.
+        # Se abre en filas por vendedor solo si TODOS tienen su enlace: una
+        # fila con el precio de un vendedor y el enlace de otro publicaría un
+        # precio que no es el que se paga al hacer clic. Sin enlace propio se
+        # deja la oferta como una sola fila.
         if len(sellers) < 2 or not all(sl.get("url") for sl in sellers):
             out.append(o)
             continue
-        for i, s in enumerate(sellers):
+        for i, sl in enumerate(sellers):
             row = dict(o)
-            row["price"] = s.get("price")
-            row["listPrice"] = s.get("listPrice") or None
+            row["price"] = sl["price"]
+            row["url"] = sl["url"]
+            # listPrice/lowestPrice se midieron sobre la publicación entera,
+            # no sobre este vendedor: mostrarlos en su fila sería un "-30%"
+            # contra un precio que no es el suyo.
+            row["listPrice"] = sl.get("listPrice")
             row["lowestPrice"] = None
-            row["shippingFee"] = s.get("shippingFee")
             row["sellerCount"] = None
+            row["shippingFee"] = sl.get("shippingFee")
+            row["sellerState"] = sl.get("state")
+            row["sellerOfficial"] = bool(sl.get("official"))
+            row["isBuyBox"] = i == 0
             out.append(row)
     return out
+
+
+def seller_total(product):
+    """Vendedores distintos, mismo criterio que sellerTotal() en js/app.js.
+
+    Casi todo el catálogo viene de Mercado Libre, así que "1 tienda" no
+    informaba nada; lo que varía es cuántos vendedores compiten por el mismo
+    producto, que es además sobre lo que se calcula el precio "Desde".
+    """
+    return sum((o.get("sellerCount") or 1) for o in purchase_options(product)) or 1
 
 
 def best_discount_pct(product, stores_by_id, include_shipping):
@@ -169,11 +218,6 @@ def review_star_points(product):
     que el visitante escribió en su propio navegador (localStorage)."""
     points = {5: 10, 4: 8, 3: 6}
     return sum(points.get(r.get("rating"), 0) for r in (product.get("reviews") or []))
-
-
-def seller_total(product):
-    """Espejo de sellerTotal() en js/app.js."""
-    return sum((o.get("sellerCount") or 1) for o in purchase_options(product))
 
 
 def is_used(product):

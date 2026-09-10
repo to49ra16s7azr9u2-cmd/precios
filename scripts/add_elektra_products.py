@@ -51,7 +51,7 @@ import urllib.parse
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, next_id, registrar_max_id, save_catalog  # noqa: E402
+from data_io import load_catalog, next_id, registrar_max_id, save_catalog, sin_acentos as norm, url_afiliado as affiliate_url  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SEARCH_URL = "https://www.elektra.mx/api/catalog_system/pub/products/search"
@@ -64,14 +64,6 @@ HEADERS = {
 }
 PAGE_SIZE = 50
 
-def norm(name):
-    """minúsculas y sin acentos -- el catálogo de Elektra mezcla formas
-    acentuadas/sin acentuar del mismo producto (p. ej. "Batería portatil" y
-    "Bateria Portátil" en el mismo listado), así que cada categorizador
-    compara sobre esta forma normalizada en vez de repetir cada variante."""
-    import unicodedata
-    nfkd = unicodedata.normalize("NFKD", name.lower())
-    return "".join(c for c in nfkd if not unicodedata.combining(c))
 
 
 EARBUDS_RE = re.compile(
@@ -971,11 +963,6 @@ def iter_category(category_path, limit=None):
         frm += PAGE_SIZE
 
 
-def affiliate_url(base, target_url):
-    if not base:
-        return target_url
-    sep = "&" if "?" in base else "?"
-    return f"{base}{sep}ulp={urllib.parse.quote(target_url, safe='')}"
 
 
 def main():

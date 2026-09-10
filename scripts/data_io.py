@@ -39,6 +39,7 @@ import re
 import unicodedata
 
 import web_summary
+import urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT, "data")
@@ -106,9 +107,17 @@ DETAIL_OFFER_FIELDS_CON_VARIANTES = tuple(
 # recién al abrir la ficha.
 #
 # Menos estas etiquetas, que el LISTADO sí lee para filtrar y ordenar (ver
-# isUsed/hasMagSafe/sizeOf/usageBadge/productWeightKg en js/app.js): si se
-# fueran al detalle, los filtros dejarían de funcionar en la lista.
-SPEC_LABELS_EN_LISTADO = ("Condición", "MagSafe", "Tamaño", "Uso", "Peso")
+# isUsed/hasMagSafe/sizeOf/usageBadge en js/app.js): si se fueran al
+# detalle, los filtros dejarían de funcionar en la lista.
+#
+# "Peso" estuvo acá por productWeightKg(), que leía el spec para la
+# calculadora de envío. Esa función ya no existe: la calculadora usa el peso
+# del PAQUETE que publican SUNSKY/GeekBuying en la propia oferta
+# (shippingWeightKg), y de los productos de esas tiendas ninguno trae el
+# spec "Peso" (son 8,766 productos de Elektra/Mercado Libre). Viajaba en
+# cada shard para un lector que no existía; ahora va al detalle con el
+# resto de la ficha técnica, que es donde se muestra.
+SPEC_LABELS_EN_LISTADO = ("Condición", "MagSafe", "Tamaño", "Uso")
 
 # Campos del PRODUCTO (no de cada oferta) que tampoco hacen falta en el
 # listado. Viajan en el detalle con el nombre prefijado por "_", igual que
@@ -257,6 +266,89 @@ def registrar_max_id(data, ultimo_id):
     n = int(re.sub(r"\D", "", str(ultimo_id)) or 0)
     meta = data.setdefault("meta", {})
     meta["maxProductId"] = max(int(meta.get("maxProductId") or 0), n)
+
+
+# ---------------------------------------------------------------------------
+# Texto: una sola manera de quitar acentos en todos los scripts.
+#
+# Vivía copiada ocho veces (norm, _norm) con dos formas Unicode distintas, NFD
+# y NFKD, que NO son equivalentes sobre este catálogo -- medido sobre los
+# 80,932 productos:
+#
+#   NFKD arregla   "13p³" -> "13p3" (14 refrigeradores sin faceta de pies³),
+#                  "65¨pulgadas" -> '65"pulgadas' (2 televisores sin tamaño),
+#                  y los espacios duros (U+00A0/U+202F) que hay en 5,112 títulos.
+#   NFKD rompe     "FreeSync™" -> "freesynctm" (111 productos en audit_cross_store),
+#                  "Nintendo Switch™ 2" pierde la plataforma,
+#                  y '⅜"' -> '3⁄8"' que se lee como 8 pulgadas.
+#
+# Así que no se usa ninguna de las dos a secas: NFD (que deja ™ y ⅜ como
+# símbolos aparte, que es lo que conviene) más esta tabla con lo que NFKD sí
+# resolvía bien. Contra lo que había, cambia exactamente los 16 casos buenos y
+# ninguno malo (ver el commit que la trajo).
+_TABLA_SIMBOLOS = str.maketrans({
+    "\u00a0": " ", "\u202f": " ", "\u2009": " ",   # espacios duros y finos
+    "²": "2", "³": "3",                              # superíndices
+    "¨": '"', "\u2033": '"', "\u201d": '"', "\u201c": '"',   # "pulgadas"
+    "\u2032": "'", "\u2019": "'", "\u2018": "'",
+})
+
+
+def sin_acentos(s):
+    """Minúsculas y sin acentos, conservando puntuación y símbolos."""
+    s = unicodedata.normalize("NFD", (s or "").translate(_TABLA_SIMBOLOS))
+    return "".join(c for c in s if not unicodedata.combining(c)).lower()
+
+
+def texto_plano(s):
+    """sin_acentos() y además todo lo que no es letra o dígito pasa a UN
+    espacio: para comparar palabras, no para leer medidas con punto."""
+    return re.sub(r"[^a-z0-9]+", " ", sin_acentos(s)).strip()
+
+
+# ---------------------------------------------------------------------------
+# Ids de producto.
+def id_num(product):
+    """El número del id ("p123" -> 123). Sin número, al final de cualquier orden."""
+    m = re.match(r"p(\d+)$", product.get("id", ""))
+    return int(m.group(1)) if m else 10**9
+
+
+# ---------------------------------------------------------------------------
+# Checkpoints de scripts largos (confirm_gtins, audit_gtin_matches): un json
+# que se reescribe cada tantos productos para poder retomar.
+def cargar_checkpoint(ruta):
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+def guardar_checkpoint(ruta, estado):
+    os.makedirs(os.path.dirname(ruta), exist_ok=True)
+    tmp = ruta + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(estado, f, ensure_ascii=False, indent=0, sort_keys=True)
+    os.replace(tmp, ruta)  # atómico: nunca queda un json a medio escribir
+
+
+# ---------------------------------------------------------------------------
+# Enlaces de afiliado (Admitad envuelve la url real en ?ulp=).
+def url_afiliado(base, target_url):
+    """Envuelve target_url en el enlace de afiliado `base`; sin base, tal cual."""
+    if not base:
+        return target_url
+    sep = "&" if "?" in base else "?"
+    return f"{base}{sep}ulp={urllib.parse.quote(target_url, safe='')}"
+
+
+def url_real(offer_url):
+    """La url de la tienda que hay dentro de un enlace de afiliado (ulp=), sin
+    disparar la redirección. None si el enlace no es de afiliado."""
+    qs = urllib.parse.parse_qs(urllib.parse.urlparse(offer_url or "").query)
+    ulp = qs.get("ulp", [None])[0]
+    return urllib.parse.unquote(ulp) if ulp else None
 
 
 def slugify(text):

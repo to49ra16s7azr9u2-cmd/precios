@@ -4746,18 +4746,6 @@
     return billableCbm * method.baseCostPerCbmUSD;
   }
 
-  // Extrae el peso en kg del spec "Peso" de un producto (texto libre del
-  // feed de la tienda, "10 kg" o "350 g") -- null si no hay spec de peso o
-  // no se pudo parsear, para no inventar un peso que el catálogo no trae.
-  function productWeightKg(product) {
-    const spec = (product.specs || []).find((s) => s.label === "Peso");
-    if (!spec) return null;
-    const m = String(spec.value).match(/([\d.,]+)\s*(kg|g)\b/i);
-    if (!m) return null;
-    const n = parseFloat(m[1].replace(",", "."));
-    if (isNaN(n)) return null;
-    return m[2].toLowerCase() === "g" ? n / 1000 : n;
-  }
 
   function shippingRateMethods(storeId) {
     const all = (state.shippingRates && state.shippingRates.methods) || [];

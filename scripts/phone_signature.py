@@ -11,16 +11,12 @@ variante, y ese es exactamente el error que hay que evitar.
 import os
 import re
 import sys
-import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from data_io import sin_acentos as _norm  # noqa: E402
 from match_amazon_capture import color_of  # noqa: E402  -- canoniza sinónimos de color
 
 
-def _norm(s):
-    s = unicodedata.normalize("NFD", (s or ""))
-    s = "".join(c for c in s if not unicodedata.combining(c))
-    return s.lower()
 
 
 # ---- compañía -------------------------------------------------------

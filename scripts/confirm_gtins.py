@@ -37,7 +37,6 @@ USO
     python3 scripts/confirm_gtins.py --apply     # solo vuelca lo ya consultado
 """
 import argparse
-import json
 import os
 import re
 import sys
@@ -46,7 +45,7 @@ from concurrent.futures import ThreadPoolExecutor
 from threading import Lock
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog
+from data_io import cargar_checkpoint, guardar_checkpoint, load_catalog, save_catalog
 from match_by_gtin import BY_GTIN, get_json, normalize_gtin
 
 # El JSON-LD de schema.org nombra la propiedad según el largo del código.
@@ -61,20 +60,6 @@ CHECKPOINT = os.path.join(
 CADA = 200
 
 
-def cargar_checkpoint():
-    try:
-        with open(CHECKPOINT, encoding="utf-8") as f:
-            return json.load(f)
-    except (OSError, ValueError):
-        return {}
-
-
-def guardar_checkpoint(estado):
-    os.makedirs(os.path.dirname(CHECKPOINT), exist_ok=True)
-    tmp = CHECKPOINT + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(estado, f, ensure_ascii=False, indent=0, sort_keys=True)
-    os.replace(tmp, CHECKPOINT)  # atómico: nunca queda un json a medio escribir
 
 
 def gtins_de(product):
@@ -133,7 +118,7 @@ def main():
     args = ap.parse_args()
 
     data = load_catalog()
-    estado = cargar_checkpoint()
+    estado = cargar_checkpoint(CHECKPOINT)
     print(f"Checkpoint: {len(estado):,} productos ya consultados "
           f"({sum(1 for v in estado.values() if v != '-'):,} con código confirmado)")
 
@@ -169,7 +154,7 @@ def main():
                 stats["no_confirma"] += 1
             hechos = sum(stats.values())
             if hechos % CADA == 0 and not args.dry_run:
-                guardar_checkpoint(estado)
+                guardar_checkpoint(CHECKPOINT, estado)
             if hechos % 500 == 0:
                 v = hechos / max(1, time.time() - t0)
                 falta = (len(todo) - hechos) / max(v, 0.01) / 60
@@ -181,7 +166,7 @@ def main():
             list(pool.map(work, todo))
     finally:
         if not args.dry_run:
-            guardar_checkpoint(estado)
+            guardar_checkpoint(CHECKPOINT, estado)
 
     print("=== Resumen ===")
     for k, v in stats.items():

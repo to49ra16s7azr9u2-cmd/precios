@@ -17,13 +17,12 @@ USO
     python3 scripts/add_sharkninja_products.py --affiliate-base "<link>"
 """
 import argparse
-import json
 import os
 import re
 import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from add_whirlpool_products import fetch, extract_product, _safe_url  # noqa: E402
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, save_catalog, url_afiliado as affiliate_url  # noqa: E402
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 
@@ -82,11 +81,6 @@ def candidate_urls():
     return re.findall(r"<loc>([^<]+)</loc>", html)
 
 
-def affiliate_url(base, target_url):
-    if not base:
-        return target_url
-    sep = "&" if "?" in base else "?"
-    return f"{base}{sep}ulp={urllib.parse.quote(target_url, safe='')}"
 
 
 def main():

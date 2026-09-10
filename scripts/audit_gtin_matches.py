@@ -65,7 +65,6 @@ USO
     python3 scripts/audit_gtin_matches.py            # todo el catálogo cruzado
 """
 import argparse
-import json
 import os
 import re
 import sys
@@ -75,7 +74,7 @@ from concurrent.futures import ThreadPoolExecutor
 from threading import Lock
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog
+from data_io import cargar_checkpoint, guardar_checkpoint, load_catalog, save_catalog
 from match_by_gtin import BY_GTIN, get_json, normalize_gtin
 
 # Palabras que aparecen en todo y no distinguen nada.
@@ -116,20 +115,6 @@ CHECKPOINT = os.path.join(
 CADA = 200
 
 
-def cargar_checkpoint():
-    try:
-        with open(CHECKPOINT, encoding="utf-8") as f:
-            return json.load(f)
-    except (OSError, ValueError):
-        return {}
-
-
-def guardar_checkpoint(estado):
-    os.makedirs(os.path.dirname(CHECKPOINT), exist_ok=True)
-    tmp = CHECKPOINT + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(estado, f, ensure_ascii=False, indent=0, sort_keys=True)
-    os.replace(tmp, CHECKPOINT)
 
 
 def _stem(w):
@@ -277,7 +262,7 @@ def main():
 
     data = load_catalog()
     todos = list(candidatos(data["products"], args.min_ratio))
-    nombres = cargar_checkpoint()
+    nombres = cargar_checkpoint(CHECKPOINT)
     print(f"Cruces a revisar: {len(todos):,}  "
           f"(ya consultados: {sum(1 for p, _ in todos if p['id'] in nombres):,})")
 
@@ -304,7 +289,7 @@ def main():
                 nombres[p["id"]] = resultados[0].get("name") or ""
             hechos = len(nombres)
             if hechos % CADA == 0 and not args.dry_run:
-                guardar_checkpoint(nombres)
+                guardar_checkpoint(CHECKPOINT, nombres)
             if hechos % 1000 == 0:
                 v = hechos / max(1, time.time() - t0)
                 print(f"  consultados {hechos:,}  ({v:.1f}/s)", flush=True)
@@ -315,7 +300,7 @@ def main():
                 list(pool.map(work, pendientes))
         finally:
             if not args.dry_run:
-                guardar_checkpoint(nombres)
+                guardar_checkpoint(CHECKPOINT, nombres)
 
     # 2) Juzgar TODO lo anotado (gratis, y repetible con otro criterio).
     stats.update({"ok": 0, "deshechos": 0, "sin_nombre": 0, "sin_consultar": 0,

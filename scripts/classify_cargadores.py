@@ -33,11 +33,10 @@ import argparse
 import os
 import re
 import sys
-import unicodedata
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, save_catalog, sin_acentos as _norm  # noqa: E402
 from specs_extract import charger_type_of  # noqa: E402
 
 CATEGORIA = "Cargadores y adaptadores"
@@ -67,9 +66,6 @@ _PB_NO = re.compile(r"load resistor|\btester\b|estuche|funda|soporte para|"
                     r"\b(?:aa|aaa)\b.{0,20}\bpilas?\b")
 
 
-def _norm(s):
-    s = unicodedata.normalize("NFD", s or "")
-    return "".join(c for c in s if not unicodedata.combining(c)).lower()
 
 
 # Un aparato que declara la capacidad de SU batería no es un power bank. Un

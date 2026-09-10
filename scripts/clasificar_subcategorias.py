@@ -59,16 +59,11 @@ import collections
 import os
 import re
 import sys
-import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog
+from data_io import load_catalog, save_catalog, texto_plano as norm
 
 
-def norm(s):
-    t = unicodedata.normalize("NFKD", (s or "").lower())
-    t = "".join(c for c in t if not unicodedata.combining(c))
-    return re.sub(r"[^a-z0-9]+", " ", t).strip()
 
 
 # Si el título ARRANCA con esto, el producto es un accesorio de otra cosa y

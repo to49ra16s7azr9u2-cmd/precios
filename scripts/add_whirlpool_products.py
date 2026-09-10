@@ -53,7 +53,7 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, save_catalog, url_afiliado as affiliate_url  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITEMAP_URL = "https://www.whirlpool.mx/sitemap/product-0.xml"
@@ -291,11 +291,6 @@ def ensure_taxonomy(categories):
                 cat.setdefault("subcategories", []).append({"id": sub_id, "name": sub_id, "icon": icon})
 
 
-def affiliate_url(base, target_url):
-    if not base:
-        return target_url
-    sep = "&" if "?" in base else "?"
-    return f"{base}{sep}ulp={urllib.parse.quote(target_url, safe='')}"
 
 
 def main():

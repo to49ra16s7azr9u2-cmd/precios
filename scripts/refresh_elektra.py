@@ -55,21 +55,18 @@ import urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from add_elektra_products import CATEGORY_MAP, PAGE_SIZE, SEARCH_URL, fetch_json  # noqa: E402
 from elektra_specs import specs_from  # noqa: E402
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, save_catalog, url_real  # noqa: E402
 
 # Si el recorrido junta menos de esta fracción de las urls de Elektra que ya
 # están en el catálogo, algo salió mal en la API y no se toca nada.
 MIN_WALK_RATIO = 0.5
 
 
+
+
 def real_url(offer_url):
-    """URL real de la tienda a partir de un enlace de afiliado (parámetro
-    ulp=), sin disparar la redirección. Elektra hoy se guarda sin afiliado,
-    pero el importador ya soporta --affiliate-base, así que el refresco
-    tiene que entender las dos formas."""
-    qs = urllib.parse.parse_qs(urllib.parse.urlparse(offer_url).query)
-    ulp = qs.get("ulp", [None])[0]
-    return urllib.parse.unquote(ulp) if ulp else offer_url
+    # Elektra se guarda sin afiliado: sin ulp=, el enlace ya es el real.
+    return url_real(offer_url) or offer_url
 
 
 def walk_category(path):

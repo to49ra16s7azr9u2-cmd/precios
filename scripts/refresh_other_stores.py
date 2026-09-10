@@ -71,7 +71,7 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, save_catalog, url_real as real_url  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -88,12 +88,6 @@ OG_PRICE_RE = re.compile(r'<meta[^>]+(?:og|product):price:amount[^>]+content=["\
 OG_CURRENCY_RE = re.compile(r'<meta[^>]+(?:og|product):price:currency[^>]+content=["\']([^"\']+)', re.I)
 
 
-def real_url(offer_url):
-    """URL real de la tienda a partir del enlace de afiliado de Admitad
-    (parámetro ulp=), sin disparar la redirección (que contaría un clic)."""
-    qs = urllib.parse.parse_qs(urllib.parse.urlparse(offer_url).query)
-    ulp = qs.get("ulp", [None])[0]
-    return urllib.parse.unquote(ulp) if ulp else None
 
 
 # Límite de ritmo POR DOMINIO (no global): con varias tiendas mezcladas en el
