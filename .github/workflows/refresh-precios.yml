@@ -53,15 +53,8 @@ permissions:
   contents: write
 
 # Dos corridas a la vez se pisarían el commit (las dos escriben data/ y
-# 84,000 páginas). Si ya hay una corriendo, la nueva espera.
-concurrency:
-  group: refresh-precios
-  cancel-in-progress: false
-
-
-# Dos corridas a la vez se pisarían el catálogo entre ellas. La segunda
-# espera a que termine la primera en vez de cancelarla: cancelarla tiraría
-# a la basura las dos horas de lectura de tiendas que ya lleva hecha.
+# 84,000 páginas). Si ya hay una corriendo, la nueva espera: cancelar la que
+# está en curso tiraría las dos horas de lectura de tiendas que ya lleva.
 concurrency:
   group: refresh-precios
   cancel-in-progress: false
