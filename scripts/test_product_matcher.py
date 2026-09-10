@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Pruebas del pipeline de 5 pasos de product_matcher.py.
 
 Corre con: python3 scripts/test_product_matcher.py

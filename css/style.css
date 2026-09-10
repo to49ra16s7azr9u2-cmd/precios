@@ -797,7 +797,6 @@ a { color: inherit; text-decoration: none; }
 /* Sello de nivel en la fila de la lista: dice a qué opción de "Compara
    calidad" pertenece este producto cuando hay varias marcadas a la vez.
    Puede haber más de uno (nivel y tamaño), así que envuelven. */
-.row-tiers-wrap { display: flex; }
 .row-tier {
   display: inline-block;
   margin: 0 6px 4px 0;
@@ -1375,10 +1374,6 @@ tr.offer-compare-off { display: none; }
 .detail-rating { font-size: 13px; color: var(--gold); margin-bottom: 8px; }
 .detail-rating .rc { color: var(--muted); margin-left: 4px; }
 .detail-colors:empty { display: none; }
-.detail-colors-inner { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
-.color-dot-link { display: inline-flex; line-height: 0; }
-.color-dot-link .color-dot { width: 18px; height: 18px; cursor: pointer; }
-.color-dot-link .color-dot:hover { box-shadow: 0 0 0 2px var(--red); }
 .detail-fromprice { margin: 0; font-size: 13px; color: var(--muted); }
 /* El precio de la ficha es el punto de mayor énfasis de toda la página. */
 .detail-fromprice strong { color: var(--red-dark); font-size: 20px; }
@@ -1591,7 +1586,6 @@ tr.offer-compare-off { display: none; }
   background: var(--red);
 }
 /* Texto secundario que va pegado al encabezado (ej. "últimos 30 días"). */
-.panel h2 .h2-sub { font-size: 11px; font-weight: 400; color: var(--muted); margin-left: 6px; }
 
 .compare-panel-head {
   display: flex;
@@ -2242,7 +2236,6 @@ tr.offer-compare-off { display: none; }
   object-fit: cover; flex-shrink: 0;
   background: var(--border);
 }
-.account-email { margin: 0; }
 .link-btn {
   display: inline-block;
   margin-top: 10px;
@@ -2510,11 +2503,6 @@ tr.offer-compare-off { display: none; }
    juntas, ordenadas por precio (ver renderOfferTable en js/app.js). */
 .offer-group { margin-top: 14px; }
 
-.empty-note {
-  font-size: 11px;
-  color: var(--muted);
-  padding: 10px 4px 4px;
-}
 
 /* Inicio: categorías a la izquierda (ocupa el espacio disponible) + panel
    de "Top 5 más visitadas" a la derecha, angosto y fijo -- las categorías
