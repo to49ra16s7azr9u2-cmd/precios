@@ -1106,9 +1106,20 @@ _CARGADOR_TIPOS = (
 )
 
 
+# Lo que va después de "compatible con" es con qué FUNCIONA el producto, no
+# lo que ES. Sin recortarlo, un "CUKTECH Cargador GAN USB C 100W, Cargador de
+# Pared de 3 Puertos ... Compatible con MacBook Pro, iPhone 17/16/15" salía
+# como "Para laptop" por la palabra MacBook, cuando el propio nombre dice
+# "de Pared" dos veces. Se corta solo en "compatible con/para" y no en el
+# "para" suelto, que muchas veces sí dice qué es el producto ("Cargador para
+# laptop"). Sobre los cargadores que ya hay en el catálogo no cambia ni uno:
+# es para los que entren de acá en adelante.
+_COMPATIBILIDAD = re.compile(r"\b(?:compatible|compatibles|apto|apta|aptos|aptas)\s+(?:con|para)\b")
+
+
 def charger_type_of(name):
     """Tipo de cargador según el nombre, o None si no se puede decir."""
-    n = _norm(name)
+    n = _COMPATIBILIDAD.split(_norm(name), 1)[0]
     for etiqueta, rx in _CARGADOR_TIPOS:
         if rx.search(n):
             return etiqueta
