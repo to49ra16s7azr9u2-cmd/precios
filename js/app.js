@@ -1657,188 +1657,6 @@
     return idx === -1;
   }
 
-  // ---------- Comparador de specs lado a lado ----------
-  // A diferencia de favoritos (cualquier mezcla de categorías tiene
-  // sentido), comparar specs de un celular contra un sillón no dice nada:
-  // se guarda junto con la categoría a la que pertenece la selección
-  // actual, y elegir un producto de OTRA categoría empieza una selección
-  // nueva en vez de mezclarlas.
-  function getCompareState() {
-    return readLS(LS_KEYS.compare, { category: null, ids: [] });
-  }
-  function writeCompareState(next) {
-    writeLS(LS_KEYS.compare, next);
-    renderCompareBar();
-  }
-  function isInCompare(productId) {
-    return getCompareState().ids.includes(productId);
-  }
-  // Devuelve el resultado para que el llamador pueda avisar por qué no se
-  // agregó (cupo lleno) sin necesidad de un sistema de toasts nuevo -- el
-  // checkbox de la fila ya se deshabilita solo en ese caso (ver
-  // renderProductListInto), así que en la práctica toggleCompareItem con
-  // "full" casi no debería llamarse.
-  function toggleCompareItem(product) {
-    const cur = getCompareState();
-    const idx = cur.ids.indexOf(product.id);
-    if (idx !== -1) {
-      cur.ids.splice(idx, 1);
-      if (cur.ids.length === 0) cur.category = null;
-      writeCompareState(cur);
-      return { ok: true };
-    }
-    if (cur.category && cur.category !== product.category) {
-      // Cambiar de categoría reinicia la selección con este producto solo
-      // -- comparar specs de categorías distintas no tiene columnas en común.
-      writeCompareState({ category: product.category, ids: [product.id] });
-      return { ok: true, reset: true };
-    }
-    if (cur.ids.length >= COMPARE_MAX) return { ok: false, reason: "full" };
-    cur.category = product.category;
-    cur.ids.push(product.id);
-    writeCompareState(cur);
-    return { ok: true };
-  }
-  function removeFromCompare(productId) {
-    const cur = getCompareState();
-    cur.ids = cur.ids.filter((id) => id !== productId);
-    if (cur.ids.length === 0) cur.category = null;
-    writeCompareState(cur);
-  }
-  function clearCompare() {
-    writeCompareState({ category: null, ids: [] });
-  }
-
-  // Barra flotante con lo que se lleva elegido. Vive fuera de <main> (ver
-  // index.html) para que no desaparezca al navegar de la lista a una ficha
-  // y de vuelta: la selección sobrevive a la navegación, así que la barra
-  // que la muestra también tiene que sobrevivir.
-  //
-  // Los productos elegidos pueden no estar cargados en memoria -- las
-  // shards se bajan por categoría (ver ensureCategory), y la selección
-  // vive en localStorage de una visita anterior. Por eso se dibuja con lo
-  // que haya y se pide lo que falte, volviendo a dibujar cuando llega.
-  function productById(id) {
-    const i = productIndexById.get(id);
-    return i === undefined ? null : state.data.products[i];
-  }
-
-  // Alto real del aviso de cookies -> variable CSS que usa .compare-bar
-  // para no quedar tapada. Se recalcula al mostrarlo/ocultarlo y al cambiar
-  // el ancho de la ventana (el texto reflowea y el alto cambia).
-  function setConsentHeightVar() {
-    const c = el.cookieConsent;
-    const visible = c && !c.classList.contains("hidden");
-    document.body.style.setProperty("--consent-h", visible ? `${c.offsetHeight}px` : "0px");
-  }
-
-  function renderCompareBar() {
-    const cs = getCompareState();
-    if (!el.compareBar) return;
-    el.compareBar.classList.toggle("hidden", cs.ids.length === 0);
-    if (cs.ids.length === 0) return;
-    const found = cs.ids.map((id) => productById(id)).filter(Boolean);
-    if (faltanPorBajar(cs.ids).length) {
-      ensureProductsByIds(cs.ids).then(renderCompareBar);
-    }
-    el.compareBarItems.innerHTML = "";
-    found.forEach((p) => {
-      const chip = document.createElement("div");
-      chip.className = "compare-chip";
-      chip.innerHTML = `<span class="compare-chip-photo"></span>
-        <span class="compare-chip-name">${htmlEscapeAttr(p.name)}</span>
-        <button type="button" class="compare-chip-x" aria-label="Quitar de la comparación">×</button>`;
-      renderProductMedia(chip.querySelector(".compare-chip-photo"), p);
-      chip.querySelector(".compare-chip-x").onclick = () => {
-        removeFromCompare(p.id);
-        // La lista de fondo tiene los checkboxes marcados: hay que
-        // refrescarlos o quedan marcados productos que ya no están.
-        if (el.productList) refreshCompareCheckboxes(el.productList);
-      };
-      el.compareBarItems.appendChild(chip);
-    });
-    // Con un solo producto no hay nada contra qué compararlo.
-    el.compareBarGo.disabled = cs.ids.length < 2;
-    el.compareBarGo.textContent = cs.ids.length < 2
-      ? "Elige otro para comparar"
-      : `Comparar (${cs.ids.length})`;
-  }
-
-  // ---------- Vista: comparación lado a lado ----------
-  // Una fila por especificación, una columna por producto. Solo se muestran
-  // las filas que AL MENOS UN producto declara: una tabla llena de guiones
-  // no ayuda a decidir nada.
-  //
-  // Las filas donde los productos NO coinciden se marcan, porque son las
-  // únicas que sirven para elegir: si los tres tienen 8 GB de RAM, esa fila
-  // no está aportando a la decisión.
-  function renderCompare() {
-    setActiveView("compare");
-    const cs = getCompareState();
-    const products = cs.ids.map((id) => productById(id)).filter(Boolean);
-    if (faltanPorBajar(cs.ids).length) {
-      el.compareBody.innerHTML = `<div class="panel muted">Cargando productos…</div>`;
-      ensureProductsByIds(cs.ids).then(() => {
-        if (!el.viewCompare.classList.contains("hidden")) renderCompare();
-      });
-      return;
-    }
-    if (products.length < 2) {
-      el.compareIntro.textContent = "";
-      el.compareBody.innerHTML = `<div class="panel muted">Elige al menos dos productos de una misma categoría, con la casilla “Comparar” de la lista.</div>`;
-      return;
-    }
-    el.compareIntro.textContent = `${products.length} productos de ${cs.category}. Se marcan las filas donde no coinciden.`;
-
-    const rows = SPEC_FACETS
-      .filter((cfg) => cfg.categories.includes(cs.category))
-      .map((cfg) => ({
-        label: cfg.label || cfg.key,
-        values: products.map((p) => {
-          const vs = specValuesOf(cfg, p);
-          return vs.length ? vs.map((v) => cfg.format(v)).join(", ") : null;
-        }),
-      }))
-      .filter((r) => r.values.some((v) => v != null));
-
-    const priceRow = {
-      label: "Precio más bajo",
-      values: products.map((p) => {
-        const price = minPrice(p);
-        return price == null ? null : money(price);
-      }),
-      isPrice: true,
-    };
-
-    const head = products.map((p) => `<th><div class="compare-th">
-        <span class="compare-th-photo" data-pid="${p.id}"></span>
-        <a href="#/p/${p.id}" class="compare-th-name">${htmlEscapeAttr(p.name)}</a>
-      </div></th>`).join("");
-
-    const body = [priceRow, ...rows].map((r) => {
-      const shown = r.values.filter((v) => v != null);
-      // "Distinto" solo si TODOS lo declaran y hay más de un valor: con un
-      // dato faltante no se puede afirmar que difieran.
-      const differs = shown.length === r.values.length && new Set(shown).size > 1;
-      const cells = r.values.map((v) => `<td>${v == null ? '<span class="compare-na">No lo indica</span>' : v}</td>`).join("");
-      return `<tr class="${differs ? "compare-differs" : ""}${r.isPrice ? " compare-price-row" : ""}">
-        <th scope="row">${r.label}</th>${cells}</tr>`;
-    }).join("");
-
-    el.compareBody.innerHTML = `<div class="panel compare-panel">
-      <div class="compare-scroll">
-        <table class="compare-table">
-          <thead><tr><th></th>${head}</tr></thead>
-          <tbody>${body}</tbody>
-        </table>
-      </div>
-    </div>`;
-    products.forEach((p) => {
-      const holder = el.compareBody.querySelector(`.compare-th-photo[data-pid="${p.id}"]`);
-      renderProductMedia(holder, p);
-    });
-  }
-
   function getProfile() {
     return readLS(LS_KEYS.profile, { name: "" });
   }
@@ -2220,6 +2038,20 @@
     return ids
       .map((id) => state.data.products[productIndexById.get(id)])
       .filter(Boolean);
+  }
+
+  // Barra flotante con lo que se lleva elegido. Vive fuera de <main> (ver
+  // index.html) para que no desaparezca al navegar de la lista a una ficha
+  // y de vuelta: la selección sobrevive a la navegación, así que la barra
+  // que la muestra también tiene que sobrevivir.
+  //
+  // Los productos elegidos pueden no estar cargados en memoria -- las
+  // shards se bajan por categoría (ver ensureCategory), y la selección
+  // vive en localStorage de una visita anterior. Por eso se dibuja con lo
+  // que haya y se pide lo que falte, volviendo a dibujar cuando llega.
+  function productById(id) {
+    const i = productIndexById.get(id);
+    return i === undefined ? null : state.data.products[i];
   }
 
   // --- Detalle bajo demanda -------------------------------------------
@@ -4567,6 +4399,165 @@
     el.specsModal.classList.add("hidden");
   }
 
+  // ---------- Comparador de specs lado a lado ----------
+  // A diferencia de favoritos (cualquier mezcla de categorías tiene
+  // sentido), comparar specs de un celular contra un sillón no dice nada:
+  // se guarda junto con la categoría a la que pertenece la selección
+  // actual, y elegir un producto de OTRA categoría empieza una selección
+  // nueva en vez de mezclarlas.
+  function getCompareState() {
+    return readLS(LS_KEYS.compare, { category: null, ids: [] });
+  }
+  function writeCompareState(next) {
+    writeLS(LS_KEYS.compare, next);
+    renderCompareBar();
+  }
+  function isInCompare(productId) {
+    return getCompareState().ids.includes(productId);
+  }
+  // Devuelve el resultado para que el llamador pueda avisar por qué no se
+  // agregó (cupo lleno) sin necesidad de un sistema de toasts nuevo -- el
+  // checkbox de la fila ya se deshabilita solo en ese caso (ver
+  // renderProductListInto), así que en la práctica toggleCompareItem con
+  // "full" casi no debería llamarse.
+  function toggleCompareItem(product) {
+    const cur = getCompareState();
+    const idx = cur.ids.indexOf(product.id);
+    if (idx !== -1) {
+      cur.ids.splice(idx, 1);
+      if (cur.ids.length === 0) cur.category = null;
+      writeCompareState(cur);
+      return { ok: true };
+    }
+    if (cur.category && cur.category !== product.category) {
+      // Cambiar de categoría reinicia la selección con este producto solo
+      // -- comparar specs de categorías distintas no tiene columnas en común.
+      writeCompareState({ category: product.category, ids: [product.id] });
+      return { ok: true, reset: true };
+    }
+    if (cur.ids.length >= COMPARE_MAX) return { ok: false, reason: "full" };
+    cur.category = product.category;
+    cur.ids.push(product.id);
+    writeCompareState(cur);
+    return { ok: true };
+  }
+  function removeFromCompare(productId) {
+    const cur = getCompareState();
+    cur.ids = cur.ids.filter((id) => id !== productId);
+    if (cur.ids.length === 0) cur.category = null;
+    writeCompareState(cur);
+  }
+  function clearCompare() {
+    writeCompareState({ category: null, ids: [] });
+  }
+
+  function renderCompareBar() {
+    const cs = getCompareState();
+    if (!el.compareBar) return;
+    el.compareBar.classList.toggle("hidden", cs.ids.length === 0);
+    if (cs.ids.length === 0) return;
+    const found = cs.ids.map((id) => productById(id)).filter(Boolean);
+    if (faltanPorBajar(cs.ids).length) {
+      ensureProductsByIds(cs.ids).then(renderCompareBar);
+    }
+    el.compareBarItems.innerHTML = "";
+    found.forEach((p) => {
+      const chip = document.createElement("div");
+      chip.className = "compare-chip";
+      chip.innerHTML = `<span class="compare-chip-photo"></span>
+        <span class="compare-chip-name">${htmlEscapeAttr(p.name)}</span>
+        <button type="button" class="compare-chip-x" aria-label="Quitar de la comparación">×</button>`;
+      renderProductMedia(chip.querySelector(".compare-chip-photo"), p);
+      chip.querySelector(".compare-chip-x").onclick = () => {
+        removeFromCompare(p.id);
+        // La lista de fondo tiene los checkboxes marcados: hay que
+        // refrescarlos o quedan marcados productos que ya no están.
+        if (el.productList) refreshCompareCheckboxes(el.productList);
+      };
+      el.compareBarItems.appendChild(chip);
+    });
+    // Con un solo producto no hay nada contra qué compararlo.
+    el.compareBarGo.disabled = cs.ids.length < 2;
+    el.compareBarGo.textContent = cs.ids.length < 2
+      ? "Elige otro para comparar"
+      : `Comparar (${cs.ids.length})`;
+  }
+
+  // ---------- Vista: comparación lado a lado ----------
+  // Una fila por especificación, una columna por producto. Solo se muestran
+  // las filas que AL MENOS UN producto declara: una tabla llena de guiones
+  // no ayuda a decidir nada.
+  //
+  // Las filas donde los productos NO coinciden se marcan, porque son las
+  // únicas que sirven para elegir: si los tres tienen 8 GB de RAM, esa fila
+  // no está aportando a la decisión.
+  function renderCompare() {
+    setActiveView("compare");
+    const cs = getCompareState();
+    const products = cs.ids.map((id) => productById(id)).filter(Boolean);
+    if (faltanPorBajar(cs.ids).length) {
+      el.compareBody.innerHTML = `<div class="panel muted">Cargando productos…</div>`;
+      ensureProductsByIds(cs.ids).then(() => {
+        if (!el.viewCompare.classList.contains("hidden")) renderCompare();
+      });
+      return;
+    }
+    if (products.length < 2) {
+      el.compareIntro.textContent = "";
+      el.compareBody.innerHTML = `<div class="panel muted">Elige al menos dos productos de una misma categoría, con la casilla “Comparar” de la lista.</div>`;
+      return;
+    }
+    el.compareIntro.textContent = `${products.length} productos de ${cs.category}. Se marcan las filas donde no coinciden.`;
+
+    const rows = SPEC_FACETS
+      .filter((cfg) => cfg.categories.includes(cs.category))
+      .map((cfg) => ({
+        label: cfg.label || cfg.key,
+        values: products.map((p) => {
+          const vs = specValuesOf(cfg, p);
+          return vs.length ? vs.map((v) => cfg.format(v)).join(", ") : null;
+        }),
+      }))
+      .filter((r) => r.values.some((v) => v != null));
+
+    const priceRow = {
+      label: "Precio más bajo",
+      values: products.map((p) => {
+        const price = minPrice(p);
+        return price == null ? null : money(price);
+      }),
+      isPrice: true,
+    };
+
+    const head = products.map((p) => `<th><div class="compare-th">
+        <span class="compare-th-photo" data-pid="${p.id}"></span>
+        <a href="#/p/${p.id}" class="compare-th-name">${htmlEscapeAttr(p.name)}</a>
+      </div></th>`).join("");
+
+    const body = [priceRow, ...rows].map((r) => {
+      const shown = r.values.filter((v) => v != null);
+      // "Distinto" solo si TODOS lo declaran y hay más de un valor: con un
+      // dato faltante no se puede afirmar que difieran.
+      const differs = shown.length === r.values.length && new Set(shown).size > 1;
+      const cells = r.values.map((v) => `<td>${v == null ? '<span class="compare-na">No lo indica</span>' : v}</td>`).join("");
+      return `<tr class="${differs ? "compare-differs" : ""}${r.isPrice ? " compare-price-row" : ""}">
+        <th scope="row">${r.label}</th>${cells}</tr>`;
+    }).join("");
+
+    el.compareBody.innerHTML = `<div class="panel compare-panel">
+      <div class="compare-scroll">
+        <table class="compare-table">
+          <thead><tr><th></th>${head}</tr></thead>
+          <tbody>${body}</tbody>
+        </table>
+      </div>
+    </div>`;
+    products.forEach((p) => {
+      const holder = el.compareBody.querySelector(`.compare-th-photo[data-pid="${p.id}"]`);
+      renderProductMedia(holder, p);
+    });
+  }
+
   // ---------- Vista: Favoritos ----------
 
   function renderFavorites() {
@@ -4708,6 +4699,21 @@
     const favCount = getFavorites().length;
     const reviewCount = Object.values(getAllUserReviews()).reduce((sum, arr) => sum + arr.length, 0);
     el.accountSummary.textContent = `${favCount} favorito(s) guardado(s) · ${reviewCount} reseña(s) escritas en este navegador.`;
+  }
+
+  // Fecha fija del texto vigente de privacidad/términos (no la fecha de
+  // hoy): solo debe cambiar cuando de verdad se edite el contenido de esas
+  // páginas, no en cada visita.
+  const LEGAL_LAST_UPDATED = "1 de septiembre de 2026";
+
+  function renderPrivacy() {
+    setActiveView("privacidad");
+    el.privacyLastUpdated.textContent = LEGAL_LAST_UPDATED;
+  }
+
+  function renderTerms() {
+    setActiveView("terminos");
+    el.termsLastUpdated.textContent = LEGAL_LAST_UPDATED;
   }
 
   // ---------- Calculadora de envío (AliExpress/Alibaba/SUNSKY/Geekbuying) ----------
@@ -4861,21 +4867,6 @@
       input.oninput = recompute;
     });
     recompute();
-  }
-
-  // Fecha fija del texto vigente de privacidad/términos (no la fecha de
-  // hoy): solo debe cambiar cuando de verdad se edite el contenido de esas
-  // páginas, no en cada visita.
-  const LEGAL_LAST_UPDATED = "1 de septiembre de 2026";
-
-  function renderPrivacy() {
-    setActiveView("privacidad");
-    el.privacyLastUpdated.textContent = LEGAL_LAST_UPDATED;
-  }
-
-  function renderTerms() {
-    setActiveView("terminos");
-    el.termsLastUpdated.textContent = LEGAL_LAST_UPDATED;
   }
 
   const SHIPPING_CALC_STORE_IDS = ["aliexpress", "alibaba", "sunsky", "geekbuying"];
@@ -6200,6 +6191,15 @@
   }
 
   // ---------- Aviso de cookies / Consent Mode ----------
+  // Alto real del aviso de cookies -> variable CSS que usa .compare-bar
+  // para no quedar tapada. Se recalcula al mostrarlo/ocultarlo y al cambiar
+  // el ancho de la ventana (el texto reflowea y el alto cambia).
+  function setConsentHeightVar() {
+    const c = el.cookieConsent;
+    const visible = c && !c.classList.contains("hidden");
+    document.body.style.setProperty("--consent-h", visible ? `${c.offsetHeight}px` : "0px");
+  }
+
 
   // gtag ya arranca denegado por defecto (consent 'default' en el <head> de
   // index.html, ANTES de cargar gtag.js) -- acá solo se decide si hay que
