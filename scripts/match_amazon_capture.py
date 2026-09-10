@@ -43,7 +43,7 @@ import unicodedata
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog  # noqa: E402
+from data_io import capacidad_mah, load_catalog, texto_plano  # noqa: E402
 
 STOP = {
     "para", "con", "del", "los", "las", "por", "que", "este", "esta", "color",
@@ -420,11 +420,20 @@ def candidates_for(item, products):
     if not tw:
         return []
     tc = capacities(title)
+    tmah = capacidad_mah(norm(title))
     tv = variant_of(title)
     tcol = color_of(title)
     tg = generation_of(title)
     tm = model_of(title)
     t_brands = BRAND_WORDS & tw
+    # Si la captura YA viene con la marca resuelta (los lotes que se arman a
+    # mano la traen; los que exporta la extensión no), es un dato mucho más
+    # firme que buscar la palabra en el título: se le exige al candidato la
+    # misma marca y listo. Hace falta donde el nombre no distingue nada --
+    # entre power banks, "BELOSIN Power Bank Batería Portátil Carga Rápida"
+    # salía como mejor candidato de un CUKTECH, de un LISEN y de un 1HORA a
+    # la vez, porque las palabras que comparten son todas las que tiene.
+    t_marca = texto_plano(item.get("brand") or "")
     t_unlocked = bool(UNLOCKED_HINT_RE.search(title))
 
     scored = []
@@ -447,9 +456,23 @@ def candidates_for(item, products):
         # resta puntos, solo deja de sumarlos.
         if t_brands and not (t_brands & pw):
             continue
+        if t_marca and texto_plano(p.get("brand") or "") != t_marca:
+            continue  # marca distinta de la que declara la captura
         pc = capacities(p["name"])
         if tc and pc and not (tc & pc):
             continue  # contradicción de capacidad: descartado sin más vueltas
+        pmah = capacidad_mah(norm(p["name"]))
+        if tmah and pmah and tmah != pmah:
+            continue  # contradicción de capacidad en mAh: mismo criterio que los
+            # GB de un celular, para las categorías donde el dato que separa un
+            # producto de otro son los mAh y no los GB. Sin esto, TODAS las
+            # comparaciones de este script se hacían sobre palabras que los power
+            # banks comparten de a montones ("power", "bank", "bateria",
+            # "portatil", "carga", "rapida", "cargador"), y en la primera corrida
+            # real sobre baterías los tres únicos auto-resueltos estaban los tres
+            # mal: un INIU de 10,000 contra uno de 30,000, un Anker de 10,000
+            # contra un Kiosla de 5,000 y un LISEN de 20,000 contra un BELOSIN de
+            # 10,000. Con la contradicción de mAh los tres quedan para revisión.
         pg = generation_of(p["name"])
         if tg and pg and tg != pg:
             continue  # contradicción de generación (14 vs 15 Pro, 16 vs 16e, ...): descartado
@@ -491,6 +514,25 @@ def candidates_for(item, products):
     return scored
 
 
+# El título nombra al aparato CON EL QUE el producto funciona, no lo que el
+# producto ES: "Power Bank ... Compatible con iPhone 17/16/15, Samsung
+# S26/S25/S24 Ultra". La puerta de resolve() --que solo deja auto-resolver
+# cuando la captura es un celular con generación o número de modelo
+# reconocido-- se abría con esas menciones, y así terminaban auto-resueltos
+# por overlap de palabras productos que no son celulares: en la primera
+# corrida real sobre baterías portátiles, dos CUKTECH, un LISEN y un 1HORA
+# apuntaban todos al mismo BELOSIN, y una batería sin marca a otra sin marca.
+# La marca y el modelo del producto en sí van siempre ANTES de la cláusula de
+# compatibilidad, así que para decidir si la captura es un celular se mira
+# solo lo que hay antes de ella.
+COMPATIBILIDAD_RE = re.compile(r"\b(?:compatible|compatibles|apto|apta|aptos|aptas|para|sirve)\b")
+
+
+def titulo_propio(title):
+    """El título hasta donde empieza a hablar de con qué es compatible."""
+    return COMPATIBILIDAD_RE.split(norm(title or ""), 1)[0]
+
+
 def resolve(item, products):
     title = item.get("title") or ""
     scored = candidates_for(item, products)
@@ -498,10 +540,11 @@ def resolve(item, products):
         return None, []
     top_score = scored[0][0]
     tied = [p for s, p in scored if s == top_score]
-    tw = words(title)
+    propio = titulo_propio(title)
+    tw = words(propio)
     if "iphone" in tw:
         pass  # generation_of()/VARIANT_RE cubren iPhone -- protección de sobra.
-    elif model_of(title):
+    elif model_of(propio):
         pass  # una de las marcas con línea/número de modelo reconocido
         # (Samsung, Redmi/Poco, Motorola, Huawei, OPPO, realme) Y el título
         # capturado trae un número de modelo que se pudo extraer -- misma
