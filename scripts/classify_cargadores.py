@@ -52,7 +52,15 @@ POWER_BANKS = "Baterías portátiles"
 # "Cargador portátil" a secas no alcanza para moverlo: en México se le dice
 # así también a un cargador de viaje chico. Hace falta que se declare como
 # batería (power bank / batería externa) o que diga su capacidad en mAh.
-_PB_FUERTE = re.compile(r"power ?bank|bateria externa|pila portatil|bateria portatil")
+# "Batería MagSafe" es como Apple --y quien la revende-- le dice a su
+# batería externa magnética ("Apple Batería MagSafe para el iPhone Air"), y
+# sin esto caía en "Cargadores y adaptadores/Inalámbrico", que es otra cosa:
+# un cargador magnético no trae batería. La palabra "batería" pegada a
+# "magsafe" no es ambigua; un cargador se llama "Cargador MagSafe". Sobre el
+# catálogo de hoy alcanza a dos fichas que YA estaban bien clasificadas, así
+# que no mueve nada y sí atrapa a la de Apple.
+_PB_FUERTE = re.compile(r"power ?bank|bateria externa|pila portatil|"
+                        r"bateria portatil|bateria magsafe")
 # Accesorios PARA power banks y cargadores DE baterías de aparatos, que no
 # son power banks. Ojo con "cable": un power bank "con 4 cables integrados"
 # sigue siendo un power bank, así que la palabra sola no descarta nada.
