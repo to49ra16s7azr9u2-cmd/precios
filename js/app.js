@@ -2727,7 +2727,11 @@
       : state.data.products;
     if (state.subcategory.length) scoped = scoped.filter((p) => state.subcategory.includes(p.subcategory));
     else scoped = scoped.filter((p) => !esOptIn(p));
-    return [...new Set(scoped.map((p) => p.brand))].sort();
+    // Una ficha puede no tener marca: el título de la tienda no la dice y
+    // ponerle una sería inventarla (pasó con cuatro power banks de Amazon,
+    // "Banco de Energía Portátil con Iluminación LED" y parecidos). Sin
+    // sacarlas acá, el filtro pintaba un checkbox con la etiqueta vacía.
+    return [...new Set(scoped.map((p) => p.brand).filter(Boolean))].sort();
   }
 
   // Rango real de precios (con el toggle de envío ya aplicado) del alcance
