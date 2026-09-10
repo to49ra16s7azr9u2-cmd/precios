@@ -36,7 +36,8 @@ import sys
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog, sin_acentos as _norm  # noqa: E402
+from data_io import (capacidad_mah, load_catalog,  # noqa: E402
+                     save_catalog, sin_acentos as _norm, tramo_mah)
 from specs_extract import charger_type_of  # noqa: E402
 
 CATEGORIA = "Cargadores y adaptadores"
@@ -52,7 +53,6 @@ POWER_BANKS = "Baterías portátiles"
 # así también a un cargador de viaje chico. Hace falta que se declare como
 # batería (power bank / batería externa) o que diga su capacidad en mAh.
 _PB_FUERTE = re.compile(r"power ?bank|bateria externa|pila portatil|bateria portatil")
-_PB_MAH = re.compile(r"\d{3,6}\s*mah")
 # Accesorios PARA power banks y cargadores DE baterías de aparatos, que no
 # son power banks. Ojo con "cable": un power bank "con 4 cables integrados"
 # sigue siendo un power bank, así que la palabra sola no descarta nada.
@@ -101,23 +101,7 @@ def es_power_bank(nombre):
     # Declarar capacidad en mAh es declararse batería: lo que almacena carga
     # es un power bank, no un cargador. Los que cargan la batería de OTRO
     # aparato (pilas AA, la de una consola) ya quedaron fuera arriba.
-    return bool(_PB_MAH.search(n))
-
-
-def tramo_mah(nombre):
-    """Misma partición que ya usa la categoría de baterías portátiles."""
-    m = _PB_MAH.search(_norm(nombre))
-    if not m:
-        return None
-    try:
-        v = int(re.sub(r"[^\d]", "", m.group(0)[:-3]))
-    except ValueError:
-        return None
-    if v <= 10000:
-        return "Hasta 10,000 mAh"
-    if v <= 20000:
-        return "10,000 a 20,000 mAh"
-    return "Más de 20,000 mAh"
+    return capacidad_mah(n) is not None
 
 
 def main():

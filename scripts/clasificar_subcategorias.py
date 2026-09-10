@@ -61,7 +61,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog, texto_plano as norm
+from data_io import load_catalog, save_catalog, texto_plano as norm, tramo_mah
 
 
 
@@ -211,24 +211,11 @@ CORRECCIONES_COMPILADAS = {
 }
 
 
-def buckets_mah(nombre):
-    """Baterías portátiles: los tres tramos salen del mAh del título."""
-    m = re.search(r"\b(\d{3,6})\s*m\s*ah\b", nombre)
-    if not m:
-        return None
-    mah = int(m.group(1))
-    if mah <= 0 or mah > 500000:
-        return None
-    # 10,000 justo va en "Hasta 10,000 mAh": es lo que dice la etiqueta y es
-    # donde estaban los 36 que ya había clasificados.
-    if mah <= 10000:
-        return "Hasta 10,000 mAh"
-    if mah <= 20000:
-        return "10,000 a 20,000 mAh"
-    return "Más de 20,000 mAh"
-
-
-REGLAS_ESPECIALES = {"Baterías portátiles": buckets_mah}
+# Baterías portátiles no se parte por palabras sino por la medida del título,
+# y esa lectura (con separador de miles y todo) vive en data_io: la comparte
+# con classify_cargadores.py, que manda ahí los power banks que encuentra
+# entre los cargadores.
+REGLAS_ESPECIALES = {"Baterías portátiles": tramo_mah}
 
 COMPILADAS = {
     cat: [(sub, re.compile(pat), ambito) for sub, pat, ambito in reglas]

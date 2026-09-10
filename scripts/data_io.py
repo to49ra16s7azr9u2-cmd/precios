@@ -307,6 +307,51 @@ def texto_plano(s):
 
 
 # ---------------------------------------------------------------------------
+# Capacidad en mAh: una sola lectura para las dos categorías que la usan.
+#
+# Vivía escrita dos veces --buckets_mah en clasificar_subcategorias.py y
+# tramo_mah en classify_cargadores.py-- y ninguna de las dos leía el separador
+# de miles, que en este catálogo aparece de tres formas: "27,600mAh",
+# "10.000 mAh" y "25 000 mAh". Como texto_plano convierte coma y punto en
+# espacio, un "\d{3,6}" leía "27 600mah" como 600 mAh: un power bank de 27,600
+# terminaba en el tramo "Hasta 10,000 mAh", que es justo el filtro de quien
+# busca uno chico. Nueve productos estaban así.
+#
+# El grupo de miles solo se junta si el primer número arranca palabra. Sin esa
+# condición, "Estuche para Galaxy Buds Live SM-R180 600 mAh" se leía como
+# 180,600 mAh: el "180" es del modelo SM-R180 y la capacidad son 600 mAh. Con
+# ella, "180" queda descartado por venir pegado a la "r" y se lee el 600.
+_CAPACIDAD_MAH = re.compile(
+    r"(?<![a-z0-9])(\d{1,3}(?: \d{3})+|\d{3,6}) ?m ?ah\b"
+)
+# Más allá de esto no es una capacidad, es un número mal leído.
+MAH_MAXIMO = 500000
+
+
+def capacidad_mah(nombre):
+    """Los mAh que declara el título, o None si no declara ninguno."""
+    m = _CAPACIDAD_MAH.search(texto_plano(nombre))
+    if not m:
+        return None
+    valor = int(m.group(1).replace(" ", ""))
+    return valor if 0 < valor <= MAH_MAXIMO else None
+
+
+# 10,000 justo va en "Hasta 10,000 mAh": es lo que dice la etiqueta y es donde
+# estaban los 36 que ya había clasificados a mano.
+def tramo_mah(nombre):
+    """La subcategoría de baterías portátiles que le toca al título."""
+    mah = capacidad_mah(nombre)
+    if mah is None:
+        return None
+    if mah <= 10000:
+        return "Hasta 10,000 mAh"
+    if mah <= 20000:
+        return "10,000 a 20,000 mAh"
+    return "Más de 20,000 mAh"
+
+
+# ---------------------------------------------------------------------------
 # Ids de producto.
 def id_num(product):
     """El número del id ("p123" -> 123). Sin número, al final de cualquier orden."""
