@@ -137,6 +137,28 @@ Ninguna tienda tiene datos en vivo todavía — **todas las ofertas están marca
 
 Una vez que sigas esa guía y despliegues el Worker, solo falta pegar sus dos URLs en `LIVE_API_CONFIG.mercadolibre` (`proxyUrl` y `searchProxyUrl`).
 
+## Cómo entran productos nuevos
+
+Tres caminos, según la tienda:
+
+- **Tiendas VTEX (Elektra, Chedraui, Martí)** — `scripts/vtex_stores.py`
+  declara cada tienda (dominio, ids de categoría y a qué categoría del sitio
+  va cada una); `scripts/add_vtex_products.py --store chedraui --preset todo`
+  las carga y `scripts/refresh_vtex.py --store chedraui` las refresca (el
+  workflow diario corre las tres). Cualquier otra tienda mexicana sobre VTEX
+  entra con una entrada más en ese registro: se probaron 30 dominios de
+  retail y solo esos tres exponen la API pública de catálogo.
+- **Mercado Libre** — `scripts/ml_discover.py` corre todos los días en el
+  workflow: toma una ventana de subcategorías del sitio, confirma contra el
+  propio catálogo a qué dominio de Mercado Libre corresponde cada una y da
+  de alta lo que todavía no tenemos, con categoría puesta y la subcategoría
+  a cargo de `clasificar_subcategorias.py`. Para una carga dirigida sigue
+  valiendo `scripts/add_products.py targets.json`.
+- **Amazon México** — sin API (ver arriba). `scripts/captura_amazon.html`
+  es un marcador para el navegador que, en una página de resultados de
+  amazon.com.mx, copia al portapapeles los productos de la página en el JSON
+  que entienden `match_amazon_capture.py` y `add_amazon_standalone.py`.
+
 ## Juntar el mismo producto entre tiendas (`scripts/product_matcher.py`)
 
 Cada producto real que hay hoy en el catálogo viene de **una sola tienda** (SUNSKY, Geekbuying, Molnija Shop, StyleWE, Glasseslit o Woodestic) porque todavía no hay dos fuentes con el mismo producto físico. `scripts/product_matcher.py` es el algoritmo para cuando sí las haya: dado un lote de ofertas de varias tiendas/feeds, decide cuáles son el mismo producto y las junta en un grupo (una ficha, N ofertas), en vez de crear una ficha por tienda.

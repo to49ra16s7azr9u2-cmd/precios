@@ -1,7 +1,7 @@
 # Actualiza los precios guardados del catálogo contra todas las tiendas que
-# se pueden leer sin API oficial (Mercado Libre, Elektra, GeekBuying,
-# SUNSKY, Whirlpool, theluxurycloset, Glasseslit), todos los días, y publica
-# el resultado.
+# se pueden leer sin API oficial (Mercado Libre, Elektra, Chedraui, Martí,
+# GeekBuying, SUNSKY, Whirlpool, theluxurycloset, Glasseslit), todos los
+# días, y publica el resultado.
 #
 # POR QUÉ HACE FALTA
 # ------------------
@@ -75,6 +75,19 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Descubrir productos nuevos en Mercado Libre
+        # Una ventana de subcategorías por día (ver ml_discover.py): busca
+        # en el catálogo de Mercado Libre lo que todavía no tenemos y lo da
+        # de alta con categoría. Va ANTES del refresco para que lo nuevo
+        # entre con precio del día, historial, facetas y página en la misma
+        # corrida. Si el Worker no responde, el resto sigue igual.
+        continue-on-error: true
+        run: |
+          python3 scripts/ml_discover.py
+          python3 scripts/clasificar_subcategorias.py
+          python3 scripts/classify_cargadores.py
+          python3 scripts/sync_subcategories.py
+
       - name: Actualizar precios contra Mercado Libre
         # Los inputs se leen por variable de entorno y se decide en shell: en
         # una corrida por horario `inputs` viene vacío, y la comparación de
@@ -90,22 +103,27 @@ jobs:
           echo "Corriendo: refresh_prices.py $ARGS"
           python3 scripts/refresh_prices.py $ARGS
 
-      - name: Actualizar precios contra Elektra
-        # continue-on-error a propósito: refresh_elektra.py sale con 2
-        # cuando el recorrido cubre menos de la mitad del catálogo (señal de
-        # que la API de VTEX respondió mal, ver MIN_WALK_RATIO). Ese caso no
-        # debe tirar el job entero -- si lo hiciera, un hipo de Elektra
-        # descartaría también el refresco de Mercado Libre que ya terminó,
-        # porque los pasos de abajo (SEO + commit) no correrían. Falla
-        # visible en la UI, pero el resto se publica igual.
+      - name: Actualizar precios contra Elektra, Chedraui y Martí (VTEX)
+        # Las tres tiendas corren sobre VTEX y se refrescan con el mismo
+        # script (refresh_vtex.py, ver vtex_stores.py). Cada una sale con 2
+        # cuando su recorrido cubre menos de la mitad de sus urls del
+        # catálogo (señal de que la API respondió mal, ver MIN_WALK_RATIO):
+        # ese caso no debe tirar ni el job ni a las otras dos tiendas -- si
+        # lo hiciera, un hipo de Elektra descartaría también el refresco de
+        # Mercado Libre que ya terminó, porque los pasos de abajo (SEO +
+        # commit) no correrían. Por eso el `|| echo` por tienda y el
+        # continue-on-error del paso: falla visible en el log, pero el resto
+        # se publica igual.
         continue-on-error: true
         env:
           PRUNE: ${{ inputs.prune }}
         run: |
           ARGS=""
           if [ "$PRUNE" = "false" ]; then ARGS="--no-prune"; fi
-          echo "Corriendo: refresh_elektra.py $ARGS"
-          python3 scripts/refresh_elektra.py $ARGS
+          for TIENDA in elektra chedraui marti; do
+            echo "Corriendo: refresh_vtex.py --store $TIENDA $ARGS"
+            python3 scripts/refresh_vtex.py --store "$TIENDA" $ARGS || echo "AVISO: el refresco de $TIENDA no se aplicó (salida $?)"
+          done
 
       - name: Actualizar precios de las demás tiendas
         # GeekBuying, SUNSKY, Whirlpool, theluxurycloset y Glasseslit: 1,679

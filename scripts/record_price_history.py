@@ -63,9 +63,10 @@ generate_seo_pages.py). Las claves que empiezan con "_" no son tiendas: los
 lectores del historial (serie_diaria, dailySeries en js/app.js) las saltan.
 
 El vendedor es el id de la publicación en Mercado Libre (MLM…), el sellerId
-en Elektra ("1" es Elektra mismo) y la tienda en las demás, que solo tienen
-un vendedor. Si no se sabe (una fila de Elektra de antes de que se guardara
-el sellerId) se anota null: desconocido, no "el mismo".
+en las tiendas VTEX (Elektra, Chedraui, Martí; "1" es la tienda misma) y la
+tienda en las demás, que solo tienen un vendedor. Si no se sabe (una fila
+VTEX de antes de que se guardara el sellerId) se anota null: desconocido, no
+"el mismo".
 """
 import argparse
 import datetime
@@ -79,6 +80,7 @@ import web_summary
 from data_io import (
     DETAIL_CHUNK_SIZE, ROOT, load_catalog, slugify, _category_slugs,
 )
+from vtex_stores import TIENDAS_VTEX
 
 HIST_DIR = "data/hist"
 
@@ -104,7 +106,9 @@ def vendedor_de(row):
     tienda = row.get("storeId")
     if row.get("sellerId"):
         return str(row["sellerId"])
-    if tienda == "elektra":
+    if tienda in TIENDAS_VTEX:
+        # Varios vendedores por artículo (ver vendedor_publicable): sin
+        # sellerId anotado no se sabe cuál puso el precio.
         return None
     if tienda == "mercadolibre":
         m = _ML_ITEM.search(str(row.get("url") or ""))

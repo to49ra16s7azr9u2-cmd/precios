@@ -50,7 +50,7 @@ import urllib.parse
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, next_id, registrar_max_id, save_catalog  # noqa: E402
 
 BASE = "https://comparamx-mercadolibre-proxy.comparamx.workers.dev"
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; ComparaMEX-bot/1.0)"}
@@ -188,11 +188,11 @@ def build_index(products):
     return seen_ml, seen_sig
 
 
-def main():
+def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("targets")
     ap.add_argument("--dry-run", action="store_true")
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
 
     # data/data.json dejó de ser el catálogo entero: ahora es un manifiesto
     # que apunta a data/products-N.json (ver data_io). Este script seguía
@@ -201,7 +201,10 @@ def main():
     products = data["products"]
     cat_ids = {c["id"]: {s["id"] for s in c.get("subcategories", [])} for c in data["categories"]}
     seen_ml, seen_sig = build_index(products)
-    next_num = max(int(re.sub(r"\D", "", p["id"]) or 0) for p in products) + 1
+    # Del máximo HISTÓRICO (meta.maxProductId), no del máximo de hoy: si no,
+    # el alta siguiente a una baja se lleva el id del producto dado de baja
+    # (y su historial de precios). Ver next_id() en data_io.py.
+    next_num = next_id(products, data)
 
     with open(args.targets, encoding="utf-8") as f:
         targets = json.load(f)
@@ -209,8 +212,12 @@ def main():
     added = []
     skipped = {"dup": 0, "banned": 0, "refurb": 0, "filtro": 0, "nodata": 0}
     for t in targets:
-        cat, sub = t["cat"], t["sub"]
-        if cat not in cat_ids or sub not in cat_ids[cat]:
+        cat, sub = t["cat"], t.get("sub")
+        # `sub` puede venir null (ml_discover.py): el producto entra con la
+        # categoría y la subcategoría se la ponen después las reglas por
+        # nombre (clasificar_subcategorias.py, classify_cargadores.py), que
+        # se niegan ante la duda -- mejor eso que heredar la del target.
+        if cat not in cat_ids or (sub is not None and sub not in cat_ids[cat]):
             print(f"!! categoría/subcategoría inexistente: {cat} / {sub}")
             continue
         must = [norm(x) for x in t.get("must", [])]
@@ -281,19 +288,21 @@ def main():
                 if sellers:
                     offer["sellers"] = sellers
 
-                products.append({
+                nuevo = {
                     "id": f"p{next_num}",
                     "name": title,
                     "brand": it.get("brand") or "",
                     "category": cat,
-                    "subcategory": sub,
                     "image": t.get("icon", "box"),
                     "photo": it["photo"],
                     "specs": it.get("specs") or [],
                     "reviews": [],
                     "offers": [offer],
                     "mlQuery": title,
-                })
+                }
+                if sub:
+                    nuevo["subcategory"] = sub
+                products.append(nuevo)
                 next_num += 1
                 seen_ml.add(iid)
                 seen_sig.add(sig(title))
@@ -310,6 +319,7 @@ def main():
     if args.dry_run:
         print("\n(dry-run: no se guardó nada)")
     elif added:
+        registrar_max_id(data, next_num - 1)
         save_catalog(data)
         print(f"\nCatálogo guardado: {len(products)} productos")
 

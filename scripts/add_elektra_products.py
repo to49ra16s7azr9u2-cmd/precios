@@ -130,10 +130,14 @@ def cat_computo_accesorios(name):
         return "Teclados", "Mecánicos" if "mecanic" in n else "Membrana", "keyboard"
     if re.search(r"\bmouse\b|\bmause\b|\bratonn?\b", n):
         return "Mouse", "Gaming" if "gaming" in n or "gamer" in n else "Oficina", "mouse"
+    # "Componentes y accesorios de PC" es el id real de la categoría; acá
+    # decía "Computadoras", que no existe, y 26 productos de Chedraui (y los
+    # de Elektra que hubieran caído acá) quedaban en una categoría fantasma
+    # que sync_subcategories.py se negaba a registrar.
     if "webcam" in n or "camara web" in n:
-        return "Computadoras", "Webcams", "cpu"
+        return "Componentes y accesorios de PC", "Webcams", "cpu"
     if "memoria ram" in n or re.search(r"\bram\b", n):
-        return "Computadoras", "Memoria RAM", "cpu"
+        return "Componentes y accesorios de PC", "Memoria RAM", "cpu"
     if any(k in n for k in ("disco duro", "ssd", "memoria usb", "unidad flash", "microsd", "micro sd", "tarjeta sd", "memoria micro sd")):
         return "Almacenamiento", None, "storage"
     if any(k in n for k in ("router", "repetidor wifi", "extensor de red", "punto de acceso", "access point", "modem", "módem")):

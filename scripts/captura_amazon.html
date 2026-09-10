@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Captura de Amazon para ComparaMEX</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; line-height: 1.5; color: #222; }
+  code, pre { background: #f4f4f4; padding: 2px 5px; border-radius: 4px; }
+  pre { padding: 12px; overflow: auto; }
+  .marcador { display: inline-block; padding: 10px 18px; background: #FF0211; color: #fff; border-radius: 6px; font-weight: 700; text-decoration: none; cursor: grab; }
+  ol li { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<h1>Captura de Amazon para ComparaMEX</h1>
+<p>Un marcador que, en una página de <strong>resultados de búsqueda de amazon.com.mx</strong>, saca los
+productos de esa página al mismo JSON que ya entienden <code>match_amazon_capture.py</code>,
+<code>add_amazon_offers.py</code> y <code>add_amazon_standalone.py</code>
+(<code>asin</code>, <code>title</code>, <code>price</code>, <code>photo</code>, <code>url</code>).
+Una página son hasta 48 productos con un clic; antes era producto por producto.</p>
+
+<p><a class="marcador" id="marcador" href="#">Capturar Amazon → ComparaMEX</a>
+<span class="muted">← arrastra este botón a la barra de marcadores del navegador</span></p>
+
+<h2>Cómo se usa</h2>
+<ol>
+  <li>En amazon.com.mx busca lo que quieras cargar (por ejemplo <em>power bank 20000</em>) y, si sirve, filtra por marca o categoría.</li>
+  <li>Con la lista de resultados en pantalla, haz clic en el marcador. Lee los productos de la página, los suma a la captura acumulada y <strong>copia todo al portapapeles</strong>.</li>
+  <li>Pasa a la página siguiente de resultados y vuelve a hacer clic: se acumula (los ASIN repetidos no se duplican). Cuando termines, pega el JSON en el chat o guárdalo en <code>capturas/&lt;fecha&gt;-&lt;tema&gt;-amazon.json</code>.</li>
+  <li>En el aviso, <em>Aceptar</em> sigue acumulando; <em>Cancelar</em> vacía la captura acumulada (lo que ya se copió no se pierde).</li>
+</ol>
+
+<h2>Qué hay que saber</h2>
+<ul>
+  <li>Los anuncios patrocinados vienen marcados con <code>"sponsored": true</code>: son productos reales, pero suelen repetirse en varias páginas.</li>
+  <li>Un producto sin precio visible sale con <code>"price": null</code>; <code>add_amazon_standalone.py</code> lo salta (sin precio no hay alta) y lo informa.</li>
+  <li>La marca, la categoría y la subcategoría no vienen en la lista de resultados: las pone el paso de clasificación de siempre. El marcador solo captura; no decide nada.</li>
+  <li>Funciona con el HTML que Amazon sirve hoy (<code>div[data-component-type="s-search-result"]</code>). Si Amazon cambia su página, el marcador avisa que no encuentra productos en vez de capturar mal.</li>
+</ul>
+
+<h2>El código, para leerlo</h2>
+<pre id="fuente-visible"></pre>
+
+<script id="fuente" type="text/plain">
+(() => {
+  const KEY = "comparamex.captura.amazon";
+  const filas = document.querySelectorAll('div[data-component-type="s-search-result"][data-asin]');
+  if (!location.hostname.endsWith("amazon.com.mx")) {
+    alert("ComparaMEX: este marcador es para amazon.com.mx.");
+    return;
+  }
+  if (!filas.length) {
+    alert("ComparaMEX: no encuentro productos en esta página. ¿Es una lista de resultados de búsqueda?");
+    return;
+  }
+  let acumulado = [];
+  try { acumulado = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { acumulado = []; }
+  if (!Array.isArray(acumulado)) acumulado = [];
+  const vistos = new Set(acumulado.map((x) => x.asin));
+  let nuevos = 0, sinPrecio = 0, patrocinados = 0;
+  filas.forEach((d) => {
+    const asin = d.getAttribute("data-asin");
+    if (!asin || !/^[A-Z0-9]{10}$/.test(asin)) return;
+    const h2 = d.querySelector("h2");
+    const title = h2 ? h2.textContent.trim().replace(/\s+/g, " ") : "";
+    if (!title) return;
+    const sponsored = !!d.querySelector('.puis-sponsored-label-text, .s-sponsored-label-text, [aria-label="Patrocinado"], [aria-label="Sponsored"]');
+    // .a-text-price es el precio tachado (de lista): no es el que se paga.
+    const po = d.querySelector(".a-price:not(.a-text-price) .a-offscreen");
+    let price = null;
+    if (po) {
+      const n = parseFloat(po.textContent.replace(/[^\d.,]/g, "").replace(/,/g, ""));
+      if (isFinite(n) && n > 0) price = n;
+    }
+    const img = d.querySelector("img.s-image");
+    const photo = img ? (img.getAttribute("src") || null) : null;
+    if (vistos.has(asin)) return;
+    if (price == null) sinPrecio++;
+    if (sponsored) patrocinados++;
+    const item = { asin, title, price, photo, url: "https://www.amazon.com.mx/dp/" + asin };
+    if (sponsored) item.sponsored = true;
+    vistos.add(asin);
+    acumulado.push(item);
+    nuevos++;
+  });
+  localStorage.setItem(KEY, JSON.stringify(acumulado));
+  const json = JSON.stringify(acumulado, null, 1);
+  const copiar = navigator.clipboard && navigator.clipboard.writeText
+    ? navigator.clipboard.writeText(json)
+    : Promise.reject(new Error("sin portapapeles"));
+  copiar.catch(() => { window.prompt("No pude copiar al portapapeles; copia esto a mano:", json); });
+  const seguir = confirm(
+    "ComparaMEX: " + nuevos + " productos nuevos en esta página (" + sinPrecio + " sin precio, " + patrocinados + " patrocinados).\n" +
+    "Acumulados: " + acumulado.length + ". Ya están copiados al portapapeles.\n\n" +
+    "Aceptar = seguir acumulando en la próxima página.\n" +
+    "Cancelar = vaciar la captura acumulada (lo copiado no se pierde)."
+  );
+  if (!seguir) localStorage.removeItem(KEY);
+})();
+</script>
+<script>
+  // El enlace se arma desde el mismo texto que se muestra: una sola fuente.
+  const fuente = document.getElementById("fuente").textContent.trim();
+  document.getElementById("fuente-visible").textContent = fuente;
+  document.getElementById("marcador").href = "javascript:" + encodeURIComponent(fuente);
+</script>
+</body>
+</html>

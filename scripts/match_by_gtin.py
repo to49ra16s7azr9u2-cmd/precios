@@ -150,13 +150,18 @@ def get_json(url, retries=2):
     return None
 
 
-def candidates(products):
+def candidates(products, store=None):
     """Productos que pueden ganar algo: tienen código de barras y todavía no
-    tienen oferta de Mercado Libre."""
+    tienen oferta de Mercado Libre. Con `store`, solo los que tienen oferta
+    de esa tienda: sirve para cruzar únicamente lo recién importado
+    (Chedraui, Martí) sin volver a preguntar por las ~50 mil de Elektra que
+    ya se sabe que no coinciden."""
     out = []
     for p in products:
         offers = p.get("offers") or []
         if any(o.get("storeId") == "mercadolibre" for o in offers):
+            continue
+        if store and not any(o.get("storeId") == store for o in offers):
             continue
         for o in offers:
             gtin = normalize_gtin(o.get("ean"))
@@ -253,10 +258,11 @@ def main():
     ap.add_argument("--offset", type=int, default=0)
     ap.add_argument("--concurrency", type=int, default=4)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--store", help="solo productos con oferta de esta tienda (p. ej. chedraui)")
     args = ap.parse_args()
 
     data = load_catalog()
-    todo = candidates(data["products"])
+    todo = candidates(data["products"], args.store)
     print(f"Productos con código de barras y sin oferta de Mercado Libre: {len(todo)}")
     todo = todo[args.offset:]
     if args.limit:
