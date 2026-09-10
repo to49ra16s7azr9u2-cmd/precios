@@ -91,6 +91,30 @@ def _palette(products):
     return pal
 
 
+def _tiendas(product):
+    return {o.get("storeId") for o in (product.get("offers") or [])}
+
+
+def _una_tienda_los_separa(miembros):
+    """¿Alguna tienda vende dos del grupo con apellido de color distinto?
+
+    El colapso del apellido de arriba supone que el "Azul" pelado y el
+    "Azul Marino" son la misma cosa dicha corto y largo. Cuando los dos
+    nombres salen de LA MISMA tienda eso no se sostiene: una tienda no
+    publica el mismo equipo dos veces con dos nombres de color distintos,
+    los publica porque son dos colores. Se vio en Elektra con un "SAMSUNG
+    GALAXY S25 FE 512GB/8RAM AZUL MARINO + BUDS" y un "... AZUL + BUDS":
+    el catálogo había perdido los otros azules del modelo (claro y oscuro,
+    los que cita el comentario de arriba), así que quedaba un solo apellido
+    y la regla los daba por el mismo equipo.
+    """
+    por_tienda = defaultdict(set)
+    for producto, apellidos in miembros:
+        for tienda in _tiendas(producto):
+            por_tienda[tienda].add(apellidos)
+    return any(len(vistos) > 1 for vistos in por_tienda.values())
+
+
 def mergeable_groups(products):
     pal = _palette(products)
     groups = defaultdict(list)
@@ -106,11 +130,14 @@ def mergeable_groups(products):
         # "Azul" caigan en el mismo grupo. Con dos o más, se conserva tal
         # cual y cada uno se queda en su grupo -- incluido el "Azul" pelado,
         # que no se fusiona con ninguno porque no se sabe cuál es.
+        apellidos = quals
         if len(pal.get((brand, model, base), ())) == 1:
             quals = None
         key = (brand, model, storage, ram, (base, quals), *rest)
-        groups[key].append(p)
-    return [sorted(ps, key=id_num) for ps in groups.values() if len(ps) > 1]
+        groups[key].append((p, apellidos))
+    return [sorted((p for p, _ in ms), key=id_num)
+            for ms in groups.values()
+            if len(ms) > 1 and not _una_tienda_los_separa(ms)]
 
 
 def main():
