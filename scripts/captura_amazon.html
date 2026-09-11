@@ -9,7 +9,12 @@
   code, pre { background: #f4f4f4; padding: 2px 5px; border-radius: 4px; }
   pre { padding: 12px; overflow: auto; }
   .marcador { display: inline-block; padding: 10px 18px; background: #FF0211; color: #fff; border-radius: 6px; font-weight: 700; text-decoration: none; cursor: grab; }
+  .copiar { padding: 10px 18px; background: #111; color: #fff; border: 0; border-radius: 6px; font-weight: 700; font-size: 15px; cursor: pointer; }
   ol li { margin-bottom: 8px; }
+  .via { border: 1px solid #ddd; border-radius: 8px; padding: 4px 20px 16px; margin-bottom: 24px; }
+  .via h2 { margin-bottom: 4px; }
+  .recomendada { border-color: #FF0211; }
+  .nota { color: #666; font-size: 14px; margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -20,15 +25,38 @@ productos de esa página al mismo JSON que ya entienden <code>match_amazon_captu
 (<code>asin</code>, <code>title</code>, <code>price</code>, <code>photo</code>, <code>url</code>).
 Una página son hasta 48 productos con un clic; antes era producto por producto.</p>
 
-<p><a class="marcador" id="marcador" href="#">Capturar Amazon → ComparaMEX</a>
-<span class="muted">← arrastra este botón a la barra de marcadores del navegador</span></p>
-
-<h2>Cómo se usa</h2>
+<div class="via recomendada">
+<h2>Vía 1: pegar el código en la consola (la más simple)</h2>
+<p class="nota">No hay que instalar nada, y sirve igual la primera vez que la número cincuenta.</p>
 <ol>
-  <li>En amazon.com.mx busca lo que quieras cargar (por ejemplo <em>power bank 20000</em>) y, si sirve, filtra por marca o categoría.</li>
-  <li>Con la lista de resultados en pantalla, haz clic en el marcador. Lee los productos de la página, los suma a la captura acumulada y <strong>copia todo al portapapeles</strong>.</li>
-  <li>Pasa a la página siguiente de resultados y vuelve a hacer clic: se acumula (los ASIN repetidos no se duplican). Cuando termines, pega el JSON en el chat o guárdalo en <code>capturas/&lt;fecha&gt;-&lt;tema&gt;-amazon.json</code>.</li>
-  <li>En el aviso, <em>Aceptar</em> sigue acumulando; <em>Cancelar</em> vacía la captura acumulada (lo que ya se copió no se pierde).</li>
+  <li>Aquí: <button class="copiar" id="copiar">Copiar el código</button> <span id="copiado" class="nota"></span></li>
+  <li>Ve a <strong>amazon.com.mx</strong> y busca lo que quieras cargar (por ejemplo <em>power bank 20000</em>).</li>
+  <li>Con la lista de resultados en pantalla, abre la consola del navegador: <strong>F12</strong> (o <code>Ctrl+Shift+J</code>; en Mac <code>Cmd+Option+J</code>) y entra a la pestaña <strong>Console</strong>.</li>
+  <li>Pega con <code>Ctrl+V</code> y pulsa <strong>Enter</strong>.
+    <p class="nota">La primera vez Chrome puede pedir que escribas <code>allow pasting</code> y pulses Enter antes de dejarte pegar. Es una sola vez por navegador.</p>
+  </li>
+  <li>Sale un aviso con cuántos productos leyó. Al cerrarlo, el JSON queda copiado al portapapeles.</li>
+  <li>Para la página siguiente de resultados: vuelve a la consola, sube con la flecha <strong>↑</strong> al mismo código y Enter otra vez.</li>
+</ol>
+</div>
+
+<div class="via">
+<h2>Vía 2: marcador (un clic por página, se instala una vez)</h2>
+<ol>
+  <li>Muestra la barra de marcadores: <code>Ctrl+Shift+B</code> (Mac: <code>Cmd+Shift+B</code>).</li>
+  <li><strong>Arrastra</strong> este botón hasta la barra de marcadores — con el ratón presionado, sin soltar por el camino:<br><br>
+    <a class="marcador" id="marcador" href="#">Capturar Amazon → ComparaMEX</a></li>
+  <li>Ve a amazon.com.mx, busca, y con la lista de resultados en pantalla haz clic en el marcador que acabas de guardar.</li>
+</ol>
+<p class="nota"><strong>Hacer clic en el botón rojo de esta página no sirve</strong>: Chrome bloquea los enlaces <code>javascript:</code> abiertos así (sale <code>about:blank#blocked</code>), y aunque se ejecutara leería esta página, no Amazon. Hay que arrastrarlo a la barra y pulsarlo ESTANDO en Amazon.</p>
+<p class="nota">Si arrastrar no funciona: clic derecho en la barra de marcadores → «Añadir página», el nombre que quieras y, en la URL, pega el código copiado arriba con <code>javascript:</code> escrito delante.</p>
+</div>
+
+<h2>Qué hace cada vez que lo ejecutas</h2>
+<ol>
+  <li>Lee los productos de la página que tengas abierta (hasta 48) y los suma a la captura acumulada.</li>
+  <li>Muestra un aviso y, al cerrarlo, <strong>copia todo al portapapeles</strong>: puedes pegarlo en el chat cuando quieras.</li>
+  <li>En ese aviso, <em>Aceptar</em> sigue acumulando en la próxima página; <em>Cancelar</em> vacía lo acumulado para empezar otra categoría (lo que ya copiaste no se pierde). Los ASIN repetidos no se duplican.</li>
 </ol>
 
 <h2>Qué hay que saber</h2>
@@ -43,7 +71,7 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
 <pre id="fuente-visible"></pre>
 
 <script id="fuente" type="text/plain">
-(() => {
+(async () => {
   const KEY = "comparamex.captura.amazon";
   const filas = document.querySelectorAll('div[data-component-type="s-search-result"][data-asin]');
   if (!location.hostname.endsWith("amazon.com.mx")) {
@@ -86,17 +114,27 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
   });
   localStorage.setItem(KEY, JSON.stringify(acumulado));
   const json = JSON.stringify(acumulado, null, 1);
-  const copiar = navigator.clipboard && navigator.clipboard.writeText
-    ? navigator.clipboard.writeText(json)
-    : Promise.reject(new Error("sin portapapeles"));
-  copiar.catch(() => { window.prompt("No pude copiar al portapapeles; copia esto a mano:", json); });
   const seguir = confirm(
     "ComparaMEX: " + nuevos + " productos nuevos en esta página (" + sinPrecio + " sin precio, " + patrocinados + " patrocinados).\n" +
-    "Acumulados: " + acumulado.length + ". Ya están copiados al portapapeles.\n\n" +
+    "Acumulados: " + acumulado.length + ". Al cerrar este aviso se copian al portapapeles.\n\n" +
     "Aceptar = seguir acumulando en la próxima página.\n" +
     "Cancelar = vaciar la captura acumulada (lo copiado no se pierde)."
   );
   if (!seguir) localStorage.removeItem(KEY);
+  // El portapapeles solo acepta escrituras con la PÁGINA enfocada. Ejecutado
+  // desde la consola el foco está en DevTools y writeText falla con
+  // "Document is not focused", así que se copia DESPUÉS del aviso, que es lo
+  // que devuelve el foco a la página. Si aun así no se puede, queda copy()
+  // --que solo existe en la consola-- y, como último recurso, un prompt.
+  let copiado = false;
+  try {
+    await navigator.clipboard.writeText(json);
+    copiado = true;
+  } catch (e) { /* sin permiso, sin foco o sin API: se prueba lo siguiente */ }
+  if (!copiado && typeof copy === "function") {
+    try { copy(json); copiado = true; } catch (e) { /* idem */ }
+  }
+  if (!copiado) window.prompt("No pude copiar al portapapeles; copia esto a mano:", json);
 })();
 </script>
 <script>
@@ -104,6 +142,13 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
   const fuente = document.getElementById("fuente").textContent.trim();
   document.getElementById("fuente-visible").textContent = fuente;
   document.getElementById("marcador").href = "javascript:" + encodeURIComponent(fuente);
+  document.getElementById("copiar").onclick = () => {
+    const aviso = document.getElementById("copiado");
+    navigator.clipboard.writeText(fuente).then(
+      () => { aviso.textContent = "Copiado. Ahora pégalo en la consola, estando en amazon.com.mx."; },
+      () => { window.prompt("Copia esto a mano:", fuente); }
+    );
+  };
 </script>
 </body>
 </html>
