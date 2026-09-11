@@ -202,22 +202,77 @@ python3 scripts/test_product_matcher.py   # 20 casos (sintéticos + sobre datos 
 python3 scripts/product_matcher.py sunsky.csv:sunsky geekbuying.csv:geekbuying
 ```
 
-## Límites conocidos (no es un clon 1:1 de verdad)
+## Límites conocidos
 
-Esto sigue siendo una demo de un solo desarrollador, no Kakaku.com. Lo que falta y por qué no está:
+Lo que el sitio **no** hace, para que nadie se lo imagine leyendo lo demás.
+Los números son una foto del catálogo publicado, no una promesa: salen de
+correr los scripts sobre `data/`, así que envejecen a medida que entra
+producto nuevo. Para recalcular el primero:
 
-- **Datos e inventario reales**: no hay convenios con tiendas reales; sin eso, "en stock" y los precios son inventados. Requiere partnerships/APIs reales de cada tienda.
-- **Cuentas de usuario reales**: "Mi cuenta"/favoritos/reseñas viven solo en `localStorage` de tu navegador (ver arriba). Una cuenta real necesita backend + autenticación + base de datos.
-- **Reseñas y foro de preguntas (掲示板) a escala**: las reseñas que escribes solo las ves tú; no hay moderación, verificación de compra ni comunidad real detrás.
-- **Motor de búsqueda avanzado**: la búsqueda es un `includes()` sobre nombre/marca/categoría; no hay autocompletado, tolerancia a errores de tipeo ni búsqueda por especificación técnica.
-- **Ingresos por afiliados**: los enlaces "Ver oferta" son `#`; no hay integración real de afiliados ni tracking de conversiones.
-- **Otras verticales de Kakaku** (seguros, hipotecas, viajes, autos): fuera de alcance a propósito — son negocios distintos con modelos de datos distintos, no algo que un comparador de electrónica deba fingir tener.
-- **Infraestructura a escala**: sitio 100% estático sin backend ni base de datos; correcto para una demo, no para tráfico real de producción.
+```bash
+python3 -c "import sys,collections; sys.path.insert(0,'scripts'); \
+from data_io import load_catalog; d=load_catalog(); \
+c=collections.Counter(len({o['storeId'] for o in p.get('offers') or []}) \
+for p in d['products']); t=sum(c.values()); m=sum(n for k,n in c.items() if k>=2); \
+print(f'{m:,} de {t:,} ({100*m/t:.1f}%) con 2+ tiendas')"
+```
 
-## Siguientes pasos (fuera del MVP)
+- **Comparar el mismo producto entre tiendas es la excepción**: de 93,523
+  fichas, 17,522 (18.7%) tienen ofertas de 2 o más tiendas; las otras 75,998
+  tienen una sola. No es un defecto del agrupador, es la composición del
+  catálogo: cada tienda vende modelos distintos, y solo se agrupa cuando hay
+  GTIN igual o una firma de producto que aguanta revisión. Un comparador que
+  fusionara a ciegas para inflar ese número mostraría el precio de un
+  producto en la ficha de otro, que es el peor error posible acá.
+- **No hay convenio con ninguna de las 22 tiendas**: los precios se leen de
+  sus sitios públicos y sus APIs abiertas, no de un feed acordado. Si una
+  tienda cambia su HTML o corta el acceso, esa tienda deja de actualizarse
+  hasta que se arregle el script. Los enlaces "Ver oferta" van directo a la
+  tienda y **no dejan comisión**; los únicos enlaces de afiliado del sitio
+  son los 72 de la sección "Marcas y ofertas".
+- **El precio es el de la última corrida, no el de este segundo**: el job
+  nocturno (09:00 UTC) relee lo que puede y anota el precio del día en el
+  historial. Entre corrida y corrida el precio mostrado puede estar viejo, y
+  el del sitio de la tienda manda siempre.
+- **"En stock" es lo que dijo la tienda la última vez que se pudo leer**, y
+  los productos no se borran cuando se agotan: la ficha y su historial de
+  precios se quedan, porque saber qué valía algo que ya no se consigue
+  también sirve.
+- **Cuentas, favoritos y reseñas viven en el navegador**: `localStorage`, sin
+  servidor ni autenticación. Se pierden al limpiar el navegador, no viajan a
+  otro dispositivo y nadie más las ve. No hay moderación ni verificación de
+  compra, así que no son reseñas de una comunidad: son notas propias.
+- **La entrega es una estimación por distancia**, no un dato de paquetería:
+  `estimateDeliveryDays` calcula sobre la distancia al hub de la tienda. 29
+  de las 32 entidades usan un solo punto (su capital), así que dentro de un
+  estado grande el número es grueso.
+- **Las specs son las que la tienda publicó**: no se verifican contra el
+  fabricante. Cuando el título no alcanza para decidir una subcategoría o
+  una marca, el campo queda vacío en vez de rellenarse con una suposición.
+- **Otras verticales de Kakaku** (seguros, hipotecas, viajes, autos): fuera
+  de alcance a propósito. Son negocios distintos, no algo que un comparador
+  de productos deba fingir tener.
+- **Sitio 100% estático**: sin backend ni base de datos. Todo lo dinámico se
+  resuelve en el navegador o se precalcula en el build, lo que fija el techo
+  de lo que se puede ofrecer (nada de alertas de precio por correo, por
+  ejemplo).
 
-1. **Datos reales**: reemplazar `data/data.json` por un feed generado (scraper propio con consentimiento/ToS, programa de afiliados, o carga manual vía panel admin). Ojo: scrapear sitios de terceros sin permiso puede violar sus términos de servicio.
-2. **Estimación de entrega real**: sustituir `estimateDeliveryDays` (fórmula de distancia) por datos reales de paquetería/tienda cuando estén disponibles.
-3. **Más municipios por estado**: ya se cubren las 32 entidades, pero 29 de ellas usan un solo punto (su capital); se pueden agregar varios municipios reales por estado (como ya existe en CDMX/Guadalajara/Monterrey) a medida que haya datos logísticos confiables — el modelo de datos ya lo soporta sin cambios de código.
-4. **Backend opcional**: si se necesita actualizar precios automáticamente o tener cuentas reales, añadir una función serverless o un backend mínimo (capa gratuita) en vez de `localStorage`.
-5. **Fichas de producto por tienda real** (enlaces de afiliado en vez de `#`).
+## Siguientes pasos
+
+1. **Cerrar el círculo del afiliado**: las tiendas comparadas hoy no dejan
+   comisión. Las solicitudes a las redes que las representan están en
+   trámite; cuando alguna apruebe, basta con darle su `affiliateBase` a la
+   tienda en `data/data.json` — `url_afiliado()` en `scripts/data_io.py` ya
+   envuelve el enlace, no hace falta tocar el front.
+2. **Más tiendas que se puedan releer solas**: hoy el job nocturno actualiza
+   Mercado Libre, las tres VTEX (Elektra, Chedraui, Martí) y el resto por
+   `refresh_other_stores.py`. Amazon entra por captura manual con el
+   bookmarklet (`scripts/captura_amazon.html`) porque bloquea la lectura
+   automática.
+3. **Estimación de entrega real**: sustituir `estimateDeliveryDays` (fórmula
+   de distancia) por datos de paquetería cuando haya de dónde sacarlos.
+4. **Más municipios por estado**: se cubren las 32 entidades, pero 29 con un
+   solo punto (su capital). Agregar municipios reales donde haya datos
+   logísticos confiables — el modelo de datos ya lo soporta sin tocar código.
+5. **Backend opcional**: para cuentas de verdad o alertas de precio por
+   correo hace falta servidor; hoy todo eso choca con ser un sitio estático.
