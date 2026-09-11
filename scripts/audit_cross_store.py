@@ -41,10 +41,38 @@ no comparte nada con ningún nombre de producto real y marcaba como
 sospechosas TODAS las ofertas de Amazon por igual, sin importar si eran
 correctas.
 
+LO QUE EL SLUG NO PUEDE DECIR
+-----------------------------
+Revisando los 47 "mismatches" que reportaba esta auditoría el 2026-09-11
+resultó que NINGUNO era un producto equivocado. Eran tres cosas que el slug
+por sí solo no puede distinguir de un match malo:
+
+  * Chedraui publica 221 productos con linkText literal "null-3906703": su
+    propia API devuelve ese slug, la página carga el producto correcto, y
+    productName coincide letra por letra con la ficha. Elektra tiene 2 así
+    y 1 con slug "1711104-vendedor-…" (listado de vendedor). Un slug sin
+    palabras no describe OTRO producto, describe ninguno: se salta igual
+    que los de Mercado Libre y Amazon.
+  * "LG" tiene dos letras y la regla de escape exigía tres, así que el
+    minicomponente LG CJ45 quedaba marcado aunque el slug dijera "lg".
+  * Elektra deja el slug viejo cuando renombra un producto: la ficha de la
+    Xtreme PC "32gb 1tb" vive en el slug "…64gb-ddr5-4tb…", pero
+    productName, el nombre del SKU y el EAN dicen 32gb/1tb. La regla de
+    capacidades no tiene forma de saberlo desde el slug.
+
+Por eso, antes de dar por malo un match en una tienda VTEX (Elektra,
+Chedraui, Martí), se le pregunta a la API de la tienda por ese mismo slug
+(`/api/catalog_system/pub/products/search/<slug>/p`) y si el productName
+que devuelve es el nombre de la ficha, no es un mismatch: es la tienda
+describiendo su propio producto de dos maneras. Son pocos pedidos (solo
+los sospechosos) y es lo único que distingue "slug viejo" de "producto
+equivocado". --sin-red lo desactiva y deja la heurística sola.
+
 USO
 ---
     python3 scripts/audit_cross_store.py            # solo reporta
     python3 scripts/audit_cross_store.py --fix      # quita las ofertas malas
+    python3 scripts/audit_cross_store.py --sin-red  # sin consultar a las tiendas
 """
 import argparse
 import os
@@ -53,7 +81,14 @@ import sys
 import urllib.parse
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from add_elektra_products import fetch_json  # noqa: E402
 from data_io import load_catalog, save_catalog, sin_acentos as _norm, url_real  # noqa: E402
+from vtex_stores import TIENDAS  # noqa: E402
+
+# Slugs que no llevan ni una palabra del producto: "null-3906703" (linkText
+# que Chedraui publica tal cual) y "1711104-vendedor-1300834768" (listado de
+# vendedor en Elektra). No describen otro producto, no describen ninguno.
+SLUG_SIN_NOMBRE = re.compile(r"/(?:null|\d+-vendedor)-\d+/p/?$")
 
 STOP = {
     "para", "con", "del", "los", "las", "por", "que", "este", "esta", "color",
@@ -96,6 +131,8 @@ def mismatches(products):
             url = real_url(o.get("url"))
             if not url or "/p/MLM" in url or ("amazon.com" in url and "/dp/" in url):
                 continue
+            if SLUG_SIN_NOMBRE.search(url):
+                continue
             slug = _norm(urllib.parse.unquote(url))
 
             # Regla 2: capacidades que se contradicen. Cuando el código de
@@ -126,6 +163,11 @@ def mismatches(products):
 
             if brand0 and len(brand0) >= 3 and brand0 in slug:
                 continue
+            # Una marca de dos letras ("LG", "HP") no puede buscarse como
+            # substring -- "lg" está dentro de "pulgadas" -- pero sí como
+            # token entero del slug.
+            if brand0 and brand0 in re.split(r"[^a-z0-9]+", slug):
+                continue
             # Solo el PATH de la url describe el producto -- el dominio
             # ("sunsky-online.com") no dice nada del producto, pero antes se
             # incluía igual cuando la url no terminaba en "/p" (el caso de
@@ -147,13 +189,55 @@ def mismatches(products):
     return out
 
 
+def _dominio_vtex(url):
+    host = urllib.parse.urlparse(url).netloc.lower()
+    for store_id, t in TIENDAS.items():
+        if host == t["dominio"]:
+            return store_id, t["dominio"]
+    return None, None
+
+
+def confirmar_con_la_tienda(bad):
+    """Separa los sospechosos de tiendas VTEX en (siguen malos, eran slug viejo).
+
+    Le pregunta a la API de la tienda por el slug exacto de la oferta. Si el
+    productName que devuelve es el nombre de la ficha, la oferta apunta al
+    producto correcto y el slug es solo la forma vieja o vacía en que la
+    tienda lo escribió. Si la API no responde, se deja como sospechoso: no
+    se absuelve a ciegas."""
+    malos, absueltos = [], []
+    for p, o, url in bad:
+        store_id, dominio = _dominio_vtex(url)
+        if not dominio:
+            malos.append((p, o, url))
+            continue
+        slug = urllib.parse.urlparse(url).path.strip("/").removesuffix("/p")
+        resp = fetch_json(f"https://{dominio}/api/catalog_system/pub/products/search/{slug}/p")
+        nombre_api = resp[0].get("productName") if isinstance(resp, list) and resp and isinstance(resp[0], dict) else None
+        if nombre_api and words(nombre_api) == words(p.get("name")):
+            absueltos.append((p, o, url, nombre_api))
+        else:
+            malos.append((p, o, url))
+    return malos, absueltos
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--fix", action="store_true")
+    ap.add_argument("--sin-red", action="store_true",
+                    help="no consultar la API de las tiendas VTEX para confirmar")
     args = ap.parse_args()
 
     data = load_catalog()
     bad = mismatches(data["products"])
+    if bad and not args.sin_red:
+        bad, absueltos = confirmar_con_la_tienda(bad)
+        if absueltos:
+            print(f"Sospechosos que la propia tienda confirma como correctos "
+                  f"(slug viejo, no producto equivocado): {len(absueltos)}")
+            for p, o, url, nombre_api in absueltos:
+                print(f"  {p['id']}  {o.get('storeId')}  {nombre_api[:60]}")
+            print()
     print(f"Ofertas pegadas a un producto que no es el suyo: {len(bad)}\n")
     for p, o, url in bad:
         print(f"  {p['id']}  {p['name'][:50]}")
