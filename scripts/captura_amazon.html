@@ -35,7 +35,7 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
   <li>Pega con <code>Ctrl+V</code> y pulsa <strong>Enter</strong>.
     <p class="nota">La primera vez Chrome puede pedir que escribas <code>allow pasting</code> y pulses Enter antes de dejarte pegar. Es una sola vez por navegador.</p>
   </li>
-  <li>Aparece un aviso arriba a la derecha con cuántos productos leyó, y el JSON queda copiado al portapapeles (y también impreso en la consola, por si acaso).</li>
+  <li>La consola responde con el recuento («N nuevos, … ACUMULADOS: N») y el JSON queda copiado al portapapeles. Si el portapapeles no funcionó, ejecuta <code>copy(__comparamexJSON)</code>.</li>
   <li>Para la página siguiente de resultados: vuelve a la consola, sube con la flecha <strong>↑</strong> al mismo código y Enter otra vez. Se acumula.</li>
 </ol>
 </div>
@@ -55,8 +55,8 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
 <h2>Qué hace cada vez que lo ejecutas</h2>
 <ol>
   <li>Lee los productos de la página que tengas abierta (hasta 48) y los suma a la captura acumulada. Los ASIN repetidos no se duplican, así que puedes ejecutarlo dos veces en la misma página sin ensuciar nada.</li>
-  <li><strong>Copia todo al portapapeles</strong> y además lo imprime en la consola, por si el portapapeles falla.</li>
-  <li>Muestra un aviso flotante arriba a la derecha con el recuento (se va solo a los 12 segundos, o al hacerle clic).</li>
+  <li><strong>Copia todo al portapapeles</strong> y deja el JSON en <code>window.__comparamexJSON</code>, por si el portapapeles falla.</li>
+  <li>Devuelve el recuento como texto (la consola siempre muestra el valor devuelto, lo escondan o no los filtros) y muestra un aviso flotante arriba a la derecha, que se va solo a los 15 segundos o al hacerle clic.</li>
 </ol>
 <p class="nota">Para empezar otra categoría de cero, vacía lo acumulado con esta línea en la consola:<br>
 <code>localStorage.removeItem('comparamex.captura.amazon')</code></p>
@@ -73,36 +73,40 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
 <pre id="fuente-visible"></pre>
 
 <script id="fuente" type="text/plain">
-(async () => {
+(() => {
   const KEY = "comparamex.captura.amazon";
-  const sello = "background:#FF0211;color:#fff;padding:2px 6px;border-radius:4px";
-  const log = (...a) => console.log("%cComparaMEX", sello, ...a);
 
-  // Aviso flotante en la propia página: el marcador se usa sin la consola
-  // abierta, así que sin esto no daría ninguna señal. No se usa alert() ni
-  // confirm() porque Chrome los suprime en cuanto alguien marca "impedir que
-  // esta página cree más diálogos", y entonces el script se ejecutaba entero
-  // sin que se viera absolutamente nada.
+  // Lo que se ve SIEMPRE es lo que esta función devuelve: la consola imprime
+  // el valor de lo último que se evaluó, y eso no lo esconde ningún filtro.
+  // console.log no sirve de único canal (con "N hidden" en la consola los
+  // mensajes quedan ocultos) y alert()/confirm() tampoco (Chrome los suprime
+  // en cuanto alguien marca "impedir que esta página cree más diálogos").
+  // Por eso esto NO es async: una promesa se mostraría como
+  // "Promise {<fulfilled>}" y habría que desplegarla para leer nada.
+
+  // Aviso flotante en la propia página, para cuando se usa desde el marcador
+  // y no hay consola abierta.
   const avisar = (texto) => {
-    document.getElementById("comparamex-aviso")?.remove();
-    const d = document.createElement("div");
-    d.id = "comparamex-aviso";
-    d.textContent = texto;
-    d.style.cssText = "position:fixed;z-index:2147483647;top:16px;right:16px;max-width:380px;" +
-      "background:#111;color:#fff;padding:14px 18px;border-radius:10px;font:14px/1.45 system-ui,sans-serif;" +
-      "box-shadow:0 6px 24px rgba(0,0,0,.35);white-space:pre-line;cursor:pointer";
-    d.onclick = () => d.remove();
-    document.body.appendChild(d);
-    setTimeout(() => d.remove(), 12000);
+    try {
+      const previo = document.getElementById("comparamex-aviso");
+      if (previo) previo.remove();
+      const d = document.createElement("div");
+      d.id = "comparamex-aviso";
+      d.textContent = texto;
+      d.style.cssText = "position:fixed;z-index:2147483647;top:16px;right:16px;max-width:380px;" +
+        "background:#111;color:#fff;padding:14px 18px;border-radius:10px;font:14px/1.45 system-ui,sans-serif;" +
+        "box-shadow:0 6px 24px rgba(0,0,0,.35);white-space:pre-line;cursor:pointer";
+      d.onclick = () => d.remove();
+      document.body.appendChild(d);
+      setTimeout(() => d.remove(), 15000);
+    } catch (e) { /* si la página no deja inyectar, queda el valor devuelto */ }
   };
 
   if (!location.hostname.endsWith("amazon.com.mx")) {
-    log("Esto no es amazon.com.mx; abre una búsqueda de esa tienda.");
-    avisar("ComparaMEX: esto no es amazon.com.mx.");
-    return;
+    return "ComparaMEX: esto no es amazon.com.mx. Abre una búsqueda de esa tienda y vuelve a ejecutarlo.";
   }
 
-  // Amazon cambia el marcado cada tanto: se prueban varias formas de dar con
+  // Amazon cambia su marcado cada tanto: se prueban varias formas de dar con
   // las tarjetas de resultado, de la más específica a la más general, en vez
   // de fallar entero por un atributo que dejó de existir.
   const SELECTORES = [
@@ -110,30 +114,32 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
     '.s-main-slot div[data-asin]:not([data-asin=""])',
     '[data-cel-widget^="search_result_"][data-asin]',
     'div[role="listitem"][data-asin]:not([data-asin=""])',
+    'div[data-asin]:not([data-asin=""])',
   ];
   let filas = [], usado = null;
   for (const sel of SELECTORES) {
-    filas = Array.from(document.querySelectorAll(sel)).filter((d) => /^[A-Z0-9]{10}$/.test(d.getAttribute("data-asin") || ""));
+    filas = Array.from(document.querySelectorAll(sel))
+      .filter((d) => /^[A-Z0-9]{10}$/.test(d.getAttribute("data-asin") || ""));
     if (filas.length) { usado = sel; break; }
   }
   if (!filas.length) {
-    log("No encuentro tarjetas de producto. ¿Es una lista de resultados de búsqueda? Si lo es, Amazon cambió su HTML: avísame y ajusto los selectores.");
-    avisar("ComparaMEX: no encuentro productos en esta página.\nMira la consola (F12) para el detalle.");
-    return;
+    avisar("ComparaMEX: no encuentro productos en esta página.");
+    return "ComparaMEX: no encuentro tarjetas de producto con ninguno de los " + SELECTORES.length +
+           " selectores. ¿Es una lista de resultados de búsqueda? Si lo es, Amazon cambió su HTML: avísame.";
   }
 
   let acumulado = [];
   try { acumulado = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { acumulado = []; }
   if (!Array.isArray(acumulado)) acumulado = [];
   const vistos = new Set(acumulado.map((x) => x.asin));
-  let nuevos = 0, repetidos = 0, sinPrecio = 0, patrocinados = 0;
+  let nuevos = 0, repetidos = 0, sinTitulo = 0, sinPrecio = 0, patrocinados = 0;
 
   for (const d of filas) {
     const asin = d.getAttribute("data-asin");
     if (vistos.has(asin)) { repetidos++; continue; }
     const h2 = d.querySelector("h2");
     const title = (h2 ? h2.textContent : "").trim().replace(/\s+/g, " ");
-    if (!title) continue;
+    if (!title) { sinTitulo++; continue; }
     const sponsored = !!d.querySelector('.puis-sponsored-label-text, .s-sponsored-label-text, [aria-label="Patrocinado"], [aria-label="Sponsored"]');
     // .a-text-price es el precio tachado (de lista): no es el que se paga.
     const po = d.querySelector(".a-price:not(.a-text-price) .a-offscreen");
@@ -155,22 +161,23 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
 
   localStorage.setItem(KEY, JSON.stringify(acumulado));
   const json = JSON.stringify(acumulado, null, 1);
+  // Siempre a mano en la consola, pase lo que pase con el portapapeles.
+  window.__comparamexJSON = json;
 
-  // El JSON entero al log SIEMPRE, antes de intentar copiarlo: si el
-  // portapapeles falla por lo que sea, queda acá para seleccionar a mano.
-  log(`${nuevos} productos nuevos (${repetidos} ya estaban, ${sinPrecio} sin precio, ${patrocinados} patrocinados). Acumulados: ${acumulado.length}.`);
-  console.log(json);
+  // Dos caminos, porque fallan en situaciones distintas: el portapapeles del
+  // navegador necesita que la PÁGINA esté enfocada (desde la consola el foco
+  // está en DevTools y tira "Document is not focused"), y copy() solo existe
+  // dentro de la consola. Se intentan los dos y gana el que funcione.
+  try { navigator.clipboard.writeText(json).catch(() => {}); } catch (e) { /* sin API */ }
+  let porCopy = false;
+  if (typeof copy === "function") { try { copy(json); porCopy = true; } catch (e) { /* idem */ } }
 
-  let copiado = false;
-  try { await navigator.clipboard.writeText(json); copiado = true; } catch (e) { /* sin foco/permiso */ }
-  // copy() solo existe en la consola, y a diferencia del portapapeles del
-  // navegador no necesita que la página esté enfocada.
-  if (!copiado && typeof copy === "function") { try { copy(json); copiado = true; } catch (e) { /* idem */ } }
-
-  log(copiado ? "Copiado al portapapeles: ya puedes pegarlo." : "NO pude copiar al portapapeles; copia el JSON de arriba a mano.");
-  log("Pasa a la página siguiente y vuelve a ejecutar esto para acumular. Para empezar de cero: localStorage.removeItem('" + KEY + "')");
-  avisar(`ComparaMEX: ${nuevos} productos nuevos en esta página.\nAcumulados: ${acumulado.length}.\n` +
-         (copiado ? "Copiado al portapapeles." : "No pude copiar: el JSON está en la consola (F12)."));
+  avisar("ComparaMEX: " + nuevos + " productos nuevos en esta página.\nAcumulados: " + acumulado.length +
+         ".\nCopiado al portapapeles.");
+  return "ComparaMEX: " + nuevos + " nuevos, " + repetidos + " ya estaban, " + sinPrecio + " sin precio, " +
+         patrocinados + " patrocinados. ACUMULADOS: " + acumulado.length + "." +
+         "\nYa está en el portapapeles" + (porCopy ? "" : " (si no, ejecuta: copy(__comparamexJSON) )") + "." +
+         "\nSiguiente página: vuelve a ejecutar esto. Empezar de cero: localStorage.removeItem('" + KEY + "')";
 })();
 </script>
 <script>
