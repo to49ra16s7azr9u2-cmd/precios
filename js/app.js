@@ -534,6 +534,7 @@
     offerColorFilter: document.getElementById("offerColorFilter"),
     detailFromPrice: document.getElementById("detailFromPrice"),
     detailCompareBtn: document.getElementById("detailCompareBtn"),
+    detailFavBtn: document.getElementById("detailFavBtn"),
     detailTopOffers: document.getElementById("detailTopOffers"),
     detailQuickNav: document.getElementById("detailQuickNav"),
     deliveryBanner: document.getElementById("deliveryBanner"),
@@ -2130,27 +2131,65 @@
     return `${d.getUTCDate()} de ${HIST_MESES[d.getUTCMonth()]} de ${d.getUTCFullYear()}`;
   }
 
+  const HIST_MESES_CORTOS = ["ene", "feb", "mar", "abr", "may", "jun", "jul",
+                            "ago", "sep", "oct", "nov", "dic"];
+  function histDateShort(day) {
+    const d = new Date(HIST_EPOCH + day * 86400000);
+    return `${d.getUTCDate()} ${HIST_MESES_CORTOS[d.getUTCMonth()]}`;
+  }
+  // Hasta 4 fechas repartidas entre la primera y la última, sin repetir.
+  function histAxisDays(d0, d1) {
+    const n = Math.min(4, d1 - d0 + 1);
+    if (n <= 1) return [d0];
+    const dias = [];
+    for (let i = 0; i < n; i++) dias.push(Math.round(d0 + ((d1 - d0) * i) / (n - 1)));
+    return [...new Set(dias)].sort((a, b) => a - b);
+  }
+  // Tres marcas de precio (mínimo, medio, máximo), o una sola si no varió.
+  function histAxisPrices(lo, hi) {
+    return hi <= lo ? [lo] : [lo, (lo + hi) / 2, hi];
+  }
+
   // Mismo dibujo que sparkline_svg() en scripts/generate_seo_pages.py, para
-  // que la ficha estática y la interactiva se vean igual.
-  function sparklineSvg(serie, ancho = 560, alto = 90) {
+  // que la ficha estática y la interactiva se vean igual. Lleva eje de
+  // precios a la izquierda y de fechas abajo: sin ellos la línea era una
+  // forma sin escala.
+  function sparklineSvg(serie, ancho = 560, alto = 150) {
     if (serie.length < 2) return "";
     const precios = serie.map((s) => s[1]);
-    const hi = Math.max(...precios);
-    // Un respiro debajo del mínimo, igual que sparkline_svg() en Python: sin
-    // él un tramo plano al precio más bajo queda pegado al borde de abajo y
-    // el área sombreada no se ve.
-    const rango = hi - Math.min(...precios) || Math.max(hi * 0.1, 1);
-    const lo = Math.min(...precios) - rango * 0.12;
-    const span = hi - lo;
+    const loReal = Math.min(...precios);
+    const hiReal = Math.max(...precios);
+    // Un respiro debajo del mínimo y encima del máximo, igual que en Python.
+    let span = hiReal - loReal || Math.max(hiReal * 0.1, 1);
+    const lo = loReal - span * 0.12;
+    const hi = hiReal + span * 0.12;
+    span = hi - lo;
     const d0 = serie[0][0];
-    const spanDias = serie[serie.length - 1][0] - d0 || 1;
-    const pad = 10;
-    const xy = ([d, p]) =>
-      `${(pad + ((d - d0) / spanDias) * (ancho - 2 * pad)).toFixed(1)},` +
-      `${(pad + (1 - (p - lo) / span) * (alto - 2 * pad)).toFixed(1)}`;
+    const d1 = serie[serie.length - 1][0];
+    const spanDias = d1 - d0 || 1;
+    const izq = 64, der = 30, arriba = 10, abajo = 28;
+    const x0 = izq, x1 = ancho - der, y0 = arriba, y1 = alto - abajo;
+    const xDe = (d) => x0 + ((d - d0) / spanDias) * (x1 - x0);
+    const yDe = (p) => y0 + (1 - (p - lo) / span) * (y1 - y0);
+    const xy = ([d, p]) => `${xDe(d).toFixed(1)},${yDe(p).toFixed(1)}`;
     const linea = serie.map(xy).join(" ");
+    const area = `${x0},${y1} ${linea} ${x1.toFixed(1)},${y1}`;
+    const ejes = [];
+    for (const p of histAxisPrices(loReal, hiReal)) {
+      const y = yDe(p);
+      ejes.push(`<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" class="spark-grid"/>`);
+      ejes.push(`<text x="${x0 - 8}" y="${(y + 4).toFixed(1)}" text-anchor="end" class="spark-label">${money(p)}</text>`);
+    }
+    for (const d of histAxisDays(d0, d1)) {
+      const x = xDe(d);
+      ejes.push(`<line x1="${x.toFixed(1)}" y1="${y1}" x2="${x.toFixed(1)}" y2="${y1 + 5}" class="spark-tick"/>`);
+      ejes.push(`<text x="${x.toFixed(1)}" y="${alto - 8}" text-anchor="middle" class="spark-label">${histDateShort(d)}</text>`);
+    }
+    ejes.push(`<line x1="${x0}" y1="${y0}" x2="${x0}" y2="${y1}" class="spark-axis"/>`);
+    ejes.push(`<line x1="${x0}" y1="${y1}" x2="${x1}" y2="${y1}" class="spark-axis"/>`);
     return `<svg class="price-spark" viewBox="0 0 ${ancho} ${alto}" role="img" aria-label="Evolución del precio: de ${money(precios[0])} a ${money(precios[precios.length - 1])}">
-        <polygon points="${pad},${alto - pad} ${linea} ${ancho - pad},${alto - pad}" fill="rgba(255,2,17,.08)"/>
+        ${ejes.join("\n        ")}
+        <polygon points="${area}" fill="rgba(255,2,17,.08)"/>
         <polyline points="${linea}" fill="none" stroke="var(--red)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
       </svg>`;
   }
@@ -5058,6 +5097,20 @@
     };
   }
 
+  // Botón de favorito de la ficha. Mismo estado que el corazón de las filas
+  // de la lista (localStorage + nube si hay sesión), así que marcarlo aquí
+  // lo enciende también en la lista y en #/favorites. onToggle vuelve a
+  // pintar solo este botón: la lista no está a la vista.
+  function renderDetailFav(product) {
+    const btn = el.detailFavBtn;
+    if (!btn) return;
+    const fav = isFavorite(product.id);
+    btn.innerHTML = `${favIconHtml(product.id)} ${fav ? "En favoritos" : "Guardar en favoritos"}`;
+    btn.title = fav ? "Quitar de favoritos" : "Guardar para encontrarlo después en Favoritos";
+    btn.setAttribute("aria-pressed", fav ? "true" : "false");
+    bindFavToggle(btn, product.id, () => renderDetailFav(product));
+  }
+
   // Desplaza suave hasta una sección de la ficha, descontando la altura REAL
   // del topbar sticky (se mide en el clic, no se supone un valor fijo: en
   // móvil el menú de categorías puede ocupar una o dos líneas según el ancho,
@@ -5173,6 +5226,7 @@
     colorFilterButtons(el.detailColorFilter, product);
     renderDetailPriceHeader(product);
     renderDetailCompare(product);
+    renderDetailFav(product);
     renderDetailQuickNav();
 
     el.specTable.innerHTML = product.specs

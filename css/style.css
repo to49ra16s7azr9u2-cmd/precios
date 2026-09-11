@@ -906,6 +906,33 @@ tr.offer-compare-off { display: none; }
   background: var(--red-tint);
   color: var(--red-dark);
 }
+/* Comparar + Favorito, una al lado de la otra; en pantallas angostas bajan
+   a dos líneas en vez de desbordar. El favorito comparte el estilo de
+   pastilla de .detail-compare y se pinta rojo cuando está marcado. */
+.detail-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.detail-actions .detail-compare { margin-top: 8px; }
+.detail-fav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 7px 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+}
+.detail-fav:hover { border-color: var(--red); color: var(--red); }
+.detail-fav .heart-icon { width: 16px; height: 16px; }
+.detail-fav.is-fav {
+  border-color: var(--red);
+  background: var(--red-tint);
+  color: var(--red);
+}
 
 /* ---------- "Compara calidad" (arriba de la lista) ---------- */
 /* Dos filas de tres tarjetas -- nivel y tamaño -- que llena
@@ -3389,10 +3416,17 @@ tr.offer-compare-off { display: none; }
 .price-spark {
   width: 100%;
   height: auto;
-  max-height: 120px;
+  max-height: 200px;
   display: block;
   margin: 10px 0 4px;
 }
+/* Ejes del gráfico: los pinta sparkline_svg() / sparklineSvg(). El texto va
+   en px del viewBox (560 de ancho), así que en pantalla se escala con el
+   gráfico y en móvil sigue legible sin pasar de 3 marcas por eje. */
+.price-spark .spark-label { font: 13px/1 inherit; fill: var(--muted); }
+.price-spark .spark-grid { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
+.price-spark .spark-axis { stroke: var(--muted); stroke-width: 1; }
+.price-spark .spark-tick { stroke: var(--muted); stroke-width: 1; }
 .history-verdict { font-size: 15px; margin: 0 0 6px; }
 .history-verdict.history-low { color: var(--red); font-weight: 700; }
 

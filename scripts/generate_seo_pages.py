@@ -470,36 +470,87 @@ def serie_diaria(por_tienda, hasta=None):
     return salida
 
 
-def sparkline_svg(serie, ancho=560, alto=90):
-    """Gráfico de la evolución, en SVG inline.
+MESES_CORTOS = ("ene", "feb", "mar", "abr", "may", "jun", "jul",
+                "ago", "sep", "oct", "nov", "dic")
+
+
+def fecha_corta(dia):
+    d = HIST_EPOCH + datetime.timedelta(days=dia)
+    return f"{d.day} {MESES_CORTOS[d.month - 1]}"
+
+
+def dias_de_eje(d0, d1):
+    """Hasta 4 fechas repartidas entre la primera y la última, sin repetir."""
+    n = min(4, d1 - d0 + 1)
+    if n <= 1:
+        return [d0]
+    dias = [round(d0 + (d1 - d0) * i / (n - 1)) for i in range(n)]
+    return sorted(set(dias))
+
+
+def precios_de_eje(lo, hi):
+    """Tres marcas de precio (mínimo, medio, máximo), o una sola si no varió."""
+    if hi <= lo:
+        return [lo]
+    return [lo, (lo + hi) / 2, hi]
+
+
+def sparkline_svg(serie, ancho=560, alto=150):
+    """Gráfico de la evolución, en SVG inline, con ejes.
 
     Sin JavaScript ni librería a propósito: estas páginas son estáticas y las
     ve un rastreador antes que una persona. Un <svg> se pinta igual con el
     JS apagado y no agrega ninguna petición.
+
+    Lleva eje de precios a la izquierda (mínimo, medio, máximo) y de fechas
+    abajo: sin ellos la línea era una forma sin escala y el lector tenía que
+    deducir del texto de arriba cuánto valía cada tramo y de qué día era.
+    Mismo dibujo que sparklineSvg() en js/app.js.
     """
     if len(serie) < 2:
         return ""
     precios = [p for _, p in serie]
-    lo, hi = min(precios), max(precios)
-    # Un respiro debajo del mínimo: sin él, un tramo plano al precio más bajo
-    # queda pegado al borde de abajo y el área sombreada no se ve.
-    span = (hi - lo) or max(hi * 0.1, 1)
-    lo -= span * 0.12
+    lo_real, hi_real = min(precios), max(precios)
+    # Un respiro debajo del mínimo y encima del máximo: sin él, un tramo plano
+    # al precio más bajo queda pegado al borde y el área sombreada no se ve.
+    span = (hi_real - lo_real) or max(hi_real * 0.1, 1)
+    lo = lo_real - span * 0.12
+    hi = hi_real + span * 0.12
     span = hi - lo
     dias = [d for d, _ in serie]
     d0, d1 = dias[0], dias[-1]
     ancho_dias = (d1 - d0) or 1
-    pad = 10
+    izq, der, arriba, abajo = 64, 30, 10, 28
+    x0, x1 = izq, ancho - der
+    y0, y1 = arriba, alto - abajo
+
+    def x_de(d):
+        return x0 + (d - d0) / ancho_dias * (x1 - x0)
+
+    def y_de(p):
+        return y0 + (1 - (p - lo) / span) * (y1 - y0)
+
     def xy(d, p):
-        x = pad + (d - d0) / ancho_dias * (ancho - 2 * pad)
-        y = pad + (1 - (p - lo) / span) * (alto - 2 * pad)
-        return f"{x:.1f},{y:.1f}"
+        return f"{x_de(d):.1f},{y_de(p):.1f}"
+
     linea = " ".join(xy(d, p) for d, p in serie)
-    area = f"{pad},{alto - pad} " + linea + f" {ancho - pad},{alto - pad}"
+    area = f"{x0},{y1} " + linea + f" {x1:.1f},{y1}"
+    ejes = []
+    for p in precios_de_eje(lo_real, hi_real):
+        y = y_de(p)
+        ejes.append(f'<line x1="{x0}" y1="{y:.1f}" x2="{x1}" y2="{y:.1f}" class="spark-grid"/>')
+        ejes.append(f'<text x="{x0 - 8}" y="{y + 4:.1f}" text-anchor="end" class="spark-label">{money(p)}</text>')
+    for d in dias_de_eje(d0, d1):
+        x = x_de(d)
+        ejes.append(f'<line x1="{x:.1f}" y1="{y1}" x2="{x:.1f}" y2="{y1 + 5}" class="spark-tick"/>')
+        ejes.append(f'<text x="{x:.1f}" y="{alto - 8}" text-anchor="middle" class="spark-label">{fecha_corta(d)}</text>')
+    ejes.append(f'<line x1="{x0}" y1="{y0}" x2="{x0}" y2="{y1}" class="spark-axis"/>')
+    ejes.append(f'<line x1="{x0}" y1="{y1}" x2="{x1}" y2="{y1}" class="spark-axis"/>')
     return (
         f'<svg class="price-spark" viewBox="0 0 {ancho} {alto}" '
         f'role="img" aria-label="Evolución del precio: de {money(precios[0])} a {money(precios[-1])}">'
-        f'<polygon points="{area}" fill="rgba(255,2,17,.08)"/>'
+        + "".join(ejes)
+        + f'<polygon points="{area}" fill="rgba(255,2,17,.08)"/>'
         f'<polyline points="{linea}" fill="none" stroke="var(--red)" stroke-width="2" '
         f'stroke-linejoin="round" stroke-linecap="round"/>'
         f'</svg>'

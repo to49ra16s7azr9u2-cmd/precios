@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=9d6259b9">
+<link rel="stylesheet" href="css/style.min.css?v=c79b80b2">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -495,15 +495,22 @@
                  de la tabla de precios. -->
             <div class="color-filter hidden" id="detailColorFilter"></div>
             <p class="detail-fromprice" id="detailFromPrice"></p>
-            <!-- Agregar ESTE producto a la comparación de specs. Existía
-                 solo en las filas de la lista, así que quien llegaba a la
-                 ficha desde una búsqueda o un enlace no tenía cómo
-                 compararlo con nada. Lo llena renderDetailCompare(). -->
-            <button type="button" class="detail-compare" id="detailCompareBtn"></button>
+            <!-- Dos acciones sobre ESTE producto, una al lado de la otra:
+                 - Comparar: lo agrega a la comparación de specs. Existía
+                   solo en las filas de la lista, así que quien llegaba a la
+                   ficha desde una búsqueda o un enlace no tenía cómo
+                   compararlo con nada. Lo llena renderDetailCompare().
+                 - Favorito: se había quitado de la ficha para dejar lugar a
+                   los botones de sección; el usuario lo volvió a pedir
+                   (captura marcando el hueco junto al título), así que va
+                   aquí como pastilla, sin desplazar los botones de sección.
+                   Lo llena renderDetailFav(). -->
+            <div class="detail-actions">
+              <button type="button" class="detail-compare" id="detailCompareBtn"></button>
+              <button type="button" class="detail-fav" id="detailFavBtn"></button>
+            </div>
           </div>
-          <!-- Ocupa el hueco que quedó vacío al quitar el corazón de
-               favoritos (a pedido del usuario, con una captura marcando el
-               recuadro): botones que bajan a cada sección. Se arma en JS
+          <!-- Botones que bajan a cada sección. Se arma en JS
                (renderDetailQuickNav) porque el desplazamiento tiene que
                descontar la altura real del topbar sticky, que cambia según
                el dispositivo y si el menú de categorías ocupa una o dos
@@ -980,7 +987,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=7ab03b12"></script>
+<script src="js/app.min.js?v=386cd89c"></script>
 </div>
 </body>
 </html>
