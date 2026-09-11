@@ -148,8 +148,15 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
       const n = parseFloat(po.textContent.replace(/[^\d.,]/g, "").replace(/,/g, ""));
       if (isFinite(n) && n > 0) price = n;
     }
+    // La foto viene con la transformación que Amazon esté probando ese día
+    // (p. ej. _AC_AIweblab1378949,T3_SF480.0,480.0_PQ65_ + ?aicid=), que es
+    // de un experimento y no tiene por qué seguir existiendo mañana. Se deja
+    // el id de la imagen con _AC_SX679_, que es la que ya usa el catálogo.
     const img = d.querySelector("img.s-image");
-    const item = { asin, title, price, photo: img ? (img.getAttribute("src") || null) : null,
+    const src = img ? (img.getAttribute("src") || "") : "";
+    const idFoto = /\/images\/I\/([^.\/]+)\./.exec(src);
+    const photo = idFoto ? `https://m.media-amazon.com/images/I/${idFoto[1]}._AC_SX679_.jpg` : (src || null);
+    const item = { asin, title, price, photo,
                    url: "https://www.amazon.com.mx/dp/" + asin };
     if (sponsored) item.sponsored = true;
     if (price == null) sinPrecio++;

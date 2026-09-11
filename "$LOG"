@@ -1,0 +1,323 @@
++ python3 -u scripts/match_by_gtin.py --store amazon_mx --concurrency 4
+Productos con código de barras y sin oferta de Mercado Libre: 79
+A consultar en esta tanda: 79
+
+=== Resumen ===
+  consultados: 79
+  unidos: 2
+  sin_coincidencia: 54
+  ambiguo: 2
+  sin_ofertas_activas: 12
+  gtin_no_confirma: 0
+  condicion_distinta: 2
+  error_worker: 2
+  sin_respuesta: 0
+  nombre_no_coincide: 5
+
+  Unidos (2):
+   p51384   7503035547340  Compaq Q3, Smartphone, 6GB RAM, 128GB, <- ML: Celular Compaq Q3 con 128 GB y 6 G $1,599
+   p50658   7503050729226  Tablet Compaq QTab Plus LTE 11" Androi <- ML: Tablet Compaq Qtab Plus Lte 11 8gb $3,498
+
+Guardado: 2 productos ahora comparan precio entre dos tiendas.
++ python3 -u scripts/compute_facets.py
+Modelos compatibles distintos en Refacciones: 113
+Cobertura por campo:
+  Celulares (n=2945):
+    battery_mah: 711 (24%)
+    camera_mp: 258 (9%)
+    chipset_family: 1431 (49%)
+    model_name: 1281 (43%)
+    network_gen: 929 (32%)
+    ram_gb: 1929 (66%)
+    refresh_hz: 17 (1%)
+    screen_in: 1787 (61%)
+    storage_gb: 2772 (94%)
+    storage_type: 1 (0%)
+  Laptops (n=1411):
+    cpu_family: 1138 (81%)
+    gpu: 201 (14%)
+    os: 1054 (75%)
+    ram_gb: 1134 (80%)
+    refresh_hz: 43 (3%)
+    screen_in: 1213 (86%)
+    storage_gb: 1275 (90%)
+    storage_type: 793 (56%)
+  Tabletas (n=655):
+    battery_mah: 180 (27%)
+    camera_mp: 13 (2%)
+    chipset_family: 37 (6%)
+    network_gen: 41 (6%)
+    ram_gb: 406 (62%)
+    refresh_hz: 11 (2%)
+    screen_in: 487 (74%)
+    storage_gb: 515 (79%)
+    storage_type: 26 (4%)
+  Monitores (n=607):
+    curved: 100 (16%)
+    panel_type: 274 (45%)
+    refresh_hz: 215 (35%)
+    resolution: 457 (75%)
+    screen_in: 349 (57%)
+  Televisores (n=802):
+    resolution: 626 (78%)
+    screen_in: 644 (80%)
+  Videojuegos (n=6203):
+    age_rating: 4362 (70%)
+    platform: 4794 (77%)
+  Lavadoras (n=593):
+    wash_kg: 509 (86%)
+  Refrigeradores (n=853):
+    fridge_ft3: 451 (53%)
+  Blancos y ropa de cama (n=3944):
+    bed_size: 2563 (65%)
+  Muebles (n=10585):
+    bed_size: 6099 (58%)
+    firmness: 2604 (25%)
+  Computadoras de escritorio (n=614):
+    cpu_family: 494 (80%)
+    gpu: 202 (33%)
+    os: 239 (39%)
+    ram_gb: 571 (93%)
+    storage_gb: 591 (96%)
+    storage_type: 455 (74%)
+  Almacenamiento (n=598):
+    drive_gb: 504 (84%)
+    storage_type: 333 (56%)
+  Climatización (n=1633):
+    ac_btu: 335 (21%)
+    fan_in: 475 (29%)
+    fan_type: 686 (42%)
+  Refacciones (n=5284):
+    compat_model: 1600 (30%)
+    compat_year: 1600 (30%)
+  Herramientas (n=7375):
+    tool_type: 2771 (38%)
+  Bocinas (n=1405):
+    speaker_count: 396 (28%)
+  Autos, bicicletas y motos (n=4711):
+    rim_size: 481 (10%)
+    wheel_size: 433 (9%)
+  Electrodomésticos (n=3068):
+    burners: 388 (13%)
+    fuel: 362 (12%)
+  Joyería y bisutería (n=4429):
+    gender: 1733 (39%)
+  Cargadores y adaptadores (n=541):
+    charger_w: 216 (40%)
+
+productos con al menos 1 facet nuevo/cambiado: 0
+
+Guardado.
++ python3 -u scripts/record_price_history.py
+Fecha 2026-09-11 (día 10)
+  series nuevas: 46
+  puntos anotados: 46
+  series cerradas (la tienda dejó de vender): 0
+  archivos escritos: 8
++ python3 -u scripts/generate_seo_pages.py
+Bajadas de precio publicables: 0 (1 páginas)
+Subcategorías con página propia: 218
+Generadas 93545 páginas/archivos SEO en /home/user/precios:
+ - producto/p1/index.html
+ - producto/p2/index.html
+ - producto/p3/index.html
+ - producto/p4/index.html
+ - producto/p5/index.html
+ - producto/p12/index.html
+ - producto/p13/index.html
+ - producto/p14/index.html
+ - producto/p88/index.html
+ - producto/p89/index.html
+ - producto/p90/index.html
+ - producto/p92/index.html
+ - producto/p93/index.html
+ - producto/p95/index.html
+ - producto/p97/index.html
+ - producto/p98/index.html
+ - producto/p99/index.html
+ - producto/p100/index.html
+ - producto/p101/index.html
+ - producto/p102/index.html
+ - producto/p103/index.html
+ - producto/p105/index.html
+ - producto/p106/index.html
+ - producto/p107/index.html
+ - producto/p109/index.html
+ - producto/p110/index.html
+ - producto/p111/index.html
+ - producto/p112/index.html
+ - producto/p113/index.html
+ - producto/p114/index.html
+ - producto/p115/index.html
+ - producto/p116/index.html
+ - producto/p117/index.html
+ - producto/p118/index.html
+ - producto/p119/index.html
+ - producto/p120/index.html
+ - producto/p121/index.html
+ - producto/p122/index.html
+ - producto/p725/index.html
+ - producto/p730/index.html
+ - producto/p787/index.html
+ - producto/p788/index.html
+ - producto/p793/index.html
+ - producto/p844/index.html
+ - producto/p845/index.html
+ - producto/p852/index.html
+ - producto/p859/index.html
+ - producto/p860/index.html
+ - producto/p862/index.html
+ - producto/p863/index.html
+ - producto/p864/index.html
+ - producto/p865/index.html
+ - producto/p866/index.html
+ - producto/p867/index.html
+ - producto/p868/index.html
+ - producto/p869/index.html
+ - producto/p870/index.html
+ - producto/p871/index.html
+ - producto/p872/index.html
+ - producto/p873/index.html
+ - producto/p875/index.html
+ - producto/p876/index.html
+ - producto/p878/index.html
+ - producto/p879/index.html
+ - producto/p880/index.html
+ - producto/p881/index.html
+ - producto/p883/index.html
+ - producto/p884/index.html
+ - producto/p885/index.html
+ - producto/p886/index.html
+ - producto/p887/index.html
+ - producto/p888/index.html
+ - producto/p889/index.html
+ - producto/p890/index.html
+ - producto/p891/index.html
+ - producto/p892/index.html
+ - producto/p893/index.html
+ - producto/p894/index.html
+ - producto/p895/index.html
+ - producto/p896/index.html
+ - producto/p897/index.html
+ - producto/p898/index.html
+ - producto/p900/index.html
+ - producto/p901/index.html
+ - producto/p902/index.html
+ - producto/p903/index.html
+ - producto/p905/index.html
+ - producto/p921/index.html
+ - producto/p922/index.html
+ - producto/p923/index.html
+ - producto/p924/index.html
+ - producto/p925/index.html
+ - producto/p926/index.html
+ - producto/p927/index.html
+ - producto/p928/index.html
+ - producto/p929/index.html
+ - producto/p930/index.html
+ - producto/p931/index.html
+ - producto/p932/index.html
+ - producto/p934/index.html
+ - producto/p935/index.html
+ - producto/p936/index.html
+ - producto/p954/index.html
+ - producto/p966/index.html
+ - producto/p1070/index.html
+ - producto/p1071/index.html
+ - producto/p1072/index.html
+ - producto/p1073/index.html
+ - producto/p1074/index.html
+ - producto/p1075/index.html
+ - producto/p1076/index.html
+ - producto/p1077/index.html
+ - producto/p1078/index.html
+ - producto/p1079/index.html
+ - producto/p1080/index.html
+ - producto/p1081/index.html
+ - producto/p1082/index.html
+ - producto/p1083/index.html
+ - producto/p1084/index.html
+ - producto/p1085/index.html
+ - producto/p1086/index.html
+ - producto/p1087/index.html
+ - producto/p1088/index.html
+ - producto/p1089/index.html
+ - producto/p1091/index.html
+ - producto/p1093/index.html
+ - producto/p1095/index.html
+ - producto/p1096/index.html
+ - producto/p1100/index.html
+ - producto/p1101/index.html
+ - producto/p1102/index.html
+ - producto/p1103/index.html
+ - producto/p1104/index.html
+ - producto/p1105/index.html
+ - producto/p1106/index.html
+ - producto/p1107/index.html
+ - producto/p1114/index.html
+ - producto/p1115/index.html
+ - producto/p1118/index.html
+ - producto/p1141/index.html
+ - producto/p1142/index.html
+ - producto/p1146/index.html
+ - producto/p1147/index.html
+ - producto/p1149/index.html
+ - producto/p1172/index.html
+ - producto/p1173/index.html
+ - producto/p1174/index.html
+ - producto/p1175/index.html
+ - producto/p1176/index.html
+ - producto/p1177/index.html
+ - producto/p1178/index.html
+ - producto/p1179/index.html
+ - producto/p1180/index.html
+ - producto/p1181/index.html
+ - producto/p1182/index.html
+ - producto/p1183/index.html
+ - producto/p1184/index.html
+ - producto/p1185/index.html
+ - producto/p1186/index.html
+ - producto/p1187/index.html
+ - producto/p1188/index.html
+ - producto/p1189/index.html
+ - producto/p1190/index.html
+ - producto/p1191/index.html
+ - producto/p1192/index.html
+ - producto/p1193/index.html
+ - producto/p1194/index.html
+ - producto/p1195/index.html
+ - producto/p1196/index.html
+ - producto/p1197/index.html
+ - producto/p1198/index.html
+ - producto/p1199/index.html
+ - producto/p1200/index.html
+ - producto/p1201/index.html
+ - producto/p1202/index.html
+ - producto/p1203/index.html
+ - producto/p1204/index.html
+ - producto/p1205/index.html
+ - producto/p1206/index.html
+ - producto/p1207/index.html
+ - producto/p1208/index.html
+ - producto/p1209/index.html
+ - producto/p1211/index.html
+ - producto/p1212/index.html
+ - producto/p1213/index.html
+ - producto/p1214/index.html
+ - producto/p1215/index.html
+ - producto/p1216/index.html
+ - producto/p1217/index.html
+ - producto/p1218/index.html
+ - producto/p1219/index.html
+ - producto/p1220/index.html
+ - producto/p1221/index.html
+ - producto/p1222/index.html
+ - producto/p1223/index.html
+ - producto/p1224/index.html
+ - producto/p1225/index.html
+ - producto/p1226/index.html
+ - producto/p1227/index.html
+ - producto/p1228/index.html
+ ... y 93345 más
++ echo AMZ-FIN
+AMZ-FIN
