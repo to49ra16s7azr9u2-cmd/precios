@@ -26,6 +26,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from add_elektra_products import PAGE_SIZE, fetch_json, vendedor_publicable  # noqa: E402
 from data_io import load_catalog, save_catalog, url_real  # noqa: E402
+from ean_dudosos import ean_utilizable  # noqa: E402
 from elektra_specs import specs_from  # noqa: E402
 from vtex_stores import TIENDAS, search_url  # noqa: E402
 
@@ -144,7 +145,13 @@ def main(argv=None):
                 p["specs"] = ficha
                 stats["ficha_tecnica"] += 1
             price, list_price, available, ean, seller_id = entry
-            if ean and o.get("ean") != ean:
+            if not ean_utilizable(o):
+                # El código que publica la tienda en esta oferta no es el de
+                # lo que vende (ver scripts/ean_dudosos.py). Si se reescribe
+                # acá, el refresco de mañana deshace la separación hecha a
+                # mano y el multipack vuelve a unirse con la pieza suelta.
+                o.pop("ean", None)
+            elif ean and o.get("ean") != ean:
                 o["ean"] = ean
             if not available:
                 stats["agotado"] += 1

@@ -1,10 +1,16 @@
-# Cabeceras para Cloudflare Pages / Netlify (ambos leen este archivo con el
-# mismo formato). No es lo que "bloquea" nada -- eso lo hace robots.txt (por
-# nombre de bot) y, de forma realmente confiable, el "Block AI Bots" del
-# panel de Cloudflare (Security -> Bots), que huella la conexión en vez de
-# creerle al User-Agent que dice traer. Esto es una señal EXTRA a nivel de
-# cabecera HTTP, por si algún rastreador de IA lee X-Robots-Tag en vez de
-# (o además de) la etiqueta <meta name="robots"> del HTML.
+# NO ESTÁ ACTIVO HOY. comparamex.com lo sirve GitHub Pages, y GitHub Pages
+# no lee este archivo ni deja poner cabeceras propias: `curl -I` sobre el
+# sitio en vivo devuelve `server: GitHub.com` y ninguna X-Robots-Tag. Se
+# conserva porque el formato lo entienden Cloudflare Pages y Netlify, así
+# que si algún día se mueve el hosting allá, esto empieza a aplicarse solo.
+#
+# Lo que SÍ bloquea rastreadores de IA hoy:
+#   robots.txt  -- por nombre de bot (GPTBot, ClaudeBot, CCBot, etc.)
+#   <meta name="robots" content="index, follow, noai, noimageai"> en el HTML
+# Ambos dependen de que el rastreador se identifique con su nombre real y
+# obedezca; no hay forma de forzarlo desde un hosting estático. Un bloqueo
+# de verdad (huella de la conexión, no del User-Agent) necesita algo como
+# el "Block AI Bots" del panel de Cloudflare, es decir, mover el sitio.
 
 /*
   X-Robots-Tag: noai, noimageai

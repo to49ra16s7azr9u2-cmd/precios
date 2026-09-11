@@ -61,6 +61,29 @@ from data_io import load_catalog, next_id, registrar_max_id, save_catalog  # noq
 AMAZON_STORE = "amazon_mx"
 
 
+
+_FOTO_AMAZON = re.compile(r"^(https://m\.media-amazon\.com/images/I/)([^./]+)\.")
+
+
+def normalizar_foto(url):
+    """Deja la foto de Amazon en el tamaño que ya usa el resto del catálogo.
+
+    Amazon sirve la misma imagen con la transformación que esté probando ese
+    día -- en septiembre de 2026, `._AC_AIweblab1378949,T3_SF480.0,480.0_PQ65_`
+    con un `?aicid=` pegado atrás. Eso es un experimento suyo y puede dejar de
+    responder mañana, así que se guarda el id de la imagen con `_AC_SX679_`,
+    que es el que tienen las 1,126 fotos de Amazon ya publicadas. El
+    bookmarklet de captura ya lo hace; esto cubre las capturas tomadas con una
+    versión vieja.
+    """
+    if not url:
+        return url
+    m = _FOTO_AMAZON.match(url)
+    if not m:
+        return url
+    return f"{m.group(1)}{m.group(2)}._AC_SX679_.jpg"
+
+
 def existing_asins(products):
     out = set()
     for p in products:
@@ -163,7 +186,7 @@ def main():
             "category": cat,
             "subcategory": sub,
             "image": it.get("image") or "box",
-            "photo": it.get("photo"),
+            "photo": normalizar_foto(it.get("photo")),
             "specs": [],
             "offers": [{
                 "storeId": AMAZON_STORE,

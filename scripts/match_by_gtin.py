@@ -59,6 +59,7 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from ean_dudosos import ean_utilizable  # noqa: E402
 from data_io import load_catalog, save_catalog  # noqa: E402
 from phone_signature import condition_of  # noqa: E402  -- nuevo/reacondicionado
 
@@ -164,6 +165,8 @@ def candidates(products, store=None):
         if store and not any(o.get("storeId") == store for o in offers):
             continue
         for o in offers:
+            if not ean_utilizable(o):
+                continue
             gtin = normalize_gtin(o.get("ean"))
             if gtin:
                 out.append((p, gtin))

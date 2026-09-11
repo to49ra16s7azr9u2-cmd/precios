@@ -126,6 +126,30 @@ No es un paso de build obligatorio — `index.html` sigue funcionando igual sin 
 
 **Antes de desplegar a producción**: edita `SITE_URL` al inicio del script con el dominio real y vuelve a correrlo. Ahora mismo genera con `https://comparamx.example` como placeholder — un canonical o una URL de Open Graph apuntando a un dominio de ejemplo es peor para SEO que no tenerlas, así que el script imprime un aviso si detecta que sigue en ese valor.
 
+## Rastreadores de IA
+
+El sitio pide no ser usado para entrenar modelos, por tres vías, y conviene
+saber cuál funciona de verdad:
+
+| Dónde | Qué hace | ¿Activo hoy? |
+|---|---|---|
+| `robots.txt` | Bloquea por nombre ~30 rastreadores de IA (GPTBot, ClaudeBot, CCBot, PerplexityBot, Bytespider…) | **Sí** |
+| `<meta name="robots" content="index, follow, noai, noimageai">` | Señal en el HTML de cada página | **Sí** |
+| `_headers` (`X-Robots-Tag: noai, noimageai`) | Misma señal en la cabecera HTTP | **No** |
+
+`_headers` está escrito en el formato de Cloudflare Pages y Netlify, pero
+comparamex.com lo sirve GitHub Pages, que ni lee ese archivo ni permite
+cabeceras propias — `curl -I https://comparamex.com/` devuelve
+`server: GitHub.com` y ninguna `X-Robots-Tag`. El archivo se conserva para
+que empiece a aplicarse solo si algún día se mueve el hosting; mientras
+tanto no hace nada, y su propio comentario lo dice.
+
+Las tres vías son peticiones, no barreras: dependen de que el rastreador se
+identifique con su nombre real y obedezca. Desde un hosting estático no hay
+manera de forzarlo. Un bloqueo de verdad — que mira la huella de la
+conexión en vez de creerle al User-Agent — requiere un proxy delante, por
+ejemplo el "Block AI Bots" de Cloudflare.
+
 ## Estado de la integración con Mercado Libre
 
 Por decisión explícita, ComparaMX solo integra la unidad de negocio **Mercado Libre** de su plataforma de desarrolladores (no Global Selling, Mercado Envíos ni Mercado Pago — esas sirven para vender, enviar o cobrar, y ComparaMX no hace ninguna de las tres cosas; solo compara y enlaza a la tienda real).
