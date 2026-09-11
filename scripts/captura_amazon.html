@@ -35,8 +35,8 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
   <li>Pega con <code>Ctrl+V</code> y pulsa <strong>Enter</strong>.
     <p class="nota">La primera vez Chrome puede pedir que escribas <code>allow pasting</code> y pulses Enter antes de dejarte pegar. Es una sola vez por navegador.</p>
   </li>
-  <li>Sale un aviso con cuántos productos leyó. Al cerrarlo, el JSON queda copiado al portapapeles.</li>
-  <li>Para la página siguiente de resultados: vuelve a la consola, sube con la flecha <strong>↑</strong> al mismo código y Enter otra vez.</li>
+  <li>Aparece un aviso arriba a la derecha con cuántos productos leyó, y el JSON queda copiado al portapapeles (y también impreso en la consola, por si acaso).</li>
+  <li>Para la página siguiente de resultados: vuelve a la consola, sube con la flecha <strong>↑</strong> al mismo código y Enter otra vez. Se acumula.</li>
 </ol>
 </div>
 
@@ -54,10 +54,12 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
 
 <h2>Qué hace cada vez que lo ejecutas</h2>
 <ol>
-  <li>Lee los productos de la página que tengas abierta (hasta 48) y los suma a la captura acumulada.</li>
-  <li>Muestra un aviso y, al cerrarlo, <strong>copia todo al portapapeles</strong>: puedes pegarlo en el chat cuando quieras.</li>
-  <li>En ese aviso, <em>Aceptar</em> sigue acumulando en la próxima página; <em>Cancelar</em> vacía lo acumulado para empezar otra categoría (lo que ya copiaste no se pierde). Los ASIN repetidos no se duplican.</li>
+  <li>Lee los productos de la página que tengas abierta (hasta 48) y los suma a la captura acumulada. Los ASIN repetidos no se duplican, así que puedes ejecutarlo dos veces en la misma página sin ensuciar nada.</li>
+  <li><strong>Copia todo al portapapeles</strong> y además lo imprime en la consola, por si el portapapeles falla.</li>
+  <li>Muestra un aviso flotante arriba a la derecha con el recuento (se va solo a los 12 segundos, o al hacerle clic).</li>
 </ol>
+<p class="nota">Para empezar otra categoría de cero, vacía lo acumulado con esta línea en la consola:<br>
+<code>localStorage.removeItem('comparamex.captura.amazon')</code></p>
 
 <h2>Qué hay que saber</h2>
 <ul>
@@ -73,26 +75,65 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
 <script id="fuente" type="text/plain">
 (async () => {
   const KEY = "comparamex.captura.amazon";
-  const filas = document.querySelectorAll('div[data-component-type="s-search-result"][data-asin]');
+  const sello = "background:#FF0211;color:#fff;padding:2px 6px;border-radius:4px";
+  const log = (...a) => console.log("%cComparaMEX", sello, ...a);
+
+  // Aviso flotante en la propia página: el marcador se usa sin la consola
+  // abierta, así que sin esto no daría ninguna señal. No se usa alert() ni
+  // confirm() porque Chrome los suprime en cuanto alguien marca "impedir que
+  // esta página cree más diálogos", y entonces el script se ejecutaba entero
+  // sin que se viera absolutamente nada.
+  const avisar = (texto) => {
+    document.getElementById("comparamex-aviso")?.remove();
+    const d = document.createElement("div");
+    d.id = "comparamex-aviso";
+    d.textContent = texto;
+    d.style.cssText = "position:fixed;z-index:2147483647;top:16px;right:16px;max-width:380px;" +
+      "background:#111;color:#fff;padding:14px 18px;border-radius:10px;font:14px/1.45 system-ui,sans-serif;" +
+      "box-shadow:0 6px 24px rgba(0,0,0,.35);white-space:pre-line;cursor:pointer";
+    d.onclick = () => d.remove();
+    document.body.appendChild(d);
+    setTimeout(() => d.remove(), 12000);
+  };
+
   if (!location.hostname.endsWith("amazon.com.mx")) {
-    alert("ComparaMEX: este marcador es para amazon.com.mx.");
+    log("Esto no es amazon.com.mx; abre una búsqueda de esa tienda.");
+    avisar("ComparaMEX: esto no es amazon.com.mx.");
     return;
+  }
+
+  // Amazon cambia el marcado cada tanto: se prueban varias formas de dar con
+  // las tarjetas de resultado, de la más específica a la más general, en vez
+  // de fallar entero por un atributo que dejó de existir.
+  const SELECTORES = [
+    'div[data-component-type="s-search-result"][data-asin]',
+    '.s-main-slot div[data-asin]:not([data-asin=""])',
+    '[data-cel-widget^="search_result_"][data-asin]',
+    'div[role="listitem"][data-asin]:not([data-asin=""])',
+  ];
+  let filas = [], usado = null;
+  for (const sel of SELECTORES) {
+    filas = Array.from(document.querySelectorAll(sel)).filter((d) => /^[A-Z0-9]{10}$/.test(d.getAttribute("data-asin") || ""));
+    if (filas.length) { usado = sel; break; }
   }
   if (!filas.length) {
-    alert("ComparaMEX: no encuentro productos en esta página. ¿Es una lista de resultados de búsqueda?");
+    log("No encuentro tarjetas de producto. ¿Es una lista de resultados de búsqueda? Si lo es, Amazon cambió su HTML: avísame y ajusto los selectores.");
+    avisar("ComparaMEX: no encuentro productos en esta página.\nMira la consola (F12) para el detalle.");
     return;
   }
+
   let acumulado = [];
   try { acumulado = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { acumulado = []; }
   if (!Array.isArray(acumulado)) acumulado = [];
   const vistos = new Set(acumulado.map((x) => x.asin));
-  let nuevos = 0, sinPrecio = 0, patrocinados = 0;
-  filas.forEach((d) => {
+  let nuevos = 0, repetidos = 0, sinPrecio = 0, patrocinados = 0;
+
+  for (const d of filas) {
     const asin = d.getAttribute("data-asin");
-    if (!asin || !/^[A-Z0-9]{10}$/.test(asin)) return;
+    if (vistos.has(asin)) { repetidos++; continue; }
     const h2 = d.querySelector("h2");
-    const title = h2 ? h2.textContent.trim().replace(/\s+/g, " ") : "";
-    if (!title) return;
+    const title = (h2 ? h2.textContent : "").trim().replace(/\s+/g, " ");
+    if (!title) continue;
     const sponsored = !!d.querySelector('.puis-sponsored-label-text, .s-sponsored-label-text, [aria-label="Patrocinado"], [aria-label="Sponsored"]');
     // .a-text-price es el precio tachado (de lista): no es el que se paga.
     const po = d.querySelector(".a-price:not(.a-text-price) .a-offscreen");
@@ -102,39 +143,34 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
       if (isFinite(n) && n > 0) price = n;
     }
     const img = d.querySelector("img.s-image");
-    const photo = img ? (img.getAttribute("src") || null) : null;
-    if (vistos.has(asin)) return;
+    const item = { asin, title, price, photo: img ? (img.getAttribute("src") || null) : null,
+                   url: "https://www.amazon.com.mx/dp/" + asin };
+    if (sponsored) item.sponsored = true;
     if (price == null) sinPrecio++;
     if (sponsored) patrocinados++;
-    const item = { asin, title, price, photo, url: "https://www.amazon.com.mx/dp/" + asin };
-    if (sponsored) item.sponsored = true;
     vistos.add(asin);
     acumulado.push(item);
     nuevos++;
-  });
+  }
+
   localStorage.setItem(KEY, JSON.stringify(acumulado));
   const json = JSON.stringify(acumulado, null, 1);
-  const seguir = confirm(
-    "ComparaMEX: " + nuevos + " productos nuevos en esta página (" + sinPrecio + " sin precio, " + patrocinados + " patrocinados).\n" +
-    "Acumulados: " + acumulado.length + ". Al cerrar este aviso se copian al portapapeles.\n\n" +
-    "Aceptar = seguir acumulando en la próxima página.\n" +
-    "Cancelar = vaciar la captura acumulada (lo copiado no se pierde)."
-  );
-  if (!seguir) localStorage.removeItem(KEY);
-  // El portapapeles solo acepta escrituras con la PÁGINA enfocada. Ejecutado
-  // desde la consola el foco está en DevTools y writeText falla con
-  // "Document is not focused", así que se copia DESPUÉS del aviso, que es lo
-  // que devuelve el foco a la página. Si aun así no se puede, queda copy()
-  // --que solo existe en la consola-- y, como último recurso, un prompt.
+
+  // El JSON entero al log SIEMPRE, antes de intentar copiarlo: si el
+  // portapapeles falla por lo que sea, queda acá para seleccionar a mano.
+  log(`${nuevos} productos nuevos (${repetidos} ya estaban, ${sinPrecio} sin precio, ${patrocinados} patrocinados). Acumulados: ${acumulado.length}.`);
+  console.log(json);
+
   let copiado = false;
-  try {
-    await navigator.clipboard.writeText(json);
-    copiado = true;
-  } catch (e) { /* sin permiso, sin foco o sin API: se prueba lo siguiente */ }
-  if (!copiado && typeof copy === "function") {
-    try { copy(json); copiado = true; } catch (e) { /* idem */ }
-  }
-  if (!copiado) window.prompt("No pude copiar al portapapeles; copia esto a mano:", json);
+  try { await navigator.clipboard.writeText(json); copiado = true; } catch (e) { /* sin foco/permiso */ }
+  // copy() solo existe en la consola, y a diferencia del portapapeles del
+  // navegador no necesita que la página esté enfocada.
+  if (!copiado && typeof copy === "function") { try { copy(json); copiado = true; } catch (e) { /* idem */ } }
+
+  log(copiado ? "Copiado al portapapeles: ya puedes pegarlo." : "NO pude copiar al portapapeles; copia el JSON de arriba a mano.");
+  log("Pasa a la página siguiente y vuelve a ejecutar esto para acumular. Para empezar de cero: localStorage.removeItem('" + KEY + "')");
+  avisar(`ComparaMEX: ${nuevos} productos nuevos en esta página.\nAcumulados: ${acumulado.length}.\n` +
+         (copiado ? "Copiado al portapapeles." : "No pude copiar: el JSON está en la consola (F12)."));
 })();
 </script>
 <script>
