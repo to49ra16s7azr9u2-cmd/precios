@@ -333,8 +333,11 @@ def cat_electrodomesticos(name):
         return "Aspiradoras", "Robots aspiradores", "vacuum"
     if "aspiradora" in n:
         return "Aspiradoras", "Inalámbricas y de mano", "vacuum"
+    # Las secadoras de cabello viven en Aparatos de belleza, con las planchas
+    # y los multiestilizadores, aunque el feed de Elektra las mande por la
+    # rama de electrodomésticos.
     if "secadora de pelo" in n or "secadora de cabello" in n:
-        return "Electrodomésticos", "Secadoras de pelo", "appliance"
+        return "Aparatos de belleza", "Secadoras de cabello", "sparkle"
     if "plancha" in n and "cabello" not in n:
         return "Electrodomésticos", "Planchas", "appliance"
     if "purificador de agua" in n:

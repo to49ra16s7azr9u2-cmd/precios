@@ -496,11 +496,6 @@
           "icon": "appliance"
         },
         {
-          "id": "Secadoras de pelo",
-          "name": "Secadoras de pelo",
-          "icon": "appliance"
-        },
-        {
           "id": "Planchas",
           "name": "Planchas",
           "icon": "appliance"
@@ -3355,9 +3350,9 @@
       "maxShip": 83
     },
     "Refacciones": {
-      "n": 5276,
+      "n": 5277,
       "subs": {
-        "Refacciones para electrodomésticos": 50,
+        "Refacciones para electrodomésticos": 51,
         "Refacciones para patinetas y bicicletas eléctricas": 73,
         "Refacciones para autos y motos": 5016,
         "Bombas y motores": 137
@@ -3514,7 +3509,7 @@
       "maxShip": 75
     },
     "Aparatos de belleza": {
-      "n": 2519,
+      "n": 2539,
       "subs": {
         "Faciales": 58,
         "Estilizadores y afeitado": 34,
@@ -3526,13 +3521,13 @@
         "Masajeadores": 174,
         "Pelucas y extensiones": 24,
         "Depilación": 16,
-        "Secadoras de cabello": 126,
+        "Secadoras de cabello": 146,
         "Planchas y rizadores": 41,
         "Estilizadores": 5
       },
-      "discounted": 2118,
+      "discounted": 2133,
       "max": 79,
-      "discountedShip": 2124,
+      "discountedShip": 2139,
       "maxShip": 79
     },
     "Movilidad eléctrica": {
@@ -3637,7 +3632,7 @@
       "maxShip": 68
     },
     "Electrodomésticos": {
-      "n": 3047,
+      "n": 3026,
       "subs": {
         "Robots limpiacristales": 46,
         "Purificadores de agua": 38,
@@ -3645,7 +3640,6 @@
         "Otros": 24,
         "Pequeños electrodomésticos de cocina": 419,
         "Planchas": 144,
-        "Secadoras de pelo": 21,
         "Freidoras de aire": 190,
         "Máquinas de coser": 61,
         "Estufas y hornos": 811,
@@ -3655,9 +3649,9 @@
         "Calentadores de agua": 237,
         "Vaporizadores de ropa": 5
       },
-      "discounted": 2052,
+      "discounted": 2037,
       "max": 80,
-      "discountedShip": 2057,
+      "discountedShip": 2042,
       "maxShip": 80
     },
     "Bocinas": {
