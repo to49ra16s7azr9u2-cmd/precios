@@ -288,7 +288,7 @@
     { key: "storageType", facetField: "storage_type", categories: ["Laptops", "Tabletas", "Computadoras de escritorio", "Almacenamiento"], label: "Tipo de almacenamiento", groupEl: "filterStorageTypeGroup", listEl: "filterStorageType", format: (v) => STORAGE_TYPE_LABELS[v] || v },
     { key: "screen", facetField: "screen_in", categories: ["Celulares", "Laptops", "Tabletas", "Monitores", "Televisores"], label: "Tamaño de pantalla", groupEl: "filterScreenGroup", listEl: "filterScreen", sortNum: true, format: formatScreenIn },
     { key: "refresh", facetField: "refresh_hz", categories: ["Celulares", "Laptops", "Monitores"], label: "Frecuencia de actualización", groupEl: "filterRefreshGroup", listEl: "filterRefresh", sortNum: true, format: (v) => `${v} Hz` },
-    { key: "resolution", facetField: "resolution", categories: ["Monitores", "Televisores"], label: "Resolución", groupEl: "filterResolutionGroup", listEl: "filterResolution", format: (v) => v },
+    { key: "resolution", facetField: "resolution", categories: ["Monitores", "Televisores", "Proyectores y accesorios"], label: "Resolución", groupEl: "filterResolutionGroup", listEl: "filterResolution", format: (v) => v },
     { key: "panelType", facetField: "panel_type", categories: ["Monitores"], label: "Tipo de panel", groupEl: "filterPanelTypeGroup", listEl: "filterPanelType", format: (v) => v },
     { key: "curved", facetField: "curved", categories: ["Monitores"], label: "Curvatura", groupEl: "filterCurvedGroup", listEl: "filterCurved", format: () => "Curvo" },
     { key: "network", facetField: "network_gen", categories: ["Celulares", "Tabletas"], label: "Red móvil", groupEl: "filterNetworkGroup", listEl: "filterNetwork", format: (v) => NETWORK_LABELS[v] || v },
@@ -309,7 +309,7 @@
     { key: "ageRating", facetField: "age_rating", categories: ["Videojuegos"], label: "Edad recomendada", groupEl: "filterAgeRatingGroup", listEl: "filterAgeRating", format: (v) => v },
     { key: "rimSize", facetField: "rim_size", categories: ["Autos, bicicletas y motos"], label: "Medida de rin", groupEl: "filterRimSizeGroup", listEl: "filterRimSize", format: (v) => v },
     { key: "wheelSize", facetField: "wheel_size", categories: ["Autos, bicicletas y motos"], label: "Rodada", groupEl: "filterWheelSizeGroup", listEl: "filterWheelSize", format: (v) => v },
-    { key: "fuel", facetField: "fuel", categories: ["Electrodomésticos"], label: "Funciona con", groupEl: "filterFuelGroup", listEl: "filterFuel", format: (v) => v },
+    { key: "fuel", facetField: "fuel", categories: ["Electrodomésticos", "Climatización"], label: "Funciona con", groupEl: "filterFuelGroup", listEl: "filterFuel", format: (v) => v },
     { key: "burners", facetField: "burners", categories: ["Electrodomésticos"], label: "Número de quemadores", groupEl: "filterBurnersGroup", listEl: "filterBurners", sortNum: true, format: (v) => v },
     { key: "gender", facetField: "gender", categories: ["Joyería y bisutería"], label: "Para quién", groupEl: "filterGenderGroup", listEl: "filterGender", format: (v) => v },
     { key: "toolType", facetField: "tool_type", categories: ["Herramientas"], label: "Tipo de herramienta", groupEl: "filterToolTypeGroup", listEl: "filterToolType", format: (v) => v },
@@ -319,6 +319,18 @@
     { key: "compatModel", facetField: "compat_model", categories: ["Refacciones"], multi: true, label: "Compatible con", groupEl: "filterCompatModelGroup", listEl: "filterCompatModel", format: (v) => v },
     { key: "compatYear", facetField: "compat_year", categories: ["Refacciones"], multi: true, label: "Año del modelo", groupEl: "filterCompatYearGroup", listEl: "filterCompatYear", sortNum: true, format: (v) => v },
     { key: "battery", facetField: "battery_mah", categories: ["Celulares", "Tabletas"], label: "Batería", groupEl: "filterBatteryGroup", listEl: "filterBattery", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} mAh` },
+    // Hogar: un campo por decisión de compra (ver _hogar_facets en
+    // scripts/compute_facets.py). La categoría decide qué significa el
+    // número: 1,500 W es un calefactor de recámara y una licuadora de hielo.
+    { key: "powerW", facetField: "power_w", categories: ["Bocinas", "Electrodomésticos", "Climatización", "Aspiradoras"], label: "Potencia", groupEl: "filterPowerWGroup", listEl: "filterPowerW", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} W` },
+    { key: "liters", facetField: "liters", categories: ["Electrodomésticos"], label: "Capacidad", groupEl: "filterLitersGroup", listEl: "filterLiters", sortNum: true, format: (v) => `${v} L` },
+    { key: "cups", facetField: "cups", categories: ["Cafeteras"], label: "Tazas", groupEl: "filterCupsGroup", listEl: "filterCups", sortNum: true, format: (v) => `${v} tazas` },
+    { key: "services", facetField: "services", categories: ["Electrodomésticos"], label: "Servicios", groupEl: "filterServicesGroup", listEl: "filterServices", sortNum: true, format: (v) => `${v} servicio${v === 1 ? "" : "s"}` },
+    { key: "batteryH", facetField: "battery_h", categories: ["Bocinas", "Audífonos"], label: "Duración de la batería", groupEl: "filterBatteryHGroup", listEl: "filterBatteryH", sortNum: true, format: (v) => `${v} h` },
+    { key: "hoodCm", facetField: "hood_cm", categories: ["Electrodomésticos"], label: "Ancho de la campana", groupEl: "filterHoodCmGroup", listEl: "filterHoodCm", sortNum: true, format: (v) => `${v} cm` },
+    { key: "heaterType", facetField: "heater_type", categories: ["Electrodomésticos"], label: "Tipo de calentador", groupEl: "filterHeaterTypeGroup", listEl: "filterHeaterType", format: (v) => v },
+    { key: "chairType", facetField: "chair_type", categories: ["Muebles"], label: "Tipo de silla", groupEl: "filterChairTypeGroup", listEl: "filterChairType", format: (v) => v },
+    { key: "multifunction", facetField: "multifunction", categories: ["Impresoras"], label: "Funciones", groupEl: "filterMultifunctionGroup", listEl: "filterMultifunction", format: (v) => v },
   ];
 
   function buildSpecFilterState() {
@@ -459,6 +471,24 @@
     filterCamera: document.getElementById("filterCamera"),
     filterBatteryGroup: document.getElementById("filterBatteryGroup"),
     filterBattery: document.getElementById("filterBattery"),
+    filterPowerWGroup: document.getElementById("filterPowerWGroup"),
+    filterPowerW: document.getElementById("filterPowerW"),
+    filterLitersGroup: document.getElementById("filterLitersGroup"),
+    filterLiters: document.getElementById("filterLiters"),
+    filterCupsGroup: document.getElementById("filterCupsGroup"),
+    filterCups: document.getElementById("filterCups"),
+    filterServicesGroup: document.getElementById("filterServicesGroup"),
+    filterServices: document.getElementById("filterServices"),
+    filterBatteryHGroup: document.getElementById("filterBatteryHGroup"),
+    filterBatteryH: document.getElementById("filterBatteryH"),
+    filterHoodCmGroup: document.getElementById("filterHoodCmGroup"),
+    filterHoodCm: document.getElementById("filterHoodCm"),
+    filterHeaterTypeGroup: document.getElementById("filterHeaterTypeGroup"),
+    filterHeaterType: document.getElementById("filterHeaterType"),
+    filterChairTypeGroup: document.getElementById("filterChairTypeGroup"),
+    filterChairType: document.getElementById("filterChairType"),
+    filterMultifunctionGroup: document.getElementById("filterMultifunctionGroup"),
+    filterMultifunction: document.getElementById("filterMultifunction"),
     specsBannerLink: document.getElementById("specsBannerLink"),
     subcatPicker: document.getElementById("subcatPicker"),
     subcatGrid: document.getElementById("subcatGrid"),
@@ -4180,6 +4210,196 @@
         ],
       },
     ],
+    // ---- Hogar: electrodomésticos, audio, muebles, impresoras ----
+    // Mismo contrato que arriba: cada eje es UN campo de facets que la
+    // tienda escribió, la tarjeta dice el corte y la línea de uso orienta
+    // sobre el rango. Los cortes salen de la distribución real del
+    // catálogo (ver el dry-run de compute_facets.py), no de un ideal.
+    "Proyectores y accesorios": [
+      {
+        key: "level", label: "Nivel", field: "resolution", criterion: "por resolución",
+        tiers: [
+          { id: "bajo", name: "Básico", use: "Películas casuales en un cuarto oscuro", spec: "HD (720p)", match: (v) => v === "HD" || v === "HD+" },
+          { id: "medio", name: "Intermedio", use: "Series y juegos con buena nitidez", spec: "Full HD", match: (v) => ["FHD", "WFHD", "QHD"].includes(v) },
+          { id: "alto", name: "Alto", use: "Cine en casa al máximo detalle", spec: "4K y 8K", match: (v) => ["4K UHD", "8K UHD"].includes(v) },
+        ],
+      },
+    ],
+    Aspiradoras: [
+      {
+        key: "level", label: "Potencia", field: "power_w", criterion: "en watts",
+        tiers: [
+          { id: "baja", name: "Ligera", use: "De mano, escoba y limpieza rápida", spec: "Hasta 400 W", match: (v) => v <= 400 },
+          { id: "media", name: "Media", use: "Alfombras y limpieza de toda la casa", spec: "401 a 1,000 W", match: (v) => v > 400 && v <= 1000 },
+          { id: "alta", name: "Alta", use: "De tanque, agua y polvo, uso rudo", spec: "Más de 1,000 W", match: (v) => v > 1000 },
+        ],
+      },
+    ],
+    Cafeteras: [
+      {
+        key: "level", label: "Tamaño", field: "cups", criterion: "por tazas",
+        tiers: [
+          { id: "chica", name: "Chica", use: "Una o dos personas", spec: "Hasta 6 tazas", match: (v) => v <= 6 },
+          { id: "mediana", name: "Mediana", use: "Para la familia", spec: "7 a 14 tazas", match: (v) => v > 6 && v <= 14 },
+          { id: "grande", name: "Grande", use: "Oficina, reuniones y negocio", spec: "15 tazas o más", match: (v) => v > 14 },
+        ],
+      },
+    ],
+    "Electrodomésticos/Estufas y hornos": [
+      {
+        key: "level", label: "Tamaño", field: "burners", criterion: "por quemadores",
+        tiers: [
+          { id: "compacta", name: "Compacta", use: "Parrilla o cocina chica", spec: "1 o 2 quemadores", match: (v) => Number(v) <= 2 },
+          { id: "estandar", name: "Estándar", use: "Cocina de todos los días", spec: "3 o 4 quemadores", match: (v) => Number(v) >= 3 && Number(v) <= 4 },
+          { id: "grande", name: "Grande", use: "Familia grande, varias ollas a la vez", spec: "5 quemadores o más", match: (v) => Number(v) >= 5 },
+        ],
+      },
+      {
+        key: "size", label: "Funciona con", field: "fuel", criterion: "según la instalación de la casa", ramp: false,
+        tiers: [
+          { id: "lp", name: "Gas LP", use: "Tanque o estacionario", spec: "Gas LP", match: (v) => /^gas lp/i.test(v) },
+          { id: "natural", name: "Gas natural", use: "Toma de la calle", spec: "Gas natural", match: (v) => /^gas natural/i.test(v) },
+          { id: "electrica", name: "Eléctrica", use: "Solo enchufe, sin gas", spec: "Electricidad", match: (v) => /^electricidad$/i.test(v) },
+        ],
+      },
+    ],
+    "Electrodomésticos/Campanas de cocina": [
+      {
+        key: "level", label: "Tamaño", field: "hood_cm", criterion: "por ancho",
+        tiers: [
+          { id: "chica", name: "Chica", use: "Estufa de 4 quemadores", spec: "Hasta 60 cm", match: (v) => v <= 65 },
+          { id: "mediana", name: "Mediana", use: "Estufa de 30 pulgadas, la más común", spec: "70 a 80 cm", match: (v) => v > 65 && v <= 85 },
+          { id: "grande", name: "Grande", use: "Estufa de 36 pulgadas o isla", spec: "90 cm o más", match: (v) => v > 85 },
+        ],
+      },
+    ],
+    "Electrodomésticos/Microondas": [
+      {
+        key: "level", label: "Tamaño", field: "liters", criterion: "por capacidad",
+        tiers: [
+          { id: "chico", name: "Chico", use: "Calentar y descongelar", spec: "Hasta 22 L (0.7 pies)", match: (v) => v <= 22 },
+          { id: "mediano", name: "Mediano", use: "Platos grandes, para la familia", spec: "23 a 34 L (1.1 pies)", match: (v) => v > 22 && v <= 34 },
+          { id: "grande", name: "Grande", use: "Con grill o convección, cocina completa", spec: "35 L o más (1.4 pies)", match: (v) => v > 34 },
+        ],
+      },
+    ],
+    "Electrodomésticos/Freidoras de aire": [
+      {
+        key: "level", label: "Tamaño", field: "liters", criterion: "por capacidad",
+        tiers: [
+          { id: "chica", name: "Chica", use: "Una o dos personas", spec: "Hasta 4 L", match: (v) => v <= 4 },
+          { id: "mediana", name: "Mediana", use: "Familia de 3 o 4", spec: "4.1 a 7 L", match: (v) => v > 4 && v <= 7 },
+          { id: "grande", name: "Grande", use: "Doble cesta u horno, para reuniones", spec: "Más de 7 L", match: (v) => v > 7 },
+        ],
+      },
+    ],
+    "Electrodomésticos/Licuadoras y extractores": [
+      {
+        key: "level", label: "Potencia", field: "power_w", criterion: "en watts",
+        tiers: [
+          { id: "baja", name: "Básica", use: "Licuados, salsas y batidos", spec: "Hasta 500 W", match: (v) => v <= 500 },
+          { id: "media", name: "Intermedia", use: "Hielo y uso de todos los días", spec: "501 a 1,000 W", match: (v) => v > 500 && v <= 1000 },
+          { id: "alta", name: "Alta", use: "Alto rendimiento, cremas y hielo sin esfuerzo", spec: "Más de 1,000 W", match: (v) => v > 1000 },
+        ],
+      },
+    ],
+    "Electrodomésticos/Calentadores de agua": [
+      {
+        key: "level", label: "Tamaño", field: "services", criterion: "por servicios",
+        tiers: [
+          { id: "uno", name: "Un servicio", use: "Un baño a la vez", spec: "1 servicio", match: (v) => v <= 1 },
+          { id: "dos", name: "Dos servicios", use: "Dos baños o baño y cocina", spec: "1.5 a 2 servicios", match: (v) => v > 1 && v <= 2 },
+          { id: "tres", name: "Tres o más", use: "Casa grande, varios baños a la vez", spec: "3 servicios o más", match: (v) => v > 2 },
+        ],
+      },
+      {
+        key: "size", label: "Funciona con", field: "fuel", criterion: "según la instalación de la casa", ramp: false,
+        tiers: [
+          { id: "lp", name: "Gas LP", use: "Tanque o estacionario", spec: "Gas LP", match: (v) => /^gas lp/i.test(v) },
+          { id: "natural", name: "Gas natural", use: "Toma de la calle", spec: "Gas natural", match: (v) => /^gas natural/i.test(v) },
+          { id: "electrico", name: "Eléctrico", use: "Solo enchufe, sin gas", spec: "Electricidad", match: (v) => /^electricidad$/i.test(v) },
+        ],
+      },
+    ],
+    "Electrodomésticos/Lavavajillas": [
+      {
+        key: "level", label: "Tamaño", field: "services", criterion: "por servicios (juegos de cubiertos)",
+        tiers: [
+          { id: "chico", name: "Chico", use: "Una o dos personas", spec: "Hasta 12 servicios", match: (v) => v <= 12 },
+          { id: "mediano", name: "Mediano", use: "Familia de 3 o 4", spec: "13 o 14 servicios", match: (v) => v > 12 && v <= 14 },
+          { id: "grande", name: "Grande", use: "Familia grande y reuniones", spec: "15 servicios o más", match: (v) => v > 14 },
+        ],
+      },
+    ],
+    "Muebles/Sillas": [
+      {
+        key: "level", label: "Tipo", field: "chair_type", criterion: "según el nombre", ramp: false,
+        tiers: [
+          { id: "comedor", name: "Comedor", use: "Para la mesa de todos los días", spec: "Comedor", match: (v) => v === "Comedor" },
+          { id: "oficina", name: "Oficina", use: "Horas frente a la computadora", spec: "Oficina y ergonómica", match: (v) => v === "Oficina" },
+          { id: "gamer", name: "Gamer", use: "Respaldo alto, para jugar", spec: "Gamer", match: (v) => v === "Gamer" },
+          { id: "plegable", name: "Plegable", use: "Camping, playa y visitas", spec: "Plegable", match: (v) => v === "Plegable" },
+          { id: "sillon", name: "Sillón", use: "Descansar en la sala", spec: "Sillón y reclinable", match: (v) => v === "Sillón" },
+          { id: "alta", name: "Alta", use: "Barra o desayunador", spec: "Alta / bar", match: (v) => v === "Alta / bar" },
+          { id: "mecedora", name: "Mecedora", use: "Terraza o cuarto del bebé", spec: "Mecedora", match: (v) => v === "Mecedora" },
+        ],
+      },
+    ],
+    Bocinas: [
+      {
+        key: "level", label: "Potencia", field: "power_w", criterion: "en watts",
+        tiers: [
+          { id: "baja", name: "Personal", use: "Escritorio, regadera o mochila", spec: "Hasta 20 W", match: (v) => v <= 20 },
+          { id: "media", name: "Para la sala", use: "Reuniones y música en casa", spec: "21 a 100 W", match: (v) => v > 20 && v <= 100 },
+          { id: "alta", name: "Para fiesta", use: "Patio, jardín y karaoke", spec: "Más de 100 W", match: (v) => v > 100 },
+        ],
+      },
+      {
+        key: "size", label: "Batería", field: "battery_h", criterion: "por horas de uso",
+        tiers: [
+          { id: "corta", name: "Corta", use: "Una tarde", spec: "Hasta 8 horas", match: (v) => v <= 8 },
+          { id: "media", name: "Media", use: "Todo el día", spec: "9 a 15 horas", match: (v) => v > 8 && v <= 15 },
+          { id: "larga", name: "Larga", use: "Fin de semana sin cargar", spec: "16 horas o más", match: (v) => v > 15 },
+        ],
+      },
+    ],
+    Audífonos: [
+      {
+        key: "level", label: "Batería", field: "battery_h", criterion: "por horas de uso",
+        tiers: [
+          { id: "corta", name: "Corta", use: "Un día de uso", spec: "Hasta 8 horas", match: (v) => v <= 8 },
+          { id: "media", name: "Media", use: "Varios días sin cargar", spec: "9 a 30 horas", match: (v) => v > 8 && v <= 30 },
+          { id: "larga", name: "Larga", use: "Toda la semana", spec: "Más de 30 horas", match: (v) => v > 30 },
+        ],
+      },
+    ],
+    Impresoras: [
+      {
+        key: "level", label: "Funciones", field: "multifunction", criterion: "según la ficha", ramp: false,
+        tiers: [
+          { id: "solo", name: "Solo imprime", use: "Documentos y fotos, nada más", spec: "Solo impresión", match: (v) => v === "Solo impresión" },
+          { id: "multi", name: "Multifuncional", use: "Imprime, copia y escanea", spec: "Multifuncional", match: (v) => v === "Multifuncional" },
+        ],
+      },
+    ],
+    "Climatización/Calefactores": [
+      {
+        key: "level", label: "Potencia", field: "power_w", criterion: "en watts",
+        tiers: [
+          { id: "baja", name: "Baja", use: "Escritorio o baño", spec: "Hasta 1,000 W", match: (v) => v <= 1000 },
+          { id: "media", name: "Media", use: "Una recámara", spec: "1,001 a 1,500 W", match: (v) => v > 1000 && v <= 1500 },
+          { id: "alta", name: "Alta", use: "Sala o local", spec: "Más de 1,500 W", match: (v) => v > 1500 },
+        ],
+      },
+      {
+        key: "size", label: "Funciona con", field: "fuel", criterion: "según la instalación de la casa", ramp: false,
+        tiers: [
+          { id: "electrico", name: "Eléctrico", use: "Solo enchufe, sin gas", spec: "Electricidad", match: (v) => /^electricidad$/i.test(v) },
+          { id: "lp", name: "Gas LP", use: "Tanque o estacionario", spec: "Gas LP", match: (v) => /^gas lp/i.test(v) },
+          { id: "natural", name: "Gas natural", use: "Toma de la calle", spec: "Gas natural", match: (v) => /^gas natural/i.test(v) },
+        ],
+      },
+    ],
   };
 
   // Una línea por categoría para el encabezado del bloque. La genérica
@@ -4193,6 +4413,19 @@
     Almacenamiento: "Elige por cuánto necesitas guardar, no por la marca.",
     "Climatización/Aires acondicionados": "Elige por el cuarto que vas a enfriar: de más no enfría mejor.",
     "Climatización/Ventiladores": "Elige por dónde lo vas a poner.",
+    "Proyectores y accesorios": "Elige por dónde lo vas a proyectar y qué vas a ver.",
+    Cafeteras: "Elige por cuántas tazas sirves al día, no por la ficha técnica.",
+    "Electrodomésticos/Estufas y hornos": "Elige por cuánto cocinas y con qué gas cuenta tu casa.",
+    "Electrodomésticos/Campanas de cocina": "Elige por el ancho de tu estufa: la campana debe cubrirla.",
+    "Electrodomésticos/Microondas": "Elige por cuánta gente vive en casa, no por la ficha técnica.",
+    "Electrodomésticos/Freidoras de aire": "Elige por cuánta gente vive en casa, no por la ficha técnica.",
+    "Electrodomésticos/Calentadores de agua": "Elige por cuántos baños se usan a la vez y con qué gas cuenta tu casa.",
+    "Electrodomésticos/Lavavajillas": "Elige por cuánta gente vive en casa, no por la ficha técnica.",
+    "Muebles/Sillas": "Empieza por dónde la vas a usar.",
+    Bocinas: "Elige por dónde la vas a usar y cuánto tiempo sin enchufe.",
+    Audífonos: "Elige por cuánto aguantan sin cargar, no por la ficha técnica.",
+    Impresoras: "Elige por lo que necesitas hacer: solo imprimir, o también copiar y escanear.",
+    "Climatización/Calefactores": "Elige por el cuarto que vas a calentar y qué instalación tienes.",
   };
   const QUALITY_INTRO_DEFAULT = "Elige por lo que vas a hacer con él, no por la ficha técnica.";
 

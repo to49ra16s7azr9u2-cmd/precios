@@ -83,6 +83,10 @@ FACET_CATEGORIES = (
     "Refacciones", "Herramientas", "Bocinas",
     "Autos, bicicletas y motos", "Electrodomésticos", "Joyería y bisutería",
     "Cargadores y adaptadores",
+    # Hogar: lo que decide la compra es UN dato (tazas, litros, watts,
+    # horas de batería) y las tiendas lo escriben en el nombre o la ficha.
+    "Proyectores y accesorios", "Aspiradoras", "Cafeteras", "Audífonos",
+    "Impresoras",
 )
 
 _FOLDABLE_RE = re.compile(r"\bplegable\b|\bfold\b|\bflip\b")
@@ -278,6 +282,11 @@ SPEC_DIRECTAS = (
     # Con qué funciona la estufa: gas LP, natural o electricidad. Cambia si
     # se puede instalar en la casa, no es un detalle de ficha.
     ("Electrodomésticos", "Estufas y hornos", "emplea", "fuel"),
+    # Calentador y calefactor: mismo dato, misma etiqueta, misma razón.
+    ("Electrodomésticos", "Calentadores de agua", "emplea", "fuel"),
+    ("Climatización", "Calefactores", "emplea", "fuel"),
+    # Instantáneo, de paso o de depósito: cambia la instalación y el gasto.
+    ("Electrodomésticos", "Calentadores de agua", "tipo de boiler", "heater_type"),
     ("Joyería y bisutería", "Relojes", "genero", "gender", "_gender"),
     ("Videojuegos", "Software", "clasificacion", "age_rating", "_age"),
     ("Electrodomésticos", "Estufas y hornos", "numero de quemadores", "burners", "_burners"),
@@ -354,6 +363,97 @@ def _spec_directa(product, spec_map, f):
             f[campo] = val
 
 
+def _primero(fn, *fuentes):
+    """fn(texto) sobre la primera fuente que devuelva algo. Las fuentes van
+    en orden de confianza: el valor de la spec (ya etiquetado) antes que el
+    nombre (hay que interpretarlo)."""
+    for src in fuentes:
+        if not src:
+            continue
+        v = fn(src)
+        if v is not None:
+            return v
+    return None
+
+
+def _hogar_facets(product, name, spec_map, f):
+    """Facetas de las categorías del hogar (electrodomésticos, bocinas,
+    audífonos, cafeteras...). Un campo por decisión de compra, leído de la
+    ficha y si no del nombre; el rango plausible es por categoría porque
+    1,500 W es normal en un calefactor y absurdo en una bocina."""
+    category, sub = product.get("category"), product.get("subcategory")
+    watts = spec_map.get("potencia en watts")
+    if category == "Proyectores y accesorios" and sub == "Proyectores":
+        r = _primero(se.resolution_of, spec_map.get("calidad de la imagen"),
+                     spec_map.get("resolucion"), name)
+        if r:
+            f["resolution"] = r
+    elif category == "Aspiradoras":
+        w = _primero(lambda t: se.power_watts(t, 50, 3000), watts, name)
+        if w is not None:
+            f["power_w"] = w
+    elif category == "Cafeteras":
+        tazas = spec_map.get("capacidad en tazas", "").strip()
+        cups = int(tazas) if re.fullmatch(r"\d{1,3}", tazas) else None
+        if cups is None:
+            cups = _primero(se.cups_of, spec_map.get("capacidad"), name)
+        if cups:
+            f["cups"] = cups
+    elif category == "Audífonos":
+        h = _primero(se.battery_hours_of, spec_map.get("duracion de la bateria"), name)
+        if h is not None:
+            f["battery_h"] = h
+    elif category == "Impresoras" and sub != "Consumibles":
+        mf = se.multifunction_of(name, spec_map.get("escanea"))
+        if mf:
+            f["multifunction"] = mf
+    elif category == "Bocinas":
+        w = _primero(lambda t: se.power_watts(t, 1, 3000), watts, name)
+        if w is not None:
+            f["power_w"] = w
+        h = _primero(se.battery_hours_of, spec_map.get("duracion de la bateria"), name)
+        if h is not None:
+            f["battery_h"] = h
+    elif category == "Climatización" and sub == "Calefactores":
+        w = _primero(lambda t: se.power_watts(t, 100, 10000), watts, name)
+        if w is not None:
+            f["power_w"] = w
+    elif category == "Muebles" and sub == "Sillas":
+        tipo = se.chair_type_of(name)
+        if tipo:
+            f["chair_type"] = tipo
+    elif category == "Electrodomésticos":
+        if sub == "Campanas de cocina":
+            cm = _primero(se.hood_width_cm, name, spec_map.get("tamano en pulgadas"))
+            if cm is not None:
+                f["hood_cm"] = cm
+        elif sub == "Microondas":
+            litros = _primero(lambda t: se.liters_of(t, 10, 60, cubic_feet=True),
+                              spec_map.get("capacidad en litros"), spec_map.get("capacidad"),
+                              spec_map.get("capacidad en pies"), name)
+            if litros is not None:
+                f["liters"] = litros
+        elif sub == "Freidoras de aire":
+            litros = _primero(lambda t: se.liters_of(t, 1, 60, quarts=True),
+                              spec_map.get("capacidad"), name)
+            if litros is not None:
+                f["liters"] = litros
+        elif sub == "Licuadoras y extractores":
+            w = _primero(lambda t: se.power_watts(t, 100, 3000), watts, name)
+            if w is not None:
+                f["power_w"] = w
+        elif sub == "Calentadores de agua":
+            n = _primero(lambda t: se.services_of(t, 0.5, 20),
+                         spec_map.get("numero de servicios"), name)
+            if n is not None:
+                f["services"] = n
+        elif sub == "Lavavajillas":
+            n = _primero(lambda t: se.services_of(t, 4, 20),
+                         spec_map.get("numero de servicios"), name)
+            if n is not None:
+                f["services"] = n
+
+
 def facets_for(product):
     category = product.get("category")
     if category not in FACET_CATEGORIES:
@@ -367,6 +467,11 @@ def facets_for(product):
     # propias de cada categoría: varias de ellas devuelven ahí mismo (Muebles
     # es una), así que si esto fuera más abajo no llegaría nunca.
     _spec_directa(product, spec_map, f)
+    _hogar_facets(product, name, spec_map, f)
+
+    if category in ("Proyectores y accesorios", "Aspiradoras", "Cafeteras",
+                    "Audífonos", "Impresoras"):
+        return f or None
 
     if category == "Monitores":
         # Los monitores no tienen RAM/almacenamiento/tipo de almacenamiento

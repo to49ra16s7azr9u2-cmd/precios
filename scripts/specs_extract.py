@@ -697,7 +697,8 @@ _RESOLUTION_PATTERNS = (
     ("FHD", re.compile(r"\bfhd\b|\bfull\s*hd\b|\b1920\s*x\s*1080\b|\b1080p\b")),
     ("WSXGA+", re.compile(r"\bwsxga\+?\b|\b1680\s*x\s*1050\b")),
     ("HD+", re.compile(r"\bhd\+\b|\b1440\s*x\s*900\b")),
-    ("HD", re.compile(r"\bhd\b|\b1366\s*x\s*768\b|\b1280\s*x\s*720\b")),
+    # 720p y 1280x800 (WXGA) son los proyectores de entrada.
+    ("HD", re.compile(r"\bhd\b|\b1366\s*x\s*768\b|\b1280\s*x\s*720\b|\b720p\b|\b1280\s*x\s*800\b|\bwxga\b")),
 )
 
 
@@ -1150,3 +1151,182 @@ def charger_watts(name):
         return None
     v = next(iter(vals))
     return int(v) if v == int(v) else v
+
+
+# ---------- Hogar: electrodomésticos, bocinas, audífonos, muebles ----------
+#
+# Mismo criterio que el resto del archivo: cada función lee UN dato que la
+# tienda escribió (en el nombre o en el valor de una spec) y devuelve None
+# cuando el texto no lo dice o lo dice dos veces distinto. El rango
+# plausible lo pone quien llama, porque "1500 W" es normal en un calefactor
+# y absurdo en una bocina de escritorio.
+
+# "1,200 W", "1.200 W" (separador de miles) y "800 watts"/"1000 vatios".
+_HOME_WATTS_RE = re.compile(
+    r"(?<![\d.,])(\d{1,2}[.,]\d{3}|\d{1,5}(?:\.\d)?)\s*(?:w\b|watts?\b|vatios\b)"
+)
+
+
+def power_watts(text, lo, hi):
+    """Potencia en watts dentro de [lo, hi], o None. Dos potencias
+    distintas en el mismo texto ("motor 1200 W, calentador 800 W") no se
+    resuelven."""
+    n = _norm(text or "")
+    vals = set()
+    for m in _HOME_WATTS_RE.finditer(n):
+        raw = m.group(1)
+        if re.fullmatch(r"\d{1,2}[.,]\d{3}", raw):
+            raw = raw.replace(".", "").replace(",", "")
+        try:
+            v = float(raw)
+        except ValueError:
+            continue
+        if lo <= v <= hi:
+            vals.add(v)
+    if len(vals) != 1:
+        return None
+    v = next(iter(vals))
+    return int(v) if v == int(v) else v
+
+
+# "6 L", "7.5 lts", "1,5 litros". Excluye "L/min" (caudal de un calentador
+# de paso) y "105 L x 75 Al" (el largo de un mueble).
+_LITERS_RE = re.compile(
+    r"(?<![\d.,])(\d{1,3}(?:[.,]\d{1,2})?)\s*(?:l\b|lts?\b|litros?\b)(?!\s*/|\s*x\b)"
+)
+_QUARTS_RE = re.compile(r"(?<![\d.,])(\d{1,2}(?:[.,]\d{1,2})?)\s*(?:qt\b|quarts?\b|cuartos?\b)")
+_CUBIC_FT_RE = re.compile(r"(?<![\d.,])(\d(?:[.,]\d{1,2})?)\s*(?:pies|ft|cu\s?ft|p3|cuft)")
+
+
+def liters_of(text, lo, hi, quarts=False, cubic_feet=False):
+    """Capacidad en litros dentro de [lo, hi], o None. Con quarts=True
+    acepta "6 cuartos"/"8qt" (freidoras de aire, 0.946 L cada uno) y con
+    cubic_feet=True "1.1 pies cúbicos" (microondas, 28.3 L cada uno)."""
+    n = _norm(text or "").replace(",", ".")
+    vals = set()
+    for m in _LITERS_RE.finditer(n):
+        vals.add(float(m.group(1)))
+    if not vals and quarts:
+        for m in _QUARTS_RE.finditer(n):
+            vals.add(round(float(m.group(1)) * 0.946, 1))
+    if not vals and cubic_feet:
+        for m in _CUBIC_FT_RE.finditer(n):
+            vals.add(round(float(m.group(1)) * 28.3))
+    vals = {v for v in vals if lo <= v <= hi}
+    if len(vals) != 1:
+        return None
+    v = next(iter(vals))
+    return int(v) if v == int(v) else v
+
+
+_CUPS_RE = re.compile(r"(?<![\d.,])(\d{1,3})\s*(?:tazas?\b|tz\b)")
+
+
+def cups_of(text):
+    """Tazas de una cafetera (1-200), o None."""
+    n = _norm(text or "")
+    vals = {int(m.group(1)) for m in _CUPS_RE.finditer(n)}
+    vals = {v for v in vals if 1 <= v <= 200}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+_SERVICES_RE = re.compile(r"(?<![\d.,])(\d{1,2}(?:[.,]5)?)\s*servicios?\b")
+
+
+def services_of(text, lo, hi):
+    """Servicios (regaderas de un calentador, cubiertos de un
+    lavavajillas). Acepta el número solo, como lo escribe la ficha ("1.5"),
+    o "2 servicios" dentro del nombre."""
+    n = _norm(text or "").strip().replace(",", ".")
+    if re.fullmatch(r"\d{1,2}(?:\.\d)?", n):
+        vals = {float(n)}
+    else:
+        vals = {float(m.group(1)) for m in _SERVICES_RE.finditer(n)}
+    vals = {v for v in vals if lo <= v <= hi}
+    if len(vals) != 1:
+        return None
+    v = next(iter(vals))
+    return int(v) if v == int(v) else v
+
+
+# "20 horas", "24h", "6.5 hrs". "60 Hz" y "2.4 GHz" no entran: la h no
+# termina palabra.
+_HOURS_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d)?)\s*(?:h\b|hrs?\b|horas?\b)")
+
+
+def battery_hours_of(text):
+    """Horas de batería (1-150), o None. Dos cifras distintas ("8 h con
+    ANC, 12 h sin") no se resuelven."""
+    n = _norm(text or "").replace(",", ".")
+    vals = {float(m.group(1)) for m in _HOURS_RE.finditer(n)}
+    vals = {v for v in vals if 1 <= v <= 150}
+    if len(vals) != 1:
+        return None
+    v = next(iter(vals))
+    return int(v) if v == int(v) else v
+
+
+_CM_RE = re.compile(r"(?<![\d.,])(\d{2,3})\s*cms?\b")
+_INCH_RE = re.compile(r"(?<![\d.,])(\d{2}(?:\.\d)?)\s*(?:\"|''|pulgadas|pulg\b|in\b)")
+
+
+_HOOD_LARGO_RE = re.compile(r"largo:\s*(\d{2}(?:\.\d)?)")
+
+
+def hood_width_cm(text):
+    """Ancho de una campana de cocina en cm (40-150), o None. La ficha lo da
+    a veces en pulgadas: "30" a secas, o 'Alto:19.6", Largo:29.9", ...'
+    donde el ancho de la campana es el "Largo"; 76 cm es una de 30"."""
+    n = _norm(text or "").strip()
+    if re.fullmatch(r"\d{2}(?:\.\d{1,2})?", n):
+        vals = {round(float(n) * 2.54)}
+    elif _HOOD_LARGO_RE.search(n):
+        vals = {round(float(_HOOD_LARGO_RE.search(n).group(1)) * 2.54)}
+    else:
+        vals = {int(m.group(1)) for m in _CM_RE.finditer(n)}
+        if not vals:
+            vals = {round(float(m.group(1)) * 2.54) for m in _INCH_RE.finditer(n)}
+    vals = {v for v in vals if 40 <= v <= 150}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+# El orden importa: "silla gamer de oficina" es gamer, "silla plegable de
+# camping" es plegable. Comedor y oficina van al final porque son las
+# palabras que más se cuelan en nombres de otros tipos.
+_CHAIR_TYPES = (
+    ("Gamer", re.compile(r"\bgamer\b|\bgaming\b|videojuegos")),
+    ("Mecedora", re.compile(r"mecedora")),
+    ("Alta / bar", re.compile(r"\bbar\b|periquera|\bbanco alto\b")),
+    ("Plegable", re.compile(r"\bplegable\b|\bcamping\b|\bplaya\b")),
+    ("Sillón", re.compile(r"\bsillon\b|reclinable|\bpuff\b")),
+    ("Comedor", re.compile(r"\bcomedor\b")),
+    ("Oficina", re.compile(r"\boficina\b|ejecutiv|ergonomic|\bescritorio\b|multipostura")),
+)
+
+
+def chair_type_of(name):
+    """Tipo de silla según el nombre, o None si no dice ninguno."""
+    n = _norm(name or "")
+    for label, rx in _CHAIR_TYPES:
+        if rx.search(n):
+            return label
+    return None
+
+
+_MULTI_RE = re.compile(
+    r"multifuncional|todo en uno|all[- ]in[- ]one|escanea|imprime.{0,15}copia|"
+    r"\b3 en 1\b|copiadora|\bmfp\b|\bmfc\b|\bdcp\b"
+)
+
+
+def multifunction_of(name, scans_spec=None):
+    """"Multifuncional" si imprime, copia y escanea; "Solo impresión" si la
+    ficha dice que no escanea; None si no se sabe."""
+    if _MULTI_RE.search(_norm(name or "")):
+        return "Multifuncional"
+    v = _norm(scans_spec or "").strip()
+    if re.match(r"s[i]\b", v):
+        return "Multifuncional"
+    if re.match(r"no\b", v) and not re.match(r"no (especificado|aplica)", v):
+        return "Solo impresión"
+    return None
