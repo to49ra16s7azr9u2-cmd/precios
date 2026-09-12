@@ -6,16 +6,21 @@ enfriadores, RAM y la cola de la búsqueda "periféricos", que Amazon rellenó
 con seguros Assurant, catéteres y espadas de utilería; la segunda tanda
 trajo mini PC, all-in-one y escritorios de oficina, y la tercera Mac mini,
 soportes para mini PC, un monitor portátil y una MacBook; la cuarta,
-televisores; la quinta, pantallas de proyección, y la sexta, lavadoras.
-Este script la reparte entre "Componentes y accesorios de PC",
-"Videojuegos / Accesorios", "Computadoras de escritorio",
+televisores; la quinta, pantallas de proyección; la sexta, lavadoras, y la
+séptima, aspiradoras. Este script la reparte entre "Componentes y accesorios
+de PC", "Videojuegos / Accesorios", "Computadoras de escritorio",
 "Muebles / Escritorios", "Monitores", "Laptops", "Televisores",
-"Proyectores y accesorios" y "Lavadoras".
+"Proyectores y accesorios", "Lavadoras" y "Aspiradoras".
 
 La captura de lavadoras llega casi entera de accesorios: de 64 anuncios,
 la mayoría son fundas, pastillas de limpieza y refacciones (interruptores
 de tapa, filtros de pelusa, juegos de suspensión, mangueras). El aparato
 mismo son 22.
+
+La de aspiradoras, al revés, llega casi entera de aparatos: 28 anuncios, y
+solo se cuelan un kit de limpieza de ductos, un soporte para Dyson, una
+licuadora y un anuncio sin título. Los dos accesorios no se descartan: el
+catálogo ya tiene "Aspiradoras / Accesorios y repuestos" para ellos.
 
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
@@ -90,7 +95,11 @@ CABECERA = [
  (re.compile(r'protector (de )?pantalla|bisel ahuecado|keyboard skin|'
              r'cubierta (deslizante|de camara|camara web|webcam|universal)|webcam cover|'
              r'obturador de privacidad|tapa de privacidad'), 'accesorio: protector/cubierta'),
- (re.compile(r'limpiador|kit de limpieza|kit limpiador'), 'kit de limpieza, no es el aparato'),
+ # Salvo cuando el título abre nombrando el aparato: "Aspiradora de Agua,
+ # Limpiador de Tapicería" es una aspiradora, y el catálogo ya trae la
+ # limpiadora de tapicería Teendow C6 MAX en Aspiradoras.
+ (re.compile(r'^(?!aspirador)(?=.*(?:limpiador|kit de limpieza|kit limpiador))'),
+  'kit de limpieza, no es el aparato'),
  # Solo al principio: una pantalla de proyección motorizada "con control
  # remoto" lo trae de accesorio.
  (re.compile(r'control remoto'), 'control remoto de repuesto, no es el aparato'),
@@ -122,6 +131,11 @@ REGLAS = [
  # que el catálogo ya trae (Koblenz SCK-60, HKPRO HK-37) sin subcategoría
  # porque su título tampoco dice "secadora".
  (re.compile(r'\blavadora|\blava\w*secadora|\bcentrifugadora'), ('Lavadoras', None, 'washer')),
+ # Aspiradoras: el título siempre nombra el aparato ("aspiradora", "aspirador",
+ # "robot aspirador", "shop vac"). La licuadora que Amazon metió en la sección
+ # se va a su categoría de siempre, no a Aspiradoras.
+ (re.compile(r'\blicuadora'), ('Electrodomésticos', 'Licuadoras y extractores', 'blender')),
+ (re.compile(r'\baspirador|shop vac|wet/?dry shop'), ('Aspiradoras', None, 'vacuum')),
  (re.compile(r'computadora escritorio (completa|amd|intel)|pc gamer factor'),
   ('Computadoras de escritorio', 'Torre / Escritorio', 'desktop')),
  # Solo si "laptop" abre el título: "power bank para laptop" y "soporte para
@@ -193,6 +207,16 @@ REGLAS = [
 
 # Anuncios que ninguna regla decide bien; cada uno leído a mano.
 EXPLICITOS = {
+ # El título abre como kit de limpieza y por eso CABECERA lo tira, pero lo
+ # que se vende es la boquilla que se le pone a la aspiradora para limpiar
+ # el ducto de la secadora. El catálogo ya tiene dónde ponerlo.
+ "B0H512VSLK": (None, 'Aspiradoras', 'Accesorios y repuestos', 'vacuum'),
+ # Karcher VC3, WD3 y KWD1: el título no dice de qué tipo son, pero el catálogo
+ # ya trae estos mismos modelos ("Karcher De Tanque Vc3", "Karcher Agua Polvo
+ # Sopladora Wd2", "Karcher Wdl1 Solidos Y Liquidos") en el cajón de tanque.
+ "B0D212FFVF": ("KARCHER", 'Aspiradoras', 'Industriales y de tanque', 'vacuum'),
+ "B0B45DV64T": ("KARCHER", 'Aspiradoras', 'Industriales y de tanque', 'vacuum'),
+ "B0BWG91V1T": ("KARCHER", 'Aspiradoras', 'Industriales y de tanque', 'vacuum'),
  "B0FGDYJJQQ": ("XTREME PC GAMING", 'Computadoras de escritorio', 'Torre / Escritorio', 'desktop'),
  "B0GM3C1186": ("PRIDE GAMING", 'Computadoras de escritorio', 'Torre / Escritorio', 'desktop'),
  "B0CWV9NFZX": ("HUAWEI", 'Celulares', 'Android', 'phone'),
@@ -249,7 +273,13 @@ MARCAS = ["CUKTECH","INIU","DEWALT","1 HORA","SELECT SOUND","AIWA","STF","LOGITE
  "ACROS","PANASONIC","GUTSTARK","GIANTEX","MEDIMALL","COSTWAY","ZYNKEZ","PATAKU",
  "ERIVESS","ZENY","SERENELIFE","PUCHEN","POCREATION","TOPINCN","AYNEFY","HAOFY",
  "ZJCHAO","JTLB","KIMISS","LUOCUTE","ARAMOX","FILFEEL","KADIMENDIUM","HOMSFOU"]
-ALIAS = {"THERMALRLGHT": "THERMALRIGHT", "WHITE-WESTINGHOUSE": "WHITE WESTINGHOUSE"}
+MARCAS += ["CRAFTSMAN","SHARK","KARCHER","KÄRCHER","ROBOROCK","BISSELL","EUREKA",
+ "TRUPER","BLACK+DECKER","VEVOR","TRENT","MASTERBLEND"]
+
+# "Kärcher" y "Karcher" son la misma marca: marca() pasa a mayúsculas pero no
+# quita acentos, así que hay que nombrar las dos.
+ALIAS = {"THERMALRLGHT": "THERMALRIGHT", "WHITE-WESTINGHOUSE": "WHITE WESTINGHOUSE",
+         "KÄRCHER": "KARCHER"}
 
 def marca(t):
     cab = t[:45].upper()
@@ -294,6 +324,29 @@ def sub_lavadora(tn):
     if re.search(r'^secadora', tn): return 'Secadoras'
     return None
 
+def sub_aspiradora(tn):
+    # El orden es el que manda. Un accesorio primero: el soporte y el kit de
+    # ductos también dicen "aspiradora", pero lo que se vende es la pieza.
+    if re.search(r'^(kit|filtro|bolsa|cepillo|bateria|cargador|manguera|'
+                 r'\d+ ?(piezas?|unidades?|pack))\b|'
+                 # "VEVOR - Soporte de aspiradora": la marca va delante, así que
+                 # estas van sin ancla.
+                 r'soporte (de|para) aspirador|accesorio de aspiradora|'
+                 r'repuesto para aspiradora', tn):
+        return 'Accesorios y repuestos'
+    if re.search(r'robot aspirador|aspiradora robot|robot aspirador?a', tn):
+        return 'Robots aspiradores'
+    # Tanque, taller y agua/polvo: la Karcher VC3 y la shop vac del catálogo
+    # ya están aquí, y la Koblenz "Canister" es lo mismo con otro nombre.
+    if re.search(r'canister|de tanque|shop vac|seco *[-y]* *(humedo|mojado)|'
+                 r'humedo/?seco|seco/?humedo|agua y polvo|solidos y liquidos|'
+                 r'galones|wet/?dry|sopladora', tn):
+        return 'Industriales y de tanque'
+    # El resto es la aspiradora de casa. El catálogo mete aquí también las de
+    # cable (Atrix ERGO Lite, SIPPON vertical), así que el nombre de la
+    # subcategoría se queda corto pero la convención ya está tomada.
+    return 'Inalámbricas y de mano'
+
 def sub_audio(tn):
     diadema = bool(re.search(r'diadema|over[- ]ear|on[- ]ear', tn))
     earbud = bool(re.search(r'in[- ]ear|earbud|tws|true wireless', tn))
@@ -325,6 +378,7 @@ for it in json.load(io.open(sys.argv[1], encoding='utf-8')):
     elif cat == 'Televisores': sub = sub_tv(tn)
     elif cat == 'Audífonos': sub = sub_audio(tn)
     elif cat == 'Lavadoras': sub = sub_lavadora(tn)
+    elif cat == 'Aspiradoras': sub = sub_aspiradora(tn)
     alta.append({**base, 'brand': marca(it['title']), 'category': cat,
                  'subcategory': sub, 'image': img})
 
