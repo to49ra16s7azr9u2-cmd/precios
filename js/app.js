@@ -133,6 +133,35 @@
     }
   }
 
+  // Campos que cambian de un día a otro en una publicación de Mercado Libre,
+  // normalizados igual que en scripts/refresh_prices.py (sellers_of): un
+  // precio tachado solo si supera al vigente, y la lista de vendedores solo
+  // cuando hay más de uno (con uno solo no hay filas que expandir).
+  function mlSellerUrl(itemId) {
+    const numeric = /^MLM/i.test(itemId) ? itemId.slice(3) : itemId;
+    return `https://articulo.mercadolibre.com.mx/MLM-${numeric}-_JM`;
+  }
+  function liveOfferFields(data) {
+    const price = data.price;
+    const sellers = (data.sellers || [])
+      .filter((s) => s && s.itemId && typeof s.price === "number" && s.price > 0)
+      .map((s) => {
+        const row = { itemId: s.itemId, price: s.price, url: mlSellerUrl(s.itemId) };
+        if (s.listPrice && s.listPrice > s.price) row.listPrice = s.listPrice;
+        if (s.shippingFee === 0) row.shippingFee = 0;
+        if (s.state) row.state = s.state;
+        if (s.official) row.official = true;
+        return row;
+      });
+    const lowest = data.lowestPrice;
+    return {
+      listPrice: data.priceOriginal && data.priceOriginal > price ? data.priceOriginal : null,
+      sellerCount: typeof data.sellerCount === "number" && data.sellerCount > 0 ? data.sellerCount : null,
+      lowestPrice: typeof lowest === "number" && lowest < price ? lowest : null,
+      sellers: sellers.length > 1 ? sellers : null,
+    };
+  }
+
   async function fetchLiveOffer(storeId, product) {
     const cfg = LIVE_API_CONFIG[storeId];
     if (!cfg || !cfg.enabled || !cfg.proxyUrl) return null;
@@ -147,6 +176,15 @@
         storeId,
         price: data.price,
         url: data.url || "#",
+        // Lo mismo que guarda refresh_prices.py de la misma respuesta del
+        // Worker. Antes la oferta en vivo traía SOLO price/url/foto y se
+        // mezclaba sobre la guardada ({ ...guardada, ...viva }): el precio
+        // de la cabecera se actualizaba, pero listPrice, sellers y
+        // sellerCount se quedaban con lo del día anterior. Así, un iPhone 17
+        // cuya publicación ganadora Mercado Libre ya había retirado seguía
+        // mostrando esa fila ($15,015, "-35%", "Vendedor por defecto") con
+        // la ficha abierta y el dato fresco ya en mano.
+        ...liveOfferFields(data),
         // Foto real del producto publicada por la tienda. Solo llega por API;
         // el catálogo local no trae fotos (ver renderProductMedia).
         photo: data.photo || null,
@@ -181,15 +219,34 @@
     if (!cfg.enabled || !cfg.proxyUrl) return false;
     const variants = (product.colorVariants || []).slice(0, MAX_LIVE_VARIANTS);
     if (variants.length < 2) return false;
+    // Dos formatos de variante (ver purchaseOptions): la vieja ES la oferta
+    // (url/price/sellers sueltos) y la nueva trae sus propias offers[]. En
+    // las dos, lo que se refresca es el nodo que tiene la URL de catálogo.
+    const nodes = variants.flatMap((v) =>
+      mlCatalogId(v.url)
+        ? [{ node: v, url: v.url, query: v.mlQuery }]
+        : (v.offers || []).filter((o) => mlCatalogId(o.url)).map((o) => ({ node: o, url: o.url, query: v.mlQuery }))
+    );
+    if (!nodes.length) return false;
     const fresh = await Promise.all(
-      variants.map((v) => fetchLiveCatalogData(cfg, { url: v.url, query: v.mlQuery }))
+      nodes.map((n) => fetchLiveCatalogData(cfg, { url: n.url, query: n.query }))
     );
     let changed = false;
     fresh.forEach((data, i) => {
-      if (!data || !data.price || data.price === variants[i].price) return;
-      variants[i].price = data.price;
-      if (data.photo && !variants[i].photo) variants[i].photo = data.photo;
-      changed = true;
+      if (!data || !data.price) return;
+      const node = nodes[i].node;
+      // Vendedores, precio tachado y cantidad viajan con el precio: si solo
+      // se actualizara node.price, la fila del vendedor que ya no existe
+      // seguiría en la tabla con su precio viejo (ver liveOfferFields).
+      const fields = { price: data.price, ...liveOfferFields(data) };
+      Object.keys(fields).forEach((k) => {
+        const same = JSON.stringify(node[k] ?? null) === JSON.stringify(fields[k] ?? null);
+        if (same) return;
+        if (fields[k] === null) delete node[k];
+        else node[k] = fields[k];
+        changed = true;
+      });
+      if (data.photo && !node.photo) node.photo = data.photo;
     });
     return changed;
   }

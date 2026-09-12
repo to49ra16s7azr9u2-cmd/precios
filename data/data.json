@@ -2795,7 +2795,8 @@
         20,
         40
       ],
-      "shippingNote": "En AliExpress, el envío estándar suele ser gratis o de bajo costo en artículos ligeros (menos de 2 kg); varía por vendedor."
+      "shippingNote": "En AliExpress, el envío estándar suele ser gratis o de bajo costo en artículos ligeros (menos de 2 kg); varía por vendedor.",
+      "logoImg": "icons/stores/aliexpress.png"
     },
     {
       "id": "alibaba",
@@ -2807,7 +2808,8 @@
         20,
         45
       ],
-      "shippingNote": "En Alibaba el costo de envío varía mucho según el proveedor, el peso y el método -- suele cotizarse aparte del precio del producto."
+      "shippingNote": "En Alibaba el costo de envío varía mucho según el proveedor, el peso y el método -- suele cotizarse aparte del precio del producto.",
+      "logoImg": "icons/stores/alibaba.png"
     },
     {
       "id": "whirlpool",
@@ -2866,7 +2868,8 @@
       "typicalShippingDays": [
         3,
         10
-      ]
+      ],
+      "logoImg": "icons/stores/chedraui.png"
     },
     {
       "id": "marti",
@@ -2877,7 +2880,8 @@
       "typicalShippingDays": [
         3,
         8
-      ]
+      ],
+      "logoImg": "icons/stores/marti.png"
     }
   ],
   "detailChunkSize": 2000,

@@ -44,10 +44,13 @@ on:
         required: false
         default: "0"
       prune:
-        description: "Sacar del catálogo lo que ya no se vende"
+        # Apagado por decisión del sitio (ver README, "Qué NO hace"): un
+        # producto agotado o retirado se queda con su ficha y su historial de
+        # precios. Solo se enciende a mano, para una limpieza puntual.
+        description: "Sacar del catálogo lo que ya no se vende (normalmente NO)"
         type: boolean
         required: false
-        default: true
+        default: false
 
 permissions:
   contents: write
@@ -89,17 +92,18 @@ jobs:
           python3 scripts/sync_subcategories.py
 
       - name: Actualizar precios contra Mercado Libre
-        # Los inputs se leen por variable de entorno y se decide en shell: en
-        # una corrida por horario `inputs` viene vacío, y la comparación de
-        # GitHub `inputs.prune == false` daría TRUE con un valor vacío --
-        # o sea, desactivaría la poda justo en las corridas automáticas, que
-        # es lo contrario de lo que se quiere.
+        # Los inputs se leen por variable de entorno y se decide en shell.
+        # La poda va APAGADA salvo que se pida a mano (inputs.prune=true):
+        # los scripts la traen encendida por defecto, pero el sitio promete
+        # que nada se borra por agotarse. En una corrida por horario
+        # `inputs` viene vacío y la comparación con "true" da falso, que es
+        # justo lo que se quiere.
         env:
           LIMIT: ${{ inputs.limit }}
           PRUNE: ${{ inputs.prune }}
         run: |
           ARGS="--limit ${LIMIT:-0}"
-          if [ "$PRUNE" = "false" ]; then ARGS="$ARGS --no-prune"; fi
+          if [ "$PRUNE" != "true" ]; then ARGS="$ARGS --no-prune"; fi
           echo "Corriendo: refresh_prices.py $ARGS"
           python3 scripts/refresh_prices.py $ARGS
 
@@ -119,7 +123,7 @@ jobs:
           PRUNE: ${{ inputs.prune }}
         run: |
           ARGS=""
-          if [ "$PRUNE" = "false" ]; then ARGS="--no-prune"; fi
+          if [ "$PRUNE" != "true" ]; then ARGS="--no-prune"; fi
           for TIENDA in elektra chedraui marti; do
             echo "Corriendo: refresh_vtex.py --store $TIENDA $ARGS"
             python3 scripts/refresh_vtex.py --store "$TIENDA" $ARGS || echo "AVISO: el refresco de $TIENDA no se aplicó (salida $?)"
@@ -142,7 +146,7 @@ jobs:
           PRUNE: ${{ inputs.prune }}
         run: |
           ARGS=""
-          if [ "$PRUNE" = "false" ]; then ARGS="--no-prune"; fi
+          if [ "$PRUNE" != "true" ]; then ARGS="--no-prune"; fi
           echo "Corriendo: refresh_other_stores.py $ARGS"
           python3 scripts/refresh_other_stores.py $ARGS
 
