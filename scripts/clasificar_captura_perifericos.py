@@ -6,10 +6,16 @@ enfriadores, RAM y la cola de la búsqueda "periféricos", que Amazon rellenó
 con seguros Assurant, catéteres y espadas de utilería; la segunda tanda
 trajo mini PC, all-in-one y escritorios de oficina, y la tercera Mac mini,
 soportes para mini PC, un monitor portátil y una MacBook; la cuarta,
-televisores; la quinta, pantallas de proyección. Este script la reparte
-entre "Componentes y accesorios de PC", "Videojuegos / Accesorios",
-"Computadoras de escritorio", "Muebles / Escritorios", "Monitores",
-"Laptops", "Televisores" y "Proyectores y accesorios".
+televisores; la quinta, pantallas de proyección, y la sexta, lavadoras.
+Este script la reparte entre "Componentes y accesorios de PC",
+"Videojuegos / Accesorios", "Computadoras de escritorio",
+"Muebles / Escritorios", "Monitores", "Laptops", "Televisores",
+"Proyectores y accesorios" y "Lavadoras".
+
+La captura de lavadoras llega casi entera de accesorios: de 64 anuncios,
+la mayoría son fundas, pastillas de limpieza y refacciones (interruptores
+de tapa, filtros de pelusa, juegos de suspensión, mangueras). El aparato
+mismo son 22.
 
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
@@ -22,7 +28,8 @@ from data_io import capacidad_mah
 
 def T(s):
     s = re.sub(r'\s+', ' ', s.lower())
-    return s.translate(str.maketrans('áéíóúñ', 'aeioun'))
+    # La diéresis cuenta: sin ella "desagüe" no casa con "desague".
+    return s.translate(str.maketrans('áéíóúñü', 'aeiounu'))
 
 # Lo que descalifica en cualquier parte del título.
 FUERA = [
@@ -41,6 +48,33 @@ FUERA = [
   'soporte de TV: el catálogo no tiene esa subcategoría'),
  (re.compile(r'cubierta de tv'), 'accesorio: protector/cubierta'),
  (re.compile(r'retroiluminacion para tv'), 'tira de luces, no es el aparato'),
+ # Refacciones y consumibles de lavadora. Van en FUERA (no en CABECERA)
+ # porque en estos títulos la pieza se nombra donde caiga: "Kit de
+ # reemplazo de eje de montaje y rodamiento de bañera para lavadora".
+ (re.compile(r'interruptor de bloqueo|interruptor bloqueo|bloqueo de (la )?tapa|'
+             r'filtros? de pelusa|juego suspension|barras? de suspension|'
+             r'eje de montaje y rodamiento|manguera.{0,20}(drenado|desague)|'
+             r'colector de pelo|temporizador de lavadora|interruptor de temporizador|'
+             r'tapa giratoria|tapa de centrifugado|'
+             r'resorte (para puerta|de apertura)|reductores de eje'),
+  'refacción de lavadora, no es el aparato'),
+ # Un paquete de dos electrodomésticos no se puede comparar contra una
+ # lavadora sola: el precio es de los dos.
+ (re.compile(r'lavadora.*\+.*(frigobar|refrigerador|microondas|secador|lavadora|'
+             r'semi-?automatica|\d+ ?kg)|'
+             r'(frigobar|refrigerador|microondas)\b.*\+.*lavadora'),
+  'paquete de dos aparatos, no es un producto comparable'),
+ (re.compile(r'lavadora de huevos'), 'lavadora de huevos, no lava ropa'),
+ (re.compile(r'^for lavadora'), 'el título no dice qué producto es'),
+ (re.compile(r'pastillas? (limpiadoras?|para limpiar|para lavar)|'
+             r'tabletas de lavado|tabletas efervescentes'),
+  'consumible de limpieza, no es el aparato'),
+ (re.compile(r'^base para lavadora|base ajustable para refrigerador'),
+  'base con ruedas, no es el aparato'),
+ # No es una lavadora: una turbina que se mete en un balde con la ropa.
+ (re.compile(r'(lavadora|washer).{0,40}(ultrasonic|turbo usb|turbina)|'
+             r'mini lavadora de turbina|washer turbine'),
+  'turbina que se mete en un recipiente, no es una lavadora'),
 ]
 # Lo que descalifica solo si va al PRINCIPIO del título: ahí Amazon pone lo
 # que el producto ES. Más adelante viene la lista de características, y ahí
@@ -67,6 +101,14 @@ CABECERA = [
  (re.compile(r'\btornillo'), 'tornillería'),
  (re.compile(r'de tecla esc|keycap'), 'una tecla suelta'),
  (re.compile(r'bolsa de almacenamiento'), 'bolsa, no es el aparato'),
+ # "Cubre Lavadora", "Protector Superior de Silicona": las fundas de
+ # lavadora que no empiezan con la palabra "Funda".
+ (re.compile(r'cubre lavadora|cubierta de lavadora|protector superior'),
+  'accesorio: funda/estuche/carcasa'),
+ # Una lavadora de verdad también menciona sus perillas de control, pero
+ # más adelante, entre las características; el juego de repuesto las
+ # nombra al principio porque es lo que se vende.
+ (re.compile(r'perillas de control'), 'refacción de lavadora, no es el aparato'),
 ]
 
 PC   = 'Componentes y accesorios de PC'
@@ -75,6 +117,11 @@ PERI = (PC, 'Periféricos y accesorios', 'cpu')
 COMP = (PC, 'Componentes', 'cpu')
 
 REGLAS = [
+ # Lavadoras antes que todo: lo que queda después de quitar fundas,
+ # pastillas y refacciones es el aparato. Incluye la centrifugadora suelta,
+ # que el catálogo ya trae (Koblenz SCK-60, HKPRO HK-37) sin subcategoría
+ # porque su título tampoco dice "secadora".
+ (re.compile(r'\blavadora|\blava\w*secadora|\bcentrifugadora'), ('Lavadoras', None, 'washer')),
  (re.compile(r'computadora escritorio (completa|amd|intel)|pc gamer factor'),
   ('Computadoras de escritorio', 'Torre / Escritorio', 'desktop')),
  # Solo si "laptop" abre el título: "power bank para laptop" y "soporte para
@@ -196,8 +243,13 @@ MARCAS = ["CUKTECH","INIU","DEWALT","1 HORA","SELECT SOUND","AIWA","STF","LOGITE
  "AOOSTAR","CHUWI","BEELINK","ECS","ARZOPA","PUTORSEN","AFOOYO","FASGEAR",
  "LG","HISENSE","JVC","WESTINGHOUSE","CHIQ","TCL","SANSUI","DAEWOO",
  "IMADEMEXICO","VEVOR","XGIMI","RACK & PACK","RACEGT","NIERBO","PYLE","MECCANIXITY",
- "ZUNATE","YOSOO HEALTH GEAR","HUANYINGBJB","VOOPVOR"]
-ALIAS = {"THERMALRLGHT": "THERMALRIGHT"}
+ "ZUNATE","YOSOO HEALTH GEAR","HUANYINGBJB","VOOPVOR",
+ "MIDEA","DACE","MABE","KOBLENZ","WHIRLPOOL","AUCMA","MIRAGE",
+ "WHITE WESTINGHOUSE","WHITE-WESTINGHOUSE","SUPER DEAL","EASY","WINIA","DAEWOO",
+ "ACROS","PANASONIC","GUTSTARK","GIANTEX","MEDIMALL","COSTWAY","ZYNKEZ","PATAKU",
+ "ERIVESS","ZENY","SERENELIFE","PUCHEN","POCREATION","TOPINCN","AYNEFY","HAOFY",
+ "ZJCHAO","JTLB","KIMISS","LUOCUTE","ARAMOX","FILFEEL","KADIMENDIUM","HOMSFOU"]
+ALIAS = {"THERMALRLGHT": "THERMALRIGHT", "WHITE-WESTINGHOUSE": "WHITE WESTINGHOUSE"}
 
 def marca(t):
     cab = t[:45].upper()
@@ -224,6 +276,23 @@ def sub_mouse(tn):
     if re.search(r'gamer|gaming|para juegos?|de juegos?|esports', tn): return 'Gaming'
     if re.search(r'vertical|trackball', tn): return 'Ergonómicos'
     return 'Oficina'
+
+def sub_lavadora(tn):
+    # El orden es el que manda: una lavasecadora de "carga frontal" es
+    # lavasecadora, y una "doble tina, carga superior" es semiautomática --
+    # doble tina ya significa que el centrifugado va aparte.
+    # Una centrifugadora suelta no es de carga superior ni frontal: solo
+    # exprime, y "carga superior" describe por dónde se mete la ropa. El
+    # catálogo ya las trae sin subcategoría (Koblenz SCK-60, HKPRO HK-37).
+    if 'centrifugadora' in tn and not re.search(r'\blavadora', tn): return None
+    # Amazon escribe "Lavadasecadora" tan seguido como "Lavasecadora".
+    if re.search(r'lava\w*secadora|lava ?y ?seca', tn): return 'Lavasecadoras'
+    if re.search(r'centro de lavado', tn): return 'Centros de lavado'
+    if re.search(r'doble tina|dos tinas|2 tinas|semi[- ]?automatic[ao]', tn): return 'Semiautomáticas'
+    if re.search(r'carga frontal', tn): return 'Carga frontal'
+    if re.search(r'carga superior', tn): return 'Carga superior'
+    if re.search(r'^secadora', tn): return 'Secadoras'
+    return None
 
 def sub_audio(tn):
     diadema = bool(re.search(r'diadema|over[- ]ear|on[- ]ear', tn))
@@ -255,6 +324,7 @@ for it in json.load(io.open(sys.argv[1], encoding='utf-8')):
     elif cat == 'Mouse': sub = sub_mouse(tn)
     elif cat == 'Televisores': sub = sub_tv(tn)
     elif cat == 'Audífonos': sub = sub_audio(tn)
+    elif cat == 'Lavadoras': sub = sub_lavadora(tn)
     alta.append({**base, 'brand': marca(it['title']), 'category': cat,
                  'subcategory': sub, 'image': img})
 
