@@ -2520,24 +2520,34 @@ tr.offer-compare-off { display: none; }
 
 /* ---------- Historial de precio ---------- */
 .table-scroll { overflow-x: auto; }
-/* La tabla de "Comparación de precios" de la ficha tiene tantas filas como
-   vendedores (Mercado Libre trae hasta 8 por publicación, por color): con
-   varios colores la página se hacía interminable. La tabla scrollea DENTRO
-   de un marco de altura fija --unas cinco filas-- y la cabecera se queda
-   pegada arriba para que las columnas sigan teniendo nombre. Aplica a la
-   ficha interactiva y a la página estática, que comparten el id. */
+/* La tabla de "Comparación de precios" de la ficha scrolleaba dentro de un
+   marco de altura fija (560px, unas cinco filas). Eso le daba una barra
+   vertical propia, pegada a la de la página: con el cursor encima de la
+   tabla la rueda movía la tabla y no el documento, y al llegar al final de
+   la tabla el desplazamiento se frenaba en seco. Dos barras para el mismo
+   gesto, estorbándose.
+
+   Ahora la tabla se ve entera y lo que la delimita es el marco: borde,
+   esquinas redondeadas y una cabecera con fondo propio que la separa del
+   resto del panel. En la página queda un solo scroll, el del documento.
+   El overflow-x de .table-scroll se conserva para las pantallas angostas,
+   donde la tabla no cabe a lo ancho (.compare-table tiene min-width de
+   520px). Aplica a la ficha interactiva y a la página estática, que
+   comparten el id. */
 #comparePanel .table-scroll {
-  max-height: 560px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  border-bottom: 1px solid var(--border);
-}
-#comparePanel .compare-table thead th {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  border: 1px solid var(--border);
+  border-radius: 10px;
   background: var(--card, #fff);
 }
+#comparePanel .compare-table { margin-top: 0; }
+#comparePanel .compare-table thead th {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 8px;
+}
+/* El borde del marco ya cierra la tabla por abajo; la raya de la última
+   fila quedaría doble. */
+#comparePanel .compare-table tbody tr:last-child td { border-bottom: 0; }
 
 /* ---------- Grupo de ofertas ---------- */
 /* Antes esto se partía en dos tablas ("verificados" vs "referencia") según
