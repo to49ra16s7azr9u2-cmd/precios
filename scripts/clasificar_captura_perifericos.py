@@ -6,11 +6,13 @@ enfriadores, RAM y la cola de la búsqueda "periféricos", que Amazon rellenó
 con seguros Assurant, catéteres y espadas de utilería; la segunda tanda
 trajo mini PC, all-in-one y escritorios de oficina, y la tercera Mac mini,
 soportes para mini PC, un monitor portátil y una MacBook; la cuarta,
-televisores; la quinta, pantallas de proyección; la sexta, lavadoras, y la
-séptima, aspiradoras. Este script la reparte entre "Componentes y accesorios
-de PC", "Videojuegos / Accesorios", "Computadoras de escritorio",
+televisores; la quinta, pantallas de proyección; la sexta, lavadoras; la
+séptima, aspiradoras; la octava, refrigeradores, y la novena, secadoras de
+cabello. Este script la reparte entre "Componentes y accesorios de PC",
+"Videojuegos / Accesorios", "Computadoras de escritorio",
 "Muebles / Escritorios", "Monitores", "Laptops", "Televisores",
-"Proyectores y accesorios", "Lavadoras" y "Aspiradoras".
+"Proyectores y accesorios", "Lavadoras", "Aspiradoras", "Refrigeradores" y
+"Aparatos de belleza".
 
 La captura de lavadoras llega casi entera de accesorios: de 64 anuncios,
 la mayoría son fundas, pastillas de limpieza y refacciones (interruptores
@@ -21,6 +23,26 @@ La de aspiradoras, al revés, llega casi entera de aparatos: 28 anuncios, y
 solo se cuelan un kit de limpieza de ductos, un soporte para Dyson, una
 licuadora y un anuncio sin título. Los dos accesorios no se descartan: el
 catálogo ya tiene "Aspiradoras / Accesorios y repuestos" para ellos.
+
+La octava sección son refrigeradores, con una cola de cuatro anuncios de
+café por delante. De los 62 anuncios, 29 son el aparato (refrigeradores,
+frigobares, un congelador y cinco exhibidores comerciales) y el resto son
+cosas que solo dicen "refrigerador" de pasada: seis filtros de agua de
+repuesto, cuatro refacciones, nueve trastes de cocina y tres desodorantes.
+Cada grupo va a donde el catálogo ya los tiene: los filtros y las piezas a
+"Refacciones / Refacciones para electrodomésticos", los trastes a
+"Otros / Varios" (donde ya están los contenedores de alimentos y las bolsas
+reutilizables) y las vitrinas de mostrador a "Equipo comercial /
+Refrigeración comercial", que el catálogo separa del refrigerador vertical
+de puerta de cristal ("Refrigeradores / Uso comercial").
+
+La novena son secadoras de cabello: 100 anuncios y ningún descarte, porque
+Amazon no rellenó la sección con nada ajeno. La palabra "secadora" sola no
+alcanza -- la de ropa se llama igual --, así que la regla pide que el título
+nombre además el pelo o lo que se le hace (rizos, frizz, difusor, iones,
+turmalina), o que la marca sea de peluquería. Van a "Aparatos de belleza /
+Secadoras de cabello", junto a los cepillos secadores y los
+multiestilizadores que el catálogo ya tiene ahí.
 
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
@@ -80,6 +102,12 @@ FUERA = [
  (re.compile(r'(lavadora|washer).{0,40}(ultrasonic|turbo usb|turbina)|'
              r'mini lavadora de turbina|washer turbine'),
   'turbina que se mete en un recipiente, no es una lavadora'),
+ # Consumibles del refri y de la cafetera: se gastan, no se comparan contra
+ # el aparato. Mismo criterio que las pastillas para lavadora.
+ (re.compile(r'filtros? de papel'), 'consumible, no es el aparato'),
+ (re.compile(r'desodorante para refrigerador|desodorante refrigerador|'
+             r'elimina los olores de tu refri'),
+  'desodorante, no es el aparato'),
 ]
 # Lo que descalifica solo si va al PRINCIPIO del título: ahí Amazon pone lo
 # que el producto ES. Más adelante viene la lista de características, y ahí
@@ -134,8 +162,55 @@ REGLAS = [
  # Aspiradoras: el título siempre nombra el aparato ("aspiradora", "aspirador",
  # "robot aspirador", "shop vac"). La licuadora que Amazon metió en la sección
  # se va a su categoría de siempre, no a Aspiradoras.
- (re.compile(r'\blicuadora'), ('Electrodomésticos', 'Licuadoras y extractores', 'blender')),
+ (re.compile(r'\blicuadora'), ('Electrodomésticos', 'Licuadoras y extractores', 'appliance')),
  (re.compile(r'\baspirador|shop vac|wet/?dry shop'), ('Aspiradoras', None, 'vacuum')),
+ # Secadoras de cabello. "Secadora" a secas es ambigua -- la de ropa se llama
+ # igual -- así que el título tiene que nombrar además el pelo o lo que se le
+ # hace: rizos, frizz, difusor, iones, turmalina, peinado. El catálogo las
+ # tiene en Aparatos de belleza, junto con los cepillos secadores y los
+ # multiestilizadores (el Dyson Airwrap, el SUTRA Aero Styler 5 en 1).
+ (re.compile(r'^(?=.*\bsecador)(?=.*(cabello|\bpelo\b|peinad|rizo|frizz|difusor|'
+             r'alaciadora|ionic|iones|turmalina|estiliz|salon))'),
+  ('Aparatos de belleza', 'Secadoras de cabello', 'sparkle')),
+ # Cuatro marcas que solo hacen aparatos de peluquería. Cuando el título se
+ # queda en "Conair Secadora 289es" o "Hot Tools Secador Silencioso 1875 W",
+ # la marca es lo único que queda, y basta: la secadora de ropa la venden
+ # Whirlpool, Mabe y LG, no BaByliss.
+ (re.compile(r'^(?=.*\bsecador)(?=.*(conair|babyliss|remington|hot tools))'),
+  ('Aparatos de belleza', 'Secadoras de cabello', 'sparkle')),
+ # Lo que ya no puede ser otra cosa: el cepillo que seca, el título en inglés
+ # y la secadora de viaje (la de ropa no viaja).
+ (re.compile(r'cepillo secador|hair dryer|secador(a)? de viaje'),
+  ('Aparatos de belleza', 'Secadoras de cabello', 'sparkle')),
+ # Refrigeradores. Antes del aparato van las piezas y los trastes que también
+ # dicen "refrigerador": si no, un filtro de agua de repuesto acaba de refri.
+ # Los seis filtros de la captura abren el título con la palabra "Filtro".
+ (re.compile(r'^filtro\b.{0,60}refrigerador'),
+  ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
+ # Piezas sueltas: el relé del compresor, el cable de corriente, la tapa del
+ # cajón y la bomba que alimenta la línea de agua del refri.
+ (re.compile(r'rele de arranque|cable de alimentacion de refrigerador|'
+             r'^tapa cajon|dispensador automatico para refrigerador'),
+  ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
+ # Trastes de cocina que se venden "para el refri". El catálogo ya tiene los
+ # contenedores de alimentos y las bolsas reutilizables en Otros / Varios.
+ (re.compile(r'organizador(es)? (de|para) (refrigerador|nevera)|'
+             r'contenedores? para refrigerador|soporte para huevos|'
+             r'organizadores antideslizantes para latas|bolsas de aluminio|'
+             r'forro para estantes|revestimientos? (de gabinete|antideslizantes)'),
+  ('Otros', 'Varios', 'box')),
+ # La vitrina de mostrador es equipo de negocio y el refrigerador vertical de
+ # puerta de cristal es un refri de uso comercial: el catálogo los separa así
+ # ("Vitrina Refrigerada Sobre Mostrador Rtw100l" contra "Refrigerador
+ # Exhibidor Rhino de 415.6 L"). La vitrina va antes porque varias también
+ # se anuncian como "Exhibidor Comercial".
+ (re.compile(r'vitrina (refrigerada|fria)'),
+  ('Equipo comercial', 'Refrigeración comercial', 'snowflake')),
+ (re.compile(r'\brefrigerador|\bfrigobar|\bnevera\b|cava de vino|enfriador de vino'),
+  ('Refrigeradores', None, 'fridge')),
+ (re.compile(r'freidora de aire'), ('Electrodomésticos', 'Freidoras de aire', 'appliance')),
+ (re.compile(r'hervidor|tetera electrica'),
+  ('Electrodomésticos', 'Pequeños electrodomésticos de cocina', 'appliance')),
  (re.compile(r'computadora escritorio (completa|amd|intel)|pc gamer factor'),
   ('Computadoras de escritorio', 'Torre / Escritorio', 'desktop')),
  # Solo si "laptop" abre el título: "power bank para laptop" y "soporte para
@@ -211,6 +286,35 @@ EXPLICITOS = {
  # que se vende es la boquilla que se le pone a la aspiradora para limpiar
  # el ducto de la secadora. El catálogo ya tiene dónde ponerlo.
  "B0H512VSLK": (None, 'Aspiradoras', 'Accesorios y repuestos', 'vacuum'),
+ # Cola de la sección de café. El catálogo ya guarda el knock box de Ninja
+ # ("Knock Box Ninja Luxe Café XSKKNOCKBOX") entre las espresso, así que el
+ # cubo de posos y el embudo de 54 mm van con él; no hay subcategoría de
+ # accesorios de cafetera.
+ "B0BZZCRMP5": (None, 'Cafeteras', 'Espresso automáticas y semiautomáticas', 'coffee'),
+ "B0GTZJZZ1H": (None, 'Cafeteras', 'Espresso automáticas y semiautomáticas', 'coffee'),
+ # Central eléctrica de 245 Wh: misma cosa que la DJI Power 1000 V2 y las dos
+ # DaranEner de esta misma captura, que ya están en Estación de energía.
+ "B0DB1S36YP": ("EF ECOFLOW", 'Cargadores y adaptadores', 'Estación de energía', 'charger'),
+ # Tarja de cocina: el catálogo las tiene en plomería, con los fregaderos
+ # tipo vasija y el fregadero comercial BWE.
+ "B0FJ8ZDP95": (None, 'Herramientas', 'Plomería y gas LP', 'wrench'),
+ # Cava de 8 botellas: las cavas chicas del catálogo (GW8XDBB2 de 8, MW6XDBB
+ # de 6) están entre los frigobares; las de 33 botellas para arriba, no.
+ "B07Q8ZP8HC": ("AVERA", 'Refrigeradores', 'Frigobares y mini refrigeradores', 'fridge'),
+ # Sección de secadoras de cabello. Cuatro títulos que no dicen de qué secan
+ # o qué es lo principal del paquete, resueltos a mano:
+ # Timco y JULIET venden secadoras de pelo -- Timco aparece tres veces más en
+ # esta misma captura, siempre con "Secadora de Cabello" --, y 700 y 1800 W
+ # plegables es lo que pesa una de viaje, no una de ropa.
+ "B00X76H980": ("TIMCO", 'Aparatos de belleza', 'Secadoras de cabello', 'sparkle'),
+ "B0D7FJKP3R": ("JULIET", 'Aparatos de belleza', 'Secadoras de cabello', 'sparkle'),
+ # El One-Step Volumizer es el cepillo secador de Revlon; su título nunca dice
+ # "secador". El catálogo ya guarda el multiestilizador Magic Styler y el
+ # cepillo Izutech Toro entre las secadoras de cabello.
+ "B09B2XF75X": ("REVLON", 'Aparatos de belleza', 'Secadoras de cabello', 'sparkle'),
+ # El kit de Lizze empieza por la plancha y la secadora va de añadido: va con
+ # los kits de plancha del catálogo ("Kit Plancha 450° + Rizador + Peine").
+ "B0G3BH7RN2": ("LIZZE", 'Aparatos de belleza', 'Planchas y rizadores', 'sparkle'),
  # Karcher VC3, WD3 y KWD1: el título no dice de qué tipo son, pero el catálogo
  # ya trae estos mismos modelos ("Karcher De Tanque Vc3", "Karcher Agua Polvo
  # Sopladora Wd2", "Karcher Wdl1 Solidos Y Liquidos") en el cajón de tanque.
@@ -275,6 +379,13 @@ MARCAS = ["CUKTECH","INIU","DEWALT","1 HORA","SELECT SOUND","AIWA","STF","LOGITE
  "ZJCHAO","JTLB","KIMISS","LUOCUTE","ARAMOX","FILFEEL","KADIMENDIUM","HOMSFOU"]
 MARCAS += ["CRAFTSMAN","SHARK","KARCHER","KÄRCHER","ROBOROCK","BISSELL","EUREKA",
  "TRUPER","BLACK+DECKER","VEVOR","TRENT","MASTERBLEND"]
+MARCAS += ["KIROGILY","WAVYTALK","REMINGTON","BOMIDI","SENDOWTEK","CHARLEMAIN","REVLON",
+ "CONAIR","BABYLISSPRO","BABYLISS","RAYI","BELLISSIMA ITALIA","PHILIPS","HOT TOOLS",
+ "BLUELANDER","OSOJI","TAIFF","DORISILK","DREAME","UNIORANGE","CIVEYA","LECOMELY",
+ "TIMCO","YUNIR","VENTUS","LIZZE","AIMA BEAUTY","JULIET"]
+MARCAS += ["CHEFMAN","EF ECOFLOW","ELECTACTIC","FEELFUNN","RCA","ROVSUN","FRIGIDAIRE",
+ "RHINO","AVERA","ASTROAI","CROWNFUL","BIGKING","SIMPLE DELUXE","U CHEF","JOMA",
+ "AUSEIN","INGEQUIS","VANTISAN","STANHOME","SEENTECH","WHIRLPOOL"]
 
 # "Kärcher" y "Karcher" son la misma marca: marca() pasa a mayúsculas pero no
 # quita acentos, así que hay que nombrar las dos.
@@ -347,6 +458,20 @@ def sub_aspiradora(tn):
     # subcategoría se queda corto pero la convención ya está tomada.
     return 'Inalámbricas y de mano'
 
+def sub_refri(tn):
+    # El orden manda. Primero el uso comercial: el exhibidor vertical de
+    # puerta de cristal es grande, pero no es el refri de una casa.
+    if re.search(r'exhibidor|comercial|refrigerador vertical', tn): return 'Uso comercial'
+    if re.search(r'nevera/congelador|congelador (vertical|horizontal)|^congelador', tn):
+        return 'Congeladores'
+    # Frigobar es lo que el título diga que es, no lo que digan los litros:
+    # "mini", "compacto", "personal", "portátil", "de encimera". El de vinos
+    # de 24 pulgadas dice "Incorporado/Autoportante", así que no cae aquí.
+    if re.search(r'\bmini\b|frigobar|compact[ao]|personal|portatil|de encimera|'
+                 r'refrigerador de bebidas', tn):
+        return 'Frigobares y mini refrigeradores'
+    return 'Refrigeradores'
+
 def sub_audio(tn):
     diadema = bool(re.search(r'diadema|over[- ]ear|on[- ]ear', tn))
     earbud = bool(re.search(r'in[- ]ear|earbud|tws|true wireless', tn))
@@ -379,6 +504,7 @@ for it in json.load(io.open(sys.argv[1], encoding='utf-8')):
     elif cat == 'Audífonos': sub = sub_audio(tn)
     elif cat == 'Lavadoras': sub = sub_lavadora(tn)
     elif cat == 'Aspiradoras': sub = sub_aspiradora(tn)
+    elif cat == 'Refrigeradores': sub = sub_refri(tn)
     alta.append({**base, 'brand': marca(it['title']), 'category': cat,
                  'subcategory': sub, 'image': img})
 
