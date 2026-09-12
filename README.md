@@ -217,8 +217,8 @@ for p in d['products']); t=sum(c.values()); m=sum(n for k,n in c.items() if k>=2
 print(f'{m:,} de {t:,} ({100*m/t:.1f}%) con 2+ tiendas')"
 ```
 
-- **Comparar el mismo producto entre tiendas es la excepción**: de 92,722
-  fichas, 16,953 (18.3%) tienen ofertas de 2 o más tiendas; las otras 75,769
+- **Comparar el mismo producto entre tiendas es la excepción**: de 92,768
+  fichas, 16,953 (18.3%) tienen ofertas de 2 o más tiendas; las otras 75,815
   tienen una sola. No es un defecto del agrupador, es la composición del
   catálogo: cada tienda vende modelos distintos, y solo se agrupa cuando hay
   GTIN igual o una firma de producto que aguanta revisión. Un comparador que

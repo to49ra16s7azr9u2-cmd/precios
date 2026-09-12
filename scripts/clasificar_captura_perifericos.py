@@ -7,12 +7,13 @@ con seguros Assurant, catéteres y espadas de utilería; la segunda tanda
 trajo mini PC, all-in-one y escritorios de oficina, y la tercera Mac mini,
 soportes para mini PC, un monitor portátil y una MacBook; la cuarta,
 televisores; la quinta, pantallas de proyección; la sexta, lavadoras; la
-séptima, aspiradoras; la octava, refrigeradores, y la novena, secadoras de
-cabello. Este script la reparte entre "Componentes y accesorios de PC",
+séptima, aspiradoras; la octava, refrigeradores; la novena, secadoras de
+cabello; la décima, planchas, y la undécima, robots limpiacristales. Este
+script la reparte entre "Componentes y accesorios de PC",
 "Videojuegos / Accesorios", "Computadoras de escritorio",
 "Muebles / Escritorios", "Monitores", "Laptops", "Televisores",
-"Proyectores y accesorios", "Lavadoras", "Aspiradoras", "Refrigeradores" y
-"Aparatos de belleza".
+"Proyectores y accesorios", "Lavadoras", "Aspiradoras", "Refrigeradores",
+"Aparatos de belleza", "Electrodomésticos" y "Equipo comercial".
 
 La captura de lavadoras llega casi entera de accesorios: de 64 anuncios,
 la mayoría son fundas, pastillas de limpieza y refacciones (interruptores
@@ -44,6 +45,21 @@ turmalina), o que la marca sea de peluquería. Van a "Aparatos de belleza /
 Secadoras de cabello", junto a los cepillos secadores y los
 multiestilizadores que el catálogo ya tiene ahí.
 
+La décima son planchas: cuatro de ropa (dos de viaje y las dos Silver Star
+de vapor por gravedad). "Plancha" sola no alcanza, porque la de pelo, la
+prensa de sublimación y la de ropa se llaman igual; las reglas van de lo más
+específico a lo más general y en ese orden salen los tres cepillos
+alisadores ("Aparatos de belleza / Planchas y rizadores") y la máquina de
+sublimación 8 en 1 ("Equipo comercial / Sublimación y prensas").
+
+La undécima son robots limpiacristales: 47 anuncios y 35 aparatos. El
+catálogo ya tenía la subcategoría con diez fichas (Liectroux, FMART,
+Teendow), así que solo faltaban las reglas. Esta sección obligó a dos
+cambios en FUERA: el robot dice "limpiador" y "control remoto" en el mismo
+título que el aparato, y las dos reglas que cazan esas palabras --escritas
+para accesorios de otras secciones-- se llevaban la sección entera antes de
+llegar a REGLAS.
+
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
 se resuelve a mano en EXPLICITOS, nunca por parecido.
@@ -59,6 +75,13 @@ def T(s):
     return s.translate(str.maketrans('áéíóúñü', 'aeiounu'))
 
 # Lo que descalifica en cualquier parte del título.
+# Un robot limpiacristales nombra en el mismo título el aparato y dos cosas
+# que en cualquier otra sección delatan un accesorio: "limpiador" y "control
+# remoto". Sin esta guarda, las dos reglas de FUERA que las cazan se llevarían
+# la sección entera antes de que REGLAS pueda verla.
+ES_ROBOT_VIDRIOS = (r'(?!.*\brobot\b.{0,40}(limpiacristales|limpiavidrios|'
+                    r'ventana|vidrio|cristal))')
+
 FUERA = [
  (re.compile(r'^amazon renewed$'), 'el título no nombra ningún producto'),
  (re.compile(r'\bassurant\b'), 'seguro de daños, no es un producto'),
@@ -126,15 +149,21 @@ CABECERA = [
  # Salvo cuando el título abre nombrando el aparato: "Aspiradora de Agua,
  # Limpiador de Tapicería" es una aspiradora, y el catálogo ya trae la
  # limpiadora de tapicería Teendow C6 MAX en Aspiradoras.
- (re.compile(r'^(?!aspirador)(?=.*(?:limpiador|kit de limpieza|kit limpiador))'),
+ (re.compile(r'^' + ES_ROBOT_VIDRIOS +
+             r'(?!aspirador)(?=.*(?:limpiador|kit de limpieza|kit limpiador))'),
   'kit de limpieza, no es el aparato'),
  # Solo al principio: una pantalla de proyección motorizada "con control
  # remoto" lo trae de accesorio.
- (re.compile(r'control remoto'), 'control remoto de repuesto, no es el aparato'),
+ (re.compile(r'^' + ES_ROBOT_VIDRIOS + r'.*control remoto'),
+  'control remoto de repuesto, no es el aparato'),
  (re.compile(r'bateria de repuesto|bateria for portatil|repuesto para el altavoz|'
              r'cable de repuesto|adaptadores tipo c de repuesto|thumbsticks de repuesto|'
              r'lente optica|modulo camara|pegatinas|huano switches|corepad|'
              r'modulo de de mando'), 'repuesto o pieza suelta de otro aparato'),
+ # Se gasta y se repone; no se compara contra el robot, igual que los
+ # desodorantes de refrigerador y las pastillas de lavadora.
+ (re.compile(r'quita gotas|limpia vidrio cromo'),
+  'químico de limpieza, no es el aparato'),
  (re.compile(r'\btornillo'), 'tornillería'),
  (re.compile(r'de tecla esc|keycap'), 'una tecla suelta'),
  (re.compile(r'bolsa de almacenamiento'), 'bolsa, no es el aparato'),
@@ -154,6 +183,50 @@ PERI = (PC, 'Periféricos y accesorios', 'cpu')
 COMP = (PC, 'Componentes', 'cpu')
 
 REGLAS = [
+ # Limpieza de ventanas. Va antes que Lavadoras y que Aspiradoras porque
+ # estos títulos se describen a sí mismos con las dos palabras: hay un
+ # "Robot limpiacristales, aspiradora Inteligente de 2600 Pa" y hasta un
+ # "Robot limpiacristales ... Lavadora eléctrica robótica para Cristales".
+ # Ninguno limpia pisos ni lava ropa.
+ #
+ # Primero las herramientas de mano: el juego de tres piezas con atomizador
+ # dice "limpiacristales de ventana" y si no se resuelve acá se iría con los
+ # robots. No tiene motor; va con el trapeador y la cubeta, en Otros.
+ (re.compile(r'herramientas de limpieza de ventanas'), ('Otros', 'Varios', 'box')),
+ (re.compile(r'\brobot\b.{0,40}(limpiacristales|limpiavidrios|'
+             r'limpiador de ventanas|limpieza de ventanas)|'
+             r'\blimpiacristales\b|\blimpiavidrios\b'),
+  ('Electrodomésticos', 'Robots limpiacristales', 'appliance')),
+
+ # Planchas. "Plancha" sola no alcanza: la de pelo, la prensa de sublimación
+ # y la de ropa se llaman igual, así que el orden decide y va de lo más
+ # específico a lo más general.
+ #
+ # La de pelo pide "alisador" o "plancha de pelo/cabello" -- no basta con
+ # "cepillo ... de cabello", que es el cepillo secador. Y si el título nombra
+ # un secador en cualquier parte, no entra: los kits "5 en 1" y "7 en 1" que
+ # abren con "Secador de Cabello" y listan "Boquillas + Cepillo + Rizador de
+ # Pelo" son multiestilizadores, y el catálogo los tiene en Secadoras de
+ # cabello junto al Dyson Airwrap.
+ (re.compile(r'^(?!.*\bsecador)'
+             r'(?=.*(cepillo alisador|alisador(a)? de (pelo|cabello)|'
+             r'plancha.{0,30}(de pelo|de cabello|alisador|rizador)|'
+             r'rizador de (pelo|cabello)))'),
+  ('Aparatos de belleza', 'Planchas y rizadores', 'sparkle')),
+ # La prensa de calor pide nombrarse como máquina o prensa: "Impresora ...
+ # Para Planchas Sublimación", que el catálogo tiene en Impresoras, no es
+ # una prensa sino la impresora que le carga el papel.
+ (re.compile(r'maquina de sublimacion|prensa de calor|prensa termica'),
+  ('Equipo comercial', 'Sublimación y prensas', 'factory')),
+ # La de ropa, al final. Antes que el vaporizador porque el catálogo ya
+ # resolvió así el empate: las "Plancha Vapor Vertical" están en Planchas,
+ # y en Vaporizadores solo lo que se anuncia como vaporizador.
+ (re.compile(r'\bplancha\b.{0,30}(de vapor|a vapor|de viaje|para ropa|'
+             r'de ropa|vertical)|plancha vapor'),
+  ('Electrodomésticos', 'Planchas', 'appliance')),
+ (re.compile(r'vaporizador (de|para) ropa|vaporizador.{0,25}\bropa\b'),
+  ('Electrodomésticos', 'Vaporizadores de ropa', 'appliance')),
+
  # Lavadoras antes que todo: lo que queda después de quitar fundas,
  # pastillas y refacciones es el aparato. Incluye la centrifugadora suelta,
  # que el catálogo ya trae (Koblenz SCK-60, HKPRO HK-37) sin subcategoría
@@ -342,6 +415,16 @@ EXPLICITOS = {
  "B07T68S27D": ("GAZECHIMP", 'Cargadores y adaptadores', 'Cable', 'charger'),
  "B0HCDKQJF1": (None, 'Cargadores y adaptadores', 'Cable', 'charger'),
  "B0GL1MHJF8": (None, 'Cargadores y adaptadores', 'Cable', 'charger'),
+ # Dice las cuatro cosas: "Cepillo Alisador De Cabello, Plancha Inalámbrica
+ # De Peine Caliente, Cepillo Secador De Inalámbrico, Cepillo Rizador". Abre
+ # nombrando el alisador y la plancha, que es lo que se vende; el "secador"
+ # aparece de paso y por él la regla de arriba lo dejaría fuera.
+ "B0GFJYK5C4": (None, 'Aparatos de belleza', 'Planchas y rizadores', 'sparkle'),
+ # Se anuncia como "Robot de Limpieza de Ventanas" pero el resto del título
+ # dice lo que es: "Limpiador de Vidrios Eléctrico de Mano, 2000Pa, con
+ # Batería Recargable, Hoja de Escobilla de Goma de 11 Pulgadas para Puertas
+ # de Ducha". No trepa el vidrio solo: es una aspiradora de mano con jalador.
+ "B0HBPKT3KS": ("FTVOGUE", 'Aspiradoras', 'Inalámbricas y de mano', 'vacuum'),
  # Soportes verticales para laptop y micrófono de 3.5 mm para PC.
  "B0DB5PWRFH": (None,) + PERI, "B0DB5KW2LB": (None,) + PERI,
  "B0D5N9MBCZ": (None,) + PERI,
@@ -389,6 +472,12 @@ MARCAS += ["CHEFMAN","EF ECOFLOW","ELECTACTIC","FEELFUNN","RCA","ROVSUN","FRIGID
 
 # "Kärcher" y "Karcher" son la misma marca: marca() pasa a mayúsculas pero no
 # quita acentos, así que hay que nombrar las dos.
+# Las cinco marcas que se nombran en las secciones de planchas y de limpieza
+# de ventanas. El resto de los robots se anuncia sin marca: el título es una
+# lista de características, y así quedan también los diez que el catálogo ya
+# tenía sin marca.
+MARCAS += ["FMART", "HOBOT", "SUPERTRUST", "NEWBEALER", "SILVER STAR"]
+
 ALIAS = {"THERMALRLGHT": "THERMALRIGHT", "WHITE-WESTINGHOUSE": "WHITE WESTINGHOUSE",
          "KÄRCHER": "KARCHER"}
 
