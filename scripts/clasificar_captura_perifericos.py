@@ -8,7 +8,8 @@ trajo mini PC, all-in-one y escritorios de oficina, y la tercera Mac mini,
 soportes para mini PC, un monitor portátil y una MacBook; la cuarta,
 televisores; la quinta, pantallas de proyección; la sexta, lavadoras; la
 séptima, aspiradoras; la octava, refrigeradores; la novena, secadoras de
-cabello; la décima, planchas, y la undécima, robots limpiacristales. Este
+cabello; la décima, planchas; la undécima, robots limpiacristales, y la
+duodécima, freidoras de aire. Este
 script la reparte entre "Componentes y accesorios de PC",
 "Videojuegos / Accesorios", "Computadoras de escritorio",
 "Muebles / Escritorios", "Monitores", "Laptops", "Televisores",
@@ -59,6 +60,18 @@ cambios en FUERA: el robot dice "limpiador" y "control remoto" en el mismo
 título que el aparato, y las dos reglas que cazan esas palabras --escritas
 para accesorios de otras secciones-- se llevaban la sección entera antes de
 llegar a REGLAS.
+
+La duodécima son freidoras de aire: 39 anuncios y 30 aparatos. El catálogo
+ya tenía la subcategoría con 190 fichas, pero la regla pedía la frase exacta
+"freidora de aire" y con eso se le escapaban seis: Cuisinart escribe
+"Freidora Aire" sin el "de", T-Fal la llama "Horno Freidor", Ninja la vende
+por capacidad ("Freidora de 4 cuartos") y varias marcas usan el inglés. Los
+nueve descartes son lo que se mete dentro del aparato: seis moldes y
+bandejas de silicona y tres paquetes de papel desechable. Todos nombran
+"freidora de aire" en el título, así que hizo falta una guarda en FUERA, que
+corre antes que REGLAS. El único título que no nombra la fritura, el "Ninja
+Crispi Pro - Sistema de cocción de vidrio", se resolvió a mano en
+EXPLICITOS.
 
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
@@ -131,6 +144,17 @@ FUERA = [
  (re.compile(r'desodorante para refrigerador|desodorante refrigerador|'
              r'elimina los olores de tu refri'),
   'desodorante, no es el aparato'),
+ # Lo que se mete DENTRO de la freidora. Todos nombran "freidora de aire" en
+ # el título, así que sin esta guarda entrarían a la sección del aparato:
+ # el papel se gasta como los filtros de la cafetera, y los moldes y las
+ # bandejas de silicona son accesorios, no la freidora.
+ (re.compile(r'papel.{0,30}(freidora|air fryer)|forro de papel|'
+             r'revestimiento de papel'),
+  'papel desechable, no es el aparato'),
+ (re.compile(r'(moldes?|bandejas?|olla|accesorios?|kit accesorios)'
+             r'.{0,40}(de silicona|silicon|para freidora|para air fryer)|'
+             r'silicona (moldes|para freidora)|de silicona para freidora'),
+  'accesorio de silicona, no es el aparato'),
 ]
 # Lo que descalifica solo si va al PRINCIPIO del título: ahí Amazon pone lo
 # que el producto ES. Más adelante viene la lista de características, y ahí
@@ -281,7 +305,13 @@ REGLAS = [
   ('Equipo comercial', 'Refrigeración comercial', 'snowflake')),
  (re.compile(r'\brefrigerador|\bfrigobar|\bnevera\b|cava de vino|enfriador de vino'),
   ('Refrigeradores', None, 'fridge')),
- (re.compile(r'freidora de aire'), ('Electrodomésticos', 'Freidoras de aire', 'appliance')),
+ # Seis maneras de nombrar el mismo aparato: Cuisinart escribe "Freidora
+ # Aire" sin el "de", T-Fal lo llama "Horno Freidor", Ninja lo vende por
+ # capacidad ("Freidora de 4 cuartos") y varias marcas usan el inglés.
+ (re.compile(r'freidora de aire|freidora aire|air ?fryer|horno freidor|'
+             r'freidora de \d+ cuartos|'
+             r'freidora electrica.{0,60}sin aceite'),
+  ('Electrodomésticos', 'Freidoras de aire', 'appliance')),
  (re.compile(r'hervidor|tetera electrica'),
   ('Electrodomésticos', 'Pequeños electrodomésticos de cocina', 'appliance')),
  (re.compile(r'computadora escritorio (completa|amd|intel)|pc gamer factor'),
@@ -425,6 +455,11 @@ EXPLICITOS = {
  # Batería Recargable, Hoja de Escobilla de Goma de 11 Pulgadas para Puertas
  # de Ducha". No trepa el vidrio solo: es una aspiradora de mano con jalador.
  "B0HBPKT3KS": ("FTVOGUE", 'Aspiradoras', 'Inalámbricas y de mano', 'vacuum'),
+ # El único título de la sección que no nombra la fritura: "Ninja Crispi Pro
+ # - Sistema de cocción de vidrio | Bone | AS101LG". Es el hermano mayor del
+ # Crispi y del Crispi DualZone, que en esta misma tanda sí se anuncian como
+ # "Freidora de aire de vidrio". Se decide a mano, no por parecido de regla.
+ "B0FPPP568C": ("NINJA", 'Electrodomésticos', 'Freidoras de aire', 'appliance'),
  # Soportes verticales para laptop y micrófono de 3.5 mm para PC.
  "B0DB5PWRFH": (None,) + PERI, "B0DB5KW2LB": (None,) + PERI,
  "B0D5N9MBCZ": (None,) + PERI,
@@ -477,9 +512,12 @@ MARCAS += ["CHEFMAN","EF ECOFLOW","ELECTACTIC","FEELFUNN","RCA","ROVSUN","FRIGID
 # lista de características, y así quedan también los diez que el catálogo ya
 # tenía sin marca.
 MARCAS += ["FMART", "HOBOT", "SUPERTRUST", "NEWBEALER", "SILVER STAR"]
+MARCAS += ["COMFEE", "POWERXL", "BOGNER", "KITCHENAID", "GREENPAN", "DASH",
+           "CUISINART", "NINJA", "HUKËN", "CECOTEC", "T-FAL", "INSTANT POT",
+           "GOURMIA", "OSTER", "ELITE GOURMET", "YOGONEV"]
 
 ALIAS = {"THERMALRLGHT": "THERMALRIGHT", "WHITE-WESTINGHOUSE": "WHITE WESTINGHOUSE",
-         "KÄRCHER": "KARCHER"}
+         "KÄRCHER": "KARCHER", "HUKËN": "HUKEN"}
 
 def marca(t):
     cab = t[:45].upper()
