@@ -217,14 +217,14 @@ for p in d['products']); t=sum(c.values()); m=sum(n for k,n in c.items() if k>=2
 print(f'{m:,} de {t:,} ({100*m/t:.1f}%) con 2+ tiendas')"
 ```
 
-- **Comparar el mismo producto entre tiendas es la excepción**: de 93,523
-  fichas, 17,522 (18.7%) tienen ofertas de 2 o más tiendas; las otras 75,998
+- **Comparar el mismo producto entre tiendas es la excepción**: de 92,447
+  fichas, 16,953 (18.3%) tienen ofertas de 2 o más tiendas; las otras 75,494
   tienen una sola. No es un defecto del agrupador, es la composición del
   catálogo: cada tienda vende modelos distintos, y solo se agrupa cuando hay
   GTIN igual o una firma de producto que aguanta revisión. Un comparador que
   fusionara a ciegas para inflar ese número mostraría el precio de un
   producto en la ficha de otro, que es el peor error posible acá.
-- **No hay convenio con ninguna de las 22 tiendas**: los precios se leen de
+- **No hay convenio con ninguna de las 14 tiendas**: los precios se leen de
   sus sitios públicos y sus APIs abiertas, no de un feed acordado. Si una
   tienda cambia su HTML o corta el acceso, esa tienda deja de actualizarse
   hasta que se arregle el script. Los enlaces "Ver oferta" van directo a la

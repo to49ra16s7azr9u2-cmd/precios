@@ -175,9 +175,40 @@ def _mover_campos_de_producto(product, light, detail):
             detail["_" + field] = light.pop(field)
 
 
+# VTEX (Elektra, Chedraui, Martí, Whirlpool) cuelga de cada imagen un
+# "?v=6391549575..." que solo sirve para que el navegador de la tienda no la
+# cachee de más. La imagen se sirve idéntica sin él (se comprobó con curl en
+# vteximg.com.br y en vtexassets.com),
+# y son 22 caracteres que no comprimen -- medidos, el 11% del peso gzip de
+# la shard de Muebles. Se quita al guardar, así vale para lo que ya está en
+# el catálogo y para lo que importe cualquier script de aquí en adelante.
+_VERSION_VTEX_RE = re.compile(r"\?v=\d+$")
+
+
+def _sin_version_vtex(url):
+    if isinstance(url, str) and ("vteximg.com.br/" in url or "vtexassets.com/" in url):
+        return _VERSION_VTEX_RE.sub("", url)
+    return url
+
+
+def _fotos_sin_version(product):
+    if product.get("photo"):
+        product["photo"] = _sin_version_vtex(product["photo"])
+    for o in product.get("offers") or []:
+        if o.get("photo"):
+            o["photo"] = _sin_version_vtex(o["photo"])
+    for v in product.get("colorVariants") or []:
+        if v.get("photo"):
+            v["photo"] = _sin_version_vtex(v["photo"])
+        for o in v.get("offers") or []:
+            if o.get("photo"):
+                o["photo"] = _sin_version_vtex(o["photo"])
+
+
 def _split_detail(product):
     """Devuelve (producto_para_el_navegador, detalle) separando los campos
     que solo hace falta bajar al abrir la ficha."""
+    _fotos_sin_version(product)
     offers = product.get("offers") or []
     specs = product.get("specs") or []
     specs_pesadas = [s for s in specs if s.get("label") not in SPEC_LABELS_EN_LISTADO]
