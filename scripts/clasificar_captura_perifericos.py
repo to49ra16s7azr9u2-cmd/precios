@@ -9,7 +9,8 @@ soportes para mini PC, un monitor portátil y una MacBook; la cuarta,
 televisores; la quinta, pantallas de proyección; la sexta, lavadoras; la
 séptima, aspiradoras; la octava, refrigeradores; la novena, secadoras de
 cabello; la décima, planchas; la undécima, robots limpiacristales, y la
-duodécima, freidoras de aire, y la decimotercera, licuadoras. Este
+duodécima, freidoras de aire; la decimotercera, licuadoras, y la
+decimocuarta, purificadores de agua. Este
 script la reparte entre "Componentes y accesorios de PC",
 "Videojuegos / Accesorios", "Computadoras de escritorio",
 "Muebles / Escritorios", "Monitores", "Laptops", "Televisores",
@@ -87,6 +88,16 @@ nutrientes y de prensado en frío que no la dicen. Los ocho descartes son
 seis latas de cereal Nestum, un anuncio sin título y una prensa de papas de
 palanca que Amazon llama "exprimidor". La batidora de pedestal se fue a
 "Pequeños electrodomésticos de cocina", donde el catálogo tiene treinta.
+
+La decimocuarta son purificadores de agua: nueve anuncios. Cinco son el
+equipo o su cartucho y van a "Electrodomésticos / Purificadores de agua",
+donde el catálogo ya guarda juntos el aparato y sus repuestos (los Hydrofast
+HF03, los filtros JIMMY R9). Dos son filtros de refrigerador y van a
+Refacciones con los otros seis que ya entraron: el de LG venía en inglés
+("Refrigerator Water Filter") y por eso se le escapaba a la regla, que pedía
+que el título abriera con "Filtro". Los dos descartes son tratamientos
+químicos para el tinaco que se venden por litros tratados o por meses de
+duración: se dosifican y se acaban, como las pastillas de lavadora.
 
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
@@ -178,6 +189,13 @@ FUERA = [
  # tiene motor ni enchufe. El catálogo no tiene utensilios manuales.
  (re.compile(r'prensa de papas|exprimidor de verduras'),
   'utensilio manual, no es un electrodoméstico'),
+ # Tratamientos para el tinaco: se dosifican y se acaban. El TECHNOSAR se
+ # vende por litros tratados ("5000-10000 L") y el dual por paquete de
+ # cuatro con duración de seis meses; ninguno es un aparato que comparar.
+ # Mismo criterio que las pastillas de lavadora y los filtros de café.
+ (re.compile(r'antisarro|desinfectante.{0,30}(tinaco|agua)|'
+             r'suavizador de agua'),
+  'tratamiento químico del agua, no es el aparato'),
 ]
 # Lo que descalifica solo si va al PRINCIPIO del título: ahí Amazon pone lo
 # que el producto ES. Más adelante viene la lista de características, y ahí
@@ -331,7 +349,7 @@ REGLAS = [
  # Refrigeradores. Antes del aparato van las piezas y los trastes que también
  # dicen "refrigerador": si no, un filtro de agua de repuesto acaba de refri.
  # Los seis filtros de la captura abren el título con la palabra "Filtro".
- (re.compile(r'^filtro\b.{0,60}refrigerador'),
+ (re.compile(r'^filtro\b.{0,60}refrigerador|refrigerator water filter'),
   ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
  # Piezas sueltas: el relé del compresor, el cable de corriente, la tapa del
  # cajón y la bomba que alimenta la línea de agua del refri.
@@ -354,6 +372,15 @@ REGLAS = [
   ('Equipo comercial', 'Refrigeración comercial', 'snowflake')),
  (re.compile(r'\brefrigerador|\bfrigobar|\bnevera\b|cava de vino|enfriador de vino'),
   ('Refrigeradores', None, 'fridge')),
+ # Purificadores de agua, después de los filtros de refrigerador: los dos
+ # dicen "filtro de agua" y el del refri no purifica nada, repone una
+ # pieza. La subcategoría del catálogo guarda juntos el aparato y sus
+ # cartuchos (los Hydrofast HF03, los JIMMY R9), así que el kit
+ # mineralizador y el filtro suelto van con los equipos de ósmosis.
+ (re.compile(r'purificador(a|es)? de agua|purificadora de agua|'
+             r'osmosis inversa|filtracion de agua|filtro de agua|'
+             r'botella purificadora'),
+  ('Electrodomésticos', 'Purificadores de agua', 'appliance')),
  # Seis maneras de nombrar el mismo aparato: Cuisinart escribe "Freidora
  # Aire" sin el "de", T-Fal lo llama "Horno Freidor", Ninja lo vende por
  # capacidad ("Freidora de 4 cuartos") y varias marcas usan el inglés.
