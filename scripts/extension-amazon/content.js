@@ -72,7 +72,11 @@ const ComparaMEX = (() => {
       doc.querySelector('#s-refinements .a-text-bold, .s-navigation-item.a-text-bold'),
       doc.querySelector("h1"),
     ];
-    for (const c of cands) { const t = norm(c && c.textContent); if (t && t.length < 80) return t.replace(/^Los más (vendidos|deseados) en |^Nuevos lanzamientos en |^Subiendo como la espuma en /i, ""); }
+    for (const c of cands) {
+      const t = norm(c && c.textContent);
+      // "Filtros", "Departamento", "Resultados" son encabezados de la columna, no un departamento.
+      if (t && t.length < 80 && !/^(filtros|departamento|resultados|ver todo|todos)\b/i.test(t)) return t.replace(/^Los más (vendidos|deseados) en |^Nuevos lanzamientos en |^Subiendo como la espuma en /i, "");
+    }
     return norm(doc.title).replace(/^Amazon\.com\.mx\s*:?\s*/i, "").replace(/^Los más vendidos en /i, "") || null;
   };
   const extraer = (doc, url) => {
@@ -81,7 +85,10 @@ const ComparaMEX = (() => {
       filas = Array.from(doc.querySelectorAll(sel)).filter((d) => /^[A-Z0-9]{10}$/.test(d.getAttribute("data-asin") || ""));
       if (filas.length) break;
     }
-    const dept = deptDe(doc), node = nodoDe(url), via = esBS(url) ? "bs" : "s";
+    // El departamento solo tiene sentido en un departamento (rh=n:...) o en
+    // los más vendidos; en una búsqueda suelta ("Celulares") no hay ninguno.
+    const node = nodoDe(url), via = esBS(url) ? "bs" : "s";
+    const dept = (node || esBS(url)) ? deptDe(doc) : null;
     const items = [];
     for (const d of filas) {
       const asin = d.getAttribute("data-asin");

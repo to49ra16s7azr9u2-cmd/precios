@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "ComparaMEX · captura de Amazon",
   "description": "Saca los productos de cualquier listado de amazon.com.mx (búsqueda, departamento, más vendidos) al JSON de ComparaMEX, y recorre departamentos enteros solo.",
-  "version": "2.0",
+  "version": "2.1",
   "permissions": ["tabs", "scripting"],
   "host_permissions": ["https://www.amazon.com.mx/*"],
   "background": { "service_worker": "background.js" },
