@@ -9,7 +9,7 @@ soportes para mini PC, un monitor portátil y una MacBook; la cuarta,
 televisores; la quinta, pantallas de proyección; la sexta, lavadoras; la
 séptima, aspiradoras; la octava, refrigeradores; la novena, secadoras de
 cabello; la décima, planchas; la undécima, robots limpiacristales, y la
-duodécima, freidoras de aire. Este
+duodécima, freidoras de aire, y la decimotercera, licuadoras. Este
 script la reparte entre "Componentes y accesorios de PC",
 "Videojuegos / Accesorios", "Computadoras de escritorio",
 "Muebles / Escritorios", "Monitores", "Laptops", "Televisores",
@@ -72,6 +72,21 @@ bandejas de silicona y tres paquetes de papel desechable. Todos nombran
 corre antes que REGLAS. El único título que no nombra la fritura, el "Ninja
 Crispi Pro - Sistema de cocción de vidrio", se resolvió a mano en
 EXPLICITOS.
+
+La decimotercera son licuadoras: 92 anuncios, de los que solo 55 son la
+licuadora. Veintiocho son piezas -- cuchillas, aspas, vasos y juntas -- que
+dicen "licuadora" en el título porque es la máquina a la que le entran; van
+a "Refacciones / Refacciones para electrodomésticos", donde el catálogo ya
+guarda una cuchilla de Ninja (p530). Separarlas costó una regla de tres
+condiciones a la vez, porque cada palabra suelta se lleva por delante a una
+licuadora de verdad: la SIGNA se anuncia "Con Vaso" y una portátil de 800 ml
+presume "6 Cuchillas". La regla del aparato también hubo que abrirla: la
+subcategoría se llama "Licuadoras y extractores", pero pedía la palabra
+"licuadora", y con eso se le escapaban los catorce extractores de jugos, de
+nutrientes y de prensado en frío que no la dicen. Los ocho descartes son
+seis latas de cereal Nestum, un anuncio sin título y una prensa de papas de
+palanca que Amazon llama "exprimidor". La batidora de pedestal se fue a
+"Pequeños electrodomésticos de cocina", donde el catálogo tiene treinta.
 
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
@@ -155,6 +170,14 @@ FUERA = [
              r'.{0,40}(de silicona|silicon|para freidora|para air fryer)|'
              r'silicona (moldes|para freidora)|de silicona para freidora'),
   'accesorio de silicona, no es el aparato'),
+ # Cola de la sección de licuadoras: Amazon cuela seis latas de cereal
+ # Nestum entre los extractores porque se prepara con licuadora. Es comida.
+ (re.compile(r'\bnestum\b|cereal (infantil|para bebes)'),
+  'cereal infantil, no es un aparato'),
+ # El "exprimidor" de tooloflife es una prensa de papas de palanca: no
+ # tiene motor ni enchufe. El catálogo no tiene utensilios manuales.
+ (re.compile(r'prensa de papas|exprimidor de verduras'),
+  'utensilio manual, no es un electrodoméstico'),
 ]
 # Lo que descalifica solo si va al PRINCIPIO del título: ahí Amazon pone lo
 # que el producto ES. Más adelante viene la lista de características, y ahí
@@ -259,7 +282,33 @@ REGLAS = [
  # Aspiradoras: el título siempre nombra el aparato ("aspiradora", "aspirador",
  # "robot aspirador", "shop vac"). La licuadora que Amazon metió en la sección
  # se va a su categoría de siempre, no a Aspiradoras.
- (re.compile(r'\blicuadora'), ('Electrodomésticos', 'Licuadoras y extractores', 'appliance')),
+ # Las piezas van antes que el aparato: veintiocho anuncios de esta captura
+ # son cuchillas, vasos y juntas que dicen "licuadora" en el título. El
+ # catálogo ya tiene el precedente (p530, "Short 6-blade Blender Blade
+ # Replacement for Ninja TB301") en Refacciones para electrodomésticos.
+ # Hacen falta las tres condiciones a la vez -- el aparato, la pieza y la
+ # palabra "repuesto" -- porque cualquiera de ellas suelta se lleva por
+ # delante a una licuadora de verdad: la SIGNA se anuncia "Con Vaso" y la
+ # portátil de 800 ml presume "6 Cuchillas".
+ (re.compile(r'^(?=.*(licuadora|blender|nutribullet|nutri\b|'
+             r'extractor|exprimidor))'
+             r'(?=.*(repuesto|recambio|reemplazo))'
+             r'(?=.*(cuchilla|aspa|hoja|vaso|taza|junta|pieza|'
+             r'anillo de sellado|base de))'),
+  ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
+ # Cuatro nombres que ya son la pieza y no necesitan decir "repuesto":
+ # ninguna licuadora entera se anuncia como "cuchilla extractora" ni como
+ # "vaso de licuadora".
+ (re.compile(r'cuchilla (extractora|cruzada|inferior|de licuadora)|'
+             r'hojas? extractora|vasos? de licuadora|base de cuchilla'),
+  ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
+ # El aparato. Junto a "licuadora" van las cuatro maneras de nombrar lo
+ # mismo que usa la sección: extractor de jugos, extractor de nutrientes,
+ # exprimidor eléctrico y prensado en frío. La subcategoría se llama
+ # "Licuadoras y extractores" justamente por eso.
+ (re.compile(r'\blicuadora|extractor(a|es)? de (jugo|nutrientes)|'
+             r'\bexprimidor|prensado en frio|masticacion lenta'),
+  ('Electrodomésticos', 'Licuadoras y extractores', 'appliance')),
  (re.compile(r'\baspirador|shop vac|wet/?dry shop'), ('Aspiradoras', None, 'vacuum')),
  # Secadoras de cabello. "Secadora" a secas es ambigua -- la de ropa se llama
  # igual -- así que el título tiene que nombrar además el pelo o lo que se le
@@ -312,6 +361,11 @@ REGLAS = [
              r'freidora de \d+ cuartos|'
              r'freidora electrica.{0,60}sin aceite'),
   ('Electrodomésticos', 'Freidoras de aire', 'appliance')),
+ # Batidora de pedestal: el catálogo tiene treinta en Pequeños
+ # electrodomésticos de cocina, ninguna entre las licuadoras.
+ (re.compile(r'batidora de (pedestal|pie)|batidora planetaria'),
+  ('Electrodomésticos', 'Pequeños electrodomésticos de cocina',
+   'appliance')),
  (re.compile(r'hervidor|tetera electrica'),
   ('Electrodomésticos', 'Pequeños electrodomésticos de cocina', 'appliance')),
  (re.compile(r'computadora escritorio (completa|amd|intel)|pc gamer factor'),
@@ -470,6 +524,16 @@ EXPLICITOS = {
  "B08X4Y7GM6": ("MOUNT-IT!",) + PERI,  # soporte para mini PC; dice "detrás de un monitor"
  "B0H9F4B5C5": (None,) + VJ, "B0HHMN8HP1": (None,) + VJ, "B0BTYKSNZQ": (None,) + VJ,
  "B09MJWBY63": ("EXTREMERATE",) + VJ,
+ # Los dos de la sección de licuadoras que el título deja a medias.
+ # "NutriBullet Blender Combo Easy Twist Blade" no es la licuadora Combo:
+ # a 473 pesos y 2.3 kg es la cuchilla de rosca que se le cambia, y va con
+ # las otras veintisiete piezas.
+ "B0846LSYDJ": ("NUTRIBULLET", 'Refacciones',
+                'Refacciones para electrodomésticos', 'gear'),
+ # La Oster ActiFit+ es una licuadora personal de 1200 W con tres vasos
+ # portátiles, pero su título nunca dice "licuadora" ni "extractor".
+ "B07PDSW3TJ": ("OSTER", 'Electrodomésticos',
+                'Licuadoras y extractores', 'appliance'),
 }
 
 MARCAS = ["CUKTECH","INIU","DEWALT","1 HORA","SELECT SOUND","AIWA","STF","LOGITECH",
