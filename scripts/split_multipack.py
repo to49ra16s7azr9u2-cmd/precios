@@ -82,7 +82,7 @@ SEPARACIONES = [
             "name": "Memoria microSD HC 64GB clase 10 ADATA con adaptador SD",
             "brand": "ADATA",
             "category": "Almacenamiento",
-            "subcategory": "Memorias y tarjetas",
+            "subcategory": "Tarjetas de memoria",
             "image": "storage",
             # El código de barras es de la pieza, así que se va con la pieza.
             "gtin": "4713435796849",

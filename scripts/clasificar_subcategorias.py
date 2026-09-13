@@ -30,7 +30,7 @@ Y cada regla dice DÓNDE puede enganchar, porque hay dos clases distintas:
     duro externo). Tiene que estar al principio del título, si no se cuelan
     los accesorios: "Púa de guitarra" y "Filtro de Micrófono" no son una
     guitarra ni un micrófono, y en la primera versión de este script
-    terminaban en Guitarras y en Amplificadores y micrófonos.
+    terminaban en Guitarras y en Amplificadores.
   - "libre": la palabra CALIFICA a un producto que ya se sabe cuál es
     ("Lavadora Whirlpool Carga Superior 20Kg", "Cafetera Oster de
     cápsulas"). Ahí el dato llega tarde en el título a propósito y exigirle
@@ -111,7 +111,7 @@ VENTANA_CABEZA = 2
 #   RESIDUAL red de seguridad de la categoría -> solo si NINGUNA otra
 #            enganchó. Sin esto, un residual gana por posición: "PC HP 800
 #            G4 Mini" enganchaba "pc" en la palabra 0 y "mini" en la 3, así
-#            que 9 mini PCs terminaban en Torre / Escritorio.
+#            que 9 mini PCs terminaban en Torre.
 CABEZA, LIBRE, RESIDUAL = "cabeza", "libre", "residual"
 
 # (subcategoría, patrón). El orden acá no decide nada: decide en qué
@@ -119,7 +119,7 @@ CABEZA, LIBRE, RESIDUAL = "cabeza", "libre", "residual"
 REGLAS = {
     "Blancos y ropa de cama": [
         ("Sábanas", r"\bsabana|\bjuego de cama\b|\bropa de cama\b", CABEZA),
-        ("Edredones y cobertores", r"\bedredon|\bcobertor|\bcolcha\b|\bcolchas\b|\bquilt\b|\bduvet\b|\bcubrecama\b|\bmanta\b|\bcobija\b|\bfrazada\b", CABEZA),
+        ("Edredones", r"\bedredon|\bcobertor|\bcolcha\b|\bcolchas\b|\bquilt\b|\bduvet\b|\bcubrecama\b|\bmanta\b|\bcobija\b|\bfrazada\b", CABEZA),
         ("Almohadas", r"\balmohada", CABEZA),
         ("Protectores de colchón", r"\bprotector\b|\bcubrecolchon\b|\bcubre colchon\b", CABEZA),
         ("Toallas", r"\btoalla", CABEZA),
@@ -131,26 +131,31 @@ REGLAS = {
     ],
     "Instrumentos musicales": [
         ("Guitarras", r"\bguitarra\b|\bguitarras\b|\bguitarra (electrica|acustica|clasica)\b|\bbajo electrico\b|\bukulele\b|\bcharango\b|\brequinto\b", CABEZA),
-        ("Teclados y pianos", r"\bteclado\b|\bteclados\b|\bpiano\b|\bpianos\b|\bsintetizador\b|\borgano\b", CABEZA),
+        ("Teclados", r"\bteclado\b|\bteclados\b|\bpiano\b|\bpianos\b|\bsintetizador\b|\borgano\b", CABEZA),
         ("Baterías", r"\bbateria acustica\b|\bbateria electronica\b|\bplatillo|\btarola\b|\bredoblante\b|\btimbales\b|\bbombo\b", CABEZA),
         ("Cuerdas", r"\bcuerdas\b|\bencordado\b", CABEZA),
-        ("Amplificadores y micrófonos", r"\bamplificador|\bmicrofono|\bmicrofonos\b", CABEZA),
+        ("Amplificadores", r"\bamplificador", CABEZA),
+        ("Micrófonos", r"\bmicrofono|\bmicrofonos\b", CABEZA),
         ("Viento", r"\btrompeta\b|\barmonica\b|\bsaxofon\b|\bflauta\b|\bclarinete\b|\btrombon\b|\btuba\b|\bcorneta\b", CABEZA),
-        ("DJ y producción", r"\bcontrolador (dj|midi)\b|\bmezcladora\b|\bmixer\b|\binterfaz de audio\b|\btornamesa\b", CABEZA),
+        ("Tornamesas", r"\btornamesa\b|\btocadiscos\b", CABEZA),
+        ("Producción de audio", r"\bcontrolador (dj|midi)\b|\bmezcladora\b|\bmixer\b|\binterfaz de audio\b", CABEZA),
     ],
     "Iluminación": [
         ("Tiras LED", r"\btira led\b|\btiras led\b|\btira de led\b", CABEZA),
         ("Lámparas de escritorio", r"\blampara de escritorio\b|\blampara de mesa\b|\blampara de buro\b", CABEZA),
-        ("Lámparas de techo y pie", r"\blampara de techo\b|\blampara de piso\b|\blampara de pie\b|\bcandil\b|\bplafon\b|\bluminario de techo\b|\barbotante\b", CABEZA),
+        ("Lámparas de pared", r"\barbotante\b|\blampara de pared\b", CABEZA),
+        ("Lámparas de piso", r"\blampara de piso\b|\blampara de pie\b", CABEZA),
+        ("Lámparas de techo", r"\blampara de techo\b|\bcandil\b|\bplafon\b|\bluminario de techo\b", CABEZA),
         ("Lámparas de emergencia", r"\blampara de emergencia\b|\bluz de emergencia\b|\blinterna\b", CABEZA),
-        ("Iluminación industrial y exterior", r"\breflector\b|\breflectores\b|\bluminario\b|\blampara solar\b|\bcampana led\b|\bpanel led\b", CABEZA),
+        ("Exterior", r"\breflector\b|\breflectores\b|\bluminario\b|\blampara solar\b|\bcampana led\b|\bpanel led\b", CABEZA),
         ("Focos inteligentes", r"\bfoco inteligente\b|\bfocos inteligentes\b|\bfoco smart\b|\bfoco wifi\b", CABEZA),
     ],
     "Almacenamiento": [
         ("Externo", r"\b(disco duro|disco|ssd|unidad) externo\b|\bdisco duro portatil\b|\bexterno\b", LIBRE),
         ("Interno", r"\b(disco duro|disco|ssd|unidad) interno\b|\bnvme\b|\bsata\b|\binterno\b", LIBRE),
-        ("Memorias y tarjetas", r"\bmemoria (usb|flash|micro|sd)\b|\btarjeta (sd|micro|de memoria)\b|\bmicrosd\b|\bflash drive\b|\busb flash\b|\bpendrive\b|\bmemoria usb\b", CABEZA),
-        ("NAS y red", r"\bnas\b|\balmacenamiento en red\b", LIBRE),
+        ("Tarjetas de memoria", r"\bmemoria (micro|sd)\b|\btarjeta (sd|micro|de memoria)\b|\bmicrosd\b", CABEZA),
+        ("Memorias USB", r"\bmemoria (usb|flash)\b|\bflash drive\b|\busb flash\b|\bpendrive\b", CABEZA),
+        ("NAS", r"\bnas\b|\balmacenamiento en red\b", LIBRE),
     ],
     "Cafeteras": [
         ("De cápsulas", r"\bcapsula|\bkeurig\b|\bnespresso\b|\bdolce gusto\b|\bk cup\b", LIBRE),
@@ -160,7 +165,7 @@ REGLAS = {
         # "percoladora" tampoco alcanza sola (las hay de casa).
         ("Uso comercial", r"\bcomercial\b|\bindustrial\b|\b2 grupos\b|\b([3-9]\d|[1-9]\d{2}) tazas\b", LIBRE),
         ("Portátiles", r"\bportatil\b|\bde viaje\b|\bitaliana\b|\bmoka\b|\bprensa francesa\b", LIBRE),
-        ("Espresso automáticas y semiautomáticas", r"\bespresso\b|\bexpreso\b|\bsemiautomatica\b", LIBRE),
+        ("Espresso", r"\bespresso\b|\bexpreso\b|\bsemiautomatica\b", LIBRE),
     ],
     "Computadoras de escritorio": [
         ("All in One", r"\ball in one\b|\baio\b|\bimac\b|\btodo en uno\b", LIBRE),
@@ -171,7 +176,7 @@ REGLAS = {
         # Red de seguridad: una computadora de escritorio que no es
         # all-in-one ni mini es, por definición, de torre. RESIDUAL, así que
         # solo entra si las dos de arriba no engancharon.
-        ("Torre / Escritorio", r"\b(pc|computadora|desktop|gamer|gaming|torre|cpu|workstation)\b", RESIDUAL),
+        ("Torre", r"\b(pc|computadora|desktop|gamer|gaming|torre|cpu|workstation)\b", RESIDUAL),
     ],
     "Lavadoras": [
         ("Lavasecadoras", r"\blavasecadora", CABEZA),
@@ -185,8 +190,9 @@ REGLAS = {
         ("Cámaras de acción", r"\bgopro\b|\bcamara de accion\b|\baction cam\b|\binsta360\b|\bosmo action\b", LIBRE),
         ("Instantáneas", r"\binstax\b|\binstantanea|\bpolaroid\b", LIBRE),
         ("Videocámaras", r"\bvideocamara|\bhandycam\b|\bcamcorder\b", CABEZA),
-        ("Mirrorless y réflex", r"\bmirrorless\b|\breflex\b|\bdslr\b|\bsin espejo\b", LIBRE),
-        ("Lentes y accesorios", r"\blente\b|\blentes\b|\bobjetivo\b|\bteleobjetivo\b", CABEZA),
+        ("Réflex", r"\breflex\b|\bdslr\b", LIBRE),
+        ("Mirrorless", r"\bmirrorless\b|\bsin espejo\b", LIBRE),
+        ("Lentes", r"\blente\b|\blentes\b|\bobjetivo\b|\bteleobjetivo\b", CABEZA),
     ],
 }
 

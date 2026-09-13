@@ -216,9 +216,9 @@ def extract_product(page_html, url):
 def categorize(name):
     n = name.lower()
     if "frigobar" in n:
-        return "Refrigeradores", "Frigobares y mini refrigeradores", "fridge"
+        return "Refrigeradores", "Frigobares", "fridge"
     if "cava" in n:
-        return "Refrigeradores", "Frigobares y mini refrigeradores", "fridge"
+        return "Refrigeradores", "Frigobares", "fridge"
     if "refrigerador" in n:
         sub = "Uso comercial" if "comercial" in n else "Refrigeradores"
         return "Refrigeradores", sub, "fridge"
@@ -257,8 +257,10 @@ def categorize(name):
         return "Electrodomésticos", "Otros", "appliance"
     if "dispensador" in n or "despachador" in n or "purificador de agua" in n or "enfriador de agua" in n:
         return "Electrodomésticos", "Purificadores de agua", "appliance"
-    if "estufa" in n or "horno" in n or "parrilla" in n or "calienta platos" in n:
-        return "Electrodomésticos", "Estufas y hornos", "appliance"
+    if "horno" in n:
+        return "Electrodomésticos", "Hornos", "appliance"
+    if "estufa" in n or "parrilla" in n or "calienta platos" in n:
+        return "Electrodomésticos", "Estufas", "appliance"
     return None, None, None
 
 

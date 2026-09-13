@@ -25,7 +25,7 @@ mismo son 22.
 La de aspiradoras, al revés, llega casi entera de aparatos: 28 anuncios, y
 solo se cuelan un kit de limpieza de ductos, un soporte para Dyson, una
 licuadora y un anuncio sin título. Los dos accesorios no se descartan: el
-catálogo ya tiene "Aspiradoras / Accesorios y repuestos" para ellos.
+catálogo ya tiene "Aspiradoras / Accesorios" para ellos.
 
 La octava sección son refrigeradores, con una cola de cuatro anuncios de
 café por delante. De los 62 anuncios, 29 son el aparato (refrigeradores,
@@ -51,8 +51,8 @@ La décima son planchas: cuatro de ropa (dos de viaje y las dos Silver Star
 de vapor por gravedad). "Plancha" sola no alcanza, porque la de pelo, la
 prensa de sublimación y la de ropa se llaman igual; las reglas van de lo más
 específico a lo más general y en ese orden salen los tres cepillos
-alisadores ("Aparatos de belleza / Planchas y rizadores") y la máquina de
-sublimación 8 en 1 ("Equipo comercial / Sublimación y prensas").
+alisadores ("Aparatos de belleza / Planchas para cabello") y la máquina de
+sublimación 8 en 1 ("Equipo comercial / Prensas de calor").
 
 La undécima son robots limpiacristales: 47 anuncios y 35 aparatos. El
 catálogo ya tenía la subcategoría con diez fichas (Liectroux, FMART,
@@ -82,7 +82,7 @@ guarda una cuchilla de Ninja (p530). Separarlas costó una regla de tres
 condiciones a la vez, porque cada palabra suelta se lleva por delante a una
 licuadora de verdad: la SIGNA se anuncia "Con Vaso" y una portátil de 800 ml
 presume "6 Cuchillas". La regla del aparato también hubo que abrirla: la
-subcategoría se llama "Licuadoras y extractores", pero pedía la palabra
+subcategoría se llama "Licuadoras", pero pedía la palabra
 "licuadora", y con eso se le escapaban los catorce extractores de jugos, de
 nutrientes y de prensado en frío que no la dicen. Los ocho descartes son
 seis latas de cereal Nestum, un anuncio sin título y una prensa de papas de
@@ -104,7 +104,7 @@ más revuelta de todas: 344 anuncios y solo 194 son un aparato. Ciento
 treinta y nueve van a "Pequeños electrodomésticos de cocina", que es donde el
 catálogo ya guarda las ollas, arroceras, tostadores, wafleras,
 sandwicheras, creperas y básculas; el resto se reparte entre licuadoras,
-parrillas de inducción y de quemadores (a "Estufas y hornos", con la
+parrillas de inducción y de quemadores (a "Estufas", con la
 "Parrilla Eléctrica de 24 IN 4 quemadores" que ya estaba), tres
 microondas, siete freidoras de aire, diez refacciones, tres aparatos
 industriales y una cafetera. Los 150 descartes son todo lo que Amazon
@@ -141,7 +141,7 @@ venden "Buds" y "headphones" sin traducir; "altavoz" estaba, pero
 "altavoces" no; Sonos vende un "Wireless Speaker" a secas. Se ensancharon
 las dos reglas de audio con esas formas y se les puso delante la de las
 bocinas de coche, porque el catálogo nunca las guarda en Bocinas sino en
-"Audio y multimedia para auto" -- cincuenta y cinco fichas contra ninguna
+"Bocinas para auto" -- cincuenta y cinco fichas contra ninguna
 -- y se reconocen por cómo se venden: coaxiales, de 6x9, de rango medio o
 diciendo "para auto".
 
@@ -431,7 +431,7 @@ CABECERA = [
 
 PC   = 'Componentes y accesorios de PC'
 VJ   = ('Videojuegos', 'Accesorios', 'gamepad')
-PERI = (PC, 'Periféricos y accesorios', 'cpu')
+PERI = (PC, 'Accesorios', 'cpu')
 COMP = (PC, 'Componentes', 'cpu')
 
 REGLAS = [
@@ -461,15 +461,18 @@ REGLAS = [
  # Pelo" son multiestilizadores, y el catálogo los tiene en Secadoras de
  # cabello junto al Dyson Airwrap.
  (re.compile(r'^(?!.*\bsecador)'
+             r'(?=.*(rizador(a)? de (pelo|cabello)|tenaza (rizadora|para rizar)|'
+             r'ondulador(a)? de (pelo|cabello)))'),
+  ('Aparatos de belleza', 'Rizadores', 'sparkle')),
+ (re.compile(r'^(?!.*\bsecador)'
              r'(?=.*(cepillo alisador|alisador(a)? de (pelo|cabello)|'
-             r'plancha.{0,30}(de pelo|de cabello|alisador|rizador)|'
-             r'rizador de (pelo|cabello)))'),
-  ('Aparatos de belleza', 'Planchas y rizadores', 'sparkle')),
+             r'plancha.{0,30}(de pelo|de cabello|alisador)))'),
+  ('Aparatos de belleza', 'Planchas para cabello', 'sparkle')),
  # La prensa de calor pide nombrarse como máquina o prensa: "Impresora ...
  # Para Planchas Sublimación", que el catálogo tiene en Impresoras, no es
  # una prensa sino la impresora que le carga el papel.
  (re.compile(r'maquina de sublimacion|prensa de calor|prensa termica'),
-  ('Equipo comercial', 'Sublimación y prensas', 'factory')),
+  ('Equipo comercial', 'Prensas de calor', 'factory')),
  # La de ropa, al final. Antes que el vaporizador porque el catálogo ya
  # resolvió así el empate: las "Plancha Vapor Vertical" están en Planchas,
  # y en Vaporizadores solo lo que se anuncia como vaporizador.
@@ -511,10 +514,11 @@ REGLAS = [
  # El aparato. Junto a "licuadora" van las cuatro maneras de nombrar lo
  # mismo que usa la sección: extractor de jugos, extractor de nutrientes,
  # exprimidor eléctrico y prensado en frío. La subcategoría se llama
- # "Licuadoras y extractores" justamente por eso.
- (re.compile(r'\blicuadora|extractor(a|es)? de (jugo|nutrientes)|'
+ # "Licuadoras" justamente por eso.
+ (re.compile(r'extractor(a|es)? de (jugo|nutrientes)|'
              r'\bexprimidor|prensado en frio|masticacion lenta'),
-  ('Electrodomésticos', 'Licuadoras y extractores', 'appliance')),
+  ('Electrodomésticos', 'Extractores de jugo', 'appliance')),
+ (re.compile(r'\blicuadora'), ('Electrodomésticos', 'Licuadoras', 'appliance')),
  (re.compile(r'\baspirador|shop vac|wet/?dry shop'), ('Aspiradoras', None, 'vacuum')),
  # Secadoras de cabello. "Secadora" a secas es ambigua -- la de ropa se llama
  # igual -- así que el título tiene que nombrar además el pelo o lo que se le
@@ -613,12 +617,12 @@ REGLAS = [
   ('Electrodomésticos', 'Microondas', 'appliance')),
  # Lo que sustituye a la estufa: las parrillas de inducción y las de
  # quemadores, sean portátiles o empotrables. El catálogo las guarda en
- # "Estufas y hornos" ("Parrilla Eléctrica de 24 IN 4 quemadores").
+ # "Estufas" ("Parrilla Eléctrica de 24 IN 4 quemadores").
  # Antes que la parrilla de mesa, que no tiene quemadores.
  (re.compile(r'parrilla (electrica )?de induccion|estufa de induccion|'
              r'\d+ quemador|quemadores|parrilla electrica empotrable|'
              r'cocina electrica (portatil|de ceramica)|de un solo quemador'),
-  ('Electrodomésticos', 'Estufas y hornos', 'appliance')),
+  ('Electrodomésticos', 'Estufas', 'appliance')),
  # Lo industrial y lo comercial va con el equipo de negocio: la plancha de
  # encimera de 17 pulgadas, la máquina de 25 hot cakes y la waflera Waring.
  (re.compile(r'\b(industrial|commercial)\b(?=.*(hot cakes|waffle|parrilla))|'
@@ -664,7 +668,7 @@ REGLAS = [
  # catálogo tiene la subcategoría desde hace tiempo.
  (re.compile(r'estacion de energia|central electrica portatil|'
              r'\bpower station\b'),
-  ('Otros', 'Energía portátil y paneles solares', 'battery')),
+  ('Otros', 'Estaciones de energía', 'battery')),
  # Y al final la batería portátil, que sube hasta aquí desde el final de
  # REGLAS. Tenía que adelantarse: la MARBERO y la MR. GADGETS se anuncian
  # como "fuente de alimentación" y se iban con las fuentes de poder de PC,
@@ -704,7 +708,7 @@ REGLAS = [
  (re.compile(r'^soporte para celular|base para celular'),
   ('Otros', 'Varios', 'box')),
  (re.compile(r'computadora escritorio (completa|amd|intel)|pc gamer factor'),
-  ('Computadoras de escritorio', 'Torre / Escritorio', 'desktop')),
+  ('Computadoras de escritorio', 'Torre', 'desktop')),
  # Solo si "laptop" abre el título: "power bank para laptop" y "soporte para
  # monitor y laptop" la nombran como destino, no como producto.
  # "macbook" también pide abrir el título: seis power banks, un cargador de
@@ -751,19 +755,19 @@ REGLAS = [
  # monitor, que es donde van los brazos y las bases de pantalla.
  #
  # Las bocinas de coche primero: el catálogo nunca las guarda en Bocinas
- # sino en "Audio y multimedia para auto" (cincuenta y cinco fichas contra
+ # sino en "Bocinas para auto" (cincuenta y cinco fichas contra
  # ninguna), y se reconocen por cómo se venden -- coaxiales, de 6x9, de dos
  # o tres vías, de rango medio, o diciendo "para auto".
  (re.compile(r'\bcoaxial|\b6 ?x ?9\b|(rango medio|medio rango)|'
              r'bocinas? (para|de) auto|autoestereo|car audio|'
              r'altavoces de componentes'),
-  ('Autos, bicicletas y motos', 'Audio y multimedia para auto', 'speaker')),
+  ('Autos, bicicletas y motos', 'Bocinas para auto', 'speaker')),
  # La bocina, con las cuatro maneras de nombrarla que usa esta captura:
  # "bocina", "bafle", "altavoz/altavoces" y la máquina de cantar karaoke,
  # que el catálogo ya tiene entre las bocinas.
  (re.compile(r'\becho (pop|dot|show|studio|hub)\b|\balexa\b|google nest|'
              r'\bnest (audio|mini|hub)\b|bocina intelig|altavoz intelig'),
-  ('Domótica y hogar inteligente', 'Bocinas y asistentes inteligentes', 'speaker')),
+  ('Domótica y hogar inteligente', 'Bocinas inteligentes', 'speaker')),
  (re.compile(r'bocina|bafle|altavo(z|ces)|maquina de cantar|\bspeaker\b|'
              r'monitores? (de |tipo )?estudio'),
   ('Bocinas', None, 'speaker')),
@@ -779,7 +783,7 @@ REGLAS = [
  # catálogo guarda los doce de solapa y los inalámbricos.
  (re.compile(r'microfono (inalambrico|de solapa|condensador|lavalier)|'
              r'kit de microfono'),
-  ('Instrumentos musicales', 'Amplificadores y micrófonos', 'mic')),
+  ('Instrumentos musicales', 'Micrófonos', 'mic')),
  # "monitor" va antes que los componentes para que "Soporte de escritorio
  # para un monitor" no caiga en muebles; el único componente que dice
  # "monitor" (la pantalla de un AIO) está en EXPLICITOS.
@@ -788,7 +792,7 @@ REGLAS = [
  # Solo si la palabra abre el título: "RAM de escritorio" y "PC de escritorio"
  # la usan como adjetivo.
  (re.compile(r'(?!.*\bmouse\b)(alfombrilla|tapete) (de|para) (computadora|escritorio|teclado)|\bdesk ?(mat|pad)\b'),
-  (PC, 'Periféricos y accesorios', 'mouse')),
+  (PC, 'Accesorios', 'mouse')),
  (re.compile(r'^(?:\S+ ){0,2}escritorio (para|de|minimalista|con|gamer|diseno)|computadora de pie\b'),
   ('Muebles', 'Escritorios', 'sofa')),
  # Después de webcams y soportes: "para iMac" es un soporte, "Intel NUC" es
@@ -837,27 +841,27 @@ EXPLICITOS = {
  # como "Batidora" y el Ninja CrushBOSS como "Sistema de Cocina": los dos
  # son licuadoras de vaso, con el resto de NutriBullet y Ninja.
  "B08DL8WH9V": ("CHEFMAN", 'Electrodomésticos', 'Freidoras de aire', 'appliance'),
- "B012T634SM": ("NUTRIBULLET", 'Electrodomésticos', 'Licuadoras y extractores', 'appliance'),
- "B0HD9M1PVH": ("NINJA", 'Electrodomésticos', 'Licuadoras y extractores', 'appliance'),
+ "B012T634SM": ("NUTRIBULLET", 'Electrodomésticos', 'Licuadoras', 'appliance'),
+ "B0HD9M1PVH": ("NINJA", 'Electrodomésticos', 'Licuadoras', 'appliance'),
  # El título abre como kit de limpieza y por eso CABECERA lo tira, pero lo
  # que se vende es la boquilla que se le pone a la aspiradora para limpiar
  # el ducto de la secadora. El catálogo ya tiene dónde ponerlo.
- "B0H512VSLK": (None, 'Aspiradoras', 'Accesorios y repuestos', 'vacuum'),
+ "B0H512VSLK": (None, 'Aspiradoras', 'Accesorios', 'vacuum'),
  # Cola de la sección de café. El catálogo ya guarda el knock box de Ninja
  # ("Knock Box Ninja Luxe Café XSKKNOCKBOX") entre las espresso, así que el
  # cubo de posos y el embudo de 54 mm van con él; no hay subcategoría de
  # accesorios de cafetera.
- "B0BZZCRMP5": (None, 'Cafeteras', 'Espresso automáticas y semiautomáticas', 'coffee'),
- "B0GTZJZZ1H": (None, 'Cafeteras', 'Espresso automáticas y semiautomáticas', 'coffee'),
+ "B0BZZCRMP5": (None, 'Cafeteras', 'Espresso', 'coffee'),
+ "B0GTZJZZ1H": (None, 'Cafeteras', 'Espresso', 'coffee'),
  # Central eléctrica de 245 Wh: misma cosa que la DJI Power 1000 V2 y las dos
- # DaranEner de esta misma captura, que ya están en Estación de energía.
- "B0DB1S36YP": ("EF ECOFLOW", 'Cargadores y adaptadores', 'Estación de energía', 'charger'),
+ # DaranEner de esta misma captura, que ya están en Estaciones de energía.
+ "B0DB1S36YP": ("EF ECOFLOW", 'Otros', 'Estaciones de energía', 'battery'),
  # Tarja de cocina: el catálogo las tiene en plomería, con los fregaderos
  # tipo vasija y el fregadero comercial BWE.
- "B0FJ8ZDP95": (None, 'Herramientas', 'Plomería y gas LP', 'wrench'),
+ "B0FJ8ZDP95": (None, 'Herramientas', 'Plomería', 'wrench'),
  # Cava de 8 botellas: las cavas chicas del catálogo (GW8XDBB2 de 8, MW6XDBB
  # de 6) están entre los frigobares; las de 33 botellas para arriba, no.
- "B07Q8ZP8HC": ("AVERA", 'Refrigeradores', 'Frigobares y mini refrigeradores', 'fridge'),
+ "B07Q8ZP8HC": ("AVERA", 'Refrigeradores', 'Frigobares', 'fridge'),
  # Sección de secadoras de cabello. Cuatro títulos que no dicen de qué secan
  # o qué es lo principal del paquete, resueltos a mano:
  # Timco y JULIET venden secadoras de pelo -- Timco aparece tres veces más en
@@ -871,15 +875,15 @@ EXPLICITOS = {
  "B09B2XF75X": ("REVLON", 'Aparatos de belleza', 'Secadoras de cabello', 'sparkle'),
  # El kit de Lizze empieza por la plancha y la secadora va de añadido: va con
  # los kits de plancha del catálogo ("Kit Plancha 450° + Rizador + Peine").
- "B0G3BH7RN2": ("LIZZE", 'Aparatos de belleza', 'Planchas y rizadores', 'sparkle'),
+ "B0G3BH7RN2": ("LIZZE", 'Aparatos de belleza', 'Planchas para cabello', 'sparkle'),
  # Karcher VC3, WD3 y KWD1: el título no dice de qué tipo son, pero el catálogo
  # ya trae estos mismos modelos ("Karcher De Tanque Vc3", "Karcher Agua Polvo
  # Sopladora Wd2", "Karcher Wdl1 Solidos Y Liquidos") en el cajón de tanque.
- "B0D212FFVF": ("KARCHER", 'Aspiradoras', 'Industriales y de tanque', 'vacuum'),
- "B0B45DV64T": ("KARCHER", 'Aspiradoras', 'Industriales y de tanque', 'vacuum'),
- "B0BWG91V1T": ("KARCHER", 'Aspiradoras', 'Industriales y de tanque', 'vacuum'),
- "B0FGDYJJQQ": ("XTREME PC GAMING", 'Computadoras de escritorio', 'Torre / Escritorio', 'desktop'),
- "B0GM3C1186": ("PRIDE GAMING", 'Computadoras de escritorio', 'Torre / Escritorio', 'desktop'),
+ "B0D212FFVF": ("KARCHER", 'Aspiradoras', 'De tanque', 'vacuum'),
+ "B0B45DV64T": ("KARCHER", 'Aspiradoras', 'De tanque', 'vacuum'),
+ "B0BWG91V1T": ("KARCHER", 'Aspiradoras', 'De tanque', 'vacuum'),
+ "B0FGDYJJQQ": ("XTREME PC GAMING", 'Computadoras de escritorio', 'Torre', 'desktop'),
+ "B0GM3C1186": ("PRIDE GAMING", 'Computadoras de escritorio', 'Torre', 'desktop'),
  "B0CWV9NFZX": ("HUAWEI", 'Celulares', 'Android', 'phone'),
  # Pedal USB: no es teclado ni mouse aunque el título nombre a los dos.
  "B0BQN2VLDV": ("ZERODIS",) + PERI,
@@ -903,12 +907,12 @@ EXPLICITOS = {
  # De Peine Caliente, Cepillo Secador De Inalámbrico, Cepillo Rizador". Abre
  # nombrando el alisador y la plancha, que es lo que se vende; el "secador"
  # aparece de paso y por él la regla de arriba lo dejaría fuera.
- "B0GFJYK5C4": (None, 'Aparatos de belleza', 'Planchas y rizadores', 'sparkle'),
+ "B0GFJYK5C4": (None, 'Aparatos de belleza', 'Planchas para cabello', 'sparkle'),
  # Se anuncia como "Robot de Limpieza de Ventanas" pero el resto del título
  # dice lo que es: "Limpiador de Vidrios Eléctrico de Mano, 2000Pa, con
  # Batería Recargable, Hoja de Escobilla de Goma de 11 Pulgadas para Puertas
  # de Ducha". No trepa el vidrio solo: es una aspiradora de mano con jalador.
- "B0HBPKT3KS": ("FTVOGUE", 'Aspiradoras', 'Inalámbricas y de mano', 'vacuum'),
+ "B0HBPKT3KS": ("FTVOGUE", 'Aspiradoras', 'Portátiles', 'vacuum'),
  # El único título de la sección que no nombra la fritura: "Ninja Crispi Pro
  # - Sistema de cocción de vidrio | Bone | AS101LG". Es el hermano mayor del
  # Crispi y del Crispi DualZone, que en esta misma tanda sí se anuncian como
@@ -933,7 +937,7 @@ EXPLICITOS = {
  # La Oster ActiFit+ es una licuadora personal de 1200 W con tres vasos
  # portátiles, pero su título nunca dice "licuadora" ni "extractor".
  "B07PDSW3TJ": ("OSTER", 'Electrodomésticos',
-                'Licuadoras y extractores', 'appliance'),
+                'Licuadoras', 'appliance'),
 }
 
 MARCAS = ["CUKTECH","INIU","DEWALT","1 HORA","SELECT SOUND","AIWA","STF","LOGITECH",
@@ -1010,8 +1014,8 @@ def sub_teclado(tn):
     return 'Mecánicos' if re.search(r'mecanic', tn) else 'Membrana' if 'membrana' in tn else None
 
 def sub_tv(tn):
-    if re.search(r'\b4k\b|qled|uhd|qned|oled|miniled|mini-led', tn): return '4K y QLED'
-    if re.search(r'full hd|\bfhd\b|\bhd\b|1080p|720p', tn): return 'Full HD y HD'
+    if re.search(r'\b4k\b|qled|uhd|qned|oled|miniled|mini-led', tn): return '4K'
+    if re.search(r'full hd|\bfhd\b|\bhd\b|1080p|720p', tn): return 'HD'
     return None
 
 def sub_mouse(tn):
@@ -1045,7 +1049,7 @@ def sub_aspiradora(tn):
                  # estas van sin ancla.
                  r'soporte (de|para) aspirador|accesorio de aspiradora|'
                  r'repuesto para aspiradora', tn):
-        return 'Accesorios y repuestos'
+        return 'Accesorios'
     if re.search(r'robot aspirador|aspiradora robot|robot aspirador?a', tn):
         return 'Robots aspiradores'
     # Tanque, taller y agua/polvo: la Karcher VC3 y la shop vac del catálogo
@@ -1053,11 +1057,11 @@ def sub_aspiradora(tn):
     if re.search(r'canister|de tanque|shop vac|seco *[-y]* *(humedo|mojado)|'
                  r'humedo/?seco|seco/?humedo|agua y polvo|solidos y liquidos|'
                  r'galones|wet/?dry|sopladora', tn):
-        return 'Industriales y de tanque'
+        return 'De tanque'
     # El resto es la aspiradora de casa. El catálogo mete aquí también las de
     # cable (Atrix ERGO Lite, SIPPON vertical), así que el nombre de la
     # subcategoría se queda corto pero la convención ya está tomada.
-    return 'Inalámbricas y de mano'
+    return 'Portátiles'
 
 def sub_refri(tn):
     # El orden manda. Primero el uso comercial: el exhibidor vertical de
@@ -1070,13 +1074,13 @@ def sub_refri(tn):
     # de 24 pulgadas dice "Incorporado/Autoportante", así que no cae aquí.
     if re.search(r'\bmini\b|frigobar|compact[ao]|personal|portatil|de encimera|'
                  r'refrigerador de bebidas', tn):
-        return 'Frigobares y mini refrigeradores'
+        return 'Frigobares'
     return 'Refrigeradores'
 
 def sub_cafetera(tn):
     if re.search(r'capsula', tn): return 'De cápsulas'
     if re.search(r'espresso|expreso|\d+ bares', tn):
-        return 'Espresso automáticas y semiautomáticas'
+        return 'Espresso'
     if re.search(r'portatil|de viaje', tn): return 'Portátiles'
     if re.search(r'molinillo|molino de cafe', tn): return 'Molinillos de café'
     return None

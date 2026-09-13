@@ -116,11 +116,13 @@ def cat_audio(name):
         "barra de sonido", "soundbar", "home theater", "home cinema",
         "minicomponente", "mini componente", "torre de sonido", "teatro en casa",
     )):
-        return "Bocinas", "Barras de sonido y home theater", "speaker"
+        return "Bocinas", "Barras de sonido", "speaker"
     if "bocina" in n or "altavoz" in n or "parlante" in n or "speaker" in n or "bafle" in n:
         return "Bocinas", None, "speaker"
-    if "tocadiscos" in n or "consola de sonido" in n:
-        return "Instrumentos musicales", "DJ y producción", "guitar"
+    if "tocadiscos" in n:
+        return "Instrumentos musicales", "Tornamesas", "guitar"
+    if "consola de sonido" in n:
+        return "Instrumentos musicales", "Producción de audio", "guitar"
     return None
 
 
@@ -176,7 +178,7 @@ def cat_tv(name):
     if any(k in n for k in ("roku", "chromecast", "fire tv", "apple tv", "reproductor de streaming", "convertidor a smart tv")):
         return "Televisores", "Dispositivos de streaming", "tv"
     if "televisor" in n or "pantalla" in n or "smart tv" in n or re.search(r"\btv\b", n):
-        return "Televisores", ("4K y QLED" if any(k in n for k in ("4k", "qled", "uhd", "oled")) else "Full HD y HD"), "tv"
+        return "Televisores", ("4K" if any(k in n for k in ("4k", "qled", "uhd", "oled")) else "HD"), "tv"
     return None
 
 
@@ -216,10 +218,14 @@ def cat_cocina(name):
         return "Cafeteras", None, "coffee"
     if "freidora de aire" in n or "air fryer" in n:
         return "Electrodomésticos", "Freidoras de aire", "appliance"
-    if "licuadora" in n or "extractor de jugos" in n:
-        return "Electrodomésticos", "Licuadoras y extractores", "appliance"
-    if "estufa" in n or "horno" in n or "parrilla" in n:
-        return "Electrodomésticos", "Estufas y hornos", "appliance"
+    if "extractor de jugos" in n:
+        return "Electrodomésticos", "Extractores de jugo", "appliance"
+    if "licuadora" in n:
+        return "Electrodomésticos", "Licuadoras", "appliance"
+    if "horno" in n:
+        return "Electrodomésticos", "Hornos", "appliance"
+    if "estufa" in n or "parrilla" in n:
+        return "Electrodomésticos", "Estufas", "appliance"
     if any(k in n for k in ("olla", "batidora", "tostador", "sandwichera", "waflera", "vaporera", "arrocera")):
         return "Electrodomésticos", "Pequeños electrodomésticos de cocina", "appliance"
     return None
@@ -292,7 +298,7 @@ def cat_impresion(name):
     if "filamento" in n:
         return "Impresión 3D", "Filamentos", "printer3d"
     if "resina" in n and "impresion" in n:
-        return "Impresión 3D", "Accesorios y repuestos", "printer3d"
+        return "Impresión 3D", "Accesorios", "printer3d"
     if any(k in n for k in (
         "cartucho de tinta", "cartucho de toner", "cartucho de tóner", "toner",
         "tóner", "tinta para impresora", "etiquetas termorretractiles",
@@ -332,7 +338,7 @@ def cat_electrodomesticos(name):
     if "aspiradora robot" in n:
         return "Aspiradoras", "Robots aspiradores", "vacuum"
     if "aspiradora" in n:
-        return "Aspiradoras", "Inalámbricas y de mano", "vacuum"
+        return "Aspiradoras", "Portátiles", "vacuum"
     # Las secadoras de cabello viven en Aparatos de belleza, con las planchas
     # y los multiestilizadores, aunque el feed de Elektra las mande por la
     # rama de electrodomésticos.
@@ -360,11 +366,11 @@ def cat_muebles(name):
     if "mesa de centro" in n or "mesa de sala" in n:
         return "Muebles", "Mesas de centro", "sofa"
     if "repisa" in n or "estante" in n:
-        return "Muebles", "Repisas y estantes", "sofa"
+        return "Muebles", "Repisas", "sofa"
     if "cama" in n and "camara" not in n:
         return "Muebles", "Camas", "sofa"
     if "closet" in n or "ropero" in n:
-        return "Muebles", "Closets y roperos", "sofa"
+        return "Muebles", "Roperos", "sofa"
     if "librero" in n:
         return "Muebles", "Libreros", "sofa"
     if "buro" in n or "mesa de noche" in n:
@@ -379,11 +385,13 @@ def cat_mascotas(name):
     if "cama" in n:
         return "Mascotas", "Camas", "paw"
     if "arenero" in n or "arena para gato" in n:
-        return "Mascotas", "Areneros e higiene", "paw"
-    if "comedero" in n or "bebedero" in n or "fuente" in n:
-        return "Mascotas", "Comederos y bebederos", "paw"
+        return "Mascotas", "Areneros", "paw"
+    if "bebedero" in n or "fuente" in n:
+        return "Mascotas", "Bebederos", "paw"
+    if "comedero" in n:
+        return "Mascotas", "Comederos", "paw"
     if "correa" in n or "transportadora" in n or "transportador" in n:
-        return "Mascotas", "Correas y transportadoras", "paw"
+        return "Mascotas", "Transportadoras" if ("transportadora" in n or "transportador" in n) else "Correas", "paw"
     if "casa para" in n or "caseta" in n:
         return "Mascotas", "Casas para mascotas", "paw"
     if "juguete" in n:
@@ -398,11 +406,13 @@ def cat_deportes(name):
     if "bicicleta" in n:
         return "Autos, bicicletas y motos", None, "car"
     if "yoga" in n or "tapete de ejercicio" in n:
-        return "Deportes y fitness", "Yoga y tapetes", "dumbbell"
-    if "pesa" in n or "mancuerna" in n or "banda de resistencia" in n or "kettlebell" in n or "barra olimpica" in n or "banca de pesas" in n:
-        return "Deportes y fitness", "Pesas y bandas", "dumbbell"
+        return "Deportes y fitness", "Yoga", "dumbbell"
+    if "banda de resistencia" in n:
+        return "Deportes y fitness", "Bandas de resistencia", "dumbbell"
+    if "pesa" in n or "mancuerna" in n or "kettlebell" in n or "barra olimpica" in n or "banca de pesas" in n:
+        return "Deportes y fitness", "Pesas", "dumbbell"
     if "guante de box" in n or "costal de box" in n or "artes marciales" in n or "protector bucal" in n:
-        return "Deportes y fitness", "Boxeo y artes marciales", "dumbbell"
+        return "Deportes y fitness", "Boxeo", "dumbbell"
     if "balon de futbol" in n or "balon de voleibol" in n or "balon de basquetbol" in n:
         return "Deportes y fitness", "Voleibol" if "voleibol" in n else "Balones", "dumbbell"
     if "ping pong" in n or "tenis de mesa" in n:
@@ -495,7 +505,7 @@ def cat_bano(name):
 def cat_closets(name):
     n = norm(name)
     if "closet" in n or "ropero" in n:
-        return "Muebles", "Closets y roperos", "sofa"
+        return "Muebles", "Roperos", "sofa"
     if "zapatera" in n or "zapatero" in n:
         return "Muebles", "Zapateras", "sofa"
     if "perchero" in n:
@@ -525,11 +535,11 @@ def cat_estetica(name):
     if "cera de parafina" in n or "maquina de cera" in n:
         return "Aparatos de belleza", "Depilación", "sparkle"
     if "peluca" in n or ("extension" in n and "cabello" in n) or "mechones de cabello" in n or "cabello para trenzas" in n:
-        return "Aparatos de belleza", "Pelucas y extensiones", "sparkle"
+        return "Aparatos de belleza", "Pelucas" if "peluca" in n else "Extensiones de cabello", "sparkle"
     if "vaporizador" in n and ("facial" in n or "ozono" in n):
         return "Aparatos de belleza", "Faciales", "sparkle"
     if "lima de unas" in n or "pulidor de unas" in n or "puntas de unas" in n or "gel polish" in n:
-        return "Aparatos de belleza", "Manicure y pedicure", "sparkle"
+        return "Aparatos de belleza", "Manicure", "sparkle"
     return None
 
 
@@ -542,10 +552,12 @@ def cat_cuidado_cabello(name):
     n = norm(name)
     if "secador" in n or "secadora" in n:
         return "Aparatos de belleza", "Secadoras de cabello", "sparkle"
-    if "plancha" in n or "rizador" in n or "rizadora" in n or "tenaza" in n:
-        return "Aparatos de belleza", "Planchas y rizadores", "sparkle"
+    if "rizador" in n or "rizadora" in n or "tenaza" in n:
+        return "Aparatos de belleza", "Rizadores", "sparkle"
+    if "plancha" in n:
+        return "Aparatos de belleza", "Planchas para cabello", "sparkle"
     if "recortadora" in n or "afeitadora" in n or "trimmer" in n or "shaver" in n:
-        return "Salud y belleza", "Rasuradoras y afeitado", "heart-pulse"
+        return "Salud y belleza", "Rasuradoras", "heart-pulse"
     if "estilizador" in n or "multiestilizador" in n or "cepillo alisador" in n or "cepillo secador" in n:
         return "Aparatos de belleza", "Estilizadores", "sparkle"
     return None
@@ -555,13 +567,15 @@ def cat_cuidado_cabello(name):
 def cat_juguetes(name):
     n = norm(name)
     if any(k in n for k in ("montable", "cuatrimoto", "triciclo", "patin electric", "patineta electric", "moto montable")):
-        return "Juguetes y bebés", "Montables y triciclos", "toy"
+        return "Juguetes y bebés", "Triciclos" if "triciclo" in n else "Montables", "toy"
     if "trampolin" in n or "brincolin" in n:
         return "Juguetes y bebés", "Trampolines", "toy"
     if "inflable" in n:
         return "Juguetes y bebés", "Juguetes para exterior", "toy"
-    if "figura de accion" in n or "funko" in n or "peluche" in n or "muñeco" in n or "muneco" in n:
-        return "Juguetes y bebés", "Figuras y peluches", "toy"
+    if "peluche" in n:
+        return "Juguetes y bebés", "Peluches", "toy"
+    if "figura de accion" in n or "funko" in n or "muñeco" in n or "muneco" in n:
+        return "Juguetes y bebés", "Figuras de acción", "toy"
     if "maquina garra" in n or "arcade" in n:
         return "Juguetes y bebés", "Juegos arcade", "toy"
     return None
@@ -612,7 +626,7 @@ def cat_equipo_medico(name):
         return None
     if any(k in n for k in ("silla de ruedas", "andadera", "andador", "baston",
                              "silla de transferencia", "cama de hospital", "camilla")):
-        return "Salud y belleza", "Movilidad y equipo médico", "heart-pulse"
+        return "Salud y belleza", "Movilidad", "heart-pulse"
     if any(k in n for k in ("glucometro", "oximetro", "tensiometro", "monitor de presion",
                              "electrocardiograma", "concentrador de oxigeno", "nebulizador",
                              "electroestimulador")):
@@ -648,7 +662,7 @@ def cat_herr_manuales(name):
 def cat_herr_organizacion(name):
     n = norm(name)
     if "herramienta" in n and any(k in n for k in ("caja", "gaveta", "organizador", "gabinete", "carrito")):
-        return "Herramientas", "Organización y almacenaje", "wrench"
+        return "Herramientas", "Organización", "wrench"
     return None
 
 
@@ -659,7 +673,11 @@ def cat_audio_auto(name):
     n = norm(name)
     if "amazon echo" in n or "alexa" in n:
         return None
-    return "Autos, bicicletas y motos", "Audio y multimedia para auto", "car"
+    if "estereo" in n or "autoestereo" in n or "carplay" in n or "din" in n:
+        return "Autos, bicicletas y motos", "Estéreos para auto", "car"
+    if "amplificador" in n or "ecualizador" in n or "epicentro" in n:
+        return "Autos, bicicletas y motos", "Amplificadores para auto", "car"
+    return "Autos, bicicletas y motos", "Bocinas para auto", "car"
 
 
 # Fase 4: "Plomería" (herramientas) es en su mayoría accesorios reales de
@@ -672,7 +690,9 @@ def cat_plomeria(name):
     n = norm(name)
     if PLOMERIA_JUNK_RE.search(n):
         return None
-    return "Herramientas", "Plomería y gas LP", "wrench"
+    if "gas lp" in n or "cilindro" in n or "tanque estacionario" in n:
+        return "Herramientas", "Gas LP", "wrench"
+    return "Herramientas", "Plomería", "wrench"
 
 
 # Fase 4: "Construcción" (herramientas) mezcla equipo real (compactadoras,
@@ -701,9 +721,9 @@ def cat_radios(name):
     if "accesorio" in n:
         return None
     if "walkie" in n or "talkie" in n:
-        return "Otros", "Radios y walkie-talkies", "box"
+        return "Otros", "Radios", "box"
     if "radio" in n and ("dos vias" in n or "bidireccional" in n):
-        return "Otros", "Radios y walkie-talkies", "box"
+        return "Otros", "Radios", "box"
     return None
 
 
@@ -713,8 +733,10 @@ def cat_radios(name):
 # que con el resto de consumibles del catálogo.
 def cat_sublimacion(name):
     n = norm(name)
-    if "prensa de calor" in n or "impresora" in n or "maquina de" in n:
-        return "Equipo comercial", "Sublimación y prensas", "factory"
+    if "impresora" in n:
+        return "Equipo comercial", "Impresoras de sublimación", "factory"
+    if "prensa de calor" in n or "maquina de" in n:
+        return "Equipo comercial", "Prensas de calor", "factory"
     return None
 
 
@@ -727,7 +749,7 @@ def cat_armables(name):
         return "Juegos de mesa", None, "dice"
     if any(k in n for k in ("kit de modelo", "miniatura", "rompecabezas", "armable",
                             "construible", "kit de montaje", "maqueta", "modelo a escala")):
-        return "Juguetes y bebés", "Armables y maquetas", "toy"
+        return "Juguetes y bebés", "Maquetas", "toy"
     return None
 
 
@@ -746,8 +768,10 @@ def cat_calentadores(name):
 # material eléctrico real (interruptores, detectores) a Herramientas.
 def cat_material_electrico(name):
     n = norm(name)
-    if "panel solar" in n or "estacion de energia" in n or "power station" in n or "generador solar" in n:
-        return "Otros", "Energía portátil y paneles solares", "box"
+    if "estacion de energia" in n or "power station" in n or "generador solar" in n:
+        return "Otros", "Estaciones de energía", "box"
+    if "panel solar" in n:
+        return "Otros", "Paneles solares", "box"
     if any(k in n for k in (
         "detector de montantes", "interruptor", "enchufe", "clavija", "sonda",
         "monitor de energia", "detector de monoxido", "detector de gas", "carrete de cable",
@@ -777,7 +801,7 @@ CATEGORY_MAP = {
     "1371643/831911": ("Domótica y hogar inteligente", None, "house"),
     "1371643/4642048": ("Instrumentos musicales", None, "guitar"),
     # Cómputo
-    "1371654/1371720": ("Laptops", "Oficina y estudio", "laptop"),
+    "1371654/1371720": ("Laptops", "Oficina", "laptop"),
     "1371654/1371721": ("Computadoras de escritorio", None, "desktop"),
     "1371654/1371722": cat_monitores_proyeccion,
     "1371654/1371724": ("Almacenamiento", None, "storage"),
@@ -796,17 +820,17 @@ CATEGORY_MAP = {
     "1371652/4754782": cat_videojuegos,
     # Herramientas
     "4845836/4845852": ("Herramientas", "Herramientas eléctricas", "wrench"),
-    "4845836/4845997": ("Herramientas", "Medición e instrumentos", "wrench"),
+    "4845836/4845997": ("Herramientas", "Medición", "wrench"),
     "4845836/4846017": ("Herramientas", "Seguridad industrial", "wrench"),
     "4845836/4911305": ("Herramientas", "Seguridad industrial", "wrench"),
     "4845836/4846023": ("Iluminación", None, "bulb"),
     # Fase 3
-    "1371651/713201": ("Refacciones", "Refacciones para autos y motos", "gear"),
-    "1371644/4882323": ("Refacciones", "Refacciones para autos y motos", "gear"),
+    "1371651/713201": ("Refacciones", "Para autos", "gear"),
+    "1371644/4882323": ("Refacciones", "Para motos", "gear"),
     "1371651/312938": cat_auto_accesorios,
     "1371644/1371676": ("Autos, bicicletas y motos", "Motocicletas", "car"),
     "1371644/1371677": cat_auto_accesorios,
-    # 1371641/1371665 (Decoración) y 1371641/1371669 (Jardín y exterior) se
+    # 1371641/1371665 (Decoración) y 1371641/1371669 (Asadores) se
     # agregaron y luego se quitaron a pedido: "Decoración de hogar y jardín"
     # completa se eliminó del catálogo (sin valor de comparación real).
     "1371641/1371666": ("Blancos y ropa de cama", None, "pillow"),
@@ -820,7 +844,7 @@ CATEGORY_MAP = {
     # skincare -- la categoría "Papelería y oficina" se eliminó completa.
     "1371646/577967": ("Aparatos de belleza", "Maquillaje", "sparkle"),
     "1371646/886458": cat_estetica,
-    "1371646/1371684": ("Salud y belleza", "Rasuradoras y afeitado", "heart-pulse"),
+    "1371646/1371684": ("Salud y belleza", "Rasuradoras", "heart-pulse"),
     "1371646/1371686": cat_cuidado_cabello,
     "1371648/1371692": ("Juguetes y bebés", "Bebés", "toy"),
     "1371648/1371693": cat_juguetes,
@@ -842,8 +866,8 @@ CATEGORY_MAP = {
     "1371649/1371697": cat_deportes,
     "1371649/1371700": cat_deportes,
     "1371649/4651146": cat_deportes,
-    "1371649/4652621": ("Deportes y fitness", "Pesas y bandas", "dumbbell"),
-    "1371649/5093972": ("Deportes y fitness", "Boxeo y artes marciales", "dumbbell"),
+    "1371649/4652621": ("Deportes y fitness", "Pesas", "dumbbell"),
+    "1371649/5093972": ("Deportes y fitness", "Boxeo", "dumbbell"),
     "1371649/5093979": ("Deportes y fitness", "Balones", "dumbbell"),
     "4667693/4667694": cat_mascotas,
     "4667693/4667699": cat_mascotas,
@@ -864,7 +888,7 @@ CATEGORY_MAP = {
     # mochilas/bolsas no encajan en el catálogo, y se borraron también los
     # que ya se habían cargado.
     "1371647/1371688": cat_joyeria,
-    "1371647/1371689": ("Viajes", "Maletas y equipaje", "suitcase"),
+    "1371647/1371689": ("Viajes", "Maletas", "suitcase"),
     # Fase 4
     "1371645/127833": cat_calentadores,
     "1371643/1371673": cat_audio_auto,
@@ -874,7 +898,7 @@ CATEGORY_MAP = {
     "1371652/127669": cat_videojuegos,
     "4690361/857702": cat_equipo_medico,
     "4845836/4845838": cat_herr_manuales,
-    "4845836/4845989": ("Herramientas", "Herramientas neumáticas y de impacto", "wrench"),
+    "4845836/4845989": ("Herramientas", "Neumáticas", "wrench"),
     "4845836/4846005": ("Herramientas", "Accesorios para herramientas eléctricas", "wrench"),
     "4845836/4846013": cat_herr_organizacion,
     "4845836/4846030": cat_herr_construccion,

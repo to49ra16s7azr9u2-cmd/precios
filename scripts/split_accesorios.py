@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Manda a "Accesorios y repuestos" los productos que son SOLO una pieza.
+"""Manda a "Accesorios" los productos que son SOLO una pieza.
 
 EL PROBLEMA
 -----------
@@ -30,7 +30,7 @@ las categorías explícitamente y arranca solo con Aspiradoras.
 
 QUÉ PASA DESPUÉS
 ----------------
-Van a la subcategoría "Accesorios y repuestos" de SU MISMA categoría, no a otro
+Van a la subcategoría "Accesorios" de SU MISMA categoría, no a otro
 lado: un filtro de aspiradora pertenece a aspiradoras. Esa subcategoría es de
 las que NO entran en el listado por defecto (ver SUBCATEGORIAS_OPT_IN en
 js/app.js y en generate_seo_pages.py): aparecen al elegirla, al buscarlas por
@@ -51,7 +51,7 @@ from collections import Counter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import load_catalog, save_catalog
 
-SUBCATEGORIA = "Accesorios y repuestos"
+SUBCATEGORIA = "Accesorios"
 
 # Cantidades y envoltorios que van ANTES del sustantivo real.
 _PREFIJOS = re.compile(

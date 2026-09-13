@@ -2971,13 +2971,13 @@
   }
 
   // Subcategorías que NO entran en el listado por defecto: hay que elegirlas.
-  // "Accesorios y repuestos" son piezas sueltas (filtros, mopas, bolsas) que
+  // "Accesorios" son piezas sueltas (filtros, mopas, bolsas) que
   // se compran cuando ya se tiene el aparato. Mezcladas con el resto, el
   // ranking de Aspiradoras abría con un kit de mopas de $257 y unos paños de
   // $317 -- tres filas sin nada que comparar para quien viene a comparar
   // aspiradoras. Siguen estando: aparecen al elegir esa subcategoría, al
   // buscarlas por nombre y en su propia página (ver scripts/split_accesorios.py).
-  const SUBCATEGORIAS_OPT_IN = new Set(["Accesorios y repuestos"]);
+  const SUBCATEGORIAS_OPT_IN = new Set(["Accesorios"]);
   function esOptIn(p) {
     return SUBCATEGORIAS_OPT_IN.has(p.subcategory);
   }
@@ -4302,7 +4302,7 @@
         ],
       },
     ],
-    "Electrodomésticos/Estufas y hornos": [
+    "Electrodomésticos/Estufas": [
       {
         key: "level", label: "Tamaño", field: "burners", criterion: "por quemadores",
         tiers: [
@@ -4350,7 +4350,7 @@
         ],
       },
     ],
-    "Electrodomésticos/Licuadoras y extractores": [
+    "Electrodomésticos/Licuadoras": [
       {
         key: "level", label: "Potencia", field: "power_w", criterion: "en watts",
         tiers: [
@@ -4472,7 +4472,7 @@
     "Climatización/Ventiladores": "Elige por dónde lo vas a poner.",
     "Proyectores y accesorios": "Elige por dónde lo vas a proyectar y qué vas a ver.",
     Cafeteras: "Elige por cuántas tazas sirves al día, no por la ficha técnica.",
-    "Electrodomésticos/Estufas y hornos": "Elige por cuánto cocinas y con qué gas cuenta tu casa.",
+    "Electrodomésticos/Estufas": "Elige por cuánto cocinas y con qué gas cuenta tu casa.",
     "Electrodomésticos/Campanas de cocina": "Elige por el ancho de tu estufa: la campana debe cubrirla.",
     "Electrodomésticos/Microondas": "Elige por cuánta gente vive en casa, no por la ficha técnica.",
     "Electrodomésticos/Freidoras de aire": "Elige por cuánta gente vive en casa, no por la ficha técnica.",

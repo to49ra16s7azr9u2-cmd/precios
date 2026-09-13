@@ -979,7 +979,7 @@ HIST_EPOCH = datetime.date(2026, 9, 1)
 # el aparato, y mezcladas con el resto el ranking de Aspiradoras abría con un
 # kit de mopas. Mismo criterio que SUBCATEGORIAS_OPT_IN en js/app.js. Siguen
 # teniendo su propia página, que es donde alguien que busca un filtro llega.
-SUBCATEGORIAS_OPT_IN = {"Accesorios y repuestos"}
+SUBCATEGORIAS_OPT_IN = {"Accesorios"}
 
 MIN_PRODUCTOS_SUBCATEGORIA = 30
 

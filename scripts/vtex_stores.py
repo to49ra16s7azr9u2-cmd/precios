@@ -98,19 +98,19 @@ def ch_computacion(name):
     n = norm(name)
     gamer = "gamer" in n or "gaming" in n
     if any(k in n for k in ("laptop", "notebook", "macbook", "chromebook", "portatil")):
-        return "Laptops", ("Gamer" if gamer else "Oficina y estudio"), "laptop"
+        return "Laptops", ("Gamer" if gamer else "Oficina"), "laptop"
     if "all in one" in n or re.search(r"\baio\b", n):
         return "Computadoras de escritorio", "All in One", "desktop"
     if "mini pc" in n:
         return "Computadoras de escritorio", "Mini PC", "desktop"
     if any(k in n for k in ("computadora", "pc gamer", "desktop", "gabinete con", "cpu ")):
-        return "Computadoras de escritorio", "Torre / Escritorio", "desktop"
+        return "Computadoras de escritorio", "Torre", "desktop"
     if any(k in n for k in ("no break", "nobreak", "regulador de voltaje", "supresor de picos")) or re.search(r"\bups\b", n):
-        return "Componentes y accesorios de PC", "Periféricos y accesorios", "cpu"
+        return "Componentes y accesorios de PC", "Accesorios", "cpu"
     if any(k in n for k in ("tarjeta de video", "tarjeta grafica", "procesador", "tarjeta madre", "fuente de poder", "gabinete")):
         return "Componentes y accesorios de PC", "Componentes", "cpu"
     if "switch" in n and ("puerto" in n or "ethernet" in n or "gigabit" in n):
-        return "Redes", "Switches y hubs", "wifi"
+        return "Redes", "Switches", "wifi"
     return None
 
 
@@ -171,9 +171,11 @@ def ch_casa_inteligente(name):
     if "interruptor" in n or "apagador" in n:
         return "Domótica y hogar inteligente", "Interruptores inteligentes", "house"
     if any(k in n for k in ("echo", "alexa", "google nest", "nest mini", "bocina inteligente", "asistente")):
-        return "Domótica y hogar inteligente", "Bocinas y asistentes inteligentes", "house"
-    if "sensor" in n or "alarma" in n:
-        return "Cámaras de seguridad", "Alarmas y sensores", "security-cam"
+        return "Domótica y hogar inteligente", "Bocinas inteligentes", "house"
+    if "sensor" in n:
+        return "Cámaras de seguridad", "Sensores", "security-cam"
+    if "alarma" in n:
+        return "Cámaras de seguridad", "Alarmas", "security-cam"
     return None
 
 
@@ -199,7 +201,7 @@ def ch_mundo_geek(name):
 def ch_refrigeradores(name):
     n = norm(name)
     if any(k in n for k in ("frigobar", "minibar", "mini bar", "cava", "enfriador de vino")):
-        return "Refrigeradores", "Frigobares y mini refrigeradores", "fridge"
+        return "Refrigeradores", "Frigobares", "fridge"
     if "congelador" in n:
         return "Refrigeradores", "Congeladores", "fridge"
     if "refrigerador" in n:
@@ -280,13 +282,13 @@ def ch_recamara(name):
     if "almohada" in n:
         return "Blancos y ropa de cama", "Almohadas", "pillow"
     if any(k in n for k in ("edredon", "cobertor", "duvet", "colcha")):
-        return "Blancos y ropa de cama", "Edredones y cobertores", "pillow"
+        return "Blancos y ropa de cama", "Edredones", "pillow"
     if "sabana" in n:
         return "Blancos y ropa de cama", "Sábanas", "pillow"
     if "protector de colchon" in n or "cubrecolchon" in n or "cubre colchon" in n:
         return "Blancos y ropa de cama", "Protectores de colchón", "pillow"
     if "cobija" in n or "frazada" in n or "manta" in n:
-        return "Blancos y ropa de cama", "Cobijas eléctricas" if "electric" in n else "Edredones y cobertores", "pillow"
+        return "Blancos y ropa de cama", "Cobijas eléctricas" if "electric" in n else "Edredones", "pillow"
     if "cortina" in n:
         return "Blancos y ropa de cama", "Cortinas", "pillow"
     return None
@@ -306,7 +308,7 @@ def ch_mejoras(name):
     if any(k in n for k in ("llave de paso", "valvula", "tuberia", "conector de", "tinaco", "bomba de agua", "calentador de agua")):
         if "calentador" in n:
             return "Electrodomésticos", "Calentadores de agua", "appliance"
-        return "Herramientas", "Plomería y gas LP", "wrench"
+        return "Herramientas", "Plomería", "wrench"
     if "regadera" in n:
         return "Otros", "Baño", "box"
     return None
@@ -319,7 +321,7 @@ def ch_patio(name):
                              "rastrillo", "carretilla", "cortasetos", "orilladora", "azadon", "machete")):
         return "Herramientas", "Jardinería", "wrench"
     if "asador" in n or "parrilla de carbon" in n or "ahumador" in n:
-        return "Decoración de hogar y jardín", "Jardín y exterior", "vase"
+        return "Decoración de hogar y jardín", "Asadores", "vase"
     if any(k in n for k in ("mesa", "silla", "sillon", "camastro", "sombrilla", "toldo", "gazebo", "hamaca")):
         return "Muebles", "Otros", "sofa"
     return None
@@ -333,17 +335,19 @@ def ch_juguetes(name):
     if any(k in n for k in ("muneca", "barbie", "pony", "bebe llorones", "nenuco")):
         return "Juguetes y bebés", "Muñecas", "toy"
     if any(k in n for k in ("lego", "mega bloks", "bloques", "armable", "construccion")):
-        return "Juguetes y bebés", "Bloques y construcción", "toy"
+        return "Juguetes y bebés", "Bloques de construcción", "toy"
+    if "peluche" in n:
+        return "Juguetes y bebés", "Peluches", "toy"
     if any(k in n for k in ("figura", "coleccionable", "funko", "dinosaurio", "transformers", "hot wheels")):
-        return "Juguetes y bebés", "Figuras y peluches", "toy"
+        return "Juguetes y bebés", "Figuras de acción", "toy"
     if "rompecabezas" in n or "puzzle" in n:
         return "Juegos de mesa", "Rompecabezas", "dice"
     if any(k in n for k in ("juego de mesa", "cartas", "monopoly", "jenga", "loteria", "domino", "ajedrez")):
-        return "Juegos de mesa", "Ajedrez, damas y Go" if "ajedrez" in n else "Otros juegos", "dice"
+        return "Juegos de mesa", "Ajedrez" if "ajedrez" in n else "Otros juegos", "dice"
     if "control remoto" in n or "radiocontrol" in n or "radio control" in n or re.search(r"\brc\b", n):
         return "Juguetes y bebés", "Vehículos a control remoto", "toy"
     if any(k in n for k in ("triciclo", "montable", "scooter", "patineta", "patines", "bicicleta")):
-        return "Juguetes y bebés", "Montables y triciclos", "toy"
+        return "Juguetes y bebés", "Triciclos" if "triciclo" in n else "Montables", "toy"
     if any(k in n for k in ("didactico", "educativo", "aprendizaje", "plastilina", "manualidad", "ciencia", "experimento")):
         return "Juguetes y bebés", "Juguetes educativos", "toy"
     if any(k in n for k in ("piano", "guitarra", "tambor", "xilofono", "musical")):
@@ -396,7 +400,7 @@ def ch_otros_deportes(name):
     if any(k in n for k in ("raqueta", "tenis de mesa", "ping pong", "badminton", "gallito")):
         return "Deportes y fitness", "Ping pong" if "ping pong" in n or "tenis de mesa" in n else "Otros", "dumbbell"
     if any(k in n for k in ("box", "vendas", "careta", "protector bucal")):
-        return "Deportes y fitness", "Boxeo y artes marciales", "dumbbell"
+        return "Deportes y fitness", "Boxeo", "dumbbell"
     return None
 
 
@@ -418,7 +422,7 @@ def ch_refacciones_auto(name):
         return "Herramientas", "Herramientas manuales", "wrench"
     if any(k in n for k in ("cables para pasar corriente", "cargador de bateria", "arrancador", "compresor")):
         return "Autos, bicicletas y motos", "Autos", "car"
-    return "Refacciones", "Refacciones para autos y motos", "gear"
+    return "Refacciones", "Para autos", "gear"
 
 
 def ch_seguridad_auto(name):
@@ -463,21 +467,21 @@ CHEDRAUI_MAP = {
     # Juguetería: categorías puras, con default por tipo
     "10/1003": con_default(ch_juguetes, ("Juguetes y bebés", "Muñecas", "toy")),
     "10/1004": con_default(ch_juguetes, ("Juguetes y bebés", "Juguetes educativos", "toy")),
-    "10/1005": con_default(ch_juguetes, ("Juguetes y bebés", "Figuras y peluches", "toy")),
-    "10/1009": con_default(ch_juguetes, ("Juguetes y bebés", "Bloques y construcción", "toy")),
+    "10/1005": con_default(ch_juguetes, ("Juguetes y bebés", "Figuras de acción", "toy")),
+    "10/1009": con_default(ch_juguetes, ("Juguetes y bebés", "Bloques de construcción", "toy")),
     "10/1010": con_default(ch_juguetes, ("Juegos de mesa", "Otros juegos", "dice")),
     "10/1011": con_default(ch_juguetes, ("Juguetes y bebés", "Juguetes para exterior", "toy")),
     "10/1013": con_default(ch_juguetes, ("Juguetes y bebés", "Otros", "toy")),
     "10/1014": con_default(ch_juguetes, ("Juguetes y bebés", "Bebés", "toy")),
     "10/1015": con_default(ch_juguetes, ("Juguetes y bebés", "Peluches", "toy")),
     # Deportes
-    "15/1501": fijo("Viajes", "Camping y exteriores", "suitcase"),
+    "15/1501": fijo("Viajes", "Camping", "suitcase"),
     "15/1502": ch_acuaticos,
     "15/1503": ch_ciclismo,
     "15/1504": con_default(deporte_interior, ("Deportes y fitness", "Otros", "dumbbell")),
     "15/1505": ch_colectivos,
     "15/1506": ch_otros_deportes,
-    "15/1508": fijo("Viajes", "Maletas y equipaje", "suitcase"),
+    "15/1508": fijo("Viajes", "Maletas", "suitcase"),
     # Automóviles y motos (Limpieza 16/1602 y Lubricantes 16/1604 son
     # consumibles: fuera)
     "16/1601": cat_auto_accesorios,
@@ -528,8 +532,8 @@ def mt_rodantes(name):
 
 
 DEPORTE_OTROS = ("Deportes y fitness", "Otros", "dumbbell")
-PESAS = ("Deportes y fitness", "Pesas y bandas", "dumbbell")
-CAMPING = ("Viajes", "Camping y exteriores", "suitcase")
+PESAS = ("Deportes y fitness", "Pesas", "dumbbell")
+CAMPING = ("Viajes", "Camping", "suitcase")
 
 MARTI_MAP = {
     # Accesorios: solo el equipo deportivo (gorras, calcetas, cinturones,
@@ -545,13 +549,13 @@ MARTI_MAP = {
     "82/84": DEPORTE_OTROS, "82/89": DEPORTE_OTROS, "82/90": DEPORTE_OTROS,     # espinilleras, caretas, cascos
     "82/96": DEPORTE_OTROS, "82/224": DEPORTE_OTROS, "82/94": DEPORTE_OTROS,    # rodilleras, coderas, bucales
     "82/92": DEPORTE_OTROS, "82/88": DEPORTE_OTROS, "82/87": DEPORTE_OTROS,     # muñequeras, tobilleras, vendas
-    "82/83": ("Deportes y fitness", "Boxeo y artes marciales", "dumbbell"),   # conchas
+    "82/83": ("Deportes y fitness", "Boxeo", "dumbbell"),   # conchas
     "82/175": PESAS, "82/171": PESAS, "82/120": PESAS, "82/174": PESAS, "82/138": PESAS,  # pesas, discos, barras, ligas, bandas
     "82/172": PESAS,                                                            # ejercitadores
-    "82/170": ("Deportes y fitness", "Yoga y tapetes", "dumbbell"),            # tapetes
+    "82/170": ("Deportes y fitness", "Yoga", "dumbbell"),            # tapetes
     "82/150": DEPORTE_OTROS,                                                    # cuerdas
     "82/100": CAMPING, "82/223": CAMPING, "82/105": CAMPING, "82/382": CAMPING, "82/332": CAMPING,
-    "82/144": ("Viajes", "Maletas y equipaje", "suitcase"),
+    "82/144": ("Viajes", "Maletas", "suitcase"),
     "82/199": ("Salud y belleza", "Básculas", "heart-pulse"),
     "82/236": cat_audio,
     "82/391": mt_relojes,
@@ -560,8 +564,8 @@ MARTI_MAP = {
     "82/154": None,  # portacelulares: accesorio
     # Equipamiento
     "8/9": con_default(deporte_interior, ("Deportes y fitness", "Equipo de gimnasio", "dumbbell")),
-    "8/149": ("Deportes y fitness", "Boxeo y artes marciales", "dumbbell"),   # costales
-    "8/368": ("Deportes y fitness", "Boxeo y artes marciales", "dumbbell"),   # peras
+    "8/149": ("Deportes y fitness", "Boxeo", "dumbbell"),   # costales
+    "8/368": ("Deportes y fitness", "Boxeo", "dumbbell"),   # peras
     "8/188": DEPORTE_OTROS,                                                     # kayaks
     "8/293": ("Deportes y fitness", "Ping pong", "dumbbell"),
     "8/292": DEPORTE_OTROS, "8/309": DEPORTE_OTROS, "8/335": DEPORTE_OTROS,     # tableros, mesas, asientos
@@ -571,8 +575,8 @@ MARTI_MAP = {
     "413/435": mt_bicicletas,
     "413/436": ch_motos,
     "413/437": mt_rodantes, "413/438": mt_rodantes, "413/439": mt_rodantes,
-    "413/440": ("Juguetes y bebés", "Montables y triciclos", "toy"),
-    "413/441": ("Juguetes y bebés", "Montables y triciclos", "toy"),
+    "413/440": ("Juguetes y bebés", "Montables", "toy"),
+    "413/441": ("Juguetes y bebés", "Montables", "toy"),
     # Entretenimiento
     "412/433": ("Cámaras y fotografía", "Accesorios", "camera"),               # telescopios
     "412/434": ("Juguetes y bebés", "Trampolines", "toy"),

@@ -13,7 +13,8 @@ distintas mezcladas, y solo una es un power bank:
   - Power bank de bolsillo: se mide en mAh y carga un celular.
   - Estación de energía: se mide en Wh (la DJI Power 1000 Mini son 1008 Wh),
     pesa kilos y se usa en campamento u obra. Va a
-    "Cargadores y adaptadores / Estación de energía".
+    "Otros / Estaciones de energía", que es donde el catálogo ya guarda
+    las demás.
   - Cargador o arrancador de batería de auto: el NOCO GENIUS10 carga una
     batería de plomo de 6V/12V y el NOCO Boost GB40 arranca un motor. No
     cargan un teléfono: van a "Autos, bicicletas y motos".
@@ -69,9 +70,9 @@ def clasificar(titulo):
     """(categoria, subcategoria, ilustracion). categoria None = sin decidir."""
     n = _norm(titulo)
     if _AUTO.search(n):
-        return "Autos, bicicletas y motos", "Baterías y arranque", "car"
+        return "Autos, bicicletas y motos", "Baterías para auto", "car"
     if _ESTACION.search(n):
-        return "Cargadores y adaptadores", "Estación de energía", "battery"
+        return "Otros", "Estaciones de energía", "battery"
     if es_power_bank(titulo):
         # Sin mAh declarado no se inventa un tramo: queda sin subcategoría,
         # que es un estado que la categoría ya tiene.

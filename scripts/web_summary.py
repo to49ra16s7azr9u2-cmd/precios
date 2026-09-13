@@ -231,7 +231,7 @@ def is_used(product):
     return False
 
 
-SUBCATEGORIAS_OPT_IN = {"Accesorios y repuestos"}
+SUBCATEGORIAS_OPT_IN = {"Accesorios"}
 
 
 def _ranking_pool(products, n):

@@ -20,7 +20,7 @@ comedor / de juego), que se dejan como están.
 2. "COMPUTADORAS" NO TIENE COMPUTADORAS
    Sus 252 productos son motherboards, memorias, disipadores, webcams,
    tabletas gráficas y docks -- sus propias subcategorías lo dicen
-   ("Componentes", "Periféricos y accesorios", "Memoria RAM", "Webcams").
+   ("Componentes", "Accesorios", "Memoria RAM", "Webcams").
    En la portada quedaba al lado de "Computadoras de escritorio" (648) y
    parecían la misma categoría duplicada; quien entraba buscando una
    computadora se encontraba tarjetas madre.

@@ -1078,8 +1078,7 @@ def compat_of(text):
 # su propia categoría, con sus tramos de mAh. classify_cargadores.py las
 # saca de acá antes de clasificar el resto.
 _CARGADOR_TIPOS = (
-    ("Estación de energía", re.compile(r"estacion de energia|power station|generador solar")),
-    ("De pilas y baterías", re.compile(r"\bpilas?\b|baterias? recargables?|battery charger|cargador de bateria")),
+    ("De pilas", re.compile(r"\bpilas?\b|baterias? recargables?|battery charger|cargador de bateria")),
     ("De auto", re.compile(r"\bauto\b|\bcoche\b|encendedor|vehicul|car charger|manillar|\bmoto\b|\b12v\b")),
     ("Inalámbrico", re.compile(r"inalambric|magsafe|\bqi2?\b|magnetic|induccion")),
     ("Para laptop", re.compile(r"\blaptop\b|\bnotebook\b|macbook")),

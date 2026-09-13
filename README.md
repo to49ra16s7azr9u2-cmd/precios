@@ -249,6 +249,14 @@ print(f'{m:,} de {t:,} ({100*m/t:.1f}%) con 2+ tiendas')"
 - **Las specs son las que la tienda publicó**: no se verifican contra el
   fabricante. Cuando el título no alcanza para decidir una subcategoría o
   una marca, el campo queda vacío en vez de rellenarse con una suposición.
+- **Una subcategoría nombra una sola cosa**: no hay "Routers y access
+  points" ni "Estufas y hornos". El selector "¿Qué tipo buscas?" es para
+  filtrar, y un nombre con dos productos adentro no filtra nada: quien
+  busca un switch no quiere ver hubs, y quien busca un horno no quiere
+  ver estufas. Cuando los dos términos eran el mismo producto con otro
+  nombre (repetidor y extensor, closet y ropero) se quedó uno; cuando
+  eran productos distintos, la subcategoría se partió en dos y cada
+  ficha se reasignó por lo que dice su título.
 - **Otras verticales de Kakaku** (seguros, hipotecas, viajes, autos): fuera
   de alcance a propósito. Son negocios distintos, no algo que un comparador
   de productos deba fingir tener.

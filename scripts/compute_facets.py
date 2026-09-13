@@ -281,7 +281,8 @@ SPEC_DIRECTAS = (
     ("Autos, bicicletas y motos", None, "rodada", "wheel_size"),
     # Con qué funciona la estufa: gas LP, natural o electricidad. Cambia si
     # se puede instalar en la casa, no es un detalle de ficha.
-    ("Electrodomésticos", "Estufas y hornos", "emplea", "fuel"),
+    ("Electrodomésticos", "Estufas", "emplea", "fuel"),
+    ("Electrodomésticos", "Hornos", "emplea", "fuel"),
     # Calentador y calefactor: mismo dato, misma etiqueta, misma razón.
     ("Electrodomésticos", "Calentadores de agua", "emplea", "fuel"),
     ("Climatización", "Calefactores", "emplea", "fuel"),
@@ -289,7 +290,7 @@ SPEC_DIRECTAS = (
     ("Electrodomésticos", "Calentadores de agua", "tipo de boiler", "heater_type"),
     ("Joyería y bisutería", "Relojes", "genero", "gender", "_gender"),
     ("Videojuegos", "Software", "clasificacion", "age_rating", "_age"),
-    ("Electrodomésticos", "Estufas y hornos", "numero de quemadores", "burners", "_burners"),
+    ("Electrodomésticos", "Estufas", "numero de quemadores", "burners", "_burners"),
 )
 
 
@@ -438,7 +439,7 @@ def _hogar_facets(product, name, spec_map, f):
                               spec_map.get("capacidad"), name)
             if litros is not None:
                 f["liters"] = litros
-        elif sub == "Licuadoras y extractores":
+        elif sub in ("Licuadoras", "Extractores de jugo"):
             w = _primero(lambda t: se.power_watts(t, 100, 3000), watts, name)
             if w is not None:
                 f["power_w"] = w

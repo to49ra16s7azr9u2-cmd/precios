@@ -52,18 +52,22 @@ def categorize(name):
         return "Electrodomésticos", "Freidoras de aire", "appliance"
     if "horno" in n:
         return "Electrodomésticos", "Freidoras de aire", "appliance"
-    if "licuadora" in n or "exprimidor" in n:
-        return "Electrodomésticos", "Licuadoras y extractores", "appliance"
+    if "exprimidor" in n:
+        return "Electrodomésticos", "Extractores de jugo", "appliance"
+    if "licuadora" in n:
+        return "Electrodomésticos", "Licuadoras", "appliance"
     if "aspiradora robot" in n:
         return "Aspiradoras", "Robots aspiradores", "vacuum"
     if "aspiradora" in n:
-        return "Aspiradoras", "Inalámbricas y de mano", "vacuum"
+        return "Aspiradoras", "Portátiles", "vacuum"
     if "cafetera" in n or "espresso" in n or "café" in n:
         return "Cafeteras", None, "coffee"
     if "ventilador" in n:
         return "Climatización", "Ventiladores", "snowflake"
-    if any(x in n for x in ("multiestilizador", "flexstyle", "estilizador", "rizador", "cepillo secador", "cepillo con secador", "sistema de peinado", "shark glam", "shark® glam")):
-        return "Aparatos de belleza", "Estilizadores y afeitado", "sparkle"
+    if any(x in n for x in ("cepillo secador", "cepillo con secador")):
+        return "Aparatos de belleza", "Secadoras de cabello", "sparkle"
+    if any(x in n for x in ("multiestilizador", "flexstyle", "estilizador", "rizador", "sistema de peinado", "shark glam", "shark® glam")):
+        return "Aparatos de belleza", "Planchas para cabello", "sparkle"
     if any(x in n for x in ("facialpro", "cryoglow", "depuffi", "mascarilla facial", "sistema de enfriamiento personal")):
         return "Aparatos de belleza", "Faciales", "sparkle"
     if "olla a presion" in n or "olla a presión" in n:
