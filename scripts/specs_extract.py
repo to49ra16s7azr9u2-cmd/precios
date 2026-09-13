@@ -1329,3 +1329,459 @@ def multifunction_of(name, scans_spec=None):
     if re.match(r"no\b", v) and not re.match(r"no (especificado|aplica)", v):
         return "Solo impresión"
     return None
+
+
+# ---------------------------------------------------------------------
+# Genéricos: el dato que decide la compra en las categorías que no tenían
+# ninguno (juguetes, herramientas, maletas, mascotas, deportes...). Cada
+# función lee UN dato de un texto -- el valor de una spec o el nombre -- y
+# devuelve None si no está o está dos veces distinto. El rango plausible lo
+# pone quien llama, igual que en el resto del archivo: 20 kg es una
+# mancuerna y 150 kg es lo que aguanta una silla.
+# ---------------------------------------------------------------------
+def _uno(vals):
+    """El único valor del conjunto, entero si lo es; None si hay cero o
+    varios distintos."""
+    if len(vals) != 1:
+        return None
+    v = next(iter(vals))
+    return int(v) if isinstance(v, float) and v == int(v) else v
+
+
+def _num(s):
+    return float(s.replace(",", "."))
+
+
+_KG_RE = re.compile(r"(?<![\d.,])(\d{1,4}(?:[.,]\d{1,2})?)\s*(kg|kgs|kilos?|kilogramos?|lbs?|libras?)\b")
+
+
+def kg_of(text, lo, hi):
+    """Kilos dentro de [lo, hi]; las libras se convierten (0.4536)."""
+    vals = set()
+    for m in _KG_RE.finditer(_norm(text or "")):
+        v = _num(m.group(1))
+        if m.group(2).startswith("l"):
+            v = round(v * 0.4536, 1)
+        if lo <= v <= hi:
+            vals.add(v)
+    return _uno(vals)
+
+
+_VOLT_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d)?)\s*v(?:olts?|oltios)?\b")
+
+
+def volts_of(text, lo, hi):
+    vals = {_num(m.group(1)) for m in _VOLT_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+_INCHES_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d)?)\s*(?:\"|''|”|″|pulgadas?\b|pulg\b|in\b)")
+
+
+def inches_of(text, lo, hi):
+    vals = {_num(m.group(1)) for m in _INCHES_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+_TALLAS = (
+    (re.compile(r"\b(xxl|2xl|3xl|xxg|extra extra grande)\b"), "Extra grande"),
+    (re.compile(r"\b(xl|xg|extra grande|x-large|xlarge)\b"), "Extra grande"),
+    (re.compile(r"\b(xs|xch|extra chica|x-small)\b"), "Chica"),
+    (re.compile(r"\b(l|g|grande|large)\b"), "Grande"),
+    (re.compile(r"\b(m|med|mediana|mediano|medium)\b"), "Mediana"),
+    (re.compile(r"\b(s|ch|chica|chico|pequena|pequeno|small)\b"), "Chica"),
+)
+
+
+def size_label_of(text, bare=False):
+    """Talla normalizada a Chica/Mediana/Grande/Extra grande. En un nombre
+    la letra suelta ("L") es un modelo con la misma frecuencia que una
+    talla, así que ahí se exige la palabra "talla" delante; en el valor de
+    una spec (bare=True) la letra sola vale."""
+    n = _norm(text or "")
+    if not bare:
+        m = re.search(r"\btalla\s+([a-z\- ]{1,20})", n)
+        if not m:
+            return None
+        n = m.group(1)
+    hits = {lbl for rx, lbl in _TALLAS if rx.search(n)}
+    return next(iter(hits)) if len(hits) == 1 else None
+
+
+_DIM_RE = re.compile(r"^\s*(\d{1,4}(?:[.,]\d{1,3})?)\s*(mm|cm|m)\b")
+
+
+def first_dimension_cm(text, lo, hi):
+    """El primer número de "1.2 m x 0.6 m x 0.75 m" (el largo, L), en cm."""
+    m = _DIM_RE.match(_norm(text or ""))
+    if not m:
+        return None
+    v = _num(m.group(1))
+    v = v * 100 if m.group(2) == "m" else v / 10 if m.group(2) == "mm" else v
+    v = round(v)
+    return v if lo <= v <= hi else None
+
+
+_LEN_CM_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d)?)\s*cm\b")
+_DIMS_X_RE = re.compile(r"(\d{1,3}(?:[.,]\d)?)\s*(?:x|\*)\s*(\d{1,3}(?:[.,]\d)?)(?:\s*(?:x|\*)\s*(\d{1,3}(?:[.,]\d)?))?\s*cm\b")
+
+
+def length_cm_of(text, lo, hi):
+    """Tamaño en cm de un peluche o una figura. Con medidas "30 x 20 cm"
+    se queda la mayor, que es la que se ve."""
+    n = _norm(text or "")
+    m = _DIMS_X_RE.search(n)
+    if m:
+        v = max(_num(g) for g in m.groups() if g)
+        return v if lo <= v <= hi else None
+    vals = {_num(m.group(1)) for m in _LEN_CM_RE.finditer(n)}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+def water_resistant_of(text):
+    n = _norm(text or "").strip()
+    if not n:
+        return None
+    if re.search(r"\bip[x]?\d|\d\s*atm\b|\d+\s*m(etros)?\b|\bwater ?proof\b|\bresistente\b(?!.*\bno\b)|^si\b|^s[ií]$|\bsumergible\b", n) \
+            and not re.match(r"^no\b", n):
+        return "Sí"
+    if re.match(r"^(no|non|n/a|ninguna)\b", n):
+        return "No"
+    return None
+
+
+def breed_size_of(text):
+    n = _norm(text or "")
+    if re.search(r"todas|todos|cualquier", n):
+        return "Todas las razas"
+    hits = set()
+    if re.search(r"\b(chic[oa]|pequen[oa]|mini|toy|small)\b", n): hits.add("Chica")
+    if re.search(r"\b(median[oa]|medium)\b", n): hits.add("Mediana")
+    if re.search(r"\b(grande|large|gigante)\b", n): hits.add("Grande")
+    return next(iter(hits)) if len(hits) == 1 else None
+
+
+def pet_stage_of(text):
+    n = _norm(text or "")
+    cach = bool(re.search(r"cachorr|puppy|kitten|gatito", n))
+    adul = bool(re.search(r"adult", n))
+    sen = bool(re.search(r"senior|mayor|viej", n))
+    if re.search(r"todas|todos|cualquier|1-10", n) or sum([cach, adul, sen]) > 1:
+        return "Todas las etapas"
+    if cach: return "Cachorro"
+    if adul: return "Adulto"
+    if sen: return "Senior"
+    return None
+
+
+def thread_count_of(text):
+    n = _norm(text or "")
+    vals = {int(m.group(1)) for m in re.finditer(r"(?<!\d)(\d{2,4})(?!\d)", n)}
+    return _uno({v for v in vals if 50 <= v <= 2000})
+
+
+def speeds_of(text):
+    n = _norm(text or "").strip()
+    vals = {int(m.group(1)) for m in re.finditer(r"(?<!\d)(\d{1,2})(?!\d)", n)}
+    return _uno({v for v in vals if 1 <= v <= 40})
+
+
+_PLATAFORMAS_SPEC = (
+    (re.compile(r"switch\s*2"), "Nintendo Switch 2"),
+    (re.compile(r"switch"), "Nintendo Switch"),
+    (re.compile(r"ps\s*5|playstation\s*5"), "PlayStation 5"),
+    (re.compile(r"ps\s*4|playstation\s*4"), "PlayStation 4"),
+    (re.compile(r"series\s*[xs]"), "Xbox Series X|S"),
+    (re.compile(r"xbox\s*one"), "Xbox One"),
+)
+
+
+def platform_spec_of(text):
+    """La consola tal como la escribe la ficha; "Xbox" a secas no dice
+    cuál y se descarta."""
+    n = _norm(text or "")
+    for rx, lbl in _PLATAFORMAS_SPEC:
+        if rx.search(n):
+            return lbl
+    return None
+
+
+_MATERIALES = (
+    (re.compile(r"chapa|banado|gold ?filled|plated"), "Chapa de oro"),
+    (re.compile(r"\boro\b|\bgold\b|\b1[048]\s?k\b|\b14k\b"), "Oro"),
+    (re.compile(r"\bplata\b|\bsilver\b|s925|\b925\b"), "Plata"),
+    (re.compile(r"acero inox|inoxidable|stainless"), "Acero inoxidable"),
+    (re.compile(r"\bacero\b"), "Acero"),
+    (re.compile(r"\bmdp\b|\bmdf\b|aglomerad|melamin|particula"), "Aglomerado (MDF/MDP)"),
+    (re.compile(r"madera|\bpino\b|caoba|roble|nogal|bambu|ratan|mimbre"), "Madera"),
+    (re.compile(r"piel sintetica|vinipiel|sintetic|\bpu\b|polipiel|imitacion piel"), "Piel sintética"),
+    (re.compile(r"\bpiel\b|\bcuero\b|\bleather\b"), "Piel"),
+    (re.compile(r"microfibra"), "Microfibra"),
+    (re.compile(r"algodon.*(poliester|polyester)|(poliester|polyester).*algodon"), "Algodón y poliéster"),
+    (re.compile(r"algodon|cotton"), "Algodón"),
+    (re.compile(r"poliester|polyester|nylon|nailon|lycra|spandex"), "Poliéster"),
+    (re.compile(r"\btela\b|lino\b|terciopelo|velvet|tejid"), "Tela"),
+    (re.compile(r"aluminio"), "Aluminio"),
+    (re.compile(r"vidrio|cristal|glass"), "Vidrio"),
+    (re.compile(r"ceramic|porcelana"), "Cerámica"),
+    (re.compile(r"silicon"), "Silicona"),
+    (re.compile(r"plastic|\babs\b|polipropileno|\bpvc\b|polietileno|\bpp\b|resina"), "Plástico"),
+    (re.compile(r"\bmetal|hierro|zinc|laton|latón|bronce|cobre|aleacion"), "Metal"),
+)
+
+
+def material_of(text):
+    """El material principal, normalizado a una lista corta. El primero
+    que engancha manda: "latón en chapa de oro" es chapa, no latón."""
+    n = _norm(text or "")
+    if not n or re.match(r"^(no aplica|n/a|no|0|-|\.)$", n.strip()):
+        return None
+    for rx, lbl in _MATERIALES:
+        if rx.search(n):
+            return lbl
+    return None
+
+
+def stone_of(text):
+    n = _norm(text or "").strip()
+    if not n:
+        return None
+    if re.search(r"zircon|circon|\bcz\b", n): return "Zirconia"
+    if re.search(r"diamant", n): return "Diamante"
+    if re.search(r"moissan", n): return "Moissanita"
+    if re.search(r"perla", n): return "Perla"
+    if re.search(r"cristal|swarov", n): return "Cristal"
+    if re.search(r"^(0|no|ninguna|sin piedra|no tiene|no contiene|no aplica|n/a)\b", n): return "Sin piedra"
+    return None
+
+
+_MP_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d)?)\s*(?:mp\b|megapix)")
+
+
+def megapixels_of(text, lo, hi):
+    n = _norm(text or "").strip()
+    vals = {_num(m.group(1)) for m in _MP_RE.finditer(n)}
+    if not vals and re.fullmatch(r"\d{1,3}(?:\.\d)?", n):
+        vals = {_num(n)}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+_BALL_RE = re.compile(r"(?:\bno\.?\s*|#\s*|\bnumero\s*|\bn°\s*|\bnum\.?\s*)([3-7])\b")
+
+
+def ball_number_of(text):
+    vals = {int(m.group(1)) for m in _BALL_RE.finditer(_norm(text or ""))}
+    return _uno(vals)
+
+
+_PIECES_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d{3})|\d{1,5})\s*(?:piezas?\b|pzas?\b|pzs?\b|pcs\b|pieces?\b|pc\b)")
+
+
+def pieces_of(text, lo, hi):
+    vals = set()
+    for m in _PIECES_RE.finditer(_norm(text or "")):
+        raw = m.group(1)
+        v = int(raw.replace(".", "").replace(",", ""))
+        if lo <= v <= hi:
+            vals.add(v)
+    return _uno(vals)
+
+
+_ML_RE = re.compile(r"(?<![\d.,])(\d{1,4}(?:[.,]\d)?)\s*(?:ml\b|mililitros?\b)")
+
+
+def ml_of(text, lo, hi):
+    vals = {_num(m.group(1)) for m in _ML_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+_KM_RE = re.compile(r"(?<![\d.,])(\d{2,3})\s*km\b(?!\s*/?\s*h)")
+
+
+def range_km_of(text, lo, hi):
+    """Autonomía en km. "50 km/h" es velocidad y no entra."""
+    vals = {int(m.group(1)) for m in _KM_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+_CC_RE = re.compile(r"(?<![\d.,])(\d{2,4})\s*cc\b")
+
+
+def engine_cc_of(text, lo, hi):
+    vals = {int(m.group(1)) for m in _CC_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+_MAH_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d{3})|\d{3,6})\s*mah\b")
+
+
+def mah_of(text, lo, hi):
+    vals = set()
+    for m in _MAH_RE.finditer(_norm(text or "")):
+        v = int(m.group(1).replace(".", "").replace(",", ""))
+        if lo <= v <= hi:
+            vals.add(v)
+    return _uno(vals)
+
+
+def age_years_of(text):
+    """Edad mínima en años a partir de "3 años en adelante", "14+", "8 años
+    y más", "0-1 año", "Bebé", "Adulto". "Niños" a secas no dice cuántos."""
+    n = _norm(text or "").strip()
+    if not n or re.match(r"^(n/a|no aplica|-)$", n):
+        return None
+    if re.search(r"\bbebe|\bmeses\b|recien nacid|0\s*(-|a)\s*\d|^0\b", n):
+        return 0
+    if re.search(r"adult|\b1[8-9]\+|\b18\b", n):
+        return 18
+    if re.search(r"todas las edades|todo publico|todas", n):
+        return 0
+    m = re.search(r"(\d{1,2})\s*(\+|anos|ano\b|years|y mas|mas|en adelante|-|a\b)", n)
+    if not m:
+        m = re.search(r"^\+?(\d{1,2})$", n)
+    if not m:
+        return None
+    v = int(m.group(1))
+    return v if 0 <= v <= 18 else None
+
+
+def players_max_of(text):
+    """Jugadores que caben: el máximo cuando hay rango ("2 a 4" -> 4), 99
+    cuando la ficha deja el tope abierto ("2 o más", "Varios")."""
+    n = _norm(text or "").strip()
+    if not n or re.match(r"^(n/a|no aplica|-|0)$", n):
+        return None
+    nums = [int(x) for x in re.findall(r"\d{1,2}", n)]
+    abierto = bool(re.search(r"\+|o mas|en adelante|varios|multijugador|ilimitad", n))
+    if abierto:
+        return 99
+    nums = [x for x in nums if 1 <= x <= 30]
+    return max(nums) if nums else None
+
+
+# Más genéricos, para las subcategorías que quedaban sin un solo dato.
+_GB_RE = re.compile(r"(?<![\d.,])(\d{1,4})\s*gb\b")
+
+
+def gb_of(text, lo, hi):
+    """Gigabytes sueltos ("16GB DDR5"). Un kit "2x16GB" trae dos cifras y
+    no se resuelve."""
+    vals = {int(m.group(1)) for m in _GB_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+_OZ_RE = re.compile(r"(?<![\d.,])(\d{1,2})\s*oz\b")
+
+
+def oz_of(text, lo, hi):
+    vals = {int(m.group(1)) for m in _OZ_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+_MM_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d)?)\s*mm\b")
+
+
+def mm_of(text, lo, hi):
+    vals = {_num(m.group(1)) for m in _MM_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+_FOCAL_RE = re.compile(r"(?<![\d.,])(\d{1,3})(?:\s*-\s*(\d{1,3}))?\s*mm\b")
+
+
+def focal_mm_of(text):
+    """Distancia focal de un lente: el primer número de "18-55mm" (el gran
+    angular es lo que se elige) o el único de "50mm". Rango 8-800."""
+    n = _norm(text or "")
+    vals = set()
+    for m in _FOCAL_RE.finditer(n):
+        v = int(m.group(1))
+        if 8 <= v <= 800:
+            vals.add(v)
+    return _uno(vals)
+
+
+_FILAMENTOS = (
+    (re.compile(r"\bpla\s*\+|\bpla\+"), "PLA+"),
+    (re.compile(r"\bpla\b"), "PLA"),
+    (re.compile(r"\bpetg\b"), "PETG"),
+    (re.compile(r"\babs\b"), "ABS"),
+    (re.compile(r"\btpu\b"), "TPU"),
+    (re.compile(r"\basa\b"), "ASA"),
+    (re.compile(r"\bnylon\b|\bnailon\b"), "Nylon"),
+)
+
+
+def filament_of(text):
+    n = _norm(text or "")
+    hits = {lbl for rx, lbl in _FILAMENTOS if rx.search(n)}
+    hits.discard("PLA") if "PLA+" in hits else None
+    return next(iter(hits)) if len(hits) == 1 else None
+
+
+_PORTS_RE = re.compile(r"(?<![\d.,])(\d{1,2})\s*(?:puertos?|ports?|bocas)\b")
+
+
+def ports_of(text):
+    vals = {int(m.group(1)) for m in _PORTS_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if 2 <= v <= 64})
+
+
+_WIFI_STD = (
+    (re.compile(r"wi-?fi\s*7\b|\bbe\d{3,5}\b|802\.11be"), "Wi-Fi 7"),
+    (re.compile(r"wi-?fi\s*6e\b|\baxe\d{3,5}\b"), "Wi-Fi 6E"),
+    (re.compile(r"wi-?fi\s*6\b|\bax\d{3,5}\b|802\.11ax"), "Wi-Fi 6"),
+    (re.compile(r"wi-?fi\s*5\b|\bac\d{3,4}\b|802\.11ac"), "Wi-Fi 5"),
+    (re.compile(r"wi-?fi\s*4\b|\bn\d{3}\b|802\.11n"), "Wi-Fi 4"),
+)
+
+
+def wifi_std_of(text):
+    """Generación de Wi-Fi por su nombre (Wi-Fi 6) o por la clase de
+    velocidad (AX3000 es Wi-Fi 6, AC1200 es Wi-Fi 5)."""
+    n = _norm(text or "")
+    for rx, lbl in _WIFI_STD:
+        if rx.search(n):
+            return lbl
+    return None
+
+
+_DPI_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d{3})|\d{3,6})\s*dpi\b")
+
+
+def dpi_of(text):
+    vals = set()
+    for m in _DPI_RE.finditer(_norm(text or "")):
+        v = int(m.group(1).replace(".", "").replace(",", ""))
+        if 400 <= v <= 60000:
+            vals.add(v)
+    return _uno(vals)
+
+
+_METERS_RE = re.compile(r"(?<![\d.,])(\d{1,2}(?:[.,]\d)?)\s*(?:m\b(?!m)|metros?\b|mts?\b)")
+
+
+def meters_of(text, lo, hi):
+    vals = {_num(m.group(1)) for m in _METERS_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+_LUMENS_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d{3})|\d{2,6})\s*(?:lm\b|lumen(?:es)?\b)")
+
+
+def lumens_of(text, lo, hi):
+    vals = set()
+    for m in _LUMENS_RE.finditer(_norm(text or "")):
+        v = int(m.group(1).replace(".", "").replace(",", ""))
+        if lo <= v <= hi:
+            vals.add(v)
+    return _uno(vals)
+
+
+_AH_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d{1,2})?)\s*ah\b")
+
+
+def ah_of(text, lo, hi):
+    """Amperes-hora de una batería ("48V 20Ah", "12V 7Ah")."""
+    vals = {_num(m.group(1)) for m in _AH_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if lo <= v <= hi})

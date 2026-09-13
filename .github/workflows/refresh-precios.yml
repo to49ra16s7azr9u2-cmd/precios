@@ -163,7 +163,9 @@ jobs:
         # Los precios no cambian las specs, pero la poda sí puede sacar
         # productos: sin esto los conteos por categoría del manifiesto
         # quedarían contando productos que ya no están.
-        run: python3 scripts/compute_facets.py
+        run: |
+          python3 scripts/compute_facets.py
+          python3 scripts/compute_quality_axes.py
 
       - name: Regenerar páginas estáticas SEO
         # Las páginas de producto/categoría llevan el precio dentro del HTML,
@@ -221,6 +223,7 @@ jobs:
           python3 scripts/precios_de_ofertas.py --aplicar "$RUNNER_TEMP/precios-corrida.json"
           python3 scripts/record_price_history.py
           python3 scripts/compute_facets.py
+          python3 scripts/compute_quality_axes.py
           python3 scripts/generate_seo_pages.py
           if [ -z "$(git status --porcelain)" ]; then
             echo "Sobre el main nuevo no queda ningún cambio que publicar."

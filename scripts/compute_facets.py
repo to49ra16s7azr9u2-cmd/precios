@@ -71,10 +71,12 @@ def _spec_map(product):
 # Celulares: un plegable tipo libro (Mate XT, Fold) sí llega a ~10-11" en
 # la etiqueta de pantalla interior -- de ahí el rango ampliado cuando el
 # nombre trae una palabra de plegable.
-# Categorías con facets calculados. Es la misma lista que decide dónde se
-# muestra el bloque "Compara calidad" del sitio (SPECS_BANNER_CATEGORIES en
-# js/app.js): una categoría entra acá cuando de sus nombres se puede sacar
-# un atributo REAL, no cuando nos gustaría tenerlo.
+# Categorías con facets PROPIOS (RAM, pulgadas, BTU, kilos de carga...):
+# una categoría entra acá cuando de sus nombres se puede sacar un atributo
+# REAL, no cuando nos gustaría tenerlo. El resto del catálogo no se queda
+# sin nada: los campos genéricos de SPEC_GENERALES y NOMBRE_GENERALES (más
+# abajo) se leen en todas las categorías, y son los que alimentan "Compara
+# calidad" donde no hay eje escrito a mano (scripts/compute_quality_axes.py).
 FACET_CATEGORIES = (
     "Celulares", "Laptops", "Tabletas", "Monitores",
     "Televisores", "Videojuegos", "Lavadoras", "Refrigeradores",
@@ -455,7 +457,170 @@ def _hogar_facets(product, name, spec_map, f):
                 f["services"] = n
 
 
+# ---------------------------------------------------------------------
+# Genéricos: un dato por decisión de compra en las categorías que no tenían
+# ninguno (juguetes, herramientas, maletas, mascotas, deportes, joyería...).
+# Es lo que alimenta "Compara calidad" en todas las subcategorías: sin un
+# campo con datos no hay tarjetas que mostrar.
+#
+# Dos fuentes, en este orden: la ficha de la tienda (SPEC_GENERALES: una
+# etiqueta -> un campo, con su normalizador) y el nombre (NOMBRE_GENERALES:
+# por categoría o subcategoría, con el rango plausible). Ninguna pisa un
+# campo que la rama propia de la categoría ya llenó.
+# ---------------------------------------------------------------------
+SPEC_GENERALES = (
+    ("edad recomendada", "age_min", se.age_years_of),
+    ("numero de jugadores", "players_max", se.players_max_of),
+    ("capacidad de carga", "load_kg", lambda v: se.kg_of(v, 1, 2000)),
+    ("potencia en watts", "power_w", lambda v: se.power_watts(v, 1, 30000)),
+    ("voltaje", "volt", lambda v: se.volts_of(v, 3, 480)),
+    ("voltaje de salida", "volt", lambda v: se.volts_of(v, 1, 480)),
+    ("pulgadas", "size_in", lambda v: se.inches_of(v, 8, 120)),
+    ("tamano en pulgadas", "size_in", lambda v: se.inches_of(v, 3, 120)),
+    ("tamano", "size_in", lambda v: se.inches_of(v, 8, 120)),
+    ("tamano", "size_label", lambda v: se.size_label_of(v, bare=True)),
+    ("talla del casco", "size_label", lambda v: se.size_label_of(v, bare=True)),
+    ("talla", "size_label", lambda v: se.size_label_of(v, bare=True)),
+    ("tipo de casco", "helmet_type", lambda v: v.strip().title() if v.strip() else None),
+    # Solo en muebles: en blancos y utensilios "dimensiones" es la caja.
+    ("dimensiones (l x al x an)", "length_cm", lambda v: se.first_dimension_cm(v, 20, 400),
+     ("Muebles", "Decoración de hogar y jardín", "Equipo comercial")),
+    ("resistencia al agua", "water_resistant", se.water_resistant_of),
+    ("tamano de la raza", "breed_size", se.breed_size_of),
+    ("etapa de vida de la mascota", "pet_stage", se.pet_stage_of),
+    ("deporte", "sport", lambda v: v.strip().title() if v.strip() and v.strip().lower() not in ("recreativo", "no aplica") else None),
+    ("numero de hilos", "thread_count", se.thread_count_of),
+    ("velocidades", "speeds", se.speeds_of),
+    ("tipo de bicicletas", "bike_type", lambda v: v.strip().title() if v.strip() else None),
+    ("consola", "platform", se.platform_spec_of),
+    ("material", "material", se.material_of),
+    ("tipo de piedra", "stone", se.stone_of),
+    ("megapixeles", "camera_mp", lambda v: se.megapixels_of(v, 1, 200)),
+    ("capacidad en litros", "liters", lambda v: se.liters_of(v, 0.1, 2000)),
+    ("genero", "gender", _gender),
+    ("capacidad de bateria (mah)", "battery_mah", lambda v: se.mah_of(v, 100, 100000)),
+)
+
+# (categoría, subcategoría o None) -> [(campo, función(nombre))]. El rango
+# va en la función porque "1500 W" es una secadora de pelo y también un
+# panel solar grande.
+def _w(lo, hi):
+    return lambda t: se.power_watts(t, lo, hi)
+
+
+NOMBRE_GENERALES = {
+    ("Herramientas", None): [("power_w", _w(50, 5000)), ("volt", lambda t: se.volts_of(t, 3, 240))],
+    ("Movilidad eléctrica", None): [("power_w", _w(100, 8000)), ("range_km", lambda t: se.range_km_of(t, 10, 300)),
+                                    ("battery_ah", lambda t: se.ah_of(t, 2, 100)), ("volt", lambda t: se.volts_of(t, 12, 120))],
+    ("Autos, bicicletas y motos", "Bocinas para auto"): [("power_w", _w(10, 20000)), ("size_in", lambda t: se.inches_of(t, 3, 21))],
+    ("Autos, bicicletas y motos", "Amplificadores para auto"): [("power_w", _w(10, 20000))],
+    ("Autos, bicicletas y motos", "Estéreos para auto"): [("size_in", lambda t: se.inches_of(t, 4, 13)), ("power_w", _w(10, 500))],
+    ("Autos, bicicletas y motos", "Motocicletas"): [("engine_cc", lambda t: se.engine_cc_of(t, 49, 2500)), ("power_w", _w(200, 20000))],
+    ("Autos, bicicletas y motos", "Cascos para moto"): [("size_label", se.size_label_of)],
+    ("Autos, bicicletas y motos", "Baterías para auto"): [("volt", lambda t: se.volts_of(t, 6, 48))],
+    ("Instrumentos musicales", "Amplificadores"): [("power_w", _w(5, 5000))],
+    ("Iluminación", None): [("power_w", _w(1, 600))],
+    ("Domótica y hogar inteligente", "Iluminación inteligente"): [("power_w", _w(1, 200))],
+    ("Aparatos de belleza", "Secadoras de cabello"): [("power_w", _w(300, 3500))],
+    ("Aparatos de belleza", "Planchas para cabello"): [("power_w", _w(10, 500))],
+    ("Otros", "Generadores"): [("power_w", _w(300, 30000))],
+    ("Otros", "Inversores"): [("power_w", _w(50, 20000))],
+    ("Otros", "Paneles solares"): [("power_w", _w(5, 1000))],
+    ("Otros", "Estaciones de energía"): [("power_w", _w(100, 10000))],
+    ("Otros", "Radios"): [("power_w", _w(1, 300))],
+    ("Otros", "Varios"): [("volume_ml", lambda t: se.ml_of(t, 10, 5000))],
+    ("Electrodomésticos", "Pequeños electrodomésticos de cocina"): [("power_w", _w(100, 3000)), ("liters", lambda t: se.liters_of(t, 0.3, 60, quarts=True))],
+    ("Electrodomésticos", "Planchas"): [("power_w", _w(500, 3500))],
+    ("Electrodomésticos", "Hornos"): [("liters", lambda t: se.liters_of(t, 5, 150)), ("power_w", _w(500, 6000))],
+    ("Electrodomésticos", "Máquinas de coser"): [("power_w", _w(20, 300))],
+    ("Climatización", "Purificadores de aire"): [("power_w", _w(3, 500))],
+    ("Climatización", "Humidificadores"): [("liters", lambda t: se.liters_of(t, 0.3, 30)), ("power_w", _w(3, 500))],
+    ("Climatización", "Deshumidificadores"): [("liters", lambda t: se.liters_of(t, 1, 100)), ("power_w", _w(20, 1500))],
+    ("Climatización", "Climatizadores evaporativos"): [("liters", lambda t: se.liters_of(t, 3, 150))],
+    ("Equipo comercial", None): [("power_w", _w(100, 30000)), ("liters", lambda t: se.liters_of(t, 5, 3000))],
+    ("Refrigeradores", "Frigobares"): [("liters", lambda t: se.liters_of(t, 15, 300))],
+    ("Refrigeradores", "Uso comercial"): [("liters", lambda t: se.liters_of(t, 50, 3000))],
+    ("Baterías portátiles", None): [("charger_w", se.charger_watts)],
+    ("Deportes y fitness", "Pesas"): [("weight_kg", lambda t: se.kg_of(t, 0.5, 300))],
+    ("Deportes y fitness", "Balones"): [("ball_no", se.ball_number_of)],
+    ("Deportes y fitness", "Voleibol"): [("ball_no", se.ball_number_of)],
+    ("Deportes y fitness", "Bicicletas fijas"): [("load_kg", lambda t: se.kg_of(t, 50, 300))],
+    ("Salud y belleza", "Básculas"): [("load_kg", lambda t: se.kg_of(t, 50, 1000))],
+    ("Salud y belleza", "Cuidado del cabello"): [("volume_ml", lambda t: se.ml_of(t, 10, 5000))],
+    ("Salud y belleza", "Cuidado personal"): [("volume_ml", lambda t: se.ml_of(t, 10, 5000))],
+    ("Salud y belleza", "Depilación"): [("volume_ml", lambda t: se.ml_of(t, 10, 5000))],
+    ("Aparatos de belleza", "Maquillaje"): [("volume_ml", lambda t: se.ml_of(t, 1, 2000))],
+    ("Juguetes y bebés", "Biberones"): [("volume_ml", lambda t: se.ml_of(t, 30, 500))],
+    ("Juguetes y bebés", "Peluches"): [("length_cm", lambda t: se.length_cm_of(t, 8, 250))],
+    ("Juguetes y bebés", "Figuras de acción"): [("length_cm", lambda t: se.length_cm_of(t, 4, 120))],
+    ("Juguetes y bebés", "Bloques de construcción"): [("pieces", lambda t: se.pieces_of(t, 10, 20000))],
+    ("Juguetes y bebés", "Montables"): [("volt", lambda t: se.volts_of(t, 6, 48))],
+    ("Juegos de mesa", "Rompecabezas"): [("pieces", lambda t: se.pieces_of(t, 20, 60000))],
+    ("Cámaras y fotografía", None): [("camera_mp", lambda t: se.megapixels_of(t, 2, 200))],
+    ("Cámaras de seguridad", None): [("camera_mp", lambda t: se.megapixels_of(t, 1, 24))],
+    ("Videojuegos", "Consolas"): [("storage_gb", se.drive_capacity_gb)],
+    ("Proyectores y accesorios", "Pantallas de proyección"): [("screen_in", lambda t: se.inches_of(t, 40, 400))],
+    ("Decoración de hogar y jardín", "Asadores"): [("size_in", lambda t: se.inches_of(t, 12, 80))],
+    ("Mascotas", "Bebederos"): [("liters", lambda t: se.liters_of(t, 0.3, 30))],
+    ("Cargadores y adaptadores", "De pilas"): [("volt", lambda t: se.volts_of(t, 1, 48))],
+    ("Viajes", "Maletas"): [("size_in", lambda t: se.inches_of(t, 14, 34))],
+    ("Autos, bicicletas y motos", "Baterías para auto"): [("battery_ah", lambda t: se.ah_of(t, 2, 300))],
+    ("Deportes y fitness", "Boxeo"): [("glove_oz", lambda t: se.oz_of(t, 4, 20))],
+    ("Deportes y fitness", "Yoga"): [("thickness_mm", lambda t: se.mm_of(t, 2, 30))],
+    ("Impresión 3D", "Filamentos"): [("filament", se.filament_of)],
+    ("Redes", None): [("wifi_std", se.wifi_std_of), ("ports", se.ports_of)],
+    ("Mouse", None): [("dpi", se.dpi_of)],
+    ("Componentes y accesorios de PC", "Memoria RAM"): [("ram_gb", lambda t: se.gb_of(t, 2, 256))],
+    ("Componentes y accesorios de PC", "Webcams"): [("resolution", se.resolution_of)],
+    ("Componentes y accesorios de PC", "Accesorios de monitor"): [("size_in", lambda t: se.inches_of(t, 13, 75))],
+    ("Cámaras de seguridad", None): [("resolution", se.resolution_of)],
+    ("Cámaras y fotografía", "Lentes"): [("focal_mm", se.focal_mm_of)],
+    ("Iluminación", "Tiras LED"): [("length_m", lambda t: se.meters_of(t, 1, 50))],
+    ("Iluminación", None): [("lumens", lambda t: se.lumens_of(t, 50, 50000))],
+}
+
+
+# Campos que en esa subcategoría dicen otra cosa: el "material" de un
+# colchón es el de su box de madera.
+NO_GENERALES = {("Muebles", "Colchones"): {"material"}}
+
+
+def _generales(product, name, spec_map, f):
+    cat, sub = product.get("category"), product.get("subcategory")
+    fuera = NO_GENERALES.get((cat, sub), ())
+    for regla in SPEC_GENERALES:
+        etiqueta, campo, fn = regla[:3]
+        if campo in f or campo in fuera:
+            continue
+        if len(regla) > 3 and cat not in regla[3]:
+            continue
+        val = spec_map.get(etiqueta)
+        if not val:
+            continue
+        try:
+            v = fn(val)
+        except (ValueError, AttributeError):
+            v = None
+        if v is not None:
+            f[campo] = v
+    reglas = NOMBRE_GENERALES.get((cat, sub), []) + NOMBRE_GENERALES.get((cat, None), [])
+    for campo, fn in reglas:
+        if campo in f or campo in fuera:
+            continue
+        v = fn(name)
+        if v is not None:
+            f[campo] = v
+
+
 def facets_for(product):
+    """Los facets propios de la categoría (abajo) y, encima, los genéricos
+    que cualquier categoría puede tener. Ninguno de los dos pisa al otro."""
+    f = _facets_propias(product) or {}
+    _generales(product, product.get("name", ""), _spec_map(product), f)
+    return f or None
+
+
+def _facets_propias(product):
     category = product.get("category")
     if category not in FACET_CATEGORIES:
         return None
@@ -706,11 +871,15 @@ def main():
     changed = 0
     for p in products:
         f = facets_for(p)
-        if f is None:
-            if p.get("category") in FACET_CATEGORIES:
-                per_cat_total[p["category"]] += 1
-            continue
         per_cat_total[p["category"]] += 1
+        if f is None:
+            # Sin facets ahora: los que tuviera son de otra categoría o de
+            # una ficha que ya no dice eso, y se sueltan.
+            if p.get("facets"):
+                changed += 1
+                if not args.dry_run:
+                    del p["facets"]
+            continue
         for k in f:
             per_field[(p["category"], k)] += 1
         if p.get("facets") != f:
@@ -719,7 +888,7 @@ def main():
             p["facets"] = f
 
     print("Cobertura por campo:")
-    for cat_name in FACET_CATEGORIES:
+    for cat_name in sorted(per_cat_total):
         total = per_cat_total[cat_name]
         print(f"  {cat_name} (n={total}):")
         for (c, k), n in sorted(per_field.items()):

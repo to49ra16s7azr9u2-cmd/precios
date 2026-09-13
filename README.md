@@ -60,6 +60,9 @@ css/style.css        estilos (paleta Mercari)
 js/app.js             lógica: rutas por hash, rankings, filtros/orden, mapa, comparación, marcas y ofertas, favoritos/perfil/reseñas (localStorage)
 data/data.json        categorías, productos (specs, reseñas, ofertas con stock), tiendas, regiones (datos de demo)
 data/brands.json      catálogo de 52 marcas afiliadas (Admitad), fuera del comparador de electrónica
+data/quality-axes.json ejes de "Compara calidad" generados para las subcategorías sin eje a mano (ver abajo)
+scripts/compute_facets.py       saca de cada ficha el dato que decide la compra (watts, litros, edad, talla...)
+scripts/compute_quality_axes.py arma con esos datos los tres tramos de "Compara calidad" por subcategoría
 icons/brands/          logos de las 52 marcas, recortados de las capturas de Admitad
 icons/, manifest.json, sw.js   PWA
 backend/mercadolibre-worker/   Cloudflare Worker + guía para conectar la API real de Mercado Libre (opcional, desactivado por defecto)
@@ -83,6 +86,45 @@ python3 -m http.server 8000
 - `products[].offers[].verified`: `true` si el precio viene de una API real (ninguna oferta lo tiene por ahora), `false` si es dato de demostración o de un feed de afiliados (ver "🔶 Precios de referencia" en la app). Controla en cuál de los dos bloques de la tabla aparece la oferta.
 - `products[].image`: emoji que representa al producto. Se usa como respaldo cuando no hay `photo`.
 - `products[].photo` (opcional): URL de la foto real del producto, tomada del feed de la tienda o rellenada por la API de Mercado Libre cuando se conecta. Si está presente, sustituye al emoji en la portada, el listado y la ficha.
+
+## Compara calidad: nivel y tamaño en dos clics
+
+Arriba de cada listado hay un bloque que agrupa la subcategoría en tres
+tarjetas ("Básico / Intermedio / Alto", "Chica / Mediana / Grande") por UN
+dato que la tienda publicó, y la tarjeta dice cuál es ("Hasta 600 W"). No
+hay puntuación inventada: el comprador ve por qué un taladro cayó en
+"Ligera". La línea de uso ("Taladros y lijadoras chicas, uso en casa")
+orienta sobre el rango, no afirma nada de cada producto.
+
+Los ejes salen de dos sitios, y el primero gana:
+
+1. **A mano**, en `QUALITY_AXES` de `js/app.js`: unas treinta categorías
+   con el corte pensado y la prosa escrita (celulares por almacenamiento,
+   lavadoras por kilos, colchones por firmeza y medida...).
+2. **Generados**, en `data/quality-axes.json`, por
+   `scripts/compute_quality_axes.py`: para todas las demás subcategorías
+   que tengan un campo de facets con datos en al menos una de cada cinco
+   fichas. Los tres tramos son los terciles reales del catálogo,
+   redondeados a números legibles; un campo que no reparte (el 85% cae en
+   un tramo) se descarta; y el orden de preferencia va de lo que decide la
+   compra (watts, litros, edad, talla, jugadores) a lo descriptivo
+   (material, resistencia al agua).
+
+Los datos los pone `scripts/compute_facets.py`: además de las facetas
+propias de cada categoría (RAM, pulgadas, BTU), lee de la ficha de la
+tienda y del nombre una lista de campos genéricos -- edad recomendada,
+jugadores, carga máxima, watts, voltaje, pulgadas, talla, tipo de casco,
+largo, resistencia al agua, raza y etapa de la mascota, hilos, piezas,
+número de balón, cilindrada, autonomía, megapixeles, focal, DPI, puertos,
+generación de Wi-Fi, filamento, material, piedra, contenido en ml... --
+cada uno con su rango plausible por categoría, y sin adivinar: dos cifras
+distintas en el mismo nombre dejan el campo vacío. Con eso el bloque llega
+a 252 de las 320 subcategorías; las 68 restantes (refacciones, maquillaje,
+consumibles de impresora, ratones de oficina, cerraduras inteligentes...)
+no publican ningún dato comparable en el nombre ni en la ficha.
+
+Después de cualquier alta o cambio de catálogo: `compute_facets.py` y
+luego `compute_quality_axes.py` (la corrida diaria hace los dos).
 
 ## Fotos de producto
 

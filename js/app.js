@@ -2386,6 +2386,16 @@
 
     manifest.products = [];
     state.data = hideEmptyTaxonomy(manifest);
+    // Ejes de "Compara calidad" generados por scripts/compute_quality_axes.py
+    // para las subcategorías que no tienen eje escrito a mano en
+    // QUALITY_AXES. Si falla, esas subcategorías simplemente no llevan el
+    // bloque, como antes.
+    try {
+      const resQ = await fetch("data/quality-axes.json");
+      qualityAxesJson = materializeQualityAxes(await resQ.json());
+    } catch {
+      qualityAxesJson = {};
+    }
     // Catálogo de marcas/afiliados (Admitad): independiente del comparador de
     // electrónica, así que un fallo aquí no debe tumbar el resto del sitio.
     try {
@@ -4490,23 +4500,61 @@
   // subcategoría gana. Sin esto un minisplit heredaba la línea genérica
   // aunque su eje sí sea específico.
   function qualityIntro() {
-    if (singleSub()) {
-      const scoped = QUALITY_INTRO[`${state.category}/${singleSub()}`];
+    const sub = singleSub();
+    if (sub) {
+      const scoped = QUALITY_INTRO[`${state.category}/${sub}`];
       if (scoped) return scoped;
     }
-    return QUALITY_INTRO[state.category] || QUALITY_INTRO_DEFAULT;
+    if (QUALITY_INTRO[state.category]) return QUALITY_INTRO[state.category];
+    const gen = (sub && qualityAxesJson[`${state.category}/${sub}`]) || qualityAxesJson[state.category];
+    return (gen && gen.intro) || QUALITY_INTRO_DEFAULT;
+  }
+
+  // Ejes generados (data/quality-axes.json), ya con su función match. Los
+  // tramos numéricos llegan como {min, max} (min < v <= max, el que falte
+  // no acota) y los de texto como {values}.
+  let qualityAxesJson = {};
+  function materializeQualityAxes(json) {
+    const out = {};
+    Object.entries(json || {}).forEach(([key, entry]) => {
+      out[key] = {
+        intro: entry.intro || null,
+        axes: (entry.axes || []).map((a) => ({
+          ...a,
+          tiers: (a.tiers || []).map((t) => ({
+            ...t,
+            match: t.values
+              ? (v) => t.values.includes(v) || t.values.includes(String(v))
+              : (v) => (t.min == null || v > t.min) && (t.max == null || v <= t.max),
+          })),
+        })),
+      };
+    });
+    return out;
   }
 
   // La clave puede ser "Categoría" o "Categoría/Subcategoría", y la más
   // específica gana. Hace falta para Colchones: la medida de cama es LA
   // pregunta ahí (5,134 productos), pero no significa nada en el resto de
   // Muebles -- un escritorio no es queen ni king.
+  //
+  // Lo escrito a mano (QUALITY_AXES) gana sobre lo generado
+  // (data/quality-axes.json) en toda su categoría: el eje de Celulares por
+  // almacenamiento vale para Android y iPhone aunque el generador tenga
+  // algo para ellos. Lo generado solo llena las categorías sin eje a mano.
   function qualityAxes() {
-    if (singleSub()) {
-      const scoped = QUALITY_AXES[`${state.category}/${singleSub()}`];
+    const sub = singleSub();
+    if (sub) {
+      const scoped = QUALITY_AXES[`${state.category}/${sub}`];
       if (scoped) return scoped;
     }
-    return QUALITY_AXES[state.category] || [];
+    if (QUALITY_AXES[state.category]) return QUALITY_AXES[state.category];
+    if (sub) {
+      const gen = qualityAxesJson[`${state.category}/${sub}`];
+      if (gen) return gen.axes;
+    }
+    const genCat = qualityAxesJson[state.category];
+    return genCat ? genCat.axes : [];
   }
 
   // El bloque se muestra donde hay ejes definidos, no contra una lista
@@ -4683,7 +4731,7 @@
           <span class="quality-card-photo"></span>
           <span class="quality-card-body">
             <span class="quality-card-name">${tier.name}</span>
-            <span class="quality-card-use">${tier.use}</span>
+            ${tier.use ? `<span class="quality-card-use">${tier.use}</span>` : ""}
             <span class="quality-card-spec">${tier.spec}</span>
             <span class="quality-card-count">${n.toLocaleString("es-MX")} ${n === 1 ? "producto" : "productos"}</span>
           </span>`;
