@@ -4,8 +4,10 @@
 // amazon.com.mx, acumula productos en localStorage, sigue páginas, recorre
 // subdepartamentos y parte por tramos de precio lo que Amazon corta.
 const ComparaMEX = (() => {
-  const KEY = "comparamex.captura.amazon";   // productos acumulados
-  const COLA = "comparamex.captura.cola";    // estado del recorrido
+  // Claves nuevas (v2): el marcador viejo guardaba en "comparamex.captura.amazon"
+  // y ese acumulado, ya importado, no debe mezclarse con las tandas nuevas.
+  const KEY = "comparamex.captura.amazon.v2";   // productos acumulados
+  const COLA = "comparamex.captura.cola.v2";    // estado del recorrido
   const ESPERA = window.__comparamexEspera || [2500, 5000];  // ms entre páginas, al azar
   const MAX_PAG = 20;        // freno duro por listado
   const TOPE_AMAZON = 7;     // Amazon corta los departamentos en ~7 páginas
@@ -181,16 +183,16 @@ const ComparaMEX = (() => {
       panel.style.cssText = "position:fixed;z-index:2147483647;bottom:16px;right:16px;width:340px;background:#111;color:#fff;padding:14px 16px;border-radius:12px;font:13px/1.45 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.4);white-space:pre-line";
       cuerpo = document.createElement("div"); panel.appendChild(cuerpo);
       const fila = document.createElement("div"); fila.style.marginTop = "8px"; panel.appendChild(fila);
-      botones.sig = boton("Páginas siguientes", () => arrancar([{ url: location.href, prof: 0, sub: false }]));
+      botones.sig = boton("Páginas siguientes", () => arrancar([{ url: location.href, prof: 0, sub: false, pedido: true }]));
       botones.rec = boton("Recorrer departamentos", () => {
         const p = parseInt(window.prompt("¿Cuántos niveles de subdepartamentos? (0 = solo este, 1 = sus hijos, 2 = también los nietos)", "1") || "0", 10);
-        if (isNaN(p)) return; estado.prof = Math.max(0, Math.min(3, p)); arrancar([{ url: location.href, prof: 0, sub: true }]);
+        if (isNaN(p)) return; estado.prof = Math.max(0, Math.min(3, p)); arrancar([{ url: location.href, prof: 0, sub: true, pedido: true }]);
       });
       botones.lista = boton("Lista de URLs", () => {
         const t = window.prompt("Pega URLs de Amazon separadas por espacios (departamentos, búsquedas, más vendidos):", "");
         if (!t) return;
         const urls = t.split(/\s+/).filter((u) => /amazon\.com\.mx/.test(u));
-        estado.prof = 0; arrancar(urls.map((u) => ({ url: u, prof: 0, sub: false })));
+        estado.prof = 0; arrancar(urls.map((u) => ({ url: u, prof: 0, sub: false, pedido: true })));
       });
       botones.pausa = boton("Pausar", () => { if (estado.activo) { estado.activo = false; estado.motivo = "pausado a mano"; guardar(); pintar(); } else if (estado.cola.length) { arrancar([]); } });
       botones.bajar = boton("Descargar JSON", descargar);
@@ -242,14 +244,21 @@ const ComparaMEX = (() => {
     return { error: "Amazon no responde" };
   };
   const detener = (motivo) => { estado.activo = false; estado.motivo = motivo; guardar(); pintar(); };
+  // "hechas" y "nodos" evitan dar vueltas dentro de una tanda (un
+  // subdepartamento enlazado desde dos sitios). Lo que la persona pide a
+  // mano (t.pedido) entra siempre, aunque ya se haya recorrido.
   const encolar = (nuevos) => {
+    let n_ = 0;
     for (const t of nuevos) {
-      if (estado.hechas[t.url]) continue;
       const n = nodoDe(t.url);
-      if (n && !t.banda && estado.nodos[n] && !esBS(t.url)) continue;  // ese departamento ya se recorrió
+      if (!t.pedido) {
+        if (estado.hechas[t.url]) continue;
+        if (n && !t.banda && estado.nodos[n] && !esBS(t.url)) continue;  // ese departamento ya se recorrió
+      }
       estado.hechas[t.url] = 1; if (n && !t.banda) estado.nodos[n] = 1;
-      estado.cola.push(t);
+      estado.cola.push(t); n_++;
     }
+    return n_;
   };
   // La página siguiente. Si el listado trae el enlace, ese; si no (el HTML
   // que Amazon sirve al fetch no siempre lo trae), se arma con page=N y se
@@ -311,7 +320,10 @@ const ComparaMEX = (() => {
   const arrancar = (nuevos) => {
     if (window.__comparamexCorriendo) { pintar("Ya hay un recorrido andando en esta pestaña."); return; }
     if (estado.activo && Date.now() - estado.latido < 30000) { pintar("Ya hay un recorrido andando en otra pestaña. Espera a que termine o páusalo allí."); return; }
+    // Una tanda nueva (cola vacía y algo pedido a mano) empieza limpia.
+    if (nuevos.length && !estado.cola.length) { estado.hechas = {}; estado.nodos = {}; }
     encolar(nuevos);
+    if (!estado.cola.length) { pintar("No hay nada que recorrer."); return; }
     estado.activo = true; estado.motivo = ""; estado.latido = Date.now(); guardar(); pintar();
     correr();
   };
@@ -337,9 +349,9 @@ const ComparaMEX = (() => {
     return "ComparaMEX: " + nuevos + " nuevos, " + (r.items.length - nuevos) + " ya estaban. ACUMULADOS: " + acumulado.length +
            ". El panel de abajo a la derecha tiene los botones para seguir solo y para descargar el JSON.";
   };
-  const siguientes = () => arrancar([{ url: location.href, prof: 0, sub: false }]);
-  const deptos = (prof) => { estado.prof = Math.max(0, Math.min(3, prof | 0)); arrancar([{ url: location.href, prof: 0, sub: true }]); };
-  const lista = (urls) => { estado.prof = 0; arrancar(urls.map((u) => ({ url: u, prof: 0, sub: false }))); };
+  const siguientes = () => arrancar([{ url: location.href, prof: 0, sub: false, pedido: true }]);
+  const deptos = (prof) => { estado.prof = Math.max(0, Math.min(3, prof | 0)); arrancar([{ url: location.href, prof: 0, sub: true, pedido: true }]); };
+  const lista = (urls) => { estado.prof = 0; arrancar(urls.map((u) => ({ url: u, prof: 0, sub: false, pedido: true }))); };
   const pausar = () => { if (estado.activo) { estado.activo = false; estado.motivo = "pausado a mano"; guardar(); pintar(); } };
   const reanudar = () => { if (!estado.activo && estado.cola.length) arrancar([]); };
   const vaciar = () => { acumulado.length = 0; vistos.clear(); Object.assign(estado, { cola: [], hechas: {}, nodos: {}, activo: false, motivo: "", paginas: 0 }); guardar(); pintar(); };
