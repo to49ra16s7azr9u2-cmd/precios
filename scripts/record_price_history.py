@@ -291,17 +291,37 @@ def registrar(products, fecha, donde, dry_run=False, podar_viejo=True):
 
 def limpiar_huerfanos(donde, dry_run=False):
     """Borra del historial los productos que ya no están, y los archivos que
-    quedaron de un reparto anterior (una categoría renombrada, por ejemplo)."""
+    quedaron de un reparto anterior (una categoría renombrada, por ejemplo).
+
+    Un producto que sigue en el catálogo pero cambió de archivo NO se borra:
+    se lleva a su archivo nuevo. El reparto es por posición dentro de la
+    categoría (ver ubicacion_actual), así que basta con que se fusionen o se
+    borren fichas por delante para que las de atrás cambien de archivo. La
+    primera versión de esta función las trataba como huérfanas y las
+    borraba, y registrar() les abría una serie nueva desde hoy: el 13 de
+    septiembre de 2026, tras absorber 731 fichas duplicadas, 1,080 series
+    perdieron su historial de golpe y hubo que recuperarlas del commit
+    anterior.
+    """
     hist_dir = os.path.join(ROOT, HIST_DIR)
     if not os.path.isdir(hist_dir):
         return 0, 0
     vigentes = set(donde.values())
-    quitados, archivos = 0, 0
+    quitados, archivos, movidos = 0, 0, 0
+    reubicar = {}  # archivo destino -> {pid: serie}
+    tocados = set()
     for nombre in sorted(os.listdir(hist_dir)):
         fname = f"{HIST_DIR}/{nombre}"
         path = os.path.join(hist_dir, nombre)
         if fname not in vigentes:
             archivos += 1
+            hist = cargar(fname)
+            for pid, serie in hist.items():
+                if pid in donde:
+                    reubicar.setdefault(donde[pid], {})[pid] = serie
+                    movidos += 1
+                else:
+                    quitados += 1
             if not dry_run:
                 os.remove(path)
             continue
@@ -310,10 +330,24 @@ def limpiar_huerfanos(donde, dry_run=False):
         if not sobran:
             continue
         for pid in sobran:
+            if pid in donde:
+                reubicar.setdefault(donde[pid], {})[pid] = hist[pid]
+                movidos += 1
+            else:
+                quitados += 1
             del hist[pid]
-        quitados += len(sobran)
+        tocados.add(fname)
         if not dry_run:
             escribir(fname, hist)
+    for fname, series in reubicar.items():
+        hist = cargar(fname)
+        for pid, serie in series.items():
+            hist.setdefault(pid, serie)
+        if not dry_run:
+            escribir(fname, hist)
+    if movidos:
+        print("  series movidas de archivo (siguen en el catálogo): "
+              f"{movidos:,}")
     return quitados, archivos
 
 
