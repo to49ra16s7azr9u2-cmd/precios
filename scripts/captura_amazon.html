@@ -5,68 +5,87 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Captura de Amazon para ComparaMEX</title>
 <style>
-  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; line-height: 1.5; color: #222; }
+  body { font-family: system-ui, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 16px; line-height: 1.5; color: #222; }
   code, pre { background: #f4f4f4; padding: 2px 5px; border-radius: 4px; }
-  pre { padding: 12px; overflow: auto; }
+  pre { padding: 12px; overflow: auto; font-size: 12px; }
   .marcador { display: inline-block; padding: 10px 18px; background: #FF0211; color: #fff; border-radius: 6px; font-weight: 700; text-decoration: none; cursor: grab; }
   .copiar { padding: 10px 18px; background: #111; color: #fff; border: 0; border-radius: 6px; font-weight: 700; font-size: 15px; cursor: pointer; }
-  ol li { margin-bottom: 8px; }
+  ol li, ul li { margin-bottom: 8px; }
   .via { border: 1px solid #ddd; border-radius: 8px; padding: 4px 20px 16px; margin-bottom: 24px; }
   .via h2 { margin-bottom: 4px; }
   .recomendada { border-color: #FF0211; }
   .nota { color: #666; font-size: 14px; margin-top: 4px; }
+  table { border-collapse: collapse; font-size: 14px; }
+  td, th { border: 1px solid #ddd; padding: 6px 10px; text-align: left; vertical-align: top; }
 </style>
 </head>
 <body>
 <h1>Captura de Amazon para ComparaMEX</h1>
-<p>Un marcador que, en una página de <strong>resultados de búsqueda de amazon.com.mx</strong>, saca los
-productos de esa página al mismo JSON que ya entienden <code>match_amazon_capture.py</code>,
-<code>add_amazon_offers.py</code> y <code>add_amazon_standalone.py</code>
-(<code>asin</code>, <code>title</code>, <code>price</code>, <code>photo</code>, <code>url</code>).
-Una página son hasta 48 productos con un clic; antes era producto por producto.</p>
+<p>Un marcador que, en cualquier <strong>listado de amazon.com.mx</strong> (resultados de búsqueda, un
+departamento, los más vendidos, los nuevos lanzamientos), saca los productos al JSON que ya entienden
+<code>match_amazon_capture.py</code>, <code>add_amazon_offers.py</code> y <code>add_amazon_standalone.py</code>
+(<code>asin</code>, <code>title</code>, <code>price</code>, <code>photo</code>, <code>url</code>), y que además sabe
+<strong>seguir solo</strong>: pasa a las páginas siguientes, entra a los subdepartamentos y, cuando un listado se
+queda corto porque Amazon lo corta en unas 400 posiciones, lo vuelve a pedir por tramos de precio para
+sacarlo entero.</p>
 
 <div class="via recomendada">
 <h2>Vía 1: pegar el código en la consola (la más simple)</h2>
 <p class="nota">No hay que instalar nada, y sirve igual la primera vez que la número cincuenta.</p>
 <ol>
   <li>Aquí: <button class="copiar" id="copiar">Copiar el código</button> <span id="copiado" class="nota"></span></li>
-  <li>Ve a <strong>amazon.com.mx</strong> y busca lo que quieras cargar (por ejemplo <em>power bank 20000</em>).</li>
-  <li>Con la lista de resultados en pantalla, abre la consola del navegador: <strong>F12</strong> (o <code>Ctrl+Shift+J</code>; en Mac <code>Cmd+Option+J</code>) y entra a la pestaña <strong>Console</strong>.</li>
+  <li>Ve a <strong>amazon.com.mx</strong> y abre el listado que quieras cargar: una búsqueda, o mejor un
+    departamento (menú «Todos» → la categoría) o su página de «Los más vendidos».</li>
+  <li>Abre la consola del navegador: <strong>F12</strong> (o <code>Ctrl+Shift+J</code>; en Mac <code>Cmd+Option+J</code>), pestaña <strong>Console</strong>.</li>
   <li>Pega con <code>Ctrl+V</code> y pulsa <strong>Enter</strong>.
     <p class="nota">La primera vez Chrome puede pedir que escribas <code>allow pasting</code> y pulses Enter antes de dejarte pegar. Es una sola vez por navegador.</p>
   </li>
-  <li>La consola responde con el recuento («N nuevos, … ACUMULADOS: N») y el JSON queda copiado al portapapeles. Si el portapapeles no funcionó, ejecuta <code>copy(__comparamexJSON)</code>.</li>
-  <li>Para la página siguiente de resultados: vuelve a la consola, sube con la flecha <strong>↑</strong> al mismo código y Enter otra vez. Se acumula.</li>
+  <li>Captura la página que tienes delante y aparece un <strong>panel abajo a la derecha</strong> con lo acumulado
+    y los botones para seguir solo (ver abajo).</li>
 </ol>
 </div>
 
 <div class="via">
-<h2>Vía 2: marcador (un clic por página, se instala una vez)</h2>
+<h2>Vía 2: marcador (un clic, se instala una vez)</h2>
 <ol>
   <li>Muestra la barra de marcadores: <code>Ctrl+Shift+B</code> (Mac: <code>Cmd+Shift+B</code>).</li>
   <li><strong>Arrastra</strong> este botón hasta la barra de marcadores — con el ratón presionado, sin soltar por el camino:<br><br>
     <a class="marcador" id="marcador" href="#">Capturar Amazon → ComparaMEX</a></li>
-  <li>Ve a amazon.com.mx, busca, y con la lista de resultados en pantalla haz clic en el marcador que acabas de guardar.</li>
+  <li>Ve a amazon.com.mx, abre un listado y haz clic en el marcador que acabas de guardar.</li>
 </ol>
-<p class="nota"><strong>Hacer clic en el botón rojo de esta página no sirve</strong>: Chrome bloquea los enlaces <code>javascript:</code> abiertos así (sale <code>about:blank#blocked</code>), y aunque se ejecutara leería esta página, no Amazon. Hay que arrastrarlo a la barra y pulsarlo ESTANDO en Amazon.</p>
-<p class="nota">Si arrastrar no funciona: clic derecho en la barra de marcadores → «Añadir página», el nombre que quieras y, en la URL, pega el código copiado arriba con <code>javascript:</code> escrito delante.</p>
+<p class="nota"><strong>Hacer clic en el botón rojo de esta página no sirve</strong>: Chrome bloquea los enlaces
+<code>javascript:</code> abiertos así (sale <code>about:blank#blocked</code>), y aunque se ejecutara leería esta
+página, no Amazon. Hay que arrastrarlo a la barra y pulsarlo ESTANDO en Amazon.</p>
+<p class="nota">Si arrastrar no funciona: clic derecho en la barra de marcadores → «Añadir página», el nombre que
+quieras y, en la URL, pega el código copiado arriba con <code>javascript:</code> escrito delante.</p>
 </div>
 
-<h2>Qué hace cada vez que lo ejecutas</h2>
-<ol>
-  <li>Lee los productos de la página que tengas abierta (hasta 48) y los suma a la captura acumulada. Los ASIN repetidos no se duplican, así que puedes ejecutarlo dos veces en la misma página sin ensuciar nada.</li>
-  <li><strong>Copia todo al portapapeles</strong> y deja el JSON en <code>window.__comparamexJSON</code>, por si el portapapeles falla.</li>
-  <li>Devuelve el recuento como texto (la consola siempre muestra el valor devuelto, lo escondan o no los filtros) y muestra un aviso flotante arriba a la derecha, que se va solo a los 15 segundos o al hacerle clic.</li>
-</ol>
-<p class="nota">Para empezar otra categoría de cero, vacía lo acumulado con esta línea en la consola:<br>
-<code>localStorage.removeItem('comparamex.captura.amazon')</code></p>
+<h2>El panel: qué hace cada botón</h2>
+<table>
+<tr><th>Botón</th><th>Qué hace</th></tr>
+<tr><td><strong>Páginas siguientes</strong></td><td>Sigue el listado que tienes abierto hasta la última página (Amazon da unas 7 en los departamentos, hasta 20 en algunas búsquedas). Si el listado se corta en la página 7 con productos de sobra, lo vuelve a pedir por tramos de precio ($0–300, $300–600, … $80,000+) y, si un tramo también se corta, lo parte en dos. Así un departamento de 3,000 productos sale entero, no los 400 primeros.</td></tr>
+<tr><td><strong>Recorrer departamentos</strong></td><td>Lo anterior, más: lee los subdepartamentos del menú de la izquierda y los recorre también, hasta la profundidad que le digas (1 = los hijos directos, 2 = también los nietos). En «Los más vendidos» hace lo mismo con el árbol de categorías de la izquierda.</td></tr>
+<tr><td><strong>Lista de URLs</strong></td><td>Pegas varias URLs de Amazon (separadas por espacios: departamentos, búsquedas, más vendidos) y las recorre todas seguidas, cada una con sus páginas siguientes.</td></tr>
+<tr><td><strong>Pausar / Reanudar</strong></td><td>Para o retoma el recorrido. Lo que ya se capturó no se pierde: está en el navegador (<code>localStorage</code>).</td></tr>
+<tr><td><strong>Descargar JSON</strong></td><td>Baja un archivo <code>amazon-AAAA-MM-DD-N.json</code> con todo lo acumulado. Guárdalo en la carpeta <code>capturas/</code> del repo y córrele <code>python3 scripts/importar_captura_amazon.py capturas/archivo.json</code>: eso filtra lo que ya está en el catálogo, clasifica y da de alta lo nuevo.</td></tr>
+<tr><td><strong>Vaciar</strong></td><td>Borra lo acumulado y la cola, para empezar otra tanda de cero.</td></tr>
+</table>
 
-<h2>Qué hay que saber</h2>
+<h2>Cómo se porta con Amazon</h2>
 <ul>
-  <li>Los anuncios patrocinados vienen marcados con <code>"sponsored": true</code>: son productos reales, pero suelen repetirse en varias páginas.</li>
-  <li>Un producto sin precio visible sale con <code>"price": null</code>; <code>add_amazon_standalone.py</code> lo salta (sin precio no hay alta) y lo informa.</li>
-  <li>La marca, la categoría y la subcategoría no vienen en la lista de resultados: las pone el paso de clasificación de siempre. El marcador solo captura; no decide nada.</li>
-  <li>Funciona con el HTML que Amazon sirve hoy (<code>div[data-component-type="s-search-result"]</code>). Si Amazon cambia su página, el marcador avisa que no encuentra productos en vez de capturar mal.</li>
+  <li>Va <strong>despacio a propósito</strong>: entre 2.5 y 5 segundos por página, al azar, en tu propio navegador y
+    con tu sesión. Cien páginas son unos seis minutos. No abras dos recorridos a la vez en dos pestañas: el panel
+    avisa si ya hay uno andando.</li>
+  <li>Si Amazon pide un <strong>captcha</strong> o responde «Algo falló», el recorrido se detiene solo y el panel lo
+    dice. Abre cualquier página de Amazon en esa pestaña, resuelve lo que pida, y vuelve a ejecutar el marcador:
+    la cola sigue donde iba.</li>
+  <li>Cada producto sale con el departamento donde se encontró (<code>dept</code>, <code>node</code>): el
+    clasificador lo usa como pista cuando el nombre del departamento coincide con una subcategoría del catálogo
+    («Microondas», «Lavavajillas», «Licuadoras»), y así deja de adivinar por el título.</li>
+  <li>Los anuncios patrocinados vienen marcados con <code>"sponsored": true</code>. Un producto sin precio visible
+    sale con <code>"price": null</code> y <code>add_amazon_standalone.py</code> lo salta.</li>
+  <li>Funciona con el HTML que Amazon sirve hoy. Si Amazon cambia su página, el marcador avisa que no encuentra
+    productos en vez de capturar mal.</li>
 </ul>
 
 <h2>El código, para leerlo</h2>
@@ -74,117 +93,306 @@ Una página son hasta 48 productos con un clic; antes era producto por producto.
 
 <script id="fuente" type="text/plain">
 (() => {
-  const KEY = "comparamex.captura.amazon";
+  const KEY = "comparamex.captura.amazon";   // productos acumulados
+  const COLA = "comparamex.captura.cola";    // estado del recorrido
+  const ESPERA = window.__comparamexEspera || [2500, 5000];  // ms entre páginas, al azar
+  const MAX_PAG = 20;        // freno duro por listado
+  const TOPE_AMAZON = 7;     // Amazon corta los departamentos en ~7 páginas
+  const BANDAS = [0, 300, 600, 1000, 1500, 2500, 4000, 7000, 12000, 20000, 40000, 80000];  // MXN
+  const ANCHO_MIN = 50;      // no se parte un tramo de menos de $50
 
   // Lo que se ve SIEMPRE es lo que esta función devuelve: la consola imprime
   // el valor de lo último que se evaluó, y eso no lo esconde ningún filtro.
-  // console.log no sirve de único canal (con "N hidden" en la consola los
-  // mensajes quedan ocultos) y alert()/confirm() tampoco (Chrome los suprime
-  // en cuanto alguien marca "impedir que esta página cree más diálogos").
-  // Por eso esto NO es async: una promesa se mostraría como
-  // "Promise {<fulfilled>}" y habría que desplegarla para leer nada.
-
-  // Aviso flotante en la propia página, para cuando se usa desde el marcador
-  // y no hay consola abierta.
-  const avisar = (texto) => {
-    try {
-      const previo = document.getElementById("comparamex-aviso");
-      if (previo) previo.remove();
-      const d = document.createElement("div");
-      d.id = "comparamex-aviso";
-      d.textContent = texto;
-      d.style.cssText = "position:fixed;z-index:2147483647;top:16px;right:16px;max-width:380px;" +
-        "background:#111;color:#fff;padding:14px 18px;border-radius:10px;font:14px/1.45 system-ui,sans-serif;" +
-        "box-shadow:0 6px 24px rgba(0,0,0,.35);white-space:pre-line;cursor:pointer";
-      d.onclick = () => d.remove();
-      document.body.appendChild(d);
-      setTimeout(() => d.remove(), 15000);
-    } catch (e) { /* si la página no deja inyectar, queda el valor devuelto */ }
-  };
-
-  if (!location.hostname.endsWith("amazon.com.mx")) {
-    return "ComparaMEX: esto no es amazon.com.mx. Abre una búsqueda de esa tienda y vuelve a ejecutarlo.";
+  // Por eso el cuerpo no es async: el recorrido arranca aparte y el panel
+  // en la página es el que va contando.
+  if (!/amazon\.com\.mx$|^localhost$/.test(location.hostname)) {
+    return "ComparaMEX: esto no es amazon.com.mx. Abre un listado de esa tienda y vuelve a ejecutarlo.";
   }
 
-  // Amazon cambia su marcado cada tanto: se prueban varias formas de dar con
-  // las tarjetas de resultado, de la más específica a la más general, en vez
-  // de fallar entero por un atributo que dejó de existir.
+  // ---------- almacén ----------
+  const leer = (k, def) => { try { const v = JSON.parse(localStorage.getItem(k) || "null"); return v == null ? def : v; } catch (e) { return def; } };
+  const escribir = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+  let acumulado = leer(KEY, []);
+  if (!Array.isArray(acumulado)) acumulado = [];
+  const vistos = new Set(acumulado.map((x) => x.asin));
+  const estado = Object.assign({ cola: [], hechas: {}, nodos: {}, activo: false, motivo: "", prof: 0, latido: 0, paginas: 0 }, leer(COLA, {}));
+  const guardar = () => { escribir(KEY, acumulado); escribir(COLA, estado); };
+
+  // ---------- util ----------
+  const norm = (t) => (t || "").trim().replace(/\s+/g, " ");
+  const precioDe = (txt) => {
+    const m = /\$\s?([\d.,]+)/.exec(txt || "");
+    if (!m) return null;
+    const n = parseFloat(m[1].replace(/,/g, ""));
+    return isFinite(n) && n > 0 ? n : null;
+  };
+  // La foto viene con la transformación que Amazon esté probando ese día;
+  // se deja el id de la imagen con _AC_SX679_, que es la que usa el catálogo.
+  const fotoDe = (src) => {
+    const m = /\/images\/I\/([^.\/]+)\./.exec(src || "");
+    return m ? "https://m.media-amazon.com/images/I/" + m[1] + "._AC_SX679_.jpg" : (src || null);
+  };
+  const rhDe = (u) => { const m = /[?&]rh=([^&#]*)/.exec(u); return m ? decodeURIComponent(m[1].replace(/\+/g, " ")) : ""; };
+  const nodoDe = (u) => {
+    const n = /(?:^|,)n:(\d+)/.exec(rhDe(u)); if (n) return n[1];
+    const b = /\/(?:gp\/(?:bestsellers|new-releases|movers-and-shakers|most-wished-for)|zgbs|new-releases)\/[^\/?#]+\/(\d+)/.exec(u);
+    return b ? b[1] : null;
+  };
+  const esBS = (u) => /\/(gp\/(bestsellers|new-releases|movers-and-shakers|most-wished-for)|zgbs)\b/.test(u);
+  const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
+  const azar = () => ESPERA[0] + Math.random() * (ESPERA[1] - ESPERA[0]);
+  const abs = (href, base) => { try { return new URL(href, base).href; } catch (e) { return null; } };
+
+  // ---------- leer un listado (documento ya cargado o bajado) ----------
   const SELECTORES = [
     'div[data-component-type="s-search-result"][data-asin]',
     '.s-main-slot div[data-asin]:not([data-asin=""])',
     '[data-cel-widget^="search_result_"][data-asin]',
     'div[role="listitem"][data-asin]:not([data-asin=""])',
+    // Los más vendidos y los nuevos lanzamientos (p13n): tarjetas con data-asin.
+    '#gridItemRoot [data-asin], .p13n-sc-uncoverable-faceout[data-asin], [id^="p13n-asin-index-"][data-asin]',
     'div[data-asin]:not([data-asin=""])',
   ];
-  let filas = [], usado = null;
-  for (const sel of SELECTORES) {
-    filas = Array.from(document.querySelectorAll(sel))
-      .filter((d) => /^[A-Z0-9]{10}$/.test(d.getAttribute("data-asin") || ""));
-    if (filas.length) { usado = sel; break; }
-  }
-  if (!filas.length) {
-    avisar("ComparaMEX: no encuentro productos en esta página.");
-    return "ComparaMEX: no encuentro tarjetas de producto con ninguno de los " + SELECTORES.length +
-           " selectores. ¿Es una lista de resultados de búsqueda? Si lo es, Amazon cambió su HTML: avísame.";
-  }
-
-  let acumulado = [];
-  try { acumulado = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { acumulado = []; }
-  if (!Array.isArray(acumulado)) acumulado = [];
-  const vistos = new Set(acumulado.map((x) => x.asin));
-  let nuevos = 0, repetidos = 0, sinTitulo = 0, sinPrecio = 0, patrocinados = 0;
-
-  for (const d of filas) {
-    const asin = d.getAttribute("data-asin");
-    if (vistos.has(asin)) { repetidos++; continue; }
-    const h2 = d.querySelector("h2");
-    const title = (h2 ? h2.textContent : "").trim().replace(/\s+/g, " ");
-    if (!title) { sinTitulo++; continue; }
-    const sponsored = !!d.querySelector('.puis-sponsored-label-text, .s-sponsored-label-text, [aria-label="Patrocinado"], [aria-label="Sponsored"]');
-    // .a-text-price es el precio tachado (de lista): no es el que se paga.
-    const po = d.querySelector(".a-price:not(.a-text-price) .a-offscreen");
-    let price = null;
-    if (po) {
-      const n = parseFloat(po.textContent.replace(/[^\d.,]/g, "").replace(/,/g, ""));
-      if (isFinite(n) && n > 0) price = n;
+  const deptDe = (doc) => {
+    const cands = [
+      doc.querySelector("#departments .a-text-bold"),
+      doc.querySelector("#zg_banner_text"),
+      doc.querySelector('#s-refinements .a-text-bold, .s-navigation-item.a-text-bold'),
+      doc.querySelector("h1"),
+    ];
+    for (const c of cands) { const t = norm(c && c.textContent); if (t && t.length < 80) return t.replace(/^Los más (vendidos|deseados) en |^Nuevos lanzamientos en |^Subiendo como la espuma en /i, ""); }
+    return norm(doc.title).replace(/^Amazon\.com\.mx\s*:?\s*/i, "").replace(/^Los más vendidos en /i, "") || null;
+  };
+  const extraer = (doc, url) => {
+    let filas = [];
+    for (const sel of SELECTORES) {
+      filas = Array.from(doc.querySelectorAll(sel)).filter((d) => /^[A-Z0-9]{10}$/.test(d.getAttribute("data-asin") || ""));
+      if (filas.length) break;
     }
-    // La foto viene con la transformación que Amazon esté probando ese día
-    // (p. ej. _AC_AIweblab1378949,T3_SF480.0,480.0_PQ65_ + ?aicid=), que es
-    // de un experimento y no tiene por qué seguir existiendo mañana. Se deja
-    // el id de la imagen con _AC_SX679_, que es la que ya usa el catálogo.
-    const img = d.querySelector("img.s-image");
-    const src = img ? (img.getAttribute("src") || "") : "";
-    const idFoto = /\/images\/I\/([^.\/]+)\./.exec(src);
-    const photo = idFoto ? `https://m.media-amazon.com/images/I/${idFoto[1]}._AC_SX679_.jpg` : (src || null);
-    const item = { asin, title, price, photo,
-                   url: "https://www.amazon.com.mx/dp/" + asin };
-    if (sponsored) item.sponsored = true;
-    if (price == null) sinPrecio++;
-    if (sponsored) patrocinados++;
-    vistos.add(asin);
-    acumulado.push(item);
-    nuevos++;
+    const dept = deptDe(doc), node = nodoDe(url), via = esBS(url) ? "bs" : "s";
+    const items = [];
+    for (const d of filas) {
+      const asin = d.getAttribute("data-asin");
+      const h2 = d.querySelector("h2");
+      let title = norm(h2 ? h2.textContent : "");
+      if (!title) { const img = d.querySelector("img[alt]"); title = norm(img ? img.getAttribute("alt") : ""); }
+      if (!title) { const a = d.querySelector('a[href*="/dp/"]'); title = norm(a ? a.textContent : ""); }
+      if (!title) continue;
+      const sponsored = !!d.querySelector('.puis-sponsored-label-text, .s-sponsored-label-text, [aria-label="Patrocinado"], [aria-label="Sponsored"]');
+      // .a-text-price es el precio tachado (de lista): no es el que se paga.
+      const po = d.querySelector(".a-price:not(.a-text-price) .a-offscreen, .p13n-sc-price, [class*='p13n-sc-price'], .a-color-price");
+      const price = precioDe(po ? po.textContent : "");
+      const img = d.querySelector("img.s-image, img[src*='/images/I/']");
+      const item = { asin, title, price, photo: fotoDe(img ? img.getAttribute("src") : ""),
+                     url: "https://www.amazon.com.mx/dp/" + asin };
+      if (sponsored) item.sponsored = true;
+      if (dept) item.dept = dept;
+      if (node) item.node = node;
+      item.via = via;
+      const rk = d.querySelector(".zg-bdg-text");
+      if (rk) { const n = parseInt(norm(rk.textContent).replace(/\D/g, ""), 10); if (n) item.rank = n; }
+      items.push(item);
+    }
+    // Página siguiente, si el listado la ofrece.
+    let sig = null;
+    const a = doc.querySelector('a.s-pagination-next:not(.s-pagination-disabled), li.a-last:not(.a-disabled) a[href]');
+    if (a) sig = abs(a.getAttribute("href"), url);
+    // Subdepartamentos: enlaces del menú de la izquierda que solo llevan nodo
+    // (rh=n:...), sin marca ni otros filtros. En los más vendidos, el árbol.
+    const subs = new Set();
+    for (const l of doc.querySelectorAll('#departments a[href], #s-refinements a[href*="rh=n"], .s-navigation-indent-1 a[href], .s-navigation-indent-2 a[href]')) {
+      const h = abs(l.getAttribute("href"), url); if (!h) continue;
+      const rh = rhDe(h); const n = nodoDe(h);
+      if (n && n !== node && /^n:\d+(,n:\d+)*$/.test(rh)) subs.add(abs("/s?rh=n%3A" + n, url));
+    }
+    if (esBS(url)) {
+      for (const l of doc.querySelectorAll('#zg-left-col a[href], [class*="zg-browse"] a[href], .zg-nav-tree a[href], [id^="zg_browseRoot"] a[href]')) {
+        const h = abs(l.getAttribute("href"), url); if (!h) continue;
+        const n = nodoDe(h);
+        if (n && n !== node && esBS(h)) subs.add(h.split("?")[0]);
+      }
+    }
+    return { items, sig, subs: Array.from(subs), n: filas.length };
+  };
+
+  // ---------- acumular ----------
+  const sumar = (items) => {
+    let nuevos = 0;
+    for (const it of items) {
+      if (vistos.has(it.asin)) continue;
+      vistos.add(it.asin); acumulado.push(it); nuevos++;
+    }
+    return nuevos;
+  };
+
+  // ---------- tramos de precio ----------
+  const conBanda = (url, a, b) => {
+    const u = new URL(url);
+    const rh = rhDe(url).split(",").filter((p) => p && !p.startsWith("p_36:"));
+    rh.push("p_36:" + Math.round(a * 100) + "-" + (b == null ? "" : Math.round(b * 100)));
+    u.searchParams.set("rh", rh.join(","));
+    u.searchParams.delete("page");
+    return u.href;
+  };
+  const partir = (t) => {
+    if (esBS(t.url)) return [];
+    if (!t.banda) {
+      const out = [];
+      for (let i = 0; i < BANDAS.length; i++) {
+        const b = BANDAS[i + 1] == null ? null : BANDAS[i + 1];
+        out.push({ url: conBanda(t.url, BANDAS[i], b), prof: t.prof, banda: [BANDAS[i], b], sub: false });
+      }
+      return out;
+    }
+    const [a, b] = t.banda;
+    if (b == null) return [];              // el tramo abierto de arriba no se parte
+    if (b - a <= ANCHO_MIN) return [];
+    const m = Math.round((a + b) / 2);
+    return [{ url: conBanda(t.url, a, m), prof: t.prof, banda: [a, m], sub: false },
+            { url: conBanda(t.url, m, b), prof: t.prof, banda: [m, b], sub: false }];
+  };
+
+  // ---------- panel ----------
+  let panel = null, cuerpo = null, botones = {};
+  const boton = (texto, fn) => { const b = document.createElement("button"); b.textContent = texto; b.onclick = fn;
+    b.style.cssText = "margin:4px 4px 0 0;padding:6px 10px;border:0;border-radius:6px;background:#FF0211;color:#fff;font:600 13px system-ui,sans-serif;cursor:pointer"; return b; };
+  const pintar = (extra) => {
+    if (!panel || !document.body.contains(panel)) {
+      panel = document.createElement("div"); panel.id = "comparamex-panel";
+      panel.style.cssText = "position:fixed;z-index:2147483647;bottom:16px;right:16px;width:340px;background:#111;color:#fff;padding:14px 16px;border-radius:12px;font:13px/1.45 system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.4);white-space:pre-line";
+      cuerpo = document.createElement("div"); panel.appendChild(cuerpo);
+      const fila = document.createElement("div"); fila.style.marginTop = "8px"; panel.appendChild(fila);
+      botones.sig = boton("Páginas siguientes", () => arrancar([{ url: location.href, prof: 0, sub: false }]));
+      botones.rec = boton("Recorrer departamentos", () => {
+        const p = parseInt(window.prompt("¿Cuántos niveles de subdepartamentos? (0 = solo este, 1 = sus hijos, 2 = también los nietos)", "1") || "0", 10);
+        if (isNaN(p)) return; estado.prof = Math.max(0, Math.min(3, p)); arrancar([{ url: location.href, prof: 0, sub: true }]);
+      });
+      botones.lista = boton("Lista de URLs", () => {
+        const t = window.prompt("Pega URLs de Amazon separadas por espacios (departamentos, búsquedas, más vendidos):", "");
+        if (!t) return;
+        const urls = t.split(/\s+/).filter((u) => /amazon\.com\.mx/.test(u));
+        estado.prof = 0; arrancar(urls.map((u) => ({ url: u, prof: 0, sub: false })));
+      });
+      botones.pausa = boton("Pausar", () => { if (estado.activo) { estado.activo = false; estado.motivo = "pausado a mano"; guardar(); pintar(); } else if (estado.cola.length) { arrancar([]); } });
+      botones.bajar = boton("Descargar JSON", descargar);
+      botones.vaciar = boton("Vaciar", () => { if (!window.confirm("¿Borrar los " + acumulado.length + " productos acumulados y la cola?")) return;
+        acumulado.length = 0; vistos.clear(); Object.assign(estado, { cola: [], hechas: {}, nodos: {}, activo: false, motivo: "", paginas: 0 }); guardar(); pintar(); });
+      const x = boton("×", () => panel.remove()); x.style.background = "#444"; x.style.float = "right";
+      panel.insertBefore(x, cuerpo);
+      for (const k of ["sig", "rec", "lista", "pausa", "bajar", "vaciar"]) fila.appendChild(botones[k]);
+      document.body.appendChild(panel);
+    }
+    botones.pausa.textContent = estado.activo ? "Pausar" : (estado.cola.length ? "Reanudar" : "Pausar");
+    const sinPrecio = acumulado.filter((x) => x.price == null).length;
+    cuerpo.textContent = "ComparaMEX · acumulados: " + acumulado.length + " (" + sinPrecio + " sin precio)" +
+      "\nCola: " + estado.cola.length + " listados · páginas leídas: " + estado.paginas +
+      (estado.activo ? "\n▶ recorriendo…" : (estado.motivo ? "\n⏸ " + estado.motivo : "")) +
+      (extra ? "\n" + extra : "");
+  };
+
+  const descargar = () => {
+    const json = JSON.stringify(acumulado, null, 1);
+    window.__comparamexJSON = json;
+    const fecha = new Date().toISOString().slice(0, 10);
+    try {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([json], { type: "application/json" }));
+      a.download = "amazon-" + fecha + "-" + acumulado.length + ".json";
+      document.body.appendChild(a); a.click(); a.remove();
+    } catch (e) { /* queda el portapapeles */ }
+    try { navigator.clipboard.writeText(json).catch(() => {}); } catch (e) { /* sin API */ }
+    if (typeof copy === "function") { try { copy(json); } catch (e) { /* idem */ } }
+    pintar("Descargado amazon-" + fecha + "-" + acumulado.length + ".json (y copiado al portapapeles).");
+  };
+
+  // ---------- el recorrido ----------
+  const bajar = async (url) => {
+    for (let intento = 0; intento < 2; intento++) {
+      let r;
+      try { r = await fetch(url, { credentials: "include" }); } catch (e) { r = null; }
+      if (r && r.ok) {
+        const html = await r.text();
+        if (/validateCaptcha|Robot Check|Escribe los caracteres/i.test(html)) return { captcha: true };
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        if (/Algo falló|Something went wrong/i.test(doc.title || "")) { await dormir(15000); continue; }
+        return { doc };
+      }
+      if (r && (r.status === 503 || r.status === 429)) { await dormir(20000); continue; }
+      return { error: r ? "HTTP " + r.status : "sin respuesta" };
+    }
+    return { error: "Amazon no responde" };
+  };
+  const detener = (motivo) => { estado.activo = false; estado.motivo = motivo; guardar(); pintar(); };
+  const encolar = (nuevos) => {
+    for (const t of nuevos) {
+      if (estado.hechas[t.url]) continue;
+      const n = nodoDe(t.url);
+      if (n && !t.banda && estado.nodos[n] && !esBS(t.url)) continue;  // ese departamento ya se recorrió
+      estado.hechas[t.url] = 1; if (n && !t.banda) estado.nodos[n] = 1;
+      estado.cola.push(t);
+    }
+  };
+  const recorrer = async (t) => {
+    let url = t.url, pag = 0, capado = false;
+    while (url && pag < MAX_PAG && estado.activo) {
+      let doc;
+      if (pag === 0 && url === location.href) doc = document;
+      else {
+        const r = await bajar(url);
+        if (r.captcha) { estado.cola.unshift(t); return detener("Amazon pidió un captcha. Abre una página de Amazon en esta pestaña, resuélvelo y vuelve a ejecutar el marcador."); }
+        if (r.error) { estado.cola.unshift(t); return detener("Amazon respondió " + r.error + " en " + url + ". Vuelve a ejecutar el marcador para seguir."); }
+        doc = r.doc;
+      }
+      const r = extraer(doc, url);
+      pag++; estado.paginas++; estado.latido = Date.now();
+      const nuevos = sumar(r.items);
+      if (pag === 1 && t.sub && t.prof < estado.prof) encolar(r.subs.map((u) => ({ url: u, prof: t.prof + 1, sub: true })));
+      guardar();
+      pintar("Ahora: " + (r.items[0] && r.items[0].dept ? r.items[0].dept : url.slice(0, 60)) + (t.banda ? " ($" + t.banda[0] + "–" + (t.banda[1] == null ? "∞" : t.banda[1]) + ")" : "") +
+             " · pág. " + pag + " · " + nuevos + " nuevos");
+      if (!r.n) break;
+      url = r.sig;
+      capado = pag >= TOPE_AMAZON;
+      if (url) await dormir(azar());
+    }
+    // Se llegó al tope de Amazon: lo que falta se pide por tramos de precio.
+    if (capado && estado.activo) encolar(partir(t));
+  };
+  const correr = async () => {
+    window.__comparamexCorriendo = true;
+    try {
+      while (estado.cola.length && estado.activo) {
+        const t = estado.cola.shift(); guardar();
+        await recorrer(t);
+        if (estado.cola.length && estado.activo) await dormir(azar());
+      }
+      if (estado.activo) detener("Recorrido terminado: " + acumulado.length + " productos. Descarga el JSON.");
+    } catch (e) { detener("Error: " + (e && e.message)); }
+    window.__comparamexCorriendo = false;
+  };
+  const arrancar = (nuevos) => {
+    if (window.__comparamexCorriendo) { pintar("Ya hay un recorrido andando en esta pestaña."); return; }
+    if (estado.activo && Date.now() - estado.latido < 30000) { pintar("Ya hay un recorrido andando en otra pestaña. Espera a que termine o páusalo allí."); return; }
+    encolar(nuevos);
+    estado.activo = true; estado.motivo = ""; estado.latido = Date.now(); guardar(); pintar();
+    correr();
+  };
+
+  // ---------- lo de siempre: capturar la página que tengo delante ----------
+  const r = extraer(document, location.href);
+  if (!r.n) {
+    pintar("No encuentro productos en esta página. ¿Es un listado? Si lo es, Amazon cambió su HTML: avísame.");
+    return "ComparaMEX: no encuentro tarjetas de producto con ninguno de los " + SELECTORES.length + " selectores.";
   }
-
-  localStorage.setItem(KEY, JSON.stringify(acumulado));
-  const json = JSON.stringify(acumulado, null, 1);
-  // Siempre a mano en la consola, pase lo que pase con el portapapeles.
-  window.__comparamexJSON = json;
-
-  // Dos caminos, porque fallan en situaciones distintas: el portapapeles del
-  // navegador necesita que la PÁGINA esté enfocada (desde la consola el foco
-  // está en DevTools y tira "Document is not focused"), y copy() solo existe
-  // dentro de la consola. Se intentan los dos y gana el que funcione.
-  try { navigator.clipboard.writeText(json).catch(() => {}); } catch (e) { /* sin API */ }
-  let porCopy = false;
-  if (typeof copy === "function") { try { copy(json); porCopy = true; } catch (e) { /* idem */ } }
-
-  avisar("ComparaMEX: " + nuevos + " productos nuevos en esta página.\nAcumulados: " + acumulado.length +
-         ".\nCopiado al portapapeles.");
-  return "ComparaMEX: " + nuevos + " nuevos, " + repetidos + " ya estaban, " + sinPrecio + " sin precio, " +
-         patrocinados + " patrocinados. ACUMULADOS: " + acumulado.length + "." +
-         "\nYa está en el portapapeles" + (porCopy ? "" : " (si no, ejecuta: copy(__comparamexJSON) )") + "." +
-         "\nSiguiente página: vuelve a ejecutar esto. Empezar de cero: localStorage.removeItem('" + KEY + "')";
+  const nuevos = sumar(r.items);
+  guardar();
+  // Si quedó un recorrido a medias (captcha, pestaña cerrada), se retoma.
+  const aMedias = estado.cola.length && (!estado.activo || Date.now() - estado.latido > 30000);
+  pintar(nuevos + " nuevos en esta página" + (r.sig ? " · hay página siguiente" : "") + (r.subs.length ? " · " + r.subs.length + " subdepartamentos" : "") +
+         (aMedias ? "\nHay un recorrido a medias: pulsa Reanudar." : ""));
+  window.__comparamex = { estado, acumulado, arrancar, extraer, descargar };
+  return "ComparaMEX: " + nuevos + " nuevos, " + (r.items.length - nuevos) + " ya estaban. ACUMULADOS: " + acumulado.length +
+         ". El panel de abajo a la derecha tiene los botones para seguir solo y para descargar el JSON.";
 })();
 </script>
 <script>

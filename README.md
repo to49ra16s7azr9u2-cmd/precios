@@ -179,9 +179,19 @@ Tres caminos, según la tienda:
   a cargo de `clasificar_subcategorias.py`. Para una carga dirigida sigue
   valiendo `scripts/add_products.py targets.json`.
 - **Amazon México** — sin API (ver arriba). `scripts/captura_amazon.html`
-  es un marcador para el navegador que, en una página de resultados de
-  amazon.com.mx, copia al portapapeles los productos de la página en el JSON
-  que entienden `match_amazon_capture.py` y `add_amazon_standalone.py`.
+  es un marcador para el navegador que, en cualquier listado de
+  amazon.com.mx (búsqueda, departamento, los más vendidos), saca los
+  productos al JSON que entienden `match_amazon_capture.py` y
+  `add_amazon_standalone.py`, y sabe seguir solo: pasa a las páginas
+  siguientes, entra a los subdepartamentos hasta la profundidad que se le
+  pida y, cuando Amazon corta un listado en sus ~400 posiciones, lo vuelve
+  a pedir por tramos de precio hasta sacarlo entero. Va a 2.5–5 s por
+  página, se detiene si Amazon pide captcha y retoma donde iba. Cada
+  producto trae el departamento donde estaba (`dept`), que el clasificador
+  usa en vez de adivinar por el título cuando coincide con una subcategoría
+  del catálogo. El JSON se guarda en `capturas/` y entra con
+  `python3 scripts/importar_captura_amazon.py capturas/archivo.json`, que
+  filtra lo ya conocido, clasifica y da de alta en un solo paso.
 
 ## Juntar el mismo producto entre tiendas (`scripts/product_matcher.py`)
 
@@ -274,9 +284,12 @@ print(f'{m:,} de {t:,} ({100*m/t:.1f}%) con 2+ tiendas')"
    envuelve el enlace, no hace falta tocar el front.
 2. **Más tiendas que se puedan releer solas**: hoy el job nocturno actualiza
    Mercado Libre, las tres VTEX (Elektra, Chedraui, Martí) y el resto por
-   `refresh_other_stores.py`. Amazon entra por captura manual con el
-   bookmarklet (`scripts/captura_amazon.html`) porque bloquea la lectura
-   automática.
+   `refresh_other_stores.py`. Amazon entra por el marcador
+   (`scripts/captura_amazon.html`), que recorre departamentos enteros
+   desde el navegador de una persona porque Amazon bloquea la lectura
+   desde un servidor; el paso pendiente es la Product Advertising API (o
+   su sucesora, la Creators API), que pide tres ventas de afiliado en 180
+   días antes de dar acceso.
 3. **Estimación de entrega real**: sustituir `estimateDeliveryDays` (fórmula
    de distancia) por datos de paquetería cuando haya de dónde sacarlos.
 4. **Más municipios por estado**: se cubren las 32 entidades, pero 29 con un

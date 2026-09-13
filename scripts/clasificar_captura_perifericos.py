@@ -263,6 +263,16 @@ descarta controles remotos de repuesto leía "con control remoto" en
 cualquier aparato que lo trae de fábrica; ahora "con control remoto" no
 cuenta.
 
+Desde la decimoséptima el marcador de captura (captura_amazon.html) sabe
+recorrer departamentos, y cada anuncio llega con el nombre del
+departamento donde Amazon lo tenía ("dept"). Cuando ese nombre coincide
+con una subcategoría del catálogo ("Microondas", "Lavavajillas",
+"Licuadoras") se usa tal cual y no se adivina por el título: Amazon ya
+hizo ese trabajo. Cuando coincide solo con una categoría ("Electrodomésticos")
+sirve de red para lo que ninguna regla reconoce. Las guardas de FUERA y
+CABECERA van antes en los dos casos, porque en el departamento de
+microondas también están los cocedores de huevo.
+
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
 se resuelve a mano en EXPLICITOS, nunca por parecido.
@@ -1223,8 +1233,36 @@ def sub_audio(tn):
     return (('Diadema' if diadema else 'Earbuds') + ' ' +
             (('inalámbrica' if diadema else 'inalámbricos') if inal else 'con cable'))
 
+def pistas_de_departamento():
+    """{nombre normalizado -> (categoría, subcategoría, icono)} sacado del
+    catálogo: cada subcategoría cuyo nombre es único entre categorías, y
+    cada categoría a secas (subcategoría None). El icono es el que más usan
+    sus fichas, o el de la categoría si todavía no tiene ninguna."""
+    from data_io import load_catalog
+    data = load_catalog()
+    iconos = collections.Counter()
+    for p in data['products']:
+        iconos[(p['category'], p.get('subcategory'), p.get('image'))] += 1
+    def icono(cat, sub, defecto):
+        c = [(n, i) for (k, s, i), n in iconos.items() if k == cat and (sub is None or s == sub) and i]
+        return max(c)[1] if c else defecto
+    pistas, repetidas = {}, set()
+    for c in data['categories']:
+        for s in c.get('subcategories') or []:
+            k = T(s['name'])
+            if k in pistas: repetidas.add(k)
+            pistas[k] = (c['id'], s['id'], icono(c['id'], s['id'], s.get('icon') or c.get('icon')))
+    for k in repetidas: del pistas[k]
+    for c in data['categories']:
+        for k in {T(c['name']), T(c['id'])}:
+            pistas.setdefault(k, (c['id'], None, icono(c['id'], None, c.get('icon'))))
+    return pistas
+
+captura = json.load(io.open(sys.argv[1], encoding='utf-8'))
+PISTAS = pistas_de_departamento() if any(it.get('dept') for it in captura) else {}
+por_dept = 0
 alta, fuera = [], []
-for it in json.load(io.open(sys.argv[1], encoding='utf-8')):
+for it in captura:
     tn = T(it['title'])
     base = {k: it[k] for k in ('asin','title','price','photo','url')}
     if it['asin'] in EXPLICITOS:
@@ -1235,11 +1273,18 @@ for it in json.load(io.open(sys.argv[1], encoding='utf-8')):
               or next((m for rx, m in CABECERA if rx.search(tn[:55])), None))
     if motivo:
         fuera.append((it, motivo)); continue
-    hit = next((v for rx, v in REGLAS if rx.search(tn)), None)
+    # El departamento de Amazon manda cuando nombra una subcategoría del
+    # catálogo; si solo nombra la categoría, es la red para lo que ninguna
+    # regla reconoce.
+    pista = PISTAS.get(T(it.get('dept') or ''))
+    hit = pista if pista and pista[1] else next((v for rx, v in REGLAS if rx.search(tn)), None)
+    if not hit and pista: hit = pista
     if not hit:
         fuera.append((it, 'no encaja en ninguna categoría')); continue
     cat, sub, img = hit
-    if cat == 'Baterías portátiles': sub = tramo(capacidad_mah(it['title']))
+    if hit is pista:
+        por_dept += 1
+    elif cat == 'Baterías portátiles': sub = tramo(capacidad_mah(it['title']))
     elif cat == 'Teclados': sub = sub_teclado(tn)
     elif cat == 'Mouse': sub = sub_mouse(tn)
     elif cat == 'Televisores': sub = sub_tv(tn)
@@ -1254,7 +1299,8 @@ for it in json.load(io.open(sys.argv[1], encoding='utf-8')):
 
 json.dump(alta, io.open(sys.argv[2], 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print(f'ALTA: {len(alta)}   FUERA: {len(fuera)}   sin precio (no se dan de alta): '
-      f'{sum(1 for a in alta if a["price"] is None)}\n')
+      f'{sum(1 for a in alta if a["price"] is None)}'
+      + (f'   por departamento de Amazon: {por_dept}' if por_dept else '') + '\n')
 for k, n in collections.Counter((a['category'], a['subcategory']) for a in alta).most_common():
     print(f'  {n:4}  {k[0]} / {k[1]}')
 print('\nsin marca:', sum(1 for a in alta if not a['brand']))
