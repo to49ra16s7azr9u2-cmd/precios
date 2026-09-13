@@ -251,8 +251,22 @@ const ComparaMEX = (() => {
       estado.cola.push(t);
     }
   };
+  // La página siguiente. Si el listado trae el enlace, ese; si no (el HTML
+  // que Amazon sirve al fetch no siempre lo trae), se arma con page=N y se
+  // sigue hasta que una página venga vacía o repita la anterior. Una
+  // página corta (menos de 10 tarjetas) es la última.
+  const siguienteDe = (r, url) => {
+    if (r.sig) return r.sig;
+    if (r.n < 10) return null;
+    const u = new URL(url);
+    const k = esBS(url) ? "pg" : "page";
+    const actual = parseInt(u.searchParams.get(k) || "1", 10);
+    if (esBS(url) && actual >= 2) return null;   // los más vendidos son dos páginas
+    u.searchParams.set(k, String(actual + 1));
+    return u.href;
+  };
   const recorrer = async (t) => {
-    let url = t.url, pag = 0, capado = false;
+    let url = t.url, pag = 0, capado = false, firmaPrev = "";
     while (url && pag < MAX_PAG && estado.activo) {
       let doc;
       if (pag === 0 && url === location.href) doc = document;
@@ -264,13 +278,18 @@ const ComparaMEX = (() => {
       }
       const r = extraer(doc, url);
       pag++; estado.paginas++; estado.latido = Date.now();
+      // Amazon devuelve la última página otra vez cuando se le pide una que
+      // no existe: la misma lista de ASIN dos veces seguidas es el final.
+      const firma = r.items.map((i) => i.asin).join(",");
+      if (firma && firma === firmaPrev) { estado.paginas--; break; }
+      firmaPrev = firma;
       const nuevos = sumar(r.items);
       if (pag === 1 && t.sub && t.prof < estado.prof) encolar(r.subs.map((u) => ({ url: u, prof: t.prof + 1, sub: true })));
       guardar();
       pintar("Ahora: " + (r.items[0] && r.items[0].dept ? r.items[0].dept : url.slice(0, 60)) + (t.banda ? " ($" + t.banda[0] + "–" + (t.banda[1] == null ? "∞" : t.banda[1]) + ")" : "") +
              " · pág. " + pag + " · " + nuevos + " nuevos");
       if (!r.n) break;
-      url = r.sig;
+      url = siguienteDe(r, url);
       capado = pag >= TOPE_AMAZON;
       if (url) await dormir(azar());
     }
