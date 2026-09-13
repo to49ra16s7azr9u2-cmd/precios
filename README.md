@@ -178,9 +178,11 @@ Tres caminos, según la tienda:
   de alta lo que todavía no tenemos, con categoría puesta y la subcategoría
   a cargo de `clasificar_subcategorias.py`. Para una carga dirigida sigue
   valiendo `scripts/add_products.py targets.json`.
-- **Amazon México** — sin API (ver arriba). `scripts/captura_amazon.html`
-  es un marcador para el navegador que, en cualquier listado de
-  amazon.com.mx (búsqueda, departamento, los más vendidos), saca los
+- **Amazon México** — sin API (ver arriba). `scripts/extension-amazon/`
+  es una extensión de Chrome (se carga descomprimida desde
+  `chrome://extensions`) y `scripts/captura_amazon.html` el mismo código
+  como marcador, para quien no quiera instalar nada. En cualquier listado
+  de amazon.com.mx (búsqueda, departamento, los más vendidos) saca los
   productos al JSON que entienden `match_amazon_capture.py` y
   `add_amazon_standalone.py`, y sabe seguir solo: pasa a las páginas
   siguientes, entra a los subdepartamentos hasta la profundidad que se le

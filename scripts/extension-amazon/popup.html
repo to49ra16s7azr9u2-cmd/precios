@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<style>
+  body { width: 340px; margin: 0; padding: 12px 14px; font: 13px/1.45 system-ui, sans-serif; color: #111; }
+  h1 { font-size: 14px; margin: 0 0 6px; }
+  #estado { background: #f4f4f4; border-radius: 8px; padding: 8px 10px; white-space: pre-line; min-height: 44px; margin-bottom: 8px; }
+  #estado.aviso { background: #fff3cd; }
+  button { margin: 3px 4px 3px 0; padding: 6px 10px; border: 0; border-radius: 6px; background: #FF0211; color: #fff; font: 600 13px system-ui, sans-serif; cursor: pointer; }
+  button.gris { background: #444; }
+  button:disabled { opacity: .45; cursor: default; }
+  select, textarea { font: 13px system-ui, sans-serif; }
+  textarea { width: 100%; box-sizing: border-box; height: 64px; margin-top: 4px; }
+  .fila { margin-top: 6px; }
+  .nota { color: #666; font-size: 12px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1>Captura de Amazon → ComparaMEX</h1>
+<div id="estado">Buscando la pestaña de Amazon…</div>
+<div class="fila">
+  <button id="capturar">Capturar esta página</button>
+  <button id="siguientes">Páginas siguientes</button>
+</div>
+<div class="fila">
+  <button id="recorrer">Recorrer departamentos</button>
+  <label>profundidad <select id="prof"><option value="0">0</option><option value="1" selected>1</option><option value="2">2</option><option value="3">3</option></select></label>
+</div>
+<div class="fila">
+  <textarea id="urls" placeholder="Lista de URLs de Amazon (departamentos, búsquedas, más vendidos), una por línea"></textarea>
+  <button id="lista">Recorrer la lista</button>
+</div>
+<div class="fila">
+  <button id="pausa" class="gris">Pausar</button>
+  <button id="descargar">Descargar JSON</button>
+  <button id="vaciar" class="gris">Vaciar</button>
+</div>
+<p class="nota">El JSON va a <code>capturas/</code> del repo y entra con <code>scripts/importar_captura_amazon.py</code>. Puedes cerrar este popup: el recorrido sigue en la pestaña de Amazon, con su panel abajo a la derecha.</p>
+<script src="popup.js"></script>
+</body>
+</html>
