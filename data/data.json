@@ -3,7 +3,7 @@
     "currency": "MXN",
     "updated": "2026-08-19",
     "note": "Catálogo en reconstrucción con datos reales: 16857 productos. Taxonomía de categorías rediseñada por completo (18 categorías planas → 15 categorías con subcategorías, a partir de un diagrama que definió el usuario: Celulares y accesorios, Cargadores y adaptadores, Computadoras, Televisores y control remoto, Electrodomésticos, Videojuegos, Muebles, Herramientas, Autos/bicicletas/motos, Refacciones, Ropa, Calzado, Maquillaje, Viajes, Otros). Cada producto se reclasificó por su título real con un clasificador por palabras clave (con respaldo en la categoría vieja para los casos ambiguos de marcas curadas, ej. \"Celulares\" siempre fueron teléfonos). Categorías que no tenían equivalente nuevo (Joyería y relojes, Artículos de lujo, Decoración del hogar, Componentes electrónicos) quedaron honestamente en \"Otros\" en vez de forzar un mal encaje (~14% del catálogo). La barra de categorías ahora despliega un submenú al pasar el mouse por las que tienen subcategorías, y el filtro lateral de la lista también las muestra sangradas debajo de la categoría activa. SUNSKY, Geekbuying, Molnija, StyleWE, Glasseslit, Woodestic, The Luxury Closet, Noracora y JustFashionNow ya están \"terminadas\" a fondo. De Alibaba van 2,788 productos en Maquillaje. AliExpress y Alibaba se incorporan de a poco (sus feeds no son el catálogo curado de una sola marca sino volcados gigantescos de todo el marketplace). Se paginan las listas/rankings (60 productos por página) y las páginas SEO estáticas de categoría se limitan a un top 100, para que el sitio no se ponga lento según crece el catálogo. Variantes de color/talla/capacidad se muestran como pastillas clicables y como insignia \"🎨 +N\". Los productos usados/preowned muestran insignia \"🔄 Usado\" y se pueden excluir con un filtro. El mapa de Leaflet se carga de forma perezosa. Precios convertidos de USD/EUR/RUB a MXN a un tipo de cambio aproximado. Se excluyeron a propósito: contenido para adultos, mercancía con nombres de bandas/famosos/personajes reales sin licencia, réplicas realistas de armas, y productos con riesgo real de seguridad (rellenos inyectables, mesoterapia, crioterapia casera, láser de uso clínico, microblading/tatuaje profesional, blanqueadores de piel sin regular). SHEIN pendiente de aprobación en Admitad. Se investigó por qué ningún producto mostraba 2+ tiendas: existe un algoritmo de product matching (scripts/product_matcher.py, EAN->modelo+specs->similitud) pero nunca se había corrido contra el catálogo completo, y en ~77% de los productos (Noracora, Alibaba, JustFashionNow, AliExpress, StyleWE) el campo \"brand\" tenía el nombre de la tienda en vez de la marca real, lo que bloqueaba cualquier coincidencia entre tiendas. Se corrigió la marca real en los productos de Alibaba/AliExpress donde era detectable (24 productos: Xiaomi, HONOR, Creality, KuKirin, Flashforge, Elegoo, etc.) y se corrió el matcher sobre electrónica/celulares (842 productos reales, excluyendo fundas/cables/refacciones). Resultado: 0 coincidencias genuinas -- cada tienda tiene modelos específicos distintos incluso dentro de la misma marca (ej. OUKITEL en SUNSKY son celulares, en Geekbuying son estaciones de energía; ningún modelo se repite). Las 7 \"coincidencias\" que sí encontró el matcher sin filtrar accesorios resultaron ser falsos positivos (producto principal vs. refacción/funda de la misma marca), así que no se fusionó nada. Con la composición actual del catálogo (muestreo independiente de miles de candidatos por feed), la comparación de precios real entre tiendas para el mismo producto es la excepción, no la regla. Se hicieron mucho más finas las 6 categorías que se habían quedado sin ninguna subcategoría en el rediseño anterior (Maquillaje, Otros, Computadoras, Herramientas, Refacciones, Viajes -- juntas, un tercio del catálogo): ahora tienen entre 2 y 6 subcategorías cada una (ej. Maquillaje se separa en maquillaje de rostro/ojos, cuidado de la piel, pelucas y extensiones, estilizado de cabello, uñas y accesorios), clasificadas con un clasificador por palabras clave probado contra el catálogo real, mismo método que la taxonomía original. Cobertura de subcategoría en el catálogo completo: 67% -> 91%. De paso, revisando estas categorías a mano se encontraron 22 productos de mercancía sin licencia que habían evadido el filtro automático ofuscando el nombre con guiones (personajes/bandas/celebridades reales de Bloodborne, Sonic, Borderlands, Gintama, WWE, etc.) y se removieron, y se corrigieron 4 miscategorizaciones puntuales de antes (lentes Glasseslit que habían quedado en Refacciones, playeras Polo que habían quedado en Otros).",
-    "maxProductId": 141544
+    "maxProductId": 141595
   },
   "categories": [
     {
@@ -1230,7 +1230,12 @@
         },
         {
           "id": "Interno",
-          "name": "Discos internos y SSD",
+          "name": "Discos duros internos",
+          "icon": "storage"
+        },
+        {
+          "id": "SSD",
+          "name": "SSD internos",
           "icon": "storage"
         },
         {
@@ -1804,8 +1809,8 @@
           "icon": "ring"
         },
         {
-          "id": "Lentes y gafas",
-          "name": "Lentes y gafas",
+          "id": "Lentes de sol",
+          "name": "Lentes de sol",
           "icon": "ring"
         }
       ]
@@ -1831,8 +1836,13 @@
           "icon": "bag"
         },
         {
-          "id": "Mocasines y flats",
-          "name": "Mocasines y flats",
+          "id": "Mocasines",
+          "name": "Mocasines",
+          "icon": "bag"
+        },
+        {
+          "id": "Flats",
+          "name": "Flats",
           "icon": "bag"
         },
         {
@@ -1846,28 +1856,53 @@
           "icon": "bag"
         },
         {
-          "id": "Pantalones y shorts",
-          "name": "Pantalones y shorts",
+          "id": "Pantalones",
+          "name": "Pantalones",
           "icon": "bag"
         },
         {
-          "id": "Blusas y camisas",
-          "name": "Blusas y camisas",
+          "id": "Shorts",
+          "name": "Shorts",
           "icon": "bag"
         },
         {
-          "id": "Suéteres y sudaderas",
-          "name": "Suéteres y sudaderas",
+          "id": "Blusas",
+          "name": "Blusas",
           "icon": "bag"
         },
         {
-          "id": "Chamarras y abrigos",
-          "name": "Chamarras y abrigos",
+          "id": "Camisas",
+          "name": "Camisas",
           "icon": "bag"
         },
         {
-          "id": "Bolsas y carteras",
-          "name": "Bolsas y carteras",
+          "id": "Suéteres",
+          "name": "Suéteres",
+          "icon": "bag"
+        },
+        {
+          "id": "Sudaderas",
+          "name": "Sudaderas",
+          "icon": "bag"
+        },
+        {
+          "id": "Chamarras",
+          "name": "Chamarras",
+          "icon": "bag"
+        },
+        {
+          "id": "Abrigos",
+          "name": "Abrigos",
+          "icon": "bag"
+        },
+        {
+          "id": "Bolsas",
+          "name": "Bolsas",
+          "icon": "bag"
+        },
+        {
+          "id": "Carteras",
+          "name": "Carteras",
           "icon": "bag"
         },
         {
@@ -1891,8 +1926,13 @@
           "icon": "bag"
         },
         {
-          "id": "Vestidos y faldas",
-          "name": "Vestidos y faldas",
+          "id": "Vestidos",
+          "name": "Vestidos",
+          "icon": "shirt"
+        },
+        {
+          "id": "Faldas",
+          "name": "Faldas",
           "icon": "shirt"
         },
         {
@@ -1908,8 +1948,8 @@
       "icon": "vase",
       "subcategories": [
         {
-          "id": "Figuras y esculturas",
-          "name": "Figuras y esculturas",
+          "id": "Figuras decorativas",
+          "name": "Figuras decorativas",
           "icon": "vase"
         },
         {
@@ -1918,13 +1958,18 @@
           "icon": "vase"
         },
         {
-          "id": "Jarrones y floreros",
-          "name": "Jarrones y floreros",
+          "id": "Jarrones",
+          "name": "Jarrones",
           "icon": "vase"
         },
         {
-          "id": "Velas y portavelas",
-          "name": "Velas y portavelas",
+          "id": "Velas",
+          "name": "Velas",
+          "icon": "vase"
+        },
+        {
+          "id": "Portavelas",
+          "name": "Portavelas",
           "icon": "vase"
         },
         {
@@ -2115,13 +2160,18 @@
       "icon": "shirt",
       "subcategories": [
         {
-          "id": "Playeras y camisetas",
-          "name": "Playeras y camisetas",
+          "id": "Playeras",
+          "name": "Playeras",
           "icon": "shirt"
         },
         {
-          "id": "Vestidos y faldas",
-          "name": "Vestidos y faldas",
+          "id": "Vestidos",
+          "name": "Vestidos",
+          "icon": "shirt"
+        },
+        {
+          "id": "Faldas",
+          "name": "Faldas",
           "icon": "shirt"
         },
         {
@@ -2130,8 +2180,13 @@
           "icon": "shirt"
         },
         {
-          "id": "Ropa interior y pijamas",
-          "name": "Ropa interior y pijamas",
+          "id": "Ropa interior",
+          "name": "Ropa interior",
+          "icon": "shirt"
+        },
+        {
+          "id": "Pijamas",
+          "name": "Pijamas",
           "icon": "shirt"
         },
         {
@@ -3355,7 +3410,7 @@
   },
   "indexFile": "data/index.json",
   "homeFile": "data/home.json",
-  "totalProducts": 92801,
+  "totalProducts": 92852,
   "categoryStats": {
     "Celulares": {
       "n": 2795,
@@ -3399,7 +3454,7 @@
       "maxShip": 80
     },
     "Climatización": {
-      "n": 1618,
+      "n": 1619,
       "subs": {
         "Deshumidificadores": 44,
         "Ventiladores": 951,
@@ -3407,7 +3462,7 @@
         "Calefactores": 92,
         "Aires acondicionados": 392,
         "Humidificadores": 35,
-        "Climatizadores evaporativos": 29,
+        "Climatizadores evaporativos": 30,
         "": 16
       },
       "discounted": 967,
@@ -3498,9 +3553,9 @@
       "maxShip": 83
     },
     "Refacciones": {
-      "n": 5324,
+      "n": 5326,
       "subs": {
-        "Refacciones para electrodomésticos": 98,
+        "Refacciones para electrodomésticos": 100,
         "Para patinetas eléctricas": 72,
         "Para autos": 2596,
         "Bombas": 84,
@@ -3811,9 +3866,10 @@
       "n": 592,
       "subs": {
         "NAS": 21,
-        "Externo": 67,
+        "Externo": 70,
         "Memorias USB": 78,
-        "Interno": 163,
+        "SSD": 88,
+        "Interno": 72,
         "Tarjetas de memoria": 60,
         "": 203
       },
@@ -3823,7 +3879,7 @@
       "maxShip": 68
     },
     "Electrodomésticos": {
-      "n": 3305,
+      "n": 3350,
       "subs": {
         "Robots limpiacristales": 46,
         "Purificadores de agua": 43,
@@ -3836,8 +3892,8 @@
         "Máquinas de coser": 72,
         "Estufas": 696,
         "Campanas de cocina": 451,
-        "Lavavajillas": 37,
-        "Microondas": 190,
+        "Lavavajillas": 44,
+        "Microondas": 228,
         "Hornos": 116,
         "Calentadores de agua": 237,
         "Vaporizadores de ropa": 5,
@@ -3849,13 +3905,13 @@
       "maxShip": 80
     },
     "Domótica y hogar inteligente": {
-      "n": 734,
+      "n": 735,
       "subs": {
         "Bocinas inteligentes": 47,
         "Enchufes inteligentes": 25,
         "Interruptores inteligentes": 31,
         "Cortinas motorizadas": 7,
-        "Cerraduras inteligentes": 45,
+        "Cerraduras inteligentes": 46,
         "Hubs": 10,
         "Iluminación inteligente": 30,
         "": 539
@@ -3928,16 +3984,16 @@
       "maxShip": 71
     },
     "Salud y belleza": {
-      "n": 1954,
+      "n": 1955,
       "subs": {
         "Cuidado del cabello": 274,
-        "Cuidado dental": 25,
+        "Cuidado dental": 28,
         "Rasuradoras": 484,
         "Salud": 118,
         "Masajeadores": 17,
         "Depilación": 166,
         "Básculas": 71,
-        "Cuidado personal": 427,
+        "Cuidado personal": 425,
         "Rastrillos": 93,
         "Movilidad": 208,
         "Equipo de monitoreo médico": 71
@@ -4120,9 +4176,9 @@
       "maxShip": 84
     },
     "Blancos y ropa de cama": {
-      "n": 3689,
+      "n": 3690,
       "subs": {
-        "Almohadas": 816,
+        "Almohadas": 817,
         "Edredones": 904,
         "Sábanas": 945,
         "Protectores de colchón": 335,

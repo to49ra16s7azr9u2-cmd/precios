@@ -221,6 +221,48 @@ título que diga bocina, altavoz o barra de sonido. Y la de bocinas se
 llevaba el Echo Pop, así que los Echo, los Nest y lo que diga Alexa se
 desvían antes a domótica.
 
+La decimoséptima vuelve a ser la tienda entera, 2,274 anuncios, y solo
+114 no estaban en la anterior: la sección de microondas y la de
+lavavajillas. Cincuenta y cinco son un aparato (41 microondas, ocho
+lavavajillas, dos interruptores de puerta, y sueltos un enfriador de
+aire, una cerradura inteligente, un irrigador dental y una almohada) y
+51 entran como fichas nuevas; los otros cuatro no traían precio. Los
+microondas ya tenían regla. Los lavavajillas no, aunque el catálogo
+guarda 37 en su propia subcategoría, y sin regla caían donde caía
+cualquier otra palabra del título: tres en Componentes de PC por
+"ventilador de secado", uno en Lavadoras por "lavadora de tazas". La
+regla nueva pide que el lavavajillas abra el título o lleve apellido
+("de encimera", "de 13 cubiertos"), y no la palabra suelta, porque la
+palabra suelta es "apto para lavavajillas" en la olla de cocción lenta,
+la freidora y el mini picador, que con la primera versión de la regla se
+iban los cinco a Lavavajillas.
+
+Los 59 descartes son la sección de lavavajillas casi entera: 31
+consumibles y accesorios (detergente, sal, abrillantador, el imán de
+limpio/sucio, canastillas, la manguera de drenaje), seis "mini
+lavavajillas" que son un balde con chorro o un limpiador ultrasónico de
+tazas y se distinguen porque dicen USB, recargable o plegable y nunca
+cuántos programas tienen, nueve utensilios de microondas (cocedores de
+huevo, tapas, la repisa de pared), cinco estantes, dos juegos de
+recipientes de vidrio y el rollo de papel pergamino. Cascade y Finish
+venden detergente sin decir para qué, así que se descartan por la marca.
+
+Cuatro reglas viejas se corrigieron. La de freidoras se llevaba el
+"Horno Microondas Air Fryer 3 en 1" de Cuisinart, que es un microondas
+y el catálogo guarda cuatro iguales en Microondas; la guarda pide "horno
+microondas" y no "microondas" a secas porque la Ninja Crispi dice que
+sus recipientes van al microondas. La de purificadores de agua se
+llevaba el irrigador dental por el "Filtro de Agua" del título; ahora el
+irrigador se decide antes y va a Cuidado dental, junto a los cepillos
+eléctricos, y las dos fichas de Waterpik y Aquasonic que estaban en
+Cuidado personal se mueven con él. La de refrigeración de PC se llevaba
+el enfriador de aire VORTEX, que es un climatizador evaporativo y tiene
+17 iguales en Climatización; la regla nueva descarta lo que diga CPU,
+procesador o socket, que es como se anuncian los Thermalright. Y la que
+descarta controles remotos de repuesto leía "con control remoto" en
+cualquier aparato que lo trae de fábrica; ahora "con control remoto" no
+cuenta.
+
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
 se resuelve a mano en EXPLICITOS, nunca por parecido.
@@ -242,6 +284,14 @@ def T(s):
 # la sección entera antes de que REGLAS pueda verla.
 ES_ROBOT_VIDRIOS = (r'(?!.*\brobot\b.{0,40}(limpiacristales|limpiavidrios|'
                     r'ventana|vidrio|cristal))')
+
+# "Apto para lavavajillas", "lavable en lavavajillas", "dishwasher safe":
+# habla de una pieza del aparato, no de un lavavajillas. Lo comparten las
+# reglas de lavavajillas de FUERA y de REGLAS, porque una olla de cocción
+# lenta y una freidora lo dicen en el título.
+NO_APTO_LAVAVAJILLAS = (r'(?!.*(apt[oa]s? para|lavables? en|seguros? para|lavar en|'
+                        r'lavan en|lavarse en).{0,4}(lavavajillas|lavaplatos)|'
+                        r'.*dishwasher[- ]safe)')
 
 FUERA = [
  (re.compile(r'^amazon renewed$'), 'el título no nombra ningún producto'),
@@ -267,6 +317,44 @@ FUERA = [
  # gasta y se repone, como las pastillas.
  (re.compile(r'perlas de perfume|suavizante de telas'),
   'consumible de lavandería, no es el aparato'),
+ # Lo que se vende alrededor del lavavajillas y no es el lavavajillas: el
+ # detergente, la sal, el abrillantador, el imán de limpio/sucio, la
+ # canastilla y la manguera. Se nombran donde caigan ("Finish Jet Dry -
+ # Asistente de enjuague para lavavajillas"), así que van en FUERA. La
+ # guarda del principio es para el aparato que dice "apto para
+ # lavavajillas" de sus piezas: ese sí es el aparato.
+ (re.compile(r'^' + NO_APTO_LAVAVAJILLAS +
+             r'(?=.*(lavavajillas|lavaplatos|lavatrastes|dishwasher))'
+             r'(?=.*(detergente (para|de|lavavajillas|en polvo|liquido|automatico)|'
+             r'dishwasher (detergent|pods|rinse)|\bsal (para|regeneradora)\b|'
+             r'(asistente|agente) de enjuague|rinse aid|abrillantador|ambientador|'
+             r'\biman\b|letrero magnetico|clean dirty|indicador de suciedad|'
+             r'canastilla|cesta (inferior|de reparacion|de repuesto)|conjunto de cesta|'
+             r'reparacion de escurreplatos|manguera de drenaje|adaptador de manguera|'
+             r'kit de instalacion))'),
+  'consumible o accesorio de lavavajillas, no es el aparato'),
+ # Los "mini lavavajillas" de pila: un balde con chorro, una cubeta plegable
+ # o un limpiador ultrasónico de tazas. No lavan una vajilla; el
+ # lavavajillas de verdad se distingue porque dice cuántos programas tiene.
+ (re.compile(r'^' + NO_APTO_LAVAVAJILLAS + r'(?=.*(lavavajillas|lavaplatos))'
+             r'(?=.*(\busb\b|recargable|ultras|plegable|colapsable|cubeta|'
+             r'de fregadero|limpiador (automatico|de alta presion)|lavadora de tazas))'),
+  'lavador de tazas de fregadero, no es un lavavajillas'),
+ # Lo que se mete en el microondas o se le cuelga encima, no el microondas.
+ (re.compile(r'cocedor (de )?huevos|escalfador|tapas? (para|de) microondas|'
+             r'tapa microonda|tapas de silicona|soporte de pared para microondas|'
+             r'repisa (para|de|horno de) microondas|cubierta para microondas'),
+  'utensilio para microondas, no es el aparato'),
+ # Solo cuando el recipiente ES el producto (abre el título): la Ninja
+ # Crispi es una freidora "con 2 recipientes de vidrio".
+ (re.compile(r'^(?:\S+ ){0,4}(contenedores?|recipientes?|toppers?)\b'
+             r'.*(vidrio|alimentos|hermetic|meal prep)'),
+  'recipientes para alimentos, no es un aparato'),
+ (re.compile(r'papel (pergamino|encerado|para hornear|aluminio)|parchment paper'),
+  'consumible de cocina, no es un aparato'),
+ # El detergente que no dice para qué es: Cascade y Finish solo hacen eso.
+ (re.compile(r'^(detergente|abrillantador|platinum actionpacs|cascade|finish)\b'),
+  'consumible de limpieza, no es el aparato'),
  # El escurridor del fregadero no se enchufa.
  (re.compile(r'cesta escurridora|colador de alimentos|escurridor de'),
   'utensilio manual, no es un electrodoméstico'),
@@ -402,8 +490,10 @@ CABECERA = [
              r'(?!aspirador)(?=.*(?:limpiador|kit de limpieza|kit limpiador))'),
   'kit de limpieza, no es el aparato'),
  # Solo al principio: una pantalla de proyección motorizada "con control
- # remoto" lo trae de accesorio.
- (re.compile(r'^' + ES_ROBOT_VIDRIOS + r'.*control remoto'),
+ # remoto" lo trae de accesorio. Y "con control remoto" nunca es el
+ # control: el enfriador de aire VORTEX lo dice en la palabra 7 y es un
+ # enfriador de aire.
+ (re.compile(r'^' + ES_ROBOT_VIDRIOS + r'(?!.*\bcon control remoto).*control remoto'),
   'control remoto de repuesto, no es el aparato'),
  (re.compile(r'bateria de repuesto|bateria for portatil|repuesto para el altavoz|'
              r'cable de repuesto|adaptadores tipo c de repuesto|thumbsticks de repuesto|'
@@ -486,6 +576,16 @@ REGLAS = [
  # pastillas y refacciones es el aparato. Incluye la centrifugadora suelta,
  # que el catálogo ya trae (Koblenz SCK-60, HKPRO HK-37) sin subcategoría
  # porque su título tampoco dice "secadora".
+ # Antes que la lavadora: el de encimera se anuncia como "Lavadora de
+ # tazas" y el catálogo guarda 37 en su propia subcategoría. Tiene que
+ # nombrarlo en las primeras palabras o con su apellido ("de encimera",
+ # "de 13 cubiertos"): la palabra suelta al final es "apto para
+ # lavavajillas" de otro aparato.
+ (re.compile(r'^' + NO_APTO_LAVAVAJILLAS +
+             r'(?:(?:\S+ ){0,5}(?:mini )?(lavavajillas|lavaplatos|lavatrastes)\b|'
+             r'.*(lavavajillas|lavaplatos) (portatil|de encimera|para encimera|de mesa|'
+             r'compact|integrable|empotrable|de \d+ (cubiertos|servicios)))'),
+  ('Electrodomésticos', 'Lavavajillas', 'appliance')),
  (re.compile(r'\blavadora|\blava\w*secadora|\bcentrifugadora'), ('Lavadoras', None, 'washer')),
  # Aspiradoras: el título siempre nombra el aparato ("aspiradora", "aspirador",
  # "robot aspirador", "shop vac"). La licuadora que Amazon metió en la sección
@@ -570,6 +670,9 @@ REGLAS = [
  # pieza. La subcategoría del catálogo guarda juntos el aparato y sus
  # cartuchos (los Hydrofast HF03, los JIMMY R9), así que el kit
  # mineralizador y el filtro suelto van con los equipos de ósmosis.
+ # El irrigador trae "Filtro de Agua" en el título y caía en purificadores.
+ (re.compile(r'irrigador (dental|bucal|oral)|water ?flosser'),
+  ('Salud y belleza', 'Cuidado dental', 'heart-pulse')),
  (re.compile(r'purificador(a|es)? de agua|purificadora de agua|'
              r'osmosis inversa|filtracion de agua|filtro de agua|'
              r'botella purificadora'),
@@ -599,9 +702,14 @@ REGLAS = [
  # Seis maneras de nombrar el mismo aparato: Cuisinart escribe "Freidora
  # Aire" sin el "de", T-Fal lo llama "Horno Freidor", Ninja lo vende por
  # capacidad ("Freidora de 4 cuartos") y varias marcas usan el inglés.
- (re.compile(r'freidora de aire|freidora aire|air ?fryer|horno freidor|'
+ # Salvo el "Horno Microondas Air Fryer 3 en 1": ese es un microondas con
+ # función de freír, y el catálogo guarda los cuatro que tiene en
+ # Microondas. La guarda pide "horno microondas" y no "microondas" a secas
+ # porque la Ninja Crispi dice que sus recipientes van al microondas.
+ (re.compile(r'^(?!.*(horno (de )?microondas|microondas (air|con freidora)))'
+             r'(?=.*(freidora de aire|freidora aire|air ?fryer|horno freidor|'
              r'freidora de \d+ cuartos|'
-             r'freidora electrica.{0,60}sin aceite'),
+             r'freidora electrica.{0,60}sin aceite))'),
   ('Electrodomésticos', 'Freidoras de aire', 'appliance')),
  # Batidora de pedestal: el catálogo tiene treinta en Pequeños
  # electrodomésticos de cocina, ninguna entre las licuadoras.
@@ -768,6 +876,13 @@ REGLAS = [
  (re.compile(r'\becho (pop|dot|show|studio|hub)\b|\balexa\b|google nest|'
              r'\bnest (audio|mini|hub)\b|bocina intelig|altavoz intelig'),
   ('Domótica y hogar inteligente', 'Bocinas inteligentes', 'speaker')),
+ (re.compile(r'cerradura (inteligente|electronica|digital|biometrica)|smart lock'),
+  ('Domótica y hogar inteligente', 'Cerraduras inteligentes', 'lock')),
+ # Solo la almohada de cama: la de viaje va en Maletas y la de bebé en
+ # Bebés, y las dos se llaman almohada.
+ (re.compile(r'^(?!.*(viaje|cuello|cervical|masaj|bebe|lactancia|embarazo|inflable))'
+             r'(?:\S+ ){0,3}almohadas?\b'),
+  ('Blancos y ropa de cama', 'Almohadas', 'pillow')),
  (re.compile(r'bocina|bafle|altavo(z|ces)|maquina de cantar|\bspeaker\b|'
              r'monitores? (de |tipo )?estudio'),
   ('Bocinas', None, 'speaker')),
@@ -810,6 +925,11 @@ REGLAS = [
  # no es un módulo de memoria.
  (re.compile(r'memoria ram|\bram\b|sodimm|udimm|\bddr[45]|modulo de memoria'),
   (PC, 'Memoria RAM', 'cpu')),
+ # El enfriador de aire de la sala, no el del procesador. El catálogo
+ # tiene 17 en Climatizadores evaporativos.
+ (re.compile(r'^(?!.*(\bcpu\b|procesador|\bpc\b|\bitx\b|socket|\bam[45]\b|\blga\b))'
+             r'(?=.*(enfriador de aire|climatizador evaporativo|enfriador evaporativo))'),
+  ('Climatización', 'Climatizadores evaporativos', 'snowflake')),
  (re.compile(r'ventilador|enfriador|enfriamiento|cooler|disipador|\baio\b|refrigeraci|refrigeradora|'
              r'pasta (termica|de grasa)|grasa termica|compuesto termico|fuente de poder|'
              r'fuente de alimentacion|tarjeta grafica|filtro de (malla|polvo)|'
@@ -993,6 +1113,11 @@ MARCAS += ["UNCANNY BRANDS", "HAMILTON BEACH", "TAURUS", "RAGANET",
            "HOTSPOT", "AEKA", "WJTNG", "FINYQBET", "ULTREAN", "SUGARWHISK",
            "CASA LITUS", "GRAVITA", "NUTRIBULLET", "WARING", "BENE CASA",
            "HOLSTEIN", "ZEPTER", "MAGIC BULLET"]
+
+# Las de la captura de microondas y lavavajillas. "GE" son dos letras, pero
+# marca() exige que no la rodeen letras ni números, así que "GEL" no entra.
+MARCAS += ["TEKA", "GE", "GALANZ", "TOSHIBA", "BREVILLE", "SHARP", "AIRMSEN",
+           "MYSMILE", "VORTEX"]
 
 ALIAS = {"THERMALRLGHT": "THERMALRIGHT", "WHITE-WESTINGHOUSE": "WHITE WESTINGHOUSE",
          "KÄRCHER": "KARCHER", "HUKËN": "HUKEN"}

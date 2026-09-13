@@ -151,8 +151,26 @@ REGLAS = {
         ("Focos inteligentes", r"\bfoco inteligente\b|\bfocos inteligentes\b|\bfoco smart\b|\bfoco wifi\b", CABEZA),
     ],
     "Almacenamiento": [
-        ("Externo", r"\b(disco duro|disco|ssd|unidad) externo\b|\bdisco duro portatil\b|\bexterno\b", LIBRE),
-        ("Interno", r"\b(disco duro|disco|ssd|unidad) interno\b|\bnvme\b|\bsata\b|\binterno\b", LIBRE),
+        # La segunda mitad engancha el sustantivo del principio cuando la
+        # palabra que delata al externo llega después ("Unidad SSD IO CREST
+        # Portable NVMe USB4.0"). Sin eso ganaba SSD, que enganchaba en
+        # "nvme" -- una palabra que está después de "Portable" y por lo
+        # tanto no la ve el freno de aquella regla, que solo mira adelante.
+        ("Externo", r"\b(disco duro|disco|ssd|unidad) externo\b|\bdisco duro portatil\b|\bexterno\b"
+                    r"|\b(disco|ssd|unidad|memoria)\b"
+                    r"(?=.*(\bextern[oa]\b|\bportable\b|(?<!para )\bportatil\b))", LIBRE),
+        # El SSD va antes del mecánico porque gana la palabra que aparece
+        # primero y en un SSD interno "ssd" siempre le gana a "interno".
+        # Los dos frenos del final son para no robarle los externos a la
+        # regla de arriba: "SSD Externo Lexar" dice "ssd" en la palabra 0 y
+        # "externo" en la 1, así que por posición ganaba acá. "portátil" va
+        # aparte porque tiene dos sentidos opuestos en esta categoría: "SSD
+        # portátil Kingston" es externo, pero "SSD Crucial P510 con
+        # disipador para portátil" es interno, es la laptop.
+        ("SSD", r"\b(ssd|nvme|m\.?2|estado solido|disco solido)\b"
+                r"(?!.*\b(extern[oa]|portable)\b)"
+                r"(?!.*(?<!para )\bportatil\b)", LIBRE),
+        ("Interno", r"\b(disco duro|disco|unidad) interno\b|\bsata\b|\binterno\b", LIBRE),
         ("Tarjetas de memoria", r"\bmemoria (micro|sd)\b|\btarjeta (sd|micro|de memoria)\b|\bmicrosd\b", CABEZA),
         ("Memorias USB", r"\bmemoria (usb|flash)\b|\bflash drive\b|\busb flash\b|\bpendrive\b", CABEZA),
         ("NAS", r"\bnas\b|\balmacenamiento en red\b", LIBRE),
