@@ -99,6 +99,128 @@ que el título abriera con "Filtro". Los dos descartes son tratamientos
 químicos para el tinaco que se venden por litros tratados o por meses de
 duración: se dosifican y se acaban, como las pastillas de lavadora.
 
+La decimoquinta es la sección de pequeños electrodomésticos de cocina, la
+más revuelta de todas: 344 anuncios y solo 194 son un aparato. Ciento
+treinta y nueve van a "Pequeños electrodomésticos de cocina", que es donde el
+catálogo ya guarda las ollas, arroceras, tostadores, wafleras,
+sandwicheras, creperas y básculas; el resto se reparte entre licuadoras,
+parrillas de inducción y de quemadores (a "Estufas y hornos", con la
+"Parrilla Eléctrica de 24 IN 4 quemadores" que ya estaba), tres
+microondas, siete freidoras de aire, diez refacciones, tres aparatos
+industriales y una cafetera. Los 150 descartes son todo lo que Amazon
+pone alrededor del aparato: 43 seguros de Assurant, 40 fundas y
+cubiertas, 19 bandejas con ruedas para moverlo por la barra, 18 estantes
+y organizadores, 14 baterías de cocina y cubiertos, cuatro elevadores de
+gabinete, cinco juguetes y dos combos de varios aparatos con un solo
+precio. Hicieron falta guardas nuevas en FUERA para cada familia, porque
+todas nombran el aparato en el título ("Funda para tostador", "Bandeja
+deslizante para licuadora"). Tres se resolvieron a mano: la Chefman
+"Freidora digital multifuncional" nunca dice "aire", y el NutriBullet
+"Batidora" y el Ninja "Sistema de Cocina" son licuadoras de vaso. La regla
+de "parrilla" tuvo que pedir apellido (eléctrica, panini, raclette),
+porque un filtro de PC se vende con "parrillas de filtro de ventilador".
+También entra la parrilla panini de Chefman de la primera captura, que
+hasta hoy no tenía regla que la reconociera.
+
+La decimosexta no es una sección sino toda la tienda de un tirón: 2,160
+anuncios que van de las pilas portátiles a las máquinas de coser, pasando
+por bocinas, audífonos, teclados, ratones, webcams, brazos de monitor,
+refrigeración de PC, mini PCs, televisores, pantallas de proyección,
+lavadoras, aspiradoras, secadoras de pelo, planchas, robots
+limpiacristales, freidoras, licuadoras, purificadores, refrigeradores y
+la cocina entera. Mil setecientos cincuenta y cinco son un producto y
+405 no; de los que entran, 1,724 ya estaban en el catálogo y solo 18 son
+fichas nuevas: las máquinas de coser, que el catálogo guardaba desde hacía
+tiempo en su propia subcategoría pero que ninguna regla sabía reconocer.
+
+Lo que se quedaba fuera por falta de regla eran ochenta y cinco anuncios,
+y en el repaso resultaron ser siempre lo mismo: el producto se nombra en
+un idioma o con una palabra que las reglas no tenían. Media captura dice
+"auriculares" donde el catálogo dice "audífonos", y las marcas grandes
+venden "Buds" y "headphones" sin traducir; "altavoz" estaba, pero
+"altavoces" no; Sonos vende un "Wireless Speaker" a secas. Se ensancharon
+las dos reglas de audio con esas formas y se les puso delante la de las
+bocinas de coche, porque el catálogo nunca las guarda en Bocinas sino en
+"Audio y multimedia para auto" -- cincuenta y cinco fichas contra ninguna
+-- y se reconocen por cómo se venden: coaxiales, de 6x9, de rango medio o
+diciendo "para auto".
+
+El otro grupo eran palabras que significan dos cosas distintas. "Monitor"
+en audio no es una pantalla: las Edifier R1000T4 son "Bocinas Monitores
+Tipo Estudio", los KZ EDX Pro son "Audífonos con Monitor Dentro del oído"
+y el Phenyx Pro es un "Sistema de monitoreo in-Ear", y los tres acababan
+en Accesorios de monitor, que es donde van los brazos y las bases de
+pantalla; ahora el audio se decide antes. "MacBook Pro" no siempre es una
+laptop: cinco power banks, un cargador de pared, un cable y un mouse lo
+nombraban como lo que cargan o a lo que se conectan, así que la palabra
+pide abrir el título igual que ya lo pedía "laptop". "GDDR5" no es "DDR5":
+una tarjeta gráfica estaba fichada como módulo de memoria RAM. "Proyector"
+delante de "pantalla" es el aparato y detrás es el destino, y con eso el
+AOC portátil dejó de ser una pantalla de proyección. Y "PS5" o "Xbox" en
+un título no lo vuelven un accesorio de videojuegos: el teclado HyperX
+Alloy Core y dos ratones Corsair los listan entre lo que aceptan, así que
+la regla de videojuegos ahora deja pasar a lo que dice "teclado" o
+"mouse".
+
+Familias nuevas, todas con su lugar ya hecho en el catálogo y ninguna
+regla que llegara a él: las máquinas de coser y sus piezas (prensatelas,
+bobinas, porta-carretes y la mesa de extensión, que van a Refacciones como
+las cuchillas de licuadora), la estación de energía de 110 V (la DJI Power
+1000, la EcoFlow DELTA 3, las DaranEner), las baterías de cámara de Tilta,
+el cargador de pared, el cable suelto, el micrófono de solapa, la
+impresora 3D, la terminal de cobro y el celular cuando el título es marca
+y modelo y nada más. Esa última regla tuvo que descartar de una vez los
+Buds, los Watch y las Tab, que empiezan igual y no son teléfonos, y
+también las baterías, que Samsung anuncia como "Galaxy Magnetic Wireless
+5000mAh".
+
+Los 405 descartes no traen nada nuevo: 78 seguros de Assurant, 74 fundas,
+56 anuncios cuyo título es la palabra "Amazon Renewed" y nada más, 24
+refacciones de lavadora, 19 bandejas con ruedas, 18 muebles, 16
+utensilios de mano, 12 repuestos de otro aparato y 12 paquetes de dos
+electrodomésticos con un solo precio. Solo hicieron falta cuatro guardas
+nuevas: el embudo dosificador y el cajón de la cafetera espresso, las
+perlas de perfume de la ropa, el escurridor del fregadero y los dos
+títulos que son el nombre de una línea de producto y nada más. Cinco se
+resolvieron a mano: Razer y SteelSeries bautizan sus periféricos y dan por
+sabido lo que son (el Pro Click V2, el Viper V3 Pro, el Basilisk Mobile y
+el Apex Pro Gen 3), y el SoundPEATS Air6 trae la funda en el título, que
+era justo lo que lo descartaba.
+
+Al pasar todas las capturas por las reglas nuevas, 69 fichas que ya
+estaban en el catálogo salían con otra etiqueta, y solo se movieron las
+24 que cambian de categoría. Las otras 45 eran el clasificador perdiendo
+detalle, no ganándolo: 38 audífonos cuya ficha ya dice "Earbuds
+inalámbricos" o "Diadema con cable" salen sin subcategoría porque
+sub_audio solo la deduce cuando el título nombra a la vez la forma y la
+conexión, y lo mismo les pasa a cuatro bocinas, dos lavadoras de carga
+superior y un MacBook Pro. Una subcategoría concreta no se cambia por
+None: ahí la ficha sabe más que la regla.
+
+Las 24 que sí se movieron son las que el clasificador afina. Siete kits
+Tilta de baterías NP-FZ100 y DMW-BLK22 estaban en "Cargadores" y son
+accesorios de cámara. Cuatro estaciones de energía (DaranEner, DJI
+Power, MARBERO) se juntan con las otras 74 en "Otros / Energía portátil
+y paneles solares", que es donde el catálogo ya las guardaba;
+por eso esa regla apunta ahí y no a una subcategoría nueva. Tres bancos
+de batería y un cargador portátil que se anunciaban de otra forma vuelven
+a "Baterías portátiles". El Sonos Era 300 va con los asistentes
+inteligentes, un altavoz de conferencia va a "Bocinas", y el resto son
+una tarjeta gráfica GDDR5 que estaba en "Memoria RAM", el Apex Pro Gen 3
+a "Mecánicos", el Pro Click V2 a "Oficina", el KATAR PRO XT a "Gaming",
+el sistema de monitoreo in-ear de Phenyx Pro a Audífonos y dos
+alfombrillas a Mouse, que es donde el catálogo guarda las otras 34.
+
+Tres reglas se corrigieron por el camino. La de escritorios buscaba
+"computadora de pie" sin cerrar la palabra, así que "alfombrilla de
+computadora de piel" entraba en Muebles; ahora la palabra se cierra y hay
+una regla propia para los tapetes que no nombran el mouse. La de power
+banks leía "2400mAh Batería" dentro de "Bocina Bluetooth, Barra de
+Sonido" y se llevaba dos bocinas; ahora descarta de entrada cualquier
+título que diga bocina, altavoz o barra de sonido. Y la de bocinas se
+llevaba el Echo Pop, así que los Echo, los Nest y lo que diga Alexa se
+desvían antes a domótica.
+
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
 se resuelve a mano en EXPLICITOS, nunca por parecido.
@@ -136,6 +258,21 @@ FUERA = [
  (re.compile(r'soporte (de pared )?(de|para) tv|soporte de tv rodante'),
   'soporte de TV: el catálogo no tiene esa subcategoría'),
  (re.compile(r'cubierta de tv'), 'accesorio: protector/cubierta'),
+ # Lo que se vende alrededor de la cafetera espresso: el embudo que encaja
+ # en el portafiltro de 54 mm y el cajón donde se golpea la pastilla usada.
+ (re.compile(r'embudo dosificador|caja de cafe espresso|cubo para cafe|'
+             r'knock ?box'),
+  'accesorio de cafetera, no es la cafetera'),
+ # El perfumante de la ropa es del mismo estante que la lavadora, pero se
+ # gasta y se repone, como las pastillas.
+ (re.compile(r'perlas de perfume|suavizante de telas'),
+  'consumible de lavandería, no es el aparato'),
+ # El escurridor del fregadero no se enchufa.
+ (re.compile(r'cesta escurridora|colador de alimentos|escurridor de'),
+  'utensilio manual, no es un electrodoméstico'),
+ # Dos títulos que son el nombre de una línea de producto y nada más.
+ (re.compile(r'^steren preferencias$|^amazon basics$'),
+  'el título no dice qué producto es'),
  (re.compile(r'retroiluminacion para tv'), 'tira de luces, no es el aparato'),
  # Refacciones y consumibles de lavadora. Van en FUERA (no en CABECERA)
  # porque en estos títulos la pieza se nombra donde caiga: "Kit de
@@ -196,6 +333,53 @@ FUERA = [
  (re.compile(r'antisarro|desinfectante.{0,30}(tinaco|agua)|'
              r'suavizador de agua'),
   'tratamiento químico del agua, no es el aparato'),
+ # Sección de pequeños electrodomésticos de cocina. Amazon mezcla con los
+ # aparatos todo lo que se pone debajo, encima o alrededor de ellos: las
+ # bandejas con ruedas para moverlos por la barra, los deslizadores
+ # adhesivos, el elevador de gabinete para la batidora de pie, los estantes
+ # para el microondas y los enrolladores de cable. Nada de eso se enchufa.
+ (re.compile(r'bandeja (deslizante|rodante)|estera deslizante|'
+             r'alfombrilla de bambu|slider de bambu|deslizadores|'
+             r'lanzadores autoadhesivos|ruedas de electrodomesticos|'
+             r'tapete para fregadero'),
+  'bandeja o tapete para mover el aparato, no es el aparato'),
+ (re.compile(r'elevador (de electrodomesticos|mezclador|de mezclador)|'
+             r'mezclador elevador|aparato elevador'),
+  'elevador de gabinete, no es el aparato'),
+ (re.compile(r'estante (para|de) microondas|estante extensible|'
+             r'soporte (para|de) (mini refrigerador|microondas)|'
+             r'cajones extraibles|muebles? para cocina|barra de cafe|'
+             r'organizador(es)? de cables (adhesivo|mejorados|'
+             r'para electrodomesticos)|organizador\s?para debajo|'
+             r'organizador con ganchos'),
+  'mueble u organizador, no es el aparato'),
+ # Trastes sin motor: baterías de cocina, juegos de ollas, cubiertos y los
+ # cortadores de palanca. El catálogo no tiene utensilios manuales.
+ (re.compile(r'bateria de cocina|juego de (ollas|cubiertos|\d+ sartenes)|'
+             r'conjunto de ollas|sartenes antiadherentes|cubiertos de acero|'
+             r'cortador de (curry|verduras)|picador de verduras|'
+             r'molde de arroz|platillo volador|para estufa de gas'),
+  'utensilio manual, no es un electrodoméstico'),
+ (re.compile(r'\bjuguetes?\b|de imitacion|de simulacion|en miniatura|'
+             r'de cocina para ninos'),
+  'juguete, no es un aparato'),
+ # Un combo de dos o tres aparatos con un solo precio no se compara contra
+ # ninguno de ellos suelto. Mismo criterio que la lavadora con frigobar.
+ (re.compile(r'combo dulce|combinacion de electrodomesticos'),
+  'paquete de varios aparatos, no es un producto comparable'),
+ # Fundas y cubiertas que no abren el título con la palabra "Funda":
+ # "10 cubiertas antipolvo desechables", "Batidora antipolvo para batidora"
+ # (una funda mal traducida), "Juego de fundas con tema de frutas" y las
+ # piezas de repuesto de la Thermomix, que no está en el catálogo.
+ (re.compile(r'cubiertas? (antipolvo|de proteccion|transparentes)|'
+             r'tostador cubierta|batidora antipolvo|juego de fundas|'
+             r'fundas faciles|protector de visualizacion|thermomix|'
+             r'\btm[67]\b|cubiertas? (para|contra) (tostador|licuadora|'
+             r'panificadora|rebanar|el polvo|electrodomesticos)|'
+             r'cubierta (cortadora|protectora)|tapas? de silicona para|'
+             r'tapas de licuadora|batidora de pollo|'
+             r'protector de electrodomesticos'),
+  'accesorio: funda/estuche/carcasa'),
 ]
 # Lo que descalifica solo si va al PRINCIPIO del título: ahí Amazon pone lo
 # que el producto ES. Más adelante viene la lista de características, y ahí
@@ -205,7 +389,7 @@ FUERA = [
 CABECERA = [
  # "Funda para PC" y "Carcasa para computadora" son gabinetes mal traducidos;
  # el resto de fundas y carcasas son accesorios.
- (re.compile(r'\bfunda de viaje|\bfunda (?!para pc\b)|\bestuche\b|'
+ (re.compile(r'\bfunda de viaje|\bfundas? (?!para pc\b)|\bestuche\b|'
              r'\bcarcasa (?!(para|de|del) (pc|computadora|ordenador)\b)|'
              r'co2crea'), 'accesorio: funda/estuche/carcasa'),
  (re.compile(r'protector (de )?pantalla|bisel ahuecado|keyboard skin|'
@@ -230,6 +414,9 @@ CABECERA = [
  (re.compile(r'quita gotas|limpia vidrio cromo'),
   'químico de limpieza, no es el aparato'),
  (re.compile(r'\btornillo'), 'tornillería'),
+ # Solo al principio: el kit de vasos de NutriBullet trae "cepillo de
+ # limpieza" de añadido y es una refacción.
+ (re.compile(r'^cepillo de limpieza'), 'accesorio de limpieza, no es el aparato'),
  (re.compile(r'de tecla esc|keycap'), 'una tecla suelta'),
  (re.compile(r'bolsa de almacenamiento'), 'bolsa, no es el aparato'),
  # "Cubre Lavadora", "Protector Superior de Silicona": las fundas de
@@ -318,7 +505,8 @@ REGLAS = [
  # ninguna licuadora entera se anuncia como "cuchilla extractora" ni como
  # "vaso de licuadora".
  (re.compile(r'cuchilla (extractora|cruzada|inferior|de licuadora)|'
-             r'hojas? extractora|vasos? de licuadora|base de cuchilla'),
+             r'hojas? extractora|vasos? de licuadora|base de cuchilla|'
+             r'sellos? de silicona para licuadora'),
   ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
  # El aparato. Junto a "licuadora" van las cuatro maneras de nombrar lo
  # mismo que usa la sección: extractor de jugos, extractor de nutrientes,
@@ -360,6 +548,7 @@ REGLAS = [
  # contenedores de alimentos y las bolsas reutilizables en Otros / Varios.
  (re.compile(r'organizador(es)? (de|para) (refrigerador|nevera)|'
              r'contenedores? para refrigerador|soporte para huevos|'
+             r'recipientes de vidrio hermetico|'
              r'organizadores antideslizantes para latas|bolsas de aluminio|'
              r'forro para estantes|revestimientos? (de gabinete|antideslizantes)'),
   ('Otros', 'Varios', 'box')),
@@ -381,6 +570,28 @@ REGLAS = [
              r'osmosis inversa|filtracion de agua|filtro de agua|'
              r'botella purificadora'),
   ('Electrodomésticos', 'Purificadores de agua', 'appliance')),
+ # Máquinas de coser. El catálogo ya tiene la subcategoría con cincuenta y
+ # cinco fichas, pero ninguna regla la alcanzaba: hasta hoy las dieciséis
+ # máquinas de la captura caían en "no encaja". Primero las piezas, que
+ # nombran la máquina igual que las cuchillas nombran la licuadora: el
+ # prensatelas, la bobina, el porta-carrete y la mesa de extensión que se le
+ # acopla al brazo. Después el aparato, en sus tres nombres: "máquina de
+ # coser", la overlock que sobrehila y la recta de chapa.
+ (re.compile(r'prensatelas|bobinas? (de aluminio|para maquina|vacias)|'
+             r'soporte para (carrete|hilo)|mesa de (extension|expansion)'),
+  ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
+ (re.compile(r'maquina de coser|maquina overlock|\boverlock\b|'
+             r'maquina.{0,20}sobrehilado|\bsewing\b'),
+  ('Electrodomésticos', 'Máquinas de coser', 'appliance')),
+ # Cocina: primero las piezas sueltas, que nombran el aparato al que le
+ # entran ("Microinterruptor Para Horno Microondas", "Botón de Interruptor
+ # para Olla a Presión", "Perilla del Eje de Repuesto ... freidora de
+ # aire"); si no, acabarían en la sección del aparato.
+ (re.compile(r'micro ?interruptor|interruptor de puerta|'
+             r'boton de interruptor|manguera de repuesto|^repuesto\b|'
+             r'anillos de sellado|disco de formas|'
+             r'perillas? (del eje|de repuesto)|cable de alimentacion universal'),
+  ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
  # Seis maneras de nombrar el mismo aparato: Cuisinart escribe "Freidora
  # Aire" sin el "de", T-Fal lo llama "Horno Freidor", Ninja lo vende por
  # capacidad ("Freidora de 4 cuartos") y varias marcas usan el inglés.
@@ -393,21 +604,125 @@ REGLAS = [
  (re.compile(r'batidora de (pedestal|pie)|batidora planetaria'),
   ('Electrodomésticos', 'Pequeños electrodomésticos de cocina',
    'appliance')),
- (re.compile(r'hervidor|tetera electrica'),
+ # La GRAVITA abre "Cafetera Tetera Eléctrica Hervidor": es un hervidor.
+ (re.compile(r'hervidor|\btetera\b'),
   ('Electrodomésticos', 'Pequeños electrodomésticos de cocina', 'appliance')),
+ # El horno de microondas va antes que los demás aparatos porque el Chefman
+ # "horno tostador de freidora de aire" ya se fue arriba con las freidoras.
+ (re.compile(r'\bmicroondas\b'),
+  ('Electrodomésticos', 'Microondas', 'appliance')),
+ # Lo que sustituye a la estufa: las parrillas de inducción y las de
+ # quemadores, sean portátiles o empotrables. El catálogo las guarda en
+ # "Estufas y hornos" ("Parrilla Eléctrica de 24 IN 4 quemadores").
+ # Antes que la parrilla de mesa, que no tiene quemadores.
+ (re.compile(r'parrilla (electrica )?de induccion|estufa de induccion|'
+             r'\d+ quemador|quemadores|parrilla electrica empotrable|'
+             r'cocina electrica (portatil|de ceramica)|de un solo quemador'),
+  ('Electrodomésticos', 'Estufas y hornos', 'appliance')),
+ # Lo industrial y lo comercial va con el equipo de negocio: la plancha de
+ # encimera de 17 pulgadas, la máquina de 25 hot cakes y la waflera Waring.
+ (re.compile(r'\b(industrial|commercial)\b(?=.*(hot cakes|waffle|parrilla))|'
+             r'plancha.{0,40}industrial'),
+  ('Equipo comercial', 'Cocina industrial', 'factory')),
+ # El resto de la sección: todo lo que se enchufa en la barra de la cocina
+ # y el catálogo guarda en "Pequeños electrodomésticos de cocina" (ollas,
+ # arroceras, tostadores, wafleras, sandwicheras, creperas, básculas, las
+ # Ninja SLUSHi). "Máquina de/para" vale solo con lo que hace, porque la
+ # "Máquina de coser" y la "Máquina de hielo" son otra cosa... salvo que
+ # la máquina de hielo de barra también vive aquí.
+ (re.compile(r'olla (a presion|de presion|de coccion|electrica|arrocera|'
+             r'de huevos?)|multicooker|arrocera|vaporera|arroz y grano|'
+             r'tostador|toaster|waf+lera|waffle|gofre|gofrar|'
+             r'sandwichera|panini|sandwiches|crepera|raclette|'
+             r'parrilla (electrica|panini|raclette|de interior|y plancha)|'
+             r'plancha (electrica|de ceramica)|sarten electric|'
+             r'electric sarten|asador|batidora|amasadora|'
+             r'mezclador (clasico|electrico)|picador electrico|'
+             r'mini chopper|sistema de cocina|food prep|'
+             r'bascula.{0,30}(cocina|alimentos)|b.scula digital de cocina|'
+             r'palomit|castella|pastelitos|pastelero|magdalenas|'
+             r'hot cakes|maquina (de|para) (pan|desayuno|malteadas)|'
+             r'slushi|granizados|ice maker|maquina de hielo|'
+             r'freidora electrica|deshidratador'),
+  ('Electrodomésticos', 'Pequeños electrodomésticos de cocina',
+   'appliance')),
+ # La cafetera de verdad, después del hervidor: sub_cafetera() reparte
+ # entre las subcategorías del catálogo por lo que dice el título.
+ (re.compile(r'\bcafetera'), ('Cafeteras', None, 'coffee')),
+ # Energía portátil, en tres escalones y en este orden.
+ #
+ # Primero la batería de cámara, que no es ninguno de los otros dos: las
+ # ocho estaciones de carga Tilta y el hub del X3 cargan celdas NP-FZ100,
+ # LP-E6 y DMW-BLK22, y el catálogo guarda esas piezas en Accesorios de
+ # cámaras. Tilta, además, solo fabrica accesorios de cámara: su brazo
+ # articulado entra por la marca.
+ (re.compile(r'\btilta\b|np-?fz100|lp-?e6|dmw-?blk|bateria (para|de) camara|'
+             r'hub de cargador de bateria'),
+  ('Cámaras y fotografía', 'Accesorios', 'camera')),
+ # Después la estación de energía, que es el aparato con toma de corriente
+ # de 110 V: la DJI Power 1000, la EcoFlow DELTA 3 y las DaranEner. El
+ # catálogo tiene la subcategoría desde hace tiempo.
+ (re.compile(r'estacion de energia|central electrica portatil|'
+             r'\bpower station\b'),
+  ('Otros', 'Energía portátil y paneles solares', 'battery')),
+ # Y al final la batería portátil, que sube hasta aquí desde el final de
+ # REGLAS. Tenía que adelantarse: la MARBERO y la MR. GADGETS se anuncian
+ # como "fuente de alimentación" y se iban con las fuentes de poder de PC,
+ # y cinco power banks "para MacBook Pro" se iban a Laptops. Junto a "power
+ # bank" van las cinco maneras de decir lo mismo que trae la captura:
+ # batería externa, magnética, inalámbrica, MagSafe y powerstation.
+ (re.compile(r'^(?!.*(bocina|barra de sonido|soundbar|altavo))'
+             r'(?=.*(power ?bank|powerbank|bateria portatil|banco de energia|'
+             r'cargador(es)? portatil|bateria externa|power ?station|'
+             r'bateria (magnetica|inalambrica|magsafe)|\d+ ?mah bateria|'
+             r'cargador inalambrico portatil))'),
+  ('Baterías portátiles', None, 'battery')),
+ # El cargador de pared y el cable, que la captura trae sueltos y hasta hoy
+ # no tenían regla: el pack GAN de 140 W de DJI, el CUKTECH de 65 W, el
+ # cubo de 20 W y el cable Lightning de UGREEN.
+ (re.compile(r'cargador (de pared|de corriente|de casa)|'
+             r'cargador.{0,25}\bgan\b|\bgan\b.{0,25}cargador|'
+             r'cargador (usb ?c |tipo c )?\d+ ?w\b|cubo de carga|carga rapida cubo|'
+             r'pack de carga'),
+  ('Cargadores y adaptadores', 'De pared', 'plug')),
+ (re.compile(r'^(?:\S+ ){0,2}cable (alargador|usb|lightning|convertidor|de impresora)|'
+             r'lightning cable|cable mfi'),
+  ('Cargadores y adaptadores', 'Cable', 'plug')),
+ # La impresora 3D y la terminal de cobro, una de cada una en la captura y
+ # las dos con su lugar hecho en el catálogo.
+ (re.compile(r'impresora 3d'), ('Impresión 3D', 'Impresoras', 'printer')),
+ (re.compile(r'terminal para tarjetas|mercado pago point|punto de venta'),
+  ('Equipo comercial', 'Punto de venta', 'factory')),
+ # El celular, cuando el título es solo marca y modelo. Pide abrir con la
+ # marca y descarta de una vez los Buds, los Watch y las Tab, que empiezan
+ # igual y no son teléfonos.
+ (re.compile(r'^(samsung galaxy|apple iphone|galaxy z fold)'
+             r'(?!.*\b(buds|watch|tab|book|fit|ring)\b)'
+             r'(?!.*(bateria|power ?bank|cargador|funda|\bcase\b))'),
+  ('Celulares', None, 'phone')),
+ # El soporte de celular no es el celular: el catálogo lo tiene en Varios.
+ (re.compile(r'^soporte para celular|base para celular'),
+  ('Otros', 'Varios', 'box')),
  (re.compile(r'computadora escritorio (completa|amd|intel)|pc gamer factor'),
   ('Computadoras de escritorio', 'Torre / Escritorio', 'desktop')),
  # Solo si "laptop" abre el título: "power bank para laptop" y "soporte para
  # monitor y laptop" la nombran como destino, no como producto.
- (re.compile(r'^laptop\b|macbook (pro|air)'), ('Laptops', None, 'laptop')),
+ # "macbook" también pide abrir el título: seis power banks, un cargador de
+ # pared, un cable y un mouse de esta captura lo nombran como lo que cargan
+ # o a lo que se conectan ("Cargador de Laptop Portátil para MacBook Pro").
+ (re.compile(r'^laptop\b|^(?:\S+ ){0,3}macbook (pro|air)'), ('Laptops', None, 'laptop')),
+ # El proyector va primero, pero solo cuando la palabra es la primera o la
+ # segunda del título: el "AOC Proyector portátil 4K" es el aparato y la
+ # "Pantalla de Proyector con Trípode" nombra al proyector como destino, y
+ # ahí "proyector" ya es la tercera palabra.
+ (re.compile(r'^(?:\S+ )?proyector\b(?!.*pantalla)'),
+  ('Proyectores y accesorios', 'Proyectores', 'projector')),
  # Pantallas de proyección antes que las TV: también se venden como
  # "Pantalla 100 pulgadas", pero dicen proyección/proyector, "lienzo",
- # "eléctrica" (la que se enrolla con motor) o traen trípode. Un proyector
- # propiamente dicho abre el título con esa palabra.
+ # "eléctrica" (la que se enrolla con motor) o traen trípode.
  (re.compile(r'proyec(cion|tor)|lienzo de proyec|pantalla electrica|'
              r'pantalla de 16:9|projector screen'),
   ('Proyectores y accesorios', 'Pantallas de proyección', 'projector')),
- (re.compile(r'^(?:\S+ ){0,2}proyector'), ('Proyectores y accesorios', 'Proyectores', 'projector')),
  # Televisores: "pantalla NN pulgadas" es como Amazon México nombra una TV;
  # "Pantalla 4K" de un mini PC no cae porque pide dos dígitos y pulgadas.
  (re.compile(r'smart tv|televisor|television|roku tv|crystal uhd|'
@@ -416,13 +731,55 @@ REGLAS = [
  # Antes que los videojuegos: el monitor portátil enumera "PS5, Xbox, Switch"
  # como lo que se le puede conectar.
  (re.compile(r'monitor portatil'), ('Monitores', 'Portátiles', 'monitor')),
- (re.compile(r'switch ?2|steam ?deck|rog ally|legion go|msi claw|freno de mano|handbrake|'
+ # Los videojuegos dejan pasar al teclado y al mouse: el HyperX Alloy Core
+ # y los dos ratones Corsair listan "PS5" y "Xbox" entre lo que aceptan, y
+ # con eso se iban a Accesorios de videojuegos. Un título que dice "teclado"
+ # o "mouse" es un teclado o un mouse, conecte donde conecte, y los dos
+ # tienen su regla al final de REGLAS.
+ (re.compile(r'^(?!.*(teclado|\bmouse\b|\braton\b))'
+             r'(?=.*(switch ?2|steam ?deck|rog ally|legion go|msi claw|freno de mano|handbrake|'
              r'consola de juegos|\bps5\b|mando bdm|gun grip|golf|juego de interruptor|'
-             r'interruptor ns|base portatil ns'), VJ),
+             r'interruptor ns|base portatil ns))'), VJ),
  (re.compile(r'webcam|camara web|camara de computadora|camara para pc|lifecam|facecam|'
              r'\bkiyo\b|streamcam|\bbrio\b|sistema de camara para sala|'
              r'sistema de videoconferencia|camara usb hdmi|camara de alta velocidad|'
              r'camara hdmi ptz|obsbot'), (PC, 'Webcams', 'cpu')),
+ # El audio va antes que "monitor", porque en audio esa palabra significa
+ # otra cosa: las Edifier R1000T4 son "Bocinas Monitores Tipo Estudio", los
+ # KZ EDX Pro son "Audífonos con Monitor Dentro del oído" y el Phenyx Pro es
+ # un "Sistema de monitoreo in-Ear". Los tres acababan en Accesorios de
+ # monitor, que es donde van los brazos y las bases de pantalla.
+ #
+ # Las bocinas de coche primero: el catálogo nunca las guarda en Bocinas
+ # sino en "Audio y multimedia para auto" (cincuenta y cinco fichas contra
+ # ninguna), y se reconocen por cómo se venden -- coaxiales, de 6x9, de dos
+ # o tres vías, de rango medio, o diciendo "para auto".
+ (re.compile(r'\bcoaxial|\b6 ?x ?9\b|(rango medio|medio rango)|'
+             r'bocinas? (para|de) auto|autoestereo|car audio|'
+             r'altavoces de componentes'),
+  ('Autos, bicicletas y motos', 'Audio y multimedia para auto', 'speaker')),
+ # La bocina, con las cuatro maneras de nombrarla que usa esta captura:
+ # "bocina", "bafle", "altavoz/altavoces" y la máquina de cantar karaoke,
+ # que el catálogo ya tiene entre las bocinas.
+ (re.compile(r'\becho (pop|dot|show|studio|hub)\b|\balexa\b|google nest|'
+             r'\bnest (audio|mini|hub)\b|bocina intelig|altavoz intelig'),
+  ('Domótica y hogar inteligente', 'Bocinas y asistentes inteligentes', 'speaker')),
+ (re.compile(r'bocina|bafle|altavo(z|ces)|maquina de cantar|\bspeaker\b|'
+             r'monitores? (de |tipo )?estudio'),
+  ('Bocinas', None, 'speaker')),
+ # Audífonos: "audífonos" es la palabra del catálogo, pero media captura
+ # dice "auriculares", y las marcas grandes venden "Buds" y "headphones"
+ # sin traducir. "Diadema" sola no basta -- también es una vincha -- así
+ # que pide cable, micrófono o inalámbrico al lado.
+ (re.compile(r'audifonos|auriculares|\bearbuds?\b|\bbuds\b|headphones|'
+             r'\bin[- ]?ear\b|monitoreo in[- ]?ear|'
+             r'\bdiadema\b.{0,30}(cable|microfono|inalambric)'),
+  ('Audífonos', None, 'headphones')),
+ # El micrófono suelto es de la sección de instrumentos, que es donde el
+ # catálogo guarda los doce de solapa y los inalámbricos.
+ (re.compile(r'microfono (inalambrico|de solapa|condensador|lavalier)|'
+             r'kit de microfono'),
+  ('Instrumentos musicales', 'Amplificadores y micrófonos', 'mic')),
  # "monitor" va antes que los componentes para que "Soporte de escritorio
  # para un monitor" no caiga en muebles; el único componente que dice
  # "monitor" (la pantalla de un AIO) está en EXPLICITOS.
@@ -430,7 +787,9 @@ REGLAS = [
  # Muebles: el escritorio sobre el que va la computadora, no la computadora.
  # Solo si la palabra abre el título: "RAM de escritorio" y "PC de escritorio"
  # la usan como adjetivo.
- (re.compile(r'^(?:\S+ ){0,2}escritorio (para|de|minimalista|con|gamer|diseno)|computadora de pie'),
+ (re.compile(r'(?!.*\bmouse\b)(alfombrilla|tapete) (de|para) (computadora|escritorio|teclado)|\bdesk ?(mat|pad)\b'),
+  (PC, 'Periféricos y accesorios', 'mouse')),
+ (re.compile(r'^(?:\S+ ){0,2}escritorio (para|de|minimalista|con|gamer|diseno)|computadora de pie\b'),
   ('Muebles', 'Escritorios', 'sofa')),
  # Después de webcams y soportes: "para iMac" es un soporte, "Intel NUC" es
  # una placa VESA y el sistema Yealink es "todo en uno" pero es una cámara.
@@ -445,7 +804,7 @@ REGLAS = [
   ('Computadoras de escritorio', 'Mini PC', 'desktop')),
  # La RAM va después de las computadoras completas: un mini PC "16GB DDR4"
  # no es un módulo de memoria.
- (re.compile(r'memoria ram|\bram\b|sodimm|udimm|ddr[45]|modulo de memoria'),
+ (re.compile(r'memoria ram|\bram\b|sodimm|udimm|\bddr[45]|modulo de memoria'),
   (PC, 'Memoria RAM', 'cpu')),
  (re.compile(r'ventilador|enfriador|enfriamiento|cooler|disipador|\baio\b|refrigeraci|refrigeradora|'
              r'pasta (termica|de grasa)|grasa termica|compuesto termico|fuente de poder|'
@@ -458,14 +817,28 @@ REGLAS = [
              r'almohadilla decorativa|para placa base|placa madre'), COMP),
  (re.compile(r'teclado|keyboard'), ('Teclados', None, 'keyboard')),
  (re.compile(r'\bmouse\b|\braton\b|\bratones\b'), ('Mouse', None, 'mouse')),
- (re.compile(r'bocina|bafle|altavoz'), ('Bocinas', None, 'speaker')),
- (re.compile(r'audifonos'), ('Audífonos', None, 'headphones')),
- (re.compile(r'power ?bank|bateria portatil|banco de energia|cargador portatil'),
-  ('Baterías portátiles', None, 'battery')),
 ]
 
 # Anuncios que ninguna regla decide bien; cada uno leído a mano.
 EXPLICITOS = {
+ # Decimosexta captura. Cinco anuncios cuyo título es marca y modelo y
+ # nada más: Razer y SteelSeries bautizan sus periféricos y dan por
+ # sabido lo que son. Los cuatro primeros son ratones y teclados de
+ # catálogo; el SoundPEATS trae la funda en el título y por eso lo
+ # descartaba la guarda de fundas, pero lo que se vende son los audífonos.
+ "B0F72VH42N": ("RAZER", 'Mouse', 'Oficina', 'mouse'),
+ "B0DSCV9HGJ": ("RAZER", 'Mouse', 'Gaming', 'mouse'),
+ "B0F85WRNZG": ("RAZER", 'Mouse', 'Gaming', 'mouse'),
+ "B0D4RKYZJ5": ("STEELSERIES", 'Teclados', 'Mecánicos', 'keyboard'),
+ "B0GX5167M8": ("SOUNDPEATS", 'Audífonos', 'Earbuds inalámbricos', 'headphones'),
+ # Cocina, decimoquinta captura. La Chefman "Freidora digital
+ # multifuncional + asador, deshidratador" es una freidora de aire con
+ # rosticero, pero el título nunca dice "aire". El NutriBullet se anuncia
+ # como "Batidora" y el Ninja CrushBOSS como "Sistema de Cocina": los dos
+ # son licuadoras de vaso, con el resto de NutriBullet y Ninja.
+ "B08DL8WH9V": ("CHEFMAN", 'Electrodomésticos', 'Freidoras de aire', 'appliance'),
+ "B012T634SM": ("NUTRIBULLET", 'Electrodomésticos', 'Licuadoras y extractores', 'appliance'),
+ "B0HD9M1PVH": ("NINJA", 'Electrodomésticos', 'Licuadoras y extractores', 'appliance'),
  # El título abre como kit de limpieza y por eso CABECERA lo tira, pero lo
  # que se vende es la boquilla que se le pone a la aspiradora para limpiar
  # el ducto de la secadora. El catálogo ya tiene dónde ponerlo.
@@ -606,6 +979,16 @@ MARCAS += ["FMART", "HOBOT", "SUPERTRUST", "NEWBEALER", "SILVER STAR"]
 MARCAS += ["COMFEE", "POWERXL", "BOGNER", "KITCHENAID", "GREENPAN", "DASH",
            "CUISINART", "NINJA", "HUKËN", "CECOTEC", "T-FAL", "INSTANT POT",
            "GOURMIA", "OSTER", "ELITE GOURMET", "YOGONEV"]
+# Las marcas de la sección de pequeños electrodomésticos de cocina. "Bella"
+# y "Nostalgia" son marcas aunque parezcan palabras sueltas: abren el
+# título con guion ("Bella - Olla de cocción lenta").
+MARCAS += ["UNCANNY BRANDS", "HAMILTON BEACH", "TAURUS", "RAGANET",
+           "RAGABASICS", "REDLEMON", "BELLA", "NOSTALGIA", "SIGNA", "EUROGAR",
+           "PARIS HILTON", "SANRIO", "SELECT BRANDS", "HOLSTEIN HOUSEWARES",
+           "MOSS & STONE", "AROMA HOUSEWARES", "KARINEAR", "IQ TECH",
+           "HOTSPOT", "AEKA", "WJTNG", "FINYQBET", "ULTREAN", "SUGARWHISK",
+           "CASA LITUS", "GRAVITA", "NUTRIBULLET", "WARING", "BENE CASA",
+           "HOLSTEIN", "ZEPTER", "MAGIC BULLET"]
 
 ALIAS = {"THERMALRLGHT": "THERMALRIGHT", "WHITE-WESTINGHOUSE": "WHITE WESTINGHOUSE",
          "KÄRCHER": "KARCHER", "HUKËN": "HUKEN"}
@@ -690,6 +1073,18 @@ def sub_refri(tn):
         return 'Frigobares y mini refrigeradores'
     return 'Refrigeradores'
 
+def sub_cafetera(tn):
+    if re.search(r'capsula', tn): return 'De cápsulas'
+    if re.search(r'espresso|expreso|\d+ bares', tn):
+        return 'Espresso automáticas y semiautomáticas'
+    if re.search(r'portatil|de viaje', tn): return 'Portátiles'
+    if re.search(r'molinillo|molino de cafe', tn): return 'Molinillos de café'
+    return None
+
+def sub_celular(tn):
+    return 'iPhone' if 'iphone' in tn else 'Android'
+
+
 def sub_audio(tn):
     diadema = bool(re.search(r'diadema|over[- ]ear|on[- ]ear', tn))
     earbud = bool(re.search(r'in[- ]ear|earbud|tws|true wireless', tn))
@@ -723,6 +1118,8 @@ for it in json.load(io.open(sys.argv[1], encoding='utf-8')):
     elif cat == 'Lavadoras': sub = sub_lavadora(tn)
     elif cat == 'Aspiradoras': sub = sub_aspiradora(tn)
     elif cat == 'Refrigeradores': sub = sub_refri(tn)
+    elif cat == 'Cafeteras': sub = sub_cafetera(tn)
+    elif cat == 'Celulares': sub = sub_celular(tn)
     alta.append({**base, 'brand': marca(it['title']), 'category': cat,
                  'subcategory': sub, 'image': img})
 
