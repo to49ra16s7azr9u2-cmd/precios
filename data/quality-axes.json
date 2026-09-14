@@ -1406,6 +1406,41 @@
    }
   ]
  },
+ "Otros/Paneles solares": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cargar teléfono y luces",
+      "spec": "Hasta 40 W",
+      "max": 40
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Estación de energía o cabaña",
+      "spec": "41 W a 100 W",
+      "min": 40,
+      "max": 100
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Instalación de casa",
+      "spec": "Más de 100 W",
+      "min": 100
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
  "Otros/Varios": {
   "axes": [
    {

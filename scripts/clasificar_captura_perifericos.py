@@ -273,6 +273,38 @@ sirve de red para lo que ninguna regla reconoce. Las guardas de FUERA y
 CABECERA van antes en los dos casos, porque en el departamento de
 microondas también están los cocedores de huevo.
 
+La decimoctava es la primera que llega de la extensión de Chrome y la
+primera de una sola búsqueda: "celulares", 12,164 anuncios, 11,767 que
+el catálogo no tenía. Tres de cada cuatro no son teléfonos: 7,370
+casilleros, armarios y estaciones de carga con ranuras para guardar los
+celulares de un aula (nombran "celulares" en cada título y sin la guarda
+caían en gabinetes de PC), 531 persianas "celulares" de ventana (las de
+panal, que Amazon traduce así), y después fundas, correas, tarjetas SIM,
+lápices ópticos, aros de luz y herramientas de reparación, cada cosa con
+su motivo en FUERA. Lo que sí es teléfono se reparte en tres reglas. La
+primera lee la ficha técnica en el título ("8GB RAM", "128GB+8GB",
+"teléfono inteligente resistente", "botones grandes para adultos
+mayores") y va antes que las bocinas, los proyectores y los audífonos,
+porque un celular de obra menciona su proyector y un Infinix viene en
+kit con sus audífonos; solo se aparta si el título abre con el accesorio
+o nombra otro aparato que también se vende por gigas (laptop, tablet,
+mini PC, TV box, estéreo de coche). La segunda es marca y modelo al
+principio ("Motorola Edge 70 Fusion", "Samsung S26 Ultra 256GB",
+"OnePlus 15R Mint Breeze"), con la lista de marcas que Amazon México
+vende. La tercera es la red: "celular", "smartphone", "dual SIM" o
+"liberado" en cualquier parte, con la lista larga de guardas que
+distingue el teléfono de lo que se vende "para" el teléfono.
+
+El teléfono básico (de tapa, de botones grandes, 2G, para personas
+mayores) estrena subcategoría, Básicos: no es Android y mentir con la
+subcategoría era peor que dejarla vacía. La marca del celular se lee
+también cuando abre el título aunque no esté en MARCAS ("vivo", "honor"
+y "cat" son palabras corrientes en cualquier otra categoría). Los
+soportes, trípodes, palos de selfie y ventiladores de celular van a
+Otros/Varios, que es donde el catálogo los tiene; el cargador de coche
+estrena De auto; el de pared se aparta cuando dice inalámbrico, Qi,
+MagSafe o solar para que caiga en su regla.
+
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
 se resuelve a mano en EXPLICITOS, nunca por parecido.
@@ -327,6 +359,52 @@ FUERA = [
  # gasta y se repone, como las pastillas.
  (re.compile(r'perlas de perfume|suavizante de telas'),
   'consumible de lavandería, no es el aparato'),
+ # La búsqueda de "celulares" en Amazon trae 4,300 casilleros: armarios,
+ # gabinetes y estaciones de carga con ranuras para guardar los teléfonos
+ # de un aula o una oficina. Nombran "celulares" en cada título y sin esta
+ # guarda caían en gabinetes de PC.
+ (re.compile(r'^(?!.*(monitor|laptop|\d[\d.,]* ?mah|power ?bank))'
+             r'(?=.*(gabinete|armario|casillero|taquilla|caja fuerte|'
+             r'caja (de |para )(almacenamiento|seguridad|bloqueo|guardar)|closet|organizador|'
+             r'estacion(es)? de carga|cargador(es)? (usb )?.{0,25}(ranuras|puertos)|'
+             r'carrito de (almacenamiento|carga)|bolsa colgante|locker|con \d+ ranuras|\d+ ranuras|\d+ compartimentos|'
+             r'(caja|organizador|nizer|estante).{0,30}(guardar|compartimentos)))'
+             r'(?=.*(celular|telefono|movil|dispositivo|smartphone))'),
+  'casillero o estación de carga para guardar celulares, no es un celular'),
+ (re.compile(r'(persianas?|cortinas?|estor(es)?|tonos?) (verticales |plisad[ao]s? |enrollables? |opac[ao]s? )?celular|'
+             r'persianas? (plisad|de panal|enrollable)|cortinas? (para|de) (ventana|techo|puerta)|nido de abeja|'
+             r'bloqueador(es)? de luz|opac[ao]s? de bloqueo'),
+  'persiana celular (de ventana), no es un teléfono'),
+ (re.compile(r'bolsas? faraday|bloqueador de senal|luz .{0,25}(para|de) selfie|aro de luz.{0,30}(celular|telefono|selfie|tiktok)|luz de relleno (led|para|de)|'
+             r'telefono (simulado|falso)|senuelo|telefono (de audio y video|vintage).{0,60}bodas|pegatinas?.{0,30}senal|refuerzo de antena|'
+             r'estabilizador (facial|para celular|de mano)|\bgimbal\b|toallitas|lens wipes|limpiador de pantalla|'
+             r'herramienta para separar|separar pantallas|calentador de pantalla|spudger|'
+             r'pantalla (lcd|amoled|oled).{0,40}(repuesto|reemplazo|reparacion|ensamble)|piezas de reparacion|'
+             r'modelo de exposicion|telefono de exposicion|\bdummy\b|otterbox|spigen|symmetry series|defender series|'
+             r'tabla de bolsillos?|\d+ bolsillos'),
+  'accesorio, refacción o exhibidor de celular, no es el celular'),
+ (re.compile(r'correas?( \S+){0,2} (para|de) (el )?(celular|telefono|muneca)|cordon (para|de) (el )?(celular|telefono)|'
+             r'colgante para celular|cinturon (de|para) correr|brazalete|'
+             r'bolsa (de|para) (correr|brazo)|rinonera'),
+  'accesorio para llevar el celular, no es el celular'),
+ (re.compile(r'destornillador|desarmador|kit de (herramientas|reparacion)|ventosa para pantalla|'
+             r'espatula (de apertura|para abrir)'),
+  'herramienta de reparación, no es el celular'),
+ (re.compile(r'^(?!.*(\d[\d.,]* ?mah|power ?bank|portatil|inalambric|magsafe))'
+             r'(bateria|pila) .{0,40}(de repuesto|de reemplazo|interna|compatible con|'
+             r'para (samsung|iphone|xiaomi|motorola|huawei|lg|galaxy|redmi|moto\b|celular|telefono))|'
+             r'bateria (de repuesto|de reemplazo|interna|original) (para|compatible)'),
+  'batería de repuesto, no es el celular'),
+ (re.compile(r'tarjeta sim\b|chip (telcel|at&t|movistar|unefon|bait)|bandeja (de |para )?sim|'
+             r'adaptador (de )?sim|(extractor|expulsor|eyector|extraccion) (de )?(sim|chip)|'
+             r'(pin|aguja).{0,20}sim\b|nano sim a micro|sim (fisica|prepago)|chip (prepago|con internet)'),
+  'tarjeta SIM o refacción, no es el celular'),
+ (re.compile(r'^(?!.*moto g stylus)(?=.*(lapiz (optico|stylus|capacitivo|para pantalla|tactil|de pantalla)|'
+             r'stylus pen|touchscreen stylus|^lapiz\b))'),
+  'lápiz óptico, no es el celular'),
+ (re.compile(r'lentes? (de|para) (camara de )?(telefono|celular|movil|smartphone)|kit de lentes?|'
+             r'filtro (de lente|nd|cpl|magnetico|polarizador).{0,40}(telefono|celular)|calcomania'),
+  'accesorio de cámara para celular, no es el celular'),
  # Lo que se vende alrededor del lavavajillas y no es el lavavajillas: el
  # detergente, la sal, el abrillantador, el imán de limpio/sucio, la
  # canastilla y la manguera. Se nombran donde caigan ("Finish Jet Dry -
@@ -487,7 +565,7 @@ FUERA = [
 CABECERA = [
  # "Funda para PC" y "Carcasa para computadora" son gabinetes mal traducidos;
  # el resto de fundas y carcasas son accesorios.
- (re.compile(r'\bfunda de viaje|\bfundas? (?!para pc\b)|\bestuche\b|'
+ (re.compile(r'\bfunda de viaje|\bfundas? (?!para pc\b)|\bestuche\b|\bcase (para|for)\b|^\S+ for .{0,40}\bcase\b|'
              r'\bcarcasa (?!(para|de|del) (pc|computadora|ordenador)\b)|'
              r'co2crea'), 'accesorio: funda/estuche/carcasa'),
  (re.compile(r'protector (de )?pantalla|bisel ahuecado|keyboard skin|'
@@ -673,7 +751,8 @@ REGLAS = [
  # se anuncian como "Exhibidor Comercial".
  (re.compile(r'vitrina (refrigerada|fria)'),
   ('Equipo comercial', 'Refrigeración comercial', 'snowflake')),
- (re.compile(r'\brefrigerador|\bfrigobar|\bnevera\b|cava de vino|enfriador de vino'),
+ (re.compile(r'^(?!.*(refrigerador(es)?|enfriador|ventilador) (de |para )?(telefonos?|celular|movil))'
+             r'(?=.*(\brefrigerador|\bfrigobar|\bnevera\b|cava de vino|enfriador de vino))'),
   ('Refrigeradores', None, 'fridge')),
  # Purificadores de agua, después de los filtros de refrigerador: los dos
  # dicen "filtro de agua" y el del refri no purifica nada, repone una
@@ -802,12 +881,16 @@ REGLAS = [
  # El cargador de pared y el cable, que la captura trae sueltos y hasta hoy
  # no tenían regla: el pack GAN de 140 W de DJI, el CUKTECH de 65 W, el
  # cubo de 20 W y el cable Lightning de UGREEN.
- (re.compile(r'cargador (de pared|de corriente|de casa)|'
+ (re.compile(r'cargador (de|para) (el )?(coche|auto|carro|automovil|vehiculo)|cargador vehicular|car charger'),
+  ('Cargadores y adaptadores', 'De auto', 'plug')),
+ (re.compile(r'^(?!.*(wireless|inalambric|\bqi\b|magsafe|solar))'
+             r'(?=.*(cargador (de pared|de corriente|de casa)|\bcharger\b|cargador (tipo c|usb ?c|rapido)\b|'
+             r'\d+ ?w (usb-?c |tipo c |rapido )?(charger|cargador)|'
              r'cargador.{0,25}\bgan\b|\bgan\b.{0,25}cargador|'
              r'cargador (usb ?c |tipo c )?\d+ ?w\b|cubo de carga|carga rapida cubo|'
-             r'pack de carga'),
+             r'pack de carga))'),
   ('Cargadores y adaptadores', 'De pared', 'plug')),
- (re.compile(r'^(?:\S+ ){0,2}cable (alargador|usb|lightning|convertidor|de impresora)|'
+ (re.compile(r'^(?:\S+ ){0,2}cable (alargador|usb|lightning|tipo c|usb-?c|de carga|cargador|magnetico|trenzado|convertidor|de impresora|divisor|auxiliar|micro ?usb|hdmi|de datos)|'
              r'lightning cable|cable mfi'),
   ('Cargadores y adaptadores', 'Cable', 'plug')),
  # La impresora 3D y la terminal de cobro, una de cada una en la captura y
@@ -818,13 +901,58 @@ REGLAS = [
  # El celular, cuando el título es solo marca y modelo. Pide abrir con la
  # marca y descarta de una vez los Buds, los Watch y las Tab, que empiezan
  # igual y no son teléfonos.
- (re.compile(r'^(samsung galaxy|apple iphone|galaxy z fold)'
-             r'(?!.*\b(buds|watch|tab|book|fit|ring)\b)'
-             r'(?!.*(bateria|power ?bank|cargador|funda|\bcase\b))'),
+ (re.compile(r'^(samsung (galaxy )?(note ?\d+|[asmzf]\d+)|apple iphone|iphone \d+|galaxy (z fold|z flip|[asmz]\d+)|'
+             r'motorola (edge|moto|razr|g\d+)|moto (edge|g|e|razr)\b|one ?plus (\d+|nord|open)|'
+             r'huawei (nova|mate|pura|p\d+)|honor (magic|x\d+|\d+|play)|xiaomi (\d+|redmi|poco|mi \d+)|'
+             r'redmi (note|\d+|a\d+)|poco [cfmx]\d+|realme (\d+|c\d+|gt|narzo|note)|oppo (a\d+|reno|find)|'
+             r'vivo ([vyx]\d+)|zte (blade|axon|nubia)|nubia|tecno (spark|camon|pova|phantom)|'
+             r'infinix (hot|note|smart|zero|gt)|nokia [cg]\d+|google pixel|pixel \d+|bmobile|lanix (ilium|alpha|x\d+)|'
+             r'blu ([a-z]\d+|joy|studio|view)|sony xperia|nothing phone|cmf phone|alcatel \d+|tcl \d0)'
+             r'(?!.*\b(buds|watch|tab|book|fit|ring|band|pad|tv|choice)\b)'
+             r'(?!.*(bateria|power ?bank|cargador|cable|funda|\bcase\b|carcasa|protector|mica|soporte|correa|'
+             r'repuesto|display|pantalla lcd|lente|vidrio|cristal|adaptador|auricular|audifono))'),
+  ('Celulares', None, 'phone')),
+ # El celular con la ficha técnica en el título (RAM y ROM, "8GB+256GB",
+ # "teléfono inteligente resistente", "botones grandes para adultos
+ # mayores"): la señal es tan fuerte que no importa que después mencione
+ # el altavoz, el proyector, la mica o la microSD que trae de regalo. Va
+ # antes que las bocinas, los proyectores y los audífonos por eso mismo;
+ # solo se aparta si el título abre con el accesorio o nombra otro aparato
+ # que también se vende por gigas (laptop, tablet, mini PC, TV box).
+ (re.compile(r'^(?!(?:\S+ ){0,2}(funda|mica|protector|\bcase\b|carcasa|cargador|cable|bateria|pila|soporte|'
+             r'tripie|tripode|lente|kit de|audifonos|auriculares|bocina|altavoz|teclado|\bmouse\b|monitor|proyector|camara|'
+             r'estuche|bolsa|brazalete|correa|adaptador|memoria|tarjeta)\b)'
+             r'(?!.*((funda|mica|protector|carcasa|cristal templado|vidrio templado) (para|compatible|de|transparente|rigid|antigolpes|silicona)|'
+             r'casillero|persiana|cortina|de repuesto|refaccion|reemplazo|laptop|notebook|macbook|'
+             r'chromebook|mini pc|\bpc\b|\btablet\b|tableta|\bipad\b|\bpad\b|router|modem|consola|\bretro\b|'
+             r'\btv\b|television|\bssd\b|memoria usb|\bwatch\b|smartwatch|reloj|camara (de seguridad|ip|web)|'
+             r'\bdron\b|estereo|\bdin\b|carplay|android auto|para (auto|coche|carro)|pantalla (lcd|amoled|oled).{0,30}(repuesto|reemplazo|reparacion)))'
+             r'(?=.*(\d+ ?gb (de )?ram|\bram\b.{0,15}\brom\b|\brom\b.{0,15}\bram\b|\d+ ?gb ?\+ ?\d+ ?gb|'
+             r'\d+ ?\+ ?\d+ ?gb\b|\d+ ?gb ?[/_] ?\d+ ?gb|\d+ ?gb, ?\d+ ?gb\b|dual sim|\bandroid \d+(\.\d+)?\b|'
+             r'\b(4|6|8|12|16|24) ?\+ ?(64|128|256|512|1024)\b|desbloqueado de fabrica|(celular|telefono|smartphone|movil) (android )?(desbloqueado|senior)|'
+             r'a prueba de golpes.{0,60}(mil-std|ip6[89])|(mil-std|ip6[89]).{0,60}a prueba de golpes|'
+             r'(celular|telefono|smartphone|movil) (robusto|resistente|inteligente|basico|de tapa|con tapa)|'
+             r'telefono inteligente|smartphone|(personas|adultos) mayores|botones? grandes?|boton sos|\bsenior\b|'
+             r'\b(flip|cell|feature) ?phone\b|telefono (celular|movil) (2g|3g|4g|desbloqueado)))'),
   ('Celulares', None, 'phone')),
  # El soporte de celular no es el celular: el catálogo lo tiene en Varios.
- (re.compile(r'^soporte para celular|base para celular'),
+ # El ventilador que se pega atrás para jugar ("Refrigeradores de
+ # teléfonos móviles") va al mismo cajón, antes que los refrigeradores.
+ (re.compile(r'^(?!.*(altavoz|bocina|speaker|parlante|lampara|cargador inalambrico|power ?bank|laptop|computadora|macbook|monitor))'
+             r'(?=.*(soportes? (magnetico |universal |plegable |retractil |de |para )*(el )?(telefono|celular|movil|smartphone|iphone)|'
+             r'soportes?.{0,60}(para |de |y )(el |tu |varios |multiples )?(telefono|celular|movil|smartphone|iphone|tablet|ipad)|'
+             r'montaje de telefono|base para celular|tripie (para|de) (el )?(celular|telefono|movil|smartphone)|'
+             r'tripode.{0,30}(celular|telefono|movil|selfie)|palo (de )?selfie|'
+             r'anillo (soporte|magnetico)|porta ?celular|auricular (de telefono )?retro|telefono retro con bluetooth|'
+             r'(refrigerador(es)?|enfriador|ventilador) (de |para )?(telefonos?|celular(es)?|moviles?)\b))'),
   ('Otros', 'Varios', 'box')),
+ (re.compile(r'panel(es)? solar'), ('Otros', 'Paneles solares', 'battery')),
+ (re.compile(r'^(?!.*(celular|telefono|smartphone).{0,30}(\d+ ?gb|dual sim))'
+             r'(?!.*(\bmouse\b|raton|teclado|audifono|auricular|\breloj\b|smartwatch|bocina|altavoz))'
+             r'(?=.*(cargador inalambrico|carga inalambrica|base de carga|\bqi\b|magsafe.{0,20}cargador|cargador magsafe|wireless charger))'),
+  ('Cargadores y adaptadores', 'Inalámbrico', 'plug')),
+ (re.compile(r'adaptador(es)? (otg|tipo c|usb-?c|usb|de viaje|universal)|convertidor .{0,20}otg|cable otg'),
+  ('Cargadores y adaptadores', 'Otros', 'plug')),
  (re.compile(r'computadora escritorio (completa|amd|intel)|pc gamer factor'),
   ('Computadoras de escritorio', 'Torre', 'desktop')),
  # Solo si "laptop" abre el título: "power bank para laptop" y "soporte para
@@ -893,16 +1021,18 @@ REGLAS = [
  (re.compile(r'^(?!.*(viaje|cuello|cervical|masaj|bebe|lactancia|embarazo|inflable))'
              r'(?:\S+ ){0,3}almohadas?\b'),
   ('Blancos y ropa de cama', 'Almohadas', 'pillow')),
- (re.compile(r'bocina|bafle|altavo(z|ces)|maquina de cantar|\bspeaker\b|'
-             r'monitores? (de |tipo )?estudio'),
+ (re.compile(r'^(?!(?:\S+ ){0,2}(cables? (auxiliar|usb|micro|divisor|de carga|tipo c|hdmi)|cargador|estante|antena|banda|soporte|funda)\b)'
+             r'(?=.*(bocina|bafle|altavo(z|ces)|maquina de cantar|\bspeaker\b|'
+             r'monitores? (de |tipo )?estudio))'),
   ('Bocinas', None, 'speaker')),
  # Audífonos: "audífonos" es la palabra del catálogo, pero media captura
  # dice "auriculares", y las marcas grandes venden "Buds" y "headphones"
  # sin traducir. "Diadema" sola no basta -- también es una vincha -- así
  # que pide cable, micrófono o inalámbrico al lado.
- (re.compile(r'audifonos|auriculares|\bearbuds?\b|\bbuds\b|headphones|'
+ (re.compile(r'^(?!(?:\S+ ){0,2}(soporte|cables? (auxiliar|usb|micro|divisor|de carga|tipo c|hdmi)|estante|gafas|lentes)\b)'
+             r'(?=.*(audifonos|auriculares|\bearbuds?\b|\bbuds\b|headphones|'
              r'\bin[- ]?ear\b|monitoreo in[- ]?ear|'
-             r'\bdiadema\b.{0,30}(cable|microfono|inalambric)'),
+             r'\bdiadema\b.{0,30}(cable|microfono|inalambric)))'),
   ('Audífonos', None, 'headphones')),
  # El micrófono suelto es de la sección de instrumentos, que es donde el
  # catálogo guarda los doce de solapa y los inalámbricos.
@@ -933,6 +1063,43 @@ REGLAS = [
   ('Computadoras de escritorio', 'Mini PC', 'desktop')),
  # La RAM va después de las computadoras completas: un mini PC "16GB DDR4"
  # no es un módulo de memoria.
+ # La tableta y el celular van antes que la memoria RAM: "8GB RAM + 256GB"
+ # es como se vende un teléfono, y "Xiaomi Redmi 9C 64GB 3GB RAM" caía en
+ # módulos de memoria. La tableta primero, porque "iPad desbloqueado" y
+ # "Galaxy Tab" cumplen las señas del celular.
+ (re.compile(r'^(?!.*(funda|\bcase\b|protector|mica|soporte (para|de|magnetico|universal|plegable)|'
+             r'lapiz|stylus|teclado|keyboard|cargador|cable|cristal templado|\bmouse\b|raton|audifono|bocina|'
+             r'(para|con|compatible con|y) (ipad|tablet|mac)\b|para (celulares|telefonos)))'
+             r'(?=.*(\btablet\b|\btableta\b|\bipad\b|galaxy tab\b|redmi pad|\bpad (\d|pro|mini|se)\b))'),
+  ('Tabletas', None, 'tablet')),
+ (re.compile(r'^(?!.*(funda|\bcase\b|protector|mica|cristal templado|soporte (para|de|magnetico|universal|plegable)|'
+             r'^(?:\S+ ){0,2}cargador\b|cargador (de pared|inalambrico|portatil|de auto|solar|para (celular|telefono|iphone))|'
+             r'^(?:\S+ ){0,2}cable\b|casillero|armario|gabinete|caja|estacion de carga|persiana|cortina|'
+             r'bateria (de repuesto|interna|para)|lapiz|stylus pen|tarjeta sim|\btablet\b|\bipad\b|matepad|'
+             r'smart ?watch|\bwatch\b|reloj|buds\b|audifono|auricular|airpods|tripie|tripode|control remoto|'
+             r'\blente\b|filtro|adaptador|memoria usb|tf card|microsd|\bssd\b|kit de|repuesto|'
+             r'pantalla (lcd|amoled|oled).{0,30}(repuesto|reemplazo|reparacion)|display|'
+             r'refaccion|\btv\b|television|smart tv|qled|\buhd\b|roku|monitor|laptop|notebook|macbook|imac|\bbook\b|'
+             r'proyector|bocina|altavoz|camara de seguridad|scooter|patinete|aspiradora|robot|\bband\b|\bfit\b|'
+             r'\bring\b|router|modem|consola|\bmouse\b|\bpc\b|escritorio|impresora|refrigerador|lavadora|'
+             r'secadora|microondas|estufa|horno|nest\b|chromecast|toallitas|brazalete|cordon|correa|soporte))'
+             r'(?=.*(\bcelular(es)?\b|smartphone|\bsmart ?phone\b|'
+             r'telefono (inteligente|celular|movil|desbloqueado|resistente|robusto|android)|'
+             r'telefonos inteligentes|movil inteligente|dual sim|dual nano|desbloqueado|liberado|'
+             r'\d+ ?gb ram|\d+ ?gb ?\+ ?\d+ ?gb|\d+ ?\+ ?\d+ ?gb|\bram\b.{0,15}\brom\b|'
+             r'\b(flip|smart|cell|feature) ?phone\b|'
+             r'(samsung galaxy|galaxy [asmzf]\d|xiaomi|redmi|\bpoco\b|motorola|\bmoto ?[ge]\d|'
+             r'\boppo\b|\bvivo\b|realme|\bhonor\b|huawei|\bzte\b|nokia|\btcl\b|oneplus|infinix|tecno|'
+             r'google pixel|pixel \d|iphone|nubia|alcatel|lanix|bmobile|blackview|doogee|ulefone|'
+             r'oukitel|cubot|umidigi|fossibot|kyocera|cat phones|crosscall|\bblu\b|hotwav|\bagm\b|'
+             r'nothing phone|xperia|blackberry|\bhtc\b)'
+             r'.{0,60}\b(5g|4g|lte|\d+ ?gb|android|desbloqueado|liberado|nacional|negro|azul|blanco|gris|verde|'
+             r'rosa|morado|dorado|plata|rojo|amarillo|naranja|edge \d|nova \d|magic ?\d|reno ?\d|note ?\d|'
+             r'redmi \d|poco [cfmx]\d|pixel \d|xperia|axon|blade|nord|find x|\ba\d{2}\b|\bs\d{2}\b)\b))'),
+  ('Celulares', None, 'phone')),
+ (re.compile(r'^(?!.*(correa|funda|protector|cargador|cable|smartphone \+|\+ (reloj|smartwatch)|mica))'
+             r'(?=.*(smart ?watch|reloj inteligente|galaxy watch|apple watch|\bwatch (s|gt|fit)\d?\b))'),
+  ('Relojes inteligentes', 'Smartwatches', 'watch')),
  (re.compile(r'memoria ram|\bram\b|sodimm|udimm|\bddr[45]|modulo de memoria'),
   (PC, 'Memoria RAM', 'cpu')),
  # El enfriador de aire de la sala, no el del procesador. El catálogo
@@ -1126,10 +1293,15 @@ MARCAS += ["UNCANNY BRANDS", "HAMILTON BEACH", "TAURUS", "RAGANET",
 
 # Las de la captura de microondas y lavavajillas. "GE" son dos letras, pero
 # marca() exige que no la rodeen letras ni números, así que "GEL" no entra.
+# Marcas de celular que no son una palabra corriente (las que sí -- Vivo,
+# Honor, Cat -- van en MARCAS_CELULAR, solo al principio del título).
+MARCAS += ["OPPO", "REALME", "ZTE", "NOKIA", "ONEPLUS", "INFINIX", "TECNO", "MOTOROLA",
+           "REDMI", "POCO", "ALCATEL", "LANIX", "BMOBILE", "NUBIA", "CUBOT", "DOOGEE",
+           "UMIDIGI", "ULEFONE", "OUKITEL", "BLACKVIEW", "KYOCERA", "CROSSCALL", "HOTWAV"]
 MARCAS += ["TEKA", "GE", "GALANZ", "TOSHIBA", "BREVILLE", "SHARP", "AIRMSEN",
            "MYSMILE", "VORTEX"]
 
-ALIAS = {"THERMALRLGHT": "THERMALRIGHT", "WHITE-WESTINGHOUSE": "WHITE WESTINGHOUSE",
+ALIAS = {"REDMI": "XIAOMI", "POCO": "XIAOMI", "THERMALRLGHT": "THERMALRIGHT", "WHITE-WESTINGHOUSE": "WHITE WESTINGHOUSE",
          "KÄRCHER": "KARCHER", "HUKËN": "HUKEN"}
 
 def marca(t):
@@ -1221,7 +1393,30 @@ def sub_cafetera(tn):
     return None
 
 def sub_celular(tn):
-    return 'iPhone' if 'iphone' in tn else 'Android'
+    if 'iphone' in tn: return 'iPhone'
+    if re.search(r'resistente|rugged|robusto|todoterreno|\bip6[89]\b|a prueba de (golpes|agua)', tn): return 'Resistentes'
+    # El teléfono básico (de tapa, de botones grandes, 2G) no es Android:
+    # tiene su propia subcategoría.
+    if re.search(r'\b[23]g\b|botones? grandes?|(personas|adultos) mayores|\bsenior\b|abatible|(flip|feature) ?phone|'
+                 r'(de|con) tapa\b|rotary|telefono (celular |movil )?basico|celular basico|boton sos|\bsos\b|'
+                 r'(pantalla (de )?)?\b[12][.,]\d+ ?(pulgadas|")|unlocked phone', tn): return 'Básicos'
+    return 'Android'
+
+def sub_tableta(tn):
+    return 'Apple' if 'ipad' in tn else 'Android'
+
+# La marca del celular cuando abre el título y no está en MARCAS: "vivo" y
+# "honor" son palabras corrientes ("en vivo", "honor a") y no pueden entrar
+# a la lista general, pero al principio del nombre de un celular son la marca.
+MARCAS_CELULAR = re.compile(r'\b(vivo|oppo|realme|honor|xiaomi|redmi|poco|motorola|moto|samsung|huawei|zte|nokia|tcl|'
+                            r'oneplus|infinix|tecno|google|apple|iphone|nubia|alcatel|lanix|bmobile|blackview|doogee|'
+                            r'ulefone|oukitel|cubot|umidigi|fossibot|kyocera|blu|hotwav|agm|cat|nothing|sony|'
+                            r'blackberry|htc|lg|asus|zebra|hisense)\b')
+def marca_celular(tn):
+    m = MARCAS_CELULAR.search(tn[:50])
+    if not m: return None
+    return {'redmi': 'XIAOMI', 'poco': 'XIAOMI', 'moto': 'MOTOROLA', 'iphone': 'APPLE',
+            'cat': 'CAT PHONES'}.get(m.group(1), m.group(1).upper())
 
 
 def sub_audio(tn):
@@ -1294,7 +1489,10 @@ for it in captura:
     elif cat == 'Refrigeradores': sub = sub_refri(tn)
     elif cat == 'Cafeteras': sub = sub_cafetera(tn)
     elif cat == 'Celulares': sub = sub_celular(tn)
-    alta.append({**base, 'brand': marca(it['title']), 'category': cat,
+    elif cat == 'Tabletas': sub = sub_tableta(tn)
+    mk = marca(it['title'])
+    if cat == 'Celulares' and not mk: mk = marca_celular(tn)
+    alta.append({**base, 'brand': mk, 'category': cat,
                  'subcategory': sub, 'image': img})
 
 json.dump(alta, io.open(sys.argv[2], 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
