@@ -1418,23 +1418,23 @@
       "id": "chico",
       "name": "Chico",
       "use": "Cargar teléfono y luces",
-      "spec": "Hasta 30 W",
-      "max": 30
+      "spec": "Hasta 40 W",
+      "max": 40
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "Estación de energía o cabaña",
-      "spec": "31 W a 100 W",
-      "min": 30,
-      "max": 100
+      "spec": "41 W a 110 W",
+      "min": 40,
+      "max": 110
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Instalación de casa",
-      "spec": "Más de 100 W",
-      "min": 100
+      "spec": "Más de 110 W",
+      "min": 110
      }
     ],
     "key": "level"
@@ -1684,41 +1684,6 @@
    }
   ]
  },
- "Baterías portátiles/Más de 20,000 mAh": {
-  "axes": [
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 22 W",
-      "max": 22
-     },
-     {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "23 W a 100 W",
-      "min": 22,
-      "max": 100
-     },
-     {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 100 W",
-      "min": 100
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Baterías portátiles/10,000 a 20,000 mAh": {
   "axes": [
    {
@@ -1748,6 +1713,41 @@
       "use": "Laptop o varios equipos",
       "spec": "Más de 60 W",
       "min": 60
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Baterías portátiles/Más de 20,000 mAh": {
+  "axes": [
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 22 W",
+      "max": 22
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "23 W a 100 W",
+      "min": 22,
+      "max": 100
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 100 W",
+      "min": 100
      }
     ],
     "key": "level"
@@ -4202,42 +4202,6 @@
       "use": "Un cuarto entero",
       "spec": "Más de 10 m",
       "min": 10
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Lámparas de emergencia": {
-  "axes": [
-   {
-    "label": "Luz",
-    "field": "lumens",
-    "criterion": "en lúmenes",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "suave",
-      "name": "Suave",
-      "use": "Ambiente y buró",
-      "spec": "Hasta 700 lm",
-      "max": 700
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Cuarto o cocina",
-      "spec": "701 lm a 2,000 lm",
-      "min": 700,
-      "max": 2000
-     },
-     {
-      "id": "potente",
-      "name": "Potente",
-      "use": "Exterior y naves",
-      "spec": "Más de 2,000 lm",
-      "min": 2000
      }
     ],
     "key": "level"

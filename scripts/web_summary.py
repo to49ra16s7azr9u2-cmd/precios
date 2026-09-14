@@ -318,4 +318,69 @@ def build_summary(light_products, stores, categories):
         "categoryStats": stats,
         "homePools": pool_ids,
         "homeProducts": list(records.values()),
+        "scopes": build_scopes(by_cat, stores_by_id),
     }
+
+
+# Cuántas marcas distintas se guardan por alcance. El panel de filtros ya
+# recorta a las más frecuentes cuando son muchas (ver ensureFacetSearch en
+# js/app.js), así que guardar la cola larga entera sería peso sin uso.
+SCOPE_MAX_MARCAS = 400
+
+
+def build_scopes(by_cat, stores_by_id):
+    """Lo que el panel de filtros necesita saber de una categoría ENTERA sin
+    tenerla entera en el navegador: qué marcas hay y hasta dónde llegan los
+    precios.
+
+    POR QUÉ
+    -------
+    brandsInScope() y priceScopeBounds() en js/app.js recorren
+    state.data.products, que desde la partición por categoría es "lo que se
+    bajó hasta ahora". Mientras la shard de la categoría llegaba entera y de
+    una vez eso daba igual. Al bajarla por partes deja de darlo: con la
+    primera parte cargada, el filtro de marca ofrecería solo las marcas de
+    esos productos y el tope del slider de precio sería el del pedazo, no el
+    de la categoría. Los dos son agregados que no dependen del visitante, así
+    que se calculan acá una sola vez.
+
+    Se guarda por categoría y también por subcategoría, porque el filtro
+    cambia de alcance al entrar a una: en Celulares > Resistentes solo deben
+    aparecer las marcas que venden resistentes.
+
+    Los precios van en los dos escenarios del toggle "Incluir envío", igual
+    que los sellos de descuento, porque el slider se mueve sobre el precio
+    mostrado.
+    """
+    scopes = {}
+    for cat_id, products in by_cat.items():
+        scopes[cat_id] = _scope_entry(products, stores_by_id)
+        subs = {}
+        for p in products:
+            subs.setdefault(p.get("subcategory") or "", []).append(p)
+        scopes[cat_id]["subs"] = {
+            sub: _scope_entry(items, stores_by_id)
+            for sub, items in subs.items() if sub
+        }
+    return scopes
+
+
+def _scope_entry(products, stores_by_id):
+    marcas = {}
+    for p in products:
+        b = (p.get("brand") or "").strip()
+        if b:
+            marcas[b] = marcas.get(b, 0) + 1
+    top = sorted(marcas.items(), key=lambda kv: (-kv[1], kv[0]))[:SCOPE_MAX_MARCAS]
+    entry = {"brands": [b for b, _ in top]}
+    for include_shipping, suffix in ((False, ""), (True, "Ship")):
+        precios = []
+        for p in products:
+            rows = [r for r in seller_rows(p) if r.get("price") is not None]
+            if rows:
+                precios.append(min(_display_price(r, stores_by_id, include_shipping)
+                                   for r in rows))
+        if precios:
+            entry["min" + suffix] = int(min(precios))
+            entry["max" + suffix] = int(max(precios)) + 1
+    return entry

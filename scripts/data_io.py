@@ -48,6 +48,7 @@ CAT_DIR = "data/cat"
 DET_DIR = "data/det"
 INDEX_FILE = "data/index.json"
 HOME_FILE = "data/home.json"
+SCOPES_FILE = "data/scopes.json"
 
 # Tope por archivo de categoría. Ninguna categoría real se le acerca hoy (la
 # más grande, Herramientas, son ~7,300 productos / 3 MB en crudo), pero evita
@@ -643,12 +644,17 @@ def save_catalog(data):
     # sellos de oferta y el pool de candidatos de los rankings.
     summary = web_summary.build_summary(light, data.get("stores", []), data.get("categories", []))
     _write(HOME_FILE, summary.pop("homeProducts"))
+    # Los alcances (marcas y rango de precio por categoría) van en su propio
+    # archivo, no en el manifiesto: el manifiesto lo baja TODA visita, y esto
+    # solo hace falta cuando se abre el panel de filtros de una categoría.
+    _write(SCOPES_FILE, summary.pop("scopes"))
 
     data["categoryFiles"] = category_files
     data["detailFiles"] = detail_files
     data["detailChunkSize"] = DETAIL_CHUNK_SIZE
     data["indexFile"] = INDEX_FILE
     data["homeFile"] = HOME_FILE
+    data["scopesFile"] = SCOPES_FILE
     data.update(summary)
     data.pop("productFiles", None)
     with open(MANIFEST_PATH, "w", encoding="utf-8") as f:

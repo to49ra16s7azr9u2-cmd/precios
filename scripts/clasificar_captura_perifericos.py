@@ -936,7 +936,18 @@ REGLAS = [
              r'.*(lavavajillas|lavaplatos) (portatil|de encimera|para encimera|de mesa|'
              r'compact|integrable|empotrable|de \d+ (cubiertos|servicios)))'),
   ('Electrodomésticos', 'Lavavajillas', 'appliance')),
- (re.compile(r'\blavadora|\blava\w*secadora|\bcentrifugadora'), ('Lavadoras', None, 'washer')),
+ # La lavadora de ropa, y solo esa. La palabra la usan tres cosas más que
+ # no lavan ropa y que tienen su lugar en otra parte: la hidrolavadora
+ # ("lavadora a presión", que es herramienta de jardín y ya tiene regla más
+ # abajo), la lavadora de huevos y la de coches. Y la refacción -- la
+ # tarjeta, la bomba de drenaje, las escobillas del motor -- que nombra la
+ # lavadora para decir a cuál le queda.
+ (re.compile(r'^(?!.*(a presion|hidrolavadora|\bpsi\b|\bgpm\b|de huevos|karcher|'
+             r'tarjeta (para|de) lavadora|escobillas|bomba de drenaje|'
+             r'(repuesto|refaccion|reemplazo|compatible con) .{0,30}lavadora|'
+             r'lavadora .{0,20}(de repuesto|compatible)))'
+             r'(?=.*(\blavadora|\blava\w*secadora|\bcentrifugadora))'),
+  ('Lavadoras', None, 'washer')),
  # Aspiradoras: el título siempre nombra el aparato ("aspiradora", "aspirador",
  # "robot aspirador", "shop vac"). La licuadora que Amazon metió en la sección
  # se va a su categoría de siempre, no a Aspiradoras.
@@ -1221,11 +1232,12 @@ REGLAS = [
              r'\bmantenedor\b|battery tender|arrancador|jump starter|booster de bateria|'
              r'cargador (de |para )?bater[ií]as?.{0,40}(6/12 ?v|12 ?v|amperimetro|pinzas)'),
   ('Autos, bicicletas y motos', 'Baterías para auto', 'car')),
- (re.compile(r'\b(dewalt|makita|milwaukee|ryobi|ridgid|craftsman|worx|einhell|greenworks|metabo|hilti|kobalt|porter-?cable|skil)\b.{0,60}(bateria|cargador)|'
+ (re.compile(r'^(?!.*(lavadora a presion|hidrolavadora|soplador|motosierra|podadora|cortacesped|desbrozadora|tijeras de podar|pulverizador|aspiradora))'
+             r'(?=.*(\b(dewalt|makita|milwaukee|ryobi|ridgid|craftsman|worx|einhell|greenworks|metabo|hilti|kobalt|porter-?cable|skil)\b.{0,60}(bateria|cargador)|'
              r'(bateria|cargador).{0,60}\b(dewalt|makita|milwaukee|ryobi|ridgid|craftsman|worx|einhell|greenworks|metabo|hilti|kobalt|skil)\b|'
              r'bosch (gxs|gba|gal|gaa)|black ?(\+|&|and|y) ?decker.{0,40}(bateria|cargador)|driver de impacto|taladro (inalambrico|percutor|atornillador|electrico)|bateria (para|de) taladro|'
              r'herramientas? (inalambrica|electrica)|\b(18|20|40) ?v (max|xr|lxt|onepwr|power ?share)|\bm18\b|\blxt\b|'
-             r'kit de (inicio|arranque).{0,30}bateria|bateria (portatil |de repuesto )?(de |para )?\d{2} ?v ?(max|ion de litio)|\b\d{2} ?v max\b|\b(stanley|dewalt|makita|milwaukee|ryobi|ridgid|craftsman|worx|einhell|greenworks|metabo|hilti|kobalt|skil|bauer|hart)\b.{0,40}\b\d+[.,]?\d* ?a(h)?\b'),
+             r'kit de (inicio|arranque).{0,30}bateria|bateria (portatil |de repuesto )?(de |para )?\d{2} ?v ?(max|ion de litio)|\b\d{2} ?v max\b|\b(stanley|dewalt|makita|milwaukee|ryobi|ridgid|craftsman|worx|einhell|greenworks|metabo|hilti|kobalt|skil|bauer|hart)\b.{0,40}\b\d+[.,]?\d* ?a(h)?\b))'),
   ('Herramientas', 'Accesorios para herramientas eléctricas', 'wrench')),
  (re.compile(r'(cargador|bateria).{0,60}(patinete|scooter|hoverboard|kukirin|segway|ninebot)|(patinete|scooter|hoverboard).{0,60}(cargador|bateria)'),
   ('Refacciones', 'Para patinetas eléctricas', 'gear')),
@@ -1473,7 +1485,7 @@ REGLAS = [
  # lavadora de ropa ni electrodoméstico de cocina.
  (re.compile(r'^(?!.*(ropa|prendas|lavadora de ropa))'
              r'(?=.*(hidrolavadora|lavadora a presion|lavadoras a presion|lavadora de (coche|auto|carro)|'
-             r'lavado a chorro|jet wash|pressure washer|\bpsi\b.{0,30}(inalambric|bateria)|'
+             r'lavado a chorro|jet wash|pressure washer|\d+ ?psi\b|pistola de agua|\bpsi\b.{0,30}(inalambric|bateria)|'
              r'soplador(a)? de (hojas|nieve)|motosierra|desbrozadora|podadora|cortasetos|pala para nieve|cortacesped|cortacespedes|tijeras de podar|pulverizador(a)?|nebulizador (frio|ulv)|fumigador|aspersor|sierra de poda|'
              r'engrasadora|cortador de cable|cabrestante|polipasto|montacargas? electrico portatil))'),
   ('Herramientas', 'Jardinería', 'wrench')),
