@@ -1178,7 +1178,7 @@ REGLAS = [
  # El celular, cuando el título es solo marca y modelo. Pide abrir con la
  # marca y descarta de una vez los Buds, los Watch y las Tab, que empiezan
  # igual y no son teléfonos.
- (re.compile(r'^(samsung (galaxy )?(note ?\d+|[asmzf]\d+)|apple iphone|iphone \d+|galaxy (z fold|z flip|[asmz]\d+)|'
+ (re.compile(r'^(samsung (galaxy )?(note ?\d{1,2}\b|[asmzf]\d{1,2}\b)|apple iphone|iphone \d+|galaxy (z fold|z flip|[asmz]\d{1,2}\b)|'
              r'motorola (edge|moto|razr|g\d+)|moto (edge|g|e|razr)\b|one ?plus (\d+|nord|open)|'
              r'huawei (nova|mate|pura|p\d+)|honor (magic|x\d+|\d+|play)|xiaomi (\d+|redmi|poco|mi \d+)|'
              r'redmi (note|\d+|a\d+)|poco [cfmx]\d+|realme (\d+|c\d+|gt|narzo|note)|oppo (a\d+|reno|find)|'
@@ -1441,7 +1441,8 @@ REGLAS = [
              r'refaccion|\btv\b|television|smart tv|qled|\buhd\b|roku|monitor|laptop|notebook|macbook|imac|\bbook\b|'
              r'proyector|bocina|altavoz|camara de seguridad|scooter|patinete|aspiradora|robot|\bband\b|\bfit\b|'
              r'\bring\b|router|modem|consola|\bmouse\b|\bpc\b|escritorio|impresora|refrigerador|lavadora|'
-             r'secadora|microondas|estufa|horno|nest\b|chromecast|toallitas|brazalete|cordon|correa|soporte))'
+             r'secadora|microondas|estufa|horno|nest\b|chromecast|toallitas|brazalete|cordon|correa|soporte|'
+             r'\bddr[345]\b|sodimm|\budimm\b|\brdimm\b|\bdimm\b|pc[34]-\d|modulo de memoria|memoria dram|''magic keyboard|teclado (para|magic|inalambrico|mecanico|bluetooth|touchpad|plegable|retroiluminado|numerico)|teclado y (raton|mouse)|\bmouse\b|\braton\b|combinacion de raton|core ultra|\bi[3579]-\d{4}|ryzen [3579]\b|\btssd\b|sobremesa|torre desktop|digital piano|cascos? over-?ear|driver de camara))'
              r'(?=.*(\bcelular(es)?\b|smartphone|\bsmart ?phone\b|'
              r'telefono (inteligente|celular|movil|desbloqueado|resistente|robusto|android)|'
              r'telefonos inteligentes|movil inteligente|dual sim|dual nano|desbloqueado|liberado|'

@@ -3,7 +3,7 @@
     "currency": "MXN",
     "updated": "2026-08-19",
     "note": "Catálogo en reconstrucción con datos reales: 16857 productos. Taxonomía de categorías rediseñada por completo (18 categorías planas → 15 categorías con subcategorías, a partir de un diagrama que definió el usuario: Celulares y accesorios, Cargadores y adaptadores, Computadoras, Televisores y control remoto, Electrodomésticos, Videojuegos, Muebles, Herramientas, Autos/bicicletas/motos, Refacciones, Ropa, Calzado, Maquillaje, Viajes, Otros). Cada producto se reclasificó por su título real con un clasificador por palabras clave (con respaldo en la categoría vieja para los casos ambiguos de marcas curadas, ej. \"Celulares\" siempre fueron teléfonos). Categorías que no tenían equivalente nuevo (Joyería y relojes, Artículos de lujo, Decoración del hogar, Componentes electrónicos) quedaron honestamente en \"Otros\" en vez de forzar un mal encaje (~14% del catálogo). La barra de categorías ahora despliega un submenú al pasar el mouse por las que tienen subcategorías, y el filtro lateral de la lista también las muestra sangradas debajo de la categoría activa. SUNSKY, Geekbuying, Molnija, StyleWE, Glasseslit, Woodestic, The Luxury Closet, Noracora y JustFashionNow ya están \"terminadas\" a fondo. De Alibaba van 2,788 productos en Maquillaje. AliExpress y Alibaba se incorporan de a poco (sus feeds no son el catálogo curado de una sola marca sino volcados gigantescos de todo el marketplace). Se paginan las listas/rankings (60 productos por página) y las páginas SEO estáticas de categoría se limitan a un top 100, para que el sitio no se ponga lento según crece el catálogo. Variantes de color/talla/capacidad se muestran como pastillas clicables y como insignia \"🎨 +N\". Los productos usados/preowned muestran insignia \"🔄 Usado\" y se pueden excluir con un filtro. El mapa de Leaflet se carga de forma perezosa. Precios convertidos de USD/EUR/RUB a MXN a un tipo de cambio aproximado. Se excluyeron a propósito: contenido para adultos, mercancía con nombres de bandas/famosos/personajes reales sin licencia, réplicas realistas de armas, y productos con riesgo real de seguridad (rellenos inyectables, mesoterapia, crioterapia casera, láser de uso clínico, microblading/tatuaje profesional, blanqueadores de piel sin regular). SHEIN pendiente de aprobación en Admitad. Se investigó por qué ningún producto mostraba 2+ tiendas: existe un algoritmo de product matching (scripts/product_matcher.py, EAN->modelo+specs->similitud) pero nunca se había corrido contra el catálogo completo, y en ~77% de los productos (Noracora, Alibaba, JustFashionNow, AliExpress, StyleWE) el campo \"brand\" tenía el nombre de la tienda en vez de la marca real, lo que bloqueaba cualquier coincidencia entre tiendas. Se corrigió la marca real en los productos de Alibaba/AliExpress donde era detectable (24 productos: Xiaomi, HONOR, Creality, KuKirin, Flashforge, Elegoo, etc.) y se corrió el matcher sobre electrónica/celulares (842 productos reales, excluyendo fundas/cables/refacciones). Resultado: 0 coincidencias genuinas -- cada tienda tiene modelos específicos distintos incluso dentro de la misma marca (ej. OUKITEL en SUNSKY son celulares, en Geekbuying son estaciones de energía; ningún modelo se repite). Las 7 \"coincidencias\" que sí encontró el matcher sin filtrar accesorios resultaron ser falsos positivos (producto principal vs. refacción/funda de la misma marca), así que no se fusionó nada. Con la composición actual del catálogo (muestreo independiente de miles de candidatos por feed), la comparación de precios real entre tiendas para el mismo producto es la excepción, no la regla. Se hicieron mucho más finas las 6 categorías que se habían quedado sin ninguna subcategoría en el rediseño anterior (Maquillaje, Otros, Computadoras, Herramientas, Refacciones, Viajes -- juntas, un tercio del catálogo): ahora tienen entre 2 y 6 subcategorías cada una (ej. Maquillaje se separa en maquillaje de rostro/ojos, cuidado de la piel, pelucas y extensiones, estilizado de cabello, uñas y accesorios), clasificadas con un clasificador por palabras clave probado contra el catálogo real, mismo método que la taxonomía original. Cobertura de subcategoría en el catálogo completo: 67% -> 91%. De paso, revisando estas categorías a mano se encontraron 22 productos de mercancía sin licencia que habían evadido el filtro automático ofuscando el nombre con guiones (personajes/bandas/celebridades reales de Bloodborne, Sonic, Borderlands, Gintama, WWE, etc.) y se removieron, y se corrigieron 4 miscategorizaciones puntuales de antes (lentes Glasseslit que habían quedado en Refacciones, playeras Polo que habían quedado en Otros).",
-    "maxProductId": 183644
+    "maxProductId": 191842
   },
   "categories": [
     {
@@ -3346,7 +3346,9 @@
       "data/det/drones-1.json"
     ],
     "Componentes y accesorios de PC": [
-      "data/det/componentes-y-accesorios-de-pc-1.json"
+      "data/det/componentes-y-accesorios-de-pc-1.json",
+      "data/det/componentes-y-accesorios-de-pc-2.json",
+      "data/det/componentes-y-accesorios-de-pc-3.json"
     ],
     "Bocinas": [
       "data/det/bocinas-1.json",
@@ -3369,7 +3371,8 @@
       "data/det/domotica-y-hogar-inteligente-1.json"
     ],
     "Teclados": [
-      "data/det/teclados-1.json"
+      "data/det/teclados-1.json",
+      "data/det/teclados-2.json"
     ],
     "Deportes y fitness": [
       "data/det/deportes-y-fitness-1.json",
@@ -3434,12 +3437,12 @@
   },
   "indexFile": "data/index.json",
   "homeFile": "data/home.json",
-  "totalProducts": 134901,
+  "totalProducts": 143099,
   "categoryStats": {
     "Celulares": {
-      "n": 4892,
+      "n": 4917,
       "subs": {
-        "Android": 3731,
+        "Android": 3756,
         "Resistentes": 330,
         "iPhone": 518,
         "Teléfonos fijos": 48,
@@ -3452,11 +3455,11 @@
       "maxShip": 80
     },
     "Monitores": {
-      "n": 7883,
+      "n": 7891,
       "subs": {
-        "Gaming": 1745,
+        "Gaming": 1747,
         "Portátiles": 1783,
-        "Oficina": 4355
+        "Oficina": 4361
       },
       "discounted": 184,
       "max": 67,
@@ -3496,10 +3499,10 @@
       "maxShip": 90
     },
     "Proyectores y accesorios": {
-      "n": 379,
+      "n": 381,
       "subs": {
         "Proyectores": 171,
-        "Pantallas de proyección": 182,
+        "Pantallas de proyección": 184,
         "Accesorios": 22,
         "": 4
       },
@@ -3509,11 +3512,11 @@
       "maxShip": 72
     },
     "Computadoras de escritorio": {
-      "n": 942,
+      "n": 1090,
       "subs": {
-        "Mini PC": 147,
-        "Torre": 226,
-        "All in One": 297,
+        "Mini PC": 218,
+        "Torre": 234,
+        "All in One": 366,
         "": 272
       },
       "discounted": 498,
@@ -3522,10 +3525,10 @@
       "maxShip": 71
     },
     "Videojuegos": {
-      "n": 6394,
+      "n": 6453,
       "subs": {
         "Consolas": 132,
-        "Accesorios": 822,
+        "Accesorios": 881,
         "Software": 5432,
         "Otros": 6,
         "": 2
@@ -3578,9 +3581,9 @@
       "maxShip": 83
     },
     "Refacciones": {
-      "n": 5702,
+      "n": 5720,
       "subs": {
-        "Refacciones para electrodomésticos": 279,
+        "Refacciones para electrodomésticos": 297,
         "Para patinetas eléctricas": 169,
         "Para autos": 2596,
         "Bombas": 84,
@@ -3594,7 +3597,7 @@
       "maxShip": 55
     },
     "Herramientas": {
-      "n": 9537,
+      "n": 9538,
       "subs": {
         "Grabado láser": 179,
         "Herramientas manuales": 1211,
@@ -3604,7 +3607,7 @@
         "Medición": 385,
         "Seguridad industrial": 269,
         "Neumáticas": 131,
-        "Accesorios para herramientas eléctricas": 1665,
+        "Accesorios para herramientas eléctricas": 1666,
         "Organización": 117,
         "Construcción": 83,
         "Material eléctrico": 135,
@@ -3619,10 +3622,10 @@
       "maxShip": 76
     },
     "Muebles": {
-      "n": 10186,
+      "n": 10258,
       "subs": {
         "Sillas": 1386,
-        "Escritorios": 463,
+        "Escritorios": 535,
         "Otros": 1832,
         "Mesas de juego": 26,
         "Mesas de centro": 123,
@@ -3642,11 +3645,11 @@
       "maxShip": 82
     },
     "Otros": {
-      "n": 4829,
+      "n": 4841,
       "subs": {
         "Estaciones de energía": 481,
         "Paneles solares": 171,
-        "Varios": 3836,
+        "Varios": 3848,
         "Generadores": 50,
         "Inversores": 58,
         "": 3,
@@ -3660,17 +3663,17 @@
       "maxShip": 69
     },
     "Cargadores y adaptadores": {
-      "n": 4635,
+      "n": 4753,
       "subs": {
-        "Inalámbrico": 749,
-        "De pared": 1226,
-        "Adaptador de corriente": 228,
-        "Base de carga": 120,
+        "Inalámbrico": 757,
+        "De pared": 1229,
+        "Adaptador de corriente": 243,
+        "Base de carga": 122,
         "De auto": 313,
-        "Otros": 701,
-        "Cable": 365,
+        "Otros": 713,
+        "Cable": 376,
         "De pilas": 145,
-        "Para laptop": 777,
+        "Para laptop": 844,
         "": 11
       },
       "discounted": 306,
@@ -3679,10 +3682,10 @@
       "maxShip": 61
     },
     "Baterías portátiles": {
-      "n": 1816,
+      "n": 1821,
       "subs": {
-        "": 656,
-        "Hasta 10,000 mAh": 746,
+        "": 657,
+        "Hasta 10,000 mAh": 750,
         "Más de 20,000 mAh": 177,
         "10,000 a 20,000 mAh": 237
       },
@@ -3692,9 +3695,9 @@
       "maxShip": 72
     },
     "Cámaras y fotografía": {
-      "n": 1511,
+      "n": 1512,
       "subs": {
-        "Accesorios": 729,
+        "Accesorios": 730,
         "Cámaras de acción": 92,
         "Instantáneas": 99,
         "Réflex": 7,
@@ -3709,10 +3712,10 @@
       "maxShip": 80
     },
     "Aspiradoras": {
-      "n": 442,
+      "n": 444,
       "subs": {
         "Accesorios": 88,
-        "Portátiles": 244,
+        "Portátiles": 246,
         "Robots aspiradores": 63,
         "De tanque": 30,
         "": 17
@@ -3723,9 +3726,9 @@
       "maxShip": 72
     },
     "Impresión 3D": {
-      "n": 377,
+      "n": 378,
       "subs": {
-        "Impresoras": 53,
+        "Impresoras": 54,
         "Accesorios": 198,
         "Filamentos": 98,
         "Escáneres 3D": 17,
@@ -3737,13 +3740,13 @@
       "maxShip": 60
     },
     "Audífonos": {
-      "n": 6915,
+      "n": 7737,
       "subs": {
-        "Earbuds inalámbricos": 1952,
-        "Earbuds con cable": 457,
-        "Diadema inalámbrica": 900,
-        "Diadema con cable": 519,
-        "": 3087
+        "Earbuds inalámbricos": 2016,
+        "Earbuds con cable": 503,
+        "Diadema inalámbrica": 969,
+        "Diadema con cable": 547,
+        "": 3702
       },
       "discounted": 1403,
       "max": 80,
@@ -3848,13 +3851,13 @@
       "maxShip": 55
     },
     "Componentes y accesorios de PC": {
-      "n": 1980,
+      "n": 5290,
       "subs": {
-        "Accesorios de monitor": 892,
-        "Accesorios": 151,
-        "Memoria RAM": 315,
-        "Webcams": 121,
-        "Componentes": 501
+        "Accesorios de monitor": 1095,
+        "Accesorios": 162,
+        "Memoria RAM": 3003,
+        "Webcams": 327,
+        "Componentes": 703
       },
       "discounted": 142,
       "max": 68,
@@ -3862,12 +3865,12 @@
       "maxShip": 68
     },
     "Bocinas": {
-      "n": 8856,
+      "n": 8891,
       "subs": {
         "": 1802,
         "Grande": 862,
-        "Pequeña": 1323,
-        "Mediana": 4475,
+        "Pequeña": 1326,
+        "Mediana": 4507,
         "Barras de sonido": 394
       },
       "discounted": 1026,
@@ -3876,11 +3879,11 @@
       "maxShip": 80
     },
     "Mouse": {
-      "n": 467,
+      "n": 1968,
       "subs": {
-        "Oficina": 276,
-        "Gaming": 137,
-        "Ergonómicos": 54
+        "Oficina": 986,
+        "Gaming": 770,
+        "Ergonómicos": 212
       },
       "discounted": 162,
       "max": 68,
@@ -3904,7 +3907,7 @@
       "maxShip": 68
     },
     "Electrodomésticos": {
-      "n": 3453,
+      "n": 3457,
       "subs": {
         "Robots limpiacristales": 46,
         "Purificadores de agua": 43,
@@ -3914,7 +3917,7 @@
         "Planchas": 145,
         "Freidoras de aire": 226,
         "Extractores de jugo": 48,
-        "Máquinas de coser": 106,
+        "Máquinas de coser": 110,
         "Estufas": 696,
         "Campanas de cocina": 451,
         "Lavavajillas": 46,
@@ -3930,13 +3933,13 @@
       "maxShip": 80
     },
     "Domótica y hogar inteligente": {
-      "n": 828,
+      "n": 832,
       "subs": {
-        "Bocinas inteligentes": 139,
+        "Bocinas inteligentes": 141,
         "Enchufes inteligentes": 25,
         "Interruptores inteligentes": 31,
         "Cortinas motorizadas": 7,
-        "Cerraduras inteligentes": 47,
+        "Cerraduras inteligentes": 49,
         "Hubs": 10,
         "Iluminación inteligente": 30,
         "": 539
@@ -3947,11 +3950,11 @@
       "maxShip": 81
     },
     "Teclados": {
-      "n": 456,
+      "n": 2220,
       "subs": {
-        "Membrana": 185,
-        "Mecánicos": 61,
-        "": 210
+        "Membrana": 214,
+        "Mecánicos": 680,
+        "": 1326
       },
       "discounted": 124,
       "max": 52,
@@ -3980,10 +3983,10 @@
       "maxShip": 92
     },
     "Tabletas": {
-      "n": 3083,
+      "n": 3111,
       "subs": {
-        "Android": 2754,
-        "Apple": 329
+        "Android": 2778,
+        "Apple": 333
       },
       "discounted": 294,
       "max": 76,
@@ -4081,14 +4084,14 @@
       "maxShip": 80
     },
     "Iluminación": {
-      "n": 1564,
+      "n": 1565,
       "subs": {
         "Lámparas de escritorio": 22,
         "Exterior": 141,
         "Focos inteligentes": 57,
         "Tiras LED": 72,
         "Lámparas de techo": 68,
-        "Lámparas de emergencia": 149,
+        "Lámparas de emergencia": 150,
         "Lámparas de pared": 12,
         "Lámparas de piso": 4,
         "": 1039
@@ -4099,10 +4102,10 @@
       "maxShip": 73
     },
     "Laptops": {
-      "n": 4025,
+      "n": 4120,
       "subs": {
-        "Oficina": 3491,
-        "Gamer": 376,
+        "Oficina": 3513,
+        "Gamer": 449,
         "": 158
       },
       "discounted": 913,
@@ -4111,12 +4114,12 @@
       "maxShip": 67
     },
     "Televisores": {
-      "n": 966,
+      "n": 1122,
       "subs": {
-        "HD": 317,
-        "4K": 383,
+        "HD": 352,
+        "4K": 438,
         "Dispositivos de streaming": 173,
-        "": 93
+        "": 159
       },
       "discounted": 492,
       "max": 70,
@@ -4140,10 +4143,10 @@
       "maxShip": 76
     },
     "Refrigeradores": {
-      "n": 899,
+      "n": 902,
       "subs": {
         "Frigobares": 113,
-        "Refrigeradores": 726,
+        "Refrigeradores": 729,
         "Uso comercial": 35,
         "Congeladores": 19,
         "": 6
@@ -4221,14 +4224,14 @@
       "maxShip": 68
     },
     "Equipo comercial": {
-      "n": 202,
+      "n": 205,
       "subs": {
         "Cocina industrial": 70,
         "Refrigeración comercial": 38,
-        "Punto de venta": 39,
+        "Punto de venta": 40,
         "Mobiliario": 22,
         "Carros de servicio": 20,
-        "Prensas de calor": 9,
+        "Prensas de calor": 11,
         "Impresoras de sublimación": 4
       },
       "discounted": 67,
