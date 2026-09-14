@@ -1383,23 +1383,23 @@
       "id": "chica",
       "name": "Chica",
       "use": "Teléfono, laptop y luces",
-      "spec": "Hasta 200 W",
-      "max": 200
+      "spec": "Hasta 300 W",
+      "max": 300
      },
      {
       "id": "mediana",
       "name": "Mediana",
       "use": "Refrigerador y herramientas",
-      "spec": "201 W a 800 W",
-      "min": 200,
-      "max": 800
+      "spec": "301 W a 990 W",
+      "min": 300,
+      "max": 990
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Casa en un apagón",
-      "spec": "Más de 800 W",
-      "min": 800
+      "spec": "Más de 990 W",
+      "min": 990
      }
     ],
     "key": "level"
@@ -1425,16 +1425,16 @@
       "id": "mediano",
       "name": "Mediano",
       "use": "Estación de energía o cabaña",
-      "spec": "41 W a 100 W",
+      "spec": "41 W a 110 W",
       "min": 40,
-      "max": 100
+      "max": 110
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Instalación de casa",
-      "spec": "Más de 100 W",
-      "min": 100
+      "spec": "Más de 110 W",
+      "min": 110
      }
     ],
     "key": "level"
@@ -1696,23 +1696,23 @@
       "id": "lenta",
       "name": "Lenta",
       "use": "Teléfono y audífonos",
-      "spec": "Hasta 30 W",
-      "max": 30
+      "spec": "Hasta 22 W",
+      "max": 22
      },
      {
       "id": "rapida",
       "name": "Rápida",
       "use": "Carga rápida de teléfono y tablet",
-      "spec": "31 W a 120 W",
-      "min": 30,
-      "max": 120
+      "spec": "23 W a 100 W",
+      "min": 22,
+      "max": 100
      },
      {
       "id": "muy-rapida",
       "name": "Muy rápida",
       "use": "Laptop o varios equipos",
-      "spec": "Más de 120 W",
-      "min": 120
+      "spec": "Más de 100 W",
+      "min": 100
      }
     ],
     "key": "level"
@@ -1731,23 +1731,23 @@
       "id": "lenta",
       "name": "Lenta",
       "use": "Teléfono y audífonos",
-      "spec": "Hasta 22 W",
-      "max": 22
+      "spec": "Hasta 30 W",
+      "max": 30
      },
      {
       "id": "rapida",
       "name": "Rápida",
       "use": "Carga rápida de teléfono y tablet",
-      "spec": "23 W a 45 W",
-      "min": 22,
-      "max": 45
+      "spec": "31 W a 60 W",
+      "min": 30,
+      "max": 60
      },
      {
       "id": "muy-rapida",
       "name": "Muy rápida",
       "use": "Laptop o varios equipos",
-      "spec": "Más de 45 W",
-      "min": 45
+      "spec": "Más de 60 W",
+      "min": 60
      }
     ],
     "key": "level"
@@ -2277,41 +2277,6 @@
    }
   ]
  },
- "Autos, bicicletas y motos/Baterías para auto": {
-  "axes": [
-   {
-    "label": "Batería",
-    "field": "battery_ah",
-    "criterion": "en amperes-hora",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Trayectos cortos",
-      "spec": "Hasta 6.5 Ah",
-      "max": 6.5
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Uso de diario",
-      "spec": "Más de 6.5 Ah, hasta 12 Ah",
-      "min": 6.5,
-      "max": 12
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Más autonomía",
-      "spec": "Más de 12 Ah",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Autos, bicicletas y motos/Llantas": {
   "axes": [
    {
@@ -2698,23 +2663,23 @@
       "id": "chico",
       "name": "Chico",
       "use": "El más compacto",
-      "spec": "Hasta 27\"",
-      "max": 27
+      "spec": "Hasta 21\"",
+      "max": 21
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "El tamaño más común",
-      "spec": "28\" a 43\"",
-      "min": 27,
-      "max": 43
+      "spec": "22\" a 32\"",
+      "min": 21,
+      "max": 32
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "El más grande",
-      "spec": "Más de 43\"",
-      "min": 43
+      "spec": "Más de 32\"",
+      "min": 32
      }
     ],
     "key": "level"
@@ -2730,31 +2695,26 @@
     "ramp": true,
     "tiers": [
      {
-      "id": "v8",
-      "name": "8 GB",
-      "use": "",
-      "spec": "8 GB",
-      "values": [
-       8
-      ]
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 8 GB",
+      "max": 8
      },
      {
-      "id": "v16",
-      "name": "16 GB",
-      "use": "",
-      "spec": "16 GB",
-      "values": [
-       16
-      ]
+      "id": "intermedia",
+      "name": "Intermedia",
+      "use": "Varias apps y juegos",
+      "spec": "9 GB a 16 GB",
+      "min": 8,
+      "max": 16
      },
      {
-      "id": "v32",
-      "name": "32 GB",
-      "use": "",
-      "spec": "32 GB",
-      "values": [
-       32
-      ]
+      "id": "alta",
+      "name": "Alta",
+      "use": "Edición y estaciones de trabajo",
+      "spec": "Más de 16 GB",
+      "min": 16
      }
     ],
     "key": "level"
@@ -2966,41 +2926,6 @@
       "use": "Uso rudo o continuo",
       "spec": "Más de 800 W",
       "min": 800
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Electrodomésticos/Máquinas de coser": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 70 W",
-      "max": 70
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "71 W a 120 W",
-      "min": 70,
-      "max": 120
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 120 W",
-      "min": 120
      }
     ],
     "key": "level"
@@ -4275,6 +4200,42 @@
   ],
   "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
  },
+ "Iluminación/Lámparas de emergencia": {
+  "axes": [
+   {
+    "label": "Luz",
+    "field": "lumens",
+    "criterion": "en lúmenes",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "suave",
+      "name": "Suave",
+      "use": "Ambiente y buró",
+      "spec": "Hasta 700 lm",
+      "max": 700
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Cuarto o cocina",
+      "spec": "701 lm a 2,000 lm",
+      "min": 700,
+      "max": 2000
+     },
+     {
+      "id": "potente",
+      "name": "Potente",
+      "use": "Exterior y naves",
+      "spec": "Más de 2,000 lm",
+      "min": 2000
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
  "Redes/Repetidores": {
   "axes": [
    {
@@ -5082,23 +5043,23 @@
       "id": "lenta",
       "name": "Lenta",
       "use": "Teléfono y audífonos",
-      "spec": "Hasta 20 W",
-      "max": 20
+      "spec": "Hasta 22 W",
+      "max": 22
      },
      {
       "id": "rapida",
       "name": "Rápida",
       "use": "Carga rápida de teléfono y tablet",
-      "spec": "21 W a 30 W",
-      "min": 20,
-      "max": 30
+      "spec": "23 W a 45 W",
+      "min": 22,
+      "max": 45
      },
      {
       "id": "muy-rapida",
       "name": "Muy rápida",
       "use": "Laptop o varios equipos",
-      "spec": "Más de 30 W",
-      "min": 30
+      "spec": "Más de 45 W",
+      "min": 45
      }
     ],
     "key": "level"

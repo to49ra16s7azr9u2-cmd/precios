@@ -305,6 +305,75 @@ Otros/Varios, que es donde el catálogo los tiene; el cargador de coche
 estrena De auto; el de pared se aparta cuando dice inalámbrico, Qi,
 MagSafe o solar para que caiga en su regla.
 
+La decimonovena es la búsqueda de "cargador": 7,948 anuncios, 7,815
+nuevos. La palabra es la más ambigua del catálogo. Dos de cada tres
+anuncios no son un cargador de consumo: 1,520 son cargadores de batería
+de carrito de golf, montacargas, silla de ruedas, lancha o vehículo
+eléctrico, y fuentes industriales de 36 a 96 V; otros 627 son
+refacciones de maquinaria pesada, porque en español "cargador de
+ruedas" es la pala mecánica y Amazon vende sus inyectores, bombas
+hidráulicas y turbocompresores con esa palabra en el título. Los dos
+grupos se descartan con su motivo, con guardas para que no se lleven un
+cargador de laptop de 20 V ni uno de coche de 65 W.
+
+Lo que sí es cargador se reparte por la subcategoría que ya tenía el
+catálogo, que hasta ahora casi nadie usaba: De pared (1,031), Para
+laptop (la marca de la laptop o la punta de 4.5 mm en el título),
+Inalámbrico (Qi, MagSafe, almohadilla), De auto (encendedor), Base de
+carga, Adaptador de corriente, De pilas, Cable, y Otros para lo que
+dice cargador y no cae en ninguna. Y lo que se carga pero tiene cajón
+propio sale de Cargadores: la batería y el arrancador de auto van a
+Baterías para auto, la batería de taladro a Accesorios para
+herramientas eléctricas, el cargador del patinete y el de la bicicleta
+eléctrica a sus refacciones, el de la afeitadora o la caminadora a
+Refacciones para electrodomésticos, el de la cámara a Accesorios de
+cámaras y el del dron a Accesorios de drones.
+
+La vigésima es "batería portátil": 11,992 anuncios, 11,508 nuevos. La
+palabra tiene tres sentidos en español y Amazon devuelve los tres. Uno
+es el power bank, que es lo que se buscaba. Otro es el instrumento: la
+captura trae 361 tarolas, baquetas, pedales de bombo, almohadillas de
+práctica y hasta la tarima donde se monta, y "batería portátil de 12
+pulgadas" no es un cargador; la regla de Instrumentos va antes que
+todas para que no acabe en power banks. El tercero es el paquete de
+celdas de litio de 12 o 24 V medido en amperios-hora (para autocaravana,
+panel solar o antena satelital): no tiene salida USB, no se mide en mAh
+y el catálogo no tiene dónde ponerlo, así que se descarta con su motivo.
+
+"Portátil" tiene el mismo problema: es el adjetivo y también la laptop.
+La regla de Laptops se adelanta a la de Memoria RAM porque "LG gram 17,
+32 GB LPDDR5" y "Lenovo V15, 8GB DDR5" nombran su memoria en el título
+y se iban a módulos sueltos; pide pulgadas o procesador, y descarta lo
+que abre con mouse, teclado, funda o mochila.
+
+Lo demás que la búsqueda trae a batería va a la categoría que le toca y
+que el catálogo ya tenía: 1,353 flejadoras eléctricas (la herramienta
+que cierra el fleje de una tarima, casi todas el mismo anuncio repetido)
+a Herramientas eléctricas; 412 cortacéspedes, motosierras, sopladoras y
+tijeras de podar a Jardinería; 652 arrancadores de coche a Baterías para
+auto; 236 ventiladores portátiles a Ventiladores; 431 estaciones de
+energía a las suyas; y las linternas y luces de trabajo a Lámparas de
+emergencia.
+
+La vigesimoprimera es "laptop": 3,577 anuncios y la más limpia de las
+tres de esta tanda, porque la palabra solo significa una cosa. Entran
+2,585 fichas, 2,132 de oficina y 195 gamer, que es como parte el
+catálogo y que hasta hoy no se decidía: las laptops entraban sin
+subcategoría. La gamer se reconoce por lo que dice de sí misma (gamer,
+gaming, ROG, TUF, Legion, Nitro, Victus) o por la GPU dedicada y los
+144 Hz de pantalla.
+
+La regla de Laptops pasa a abrir REGLAS. Su ficha técnica pisaba media
+docena de categorías: "webcam con obturador de privacidad" mandaba 339
+laptops a Webcams, "16GB RAM 512GB SSD" mandaba 208 a Memoria RAM, "8 GB
++ 256 GB" mandaba 151 a Celulares y "Pantalla 15.6"" mandaba 31 a
+Televisores. Puesta primero, las cuatro cosas se arreglan solas. Lo que
+se vende alrededor de la laptop se aparta por el principio del título
+(funda, mochila, soporte, dock, cargador) o por la guarda (pantalla LCD
+de repuesto, back cover, bisagras), y cada uno tiene su regla más abajo.
+La guarda también aparta el all-in-one y el monitor portátil, que dicen
+las mismas pulgadas y el mismo procesador.
+
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
 se resuelve a mano en EXPLICITOS, nunca por parecido.
@@ -366,11 +435,46 @@ FUERA = [
  (re.compile(r'^(?!.*(monitor|laptop|\d[\d.,]* ?mah|power ?bank))'
              r'(?=.*(gabinete|armario|casillero|taquilla|caja fuerte|'
              r'caja (de |para )(almacenamiento|seguridad|bloqueo|guardar)|closet|organizador|'
-             r'estacion(es)? de carga|cargador(es)? (usb )?.{0,25}(ranuras|puertos)|'
-             r'carrito de (almacenamiento|carga)|bolsa colgante|locker|con \d+ ranuras|\d+ ranuras|\d+ compartimentos|'
+             r'estacion(es)? de carga.{0,80}(aula|oficina|escuela|escolar|clase|evento|publico|segur|bloqueo|cerradura|candado|'
+             r'\d{2,} (puertos|ranuras|dispositivos|telefonos|celulares)|multiples (dispositivos|telefonos|celulares))|'
+             r'cargador(es)? .{0,30}\d{2,} (ranuras|puertos)|cerradura|candado|estacion de carga movil|'
+             r'cargador(es)? (portatil )?para (celular(es)?|telefonos?),? (estacion de carga|para multiples dispositivos)|carr(o|ito) de (almacenamiento|carga)|'
+             r'bolsa colgante|locker|\d{2,} ranuras|\d+ compartimentos|'
              r'(caja|organizador|nizer|estante).{0,30}(guardar|compartimentos)))'
              r'(?=.*(celular|telefono|movil|dispositivo|smartphone))'),
   'casillero o estación de carga para guardar celulares, no es un celular'),
+ # La búsqueda de "cargador" trae refacciones de maquinaria pesada
+ # ("cargador de ruedas" es la pala mecánica), cargadores de batería de
+ # carritos de golf, montacargas, lanchas y vehículos eléctricos, y
+ # fuentes industriales de 36 a 96 V. Nada de eso es un cargador de
+ # consumo; la guarda deja pasar lo que nombra una laptop, un USB o un
+ # celular, y lo que ya tiene cajón propio (patinete, herramienta,
+ # batería de auto).
+ (re.compile(r'inyector de combustible|bomba (hidraulica|de engranajes|de inyeccion)|cargador(a|es|as)? de (ruedas|orugas)|'
+             r'silenciador \d|pastillas de freno|parachoques|(para|compatible con) caterpillar|caterpillar cat \d|komatsu|bobcat|\bvolvo l\d|kit de carrocer|'
+             r'cargadora? (frontal|de cadenas)|\bjohn deere\b|turbocompresor|valvula (hidraulica|de control|solenoide)|bomba de (combustible|piston)|'
+             r'brazo de control|unidad de control del motor|elevador de carga|plataforma (de )?elevaci|carro hidraulico|ciguenal|'
+             r'cremallera de direccion|\bculata\b|alternador de \d+ ?v|monorrail|hitachi \(?zw'),
+  'refacción de maquinaria pesada ("cargador de ruedas"), no es un cargador'),
+ # El paquete de celdas de litio de 12 o 24 V con capacidad en Ah
+ # (para autocaravana, panel solar, antena satelital o carrito de
+ # limpieza) no es una batería portátil: no tiene salida USB ni se
+ # mide en mAh, y el catálogo no tiene dónde ponerlo.
+ (re.compile(r'^(?!.*(\d+ ?mah|\busb\b|power ?bank|celular|telefono|laptop|portatil de \d|tipo c))'
+             r'(?=.*bateria)(?=.*\b\d+ ?v\b)(?=.*\b\d+([.,]\d+)? ?ah\b)'),
+  'paquete de celdas de litio por amperios-hora, no es una batería portátil'),
+ (re.compile(r'^(?!(?:\S+ ){0,2}(soporte|montaje|funda)\b)(?!.*(patinete|scooter|hoverboard|bicicleta electrica|e-?bike|ebike|kukirin|segway|ninebot|'
+             r'dewalt|makita|milwaukee|ryobi|ridgid|craftsman|arrancador|mantenedor|jump starter|'
+             r'cargador (de |para )?bater[ií]as? (de |para )?(auto|coche|carro|moto|automovil)))'
+             r'(?=.*(carritos? de golf|golf cart|montacargas|carretilla elevadora|forklift|sillas? (de )?ruedas|(fuente de alimentacion|cargador de bateria).{0,40}\d{4} ?w\b|'
+             r'cargador (electrico )?(de|para) (valla|cerca|cerco)|baja impedancia|'
+             r'\bbarcos?\b|(uso|motor|bateria|cargador) marin[oa]|\bmarine\b|vehiculos? electricos?|coches? electricos?|autos? electricos?|cargador(es)? ev\b|\bev\b (cargador|charger|adaptador)|\bevse\b|j1772|tipo 2 iec|iec 62196|wallbox|wall box|'
+             r'ccs2|\bgbt\b|\d+ ?kw\b|victron|xantrex|samlex|\bmppt\b|ciclo profundo|plomo[- ]?acido|bateria agm|\bsla\b|cargador .{0,30}lifepo4|\blipo\b|'
+             r'^(?!.*(laptop|portatil|notebook|macbook|chromebook|\bdell\b|\bhp\b|lenovo|\basus\b|\bacer\b|\bmsi\b|thinkpad|inspiron|'
+             r'pavilion|ideapad|vivobook|zenbook|latitude|omen|legion|surface|razer|alienware|imac|usb|tipo c|\bpd\b|\bqc\b|'
+             r'magsafe|iphone|celular|telefono|smartphone|tablet|ipad|reloj|watch|mah|pilas))'
+             r'.*(\b(3[6-9]|[4-9]\d)([.,]\d)? ?v\b|\d+ ?ah\b|\d+ ?amperios|\d+ ?v[ /,]{0,3}\d{2,}([.,]\d)? ?a\b)))'),
+  'cargador de batería de vehículo o industrial, no es un cargador de consumo'),
  (re.compile(r'(persianas?|cortinas?|estor(es)?|tonos?) (verticales |plisad[ao]s? |enrollables? |opac[ao]s? )?celular|'
              r'persianas? (plisad|de panal|enrollable)|cortinas? (para|de) (ventana|techo|puerta)|nido de abeja|'
              r'bloqueador(es)? de luz|opac[ao]s? de bloqueo'),
@@ -565,7 +669,7 @@ FUERA = [
 CABECERA = [
  # "Funda para PC" y "Carcasa para computadora" son gabinetes mal traducidos;
  # el resto de fundas y carcasas son accesorios.
- (re.compile(r'\bfunda de viaje|\bfundas? (?!para pc\b)|\bestuche\b|\bcase (para|for)\b|^\S+ for .{0,40}\bcase\b|'
+ (re.compile(r'\bfunda de viaje|\bfundas? (?!para pc\b)|\bestuche\b|\bcase (para|for)\b|^(?:\S+ ){1,3}for .{0,40}\bcase\b|\bcase\b \(compatible|'
              r'\bcarcasa (?!(para|de|del) (pc|computadora|ordenador)\b)|'
              r'co2crea'), 'accesorio: funda/estuche/carcasa'),
  (re.compile(r'protector (de )?pantalla|bisel ahuecado|keyboard skin|'
@@ -613,6 +717,26 @@ PERI = (PC, 'Accesorios', 'cpu')
 COMP = (PC, 'Componentes', 'cpu')
 
 REGLAS = [
+ # La laptop abre REGLAS. Es la primera regla de todas porque su ficha
+ # técnica pisa media docena de categorías: "webcam con obturador" la
+ # mandaba a Webcams, "16GB RAM 512GB SSD" a Memoria RAM, "8 GB + 256
+ # GB" a Celulares y "Pantalla 15.6"" a Televisores. Lo que se vende
+ # alrededor de la laptop (funda, mochila, soporte, dock, pantalla de
+ # repuesto, cubierta) se aparta por el principio del título o por la
+ # guarda, y cada uno tiene su regla más abajo.
+ #
+ # Antes decía: la laptop antes que la RAM: "LG gram 17, 32 GB LPDDR5" y "Lenovo V15,
+ # 8GB DDR5, 256GB SSD" nombran su memoria en el título y se iban a
+ # Memoria RAM. Un módulo suelto no dice pulgadas ni trae procesador.
+ (re.compile(r'^(?!(?:\S+ ){0,3}(mouse|raton|teclado|combo|funda|maletin|mochila|soporte|base|cargador|adaptador|cable|bocina|altavoz|audifonos|webcam|hub|docking|dock|bolsa|estuche|backpack|porta ?laptop|set de viaje|pantalla|lcd|panel|cubierta|cover|adhesivos?|tornillos?|bisagra|ventilador|enfriador|memoria|disco|\bssd\b|\bram\b|bateria|pila|protector|mica|limpiador|'
+             r'juego de|kit de|paquete de|par de|extensor|monitor|impresora|proyector|escaner|silla|escritorio|lampara)\b)'
+             r'(?!.*(sodimm|udimm|modulo de memoria|solo memoria|kit de memoria|(para|compatible con|de repuesto para) (laptop|notebook|macbook)\b|mini telefono|telefono inteligente|smartphone|\bcelular(es)?\b|dual sim|back cover|bottom cover|lcd (display|screen|panel)|display panel|nexiq|diesel laptops|\baio\b|all[- ]in[- ]one|todo en uno|desktop|de escritorio|\bimac\b|mini pc|lavadora|proyecc|monitor portatil|extensor de pantalla|\btarola\b|baqueta|bombo|platillo|reproductor de dvd|para bateria|de bateria\b|flejad))'
+             r'(?=.*(\blaptops?\b|\bnotebooks?\b|\bportatil(es)?\b|macbook|chromebook|ultrabook|omnibook|\bgram\b\s?\d|thinkpad|ideapad|'
+             r'vivobook|zenbook|inspiron|latitude|pavilion|elitebook|probook|aspire|\bnitro\b|predator|omen|legion|'
+             r'victus|swift|yoga \d|thinkbook|travelmate|modern \d|katana|cyborg|\btuf gaming\b|rog (zephyrus|strix|flow)))'
+             r'(?=.*(\d{2}([.,]\d)? ?(pulgadas|")|\bfhd\b|\bwqxga\b|\bwuxga\b|intel (core|ultra|celeron|n\d)|ryzen|'
+             r'\bi[3579]-?\d|snapdragon x|win(dows)? 1[01]|chrome ?os|mediatek|\bm[1-5] (pro|max|chip)?|chip m[1-5]|\bssd\b|\bemmc\b|\d+ ?gb de ram|\bcpu\b|microsoft (365|office)|ultra ?(ligero|delgado|thin)))'),
+  ('Laptops', None, 'laptop')),
  # Limpieza de ventanas. Va antes que Lavadoras y que Aspiradoras porque
  # estos títulos se describen a sí mismos con las dos palabras: hay un
  # "Robot limpiacristales, aspiradora Inteligente de 2600 Pa" y hasta un
@@ -852,18 +976,45 @@ REGLAS = [
  (re.compile(r'\bcafetera'), ('Cafeteras', None, 'coffee')),
  # Energía portátil, en tres escalones y en este orden.
  #
+ # "Batería" en español también es el instrumento, y la búsqueda de
+ # baterías portátiles trae tarolas, baquetas, pedales de bombo,
+ # almohadillas de entrenamiento y hasta la tarima donde se monta. Va
+ # antes que todo lo demás para que "batería portátil de 12 pulgadas"
+ # no acabe en power banks ni en laptops.
+ (re.compile(r'^(?!.*(\d+ ?mah|power ?bank|litio|recargable de \d|celda|tilta|\bnp-|\ben-el|\blp-e|dmw-|estacion de carga|camara|\bv-mount\b))'
+             r'(?=.*(bateria (electronica|acustica|musical|infantil|de practica|para principiantes)|'
+             r'(juego|kit|set) de bateria|bateria de \d piezas|'
+             r'\btarola\b|\bbaqueta|pedal (de|doble) bombo|pedal de bombo|platillos?( de| para)? (bateria|charles|hi-?hat)|'
+             r'(almohadillas?|pad(s)?) de (entrenamiento|practica).{0,20}bateria|banco (de|para) bateria|'
+             r'(asiento|trono) (de|para) bateria|(anillos?|amortiguador(es)?) silenciador(es)? .{0,20}(bateria|tarola)|'
+             r'afinador de (bateria|tarola)|parche (de|para) (tarola|bombo|tom)|'
+             r'plataforma (portatil )?para bateria))'),
+  ('Instrumentos musicales', 'Baterías', 'mic')),
+ # La batería de bicicleta eléctrica y la de patinete: son refacciones,
+ # no power banks, aunque digan "batería de litio portátil".
+ (re.compile(r'^(?!.*(power ?bank|banco de energia))'
+             r'(?=.*((bateria|celda).{0,60}(bicicleta electrica|e-?bike|ebike|triciclo electrico)|'
+             r'(bicicleta electrica|e-?bike|ebike).{0,40}bateria|'
+             r'bateria .{0,40}(portaequipaje|montaje en rack|rack trasero|anderson)))'),
+  ('Refacciones', 'Para bicicletas eléctricas', 'gear')),
  # Primero la batería de cámara, que no es ninguno de los otros dos: las
  # ocho estaciones de carga Tilta y el hub del X3 cargan celdas NP-FZ100,
  # LP-E6 y DMW-BLK22, y el catálogo guarda esas piezas en Accesorios de
  # cámaras. Tilta, además, solo fabrica accesorios de cámara: su brazo
  # articulado entra por la marca.
- (re.compile(r'\btilta\b|np-?fz100|lp-?e6|dmw-?blk|bateria (para|de) camara|'
-             r'hub de cargador de bateria'),
+ (re.compile(r'^(?!.*(power ?bank|\b([5-9]\d{3}|\d{5,}) ?mah|\d{2},\d{3} ?mah))'
+             r'(?=.*(\btilta\b|np-?fz100|lp-?e6|dmw-?blk|bateria (para|de) camara|'
+             r'hub de cargador de bateria|\ben-el\d|\bnp-(f\d|fw|bx|fm)|\blp-e\d|\bnb-\d+l|\bdmw-bl|\bblx-?1|\bbln-?1|\bbls-?5|'
+             r'(bateria|cargador)s?.{0,40}(nikon|canon|sony (alpha|np-)|fujifilm|olympus|gopro|insta360|smallrig)|'
+             r'cargador de baterias? (para|de) camaras?))'),
   ('Cámaras y fotografía', 'Accesorios', 'camera')),
+ (re.compile(r'^(?!.*(estacion de energia|power station|osmo|pocket))(?=.*((cargador|bateria)s?.{0,40}(\bdji\b|\bdrones?\b|\bdron\b|mavic|phantom \d|avata)|'
+             r'(\bdji\b|\bdrones?\b|\bdron\b|mavic).{0,40}(cargador|bateria)))'),
+  ('Drones', 'Accesorios', 'drone')),
  # Después la estación de energía, que es el aparato con toma de corriente
  # de 110 V: la DJI Power 1000, la EcoFlow DELTA 3 y las DaranEner. El
  # catálogo tiene la subcategoría desde hace tiempo.
- (re.compile(r'estacion de energia|central electrica portatil|'
+ (re.compile(r'estacion de energia|estacion electrica|generador solar|central electrica portatil|'
              r'\bpower station\b'),
   ('Otros', 'Estaciones de energía', 'battery')),
  # Y al final la batería portátil, que sube hasta aquí desde el final de
@@ -872,32 +1023,20 @@ REGLAS = [
  # y cinco power banks "para MacBook Pro" se iban a Laptops. Junto a "power
  # bank" van las cinco maneras de decir lo mismo que trae la captura:
  # batería externa, magnética, inalámbrica, MagSafe y powerstation.
- (re.compile(r'^(?!.*(bocina|barra de sonido|soundbar|altavo))'
+ (re.compile(r'^(?!.*(bocina|barra de sonido|soundbar|altavo|\bev\b|nivel [12]|vehiculo|'
+             r'carrito|golf|encendedor|lir\d|celda de boton|^(?!.*mah).*panel solar|celula solar|celda solar|almohadilla|'
+             r'\bdiy\b|caja (de|para) (bateria|banco de energia|powerbank|pilas)|soporte de bateria|sin celdas|'
+             r'probador|comprobador|medidor de (voltaje|bateria)|analizador|cortacesped|pulverizador|nebulizador|'
+             r'tijeras|silla (de )?ruedas|\d{2} ?v ?max|stanley|dewalt|makita|milwaukee|ryobi))'
              r'(?=.*(power ?bank|powerbank|bateria portatil|banco de energia|'
-             r'cargador(es)? portatil|bateria externa|power ?station|'
+             r'cargador(es)? portatil(?!.{0,80}(legion|thinkpad|inspiron|pavilion|ideapad|vivobook|zenbook|latitude|omen|precision \d|aspire|elitebook|probook|chromebook|macbook|laptop|notebook|reloj|\bwatch\b|auto electrico|tipo 2))|'
+             r'bateria externa|power ?station|'
              r'bateria (magnetica|inalambrica|magsafe)|\d+ ?mah bateria|'
              r'cargador inalambrico portatil))'),
   ('Baterías portátiles', None, 'battery')),
  # El cargador de pared y el cable, que la captura trae sueltos y hasta hoy
  # no tenían regla: el pack GAN de 140 W de DJI, el CUKTECH de 65 W, el
  # cubo de 20 W y el cable Lightning de UGREEN.
- (re.compile(r'cargador (de|para) (el )?(coche|auto|carro|automovil|vehiculo)|cargador vehicular|car charger'),
-  ('Cargadores y adaptadores', 'De auto', 'plug')),
- (re.compile(r'^(?!.*(wireless|inalambric|\bqi\b|magsafe|solar))'
-             r'(?=.*(cargador (de pared|de corriente|de casa)|\bcharger\b|cargador (tipo c|usb ?c|rapido)\b|'
-             r'\d+ ?w (usb-?c |tipo c |rapido )?(charger|cargador)|'
-             r'cargador.{0,25}\bgan\b|\bgan\b.{0,25}cargador|'
-             r'cargador (usb ?c |tipo c )?\d+ ?w\b|cubo de carga|carga rapida cubo|'
-             r'pack de carga))'),
-  ('Cargadores y adaptadores', 'De pared', 'plug')),
- (re.compile(r'^(?:\S+ ){0,2}cable (alargador|usb|lightning|tipo c|usb-?c|de carga|cargador|magnetico|trenzado|convertidor|de impresora|divisor|auxiliar|micro ?usb|hdmi|de datos)|'
-             r'lightning cable|cable mfi'),
-  ('Cargadores y adaptadores', 'Cable', 'plug')),
- # La impresora 3D y la terminal de cobro, una de cada una en la captura y
- # las dos con su lugar hecho en el catálogo.
- (re.compile(r'impresora 3d'), ('Impresión 3D', 'Impresoras', 'printer')),
- (re.compile(r'terminal para tarjetas|mercado pago point|punto de venta'),
-  ('Equipo comercial', 'Punto de venta', 'factory')),
  # El celular, cuando el título es solo marca y modelo. Pide abrir con la
  # marca y descarta de una vez los Buds, los Watch y las Tab, que empiezan
  # igual y no son teléfonos.
@@ -935,6 +1074,78 @@ REGLAS = [
              r'telefono inteligente|smartphone|(personas|adultos) mayores|botones? grandes?|boton sos|\bsenior\b|'
              r'\b(flip|cell|feature) ?phone\b|telefono (celular|movil) (2g|3g|4g|desbloqueado)))'),
   ('Celulares', None, 'phone')),
+ # La búsqueda de "cargador" trae de todo lo que se carga. Lo que tiene
+ # cajón fuera de Cargadores va primero: la batería de auto y su
+ # cargador/arrancador, la batería y el cargador de herramienta
+ # eléctrica, el cargador del patinete y de la bicicleta eléctrica, y el
+ # eliminador de repuesto de una afeitadora o una caminadora.
+ (re.compile(r'cargador (de |para )?bater[ií]as? (de |para )?(auto|coche|carro|moto|automovil|12 ?v|6/12 ?v|12/24 ?v)|'
+             r'\bmantenedor\b|battery tender|arrancador|jump starter|booster de bateria|'
+             r'cargador (de |para )?bater[ií]as?.{0,40}(6/12 ?v|12 ?v|amperimetro|pinzas)'),
+  ('Autos, bicicletas y motos', 'Baterías para auto', 'car')),
+ (re.compile(r'\b(dewalt|makita|milwaukee|ryobi|ridgid|craftsman|worx|einhell|greenworks|metabo|hilti|kobalt|porter-?cable|skil)\b.{0,60}(bateria|cargador)|'
+             r'(bateria|cargador).{0,60}\b(dewalt|makita|milwaukee|ryobi|ridgid|craftsman|worx|einhell|greenworks|metabo|hilti|kobalt|skil)\b|'
+             r'bosch (gxs|gba|gal|gaa)|black ?(\+|&|and|y) ?decker.{0,40}(bateria|cargador)|driver de impacto|taladro (inalambrico|percutor|atornillador|electrico)|bateria (para|de) taladro|'
+             r'herramientas? (inalambrica|electrica)|\b(18|20|40) ?v (max|xr|lxt|onepwr|power ?share)|\bm18\b|\blxt\b|'
+             r'kit de (inicio|arranque).{0,30}bateria|bateria (portatil |de repuesto )?(de |para )?\d{2} ?v ?(max|ion de litio)|\b\d{2} ?v max\b|\b(stanley|dewalt|makita|milwaukee|ryobi|ridgid|craftsman|worx|einhell|greenworks|metabo|hilti|kobalt|skil|bauer|hart)\b.{0,40}\b\d+[.,]?\d* ?a(h)?\b'),
+  ('Herramientas', 'Accesorios para herramientas eléctricas', 'wrench')),
+ (re.compile(r'(cargador|bateria).{0,60}(patinete|scooter|hoverboard|kukirin|segway|ninebot)|(patinete|scooter|hoverboard).{0,60}(cargador|bateria)'),
+  ('Refacciones', 'Para patinetas eléctricas', 'gear')),
+ (re.compile(r'(cargador|bateria).{0,60}(bicicleta electrica|e-?bike|ebike)|(bicicleta electrica|e-?bike|ebike).{0,60}(cargador|bateria)'),
+  ('Refacciones', 'Para bicicletas eléctricas', 'gear')),
+ (re.compile(r'(cargador|adaptador|fuente de alimentacion|eliminador).{0,60}(para|compatible con|de) .{0,40}(afeitadora|norelco|one ?blade|masaje|masajeador|'
+             r'caminadora|eliptica|rowing|\bremo\b|nordictrack|peloton|bicicleta estatica|humidificador|purificador|maquina de coser|licuadora|mosquito|walkie|resmed|cpap|'
+             r'\bbose\b|sonos|\bjbl\b|\bbeats\b|barra de sonido|altavoz|bocina|concentrador de oxigeno|inogen)'),
+  ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
+ # Y los cargadores de consumo, por subcategoría del catálogo: el de auto
+ # (encendedor), el de pilas AA, el de laptop (punta o marca de laptop en
+ # el título), el de pared (USB, tipo C, GaN, watts), el inalámbrico, la
+ # base o estación de carga, el adaptador de corriente de un aparato y el
+ # cable. Lo que dice "cargador" y no cae en ninguno queda en Otros, al
+ # final de REGLAS.
+ (re.compile(r'cargador(es)? (de|para) (el )?(coche|auto|carro|automovil|vehiculo)|cargador vehicular|car charger|'
+             r'encendedor de cigarrillos|divisor de enchufe para encendedor|pared/auto|pared y auto|'
+             r'cargador(es)?.{0,30}\b(auto|coche|carro)\b'),
+  ('Cargadores y adaptadores', 'De auto', 'plug')),
+ (re.compile(r'cargador (de |para )?(pilas|baterias) (aa|aaa|recargables|nimh|18650|9 ?v|de boton|lir|cr)|cargador de pilas|'
+             r'cargador universal de pilas|\b(aa|aaa)\b.{0,40}cargador|\b18650\b|cargador .{0,20}\b(aa|aaa)\b|'
+             r'(baterias?|pilas?) recargables? (aa|aaa|c|d)\b.{0,40}cargador|cargador .{0,60}(baterias?|pilas?) recargables?\b|pilas recargables (aa|aaa)'),
+  ('Cargadores y adaptadores', 'De pilas', 'plug')),
+ (re.compile(r'^(?!.*(celular|telefono|smartphone).{0,30}(\d+ ?gb|dual sim))'
+             r'(?!.*(\bmouse\b|raton|teclado|audifono|auricular|\breloj\b|smartwatch|bocina|altavoz).*(cargador|carga inalambrica|base de carga))'
+             r'(?=.*(cargador inalambrico|carga inalambrica|\bqi2?\b|magsafe.{0,20}cargador|cargador (rapido )?magsafe|wireless charger|almohadilla de carga|cargador magnetico|'
+             r'cargador magnetico (para|iphone|3 en 1|2 en 1)|estacion de carga (inalambrica|magnetica)))'),
+  ('Cargadores y adaptadores', 'Inalámbrico', 'plug')),
+ (re.compile(r'^(?!.*(casillero|armario|gabinete|cerradura|\d{2,} (puertos|ranuras)|\bgan\b|\d{3} ?w\b|\d puertos|multipuerto|\bev\b|\d+ ?kw|\bmouse\b|raton|teclado|audifono|auricular|reloj|watch|bocina|altavoz|aspiradora|robot|camara|dron|control|mando|consola))'
+             r'(?=.*(base de carga|estacion de carga|dock de carga|soporte de carga|charging (dock|station|stand)|cargador de escritorio|base cargadora))'),
+  ('Cargadores y adaptadores', 'Base de carga', 'plug')),
+ (re.compile(r'^(?!.*(iphone|samsung|celular|telefono|smartphone|airpods|ipad|tablet|\bgan\b|multipuerto|\d puertos))'
+             r'(?=.*((cargador|adaptador).{0,80}(laptop|portatil(es)?|notebook|macbook|chromebook|\bdell\b|\bhp\b|lenovo|\basus\b|\bacer\b|\bmsi\b|'
+             r'thinkpad|inspiron|pavilion|ideapad|vivobook|zenbook|latitude|omen|legion|surface|razer|alienware|gigabyte|precision \d|\bxps\b|'
+             r'elitebook|probook|aspire|nitro|predator)|(adaptador|cargador) de (ca|corriente|alimentacion).{0,60}(laptop|portatil|notebook)|'
+             r'punta \(?(de )?\d|punta (cuadrada|delgada|redonda)|'
+             r'(\bdell\b|\bhp\b|lenovo|\basus\b|\bacer\b|\bmsi\b|inspiron|thinkpad|surface|\brog\b|strix|\btuf\b).{0,60}(cargador|adaptador|\bpsu\b)))'),
+  ('Cargadores y adaptadores', 'Para laptop', 'plug')),
+ (re.compile(r'^(?!.*(wireless|inalambric|\bqi\b|magsafe|solar|pilas|reloj|watch|soporte|elevador|brazo|enfriador|ventilador))'
+             r'(?=.*(cargador(es)? (de pared|de corriente|de casa|usb|tipo c|usb ?c|rapido|carga rapida|multisalida|dual|doble|de \d+ ?w|'
+             r'original|con cable|combo|de viaje|de red|electrico)|\bcharger\b|'
+             r'cargador(es)? (para|compatible con) (iphone|samsung|celular|telefono|smartphone|android|ipad|tablet|apple|xiaomi|motorola|huawei|oppo|honor)|'
+             r'\d+ ?w (usb-?c |tipo c |rapido )?(charger|cargador)|'
+             r'cargador.{0,25}\bgan\b|\bgan\b.{0,25}cargador|'
+             r'cargador (usb ?c |tipo c )?\d+ ?w\b|cubo de carga|carga rapida cubo|bloque de carga|'
+             r'pack de carga|kit de cargador|quick charge|power delivery|\bqc ?3|multicontacto|power adapter|bloque de carga(dor)?|adaptador(es)? de carga( rapida)?.{0,20}puertos|'
+             r'estacion de carga.{0,40}(\d puertos|usb|\bgan\b|\d+ ?w\b)|carga-dor|'
+             r'adaptador de (corriente|carga) (usb|pd|de \d+ ?w|tipo c|usb-?c)|adaptador de corriente.{0,20}\d+ ?w\b|'
+             r'cargador.{0,30}(puertos?|salidas)|cargador.{0,30}\d+ ?(w|a)\b.{0,30}(usb|tipo c|puerto)))'),
+  ('Cargadores y adaptadores', 'De pared', 'plug')),
+ (re.compile(r'^(?!.*(ventilador|\bpwm\b|argb|\brgb\b|gabinete))(?:\S+ ){0,3}cable (alargador|usb|lightning|tipo c|usb-?c|de carga|cargador|magnetico|trenzado|convertidor|de impresora|divisor|auxiliar|micro ?usb|hdmi|de datos|de nailon|de nylon)|'
+             r'lightning cable|cable mfi'),
+  ('Cargadores y adaptadores', 'Cable', 'plug')),
+ # La impresora 3D y la terminal de cobro, una de cada una en la captura y
+ # las dos con su lugar hecho en el catálogo.
+ (re.compile(r'impresora 3d'), ('Impresión 3D', 'Impresoras', 'printer')),
+ (re.compile(r'terminal para tarjetas|mercado pago point|punto de venta'),
+  ('Equipo comercial', 'Punto de venta', 'factory')),
  # El soporte de celular no es el celular: el catálogo lo tiene en Varios.
  # El ventilador que se pega atrás para jugar ("Refrigeradores de
  # teléfonos móviles") va al mismo cajón, antes que los refrigeradores.
@@ -947,10 +1158,9 @@ REGLAS = [
              r'(refrigerador(es)?|enfriador|ventilador) (de |para )?(telefonos?|celular(es)?|moviles?)\b))'),
   ('Otros', 'Varios', 'box')),
  (re.compile(r'panel(es)? solar'), ('Otros', 'Paneles solares', 'battery')),
- (re.compile(r'^(?!.*(celular|telefono|smartphone).{0,30}(\d+ ?gb|dual sim))'
-             r'(?!.*(\bmouse\b|raton|teclado|audifono|auricular|\breloj\b|smartwatch|bocina|altavoz))'
-             r'(?=.*(cargador inalambrico|carga inalambrica|base de carga|\bqi\b|magsafe.{0,20}cargador|cargador magsafe|wireless charger))'),
-  ('Cargadores y adaptadores', 'Inalámbrico', 'plug')),
+ (re.compile(r'^(?!.*(80 ?plus|\batx\b|\bsfx\b|modular|gabinete|\bpc\b|gamer))'
+             r'(?=.*(adaptador de corriente|eliminador|adaptador (de )?(ca|ac)\b|adaptador ac/dc|fuente de (alimentacion|poder).{0,30}\d+ ?v\b|cable de alimentacion.{0,30}\d+ ?v\b|adaptador de cargador))'),
+  ('Cargadores y adaptadores', 'Adaptador de corriente', 'plug')),
  (re.compile(r'adaptador(es)? (otg|tipo c|usb-?c|usb|de viaje|universal)|convertidor .{0,20}otg|cable otg'),
   ('Cargadores y adaptadores', 'Otros', 'plug')),
  (re.compile(r'computadora escritorio (completa|amd|intel)|pc gamer factor'),
@@ -1052,8 +1262,8 @@ REGLAS = [
   ('Muebles', 'Escritorios', 'sofa')),
  # Después de webcams y soportes: "para iMac" es un soporte, "Intel NUC" es
  # una placa VESA y el sistema Yealink es "todo en uno" pero es una cámara.
- (re.compile(r'all[- ]in[- ]one|\baio desktop|todo en uno|\bimac\b|omnistudio|proone|'
-             r'panel industrial'),
+ (re.compile(r'^(?!.*(sodimm|udimm|modulo de memoria|adaptador|cargador|fuente|red electrica))(?=.*(all[- ]in[- ]one|\baio desktop|todo en uno|\bimac\b|omnistudio|proone|'
+             r'panel industrial))'),
   ('Computadoras de escritorio', 'All in One', 'desktop')),
  # Lo que se le cuelga a un mini PC va antes que el mini PC: soportes de
  # escritorio/VESA y la base dock del Mac mini son periféricos.
@@ -1100,6 +1310,40 @@ REGLAS = [
  (re.compile(r'^(?!.*(correa|funda|protector|cargador|cable|smartphone \+|\+ (reloj|smartwatch)|mica))'
              r'(?=.*(smart ?watch|reloj inteligente|galaxy watch|apple watch|\bwatch (s|gt|fit)\d?\b))'),
   ('Relojes inteligentes', 'Smartwatches', 'watch')),
+ # El ventilador y el calentador de batería no son componentes de PC: el
+ # catálogo los tiene en Climatización desde que entraron los de torre.
+ (re.compile(r'^(?!.*(\bcpu\b|procesador|gabinete|\bpc\b|\bitx\b|socket|disipador|radiador|argb|\bpwm\b|chasis))'
+             r'(?=.*(ventilador(es)? (portatil|de mano|recargable|de camping|de cuello|de piso|de mesa|de torre|nebuliza|de carriola)|'
+             r'mini ventilador|ventilador.{0,30}(bateria|\d+ ?mah)|abanico (portatil|recargable|de mano)))'),
+  ('Climatización', 'Ventiladores', 'snowflake')),
+ (re.compile(r'^(?!.*(\bcpu\b|procesador|\bpc\b|gabinete|para auto|desempanador))'
+             r'(?=.*(calefactor|calentador de ambiente|estufa electrica portatil))'),
+  ('Climatización', 'Calefactores', 'snowflake')),
+ # La hidrolavadora a batería y la sopladora: herramienta de jardín, no
+ # lavadora de ropa ni electrodoméstico de cocina.
+ (re.compile(r'^(?!.*(ropa|prendas|lavadora de ropa))'
+             r'(?=.*(hidrolavadora|lavadora a presion|lavadoras a presion|lavadora de (coche|auto|carro)|'
+             r'lavado a chorro|jet wash|pressure washer|\bpsi\b.{0,30}(inalambric|bateria)|'
+             r'soplador(a)? de (hojas|nieve)|motosierra|desbrozadora|podadora|cortasetos|pala para nieve|cortacesped|cortacespedes|tijeras de podar|pulverizador(a)?|nebulizador (frio|ulv)|fumigador|aspersor|sierra de poda|'
+             r'engrasadora|cortador de cable|cabrestante|polipasto|montacargas? electrico portatil))'),
+  ('Herramientas', 'Jardinería', 'wrench')),
+ # La flejadora (la herramienta que cierra el fleje de una tarima) es
+ # eléctrica, no de soldadura: dice "de soldadura" porque suelda el
+ # fleje de PET. Son 1,275 en la captura, casi todas el mismo anuncio
+ # repetido por vendedores distintos, y van con las herramientas
+ # eléctricas porque eso es lo que son.
+ (re.compile(r'maquina flejadora|flejadora (electrica|portatil|automatica)|maquina de flejado|'
+             r'herramienta flejadora|empacadora electrica'),
+  ('Herramientas', 'Herramientas eléctricas', 'wrench')),
+ (re.compile(r'soldadora a bateria|soldadora inalambrica|kit de soldadura|cautin'),
+  ('Herramientas', 'Soldadura', 'wrench')),
+ # Linternas, luces de trabajo y lámparas recargables: el catálogo las
+ # guarda en Iluminación, que ya tiene las de emergencia y las de exterior.
+ (re.compile(r'^(?!.*(camara|proyector|aro de luz|tira led|\btv\b|monitor))'
+             r'^(?!(?:\S+ ){0,3}(banda|correa|pulsera|cinta|bolsa|soporte)\b)'
+             r'(?=.*(\blinterna\b|luz de trabajo|luces de inundacion|reflector led|lampara de campamento|'
+             r'lampara recargable|luz de lectura|farol(a)? (led|solar|recargable)|luz de emergencia|lampara de emergencia))'),
+  ('Iluminación', 'Lámparas de emergencia', 'bulb')),
  (re.compile(r'memoria ram|\bram\b|sodimm|udimm|\bddr[45]|modulo de memoria'),
   (PC, 'Memoria RAM', 'cpu')),
  # El enfriador de aire de la sala, no el del procesador. El catálogo
@@ -1118,6 +1362,11 @@ REGLAS = [
              r'almohadilla decorativa|para placa base|placa madre'), COMP),
  (re.compile(r'teclado|keyboard'), ('Teclados', None, 'keyboard')),
  (re.compile(r'\bmouse\b|\braton\b|\bratones\b'), ('Mouse', None, 'mouse')),
+ # Lo que dice "cargador" y no cayó en ninguna subcategoría: el del reloj
+ # inteligente, el de la cámara vieja, el genérico "para Samsung". Al
+ # final de REGLAS para que cualquier regla más precisa gane antes.
+ (re.compile(r'^(?:\S+ ){0,3}cargador(es)?\b|cargador (para|compatible con|de reloj|magnetico|generico)'),
+  ('Cargadores y adaptadores', 'Otros', 'plug')),
 ]
 
 # Anuncios que ninguna regla decide bien; cada uno leído a mano.
@@ -1317,6 +1566,16 @@ def tramo(mah):
     if mah <= 20000: return '10,000 a 20,000 mAh'
     return 'Más de 20,000 mAh'
 
+def sub_laptop(tn):
+    """Gamer u Oficina, que es como parte el catálogo. La gamer se anuncia
+    como tal: lo dice en el nombre, o trae GPU dedicada (RTX, GTX, Radeon
+    RX) o una pantalla de más de 120 Hz. Lo demás es de oficina."""
+    if re.search(r'\bgamer\b|\bgaming\b|\brtx ?\d|\bgtx ?\d|radeon rx ?\d|\brog\b|\btuf\b|predator|nitro \d|'
+                 r'legion|victus|katana|cyborg|omen|\balienware\b|raider|stealth|zephyrus|\d{3} ?hz|'
+                 r'\b(1[4-9]\d|[2-9]\d\d) ?hz\b', tn):
+        return 'Gamer'
+    return 'Oficina'
+
 def sub_teclado(tn):
     return 'Mecánicos' if re.search(r'mecanic', tn) else 'Membrana' if 'membrana' in tn else None
 
@@ -1480,6 +1739,7 @@ for it in captura:
     if hit is pista:
         por_dept += 1
     elif cat == 'Baterías portátiles': sub = tramo(capacidad_mah(it['title']))
+    elif cat == 'Laptops': sub = sub_laptop(tn)
     elif cat == 'Teclados': sub = sub_teclado(tn)
     elif cat == 'Mouse': sub = sub_mouse(tn)
     elif cat == 'Televisores': sub = sub_tv(tn)
