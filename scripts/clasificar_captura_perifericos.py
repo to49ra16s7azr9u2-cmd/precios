@@ -386,6 +386,30 @@ llevaba audífonos, power banks y cables por la lista de compatibilidad.
 El armario de carga de tabletas (el de las aulas) se descarta con los
 casilleros de celulares, que ya tenían regla.
 
+La vigesimotercera es "monitor": 12,691 anuncios y el error más grande
+que tenía el clasificador. La regla de accesorios de monitor pedía solo
+que el título dijera "monitor", así que 7,562 monitores de verdad
+entraban como accesorios: la categoría Monitores no crecía y Accesorios
+de monitor se llenaba de pantallas. Ahora hay dos reglas. La de
+accesorios pide que el título nombre el accesorio (brazo, soporte,
+base, elevador, filtro de privacidad, barra de luz, placa VESA), y la
+de Monitores abre REGLAS junto a Laptops y Tabletas.
+
+La de Monitores pide la palabra en las primeras doce del título, porque
+la marca y el modelo van antes ("MSI Pro MP275W E2 27\" IPS 1920 x 1080
+(FHD) Monitor de Oficina"), más una seña de pantalla: pulgadas, FHD,
+QHD, 4K, los hercios, el tipo de panel o el conector. Y aparta por la
+guarda lo que dice "monitor" sin serlo: el monitor de bebé, el de
+signos vitales, el de calidad del aire, el de estudio (que es una
+bocina y el catálogo guarda en Bocinas), el de reposacabezas de coche y
+la tableta gráfica. "VESA" no puede estar en esa guarda: un monitor de
+verdad presume su montaje VESA, y ponerlo ahí tiraba justo los buenos.
+
+Monitores estrena sus tres subcategorías, que existían y estaban casi
+vacías: Portátiles (el que se lleva en la mochila, incluido el extensor
+de pantalla de laptop), Gaming (lo dice el título, o pasa de 120 Hz) y
+Oficina para el resto.
+
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
 se resuelve a mano en EXPLICITOS, nunca por parecido.
@@ -768,6 +792,25 @@ REGLAS = [
              r'(?=^(?:\S+ ){0,6}(\btablets?\b|\btabletas?\b|\bipad\b|galaxy tab\b|matepad|redmi pad|idea ?tab|'
              r'poco pad|surface pro|\bpad (\d|pro|mini|se)\b))'),
   ('Tabletas', None, 'tablet')),
+ # El monitor, tercera de las tres que abren REGLAS. Sin ella la palabra
+ # "monitor" caía en Accesorios de monitor y la búsqueda entera (12,691
+ # anuncios) se iba ahí. Pide que el título abra con el monitor o su
+ # marca, y aparta lo que solo lo menciona: el soporte, el brazo, la
+ # laptop "con monitor externo", el monitor de bebé y el de signos
+ # vitales, que no son pantallas de computadora.
+ (re.compile(r'^(?!(?:\S+ ){0,3}(soporte|brazo|base|montaje|riser|elevador|funda|\bcase\b|protector|filtro|'
+             r'cable|adaptador|divisor|\bkvm\b|barra|visera|parasol|limpiador|juego de|kit de|'
+             r'paquete de|par de)\b)'
+             r'(?!.*((placa|adaptador|soporte) vesa|monitor (de )?(bebe|beb|signos|presion|ritmo|glucosa|cardiaco|fetal|ambiental|'
+             r'calidad del aire|temperatura|humedad|co2|energia|red|actividad)|baby monitor|videovigilancia|'
+             r'reposacabezas|para (coche|auto|carro)|todo en uno|all[- ]in[- ]one|\baio\b|'
+             r'monitores? (de |tipo )?estudio|monitor de audio|drawing (tablet|monitor)|tableta (grafica|digitalizadora)|(soporte|brazo|base|montaje|riser|elevador|peana) (de |para )(monitor|pantalla)|(funda|estuche|maletin|mochila|cable|adaptador|divisor|filtro de privacidad|barra de luz) (para |de )(monitor|pantalla)|bocinas? de (repisa|columna|libreria)|altavoz de (columna|repisa)|monitor audio\b))'
+             r'(?=^(?:\S+ ){0,12}\bmonitor(es)?\b|^(?:\S+ ){0,4}(extensor de (pantalla|tela)|pantalla portatil|segunda pantalla)|'
+             r'^(?:\S+ ){0,3}(pantalla|display) (para |de )?(pc|computadora|gamer|gaming))'
+             r'(?=.*(\d{2}([.,]\d)? ?(pulgadas|\"|inch|in\b)|\bfhd\b|full hd|\bqhd\b|\buhd\b|\b[24]k\b|1920|2560|3840|'
+             r'1080 ?p|1440 ?p|2160 ?p|\bhdr\b|pantalla (tactil|adicional|extra)|'
+             r'\d{2,3} ?hz|\bips\b|\bva\b|\btn\b|\boled\b|curvo|\bhdmi\b|displayport|\bvga\b))'),
+  ('Monitores', None, 'monitor')),
  # Limpieza de ventanas. Va antes que Lavadoras y que Aspiradoras porque
  # estos títulos se describen a sí mismos con las dos palabras: hay un
  # "Robot limpiacristales, aspiradora Inteligente de 2600 Pa" y hasta un
@@ -1221,7 +1264,6 @@ REGLAS = [
   ('Televisores', None, 'tv')),
  # Antes que los videojuegos: el monitor portátil enumera "PS5, Xbox, Switch"
  # como lo que se le puede conectar.
- (re.compile(r'monitor portatil'), ('Monitores', 'Portátiles', 'monitor')),
  # Los videojuegos dejan pasar al teclado y al mouse: el HyperX Alloy Core
  # y los dos ratones Corsair listan "PS5" y "Xbox" entre lo que aceptan, y
  # con eso se iban a Accesorios de videojuegos. Un título que dice "teclado"
@@ -1280,10 +1322,16 @@ REGLAS = [
  (re.compile(r'microfono (inalambrico|de solapa|condensador|lavalier)|'
              r'kit de microfono'),
   ('Instrumentos musicales', 'Micrófonos', 'mic')),
- # "monitor" va antes que los componentes para que "Soporte de escritorio
- # para un monitor" no caiga en muebles; el único componente que dice
- # "monitor" (la pantalla de un AIO) está en EXPLICITOS.
- (re.compile(r'monitor'), (PC, 'Accesorios de monitor', 'cpu')),
+ # Accesorios de monitor: el brazo, la base, el soporte VESA, la barra de
+ # luz y el filtro de privacidad. Antes bastaba con que el título dijera
+ # "monitor", y por eso la búsqueda de monitores metía 7,562 monitores
+ # de verdad en accesorios. Ahora hay que nombrar el accesorio.
+ (re.compile(r'(brazo|soporte|base|montaje|riser|elevador|peana|adaptador vesa|placa vesa)\b.{0,40}(monitor|pantalla)|'
+             r'(?<!de )monitor(es)? (con|para) (brazo|soporte|base|montaje|riser|elevador|peana)\b|'
+             r'(barra de luz|luz de pantalla|screen ?bar|filtro de privacidad|protector de pantalla|'
+             r'visera|parasol|limpiador de pantalla|calibrador de color)\b.{0,40}(monitor|pantalla)|'
+             r'\bvesa\b|kvm\b|divisor (hdmi|displayport|dp)|cable (hdmi|displayport|dvi|vga)'),
+  (PC, 'Accesorios de monitor', 'cpu')),
  # Muebles: el escritorio sobre el que va la computadora, no la computadora.
  # Solo si la palabra abre el título: "RAM de escritorio" y "PC de escritorio"
  # la usan como adjetivo.
@@ -1592,6 +1640,20 @@ def tramo(mah):
     if mah <= 20000: return '10,000 a 20,000 mAh'
     return 'Más de 20,000 mAh'
 
+def sub_monitor(tn):
+    """Gaming, Portátiles u Oficina. El portátil se lleva la pantalla en la
+    mochila (lo dice el título o es un extensor de laptop); el gamer se
+    anuncia como tal o pasa de 100 Hz, que es el corte que usa el
+    catálogo. Lo demás es de oficina."""
+    if re.search(r'monitor portatil|portatil.{0,20}monitor|extensor de pantalla|pantalla portatil|'
+                 r'monitor (usb-?c )?de viaje|segunda pantalla portatil', tn):
+        return 'Portátiles'
+    if re.search(r'\bgamer\b|\bgaming\b|ultragear|odyssey|\brog\b|\btuf\b|predator|nitro|'
+                 r'mobiuz|\baorus\b|\bagon\b|\bg-?sync\b|freesync premium|'
+                 r'\b(1[2-9]\d|[2-9]\d\d) ?hz\b', tn):
+        return 'Gaming'
+    return 'Oficina'
+
 def sub_laptop(tn):
     """Gamer u Oficina, que es como parte el catálogo. La gamer se anuncia
     como tal: lo dice en el nombre, o trae GPU dedicada (RTX, GTX, Radeon
@@ -1765,6 +1827,7 @@ for it in captura:
     if hit is pista:
         por_dept += 1
     elif cat == 'Baterías portátiles': sub = tramo(capacidad_mah(it['title']))
+    elif cat == 'Monitores': sub = sub_monitor(tn)
     elif cat == 'Laptops': sub = sub_laptop(tn)
     elif cat == 'Teclados': sub = sub_teclado(tn)
     elif cat == 'Mouse': sub = sub_mouse(tn)
