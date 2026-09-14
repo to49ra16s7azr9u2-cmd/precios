@@ -1418,23 +1418,23 @@
       "id": "chico",
       "name": "Chico",
       "use": "Cargar teléfono y luces",
-      "spec": "Hasta 40 W",
-      "max": 40
+      "spec": "Hasta 30 W",
+      "max": 30
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "Estación de energía o cabaña",
-      "spec": "41 W a 110 W",
-      "min": 40,
-      "max": 110
+      "spec": "31 W a 100 W",
+      "min": 30,
+      "max": 100
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Instalación de casa",
-      "spec": "Más de 110 W",
-      "min": 110
+      "spec": "Más de 100 W",
+      "min": 100
      }
     ],
     "key": "level"
@@ -2433,23 +2433,23 @@
       "id": "suave",
       "name": "Suave",
       "use": "Para oír música con claridad",
-      "spec": "Hasta 270 W",
-      "max": 270
+      "spec": "Hasta 190 W",
+      "max": 190
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Más presencia y bajos",
-      "spec": "271 W a 600 W",
-      "min": 270,
-      "max": 600
+      "spec": "191 W a 400 W",
+      "min": 190,
+      "max": 400
      },
      {
       "id": "fuerte",
       "name": "Fuerte",
       "use": "Para que se oiga desde afuera",
-      "spec": "Más de 600 W",
-      "min": 600
+      "spec": "Más de 400 W",
+      "min": 400
      }
     ],
     "key": "level"
@@ -2471,16 +2471,16 @@
       "id": "mediana",
       "name": "Mediana",
       "use": "La medida más común",
-      "spec": "Más de 6.5\", hasta 9\"",
+      "spec": "Más de 6.5\", hasta 8\"",
       "min": 6.5,
-      "max": 9
+      "max": 8
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Woofers y subwoofers",
-      "spec": "Más de 9\"",
-      "min": 9
+      "spec": "Más de 8\"",
+      "min": 8
      }
     ],
     "key": "size"

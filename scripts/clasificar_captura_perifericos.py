@@ -410,6 +410,58 @@ vacías: Portátiles (el que se lleva en la mochila, incluido el extensor
 de pantalla de laptop), Gaming (lo dice el título, o pasa de 120 Hz) y
 Oficina para el resto.
 
+La vigesimocuarta es "bocina": 12,134 anuncios. Aquí la regla de la
+bocina ya estaba bien; lo que faltaba era el reparto. Bocinas tenía
+cuatro subcategorías desde hace tiempo (Pequeña, Mediana, Grande y
+Barras de sonido) y 1,802 fichas sin ninguna, porque nunca se escribió
+el desempate. Ahora sub_bocina lo decide con lo que el título trae de
+verdad: la barra de sonido lo dice en el nombre, y para el tamaño la
+seña más honesta son los watts, que salen en 1,917 de los anuncios. De
+100 W para arriba es la torre o el bafle de fiesta; hasta 15 W es la
+portátil de bolsillo; en medio queda todo lo demás. Cuando no hay
+watts se decide por cómo se vende: "torre de sonido", "bafle
+profesional", "boombox" y los conos de 12 pulgadas o más son grandes;
+"mini", "clip", "de ducha" y "de llavero" son chicas.
+
+Lo que rodea a la bocina sale de la categoría. El soporte de piso, la
+pata de aislamiento y la rejilla se descartan con su motivo (eran 18
+fichas ya en el catálogo que estaban como bocinas). El cable de altavoz
+y el SpeakOn van a Cable. El driver suelto, el cono y la bobina de voz
+se descartan: son la pieza de dentro, para reparar o para armar una
+caja. Y la bocina de coche se reconoce mejor: antes pedía "bocina para
+auto" y ahora también vale "altavoces de coche", el tweeter y el
+altavoz de agudos cuando abren el título, y los componentes. El
+"diafragma" no puede ir suelto en esa lista: los audífonos in-ear
+presumen su diafragma dinámico y se iban todos.
+
+La vigesimoquinta es "audífonos": 6,317 anuncios. Como con las bocinas,
+la regla estaba bien y lo que fallaba era el reparto. sub_audio pedía
+que el título dijera la forma (diadema o in-ear) y la conexión (cable o
+bluetooth), y devolvía None si faltaba cualquiera de las dos o si
+aparecían las dos: de 4,729 audífonos, 4,260 se quedaban sin
+subcategoría.
+
+Ahora reconoce las dos cosas como las nombra la tienda. Para la forma:
+circumaural, supraaural, "sobre la oreja", de copa, orejeras, headset,
+casco y conducción ósea son diadema; intraural, intrauditivo, de botón,
+earbuds, TWS, gancho de oreja, banda para el cuello y semi-in-ear son
+de botón. Y las familias de modelo que dicen la forma sin decirla: los
+WF y los IE de Sennheiser son de botón, los WH, los HD, los ATH-M y los
+QuietComfort son de diadema. Cuando la forma sale dos veces (un
+"headset" que también dice in-ear) gana la que aparece antes en el
+título, que es la que nombra el producto; cuando el inalámbrico
+menciona su cable auxiliar, gana el bluetooth, que es como se usa. Con
+eso pasan de 469 a 2,030 fichas con subcategoría.
+
+Los 3,124 que siguen sin ella son los que de verdad no dicen la forma
+("Auriculares Bluetooth 5.3 con micrófono"). Adivinar que son de botón
+porque la mayoría lo es sería inventar, y el catálogo prefiere el hueco.
+
+Aparte, la regla de Audífonos ya no se lleva lo que se le pone al
+audífono: las almohadillas y las puntas de repuesto, la espuma, el
+estuche, y el escritorio que trae "gancho para auriculares" en la
+descripción.
+
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
 se resuelve a mano en EXPLICITOS, nunca por parecido.
@@ -479,6 +531,18 @@ FUERA = [
              r'(caja|organizador|nizer|estante).{0,30}(guardar|compartimentos)))'
              r'(?=.*(celular|telefono|movil|dispositivo|smartphone|tablets?|tabletas?|\bipad\b))'),
   'casillero o estación de carga para guardar celulares, no es un celular'),
+ # El soporte, la pata de aislamiento y la rejilla son lo que se le pone
+ # a la bocina, no la bocina.
+ (re.compile(r'^(?:\S+ ){0,4}(soportes?|bases?|patas?|almohadillas?|aisladores?|rejillas?|parrillas?|montajes?)\b'
+             r'.{0,40}(altavo|bocina|parlante|speaker|subwoofer)|'
+             r'(altavo(z|ces)|bocinas?|parlantes?).{0,30}(soporte de (pared|piso|techo)|patas de aislamiento)'),
+  'soporte o accesorio de bocina, no es la bocina'),
+ # El driver suelto, el cono y la bobina son la pieza de dentro de una
+ # bocina, no la bocina: se compran para reparar o para armar una caja.
+ (re.compile(r'^(?:\S+ ){0,3}(woofer|subwoofer|tweeter|driver) \S+ (de repuesto|sin caja|para gabinete)|'
+             r'\bwoofer speaker\b|kit de reparacion de (altavo|bocina)|cono de (altavo|bocina)|'
+             r'diafragma (de |para )(repuesto|altavo|bocina|compresion|driver)|(altavo|bocina).{0,20}diafragma de repuesto'),
+  'refacción de bocina, no es la bocina'),
  # La búsqueda de "cargador" trae refacciones de maquinaria pesada
  # ("cargador de ruedas" es la pala mecánica), cargadores de batería de
  # carritos de golf, montacargas, lanchas y vehículos eléctricos, y
@@ -1287,9 +1351,16 @@ REGLAS = [
  # sino en "Bocinas para auto" (cincuenta y cinco fichas contra
  # ninguna), y se reconocen por cómo se venden -- coaxiales, de 6x9, de dos
  # o tres vías, de rango medio, o diciendo "para auto".
+ # El cable de altavoz y el driver suelto no son la bocina: uno es cable
+ # y el otro la pieza que va dentro de una caja que hay que construir.
+ (re.compile(r'^(?:\S+ ){0,3}cables? (de |para )?(altavo|bocina|parlante|speaker)|cable speakon|'
+             r'(altavo(z|ces)|bocinas?) internos? (de repuesto|izquierd|derech)|'
+             r'(altavo(z|ces)|bocinas?) de repuesto (para|compatible)'),
+  ('Cargadores y adaptadores', 'Cable', 'plug')),
  (re.compile(r'\bcoaxial|\b6 ?x ?9\b|(rango medio|medio rango)|'
-             r'bocinas? (para|de) auto|autoestereo|car audio|'
-             r'altavoces de componentes'),
+             r'(bocinas?|altavo(z|ces)|parlantes?|tweeters?|woofers?) (para|de) (auto|coche|carro|automovil|vehiculo)|'
+             r'autoestereo|car audio|\bdoor speakers?\b|^(?:\S+ ){0,4}(altavoz de agudos|\btweeters?\b|super bullet)|'
+             r'altavo(z|ces) (de )?componentes?|bocinas? (de )?componentes?|\bcomponent speakers?\b'),
   ('Autos, bicicletas y motos', 'Bocinas para auto', 'speaker')),
  # La bocina, con las cuatro maneras de nombrarla que usa esta captura:
  # "bocina", "bafle", "altavoz/altavoces" y la máquina de cantar karaoke,
@@ -1312,7 +1383,11 @@ REGLAS = [
  # dice "auriculares", y las marcas grandes venden "Buds" y "headphones"
  # sin traducir. "Diadema" sola no basta -- también es una vincha -- así
  # que pide cable, micrófono o inalámbrico al lado.
- (re.compile(r'^(?!(?:\S+ ){0,2}(soporte|cables? (auxiliar|usb|micro|divisor|de carga|tipo c|hdmi)|estante|gafas|lentes)\b)'
+ (re.compile(r'^(?!(?:\S+ ){0,3}(soporte|cables? (auxiliar|usb|micro|divisor|de carga|tipo c|hdmi)|estante|gafas|lentes|'
+             r'mesa|escritorio|silla|mueble|organizador|gancho|percha|almohadilla|espuma|repuesto|puntas?|'
+             r'adaptador|estuche|funda|bolsa)\b)'
+             r'(?!.*(gancho para (auriculares|audifonos)|puntas? para (audifonos|auriculares)|'
+             r'almohadillas? (de repuesto )?para (audifonos|auriculares)|espuma de repuesto))'
              r'(?=.*(audifonos|auriculares|\bearbuds?\b|\bbuds\b|headphones|'
              r'\bin[- ]?ear\b|monitoreo in[- ]?ear|'
              r'\bdiadema\b.{0,30}(cable|microfono|inalambric)))'),
@@ -1640,6 +1715,31 @@ def tramo(mah):
     if mah <= 20000: return '10,000 a 20,000 mAh'
     return 'Más de 20,000 mAh'
 
+def sub_bocina(tn):
+    """Barras de sonido, Grande, Pequeña o Mediana, que es como parte el
+    catálogo. La barra lo dice en el nombre. Para el tamaño la seña más
+    honesta que trae el título son los watts: de 100 W para arriba es la
+    torre o el bafle de fiesta, hasta 15 W es la portátil de bolsillo, y
+    en medio queda todo lo demás. Cuando no hay watts se decide por cómo
+    se vende: "torre", "profesional" y "boombox" son grandes; "mini",
+    "clip" y "de ducha" son chicas."""
+    if re.search(r'barra de sonido|\bsound ?bar\b|teatro en casa|home theater|\bhtib\b', tn):
+        return 'Barras de sonido'
+    m = re.search(r'(\d{2,4})\s?w(?:atts?)?\b', tn)
+    w = int(m.group(1)) if m else None
+    if re.search(r'torre de sonido|bafle (profesional|amplificado|de \d{2})|altavoz de torre|'
+                 r'\bboombox\b|party ?(speaker|box)|karaoke.{0,20}(profesional|\d{3} ?w)|'
+                 r'\b(1[2-9]|2\d)\s?(pulgadas|")|\bpa\b system|linea de arreglo', tn):
+        return 'Grande'
+    if re.search(r'\bmini\b|\bclip\b|llavero|de ducha|de bolsillo|portatil pequen|'
+                 r'\b[1-5]\s?(pulgadas|")', tn):
+        return 'Pequeña'
+    if w is not None:
+        if w >= 100: return 'Grande'
+        if w <= 15: return 'Pequeña'
+        return 'Mediana'
+    return 'Mediana'
+
 def sub_monitor(tn):
     """Gaming, Portátiles u Oficina. El portátil se lleva la pantalla en la
     mochila (lo dice el título o es un extensor de laptop); el gamer se
@@ -1766,12 +1866,47 @@ def marca_celular(tn):
             'cat': 'CAT PHONES'}.get(m.group(1), m.group(1).upper())
 
 
+# Las dos maneras de nombrar la forma del audífono que usa la tienda, más
+# las familias de modelo que la dicen sin decirla: los Sony WF y los IE de
+# Sennheiser son de botón, los WH y los HD son de diadema. "Auriculares
+# inalámbricos" a secas no dice la forma y se queda sin subcategoría: el
+# catálogo prefiere el hueco a la mentira.
+RX_DIADEMA = re.compile(r'diadema|over[- ]ear|on[- ]ear|circumaural|supra ?a?ural|de copa|orejeras|'
+                        r'sobre (la )?(oreja|el oido)|alrededor de (la )?oreja|encima de la oreja|'
+                        r'\bheadphones?\b|\bheadset\b|\bcascos?\b|\bvincha\b|banda para la cabeza|'
+                        r'conduccion osea|bone conduction|\bwh-?\d|\bhd ?[2-9]\d{2}\b|\bath-m\d|\bdt ?\d{3}\b|'
+                        r'\bqc ?\d{2}\b|quietcomfort|\bmomentum \d|\bxm[3-6]\b|crusher|hesh')
+RX_EARBUD  = re.compile(r'in[- ]ear|earbuds?\b|\btws\b|true wireless|intraura|intraaura|intraudit|'
+                        r'de boton\b|\bbotones?\b(?!.*grandes)|earphones?\b|\bairpods?\b|\bbuds\b|'
+                        r'banda para el cuello|neckband|de cuello|\bwf-?\d|\bie ?\d{3}\b|\bse ?\d{3}\b|'
+                        r'\bfreebuds\b|\bgalaxy buds\b|\bpods\b|gancho (para|de) (la )?oreja|clip de oreja|ear ?hook|'
+                        r'\bsemi-?in-?ear\b|auriculares? de boton')
+RX_INAL    = re.compile(r'inalambric|bluetooth|wireless|\btws\b|2\.4 ?ghz')
+RX_CABLE   = re.compile(r'con cable|alambric|\b3\.5 ?mm\b|\bjack\b|cableado|\bwired\b|'
+                        r'conector (usb|tipo c|usb-?c|lightning)')
+
 def sub_audio(tn):
-    diadema = bool(re.search(r'diadema|over[- ]ear|on[- ]ear', tn))
-    earbud = bool(re.search(r'in[- ]ear|earbud|tws|true wireless', tn))
-    inal = bool(re.search(r'inalambric|bluetooth|wireless', tn))
-    cable = bool(re.search(r'con cable|alambric|3\.5 ?mm', tn))
-    if diadema == earbud or inal == cable: return None
+    """Diadema o Earbuds, con cable o inalámbricos, que son las cuatro
+    subcategorías del catálogo. Cuando la forma sale dos veces (un
+    "headset" que también dice "in-ear") gana la que aparezca antes en el
+    título, que es la que nombra el producto. Cuando no sale ninguna, o
+    cuando no se sabe si lleva cable, se devuelve None: media tienda se
+    anuncia como "Auriculares Bluetooth" a secas y adivinar la forma sería
+    inventar."""
+    d = RX_DIADEMA.search(tn)
+    e = RX_EARBUD.search(tn)
+    if d and e:
+        diadema = d.start() < e.start()
+    elif d or e:
+        diadema = bool(d)
+    else:
+        return None
+    inal, cable = bool(RX_INAL.search(tn)), bool(RX_CABLE.search(tn))
+    if inal == cable:
+        # Un inalámbrico que además trae cable auxiliar dice las dos cosas;
+        # gana el bluetooth, que es lo que define cómo se usa.
+        if inal and re.search(r'bluetooth|inalambric|wireless|\btws\b', tn): inal, cable = True, False
+        else: return None
     return (('Diadema' if diadema else 'Earbuds') + ' ' +
             (('inalámbrica' if diadema else 'inalámbricos') if inal else 'con cable'))
 
@@ -1827,6 +1962,7 @@ for it in captura:
     if hit is pista:
         por_dept += 1
     elif cat == 'Baterías portátiles': sub = tramo(capacidad_mah(it['title']))
+    elif cat == 'Bocinas': sub = sub_bocina(tn)
     elif cat == 'Monitores': sub = sub_monitor(tn)
     elif cat == 'Laptops': sub = sub_laptop(tn)
     elif cat == 'Teclados': sub = sub_teclado(tn)
