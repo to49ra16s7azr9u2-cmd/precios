@@ -594,6 +594,182 @@ MARTI_PRESETS["todo"] = list(MARTI_MAP)
 
 
 # ---------------------------------------------------------------------------
+# Juguetrón (juguetron.mx): juguetería, todo el árbol es juguete
+# ---------------------------------------------------------------------------
+# El árbol tiene dos mitades: las categorías de tipo de juguete (2..15) y
+# un montón de nodos de LICENCIA (Lego, Marvel, Star Wars, Disney...) que
+# repiten los mismos productos agrupados por marca. Solo se recorren las
+# primeras: entrar por las licencias traería los mismos ids otra vez y
+# add_vtex_products ya descarta duplicados, pero serían miles de
+# peticiones para nada.
+
+def jt_creatividad(name):
+    """La rama "Creatividad y Arte" mezcla el set de manualidades con el
+    llavero y la libreta de la misma licencia. Solo entra lo que es un
+    juguete: lo demás es papelería o baratija, que el sitio no compara."""
+    n = norm(name)
+    if any(k in n for k in ("maquillaje", "belleza", "uñas", "unas postizas", "esmalte",
+                            "llavero", "libreta", "cuaderno", "pluma", "lapiz", "boligrafo",
+                            "sticker", "calcomania", "mochila", "bolsa", "cartuchera")):
+        return None
+    if "rompecabezas" in n or "puzzle" in n:
+        return "Juegos de mesa", None, "toy"
+    if any(k in n for k in ("masa", "play-doh", "plastilina", "slime", "arena magica")):
+        return "Juguetes y bebés", "Juguetes educativos", "toy"
+    if any(k in n for k in ("pintura", "pinta", "dibujo", "acuarela", "crayon", "gis",
+                            "manualidad", "kit de", "set de", "ciencia", "experimento",
+                            "microscopio", "telescopio")):
+        return "Juguetes y bebés", "Juguetes educativos", "toy"
+    return None
+
+
+def jt_aire_libre(name):
+    n = norm(name)
+    if "bicicleta" in n or "triciclo" in n:
+        return "Juguetes y bebés", "Triciclos" if "triciclo" in n else "Otros", "toy"
+    if "patin" in n or "scooter" in n or "patineta" in n:
+        return "Juguetes y bebés", "Montables", "toy"
+    if "balon" in n or "pelota" in n:
+        return "Deportes y fitness", "Balones", "dumbbell"
+    if "alberca" in n or "inflable" in n or "casa de juego" in n or "resbaladilla" in n:
+        return "Juguetes y bebés", "Juguetes para exterior", "toy"
+    return "Juguetes y bebés", "Juguetes para exterior", "toy"
+
+
+def jt_gadgets(name):
+    n = norm(name)
+    if "radio control" in n or "radiocontrol" in n or "dron" in n:
+        return "Juguetes y bebés", "Vehículos a control remoto", "toy"
+    return "Juguetes y bebés", "Otros", "toy"
+
+
+def jt_bebes(name):
+    n = norm(name)
+    if "carriola" in n:
+        return "Juguetes y bebés", "Carriolas", "toy"
+    if "montable" in n or "andadera" in n:
+        return "Juguetes y bebés", "Montables", "toy"
+    if "peluche" in n or "abrazable" in n:
+        return "Juguetes y bebés", "Peluches", "toy"
+    return "Juguetes y bebés", "Bebés", "toy"
+
+
+JUGUETRON_MAP = {
+    "2": jt_creatividad,
+    "3": fijo("Juegos de mesa", None, "toy"),
+    "4": fijo("Juguetes y bebés", "Bloques de construcción", "toy"),
+    "5": jt_gadgets,
+    "6": fijo("Juguetes y bebés", "Juguetes educativos", "toy"),
+    "9": jt_bebes,
+    "10": fijo("Juguetes y bebés", "Figuras de acción", "toy"),
+    "11": jt_aire_libre,
+    "12": fijo("Juguetes y bebés", "Muñecas", "toy"),
+    "13": fijo("Juguetes y bebés", "Vehículos a control remoto", "toy"),
+    "14": fijo("Juguetes y bebés", "Juguetes para exterior", "toy"),
+    "15": fijo("Juguetes y bebés", "Peluches", "toy"),
+}
+
+JUGUETRON_PRESETS = {"todo": list(JUGUETRON_MAP)}
+
+
+# ---------------------------------------------------------------------------
+# Miniso (miniso.com.mx): variedades; entra lo que el sitio ya compara
+# ---------------------------------------------------------------------------
+# De su árbol quedan fuera Moda (6), Salud y Belleza (5), Papelería (9),
+# Snacks (408), Viajes (12: casi todo bolsas y neceseres) y Temporada (10),
+# por el mismo criterio que rige a Chedraui: ropa, cosméticos, consumibles
+# y bolsas no tienen dónde compararse acá.
+
+def mn_hogar(name):
+    n = norm(name)
+    if "lampara" in n or "luz led" in n:
+        return "Iluminación", "Lámparas de escritorio", "bulb"
+    if "cojin" in n or "manta" in n or "cobija" in n or "almohada" in n:
+        return "Blancos y ropa de cama", "Almohadas" if "almohada" in n else "Cobijas", "pillow"
+    if "organizador" in n or "caja" in n or "cesto" in n or "canasta" in n:
+        return "Otros", "Organización del hogar", "box"
+    if "espejo" in n or "cortina de bano" in n or "jabonera" in n or "cepillo de dientes" in n:
+        return cat_bano(name)
+    return None
+
+
+def mn_tecnologia(name):
+    n = norm(name)
+    if "bocina" in n or "altavoz" in n:
+        return "Bocinas", None, "speaker"
+    if "audifono" in n or "auricular" in n:
+        return "Audífonos", None, "headphones"
+    if "cable" in n:
+        return "Cargadores y adaptadores", "Cable", "plug"
+    if "cargador" in n or "adaptador" in n:
+        return "Cargadores y adaptadores", "De pared", "plug"
+    if "power bank" in n or "bateria portatil" in n:
+        return "Baterías portátiles", None, "battery"
+    if "mouse" in n or "teclado" in n or "mousepad" in n:
+        return cat_computo_accesorios(name)
+    return cat_telefonia_accesorios(name)
+
+
+MINISO_MAP = {
+    "4/38": mn_hogar,
+    "4/47": cat_bano,
+    "4/53": mn_hogar,
+    "4/409": fijo("Otros", "Organización del hogar", "box"),
+    "4/427": fijo("Iluminación", "Lámparas de escritorio", "bulb"),
+    "8": cat_juguetes,
+    "11": mn_tecnologia,
+    "54": fijo("Mascotas", None, "paw"),
+    "49/58": None,   # vasos y termos: consumo, sin categoría donde comparar
+}
+MINISO_MAP = {k: v for k, v in MINISO_MAP.items() if v is not None}
+MINISO_PRESETS = {"todo": list(MINISO_MAP)}
+
+
+# ---------------------------------------------------------------------------
+# Gandhi (gandhi.com.mx): libros
+# ---------------------------------------------------------------------------
+# Gandhi obliga a una decisión: el sitio no tiene categoría de Libros. Se
+# agrega, porque el libro es el producto que MEJOR se compara de todo el
+# catálogo -- el ISBN es el mismo en todas las tiendas, así que dos ofertas
+# del mismo libro son el mismo objeto sin necesidad de firma ni de adivinar.
+# Es lo contrario de lo que pasa con los electrodomésticos.
+#
+# Ebooks (2) y Audiolibros (3) quedan fuera: son licencias, no objetos, y no
+# se comparan por precio entre tiendas de la misma manera. Los nodos de
+# Colegio (261) son listas escolares, no catálogo.
+
+def gd_accesorios(name):
+    n = norm(name)
+    if "juego" in n or "rompecabezas" in n or "puzzle" in n:
+        return "Juegos de mesa", None, "toy"
+    if "funda" in n or "cubierta" in n:
+        return None
+    return None
+
+
+GANDHI_MAP = {
+    "1/12": fijo("Libros", "Literatura y novela", "book"),
+    "1/13": fijo("Libros", "Juvenil", "book"),
+    "1/14": fijo("Libros", "Literatura y novela", "book"),
+    "1/15": fijo("Libros", "Cómic y manga", "book"),
+    "1/16": fijo("Libros", "Infantil", "book"),
+    "1/17": fijo("Libros", "No ficción", "book"),
+    "1/18": fijo("Libros", "Ciencia", "book"),
+    "1/19": fijo("Libros", "Estilo de vida", "book"),
+    "1/20": fijo("Libros", "Arte", "book"),
+    "1/21": fijo("Libros", "Gastronomía", "book"),
+    "1/22": fijo("Libros", "Especializados", "book"),
+    "253/254": fijo("Tabletas", "Lectores electrónicos", "tablet"),
+    "4/201": gd_accesorios,
+}
+GANDHI_MAP = {k: v for k, v in GANDHI_MAP.items() if v is not None}
+GANDHI_PRESETS = {
+    "libros": [p for p in GANDHI_MAP if p.startswith("1/")],
+    "todo": list(GANDHI_MAP),
+}
+
+
+# ---------------------------------------------------------------------------
 # Registro
 # ---------------------------------------------------------------------------
 
@@ -625,6 +801,33 @@ TIENDAS = {
         "refacciones_auto": set(),
         "store": {"id": "marti", "name": "Martí", "hubRegion": None,
                   "color": "#D31F2A", "logo": "MT", "typicalShippingDays": [3, 8]},
+    },
+    "juguetron": {
+        "nombre": "Juguetrón",
+        "dominio": "www.juguetron.mx",
+        "categorias": JUGUETRON_MAP,
+        "presets": JUGUETRON_PRESETS,
+        "refacciones_auto": set(),
+        "store": {"id": "juguetron", "name": "Juguetrón", "hubRegion": None,
+                  "color": "#00A3E0", "logo": "JT", "typicalShippingDays": [3, 8]},
+    },
+    "miniso": {
+        "nombre": "Miniso",
+        "dominio": "www.miniso.com.mx",
+        "categorias": MINISO_MAP,
+        "presets": MINISO_PRESETS,
+        "refacciones_auto": set(),
+        "store": {"id": "miniso", "name": "Miniso", "hubRegion": None,
+                  "color": "#E60012", "logo": "MN", "typicalShippingDays": [3, 8]},
+    },
+    "gandhi": {
+        "nombre": "Gandhi",
+        "dominio": "www.gandhi.com.mx",
+        "categorias": GANDHI_MAP,
+        "presets": GANDHI_PRESETS,
+        "refacciones_auto": set(),
+        "store": {"id": "gandhi", "name": "Gandhi", "hubRegion": None,
+                  "color": "#F5A800", "logo": "GA", "typicalShippingDays": [2, 7]},
     },
 }
 
