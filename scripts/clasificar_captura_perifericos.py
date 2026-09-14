@@ -374,6 +374,18 @@ de repuesto, back cover, bisagras), y cada uno tiene su regla más abajo.
 La guarda también aparta el all-in-one y el monitor portátil, que dicen
 las mismas pulgadas y el mismo procesador.
 
+La vigesimosegunda es "tablet": 7,980 anuncios. La regla de Tabletas sube
+al principio de REGLAS, al lado de la de Laptops y por la misma razón:
+su ficha técnica la mandaba a Memoria RAM ("16GB RAM 128GB ROM", 265
+casos), a Celulares ("8 GB de RAM, solo wifi", 256) y al all-in-one
+("panel táctil todo en uno", 138). Pero la tableta necesita una guarda
+que la laptop no: media tienda se anuncia como "compatible con iPhone,
+iPad y tablets", así que la palabra tiene que salir en las primeras
+seis del título y no vale en cualquier parte. Sin eso, la regla se
+llevaba audífonos, power banks y cables por la lista de compatibilidad.
+El armario de carga de tabletas (el de las aulas) se descarta con los
+casilleros de celulares, que ya tenían regla.
+
 Mismo criterio que las capturas anteriores: la categoría se decide por lo
 que el título dice; lo que no encaja se descarta con su motivo y lo dudoso
 se resuelve a mano en EXPLICITOS, nunca por parecido.
@@ -433,7 +445,7 @@ FUERA = [
  # de un aula o una oficina. Nombran "celulares" en cada título y sin esta
  # guarda caían en gabinetes de PC.
  (re.compile(r'^(?!.*(monitor|laptop|\d[\d.,]* ?mah|power ?bank))'
-             r'(?=.*(gabinete|armario|casillero|taquilla|caja fuerte|'
+             r'(?=.*(gabinete|armario(s)? de carga|armario|casillero|taquilla|caja fuerte|'
              r'caja (de |para )(almacenamiento|seguridad|bloqueo|guardar)|closet|organizador|'
              r'estacion(es)? de carga.{0,80}(aula|oficina|escuela|escolar|clase|evento|publico|segur|bloqueo|cerradura|candado|'
              r'\d{2,} (puertos|ranuras|dispositivos|telefonos|celulares)|multiples (dispositivos|telefonos|celulares))|'
@@ -441,7 +453,7 @@ FUERA = [
              r'cargador(es)? (portatil )?para (celular(es)?|telefonos?),? (estacion de carga|para multiples dispositivos)|carr(o|ito) de (almacenamiento|carga)|'
              r'bolsa colgante|locker|\d{2,} ranuras|\d+ compartimentos|'
              r'(caja|organizador|nizer|estante).{0,30}(guardar|compartimentos)))'
-             r'(?=.*(celular|telefono|movil|dispositivo|smartphone))'),
+             r'(?=.*(celular|telefono|movil|dispositivo|smartphone|tablets?|tabletas?|\bipad\b))'),
   'casillero o estación de carga para guardar celulares, no es un celular'),
  # La búsqueda de "cargador" trae refacciones de maquinaria pesada
  # ("cargador de ruedas" es la pala mecánica), cargadores de batería de
@@ -737,6 +749,25 @@ REGLAS = [
              r'(?=.*(\d{2}([.,]\d)? ?(pulgadas|")|\bfhd\b|\bwqxga\b|\bwuxga\b|intel (core|ultra|celeron|n\d)|ryzen|'
              r'\bi[3579]-?\d|snapdragon x|win(dows)? 1[01]|chrome ?os|mediatek|\bm[1-5] (pro|max|chip)?|chip m[1-5]|\bssd\b|\bemmc\b|\d+ ?gb de ram|\bcpu\b|microsoft (365|office)|ultra ?(ligero|delgado|thin)))'),
   ('Laptops', None, 'laptop')),
+ # La tableta sube junto a la laptop, por la misma razón: su ficha
+ # técnica la mandaba a Memoria RAM ("16GB RAM 128GB ROM", 265 casos),
+ # a Celulares ("8 GB de RAM, solo wifi", 256) y al all-in-one ("panel
+ # táctil todo en uno"). Lo que se vende para la tableta (funda, lápiz,
+ # teclado, soporte) se aparta por el principio del título, y el panel
+ # industrial y el monitor de reposacabezas por la guarda.
+ (re.compile(r'^(?!(?:\S+ ){0,3}(funda|\bcase\b|protector|mica|soporte|base|lapiz|stylus|teclado|keyboard|cargador|'
+             r'cable|adaptador|\bmouse\b|raton|audifono|bocina|estuche|bolsa|mochila|brazo|pantalla|cristal|vidrio|'
+             r'juego de|kit de|paquete de|par de|silla|mesa|escritorio|monitor)\b)'
+             r'(?!.*(funda (para|de|compatible)|\bcase (para|for)\b|protector de pantalla|mica|cristal templado|'
+             r'soporte (para|de|magnetico|universal|plegable)|'
+             r'lapiz optico|stylus pen|(para|con|compatible con|y) (ipad|tablet|mac)\b|para (celulares|telefonos)|'
+             r'panel (industrial|pc)|todo en uno|all[- ]in[- ]one|reposacabezas|para (coche|auto|carro)|'
+             r'drawing (tablet|monitor)|tableta (grafica|digitalizadora|de dibujo)|monitor tactil))'
+             r'(?!.*(power ?bank|banco de energia|bateria (externa|portatil)|audifono|auricular|earbud|'
+             r'\bcable\b|cargador|hub |concentrador|\bdock\b))'
+             r'(?=^(?:\S+ ){0,6}(\btablets?\b|\btabletas?\b|\bipad\b|galaxy tab\b|matepad|redmi pad|idea ?tab|'
+             r'poco pad|surface pro|\bpad (\d|pro|mini|se)\b))'),
+  ('Tabletas', None, 'tablet')),
  # Limpieza de ventanas. Va antes que Lavadoras y que Aspiradoras porque
  # estos títulos se describen a sí mismos con las dos palabras: hay un
  # "Robot limpiacristales, aspiradora Inteligente de 2600 Pa" y hasta un
@@ -1277,11 +1308,6 @@ REGLAS = [
  # es como se vende un teléfono, y "Xiaomi Redmi 9C 64GB 3GB RAM" caía en
  # módulos de memoria. La tableta primero, porque "iPad desbloqueado" y
  # "Galaxy Tab" cumplen las señas del celular.
- (re.compile(r'^(?!.*(funda|\bcase\b|protector|mica|soporte (para|de|magnetico|universal|plegable)|'
-             r'lapiz|stylus|teclado|keyboard|cargador|cable|cristal templado|\bmouse\b|raton|audifono|bocina|'
-             r'(para|con|compatible con|y) (ipad|tablet|mac)\b|para (celulares|telefonos)))'
-             r'(?=.*(\btablet\b|\btableta\b|\bipad\b|galaxy tab\b|redmi pad|\bpad (\d|pro|mini|se)\b))'),
-  ('Tabletas', None, 'tablet')),
  (re.compile(r'^(?!.*(funda|\bcase\b|protector|mica|cristal templado|soporte (para|de|magnetico|universal|plegable)|'
              r'^(?:\S+ ){0,2}cargador\b|cargador (de pared|inalambrico|portatil|de auto|solar|para (celular|telefono|iphone))|'
              r'^(?:\S+ ){0,2}cable\b|casillero|armario|gabinete|caja|estacion de carga|persiana|cortina|'

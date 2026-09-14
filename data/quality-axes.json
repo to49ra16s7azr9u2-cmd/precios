@@ -2663,23 +2663,23 @@
       "id": "chico",
       "name": "Chico",
       "use": "El más compacto",
-      "spec": "Hasta 21\"",
-      "max": 21
+      "spec": "Hasta 15\"",
+      "max": 15
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "El tamaño más común",
-      "spec": "22\" a 32\"",
-      "min": 21,
-      "max": 32
+      "spec": "16\" a 22\"",
+      "min": 15,
+      "max": 22
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "El más grande",
-      "spec": "Más de 32\"",
-      "min": 32
+      "spec": "Más de 22\"",
+      "min": 22
      }
     ],
     "key": "level"
@@ -2773,15 +2773,15 @@
       "id": "basica",
       "name": "Básica",
       "use": "Oficina y navegar",
-      "spec": "Hasta 7,200 DPI",
-      "max": 7200
+      "spec": "Hasta 8,000 DPI",
+      "max": 8000
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Juegos casuales",
-      "spec": "7,201 DPI a 18,000 DPI",
-      "min": 7200,
+      "spec": "8,001 DPI a 18,000 DPI",
+      "min": 8000,
       "max": 18000
      },
      {
