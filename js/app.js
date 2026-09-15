@@ -472,6 +472,7 @@
     homeMostViewed: document.getElementById("homeMostViewed"),
     homeRecentBlock: document.getElementById("homeRecentBlock"),
     homeRankingLinks: document.getElementById("homeRankingLinks"),
+    homeCatRanking: document.getElementById("homeCatRanking"),
     homeBrandGrid: document.getElementById("homeBrandGrid"),
     homeElige: document.getElementById("homeElige"),
     homeTipsBtn: document.getElementById("homeTipsBtn"),
@@ -2812,6 +2813,7 @@
     });
 
     renderHomeRankings();
+    renderHomeCatRanking();
     renderHomeRankingLinks();
     bindHomeTips();
     bindHomeTabs();
@@ -2825,6 +2827,43 @@
   // de 2026"). Desde la portada este es el único enlace que las alcanza: sin
   // él solo colgarían del sitemap, que es la peor forma de que un buscador
   // las encuentre. Se listan las de más catálogo; el resto queda a un clic.
+  // Top 10 de categorías más populares, en barras. El puntaje es
+  // categoryStats[cat].pop, que web_summary.py calcula sumando el
+  // reviewCount real de cada oferta de cada tienda: cuánta gente calificó lo
+  // que hay en esa categoría. Es el único dato de popularidad agregado de
+  // TODOS los visitantes que tiene un sitio estático -- los clics, las
+  // visitas y los favoritos de popularityScore() son de este navegador solo.
+  // Ordena distinto que el número de productos (Muebles es la categoría más
+  // grande y la octava acá), que es lo que hace que valga la pena mostrarlo
+  // arriba de la lista de rankings del mes en vez de repetirla.
+  const CAT_RANK_VISIBLES = 10;
+  function renderHomeCatRanking() {
+    if (!el.homeCatRanking || !state.data) return;
+    const stats = state.data.categoryStats || {};
+    const cats = state.data.categories
+      .filter((c) => c.id !== "Otros")
+      .map((c) => ({ c, pop: (stats[c.id] || {}).pop || 0, n: (stats[c.id] || {}).n || 0 }))
+      // Sin productos no hay página estática que enlazar (el generador no la
+      // escribe), y sin calificaciones no hay puesto que defender.
+      .filter(({ pop, n }) => pop > 0 && n > 0)
+      .sort((a, b) => b.pop - a.pop);
+    if (!cats.length) { el.homeCatRanking.innerHTML = ""; return; }
+    const tope = cats[0].pop;
+    const filas = cats.slice(0, CAT_RANK_VISIBLES).map(({ c, pop }, i) => {
+      // La barra arranca en 12% para que la décima siga siendo una barra y
+      // no una línea: el primero suele tener varias veces el puntaje del
+      // último y a escala cruda la cola desaparece.
+      const ancho = 12 + Math.round((pop / tope) * 88);
+      return `<a class="home-cat-rank-row" href="categoria/${catSlug(c.name)}/"` +
+        ` title="${htmlEscapeAttr(c.name)} — ${pop.toLocaleString("es-MX")} calificaciones">` +
+        `<span class="home-cat-rank-bar" style="width:${ancho}%"></span>` +
+        `<span class="home-cat-rank-pos">${i + 1}</span>` +
+        `<span class="home-cat-rank-name">${htmlEscapeAttr(c.name)}</span></a>`;
+    }).join("");
+    el.homeCatRanking.innerHTML =
+      `<span class="home-side-list-head">Categorías más populares</span>${filas}`;
+  }
+
   const RANKING_LINKS_VISIBLES = 18;
   // Mismo slug que slugify() de scripts/data_io.py, que es el que nombra la
   // carpeta de la página (categoria/<slug>/). Si los dos no dan lo mismo, el

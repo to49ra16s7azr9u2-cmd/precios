@@ -281,7 +281,23 @@ def build_summary(light_products, stores, categories):
         subs = {}
         for p in products:
             subs[p.get("subcategory") or ""] = subs.get(p.get("subcategory") or "", 0) + 1
-        entry = {"n": len(products), "subs": subs}
+        # "pop": cuánta gente calificó los productos de la categoría,
+        # sumando el reviewCount real de cada oferta de cada tienda. Es el
+        # único dato de popularidad AGREGADO de todos los visitantes que
+        # tiene el catálogo -- los clics, las visitas y los favoritos que usa
+        # popularityScore() son de un solo navegador, y un sitio estático no
+        # puede medirlos de nadie más. Ordena distinto que el número de
+        # productos, que es lo que lo hace valer la pena: Muebles es la
+        # categoría más grande (20,879 fichas) y la octava por
+        # calificaciones, y Televisores es la séptima con 1,152 fichas.
+        pop = 0
+        for p in products:
+            for o in p.get("offers") or []:
+                try:
+                    pop += int(o.get("reviewCount") or 0)
+                except (TypeError, ValueError):
+                    pass
+        entry = {"n": len(products), "subs": subs, "pop": pop}
         for include_shipping, suffix in ((False, ""), (True, "Ship")):
             discounted = 0
             best = 0

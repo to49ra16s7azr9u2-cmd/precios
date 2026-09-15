@@ -2808,6 +2808,60 @@ tr.offer-compare-off { display: none; }
 .home-side-list a:hover { background: var(--bg); color: var(--red-dark); }
 .home-side-list a.home-side-list-more { color: var(--red); font-weight: 700; }
 
+/* Top 10 de categorías por calificaciones, entre las pestañas y el botón de
+   tips. Cada puesto es un rectángulo cuyo ancho es su puntaje: la barra va
+   detrás del texto (position:absolute) y no al lado, porque en una columna
+   de 208px una barra al lado le deja al nombre menos de la mitad y
+   "Electrodomésticos" no entra. Sin separación entre renglones: pegados se
+   leen como una sola escalera, que es lo que un ranking tiene que parecer. */
+.home-cat-rank {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 7px 0 0;
+}
+.home-cat-rank .home-side-list-head { padding-bottom: 4px; }
+.home-cat-rank-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+  line-height: 1.25;
+  color: var(--ink);
+  text-decoration: none;
+  overflow: hidden;
+}
+.home-cat-rank-bar {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  bottom: 1px;
+  background: var(--red-tint);
+  border-left: 2px solid var(--red);
+  pointer-events: none;
+}
+.home-cat-rank-pos {
+  position: relative;
+  flex-shrink: 0;
+  width: 13px;
+  text-align: right;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--red-dark);
+  font-variant-numeric: tabular-nums;
+}
+.home-cat-rank-name {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.home-cat-rank-row:hover .home-cat-rank-name { color: var(--red-dark); }
+.home-cat-rank-row:hover .home-cat-rank-bar { background: var(--bg); }
+
 /* Banner de afiliados (Admitad), arriba de la columna derecha -- mismo
    marco que el resto, con la etiqueta "Publicidad" para que se distinga con
    claridad de contenido propio del sitio. */
@@ -2838,7 +2892,8 @@ tr.offer-compare-off { display: none; }
   .home-col-right { grid-column: 2; grid-row: auto; }
   .home-col-left { grid-column: 1 / -1; grid-row: auto; flex-direction: row; flex-wrap: wrap; align-items: center; }
   .home-col-left .home-side-btn { width: auto; flex: 1 1 180px; }
-  .home-col-left .home-side-list { flex: 1 1 100%; }
+  .home-col-left .home-side-list,
+  .home-col-left .home-cat-rank { flex: 1 1 100%; }
   .home-tabs { flex: 1 1 100%; flex-direction: row; }
   .home-tab-marca .hero-logo { max-width: 160px; }
 }
