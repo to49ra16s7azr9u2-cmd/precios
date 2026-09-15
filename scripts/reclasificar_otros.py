@@ -236,6 +236,50 @@ GRUPOS = {
          "Herramientas", "Herramientas eléctricas"),
         (r"\bherramienta\b", "Herramientas", "Herramientas manuales"),
     ],
+    ("Juguetes y bebés", "Otros"): [
+        (r"\b(vehiculo|camion|carro|auto|tren|avion|pista)\b", "Juguetes y bebés", "Vehículos de juguete"),
+        (r"\b(blaster|nerf|pistola de agua|lanzador)\b", "Juguetes y bebés", "Juegos de exterior"),
+        (r"\b(peluche|plush|mini playset|playset)\b", "Juguetes y bebés", "Peluches"),
+        (r"\b(microfono|musical|instrumento|karaoke)\b", "Juguetes y bebés", "Juguetes musicales"),
+        (r"\b(figura|coleccion|munec|barbie|sonic|pokemon)\b", "Juguetes y bebés", "Figuras de acción"),
+        (r"\b(bebe|biberon|pañal|sonaja|andadera|carriola)\b", "Juguetes y bebés", "Bebés"),
+    ],
+    # "Box" es la base del colchón, no una caja: son casi dos tercios de este
+    # cajón y el catálogo ya tiene Camas, que es donde va.
+    ("Muebles", "Otros"): [
+        (r"^(?:\S+ ){0,2}\bbox\b|\bbox (matrimonial|individual|king|queen)\b|"
+         r"\bbase (de cama|box)\b|\bsomier\b", "Muebles", "Camas"),
+        (r"\b(repisa|estante|entrepano)\b", "Muebles", "Repisas"),
+        (r"\b(silla|sillon|banco|taburete)\b", "Muebles", "Sillas"),
+        (r"\b(mesa|mesita)\b", "Muebles", "Mesas de centro"),
+    ],
+    ("Deportes y fitness", "Otros"): [
+        (r"\b(casco|motocicleta)\b", "Autos, bicicletas y motos", "Cascos para moto"),
+        (r"\b(guantes|vendas|protector bucal|careta|costal|box|mma)\b",
+         "Deportes y fitness", "Boxeo"),
+        (r"\b(banda|liga|cuerda para saltar|tapete|colchoneta)\b",
+         "Deportes y fitness", "Bandas de resistencia"),
+        (r"\b(muñequera|munequera|rodillera|codera|faja|tobillera|cinturon)\b",
+         "Deportes y fitness", "Protección y soportes"),
+    ],
+    ("Joyería y bisutería", "Otros"): [
+        (r"\b(arras|cofre|charola|estuche)\b", "Joyería y bisutería", "Arras y sets"),
+        (r"\b(arracada|arracadas|arrancada|broquel|arete|pendiente)\b",
+         "Joyería y bisutería", "Aretes"),
+        (r"\b(lupa|herramienta|pinza|limpiador)\b", "Joyería y bisutería", "Cuidado y herramientas"),
+        (r"\b(cuenta|bead|abalorio|hilo|material)\b", "Joyería y bisutería", "Material para bisutería"),
+        (r"\b(anillo|argolla|promesa|sortija)\b", "Joyería y bisutería", "Anillos"),
+        (r"\b(cadena|collar|dije|medalla)\b", "Joyería y bisutería", "Collares"),
+        (r"\b(pulsera|esclava|brazalete)\b", "Joyería y bisutería", "Pulseras"),
+    ],
+    # Lo que quedó en Otros/Varios: más cocina, y una silla suelta.
+    ("Otros", "Varios"): [
+        (r"\b(silla|sillon|mesa|escritorio|repisa|mueble)\b", "Muebles", "Sillas"),
+        (r"\b(tarro|frasco|mason|bolsa para|pajilla|popote|servilleta|"
+         r"machacador|utensilio|espatula|molde|charola)\b", COCINA, "Utensilios de cocina"),
+        (r"\b(jarro|termo|botella|vaso|taza)\b", COCINA, "Botellas y termos"),
+        (r"\b(cocina|alimento|comida|refrigerador)\b", COCINA, "Organización de cocina"),
+    ],
 }
 
 

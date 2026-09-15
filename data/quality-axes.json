@@ -218,47 +218,11 @@
  "Joyería y bisutería/Otros": {
   "axes": [
    {
-    "label": "Piedra",
-    "field": "stone",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "sin-piedra",
-      "name": "Sin piedra",
-      "use": "",
-      "spec": "Sin piedra",
-      "values": [
-       "Sin piedra"
-      ]
-     },
-     {
-      "id": "zirconia",
-      "name": "Zirconia",
-      "use": "",
-      "spec": "Zirconia",
-      "values": [
-       "Zirconia"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
     "label": "Material",
     "field": "material",
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
-     {
-      "id": "oro",
-      "name": "Oro",
-      "use": "",
-      "spec": "Oro",
-      "values": [
-       "Oro"
-      ]
-     },
      {
       "id": "metal",
       "name": "Metal",
@@ -278,12 +242,12 @@
       ]
      },
      {
-      "id": "plata",
-      "name": "Plata",
+      "id": "oro",
+      "name": "Oro",
       "use": "",
-      "spec": "Plata",
+      "spec": "Oro",
       "values": [
-       "Plata"
+       "Oro"
       ]
      },
      {
@@ -294,9 +258,18 @@
       "values": [
        "Piel"
       ]
+     },
+     {
+      "id": "plata",
+      "name": "Plata",
+      "use": "",
+      "spec": "Plata",
+      "values": [
+       "Plata"
+      ]
      }
     ],
-    "key": "size"
+    "key": "level"
    }
   ],
   "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
@@ -700,6 +673,47 @@
      }
     ],
     "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Arras y sets": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     },
+     {
+      "id": "plata",
+      "name": "Plata",
+      "use": "",
+      "spec": "Plata",
+      "values": [
+       "Plata"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     }
+    ],
+    "key": "level"
    }
   ],
   "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
@@ -1816,15 +1830,6 @@
       "values": [
        "Tela"
       ]
-     },
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
      }
     ],
     "key": "size"
@@ -2449,138 +2454,6 @@
    }
   ]
  },
- "Autos, bicicletas y motos/Motocicletas": {
-  "axes": [
-   {
-    "label": "Cilindrada",
-    "field": "engine_cc",
-    "criterion": "en centímetros cúbicos",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Ciudad y trámites",
-      "spec": "Hasta 170 cc",
-      "max": 170
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Carretera ocasional",
-      "spec": "171 cc a 250 cc",
-      "min": 170,
-      "max": 250
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Viajes largos",
-      "spec": "Más de 250 cc",
-      "min": 250
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Autos, bicicletas y motos/Bicicletas": {
-  "axes": [
-   {
-    "label": "Rodada",
-    "field": "wheel_size",
-    "criterion": "por medida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "r12",
-      "name": "R12",
-      "use": "",
-      "spec": "R12",
-      "values": [
-       "R12"
-      ]
-     },
-     {
-      "id": "r16",
-      "name": "R16",
-      "use": "",
-      "spec": "R16",
-      "values": [
-       "R16"
-      ]
-     },
-     {
-      "id": "r20",
-      "name": "R20",
-      "use": "",
-      "spec": "R20",
-      "values": [
-       "R20"
-      ]
-     },
-     {
-      "id": "r26",
-      "name": "R26",
-      "use": "",
-      "spec": "R26",
-      "values": [
-       "R26"
-      ]
-     },
-     {
-      "id": "r29",
-      "name": "R29",
-      "use": "",
-      "spec": "R29",
-      "values": [
-       "R29"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
  "Autos, bicicletas y motos/Cascos para moto": {
   "axes": [
    {
@@ -2794,37 +2667,6 @@
  "Autos, bicicletas y motos/Estéreos para auto": {
   "axes": [
    {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 50 W",
-      "max": 50
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "51 W a 100 W",
-      "min": 50,
-      "max": 100
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 100 W",
-      "min": 100
-     }
-    ],
-    "key": "level"
-   },
-   {
     "label": "Tamaño",
     "field": "size_in",
     "criterion": "en pulgadas",
@@ -2834,26 +2676,26 @@
       "id": "chico",
       "name": "Chico",
       "use": "El más compacto",
-      "spec": "Hasta 6.5\"",
-      "max": 6.5
+      "spec": "Hasta 7\"",
+      "max": 7
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "El tamaño más común",
-      "spec": "Más de 6.5\", hasta 9\"",
-      "min": 6.5,
-      "max": 9
+      "spec": "8\" a 10\"",
+      "min": 7,
+      "max": 10
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "El más grande",
-      "spec": "Más de 9\"",
-      "min": 9
+      "spec": "Más de 10\"",
+      "min": 10
      }
     ],
-    "key": "size"
+    "key": "level"
    }
   ]
  },
@@ -2869,23 +2711,23 @@
       "id": "suave",
       "name": "Suave",
       "use": "Para mejorar el estéreo de fábrica",
-      "spec": "Hasta 900 W",
-      "max": 900
+      "spec": "Hasta 660 W",
+      "max": 660
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Bocinas y un subwoofer",
-      "spec": "901 W a 1,600 W",
-      "min": 900,
-      "max": 1600
+      "spec": "661 W a 2,000 W",
+      "min": 660,
+      "max": 2000
      },
      {
       "id": "fuerte",
       "name": "Fuerte",
       "use": "Subwoofers grandes y competencia",
-      "spec": "Más de 1,600 W",
-      "min": 1600
+      "spec": "Más de 2,000 W",
+      "min": 2000
      }
     ],
     "key": "level"
@@ -4253,24 +4095,6 @@
     "ramp": false,
     "tiers": [
      {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     },
-     {
-      "id": "box",
-      "name": "Box",
-      "use": "",
-      "spec": "Box",
-      "values": [
-       "Box"
-      ]
-     },
-     {
       "id": "snorkeling",
       "name": "Snorkeling",
       "use": "",
@@ -4280,12 +4104,30 @@
       ]
      },
      {
-      "id": "autos-y-motos",
-      "name": "Autos Y Motos",
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
       "use": "",
-      "spec": "Autos Y Motos",
+      "spec": "Entrenamiento",
       "values": [
-       "Autos Y Motos"
+       "Entrenamiento"
+      ]
+     },
+     {
+      "id": "basquetbol",
+      "name": "Basquetbol",
+      "use": "",
+      "spec": "Basquetbol",
+      "values": [
+       "Basquetbol"
+      ]
+     },
+     {
+      "id": "beisbol",
+      "name": "Béisbol",
+      "use": "",
+      "spec": "Béisbol",
+      "values": [
+       "Béisbol"
       ]
      }
     ],
@@ -4408,6 +4250,46 @@
       "use": "Basquetbol varonil y futbol americano",
       "spec": "No. 7",
       "min": 6
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Deportes y fitness/Boxeo": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "box",
+      "name": "Box",
+      "use": "",
+      "spec": "Box",
+      "values": [
+       "Box"
+      ]
+     },
+     {
+      "id": "artes-marciales",
+      "name": "Artes Marciales",
+      "use": "",
+      "spec": "Artes Marciales",
+      "values": [
+       "Artes Marciales"
+      ]
+     },
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
      }
     ],
     "key": "level"
@@ -5326,38 +5208,6 @@
   ],
   "intro": "Elige por la edad de quien lo va a usar."
  },
- "Juguetes y bebés/Vehículos a control remoto": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
  "Juguetes y bebés/Bebés": {
   "axes": [
    {
@@ -5400,6 +5250,38 @@
       "spec": "Tela",
       "values": [
        "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Vehículos a control remoto": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
       ]
      }
     ],

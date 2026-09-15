@@ -1279,7 +1279,7 @@ REGLAS = [
              r'tripie|tripode|lente|kit de|audifonos|auriculares|bocina|altavoz|teclado|\bmouse\b|monitor|proyector|camara|'
              r'estuche|bolsa|brazalete|correa|adaptador|memoria|tarjeta)\b)'
              r'(?!.*((funda|mica|protector|carcasa|cristal templado|vidrio templado) (para|compatible|de|transparente|rigid|antigolpes|silicona)|'
-             r'casillero|persiana|cortina|de repuesto|refaccion|reemplazo|laptop|notebook|macbook|'
+             r'car ?radio|carplay|android auto|doble din|2 ?din|autoestereo|estereo (para|de) (coche|auto|carro)|bicicleta|triciclo|motocicleta|casillero|persiana|cortina|de repuesto|refaccion|reemplazo|laptop|notebook|macbook|'
              r'chromebook|mini pc|\bpc\b|\btablet\b|tableta|\bipad\b|\bpad\b|router|modem|consola|\bretro\b|'
              r'\btv\b|television|\bssd\b|memoria usb|\bwatch\b|smartwatch|reloj|camara (de seguridad|ip|web)|'
              r'\bdron\b|estereo|\bdin\b|carplay|android auto|para (auto|coche|carro)|pantalla (lcd|amoled|oled).{0,30}(repuesto|reemplazo|reparacion)))'
@@ -1630,6 +1630,18 @@ REGLAS = [
              r'jardineria|podadora|motosierra|desbrozadora|cortasetos|\n'
              r'compresor de aire|neumatica|\\bcemento\\b|revolvedora|carretilla))'),
   ('Herramientas', None, 'wrench')),
+ # Vehículos, de red por la misma razón que Muebles y Herramientas: la
+ # categoría tenía nueve subcategorías y ninguna regla que la alcanzara, así
+ # que una captura de autos y bicis entraba al 16% -- 7,568 de 10,162 anuncios
+ # caían en "no encaja", casi todos accesorio y refacción.
+ (re.compile(r'^(?!.*(de juguete|para (muneca|barbie)|\bmaqueta\b|'
+             r'control remoto.{0,15}escala|montable para nino))'
+             r'(?=.*(\bbicicleta|\bbici\b|ciclismo|\btriciclo|\bmotocicleta|\bmoto\b|'
+             r'\bautomovil|\bvehiculo|\bauto\b|\bcoche\b|\bcarro\b|camioneta|'
+             r'\bllanta|neumatico|autoestereo|estereo (para|de) (auto|coche|carro)|'
+             r'car ?radio|carplay|android auto|dash ?cam|casco (de|para) (moto|ciclismo)|'
+             r'\bsillin\b|manillar|portabicicleta|arrancador de bateria))'),
+  ('Autos, bicicletas y motos', None, 'car')),
  # Muebles va AL FINAL de REGLAS, de red. Un título de mueble nombra el
  # mueble y nada más, pero un montón de aparatos lo nombran de paso:
  # "cargador para silla de ruedas", "ventilador para cama", "teléfono de
@@ -2005,17 +2017,47 @@ def sub_iluminacion(tn):
 
 
 def sub_vehiculo(tn):
-    if re.search(r'\bllanta|neumatico|\brin\b|\brines\b', tn): return 'Llantas'
-    if re.search(r'casco', tn): return 'Cascos para moto'
-    if re.search(r'bateria (para|de) (auto|coche|carro)|acumulador', tn): return 'Baterías para auto'
-    if re.search(r'bocina.{0,20}(auto|carro)|\bwoofer\b|subwoofer', tn): return 'Bocinas para auto'
-    if re.search(r'estereo|autoestereo|radio (para|de) (auto|carro)|carplay|android auto', tn): return 'Estéreos para auto'
-    if re.search(r'amplificador', tn): return 'Amplificadores para auto'
-    if re.search(r'motocicleta|\bmoto\b|scooter de gasolina', tn): return 'Motocicletas'
-    if re.search(r'bicicleta|\bbici\b|\bmtb\b|ciclismo', tn): return 'Bicicletas'
-    if re.search(r'\bauto\b|\bcoche\b|\bcarro\b|camioneta', tn): return 'Autos'
+    """Reparte Autos, bicicletas y motos.
+
+    Lo PRIMERO es la pieza, no el vehículo: un sillín para bicicleta nombra la
+    bicicleta igual que la bicicleta, y una captura de esta categoría trae
+    sobre todo accesorio y refacción. Con el vehículo arriba, el sillín, el
+    escape y la dashcam entraban como "Bicicletas", "Motocicletas" y "Autos".
+    """
+    if re.search(r'\b(casco|guantes de moto|chamarra de moto)\b', tn):
+        return 'Cascos para moto'
+    if re.search(r'dash ?cam|camara (para|de) (auto|carro|coche|tablero)|camara de reversa', tn):
+        return 'Dashcams y cámaras'
+    if re.search(r'\bllanta|neumatico|\brin\b|\brines\b', tn):
+        return 'Llantas'
+    if re.search(r'bateria (para|de) (auto|coche|carro)|acumulador|arrancador', tn):
+        return 'Baterías para auto'
+    if re.search(r'estereo|autoestereo|radio (para|de) (auto|carro)|carplay|android auto|'
+                 r'car ?radio|doble din|2 ?din', tn):
+        return 'Estéreos para auto'
+    if re.search(r'bocina.{0,20}(auto|carro)|\bwoofer\b|subwoofer', tn):
+        return 'Bocinas para auto'
+    if re.search(r'amplificador', tn):
+        return 'Amplificadores para auto'
+    if re.search(r'\b(sillin|manillar|pedal|cadena|pinon|cesta|canastilla|'
+                 r'guardabarro|cuadro|horquilla|timbre|bomba de aire|candado|'
+                 r'portabicicleta|alforja|velocimetro|ciclocomputadora|'
+                 r'desviador|manubrio de bici)\b', tn):
+        return 'Accesorios para bicicleta'
+    if re.search(r'\b(escape|silenciador|carenado|estribo|baul|maletero|puno)\b', tn):
+        return 'Accesorios para moto'
     if re.search(r'aceite|filtro|balata|amortiguador|bujia|limpiaparabrisas|'
-                 r'cargador de bateria|gato hidraulico|cables? pasa corriente', tn): return 'Accesorios y refacciones'
+                 r'gato hidraulico|cables? pasa corriente|visera|tapete|'
+                 r'funda para (auto|volante|asiento)|cubre ?volante|'
+                 r'refaccion|repuesto|\bespejo\b|\bsoporte\b', tn):
+        return 'Accesorios y refacciones'
+    # Y recién ahora el vehículo entero.
+    if re.search(r'\bmotocicleta\b|\bmoto\b|scooter de gasolina', tn):
+        return 'Motocicletas'
+    if re.search(r'\bbicicleta|\bbici\b|\bmtb\b|ciclismo|\btriciclo\b', tn):
+        return 'Bicicletas'
+    if re.search(r'\bauto\b|\bcoche\b|\bcarro\b|camioneta|\bautomovil\b', tn):
+        return 'Autos'
     return None
 
 

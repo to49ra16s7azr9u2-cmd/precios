@@ -3491,3 +3491,27 @@ tr.offer-compare-off { display: none; }
   font-size: 12px;
   font-weight: 800;
 }
+
+/* Campo de filtro de las páginas de marca. Arranca oculto en el HTML y lo
+   muestra su propio script: sin JS la lista se ve entera, que es lo que
+   necesita el buscador, y no queda un campo que no hace nada. */
+.marca-filtro {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font: inherit;
+  background: var(--card);
+  color: inherit;
+}
+.marca-filtro:focus {
+  outline: none;
+  border-color: var(--red);
+}
+
+/* El atributo hidden lo pone la hoja del navegador con display:none, pero
+   cualquier display propio del elemento le gana -- y .chip y .product-row
+   tienen el suyo. Sin esto, el filtro de las páginas de marca contaba bien
+   ("1 de 779 marcas") y no ocultaba nada. */
+[hidden] { display: none !important; }

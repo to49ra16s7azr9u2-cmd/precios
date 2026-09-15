@@ -1888,11 +1888,48 @@ def render_brand_page(nombre, slug, products, data):
         if chips else ""
     )
 
+    # El mismo filtro, ahora sobre las filas de producto. Solo tiene sentido
+    # si hay suficientes como para perderse: con doce filas a la vista, un
+    # campo de búsqueda estorba más de lo que ayuda.
+    buscador = ("""
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de """ + html_escape(nombre) + """..."
+         aria-label="Buscar productos de """ + html_escape(nombre) + """" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+""" if len(shown) >= 20 else "")
     body = f"""
 <nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; {html_escape(nombre)}</nav>
 <div class="list-head"><h1>{svg_icon("tag")} {html_escape(nombre)} — comparar precios ({len(products)})</h1></div>
 <p class="muted small">{html_escape(description)}</p>
-<div class="product-list">{''.join(rows)}</div>
+{buscador}
+<div class="product-list" id="prodLista">{''.join(rows)}</div>
 <div class="panel" style="text-align:center; margin-top:20px">
   {more_note}
 </div>
@@ -1904,11 +1941,15 @@ def render_brand_page(nombre, slug, products, data):
         canonical_path=f"/marca/{slug}/",
         body=body,
         depth=2,
-        extra_head=breadcrumb_json_ld([
-            ("Inicio", f"{SITE_URL}/"),
-            ("Marcas", f"{SITE_URL}/marca/"),
-            (nombre, f"{SITE_URL}/marca/{slug}/"),
-        ]),
+        # breadcrumb_json_ld devuelve el JSON pelado: el <script> lo pone
+        # quien llama. Sin envolverlo, el JSON salía como texto visible
+        # arriba de la página.
+        extra_head='<script type="application/ld+json">\n'
+                   + breadcrumb_json_ld([
+                       ("Inicio", f"{SITE_URL}/"),
+                       ("Marcas", f"{SITE_URL}/marca/"),
+                       (nombre, f"{SITE_URL}/marca/{slug}/"),
+                   ]) + "\n</script>",
     )
 
 
@@ -1922,11 +1963,49 @@ def render_brand_index(marcas):
         f'<a class="chip" href="{slug}/">{html_escape(nombre)} ({len(items)})</a>'
         for nombre, slug, items in marcas
     )
+    # 779 chips no se recorren con la vista. El filtro es JS suelto sobre lo
+    # que ya está en el HTML: no pide nada al servidor, no cambia la URL y si
+    # el JS no corre la lista sigue completa y enlazada, que es lo que ve
+    # Google. Por eso el campo arranca oculto y lo muestra el propio script.
+    buscador = """
+<div class="panel" id="marcaFiltroCaja" hidden>
+  <input id="marcaFiltro" type="search" class="marca-filtro"
+         placeholder="Filtrar marcas: Samsung, Bosch, Lego..."
+         aria-label="Filtrar marcas" autocomplete="off">
+  <p class="muted small" id="marcaFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("marcaFiltroCaja");
+  var campo = document.getElementById("marcaFiltro");
+  var cuenta = document.getElementById("marcaFiltroCuenta");
+  var chips = Array.prototype.slice.call(document.querySelectorAll("#marcaLista .chip"));
+  if (!caja || !campo || !chips.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  };
+  var textos = chips.map(function (c) { return sinAcentos(c.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < chips.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      chips[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + chips.length + " marcas" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+"""
     body = f"""
 <nav class="breadcrumb"><a href="../">Inicio</a> &gt; Marcas</nav>
 <div class="list-head"><h1>{svg_icon("tag")} Marcas ({len(marcas)})</h1></div>
 <p class="muted small">{html_escape(description)}</p>
-<div class="panel"><div class="chip-row">{filas}</div></div>
+{buscador}
+<div class="panel"><div class="chip-row" id="marcaLista">{filas}</div></div>
 """
     return page_shell(
         title="Marcas comparadas — ComparaMEX",
@@ -1934,10 +2013,11 @@ def render_brand_index(marcas):
         canonical_path="/marca/",
         body=body,
         depth=1,
-        extra_head=breadcrumb_json_ld([
-            ("Inicio", f"{SITE_URL}/"),
-            ("Marcas", f"{SITE_URL}/marca/"),
-        ]),
+        extra_head='<script type="application/ld+json">\n'
+                   + breadcrumb_json_ld([
+                       ("Inicio", f"{SITE_URL}/"),
+                       ("Marcas", f"{SITE_URL}/marca/"),
+                   ]) + "\n</script>",
     )
 
 

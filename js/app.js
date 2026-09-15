@@ -1185,10 +1185,44 @@
   // localStorage en cada llamada, y ordenar el catálogo completo son ~1.4
   // millones de comparaciones -- calcularlo dentro del comparador eran
   // millones de lecturas de localStorage por ordenamiento.
+  // El desempate por vendedores solo (como estaba) tiene un efecto que no se
+  // ve hasta que se mide: un producto que vende una sola tienda NUNCA llega
+  // arriba, por bueno que sea. Y el catálogo tiene 96 mil fichas de Amazon,
+  // que casi nunca traen GTIN y por eso casi nunca cruzan con otra tienda.
+  // Medido sobre un navegador nuevo: en el top 30 de Electrodomésticos había
+  // 0 productos de Amazon sobre 11,148 fichas; en Muebles, 0 sobre 20,818.
+  // La tienda más grande del catálogo era invisible.
+  //
+  // El arreglo no es quitar la señal --comparar entre tiendas es de lo que
+  // trata el sitio-- sino dejar de tratarla como un todo o nada. Los
+  // vendedores siguen pesando, pero al lado de otras dos señales que sí
+  // tienen los productos de una sola tienda: que la ficha esté completa
+  // (foto y specs, o sea que se puede decidir mirándola) y que haya un
+  // descuento real contra el precio de lista.
+  // Primer intento: vendedores * 2 + lo demás. No alcanzó, y la medición dice
+  // por qué: en Electrodomésticos hay 1,132 productos con dos o más tiendas,
+  // más que las 30 filas que se ven, así que cualquier bono chico se pierde
+  // detrás de ellos. Con el multiplicador arriba, el top 30 seguía sin un
+  // solo producto de Amazon sobre 8,066.
+  //
+  // Acá el segundo vendedor vale 2 puntos y el tercero otros 2, pero ya no es
+  // una llave que abre o cierra la lista: una ficha completa (foto y specs) y
+  // un descuento real suman hasta 6 entre las dos, así que un producto de una
+  // sola tienda bien armado y rebajado compite con uno de dos tiendas que no
+  // tiene foto ni descuento. Comparar entre tiendas sigue pesando; deja de
+  // ser lo único que pesa.
+  function popularityRank(p) {
+    const vendedores = Math.min(sellerTotal(p) - 1, 2) * 2;   // 0, 2 o 4
+    const ficha = (p.photo ? 2 : 0) + ((p.specs && p.specs.length) ? 1 : 0);
+    const dto = bestDiscountPct(p);
+    const descuento = dto ? Math.min(3, Math.round(dto / 15)) : 0;
+    return vendedores + ficha + descuento;
+  }
+
   function sortByPopularity(products) {
     return products
-      .map((p) => ({ p, score: popularityScore(p), sellers: sellerTotal(p) }))
-      .sort((a, b) => b.score - a.score || b.sellers - a.sellers)
+      .map((p) => ({ p, score: popularityScore(p), rank: popularityRank(p) }))
+      .sort((a, b) => b.score - a.score || b.rank - a.rank)
       .map((x) => x.p);
   }
 
@@ -1989,9 +2023,76 @@
   function ensureAllProducts() {
     if (!allProductsPromise) {
       const ids = Object.keys((state.data && state.data.categoryFiles) || {});
-      allProductsPromise = Promise.all(ids.map(ensureCategory)).then(orderLoadedProducts);
+      allProductsPromise = loadCategories(ids).then(orderLoadedProducts);
     }
     return allProductsPromise;
+  }
+
+  // Promise.allSettled y no Promise.all: con 53 shards, uno que falle dejaba
+  // la lista vacía y sin explicación. Es preferible mostrar lo que sí llegó.
+  function loadCategories(ids) {
+    return Promise.allSettled(ids.map(ensureCategory)).then((rs) => {
+      const fallaron = rs.filter((r) => r.status === "rejected").length;
+      if (fallaron) console.warn(`No se pudieron cargar ${fallaron} de ${ids.length} categorías`);
+    });
+  }
+
+  // --- Índice de búsqueda ---------------------------------------------------
+  // Buscar obligaba a bajar el catálogo entero (91.7 MB en crudo) porque la
+  // coincidencia puede estar en cualquier categoría. data/search-index.json
+  // dice de antemano cuáles pueden tenerla: una palabra toca 2.1 categorías
+  // de 56 en promedio. Si el archivo no está, se cae al comportamiento viejo.
+  let searchIndexPromise = null;
+  function ensureSearchIndex() {
+    if (!searchIndexPromise) {
+      const file = state.data && state.data.searchIndexFile;
+      searchIndexPromise = file
+        ? fetch(file).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+        : Promise.resolve(null);
+    }
+    return searchIndexPromise;
+  }
+
+  function normalizeIndexWord(w) {
+    return w.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
+  }
+
+  // Las categorías que pueden contener la consulta. null = no se sabe, hay
+  // que bajar todo (índice ausente, o una palabra que no está en él: puede
+  // ser un modelo nuevo o un prefijo, y descartar sería perder resultados).
+  function categoriesForQuery(query, index) {
+    if (!index || !index.words || !index.cats) return null;
+    // La lista de categorías viene DENTRO del índice. Resolverla contra
+    // state.data.categoryFiles parecía equivalente y no lo era: el índice se
+    // arma sobre una lista y el manifiesto puede tener otra, y el desfase no
+    // da error -- devuelve categorías equivocadas en silencio.
+    const cats = index.cats;
+    const words = index.words;
+    const palabras = String(query || "").split(/\s+/)
+      .map(normalizeIndexWord).filter((w) => w.length >= 3);
+    if (!palabras.length) return null;
+    let acumulado = null;
+    for (const w of palabras) {
+      let ids = words[w];
+      if (!ids) {
+        // Prefijo: "sams" tiene que seguir alcanzando a "samsung".
+        const pref = [];
+        for (const k in words) {
+          if (k.length > w.length && k.startsWith(w)) {
+            for (const c of words[k]) if (pref.indexOf(c) === -1) pref.push(c);
+            if (pref.length >= cats.length) break;
+          }
+        }
+        ids = pref.length ? pref : null;
+      }
+      if (!ids) return null;                  // palabra desconocida: bajar todo
+      const set = new Set(ids);
+      acumulado = acumulado === null ? set : new Set([...acumulado].filter((c) => set.has(c)));
+      if (!acumulado.size) break;             // sin intersección: no hay nada
+    }
+    if (acumulado === null) return null;
+    return [...acumulado].map((i) => cats[i]).filter(Boolean);
   }
 
   // Deja state.data.products en un orden que no dependa de cuál shard llegó
@@ -2552,6 +2653,14 @@
         // vez de quedarse puesta: si no, el breadcrumb y el título de la
         // lista hacen categoryById(...).name sobre undefined y se cae la
         // vista entera -- pantalla en blanco, no una lista vacía.
+        // La búsqueda también viaja en la URL. Antes no: escribir "ninja" y
+        // mandarle el link a alguien abría el listado sin la búsqueda, y no
+        // había forma de enlazar un resultado desde fuera del sitio.
+        const texto = qs.get("q");
+        if (texto !== null) {
+          state.query = texto;
+          if (el.searchInput) el.searchInput.value = texto;
+        }
         const pedida = qs.get("cat");
         const existe = !!pedida && !!categoryById(pedida);
         state.category = existe ? pedida : null;
@@ -3125,7 +3234,15 @@
   }
 
   function ensureListScope() {
-    return listScopeKey() === "*" ? ensureAllProducts() : ensureCategory(state.category);
+    if (listScopeKey() !== "*") return ensureCategory(state.category);
+    // "Todas" sin búsqueda sigue bajando todo; con búsqueda, solo lo que el
+    // índice señala.
+    if (!state.query) return ensureAllProducts();
+    return ensureSearchIndex().then((index) => {
+      const cats = categoriesForQuery(state.query, index);
+      if (!cats) return ensureAllProducts();
+      return loadCategories(cats).then(orderLoadedProducts);
+    });
   }
 
   function listScopeReady() {
