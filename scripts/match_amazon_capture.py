@@ -414,6 +414,87 @@ def color_of(s):
     return COLOR_CANON.get(c, c)
 
 
+class IndiceProductos:
+    """Las fichas del catálogo ya masticadas, más un índice invertido.
+
+    candidates_for() recorría `products` ENTERO por cada anuncio y le
+    recalculaba a cada producto las mismas siete cosas (words, capacities,
+    mAh, generación, modelo, color, variante) que no dependen del anuncio.
+    Con 205,877 productos eso medía 7.16 s POR ANUNCIO: una captura de
+    12,691 anuncios son 25 horas y las 15 capturas juntas 283 horas, que es
+    la razón por la que el matching de Amazon nunca llegó a correr y por la
+    que hay 96,117 productos de Amazon con apenas 172 comparables.
+
+    Acá cada producto se mastica UNA vez y se guarda en `fichas`, y las
+    palabras (y la marca) van a un índice invertido. El primer filtro real
+    de candidates_for() es `overlap = tw & pw` -- un candidato que no
+    comparte NINGUNA palabra con el título se descarta -- así que el
+    conjunto de candidatos es exactamente la unión de los posting lists de
+    las palabras del título, y recorrer eso en vez del catálogo entero da
+    el mismo resultado. Cuando el título trae marca (o la captura la trae
+    resuelta) se puede achicar todavía más: esos filtros son igual de
+    obligatorios, así que alcanza con la unión de sus posting lists.
+    """
+
+    def __init__(self, products):
+        self.products = products
+        self.fichas = []
+        self.por_palabra = {}
+        self.por_marca = {}
+        for i, p in enumerate(products):
+            nombre = p["name"]
+            pw = words(nombre)
+            marca = texto_plano(p.get("brand") or "")
+            self.fichas.append((
+                pw,
+                capacities(nombre),
+                capacidad_mah(norm(nombre)),
+                generation_of(nombre),
+                model_of(nombre),
+                color_of(nombre),
+                variant_of(nombre),
+                marca,
+                bool(LOCKED_CARRIER_RE.search(nombre)),
+            ))
+            for w in pw:
+                self.por_palabra.setdefault(w, []).append(i)
+            if marca:
+                self.por_marca.setdefault(marca, []).append(i)
+
+    def candidatos(self, tw, t_brands, t_marca):
+        """Los índices que PUEDEN pasar los filtros, sin recorrer el resto."""
+        if t_marca:
+            # La captura declara marca y el filtro exige que sea idéntica:
+            # nada fuera de esa marca puede sobrevivir.
+            return self.por_marca.get(t_marca, ())
+        claves = t_brands or tw
+        if len(claves) == 1:
+            return self.por_palabra.get(next(iter(claves)), ())
+        vistos = set()
+        for w in claves:
+            vistos.update(self.por_palabra.get(w, ()))
+        return vistos
+
+
+_INDICE = {}
+
+
+def indexar(products):
+    """El índice de esta lista de productos, construido una sola vez.
+
+    Se cachea por identidad para que candidates_for() pueda seguir
+    recibiendo la lista pelada (así la llaman resolve() y los scripts que
+    importan este módulo) sin reconstruir el índice en cada anuncio.
+    """
+    if isinstance(products, IndiceProductos):
+        return products
+    idx = _INDICE.get(id(products))
+    if idx is None or idx.products is not products:
+        idx = IndiceProductos(products)
+        _INDICE[id(products)] = idx
+    return idx
+
+
 def candidates_for(item, products):
     title = item.get("title") or ""
     tw = words(title)
@@ -436,13 +517,15 @@ def candidates_for(item, products):
     t_marca = texto_plano(item.get("brand") or "")
     t_unlocked = bool(UNLOCKED_HINT_RE.search(title))
 
+    idx = indexar(products)
     scored = []
-    for p in products:
-        pw = words(p["name"])
+    for _i in idx.candidatos(tw, t_brands, t_marca):
+        p = idx.products[_i]
+        pw, pc, pmah, pg, pm, pcol, pv, pmarca, plocked = idx.fichas[_i]
         overlap = tw & pw
         if not overlap:
             continue
-        if t_unlocked and LOCKED_CARRIER_RE.search(p["name"]):
+        if t_unlocked and plocked:
             continue
         # Si el título capturado trae una palabra de marca (iphone, samsung,
         # motorola...), el candidato tiene que traerla también -- si no, se
@@ -456,12 +539,10 @@ def candidates_for(item, products):
         # resta puntos, solo deja de sumarlos.
         if t_brands and not (t_brands & pw):
             continue
-        if t_marca and texto_plano(p.get("brand") or "") != t_marca:
+        if t_marca and pmarca != t_marca:
             continue  # marca distinta de la que declara la captura
-        pc = capacities(p["name"])
         if tc and pc and not (tc & pc):
             continue  # contradicción de capacidad: descartado sin más vueltas
-        pmah = capacidad_mah(norm(p["name"]))
         if tmah and pmah and tmah != pmah:
             continue  # contradicción de capacidad en mAh: mismo criterio que los
             # GB de un celular, para las categorías donde el dato que separa un
@@ -473,22 +554,18 @@ def candidates_for(item, products):
             # mal: un INIU de 10,000 contra uno de 30,000, un Anker de 10,000
             # contra un Kiosla de 5,000 y un LISEN de 20,000 contra un BELOSIN de
             # 10,000. Con la contradicción de mAh los tres quedan para revisión.
-        pg = generation_of(p["name"])
         if tg and pg and tg != pg:
             continue  # contradicción de generación (14 vs 15 Pro, 16 vs 16e, ...): descartado
-        pm = model_of(p["name"])
         if tm and pm and tm != pm:
             continue  # contradicción de línea/número de modelo (Galaxy S25 vs S25
             # Edge, Redmi Note 14 vs Note 15, Pura 70 vs Pura 90s...): mismo
             # criterio que la generación de iPhone -- son equipos distintos.
-        pcol = color_of(p["name"])
         if tcol and pcol and tcol != pcol:
             continue  # contradicción de color: descartado (a diferencia de capacidad y
             # generación, el color a veces se corrige con un bonus más abajo,
             # pero un choque directo -- grafito vs azul -- es tan mal candidato
             # como una capacidad distinta: se vio un caso real donde ganaba por
             # el bonus de variante a pesar del color equivocado)
-        pv = variant_of(p["name"])
         if tv != pv:
             continue  # Pro Max, Pro, Plus, Mini, Air, SE y "base" (ninguno de esos)
             # son equipos DISTINTOS con precio distinto, no una diferencia de
@@ -510,7 +587,11 @@ def candidates_for(item, products):
         if tm and pm and tm == pm:
             score += 2
         scored.append((score, p))
-    scored.sort(key=lambda sp: -sp[0])
+    # Desempate por id para que el top-5 que se manda a revisión sea
+    # siempre el mismo: al recorrer el índice invertido el orden de los
+    # candidatos ya no es el del catálogo, así que sin esto dos corridas
+    # iguales podían listar candidatos empatados en distinto orden.
+    scored.sort(key=lambda sp: (-sp[0], sp[1]["id"]))
     return scored
 
 
