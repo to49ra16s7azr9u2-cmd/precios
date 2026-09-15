@@ -8,7 +8,16 @@
   --card: #ffffff;
   --border: #e8e8e8;
   --gold: #f5a623;
-  --radius: 10px;
+  /* Las esquinas del sitio: a pedido del usuario, TODAS rectas. Los tres
+     tokens existen para no perder la intención de cada forma -- una tarjeta
+     redondeada, una píldora y un círculo se escribían con valores muy
+     distintos (10px, 999px, 50%) y si se hubieran reemplazado todos por un
+     0 suelto no habría forma de volver atrás sin revisar las 109
+     declaraciones a mano. Poniéndoles 10px / 999px / 50% se recupera el
+     diseño anterior; cambiando uno solo se redondea solo ese grupo. */
+  --radius: 0;
+  --radius-pill: 0;     /* .chip, .sort-opt, .oferta-pct: eran 999px */
+  --radius-circle: 0;   /* avatares, puntos de color, tiradores del slider: eran 50% */
   --green: #0a8a3c;
   --green-tint: #e7f7ee;
 }
@@ -128,7 +137,7 @@ a { color: inherit; text-decoration: none; }
 .brand-icon {
   width: 30px;
   height: 30px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   flex-shrink: 0;
 }
 .brand-mark {
@@ -153,7 +162,7 @@ a { color: inherit; text-decoration: none; }
 .search-wrap {
   display: flex;
   border: 2px solid var(--red);
-  border-radius: 8px;
+  border-radius: var(--radius);
   overflow: hidden;
 }
 /* Sugerencias de categoría mientras se escribe en el buscador (ver
@@ -167,7 +176,7 @@ a { color: inherit; text-decoration: none; }
   right: 0;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   max-height: 340px;
   overflow-y: auto;
@@ -223,13 +232,13 @@ a { color: inherit; text-decoration: none; }
 .util-nav a { display: inline-flex; align-items: center; gap: 5px; }
 .util-nav a:hover { color: var(--red); }
 .account-nav-avatar {
-  width: 16px; height: 16px; border-radius: 50%;
+  width: 16px; height: 16px; border-radius: var(--radius-circle);
   object-fit: cover; flex-shrink: 0;
 }
 .ship-toggle {
   display: flex; align-items: center; gap: 6px;
   cursor: pointer; user-select: none;
-  padding: 3px 8px; border-radius: 8px; border: 1px solid var(--border);
+  padding: 3px 8px; border-radius: var(--radius); border: 1px solid var(--border);
 }
 .ship-toggle:hover { border-color: var(--red); }
 .ship-toggle input { accent-color: var(--red); width: 15px; height: 15px; }
@@ -325,7 +334,7 @@ a { color: inherit; text-decoration: none; }
   margin-left: auto;
   background: var(--card);
   border: 1px solid var(--red);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   /* Chato y alargado a pedido del usuario: con 8px de alto y el círculo de
      32px del ícono, este botón medía 50px y era el que fijaba la altura de
      la primera línea del encabezado -- de ahí el hueco sobre la barra verde
@@ -362,7 +371,7 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   background: var(--bg);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   color: var(--red);
   /* overflow:hidden como red de seguridad: si por lo que sea el ícono de
      adentro no toma su tamaño chico (ver comentario de más abajo), que
@@ -405,7 +414,7 @@ a { color: inherit; text-decoration: none; }
    dorado/plata/bronce para el top 3. */
 .rank-badge {
   width: 30px; height: 30px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   background: var(--muted);
   color: #fff;
   font-size: 12px;
@@ -563,7 +572,7 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   box-sizing: border-box;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius);
   padding: 7px 10px;
   font-size: 12px;
   margin-bottom: 8px;
@@ -588,11 +597,11 @@ a { color: inherit; text-decoration: none; }
 .price-range-track {
   position: absolute; top: 50%; left: 0; right: 0; height: 4px;
   transform: translateY(-50%);
-  background: var(--border); border-radius: 2px;
+  background: var(--border); border-radius: var(--radius);
 }
 .price-range-fill {
   position: absolute; top: 50%; height: 4px; transform: translateY(-50%);
-  background: var(--red); border-radius: 2px;
+  background: var(--red); border-radius: var(--radius);
 }
 .price-range-input {
   position: absolute; top: 0; left: 0; width: 100%; height: 28px; margin: 0;
@@ -605,19 +614,19 @@ a { color: inherit; text-decoration: none; }
 .price-range-input::-moz-range-track { background: transparent; height: 28px; border: none; }
 .price-range-input::-webkit-slider-thumb {
   -webkit-appearance: none; pointer-events: auto;
-  width: 18px; height: 18px; border-radius: 50%; margin-top: 5px;
+  width: 18px; height: 18px; border-radius: var(--radius-circle); margin-top: 5px;
   background: var(--red); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--red);
   cursor: pointer;
 }
 .price-range-input::-moz-range-thumb {
-  pointer-events: auto; width: 18px; height: 18px; border-radius: 50%;
+  pointer-events: auto; width: 18px; height: 18px; border-radius: var(--radius-circle);
   background: var(--red); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--red);
   cursor: pointer;
 }
 .price-range-inputs { display: flex; align-items: center; gap: 8px; }
 .price-range-field {
   display: flex; align-items: center; gap: 3px; flex: 1;
-  border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px;
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 6px 8px;
 }
 .price-range-field:focus-within { border-color: var(--red); }
 .price-range-field span { color: var(--muted); font-size: 12px; }
@@ -637,7 +646,7 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   padding: 9px 8px;
   margin: 0 -8px;
-  border-radius: 6px;
+  border-radius: var(--radius);
 }
 .filter-option:hover { background: var(--bg); }
 .filter-option.active { color: var(--red); font-weight: 700; }
@@ -702,7 +711,7 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 10px;
   padding: 7px 8px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--card);
 }
 /* Sin etiqueta "ORDENAR POR": medía 86px con su gap y era justo lo que
@@ -741,7 +750,7 @@ a { color: inherit; text-decoration: none; }
 .sort-opt {
   flex-shrink: 0;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   /* 10px de costado y no 14: los 5 botones más el control de envío con su
      aviso al lado pedían 804px en los 784 útiles de la columna, y el
      recorte de 4px por lado por botón es justo lo que hace que la fila
@@ -784,7 +793,7 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   gap: 6px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 4px 10px 4px 6px;
   background: var(--card);
   font-family: inherit;
@@ -801,7 +810,7 @@ a { color: inherit; text-decoration: none; }
   width: 15px;
   height: 15px;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: var(--radius);
   background: #fff;
   font-size: 11px;
   line-height: 1;
@@ -822,7 +831,7 @@ a { color: inherit; text-decoration: none; }
      tienen que leerse como lo mismo. Sin --tier (ejes que no son escala) cae
      al rojo de la marca. */
   border: 1px solid var(--tier, var(--red));
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--tier-bg, var(--red-tint));
   font-size: 10px;
   font-weight: 800;
@@ -857,38 +866,13 @@ tr.offer-compare-off { display: none; }
   margin-bottom: 8px;
   padding: 7px 11px;
   border: 1px solid var(--red);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--red-tint);
   font-size: 12px;
   font-weight: 700;
   color: var(--red-dark);
 }
 .offer-compare-note .link-btn { font-size: 12px; }
-
-/* Línea de frescura del precio bajo el logo de la portada. Discreta: es
-   una promesa que se cumple, no un cartel. */
-.hero-freshness {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin: 0;
-  padding: 5px 12px;
-  border: 1px solid var(--green);
-  border-radius: 999px;
-  background: var(--green-tint);
-  font-size: 12px;
-  font-weight: 700;
-  color: #0a6b30;
-  line-height: 1.4;
-  text-align: left;
-}
-.hero-freshness-dot {
-  flex-shrink: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--green);
-}
 
 /* Aviso de búsqueda ampliada, debajo del título del listado. */
 .search-note {
@@ -907,7 +891,7 @@ tr.offer-compare-off { display: none; }
   margin-top: 8px;
   padding: 7px 13px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--card);
   font-family: inherit;
   font-size: 13px;
@@ -934,7 +918,7 @@ tr.offer-compare-off { display: none; }
   margin-top: 8px;
   padding: 7px 13px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--card);
   font-family: inherit;
   font-size: 13px;
@@ -957,7 +941,7 @@ tr.offer-compare-off { display: none; }
    las categorías con facets calculados. */
 .quality-picker {
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--card);
   margin-bottom: 10px;
   overflow: hidden;
@@ -1005,7 +989,7 @@ tr.offer-compare-off { display: none; }
   gap: 9px;
   padding: 7px 9px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--card);
   font: inherit;
   color: var(--ink);
@@ -1037,7 +1021,7 @@ tr.offer-compare-off { display: none; }
   align-items: center;
   justify-content: center;
   background: #fff;
-  border-radius: 8px;
+  border-radius: var(--radius);
   overflow: hidden;
 }
 .quality-card-photo img { max-width: 100%; max-height: 100%; object-fit: contain; }
@@ -1152,7 +1136,7 @@ tr.offer-compare-off { display: none; }
   margin: 0;
   padding: 14px 16px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   /* SIN max-height/overflow en la tarjeta misma -- un item de grid con
      overflow != visible colapsa su tamaño mínimo automático a 0 (lo manda
      la spec de CSS Grid), así que la tarjeta se achicaba al alto del <h3>
@@ -1195,7 +1179,7 @@ tr.offer-compare-off { display: none; }
 .pagination .page-btn {
   padding: 8px 16px;
   border: 1px solid var(--border, #ddd);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: #fff;
   font-weight: 700;
   font-size: 13px;
@@ -1251,7 +1235,7 @@ tr.offer-compare-off { display: none; }
 .color-dot {
   width: 14px;
   height: 14px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   display: inline-block;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
 }
@@ -1332,10 +1316,35 @@ tr.offer-compare-off { display: none; }
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 18px;
+  /* 10px y no 18px: desde que el ranking vive en la columna derecha de 300px
+     (ver .home-grid) cada píxel de padding se lo quita al nombre del
+     producto, que era lo que quedaba en "Ama...". */
+  padding: 10px;
   display: flex;
   flex-direction: column;
 }
+/* En la columna angosta la fila del ranking se queda con lo imprescindible:
+   puesto, foto, nombre y precio. El corazón de favoritos, el sello de
+   descuento y los cuadritos de color siguen estando en el listado completo,
+   que es donde hay ancho para leerlos. */
+.home-col-right .ranking-block-list .row-fav-btn,
+.home-col-right .ranking-block-list .discount-ribbon,
+.home-col-right .ranking-block-list .row-colors,
+.home-col-right .ranking-block-list .row-shipping { display: none; }
+.home-col-right .ranking-block-list .product-row { padding: 6px 7px; gap: 7px; }
+.home-col-right .ranking-block-list .row-name {
+  /* Dos líneas en vez de una: en 300px una sola línea dejaba el nombre en
+     tres letras y el ranking no se podía leer. */
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.3;
+}
+.home-col-right .ranking-block-list .row-price { font-size: 14px; }
+.home-col-right .ranking-block-list .row-priceblock { text-align: right; }
 .ranking-block-head {
   font-weight: 800;
   font-size: 13px;
@@ -1437,11 +1446,14 @@ tr.offer-compare-off { display: none; }
 .detail-quicknav-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 12px;
+  border-radius: var(--radius);
+  /* 9px y no 12px: con el recorte por puntos suspensivos puesto, la etiqueta
+     más larga de la cuadrícula ("Especificaciones") ya no podía desbordar su
+     celda y se cortaba. Con este padding entra entera. */
+  padding: 10px 9px;
   font-size: 12.5px;
   font-weight: 600;
   color: var(--ink);
@@ -1451,6 +1463,36 @@ tr.offer-compare-off { display: none; }
 }
 .detail-quicknav-btn:hover { border-color: var(--red); color: var(--red-dark); }
 .detail-quicknav-btn .icon { width: 15px; height: 15px; flex-shrink: 0; }
+/* El botón de la categoría lleva su nombre dentro, y hay nombres largos
+   ("Componentes y accesorios de PC"): se corta con puntos suspensivos en
+   vez de estirar la celda de la cuadrícula.
+   Hacen falta las dos reglas. El botón es una celda de grid, y una celda
+   trae min-width:auto, o sea "no me achico por debajo de mi contenido":
+   medido, el botón se iba a 271px dentro de una columna de 146 y la página
+   entera terminaba con scroll horizontal (body 1298 contra 1280 de
+   ventana). Y el recorte solo funciona sobre un elemento de bloque: como
+   <span> en línea, overflow:hidden no hace nada. */
+.detail-quicknav-btn { text-decoration: none; min-width: 0; }
+/* El botón de la categoría va en el hueco que dejaban los cinco botones en
+   una cuadrícula de dos columnas (es el lugar que marcó el usuario). Es el
+   único que SALE de la ficha, y el único cuyo texto no se conoce de
+   antemano: lleva el nombre de la categoría, que en media celda no entra en
+   una línea. En vez de cortarlo con puntos suspensivos ("Populares de ...",
+   que no dice nada) se deja envolver en dos o tres líneas; la fila entera
+   crece con él y las celdas de al lado se estiran igual. */
+.detail-quicknav-cat .detail-quicknav-label {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  line-height: 1.25;
+}
+.detail-quicknav-label {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 @media (max-width: 620px) {
   .detail-quicknav { flex-basis: 100%; margin-top: 4px; }
 }
@@ -1553,7 +1595,7 @@ tr.offer-compare-off { display: none; }
     border-left: 3px solid var(--red);
     padding-left: 7px;
     margin-left: -5px;
-    border-radius: 2px 0 0 2px;
+    border-radius: var(--radius) 0 0 var(--radius);
   }
   /* El envío NO se encoge: recortarlo por la mitad ("Gratis" cortado en
      "Grati") se lee como un error, no como una abreviatura. Lo que cede es el
@@ -1643,7 +1685,7 @@ tr.offer-compare-off { display: none; }
 .compare-panel-head h2 {
   margin: 0;
   padding: 11px 18px 11px 20px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   border-bottom: none;
   flex: 1;
   min-width: 200px;
@@ -1670,7 +1712,7 @@ tr.offer-compare-off { display: none; }
   flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   background: var(--bg);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
 }
 .delivery-banner-text {
   flex: 1;
@@ -1695,7 +1737,7 @@ tr.offer-compare-off { display: none; }
   background: var(--red);
   border: 2px solid var(--red);
   color: #fff;
-  border-radius: 20px;
+  border-radius: var(--radius);
   padding: 9px 18px;
   font-size: 12px;
   font-weight: 700;
@@ -1720,7 +1762,7 @@ tr.offer-compare-off { display: none; }
 .sort-tab {
   border: 1px solid var(--border);
   background: var(--card);
-  border-radius: 20px;
+  border-radius: var(--radius);
   padding: 8px 16px;
   font-size: 12px;
   cursor: pointer;
@@ -1773,7 +1815,7 @@ tr.offer-compare-off { display: none; }
      etiquetas permanentes (ver .region-marker-label) tengan aire, sobre
      todo en Ciudad de México con varias alcaldías juntas. */
   height: 340px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
   margin-top: 10px;
@@ -1791,7 +1833,7 @@ tr.offer-compare-off { display: none; }
 .leaflet-tooltip.region-marker-label {
   background: #fff;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius);
   padding: 2px 7px;
   font-size: 11px;
   font-weight: 700;
@@ -1808,7 +1850,7 @@ tr.offer-compare-off { display: none; }
 .region-chip {
   border: 1px solid var(--border);
   background: var(--card);
-  border-radius: 22px;
+  border-radius: var(--radius);
   padding: 10px 18px;
   font-size: 13px;
   cursor: pointer;
@@ -1855,7 +1897,7 @@ tr.offer-compare-off { display: none; }
 .modal-close {
   border: none;
   background: none;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   width: 32px; height: 32px;
   font-size: 16px;
   cursor: pointer;
@@ -1922,7 +1964,7 @@ tr.offer-compare-off { display: none; }
   gap: 5px;
   border: 1px solid var(--border);
   background: #fff;
-  border-radius: 14px;
+  border-radius: var(--radius);
   padding: 2px 10px 2px 2px;
   font-size: 11px;
   color: var(--ink);
@@ -1933,7 +1975,7 @@ tr.offer-compare-off { display: none; }
 .variant-pill img {
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   object-fit: cover;
   flex-shrink: 0;
   background: #f4f4f4;
@@ -1953,7 +1995,7 @@ tr.offer-compare-off { display: none; }
   font-weight: 700;
   color: var(--muted);
   background: #f4f4f4;
-  border-radius: 10px;
+  border-radius: var(--radius);
   padding: 1px 7px;
   margin-left: 7px;
   vertical-align: middle;
@@ -1968,7 +2010,7 @@ tr.offer-compare-off { display: none; }
   color: #8a5a00;
   background: #fff2d9;
   border: 1px solid #ffdd99;
-  border-radius: 10px;
+  border-radius: var(--radius);
   padding: 1px 7px;
   margin-left: 7px;
   vertical-align: middle;
@@ -1983,7 +2025,7 @@ tr.offer-compare-off { display: none; }
   color: #1e4d8f;
   background: #e3edfb;
   border: 1px solid #a9c6ef;
-  border-radius: 10px;
+  border-radius: var(--radius);
   padding: 1px 7px;
   margin-left: 7px;
   vertical-align: middle;
@@ -1999,7 +2041,7 @@ tr.offer-compare-off { display: none; }
   color: #8a5a00;
   background: #fff2d9;
   border: 1px solid #ffdd99;
-  border-radius: 10px;
+  border-radius: var(--radius);
   padding: 2px 8px;
   margin-top: 5px;
 }
@@ -2009,7 +2051,7 @@ tr.offer-compare-off { display: none; }
   display: inline-block;
   font-size: 10px;
   font-weight: 700;
-  border-radius: 9px;
+  border-radius: var(--radius);
   padding: 1px 7px;
   margin-top: 4px;
   margin-right: 4px;
@@ -2037,7 +2079,7 @@ tr.offer-compare-off { display: none; }
   color: #1b4f8a;
   background: #e8f1fb;
   border: 1px solid #b9d4f0;
-  border-radius: 10px;
+  border-radius: var(--radius);
   padding: 2px 8px;
   margin-top: 5px;
 }
@@ -2060,7 +2102,7 @@ tr.offer-compare-off { display: none; }
   color: #0a6b33;
   background: var(--green-tint);
   border: 1px solid #b6e2c8;
-  border-radius: 10px;
+  border-radius: var(--radius);
   padding: 2px 8px;
   margin-top: 5px;
 }
@@ -2068,7 +2110,7 @@ tr.offer-compare-off { display: none; }
    ni brillo — solo sirve para identificar la tienda de un vistazo. */
 .store-dot {
   width: 32px; height: 32px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   color: #fff;
   font-size: 11px;
   font-weight: 800;
@@ -2100,7 +2142,7 @@ tr.offer-compare-off { display: none; }
   color: #fff;
   background: var(--red-dark);
   padding: 2px 7px;
-  border-radius: 4px;
+  border-radius: var(--radius);
   margin-left: 4px;
   vertical-align: middle;
 }
@@ -2122,7 +2164,7 @@ tr.offer-compare-off { display: none; }
   font-weight: 800;
   line-height: 1;
   padding: 3px 5px;
-  border-radius: 4px;
+  border-radius: var(--radius);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
@@ -2149,7 +2191,7 @@ tr.offer-compare-off { display: none; }
   left: -8px;
   font-size: 11px;
   padding: 4px 8px;
-  border-radius: 5px;
+  border-radius: var(--radius);
 }
 .best-tag {
   display: inline-block;
@@ -2159,7 +2201,7 @@ tr.offer-compare-off { display: none; }
   background: var(--red);
   color: #fff;
   padding: 2px 7px;
-  border-radius: 4px;
+  border-radius: var(--radius);
   vertical-align: middle;
 }
 /* Insignia "recomendado": deliberadamente NO roja como MÁS BARATO/MÁS
@@ -2190,7 +2232,7 @@ tr.offer-compare-off { display: none; }
   color: var(--green);
   background: var(--green-tint);
   padding: 3px 10px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   white-space: nowrap;
   border: 1px solid #c9edd9;
 }
@@ -2210,7 +2252,7 @@ tr.offer-compare-off { display: none; }
   color: #a15c00;
   background: #fff8ec;
   padding: 2px 8px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   white-space: nowrap;
   cursor: help;
   border: 1px solid #f3ddb5;
@@ -2220,7 +2262,7 @@ tr.offer-compare-off { display: none; }
   color: #fff;
   border: none;
   padding: 11px 20px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -2245,7 +2287,7 @@ tr.offer-compare-off { display: none; }
   color: #1f1f1f;
   border: 1px solid var(--border);
   padding: 11px 20px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -2275,7 +2317,7 @@ tr.offer-compare-off { display: none; }
   margin-bottom: 10px;
 }
 .account-avatar {
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 40px; height: 40px; border-radius: var(--radius-circle);
   object-fit: cover; flex-shrink: 0;
   background: var(--border);
 }
@@ -2332,7 +2374,7 @@ tr.offer-compare-off { display: none; }
 }
 .shipping-calc-row input {
   border: 1px solid var(--border);
-  border-radius: 7px;
+  border-radius: var(--radius);
   padding: 10px 12px;
   font-size: 13px;
   font-family: inherit;
@@ -2518,7 +2560,7 @@ tr.offer-compare-off { display: none; }
   left: 0; top: 50%;
   transform: translateY(-50%);
   width: 7px; height: 7px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   background: currentColor;
 }
 .stock-in { color: #0a8a3c; }
@@ -2552,7 +2594,7 @@ tr.offer-compare-off { display: none; }
    comparten el id. */
 #comparePanel .table-scroll {
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--card, #fff);
 }
 #comparePanel .compare-table { margin-top: 0; }
@@ -2579,36 +2621,201 @@ tr.offer-compare-off { display: none; }
    de "Top 5 más visitadas" a la derecha, angosto y fijo -- las categorías
    quedan "empujadas" contra ese panel en vez de extenderse a todo el
    ancho. En pantallas angostas el panel baja debajo de las categorías. */
-.home-categories-layout {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  /* Aire entre la fila de la promesa de frescura y las categorías, a pedido
-     del usuario. Va acá y no en .home-category-box: si lo llevara solo la
-     caja de la izquierda, volvería a quedar más abajo que la columna de la
-     derecha, que es lo que se acaba de alinear. Los sellos "Hasta -70%"
-     cuelgan 8px por encima de las tarjetas, así que el hueco que se ve es
-     menor que este número. */
-  margin-top: 12px;
+/* Inicio en tres columnas (ver el boceto en index.html). El hueco es una
+   variable porque el pedido explícito fue "que no sobre aire en ningún
+   lado": un solo número gobierna la separación entre columnas y entre las
+   piezas de cada columna. */
+:root { --hueco-inicio: 8px; }
+.home-grid {
+  display: grid;
+  grid-template-columns: 208px minmax(0, 1fr) 300px;
+  /* La fila 1 es sólo la franja de "Más visto" y la 2 el resto. Hace falta
+     decirlo: la columna derecha cruza las dos filas y, con filas
+     automáticas, su altura se reparte entre ambas -- la fila 1 crecía a
+     321px para una franja de 69px y las otras dos columnas empezaban 250px
+     más abajo, justo el hueco que no debe haber. Al ser flexible la fila 2,
+     el sobrante de lo que cruza las dos filas se va entero ahí. */
+  grid-template-rows: min-content 1fr;
+  gap: var(--hueco-inicio);
+  align-items: start;
+  margin-top: var(--hueco-inicio);
 }
-.home-right-column {
-  flex: 0 0 320px;
+.home-col { display: flex; flex-direction: column; gap: var(--hueco-inicio); min-width: 0; }
+/* Colocación explícita. Sin esto la franja de "Más visto" ocupa la fila 1
+   columnas 1-2 y la barra izquierda se va sola a la fila 1 columna 3: las
+   pestañas aparecían donde va la publicidad. La columna de la derecha
+   arranca arriba del todo, al lado de la franja, como en el boceto. */
+.home-most-viewed-band { grid-column: 1 / 3; grid-row: 1; }
+.home-col-left { grid-column: 1; grid-row: 2; }
+.home-col-center { grid-column: 2; grid-row: 2; }
+.home-col-right { grid-column: 3; grid-row: 1 / span 2; }
+/* Las dos entradas al catálogo, arriba de todo en la columna izquierda
+   (es el orden del boceto): la marca --que abre las categorías-- y
+   "Marcas". La activa se pinta en rojo; la otra queda apagada, para que se
+   vea cuál de las dos manda sin tener que leer el texto. */
+.home-tabs { display: flex; flex-direction: column; gap: 4px; }
+.home-tab {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+.home-tab:hover { color: var(--red-dark); border-color: var(--red); }
+.home-tab.is-active { background: var(--card); color: var(--red-dark); border-color: var(--red); }
+/* La primera pestaña es el logo, no texto. */
+.home-tab-marca { padding: 7px 9px; }
+.home-tab-marca .hero-logo { display: block; width: 100%; height: auto; }
+.home-tab-marca:not(.is-active) .hero-logo { filter: grayscale(1); opacity: 0.55; }
+
+/* Rejilla de marcas de la pestaña "Marcas" de la portada. Prefijo
+   home- a propósito: .brand-grid/.brand-card ya existen más abajo, son las
+   tarjetas grandes con logo de las marcas afiliadas (data/brands.json), y
+   como van después en el archivo le ganaban a estas -- la rejilla salía de
+   dos columnas de 221px en vez de las de 132px que pide este bloque. */
+.home-brand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: 6px;
+}
+.home-brand-card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 7px 9px;
+  text-decoration: none;
+  color: var(--ink);
+  min-width: 0;
 }
-/* El panel de "Más visto" vive en la columna angosta (antes iba a todo el
-   ancho, debajo del ranking) -- ver .most-viewed-card más abajo para el
-   diseño vertical/grande que reemplaza al horizontal compacto que tenía
-   cuando ocupaba todo el ancho de la página. */
-/* Banner de afiliados (Admitad), debajo del Top 5 -- mismo marco que el
-   resto de las tarjetas de la columna, con la etiqueta "Publicidad" para
-   que se distinga con claridad de contenido propio del sitio. */
+.home-brand-card:hover { border-color: var(--red); }
+.home-brand-card-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.home-brand-card-count { font-size: 11px; color: var(--muted); }
+.home-brand-grid-more { margin: 8px 0 0; text-align: center; font-size: 12px; }
+/* El <h1> de la portada. Tiene que ser un h1 (es el título de la página y
+   el logo ya no lo es, porque pasó a ser una pestaña), pero se ve como la
+   frase de entrada que era. */
+.home-elige {
+  /* Margen negativo a propósito: la columna es un flex con gap de
+     --hueco-inicio, y el gap no se puede ajustar por pieza. Restarle 6px
+     deja la frase pegada a la caja de categorías (2px), que es lo pedido,
+     sin tocar la separación del resto de la columna. */
+  margin: 0 0 calc(var(--hueco-inicio) * -1 + 2px);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Los botones de la columna izquierda (Marcas, Cómo utilizar, ubicación).
+   Mismo lenguaje que .hero-map-btn, que era el que estaba en el hero antes
+   de que el hero desapareciera, pero apilados y compactos. */
+.home-side-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--red);
+  border-radius: var(--radius);
+  /* De dos renglones a uno: el título y su explicación van en la misma
+     línea, así el botón mide ~22px en vez de los 46px de antes (menos de la
+     mitad, que es lo que se pidió). El relleno y el icono bajan en
+     consecuencia: con 16px de icono el alto no podría bajar de 24px. */
+  padding: 3px 8px;
+  font: inherit;
+  font-size: 12px;
+  color: var(--ink);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.home-side-btn:hover { background: var(--red-tint); }
+.home-side-btn > span:last-child {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 5px;
+  min-width: 0;
+  overflow: hidden;
+}
+.home-side-btn strong { font-size: 12px; line-height: 1.2; white-space: nowrap; }
+.home-side-btn-sub {
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.home-side-btn-icon { display: flex; color: var(--red); flex-shrink: 0; }
+.home-side-btn-icon .icon { width: 13px; height: 13px; }
+
+/* Panel de ayuda que abre "Cómo utilizar". */
+.home-tips {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: 9px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.home-tips ol { margin: 0; padding-left: 16px; }
+.home-tips li + li { margin-top: 5px; }
+.home-tips strong { color: var(--ink); }
+
+/* Lista de las páginas de ranking mensual. */
+.home-side-list {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 7px 0;
+}
+.home-side-list-head {
+  display: block;
+  padding: 0 10px 5px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.home-side-list a {
+  display: block;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.home-side-list a:hover { background: var(--bg); color: var(--red-dark); }
+.home-side-list a.home-side-list-more { color: var(--red); font-weight: 700; }
+
+/* Banner de afiliados (Admitad), arriba de la columna derecha -- mismo
+   marco que el resto, con la etiqueta "Publicidad" para que se distinga con
+   claridad de contenido propio del sitio. */
 .home-ad-banner {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 10px;
+  padding: 8px;
   text-align: center;
 }
 .home-ad-label {
@@ -2618,12 +2825,49 @@ tr.offer-compare-off { display: none; }
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
-.home-ad-banner img { max-width: 100%; height: auto; border-radius: 6px; display: block; margin: 0 auto; }
+.home-ad-banner img { max-width: 100%; height: auto; border-radius: var(--radius); display: block; margin: 0 auto; }
+
+@media (max-width: 1000px) {
+  /* Dos columnas: el centro se queda con el ancho y las dos barras se
+     reparten abajo. Se anula la colocación explícita de arriba. */
+  .home-grid { grid-template-columns: minmax(0, 1fr) 260px; grid-template-rows: auto; }
+  .home-most-viewed-band { grid-column: 1 / -1; grid-row: auto; }
+  .home-col-center { grid-column: 1; grid-row: auto; }
+  .home-col-right { grid-column: 2; grid-row: auto; }
+  .home-col-left { grid-column: 1 / -1; grid-row: auto; flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .home-col-left .home-side-btn { width: auto; flex: 1 1 180px; }
+  .home-col-left .home-side-list { flex: 1 1 100%; }
+  .home-tabs { flex: 1 1 100%; flex-direction: row; }
+  .home-tab-marca .hero-logo { max-width: 160px; }
+}
 @media (max-width: 720px) {
-  .home-categories-layout { flex-direction: column; }
-  .home-right-column { flex: 1 1 auto; width: 100%; box-sizing: border-box; }
+  .home-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+  .home-col-right { flex-direction: column; }
+  .home-tabs { flex-direction: row; align-items: stretch; }
+  .home-tab { flex: 1 1 0; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .home-tab-marca .hero-logo { max-width: 150px; }
+  .home-most-viewed-band { grid-column: auto; grid-row: auto; }
+  .home-col-left, .home-col-center, .home-col-right { grid-column: auto; grid-row: auto; }
+  /* Apilada, la lista de 18 rankings empujaba la rejilla de categorías
+     --que es a lo que se viene a Inicio-- casi dos pantallas hacia abajo.
+     En el teléfono se convierte en una fila que se desplaza de lado, como
+     la de "lo último que viste": ocupa un renglón en vez de dieciocho. */
+  .home-side-list {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 6px;
+    align-items: center;
+  }
+  .home-side-list-head { padding: 0 4px 0 2px; white-space: nowrap; }
+  .home-side-list a {
+    flex: 0 0 auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 5px 9px;
+  }
 }
 
 /* "Visto recientemente" / "Recomendado para ti": solo con sesión iniciada
@@ -2642,21 +2886,40 @@ tr.offer-compare-off { display: none; }
    texto; ahora vive apilada en la columna angosta debajo del banner de
    publicidad, así que el icono pasa a ocupar todo el ancho arriba, bien
    grande, con el texto debajo en vez de al lado. */
+/* Franja de "Más visto en este navegador": va arriba del logo, a todo el
+   ancho del contenido. Inicio tiene fondo blanco (#viewHome), así que el
+   gris de --bg es justo el contraste que pidió el usuario -- "solo
+   alrededor": la tarjeta de adentro sigue blanca. */
+.home-most-viewed-band {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 8px;
+  /* La colocación en la rejilla (columnas 1-2, no las tres) está arriba,
+     junto a la del resto de las columnas, y no acá: repetida en este bloque
+     --que va después de las consultas de medios-- le ganaba a la versión
+     apilada del teléfono y la franja seguía cruzando dos columnas, con la
+     izquierda aplastada a 0px encima del centro. */
+}
 .most-viewed-card {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  /* En horizontal desde que subió arriba del logo: en la columna angosta de
+     la derecha era vertical (foto arriba, datos abajo) porque tenía 320px de
+     ancho; acá tiene todo el ancho de la página y apilarlo dejaría una
+     tarjeta altísima empujando las categorías fuera de la primera pantalla. */
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 10px 14px;
   cursor: pointer;
 }
 .most-viewed-card:hover { border-color: var(--red); }
 .most-viewed-icon {
   position: relative;
   font-size: 72px;
-  width: 100%; height: 180px;
+  width: 148px; height: 112px;
   display: flex; align-items: center; justify-content: center;
   background: var(--bg);
   border: 1px solid var(--border);
@@ -2664,53 +2927,34 @@ tr.offer-compare-off { display: none; }
   flex-shrink: 0;
   overflow: hidden;
 }
-/* Rótulo del panel, superpuesto en la esquina vacía de la foto (arriba a
-   la derecha, opuesto al sello de descuento que va arriba a la
-   izquierda) en vez de un <h2> aparte encima de la tarjeta -- a pedido
-   del usuario, para no gastar esa línea extra de alto y que el bloque
-   completo suba. Fondo semitransparente para que se lea encima de
-   cualquier foto. */
-.most-viewed-badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  max-width: none;
-  white-space: nowrap;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--ink);
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 1.25;
-  padding: 4px 8px;
-  border-radius: 999px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  pointer-events: none;
-}
-/* Selector más específico a propósito: el ícono del rótulo vive dentro de
-   .most-viewed-icon (el marco de la foto), así que sin este extra nivel
-   también calzaba con la regla genérica .most-viewed-icon .icon (64px,
-   pensada para el emoji de reemplazo cuando no hay foto) -- con la misma
-   especificidad de otro modo, esa regla venía después en el archivo y
-   ganaba, dejando el ojo enorme en vez de chico junto al texto. */
-.most-viewed-icon .most-viewed-badge .icon { width: 12px; height: 12px; flex-shrink: 0; color: var(--ink); }
 /* Misma etiqueta pero como texto normal arriba de la tarjeta -- se usa
    solo en el estado vacío (sin producto visto todavía no hay foto donde
    superponerla). */
+/* El rótulo del panel, como primera línea del bloque de datos. Antes iba
+   superpuesto en la esquina de la foto; con la tarjeta en horizontal la
+   foto mide 148px y el rótulo (que no se parte en dos líneas) se salía del
+   marco y quedaba cortado por su overflow:hidden. */
 .most-viewed-heading {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin: 0 0 10px;
-  font-size: 14px;
+  gap: 5px;
+  margin: 0 0 4px;
+  font-size: 12px;
   font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
-.most-viewed-heading .icon { width: 18px; height: 18px; flex-shrink: 0; }
+.most-viewed-heading .icon { width: 14px; height: 14px; flex-shrink: 0; }
+/* Salvo en el estado vacío, donde es el único texto y encabeza la tarjeta. */
+.most-viewed-panel-empty .most-viewed-heading { font-size: 14px; margin-bottom: 10px; color: var(--ink); text-transform: none; letter-spacing: 0; }
+.most-viewed-panel-empty .most-viewed-heading .icon { width: 18px; height: 18px; }
 .most-viewed-info { flex: 1; min-width: 0; }
 .most-viewed-info h3 { margin: 2px 0 6px; font-size: 17px; }
+/* El botón, en su propia columna a la derecha: en la tarjeta horizontal
+   colgando debajo del precio dejaba un hueco alto a la derecha de la foto. */
+.most-viewed-action { flex-shrink: 0; padding-left: 4px; }
+.most-viewed-action .most-viewed-cta { margin-top: 0; white-space: nowrap; font-size: 13px; }
 .most-viewed-cta {
   margin-top: 10px;
   border: none;
@@ -2722,6 +2966,142 @@ tr.offer-compare-off { display: none; }
   padding: 0;
 }
 .most-viewed-empty { font-size: 12px; color: var(--muted); line-height: 1.6; margin: 0; }
+/* Va acá abajo y no junto a las otras @media de Inicio a propósito: estas
+   reglas sobreescriben a .most-viewed-card/.most-viewed-icon, que se
+   declaran más arriba con la MISMA especificidad, así que en el orden
+   anterior (media primero) la regla base ganaba y en el teléfono la tarjeta
+   se quedaba en fila, con la foto de 148px aplastando el texto. */
+@media (max-width: 720px) {
+  /* Apilada (foto a todo el ancho arriba, datos abajo) la franja medía
+     424px de alto: en un teléfono de 800px eso es más de media pantalla
+     gastada antes de llegar a las categorías, que son el contenido real de
+     Inicio. Se queda en fila con la foto chica y conserva lo único que
+     decide un clic -- qué producto es y cuánto cuesta. La tarjeta entera ya
+     es clicable (card.onclick en renderHomeMostViewed), así que el botón no
+     hace falta acá, y la línea de calificaciones se va porque es la que
+     menos aporta de las cuatro. */
+  .home-most-viewed-band { padding: 8px; }
+  .most-viewed-card { flex-direction: row; align-items: center; gap: 10px; padding: 8px 10px; }
+  .most-viewed-icon { width: 84px; height: 84px; }
+  .most-viewed-icon .icon { width: 40px; height: 40px; }
+  .most-viewed-heading { font-size: 10px; margin-bottom: 2px; }
+  .most-viewed-heading .icon { width: 12px; height: 12px; }
+  .most-viewed-info .muted.small { font-size: 11px; }
+  .most-viewed-info h3 {
+    font-size: 14px;
+    margin: 1px 0 3px;
+    /* Dos líneas y corta: los nombres de catálogo llegan a 90 caracteres y
+       un nombre largo solo devolvía a la franja el alto que se le quitó. */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .most-viewed-card .detail-rating { display: none; }
+  .most-viewed-card .detail-fromprice { font-size: 12px; }
+  .most-viewed-card .detail-fromprice strong { font-size: 17px; }
+  .most-viewed-card .save-amount { font-size: 11px; }
+  .most-viewed-action { display: none; }
+}
+
+/* ---------- "Lo último que viste en este navegador" ---------- */
+/* Tira horizontal de fichas chicas (el patrón de "もう一度購入" de Rakuten,
+   que fue el ejemplo que pidió el usuario): se desplaza de lado en vez de
+   apilarse, así ocupa una sola franja de alto pase lo que pase con la
+   cantidad de productos. Se alimenta de localStorage -- ver
+   renderHomeRecent() y trackProductView() en js/app.js. */
+.home-recent { margin-top: 18px; }
+.recent-strip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  /* Solo esta tira se desplaza de lado; el cuerpo de la página nunca. */
+  padding-bottom: 6px;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+.recent-card {
+  flex: 0 0 132px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+.recent-card:hover { border-color: var(--red); }
+.recent-card-media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.recent-card-media .product-placeholder-icon { width: 40px; height: 40px; color: var(--muted); }
+/* Si la foto no carga, el navegador dibuja el texto alternativo DENTRO de
+   este marco: con los 16px heredados desbordaba los 96px de alto y se veía
+   el nombre del producto cortado por la mitad encima del ícono de imagen
+   rota. Acá queda chico y centrado. */
+.recent-card-media { font-size: 10px; line-height: 1.2; color: var(--muted); text-align: center; }
+.recent-card-name {
+  font-size: 12px;
+  line-height: 1.35;
+  /* Dos líneas y corta: los nombres del catálogo llegan a 90 caracteres y
+     uno solo estiraría toda la fila. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.recent-card-price { font-size: 14px; font-weight: 800; color: var(--red-dark); }
+@media (max-width: 720px) {
+  .recent-card { flex-basis: 116px; }
+  .recent-card-media { height: 84px; }
+}
+
+/* ---------- Guía de compra de la categoría ---------- */
+/* Las secciones que la página de categoría copia de kakaku.com: el índice
+   de arriba, "cómo elegir" (los ejes que calcula compute_quality_axes.py) y
+   las preguntas frecuentes. Todo se pinta en la página estática, sin JS. */
+.chip-row-indice { margin: 10px 0 14px; }
+.guia-ejes { display: grid; gap: 14px; }
+.guia-eje h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.guia-tiers {
+  display: grid;
+  /* Se acomodan solas: tres ejes de tres niveles no tienen por qué caber en
+     el mismo número de columnas que uno de seis. */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+}
+.guia-tier {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: 9px 11px;
+}
+.guia-tier-nombre { font-weight: 800; font-size: 13px; }
+.guia-tier-spec { font-size: 12px; color: var(--red-dark); font-weight: 700; margin-top: 1px; }
+.guia-tier-uso { font-size: 12px; color: var(--muted); line-height: 1.4; margin-top: 3px; }
+.faq-item + .faq-item { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
+.faq-item h3 { margin: 0 0 4px; font-size: 14px; }
+.faq-item p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.6; }
 
 /* ---------- Marcas y ofertas (catálogo de afiliados) ---------- */
 .category-card-grid {
@@ -2740,14 +3120,12 @@ tr.offer-compare-off { display: none; }
    roja "Categorías" que iba montada arriba del borde se quitó a
    pedido del usuario. */
 .home-category-box {
-  flex: 1;
   min-width: 0;
   padding: 6px;
-  /* Sin margen arriba: los 4px que tenía dejaban el marco de las categorías
-     4px más abajo que el de la columna de la derecha, y las dos cajas
-     arrancan a la misma altura en la misma fila. A pedido del usuario, con
-     captura marcando la línea. */
-  margin: 0 0 18px;
+  /* Sin márgenes: en la rejilla de tres columnas la separación la pone
+     `gap: var(--hueco-inicio)`, y los 18px de abajo que tenía volvían a
+     meter el aire que el usuario pidió sacar. */
+  margin: 0;
   /* A pedido del usuario se quita el patrón de sarape (llegó a probarse
      en varias vueltas: rombos sutiles, sarape vívido multicolor, luego
      acotado a blanco/rosa/rojo -- commits 422af90ba..c5c5f907d) y se
@@ -2787,7 +3165,7 @@ tr.offer-compare-off { display: none; }
   position: relative;
   width: 38px;
   height: 38px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -2819,7 +3197,7 @@ tr.offer-compare-off { display: none; }
   font-weight: 800;
   line-height: 1.15;
   padding: 2px 4px;
-  border-radius: 4px;
+  border-radius: var(--radius);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   pointer-events: none;
   white-space: nowrap;
@@ -2918,7 +3296,7 @@ tr.offer-compare-off { display: none; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: #fff;
 }
 .product-row .row-icon.has-photo {
@@ -2962,9 +3340,14 @@ tr.offer-compare-off { display: none; }
    del texto que lo rodea (gris en reposo, rojo activo/hover). */
 .cat-item-icon { width: 15px; height: 15px; vertical-align: -3px; margin-right: 1px; }
 
-/* Encabezados de sección (Top 5, Ranking, Más visto, resultados en vivo). */
+/* Encabezados de sección (Top 5, Ranking, Más visto, resultados en vivo).
+   `.panel h2 .icon` entró acá con la guía de compra de las categorías: .icon
+   solo trae flex-shrink, el tamaño lo pone cada contexto, y un <svg> con
+   viewBox y sin width/height se dibuja al 100% del contenedor -- el ícono de
+   "Cómo elegir" salió del alto de la pantalla en la primera prueba. */
 .section-title .icon,
 .hero h2 .icon,
+.panel h2 .icon,
 #homeTopCategories h2 .icon,
 #liveSearchSection h2 .icon,
 .list-head h1 .icon,
@@ -3023,7 +3406,7 @@ tr.offer-compare-off { display: none; }
   margin: 12px 0;
   padding: 9px 11px;
   border: 1px solid #f0d08a;
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: #fff8e8;
   font-size: 12px;
   line-height: 1.45;
@@ -3050,7 +3433,7 @@ tr.offer-compare-off { display: none; }
 .review-form select,
 .review-form textarea {
   border: 1px solid var(--border);
-  border-radius: 7px;
+  border-radius: var(--radius);
   padding: 10px 12px;
   font-size: 13px;
   font-family: inherit;
@@ -3104,7 +3487,7 @@ tr.offer-compare-off { display: none; }
   z-index: 40;
   width: 48px;
   height: 48px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   border: none;
   background: var(--red);
   color: #fff;
@@ -3188,7 +3571,7 @@ tr.offer-compare-off { display: none; }
   gap: 6px;
   padding: 4px 6px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--bg);
   max-width: 220px;
   flex-shrink: 0;
@@ -3196,7 +3579,7 @@ tr.offer-compare-off { display: none; }
 .compare-chip-photo {
   width: 30px; height: 30px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  background: #fff; border-radius: 5px; overflow: hidden;
+  background: #fff; border-radius: var(--radius); overflow: hidden;
 }
 .compare-chip-photo img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .compare-chip-photo .product-placeholder-icon { width: 18px; height: 18px; }
@@ -3216,12 +3599,12 @@ tr.offer-compare-off { display: none; }
 .compare-bar-actions { display: flex; gap: 8px; flex-shrink: 0; }
 .compare-bar-clear {
   border: 1px solid var(--border); background: var(--card); color: var(--muted);
-  border-radius: 8px; padding: 7px 11px; font: inherit; font-size: 12px; cursor: pointer;
+  border-radius: var(--radius); padding: 7px 11px; font: inherit; font-size: 12px; cursor: pointer;
 }
 .compare-bar-clear:hover { color: var(--red); border-color: var(--red); }
 .compare-bar-go {
   border: none; background: var(--red); color: #fff;
-  border-radius: 8px; padding: 7px 14px; font: inherit; font-size: 12px;
+  border-radius: var(--radius); padding: 7px 14px; font: inherit; font-size: 12px;
   font-weight: 700; cursor: pointer;
 }
 .compare-bar-go:disabled { background: #d0d0d0; cursor: default; }
@@ -3252,7 +3635,7 @@ tr.offer-compare-off { display: none; }
 .compare-th-photo {
   width: 54px; height: 54px;
   display: flex; align-items: center; justify-content: center;
-  background: #fff; border-radius: 6px; overflow: hidden;
+  background: #fff; border-radius: var(--radius); overflow: hidden;
 }
 .compare-th-photo img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .compare-th-photo .product-placeholder-icon { width: 28px; height: 28px; }
@@ -3296,7 +3679,7 @@ tr.offer-compare-off { display: none; }
 /* ---------- Paso 1: el tipo dentro de la categoría ---------- */
 .subcat-picker {
   border: 1px solid var(--red);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--red-tint);
   padding: 10px 12px;
   margin-bottom: 10px;
@@ -3319,7 +3702,7 @@ tr.offer-compare-off { display: none; }
   color: var(--ink);
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 3px 10px;
 }
 @media (max-width: 560px) {
@@ -3336,7 +3719,7 @@ tr.offer-compare-off { display: none; }
   gap: 8px;
   padding: 6px 8px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--card);
   font: inherit;
   color: var(--ink);
@@ -3354,7 +3737,7 @@ tr.offer-compare-off { display: none; }
 .subcat-card-photo {
   width: 38px; height: 38px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  background: #fff; border-radius: 6px; overflow: hidden;
+  background: #fff; border-radius: var(--radius); overflow: hidden;
 }
 .subcat-card-photo img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .subcat-card-photo .product-placeholder-icon { width: 20px; height: 20px; }
@@ -3387,7 +3770,7 @@ tr.offer-compare-off { display: none; }
   padding: 8px 10px;
   background: var(--bg);
   border-left: 3px solid var(--border);
-  border-radius: 0 6px 6px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
 }
 .store-review-quote-title { font-weight: 700; font-size: 12px; display: block; margin-bottom: 2px; }
 .store-review-quote p { margin: 0; font-size: 12px; line-height: 1.45; }
@@ -3407,7 +3790,7 @@ tr.offer-compare-off { display: none; }
   gap: 5px;
   padding: 4px 10px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--card);
   font: inherit;
   font-size: 11px;
@@ -3419,7 +3802,7 @@ tr.offer-compare-off { display: none; }
 .color-chip:hover { border-color: var(--red); }
 .color-chip.active { border-color: var(--red); background: var(--red-tint); color: var(--red-dark); }
 .color-chip-dot {
-  width: 11px; height: 11px; border-radius: 50%;
+  width: 11px; height: 11px; border-radius: var(--radius-circle);
   /* Borde siempre: sin él, un punto blanco o crema desaparece sobre la
      pastilla blanca y el botón parece no tener color. */
   border: 1px solid rgba(0, 0, 0, .25);
@@ -3440,7 +3823,7 @@ tr.offer-compare-off { display: none; }
   display: inline-block;
   padding: 6px 12px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: #fff;
   color: var(--ink);
   font-size: 13px;
@@ -3457,22 +3840,47 @@ tr.offer-compare-off { display: none; }
    El gráfico es un <svg> inline sin JavaScript: estas páginas son estáticas y
    las ve un rastreador antes que una persona, así que tiene que pintarse sin
    depender de nada (ver sparkline_svg en scripts/generate_seo_pages.py). */
+/* A pedido del usuario el bloque entero es más bajo y con letra más chica:
+   el viewBox pasó de 560x150 a 560x92 (ver sparkline_svg/sparklineSvg, que
+   tienen que seguir dando el mismo dibujo) y acá acompañan el alto máximo,
+   los márgenes y los tamaños de texto. */
 .price-spark {
   width: 100%;
   height: auto;
-  max-height: 200px;
+  /* Tope al ancho del viewBox: sin él el SVG se estiraba a los 1,062px del
+     panel, o sea 1.9x, y con él se agrandaba TODO lo que está medido en
+     unidades del viewBox -- las etiquetas de 10px se dibujaban de 19px en
+     pantalla. Con el tope, el gráfico se ve a escala 1:1 y las letras miden
+     lo que dicen medir. */
+  max-width: 560px;
+  max-height: 92px;
   display: block;
-  margin: 10px 0 4px;
+  margin: 6px 0 2px;
 }
 /* Ejes del gráfico: los pinta sparkline_svg() / sparklineSvg(). El texto va
    en px del viewBox (560 de ancho), así que en pantalla se escala con el
    gráfico y en móvil sigue legible sin pasar de 3 marcas por eje. */
-.price-spark .spark-label { font: 13px/1 inherit; fill: var(--muted); }
+/* font-size suelto y no la abreviatura `font:`. La regla decía
+   `font: 13px/1 inherit` y era INVÁLIDA -- en la abreviatura `font` el
+   último valor es la familia, e `inherit` no sirve ahí, así que el
+   navegador descartaba la declaración entera y la etiqueta se dibujaba con
+   los 16px heredados. Medido: font-size computado = 16px con la regla
+   puesta. Por eso los números del eje se veían enormes por más que la hoja
+   dijera 13px. La familia se hereda sola, no hace falta declararla. */
+.price-spark .spark-label { font-size: 11px; fill: var(--muted); }
+/* En el teléfono el SVG sí se achica (368px de 560, o sea 0.66x), así que la
+   etiqueta se compensa para que en pantalla siga midiendo lo mismo. */
+@media (max-width: 720px) {
+  .price-spark .spark-label { font-size: 15px; }
+}
 .price-spark .spark-grid { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
 .price-spark .spark-axis { stroke: var(--muted); stroke-width: 1; }
 .price-spark .spark-tick { stroke: var(--muted); stroke-width: 1; }
-.history-verdict { font-size: 15px; margin: 0 0 6px; }
+.history-verdict { font-size: 13px; margin: 0 0 3px; }
 .history-verdict.history-low { color: var(--red); font-weight: 700; }
+.history-range { font-size: 12px; margin: 0; color: var(--muted); }
+#historyPanel h2 { font-size: 15px; }
+#historyPanel { padding-top: 12px; padding-bottom: 12px; }
 
 /* ---------- Ranking de bajadas de precio (/ofertas/) ---------- */
 .oferta-row .row-priceblock { text-align: right; }
@@ -3485,7 +3893,7 @@ tr.offer-compare-off { display: none; }
   display: inline-block;
   margin-top: 2px;
   padding: 1px 6px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--red);
   color: #fff;
   font-size: 12px;
@@ -3500,7 +3908,7 @@ tr.offer-compare-off { display: none; }
   box-sizing: border-box;
   padding: 10px 14px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font: inherit;
   background: var(--card);
   color: inherit;

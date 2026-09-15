@@ -37,6 +37,7 @@
     reviews: "comparamx_reviews",
     includeShipping: "comparamx_include_shipping",
     productViews: "comparamx_product_views",
+    recentViews: "comparamx_recent_views",
     storeClicks: "comparamx_store_clicks",
     reviewDrafts: "comparamx_review_drafts",
     compare: "comparamx_compare",
@@ -469,6 +470,13 @@
     homeCategoryGrid: document.getElementById("homeCategoryGrid"),
     homeRankings: document.getElementById("homeRankings"),
     homeMostViewed: document.getElementById("homeMostViewed"),
+    homeRecentBlock: document.getElementById("homeRecentBlock"),
+    homeRankingLinks: document.getElementById("homeRankingLinks"),
+    homeBrandGrid: document.getElementById("homeBrandGrid"),
+    homeElige: document.getElementById("homeElige"),
+    homeTipsBtn: document.getElementById("homeTipsBtn"),
+    homeTipsPanel: document.getElementById("homeTipsPanel"),
+    homeRecentStrip: document.getElementById("homeRecentStrip"),
     homeAccountSections: document.getElementById("homeAccountSections"),
     homeHistoryBlock: document.getElementById("homeHistoryBlock"),
     homeHistoryList: document.getElementById("homeHistoryList"),
@@ -1211,6 +1219,21 @@
   // sola tienda bien armado y rebajado compite con uno de dos tiendas que no
   // tiene foto ni descuento. Comparar entre tiendas sigue pesando; deja de
   // ser lo único que pesa.
+  // Math.min(...arr) / Math.max(...arr) pasan cada elemento como argumento:
+  // con los 200 mil precios de "Todas" (o de una búsqueda ancha) revienta la
+  // pila -- "Maximum call stack size exceeded" -- y la lista quedaba a medio
+  // dibujar después de buscar. Un recorrido no tiene ese límite.
+  function minOf(arr) {
+    let m = Infinity;
+    for (let i = 0; i < arr.length; i++) if (arr[i] < m) m = arr[i];
+    return m;
+  }
+  function maxOf(arr) {
+    let m = -Infinity;
+    for (let i = 0; i < arr.length; i++) if (arr[i] > m) m = arr[i];
+    return m;
+  }
+
   function popularityRank(p) {
     const vendedores = Math.min(sellerTotal(p) - 1, 2) * 2;   // 0, 2 o 4
     const ficha = (p.photo ? 2 : 0) + ((p.specs && p.specs.length) ? 1 : 0);
@@ -1259,26 +1282,10 @@
     // "Descuento" explícito además del "%" -- a pedido del usuario, un
     // "-45%" solo se podía confundir con cualquier otro número en la
     // tarjeta a un vistazo rápido. Se omite (short=true) solo en
-    // .most-viewed-icon: ahí comparte esquina con el rótulo "Más visto
-    // en este navegador" y el texto largo lo hacía chocar contra él.
+    // .most-viewed-icon: desde que la tarjeta es horizontal esa foto mide
+    // 148px y el texto largo no entra.
     ribbon.textContent = short ? `-${pct}%` : `Descuento -${pct}%`;
     container.appendChild(ribbon);
-  }
-
-  // Rótulo del panel "Más visto en este navegador", superpuesto en la
-  // esquina vacía de la foto en vez de ir en un <h2> aparte arriba de la
-  // tarjeta (a pedido del usuario, para no gastar esa línea extra de
-  // alto). Mismo motivo que el onSettled de attachDiscountRibbon: hay que
-  // reenganchar en cada asentado de renderProductMedia porque esa función
-  // limpia el contenedor en cada intento/reintento de carga de imagen.
-  function attachMostViewedLabel(container) {
-    if (!container) return;
-    const existing = container.querySelector(".most-viewed-badge");
-    if (existing) existing.remove();
-    const label = document.createElement("span");
-    label.className = "most-viewed-badge";
-    label.innerHTML = `${icon("eye")} Más visto en este navegador`;
-    container.appendChild(label);
   }
 
   // Sello de ofertas por categoría (Inicio). Se recalcula en cada pintado a
@@ -1341,7 +1348,7 @@
   }
 
   // Sello en la esquina de la tarjeta de categoría (Inicio) -- mismo motivo
-  // que attachDiscountRibbon/attachMostViewedLabel para reengancharse en
+  // que attachDiscountRibbon para reengancharse en
   // cada asentado de renderProductMedia (limpia el contenedor del ÍCONO
   // en cada intento/reintento de carga de imagen), aunque el sello en sí
   // se cuelga de la tarjeta completa (card), no del marco de la foto,
@@ -1383,8 +1390,8 @@
   // con tener mejor calificación para justificar pagar más.
   function bestValueOffer(product) {
     const prices = product.offers.map((o) => displayPrice(o));
-    const minP = Math.min(...prices);
-    const maxP = Math.max(...prices);
+    const minP = minOf(prices);
+    const maxP = maxOf(prices);
     const priceRange = maxP - minP || 1;
     let best = null;
     let bestScore = -Infinity;
@@ -1737,11 +1744,23 @@
   // "Más visto en este navegador" en Inicio: cuenta real de visitas a cada
   // ficha de producto EN ESTE navegador, nunca un número agregado de todo
   // el sitio (no hay backend que lo mida).
+  const RECENT_MAX = 20;
   function trackProductView(productId) {
     if (!productId) return;
     const counts = readLS(LS_KEYS.productViews, {});
     counts[productId] = (counts[productId] || 0) + 1;
     writeLS(LS_KEYS.productViews, counts);
+    // Además del conteo, el ORDEN. productViews es un {id: veces} y no
+    // sabe cuál se miró último, que es justo lo que pide la tira de
+    // "lo último que viste": se guarda aparte, del más reciente al más
+    // viejo y sin repetir.
+    const recientes = readLS(LS_KEYS.recentViews, []).filter((id) => id !== productId);
+    recientes.unshift(productId);
+    writeLS(LS_KEYS.recentViews, recientes.slice(0, RECENT_MAX));
+  }
+  function recentViewedIds() {
+    const ids = readLS(LS_KEYS.recentViews, []);
+    return Array.isArray(ids) ? ids : [];
   }
   function mostViewedProduct() {
     const counts = readLS(LS_KEYS.productViews, {});
@@ -2342,11 +2361,11 @@
   // que la ficha estática y la interactiva se vean igual. Lleva eje de
   // precios a la izquierda y de fechas abajo: sin ellos la línea era una
   // forma sin escala.
-  function sparklineSvg(serie, ancho = 560, alto = 150) {
+  function sparklineSvg(serie, ancho = 560, alto = 92) {
     if (serie.length < 2) return "";
     const precios = serie.map((s) => s[1]);
-    const loReal = Math.min(...precios);
-    const hiReal = Math.max(...precios);
+    const loReal = minOf(precios);
+    const hiReal = maxOf(precios);
     // Un respiro debajo del mínimo y encima del máximo, igual que en Python.
     let span = hiReal - loReal || Math.max(hiReal * 0.1, 1);
     const lo = loReal - span * 0.12;
@@ -2355,7 +2374,7 @@
     const d0 = serie[0][0];
     const d1 = serie[serie.length - 1][0];
     const spanDias = d1 - d0 || 1;
-    const izq = 64, der = 30, arriba = 10, abajo = 28;
+    const izq = 64, der = 24, arriba = 6, abajo = 18;
     const x0 = izq, x1 = ancho - der, y0 = arriba, y1 = alto - abajo;
     const xDe = (d) => x0 + ((d - d0) / spanDias) * (x1 - x0);
     const yDe = (p) => y0 + (1 - (p - lo) / span) * (y1 - y0);
@@ -2366,19 +2385,19 @@
     for (const p of histAxisPrices(loReal, hiReal)) {
       const y = yDe(p);
       ejes.push(`<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" class="spark-grid"/>`);
-      ejes.push(`<text x="${x0 - 8}" y="${(y + 4).toFixed(1)}" text-anchor="end" class="spark-label">${money(p)}</text>`);
+      ejes.push(`<text x="${x0 - 6}" y="${(y + 3).toFixed(1)}" text-anchor="end" class="spark-label">${money(p)}</text>`);
     }
     for (const d of histAxisDays(d0, d1)) {
       const x = xDe(d);
-      ejes.push(`<line x1="${x.toFixed(1)}" y1="${y1}" x2="${x.toFixed(1)}" y2="${y1 + 5}" class="spark-tick"/>`);
-      ejes.push(`<text x="${x.toFixed(1)}" y="${alto - 8}" text-anchor="middle" class="spark-label">${histDateShort(d)}</text>`);
+      ejes.push(`<line x1="${x.toFixed(1)}" y1="${y1}" x2="${x.toFixed(1)}" y2="${y1 + 4}" class="spark-tick"/>`);
+      ejes.push(`<text x="${x.toFixed(1)}" y="${alto - 5}" text-anchor="middle" class="spark-label">${histDateShort(d)}</text>`);
     }
     ejes.push(`<line x1="${x0}" y1="${y0}" x2="${x0}" y2="${y1}" class="spark-axis"/>`);
     ejes.push(`<line x1="${x0}" y1="${y1}" x2="${x1}" y2="${y1}" class="spark-axis"/>`);
     return `<svg class="price-spark" viewBox="0 0 ${ancho} ${alto}" role="img" aria-label="Evolución del precio: de ${money(precios[0])} a ${money(precios[precios.length - 1])}">
         ${ejes.join("\n        ")}
         <polygon points="${area}" fill="rgba(255,2,17,.08)"/>
-        <polyline points="${linea}" fill="none" stroke="var(--red)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <polyline points="${linea}" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
       </svg>`;
   }
 
@@ -2409,8 +2428,8 @@
     if (serie[serie.length - 1][0] < Math.floor((Date.now() - HIST_EPOCH) / 86400000)) return;
 
     const precios = serie.map((s) => s[1]);
-    const lo = Math.min(...precios);
-    const hi = Math.max(...precios);
+    const lo = minOf(precios);
+    const hi = maxOf(precios);
     const hoy = precios[precios.length - 1];
     const diaLo = serie.find((s) => s[1] === lo)[0];
     const diaHi = serie.find((s) => s[1] === hi)[0];
@@ -2418,8 +2437,8 @@
       ? `<p class="history-verdict history-low">Hoy está en <strong>${money(hoy)}</strong>: el precio más bajo que le registramos.</p>`
       : `<p class="history-verdict">Hoy está en <strong>${money(hoy)}</strong>, ${money(hoy - lo)} (${Math.round((100 * (hoy - lo)) / lo)}%) por encima de su mínimo registrado.</p>`;
     const rango = hi !== lo
-      ? `<p>Entre el ${histDateLabel(serie[0][0])} y el ${histDateLabel(serie[serie.length - 1][0])} osciló entre ${money(lo)} (el ${histDateLabel(diaLo)}) y ${money(hi)} (el ${histDateLabel(diaHi)}).</p>`
-      : `<p>No se ha movido de ${money(lo)} desde el ${histDateLabel(serie[0][0])}.</p>`;
+      ? `<p class="history-range">Entre el ${histDateLabel(serie[0][0])} y el ${histDateLabel(serie[serie.length - 1][0])} osciló entre ${money(lo)} (el ${histDateLabel(diaLo)}) y ${money(hi)} (el ${histDateLabel(diaHi)}).</p>`
+      : `<p class="history-range">No se ha movido de ${money(lo)} desde el ${histDateLabel(serie[0][0])}.</p>`;
     el.historyBody.innerHTML = `${veredicto}${rango}${sparklineSvg(serie)}
       <p class="muted small">El historial arranca el ${histDateLabel(serie[0][0])}, que es cuando empezamos a guardarlo — no antes.</p>`;
     el.historyPanel.classList.remove("hidden");
@@ -2675,6 +2694,19 @@
         state.subcategory = existe
           ? toSubList(qs.get("sub")).filter((sub) => subcategoryById(pedida, sub))
           : [];
+        // Tramo de precio en la URL. Lo usan las páginas de categoría, que
+        // ofrecen "por presupuesto" con los tramos reales del catálogo: sin
+        // esto ese bloque solo podría llevar a la categoría entera y la
+        // promesa del enlace ("hasta $2,000") no se cumpliría. Un valor que
+        // no sea un número se ignora en vez de dejar la lista en cero.
+        const num = (v) => {
+          const n = Number(v);
+          return v !== null && v !== "" && Number.isFinite(n) && n >= 0 ? n : null;
+        };
+        if (qs.has("min") || qs.has("max")) {
+          state.priceMin = num(qs.get("min"));
+          state.priceMax = num(qs.get("max"));
+        }
       }
       renderList();
     } else if (hash === "#/comparar") {
@@ -2780,8 +2812,171 @@
     });
 
     renderHomeRankings();
+    renderHomeRankingLinks();
+    bindHomeTips();
+    bindHomeTabs();
     renderHomeMostViewed();
+    renderHomeRecent();
     renderHomeAccountSections();
+  }
+
+  // Enlaces a las páginas de ranking mensual (/categoria/<slug>/), que son
+  // estáticas y llevan el mes en el título ("los más populares de septiembre
+  // de 2026"). Desde la portada este es el único enlace que las alcanza: sin
+  // él solo colgarían del sitemap, que es la peor forma de que un buscador
+  // las encuentre. Se listan las de más catálogo; el resto queda a un clic.
+  const RANKING_LINKS_VISIBLES = 18;
+  // Mismo slug que slugify() de scripts/data_io.py, que es el que nombra la
+  // carpeta de la página (categoria/<slug>/). Si los dos no dan lo mismo, el
+  // enlace de la portada apunta a una carpeta que no existe.
+  function catSlug(nombre) {
+    return (nombre || "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, "").toLowerCase();
+  }
+  function renderHomeRankingLinks() {
+    if (!el.homeRankingLinks || !state.data) return;
+    const stats = (state.data.categoryStats) || {};
+    const cats = state.data.categories
+      .filter((c) => c.id !== "Otros")
+      .map((c) => ({ c, n: (stats[c.id] || {}).n || 0 }))
+      // Una categoría sin productos no tiene página estática: el generador
+      // no la escribe, así que enlazarla sería mandar a un 404.
+      .filter(({ n }) => n > 0)
+      .sort((a, b) => b.n - a.n);
+    if (!cats.length) return;
+    const enlaces = cats.slice(0, RANKING_LINKS_VISIBLES).map(({ c }) =>
+      `<a href="categoria/${catSlug(c.name)}/" title="${htmlEscapeAttr(c.name)} — ranking del mes">` +
+      `${htmlEscapeAttr(c.name)}</a>`
+    ).join("");
+    el.homeRankingLinks.innerHTML =
+      `<span class="home-side-list-head">Rankings del mes</span>${enlaces}`;
+  }
+
+  // "Cómo utilizar": tres pasos, que son los tres que el sitio pide de
+  // verdad (categoría -> producto -> tienda). Se despliega en el mismo lugar
+  // en vez de abrir un modal, para no tapar la portada.
+  const TIPS_HTML = `
+    <ol>
+      <li><strong>Elige una categoría</strong> y mira el ranking de lo más popular.</li>
+      <li><strong>Abre un producto</strong> para ver su precio en cada tienda y cómo se movió.</li>
+      <li><strong>Compra en la tienda</strong> que prefieras: el enlace va a su sitio real.</li>
+    </ol>`;
+  function bindHomeTips() {
+    if (!el.homeTipsBtn || !el.homeTipsPanel) return;
+    el.homeTipsPanel.innerHTML = TIPS_HTML;
+    el.homeTipsBtn.onclick = () => {
+      const abierto = !el.homeTipsPanel.hidden;
+      el.homeTipsPanel.hidden = abierto;
+      el.homeTipsBtn.setAttribute("aria-expanded", String(!abierto));
+    };
+  }
+
+  // Las dos entradas al catálogo de la portada: por precio (elegir
+  // categoría) o por marca. La de marcas se alimenta de data/marcas.json
+  // --el índice que arma scripts/build_marcas_index.py-- y no del catálogo:
+  // Inicio no lo baja, y son 787 marcas contra 214 mil fichas.
+  const BRAND_GRID_VISIBLES = 60;
+  const TEXTO_ELIGE = {
+    precios: "Elige una categoría para ver los productos más populares y comparar precios entre tiendas.",
+    marcas: "Elige una marca para ver todos sus productos y comparar precios entre tiendas.",
+  };
+  let brandIndexPromise = null;
+  function ensureBrandIndex() {
+    if (!brandIndexPromise) {
+      const file = state.data && state.data.brandIndexFile;
+      brandIndexPromise = file
+        ? fetch(file).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+        : Promise.resolve(null);
+    }
+    return brandIndexPromise;
+  }
+
+  function renderHomeBrandGrid() {
+    if (!el.homeBrandGrid || el.homeBrandGrid.childElementCount) return;
+    el.homeBrandGrid.innerHTML = `<p class="muted small">Cargando marcas…</p>`;
+    ensureBrandIndex().then((marcas) => {
+      if (!marcas || !marcas.length) {
+        // Sin índice (el paso de build no corrió) se cae al enlace de
+        // siempre: la página estática con todas las marcas.
+        el.homeBrandGrid.innerHTML =
+          `<p class="muted small">Ver todas las marcas en <a href="marca/">/marca/</a>.</p>`;
+        return;
+      }
+      const tarjetas = marcas.slice(0, BRAND_GRID_VISIBLES).map((m) =>
+        `<a class="home-brand-card" href="marca/${encodeURIComponent(m.s)}/">` +
+        `<span class="home-brand-card-name">${htmlEscapeAttr(m.n)}</span>` +
+        `<span class="home-brand-card-count">${m.c.toLocaleString("es-MX")} productos</span></a>`
+      ).join("");
+      const resto = marcas.length - BRAND_GRID_VISIBLES;
+      el.homeBrandGrid.innerHTML = tarjetas + (resto > 0
+        ? `<p class="home-brand-grid-more" style="grid-column:1/-1"><a href="marca/">Ver las ${marcas.length.toLocaleString("es-MX")} marcas →</a></p>`
+        : "");
+    });
+  }
+
+  function activarPestanaInicio(cual) {
+    const tabs = document.querySelectorAll(".home-tab");
+    if (!tabs.length) return;
+    tabs.forEach((t) => {
+      const activa = t.dataset.tab === cual;
+      t.classList.toggle("is-active", activa);
+      t.setAttribute("aria-selected", String(activa));
+      const panel = document.getElementById(t.getAttribute("aria-controls"));
+      if (panel) panel.hidden = !activa;
+    });
+    if (el.homeElige && TEXTO_ELIGE[cual]) el.homeElige.textContent = TEXTO_ELIGE[cual];
+    if (cual === "marcas") renderHomeBrandGrid();
+  }
+
+  function bindHomeTabs() {
+    document.querySelectorAll(".home-tab").forEach((t) => {
+      t.onclick = () => activarPestanaInicio(t.dataset.tab);
+    });
+  }
+
+  // Tira horizontal con las últimas fichas abiertas EN ESTE navegador
+  // (localStorage, ver trackProductView). No es el "Visto recientemente" de
+  // la cuenta: ese vive en Firestore, necesita sesión y se pinta más abajo
+  // desde renderHomeAccountSections().
+  function renderHomeRecent() {
+    if (!el.homeRecentBlock) return;
+    const ids = recentViewedIds();
+    if (!ids.length) {
+      el.homeRecentBlock.classList.add("hidden");
+      return;
+    }
+    // Los ids son de este navegador, así que su categoría puede no estar
+    // bajada (Inicio no baja ninguna): se piden y se vuelve a entrar.
+    // Mismo patrón que renderHomeMostViewed().
+    if (faltanPorBajar(ids).length) {
+      ensureProductsByIds(ids).then(() => {
+        if (!el.viewHome.classList.contains("hidden")) renderHomeRecent();
+      });
+    }
+    const productos = ids
+      .map((id) => state.data.products.find((p) => p.id === id))
+      .filter(Boolean)   // ids de fichas ya fusionadas o dadas de baja
+      .slice(0, 12);
+    if (!productos.length) {
+      el.homeRecentBlock.classList.add("hidden");
+      return;
+    }
+    el.homeRecentStrip.innerHTML = "";
+    productos.forEach((product) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "recent-card";
+      card.innerHTML = `
+        <span class="recent-card-media"></span>
+        <span class="recent-card-name">${htmlEscapeAttr(product.name)}</span>
+        <span class="recent-card-price">${money(minPrice(product))}</span>`;
+      const media = card.querySelector(".recent-card-media");
+      renderProductMedia(media, product, "", () => attachDiscountRibbon(media, product, true));
+      attachDiscountRibbon(media, product, true);
+      card.onclick = () => goDetail(product.id);
+      el.homeRecentStrip.appendChild(card);
+    });
+    el.homeRecentBlock.classList.remove("hidden");
   }
 
   // Debajo del ranking: la ficha (resumida) del producto más visto en
@@ -2804,9 +2999,7 @@
     const top = mostViewedProduct();
     el.homeMostViewed.innerHTML = "";
     if (!top) {
-      // Sin producto visto todavía no hay foto donde superponer el
-      // rótulo (ver attachMostViewedLabel más abajo), así que acá se
-      // muestra como encabezado normal, igual que antes.
+      el.homeMostViewed.classList.add("most-viewed-panel-empty");
       const heading = document.createElement("p");
       heading.className = "most-viewed-heading";
       heading.innerHTML = `${icon("eye")} Más visto en este navegador`;
@@ -2817,6 +3010,7 @@
       el.homeMostViewed.appendChild(empty);
       return;
     }
+    el.homeMostViewed.classList.remove("most-viewed-panel-empty");
     const { product, count } = top;
     const { avg, count: ratingCount } = aggregateRating(product);
     const discountPct = bestDiscountPct(product);
@@ -2826,6 +3020,7 @@
     card.innerHTML = `
       <div class="most-viewed-icon"></div>
       <div class="most-viewed-info">
+        <p class="most-viewed-heading">${icon("eye")} Más visto en este navegador</p>
         <p class="muted small">${htmlEscapeAttr(product.brand)} · ${plural(count, "visita", "visitas")} en este navegador</p>
         <h3>${htmlEscapeAttr(product.name)}${conditionBadge(product)}${usageBadge(product)}</h3>
         <div class="detail-rating">
@@ -2837,13 +3032,14 @@
           ${sellerTotal(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(sellerTotal(product), "vendedor", "vendedores")}
           ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
         </p>
+      </div>
+      <div class="most-viewed-action">
         <button type="button" class="most-viewed-cta">Ver ficha completa →</button>
       </div>
     `;
     const mostViewedIcon = card.querySelector(".most-viewed-icon");
     const settleMostViewedIcon = () => {
       attachDiscountRibbon(mostViewedIcon, product, true);
-      attachMostViewedLabel(mostViewedIcon);
     };
     renderProductMedia(mostViewedIcon, product, "detail", settleMostViewedIcon);
     settleMostViewedIcon();
@@ -2999,8 +3195,8 @@
       : state.data.products;
     if (scoped.length === 0) return { min: 0, max: 1000 };
     const prices = scoped.map(minPrice);
-    const min = Math.floor(Math.min(...prices));
-    const max = Math.max(Math.ceil(Math.max(...prices)), min + 1);
+    const min = Math.floor(minOf(prices));
+    const max = Math.max(Math.ceil(maxOf(prices)), min + 1);
     return { min, max };
   }
 
@@ -3233,13 +3429,23 @@
     return state.query || !state.category ? "*" : state.category;
   }
 
+  // Qué categorías necesita la búsqueda actual, según el índice: un arreglo
+  // (posiblemente vacío), o null cuando hay que bajar todo. listScopeReady()
+  // lo consulta: sin esto, una búsqueda con índice bajaba solo sus categorías
+  // y listScopeReady() seguía exigiendo TODAS, así que renderList() volvía a
+  // mostrar "Cargando productos…", volvía a pedir el mismo alcance ya cargado
+  // y nunca dibujaba la lista. El buscador quedó mudo en producción por esto.
+  let searchScope = { query: null, cats: null };
+
   function ensureListScope() {
     if (listScopeKey() !== "*") return ensureCategory(state.category);
     // "Todas" sin búsqueda sigue bajando todo; con búsqueda, solo lo que el
     // índice señala.
     if (!state.query) return ensureAllProducts();
+    const query = state.query;
     return ensureSearchIndex().then((index) => {
-      const cats = categoriesForQuery(state.query, index);
+      const cats = categoriesForQuery(query, index);
+      searchScope = { query, cats };
       if (!cats) return ensureAllProducts();
       return loadCategories(cats).then(orderLoadedProducts);
     });
@@ -3247,9 +3453,11 @@
 
   function listScopeReady() {
     const key = listScopeKey();
-    return key === "*"
-      ? Object.keys(state.data.categoryFiles || {}).every((c) => loadedCategories.has(c))
-      : loadedCategories.has(key);
+    if (key !== "*") return loadedCategories.has(key);
+    if (state.query && searchScope.query === state.query && Array.isArray(searchScope.cats)) {
+      return searchScope.cats.every((c) => loadedCategories.has(c));
+    }
+    return Object.keys(state.data.categoryFiles || {}).every((c) => loadedCategories.has(c));
   }
 
   function showListLoading() {
@@ -5594,15 +5802,30 @@
     ["reviewsPanel", "trophy", "Comentarios"],
   ];
   function renderDetailQuickNav() {
-    el.detailQuickNav.innerHTML = DETAIL_QUICKNAV_ITEMS.filter(([id]) => {
+    const botones = DETAIL_QUICKNAV_ITEMS.filter(([id]) => {
       const panel = document.getElementById(id);
       return panel && !panel.classList.contains("hidden");
     }).map(
       ([id, ic, label]) =>
-        `<button type="button" class="detail-quicknav-btn" data-target="${id}">${icon(ic)} ${label}</button>`
-    ).join("");
+        `<button type="button" class="detail-quicknav-btn" data-target="${id}">${icon(ic)} <span class="detail-quicknav-label">${label}</span></button>`
+    );
+    // Último botón: el único que NO salta a una sección de esta ficha, sino
+    // que sale a la lista de la categoría ordenada por popularidad. Va acá
+    // porque la cuadrícula es de dos columnas y con cinco botones quedaba un
+    // hueco vacío (a pedido del usuario, con la captura marcándolo).
+    const product = currentProduct();
+    const cat = product && categoryById(product.category);
+    if (cat) {
+      botones.push(
+        `<button type="button" class="detail-quicknav-btn detail-quicknav-cat" data-ranking="1">` +
+        `${icon("crown")} <span class="detail-quicknav-label">Populares de ${htmlEscapeAttr(cat.name)}</span></button>`
+      );
+    }
+    el.detailQuickNav.innerHTML = botones.join("");
     el.detailQuickNav.querySelectorAll(".detail-quicknav-btn").forEach((btn) => {
-      btn.onclick = () => scrollToDetailSection(btn.dataset.target);
+      btn.onclick = btn.dataset.ranking
+        ? () => goCategoryRanking(product.category)
+        : () => scrollToDetailSection(btn.dataset.target);
     });
   }
 
@@ -5871,7 +6094,7 @@
       el.deliveryBanner.classList.remove("is-set");
       el.deliveryBannerTitle.textContent = "¿Cuándo llega a tu casa?";
       el.deliveryBannerSubtitle.textContent = "Elige tu municipio y compara el tiempo de entrega de cada tienda.";
-      if (el.homeLocationBtnLabel) el.homeLocationBtnLabel.textContent = "Elegir mi ubicación";
+      if (el.homeLocationBtnLabel) el.homeLocationBtnLabel.textContent = "Mi ubicación";
       if (el.homeLocationBtn) el.homeLocationBtn.classList.remove("is-set");
     }
   }
@@ -6196,7 +6419,7 @@
 
     const bestPrice = Math.min(...rows.map((r) => r.price));
     const knownDays = rows.map((r) => r.days).filter((d) => d !== null);
-    const fastestDays = state.selectedRegion && knownDays.length ? Math.min(...knownDays) : null;
+    const fastestDays = state.selectedRegion && knownDays.length ? minOf(knownDays) : null;
     const recommended = bestValueOffer(product);
     const recommendedStoreId = recommended ? recommended.storeId : null;
 
@@ -6790,20 +7013,31 @@
       const value = el.searchInput.value;
       searchSuggestDebounce = setTimeout(() => {
         renderSearchSuggestions(buildSearchSuggestions(value));
+        // Las sugerencias de producto salen de lo que ya está bajado. Para
+        // que también aparezcan fichas de categorías que todavía no se
+        // pidieron, se bajan las que el índice señala para lo escrito --
+        // pocas (2.1 por palabra en promedio), no las 53 -- y se repinta
+        // si el texto sigue siendo el mismo.
+        ensureSearchIndex().then((index) => {
+          const cats = categoriesForQuery(value, index);
+          if (!cats || !cats.length || cats.length > 8) return;
+          if (cats.every((c) => loadedCategories.has(c))) return;
+          loadCategories(cats).then(() => {
+            if (document.activeElement === el.searchInput && el.searchInput.value === value) {
+              renderSearchSuggestions(buildSearchSuggestions(value));
+            }
+          });
+        });
       }, 150);
     });
     el.searchInput.addEventListener("focus", () => {
-      // La búsqueda es lo único que cruza todas las categorías, así que es
-      // lo único que necesita el catálogo entero. Se empieza a bajar apenas
-      // el usuario toca el buscador -- para cuando termine de escribir suele
-      // estar listo, y quien nunca busca no lo baja nunca.
-      ensureAllProducts().then(() => {
-        // Si para cuando llegó ya había algo escrito, se repintan las
-        // sugerencias: las primeras se armaron con menos catálogo.
-        if (document.activeElement === el.searchInput && el.searchInput.value.trim()) {
-          renderSearchSuggestions(buildSearchSuggestions(el.searchInput.value));
-        }
-      });
+      // Antes, tocar el buscador disparaba ensureAllProducts(): el catálogo
+      // entero (53 shards, 17.5 MB comprimidos) por el solo hecho de hacer
+      // clic. Con 200 mil fichas eso tardaba más que cualquier búsqueda y
+      // tiraba abajo el índice de búsqueda, que existe justamente para no
+      // bajar todo. Ahora se precarga solo el índice (2 MB); las
+      // categorías que hagan falta se bajan cuando se sabe qué se busca.
+      ensureSearchIndex();
       if (el.searchInput.value.trim()) renderSearchSuggestions(buildSearchSuggestions(el.searchInput.value));
     });
     el.searchInput.addEventListener("blur", () => setTimeout(hideSearchSuggestions, 120));

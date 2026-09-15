@@ -164,6 +164,13 @@ def main():
             continue
         sub = it.get("subcategory")
         if sub and sub not in cat_ids[cat]:
+            # OJO: esto DESCARTA el producto. Una subcategoría nueva del
+            # clasificador no existe todavía en data.categories (sync_subcategories.py
+            # la deduce de los productos, y sin productos no hay nada que deducir),
+            # así que la primera importación que la use pierde TODAS sus fichas
+            # en silencio: pasó con "Instrumentos musicales/Percusión", 534 fichas
+            # saltadas. Al agregar una subcategoría nueva hay que registrarla en
+            # data/data.json ANTES de importar.
             skipped.append((it.get("title", "?"), f"subcategoría desconocida: {cat}/{sub}"))
             continue
         techo = techos.get((cat, sub))

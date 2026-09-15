@@ -1033,6 +1033,40 @@ REGLAS = [
              r'\bexprimidor|prensado en frio|masticacion lenta'),
   ('Electrodomésticos', 'Extractores de jugo', 'appliance')),
  (re.compile(r'\blicuadora'), ('Electrodomésticos', 'Licuadoras', 'appliance')),
+ # Botellas térmicas: Amazon traduce "vacuum insulated" como "aislada al
+ # aspiradora", y con eso 46 botellas de agua de una captura cayeron en
+ # Aspiradoras. Va antes que Aspiradoras a propósito. "termo" solo cuando
+ # no es el calentador de agua ("termo eléctrico").
+ (re.compile(r'\bbotellas? (?:de|para) agua\b|aislad[ao]s? al aspirador|\bcantimplora|'
+             r'\btermos?\b(?!\s*(?:electrico|el\u00e9ctrico|de agua|de gas))'),
+  ('Cocina y comedor', 'Botellas y termos', 'coffee')),
+ (re.compile(r'(?!.*(viaje|\btsa\b|aseo))'
+             r'((estante|organizador|soporte|rack|porta ?botellas?|pinzas?|clip).{0,40}\bbotellas?\b|'
+             r'\bbotellero|organizador de (cocina|especias|tapas)|porta ?vasos)'),
+  ('Cocina y comedor', 'Organización de cocina', 'coffee')),
+ # El resto de la cocina de mesa de esa misma captura: frascos, botellas de
+ # vidrio o plástico para jugo/leche/aceite/salsas, vasos y tazas, y lo que
+ # los organiza o limpia. Quedan fuera a propósito los envases de viaje/aseo
+ # (no son cocina) y los de laboratorio, tinta y pegamento.
+ (re.compile(r'(?!.*(viaje|\btsa\b|aseo|cosmet|champu|shampoo|reactivo|laboratorio|boticario|'
+             r'cuentagotas|\btinta|pegamento|rociador|spray|atomizador|perfume|esencial|'
+             r'mascota|perro|gato|biberon|bebe\b|purificador|filtro))'
+             r'(botellas? (de |para )?(vidrio|plastico|pet\b|jugo|leche|aceite|salsa|condimento|'
+             r'vino|licor|cerveza|kombucha|kefir|agua mineral|almacenamiento)|'
+             r'botellas? (exprimibles?|hermeticas?|reutilizables?|vacias?|con tapa)|'
+             r'\bfrascos? (de vidrio|hermetic|con tapa|para conserva)|'
+             r'dispensador(es)? (de|para) (aceite|salsa|condimento|vinagre|jabon de cocina)|'
+             r'\btarros? de vidrio|recipientes? hermetic|contenedor(es)? (de|para) (alimentos|comida)|'
+             r'\btuppers?\b|tupperware|\bcaballitos? de plastico)'),
+  ('Cocina y comedor', 'Contenedores', 'coffee')),
+ (re.compile(r'cepillos? .{0,25}botellas?|vertedor(es)? (de|para) botellas?|abridor(es)? de botellas?|'
+             r'destapador(es)?|sacacorchos|descorchador'),
+  ('Cocina y comedor', 'Utensilios de cocina', 'coffee')),
+ (re.compile(r'(?!.*(licuadora|batidora|aspirador|mezclador|1080p|4k|\bdvr\b|camara|wifi|espia))'
+             r'(\bvasos? (termicos?|de vidrio|de acero|de cristal|para (cerveza|vino|agua|cafe|whisky))|'
+             r'\btazas? (termicas?|de cafe|de ceramica|para cafe|de te)|\btermo para cafe|\btumblers?\b|'
+             r'\bcopas? (de vino|de cristal|de vidrio|para vino)|\bshots? de vidrio|\bjarras? (de vidrio|de cristal|para agua))'),
+  ('Cocina y comedor', 'Vasos y tazas', 'coffee')),
  (re.compile(r'\baspirador|shop vac|wet/?dry shop'), ('Aspiradoras', None, 'vacuum')),
  # Secadoras de cabello. "Secadora" a secas es ambigua -- la de ropa se llama
  # igual -- así que el título tiene que nombrar además el pelo o lo que se le
@@ -1609,13 +1643,66 @@ REGLAS = [
              r'gabinete|carcasa (para|de|del) (pc|computadora|ordenador)|funda para pc|'
              r'caja (modular|para pc)|chasis para pc|pc case|torre media|mid-tower|'
              r'almohadilla decorativa|para placa base|placa madre'), COMP),
- (re.compile(r'teclado|keyboard'), ('Teclados', None, 'keyboard')),
+ # "Teclado" en español es el de la computadora Y el musical, y esta regla
+ # se llevaba los dos: en la captura de 6,387 anuncios de instrumentos, 153
+ # fichas -- melódicas, pianos digitales, kalimbas, kazoos, controladores
+ # MIDI y hasta bancos de piano -- entraban como periférico de PC. Lo
+ # musical lo recoge la red de Instrumentos musicales del final.
+ (re.compile(r'^(?!.*(melodica|pianica|kalimba|\bkazoo\b|instrumento musical|'
+             r'\bmidi\b|\bpiano|\bmusical\b|sintetizador|\borgano\b|\bpianika\b|'
+             r'banco (de|para) (piano|teclado)|banqueta|melodic))'
+             r'(teclado|keyboard)'), ('Teclados', None, 'keyboard')),
  (re.compile(r'\bmouse\b|\braton\b|\bratones\b'), ('Mouse', None, 'mouse')),
  # Lo que dice "cargador" y no cayó en ninguna subcategoría: el del reloj
  # inteligente, el de la cámara vieja, el genérico "para Samsung". Al
  # final de REGLAS para que cualquier regla más precisa gane antes.
  (re.compile(r'^(?:\S+ ){0,3}cargador(es)?\b|cargador (para|compatible con|de reloj|magnetico|generico)'),
   ('Cargadores y adaptadores', 'Otros', 'plug')),
+ # Instrumentos musicales, de red al final por la misma razón que Muebles,
+ # Herramientas y Vehículos: la categoría tenía doce subcategorías y ninguna
+ # regla general que la alcanzara -- solo dos muy puntuales (las baterías y
+ # los micrófonos). Medido sobre la captura de 6,387 anuncios de
+ # instrumentos: 4,799 caían en "no encaja en ninguna categoría", y entre
+ # ellos 729 saxofones, 443 clarinetes, 386 tambores, 299 guitarras, 228
+ # trombones y 216 flautas.
+ #
+ # Van DOS reglas y no una a propósito. Esta primera lista solo tiene
+ # palabras que en español no nombran otra cosa.
+ (re.compile(r'^(?!.*(de juguete|para (muneca|barbie)|\bmaqueta\b|'
+             r'disfraz|\bpinata\b))'
+             r'(?=.*(guitarra|ukulele|\bbanjo\b|mandolina|charango|requinto|\bjarana\b|'
+             r'violin|violonchelo|\bcello\b|contrabajo|\barpa\b|\berhu\b|\bguqin\b|guzheng|'
+             r'saxofon|trompeta|\bflauta|clarinete|trombon|armonica|\boboe\b|\bfagot\b|'
+             r'corneta|melodica|\bpianica\b|\bkazoo\b|ocarina|didgeridoo|\bquena\b|zampo|'
+             r'\bpandere|\bpandero\b|\bmaraca|xilofono|glockenspiel|metalofono|'
+             r'\bcencerro\b|\bguiro\b|castanuela|kalimba|\bhandpan\b|\bagogo\b|\bcabasa\b|'
+             r'cuenco (cantante|tibetano)|\bbongo|\bconga\b|\btimbal|redoblante|\btarola\b|'
+             r'acordeon|sintetizador|\bmetronomo\b|capotraste|\bcejilla\b|\bbaqueta|'
+             r'piano (digital|electrico|de cola|vertical|de pulgar|de dedo)|'
+             # Segunda pasada, sobre lo que seguía cayendo en "no encaja":
+             # "ukelele" se escribe de las dos formas en México, el bombardino
+             # aparecía 40 veces, y los parches y platillos de batería son
+             # media tienda de percusión (Remo, Evans, Sabian, Paiste).
+             r'ukelele|bombardino|\bdjembe\b|\bshofar\b|\bhulusi\b|sousafon|'
+             r'\bvibrafono\b|\bmarimba\b|\bsitar\b|\bbanjolele\b|\bcuatro\b venezolano|'
+             r'parche (de |para )?(caja|tom|bombo|tarola|resonante|bateria)|'
+             r'\bplatillo|\bcuencos? (cantante|tibetano|de cristal)|\bkashaka\b|'
+             r'\baslatua|miniteclado|\bmelodion\b|\bcabaza\b|\bwaterphone\b|'
+             r'\bmazos? de (vibrafono|marimba|xilofono|timbal)|\bdiapason\b|'
+             r'instrumentos? musical))'),
+  ('Instrumentos musicales', None, 'guitar')),
+ # Y esta segunda las AMBIGUAS: "batería" es también la pila, "tambor" el de
+ # la lavadora, "platillo" un plato, "cuerdas" una soga, "bajo" una
+ # preposición. Exigen además una palabra del mundo musical en el título, y
+ # por eso van después: cualquier regla más precisa (Baterías portátiles,
+ # Lavadoras, Autos) ya se llevó lo suyo mucho antes.
+ (re.compile(r'^(?!.*(de juguete|para (muneca|barbie)|\bmaqueta\b))'
+             r'(?=.*(\bbateria|\btambor|\bplatillo|\bcuerdas\b|\bbajo\b|\bpercusion|'
+             r'\bafinador\b|\batril\b|\bpartitura))'
+             r'(?=.*(musical|instrumento|orquesta|\bbanda\b|percusion|'
+             r'guitarra|\bpiano\b|\bmidi\b|conciert|\bmusica\b|baterista|'
+             r'\bbaqueta|\btarola\b|\bhi-?hat\b|\bcharles\b|\bbombo\b))'),
+  ('Instrumentos musicales', None, 'guitar')),
  # Herramientas, también de red y por la misma razón que Muebles: un
  # montón de aparatos nombran una herramienta de paso ("organizador para
  # taladro", "batería para atornillador"). Lo que ninguna otra regla
@@ -1986,18 +2073,45 @@ def sub_juego_mesa(tn):
 
 
 def sub_instrumento(tn):
-    if re.search(r'guitarra|\bbajo\b|ukulele|\bbanjo\b|mandolina', tn): return 'Guitarras'
-    if re.search(r'bateria|tambor|\bcajon\b|percusion|platillo|conga|\bbongo', tn): return 'Baterías'
-    if re.search(r'violin|violonchelo|\bcello\b|contrabajo|\bviola\b|\barpa\b', tn): return 'Cuerdas'
-    if re.search(r'saxofon|trompeta|flauta|clarinete|trombon|\btuba\b|armonica|oboe', tn): return 'Viento'
+    # El orden de siempre (el instrumento primero, los accesorios al final)
+    # se conserva tal cual: cambiarlo movería de subcategoría fichas que ya
+    # están en el catálogo. Lo que se agrega son las familias que faltaban,
+    # dentro de la rama que les corresponde.
+    if re.search(r'guitarra|\bbajo\b|ukulele|ukelele|\bbanjo\b|banjolele|mandolina|'
+                 r'charango|requinto|\bjarana\b|\blaud\b', tn): return 'Guitarras'
+    # Percusión de mano y de placas ANTES que Baterías: una pandereta o un
+    # xilófono no son un kit de batería, y la rama de abajo se los llevaba
+    # por la palabra "percusion" que casi todos traen en el título.
+    if re.search(r'\bpandere|\bpandero\b|\bmaraca|xilofono|glockenspiel|metalofono|'
+                 r'\bcencerro\b|\bguiro\b|\bclaves\b|castanuela|\btriangulo\b|'
+                 r'\bshaker\b|kalimba|\bhandpan\b|tongue drum|cuenco (cantante|tibetano)|'
+                 r'\bsonaja|cascabel|\bchocalho\b|\bagogo\b|\bcaba[sz]a\b|vibraslap|'
+                 r'campanas? de viento|carillon|\bdjembe\b|\bkashaka\b|\baslatua|'
+                 r'\bvibrafono\b|\bmarimba\b|\bwaterphone\b|campanas? de mano|'
+                 r'cuencos? (cantante|tibetano|de cristal)|tazon de cristal', tn): return 'Percusión'
+    if re.search(r'bateria|tambor|\bcajon\b|percusion|platillo|conga|\bbongo|'
+                 r'\bredoblante\b|\btarola\b|\bbombo\b|\bbaqueta|\btimbal|\bparche\b|\bcharles\b|hi-?hat', tn): return 'Baterías'
+    if re.search(r'violin|violonchelo|\bcello\b|contrabajo|\bviola\b|\barpa\b|'
+                 r'\berhu\b|\bguqin\b|guzheng|\bkoto\b|\bsitar\b|\bcitara\b', tn): return 'Cuerdas'
+    if re.search(r'saxofon|trompeta|flauta|clarinete|trombon|\btuba\b|armonica|oboe|'
+                 r'\bfagot\b|\bcorno\b|\btrompa\b|corneta|melodica|\bpianica\b|'
+                 r'\bkazoo\b|ocarina|didgeridoo|\bgaita\b|\bquena\b|zampo|flautin|'
+                 r'\bflugel|\bcornamusa\b|bombardino|\bshofar\b|\bhulusi\b|sousafon|'
+                 r'\bcuerno\b|\bmelodion\b|\bpiano de viento\b', tn): return 'Viento'
     if re.search(r'microfono', tn): return 'Micrófonos'
     if re.search(r'interfaz de audio|mezcladora|mixer|monitor de estudio|'
                  r'controlador midi|\bdaw\b|preamp', tn): return 'Producción de audio'
-    if re.search(r'teclado|piano|sintetizador|organo', tn): return 'Teclados'
+    if re.search(r'teclado|piano|sintetizador|organo|acordeon|melodion', tn): return 'Teclados'
     if re.search(r'amplificador|\bamp\b|combo de guitarra', tn): return 'Amplificadores'
     if re.search(r'tornamesa|tocadiscos|turntable', tn): return 'Tornamesas'
+    if re.search(r'\bpedal(es)? (de|para)? ?(efecto|distorsion|reverb|delay|wah|loop)|'
+                 r'pedalera|\bmultiefecto', tn): return 'Efectos y pedales'
     if re.search(r'atril|funda|estuche|correa|cuerdas de repuesto|afinador|'
-                 r'capotraste|puas?\b|banqueta', tn): return 'Accesorios'
+                 r'capotraste|puas?\b|banqueta|\bboquilla\b|\bcanas?\b|colofonia|'
+                 r'\bresina\b|pastilla (de|para)|\bpickup\b|parche (de|para)|'
+                 r'soporte (de|para)|banco (de|para) (piano|teclado|bateria)|'
+                 r'metronomo|\bpartitura|aceite (de|para) (valvula|llave)|'
+                 r'\bdiapason\b|tenedor de afinacion|cable midi|\bperilla\b', tn): return 'Accesorios'
     return None
 
 

@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=e926c0ab">
+<link rel="stylesheet" href="css/style.min.css?v=30544151">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -147,50 +147,75 @@
   <!-- ranking de productos populares → comparación de precios) -->
   <section id="viewHome" class="view">
     <div class="container">
-      <div class="hero">
-        <h1><img class="hero-logo" src="icons/logo-comparaprecios.png" alt="Compara precios"></h1>
-        <p class="muted">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</p>
-        <!-- La misma promesa que la meta description, pero en la página: sin
-             ella Google arma el resumen con el texto que sí encuentra acá.
-             Solo se promete lo que se cumple para todo el catálogo (ver el
-             comentario del <head>): la consulta en vivo a Mercado Libre. -->
-        <p class="hero-freshness"><span class="hero-freshness-dot"></span>Volvemos a consultar el precio de Mercado Libre al abrir cada producto.</p>
-        <!-- Los dos juntos: la ubicación, que ya estaba, y la entrada por
-             marca, que es el eje de navegación que faltaba (/marca/ tiene una
-             página por cada marca con 20 o más productos, y desde la portada
-             este es el único enlace que las alcanza). -->
-        <div class="hero-actions">
-        <button class="hero-map-btn" id="homeLocationBtn">
-          <span class="hero-map-btn-icon"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.6 7-12.2A7 7 0 0 0 5 9.3c0 5.6 7 12.2 7 12.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.2" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span class="hero-map-btn-text">
-            <strong>¿Dónde estás?</strong>
-            <span id="homeLocationBtnLabel">Elegir mi ubicación</span>
-          </span>
-        </button>
-        <a class="hero-map-btn" href="marca/">
-          <span class="hero-map-btn-icon"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 12.6 12.6 20.6a2 2 0 0 1-2.8 0l-6.4-6.4a2 2 0 0 1-.6-1.4V4.8A1.8 1.8 0 0 1 4.6 3h8a2 2 0 0 1 1.4.6l6.6 6.6a2 2 0 0 1 0 2.4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7.8" cy="7.8" r="1.4" fill="currentColor"/></svg></span>
-          <span class="hero-map-btn-text">
-            <strong>¿Buscas una marca?</strong>
-            <span>Ver todas las marcas</span>
-          </span>
-        </a>
+      <!-- Inicio en tres columnas, según el boceto del usuario. El orden de
+           la columna izquierda es el del dibujo: las dos entradas al
+           catálogo como pestañas arriba del todo (la marca, que abre las
+           categorías, y "Marcas"), después el botón de ayuda y abajo la
+           lista de rankings del mes. "Más visto" ocupa el ancho de las dos
+           primeras columnas, no el de las tres. -->
+      <div class="home-grid">
+        <div class="home-most-viewed-band">
+          <div class="home-most-viewed-panel">
+            <div id="homeMostViewed"></div>
+          </div>
         </div>
-      </div>
-      <div class="home-categories-layout">
-        <div class="home-category-box">
-          <div id="homeCategoryGrid" class="category-card-grid"></div>
-        </div>
-        <div class="home-right-column">
+
+        <aside class="home-col home-col-left">
+          <div class="home-tabs" role="tablist" aria-label="Cómo buscar">
+            <button type="button" class="home-tab home-tab-marca is-active" role="tab" aria-selected="true" aria-controls="homePanelPrecios" data-tab="precios">
+              <img class="hero-logo" src="icons/logo-comparaprecios.png" alt="Compara precios">
+            </button>
+            <button type="button" class="home-tab" role="tab" aria-selected="false" aria-controls="homePanelMarcas" data-tab="marcas">Marcas</button>
+          </div>
+          <button type="button" class="home-side-btn" id="homeTipsBtn" aria-expanded="false" aria-controls="homeTipsPanel">
+            <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.7 9.4a2.4 2.4 0 1 1 3.2 2.3c-.6.2-.9.8-.9 1.4v.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1" fill="currentColor"/></svg></span>
+            <span><strong>Cómo utilizar</strong><span class="home-side-btn-sub">Tips en 3 pasos</span></span>
+          </button>
+          <div class="home-tips" id="homeTipsPanel" hidden></div>
+          <button type="button" class="home-side-btn" id="homeLocationBtn">
+            <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.6 7-12.2A7 7 0 0 0 5 9.3c0 5.6 7 12.2 7 12.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.2" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span><strong>¿Dónde estás?</strong><span class="home-side-btn-sub" id="homeLocationBtnLabel">Mi ubicación</span></span>
+          </button>
+          <!-- Las páginas de ranking mensual (/categoria/<slug>/). Desde la
+               portada es el único enlace que las alcanza; sin él solo
+               colgarían del sitemap. Lo llena renderHomeRankingLinks(). -->
+          <nav class="home-side-list" id="homeRankingLinks" aria-label="Rankings por categoría"></nav>
+        </aside>
+
+        <main class="home-col home-col-center">
+          <h1 class="home-elige" id="homeElige">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</h1>
+          <div id="homePanelPrecios" role="tabpanel">
+            <div class="home-category-box">
+              <div id="homeCategoryGrid" class="category-card-grid"></div>
+            </div>
+          </div>
+          <div id="homePanelMarcas" role="tabpanel" hidden>
+            <div class="home-category-box">
+              <div id="homeBrandGrid" class="home-brand-grid"></div>
+            </div>
+          </div>
+        </main>
+
+        <aside class="home-col home-col-right">
           <div class="home-ad-banner">
             <span class="home-ad-label">Publicidad</span>
             <!-- admitad.banner: hvb0g5xwrq43517c81ee82ed2bb6aa Whirlpool MX/CO -->
             <a target="_blank" rel="nofollow" href="https://rzekl.com/g/hvb0g5xwrq43517c81ee82ed2bb6aa/?i=4"><img width="300" height="250" border="0" src="https://ad.admitad.com/b/hvb0g5xwrq43517c81ee82ed2bb6aa/" alt="Whirlpool MX/CO"/></a>
             <!-- /admitad.banner -->
           </div>
-          <div class="home-most-viewed-panel">
-            <div id="homeMostViewed"></div>
-          </div>
-        </div>
+          <div id="homeRankings" class="home-rankings"></div>
+        </aside>
+      </div>
+
+      <!-- Lo último que se miró EN ESTE navegador (localStorage, sin cuenta
+           ni backend), en una tira horizontal -- a pedido del usuario, con
+           el ejemplo de "もう一度購入" de Rakuten. No se confunde con
+           "Visto recientemente" de más abajo, que viene de la cuenta en
+           Firestore y solo existe con sesión iniciada. Arranca oculta: se
+           revela desde renderHomeRecent() cuando hay algo que mostrar. -->
+      <div id="homeRecentBlock" class="home-recent hidden">
+        <h2 class="section-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5V12l3 1.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Lo último que viste en este navegador</h2>
+        <div id="homeRecentStrip" class="recent-strip"></div>
       </div>
 
       <!-- Historial y recomendaciones de la cuenta (Firestore): solo se
@@ -207,8 +232,6 @@
         </div>
       </div>
 
-      <h2 class="section-title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10v6a5 5 0 0 1-10 0V4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 5H4a3 3 0 0 0 3 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 5h3a3 3 0 0 1-3 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="15" x2="12" y2="18.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 21.5h8l-1-3H9l-1 3Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Ranking de popularidad</h2>
-      <div id="homeRankings" class="home-rankings"></div>
     </div>
   </section>
 
@@ -1036,7 +1059,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=bfc5b7ff"></script>
+<script src="js/app.min.js?v=544927db"></script>
 </div>
 </body>
 </html>

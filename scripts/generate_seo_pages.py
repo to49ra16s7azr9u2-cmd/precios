@@ -40,6 +40,7 @@ import re
 import shutil
 import sys
 import unicodedata
+from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import load_catalog, slugify  # noqa: E402
@@ -499,7 +500,7 @@ def precios_de_eje(lo, hi):
     return [lo, (lo + hi) / 2, hi]
 
 
-def sparkline_svg(serie, ancho=560, alto=150):
+def sparkline_svg(serie, ancho=560, alto=92):
     """Gráfico de la evolución, en SVG inline, con ejes.
 
     Sin JavaScript ni librería a propósito: estas páginas son estáticas y las
@@ -524,7 +525,7 @@ def sparkline_svg(serie, ancho=560, alto=150):
     dias = [d for d, _ in serie]
     d0, d1 = dias[0], dias[-1]
     ancho_dias = (d1 - d0) or 1
-    izq, der, arriba, abajo = 64, 30, 10, 28
+    izq, der, arriba, abajo = 64, 24, 6, 18
     x0, x1 = izq, ancho - der
     y0, y1 = arriba, alto - abajo
 
@@ -543,11 +544,11 @@ def sparkline_svg(serie, ancho=560, alto=150):
     for p in precios_de_eje(lo_real, hi_real):
         y = y_de(p)
         ejes.append(f'<line x1="{x0}" y1="{y:.1f}" x2="{x1}" y2="{y:.1f}" class="spark-grid"/>')
-        ejes.append(f'<text x="{x0 - 8}" y="{y + 4:.1f}" text-anchor="end" class="spark-label">{money(p)}</text>')
+        ejes.append(f'<text x="{x0 - 6}" y="{y + 3:.1f}" text-anchor="end" class="spark-label">{money(p)}</text>')
     for d in dias_de_eje(d0, d1):
         x = x_de(d)
-        ejes.append(f'<line x1="{x:.1f}" y1="{y1}" x2="{x:.1f}" y2="{y1 + 5}" class="spark-tick"/>')
-        ejes.append(f'<text x="{x:.1f}" y="{alto - 8}" text-anchor="middle" class="spark-label">{fecha_corta(d)}</text>')
+        ejes.append(f'<line x1="{x:.1f}" y1="{y1}" x2="{x:.1f}" y2="{y1 + 4}" class="spark-tick"/>')
+        ejes.append(f'<text x="{x:.1f}" y="{alto - 5}" text-anchor="middle" class="spark-label">{fecha_corta(d)}</text>')
     ejes.append(f'<line x1="{x0}" y1="{y0}" x2="{x0}" y2="{y1}" class="spark-axis"/>')
     ejes.append(f'<line x1="{x0}" y1="{y1}" x2="{x1}" y2="{y1}" class="spark-axis"/>')
     return (
@@ -555,7 +556,7 @@ def sparkline_svg(serie, ancho=560, alto=150):
         f'role="img" aria-label="Evolución del precio: de {money(precios[0])} a {money(precios[-1])}">'
         + "".join(ejes)
         + f'<polygon points="{area}" fill="rgba(255,2,17,.08)"/>'
-        f'<polyline points="{linea}" fill="none" stroke="var(--red)" stroke-width="2" '
+        f'<polyline points="{linea}" fill="none" stroke="var(--red)" stroke-width="1.5" '
         f'stroke-linejoin="round" stroke-linecap="round"/>'
         f'</svg>'
     )
@@ -670,11 +671,11 @@ def render_price_history(product):
         )
 
     rango = (
-        f"<p>Entre el {fecha_larga(serie[0][0])} y el {fecha_larga(serie[-1][0])} "
+        f'<p class="history-range">Entre el {fecha_larga(serie[0][0])} y el {fecha_larga(serie[-1][0])} '
         f"osciló entre {money(lo)} (el {fecha_larga(dia_lo)}) y {money(hi)} "
         f"(el {fecha_larga(dia_hi)})."
         if hi != lo else
-        f"<p>No se ha movido de {money(lo)} desde el {fecha_larga(serie[0][0])}."
+        f'<p class="history-range">No se ha movido de {money(lo)} desde el {fecha_larga(serie[0][0])}.'
     ) + "</p>"
 
     return f"""
@@ -903,12 +904,20 @@ def render_product_page(product, data, subs_con_pagina=None):
         quicknav_items.append(("shippingPanel", "pin", "Envío"))
     if reviews_html:
         quicknav_items.append(("reviewsPanel", "trophy", "Comentarios"))
+    # Último botón: el único que sale de la ficha, a la lista de la
+    # categoría. Va acá porque la cuadrícula es de dos columnas y con cinco
+    # botones quedaba un hueco vacío (a pedido del usuario). En la versión
+    # interactiva lo pone renderDetailQuickNav() en js/app.js.
     quicknav_html = (
         '<nav class="detail-quicknav">'
         + "".join(
-            f'<a class="detail-quicknav-btn" href="#{qid}">{svg_icon(ic)} {label}</a>'
+            f'<a class="detail-quicknav-btn" href="#{qid}">{svg_icon(ic)}'
+            f' <span class="detail-quicknav-label">{label}</span></a>'
             for qid, ic, label in quicknav_items
         )
+        + f'<a class="detail-quicknav-btn detail-quicknav-cat" href="../../categoria/{cat_slug}/">'
+        f'{svg_icon("crown")} <span class="detail-quicknav-label">'
+        f'Populares de {html_escape(cat["name"])}</span></a>'
         + "</nav>"
     )
 
@@ -1288,6 +1297,219 @@ tienda corrigió.</p>
                       og_image=next((p.get("photo") for _, p in mostrados if p.get("photo")), None))
 
 
+# ---------------------------------------------------------------------
+# Guía de compra de la categoría (el formato que usa kakaku.com)
+# ---------------------------------------------------------------------
+# La página de categoría era un h1 con el conteo, los chips de subcategoría
+# y la lista. Eso compite mal: la búsqueda que trae gente a un comparador no
+# es "impresoras" a secas sino "mejores impresoras 2026", "cuánto cuesta una
+# impresora", "qué impresora comprar". kakaku.com contesta las tres en la
+# misma página --選び方 (cómo elegir), ランキング (ranking) y el mes en el
+# título-- y por eso sale primero.
+#
+# Todo lo que se escribe acá sale del catálogo, no de un texto fijo: los
+# ejes de "cómo elegir" son los que calcula compute_quality_axes.py, los
+# tramos de precio son los percentiles reales de la categoría y las
+# respuestas de las preguntas se arman con los números del día. Un texto
+# genérico repetido en 52 páginas es exactamente lo que un buscador lee
+# como relleno.
+MES_ANIO = f"{MESES[datetime.date.today().month - 1]} de {datetime.date.today().year}"
+HOY_LARGO = (f"{datetime.date.today().day} de "
+             f"{MESES[datetime.date.today().month - 1]} de {datetime.date.today().year}")
+
+
+def _cargar_quality_axes():
+    """Los ejes que calcula compute_quality_axes.py. Si el archivo no está
+    (nadie corrió ese paso todavía), la guía simplemente no se dibuja: es
+    una sección de más, no un requisito para publicar la categoría."""
+    ruta = os.path.join(ROOT, "data", "quality-axes.json")
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+QUALITY_AXES = _cargar_quality_axes()
+
+
+def ejes_de_categoria(cat, products, data):
+    """Ejes de "cómo elegir" de la categoría, deduplicados por etiqueta.
+
+    quality-axes.json está indexado por "Categoría/Subcategoría" (lo arma
+    compute_quality_axes.py), así que para la categoría entera se juntan los
+    de sus subcategorías y se queda el que cubre más productos.
+    """
+    ejes = {}
+    por_sub = collections.Counter(p.get("subcategory") for p in products)
+    for sub, n in por_sub.most_common():
+        for eje in (QUALITY_AXES.get(f"{cat['id']}/{sub}") or {}).get("axes", []):
+            label = eje.get("label")
+            tiers = [t for t in (eje.get("tiers") or []) if t.get("name")]
+            if not label or len(tiers) < 2 or label in ejes:
+                continue
+            ejes[label] = (eje, tiers, n)
+    return list(ejes.values())[:4]
+
+
+def como_elegir_html(cat, products, ejes):
+    if not ejes:
+        return ""
+    bloques = []
+    for eje, tiers, _ in ejes:
+        filas = "".join(
+            f'<div class="guia-tier">'
+            f'<div class="guia-tier-nombre">{html_escape(t["name"])}</div>'
+            f'<div class="guia-tier-spec">{html_escape(t.get("spec") or "")}</div>'
+            + (f'<div class="guia-tier-uso">{html_escape(t["use"])}</div>' if t.get("use") else "")
+            + '</div>'
+            for t in tiers
+        )
+        criterio = eje.get("criterion")
+        bloques.append(
+            f'<div class="guia-eje">'
+            f'<h3>{html_escape(eje["label"])}'
+            + (f' <span class="muted small">({html_escape(criterio)})</span>' if criterio else "")
+            + f'</h3><div class="guia-tiers">{filas}</div></div>'
+        )
+    return (
+        f'<div class="panel" id="como-elegir">'
+        f'<h2>{svg_icon("check-circle")} Cómo elegir {html_escape(cat["name"].lower())}</h2>'
+        f'<p class="muted small">Lo que de verdad separa un modelo de otro en esta '
+        f'categoría, con los rangos que hay hoy en el catálogo.</p>'
+        f'<div class="guia-ejes">{"".join(bloques)}</div></div>'
+    )
+
+
+def tramos_de_precio(products):
+    """Tres o cuatro tramos con los percentiles reales de la categoría."""
+    precios = sorted(pr for pr in (min_price(p) for p in products) if pr)
+    if len(precios) < 40:
+        return []
+    def pct(q):
+        return precios[min(len(precios) - 1, int(len(precios) * q))]
+    def redondo(v):
+        if v >= 10000:
+            return int(round(v / 1000.0) * 1000)
+        if v >= 1000:
+            return int(round(v / 100.0) * 100)
+        return int(round(v / 10.0) * 10)
+    cortes = sorted({redondo(pct(q)) for q in (0.25, 0.5, 0.75)})
+    if len(cortes) < 2:
+        return []
+    tramos = [(None, cortes[0])]
+    for a, b in zip(cortes, cortes[1:]):
+        tramos.append((a, b))
+    tramos.append((cortes[-1], None))
+    salida = []
+    for lo, hi in tramos:
+        n = sum(1 for pr in precios if (lo is None or pr >= lo) and (hi is None or pr < hi))
+        if n:
+            salida.append((lo, hi, n))
+    return salida
+
+
+def presupuesto_html(cat, products):
+    tramos = tramos_de_precio(products)
+    if not tramos:
+        return ""
+    chips = []
+    for lo, hi, n in tramos:
+        if lo is None:
+            etiqueta, params = f"Hasta {money(hi)}", f"max={hi}"
+        elif hi is None:
+            etiqueta, params = f"{money(lo)} o más", f"min={lo}"
+        else:
+            etiqueta, params = f"{money(lo)} a {money(hi)}", f"min={lo}&max={hi}"
+        chips.append(
+            f'<a class="chip" href="../../#/list?cat={quote(cat["id"])}&{params}">'
+            f'{html_escape(etiqueta)} <span class="muted">({n})</span></a>'
+        )
+    return (
+        f'<div class="panel" id="presupuesto">'
+        f'<h2>{svg_icon("tag")} Por presupuesto</h2>'
+        f'<div class="chip-row">{"".join(chips)}</div></div>'
+    )
+
+
+def marcas_destacadas_html(por_marca):
+    enlaces = []
+    for m, n in por_marca.most_common(24):
+        if clave_marca(m) in MARCAS_EXCLUIDAS:
+            continue
+        sl = _SLUG_DE_MARCA.get(clave_marca(m))
+        if sl:
+            enlaces.append(f'<a class="chip" href="../../marca/{sl}/">{html_escape(m)} '
+                           f'<span class="muted">({n})</span></a>')
+    if not enlaces:
+        return ""
+    return (
+        f'<div class="panel" id="marcas"><h2>{svg_icon("tag")} Marcas</h2>'
+        f'<div class="chip-row">{"".join(enlaces[:18])}</div></div>'
+    )
+
+
+def faq_categoria(cat, products, ejes, ranked, tiendas_cat):
+    """Preguntas y respuestas con los números del catálogo de hoy.
+
+    Se marcan como FAQPage para que el buscador pueda mostrarlas como
+    "People also ask". Ninguna respuesta se inventa: todas salen de
+    `products`, así que si mañana cambia el catálogo cambia la respuesta.
+    """
+    nombre = cat["name"].lower()
+    precios = sorted(pr for pr in (min_price(p) for p in products) if pr)
+    qa = []
+    if len(precios) >= 10:
+        mediana = precios[len(precios) // 2]
+        qa.append((
+            f"¿Cuánto cuesta comprar {nombre} en México?",
+            f"En ComparaMEX hay {len(precios):,} productos de {nombre} con precio. "
+            f"El más barato está en {money(precios[0])}, el más caro en {money(precios[-1])} "
+            f"y la mitad del catálogo se consigue por {money(mediana)} o menos."
+        ))
+    if ranked:
+        top = ranked[0]
+        qa.append((
+            f"¿Cuál es el producto más popular en {nombre}?",
+            f"Hoy encabeza el ranking {top['name']}, desde {money(min_price(top))} "
+            f"en {'una tienda' if seller_total(top) == 1 else f'{seller_total(top)} vendedores'}."
+        ))
+    if ejes:
+        criterios = ", ".join(e[0]["label"].lower() for e in ejes)
+        qa.append((
+            f"¿Qué hay que mirar para elegir {nombre}?",
+            f"En esta categoría lo que más separa un modelo de otro es: {criterios}. "
+            f"Arriba, en \"Cómo elegir\", está el rango de cada uno con los valores "
+            f"que hay hoy en el catálogo."
+        ))
+    if len(tiendas_cat) > 1:
+        qa.append((
+            f"¿En qué tiendas puedo comparar precios de {nombre}?",
+            f"Esta categoría compara {len(tiendas_cat)} tiendas mexicanas: "
+            f"{', '.join(sorted(tiendas_cat)[:8])}"
+            + ("." if len(tiendas_cat) <= 8 else f" y {len(tiendas_cat) - 8} más.")
+        ))
+    if not qa:
+        return "", ""
+    html = "".join(
+        f'<div class="faq-item"><h3>{html_escape(p)}</h3><p>{html_escape(r)}</p></div>'
+        for p, r in qa
+    )
+    json_ld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": p,
+             "acceptedAnswer": {"@type": "Answer", "text": r}}
+            for p, r in qa
+        ],
+    }, ensure_ascii=False, indent=2)
+    return (
+        f'<div class="panel" id="preguntas">'
+        f'<h2>{svg_icon("search")} Preguntas frecuentes</h2>{html}</div>'
+    ), json_ld
+
+
 def render_category_page(cat, products, data):
     slug = slugify(cat["name"])
     # El ranking de la categoría no lista las piezas sueltas; el conteo y los
@@ -1372,23 +1594,84 @@ def render_category_page(cat, products, data):
             f'{n_bajadas} productos bajaron de precio en {html_escape(cat["name"].lower())}</a></p>'
         )
 
+    # Las secciones nuevas (ver el bloque de arriba): salen del catálogo, no
+    # de un texto fijo.
+    ejes = ejes_de_categoria(cat, products, data)
+    tiendas_cat = {o.get("storeId") for p in products for o in (p.get("offers") or []) if o.get("storeId")}
+    nombres_tienda = {s["id"]: s.get("name") or s["id"] for s in (data.get("stores") or [])}
+    faq_html, faq_json = faq_categoria(
+        cat, products, ejes, shown, {nombres_tienda.get(t, t) for t in tiendas_cat})
+
+    # Índice de la página, al estilo de las pestañas de kakaku.com: son
+    # anclas, no pestañas de JavaScript, para que funcionen en la página
+    # estática y el buscador las lea como enlaces internos.
+    # El índice se arma con las secciones que de verdad se pintaron: una
+    # categoría sin ejes no tiene "Cómo elegir", y una cuyas marcas no
+    # llegan a tener página propia no tiene "Marcas". Enlazar a un ancla que
+    # no existe deja el clic sin efecto.
+    guia_html = como_elegir_html(cat, products, ejes)
+    presu_html = presupuesto_html(cat, products)
+    marcas_html = marcas_destacadas_html(por_marca)
+    indice = []
+    if guia_html:
+        indice.append('<a class="chip" href="#como-elegir">Cómo elegir</a>')
+    indice.append('<a class="chip" href="#ranking">Ranking</a>')
+    if presu_html:
+        indice.append('<a class="chip" href="#presupuesto">Por presupuesto</a>')
+    if marcas_html:
+        indice.append('<a class="chip" href="#marcas">Marcas</a>')
+    if faq_html:
+        indice.append('<a class="chip" href="#preguntas">Preguntas</a>')
+    indice_html = f'<div class="chip-row chip-row-indice">{"".join(indice)}</div>'
+
     body = f"""
 <nav class="breadcrumb"><a href="../../">Inicio</a> &gt; {html_escape(cat['name'])}</nav>
-<div class="list-head"><h1>{svg_icon("trophy")} {html_escape(cat['name'])} — más populares ({len(productos_listables)})</h1></div>
+<div class="list-head"><h1>{svg_icon("trophy")} {html_escape(cat['name'])}: los más populares de {MES_ANIO}</h1></div>
+<p class="muted">{len(productos_listables)} productos comparados entre {len(tiendas_cat)} tiendas mexicanas. Precios actualizados el {HOY_LARGO}.</p>
+{indice_html}
 {ofertas_link}
 {subs_html}
-<div class="product-list">{''.join(rows)}</div>
+{guia_html}
+{presu_html}
+<div class="panel" id="ranking"><h2>{svg_icon("crown")} Ranking de {html_escape(cat['name'].lower())} — {MES_ANIO}</h2>
+<div class="product-list">{''.join(rows)}</div></div>
 <div class="panel" style="text-align:center; margin-top:20px">
-  <a class="buy-btn" href="../../#/list?cat={cat['id']}">Ver con filtros interactivos →</a>
+  <a class="buy-btn" href="../../#/list?cat={quote(cat['id'])}">Ver con filtros interactivos →</a>
   {more_note}
 </div>
+{marcas_html}
+{faq_html}
 """
     breadcrumbs = breadcrumb_json_ld([
         ("Inicio", f"{SITE_URL}/"),
         (cat["name"], None),
     ])
-    extra_head = f'<script type="application/ld+json">\n{breadcrumbs}\n</script>'
-    title = f"{cat['name']} — Comparar precios en México | ComparaMEX"
+    # El ranking, además, como ItemList: es lo que le dice al buscador que
+    # esta página ES un ranking y en qué orden, que es justo la consulta que
+    # se quiere ganar ("mejores <categoría> 2026").
+    item_list = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": f"{cat['name']}: los más populares de {MES_ANIO}",
+        "numberOfItems": len(shown[:10]),
+        "itemListElement": [
+            {"@type": "ListItem", "position": i,
+             "url": f"{SITE_URL}/producto/{p['id']}/",
+             "name": p["name"]}
+            for i, p in enumerate(shown[:10], start=1)
+        ],
+    }, ensure_ascii=False, indent=2)
+    extra_head = (
+        f'<script type="application/ld+json">\n{breadcrumbs}\n</script>'
+        f'<script type="application/ld+json">\n{item_list}\n</script>'
+        + (f'<script type="application/ld+json">\n{faq_json}\n</script>' if faq_json else "")
+    )
+    title = f"{cat['name']}: ranking de los más populares — {MES_ANIO} | ComparaMEX"
+    description = (
+        f"Ranking de {cat['name'].lower()} en México, {MES_ANIO}: {len(productos_listables)} "
+        f"productos comparados entre {len(tiendas_cat)} tiendas, cómo elegir y precios desde "
+        f"{money(min((pr for pr in (min_price(p) for p in products) if pr), default=0))}."
+    )[:300]
     return page_shell(title, description, canonical_path, body, depth=2, extra_head=extra_head)
 
 

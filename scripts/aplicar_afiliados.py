@@ -37,13 +37,25 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from afiliados import BASES, base_de  # noqa: E402
+from afiliados import BASES, TAG_AMAZON, base_de  # noqa: E402
 from data_io import load_catalog, save_catalog, url_afiliado, url_real  # noqa: E402
 
 # Mercado Libre no tiene un enlace base que envuelva cualquier url: cada
 # producto lleva el suyo, generado a mano en el panel y emparejado por
 # ml_enlaces.py. Por eso esa tienda se resuelve con un mapa, no con url_afiliado.
 MAPAS = {"mercadolibre": "data/ml-afiliados.json"}
+# Amazon no envuelve la url: le agrega el tag de Associates como parámetro.
+# add_amazon_offers.py y add_amazon_standalone.py ya lo ponen al importar,
+# pero 1,821 ofertas de los primeros lotes quedaron con el /dp/ASIN/ pelado
+# (medido el 15 de septiembre de 2026) y ni el sitio ni este script las
+# tocaban: cada clic ahí se iba sin comisión.
+AMAZON = "amazon_mx"
+
+
+def con_tag_amazon(url):
+    if "tag=" in url:
+        return url
+    return url + ("&" if "?" in url else "?") + "tag=" + TAG_AMAZON
 
 
 def cargar_mapa(store_id):
@@ -66,14 +78,14 @@ def main():
 
     objetivo = list(args.tienda)
     if args.todas:
-        objetivo = [s for s, b in BASES.items() if b] + list(MAPAS)
+        objetivo = [s for s, b in BASES.items() if b] + list(MAPAS) + [AMAZON]
     if not objetivo:
         ap.error("se necesita --tienda o --todas")
 
-    sin_enlace = [s for s in objetivo if not base_de(s) and not cargar_mapa(s)]
+    sin_enlace = [s for s in objetivo if s != AMAZON and not base_de(s) and not cargar_mapa(s)]
     if sin_enlace:
         print("sin enlace en afiliados.py, se ignoran:", ", ".join(sin_enlace))
-        objetivo = [s for s in objetivo if base_de(s) or cargar_mapa(s)]
+        objetivo = [s for s in objetivo if s == AMAZON or base_de(s) or cargar_mapa(s)]
 
     data = load_catalog()
     mapas = {s: cargar_mapa(s) for s in objetivo}
@@ -85,6 +97,14 @@ def main():
         for o in (p.get("offers") or []):
             sid = o.get("storeId")
             if sid not in envueltas or not o.get("url"):
+                continue
+            if sid == AMAZON:
+                nueva = con_tag_amazon(o["url"])
+                if nueva == o["url"]:
+                    ya_tenian[sid] += 1
+                else:
+                    o["url"] = nueva
+                    envueltas[sid] += 1
                 continue
             if url_real(o["url"]) or "/social/" in o["url"]:   # ya venía envuelta
                 ya_tenian[sid] += 1

@@ -69,6 +69,12 @@ def tiendas_de(product):
     return {o.get("storeId") for o in (product.get("offers") or [])}
 
 
+AMAZON = "amazon_mx"
+# Cuánto pueden separarse los precios de dos SKU que dicen ser el mismo
+# producto. Por encima de esto no son el mismo (ver grupos_fusionables).
+MAX_RATIO = 1.20
+
+
 def archivo_de_foto(product):
     """El nombre del archivo de la foto, sin el id del asset ni el ?v=.
 
@@ -158,6 +164,29 @@ def grupos_fusionables(products):
         motivo = se_contradicen(fichas)
         if motivo:
             frenados.append((fichas, f"specs que no coinciden: {motivo}"))
+            continue
+        # Amazon queda afuera entero. Acá la prueba de identidad es "mismo
+        # nombre y misma foto", y en Amazon eso NO prueba nada: los ASIN de
+        # una misma familia (tallas de un instrumento, medidas de una
+        # pantalla, capacidades de un filtro) comparten título y foto
+        # principal por diseño. Corriéndolo sobre el catálogo con las
+        # capturas de Amazon dentro se fusionaron 744 fichas así, y entre
+        # ellas una pirámide de cuarzo de $2,076 con la de $11,160 (el
+        # título decía "3 pulgadas - 20 pulgadas") y un lavavajillas de
+        # $78,686 con el de $220,539. El caso que este script resuelve es el
+        # de Elektra repitiendo un SKU, no el de un catálogo con variantes.
+        if AMAZON in set.union(*[tiendas_de(p) for p in fichas]):
+            frenados.append((fichas, "Amazon: los ASIN de una familia comparten "
+                                     "título y foto, así que no prueban identidad"))
+            continue
+        # Y en el resto de las tiendas, el precio tiene voto: dos SKU
+        # repetidos valen casi lo mismo (es el caso que describe el
+        # encabezado). Una diferencia grande dice que son cosas distintas
+        # aunque el nombre y la foto coincidan.
+        precios = [o.get("price") for p in fichas for o in (p.get("offers") or [])
+                   if o.get("price")]
+        if precios and max(precios) / min(precios) > MAX_RATIO:
+            frenados.append((fichas, f"precios a más de {MAX_RATIO:.2f}x entre sí"))
             continue
         fusionables.append(sorted(fichas, key=id_num))
     return fusionables, frenados

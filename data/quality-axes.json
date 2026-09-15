@@ -211,6 +211,33 @@
      }
     ],
     "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     }
+    ],
+    "key": "size"
    }
   ],
   "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
@@ -223,6 +250,15 @@
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
+     {
+      "id": "oro",
+      "name": "Oro",
+      "use": "",
+      "spec": "Oro",
+      "values": [
+       "Oro"
+      ]
+     },
      {
       "id": "metal",
       "name": "Metal",
@@ -239,15 +275,6 @@
       "spec": "Chapa de oro",
       "values": [
        "Chapa de oro"
-      ]
-     },
-     {
-      "id": "oro",
-      "name": "Oro",
-      "use": "",
-      "spec": "Oro",
-      "values": [
-       "Oro"
       ]
      },
      {
@@ -311,6 +338,33 @@
      }
     ],
     "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "oro",
+      "name": "Oro",
+      "use": "",
+      "spec": "Oro",
+      "values": [
+       "Oro"
+      ]
+     },
+     {
+      "id": "plata",
+      "name": "Plata",
+      "use": "",
+      "spec": "Plata",
+      "values": [
+       "Plata"
+      ]
+     }
+    ],
+    "key": "size"
    }
   ],
   "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
@@ -2121,16 +2175,16 @@
       "id": "mediana",
       "name": "Mediana",
       "use": "Refrigerador y herramientas",
-      "spec": "301 W a 900 W",
+      "spec": "301 W a 600 W",
       "min": 300,
-      "max": 900
+      "max": 600
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Casa en un apagón",
-      "spec": "Más de 900 W",
-      "min": 900
+      "spec": "Más de 600 W",
+      "min": 600
      }
     ],
     "key": "level"
@@ -2149,23 +2203,23 @@
       "id": "chico",
       "name": "Chico",
       "use": "Cargar teléfono y luces",
-      "spec": "Hasta 40 W",
-      "max": 40
+      "spec": "Hasta 30 W",
+      "max": 30
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "Estación de energía o cabaña",
-      "spec": "41 W a 110 W",
-      "min": 40,
-      "max": 110
+      "spec": "31 W a 120 W",
+      "min": 30,
+      "max": 120
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Instalación de casa",
-      "spec": "Más de 110 W",
-      "min": 110
+      "spec": "Más de 120 W",
+      "min": 120
      }
     ],
     "key": "level"
@@ -2676,15 +2730,15 @@
       "id": "chico",
       "name": "Chico",
       "use": "El más compacto",
-      "spec": "Hasta 7\"",
-      "max": 7
+      "spec": "Hasta 8\"",
+      "max": 8
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "El tamaño más común",
-      "spec": "8\" a 10\"",
-      "min": 7,
+      "spec": "9\" a 10\"",
+      "min": 8,
       "max": 10
      },
      {
@@ -3681,95 +3735,6 @@
    }
   ]
  },
- "Instrumentos musicales/Guitarras": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Instrumentos musicales/Cuerdas": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "chapa-de-oro",
-      "name": "Chapa de oro",
-      "use": "",
-      "spec": "Chapa de oro",
-      "values": [
-       "Chapa de oro"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Instrumentos musicales/Producción de audio": {
   "axes": [
    {
@@ -3794,55 +3759,6 @@
       "spec": "Plástico",
       "values": [
        "Plástico"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Instrumentos musicales/Baterías": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
       ]
      }
     ],
@@ -4927,15 +4843,6 @@
     "criterion": "de vida de la mascota",
     "ramp": false,
     "tiers": [
-     {
-      "id": "cachorro",
-      "name": "Cachorro",
-      "use": "Los primeros meses",
-      "spec": "Cachorro",
-      "values": [
-       "Cachorro"
-      ]
-     },
      {
       "id": "adulto",
       "name": "Adulto",
@@ -6149,46 +6056,6 @@
       "use": "Juegos competitivos y pantallas grandes",
       "spec": "Más de 12,000 DPI",
       "min": 12000
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Instrumentos musicales": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
      }
     ],
     "key": "level"
