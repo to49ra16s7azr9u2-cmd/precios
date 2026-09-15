@@ -85,6 +85,15 @@ DESPACHO = {
     "Cafeteras": "sub_cafetera",
     "Celulares": "sub_celular",
     "Tabletas": "sub_tableta",
+    "Videojuegos": "sub_videojuego",
+    "Muebles": "sub_mueble",
+    "Juegos de mesa": "sub_juego_mesa",
+    "Instrumentos musicales": "sub_instrumento",
+    "Iluminación": "sub_iluminacion",
+    "Autos, bicicletas y motos": "sub_vehiculo",
+    "Domótica y hogar inteligente": "sub_domotica",
+    "Cámaras y fotografía": "sub_camara",
+    "Herramientas": "sub_herramienta",
 }
 
 

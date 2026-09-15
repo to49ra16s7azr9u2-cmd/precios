@@ -337,7 +337,23 @@ a { color: inherit; text-decoration: none; }
   font: inherit;
   flex-shrink: 0;
   gap: 8px;
+  /* Ahora es un <a> (lleva a /marca/) y no un <button>: sin esto heredaría
+     el color y el subrayado de enlace y se vería distinto al resto. */
+  color: inherit;
+  text-decoration: none;
 }
+
+/* Los dos botones de la portada, en fila y con el mismo alto. Se envuelven
+   en su propio contenedor para que en pantalla chica bajen juntos en vez de
+   que uno se quede colgado al lado del texto. */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+.hero-actions .hero-map-btn { margin-left: 0; }
 
 .hero-map-btn:hover { background: var(--red-tint); }
 .hero-map-btn.is-set { border-color: var(--green); }

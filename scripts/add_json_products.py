@@ -155,6 +155,20 @@ def producto_de(store_id, p):
     if not precio:
         return None, "sin_stock"
     price, list_price = precio
+    # Un catálogo de fabricante contesta la ruta con el producto pero sin
+    # precio, y 0 no es un precio: la ficha quedaría diciendo "$0.00". Pasó
+    # con Gonher, donde los 72 productos vinieron así.
+    if not price or price <= 0:
+        return None, "sin_precio"
+    # Doto publica una laptop en 2,344,909 -- el punto decimal corrido, porque
+    # sus otras laptops van de 9,739 a 32,379. No se corrige dividiendo entre
+    # cien, que sería adivinar lo que quiso decir la tienda; se descarta. El
+    # tope son siete cifras porque en el catálogo entero, con 180 mil fichas y
+    # veinte tiendas, la oferta más cara real es un horno de convección
+    # industrial de 36 charolas en 772,105: arriba de un millón no hay
+    # precedente y lo que aparece es error de la tienda.
+    if price >= 1_000_000:
+        return None, "precio_inverosimil"
 
     if shopify:
         handle = p.get("handle")
@@ -259,13 +273,17 @@ def main():
         data.setdefault("stores", []).append(dict(tienda["store"]))
         print(f"  tienda '{args.store}' agregada a data.stores")
 
-    ultimo = None
+    # El id se calcula una sola vez y de ahí se va incrementando: next_id
+    # recorre el catálogo entero, y llamarlo por producto sobre 178 mil
+    # fichas convierte la importación en cuadrática. Igual que en
+    # add_vtex_products.py, el tope sale del catálogo Y de meta.maxProductId,
+    # para no reusar un id que alguna vez existió.
+    max_id = next_id(data["products"], data) - 1
     for p in nuevos:
-        p["id"] = next_id(data)
-        ultimo = p["id"]
+        max_id += 1
+        p["id"] = f"p{max_id}"
         data["products"].append(p)
-    if ultimo:
-        registrar_max_id(data, ultimo)
+    registrar_max_id(data, max_id)
     save_catalog(data)
     print(f"\nGuardado. Catálogo: {len(data['products'])} productos")
 

@@ -98,28 +98,129 @@ GONHER = {r".*": gh_auto}
 
 
 # ---------------------------------------------------------------------------
-# Doto (doto.com.mx, Shopify): línea blanca y electrodomésticos
+# Doto (doto.com.mx, Shopify): tienda de tecnología
 # ---------------------------------------------------------------------------
+# El primer intento clasificaba por el NOMBRE, encadenando los categorizadores
+# de Elektra hasta que alguno contestara. Salió mal: cat_celulares es el último
+# y contesta casi siempre, así que entraron tarjetas madre, perfumes, juegos de
+# Switch y hasta un refrigerador como "Celulares / Android" -- 1,403 de 2,159
+# productos mal puestos.
+#
+# Doto sí publica una taxonomía propia en product_type, con la forma
+# "Computadoras;Componentes;Tarjeta madre;AMD". Eso es lo que se mapea acá: es
+# lo que la tienda afirma del producto, no lo que se adivina del título. Lo que
+# no engancha con ninguna entrada se descarta, que es la regla de este módulo.
 
-def dt_general(name):
+def dt_sub(name, opciones, defecto=None):
+    """La primera opción (regex, subcategoría) que aparezca en el nombre."""
     n = norm(name)
-    for fn in (cat_electrodomesticos, cat_tv, cat_audio, cat_muebles,
-               cat_computo_accesorios, cat_celulares):
-        r = fn(name)
-        if r:
-            return r
-    if "refrigerador" in n or "congelador" in n or "frigobar" in n:
-        return "Refrigeradores", None, "fridge"
-    if "lavadora" in n or "secadora" in n:
-        return "Lavadoras", None, "washer"
-    if "estufa" in n or "parrilla" in n or "horno" in n or "campana" in n:
-        return "Electrodomésticos", None, "appliance"
-    if "colchon" in n or "sala" in n or "comedor" in n or "recamara" in n:
-        return "Muebles", None, "sofa"
-    return None
+    for rx, sub in opciones:
+        if re.search(rx, n):
+            return sub
+    return defecto
 
 
-DOTO = {r".*": dt_general}
+def dt_laptop(name):
+    return ('Laptops', dt_sub(name, [(r'gamer|gaming|nitro|victus|rog\b|tuf\b', 'Gamer')],
+                              'Oficina'), 'laptop')
+
+
+def dt_almacenamiento(name):
+    n = norm(name)
+    if 'ssd' in n or 'estado solido' in n:
+        return ('Almacenamiento', 'SSD', 'storage')
+    if 'externo' in n or 'portatil' in n:
+        return ('Almacenamiento', 'Externo', 'storage')
+    return ('Almacenamiento', 'Interno', 'storage')
+
+
+def dt_audifonos(name):
+    n = norm(name)
+    dia = 'diadema' in n or 'over ear' in n or 'on ear' in n
+    # Los earbuds se venden por nombre de línea ("Galaxy Buds", "AirPods") sin
+    # decir que son inalámbricos, que es lo que son.
+    inal = ('inalambric' in n or 'bluetooth' in n or 'true wireless' in n
+            or 'tws' in n or 'buds' in n or 'airpods' in n)
+    if dia:
+        return ('Audífonos', 'Diadema inalámbrica' if inal else 'Diadema con cable', 'headphones')
+    return ('Audífonos', 'Earbuds inalámbricos' if inal else 'Earbuds con cable', 'headphones')
+
+
+def dt_cocina(name):
+    """La ruta "Licuadoras y Cafeteras" junta dos aparatos distintos."""
+    n = norm(name)
+    if 'cafetera' in n or 'espresso' in n or 'cafe' in n:
+        return ('Cafeteras', None, 'coffee')
+    if 'licuadora' in n:
+        return ('Electrodomésticos', 'Licuadoras', 'appliance')
+    return ('Electrodomésticos', 'Pequeños electrodomésticos de cocina', 'appliance')
+
+
+def dt_horno(name):
+    n = norm(name)
+    if 'freidora' in n or 'air fryer' in n:
+        return ('Electrodomésticos', 'Freidoras de aire', 'appliance')
+    if 'microondas' in n:
+        return ('Electrodomésticos', 'Microondas', 'appliance')
+    return ('Electrodomésticos', 'Hornos', 'appliance')
+
+
+def dt_lavadora(name):
+    n = norm(name)
+    if 'lavasecadora' in n:
+        return ('Lavadoras', 'Lavasecadoras', 'washer')
+    if 'secadora' in n:
+        return ('Lavadoras', 'Secadoras', 'washer')
+    if 'carga frontal' in n:
+        return ('Lavadoras', 'Carga frontal', 'washer')
+    return ('Lavadoras', 'Carga superior', 'washer')
+
+
+def dt_celular(name):
+    n = norm(name)
+    return ('Celulares', 'iPhone' if 'iphone' in n else 'Android', 'phone')
+
+
+def dt_tv(name):
+    n = norm(name)
+    return ('Televisores', '4K' if '4k' in n or 'uhd' in n else 'HD', 'tv')
+
+
+# El orden manda: lo específico antes que lo general, porque el primero que
+# engancha gana. Las rutas se comparan ya normalizadas (sin acentos, en
+# minúsculas), por eso acá van sin acentos.
+DOTO = {
+    r'computadoras;laptops': dt_laptop,
+    r'computadoras;monitores': fijo('Monitores', None, 'monitor'),
+    r'computadoras;escritorio': fijo('Computadoras de escritorio', 'Torre', 'desktop'),
+    r'computadoras;componentes;almacenamiento': dt_almacenamiento,
+    r'computadoras;componentes;memoria': fijo('Componentes y accesorios de PC', 'Memoria RAM', 'cpu'),
+    r'computadoras;(componentes|tarjeta de video|tarjeta madre|procesadores)':
+        fijo('Componentes y accesorios de PC', 'Componentes', 'cpu'),
+    r'computadoras;accesorios;audifonos': dt_audifonos,
+    r'computadoras;(accesorios|perifericos)': fijo('Componentes y accesorios de PC', 'Accesorios', 'cpu'),
+    r'computadoras;impresion': fijo('Impresoras', None, 'printer'),
+    r'tablets?': fijo('Tabletas', None, 'tablet'),
+    # Las fundas y micas no se comparan acá, igual que en el resto del sitio.
+    r'celulares;accesorios': None,
+    r'(celulares;smartphones|reacondicionados;celulares)': dt_celular,
+    r'smart tv|televisiones': dt_tv,
+    r'audio;bocinas': fijo('Bocinas', None, 'speaker'),
+    r'audio;audifonos': dt_audifonos,
+    r'gadgets;smartwatch': fijo('Relojes inteligentes', 'Smartwatches', 'watch'),
+    r'videojuegos;consolas': fijo('Videojuegos', 'Consolas', 'gamepad'),
+    r'videojuegos;juegos': fijo('Videojuegos', 'Software', 'gamepad'),
+    r'videojuegos': fijo('Videojuegos', 'Accesorios', 'gamepad'),
+    r'juguetes': fijo('Juguetes y bebés', 'Otros', 'toy'),
+    r'linea blanca;lavadoras': dt_lavadora,
+    r'linea blanca;refrigeradores': fijo('Refrigeradores', 'Refrigeradores', 'fridge'),
+    r'linea blanca;estufas': fijo('Electrodomésticos', 'Estufas', 'appliance'),
+    r'electrodomesticos;licuadoras y cafeteras': dt_cocina,
+    r'electrodomesticos;hornos y freidoras': dt_horno,
+    r'electrodomesticos;aspiradoras': fijo('Aspiradoras', None, 'vacuum'),
+    r'electrodomesticos;extractores y exprimidores':
+        fijo('Electrodomésticos', 'Extractores de jugo', 'appliance'),
+}
 
 
 # ---------------------------------------------------------------------------
@@ -174,8 +275,13 @@ TIENDAS_JSON = {
         "store": {"id": "maskota", "name": "Maskota", "hubRegion": None,
                   "color": "#00A0DF", "logo": "MK", "typicalShippingDays": [3, 8]},
     },
+    # Gonher contesta la ruta de WooCommerce, pero es el catálogo del
+    # fabricante y no una tienda: los 72 productos vienen con precio 0 y casi
+    # todos son aceites y fluidos, que además son consumibles. Se deja
+    # registrada con el mapa para no volver a probarla, pero no se importa.
     "gonher": {
         "nombre": "Gonher",
+        "sin_precios": True,
         "dominio": "www.gonher.com.mx",
         "plataforma": "woocommerce",
         "categorias": GONHER,

@@ -493,6 +493,11 @@ NO_APTO_LAVAVAJILLAS = (r'(?!.*(apt[oa]s? para|lavables? en|seguros? para|lavar 
                         r'.*dishwasher[- ]safe)')
 
 FUERA = [
+ # Un suplemento que promete "apoya la salud celular" caía en Celulares por
+ # esa palabra. Es consumible, que es lo que esta lista deja fuera.
+ (re.compile(r'tabletas? de (agua de )?hidrogeno|hidrogeno molecular|'
+             r'\b(tabletas?|pastillas?|capsulas?) .{0,30}(antioxidantes|'
+             r'suplemento|vitamin)'), 'suplemento (consumible)'),
  (re.compile(r'^amazon renewed$'), 'el título no nombra ningún producto'),
  (re.compile(r'\bassurant\b'), 'seguro de daños, no es un producto'),
  (re.compile(r'\bcateter'), 'material médico, no es periférico de PC'),
@@ -830,7 +835,7 @@ REGLAS = [
  # Memoria RAM. Un módulo suelto no dice pulgadas ni trae procesador.
  (re.compile(r'^(?!(?:\S+ ){0,3}(mouse|raton|teclado|combo|funda|maletin|mochila|soporte|base|cargador|adaptador|cable|bocina|altavoz|audifonos|webcam|hub|docking|dock|bolsa|estuche|backpack|porta ?laptop|set de viaje|pantalla|lcd|panel|cubierta|cover|adhesivos?|tornillos?|bisagra|ventilador|enfriador|memoria|disco|\bssd\b|\bram\b|bateria|pila|protector|mica|limpiador|'
              r'juego de|kit de|paquete de|par de|extensor|monitor|impresora|proyector|escaner|silla|escritorio|lampara)\b)'
-             r'(?!.*(sodimm|udimm|modulo de memoria|solo memoria|kit de memoria|(para|compatible con|de repuesto para) (laptop|notebook|macbook)\b|mini telefono|telefono inteligente|smartphone|\bcelular(es)?\b|dual sim|back cover|bottom cover|lcd (display|screen|panel)|display panel|nexiq|diesel laptops|\baio\b|all[- ]in[- ]one|todo en uno|desktop|de escritorio|\bimac\b|mini pc|lavadora|proyecc|monitor portatil|extensor de pantalla|\btarola\b|baqueta|bombo|platillo|reproductor de dvd|para bateria|de bateria\b|flejad))'
+             r'(?!.*(sodimm|udimm|modulo de memoria|solo memoria|kit de memoria|(para|compatible con|de repuesto para) (laptop|notebook|macbook)\b|mini telefono|telefono inteligente|smartphone|\bcelular(es)?\b|dual sim|back cover|bottom cover|lcd (display|screen|panel)|display panel|nexiq|diesel laptops|\baio\b|all[- ]in[- ]one|todo en uno|desktop|de escritorio|\bimac\b|mini pc|lavadora|proyecc|monitor portatil|extensor de pantalla|\btarola\b|baqueta|bombo|platillo|reproductor de dvd|para bateria|de bateria\b|flejad|\bestufa|\bhorno\b|horno de pizza|\bquemador|\bparrilla\b|plancha (de |a )?vapor|\bfreidora|licuadora|\bcampana\b|purificador|filtro de agua|vaporizador|cafetera|\bmicroondas\b|lavavajillas|aspiradora|calentador de agua|deshumidificador|humidificador|maquina de coser|\binodoro\b|\bregadera\b))'
              r'(?=.*(\blaptops?\b|\bnotebooks?\b|\bportatil(es)?\b|macbook|chromebook|ultrabook|omnibook|\bgram\b\s?\d|thinkpad|ideapad|'
              r'vivobook|zenbook|inspiron|latitude|pavilion|elitebook|probook|aspire|\bnitro\b|predator|omen|legion|'
              r'victus|swift|yoga \d|thinkbook|travelmate|modern \d|katana|cyborg|\btuf gaming\b|rog (zephyrus|strix|flow)))'
@@ -850,7 +855,7 @@ REGLAS = [
              r'soporte (para|de|magnetico|universal|plegable)|'
              r'lapiz optico|stylus pen|(para|con|compatible con|y) (ipad|tablet|mac)\b|para (celulares|telefonos)|'
              r'panel (industrial|pc)|todo en uno|all[- ]in[- ]one|reposacabezas|para (coche|auto|carro)|'
-             r'drawing (tablet|monitor)|tableta (grafica|digitalizadora|de dibujo)|monitor tactil))'
+             r'drawing (tablet|monitor)|tableta (grafica|digitalizadora|de dibujo)|monitor tactil|tabletas? (de |para )?(purificacion|potabilizacion|cloro|limpieza|lavavajillas|efervescentes|desinfec)|purificacion de agua|tabletas? (de |para )?\w+ (de |para )?agua|pastillas))'
              r'(?!.*(power ?bank|banco de energia|bateria (externa|portatil)|audifono|auricular|earbud|'
              r'\bcable\b|cargador|hub |concentrador|\bdock\b))'
              r'(?=^(?:\S+ ){0,6}(\btablets?\b|\btabletas?\b|\bipad\b|galaxy tab\b|matepad|redmi pad|idea ?tab|'
@@ -885,6 +890,22 @@ REGLAS = [
  # dice "limpiacristales de ventana" y si no se resuelve acá se iría con los
  # robots. No tiene motor; va con el trapeador y la cubeta, en Otros.
  (re.compile(r'herramientas de limpieza de ventanas'), ('Otros', 'Varios', 'box')),
+ # Con una captura profunda la subcategoría se llenó de lo que rodea al
+ # robot: la solución de 1 l "compatible con ECOVACS Winbot", el paquete de
+ # doce paños, y el jalador de goma que se llama "limpiacristales manual" y
+ # no tiene motor. Los consumibles no se comparan acá y el jalador va con el
+ # trapeador, en Otros; el resto de las piezas, a Refacciones.
+ (re.compile(r'\blimpiacristales\b.{0,40}\b(manual|raspador|rasqueta|de goma)\b|'
+             r'\b(jalador|escurridor|espatula|raspador|rasqueta) (de (goma|silicona) )?'
+             r'(para )?(vidrio|cristal|ventana|mampara)'),
+  ('Otros', 'Varios', 'box')),
+ (re.compile(r'(?=.*(limpiacristales|limpiavidrios|winbot|hobot))'
+             r'(?=.*(\bsolucion\b|\blimpiador liquido\b|detergente|'
+             r'\btrapo|\bpano|toallitas?|almohadillas?|\bfiltros?\b|'
+             r'\bcable de seguridad\b|bateria de repuesto|'
+             r'(paquete|juego|kit|set) de \d+|\d+ unidades|'
+             r'\brepuesto|\breemplazo|\baccesorios?\b))'),
+  ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
  (re.compile(r'\brobot\b.{0,40}(limpiacristales|limpiavidrios|'
              r'limpiador de ventanas|limpieza de ventanas)|'
              r'\blimpiacristales\b|\blimpiavidrios\b'),
@@ -916,11 +937,43 @@ REGLAS = [
  # La de ropa, al final. Antes que el vaporizador porque el catálogo ya
  # resolvió así el empate: las "Plancha Vapor Vertical" están en Planchas,
  # y en Vaporizadores solo lo que se anuncia como vaporizador.
+ # Antes del aparato, lo que lo acompaña: la almohadilla de planchado que
+ # se cuelga, la funda de la tabla y la suela antiadherente de repuesto.
+ (re.compile(r'(?=.*(plancha|planchado|vaporizador))'
+             r'(?=.*(almohadilla|funda (de|para) (la )?tabla|'
+             r'cubierta (de|para) (la )?tabla|suela (antiadherente|de repuesto)|'
+             r'tabla de planchar\b(?!.*\bcon vaporizador\b)))'),
+  ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
  (re.compile(r'\bplancha\b.{0,30}(de vapor|a vapor|de viaje|para ropa|'
              r'de ropa|vertical)|plancha vapor'),
   ('Electrodomésticos', 'Planchas', 'appliance')),
- (re.compile(r'vaporizador (de|para) ropa|vaporizador.{0,25}\bropa\b'),
+ (re.compile(r'vaporizador (de|para) ropa|vaporizador.{0,40}\bropa\b'),
   ('Electrodomésticos', 'Vaporizadores de ropa', 'appliance')),
+ # Tres subcategorías que el catálogo ya tenía y a las que no llegaba
+ # ninguna regla, como pasó antes con Máquinas de coser. Las campanas
+ # terminaban en "Componentes y accesorios de PC" porque el título dice
+ # "ventilador" y esa regla es la que lo caza; por eso van antes.
+ (re.compile(r'\bcampana\b.{0,30}(extractora|de cocina|para cocina|de pared|'
+             r'bajo alacena|de isla)|campana extractora|extractor de (humo|cocina)|'
+             r'\bcampana\b.{0,40}\bcocina\b'),
+  ('Electrodomésticos', 'Campanas de cocina', 'appliance')),
+ # El calentador de agua de la casa, no el de ambiente (ese es Climatización)
+ # ni el eléctrico de la regadera, que el catálogo guarda con las regaderas.
+ (re.compile(r'^(?!.*(calentador (de )?(ambiente|espacios|patio|piscina|alberca)|'
+             r'calefactor|hervidor|tetera|\btaza\b|para (formula|biberon|bebe)|'
+             r'calientabiberones|de viaje|\bcaja\b|\bsoporte\b|termostato|'
+             r'\banodo\b|\bresistencia\b|valvula de (alivio|seguridad)))'
+             r'(?=.*(calentador de agua|boiler\b|calentador de paso|'
+             r'calentador de deposito|calentador solar|termotanque))'),
+  ('Electrodomésticos', 'Calentadores de agua', 'appliance')),
+ # El horno que se empotra o se pone en la barra. La freidora de aire ya se
+ # resolvió arriba, y el horno de microondas tiene su propia subcategoría.
+ (re.compile(r'^(?!.*(horno (de )?microondas|freidora|air ?fryer|'
+             r'horno (de secado|dental|de laboratorio|para pintura)))'
+             r'(?=.*(\bhorno\b.{0,30}(electrico|de gas|empotrable|de conveccion|'
+             r'tostador|de pizza|de piso|de pared)|horno de pizza|'
+             r'\bhorno tostador\b|horno electrico|horno empotrable))'),
+  ('Electrodomésticos', 'Hornos', 'appliance')),
 
  # Lavadoras antes que todo: lo que queda después de quitar fundas,
  # pastillas y refacciones es el aparato. Incluye la centrifugadora suelta,
@@ -1068,6 +1121,21 @@ REGLAS = [
  # función de freír, y el catálogo guarda los cuatro que tiene en
  # Microondas. La guarda pide "horno microondas" y no "microondas" a secas
  # porque la Ninja Crispi dice que sus recipientes van al microondas.
+ # Lo que se le pone adentro o encima a la freidora, que en una captura
+ # profunda es más que las freidoras mismas: la cesta de reemplazo, la bolsa
+ # de transporte de la Ninja Crispi, los forros de papel y las rejillas.
+ (re.compile(r'(?=.*(freidora de aire|freidora aire|air ?fryer))'
+             r'(?=.*(\bcesta\b.{0,25}(de (reemplazo|repuesto)|(for|para) freidora)|'
+             r'\bbandeja\b.{0,25}(for|para) (freidora|hornear)|bolsa de transporte|'
+             r'\bforros?\b|papel (para|de) horneado|moldes? de silicona|'
+             r'\brejilla|accesorios? para|\brecetario\b|libro de recetas|'
+             r'(reemplazo|repuesto) (de|para)\b|compatible (with|con) \w+ ?for))'),
+  ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
+ # La freidora de aceite se llama igual y no es lo mismo: va con los
+ # pequeños electrodomésticos de cocina, donde el catálogo ya tiene las suyas.
+ (re.compile(r'^(?!.*(freidora de aire|freidora aire|air ?fryer))'
+             r'(?=.*(freidora (profunda|de aceite|de grasa)|freidora electrica de \d))'),
+  ('Electrodomésticos', 'Pequeños electrodomésticos de cocina', 'appliance')),
  (re.compile(r'^(?!.*(horno (de )?microondas|microondas (air|con freidora)))'
              r'(?=.*(freidora de aire|freidora aire|air ?fryer|horno freidor|'
              r'freidora de \d+ cuartos|'
@@ -1345,10 +1413,6 @@ REGLAS = [
  # con eso se iban a Accesorios de videojuegos. Un título que dice "teclado"
  # o "mouse" es un teclado o un mouse, conecte donde conecte, y los dos
  # tienen su regla al final de REGLAS.
- (re.compile(r'^(?!.*(teclado|\bmouse\b|\braton\b))'
-             r'(?=.*(switch ?2|steam ?deck|rog ally|legion go|msi claw|freno de mano|handbrake|'
-             r'consola de juegos|\bps5\b|mando bdm|gun grip|golf|juego de interruptor|'
-             r'interruptor ns|base portatil ns))'), VJ),
  (re.compile(r'webcam|camara web|camara de computadora|camara para pc|lifecam|facecam|'
              r'\bkiyo\b|streamcam|\bbrio\b|sistema de camara para sala|'
              r'sistema de videoconferencia|camara usb hdmi|camara de alta velocidad|'
@@ -1404,6 +1468,22 @@ REGLAS = [
              r'\bin[- ]?ear\b|monitoreo in[- ]?ear|'
              r'\bdiadema\b.{0,30}(cable|microfono|inalambric)))'),
   ('Audífonos', None, 'headphones')),
+ # Videojuegos va DESPUÉS de monitores, bocinas y audífonos a propósito. El
+ # accesorio gamer nombra la consola para decir con qué anda ("Razer Kraken
+ # para PS5", "monitor gamer compatible con Xbox"), así que si esta regla
+ # corriera antes se los llevaría a todos. Y al revés: sacarlos de acá con una
+ # guarda los perdía, porque su propia regla tampoco los enganchaba y caían en
+ # "no encaja". El orden resuelve las dos cosas -- cada categoría se queda con
+ # lo suyo, y lo que ninguna reclama sigue teniendo a Videojuegos de red.
+ (re.compile(r'^(?!.*(teclado gamer|\bmouse\b|\braton\b|\bmonitor\b|\bsilla\b|'
+             r'escritorio|smart tv|televisor|\bproyector|\bimpresora))'
+             r'(?=.*(nintendo switch|switch ?2|switch oled|switch lite|'
+             r'playstation ?[345]|\bps[345]\b|playstation portal|'
+             r'xbox series [xs]|xbox one|xbox 360|\bxbox\b|'
+             r'steam ?deck|rog ally|legion go|msi claw|\bwii u\b|\bwii\b|'
+             r'nintendo 3ds|\bpsp\b|ps vita|game ?boy|consola de juegos|'
+             r'freno de mano|handbrake|mando bdm|gun grip|'
+             r'juego de interruptor|interruptor ns|base portatil ns))'), VJ),
  # El micrófono suelto es de la sección de instrumentos, que es donde el
  # catálogo guarda los doce de solapa y los inalámbricos.
  (re.compile(r'microfono (inalambrico|de solapa|condensador|lavalier)|'
@@ -1424,8 +1504,15 @@ REGLAS = [
  # la usan como adjetivo.
  (re.compile(r'(?!.*\bmouse\b)(alfombrilla|tapete) (de|para) (computadora|escritorio|teclado)|\bdesk ?(mat|pad)\b'),
   (PC, 'Accesorios', 'mouse')),
- (re.compile(r'^(?:\S+ ){0,2}escritorio (para|de|minimalista|con|gamer|diseno)|computadora de pie\b'),
-  ('Muebles', 'Escritorios', 'sofa')),
+ # Lo que NO es el mueble aunque lo nombre: la rueda de repuesto de la silla,
+ # el pasacables del escritorio, la funda del sofá.
+ (re.compile(r'\b(ruedas? (giratorias?|de repuesto|para)|rodaja|garruch|'
+             r'organizador de cables|pasacables|\bojal\b|'
+             r'tornillo|tuerca|perno|herraje|bisagra|riel(es)? de cajon|'
+             r'(funda|forro|cubierta|protector) (para|de) (sofa|sillon|silla|colchon|mesa)|'
+             r'pata(s)? de (repuesto|mesa|silla)|kit de (montaje|reparacion))\b'
+             r'(?=.*(silla|sofa|sillon|escritorio|mesa|cama|colchon))'),
+  ('Refacciones', 'Otros', 'gear')),
  # Después de webcams y soportes: "para iMac" es un soporte, "Intel NUC" es
  # una placa VESA y el sistema Yealink es "todo en uno" pero es una cámara.
  (re.compile(r'^(?!.*(sodimm|udimm|modulo de memoria|adaptador|cargador|fuente|red electrica))(?=.*(all[- ]in[- ]one|\baio desktop|todo en uno|\bimac\b|omnistudio|proone|'
@@ -1529,6 +1616,42 @@ REGLAS = [
  # final de REGLAS para que cualquier regla más precisa gane antes.
  (re.compile(r'^(?:\S+ ){0,3}cargador(es)?\b|cargador (para|compatible con|de reloj|magnetico|generico)'),
   ('Cargadores y adaptadores', 'Otros', 'plug')),
+ # Herramientas, también de red y por la misma razón que Muebles: un
+ # montón de aparatos nombran una herramienta de paso ("organizador para
+ # taladro", "batería para atornillador"). Lo que ninguna otra regla
+ # reclama y nombra una herramienta, es una herramienta.
+ (re.compile(r'^(?!.*(de juguete|para nino|didactic|\bmaqueta\b))'
+             r'(?=.*(herramienta|taladro|rotomartillo|esmeriladora|soldador|\n'
+             r'soldadura|escalera|andamio|\\bbroca|\\blija\\b|desarmador|\n'
+             r'destornillador|\\bpinza|\\bllave (allen|hexagonal|inglesa|perica|mixta)|\n'
+             r'martillo|\\bcincel\\b|grabado(r|ra)? ?laser|multimetro|\\bvernier\\b|\n'
+             r'flexometro|seguridad industrial|casco de seguridad|\n'
+             r'guantes de (trabajo|seguridad|corte)|gas l\\.?p\\.?|plomeria|\n'
+             r'jardineria|podadora|motosierra|desbrozadora|cortasetos|\n'
+             r'compresor de aire|neumatica|\\bcemento\\b|revolvedora|carretilla))'),
+  ('Herramientas', None, 'wrench')),
+ # Muebles va AL FINAL de REGLAS, de red. Un título de mueble nombra el
+ # mueble y nada más, pero un montón de aparatos lo nombran de paso:
+ # "cargador para silla de ruedas", "ventilador para cama", "teléfono de
+ # mesa". Con la regla arriba se llevaba todos esos (104 en la regresión).
+ # Abajo, cada categoría se queda primero con lo suyo y lo que ninguna
+ # reclama y nombra un mueble, es un mueble.
+ # "Ventilador de escritorio" es un ventilador y "lámpara de mesa" una
+ # lámpara: ahí el mueble solo dice dónde se pone el aparato. Esas reglas
+ # corren después, así que sin esta guarda Muebles se las llevaba (27
+ # ventiladores terminaron de escritorio antes de agregarla).
+ (re.compile(r'^(?!.*(silla (de ruedas|de bebe|para auto|alta|periquera)|'
+             r'mesa de planchar|tabla de planchar|casa de munecas|'
+             r'para (muneca|barbie|casa de munecas)|maqueta|'
+             r'(ventilador|abanico|calefactor|lampara|purificador|humidificador|'
+             r'difusor|reloj|espejo|estufa|parrilla|horno|proyector|monitor|'
+             r'impresora|telefono|radio|television|pantalla|bocina|caja fuerte)'
+             r' (de|para) (escritorio|mesa|buro|cama)))'
+             r'(?=.*(\bsilla|\bsillon|\bsofa|\bescritorio|\bmesa|\bmesita|'
+             r'\bcama\b|\bcolchon|\blibrero|\brepisa|\bburo\b|\bzapater|'
+             r'\bperchero|\bropero|\barmario|\bcloset|\bcomoda|\bcomedor|'
+             r'\btaburete|\bbanca\b|\bvitrina|\bcredenza|\blitera))'),
+  ('Muebles', None, 'sofa')),
 ]
 
 # Anuncios que ninguna regla decide bien; cada uno leído a mano.
@@ -1728,6 +1851,260 @@ def tramo(mah):
     if mah <= 20000: return '10,000 a 20,000 mAh'
     return 'Más de 20,000 mAh'
 
+# Videojuegos: la consola, el juego y el accesorio se nombran con la MISMA
+# palabra ("Xbox Series X" aparece en los tres), así que la palabra no alcanza.
+# Lo que los separa es DÓNDE está la plataforma en el título:
+#
+#   "Nintendo Switch 2 - Versión Nacional"          -> al principio: es la consola
+#   "Dragon Age: The Veilguard - Xbox Series X"     -> al final: es el juego
+#   "Cable de alimentación para Playstation 4"      -> hay una pieza: es accesorio
+#
+# El accesorio manda sobre los otros dos porque un control para Switch nombra
+# la consola igual que la consola misma.
+RX_VJ_PLATAFORMA = re.compile(
+    r'\b(nintendo switch|switch ?2|switch oled|switch lite|'
+    r'playstation ?[345]|ps[345]\b|playstation portal|'
+    r'xbox series [xs]|xbox one|xbox 360|xbox\b|'
+    r'steam ?deck|rog ally|legion go|msi claw|'
+    r'wii u\b|wii\b|nintendo 3ds|psp\b|ps vita|game ?boy)')
+
+RX_VJ_ACCESORIO = re.compile(
+    r'\b(control(es|ler|lers)?|mando|joy ?con|gamepad|volante|palanca|arcade stick|'
+    r'grip|empunadura|soporte|base de carga|dock|stand|wall mount|'
+    r'montaje de pared|cargador|cable|adaptador|bateria|pila|'
+    r'boton(es)?|abxy|thumbstick|joystick|gatillo|'
+    r'protector|mica|skin|calcomania|sticker|ventilador|enfriador|'
+    r'tarjeta (micro ?sd|de memoria)|memoria micro ?sd|'
+    r'repuesto|reemplazo|replacement|kit de (limpieza|reparacion|herramientas)|'
+    r'charger|battery|button|holder|mount|case|cover|carrying)\b')
+
+RX_VJ_CONSOLA = re.compile(r'^(?:\S+ ){0,4}(consola|console)\b|'
+                           r'(consola|console)\b.{0,20}(nintendo|playstation|xbox)')
+
+
+def sub_videojuego(tn):
+    """Consolas / Software / Accesorios, por dónde cae la plataforma."""
+    if RX_VJ_ACCESORIO.search(tn):
+        return 'Accesorios'
+    if RX_VJ_CONSOLA.search(tn):
+        return 'Consolas'
+    m = RX_VJ_PLATAFORMA.search(tn)
+    if not m:
+        return None
+    # La plataforma en las primeras palabras es el aparato; más atrás es la
+    # coletilla que dice para qué consola es el juego.
+    return 'Consolas' if len(tn[:m.start()].split()) <= 2 else 'Software'
+
+
+# Muebles. La categoría tenía quince subcategorías y una sola regla, la de
+# escritorios, así que una captura de muebles entraba al 14%: de 12,373
+# anuncios, 9,857 caían en "no encaja" -- sillas, sofás, mesas y camas
+# enteras. Acá se reparte igual que en Videojuegos, con un desempate propio.
+#
+# Primero lo que NO es el mueble aunque lo nombre: la rueda de repuesto de la
+# silla, el organizador de cables del escritorio, la funda del sofá. Después
+# el mueble, de lo específico a lo general, porque los títulos encadenan
+# varios ("mesita de noche de 2 niveles, buró blanco, mesita auxiliar").
+RX_MUEBLE_PIEZA = re.compile(
+    r'\b(ruedas? (giratorias?|de repuesto|para)|rodaja|garruch|'
+    r'organizador de cables|pasacables|ojal|'
+    r'tornillo|tuerca|perno|herraje|bisagra|riel(es)? de cajon|'
+    r'(funda|forro|cubierta|protector) (para|de) (sofa|sillon|silla|colchon|mesa)|'
+    r'cojin|almohadon|respaldo de repuesto|pata(s)? de (repuesto|mesa|silla)|'
+    r'kit de (montaje|reparacion)|refaccion|reemplazo)\b')
+
+RX_MUEBLE = re.compile(
+    r'\b(silla|sillas|sillon|sofa|sofas|loveseat|futon|puff|banco|taburete|'
+    r'butaca|escritorio|mesa|mesita|mesas|comedor|antecomedor|'
+    r'cama|camas|litera|colchon|box spring|somier|'
+    r'librero|estanteria|estante|repisa|buro|zapatera|zapatero|'
+    r'perchero|paraguero|ropero|armario|closet|comoda|'
+    r'recamara|vitrina|credenza|barra de bar|banca)\b')
+
+
+def sub_mueble(tn):
+    """Reparte Muebles por el PRIMER mueble que nombra el título.
+
+    Los títulos encadenan varios ("Escritorio para computadora con buró y
+    repisa", "mesita de noche de 2 niveles, buró blanco"): lo que se vende es
+    lo que va primero, y lo de atrás describe lo que trae. Con una lista de
+    prioridad fija el escritorio con buró terminaba en Burós.
+    """
+    candidatos = [
+        (r'\bcolchon|box spring|\bsomier\b', 'Colchones'),
+        (r'\b(buro|mesita de noche|mesa de noche|mesa de luz)\b', 'Burós'),
+        (r'\b(litera|cabecera|base de cama|cama|camas)\b', 'Camas'),
+        (r'\b(sofa ?cama|sofa|sofas|sillon|loveseat|futon)\b', 'Sofás'),
+        (r'\b(zapatera|zapatero)\b', 'Zapateras'),
+        (r'\b(perchero|paraguero|burro de ropa)\b', 'Percheros'),
+        (r'\b(ropero|armario|closet|comoda|vitrina|credenza)\b', 'Roperos'),
+        (r'\b(librero|estanteria|estante para libros)\b', 'Libreros'),
+        (r'\b(repisa|entrepano)\b', 'Repisas'),
+        (r'mesa de (billar|ping ?pong|futbolito|juego|poker)', 'Mesas de juego'),
+        (r'\bescritorio\b', 'Escritorios'),
+        (r'\bsillas? (de|para) comedor|\bbancos? (de|para) comedor', 'Sillas'),
+        (r'\b(comedor|antecomedor)\b', 'Mesas de comedor'),
+        (r'mesa (de centro|auxiliar|lateral|de sala|de cafe)', 'Mesas de centro'),
+        (r'\b(silla|sillas|banco|taburete|butaca|banca)\b', 'Sillas'),
+        (r'\b(mesa|mesas|mesita)\b', 'Mesas de centro'),
+        (r'\bestante\b', 'Repisas'),
+    ]
+    mejor = None
+    for patron, sub in candidatos:
+        m = re.search(patron, tn)
+        if m and (mejor is None or m.start() < mejor[0]):
+            mejor = (m.start(), sub)
+    return mejor[1] if mejor else 'Otros'
+
+
+# Categorías que tenían subcategorías declaradas pero ninguna función que las
+# repartiera: el producto entraba con la categoría bien y la subcategoría
+# vacía. Eran 7,000 fichas repartidas en nueve categorías.
+
+def sub_juego_mesa(tn):
+    if re.search(r'rompecabeza|\bpuzzle\b|\bpuzle\b', tn): return 'Rompecabezas'
+    if re.search(r'\bajedrez\b|\bchess\b', tn): return 'Ajedrez'
+    if re.search(r'woodestic', tn): return 'Woodestic'
+    if re.search(r'\bdomino\b|\bbackgammon\b|\bdamas\b|\bgo\b(?= )', tn): return 'Clásicos'
+    if re.search(r'cartas|\bnaipes\b|\bbaraja\b|\buno\b|\bpoker\b|mazo\b', tn): return 'De cartas'
+    if re.search(r'\brol\b|calabozos|dragones|\bd&d\b|\bdados\b|miniatura', tn): return 'De rol y dados'
+    if re.search(r'\bloteria\b|\bmemorama\b|serpientes y escaleras|\bturista\b|'
+                 r'\bmonopol|\bjenga\b|\bscrabble\b|\bbasta\b', tn): return 'De mesa clásicos'
+    return 'Otros juegos'
+
+
+def sub_instrumento(tn):
+    if re.search(r'guitarra|\bbajo\b|ukulele|\bbanjo\b|mandolina', tn): return 'Guitarras'
+    if re.search(r'bateria|tambor|\bcajon\b|percusion|platillo|conga|\bbongo', tn): return 'Baterías'
+    if re.search(r'violin|violonchelo|\bcello\b|contrabajo|\bviola\b|\barpa\b', tn): return 'Cuerdas'
+    if re.search(r'saxofon|trompeta|flauta|clarinete|trombon|\btuba\b|armonica|oboe', tn): return 'Viento'
+    if re.search(r'microfono', tn): return 'Micrófonos'
+    if re.search(r'interfaz de audio|mezcladora|mixer|monitor de estudio|'
+                 r'controlador midi|\bdaw\b|preamp', tn): return 'Producción de audio'
+    if re.search(r'teclado|piano|sintetizador|organo', tn): return 'Teclados'
+    if re.search(r'amplificador|\bamp\b|combo de guitarra', tn): return 'Amplificadores'
+    if re.search(r'tornamesa|tocadiscos|turntable', tn): return 'Tornamesas'
+    if re.search(r'atril|funda|estuche|correa|cuerdas de repuesto|afinador|'
+                 r'capotraste|puas?\b|banqueta', tn): return 'Accesorios'
+    return None
+
+
+def sub_iluminacion(tn):
+    if re.search(r'tira (led|de luz)|cinta led|\bstrip\b', tn): return 'Tiras LED'
+    if re.search(r'foco intelig|bombilla intelig|\bwifi\b.{0,15}foco|foco.{0,15}\bwifi\b|'
+                 r'foco.{0,20}(alexa|google)', tn): return 'Focos inteligentes'
+    if re.search(r'\bfoco\b|bombilla|\bled\b.{0,10}\bw\b|luminaria', tn): return 'Focos'
+    if re.search(r'lampara de (escritorio|mesa|buro)|de escritorio', tn): return 'Lámparas de escritorio'
+    if re.search(r'lampara de (techo|colgante)|candil|plafon|araña', tn): return 'Lámparas de techo'
+    if re.search(r'lampara de (pared|muro)|arbotante|aplique', tn): return 'Lámparas de pared'
+    if re.search(r'lampara de (piso|pie)', tn): return 'Lámparas de piso'
+    if re.search(r'emergencia|linterna|recargable.{0,15}apagon', tn): return 'Lámparas de emergencia'
+    if re.search(r'exterior|jardin|solar|reflector|\bposte\b', tn): return 'Exterior'
+    if re.search(r'\blampara\b|\bluz\b|\bluces\b', tn): return 'Decorativa'
+    return None
+
+
+def sub_vehiculo(tn):
+    if re.search(r'\bllanta|neumatico|\brin\b|\brines\b', tn): return 'Llantas'
+    if re.search(r'casco', tn): return 'Cascos para moto'
+    if re.search(r'bateria (para|de) (auto|coche|carro)|acumulador', tn): return 'Baterías para auto'
+    if re.search(r'bocina.{0,20}(auto|carro)|\bwoofer\b|subwoofer', tn): return 'Bocinas para auto'
+    if re.search(r'estereo|autoestereo|radio (para|de) (auto|carro)|carplay|android auto', tn): return 'Estéreos para auto'
+    if re.search(r'amplificador', tn): return 'Amplificadores para auto'
+    if re.search(r'motocicleta|\bmoto\b|scooter de gasolina', tn): return 'Motocicletas'
+    if re.search(r'bicicleta|\bbici\b|\bmtb\b|ciclismo', tn): return 'Bicicletas'
+    if re.search(r'\bauto\b|\bcoche\b|\bcarro\b|camioneta', tn): return 'Autos'
+    if re.search(r'aceite|filtro|balata|amortiguador|bujia|limpiaparabrisas|'
+                 r'cargador de bateria|gato hidraulico|cables? pasa corriente', tn): return 'Accesorios y refacciones'
+    return None
+
+
+def sub_domotica(tn):
+    if re.search(r'enchufe intelig|contacto intelig|smart plug', tn): return 'Enchufes inteligentes'
+    if re.search(r'apagador intelig|interruptor intelig|smart switch', tn): return 'Interruptores inteligentes'
+    if re.search(r'cerradura|chapa intelig|smart lock', tn): return 'Cerraduras inteligentes'
+    if re.search(r'foco intelig|tira led|iluminacion intelig|bombilla intelig', tn): return 'Iluminación inteligente'
+    if re.search(r'bocina intelig|alexa|google (home|nest)|echo dot|homepod', tn): return 'Bocinas inteligentes'
+    if re.search(r'\bhub\b|puente|bridge|zigbee|centro de control', tn): return 'Hubs'
+    if re.search(r'cortina|persiana', tn): return 'Cortinas motorizadas'
+    if re.search(r'sensor|detector|timbre intelig|videoportero', tn): return 'Sensores'
+    if re.search(r'termostato', tn): return 'Termostatos'
+    return None
+
+
+def sub_camara(tn):
+    if re.search(r'gopro|camara de accion|action cam|insta ?360', tn): return 'Cámaras de acción'
+    if re.search(r'instantanea|instax|polaroid', tn): return 'Instantáneas'
+    if re.search(r'videocamara|camcorder|filmadora', tn): return 'Videocámaras'
+    if re.search(r'mirrorless|sin espejo|\balpha\b|\bzv-?e\b|\bx-?t\d', tn): return 'Mirrorless'
+    if re.search(r'reflex|\bdslr\b|\beos\b.{0,10}\d|\bd\d{3,4}\b', tn): return 'Réflex'
+    if re.search(r'\blente\b|\bobjetivo\b|\bmm f/|teleobjetivo|gran angular', tn): return 'Lentes'
+    if re.search(r'tripie|tripode|estabilizador|gimbal|flash|filtro|correa|'
+                 r'bolsa|mochila|bateria|cargador|tarjeta', tn): return 'Accesorios'
+    if re.search(r'drone|dron\b', tn): return 'Accesorios'
+    return None
+
+
+def sub_herramienta(tn):
+    """Reparte Herramientas. La categoría tenía quince subcategorías y las
+    reglas solo alcanzaban a tres, así que una captura de ferretería entraba
+    al 17%: de 4,227 anuncios, 2,985 caían en "no encaja"."""
+    if re.search(r'grabado(r|ra)? ?laser|\blaser\b.{0,20}(grabar|grabado|cortar)|'
+                 r'maquina de grabado|\bcnc\b', tn):
+        return 'Grabado láser'
+    if re.search(r'soldadur|soldador|soldadora|estano|electrodo|\bmig\b|\btig\b|\bmma\b|'
+                 r'careta de soldar|inversora', tn):
+        return 'Soldadura'
+    if re.search(r'escalera|andamio|banco de trabajo|plataforma de trabajo', tn):
+        return 'Escaleras'
+    if re.search(r'casco|guantes de (trabajo|seguridad|corte)|chaleco reflejante|'
+                 r'lentes de seguridad|googles de seguridad|tapones auditivos|'
+                 r'arnes de seguridad|botas de seguridad|mascarilla|respirador|'
+                 r'seguridad industrial|epp\b', tn):
+        return 'Seguridad industrial'
+    if re.search(r'\bgas l\.?p\.?\b|gas lp|regulador de gas|manguera de gas|'
+                 r'cilindro de gas|tanque de gas', tn):
+        return 'Gas LP'
+    if re.search(r'plomeria|llave de paso|\bcespol\b|coflex|tuberia|\bpvc\b|'
+                 r'destapacanos|manguera de jardin|conexion hidraulica|'
+                 r'\bniple\b|\bcodo\b.{0,12}(pvc|cobre)', tn):
+        return 'Plomería'
+    if re.search(r'multimetro|\bvernier\b|calibrador|flexometro|cinta metrica|'
+                 r'nivel laser|distanciometro|medidor|termometro infrarrojo|'
+                 r'\bescuadra\b|micrometro', tn):
+        return 'Medición'
+    if re.search(r'cable (electrico|thw|calibre)|\bcontacto\b|apagador|pastilla|'
+                 r'centro de carga|caja de conexion|conector electrico|'
+                 r'material electrico|canaleta|\bcinta de aislar\b', tn):
+        return 'Material eléctrico'
+    if re.search(r'neumatic|\baire comprimido\b|compresor de aire|pistola de aire|'
+                 r'\bimpacto\b.{0,15}neumatic', tn):
+        return 'Neumáticas'
+    if re.search(r'jardin|podadora|desbrozadora|motosierra|cortasetos|'
+                 r'\bmanguera\b|aspersor|tijeras de podar|soplador de hojas', tn):
+        return 'Jardinería'
+    if re.search(r'cemento|revolvedora|carretilla|cimbra|varilla|\bblock\b|'
+                 r'construccion|\bllana\b|cuchara de albanil', tn):
+        return 'Construcción'
+    if re.search(r'caja de herramientas|organizador de herramientas|'
+                 r'\bgabinete\b.{0,15}herramienta|maletin de herramientas|'
+                 r'panel de herramientas|\bcarro de herramientas\b', tn):
+        return 'Organización'
+    if re.search(r'\bbroca|\bdisco de (corte|desbaste)|\blija\b|puntas? de (atornillador|desarmador)|'
+                 r'\bsierra caladora hoja|accesorios? para (taladro|rotomartillo)|'
+                 r'\bmandril\b|adaptador de brocas', tn):
+        return 'Accesorios para herramientas eléctricas'
+    if re.search(r'taladro|rotomartillo|esmeriladora|sierra|lijadora|pulidora|'
+                 r'router\b|cepillo electrico|atornillador (electrico|inalambrico)|'
+                 r'\bcaladora\b|ingletadora|\bfresadora\b|hidrolavadora', tn):
+        return 'Herramientas eléctricas'
+    if re.search(r'\bllave\b|\bpinza|\bdesarmador|destornillador|martillo|'
+                 r'\bcincel\b|\blima\b|\bsegueta\b|\bprensa\b|\bgato\b|'
+                 r'juego de dados|matraca|\bhexagonal\b|\ballen\b|herramienta manual', tn):
+        return 'Herramientas manuales'
+    return None
+
+
 def sub_bocina(tn):
     """Barras de sonido, Grande, Pequeña o Mediana, que es como parte el
     catálogo. La barra lo dice en el nombre. Para el tamaño la seña más
@@ -1778,7 +2155,23 @@ def sub_laptop(tn):
     return 'Oficina'
 
 def sub_teclado(tn):
-    return 'Mecánicos' if re.search(r'mecanic', tn) else 'Membrana' if 'membrana' in tn else None
+    """El catálogo solo distinguía mecánico y membrana, y así 1,378 teclados se
+    quedaban sin repartir. El combo con mouse, el ergonómico partido y el
+    numérico son productos distintos, no variantes del mismo."""
+    if re.search(r'\bcombo\b.{0,25}(mouse|raton)|teclado y (mouse|raton)|'
+                 r'(mouse|raton) y teclado|kit de teclado y', tn):
+        return 'Combos con mouse'
+    if re.search(r'teclado numerico|\bnumpad\b|pad numerico', tn):
+        return 'Numéricos'
+    if re.search(r'ergonomic|dividido|partido|split', tn):
+        return 'Ergonómicos'
+    if re.search(r'mecanic', tn):
+        return 'Mecánicos'
+    if 'membrana' in tn:
+        return 'Membrana'
+    if re.search(r'inalambric|bluetooth|wireless|2\.4 ?ghz', tn):
+        return 'Inalámbricos'
+    return None
 
 def sub_tv(tn):
     if re.search(r'\b4k\b|qled|uhd|qned|oled|miniled|mini-led', tn): return '4K'
@@ -1805,6 +2198,17 @@ def sub_lavadora(tn):
     if re.search(r'carga frontal', tn): return 'Carga frontal'
     if re.search(r'carga superior', tn): return 'Carga superior'
     if re.search(r'^secadora', tn): return 'Secadoras'
+    # La mini lavadora de cubeta, la plegable de viaje y la manual de pedal no
+    # son ni de carga superior ni frontal: son otro aparato, y el catálogo
+    # tenía 1,770 lavadoras sin repartir en buena parte por esto.
+    if re.search(r'\bmini lavadora|lavadora (mini|portatil|plegable|manual|de mano|de cubeta)|'
+                 r'lavadora.{0,25}(portatil|plegable|de viaje|sin electricidad|no electrica)|'
+                 r'lavadora de pedal', tn):
+        return 'Portátiles'
+    # Automática de tamaño normal que no dice por dónde se carga. Se nombra por
+    # lo que sí afirma, en vez de adivinar la puerta.
+    if re.search(r'\bautomatica\b|\d{1,2} ?kg\b|\d{1,2} ?kilos', tn):
+        return 'Automáticas'
     return None
 
 def sub_aspiradora(tn):
@@ -1850,6 +2254,14 @@ def sub_cafetera(tn):
         return 'Espresso'
     if re.search(r'portatil|de viaje', tn): return 'Portátiles'
     if re.search(r'molinillo|molino de cafe', tn): return 'Molinillos de café'
+    # Las que no llevan bomba ni cápsula: la prensa francesa, el sifón, el
+    # vertidor y la de frío. Son un grupo grande y se vendían sin repartir.
+    if re.search(r'prensa francesa|french press|\bsifon\b|cold ?brew|'
+                 r'vertidor|pour ?over|\bchemex\b|\bv60\b|cafetera italiana|'
+                 r'\bmoka\b|greca', tn):
+        return 'Manuales'
+    if re.search(r'goteo|drip|\d{1,2} tazas|programable|percoladora', tn):
+        return 'De goteo'
     return None
 
 def sub_celular(tn):
@@ -1886,11 +2298,13 @@ def marca_celular(tn):
 # catálogo prefiere el hueco a la mentira.
 RX_DIADEMA = re.compile(r'diadema|over[- ]ear|on[- ]ear|circumaural|supra ?a?ural|de copa|orejeras|'
                         r'sobre (la )?(oreja|el oido)|alrededor de (la )?oreja|encima de la oreja|'
+                        r'over the ear|around[- ]ear|\bgamer\b.{0,20}(microfono|mic\b)|'
                         r'\bheadphones?\b|\bheadset\b|\bcascos?\b|\bvincha\b|banda para la cabeza|'
                         r'conduccion osea|bone conduction|\bwh-?\d|\bhd ?[2-9]\d{2}\b|\bath-m\d|\bdt ?\d{3}\b|'
                         r'\bqc ?\d{2}\b|quietcomfort|\bmomentum \d|\bxm[3-6]\b|crusher|hesh')
 RX_EARBUD  = re.compile(r'in[- ]ear|earbuds?\b|\btws\b|true wireless|intraura|intraaura|intraudit|'
                         r'de boton\b|\bbotones?\b(?!.*grandes)|earphones?\b|\bairpods?\b|\bbuds\b|'
+                        r'intrauricular|monitor(es)? in ?ear|\biem\b|\bcanalphone|'
                         r'banda para el cuello|neckband|de cuello|\bwf-?\d|\bie ?\d{3}\b|\bse ?\d{3}\b|'
                         r'\bfreebuds\b|\bgalaxy buds\b|\bpods\b|gancho (para|de) (la )?oreja|clip de oreja|ear ?hook|'
                         r'\bsemi-?in-?ear\b|auriculares? de boton')
@@ -1906,6 +2320,16 @@ def sub_audio(tn):
     cuando no se sabe si lleva cable, se devuelve None: media tienda se
     anuncia como "Auriculares Bluetooth" a secas y adivinar la forma sería
     inventar."""
+    # Dos formatos que el catálogo no tenía y que no son ni diadema ni botón:
+    # el de oído abierto (clip sobre la oreja, conducción ósea) y el de
+    # gaming, que se vende como categoría propia y casi siempre trae micrófono.
+    if re.search(r'open[- ]?ear|oido abierto|de clip\b|con clip\b|clip \w*oreja|'
+                 r'conduccion osea|bone conduction', tn):
+        return 'De oído abierto'
+    if re.search(r'\bgamer\b|\bgaming\b|para juegos|para gaming|\bheadset\b.{0,30}(juego|gamer)|'
+                 r'\bquantum\b|\bkraken\b|\bcloud (ii|alpha|stinger)\b|\barctis\b|'
+                 r'\brog (delta|cetra)\b|\bblackshark\b', tn):
+        return 'Gamer'
     d = RX_DIADEMA.search(tn)
     e = RX_EARBUD.search(tn)
     if d and e:
@@ -1913,8 +2337,24 @@ def sub_audio(tn):
     elif d or e:
         diadema = bool(d)
     else:
+        # "Auriculares inalámbricos" a secas: hoy el formato que se vende así,
+        # sin decir la forma, es el de botón -- la diadema SIEMPRE se nombra
+        # ("diadema", "over-ear", "headset"), porque es su argumento de venta.
+        # Antes esto devolvía None y dejaba 3,739 audífonos sin repartir.
+        # Sin forma declarada: el bluetooth manda sobre la mención del cable
+        # (casi siempre es el cable de carga, no de audio). Lo que se vende
+        # así, sin decir la forma, es el de botón: la diadema se nombra
+        # siempre porque es su argumento de venta.
+        if RX_INAL.search(tn):
+            return 'Earbuds inalámbricos'
+        if RX_CABLE.search(tn):
+            return 'Earbuds con cable'
         return None
     inal, cable = bool(RX_INAL.search(tn)), bool(RX_CABLE.search(tn))
+    if not inal and not cable:
+        # Forma conocida y conexión no: hoy lo que no aclara es inalámbrico,
+        # porque el de cable lo dice para diferenciarse.
+        return 'Diadema inalámbrica' if diadema else 'Earbuds inalámbricos'
     if inal == cable:
         # Un inalámbrico que además trae cable auxiliar dice las dos cosas;
         # gana el bluetooth, que es lo que define cómo se usa.
@@ -1988,6 +2428,15 @@ for it in captura:
     elif cat == 'Cafeteras': sub = sub_cafetera(tn)
     elif cat == 'Celulares': sub = sub_celular(tn)
     elif cat == 'Tabletas': sub = sub_tableta(tn)
+    elif cat == 'Videojuegos': sub = sub_videojuego(tn)
+    elif cat == 'Muebles': sub = sub_mueble(tn)
+    elif cat == 'Herramientas': sub = sub_herramienta(tn)
+    elif cat == 'Juegos de mesa': sub = sub_juego_mesa(tn)
+    elif cat == 'Instrumentos musicales': sub = sub_instrumento(tn)
+    elif cat == 'Iluminación': sub = sub_iluminacion(tn)
+    elif cat == 'Autos, bicicletas y motos': sub = sub_vehiculo(tn)
+    elif cat == 'Domótica y hogar inteligente': sub = sub_domotica(tn)
+    elif cat == 'Cámaras y fotografía': sub = sub_camara(tn)
     mk = marca(it['title'])
     if cat == 'Celulares' and not mk: mk = marca_celular(tn)
     alta.append({**base, 'brand': mk, 'category': cat,

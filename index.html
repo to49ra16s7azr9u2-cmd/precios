@@ -155,6 +155,11 @@
              Solo se promete lo que se cumple para todo el catálogo (ver el
              comentario del <head>): la consulta en vivo a Mercado Libre. -->
         <p class="hero-freshness"><span class="hero-freshness-dot"></span>Volvemos a consultar el precio de Mercado Libre al abrir cada producto.</p>
+        <!-- Los dos juntos: la ubicación, que ya estaba, y la entrada por
+             marca, que es el eje de navegación que faltaba (/marca/ tiene una
+             página por cada marca con 20 o más productos, y desde la portada
+             este es el único enlace que las alcanza). -->
+        <div class="hero-actions">
         <button class="hero-map-btn" id="homeLocationBtn">
           <span class="hero-map-btn-icon"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.6 7-12.2A7 7 0 0 0 5 9.3c0 5.6 7 12.2 7 12.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.2" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           <span class="hero-map-btn-text">
@@ -162,6 +167,14 @@
             <span id="homeLocationBtnLabel">Elegir mi ubicación</span>
           </span>
         </button>
+        <a class="hero-map-btn" href="marca/">
+          <span class="hero-map-btn-icon"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 12.6 12.6 20.6a2 2 0 0 1-2.8 0l-6.4-6.4a2 2 0 0 1-.6-1.4V4.8A1.8 1.8 0 0 1 4.6 3h8a2 2 0 0 1 1.4.6l6.6 6.6a2 2 0 0 1 0 2.4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7.8" cy="7.8" r="1.4" fill="currentColor"/></svg></span>
+          <span class="hero-map-btn-text">
+            <strong>¿Buscas una marca?</strong>
+            <span>Ver todas las marcas</span>
+          </span>
+        </a>
+        </div>
       </div>
       <div class="home-categories-layout">
         <div class="home-category-box">

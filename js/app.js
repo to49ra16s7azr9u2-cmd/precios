@@ -5744,16 +5744,18 @@
       el.deliveryBanner.classList.add("is-set");
       el.deliveryBannerTitle.textContent = `✓ Mostrando entrega a ${region.name}`;
       el.deliveryBannerSubtitle.textContent = "¿Otro municipio? Puedes cambiarlo cuando quieras.";
-      el.homeLocationBtnLabel.textContent = region.name;
-      el.homeLocationBtn.classList.add("is-set");
+      // Con guarda: la portada cambió de forma una vez y estas líneas se
+      // rompieron. Si el botón vuelve a moverse, esto no se entera.
+      if (el.homeLocationBtnLabel) el.homeLocationBtnLabel.textContent = region.name;
+      if (el.homeLocationBtn) el.homeLocationBtn.classList.add("is-set");
     } else {
       el.locationBtnLabel.textContent = "Elegir mi ubicación";
       el.locationBtn.classList.remove("is-set");
       el.deliveryBanner.classList.remove("is-set");
       el.deliveryBannerTitle.textContent = "¿Cuándo llega a tu casa?";
       el.deliveryBannerSubtitle.textContent = "Elige tu municipio y compara el tiempo de entrega de cada tienda.";
-      el.homeLocationBtnLabel.textContent = "Elegir mi ubicación";
-      el.homeLocationBtn.classList.remove("is-set");
+      if (el.homeLocationBtnLabel) el.homeLocationBtnLabel.textContent = "Elegir mi ubicación";
+      if (el.homeLocationBtn) el.homeLocationBtn.classList.remove("is-set");
     }
   }
 
@@ -6836,7 +6838,7 @@
     });
 
     el.locationBtn.addEventListener("click", openMapModal);
-    el.homeLocationBtn.addEventListener("click", openMapModal);
+    if (el.homeLocationBtn) el.homeLocationBtn.addEventListener("click", openMapModal);
     el.mapModalClose.addEventListener("click", closeMapModal);
     el.mapModal.addEventListener("click", (e) => {
       if (e.target === el.mapModal) closeMapModal();

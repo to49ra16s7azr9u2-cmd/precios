@@ -39,6 +39,7 @@ import os
 import re
 import shutil
 import sys
+import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import load_catalog, slugify  # noqa: E402
@@ -238,6 +239,8 @@ def product_photo_html(product, css_class="detail-icon"):
 
 def page_shell(title, description, canonical_path, body, depth, extra_head="", robots="index, follow", og_image=None):
     """depth = niveles bajo la raíz del sitio (para las rutas relativas ../)."""
+    # Enlace relativo al pie: la profundidad ya la sabe cada página.
+    prefijo = "../" * depth
     prefix = "../" * depth
     canonical = f"{SITE_URL}{canonical_path}"
     # noai/noimageai va SIEMPRE, sin importar qué valor de robots use cada
@@ -298,6 +301,7 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 </main>
 <footer class="site-footer">
   <div class="container">
+    <p><a href="{prefijo}marca/">Todas las marcas</a> &middot; <a href="{prefijo}ofertas/">Ofertas de hoy</a></p>
     ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
   </div>
 </footer>
@@ -1070,10 +1074,19 @@ def render_subcategory_page(cat, sub, products, data):
         if len(products) > len(shown) else ""
     )
 
+    # Las marcas dejan de ser texto suelto y pasan a ser enlaces a su página:
+    # es el cruce marca x subcategoría, que es por donde entra la búsqueda
+    # "colchones restonic" en vez de solo "colchones" o solo "restonic".
     marcas_todas = [m for m, _ in por_marca.most_common()]
+    enlaces_marca = []
+    for m in marcas_todas[:60]:
+        sl = _SLUG_DE_MARCA.get(clave_marca(m))
+        enlaces_marca.append(
+            f'<a href="../../../marca/{sl}/">{html_escape(m)}</a>' if sl else html_escape(m)
+        )
     marcas_html = (
         f'<p class="muted small">Marcas comparadas: '
-        f'{html_escape(", ".join(marcas_todas[:60]))}'
+        f'{", ".join(enlaces_marca)}'
         + (f' y {len(marcas_todas) - 60} más.' if len(marcas_todas) > 60 else '.')
         + '</p>'
         if marcas_todas else ""
@@ -1440,7 +1453,7 @@ def _urlset_xml(urls, lastmod=None, images=None):
     )
 
 
-def write_sitemaps(data, root, lastmod=None, ofertas_urls=()):
+def write_sitemaps(data, root, lastmod=None, ofertas_urls=(), marca_urls=()):
     """Escribe el árbol de sitemaps y devuelve las rutas escritas.
 
     Un solo sitemap.xml con más de 50,000 URLs es inválido para Google; en
@@ -1461,6 +1474,7 @@ def write_sitemaps(data, root, lastmod=None, ofertas_urls=()):
         for sub, _ in subcategorias_con_pagina(cat, productos_cat):
             page_urls.append(f"{SITE_URL}/categoria/{cat_slug}/{slugify(sub['name'])}/")
     page_urls.extend(ofertas_urls)
+    page_urls.extend(marca_urls)
     pages_path = os.path.join(root, "sitemap-pages.xml")
     if write_if_changed(pages_path, _urlset_xml(page_urls, lastmod)):
         written.append(pages_path)
@@ -1723,6 +1737,210 @@ def hide_empty_taxonomy(data):
     return data
 
 
+
+# ---------------------------------------------------------------------------
+# Páginas de marca (/marca/<slug>/)
+# ---------------------------------------------------------------------------
+# Falta un eje entero de navegación. El sitio tiene páginas por categoría, por
+# subcategoría y por producto, pero "samsung precios mexico" o "colchones
+# restonic" no llegan a ninguna parte: el que busca por marca entra a una
+# ficha suelta o a nada. Son consultas de mitad de embudo, con intención de
+# compra, y un comparador puede contestarlas mejor que la propia marca porque
+# muestra el precio en varias tiendas a la vez.
+#
+# También le da a cada ficha un segundo enlace interno desde una página
+# temática distinta de su categoría, que es lo que hace que una ficha
+# enterrada a tres clics del inicio se rastree.
+
+MIN_PRODUCTOS_MARCA = 20
+
+# clave de marca -> slug de su página. Se llena en main() una sola vez; las
+# páginas de subcategoría lo consultan para enlazar sin recalcular nada.
+_SLUG_DE_MARCA = {}
+
+# Marcas que no son marcas. El catálogo usa el campo para lo que la tienda
+# haya puesto ahí, y a veces pone "GENERICO" o su propio nombre (los libros de
+# Gandhi vienen todos con brand=Gandhi porque el importador no lee la
+# editorial). Una página de "marca Genérico" con 2,899 productos sueltos no
+# contesta ninguna búsqueda y se lee como spam.
+MARCAS_EXCLUIDAS = {
+    "generico", "generica", "genericos", "genericas", "generic", "sinmarca",
+    "nodisponible", "na", "otros", "varios", "importado", "oem",
+    # Nombres de tienda que quedaron en el campo de marca.
+    "gandhi", "aliexpress", "chedraui", "maskota", "miniso", "elektra",
+    "marti", "juguetron", "doto", "sunsky", "geekbuying",
+}
+
+
+def clave_marca(nombre):
+    """Misma marca escrita de otra forma -> misma clave.
+
+    En el catálogo conviven SAMSUNG con 2,262 fichas y Samsung con 182; sin
+    agrupar saldrían dos páginas compitiendo entre ellas por la misma
+    búsqueda, que es lo peor que se puede hacer en SEO.
+    """
+    n = unicodedata.normalize("NFKD", nombre or "").encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9]", "", n.lower())
+
+
+def nombre_canonico(grafias):
+    """La grafía que se muestra, entre todas las que usa el catálogo.
+
+    Se prefiere una que NO esté toda en mayúsculas, porque suele ser la que
+    escribió una persona ("VentDepot" antes que "VENTDEPOT"). Si todas gritan,
+    se pasa a capitalización de título salvo las siglas cortas, que se quedan
+    como están: HP, JBL y LG no son "Hp", "Jbl" ni "Lg".
+    """
+    mixtas = {g: n for g, n in grafias.items() if not g.isupper()}
+    if mixtas:
+        return max(mixtas.items(), key=lambda kv: kv[1])[0]
+    top = max(grafias.items(), key=lambda kv: kv[1])[0]
+    return top if len(top) <= 4 else top.title()
+
+
+def marcas_con_pagina(data):
+    """[(nombre, slug, productos)] de las marcas que llegan al mínimo."""
+    por_clave = collections.defaultdict(lambda: (collections.Counter(), []))
+    for p in data["products"]:
+        b = (p.get("brand") or "").strip()
+        if not b:
+            continue
+        k = clave_marca(b)
+        if not k or k in MARCAS_EXCLUIDAS:
+            continue
+        grafias, items = por_clave[k]
+        grafias[b] += 1
+        items.append(p)
+    salida = []
+    usados = {}
+    for k, (grafias, items) in por_clave.items():
+        if len(items) < MIN_PRODUCTOS_MARCA:
+            continue
+        nombre = nombre_canonico(grafias)
+        # El slug se arma del nombre, con guiones: /marca/spring-air/ se lee y
+        # se comparte mejor que /marca/springair/. La clave de agrupación NO
+        # sirve como slug justamente porque aplasta los espacios.
+        slug = slugify(nombre) or k
+        if usados.get(slug, k) != k:      # dos marcas distintas, mismo slug
+            slug = f"{slug}-{k[:6]}"
+        usados[slug] = k
+        salida.append((nombre, slug, items))
+    salida.sort(key=lambda x: -len(x[2]))
+    return salida
+
+
+def render_brand_page(nombre, slug, products, data):
+    precios = [min_price(p) for p in products if p.get("offers")]
+    rango = ""
+    if precios:
+        rango = f" Precios desde {money(min(precios))} hasta {money(max(precios))} MXN."
+    por_cat = collections.Counter(p["category"] for p in products)
+    cats_top = [c for c, _ in por_cat.most_common(4)]
+    cats_note = f" Principalmente en {', '.join(c.lower() for c in cats_top)}." if cats_top else ""
+    description = (
+        f"Precios de {nombre} en México comparados entre tiendas: "
+        f"{len(products)} productos.{rango}{cats_note}"
+    )
+
+    ranked = sorted(products, key=lambda p: (total_review_count(p), seller_total(p)), reverse=True)
+    shown = ranked[:STATIC_LIST_CAP]
+    rows = []
+    for i, p in enumerate(shown, start=1):
+        rank_badge = svg_icon("crown") if i == 1 else str(i)
+        rank_class = f" rank-{i}" if 2 <= i <= 4 else ""
+        used_badge = (
+            f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>'
+            if is_used(p) else ""
+        )
+        rows.append(
+            f'<div class="product-row has-rank{rank_class}">'
+            f'<span class="rank-badge">{rank_badge}</span>'
+            f'{product_photo_html(p, "row-icon")}'
+            f'<div class="row-info">'
+            f'<div class="row-brand">{html_escape(p.get("category") or "")}</div>'
+            f'<div class="row-name"><a href="../../producto/{p["id"]}/">{html_escape(p["name"])}</a>{used_badge}</div>'
+            f'</div>'
+            f'<div class="row-priceblock">'
+            + (f'<div class="row-from">Desde</div>' if len(p["offers"]) > 1 else "")
+            + f'<div class="row-price">{money(min_price(p))}</div>'
+            f'</div>'
+            f'</div>'
+        )
+    more_note = (
+        f'<p class="muted small" style="text-align:center; margin-top:10px">'
+        f'Mostrando los {len(shown)} más populares de {len(products)}.</p>'
+        if len(products) > len(shown) else ""
+    )
+
+    # En qué categorías vende la marca, con enlace: es la forma natural de
+    # seguir navegando desde acá, y cruza el eje de marca con el de categoría.
+    chips = []
+    for cat_id, n in por_cat.most_common(12):
+        cat = next((c for c in data["categories"] if c["id"] == cat_id), None)
+        if cat:
+            chips.append(
+                f'<a class="chip" href="../../categoria/{slugify(cat["name"])}/">'
+                f'{html_escape(cat["name"])} ({n})</a>'
+            )
+    cats_html = (
+        f'<div class="panel"><h2>Categorías donde vende {html_escape(nombre)}</h2>'
+        f'<div class="chip-row">{"".join(chips)}</div></div>'
+        if chips else ""
+    )
+
+    body = f"""
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; {html_escape(nombre)}</nav>
+<div class="list-head"><h1>{svg_icon("tag")} {html_escape(nombre)} — comparar precios ({len(products)})</h1></div>
+<p class="muted small">{html_escape(description)}</p>
+<div class="product-list">{''.join(rows)}</div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  {more_note}
+</div>
+{cats_html}
+"""
+    return page_shell(
+        title=f"{nombre}: precios en México — ComparaMEX",
+        description=description,
+        canonical_path=f"/marca/{slug}/",
+        body=body,
+        depth=2,
+        extra_head=breadcrumb_json_ld([
+            ("Inicio", f"{SITE_URL}/"),
+            ("Marcas", f"{SITE_URL}/marca/"),
+            (nombre, f"{SITE_URL}/marca/{slug}/"),
+        ]),
+    )
+
+
+def render_brand_index(marcas):
+    total = sum(len(items) for _, _, items in marcas)
+    description = (
+        f"Todas las marcas que compara ComparaMEX: {len(marcas)} marcas y "
+        f"{total:,} productos con precios de varias tiendas de México."
+    )
+    filas = "".join(
+        f'<a class="chip" href="{slug}/">{html_escape(nombre)} ({len(items)})</a>'
+        for nombre, slug, items in marcas
+    )
+    body = f"""
+<nav class="breadcrumb"><a href="../">Inicio</a> &gt; Marcas</nav>
+<div class="list-head"><h1>{svg_icon("tag")} Marcas ({len(marcas)})</h1></div>
+<p class="muted small">{html_escape(description)}</p>
+<div class="panel"><div class="chip-row">{filas}</div></div>
+"""
+    return page_shell(
+        title="Marcas comparadas — ComparaMEX",
+        description=description,
+        canonical_path="/marca/",
+        body=body,
+        depth=1,
+        extra_head=breadcrumb_json_ld([
+            ("Inicio", f"{SITE_URL}/"),
+            ("Marcas", f"{SITE_URL}/marca/"),
+        ]),
+    )
+
+
 def main():
     # Este script NO tiene --dry-run: escribe las 80 mil páginas siempre (con
     # write_if_changed, así que solo toca las que cambiaron). Antes ignoraba
@@ -1750,6 +1968,15 @@ def main():
         productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
         for sub, _ in subcategorias_con_pagina(cat, productos_cat):
             subs_con_pagina.add((cat["id"], sub["id"]))
+
+    # Las marcas se resuelven ANTES de escribir nada, porque las páginas de
+    # subcategoría enlazan a ellas: si el mapa se llenara después, esos
+    # enlaces saldrían como texto plano en la primera corrida.
+    marcas = marcas_con_pagina(data)
+    _SLUG_DE_MARCA.clear()
+    for _nombre, _slug, _items in marcas:
+        for _p in _items:
+            _SLUG_DE_MARCA[clave_marca(_p.get("brand"))] = _slug
 
     for product in data["products"]:
         out_dir = os.path.join(ROOT, "producto", product["id"])
@@ -1801,6 +2028,27 @@ def main():
         if n:
             _por_categoria.append((cat["name"], n))
 
+    # Páginas de marca. Van después de las fichas porque comparten el mismo
+    # ranking por popularidad, y antes del sitemap para que sus urls entren.
+    marca_urls = []
+    marca_dir = os.path.join(ROOT, "marca")
+    os.makedirs(marca_dir, exist_ok=True)
+    path = os.path.join(marca_dir, "index.html")
+    if write_if_changed(path, render_brand_index(marcas)):
+        written.append(path)
+        marcar(f"{SITE_URL}/marca/")
+    marca_urls.append(f"{SITE_URL}/marca/")
+    for nombre, slug, items in marcas:
+        d = os.path.join(marca_dir, slug)
+        os.makedirs(d, exist_ok=True)
+        path = os.path.join(d, "index.html")
+        if write_if_changed(path, render_brand_page(nombre, slug, items, data)):
+            written.append(path)
+            marcar(f"{SITE_URL}/marca/{slug}/")
+        marca_urls.append(f"{SITE_URL}/marca/{slug}/")
+    print(f"Marcas con página propia: {len(marcas):,} "
+          f"(mínimo {MIN_PRODUCTOS_MARCA} productos)")
+
     ofertas_dir = os.path.join(ROOT, "ofertas")
     os.makedirs(ofertas_dir, exist_ok=True)
     ofertas_urls = []
@@ -1848,7 +2096,7 @@ def main():
             vigentes.add(f"{SITE_URL}/categoria/{slug}/{slugify(sub['name'])}/")
     lastmod = {u: f for u, f in lastmod.items() if u in vigentes}
 
-    written += write_sitemaps(data, ROOT, lastmod, ofertas_urls)
+    written += write_sitemaps(data, ROOT, lastmod, ofertas_urls, marca_urls)
 
     if write_if_changed(LASTMOD_FILE, json.dumps(lastmod, ensure_ascii=False, indent=0, sort_keys=True)):
         written.append(LASTMOD_FILE)
