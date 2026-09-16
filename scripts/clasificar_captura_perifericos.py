@@ -493,11 +493,15 @@ NO_APTO_LAVAVAJILLAS = (r'(?!.*(apt[oa]s? para|lavables? en|seguros? para|lavar 
                         r'.*dishwasher[- ]safe)')
 
 FUERA = [
- # Un suplemento que promete "apoya la salud celular" caía en Celulares por
- # esa palabra. Es consumible, que es lo que esta lista deja fuera.
- (re.compile(r'tabletas? de (agua de )?hidrogeno|hidrogeno molecular|'
-             r'\b(tabletas?|pastillas?|capsulas?) .{0,30}(antioxidantes|'
-             r'suplemento|vitamin)'), 'suplemento (consumible)'),
+ # El suplemento ya NO se descarta: a pedido del usuario tiene categoría
+ # propia ("Suplementos", ver la red al final de REGLAS). Antes esta lista
+ # lo dejaba fuera por consumible, y de paso evitaba que "apoya la salud
+ # celular" lo metiera en Celulares; de eso se encarga ahora la red, que va
+ # antes que nada gracias a que el título de un suplemento lo dice claro.
+ # Se conserva solo el agua de hidrógeno, que no es un suplemento sino una
+ # bebida.
+ (re.compile(r'tabletas? de (agua de )?hidrogeno|hidrogeno molecular'),
+  'bebida (consumible)'),
  (re.compile(r'^amazon renewed$'), 'el título no nombra ningún producto'),
  (re.compile(r'\bassurant\b'), 'seguro de daños, no es un producto'),
  (re.compile(r'\bcateter'), 'material médico, no es periférico de PC'),
@@ -568,7 +572,13 @@ FUERA = [
  (re.compile(r'^(?!.*(\d+ ?mah|\busb\b|power ?bank|celular|telefono|laptop|portatil de \d|tipo c))'
              r'(?=.*bateria)(?=.*\b\d+ ?v\b)(?=.*\b\d+([.,]\d+)? ?ah\b)'),
   'paquete de celdas de litio por amperios-hora, no es una batería portátil'),
- (re.compile(r'^(?!(?:\S+ ){0,2}(soporte|montaje|funda)\b)(?!.*(patinete|scooter|hoverboard|bicicleta electrica|e-?bike|ebike|kukirin|segway|ninebot|'
+ # El calefactor queda fuera de esta regla: el "\d+ kW" que delata al
+ # cargador de coche eléctrico también lo llevan el radiador de aceite
+ # y el calefactor de invernadero, y por eso se descartaban 716 de la
+ # captura de clima con el motivo de un cargador.
+ (re.compile(r'^(?!.*(calefactor|calefaccion|calentador de (ambiente|invernadero|espacio|patio)|'
+             r'radiador (lleno de aceite|de aceite|digital|portatil)|estufa electrica))'
+             r'^(?!(?:\S+ ){0,2}(soporte|montaje|funda)\b)(?!.*(patinete|scooter|hoverboard|bicicleta electrica|e-?bike|ebike|kukirin|segway|ninebot|'
              r'dewalt|makita|milwaukee|ryobi|ridgid|craftsman|arrancador|mantenedor|jump starter|'
              r'cargador (de |para )?bater[ií]as? (de |para )?(auto|coche|carro|moto|automovil)))'
              r'(?=.*(carritos? de golf|golf cart|montacargas|carretilla elevadora|forklift|sillas? (de )?ruedas|(fuente de alimentacion|cargador de bateria).{0,40}\d{4} ?w\b|'
@@ -745,8 +755,18 @@ FUERA = [
              r'cortador de (curry|verduras)|picador de verduras|'
              r'molde de arroz|platillo volador|para estufa de gas'),
   'utensilio manual, no es un electrodoméstico'),
- (re.compile(r'\bjuguetes?\b|de imitacion|de simulacion|en miniatura|'
-             r'de cocina para ninos'),
+ # El juguete DE MASCOTA no se descarta: Mascotas/Juguetes es una
+ # subcategoría del catálogo. Esta guarda existe para la cocinita de
+ # juguete y el teléfono de imitación, no para la pelota del perro -- 561
+ # juguetes de perro y gato se perdían acá en la captura del 16-sep.
+ (re.compile(r'^(?!.*(\bperro|\bgato\b|\bgatos\b|\bgatito|mascota|\bcachorro|\bcanino|\bfelino|'
+             r'\bhamster|\bconejo\b|\bhuron\b|\bpet (toy|toys|bed)\b|\bdog (toy|toys)\b|'
+             r'\bcat (toy|toys)\b))'
+             # Lookahead, no coincidencia directa: con "^...(?:juguete|...)"
+             # la guarda solo se aplicaba si el título EMPEZABA con la
+             # palabra, y dejaba pasar todo lo que la nombra más adelante.
+             r'(?=.*(\bjuguetes?\b|de imitacion|de simulacion|en miniatura|'
+             r'de cocina para ninos))'),
   'juguete, no es un aparato'),
  # Un combo de dos o tres aparatos con un solo precio no se compara contra
  # ninguno de ellos suelto. Mismo criterio que la lavadora con frigobar.
@@ -822,6 +842,41 @@ PERI = (PC, 'Accesorios', 'cpu')
 COMP = (PC, 'Componentes', 'cpu')
 
 REGLAS = [
+ # Suplementos. Va PRIMERA, que es la excepción a la regla de este archivo
+ # ("las redes, al final"), y hace falta explicar por qué.
+ #
+ # Primero se probó primera con disparadores amplios y fue un desastre: 233
+ # fichas bien clasificadas se las llevó, entre ellas las cafeteras "con
+ # cápsula de espresso" por "cápsula" y los cargadores "de aleación de zinc"
+ # por "zinc". Se movió al final y ahí el problema fue el contrario: las
+ # reglas precisas se le adelantaban y "YPENZA FF Flex 30 Tabletas |
+ # Suplemento Alimenticio" entraba como tableta Android y "DIM 100 mg |
+ # Suplemento Antioxidante y de Apoyo Celular" como celular -- exactamente
+ # el caso que la vieja guarda de FUERA describía.
+ #
+ # La solución es primera PERO con disparadores que solo nombran un
+ # suplemento: "suplemento", "creatina", "probiótico", "ashwagandha"... y la
+ # dosis únicamente acompañada del formato ("860 mg | 30 capletas").
+ # "Vitamina C", "magnesio" y "zinc" a secas quedaron fuera: son también el
+ # material de un cargador y el ingrediente de una crema. Así no es una red
+ # amplia arriba, es una regla precisa arriba.
+ (re.compile(r'^(?!.*(\blibro\b|pasta blanda|pasta dura|\bautor\b|\bnovela\b|'
+             r'\bcrema\b|\bserum\b|\bshampoo|\bchampu\b|\bjabon\b|\bmascarilla\b|'
+             r'\blocion\b|\bmaquillaje\b|\bperfume\b|\bcafetera|\bcafe\b|'
+             # La tableta que purifica agua y la coctelera de proteína no se
+             # toman como suplemento: una es para el agua y la otra es un envase.
+             r'purificacion de agua|potabiliza|\bbotella\b|\bcoctelera\b|\bshaker\b|'
+             r'\bpara (perro|gato|mascota)|\bveterinari))'
+             r'(?=.*(\bsuplement|\bproteina (en polvo|de suero|whey|vegetal)|\bwhey\b|'
+             r'\bcreatina\b|\bprobiotic|\bprebiotic|\bmultivitamin|\bcolageno (hidrolizado|tipo)|'
+             r'\bomega ?3\b|\bmelatonina\b|\bbiotina\b|\bglucosamina\b|\bcurcuma\b|'
+             r'\bashwagandha\b|\bbacopa\b|\bresveratrol\b|\bnootropico\b|\bespirulina\b|'
+             r'\bmoringa\b|\bchlorella\b|\bpre ?entreno\b|\bbcaa\b|\bl-?carnitina\b|'
+             r'\bglutamina\b|\bcitrato de (magnesio|potasio)|\bbisglicinato\b|'
+             r'\bapoyo (digestivo|inmun|articular)\b|'
+             # La dosis vale si viene con el formato en el mismo título.
+             r'(?=.*\b\d{2,4} ?mg\b)(?=.*\b(capsulas?|capletas?|tabletas?|gomitas?|softgels?|comprimidos?)\b)))'),
+  ('Suplementos', None, 'heart-pulse')),
  # La laptop abre REGLAS. Es la primera regla de todas porque su ficha
  # técnica pisa media docena de categorías: "webcam con obturador" la
  # mandaba a Webcams, "16GB RAM 512GB SSD" a Memoria RAM, "8 GB + 256
@@ -1493,6 +1548,65 @@ REGLAS = [
              r'autoestereo|car audio|\bdoor speakers?\b|^(?:\S+ ){0,4}(altavoz de agudos|\btweeters?\b|super bullet)|'
              r'altavo(z|ces) (de )?componentes?|bocinas? (de )?componentes?|\bcomponent speakers?\b'),
   ('Autos, bicicletas y motos', 'Bocinas para auto', 'speaker')),
+ # Red de Climatización, adelantada a propósito.
+ #
+ # La captura de 12,705 anuncios de clima entró casi entera en el lugar
+ # equivocado: 3,420 ventiladores de techo, centrífugos industriales y
+ # aires acondicionados portátiles se fueron a Componentes de PC (los caza
+ # la palabra "ventilador"), 91 minisplits y ventiladores de torre a
+ # Bocinas inteligentes (por decir "Alexa"), 74 deshumidificadores a
+ # Roperos (por decir "closet") y 78 calentadores y purificadores a
+ # Escritorios (por decir "de escritorio"). Ninguna de esas cuatro reglas
+ # está mal: el aparato de clima las menciona de paso y ellas van antes.
+ #
+ # Por eso esta va ARRIBA y no de red al final, la misma excepción que
+ # Suplementos y por el mismo motivo: no se apoya en palabras anchas sino
+ # en el sustantivo que ABRE el título. Un componente de PC no se anuncia
+ # como "Ventilador de techo" ni "Minisplit", y el que sí lo hace
+ # ("Ventilador Corsair iCue QL140 RGB") lleva alguna de las palabras de
+ # la guarda. La subcategoría la pone sub_clima.
+ (re.compile(r'^(?!.*(\bcpu\b|procesador|gabinete|\bpc\b|\bitx\b|socket|\bam[45]\b|\blga\b|'
+             r'disipador|\bargb\b|\brgb\b|\bpwm\b|noctua|chasis|tarjeta grafica|\bgpu\b|placa base|'
+             r'base (enfriadora|enfriador|enfriamiento|refrigerante)|sin ventilador|'
+             r'ps[45]\b|playstation|xbox|steam deck|consola|nintendo|\bdock\b|'
+             r'holograma|holografic|publicida|plumero|soldadora|motor rc|'
+             r'(para|de) camara|radiador de motor|\boem\b|\brele\b|'
+             # El ventilador de gabinete se vende por su medida en milímetros
+             # y muchos no dicen "PC" ni "RGB" en el título: "Acteck Ventilador
+             # POLAR EG VG120 120mm 1700RPM Molex", "NZXT F120Q Ventilador 120
+             # mm". Las medidas son las de la industria; el ventilador de
+             # habitación se anuncia en pulgadas.
+             r'\b(80|92|120|140|200|240|280|360) ?mm\b|'
+             r'ventilador de refrigeracion de radiador|radiador compatible|'
+             r'\brv\b|camion|camper|caravana|motorhome|tablero|autobus|remolque|'
+             r'para (auto|coche|carro|automovil|vehiculo|moto)|desempanador|'
+             r'calentador de agua|boiler|calenton|purificador de agua|'
+             r'milwaukee|dewalt|ridgid|makita|ryobi|\bm1[28]\b|'
+             r'(para|de) (celular|telefono|movil|laptop|portatil de)))'
+             # Estas otras solo descalifican si llegan TEMPRANO. El anuncio de
+             # un deshumidificador o de un purificador LEVOIT nombra al final
+             # "caspa de mascotas" y "olor de perro", y con la guarda suelta se
+             # perdían enteros; el sillón de masaje con calefacción, en cambio,
+             # abre diciendo lo que es.
+             r'(?!.{0,55}(masaje|reclinable|sillon|\bsofa\b|colchon|freidora|'
+             r'perro|\bgato\b|mascota|(para|de) camara))'
+             # La pieza suelta no es el aparato: el resistor, el embrague y
+             # la cubierta del ventilador son refacciones, y "Luz LED para
+             # Ventilador de Techo" es iluminación. "luz" pide preposición
+             # detrás para no llevarse "minka-aire, luz Wave, Ventilador de techo".
+             r'(?!(?:\S+ ){0,2}(interruptor|embrague|compresor|motor|aspas?|difusor|capacitor|'
+             r'termostato|rejilla|repuesto|soporte|filtro|mando|control(ador)?|resistor|cubierta|secador)\b)'
+             r'(?!(?:\S+ ){0,2}(luz|luces|kit) (led )?(de|para)\b)'
+             r'(?:(?:\S+ ){0,4}(ventilador(es)?|abanico|aire acondicionado|acondicionador(es)? de aire|'
+             r'minisplit|mini split|climatizador(es)?|enfriador (de aire|evaporativo)|'
+             r'calefactor(es)?|deshumidificador(es)?|deshumificador|humidificador(es)?|'
+             r'purificador(es)? (de )?aire|radiador (lleno de aceite|de aceite)|'
+             r'calentador(es)? (de ambiente|de pared|de patio|de espacio|de interiores|de habitacion|'
+             r'de escritorio|electrico|ceramico|infrarrojo|de cuarzo|halogeno|de torre))\b'
+             # Estas nombran el aparato aunque lleguen tarde en el título.
+             r'|(?=.*(ventilador(es)? de techo|ceiling fan|minisplit|mini split|abanico de techo|'
+             r'aire acondicionado|acondicionador de aire)))'),
+  ('Climatización', None, 'snowflake')),
  # La bocina, con las cuatro maneras de nombrarla que usa esta captura:
  # "bocina", "bafle", "altavoz/altavoces" y la máquina de cantar karaoke,
  # que el catálogo ya tiene entre las bocinas.
@@ -1675,7 +1789,23 @@ REGLAS = [
  (re.compile(r'^(?!.*(\bcpu\b|procesador|\bpc\b|\bitx\b|socket|\bam[45]\b|\blga\b))'
              r'(?=.*(enfriador de aire|climatizador evaporativo|enfriador evaporativo))'),
   ('Climatización', 'Climatizadores evaporativos', 'snowflake')),
- (re.compile(r'ventilador|enfriador|enfriamiento|cooler|disipador|\baio\b|refrigeraci|refrigeradora|'
+ # Guarda de mascotas: la "Cama refrescante para perros", la "Alfombrilla
+ # Refrescante para Mascotas" y la "casa de refrigeración para gatos"
+ # enganchaban acá por "refrigeración"/"enfriamiento" y entraban como
+ # componentes de PC -- 595 en la captura de mascotas del 16-sep. Ningún
+ # componente de computadora se vende "para perro".
+ # Lo que sobra del aparato de clima tampoco es un componente de PC: la
+ # aspa de repuesto del ventilador de techo y el "minka-aire, luz Wave,
+ # Ventilador de techo" no los toma la red de Climatización (una es pieza
+ # suelta y la otra abre nombrando la luz) y acababan acá.
+ (re.compile(r'^(?!.*(ventilador(es)? de techo|aspas? (de|para) ventilador|minisplit|mini split|'
+             r'aire acondicionado|acondicionador de aire|ventilador (centrifugo|axial|industrial)))'
+             r'^(?!.*(\bperro|\bgato\b|\bgatos\b|\bgatito|mascota|\bcanino|\bfelino|\bcachorro))'
+             # Lookahead, no coincidencia directa: con "^...(?:ventilador|...)"
+             # la regla solo valía si el título EMPEZABA con la palabra, y
+             # 205 componentes bien clasificados ("Barito - Ventilador de
+             # Cintura Portátil") se quedaban sin categoría.
+             r'(?=.*(?:ventilador|enfriador|enfriamiento|cooler|disipador|\baio\b|refrigeraci|refrigeradora|'
              r'pasta (termica|de grasa)|grasa termica|compuesto termico|fuente de poder|'
              r'fuente de alimentacion|tarjeta grafica|filtro de (malla|polvo)|'
              r'hub de ventilador|cable (de extension de alimentacion|rgb)|neon difuso|'
@@ -1683,7 +1813,7 @@ REGLAS = [
              r'placa adaptadora|\bsata\b|pcie|\bpc fan\b|noctua|kit de actualizaci.n pantalla|'
              r'gabinete|carcasa (para|de|del) (pc|computadora|ordenador)|funda para pc|'
              r'caja (modular|para pc)|chasis para pc|pc case|torre media|mid-tower|'
-             r'almohadilla decorativa|para placa base|placa madre'), COMP),
+             r'almohadilla decorativa|para placa base|placa madre))'), COMP),
  # "Teclado" en español es el de la computadora Y el musical, y esta regla
  # se llevaba los dos: en la captura de 6,387 anuncios de instrumentos, 153
  # fichas -- melódicas, pianos digitales, kalimbas, kazoos, controladores
@@ -1825,6 +1955,42 @@ REGLAS = [
              r'sandisk|kingston|\blexar\b|\badata\b|\bseagate\b|western digital|\bwd\b|toshiba canvio|'
              r'samsung (evo|pro|t7|t9|870|980|990)|\bcrucial\b|\bpny\b)\b'),
   ('Almacenamiento', None, 'storage')),
+ # Mascotas, de red y ANTES que Herramientas, Vehículos y Muebles. La
+ # categoría existe con ocho subcategorías y no tenía NINGUNA regla que la
+ # alcanzara. Medido sobre la captura de 11,451 anuncios del 16-sep: de
+ # 11,433 nuevos se daban de alta 3,993 y casi todos mal -- 2,358 camas
+ # para perro entraban como Muebles/Camas, 279 rampas y escaleras para
+ # mascota como Herramientas/Escaleras, y otras 400 como roperos, mesas,
+ # sofás y colchones. Las 6,749 restantes se descartaban.
+ #
+ # Se excluye el gato HIDRÁULICO, que es una herramienta de auto, y la
+ # puerta "para gato" de una casa, que es ferretería.
+ (re.compile(r'^(?!.*(gato (hidraulico|de piso|de botella|tipo patin)|perro caliente|'
+             r'\bhot ?dog\b|pinza de gato|gato mecanico|'
+             # La cámara que vigila a la mascota es una cámara de seguridad:
+             # se vende como "cámara para mascotas y bebés" y entraba acá.
+             r'\bcamara|\bvigilancia\b|monitor de bebe|\bcctv\b|\bnvr\b|\bdvr\b|'
+             r'ojo de pez|esnorquel|\bbuceo\b))'
+             # La mascota tiene que nombrarse TEMPRANO (primeros ~55
+             # caracteres): si aparece al final es una mención de paso. Medido:
+             # el camión "articulado gato" (Caterpillar traducido), la "alarma
+             # de ladridos de perro" que es una alarma, el sensor Zigbee "apto
+             # para mascotas" y el soplador de coches que además sirve para
+             # "depilación de mascotas" entraban todos como productos de
+             # mascota. Lo que SÍ es para la mascota lo dice al principio:
+             # "Cama para perros", "Cuencos para Perros y Gatos".
+             r'(?=^.{0,55}?(\bperro|\bperros\b|\bgato\b|\bgatos\b|\bgatito|mascota|\bcanino|\bfelino|'
+             r'\bcachorro|\bhuron\b|\bconejo\b|\bhamster|\bloro\b|\bpericos?\b|'
+             # Sin "pez"/"peces" sueltos: "ojo de pez" es un tipo de lente.
+             r'\bacuario\b|\bpecera\b|\bjaula (para|de) (ave|pajaro|conejo|hamster)|'
+             r'\bcatnip\b|\bcroqueta|\barenero\b|arena (para|de) gato|rascador (para|de) gato|'
+             # "PET" a secas es el plástico: "flejes de PP/PET" son máquinas
+             # de embalaje, no cosas de mascotas. Y "cat" a secas es el cable
+             # "cat 6" y el teléfono "CAT S48c". Los dos piden contexto.
+             r'\bveterinari|\bpet (bed|toy|toys|door|bowl|carrier|crate|house|supplies|grooming|food)\b|'
+             r'\bpets? (supplies|products|store)\b|\bdog (bed|toy|toys|house|crate|bowl|food|leash)\b|'
+             r'\bcat (bed|toy|toys|tree|litter|food|door|scratch)\b))'),
+  ('Mascotas', None, 'paw')),
  # Herramientas, también de red y por la misma razón que Muebles: un
  # montón de aparatos nombran una herramienta de paso ("organizador para
  # taladro", "batería para atornillador"). Lo que ninguna otra regla
@@ -1839,6 +2005,38 @@ REGLAS = [
              r'jardineria|podadora|motosierra|desbrozadora|cortasetos|\n'
              r'compresor de aire|neumatica|\\bcemento\\b|revolvedora|carretilla))'),
   ('Herramientas', None, 'wrench')),
+ # Cochecitos y sillas de auto de bebé, ANTES que Vehículos y que Muebles.
+ # En español la carriola se llama "silla de paseo" y la silla de auto,
+ # "asiento para coche": la primera enganchaba la red de Muebles ("silla")
+ # y la segunda la de Vehículos ("coche"). Medido sobre la captura de
+ # 12,621 anuncios del 16-sep: 1,568 carriolas entraron como Muebles/Sillas
+ # y otro tanto de sistemas de viaje como Autos.
+ (re.compile(r'^(?!.*(de juguete|para (muneca|barbie)|\bmaqueta\b|a escala|'
+             # El accesorio PARA la carriola no es la carriola: el espejo de
+             # bebé "para carriola", la mosquitera, el soporte de tablet que
+             # sirve "para cama, carriola, avión".
+             r'(espejo|soporte|funda|bolsa|organizador|manubrio|mosquitera|protector|'
+             r'cubre|sombrilla|\bred\b|gancho|portavaso|colchoneta|forro|accesorio)'
+             r'.{0,45}(carriola|cochecito)|para (la )?(carriola|cochecito)))'
+             r'(?=.*(\bcarriola|cochecito (de|para) bebe|silla de paseo|travel system|'
+             r'sistema de viaje|\bportabebe|asiento (para|de) (coche|auto|carro) (infantil|de bebe|para bebe)|'
+             r'autoasiento|\bcar seat\b|silla (de|para) auto (infantil|de bebe|para bebe)|'
+             r'\bbebe\b.{0,25}(carriola|cochecito|asiento de seguridad)))'),
+  ('Juguetes y bebés', None, 'toy')),
+ # Maquetas y coches a escala, también antes que Vehículos: "Set 50
+ # Miniaturas Coche 1:100 para Maquetas" y "Modelo de coche a escala 1/18"
+ # son juguetes de colección, no autos.
+ # "miniatura" a secas se probó y hubo que sacarlo: el "Mini Micrófono ...
+ # Miniatura Para Celular", la "Caja de Circuito Miniatura" de un panel
+ # solar y la "Radio Miniatura de Banda Completa" son aparatos de verdad.
+ # Ahora la miniatura tiene que venir con la escala o con la maqueta.
+ (re.compile(r'^(?!.*(refaccion|repuesto|herramienta))'
+             r'(?=.*(\bmaqueta|modelismo|escala 1 ?[:/] ?\d|a escala \d|\bdie-?cast\b|'
+             r'fundido a presion|modelo (de|a) escala|\bdiorama\b|'
+             r'kit de (modelo|montaje) (a escala|de simulacion)|'
+             r'miniatura(s)?\b(?=.*(escala|maqueta|diorama|coleccion|\b1 ?[:/] ?\d))|'
+             r'rompecabezas 3d|puzzle 3d))'),
+  ('Juguetes y bebés', 'Maquetas', 'toy')),
  # Vehículos, de red por la misma razón que Muebles y Herramientas: la
  # categoría tenía nueve subcategorías y ninguna regla que la alcanzara, así
  # que una captura de autos y bicis entraba al 16% -- 7,568 de 10,162 anuncios
@@ -2274,6 +2472,19 @@ def sub_vehiculo(tn):
     sobre todo accesorio y refacción. Con el vehículo arriba, el sillín, el
     escape y la dashcam entraban como "Bicicletas", "Motocicletas" y "Autos".
     """
+    # ... salvo que el vehículo ABRA el título. "Bicicleta de Montaña Rodada
+    # 29 ... Cuadro de Aluminio" es una bicicleta entera y caía en
+    # "Accesorios para bicicleta" por la palabra "cuadro", que ahí es una
+    # ficha técnica y no el producto. El sillín, en cambio, abre con
+    # "Sillín", así que la regla de piezas lo sigue agarrando.
+    # Sin holgura ninguna: el vehículo tiene que ser la PRIMERA palabra. Con
+    # una de holgura entraba "Soporte Bici" (un soporte) y con dos, "Radios
+    # de bicicleta" (los rayos de la rueda). Lo que se quiere rescatar acá
+    # es la bicicleta entera, que siempre abre el título con su nombre.
+    if re.match(r'^(bicicleta|bici|triciclo)\b', tn):
+        return 'Bicicletas'
+    if re.match(r'^(motocicleta|motoneta|scooter de gasolina)\b', tn):
+        return 'Motocicletas'
     if re.search(r'\b(casco|guantes de moto|chamarra de moto)\b', tn):
         return 'Cascos para moto'
     if re.search(r'dash ?cam|camara (para|de) (auto|carro|coche|tablero)|camara de reversa', tn):
@@ -2312,15 +2523,281 @@ def sub_vehiculo(tn):
 
 
 def sub_domotica(tn):
+    # El accesorio DEL aparato no es el aparato: "Cargador de 18 V ... para
+    # Echo Show 21" no es una bocina inteligente.
+    if re.match(r'^(?:\S+ ){0,3}(cargador|cable|funda|soporte|adaptador|base|repuesto|montura|bateria)\b', tn):
+        return None
     if re.search(r'enchufe intelig|contacto intelig|smart plug', tn): return 'Enchufes inteligentes'
     if re.search(r'apagador intelig|interruptor intelig|smart switch', tn): return 'Interruptores inteligentes'
     if re.search(r'cerradura|chapa intelig|smart lock', tn): return 'Cerraduras inteligentes'
     if re.search(r'foco intelig|tira led|iluminacion intelig|bombilla intelig', tn): return 'Iluminación inteligente'
-    if re.search(r'bocina intelig|alexa|google (home|nest)|echo dot|homepod', tn): return 'Bocinas inteligentes'
+    # "Amazon Echo Pop", "Asistente de Voz Echo Show 8": 493 fichas de la
+    # categoría son el Echo y no lo agarraba nada, porque la regla pedía
+    # "echo dot" exacto. El Show y el Hub llevan pantalla pero se usan como
+    # bocina, que es como los vende Amazon.
+    if re.search(r'bocina intelig|alexa|google (home|nest)|\becho\b|homepod|asistente de voz', tn): return 'Bocinas inteligentes'
     if re.search(r'\bhub\b|puente|bridge|zigbee|centro de control', tn): return 'Hubs'
     if re.search(r'cortina|persiana', tn): return 'Cortinas motorizadas'
     if re.search(r'sensor|detector|timbre intelig|videoportero', tn): return 'Sensores'
     if re.search(r'termostato', tn): return 'Termostatos'
+    return None
+
+
+def sub_deporte(tn):
+    """Reparte Deportes y fitness."""
+    if re.search(r'^(?:\S+ ){0,3}(pesa|mancuerna|disco olimpico|barra olimpica|kettlebell)', tn): return 'Pesas'
+    if re.search(r'bicicleta (fija|estatica|de spinning)|spinning|ciclo indoor', tn): return 'Bicicletas fijas'
+    if re.search(r'\bbalon\b|pelota de (futbol|basquet|voleibol)', tn): return 'Balones'
+    if re.search(r'patin(es|eta)?\b|patineta|skate|scooter para nino', tn): return 'Patines y patinetas'
+    if re.search(r'\byoga\b|pilates|tapete de ejercicio|colchoneta', tn): return 'Yoga'
+    if re.search(r'\bboxeo\b|costal de box|guantes de box', tn): return 'Boxeo'
+    if re.search(r'raqueta|\btenis de mesa\b|badminton|\bpadel\b|squash', tn): return 'Raquetas'
+    if re.search(r'ping ?pong|mesa de tenis de mesa', tn): return 'Ping pong'
+    # "diana" con bordes: sin ellos, "Wilson Mediana" era un juego de dardos.
+    if re.search(r'\bdardos?\b|\bdiana\b|tablero de dardos', tn): return 'Dardos'
+    if re.search(r'\bvoleibol\b|\bvolleyball\b', tn): return 'Voleibol'
+    if re.search(r'\bfutbol\b|\bsoccer\b|porteria|guante(s)? (de )?portero', tn): return 'Fútbol'
+    if re.search(r'natacion|alberca|goggles de nadar|traje de bano deportivo|\baleta(s)? de buceo\b', tn):
+        return 'Natación'
+    # Sin "\bsup\b": el guión del número de parte hace de borde de palabra y
+    # el guante de portero "SUP-D1GLV-3" entraba como tabla de paddle.
+    if re.search(r'kayak|paddle ?(board|surf)|stand up paddle|buceo|\bsurf\b|snorkel', tn):
+        return 'Deportes acuáticos'
+    if re.search(r'banda(s)? (de|elastica)? ?resistencia|liga de ejercicio', tn): return 'Bandas de resistencia'
+    if re.search(r'campismo|camping|casa de campana|sleeping bag|bolsa de dormir', tn): return 'Campismo'
+    if re.search(r'rodillera|codera|tobillera|muneque|faja|soporte (lumbar|deportivo)', tn):
+        return 'Protección y soportes'
+    if re.search(r'caminadora|eliptica|remo|multigimnasio|banco de ejercicio|gimnasio', tn):
+        return 'Equipo de gimnasio'
+    return None
+
+
+def sub_joyeria(tn):
+    """Reparte Joyería y bisutería. El material suelto va primero: un
+    paquete de "dijes para pulsera" es material, no una pulsera."""
+    if re.search(r'^(?:\S+ ){0,3}(kit|paquete|lote|set) de (dijes|cuentas|abalorios|hilo|mostacilla)', tn):
+        return 'Material para bisutería'
+    if re.search(r'\bjoyero\b|caja (para|de) joyas|organizador de joyas', tn): return 'Joyeros'
+    if re.search(r'\barras\b|set de novia', tn): return 'Arras y sets'
+    if re.search(r'lentes de sol|gafas de sol', tn): return 'Lentes de sol'
+    if re.search(r'^(?:\S+ ){0,3}(reloj|relojes)\b', tn): return 'Relojes'
+    if re.search(r'^(?:\S+ ){0,3}(arete|aretes|arracada|broquel)', tn): return 'Aretes'
+    if re.search(r'^(?:\S+ ){0,3}(collar|gargantilla|cadena)', tn): return 'Collares'
+    if re.search(r'^(?:\S+ ){0,3}(pulsera|brazalete|esclava)', tn): return 'Pulseras'
+    if re.search(r'^(?:\S+ ){0,3}(anillo|anillos|sortija)', tn): return 'Anillos'
+    if re.search(r'\bdije\b|\bdijes\b|\bcharm', tn): return 'Dijes y charms'
+    if re.search(r'limpiador de joyas|pano de pulido|herramienta de joyeria', tn):
+        return 'Cuidado y herramientas'
+    return None
+
+
+def sub_impresora(tn):
+    """Reparte Impresoras. El consumible primero: el cartucho y el tóner
+    nombran la impresora para la que sirven."""
+    if re.search(r'cartucho|\btoner\b|\btinta\b|papel (fotografico|bond)|cinta de impresion|\bdrum\b',
+                 tn):
+        return 'Consumibles'
+    if re.search(r'\blaser\b|laserjet', tn): return 'Láser'
+    if re.search(r'termica|\bthermal\b|etiquetas|tickets|punto de venta', tn): return 'Térmica'
+    if re.search(r'inyeccion|inkjet|deskjet|ecotank|\bofficejet\b|pixma|multifuncional', tn):
+        return 'Inyección de tinta'
+    return None
+
+
+def sub_escritorio(tn):
+    """Reparte Computadoras de escritorio."""
+    # Todo esto solo si abre el título: los módulos de RAM de Timetec dicen
+    # "para iMac All-in-One" al final y no son computadoras. Una AIO de
+    # verdad lo dice temprano ("HP All-in-One 24", "Panel PC Industrial
+    # All-in-One", "Apple 2024 iMac").
+    if re.match(r'^(?:\S+ ){0,4}(all[- ]?in[- ]?one|aio|todo en uno|imac)\b', tn):
+        return 'All in One'
+    if re.search(r'mini ?pc|\bnuc\b|micro pc|tiny|mini computadora', tn): return 'Mini PC'
+    if re.search(r'\btorre\b|\bdesktop\b|gabinete|sobremesa|\bsff\b|computadora de escritorio', tn):
+        return 'Torre'
+    return None
+
+
+def sub_blancos(tn):
+    """Reparte Blancos y ropa de cama."""
+    if re.search(r'^(?:\S+ ){0,3}(sabana|juego de cama|ropa de cama|funda de almohada)', tn): return 'Sábanas'
+    if re.search(r'^(?:\S+ ){0,3}(edredon|colcha|quilt|duvet|cubrecama)', tn): return 'Edredones'
+    if re.search(r'(cobija|manta|frazada) electrica', tn): return 'Cobijas eléctricas'
+    if re.search(r'^(?:\S+ ){0,3}(cobija|manta|frazada|cobertor)', tn): return 'Cobijas'
+    if re.search(r'^(?:\S+ ){0,3}(protector|cubrecolchon)', tn): return 'Protectores de colchón'
+    if re.search(r'^(?:\S+ ){0,3}almohada', tn): return 'Almohadas'
+    if re.search(r'^(?:\S+ ){0,3}(toalla|toallas)', tn): return 'Toallas'
+    if re.search(r'tapete de bano', tn): return 'Tapetes de baño'
+    if re.search(r'^(?:\S+ ){0,3}(cortina|cortinas)', tn): return 'Cortinas'
+    if re.search(r'funda (para|de) (sofa|sillon|mueble)|cubresofa', tn): return 'Fundas para muebles'
+    return None
+
+
+def sub_reloj(tn):
+    """Reparte Relojes inteligentes."""
+    if re.search(r'banda de actividad|pulsera de actividad|\bmi band\b|fitness tracker|\bband \d', tn):
+        return 'Bandas de actividad'
+    if re.search(r'smart ?watch|reloj intelig|apple watch|galaxy watch|\bwatch\b', tn): return 'Smartwatches'
+    return None
+
+
+def sub_suplemento(tn):
+    """Reparte Suplementos. El deportivo primero: la proteína y la creatina
+    también son vitaminas para quien las busca, pero se compran por eso."""
+    if re.search(r'\bproteina\b|\bwhey\b|\bcaseina\b|\bprotein\b', tn): return 'Proteínas'
+    if re.search(r'\bcreatina\b|\bpre ?entreno\b|\bbcaa\b|\bl-?carnitina\b|\boxido nitrico\b|'
+                 r'\bglutamina\b|ganador de peso', tn): return 'Deportivos'
+    if re.search(r'\bprobiotic|\bprebiotic|\bmicrobiota\b|lactobacillus|\binulina\b', tn):
+        return 'Probióticos'
+    if re.search(r'\bcolageno\b', tn): return 'Colágeno'
+    if re.search(r'\bomega ?3\b|aceite de (pescado|krill|linaza|coco|onagra)|\bmct\b', tn):
+        return 'Omega y aceites'
+    if re.search(r'\bcurcuma\b|\bashwagandha\b|\bbacopa\b|\bresveratrol\b|\bespirulina\b|'
+                 r'\balcachofa\b|\btoronjil\b|\bvaleriana\b|\bmoringa\b|\bginkgo\b|\bginseng\b|'
+                 r'\bherbol|\bextracto de (planta|hierba)|\bnootropico\b', tn): return 'Herbolaria'
+    if re.search(r'control de peso|quema ?grasa|adelgaz|\bsaciante\b|\bdetox\b|reduce medidas', tn):
+        return 'Control de peso'
+    if re.search(r'\bvitamina|\bmultivitamin|\bmagnesio\b|\bzinc\b|\bhierro\b|\bcalcio\b|'
+                 r'\bmelatonina\b|\bbiotina\b|\bglucosamina\b|\bcolina\b|\bpotasio\b|\bselenio\b|'
+                 r'\bmineral', tn): return 'Vitaminas y minerales'
+    return None
+
+
+def sub_red(tn):
+    """Reparte Redes. Estas cuatro cosas se nombran siempre y no se pisan
+    entre sí; el orden solo importa para el repetidor, que muchas veces se
+    vende como "router extensor"."""
+    if re.search(r'\brepetidor|extensor|\bextender\b|amplificador de senal wifi|\bmesh\b|red en malla', tn):
+        return 'Repetidores'
+    if re.search(r'\bmodem\b|\bdocsis\b|\bont\b|\bgpon\b', tn): return 'Módems'
+    if re.search(r'\bswitch\b|conmutador', tn): return 'Switches'
+    if re.search(r'access ?point|punto de acceso|\bap\b wifi', tn): return 'Access points'
+    if re.search(r'\brouter\b|\bruteador\b|enrutador', tn): return 'Routers'
+    return None
+
+
+def sub_clima(tn):
+    """Reparte Climatización.
+
+    Manda lo que ABRE el título. El ventilador iba al final --el aire
+    acondicionado y el purificador lo nombran de paso-- y eso hacía que el
+    "Ventilador de mano de niebla ... con humidificador" fuera un
+    humidificador y el "Ventilador portátil ... enfriador de aire sin
+    aspas" un climatizador evaporativo. Los dos son ventiladores que
+    mencionan una función. El aire acondicionado de cuello, que abre con
+    "Aire Acondicionado", sigue cayendo donde debe.
+    """
+    if re.match(r'^(?:\S+ ){0,3}(ventilador|abanico)\b', tn):
+        return 'Ventiladores'
+    if re.search(r'aire acondicionado|acondicionador(es)? de aire|minisplit|mini ?split|'
+                 r'\binverter\b.{0,20}(frio|calor)|\d+ ?btu\b', tn):
+        return 'Aires acondicionados'
+    if re.search(r'purificador(es)? (de )?aire|filtro hepa', tn): return 'Purificadores de aire'
+    if re.search(r'deshumidificador|deshumificador', tn): return 'Deshumidificadores'
+    if re.search(r'humidificador|vaporizador de ambiente|difusor de aroma', tn): return 'Humidificadores'
+    if re.search(r'calefactor|calentador (de ambiente|de pared|de patio|de espacio|de interiores|'
+                 r'de habitacion|de escritorio|electrico|ceramico|infrarrojo|de cuarzo|halogeno)|'
+                 r'\bcalefaccion\b|chimenea electrica|radiador (lleno de aceite|de aceite)|calefactable', tn):
+        return 'Calefactores'
+    if re.search(r'climatizador|enfriador (de aire|evaporativo)|cooler evaporativo', tn):
+        return 'Climatizadores evaporativos'
+    if re.search(r'ventilador|\bfan\b', tn): return 'Ventiladores'
+    return None
+
+
+def sub_mascota(tn):
+    """Reparte Mascotas.
+
+    Media captura de mascotas viene con el título en inglés ("dog squeaky
+    toys", "wool dog toy", "pet bed"), así que cada rama lleva también sus
+    palabras en inglés.
+    """
+    if re.search(r'\bpuerta|\bgatera\b|\bpet door\b|\bdog door\b', tn): return 'Puertas para mascotas'
+    if re.search(r'rascador|arbol (para|de) gato|torre (para|de) gato|\bcat tree\b|'
+                 r'\bscratch(er|ing)\b|poste rascador', tn): return 'Rascadores y torres'
+    if re.search(r'\bjaula|\bcorral\b|\bcerca (para|de) (perro|mascota)|valla (para|de) (perro|mascota)|'
+                 r'\bperrera\b|\bcrate\b|\bkennel\b|\bplaypen\b', tn): return 'Jaulas y corrales'
+    if re.search(r'\bcepillo|\bshampoo\b|\bchampu\b|cortaunas|\btoallita|\bpanal|'
+                 r'bolsa(s)? (para|de) (heces|desecho|popo)|recogedor|\bgrooming\b|quita ?pelo|'
+                 r'\bdesenredante|\bcortapelo', tn): return 'Higiene y limpieza'
+    if re.search(r'\bropa\b|\bchaleco|\bsueter|\bimpermeable (para|de) (perro|mascota)|disfraz|'
+                 r'\bbotas\b|\bzapatos\b|\bbandana\b|\bmonos?\b para perro', tn):
+        return 'Ropa y accesorios'
+    if re.search(r'\badiestr|entrenamiento (para|de) (perro|mascota)|\bclicker\b|collar antiladrido|'
+                 r'valla invisible|\btraining\b (pad|collar)', tn): return 'Adiestramiento'
+    if re.search(r'\barenero|\barena para gato|caja de arena|\blitter box\b', tn): return 'Areneros'
+    if re.search(r'transportadora|jaula de viaje|canil|kennel|mochila (para|de) (perro|gato|mascota)', tn):
+        return 'Transportadoras'
+    if re.search(r'comedero|plato (para|de) (perro|gato|mascota)|dispensador de alimento', tn):
+        return 'Comederos'
+    if re.search(r'bebedero|fuente de agua (para|de) (perro|gato|mascota)', tn): return 'Bebederos'
+    if re.search(r'\bcorrea|\bpechera|\barnes\b|\bcollar\b', tn): return 'Correas'
+    if re.search(r'casa (para|de) (perro|gato|mascota)|caseta|rascador|torre para gato', tn):
+        return 'Casas para mascotas'
+    if re.search(r'\bcama\b|colchoneta|cojin (para|de) (perro|gato|mascota)|\bpet bed\b|'
+                 r'\bdog bed\b|\bnido\b|tapete|alfombrilla|almohadilla', tn): return 'Camas'
+    if re.search(r'juguete|pelota|\bkong\b|\bcatnip\b|hueso|mordedor|rat[oó]n de peluche|'
+                 r'\btoy(s)?\b|squeaky|\bchew\b|\bfetch\b|disco volador|\bfrisbee\b|varita|'
+                 r'alfombra olfativa|\bsnuffle\b|\btunel\b', tn):
+        return 'Juguetes'
+    return None
+
+
+def sub_vigilancia(tn):
+    """Reparte Cámaras de seguridad.
+
+    El timbre y la cerradura van ANTES que la cámara: los dos traen cámara y
+    la nombran en el título ("Videotimbre E340, Cámara Dual 2K").
+    """
+    if re.search(r'\btimbre|videotimbre|video ?doorbell|doorbell', tn): return 'Timbres inteligentes'
+    if re.search(r'cerradura|chapa intelig|smart lock', tn): return 'Cerraduras inteligentes'
+    if re.search(r'\balarma|sirena|antirrobo', tn): return 'Alarmas'
+    if re.search(r'\bsensor|detector de (movimiento|humo|apertura)', tn): return 'Sensores'
+    if re.search(r'\bkit\b|\bnvr\b|\bdvr\b|\d ?canales|juego de \d camaras|\d camaras\b', tn):
+        return 'Kits de vigilancia'
+    if re.search(r'\bptz\b|motorizada|zoom optico \d+x|seguimiento automatico', tn): return 'Cámaras PTZ'
+    if re.search(r'espia|oculta|camuflaj|\bmini camara\b|llavero', tn): return 'Cámaras espía'
+    if re.search(r'exterior|intemperie|\bip6[5-8]\b|impermeable|solar', tn): return 'Cámaras exteriores'
+    if re.search(r'interior|\bbebe\b|mascota|\bindoor\b', tn): return 'Cámaras interiores'
+    if re.search(r'camara', tn): return 'Cámaras interiores'
+    return None
+
+
+def sub_juguete(tn):
+    """Reparte Juguetes y bebés.
+
+    Lo de bebé (carriola, silla de auto, cuna) va primero: son productos
+    caros y bien nombrados, y varios dicen además "juguete" o "juego".
+    """
+    # El "travel system" trae carriola Y silla de auto; se cataloga como
+    # carriola, que es como lo busca quien lo compra.
+    if re.search(r'carriola|cochecito (de|para) bebe|\bstroller\b|silla de paseo|'
+                 r'travel system|sistema de viaje', tn): return 'Carriolas'
+    if re.search(r'silla (de|para) auto|autoasiento|\bcar seat\b|'
+                 r'asiento (para|de) (coche|auto|carro) (infantil|de bebe|para bebe)', tn):
+        return 'Sillas de auto'
+    if re.search(r'\bcuna\b|moises|\bcorral\b', tn): return 'Cunas'
+    if re.search(r'andadera|caminadora de bebe', tn): return 'Andaderas'
+    if re.search(r'biberon|mamila|chupon|esterilizador de biberon', tn): return 'Biberones'
+    if re.search(r'monitor (de|para) bebe|baby monitor', tn): return 'Monitores de bebé'
+    if re.search(r'trampolin|brincolin', tn): return 'Trampolines'
+    if re.search(r'triciclo', tn): return 'Triciclos'
+    if re.search(r'montable|correpasillos|carro montable', tn): return 'Montables'
+    if re.search(r'\bmaqueta|modelismo|escala 1 ?[:/] ?\d|\bdie-?cast\b|fundido a presion|'
+                 r'rompecabezas 3d|puzzle 3d|\bdiorama\b', tn): return 'Maquetas'
+    if re.search(r'figura de accion|\bfunko\b|\bmarvel\b|\bdc\b comics|transformers', tn):
+        return 'Figuras de acción'
+    if re.search(r'bloques|\blego\b|\bmega bloks\b|construccion', tn): return 'Bloques de construcción'
+    if re.search(r'\bmuneca|\bbarbie\b|\bnenuco\b|\bbebote\b', tn): return 'Muñecas'
+    if re.search(r'peluche|\bplush\b', tn): return 'Peluches'
+    if re.search(r'control remoto|radiocontrol|\brc\b\b', tn): return 'Vehículos a control remoto'
+    if re.search(r'\bcarrito|\bcamion\b|monster truck|hot ?wheels|pista de carreras', tn):
+        return 'Vehículos de juguete'
+    if re.search(r'educativo|didactic|\bstem\b|aprendizaje|montessori', tn): return 'Juguetes educativos'
+    if re.search(r'juego (de|para) exterior|resbaladilla|columpio|casita de jardin|alberca', tn):
+        return 'Juegos de exterior'
+    if re.search(r'arcade|maquinita', tn): return 'Juegos arcade'
+    if re.search(r'instrumento|tambor|xilofono|piano de juguete', tn): return 'Juguetes musicales'
     return None
 
 
@@ -2629,6 +3106,12 @@ RX_EARBUD  = re.compile(r'in[- ]ear|earbuds?\b|\btws\b|true wireless|intraura|in
                         r'banda para el cuello|neckband|de cuello|\bwf-?\d|\bie ?\d{3}\b|\bse ?\d{3}\b|'
                         r'\bfreebuds\b|\bgalaxy buds\b|\bpods\b|gancho (para|de) (la )?oreja|clip de oreja|ear ?hook|'
                         r'\bsemi-?in-?ear\b|auriculares? de boton')
+# Se probó agregar "\bbt\b", "anc" y "cancelación de ruido" para rescatar
+# los títulos que llevan la conexión en la sigla ("Jbl Tune 530 Bt"), y la
+# regresión lo tiró: la cancelación activa SÍ existe con cable --Jabra
+# Evolve2 40, EPOS Impact 860, Dell Pro WH5024 son diademas ANC con
+# cable-- y 72 fichas bien clasificadas se volvieron inalámbricas o se
+# quedaron sin clasificar. La sigla suelta no alcanza para afirmar.
 RX_INAL    = re.compile(r'inalambric|bluetooth|wireless|\btws\b|2\.4 ?ghz')
 RX_CABLE   = re.compile(r'con cable|alambric|\b3\.5 ?mm\b|\bjack\b|cableado|\bwired\b|'
                         r'conector (usb|tipo c|usb-?c|lightning)')
@@ -2757,6 +3240,24 @@ for it in captura:
     elif cat == 'Iluminación': sub = sub_iluminacion(tn)
     elif cat == 'Autos, bicicletas y motos': sub = sub_vehiculo(tn)
     elif cat == 'Domótica y hogar inteligente': sub = sub_domotica(tn)
+    # Los repartidores nuevos van con "or sub": solo AGREGAN subcategoría,
+    # nunca borran la que la regla de categoría ya había puesto. Sin eso,
+    # sub_escritorio() devolvía None para "Panel PC Industrial All-in-One" y
+    # para el iMac --41 fichas-- y les quitaba el "All in One" que ya
+    # tenían. Los repartidores viejos se dejan como estaban: su
+    # comportamiento está calibrado contra las 16 capturas.
+    elif cat == 'Suplementos': sub = sub_suplemento(tn) or sub
+    elif cat == 'Redes': sub = sub_red(tn) or sub
+    elif cat == 'Climatización': sub = sub_clima(tn) or sub
+    elif cat == 'Mascotas': sub = sub_mascota(tn) or sub
+    elif cat == 'Cámaras de seguridad': sub = sub_vigilancia(tn) or sub
+    elif cat == 'Juguetes y bebés': sub = sub_juguete(tn) or sub
+    elif cat == 'Deportes y fitness': sub = sub_deporte(tn) or sub
+    elif cat == 'Joyería y bisutería': sub = sub_joyeria(tn) or sub
+    elif cat == 'Impresoras': sub = sub_impresora(tn) or sub
+    elif cat == 'Computadoras de escritorio': sub = sub_escritorio(tn) or sub
+    elif cat == 'Blancos y ropa de cama': sub = sub_blancos(tn) or sub
+    elif cat == 'Relojes inteligentes': sub = sub_reloj(tn) or sub
     elif cat == 'Cámaras y fotografía': sub = sub_camara(tn)
     elif cat == 'Almacenamiento': sub = sub_almacenamiento(tn)
     mk = marca(it['title'])

@@ -247,7 +247,7 @@
    }
   ]
  },
- "Redes/Routers": {
+ "Redes/Access points": {
   "axes": [
    {
     "label": "Wi-Fi",
@@ -274,12 +274,43 @@
       ]
      },
      {
-      "id": "wi-fi-6e",
-      "name": "Wi-Fi 6E",
-      "use": "Banda de 6 GHz, sin interferencia",
-      "spec": "Wi-Fi 6E",
+      "id": "wi-fi-7",
+      "name": "Wi-Fi 7",
+      "use": "La generación más nueva",
+      "spec": "Wi-Fi 7",
       "values": [
-       "Wi-Fi 6E"
+       "Wi-Fi 7"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Redes/Routers": {
+  "axes": [
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
       ]
      },
      {
@@ -1504,50 +1535,6 @@
   ],
   "intro": "Elige por la edad de quien lo va a usar."
  },
- "Juguetes y bebés/Maquetas": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
  "Baterías portátiles/Hasta 10,000 mAh": {
   "axes": [
    {
@@ -1981,55 +1968,6 @@
    }
   ]
  },
- "Deportes y fitness/Otros": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "snorkeling",
-      "name": "Snorkeling",
-      "use": "",
-      "spec": "Snorkeling",
-      "values": [
-       "Snorkeling"
-      ]
-     },
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     },
-     {
-      "id": "basquetbol",
-      "name": "Basquetbol",
-      "use": "",
-      "spec": "Basquetbol",
-      "values": [
-       "Basquetbol"
-      ]
-     },
-     {
-      "id": "beisbol",
-      "name": "Béisbol",
-      "use": "",
-      "spec": "Béisbol",
-      "values": [
-       "Béisbol"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Deportes y fitness/Equipo de gimnasio": {
   "axes": [
    {
@@ -2227,6 +2165,46 @@
   ],
   "intro": "Elige por dónde estás: se empieza ligero y se sube."
  },
+ "Deportes y fitness/Protección y soportes": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
+     },
+     {
+      "id": "basquetbol",
+      "name": "Basquetbol",
+      "use": "",
+      "spec": "Basquetbol",
+      "values": [
+       "Basquetbol"
+      ]
+     },
+     {
+      "id": "tennis",
+      "name": "Tennis",
+      "use": "",
+      "spec": "Tennis",
+      "values": [
+       "Tennis"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
  "Deportes y fitness/Patines y patinetas": {
   "axes": [
    {
@@ -2321,7 +2299,265 @@
    }
   ]
  },
+ "Cámaras de seguridad/Cámaras interiores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras espía": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras PTZ": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
  "Cámaras de seguridad/Interiores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Cámaras de seguridad/Kits de vigilancia": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras exteriores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Cámaras de seguridad/Alarmas": {
   "axes": [
    {
     "label": "Resolución",
@@ -2467,37 +2703,6 @@
  "Electrodomésticos/Pequeños electrodomésticos de cocina": {
   "axes": [
    {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Batir y mezclar",
-      "spec": "Hasta 650 W",
-      "max": 650
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Cocinar de diario",
-      "spec": "651 W a 1,000 W",
-      "min": 650,
-      "max": 1000
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Calentar rápido y uso continuo",
-      "spec": "Más de 1,000 W",
-      "min": 1000
-     }
-    ],
-    "key": "level"
-   },
-   {
     "label": "Capacidad",
     "field": "liters",
     "criterion": "en litros",
@@ -2526,7 +2731,7 @@
       "min": 6
      }
     ],
-    "key": "size"
+    "key": "level"
    }
   ]
  },
@@ -2584,23 +2789,23 @@
       "id": "media",
       "name": "Media",
       "use": "Uso de todos los días",
-      "spec": "1,201 W a 1,500 W",
+      "spec": "1,201 W a 1,550 W",
       "min": 1200,
-      "max": 1500
+      "max": 1550
      },
      {
       "id": "alta",
       "name": "Alta",
       "use": "Uso rudo o continuo",
-      "spec": "Más de 1,500 W",
-      "min": 1500
+      "spec": "Más de 1,550 W",
+      "min": 1550
      }
     ],
     "key": "level"
    }
   ]
  },
- "Climatización/Deshumidificadores": {
+ "Climatización/Humidificadores": {
   "axes": [
    {
     "label": "Capacidad",
@@ -2612,166 +2817,61 @@
       "id": "chica",
       "name": "Chica",
       "use": "Una o dos personas",
-      "spec": "Hasta 3.2 L",
-      "max": 3.2
+      "spec": "Hasta 3.3 L",
+      "max": 3.3
      },
      {
       "id": "mediana",
       "name": "Mediana",
       "use": "Para la familia",
-      "spec": "Más de 3.2 L, hasta 20 L",
-      "min": 3.2,
-      "max": 20
+      "spec": "Más de 3.3 L, hasta 6 L",
+      "min": 3.3,
+      "max": 6
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Reuniones o uso intensivo",
-      "spec": "Más de 20 L",
-      "min": 20
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Climatización/Purificadores de aire": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 29 W",
-      "max": 29
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "30 W a 45 W",
-      "min": 29,
-      "max": 45
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 45 W",
-      "min": 45
+      "spec": "Más de 6 L",
+      "min": 6
      }
     ],
     "key": "level"
    }
   ]
  },
- "Climatización/Humidificadores": {
+ "Climatización/Climatizadores evaporativos": {
   "axes": [
    {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
+    "label": "Capacidad",
+    "field": "liters",
+    "criterion": "en litros",
     "ramp": true,
     "tiers": [
      {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 15 W",
+      "id": "chica",
+      "name": "Chica",
+      "use": "Una o dos personas",
+      "spec": "Hasta 10 L",
+      "max": 10
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Para la familia",
+      "spec": "11 L a 15 L",
+      "min": 10,
       "max": 15
      },
      {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "16 W a 35 W",
-      "min": 15,
-      "max": 35
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 35 W",
-      "min": 35
+      "id": "grande",
+      "name": "Grande",
+      "use": "Reuniones o uso intensivo",
+      "spec": "Más de 15 L",
+      "min": 15
      }
     ],
     "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "size"
    }
   ]
  },
@@ -2812,33 +2912,6 @@
      }
     ],
     "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     }
-    ],
-    "key": "size"
    }
   ],
   "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
@@ -3570,50 +3643,6 @@
   ],
   "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
  },
- "Juegos de mesa/Ajedrez": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
- },
  "Juegos de mesa/De estrategia": {
   "axes": [
    {
@@ -3767,89 +3796,6 @@
   "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
  },
  "Juegos de mesa/Otros juegos": {
-  "axes": [
-   {
-    "label": "Jugadores",
-    "field": "players_max",
-    "criterion": "que caben",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "solo",
-      "name": "Solitario",
-      "use": "Para jugar solo",
-      "spec": "1 jugador",
-      "max": 1
-     },
-     {
-      "id": "dos",
-      "name": "Para dos",
-      "use": "En pareja o uno contra uno",
-      "spec": "2 jugadores",
-      "min": 1,
-      "max": 2
-     },
-     {
-      "id": "chico",
-      "name": "Grupo chico",
-      "use": "Familia o cuatro amigos",
-      "spec": "3 a 4 jugadores",
-      "min": 2,
-      "max": 4
-     },
-     {
-      "id": "grande",
-      "name": "Grupo grande",
-      "use": "Fiestas y reuniones",
-      "spec": "5 o más",
-      "min": 4
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
- },
- "Juegos de mesa/Clásicos": {
   "axes": [
    {
     "label": "Jugadores",
@@ -4399,23 +4345,23 @@
       "id": "suave",
       "name": "Suave",
       "use": "Cabello corto o de viaje",
-      "spec": "Hasta 1,500 W",
-      "max": 1500
+      "spec": "Hasta 1,200 W",
+      "max": 1200
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Uso de diario",
-      "spec": "1,501 W a 1,850 W",
-      "min": 1500,
-      "max": 1850
+      "spec": "1,201 W a 1,800 W",
+      "min": 1200,
+      "max": 1800
      },
      {
       "id": "potente",
       "name": "Potente",
       "use": "Cabello largo o grueso, secado rápido",
-      "spec": "Más de 1,850 W",
-      "min": 1850
+      "spec": "Más de 1,800 W",
+      "min": 1800
      }
     ],
     "key": "level"
@@ -4739,296 +4685,6 @@
   ],
   "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
  },
- "Mascotas/Areneros": {
-  "axes": [
-   {
-    "label": "Raza",
-    "field": "breed_size",
-    "criterion": "por tamaño del perro",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "10 a 25 kg",
-      "spec": "Mediana",
-      "values": [
-       "Mediana"
-      ]
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Más de 25 kg",
-      "spec": "Grande",
-      "values": [
-       "Grande"
-      ]
-     },
-     {
-      "id": "todas-las-razas",
-      "name": "Todas las razas",
-      "use": "Sirve para cualquier tamaño",
-      "spec": "Todas las razas",
-      "values": [
-       "Todas las razas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Etapa",
-    "field": "pet_stage",
-    "criterion": "de vida de la mascota",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "cachorro",
-      "name": "Cachorro",
-      "use": "Los primeros meses",
-      "spec": "Cachorro",
-      "values": [
-       "Cachorro"
-      ]
-     },
-     {
-      "id": "adulto",
-      "name": "Adulto",
-      "use": "La etapa más larga",
-      "spec": "Adulto",
-      "values": [
-       "Adulto"
-      ]
-     },
-     {
-      "id": "todas-las-etapas",
-      "name": "Todas las etapas",
-      "use": "Sirve a cualquier edad",
-      "spec": "Todas las etapas",
-      "values": [
-       "Todas las etapas"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el tamaño y la edad de tu mascota."
- },
- "Mascotas/Juguetes": {
-  "axes": [
-   {
-    "label": "Raza",
-    "field": "breed_size",
-    "criterion": "por tamaño del perro",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Hasta 10 kg",
-      "spec": "Chica",
-      "values": [
-       "Chica"
-      ]
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "10 a 25 kg",
-      "spec": "Mediana",
-      "values": [
-       "Mediana"
-      ]
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Más de 25 kg",
-      "spec": "Grande",
-      "values": [
-       "Grande"
-      ]
-     },
-     {
-      "id": "todas-las-razas",
-      "name": "Todas las razas",
-      "use": "Sirve para cualquier tamaño",
-      "spec": "Todas las razas",
-      "values": [
-       "Todas las razas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Etapa",
-    "field": "pet_stage",
-    "criterion": "de vida de la mascota",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "cachorro",
-      "name": "Cachorro",
-      "use": "Los primeros meses",
-      "spec": "Cachorro",
-      "values": [
-       "Cachorro"
-      ]
-     },
-     {
-      "id": "adulto",
-      "name": "Adulto",
-      "use": "La etapa más larga",
-      "spec": "Adulto",
-      "values": [
-       "Adulto"
-      ]
-     },
-     {
-      "id": "todas-las-etapas",
-      "name": "Todas las etapas",
-      "use": "Sirve a cualquier edad",
-      "spec": "Todas las etapas",
-      "values": [
-       "Todas las etapas"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el tamaño y la edad de tu mascota."
- },
- "Mascotas/Correas": {
-  "axes": [
-   {
-    "label": "Etapa",
-    "field": "pet_stage",
-    "criterion": "de vida de la mascota",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "adulto",
-      "name": "Adulto",
-      "use": "La etapa más larga",
-      "spec": "Adulto",
-      "values": [
-       "Adulto"
-      ]
-     },
-     {
-      "id": "todas-las-etapas",
-      "name": "Todas las etapas",
-      "use": "Sirve a cualquier edad",
-      "spec": "Todas las etapas",
-      "values": [
-       "Todas las etapas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el tamaño y la edad de tu mascota."
- },
- "Mascotas/Transportadoras": {
-  "axes": [
-   {
-    "label": "Raza",
-    "field": "breed_size",
-    "criterion": "por tamaño del perro",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Hasta 10 kg",
-      "spec": "Chica",
-      "values": [
-       "Chica"
-      ]
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "10 a 25 kg",
-      "spec": "Mediana",
-      "values": [
-       "Mediana"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Etapa",
-    "field": "pet_stage",
-    "criterion": "de vida de la mascota",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "cachorro",
-      "name": "Cachorro",
-      "use": "Los primeros meses",
-      "spec": "Cachorro",
-      "values": [
-       "Cachorro"
-      ]
-     },
-     {
-      "id": "adulto",
-      "name": "Adulto",
-      "use": "La etapa más larga",
-      "spec": "Adulto",
-      "values": [
-       "Adulto"
-      ]
-     },
-     {
-      "id": "todas-las-etapas",
-      "name": "Todas las etapas",
-      "use": "Sirve a cualquier edad",
-      "spec": "Todas las etapas",
-      "values": [
-       "Todas las etapas"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el tamaño y la edad de tu mascota."
- },
  "Mascotas/Bebederos": {
   "axes": [
    {
@@ -5041,195 +4697,23 @@
       "id": "chico",
       "name": "Chico",
       "use": "Gato o perro chico",
-      "spec": "Hasta 2.1 L",
-      "max": 2.1
+      "spec": "Hasta 2.2 L",
+      "max": 2.2
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "Perro mediano",
-      "spec": "Más de 2.1 L, hasta 3.8 L",
-      "min": 2.1,
-      "max": 3.8
+      "spec": "Más de 2.2 L, hasta 3.2 L",
+      "min": 2.2,
+      "max": 3.2
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Varios animales o perro grande",
-      "spec": "Más de 3.8 L",
-      "min": 3.8
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Raza",
-    "field": "breed_size",
-    "criterion": "por tamaño del perro",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Hasta 10 kg",
-      "spec": "Chica",
-      "values": [
-       "Chica"
-      ]
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "10 a 25 kg",
-      "spec": "Mediana",
-      "values": [
-       "Mediana"
-      ]
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Más de 25 kg",
-      "spec": "Grande",
-      "values": [
-       "Grande"
-      ]
-     },
-     {
-      "id": "todas-las-razas",
-      "name": "Todas las razas",
-      "use": "Sirve para cualquier tamaño",
-      "spec": "Todas las razas",
-      "values": [
-       "Todas las razas"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el tamaño y la edad de tu mascota."
- },
- "Mascotas/Camas": {
-  "axes": [
-   {
-    "label": "Raza",
-    "field": "breed_size",
-    "criterion": "por tamaño del perro",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Hasta 10 kg",
-      "spec": "Chica",
-      "values": [
-       "Chica"
-      ]
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "10 a 25 kg",
-      "spec": "Mediana",
-      "values": [
-       "Mediana"
-      ]
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Más de 25 kg",
-      "spec": "Grande",
-      "values": [
-       "Grande"
-      ]
-     },
-     {
-      "id": "todas-las-razas",
-      "name": "Todas las razas",
-      "use": "Sirve para cualquier tamaño",
-      "spec": "Todas las razas",
-      "values": [
-       "Todas las razas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Etapa",
-    "field": "pet_stage",
-    "criterion": "de vida de la mascota",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "adulto",
-      "name": "Adulto",
-      "use": "La etapa más larga",
-      "spec": "Adulto",
-      "values": [
-       "Adulto"
-      ]
-     },
-     {
-      "id": "todas-las-etapas",
-      "name": "Todas las etapas",
-      "use": "Sirve a cualquier edad",
-      "spec": "Todas las etapas",
-      "values": [
-       "Todas las etapas"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el tamaño y la edad de tu mascota."
- },
- "Mascotas/Comederos": {
-  "axes": [
-   {
-    "label": "Raza",
-    "field": "breed_size",
-    "criterion": "por tamaño del perro",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Hasta 10 kg",
-      "spec": "Chica",
-      "values": [
-       "Chica"
-      ]
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "10 a 25 kg",
-      "spec": "Mediana",
-      "values": [
-       "Mediana"
-      ]
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Más de 25 kg",
-      "spec": "Grande",
-      "values": [
-       "Grande"
-      ]
-     },
-     {
-      "id": "todas-las-razas",
-      "name": "Todas las razas",
-      "use": "Sirve para cualquier tamaño",
-      "spec": "Todas las razas",
-      "values": [
-       "Todas las razas"
-      ]
+      "spec": "Más de 3.2 L",
+      "min": 3.2
      }
     ],
     "key": "level"
@@ -6173,91 +5657,5 @@
     "key": "size"
    }
   ]
- },
- "Mascotas": {
-  "axes": [
-   {
-    "label": "Raza",
-    "field": "breed_size",
-    "criterion": "por tamaño del perro",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Hasta 10 kg",
-      "spec": "Chica",
-      "values": [
-       "Chica"
-      ]
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "10 a 25 kg",
-      "spec": "Mediana",
-      "values": [
-       "Mediana"
-      ]
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Más de 25 kg",
-      "spec": "Grande",
-      "values": [
-       "Grande"
-      ]
-     },
-     {
-      "id": "todas-las-razas",
-      "name": "Todas las razas",
-      "use": "Sirve para cualquier tamaño",
-      "spec": "Todas las razas",
-      "values": [
-       "Todas las razas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Etapa",
-    "field": "pet_stage",
-    "criterion": "de vida de la mascota",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "cachorro",
-      "name": "Cachorro",
-      "use": "Los primeros meses",
-      "spec": "Cachorro",
-      "values": [
-       "Cachorro"
-      ]
-     },
-     {
-      "id": "adulto",
-      "name": "Adulto",
-      "use": "La etapa más larga",
-      "spec": "Adulto",
-      "values": [
-       "Adulto"
-      ]
-     },
-     {
-      "id": "todas-las-etapas",
-      "name": "Todas las etapas",
-      "use": "Sirve a cualquier edad",
-      "spec": "Todas las etapas",
-      "values": [
-       "Todas las etapas"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el tamaño y la edad de tu mascota."
  }
 }

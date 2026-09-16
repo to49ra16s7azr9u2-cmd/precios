@@ -399,11 +399,20 @@ def product_json_ld(product, data, canonical):
     return json.dumps(ld, ensure_ascii=False, indent=2)
 
 
+_POR_CAT_CON_PAGINA = {}
+
+
 def related_products(product, all_products, n=4):
     """Mismos criterios que un bloque 'productos relacionados' de Kakaku:
     misma categoría, ordenados por cercanía de precio (no aleatorio), sin
     incluir el producto actual."""
-    same_cat = [p for p in all_products if p["category"] == product["category"] and p["id"] != product["id"]]
+    # El índice por categoría lo arma main() una sola vez. Sin él esta función
+    # recorría el catálogo entero en CADA ficha: 19 mil páginas por 267 mil
+    # productos. Si no está armado (uso suelto), cae al recorrido de siempre.
+    candidatos = _POR_CAT_CON_PAGINA.get(product["category"]) if _POR_CAT_CON_PAGINA else None
+    if candidatos is None:
+        candidatos = [p for p in all_products if p["category"] == product["category"]]
+    same_cat = [p for p in candidatos if p["id"] != product["id"]]
     price = min_price(product)
     same_cat.sort(key=lambda p: abs(min_price(p) - price))
     return same_cat[:n]
@@ -688,6 +697,42 @@ def render_price_history(product):
   que es cuando empezamos a guardarlo — no antes.</p>
 </div>
 """
+
+
+# Sólo publica página estática el producto que de verdad se puede COMPARAR.
+#
+# Search Console avisó de dos cosas a la vez: "error del servidor (5xx)" y
+# "duplicada: Google eligió otra canónica". Las dos salen del mismo sitio.
+# El sitio publicado pesaba 5.2 GB -- 240,984 fichas de ~20 KB cada una --
+# contra el límite de 1 GB de GitHub Pages, y el 93% de esas fichas tenía UNA
+# sola oferta. Una página que dice "compara el precio entre 1 vendedor" no
+# compara nada: es la página fina que Google agrupa con otra parecida y
+# descarta, y encima multiplicada por 240,000 es la que revienta el hosting.
+#
+# El producto NO se borra: sigue en data/, en el buscador y en las listas por
+# categoría. Lo que deja de existir es su URL propia, hasta que aparezca un
+# segundo vendedor y la ficha tenga algo que comparar.
+MIN_OFERTAS_PARA_PAGINA = 2
+
+# Se llena en main() antes de escribir nada, porque las listas por categoría
+# y de marca enlazan a las fichas y necesitan saber cuáles existen.
+_CON_PAGINA = set()
+
+
+def tiene_pagina(product):
+    return len(product.get("offers") or []) >= MIN_OFERTAS_PARA_PAGINA
+
+
+def enlace_producto(p, prefijo):
+    """El nombre enlaza sólo si esa ficha tiene página publicada.
+
+    Sin esto, una página de categoría enlazaría a 50 URLs de las que hoy
+    existen 4: el resto serían 404 servidos desde nuestro propio sitio.
+    """
+    nombre = html_escape(p["name"])
+    if p["id"] in _CON_PAGINA:
+        return f'<a href="{prefijo}producto/{p["id"]}/">{nombre}</a>'
+    return nombre
 
 
 def render_product_page(product, data, subs_con_pagina=None):
@@ -1262,7 +1307,7 @@ def render_subcategory_page(cat, sub, products, data):
             f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
-            f'<div class="row-name"><a href="../../../producto/{p["id"]}/">{html_escape(p["name"])}</a>{used_badge}</div>'
+            f'<div class="row-name">{enlace_producto(p, "../../../")}{used_badge}</div>'
             # Las estrellas van como carácter y no como svg_icon: data/icons.json
             # no trae una estrella, y la ficha de producto ya pinta sus reseñas
             # con "★"/"☆" (ver render_product_page), así que es el mismo signo.
@@ -1349,7 +1394,7 @@ def render_subcategory_page(cat, sub, products, data):
         "@context": "https://schema.org",
         "@type": "ItemList",
         "name": f"{sub['name']} — comparar precios en México",
-        "numberOfItems": len(shown),
+        "numberOfItems": len([p for p in shown if tiene_pagina(p)]),
         "itemListElement": [
             {
                 "@type": "ListItem",
@@ -1357,7 +1402,7 @@ def render_subcategory_page(cat, sub, products, data):
                 "url": f"{SITE_URL}/producto/{p['id']}/",
                 "name": p["name"],
             }
-            for i, p in enumerate(shown, start=1)
+            for i, p in enumerate([p for p in shown if tiene_pagina(p)], start=1)
         ],
     }, ensure_ascii=False, indent=2)
     extra_head = (
@@ -1389,7 +1434,7 @@ def _fila_de_oferta(p, bajada, prefijo):
         f'{product_photo_html(p, "row-icon")}'
         f'<div class="row-info">'
         f'<div class="row-brand">{html_escape(p["brand"])}</div>'
-        f'<div class="row-name"><a href="{prefijo}producto/{p["id"]}/">{html_escape(p["name"])}</a></div>'
+        f'<div class="row-name">{enlace_producto(p, prefijo)}</div>'
         f'<div class="muted small">En {html_escape(store_by_id_name(p, tienda))}, '
         f'desde el {fecha_larga(dia)}</div>'
         f'</div>'
@@ -1489,11 +1534,11 @@ tienda corrigió.</p>
         "@context": "https://schema.org",
         "@type": "ItemList",
         "name": titulo,
-        "numberOfItems": len(mostrados),
+        "numberOfItems": len([x for x in mostrados if tiene_pagina(x[1])]),
         "itemListElement": [
             {"@type": "ListItem", "position": i,
              "url": f"{SITE_URL}/producto/{p['id']}/", "name": p["name"]}
-            for i, (_, p) in enumerate(mostrados, start=1)
+            for i, (_, p) in enumerate([x for x in mostrados if tiene_pagina(x[1])], start=1)
         ],
     }, ensure_ascii=False, indent=2)
     extra_head = (
@@ -1773,7 +1818,7 @@ def render_category_page(cat, products, data):
             f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
-            f'<div class="row-name"><a href="../../producto/{p["id"]}/">{html_escape(p["name"])}</a>{used_badge}{variant_badge}</div>'
+            f'<div class="row-name">{enlace_producto(p, "../../")}{used_badge}{variant_badge}</div>'
             + (f'<div class="row-rating"><span class="row-stars">'
                f'{"★" * int(round(rating))}{"☆" * (5 - int(round(rating)))}</span> {rating} '
                f'<span class="row-rating-n">({n_reviews:,})</span></div>' if n_reviews else "")
@@ -1878,12 +1923,12 @@ def render_category_page(cat, products, data):
         "@context": "https://schema.org",
         "@type": "ItemList",
         "name": f"{cat['name']}: los más populares de {MES_ANIO}",
-        "numberOfItems": len(shown[:10]),
+        "numberOfItems": len([p for p in shown[:10] if tiene_pagina(p)]),
         "itemListElement": [
             {"@type": "ListItem", "position": i,
              "url": f"{SITE_URL}/producto/{p['id']}/",
              "name": p["name"]}
-            for i, p in enumerate(shown[:10], start=1)
+            for i, p in enumerate([p for p in shown[:10] if tiene_pagina(p)], start=1)
         ],
     }, ensure_ascii=False, indent=2)
     extra_head = (
@@ -1991,6 +2036,8 @@ def write_sitemaps(data, root, lastmod=None, ofertas_urls=(), marca_urls=()):
     product_urls = []
     product_images = {}
     for p in data["products"]:
+        if not tiene_pagina(p):
+            continue
         u = f"{SITE_URL}/producto/{p['id']}/"
         product_urls.append(u)
         if p.get("photo"):
@@ -2100,7 +2147,7 @@ def write_if_changed(path, body):
     return True
 
 
-def borrar_paginas_huerfanas(data, ofertas_vigentes, dry_run=False):
+def borrar_paginas_huerfanas(data, ofertas_vigentes, marcas_vigentes=None, dry_run=False):
     """Borra las páginas de productos y categorías que ya no están.
 
     `ofertas_vigentes` son los slugs de categoría que SÍ tuvieron página de
@@ -2118,8 +2165,11 @@ def borrar_paginas_huerfanas(data, ofertas_vigentes, dry_run=False):
     categoria/<slug>/ y sus subcategorías, ofertas/<slug>/) y solo si el id o
     el slug no está en el catálogo de esta corrida.
     """
-    vivos = {p["id"] for p in data["products"]}
-    borrados = {"producto": 0, "categoria": 0, "ofertas": 0}
+    # "Vivo" es el que TIENE página, no el que está en el catálogo: cuando
+    # un producto se queda con una sola oferta deja de publicarse y su
+    # carpeta se borra acá.
+    vivos = {p["id"] for p in data["products"] if tiene_pagina(p)}
+    borrados = {"producto": 0, "categoria": 0, "ofertas": 0, "marca": 0}
 
     carpeta = os.path.join(ROOT, "producto")
     if os.path.isdir(carpeta):
@@ -2171,6 +2221,21 @@ def borrar_paginas_huerfanas(data, ofertas_vigentes, dry_run=False):
             borrados["ofertas"] += 1
             if not dry_run:
                 os.remove(general)
+
+    # Las marcas se caen de la lista cuando bajan del mínimo de productos
+    # (marcas_con_pagina), y su carpeta se quedaba publicada: 13 páginas de
+    # marca sobrevivían de corridas viejas, con precios de hace días y, desde
+    # que las fichas finas dejaron de publicarse, con 116 enlaces a 404.
+    # marca/index.html es el listado de todas y no se toca.
+    if marcas_vigentes is not None:
+        carpeta = os.path.join(ROOT, "marca")
+        if os.path.isdir(carpeta):
+            for nombre in os.listdir(carpeta):
+                ruta = os.path.join(carpeta, nombre)
+                if os.path.isdir(ruta) and nombre not in marcas_vigentes:
+                    borrados["marca"] += 1
+                    if not dry_run:
+                        shutil.rmtree(ruta)
 
     return borrados
 
@@ -2366,7 +2431,7 @@ def render_brand_page(nombre, slug, products, data):
             f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p.get("category") or "")}</div>'
-            f'<div class="row-name"><a href="../../producto/{p["id"]}/">{html_escape(p["name"])}</a>{used_badge}</div>'
+            f'<div class="row-name">{enlace_producto(p, "../../")}{used_badge}</div>'
             f'</div>'
             f'<div class="row-priceblock">'
             + (f'<div class="row-from">Desde</div>' if len(p["offers"]) > 1 else "")
@@ -2560,6 +2625,13 @@ def main():
     # Las marcas se resuelven ANTES de escribir nada, porque las páginas de
     # subcategoría enlazan a ellas: si el mapa se llenara después, esos
     # enlaces saldrían como texto plano en la primera corrida.
+    _CON_PAGINA.clear()
+    _CON_PAGINA.update(p["id"] for p in data["products"] if tiene_pagina(p))
+    _POR_CAT_CON_PAGINA.clear()
+    for _p in data["products"]:
+        if tiene_pagina(_p):
+            _POR_CAT_CON_PAGINA.setdefault(_p["category"], []).append(_p)
+
     marcas = marcas_con_pagina(data)
     _SLUG_DE_MARCA.clear()
     for _nombre, _slug, _items in marcas:
@@ -2567,6 +2639,8 @@ def main():
             _SLUG_DE_MARCA[clave_marca(_p.get("brand"))] = _slug
 
     for product in data["products"]:
+        if not tiene_pagina(product):
+            continue
         out_dir = os.path.join(ROOT, "producto", product["id"])
         os.makedirs(out_dir, exist_ok=True)
         out_path = os.path.join(out_dir, "index.html")
@@ -2675,7 +2749,7 @@ def main():
     # Las urls que ya no existen (productos borrados, subcategorías que
     # bajaron del mínimo) se sacan del registro para que no crezca sin fin.
     vigentes = {f"{SITE_URL}/"} | set(ofertas_urls)
-    vigentes |= {f"{SITE_URL}/producto/{p['id']}/" for p in data["products"]}
+    vigentes |= {f"{SITE_URL}/producto/{p['id']}/" for p in data["products"] if tiene_pagina(p)}
     for cat in data["categories"]:
         slug = slugify(cat["name"])
         vigentes.add(f"{SITE_URL}/categoria/{slug}/")
@@ -2693,7 +2767,8 @@ def main():
     if write_if_changed(robots_path, build_robots()):
         written.append(robots_path)
 
-    borrados = borrar_paginas_huerfanas(data, ofertas_vigentes)
+    borrados = borrar_paginas_huerfanas(
+        data, ofertas_vigentes, {slug for _n, slug, _i in marcas})
     if any(borrados.values()):
         print("Páginas borradas (el producto o la categoría ya no está): "
               + ", ".join(f"{v:,} de {k}/" for k, v in borrados.items() if v))

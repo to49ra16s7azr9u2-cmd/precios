@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pocreation: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Pocreation en México comparados entre tiendas: 24 productos. Precios desde $187 hasta $1,981 MXN. Principalmente en lavadoras, instrumentos musicales, teclados, bocinas.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/pocreation/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Pocreation: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Pocreation en México comparados entre tiendas: 24 productos. Precios desde $187 hasta $1,981 MXN. Principalmente en lavadoras, instrumentos musicales, teclados, bocinas.">
+<meta property="og:url" content="https://comparamex.com/marca/pocreation/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Pocreation",
+      "item": "https://comparamex.com/marca/pocreation/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Pocreation</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Pocreation — comparar precios (24)</h1></div>
+<p class="muted small">Precios de Pocreation en México comparados entre tiendas: 24 productos. Precios desde $187 hasta $1,981 MXN. Principalmente en lavadoras, instrumentos musicales, teclados, bocinas.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Pocreation..."
+         aria-label="Buscar productos de Pocreation" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71zci7sX8vL._AC_SX679_.jpg" alt="POCREATION Mini Altavoz Retro Diseño Vintage, Altavoz Inalámbrico Súper Ruido, Altavoz Pequeño Portátil para Decoración del Hogar, Cocina, Fiestas, Aire Libre (Black)" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Bocinas</div><div class="row-name">POCREATION Mini Altavoz Retro Diseño Vintage, Altavoz Inalámbrico Súper Ruido, Altavoz Pequeño Portátil para Decoración del Hogar, Cocina, Fiestas, Aire Libre (Black)</div></div><div class="row-priceblock"><div class="row-price">$244</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61qz2nx3HyL._AC_SX679_.jpg" alt="POCREATION 2PCS 25.5mm Diafragma de Reemplazo para Tweeter, Bobina de Voz para Altavoz de Bocina, Pieza de Reparación DIY para Tweeter de 4 Pulgadas, con Diafragma de Poliéster, Tonos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Bocinas</div><div class="row-name">POCREATION 2PCS 25.5mm Diafragma de Reemplazo para Tweeter, Bobina de Voz para Altavoz de Bocina, Pieza de Reparación DIY para Tweeter de 4 Pulgadas, con Diafragma de Poliéster, Tonos</div></div><div class="row-priceblock"><div class="row-price">$295</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71SESL5HByS._AC_SX679_.jpg" alt="POCREATION Abrazadera de Tierra Magnética para Soldadura, Cabezal Magnético con Tablero de Aislamiento de 0,2 Pulgadas, Herramienta de Conexión a Tierra" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Herramientas</div><div class="row-name">POCREATION Abrazadera de Tierra Magnética para Soldadura, Cabezal Magnético con Tablero de Aislamiento de 0,2 Pulgadas, Herramienta de Conexión a Tierra</div></div><div class="row-priceblock"><div class="row-price">$271</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61RQh5wYFYL._AC_SX679_.jpg" alt="POCREATION Amplificador Auto 4 Canales 4x60W 12V" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Autos, bicicletas y motos</div><div class="row-name">POCREATION Amplificador Auto 4 Canales 4x60W 12V</div></div><div class="row-priceblock"><div class="row-price">$1,954</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61F5bskaI3L._AC_SX679_.jpg" alt="POCREATION Xilófono Colorido para niños, 15 Notas xilófono para niños Coloridos Piano Golpe a Mano para educación temprana" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Instrumentos musicales</div><div class="row-name">POCREATION Xilófono Colorido para niños, 15 Notas xilófono para niños Coloridos Piano Golpe a Mano para educación temprana</div></div><div class="row-priceblock"><div class="row-price">$506</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61yWMz1+TRS._AC_SX679_.jpg" alt="POCREATION Modelado de violín Stick USB, Unidad Flash USB Encantadora Unidad Flash USB de la Oficina en casa para el Almacenamiento de Datos de música para el hogar y la Oficina" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Instrumentos musicales</div><div class="row-name">POCREATION Modelado de violín Stick USB, Unidad Flash USB Encantadora Unidad Flash USB de la Oficina en casa para el Almacenamiento de Datos de música para el hogar y la Oficina</div></div><div class="row-priceblock"><div class="row-price">$513</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51OjxmuL5GS._AC_SX679_.jpg" alt="POCREATION Unidad Flash USB, Preciosa Memoria USB con Forma de Violín para Almacenamiento de Datos Musicales, Plug and Play, Múltiples Capacidades, Adecuada para Uso Doméstico y de Oficina" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Instrumentos musicales</div><div class="row-name">POCREATION Unidad Flash USB, Preciosa Memoria USB con Forma de Violín para Almacenamiento de Datos Musicales, Plug and Play, Múltiples Capacidades, Adecuada para Uso Doméstico y de Oficina</div></div><div class="row-priceblock"><div class="row-price">$195</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/311a+n9N0dL._AC_SX679_.jpg" alt="POCREATION Reemplazo de Lona para Silla de Director, Paquete de 2 Fundas Tela Oxford para Asiento y Respaldo, Opciones de Varios Colores para sillas Director Plegables de Exterior (Silla no incluida)" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">POCREATION Reemplazo de Lona para Silla de Director, Paquete de 2 Fundas Tela Oxford para Asiento y Respaldo, Opciones de Varios Colores para sillas Director Plegables de Exterior (Silla no incluida)</div></div><div class="row-priceblock"><div class="row-price">$335</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/31oaAgH+MvL._AC_SX679_.jpg" alt="POCREATION Cuerpo de Figura de Acción Personalizable, Modelo de maniquí de PVC con Soporte para Dibujar Bocetos, Decoración de Escritorio, Accesorios de Fotografía, Colecciones, Regalos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">POCREATION Cuerpo de Figura de Acción Personalizable, Modelo de maniquí de PVC con Soporte para Dibujar Bocetos, Decoración de Escritorio, Accesorios de Fotografía, Colecciones, Regalos</div></div><div class="row-priceblock"><div class="row-price">$327</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51KU8Rsd9AL._AC_SX679_.jpg" alt="POCREATION Disco Duro Interno 320GB para 360 Slim, Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Almacenamiento</div><div class="row-name">POCREATION Disco Duro Interno 320GB para 360 Slim, Negro</div></div><div class="row-priceblock"><div class="row-price">$680</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51aHwRORP-L._AC_SX679_.jpg" alt="POCREATION Lavadora Portátil Semiautomática de Ropa Interior de 40 W y 13 L de Gran Capacidad, con Modos de Lavado y Centrifugado/secado, para Dormitorio, Hogar apartamento." referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">POCREATION Lavadora Portátil Semiautomática de Ropa Interior de 40 W y 13 L de Gran Capacidad, con Modos de Lavado y Centrifugado/secado, para Dormitorio, Hogar apartamento.</div></div><div class="row-priceblock"><div class="row-price">$1,981</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51ht4RI0lZL._AC_SX679_.jpg" alt="POCREATION Lavadora Portátil Plegable 6.5L Automática Limpieza Profunda, Lavado Centrifugado con Tubo 100-240V" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">POCREATION Lavadora Portátil Plegable 6.5L Automática Limpieza Profunda, Lavado Centrifugado con Tubo 100-240V</div></div><div class="row-priceblock"><div class="row-price">$850</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51inznDWhPL._AC_SX679_.jpg" alt="POCREATION Lavadora de 6,5 L, Lavadora Portátil Plegable, Portátil, Automática, de Limpieza Profunda, Lavado y Centrifugado, Lavadora en Seco con Tubo de Agua de 100 a 240 V (Enchufe de EE." referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">POCREATION Lavadora de 6,5 L, Lavadora Portátil Plegable, Portátil, Automática, de Limpieza Profunda, Lavado y Centrifugado, Lavadora en Seco con Tubo de Agua de 100 a 240 V (Enchufe de EE.</div></div><div class="row-priceblock"><div class="row-price">$895</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61QysuogUsL._AC_SX679_.jpg" alt="POCREATION Lavadora de 6,5 L, Lavadora Portátil Plegable, Portátil, Automática, de Limpieza Profunda, Lavado y Centrifugado, Lavadora en Seco con Tubo de Agua de 100 a 240 V (Enchufe de EE." referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">POCREATION Lavadora de 6,5 L, Lavadora Portátil Plegable, Portátil, Automática, de Limpieza Profunda, Lavado y Centrifugado, Lavadora en Seco con Tubo de Agua de 100 a 240 V (Enchufe de EE.</div></div><div class="row-priceblock"><div class="row-price">$895</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/41CiJAamT4L._AC_SX679_.jpg" alt="POCREATION Acoplador de Manguera de Escape de Aire Acondicionado, Soporte de Conector Universal, Rosca CW CCW, Ligero, Duradero, Sellado Hermético para Tubo de Escape de Aire" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">POCREATION Acoplador de Manguera de Escape de Aire Acondicionado, Soporte de Conector Universal, Rosca CW CCW, Ligero, Duradero, Sellado Hermético para Tubo de Escape de Aire</div></div><div class="row-priceblock"><div class="row-price">$230</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61+-mMvia+L._AC_SX679_.jpg" alt="POCREATION Teclado Bluetooth Español Portátil, Touchpad 78 Teclas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Teclados</div><div class="row-name">POCREATION Teclado Bluetooth Español Portátil, Touchpad 78 Teclas</div></div><div class="row-priceblock"><div class="row-price">$202</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61ExqHliNHL._AC_SX679_.jpg" alt="POCREATION Juego de Ratón y Teclado Inalámbrico, Teclas Finas Grabadas USB de 2,4G, Ergonomía, Botón de Silencio, para Escritorios, Dispositivos Móviles y Tabletas (Gold)" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Teclados</div><div class="row-name">POCREATION Juego de Ratón y Teclado Inalámbrico, Teclas Finas Grabadas USB de 2,4G, Ergonomía, Botón de Silencio, para Escritorios, Dispositivos Móviles y Tabletas (Gold)</div></div><div class="row-priceblock"><div class="row-price">$338</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61iubFqJBsL._AC_SX679_.jpg" alt="POCREATION Conjunto del Mouse del Teclado, 2.4G inalámbrico 78 Teclas USB Tecnia Delgada Errigación ergonómica Botón Silencio teclados del Mouse para el Cuaderno PC (Oro Rosa)" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Teclados</div><div class="row-name">POCREATION Conjunto del Mouse del Teclado, 2.4G inalámbrico 78 Teclas USB Tecnia Delgada Errigación ergonómica Botón Silencio teclados del Mouse para el Cuaderno PC (Oro Rosa)</div></div><div class="row-priceblock"><div class="row-price">$352</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61gJRGiKQQL._AC_SX679_.jpg" alt="POCREATION Robot Aspirador 3 en 1 Automático Recargable Bajo Ruido, 1 Pza" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Aspiradoras</div><div class="row-name">POCREATION Robot Aspirador 3 en 1 Automático Recargable Bajo Ruido, 1 Pza</div></div><div class="row-priceblock"><div class="row-price">$187</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51ErChgZPiL._AC_SX679_.jpg" alt="POCREATION Bandeja Universal para Cochecito con portavasos aislados, Organizador de meriendas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cocina y comedor</div><div class="row-name">POCREATION Bandeja Universal para Cochecito con portavasos aislados, Organizador de meriendas</div></div><div class="row-priceblock"><div class="row-price">$424</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/31HdEbsnUxL._AC_SX679_.jpg" alt="POCREATION Conjunto de 7 Cuchillas de Repuesto para licuadora Nutri, Base de Cuchillas extractoras de Acero Inoxidable y Carcasa de ABS Compatible con BL771, BL773co (Siete impulsores)" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Refacciones</div><div class="row-name">POCREATION Conjunto de 7 Cuchillas de Repuesto para licuadora Nutri, Base de Cuchillas extractoras de Acero Inoxidable y Carcasa de ABS Compatible con BL771, BL773co (Siete impulsores)</div></div><div class="row-priceblock"><div class="row-price">$441</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/5107oyRUoiL._AC_SX679_.jpg" alt="POCREATION Soporte de Trípode de Metal Universal para Ventiladores de Proyectores Holográficos 3D, Altura Ajustable de 80 a 180 Cm, Estable y Compatible con 42/50/56/60/65/100 Cm, Soporte" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Proyectores y accesorios</div><div class="row-name">POCREATION Soporte de Trípode de Metal Universal para Ventiladores de Proyectores Holográficos 3D, Altura Ajustable de 80 a 180 Cm, Estable y Compatible con 42/50/56/60/65/100 Cm, Soporte</div></div><div class="row-priceblock"><div class="row-price">$1,245</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61qIA+PjcZL._AC_SX679_.jpg" alt="POCREATION Cama Rosa para Mascotas, Cama Extraíble, Lavable, Suave y Cómoda para Perros y Gatos para Mascotas Pequeñas, con Diseño de Cuatro Estaciones (L)" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Mascotas</div><div class="row-name">POCREATION Cama Rosa para Mascotas, Cama Extraíble, Lavable, Suave y Cómoda para Perros y Gatos para Mascotas Pequeñas, con Diseño de Cuatro Estaciones (L)</div></div><div class="row-priceblock"><div class="row-price">$301</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/5117Y9SIWFL._AC_SX679_.jpg" alt="POCREATION Soporte Ajustable para Tazones de Mascotas, Alimentador Elevado de Comida y Agua para Perros y Gatos con Base Antideslizante Protección para el Cuello" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Mascotas</div><div class="row-name">POCREATION Soporte Ajustable para Tazones de Mascotas, Alimentador Elevado de Comida y Agua para Perros y Gatos con Base Antideslizante Protección para el Cuello</div></div><div class="row-priceblock"><div class="row-price">$927</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Pocreation</h2><div class="chip-row"><a class="chip" href="../../categoria/lavadoras/">Lavadoras (4)</a><a class="chip" href="../../categoria/instrumentos-musicales/">Instrumentos musicales (3)</a><a class="chip" href="../../categoria/teclados/">Teclados (3)</a><a class="chip" href="../../categoria/bocinas/">Bocinas (2)</a><a class="chip" href="../../categoria/muebles/">Muebles (2)</a><a class="chip" href="../../categoria/mascotas/">Mascotas (2)</a><a class="chip" href="../../categoria/herramientas/">Herramientas (1)</a><a class="chip" href="../../categoria/autos-bicicletas-y-motos/">Autos, bicicletas y motos (1)</a><a class="chip" href="../../categoria/almacenamiento/">Almacenamiento (1)</a><a class="chip" href="../../categoria/climatizacion/">Climatización (1)</a><a class="chip" href="../../categoria/aspiradoras/">Aspiradoras (1)</a><a class="chip" href="../../categoria/cocina-y-comedor/">Cocina y comedor (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

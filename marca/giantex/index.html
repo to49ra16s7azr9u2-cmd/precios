@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giantex: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Giantex en México comparados entre tiendas: 24 productos. Precios desde $2,004 hasta $7,747 MXN. Principalmente en lavadoras, muebles.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/giantex/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Giantex: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Giantex en México comparados entre tiendas: 24 productos. Precios desde $2,004 hasta $7,747 MXN. Principalmente en lavadoras, muebles.">
+<meta property="og:url" content="https://comparamex.com/marca/giantex/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Giantex",
+      "item": "https://comparamex.com/marca/giantex/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Giantex</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Giantex — comparar precios (24)</h1></div>
+<p class="muted small">Precios de Giantex en México comparados entre tiendas: 24 productos. Precios desde $2,004 hasta $7,747 MXN. Principalmente en lavadoras, muebles.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Giantex..."
+         aria-label="Buscar productos de Giantex" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/81sh5q2MOqL._AC_SX679_.jpg" alt="Giantex - Sofá Cama Individual con Nido, Cama Nido de Madera con Soporte de Listones de Madera, Marco de Cama de Mediados de Siglo para Sala de Estar, habitación de Invitados, no Necesita somier" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">Giantex - Sofá Cama Individual con Nido, Cama Nido de Madera con Soporte de Listones de Madera, Marco de Cama de Mediados de Siglo para Sala de Estar, habitación de Invitados, no Necesita somier</div></div><div class="row-priceblock"><div class="row-price">$6,094</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71Z84pH-YjL._AC_SX679_.jpg" alt="GIANTEX - Juego de 4 sillas de comedor de ratán bohemias, carga máxima de 350 libras, sillas de comedor de madera, sillón de bambú para sala de estar, comedor, natural" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">GIANTEX - Juego de 4 sillas de comedor de ratán bohemias, carga máxima de 350 libras, sillas de comedor de madera, sillón de bambú para sala de estar, comedor, natural</div></div><div class="row-priceblock"><div class="row-price">$6,564</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71LpSLtJFLL._AC_SX679_.jpg" alt="Giantex - Marco de Cama Individual de Metal, Cama de día con Soporte de Listones de Metal y barandillas de 3 Lados, sofá Cama 2 en 1 Que Ahorra Espacio para Sala de Estar, habitación de Invitados, no" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">Giantex - Marco de Cama Individual de Metal, Cama de día con Soporte de Listones de Metal y barandillas de 3 Lados, sofá Cama 2 en 1 Que Ahorra Espacio para Sala de Estar, habitación de Invitados, no</div></div><div class="row-priceblock"><div class="row-price">$3,389</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71cYTDT6qHL._AC_SX679_.jpg" alt="Giantex - Mesa de Consola de Vidrio de 2 Niveles, Mesa de Entrada Moderna de Media Luna con Tapa de Vidrio Templado y Estante de Almacenamiento Abierto, Mesa de sofá Larga Estrecha para Sala de Estar" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">Giantex - Mesa de Consola de Vidrio de 2 Niveles, Mesa de Entrada Moderna de Media Luna con Tapa de Vidrio Templado y Estante de Almacenamiento Abierto, Mesa de sofá Larga Estrecha para Sala de Estar</div></div><div class="row-priceblock"><div class="row-price">$3,745</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61jHU7qXdHL._AC_SX679_.jpg" alt="Giantex - Juego de 2 sillas de Comedor de Madera, Silla de Cocina tapizada con Marco de Madera de Goma, Asiento Acolchado de Tela de Lino, Respaldo Curvado Alto, sillas Laterales Decorativas para" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">Giantex - Juego de 2 sillas de Comedor de Madera, Silla de Cocina tapizada con Marco de Madera de Goma, Asiento Acolchado de Tela de Lino, Respaldo Curvado Alto, sillas Laterales Decorativas para</div></div><div class="row-priceblock"><div class="row-price">$3,099</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61o7ITYHntL._AC_SX679_.jpg" alt="Giantex - Juego de 2 taburetes de Bar de 25.5 Pulgadas de Altura con Asiento y reposapiés Tejidos de Algas Marinas, sillas de Comedor de Bar, taburetes de Madera Boho sin Respaldo para Isla de Cocina" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">Giantex - Juego de 2 taburetes de Bar de 25.5 Pulgadas de Altura con Asiento y reposapiés Tejidos de Algas Marinas, sillas de Comedor de Bar, taburetes de Madera Boho sin Respaldo para Isla de Cocina</div></div><div class="row-priceblock"><div class="row-price">$2,843</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/81uqZ+kN5cL._AC_SX679_.jpg" alt="GIANTEX - Juego de 2 sillas plegables para patio, sillas plegables para" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">GIANTEX - Juego de 2 sillas plegables para patio, sillas plegables para</div></div><div class="row-priceblock"><div class="row-price">$3,003</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/81Oem-FBl7L._AC_SX679_.jpg" alt="Giantex - Juego de 2 sillas de Comedor tapizadas de Tela Moderna de Mediados de Siglo con Patas de Madera de Goma, Asiento Acolchado Grueso, Respaldo Alto, sillas Laterales sin Brazos para Sala de" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">Giantex - Juego de 2 sillas de Comedor tapizadas de Tela Moderna de Mediados de Siglo con Patas de Madera de Goma, Asiento Acolchado Grueso, Respaldo Alto, sillas Laterales sin Brazos para Sala de</div></div><div class="row-priceblock"><div class="row-price">$3,699</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61-8COke4UL._AC_SX679_.jpg" alt="Giantex - Juego de 2 sillas de Comedor con Respaldo Alto con Asiento Acolchado y Marco de Madera de Goma, sillas Laterales de Tela de Lino sintético para Cocina, Sala de Estar" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">Giantex - Juego de 2 sillas de Comedor con Respaldo Alto con Asiento Acolchado y Marco de Madera de Goma, sillas Laterales de Tela de Lino sintético para Cocina, Sala de Estar</div></div><div class="row-priceblock"><div class="row-price">$3,764</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61v683S18ZL._AC_SX679_.jpg" alt="Giantex - Juego de 4 sillas de comedor de madera, tapizadas de tela de lino sin brazos con marco de madera de goma, asiento acolchado, respaldo curvado alto, sillas laterales decorativas para sala de" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">Giantex - Juego de 4 sillas de comedor de madera, tapizadas de tela de lino sin brazos con marco de madera de goma, asiento acolchado, respaldo curvado alto, sillas laterales decorativas para sala de</div></div><div class="row-priceblock"><div class="row-price">$6,020</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71uboB1KnkL._AC_SX679_.jpg" alt="Giantex - Juego de 2 sillas de Comedor tapizadas de Tela Moderna de Mediados de Siglo con Patas de Madera de Goma, Asiento Acolchado Grueso, Respaldo Alto, sillas Laterales sin Brazos para Sala de" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">Giantex - Juego de 2 sillas de Comedor tapizadas de Tela Moderna de Mediados de Siglo con Patas de Madera de Goma, Asiento Acolchado Grueso, Respaldo Alto, sillas Laterales sin Brazos para Sala de</div></div><div class="row-priceblock"><div class="row-price">$5,099</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61ptCJt9jRL._AC_SX679_.jpg" alt="Giantex GX24977-PE, mini lavadora y hilador, capacidad de 5 libras, semiautomática compacta para lavandería, departamento, recámara, RV, lavadora portátil" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex GX24977-PE, mini lavadora y hilador, capacidad de 5 libras, semiautomática compacta para lavandería, departamento, recámara, RV, lavadora portátil</div></div><div class="row-priceblock"><div class="row-price">$2,004</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61ss0w-E5tS._AC_SX679_.jpg" alt="Giantex 10021US-BL-FP Lavadora automática portátil compacta, blanca y azul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex 10021US-BL-FP Lavadora automática portátil compacta, blanca y azul</div></div><div class="row-priceblock"><div class="row-price">$5,713</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/611H1rTa+DL._AC_SX679_.jpg" alt="Giantex - Lavadora portátil 2 en 1, lavadora y hiladora, 2 en 1, capacidad de 22 libras, lavado de 14 libras, control de temporizador, bomba de drenaje, lavadora semiautomática de doble tina" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex - Lavadora portátil 2 en 1, lavadora y hiladora, 2 en 1, capacidad de 22 libras, lavado de 14 libras, control de temporizador, bomba de drenaje, lavadora semiautomática de doble tina</div></div><div class="row-priceblock"><div class="row-price">$6,502</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61Xi8vnpNeL._AC_SX679_.jpg" alt="Giantex - Lavadora automática completa, lavadora portátil 2 en 1, lavadora de 9 libras y combo giratorio, bomba de drenaje integrada de 10 programas, carga superior de ahorro de energía para recámara" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex - Lavadora automática completa, lavadora portátil 2 en 1, lavadora de 9 libras y combo giratorio, bomba de drenaje integrada de 10 programas, carga superior de ahorro de energía para recámara</div></div><div class="row-priceblock"><div class="row-price">$4,483</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61UPXRU26uL._AC_SX679_.jpg" alt="Giantex - Lavadora y secadora automática portátil, con bomba de desagüe incorporada, capacidad de 3.5 kg, compacta para apartamentos, casas rodantes y dormitorios." referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex - Lavadora y secadora automática portátil, con bomba de desagüe incorporada, capacidad de 3.5 kg, compacta para apartamentos, casas rodantes y dormitorios.</div></div><div class="row-priceblock"><div class="row-price">$6,548</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61bY7lGjseL._AC_SX679_.jpg" alt="Giantex Lavadora portátil mini, capacidad de 5.5 lbs, lavadora compacta pequeña para lavandería con centrifugado y manguera de drenaje, lavadora semiautomática para apartamentos, dormitorios, RV" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex Lavadora portátil mini, capacidad de 5.5 lbs, lavadora compacta pequeña para lavandería con centrifugado y manguera de drenaje, lavadora semiautomática para apartamentos, dormitorios, RV</div></div><div class="row-priceblock"><div class="row-price">$2,131</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61EDQv5xwjL._AC_SX679_.jpg" alt="Giantex - Máquina de lavado con capacidad de 20 libras, lavadora y hiladora, portátil compacta doble tina de 12 libras de lavado y manguera de giro de 8 libras, manguera de entrada y drenaje, lavadora" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex - Máquina de lavado con capacidad de 20 libras, lavadora y hiladora, portátil compacta doble tina de 12 libras de lavado y manguera de giro de 8 libras, manguera de entrada y drenaje, lavadora</div></div><div class="row-priceblock"><div class="row-price">$3,447</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71lJBTnUAIL._AC_SX679_.jpg" alt="Giantex - Mini lavadora portátil, capacidad de 5 libras, pequeña lavadora compacta con tina giratoria y manguera de drenaje, lavadora semiautomática para apartamentos, dormitorios, casa rodante y" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex - Mini lavadora portátil, capacidad de 5 libras, pequeña lavadora compacta con tina giratoria y manguera de drenaje, lavadora semiautomática para apartamentos, dormitorios, casa rodante y</div></div><div class="row-priceblock"><div class="row-price">$2,098</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/6182EuYkguL._AC_SX679_.jpg" alt="Giantex GX10768US-GR-PF Mini Lavadora, Gris y Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex GX10768US-GR-PF Mini Lavadora, Gris y Blanco</div></div><div class="row-priceblock"><div class="row-price">$3,167</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61MTuRPaX4S._AC_SX679_.jpg" alt="Giantex GT-GE-10390US-GR-FP - Lavadora portátil de 20 libras, lavadora de 15 libras y hiladora de 6,6 Llbs, compacta para casa rodante de departamento, blanco y gris, GT-GE-10390US-GR-FP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex GT-GE-10390US-GR-FP - Lavadora portátil de 20 libras, lavadora de 15 libras y hiladora de 6,6 Llbs, compacta para casa rodante de departamento, blanco y gris, GT-GE-10390US-GR-FP</div></div><div class="row-priceblock"><div class="row-price">$6,325</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61A7GTtpxcL._AC_SX679_.jpg" alt="Giantex - Lavadora portátil, 18 libras compacta, combinada con drenaje de bomba, tina doble, lavado de 12 libras y giro de 7 libras, lavadoras Portatiles Lavadoras para departamento, RV Dorm College" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex - Lavadora portátil, 18 libras compacta, combinada con drenaje de bomba, tina doble, lavado de 12 libras y giro de 7 libras, lavadoras Portatiles Lavadoras para departamento, RV Dorm College</div></div><div class="row-priceblock"><div class="row-price">$5,500</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61ydHx1s19L._AC_SX679_.jpg" alt="Giantex - Lavadora portátil pequeña y compacta para bañera de 18 libras, lavadora portátil Spinner España, color azul y blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex - Lavadora portátil pequeña y compacta para bañera de 18 libras, lavadora portátil Spinner España, color azul y blanco</div></div><div class="row-priceblock"><div class="row-price">$5,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61Z7oP1UStL._AC_SX679_.jpg" alt="Giantex Lavadora Portátil, Combo de Lavadora y Centrifugadora de 20lbs, Lavado de 12lbs y Centrifugado de 8lbs en Dos Tubos, Mini Compacta para Apartamento, Dormitorio, RVs (Blanco y Gris)" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Lavadoras</div><div class="row-name">Giantex Lavadora Portátil, Combo de Lavadora y Centrifugadora de 20lbs, Lavado de 12lbs y Centrifugado de 8lbs en Dos Tubos, Mini Compacta para Apartamento, Dormitorio, RVs (Blanco y Gris)</div></div><div class="row-priceblock"><div class="row-price">$7,747</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Giantex</h2><div class="chip-row"><a class="chip" href="../../categoria/lavadoras/">Lavadoras (13)</a><a class="chip" href="../../categoria/muebles/">Muebles (11)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

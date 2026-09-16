@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cecotec: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Cecotec en México comparados entre tiendas: 21 productos. Precios desde $558 hasta $9,065 MXN. Principalmente en electrodomésticos, climatización, cafeteras, cargadores y adaptadores.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/cecotec/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Cecotec: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Cecotec en México comparados entre tiendas: 21 productos. Precios desde $558 hasta $9,065 MXN. Principalmente en electrodomésticos, climatización, cafeteras, cargadores y adaptadores.">
+<meta property="og:url" content="https://comparamex.com/marca/cecotec/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cecotec",
+      "item": "https://comparamex.com/marca/cecotec/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Cecotec</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Cecotec — comparar precios (21)</h1></div>
+<p class="muted small">Precios de Cecotec en México comparados entre tiendas: 21 productos. Precios desde $558 hasta $9,065 MXN. Principalmente en electrodomésticos, climatización, cafeteras, cargadores y adaptadores.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Cecotec..."
+         aria-label="Buscar productos de Cecotec" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31356777/b1163737-b781-4bd5-a513-c14bca24e795.jpeg.jpg" alt="Cecotec licuadora power black titanium 1300 max b" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name"><a href="../../producto/p41160/">Cecotec licuadora power black titanium 1300 max b</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$558</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31028097/7ee3a5b9-493d-46a9-9650-1eca2837aba0.jpeg.jpg" alt="CenciTech Cargador Inalámbrico 3 en 1 Plegable de Aluminio" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cargadores y adaptadores</div><div class="row-name">CenciTech Cargador Inalámbrico 3 en 1 Plegable de Aluminio</div></div><div class="row-priceblock"><div class="row-price">$902</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31356784/37d031db-84fd-4a89-bf51-8cd6199f8f2c.jpeg.jpg" alt="Cecotec licuadora grand katana 2700max total destroy w" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec licuadora grand katana 2700max total destroy w</div></div><div class="row-priceblock"><div class="row-price">$4,199</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/513anAtnrFL._AC_SX679_.jpg" alt="Cecotec Freidora de Aire sin Aceite de 10L con Doble Resistencia, Plancha, Grill, Air Fryer Cecofry&amp;Grill Duoheat 10000. 2000W, Pared Divisoria Móvil, Temperatura Regulable 40-200°C, 10 Menús" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Freidora de Aire sin Aceite de 10L con Doble Resistencia, Plancha, Grill, Air Fryer Cecofry&amp;Grill Duoheat 10000. 2000W, Pared Divisoria Móvil, Temperatura Regulable 40-200°C, 10 Menús</div></div><div class="row-priceblock"><div class="row-price">$2,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61NYodBg07L._AC_SX679_.jpg" alt="Cecotec Robot de Limpieza de Ventanas Conga Windroid W10 DoubleSpray. Doble pulverización, 4 Modos seco/húmedo, Alcance de 7,5 m, depósito de 50 ml, aplicación + Mando a Distancia, Motor sin" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Robot de Limpieza de Ventanas Conga Windroid W10 DoubleSpray. Doble pulverización, 4 Modos seco/húmedo, Alcance de 7,5 m, depósito de 50 ml, aplicación + Mando a Distancia, Motor sin</div></div><div class="row-priceblock"><div class="row-price">$2,022</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61529DQK44L._AC_SX679_.jpg" alt="Cecotec Conga Windroid 1390 Double Spray Connected, Robot Limpiador de Ventanas 3 en 1, Limpia y Seca, Doble pulverización, aplicación y Mando a Distancia, 8 Modos, Radio de acción 7,5 m, Cuerda de" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Conga Windroid 1390 Double Spray Connected, Robot Limpiador de Ventanas 3 en 1, Limpia y Seca, Doble pulverización, aplicación y Mando a Distancia, 8 Modos, Radio de acción 7,5 m, Cuerda de</div></div><div class="row-priceblock"><div class="row-price">$2,677</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/619cChZatdL._AC_SX679_.jpg" alt="Cecotec Robot Limpiacristales Inteligente Conga Windroid 1290 DoubleSpray Connected. 72W Diseño Cuadrado Doble Haz Control con App y Mando a Distancia 4 Sistemas de Seguridad" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Robot Limpiacristales Inteligente Conga Windroid 1290 DoubleSpray Connected. 72W Diseño Cuadrado Doble Haz Control con App y Mando a Distancia 4 Sistemas de Seguridad</div></div><div class="row-priceblock"><div class="row-price">$7,248</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61lYwq5Q9DL._AC_SX679_.jpg" alt="Cecotec Campana extractora de isla Bolero Flux CRE 385500 Inox A+. Redonda de 38,5 cm, acero inoxidable, clase energética A+, motor CC, botones electrónicos, filtro de aluminio de 6 capas, filtro de" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Campana extractora de isla Bolero Flux CRE 385500 Inox A+. Redonda de 38,5 cm, acero inoxidable, clase energética A+, motor CC, botones electrónicos, filtro de aluminio de 6 capas, filtro de</div></div><div class="row-priceblock"><div class="row-price">$9,065</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/514WOhbjzSL._AC_SX679_.jpg" alt="Cecotec Campana extractora cuadrada de 44 cm Bolero Flux Cct 448000 Glass Black A++, aspecto de cristal negro, potencia de aspiración 800 m³/h, motor de 210 W, 3 niveles de potencia, filtro de carbón" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Campana extractora cuadrada de 44 cm Bolero Flux Cct 448000 Glass Black A++, aspecto de cristal negro, potencia de aspiración 800 m³/h, motor de 210 W, 3 niveles de potencia, filtro de carbón</div></div><div class="row-priceblock"><div class="row-price">$8,515</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51-kMtZa6cL._AC_SX679_.jpg" alt="Cecotec Licuadora Power Black Titanium 2500MAX Advance. 1600W Máxima Potencia, Cuchilla de 8 Hojas con Recubrimiento de Titanio Negro, 1,8L, 10 Velocidades + Función Turbo, Filtro Licuados" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Licuadora Power Black Titanium 2500MAX Advance. 1600W Máxima Potencia, Cuchilla de 8 Hojas con Recubrimiento de Titanio Negro, 1,8L, 10 Velocidades + Función Turbo, Filtro Licuados</div></div><div class="row-priceblock"><div class="row-price">$2,389</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51PDVpPBYEL._AC_SX679_.jpg" alt="Cecotec Licuadora Power Black Titanium 2500MAX Advance. 2500W Máxima Potencia, Cuchilla de 8 Hojas con Recubrimiento de Titanio Negro, 1,8L, 10 Velocidades + Función Turbo, Filtro Licuados" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Licuadora Power Black Titanium 2500MAX Advance. 2500W Máxima Potencia, Cuchilla de 8 Hojas con Recubrimiento de Titanio Negro, 1,8L, 10 Velocidades + Función Turbo, Filtro Licuados</div></div><div class="row-priceblock"><div class="row-price">$1,797</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/41m16+w1nQL._AC_SX679_.jpg" alt="Cecotec Licuadora Power Black Titanium 2600MAX Pro 1800W, 8 Hojas Titanio, 3 Programas, Jarra Tritan 2 Litros sin BPA" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Licuadora Power Black Titanium 2600MAX Pro 1800W, 8 Hojas Titanio, 3 Programas, Jarra Tritan 2 Litros sin BPA</div></div><div class="row-priceblock"><div class="row-price">$4,119</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51z-NKa4c2L._AC_SX679_.jpg" alt="Cecotec Licuadora Power Black Titanium 2500MAX Smart. 900W Maxima Potencia, Jarra Termorresistente 1,8L, 3 Programas, Cuchilla de 6 Hojas, Recubrimiento de Titanio Negro, Filtro Licuados" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Licuadora Power Black Titanium 2500MAX Smart. 900W Maxima Potencia, Jarra Termorresistente 1,8L, 3 Programas, Cuchilla de 6 Hojas, Recubrimiento de Titanio Negro, Filtro Licuados</div></div><div class="row-priceblock"><div class="row-price">$1,723</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61UkGjUZlOL._AC_SX679_.jpg" alt="Cecotec - Horno empotrable, 45 cm de altura Bolero Hexa M224500 Edge A. 2600 W, 53 L, 7 funciones, grill, calor ventilado, convección, descongelación, Steam Base X2, Steam EasyClean, Steam Assist" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec - Horno empotrable, 45 cm de altura Bolero Hexa M224500 Edge A. 2600 W, 53 L, 7 funciones, grill, calor ventilado, convección, descongelación, Steam Base X2, Steam EasyClean, Steam Assist</div></div><div class="row-priceblock"><div class="row-price">$5,151</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51riNmUt2dL._AC_SX679_.jpg" alt="Cecotec Freidora de Aire sin Aceite de 6,5L con Doble Resistencia, Plancha, Grill, Air Fryer Cecofry&amp;Grill Duoheat 6500. 2000W, Dietética y Digital, Ventana, Temperatura Regulable 40-200°C, 12 Menús" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Freidora de Aire sin Aceite de 6,5L con Doble Resistencia, Plancha, Grill, Air Fryer Cecofry&amp;Grill Duoheat 6500. 2000W, Dietética y Digital, Ventana, Temperatura Regulable 40-200°C, 12 Menús</div></div><div class="row-priceblock"><div class="row-price">$2,253</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71H5M+cer1L._AC_SX679_.jpg" alt="Cecotec Freidora de Aire sin Aceite de 6,5L con Doble Resistencia, Plancha, Grill, Air Fryer Cecofry&amp;Grill Duoheat 6500. 2200W, Dietética y Digital, Ventana, Temperatura Regulable 40-200°C, 12 Menús" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Freidora de Aire sin Aceite de 6,5L con Doble Resistencia, Plancha, Grill, Air Fryer Cecofry&amp;Grill Duoheat 6500. 2200W, Dietética y Digital, Ventana, Temperatura Regulable 40-200°C, 12 Menús</div></div><div class="row-priceblock"><div class="row-price">$3,499</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_917939-MLA97398383136_112025-F.jpg" alt="Cecotec Batidora de Mano Katana 12 Chop B. 200W, 21 Velocidades y Turbo, 4 Hojas con Titanio Negro, Campana antisalpicaduras, Pie extralargo, Vaso 800 ml, Kit de Accesorios" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">Cecotec Batidora de Mano Katana 12 Chop B. 200W, 21 Velocidades y Turbo, 4 Hojas con Titanio Negro, Campana antisalpicaduras, Pie extralargo, Vaso 800 ml, Kit de Accesorios</div></div><div class="row-priceblock"><div class="row-price">$1,800</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71Me8jsIV9L._AC_SX679_.jpg" alt="Cecotec Deshumidificador BigDry 2500 Essential 360-750 ml/día,depósito Transparente de 2 litros, Cobertura hasta 25 m2, Filtro extraíble y Lavable, Apagado automático" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Cecotec Deshumidificador BigDry 2500 Essential 360-750 ml/día,depósito Transparente de 2 litros, Cobertura hasta 25 m2, Filtro extraíble y Lavable, Apagado automático</div></div><div class="row-priceblock"><div class="row-price">$1,685</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/81TN9NZcgML._AC_SX679_.jpg" alt="Cecotec PureAroma 1300 Humidificador ultrasónico con difusor de aroma, 300 ml, altavoz Bluetooth, altavoz Bluetooth, luz LED, temporizador de 5 horas, 3 modos de vapor, aromaterapia, minimalista" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Cecotec PureAroma 1300 Humidificador ultrasónico con difusor de aroma, 300 ml, altavoz Bluetooth, altavoz Bluetooth, luz LED, temporizador de 5 horas, 3 modos de vapor, aromaterapia, minimalista</div></div><div class="row-priceblock"><div class="row-price">$785</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_961736-MLA102976151429_122025-F.jpg" alt="Cecotec Cafetera Cápsulas Express Compacta con Tanque de Leche FreeStyle Latte. 1450W, 20 Bares, Compatible con Café Molido, Dolce Gusto, Nespresso y K-fee, Depósito 1,6L de Agua y 400ml de Leche" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cafeteras</div><div class="row-name">Cecotec Cafetera Cápsulas Express Compacta con Tanque de Leche FreeStyle Latte. 1450W, 20 Bares, Compatible con Café Molido, Dolce Gusto, Nespresso y K-fee, Depósito 1,6L de Agua y 400ml de Leche</div></div><div class="row-priceblock"><div class="row-price">$5,846</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51PnK4GeipL._AC_SX679_.jpg" alt="Cecotec Cafetera de Goteo Coffee 56 Time 1000W Acero Inoxidable Pantalla LCD 1,3L" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cafeteras</div><div class="row-name">Cecotec Cafetera de Goteo Coffee 56 Time 1000W Acero Inoxidable Pantalla LCD 1,3L</div></div><div class="row-priceblock"><div class="row-price">$1,019</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Cecotec</h2><div class="chip-row"><a class="chip" href="../../categoria/electrodomesticos/">Electrodomésticos (16)</a><a class="chip" href="../../categoria/climatizacion/">Climatización (2)</a><a class="chip" href="../../categoria/cafeteras/">Cafeteras (2)</a><a class="chip" href="../../categoria/cargadores-y-adaptadores/">Cargadores y adaptadores (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>
