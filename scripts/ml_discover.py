@@ -83,6 +83,7 @@ EPOCH = datetime.date(2026, 9, 1)
 VENTANA = 40          # subcategorías por corrida
 MARCAS_POR_SUB = 2    # consultas por marca, además de la del nombre
 MAX_POR_CONSULTA = 12
+PAGINAS_POR_CONSULTA = 1
 
 CATEGORIAS_FUERA = {
     "Ropa y accesorios", "Calzado", "Artículos de lujo (preowned)",
@@ -272,7 +273,7 @@ def dominio_confirmado(cat_id, cat_name, sub_name, conocidos, sondas, propios):
     return None
 
 
-def targets_para(data, subs, marcas_por_sub):
+def targets_para(data, subs, marcas_por_sub, max_por_consulta=None, paginas=None):
     conocidos = indice_conocidos(data["products"])
     targets = []
     for cat_id, cat_name, sub_id, sub_name, icono in subs:
@@ -289,7 +290,9 @@ def targets_para(data, subs, marcas_por_sub):
         for q in consultas:
             targets.append({
                 "domain": dom, "q": q, "cat": cat_id, "sub": None,
-                "max": MAX_POR_CONSULTA, "pages": 1, "icon": icono,
+                "max": max_por_consulta or MAX_POR_CONSULTA,
+                "pages": paginas or PAGINAS_POR_CONSULTA,
+                "icon": icono,
             })
     return targets
 
@@ -300,6 +303,14 @@ def main():
     ap.add_argument("--dia", type=int, help="índice de rotación (por defecto, los días desde el 1 de septiembre de 2026)")
     ap.add_argument("--ventana", type=int, default=VENTANA)
     ap.add_argument("--marcas", type=int, default=MARCAS_POR_SUB)
+    # Las dos perillas del tamaño de la corrida. El valor por defecto es el
+    # de la corrida DIARIA, que tiene que ser barata; para una carga grande
+    # ("--ventana 400 --marcas 6 --max 50 --pages 3") se suben a mano y se
+    # recorren todas las subcategorías de una vez en lugar de en ocho días.
+    ap.add_argument("--max", type=int, default=MAX_POR_CONSULTA,
+                    help="productos por consulta (por defecto %(default)s)")
+    ap.add_argument("--pages", type=int, default=PAGINAS_POR_CONSULTA,
+                    help="páginas de resultados por consulta (por defecto %(default)s)")
     args = ap.parse_args()
 
     dia = args.dia if args.dia is not None else (datetime.date.today() - EPOCH).days
@@ -307,8 +318,9 @@ def main():
     subs = subcategorias_del_sitio(data)
     hoy = ventana_de(subs, dia, args.ventana)
     print(f"Día {dia}: {len(hoy)} de {len(subs)} subcategorías")
-    targets = targets_para(data, hoy, args.marcas)
-    print(f"\n{len(targets)} consultas de catálogo")
+    targets = targets_para(data, hoy, args.marcas, args.max, args.pages)
+    print(f"\n{len(targets)} consultas de catálogo"
+          f" (hasta {args.max} productos x {args.pages} pagina(s) cada una)")
     if not targets:
         return
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as f:

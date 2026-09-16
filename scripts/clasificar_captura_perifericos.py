@@ -1259,6 +1259,27 @@ REGLAS = [
              r'(bateria|cargador)s?.{0,40}(nikon|canon|sony (alpha|np-)|fujifilm|olympus|gopro|insta360|smallrig)|'
              r'cargador de baterias? (para|de) camaras?))'),
   ('Cámaras y fotografía', 'Accesorios', 'camera')),
+ # La montura de cámara: cabeza de bola, brazo mágico, placa de liberación
+ # rápida, clip de manubrio "para cámara de acción". Caían en
+ # Refacciones/Otros por el "tornillo de 1/4" (41 en la captura del
+ # 16-sep) y esa subcategoría ni está registrada, así que
+ # add_amazon_standalone.py las habría descartado en silencio.
+ #
+ # La montura tiene que ABRIR el título y el título tiene que nombrar una
+ # cámara de verdad. La primera versión pedía las dos palabras en
+ # cualquier parte y la regresión la tiró: con "adaptador" en el título y
+ # "cámara" cien caracteres después entraban el adaptador de enchufe de
+ # viaje, la batería de Starlink, el poste para panel solar, el tripié de
+ # bocinas, un teléfono Doro y el i12Pro "cámara triple".
+ (re.compile(r'^(?!.*(celular|telefono|smartphone|\btablet\b|tableta|bocina|bafle|panel(es)? solar|'
+             r'\bsolar\b|enchufe|de viaje|starlink|scooter|patinete|timbre|microscopio|monitor|'
+             r'\bring\b|seguridad|\bpara (silla|sofa|mesa|cama)))'
+             r'^(?:\S+ ){0,3}(soporte|adaptador|montaje|cabeza de bola|cabezal de bola|brazo magico|'
+             r'brazo articulado|placa de liberacion|abrazadera|monopie|kit de montaje|clip de hebilla|'
+             r'marco (protector|de proteccion))\b'
+             r'(?=.*(camara de accion|camara deportiva|\bgopro\b|insta ?360|dji (osmo|action)|'
+             r'\btripode\b|\btripie\b|\bdslr\b|zapata (caliente|fria)|\bhero ?\d|\bakaso\b|\bsjcam\b))'),
+  ('Cámaras y fotografía', 'Accesorios', 'camera')),
  (re.compile(r'^(?!.*(estacion de energia|power station|osmo|pocket))(?=.*((cargador|bateria)s?.{0,40}(\bdji\b|\bdrones?\b|\bdron\b|mavic|phantom \d|avata)|'
              r'(\bdji\b|\bdrones?\b|\bdron\b|mavic).{0,40}(cargador|bateria)))'),
   ('Drones', 'Accesorios', 'drone')),
@@ -1545,7 +1566,10 @@ REGLAS = [
              r'tornillo|tuerca|perno|herraje|bisagra|riel(es)? de cajon|'
              r'(funda|forro|cubierta|protector) (para|de) (sofa|sillon|silla|colchon|mesa)|'
              r'pata(s)? de (repuesto|mesa|silla)|kit de (montaje|reparacion))\b'
-             r'(?=.*(silla|sofa|sillon|escritorio|mesa|cama|colchon))'),
+             r'(?=.*(silla|sofa|sillon|escritorio|mesa|cama|colchon))'
+             # ... y no la montura de cámara con "tornillo de 1/4" que
+             # menciona de paso una mesa o el sillín de la bici.
+             r'(?!.*(\bcamara|\bgopro\b|insta ?360|\btripode\b|\btripie\b|\bdslr\b|zapata caliente|\b1/4))'),
   ('Refacciones', 'Otros', 'gear')),
  # Después de webcams y soportes: "para iMac" es un soporte, "Intel NUC" es
  # una placa VESA y el sistema Yealink es "todo en uno" pero es una cámara.
@@ -1756,6 +1780,51 @@ REGLAS = [
              r'\btama\b|sabian|zildjian|\bevans\b|\bmeinl\b|\bludwig\b|'
              r'\bsonor\b|\bmapex\b|gretsch|\bkorg\b))'),
   ('Instrumentos musicales', None, 'guitar')),
+ # Cámaras y almacenamiento, de red y por la misma razón que Instrumentos:
+ # las dos categorías existían con sus subcategorías y sus repartidores,
+ # pero ninguna regla general llegaba hasta ellas. Medido sobre la captura
+ # de 12,683 anuncios del 16-sep: de 8,952 "no encaja", 4,328 decían
+ # "cámara" (de acción, videocámara, instantánea, mirrorless, DJI Osmo,
+ # Insta360, Akaso) y ~2,500 eran memorias USB, tarjetas y discos.
+ #
+ # Las dos piden el término EN LA CABEZA del título (primeras cinco
+ # palabras). La primera versión lo buscaba en cualquier parte y la
+ # regresión la tiró: la PC gamer "con SSD de 256 GB" era almacenamiento,
+ # el OPPO Find X9 "cámara de 200 MP" y un Moto G eran cámaras compactas,
+ # el kit NVR "con HDD" un disco interno, el dron "con cámara 4K" una
+ # cámara. Lo que se vende ES lo que abre el título.
+ (re.compile(r'^(?!.*(camara (de seguridad|ip|web|espia|oculta|para (auto|coche|carro)|trasera|de reversa|de vigilancia|'
+             r'termica|termografica|endoscop|de microscopio|para (celular|telefono|smartphone)|ptz|corporal para policia)|'
+             r'webcam|vigilancia|\bcctv\b|dashcam|\bptz\b|videoconferencia|\bndi\b|\bpoe\b|\bnvr\b|\bdvr\b|'
+             r'\bdomo\b|monitor de bebe|baby monitor|\bdron|\bdrone|microscopio|endoscopio|\bfunda|estuche|\bbolsa|'
+             r'mochila|tripie|tripode|\bfiltro|\bcorrea|protector de pantalla|\bmica\b|cargador|bateria|'
+             r'tarjeta (de memoria|sd)|\bpara gopro|\bpara dji|\bpara insta|\bpara camara|accesorios? (para|de) (camara|gopro|dji)|'
+             r'\bcaja\b|\bkit de (limpieza|accesorios)|de juguete|para nino|luz (de|para) (video|camara)|monitor de camara|'
+             r'\bpegamento|adhesivo|\bvisor\b|'
+             # Lo que la regresión 7 dejó pasar: la cámara de seguridad que no
+             # dice "de seguridad" (Ring, timbre, exteriores, visión nocturna,
+             # detección de movimiento), la de marcha atrás, la del monitor
+             # de bebé y la impresora Instax.
+             r'seguridad|\btimbre|exteriores|vision nocturna|deteccion de movimiento|marcha atras|retrovisor|'
+             r'monitor de video|para bebe|\bbebe\b|\bnanny|\balexa\b|aplicacion para (telefono|celular)|\bapp\b|'
+             r'smart cam|impresora|hi-print|\blab\b|\bwifi\b.{0,25}(app|remot|nube|cloud)|de carga\b|'
+             r'de inspeccion|serpiente|boroscop|serguridad|\bexterior\b|interior|\b2pcs\b|\b4pcs\b))'
+             r'^(?:\S+ ){0,5}(camara|videocamara|camcorder|filmadora|\binstax\b|polaroid|\bgopro\b|insta ?360|'
+             r'dji (osmo|pocket|action)|\bakaso\b|\bsjcam\b|mirrorless|\bdslr\b|sony (alpha|zv-?|a\d{4})|canon (eos|powershot)|'
+             r'nikon (z|d\d{3,4}|coolpix)|fujifilm (x-?[thse]|x100|gfx)|panasonic lumix|\blumix\b|olympus om|\bom system)\b'),
+  ('Cámaras y fotografía', None, 'camera')),
+ (re.compile(r'^(?!.*(memoria ram|\bddr\d|sodimm|\budimm\b|lector de tarjeta|\badaptador\b|\bcable\b|\bfunda|'
+             r'estuche|carcasa|\benclosure\b|gabinete (para|de) disco|\bdock\b|base para disco|soporte|montura|'
+             r'\bpc\b|computadora|laptop|\bportatil\b|chromebook|\bgamer\b|\bryzen\b|\bintel\b|\bcore i\d|'
+             r'\bnvr\b|\bdvr\b|\bkit\b|camara|reproductor|escaner|\bradio\b|tablet|monitor|pantalla|'
+             r'punto de acceso|access point|\bwnap|prosafe|'
+             r'\bpara (camara|celular|telefono|switch|ps[45]|xbox)|de juguete))'
+             r'^(?:\S+ ){0,5}(memoria usb|unidad(es)? flash|\bpendrive|usb flash|flash drive|memoria flash|'
+             r'tarjeta (de memoria|micro ?sd|sd\b|sdxc|sdhc|cfexpress)|micro ?sdxc|micro ?sdhc|memoria micro ?sd|'
+             r'disco duro|\bhdd\b|\bssd\b|unidad de estado solido|\bnvme\b|\bnas\b|'
+             r'sandisk|kingston|\blexar\b|\badata\b|\bseagate\b|western digital|\bwd\b|toshiba canvio|'
+             r'samsung (evo|pro|t7|t9|870|980|990)|\bcrucial\b|\bpny\b)\b'),
+  ('Almacenamiento', None, 'storage')),
  # Herramientas, también de red y por la misma razón que Muebles: un
  # montón de aparatos nombran una herramienta de paso ("organizador para
  # taladro", "batería para atornillador"). Lo que ninguna otra regla
@@ -2256,15 +2325,44 @@ def sub_domotica(tn):
 
 
 def sub_camara(tn):
-    if re.search(r'gopro|camara de accion|action cam|insta ?360', tn): return 'Cámaras de acción'
+    # El cargador o la batería que abren el título son accesorio aunque
+    # nombren la cámara (el cargador Panasonic "para Lumix" caía en
+    # Mirrorless): solo en la cabeza, para no tocar la cámara "con batería
+    # extra".
+    if re.search(r'^(?:\S+ ){0,5}(cargador|bateria|baterias|estacion de carga|puerta de bateria|paquete de \d+ baterias|'
+                 r'soporte|adaptador|montaje|kit de montaje|cabeza de bola|cabezal|brazo|placa|abrazadera|monopie|'
+                 r'marco|clip|tether|lanyard|correa)\b', tn): return 'Accesorios'
+    if re.search(r'gopro|camara (de )?accion|action cam|insta ?360|\bsjcam\b|\bakaso\b|dji (osmo|action)', tn): return 'Cámaras de acción'
     if re.search(r'instantanea|instax|polaroid', tn): return 'Instantáneas'
     if re.search(r'videocamara|camcorder|filmadora', tn): return 'Videocámaras'
-    if re.search(r'mirrorless|sin espejo|\balpha\b|\bzv-?e\b|\bx-?t\d', tn): return 'Mirrorless'
+    if re.search(r'mirrorless|sin espejo|\balpha\b|\bzv-?e\b|\bx-?[the]\d|\bx100\b|\bgfx\b|\blumix\b|om system|\bom-?\d\b', tn): return 'Mirrorless'
     if re.search(r'reflex|\bdslr\b|\beos\b.{0,10}\d|\bd\d{3,4}\b', tn): return 'Réflex'
-    if re.search(r'\blente\b|\bobjetivo\b|\bmm f/|teleobjetivo|gran angular', tn): return 'Lentes'
+    # "lente" a secas se llevaba la cámara térmica ("lente de germanio"), el
+    # domo IP y la grabadora láser: la subcategoría es para el objetivo
+    # intercambiable, que dice su focal o su montura.
+    if re.search(r'(lente|objetivo) .{0,30}(\bmm\b|f/|canon|nikon|sony|fujifilm|sigma|tamron|\bef\b|\brf\b|\bz\b)|'
+                 r'teleobjetivo|(lente|objetivo) gran angular', tn): return 'Lentes'
     if re.search(r'tripie|tripode|estabilizador|gimbal|flash|filtro|correa|'
                  r'bolsa|mochila|bateria|cargador|tarjeta', tn): return 'Accesorios'
     if re.search(r'drone|dron\b', tn): return 'Accesorios'
+    # La compacta es la que no es ninguna de las anteriores y se vende como
+    # "cámara digital" a secas (365 fichas de la captura del 16-sep caían
+    # sin subcategoría). Va al final de todo: puesta antes de Accesorios se
+    # llevaba la "batería para cámara digital".
+    if re.search(r'camara (digital|compacta|de fotos|fotografica|4k|para vlog|de vlog|deportiva|corporal|montada)|'
+                 r'mini camara|\bvlog', tn): return 'Compactas'
+    return None
+
+
+def sub_almacenamiento(tn):
+    if re.search(r'\bnas\b', tn): return 'NAS'
+    if re.search(r'tarjeta|micro ?sd|sdxc|sdhc|cfexpress|\bsd card', tn): return 'Tarjetas de memoria'
+    if re.search(r'memoria usb|unidad(es)? flash|pendrive|usb flash|flash drive|memoria flash|datatraveler|'
+                 r'\bstick\b|usb (2\.0|3\.[0-2]|tipo c|type-?c)', tn): return 'Memorias USB'
+    if re.search(r'externo|portatil|my passport|\belements\b|canvio|\bt7\b|\bt9\b|\bexpansion\b', tn): return 'Externo'
+    if re.search(r'\bssd\b|nvme|m\.2|estado solido', tn): return 'SSD'
+    if re.search(r'disco duro|\bhdd\b|\bsata\b|\bsas\b|\bst\d{4,}[a-z]*\b|\b\d+ ?tb\b', tn): return 'Interno'
+    if re.search(r'\busb\b|ironkey|cruzer|\bdt\d+', tn): return 'Memorias USB'
     return None
 
 
@@ -2660,6 +2758,7 @@ for it in captura:
     elif cat == 'Autos, bicicletas y motos': sub = sub_vehiculo(tn)
     elif cat == 'Domótica y hogar inteligente': sub = sub_domotica(tn)
     elif cat == 'Cámaras y fotografía': sub = sub_camara(tn)
+    elif cat == 'Almacenamiento': sub = sub_almacenamiento(tn)
     mk = marca(it['title'])
     if cat == 'Celulares' and not mk: mk = marca_celular(tn)
     alta.append({**base, 'brand': mk, 'category': cat,
