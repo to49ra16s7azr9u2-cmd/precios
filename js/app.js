@@ -2849,19 +2849,32 @@
       .sort((a, b) => b.pop - a.pop);
     if (!cats.length) { el.homeCatRanking.innerHTML = ""; return; }
     const tope = cats[0].pop;
-    const filas = cats.slice(0, CAT_RANK_VISIBLES).map(({ c, pop }, i) => {
+    el.homeCatRanking.innerHTML =
+      `<span class="home-side-list-head">Categorías más populares</span>`;
+    cats.slice(0, CAT_RANK_VISIBLES).forEach(({ c, pop }, i) => {
       // La barra arranca en 12% para que la décima siga siendo una barra y
       // no una línea: el primero suele tener varias veces el puntaje del
       // último y a escala cruda la cola desaparece.
       const ancho = 12 + Math.round((pop / tope) * 88);
-      return `<a class="home-cat-rank-row" href="categoria/${catSlug(c.name)}/"` +
-        ` title="${htmlEscapeAttr(c.name)} — ${pop.toLocaleString("es-MX")} calificaciones">` +
+      const fila = document.createElement("a");
+      fila.className = "home-cat-rank-row";
+      fila.href = `categoria/${catSlug(c.name)}/`;
+      fila.title = `${c.name} — ${pop.toLocaleString("es-MX")} calificaciones`;
+      fila.innerHTML =
         `<span class="home-cat-rank-bar" style="width:${ancho}%"></span>` +
         `<span class="home-cat-rank-pos">${i + 1}</span>` +
-        `<span class="home-cat-rank-name">${htmlEscapeAttr(c.name)}</span></a>`;
-    }).join("");
-    el.homeCatRanking.innerHTML =
-      `<span class="home-side-list-head">Categorías más populares</span>${filas}`;
+        `<span class="home-cat-rank-foto"></span>` +
+        `<span class="home-cat-rank-name">${htmlEscapeAttr(c.name)}</span>`;
+      // Al lado del puesto va la foto REAL del producto más popular de esa
+      // categoría, el mismo que ilustra su tarjeta en la rejilla del centro
+      // (topByPopularity sobre el pool precalculado de Inicio). Sale de
+      // data/home.json, que la portada ya baja para los rankings de la
+      // derecha: no agrega ni una petición. renderProductMedia se encarga
+      // de reintentar y de caer al emoji del producto si la foto falla.
+      const top = homeLoaded() ? topByPopularity(homePool(c.id), 1)[0] : null;
+      if (top) renderProductMedia(fila.querySelector(".home-cat-rank-foto"), top);
+      el.homeCatRanking.appendChild(fila);
+    });
   }
 
   const RANKING_LINKS_VISIBLES = 18;

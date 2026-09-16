@@ -1576,6 +1576,23 @@ REGLAS = [
              r'\bring\b|router|modem|consola|\bmouse\b|\bpc\b|escritorio|impresora|refrigerador|lavadora|'
              r'secadora|microondas|estufa|horno|nest\b|chromecast|toallitas|brazalete|cordon|correa|soporte|'
              r'\bddr[345]\b|sodimm|\budimm\b|\brdimm\b|\bdimm\b|pc[34]-\d|modulo de memoria|memoria dram|''magic keyboard|teclado (para|magic|inalambrico|mecanico|bluetooth|touchpad|plegable|retroiluminado|numerico)|teclado y (raton|mouse)|\bmouse\b|\braton\b|combinacion de raton|core ultra|\bi[3579]-\d{4}|ryzen [3579]\b|\btssd\b|sobremesa|torre desktop|digital piano|cascos? over-?ear|driver de camara))'
+             # El accesorio que se vende POR el teléfono: "anillo magnético
+             # compatible con iPhone 15 14 13", "obturador remoto para iPhone",
+             # "bloque de pared para Samsung Galaxy S24". La regla de arriba
+             # pide marca y modelo cerca de un color o unos GB, y "compatible
+             # con iPhone 15 ... negro" lo cumple igual que el iPhone. Un
+             # teléfono de verdad nunca dice "para iPhone" ni "compatible con
+             # Galaxy"; los combos de tienda dicen "con bocina", no "para".
+             # El teléfono tiene que ser el objeto directo del "para": con 25
+             # caracteres de holgura, "Fabricado para Estados Unidos por
+             # Motorola" convertía un Moto G en accesorio (y de ahí a
+             # Motocicletas), y "para Personas Mayores ... Teléfono" tiraba un
+             # teléfono básico. Medido en la regresión: 6 teléfonos perdidos.
+             r'(?!.*\b(para|compatible (con|for|with)|for|fits?) (el |la |los |las |tu |su |mi |un |una )?'
+             r'(iphone|celular(es)?|telefonos? (celular|movil|inteligente)|smartphones?|samsung|galaxy|xiaomi|'
+             r'redmi|motorola|huawei|android|movil(es)?)\b)'
+             r'(?!.*(anillo|ring holder|ring stand|obturador|palo (de )?selfie|gamepad|mando de juego|'
+             r'unidad flash|enchufes? de pared|bloque de pared|laser|impresora|proyector))'
              r'(?=.*(\bcelular(es)?\b|smartphone|\bsmart ?phone\b|'
              r'telefono (inteligente|celular|movil|desbloqueado|resistente|robusto|android)|'
              r'telefonos inteligentes|movil inteligente|dual sim|dual nano|desbloqueado|liberado|'
@@ -1689,6 +1706,22 @@ REGLAS = [
              r'\bplatillo|\bcuencos? (cantante|tibetano|de cristal)|\bkashaka\b|'
              r'\baslatua|miniteclado|\bmelodion\b|\bcabaza\b|\bwaterphone\b|'
              r'\bmazos? de (vibrafono|marimba|xilofono|timbal)|\bdiapason\b|'
+             # Tercera pasada, sobre la captura de 13,373 anuncios: 301 títulos
+             # decían literalmente "instrumento de viento" sin nombrar cuál, y
+             # los metales y las flautas del mundo (trompa, fliscorno, suona,
+             # xun, dizi, pan pipes) eran 106 más. El tocadiscos entra acá
+             # porque Instrumentos musicales ya tiene su subcategoría
+             # ("Tornamesas"), que hasta ahora no la alcanzaba ninguna regla.
+             r'instrumentos? (de )?viento|\btrompa\b|corno (frances|ingles)|'
+             r'french horn|\bbugle\b|fliscorno|\btuba\b|\beufonio\b|\bsuona\b|'
+             r'\bsheng\b|\bxun\b|\bdizi\b|bansuri|pan ?pipes?|panpipe|'
+             r'\bpiccolo\b|flautin|\bgaita\b|cornamusa|\bcucurbita\b|\bbawu\b|'
+             # El tocadiscos NO entra acá aunque "Tornamesas" exista como
+             # subcategoría: probado, se llevaba los reproductores de vinilo
+             # retro --que son equipo de audio de sala, no un instrumento-- y
+             # encima sub_instrumento los mandaba a Amplificadores, porque esa
+             # rama va antes que la de Tornamesas. Una tornamesa de DJ de
+             # verdad ya la reclama una regla anterior.
              r'instrumentos? musical))'),
   ('Instrumentos musicales', None, 'guitar')),
  # Y esta segunda las AMBIGUAS: "batería" es también la pila, "tambor" el de
@@ -1697,11 +1730,31 @@ REGLAS = [
  # por eso van después: cualquier regla más precisa (Baterías portátiles,
  # Lavadoras, Autos) ya se llevó lo suyo mucho antes.
  (re.compile(r'^(?!.*(de juguete|para (muneca|barbie)|\bmaqueta\b))'
-             r'(?=.*(\bbateria|\btambor|\bplatillo|\bcuerdas\b|\bbajo\b|\bpercusion|'
-             r'\bafinador\b|\batril\b|\bpartitura))'
+             r'(?=.*(\bbateria|\btambor|\bplatillo|\bcuerdas?\b|\bbajo\b|\bpercusion|'
+             # "amplificador" y "pedal" se probaron como disparadores y hubo
+             # que sacarlos: los repetidores de WiFi se venden como
+             # "amplificador de señal ... doble banda", y "banda" ya estaba en
+             # la lista de contexto de abajo -- 40 extensores de red acababan
+             # en Instrumentos musicales. El amplificador de guitarra lo
+             # recoge igual la red, por la palabra "guitarra" o "bajo".
+             r'\bafinador\b|\batril\b|\bpartitura|\bviola\b))'
              r'(?=.*(musical|instrumento|orquesta|\bbanda\b|percusion|'
              r'guitarra|\bpiano\b|\bmidi\b|conciert|\bmusica\b|baterista|'
-             r'\bbaqueta|\btarola\b|\bhi-?hat\b|\bcharles\b|\bbombo\b))'),
+             r'\bbaqueta|\btarola\b|\bhi-?hat\b|\bcharles\b|\bbombo\b|'
+             # El contexto también viene en inglés (media tienda de cuerdas y
+             # parches se vende con el título original) y en la marca, cuando
+             # esa marca no fabrica otra cosa: Fender no hace lavadoras. Se
+             # excluyen a propósito las que sí (Yamaha, Roland, Pearl, Dunlop),
+             # porque ahí la marca no dice nada sobre qué es el producto.
+             r'\bguitar\b|\bbass\b|\bdrum\b|\bcymbal\b|\bsnare\b|\bstrings?\b|'
+             r'\bfret|\bukulele\b|\bukelele\b|\bsaxofon|\btrompeta|\bviolin|'
+             # Ni Remo ni Shure, aunque solo hagan cosas de música: "remo" es
+             # también el de la tabla de remo (un propulsor de surf con
+             # "batería" acabó en Baterías), y Shure pone su nombre en la
+             # tapa de la pila de su transmisor, que es un repuesto.
+             r'addario|ernie ball|\bfender\b|\bgibson\b|ibanez|squier|epiphone|'
+             r'\btama\b|sabian|zildjian|\bevans\b|\bmeinl\b|\bludwig\b|'
+             r'\bsonor\b|\bmapex\b|gretsch|\bkorg\b))'),
   ('Instrumentos musicales', None, 'guitar')),
  # Herramientas, también de red y por la misma razón que Muebles: un
  # montón de aparatos nombran una herramienta de paso ("organizador para
@@ -2092,12 +2145,20 @@ def sub_instrumento(tn):
     if re.search(r'bateria|tambor|\bcajon\b|percusion|platillo|conga|\bbongo|'
                  r'\bredoblante\b|\btarola\b|\bbombo\b|\bbaqueta|\btimbal|\bparche\b|\bcharles\b|hi-?hat', tn): return 'Baterías'
     if re.search(r'violin|violonchelo|\bcello\b|contrabajo|\bviola\b|\barpa\b|'
-                 r'\berhu\b|\bguqin\b|guzheng|\bkoto\b|\bsitar\b|\bcitara\b', tn): return 'Cuerdas'
+                 r'\berhu\b|\bguqin\b|guzheng|\bkoto\b|\bsitar\b|\bcitara\b|'
+                 r'\blira\b|\blyre\b|\bharp\b', tn): return 'Cuerdas'
     if re.search(r'saxofon|trompeta|flauta|clarinete|trombon|\btuba\b|armonica|oboe|'
                  r'\bfagot\b|\bcorno\b|\btrompa\b|corneta|melodica|\bpianica\b|'
                  r'\bkazoo\b|ocarina|didgeridoo|\bgaita\b|\bquena\b|zampo|flautin|'
                  r'\bflugel|\bcornamusa\b|bombardino|\bshofar\b|\bhulusi\b|sousafon|'
-                 r'\bcuerno\b|\bmelodion\b|\bpiano de viento\b', tn): return 'Viento'
+                 r'\bcuerno\b|\bmelodion\b|\bpiano de viento\b|'
+                 # Los que la red nueva trae y aquí no tenían rama: 301 fichas
+                 # dicen "instrumento de viento" sin nombrar cuál, y los del
+                 # resto del mundo (suona, sheng, xun, dizi, bansuri, bawu)
+                 # caían sin subcategoría, que es quedarse fuera de su página.
+                 r'instrumentos? (de )?viento|\bsuona\b|\bsheng\b|\bxun\b|\bdizi\b|'
+                 r'bansuri|pan ?pipes?|panpipe|\bpiccolo\b|\bbawu\b|\bcucurbita\b|'
+                 r'fliscorno|\beufonio\b|french horn|\bbugle\b', tn): return 'Viento'
     if re.search(r'microfono', tn): return 'Micrófonos'
     if re.search(r'interfaz de audio|mezcladora|mixer|monitor de estudio|'
                  r'controlador midi|\bdaw\b|preamp', tn): return 'Producción de audio'
@@ -2111,7 +2172,13 @@ def sub_instrumento(tn):
                  r'\bresina\b|pastilla (de|para)|\bpickup\b|parche (de|para)|'
                  r'soporte (de|para)|banco (de|para) (piano|teclado|bateria)|'
                  r'metronomo|\bpartitura|aceite (de|para) (valvula|llave)|'
-                 r'\bdiapason\b|tenedor de afinacion|cable midi|\bperilla\b', tn): return 'Accesorios'
+                 r'\bdiapason\b|tenedor de afinacion|cable midi|\bperilla\b|'
+                 # Al final de todo, que es donde no molesta: un juego de
+                 # cuerdas sueltas (media tienda de D'Addario) no nombra
+                 # ningún instrumento y se quedaba sin subcategoría. Acá abajo
+                 # solo alcanza a lo que ninguna rama anterior reclamó, así
+                 # que "guitarra con cuerdas de repuesto" sigue en Guitarras.
+                 r'\bcuerdas?\b|drum ?stick', tn): return 'Accesorios'
     return None
 
 

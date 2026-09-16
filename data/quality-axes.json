@@ -1,4 +1,2636 @@
 {
+ "Herramientas/Herramientas manuales": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "herramientas-manuales",
+      "name": "Herramientas Manuales",
+      "use": "",
+      "spec": "Herramientas Manuales",
+      "values": [
+       "Herramientas Manuales"
+      ]
+     },
+     {
+      "id": "llaves",
+      "name": "Llaves",
+      "use": "",
+      "spec": "Llaves",
+      "values": [
+       "Llaves"
+      ]
+     },
+     {
+      "id": "desarmadores",
+      "name": "Desarmadores",
+      "use": "",
+      "spec": "Desarmadores",
+      "values": [
+       "Desarmadores"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Herramientas/Herramientas eléctricas": {
+  "axes": [
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por el trabajo que le vas a dar y si la quieres con o sin cable."
+ },
+ "Herramientas/Neumáticas": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "herramientas-electricas",
+      "name": "Herramientas Eléctricas",
+      "use": "",
+      "spec": "Herramientas Eléctricas",
+      "values": [
+       "Herramientas Eléctricas"
+      ]
+     },
+     {
+      "id": "llaves",
+      "name": "Llaves",
+      "use": "",
+      "spec": "Llaves",
+      "values": [
+       "Llaves"
+      ]
+     },
+     {
+      "id": "accesorios-para-pintura",
+      "name": "Accesorios para Pintura",
+      "use": "",
+      "spec": "Accesorios para Pintura",
+      "values": [
+       "Accesorios para Pintura"
+      ]
+     },
+     {
+      "id": "clavadoras",
+      "name": "Clavadoras",
+      "use": "",
+      "spec": "Clavadoras",
+      "values": [
+       "Clavadoras"
+      ]
+     },
+     {
+      "id": "pistolas-de-calor-y-neumaticas",
+      "name": "Pistolas de Calor y Neumáticas",
+      "use": "",
+      "spec": "Pistolas de Calor y Neumáticas",
+      "values": [
+       "Pistolas de Calor y Neumáticas"
+      ]
+     },
+     {
+      "id": "taladros-y-atornilladores",
+      "name": "Taladros y Atornilladores",
+      "use": "",
+      "spec": "Taladros y Atornilladores",
+      "values": [
+       "Taladros y Atornilladores"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Herramientas/Accesorios para herramientas eléctricas": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "brocas-y-juego-de-dados",
+      "name": "Brocas y Juego de Dados",
+      "use": "",
+      "spec": "Brocas y Juego de Dados",
+      "values": [
+       "Brocas y Juego de Dados"
+      ]
+     },
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Herramientas/Jardinería": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     },
+     {
+      "id": "herramientas-manuales",
+      "name": "Herramientas Manuales",
+      "use": "",
+      "spec": "Herramientas Manuales",
+      "values": [
+       "Herramientas Manuales"
+      ]
+     },
+     {
+      "id": "desbrozadoras",
+      "name": "Desbrozadoras",
+      "use": "",
+      "spec": "Desbrozadoras",
+      "values": [
+       "Desbrozadoras"
+      ]
+     },
+     {
+      "id": "herramientas-electricas",
+      "name": "Herramientas Eléctricas",
+      "use": "",
+      "spec": "Herramientas Eléctricas",
+      "values": [
+       "Herramientas Eléctricas"
+      ]
+     },
+     {
+      "id": "mangueras",
+      "name": "Mangueras",
+      "use": "",
+      "spec": "Mangueras",
+      "values": [
+       "Mangueras"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Redes/Routers": {
+  "axes": [
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     },
+     {
+      "id": "wi-fi-6e",
+      "name": "Wi-Fi 6E",
+      "use": "Banda de 6 GHz, sin interferencia",
+      "spec": "Wi-Fi 6E",
+      "values": [
+       "Wi-Fi 6E"
+      ]
+     },
+     {
+      "id": "wi-fi-7",
+      "name": "Wi-Fi 7",
+      "use": "La generación más nueva",
+      "spec": "Wi-Fi 7",
+      "values": [
+       "Wi-Fi 7"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Redes/Repetidores": {
+  "axes": [
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-4",
+      "name": "Wi-Fi 4",
+      "use": "Básico, para pocos equipos",
+      "spec": "Wi-Fi 4",
+      "values": [
+       "Wi-Fi 4"
+      ]
+     },
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Redes/Switches": {
+  "axes": [
+   {
+    "label": "Puertos",
+    "field": "ports",
+    "criterion": "por número de puertos",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "pocos",
+      "name": "Pocos",
+      "use": "Un escritorio o una sala",
+      "spec": "Hasta 8 puertos",
+      "max": 8
+     },
+     {
+      "id": "medios",
+      "name": "Medios",
+      "use": "Casa u oficina chica",
+      "spec": "9 puertos a 24 puertos",
+      "min": 8,
+      "max": 24
+     },
+     {
+      "id": "muchos",
+      "name": "Muchos",
+      "use": "Oficina o rack",
+      "spec": "Más de 24 puertos",
+      "min": 24
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/Memoria RAM": {
+  "axes": [
+   {
+    "label": "Memoria",
+    "field": "ram_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 8 GB",
+      "max": 8
+     },
+     {
+      "id": "intermedia",
+      "name": "Intermedia",
+      "use": "Varias apps y juegos",
+      "spec": "9 GB a 16 GB",
+      "min": 8,
+      "max": 16
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Edición y estaciones de trabajo",
+      "spec": "Más de 16 GB",
+      "min": 16
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/Accesorios de monitor": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "size_in",
+    "criterion": "en pulgadas",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "El más compacto",
+      "spec": "Hasta 27\"",
+      "max": 27
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "28\" a 32\"",
+      "min": 27,
+      "max": 32
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "El más grande",
+      "spec": "Más de 32\"",
+      "min": 32
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/Webcams": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Autos, bicicletas y motos/Cascos para moto": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "helmet_type",
+    "criterion": "de casco",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "abatible",
+      "name": "Abatible",
+      "use": "Se abre por delante",
+      "spec": "Abatible",
+      "values": [
+       "Abatible"
+      ]
+     },
+     {
+      "id": "integral",
+      "name": "Integral",
+      "use": "Cerrado, el que más protege",
+      "spec": "Integral",
+      "values": [
+       "Integral"
+      ]
+     },
+     {
+      "id": "cerrado",
+      "name": "Cerrado",
+      "use": "Cerrado, el que más protege",
+      "spec": "Cerrado",
+      "values": [
+       "Cerrado"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Talla",
+    "field": "size_label",
+    "criterion": "según la ficha",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "",
+      "spec": "Chica",
+      "values": [
+       "Chica"
+      ]
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "",
+      "spec": "Mediana",
+      "values": [
+       "Mediana"
+      ]
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "",
+      "spec": "Grande",
+      "values": [
+       "Grande"
+      ]
+     },
+     {
+      "id": "extra-grande",
+      "name": "Extra grande",
+      "use": "",
+      "spec": "Extra grande",
+      "values": [
+       "Extra grande"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Empieza por el tipo y tu talla: un casco flojo no protege."
+ },
+ "Autos, bicicletas y motos/Llantas": {
+  "axes": [
+   {
+    "label": "Rin",
+    "field": "rim_size",
+    "criterion": "por medida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "r14",
+      "name": "R14",
+      "use": "",
+      "spec": "R14",
+      "values": [
+       "R14"
+      ]
+     },
+     {
+      "id": "r15",
+      "name": "R15",
+      "use": "",
+      "spec": "R15",
+      "values": [
+       "R15"
+      ]
+     },
+     {
+      "id": "r16",
+      "name": "R16",
+      "use": "",
+      "spec": "R16",
+      "values": [
+       "R16"
+      ]
+     },
+     {
+      "id": "r17",
+      "name": "R17",
+      "use": "",
+      "spec": "R17",
+      "values": [
+       "R17"
+      ]
+     },
+     {
+      "id": "r18",
+      "name": "R18",
+      "use": "",
+      "spec": "R18",
+      "values": [
+       "R18"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Autos, bicicletas y motos/Bocinas para auto": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "suave",
+      "name": "Suave",
+      "use": "Para oír música con claridad",
+      "spec": "Hasta 190 W",
+      "max": 190
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Más presencia y bajos",
+      "spec": "191 W a 400 W",
+      "min": 190,
+      "max": 400
+     },
+     {
+      "id": "fuerte",
+      "name": "Fuerte",
+      "use": "Para que se oiga desde afuera",
+      "spec": "Más de 400 W",
+      "min": 400
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Tamaño",
+    "field": "size_in",
+    "criterion": "en pulgadas",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Tweeters y puertas chicas",
+      "spec": "Hasta 6.5\"",
+      "max": 6.5
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "La medida más común",
+      "spec": "Más de 6.5\", hasta 8\"",
+      "min": 6.5,
+      "max": 8
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Woofers y subwoofers",
+      "spec": "Más de 8\"",
+      "min": 8
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Autos, bicicletas y motos/Amplificadores para auto": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "suave",
+      "name": "Suave",
+      "use": "Para mejorar el estéreo de fábrica",
+      "spec": "Hasta 660 W",
+      "max": 660
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Bocinas y un subwoofer",
+      "spec": "661 W a 2,000 W",
+      "min": 660,
+      "max": 2000
+     },
+     {
+      "id": "fuerte",
+      "name": "Fuerte",
+      "use": "Subwoofers grandes y competencia",
+      "spec": "Más de 2,000 W",
+      "min": 2000
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Instrumentos musicales/Producción de audio": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Instrumentos musicales/Micrófonos": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Instrumentos musicales/Amplificadores": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "para-practicar",
+      "name": "Para practicar",
+      "use": "En casa, sin molestar",
+      "spec": "Hasta 50 W",
+      "max": 50
+     },
+     {
+      "id": "para-ensayar",
+      "name": "Para ensayar",
+      "use": "Sala de ensayo",
+      "spec": "51 W a 600 W",
+      "min": 50,
+      "max": 600
+     },
+     {
+      "id": "para-tocar-en-vivo",
+      "name": "Para tocar en vivo",
+      "use": "Escenario y bocinas grandes",
+      "spec": "Más de 600 W",
+      "min": 600
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Instrumentos musicales/Efectos y pedales": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Otros/Varios": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Otros/Inversores": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Laptop y teléfono",
+      "spec": "Hasta 700 W",
+      "max": 700
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Televisión y herramientas chicas",
+      "spec": "701 W a 1,000 W",
+      "min": 700,
+      "max": 1000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Refrigerador y equipos grandes",
+      "spec": "Más de 1,000 W",
+      "min": 1000
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Otros/Estaciones de energía": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Teléfono, laptop y luces",
+      "spec": "Hasta 300 W",
+      "max": 300
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Refrigerador y herramientas",
+      "spec": "301 W a 600 W",
+      "min": 300,
+      "max": 600
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Casa en un apagón",
+      "spec": "Más de 600 W",
+      "min": 600
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Otros/Paneles solares": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cargar teléfono y luces",
+      "spec": "Hasta 30 W",
+      "max": 30
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Estación de energía o cabaña",
+      "spec": "31 W a 120 W",
+      "min": 30,
+      "max": 120
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Instalación de casa",
+      "spec": "Más de 120 W",
+      "min": 120
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Otros/Generadores": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Luces, teléfono y refrigerador",
+      "spec": "Hasta 2,300 W",
+      "max": 2300
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Casa chica en un apagón",
+      "spec": "2,301 W a 4,800 W",
+      "min": 2300,
+      "max": 4800
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Local, taller o casa entera",
+      "spec": "Más de 4,800 W",
+      "min": 4800
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Otros/Baño": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Salud y belleza/Cuidado del cabello": {
+  "axes": [
+   {
+    "label": "Contenido",
+    "field": "volume_ml",
+    "criterion": "en mililitros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Para probar o para viajar",
+      "spec": "Hasta 110 ml",
+      "max": 110
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Uso de diario",
+      "spec": "111 ml a 200 ml",
+      "min": 110,
+      "max": 200
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Rinde meses",
+      "spec": "Más de 200 ml",
+      "min": 200
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Salud y belleza/Rasuradoras": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Salud y belleza/Depilación": {
+  "axes": [
+   {
+    "label": "Contenido",
+    "field": "volume_ml",
+    "criterion": "en mililitros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Para probar o para viajar",
+      "spec": "Hasta 120 ml",
+      "max": 120
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Uso de diario",
+      "spec": "121 ml a 400 ml",
+      "min": 120,
+      "max": 400
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Rinde meses",
+      "spec": "Más de 400 ml",
+      "min": 400
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Salud y belleza/Cuidado personal": {
+  "axes": [
+   {
+    "label": "Contenido",
+    "field": "volume_ml",
+    "criterion": "en mililitros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Para probar o para viajar",
+      "spec": "Hasta 100 ml",
+      "max": 100
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Uso de diario",
+      "spec": "101 ml a 180 ml",
+      "min": 100,
+      "max": 180
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Rinde meses",
+      "spec": "Más de 180 ml",
+      "min": 180
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Salud y belleza/Rastrillos": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Juguetes y bebés/Peluches": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "De bolsillo o llavero",
+      "spec": "Hasta 22 cm",
+      "max": 22
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Para abrazar",
+      "spec": "23 cm a 30 cm",
+      "min": 22,
+      "max": 30
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Para la cama",
+      "spec": "Más de 30 cm",
+      "min": 30
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Bebés": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Vehículos a control remoto": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Montables": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Maquetas": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Baterías portátiles/Hasta 10,000 mAh": {
+  "axes": [
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 20 W",
+      "max": 20
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "21 W a 25 W",
+      "min": 20,
+      "max": 25
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 25 W",
+      "min": 25
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Baterías portátiles/10,000 a 20,000 mAh": {
+  "axes": [
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 30 W",
+      "max": 30
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "31 W a 45 W",
+      "min": 30,
+      "max": 45
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 45 W",
+      "min": 45
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Baterías portátiles/Más de 20,000 mAh": {
+  "axes": [
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 22 W",
+      "max": 22
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "23 W a 100 W",
+      "min": 22,
+      "max": 100
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 100 W",
+      "min": 100
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Muebles/Otros": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 100 cm",
+      "max": 100
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "101 cm a 210 cm",
+      "min": 100,
+      "max": 210
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 210 cm",
+      "min": 210
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Mesas de centro": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 60 cm",
+      "max": 60
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "61 cm a 100 cm",
+      "min": 60,
+      "max": 100
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 100 cm",
+      "min": 100
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Libreros": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 49 cm",
+      "max": 49
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "50 cm a 100 cm",
+      "min": 49,
+      "max": 100
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 100 cm",
+      "min": 100
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Sofás": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 49 cm",
+      "max": 49
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "50 cm a 84 cm",
+      "min": 49,
+      "max": 84
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 84 cm",
+      "min": 84
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Mesas de comedor": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 89 cm",
+      "max": 89
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "90 cm a 120 cm",
+      "min": 89,
+      "max": 120
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 120 cm",
+      "min": 120
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Deportes y fitness/Otros": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "snorkeling",
+      "name": "Snorkeling",
+      "use": "",
+      "spec": "Snorkeling",
+      "values": [
+       "Snorkeling"
+      ]
+     },
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
+     },
+     {
+      "id": "basquetbol",
+      "name": "Basquetbol",
+      "use": "",
+      "spec": "Basquetbol",
+      "values": [
+       "Basquetbol"
+      ]
+     },
+     {
+      "id": "beisbol",
+      "name": "Béisbol",
+      "use": "",
+      "spec": "Béisbol",
+      "values": [
+       "Béisbol"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Deportes y fitness/Equipo de gimnasio": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso ocasional en casa",
+      "spec": "Hasta 100 kg",
+      "max": 100
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso diario",
+      "spec": "101 kg a 130 kg",
+      "min": 100,
+      "max": 130
+     },
+     {
+      "id": "reforzada",
+      "name": "Reforzada",
+      "use": "Uso rudo o personas de más peso",
+      "spec": "Más de 130 kg",
+      "min": 130
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Deportes y fitness/Yoga": {
+  "axes": [
+   {
+    "label": "Grosor",
+    "field": "thickness_mm",
+    "criterion": "en milímetros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "delgado",
+      "name": "Delgado",
+      "use": "Equilibrio y viajes",
+      "spec": "Hasta 4 mm",
+      "max": 4
+     },
+     {
+      "id": "medio",
+      "name": "Medio",
+      "use": "El grosor más común",
+      "spec": "5 mm a 10 mm",
+      "min": 4,
+      "max": 10
+     },
+     {
+      "id": "grueso",
+      "name": "Grueso",
+      "use": "Rodillas y suelo duro",
+      "spec": "Más de 10 mm",
+      "min": 10
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Deportes y fitness/Balones": {
+  "axes": [
+   {
+    "label": "Número",
+    "field": "ball_no",
+    "criterion": "del balón",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "n3",
+      "name": "No. 3",
+      "use": "Niños chicos",
+      "spec": "No. 3",
+      "max": 3
+     },
+     {
+      "id": "n4",
+      "name": "No. 4",
+      "use": "Juvenil",
+      "spec": "No. 4",
+      "min": 3,
+      "max": 4
+     },
+     {
+      "id": "n5",
+      "name": "No. 5",
+      "use": "Adultos, medida oficial de futbol",
+      "spec": "No. 5",
+      "min": 4,
+      "max": 5
+     },
+     {
+      "id": "n6",
+      "name": "No. 6",
+      "use": "Basquetbol femenil",
+      "spec": "No. 6",
+      "min": 5,
+      "max": 6
+     },
+     {
+      "id": "n7",
+      "name": "No. 7",
+      "use": "Basquetbol varonil y futbol americano",
+      "spec": "No. 7",
+      "min": 6
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Deportes y fitness/Boxeo": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "box",
+      "name": "Box",
+      "use": "",
+      "spec": "Box",
+      "values": [
+       "Box"
+      ]
+     },
+     {
+      "id": "artes-marciales",
+      "name": "Artes Marciales",
+      "use": "",
+      "spec": "Artes Marciales",
+      "values": [
+       "Artes Marciales"
+      ]
+     },
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Deportes y fitness/Pesas": {
+  "axes": [
+   {
+    "label": "Peso",
+    "field": "weight_kg",
+    "criterion": "en kilos",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligeras",
+      "name": "Ligeras",
+      "use": "Para empezar y tonificar",
+      "spec": "Hasta 5 kg",
+      "max": 5
+     },
+     {
+      "id": "medias",
+      "name": "Medias",
+      "use": "Fuerza general",
+      "spec": "6 kg a 15 kg",
+      "min": 5,
+      "max": 15
+     },
+     {
+      "id": "pesadas",
+      "name": "Pesadas",
+      "use": "Fuerza avanzada",
+      "spec": "Más de 15 kg",
+      "min": 15
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por dónde estás: se empieza ligero y se sube."
+ },
+ "Deportes y fitness/Patines y patinetas": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Deportes y fitness/Natación": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "natacion",
+      "name": "Natación",
+      "use": "",
+      "spec": "Natación",
+      "values": [
+       "Natación"
+      ]
+     },
+     {
+      "id": "buceo",
+      "name": "Buceo",
+      "use": "",
+      "spec": "Buceo",
+      "values": [
+       "Buceo"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Cámaras de seguridad/Interiores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Mouse/Gaming": {
+  "axes": [
+   {
+    "label": "Sensibilidad",
+    "field": "dpi",
+    "criterion": "en DPI",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 10,000 DPI",
+      "max": 10000
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Juegos casuales",
+      "spec": "10,001 DPI a 25,500 DPI",
+      "min": 10000,
+      "max": 25500
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Juegos competitivos y pantallas grandes",
+      "spec": "Más de 25,500 DPI",
+      "min": 25500
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Electrodomésticos/Hornos": {
+  "axes": [
+   {
+    "label": "Capacidad",
+    "field": "liters",
+    "criterion": "en litros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Tostar y calentar",
+      "spec": "Hasta 25 L",
+      "max": 25
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Cocina de todos los días",
+      "spec": "26 L a 58 L",
+      "min": 25,
+      "max": 58
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Pavo y charolas grandes",
+      "spec": "Más de 58 L",
+      "min": 58
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Electrodomésticos/Pequeños electrodomésticos de cocina": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Batir y mezclar",
+      "spec": "Hasta 650 W",
+      "max": 650
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Cocinar de diario",
+      "spec": "651 W a 1,000 W",
+      "min": 650,
+      "max": 1000
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Calentar rápido y uso continuo",
+      "spec": "Más de 1,000 W",
+      "min": 1000
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Capacidad",
+    "field": "liters",
+    "criterion": "en litros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Una o dos porciones",
+      "spec": "Hasta 2.8 L",
+      "max": 2.8
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Para la familia",
+      "spec": "Más de 2.8 L, hasta 6 L",
+      "min": 2.8,
+      "max": 6
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Reuniones",
+      "spec": "Más de 6 L",
+      "min": 6
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Electrodomésticos/Extractores de jugo": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 300 W",
+      "max": 300
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "301 W a 600 W",
+      "min": 300,
+      "max": 600
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 600 W",
+      "min": 600
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Electrodomésticos/Planchas": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 1,200 W",
+      "max": 1200
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "1,201 W a 1,500 W",
+      "min": 1200,
+      "max": 1500
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 1,500 W",
+      "min": 1500
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
  "Climatización/Deshumidificadores": {
   "axes": [
    {
@@ -1580,1214 +4212,6 @@
   ],
   "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
  },
- "Herramientas/Herramientas manuales": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "herramientas-manuales",
-      "name": "Herramientas Manuales",
-      "use": "",
-      "spec": "Herramientas Manuales",
-      "values": [
-       "Herramientas Manuales"
-      ]
-     },
-     {
-      "id": "llaves",
-      "name": "Llaves",
-      "use": "",
-      "spec": "Llaves",
-      "values": [
-       "Llaves"
-      ]
-     },
-     {
-      "id": "desarmadores",
-      "name": "Desarmadores",
-      "use": "",
-      "spec": "Desarmadores",
-      "values": [
-       "Desarmadores"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Herramientas/Herramientas eléctricas": {
-  "axes": [
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por el trabajo que le vas a dar y si la quieres con o sin cable."
- },
- "Herramientas/Neumáticas": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "herramientas-electricas",
-      "name": "Herramientas Eléctricas",
-      "use": "",
-      "spec": "Herramientas Eléctricas",
-      "values": [
-       "Herramientas Eléctricas"
-      ]
-     },
-     {
-      "id": "llaves",
-      "name": "Llaves",
-      "use": "",
-      "spec": "Llaves",
-      "values": [
-       "Llaves"
-      ]
-     },
-     {
-      "id": "accesorios-para-pintura",
-      "name": "Accesorios para Pintura",
-      "use": "",
-      "spec": "Accesorios para Pintura",
-      "values": [
-       "Accesorios para Pintura"
-      ]
-     },
-     {
-      "id": "clavadoras",
-      "name": "Clavadoras",
-      "use": "",
-      "spec": "Clavadoras",
-      "values": [
-       "Clavadoras"
-      ]
-     },
-     {
-      "id": "pistolas-de-calor-y-neumaticas",
-      "name": "Pistolas de Calor y Neumáticas",
-      "use": "",
-      "spec": "Pistolas de Calor y Neumáticas",
-      "values": [
-       "Pistolas de Calor y Neumáticas"
-      ]
-     },
-     {
-      "id": "taladros-y-atornilladores",
-      "name": "Taladros y Atornilladores",
-      "use": "",
-      "spec": "Taladros y Atornilladores",
-      "values": [
-       "Taladros y Atornilladores"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Herramientas/Accesorios para herramientas eléctricas": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "brocas-y-juego-de-dados",
-      "name": "Brocas y Juego de Dados",
-      "use": "",
-      "spec": "Brocas y Juego de Dados",
-      "values": [
-       "Brocas y Juego de Dados"
-      ]
-     },
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Herramientas/Jardinería": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "herramientas-manuales",
-      "name": "Herramientas Manuales",
-      "use": "",
-      "spec": "Herramientas Manuales",
-      "values": [
-       "Herramientas Manuales"
-      ]
-     },
-     {
-      "id": "desbrozadoras",
-      "name": "Desbrozadoras",
-      "use": "",
-      "spec": "Desbrozadoras",
-      "values": [
-       "Desbrozadoras"
-      ]
-     },
-     {
-      "id": "herramientas-electricas",
-      "name": "Herramientas Eléctricas",
-      "use": "",
-      "spec": "Herramientas Eléctricas",
-      "values": [
-       "Herramientas Eléctricas"
-      ]
-     },
-     {
-      "id": "mangueras",
-      "name": "Mangueras",
-      "use": "",
-      "spec": "Mangueras",
-      "values": [
-       "Mangueras"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Muebles/Otros": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 100 cm",
-      "max": 100
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "101 cm a 210 cm",
-      "min": 100,
-      "max": 210
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 210 cm",
-      "min": 210
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Mesas de centro": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 60 cm",
-      "max": 60
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "61 cm a 100 cm",
-      "min": 60,
-      "max": 100
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 100 cm",
-      "min": 100
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Libreros": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 49 cm",
-      "max": 49
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "50 cm a 100 cm",
-      "min": 49,
-      "max": 100
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 100 cm",
-      "min": 100
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Sofás": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 49 cm",
-      "max": 49
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "50 cm a 84 cm",
-      "min": 49,
-      "max": 84
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 84 cm",
-      "min": 84
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Mesas de comedor": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 89 cm",
-      "max": 89
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "90 cm a 120 cm",
-      "min": 89,
-      "max": 120
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 120 cm",
-      "min": 120
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Otros/Estaciones de energía": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Teléfono, laptop y luces",
-      "spec": "Hasta 300 W",
-      "max": 300
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Refrigerador y herramientas",
-      "spec": "301 W a 600 W",
-      "min": 300,
-      "max": 600
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Casa en un apagón",
-      "spec": "Más de 600 W",
-      "min": 600
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Otros/Paneles solares": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cargar teléfono y luces",
-      "spec": "Hasta 30 W",
-      "max": 30
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Estación de energía o cabaña",
-      "spec": "31 W a 120 W",
-      "min": 30,
-      "max": 120
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Instalación de casa",
-      "spec": "Más de 120 W",
-      "min": 120
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Otros/Varios": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Otros/Generadores": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Luces, teléfono y refrigerador",
-      "spec": "Hasta 2,300 W",
-      "max": 2300
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Casa chica en un apagón",
-      "spec": "2,301 W a 4,800 W",
-      "min": 2300,
-      "max": 4800
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Local, taller o casa entera",
-      "spec": "Más de 4,800 W",
-      "min": 4800
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Otros/Inversores": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Laptop y teléfono",
-      "spec": "Hasta 700 W",
-      "max": 700
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Televisión y herramientas chicas",
-      "spec": "701 W a 1,000 W",
-      "min": 700,
-      "max": 1000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Refrigerador y equipos grandes",
-      "spec": "Más de 1,000 W",
-      "min": 1000
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Otros/Baño": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Baterías portátiles/Hasta 10,000 mAh": {
-  "axes": [
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 20 W",
-      "max": 20
-     },
-     {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "21 W a 25 W",
-      "min": 20,
-      "max": 25
-     },
-     {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 25 W",
-      "min": 25
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Baterías portátiles/10,000 a 20,000 mAh": {
-  "axes": [
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 30 W",
-      "max": 30
-     },
-     {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "31 W a 55 W",
-      "min": 30,
-      "max": 55
-     },
-     {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 55 W",
-      "min": 55
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Baterías portátiles/Más de 20,000 mAh": {
-  "axes": [
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 22 W",
-      "max": 22
-     },
-     {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "23 W a 100 W",
-      "min": 22,
-      "max": 100
-     },
-     {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 100 W",
-      "min": 100
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Autos, bicicletas y motos/Cascos para moto": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "helmet_type",
-    "criterion": "de casco",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "abatible",
-      "name": "Abatible",
-      "use": "Se abre por delante",
-      "spec": "Abatible",
-      "values": [
-       "Abatible"
-      ]
-     },
-     {
-      "id": "integral",
-      "name": "Integral",
-      "use": "Cerrado, el que más protege",
-      "spec": "Integral",
-      "values": [
-       "Integral"
-      ]
-     },
-     {
-      "id": "cerrado",
-      "name": "Cerrado",
-      "use": "Cerrado, el que más protege",
-      "spec": "Cerrado",
-      "values": [
-       "Cerrado"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Talla",
-    "field": "size_label",
-    "criterion": "según la ficha",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "",
-      "spec": "Chica",
-      "values": [
-       "Chica"
-      ]
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "",
-      "spec": "Mediana",
-      "values": [
-       "Mediana"
-      ]
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "",
-      "spec": "Grande",
-      "values": [
-       "Grande"
-      ]
-     },
-     {
-      "id": "extra-grande",
-      "name": "Extra grande",
-      "use": "",
-      "spec": "Extra grande",
-      "values": [
-       "Extra grande"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Empieza por el tipo y tu talla: un casco flojo no protege."
- },
- "Autos, bicicletas y motos/Llantas": {
-  "axes": [
-   {
-    "label": "Rin",
-    "field": "rim_size",
-    "criterion": "por medida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "r14",
-      "name": "R14",
-      "use": "",
-      "spec": "R14",
-      "values": [
-       "R14"
-      ]
-     },
-     {
-      "id": "r15",
-      "name": "R15",
-      "use": "",
-      "spec": "R15",
-      "values": [
-       "R15"
-      ]
-     },
-     {
-      "id": "r16",
-      "name": "R16",
-      "use": "",
-      "spec": "R16",
-      "values": [
-       "R16"
-      ]
-     },
-     {
-      "id": "r17",
-      "name": "R17",
-      "use": "",
-      "spec": "R17",
-      "values": [
-       "R17"
-      ]
-     },
-     {
-      "id": "r18",
-      "name": "R18",
-      "use": "",
-      "spec": "R18",
-      "values": [
-       "R18"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Autos, bicicletas y motos/Bocinas para auto": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "suave",
-      "name": "Suave",
-      "use": "Para oír música con claridad",
-      "spec": "Hasta 190 W",
-      "max": 190
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Más presencia y bajos",
-      "spec": "191 W a 400 W",
-      "min": 190,
-      "max": 400
-     },
-     {
-      "id": "fuerte",
-      "name": "Fuerte",
-      "use": "Para que se oiga desde afuera",
-      "spec": "Más de 400 W",
-      "min": 400
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Tamaño",
-    "field": "size_in",
-    "criterion": "en pulgadas",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Tweeters y puertas chicas",
-      "spec": "Hasta 6.5\"",
-      "max": 6.5
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "La medida más común",
-      "spec": "Más de 6.5\", hasta 8\"",
-      "min": 6.5,
-      "max": 8
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Woofers y subwoofers",
-      "spec": "Más de 8\"",
-      "min": 8
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Autos, bicicletas y motos/Estéreos para auto": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "size_in",
-    "criterion": "en pulgadas",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "El más compacto",
-      "spec": "Hasta 8\"",
-      "max": 8
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "9\" a 10\"",
-      "min": 8,
-      "max": 10
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "El más grande",
-      "spec": "Más de 10\"",
-      "min": 10
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Autos, bicicletas y motos/Amplificadores para auto": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "suave",
-      "name": "Suave",
-      "use": "Para mejorar el estéreo de fábrica",
-      "spec": "Hasta 660 W",
-      "max": 660
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Bocinas y un subwoofer",
-      "spec": "661 W a 2,000 W",
-      "min": 660,
-      "max": 2000
-     },
-     {
-      "id": "fuerte",
-      "name": "Fuerte",
-      "use": "Subwoofers grandes y competencia",
-      "spec": "Más de 2,000 W",
-      "min": 2000
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Cámaras y fotografía/Cámaras de acción": {
   "axes": [
    {
@@ -2952,55 +4376,6 @@
      }
     ],
     "key": "size"
-   }
-  ]
- },
- "Cámaras de seguridad/Interiores": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
    }
   ]
  },
@@ -3351,355 +4726,6 @@
   ],
   "intro": "Elige por el viaje que vas a hacer: la de cabina va contigo en el avión."
  },
- "Componentes y accesorios de PC/Accesorios de monitor": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "size_in",
-    "criterion": "en pulgadas",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "El más compacto",
-      "spec": "Hasta 27\"",
-      "max": 27
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "28\" a 32\"",
-      "min": 27,
-      "max": 32
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "El más grande",
-      "spec": "Más de 32\"",
-      "min": 32
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Componentes y accesorios de PC/Memoria RAM": {
-  "axes": [
-   {
-    "label": "Memoria",
-    "field": "ram_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 8 GB",
-      "max": 8
-     },
-     {
-      "id": "intermedia",
-      "name": "Intermedia",
-      "use": "Varias apps y juegos",
-      "spec": "9 GB a 16 GB",
-      "min": 8,
-      "max": 16
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Edición y estaciones de trabajo",
-      "spec": "Más de 16 GB",
-      "min": 16
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Componentes y accesorios de PC/Webcams": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Mouse/Gaming": {
-  "axes": [
-   {
-    "label": "Sensibilidad",
-    "field": "dpi",
-    "criterion": "en DPI",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 10,000 DPI",
-      "max": 10000
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Juegos casuales",
-      "spec": "10,001 DPI a 25,500 DPI",
-      "min": 10000,
-      "max": 25500
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Juegos competitivos y pantallas grandes",
-      "spec": "Más de 25,500 DPI",
-      "min": 25500
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Electrodomésticos/Pequeños electrodomésticos de cocina": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Batir y mezclar",
-      "spec": "Hasta 650 W",
-      "max": 650
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Cocinar de diario",
-      "spec": "651 W a 1,000 W",
-      "min": 650,
-      "max": 1000
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Calentar rápido y uso continuo",
-      "spec": "Más de 1,000 W",
-      "min": 1000
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Capacidad",
-    "field": "liters",
-    "criterion": "en litros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Una o dos porciones",
-      "spec": "Hasta 2.8 L",
-      "max": 2.8
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Para la familia",
-      "spec": "Más de 2.8 L, hasta 6 L",
-      "min": 2.8,
-      "max": 6
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Reuniones",
-      "spec": "Más de 6 L",
-      "min": 6
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Electrodomésticos/Planchas": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 1,200 W",
-      "max": 1200
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "1,201 W a 1,500 W",
-      "min": 1200,
-      "max": 1500
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 1,500 W",
-      "min": 1500
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Electrodomésticos/Extractores de jugo": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 300 W",
-      "max": 300
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "301 W a 600 W",
-      "min": 300,
-      "max": 600
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 600 W",
-      "min": 600
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Electrodomésticos/Hornos": {
-  "axes": [
-   {
-    "label": "Capacidad",
-    "field": "liters",
-    "criterion": "en litros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Tostar y calentar",
-      "spec": "Hasta 25 L",
-      "max": 25
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Cocina de todos los días",
-      "spec": "26 L a 58 L",
-      "min": 25,
-      "max": 58
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Pavo y charolas grandes",
-      "spec": "Más de 58 L",
-      "min": 58
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
  "Domótica y hogar inteligente/Iluminación inteligente": {
   "axes": [
    {
@@ -3729,237 +4755,6 @@
       "use": "Uso rudo o continuo",
       "spec": "Más de 10 W",
       "min": 10
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Instrumentos musicales/Producción de audio": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Instrumentos musicales/Micrófonos": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Instrumentos musicales/Amplificadores": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "para-practicar",
-      "name": "Para practicar",
-      "use": "En casa, sin molestar",
-      "spec": "Hasta 50 W",
-      "max": 50
-     },
-     {
-      "id": "para-ensayar",
-      "name": "Para ensayar",
-      "use": "Sala de ensayo",
-      "spec": "51 W a 600 W",
-      "min": 50,
-      "max": 600
-     },
-     {
-      "id": "para-tocar-en-vivo",
-      "name": "Para tocar en vivo",
-      "use": "Escenario y bocinas grandes",
-      "spec": "Más de 600 W",
-      "min": 600
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Instrumentos musicales/Accesorios": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Instrumentos musicales/Efectos y pedales": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
      }
     ],
     "key": "level"
@@ -4001,346 +4796,6 @@
    }
   ],
   "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Deportes y fitness/Otros": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "snorkeling",
-      "name": "Snorkeling",
-      "use": "",
-      "spec": "Snorkeling",
-      "values": [
-       "Snorkeling"
-      ]
-     },
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     },
-     {
-      "id": "basquetbol",
-      "name": "Basquetbol",
-      "use": "",
-      "spec": "Basquetbol",
-      "values": [
-       "Basquetbol"
-      ]
-     },
-     {
-      "id": "beisbol",
-      "name": "Béisbol",
-      "use": "",
-      "spec": "Béisbol",
-      "values": [
-       "Béisbol"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Deportes y fitness/Equipo de gimnasio": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso ocasional en casa",
-      "spec": "Hasta 100 kg",
-      "max": 100
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso diario",
-      "spec": "101 kg a 130 kg",
-      "min": 100,
-      "max": 130
-     },
-     {
-      "id": "reforzada",
-      "name": "Reforzada",
-      "use": "Uso rudo o personas de más peso",
-      "spec": "Más de 130 kg",
-      "min": 130
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Deportes y fitness/Yoga": {
-  "axes": [
-   {
-    "label": "Grosor",
-    "field": "thickness_mm",
-    "criterion": "en milímetros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "delgado",
-      "name": "Delgado",
-      "use": "Equilibrio y viajes",
-      "spec": "Hasta 4 mm",
-      "max": 4
-     },
-     {
-      "id": "medio",
-      "name": "Medio",
-      "use": "El grosor más común",
-      "spec": "5 mm a 10 mm",
-      "min": 4,
-      "max": 10
-     },
-     {
-      "id": "grueso",
-      "name": "Grueso",
-      "use": "Rodillas y suelo duro",
-      "spec": "Más de 10 mm",
-      "min": 10
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Deportes y fitness/Balones": {
-  "axes": [
-   {
-    "label": "Número",
-    "field": "ball_no",
-    "criterion": "del balón",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "n3",
-      "name": "No. 3",
-      "use": "Niños chicos",
-      "spec": "No. 3",
-      "max": 3
-     },
-     {
-      "id": "n4",
-      "name": "No. 4",
-      "use": "Juvenil",
-      "spec": "No. 4",
-      "min": 3,
-      "max": 4
-     },
-     {
-      "id": "n5",
-      "name": "No. 5",
-      "use": "Adultos, medida oficial de futbol",
-      "spec": "No. 5",
-      "min": 4,
-      "max": 5
-     },
-     {
-      "id": "n6",
-      "name": "No. 6",
-      "use": "Basquetbol femenil",
-      "spec": "No. 6",
-      "min": 5,
-      "max": 6
-     },
-     {
-      "id": "n7",
-      "name": "No. 7",
-      "use": "Basquetbol varonil y futbol americano",
-      "spec": "No. 7",
-      "min": 6
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Deportes y fitness/Boxeo": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "box",
-      "name": "Box",
-      "use": "",
-      "spec": "Box",
-      "values": [
-       "Box"
-      ]
-     },
-     {
-      "id": "artes-marciales",
-      "name": "Artes Marciales",
-      "use": "",
-      "spec": "Artes Marciales",
-      "values": [
-       "Artes Marciales"
-      ]
-     },
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Deportes y fitness/Pesas": {
-  "axes": [
-   {
-    "label": "Peso",
-    "field": "weight_kg",
-    "criterion": "en kilos",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligeras",
-      "name": "Ligeras",
-      "use": "Para empezar y tonificar",
-      "spec": "Hasta 5 kg",
-      "max": 5
-     },
-     {
-      "id": "medias",
-      "name": "Medias",
-      "use": "Fuerza general",
-      "spec": "6 kg a 15 kg",
-      "min": 5,
-      "max": 15
-     },
-     {
-      "id": "pesadas",
-      "name": "Pesadas",
-      "use": "Fuerza avanzada",
-      "spec": "Más de 15 kg",
-      "min": 15
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por dónde estás: se empieza ligero y se sube."
- },
- "Deportes y fitness/Patines y patinetas": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "mujer",
-      "name": "Mujer",
-      "use": "",
-      "spec": "Mujer",
-      "values": [
-       "Mujer"
-      ]
-     },
-     {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
-      "values": [
-       "Unisex"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Deportes y fitness/Natación": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "natacion",
-      "name": "Natación",
-      "use": "",
-      "spec": "Natación",
-      "values": [
-       "Natación"
-      ]
-     },
-     {
-      "id": "buceo",
-      "name": "Buceo",
-      "use": "",
-      "spec": "Buceo",
-      "values": [
-       "Buceo"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
  },
  "Mascotas/Areneros": {
   "axes": [
@@ -4867,536 +5322,6 @@
   ],
   "intro": "Elige por el tamaño y la edad de tu mascota."
  },
- "Salud y belleza/Cuidado del cabello": {
-  "axes": [
-   {
-    "label": "Contenido",
-    "field": "volume_ml",
-    "criterion": "en mililitros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Para probar o para viajar",
-      "spec": "Hasta 110 ml",
-      "max": 110
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Uso de diario",
-      "spec": "111 ml a 200 ml",
-      "min": 110,
-      "max": 200
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Rinde meses",
-      "spec": "Más de 200 ml",
-      "min": 200
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Salud y belleza/Rasuradoras": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Salud y belleza/Depilación": {
-  "axes": [
-   {
-    "label": "Contenido",
-    "field": "volume_ml",
-    "criterion": "en mililitros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Para probar o para viajar",
-      "spec": "Hasta 120 ml",
-      "max": 120
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Uso de diario",
-      "spec": "121 ml a 400 ml",
-      "min": 120,
-      "max": 400
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Rinde meses",
-      "spec": "Más de 400 ml",
-      "min": 400
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Salud y belleza/Cuidado personal": {
-  "axes": [
-   {
-    "label": "Contenido",
-    "field": "volume_ml",
-    "criterion": "en mililitros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Para probar o para viajar",
-      "spec": "Hasta 100 ml",
-      "max": 100
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Uso de diario",
-      "spec": "101 ml a 180 ml",
-      "min": 100,
-      "max": 180
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Rinde meses",
-      "spec": "Más de 180 ml",
-      "min": 180
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Salud y belleza/Rastrillos": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Juguetes y bebés/Peluches": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "De bolsillo o llavero",
-      "spec": "Hasta 22 cm",
-      "max": 22
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Para abrazar",
-      "spec": "23 cm a 30 cm",
-      "min": 22,
-      "max": 30
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Para la cama",
-      "spec": "Más de 30 cm",
-      "min": 30
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Bebés": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Vehículos a control remoto": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Montables": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Maquetas": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Redes/Repetidores": {
-  "axes": [
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-4",
-      "name": "Wi-Fi 4",
-      "use": "Básico, para pocos equipos",
-      "spec": "Wi-Fi 4",
-      "values": [
-       "Wi-Fi 4"
-      ]
-     },
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Redes/Routers": {
-  "axes": [
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     },
-     {
-      "id": "wi-fi-6e",
-      "name": "Wi-Fi 6E",
-      "use": "Banda de 6 GHz, sin interferencia",
-      "spec": "Wi-Fi 6E",
-      "values": [
-       "Wi-Fi 6E"
-      ]
-     },
-     {
-      "id": "wi-fi-7",
-      "name": "Wi-Fi 7",
-      "use": "La generación más nueva",
-      "spec": "Wi-Fi 7",
-      "values": [
-       "Wi-Fi 7"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Redes/Switches": {
-  "axes": [
-   {
-    "label": "Puertos",
-    "field": "ports",
-    "criterion": "por número de puertos",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "pocos",
-      "name": "Pocos",
-      "use": "Un escritorio o una sala",
-      "spec": "Hasta 8 puertos",
-      "max": 8
-     },
-     {
-      "id": "medios",
-      "name": "Medios",
-      "use": "Casa u oficina chica",
-      "spec": "9 puertos a 24 puertos",
-      "min": 8,
-      "max": 24
-     },
-     {
-      "id": "muchos",
-      "name": "Muchos",
-      "use": "Oficina o rack",
-      "spec": "Más de 24 puertos",
-      "min": 24
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Equipo comercial/Refrigeración comercial": {
   "axes": [
    {
@@ -5484,6 +5409,437 @@
       "values": [
        44
       ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Herramientas": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "herramientas-manuales",
+      "name": "Herramientas Manuales",
+      "use": "",
+      "spec": "Herramientas Manuales",
+      "values": [
+       "Herramientas Manuales"
+      ]
+     },
+     {
+      "id": "brocas-y-juego-de-dados",
+      "name": "Brocas y Juego de Dados",
+      "use": "",
+      "spec": "Brocas y Juego de Dados",
+      "values": [
+       "Brocas y Juego de Dados"
+      ]
+     },
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     },
+     {
+      "id": "herramientas-de-medicion",
+      "name": "Herramientas de Medición",
+      "use": "",
+      "spec": "Herramientas de Medición",
+      "values": [
+       "Herramientas de Medición"
+      ]
+     },
+     {
+      "id": "llaves",
+      "name": "Llaves",
+      "use": "",
+      "spec": "Llaves",
+      "values": [
+       "Llaves"
+      ]
+     },
+     {
+      "id": "herramientas-electricas",
+      "name": "Herramientas Eléctricas",
+      "use": "",
+      "spec": "Herramientas Eléctricas",
+      "values": [
+       "Herramientas Eléctricas"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Redes": {
+  "axes": [
+   {
+    "label": "Puertos",
+    "field": "ports",
+    "criterion": "por número de puertos",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "pocos",
+      "name": "Pocos",
+      "use": "Un escritorio o una sala",
+      "spec": "Hasta 8 puertos",
+      "max": 8
+     },
+     {
+      "id": "medios",
+      "name": "Medios",
+      "use": "Casa u oficina chica",
+      "spec": "9 puertos a 24 puertos",
+      "min": 8,
+      "max": 24
+     },
+     {
+      "id": "muchos",
+      "name": "Muchos",
+      "use": "Oficina o rack",
+      "spec": "Más de 24 puertos",
+      "min": 24
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-4",
+      "name": "Wi-Fi 4",
+      "use": "Básico, para pocos equipos",
+      "spec": "Wi-Fi 4",
+      "values": [
+       "Wi-Fi 4"
+      ]
+     },
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     },
+     {
+      "id": "wi-fi-7",
+      "name": "Wi-Fi 7",
+      "use": "La generación más nueva",
+      "spec": "Wi-Fi 7",
+      "values": [
+       "Wi-Fi 7"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Componentes y accesorios de PC": {
+  "axes": [
+   {
+    "label": "Memoria",
+    "field": "ram_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 8 GB",
+      "max": 8
+     },
+     {
+      "id": "intermedia",
+      "name": "Intermedia",
+      "use": "Varias apps y juegos",
+      "spec": "9 GB a 16 GB",
+      "min": 8,
+      "max": 16
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Edición y estaciones de trabajo",
+      "spec": "Más de 16 GB",
+      "min": 16
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Salud y belleza": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Juguetes y bebés": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Baterías portátiles": {
+  "axes": [
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 20 W",
+      "max": 20
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "21 W a 40 W",
+      "min": 20,
+      "max": 40
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 40 W",
+      "min": 40
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Deportes y fitness": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
+     },
+     {
+      "id": "futbol",
+      "name": "Futbol",
+      "use": "",
+      "spec": "Futbol",
+      "values": [
+       "Futbol"
+      ]
+     },
+     {
+      "id": "natacion",
+      "name": "Natación",
+      "use": "",
+      "spec": "Natación",
+      "values": [
+       "Natación"
+      ]
+     },
+     {
+      "id": "box",
+      "name": "Box",
+      "use": "",
+      "spec": "Box",
+      "values": [
+       "Box"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Cámaras de seguridad": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Mouse": {
+  "axes": [
+   {
+    "label": "Sensibilidad",
+    "field": "dpi",
+    "criterion": "en DPI",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 2,000 DPI",
+      "max": 2000
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Juegos casuales",
+      "spec": "2,001 DPI a 12,000 DPI",
+      "min": 2000,
+      "max": 12000
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Juegos competitivos y pantallas grandes",
+      "spec": "Más de 12,000 DPI",
+      "min": 12000
      }
     ],
     "key": "level"
@@ -5681,157 +6037,6 @@
   ],
   "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
  },
- "Herramientas": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "herramientas-manuales",
-      "name": "Herramientas Manuales",
-      "use": "",
-      "spec": "Herramientas Manuales",
-      "values": [
-       "Herramientas Manuales"
-      ]
-     },
-     {
-      "id": "brocas-y-juego-de-dados",
-      "name": "Brocas y Juego de Dados",
-      "use": "",
-      "spec": "Brocas y Juego de Dados",
-      "values": [
-       "Brocas y Juego de Dados"
-      ]
-     },
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "herramientas-de-medicion",
-      "name": "Herramientas de Medición",
-      "use": "",
-      "spec": "Herramientas de Medición",
-      "values": [
-       "Herramientas de Medición"
-      ]
-     },
-     {
-      "id": "llaves",
-      "name": "Llaves",
-      "use": "",
-      "spec": "Llaves",
-      "values": [
-       "Llaves"
-      ]
-     },
-     {
-      "id": "herramientas-electricas",
-      "name": "Herramientas Eléctricas",
-      "use": "",
-      "spec": "Herramientas Eléctricas",
-      "values": [
-       "Herramientas Eléctricas"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Baterías portátiles": {
-  "axes": [
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 20 W",
-      "max": 20
-     },
-     {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "21 W a 40 W",
-      "min": 20,
-      "max": 40
-     },
-     {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 40 W",
-      "min": 40
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Cámaras de seguridad": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Impresión 3D": {
   "axes": [
    {
@@ -5992,125 +6197,6 @@
    }
   ]
  },
- "Componentes y accesorios de PC": {
-  "axes": [
-   {
-    "label": "Memoria",
-    "field": "ram_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 8 GB",
-      "max": 8
-     },
-     {
-      "id": "intermedia",
-      "name": "Intermedia",
-      "use": "Varias apps y juegos",
-      "spec": "9 GB a 16 GB",
-      "min": 8,
-      "max": 16
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Edición y estaciones de trabajo",
-      "spec": "Más de 16 GB",
-      "min": 16
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Mouse": {
-  "axes": [
-   {
-    "label": "Sensibilidad",
-    "field": "dpi",
-    "criterion": "en DPI",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 2,000 DPI",
-      "max": 2000
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Juegos casuales",
-      "spec": "2,001 DPI a 12,000 DPI",
-      "min": 2000,
-      "max": 12000
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Juegos competitivos y pantallas grandes",
-      "spec": "Más de 12,000 DPI",
-      "min": 12000
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Deportes y fitness": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     },
-     {
-      "id": "futbol",
-      "name": "Futbol",
-      "use": "",
-      "spec": "Futbol",
-      "values": [
-       "Futbol"
-      ]
-     },
-     {
-      "id": "natacion",
-      "name": "Natación",
-      "use": "",
-      "spec": "Natación",
-      "values": [
-       "Natación"
-      ]
-     },
-     {
-      "id": "box",
-      "name": "Box",
-      "use": "",
-      "spec": "Box",
-      "values": [
-       "Box"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Mascotas": {
   "axes": [
    {
@@ -6196,166 +6282,5 @@
    }
   ],
   "intro": "Elige por el tamaño y la edad de tu mascota."
- },
- "Salud y belleza": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Juguetes y bebés": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Redes": {
-  "axes": [
-   {
-    "label": "Puertos",
-    "field": "ports",
-    "criterion": "por número de puertos",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "pocos",
-      "name": "Pocos",
-      "use": "Un escritorio o una sala",
-      "spec": "Hasta 8 puertos",
-      "max": 8
-     },
-     {
-      "id": "medios",
-      "name": "Medios",
-      "use": "Casa u oficina chica",
-      "spec": "9 puertos a 24 puertos",
-      "min": 8,
-      "max": 24
-     },
-     {
-      "id": "muchos",
-      "name": "Muchos",
-      "use": "Oficina o rack",
-      "spec": "Más de 24 puertos",
-      "min": 24
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-4",
-      "name": "Wi-Fi 4",
-      "use": "Básico, para pocos equipos",
-      "spec": "Wi-Fi 4",
-      "values": [
-       "Wi-Fi 4"
-      ]
-     },
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     },
-     {
-      "id": "wi-fi-7",
-      "name": "Wi-Fi 7",
-      "use": "La generación más nueva",
-      "spec": "Wi-Fi 7",
-      "values": [
-       "Wi-Fi 7"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
  }
 }

@@ -1024,6 +1024,185 @@ def subcategorias_con_pagina(cat, products_de_la_cat):
     return salida
 
 
+def _tier_de(valor, tiers):
+    """En qué tramo de un eje cae un valor. Mismo criterio que
+    materializeQualityAxes() de js/app.js: min es exclusivo y max inclusivo,
+    para que los tramos de quality-axes.json no se pisen ni dejen huecos."""
+    if valor is None:
+        return ""
+    try:
+        v = float(valor)
+    except (TypeError, ValueError):
+        return ""
+    for t in tiers:
+        lo, hi = t.get("min"), t.get("max")
+        if lo is not None and v <= float(lo):
+            continue
+        if hi is not None and v > float(hi):
+            continue
+        return t.get("id") or ""
+    return ""
+
+
+def ejes_de_subcategoria(cat, sub):
+    """Los ejes de "Compara calidad" de esta subcategoría exacta.
+
+    A diferencia de ejes_de_categoria(), que junta los de todas las
+    subcategorías para la guía de compra, acá hace falta el eje exacto: los
+    botones filtran la lista de ESTA página, así que un eje de otra
+    subcategoría dejaría a todas las filas fuera de todos sus tramos.
+    """
+    entrada = QUALITY_AXES.get(f"{cat['id']}/{sub['name']}") or {}
+    ejes = []
+    for eje in entrada.get("axes", []):
+        tiers = [t for t in (eje.get("tiers") or []) if t.get("name") and t.get("id")]
+        if eje.get("label") and eje.get("field") and len(tiers) >= 2:
+            ejes.append((eje, tiers))
+    return ejes[:2]
+
+
+def compara_calidad_html(ejes, products, prefijo):
+    """El bloque "Compara calidad" de la página estática.
+
+    Es el mismo de la SPA (ver QUALITY_AXES en js/app.js) y con la misma
+    regla: cada tramo DICE de qué campo sale y qué corte usa ("Hasta 20 W"),
+    nunca una puntuación inventada. Un producto sin ese campo publicado no
+    entra en ningún tramo, así que cada eje muestra sobre cuántos productos
+    está hablando -- si no se dijera, un filtro que esconde la mitad de la
+    lista parecería un error.
+    """
+    if not ejes:
+        return ""
+    bloques = []
+    for eje, tiers in ejes:
+        campo = eje["field"]
+        con_dato = sum(1 for p in products if (p.get("facets") or {}).get(campo) is not None)
+        if con_dato < 4:
+            continue
+        botones = []
+        for t in tiers:
+            n = sum(
+                1 for p in products
+                if _tier_de((p.get("facets") or {}).get(campo), tiers) == t["id"]
+            )
+            if not n:
+                continue
+            botones.append(
+                f'<button type="button" class="cq-tier" data-eje="{html_escape(campo)}"'
+                f' data-tier="{html_escape(t["id"])}">'
+                f'<span class="cq-tier-name">{html_escape(t["name"])}</span>'
+                f'<span class="cq-tier-spec">{html_escape(t.get("spec") or "")}</span>'
+                + (f'<span class="cq-tier-use">{html_escape(t["use"])}</span>' if t.get("use") else "")
+                + f'<span class="cq-tier-n">{n}</span></button>'
+            )
+        if len(botones) < 2:
+            continue
+        bloques.append(
+            f'<div class="cq-axis" data-eje="{html_escape(campo)}">'
+            f'<div class="cq-axis-head">{html_escape(eje["label"])}'
+            f'<span class="cq-axis-crit">{html_escape(eje.get("criterion") or "")}</span>'
+            f'<span class="cq-axis-n">{con_dato} de {len(products)} lo publican</span></div>'
+            f'<div class="cq-tiers">{"".join(botones)}</div></div>'
+        )
+    if not bloques:
+        return ""
+    return (
+        '<section class="cq">'
+        f'<div class="cq-head"><img class="cq-logo" src="{prefijo}icons/logo-comparacalidad.png"'
+        ' alt="Compara calidad">'
+        '<span class="cq-sub">Elige el nivel que buscas y la lista se filtra sola.</span>'
+        '<button type="button" class="cq-clear" hidden>Quitar filtro</button></div>'
+        + "".join(bloques) + "</section>"
+    )
+
+
+# Orden de la lista estática. Son las mismas opciones de la barra de la SPA
+# (ver .sort-bar en index.html) menos "Relevancia", que solo tiene sentido
+# con una búsqueda escrita: acá no hay consulta que puntuar.
+SORT_BAR_HTML = (
+    '<div class="sort-bar static-sort" role="group" aria-label="Ordenar la lista">'
+    '<div class="sort-bar-options">'
+    '<button type="button" class="sort-opt active" data-sort="pop">Popularidad</button>'
+    '<button type="button" class="sort-opt" data-sort="price_asc">Más baratos</button>'
+    '<button type="button" class="sort-opt" data-sort="price_desc">Más caros</button>'
+    '<button type="button" class="sort-opt" data-sort="rating">Mejor calificados</button>'
+    '</div></div>'
+)
+
+# Ordenar y filtrar sin bajar nada: los datos de cada fila ya están en sus
+# data-*, así que la página estática hace lo mismo que la SPA sin pedirle
+# nada al servidor. Si el visitante tiene el JS apagado, la lista se queda
+# en el orden por popularidad con el que se generó, que es el bueno.
+LIST_JS = """
+<script>
+(function () {
+  var lista = document.getElementById('lista');
+  if (!lista) return;
+  var filas = [].slice.call(lista.querySelectorAll('.product-row'));
+  var orden = 'pop';
+  var filtros = {};
+  var num = function (f, k) { var v = parseFloat(f.getAttribute(k)); return isNaN(v) ? -1 : v; };
+  var aplicar = function () {
+    var claves = Object.keys(filtros);
+    var visibles = filas.filter(function (f) {
+      return claves.every(function (k) { return f.getAttribute('data-q-' + k) === filtros[k]; });
+    });
+    visibles.sort(function (a, b) {
+      if (orden === 'price_asc') return num(a, 'data-price') - num(b, 'data-price');
+      if (orden === 'price_desc') return num(b, 'data-price') - num(a, 'data-price');
+      if (orden === 'rating') return num(b, 'data-rating') - num(a, 'data-rating') || num(b, 'data-pop') - num(a, 'data-pop');
+      return num(b, 'data-pop') - num(a, 'data-pop') || num(b, 'data-sellers') - num(a, 'data-sellers');
+    });
+    filas.forEach(function (f) { f.hidden = true; });
+    visibles.forEach(function (f, i) {
+      f.hidden = false;
+      lista.appendChild(f);
+      // El puesto se recalcula: una lista ordenada por precio con los
+      // números del ranking de popularidad al lado dice dos cosas
+      // distintas a la vez. Con el orden original vuelve la corona.
+      var b = f.querySelector('.rank-badge');
+      if (b) b.innerHTML = (orden === 'pop' && !claves.length && i === 0) ? f.getAttribute('data-corona') : String(i + 1);
+      f.className = f.className.replace(/ ?rank-[234]/g, '') +
+        ((orden === 'pop' && !claves.length && i >= 1 && i <= 3) ? ' rank-' + (i + 1) : '');
+    });
+    var vacio = document.getElementById('lista-vacia');
+    if (vacio) vacio.hidden = visibles.length > 0;
+    var cuenta = document.getElementById('lista-cuenta');
+    if (cuenta) cuenta.textContent = visibles.length;
+  };
+  [].forEach.call(document.querySelectorAll('.static-sort .sort-opt'), function (b) {
+    b.addEventListener('click', function () {
+      [].forEach.call(document.querySelectorAll('.static-sort .sort-opt'), function (o) {
+        o.classList.toggle('active', o === b);
+      });
+      orden = b.getAttribute('data-sort');
+      aplicar();
+    });
+  });
+  var limpiar = document.querySelector('.cq-clear');
+  [].forEach.call(document.querySelectorAll('.cq-tier'), function (b) {
+    b.addEventListener('click', function () {
+      var eje = b.getAttribute('data-eje'), tier = b.getAttribute('data-tier');
+      var puesto = filtros[eje] === tier;
+      if (puesto) delete filtros[eje]; else filtros[eje] = tier;
+      [].forEach.call(document.querySelectorAll('.cq-tier[data-eje="' + eje + '"]'), function (o) {
+        o.classList.toggle('is-active', !puesto && o === b);
+      });
+      if (limpiar) limpiar.hidden = !Object.keys(filtros).length;
+      aplicar();
+    });
+  });
+  if (limpiar) limpiar.addEventListener('click', function () {
+    filtros = {};
+    [].forEach.call(document.querySelectorAll('.cq-tier'), function (o) { o.classList.remove('is-active'); });
+    limpiar.hidden = true;
+    aplicar();
+  });
+})();
+</script>
+"""
+
+
 def render_subcategory_page(cat, sub, products, data):
     """Página de una subcategoría ("Sillas de oficina", "Cargadores USB-C").
 
@@ -1055,25 +1234,51 @@ def render_subcategory_page(cat, sub, products, data):
 
     ranked = sorted(products, key=lambda p: (total_review_count(p), seller_total(p)), reverse=True)
     shown = ranked[:STATIC_LIST_CAP]
+    ejes = ejes_de_subcategoria(cat, sub)
     rows = []
     for i, p in enumerate(shown, start=1):
-        rank_badge = svg_icon("crown") if i == 1 else str(i)
+        corona = svg_icon("crown")
+        rank_badge = corona if i == 1 else str(i)
         rank_class = f" rank-{i}" if 2 <= i <= 4 else ""
         used_badge = (
             f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>'
             if is_used(p) else ""
         )
+        # Los datos con los que la página ordena y filtra viajan en la fila.
+        # Es el mismo dato que ya se muestra, no uno paralelo: el precio del
+        # data-price es el que se imprime al lado.
+        rating, n_reviews = aggregate_rating(p)
+        n_vendedores = seller_total(p)
+        facetas = p.get("facets") or {}
+        q_attrs = "".join(
+            f' data-q-{html_escape(eje["field"])}="{_tier_de(facetas.get(eje["field"]), tiers)}"'
+            for eje, tiers in ejes
+        )
         rows.append(
-            f'<div class="product-row has-rank{rank_class}">'
+            f'<div class="product-row has-rank{rank_class}"'
+            f' data-price="{min_price(p)}" data-pop="{n_reviews}" data-rating="{rating}"'
+            f' data-sellers="{n_vendedores}" data-corona="{html_escape(corona)}"{q_attrs}>'
             f'<span class="rank-badge">{rank_badge}</span>'
             f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
             f'<div class="row-name"><a href="../../../producto/{p["id"]}/">{html_escape(p["name"])}</a>{used_badge}</div>'
-            f'</div>'
+            # Las estrellas van como carácter y no como svg_icon: data/icons.json
+            # no trae una estrella, y la ficha de producto ya pinta sus reseñas
+            # con "★"/"☆" (ver render_product_page), así que es el mismo signo.
+            + (f'<div class="row-rating"><span class="row-stars">'
+               f'{"★" * int(round(rating))}{"☆" * (5 - int(round(rating)))}</span> {rating} '
+               f'<span class="row-rating-n">({n_reviews:,})</span></div>' if n_reviews else "")
+            + f'</div>'
             f'<div class="row-priceblock">'
-            + (f'<div class="row-from">Desde</div>' if len(p["offers"]) > 1 else "")
-            + f'<div class="row-price">{money(min_price(p))}</div>'
+            # "Desde" en TODAS las filas, no solo en las de varios vendedores:
+            # el precio es siempre el más bajo de los que se conocen, y que la
+            # palabra aparezca y desaparezca según la fila se leía como si
+            # unas filas dijeran otra cosa que las demás.
+            f'<div class="row-from">Desde</div>'
+            f'<div class="row-price">{money(min_price(p))}</div>'
+            f'<div class="row-sellers">{svg_icon("shopping-bag")} '
+            f'{plural(n_vendedores, "vendedor", "vendedores")}</div>'
             f'</div>'
             f'</div>'
         )
@@ -1124,12 +1329,16 @@ def render_subcategory_page(cat, sub, products, data):
 <div class="list-head"><h1>{svg_icon("trophy")} {html_escape(sub['name'])} — comparar precios ({len(products)})</h1></div>
 <p class="muted small">{html_escape(description)}</p>
 {marcas_html}
-<div class="product-list">{''.join(rows)}</div>
+{compara_calidad_html(ejes, shown, '../../../')}
+{SORT_BAR_HTML}
+<div class="product-list" id="lista">{''.join(rows)}</div>
+<p class="muted small" id="lista-vacia" hidden>Ningún producto de esta lista publica ese dato. Quita el filtro para ver todos.</p>
 <div class="panel" style="text-align:center; margin-top:20px">
   <a class="buy-btn" href="../../../#/list?cat={cat['id']}&amp;sub={sub['id']}">Ver con filtros interactivos →</a>
   {more_note}
 </div>
 {hermanas_html}
+{LIST_JS}
 """
     breadcrumbs = breadcrumb_json_ld([
         ("Inicio", f"{SITE_URL}/"),
@@ -1544,22 +1753,36 @@ def render_category_page(cat, products, data):
     shown = ranked[:STATIC_LIST_CAP]
     rows = []
     for i, p in enumerate(shown, start=1):
-        rank_badge = svg_icon("crown") if i == 1 else str(i)
+        corona = svg_icon("crown")
+        rank_badge = corona if i == 1 else str(i)
         rank_class = f" rank-{i}" if 2 <= i <= 4 else ""
         variant_count = max([len(o.get("variants") or []) for o in p["offers"]], default=0)
         variant_badge = f'<span class="variant-count-badge" title="También disponible en otros colores/tallas">{svg_icon("palette")} +{variant_count}</span>' if variant_count else ""
         used_badge = f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>' if is_used(p) else ""
+        # Mismos datos por fila que en la página de subcategoría: el orden y
+        # el filtro de la página trabajan con ellos, y la calificación y los
+        # vendedores se muestran porque un precio sin decir contra cuántas
+        # tiendas se comparó no es una comparación.
+        rating, n_reviews = aggregate_rating(p)
+        n_vendedores = seller_total(p)
         rows.append(
-            f'<div class="product-row has-rank{rank_class}">'
+            f'<div class="product-row has-rank{rank_class}"'
+            f' data-price="{min_price(p)}" data-pop="{n_reviews}" data-rating="{rating}"'
+            f' data-sellers="{n_vendedores}" data-corona="{html_escape(corona)}">'
             f'<span class="rank-badge">{rank_badge}</span>'
             f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
             f'<div class="row-name"><a href="../../producto/{p["id"]}/">{html_escape(p["name"])}</a>{used_badge}{variant_badge}</div>'
-            f'</div>'
+            + (f'<div class="row-rating"><span class="row-stars">'
+               f'{"★" * int(round(rating))}{"☆" * (5 - int(round(rating)))}</span> {rating} '
+               f'<span class="row-rating-n">({n_reviews:,})</span></div>' if n_reviews else "")
+            + f'</div>'
             f'<div class="row-priceblock">'
-            + (f'<div class="row-from">Desde</div>' if len(p["offers"]) > 1 else "")
-            + f'<div class="row-price">{money(min_price(p))}</div>'
+            f'<div class="row-from">Desde</div>'
+            f'<div class="row-price">{money(min_price(p))}</div>'
+            f'<div class="row-sellers">{svg_icon("shopping-bag")} '
+            f'{plural(n_vendedores, "vendedor", "vendedores")}</div>'
             f'</div>'
             f'</div>'
         )
@@ -1634,13 +1857,15 @@ def render_category_page(cat, products, data):
 {guia_html}
 {presu_html}
 <div class="panel" id="ranking"><h2>{svg_icon("crown")} Ranking de {html_escape(cat['name'].lower())} — {MES_ANIO}</h2>
-<div class="product-list">{''.join(rows)}</div></div>
+{SORT_BAR_HTML}
+<div class="product-list" id="lista">{''.join(rows)}</div></div>
 <div class="panel" style="text-align:center; margin-top:20px">
   <a class="buy-btn" href="../../#/list?cat={quote(cat['id'])}">Ver con filtros interactivos →</a>
   {more_note}
 </div>
 {marcas_html}
 {faq_html}
+{LIST_JS}
 """
     breadcrumbs = breadcrumb_json_ld([
         ("Inicio", f"{SITE_URL}/"),

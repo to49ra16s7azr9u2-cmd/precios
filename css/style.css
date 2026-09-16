@@ -1243,6 +1243,83 @@ tr.offer-compare-off { display: none; }
 .product-row .row-priceblock { text-align: right; flex-shrink: 0; }
 .product-row .row-from { font-size: 11px; color: var(--muted); }
 .product-row .row-price { font-size: 19px; font-weight: 800; color: var(--red-dark); }
+/* Las páginas estáticas de subcategoría muestran, como la SPA, cuántos
+   vendedores ofrecen cada producto y su calificación: sin eso la fila decía
+   un precio sin decir contra cuántas tiendas se comparó. */
+.product-row .row-sellers { font-size: 11px; color: var(--muted); white-space: nowrap; margin-top: 1px; }
+.product-row .row-sellers .icon { width: 12px; height: 12px; vertical-align: -2px; }
+.product-row .row-rating { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.product-row .row-stars { color: #f5a623; letter-spacing: -1px; }
+.product-row .row-rating-n { font-size: 11px; }
+/* La barra de orden de la página estática: la misma de la SPA, sin el
+   control de envío (que necesita recalcular precios con datos que la página
+   estática no baja). */
+.sort-bar.static-sort { margin: 10px 0 8px; }
+
+/* "Compara calidad" en la página estática. Mismos tramos que la SPA
+   (data/quality-axes.json), pero acá filtran las filas ya impresas en vez
+   de rehacer una consulta: la página no baja nada. */
+.cq {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 10px 12px;
+  margin: 12px 0 0;
+}
+.cq-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.cq-logo { height: 26px; width: auto; display: block; }
+.cq-sub { font-size: 12px; color: var(--muted); }
+.cq-clear {
+  margin-left: auto;
+  border: 1px solid var(--red);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--red-dark);
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 9px;
+  cursor: pointer;
+}
+.cq-axis + .cq-axis { margin-top: 10px; border-top: 1px solid var(--border); padding-top: 10px; }
+.cq-axis-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.cq-axis-crit { font-size: 11px; font-weight: 400; color: var(--muted); }
+.cq-axis-n { font-size: 11px; font-weight: 400; color: var(--muted); margin-left: auto; }
+.cq-tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 6px; }
+.cq-tier {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  font: inherit;
+  text-align: left;
+  padding: 7px 9px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.cq-tier:hover { border-color: var(--red); }
+.cq-tier.is-active { border-color: var(--red); background: var(--red-tint); }
+.cq-tier-name { font-size: 13px; font-weight: 800; color: var(--ink); }
+.cq-tier-spec { font-size: 12px; color: var(--red-dark); font-weight: 700; }
+.cq-tier-use { font-size: 11px; color: var(--muted); }
+.cq-tier-n {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 11px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
 .product-row .row-stores { font-size: 11px; color: var(--muted); }
 /* En pantallas de teléfono el precio se llevaba casi todo el ancho de la
    fila -- medido con datos reales en un iPhone SE: el bloque de precio
@@ -2578,30 +2655,48 @@ tr.offer-compare-off { display: none; }
 
 /* ---------- Historial de precio ---------- */
 .table-scroll { overflow-x: auto; }
-/* La tabla de "Comparación de precios" de la ficha scrolleaba dentro de un
-   marco de altura fija (560px, unas cinco filas). Eso le daba una barra
-   vertical propia, pegada a la de la página: con el cursor encima de la
-   tabla la rueda movía la tabla y no el documento, y al llegar al final de
-   la tabla el desplazamiento se frenaba en seco. Dos barras para el mismo
-   gesto, estorbándose.
+/* La tabla de "Comparación de precios" vuelve a tener un alto máximo y su
+   propio scroll, a pedido del usuario: con 20 o 30 vendedores la tabla
+   entera empujaba el historial de precios y las preguntas frecuentes fuera
+   de la pantalla, y para llegar a ellos había que pasar por toda la lista.
 
-   Ahora la tabla se ve entera y lo que la delimita es el marco: borde,
-   esquinas redondeadas y una cabecera con fondo propio que la separa del
-   resto del panel. En la página queda un solo scroll, el del documento.
-   El overflow-x de .table-scroll se conserva para las pantallas angostas,
-   donde la tabla no cabe a lo ancho (.compare-table tiene min-width de
-   520px). Aplica a la ficha interactiva y a la página estática, que
-   comparten el id. */
+   Es la versión que ya había estado y se había quitado, pero sin lo que
+   molestaba de aquella: la cabecera queda fija arriba (position:sticky), de
+   modo que se sigue sabiendo qué columna es cuál al desplazarse, y
+   overscroll-behavior queda en auto para que al llegar al final de la tabla
+   la rueda siga moviendo la página en vez de frenarse en seco. El marco
+   --borde, esquinas y cabecera con fondo propio-- se conserva.
+
+   El overflow-x es para las pantallas angostas, donde la tabla no cabe a lo
+   ancho (.compare-table tiene min-width de 520px). Aplica a la ficha
+   interactiva y a la página estática, que comparten el id. */
 #comparePanel .table-scroll {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--card, #fff);
+  /* Unas cinco filas, que es lo que el usuario marcó en su captura. Es
+     max-height y no height: con dos vendedores el marco mide dos filas, no
+     un rectángulo medio vacío. */
+  max-height: 460px;
+  overflow-y: auto;
+  overscroll-behavior-y: auto;
 }
 #comparePanel .compare-table { margin-top: 0; }
 #comparePanel .compare-table thead th {
   background: var(--bg);
   border-bottom: 1px solid var(--border);
   padding: 10px 8px;
+  /* Fija al desplazar. Sin esto, a la tercera fila ya no se sabe si la
+     columna del medio es "Envío" o "Disponibilidad". */
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+@media (max-width: 760px) {
+  /* En el teléfono la fila es mucho más alta (el precio, el envío y la
+     entrega se apilan), así que 460px serían dos filas y media: el marco
+     estorbaría más de lo que ordena. */
+  #comparePanel .table-scroll { max-height: 70vh; }
 }
 /* El borde del marco ya cierra la tabla por abajo; la raya de la última
    fila quedaría doble. */
@@ -2825,8 +2920,8 @@ tr.offer-compare-off { display: none; }
   position: relative;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 3px 8px;
+  gap: 5px;
+  padding: 2px 8px;
   font-size: 12px;
   line-height: 1.25;
   color: var(--ink);
@@ -2851,6 +2946,25 @@ tr.offer-compare-off { display: none; }
   font-weight: 800;
   color: var(--red-dark);
   font-variant-numeric: tabular-nums;
+}
+.home-cat-rank-foto {
+  position: relative;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.home-cat-rank-foto img,
+.home-cat-rank-foto svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 .home-cat-rank-name {
   position: relative;
