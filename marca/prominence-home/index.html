@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prominence Home: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Prominence Home en México comparados entre tiendas: 26 productos. Precios desde $2,128 hasta $7,969 MXN. Principalmente en climatización.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/prominence-home/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Prominence Home: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Prominence Home en México comparados entre tiendas: 26 productos. Precios desde $2,128 hasta $7,969 MXN. Principalmente en climatización.">
+<meta property="og:url" content="https://comparamex.com/marca/prominence-home/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Prominence Home",
+      "item": "https://comparamex.com/marca/prominence-home/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Prominence Home</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Prominence Home — comparar precios (26)</h1></div>
+<p class="muted small">Precios de Prominence Home en México comparados entre tiendas: 26 productos. Precios desde $2,128 hasta $7,969 MXN. Principalmente en climatización.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Prominence Home..."
+         aria-label="Buscar productos de Prominence Home" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28074493/prominencehomeventiladordetechode52conluzy5aspasreversiblesconcontroldecadenamodelocannes51595luzdeco335224387256642jpeg.jpg" alt="Prominence Home Ventilador de Techo de 52&quot; con Luz y 5 Aspas Reversibles con Control de Cadena, Modelo Cannes" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p40008/">Prominence Home Ventilador de Techo de 52&quot; con Luz y 5 Aspas Reversibles con Control de Cadena, Modelo Cannes</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$2,798</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/20206493/51028-Denon-Bronce.jpg" alt="Ventilador de Techo 60 Pulgadas Prominence Home Denon Bronce" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p40016/">Ventilador de Techo 60 Pulgadas Prominence Home Denon Bronce</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$3,543</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/20206215/51029-Denon-Níquel.jpg" alt="Ventilador de Techo Denon 60 Pulgadas, Prominence Home Color Niquel" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p40018/">Ventilador de Techo Denon 60 Pulgadas, Prominence Home Color Niquel</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$3,543</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/20203959/51648-Dorsey-Blanco.jpg" alt="Ventilador de Techo Smart Prominence Home Dorsey 52 Pulgadas con Control Remoto" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p40023/">Ventilador de Techo Smart Prominence Home Dorsey 52 Pulgadas con Control Remoto</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$2,736</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/20208169/LV-51634-Kailani-Pewter--3.jpg" alt="Ventilador de Techo de 52 Pulgadas Prominence Home con Luz y Aspas Reversibles" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p40024/">Ventilador de Techo de 52 Pulgadas Prominence Home con Luz y Aspas Reversibles</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$2,969</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28918166/LV-51643-Enoki-Pewter-7.jpg" alt="Ventilador de Techo Smart Prominence Home de 52 Pulgadas con Control Remoto" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p40025/">Ventilador de Techo Smart Prominence Home de 52 Pulgadas con Control Remoto</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$2,128</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28916800/LV-51642-Enoki--Bronce-2.jpg" alt="Ventilador de Techo Smart Prominence Homa de 52 Pulgadas con Control Remoto" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p40026/">Ventilador de Techo Smart Prominence Homa de 52 Pulgadas con Control Remoto</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$2,128</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_836454-MLA95222606390_102025-F.jpg" alt="Ventilador de Techo Prominence Home Enoki 52'' LED Control Remoto 3 Aspas Reversibles" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293424/">Ventilador de Techo Prominence Home Enoki 52'' LED Control Remoto 3 Aspas Reversibles</a></div></div><div class="row-priceblock"><div class="row-price">$2,128</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_933830-MLA95517128963_102025-F.jpg" alt="Ventilador De Techo Prominence Home De 52'' Control Cadena Cantidad De Aspas 5 Estructura Plateado Diámetro 132 Cm" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293425/">Ventilador De Techo Prominence Home De 52'' Control Cadena Cantidad De Aspas 5 Estructura Plateado Diámetro 132 Cm</a></div></div><div class="row-priceblock"><div class="row-price">$2,674</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28919166/prominencehomeventiladordetechode42conluzy4aspasreversiblesconcontroldecadenamodelocherry51489luzdeco135224616403266jpeg.jpg" alt="Prominence Home Ventilador de Techo de 42&quot; con Luz y 4 Aspas Reversibles con Control de Cadena, Modelo Cherry" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p40010/">Prominence Home Ventilador de Techo de 42&quot; con Luz y 4 Aspas Reversibles con Control de Cadena, Modelo Cherry</a></div></div><div class="row-priceblock"><div class="row-price">$2,529</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_633194-MLU73412626272_122023-F.jpg" alt="Prominence Home Brealey Hugger 52&quot; Blanco." referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293408/">Prominence Home Brealey Hugger 52&quot; Blanco.</a></div></div><div class="row-priceblock"><div class="row-price">$3,649</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_925668-MLU77517217889_072024-F.jpg" alt="Prominence Home Journal, Ventilador De Techo Contemporaneo P" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293409/">Prominence Home Journal, Ventilador De Techo Contemporaneo P</a></div></div><div class="row-priceblock"><div class="row-price">$4,217</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_844391-MLU75925776254_042024-F.jpg" alt="Prominence Home Ocean Crest, 50653-01 Ventilador De Techo Tr" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293410/">Prominence Home Ocean Crest, 50653-01 Ventilador De Techo Tr</a></div></div><div class="row-priceblock"><div class="row-price">$7,866</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_819811-MLU77663510325_072024-F.jpg" alt="Prominence Home Memphis, 51652-01 - Ventilador De Techo Led" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293411/">Prominence Home Memphis, 51652-01 - Ventilador De Techo Led</a></div></div><div class="row-priceblock"><div class="row-price">$4,482</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_932279-MLU78439838056_082024-F.jpg" alt="Prominence Home Almadale 50330-01 - Ventilador De Techo Cont" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293412/">Prominence Home Almadale 50330-01 - Ventilador De Techo Cont</a></div></div><div class="row-priceblock"><div class="row-price">$7,969</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_634843-MLA79517098542_102024-F.jpg" alt="Prominence Home 51014-01 Ventilador De Techo, 42 Pulgadas, 5" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293413/">Prominence Home 51014-01 Ventilador De Techo, 42 Pulgadas, 5</a></div></div><div class="row-priceblock"><div class="row-price">$4,406</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_829579-MLA82437998985_022025-F.jpg" alt="Prominence Home Glenmont 50389-01 - Ventilador De Techo Led" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293414/">Prominence Home Glenmont 50389-01 - Ventilador De Techo Led</a></div></div><div class="row-priceblock"><div class="row-price">$5,163</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_849644-MLU76074514740_052024-F.jpg" alt="Prominence Home 80091-01 Abner - Ventilador De Techo Para In" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293415/">Prominence Home 80091-01 Abner - Ventilador De Techo Para In</a></div></div><div class="row-priceblock"><div class="row-price">$6,429</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_833391-MLA95604922025_102025-F.jpg" alt="Prominence Home Alvina Ventilador De Techo Con Luz Led Aspas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293416/">Prominence Home Alvina Ventilador De Techo Con Luz Led Aspas</a></div></div><div class="row-priceblock"><div class="row-price">$6,259</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_835437-MLU78306417888_082024-F.jpg" alt="Prominence Home Atlas 51471-01: Ventilador De Techo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293417/">Prominence Home Atlas 51471-01: Ventilador De Techo</a></div></div><div class="row-priceblock"><div class="row-price">$6,715</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_710407-MLA99897186565_112025-F.jpg" alt="Ventilador De Techo 52&quot; Prominence Home Con Luz 5 Aspas Modelo 50683-01" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293418/">Ventilador De Techo 52&quot; Prominence Home Con Luz 5 Aspas Modelo 50683-01</a></div></div><div class="row-priceblock"><div class="row-price">$3,914</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_668895-MLA79981622807_102024-F.jpg" alt="Prominence Home Macenna, Ventilador De Techo Led Tradicional" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293419/">Prominence Home Macenna, Ventilador De Techo Led Tradicional</a></div></div><div class="row-priceblock"><div class="row-price">$5,780</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_626599-MLU77406120422_072024-F.jpg" alt="Ventilador de Techo Prominence Home Madison County Con Luz LED y Motor Silencioso" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293420/">Ventilador de Techo Prominence Home Madison County Con Luz LED y Motor Silencioso</a></div></div><div class="row-priceblock"><div class="row-price">$4,876</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_756954-MLU77762162527_072024-F.jpg" alt="Prominence Home Bolivar 80099-01 - Ventilador De Techo Led M" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293421/">Prominence Home Bolivar 80099-01 - Ventilador De Techo Led M</a></div></div><div class="row-priceblock"><div class="row-price">$5,542</div></div></div><div class="product-row has-rank"><span class="rank-badge">25</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_890052-MLA83784835857_042025-F.jpg" alt="Prominence Home Auletta, ventilador de techo para interiores y exteriores" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293422/">Prominence Home Auletta, ventilador de techo para interiores y exteriores</a></div></div><div class="row-priceblock"><div class="row-price">$3,450</div></div></div><div class="product-row has-rank"><span class="rank-badge">26</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_964188-MLA95599257997_102025-F.jpg" alt="Ventilador de Techo Prominence Home Alvina de 42&quot; con 5 Aspas Reversibles y Luz" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name"><a href="../../producto/p293423/">Ventilador de Techo Prominence Home Alvina de 42&quot; con 5 Aspas Reversibles y Luz</a></div></div><div class="row-priceblock"><div class="row-price">$3,999</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Prominence Home</h2><div class="chip-row"><a class="chip" href="../../categoria/climatizacion/">Climatización (26)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

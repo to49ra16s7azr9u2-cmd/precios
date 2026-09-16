@@ -766,37 +766,6 @@
    }
   ]
  },
- "Instrumentos musicales/Micrófonos": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Instrumentos musicales/Amplificadores": {
   "axes": [
    {
@@ -4212,7 +4181,7 @@
   ],
   "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
  },
- "Cámaras y fotografía/Cámaras de acción": {
+ "Cámaras y fotografía/Réflex": {
   "axes": [
    {
     "label": "Resolución",
@@ -4224,57 +4193,61 @@
       "id": "basica",
       "name": "Básica",
       "use": "Para redes y pantalla",
-      "spec": "Hasta 20 MP",
-      "max": 20
+      "spec": "Hasta 24 MP",
+      "max": 24
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Fotos nítidas de diario",
-      "spec": "21 MP a 50 MP",
-      "min": 20,
-      "max": 50
+      "spec": "25 MP a 56 MP",
+      "min": 24,
+      "max": 56
      },
      {
       "id": "alta",
       "name": "Alta",
       "use": "Para imprimir en grande o recortar",
-      "spec": "Más de 50 MP",
-      "min": 50
+      "spec": "Más de 56 MP",
+      "min": 56
      }
     ],
     "key": "level"
-   },
+   }
+  ]
+ },
+ "Cámaras y fotografía/Videocámaras": {
+  "axes": [
    {
-    "label": "Batería",
-    "field": "battery_mah",
-    "criterion": "en mAh",
+    "label": "Resolución",
+    "field": "camera_mp",
+    "criterion": "en megapixeles",
     "ramp": true,
     "tiers": [
      {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Uso ligero",
-      "spec": "Hasta 1,250 mAh",
-      "max": 1250
+      "id": "basica",
+      "name": "Básica",
+      "use": "Para redes y pantalla",
+      "spec": "Hasta 24 MP",
+      "max": 24
      },
      {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Un día completo",
-      "spec": "1,251 mAh a 1,800 mAh",
-      "min": 1250,
-      "max": 1800
+      "id": "media",
+      "name": "Media",
+      "use": "Fotos nítidas de diario",
+      "spec": "25 MP a 48 MP",
+      "min": 24,
+      "max": 48
      },
      {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Varios días sin cargar",
-      "spec": "Más de 1,800 mAh",
-      "min": 1800
+      "id": "alta",
+      "name": "Alta",
+      "use": "Para imprimir en grande o recortar",
+      "spec": "Más de 48 MP",
+      "min": 48
      }
     ],
-    "key": "size"
+    "key": "level"
    }
   ]
  },
@@ -4316,37 +4289,6 @@
  "Cámaras y fotografía/Compactas": {
   "axes": [
    {
-    "label": "Batería",
-    "field": "battery_mah",
-    "criterion": "en mAh",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Uso ligero",
-      "spec": "Hasta 600 mAh",
-      "max": 600
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Un día completo",
-      "spec": "601 mAh a 1,000 mAh",
-      "min": 600,
-      "max": 1000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Varios días sin cargar",
-      "spec": "Más de 1,000 mAh",
-      "min": 1000
-     }
-    ],
-    "key": "level"
-   },
-   {
     "label": "Resolución",
     "field": "camera_mp",
     "criterion": "en megapixeles",
@@ -4356,26 +4298,26 @@
       "id": "basica",
       "name": "Básica",
       "use": "Para redes y pantalla",
-      "spec": "Hasta 16 MP",
-      "max": 16
+      "spec": "Hasta 30 MP",
+      "max": 30
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Fotos nítidas de diario",
-      "spec": "17 MP a 20 MP",
-      "min": 16,
-      "max": 20
+      "spec": "31 MP a 64 MP",
+      "min": 30,
+      "max": 64
      },
      {
       "id": "alta",
       "name": "Alta",
       "use": "Para imprimir en grande o recortar",
-      "spec": "Más de 20 MP",
-      "min": 20
+      "spec": "Más de 64 MP",
+      "min": 64
      }
     ],
-    "key": "size"
+    "key": "level"
    }
   ]
  },
@@ -5501,16 +5443,16 @@
       "id": "medios",
       "name": "Medios",
       "use": "Casa u oficina chica",
-      "spec": "9 puertos a 24 puertos",
+      "spec": "9 puertos a 20 puertos",
       "min": 8,
-      "max": 24
+      "max": 20
      },
      {
       "id": "muchos",
       "name": "Muchos",
       "use": "Oficina o rack",
-      "spec": "Más de 24 puertos",
-      "min": 24
+      "spec": "Más de 20 puertos",
+      "min": 20
      }
     ],
     "key": "level"
@@ -6036,6 +5978,41 @@
    }
   ],
   "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
+ },
+ "Cámaras y fotografía": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "camera_mp",
+    "criterion": "en megapixeles",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Para redes y pantalla",
+      "spec": "Hasta 20 MP",
+      "max": 20
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Fotos nítidas de diario",
+      "spec": "21 MP a 48 MP",
+      "min": 20,
+      "max": 48
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Para imprimir en grande o recortar",
+      "spec": "Más de 48 MP",
+      "min": 48
+     }
+    ],
+    "key": "level"
+   }
+  ]
  },
  "Impresión 3D": {
   "axes": [

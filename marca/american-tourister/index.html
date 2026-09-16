@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>American Tourister: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de American Tourister en México comparados entre tiendas: 24 productos. Precios desde $286 hasta $4,999 MXN. Principalmente en viajes, salud y belleza, domótica y hogar inteligente, otros.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/american-tourister/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="American Tourister: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de American Tourister en México comparados entre tiendas: 24 productos. Precios desde $286 hasta $4,999 MXN. Principalmente en viajes, salud y belleza, domótica y hogar inteligente, otros.">
+<meta property="og:url" content="https://comparamex.com/marca/american-tourister/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "American Tourister",
+      "item": "https://comparamex.com/marca/american-tourister/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; American Tourister</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> American Tourister — comparar precios (24)</h1></div>
+<p class="muted small">Precios de American Tourister en México comparados entre tiendas: 24 productos. Precios desde $286 hasta $4,999 MXN. Principalmente en viajes, salud y belleza, domótica y hogar inteligente, otros.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de American Tourister..."
+         aria-label="Buscar productos de American Tourister" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/25551969/bf5ff896-c594-4ca7-9388-4011570ab39e.jpeg.jpg" alt="Maleta american tourister cirrus light 24&quot; rosa" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p83155/">Maleta american tourister cirrus light 24&quot; rosa</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$1,414</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/25620159/eb711a87-53ad-4498-8fd8-fdf3caf802ee.jpeg.jpg" alt="Maleta american tourister cirrus light 28&quot; rosa" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p83161/">Maleta american tourister cirrus light 28&quot; rosa</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$1,414</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/25622325/a8d0eca1-216d-4077-a5d9-56241e47483b.jpeg.jpg" alt="Maleta de cabina american tourister cirrus light 19&quot; rosa" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p83151/">Maleta de cabina american tourister cirrus light 19&quot; rosa</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$1,841</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_966218-MLA99462571702_112025-F.jpg" alt="Maleta American Tourister Frisbee 76/28 Color Amarillo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p290713/">Maleta American Tourister Frisbee 76/28 Color Amarillo</a></div></div><div class="row-priceblock"><div class="row-price">$1,700</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_936629-MLA99945671839_112025-F.jpg" alt="Maleta de viaje pequeña Frankfurt Blue American Tourister Lisa" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p33582/">Maleta de viaje pequeña Frankfurt Blue American Tourister Lisa</a></div></div><div class="row-priceblock"><div class="row-price">$2,249</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_951385-MLU72748569043_112023-F.jpg" alt="Maleta de viaje negra mediana Frankfurt American Tourister New Lisa" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p33584/">Maleta de viaje negra mediana Frankfurt American Tourister New Lisa</a></div></div><div class="row-priceblock"><div class="row-price">$1,719</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28128930/2cd2bbf9-ad2d-4cf1-ad3a-45f5c65d9f58.jpeg.jpg" alt="Espuma Texturizadora para Cabello American Crew Techseries 200 ml" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Salud y belleza</div><div class="row-name"><a href="../../producto/p104357/">Espuma Texturizadora para Cabello American Crew Techseries 200 ml</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$349</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/25617000/86d77db0-310b-481a-b956-5fcaf8e4b2d1.jpeg.jpg" alt="Maleta american tourister recife 24&quot; azul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p83169/">Maleta american tourister recife 24&quot; azul</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$1,720</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_797415-MLA99932428911_112025-F.jpg" alt="Bolsa American Tourister Tracker, tamaño mediano, azul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p290711/">Bolsa American Tourister Tracker, tamaño mediano, azul</a></div></div><div class="row-priceblock"><div class="row-price">$1,624</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31398993/04f98125-95ca-4a4f-97d3-bbd4d1523ec1.jpeg.jpg" alt="Bandeja para pizza American Metalcraft de 36 cm con borde ancho" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Otros</div><div class="row-name"><a href="../../producto/p96792/">Bandeja para pizza American Metalcraft de 36 cm con borde ancho</a></div></div><div class="row-priceblock"><div class="row-price">$286</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31504330/4520a5c4-b43e-4f67-967b-8aaeed706069.jpeg.jpg" alt="Crema Modeladora Forming AMERICAN CREW 85 g (Pack de 11)" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Salud y belleza</div><div class="row-name"><a href="../../producto/p103354/">Crema Modeladora Forming AMERICAN CREW 85 g (Pack de 11)</a></div></div><div class="row-priceblock"><div class="row-price">$3,303</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30629186/b22551f7-7053-4a9f-813d-4a8d9ede8f3a.jpeg.jpg" alt="Hair Fiber American Crew para hombre alta fijación y bajo brillo 90 ml" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Salud y belleza</div><div class="row-name"><a href="../../producto/p103864/">Hair Fiber American Crew para hombre alta fijación y bajo brillo 90 ml</a></div></div><div class="row-priceblock"><div class="row-price">$519</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/23277852/b980e662-67b7-4814-ae59-0ff7c524c2d1.jpg" alt="Chess Pieces AMEROUS Tournament Staunton Wood King de 3.5 pulgadas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name"><a href="../../producto/p109420/">Chess Pieces AMEROUS Tournament Staunton Wood King de 3.5 pulgadas</a></div></div><div class="row-priceblock"><div class="row-price">$660</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_911621-MLA94584670975_102025-F.jpg" alt="Maleta De Viaje American Tourister Summerfunk Mediana Color Teal" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p33583/">Maleta De Viaje American Tourister Summerfunk Mediana Color Teal</a></div></div><div class="row-priceblock"><div class="row-price">$3,823</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_680440-MLA100056989709_122025-F.jpg" alt="Maleta De Viaje Grande American Tourister Luxor 2.0 Unisex" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p33585/">Maleta De Viaje Grande American Tourister Luxor 2.0 Unisex</a></div></div><div class="row-priceblock"><div class="row-price">$1,296</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30544699/2dde7661-6ebc-4a6a-a503-048c12e05183.jpeg.jpg" alt="Valija American Tourister Star Wars R2-D2 53x34x24 cm" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p82566/">Valija American Tourister Star Wars R2-D2 53x34x24 cm</a></div></div><div class="row-priceblock"><div class="row-price">$2,823</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/27464154/AUB0B2WZTSMS-20c8e630-3dd3-4551-93ba-8cad5b4d6030.jpeg.jpg" alt="Equipaje de mano ampliable American Tourister Stratum 2.0" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p82750/">Equipaje de mano ampliable American Tourister Stratum 2.0</a></div></div><div class="row-priceblock"><div class="row-price">$2,793</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_795216-MLA99496629150_112025-F.jpg" alt="Valija American Tourister Aspen Sunny Lime M Verde" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p290712/">Valija American Tourister Aspen Sunny Lime M Verde</a></div></div><div class="row-priceblock"><div class="row-price">$2,699</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_823999-MLA83058544907_032025-F.jpg" alt="Valija American Tourister Skyland Grande Azul claro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p290714/">Valija American Tourister Skyland Grande Azul claro</a></div></div><div class="row-priceblock"><div class="row-price">$2,180</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_893398-MLA99470540806_112025-F.jpg" alt="Valija American Tourister Aspen Sunny Lime S Verde" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p290715/">Valija American Tourister Aspen Sunny Lime S Verde</a></div></div><div class="row-priceblock"><div class="row-price">$2,299</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_622617-MLA112996155018_072026-F.jpg" alt="Maleta American Tourister 12249915151 Color Verde Lima Amarillo Lisa" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p290716/">Maleta American Tourister 12249915151 Color Verde Lima Amarillo Lisa</a></div></div><div class="row-priceblock"><div class="row-price">$4,778</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_652525-MLA95963593149_102025-F.jpg" alt="Valija American Tourister Linex Grande Expandible gris oscuro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Viajes</div><div class="row-name"><a href="../../producto/p290717/">Valija American Tourister Linex Grande Expandible gris oscuro</a></div></div><div class="row-priceblock"><div class="row-price">$4,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31224196/4a13ae35-c6b3-4239-bcb3-67d34c5444df.jpeg.jpg" alt="Letrero de neón LED American Art Decor 43 cm Pepsi con USB" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p44976/">Letrero de neón LED American Art Decor 43 cm Pepsi con USB</a></div></div><div class="row-priceblock"><div class="row-price">$1,119</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30767767/29c06bff-5cec-4bd0-9102-c57cdc38fb3c.jpeg.jpg" alt="Letrero de neón LED USB &quot;Hot Rod Garage&quot; de American Art Decor" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45018/">Letrero de neón LED USB &quot;Hot Rod Garage&quot; de American Art Decor</a></div></div><div class="row-priceblock"><div class="row-price">$1,140</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende American Tourister</h2><div class="chip-row"><a class="chip" href="../../categoria/viajes/">Viajes (17)</a><a class="chip" href="../../categoria/salud-y-belleza/">Salud y belleza (3)</a><a class="chip" href="../../categoria/domotica-y-hogar-inteligente/">Domótica y hogar inteligente (2)</a><a class="chip" href="../../categoria/otros/">Otros (1)</a><a class="chip" href="../../categoria/juegos-de-mesa/">Juegos de mesa (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

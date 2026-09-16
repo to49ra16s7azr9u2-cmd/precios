@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intellinet: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Intellinet en México comparados entre tiendas: 29 productos. Precios desde $239 hasta $9,686 MXN. Principalmente en redes, componentes y accesorios de pc, domótica y hogar inteligente.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/intellinet/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Intellinet: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Intellinet en México comparados entre tiendas: 29 productos. Precios desde $239 hasta $9,686 MXN. Principalmente en redes, componentes y accesorios de pc, domótica y hogar inteligente.">
+<meta property="og:url" content="https://comparamex.com/marca/intellinet/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Intellinet",
+      "item": "https://comparamex.com/marca/intellinet/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Intellinet</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Intellinet — comparar precios (29)</h1></div>
+<p class="muted small">Precios de Intellinet en México comparados entre tiendas: 29 productos. Precios desde $239 hasta $9,686 MXN. Principalmente en redes, componentes y accesorios de pc, domótica y hogar inteligente.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Intellinet..."
+         aria-label="Buscar productos de Intellinet" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_970321-MLA99883256151_112025-F.jpg" alt="Switch Intellinet Ethernet Gigabit 8 Puertos Modelo 530347" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p31884/">Switch Intellinet Ethernet Gigabit 8 Puertos Modelo 530347</a></div></div><div class="row-priceblock"><div class="row-price">$535</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_790996-MLA99993819181_112025-F.jpg" alt="Switch Ethernet Gigabit Intellinet 560917 24 Puertos 2 SFP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291239/">Switch Ethernet Gigabit Intellinet 560917 24 Puertos 2 SFP</a></div></div><div class="row-priceblock"><div class="row-price">$4,359</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_810395-MLA99584019284_122025-F.jpg" alt="Switch PoE Gigabit 8 Puertos Ethernet Intellinet 560641" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p31885/">Switch PoE Gigabit 8 Puertos Ethernet Intellinet 560641</a></div></div><div class="row-priceblock"><div class="row-price">$2,466</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_949486-MLA99954032673_112025-F.jpg" alt="Switch Intellinet 561204 8 Puertos Gigabit Ethernet RJ-45" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291241/">Switch Intellinet 561204 8 Puertos Gigabit Ethernet RJ-45</a></div></div><div class="row-priceblock"><div class="row-price">$1,967</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_826783-MLA99538609990_122025-F.jpg" alt="Switch Intellinet Gigabit Ethernet 24 Puertos Modelo 561044 No Gestionable" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291245/">Switch Intellinet Gigabit Ethernet 24 Puertos Modelo 561044 No Gestionable</a></div></div><div class="row-priceblock"><div class="row-price">$2,977</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_876556-MLA99953105603_112025-F.jpg" alt="Switch PoE+ con 5 puertos Gigabit Intellinet 561792" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p35924/">Switch PoE+ con 5 puertos Gigabit Intellinet 561792</a></div></div><div class="row-priceblock"><div class="row-price">$1,144</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_860378-MLA95150792514_102025-F.jpg" alt="Switch 5 Puertos RJ-45 Gigabit Ethernet Intellinet 561839" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291242/">Switch 5 Puertos RJ-45 Gigabit Ethernet Intellinet 561839</a></div></div><div class="row-priceblock"><div class="row-price">$1,727</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_770679-MLA100037899771_122025-F.jpg" alt="Switch PoE Gigabit 8 Puertos Con Uplink RJ45 Intellinet 561402" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291247/">Switch PoE Gigabit 8 Puertos Con Uplink RJ45 Intellinet 561402</a></div></div><div class="row-priceblock"><div class="row-price">$2,883</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_662885-MLA99940674869_112025-F.jpg" alt="Switch Ethernet Gigabit 24 Puertos RJ-45 Intellinet Montable en Rack" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291248/">Switch Ethernet Gigabit 24 Puertos RJ-45 Intellinet Montable en Rack</a></div></div><div class="row-priceblock"><div class="row-price">$1,899</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_996113-MLA99962175243_112025-F.jpg" alt="Intellinet Switch Gb 5 Puertos Desktop Metal 530378 10/1 /vc" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291249/">Intellinet Switch Gb 5 Puertos Desktop Metal 530378 10/1 /vc</a></div></div><div class="row-priceblock"><div class="row-price">$491</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_634978-MLA99502157514_112025-F.jpg" alt="Switch PoE Administrable Gigabit Intellinet de 16 Puertos y 2 SFP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291250/">Switch PoE Administrable Gigabit Intellinet de 16 Puertos y 2 SFP</a></div></div><div class="row-priceblock"><div class="row-price">$9,686</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_718385-MLA99397837856_112025-F.jpg" alt="Switch PoE Gigabit 5 Puertos Ethernet Intellinet 561082" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p35925/">Switch PoE Gigabit 5 Puertos Ethernet Intellinet 561082</a></div></div><div class="row-priceblock"><div class="row-price">$1,600</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_804815-MLA95200940664_102025-F.jpg" alt="Switch Intellinet 560993" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291237/">Switch Intellinet 560993</a></div></div><div class="row-priceblock"><div class="row-price">$6,089</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_723383-MLA99514829264_112025-F.jpg" alt="Switch Intellinet Gigabit Ethernet 561167 8 Puertos 10/100" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291243/">Switch Intellinet Gigabit Ethernet 561167 8 Puertos 10/100</a></div></div><div class="row-priceblock"><div class="row-price">$4,868</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_977078-MLA99548336394_122025-F.jpg" alt="Switch PoE Gigabit 24 Puertos SFP Para Rack Intellinet 561891" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291246/">Switch PoE Gigabit 24 Puertos SFP Para Rack Intellinet 561891</a></div></div><div class="row-priceblock"><div class="row-price">$8,288</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_944858-MLA99474067202_112025-F.jpg" alt="Switch Gigabit Ethernet Intellinet 16 puertos RJ-45 modelo 561815 conmutación 32 Gbps" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291253/">Switch Gigabit Ethernet Intellinet 16 puertos RJ-45 modelo 561815 conmutación 32 Gbps</a></div></div><div class="row-priceblock"><div class="row-price">$1,757</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_862875-MLA99480098784_112025-F.jpg" alt="Switch PoE+ Intellinet de 8 Puertos para Escritorio" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291238/">Switch PoE+ Intellinet de 8 Puertos para Escritorio</a></div></div><div class="row-priceblock"><div class="row-price">$4,951</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_718197-MLA99454343758_112025-F.jpg" alt="Switch Ethernet Intellinet de 8 Puertos 10/100 Mbps" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291240/">Switch Ethernet Intellinet de 8 Puertos 10/100 Mbps</a></div></div><div class="row-priceblock"><div class="row-price">$329</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_641189-MLA99483157092_112025-F.jpg" alt="Switch KVM Intellinet de 8 Puertos para Montaje en Rack" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291244/">Switch KVM Intellinet de 8 Puertos para Montaje en Rack</a></div></div><div class="row-priceblock"><div class="row-price">$2,800</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_822389-MLU78419403265_082024-F.jpg" alt="Switch Gigabit PoE+ de 24 Puertos Intellinet 561907 para Redes con SFP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291251/">Switch Gigabit PoE+ de 24 Puertos Intellinet 561907 para Redes con SFP</a></div></div><div class="row-priceblock"><div class="row-price">$8,569</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_710769-MLM74110499008_012024-F.jpg" alt="Switch Web Gigabit Intellinet de 24 Puertos PoE+ y 2 SFP Gestionable" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291252/">Switch Web Gigabit Intellinet de 24 Puertos PoE+ y 2 SFP Gestionable</a></div></div><div class="row-priceblock"><div class="row-price">$8,709</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_741570-MLA100058985743_122025-F.jpg" alt="Switch Manhattan Fast Ethernet 8 Puertos 10/100 Mbps 560 /vc" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291367/">Switch Manhattan Fast Ethernet 8 Puertos 10/100 Mbps 560 /vc</a></div></div><div class="row-priceblock"><div class="row-price">$429</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/image-170becba4f4244c1816b19d9b21ced68.jpg?v=1778605611" alt="Cable de Bobina IntelliNet Cat6 (UTP) Gris" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Componentes y accesorios de PC</div><div class="row-name"><a href="../../producto/p231968/">Cable de Bobina IntelliNet Cat6 (UTP) Gris</a></div></div><div class="row-priceblock"><div class="row-price">$1,949</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/intellinet-jack-impacto-cat6-utp-dotomexico-vista-frontal_15abf6ff-47ad-44d3-a020-6e140e5d88c2.jpg?v=1775744303" alt="Intellinet Jack de impacto Cat6, UTP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Componentes y accesorios de PC</div><div class="row-name"><a href="../../producto/p232136/">Intellinet Jack de impacto Cat6, UTP</a></div></div><div class="row-priceblock"><div class="row-price">$239</div></div></div><div class="product-row has-rank"><span class="rank-badge">25</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/intellinet-cable-red-cat6-utp-rj-45-2mts-dotomexico-vista-frontal.jpg?v=1775744302" alt="Intellinet Cable de Red UTP Cat 6 Azul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Componentes y accesorios de PC</div><div class="row-name"><a href="../../producto/p232137/">Intellinet Cable de Red UTP Cat 6 Azul</a></div></div><div class="row-priceblock"><div class="row-price">$259</div></div></div><div class="product-row has-rank"><span class="rank-badge">26</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/intellinet-cople-hdmi-hembra-dotomexico-vista-frontal.jpg?v=1775169808" alt="Intellinet Cople HDMI hembra a HDMI hembra Tipo Keystone 771351 Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Componentes y accesorios de PC</div><div class="row-name"><a href="../../producto/p232634/">Intellinet Cople HDMI hembra a HDMI hembra Tipo Keystone 771351 Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$279</div></div></div><div class="product-row has-rank"><span class="rank-badge">27</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/intellinet-bote-plugs-rj45-trasnparente-dotomexico-vista-caja.jpg?v=1775169745" alt="Intellinet Bote de Plugs RJ-45, Cat 6, UTP, 100 pzs" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Componentes y accesorios de PC</div><div class="row-name"><a href="../../producto/p232644/">Intellinet Bote de Plugs RJ-45, Cat 6, UTP, 100 pzs</a></div></div><div class="row-priceblock"><div class="row-price">$549</div></div></div><div class="product-row has-rank"><span class="rank-badge">28</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/intellinet-adaptador-jack-rj45-cat5e-dotomexico-vista-dinamica.jpg?v=1775169649" alt="Intellinet Adaptador Jack RJ45 CAT5e UTP Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Componentes y accesorios de PC</div><div class="row-name"><a href="../../producto/p232660/">Intellinet Adaptador Jack RJ45 CAT5e UTP Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$239</div></div></div><div class="product-row has-rank"><span class="rank-badge">29</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28166239/c549d84a-c64a-4422-ad2a-1801d4657c9f.jpeg.jpg" alt="Inyector PoE INTELLINET de 2 puertos Gigabit 80 W de potencia total" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45198/">Inyector PoE INTELLINET de 2 puertos Gigabit 80 W de potencia total</a></div></div><div class="row-priceblock"><div class="row-price">$2,058</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Intellinet</h2><div class="chip-row"><a class="chip" href="../../categoria/redes-y-wifi/">Redes y WiFi (22)</a><a class="chip" href="../../categoria/componentes-y-accesorios-de-pc/">Componentes y accesorios de PC (6)</a><a class="chip" href="../../categoria/domotica-y-hogar-inteligente/">Domótica y hogar inteligente (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

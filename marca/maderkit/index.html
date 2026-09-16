@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maderkit: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Maderkit en México comparados entre tiendas: 32 productos. Precios desde $332 hasta $5,039 MXN. Principalmente en muebles, herramientas, otros, juguetes y bebés.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/maderkit/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Maderkit: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Maderkit en México comparados entre tiendas: 32 productos. Precios desde $332 hasta $5,039 MXN. Principalmente en muebles, herramientas, otros, juguetes y bebés.">
+<meta property="og:url" content="https://comparamex.com/marca/maderkit/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Maderkit",
+      "item": "https://comparamex.com/marca/maderkit/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Maderkit</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Maderkit — comparar precios (32)</h1></div>
+<p class="muted small">Precios de Maderkit en México comparados entre tiendas: 32 productos. Precios desde $332 hasta $5,039 MXN. Principalmente en muebles, herramientas, otros, juguetes y bebés.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Maderkit..."
+         aria-label="Buscar productos de Maderkit" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28920248/M01655ES-WE.jpg" alt="Escritorio Gamer Básico 1 Cajón MADERKIT EM01655ES-WE" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p69310/">Escritorio Gamer Básico 1 Cajón MADERKIT EM01655ES-WE</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$2,089</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31692123/aa35b52f-58e6-48c3-95f2-c36a82904183.jpeg.jpg" alt="Mesa de centro stone color milan onix" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p67541/">Mesa de centro stone color milan onix</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$1,409</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31692029/9fc502fb-432d-4bea-97b0-584dea55dad1.jpeg.jpg" alt="Mesa para tv de hasta 75&quot; marfil 180x60cm mdp" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p67766/">Mesa para tv de hasta 75&quot; marfil 180x60cm mdp</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$3,479</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31690424/02293ae6-cf12-4dcf-991c-0cc3ee365b13.jpeg.jpg" alt="Estacion de trabajo escritorio ejecutivo sams" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p68998/">Estacion de trabajo escritorio ejecutivo sams</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$3,500</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/25541865/EM01656ES-WERJ.jpg" alt="Escritorio Gamer Max 1 Cajón MADERKIT EM01656ES-WERJ" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p69309/">Escritorio Gamer Max 1 Cajón MADERKIT EM01656ES-WERJ</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$3,399</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28920861/M01536ES-DU_.jpg" alt="Escritorio Repisas Lannister MADERKIT M01536ES-DU" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p69311/">Escritorio Repisas Lannister MADERKIT M01536ES-DU</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$2,009</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/22416513/imagea7ed1d3d31f34827bb6b8bd96afc6fc6jpeg.jpg" alt="Escritorio En L  Color Caramelo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p69460/">Escritorio En L  Color Caramelo</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$3,429</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31692106/73bf1f22-eaaa-429f-9b72-9fe0d3fbbcff.jpeg.jpg" alt="Mesa de comedor cora 6 puestos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p69926/">Mesa de comedor cora 6 puestos</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$3,729</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31683420/ed795cca-f327-423e-a17d-9c1a9bedb454.jpeg.jpg" alt="Cama para mascotas blanco-rovere 40x24x53 mdp" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Mascotas</div><div class="row-name"><a href="../../producto/p75093/">Cama para mascotas blanco-rovere 40x24x53 mdp</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$1,939</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/29480802/f26746c1-1434-4ce6-9fae-288e508cc8c3.jpeg.jpg" alt="Cabezal de ducha MakeFit de 30 cm con filtro efecto lluvia y teleducha" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Herramientas</div><div class="row-name"><a href="../../producto/p121978/">Cabezal de ducha MakeFit de 30 cm con filtro efecto lluvia y teleducha</a></div></div><div class="row-priceblock"><div class="row-price">$1,861</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31202047/14e3f5b4-543d-4a94-bbc4-fce36ddefed5.jpeg.jpg" alt="Bandeja giratoria madesmart 25 cm blanca Classic" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Otros</div><div class="row-name"><a href="../../producto/p97839/">Bandeja giratoria madesmart 25 cm blanca Classic</a></div></div><div class="row-priceblock"><div class="row-price">$332</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30327311/4550c60b-a1aa-4dfd-a6f0-6ca84a390d4d.jpeg.jpg" alt="Pañales MANEKI Talla 3 Paquete de 116 Unidades Hipoalergénicos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name"><a href="../../producto/p105525/">Pañales MANEKI Talla 3 Paquete de 116 Unidades Hipoalergénicos</a></div></div><div class="row-priceblock"><div class="row-price">$1,329</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_964603-MLA109751660231_032026-F.jpg" alt="Buró Mesa de Luz Diseño Moderno Gales" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p33092/">Buró Mesa de Luz Diseño Moderno Gales</a></div></div><div class="row-priceblock"><div class="row-price">$1,349</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31692001/0a145e9d-dde3-4fcc-bf2b-17c1eee2e2cd.jpeg.jpg" alt="Mesa tv con entrepaños abiertos 160x58cm mdp" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p67767/">Mesa tv con entrepaños abiertos 160x58cm mdp</a></div></div><div class="row-priceblock"><div class="row-price">$2,169</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28963159/image60f2a77eaeb147418a0a042861dcc11ejpeg.jpg" alt="Escritorio En L Color Duna" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p69459/">Escritorio En L Color Duna</a></div></div><div class="row-priceblock"><div class="row-price">$2,559</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31691993/35408eb0-1fd1-4899-b711-e4ac6d190d55.jpeg.jpg" alt="Mesa comedor cuadrado nilo 90x75x90cm 4 puestos mdp" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p69927/">Mesa comedor cuadrado nilo 90x75x90cm 4 puestos mdp</a></div></div><div class="row-priceblock"><div class="row-price">$3,389</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_695729-MLA110840024166_052026-F.jpg" alt="Comedor Multifuncional Bren Roble Natural" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p286298/">Comedor Multifuncional Bren Roble Natural</a></div></div><div class="row-priceblock"><div class="row-price">$2,499</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_601997-MLA110062524883_042026-F.jpg" alt="Escritorio En L Color Duna Maderkit" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289854/">Escritorio En L Color Duna Maderkit</a></div></div><div class="row-priceblock"><div class="row-price">$2,309</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_955617-MLA110059536427_042026-F.jpg" alt="Escritorio En L Maderkit Color Wengue" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289855/">Escritorio En L Maderkit Color Wengue</a></div></div><div class="row-priceblock"><div class="row-price">$3,429</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_659962-MLA109215870992_042026-F.jpg" alt="Centro De Computo Maderkit Color Ceniza" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289856/">Centro De Computo Maderkit Color Ceniza</a></div></div><div class="row-priceblock"><div class="row-price">$1,519</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_857205-MLU72628297638_112023-F.jpg" alt="Escritorio Con Gaveta Color Rovere Maderkit" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289857/">Escritorio Con Gaveta Color Rovere Maderkit</a></div></div><div class="row-priceblock"><div class="row-price">$1,789</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_797703-MLU72699561031_112023-F.jpg" alt="Combo Escritorio + Librero Maderkit Color Rovere" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289858/">Combo Escritorio + Librero Maderkit Color Rovere</a></div></div><div class="row-priceblock"><div class="row-price">$2,409</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_826327-MLA79497263112_102024-F.jpg" alt="Escritorio Con Gaveta Color Caramelo Maderkit" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289859/">Escritorio Con Gaveta Color Caramelo Maderkit</a></div></div><div class="row-priceblock"><div class="row-price">$1,729</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_804947-MLU72628504386_112023-F.jpg" alt="Escritorio, Estación De Trabajo Quadratta Maderkit Rovere Beige" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289860/">Escritorio, Estación De Trabajo Quadratta Maderkit Rovere Beige</a></div></div><div class="row-priceblock"><div class="row-price">$5,039</div></div></div><div class="product-row has-rank"><span class="rank-badge">25</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_646763-MLA110062472411_042026-F.jpg" alt="Escritorio En L Maderkit Color Wengue Color Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289861/">Escritorio En L Maderkit Color Wengue Color Negro</a></div></div><div class="row-priceblock"><div class="row-price">$2,759</div></div></div><div class="product-row has-rank"><span class="rank-badge">26</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_613802-MLA90955670290_082025-F.jpg" alt="Escritorio Maderkit P00483es-cz 100x40x73 Cm Ceniza Gris" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289862/">Escritorio Maderkit P00483es-cz 100x40x73 Cm Ceniza Gris</a></div></div><div class="row-priceblock"><div class="row-price">$1,617</div></div></div><div class="product-row has-rank"><span class="rank-badge">27</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_915581-MLA110061421621_042026-F.jpg" alt="Combo Escritorio + Librero Maderkit Color Wengue Color Rovere" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289863/">Combo Escritorio + Librero Maderkit Color Wengue Color Rovere</a></div></div><div class="row-priceblock"><div class="row-price">$2,179</div></div></div><div class="product-row has-rank"><span class="rank-badge">28</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_618674-MLU75709003714_042024-F.jpg" alt="Combo Escritorio + Librero Maderkit Color Gales Color Marrón" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289864/">Combo Escritorio + Librero Maderkit Color Gales Color Marrón</a></div></div><div class="row-priceblock"><div class="row-price">$2,479</div></div></div><div class="product-row has-rank"><span class="rank-badge">29</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_674544-MLA110062381319_042026-F.jpg" alt="Escritorio En L Color Duna Maderkit Color Duna/Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289865/">Escritorio En L Color Duna Maderkit Color Duna/Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$2,219</div></div></div><div class="product-row has-rank"><span class="rank-badge">30</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_779937-MLA99481240084_112025-F.jpg" alt="Escritorio Extensible Maderkit Space V2 140x50 Cm Wengue Wengue" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289866/">Escritorio Extensible Maderkit Space V2 140x50 Cm Wengue Wengue</a></div></div><div class="row-priceblock"><div class="row-price">$2,449</div></div></div><div class="product-row has-rank"><span class="rank-badge">31</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_937783-MLA110240879396_052026-F.jpg" alt="Escritorio Librero Extensible Maderkit 146x50x180 Cm Moderno Beige" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289867/">Escritorio Librero Extensible Maderkit 146x50x180 Cm Moderno Beige</a></div></div><div class="row-priceblock"><div class="row-price">$4,009</div></div></div><div class="product-row has-rank"><span class="rank-badge">32</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_666899-MLA96673379541_102025-F.jpg" alt="Escritorio Maderkit M01326el-dubl De 122cm X 87cm X 122.6cm X 121cm Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name"><a href="../../producto/p289868/">Escritorio Maderkit M01326el-dubl De 122cm X 87cm X 122.6cm X 121cm Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$2,809</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Maderkit</h2><div class="chip-row"><a class="chip" href="../../categoria/muebles/">Muebles (28)</a><a class="chip" href="../../categoria/herramientas/">Herramientas (1)</a><a class="chip" href="../../categoria/otros/">Otros (1)</a><a class="chip" href="../../categoria/juguetes-y-bebes/">Juguetes y bebés (1)</a><a class="chip" href="../../categoria/mascotas/">Mascotas (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

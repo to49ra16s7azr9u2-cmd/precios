@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StoneBanks: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de StoneBanks en México comparados entre tiendas: 26 productos. Precios desde $193 hasta $1,003 MXN. Principalmente en iluminación.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/stonebanks/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="StoneBanks: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de StoneBanks en México comparados entre tiendas: 26 productos. Precios desde $193 hasta $1,003 MXN. Principalmente en iluminación.">
+<meta property="og:url" content="https://comparamex.com/marca/stonebanks/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "StoneBanks",
+      "item": "https://comparamex.com/marca/stonebanks/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; StoneBanks</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> StoneBanks — comparar precios (26)</h1></div>
+<p class="muted small">Precios de StoneBanks en México comparados entre tiendas: 26 productos. Precios desde $193 hasta $1,003 MXN. Principalmente en iluminación.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de StoneBanks..."
+         aria-label="Buscar productos de StoneBanks" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_857310-MLA94959045066_102025-F.jpg" alt="Plafón LED Moderno StoneBanks para Techo, Lámpara Colgante Dorada con 3 Modos de Luz Ajustable" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292392/">Plafón LED Moderno StoneBanks para Techo, Lámpara Colgante Dorada con 3 Modos de Luz Ajustable</a></div></div><div class="row-priceblock"><div class="row-price">$540</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_986993-MLA104352595313_012026-F.jpg" alt="Lámpara Techo Colgante Cristal Moderna Decoración Lujoso" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p29438/">Lámpara Techo Colgante Cristal Moderna Decoración Lujoso</a></div></div><div class="row-priceblock"><div class="row-price">$785</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_797689-MLA113614003494_072026-F.jpg" alt="StoneBanks Lámpara De Techo Y Pared Lámparas De Riel Led Decorativas Moderna Stonebanks Para Sala Y Interiores Con Capacidad Para 4 Focos 110v Gu10 Lampara Decorativa Hogar Luces Led Modelo Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292383/">StoneBanks Lámpara De Techo Y Pared Lámparas De Riel Led Decorativas Moderna Stonebanks Para Sala Y Interiores Con Capacidad Para 4 Focos 110v Gu10 Lampara Decorativa Hogar Luces Led Modelo Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$251</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_717823-MLA115719795303_082026-F.jpg" alt="Lámpara de Techo Minimalista StoneBanks Negra de Hierro con 3 Luces" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292384/">Lámpara de Techo Minimalista StoneBanks Negra de Hierro con 3 Luces</a></div></div><div class="row-priceblock"><div class="row-price">$290</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_892764-MLA89953846915_082025-F.jpg" alt="Lámpara de Techo LED StoneBanks de Cristal con Luz Tricolor, 24W" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292385/">Lámpara de Techo LED StoneBanks de Cristal con Luz Tricolor, 24W</a></div></div><div class="row-priceblock"><div class="row-price">$509</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_822041-MLA91921981229_092025-F.jpg" alt="Lámpara LED de Pared StoneBanks de 30W, para Baño con Luz Blanca Fría" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292386/">Lámpara LED de Pared StoneBanks de 30W, para Baño con Luz Blanca Fría</a></div></div><div class="row-priceblock"><div class="row-price">$671</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_712388-MLA114114348307_072026-F.jpg" alt="Stonebanks Lámparas De Techo Plafón LED Moderna Decorativas 90x50cm 110v 75w Regulable Continuamente Con Control Remoto Sin Parpadeo Protección Ocular Fácil De Instalar Para Sala Dormitorio Comedor" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292387/">Stonebanks Lámparas De Techo Plafón LED Moderna Decorativas 90x50cm 110v 75w Regulable Continuamente Con Control Remoto Sin Parpadeo Protección Ocular Fácil De Instalar Para Sala Dormitorio Comedor</a></div></div><div class="row-priceblock"><div class="row-price">$1,003</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_722642-MLA114113752281_072026-F.jpg" alt="StoneBanks Lámpara Solar Exterior Para Jardin Suburbano Sensor De Movimiento Garaje Alumbrado Led Luminaria Color Lmpermeable Con Luz Blanco Lampara Suburbana Solar Focos Para Exterior" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292388/">StoneBanks Lámpara Solar Exterior Para Jardin Suburbano Sensor De Movimiento Garaje Alumbrado Led Luminaria Color Lmpermeable Con Luz Blanco Lampara Suburbana Solar Focos Para Exterior</a></div></div><div class="row-priceblock"><div class="row-price">$277</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_870034-MLA114248091055_072026-F.jpg" alt="StoneBanks Lámpara De Techo Decorativa LED Moderna 110v Forma Cuadrada Interconectada Con Control Remoto 8000lm 62x40x14cm Luz de Techo Alto Rendimiento Para Recámara Sala Entrada y Balcón" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292389/">StoneBanks Lámpara De Techo Decorativa LED Moderna 110v Forma Cuadrada Interconectada Con Control Remoto 8000lm 62x40x14cm Luz de Techo Alto Rendimiento Para Recámara Sala Entrada y Balcón</a></div></div><div class="row-priceblock"><div class="row-price">$521</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_743781-MLA116034797936_092026-F.jpg" alt="StoneBanks Plafón LED Luces fría neutra cálidaLámpara decorativa de techo Estructura cuadrada en blanco y negro 20*20*5cm Acrílico de alta calidad 20W Ahorro de energía recámara sala pasillo comedor" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292390/">StoneBanks Plafón LED Luces fría neutra cálidaLámpara decorativa de techo Estructura cuadrada en blanco y negro 20*20*5cm Acrílico de alta calidad 20W Ahorro de energía recámara sala pasillo comedor</a></div></div><div class="row-priceblock"><div class="row-price">$218</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_728688-MLA114113385967_072026-F.jpg" alt="Stonebanks Lámparas De Techo Seis Círculos Modernas Regulable De Luz Led 60w Hogar Aplicación Contro Lampara Colgante Luz Techo Plafón Led Luz Fría Neutra Cálida Para Dormitorio Y Sala Estar Cocina" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292391/">Stonebanks Lámparas De Techo Seis Círculos Modernas Regulable De Luz Led 60w Hogar Aplicación Contro Lampara Colgante Luz Techo Plafón Led Luz Fría Neutra Cálida Para Dormitorio Y Sala Estar Cocina</a></div></div><div class="row-priceblock"><div class="row-price">$535</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_995841-MLA116203788890_092026-F.jpg" alt="Lámpara de techo de Stonebanks placa LED ajustable continuamente con control remoto 68w moderno Decoración fácil de instalar Aluminio cuadrado 58*46*12cm sin cejas para habitación Comedor Inicio" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292393/">Lámpara de techo de Stonebanks placa LED ajustable continuamente con control remoto 68w moderno Decoración fácil de instalar Aluminio cuadrado 58*46*12cm sin cejas para habitación Comedor Inicio</a></div></div><div class="row-priceblock"><div class="row-price">$631</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_687274-MLA112893745366_072026-F.jpg" alt="Stonebanks Lámpara De Techo Plafón Led Floral Moderno 80cm 3 Tonos Luz 3000k/4500k/6000k Sobreponer Plástico Resistente Sin Ofuscar Instalación Fácil Para Sala Dormitorio Decoración Interior Del Hogar" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292394/">Stonebanks Lámpara De Techo Plafón Led Floral Moderno 80cm 3 Tonos Luz 3000k/4500k/6000k Sobreponer Plástico Resistente Sin Ofuscar Instalación Fácil Para Sala Dormitorio Decoración Interior Del Hogar</a></div></div><div class="row-priceblock"><div class="row-price">$620</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_690248-MLA112909017606_072026-F.jpg" alt="StoneBanks Lamparas De Techo Modernas 110v Luces Led 56w 60x63x8cm Lamparas Semi Empotrada De 24 Pulgadas Aluminio Y Acrílico Para Hogar Cuarto De Bano Porche App Y Control Luz Natural Blanca Calida" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292395/">StoneBanks Lamparas De Techo Modernas 110v Luces Led 56w 60x63x8cm Lamparas Semi Empotrada De 24 Pulgadas Aluminio Y Acrílico Para Hogar Cuarto De Bano Porche App Y Control Luz Natural Blanca Calida</a></div></div><div class="row-priceblock"><div class="row-price">$858</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_921766-MLA116195084970_092026-F.jpg" alt="Stonebanks Lámpara de Techo Plafón LED 70*40*8cm Cuadrado 80W Control Remoto Iluminación Ajustable Sin Límites Decoración Moderna Alta Luminosidad Luz Suave Para Sala Dormitorio Hogar Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292396/">Stonebanks Lámpara de Techo Plafón LED 70*40*8cm Cuadrado 80W Control Remoto Iluminación Ajustable Sin Límites Decoración Moderna Alta Luminosidad Luz Suave Para Sala Dormitorio Hogar Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$724</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_936169-MLA114729736570_082026-F.jpg" alt="StoneBanks Lámparas De Techo Led Cristal Estilo Moderno Decoración Cristal Redonda 30*30cm 28w 110v Tres Colores Ajustables Luz Cálida/natura/blanca Para Sala Dormitorio Balcón Pasillo Cocina Corredor" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292397/">StoneBanks Lámparas De Techo Led Cristal Estilo Moderno Decoración Cristal Redonda 30*30cm 28w 110v Tres Colores Ajustables Luz Cálida/natura/blanca Para Sala Dormitorio Balcón Pasillo Cocina Corredor</a></div></div><div class="row-priceblock"><div class="row-price">$806</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_887279-MLA116140233110_092026-F.jpg" alt="StoneBanks Lamparas De Techo Modernas Regulable Led Con Control Remoto Plafón Led 6 Anillos Luminaria De Techo Multianillos Sobreponer 80W Para Dormitorio Sala Cocina" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292398/">StoneBanks Lamparas De Techo Modernas Regulable Led Con Control Remoto Plafón Led 6 Anillos Luminaria De Techo Multianillos Sobreponer 80W Para Dormitorio Sala Cocina</a></div></div><div class="row-priceblock"><div class="row-price">$758</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_876897-MLA116194796800_092026-F.jpg" alt="Stonebanks Lámpara de Techo Plafón LED 70*40*8cm Cuadrado 80W Control Remoto Iluminación Ajustable Sin Límites Decoración Moderna Alta Luminosidad Luz Suave Para Sala Dormitorio Hogar Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292399/">Stonebanks Lámpara de Techo Plafón LED 70*40*8cm Cuadrado 80W Control Remoto Iluminación Ajustable Sin Límites Decoración Moderna Alta Luminosidad Luz Suave Para Sala Dormitorio Hogar Negro</a></div></div><div class="row-priceblock"><div class="row-price">$724</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_888399-MLA114891587939_072026-F.jpg" alt="StoneBanks Lámpara De Techo Y Pared Lámparas De Riel LED Decorativas Moderna Para Sala Y Interiores Con Capacidad Para 4 Focos 110v Gu10 Lampara Decorativa Hogar Luces Led Modelo Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292400/">StoneBanks Lámpara De Techo Y Pared Lámparas De Riel LED Decorativas Moderna Para Sala Y Interiores Con Capacidad Para 4 Focos 110v Gu10 Lampara Decorativa Hogar Luces Led Modelo Negro</a></div></div><div class="row-priceblock"><div class="row-price">$251</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_668090-MLA117456754263_092026-F.jpg" alt="Lámpara de techo LED StoneBanks 20W, circular, 3 tonos, diseño moderno en blanco y negro, 20x20x5cm, acrílico, ideal para cocina, pasillo o balcón." referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292401/">Lámpara de techo LED StoneBanks 20W, circular, 3 tonos, diseño moderno en blanco y negro, 20x20x5cm, acrílico, ideal para cocina, pasillo o balcón.</a></div></div><div class="row-priceblock"><div class="row-price">$193</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_842412-MLA114680672710_082026-F.jpg" alt="StoneBanks Lámparas De Techo Plafón Led Luz Decoración Moderna Forma De Cristal Redonda 30cm Luz Blanca 24w 110v Sin Parpadeo Protección Ocular Para Pasillos Vestíbulos Habitaciones Baños Sala Balcón" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292402/">StoneBanks Lámparas De Techo Plafón Led Luz Decoración Moderna Forma De Cristal Redonda 30cm Luz Blanca 24w 110v Sin Parpadeo Protección Ocular Para Pasillos Vestíbulos Habitaciones Baños Sala Balcón</a></div></div><div class="row-priceblock"><div class="row-price">$387</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_830522-MLA114083555691_072026-F.jpg" alt="StoneBanks Lámpara De Techo LED 48W Regulable Con Control Remoto Luz Blanca/Neutra/Cálida Diseño Floral 33cm Para Dormitorio Sala 10-15m² Iluminación 360° Sin Parpadeos Ideal Para Recámara" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292403/">StoneBanks Lámpara De Techo LED 48W Regulable Con Control Remoto Luz Blanca/Neutra/Cálida Diseño Floral 33cm Para Dormitorio Sala 10-15m² Iluminación 360° Sin Parpadeos Ideal Para Recámara</a></div></div><div class="row-priceblock"><div class="row-price">$481</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_941772-MLA115877558648_092026-F.jpg" alt="StoneBanks Lámpara de techo LED decorativa Con control remoto 54w Moderno 80*58*12CM Redondo y blanco Función de regulación continua de la intensidad luminosa Lámpara para sala recámara Sin parpadeos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292404/">StoneBanks Lámpara de techo LED decorativa Con control remoto 54w Moderno 80*58*12CM Redondo y blanco Función de regulación continua de la intensidad luminosa Lámpara para sala recámara Sin parpadeos</a></div></div><div class="row-priceblock"><div class="row-price">$913</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_837520-MLA116095545075_082026-F.jpg" alt="StoneBanks Lamparas De Techo Led Moderna Decorativas Plafón LED Cuadrado 20*20*6cm Panel Fácil De Instalar 85-265v 24w 5-15 Metro Luz Blanca Para Pasillo Corredor Sala Dormitorio Cocina Escalera" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292405/">StoneBanks Lamparas De Techo Led Moderna Decorativas Plafón LED Cuadrado 20*20*6cm Panel Fácil De Instalar 85-265v 24w 5-15 Metro Luz Blanca Para Pasillo Corredor Sala Dormitorio Cocina Escalera</a></div></div><div class="row-priceblock"><div class="row-price">$338</div></div></div><div class="product-row has-rank"><span class="rank-badge">25</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_751284-MLA115489854395_082026-F.jpg" alt="Lámpara De Techo LED Moderna Inteligente Stonebanks 68W 4 Focos Regulable 3 Tonos Luz Cálida Neutra Y Blanca 6000K Con Control Remoto" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292406/">Lámpara De Techo LED Moderna Inteligente Stonebanks 68W 4 Focos Regulable 3 Tonos Luz Cálida Neutra Y Blanca 6000K Con Control Remoto</a></div></div><div class="row-priceblock"><div class="row-price">$635</div></div></div><div class="product-row has-rank"><span class="rank-badge">26</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_919528-MLA117409249027_092026-F.jpg" alt="StoneBanks Plafón Led Circular 22W 3 Tonos de Luz Fría Neutra Cálida Moderno Delgado Blanco y Negro Lámpara de Techo para Sala Dormitorio Pasillo Cocina Alto Brillo iluminación interior Sin parpadeos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292407/">StoneBanks Plafón Led Circular 22W 3 Tonos de Luz Fría Neutra Cálida Moderno Delgado Blanco y Negro Lámpara de Techo para Sala Dormitorio Pasillo Cocina Alto Brillo iluminación interior Sin parpadeos</a></div></div><div class="row-priceblock"><div class="row-price">$222</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende StoneBanks</h2><div class="chip-row"><a class="chip" href="../../categoria/iluminacion/">Iluminación (26)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

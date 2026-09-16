@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hiseeu: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Hiseeu en México comparados entre tiendas: 21 productos. Precios desde $312 hasta $14,899 MXN. Principalmente en cámaras de seguridad.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/hiseeu/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Hiseeu: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Hiseeu en México comparados entre tiendas: 21 productos. Precios desde $312 hasta $14,899 MXN. Principalmente en cámaras de seguridad.">
+<meta property="og:url" content="https://comparamex.com/marca/hiseeu/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Hiseeu",
+      "item": "https://comparamex.com/marca/hiseeu/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Hiseeu</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Hiseeu — comparar precios (21)</h1></div>
+<p class="muted small">Precios de Hiseeu en México comparados entre tiendas: 21 productos. Precios desde $312 hasta $14,899 MXN. Principalmente en cámaras de seguridad.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Hiseeu..."
+         aria-label="Buscar productos de Hiseeu" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_858966-MLA99997717335_112025-F.jpg" alt="Hiseeu Solar Cámara De Seguridad 2.4G/5GWifi Exterior 4mp 2piezas Color Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290890/">Hiseeu Solar Cámara De Seguridad 2.4G/5GWifi Exterior 4mp 2piezas Color Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$1,092</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_608249-MLA96418243756_102025-F.jpg" alt="Hiseeu Cámara Solar De Seguridad 2.4G/5GWifi Exterior 4mp 2 Piezas Color Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p29298/">Hiseeu Cámara Solar De Seguridad 2.4G/5GWifi Exterior 4mp 2 Piezas Color Negro</a></div></div><div class="row-priceblock"><div class="row-price">$1,064</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_704482-MLA107906719275_032026-F.jpg" alt="Kit Camaras Vigilancia Con Pantalla Táctil Hiseeu Cargasolar" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p29316/">Kit Camaras Vigilancia Con Pantalla Táctil Hiseeu Cargasolar</a></div></div><div class="row-priceblock"><div class="row-price">$5,220</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_745806-MLA107119009131_022026-F.jpg" alt="Kits De Seguridad Dvr 4 Cámaras 5mp Hd Visión Nocturna" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p141150/">Kits De Seguridad Dvr 4 Cámaras 5mp Hd Visión Nocturna</a></div></div><div class="row-priceblock"><div class="row-price">$2,386</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_731045-MLA116897527887_082026-F.jpg" alt="Hiseeu Kit De Cámaras 4MP Ptz Solar Cámara De Seguridad" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p286660/">Hiseeu Kit De Cámaras 4MP Ptz Solar Cámara De Seguridad</a></div></div><div class="row-priceblock"><div class="row-price">$4,161</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_601836-MLA114416823894_082026-F.jpg" alt="Hiseeu Solar Camara De Seguridad 4mp" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290885/">Hiseeu Solar Camara De Seguridad 4mp</a></div></div><div class="row-priceblock"><div class="row-price">$677</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_829400-MLA96561607292_112025-F.jpg" alt="Cámara De Monitoreo Inalámbrica Hiseeu Nvr Integrado 1920p 5 - Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290886/">Cámara De Monitoreo Inalámbrica Hiseeu Nvr Integrado 1920p 5 - Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$8,019</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_662941-MLA114549393036_082026-F.jpg" alt="Camara De Seguridad Hiseeu Tz 2hb615 5mp Exterior Interior Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290887/">Camara De Seguridad Hiseeu Tz 2hb615 5mp Exterior Interior Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$2,729</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_883465-MLA82202476902_022025-F.jpg" alt="Cámara de Seguridad Domo Hiseeu WiFi 3MP 360° Visión Nocturna" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290888/">Cámara de Seguridad Domo Hiseeu WiFi 3MP 360° Visión Nocturna</a></div></div><div class="row-priceblock"><div class="row-price">$312</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_937238-MLA99988674259_112025-F.jpg" alt="Cámara Seguridad Solar Hiseeu 4MP 4 Unidades Visión Nocturna Inalámbrica Exterior" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290889/">Cámara Seguridad Solar Hiseeu 4MP 4 Unidades Visión Nocturna Inalámbrica Exterior</a></div></div><div class="row-priceblock"><div class="row-price">$4,124</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_836424-MLA100072086353_122025-F.jpg" alt="Cámara IP Hiseeu WS318 8MP Doble Lente Wifi Exterior Visión Nocturna" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290891/">Cámara IP Hiseeu WS318 8MP Doble Lente Wifi Exterior Visión Nocturna</a></div></div><div class="row-priceblock"><div class="row-price">$468</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_614679-MLA98902198681_112025-F.jpg" alt="Hiseeu Cámaras De Seguridad Solares Wi-fi 3k 4mp Con Detecci - 2c90b-negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290892/">Hiseeu Cámaras De Seguridad Solares Wi-fi 3k 4mp Con Detecci - 2c90b-negro</a></div></div><div class="row-priceblock"><div class="row-price">$1,889</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_835749-MLA114925121844_082026-F.jpg" alt="Cámara de Seguridad Hiseeu WS318B IP Wi-Fi Exterior IP66 HD 8MP Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290893/">Cámara de Seguridad Hiseeu WS318B IP Wi-Fi Exterior IP66 HD 8MP Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$468</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_609878-MLA116043180736_092026-F.jpg" alt="Hiseeu Cámara de Seguridad Exterior 3MP WiFi 6 PTZ Visión Nocturna Color IP66" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290894/">Hiseeu Cámara de Seguridad Exterior 3MP WiFi 6 PTZ Visión Nocturna Color IP66</a></div></div><div class="row-priceblock"><div class="row-price">$426</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_700510-MLA117520996329_092026-F.jpg" alt="Hiseeu Cámara PTZ Solar 4MP 5GHz WiFi Detección Movimiento Visión Nocturna Infrarroja IP65" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290895/">Hiseeu Cámara PTZ Solar 4MP 5GHz WiFi Detección Movimiento Visión Nocturna Infrarroja IP65</a></div></div><div class="row-priceblock"><div class="row-price">$863</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_752404-MLA99507146128_112025-F.jpg" alt="Cámara de Seguridad IP Hiseeu Inalámbrica para Exterior con Visión Nocturna y Audio Bidireccional" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290896/">Cámara de Seguridad IP Hiseeu Inalámbrica para Exterior con Visión Nocturna y Audio Bidireccional</a></div></div><div class="row-priceblock"><div class="row-price">$10,799</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_798360-MLA99934297757_112025-F.jpg" alt="Hiseeu Kit 4 Cámaras De Seguridad Vigilancia 5Gwifi Inalámbrico Con disco duro blanca visión nocturna" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290897/">Hiseeu Kit 4 Cámaras De Seguridad Vigilancia 5Gwifi Inalámbrico Con disco duro blanca visión nocturna</a></div></div><div class="row-priceblock"><div class="row-price">$3,118</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_999726-MLA99930645837_112025-F.jpg" alt="Hiseeu kit 4 Cámaras de seguridad vigilancia wifi nvr 5mp hd 1tb visión nocturna Wk10v4hd405at color blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290898/">Hiseeu kit 4 Cámaras de seguridad vigilancia wifi nvr 5mp hd 1tb visión nocturna Wk10v4hd405at color blanco</a></div></div><div class="row-priceblock"><div class="row-price">$4,452</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_944901-MLA115473880138_082026-F.jpg" alt="Hiseeu Cámara De Seguridad Exterior Wifi 3mp Hd Visión Alarma Con luz blanca Voz bidireccional impermeable" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290899/">Hiseeu Cámara De Seguridad Exterior Wifi 3mp Hd Visión Alarma Con luz blanca Voz bidireccional impermeable</a></div></div><div class="row-priceblock"><div class="row-price">$415</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_991495-MLA102212271849_122025-F.jpg" alt="Hiseeu Cámaras De Seguridad 5G 2.4G Inalambrico Wifi Hd 3mp Exterior interior Color Blanco visión nocturna 360 ptz" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290900/">Hiseeu Cámaras De Seguridad 5G 2.4G Inalambrico Wifi Hd 3mp Exterior interior Color Blanco visión nocturna 360 ptz</a></div></div><div class="row-priceblock"><div class="row-price">$537</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_979105-MLA116390432007_082026-F.jpg" alt="Pack de 6 Cámaras Domo Inalámbricas Hiseeu con Visión Nocturna y Energía Solar de 4MP y 1TB" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290901/">Pack de 6 Cámaras Domo Inalámbricas Hiseeu con Visión Nocturna y Energía Solar de 4MP y 1TB</a></div></div><div class="row-priceblock"><div class="row-price">$14,899</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Hiseeu</h2><div class="chip-row"><a class="chip" href="../../categoria/camaras-de-seguridad/">Cámaras de seguridad (21)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

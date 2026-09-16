@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planet: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Planet en México comparados entre tiendas: 26 productos. Precios desde $232 hasta $41,097 MXN. Principalmente en redes.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/planet/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Planet: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Planet en México comparados entre tiendas: 26 productos. Precios desde $232 hasta $41,097 MXN. Principalmente en redes.">
+<meta property="og:url" content="https://comparamex.com/marca/planet/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Planet",
+      "item": "https://comparamex.com/marca/planet/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Planet</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Planet — comparar precios (26)</h1></div>
+<p class="muted small">Precios de Planet en México comparados entre tiendas: 26 productos. Precios desde $232 hasta $41,097 MXN. Principalmente en redes.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Planet..."
+         aria-label="Buscar productos de Planet" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_822933-MLA99567101238_122025-F.jpg" alt="Switch Planet SW-804 8 Puertos RJ45 No Administrable 20 MB/s" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291296/">Switch Planet SW-804 8 Puertos RJ45 No Administrable 20 MB/s</a></div></div><div class="row-priceblock"><div class="row-price">$232</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_778813-MLA105237748917_012026-F.jpg" alt="Switch No Administrable Gigabit de 24 Puertos Planet GSW-2401 RJ-45 6 GB/s" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291307/">Switch No Administrable Gigabit de 24 Puertos Planet GSW-2401 RJ-45 6 GB/s</a></div></div><div class="row-priceblock"><div class="row-price">$2,158</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_825691-MLA99924857817_112025-F.jpg" alt="Switch Administrable De Escritorio 8 Puertos Giga + 2" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p35907/">Switch Administrable De Escritorio 8 Puertos Giga + 2</a></div></div><div class="row-priceblock"><div class="row-price">$2,850</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_664379-MLA99395898664_112025-F.jpg" alt="Switch Planet IGS-10020MT" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291283/">Switch Planet IGS-10020MT</a></div></div><div class="row-priceblock"><div class="row-price">$7,893</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_653584-MLA99977339011_112025-F.jpg" alt="Switch Planet GS-4210-24T2S 24 Puertos Administrable Rack Ethernet" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291291/">Switch Planet GS-4210-24T2S 24 Puertos Administrable Rack Ethernet</a></div></div><div class="row-priceblock"><div class="row-price">$4,705</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_768148-MLA100056348293_122025-F.jpg" alt="Switch Poe No Administrable 8 Ptos 10/100/1000 Mbps Planet GSD-1008HP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291302/">Switch Poe No Administrable 8 Ptos 10/100/1000 Mbps Planet GSD-1008HP</a></div></div><div class="row-priceblock"><div class="row-price">$1,900</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_983208-MLA96063505184_102025-F.jpg" alt="Switch No Administrable Planet FSD-1008HP 8 Puertos PoE 30W Capacidad 1TB/s" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291305/">Switch No Administrable Planet FSD-1008HP 8 Puertos PoE 30W Capacidad 1TB/s</a></div></div><div class="row-priceblock"><div class="row-price">$1,509</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_935788-MLA99508956498_112025-F.jpg" alt="Switch Planet GS-4210-48P4S 48 Puertos PoE+ 4 SFP Rack 13GB/s Gestión" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291306/">Switch Planet GS-4210-48P4S 48 Puertos PoE+ 4 SFP Rack 13GB/s Gestión</a></div></div><div class="row-priceblock"><div class="row-price">$12,500</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_874954-MLA99566995288_122025-F.jpg" alt="Switch Gigabit PoE Planet 10 Puertos 30GB/s GS-4210-8P2S Rackmount" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291299/">Switch Gigabit PoE Planet 10 Puertos 30GB/s GS-4210-8P2S Rackmount</a></div></div><div class="row-priceblock"><div class="row-price">$4,130</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_667362-MLA99856286601_112025-F.jpg" alt="Switch Planet Gigabit Ethernet Fgsw-2624hps 24 Puertos Poe" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291286/">Switch Planet Gigabit Ethernet Fgsw-2624hps 24 Puertos Poe</a></div></div><div class="row-priceblock"><div class="row-price">$6,511</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_950593-MLA99948367965_112025-F.jpg" alt="Switch de Red Gigabit Planet de 48 Puertos con 4 SFP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291294/">Switch de Red Gigabit Planet de 48 Puertos con 4 SFP</a></div></div><div class="row-priceblock"><div class="row-price">$11,656</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_848084-MLA99987037283_112025-F.jpg" alt="Switch Poe+ Planet 8 Puertos RJ-45 Distancia 250m Modelo FGSD-1022VHP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291297/">Switch Poe+ Planet 8 Puertos RJ-45 Distancia 250m Modelo FGSD-1022VHP</a></div></div><div class="row-priceblock"><div class="row-price">$4,035</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_975290-MLA100052678371_122025-F.jpg" alt="Conmutador industrial Planet 8P PoE Flat +2 sfp L2 WGS-4215-8P2s" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291300/">Conmutador industrial Planet 8P PoE Flat +2 sfp L2 WGS-4215-8P2s</a></div></div><div class="row-priceblock"><div class="row-price">$5,990</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_935149-MLA95220854000_102025-F.jpg" alt="Switch Planet Gestionable con 24 Puertos 10G SFP+ y 4 Puertos QSFP+" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291301/">Switch Planet Gestionable con 24 Puertos 10G SFP+ y 4 Puertos QSFP+</a></div></div><div class="row-priceblock"><div class="row-price">$41,097</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_908212-MLA99450919464_112025-F.jpg" alt="Switch Industrial Planet Capa 2 Administrable con 8 Puertos PoE y 2 SFP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291304/">Switch Industrial Planet Capa 2 Administrable con 8 Puertos PoE y 2 SFP</a></div></div><div class="row-priceblock"><div class="row-price">$11,200</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_805210-MLA99464203498_112025-F.jpg" alt="Switch Planet WGS-804HP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291284/">Switch Planet WGS-804HP</a></div></div><div class="row-priceblock"><div class="row-price">$3,675</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_757314-MLA99968847651_112025-F.jpg" alt="Switch Planet PoE 16 Puertos FGSW-1816HPS Administrable Ethernet" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291287/">Switch Planet PoE 16 Puertos FGSW-1816HPS Administrable Ethernet</a></div></div><div class="row-priceblock"><div class="row-price">$4,306</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_768093-MLA99872602605_112025-F.jpg" alt="Planet Switch 16 Puertos Gigabit Para Rack Metalico Gsw-1601" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291288/">Planet Switch 16 Puertos Gigabit Para Rack Metalico Gsw-1601</a></div></div><div class="row-priceblock"><div class="row-price">$2,116</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_967387-MLA99404487626_112025-F.jpg" alt="Switch Planet 26 Puertos 15GB/s FGSW-2622VHP Rack and Forward" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291295/">Switch Planet 26 Puertos 15GB/s FGSW-2622VHP Rack and Forward</a></div></div><div class="row-priceblock"><div class="row-price">$8,234</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_790724-MLA99420406848_112025-F.jpg" alt="Switch Fast Ethernet Planet 16 Puertos RJ-45 FNSW-1601 and Forward" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291298/">Switch Fast Ethernet Planet 16 Puertos RJ-45 FNSW-1601 and Forward</a></div></div><div class="row-priceblock"><div class="row-price">$960</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_699781-MLA99992149825_112025-F.jpg" alt="Switch Industrial Planet Gestionable con 20 Puertos y 88 Gbps" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291289/">Switch Industrial Planet Gestionable con 20 Puertos y 88 Gbps</a></div></div><div class="row-priceblock"><div class="row-price">$21,415</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_933951-MLA99485650940_112025-F.jpg" alt="Switch de Red Planet 24 Puertos Fast Ethernet Montable en Rack" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291292/">Switch de Red Planet 24 Puertos Fast Ethernet Montable en Rack</a></div></div><div class="row-priceblock"><div class="row-price">$1,089</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_911199-MLU74860586833_032024-F.jpg" alt="Switch Ethernet Planet GSD-804 8 Puertos Gigabit" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p32633/">Switch Ethernet Planet GSD-804 8 Puertos Gigabit</a></div></div><div class="row-priceblock"><div class="row-price">$798</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_869397-MLA93859626584_102025-F.jpg" alt="Switch Planet Industrial Gigabit 8p Gerenciavel iGS-801M" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291285/">Switch Planet Industrial Gigabit 8p Gerenciavel iGS-801M</a></div></div><div class="row-priceblock"><div class="row-price">$3,500</div></div></div><div class="product-row has-rank"><span class="rank-badge">25</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_862556-MLA94562346196_102025-F.jpg" alt="Conmutador industrial Planet de 4 puertos y 2 SFP iSW-621TF" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291293/">Conmutador industrial Planet de 4 puertos y 2 SFP iSW-621TF</a></div></div><div class="row-priceblock"><div class="row-price">$5,500</div></div></div><div class="product-row has-rank"><span class="rank-badge">26</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_841430-MLA99444179704_112025-F.jpg" alt="Switch Planet Capa 3 con 48 Puertos Gigabit y 4 Slots 10G SFP+" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291303/">Switch Planet Capa 3 con 48 Puertos Gigabit y 4 Slots 10G SFP+</a></div></div><div class="row-priceblock"><div class="row-price">$17,845</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Planet</h2><div class="chip-row"><a class="chip" href="../../categoria/redes-y-wifi/">Redes y WiFi (26)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

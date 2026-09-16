@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linksys: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Linksys en México comparados entre tiendas: 34 productos. Precios desde $235 hasta $18,900 MXN. Principalmente en redes, salud y belleza, cámaras y fotografía.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/linksys/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Linksys: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Linksys en México comparados entre tiendas: 34 productos. Precios desde $235 hasta $18,900 MXN. Principalmente en redes, salud y belleza, cámaras y fotografía.">
+<meta property="og:url" content="https://comparamex.com/marca/linksys/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Linksys",
+      "item": "https://comparamex.com/marca/linksys/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Linksys</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Linksys — comparar precios (34)</h1></div>
+<p class="muted small">Precios de Linksys en México comparados entre tiendas: 34 productos. Precios desde $235 hasta $18,900 MXN. Principalmente en redes, salud y belleza, cámaras y fotografía.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Linksys..."
+         aria-label="Buscar productos de Linksys" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_891699-MLA99533646304_122025-F.jpg" alt="Switch Linksys Lgs124 24 Puertos Gigabit No Administrable" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p30133/">Switch Linksys Lgs124 24 Puertos Gigabit No Administrable</a></div></div><div class="row-priceblock"><div class="row-price">$3,600</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_766087-MLA74676698026_022024-F.jpg" alt="Switch Red Empresarial De Linksys Lgs105 5 Puertos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p30140/">Switch Red Empresarial De Linksys Lgs105 5 Puertos</a></div></div><div class="row-priceblock"><div class="row-price">$2,040</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_905920-MLA99990281409_112025-F.jpg" alt="Switch Linksys SE3008 serie Interruptor" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p31527/">Switch Linksys SE3008 serie Interruptor</a></div></div><div class="row-priceblock"><div class="row-price">$639</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_856839-MLA99983257321_112025-F.jpg" alt="Repetidor Linksys negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291413/">Repetidor Linksys negro</a></div></div><div class="row-priceblock"><div class="row-price">$994</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_817863-MLA99483121740_112025-F.jpg" alt="Extensor De Rango Inalambrico Linksys N300 Alta Potencia Color Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291425/">Extensor De Rango Inalambrico Linksys N300 Alta Potencia Color Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$500</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_657409-MLA100012721179_122025-F.jpg" alt="Switch Linksys SE3005 serie SE3000" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p286840/">Switch Linksys SE3005 serie SE3000</a></div></div><div class="row-priceblock"><div class="row-price">$522</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_734671-MLA74650700708_022024-F.jpg" alt="Switch Linksys SE1500 de 5 Puertos Fast Ethernet" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p286842/">Switch Linksys SE1500 de 5 Puertos Fast Ethernet</a></div></div><div class="row-priceblock"><div class="row-price">$298</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_837474-MLA96251030584_102025-F.jpg" alt="Switch Linksys Gestionable con 48 Puertos Gigabit y 4 SFP+" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p286845/">Switch Linksys Gestionable con 48 Puertos Gigabit y 4 SFP+</a></div></div><div class="row-priceblock"><div class="row-price">$18,900</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_943359-MLA99938638443_112025-F.jpg" alt="Router Linksys gris oscuro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291414/">Router Linksys gris oscuro</a></div></div><div class="row-priceblock"><div class="row-price">$699</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_623757-MLA99491186030_112025-F.jpg" alt="Router Linksys EA-Series negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291416/">Router Linksys EA-Series negro</a></div></div><div class="row-priceblock"><div class="row-price">$519</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_881894-MLA96654795091_102025-F.jpg" alt="Router inalámbrico WiFi 5 de doble banda Linksys AC1000" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291419/">Router inalámbrico WiFi 5 de doble banda Linksys AC1000</a></div></div><div class="row-priceblock"><div class="row-price">$459</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_906750-MLC74123320733_012024-F.jpg" alt="Wireless Router Linksys E5350 Wifi 5 Doble Banda Ac1000" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291421/">Wireless Router Linksys E5350 Wifi 5 Doble Banda Ac1000</a></div></div><div class="row-priceblock"><div class="row-price">$235</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_817720-MLA100045145613_122025-F.jpg" alt="Extensor Linksys De Alcance Inalámbrico Re3000w N300 Color Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291424/">Extensor Linksys De Alcance Inalámbrico Re3000w N300 Color Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$799</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_632551-MLA82530889266_032025-F.jpg" alt="Linksys E2500 (n600) Advanced Simultaneous Dual-band Wireless-n Router" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291426/">Linksys E2500 (n600) Advanced Simultaneous Dual-band Wireless-n Router</a></div></div><div class="row-priceblock"><div class="row-price">$799</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_600924-MLU74074034920_012024-F.jpg" alt="Extensor Wifi Linksys N300 Re3000w - Revogames" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p28551/">Extensor Wifi Linksys N300 Re3000w - Revogames</a></div></div><div class="row-priceblock"><div class="row-price">$680</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_951262-MLA94474498275_102025-F.jpg" alt="Access point, Repetidor Linksys negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p28554/">Access point, Repetidor Linksys negro</a></div></div><div class="row-priceblock"><div class="row-price">$750</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_793512-MLA99926493187_112025-F.jpg" alt="Router Linksys negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p28560/">Router Linksys negro</a></div></div><div class="row-priceblock"><div class="row-price">$1,390</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_933024-MLA99571445142_122025-F.jpg" alt="Switch Linksys LGS116P serie Interruptor" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p31526/">Switch Linksys LGS116P serie Interruptor</a></div></div><div class="row-priceblock"><div class="row-price">$4,500</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_682640-MLM46736465211_072021-F.jpg" alt="Switch Linksys Gigabit de 8 Puertos PoE Gestionable" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p32632/">Switch Linksys Gigabit de 8 Puertos PoE Gestionable</a></div></div><div class="row-priceblock"><div class="row-price">$2,899</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_928729-MLU75326179723_032024-F.jpg" alt="Switch Linksys LGS108P" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p35906/">Switch Linksys LGS108P</a></div></div><div class="row-priceblock"><div class="row-price">$634</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_809568-MLA99938475855_112025-F.jpg" alt="Linksys Lgs328c Business Switch - 24 Puertos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p35927/">Linksys Lgs328c Business Switch - 24 Puertos</a></div></div><div class="row-priceblock"><div class="row-price">$9,719</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_643533-MLA99577973054_122025-F.jpg" alt="Switch Linksys LGS124P" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p286839/">Switch Linksys LGS124P</a></div></div><div class="row-priceblock"><div class="row-price">$7,300</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_905614-MLA110283969875_042026-F.jpg" alt="Linksys - Switch 5 Puertos Multigigabit 2.5g - No Admin" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p286841/">Linksys - Switch 5 Puertos Multigigabit 2.5g - No Admin</a></div></div><div class="row-priceblock"><div class="row-price">$1,399</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_713461-MLU74827248107_022024-F.jpg" alt="Switch Linksys Business Lgs116 16 Puertos Gigabit Desktop" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p286843/">Switch Linksys Business Lgs116 16 Puertos Gigabit Desktop</a></div></div><div class="row-priceblock"><div class="row-price">$1,998</div></div></div><div class="product-row has-rank"><span class="rank-badge">25</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_863132-MLA99571427608_122025-F.jpg" alt="Switch Gigabit Poe+ Administrado De 24 Puertos Linksys" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p286844/">Switch Gigabit Poe+ Administrado De 24 Puertos Linksys</a></div></div><div class="row-priceblock"><div class="row-price">$6,000</div></div></div><div class="product-row has-rank"><span class="rank-badge">26</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_759948-MLA99533263484_122025-F.jpg" alt="Switch Linksys LGS328MPC Gigabit, 24 Puertos PoE con 4 SFP+" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p286846/">Switch Linksys LGS328MPC Gigabit, 24 Puertos PoE con 4 SFP+</a></div></div><div class="row-priceblock"><div class="row-price">$9,899</div></div></div><div class="product-row has-rank"><span class="rank-badge">27</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_706007-MLU78948632830_092024-F.jpg" alt="Router Linksys Max-Stream EA8500" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291415/">Router Linksys Max-Stream EA8500</a></div></div><div class="row-priceblock"><div class="row-price">$6,778</div></div></div><div class="product-row has-rank"><span class="rank-badge">28</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_843778-MLA81891436918_012025-F.jpg" alt="Router Linksys Inalambrico Dual-band 4pu" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291417/">Router Linksys Inalambrico Dual-band 4pu</a></div></div><div class="row-priceblock"><div class="row-price">$490</div></div></div><div class="product-row has-rank"><span class="rank-badge">29</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_750628-MLU77238822890_072024-F.jpg" alt="Linksys N300 Router Inalámbrico Wi-fi (e1200)" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291418/">Linksys N300 Router Inalámbrico Wi-fi (e1200)</a></div></div><div class="row-priceblock"><div class="row-price">$789</div></div></div><div class="product-row has-rank"><span class="rank-badge">30</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_874519-MLM44827336162_022021-F.jpg" alt="Linksys Extensor De Rango Ac1200 Re6350, 2.4/5ghz, Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291420/">Linksys Extensor De Rango Ac1200 Re6350, 2.4/5ghz, Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$849</div></div></div><div class="product-row has-rank"><span class="rank-badge">31</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_918252-MLA99458049822_112025-F.jpg" alt="Router, Sistema Wi-Fi mesh Linksys Max-Stream negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291422/">Router, Sistema Wi-Fi mesh Linksys Max-Stream negro</a></div></div><div class="row-priceblock"><div class="row-price">$1,599</div></div></div><div class="product-row has-rank"><span class="rank-badge">32</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_635985-MLA99405652636_112025-F.jpg" alt="Router Linksys Multi-gig Micro Mesh Wifi 6 Velop" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Redes</div><div class="row-name"><a href="../../producto/p291423/">Router Linksys Multi-gig Micro Mesh Wifi 6 Velop</a></div></div><div class="row-priceblock"><div class="row-price">$1,543</div></div></div><div class="product-row has-rank"><span class="rank-badge">33</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31288075/12838e3e-3821-4cc5-acf0-4592ef6bbda1.jpeg.jpg" alt="Kit de Reemplazo de 4 Cabezas para Pulidor LINKYCARE" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Salud y belleza</div><div class="row-name"><a href="../../producto/p103497/">Kit de Reemplazo de 4 Cabezas para Pulidor LINKYCARE</a></div></div><div class="row-priceblock"><div class="row-price">$498</div></div></div><div class="product-row has-rank"><span class="rank-badge">34</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/29584945/ae7a8478-1e2f-4d79-8142-5025239c1978.jpeg.jpg" alt="Mini cámara LinSewsy 1080P FHD portátil con llavero de 16 GB" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras y fotografía</div><div class="row-name"><a href="../../producto/p44538/">Mini cámara LinSewsy 1080P FHD portátil con llavero de 16 GB</a></div></div><div class="row-priceblock"><div class="row-price">$889</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Linksys</h2><div class="chip-row"><a class="chip" href="../../categoria/redes-y-wifi/">Redes y WiFi (32)</a><a class="chip" href="../../categoria/salud-y-belleza/">Salud y belleza (1)</a><a class="chip" href="../../categoria/camaras-y-fotografia/">Cámaras y fotografía (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

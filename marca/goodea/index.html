@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goodea: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Goodea en México comparados entre tiendas: 26 productos. Precios desde $137 hasta $873 MXN. Principalmente en iluminación, electrodomésticos, aspiradoras.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/goodea/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Goodea: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Goodea en México comparados entre tiendas: 26 productos. Precios desde $137 hasta $873 MXN. Principalmente en iluminación, electrodomésticos, aspiradoras.">
+<meta property="og:url" content="https://comparamex.com/marca/goodea/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Goodea",
+      "item": "https://comparamex.com/marca/goodea/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Goodea</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Goodea — comparar precios (26)</h1></div>
+<p class="muted small">Precios de Goodea en México comparados entre tiendas: 26 productos. Precios desde $137 hasta $873 MXN. Principalmente en iluminación, electrodomésticos, aspiradoras.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Goodea..."
+         aria-label="Buscar productos de Goodea" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_980408-MLA95844593837_102025-F.jpg" alt="Cortina de Luces Navideñas Solares LED 3x3m 300 LED Exterior" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p32586/">Cortina de Luces Navideñas Solares LED 3x3m 300 LED Exterior</a></div></div><div class="row-priceblock"><div class="row-price">$284</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_811556-MLA107404264022_032026-F.jpg" alt="Licuadora Profesional 2.5l Multiusos 2 En 1 Alta Potencia Licuadora Moledor Goodea Industrial 2 en 1 con Vaso de plástico 2.5 L" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name"><a href="../../producto/p29894/">Licuadora Profesional 2.5l Multiusos 2 En 1 Alta Potencia Licuadora Moledor Goodea Industrial 2 en 1 con Vaso de plástico 2.5 L</a></div></div><div class="row-priceblock"><div class="row-price">$769</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_657880-MLA112918110709_062026-F.jpg" alt="Máquina de Coser Eléctrica Industrial Para Costales y Sacos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name"><a href="../../producto/p30607/">Máquina de Coser Eléctrica Industrial Para Costales y Sacos</a></div></div><div class="row-priceblock"><div class="row-price">$873</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_757923-MLA112921376165_062026-F.jpg" alt="Aspiradora De Mano Portátil Para Hogar Y Automóvil 4 En 1 Aspiradora, Kirby Aspiradora, Aspiradora Para Auto, Aspiradora Hyla" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Aspiradoras</div><div class="row-name"><a href="../../producto/p30371/">Aspiradora De Mano Portátil Para Hogar Y Automóvil 4 En 1 Aspiradora, Kirby Aspiradora, Aspiradora Para Auto, Aspiradora Hyla</a></div></div><div class="row-priceblock"><div class="row-price">$159</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_921354-MLA112780445456_062026-F.jpg" alt="3 Lampara Led Recargable Pared Noche Clóset Interior Remoto lampara led recargable,lampara de pared recargable,lamparas de pared interior,lampara arbotante,luz de noche,focos recargables led" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p30492/">3 Lampara Led Recargable Pared Noche Clóset Interior Remoto lampara led recargable,lampara de pared recargable,lamparas de pared interior,lampara arbotante,luz de noche,focos recargables led</a></div></div><div class="row-priceblock"><div class="row-price">$173</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_618810-MLA114231580269_072026-F.jpg" alt="Tira LED Inteligente de 5m con Sensor de Movimiento Blanco Cálido" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p31248/">Tira LED Inteligente de 5m con Sensor de Movimiento Blanco Cálido</a></div></div><div class="row-priceblock"><div class="row-price">$168</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_746815-MLA99611904920_122025-F.jpg" alt="Tira LED Sensor Movimiento 5M Blanco Cálido USB/Batería IP20" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p31249/">Tira LED Sensor Movimiento 5M Blanco Cálido USB/Batería IP20</a></div></div><div class="row-priceblock"><div class="row-price">$265</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_748480-MLA89575291440_082025-F.jpg" alt="Goodea Lámparas Solares LED Blancas Cálidas Exterior con Sensor 2 Pzas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p191980/">Goodea Lámparas Solares LED Blancas Cálidas Exterior con Sensor 2 Pzas</a></div></div><div class="row-priceblock"><div class="row-price">$186</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_815387-MLA115709912527_082026-F.jpg" alt="Lámpara de Techo LED Colgante Goodea, Regulable de Tres Colores, para Comedor en Dorado" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p191982/">Lámpara de Techo LED Colgante Goodea, Regulable de Tres Colores, para Comedor en Dorado</a></div></div><div class="row-priceblock"><div class="row-price">$638</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_600325-MLA116741022133_082026-F.jpg" alt="Farol Solar LED Goodea con Sensor de Movimiento, para Exterior y con Control Remoto" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p191984/">Farol Solar LED Goodea con Sensor de Movimiento, para Exterior y con Control Remoto</a></div></div><div class="row-priceblock"><div class="row-price">$137</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_769149-MLA95691197674_102025-F.jpg" alt="Goodea 8 Luces Lampara Solar Jardin Luz De Luciérnaga Led 2 Piezas Estructura Blanco Cálido" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p191985/">Goodea 8 Luces Lampara Solar Jardin Luz De Luciérnaga Led 2 Piezas Estructura Blanco Cálido</a></div></div><div class="row-priceblock"><div class="row-price">$218</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_932304-MLA111950360938_062026-F.jpg" alt="Goodea 3pcs - Pack - 3 Blanco - RGB Luz Led Lampara Pared Noche Recargable Telecontrol Rgb 3pzs" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p191987/">Goodea 3pcs - Pack - 3 Blanco - RGB Luz Led Lampara Pared Noche Recargable Telecontrol Rgb 3pzs</a></div></div><div class="row-priceblock"><div class="row-price">$244</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_931488-MLA96112406003_102025-F.jpg" alt="Goodea 8 Luces Lampara Solar Jardin Luz De Luciérnaga Led 2 Piezas Estructura Color" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p191988/">Goodea 8 Luces Lampara Solar Jardin Luz De Luciérnaga Led 2 Piezas Estructura Color</a></div></div><div class="row-priceblock"><div class="row-price">$204</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_979894-MLA108399203613_032026-F.jpg" alt="Lámpara de Techo Solar LED Goodea 60W, IP65, Para Interior y Exterior Con Control Remoto" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287343/">Lámpara de Techo Solar LED Goodea 60W, IP65, Para Interior y Exterior Con Control Remoto</a></div></div><div class="row-priceblock"><div class="row-price">$228</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_775815-MLA95219587277_102025-F.jpg" alt="Aplique LED Goodea para Pared Exterior e Interior, 20W, con Burbujas de Cristal y Luz Cálida" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287344/">Aplique LED Goodea para Pared Exterior e Interior, 20W, con Burbujas de Cristal y Luz Cálida</a></div></div><div class="row-priceblock"><div class="row-price">$388</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_876333-MLA114311405029_072026-F.jpg" alt="Lámpara de Pared Goodea LED 10W Blanca Cálida, Pack de 2 para Exterior e Interior" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287345/">Lámpara de Pared Goodea LED 10W Blanca Cálida, Pack de 2 para Exterior e Interior</a></div></div><div class="row-priceblock"><div class="row-price">$224</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_806224-MLA114156717978_082026-F.jpg" alt="Plafón LED Goodea Moderno de 35cm, con 3 Colores de Luz Ajustables para Techo y Baño" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287347/">Plafón LED Goodea Moderno de 35cm, con 3 Colores de Luz Ajustables para Techo y Baño</a></div></div><div class="row-priceblock"><div class="row-price">$368</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_843890-MLA113731884849_062026-F.jpg" alt="Lámpara Solar Recargable De Jardin Exterior Impermeable 2pzs Lámparas Solares LED Goodea para Jardín, con Reflector y Control Remoto" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287348/">Lámpara Solar Recargable De Jardin Exterior Impermeable 2pzs Lámparas Solares LED Goodea para Jardín, con Reflector y Control Remoto</a></div></div><div class="row-priceblock"><div class="row-price">$209</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_927548-MLA112896334077_062026-F.jpg" alt="Pack de 2 Lámparas Solares LED Goodea para Pared, con Sensor de Movimiento y Carga Tipo-C" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287349/">Pack de 2 Lámparas Solares LED Goodea para Pared, con Sensor de Movimiento y Carga Tipo-C</a></div></div><div class="row-priceblock"><div class="row-price">$290</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_921825-MLA115281975016_082026-F.jpg" alt="Lámpara De Techo LED Con Sensor De Movimiento 12W 6500K Inducción Humana Goodea Lámparas Foco para Sala Garaj Escaleras Balcón" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287350/">Lámpara De Techo LED Con Sensor De Movimiento 12W 6500K Inducción Humana Goodea Lámparas Foco para Sala Garaj Escaleras Balcón</a></div></div><div class="row-priceblock"><div class="row-price">$165</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_644486-MLA111518723077_052026-F.jpg" alt="Plafón Solar LED Goodea de Techo para Interior y Exterior, con Control Remoto y 3 Tonos de Luz" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287351/">Plafón Solar LED Goodea de Techo para Interior y Exterior, con Control Remoto y 3 Tonos de Luz</a></div></div><div class="row-priceblock"><div class="row-price">$242</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_652642-MLA114524937939_072026-F.jpg" alt="Pack de 2 Faroles Solares LED Goodea para Jardín con Sensor de Movimiento, Carga Dual y Luz Cálida" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287352/">Pack de 2 Faroles Solares LED Goodea para Jardín con Sensor de Movimiento, Carga Dual y Luz Cálida</a></div></div><div class="row-priceblock"><div class="row-price">$281</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_648765-MLA117639470489_092026-F.jpg" alt="Pack de 4 Luces Solares LED Para Jardín Goodea, Blancas Cálidas, con Control Remoto y 8 Modos Para Jardín y Exterior" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287353/">Pack de 4 Luces Solares LED Para Jardín Goodea, Blancas Cálidas, con Control Remoto y 8 Modos Para Jardín y Exterior</a></div></div><div class="row-priceblock"><div class="row-price">$210</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_947769-MLA115220958581_072026-F.jpg" alt="Lámpara de Techo LED Moderna Goodea de Madera con 40W, CCT Ajustable y Montaje Empotrado" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292452/">Lámpara de Techo LED Moderna Goodea de Madera con 40W, CCT Ajustable y Montaje Empotrado</a></div></div><div class="row-priceblock"><div class="row-price">$268</div></div></div><div class="product-row has-rank"><span class="rank-badge">25</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_697540-MLA114989123756_082026-F.jpg" alt="Lámparas De Techo 72w Modernas Led Redonda Interiores 35cm Plafón LED Goodea Moderno con 3 Colores de Luz Ajustables para Techo Dormitorio, estudio, salón y Baño" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292453/">Lámparas De Techo 72w Modernas Led Redonda Interiores 35cm Plafón LED Goodea Moderno con 3 Colores de Luz Ajustables para Techo Dormitorio, estudio, salón y Baño</a></div></div><div class="row-priceblock"><div class="row-price">$269</div></div></div><div class="product-row has-rank"><span class="rank-badge">26</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_798532-MLA115569227662_092026-F.jpg" alt="Goodea Lámpara De Pared Focos Con Led Magnética Barra Led 32cm Luz De Armario 9W 3 colors Recargable USB Iluminación Nocturna para Gabinete Clóset" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292454/">Goodea Lámpara De Pared Focos Con Led Magnética Barra Led 32cm Luz De Armario 9W 3 colors Recargable USB Iluminación Nocturna para Gabinete Clóset</a></div></div><div class="row-priceblock"><div class="row-price">$178</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Goodea</h2><div class="chip-row"><a class="chip" href="../../categoria/iluminacion/">Iluminación (23)</a><a class="chip" href="../../categoria/electrodomesticos/">Electrodomésticos (2)</a><a class="chip" href="../../categoria/aspiradoras/">Aspiradoras (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

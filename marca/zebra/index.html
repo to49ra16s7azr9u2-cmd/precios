@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zebra: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Zebra en México comparados entre tiendas: 27 productos. Precios desde $393 hasta $42,990 MXN. Principalmente en impresoras, equipo comercial, herramientas.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/zebra/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Zebra: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Zebra en México comparados entre tiendas: 27 productos. Precios desde $393 hasta $42,990 MXN. Principalmente en impresoras, equipo comercial, herramientas.">
+<meta property="og:url" content="https://comparamex.com/marca/zebra/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Zebra",
+      "item": "https://comparamex.com/marca/zebra/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Zebra</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Zebra — comparar precios (27)</h1></div>
+<p class="muted small">Precios de Zebra en México comparados entre tiendas: 27 productos. Precios desde $393 hasta $42,990 MXN. Principalmente en impresoras, equipo comercial, herramientas.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Zebra..."
+         aria-label="Buscar productos de Zebra" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_864966-MLA99932123687_112025-F.jpg" alt="Combo Impresora Zebra Zc100 + Cinta + Tarjetas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p30199/">Combo Impresora Zebra Zc100 + Cinta + Tarjetas</a></div></div><div class="row-priceblock"><div class="row-price">$19,599</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_886063-MLA96127422547_102025-F.jpg" alt="Impresora De Tarjetas Zebra Zc300 Dual ZC32-000CQ00LA00" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p30200/">Impresora De Tarjetas Zebra Zc300 Dual ZC32-000CQ00LA00</a></div></div><div class="row-priceblock"><div class="row-price">$29,490</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_868536-MLA99955878731_112025-F.jpg" alt="Impresora De Tarjetas Zebra Zc300, Dos Caras, 300dpi, Usb" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p34890/">Impresora De Tarjetas Zebra Zc300, Dos Caras, 300dpi, Usb</a></div></div><div class="row-priceblock"><div class="row-price">$29,899</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_943819-MLA110352937321_042026-F.jpg" alt="Impresora De Etiquetas Zebra ZT41142-T010000Z" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p31513/">Impresora De Etiquetas Zebra ZT41142-T010000Z</a></div></div><div class="row-priceblock"><div class="row-price">$19,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_986124-MLA80479014223_112024-F.jpg" alt="Zebra Zd220 Impresora Etiquetadora De Código De Barras Usb Color Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p291621/">Zebra Zd220 Impresora Etiquetadora De Código De Barras Usb Color Negro</a></div></div><div class="row-priceblock"><div class="row-price">$7,349</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_653668-MLA99503507348_112025-F.jpg" alt="Impresora de tarjetas Zebra ZC 300" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p30198/">Impresora de tarjetas Zebra ZC 300</a></div></div><div class="row-priceblock"><div class="row-price">$27,537</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_767220-MLA99988859581_112025-F.jpg" alt="Impresora De Etiquetas Zebra Zd220 Usb" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p31514/">Impresora De Etiquetas Zebra Zd220 Usb</a></div></div><div class="row-priceblock"><div class="row-price">$5,500</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31309166/9ea897d9-061d-494a-b1a0-419bc94a85fe.jpeg.jpg" alt="Impresora de Etiquetas Zebra ZD421 4&quot; Transferencia Térmica 203 dpi USB" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p49686/">Impresora de Etiquetas Zebra ZD421 4&quot; Transferencia Térmica 203 dpi USB</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$8,000</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_833557-MLA99453108512_112025-F.jpg" alt="Impresora De Credenciales Zebra Zc100 Una Cara /vc" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p30195/">Impresora De Credenciales Zebra Zc100 Una Cara /vc</a></div></div><div class="row-priceblock"><div class="row-price">$20,342</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_696368-MLA100044085035_122025-F.jpg" alt="Impresoras De Etiquetas Zebra Zd421d" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p141185/">Impresoras De Etiquetas Zebra Zd421d</a></div></div><div class="row-priceblock"><div class="row-price">$6,200</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_703336-MLA82380329542_022025-F.jpg" alt="Impresora De Credenciales Zebra Zc100" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p141186/">Impresora De Credenciales Zebra Zc100</a></div></div><div class="row-priceblock"><div class="row-price">$23,501</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_925825-MLU69908931663_062023-F.jpg" alt="Impresora térmica monocromática Zebra ZT231" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p191923/">Impresora térmica monocromática Zebra ZT231</a></div></div><div class="row-priceblock"><div class="row-price">$22,619</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_912460-MLA99955542073_112025-F.jpg" alt="Impresoras De Etiquetas Zebra Zd421t Directa /v Color Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p286982/">Impresoras De Etiquetas Zebra Zd421t Directa /v Color Negro</a></div></div><div class="row-priceblock"><div class="row-price">$11,086</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_805536-MLA99461723988_112025-F.jpg" alt="Impresora etiqueta monocromática Zebra IMPRESSORA DE ETIQUETA ZD 421" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p286983/">Impresora etiqueta monocromática Zebra IMPRESSORA DE ETIQUETA ZD 421</a></div></div><div class="row-priceblock"><div class="row-price">$9,699</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30408926/debf333f-095c-4a88-b373-33c25a1ff73f.jpeg.jpg" alt="Aislador para Cerca Zareba ITY-Z Paquete de 25 para Postes en T" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Herramientas</div><div class="row-name"><a href="../../producto/p123230/">Aislador para Cerca Zareba ITY-Z Paquete de 25 para Postes en T</a></div></div><div class="row-priceblock"><div class="row-price">$393</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_659863-MLA99931289771_112025-F.jpg" alt="Paquete Impresora Zebra Zc300 - 1 Cara + Tarjetas + Cinta" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p30201/">Paquete Impresora Zebra Zc300 - 1 Cara + Tarjetas + Cinta</a></div></div><div class="row-priceblock"><div class="row-price">$31,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_830502-MLA99943815311_112025-F.jpg" alt="Zebra Zq310 - Impresora Portátil De Recibos Y Etiquetas 48mm" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p31965/">Zebra Zq310 - Impresora Portátil De Recibos Y Etiquetas 48mm</a></div></div><div class="row-priceblock"><div class="row-price">$9,000</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_723366-MLA99883260629_112025-F.jpg" alt="Impresora Zebra ZT230" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p191922/">Impresora Zebra ZT230</a></div></div><div class="row-priceblock"><div class="row-price">$13,980</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_917704-MLU71209668904_082023-F.jpg" alt="Impresora simple función monocromática Zebra ZD510" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p191924/">Impresora simple función monocromática Zebra ZD510</a></div></div><div class="row-priceblock"><div class="row-price">$7,950</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_749169-MLA99992356543_112025-F.jpg" alt="Impresora simple función monocromática Zebra ZD 220" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p286979/">Impresora simple función monocromática Zebra ZD 220</a></div></div><div class="row-priceblock"><div class="row-price">$8,399</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_998320-MLA83465680832_042025-F.jpg" alt="Impresora ZD41H22-D01W01EZ de Zebra Technologies, Zd410, térmica" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p286980/">Impresora ZD41H22-D01W01EZ de Zebra Technologies, Zd410, térmica</a></div></div><div class="row-priceblock"><div class="row-price">$8,557</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_866580-MLU77983358322_082024-F.jpg" alt="Impresora de etiquetas Zebra G430tt, 300 dpi, color negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p286981/">Impresora de etiquetas Zebra G430tt, 300 dpi, color negro</a></div></div><div class="row-priceblock"><div class="row-price">$10,050</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_985103-MLU54975332657_042023-F.jpg" alt="Impresora portátil monocromática Zebra ZQ31-A0E02TL-00 con wifi" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p291619/">Impresora portátil monocromática Zebra ZQ31-A0E02TL-00 con wifi</a></div></div><div class="row-priceblock"><div class="row-price">$8,000</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_998061-MLA99450339956_112025-F.jpg" alt="Impresora De Etiquetas Zebra Zd220 203dpi Usb Transf Color Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p291620/">Impresora De Etiquetas Zebra Zd220 203dpi Usb Transf Color Negro</a></div></div><div class="row-priceblock"><div class="row-price">$7,810</div></div></div><div class="product-row has-rank"><span class="rank-badge">25</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_967504-MLU70676500554_072023-F.jpg" alt="Impresora simple función monocromática Zebra Impressora de Etiquetas ZT411 203dpi" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p291622/">Impresora simple función monocromática Zebra Impressora de Etiquetas ZT411 203dpi</a></div></div><div class="row-priceblock"><div class="row-price">$42,990</div></div></div><div class="product-row has-rank"><span class="rank-badge">26</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_665151-MLU73159733289_112023-F.jpg" alt="Lector Código Barras Zebra DS4308 - USB - Symbol." referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Equipo comercial</div><div class="row-name"><a href="../../producto/p35675/">Lector Código Barras Zebra DS4308 - USB - Symbol.</a></div></div><div class="row-priceblock"><div class="row-price">$5,729</div></div></div><div class="product-row has-rank"><span class="rank-badge">27</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_896884-MLU74962638292_032024-F.jpg" alt="Zebra DS7708 Lector Código Barras Negro LED" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Equipo comercial</div><div class="row-name"><a href="../../producto/p35676/">Zebra DS7708 Lector Código Barras Negro LED</a></div></div><div class="row-priceblock"><div class="row-price">$11,706</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Zebra</h2><div class="chip-row"><a class="chip" href="../../categoria/impresoras/">Impresoras (24)</a><a class="chip" href="../../categoria/equipo-comercial/">Equipo comercial (2)</a><a class="chip" href="../../categoria/herramientas/">Herramientas (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

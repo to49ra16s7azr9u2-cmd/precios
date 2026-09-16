@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aksi Lighting: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Aksi Lighting en México comparados entre tiendas: 24 productos. Precios desde $62 hasta $599 MXN. Principalmente en iluminación.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/aksi-lighting/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Aksi Lighting: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Aksi Lighting en México comparados entre tiendas: 24 productos. Precios desde $62 hasta $599 MXN. Principalmente en iluminación.">
+<meta property="og:url" content="https://comparamex.com/marca/aksi-lighting/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Aksi Lighting",
+      "item": "https://comparamex.com/marca/aksi-lighting/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Aksi Lighting</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Aksi Lighting — comparar precios (24)</h1></div>
+<p class="muted small">Precios de Aksi Lighting en México comparados entre tiendas: 24 productos. Precios desde $62 hasta $599 MXN. Principalmente en iluminación.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Aksi Lighting..."
+         aria-label="Buscar productos de Aksi Lighting" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_832381-MLA95975546689_102025-F.jpg" alt="Farol Aksi Colonial Negro Base E27 Luz N/a" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287449/">Farol Aksi Colonial Negro Base E27 Luz N/a</a></div></div><div class="row-priceblock"><div class="row-price">$599</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_714366-MLA95520721343_102025-F.jpg" alt="Foco LED Aksi 1W E27 Luz Cálida A19 para Ambientes Acogedores" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292542/">Foco LED Aksi 1W E27 Luz Cálida A19 para Ambientes Acogedores</a></div></div><div class="row-priceblock"><div class="row-price">$71</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_602445-MLA95573418623_102025-F.jpg" alt="Farol Colonial Aksi para Exterior, con Base E27" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287440/">Farol Colonial Aksi para Exterior, con Base E27</a></div></div><div class="row-priceblock"><div class="row-price">$559</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_693588-MLA95249708056_102025-F.jpg" alt="Farol Suspendido Aksi para Exterior, Clásico y Elegante" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287441/">Farol Suspendido Aksi para Exterior, Clásico y Elegante</a></div></div><div class="row-priceblock"><div class="row-price">$373</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_875321-MLA99469633722_112025-F.jpg" alt="Lámpara Led Aksi 12w Ufo Base E27 Luz Blanca" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287445/">Lámpara Led Aksi 12w Ufo Base E27 Luz Blanca</a></div></div><div class="row-priceblock"><div class="row-price">$97</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_929157-MLA95206640244_102025-F.jpg" alt="Farol Exterior Aksi Clásico Blanco E27 Resistente Para Jardín Terraza" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292525/">Farol Exterior Aksi Clásico Blanco E27 Resistente Para Jardín Terraza</a></div></div><div class="row-priceblock"><div class="row-price">$381</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_896033-MLA96273534374_102025-F.jpg" alt="Luminario LED Aksi 12W Sobreponer Plafón Luz Blanca" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287435/">Luminario LED Aksi 12W Sobreponer Plafón Luz Blanca</a></div></div><div class="row-priceblock"><div class="row-price">$185</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_641097-MLA96212697460_102025-F.jpg" alt="Luminario LED Aksi 126cm Hermético IP65 Exterior Luz Blanca" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287443/">Luminario LED Aksi 126cm Hermético IP65 Exterior Luz Blanca</a></div></div><div class="row-priceblock"><div class="row-price">$425</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_819815-MLA95572518583_102025-F.jpg" alt="Foco LED Aksi Lila E27 de 1W para Decoración" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287450/">Foco LED Aksi Lila E27 de 1W para Decoración</a></div></div><div class="row-priceblock"><div class="row-price">$71</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_935646-MLA95517047317_102025-F.jpg" alt="Luminario LED Sobreponer Aksi 18W Plafón Luz Blanca 1350 Lumens" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287459/">Luminario LED Sobreponer Aksi 18W Plafón Luz Blanca 1350 Lumens</a></div></div><div class="row-priceblock"><div class="row-price">$228</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_832673-MLA100108533157_122025-F.jpg" alt="Lámpara Tubular Led Aksi 18w Plástica 120cm G13 Luz Blanca" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287460/">Lámpara Tubular Led Aksi 18w Plástica 120cm G13 Luz Blanca</a></div></div><div class="row-priceblock"><div class="row-price">$118</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_958515-MLA82522790944_032025-F.jpg" alt="Foco led Aksi Lighting 129021 color luz blanca 9W 730lm" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287461/">Foco led Aksi Lighting 129021 color luz blanca 9W 730lm</a></div></div><div class="row-priceblock"><div class="row-price">$62</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_801933-MLA95676221319_102025-F.jpg" alt="Foco LED Aksi 1W Rojo Base E27 Luz Decorativa A19" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287463/">Foco LED Aksi 1W Rojo Base E27 Luz Decorativa A19</a></div></div><div class="row-priceblock"><div class="row-price">$71</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_857636-MLA84217866940_052025-F.jpg" alt="Foco Led Aksi 4w Vela Dimeable Base E12 Luz Cálida" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287464/">Foco Led Aksi 4w Vela Dimeable Base E12 Luz Cálida</a></div></div><div class="row-priceblock"><div class="row-price">$71</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_952681-MLA99992301387_112025-F.jpg" alt="6 Spots Aksi 7w Circular Led Empotrable Dirigible Luz Blanca" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287467/">6 Spots Aksi 7w Circular Led Empotrable Dirigible Luz Blanca</a></div></div><div class="row-priceblock"><div class="row-price">$427</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_602739-MLA99419185782_112025-F.jpg" alt="Luminario LED Aksi 18W Empotrable Circular Ultra Delgado Luz Cálida" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287468/">Luminario LED Aksi 18W Empotrable Circular Ultra Delgado Luz Cálida</a></div></div><div class="row-priceblock"><div class="row-price">$220</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_699610-MLA95835435731_102025-F.jpg" alt="Lámpara Incandescente Aksi 250w Tipo Br40 Luz Cálida" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287471/">Lámpara Incandescente Aksi 250w Tipo Br40 Luz Cálida</a></div></div><div class="row-priceblock"><div class="row-price">$128</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_883988-MLA92244075315_092025-F.jpg" alt="Foco LED Aksi de 20W con Sensor de Luz Blanca" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292539/">Foco LED Aksi de 20W con Sensor de Luz Blanca</a></div></div><div class="row-priceblock"><div class="row-price">$122</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_950652-MLA95636052879_102025-F.jpg" alt="Foco LED E27 Aksi 1W Rojo Decorativo para Guirnaldas y Terrazas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292545/">Foco LED E27 Aksi 1W Rojo Decorativo para Guirnaldas y Terrazas</a></div></div><div class="row-priceblock"><div class="row-price">$71</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_787829-MLA95097438346_102025-F.jpg" alt="Foco Led Aksi 1w A19 Estela De Luz Base E27 Lila" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292547/">Foco Led Aksi 1w A19 Estela De Luz Base E27 Lila</a></div></div><div class="row-priceblock"><div class="row-price">$71</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_713560-MLA99936222383_112025-F.jpg" alt="Lámpara Tubular Led Aksi 15w De Vidrio 120cm G13 Luz Blanca" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292552/">Lámpara Tubular Led Aksi 15w De Vidrio 120cm G13 Luz Blanca</a></div></div><div class="row-priceblock"><div class="row-price">$67</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_867574-MLA96674471139_102025-F.jpg" alt="Foco LED 1W Amarillo Aksi E27 Decorativo para Guirnaldas y Terrazas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292553/">Foco LED 1W Amarillo Aksi E27 Decorativo para Guirnaldas y Terrazas</a></div></div><div class="row-priceblock"><div class="row-price">$71</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_981336-MLA96880033951_102025-F.jpg" alt="Foco LED Aksi 1W Base E27 Naranja Para Decoración Y Ambientación" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292554/">Foco LED Aksi 1W Base E27 Naranja Para Decoración Y Ambientación</a></div></div><div class="row-priceblock"><div class="row-price">$71</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_967772-MLA96679963365_102025-F.jpg" alt="Foco Led Aksi 1w A19 Estela De Luz Base E27 Azul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292556/">Foco Led Aksi 1w A19 Estela De Luz Base E27 Azul</a></div></div><div class="row-priceblock"><div class="row-price">$71</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Aksi Lighting</h2><div class="chip-row"><a class="chip" href="../../categoria/iluminacion/">Iluminación (24)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

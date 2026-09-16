@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2NLF: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de 2NLF en México comparados entre tiendas: 24 productos. Precios desde $282 hasta $4,135 MXN. Principalmente en cámaras de seguridad.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/2nlf/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="2NLF: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de 2NLF en México comparados entre tiendas: 24 productos. Precios desde $282 hasta $4,135 MXN. Principalmente en cámaras de seguridad.">
+<meta property="og:url" content="https://comparamex.com/marca/2nlf/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "2NLF",
+      "item": "https://comparamex.com/marca/2nlf/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; 2NLF</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> 2NLF — comparar precios (24)</h1></div>
+<p class="muted small">Precios de 2NLF en México comparados entre tiendas: 24 productos. Precios desde $282 hasta $4,135 MXN. Principalmente en cámaras de seguridad.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de 2NLF..."
+         aria-label="Buscar productos de 2NLF" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_807359-MLA107764878925_022026-F.jpg" alt="2NLF Cámara de Seguridad Exterior camaras vigilancia Wifi Audio Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290961/">2NLF Cámara de Seguridad Exterior camaras vigilancia Wifi Audio Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$333</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_986023-MLA97930765604_112025-F.jpg" alt="2nlf® 5mp Cámara De Seguridad Inalambrica Solar Celular 4g" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290969/">2nlf® 5mp Cámara De Seguridad Inalambrica Solar Celular 4g</a></div></div><div class="row-priceblock"><div class="row-price">$1,119</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_809163-MLA109470208041_032026-F.jpg" alt="2nlf® Kit Camaras De Seguridad Vigilancia Audio Bidirecciona" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p29307/">2nlf® Kit Camaras De Seguridad Vigilancia Audio Bidirecciona</a></div></div><div class="row-priceblock"><div class="row-price">$2,897</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_937548-MLA113147071014_072026-F.jpg" alt="2nlf 18MP Cámara De Seguridad Exterior Ip Wifi 5G/2.4G 360° Triple Lente Camara Vigilancia" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p31847/">2nlf 18MP Cámara De Seguridad Exterior Ip Wifi 5G/2.4G 360° Triple Lente Camara Vigilancia</a></div></div><div class="row-priceblock"><div class="row-price">$959</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_982419-MLA107079656656_022026-F.jpg" alt="Kit De Camaras Videovigilancia 2NLF 20m 5005 Color Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290960/">Kit De Camaras Videovigilancia 2NLF 20m 5005 Color Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$3,894</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_651648-MLA116088974579_082026-F.jpg" alt="2NLF 24MP Cámaras De Seguridad Exterior Wifi 4 Lentes Pantalla IP66" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290962/">2NLF 24MP Cámaras De Seguridad Exterior Wifi 4 Lentes Pantalla IP66</a></div></div><div class="row-priceblock"><div class="row-price">$838</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_771999-MLA99459143170_112025-F.jpg" alt="2nlf® 5mp Solar Cámara De Seguridad Wifi Exterior Vigilancia" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290963/">2nlf® 5mp Solar Cámara De Seguridad Wifi Exterior Vigilancia</a></div></div><div class="row-priceblock"><div class="row-price">$708</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_724682-MLA96086396079_102025-F.jpg" alt="2nlf® 5mp Camara De Seguridad Inalambrica Solar 4g Sim" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290964/">2nlf® 5mp Camara De Seguridad Inalambrica Solar 4g Sim</a></div></div><div class="row-priceblock"><div class="row-price">$753</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_640667-MLA104504783105_012026-F.jpg" alt="2nlf® 3 Lentes 15mp Cámara De Seguridad Wifi Exterior 360" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290965/">2nlf® 3 Lentes 15mp Cámara De Seguridad Wifi Exterior 360</a></div></div><div class="row-priceblock"><div class="row-price">$689</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_705284-MLA113564799534_072026-F.jpg" alt="2NLF 10MP Cámara De Seguridad 5G Wifi 2 Lente 2 Pantalla" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290966/">2NLF 10MP Cámara De Seguridad 5G Wifi 2 Lente 2 Pantalla</a></div></div><div class="row-priceblock"><div class="row-price">$348</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_931027-MLA99464077028_112025-F.jpg" alt="2nlf® 12mp Cámara De Seguridad Exterior Wifi6 2 Lentes 15x" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290967/">2nlf® 12mp Cámara De Seguridad Exterior Wifi6 2 Lentes 15x</a></div></div><div class="row-priceblock"><div class="row-price">$486</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_610209-MLA116807139463_082026-F.jpg" alt="2nlf® 2pcs Cámara De Seguridad 8mp Full Hd 360° Camara Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290968/">2nlf® 2pcs Cámara De Seguridad 8mp Full Hd 360° Camara Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$475</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_873793-MLA99518048872_112025-F.jpg" alt="2NLF kit Camaras circuito cerrado tv inalambrico Wifi NVR Con Pantalla" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290970/">2NLF kit Camaras circuito cerrado tv inalambrico Wifi NVR Con Pantalla</a></div></div><div class="row-priceblock"><div class="row-price">$3,343</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_757274-MLA100569535862_122025-F.jpg" alt="2nlf Cámara De Seguridad Vigilancia Wifi Alarmaa Ip 2 Lente 12MP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290971/">2nlf Cámara De Seguridad Vigilancia Wifi Alarmaa Ip 2 Lente 12MP</a></div></div><div class="row-priceblock"><div class="row-price">$472</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_712691-MLA92513289149_092025-F.jpg" alt="2nlf® 2pcs 4mp Cámara De Seguridad Full Hd 360° Camara Wifi" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290972/">2nlf® 2pcs 4mp Cámara De Seguridad Full Hd 360° Camara Wifi</a></div></div><div class="row-priceblock"><div class="row-price">$389</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_980151-MLA106721891751_022026-F.jpg" alt="Cámara de seguridad 2NLF D74B con resolución 4MP visión nocturna incluida color negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290973/">Cámara de seguridad 2NLF D74B con resolución 4MP visión nocturna incluida color negro</a></div></div><div class="row-priceblock"><div class="row-price">$282</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_988866-MLA106690178173_022026-F.jpg" alt="2NLF® 5G/2.4G 2 Lente 2 Pantalla Cámara De Seguridad 12MP" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290974/">2NLF® 5G/2.4G 2 Lente 2 Pantalla Cámara De Seguridad 12MP</a></div></div><div class="row-priceblock"><div class="row-price">$465</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_935310-MLA89732071000_082025-F.jpg" alt="2NLF® 5MP Camara De Seguridad Inalambrica Solar Cámara Tarjeta Sim 4G" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290975/">2NLF® 5MP Camara De Seguridad Inalambrica Solar Cámara Tarjeta Sim 4G</a></div></div><div class="row-priceblock"><div class="row-price">$905</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_968448-MLA115831345854_092026-F.jpg" alt="2NLF Cámara Solar 4G Cámara de Vigilancia Exterior con SIM Doble Lente Doble Pantalla" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p290976/">2NLF Cámara Solar 4G Cámara de Vigilancia Exterior con SIM Doble Lente Doble Pantalla</a></div></div><div class="row-priceblock"><div class="row-price">$979</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_874901-MLA100085632103_122025-F.jpg" alt="2nlf Kit 8 Camaras Vigilancia Circuito Cerrado Nvr Cctv" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p291079/">2nlf Kit 8 Camaras Vigilancia Circuito Cerrado Nvr Cctv</a></div></div><div class="row-priceblock"><div class="row-price">$4,135</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_831707-MLA115628984549_082026-F.jpg" alt="2NLF 5MP 5G WIFI Solar Cámara De Seguridad Exterior Color Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p291080/">2NLF 5MP 5G WIFI Solar Cámara De Seguridad Exterior Color Negro</a></div></div><div class="row-priceblock"><div class="row-price">$659</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_783209-MLA99558493342_122025-F.jpg" alt="Kit Camaras Vigilancia Con Pantalla Táctil 2NLF Wifi D316 Color Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p291081/">Kit Camaras Vigilancia Con Pantalla Táctil 2NLF Wifi D316 Color Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$3,760</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_798029-MLA105002103280_012026-F.jpg" alt="2nlf® 2pcs Cámara De Seguridad Wifi 360° Ptz 4mp Vigilancia" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p291082/">2nlf® 2pcs Cámara De Seguridad Wifi 360° Ptz 4mp Vigilancia</a></div></div><div class="row-priceblock"><div class="row-price">$585</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_752606-MLA111031359239_042026-F.jpg" alt="2NLF 10MP Cámara De Seguridad Inalambrica Solar 2 Lent 2 Lantalla 5G/2.4G Wifi" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Cámaras de seguridad</div><div class="row-name"><a href="../../producto/p291083/">2NLF 10MP Cámara De Seguridad Inalambrica Solar 2 Lent 2 Lantalla 5G/2.4G Wifi</a></div></div><div class="row-priceblock"><div class="row-price">$869</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende 2NLF</h2><div class="chip-row"><a class="chip" href="../../categoria/camaras-de-seguridad/">Cámaras de seguridad (24)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

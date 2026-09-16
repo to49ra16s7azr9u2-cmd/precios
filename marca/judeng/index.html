@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Judeng: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Judeng en México comparados entre tiendas: 22 productos. Precios desde $128 hasta $848 MXN. Principalmente en iluminación.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/judeng/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Judeng: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Judeng en México comparados entre tiendas: 22 productos. Precios desde $128 hasta $848 MXN. Principalmente en iluminación.">
+<meta property="og:url" content="https://comparamex.com/marca/judeng/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Judeng",
+      "item": "https://comparamex.com/marca/judeng/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Judeng</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Judeng — comparar precios (22)</h1></div>
+<p class="muted small">Precios de Judeng en México comparados entre tiendas: 22 productos. Precios desde $128 hasta $848 MXN. Principalmente en iluminación.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Judeng..."
+         aria-label="Buscar productos de Judeng" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_923775-MLA112236740154_062026-F.jpg" alt="Lampara Escritorio Led Multifuncional Bluetooth Regulable" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p28839/">Lampara Escritorio Led Multifuncional Bluetooth Regulable</a></div></div><div class="row-priceblock"><div class="row-price">$273</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_931988-MLA101942471578_122025-F.jpg" alt="Lámpara Techo Moderna Baño Regulable Lampara Colgante 3modos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p29431/">Lámpara Techo Moderna Baño Regulable Lampara Colgante 3modos</a></div></div><div class="row-priceblock"><div class="row-price">$273</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_721827-MLA112901870831_062026-F.jpg" alt="Plafón de Techo Moderno con Cristales para Habitación – Judeng" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287292/">Plafón de Techo Moderno con Cristales para Habitación – Judeng</a></div></div><div class="row-priceblock"><div class="row-price">$221</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_798830-MLA82486050087_022025-F.jpg" alt="JUDENG Lámpara Techo Moderna Baño Regulable Lampara Colgante 3modos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287293/">JUDENG Lámpara Techo Moderna Baño Regulable Lampara Colgante 3modos</a></div></div><div class="row-priceblock"><div class="row-price">$290</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_605649-MLA89511605900_082025-F.jpg" alt="Plafón Redondo de Metal Negro para Techo Judeng N5914 con Cristal Decorativo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287294/">Plafón Redondo de Metal Negro para Techo Judeng N5914 con Cristal Decorativo</a></div></div><div class="row-priceblock"><div class="row-price">$243</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_953647-MLA80697701262_112024-F.jpg" alt="Aplique LED de Pared Judeng 20 W con Luz Cálida 3000 K" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287295/">Aplique LED de Pared Judeng 20 W con Luz Cálida 3000 K</a></div></div><div class="row-priceblock"><div class="row-price">$188</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_886510-MLA80688877494_112024-F.jpg" alt="Lámpara de Pared LED Judeng con Luz Blanca para Exterior e Interior" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287296/">Lámpara de Pared LED Judeng con Luz Blanca para Exterior e Interior</a></div></div><div class="row-priceblock"><div class="row-price">$162</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_692068-MLA109302370397_032026-F.jpg" alt="Lámpara de Pared Judeng LED Cuadrada Negra para Exterior e Interior" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287297/">Lámpara de Pared Judeng LED Cuadrada Negra para Exterior e Interior</a></div></div><div class="row-priceblock"><div class="row-price">$258</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_711176-MLA101398800656_122025-F.jpg" alt="Lámpara de Pared Judeng LED de 2 Focos para Exterior e Interior" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287298/">Lámpara de Pared Judeng LED de 2 Focos para Exterior e Interior</a></div></div><div class="row-priceblock"><div class="row-price">$251</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_882803-MLA95666293044_102025-F.jpg" alt="Lámpara Colgante Techo de Cristal Judeng Negra, Moderna para Sala o Comedor" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287299/">Lámpara Colgante Techo de Cristal Judeng Negra, Moderna para Sala o Comedor</a></div></div><div class="row-priceblock"><div class="row-price">$162</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_886453-MLA96074315334_102025-F.jpg" alt="Aplique de Pared LED Judeng para Exterior, Negro, con 3 Modos de Luz" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287300/">Aplique de Pared LED Judeng para Exterior, Negro, con 3 Modos de Luz</a></div></div><div class="row-priceblock"><div class="row-price">$221</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_622839-MLA116093587866_092026-F.jpg" alt="Lámpara de Techo Colgante Judeng Moderna para Sala, con 6 Luces y Cristal Transparente" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287301/">Lámpara de Techo Colgante Judeng Moderna para Sala, con 6 Luces y Cristal Transparente</a></div></div><div class="row-priceblock"><div class="row-price">$848</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_632785-MLA113186249907_062026-F.jpg" alt="JUDENG Lámpara de pared LED moderna a prueba de agua de 10w para exteriores" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287302/">JUDENG Lámpara de pared LED moderna a prueba de agua de 10w para exteriores</a></div></div><div class="row-priceblock"><div class="row-price">$144</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_727661-MLA112350450261_052026-F.jpg" alt="Lámpara de Pared LED Judeng para Exterior e Interior, Luz Blanca Fría de 10W" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287303/">Lámpara de Pared LED Judeng para Exterior e Interior, Luz Blanca Fría de 10W</a></div></div><div class="row-priceblock"><div class="row-price">$144</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_612619-MLA95402776530_102025-F.jpg" alt="Lámpara de Techo Judeng N6022 Dorada para Hogar, con Base E26 y Diseño de Cristal" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287304/">Lámpara de Techo Judeng N6022 Dorada para Hogar, con Base E26 y Diseño de Cristal</a></div></div><div class="row-priceblock"><div class="row-price">$171</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_784567-MLA117218197879_092026-F.jpg" alt="Plafón LED Cuadrado Judeng de 24W con 3 Tonos de Luz para Techo y Pared" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p287305/">Plafón LED Cuadrado Judeng de 24W con 3 Tonos de Luz para Techo y Pared</a></div></div><div class="row-priceblock"><div class="row-price">$204</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_912181-MLA95942672657_102025-F.jpg" alt="Lámpara de Techo LED Moderna Judeng Tricolor 22W Blanca" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292376/">Lámpara de Techo LED Moderna Judeng Tricolor 22W Blanca</a></div></div><div class="row-priceblock"><div class="row-price">$199</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_902431-MLA111968334885_052026-F.jpg" alt="Lámpara de Techo Judeng de Metal, Moderna y Ajustable, con 2 Focos E27" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292377/">Lámpara de Techo Judeng de Metal, Moderna y Ajustable, con 2 Focos E27</a></div></div><div class="row-priceblock"><div class="row-price">$213</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_761813-MLA88238190626_072025-F.jpg" alt="Lámpara de Pared Judeng LED de 6W Negra para Exterior con Luz Cálida" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292378/">Lámpara de Pared Judeng LED de 6W Negra para Exterior con Luz Cálida</a></div></div><div class="row-priceblock"><div class="row-price">$250</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_780609-MLA83266831665_032025-F.jpg" alt="Lámpara de Pared Judeng LED Negra para Exterior e Interior, Luz Cálida 3000K" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292379/">Lámpara de Pared Judeng LED Negra para Exterior e Interior, Luz Cálida 3000K</a></div></div><div class="row-priceblock"><div class="row-price">$147</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_626940-MLA95740818728_102025-F.jpg" alt="Judeng Aplique de Pared LED 10W Exterior e Interior Impermeable Luz Cálida Negra" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292380/">Judeng Aplique de Pared LED 10W Exterior e Interior Impermeable Luz Cálida Negra</a></div></div><div class="row-priceblock"><div class="row-price">$189</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_891901-MLA111221480214_052026-F.jpg" alt="Lámpara de Pared Judeng LED 8W, Luz Cálida 3000K, Negra para Interiores y Exteriores" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292381/">Lámpara de Pared Judeng LED 8W, Luz Cálida 3000K, Negra para Interiores y Exteriores</a></div></div><div class="row-priceblock"><div class="row-price">$128</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Judeng</h2><div class="chip-row"><a class="chip" href="../../categoria/iluminacion/">Iluminación (22)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

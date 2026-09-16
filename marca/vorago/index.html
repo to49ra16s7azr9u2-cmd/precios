@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vorago: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Vorago en México comparados entre tiendas: 20 productos. Precios desde $35 hasta $1,264 MXN. Principalmente en bocinas, mouse, teclados, componentes y accesorios de pc.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/vorago/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Vorago: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Vorago en México comparados entre tiendas: 20 productos. Precios desde $35 hasta $1,264 MXN. Principalmente en bocinas, mouse, teclados, componentes y accesorios de pc.">
+<meta property="og:url" content="https://comparamex.com/marca/vorago/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Vorago",
+      "item": "https://comparamex.com/marca/vorago/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Vorago</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Vorago — comparar precios (20)</h1></div>
+<p class="muted small">Precios de Vorago en México comparados entre tiendas: 20 productos. Precios desde $35 hasta $1,264 MXN. Principalmente en bocinas, mouse, teclados, componentes y accesorios de pc.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Vorago..."
+         aria-label="Buscar productos de Vorago" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_949866-MLA107172661181_022026-F.jpg" alt="No Break Vorago UPS-301 800VA 480W Regulador y Batería de Respaldo Hogar Oficina para TV, Computadoras y Consolas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Otros</div><div class="row-name"><a href="../../producto/p35883/">No Break Vorago UPS-301 800VA 480W Regulador y Batería de Respaldo Hogar Oficina para TV, Computadoras y Consolas</a></div></div><div class="row-priceblock"><div class="row-price">$1,163</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_913814-MLA105822738935_012026-F.jpg" alt="Teclado Gamer Vorago Start The Game KB-506 65% TKL RGB Alámbrico USB Español Anti-Ghosting Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Teclados</div><div class="row-name"><a href="../../producto/p27123/">Teclado Gamer Vorago Start The Game KB-506 65% TKL RGB Alámbrico USB Español Anti-Ghosting Negro</a></div></div><div class="row-priceblock"><div class="row-price">$405</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_718147-MLA99509810998_112025-F.jpg" alt="Vorago Start The Game MO-600 Mouse Gamer Inalambrico 800 - 2400 Dpi 6 Botones Pixart 3212" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Mouse</div><div class="row-name"><a href="../../producto/p27394/">Vorago Start The Game MO-600 Mouse Gamer Inalambrico 800 - 2400 Dpi 6 Botones Pixart 3212</a></div></div><div class="row-priceblock"><div class="row-price">$238</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/29458366/71-TlTK1bfL.jpeg.jpg" alt="Vorago Bocina Karaoke Bluetooth KSP-205 10W TWS RGB FM USB Micro SD Bl" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Bocinas</div><div class="row-name"><a href="../../producto/p43343/">Vorago Bocina Karaoke Bluetooth KSP-205 10W TWS RGB FM USB Micro SD Bl</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$401</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_675177-MLA105994290131_012026-F.jpg" alt="Teclado Bluetooth Multidispositivos Vorago KBW-400 Wireless Slim USB Tipo C Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Teclados</div><div class="row-name"><a href="../../producto/p27078/">Teclado Bluetooth Multidispositivos Vorago KBW-400 Wireless Slim USB Tipo C Negro</a></div></div><div class="row-priceblock"><div class="row-price">$438</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/29458404/71YakdV-o2L.jpeg.jpg" alt="Vorago KSP-303 Bocina Karaoke 8 Pulgadas RGB hasta 4 Hrs De Musica TWS" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Bocinas</div><div class="row-name"><a href="../../producto/p43336/">Vorago KSP-303 Bocina Karaoke 8 Pulgadas RGB hasta 4 Hrs De Musica TWS</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$708</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_901083-MLA105822143861_012026-F.jpg" alt="Diadema Inalámbrica Bluetooth Vorago HPB-601 V2 Super Bass Usb Tipo C 10mt Plegable Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name"><a href="../../producto/p285586/">Diadema Inalámbrica Bluetooth Vorago HPB-601 V2 Super Bass Usb Tipo C 10mt Plegable Negro</a></div></div><div class="row-priceblock"><div class="row-price">$1,066</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_671132-MLU70080861182_062023-F.jpg" alt="Mouse Inalámbrico Slim Vorago Mo-305 Pateado Rgb Color Plateado" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Mouse</div><div class="row-name"><a href="../../producto/p27332/">Mouse Inalámbrico Slim Vorago Mo-305 Pateado Rgb Color Plateado</a></div></div><div class="row-priceblock"><div class="row-price">$294</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_647848-MLA99366184870_112025-F.jpg" alt="Vorago Bocina Portatil Bluetooth + Usb Tws Recargable Bsp600 Color Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Bocinas</div><div class="row-name"><a href="../../producto/p27929/">Vorago Bocina Portatil Bluetooth + Usb Tws Recargable Bsp600 Color Negro</a></div></div><div class="row-priceblock"><div class="row-price">$607</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76181449/7502266673927_00.jpg" alt="Cable para Impresora Vorago USB/ab 2.0 1.5m Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Impresoras</div><div class="row-name"><a href="../../producto/p127387/">Cable para Impresora Vorago USB/ab 2.0 1.5m Negro</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$35</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/75945712/7502266671527_00.jpg" alt="Bocinas Vorago para Computadora 2.0 Negro SPK105" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Bocinas</div><div class="row-name"><a href="../../producto/p127433/">Bocinas Vorago para Computadora 2.0 Negro SPK105</a></div></div><div class="row-priceblock"><div class="row-price">$195</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/517L-HFvU6L._AC_SX679_.jpg" alt="Vorago Bocinas SPK-105 2.0 para computadora, Altavoces pasivos 6W, Entrada USB alimentacion y 3.5 mm Audio" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Bocinas</div><div class="row-name"><a href="../../producto/p139813/">Vorago Bocinas SPK-105 2.0 para computadora, Altavoces pasivos 6W, Entrada USB alimentacion y 3.5 mm Audio</a></div></div><div class="row-priceblock"><div class="row-price">$211</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/f7488cde-60a5-4348-be83-14935cfbb57b-KSP-180-01___621bfaea1411f3d8c3faabe8476d140c.webp?v=1775172500" alt="Vorago KSP-180 Bocina Mini Portátil Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Bocinas</div><div class="row-name"><a href="../../producto/p232205/">Vorago KSP-180 Bocina Mini Portátil Negro</a></div></div><div class="row-priceblock"><div class="row-price">$379</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/image-61082eb2c8b64cc993d120195ffbcdd3.jpg?v=1775171036" alt="Mouse Gamer Vorago Factor MOG602-BK Alámbrico Retroiluminado Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Componentes y accesorios de PC</div><div class="row-name"><a href="../../producto/p232456/">Mouse Gamer Vorago Factor MOG602-BK Alámbrico Retroiluminado Negro</a></div></div><div class="row-priceblock"><div class="row-price">$789</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/vorago-spray-antiseptico-desinfectante-cln-301-dotomexico-vista-frontal-2.jpg?v=1775169307" alt="Vorago Spray antiseptico desinfectante de superficies CLN-301 60ml" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Componentes y accesorios de PC</div><div class="row-name"><a href="../../producto/p232701/">Vorago Spray antiseptico desinfectante de superficies CLN-301 60ml</a></div></div><div class="row-priceblock"><div class="row-price">$259</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_921752-MLA95366650742_102025-F.jpg" alt="Audifonos Vorago Ep-306" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name"><a href="../../producto/p27993/">Audifonos Vorago Ep-306</a></div></div><div class="row-priceblock"><div class="row-price">$140</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_683160-MLA110059537333_042026-F.jpg" alt="Mousepad Gamer Vorago MP-100 con Apoya Muñeca" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Mouse</div><div class="row-name"><a href="../../producto/p30746/">Mousepad Gamer Vorago MP-100 con Apoya Muñeca</a></div></div><div class="row-priceblock"><div class="row-price">$194</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76178979/7502266674559_00.jpg" alt="Mouse Vorago Optico Alambrico Negro MO102" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Mouse</div><div class="row-name"><a href="../../producto/p127432/">Mouse Vorago Optico Alambrico Negro MO102</a></div></div><div class="row-priceblock"><div class="row-price">$115</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76178983/7502266673842_00.jpg" alt="Teclado Vorago Multimedia USB Negro KB102" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Teclados</div><div class="row-name"><a href="../../producto/p127431/">Teclado Vorago Multimedia USB Negro KB102</a></div></div><div class="row-priceblock"><div class="row-price">$145</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/14613073/28010218.jpg" alt="Tablet Vorago PAD 7 V6 32GB 7 Pulgadas Blanca" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Tabletas</div><div class="row-name"><a href="../../producto/p50840/">Tablet Vorago PAD 7 V6 32GB 7 Pulgadas Blanca</a></div></div><div class="row-priceblock"><div class="row-price">$1,264</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Vorago</h2><div class="chip-row"><a class="chip" href="../../categoria/bocinas/">Bocinas (6)</a><a class="chip" href="../../categoria/mouse/">Mouse (4)</a><a class="chip" href="../../categoria/teclados/">Teclados (3)</a><a class="chip" href="../../categoria/componentes-y-accesorios-de-pc/">Componentes y accesorios de PC (2)</a><a class="chip" href="../../categoria/audifonos-y-auriculares/">Audífonos y auriculares (2)</a><a class="chip" href="../../categoria/otros/">Otros (1)</a><a class="chip" href="../../categoria/impresoras/">Impresoras (1)</a><a class="chip" href="../../categoria/tabletas/">Tabletas (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

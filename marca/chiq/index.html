@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChiQ: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de ChiQ en México comparados entre tiendas: 20 productos. Precios desde $2,008 hasta $11,999 MXN. Principalmente en televisores, refrigeradores, monitores.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/chiq/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="ChiQ: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de ChiQ en México comparados entre tiendas: 20 productos. Precios desde $2,008 hasta $11,999 MXN. Principalmente en televisores, refrigeradores, monitores.">
+<meta property="og:url" content="https://comparamex.com/marca/chiq/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "ChiQ",
+      "item": "https://comparamex.com/marca/chiq/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; ChiQ</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> ChiQ — comparar precios (20)</h1></div>
+<p class="muted small">Precios de ChiQ en México comparados entre tiendas: 20 productos. Precios desde $2,008 hasta $11,999 MXN. Principalmente en televisores, refrigeradores, monitores.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de ChiQ..."
+         aria-label="Buscar productos de ChiQ" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_800627-MLA108909998290_032026-F.jpg" alt="Pantalla Chiq 32 Roku Tv Hd" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p27457/">Pantalla Chiq 32 Roku Tv Hd</a></div></div><div class="row-priceblock"><div class="row-price">$2,008</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76256360/809412600286_00.jpg" alt="Pantalla CHiQ 60 Pulgadas 4K UHD Roku TV 60U711V" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p127473/">Pantalla CHiQ 60 Pulgadas 4K UHD Roku TV 60U711V</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$6,059</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76186816/809412600316_00.jpg" alt="Pantalla CHiQ 43 Pulgadas FHD LED Roku TV 43F621" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p127474/">Pantalla CHiQ 43 Pulgadas FHD LED Roku TV 43F621</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$3,364</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_668412-MLA111852026903_052026-F.jpg" alt="Pantalla CHiQ 55 pulgadas 4K HDR55U721XR Roku TV" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p285708/">Pantalla CHiQ 55 pulgadas 4K HDR55U721XR Roku TV</a></div></div><div class="row-priceblock"><div class="row-price">$5,099</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71Lxnll1nGL._AC_SX679_.jpg" alt="CHiQ 22F650, Monitor de 22 pulgadas, Monitor de PC FHD (1920x1080), 100Hz+FreeSync, Ultra-delgado, 100% sRGB, HDMI, VGA, Montable en VESA, Novedad 2024" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Monitores</div><div class="row-name"><a href="../../producto/p170178/">CHiQ 22F650, Monitor de 22 pulgadas, Monitor de PC FHD (1920x1080), 100Hz+FreeSync, Ultra-delgado, 100% sRGB, HDMI, VGA, Montable en VESA, Novedad 2024</a></div></div><div class="row-priceblock"><div class="row-price">$4,347</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61i+9PWywFL._AC_SX679_.jpg" alt="CHiQ CTM255NISW-P: Refrigerador Top Mount de 2 Puertas 9 Pies Cúbicos, Doble Inverter, Total No Frost, Dispensador de Agua, Congelación Rápida, Ideal para Hogar y Departamento, Plateado. 55x59x170 cm" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Refrigeradores</div><div class="row-name"><a href="../../producto/p193335/">CHiQ CTM255NISW-P: Refrigerador Top Mount de 2 Puertas 9 Pies Cúbicos, Doble Inverter, Total No Frost, Dispensador de Agua, Congelación Rápida, Ideal para Hogar y Departamento, Plateado. 55x59x170 cm</a></div></div><div class="row-priceblock"><div class="row-price">$11,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51QpmAyBblL._AC_SX679_.jpg" alt="CHiQ CCF199DS-B0: Congelador Horizontal, 7 Pies Cúbicos, Convertible 2 en 1 a Refrigerador, Temperatura Ajustable, Congelación Rápida, Gran Capacidad para Hogar y Negocio, Blanco. 82.3x55.6x83.5 cm" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Refrigeradores</div><div class="row-name"><a href="../../producto/p193572/">CHiQ CCF199DS-B0: Congelador Horizontal, 7 Pies Cúbicos, Convertible 2 en 1 a Refrigerador, Temperatura Ajustable, Congelación Rápida, Gran Capacidad para Hogar y Negocio, Blanco. 82.3x55.6x83.5 cm</a></div></div><div class="row-priceblock"><div class="row-price">$6,575</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/6177WcTUJTL._AC_SX679_.jpg" alt="CHiQ CSR46DS-P: Frigobar 1.6 Pies Cúbicos, Control Preciso de Temperatura, Silencioso 39 dB, Puerta Reversible, Acabado Plateado. Ideal para Oficina, Minibar, Recámara o Estudio. 47x45x50 cm" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Refrigeradores</div><div class="row-name"><a href="../../producto/p193653/">CHiQ CSR46DS-P: Frigobar 1.6 Pies Cúbicos, Control Preciso de Temperatura, Silencioso 39 dB, Puerta Reversible, Acabado Plateado. Ideal para Oficina, Minibar, Recámara o Estudio. 47x45x50 cm</a></div></div><div class="row-priceblock"><div class="row-price">$2,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_795763-MLA112319099543_052026-F.jpg" alt="Chiq Televisor 65 65u712xr 4k Roku Hdr Ultra Delgado Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p35031/">Chiq Televisor 65 65u712xr 4k Roku Hdr Ultra Delgado Negro</a></div></div><div class="row-priceblock"><div class="row-price">$7,199</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31315467/809412600279.jpg" alt="Pantalla LED Chiq 55U721XR 55&quot; Smart TV 4K Roku" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p41696/">Pantalla LED Chiq 55U721XR 55&quot; Smart TV 4K Roku</a></div></div><div class="row-priceblock"><div class="row-price">$6,919</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31314913/809412600262.jpg" alt="Pantalla Chiq 50U721XR 50&quot; Smart TV 4K Roku TV" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p41697/">Pantalla Chiq 50U721XR 50&quot; Smart TV 4K Roku TV</a></div></div><div class="row-priceblock"><div class="row-price">$5,879</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31314533/809412600316.jpg" alt="Pantalla Chiq 43F621FR 43&quot; FHD Smart TV Roku TV" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p41698/">Pantalla Chiq 43F621FR 43&quot; FHD Smart TV Roku TV</a></div></div><div class="row-priceblock"><div class="row-price">$4,419</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/717Y6dL7umL._AC_SX679_.jpg" alt="CHiQ Televisión 50U721XR ROKU Pantalla 50 Pulgadas Smart TV 4K HDR con WiFi, Aplicación Móvil, Audio Dolby, Diseño Ultra Delgado Sin Marco Metálico" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p140387/">CHiQ Televisión 50U721XR ROKU Pantalla 50 Pulgadas Smart TV 4K HDR con WiFi, Aplicación Móvil, Audio Dolby, Diseño Ultra Delgado Sin Marco Metálico</a></div></div><div class="row-priceblock"><div class="row-price">$4,779</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71x2zO1TeXL._AC_SX679_.jpg" alt="CHiQ Television 32L621FR ROKU Pantalla 32 Smart TV Pulgadas HD con WiFi, Aplicación Móvil, Audio Dolby, Diseño Sin Marco Metálico, Compatible con Apple HomeKit" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p185210/">CHiQ Television 32L621FR ROKU Pantalla 32 Smart TV Pulgadas HD con WiFi, Aplicación Móvil, Audio Dolby, Diseño Sin Marco Metálico, Compatible con Apple HomeKit</a></div></div><div class="row-priceblock"><div class="row-price">$2,008</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71mKiAXL7WL._AC_SX679_.jpg" alt="CHiQ Televisión 40F621FR ROKU Pantalla 40 Pulgadas Smart TV Full HD 1080P con WiFi, Aplicación Móvil, Audio Dolby, Diseño Sin Marco Metálico, Compatible con Apple HomeKit" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p185219/">CHiQ Televisión 40F621FR ROKU Pantalla 40 Pulgadas Smart TV Full HD 1080P con WiFi, Aplicación Móvil, Audio Dolby, Diseño Sin Marco Metálico, Compatible con Apple HomeKit</a></div></div><div class="row-priceblock"><div class="row-price">$2,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71gDeZj9aPL._AC_SX679_.jpg" alt="CHiQ Televisión 60U711VR ROKU Pantalla 60 Pulgadas Smart TV 4K HDR con WiFi, Audio Dolby, Diseño Ultra Delgado Sin Marco Metálico, Compatible con Apple HomeKit" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p185245/">CHiQ Televisión 60U711VR ROKU Pantalla 60 Pulgadas Smart TV 4K HDR con WiFi, Audio Dolby, Diseño Ultra Delgado Sin Marco Metálico, Compatible con Apple HomeKit</a></div></div><div class="row-priceblock"><div class="row-price">$5,990</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61w8CKuriZL._AC_SX679_.jpg" alt="CHiQ Televisión QLED Roku TV 32 Pulgadas, Smart TV FHD, WiFi, Dolby Audio, Colores Vivos, Control por App Móvil, Compatible con Apple HomeKit, Alexa y Google Assistant" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p185259/">CHiQ Televisión QLED Roku TV 32 Pulgadas, Smart TV FHD, WiFi, Dolby Audio, Colores Vivos, Control por App Móvil, Compatible con Apple HomeKit, Alexa y Google Assistant</a></div></div><div class="row-priceblock"><div class="row-price">$2,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_707006-MLA112338363777_052026-F.jpg" alt="Pantalla Chiq 40 Pulgadas Full Hd 40f621fr Roku Tv" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p289466/">Pantalla Chiq 40 Pulgadas Full Hd 40f621fr Roku Tv</a></div></div><div class="row-priceblock"><div class="row-price">$2,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_635811-MLA113216457666_072026-F.jpg" alt="Pantalla Chiq 32 Pulgadas Full Hd 32f621fr Roku Tv" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p289470/">Pantalla Chiq 32 Pulgadas Full Hd 32f621fr Roku Tv</a></div></div><div class="row-priceblock"><div class="row-price">$2,449</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_949124-MLA112317950341_052026-F.jpg" alt="Televisor Chiq 50 Pulgadas 4k Hdr 10 50u721xr Roku Tv" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name"><a href="../../producto/p289483/">Televisor Chiq 50 Pulgadas 4k Hdr 10 50u721xr Roku Tv</a></div></div><div class="row-priceblock"><div class="row-price">$4,683</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende ChiQ</h2><div class="chip-row"><a class="chip" href="../../categoria/televisores/">Televisores (16)</a><a class="chip" href="../../categoria/refrigeradores/">Refrigeradores (3)</a><a class="chip" href="../../categoria/monitores/">Monitores (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

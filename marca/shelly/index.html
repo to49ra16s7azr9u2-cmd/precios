@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shelly: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Shelly en México comparados entre tiendas: 23 productos. Precios desde $394 hasta $3,716 MXN. Principalmente en domótica y hogar inteligente, herramientas, iluminación.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/shelly/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Shelly: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Shelly en México comparados entre tiendas: 23 productos. Precios desde $394 hasta $3,716 MXN. Principalmente en domótica y hogar inteligente, herramientas, iluminación.">
+<meta property="og:url" content="https://comparamex.com/marca/shelly/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Shelly",
+      "item": "https://comparamex.com/marca/shelly/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Shelly</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Shelly — comparar precios (23)</h1></div>
+<p class="muted small">Precios de Shelly en México comparados entre tiendas: 23 productos. Precios desde $394 hasta $3,716 MXN. Principalmente en domótica y hogar inteligente, herramientas, iluminación.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Shelly..."
+         aria-label="Buscar productos de Shelly" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_744544-MLA91946998797_092025-F.jpg" alt="Medidor De Energía Trifásico Wifi 120a Shelly" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p31820/">Medidor De Energía Trifásico Wifi 120a Shelly</a></div></div><div class="row-priceblock"><div class="row-price">$3,716</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_935042-MLA96700535087_102025-F.jpg" alt="Sensor Inteligente de Inundación y Temperatura Inalámbrico Shelly Flood" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p294736/">Sensor Inteligente de Inundación y Temperatura Inalámbrico Shelly Flood</a></div></div><div class="row-priceblock"><div class="row-price">$749</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_699251-MLA99505979360_112025-F.jpg" alt="Foco Shelly Smart LED GU10 de Luz Blanca Cálida, Compatible con Google Home" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Iluminación</div><div class="row-name"><a href="../../producto/p292213/">Foco Shelly Smart LED GU10 de Luz Blanca Cálida, Compatible con Google Home</a></div></div><div class="row-priceblock"><div class="row-price">$609</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_726282-MLU75647056633_042024-F.jpg" alt="Sensor De Movimiento Shelly Blu Motion Color Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p294735/">Sensor De Movimiento Shelly Blu Motion Color Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$488</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_819801-MLA93869267020_102025-F.jpg" alt="Contacto Magnético Shelly Inalámbrico Bt Para Puertas 2.4ghz Color Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p294737/">Contacto Magnético Shelly Inalámbrico Bt Para Puertas 2.4ghz Color Blanco</a></div></div><div class="row-priceblock"><div class="row-price">$669</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31395585/c726321e-d010-4fd5-b045-0c6635c27e1a.jpeg.jpg" alt="Amoladora angular SHALL 115 mm 4 A 11 000 RPM 500 W" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Herramientas</div><div class="row-name"><a href="../../producto/p60526/">Amoladora angular SHALL 115 mm 4 A 11 000 RPM 500 W</a></div></div><div class="row-priceblock"><div class="row-price">$939</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30244053/1f747f62-8c46-4017-88fe-ede6cbb5882f.jpeg.jpg" alt="Barrena de desagüe inalámbrica SHALL de 20 V con tubo de desagüe para tuberías de 77 m" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Herramientas</div><div class="row-name"><a href="../../producto/p60718/">Barrena de desagüe inalámbrica SHALL de 20 V con tubo de desagüe para tuberías de 77 m</a></div></div><div class="row-priceblock"><div class="row-price">$2,201</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31532646/14677cdd-6556-4263-ba60-9962e42dd450.jpeg.jpg" alt="Juego de llaves Allen SHALL 14 piezas Métricas/SAE" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Herramientas</div><div class="row-name"><a href="../../producto/p118750/">Juego de llaves Allen SHALL 14 piezas Métricas/SAE</a></div></div><div class="row-priceblock"><div class="row-price">$817</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_807785-MLA99948248065_112025-F.jpg" alt="Relé inteligente WiFi Shelly con medidor de consumo 1 Pm-1" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p31646/">Relé inteligente WiFi Shelly con medidor de consumo 1 Pm-1</a></div></div><div class="row-priceblock"><div class="row-price">$1,100</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30730454/7042554f-1820-419c-99f0-cf91dbf8a1c2.jpeg.jpg" alt="Relé Shelly 1 Gen4 paquete de 4 unidades Wi‑Fi Zigbee Matter 16 A" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45026/">Relé Shelly 1 Gen4 paquete de 4 unidades Wi‑Fi Zigbee Matter 16 A</a></div></div><div class="row-priceblock"><div class="row-price">$2,477</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30598001/c0704686-fe20-4776-aa17-734c347c58ea.jpeg.jpg" alt="Relé Shelly 1PM Mini Gen4 Wi-Fi Zigbee Matter 8A" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45047/">Relé Shelly 1PM Mini Gen4 Wi-Fi Zigbee Matter 8A</a></div></div><div class="row-priceblock"><div class="row-price">$1,516</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30021731/9f074a90-04ab-4249-a1c4-c77c4ae980a9.jpeg.jpg" alt="Enchufe inteligente Shelly Plus US Gen4 Wi‑Fi Bluetooth y Zigbee" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45101/">Enchufe inteligente Shelly Plus US Gen4 Wi‑Fi Bluetooth y Zigbee</a></div></div><div class="row-priceblock"><div class="row-price">$683</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/29571355/30339dcc-16b0-43b3-9035-e136f3b9c0ea.jpeg.jpg" alt="Interruptor relé inteligente Shelly 2PM Gen4 Wi‑Fi Zigbee Matter" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45114/">Interruptor relé inteligente Shelly 2PM Gen4 Wi‑Fi Zigbee Matter</a></div></div><div class="row-priceblock"><div class="row-price">$3,525</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/29517954/350d9986-29e3-4954-8880-f10538c32c09.jpeg.jpg" alt="Shelly Plus Wall Dimmer WiFi Smart Switch paquete de 2" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45122/">Shelly Plus Wall Dimmer WiFi Smart Switch paquete de 2</a></div></div><div class="row-priceblock"><div class="row-price">$1,651</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/29455777/0c32d3a2-7154-4a45-8b3d-4c91d91c3fdc.jpeg.jpg" alt="Medidor inteligente de energía Wi‑Fi Shelly EM Gen3 con pinza de 50 A" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45146/">Medidor inteligente de energía Wi‑Fi Shelly EM Gen3 con pinza de 50 A</a></div></div><div class="row-priceblock"><div class="row-price">$1,800</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/29448779/ec852921-beed-49b5-bfae-ab8335a6879d.jpeg.jpg" alt="Shelly Plus Add-On Wi-Fi Bluetooth Sensor de temperatura y humedad" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45147/">Shelly Plus Add-On Wi-Fi Bluetooth Sensor de temperatura y humedad</a></div></div><div class="row-priceblock"><div class="row-price">$560</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/29432206/924f4b2c-7887-4000-8f3f-31de1d2a6e6c.jpeg.jpg" alt="Controlador LED Shelly Plus RGBW PM WiFi Bluetooth paquete de 2" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45148/">Controlador LED Shelly Plus RGBW PM WiFi Bluetooth paquete de 2</a></div></div><div class="row-priceblock"><div class="row-price">$1,938</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28990027/6e2c5142-16c0-4e23-b813-fa1c0f383dde.jpeg.jpg" alt="Módulo inteligente Shelly Plus Uni Wi‑Fi Bluetooth con contactos secos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45176/">Módulo inteligente Shelly Plus Uni Wi‑Fi Bluetooth con contactos secos</a></div></div><div class="row-priceblock"><div class="row-price">$585</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28899521/10e90eac-231d-4e51-ac40-a1d9ac322684.jpeg.jpg" alt="Sensor Shelly Wave para puerta/ventana LR Z-Wave de largo alcance" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45180/">Sensor Shelly Wave para puerta/ventana LR Z-Wave de largo alcance</a></div></div><div class="row-priceblock"><div class="row-price">$899</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28882955/1a877f0f-8aac-4100-9e80-eeea9c619363.jpeg.jpg" alt="Shelly 2PM Gen4 relé inteligente de 2 canales con Wi‑Fi y Zigbee" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45182/">Shelly 2PM Gen4 relé inteligente de 2 canales con Wi‑Fi y Zigbee</a></div></div><div class="row-priceblock"><div class="row-price">$958</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/27332133/AUB0G2ZXQNCW-a84c9ef0-0e94-4ca8-b486-30ce8775728a.jpeg.jpg" alt="Enchufe inteligente Shelly Plus US Gen4 WiFi Bluetooth Zigbee negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p45227/">Enchufe inteligente Shelly Plus US Gen4 WiFi Bluetooth Zigbee negro</a></div></div><div class="row-priceblock"><div class="row-price">$679</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_997648-MLA80294800820_112024-F.jpg" alt="Sensor De Temperatura Y Humedad Shelly Blu H&amp;t Color Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p294738/">Sensor De Temperatura Y Humedad Shelly Blu H&amp;t Color Negro</a></div></div><div class="row-priceblock"><div class="row-price">$443</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_648406-MLU78426289737_082024-F.jpg" alt="Sensor inalámbrico Bluetooth inteligente para ventana y puerta Shelly Blu, color negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Domótica y hogar inteligente</div><div class="row-name"><a href="../../producto/p294739/">Sensor inalámbrico Bluetooth inteligente para ventana y puerta Shelly Blu, color negro</a></div></div><div class="row-priceblock"><div class="row-price">$394</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Shelly</h2><div class="chip-row"><a class="chip" href="../../categoria/domotica-y-hogar-inteligente/">Domótica y hogar inteligente (19)</a><a class="chip" href="../../categoria/herramientas/">Herramientas (3)</a><a class="chip" href="../../categoria/iluminacion/">Iluminación (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>
