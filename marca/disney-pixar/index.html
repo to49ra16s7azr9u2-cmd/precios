@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disney Pixar: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Disney Pixar en México comparados entre tiendas: 20 productos. Precios desde $119 hasta $1,399 MXN. Principalmente en juguetes y bebés, audífonos, juegos de mesa.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/disney-pixar/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Disney Pixar: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Disney Pixar en México comparados entre tiendas: 20 productos. Precios desde $119 hasta $1,399 MXN. Principalmente en juguetes y bebés, audífonos, juegos de mesa.">
+<meta property="og:url" content="https://comparamex.com/marca/disney-pixar/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Disney Pixar",
+      "item": "https://comparamex.com/marca/disney-pixar/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Disney Pixar</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Disney Pixar — comparar precios (20)</h1></div>
+<p class="muted small">Precios de Disney Pixar en México comparados entre tiendas: 20 productos. Precios desde $119 hasta $1,399 MXN. Principalmente en juguetes y bebés, audífonos, juegos de mesa.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Disney Pixar..."
+         aria-label="Buscar productos de Disney Pixar" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/74991705/194735158157_00.jpg" alt="Figura Pixar Rex 12&quot; HPG37" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name"><a href="../../producto/p134447/">Figura Pixar Rex 12&quot; HPG37</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$1,109</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76799846/194735356430_00.jpg" alt="Figura Disney Pixar Project Target 18 Cm" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name"><a href="../../producto/p133910/">Figura Disney Pixar Project Target 18 Cm</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$223</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76464785/194735277285_00.jpg" alt="Figura de acción Pixar Toy Story 10 Pulgadas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name"><a href="../../producto/p133563/">Figura de acción Pixar Toy Story 10 Pulgadas</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$159</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30711437/1021ac5a-44f3-42f3-854e-df7d9fb6d4de.jpeg.jpg" alt="Peluche magnético de hombro Woody Disney Pixar 13 cm" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Peluche magnético de hombro Woody Disney Pixar 13 cm</div></div><div class="row-priceblock"><div class="row-price">$1,223</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76508930/194735386833_00.jpg" alt="Figura Pixar Buzz Lightyear Jetpack" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Figura Pixar Buzz Lightyear Jetpack</div></div><div class="row-priceblock"><div class="row-price">$1,399</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76508957/194735386895_00.jpg" alt="Figura Pixar Buzz Acción Despegue 12 Pul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Figura Pixar Buzz Acción Despegue 12 Pul</div></div><div class="row-priceblock"><div class="row-price">$1,199</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76508912/194735377152_00.jpg" alt="Figura Pixar Bullseye de 12 Pulgadas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Figura Pixar Bullseye de 12 Pulgadas</div></div><div class="row-priceblock"><div class="row-price">$1,199</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76508791/194735356447_00.jpg" alt="Figura Pixar Pack de 4 de 7 pulgadas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Figura Pixar Pack de 4 de 7 pulgadas</div></div><div class="row-priceblock"><div class="row-price">$799</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76508116/455572000512_00.jpg" alt="Figura Toy Story Lotso 6 cm Blister" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Figura Toy Story Lotso 6 cm Blister</div></div><div class="row-priceblock"><div class="row-price">$139</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76508104/455572000529_00.jpg" alt="Figura Toy Story Edición Especial 10 cm" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Figura Toy Story Edición Especial 10 cm</div></div><div class="row-priceblock"><div class="row-price">$279</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76505525/194735386949_00.jpg" alt="Figura Pixar Voz Sonidos Proyecto Target 18 Cm 3 años+" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Figura Pixar Voz Sonidos Proyecto Target 18 Cm 3 años+</div></div><div class="row-priceblock"><div class="row-price">$463</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76357705/194735368310_00.jpg" alt="Figura de Acción Buzz Vintage de 12 Pulgadas Pixar Toy Story 5" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Figura de Acción Buzz Vintage de 12 Pulgadas Pixar Toy Story 5</div></div><div class="row-priceblock"><div class="row-price">$559</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76510324/8411936736994_00.jpg" alt="Figura Toy Story Coleccionable Mat Asst" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Figura Toy Story Coleccionable Mat Asst</div></div><div class="row-priceblock"><div class="row-price">$119</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76510294/8411936736963_00.jpg" alt="Figura Toy Story Stretchy Clip On Asst" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Figura Toy Story Stretchy Clip On Asst</div></div><div class="row-priceblock"><div class="row-price">$119</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76464206/194735221806_00.jpg" alt="Figura de acción Pixar Buzz con cohete" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Figura de acción Pixar Buzz con cohete</div></div><div class="row-priceblock"><div class="row-price">$1,199</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76508099/194735385119_00.jpg" alt="Vehículo Cars Auto Light Up" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Vehículo Cars Auto Light Up</div></div><div class="row-priceblock"><div class="row-price">$239</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76481484/194735264100_00.jpg" alt="Cars Color Changers Pista AutoLavado Rayo McQueen" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Cars Color Changers Pista AutoLavado Rayo McQueen</div></div><div class="row-priceblock"><div class="row-price">$759</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76510144/8056379217619_00.jpg" alt="Peluche Toy Story Buzz Lightyear Electro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Peluche Toy Story Buzz Lightyear Electro</div></div><div class="row-priceblock"><div class="row-price">$1,249</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_657344-MLA109126777754_042026-F.jpg" alt="Audífonos Alámbricos Sulley Disney Pixar Celeste" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Alámbricos Sulley Disney Pixar Celeste</div></div><div class="row-priceblock"><div class="row-price">$311</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/76505881/655244050641_00.jpg" alt="Domino Disney Toy Story 5 Infantil" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Domino Disney Toy Story 5 Infantil</div></div><div class="row-priceblock"><div class="row-price">$219</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Disney Pixar</h2><div class="chip-row"><a class="chip" href="../../categoria/juguetes-y-bebes/">Juguetes y bebés (18)</a><a class="chip" href="../../categoria/audifonos-y-auriculares/">Audífonos y auriculares (1)</a><a class="chip" href="../../categoria/juegos-de-mesa/">Juegos de mesa (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

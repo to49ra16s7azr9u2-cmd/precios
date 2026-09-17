@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clementoni: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Clementoni en México comparados entre tiendas: 29 productos. Precios desde $258 hasta $1,429 MXN. Principalmente en juegos de mesa, juguetes y bebés.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/clementoni/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Clementoni: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Clementoni en México comparados entre tiendas: 29 productos. Precios desde $258 hasta $1,429 MXN. Principalmente en juegos de mesa, juguetes y bebés.">
+<meta property="og:url" content="https://comparamex.com/marca/clementoni/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Clementoni",
+      "item": "https://comparamex.com/marca/clementoni/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Clementoni</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Clementoni — comparar precios (29)</h1></div>
+<p class="muted small">Precios de Clementoni en México comparados entre tiendas: 29 productos. Precios desde $258 hasta $1,429 MXN. Principalmente en juegos de mesa, juguetes y bebés.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Clementoni..."
+         aria-label="Buscar productos de Clementoni" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_998095-MLA100074522689_122025-F.jpg" alt="Beagles Juntos Perro Rompecabezas 500 Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Beagles Juntos Perro Rompecabezas 500 Clementoni</div></div><div class="row-priceblock"><div class="row-price">$258</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_645033-MLA99508796174_112025-F.jpg" alt="Rompecabezas Batimoto Batman Vs Joker 104 Clementoni Guason" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Rompecabezas Batimoto Batman Vs Joker 104 Clementoni Guason</div></div><div class="row-priceblock"><div class="row-price">$285</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_998102-MLA93511231579_092025-F.jpg" alt="Peluche Unicornio Interactivo Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Peluche Unicornio Interactivo Clementoni</div></div><div class="row-priceblock"><div class="row-price">$498</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_638173-MLA100034766803_122025-F.jpg" alt="Neuschwanstein Castillo Panorama Rompecabezas 1k Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Neuschwanstein Castillo Panorama Rompecabezas 1k Clementoni</div></div><div class="row-priceblock"><div class="row-price">$479</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_856082-MLA99449044456_112025-F.jpg" alt="Rompecabeza Harry Potter Profesores Hogwarts 1000 Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Rompecabeza Harry Potter Profesores Hogwarts 1000 Clementoni</div></div><div class="row-priceblock"><div class="row-price">$459</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_625808-MLA96426038706_102025-F.jpg" alt="Rompecabezas 1000 Piezas Paisaje Ámsterdam" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Rompecabezas 1000 Piezas Paisaje Ámsterdam</div></div><div class="row-priceblock"><div class="row-price">$432</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_608471-MLA100006930473_122025-F.jpg" alt="El Cuerpo Humano Montessori Clementoni 55476 Juego Educativo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">El Cuerpo Humano Montessori Clementoni 55476 Juego Educativo</div></div><div class="row-priceblock"><div class="row-price">$919</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_970850-MLA99533874412_122025-F.jpg" alt="Kit De Lanzamiento Ciencia Y Juego Nasa Clementoni 55456" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Kit De Lanzamiento Ciencia Y Juego Nasa Clementoni 55456</div></div><div class="row-priceblock"><div class="row-price">$939</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_796066-MLA99483337594_112025-F.jpg" alt="Kit De Exploración Ciencia Y Juego Nasa Clementoni 55457" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Kit De Exploración Ciencia Y Juego Nasa Clementoni 55457</div></div><div class="row-priceblock"><div class="row-price">$939</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_994428-MLA99962097571_112025-F.jpg" alt="Juego De La Magia Y El Mentalismo 30 Trucos Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Juego De La Magia Y El Mentalismo 30 Trucos Clementoni</div></div><div class="row-priceblock"><div class="row-price">$669</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_798221-MLA100033473181_122025-F.jpg" alt="Juego de Mesa Escape Room Clementoni: El Laboratorio del Dr. Frank" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Juego de Mesa Escape Room Clementoni: El Laboratorio del Dr. Frank</div></div><div class="row-priceblock"><div class="row-price">$295</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_900618-MLA99481972276_112025-F.jpg" alt="Rompecabezas Clementoni CUERPO HUMANO" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Rompecabezas Clementoni CUERPO HUMANO</div></div><div class="row-priceblock"><div class="row-price">$599</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_682526-MLA99508948062_112025-F.jpg" alt="Juego De Mesa Escape Game Historia En El Tiempo Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Juego De Mesa Escape Game Historia En El Tiempo Clementoni</div></div><div class="row-priceblock"><div class="row-price">$559</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/70721500/8005125182046_00.jpg" alt="Stitch Juego De Laboratorio De Bolígrafos Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Stitch Juego De Laboratorio De Bolígrafos Clementoni</div></div><div class="row-priceblock"><div class="row-price">$711</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/70721507/8005125188604_00.jpg" alt="Juego De Laboratorio De Marcadores Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Juego De Laboratorio De Marcadores Clementoni</div></div><div class="row-priceblock"><div class="row-price">$791</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/70721510/8005125187799_00.jpg" alt="Juego De Laboratorio De Bolígrafos Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juguetes y bebés</div><div class="row-name">Juego De Laboratorio De Bolígrafos Clementoni</div></div><div class="row-priceblock"><div class="row-price">$791</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_831866-MLA99963809899_112025-F.jpg" alt="Rompecabezas 1000 Piezas Coliseo de Roma" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Rompecabezas 1000 Piezas Coliseo de Roma</div></div><div class="row-priceblock"><div class="row-price">$450</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_988231-MLA100049736279_122025-F.jpg" alt="Rompecabezas 1000 Piezas Dubai Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Rompecabezas 1000 Piezas Dubai Clementoni</div></div><div class="row-priceblock"><div class="row-price">$589</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_703857-MLA100002980473_112025-F.jpg" alt="Laboratorio De Anatomía Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Laboratorio De Anatomía Clementoni</div></div><div class="row-priceblock"><div class="row-price">$499</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_751862-MLA99454813338_112025-F.jpg" alt="Juego Educativo Superanatomia Realidad Aumentada Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Juego Educativo Superanatomia Realidad Aumentada Clementoni</div></div><div class="row-priceblock"><div class="row-price">$1,199</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_805704-MLA99950928667_112025-F.jpg" alt="Juego De Mesa Clementoni Stranger Things Aventuras Juntos Netflix" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Juego De Mesa Clementoni Stranger Things Aventuras Juntos Netflix</div></div><div class="row-priceblock"><div class="row-price">$899</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_762283-MLA104547751361_012026-F.jpg" alt="Dominó de Números y Animales Clementoni, Juego Educativo para Niños" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Dominó de Números y Animales Clementoni, Juego Educativo para Niños</div></div><div class="row-priceblock"><div class="row-price">$572</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_799399-MLA95160640900_102025-F.jpg" alt="Juego De Excavación T-Rex Clementoni: Fósil que Brilla en la Oscuridad para Niños" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Juego De Excavación T-Rex Clementoni: Fósil que Brilla en la Oscuridad para Niños</div></div><div class="row-priceblock"><div class="row-price">$719</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_737225-MLA96426776518_102025-F.jpg" alt="Juego De Mesa Quidditch Clash Harry Potter Clementoni Italia Tablero De Estrategia Familiar Competitivo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Juego De Mesa Quidditch Clash Harry Potter Clementoni Italia Tablero De Estrategia Familiar Competitivo</div></div><div class="row-priceblock"><div class="row-price">$929</div></div></div><div class="product-row has-rank"><span class="rank-badge">25</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_992801-MLU77291990034_072024-F.jpg" alt="Clementoni Rompecabezas 500 Pzas. Harry Potter 2" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Clementoni Rompecabezas 500 Pzas. Harry Potter 2</div></div><div class="row-priceblock"><div class="row-price">$435</div></div></div><div class="product-row has-rank"><span class="rank-badge">26</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_643909-MLA100048051675_122025-F.jpg" alt="Juego D Mesa Escape Game Castillo Clementoni Italia Misterio" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Juego D Mesa Escape Game Castillo Clementoni Italia Misterio</div></div><div class="row-priceblock"><div class="row-price">$489</div></div></div><div class="product-row has-rank"><span class="rank-badge">27</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_888445-MLA99469634244_112025-F.jpg" alt="Juego Laboratorio De Quimica Infantil 150 Exp Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Juego Laboratorio De Quimica Infantil 150 Exp Clementoni</div></div><div class="row-priceblock"><div class="row-price">$1,429</div></div></div><div class="product-row has-rank"><span class="rank-badge">28</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_633584-MLA100030048827_122025-F.jpg" alt="Juego De Mesa Banderas Del Mundo Conocimiento Clementoni" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Juego De Mesa Banderas Del Mundo Conocimiento Clementoni</div></div><div class="row-priceblock"><div class="row-price">$479</div></div></div><div class="product-row has-rank"><span class="rank-badge">29</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_868875-MLA99501169762_112025-F.jpg" alt="Clementoni Juego De Mesa - Juego De Escape Room - La Pirámid" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Juegos de mesa</div><div class="row-name">Clementoni Juego De Mesa - Juego De Escape Room - La Pirámid</div></div><div class="row-priceblock"><div class="row-price">$489</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Clementoni</h2><div class="chip-row"><a class="chip" href="../../categoria/juegos-de-mesa/">Juegos de mesa (25)</a><a class="chip" href="../../categoria/juguetes-y-bebes/">Juguetes y bebés (4)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>High End Fitness: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de High End Fitness en México comparados entre tiendas: 22 productos. Precios desde $162 hasta $55,760 MXN. Principalmente en deportes y fitness, fitness.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/high-end-fitness/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="High End Fitness: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de High End Fitness en México comparados entre tiendas: 22 productos. Precios desde $162 hasta $55,760 MXN. Principalmente en deportes y fitness, fitness.">
+<meta property="og:url" content="https://comparamex.com/marca/high-end-fitness/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "High End Fitness",
+      "item": "https://comparamex.com/marca/high-end-fitness/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; High End Fitness</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> High End Fitness — comparar precios (22)</h1></div>
+<p class="muted small">Precios de High End Fitness en México comparados entre tiendas: 22 productos. Precios desde $162 hasta $55,760 MXN. Principalmente en deportes y fitness, fitness.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de High End Fitness..."
+         aria-label="Buscar productos de High End Fitness" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_657988-MLA114338189460_082026-F.jpg" alt="Multiestación High End Fitness Rack Sentadillas Polea Banco Amarillo Gimnasio" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Fitness</div><div class="row-name">Multiestación High End Fitness Rack Sentadillas Polea Banco Amarillo Gimnasio</div></div><div class="row-priceblock"><div class="row-price">$11,137</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_739366-MLA103534463169_012026-F.jpg" alt="Rack Para Mancuernas Soporte 3 Niveles Estante" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Fitness</div><div class="row-name">Rack Para Mancuernas Soporte 3 Niveles Estante</div></div><div class="row-priceblock"><div class="row-price">$3,986</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_651543-MLU78564245558_082024-F.jpg" alt="Bandas de Resistencia High End Fitness 3 Niveles de Intensidad Ejercicio" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Bandas de Resistencia High End Fitness 3 Niveles de Intensidad Ejercicio</div></div><div class="row-priceblock"><div class="row-price">$226</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_772401-MLA96155280881_102025-F.jpg" alt="Multiestación Peso Libre Jaula Rack Squat con Polea Estructura Morado Tapizado Negro High End Fitness" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Multiestación Peso Libre Jaula Rack Squat con Polea Estructura Morado Tapizado Negro High End Fitness</div></div><div class="row-priceblock"><div class="row-price">$9,855</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_645947-MLA95526689388_102025-F.jpg" alt="Banco Pesas Multiposiciones Multifuncional Ajustable 180" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Banco Pesas Multiposiciones Multifuncional Ajustable 180</div></div><div class="row-priceblock"><div class="row-price">$5,759</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_789851-MLA95406897500_102025-F.jpg" alt="Multiestación Squat Rack Polea Rojo Carga 700kg High End Fitness" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Multiestación Squat Rack Polea Rojo Carga 700kg High End Fitness</div></div><div class="row-priceblock"><div class="row-price">$9,855</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_730781-MLA107961154493_032026-F.jpg" alt="Sentadilla Perfecta, Equipo Profesional Gimnasio, Peso Libre Gris Oscuro Rojo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Sentadilla Perfecta, Equipo Profesional Gimnasio, Peso Libre Gris Oscuro Rojo</div></div><div class="row-priceblock"><div class="row-price">$44,120</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_973763-MLA109898429914_042026-F.jpg" alt="Equipo Duo Multifuncional Leg Press Y Hack Profesional Gym Rojo Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Equipo Duo Multifuncional Leg Press Y Hack Profesional Gym Rojo Negro</div></div><div class="row-priceblock"><div class="row-price">$26,416</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_646519-MLA96869992831_102025-F.jpg" alt="Multiestación Peso High End Fitness c Polea de color Negro Squat" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Multiestación Peso High End Fitness c Polea de color Negro Squat</div></div><div class="row-priceblock"><div class="row-price">$9,855</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_750249-MLA97861480744_112025-F.jpg" alt="Máquina Reverse Seated Pull-down High End Fitness Acero J500-11" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Máquina Reverse Seated Pull-down High End Fitness Acero J500-11</div></div><div class="row-priceblock"><div class="row-price">$55,760</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_761016-MLA109985753130_042026-F.jpg" alt="Máquina Peck Fly High End Fitness con Pesas para Gimnasio Profesional" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Máquina Peck Fly High End Fitness con Pesas para Gimnasio Profesional</div></div><div class="row-priceblock"><div class="row-price">$50,200</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_614797-MLA115356538965_072026-F.jpg" alt="Juego Mancuernas Ajustables Octagonales Gym 30 Kg Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Juego Mancuernas Ajustables Octagonales Gym 30 Kg Negro</div></div><div class="row-priceblock"><div class="row-price">$1,534</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_653045-MLA114031375066_072026-F.jpg" alt="Shoulder Press, Equipo Profesional Gimnasio, De Peso Libre" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Shoulder Press, Equipo Profesional Gimnasio, De Peso Libre</div></div><div class="row-priceblock"><div class="row-price">$55,760</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_955181-MLA99497439955_112025-F.jpg" alt="Multiestación Jaula Rack para Squat con Polea de High End Fitness" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Multiestación Jaula Rack para Squat con Polea de High End Fitness</div></div><div class="row-priceblock"><div class="row-price">$9,855</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_988329-MLA99746590825_112025-F.jpg" alt="Multiestación de Peso Libre High End Fitness para Squat y Poleas Rosa Chicle" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Multiestación de Peso Libre High End Fitness para Squat y Poleas Rosa Chicle</div></div><div class="row-priceblock"><div class="row-price">$9,855</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_643963-MLA110796989305_042026-F.jpg" alt="Torre Multifuncional Gym Para Dominadas Y Fondos Rack Gym Negro Naranja" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Torre Multifuncional Gym Para Dominadas Y Fondos Rack Gym Negro Naranja</div></div><div class="row-priceblock"><div class="row-price">$2,124</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_789499-MLA99948927923_112025-F.jpg" alt="Bandas Elásticas Resistencia 5 Niveles High End Fitness Yoga Pilates" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Bandas Elásticas Resistencia 5 Niveles High End Fitness Yoga Pilates</div></div><div class="row-priceblock"><div class="row-price">$305</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_874347-MLA95553368497_102025-F.jpg" alt="Liga Resistencia 13.7 Kg Látex con 2 Asas 120 cm Ejercicio Gym High End Fitness" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Liga Resistencia 13.7 Kg Látex con 2 Asas 120 cm Ejercicio Gym High End Fitness</div></div><div class="row-priceblock"><div class="row-price">$162</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_790242-MLA95692144006_102025-F.jpg" alt="Multiestación Peso Libre Jaula Rack Squat con Polea Estructura Azul Tapizado Negro High End Fitness" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Multiestación Peso Libre Jaula Rack Squat con Polea Estructura Azul Tapizado Negro High End Fitness</div></div><div class="row-priceblock"><div class="row-price">$9,855</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_791163-MLA112703089549_062026-F.jpg" alt="Tapete Yoga Grueso 15mm Premium Con Bolsa Transportadora Color Azul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Tapete Yoga Grueso 15mm Premium Con Bolsa Transportadora Color Azul</div></div><div class="row-priceblock"><div class="row-price">$590</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_690296-MLA115304448085_072026-F.jpg" alt="Gimnasio Smith Multifuncional Con Peso Integrado Y Crossover" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Gimnasio Smith Multifuncional Con Peso Integrado Y Crossover</div></div><div class="row-priceblock"><div class="row-price">$25,075</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_699951-MLA87636366873_072025-F.jpg" alt="Multiestación de Peso Libre con Polea Negro Tapizado High End Fitness 104-squat rack" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">Multiestación de Peso Libre con Polea Negro Tapizado High End Fitness 104-squat rack</div></div><div class="row-priceblock"><div class="row-price">$9,855</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende High End Fitness</h2><div class="chip-row"><a class="chip" href="../../categoria/deportes-y-fitness/">Deportes y fitness (20)</a><a class="chip" href="../../categoria/fitness/">Fitness (2)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

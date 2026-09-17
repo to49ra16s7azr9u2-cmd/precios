@@ -220,8 +220,8 @@ CAMPO_SOLO_EN = {
                  "Viajes", "Otros", "Decoración de hogar y jardín", "Juguetes y bebés", "Mascotas",
                  "Belleza y cuidado personal/Mobiliario para salón"},
     "water_resistant": {"Relojes inteligentes", "Audífonos", "Bocinas", "Joyería y bisutería",
-                        "Salud y belleza", "Cámaras y fotografía"},
-    "volume_ml": {"Otros", "Salud y belleza", "Belleza y cuidado personal", "Juguetes y bebés"},
+                        "Salud", "Cámaras y fotografía"},
+    "volume_ml": {"Otros", "Salud", "Belleza y cuidado personal", "Juguetes y bebés"},
 }
 
 # Tramos fijos: acá los cortes no salen de la distribución sino de cómo se
@@ -316,7 +316,7 @@ USOS = {
         ("Teléfono y audífonos", "Carga rápida de teléfono y tablet", "Laptop o varios equipos")),
     ("Deportes y fitness/Pesas", "weight_kg"): (("Ligeras", "Medias", "Pesadas"),
         ("Para empezar y tonificar", "Fuerza general", "Fuerza avanzada")),
-    ("Salud y belleza/Básculas", "load_kg"): (("Estándar", "Reforzada", "Alta capacidad"),
+    ("Salud/Básculas", "load_kg"): (("Estándar", "Reforzada", "Alta capacidad"),
         ("Hasta 150 kg", "Más margen", "Uso clínico o de carga")),
     ("Deportes y fitness/Equipo de gimnasio", "load_kg"): (("Ligera", "Media", "Reforzada"),
         ("Uso ocasional en casa", "Uso diario", "Uso rudo o personas de más peso")),

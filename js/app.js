@@ -5685,7 +5685,7 @@
     "Iluminación": { weightKg: 0.6, lengthCm: 25, widthCm: 15, heightCm: 10 },
     "Juguetes y bebés": { weightKg: 1, lengthCm: 35, widthCm: 25, heightCm: 20 },
     "Mascotas": { weightKg: 1.5, lengthCm: 35, widthCm: 25, heightCm: 20 },
-    "Salud y belleza": { weightKg: 0.4, lengthCm: 20, widthCm: 15, heightCm: 10 },
+    "Salud": { weightKg: 0.4, lengthCm: 20, widthCm: 15, heightCm: 10 },
     "Climatización": { weightKg: 6, lengthCm: 45, widthCm: 35, heightCm: 30 },
     "Deportes y fitness": { weightKg: 3, lengthCm: 50, widthCm: 30, heightCm: 20 },
     "Papelería y oficina": { weightKg: 0.5, lengthCm: 25, widthCm: 20, heightCm: 10 },

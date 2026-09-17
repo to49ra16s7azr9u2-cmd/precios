@@ -168,7 +168,7 @@ MAPA = [
     (re.compile(r'bossa|\bbocina'), ("Bocinas", "Mediana")),
     (re.compile(r'hoverboard|elgato|conectores'), ("Otros", "Varios")),
     (re.compile(r'minisplit|mini split|aire acondicionado'), ("Climatización", "Aires acondicionados")),
-    (re.compile(r'masajeador|pistola .{0,12}masaje'), ("Salud y belleza", "Masajeadores")),
+    (re.compile(r'masajeador|pistola .{0,12}masaje'), ("Salud", "Masajeadores")),
     # El "radio de coche Android para Mazda" es la unidad principal del
     # auto, no un radio portátil: va antes que la regla de radios.
     (re.compile(r'\breceptor\b|\bestereo\b|autoestereo|\bkenwood\b|pioneer (sph|deh|mvh|avh)|\b[12] ?din\b|'
@@ -178,7 +178,7 @@ MAPA = [
     (re.compile(r'play ?station|\bps[45]\b|\bxbox\b|nintendo switch'), ("Videojuegos", "Software")),
     (re.compile(r'camara de vigilancia|\btapo\b'), ("Cámaras de seguridad", "Cámaras interiores")),
     (re.compile(r'adaptador inalambrico usb|wifi usb'), ("Componentes y accesorios de PC", "Accesorios")),
-    (re.compile(r'\bcareta\b'), ("Salud y belleza", "Salud")),
+    (re.compile(r'\bcareta\b'), ("Salud", "Salud")),
     # Lo que la búsqueda "celular" de Amazon trajo por la palabra y no es
     # de teléfonos (paredes celulares, apoyo celular, redes celulares):
     # fuera de Celulares antes que nada, aunque sea a Varios.
@@ -192,13 +192,13 @@ MAPA = [
 # masajeador "de percusión" cae en Instrumentos musicales/Baterías, la barra
 # de sonido en Domótica, y la silla reclinable en Cocina y comedor.
 PRIORIDAD = [
-    (re.compile(r'masajeador|pistola .{0,12}masaje'), ("Salud y belleza", "Masajeadores")),
+    (re.compile(r'masajeador|pistola .{0,12}masaje'), ("Salud", "Masajeadores")),
     # El "radio de coche Android para Mazda" es la unidad principal del
     # auto, no un radio portátil: va antes que la regla de radios.
     (re.compile(r'\breceptor\b|\bestereo\b|autoestereo|\bkenwood\b|pioneer (sph|deh|mvh|avh)|\b[12] ?din\b|'
                 r'radio (de |para |del )?(coche|auto|carro|automovil)|carplay|android auto|doble din|head ?unit'), ("Autos, bicicletas y motos", "Estéreos para auto")),
     (re.compile(r'barra de sonido|soundbar'), ("Bocinas", "Barras de sonido")),
-    (re.compile(r'silla de ruedas|sillas de ruedas|scooter|patinete de movilidad|elevacion de silla|almohadilla de asiento|movilidad'), ("Salud y belleza", "Movilidad")),
+    (re.compile(r'silla de ruedas|sillas de ruedas|scooter|patinete de movilidad|elevacion de silla|almohadilla de asiento|movilidad'), ("Salud", "Movilidad")),
     (re.compile(r'sillas? de camping|tumbona'), ("Deportes y fitness", "Campismo")),
     (re.compile(r'\bsillas?\b|\bsillon|asiento simulador'), ("Muebles", "Sillas")),
     (re.compile(r'^(?:\S+ ){0,3}radios?\b'), ("Otros", "Radios")),

@@ -1173,7 +1173,7 @@
    }
   ]
  },
- "Salud y belleza/Cuidado del cabello": {
+ "Belleza y cuidado personal/Maquillaje": {
   "axes": [
    {
     "label": "Contenido",
@@ -1185,154 +1185,106 @@
       "id": "chico",
       "name": "Chico",
       "use": "Para probar o para viajar",
-      "spec": "Hasta 110 ml",
-      "max": 110
+      "spec": "Hasta 14 ml",
+      "max": 14
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "Uso de diario",
-      "spec": "111 ml a 200 ml",
-      "min": 110,
-      "max": 200
+      "spec": "15 ml a 30 ml",
+      "min": 14,
+      "max": 30
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Rinde meses",
-      "spec": "Más de 200 ml",
-      "min": 200
+      "spec": "Más de 30 ml",
+      "min": 30
      }
     ],
     "key": "level"
    }
   ]
  },
- "Salud y belleza/Rasuradoras": {
+ "Belleza y cuidado personal/Secadoras de cabello": {
   "axes": [
    {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "suave",
+      "name": "Suave",
+      "use": "Cabello corto o de viaje",
+      "spec": "Hasta 1,400 W",
+      "max": 1400
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de diario",
+      "spec": "1,401 W a 1,850 W",
+      "min": 1400,
+      "max": 1850
+     },
+     {
+      "id": "potente",
+      "name": "Potente",
+      "use": "Cabello largo o grueso, secado rápido",
+      "spec": "Más de 1,850 W",
+      "min": 1850
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Mobiliario para salón": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
      {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
       "values": [
-       "Sí"
+       "Acero"
       ]
      },
      {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
       "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Salud y belleza/Depilación": {
-  "axes": [
-   {
-    "label": "Contenido",
-    "field": "volume_ml",
-    "criterion": "en mililitros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Para probar o para viajar",
-      "spec": "Hasta 120 ml",
-      "max": 120
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Uso de diario",
-      "spec": "121 ml a 400 ml",
-      "min": 120,
-      "max": 400
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Rinde meses",
-      "spec": "Más de 400 ml",
-      "min": 400
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Salud y belleza/Cuidado personal": {
-  "axes": [
-   {
-    "label": "Contenido",
-    "field": "volume_ml",
-    "criterion": "en mililitros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Para probar o para viajar",
-      "spec": "Hasta 100 ml",
-      "max": 100
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Uso de diario",
-      "spec": "101 ml a 180 ml",
-      "min": 100,
-      "max": 180
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Rinde meses",
-      "spec": "Más de 180 ml",
-      "min": 180
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Salud y belleza/Rastrillos": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
-      "values": [
-       "Sí"
+       "Piel sintética"
       ]
      },
      {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
       "values": [
-       "No"
+       "Madera"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
       ]
      }
     ],
@@ -2289,6 +2241,15 @@
       "values": [
        "FHD"
       ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
      }
     ],
     "key": "level"
@@ -2569,15 +2530,15 @@
       "id": "chica",
       "name": "Chica",
       "use": "Una o dos personas",
-      "spec": "Hasta 3.3 L",
-      "max": 3.3
+      "spec": "Hasta 3.5 L",
+      "max": 3.5
      },
      {
       "id": "mediana",
       "name": "Mediana",
       "use": "Para la familia",
-      "spec": "Más de 3.3 L, hasta 6 L",
-      "min": 3.3,
+      "spec": "Más de 3.5 L, hasta 6 L",
+      "min": 3.5,
       "max": 6
      },
      {
@@ -4050,125 +4011,6 @@
    }
   ]
  },
- "Belleza y cuidado personal/Maquillaje": {
-  "axes": [
-   {
-    "label": "Contenido",
-    "field": "volume_ml",
-    "criterion": "en mililitros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Para probar o para viajar",
-      "spec": "Hasta 14 ml",
-      "max": 14
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Uso de diario",
-      "spec": "15 ml a 30 ml",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Rinde meses",
-      "spec": "Más de 30 ml",
-      "min": 30
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Belleza y cuidado personal/Secadoras de cabello": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "suave",
-      "name": "Suave",
-      "use": "Cabello corto o de viaje",
-      "spec": "Hasta 1,400 W",
-      "max": 1400
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de diario",
-      "spec": "1,401 W a 1,850 W",
-      "min": 1400,
-      "max": 1850
-     },
-     {
-      "id": "potente",
-      "name": "Potente",
-      "use": "Cabello largo o grueso, secado rápido",
-      "spec": "Más de 1,850 W",
-      "min": 1850
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Belleza y cuidado personal/Mobiliario para salón": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Movilidad eléctrica/Patinetes eléctricos": {
   "axes": [
    {
@@ -4769,37 +4611,6 @@
       "use": "Edición y estaciones de trabajo",
       "spec": "Más de 16 GB",
       "min": 16
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Salud y belleza": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
-      "values": [
-       "No"
-      ]
      }
     ],
     "key": "level"

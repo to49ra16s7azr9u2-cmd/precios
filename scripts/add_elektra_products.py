@@ -493,7 +493,7 @@ def cat_bano(name):
     if "regadera" in n:
         return "Otros", "Baño", "box"
     if "bascula" in n:
-        return "Salud y belleza", "Básculas", "heart-pulse"
+        return "Salud", "Básculas", "heart-pulse"
     return None
 
 
@@ -557,7 +557,7 @@ def cat_cuidado_cabello(name):
     if "plancha" in n:
         return "Belleza y cuidado personal", "Planchas para cabello", "sparkle"
     if "recortadora" in n or "afeitadora" in n or "trimmer" in n or "shaver" in n:
-        return "Salud y belleza", "Rasuradoras", "heart-pulse"
+        return "Salud", "Rasuradoras", "heart-pulse"
     if "estilizador" in n or "multiestilizador" in n or "cepillo alisador" in n or "cepillo secador" in n:
         return "Belleza y cuidado personal", "Estilizadores", "sparkle"
     return None
@@ -626,13 +626,13 @@ def cat_equipo_medico(name):
         return None
     if any(k in n for k in ("silla de ruedas", "andadera", "andador", "baston",
                              "silla de transferencia", "cama de hospital", "camilla")):
-        return "Salud y belleza", "Movilidad", "heart-pulse"
+        return "Salud", "Movilidad", "heart-pulse"
     if any(k in n for k in ("glucometro", "oximetro", "tensiometro", "monitor de presion",
                              "electrocardiograma", "concentrador de oxigeno", "nebulizador",
                              "electroestimulador")):
-        return "Salud y belleza", "Equipo de monitoreo médico", "heart-pulse"
+        return "Salud", "Equipo de monitoreo médico", "heart-pulse"
     if "bascula" in n or "balanza" in n:
-        return "Salud y belleza", "Básculas", "heart-pulse"
+        return "Salud", "Básculas", "heart-pulse"
     return None
 
 
@@ -844,7 +844,7 @@ CATEGORY_MAP = {
     # skincare -- la categoría "Papelería y oficina" se eliminó completa.
     "1371646/577967": ("Belleza y cuidado personal", "Maquillaje", "sparkle"),
     "1371646/886458": cat_estetica,
-    "1371646/1371684": ("Salud y belleza", "Rasuradoras", "heart-pulse"),
+    "1371646/1371684": ("Salud", "Rasuradoras", "heart-pulse"),
     "1371646/1371686": cat_cuidado_cabello,
     "1371648/1371692": ("Juguetes y bebés", "Bebés", "toy"),
     "1371648/1371693": cat_juguetes,

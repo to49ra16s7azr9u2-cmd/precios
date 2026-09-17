@@ -556,7 +556,7 @@ MARTI_MAP = {
     "82/150": DEPORTE_OTROS,                                                    # cuerdas
     "82/100": CAMPING, "82/223": CAMPING, "82/105": CAMPING, "82/382": CAMPING, "82/332": CAMPING,
     "82/144": ("Viajes", "Maletas", "suitcase"),
-    "82/199": ("Salud y belleza", "Básculas", "heart-pulse"),
+    "82/199": ("Salud", "Básculas", "heart-pulse"),
     "82/236": cat_audio,
     "82/391": mt_relojes,
     "82/377": ("Belleza y cuidado personal", "Masajeadores", "sparkle"),

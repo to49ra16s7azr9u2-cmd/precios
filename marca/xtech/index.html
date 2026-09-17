@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xtech: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Xtech en México comparados entre tiendas: 25 productos. Precios desde $59 hasta $5,500 MXN. Principalmente en audífonos, bocinas, mouse, teclados.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/xtech/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Xtech: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Xtech en México comparados entre tiendas: 25 productos. Precios desde $59 hasta $5,500 MXN. Principalmente en audífonos, bocinas, mouse, teclados.">
+<meta property="og:url" content="https://comparamex.com/marca/xtech/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Xtech",
+      "item": "https://comparamex.com/marca/xtech/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Xtech</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Xtech — comparar precios (25)</h1></div>
+<p class="muted small">Precios de Xtech en México comparados entre tiendas: 25 productos. Precios desde $59 hasta $5,500 MXN. Principalmente en audífonos, bocinas, mouse, teclados.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Xtech..."
+         aria-label="Buscar productos de Xtech" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_692539-MLA99941517879_112025-F.jpg" alt="Teclado Xtech Marvel Capitan America Membrana Azul/negro Color del teclado Azul Idioma Español Latinoamérica" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Teclados</div><div class="row-name">Teclado Xtech Marvel Capitan America Membrana Azul/negro Color del teclado Azul Idioma Español Latinoamérica</div></div><div class="row-priceblock"><div class="row-price">$249</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_627173-MLA99446906502_112025-F.jpg" alt="Audifonos Xtech Disney Princes Wired W/mic Xth-d2" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audifonos Xtech Disney Princes Wired W/mic Xth-d2</div></div><div class="row-priceblock"><div class="row-price">$299</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/73488994/798302233645_00.jpg" alt="Audífonos Bluetooth Toy Story Verde" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name"><a href="../../producto/p127787/">Audífonos Bluetooth Toy Story Verde</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$435</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_679037-MLU77299400544_072024-F.jpg" alt="Auriculares Diadema Inalámbricos Xtech Mickey Gamer Bluetooth Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Auriculares Diadema Inalámbricos Xtech Mickey Gamer Bluetooth Negro</div></div><div class="row-priceblock"><div class="row-price">$199</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_750410-MLU50233487030_062022-F.jpg" alt="Auriculares Xtech Estéreo Niñas Con Limitación De Volumen" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Auriculares Xtech Estéreo Niñas Con Limitación De Volumen</div></div><div class="row-priceblock"><div class="row-price">$334</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_849638-MLU78311847361_082024-F.jpg" alt="Auriculares Estéreo Gamer Xtech Luz Led 3.5mm Rosa Xth-564" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Auriculares Estéreo Gamer Xtech Luz Led 3.5mm Rosa Xth-564</div></div><div class="row-priceblock"><div class="row-price">$339</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/75003227/798302233652_00.jpg" alt="Bocinas Xtech Función Karaoke Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Bocinas</div><div class="row-name">Bocinas Xtech Función Karaoke Blanco</div></div><div class="row-priceblock"><div class="row-price">$415</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/dt798302232624_0_6a5a6dbcd1ecf.jpg?v=1785356863" alt="Bocina Inalambrica XTech Mini Karaoke Kit - Edicion Stitch" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Bocinas</div><div class="row-name">Bocina Inalambrica XTech Mini Karaoke Kit - Edicion Stitch</div></div><div class="row-priceblock"><div class="row-price">$669</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/dt798302231375_0_6a5a6de51d16d.jpg?v=1785356863" alt="Mouse Inlambrico XTech con Adaptador - Mickey Mouse" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Componentes y accesorios de PC</div><div class="row-name">Mouse Inlambrico XTech con Adaptador - Mickey Mouse</div></div><div class="row-priceblock"><div class="row-price">$419</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://chedrauimx.vteximg.com.br/arquivos/ids/73489028/798302233683_00.jpg" alt="Audífonos Diadema Bluetooth Toy Story Café" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Diadema Bluetooth Toy Story Café</div></div><div class="row-priceblock"><div class="row-price">$435</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/dt798302232525_0_6a5a6dbcdfdf0.jpg?v=1785356864" alt="Audifonos Inalambricos XTech Disney - Edicion Stitch" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audifonos Inalambricos XTech Disney - Edicion Stitch</div></div><div class="row-priceblock"><div class="row-price">$549</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/dt798302231337_0_6a5a6dbd65db2.jpg?v=1785356863" alt="Audifonos Alambricos XTech - Mickey Mouse" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audifonos Alambricos XTech - Mickey Mouse</div></div><div class="row-priceblock"><div class="row-price">$419</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/dt798302231344_0_6a5a6de4e0c00.jpg?v=1785356863" alt="Audifonos Inalambricos XTech - Mickey Mouse" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audifonos Inalambricos XTech - Mickey Mouse</div></div><div class="row-priceblock"><div class="row-price">$419</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_834153-MLA114560068714_082026-F.jpg" alt="Audífonos Inalámbricos Woody Con Estuche Carga Portátil Msi 246190" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Inalámbricos Woody Con Estuche Carga Portátil Msi 246190</div></div><div class="row-priceblock"><div class="row-price">$569</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_648899-MLA110859492240_052026-F.jpg" alt="Audifonos Stich Inalambricos Xtech Color Celeste" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audifonos Stich Inalambricos Xtech Color Celeste</div></div><div class="row-priceblock"><div class="row-price">$399</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_817824-MLA99423573564_112025-F.jpg" alt="Audífonos Inalámbricos Xtech Bluetooth Micrófono Capitán América Azul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Inalámbricos Xtech Bluetooth Micrófono Capitán América Azul</div></div><div class="row-priceblock"><div class="row-price">$360</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_868520-MLA81415762537_122024-F.jpg" alt="Audífonos Xtech True Wireless Edición Miles Morales Rojo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Xtech True Wireless Edición Miles Morales Rojo</div></div><div class="row-priceblock"><div class="row-price">$599</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_973393-MLA99441240468_112025-F.jpg" alt="Auriculares Gamer Xtech Kalamos USB Headset PC Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Auriculares Gamer Xtech Kalamos USB Headset PC Negro</div></div><div class="row-priceblock"><div class="row-price">$289</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_724302-MLA97249259149_112025-F.jpg" alt="Audifonos Deportivos Xtech Alambrico 3.5mm Con Microfono Xth" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audifonos Deportivos Xtech Alambrico 3.5mm Con Microfono Xth</div></div><div class="row-priceblock"><div class="row-price">$329</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_941684-MLC51694125223_092022-F.jpg" alt="Auricular Monoaural Usb Conferencias Xtech Xth-235 / Dismac" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Auricular Monoaural Usb Conferencias Xtech Xth-235 / Dismac</div></div><div class="row-priceblock"><div class="row-price">$119</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_619800-MLU69124694383_042023-F.jpg" alt="Audífonos In-ear Xtech XTG-215 con Micrófono, Color Azul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos In-ear Xtech XTG-215 con Micrófono, Color Azul</div></div><div class="row-priceblock"><div class="row-price">$59</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_967751-MLA106814690182_022026-F.jpg" alt="Silla Gamer Xtech Con Respaldo Alto Ghost Spider Celeste Cuero Sintético" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Videojuegos</div><div class="row-name">Silla Gamer Xtech Con Respaldo Alto Ghost Spider Celeste Cuero Sintético</div></div><div class="row-priceblock"><div class="row-price">$5,500</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://mla-s2-p.mlstatic.com/618202-MLA48239533961_112021-F.jpg" alt="Mouse Xtech XTM-150 black" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Mouse</div><div class="row-name">Mouse Xtech XTM-150 black</div></div><div class="row-priceblock"><div class="row-price">$99</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_637608-MLA95573339429_102025-F.jpg" alt="Mouse Gamer Xtech Bellixus XTM-510 Negro 2400 dpi USB Alámbrico" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Mouse</div><div class="row-name">Mouse Gamer Xtech Bellixus XTM-510 Negro 2400 dpi USB Alámbrico</div></div><div class="row-priceblock"><div class="row-price">$199</div></div></div><div class="product-row has-rank"><span class="rank-badge">25</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_662011-MLA99934284973_112025-F.jpg" alt="Teclado En Español Keyboard Xtech Xtk-092s Negro /vc" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Teclados</div><div class="row-name">Teclado En Español Keyboard Xtech Xtk-092s Negro /vc</div></div><div class="row-priceblock"><div class="row-price">$256</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Xtech</h2><div class="chip-row"><a class="chip" href="../../categoria/audifonos-y-auriculares/">Audífonos y auriculares (17)</a><a class="chip" href="../../categoria/bocinas/">Bocinas (2)</a><a class="chip" href="../../categoria/mouse/">Mouse (2)</a><a class="chip" href="../../categoria/teclados/">Teclados (2)</a><a class="chip" href="../../categoria/componentes-y-accesorios-de-pc/">Componentes y accesorios de PC (1)</a><a class="chip" href="../../categoria/videojuegos/">Videojuegos (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

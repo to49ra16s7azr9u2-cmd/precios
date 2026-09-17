@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cubot: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Cubot en México comparados entre tiendas: 26 productos. Precios desde $170 hasta $5,369 MXN. Principalmente en celulares, audífonos, tabletas, bocinas.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/cubot/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Cubot: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Cubot en México comparados entre tiendas: 26 productos. Precios desde $170 hasta $5,369 MXN. Principalmente en celulares, audífonos, tabletas, bocinas.">
+<meta property="og:url" content="https://comparamex.com/marca/cubot/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cubot",
+      "item": "https://comparamex.com/marca/cubot/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Cubot</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Cubot — comparar precios (26)</h1></div>
+<p class="muted small">Precios de Cubot en México comparados entre tiendas: 26 productos. Precios desde $170 hasta $5,369 MXN. Principalmente en celulares, audífonos, tabletas, bocinas.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Cubot..."
+         aria-label="Buscar productos de Cubot" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_909407-MLA106921712027_022026-F.jpg" alt="Tablet Cubot Tab 70 RAM 16GB ROM 128GB 10.95'' Android 14 Dual SIM Llamada Gris" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Tabletas</div><div class="row-name">Tablet Cubot Tab 70 RAM 16GB ROM 128GB 10.95'' Android 14 Dual SIM Llamada Gris</div></div><div class="row-priceblock"><div class="row-price">$2,683</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30560312/6924136725184-principal.jpg" alt="Cubot A20 4/128 GB 6.47&quot;+ 1.83&quot;" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name">Cubot A20 4/128 GB 6.47&quot;+ 1.83&quot;</div></div><div class="row-priceblock"><div class="row-price">$2,199</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30560302/6924136722633-principal.jpg" alt="Cubot Kingkong ES Black+Orange 6GB 128GB" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name"><a href="../../producto/p51530/">Cubot Kingkong ES Black+Orange 6GB 128GB</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$3,489</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30560237/6924136725191-principal.jpg" alt="Cubot X100 6.88&quot; 8GB/256GB Dorado" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name"><a href="../../producto/p51531/">Cubot X100 6.88&quot; 8GB/256GB Dorado</a></div></div><div class="row-priceblock"><div class="row-from">Desde</div><div class="row-price">$4,059</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_754659-MLA113365732280_072026-F.jpg" alt="Audífonos Inalámbricos Cubot Neo 1a Clip-ear Auriculares Bluetooth 6.0 Ipx5 Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Inalámbricos Cubot Neo 1a Clip-ear Auriculares Bluetooth 6.0 Ipx5 Negro</div></div><div class="row-priceblock"><div class="row-price">$217</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_670169-MLA113365093496_072026-F.jpg" alt="Audífonos Inalámbricos Cubot Neo 1a Clip-ear Auriculares Bluetooth 6.0 Ipx5 Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Inalámbricos Cubot Neo 1a Clip-ear Auriculares Bluetooth 6.0 Ipx5 Blanco</div></div><div class="row-priceblock"><div class="row-price">$213</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_705939-MLA113388647831_062026-F.jpg" alt="Audífonos Inalámbricos Cubot Vibe R3 Open-ear Auriculares Bluetooth 6.0 IPX5 Compatibles con Android e iOS Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Inalámbricos Cubot Vibe R3 Open-ear Auriculares Bluetooth 6.0 IPX5 Compatibles con Android e iOS Blanco</div></div><div class="row-priceblock"><div class="row-price">$231</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_726832-MLA113389090895_062026-F.jpg" alt="Audífonos Inalámbricos Cubot Vibe R3 Open-ear Auriculares Bluetooth 6.0 IPX5 Compatibles con Android e iOS Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Inalámbricos Cubot Vibe R3 Open-ear Auriculares Bluetooth 6.0 IPX5 Compatibles con Android e iOS Negro</div></div><div class="row-priceblock"><div class="row-price">$258</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_706437-MLA113387687919_062026-F.jpg" alt="Audífonos Inalámbricos Cubot Vibe R5 Open-Ear Auriculares con Bluetooth 6.0 y Micrófono, IPX5 Resistente al Agua" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Inalámbricos Cubot Vibe R5 Open-Ear Auriculares con Bluetooth 6.0 y Micrófono, IPX5 Resistente al Agua</div></div><div class="row-priceblock"><div class="row-price">$245</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_801729-MLA115987028328_092026-F.jpg" alt="Audífonos Inalámbricos Cubot Buds 3a In-ear Auriculares Bluetooth 6.0, Ipx4 Compatible con Android e Ios, Amarillo Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Inalámbricos Cubot Buds 3a In-ear Auriculares Bluetooth 6.0, Ipx4 Compatible con Android e Ios, Amarillo Negro</div></div><div class="row-priceblock"><div class="row-price">$180</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_787768-MLA115987467580_092026-F.jpg" alt="Audífonos Inalámbricos Cubot Buds 3a In-ear Auriculares Bluetooth 6.0, Ipx4 Compatiblecon Android e Ios, White Plateado" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Inalámbricos Cubot Buds 3a In-ear Auriculares Bluetooth 6.0, Ipx4 Compatiblecon Android e Ios, White Plateado</div></div><div class="row-priceblock"><div class="row-price">$170</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_714632-MLA112239125356_062026-F.jpg" alt="Audífonos Inalámbricos Cubot Vibe R5 Open-Ear Auriculares con Bluetooth 6.0 y Micrófono Integrado, IPX5 Resistente al Agua" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Inalámbricos Cubot Vibe R5 Open-Ear Auriculares con Bluetooth 6.0 y Micrófono Integrado, IPX5 Resistente al Agua</div></div><div class="row-priceblock"><div class="row-price">$290</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_666712-MLA114483107819_072026-F.jpg" alt="Celular Cubot Kingkong Es 5 Robusto Dual Sim 128 Gb Naranja 6 Gb Ram (ampliable Hasta 12 Gb) 7000mah Android 16" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name">Celular Cubot Kingkong Es 5 Robusto Dual Sim 128 Gb Naranja 6 Gb Ram (ampliable Hasta 12 Gb) 7000mah Android 16</div></div><div class="row-priceblock"><div class="row-price">$2,982</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_609736-MLA115981522569_082026-F.jpg" alt="Celular Cubot Kingkong Es Pro Dual Sim 128 Gb Negro 6 Gb Ram (ampliable Hasta 16 Gb) Android 16" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name">Celular Cubot Kingkong Es Pro Dual Sim 128 Gb Negro 6 Gb Ram (ampliable Hasta 16 Gb) Android 16</div></div><div class="row-priceblock"><div class="row-price">$2,573</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28536417/Captura-de-pantalla-2026-05-14-124003.jpg" alt="Cubot Kingkong 11 256GB 32GB Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name">Cubot Kingkong 11 256GB 32GB Negro</div></div><div class="row-priceblock"><div class="row-price">$4,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31368873/6924136726747.jpg" alt="Cubot Kingkong E1 6 GB 128 GB 4G Negro/Naranja" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name">Cubot Kingkong E1 6 GB 128 GB 4G Negro/Naranja</div></div><div class="row-priceblock"><div class="row-price">$3,999</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30560354/69241367251840-principal.jpg" alt="Cubot X100 8+256GB Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name">Cubot X100 8+256GB Negro</div></div><div class="row-priceblock"><div class="row-price">$4,059</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30560157/6924136724828-Principal.jpg" alt="Cubot A40 4+256GB Purple" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name">Cubot A40 4+256GB Purple</div></div><div class="row-priceblock"><div class="row-price">$2,349</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31790254/WhatsApp-Image-2026-09-01-at-12.41.53-PMAAS.jpg" alt="CUBOT KINGKONG 11 BATERÍA EXTREMA 10,200 mAh, 256 GB NEGRO" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name">CUBOT KINGKONG 11 BATERÍA EXTREMA 10,200 mAh, 256 GB NEGRO</div></div><div class="row-priceblock"><div class="row-price">$4,799</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30560113/735179549288-principal.jpg" alt="Cubot A20 4+128GB Pink" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name">Cubot A20 4+128GB Pink</div></div><div class="row-priceblock"><div class="row-price">$2,359</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://cdn.shopify.com/s/files/1/0604/4339/4137/files/ckk11256blk_0_6a7113d654c7e.jpg?v=1785956101" alt="Cubot Kingkong 11 256GB 16GB" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Celulares</div><div class="row-name">Cubot Kingkong 11 256GB 16GB</div></div><div class="row-priceblock"><div class="row-price">$5,369</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/5171wusfnxL._AC_SX679_.jpg" alt="Bocina de timbre para altavoz Cubot Kingkong Power 5 de teléfono con piezas de repuesto" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Bocinas</div><div class="row-name">Bocina de timbre para altavoz Cubot Kingkong Power 5 de teléfono con piezas de repuesto</div></div><div class="row-priceblock"><div class="row-price">$288</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_806814-MLA99976486769_112025-F.jpg" alt="Audífonos On-Ear Cubot Vibe R Inalámbricos Bluetooth IPX7 con Micrófono y 45 Horas de Batería Beige" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos On-Ear Cubot Vibe R Inalámbricos Bluetooth IPX7 con Micrófono y 45 Horas de Batería Beige</div></div><div class="row-priceblock"><div class="row-price">$414</div></div></div><div class="product-row has-rank"><span class="rank-badge">24</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_737154-MLA99555248808_122025-F.jpg" alt="Audífonos Bluetooth Cubot Neo 1 Inalámbricos IPX5, con Cancelación de Ruido y Micrófono Lavanda" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Bluetooth Cubot Neo 1 Inalámbricos IPX5, con Cancelación de Ruido y Micrófono Lavanda</div></div><div class="row-priceblock"><div class="row-price">$298</div></div></div><div class="product-row has-rank"><span class="rank-badge">25</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_602753-MLA117462865177_092026-F.jpg" alt="Audífonos Inalámbricos Cubot Buds 3a Auriculares Bluetooth 6.0, Ipx4 Compatible con Android e Ios, Púrpura Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Audífonos</div><div class="row-name">Audífonos Inalámbricos Cubot Buds 3a Auriculares Bluetooth 6.0, Ipx4 Compatible con Android e Ios, Púrpura Negro</div></div><div class="row-priceblock"><div class="row-price">$184</div></div></div><div class="product-row has-rank"><span class="rank-badge">26</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/29384811/YJEFB0FTHP7N98-bc8ca1da-297e-4001-ab26-06817e96d921.jpeg.jpg" alt="Tablet CUBOT Tab KingKong Mini 8.68” HD+ 90Hz 16GB RAM 128GB Resistente Batería Duradera" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Tabletas</div><div class="row-name">Tablet CUBOT Tab KingKong Mini 8.68” HD+ 90Hz 16GB RAM 128GB Resistente Batería Duradera</div></div><div class="row-priceblock"><div class="row-price">$4,152</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Cubot</h2><div class="chip-row"><a class="chip" href="../../categoria/celulares/">Celulares (12)</a><a class="chip" href="../../categoria/audifonos-y-auriculares/">Audífonos y auriculares (11)</a><a class="chip" href="../../categoria/tabletas/">Tabletas (2)</a><a class="chip" href="../../categoria/bocinas/">Bocinas (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

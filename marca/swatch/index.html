@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swatch: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Swatch en México comparados entre tiendas: 21 productos. Precios desde $1,769 hasta $4,935 MXN. Principalmente en joyería y bisutería, relojes inteligentes.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/swatch/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Swatch: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Swatch en México comparados entre tiendas: 21 productos. Precios desde $1,769 hasta $4,935 MXN. Principalmente en joyería y bisutería, relojes inteligentes.">
+<meta property="og:url" content="https://comparamex.com/marca/swatch/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Swatch",
+      "item": "https://comparamex.com/marca/swatch/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Swatch</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Swatch — comparar precios (21)</h1></div>
+<p class="muted small">Precios de Swatch en México comparados entre tiendas: 21 productos. Precios desde $1,769 hasta $4,935 MXN. Principalmente en joyería y bisutería, relojes inteligentes.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Swatch..."
+         aria-label="Buscar productos de Swatch" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31505583/68322b02-83e8-4025-999d-945c5c97d117.jpeg.jpg" alt="Reloj Swatch Big Bold Chrono Azul 47 mm Resistente al Agua" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Big Bold Chrono Azul 47 mm Resistente al Agua</div></div><div class="row-priceblock"><div class="row-price">$4,802</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31203176/445c8dbc-ac20-4d09-8517-e213612e6705.jpeg.jpg" alt="Reloj Swatch Skin Classic 34 mm Azul de Polímero Biosintético y Cuarzo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Skin Classic 34 mm Azul de Polímero Biosintético y Cuarzo</div></div><div class="row-priceblock"><div class="row-price">$3,616</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/31031810/1da7cbd0-d4a2-4740-8a65-bca847f896fd.jpeg.jpg" alt="Reloj Swatch New Gent 41 mm negro de polímero con cuarzo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch New Gent 41 mm negro de polímero con cuarzo</div></div><div class="row-priceblock"><div class="row-price">$2,686</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30675302/e1d2cd8c-0294-4b57-8dcf-7b5ee04f3958.jpeg.jpg" alt="Reloj Swatch Chrono 42 mm Cuarzo Resistente al Agua Neon Flash" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Chrono 42 mm Cuarzo Resistente al Agua Neon Flash</div></div><div class="row-priceblock"><div class="row-price">$4,015</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30240403/9482e2fd-5349-4e3c-8284-12e416b6c3df.jpeg.jpg" alt="Reloj Swatch Skin Classic Biosourced Azul 34 mm Cuarzo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Skin Classic Biosourced Azul 34 mm Cuarzo</div></div><div class="row-priceblock"><div class="row-price">$3,616</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28182834/40bcf64d-831b-43c7-bfd7-65884d572a7d.jpeg.jpg" alt="Reloj Swatch Skin Classic Biosourced 34 mm Gris Cuarzo" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Skin Classic Biosourced 34 mm Gris Cuarzo</div></div><div class="row-priceblock"><div class="row-price">$4,069</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/27561684/AUB0G2TJ4MF1-56fb3118-18b8-4d7e-b5a4-e67c582bd85b.jpeg.jpg" alt="Reloj Swatch Big Bold NEON Hielo unisex 47 mm resistente al agua" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Big Bold NEON Hielo unisex 47 mm resistente al agua</div></div><div class="row-priceblock"><div class="row-price">$3,490</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/29526963/AUB0D35Y89T6-046c2aa5-6f04-40b4-8a05-41b49a0da02c.jpeg.jpg" alt="Reloj Swatch Big Bold Chrono unisex de polímero transparente" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Big Bold Chrono unisex de polímero transparente</div></div><div class="row-priceblock"><div class="row-price">$4,935</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/27462851/AUB0G2TKT55F-8828603d-3718-492d-90bb-466a218fbb51.jpeg.jpg" alt="Reloj Swatch Big Bold Chrono unisex de polímero negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Big Bold Chrono unisex de polímero negro</div></div><div class="row-priceblock"><div class="row-price">$4,636</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28941585/AUB0D35Z7YVC-12442519-f2de-4410-ae0b-13927c34d73a.jpeg.jpg" alt="Reloj Swatch Skin Classic Biosource Neon Hot Racer unisex" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Skin Classic Biosource Neon Hot Racer unisex</div></div><div class="row-priceblock"><div class="row-price">$3,532</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/28941504/AUB0G2THZ1B7-e9bdb5ed-0735-4cd1-a187-fc901c3ca1ad.jpeg.jpg" alt="Reloj Swatch NEON Emerald Chrono 42 mm unisex polímero verde" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch NEON Emerald Chrono 42 mm unisex polímero verde</div></div><div class="row-priceblock"><div class="row-price">$4,015</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_926020-MLA95234837200_102025-F.jpg" alt="Reloj Swatch Swatch Neon Flumotions Ss08s101 Amarillo Azul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Swatch Neon Flumotions Ss08s101 Amarillo Azul</div></div><div class="row-priceblock"><div class="row-price">$2,600</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_865913-MLA97790312412_112025-F.jpg" alt="Reloj Swatch Swatch Neon Hielo Sb01k400 Azul Transparente" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Swatch Neon Hielo Sb01k400 Azul Transparente</div></div><div class="row-priceblock"><div class="row-price">$2,500</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_795633-MLA99883030373_112025-F.jpg" alt="Reloj Swatch Swatch Big Bold Moment Sb07s122 Azul Gris Azul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Swatch Big Bold Moment Sb07s122 Azul Gris Azul</div></div><div class="row-priceblock"><div class="row-price">$4,750</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_612766-MLA84541667444_052025-F.jpg" alt="Reloj Swatch Swatch The Purity Of Neon Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Swatch The Purity Of Neon Blanco</div></div><div class="row-priceblock"><div class="row-price">$3,400</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_695830-MLA97784601076_112025-F.jpg" alt="Reloj Swatch Swatch Neon Emerald Chrono Susg409 Rojo Verde Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Joyería y bisutería</div><div class="row-name">Reloj Swatch Swatch Neon Emerald Chrono Susg409 Rojo Verde Negro</div></div><div class="row-priceblock"><div class="row-price">$2,850</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30303641/69024f00-f8fb-418d-830f-d38a9fe84a38.jpeg.jpg" alt="Smartwatch iWatch 1.85&quot; AMOLED Llamadas Bluetooth Resistente al Agua" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Relojes inteligentes</div><div class="row-name">Smartwatch iWatch 1.85&quot; AMOLED Llamadas Bluetooth Resistente al Agua</div></div><div class="row-priceblock"><div class="row-price">$1,769</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30315012/4ca6be9a-aa08-427a-b9d5-7cb0f1c94513.jpeg.jpg" alt="Smartwatch iWatch 1.85&quot; AMOLED Llamadas Bluetooth 3ATM" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Relojes inteligentes</div><div class="row-name">Smartwatch iWatch 1.85&quot; AMOLED Llamadas Bluetooth 3ATM</div></div><div class="row-priceblock"><div class="row-price">$1,769</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30303683/af03d953-5845-4be8-b95a-7407f216533d.jpeg.jpg" alt="Smartwatch iWatch 1.85&quot; AMOLED Llamadas Bluetooth Resistente al Agua" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Relojes inteligentes</div><div class="row-name">Smartwatch iWatch 1.85&quot; AMOLED Llamadas Bluetooth Resistente al Agua</div></div><div class="row-priceblock"><div class="row-price">$1,788</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30315049/fd2d6174-366d-4a22-9fdf-597ac5f08d30.jpeg.jpg" alt="Smartwatch iWatch® con llamadas Bluetooth pantalla AMOLED de 1.85&quot; seguimiento de actividad y sueño reloj inteligente resistente al agua para hombres" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Relojes inteligentes</div><div class="row-name">Smartwatch iWatch® con llamadas Bluetooth pantalla AMOLED de 1.85&quot; seguimiento de actividad y sueño reloj inteligente resistente al agua para hombres</div></div><div class="row-priceblock"><div class="row-price">$1,788</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://elektra.vteximg.com.br/arquivos/ids/30303578/137abb39-ccdc-43f8-a298-7f256b09392b.jpeg.jpg" alt="Smartwatch iWatch 1.85&quot; AMOLED con Llamadas Bluetooth Resistente al Agua" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Relojes inteligentes</div><div class="row-name">Smartwatch iWatch 1.85&quot; AMOLED con Llamadas Bluetooth Resistente al Agua</div></div><div class="row-priceblock"><div class="row-price">$1,788</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Swatch</h2><div class="chip-row"><a class="chip" href="../../categoria/joyeria-y-bisuteria/">Joyería y bisutería (16)</a><a class="chip" href="../../categoria/relojes-inteligentes/">Relojes inteligentes (5)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

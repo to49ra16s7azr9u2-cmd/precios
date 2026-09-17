@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cm-Top: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Cm-Top en México comparados entre tiendas: 23 productos. Precios desde $96 hasta $2,636 MXN. Principalmente en climatización, teclados.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/cm-top/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Cm-Top: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Cm-Top en México comparados entre tiendas: 23 productos. Precios desde $96 hasta $2,636 MXN. Principalmente en climatización, teclados.">
+<meta property="og:url" content="https://comparamex.com/marca/cm-top/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cm-Top",
+      "item": "https://comparamex.com/marca/cm-top/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Cm-Top</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Cm-Top — comparar precios (23)</h1></div>
+<p class="muted small">Precios de Cm-Top en México comparados entre tiendas: 23 productos. Precios desde $96 hasta $2,636 MXN. Principalmente en climatización, teclados.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Cm-Top..."
+         aria-label="Buscar productos de Cm-Top" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_990018-MLA99392755840_112025-F.jpg" alt="Ventilador De Techo Blanco CM-TOP Con Lámpara LED Control Remoto 5 Aspas Aroma" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador De Techo Blanco CM-TOP Con Lámpara LED Control Remoto 5 Aspas Aroma</div></div><div class="row-priceblock"><div class="row-price">$199</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_665302-MLA99928497615_112025-F.jpg" alt="Ventilador de Techo CM-TOP VEN27 con Luz LED y Control Remoto" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Techo CM-TOP VEN27 con Luz LED y Control Remoto</div></div><div class="row-priceblock"><div class="row-price">$301</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_685134-MLA84430157420_052025-F.jpg" alt="Ventilador Piso 3 Velocidades Circulador Potente Casa Hogar" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador Piso 3 Velocidades Circulador Potente Casa Hogar</div></div><div class="row-priceblock"><div class="row-price">$626</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_887606-MLA99469800386_112025-F.jpg" alt="Ventilador Torre Silencioso CM-TOP Oscilación 3 Velocidades Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador Torre Silencioso CM-TOP Oscilación 3 Velocidades Blanco</div></div><div class="row-priceblock"><div class="row-price">$1,430</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_907027-MLA99963546599_112025-F.jpg" alt="Ventilador de Escritorio Portátil CM-TOP con Batería y USB, Rosa" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Escritorio Portátil CM-TOP con Batería y USB, Rosa</div></div><div class="row-priceblock"><div class="row-price">$374</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_882842-MLA99529537990_122025-F.jpg" alt="Ventilador de Piso CM-TOP FS283-D USB Oscilante Blanco 23.5 cm 3 Velocidades" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Piso CM-TOP FS283-D USB Oscilante Blanco 23.5 cm 3 Velocidades</div></div><div class="row-priceblock"><div class="row-price">$431</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_676061-MLA82486440729_022025-F.jpg" alt="Ventilador de Pedestal de Mesa VEN16 CM-TOP color blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Pedestal de Mesa VEN16 CM-TOP color blanco</div></div><div class="row-priceblock"><div class="row-price">$1,514</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_777232-MLA83228973628_042025-F.jpg" alt="Ventilador De Mano Con Base Portatil CM-TOP Aspas Plástico 3 Velocidades Color Azul" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador De Mano Con Base Portatil CM-TOP Aspas Plástico 3 Velocidades Color Azul</div></div><div class="row-priceblock"><div class="row-price">$96</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_663409-MLA99956262915_112025-F.jpg" alt="Ventilador De Piso Recargable USB CM-TOP FS283-D Rosa Oscilante 3 Velocidades" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador De Piso Recargable USB CM-TOP FS283-D Rosa Oscilante 3 Velocidades</div></div><div class="row-priceblock"><div class="row-price">$498</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_977982-MLA99448000222_112025-F.jpg" alt="Ventilador De Techo CM-TOP LED Control Remoto 3 Velocidades 5 Aspas Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador De Techo CM-TOP LED Control Remoto 3 Velocidades 5 Aspas Blanco</div></div><div class="row-priceblock"><div class="row-price">$189</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_852845-MLA113352262509_062026-F.jpg" alt="Ventilador de Pie CM-TOP 33 cm 32 Velocidades Plástico Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Pie CM-TOP 33 cm 32 Velocidades Plástico Blanco</div></div><div class="row-priceblock"><div class="row-price">$2,636</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_882492-MLA112427551221_052026-F.jpg" alt="Ventilador de Piso CM-TOP VEN36 con Control Remoto y Oscilación" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Piso CM-TOP VEN36 con Control Remoto y Oscilación</div></div><div class="row-priceblock"><div class="row-price">$2,174</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_908046-MLA88403873365_072025-F.jpg" alt="Ventilador de Techo CM-TOP con Luz LED, Control Remoto y 3 Velocidades" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Techo CM-TOP con Luz LED, Control Remoto y 3 Velocidades</div></div><div class="row-priceblock"><div class="row-price">$577</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_676716-MLA83331530585_032025-F.jpg" alt="Ventilador Portatil Con Base Y Mano Cm-TOP 3 Velocidades Aspas Plástico Color Negro" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador Portatil Con Base Y Mano Cm-TOP 3 Velocidades Aspas Plástico Color Negro</div></div><div class="row-priceblock"><div class="row-price">$115</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_920718-MLA109659119885_032026-F.jpg" alt="Ventilador de Cuello CM-TOP Rosa con 3 Velocidades y Rotación 360" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Cuello CM-TOP Rosa con 3 Velocidades y Rotación 360</div></div><div class="row-priceblock"><div class="row-price">$167</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_646948-MLA99939146893_112025-F.jpg" alt="Ventilador de Aire CM-TOP VEN36-B 60cm 3 Velocidades Control Remoto Oscilante" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Aire CM-TOP VEN36-B 60cm 3 Velocidades Control Remoto Oscilante</div></div><div class="row-priceblock"><div class="row-price">$2,314</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_829156-MLA99972044091_112025-F.jpg" alt="Ventilador de Techo CM-TOP VEN28 con Lámpara LED Control Remoto 5 Aspas Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Techo CM-TOP VEN28 con Lámpara LED Control Remoto 5 Aspas Blanco</div></div><div class="row-priceblock"><div class="row-price">$299</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_962491-MLA95662007595_102025-F.jpg" alt="Ventilador De Piso Portátil CM-TOP FS311 Rosa 3 Velocidades USB/Batería" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador De Piso Portátil CM-TOP FS311 Rosa 3 Velocidades USB/Batería</div></div><div class="row-priceblock"><div class="row-price">$106</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_926304-MLA112541653911_052026-F.jpg" alt="Ventilador de Pie CM-TOP VEN20 Silencioso con 3 Velocidades y Oscilación, Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Pie CM-TOP VEN20 Silencioso con 3 Velocidades y Oscilación, Blanco</div></div><div class="row-priceblock"><div class="row-price">$824</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_752224-MLA111378361070_052026-F.jpg" alt="Ventilador De Pie Pedestal Cm-top Portatil Aspas Plástico Con 3 Velocidades Oscilación Color Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador De Pie Pedestal Cm-top Portatil Aspas Plástico Con 3 Velocidades Oscilación Color Blanco</div></div><div class="row-priceblock"><div class="row-price">$1,199</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_939725-MLA109510310298_042026-F.jpg" alt="Ventilador Personal CM-TOP de Escritorio USB Recargable, 3 Velocidades y Luz LED Verde" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador Personal CM-TOP de Escritorio USB Recargable, 3 Velocidades y Luz LED Verde</div></div><div class="row-priceblock"><div class="row-price">$97</div></div></div><div class="product-row has-rank"><span class="rank-badge">22</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://http2.mlstatic.com/D_NQ_NP_992375-MLA110334388067_042026-F.jpg" alt="Ventilador de Mano Portátil USB Recargable, 3 Velocidades, Silencioso para Oficina y Viaje, Blanco" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Ventilador de Mano Portátil USB Recargable, 3 Velocidades, Silencioso para Oficina y Viaje, Blanco</div></div><div class="row-priceblock"><div class="row-price">$97</div></div></div><div class="product-row has-rank"><span class="rank-badge">23</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71FpjcKZTvL._AC_SX679_.jpg" alt="CM-TOP Teclado Alambrico USB Slim Computadora Pc Escritorio Laptop Negro Perfecto para tareas de Oficina y Contabilidad, Clásico para Regreso a Clases Escuela" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Teclados</div><div class="row-name">CM-TOP Teclado Alambrico USB Slim Computadora Pc Escritorio Laptop Negro Perfecto para tareas de Oficina y Contabilidad, Clásico para Regreso a Clases Escuela</div></div><div class="row-priceblock"><div class="row-price">$199</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Cm-Top</h2><div class="chip-row"><a class="chip" href="../../categoria/climatizacion/">Climatización (22)</a><a class="chip" href="../../categoria/teclados/">Teclados (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

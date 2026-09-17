@@ -41,7 +41,7 @@ categoría, subcategoría y condición (nuevo/reacondicionado). Además:
   * Ninguna otra spec se contradice ("Material", "Capacidad"...). "Color"
     queda fuera de esa comparación porque es justo lo que se espera que
     difiera, y el GTIN también: cada color tiene su propio código de barras.
-  * En Iluminación, Joyería y Salud y belleza no se fusiona nada, por lo
+  * En Iluminación, Joyería y Salud no se fusiona nada, por lo
     mismo que en merge_by_color: ahí el color es el producto.
 
 Si el color resulta ser EL MISMO en todas las fichas (10 grupos), no son

@@ -122,15 +122,37 @@ def subcategorias_del_sitio(data):
     return out
 
 
+NO_MARCA = {"elektra", "chedraui", "marti", "generico", "generica"}
+
+
+def _top_marcas(cuenta, n):
+    """Las n marcas más frecuentes, SIN repetir la misma escrita distinto.
+
+    Las tiendas escriben la marca como quieren y el catálogo la guarda tal
+    cual: en Lavadoras/Automáticas convivían MABE y Mabe, WHIRLPOOL y
+    Whirlpool, MIDEA y Midea, KOBLENZ y Koblenz, GE y "GE APPLIANCES" y
+    "GE Appliances". Cada par gastaba dos consultas para traer lo mismo:
+    de las 26 marcas de esa subcategoría, 7 eran repetidas. Se pliegan por
+    minúsculas y sin acentos, y se conserva la grafía más usada.
+    """
+    plegado = collections.Counter()
+    grafias = collections.defaultdict(collections.Counter)
+    for marca, c in cuenta.items():
+        k = sin_acentos(marca).lower()
+        plegado[k] += c
+        grafias[k][marca] += c
+    return [grafias[k].most_common(1)[0][0] for k, _ in plegado.most_common(n)]
+
+
 def marcas_top(products, cat_id, sub_id, n):
     cuenta = collections.Counter()
     for p in products:
         if p.get("category") == cat_id and p.get("subcategory") == sub_id and p.get("brand"):
             marca = p["brand"].strip()
             # La marca "de la tienda" (Elektra, Chedraui) no es una marca.
-            if marca and sin_acentos(marca) not in {"elektra", "chedraui", "marti", "generico", "generica"}:
+            if marca and sin_acentos(marca) not in NO_MARCA:
                 cuenta[marca] += 1
-    return [m for m, _ in cuenta.most_common(n)]
+    return _top_marcas(cuenta, n)
 
 
 def ventana_de(subs, dia, tam):
@@ -182,9 +204,9 @@ def marcas_de_categoria(products, cat_id, n):
     for p in products:
         if p.get("category") == cat_id and p.get("brand"):
             marca = p["brand"].strip()
-            if marca and sin_acentos(marca) not in {"elektra", "chedraui", "marti", "generico", "generica"}:
+            if marca and sin_acentos(marca) not in NO_MARCA:
                 cuenta[marca] += 1
-    return [m for m, _ in cuenta.most_common(n)]
+    return _top_marcas(cuenta, n)
 
 
 def productos_propios(products, cat_id, n=3):
@@ -273,7 +295,8 @@ def dominio_confirmado(cat_id, cat_name, sub_name, conocidos, sondas, propios):
     return None
 
 
-def targets_para(data, subs, marcas_por_sub, max_por_consulta=None, paginas=None):
+def targets_para(data, subs, marcas_por_sub, max_por_consulta=None, paginas=None,
+                 marcas_desde=0):
     conocidos = indice_conocidos(data["products"])
     targets = []
     for cat_id, cat_name, sub_id, sub_name, icono in subs:
@@ -285,7 +308,14 @@ def targets_para(data, subs, marcas_por_sub, max_por_consulta=None, paginas=None
             print(f"  -- {cat_name} / {sub_name}: ningún dominio confirmado")
             continue
         dom, dom_nombre, n, acuerdo = elegido
-        consultas = [sub_name] + marcas_top(data["products"], cat_id, sub_id, marcas_por_sub)
+        # marcas_desde salta las marcas que una corrida anterior ya consultó.
+        # En una segunda pasada para agotar la cola larga, sin esto se
+        # vuelven a pedir las 60 de arriba --miles de consultas que solo
+        # devuelven duplicados-- para llegar a las de abajo.
+        marcas = marcas_top(data["products"], cat_id, sub_id, marcas_por_sub)[marcas_desde:]
+        consultas = ([sub_name] if not marcas_desde else []) + marcas
+        if not consultas:
+            continue
         print(f"  {cat_name} / {sub_name} -> {dom} ({dom_nombre}, {n} conocidos, {acuerdo:.0%}); consultas: {consultas}")
         for q in consultas:
             targets.append({
@@ -303,6 +333,10 @@ def main():
     ap.add_argument("--dia", type=int, help="índice de rotación (por defecto, los días desde el 1 de septiembre de 2026)")
     ap.add_argument("--ventana", type=int, default=VENTANA)
     ap.add_argument("--marcas", type=int, default=MARCAS_POR_SUB)
+    ap.add_argument("--marcas-desde", type=int, default=0,
+                    help="saltar las primeras N marcas de cada subcategoría "
+                         "(para una segunda pasada que agote la cola larga "
+                         "sin repetir lo ya consultado)")
     # Las dos perillas del tamaño de la corrida. El valor por defecto es el
     # de la corrida DIARIA, que tiene que ser barata; para una carga grande
     # ("--ventana 400 --marcas 6 --max 50 --pages 3") se suben a mano y se
@@ -318,7 +352,8 @@ def main():
     subs = subcategorias_del_sitio(data)
     hoy = ventana_de(subs, dia, args.ventana)
     print(f"Día {dia}: {len(hoy)} de {len(subs)} subcategorías")
-    targets = targets_para(data, hoy, args.marcas, args.max, args.pages)
+    targets = targets_para(data, hoy, args.marcas, args.max, args.pages,
+                           args.marcas_desde)
     print(f"\n{len(targets)} consultas de catálogo"
           f" (hasta {args.max} productos x {args.pages} pagina(s) cada una)")
     if not targets:

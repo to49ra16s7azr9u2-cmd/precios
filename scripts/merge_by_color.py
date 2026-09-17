@@ -88,9 +88,9 @@ CATEGORIES = ("Celulares",)
 #   - Iluminación: "luz blanca" y "luz cálida" son focos distintos.
 #   - Joyería: un anillo de oro y uno de plata no son el mismo anillo en
 #     otro color -- ni cuestan lo mismo.
-#   - Salud y belleza: el tono de un tinte o de una base de maquillaje es
+#   - Salud: el tono de un tinte o de una base de maquillaje es
 #     lo que se compra.
-CATEGORIES_SIN_COLOR = ("Iluminación", "Joyería y bisutería", "Salud y belleza")
+CATEGORIES_SIN_COLOR = ("Iluminación", "Joyería y bisutería", "Salud")
 
 
 _ACENTOS = str.maketrans("áéíóúüñÁÉÍÓÚÜÑ", "aeiouunAEIOUUN")

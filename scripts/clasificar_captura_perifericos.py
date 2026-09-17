@@ -1009,7 +1009,7 @@ REGLAS = [
              # vende "para maquillaje" y el Dyson viene en color "rubor";
              # el absorbedor de humedad y el purificador dicen "fragancia".
              r'ventilador|abanico|absorbedor de humedad|deshumidificador|purificador de aire|'
-             # El cepillo de dientes y la pasta dental son de Salud y belleza.
+             # El cepillo de dientes y la pasta dental son de Salud.
              r'\bdental\b|cepillo de dientes|enjuague bucal|irrigador|hilo dental|'
              r'\bperro|\bgato\b|mascota|veterinari|\bbebe\b|\bbebes\b|\bbaby\b|'
              r'\bimpresora\b|\bcartucho\b|\btoner\b|\btinta\b|'
@@ -1246,7 +1246,7 @@ REGLAS = [
  # mineralizador y el filtro suelto van con los equipos de ósmosis.
  # El irrigador trae "Filtro de Agua" en el título y caía en purificadores.
  (re.compile(r'irrigador (dental|bucal|oral)|water ?flosser'),
-  ('Salud y belleza', 'Cuidado dental', 'heart-pulse')),
+  ('Salud', 'Cuidado dental', 'heart-pulse')),
  (re.compile(r'purificador(a|es)? de agua|purificadora de agua|'
              r'osmosis inversa|filtracion de agua|filtro de agua|'
              r'botella purificadora'),
