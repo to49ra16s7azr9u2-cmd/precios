@@ -559,7 +559,7 @@ MARTI_MAP = {
     "82/199": ("Salud y belleza", "Básculas", "heart-pulse"),
     "82/236": cat_audio,
     "82/391": mt_relojes,
-    "82/377": ("Aparatos de belleza", "Masajeadores", "sparkle"),
+    "82/377": ("Belleza y cuidado personal", "Masajeadores", "sparkle"),
     "82/146": ("Cámaras y fotografía", "Accesorios", "camera"),                # binoculares
     "82/154": None,  # portacelulares: accesorio
     # Equipamiento

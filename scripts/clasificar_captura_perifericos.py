@@ -15,7 +15,7 @@ script la reparte entre "Componentes y accesorios de PC",
 "Videojuegos / Accesorios", "Computadoras de escritorio",
 "Muebles / Escritorios", "Monitores", "Laptops", "Televisores",
 "Proyectores y accesorios", "Lavadoras", "Aspiradoras", "Refrigeradores",
-"Aparatos de belleza", "Electrodomésticos" y "Equipo comercial".
+"Belleza y cuidado personal", "Electrodomésticos" y "Equipo comercial".
 
 La captura de lavadoras llega casi entera de accesorios: de 64 anuncios,
 la mayoría son fundas, pastillas de limpieza y refacciones (interruptores
@@ -43,7 +43,7 @@ La novena son secadoras de cabello: 100 anuncios y ningún descarte, porque
 Amazon no rellenó la sección con nada ajeno. La palabra "secadora" sola no
 alcanza -- la de ropa se llama igual --, así que la regla pide que el título
 nombre además el pelo o lo que se le hace (rizos, frizz, difusor, iones,
-turmalina), o que la marca sea de peluquería. Van a "Aparatos de belleza /
+turmalina), o que la marca sea de peluquería. Van a "Belleza y cuidado personal /
 Secadoras de cabello", junto a los cepillos secadores y los
 multiestilizadores que el catálogo ya tiene ahí.
 
@@ -51,7 +51,7 @@ La décima son planchas: cuatro de ropa (dos de viaje y las dos Silver Star
 de vapor por gravedad). "Plancha" sola no alcanza, porque la de pelo, la
 prensa de sublimación y la de ropa se llaman igual; las reglas van de lo más
 específico a lo más general y en ese orden salen los tres cepillos
-alisadores ("Aparatos de belleza / Planchas para cabello") y la máquina de
+alisadores ("Belleza y cuidado personal / Planchas para cabello") y la máquina de
 sublimación 8 en 1 ("Equipo comercial / Prensas de calor").
 
 La undécima son robots limpiacristales: 47 anuncios y 35 aparatos. El
@@ -977,13 +977,83 @@ REGLAS = [
  # Pelo" son multiestilizadores, y el catálogo los tiene en Secadoras de
  # cabello junto al Dyson Airwrap.
  (re.compile(r'^(?!.*\bsecador)'
-             r'(?=.*(rizador(a)? de (pelo|cabello)|tenaza (rizadora|para rizar)|'
+             r'(?=.*(\brizador(a)? de (pelo|cabello)|tenaza (rizadora|para rizar)|'
              r'ondulador(a)? de (pelo|cabello)))'),
-  ('Aparatos de belleza', 'Rizadores', 'sparkle')),
+  ('Belleza y cuidado personal', 'Rizadores', 'sparkle')),
  (re.compile(r'^(?!.*\bsecador)'
              r'(?=.*(cepillo alisador|alisador(a)? de (pelo|cabello)|'
              r'plancha.{0,30}(de pelo|de cabello|alisador)))'),
-  ('Aparatos de belleza', 'Planchas para cabello', 'sparkle')),
+  ('Belleza y cuidado personal', 'Planchas para cabello', 'sparkle')),
+ # Red de Belleza y cuidado personal, el departamento entero: el aparato
+ # Y el cosmético. La categoría ya tenía 1,828 fichas de maquillaje entre
+ # sus quince subcategorías, así que el cosmético no estrena casa, solo le
+ # faltaba regla. Medido sobre la captura de 12,602 anuncios de belleza del
+ # 17-sep: de 12,309 nuevos entraban 1,775 y se descartaban 10,534, entre
+ # ellos 2,040 cremas y sueros, 1,203 de maquillaje, 884 aparatos faciales
+ # y 712 pelucas y extensiones.
+ #
+ # Va después de las reglas finas de secadora, plancha y rizador (que ganan
+ # por precisión) y antes de las redes de Muebles y Herramientas, que se
+ # llevaban la silla de tocador y el organizador de maquillaje.
+ #
+ # "Rizador" pide borde de palabra: sin él, "pulve-rizador" metía las
+ # pistolas de pintura, las hidrolavadoras y los fumigadores en Rizadores.
+ # La misma trampa vieja que "Wilson Me-diana" y el cable "cat 6".
+ (re.compile(r'^(?!.*(\bzapatos?\b|calzado|cacahuate|avellana|\bbatidora\b|pastelera|chantilly|'
+             r'\bkn95\b|\bn95\b|cubrebocas|tapabocas|mascarilla (quirurgica|desechable|de tela)|'
+             r'para (trastes|ropa|piso|auto|coche|carro|moto|inodoro)|limpiador de (pantalla|teclado)|'
+             r'aceite (de motor|para motor|lubricante|hidraulico|de cocina|de oliva|comestible)|'
+             r'gel (antibacterial|de silicona|refrigerante|balistico)|'
+             r'de ambiente|\bpanal(es)?\b|ambientador|aromatizante|'
+             # El aparato de clima no es un cosmético: el mini ventilador se
+             # vende "para maquillaje" y el Dyson viene en color "rubor";
+             # el absorbedor de humedad y el purificador dicen "fragancia".
+             r'ventilador|abanico|absorbedor de humedad|deshumidificador|purificador de aire|'
+             # El cepillo de dientes y la pasta dental son de Salud y belleza.
+             r'\bdental\b|cepillo de dientes|enjuague bucal|irrigador|hilo dental|'
+             r'\bperro|\bgato\b|mascota|veterinari|\bbebe\b|\bbebes\b|\bbaby\b|'
+             r'\bimpresora\b|\bcartucho\b|\btoner\b|\btinta\b|'
+             r'\bsilla\b|taburete|\bescritorio\b|organizador|\bcargador\b|\bcarrito\b|'
+             r'\bsuplement|\bcapsulas? blandas\b|\btabletas?\b|\bcomprimidos?\b))'
+             r'(?=.*('
+             r'secadora? de (cabello|pelo)|cepillo secador|plancha (de|para) (cabello|pelo)|alaciadora|'
+             r'\brizador|tenaza (de|para) (cabello|rizos)|\bdepilador|luz pulsada|cera depilatoria|'
+             r'rasuradora|afeitadora|\brastrillo (de|para) afeitar\b|cortapelo|recortador de (barba|vello)|'
+             r'radiofrecuencia (facial|corporal|profesional)|microagujas|microdermoabrasion|'
+             r'dermapen|cavitacion|\bhifu\b|hydra ?facial|jet peel|criolipolisis|'
+             r'ultrasonido (facial|corporal|de belleza)|oxigeno de hidrogeno|'
+             r'mascara facial led|terapia de luz led|fototerapia facial|lifting facial|'
+             r'limpiador facial (electrico|ultrasonico)|peeling ultrasonico|'
+             r'vaporizador facial|sauna facial|analizador de piel|'
+             r'cepillo (corporal|de cuerpo|en seco)|cepillo electrico para la espalda|'
+             # La captura trae medio catálogo en inglés.
+             r'\bflat iron\b|\bhair dryer\b|\bcurling iron\b|\blip plumper\b|\bbronzer\b|'
+             r'\bconcealer\b|\beyeshadow\b|\bmoisturizer\b|\bcleanser\b|\bnail polish\b|'
+             r'\bfacial mist\b|\bbody lotion\b|\bhair mask\b|'
+             r'lampara (uv|led) (para|de) unas|torno (de|para) unas|drill (para|de) unas|'
+             r'protector solar|bloqueador solar|\bfps ?\d|\bspf ?\d|\bsunscreen\b|'
+             r'\bserum\b|\bs.rum\b|'
+             r'crema (facial|corporal|hidratante|antiarrugas|para el cuerpo|para la cara|reparadora|nutritiva)|'
+             r'crema (anti|de dia|de noche|contorno)|'
+             r'limpiador facial|gel limpiador|agua micelar|\btonico facial\b|contorno de ojos|'
+             r'mascarilla (facial|capilar|de hidrogel|coreana|de arcilla)|'
+             r'exfoliante (facial|corporal)|\bretinol\b|\bniacinamida\b|'
+             r'acido (salicilico|hialuronico|glicolico|kojico)|'
+             r'\bfoundation\b|(base|paleta|kit|set|polvo) de maquillaje|maquillaje (facial|profesional|liquido)|'
+             r'brocha(s)? (de|para) maquillaje|esponja de maquillaje|'
+             r'\blabial\b|\blipstick\b|\brimel\b|'
+             r'mascara de pesta|delineador (de ojos|liquido)|rubor (en polvo|en crema|compacto)|'
+             r'sombra de ojos|paleta de sombras|'
+             r'corrector de ojeras|setting spray|polvo compacto|brocha (de|para) maquillaje|'
+             r'\bshampoo\b|\bchampu\b|\bacondicionador (para|de) (cabello|pelo)\b|tratamiento capilar|'
+             r'tinte (para|de) (cabello|pelo)|\bkeratina\b|aceite (para|de) (cabello|pelo|barba)|'
+             r'\bperfume\b|eau de (toilette|parfum)|agua de colonia|'
+             r'\bdesodorante\b|antitranspirante|'
+             r'\bpeluca|extensiones de (cabello|pelo)|'
+             r'esmalte (de|para) unas|gel (para|de) unas|acrilico (para|de) unas|unas postizas|press ?on nails|'
+             r'kit de manicura|juego de manicura|\bcortaunas\b|empujador de cuticula|lima de unas|\bpedicure\b'
+             r'))'),
+  ('Belleza y cuidado personal', None, 'sparkle')),
  # La prensa de calor pide nombrarse como máquina o prensa: "Impresora ...
  # Para Planchas Sublimación", que el catálogo tiene en Impresoras, no es
  # una prensa sino la impresora que le carga el papel.
@@ -1126,21 +1196,21 @@ REGLAS = [
  # Secadoras de cabello. "Secadora" a secas es ambigua -- la de ropa se llama
  # igual -- así que el título tiene que nombrar además el pelo o lo que se le
  # hace: rizos, frizz, difusor, iones, turmalina, peinado. El catálogo las
- # tiene en Aparatos de belleza, junto con los cepillos secadores y los
+ # tiene en Belleza y cuidado personal, junto con los cepillos secadores y los
  # multiestilizadores (el Dyson Airwrap, el SUTRA Aero Styler 5 en 1).
  (re.compile(r'^(?=.*\bsecador)(?=.*(cabello|\bpelo\b|peinad|rizo|frizz|difusor|'
              r'alaciadora|ionic|iones|turmalina|estiliz|salon))'),
-  ('Aparatos de belleza', 'Secadoras de cabello', 'sparkle')),
+  ('Belleza y cuidado personal', 'Secadoras de cabello', 'sparkle')),
  # Cuatro marcas que solo hacen aparatos de peluquería. Cuando el título se
  # queda en "Conair Secadora 289es" o "Hot Tools Secador Silencioso 1875 W",
  # la marca es lo único que queda, y basta: la secadora de ropa la venden
  # Whirlpool, Mabe y LG, no BaByliss.
  (re.compile(r'^(?=.*\bsecador)(?=.*(conair|babyliss|remington|hot tools))'),
-  ('Aparatos de belleza', 'Secadoras de cabello', 'sparkle')),
+  ('Belleza y cuidado personal', 'Secadoras de cabello', 'sparkle')),
  # Lo que ya no puede ser otra cosa: el cepillo que seca, el título en inglés
  # y la secadora de viaje (la de ropa no viaja).
  (re.compile(r'cepillo secador|hair dryer|secador(a)? de viaje'),
-  ('Aparatos de belleza', 'Secadoras de cabello', 'sparkle')),
+  ('Belleza y cuidado personal', 'Secadoras de cabello', 'sparkle')),
  # Refrigeradores. Antes del aparato van las piezas y los trastes que también
  # dicen "refrigerador": si no, un filtro de agua de repuesto acaba de refri.
  # Los seis filtros de la captura abren el título con la palabra "Filtro".
@@ -1963,6 +2033,66 @@ REGLAS = [
  # mascota como Herramientas/Escaleras, y otras 400 como roperos, mesas,
  # sofás y colchones. Las 6,749 restantes se descartaban.
  #
+ # Red de Deportes y fitness, el mismo agujero que tenía Mascotas: la
+ # categoría existe con dieciocho subcategorías y 2,994 fichas, y NINGUNA
+ # regla de categoría la alcanzaba. Medido sobre la captura de 12,398
+ # anuncios de gimnasio del 16-sep: de 12,018 nuevos entraban 1,913, y de
+ # esos 498 como Muebles/Sillas, 251 como Muebles/Mesas de centro y 198
+ # como Bicicletas. Los otros 10,105 se descartaban enteros, entre ellos
+ # 3,674 aparatos de gimnasio y 2,506 artículos de deporte.
+ #
+ # Los disparadores nombran el aparato, nunca el deporte a secas: "fútbol"
+ # suelto está en un proyector "Diseño Fútbol 360°" y en un peluche;
+ # "camping" está en la silla, el ventilador y la lavadora portátil (y de
+ # todos modos el campismo vive en Viajes/Camping, que ya tiene 249);
+ # "dardos" está en los lanzadores Nerf; "TRX" es también una bicicleta
+ # Veloci; "spinning" es además el carrete de pesca.
+ (re.compile(r'^(?!.*(de juguete|para ni.o|didactic|\bmaqueta\b|\bnerf\b|lanzador|'
+             r'balon de (gas|oxigeno|butano)|gato hidraulico|'
+             r'llavero|\bpegatina|\bsticker|calcomania|\bposter\b|'
+             r'\bplayera\b|\bcamiseta\b|\bpantalon|\blegging|\bsudadera\b|'
+             r'\bperro|\bgato\b|mascota|soldad|'
+             r'para (auto|coche|carro|automovil)|parachoques|'
+             r'\btambor\b|\bbateria\b|proyector|ventilador|calefactor|lavadora|'
+             r'panel solar|estacion de energia|linterna|\bsilla\b|\bcolchon\b|'
+             r'audifono|auricular|headphone|\bmp3\b|'
+             r'\bcuenco\b|campana de mano|percusion|meditacion|\bchakra\b|'
+             r'\bpesca\b|fishing|cana de pescar|'
+             r'\bcelular|\btelefono\b|\blaptop\b|\bconsola\b|videojuego))'
+             # La bicicleta de calle vive en Autos: el casco "para bicicleta,
+             # patineta o patines" y el cojín de sillín son suyos. La fija y
+             # la de spinning no, que son aparatos de gimnasio.
+             r'(?!.{0,45}\bbicicletas?\b(?! ?(fija|estatica|de spinning|recumbent)))'
+             r'(?=.*('
+             r'mancuerna|kettlebell|pesa rusa|disco olimpico|barra olimpica|barra z\b|'
+             r'\bdominadas?\b|pull ?up bar|'
+             r'\babdominales?\b|ab wheel|rueda para abdominal|tabla de flexiones|push ?up board|'
+             r'polea(s)? (gym|de gimnasio|para ejercicio|de cable)|sistema de poleas|lat pulldown|'
+             r'accesorios? (de|para) polea|'
+             r'banco (de|para) (ejercicio|pesas|abdominales)|banco fitness|banco multiposicion|'
+             r'caminadora|trotadora|\beliptica\b|escaladora|maquina de remo|rowing machine|'
+             r'bicicleta (fija|estatica|de spinning)|spinning|ciclo indoor|'
+             r'multigimnasio|multiestacion|home gym|gimnasio (en casa|multifuncional|completo)|'
+             r'banda(s)? (de|elastica de) resistencia|liga(s)? de ejercicio|power loops|'
+             r'tapete (de|para) (yoga|ejercicio|pilates)|colchoneta (de|para) (yoga|ejercicio|gimnasia)|'
+             r'\byoga\b|\bpilates\b|'
+             r'\bbalon\b|pelota (de|para) (futbol|basquet|voleibol|yoga|pilates|ejercicio)|'
+             r'raqueta (de|para) (tenis|padel|badminton|squash|ping)|ping ?pong|tenis de mesa|'
+             r'\bbadminton\b|\bpadel\b|\bsquash\b|'
+             r'tablero de dardos|juego de dardos|dardos de (acero|punta|aluminio)|\bdiana\b|'
+             r'\bboxeo\b|costal de box|guantes de box|taekwondo|protector bucal|'
+             r'patin(es|eta)\b|\bpatineta\b|\bskate\b|monopatin|'
+             r'\bnatacion\b|goggles de nadar|aletas? de buceo|\bsnorkel\b|\bkayak\b|'
+             r'paddle ?(board|surf)|stand up paddle|'
+             r'\bvoleibol\b|\bvolleyball\b|balon de futbol|pelota de futbol|porteria de futbol|'
+             r'\bespinilleras?\b|'
+             r'rodillera|\bcodera|tobillera|munequera|faja (lumbar|deportiva|de levantamiento)|'
+             r'cuerda para saltar|jump rope|salto de cuerda|'
+             r'suspension trainer|entrenador de suspension|'
+             r'ejercitador de (agarre|pecho|brazos|manos)|entrenador de fuerza de agarre|'
+             r'\bcrossfit\b|\bhalterofilia\b|\bsentadillas?\b'
+             r'))'),
+  ('Deportes y fitness', None, 'dumbbell')),
  # Se excluye el gato HIDRÁULICO, que es una herramienta de auto, y la
  # puerta "para gato" de una casa, que es ferretería.
  (re.compile(r'^(?!.*(gato (hidraulico|de piso|de botella|tipo patin)|perro caliente|'
@@ -2117,15 +2247,15 @@ EXPLICITOS = {
  # Timco y JULIET venden secadoras de pelo -- Timco aparece tres veces más en
  # esta misma captura, siempre con "Secadora de Cabello" --, y 700 y 1800 W
  # plegables es lo que pesa una de viaje, no una de ropa.
- "B00X76H980": ("TIMCO", 'Aparatos de belleza', 'Secadoras de cabello', 'sparkle'),
- "B0D7FJKP3R": ("JULIET", 'Aparatos de belleza', 'Secadoras de cabello', 'sparkle'),
+ "B00X76H980": ("TIMCO", 'Belleza y cuidado personal', 'Secadoras de cabello', 'sparkle'),
+ "B0D7FJKP3R": ("JULIET", 'Belleza y cuidado personal', 'Secadoras de cabello', 'sparkle'),
  # El One-Step Volumizer es el cepillo secador de Revlon; su título nunca dice
  # "secador". El catálogo ya guarda el multiestilizador Magic Styler y el
  # cepillo Izutech Toro entre las secadoras de cabello.
- "B09B2XF75X": ("REVLON", 'Aparatos de belleza', 'Secadoras de cabello', 'sparkle'),
+ "B09B2XF75X": ("REVLON", 'Belleza y cuidado personal', 'Secadoras de cabello', 'sparkle'),
  # El kit de Lizze empieza por la plancha y la secadora va de añadido: va con
  # los kits de plancha del catálogo ("Kit Plancha 450° + Rizador + Peine").
- "B0G3BH7RN2": ("LIZZE", 'Aparatos de belleza', 'Planchas para cabello', 'sparkle'),
+ "B0G3BH7RN2": ("LIZZE", 'Belleza y cuidado personal', 'Planchas para cabello', 'sparkle'),
  # Karcher VC3, WD3 y KWD1: el título no dice de qué tipo son, pero el catálogo
  # ya trae estos mismos modelos ("Karcher De Tanque Vc3", "Karcher Agua Polvo
  # Sopladora Wd2", "Karcher Wdl1 Solidos Y Liquidos") en el cajón de tanque.
@@ -2157,7 +2287,7 @@ EXPLICITOS = {
  # De Peine Caliente, Cepillo Secador De Inalámbrico, Cepillo Rizador". Abre
  # nombrando el alisador y la plancha, que es lo que se vende; el "secador"
  # aparece de paso y por él la regla de arriba lo dejaría fuera.
- "B0GFJYK5C4": (None, 'Aparatos de belleza', 'Planchas para cabello', 'sparkle'),
+ "B0GFJYK5C4": (None, 'Belleza y cuidado personal', 'Planchas para cabello', 'sparkle'),
  # Se anuncia como "Robot de Limpieza de Ventanas" pero el resto del título
  # dice lo que es: "Limpiador de Vidrios Eléctrico de Mano, 2000Pa, con
  # Batería Recargable, Hoja de Escobilla de Goma de 11 Pulgadas para Puertas
@@ -2567,8 +2697,79 @@ def sub_deporte(tn):
     if re.search(r'campismo|camping|casa de campana|sleeping bag|bolsa de dormir', tn): return 'Campismo'
     if re.search(r'rodillera|codera|tobillera|muneque|faja|soporte (lumbar|deportivo)', tn):
         return 'Protección y soportes'
-    if re.search(r'caminadora|eliptica|remo|multigimnasio|banco de ejercicio|gimnasio', tn):
+    # Lo que la captura de 12,398 dejaba sin repartir (2,693 fichas) era
+    # casi todo aparato de gimnasio con otro nombre: la polea, la barra de
+    # dominadas, el banco, la escaladora y la tabla de flexiones.
+    if re.search(r'caminadora|trotadora|eliptica|escaladora|maquina de remo|remo (de|para) ejercicio|'
+                 r'multigimnasio|multiestacion|banco (de|para) (ejercicio|pesas|abdominales)|'
+                 r'banco fitness|banco multiposicion|gimnasio|home gym|'
+                 r'\bdominadas?\b|pull ?up bar|\babdominales?\b|ab wheel|rueda para abdominal|'
+                 r'tabla de flexiones|push ?up board|polea|lat pulldown|'
+                 r'suspension trainer|entrenador de suspension|'
+                 r'ejercitador de (agarre|pecho|brazos|manos)|entrenador de fuerza de agarre|'
+                 r'\bcrossfit\b|\bsentadillas?\b', tn):
         return 'Equipo de gimnasio'
+    return None
+
+
+def sub_belleza(tn):
+    """Reparte Belleza y cuidado personal.
+
+    El aparato va antes que el cosmético porque lo nombra de paso: la
+    "plancha para cabello con aceite de argán" es una plancha, y el
+    "vaporizador facial" no es una crema. Dentro del cosmético, lo capilar
+    antes que lo facial ("mascarilla capilar" contra "mascarilla facial") y
+    el maquillaje antes que la crema ("crema base de maquillaje").
+    """
+    if re.search(r'secadora? de (cabello|pelo)|cepillo secador', tn): return 'Secadoras de cabello'
+    if re.search(r'plancha (de|para) (cabello|pelo)|alaciadora', tn): return 'Planchas para cabello'
+    if re.search(r'\brizador|tenaza (de|para) (cabello|rizos)|ondulador', tn): return 'Rizadores'
+    if re.search(r'\bdepilador|luz pulsada|cera depilatoria|depilacion laser', tn): return 'Depilación'
+    if re.search(r'rasuradora|afeitadora|rastrillo (de|para) afeitar|cortapelo|'
+                 r'recortador de (barba|vello)', tn): return 'Rasuradoras'
+    if re.search(r'\bpeluca', tn): return 'Pelucas'
+    if re.search(r'extensiones de (cabello|pelo)', tn): return 'Extensiones de cabello'
+    if re.search(r'esmalte (de|para) unas|gel (para|de) unas|acrilico (para|de) unas|'
+                 r'unas postizas|press ?on nails|lampara (uv|led) (para|de) unas|'
+                 r'torno (de|para) unas|drill (para|de) unas', tn): return 'Uñas'
+    if re.search(r'kit de manicura|juego de manicura|\bcortaunas\b|empujador de cuticula|'
+                 r'lima de unas|\bpedicure\b|tijeras (de|para) cuticula', tn): return 'Manicure'
+    if re.search(r'silla (de|para) (salon|barbero|estilista)|carrito de belleza|'
+                 r'mostrador de recepcion|lavacabezas|camilla (de|para) (masaje|spa)', tn):
+        return 'Mobiliario para salón'
+    if re.search(r'masajeador|pistola de masaje', tn): return 'Masajeadores'
+    # El aparato de cabina (HIFU, radiofrecuencia, hidrafacial) es facial o
+    # corporal según lo que dice tratar; por defecto, facial.
+    if re.search(r'radiofrecuencia corporal|cavitacion|criolipolisis|ultrasonido corporal|'
+                 r'moldeado corporal|body sculpt|cepillo (corporal|de cuerpo|en seco)|'
+                 r'\bbody lotion\b|locion corporal', tn): return 'Corporales'
+    if re.search(r'\bhifu\b|hydra ?facial|jet peel|oxigeno de hidrogeno|mascara facial led|'
+                 r'terapia de luz led|fototerapia facial|lifting facial|analizador de piel|'
+                 r'radiofrecuencia (facial|profesional)|microagujas|microdermoabrasion|dermapen|'
+                 r'peeling ultrasonico|limpiador facial|vaporizador facial|sauna facial|'
+                 r'\bfacial mist\b|\bcleanser\b|\bmoisturizer\b', tn): return 'Faciales'
+    if re.search(r'protector solar|bloqueador solar|\bfps ?\d|\bspf ?\d|\bsunscreen\b', tn):
+        return 'Protección solar'
+    if re.search(r'\bperfume\b|eau de (toilette|parfum)|agua de colonia', tn):
+        return 'Perfumes'
+    if re.search(r'\bhair mask\b|\bhair dryer\b', tn): return 'Secadoras de cabello' if 'dryer' in tn else 'Cuidado del cabello'
+    if re.search(r'\bflat iron\b', tn): return 'Planchas para cabello'
+    if re.search(r'\bcurling iron\b', tn): return 'Rizadores'
+    if re.search(r'\bnail polish\b', tn): return 'Uñas'
+    if re.search(r'\bshampoo\b|\bchampu\b|acondicionador (para|de) (cabello|pelo)|'
+                 r'tratamiento capilar|mascarilla capilar|tinte (para|de) (cabello|pelo)|'
+                 r'\bkeratina\b|aceite (para|de) (cabello|pelo)', tn): return 'Cuidado del cabello'
+    if re.search(r'\bmaquillaje\b|\bfoundation\b|\blabial\b|\blipstick\b|\brimel\b|'
+                 r'mascara de pesta|delineador (de ojos|liquido)|\brubor\b|sombra de ojos|'
+                 r'paleta de sombras|corrector de ojeras|setting spray|polvo compacto|'
+                 r'brocha (de|para) maquillaje|\bbronzer\b|\bconcealer\b|\beyeshadow\b|'
+                 r'\blip plumper\b', tn): return 'Maquillaje'
+    if re.search(r'crema (corporal|para el cuerpo)|locion corporal|\bdesodorante\b|'
+                 r'antitranspirante|gel de bano|aceite (corporal|de barba|para barba)|'
+                 r'exfoliante corporal', tn): return 'Corporales'
+    if re.search(r'\bserum\b|crema|limpiador facial|gel limpiador|agua micelar|tonico facial|'
+                 r'contorno de ojos|mascarilla|exfoliante|\bretinol\b|\bniacinamida\b|'
+                 r'acido (salicilico|hialuronico|glicolico|kojico)|facial', tn): return 'Faciales'
     return None
 
 
@@ -3249,6 +3450,7 @@ for it in captura:
     elif cat == 'Suplementos': sub = sub_suplemento(tn) or sub
     elif cat == 'Redes': sub = sub_red(tn) or sub
     elif cat == 'Climatización': sub = sub_clima(tn) or sub
+    elif cat == 'Belleza y cuidado personal': sub = sub_belleza(tn) or sub
     elif cat == 'Mascotas': sub = sub_mascota(tn) or sub
     elif cat == 'Cámaras de seguridad': sub = sub_vigilancia(tn) or sub
     elif cat == 'Juguetes y bebés': sub = sub_juguete(tn) or sub

@@ -92,6 +92,7 @@ REPARTIDORES = {
     "Redes": "sub_red", "Climatización": "sub_clima", "Mascotas": "sub_mascota",
     "Cámaras de seguridad": "sub_vigilancia", "Juguetes y bebés": "sub_juguete",
     "Deportes y fitness": "sub_deporte", "Joyería y bisutería": "sub_joyeria",
+    "Belleza y cuidado personal": "sub_belleza",
     "Impresoras": "sub_impresora", "Computadoras de escritorio": "sub_escritorio",
     "Blancos y ropa de cama": "sub_blancos", "Relojes inteligentes": "sub_reloj",
     "Suplementos": "sub_suplemento",

@@ -5690,7 +5690,7 @@
     "Deportes y fitness": { weightKg: 3, lengthCm: 50, widthCm: 30, heightCm: 20 },
     "Papelería y oficina": { weightKg: 0.5, lengthCm: 25, widthCm: 20, heightCm: 10 },
     "Fitness": { weightKg: 15, lengthCm: 100, widthCm: 50, heightCm: 30 },
-    "Aparatos de belleza": { weightKg: 0.4, lengthCm: 20, widthCm: 12, heightCm: 8 },
+    "Belleza y cuidado personal": { weightKg: 0.4, lengthCm: 20, widthCm: 12, heightCm: 8 },
     "Joyería y bisutería": { weightKg: 0.1, lengthCm: 10, widthCm: 8, heightCm: 4 },
     "Artículos de lujo (preowned)": { weightKg: 0.5, lengthCm: 30, widthCm: 25, heightCm: 12 },
     "Decoración de hogar y jardín": { weightKg: 1.5, lengthCm: 30, widthCm: 25, heightCm: 20 },

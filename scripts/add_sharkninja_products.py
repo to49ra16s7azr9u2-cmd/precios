@@ -65,11 +65,11 @@ def categorize(name):
     if "ventilador" in n:
         return "Climatización", "Ventiladores", "snowflake"
     if any(x in n for x in ("cepillo secador", "cepillo con secador")):
-        return "Aparatos de belleza", "Secadoras de cabello", "sparkle"
+        return "Belleza y cuidado personal", "Secadoras de cabello", "sparkle"
     if any(x in n for x in ("multiestilizador", "flexstyle", "estilizador", "rizador", "sistema de peinado", "shark glam", "shark® glam")):
-        return "Aparatos de belleza", "Planchas para cabello", "sparkle"
+        return "Belleza y cuidado personal", "Planchas para cabello", "sparkle"
     if any(x in n for x in ("facialpro", "cryoglow", "depuffi", "mascarilla facial", "sistema de enfriamiento personal")):
-        return "Aparatos de belleza", "Faciales", "sparkle"
+        return "Belleza y cuidado personal", "Faciales", "sparkle"
     if "olla a presion" in n or "olla a presión" in n:
         return "Electrodomésticos", "Pequeños electrodomésticos de cocina", "appliance"
     if any(x in n for x in ("procesador", "sistema de cocina", "sistema de cocción", "creami", "slushi", "preparador de bowls")):

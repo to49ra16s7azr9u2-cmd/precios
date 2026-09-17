@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zensukye: precios en México — ComparaMEX</title>
+<meta name="description" content="Precios de Zensukye en México comparados entre tiendas: 21 productos. Precios desde $174 hasta $2,638 MXN. Principalmente en deportes y fitness, climatización, autos, bicicletas y motos, muebles.">
+<meta name="robots" content="index, follow, noai, noimageai">
+<link rel="canonical" href="https://comparamex.com/marca/zensukye/">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="Zensukye: precios en México — ComparaMEX">
+<meta property="og:description" content="Precios de Zensukye en México comparados entre tiendas: 21 productos. Precios desde $174 hasta $2,638 MXN. Principalmente en deportes y fitness, climatización, autos, bicicletas y motos, muebles.">
+<meta property="og:url" content="https://comparamex.com/marca/zensukye/">
+<meta name="theme-color" content="#FF0211">
+<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
+     de los dos que cubren casi todo el catálogo, que si no se pagan recién
+     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
+     justo el elemento más grande de la página (el LCP que mide Google). -->
+<link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
+<link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
+<link rel="icon" href="../../icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="../../icons/icon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../css/style.min.css">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied'
+  });
+  try {
+    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-NZ0RG4S274');
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://comparamex.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Marcas",
+      "item": "https://comparamex.com/marca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Zensukye",
+      "item": "https://comparamex.com/marca/zensukye/"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-top">
+    <div class="topbar-inner">
+      <a class="brand" href="../../">
+        <img class="brand-icon" src="../../icons/icon.svg" alt="" width="30" height="30">
+        <span class="brand-mark">Compara<span class="brand-mx">MEX</span></span>
+      </a>
+    </div>
+  </div>
+</header>
+<main class="container">
+
+<nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; Zensukye</nav>
+<div class="list-head"><h1><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 3.5H20v8.5l-9.4 9.4a2 2 0 0 1-2.8 0l-6.2-6.2a2 2 0 0 1 0-2.8L11.5 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg> Zensukye — comparar precios (21)</h1></div>
+<p class="muted small">Precios de Zensukye en México comparados entre tiendas: 21 productos. Precios desde $174 hasta $2,638 MXN. Principalmente en deportes y fitness, climatización, autos, bicicletas y motos, muebles.</p>
+
+<div class="panel" id="prodFiltroCaja" hidden>
+  <input id="prodFiltro" type="search" class="marca-filtro"
+         placeholder="Buscar dentro de Zensukye..."
+         aria-label="Buscar productos de Zensukye" autocomplete="off">
+  <p class="muted small" id="prodFiltroCuenta"></p>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var caja = document.getElementById("prodFiltroCaja");
+  var campo = document.getElementById("prodFiltro");
+  var cuenta = document.getElementById("prodFiltroCuenta");
+  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
+  if (!caja || !campo || !filas.length) return;
+  caja.hidden = false;
+  var sinAcentos = function (s) {
+    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var filtrar = function () {
+    var q = sinAcentos(campo.value.trim());
+    var visibles = 0;
+    for (var i = 0; i < filas.length; i++) {
+      var ok = !q || textos[i].indexOf(q) !== -1;
+      filas[i].hidden = !ok;
+      if (ok) visibles++;
+    }
+    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
+  };
+  campo.addEventListener("input", filtrar);
+});
+</script>
+
+<div class="product-list" id="prodLista"><div class="product-row has-rank"><span class="rank-badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 7 12l5-7 5 7 3.5-3.5-1.6 10.5h-13.8L3.5 8.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></svg></span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61OxEkO15iL._AC_SX679_.jpg" alt="ZENSUKYE Cubierta Impermeable para Motocicletas, 210D Tela Oxford Funda para Moto Exterior con 5 Tiras Reflectantes y 2 Orificios para Cerradura, 245x105x125cm Cubierta Protector para Moto" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Autos, bicicletas y motos</div><div class="row-name">ZENSUKYE Cubierta Impermeable para Motocicletas, 210D Tela Oxford Funda para Moto Exterior con 5 Tiras Reflectantes y 2 Orificios para Cerradura, 245x105x125cm Cubierta Protector para Moto</div></div><div class="row-priceblock"><div class="row-price">$260</div></div></div><div class="product-row has-rank rank-2"><span class="rank-badge">2</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71CzUX2Ba4L._AC_SX679_.jpg" alt="ZENSUKYE Cobija para Cama o Sofá, Manta para sofá, Cama, Manta Ultrasuave y Transpirable, Caliente y Resistente, Distintos Colores y Tamaños Disponibles (Beige, 150 X 200 CM)" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Muebles</div><div class="row-name">ZENSUKYE Cobija para Cama o Sofá, Manta para sofá, Cama, Manta Ultrasuave y Transpirable, Caliente y Resistente, Distintos Colores y Tamaños Disponibles (Beige, 150 X 200 CM)</div></div><div class="row-priceblock"><div class="row-price">$358</div></div></div><div class="product-row has-rank rank-3"><span class="rank-badge">3</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/615x2AK9AVL._AC_SX679_.jpg" alt="ZENSUKYE Set de Mancuernas Hexagonales con Rack en A (5LB, 10LB, 15LB), Mancuerna Hexagonal con Revestimiento de Goma, Ideal para Gimnasio en Casa, 6 pesas" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Set de Mancuernas Hexagonales con Rack en A (5LB, 10LB, 15LB), Mancuerna Hexagonal con Revestimiento de Goma, Ideal para Gimnasio en Casa, 6 pesas</div></div><div class="row-priceblock"><div class="row-price">$2,638</div></div></div><div class="product-row has-rank rank-4"><span class="rank-badge">4</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/616t19wYIaL._AC_SX679_.jpg" alt="ZENSUKYE Mancuernas Hexagonales con Revestimiento de Goma, Mancuernas Hexagonales 2 piezas, Disponible en Varios Pesos, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Mancuernas Hexagonales con Revestimiento de Goma, Mancuernas Hexagonales 2 piezas, Disponible en Varios Pesos, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza</div></div><div class="row-priceblock"><div class="row-price">$389</div></div></div><div class="product-row has-rank"><span class="rank-badge">5</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61EWZnWalqL._AC_SX679_.jpg" alt="ZENSUKYE Mancuernas Fitness de Neopreno Hexagonales, Neopreno Recubierto Mancuernas De Mano, Disponible en Varios Pesos Colores y Combinaciones, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Mancuernas Fitness de Neopreno Hexagonales, Neopreno Recubierto Mancuernas De Mano, Disponible en Varios Pesos Colores y Combinaciones, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza</div></div><div class="row-priceblock"><div class="row-price">$641</div></div></div><div class="product-row has-rank"><span class="rank-badge">6</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61yy8CbDVFL._AC_SX679_.jpg" alt="ZENSUKYE Mancuernas Fitness de Neopreno Hexagonales, Neopreno Recubierto Mancuernas De Mano, Disponible en Varios Pesos Colores y Combinaciones, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Mancuernas Fitness de Neopreno Hexagonales, Neopreno Recubierto Mancuernas De Mano, Disponible en Varios Pesos Colores y Combinaciones, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza</div></div><div class="row-priceblock"><div class="row-price">$262</div></div></div><div class="product-row has-rank"><span class="rank-badge">7</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61Tb-ezcXgL._AC_SX679_.jpg" alt="ZENSUKYE Mancuernas Fitness de Neopreno Hexagonales, Neopreno Recubierto Mancuernas De Mano, Disponible en Varios Pesos Colores y Combinaciones, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Mancuernas Fitness de Neopreno Hexagonales, Neopreno Recubierto Mancuernas De Mano, Disponible en Varios Pesos Colores y Combinaciones, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza</div></div><div class="row-priceblock"><div class="row-price">$189</div></div></div><div class="product-row has-rank"><span class="rank-badge">8</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61eLfKNEPSL._AC_SX679_.jpg" alt="ZENSUKYE Pesa Rusa de Cemento, Pesas Rusas Kettlebells, Pesas Rusas con Mango de mancuerna, Disponible en Varios Pesos y Colores, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Pesa Rusa de Cemento, Pesas Rusas Kettlebells, Pesas Rusas con Mango de mancuerna, Disponible en Varios Pesos y Colores, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza</div></div><div class="row-priceblock"><div class="row-price">$349</div></div></div><div class="product-row has-rank"><span class="rank-badge">9</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61IU4EdYbIL._AC_SX679_.jpg" alt="ZENSUKYE Kit de Mancuernas y Pesas, Juego de Mancuernas Ajustables, 6 en 1 Barras para Ejercicio en Casa Multi Usos, con Pesas Rusa, Discos de Pesas para Ejercicio, Disponible en Varios Pesos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Kit de Mancuernas y Pesas, Juego de Mancuernas Ajustables, 6 en 1 Barras para Ejercicio en Casa Multi Usos, con Pesas Rusa, Discos de Pesas para Ejercicio, Disponible en Varios Pesos</div></div><div class="row-priceblock"><div class="row-price">$698</div></div></div><div class="product-row has-rank"><span class="rank-badge">10</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/615KtNy8guL._AC_SX679_.jpg" alt="ZENSUKYE Mancuernas Fitness de Neopreno Hexagonales, Neopreno Recubierto Mancuernas De Mano, Disponible en Varios Pesos Colores y Combinaciones, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Mancuernas Fitness de Neopreno Hexagonales, Neopreno Recubierto Mancuernas De Mano, Disponible en Varios Pesos Colores y Combinaciones, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza</div></div><div class="row-priceblock"><div class="row-price">$1,195</div></div></div><div class="product-row has-rank"><span class="rank-badge">11</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61Hmtz31+YL._AC_SX679_.jpg" alt="ZENSUKYE Set 6 Mancuernas Fitness de Neopreno Hexagonales (2LB, 3LB, 5LB), con Base Incluida, Pesas para Gimnasio en Casa, Mancuernas Hexagonales de Neopreno para Entrenamiento" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Set 6 Mancuernas Fitness de Neopreno Hexagonales (2LB, 3LB, 5LB), con Base Incluida, Pesas para Gimnasio en Casa, Mancuernas Hexagonales de Neopreno para Entrenamiento</div></div><div class="row-priceblock"><div class="row-price">$799</div></div></div><div class="product-row has-rank"><span class="rank-badge">12</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/611HF4+uXdL._AC_SX679_.jpg" alt="ZENSUKYE Mancuernas Hexagonales con Revestimiento de Goma 1 pza, Pesas para Ejercicio, Disponible en Varios Pesos, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Mancuernas Hexagonales con Revestimiento de Goma 1 pza, Pesas para Ejercicio, Disponible en Varios Pesos, Ideales para Entrenamiento de Cuerpo Completo, Entrenamiento de Fuerza</div></div><div class="row-priceblock"><div class="row-price">$839</div></div></div><div class="product-row has-rank"><span class="rank-badge">13</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61FA7zDaKRL._AC_SX679_.jpg" alt="ZENSUKYE Mancuernas de vinil 2 piezas (2 X 10LB)" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Mancuernas de vinil 2 piezas (2 X 10LB)</div></div><div class="row-priceblock"><div class="row-price">$658</div></div></div><div class="product-row has-rank"><span class="rank-badge">14</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/716XS11gRWL._AC_SX679_.jpg" alt="ZENSUKYE Máquina de Boxeo con Música Bluetooth Inteligente, Equipo de Boxeo de Música Montado En La Pared, Velocidad de Práctica Ajustable, Volumen Ajustable, Varios Estilos para Elegir" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Deportes y fitness</div><div class="row-name">ZENSUKYE Máquina de Boxeo con Música Bluetooth Inteligente, Equipo de Boxeo de Música Montado En La Pared, Velocidad de Práctica Ajustable, Volumen Ajustable, Varios Estilos para Elegir</div></div><div class="row-priceblock"><div class="row-price">$758</div></div></div><div class="product-row has-rank"><span class="rank-badge">15</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/61LfgiqJh9L._AC_SX679_.jpg" alt="ZENSUKYE Trampolín de Fitness Portátil, Trampolín Profesional Fitness de 40 Pulgadas, con Mango Ajustable, Hula Hoop, Calcetines Antideslizantes, Capacidad de 200Kg" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Laptops</div><div class="row-name">ZENSUKYE Trampolín de Fitness Portátil, Trampolín Profesional Fitness de 40 Pulgadas, con Mango Ajustable, Hula Hoop, Calcetines Antideslizantes, Capacidad de 200Kg</div></div><div class="row-priceblock"><div class="row-price">$1,289</div></div></div><div class="product-row has-rank"><span class="rank-badge">16</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71sUL-rT6dL._AC_SX679_.jpg" alt="ZENSUKYE 10kg/1g Báscula de Cocina Peso Cocina Digital USB Recargable Balanza de Alimentos de Alta Precisión con Pantalla LCD y Funcion Tara" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Electrodomésticos</div><div class="row-name">ZENSUKYE 10kg/1g Báscula de Cocina Peso Cocina Digital USB Recargable Balanza de Alimentos de Alta Precisión con Pantalla LCD y Funcion Tara</div></div><div class="row-priceblock"><div class="row-price">$174</div></div></div><div class="product-row has-rank"><span class="rank-badge">17</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71AvS0QbCnL._AC_SX679_.jpg" alt="Zensukye Ventilador de Techo 42&quot; con Lámpara LED, Control Remoto, 6 Velocidades, Reversible, 3 Colores, Estilo Vintage en Grano de Madera, Ideal para Salas y Dormitorios" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Zensukye Ventilador de Techo 42&quot; con Lámpara LED, Control Remoto, 6 Velocidades, Reversible, 3 Colores, Estilo Vintage en Grano de Madera, Ideal para Salas y Dormitorios</div></div><div class="row-priceblock"><div class="row-price">$759</div></div></div><div class="product-row has-rank"><span class="rank-badge">18</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71wS3wX-HjL._AC_SX679_.jpg" alt="Zensukye Ventilador de Techo con Luz, 42 Pulgadas, 6 Velocidades, Reversible, 3 Colores, con Control Remoto y App, para Interior Exterior Dormitorio Porche" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">Zensukye Ventilador de Techo con Luz, 42 Pulgadas, 6 Velocidades, Reversible, 3 Colores, con Control Remoto y App, para Interior Exterior Dormitorio Porche</div></div><div class="row-priceblock"><div class="row-price">$799</div></div></div><div class="product-row has-rank"><span class="rank-badge">19</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/51xYZPyCRuL._AC_SX679_.jpg" alt="ZENSUKYE Ventilador de Techo con Luz, 42 Pulgadas, 6 Velocidades, 3 Colores, con Control Remoto y App, para Interior Exterior Dormitorio Porche" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Climatización</div><div class="row-name">ZENSUKYE Ventilador de Techo con Luz, 42 Pulgadas, 6 Velocidades, 3 Colores, con Control Remoto y App, para Interior Exterior Dormitorio Porche</div></div><div class="row-priceblock"><div class="row-price">$899</div></div></div><div class="product-row has-rank"><span class="rank-badge">20</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71UEq0jQyYL._AC_SX679_.jpg" alt="ZENSUKYE Soporte TV Pared 32-75 Pulgadas de de LCD LED Plasma, Soporte Televisión Pared Inclinable Resistente, Máx. VESA 600x400mm, Base para Colgador TV Capacidad de Peso de 45kg" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Televisores</div><div class="row-name">ZENSUKYE Soporte TV Pared 32-75 Pulgadas de de LCD LED Plasma, Soporte Televisión Pared Inclinable Resistente, Máx. VESA 600x400mm, Base para Colgador TV Capacidad de Peso de 45kg</div></div><div class="row-priceblock"><div class="row-price">$259</div></div></div><div class="product-row has-rank"><span class="rank-badge">21</span><div class="row-icon has-photo"><img class="product-photo product-photo-detail" src="https://m.media-amazon.com/images/I/71EdvRJYFqL._AC_SX679_.jpg" alt="ZENSUKYE Proyector de Estrellas Astronauta Galaxia Luz de Proyección, 8 Modos Led, Control Remoto, Dormitorio y Proyector de Techo, Navidad Cumpleaños Regalos" referrerpolicy="no-referrer" loading="lazy" decoding="async"></div><div class="row-info"><div class="row-brand">Proyectores y accesorios</div><div class="row-name">ZENSUKYE Proyector de Estrellas Astronauta Galaxia Luz de Proyección, 8 Modos Led, Control Remoto, Dormitorio y Proyector de Techo, Navidad Cumpleaños Regalos</div></div><div class="row-priceblock"><div class="row-price">$189</div></div></div></div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  
+</div>
+<div class="panel"><h2>Categorías donde vende Zensukye</h2><div class="chip-row"><a class="chip" href="../../categoria/deportes-y-fitness/">Deportes y fitness (12)</a><a class="chip" href="../../categoria/climatizacion/">Climatización (3)</a><a class="chip" href="../../categoria/autos-bicicletas-y-motos/">Autos, bicicletas y motos (1)</a><a class="chip" href="../../categoria/muebles/">Muebles (1)</a><a class="chip" href="../../categoria/laptops/">Laptops (1)</a><a class="chip" href="../../categoria/electrodomesticos/">Electrodomésticos (1)</a><a class="chip" href="../../categoria/televisores/">Televisores (1)</a><a class="chip" href="../../categoria/proyectores-y-accesorios/">Proyectores y accesorios (1)</a></div></div>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p><a href="../../marca/">Todas las marcas</a> &middot; <a href="../../ofertas/">Ofertas de hoy</a></p>
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+  </div>
+</footer>
+</body>
+</html>

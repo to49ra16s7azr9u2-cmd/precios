@@ -339,11 +339,11 @@ def cat_electrodomesticos(name):
         return "Aspiradoras", "Robots aspiradores", "vacuum"
     if "aspiradora" in n:
         return "Aspiradoras", "Portátiles", "vacuum"
-    # Las secadoras de cabello viven en Aparatos de belleza, con las planchas
+    # Las secadoras de cabello viven en Belleza y cuidado personal, con las planchas
     # y los multiestilizadores, aunque el feed de Elektra las mande por la
     # rama de electrodomésticos.
     if "secadora de pelo" in n or "secadora de cabello" in n:
-        return "Aparatos de belleza", "Secadoras de cabello", "sparkle"
+        return "Belleza y cuidado personal", "Secadoras de cabello", "sparkle"
     if "plancha" in n and "cabello" not in n:
         return "Electrodomésticos", "Planchas", "appliance"
     if "purificador de agua" in n:
@@ -529,17 +529,17 @@ def cat_estetica(name):
     n = norm(name)
     if any(k in n for k in ("sillon", "silla de corte", "silla estetica", "silla barber",
                              "camilla", "lavacabezas", "mesa de manicura", "lavabo portatil")):
-        return "Aparatos de belleza", "Mobiliario para salón", "sparkle"
+        return "Belleza y cuidado personal", "Mobiliario para salón", "sparkle"
     if "masajeador" in n or "almohada masajeadora" in n:
-        return "Aparatos de belleza", "Masajeadores", "sparkle"
+        return "Belleza y cuidado personal", "Masajeadores", "sparkle"
     if "cera de parafina" in n or "maquina de cera" in n:
-        return "Aparatos de belleza", "Depilación", "sparkle"
+        return "Belleza y cuidado personal", "Depilación", "sparkle"
     if "peluca" in n or ("extension" in n and "cabello" in n) or "mechones de cabello" in n or "cabello para trenzas" in n:
-        return "Aparatos de belleza", "Pelucas" if "peluca" in n else "Extensiones de cabello", "sparkle"
+        return "Belleza y cuidado personal", "Pelucas" if "peluca" in n else "Extensiones de cabello", "sparkle"
     if "vaporizador" in n and ("facial" in n or "ozono" in n):
-        return "Aparatos de belleza", "Faciales", "sparkle"
+        return "Belleza y cuidado personal", "Faciales", "sparkle"
     if "lima de unas" in n or "pulidor de unas" in n or "puntas de unas" in n or "gel polish" in n:
-        return "Aparatos de belleza", "Manicure", "sparkle"
+        return "Belleza y cuidado personal", "Manicure", "sparkle"
     return None
 
 
@@ -551,15 +551,15 @@ def cat_estetica(name):
 def cat_cuidado_cabello(name):
     n = norm(name)
     if "secador" in n or "secadora" in n:
-        return "Aparatos de belleza", "Secadoras de cabello", "sparkle"
+        return "Belleza y cuidado personal", "Secadoras de cabello", "sparkle"
     if "rizador" in n or "rizadora" in n or "tenaza" in n:
-        return "Aparatos de belleza", "Rizadores", "sparkle"
+        return "Belleza y cuidado personal", "Rizadores", "sparkle"
     if "plancha" in n:
-        return "Aparatos de belleza", "Planchas para cabello", "sparkle"
+        return "Belleza y cuidado personal", "Planchas para cabello", "sparkle"
     if "recortadora" in n or "afeitadora" in n or "trimmer" in n or "shaver" in n:
         return "Salud y belleza", "Rasuradoras", "heart-pulse"
     if "estilizador" in n or "multiestilizador" in n or "cepillo alisador" in n or "cepillo secador" in n:
-        return "Aparatos de belleza", "Estilizadores", "sparkle"
+        return "Belleza y cuidado personal", "Estilizadores", "sparkle"
     return None
 
 
@@ -842,7 +842,7 @@ CATEGORY_MAP = {
     # (Artículos Escolares) se agregaron y luego se quitaron a pedido: la
     # papelería es consumible, mismo criterio que alimentos/perfumes/
     # skincare -- la categoría "Papelería y oficina" se eliminó completa.
-    "1371646/577967": ("Aparatos de belleza", "Maquillaje", "sparkle"),
+    "1371646/577967": ("Belleza y cuidado personal", "Maquillaje", "sparkle"),
     "1371646/886458": cat_estetica,
     "1371646/1371684": ("Salud y belleza", "Rasuradoras", "heart-pulse"),
     "1371646/1371686": cat_cuidado_cabello,

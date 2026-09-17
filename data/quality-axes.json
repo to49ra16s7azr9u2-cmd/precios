@@ -1968,76 +1968,6 @@
    }
   ]
  },
- "Deportes y fitness/Equipo de gimnasio": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso ocasional en casa",
-      "spec": "Hasta 100 kg",
-      "max": 100
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso diario",
-      "spec": "101 kg a 130 kg",
-      "min": 100,
-      "max": 130
-     },
-     {
-      "id": "reforzada",
-      "name": "Reforzada",
-      "use": "Uso rudo o personas de más peso",
-      "spec": "Más de 130 kg",
-      "min": 130
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Deportes y fitness/Yoga": {
-  "axes": [
-   {
-    "label": "Grosor",
-    "field": "thickness_mm",
-    "criterion": "en milímetros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "delgado",
-      "name": "Delgado",
-      "use": "Equilibrio y viajes",
-      "spec": "Hasta 4 mm",
-      "max": 4
-     },
-     {
-      "id": "medio",
-      "name": "Medio",
-      "use": "El grosor más común",
-      "spec": "5 mm a 10 mm",
-      "min": 4,
-      "max": 10
-     },
-     {
-      "id": "grueso",
-      "name": "Grueso",
-      "use": "Rodillas y suelo duro",
-      "spec": "Más de 10 mm",
-      "min": 10
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Deportes y fitness/Balones": {
   "axes": [
    {
@@ -2089,46 +2019,6 @@
    }
   ]
  },
- "Deportes y fitness/Boxeo": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "box",
-      "name": "Box",
-      "use": "",
-      "spec": "Box",
-      "values": [
-       "Box"
-      ]
-     },
-     {
-      "id": "artes-marciales",
-      "name": "Artes Marciales",
-      "use": "",
-      "spec": "Artes Marciales",
-      "values": [
-       "Artes Marciales"
-      ]
-     },
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Deportes y fitness/Pesas": {
   "axes": [
    {
@@ -2141,132 +2031,29 @@
       "id": "ligeras",
       "name": "Ligeras",
       "use": "Para empezar y tonificar",
-      "spec": "Hasta 5 kg",
-      "max": 5
+      "spec": "Hasta 6.5 kg",
+      "max": 6.5
      },
      {
       "id": "medias",
       "name": "Medias",
       "use": "Fuerza general",
-      "spec": "6 kg a 15 kg",
-      "min": 5,
-      "max": 15
+      "spec": "Más de 6.5 kg, hasta 20 kg",
+      "min": 6.5,
+      "max": 20
      },
      {
       "id": "pesadas",
       "name": "Pesadas",
       "use": "Fuerza avanzada",
-      "spec": "Más de 15 kg",
-      "min": 15
+      "spec": "Más de 20 kg",
+      "min": 20
      }
     ],
     "key": "level"
    }
   ],
   "intro": "Elige por dónde estás: se empieza ligero y se sube."
- },
- "Deportes y fitness/Protección y soportes": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     },
-     {
-      "id": "basquetbol",
-      "name": "Basquetbol",
-      "use": "",
-      "spec": "Basquetbol",
-      "values": [
-       "Basquetbol"
-      ]
-     },
-     {
-      "id": "tennis",
-      "name": "Tennis",
-      "use": "",
-      "spec": "Tennis",
-      "values": [
-       "Tennis"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Deportes y fitness/Patines y patinetas": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "mujer",
-      "name": "Mujer",
-      "use": "",
-      "spec": "Mujer",
-      "values": [
-       "Mujer"
-      ]
-     },
-     {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
-      "values": [
-       "Unisex"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
  },
  "Deportes y fitness/Natación": {
   "axes": [
@@ -2697,41 +2484,6 @@
      }
     ],
     "key": "size"
-   }
-  ]
- },
- "Electrodomésticos/Pequeños electrodomésticos de cocina": {
-  "axes": [
-   {
-    "label": "Capacidad",
-    "field": "liters",
-    "criterion": "en litros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Una o dos porciones",
-      "spec": "Hasta 2.8 L",
-      "max": 2.8
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Para la familia",
-      "spec": "Más de 2.8 L, hasta 6 L",
-      "min": 2.8,
-      "max": 6
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Reuniones",
-      "spec": "Más de 6 L",
-      "min": 6
-     }
-    ],
-    "key": "level"
    }
   ]
  },
@@ -4298,7 +4050,7 @@
    }
   ]
  },
- "Aparatos de belleza/Maquillaje": {
+ "Belleza y cuidado personal/Maquillaje": {
   "axes": [
    {
     "label": "Contenido",
@@ -4310,15 +4062,15 @@
       "id": "chico",
       "name": "Chico",
       "use": "Para probar o para viajar",
-      "spec": "Hasta 10 ml",
-      "max": 10
+      "spec": "Hasta 14 ml",
+      "max": 14
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "Uso de diario",
-      "spec": "11 ml a 30 ml",
-      "min": 10,
+      "spec": "15 ml a 30 ml",
+      "min": 14,
       "max": 30
      },
      {
@@ -4333,7 +4085,7 @@
    }
   ]
  },
- "Aparatos de belleza/Secadoras de cabello": {
+ "Belleza y cuidado personal/Secadoras de cabello": {
   "axes": [
    {
     "label": "Potencia",
@@ -4345,30 +4097,30 @@
       "id": "suave",
       "name": "Suave",
       "use": "Cabello corto o de viaje",
-      "spec": "Hasta 1,200 W",
-      "max": 1200
+      "spec": "Hasta 1,400 W",
+      "max": 1400
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Uso de diario",
-      "spec": "1,201 W a 1,800 W",
-      "min": 1200,
-      "max": 1800
+      "spec": "1,401 W a 1,850 W",
+      "min": 1400,
+      "max": 1850
      },
      {
       "id": "potente",
       "name": "Potente",
       "use": "Cabello largo o grueso, secado rápido",
-      "spec": "Más de 1,800 W",
-      "min": 1800
+      "spec": "Más de 1,850 W",
+      "min": 1850
      }
     ],
     "key": "level"
    }
   ]
  },
- "Aparatos de belleza/Mobiliario para salón": {
+ "Belleza y cuidado personal/Mobiliario para salón": {
   "axes": [
    {
     "label": "Material",
@@ -5133,55 +4885,6 @@
       "use": "Laptop o varios equipos",
       "spec": "Más de 40 W",
       "min": 40
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Deportes y fitness": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     },
-     {
-      "id": "futbol",
-      "name": "Futbol",
-      "use": "",
-      "spec": "Futbol",
-      "values": [
-       "Futbol"
-      ]
-     },
-     {
-      "id": "natacion",
-      "name": "Natación",
-      "use": "",
-      "spec": "Natación",
-      "values": [
-       "Natación"
-      ]
-     },
-     {
-      "id": "box",
-      "name": "Box",
-      "use": "",
-      "spec": "Box",
-      "values": [
-       "Box"
-      ]
      }
     ],
     "key": "level"

@@ -218,10 +218,10 @@ CAMPOS = {
 CAMPO_SOLO_EN = {
     "material": {"Muebles", "Joyería y bisutería", "Blancos y ropa de cama", "Instrumentos musicales",
                  "Viajes", "Otros", "Decoración de hogar y jardín", "Juguetes y bebés", "Mascotas",
-                 "Aparatos de belleza/Mobiliario para salón"},
+                 "Belleza y cuidado personal/Mobiliario para salón"},
     "water_resistant": {"Relojes inteligentes", "Audífonos", "Bocinas", "Joyería y bisutería",
                         "Salud y belleza", "Cámaras y fotografía"},
-    "volume_ml": {"Otros", "Salud y belleza", "Aparatos de belleza", "Juguetes y bebés"},
+    "volume_ml": {"Otros", "Salud y belleza", "Belleza y cuidado personal", "Juguetes y bebés"},
 }
 
 # Tramos fijos: acá los cortes no salen de la distribución sino de cómo se
@@ -290,7 +290,7 @@ USOS = {
         ("Teléfono, laptop y luces", "Refrigerador y herramientas", "Casa en un apagón")),
     ("Otros/Inversores", "power_w"): (("Chico", "Mediano", "Grande"),
         ("Laptop y teléfono", "Televisión y herramientas chicas", "Refrigerador y equipos grandes")),
-    ("Aparatos de belleza/Secadoras de cabello", "power_w"): (("Suave", "Media", "Potente"),
+    ("Belleza y cuidado personal/Secadoras de cabello", "power_w"): (("Suave", "Media", "Potente"),
         ("Cabello corto o de viaje", "Uso de diario", "Cabello largo o grueso, secado rápido")),
     ("Cámaras y fotografía", "camera_mp"): (("Básica", "Media", "Alta"),
         ("Para redes y pantalla", "Fotos nítidas de diario", "Para imprimir en grande o recortar")),
