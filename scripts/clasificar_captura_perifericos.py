@@ -1618,6 +1618,112 @@ REGLAS = [
              r'autoestereo|car audio|\bdoor speakers?\b|^(?:\S+ ){0,4}(altavoz de agudos|\btweeters?\b|super bullet)|'
              r'altavo(z|ces) (de )?componentes?|bocinas? (de )?componentes?|\bcomponent speakers?\b'),
   ('Autos, bicicletas y motos', 'Bocinas para auto', 'speaker')),
+ # Red de Juegos de mesa. El auditor de cobertura la daba en 0% con 4,147
+ # fichas y sub_juego_mesa() escrito: de 300 de muestra, 197 no enganchaban
+ # nada y 77 se iban a Muebles.
+ #
+ # "Juego de mesa" es la trampa: en español nombra el juego de tablero Y
+ # el juego de MUEBLES. "Juego de Mesas Auxiliares Nido", "Juego de mesa y
+ # silla infantil" y "Juego de Mesa y 2 Bancos" entraban como juegos --337
+ # fichas--. Se separan por el borde de palabra ("juego de mesa\b" no casa
+ # con "juego de mesaS") y porque el juego de muebles trae asientos y
+ # medidas: silla, banco, "110 x 65 x 75 cm".
+ #
+ # "Dados" tampoco sirve de disparador: en México el dado de impacto es
+ # una herramienta, y por eso el juego de dados se reconoce por el juego
+ # de rol, no por la palabra suelta.
+ (re.compile(
+             r'^(?!.*(tablero de dardos|tablero (electronico|de control|de circuito|arduino|de anuncios)|'
+             r'\bdardos?\b|mesa de (centro|comedor|noche|trabajo|billar|ping ?pong)|'
+             r'juego de (sabanas|toallas|herramientas|llaves|desarmador|dados de impacto|copas|vasos|platos)|'
+             r'\bdado de impacto\b|\bmatraca\b|\bsocket\b|\bmilimetric|\bpulgada\b|\bllave de impacto\b|'
+             r'\bperro|\bgato\b|mascota|'
+             r'\bconsola\b|\bplaystation\b|\bxbox\b|\bnintendo\b|\bsteam\b|videojuego|'
+             r'\bdisfraz\b|\bpinata\b|\bglobo|'
+             r'maquina (de|para) coser|\bpuzzle mat\b|tapete de goma|'
+             # "Juego de mesa" es también el juego de MUEBLES: mesas auxiliares,
+             # mesa nido, mesa y sillas. La silla lo delata.
+             r'\bsilla|mesas? (auxiliar|de centro|nido|lateral)|\bnogal\b|\bmuebles\b|'
+             r'\blibro\b|\blibros\b|'
+             r'figura de accion|\bmaqueta\b|kit de montaje|'
+             r'toys for children|early education|kindergarten|educativ|'
+             # El juego de muebles trae medidas y asientos; el de tablero, no.
+             r'mesa de actividades|\bbancos?\b|\d+ ?x ?\d+ ?x ?\d+ ?cm|\balmacenamiento\b|'
+             r'\bcomedor\b|\bjardin\b|\bterraza\b|ping ?pong|\bbillar\b|futbolito|\brepuesto\b))'
+             r'(?=.*('
+             r'rompecabeza|\bpuzzle\b|\bpuzle\b|'
+             r'juego de mesa\b|juegos de mesa\b|\bboard game\b|'
+             r'\bajedrez\b|\bchess\b|\bdomino\b|\bbackgammon\b|\bdamas chinas\b|'
+             r'\bnaipes\b|\bbaraja\b|cartas coleccionables|juego de cartas|\bmazo de cartas\b|'
+             r'\bmonopol|\bjenga\b|\bscrabble\b|\bloteria mexicana\b|\bmemorama\b|'
+             r'serpientes y escaleras|\bturista mundial\b|\bcatan\b|\bdixit\b|\bcarcassonne\b|'
+             r'\bcalabozos y dragones\b|\bd&d\b|juego de rol|\bwarhammer\b|'
+             r'\bbingo\b|\bmahjong\b|\bmah-?jongg\b|\btimbiriche\b|'
+             r'\bpoker\b.{0,20}(fichas|set|mesa)|fichas de poker'
+             r'))'),
+  ('Juegos de mesa', None, 'dice')),
+ # Red de Joyería y bisutería. Otra de las que el auditor de cobertura
+ # (scripts/auditar_cobertura_clasificador.py) marcó en 0%: 4,760 fichas,
+ # once subcategorías, sub_joyeria() escrito y ninguna regla que llegara.
+ # De una muestra de 300, 295 no enganchaban NADA -- ni el "Anillo Promesa
+ # Oro 14K" ni el "Reloj Casio MTP-1375D".
+ #
+ # Casi todas las palabras de joyería nombran otra cosa en otro lado, y
+ # por eso la guarda es larga: el "collar" del perro, el "anillo" de la
+ # toalla y el del reposabrazos, la "pulsera" de actividad, el "reloj de
+ # pared", el anillo de retención de la caja de herramientas, la flauta
+ # "de plata de ley" y el anillo calefactor de cerámica.
+ #
+ # El oro como COLOR no cuenta: "Laptop HP oro rosa" y "iPhone oro" son
+ # 34 fichas que entraban por decir "oro". Solo cuenta con quilates
+ # ("oro 14k"), chapado o plata 925.
+ (re.compile(
+             r'^(?!.*(\bperro|\bgato\b|\bgatos\b|mascota|\bcanino|\bfelino|\bcachorro|'
+             r'smart ?watch|reloj intelig|apple watch|galaxy watch|banda de actividad|'
+             # El reloj de pulsera SÍ es joyería (2,345 fichas del catálogo),
+             # pero el inteligente tiene su propia categoría y va antes que
+             # nada: cualquier seña de smartwatch descalifica.
+             r'\bwatch\b|amazfit|\bgarmin\b|\bfitbit\b|smartband|\bsmart\b|'
+             r'\bgps\b|podometro|\bspo2\b|frecuencia cardiaca|'
+             r'pulsera de actividad|fitness tracker|\bmi band\b|'
+             r'reloj (de pared|de mesa|de arena|despertador|checador)|\bdespertador\b|'
+             r'\bmagsafe\b|magnetico para (celular|telefono)|anillo (magnetico|de piston|de goma|de sellado)|'
+             r'\bo-?ring\b|\bempaque\b|\bcadena de (motosierra|bicicleta|moto|distribucion)\b|'
+             r'\bherramienta|\btaladro\b|\bllave (allen|inglesa)\b|'
+             r'\bdisfraz\b|\bjuguete\b|\bpeluche\b|'
+             r'\btoalla|\bsilla\b|reposabrazos|reposapies|\bpinza|desarmador|'
+             # El aparato que NOMBRA una joya no es una joya: los "Auriculares
+             # Bluetooth con Aretes Desmontables", los "Anillos Espaciadores
+             # para Bocinas de Coche", los "Altavoces de Collar" y las gafas
+             # de sol con bocina. El plural importa: "\bbocina\b" no casa con
+             # "bocinas" ni "\baltavoz" con "altavoces", y por eso se colaban.
+             r'anillo(s)? de retencion|\bbocinas?\b|altavo(z|ces)|\bcables?\b|\bconector|\bmp3\b|'
+             r'\bcargador|base de carga|\bventilador|'
+             # Los "Anillos de Gimnasia" olímpicos cuelgan de una barra.
+             r'gimnasi|gimnastic|\bdominadas?\b|anillos de ejercicio|'
+             r'\braqueta|\btenis\b|\bdardos?\b|\bdiana\b|\bkayak\b|\bmancuerna|\bexpansor|\bmuelle|'
+             r'\bmicroscopio\b|\blupa\b|\btocador\b|\btaburete\b|\bnintendo\b|\bswitch\b|wall mount|\bmontaje\b|arcilla|'
+             r'auricular|audifono|\btws\b|bluetooth|\bmicrofono\b|manos libres|'
+             r'manta electrica|\balmohadilla\b|'
+             r'\byoga\b|\bpilates\b|\bpesas\b|\btobillo\b|\bmuneca\b|'
+             r'\blaptop\b|\bnotebook\b|\bcelular\b|\btablet|'
+             r'\bllave\b|anillo cerrado|'
+             r'\bflauta\b|\bclarinete\b|instrumento musical|\bsaxofon|\btrompeta\b|\bguitarra\b|'
+             r'\bextensible\b|correa para reloj|banda para reloj|'
+             r'\bbomba\b|cama elastica|\btrampolin\b|'
+             r'anillo (calefactor|calentador)|anillo intelig|smart ring|\boura\b))'
+             r'(?=.*('
+             r'\banillo(s)?\b|\bsortija|\barete(s)?\b|\barracada|\bbroquel|'
+             r'\bcollar(es)?\b|\bgargantilla|\bpulsera(s)?\b|\bbrazalete|\besclava\b|'
+             r'\bdije(s)?\b|\bcharm(s)?\b|\breloj(es)?\b|'
+             r'\bjoyero\b|caja (para|de) joyas|organizador de joyas|'
+             r'\barras\b|lentes de sol|gafas de sol|'
+             r'\bbisuteria\b|\bjoyeria\b|'
+             r'oro de \d{1,2} ?k\b|\b(10|14|18|22|24) ?k(ilates)?\b (de )?oro|oro \d{1,2}k\b|'
+             r'chapa(do)? (en|de) oro|banado en oro|plata (925|esterlina|de ley)|'
+             r'\bzirconia\b|\bcirconita\b'
+             r'))'),
+  ('Joyería y bisutería', None, 'ring')),
  # Red de Blancos y ropa de cama. Cuarta categoría con el mismo agujero
  # que Mascotas, Deportes y fitness y Belleza: diez subcategorías, 4,221
  # fichas, sub_blancos() completo... y una sola regla de categoría, la de
@@ -1756,6 +1862,11 @@ REGLAS = [
  # Solo la almohada de cama: la de viaje va en Maletas y la de bebé en
  # Bebés, y las dos se llaman almohada.
  (re.compile(r'^(?!.*(viaje|cuello|cervical|masaj|bebe|lactancia|embarazo|inflable))'
+             # "Colchón Matrimonial Monaco+ Almohada+ Protector+ Sábanas" es
+             # un colchón con almohada de regalo: el colchón abre el título y
+             # la almohada llega tercera, dentro de las tres palabras que esta
+             # regla mira.
+             r'(?!colchon(es)?\b)'
              r'(?:\S+ ){0,3}almohadas?\b'),
   ('Blancos y ropa de cama', 'Almohadas', 'pillow')),
  (re.compile(r'^(?!(?:\S+ ){0,2}(cables? (auxiliar|usb|micro|divisor|de carga|tipo c|hdmi)|cargador|estante|antena|banda|soporte|funda)\b)'
@@ -1959,8 +2070,32 @@ REGLAS = [
  # musical lo recoge la red de Instrumentos musicales del final.
  (re.compile(r'^(?!.*(melodica|pianica|kalimba|\bkazoo\b|instrumento musical|'
              r'\bmidi\b|\bpiano|\bmusical\b|sintetizador|\borgano\b|\bpianika\b|'
-             r'banco (de|para) (piano|teclado)|banqueta|melodic))'
-             r'(teclado|keyboard)'), ('Teclados', None, 'keyboard')),
+             r'banco (de|para) (piano|teclado)|banqueta|melodic|'
+             # Con el lookahead, "teclado" en cualquier parte alcanza, y eso
+             # trae lo que solo lo NOMBRA: el "Cargador Micro-USB para Kindle
+             # Paperwhite, Oasis, teclado, táctil" (es el modelo Kindle
+             # Keyboard) y el monitor que viene en combo con teclado y mouse.
+             # "\btablet" no: el "Teclado inalámbrico con touchpad para tablet"
+             # es un teclado, y la guarda se llevaba 16 de ellos.
+             # Ni "\bpulgadas\b": el propio teclado de tableta dice su medida
+             # ("Teclado Microsoft Surface Pro para 11/10 pulgadas") y la
+             # guarda se llevaba doce. El monitor que viene en combo se
+             # reconoce por lo que es monitor, no por las pulgadas.
+             r'\bcargador\b|\badaptador\b|\bmonitor\b|\bfhd\b|full hd|1920 ?x ?1080|'
+             # Solo el MUEBLE: "escritorio" a secas devolvía a Muebles el "Teclado
+             # Inalámbrico 2.4G ... Diseño De Escritorio", que es un teclado.
+             r'(escritorio|mesa) (ejecutiv|industrial|de pie|para computadora|de oficina|de trabajo|gamer|con cajon)|'
+             r'convertidor de escritorio|bandeja (para|de) teclado|\brecepcion\b|'
+             r'\bips\b|\bhz\b|\bkindle\b))'
+             # Lookahead, no coincidencia directa. Con "^(?!guarda)(teclado|
+             # keyboard)" la palabra tenía que estar en la POSICIÓN 0 y solo
+             # entraba lo que ABRE con "Teclado": el "Corsair K55 Core TKL
+             # Teclado Gaming" y el "LOFREE Flow2 Teclado mecánico" se
+             # quedaban sin categoría. Es el mismo tropiezo del ancla ^ que
+             # ya se corrigió en la guarda de juguetes y en la regla de
+             # componentes de PC; este era el tercero, y medido contra el
+             # catálogo dejaba Teclados en 18% de acierto.
+             r'(?=.*(teclado|keyboard))'), ('Teclados', None, 'keyboard')),
  (re.compile(r'\bmouse\b|\braton\b|\bratones\b'), ('Mouse', None, 'mouse')),
  # Lo que dice "cargador" y no cayó en ninguna subcategoría: el del reloj
  # inteligente, el de la cámara vieja, el genérico "para Samsung". Al
@@ -2158,7 +2293,9 @@ REGLAS = [
              r'cuerda para saltar|jump rope|salto de cuerda|'
              r'suspension trainer|entrenador de suspension|'
              r'ejercitador de (agarre|pecho|brazos|manos)|entrenador de fuerza de agarre|'
-             r'\bcrossfit\b|\bhalterofilia\b|\bsentadillas?\b'
+             r'\bcrossfit\b|\bhalterofilia\b|\bsentadillas?\b|'
+             # Los anillos olímpicos son aparato de gimnasio, no joyería.
+             r'anillos (de|para) (gimnasia|ejercicio)|anillos gimnastic|gimnasia olimpica'
              r'))'),
   ('Deportes y fitness', None, 'dumbbell')),
  # Se excluye el gato HIDRÁULICO, que es una herramienta de auto, y la

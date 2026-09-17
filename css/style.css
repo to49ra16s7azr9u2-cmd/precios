@@ -2421,6 +2421,11 @@ tr.offer-compare-off { display: none; }
   white-space: nowrap;
 }
 .disclaimer { font-size: 11px; color: var(--muted); margin-top: 12px; }
+/* Nota de retraso de precios. Va chica y repetida en todos los lugares donde
+   se enseña un precio (ficha, listas, marca, ofertas): el pie de página solo
+   lo lee quien baja hasta el final, y a una lista se llega desde Google
+   viendo veinte precios antes. */
+.nota-lag { font-size: 10.5px; line-height: 1.35; color: var(--muted); margin: 4px 0 8px; }
 
 /* Spec table */
 .spec-table { width: 100%; border-collapse: collapse; }

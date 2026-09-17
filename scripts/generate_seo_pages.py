@@ -122,6 +122,17 @@ CSS_HREF = "css/style.min.css"
 # conservan el precio del día que se cargaron. Lo que sí hay que decir --que
 # un precio puede cambiar entre la actualización y la compra-- se dice sin
 # prometer una frecuencia.
+# Nota de retraso. Va CHICA y en todos lados donde se enseñe un precio: la
+# ficha, las listas por categoría y subcategoría, las páginas de marca y las
+# de bajadas de precio. El precio que se publica es el que se guardó en la
+# última pasada de refresh_prices.py, no el que la tienda tiene ahora mismo,
+# y en las tiendas que no se pueden refrescar (Amazon y las chicas) es el
+# del día que se cargaron. Decirlo una vez en el pie no alcanza: el que
+# llega desde Google a una lista ve veinte precios antes de bajar hasta ahí.
+NOTA_LAG = ("Los precios se toman de cada tienda y pueden llevar algunas "
+            "horas de retraso.")
+NOTA_LAG_HTML = f'<p class="nota-lag">{NOTA_LAG}</p>'
+
 STORE_ORDER_NOTE = (
     "Los precios pueden cambiar en cualquier momento: confirma el precio "
     "final en la tienda antes de comprar. Para ver la comparación "
@@ -980,6 +991,7 @@ def render_product_page(product, data, subs_con_pagina=None):
     <h1>{html_escape(product['name'])}{f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>' if is_used(product) else ''}</h1>
     <p class="detail-rating">{f'{avg} / 5 ({plural(count, "calificación", "calificaciones")})' if count else 'Sin calificaciones todavía'}</p>
     <p class="detail-fromprice">{'Desde ' if n_sellers > 1 else ''}<strong>{money(price)}</strong> en {plural(n_sellers, "vendedor", "vendedores")}</p>
+    {NOTA_LAG_HTML}
   </div>
   {quicknav_html}
 </div>
@@ -991,7 +1003,7 @@ def render_product_page(product, data, subs_con_pagina=None):
       <tbody>{''.join(table_rows)}</tbody>
     </table>
   </div>
-  <p class="disclaimer">{STORE_ORDER_NOTE}</p>
+  <p class="disclaimer">{NOTA_LAG} {STORE_ORDER_NOTE}</p>
 </div>
 {history_html}
 <div class="panel detail-anchor-target" id="specsPanel">
@@ -1165,6 +1177,8 @@ def compara_calidad_html(ejes, products, prefijo):
 # (ver .sort-bar en index.html) menos "Relevancia", que solo tiene sentido
 # con una búsqueda escrita: acá no hay consulta que puntuar.
 SORT_BAR_HTML = (
+    '<p class="nota-lag">Los precios se toman de cada tienda y pueden llevar '
+    'algunas horas de retraso.</p>'
     '<div class="sort-bar static-sort" role="group" aria-label="Ordenar la lista">'
     '<div class="sort-bar-options">'
     '<button type="button" class="sort-opt active" data-sort="pop">Popularidad</button>'
@@ -1517,6 +1531,7 @@ aparecen más baratos solo porque se les sumó otro vendedor, ni los que
 cambian de vendedor dentro de la tienda: eso no es una bajada. Tampoco los
 precios que estuvieron un solo día, que casi siempre son un dato que la
 tienda corrigió.</p>
+{NOTA_LAG_HTML}
 <div class="product-list">{filas}</div>
 {{otras}}
 <div class="panel" style="text-align:center; margin-top:20px">
@@ -2501,6 +2516,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; {html_escape(nombre)}</nav>
 <div class="list-head"><h1>{svg_icon("tag")} {html_escape(nombre)} — comparar precios ({len(products)})</h1></div>
 <p class="muted small">{html_escape(description)}</p>
+{NOTA_LAG_HTML}
 {buscador}
 <div class="product-list" id="prodLista">{''.join(rows)}</div>
 <div class="panel" style="text-align:center; margin-top:20px">
