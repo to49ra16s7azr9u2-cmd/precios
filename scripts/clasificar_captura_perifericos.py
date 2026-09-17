@@ -1618,6 +1618,74 @@ REGLAS = [
              r'autoestereo|car audio|\bdoor speakers?\b|^(?:\S+ ){0,4}(altavoz de agudos|\btweeters?\b|super bullet)|'
              r'altavo(z|ces) (de )?componentes?|bocinas? (de )?componentes?|\bcomponent speakers?\b'),
   ('Autos, bicicletas y motos', 'Bocinas para auto', 'speaker')),
+ # Red de Blancos y ropa de cama. Cuarta categoría con el mismo agujero
+ # que Mascotas, Deportes y fitness y Belleza: diez subcategorías, 4,221
+ # fichas, sub_blancos() completo... y una sola regla de categoría, la de
+ # las almohadas. Medido sobre la captura de 11,431 anuncios de blancos del
+ # 17-sep: de 11,354 nuevos entraban 3,975 y casi todos mal --1,202
+ # protectores de colchón como Muebles/Colchones, 689 como Muebles/Camas,
+ # 492 mantas eléctricas como Climatización/Calefactores-- y 6,522 se
+ # descartaban.
+ #
+ # Va ANTES que Climatización porque la manta eléctrica es ropa de cama, no
+ # un calefactor: el catálogo ya tiene "Cobijas eléctricas".
+ #
+ # "Almohada" pide ir en la cabeza del título, como ya hacía sub_blancos():
+ # suelta, se llevaba 2,876 colchones "Restonic Matrimonial CON 2
+ # ALMOHADAS" -- la almohada de regalo no convierte al colchón en blanco de
+ # cama, igual que el balón de regalo no convertía al colchón en artículo
+ # deportivo.
+ (re.compile(r'^(?!.*(\bperro|\bgato\b|mascota|\bcanino|\bfelino|'
+             r'para (auto|coche|carro|camioneta|vehiculo)|asiento de auto|'
+             r'\byoga\b|\bpilates\b|\bcamping\b|\bpicnic\b|manta termica de emergencia|'
+             r'inflable|\bcortauna|\btoallita|papel higienico|'
+             r'\bsoldad|\bmanta de vidrio\b|fibra de vidrio|'
+             # La almohada de viaje va en Maletas, la de lactancia en Bebés,
+             # la de masaje es un masajeador, la de peluche un peluche y la
+             # "almohada para tablet" un soporte. Y la manta del MOTOR
+             # calienta un coche, no una cama.
+             r'\bviaje\b|\bcervical\b|\blumbar\b|lactancia|\bbebes?\b|\bmasaje\b|'
+             r'altavoz|\bbocina\b|bluetooth|\bsofa ?cama\b|\bfuton\b|silla gamer|'
+             r'\btablet|\bipad\b|\bkindle\b|\bpeluche\b|\bmotor\b|\btoallero\b|'
+             # La mesa calefactora japonesa (kotatsu) se vende CON edredón y
+             # sigue siendo un calefactor; la manta térmica del tambor de
+             # aceite calienta un bidón; las gafas de natación "7 en 1"
+             # traen toalla en el paquete; y "topper" es además el adorno
+             # del pastel, no solo el sobrecolchón.
+             r'mesa calefactora|\btatami\b|\bkotatsu\b|'
+             r'\btambor\b|\bbarril\b|\bdrum\b|'
+             r'\bgafas\b|\bgoggles\b|\banteojos\b|'
+             r'\bpastel\b|\bcake\b|\btorta\b|cumpleanos|'
+             r'\bcompresa\b|'
+             # "Topper" es también el postizo de pelo, después de haber sido
+             # el adorno del pastel. Y la almohadilla térmica de alivio de
+             # dolor, el masajeador con forma de almohada, las "sábanas de
+             # máscara facial" y el poncho de surf no son ropa de cama.
+             r'\bcabello\b|\bhair\b|\bpostizo\b|\bpeluca|'
+             r'almohadilla termica|alivio de dolor|masajeador|'
+             r'mascara facial|mascarilla facial|\bponcho\b|'
+             r'supervivencia|\bemergencia\b|\bmylar\b|campismo))'
+             # El colchón y la cabecera son Muebles; lo que los CUBRE, no. Por
+             # eso "colchón" descalifica solo si ABRE el título: con la guarda
+             # a tres palabras, "Protector DE COLCHÓN Acolchado" se
+             # descalificaba a sí mismo y 917 protectores acababan en
+             # Muebles/Colchones y Refacciones. "Colchoneta" no lleva borde de
+             # palabra tras "colchon" y pasa, que es lo que queremos: un
+             # topper es ropa de cama.
+             r'(?!colchon(es)?\b)'
+             r'(?!(?:\S+ ){0,2}(cama box|box spring|cabecera)\b)'
+             r'(?=.*('
+             r'protector(es)? (de |para )?colchon|cubre ?colchon|funda (de|para) colchon|sobrecolchon|'
+             r'\bpillow ?top\b|\btopper\b|protector de almohada|'
+             r'\bsabana|juego de sabanas|ropa de cama|funda(s)? (de|para) almohada|'
+             r'\bedredon|\bcolcha\b|\bquilt\b|\bduvet\b|cubrecama|\bcobertor\b|'
+             r'\bcobija|\bfrazada|manta (electrica|polar|de sherpa|de franela|para cama)|'
+             r'^(?:\S+ ){0,3}almohadas?\b|'
+             r'toalla(s)? (de|para) (bano|playa|cuerpo|mano)|\btoallon\b|juego de toallas|'
+             r'tapete (de|para) bano|\balfombra de bano\b|'
+             r'funda (para|de) (sofa|sillon|mueble)|cubre ?sofa|cubre ?sillon'
+             r'))'),
+  ('Blancos y ropa de cama', None, 'pillow')),
  # Red de Climatización, adelantada a propósito.
  #
  # La captura de 12,705 anuncios de clima entró casi entera en el lugar
@@ -2825,12 +2893,17 @@ def sub_blancos(tn):
     if re.search(r'^(?:\S+ ){0,3}(edredon|colcha|quilt|duvet|cubrecama)', tn): return 'Edredones'
     if re.search(r'(cobija|manta|frazada) electrica', tn): return 'Cobijas eléctricas'
     if re.search(r'^(?:\S+ ){0,3}(cobija|manta|frazada|cobertor)', tn): return 'Cobijas'
-    if re.search(r'^(?:\S+ ){0,3}(protector|cubrecolchon)', tn): return 'Protectores de colchón'
+    if re.search(r'^(?:\S+ ){0,3}(protector|cubrecolchon)|protector (de|para) colchon|'
+                 r'cubre ?colchon|\btopper\b|sobrecolchon|\bpillow ?top\b|'
+                 r'protector(es)? (de |para )?colchon', tn):
+        return 'Protectores de colchón'
     if re.search(r'^(?:\S+ ){0,3}almohada', tn): return 'Almohadas'
-    if re.search(r'^(?:\S+ ){0,3}(toalla|toallas)', tn): return 'Toallas'
-    if re.search(r'tapete de bano', tn): return 'Tapetes de baño'
+    if re.search(r'^(?:\S+ ){0,3}(toalla|toallas)|toalla(s)? (de|para) (bano|playa|cuerpo|mano)|'
+                 r'\btoallon\b|juego de toallas', tn): return 'Toallas'
+    if re.search(r'tapete(s)? (de|para) bano|alfombra (de|para) bano', tn): return 'Tapetes de baño'
     if re.search(r'^(?:\S+ ){0,3}(cortina|cortinas)', tn): return 'Cortinas'
-    if re.search(r'funda (para|de) (sofa|sillon|mueble)|cubresofa', tn): return 'Fundas para muebles'
+    if re.search(r'funda (para|de) (sofa|sillon|sillones|mueble)|cubre ?(sofa|sillon|sillones)',
+                 tn): return 'Fundas para muebles'
     return None
 
 
