@@ -1421,14 +1421,14 @@ REGLAS = [
              r'(?!.*(de bano|para bano|antivaho|retroiluminado|cuerpo entero|de pared))'
              r'(?:\S+ ){0,2}espejos?\b(?=.*(maquillaje|tocador|cosmetic|aumento|vanidad|de mano|compacto))'),
   ('Belleza y cuidado personal', 'Maquillaje', 'sparkles')),
- (re.compile(r'^(?!.*(retrovisor|\bauto\b|coche|carro|\bmoto\b|bicicleta|dental|telescopio|camara|lente|convexo|de inspeccion|de seguridad|de trafico))'
+ (re.compile(r'^(?!.*(retrovisor|\bauto\b|coche|carro|\bmoto\b|bicicleta|dental|telescopio|camara|lente|convexo|de inspeccion|de seguridad|de trafico|italika|isotipo|motocicleta|\bmotos\b))'
              r'(?:\S+ ){0,2}espejos?\b'),
   ('Decoración de hogar y jardín', 'Espejos', 'vase')),
  (re.compile(r'^(?!.*(refrigerador(es)?|enfriador|ventilador) (de |para )?(telefonos?|celular|movil))'
              # La refacción y el accesorio del refri no son el refri.
              r'^(?!(?:\S+ ){0,3}(cortina|evaporador|junta|termostato|motor|compresor|filtro|sensor|condensador|ventilador|rejilla|repuesto|refaccion|estante|cajon|bandeja|manija|tira|empaque|burlete|cubierta|funda|parasol|control|tarjeta|placa|puerta enfriadora|imanes?|iman|organizador|contenedor|termometro|kit|tapete|alfombrilla|lampara|foco|bombilla|bisagra|jaladera|pedal|cerradura|candado|soporte|base|rodillo|rueda|tubo|valvula|capacitor|arrancador|relevador|rele|fusible|cable|deflector|charola|cesta|canasta|divisor|separador|panel|sello|goma|puerta|tiras?)\b)'
              r'(?!.*(condensador|evaporador|compresor (embraco|tecumseh|danfoss|de refrigeracion|frigorifico|para refrigerador|rotativo|hermetico)|termostato|burlete|empaque|junta (magnetica|de puerta)|refaccion|repuesto|reemplazo|pieza de recambio|motor (de|del) ventilador|ventilador de refrigeracion|cortina|tira de sellado|tiras? de pvc|puerta enfriadora|desodorizante|purificador para|refrigerador de aire|aire acondicionado|enfriador de aire|maquina (de|para) (hacer )?helado|humidor))'
-             r'(?=.*(\brefrigerador|\bfrigobar|\bnevera\b|cava de vino|enfriador de vino))'),
+             r'(?=.*(\brefrigerador|\bfrigobar|\bnevera\b|cava de vino|enfriador de vino|\bcongelador(es)?\b))'),
   ('Refrigeradores', None, 'fridge')),
  # Purificadores de agua, después de los filtros de refrigerador: los dos
  # dicen "filtro de agua" y el del refri no purifica nada, repone una
@@ -2304,7 +2304,7 @@ REGLAS = [
  #
  # Van DOS reglas y no una a propósito. Esta primera lista solo tiene
  # palabras que en español no nombran otra cosa.
- (re.compile(r'^(?!.*(de juguete|para (muneca|barbie)|\bmaqueta\b|'
+ (re.compile(r'^(?!.*(colchon|box spring|de juguete|para (muneca|barbie)|\bmaqueta\b|'
              r'disfraz|\bpinata\b))'
              r'(?=.*(guitarra|ukulele|\bbanjo\b|mandolina|charango|requinto|\bjarana\b|'
              r'violin|violonchelo|\bcello\b|contrabajo|\barpa\b|\berhu\b|\bguqin\b|guzheng|'
