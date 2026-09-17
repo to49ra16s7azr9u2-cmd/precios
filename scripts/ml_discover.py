@@ -295,36 +295,104 @@ def dominio_confirmado(cat_id, cat_name, sub_name, conocidos, sondas, propios):
     return None
 
 
+# Dominios ya confirmados en corridas anteriores: {"cat||sub": [dominio,
+# nombre, conocidos, acuerdo]}. Medido el 17-sep-2026: de 344 subcategorías
+# solo 116 confirmaban dominio propio; 161 más pertenecen a una categoría
+# que SÍ tiene dominios confirmados por otras subcategorías (Cargadores y
+# adaptadores / De pared no confirma nada, pero la categoría ya confirmó
+# MLM-CELLPHONE_CHARGERS al 100%), y 67 no tienen nada. Reutilizar el
+# dominio de la categoría respeta la regla de este archivo --el dominio se
+# confirmó contra NUESTRO catálogo, con el 80% de acuerdo-- y sin ello
+# el 43% de las subcategorías no aportaba ni un producto.
+def cargar_dominios(ruta):
+    if not ruta or not os.path.exists(ruta):
+        return {}
+    with open(ruta, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def guardar_dominios(ruta, dominios):
+    if not ruta:
+        return
+    with open(ruta, "w", encoding="utf-8") as f:
+        json.dump(dominios, f, ensure_ascii=False, indent=1)
+
+
 def targets_para(data, subs, marcas_por_sub, max_por_consulta=None, paginas=None,
-                 marcas_desde=0):
+                 marcas_desde=0, dominios=None, reusar_dominio=False, recorrer=False):
     conocidos = indice_conocidos(data["products"])
+    dominios = dominios if dominios is not None else {}
+    por_categoria = collections.defaultdict(dict)   # cat_name -> {dominio: nombre}
+    for k, v in dominios.items():
+        c = k.split("||")[0]
+        por_categoria[c][v[0]] = v[1]
     targets = []
     for cat_id, cat_name, sub_id, sub_name, icono in subs:
-        sondas = marcas_de_categoria(data["products"], cat_id, 2) + [cat_name]
-        propios = productos_propios(data["products"], cat_id)
-        elegido = dominio_confirmado(cat_id, cat_name, sub_name, conocidos, sondas, propios)
-        time.sleep(0.3)
-        if not elegido:
-            print(f"  -- {cat_name} / {sub_name}: ningún dominio confirmado")
-            continue
-        dom, dom_nombre, n, acuerdo = elegido
+        clave = f"{cat_name}||{sub_name}"
+        if clave in dominios:
+            dom, dom_nombre, n, acuerdo = dominios[clave][0], dominios[clave][1], dominios[clave][2], dominios[clave][3] / 100.0
+            elegido = (dom, dom_nombre, n, acuerdo)
+            elegidos = [elegido]
+        else:
+            sondas = marcas_de_categoria(data["products"], cat_id, 2) + [cat_name]
+            propios = productos_propios(data["products"], cat_id)
+            elegido = dominio_confirmado(cat_id, cat_name, sub_name, conocidos, sondas, propios)
+            time.sleep(0.3)
+            if elegido:
+                dominios[clave] = [elegido[0], elegido[1], elegido[2], int(round(elegido[3] * 100))]
+                por_categoria[cat_name][elegido[0]] = elegido[1]
+                elegidos = [elegido]
+            elif reusar_dominio and por_categoria.get(cat_name):
+                # Todos los dominios que la categoría ya confirmó: en una
+                # categoría con tres dominios (Muebles: camas, libreros,
+                # escritorios) la subcategoría sin dominio propio puede estar
+                # en cualquiera, y la consulta por su nombre en un dominio
+                # ajeno simplemente devuelve vacío.
+                elegidos = [(d, nom, 0, 0.0) for d, nom in por_categoria[cat_name].items()]
+                print(f"  ~~ {cat_name} / {sub_name}: sin dominio propio; reusa {len(elegidos)} de la categoría")
+            else:
+                print(f"  -- {cat_name} / {sub_name}: ningún dominio confirmado")
+                continue
+        for dom, dom_nombre, n, acuerdo in elegidos:
+            _agregar_consultas(data, targets, cat_id, cat_name, sub_id, sub_name, icono,
+                               dom, dom_nombre, n, acuerdo, marcas_por_sub, marcas_desde,
+                               max_por_consulta, paginas, recorrer)
+    return targets
+
+
+def _agregar_consultas(data, targets, cat_id, cat_name, sub_id, sub_name, icono,
+                       dom, dom_nombre, n, acuerdo, marcas_por_sub, marcas_desde,
+                       max_por_consulta, paginas, recorrer):
+    if True:
         # marcas_desde salta las marcas que una corrida anterior ya consultó.
         # En una segunda pasada para agotar la cola larga, sin esto se
         # vuelven a pedir las 60 de arriba --miles de consultas que solo
         # devuelven duplicados-- para llegar a las de abajo.
         marcas = marcas_top(data["products"], cat_id, sub_id, marcas_por_sub)[marcas_desde:]
         consultas = ([sub_name] if not marcas_desde else []) + marcas
+        # --recorrer: agotar el dominio. products/search exige una palabra
+        # clave, así que "recorrer" es paginar cada consulta genérica hasta
+        # que dos páginas seguidas no traigan nada nuevo (ver
+        # add_products.py, "parar_tras_vacias"). Las genéricas son el
+        # nombre de la categoría y "producto", que es lo que el propio
+        # Worker usa cuando no le dan q.
+        if recorrer:
+            for extra in (cat_name, "producto"):
+                if extra not in consultas:
+                    consultas.append(extra)
         if not consultas:
-            continue
+            return
         print(f"  {cat_name} / {sub_name} -> {dom} ({dom_nombre}, {n} conocidos, {acuerdo:.0%}); consultas: {consultas}")
         for q in consultas:
-            targets.append({
+            t = {
                 "domain": dom, "q": q, "cat": cat_id, "sub": None,
                 "max": max_por_consulta or MAX_POR_CONSULTA,
                 "pages": paginas or PAGINAS_POR_CONSULTA,
                 "icon": icono,
-            })
-    return targets
+            }
+            if recorrer:
+                t["parar_tras_vacias"] = 2
+            targets.append(t)
 
 
 def main():
@@ -345,6 +413,16 @@ def main():
                     help="productos por consulta (por defecto %(default)s)")
     ap.add_argument("--pages", type=int, default=PAGINAS_POR_CONSULTA,
                     help="páginas de resultados por consulta (por defecto %(default)s)")
+    ap.add_argument("--dominios-json",
+                    help="archivo con los dominios ya confirmados; se lee al empezar y "
+                         "se reescribe al terminar con los nuevos (ahorra las consultas de "
+                         "confirmación y deja reusar dominios de la categoría)")
+    ap.add_argument("--reusar-dominio", action="store_true",
+                    help="si una subcategoría no confirma dominio, consultar en los que "
+                         "ya confirmó su categoría")
+    ap.add_argument("--recorrer", action="store_true",
+                    help="agotar cada dominio: sumar consultas genéricas y paginar hasta "
+                         "que dos páginas seguidas no traigan nada nuevo (usar con --pages alto)")
     args = ap.parse_args()
 
     dia = args.dia if args.dia is not None else (datetime.date.today() - EPOCH).days
@@ -352,8 +430,10 @@ def main():
     subs = subcategorias_del_sitio(data)
     hoy = ventana_de(subs, dia, args.ventana)
     print(f"Día {dia}: {len(hoy)} de {len(subs)} subcategorías")
+    dominios = cargar_dominios(args.dominios_json)
     targets = targets_para(data, hoy, args.marcas, args.max, args.pages,
-                           args.marcas_desde)
+                           args.marcas_desde, dominios, args.reusar_dominio, args.recorrer)
+    guardar_dominios(args.dominios_json, dominios)
     print(f"\n{len(targets)} consultas de catálogo"
           f" (hasta {args.max} productos x {args.pages} pagina(s) cada una)")
     if not targets:

@@ -223,9 +223,24 @@ def main(argv=None):
         must = [norm(x) for x in t.get("must", [])]
         never = [norm(x) for x in t.get("not", [])]
         want, got = t.get("max", 8), 0
+        # "parar_tras_vacias": cuántas páginas seguidas sin UN producto nuevo
+        # se toleran antes de dejar la consulta. Lo pone ml_discover.py
+        # --recorrer: paginar a fondo solo tiene sentido mientras aparezca
+        # algo; una consulta genérica en un dominio ya cargado devuelve
+        # página tras página de duplicados, y cada página es una petición
+        # de la cuota diaria del Worker.
+        vacias_seguidas, tope_vacias = 0, t.get("parar_tras_vacias")
+        got_antes_pagina = {}
         for page in range(t.get("pages", 2)):
             if got >= want:
                 break
+            if tope_vacias and vacias_seguidas >= tope_vacias:
+                break
+            if page and got == got_antes_pagina.get("v", got):
+                vacias_seguidas += 1
+            elif page:
+                vacias_seguidas = 0
+            got_antes_pagina["v"] = got
             try:
                 items = catalog(t["domain"], t.get("q", "producto"), page * PAGE)
             except Exception as e:
