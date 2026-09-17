@@ -1081,6 +1081,14 @@ def subcategorias_con_pagina(cat, products_de_la_cat):
     return salida
 
 
+def _valor_eje(p, campo):
+    """El dato por el que corta un eje. "price" no es un facet: es el precio
+    más barato de hoy, el mismo que imprime la fila (min_price)."""
+    if campo == "price":
+        return min_price(p)
+    return (p.get("facets") or {}).get(campo)
+
+
 def _tier_de(valor, tiers):
     """En qué tramo de un eje cae un valor. Mismo criterio que
     materializeQualityAxes() de js/app.js: min es exclusivo y max inclusivo,
@@ -1115,7 +1123,8 @@ def ejes_de_subcategoria(cat, sub):
         tiers = [t for t in (eje.get("tiers") or []) if t.get("name") and t.get("id")]
         if eje.get("label") and eje.get("field") and len(tiers) >= 2:
             ejes.append((eje, tiers))
-    return ejes[:2]
+    # Tres, como en la SPA (QUALITY_KEYS en js/app.js).
+    return ejes[:3]
 
 
 def compara_calidad_html(ejes, products, prefijo):
@@ -1133,14 +1142,16 @@ def compara_calidad_html(ejes, products, prefijo):
     bloques = []
     for eje, tiers in ejes:
         campo = eje["field"]
-        con_dato = sum(1 for p in products if (p.get("facets") or {}).get(campo) is not None)
-        if con_dato < 4:
+        con_dato = sum(1 for p in products if _valor_eje(p, campo) is not None)
+        # Misma regla que renderQualityPicker() en js/app.js: si casi nadie
+        # de la página puede contestar el eje, el eje no se dibuja.
+        if con_dato < 4 or con_dato < len(products) * 0.05:
             continue
         botones = []
         for t in tiers:
             n = sum(
                 1 for p in products
-                if _tier_de((p.get("facets") or {}).get(campo), tiers) == t["id"]
+                if _tier_de(_valor_eje(p, campo), tiers) == t["id"]
             )
             if not n:
                 continue
@@ -1308,9 +1319,8 @@ def render_subcategory_page(cat, sub, products, data):
         # data-price es el que se imprime al lado.
         rating, n_reviews = aggregate_rating(p)
         n_vendedores = seller_total(p)
-        facetas = p.get("facets") or {}
         q_attrs = "".join(
-            f' data-q-{html_escape(eje["field"])}="{_tier_de(facetas.get(eje["field"]), tiers)}"'
+            f' data-q-{html_escape(eje["field"])}="{_tier_de(_valor_eje(p, eje["field"]), tiers)}"'
             for eje, tiers in ejes
         )
         rows.append(
@@ -1613,6 +1623,8 @@ def ejes_de_categoria(cat, products, data):
     por_sub = collections.Counter(p.get("subcategory") for p in products)
     for sub, n in por_sub.most_common():
         for eje in (QUALITY_AXES.get(f"{cat['id']}/{sub}") or {}).get("axes", []):
+            if eje.get("field") == "price":
+                continue
             label = eje.get("label")
             tiers = [t for t in (eje.get("tiers") or []) if t.get("name")]
             if not label or len(tiers) < 2 or label in ejes:

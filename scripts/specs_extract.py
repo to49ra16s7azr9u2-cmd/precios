@@ -1785,3 +1785,14 @@ def ah_of(text, lo, hi):
     """Amperes-hora de una batería ("48V 20Ah", "12V 7Ah")."""
     vals = {_num(m.group(1)) for m in _AH_RE.finditer(_norm(text or ""))}
     return _uno({v for v in vals if lo <= v <= hi})
+
+
+def kind_of(text, tabla):
+    """El tipo de producto según una tabla [(etiqueta, regex)] aplicada al
+    nombre normalizado: la primera fila que casa gana, así que la tabla va
+    de lo más específico (el accesorio) a lo general (el instrumento)."""
+    n = _norm(text or "")
+    for etiqueta, rx in tabla:
+        if rx.search(n):
+            return etiqueta
+    return None

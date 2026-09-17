@@ -428,13 +428,13 @@
     // Cada eje guarda una LISTA de niveles elegidos (vacía = ninguno). Era
     // un id suelto; con la selección múltiple pasa a ser lista para no
     // tener dos formas de representar lo mismo según el modo.
-    quality: { level: [], size: [] },
+    quality: { level: [], size: [], extra: [] },
     // Selección múltiple por eje, ENCENDIDA por defecto (a pedido del
     // usuario, igual que la del modal de especificaciones): elegir dos
     // niveles a la vez es lo normal -- "me sirve un Intermedio o un Alto" --
     // y con ella apagada el segundo clic borraba el primero sin avisar.
     // Apagarla deja un nivel por eje, no vacía la selección.
-    qualityMulti: { level: true, size: true },
+    qualityMulti: { level: true, size: true, extra: true },
     // Igual que los otros dos interruptores de selección múltiple del sitio:
     // encendido por defecto. Elegir dos tipos a la vez ("de pared o de
     // auto") es tan normal como elegir uno.
@@ -4919,19 +4919,37 @@
   // (data/quality-axes.json) en toda su categoría: el eje de Celulares por
   // almacenamiento vale para Android y iPhone aunque el generador tenga
   // algo para ellos. Lo generado solo llena las categorías sin eje a mano.
+  // Hasta tres ejes: más no caben en pantalla sin que el bloque tape la
+  // lista, y con tres ya se puede llegar a "portátil, potente y barata".
+  const QUALITY_KEYS = ["level", "size", "extra"];
+
+  // Lo de la subcategoría SUMA a lo de la categoría en vez de reemplazarlo:
+  // en Celulares/Android valen el almacenamiento y la pantalla escritos a
+  // mano Y, si el generador encontró otro corte para Android que la
+  // categoría no tiene, ese tercero. Se descarta el eje que corte por un
+  // campo que ya está puesto -- dos filas de tarjetas por almacenamiento
+  // serían la misma pregunta hecha dos veces. Las claves se reasignan por
+  // posición porque son lo que guarda la selección (state.quality) y dos
+  // ejes con la misma clave compartirían niveles que no significan lo mismo.
+  function mergeAxes(...listas) {
+    const out = [];
+    const campos = new Set();
+    listas.forEach((lista) => {
+      (lista || []).forEach((a) => {
+        if (out.length >= QUALITY_KEYS.length || campos.has(a.field)) return;
+        campos.add(a.field);
+        out.push({ ...a, key: QUALITY_KEYS[out.length] });
+      });
+    });
+    return out;
+  }
+
   function qualityAxes() {
     const sub = singleSub();
-    if (sub) {
-      const scoped = QUALITY_AXES[`${state.category}/${sub}`];
-      if (scoped) return scoped;
-    }
-    if (QUALITY_AXES[state.category]) return QUALITY_AXES[state.category];
-    if (sub) {
-      const gen = qualityAxesJson[`${state.category}/${sub}`];
-      if (gen) return gen.axes;
-    }
+    const mano = (sub && QUALITY_AXES[`${state.category}/${sub}`]) || QUALITY_AXES[state.category] || [];
+    const gen = sub ? qualityAxesJson[`${state.category}/${sub}`] : null;
     const genCat = qualityAxesJson[state.category];
-    return genCat ? genCat.axes : [];
+    return mergeAxes(mano, gen ? gen.axes : null, genCat ? genCat.axes : null);
   }
 
   // El bloque se muestra donde hay ejes definidos, no contra una lista
@@ -4962,8 +4980,18 @@
     return Math.min(TIER_RAMP.length - 1, Math.round(p * (TIER_RAMP.length - 1)));
   }
 
+  // El dato por el que corta un eje. "price" no es un facet: es el precio
+  // más barato de hoy. Es el único corte que TODA subcategoría puede
+  // ofrecer, y el generador lo usa donde no hay ninguna ficha técnica que
+  // reparta (libros, refacciones, cerraduras). Se lee en vivo, no se
+  // guarda: mañana el precio es otro.
+  function qualityValueOf(axis, p) {
+    if (axis.field === "price") return minPrice(p);
+    return p.facets ? p.facets[axis.field] ?? null : null;
+  }
+
   function qualityTierOf(axis, p) {
-    const v = p.facets ? p.facets[axis.field] ?? null : null;
+    const v = qualityValueOf(axis, p);
     if (v == null) return null;
     const tier = axis.tiers.find((t) => t.match(v));
     return tier ? tier.id : null;
@@ -4985,7 +5013,7 @@
   }
 
   function clearQuality() {
-    state.quality = { level: [], size: [] };
+    state.quality = { level: [], size: [], extra: [] };
   }
 
   // Los sellos de nivel en las filas solo tienen sentido cuando el eje
@@ -5055,13 +5083,20 @@
     el.specsBannerLink.classList.toggle("hidden", !hayExtra);
 
     axes.forEach((axis) => {
+      // Una fila que casi nadie del alcance puede contestar no se dibuja:
+      // el eje de Edad de Videojuegos, heredado por Consolas, mostraba
+      // "0 de 43 productos lo indican" y tres tarjetas en cero. Se mide
+      // contra el alcance completo (no contra la otra fila elegida) para
+      // que una fila no aparezca y desaparezca según lo que se marque.
+      const contestan = base.filter((p) => qualityValueOf(axis, p) != null).length;
+      if (contestan < 4 || contestan < base.length * 0.05) return;
       // Para contar y para elegir la foto, cada fila mira el alcance
       // filtrado por LA OTRA fila (el tamaño elegido sí acota los niveles
       // que se ofrecen, y al revés), pero nunca por sí misma.
       const other = axes.filter((a) => a !== axis && qualitySel(a.key).length);
       const scoped = base.filter((p) =>
         other.every((a) => qualitySel(a.key).includes(qualityTierOf(a, p))));
-      const withField = scoped.filter((p) => p.facets && p.facets[axis.field] != null).length;
+      const withField = scoped.filter((p) => qualityValueOf(axis, p) != null).length;
 
       const row = document.createElement("div");
       row.className = "quality-row";

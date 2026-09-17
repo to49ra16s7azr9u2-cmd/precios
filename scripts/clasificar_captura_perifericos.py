@@ -2820,7 +2820,9 @@ RX_VJ_PLATAFORMA = re.compile(
     r'wii u\b|wii\b|nintendo 3ds|psp\b|ps vita|game ?boy)')
 
 RX_VJ_ACCESORIO = re.compile(
-    r'\b(control(es|ler|lers)?|mando|joy ?con|gamepad|volante|palanca|arcade stick|'
+    r'\b(proteccion|protector(a|es)?|funda|estuche|kit de|camara|mica|cubierta|pegatina|correa|controlador(es)?|chatpad|teclado|grips?|almohadillas?|'
+    r'audifonos?|headset|diadema|tarjeta|libro|guia (oficial|de estrategia)|hacking|'
+    r'control(es|ler|lers)?|mando|joy.?con|gamepad|volante|palanca|arcade stick|'
     r'grip|empunadura|soporte|base de carga|dock|stand|wall mount|'
     r'montaje de pared|cargador|cable|adaptador|bateria|pila|'
     r'boton(es)?|abxy|thumbstick|joystick|gatillo|'
@@ -2831,20 +2833,43 @@ RX_VJ_ACCESORIO = re.compile(
 
 RX_VJ_CONSOLA = re.compile(r'^(?:\S+ ){0,4}(consola|console)\b|'
                            r'(consola|console)\b.{0,20}(nintendo|playstation|xbox)')
+# Lo que acompaña a la plataforma cuando el título es el APARATO y no un
+# juego para él: "PS5 Slim 1TB", "Switch OLED Blanca", "Xbox Series S
+# Digital". "Ps4 Batman" o "Pragmata (Nintendo Switch 2)" no traen nada de
+# esto y son juegos aunque la plataforma vaya al principio.
+RX_VJ_HARDWARE = re.compile(r'\b(oled|lite|slim|pro|digital|\d+ ?(gb|tb)|ssd|bundle|paquete|blanc[ao]|negr[ao]|'
+                            r'reacondicionad|nuev[ao]|sellad|edicion (estandar|digital|standard)|standard edition|'
+                            r'portatil|handheld|\bgen\b|generacion|mando incluido|con (1|2|dos) (control|mando))')
+RX_VJ_JUEGO = re.compile(r'\((nintendo switch( 2)?|switch( 2)?|ps[345]|playstation ?[345]|xbox[^)]*)\)|'
+                         r'- (nintendo switch( 2)?|switch 2|ps[345]|playstation ?[345]|xbox (series|one))\s*$|'
+                         r'para (nintendo )?switch( 2)?\s*$|\b(edition|edicion (deluxe|coleccionista|collector|definitiva|completa)|'
+                         r'remastered|remake|collection|\bgoty\b|game of the year|juego (de|para) (nintendo|switch|ps[45]|playstation|xbox))\b')
 
 
 def sub_videojuego(tn):
     """Consolas / Software / Accesorios, por dónde cae la plataforma."""
     if RX_VJ_ACCESORIO.search(tn):
         return 'Accesorios'
+    # "Juego Xbox 360 Lego The Movie" y "Planet Coaster: Console Edition"
+    # nombran la consola, pero son el juego.
+    if re.match(r'^(?:\S+ ){0,3}(video ?)?juegos?\b', tn) or 'console edition' in tn:
+        return 'Software'
+    # Un juego se delata solo: la plataforma entre paréntesis, al final tras
+    # un guion, o "edition/remastered"; salvo que el título abra con la
+    # consola ("Consola PS5 Edición Digital").
+    if RX_VJ_JUEGO.search(tn) and not re.match(r'^(?:\S+ ){0,2}consola', tn):
+        return 'Software'
     if RX_VJ_CONSOLA.search(tn):
         return 'Consolas'
     m = RX_VJ_PLATAFORMA.search(tn)
     if not m:
         return None
-    # La plataforma en las primeras palabras es el aparato; más atrás es la
-    # coletilla que dice para qué consola es el juego.
-    return 'Consolas' if len(tn[:m.start()].split()) <= 2 else 'Software'
+    # La plataforma en las primeras palabras es el aparato SOLO si la
+    # acompaña algo de hardware (OLED, 1TB, Slim, blanca...); si no, es un
+    # juego que abre con su plataforma ("Ps4 Batman: Arkham Collection").
+    if len(tn[:m.start()].split()) <= 2:
+        return 'Consolas' if RX_VJ_HARDWARE.search(tn[m.end():m.end() + 60]) else 'Software'
+    return 'Software'
 
 
 # Muebles. La categoría tenía quince subcategorías y una sola regla, la de

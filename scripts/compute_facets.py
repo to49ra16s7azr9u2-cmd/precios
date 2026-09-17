@@ -580,6 +580,48 @@ NOMBRE_GENERALES = {
 }
 
 
+# "kind": el tipo de producto que decide la compra en las subcategorías
+# donde ninguna cifra lo hace -- en Guitarras la pregunta es si es
+# eléctrica o acústica, en Cerraduras cómo se abre, en Jaulas para qué
+# animal. Una tabla por subcategoría, de lo específico (el accesorio, que
+# casi siempre nombra al instrumento) a lo general. Solo se admiten
+# tablas que en el catálogo cubren 35%+ y no dejan el 85% en un valor.
+_TIPOS_CRUDOS = {
+ ("Instrumentos musicales","Guitarras"): [("Cuerdas y accesorios", r"\bcuerdas?\b|\bpuas?\b|\bcapo\b|correa|afinador|cejilla|pastilla|\bfunda\b|\bcable\b|\bpedal\b|amplificador|\bstand\b|soporte"),("Bajo", r"\bbajo electrico\b|\bbajo\b.{0,15}cuerdas|\bbass\b"),("Eléctrica", r"electrica|\belectric\b"),("Clásica", r"clasica|criolla|nylon"),("Acústica", r"acustica|electroacustica"),("Ukelele", r"ukelele|ukulele"),("Otros de cuerda", r"banjo|mandolina|violin|\blaud\b|charango|\bviola\b|\barpa\b")],
+ ("Instrumentos musicales","Viento"): [("Accesorios", r"\bboquilla|\bcanas?\b|lubricante|\bfunda\b|\bestuche\b|atril|\bcorrea\b|abrazadera|limpiador"),("Saxofón", r"saxofon|\bsaxo\b|\bsax\b"),("Trompeta", r"trompeta|corneta"),("Flauta", r"flauta"),("Clarinete", r"clarinete"),("Trombón", r"trombon"),("Armónica", r"armonica"),("Otros de viento", r"tuba|oboe|fagot|melodica|\bpianica\b")],
+ ("Instrumentos musicales","Baterías"): [("Baquetas y accesorios", r"baquetas?|\bparche|\bfunda\b|\bbanco\b|\bpedal\b|\batril\b|llave de afinacion|\bsoporte\b|\bherraje|\bstand\b"),("Electrónica", r"electronica|\bpads?\b|\bmodulo\b|\bmesh\b"),("Platillos", r"platillo|\bhi ?hat\b|\bcrash\b|\bride\b|\bsplash\b"),("Cajón y percusión", r"\bcajon\b|bongo|conga|\bdjembe\b|pandereta|\btimbal|\bcabasa\b|\bmaracas\b"),("Acústica", r"acustica|\bbateria\b")],
+ ("Instrumentos musicales","Cuerdas"): [("Guitarra acústica", r"acustica|folk|\bnylon\b|clasica"),("Guitarra eléctrica", r"electrica"),("Bajo", r"\bbajo\b|\bbass\b"),("Violín y similares", r"violin|\bviola\b|cello|violonchelo|contrabajo"),("Ukelele", r"ukelele|ukulele"),("Otros", r"banjo|mandolina|\barpa\b|charango")],
+ ("Instrumentos musicales","Percusión"): [("Accesorios", r"baquetas?|\bfunda\b|\bsoporte\b|\batril\b|\bparche"),("Cajón", r"\bcajon\b"),("Congas y bongós", r"conga|bongo|\btimbal"),("Djembé y étnica", r"djembe|\bdarbuka\b|\bhandpan\b|\btambor\b"),("Pandereta y menor", r"pandereta|\bmaracas\b|\bcabasa\b|\bclaves\b|\bguiro\b|triangulo|\bcascabel"),("Xilófono y metalófono", r"xilofono|metalofono|glockenspiel|\bmarimba\b")],
+ ("Domótica y hogar inteligente","Cerraduras inteligentes"): [("Huella dactilar", r"huella"),("Reconocimiento facial", r"facial|reconocimiento de rostro"),("Con teclado", r"teclado|contrasena|codigo|\bpin\b|keypad"),("Con tarjeta", r"tarjeta|\brfid\b"),("Por aplicación", r"\bapp\b|aplicacion|\bwifi\b|bluetooth|tuya|\bremot")],
+ ("Domótica y hogar inteligente","Interruptores inteligentes"): [("Wi-Fi", r"\bwifi\b|wi-?fi"),("Zigbee o Matter", r"zigbee|\bmatter\b|\bthread\b"),("Con control remoto", r"control remoto|inalambric|\brf\b|433"),("Táctil", r"tactil|\btouch\b")],
+ ("Mascotas","Jaulas y corrales"): [("Para perro", r"\bperro|\bcanin|\bcachorro"),("Para gato", r"\bgato|\bgatito|\bfelin"),("Para aves", r"\bave|\bpajaro|\bloro|periquito|canario"),("Para roedores", r"hamster|conejo|cuyo|\bcobayo|\bhuron|chinchilla"),("Para reptiles", r"reptil|tortuga|iguana|terrario")],
+ ("Mascotas","Comederos"): [("Para perro", r"\bperro|\bcanin|\bcachorro"),("Para gato", r"\bgato|\bgatito|\bfelin"),("Para aves", r"\bave|\bpajaro|\bloro|periquito|canario|colibri"),("Para roedores", r"hamster|conejo|cuyo|\bcobayo|\bhuron")],
+ ("Mascotas","Camas"): [("Para perro", r"\bperro|\bcanin|\bcachorro"),("Para gato", r"\bgato|\bgatito|\bfelin"),("Para roedores", r"hamster|conejo|\bhuron")],
+ ("Mascotas","Casas para mascotas"): [("Para perro", r"\bperro|\bcanin|\bcachorro|caseta"),("Para gato", r"\bgato|\bgatito|\bfelin|rascador"),("Para aves", r"\bave|\bpajaro|\bloro"),("Para roedores", r"hamster|conejo|\bhuron|chinchilla")],
+ ("Mascotas","Juguetes"): [("Para perro", r"\bperro|\bcanin|\bcachorro|mordedor"),("Para gato", r"\bgato|\bgatito|\bfelin|rascador|catnip"),("Para aves", r"\bave|\bpajaro|\bloro"),("Para roedores", r"hamster|conejo|\bhuron|rueda de ejercicio")],
+ ("Mascotas","Puertas para mascotas"): [("Para perro", r"\bperro|\bcanin|\bcachorro"),("Para gato", r"\bgato|\bgatito|\bfelin"),("Con microchip o sensor", r"microchip|sensor|intelig|\bchip\b")],
+ ("Autos, bicicletas y motos","Bicicletas"): [("Accesorios", r"\bsillin|\bmanillar|\bpedal|\bcadena|\bcasco\b|\bcandado\b|\bbomba\b|portabici|guardabarro|\bcanasti|\bhorquilla|\bllanta|\bcamara\b|\bfreno|\bpinon|\bcuadro\b|\brayos?\b|velocimetro"),("Eléctrica", r"electrica|\be-?bike\b"),("Montaña", r"montana|\bmtb\b|todo terreno"),("Infantil", r"infantil|\bnino|\bnina|rodada 1[268]|rodada 20|\btriciclo"),("Ruta o urbana", r"\bruta\b|carretera|\bgravel\b|\bfixie\b|urbana|\bcity\b|plegable"),("Fija", r"\bfija\b|estatica|spinning")],
+ ("Autos, bicicletas y motos","Baterías para auto"): [("Para auto", r"\bauto\b|\bcoche\b|\bcarro\b|automovil|camioneta"),("Para moto", r"\bmoto\b|motocicleta"),("Cargador o accesorio", r"cargador|mantenedor|arrancador|cables? pasa|\bpinzas\b")],
+ ("Deportes y fitness","Equipo de gimnasio"): [("Accesorios", r"\bguantes\b|\bcinturon\b|\bcuerda\b|\bbanda|\bcorrea\b|\bagarre|\bmuneque|\brodiller"),("Banco y soportes", r"\bbanco\b|\bsoporte\b|\brack\b|\btorre\b|\bestante"),("Máquinas", r"\bmaquina\b|\bmultigimnasio\b|\bpolea\b|\bprensa\b|\bremo\b|\beliptica\b|\bcaminadora\b|\bescaladora\b"),("Peso libre", r"\bmancuerna|\bbarra\b|\bdisco|\bpesas?\b|kettlebell"),("Calistenia", r"\bdominadas\b|\bparalelas\b|\bbarra fija\b|\banillas\b|\bfondos\b|\babdominal")],
+ ("Deportes y fitness","Yoga"): [("Tapetes", r"\btapete|colchoneta|\bmat\b"),("Bloques y cinturones", r"\bbloque|\bladrillo|\bcinturon|\bcorrea\b|\bstrap\b"),("Ruedas y rodillos", r"\brueda\b|\brodillo\b|\bfoam\b"),("Hamacas y columpios", r"\bhamaca\b|\bcolumpio\b|aereo"),("Pelotas", r"\bpelota|\bbalon\b|\bfitball\b")],
+ ("Deportes y fitness","Boxeo"): [("Guantes", r"\bguantes?\b"),("Costales y soportes", r"\bcostal|\bsaco\b|\bpera\b|\bsoporte\b|\bbase\b"),("Protecciones", r"\bcareta\b|\bcasco\b|\bbucal\b|\bespinillera|\bconchilla|\bpeto\b|\bvendas?\b"),("Manoplas y paos", r"\bmanopla|\bpao\b|\bfocos?\b|\bmitts\b")],
+ ("Belleza y cuidado personal","Rasuradoras"): [("Para barba", r"\bbarba\b|\brostro\b|facial|\bpatilla"),("Para cabello", r"\bcabello\b|\bpelo\b|\bcorte\b|\bmaquina de cortar\b|\bclipper\b"),("Corporal o depilación", r"\bcorporal\b|\bcuerpo\b|\bdepila|\bingle\b|\bpiernas\b|\baxila"),("Repuestos y accesorios", r"\brepuesto|\bcuchilla|\bcabezal|\bpeine\b|\baceite\b|\bcargador\b")],
+ ("Cocina y comedor","Botellas y termos"): [("Termo para bebidas", r"\btermo\b|termic|acero inoxidable"),("Botella de agua", r"botella|\bcantimplora\b"),("Vaso térmico", r"\bvaso\b|\btumbler\b|\btarro\b"),("Repuestos y accesorios", r"\btapa\b|\bpopote|\bsorbete|\bfunda\b|\bcepillo\b|\bfiltro\b")],
+ ("Cocina y comedor","Vasos y tazas"): [("Tazas", r"\btaza|\bmug\b|\bjarro\b"),("Vasos de vidrio", r"\bvidrio\b|\bcristal\b"),("Vasos térmicos", r"\btermic|\bacero inoxidable\b|\btumbler\b"),("Copas", r"\bcopa|\bcaliz\b"),("Vasos de plástico", r"\bplastico\b|\bacrilico\b|\bpolicarbonato\b|desechable")],
+ ("Otros","Soportes para dispositivos"): [("Para celular", r"celular|telefono|smartphone|\bmovil\b"),("Para tablet", r"tablet|tableta|\bipad\b"),("Para laptop", r"laptop|portatil|notebook|macbook"),("Para monitor o TV", r"monitor|\btv\b|television|pantalla"),("Para auto", r"\bauto\b|\bcoche\b|\bcarro\b|\brejilla\b|\bparabrisas\b|\bsalpicadero\b")],
+ ("Teclados","Mecánicos"): [("Con cable", r"\bcable\b|alambric|\busb\b(?!.*inalambric)"),("Inalámbrico", r"inalambric|bluetooth|\b2\.4 ?g\b|\bwireless\b"),("Teclado numérico o compacto", r"\b60%|\b65%|\b75%|\btkl\b|compacto|numerico|\bnumpad\b"),("Accesorios", r"\bkeycaps?\b|\bswitch|\bteclas\b|\bmunequera\b|\blubricante\b|\bcable coiled\b")],
+ ("Iluminación","Lámparas de techo"): [("Colgante", r"colgante|\bpendant\b|\bcolgantes\b"),("Plafón", r"\bplafon|\bplafones\b|\bempotra|\bsobreponer\b"),("Candil o araña", r"\bcandil|\barana\b|chandelier"),("Riel o track", r"\briel\b|\btrack\b|\bspot\b")],
+ ("Equipo comercial","Punto de venta"): [("Terminal o caja registradora", r"terminal|caja registradora|\btpv\b|\bpos\b"),("Impresora de tickets", r"impresora|miniprinter|\btickets?\b|\brecibos?\b"),("Lector de códigos", r"lector|escaner|codigo de barras|\bscanner\b"),("Cajón de dinero", r"\bcajon\b|portamonedas|\befectivo\b"),("Consumibles", r"\brollos?\b|papel termico|\bcinta\b|\betiquetas\b")],
+ ("Equipo comercial","Carros de servicio"): [("De acero inoxidable", r"acero inoxidable|\binox\b"),("De plástico", r"\bplastico\b|\bpolimero\b|\bresina\b"),("De madera", r"\bmadera\b|\bbambu\b"),("De metal o alambre", r"\bmetal\b|\balambre\b|\bhierro\b|\bacero\b")],
+ ("Belleza y cuidado personal","Faciales"): [("Limpieza", r"limpiador|\bjabon\b|\bgel\b|\bespuma\b|desmaquill|\btonico\b|\bagua micelar\b"),("Hidratación", r"crema|hidratant|\bserum\b|\bgotas\b|\baceite\b|\bbalsamo\b"),("Mascarillas", r"mascarilla|\bparches?\b|\bpatch\b"),("Aparatos", r"\bmasajeador\b|\bcepillo\b|\bdispositivo\b|\blimpiadora\b|\bmicrocorriente\b|\bled\b"),("Protector solar", r"protector solar|\bspf\b|\bfps\b|bloqueador")],
+ ("Belleza y cuidado personal","Corporales"): [("Cremas y lociones", r"crema|locion|hidratant|\bmanteca\b|\bbalsamo\b"),("Exfoliantes", r"exfoliant|\bscrub\b|\bsal\b"),("Jabones y geles", r"\bjabon\b|\bgel de bano\b|\bshower\b|\bespuma\b"),("Aceites", r"\baceite\b|\boleo\b"),("Aparatos", r"\bmasajeador\b|\bcepillo\b|\bdispositivo\b")],
+ ("Autos, bicicletas y motos","Accesorios para bicicleta"): [("Luces y seguridad", r"\bluz\b|\bluces\b|\bcandado\b|\bcasco\b|\btimbre\b|\breflej"),("Transporte y carga", r"portabici|\bcanasti|\balforja|\bparrilla\b|\bremolque\b"),("Herramienta y mantenimiento", r"\bbomba\b|\bherramienta|\bmultiusos\b|\blubricante\b|\bparche"),("Comodidad", r"\bsillin|\bpuno|\bguantes\b|\basiento\b|\bfunda\b"),("Computadoras y soportes", r"velocimetro|ciclocomputadora|\bsoporte\b|\bporta ?celular\b")],
+ ("Autos, bicicletas y motos","Accesorios y refacciones"): [("Interior", r"\btapete|\bfunda\b|\bvolante\b|\basiento\b|\borganizador\b|\bcubre"),("Exterior", r"\bespejo|\bfaro|\bparrilla\b|\bcubierta\b|\bloderas?\b|\bemblema\b|\bmolduras?\b"),("Mecánica", r"\bfiltro\b|\baceite\b|\bbalata|\bbujia|\bamortiguador|\bbanda\b|\bbomba\b"),("Herramienta y emergencia", r"\bgato\b|\bllave de cruz\b|\bcables? pasa|\bextintor\b|\btriangulo\b|\bcompresor\b"),("Audio y electrónica", r"\bcamara\b|\bdash ?cam\b|\bsensor\b|\balarma\b|\bantena\b|\bcargador\b")],
+}
+
+TIPOS = {k: [(et, re.compile(rx)) for et, rx in v] for k, v in _TIPOS_CRUDOS.items()}
+
+
 # Campos que en esa subcategoría dicen otra cosa: el "material" de un
 # colchón es el de su box de madera.
 NO_GENERALES = {("Muebles", "Colchones"): {"material"}}
@@ -610,6 +652,11 @@ def _generales(product, name, spec_map, f):
         v = fn(name)
         if v is not None:
             f[campo] = v
+    tabla = TIPOS.get((cat, sub))
+    if tabla and "kind" not in f:
+        v = se.kind_of(name, tabla)
+        if v is not None:
+            f["kind"] = v
 
 
 def facets_for(product):

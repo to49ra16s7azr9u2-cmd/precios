@@ -57,14 +57,21 @@ from data_io import load_catalog  # noqa: E402
 SALIDA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "quality-axes.json")
 APP_JS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "js", "app.js")
 
-MIN_FICHAS = 30        # subcategorías más chicas no llevan bloque
-MIN_COBERTURA = 0.20   # el campo tiene que estar en 1 de cada 5 fichas
-MIN_CON_DATO = 12
+MIN_FICHAS = 15        # subcategorías más chicas no llevan bloque
+MIN_COBERTURA = 0.15   # el campo tiene que estar en 1 de cada 7 fichas
+MIN_CON_DATO = 8
+MAX_EJES = 3           # tantos como claves tiene state.quality en app.js
+MIN_FICHAS_PRECIO = 24  # el eje de precio pide un poco más de muestra
 MAX_DOMINANTE = 0.85   # si un tramo se lleva más que esto, el eje no reparte
 MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
+    "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
+    "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
+    "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
+    "fuel", "age_rating",
     "power_w", "charger_w", "liters", "engine_cc", "range_km", "battery_ah", "weight_kg",
     "load_kg", "size_in", "screen_in", "length_cm", "length_m", "lumens", "battery_mah", "camera_mp",
     "resolution", "focal_mm", "storage_gb", "ram_gb", "dpi", "ports", "wifi_std", "thread_count",
@@ -168,7 +175,68 @@ CAMPOS = {
     "thickness_mm": dict(label="Grosor", criterion="en milímetros", unit=" mm",
                          nombres=("Delgado", "Medio", "Grueso"),
                          usos=("Equilibrio y viajes", "El grosor más común", "Rodillas y suelo duro")),
+    "battery_h": dict(label="Batería", criterion="en horas de uso", unit=" h",
+                      nombres=("Corta", "Media", "Larga"),
+                      usos=("Un rato al día", "Un día de uso", "Varios días sin cargar")),
+    "refresh_hz": dict(label="Fluidez", criterion="en hertz", unit=" Hz",
+                       nombres=("Normal", "Alta", "Muy alta"),
+                       usos=("Oficina, estudio y video", "Juegos y desplazamiento suave", "Juegos competitivos")),
+    "drive_gb": dict(label="Disco", criterion="en GB", unit=" GB",
+                     nombres=("Básico", "Intermedio", "Amplio"),
+                     usos=("Sistema y lo esencial", "Fotos, juegos y programas", "Archivos grandes y video")),
+    "ac_btu": dict(label="Capacidad", criterion="en BTU", unit=" BTU",
+                   nombres=("Chica", "Mediana", "Grande"),
+                   usos=("Recámara chica", "Recámara o sala", "Sala grande o local")),
+    "fan_in": dict(label="Tamaño", criterion="en pulgadas del aspa", unit='"',
+                   nombres=("Chico", "Mediano", "Grande"),
+                   usos=("Escritorio y buró", "Recámara y sala", "Espacios grandes")),
+    "wash_kg": dict(label="Capacidad", criterion="en kilos de ropa", unit=" kg",
+                    nombres=("Chica", "Mediana", "Grande"),
+                    usos=("Una o dos personas", "Familia de cuatro", "Familia grande o ropa de cama")),
+    "fridge_ft3": dict(label="Capacidad", criterion="en pies cúbicos", unit=" pies³",
+                       nombres=("Chico", "Mediano", "Grande"),
+                       usos=("Soltero o pareja", "Familia de cuatro", "Familia grande o despensa")),
+    "hood_cm": dict(label="Ancho", criterion="en centímetros", unit=" cm",
+                    nombres=("Angosta", "Estándar", "Ancha"),
+                    usos=("Estufa de dos quemadores", "La medida más común", "Estufa de seis quemadores")),
+    "burners": dict(label="Quemadores", criterion="por número de quemadores", unit=" quemadores",
+                    nombres=("Pocos", "Los de siempre", "Muchos")),
+    "cups": dict(label="Tazas", criterion="por tazas que prepara", unit=" tazas",
+                 nombres=("Pocas", "Medias", "Muchas"),
+                 usos=("Una o dos personas", "Para la familia", "Oficina o reuniones")),
+    "speaker_count": dict(label="Canales", criterion="por número de bocinas", unit=" bocinas",
+                          nombres=("Pocas", "Medias", "Muchas")),
+    "services": dict(label="Servicios", criterion="por piezas del juego", unit=" servicios",
+                     nombres=("Pocos", "Medios", "Muchos"),
+                     usos=("Una o dos personas", "Para la familia", "Reuniones")),
     # Categóricos: la etiqueta y, si hay, un uso por valor.
+    # Un tipo minoritario sigue siendo LA pregunta (la guitarra clásica es
+    # el 4% de Guitarras porque las cuerdas son la mitad): tramo mínimo más bajo.
+    "kind": dict(label="Tipo", criterion="según el nombre", ramp=False, min_tramo=0.025),
+    "chair_type": dict(label="Tipo", criterion="de silla", ramp=False),
+    "bed_size": dict(label="Medida", criterion="de la cama", ramp=False,
+                     orden=["Individual", "Matrimonial", "Queen", "King", "King size"]),
+    "firmness": dict(label="Firmeza", criterion="del colchón", ramp=False,
+                     orden=["Suave", "Medio", "Firme", "Extra firme"]),
+    "storage_type": dict(label="Disco", criterion="por tipo", ramp=False,
+                         valores={"SSD": "Arranca y abre más rápido", "HDD": "Más espacio por el mismo precio",
+                                  "eMMC": "Básico, para tareas ligeras"}),
+    "cpu_family": dict(label="Procesador", criterion="por familia", ramp=False),
+    "gpu": dict(label="Gráficos", criterion="según la ficha", ramp=False),
+    "os": dict(label="Sistema", criterion="operativo", ramp=False),
+    "panel_type": dict(label="Panel", criterion="de la pantalla", ramp=False,
+                       valores={"IPS": "Colores parejos desde cualquier ángulo", "VA": "Negros más profundos",
+                                "TN": "Respuesta rápida, ángulos cerrados", "OLED": "Negro real y más contraste"}),
+    "network_gen": dict(label="Red", criterion="por generación", ramp=True,
+                        orden=["3g", "4g", "5g"], mostrar={"3g": "3G", "4g": "4G", "5g": "5G"},
+                        valores={"3g": "Llamadas y mensajes", "4g": "Suficiente para todo el día", "5g": "La red más rápida"}),
+    "age_rating": dict(label="Clasificación", criterion="por edad", ramp=False,
+                       orden=["E", "E10+", "T", "M", "AO"]),
+    "fuel": dict(label="Combustible", criterion="según la ficha", ramp=False),
+    "fan_type": dict(label="Tipo", criterion="de ventilador", ramp=False),
+    "heater_type": dict(label="Tipo", criterion="de calefactor", ramp=False),
+    "multifunction": dict(label="Funciones", criterion="según la ficha", ramp=False,
+                          valores={"Multifuncional": "Imprime, copia y escanea", "Solo impresión": "Solo imprime"}),
     "helmet_type": dict(label="Tipo", criterion="de casco", ramp=False, valores={
         "Integral": "Cerrado, el que más protege", "Cerrado": "Cerrado, el que más protege",
         "Abatible": "Se abre por delante", "Jet": "Sin mentonera, para ciudad", "Abierto": "Sin mentonera, para ciudad",
@@ -216,6 +284,11 @@ CAMPOS = {
 # Campos que solo son una decisión de compra en algunas categorías: el
 # material de un mueble o una joya sí, el de una licuadora no.
 CAMPO_SOLO_EN = {
+    "chair_type": {"Muebles"},
+    "bed_size": {"Muebles", "Blancos y ropa de cama"},
+    "firmness": {"Muebles"},
+    "fan_in": {"Climatización", "Componentes y accesorios de PC"},
+    "fan_type": {"Climatización"},
     "material": {"Muebles", "Joyería y bisutería", "Blancos y ropa de cama", "Instrumentos musicales",
                  "Viajes", "Otros", "Decoración de hogar y jardín", "Juguetes y bebés", "Mascotas",
                  "Belleza y cuidado personal/Mobiliario para salón"},
@@ -448,13 +521,62 @@ def tramos_categoricos(vals, campo):
         orden = sorted(cnt, key=lambda v: float(re.sub(r"[^\d.]", "", v) or 0))
     else:
         orden = [v for v, _ in cnt.most_common()]
-    orden = [v for v in orden if cnt[v] / n >= MIN_TRAMO][:6]
+    orden = [v for v in orden if cnt[v] / n >= cfg.get("min_tramo", MIN_TRAMO)][:6]
     if len(orden) < 2 or cnt[orden[0]] / n > MAX_DOMINANTE and len(orden) < 3:
         return None
     if max(cnt[v] for v in orden) / n > MAX_DOMINANTE:
         return None
     usos = cfg.get("valores", {})
-    return [{"id": slug(v), "name": v, "use": usos.get(v, ""), "spec": v, "values": [v]} for v in orden]
+    mostrar = cfg.get("mostrar", {})
+    return [{"id": slug(v), "name": mostrar.get(v, v), "use": usos.get(v, ""), "spec": mostrar.get(v, v), "values": [v]}
+            for v in orden]
+
+
+PRECIO_NOMBRES = ("Económicos", "Intermedios", "De gama alta")
+PRECIO_USOS = ("Lo más barato del rango", "El precio más común", "Lo más caro del rango")
+
+
+def precio_de(p):
+    """El precio más barato de sus ofertas, como lo muestra la lista."""
+    precios = [o.get("price") for o in (p.get("offers") or [])
+               if isinstance(o.get("price"), (int, float)) and o.get("price") > 0]
+    return min(precios) if precios else None
+
+
+def eje_precio(ps):
+    """Tres tramos de precio por terciles reales.
+
+    Va último y solo donde no hay dos fichas técnicas que repartan: una
+    cerradura, un libro o una refacción no publican nada comparable, pero
+    el presupuesto sí es una decisión de compra y el corte es un dato
+    cierto. La tarjeta no dice que lo caro sea mejor -- el uso habla del
+    RANGO, igual que en los demás ejes.
+    """
+    vals = sorted(v for v in (precio_de(p) for p in ps) if v)
+    if len(vals) < MIN_FICHAS_PRECIO:
+        return None
+    n = len(vals)
+    c1, c2 = redondo(vals[n // 3], "abajo"), redondo(vals[2 * n // 3], "abajo")
+    if not c1 or not c2 or c1 >= c2:
+        return None
+    # Con el 85% en un solo tramo el eje no reparte y no sirve para elegir.
+    tramos = [sum(1 for v in vals if v <= c1),
+              sum(1 for v in vals if c1 < v <= c2),
+              sum(1 for v in vals if v > c2)]
+    if max(tramos) / n > MAX_DOMINANTE or min(tramos) / n < MIN_TRAMO:
+        return None
+    def pesos(v):
+        return "$" + f"{int(round(v)):,}"
+    tiers = [
+        {"id": "economico", "name": PRECIO_NOMBRES[0], "use": PRECIO_USOS[0],
+         "spec": f"Hasta {pesos(c1)}", "max": c1},
+        {"id": "intermedio", "name": PRECIO_NOMBRES[1], "use": PRECIO_USOS[1],
+         "spec": f"{pesos(c1)} a {pesos(c2)}", "min": c1, "max": c2},
+        {"id": "alto", "name": PRECIO_NOMBRES[2], "use": PRECIO_USOS[2],
+         "spec": f"Más de {pesos(c2)}", "min": c2},
+    ]
+    return {"key": "extra", "label": "Precio", "field": "price",
+            "criterion": "por lo que cuesta hoy", "ramp": True, "tiers": tiers}
 
 
 def eje(clave, campo, vals):
@@ -484,13 +606,30 @@ def eje(clave, campo, vals):
 
 
 def claves_a_mano():
-    """Las claves que ya tienen eje escrito en js/app.js: esas no se tocan."""
+    """Lo que ya está escrito en js/app.js: {clave: [campos que corta]}.
+
+    Antes bastaba con el conjunto de claves, porque lo de mano tapaba a lo
+    generado en toda su categoría. Ahora app.js los SUMA (mergeAxes), así
+    que hace falta saber POR QUÉ CAMPO corta cada eje escrito a mano: el
+    generador no debe proponer otra vez el almacenamiento en Celulares,
+    pero sí puede aportar un tercer eje por otro campo.
+    """
     try:
         js = io.open(APP_JS, encoding="utf-8").read()
     except OSError:
-        return set()
+        return {}
     blk = js[js.index("const QUALITY_AXES = {"):js.index("const QUALITY_INTRO = {")]
-    return set(re.findall(r'^\s{4}"?([^"\n:]+?)"?:\s*\[', blk, re.M))
+    out, actual = {}, None
+    for linea in blk.split("\n"):
+        m = re.match(r'^ {4}(?! )"?([^"\n:]+?)"?:\s*\[', linea)
+        if m:
+            actual = m.group(1)
+            out[actual] = []
+            continue
+        m = re.search(r'field:\s*"([^"]+)"', linea)
+        if m and actual:
+            out[actual].append(m.group(1))
+    return out
 
 
 def armar(products, a_mano):
@@ -505,30 +644,49 @@ def armar(products, a_mano):
     salida, resumen = {}, []
     cats_con_sub_a_mano = {k.split("/")[0] for k in a_mano if "/" in k}
     for clave, ps in claves:
-        if clave in a_mano or len(ps) < MIN_FICHAS:
+        if len(ps) < MIN_FICHAS:
             continue
         cat = clave.split("/")[0]
-        # Lo escrito a mano manda en toda su categoría: un eje de categoría
-        # (Celulares por almacenamiento) vale para sus subcategorías y no
-        # se sustituye por uno generado; y donde hay subcategorías a mano
-        # (Electrodomésticos) la vista de categoría no lleva eje generado.
-        if cat in a_mano:
-            continue
-        if "/" not in clave and cat in cats_con_sub_a_mano:
+        # Lo escrito a mano ya no TAPA a lo generado: app.js los suma
+        # (mergeAxes). Lo que sí manda es el campo -- si el eje de mano ya
+        # corta por almacenamiento, el generado no vuelve a ofrecerlo.
+        ya = set(a_mano.get(clave, [])) | set(a_mano.get(cat, []))
+        cupo = MAX_EJES - len(ya)
+        if cupo <= 0:
             continue
         # Un producto entra en un campo si su facet trae ese dato.
         por_campo = collections.defaultdict(list)
+        por_campo_sub = collections.defaultdict(collections.Counter)
         for p in ps:
             for k, v in (p.get("facets") or {}).items():
                 if v is None or isinstance(v, (list, dict, bool)):
                     continue
                 por_campo[k].append(v)
+                por_campo_sub[k][p.get("subcategory")] += 1
+        # Un eje de CATEGORÍA se hereda en todas sus subcategorías (app.js lo
+        # suma al de cada una), así que solo vale si el campo está repartido:
+        # la medida de cama vive en Colchones y en Sillas dejaba una fila de
+        # "Matrimonial: 0 productos". Se exige que ninguna subcategoría
+        # concentre más del 60% de las fichas con dato.
+        def repartido(campo):
+            if "/" in clave:
+                return True
+            cnt = por_campo_sub[campo]
+            return len(cnt) >= 2 and max(cnt.values()) / sum(cnt.values()) <= 0.6
         axes = []
         orden = PRIORIDAD_ESPECIFICA.get(clave) or PRIORIDAD_ESPECIFICA.get(cat)
         campos = (orden + [c for c in PRIORIDAD if c not in orden]) if orden else PRIORIDAD
         for campo in campos:
             vals = por_campo.get(campo)
             if not vals or len(vals) < MIN_CON_DATO or len(vals) / len(ps) < MIN_COBERTURA:
+                continue
+            if campo in ya:
+                continue
+            # El tipo es por subcategoría: la tabla de Guitarras no dice nada
+            # de un amplificador, y un eje de categoría se hereda en todas.
+            if campo == "kind" and "/" not in clave:
+                continue
+            if not repartido(campo):
                 continue
             if campo in CAMPO_SOLO_EN and cat not in CAMPO_SOLO_EN[campo] and clave not in CAMPO_SOLO_EN[campo]:
                 continue
@@ -540,12 +698,21 @@ def armar(products, a_mano):
             e = eje(clave, campo, vals)
             if not e:
                 continue
-            e["key"] = "level" if not axes else "size"
             axes.append(e)
-            if len(axes) == 2:
+            if len(axes) >= cupo:
                 break
+        # El precio cierra la fila donde las fichas técnicas no alcanzan:
+        # así no queda ninguna subcategoría sin nada con qué comparar.
+        if len(ya) + len(axes) < 2:
+            ep = eje_precio(ps)
+            if ep:
+                axes.append(ep)
         if not axes:
             continue
+        # La clave define qué selección guarda cada eje; app.js las vuelve a
+        # asignar por posición al sumarlos, pero se dejan coherentes acá.
+        for i, e in enumerate(axes):
+            e["key"] = ("level", "size", "extra")[min(i + len(ya), 2)]
         intro = INTROS.get(clave) or INTROS.get(cat)
         salida[clave] = {"axes": axes}
         if intro:
@@ -574,7 +741,7 @@ def main():
     for clave, n, axes, por_campo in sorted(resumen, key=lambda r: -r[1]):
         print(f"== {clave}  (n={n})")
         for e in axes:
-            cob = len(por_campo[e["field"]]) / n
+            cob = 1.0 if e["field"] == "price" else len(por_campo[e["field"]]) / n
             tr = " | ".join(f"{t['name']} [{t['spec']}]" for t in e["tiers"])
             print(f"   {e['key']:5} {e['label']} · {e['field']} ({cob:.0%}): {tr}")
     if args.dry_run:
