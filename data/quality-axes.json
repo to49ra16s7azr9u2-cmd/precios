@@ -2059,77 +2059,6 @@
    }
   ]
  },
- "Muebles/Libreros": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 49 cm",
-      "max": 49
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "50 cm a 100 cm",
-      "min": 49,
-      "max": 100
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 100 cm",
-      "min": 100
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
  "Muebles/Sofás": {
   "axes": [
    {
@@ -2162,42 +2091,6 @@
      }
     ],
     "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     }
-    ],
-    "key": "size"
    }
   ]
  },
@@ -2565,23 +2458,23 @@
       "id": "chica",
       "name": "Chica",
       "use": "Una o dos personas",
-      "spec": "Hasta 10 L",
-      "max": 10
+      "spec": "Hasta 14 L",
+      "max": 14
      },
      {
       "id": "mediana",
       "name": "Mediana",
       "use": "Para la familia",
-      "spec": "11 L a 15 L",
-      "min": 10,
-      "max": 15
+      "spec": "15 L a 25 L",
+      "min": 14,
+      "max": 25
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Reuniones o uso intensivo",
-      "spec": "Más de 15 L",
-      "min": 15
+      "spec": "Más de 25 L",
+      "min": 25
      }
     ],
     "key": "level"
@@ -4220,23 +4113,23 @@
       "id": "baja",
       "name": "Baja",
       "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 7 W",
-      "max": 7
+      "spec": "Hasta 11 W",
+      "max": 11
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Uso de todos los días",
-      "spec": "8 W a 10 W",
-      "min": 7,
-      "max": 10
+      "spec": "12 W a 30 W",
+      "min": 11,
+      "max": 30
      },
      {
       "id": "alta",
       "name": "Alta",
       "use": "Uso rudo o continuo",
-      "spec": "Más de 10 W",
-      "min": 10
+      "spec": "Más de 30 W",
+      "min": 30
      }
     ],
     "key": "level"
@@ -4342,41 +4235,6 @@
   ],
   "intro": "Elige por el tamaño y la edad de tu mascota."
  },
- "Equipo comercial/Refrigeración comercial": {
-  "axes": [
-   {
-    "label": "Capacidad",
-    "field": "liters",
-    "criterion": "en litros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Una o dos personas",
-      "spec": "Hasta 22 L",
-      "max": 22
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Para la familia",
-      "spec": "23 L a 100 L",
-      "min": 22,
-      "max": 100
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Reuniones o uso intensivo",
-      "spec": "Más de 100 L",
-      "min": 100
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
  "Decoración de hogar y jardín/Asadores": {
   "axes": [
    {
@@ -4428,73 +4286,6 @@
       "spec": "44\"",
       "values": [
        44
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ]
- },
- "Herramientas": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "herramientas-manuales",
-      "name": "Herramientas Manuales",
-      "use": "",
-      "spec": "Herramientas Manuales",
-      "values": [
-       "Herramientas Manuales"
-      ]
-     },
-     {
-      "id": "brocas-y-juego-de-dados",
-      "name": "Brocas y Juego de Dados",
-      "use": "",
-      "spec": "Brocas y Juego de Dados",
-      "values": [
-       "Brocas y Juego de Dados"
-      ]
-     },
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "herramientas-de-medicion",
-      "name": "Herramientas de Medición",
-      "use": "",
-      "spec": "Herramientas de Medición",
-      "values": [
-       "Herramientas de Medición"
-      ]
-     },
-     {
-      "id": "llaves",
-      "name": "Llaves",
-      "use": "",
-      "spec": "Llaves",
-      "values": [
-       "Llaves"
-      ]
-     },
-     {
-      "id": "herramientas-electricas",
-      "name": "Herramientas Eléctricas",
-      "use": "",
-      "spec": "Herramientas Eléctricas",
-      "values": [
-       "Herramientas Eléctricas"
       ]
      }
     ],

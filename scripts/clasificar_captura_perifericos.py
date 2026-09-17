@@ -493,6 +493,12 @@ NO_APTO_LAVAVAJILLAS = (r'(?!.*(apt[oa]s? para|lavables? en|seguros? para|lavar 
                         r'.*dishwasher[- ]safe)')
 
 FUERA = [
+ (re.compile(r'^(?:\S+ ){0,3}(mesa|soporte|manija|alfombrilla|estera|tapete|almohadilla|repuesto|funda|cubierta|teflon|lamina|guantes?|cinta|bandeja|'
+             r'elemento calefactor|controlador|placa|base|hojas? de (teflon|ptfe)|papel ptfe|hojas? de transferencia|resistencia).{0,60}'
+             r'(prensa (de calor|termica)|sublimacion|transferencia (termica|de calor)|cricut|easy ?press)'),
+  'accesorio de prensa de calor, no es la prensa'),
+ (re.compile(r'^(?:\S+ ){0,6}(cubierta|funda)s? .{0,30}impresora|dust cover.{0,30}(impresora|printer)'),
+  'funda de impresora, no es la impresora'),
  # El suplemento ya NO se descarta: a pedido del usuario tiene categoría
  # propia ("Suplementos", ver la red al final de REGLAS). Antes esta lista
  # lo dejaba fuera por consumible, y de paso evitaba que "apoya la salud
@@ -534,11 +540,11 @@ FUERA = [
              r'caja (de |para )(almacenamiento|seguridad|bloqueo|guardar)|closet|organizador|'
              r'estacion(es)? de carga.{0,80}(aula|oficina|escuela|escolar|clase|evento|publico|segur|bloqueo|cerradura|candado|'
              r'\d{2,} (puertos|ranuras|dispositivos|telefonos|celulares)|multiples (dispositivos|telefonos|celulares))|'
-             r'cargador(es)? .{0,30}\d{2,} (ranuras|puertos)|cerradura|candado|estacion de carga movil|'
+             r'cargador(es)? .{0,30}\d{2,} (ranuras|puertos)|estacion de carga movil|'
              r'cargador(es)? (portatil )?para (celular(es)?|telefonos?),? (estacion de carga|para multiples dispositivos)|carr(o|ito) de (almacenamiento|carga)|'
              r'bolsa colgante|locker|\d{2,} ranuras|\d+ compartimentos|'
              r'(caja|organizador|nizer|estante).{0,30}(guardar|compartimentos)))'
-             r'(?=.*(celular|telefono|movil|dispositivo|smartphone|tablets?|tabletas?|\bipad\b))'),
+             r'(?=.*(celulares?|telefonos?|smartphones?|tablets?|tabletas?|\bipad\b|dispositivos? (moviles?|electronicos?)|multiples dispositivos))'),
   'casillero o estación de carga para guardar celulares, no es un celular'),
  # El soporte, la pata de aislamiento y la rejilla son lo que se le pone
  # a la bocina, no la bocina.
@@ -587,13 +593,10 @@ FUERA = [
              r'ccs2|\bgbt\b|\d+ ?kw\b|victron|xantrex|samlex|\bmppt\b|ciclo profundo|plomo[- ]?acido|bateria agm|\bsla\b|cargador .{0,30}lifepo4|\blipo\b|'
              r'^(?!.*(laptop|portatil|notebook|macbook|chromebook|\bdell\b|\bhp\b|lenovo|\basus\b|\bacer\b|\bmsi\b|thinkpad|inspiron|'
              r'pavilion|ideapad|vivobook|zenbook|latitude|omen|legion|surface|razer|alienware|imac|usb|tipo c|\bpd\b|\bqc\b|'
-             r'magsafe|iphone|celular|telefono|smartphone|tablet|ipad|reloj|watch|mah|pilas))'
+             r'magsafe|iphone|celular|telefono|smartphone|tablet|ipad|reloj|watch|mah|pilas|sobretension|supresor|regleta|multicontacto|\btomas?\b|enchufe|contacto|'
+             r'interruptor|apagador|disyuntor|breaker|\brele\b|relevador|contactor|controlador ats|transferencia|temporizador|tomacorriente|termostato|dimmer|atenuador|placa de pared|modulo|cerradura|sensor|timbre))'
              r'.*(\b(3[6-9]|[4-9]\d)([.,]\d)? ?v\b|\d+ ?ah\b|\d+ ?amperios|\d+ ?v[ /,]{0,3}\d{2,}([.,]\d)? ?a\b)))'),
   'cargador de batería de vehículo o industrial, no es un cargador de consumo'),
- (re.compile(r'(persianas?|cortinas?|estor(es)?|tonos?) (verticales |plisad[ao]s? |enrollables? |opac[ao]s? )?celular|'
-             r'persianas? (plisad|de panal|enrollable)|cortinas? (para|de) (ventana|techo|puerta)|nido de abeja|'
-             r'bloqueador(es)? de luz|opac[ao]s? de bloqueo'),
-  'persiana celular (de ventana), no es un teléfono'),
  (re.compile(r'bolsas? faraday|bloqueador de senal|luz .{0,25}(para|de) selfie|aro de luz.{0,30}(celular|telefono|selfie|tiktok)|luz de relleno (led|para|de)|'
              r'telefono (simulado|falso)|senuelo|telefono (de audio y video|vintage).{0,60}bodas|pegatinas?.{0,30}senal|refuerzo de antena|'
              r'estabilizador (facial|para celular|de mano)|\bgimbal\b|toallitas|lens wipes|limpiador de pantalla|'
@@ -743,7 +746,6 @@ FUERA = [
   'elevador de gabinete, no es el aparato'),
  (re.compile(r'estante (para|de) microondas|estante extensible|'
              r'soporte (para|de) (mini refrigerador|microondas)|'
-             r'cajones extraibles|muebles? para cocina|barra de cafe|'
              r'organizador(es)? de cables (adhesivo|mejorados|'
              r'para electrodomesticos)|organizador\s?para debajo|'
              r'organizador con ganchos'),
@@ -810,7 +812,7 @@ CABECERA = [
  # remoto" lo trae de accesorio. Y "con control remoto" nunca es el
  # control: el enfriador de aire VORTEX lo dice en la palabra 7 y es un
  # enfriador de aire.
- (re.compile(r'^' + ES_ROBOT_VIDRIOS + r'(?!.*\bcon control remoto).*control remoto'),
+ (re.compile(r'^' + ES_ROBOT_VIDRIOS + r'(?!.*(intelig|\bwifi\b|alexa|tuya|\bapp\b|smart|bluetooth))(?!.*\bcon control remoto).*control remoto'),
   'control remoto de repuesto, no es el aparato'),
  (re.compile(r'bateria de repuesto|bateria for portatil|repuesto para el altavoz|'
              r'cable de repuesto|adaptadores tipo c de repuesto|thumbsticks de repuesto|'
@@ -842,6 +844,16 @@ PERI = (PC, 'Accesorios', 'cpu')
 COMP = (PC, 'Componentes', 'cpu')
 
 REGLAS = [
+ # La persiana celular (de ventana) y la cortina se descartaban para que
+ # no entraran como celular; ahora tienen su sitio en Blancos / Cortinas.
+ (re.compile(r'barras? (de|para) cortina de (ducha|bano)|tubo para cortina de (bano|ducha)|cortinas? (de|para) (ducha|bano)|organizador de ducha'),
+  ('Otros', 'Baño', 'box')),
+ (re.compile(r'^(?!(?:\S+ ){0,3}(soportes?|barras?|rieles?|ganchos?|anillos?|argollas?|alzapanos|abrazaderas?|tubos?)\b)'
+             r'(?!.*(ducha|de bano|proyeccion|proyector|\bpvc\b|de tiras|cortina de aire|motorizad|intelig|\bwifi\b|alexa|tuya))'
+             r'(?=.*((persianas?|cortinas?|estor(es)?|tonos?) (verticales |plisad[ao]s? |enrollables? |opac[ao]s? )?celular|'
+             r'persianas? (plisad|de panal|enrollable|vertical|romana|de madera|de aluminio|de bambu|blackout)|cortinas? (para|de) (ventana|techo|puerta|sala|recamara|cocina|bano)|nido de abeja|'
+             r'bloqueador(es)? de luz|opac[ao]s? de bloqueo|^(?:\S+ ){0,3}(cortinas?|persianas?|estor(es)?)\b))'),
+  ('Blancos y ropa de cama', 'Cortinas', 'pillow')),
  # Suplementos. Va PRIMERA, que es la excepción a la regla de este archivo
  # ("las redes, al final"), y hace falta explicar por qué.
  #
@@ -1236,7 +1248,186 @@ REGLAS = [
  # se anuncian como "Exhibidor Comercial".
  (re.compile(r'vitrina (refrigerada|fria)'),
   ('Equipo comercial', 'Refrigeración comercial', 'snowflake')),
+
+ # ---- Captura de cocina comercial (12,112) y de domótica (12,284) ----
+ # La refacción del refrigerador no es el refrigerador: el evaporador, el
+ # compresor, el termostato y la junta de la puerta nombran el aparato al
+ # que sirven. Iban a "Refrigeradores / Uso comercial" (1,194 en una
+ # captura) o a Componentes de PC por la palabra "refrigeración".
+ (re.compile(r'^(?!.*(\bpc\b|computadora|gamer|gaming|cpu\b|\baio\b|socket|\bam[45]\b|\blga\b|automotriz|para (auto|coche|carro)\b|vehiculo|camion|automovil|nevera portatil|refrigerador portatil|ventilador (portatil|de mano|usb)))'
+             r'(?=.*((condensador|evaporador|\bcompresor|termostato|burlete|empaque|junta (magnetica|de puerta|de goma)|'
+             r'filtro secador|motor (de|del) ventilador|ventilador de refrigeracion|sensor de temperatura|tarjeta|placa (de control|electronica)|'
+             r'manija|bisagra|capacitor|relevador|arrancador|deflector|valvula de expansion|tubo capilar|'
+             r'gas refrigerante|\br134a\b|\br600a\b|\br404a\b|\br410a\b|\br22\b|tira de sellado|goma de puerta).{0,60}'
+             r'(refrigerador|congelador|nevera|frigorifico|refrigeracion|heladera|camara fria|vitrina|enfriador)|'
+             r'refrigerador.{0,30}(ventilador de refrigeracion|condensador|evaporador|compresor|termostato)|'
+             r'filtro secador|\bcompresor (embraco|tecumseh|danfoss|de refrigeracion|frigorifico|para refrigerador)|'
+             r'gas refrigerante|\br134a\b|\br600a\b|\br404a\b|motor (de |para )?(refrigeracion|refrigerador|congelador|evaporador|condensador)|motor electronico.{0,40}refrigeraci|'
+             r'(gozne|bisagra|herraje).{0,30}refrigera|placa de enfriamiento (para|de) (congelador|refrigerador)|(alfombrilla|tapete) anticongelante|divisor de refrigerador|separador de congelador|estante.{0,40}(para|de) (congelador|refrigerador|nevera|vitrina)|'
+             r'motor (de |del )?ventilador (del |de )?(evaporador|condensador)|ventilador de repuesto|ventilador (de |para )?(frigorifico|refrigerador|congelador|nevera)|'
+             r'termometro (de|para) (refrigera|congelador|nevera)|sondas? de temperatura|(motor|ventilador).{0,25}(for|para) (refrigerador|congelador|nevera)))'),
+  ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
+ # La cortina de tiras de PVC: la del cuarto frío va con la refrigeración
+ # comercial y la del garaje con la construcción.
+ (re.compile(r'(cortina|puerta|tiras?) (de |enfriadora de )?(pvc|tiras|plastico|vinilo)|tiras? de pvc|cortina de tiras'
+             r'(?=.*(refrigerador|congelador|camara fria|cuarto frio|comercial|refrigeracion))'),
+  ('Equipo comercial', 'Refrigeración comercial', 'snowflake')),
+ (re.compile(r'(cortina|puerta|tiras?) (de |enfriadora de )?(pvc|tiras|plastico|vinilo)|tiras? de pvc|cortina de tiras'),
+  ('Herramientas', 'Construcción', 'wrench')),
+ # El radio de bolsillo, el inversor y la báscula tienen su sitio y no lo
+ # alcanzaba ninguna regla (el radio acababa en Mobiliario por 'la mejor
+ # recepción', el inversor en Herramientas, la báscula de cocina en manuales).
+ (re.compile(r'^(?!.*(bocina|altavoz|para (auto|coche|carro)|estereo|\bcd\b|tocadiscos|bluetooth|speaker|parlante|\btv\b))'
+             r'(?=(?:\S+ ){0,3}radios? (am|fm|portatil|de onda corta|de transistores|multibanda|de bolsillo|solar|de emergencia|retro|vintage|de mesa|digital|dab|despertador)|.*radio (am|fm)\b|.*radio.{0,30}(onda corta|transistores))'),
+  ('Otros', 'Radios', 'box')),
+ (re.compile(r'^(?!.*(estacion de energia|estacion electrica|generador|power station|central electrica))(?=.*(inversor(es)? de (corriente|voltaje|onda|energia)|inversor .{0,25}\d+ ?w\b|convertidor (cc|dc) a (ca|ac)|inversor (solar|senoidal|de onda)))'),
+  ('Otros', 'Inversores', 'box')),
+ (re.compile(r'basculas? (de bano|corporal|digital de bano|intelig|de peso corporal|para personas|de grasa corporal)|bascula.{0,30}(bluetooth|app|grasa corporal|imc)'),
+  ('Salud', 'Básculas', 'heart-pulse')),
+ (re.compile(r'basculas? (de cocina|digital de cocina|de precision|de bolsillo|digital de precision|para alimentos)|balanzas? (de cocina|de precision|digital)'),
+  ('Cocina y comedor', 'Utensilios de cocina', 'coffee')),
+ # El termostato del motor y la bomba de agua del coche nombran el
+ # termostato, y la domótica no es lo suyo.
+ (re.compile(r'(carcasa|conjunto) (de )?termostato|termostato (de|del|para) (motor|coche|auto|carro|vehiculo)|'
+             r'termostato .{0,50}(ford|chevrolet|nissan|toyota|volkswagen|honda|mazda|\bkia\b|hyundai|\bbmw\b|audi|mercedes|jeep|dodge|volvo|subaru|\bgm\b|silverado|cummins)|'
+             r'bomba de agua (para|de) (motor|auto|coche|carro|autobus|camion)|interruptor .{0,40}(puerta trasera|maletero|automovil)'),
+  ('Refacciones', 'Para autos', 'gear')),
+ # Domótica, por el aparato y no por "alexa": el enchufe, el apagador, la
+ # cerradura con huella, el foco y la cortina inteligentes. Antes cualquier
+ # cosa "compatible con Alexa" era una bocina inteligente (808 en una
+ # captura) y el enchufe inteligente no encajaba en nada.
+ (re.compile(r'^(?!(?:\S+ ){0,3}(cargador|cable|funda|soporte|adaptador|base|repuesto|montura|bateria|manija de repuesto|placa (de pared|frontal|decorativa))\b)'
+             r'(?!.*(\bpc\b|gamer|gaming|para (auto|coche|carro|moto)\b|windows|celeron|\bintel\b|\bghz\b|\bram\b|\bssd\b|mini pc|calefactor|radiador|estufa|chimenea|calentador))'
+             r'(?=.*(enchufes? intelig|contactos? (de pared )?intelig|smart plug|tomacorriente intelig|enchufes? (wifi|alexa)|regleta intelig|multicontacto intelig|'
+             r'apagador(es)? intelig|interruptor(es)? (de luz |de pared |tactil |de atenuacion |inalambrico )?intelig|smart switch|'
+             r'interruptor(es)? (de luz |de pared |tactil )?(wifi|zigbee|tuya)|apagador(es)? (wifi|tuya)|modulo (interruptor|rele) (wifi|intelig)|rele wifi|'
+             r'atenuador intelig|dimmer intelig|pulsador de boton de interruptor|interruptor.{0,30}(tuya|alexa|zigbee)|'
+             r'cerraduras?.{0,60}(intelig|electronic|digital|biometric|huella|reconocimiento facial|\bapp\b|\bwifi\b|bluetooth|tuya|contrasena|codigo|tarjeta|sin llave|keyless|teclado)|'
+             r'smart lock|chapa intelig|cerrojo intelig|manijas? (de |para )?(puerta )?.{0,30}huella|bloqueo de puerta intelig|'
+             r'focos? intelig|bombillas? intelig|tiras? (de )?led intelig|iluminacion intelig|lampara intelig|luz intelig|focos? (wifi|alexa|led wifi|led rgb wifi)|'
+             r'philips hue|\bhue\b (bridge|white|play|go|lightstrip)|controlador (led|rgb|de tiras? led).{0,30}(wifi|intelig|alexa|tuya)|'
+             r'\bhub\b.{0,25}(zigbee|domotic|intelig|alexa|tuya|matter|hogar)|puente (hue|zigbee|wifi|intelig)|\bzigbee\b|\bmatter\b|gateway (zigbee|bluetooth|wifi)|'
+             r'cortinas? (motorizada|intelig|automatica|electrica)|persianas? (motorizada|intelig|automatica|electrica)|motor (para|de) cortina|riel (para|de) cortina motorizad|'
+             r'sensor(es)? (de )?(movimiento|puerta|ventana|agua|fuga|humo|temperatura|presencia|inundacion|gas)[^,]{0,30}(wifi|intelig|zigbee|alexa|tuya)|'
+             r'detector(es)? .{0,25}(wifi|intelig|zigbee)|valvula (de )?(bola|de agua|de gas)?.{0,30}(wifi|intelig|tuya|alexa|zigbee)|'
+             r'termostatos? (intelig|wifi|programable|digital|de pared|para calefaccion|honeywell|nest)|honeywell home|'
+             r'tuya smart|smart life|control(ador)? (remoto )?universal (ir |infrarrojo )?(wifi|intelig)|boton (sos|de panico) (wifi|intelig)))'),
+  ('Domótica y hogar inteligente', None, 'home')),
+ # Lo mismo con la palabra suelta ('lámpara de techo inteligente wifi',
+ # 'toma de pared inteligente'), pero sin tocar los aparatos que tienen
+ # su propia categoría y traen luz o wifi de paso.
+ (re.compile(r'^(?!(?:\S+ ){0,3}(cargador|cable|funda|soporte|adaptador|base|repuesto|montura|bateria)\b)'
+             r'(?!.*(ventilador|aire acondicionado|minisplit|refrigerador|lavadora|secadora|televis|\btv\b|pantalla|monitor|laptop|celular|smartphone|tablet|reloj|smartwatch|'
+             r'camara|bocina|audifono|aspiradora|\brobot\b|proyector|calentador|horno|estufa|microondas|cafetera|licuadora|freidora|purificador|humidificador|impresora|'
+             r'\bmouse\b|teclado (mecanico|gamer|inalambrico)|espejo|\bpc\b|gamer|gaming|para (auto|coche|carro|moto)\b|mascota|juguete|\bdron\b|pluma|linterna|'
+             r'transferencia|\bats\b|trifasic|\bsmd\b|\d+ ?pines|de tiempo|temporizador|medidor|disyuntor|breaker|circuito|\bdin\b|carril|calefactor|radiador|estufa|chimenea))'
+             r'(?=.*(interruptor(es)?[^,|]{0,40}intelig|apagador(es)?[^,|]{0,40}intelig|enchufes?[^,|]{0,30}intelig|tomas? (de pared|de corriente)[^,|]{0,30}intelig|'
+             r'iluminacion[^,|]{0,30}intelig|lamparas?[^,|]{0,40}intelig|\bluz[^,|]{0,40}intelig|luces[^,|]{0,40}intelig|focos?[^,|]{0,40}intelig|plafon(es)?[^,|]{0,40}intelig|'
+             r'bombillas?[^,|]{0,40}intelig|tiras? (de )?led[^,|]{0,40}intelig|\bgovee\b|luces? (led )?rgbic|(intelig|rfid|huella)[^,|]{0,40}cerradura|bloqueo de puerta[^,|]{0,40}intelig|'
+             r'smartcode|teclado electronico sin llave|entrada sin llave|cortinas?[^,|]{0,30}(motorizad|intelig)|persianas?[^,|]{0,30}(motorizad|intelig)|'
+             r'riel (de |para )?cortinas?[^,|]{0,40}(motorizad|electric|intelig)|termostato[^,|]{0,30}(wifi|intelig)|sensor(es)?[^,|]{0,40}(wifi|zigbee|tuya|intelig)))'),
+  ('Domótica y hogar inteligente', None, 'home')),
+ # Iluminación no tenía red: la lámpara de techo, el foco y la luz con
+ # sensor para el clóset iban a Escaleras, a Roperos o a la basura.
+ (re.compile(r'^(?!.*(camara|proyector|\btv\b|monitor|linterna|luz de trabajo|para (auto|coche|carro|moto|motocicleta|bicicleta|bici)\b|de (auto|coche|carro|moto)\b|\bfaros?\b|aro de luz|ring light|letrero|pantalla led|juguete|acuario|pecera|terrario|reptil|de crecimiento|para plantas|cultivo|esterilizador|para unas|de unas|secador|\bwifi\b|alexa|tuya|'
+             r'ventilador|abanico|\bpc\b|difusor|aromaterapia|humidificador|bocina|altavoz|speaker|fotografia|\bvideos?\b|softbox|estudio|mascota|perro|\bgato\b|collar|casco|\bdron\b))'
+             r'^(?!(?:\S+ ){0,3}(interruptor|apagador|placa|toma|enchufe|sensor|controlador|regulador|atenuador|dimmer|temporizador|soporte|base|cable|adaptador|pantalla|difusor|reloj)\b)'
+             r'^(?:\S+ ){0,3}(?<!con )(?<!y )(luz|luces|lampara|lamparas|foco|focos|bombilla|bombillas|tiras? (de )?led|tiras? (de )?luz|iluminacion|plafon(es)?|candil(es)?|apliques?|arbotantes?|luminarias?|reflector(es)? led|farol(es)?|panel(es)? led|barras? de luz|luz nocturna|lampara solar|luces solares|kit de iluminacion|tubos? led|riel de iluminacion|lampara colgante|luces? colgantes?|focos? led|lamparas? de (techo|pared|piso|pie|mesa|escritorio|buro|noche))\b'),
+  ('Iluminación', None, 'lightbulb')),
+ # La cerradura mecánica y el candado: no eran de nadie y acababan en
+ # Teclados ("con teclado"), en Roperos ("para armario") o en Componentes
+ # ("de gabinete").
+ (re.compile(r'^(?!.*(intelig|\bwifi\b|biometric|huella|bluetooth|\bapp\b|tuya|alexa|bicicleta|\bbici\b|\bmoto\b|maleta|equipaje|mascota|laptop|notebook|casillero|para auto|de auto|coche|volante))'
+             r'(?:\S+ ){0,4}(cerraduras?|cerrojos?|candados?|chapas?|picaportes?|pasador(es)? de puerta|aldabas?|cerradura de gabinete|manijas? (de|para|con) (puerta|cerradura))\b'),
+  ('Herramientas', 'Cerraduras y candados', 'wrench')),
+ # Material eléctrico: el temporizador de pared, el interruptor de
+ # transferencia, el disyuntor y el contacto de pared. Sin esto el
+ # temporizador entraba a Componentes por "ventilador" y el botón
+ # momentáneo "Auto Reset" a Autos.
+ (re.compile(r'^(?!.*(\bpc\b|gamer|gaming|para (auto|coche|carro|moto)\b|bicicleta|juguete))'
+             r'(?:\S+ ){0,4}(temporizador(es)? (programable|de pared|de enchufe|de riego|de luz|electrico)|'
+             r'interruptores? tactiles|circuit breaker|extensor de (enchufe|toma)|tomas? (usb|de pared|de corriente|multiples?)|receptaculos?|placas? (para|de) (interruptor|apagador|contacto)|\bgfci\b|medidor de potencia|'
+             r'interruptor(es)? (de paso|de \d polos?|termico|selector|giratorio|de llave|de transferencia|automatico|termomagnetico|diferencial|de circuito|de tiempo|horario|crepuscular|de flotador|de presion|de palanca|de cuchilla|'
+             r'sencillo|doble|triple|de escalera|de 3 vias|de pared|de luz|con sensor|de boton|de encendido|basculante|momentaneo|de pie|de llave|de nivel|magnetico|de limite)|'
+             r'controlador ats|\bats\b|disyuntor(es)?|\bbreakers?\b|contactor(es)?|\breles?\b|relevador(es)?|caja de distribucion|tablero electrico|centro de carga|pastillas? termomagnetica|'
+             r'tipo carril|riel din|regleta (electrica|de conexion|de terminales)|supresor de picos|protector (contra|de) sobretension|extension electrica|'
+             r'clavijas?|tomacorrientes?|contactos? (duplex|de pared|dobles?|sencillos?|con usb)|placas? (de pared|para contacto|de interruptor)|'
+             r'apagador(es)? (sencillo|doble|triple|de pared|de escalera|con placa)|atenuador(es)?|\bdimmer\b|fotocelda|'
+             r'timbres? (inalambrico|de puerta|para puerta|de pared|electrico)|controlador(es)? de temperatura|termostato digital|termostato programable|'
+             r'boton(es)? (momentaneo|pulsador|de arranque|de paro|de emergencia)|pulsador(es)?|cable (thw|calibre|electrico|duplex)|canaleta|fusibles?|portafusibles?|'
+             r'cinta aislante|conector(es)? wago|terminales electricas|voltimetro|amperimetro|medidor de (consumo|energia|voltaje)|\bwattimetro\b)\b'),
+  ('Herramientas', 'Material eléctrico', 'wrench')),
+ # El hub USB y la docking station: el catálogo los tenía en Monitores.
+ (re.compile(r'\bhubs? usb\b|concentrador usb|usb hub|docking station|estacion de acoplamiento|base de conexion usb|adaptador multipuerto|hub (usb-?c|tipo c)'),
+  ('Componentes y accesorios de PC', 'Accesorios', 'cpu')),
+ # Punto de venta: la caja registradora, la terminal POS, el cajón de
+ # dinero y la impresora de tickets iban a Tabletas, Celulares o AiO.
+ (re.compile(r'terminal (pos|de punto de venta|de cobro|de pago|para tarjetas)|\bpos\b (terminal|todo en uno|tactil|android|de doble pantalla)|'
+             r'caja registradora|cajas registradoras|cajon (de dinero|portamonedas|de efectivo|monedero)|impresora (termica )?de (tickets|recibos)|miniprinter|'
+             r'impresora termica.{0,30}(58|80) ?mm|escaner de codigos? de barras|lector de codigos? de barras|lector de tarjetas|\btpv\b|'
+             r'maquina expendedora|rollos? termicos?|papel termico|terminal de (cobro|pago)|\bpda\b.{0,50}(escaner|codigo de barras|colector)|colector de datos|'
+             r'sistema (de )?punto de venta|mercado pago point|punto de venta'),
+  ('Equipo comercial', 'Punto de venta', 'factory')),
+ # Mobiliario comercial: el exhibidor, el mostrador y la recepción.
+ (re.compile(r'^(?!.*(refriger|congel|vitrina|\bfrio\b|\bfria\b|celular|telefono|tablet|pastel|postres|cupcake|torta|joyeria|anillos|relojes|figuras|funko|munec|juguete|estatua|statue|adorno|decoraci|altura de mostrador|mesita|buro|de noche|antipolvo|protector|escritorio de))'
+             r'(?=.*(exhibidor(es)?|estante(s)? de exhibicion|organizador(es)? (de|para) (cigarrillos|caramelos|dulces|chicles|tabaco)|'
+             r'mostrador(es)? (de|para) (tienda|recepcion|caja|exhibicion|venta|cristal|vidrio|madera|negocio)|mueble mostrador|mostrador (comercial|de recepcion)|^(?:\S+ ){0,2}mostrador(es)?\b|mobiliario (de|para|para la) (recepcion|comercial|tienda|restaurante)|'
+             r'(mostrador|mesa|escritorio|sillas?|sillon(es)?|sofas?|bancos?|bancas?|mobiliario|area|sala|muebles?) de recepcion|recepcion (de|para) (oficina|hotel|clinica|consultorio)|maniqui|\bgondolas?\b|\banaquel(es)?\b|\bcasilleros?\b|\btaquillas?\b|\blockers?\b|banco de barberia|silla de barbero|estacion de manicura|'
+             r'estanterias? (moviles|movil|metalica (industrial|de carga)|para (almacen|bodega|tienda))|estantes? (de acero( inoxidable)?|metalicos?|de alambre|cromados?|industrial(es)?).{0,50}(niveles|garaje|almacen|bodega|lbs|kg|comercial|cocina|restaurante|nsf|pared)))'),
+  ('Equipo comercial', 'Mobiliario', 'factory')),
+ # Cocina industrial: el dispensador de bebidas, la máquina de hielo, la
+ # freidora comercial y la mesa de trabajo de acero inoxidable.
+ (re.compile(r'^(?!.*(juguete|de imitacion|para ninos|\bpc\b|gamer))'
+             r'(?=.*(dispensador(es)? de (bebidas|jugo|cerveza|agua fria|cafe comercial)|maquina (comercial )?(de|para) (hacer )?(hielo|helados?|helado suave|yogur|palomitas|algodon de azucar|crepas|churros|tortillas|hot ?dogs|nieve|raspados|granizados|donas|malteadas|cafe comercial)|'
+             r'trituradora de hielo|freidora (industrial|comercial|de papas)|campanas? (industrial|comercial|de extraccion industrial)|campanas? (para |de )?cocinas? (industrial|comercial)|peladora|maquina comercial (de|para)|enfriador (de|para) (vasos|bebidas|copas|latas)|enfriador rapido|mesas? (de )?(taller|trabajo|preparacion)( de cocina)? .{0,30}acero|'
+             r'estufa industrial|parrilla industrial|plancha industrial|bano maria (electrico|industrial|comercial)|fermentador|amasadora|batidora industrial|laminadora|rebanadora (de carne|de embutidos|comercial|industrial)|'
+             r'cortadora de (carne|embutidos|vegetales|papas)|licuadora industrial|olla (industrial|arrocera comercial)|cazos? (de acero|para carnitas|carnitero)|comal industrial|marmita|'
+             r'extractor industrial|mesa de (trabajo|preparacion) de acero inoxidable|mesa de acero inoxidable|fregadero (industrial|comercial)|tarja (industrial|de acero inoxidable)|'
+             r'exhibidor (de comida|caliente)|calentador de (alimentos|comida) comercial|mantenedor de calor|asador (de pollos|comercial|industrial)|tostadora comercial|'
+             r'maquina (de |para )?(sellar|sellado|empacar al vacio) (comercial|industrial)|refresquera|jarra refresquera|chocomilera|cafetera (industrial|comercial|percoladora)))'),
+  ('Equipo comercial', 'Cocina industrial', 'factory')),
+ # El carro de servicio y el carrito de cocina: no son un auto.
+ (re.compile(r'^(?!.*(bebe|\bnino|munec|juguete|\bgolf\b|herramienta|cargador|de carga|celular|\brc\b|control remoto|ventilador|para (el )?carro\b|de(l)? carro\b|coche|\bauto\b|automovil))'
+             r'(?:\S+ ){0,3}(carros?|carritos?|carretilla de servicio) (de |para |con |multifuncion|utilitario|rodante|movil|auxiliar|organizador|metalico|plegable|portatil|industrial|bar\b|barra|multiusos|almacenamiento|servicio|utilidad)'
+             r'(?!.*(compras|mandado|supermercado|lavanderia|ropa|playa|jardin|ninos))'),
+  ('Equipo comercial', 'Carros de servicio', 'factory')),
+ (re.compile(r'^(?!.*(bebe|\bnino|munec|juguete|\bgolf\b|herramienta|cargador|de carga|celular|\brc\b|control remoto|ventilador|para (el )?carro\b|de(l)? carro\b|coche|\bauto\b|automovil))'
+             r'(?:\S+ ){0,3}(carros?|carritos?) (de |para |con |multifuncion|utilitario|rodante|movil|auxiliar|organizador|metalico|plegable|portatil|industrial|bar\b|barra|multiusos|almacenamiento|servicio|utilidad)'
+             r'(?=.*(compras|mandado|supermercado|lavanderia|ropa|playa|jardin))'),
+  ('Otros', 'Organización del hogar', 'box')),
+ # Impresoras: la de sublimación va con el equipo comercial, el cabezal y
+ # la tinta con los consumibles, y la de casa por su tecnología.
+ (re.compile(r'^(?!.*(cabezal|tinta|papel|cubierta|funda|cover))(?=.*(impresoras? (de |para )?sublimacion|impresora.{0,40}sublimaci|sublimaci.{0,40}impresora))'),
+  ('Equipo comercial', 'Impresoras de sublimación', 'factory')),
+ (re.compile(r'^(?!.*(3d|etiquetadora|rotuladora|\bdymo\b|\bbrother p-?touch\b))'
+             r'(?=.*(tinta (de |para )?sublimacion|papel (de |para )?sublimacion|cabezal(es)? de impresion|cabezal impresor|cabezal (epson|canon|hp)|'
+             r'impresora (multifuncional|de inyeccion|de tinta|laser|ecotank|termica|fotografica|portatil|inalambrica|wifi|a color|monocromatica|de etiquetas|de fotos|de tanque)|'
+             r'\becotank\b|\bpixma\b|\bdeskjet\b|\blaserjet\b|\bofficejet\b|\bimageclass\b|\bbrother (dcp|mfc|hl)-|\bepson (l\d{3,4}|et-\d|wf-\d|xp-\d)|\bcanon (g\d{4}|ts\d{4}|mg\d{4}|mx\d{3})|'
+             r'multifuncional (epson|hp|canon|brother|xerox|kyocera|ricoh)|impresora (epson|hp|canon|brother|xerox|kyocera|ricoh)))'),
+  ('Impresoras', None, 'printer')),
+ # Plomería: el fregadero, el grifo y el lavabo. Sin la guarda, el filtro
+ # para grifo seguiría en Purificadores de agua, que es donde va.
+ (re.compile(r'^(?!.*(filtro|purificador|osmosis|juguete|para (auto|coche|carro)|de imitacion))'
+             r'(?:\S+ ){0,2}(fregaderos?|tarjas?|grifos?|griferia|llaves? (mezcladora|monomando|de cocina|de lavabo|para fregadero)|mezcladoras? (de|para) (cocina|lavabo|bano|regadera)|monomando|regaderas?|lavabos?|inodoros?|\bwc\b|bides?|taza de bano|sanitarios?|mingitorios?)\b'),
+  ('Herramientas', 'Plomería', 'wrench')),
+ (re.compile(r'toallas? de cocina|secador(es)? de cocina|trapos? de cocina|panos? de cocina'),
+  ('Blancos y ropa de cama', 'Toallas', 'pillow')),
+ # El barril de arroz es un contenedor de cocina.
+ (re.compile(r'barril(es)? (de|para) arroz|contenedor(es)? (de|para) (arroz|granos|cereal|harina)|dispensador(es)? de (arroz|cereal|granos|harina)|cubo (de|para) arroz|caja de arroz|caja (refrigerada|aislante|termica) (para|for) alimentos|hielera|cubos? (de |para )?hielo|cubitera|contenedor de hielo'),
+  ('Cocina y comedor', 'Contenedores', 'kitchen')),
+ # El espejo: el de maquillaje con la belleza, el de baño y el de pared
+ # con la decoración.
+ (re.compile(r'^(?!.*(retrovisor|\bauto\b|coche|carro|\bmoto\b|bicicleta|dental|telescopio|camara|lente|para (puerta|ventana) de|convexo|de inspeccion))'
+             r'(?!.*(de bano|para bano|antivaho|retroiluminado|cuerpo entero|de pared))'
+             r'(?:\S+ ){0,2}espejos?\b(?=.*(maquillaje|tocador|cosmetic|aumento|vanidad|de mano|compacto))'),
+  ('Belleza y cuidado personal', 'Maquillaje', 'sparkles')),
+ (re.compile(r'^(?!.*(retrovisor|\bauto\b|coche|carro|\bmoto\b|bicicleta|dental|telescopio|camara|lente|convexo|de inspeccion|de seguridad|de trafico))'
+             r'(?:\S+ ){0,2}espejos?\b'),
+  ('Decoración de hogar y jardín', 'Espejos', 'vase')),
  (re.compile(r'^(?!.*(refrigerador(es)?|enfriador|ventilador) (de |para )?(telefonos?|celular|movil))'
+             # La refacción y el accesorio del refri no son el refri.
+             r'^(?!(?:\S+ ){0,3}(cortina|evaporador|junta|termostato|motor|compresor|filtro|sensor|condensador|ventilador|rejilla|repuesto|refaccion|estante|cajon|bandeja|manija|tira|empaque|burlete|cubierta|funda|parasol|control|tarjeta|placa|puerta enfriadora|imanes?|iman|organizador|contenedor|termometro|kit|tapete|alfombrilla|lampara|foco|bombilla|bisagra|jaladera|pedal|cerradura|candado|soporte|base|rodillo|rueda|tubo|valvula|capacitor|arrancador|relevador|rele|fusible|cable|deflector|charola|cesta|canasta|divisor|separador|panel|sello|goma|puerta|tiras?)\b)'
+             r'(?!.*(condensador|evaporador|compresor (embraco|tecumseh|danfoss|de refrigeracion|frigorifico|para refrigerador|rotativo|hermetico)|termostato|burlete|empaque|junta (magnetica|de puerta)|refaccion|repuesto|reemplazo|pieza de recambio|motor (de|del) ventilador|ventilador de refrigeracion|cortina|tira de sellado|tiras? de pvc|puerta enfriadora|desodorizante|purificador para|refrigerador de aire|aire acondicionado|enfriador de aire|maquina (de|para) (hacer )?helado|humidor))'
              r'(?=.*(\brefrigerador|\bfrigobar|\bnevera\b|cava de vino|enfriador de vino))'),
   ('Refrigeradores', None, 'fridge')),
  # Purificadores de agua, después de los filtros de refrigerador: los dos
@@ -1459,7 +1650,7 @@ REGLAS = [
              r'tripie|tripode|lente|kit de|audifonos|auriculares|bocina|altavoz|teclado|\bmouse\b|monitor|proyector|camara|'
              r'estuche|bolsa|brazalete|correa|adaptador|memoria|tarjeta)\b)'
              r'(?!.*((funda|mica|protector|carcasa|cristal templado|vidrio templado) (para|compatible|de|transparente|rigid|antigolpes|silicona)|'
-             r'car ?radio|carplay|android auto|doble din|2 ?din|autoestereo|estereo (para|de) (coche|auto|carro)|bicicleta|triciclo|motocicleta|casillero|persiana|cortina|de repuesto|refaccion|reemplazo|laptop|notebook|macbook|'
+             r'car ?radio|carplay|android auto|doble din|2 ?din|autoestereo|estereo (para|de) (coche|auto|carro)|bicicleta|triciclo|motocicleta|casillero|persiana|cortina|caja registradora|punto de venta|terminal (pos|de cobro|de pago)|\bpos\b|\btpv\b|colector de datos|\bpda\b|de repuesto|refaccion|reemplazo|laptop|notebook|macbook|'
              r'chromebook|mini pc|\bpc\b|\btablet\b|tableta|\bipad\b|\bpad\b|router|modem|consola|\bretro\b|'
              r'\btv\b|television|\bssd\b|memoria usb|\bwatch\b|smartwatch|reloj|camara (de seguridad|ip|web)|'
              r'\bdron\b|estereo|\bdin\b|carplay|android auto|para (auto|coche|carro)|pantalla (lcd|amoled|oled).{0,30}(repuesto|reemplazo|reparacion)))'
@@ -1854,7 +2045,7 @@ REGLAS = [
  # La bocina, con las cuatro maneras de nombrarla que usa esta captura:
  # "bocina", "bafle", "altavoz/altavoces" y la máquina de cantar karaoke,
  # que el catálogo ya tiene entre las bocinas.
- (re.compile(r'\becho (pop|dot|show|studio|hub)\b|\balexa\b|google nest|'
+ (re.compile(r'\becho (pop|dot|show|studio|hub)\b|amazon echo|google nest|homepod|'
              r'\bnest (audio|mini|hub)\b|bocina intelig|altavoz intelig'),
   ('Domótica y hogar inteligente', 'Bocinas inteligentes', 'speaker')),
  (re.compile(r'cerradura (inteligente|electronica|digital|biometrica)|smart lock'),
@@ -1870,7 +2061,7 @@ REGLAS = [
              r'(?:\S+ ){0,3}almohadas?\b'),
   ('Blancos y ropa de cama', 'Almohadas', 'pillow')),
  (re.compile(r'^(?!(?:\S+ ){0,2}(cables? (auxiliar|usb|micro|divisor|de carga|tipo c|hdmi)|cargador|estante|antena|banda|soporte|funda)\b)'
-             r'(?=.*(bocina|bafle|altavo(z|ces)|maquina de cantar|\bspeaker\b|'
+             r'(?=.*(bocina|bafle|altavo(z|ces)|maquina de cantar|\bspeaker\b|barra de sonido|sound ?bar|sistema activo estereo|\bsonos\b|'
              r'monitores? (de |tipo )?estudio))'),
   ('Bocinas', None, 'speaker')),
  # Audífonos: "audífonos" es la palabra del catálogo, pero media captura
@@ -1986,7 +2177,7 @@ REGLAS = [
              r'\d+ ?gb ram|\d+ ?gb ?\+ ?\d+ ?gb|\d+ ?\+ ?\d+ ?gb|\bram\b.{0,15}\brom\b|'
              r'\b(flip|smart|cell|feature) ?phone\b|'
              r'(samsung galaxy|galaxy [asmzf]\d|xiaomi|redmi|\bpoco\b|motorola|\bmoto ?[ge]\d|'
-             r'\boppo\b|\bvivo\b|realme|\bhonor\b|huawei|\bzte\b|nokia|\btcl\b|oneplus|infinix|tecno|'
+             r'\boppo\b|\bvivo\b|realme|\bhonor\b|huawei|\bzte\b|nokia|\btcl\b|oneplus|infinix|\btecno\b|'
              r'google pixel|pixel \d|iphone|nubia|alcatel|lanix|bmobile|blackview|doogee|ulefone|'
              r'oukitel|cubot|umidigi|fossibot|kyocera|cat phones|crosscall|\bblu\b|hotwav|\bagm\b|'
              r'nothing phone|xperia|blackberry|\bhtc\b)'
@@ -2049,6 +2240,7 @@ REGLAS = [
  # suelta y la otra abre nombrando la luz) y acababan acá.
  (re.compile(r'^(?!.*(ventilador(es)? de techo|aspas? (de|para) ventilador|minisplit|mini split|'
              r'aire acondicionado|acondicionador de aire|ventilador (centrifugo|axial|industrial)))'
+             r'^(?!(?:\S+ ){0,3}(cerradura|mesa|interruptor|temporizador|termostato|cortina|puerta|parasol|funda|maquina|estante|carro|carrito|gabinete de (cocina|bano)|isla|cojin|asiento|motor|gozne|bisagra|contenedor|cubo|placa de enfriamiento|hielera|caja)\b)'
              r'^(?!.*(\bperro|\bgato\b|\bgatos\b|\bgatito|mascota|\bcanino|\bfelino|\bcachorro))'
              # Lookahead, no coincidencia directa: con "^...(?:ventilador|...)"
              # la regla solo valía si el título EMPEZABA con la palabra, y
@@ -2060,7 +2252,7 @@ REGLAS = [
              r'hub de ventilador|cable (de extension de alimentacion|rgb)|neon difuso|'
              r'tanque de agua|reservorio|indicador flujo|boton de encendido|'
              r'placa adaptadora|\bsata\b|pcie|\bpc fan\b|noctua|kit de actualizaci.n pantalla|'
-             r'gabinete|carcasa (para|de|del) (pc|computadora|ordenador)|funda para pc|'
+             r'gabinete (para |de |del )?(pc|computadora|ordenador|gamer|gaming|atx|itx|torre|cpu)|gabinete.{0,40}\b(atx|itx|rgb|gamer|gaming|cristal templado|vidrio templado|ventiladores)\b|carcasa (para|de|del) (pc|computadora|ordenador)|funda para pc|'
              r'caja (modular|para pc)|chasis para pc|pc case|torre media|mid-tower|'
              r'almohadilla decorativa|para placa base|placa madre))'), COMP),
  # "Teclado" en español es el de la computadora Y el musical, y esta regla
@@ -2070,7 +2262,7 @@ REGLAS = [
  # musical lo recoge la red de Instrumentos musicales del final.
  (re.compile(r'^(?!.*(melodica|pianica|kalimba|\bkazoo\b|instrumento musical|'
              r'\bmidi\b|\bpiano|\bmusical\b|sintetizador|\borgano\b|\bpianika\b|'
-             r'banco (de|para) (piano|teclado)|banqueta|melodic|'
+             r'banco (de|para) (piano|teclado)|banqueta|melodic|cerradura|cerrojo|chapa|candado|caja fuerte|manija|picaporte|control de acceso|caja registradora|punto de venta|\bpos\b|'
              # Con el lookahead, "teclado" en cualquier parte alcanza, y eso
              # trae lo que solo lo NOMBRA: el "Cargador Micro-USB para Kindle
              # Paperwhite, Oasis, teclado, táctil" (es el modelo Kindle
@@ -2330,15 +2522,15 @@ REGLAS = [
  # montón de aparatos nombran una herramienta de paso ("organizador para
  # taladro", "batería para atornillador"). Lo que ninguna otra regla
  # reclama y nombra una herramienta, es una herramienta.
- (re.compile(r'^(?!.*(de juguete|para nino|didactic|\bmaqueta\b))'
-             r'(?=.*(herramienta|taladro|rotomartillo|esmeriladora|soldador|\n'
-             r'soldadura|escalera|andamio|\\bbroca|\\blija\\b|desarmador|\n'
-             r'destornillador|\\bpinza|\\bllave (allen|hexagonal|inglesa|perica|mixta)|\n'
-             r'martillo|\\bcincel\\b|grabado(r|ra)? ?laser|multimetro|\\bvernier\\b|\n'
-             r'flexometro|seguridad industrial|casco de seguridad|\n'
-             r'guantes de (trabajo|seguridad|corte)|gas l\\.?p\\.?|plomeria|\n'
-             r'jardineria|podadora|motosierra|desbrozadora|cortasetos|\n'
-             r'compresor de aire|neumatica|\\bcemento\\b|revolvedora|carretilla))'),
+ (re.compile(r'^(?!.*(de juguete|para nino|didactic|\bmaqueta\b|compresor de aire acondicionado|inversor de corriente|bascula (de bano|corporal|de cocina|de precision|de bolsillo)|balanza de cocina))'
+             r'(?=.*(herramienta|taladro|rotomartillo|esmeriladora|soldador|'
+             r'soldadura|escalera|andamio|\bbroca|\blija\b|desarmador|'
+             r'destornillador|\bpinzas?\b|\bllave (allen|hexagonal|inglesa|perica|mixta)|'
+             r'martillo|\bcincel\b|grabado(r|ra)? ?laser|multimetro|\bvernier\b|'
+             r'flexometro|seguridad industrial|casco de seguridad|'
+             r'guantes de (trabajo|seguridad|corte)|gas l\.?p\.?|plomeria|'
+             r'jardineria|podadora|motosierra|desbrozadora|cortasetos|'
+             r'compresor de aire|neumatica|\bcemento\b|revolvedora|carretilla))'),
   ('Herramientas', None, 'wrench')),
  # Cochecitos y sillas de auto de bebé, ANTES que Vehículos y que Muebles.
  # En español la carriola se llama "silla de paseo" y la silla de auto,
@@ -2377,7 +2569,9 @@ REGLAS = [
  # que una captura de autos y bicis entraba al 16% -- 7,568 de 10,162 anuncios
  # caían en "no encaja", casi todos accesorio y refacción.
  (re.compile(r'^(?!.*(de juguete|para (muneca|barbie)|\bmaqueta\b|'
-             r'control remoto.{0,15}escala|montable para nino))'
+             r'control remoto.{0,15}escala|montable para nino|'
+             r'carr(o|ito)s? (de|para) (servicio|cocina|almacenamiento|bar|te|postres|helados|comida|bebidas|limpieza|lavanderia|compras|mandado|supermercado|libros|utilidad|herramientas|carga|mano|jardin)|'
+             r'carr(o|ito)s? (rodante|multifuncion|utilitario|auxiliar|movil|organizador|plegable|metalico|con ruedas)|auto ?reset|inodoro|\bbide\b))'
              r'(?=.*(\bbicicleta|\bbici\b|ciclismo|\btriciclo|\bmotocicleta|\bmoto\b|'
              r'\bautomovil|\bvehiculo|\bauto\b|\bcoche\b|\bcarro\b|camioneta|'
              r'\bllanta|neumatico|autoestereo|estereo (para|de) (auto|coche|carro)|'
@@ -2404,7 +2598,10 @@ REGLAS = [
              r'(?=.*(\bsilla|\bsillon|\bsofa|\bescritorio|\bmesa|\bmesita|'
              r'\bcama\b|\bcolchon|\blibrero|\brepisa|\bburo\b|\bzapater|'
              r'\bperchero|\bropero|\barmario|\bcloset|\bcomoda|\bcomedor|'
-             r'\btaburete|\bbanca\b|\bvitrina|\bcredenza|\blitera))'),
+             r'\btaburete|\bbanca\b|\bvitrina|\bcredenza|\blitera|'
+             r'\bisla de cocina|\balacena|\bgabinete (de|para) (cocina|bano)|\baparador|\botomana|\bpuff?\b|'
+             r'\bbanco (de|para) (bar|cocina|comedor|entrada|zapatos|almacenamiento|jardin|exterior|madera|ninos|plastico|acero|metal)|banco (tapizado|otomano|plegable|infantil|escalon|nube|con almacenamiento)|\bbanquito|\bbanqueta|'
+             r'\bconsola (de entrada|para (sala|recibidor|pasillo))|\bestanteria\b|\btocador\b|mueble(s)? (de|para) (cocina|bano|tv|television|sala|entrada)|gabinete de audio|estante de audio|rack de audio))'),
   ('Muebles', None, 'sofa')),
 ]
 
@@ -2685,21 +2882,27 @@ def sub_mueble(tn):
     prioridad fija el escritorio con buró terminaba en Burós.
     """
     candidatos = [
+        (r'isla de cocina|mueble(s)? (de|para) cocina|gabinete (de|para) (cocina|bano)|\balacena|barra de (cafe|desayuno)|'
+         r'estante para (panadero|microondas)|\bdespensa\b|carrito de cocina|vinoteca|gabinete de vino|mueble bar', 'Muebles de cocina'),
         (r'\bcolchon|box spring|\bsomier\b', 'Colchones'),
         (r'\b(buro|mesita de noche|mesa de noche|mesa de luz)\b', 'Burós'),
         (r'\b(litera|cabecera|base de cama|cama|camas)\b', 'Camas'),
         (r'\b(sofa ?cama|sofa|sofas|sillon|loveseat|futon)\b', 'Sofás'),
-        (r'\b(zapatera|zapatero)\b', 'Zapateras'),
-        (r'\b(perchero|paraguero|burro de ropa)\b', 'Percheros'),
-        (r'\b(ropero|armario|closet|comoda|vitrina|credenza)\b', 'Roperos'),
-        (r'\b(librero|estanteria|estante para libros)\b', 'Libreros'),
-        (r'\b(repisa|entrepano)\b', 'Repisas'),
+        (r'\b(zapateras?|zapateros?)\b', 'Zapateras'),
+        (r'\b(percheros?|paragueros?|burro de ropa)\b', 'Percheros'),
+        (r'\b(roperos?|armarios?|closets?|comodas?|vitrinas?|credenzas?|cajoneras?|aparadores?|tocador(es)?)\b', 'Roperos'),
+        (r'\b(libreros?|estanterias?|estantes? para libros)\b', 'Libreros'),
+        (r'\b(repisas?|entrepanos?)\b', 'Repisas'),
         (r'mesa de (billar|ping ?pong|futbolito|juego|poker)', 'Mesas de juego'),
-        (r'\bescritorio\b', 'Escritorios'),
+        (r'\bescritorios?\b', 'Escritorios'),
         (r'\bsillas? (de|para) comedor|\bbancos? (de|para) comedor', 'Sillas'),
         (r'\b(comedor|antecomedor)\b', 'Mesas de comedor'),
         (r'mesa (de centro|auxiliar|lateral|de sala|de cafe)', 'Mesas de centro'),
-        (r'\b(silla|sillas|banco|taburete|butaca|banca)\b', 'Sillas'),
+        # "Mesa alta de bar", "Mesa de cocina para desayunador", "juego de
+        # mesa de comedor de 4 piezas": la mesa de comer aunque "comedor"
+        # llegue después de "mesa".
+        (r'\bmesas?\b.{0,45}\b(comedor|cocina|de bar|desayunador|alta|de cafeteria|de restaurante)\b', 'Mesas de comedor'),
+        (r'\b(sillas?|bancos?|taburetes?|butacas?|bancas?|banquitos?|puff?s?|otomanas?)\b', 'Sillas'),
         (r'\b(mesa|mesas|mesita)\b', 'Mesas de centro'),
         (r'\bestante\b', 'Repisas'),
     ]
@@ -2790,7 +2993,7 @@ def sub_iluminacion(tn):
                  r'foco.{0,20}(alexa|google)', tn): return 'Focos inteligentes'
     if re.search(r'\bfoco\b|bombilla|\bled\b.{0,10}\bw\b|luminaria', tn): return 'Focos'
     if re.search(r'lampara de (escritorio|mesa|buro)|de escritorio', tn): return 'Lámparas de escritorio'
-    if re.search(r'lampara de (techo|colgante)|candil|plafon|araña', tn): return 'Lámparas de techo'
+    if re.search(r'lampara (de )?(techo|colgante)|luces? colgantes?|colgante|candil|plafon|arana|araña|empotra', tn): return 'Lámparas de techo'
     if re.search(r'lampara de (pared|muro)|arbotante|aplique', tn): return 'Lámparas de pared'
     if re.search(r'lampara de (piso|pie)', tn): return 'Lámparas de piso'
     if re.search(r'emergencia|linterna|recargable.{0,15}apagon', tn): return 'Lámparas de emergencia'
@@ -2844,7 +3047,7 @@ def sub_vehiculo(tn):
         return 'Accesorios para moto'
     if re.search(r'aceite|filtro|balata|amortiguador|bujia|limpiaparabrisas|'
                  r'gato hidraulico|cables? pasa corriente|visera|tapete|'
-                 r'funda para (auto|volante|asiento)|cubre ?volante|'
+                 r'funda para (auto|volante|asiento)|cubre ?volante|\bcojin|'
                  r'refaccion|repuesto|\bespejo\b|\bsoporte\b', tn):
         return 'Accesorios y refacciones'
     # Y recién ahora el vehículo entero.
@@ -2862,15 +3065,26 @@ def sub_domotica(tn):
     # Echo Show 21" no es una bocina inteligente.
     if re.match(r'^(?:\S+ ){0,3}(cargador|cable|funda|soporte|adaptador|base|repuesto|montura|bateria)\b', tn):
         return None
-    if re.search(r'enchufe intelig|contacto intelig|smart plug', tn): return 'Enchufes inteligentes'
-    if re.search(r'apagador intelig|interruptor intelig|smart switch', tn): return 'Interruptores inteligentes'
-    if re.search(r'cerradura|chapa intelig|smart lock', tn): return 'Cerraduras inteligentes'
-    if re.search(r'foco intelig|tira led|iluminacion intelig|bombilla intelig', tn): return 'Iluminación inteligente'
+    if re.search(r'enchufes? intelig|contactos? (de pared )?intelig|smart plug|tomacorriente intelig|enchufes? (wifi|alexa)|regleta intelig|multicontacto intelig', tn):
+        return 'Enchufes inteligentes'
+    if re.search(r'apagador(es)? intelig|interruptor(es)? (de luz |de pared |tactil |de atenuacion |inalambrico )?intelig|smart switch|'
+                 r'interruptor(es)? (de luz |de pared |tactil )?(wifi|zigbee|tuya)|apagador(es)? (wifi|tuya)|modulo (interruptor|rele)|rele wifi|'
+                 r'atenuador intelig|dimmer intelig|pulsador de boton|interruptor.{0,30}(tuya|alexa|zigbee|wifi)', tn):
+        return 'Interruptores inteligentes'
+    if re.search(r'cerradura|chapa intelig|smart lock|cerrojo|manija.{0,30}huella|bloqueo de puerta|\block\b', tn): return 'Cerraduras inteligentes'
+    if re.search(r'cortina|persiana', tn): return 'Cortinas motorizadas'
+    if re.search(r'termostato|honeywell home', tn): return 'Termostatos'
+    if re.match(r'^(?:\S+ ){0,1}(sensor|detector|valvula)', tn): return 'Sensores'
+    if re.search(r'\bhub\b|puente|bridge|gateway|centro de control|control(ador)? (remoto )?universal', tn): return 'Hubs'
+    if re.search(r'focos?|bombillas?|tiras? (de )?led|iluminacion|lampara|\bluz\b|\bluces\b|philips hue|\bhue\b|controlador (led|rgb)', tn):
+        return 'Iluminación inteligente'
     # "Amazon Echo Pop", "Asistente de Voz Echo Show 8": 493 fichas de la
     # categoría son el Echo y no lo agarraba nada, porque la regla pedía
     # "echo dot" exacto. El Show y el Hub llevan pantalla pero se usan como
     # bocina, que es como los vende Amazon.
-    if re.search(r'bocina intelig|alexa|google (home|nest)|\becho\b|homepod|asistente de voz', tn): return 'Bocinas inteligentes'
+    if re.search(r'sensor|detector|valvula|timbre', tn): return 'Sensores'
+    if re.search(r'\bzigbee\b|\bmatter\b', tn): return 'Hubs'
+    if re.search(r'bocina intelig|altavoz intelig|google (home|nest)|\becho (dot|pop|show|studio)\b|amazon echo|homepod|asistente de voz', tn): return 'Bocinas inteligentes'
     if re.search(r'\bhub\b|puente|bridge|zigbee|centro de control', tn): return 'Hubs'
     if re.search(r'cortina|persiana', tn): return 'Cortinas motorizadas'
     if re.search(r'sensor|detector|timbre intelig|videoportero', tn): return 'Sensores'
@@ -3000,9 +3214,10 @@ def sub_joyeria(tn):
 def sub_impresora(tn):
     """Reparte Impresoras. El consumible primero: el cartucho y el tóner
     nombran la impresora para la que sirven."""
-    if re.search(r'cartucho|\btoner\b|\btinta\b|papel (fotografico|bond)|cinta de impresion|\bdrum\b',
-                 tn):
+    if re.search(r'cartucho|\btoner\b|\btinta\b|papel (fotografico|bond|de sublimacion|para sublimacion|sublimar)|cinta de impresion|\bdrum\b|cabezal',
+                 tn) and not re.match(r'^(?:\S+ ){0,3}impresora', tn):
         return 'Consumibles'
+    if re.search(r'fotografica|de fotos|instantanea|selphy|\bivy\b|kodak dock|liene', tn): return 'Fotográficas'
     if re.search(r'\blaser\b|laserjet', tn): return 'Láser'
     if re.search(r'termica|\bthermal\b|etiquetas|tickets|punto de venta', tn): return 'Térmica'
     if re.search(r'inyeccion|inkjet|deskjet|ecotank|\bofficejet\b|pixma|multifuncional', tn):
@@ -3258,6 +3473,8 @@ def sub_herramienta(tn):
     """Reparte Herramientas. La categoría tenía quince subcategorías y las
     reglas solo alcanzaban a tres, así que una captura de ferretería entraba
     al 17%: de 4,227 anuncios, 2,985 caían en "no encaja"."""
+    if re.search(r'cerradura|cerrojo|candado|\bchapa\b|picaporte', tn):
+        return 'Cerraduras y candados'
     if re.search(r'grabado(r|ra)? ?laser|\blaser\b.{0,20}(grabar|grabado|cortar)|'
                  r'maquina de grabado|\bcnc\b', tn):
         return 'Grabado láser'
@@ -3297,7 +3514,7 @@ def sub_herramienta(tn):
         return 'Construcción'
     if re.search(r'caja de herramientas|organizador de herramientas|'
                  r'\bgabinete\b.{0,15}herramienta|maletin de herramientas|'
-                 r'panel de herramientas|\bcarro de herramientas\b', tn):
+                 r'panel de herramientas|\bcarr(o|ito)s? .{0,40}herramientas|carr(o|ito)s? (utilitario|de servicio|rodante|de plastico)', tn):
         return 'Organización'
     if re.search(r'\bbroca|\bdisco de (corte|desbaste)|\blija\b|puntas? de (atornillador|desarmador)|'
                  r'\bsierra caladora hoja|accesorios? para (taladro|rotomartillo)|'
@@ -3490,7 +3707,7 @@ def sub_tableta(tn):
 # "honor" son palabras corrientes ("en vivo", "honor a") y no pueden entrar
 # a la lista general, pero al principio del nombre de un celular son la marca.
 MARCAS_CELULAR = re.compile(r'\b(vivo|oppo|realme|honor|xiaomi|redmi|poco|motorola|moto|samsung|huawei|zte|nokia|tcl|'
-                            r'oneplus|infinix|tecno|google|apple|iphone|nubia|alcatel|lanix|bmobile|blackview|doogee|'
+                            r'oneplus|infinix|\btecno\b|google|apple|iphone|nubia|alcatel|lanix|bmobile|blackview|doogee|'
                             r'ulefone|oukitel|cubot|umidigi|fossibot|kyocera|blu|hotwav|agm|cat|nothing|sony|'
                             r'blackberry|htc|lg|asus|zebra|hisense)\b')
 def marca_celular(tn):
@@ -3645,7 +3862,7 @@ for it in captura:
     elif cat == 'Tabletas': sub = sub_tableta(tn)
     elif cat == 'Videojuegos': sub = sub_videojuego(tn)
     elif cat == 'Muebles': sub = sub_mueble(tn)
-    elif cat == 'Herramientas': sub = sub_herramienta(tn)
+    elif cat == 'Herramientas': sub = sub_herramienta(tn) or sub
     elif cat == 'Juegos de mesa': sub = sub_juego_mesa(tn)
     elif cat == 'Instrumentos musicales': sub = sub_instrumento(tn)
     elif cat == 'Iluminación': sub = sub_iluminacion(tn)
