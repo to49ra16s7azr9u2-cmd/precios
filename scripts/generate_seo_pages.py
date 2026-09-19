@@ -1273,6 +1273,65 @@ LIST_JS = """
 """
 
 
+# La página de marca: orden (con "Más vendedores"), filtro por categoría y
+# buscador, los tres sobre las mismas filas y a la vez. El puesto se
+# recalcula como en LIST_JS: la corona solo con el orden original y sin
+# filtros.
+BRAND_LIST_JS = """
+<script>
+// Va antes de la lista en el HTML, así que espera a que exista.
+document.addEventListener('DOMContentLoaded', function () {
+  var lista = document.getElementById('prodLista');
+  if (!lista) return;
+  var filas = [].slice.call(lista.querySelectorAll('.product-row'));
+  var orden = 'pop', cat = '', q = '';
+  var campo = document.getElementById('prodFiltro');
+  var cuenta = document.getElementById('prodFiltroCuenta');
+  var num = function (f, k) { var v = parseFloat(f.getAttribute(k)); return isNaN(v) ? -1 : v; };
+  var sinAcentos = function (s) { return s.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase(); };
+  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
+  var aplicar = function () {
+    var visibles = filas.filter(function (f, i) {
+      return (!cat || f.getAttribute('data-cat') === cat) && (!q || textos[i].indexOf(q) !== -1);
+    });
+    visibles.sort(function (a, b) {
+      if (orden === 'price_asc') return num(a, 'data-price') - num(b, 'data-price');
+      if (orden === 'price_desc') return num(b, 'data-price') - num(a, 'data-price');
+      if (orden === 'rating') return num(b, 'data-rating') - num(a, 'data-rating') || num(b, 'data-pop') - num(a, 'data-pop');
+      if (orden === 'sellers') return num(b, 'data-sellers') - num(a, 'data-sellers') || num(b, 'data-stores') - num(a, 'data-stores') || num(b, 'data-pop') - num(a, 'data-pop');
+      return num(b, 'data-pop') - num(a, 'data-pop') || num(b, 'data-sellers') - num(a, 'data-sellers');
+    });
+    var original = orden === 'pop' && !cat && !q;
+    filas.forEach(function (f) { f.hidden = true; });
+    visibles.forEach(function (f, i) {
+      f.hidden = false;
+      lista.appendChild(f);
+      var b = f.querySelector('.rank-badge');
+      if (b) b.innerHTML = (original && i === 0) ? f.getAttribute('data-corona') : String(i + 1);
+      f.className = f.className.replace(/ ?rank-[234]/g, '') + ((original && i >= 1 && i <= 3) ? ' rank-' + (i + 1) : '');
+    });
+    if (cuenta) cuenta.textContent = (cat || q) ? (visibles.length ? visibles.length + ' de ' + filas.length + ' productos' : 'Ningún producto coincide.') : '';
+  };
+  [].forEach.call(document.querySelectorAll('.static-sort .sort-opt'), function (b) {
+    b.addEventListener('click', function () {
+      [].forEach.call(document.querySelectorAll('.static-sort .sort-opt'), function (o) { o.classList.toggle('active', o === b); });
+      orden = b.getAttribute('data-sort');
+      aplicar();
+    });
+  });
+  [].forEach.call(document.querySelectorAll('.cat-filter .cat-opt'), function (b) {
+    b.addEventListener('click', function () {
+      cat = b.getAttribute('data-cat') || '';
+      [].forEach.call(document.querySelectorAll('.cat-filter .cat-opt'), function (o) { o.classList.toggle('is-active', o === b); });
+      aplicar();
+    });
+  });
+  if (campo) campo.addEventListener('input', function () { q = sinAcentos(campo.value.trim()); aplicar(); });
+});
+</script>
+"""
+
+
 def render_subcategory_page(cat, sub, products, data):
     """Página de una subcategoría ("Sillas de oficina", "Cargadores USB-C").
 
@@ -2450,23 +2509,41 @@ def render_brand_page(nombre, slug, products, data):
     shown = ranked[:STATIC_LIST_CAP]
     rows = []
     for i, p in enumerate(shown, start=1):
-        rank_badge = svg_icon("crown") if i == 1 else str(i)
+        corona = svg_icon("crown")
+        rank_badge = corona if i == 1 else str(i)
         rank_class = f" rank-{i}" if 2 <= i <= 4 else ""
         used_badge = (
             f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>'
             if is_used(p) else ""
         )
+        # Los datos con los que la página ordena y filtra viajan en la fila
+        # (mismo esquema que las páginas de subcategoría): precio, reseñas,
+        # calificación, vendedores y la categoría.
+        rating, n_reviews = aggregate_rating(p)
+        n_vendedores = seller_total(p)
+        n_tiendas = len({o.get("storeId") for o in purchase_options(p)})
+        vendedores = (
+            (f'{plural(n_tiendas, "tienda", "tiendas")} · ' if n_tiendas > 1 else "")
+            + plural(n_vendedores, "vendedor", "vendedores")
+        )
         rows.append(
-            f'<div class="product-row has-rank{rank_class}">'
+            f'<div class="product-row has-rank{rank_class}"'
+            f' data-price="{min_price(p)}" data-pop="{n_reviews}" data-rating="{rating}"'
+            f' data-sellers="{n_vendedores}" data-stores="{n_tiendas}" data-corona="{html_escape(corona)}"'
+            f' data-cat="{html_escape(p.get("category") or "")}">'
             f'<span class="rank-badge">{rank_badge}</span>'
             f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p.get("category") or "")}</div>'
             f'<div class="row-name">{enlace_producto(p, "../../")}{used_badge}</div>'
-            f'</div>'
+            + (f'<div class="row-rating"><span class="row-stars">'
+               f'{"★" * int(round(rating))}{"☆" * (5 - int(round(rating)))}</span> {rating} '
+               f'<span class="row-rating-n">({n_reviews:,})</span></div>' if n_reviews else "")
+            + f'</div>'
             f'<div class="row-priceblock">'
-            + (f'<div class="row-from">Desde</div>' if len(p["offers"]) > 1 else "")
-            + f'<div class="row-price">{money(min_price(p))}</div>'
+            f'<div class="row-from">Desde</div>'
+            f'<div class="row-price">{money(min_price(p))}</div>'
+            f'<div class="row-sellers">{svg_icon("shopping-bag")} {vendedores}</div>'
             f'</div>'
             f'</div>'
         )
@@ -2492,42 +2569,47 @@ def render_brand_page(nombre, slug, products, data):
         if chips else ""
     )
 
-    # El mismo filtro, ahora sobre las filas de producto. Solo tiene sentido
-    # si hay suficientes como para perderse: con doce filas a la vista, un
-    # campo de búsqueda estorba más de lo que ayuda.
-    buscador = ("""
-<div class="panel" id="prodFiltroCaja" hidden>
-  <input id="prodFiltro" type="search" class="marca-filtro"
-         placeholder="Buscar dentro de """ + html_escape(nombre) + """..."
-         aria-label="Buscar productos de """ + html_escape(nombre) + """" autocomplete="off">
+    # Orden, filtro por categoría y buscador sobre las filas que ya están en
+    # el HTML: no piden nada al servidor y, con el JS apagado, la lista se
+    # queda en el orden por popularidad con el que se generó. Las categorías
+    # se cuentan sobre las filas mostradas (lo que de verdad se puede
+    # filtrar), no sobre los productos de la marca: "Impresoras (12)" con
+    # ocho filas se leería como una promesa rota. El buscador solo aparece
+    # cuando hay filas como para perderse.
+    cats_filas = collections.Counter(p.get("category") or "" for p in shown)
+    cat_botones = "".join(
+        f'<button type="button" class="cat-opt" data-cat="{html_escape(c)}">{html_escape(c)} '
+        f'<span class="cat-opt-n">{n}</span></button>'
+        for c, n in cats_filas.most_common() if c
+    )
+    filtro_cats = (
+        f'<div class="cat-filter" role="group" aria-label="Filtrar por categoría">'
+        f'<button type="button" class="cat-opt is-active" data-cat="">Todas las categorías '
+        f'<span class="cat-opt-n">{len(shown)}</span></button>{cat_botones}</div>'
+        if len(cats_filas) > 1 else ""
+    )
+    buscador_campo = (
+        f'<input id="prodFiltro" type="search" class="marca-filtro" placeholder="Buscar dentro de {html_escape(nombre)}..."'
+        f' aria-label="Buscar productos de {html_escape(nombre)}" autocomplete="off">'
+        if len(shown) >= 20 else ""
+    )
+    buscador = f"""
+<div class="panel" id="prodFiltroCaja">
+  <div class="sort-bar static-sort" role="group" aria-label="Ordenar la lista">
+    <div class="sort-bar-options">
+      <button type="button" class="sort-opt active" data-sort="pop">Popularidad</button>
+      <button type="button" class="sort-opt" data-sort="price_asc">Más baratos</button>
+      <button type="button" class="sort-opt" data-sort="price_desc">Más caros</button>
+      <button type="button" class="sort-opt" data-sort="rating">Mejor calificados</button>
+      <button type="button" class="sort-opt" data-sort="sellers">Más vendedores</button>
+    </div>
+  </div>
+  {filtro_cats}
+  {buscador_campo}
   <p class="muted small" id="prodFiltroCuenta"></p>
 </div>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  var caja = document.getElementById("prodFiltroCaja");
-  var campo = document.getElementById("prodFiltro");
-  var cuenta = document.getElementById("prodFiltroCuenta");
-  var filas = Array.prototype.slice.call(document.querySelectorAll("#prodLista .product-row"));
-  if (!caja || !campo || !filas.length) return;
-  caja.hidden = false;
-  var sinAcentos = function (s) {
-    return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-  };
-  var textos = filas.map(function (f) { return sinAcentos(f.textContent); });
-  var filtrar = function () {
-    var q = sinAcentos(campo.value.trim());
-    var visibles = 0;
-    for (var i = 0; i < filas.length; i++) {
-      var ok = !q || textos[i].indexOf(q) !== -1;
-      filas[i].hidden = !ok;
-      if (ok) visibles++;
-    }
-    cuenta.textContent = q ? visibles + " de " + filas.length + " productos" : "";
-  };
-  campo.addEventListener("input", filtrar);
-});
-</script>
-""" if len(shown) >= 20 else "")
+{BRAND_LIST_JS}
+"""
     body = f"""
 <nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; {html_escape(nombre)}</nav>
 <div class="list-head"><h1>{logo_titulo} {html_escape(nombre)} — comparar precios ({len(products)})</h1></div>

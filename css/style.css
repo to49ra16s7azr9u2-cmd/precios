@@ -2716,7 +2716,6 @@ tr.offer-compare-off { display: none; }
    juntas, ordenadas por precio (ver renderOfferTable en js/app.js). */
 .offer-group { margin-top: 14px; }
 
-
 /* Inicio: categorías a la izquierda (ocupa el espacio disponible) + panel
    de "Top 5 más visitadas" a la derecha, angosto y fijo -- las categorías
    quedan "empujadas" contra ese panel en vez de extenderse a todo el
@@ -4069,15 +4068,7 @@ tr.offer-compare-off { display: none; }
 .marca-card-logo img { max-width: 88%; max-height: 40px; object-fit: contain; }
 .marca-card-name { font-size: 13px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .marca-card-count { font-size: 11px; color: var(--muted); }
-.marca-filtro {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 9px 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font: inherit;
-  font-size: 14px;
-}
+
 .marca-logo-titulo {
   display: inline-block;
   vertical-align: middle;
@@ -4170,6 +4161,28 @@ tr.offer-compare-off { display: none; }
 /* Campo de filtro de las páginas de marca. Arranca oculto en el HTML y lo
    muestra su propio script: sin JS la lista se ve entera, que es lo que
    necesita el buscador, y no queda un campo que no hace nada. */
+/* Página de marca: pastillas de categoría (botones, no enlaces) con la
+   cuenta de filas. */
+.cat-filter { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.cat-opt {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cat-opt:hover { border-color: var(--red); }
+.cat-opt.is-active { border-color: var(--red); background: var(--red-tint); color: var(--red-dark); }
+.cat-opt-n { color: var(--muted); font-weight: 500; }
+.cat-opt.is-active .cat-opt-n { color: inherit; }
+#prodFiltroCaja .marca-filtro { margin-top: 4px; }
 .marca-filtro {
   width: 100%;
   box-sizing: border-box;

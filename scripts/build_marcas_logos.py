@@ -62,7 +62,7 @@ UA = "ComparaMEX-logos/1.0 (https://comparamex.com; comparador de precios de Mé
 SPARQL = "https://query.wikidata.org/sparql"
 ANCHO = 320
 TANDA = 25          # marcas por consulta SPARQL (la búsqueda tarda ~0.5 s por marca)
-PAUSA_COMMONS = 0.4  # segundos entre bajadas de Commons
+PAUSA_COMMONS = 1.5  # segundos entre bajadas de Commons (a 0.4 s contestó 429)
 
 
 def pedir(url, timeout=60, headers=None, datos=None):
@@ -328,7 +328,10 @@ def main():
         k = clave_marca(nombre)
         m = memoria.get(k)
         if m and m.get("archivo") and os.path.exists(os.path.join(CARPETA, m["archivo"])):
-            continue
+            # Con --reintentar, un favicon se vuelve a intentar por Wikidata:
+            # el logo de verdad vale más que el icono del sitio.
+            if not (args.reintentar and m.get("fuente") == "favicon"):
+                continue
         if m and m.get("archivo") is None and "origen" not in m and not args.reintentar:
             continue   # ya se buscó y no hay; --reintentar lo vuelve a intentar
         pendientes.append((nombre, slug, k, len(items)))
@@ -401,6 +404,8 @@ def main():
                     if bajar_favicon(d, os.path.join(CARPETA, slug + ".png")):
                         return k, {"archivo": slug + ".png", "fuente": "favicon", "origen": f"https://{d}/"}
             return k, {"archivo": None}
+        # Lo que ya tenía favicon y no consiguió logo en Wikidata se queda como estaba.
+        fallidos = [t for t in fallidos if (memoria.get(t[2]) or {}).get("fuente") != "favicon"]
         with ThreadPoolExecutor(max_workers=6) as ex:
             for k, m in ex.map(intentar, fallidos):
                 memoria[k] = m
