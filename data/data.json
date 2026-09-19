@@ -2559,13 +2559,123 @@
       "icon": "book",
       "subcategories": [
         {
-          "id": "Literatura y novela",
-          "name": "Literatura y novela",
+          "id": "Novela contemporánea",
+          "name": "Novela contemporánea",
           "icon": "book"
         },
         {
-          "id": "No ficción",
-          "name": "No ficción",
+          "id": "Novela romántica",
+          "name": "Novela romántica",
+          "icon": "book"
+        },
+        {
+          "id": "Thriller y misterio",
+          "name": "Thriller y misterio",
+          "icon": "book"
+        },
+        {
+          "id": "Fantasía",
+          "name": "Fantasía",
+          "icon": "book"
+        },
+        {
+          "id": "Ciencia ficción",
+          "name": "Ciencia ficción",
+          "icon": "book"
+        },
+        {
+          "id": "Terror",
+          "name": "Terror",
+          "icon": "book"
+        },
+        {
+          "id": "Clásicos",
+          "name": "Clásicos",
+          "icon": "book"
+        },
+        {
+          "id": "Poesía y teatro",
+          "name": "Poesía y teatro",
+          "icon": "book"
+        },
+        {
+          "id": "Cuentos y relatos",
+          "name": "Cuentos y relatos",
+          "icon": "book"
+        },
+        {
+          "id": "Historia",
+          "name": "Historia",
+          "icon": "book"
+        },
+        {
+          "id": "Biografías y memorias",
+          "name": "Biografías y memorias",
+          "icon": "book"
+        },
+        {
+          "id": "Autoayuda y desarrollo personal",
+          "name": "Autoayuda y desarrollo personal",
+          "icon": "book"
+        },
+        {
+          "id": "Negocios y finanzas",
+          "name": "Negocios y finanzas",
+          "icon": "book"
+        },
+        {
+          "id": "Psicología",
+          "name": "Psicología",
+          "icon": "book"
+        },
+        {
+          "id": "Filosofía y ensayo",
+          "name": "Filosofía y ensayo",
+          "icon": "book"
+        },
+        {
+          "id": "Religión y espiritualidad",
+          "name": "Religión y espiritualidad",
+          "icon": "book"
+        },
+        {
+          "id": "Política y sociedad",
+          "name": "Política y sociedad",
+          "icon": "book"
+        },
+        {
+          "id": "Ciencia y divulgación",
+          "name": "Ciencia y divulgación",
+          "icon": "book"
+        },
+        {
+          "id": "Salud y bienestar",
+          "name": "Salud y bienestar",
+          "icon": "book"
+        },
+        {
+          "id": "Cocina y gastronomía",
+          "name": "Cocina y gastronomía",
+          "icon": "book"
+        },
+        {
+          "id": "Arte, diseño y fotografía",
+          "name": "Arte, diseño y fotografía",
+          "icon": "book"
+        },
+        {
+          "id": "Música y cine",
+          "name": "Música y cine",
+          "icon": "book"
+        },
+        {
+          "id": "Viajes y guías",
+          "name": "Viajes y guías",
+          "icon": "book"
+        },
+        {
+          "id": "Hogar, manualidades y mascotas",
+          "name": "Hogar, manualidades y mascotas",
           "icon": "book"
         },
         {
@@ -2579,33 +2689,33 @@
           "icon": "book"
         },
         {
-          "id": "Cómic y manga",
-          "name": "Cómic y manga",
+          "id": "Manga",
+          "name": "Manga",
           "icon": "book"
         },
         {
-          "id": "Ciencia",
-          "name": "Ciencia",
+          "id": "Cómics y novela gráfica",
+          "name": "Cómics y novela gráfica",
           "icon": "book"
         },
         {
-          "id": "Arte",
-          "name": "Arte",
+          "id": "Educación y texto escolar",
+          "name": "Educación y texto escolar",
           "icon": "book"
         },
         {
-          "id": "Gastronomía",
-          "name": "Gastronomía",
+          "id": "Idiomas",
+          "name": "Idiomas",
           "icon": "book"
         },
         {
-          "id": "Estilo de vida",
-          "name": "Estilo de vida",
+          "id": "Técnicos y profesionales",
+          "name": "Técnicos y profesionales",
           "icon": "book"
         },
         {
-          "id": "Especializados",
-          "name": "Especializados",
+          "id": "Deportes",
+          "name": "Deportes",
           "icon": "book"
         }
       ]
@@ -2616,23 +2726,73 @@
       "icon": "coffee",
       "subcategories": [
         {
-          "id": "Botellas y termos",
-          "name": "Botellas y termos",
+          "id": "Termos y botellas térmicas",
+          "name": "Termos y botellas térmicas",
           "icon": "coffee"
         },
         {
-          "id": "Vasos y tazas",
-          "name": "Vasos y tazas",
+          "id": "Botellas de agua",
+          "name": "Botellas de agua",
           "icon": "coffee"
         },
         {
-          "id": "Vajilla",
-          "name": "Vajilla",
+          "id": "Vasos térmicos y de viaje",
+          "name": "Vasos térmicos y de viaje",
           "icon": "coffee"
         },
         {
-          "id": "Ollas y sartenes",
-          "name": "Ollas y sartenes",
+          "id": "Tazas",
+          "name": "Tazas",
+          "icon": "coffee"
+        },
+        {
+          "id": "Vasos y copas",
+          "name": "Vasos y copas",
+          "icon": "coffee"
+        },
+        {
+          "id": "Jarras y dispensadores de bebidas",
+          "name": "Jarras y dispensadores de bebidas",
+          "icon": "coffee"
+        },
+        {
+          "id": "Tarros y frascos",
+          "name": "Tarros y frascos",
+          "icon": "coffee"
+        },
+        {
+          "id": "Botellas de vidrio y plástico",
+          "name": "Botellas de vidrio y plástico",
+          "icon": "coffee"
+        },
+        {
+          "id": "Contenedores herméticos",
+          "name": "Contenedores herméticos",
+          "icon": "coffee"
+        },
+        {
+          "id": "Loncheras y termos para alimentos",
+          "name": "Loncheras y termos para alimentos",
+          "icon": "coffee"
+        },
+        {
+          "id": "Platos y bowls",
+          "name": "Platos y bowls",
+          "icon": "coffee"
+        },
+        {
+          "id": "Vajillas",
+          "name": "Vajillas",
+          "icon": "coffee"
+        },
+        {
+          "id": "Cubiertos",
+          "name": "Cubiertos",
+          "icon": "coffee"
+        },
+        {
+          "id": "Cuchillos y tablas",
+          "name": "Cuchillos y tablas",
           "icon": "coffee"
         },
         {
@@ -2641,13 +2801,53 @@
           "icon": "coffee"
         },
         {
-          "id": "Contenedores",
-          "name": "Contenedores",
+          "id": "Ollas de presión",
+          "name": "Ollas de presión",
+          "icon": "coffee"
+        },
+        {
+          "id": "Ollas y cacerolas",
+          "name": "Ollas y cacerolas",
+          "icon": "coffee"
+        },
+        {
+          "id": "Sartenes y comales",
+          "name": "Sartenes y comales",
+          "icon": "coffee"
+        },
+        {
+          "id": "Baterías de cocina",
+          "name": "Baterías de cocina",
+          "icon": "coffee"
+        },
+        {
+          "id": "Repostería y moldes",
+          "name": "Repostería y moldes",
+          "icon": "coffee"
+        },
+        {
+          "id": "Básculas y medidores",
+          "name": "Básculas y medidores",
+          "icon": "coffee"
+        },
+        {
+          "id": "Bar y coctelería",
+          "name": "Bar y coctelería",
+          "icon": "coffee"
+        },
+        {
+          "id": "Desechables",
+          "name": "Desechables",
           "icon": "coffee"
         },
         {
           "id": "Organización de cocina",
           "name": "Organización de cocina",
+          "icon": "coffee"
+        },
+        {
+          "id": "Limpieza de cocina",
+          "name": "Limpieza de cocina",
           "icon": "coffee"
         }
       ]
@@ -2663,18 +2863,13 @@
           "icon": "heart-pulse"
         },
         {
-          "id": "Deportivos",
-          "name": "Deportivos",
+          "id": "Creatina",
+          "name": "Creatina",
           "icon": "heart-pulse"
         },
         {
-          "id": "Vitaminas y minerales",
-          "name": "Vitaminas y minerales",
-          "icon": "heart-pulse"
-        },
-        {
-          "id": "Probióticos",
-          "name": "Probióticos",
+          "id": "Aminoácidos y pre-entreno",
+          "name": "Aminoácidos y pre-entreno",
           "icon": "heart-pulse"
         },
         {
@@ -2683,18 +2878,128 @@
           "icon": "heart-pulse"
         },
         {
-          "id": "Omega y aceites",
-          "name": "Omega y aceites",
+          "id": "Probióticos y prebióticos",
+          "name": "Probióticos y prebióticos",
           "icon": "heart-pulse"
         },
         {
-          "id": "Herbolaria",
-          "name": "Herbolaria",
+          "id": "Enzimas, fibra y digestivos",
+          "name": "Enzimas, fibra y digestivos",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Omega 3 y aceites",
+          "name": "Omega 3 y aceites",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Multivitamínicos",
+          "name": "Multivitamínicos",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Vitamina C",
+          "name": "Vitamina C",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Vitamina D y K",
+          "name": "Vitamina D y K",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Complejo B y biotina",
+          "name": "Complejo B y biotina",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Otras vitaminas",
+          "name": "Otras vitaminas",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Magnesio",
+          "name": "Magnesio",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Zinc",
+          "name": "Zinc",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Electrolitos y minerales",
+          "name": "Electrolitos y minerales",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Melatonina y sueño",
+          "name": "Melatonina y sueño",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Antioxidantes",
+          "name": "Antioxidantes",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Articulaciones",
+          "name": "Articulaciones",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Salud ocular",
+          "name": "Salud ocular",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Cabello, piel y uñas",
+          "name": "Cabello, piel y uñas",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Sistema inmune",
+          "name": "Sistema inmune",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Memoria y concentración",
+          "name": "Memoria y concentración",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Salud hormonal y sexual",
+          "name": "Salud hormonal y sexual",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Salud cardiovascular",
+          "name": "Salud cardiovascular",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Control de glucosa",
+          "name": "Control de glucosa",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Hígado, riñón y vías urinarias",
+          "name": "Hígado, riñón y vías urinarias",
           "icon": "heart-pulse"
         },
         {
           "id": "Control de peso",
           "name": "Control de peso",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Herbolaria y superalimentos",
+          "name": "Herbolaria y superalimentos",
+          "icon": "heart-pulse"
+        },
+        {
+          "id": "Energía y vitalidad",
+          "name": "Energía y vitalidad",
           "icon": "heart-pulse"
         }
       ]
@@ -3543,23 +3848,17 @@
     "Celulares": [
       "data/cat/celulares-1.json"
     ],
-    "Bocinas": [
-      "data/cat/bocinas-1.json"
+    "Cargadores y adaptadores": [
+      "data/cat/cargadores-y-adaptadores-1.json"
     ],
-    "Componentes y accesorios de PC": [
-      "data/cat/componentes-y-accesorios-de-pc-1.json"
+    "Proyectores y accesorios": [
+      "data/cat/proyectores-y-accesorios-1.json"
     ],
     "Laptops": [
       "data/cat/laptops-1.json"
     ],
-    "Tabletas": [
-      "data/cat/tabletas-1.json"
-    ],
-    "Climatización": [
-      "data/cat/climatizacion-1.json"
-    ],
-    "Cámaras y fotografía": [
-      "data/cat/camaras-y-fotografia-1.json"
+    "Monitores": [
+      "data/cat/monitores-1.json"
     ],
     "Muebles": [
       "data/cat/muebles-1.json",
@@ -3569,57 +3868,90 @@
       "data/cat/autos-bicicletas-y-motos-1.json",
       "data/cat/autos-bicicletas-y-motos-2.json"
     ],
-    "Monitores": [
-      "data/cat/monitores-1.json"
+    "Tabletas": [
+      "data/cat/tabletas-1.json"
+    ],
+    "Deportes y fitness": [
+      "data/cat/deportes-y-fitness-1.json"
     ],
     "Blancos y ropa de cama": [
       "data/cat/blancos-y-ropa-de-cama-1.json"
     ],
-    "Teclados": [
-      "data/cat/teclados-1.json"
+    "Climatización": [
+      "data/cat/climatizacion-1.json"
+    ],
+    "Bocinas": [
+      "data/cat/bocinas-1.json"
+    ],
+    "Domótica y hogar inteligente": [
+      "data/cat/domotica-y-hogar-inteligente-1.json"
     ],
     "Instrumentos musicales": [
       "data/cat/instrumentos-musicales-1.json",
       "data/cat/instrumentos-musicales-2.json"
     ],
-    "Belleza y cuidado personal": [
-      "data/cat/belleza-y-cuidado-personal-1.json"
+    "Audífonos": [
+      "data/cat/audifonos-1.json"
     ],
-    "Domótica y hogar inteligente": [
-      "data/cat/domotica-y-hogar-inteligente-1.json"
+    "Cámaras de seguridad": [
+      "data/cat/camaras-de-seguridad-1.json"
     ],
-    "Cocina y comedor": [
-      "data/cat/cocina-y-comedor-1.json"
+    "Equipo comercial": [
+      "data/cat/equipo-comercial-1.json"
+    ],
+    "Componentes y accesorios de PC": [
+      "data/cat/componentes-y-accesorios-de-pc-1.json"
     ],
     "Herramientas": [
       "data/cat/herramientas-1.json"
     ],
-    "Baterías portátiles": [
-      "data/cat/baterias-portatiles-1.json"
-    ],
-    "Refrigeradores": [
-      "data/cat/refrigeradores-1.json"
-    ],
-    "Cargadores y adaptadores": [
-      "data/cat/cargadores-y-adaptadores-1.json"
-    ],
-    "Electrodomésticos": [
-      "data/cat/electrodomesticos-1.json"
-    ],
-    "Iluminación": [
-      "data/cat/iluminacion-1.json"
+    "Teclados": [
+      "data/cat/teclados-1.json"
     ],
     "Mascotas": [
       "data/cat/mascotas-1.json"
     ],
-    "Redes": [
-      "data/cat/redes-1.json"
+    "Cocina y comedor": [
+      "data/cat/cocina-y-comedor-1.json"
+    ],
+    "Almacenamiento": [
+      "data/cat/almacenamiento-1.json"
+    ],
+    "Cámaras y fotografía": [
+      "data/cat/camaras-y-fotografia-1.json"
+    ],
+    "Belleza y cuidado personal": [
+      "data/cat/belleza-y-cuidado-personal-1.json"
+    ],
+    "Refacciones": [
+      "data/cat/refacciones-1.json"
+    ],
+    "Electrodomésticos": [
+      "data/cat/electrodomesticos-1.json"
+    ],
+    "Baterías portátiles": [
+      "data/cat/baterias-portatiles-1.json"
+    ],
+    "Iluminación": [
+      "data/cat/iluminacion-1.json"
+    ],
+    "Juegos de mesa": [
+      "data/cat/juegos-de-mesa-1.json"
+    ],
+    "Computadoras de escritorio": [
+      "data/cat/computadoras-de-escritorio-1.json"
+    ],
+    "Juguetes y bebés": [
+      "data/cat/juguetes-y-bebes-1.json"
     ],
     "Videojuegos": [
       "data/cat/videojuegos-1.json"
     ],
-    "Audífonos": [
-      "data/cat/audifonos-1.json"
+    "Refrigeradores": [
+      "data/cat/refrigeradores-1.json"
+    ],
+    "Redes": [
+      "data/cat/redes-1.json"
     ],
     "Mouse": [
       "data/cat/mouse-1.json"
@@ -3627,26 +3959,11 @@
     "Relojes inteligentes": [
       "data/cat/relojes-inteligentes-1.json"
     ],
-    "Deportes y fitness": [
-      "data/cat/deportes-y-fitness-1.json"
-    ],
     "Televisores": [
       "data/cat/televisores-1.json"
     ],
-    "Proyectores y accesorios": [
-      "data/cat/proyectores-y-accesorios-1.json"
-    ],
-    "Juguetes y bebés": [
-      "data/cat/juguetes-y-bebes-1.json"
-    ],
-    "Equipo comercial": [
-      "data/cat/equipo-comercial-1.json"
-    ],
     "Otros": [
       "data/cat/otros-1.json"
-    ],
-    "Cámaras de seguridad": [
-      "data/cat/camaras-de-seguridad-1.json"
     ],
     "Salud": [
       "data/cat/salud-1.json"
@@ -3654,17 +3971,8 @@
     "Suplementos": [
       "data/cat/suplementos-1.json"
     ],
-    "Juegos de mesa": [
-      "data/cat/juegos-de-mesa-1.json"
-    ],
-    "Almacenamiento": [
-      "data/cat/almacenamiento-1.json"
-    ],
     "Impresoras": [
       "data/cat/impresoras-1.json"
-    ],
-    "Refacciones": [
-      "data/cat/refacciones-1.json"
     ],
     "Impresión 3D": [
       "data/cat/impresion-3d-1.json"
@@ -3677,9 +3985,6 @@
     ],
     "Aspiradoras": [
       "data/cat/aspiradoras-1.json"
-    ],
-    "Computadoras de escritorio": [
-      "data/cat/computadoras-de-escritorio-1.json"
     ],
     "Joyería y bisutería": [
       "data/cat/joyeria-y-bisuteria-1.json"
@@ -3706,42 +4011,28 @@
       "data/det/celulares-2.json",
       "data/det/celulares-3.json"
     ],
-    "Bocinas": [
-      "data/det/bocinas-1.json",
-      "data/det/bocinas-2.json",
-      "data/det/bocinas-3.json",
-      "data/det/bocinas-4.json",
-      "data/det/bocinas-5.json",
-      "data/det/bocinas-6.json"
+    "Cargadores y adaptadores": [
+      "data/det/cargadores-y-adaptadores-1.json",
+      "data/det/cargadores-y-adaptadores-2.json",
+      "data/det/cargadores-y-adaptadores-3.json"
     ],
-    "Componentes y accesorios de PC": [
-      "data/det/componentes-y-accesorios-de-pc-1.json",
-      "data/det/componentes-y-accesorios-de-pc-2.json",
-      "data/det/componentes-y-accesorios-de-pc-3.json",
-      "data/det/componentes-y-accesorios-de-pc-4.json"
+    "Proyectores y accesorios": [
+      "data/det/proyectores-y-accesorios-1.json",
+      "data/det/proyectores-y-accesorios-2.json",
+      "data/det/proyectores-y-accesorios-3.json",
+      "data/det/proyectores-y-accesorios-4.json"
     ],
     "Laptops": [
       "data/det/laptops-1.json",
       "data/det/laptops-2.json",
       "data/det/laptops-3.json"
     ],
-    "Tabletas": [
-      "data/det/tabletas-1.json",
-      "data/det/tabletas-2.json"
-    ],
-    "Climatización": [
-      "data/det/climatizacion-1.json",
-      "data/det/climatizacion-2.json",
-      "data/det/climatizacion-3.json",
-      "data/det/climatizacion-4.json",
-      "data/det/climatizacion-5.json",
-      "data/det/climatizacion-6.json",
-      "data/det/climatizacion-7.json"
-    ],
-    "Cámaras y fotografía": [
-      "data/det/camaras-y-fotografia-1.json",
-      "data/det/camaras-y-fotografia-2.json",
-      "data/det/camaras-y-fotografia-3.json"
+    "Monitores": [
+      "data/det/monitores-1.json",
+      "data/det/monitores-2.json",
+      "data/det/monitores-3.json",
+      "data/det/monitores-4.json",
+      "data/det/monitores-5.json"
     ],
     "Muebles": [
       "data/det/muebles-1.json",
@@ -3770,12 +4061,16 @@
       "data/det/autos-bicicletas-y-motos-7.json",
       "data/det/autos-bicicletas-y-motos-8.json"
     ],
-    "Monitores": [
-      "data/det/monitores-1.json",
-      "data/det/monitores-2.json",
-      "data/det/monitores-3.json",
-      "data/det/monitores-4.json",
-      "data/det/monitores-5.json"
+    "Tabletas": [
+      "data/det/tabletas-1.json",
+      "data/det/tabletas-2.json"
+    ],
+    "Deportes y fitness": [
+      "data/det/deportes-y-fitness-1.json",
+      "data/det/deportes-y-fitness-2.json",
+      "data/det/deportes-y-fitness-3.json",
+      "data/det/deportes-y-fitness-4.json",
+      "data/det/deportes-y-fitness-5.json"
     ],
     "Blancos y ropa de cama": [
       "data/det/blancos-y-ropa-de-cama-1.json",
@@ -3785,9 +4080,29 @@
       "data/det/blancos-y-ropa-de-cama-5.json",
       "data/det/blancos-y-ropa-de-cama-6.json"
     ],
-    "Teclados": [
-      "data/det/teclados-1.json",
-      "data/det/teclados-2.json"
+    "Climatización": [
+      "data/det/climatizacion-1.json",
+      "data/det/climatizacion-2.json",
+      "data/det/climatizacion-3.json",
+      "data/det/climatizacion-4.json",
+      "data/det/climatizacion-5.json",
+      "data/det/climatizacion-6.json",
+      "data/det/climatizacion-7.json"
+    ],
+    "Bocinas": [
+      "data/det/bocinas-1.json",
+      "data/det/bocinas-2.json",
+      "data/det/bocinas-3.json",
+      "data/det/bocinas-4.json",
+      "data/det/bocinas-5.json",
+      "data/det/bocinas-6.json"
+    ],
+    "Domótica y hogar inteligente": [
+      "data/det/domotica-y-hogar-inteligente-1.json",
+      "data/det/domotica-y-hogar-inteligente-2.json",
+      "data/det/domotica-y-hogar-inteligente-3.json",
+      "data/det/domotica-y-hogar-inteligente-4.json",
+      "data/det/domotica-y-hogar-inteligente-5.json"
     ],
     "Instrumentos musicales": [
       "data/det/instrumentos-musicales-1.json",
@@ -3800,25 +4115,25 @@
       "data/det/instrumentos-musicales-8.json",
       "data/det/instrumentos-musicales-9.json"
     ],
-    "Belleza y cuidado personal": [
-      "data/det/belleza-y-cuidado-personal-1.json",
-      "data/det/belleza-y-cuidado-personal-2.json",
-      "data/det/belleza-y-cuidado-personal-3.json",
-      "data/det/belleza-y-cuidado-personal-4.json",
-      "data/det/belleza-y-cuidado-personal-5.json",
-      "data/det/belleza-y-cuidado-personal-6.json"
+    "Audífonos": [
+      "data/det/audifonos-1.json",
+      "data/det/audifonos-2.json",
+      "data/det/audifonos-3.json",
+      "data/det/audifonos-4.json",
+      "data/det/audifonos-5.json"
     ],
-    "Domótica y hogar inteligente": [
-      "data/det/domotica-y-hogar-inteligente-1.json",
-      "data/det/domotica-y-hogar-inteligente-2.json",
-      "data/det/domotica-y-hogar-inteligente-3.json",
-      "data/det/domotica-y-hogar-inteligente-4.json",
-      "data/det/domotica-y-hogar-inteligente-5.json"
+    "Cámaras de seguridad": [
+      "data/det/camaras-de-seguridad-1.json"
     ],
-    "Cocina y comedor": [
-      "data/det/cocina-y-comedor-1.json",
-      "data/det/cocina-y-comedor-2.json",
-      "data/det/cocina-y-comedor-3.json"
+    "Equipo comercial": [
+      "data/det/equipo-comercial-1.json",
+      "data/det/equipo-comercial-2.json"
+    ],
+    "Componentes y accesorios de PC": [
+      "data/det/componentes-y-accesorios-de-pc-1.json",
+      "data/det/componentes-y-accesorios-de-pc-2.json",
+      "data/det/componentes-y-accesorios-de-pc-3.json",
+      "data/det/componentes-y-accesorios-de-pc-4.json"
     ],
     "Herramientas": [
       "data/det/herramientas-1.json",
@@ -3830,29 +4145,9 @@
       "data/det/herramientas-7.json",
       "data/det/herramientas-8.json"
     ],
-    "Baterías portátiles": [
-      "data/det/baterias-portatiles-1.json"
-    ],
-    "Refrigeradores": [
-      "data/det/refrigeradores-1.json"
-    ],
-    "Cargadores y adaptadores": [
-      "data/det/cargadores-y-adaptadores-1.json",
-      "data/det/cargadores-y-adaptadores-2.json",
-      "data/det/cargadores-y-adaptadores-3.json"
-    ],
-    "Electrodomésticos": [
-      "data/det/electrodomesticos-1.json",
-      "data/det/electrodomesticos-2.json",
-      "data/det/electrodomesticos-3.json",
-      "data/det/electrodomesticos-4.json",
-      "data/det/electrodomesticos-5.json",
-      "data/det/electrodomesticos-6.json"
-    ],
-    "Iluminación": [
-      "data/det/iluminacion-1.json",
-      "data/det/iluminacion-2.json",
-      "data/det/iluminacion-3.json"
+    "Teclados": [
+      "data/det/teclados-1.json",
+      "data/det/teclados-2.json"
     ],
     "Mascotas": [
       "data/det/mascotas-1.json",
@@ -3863,44 +4158,55 @@
       "data/det/mascotas-6.json",
       "data/det/mascotas-7.json"
     ],
-    "Redes": [
-      "data/det/redes-1.json"
+    "Cocina y comedor": [
+      "data/det/cocina-y-comedor-1.json",
+      "data/det/cocina-y-comedor-2.json"
     ],
-    "Videojuegos": [
-      "data/det/videojuegos-1.json",
-      "data/det/videojuegos-2.json",
-      "data/det/videojuegos-3.json",
-      "data/det/videojuegos-4.json",
-      "data/det/videojuegos-5.json"
+    "Almacenamiento": [
+      "data/det/almacenamiento-1.json",
+      "data/det/almacenamiento-2.json"
     ],
-    "Audífonos": [
-      "data/det/audifonos-1.json",
-      "data/det/audifonos-2.json",
-      "data/det/audifonos-3.json",
-      "data/det/audifonos-4.json",
-      "data/det/audifonos-5.json"
+    "Cámaras y fotografía": [
+      "data/det/camaras-y-fotografia-1.json",
+      "data/det/camaras-y-fotografia-2.json",
+      "data/det/camaras-y-fotografia-3.json"
     ],
-    "Mouse": [
-      "data/det/mouse-1.json"
+    "Belleza y cuidado personal": [
+      "data/det/belleza-y-cuidado-personal-1.json",
+      "data/det/belleza-y-cuidado-personal-2.json",
+      "data/det/belleza-y-cuidado-personal-3.json",
+      "data/det/belleza-y-cuidado-personal-4.json",
+      "data/det/belleza-y-cuidado-personal-5.json",
+      "data/det/belleza-y-cuidado-personal-6.json"
     ],
-    "Relojes inteligentes": [
-      "data/det/relojes-inteligentes-1.json"
+    "Refacciones": [
+      "data/det/refacciones-1.json",
+      "data/det/refacciones-2.json",
+      "data/det/refacciones-3.json",
+      "data/det/refacciones-4.json"
     ],
-    "Deportes y fitness": [
-      "data/det/deportes-y-fitness-1.json",
-      "data/det/deportes-y-fitness-2.json",
-      "data/det/deportes-y-fitness-3.json",
-      "data/det/deportes-y-fitness-4.json",
-      "data/det/deportes-y-fitness-5.json"
+    "Electrodomésticos": [
+      "data/det/electrodomesticos-1.json",
+      "data/det/electrodomesticos-2.json",
+      "data/det/electrodomesticos-3.json",
+      "data/det/electrodomesticos-4.json",
+      "data/det/electrodomesticos-5.json",
+      "data/det/electrodomesticos-6.json"
     ],
-    "Televisores": [
-      "data/det/televisores-1.json"
+    "Baterías portátiles": [
+      "data/det/baterias-portatiles-1.json"
     ],
-    "Proyectores y accesorios": [
-      "data/det/proyectores-y-accesorios-1.json",
-      "data/det/proyectores-y-accesorios-2.json",
-      "data/det/proyectores-y-accesorios-3.json",
-      "data/det/proyectores-y-accesorios-4.json"
+    "Iluminación": [
+      "data/det/iluminacion-1.json",
+      "data/det/iluminacion-2.json",
+      "data/det/iluminacion-3.json"
+    ],
+    "Juegos de mesa": [
+      "data/det/juegos-de-mesa-1.json",
+      "data/det/juegos-de-mesa-2.json"
+    ],
+    "Computadoras de escritorio": [
+      "data/det/computadoras-de-escritorio-1.json"
     ],
     "Juguetes y bebés": [
       "data/det/juguetes-y-bebes-1.json",
@@ -3909,17 +4215,32 @@
       "data/det/juguetes-y-bebes-4.json",
       "data/det/juguetes-y-bebes-5.json"
     ],
-    "Equipo comercial": [
-      "data/det/equipo-comercial-1.json",
-      "data/det/equipo-comercial-2.json"
+    "Videojuegos": [
+      "data/det/videojuegos-1.json",
+      "data/det/videojuegos-2.json",
+      "data/det/videojuegos-3.json",
+      "data/det/videojuegos-4.json",
+      "data/det/videojuegos-5.json"
+    ],
+    "Refrigeradores": [
+      "data/det/refrigeradores-1.json"
+    ],
+    "Redes": [
+      "data/det/redes-1.json"
+    ],
+    "Mouse": [
+      "data/det/mouse-1.json"
+    ],
+    "Relojes inteligentes": [
+      "data/det/relojes-inteligentes-1.json"
+    ],
+    "Televisores": [
+      "data/det/televisores-1.json"
     ],
     "Otros": [
       "data/det/otros-1.json",
       "data/det/otros-2.json",
       "data/det/otros-3.json"
-    ],
-    "Cámaras de seguridad": [
-      "data/det/camaras-de-seguridad-1.json"
     ],
     "Salud": [
       "data/det/salud-1.json"
@@ -3927,22 +4248,8 @@
     "Suplementos": [
       "data/det/suplementos-1.json"
     ],
-    "Juegos de mesa": [
-      "data/det/juegos-de-mesa-1.json",
-      "data/det/juegos-de-mesa-2.json"
-    ],
-    "Almacenamiento": [
-      "data/det/almacenamiento-1.json",
-      "data/det/almacenamiento-2.json"
-    ],
     "Impresoras": [
       "data/det/impresoras-1.json"
-    ],
-    "Refacciones": [
-      "data/det/refacciones-1.json",
-      "data/det/refacciones-2.json",
-      "data/det/refacciones-3.json",
-      "data/det/refacciones-4.json"
     ],
     "Impresión 3D": [
       "data/det/impresion-3d-1.json"
@@ -3956,9 +4263,6 @@
     ],
     "Aspiradoras": [
       "data/det/aspiradoras-1.json"
-    ],
-    "Computadoras de escritorio": [
-      "data/det/computadoras-de-escritorio-1.json"
     ],
     "Joyería y bisutería": [
       "data/det/joyeria-y-bisuteria-1.json",
@@ -3986,57 +4290,62 @@
   "totalProducts": 293527,
   "categoryStats": {
     "Celulares": {
-      "n": 4712,
+      "n": 4635,
       "subs": {
-        "Android": 3334,
+        "Android": 3297,
         "Resistentes": 344,
         "iPhone": 450,
-        "Accesorios": 151,
+        "Accesorios": 140,
         "Teléfonos fijos": 44,
-        "Básicos": 362,
-        "": 27
+        "Básicos": 334,
+        "": 26
       },
       "pop": 304385,
-      "discounted": 1354,
+      "discounted": 1355,
       "max": 80,
-      "discountedShip": 1354,
+      "discountedShip": 1355,
       "maxShip": 80
     },
-    "Bocinas": {
-      "n": 10420,
+    "Cargadores y adaptadores": {
+      "n": 5921,
       "subs": {
-        "Mediana": 6899,
-        "Barras de sonido": 399,
-        "Grande": 1249,
-        "Pequeña": 1753,
-        "": 120
+        "De pared": 2036,
+        "Cable": 619,
+        "Adaptador de corriente": 430,
+        "De auto": 399,
+        "Inalámbrico": 989,
+        "De pilas": 388,
+        "Base de carga": 186,
+        "Otros": 120,
+        "Para laptop": 631,
+        "Para herramientas": 4,
+        "": 119
       },
-      "pop": 81588,
-      "discounted": 1099,
+      "pop": 2773,
+      "discounted": 546,
       "max": 80,
-      "discountedShip": 1099,
-      "maxShip": 80
+      "discountedShip": 544,
+      "maxShip": 73
     },
-    "Componentes y accesorios de PC": {
-      "n": 7303,
+    "Proyectores y accesorios": {
+      "n": 7781,
       "subs": {
-        "Componentes": 2072,
-        "Accesorios de monitor": 1211,
-        "Memoria RAM": 3118,
-        "Accesorios": 483,
-        "Webcams": 419
+        "Proyectores": 1348,
+        "Pantallas de proyección": 6397,
+        "Accesorios": 30,
+        "": 6
       },
-      "pop": 3744,
-      "discounted": 94,
-      "max": 68,
-      "discountedShip": 93,
-      "maxShip": 68
+      "pop": 732,
+      "discounted": 167,
+      "max": 71,
+      "discountedShip": 167,
+      "maxShip": 71
     },
     "Laptops": {
-      "n": 4414,
+      "n": 4296,
       "subs": {
-        "Oficina": 3923,
-        "Gamer": 491
+        "Oficina": 3792,
+        "Gamer": 504
       },
       "pop": 7877,
       "discounted": 876,
@@ -4044,112 +4353,12 @@
       "discountedShip": 876,
       "maxShip": 67
     },
-    "Tabletas": {
-      "n": 3078,
-      "subs": {
-        "Android": 2793,
-        "Apple": 285
-      },
-      "pop": 14290,
-      "discounted": 266,
-      "max": 76,
-      "discountedShip": 266,
-      "maxShip": 76
-    },
-    "Climatización": {
-      "n": 12852,
-      "subs": {
-        "Ventiladores": 5949,
-        "Aires acondicionados": 1950,
-        "Deshumidificadores": 290,
-        "Purificadores de aire": 310,
-        "Calefactores": 3652,
-        "Humidificadores": 384,
-        "Climatizadores evaporativos": 217,
-        "": 100
-      },
-      "pop": 51265,
-      "discounted": 1236,
-      "max": 90,
-      "discountedShip": 1238,
-      "maxShip": 90
-    },
-    "Cámaras y fotografía": {
-      "n": 4968,
-      "subs": {
-        "Videocámaras": 1065,
-        "Cámaras de acción": 1225,
-        "Accesorios": 945,
-        "Instantáneas": 534,
-        "Réflex": 44,
-        "Mirrorless": 189,
-        "Lentes": 258,
-        "Compactas": 373,
-        "": 335
-      },
-      "pop": 11666,
-      "discounted": 943,
-      "max": 80,
-      "discountedShip": 943,
-      "maxShip": 80
-    },
-    "Muebles": {
-      "n": 28873,
-      "subs": {
-        "Escritorios": 3227,
-        "Mesas de centro": 2558,
-        "Mesas de comedor": 1757,
-        "Libreros": 598,
-        "Burós": 282,
-        "Roperos": 890,
-        "Zapateras": 267,
-        "Repisas": 431,
-        "Muebles de cocina": 178,
-        "Sillas": 7433,
-        "Sofás": 2532,
-        "Camas": 2064,
-        "Colchones": 5714,
-        "Otros": 345,
-        "Mesas de juego": 33,
-        "Percheros": 324,
-        "": 240
-      },
-      "pop": 70523,
-      "discounted": 10423,
-      "max": 82,
-      "discountedShip": 10424,
-      "maxShip": 82
-    },
-    "Autos, bicicletas y motos": {
-      "n": 15203,
-      "subs": {
-        "Estéreos para auto": 1343,
-        "Cascos para moto": 969,
-        "Accesorios para bicicleta": 826,
-        "Autos": 1687,
-        "Accesorios y refacciones": 739,
-        "Motocicletas": 1185,
-        "Baterías para auto": 1132,
-        "Bicicletas": 3323,
-        "Llantas": 1810,
-        "Bocinas para auto": 1571,
-        "Amplificadores para auto": 141,
-        "": 194,
-        "Dashcams y cámaras": 112,
-        "Accesorios para moto": 171
-      },
-      "pop": 23167,
-      "discounted": 2514,
-      "max": 93,
-      "discountedShip": 2543,
-      "maxShip": 93
-    },
     "Monitores": {
-      "n": 8123,
+      "n": 8225,
       "subs": {
-        "Portátiles": 2053,
-        "Oficina": 4155,
-        "Gaming": 1915
+        "Portátiles": 2133,
+        "Oficina": 4123,
+        "Gaming": 1969
       },
       "pop": 5518,
       "discounted": 151,
@@ -4157,35 +4366,301 @@
       "discountedShip": 151,
       "maxShip": 60
     },
-    "Blancos y ropa de cama": {
-      "n": 10637,
+    "Muebles": {
+      "n": 28698,
       "subs": {
-        "Cobijas eléctricas": 1949,
-        "Toallas": 1886,
-        "Edredones": 1074,
-        "Tapetes de baño": 445,
-        "Protectores de colchón": 1777,
-        "Cobijas": 447,
-        "Sábanas": 1641,
+        "Percheros": 326,
+        "Escritorios": 3238,
+        "Mesas de centro": 2556,
+        "Roperos": 872,
+        "Zapateras": 268,
+        "Colchones": 5706,
+        "Camas": 2021,
+        "Mesas de comedor": 1720,
+        "Libreros": 610,
+        "Burós": 291,
+        "Repisas": 419,
+        "Muebles de cocina": 154,
+        "Sillas": 7448,
+        "Sofás": 2585,
+        "Otros": 268,
+        "Mesas de juego": 33,
+        "": 183
+      },
+      "pop": 70523,
+      "discounted": 10429,
+      "max": 82,
+      "discountedShip": 10430,
+      "maxShip": 82
+    },
+    "Autos, bicicletas y motos": {
+      "n": 15177,
+      "subs": {
+        "Bicicletas": 3329,
+        "Estéreos para auto": 1373,
+        "Autos": 1677,
+        "Cascos para moto": 942,
+        "Accesorios para bicicleta": 821,
+        "Accesorios y refacciones": 708,
+        "Motocicletas": 1165,
+        "Baterías para auto": 1181,
+        "Llantas": 1801,
+        "Bocinas para auto": 1589,
+        "Amplificadores para auto": 141,
+        "": 190,
+        "Dashcams y cámaras": 89,
+        "Accesorios para moto": 171
+      },
+      "pop": 23167,
+      "discounted": 2517,
+      "max": 93,
+      "discountedShip": 2546,
+      "maxShip": 93
+    },
+    "Tabletas": {
+      "n": 3048,
+      "subs": {
+        "Android": 2763,
+        "Apple": 285
+      },
+      "pop": 14290,
+      "discounted": 267,
+      "max": 76,
+      "discountedShip": 267,
+      "maxShip": 76
+    },
+    "Deportes y fitness": {
+      "n": 9360,
+      "subs": {
+        "Pesas": 1749,
+        "Dardos": 240,
+        "Bicicletas fijas": 313,
+        "Equipo de gimnasio": 1805,
+        "Campismo": 3,
+        "Otros": 46,
+        "Raquetas": 544,
+        "Bandas de resistencia": 257,
+        "Yoga": 944,
+        "Balones": 1032,
+        "Boxeo": 604,
+        "Deportes acuáticos": 89,
+        "Voleibol": 297,
+        "Ping pong": 135,
+        "Protección y soportes": 178,
+        "Patines y patinetas": 399,
+        "Natación": 498,
+        "Fútbol": 104,
+        "": 123
+      },
+      "pop": 25138,
+      "discounted": 1463,
+      "max": 92,
+      "discountedShip": 1464,
+      "maxShip": 92
+    },
+    "Blancos y ropa de cama": {
+      "n": 10800,
+      "subs": {
+        "Cobijas eléctricas": 2113,
+        "Cobijas": 456,
+        "Protectores de colchón": 1832,
+        "Tapetes de baño": 467,
+        "Toallas": 1894,
+        "Edredones": 1059,
+        "Sábanas": 1672,
         "Cortinas": 278,
-        "Almohadas": 679,
+        "Almohadas": 680,
         "Fundas para muebles": 10,
-        "": 451
+        "": 339
       },
       "pop": 13776,
-      "discounted": 3050,
+      "discounted": 3052,
       "max": 75,
-      "discountedShip": 3051,
+      "discountedShip": 3053,
       "maxShip": 75
     },
-    "Teclados": {
-      "n": 2261,
+    "Climatización": {
+      "n": 12905,
       "subs": {
-        "Inalámbricos": 284,
-        "Mecánicos": 832,
-        "Combos con mouse": 290,
-        "Membrana": 420,
-        "": 274,
+        "Calefactores": 3694,
+        "Ventiladores": 5937,
+        "Aires acondicionados": 1977,
+        "Purificadores de aire": 323,
+        "Deshumidificadores": 290,
+        "Humidificadores": 385,
+        "Climatizadores evaporativos": 216,
+        "": 83
+      },
+      "pop": 51265,
+      "discounted": 1235,
+      "max": 90,
+      "discountedShip": 1237,
+      "maxShip": 90
+    },
+    "Bocinas": {
+      "n": 10322,
+      "subs": {
+        "Mediana": 6816,
+        "Barras de sonido": 400,
+        "Grande": 1238,
+        "Pequeña": 1752,
+        "": 116
+      },
+      "pop": 80894,
+      "discounted": 1097,
+      "max": 80,
+      "discountedShip": 1097,
+      "maxShip": 80
+    },
+    "Domótica y hogar inteligente": {
+      "n": 8699,
+      "subs": {
+        "Bocinas inteligentes": 480,
+        "Iluminación inteligente": 1401,
+        "Interruptores inteligentes": 2140,
+        "Cerraduras inteligentes": 3103,
+        "Sensores": 237,
+        "Enchufes inteligentes": 535,
+        "Cortinas motorizadas": 211,
+        "Hubs": 78,
+        "": 418,
+        "Termostatos": 96
+      },
+      "pop": 155591,
+      "discounted": 768,
+      "max": 75,
+      "discountedShip": 770,
+      "maxShip": 72
+    },
+    "Instrumentos musicales": {
+      "n": 16823,
+      "subs": {
+        "Teclados": 505,
+        "Viento": 3325,
+        "Guitarras": 5054,
+        "Micrófonos": 837,
+        "Baterías": 3890,
+        "Percusión": 715,
+        "Cuerdas": 1445,
+        "Producción de audio": 123,
+        "Tornamesas": 64,
+        "": 537,
+        "Accesorios": 203,
+        "Efectos y pedales": 55,
+        "Amplificadores": 70
+      },
+      "pop": 4415,
+      "discounted": 1519,
+      "max": 84,
+      "discountedShip": 1520,
+      "maxShip": 84
+    },
+    "Audífonos": {
+      "n": 9306,
+      "subs": {
+        "Earbuds inalámbricos": 4156,
+        "Diadema inalámbrica": 1178,
+        "Gamer": 866,
+        "De oído abierto": 528,
+        "": 1078,
+        "Earbuds con cable": 1123,
+        "Diadema con cable": 377
+      },
+      "pop": 283960,
+      "discounted": 1774,
+      "max": 80,
+      "discountedShip": 1769,
+      "maxShip": 80
+    },
+    "Cámaras de seguridad": {
+      "n": 1414,
+      "subs": {
+        "Interiores": 240,
+        "Cámaras exteriores": 248,
+        "Cámaras espía": 37,
+        "Sensores": 19,
+        "Cámaras PTZ": 80,
+        "Cámaras interiores": 370,
+        "Kits de vigilancia": 275,
+        "Timbres inteligentes": 26,
+        "Alarmas": 41,
+        "Otros": 6,
+        "": 72
+      },
+      "pop": 21354,
+      "discounted": 644,
+      "max": 81,
+      "discountedShip": 644,
+      "maxShip": 81
+    },
+    "Equipo comercial": {
+      "n": 3398,
+      "subs": {
+        "Punto de venta": 1316,
+        "Carros de servicio": 779,
+        "Cocina industrial": 489,
+        "Refrigeración comercial": 192,
+        "Mobiliario": 254,
+        "Prensas de calor": 291,
+        "Impresoras de sublimación": 29,
+        "": 48
+      },
+      "pop": 6142,
+      "discounted": 152,
+      "max": 78,
+      "discountedShip": 152,
+      "maxShip": 78
+    },
+    "Componentes y accesorios de PC": {
+      "n": 7136,
+      "subs": {
+        "Componentes": 1998,
+        "Accesorios de monitor": 1190,
+        "Memoria RAM": 3110,
+        "Accesorios": 473,
+        "Webcams": 365
+      },
+      "pop": 3744,
+      "discounted": 95,
+      "max": 68,
+      "discountedShip": 94,
+      "maxShip": 68
+    },
+    "Herramientas": {
+      "n": 14223,
+      "subs": {
+        "Herramientas eléctricas": 2928,
+        "Jardinería": 1560,
+        "Material eléctrico": 657,
+        "Soldadura": 531,
+        "Grabado láser": 415,
+        "Herramientas manuales": 1477,
+        "Escaleras": 667,
+        "Accesorios para herramientas eléctricas": 1711,
+        "Medición": 494,
+        "Seguridad industrial": 389,
+        "Neumáticas": 288,
+        "Organización": 212,
+        "Construcción": 152,
+        "Gas LP": 28,
+        "Plomería": 1514,
+        "": 842,
+        "Cerraduras y candados": 358
+      },
+      "pop": 182847,
+      "discounted": 5147,
+      "max": 76,
+      "discountedShip": 5246,
+      "maxShip": 76
+    },
+    "Teclados": {
+      "n": 2237,
+      "subs": {
+        "Mecánicos": 839,
+        "Combos con mouse": 292,
+        "Membrana": 418,
+        "Inalámbricos": 304,
+        "": 223,
         "Ergonómicos": 88,
         "Numéricos": 73
       },
@@ -4195,144 +4670,308 @@
       "discountedShip": 193,
       "maxShip": 69
     },
-    "Instrumentos musicales": {
-      "n": 16687,
+    "Mascotas": {
+      "n": 12117,
       "subs": {
-        "Teclados": 447,
-        "Guitarras": 4996,
-        "Baterías": 3859,
-        "Viento": 3260,
-        "Cuerdas": 1493,
-        "Percusión": 698,
-        "Producción de audio": 123,
-        "Micrófonos": 672,
-        "Tornamesas": 64,
-        "": 717,
-        "Accesorios": 231,
-        "Efectos y pedales": 55,
-        "Amplificadores": 72
+        "Camas": 1684,
+        "Jaulas y corrales": 2658,
+        "Puertas para mascotas": 715,
+        "Casas para mascotas": 1579,
+        "Comederos": 2580,
+        "Correas": 329,
+        "Transportadoras": 211,
+        "": 1042,
+        "Areneros": 97,
+        "Juguetes": 888,
+        "Bebederos": 96,
+        "Adiestramiento": 15,
+        "Ropa y accesorios": 82,
+        "Higiene y limpieza": 51,
+        "Rascadores y torres": 90
       },
-      "pop": 4415,
-      "discounted": 1518,
-      "max": 84,
-      "discountedShip": 1519,
-      "maxShip": 84
+      "pop": 12003,
+      "discounted": 866,
+      "max": 75,
+      "discountedShip": 865,
+      "maxShip": 71
+    },
+    "Cocina y comedor": {
+      "n": 3988,
+      "subs": {
+        "Botellas de agua": 841,
+        "Botellas de vidrio y plástico": 152,
+        "Termos y botellas térmicas": 791,
+        "Contenedores herméticos": 98,
+        "Vasos térmicos y de viaje": 324,
+        "Tarros y frascos": 52,
+        "": 36,
+        "Desechables": 34,
+        "Utensilios de cocina": 62,
+        "Tazas": 246,
+        "Organización de cocina": 347,
+        "Baterías de cocina": 69,
+        "Ollas de presión": 4,
+        "Cubiertos": 72,
+        "Sartenes y comales": 73,
+        "Ollas y cacerolas": 45,
+        "Platos y bowls": 134,
+        "Cuchillos y tablas": 25,
+        "Básculas y medidores": 13,
+        "Limpieza de cocina": 13,
+        "Repostería y moldes": 18,
+        "Vasos y copas": 344,
+        "Bar y coctelería": 68,
+        "Vajillas": 83,
+        "Jarras y dispensadores de bebidas": 37,
+        "Loncheras y termos para alimentos": 7
+      },
+      "pop": 2092,
+      "discounted": 1902,
+      "max": 77,
+      "discountedShip": 1902,
+      "maxShip": 69
+    },
+    "Almacenamiento": {
+      "n": 2425,
+      "subs": {
+        "Memorias USB": 1328,
+        "Tarjetas de memoria": 273,
+        "Externo": 204,
+        "NAS": 49,
+        "SSD": 292,
+        "Interno": 216,
+        "": 63
+      },
+      "pop": 53260,
+      "discounted": 391,
+      "max": 71,
+      "discountedShip": 400,
+      "maxShip": 68
+    },
+    "Cámaras y fotografía": {
+      "n": 5096,
+      "subs": {
+        "Cámaras de acción": 1319,
+        "Videocámaras": 1124,
+        "Accesorios": 920,
+        "Instantáneas": 534,
+        "Réflex": 44,
+        "Mirrorless": 189,
+        "Lentes": 258,
+        "Compactas": 373,
+        "": 335
+      },
+      "pop": 11666,
+      "discounted": 934,
+      "max": 80,
+      "discountedShip": 934,
+      "maxShip": 80
     },
     "Belleza y cuidado personal": {
-      "n": 10287,
+      "n": 10345,
       "subs": {
-        "Secadoras de cabello": 652,
-        "Cuidado del cabello": 285,
-        "Maquillaje": 2616,
-        "Pelucas": 437,
-        "Faciales": 1732,
+        "Faciales": 1801,
+        "Extensiones de cabello": 311,
+        "Pelucas": 438,
+        "Secadoras de cabello": 657,
+        "Cuidado del cabello": 271,
+        "Maquillaje": 2615,
+        "Planchas para cabello": 392,
         "Rasuradoras": 920,
-        "Masajeadores": 273,
+        "Masajeadores": 272,
         "Depilación": 431,
-        "Planchas para cabello": 382,
         "Cuidado personal": 306,
-        "Protección solar": 375,
-        "Corporales": 622,
-        "Manicure": 237,
-        "Uñas": 205,
-        "Rizadores": 380,
-        "Mobiliario para salón": 101,
-        "Extensiones de cabello": 310,
+        "Protección solar": 360,
+        "Corporales": 621,
+        "Manicure": 238,
+        "Uñas": 208,
+        "Rizadores": 381,
+        "Mobiliario para salón": 100,
         "Estilizadores": 5,
         "Perfumes": 11,
         "": 7
       },
       "pop": 47611,
-      "discounted": 3358,
+      "discounted": 3356,
       "max": 79,
-      "discountedShip": 3366,
+      "discountedShip": 3364,
       "maxShip": 79
     },
-    "Domótica y hogar inteligente": {
-      "n": 8626,
+    "Refacciones": {
+      "n": 7915,
       "subs": {
-        "Iluminación inteligente": 1332,
-        "Bocinas inteligentes": 521,
-        "Interruptores inteligentes": 2063,
-        "Cerraduras inteligentes": 3088,
-        "Sensores": 199,
-        "Enchufes inteligentes": 533,
-        "Cortinas motorizadas": 211,
-        "Hubs": 96,
-        "": 487,
-        "Termostatos": 96
+        "Refacciones para electrodomésticos": 2437,
+        "Para patinetas eléctricas": 176,
+        "Para autos": 2650,
+        "Bombas": 77,
+        "Motores": 53,
+        "Para bicicletas eléctricas": 109,
+        "Para motos": 2413
       },
-      "pop": 154763,
-      "discounted": 746,
-      "max": 75,
-      "discountedShip": 748,
-      "maxShip": 72
+      "pop": 3243,
+      "discounted": 1979,
+      "max": 52,
+      "discountedShip": 1979,
+      "maxShip": 52
     },
-    "Cocina y comedor": {
-      "n": 4061,
+    "Electrodomésticos": {
+      "n": 11621,
       "subs": {
-        "Botellas y termos": 1757,
-        "Contenedores": 315,
-        "Utensilios de cocina": 103,
-        "Organización de cocina": 405,
-        "Ollas y sartenes": 152,
-        "Vajilla": 338,
-        "Vasos y tazas": 921,
-        "": 70
+        "Freidoras de aire": 1986,
+        "Planchas": 494,
+        "Máquinas de coser": 324,
+        "Pequeños electrodomésticos de cocina": 1254,
+        "Purificadores de agua": 2129,
+        "Calentadores de agua": 477,
+        "Campanas de cocina": 722,
+        "Hornos": 230,
+        "Microondas": 485,
+        "Estufas": 754,
+        "Robots limpiacristales": 1520,
+        "Licuadoras": 572,
+        "Otros": 18,
+        "Extractores de jugo": 328,
+        "Lavavajillas": 142,
+        "Vaporizadores de ropa": 110,
+        "": 76
       },
-      "pop": 2092,
-      "discounted": 1911,
-      "max": 77,
-      "discountedShip": 1911,
-      "maxShip": 69
-    },
-    "Herramientas": {
-      "n": 14296,
-      "subs": {
-        "Soldadura": 689,
-        "Grabado láser": 415,
-        "Herramientas manuales": 1466,
-        "Herramientas eléctricas": 2692,
-        "Escaleras": 692,
-        "Accesorios para herramientas eléctricas": 1736,
-        "Jardinería": 1527,
-        "Medición": 494,
-        "Seguridad industrial": 392,
-        "Neumáticas": 289,
-        "Organización": 221,
-        "Construcción": 152,
-        "Material eléctrico": 685,
-        "Gas LP": 28,
-        "Plomería": 1509,
-        "": 947,
-        "Cerraduras y candados": 362
-      },
-      "pop": 182733,
-      "discounted": 5147,
-      "max": 76,
-      "discountedShip": 5246,
-      "maxShip": 76
+      "pop": 147967,
+      "discounted": 1928,
+      "max": 80,
+      "discountedShip": 1934,
+      "maxShip": 80
     },
     "Baterías portátiles": {
-      "n": 1855,
+      "n": 1735,
       "subs": {
+        "Hasta 10,000 mAh": 1070,
         "Más de 20,000 mAh": 182,
-        "Hasta 10,000 mAh": 1163,
-        "10,000 a 20,000 mAh": 249,
-        "": 261
+        "10,000 a 20,000 mAh": 250,
+        "": 233
       },
       "pop": 3929,
-      "discounted": 196,
+      "discounted": 200,
       "max": 74,
-      "discountedShip": 196,
+      "discountedShip": 200,
       "maxShip": 72
     },
-    "Refrigeradores": {
-      "n": 1558,
+    "Iluminación": {
+      "n": 5506,
       "subs": {
-        "Frigobares": 489,
-        "Refrigeradores": 794,
-        "Uso comercial": 255,
+        "Decorativa": 835,
+        "Lámparas de techo": 1173,
+        "Lámparas de emergencia": 343,
+        "Tiras LED": 91,
+        "Exterior": 390,
+        "Focos": 1031,
+        "Lámparas de pared": 380,
+        "Escenario": 62,
+        "Lámparas de escritorio": 51,
+        "Focos inteligentes": 35,
+        "Lámparas de piso": 9,
+        "": 1104,
+        "Empotrada": 2
+      },
+      "pop": 6368,
+      "discounted": 2077,
+      "max": 80,
+      "discountedShip": 2085,
+      "maxShip": 78
+    },
+    "Juegos de mesa": {
+      "n": 3471,
+      "subs": {
+        "De mesa clásicos": 412,
+        "Otros juegos": 1002,
+        "Rompecabezas": 529,
+        "De cartas": 343,
+        "Ajedrez": 112,
+        "Woodestic": 63,
+        "De fiesta": 21,
+        "De estrategia": 69,
+        "Clásicos": 226,
+        "Infantiles": 141,
+        "Educativos": 16,
+        "De memoria": 9,
+        "De rol y dados": 47,
+        "De preguntas": 31,
+        "": 450
+      },
+      "pop": 4008,
+      "discounted": 1758,
+      "max": 73,
+      "discountedShip": 1779,
+      "maxShip": 66
+    },
+    "Computadoras de escritorio": {
+      "n": 1241,
+      "subs": {
+        "All in One": 512,
+        "Mini PC": 225,
+        "Torre": 500,
+        "": 4
+      },
+      "pop": 584,
+      "discounted": 494,
+      "max": 71,
+      "discountedShip": 494,
+      "maxShip": 71
+    },
+    "Juguetes y bebés": {
+      "n": 8747,
+      "subs": {
+        "Carriolas": 1144,
+        "Juguetes musicales": 15,
+        "Muñecas": 1279,
+        "Otros": 22,
+        "Juguetes educativos": 165,
+        "Bloques de construcción": 540,
+        "Cunas": 22,
+        "Biberones": 32,
+        "Peluches": 570,
+        "Andaderas": 16,
+        "Triciclos": 55,
+        "Corrales": 27,
+        "Monitores de bebé": 13,
+        "Sillas de auto": 18,
+        "Bebés": 1947,
+        "Vehículos a control remoto": 127,
+        "Juegos de exterior": 5,
+        "Montables": 85,
+        "Trampolines": 10,
+        "Juguetes para exterior": 87,
+        "Figuras de acción": 913,
+        "Juegos arcade": 4,
+        "Maquetas": 781,
+        "Vehículos de juguete": 41,
+        "": 829
+      },
+      "pop": 19195,
+      "discounted": 3623,
+      "max": 77,
+      "discountedShip": 3629,
+      "maxShip": 77
+    },
+    "Videojuegos": {
+      "n": 9040,
+      "subs": {
+        "Accesorios": 2037,
+        "Software": 6792,
+        "Consolas": 180,
+        "": 31
+      },
+      "pop": 335855,
+      "discounted": 4130,
+      "max": 85,
+      "discountedShip": 4132,
+      "maxShip": 85
+    },
+    "Refrigeradores": {
+      "n": 1538,
+      "subs": {
+        "Frigobares": 488,
+        "Refrigeradores": 786,
+        "Uso comercial": 244,
         "Congeladores": 18,
         "": 2
       },
@@ -4342,111 +4981,15 @@
       "discountedShip": 498,
       "maxShip": 76
     },
-    "Cargadores y adaptadores": {
-      "n": 5961,
-      "subs": {
-        "De pared": 1910,
-        "Inalámbrico": 984,
-        "Cable": 641,
-        "De auto": 399,
-        "Adaptador de corriente": 435,
-        "De pilas": 389,
-        "Otros": 136,
-        "Base de carga": 252,
-        "Para laptop": 605,
-        "Para herramientas": 4,
-        "": 206
-      },
-      "pop": 2773,
-      "discounted": 549,
-      "max": 80,
-      "discountedShip": 547,
-      "maxShip": 73
-    },
-    "Electrodomésticos": {
-      "n": 11638,
-      "subs": {
-        "Purificadores de agua": 2124,
-        "Calentadores de agua": 489,
-        "Campanas de cocina": 722,
-        "Pequeños electrodomésticos de cocina": 1316,
-        "Hornos": 230,
-        "Freidoras de aire": 1949,
-        "Microondas": 485,
-        "Estufas": 754,
-        "Robots limpiacristales": 1520,
-        "Licuadoras": 572,
-        "Otros": 18,
-        "Planchas": 470,
-        "Extractores de jugo": 328,
-        "Máquinas de coser": 320,
-        "Lavavajillas": 142,
-        "Vaporizadores de ropa": 110,
-        "": 89
-      },
-      "pop": 147967,
-      "discounted": 1919,
-      "max": 80,
-      "discountedShip": 1925,
-      "maxShip": 80
-    },
-    "Iluminación": {
-      "n": 5476,
-      "subs": {
-        "Decorativa": 811,
-        "Lámparas de techo": 1049,
-        "Tiras LED": 94,
-        "Exterior": 409,
-        "Lámparas de emergencia": 341,
-        "Focos": 1047,
-        "Lámparas de pared": 354,
-        "Escenario": 62,
-        "Lámparas de escritorio": 52,
-        "Focos inteligentes": 56,
-        "Lámparas de piso": 9,
-        "": 1189,
-        "Empotrada": 3
-      },
-      "pop": 6502,
-      "discounted": 2099,
-      "max": 80,
-      "discountedShip": 2107,
-      "maxShip": 78
-    },
-    "Mascotas": {
-      "n": 12016,
-      "subs": {
-        "Casas para mascotas": 1524,
-        "Camas": 1637,
-        "Puertas para mascotas": 722,
-        "Correas": 308,
-        "Comederos": 2332,
-        "Transportadoras": 209,
-        "": 1285,
-        "Areneros": 97,
-        "Juguetes": 871,
-        "Bebederos": 105,
-        "Jaulas y corrales": 2635,
-        "Adiestramiento": 15,
-        "Ropa y accesorios": 138,
-        "Higiene y limpieza": 51,
-        "Rascadores y torres": 87
-      },
-      "pop": 12003,
-      "discounted": 866,
-      "max": 75,
-      "discountedShip": 865,
-      "maxShip": 71
-    },
     "Redes": {
-      "n": 841,
+      "n": 839,
       "subs": {
-        "Access points": 69,
+        "Access points": 85,
         "Repetidores": 80,
         "Routers": 141,
         "Módems": 20,
-        "Switches": 396,
-        "": 135
+        "Switches": 422,
+        "": 91
       },
       "pop": 2469,
       "discounted": 140,
@@ -4454,43 +4997,12 @@
       "discountedShip": 140,
       "maxShip": 69
     },
-    "Videojuegos": {
-      "n": 9070,
-      "subs": {
-        "Software": 6824,
-        "Accesorios": 2027,
-        "Consolas": 180,
-        "": 39
-      },
-      "pop": 335855,
-      "discounted": 4139,
-      "max": 85,
-      "discountedShip": 4141,
-      "maxShip": 85
-    },
-    "Audífonos": {
-      "n": 9268,
-      "subs": {
-        "Gamer": 818,
-        "De oído abierto": 523,
-        "Earbuds inalámbricos": 4081,
-        "Diadema inalámbrica": 1176,
-        "": 1179,
-        "Earbuds con cable": 1099,
-        "Diadema con cable": 392
-      },
-      "pop": 283960,
-      "discounted": 1760,
-      "max": 80,
-      "discountedShip": 1755,
-      "maxShip": 80
-    },
     "Mouse": {
-      "n": 1943,
+      "n": 1921,
       "subs": {
-        "Gaming": 758,
-        "Oficina": 976,
-        "Ergonómicos": 209
+        "Gaming": 775,
+        "Oficina": 938,
+        "Ergonómicos": 208
       },
       "pop": 5242,
       "discounted": 102,
@@ -4499,128 +5011,32 @@
       "maxShip": 59
     },
     "Relojes inteligentes": {
-      "n": 1294,
+      "n": 1292,
       "subs": {
-        "Smartwatches": 1059,
+        "Smartwatches": 1057,
         "Bandas de actividad": 28,
         "": 207
       },
       "pop": 59168,
-      "discounted": 604,
+      "discounted": 603,
       "max": 76,
-      "discountedShip": 604,
+      "discountedShip": 603,
       "maxShip": 76
     },
-    "Deportes y fitness": {
-      "n": 9156,
-      "subs": {
-        "Pesas": 1584,
-        "Bicicletas fijas": 275,
-        "Dardos": 238,
-        "Equipo de gimnasio": 1809,
-        "Campismo": 4,
-        "Otros": 46,
-        "Raquetas": 532,
-        "Bandas de resistencia": 266,
-        "Yoga": 927,
-        "Balones": 1032,
-        "Boxeo": 604,
-        "Deportes acuáticos": 89,
-        "Voleibol": 297,
-        "Ping pong": 137,
-        "Protección y soportes": 181,
-        "Patines y patinetas": 399,
-        "Natación": 498,
-        "Fútbol": 104,
-        "": 134
-      },
-      "pop": 25040,
-      "discounted": 1461,
-      "max": 92,
-      "discountedShip": 1462,
-      "maxShip": 92
-    },
     "Televisores": {
-      "n": 1267,
+      "n": 1262,
       "subs": {
-        "": 169,
-        "HD": 396,
+        "Portátiles": 39,
+        "": 166,
+        "HD": 392,
         "4K": 573,
-        "Dispositivos de streaming": 93,
-        "Portátiles": 36
+        "Dispositivos de streaming": 92
       },
       "pop": 131818,
       "discounted": 565,
       "max": 70,
       "discountedShip": 566,
       "maxShip": 70
-    },
-    "Proyectores y accesorios": {
-      "n": 7723,
-      "subs": {
-        "Pantallas de proyección": 6529,
-        "Proyectores": 1167,
-        "Accesorios": 16,
-        "": 11
-      },
-      "pop": 732,
-      "discounted": 165,
-      "max": 71,
-      "discountedShip": 165,
-      "maxShip": 71
-    },
-    "Juguetes y bebés": {
-      "n": 8735,
-      "subs": {
-        "Carriolas": 1123,
-        "Juguetes musicales": 15,
-        "Muñecas": 1227,
-        "Otros": 22,
-        "Juguetes educativos": 166,
-        "Bloques de construcción": 450,
-        "Cunas": 23,
-        "Biberones": 32,
-        "Peluches": 570,
-        "Andaderas": 16,
-        "Triciclos": 57,
-        "Corrales": 27,
-        "Monitores de bebé": 13,
-        "Sillas de auto": 18,
-        "Bebés": 1950,
-        "Vehículos a control remoto": 128,
-        "Juegos de exterior": 5,
-        "Montables": 86,
-        "Trampolines": 10,
-        "Juguetes para exterior": 87,
-        "Figuras de acción": 898,
-        "Juegos arcade": 4,
-        "Maquetas": 781,
-        "Vehículos de juguete": 41,
-        "": 986
-      },
-      "pop": 19195,
-      "discounted": 3630,
-      "max": 77,
-      "discountedShip": 3636,
-      "maxShip": 77
-    },
-    "Equipo comercial": {
-      "n": 3338,
-      "subs": {
-        "Carros de servicio": 759,
-        "Punto de venta": 1263,
-        "Cocina industrial": 488,
-        "Refrigeración comercial": 192,
-        "Mobiliario": 265,
-        "Prensas de calor": 291,
-        "Impresoras de sublimación": 29,
-        "": 51
-      },
-      "pop": 6142,
-      "discounted": 152,
-      "max": 78,
-      "discountedShip": 152,
-      "maxShip": 78
     },
     "Otros": {
       "n": 4827,
@@ -4642,143 +5058,84 @@
       "discountedShip": 753,
       "maxShip": 60
     },
-    "Cámaras de seguridad": {
-      "n": 1400,
-      "subs": {
-        "Cámaras exteriores": 248,
-        "Cámaras espía": 37,
-        "Sensores": 19,
-        "Cámaras PTZ": 80,
-        "Cámaras interiores": 370,
-        "Interiores": 226,
-        "Kits de vigilancia": 275,
-        "Timbres inteligentes": 26,
-        "Alarmas": 41,
-        "Otros": 6,
-        "": 72
-      },
-      "pop": 21354,
-      "discounted": 643,
-      "max": 81,
-      "discountedShip": 643,
-      "maxShip": 81
-    },
     "Salud": {
-      "n": 755,
+      "n": 753,
       "subs": {
-        "Movilidad": 231,
+        "Movilidad": 230,
         "Cuidado dental": 277,
-        "Salud": 110,
+        "Salud": 109,
         "Básculas": 67,
         "Equipo de monitoreo médico": 70
       },
       "pop": 20995,
-      "discounted": 291,
+      "discounted": 289,
       "max": 76,
-      "discountedShip": 291,
+      "discountedShip": 289,
       "maxShip": 69
     },
     "Suplementos": {
-      "n": 580,
+      "n": 581,
       "subs": {
-        "Deportivos": 27,
-        "Colágeno": 63,
-        "Vitaminas y minerales": 71,
-        "Herbolaria": 50,
-        "Proteínas": 24,
-        "Probióticos": 134,
-        "": 171,
-        "Omega y aceites": 38,
-        "Control de peso": 2
+        "Creatina": 13,
+        "Colágeno": 49,
+        "Vitamina D y K": 1,
+        "Antioxidantes": 69,
+        "Proteínas": 19,
+        "Probióticos y prebióticos": 108,
+        "Salud ocular": 8,
+        "Zinc": 5,
+        "Sistema inmune": 10,
+        "Cabello, piel y uñas": 18,
+        "Magnesio": 20,
+        "Herbolaria y superalimentos": 35,
+        "Enzimas, fibra y digestivos": 46,
+        "Memoria y concentración": 13,
+        "Salud cardiovascular": 11,
+        "Complejo B y biotina": 7,
+        "Electrolitos y minerales": 3,
+        "": 22,
+        "Vitamina C": 3,
+        "Articulaciones": 20,
+        "Salud hormonal y sexual": 20,
+        "Aminoácidos y pre-entreno": 13,
+        "Control de peso": 2,
+        "Control de glucosa": 4,
+        "Omega 3 y aceites": 36,
+        "Hígado, riñón y vías urinarias": 10,
+        "Melatonina y sueño": 7,
+        "Multivitamínicos": 5,
+        "Energía y vitalidad": 3,
+        "Otras vitaminas": 1
       },
       "pop": 0,
-      "discounted": 2,
+      "discounted": 3,
       "max": 29,
-      "discountedShip": 2,
+      "discountedShip": 3,
       "maxShip": 25
     },
-    "Juegos de mesa": {
-      "n": 3462,
-      "subs": {
-        "Rompecabezas": 528,
-        "De mesa clásicos": 407,
-        "Otros juegos": 976,
-        "De cartas": 329,
-        "Ajedrez": 112,
-        "Woodestic": 63,
-        "De fiesta": 21,
-        "De estrategia": 74,
-        "Clásicos": 225,
-        "Infantiles": 142,
-        "Educativos": 16,
-        "De memoria": 9,
-        "De rol y dados": 47,
-        "De preguntas": 32,
-        "": 481
-      },
-      "pop": 4008,
-      "discounted": 1759,
-      "max": 73,
-      "discountedShip": 1780,
-      "maxShip": 66
-    },
-    "Almacenamiento": {
-      "n": 2407,
-      "subs": {
-        "Externo": 170,
-        "Tarjetas de memoria": 267,
-        "Memorias USB": 1340,
-        "NAS": 49,
-        "SSD": 276,
-        "Interno": 216,
-        "": 89
-      },
-      "pop": 53260,
-      "discounted": 386,
-      "max": 71,
-      "discountedShip": 395,
-      "maxShip": 68
-    },
     "Impresoras": {
-      "n": 1325,
+      "n": 1322,
       "subs": {
         "Consumibles": 748,
-        "": 90,
-        "Térmica": 118,
+        "": 77,
+        "Térmica": 115,
         "Inyección de tinta": 257,
-        "Láser": 97,
+        "Láser": 110,
         "Fotográficas": 15
       },
       "pop": 41424,
-      "discounted": 795,
+      "discounted": 793,
       "max": 60,
-      "discountedShip": 794,
+      "discountedShip": 792,
       "maxShip": 60
-    },
-    "Refacciones": {
-      "n": 7971,
-      "subs": {
-        "Refacciones para electrodomésticos": 2486,
-        "Para patinetas eléctricas": 176,
-        "Para autos": 2651,
-        "Bombas": 83,
-        "Motores": 53,
-        "Para bicicletas eléctricas": 109,
-        "Para motos": 2413
-      },
-      "pop": 3357,
-      "discounted": 1981,
-      "max": 55,
-      "discountedShip": 1981,
-      "maxShip": 55
     },
     "Impresión 3D": {
       "n": 465,
       "subs": {
-        "Impresoras": 135,
+        "Impresoras": 136,
         "Filamentos": 98,
         "Escáneres 3D": 17,
-        "Accesorios": 194,
+        "Accesorios": 193,
         "": 21
       },
       "pop": 1293,
@@ -4788,16 +5145,16 @@
       "maxShip": 46
     },
     "Lavadoras": {
-      "n": 2193,
+      "n": 2175,
       "subs": {
-        "Portátiles": 674,
-        "Carga superior": 188,
-        "Semiautomáticas": 300,
+        "Portátiles": 683,
+        "Carga superior": 186,
+        "Semiautomáticas": 302,
         "Carga frontal": 113,
         "Lavasecadoras": 53,
         "Secadoras": 69,
         "Centros de lavado": 17,
-        "Automáticas": 737,
+        "Automáticas": 710,
         "": 42
       },
       "pop": 36252,
@@ -4825,13 +5182,13 @@
       "maxShip": 80
     },
     "Aspiradoras": {
-      "n": 1217,
+      "n": 1215,
       "subs": {
         "Accesorios": 120,
-        "Portátiles": 732,
+        "Portátiles": 727,
         "Robots aspiradores": 133,
-        "De tanque": 209,
-        "": 23
+        "De tanque": 217,
+        "": 18
       },
       "pop": 13872,
       "discounted": 223,
@@ -4839,24 +5196,10 @@
       "discountedShip": 223,
       "maxShip": 72
     },
-    "Computadoras de escritorio": {
-      "n": 1285,
-      "subs": {
-        "Mini PC": 250,
-        "Torre": 501,
-        "All in One": 530,
-        "": 4
-      },
-      "pop": 584,
-      "discounted": 494,
-      "max": 71,
-      "discountedShip": 494,
-      "maxShip": 71
-    },
     "Joyería y bisutería": {
       "n": 5136,
       "subs": {
-        "Relojes": 2809,
+        "Relojes": 2823,
         "Otros": 192,
         "Aretes": 641,
         "Material para bisutería": 5,
@@ -4867,7 +5210,7 @@
         "Arras y sets": 35,
         "Joyeros": 14,
         "Cuidado y herramientas": 15,
-        "": 39
+        "": 25
       },
       "pop": 5898,
       "discounted": 3930,
@@ -4876,16 +5219,16 @@
       "maxShip": 77
     },
     "Fitness": {
-      "n": 66,
+      "n": 56,
       "subs": {
-        "Grande": 24,
         "Mediana": 19,
-        "Pequeña": 23
+        "Grande": 16,
+        "Pequeña": 21
       },
-      "pop": 291,
-      "discounted": 23,
+      "pop": 193,
+      "discounted": 22,
       "max": 75,
-      "discountedShip": 23,
+      "discountedShip": 22,
       "maxShip": 75
     },
     "Movilidad eléctrica": {
@@ -4907,8 +5250,8 @@
       "subs": {
         "Camping": 169,
         "Pesca": 38,
-        "Maletas": 813,
-        "": 44
+        "Maletas": 821,
+        "": 36
       },
       "pop": 1671,
       "discounted": 643,
@@ -4935,16 +5278,16 @@
       "maxShip": 75
     },
     "Decoración de hogar y jardín": {
-      "n": 184,
+      "n": 180,
       "subs": {
-        "Asadores": 5,
+        "Asadores": 1,
         "Espejos": 179
       },
       "pop": 0,
-      "discounted": 2,
-      "max": 33,
-      "discountedShip": 2,
-      "maxShip": 33
+      "discounted": 0,
+      "max": 0,
+      "discountedShip": 0,
+      "maxShip": 0
     }
   },
   "homePools": {
@@ -4964,21 +5307,21 @@
       "p26627",
       "p26773"
     ],
-    "Bocinas": [
-      "p42154",
-      "p42667",
-      "p42347",
-      "p42666",
-      "p366660",
-      "p128326"
+    "Cargadores y adaptadores": [
+      "p143721",
+      "p288893",
+      "p118215",
+      "p367472",
+      "p367466",
+      "p367414"
     ],
-    "Componentes y accesorios de PC": [
-      "p127003",
-      "p31578",
-      "p30673",
-      "p127005",
-      "p127007",
-      "p127001"
+    "Proyectores y accesorios": [
+      "p192101",
+      "p192233",
+      "p31067",
+      "p31889",
+      "p195051",
+      "p32434"
     ],
     "Laptops": [
       "p47283",
@@ -4988,29 +5331,13 @@
       "p48149",
       "p48152"
     ],
-    "Tabletas": [
-      "p50660",
-      "p50589",
-      "p50622",
-      "p126969",
-      "p50581",
-      "p50809"
-    ],
-    "Climatización": [
-      "p340441",
-      "p39258",
-      "p40053",
-      "p38799",
-      "p39689",
-      "p39712"
-    ],
-    "Cámaras y fotografía": [
-      "p44827",
-      "p29405",
-      "p28769",
-      "p44216",
-      "p44416",
-      "p44711"
+    "Monitores": [
+      "p49118",
+      "p49133",
+      "p49016",
+      "p49093",
+      "p49020",
+      "p48872"
     ],
     "Muebles": [
       "p339987",
@@ -5028,13 +5355,21 @@
       "p33634",
       "p115247"
     ],
-    "Monitores": [
-      "p49118",
-      "p49133",
-      "p49016",
-      "p49093",
-      "p49020",
-      "p48872"
+    "Tabletas": [
+      "p50660",
+      "p50589",
+      "p50622",
+      "p126969",
+      "p50581",
+      "p50809"
+    ],
+    "Deportes y fitness": [
+      "p34702",
+      "p73403",
+      "p73404",
+      "p29752",
+      "p138694",
+      "p73457"
     ],
     "Blancos y ropa de cama": [
       "p32179",
@@ -5044,29 +5379,21 @@
       "p31635",
       "p96203"
     ],
-    "Teclados": [
-      "p45459",
-      "p366910",
-      "p127362",
-      "p27060",
-      "p289457",
-      "p183716"
+    "Climatización": [
+      "p340441",
+      "p39258",
+      "p40053",
+      "p38799",
+      "p39689",
+      "p39712"
     ],
-    "Instrumentos musicales": [
-      "p291853",
-      "p291816",
-      "p287034",
-      "p366886",
-      "p35824",
-      "p46759"
-    ],
-    "Belleza y cuidado personal": [
-      "p103304",
-      "p102730",
-      "p103444",
-      "p101114",
-      "p102805",
-      "p28985"
+    "Bocinas": [
+      "p42154",
+      "p366660",
+      "p128326",
+      "p366769",
+      "p27960",
+      "p366661"
     ],
     "Domótica y hogar inteligente": [
       "p44880",
@@ -5076,13 +5403,45 @@
       "p44894",
       "p44879"
     ],
-    "Cocina y comedor": [
-      "p340858",
-      "p96326",
-      "p294786",
-      "p96675",
-      "p288791",
-      "p374292"
+    "Instrumentos musicales": [
+      "p291853",
+      "p291816",
+      "p287034",
+      "p366886",
+      "p35824",
+      "p46759"
+    ],
+    "Audífonos": [
+      "p28020",
+      "p53041",
+      "p29909",
+      "p43090",
+      "p43523",
+      "p42103"
+    ],
+    "Cámaras de seguridad": [
+      "p44897",
+      "p44706",
+      "p31642",
+      "p290783",
+      "p44748",
+      "p44754"
+    ],
+    "Equipo comercial": [
+      "p35652",
+      "p35597",
+      "p35685",
+      "p35627",
+      "p35721",
+      "p288784"
+    ],
+    "Componentes y accesorios de PC": [
+      "p127003",
+      "p31578",
+      "p30673",
+      "p127005",
+      "p127007",
+      "p127001"
     ],
     "Herramientas": [
       "p60484",
@@ -5092,45 +5451,13 @@
       "p122501",
       "p60468"
     ],
-    "Baterías portátiles": [
-      "p53234",
-      "p28227",
-      "p28196",
-      "p288853",
-      "p28200",
-      "p53277"
-    ],
-    "Refrigeradores": [
-      "p31626",
-      "p36623",
-      "p36667",
-      "p36932",
-      "p36891",
-      "p36927"
-    ],
-    "Cargadores y adaptadores": [
-      "p143721",
-      "p288893",
-      "p118215",
-      "p367472",
-      "p367466",
-      "p367414"
-    ],
-    "Electrodomésticos": [
-      "p36197",
-      "p40404",
-      "p114687",
-      "p114737",
-      "p114748",
-      "p40344"
-    ],
-    "Iluminación": [
-      "p85941",
-      "p85916",
-      "p369742",
-      "p87221",
-      "p30169",
-      "p86974"
+    "Teclados": [
+      "p45459",
+      "p366910",
+      "p127362",
+      "p27060",
+      "p289457",
+      "p183716"
     ],
     "Mascotas": [
       "p32289",
@@ -5140,13 +5467,93 @@
       "p75051",
       "p338060"
     ],
-    "Redes": [
-      "p291396",
-      "p286792",
-      "p286797",
-      "p286875",
-      "p28545",
-      "p286789"
+    "Cocina y comedor": [
+      "p340858",
+      "p96326",
+      "p294786",
+      "p96675",
+      "p288791",
+      "p374292"
+    ],
+    "Almacenamiento": [
+      "p127206",
+      "p49515",
+      "p369361",
+      "p49517",
+      "p49507",
+      "p49520"
+    ],
+    "Cámaras y fotografía": [
+      "p44827",
+      "p29405",
+      "p28769",
+      "p44216",
+      "p44416",
+      "p44711"
+    ],
+    "Belleza y cuidado personal": [
+      "p103304",
+      "p102730",
+      "p103444",
+      "p101114",
+      "p102805",
+      "p28985"
+    ],
+    "Refacciones": [
+      "p110049",
+      "p32115",
+      "p35490",
+      "p110045",
+      "p35482",
+      "p111373"
+    ],
+    "Electrodomésticos": [
+      "p36197",
+      "p40404",
+      "p114687",
+      "p114737",
+      "p114748",
+      "p40344"
+    ],
+    "Baterías portátiles": [
+      "p53234",
+      "p28227",
+      "p28196",
+      "p288853",
+      "p28200",
+      "p53277"
+    ],
+    "Iluminación": [
+      "p85941",
+      "p85916",
+      "p369742",
+      "p87221",
+      "p30169",
+      "p86974"
+    ],
+    "Juegos de mesa": [
+      "p293649",
+      "p135374",
+      "p293971",
+      "p288251",
+      "p135257",
+      "p288196"
+    ],
+    "Computadoras de escritorio": [
+      "p48378",
+      "p48375",
+      "p48422",
+      "p48236",
+      "p48435",
+      "p48465"
+    ],
+    "Juguetes y bebés": [
+      "p134601",
+      "p107292",
+      "p225388",
+      "p136103",
+      "p371246",
+      "p136163"
     ],
     "Videojuegos": [
       "p28364",
@@ -5156,13 +5563,21 @@
       "p28354",
       "p266932"
     ],
-    "Audífonos": [
-      "p28020",
-      "p53041",
-      "p29909",
-      "p43090",
-      "p43523",
-      "p42103"
+    "Refrigeradores": [
+      "p31626",
+      "p36623",
+      "p36667",
+      "p36932",
+      "p36891",
+      "p36927"
+    ],
+    "Redes": [
+      "p291396",
+      "p286792",
+      "p286797",
+      "p286875",
+      "p28545",
+      "p286789"
     ],
     "Mouse": [
       "p33380",
@@ -5180,14 +5595,6 @@
       "p30085",
       "p53966"
     ],
-    "Deportes y fitness": [
-      "p34702",
-      "p73403",
-      "p73404",
-      "p29752",
-      "p138694",
-      "p73457"
-    ],
     "Televisores": [
       "p41991",
       "p41795",
@@ -5196,30 +5603,6 @@
       "p26546",
       "p268580"
     ],
-    "Proyectores y accesorios": [
-      "p192101",
-      "p192233",
-      "p31067",
-      "p31889",
-      "p195051",
-      "p32434"
-    ],
-    "Juguetes y bebés": [
-      "p134601",
-      "p107292",
-      "p225388",
-      "p136103",
-      "p371246",
-      "p136163"
-    ],
-    "Equipo comercial": [
-      "p35652",
-      "p35597",
-      "p35685",
-      "p35627",
-      "p35721",
-      "p288784"
-    ],
     "Otros": [
       "p35882",
       "p35881",
@@ -5227,14 +5610,6 @@
       "p96205",
       "p96153",
       "p35871"
-    ],
-    "Cámaras de seguridad": [
-      "p44897",
-      "p44706",
-      "p31642",
-      "p290783",
-      "p44748",
-      "p44754"
     ],
     "Salud": [
       "p32039",
@@ -5246,27 +5621,11 @@
     ],
     "Suplementos": [
       "p34090",
+      "p34091",
       "p34092",
       "p158003",
       "p159212",
-      "p160983",
-      "p309418"
-    ],
-    "Juegos de mesa": [
-      "p293649",
-      "p135374",
-      "p293971",
-      "p288251",
-      "p135257",
-      "p288196"
-    ],
-    "Almacenamiento": [
-      "p127206",
-      "p49515",
-      "p369361",
-      "p49517",
-      "p49507",
-      "p49520"
+      "p160983"
     ],
     "Impresoras": [
       "p49563",
@@ -5275,14 +5634,6 @@
       "p28617",
       "p28631",
       "p291576"
-    ],
-    "Refacciones": [
-      "p110049",
-      "p32115",
-      "p35490",
-      "p110045",
-      "p35482",
-      "p111373"
     ],
     "Impresión 3D": [
       "p49690",
@@ -5316,14 +5667,6 @@
       "p285817",
       "p40294"
     ],
-    "Computadoras de escritorio": [
-      "p48378",
-      "p48375",
-      "p48422",
-      "p48236",
-      "p48435",
-      "p48465"
-    ],
     "Joyería y bisutería": [
       "p76869",
       "p76978",
@@ -5338,7 +5681,7 @@
       "p30444",
       "p30883",
       "p30887",
-      "p30888"
+      "p31310"
     ],
     "Movilidad eléctrica": [
       "p73478",
@@ -5365,12 +5708,12 @@
       "p28609"
     ],
     "Decoración de hogar y jardín": [
-      "p131291",
       "p131238",
-      "p131295",
-      "p131235",
-      "p131267",
-      "p349121"
+      "p349121",
+      "p349137",
+      "p349215",
+      "p349320",
+      "p349334"
     ]
   }
 }
