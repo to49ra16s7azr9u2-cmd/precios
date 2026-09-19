@@ -318,7 +318,11 @@ OLA2 = [
     ('Climatización', ['Ventiladores'], VENTILADORES, lambda tn, sv: sub_ventilador(tn), 'Ventiladores de pedestal'),
     ('Climatización', ['Calefactores'], CALEFACTORES, lambda tn, sv: sub_calefactor(tn), 'Calefactores cerámicos y de aire'),
     ('Instrumentos musicales', ['Guitarras', 'Cuerdas'], GUITARRAS, lambda tn, sv: sub_guitarra(tn), 'Accesorios de guitarra'),
-    ('Celulares', ['Android'], ANDROID, lambda tn, sv: sub_android(tn), 'Nokia y otras marcas'),
+    # Los celulares no se dividen por marca (la marca ya es un filtro aparte):
+    # solo se separan los reacondicionados. Las subcategorías por marca de
+    # una primera versión se absorben de vuelta en Android.
+    ('Celulares', ANDROID + ['Android'], ['Android', 'Reacondicionados'],
+     lambda tn, sv: 'Reacondicionados' if re.search(r'reacondicionad|renewed|\brefurbished|\bseminuevo|\busado\b|\bopen box|\bcertified', tn) else 'Android', None),
     ('Laptops', None, LAPTOPS, sub_laptop, 'Laptops de 15" y 16"'),
     ('Monitores', None, MONITORES, sub_monitor, '23 a 25 pulgadas'),
     ('Autos, bicicletas y motos', ['Bicicletas'], BICICLETAS, lambda tn, sv: sub_bicicleta(tn), 'Bicicletas urbanas y de paseo'),
