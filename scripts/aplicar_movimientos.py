@@ -22,7 +22,9 @@ import datetime
 import io
 import json
 import os
+import re
 import sys
+import unicodedata
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(AQUI)
@@ -32,6 +34,10 @@ from data_io import load_catalog, save_catalog  # noqa: E402
 BITACORA = os.path.join(ROOT, "data", "movimientos-aplicados.json")
 
 
+def plano(s):
+    return unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower()
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("json")
@@ -39,15 +45,29 @@ def main():
     ap.add_argument("--todos", action="store_true")
     ap.add_argument("--min", type=int, default=1, help="con --todos, grupos menores se saltan")
     ap.add_argument("--vetar", action="append", default=[], help="grupos que NO se aplican")
+    ap.add_argument("--plan", help="JSON con [{grupo, filtro?, excluir?}, ...]: varios grupos con su filtro en una sola pasada")
+    ap.add_argument("--filtro", help="regex (sin acentos, minúsculas): solo se mueven las fichas cuyo nombre lo cumple")
+    ap.add_argument("--excluir", help="regex (sin acentos, minúsculas): las fichas cuyo nombre lo cumple no se mueven")
     ap.add_argument("--motivo", default="", help="nota para la bitácora")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
     grupos = json.load(io.open(args.json, encoding="utf-8"))
     vetados = set(args.vetar)
+    # Filtro por grupo: el de --plan si lo trae, si no el general de --filtro/--excluir.
+    filtros = {}
     elegidos = []
+    if args.plan:
+        for e in json.load(io.open(args.plan, encoding="utf-8")):
+            k = e["grupo"]
+            if k not in grupos:
+                print(f"  AVISO: el plan pide un grupo que no está en el JSON: {k}")
+                continue
+            elegidos.append(k)
+            filtros[k] = (re.compile(e["filtro"]) if e.get("filtro") else None,
+                          re.compile(e["excluir"]) if e.get("excluir") else None)
     for k, ids in grupos.items():
-        if k in vetados:
+        if k in vetados or k in filtros:
             continue
         if args.todos and len(ids) >= args.min:
             elegidos.append(k)
@@ -55,6 +75,9 @@ def main():
             elegidos.append(k)
     if not elegidos:
         sys.exit("ningún grupo elegido")
+
+    rx_filtro = re.compile(args.filtro) if args.filtro else None
+    rx_excluir = re.compile(args.excluir) if args.excluir else None
 
     data = load_catalog()
     prods = {p["id"]: p for p in data["products"]}
@@ -79,6 +102,12 @@ def main():
             p = prods.get(pid)
             if not p or p.get("category") != partes[0] or (p.get("subcategory") or "None") != partes[1]:
                 saltadas += 1   # ya se movió o ya no está
+                continue
+            nombre = plano(p.get("name"))
+            f_in, f_out = filtros.get(k, (rx_filtro, rx_excluir))
+            if f_in and not f_in.search(nombre):
+                continue
+            if f_out and f_out.search(nombre):
                 continue
             p["category"], p["subcategory"] = cat2, sub2
             ic = icono.get((cat2, sub2)) or icono.get((cat2, None))
