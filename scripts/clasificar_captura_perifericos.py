@@ -3611,11 +3611,14 @@ def sub_mascota(tn):
     if re.search(r'\bcorrea|\bpechera|\barnes\b|\bcollar\b', tn): return 'Correas'
     if re.search(r'casa (para|de) (perro|gato|mascota)|caseta|rascador|torre para gato|escondite|'
                  r'\bcasa\b.{0,30}(perro|gato|mascota|conejo|hamster)|casa (plegable|grande|de madera|cerrada|refrescante|climatizada|de juegos)|'
-                 r'tienda de campana|\bcueva\b|refugio|\bcasita\b|\biglu\b|\bcabana\b|\bnido\b|'
-                 r'estacion de enfriamiento|sala de hielo|'
+                 r'refugio|\bcasita\b|\bcabana\b|'
                  r'casa (de madera |acrilica |grande |pequena )?(para|de) (conejillo|cobaya|cuyo|hamster|chinchilla|conejo|erizo|huron|jerbo|roedor|animales pequenos)|'
                  r'\bhabitat\b|castillo (para|de)', tn):
         return 'Casas para mascotas'
+    # La cueva, el iglú, la tienda y el tipi son camas cerradas: la ola 4
+    # los reparte desde Camas ("Cuevas, iglús y tiendas para mascotas").
+    if re.search(r'tienda de campana|\bcueva\b|\biglu\b|\btipi\b|\bnido\b|saco de dormir|'
+                 r'estacion de enfriamiento|sala de hielo', tn): return 'Camas'
     if re.search(r'\bcamas?\b|colchoneta|cojin (para|de) (perro|gato|mascota)|\bpet bed\b|'
                  r'\bdog bed\b|tapete|alfombrilla|almohadilla|\bmanta\b|\bcobija|\bhamaca\b|'
                  r'\bcolchon|\bcojin\b|sofa (para|de) (perro|gato)|\bcucha\b', tn): return 'Camas'
@@ -4100,8 +4103,7 @@ def sub_audio(tn):
     if re.match(r'^(?:\S+ ){0,2}(microfono|monitor|bocina|altavoz|reproductor|radio|walkie)', tn):
         return None
     if re.match(r'^(?:\S+ ){0,3}(almohadillas?|earpads?|espumas?|puntas|eartips?|repuesto|'
-                r'cable de repuesto|estuche|funda|soporte|cuernos|accessory|accesorios?|'
-                r'gancho|ganchos|adaptador|cable)\b', tn):
+                r'cable de repuesto|estuche|funda|soporte|cuernos|accessory|accesorios?)\b', tn):
         return 'Almohadillas y repuestos'
     if re.search(r'open[- ]?ear|oido abierto|de clip\b|con clip\b|clip \w*oreja|'
                  r'conduccion osea|bone conduction', tn):
