@@ -3524,17 +3524,6 @@
       "logoImg": "icons/stores/marti.png"
     },
     {
-      "id": "juguetron",
-      "name": "Juguetrón",
-      "hubRegion": null,
-      "color": "#00A3E0",
-      "logo": "JT",
-      "typicalShippingDays": [
-        3,
-        8
-      ]
-    },
-    {
       "id": "maskota",
       "name": "Maskota",
       "hubRegion": null,
@@ -3812,8 +3801,7 @@
       "data/det/juguetes-y-bebes-2.json",
       "data/det/juguetes-y-bebes-3.json",
       "data/det/juguetes-y-bebes-4.json",
-      "data/det/juguetes-y-bebes-5.json",
-      "data/det/juguetes-y-bebes-6.json"
+      "data/det/juguetes-y-bebes-5.json"
     ],
     "Mascotas": [
       "data/det/mascotas-1.json",
@@ -3994,7 +3982,7 @@
   },
   "indexFile": "data/index.json",
   "homeFile": "data/home.json",
-  "totalProducts": 296418,
+  "totalProducts": 293527,
   "categoryStats": {
     "Celulares": {
       "n": 4703,
@@ -4144,7 +4132,7 @@
       "maxShip": 93
     },
     "Deportes y fitness": {
-      "n": 8999,
+      "n": 8966,
       "subs": {
         "Bicicletas fijas": 260,
         "Campismo": 4,
@@ -4153,11 +4141,11 @@
         "Raquetas": 518,
         "Bandas de resistencia": 267,
         "Yoga": 908,
-        "Balones": 1059,
+        "Balones": 1027,
         "Boxeo": 602,
         "Pesas": 1350,
         "Deportes acuáticos": 89,
-        "Voleibol": 298,
+        "Voleibol": 297,
         "Dardos": 234,
         "Ping pong": 149,
         "Protección y soportes": 178,
@@ -4167,9 +4155,9 @@
         "": 180
       },
       "pop": 22921,
-      "discounted": 1430,
+      "discounted": 1432,
       "max": 92,
-      "discountedShip": 1431,
+      "discountedShip": 1433,
       "maxShip": 92
     },
     "Instrumentos musicales": {
@@ -4301,38 +4289,38 @@
       "maxShip": 79
     },
     "Juguetes y bebés": {
-      "n": 11145,
+      "n": 8802,
       "subs": {
-        "Juguetes musicales": 20,
-        "Muñecas": 1205,
-        "Otros": 106,
-        "Juguetes educativos": 392,
+        "Juguetes musicales": 17,
+        "Muñecas": 739,
+        "Otros": 23,
+        "Juguetes educativos": 168,
         "Carriolas": 1134,
-        "Bloques de construcción": 368,
+        "Bloques de construcción": 330,
         "Cunas": 27,
         "Biberones": 32,
-        "Peluches": 829,
+        "Peluches": 570,
         "Andaderas": 16,
-        "Triciclos": 62,
+        "Triciclos": 59,
         "Corrales": 27,
         "Monitores de bebé": 14,
         "Sillas de auto": 18,
-        "Bebés": 2058,
-        "Vehículos a control remoto": 455,
+        "Bebés": 1978,
+        "Vehículos a control remoto": 129,
         "Juegos de exterior": 5,
-        "Montables": 117,
+        "Montables": 95,
         "Trampolines": 10,
-        "Juguetes para exterior": 226,
-        "Figuras de acción": 1511,
+        "Juguetes para exterior": 89,
+        "Figuras de acción": 814,
         "Juegos arcade": 4,
         "Maquetas": 783,
-        "Vehículos de juguete": 46,
+        "Vehículos de juguete": 41,
         "": 1680
       },
       "pop": 19564,
-      "discounted": 3752,
+      "discounted": 3675,
       "max": 77,
-      "discountedShip": 3734,
+      "discountedShip": 3682,
       "maxShip": 77
     },
     "Mascotas": {
@@ -4717,9 +4705,9 @@
         "": 388
       },
       "pop": 5898,
-      "discounted": 3940,
+      "discounted": 3934,
       "max": 80,
-      "discountedShip": 3940,
+      "discountedShip": 3934,
       "maxShip": 77
     },
     "Relojes inteligentes": {
@@ -4736,28 +4724,28 @@
       "maxShip": 76
     },
     "Juegos de mesa": {
-      "n": 3981,
+      "n": 3466,
       "subs": {
         "Woodestic": 63,
-        "Rompecabezas": 656,
-        "De mesa clásicos": 521,
-        "Ajedrez": 110,
-        "De fiesta": 24,
-        "De estrategia": 84,
-        "De cartas": 370,
-        "Otros juegos": 1086,
-        "Clásicos": 237,
-        "Infantiles": 151,
-        "Educativos": 17,
-        "De memoria": 12,
+        "Rompecabezas": 471,
+        "De mesa clásicos": 400,
+        "Ajedrez": 105,
+        "De fiesta": 22,
+        "De estrategia": 77,
+        "De cartas": 325,
+        "Otros juegos": 970,
+        "Clásicos": 220,
+        "Infantiles": 148,
+        "Educativos": 16,
+        "De memoria": 9,
         "De rol y dados": 47,
-        "De preguntas": 45,
+        "De preguntas": 35,
         "": 558
       },
       "pop": 4038,
-      "discounted": 1796,
+      "discounted": 1775,
       "max": 73,
-      "discountedShip": 1810,
+      "discountedShip": 1795,
       "maxShip": 66
     },
     "Cámaras y fotografía": {
@@ -5092,8 +5080,8 @@
     ],
     "Juguetes y bebés": [
       "p134601",
-      "p225388",
       "p107292",
+      "p225388",
       "p136103",
       "p371246",
       "p136163"
@@ -5286,8 +5274,8 @@
       "p293649",
       "p135374",
       "p293971",
-      "p135257",
       "p288251",
+      "p135257",
       "p288196"
     ],
     "Cámaras y fotografía": [
