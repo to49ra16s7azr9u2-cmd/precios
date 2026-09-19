@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Captura de Walmart y Bodega Aurrerá para ComparaMEX</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 16px; line-height: 1.5; color: #222; }
+  code, pre { background: #f4f4f4; padding: 2px 5px; border-radius: 4px; }
+  pre { padding: 12px; overflow: auto; font-size: 12px; }
+  .marcador { display: inline-block; padding: 10px 18px; background: #0071CE; color: #fff; border-radius: 6px; font-weight: 700; text-decoration: none; cursor: grab; }
+  .copiar { padding: 10px 18px; background: #111; color: #fff; border: 0; border-radius: 6px; font-weight: 700; font-size: 15px; cursor: pointer; }
+  ol li, ul li { margin-bottom: 8px; }
+  .via { border: 1px solid #ddd; border-radius: 8px; padding: 4px 20px 16px; margin-bottom: 24px; }
+  .via h2 { margin-bottom: 4px; }
+  .recomendada { border-color: #0071CE; }
+  .nota { color: #666; font-size: 14px; margin-top: 4px; }
+  table { border-collapse: collapse; font-size: 14px; }
+  td, th { border: 1px solid #ddd; padding: 6px 10px; text-align: left; vertical-align: top; }
+</style>
+</head>
+<body>
+<h1>Captura de Walmart y Bodega Aurrerá para ComparaMEX</h1>
+<p>Un marcador que, en cualquier <strong>listado de walmart.com.mx o bodegaaurrera.com.mx</strong> (una búsqueda, un
+departamento), saca los productos al JSON que entiende <code>scripts/importar_captura_tienda.py</code>
+(<code>id</code>, <code>title</code>, <code>price</code>, <code>photo</code>, <code>url</code>, <code>store</code>), y que además sabe
+<strong>seguir solo</strong>: pasa a las páginas siguientes y entra a los subdepartamentos.</p>
+<p class="nota">Por qué así y no un importador automático: las dos tiendas sirven sus páginas solo a navegadores de
+verdad (cualquier script recibe «Verifica tu identidad»), así que lo único que respeta eso es leer, en tu propio
+navegador y con tu sesión, lo que la tienda ya te mostró. Es lo mismo que se hace con Amazon.</p>
+
+<div class="via recomendada">
+<h2>Vía 0: la extensión de Chrome (recomendada: es la única que sigue sola)</h2>
+<p class="nota">Como extensión, el recorrido <strong>navega</strong>: carga la página siguiente en la misma pestaña y se retoma al
+cargar. Cada página es una carga normal del navegador, que es lo que la tienda espera. Se instala una vez.</p>
+<ol>
+  <li>Descarga la carpeta <code>scripts/extension-walmart/</code> del repo y ponla donde quieras.</li>
+  <li>En Chrome abre <code>chrome://extensions</code>, activa <strong>Modo de desarrollador</strong> (arriba a la derecha) y pulsa <strong>Cargar descomprimida</strong> → elige esa carpeta.</li>
+  <li>Fija el icono con la «C» en la barra (icono de pieza de rompecabezas → chincheta).</li>
+  <li>Abre un listado en walmart.com.mx o bodegaaurrera.com.mx y pulsa el icono: el popup tiene «Capturar esta página», «Páginas siguientes», «Recorrer departamentos», la lista de URLs, «Descargar JSON». Puedes cerrar el popup: el recorrido sigue en la pestaña, con su panel abajo a la derecha, y verás cómo cambia de página sola.</li>
+</ol>
+</div>
+
+<div class="via">
+<h2>Vía 1: pegar el código en la consola</h2>
+<p class="nota">Sin instalar nada. Captura la página que tienes delante; para seguir páginas baja las siguientes con
+<code>fetch</code>, y si la tienda le pide verificación se detiene y te lo dice (entonces usa la extensión).</p>
+<ol>
+  <li>Aquí: <button class="copiar" id="copiar">Copiar el código</button> <span id="copiado" class="nota"></span></li>
+  <li>Ve a <strong>walmart.com.mx</strong> o <strong>bodegaaurrera.com.mx</strong> y abre el listado que quieras cargar: una búsqueda o un departamento.</li>
+  <li>Abre la consola del navegador: <strong>F12</strong> (o <code>Ctrl+Shift+J</code>; en Mac <code>Cmd+Option+J</code>), pestaña <strong>Console</strong>.</li>
+  <li>Pega con <code>Ctrl+V</code> y pulsa <strong>Enter</strong>.
+    <p class="nota">La primera vez Chrome puede pedir que escribas <code>allow pasting</code> y pulses Enter antes de dejarte pegar. Es una sola vez por navegador.</p>
+  </li>
+  <li>Captura la página que tienes delante y aparece un <strong>panel abajo a la derecha</strong> con lo acumulado y los botones.</li>
+</ol>
+</div>
+
+<div class="via">
+<h2>Vía 2: marcador (un clic, se instala una vez)</h2>
+<ol>
+  <li>Muestra la barra de marcadores: <code>Ctrl+Shift+B</code> (Mac: <code>Cmd+Shift+B</code>).</li>
+  <li><strong>Arrastra</strong> este botón hasta la barra de marcadores — con el ratón presionado, sin soltar por el camino:<br><br>
+    <a class="marcador" id="marcador" href="#">Capturar Walmart / Bodega → ComparaMEX</a></li>
+  <li>Ve a la tienda, abre un listado y haz clic en el marcador que acabas de guardar.</li>
+</ol>
+<p class="nota"><strong>Hacer clic en el botón azul de esta página no sirve</strong>: Chrome bloquea los enlaces
+<code>javascript:</code> abiertos así, y aunque se ejecutara leería esta página, no la tienda. Hay que arrastrarlo a la
+barra y pulsarlo ESTANDO en la tienda.</p>
+</div>
+
+<h2>El panel: qué hace cada botón</h2>
+<table>
+<tr><th>Botón</th><th>Qué hace</th></tr>
+<tr><td><strong>Páginas siguientes</strong></td><td>Sigue el listado que tienes abierto hasta la última página (la tienda muestra 40 productos por página; una página corta es la última; tope de 30 páginas por listado).</td></tr>
+<tr><td><strong>Recorrer departamentos</strong></td><td>Lo anterior, más: lee los subdepartamentos del menú lateral y los recorre también, hasta la profundidad que le digas (1 = los hijos directos, 2 = también los nietos).</td></tr>
+<tr><td><strong>Lista de URLs</strong></td><td>Pegas varias URLs de la tienda (separadas por espacios: departamentos, búsquedas) y las recorre todas seguidas, cada una con sus páginas siguientes.</td></tr>
+<tr><td><strong>Pausar / Reanudar</strong></td><td>Para o retoma el recorrido. Lo que ya se capturó no se pierde: está en el navegador (<code>localStorage</code>, aparte para cada tienda).</td></tr>
+<tr><td><strong>Descargar JSON</strong></td><td>Baja un archivo <code>walmart-AAAA-MM-DD-N.json</code> o <code>bodega-aurrera-AAAA-MM-DD-N.json</code> con todo lo acumulado. Guárdalo en <code>capturas/</code> del repo y córrele <code>python3 scripts/importar_captura_tienda.py capturas/&lt;archivo&gt;</code>.</td></tr>
+<tr><td><strong>Vaciar</strong></td><td>Borra lo acumulado y la cola, para empezar otra tanda de cero.</td></tr>
+</table>
+
+<h2>Cómo se porta con la tienda</h2>
+<ul>
+  <li>Va <strong>despacio a propósito</strong>: entre 3 y 6 segundos por página, al azar, en tu propio navegador y con tu
+    sesión. Cien páginas son unos ocho minutos. No abras dos recorridos a la vez en dos pestañas: el panel avisa si ya hay uno andando.</li>
+  <li>Si la tienda muestra <strong>«Verifica tu identidad»</strong>, el recorrido se detiene solo y el panel lo dice. Resuélvelo,
+    abre el listado y pulsa Reanudar: la cola sigue donde iba.</li>
+  <li>Lee primero los datos que la propia página trae como JSON (<code>__NEXT_DATA__</code>), que es lo que no cambia con
+    el diseño; si no están, los datos estructurados; y en último caso las tarjetas visibles. Cada producto dice de
+    dónde salió (<code>via</code>).</li>
+  <li>Cada producto sale con el departamento donde se encontró (<code>dept</code>): el clasificador lo usa como pista
+    cuando coincide con una subcategoría del catálogo.</li>
+  <li>Los patrocinados vienen con <code>"sponsored": true</code>; los agotados con <code>"agotado": true</code> y el importador
+    los salta. Un producto sin precio visible sale con <code>"price": null</code> y tampoco entra.</li>
+</ul>
+
+<h2>El código, para leerlo</h2>
+<pre id="fuente-visible"></pre>
+
+<script id="fuente" type="text/plain"></script>
+<script>
+  // El código es el content script de la extensión, tal cual: una sola
+  // fuente. Se carga de ahí y con él se arma el marcador y el botón de copiar.
+  fetch("extension-walmart/content.js").then((r) => r.text()).then((fuente) => {
+    fuente = fuente.trim();
+    document.getElementById("fuente").textContent = fuente;
+    document.getElementById("fuente-visible").textContent = fuente;
+    document.getElementById("marcador").href = "javascript:" + encodeURIComponent(fuente);
+    document.getElementById("copiar").onclick = () => {
+      const aviso = document.getElementById("copiado");
+      navigator.clipboard.writeText(fuente).then(
+        () => { aviso.textContent = "Copiado. Ahora pégalo en la consola, estando en la tienda."; },
+        () => { window.prompt("Copia esto a mano:", fuente); }
+      );
+    };
+  }).catch(() => {
+    document.getElementById("fuente-visible").textContent =
+      "No pude cargar extension-walmart/content.js. Abre esta página desde el sitio (comparamex.com/scripts/captura_walmart.html), no desde el disco.";
+  });
+</script>
+</body>
+</html>

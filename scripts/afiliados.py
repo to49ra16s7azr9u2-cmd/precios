@@ -76,12 +76,14 @@ BASES = {
     # Walmart Súper OnDemand & Walmart Express (Admitad, MX): 2.5% CPS, cookie
     # de 30 días, validación 30 días después de terminado el mes, vigente hasta
     # el 31 de diciembre de 2026. Solicitado el 19 de septiembre de 2026.
-    # Tampoco es tienda del catálogo todavía.
-    "walmart": None,
+    # Sus productos entran con scripts/importar_captura_tienda.py (captura de
+    # la extensión scripts/extension-walmart/, o el feed de Admitad si lo hay).
+    # El storeId es walmart_mx, el que ya usaban js/app.js e icons/stores/.
+    "walmart_mx": None,
 
     # Bodega Aurrerá (Admitad, MX): mismas condiciones que Walmart, que es su
     # dueño (2.5% CPS, cookie de 30 días). Solicitado el 19 de septiembre de
-    # 2026. Tampoco es tienda del catálogo todavía.
+    # 2026. Misma plataforma y mismo importador que Walmart.
     "bodega_aurrera": None,
 
     # --- con programa confirmado, en espera a propósito ---------------------

@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "ComparaMEX · captura de Walmart y Bodega Aurrerá",
+  "description": "Saca los productos de cualquier listado de walmart.com.mx o bodegaaurrera.com.mx (búsqueda, departamento) al JSON de ComparaMEX, y recorre departamentos enteros solo, página por página.",
+  "version": "1.0",
+  "permissions": ["tabs", "scripting"],
+  "host_permissions": ["https://www.walmart.com.mx/*", "https://www.bodegaaurrera.com.mx/*"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    { "matches": ["https://www.walmart.com.mx/*", "https://www.bodegaaurrera.com.mx/*"], "js": ["content.js"], "run_at": "document_idle" }
+  ],
+  "action": { "default_popup": "popup.html", "default_title": "Captura de Walmart / Bodega Aurrerá → ComparaMEX" },
+  "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" }
+}
