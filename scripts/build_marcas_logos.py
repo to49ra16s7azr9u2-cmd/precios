@@ -86,6 +86,62 @@ OVERRIDES = {
     "bgs": None,               # herramientas BGS technic; Wikidata solo conoce a Bethesda
 }
 
+# Marcas que se revisaron a ojo el 19 de septiembre de 2026 y cuyo logo
+# automático era de otra cosa (Kaiser -> la aseguradora, Mega -> un banco
+# indonesio, Pioneer -> un videojuego, Milwaukee -> una bandera...). Ni
+# Wikidata ni el favicon: se quedan con las iniciales hasta que alguien
+# ponga el archivo a mano en icons/marcas/ y lo anote en marcas-logos.json.
+SIN_LOGO = {
+    "invicta",
+    "america",
+    "icon",
+    "kaiser",
+    "alfa",
+    "milwaukee",
+    "rhino",
+    "standard",
+    "hr",
+    "akrapovic",
+    "continental",
+    "dbebe",
+    "blink",
+    "perfectchoice",
+    "providencia",
+    "remington",
+    "concord",
+    "california",
+    "timco",
+    "aztron",
+    "mega",
+    "onepiece",
+    "dash",
+    "pegaso",
+    "impercaucho",
+    "giorgio",
+    "goliath",
+    "delta",
+    "eko",
+    "pure",
+    "carmin",
+    "cayro",
+    "pioneer",
+    "promo",
+    "man",
+    "planet",
+    "breville",
+    "spar",
+    "sol",
+    "bellagio",
+    "insignia",
+    "gravita",
+    "atm",
+    "brunos",
+    "crosley",
+    "red",
+    "navien",
+    "mac",
+}
+
 # Clases (P31) que dicen "esto es una empresa o una marca". Con una de estas
 # el candidato entra aunque no tenga descripción.
 CLASES_EMPRESA = {
@@ -189,7 +245,9 @@ SELECT ?q ?ord ?item ?logo ?web ?enl ?d
 def elegir(nombre, candidatos):
     """El primer candidato que se llama como la marca y no es una ciudad,
     una corte, un club... La búsqueda ya viene ordenada por relevancia."""
-    for c in sorted(candidatos, key=lambda c: (c[0], -c[4])):
+    # Una entidad puede tener varios logos (Apple: uno blanco y uno negro);
+    # sobre fondo blanco el blanco no se ve, así que va al final.
+    for c in sorted(candidatos, key=lambda c: (c[0], "white" in c[2].lower() or "blanco" in c[2].lower(), -c[4])):
         if por_que_no(nombre, c) is None:
             orden, qid, logo, web, enl, desc, clases, etiquetas = c
             return {"qid": qid, "logo": logo, "web": web, "wikis": enl, "desc": desc}
@@ -208,7 +266,9 @@ def por_qid(qids):
     for b in json.loads(cuerpo)["results"]["bindings"]:
         g = lambda k: b.get(k, {}).get("value", "")  # noqa: E731
         qid = g("item").rsplit("/", 1)[-1]
-        out.setdefault(qid, (g("logo"), g("web") or None, g("d")))
+        if qid in out and not ("white" in out[qid][0].lower() or "blanco" in out[qid][0].lower()):
+            continue
+        out[qid] = (g("logo"), g("web") or None, g("d"))
     return out
 
 
@@ -326,6 +386,9 @@ def main():
     pendientes = []
     for nombre, slug, items in marcas:
         k = clave_marca(nombre)
+        if k in SIN_LOGO:
+            memoria[k] = {"archivo": None, "nota": "revisada a ojo: el logo automático era de otra cosa"}
+            continue
         m = memoria.get(k)
         if m and m.get("archivo") and os.path.exists(os.path.join(CARPETA, m["archivo"])):
             # Con --reintentar, un favicon se vuelve a intentar por Wikidata:
