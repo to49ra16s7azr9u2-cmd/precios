@@ -1,111 +1,5 @@
 {
- "Celulares/OnePlus, Nothing y Sony": {
-  "axes": [
-   {
-    "label": "Memoria",
-    "field": "ram_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v8",
-      "name": "8 GB",
-      "use": "",
-      "spec": "8 GB",
-      "values": [
-       8
-      ]
-     },
-     {
-      "id": "v12",
-      "name": "12 GB",
-      "use": "",
-      "spec": "12 GB",
-      "values": [
-       12
-      ]
-     },
-     {
-      "id": "v16",
-      "name": "16 GB",
-      "use": "",
-      "spec": "16 GB",
-      "values": [
-       16
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Celulares/OPPO, Vivo y Realme": {
-  "axes": [
-   {
-    "label": "Memoria",
-    "field": "ram_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 8 GB",
-      "max": 8
-     },
-     {
-      "id": "intermedia",
-      "name": "Intermedia",
-      "use": "Varias apps y juegos",
-      "spec": "9 GB a 12 GB",
-      "min": 8,
-      "max": 12
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Edición y estaciones de trabajo",
-      "spec": "Más de 12 GB",
-      "min": 12
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Celulares/Xiaomi, Redmi y POCO": {
-  "axes": [
-   {
-    "label": "Red",
-    "field": "network_gen",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "4g",
-      "name": "4G",
-      "use": "Suficiente para todo el día",
-      "spec": "4G",
-      "values": [
-       "4g"
-      ]
-     },
-     {
-      "id": "5g",
-      "name": "5G",
-      "use": "La red más rápida",
-      "spec": "5G",
-      "values": [
-       "5g"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Celulares/Honor y Huawei": {
+ "Celulares/Android": {
   "axes": [
    {
     "label": "Red",
@@ -176,68 +70,6 @@
    }
   ]
  },
- "Celulares/Nokia y otras marcas": {
-  "axes": [
-   {
-    "label": "Red",
-    "field": "network_gen",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "4g",
-      "name": "4G",
-      "use": "Suficiente para todo el día",
-      "spec": "4G",
-      "values": [
-       "4g"
-      ]
-     },
-     {
-      "id": "5g",
-      "name": "5G",
-      "use": "La red más rápida",
-      "spec": "5G",
-      "values": [
-       "5g"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Celulares/ZTE, TCL, Infinix y Tecno": {
-  "axes": [
-   {
-    "label": "Red",
-    "field": "network_gen",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "4g",
-      "name": "4G",
-      "use": "Suficiente para todo el día",
-      "spec": "4G",
-      "values": [
-       "4g"
-      ]
-     },
-     {
-      "id": "5g",
-      "name": "5G",
-      "use": "La red más rápida",
-      "spec": "5G",
-      "values": [
-       "5g"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
  "Celulares/iPhone": {
   "axes": [
    {
@@ -267,46 +99,6 @@
       "use": "Varios días sin cargar",
       "spec": "Más de 4,300 mAh",
       "min": 4300
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Celulares/Google Pixel": {
-  "axes": [
-   {
-    "label": "Memoria",
-    "field": "ram_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v8",
-      "name": "8 GB",
-      "use": "",
-      "spec": "8 GB",
-      "values": [
-       8
-      ]
-     },
-     {
-      "id": "v12",
-      "name": "12 GB",
-      "use": "",
-      "spec": "12 GB",
-      "values": [
-       12
-      ]
-     },
-     {
-      "id": "v16",
-      "name": "16 GB",
-      "use": "",
-      "spec": "16 GB",
-      "values": [
-       16
-      ]
      }
     ],
     "key": "extra"
@@ -10517,38 +10309,7 @@
    }
   ]
  },
- "Tabletas/Samsung Galaxy Tab": {
-  "axes": [
-   {
-    "label": "Red",
-    "field": "network_gen",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "4g",
-      "name": "4G",
-      "use": "Suficiente para todo el día",
-      "spec": "4G",
-      "values": [
-       "4g"
-      ]
-     },
-     {
-      "id": "5g",
-      "name": "5G",
-      "use": "La red más rápida",
-      "spec": "5G",
-      "values": [
-       "5g"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Tabletas/Otras tabletas Android": {
+ "Tabletas/Tabletas Android de 10 a 11 pulgadas": {
   "axes": [
    {
     "label": "Batería",
@@ -10583,6 +10344,72 @@
    }
   ]
  },
+ "Tabletas/Tabletas Android de 12 pulgadas o más": {
+  "axes": [
+   {
+    "label": "Memoria",
+    "field": "ram_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 4 GB",
+      "max": 4
+     },
+     {
+      "id": "intermedia",
+      "name": "Intermedia",
+      "use": "Varias apps y juegos",
+      "spec": "5 GB a 8 GB",
+      "min": 4,
+      "max": 8
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Edición y estaciones de trabajo",
+      "spec": "Más de 8 GB",
+      "min": 8
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas Android con 4G o 5G": {
+  "axes": [
+   {
+    "label": "Red",
+    "field": "network_gen",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "4g",
+      "name": "4G",
+      "use": "Suficiente para todo el día",
+      "spec": "4G",
+      "values": [
+       "4g"
+      ]
+     },
+     {
+      "id": "5g",
+      "name": "5G",
+      "use": "La red más rápida",
+      "spec": "5G",
+      "values": [
+       "5g"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
  "Tabletas/Tabletas para niños": {
   "axes": [
    {
@@ -10595,15 +10422,15 @@
       "id": "chica",
       "name": "Chica",
       "use": "Uso ligero",
-      "spec": "Hasta 3,000 mAh",
-      "max": 3000
+      "spec": "Hasta 3,500 mAh",
+      "max": 3500
      },
      {
       "id": "mediana",
       "name": "Mediana",
       "use": "Un día completo",
-      "spec": "3,001 mAh a 5,000 mAh",
-      "min": 3000,
+      "spec": "3,501 mAh a 5,000 mAh",
+      "min": 3500,
       "max": 5000
      },
      {
@@ -10649,31 +10476,110 @@
    }
   ]
  },
- "Tabletas/Xiaomi, Huawei y Honor": {
+ "Tabletas/Accesorios para tableta": {
   "axes": [
    {
-    "label": "Fluidez",
-    "field": "refresh_hz",
-    "criterion": "en hertz",
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
     "ramp": true,
     "tiers": [
      {
-      "id": "v120",
-      "name": "120 Hz",
+      "id": "v6000",
+      "name": "6,000 mAh",
       "use": "",
-      "spec": "120 Hz",
+      "spec": "6,000 mAh",
       "values": [
-       120
+       6000
       ]
      },
      {
-      "id": "v144",
-      "name": "144 Hz",
+      "id": "v7000",
+      "name": "7,000 mAh",
       "use": "",
-      "spec": "144 Hz",
+      "spec": "7,000 mAh",
       "values": [
-       144
+       7000
       ]
+     },
+     {
+      "id": "v10000",
+      "name": "10,000 mAh",
+      "use": "",
+      "spec": "10,000 mAh",
+      "values": [
+       10000
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas Android de 8 pulgadas o menos": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Uso ligero",
+      "spec": "Hasta 3,500 mAh",
+      "max": 3500
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Un día completo",
+      "spec": "3,501 mAh a 5,100 mAh",
+      "min": 3500,
+      "max": 5100
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Varios días sin cargar",
+      "spec": "Más de 5,100 mAh",
+      "min": 5100
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas Android": {
+  "axes": [
+   {
+    "label": "Memoria",
+    "field": "ram_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 4 GB",
+      "max": 4
+     },
+     {
+      "id": "intermedia",
+      "name": "Intermedia",
+      "use": "Varias apps y juegos",
+      "spec": "5 GB a 8 GB",
+      "min": 4,
+      "max": 8
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Edición y estaciones de trabajo",
+      "spec": "Más de 8 GB",
+      "min": 8
      }
     ],
     "key": "extra"
@@ -13132,37 +13038,6 @@
       "min": 2350
      }
     ]
-   }
-  ]
- },
- "Bocinas/Anker Soundcore": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "extra"
    }
   ]
  },
@@ -33095,37 +32970,6 @@
       "min": 58000
      }
     ]
-   }
-  ]
- },
- "Celulares": {
-  "axes": [
-   {
-    "label": "Red",
-    "field": "network_gen",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "4g",
-      "name": "4G",
-      "use": "Suficiente para todo el día",
-      "spec": "4G",
-      "values": [
-       "4g"
-      ]
-     },
-     {
-      "id": "5g",
-      "name": "5G",
-      "use": "La red más rápida",
-      "spec": "5G",
-      "values": [
-       "5g"
-      ]
-     }
-    ],
-    "key": "extra"
    }
   ]
  },

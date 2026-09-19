@@ -3073,6 +3073,8 @@
       if (panel) panel.hidden = !activa;
     });
     if (el.homeElige && TEXTO_ELIGE[cual]) el.homeElige.textContent = TEXTO_ELIGE[cual];
+    const grid = document.querySelector(".home-grid");
+    if (grid) grid.dataset.homeTab = cual;
     if (cual === "marcas") renderHomeBrandGrid();
   }
 

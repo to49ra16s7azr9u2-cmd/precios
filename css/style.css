@@ -2784,6 +2784,42 @@ tr.offer-compare-off { display: none; }
 .home-tab-marca .hero-logo { display: block; width: 100%; height: auto; }
 .home-tab-marca:not(.is-active) .hero-logo { filter: grayscale(1); opacity: 0.55; }
 
+/* Lengüeta unida al panel (boceto del usuario, 19-sep): la pestaña activa
+   y el bloque central llevan el mismo borde grueso de color, y un puente
+   sobre el hueco entre columnas los junta en una sola forma, como una
+   carpeta. Cada pestaña tiene su color: rojo para "Compara precios",
+   amarillo (el de su logo) para "Compara marcas". */
+.home-grid { --tab-color: var(--red); }
+.home-grid[data-home-tab="marcas"] { --tab-color: #f2b31c; }
+.home-center-frame {
+  position: relative;
+  z-index: 1;
+  border: 3px solid var(--tab-color);
+  border-radius: var(--radius);
+  padding: 8px 8px 6px;
+  background: var(--card);
+}
+.home-center-frame .home-elige { margin-top: 0; }
+.home-tab.is-active {
+  position: relative;
+  z-index: 2;
+  border-width: 3px;
+  border-color: var(--tab-color);
+  border-right-color: transparent;
+}
+.home-tab.is-active::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: 100%;
+  /* cubre el hueco entre columnas y se mete 3px en el borde del marco */
+  width: calc(var(--hueco-inicio) + 3px);
+  background: var(--card);
+  border-top: 3px solid var(--tab-color);
+  border-bottom: 3px solid var(--tab-color);
+}
+
 /* Rejilla de marcas de la pestaña "Marcas" de la portada. Prefijo
    home- a propósito: .brand-grid/.brand-card ya existen más abajo, son las
    tarjetas grandes con logo de las marcas afiliadas (data/brands.json), y
@@ -3070,6 +3106,8 @@ tr.offer-compare-off { display: none; }
   .home-col-left .home-cat-rank { flex: 1 1 100%; }
   .home-tabs { flex: 1 1 100%; flex-direction: row; }
   .home-tab-marca .hero-logo { max-width: 160px; }
+  .home-tab.is-active { border-right-color: var(--tab-color); }
+  .home-tab.is-active::after { display: none; }
 }
 @media (max-width: 720px) {
   .home-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }

@@ -13,48 +13,8 @@
       "iconImage": "icons/categorias/celulares-tabletas.jpg",
       "subcategories": [
         {
-          "id": "Samsung Galaxy",
-          "name": "Samsung Galaxy",
-          "icon": "phone"
-        },
-        {
-          "id": "Motorola",
-          "name": "Motorola",
-          "icon": "phone"
-        },
-        {
-          "id": "Xiaomi, Redmi y POCO",
-          "name": "Xiaomi, Redmi y POCO",
-          "icon": "phone"
-        },
-        {
-          "id": "Honor y Huawei",
-          "name": "Honor y Huawei",
-          "icon": "phone"
-        },
-        {
-          "id": "OPPO, Vivo y Realme",
-          "name": "OPPO, Vivo y Realme",
-          "icon": "phone"
-        },
-        {
-          "id": "Google Pixel",
-          "name": "Google Pixel",
-          "icon": "phone"
-        },
-        {
-          "id": "OnePlus, Nothing y Sony",
-          "name": "OnePlus, Nothing y Sony",
-          "icon": "phone"
-        },
-        {
-          "id": "ZTE, TCL, Infinix y Tecno",
-          "name": "ZTE, TCL, Infinix y Tecno",
-          "icon": "phone"
-        },
-        {
-          "id": "Nokia y otras marcas",
-          "name": "Nokia y otras marcas",
+          "id": "Android",
+          "name": "Android",
           "icon": "phone"
         },
         {
@@ -257,23 +217,23 @@
       "icon": "tablet",
       "subcategories": [
         {
-          "id": "Samsung Galaxy Tab",
-          "name": "Samsung Galaxy Tab",
+          "id": "Tabletas Android de 8 pulgadas o menos",
+          "name": "Tabletas Android de 8 pulgadas o menos",
           "icon": "tablet"
         },
         {
-          "id": "Lenovo Tab",
-          "name": "Lenovo Tab",
+          "id": "Tabletas Android de 10 a 11 pulgadas",
+          "name": "Tabletas Android de 10 a 11 pulgadas",
           "icon": "tablet"
         },
         {
-          "id": "Xiaomi, Huawei y Honor",
-          "name": "Xiaomi, Huawei y Honor",
+          "id": "Tabletas Android de 12 pulgadas o más",
+          "name": "Tabletas Android de 12 pulgadas o más",
           "icon": "tablet"
         },
         {
-          "id": "Amazon Fire",
-          "name": "Amazon Fire",
+          "id": "Tabletas Android con 4G o 5G",
+          "name": "Tabletas Android con 4G o 5G",
           "icon": "tablet"
         },
         {
@@ -282,18 +242,13 @@
           "icon": "tablet"
         },
         {
-          "id": "Tabletas de dibujo y escritura",
-          "name": "Tabletas de dibujo y escritura",
-          "icon": "tablet"
-        },
-        {
           "id": "Tabletas Windows y rugged",
           "name": "Tabletas Windows y rugged",
           "icon": "tablet"
         },
         {
-          "id": "Otras tabletas Android",
-          "name": "Otras tabletas Android",
+          "id": "Tabletas Android",
+          "name": "Tabletas Android",
           "icon": "tablet"
         },
         {
@@ -302,14 +257,14 @@
           "icon": "tablet"
         },
         {
-          "id": "Apple",
-          "name": "Apple (iPad)",
+          "id": "Tabletas de dibujo y escritura",
+          "name": "Tabletas de dibujo y escritura",
           "icon": "tablet"
         },
         {
-          "id": "Lectores electrónicos",
-          "name": "Lectores electrónicos",
-          "icon": "book"
+          "id": "Apple",
+          "name": "Apple (iPad)",
+          "icon": "tablet"
         }
       ],
       "iconImage": "icons/categorias/celulares-tabletas.jpg"
@@ -378,43 +333,18 @@
       "icon": "speaker",
       "subcategories": [
         {
-          "id": "JBL",
-          "name": "JBL",
-          "icon": "speaker"
-        },
-        {
-          "id": "Sony",
-          "name": "Sony",
-          "icon": "speaker"
-        },
-        {
-          "id": "Bose",
-          "name": "Bose",
-          "icon": "speaker"
-        },
-        {
-          "id": "Marshall y Bang & Olufsen",
-          "name": "Marshall y Bang & Olufsen",
-          "icon": "speaker"
-        },
-        {
-          "id": "Anker Soundcore",
-          "name": "Anker Soundcore",
-          "icon": "speaker"
-        },
-        {
-          "id": "Xiaomi y Tronsmart",
-          "name": "Xiaomi y Tronsmart",
-          "icon": "speaker"
-        },
-        {
-          "id": "Bocinas con luces LED",
-          "name": "Bocinas con luces LED",
-          "icon": "speaker"
-        },
-        {
           "id": "Mini bocinas y de llavero",
           "name": "Mini bocinas y de llavero",
+          "icon": "speaker"
+        },
+        {
+          "id": "Bocinas Bluetooth compactas (hasta 20 W)",
+          "name": "Bocinas Bluetooth compactas (hasta 20 W)",
+          "icon": "speaker"
+        },
+        {
+          "id": "Bocinas Bluetooth medianas (20 a 60 W)",
+          "name": "Bocinas Bluetooth medianas (20 a 60 W)",
           "icon": "speaker"
         },
         {
@@ -428,18 +358,23 @@
           "icon": "speaker"
         },
         {
-          "id": "Bocinas Bluetooth de otras marcas",
-          "name": "Bocinas Bluetooth de otras marcas",
+          "id": "Bocinas con luces LED",
+          "name": "Bocinas con luces LED",
+          "icon": "speaker"
+        },
+        {
+          "id": "Bocinas Bluetooth con radio, USB y micrófono",
+          "name": "Bocinas Bluetooth con radio, USB y micrófono",
+          "icon": "speaker"
+        },
+        {
+          "id": "Bocinas Bluetooth",
+          "name": "Bocinas Bluetooth",
           "icon": "speaker"
         },
         {
           "id": "Accesorios para bocinas",
           "name": "Accesorios para bocinas",
-          "icon": "speaker"
-        },
-        {
-          "id": "Bluetooth portátiles",
-          "name": "Bluetooth portátiles",
           "icon": "speaker"
         },
         {
@@ -6577,17 +6512,9 @@
     "Celulares": {
       "n": 4635,
       "subs": {
-        "OnePlus, Nothing y Sony": 53,
-        "OPPO, Vivo y Realme": 403,
-        "Xiaomi, Redmi y POCO": 426,
-        "Honor y Huawei": 338,
+        "Android": 3208,
         "Resistentes": 343,
-        "Nokia y otras marcas": 668,
-        "Motorola": 425,
-        "Samsung Galaxy": 644,
-        "ZTE, TCL, Infinix y Tecno": 143,
         "iPhone": 450,
-        "Google Pixel": 108,
         "Reacondicionados": 93,
         "Accesorios": 140,
         "Teléfonos fijos": 44,
@@ -6963,16 +6890,16 @@
     "Tabletas": {
       "n": 3048,
       "subs": {
-        "Lenovo Tab": 269,
-        "Samsung Galaxy Tab": 364,
+        "Tabletas Android de 10 a 11 pulgadas": 413,
+        "Tabletas Android de 12 pulgadas o más": 355,
+        "Tabletas Android con 4G o 5G": 292,
         "Tabletas de dibujo y escritura": 86,
-        "Otras tabletas Android": 1096,
-        "Tabletas para niños": 162,
-        "Tabletas Windows y rugged": 594,
-        "Accesorios para tableta": 35,
-        "Xiaomi, Huawei y Honor": 147,
-        "Apple": 285,
-        "Amazon Fire": 10
+        "Tabletas para niños": 182,
+        "Tabletas Windows y rugged": 644,
+        "Accesorios para tableta": 47,
+        "Tabletas Android de 8 pulgadas o menos": 179,
+        "Tabletas Android": 565,
+        "Apple": 285
       },
       "pop": 14290,
       "discounted": 267,
@@ -7065,26 +6992,22 @@
     "Bocinas": {
       "n": 10322,
       "subs": {
-        "Para PC y escritorio": 296,
-        "Bocinas Bluetooth de otras marcas": 3024,
-        "Bocinas Bluetooth impermeables": 384,
-        "Xiaomi y Tronsmart": 74,
-        "Barras de sonido": 285,
-        "Subwoofers": 276,
+        "Para PC y escritorio": 298,
+        "Bocinas Bluetooth": 2754,
+        "Bocinas Bluetooth potentes (60 W o más)": 480,
+        "Barras de sonido": 280,
+        "Subwoofers": 277,
+        "Bocinas Bluetooth con radio, USB y micrófono": 386,
+        "Bocinas Bluetooth medianas (20 a 60 W)": 121,
+        "Bocinas Bluetooth impermeables": 720,
         "De fiesta y karaoke": 444,
-        "De estantería y Hi-Fi": 964,
-        "Mini bocinas y de llavero": 492,
-        "Bocinas con luces LED": 175,
-        "Sony": 102,
-        "JBL": 339,
-        "Marshall y Bang & Olufsen": 144,
-        "Bose": 75,
+        "De estantería y Hi-Fi": 965,
+        "Mini bocinas y de llavero": 687,
+        "Bocinas con luces LED": 278,
         "Bafles y audio profesional": 705,
-        "Anker Soundcore": 61,
         "Empotrables y de exterior": 381,
-        "Bocinas Bluetooth potentes (60 W o más)": 434,
         "Amplificadores y receptores": 281,
-        "Bluetooth portátiles": 298,
+        "Bocinas Bluetooth compactas (hasta 20 W)": 177,
         "Radios y reproductores": 732,
         "Bocinas para auto": 222,
         "Accesorios para bocinas": 134

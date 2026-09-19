@@ -153,7 +153,7 @@
            categorías, y "Marcas"), después el botón de ayuda y abajo la
            lista de rankings del mes. "Más visto" ocupa el ancho de las dos
            primeras columnas, no el de las tres. -->
-      <div class="home-grid">
+      <div class="home-grid" data-home-tab="precios">
         <div class="home-most-viewed-band">
           <div class="home-most-viewed-panel">
             <div id="homeMostViewed"></div>
@@ -189,6 +189,11 @@
         </aside>
 
         <main class="home-col home-col-center">
+          <!-- El marco de color une la pestaña activa de la izquierda con
+               este bloque (borde del mismo color + puente sobre el hueco),
+               como una carpeta con lengüeta. El color lo pone
+               .home-grid[data-home-tab]. -->
+          <div class="home-center-frame" id="homeCenterFrame">
           <h1 class="home-elige" id="homeElige">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</h1>
           <div id="homePanelPrecios" role="tabpanel">
             <div class="home-category-box">
@@ -203,6 +208,7 @@
               </div>
               <div id="homeBrandGrid" class="home-brand-grid"></div>
             </div>
+          </div>
           </div>
         </main>
 

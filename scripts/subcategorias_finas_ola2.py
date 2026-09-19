@@ -333,15 +333,17 @@ def afinar_ola2(cat, sub, tn):
     """Gancho para el clasificador y la auditoría: después del reparto
     normal, si (cat, sub) cae en una subcategoría que la ola 2 dividió,
     devuelve la fina."""
+    # Los repartos se encadenan: el de toda la categoría (Bocinas) deja
+    # 'Bluetooth portátiles' y el de la ola 5 lo vuelve a partir por tipo.
     for c, viejas, lista, f, resto in OLA2:
         if c != cat:
             continue
         if viejas is not None and sub not in viejas and sub not in lista:
             continue
         if sub in lista and not (viejas and sub in viejas):
-            return sub
+            continue
         nueva = f(tn, sub)
-        return nueva or resto or sub
+        sub = nueva or resto or sub
     return sub
 
 
@@ -460,23 +462,35 @@ def sub_jaula(tn):
 
 
 # ------------------------------------------------------ Tabletas/Android
-TABLETAS = ['Samsung Galaxy Tab', 'Lenovo Tab', 'Xiaomi, Huawei y Honor', 'Amazon Fire', 'Tabletas para niños',
-            'Tabletas de dibujo y escritura', 'Tabletas Windows y rugged', 'Otras tabletas Android', 'Accesorios para tableta']
+TAB_MARCAS_VIEJAS = ['Samsung Galaxy Tab', 'Lenovo Tab', 'Xiaomi, Huawei y Honor', 'Amazon Fire', 'Otras tabletas Android']
+TABLETAS = ['Tabletas Android de 8 pulgadas o menos', 'Tabletas Android de 10 a 11 pulgadas', 'Tabletas Android de 12 pulgadas o más',
+            'Tabletas Android con 4G o 5G', 'Tabletas para niños', 'Tabletas de dibujo y escritura', 'Tabletas Windows y rugged',
+            'Tabletas Android', 'Accesorios para tableta']
 _TAB = _c([
     ('Accesorios para tableta', r'^(?:\S+ ){0,3}(funda|estuche|case|soporte|tripode|teclado|cargador|cable|mica|protector|lapiz|stylus|pen|base|dock|montaje|brazo|bateria|adaptador|modulo|tiristor|pantalla lcd|display)s?\b|\bfunda (para|con)|\bprotector de pantalla|\bsoporte (para|de) tablet|\blapiz (para|optico|digital|stylus)|\bpara tablet\b.{0,10}(funda|soporte|teclado)|\bmodulo de|\bcomponente'),
     ('Tabletas de dibujo y escritura', r'\btableta (de|para) (dibujo|escritura|dibujar|escribir)|\btablero de dibujo|\bpizarra (magica|electronica|lcd)|\btableta lcd|\bwacom|\bhuion|\bxp-?pen|\bgaomon|\bdibujo digital|\btableta grafica|\bwriting tablet|\bdrawing tablet|\bboox|\bremarkable|\bkindle scribe|\be ink\b|\btinta electronica|\btinta e'),
-    ('Tabletas para niños', r'\bpara ninos?\b|\binfantil|\bninos?\b|\bnina\b|\bkids?\b|\bpaw patrol|\bfrozen|\bspiderman|\bprincesas|\bbluey|\bpeppa|\beducativa'),
-    ('Amazon Fire', r'\bfire (hd|7|8|10|max)|\bamazon fire|\bkindle fire|\bfire tablet'),
-    ('Samsung Galaxy Tab', r'\bgalaxy tab|\bsamsung\b|\btab (s\d|a\d|active)'),
-    ('Lenovo Tab', r'\blenovo\b|\bidea tab|\byoga tab|\btab m\d|\btab p\d|\blegion tab|\bxiaoxin'),
-    ('Xiaomi, Huawei y Honor', r'\bxiaomi|\bredmi pad|\bmi pad|\bpoco pad|\bhuawei|\bmatepad|\bhonor pad|\bhonor\b'),
+    ('Tabletas para niños', r'\bpara ninos?\b|\binfantil|\bninos?\b|\bnina\b|\bkids?\b|\bpaw patrol|\bfrozen|\bspiderman|\bprincesas|\bbluey|\bpeppa|\beducativa|\bfire (7|hd 8|hd 10) kids'),
     ('Tabletas Windows y rugged', r'\bwindows\b|\bsurface\b|\brugged|\bresistente\b|\bindustrial|\bgetac|\bpanasonic toughbook|\bzebra\b|\bhoneywell|\bintel core|\bceleron|\bn100\b|\bn150\b|\bcaja registradora|\bpos\b|\bpunto de venta|\bchuwi\b.{0,20}windows'),
-    ('Otras tabletas Android', r'\btablet|\btableta|\bandroid|\bipad'),
 ])
+_RX_TAB = re.compile(r'(?<![\d.])(\d{1,2}(?:[.,]\d)?)\s?(?:pulgadas|pulg\b|"|”|\'\'|inch|in\b|-inch)')
 
 
 def sub_tableta(tn):
-    return _primera(tn, _TAB, {'Otras tabletas Android': 60, 'Tabletas para niños': 5})
+    sub = _primera(tn, _TAB, {'Tabletas para niños': 5})
+    if sub:
+        return sub
+    if re.search(r'\b4g\b|\b5g\b|\blte\b|\bsim\b|\bcelular\b|\bllamadas', tn):
+        return 'Tabletas Android con 4G o 5G'
+    m = _RX_TAB.search(tn)
+    if not m:
+        return 'Tabletas Android'
+    v = float(m.group(1).replace(',', '.'))
+    if not 5 <= v <= 20:
+        return 'Tabletas Android'
+    if v >= 11.5: return 'Tabletas Android de 12 pulgadas o más'
+    if v >= 9.5: return 'Tabletas Android de 10 a 11 pulgadas'
+    return 'Tabletas Android de 8 pulgadas o menos'
+
 
 
 # ------------------------------------ Electrodomésticos/Purificadores de agua
@@ -570,7 +584,7 @@ OLA2 += [
     ('Joyería y bisutería', ['Relojes'], RELOJES, lambda tn, sv: sub_reloj_pulsera(tn), None),
     ('Refacciones', ['Para autos'], REFACCIONES_AUTO, lambda tn, sv: sub_refaccion_auto(tn), None),
     ('Mascotas', ['Jaulas y corrales'], JAULAS, lambda tn, sv: sub_jaula(tn), None),
-    ('Tabletas', ['Android'], TABLETAS, lambda tn, sv: sub_tableta(tn), 'Otras tabletas Android'),
+    ('Tabletas', ['Android'] + TAB_MARCAS_VIEJAS, TABLETAS, lambda tn, sv: sub_tableta(tn), 'Tabletas Android'),
     ('Electrodomésticos', ['Purificadores de agua'], PURIFICADORES, lambda tn, sv: sub_purificador(tn), None),
     ('Deportes y fitness', ['Equipo de gimnasio'], GIMNASIO, lambda tn, sv: sub_gimnasio(tn), None),
     ('Domótica y hogar inteligente', ['Cerraduras inteligentes'], CERRADURAS, lambda tn, sv: sub_cerradura(tn), None),
@@ -1026,27 +1040,37 @@ OLA2 += [
 
 # =========================================================== QUINTA OLA
 # ------------------------------------------------ Bocinas/Bluetooth portátiles
-BT_PORTATILES = ['JBL', 'Sony', 'Bose', 'Marshall y Bang & Olufsen', 'Anker Soundcore', 'Xiaomi y Tronsmart',
-                 'Bocinas con luces LED', 'Mini bocinas y de llavero', 'Bocinas Bluetooth potentes (60 W o más)',
-                 'Bocinas Bluetooth impermeables', 'Bocinas Bluetooth de otras marcas', 'Accesorios para bocinas']
+BT_MARCAS_VIEJAS = ['JBL', 'Sony', 'Bose', 'Marshall y Bang & Olufsen', 'Anker Soundcore', 'Xiaomi y Tronsmart',
+                    'Bocinas Bluetooth de otras marcas']
+BT_PORTATILES = ['Mini bocinas y de llavero', 'Bocinas Bluetooth compactas (hasta 20 W)', 'Bocinas Bluetooth medianas (20 a 60 W)',
+                 'Bocinas Bluetooth potentes (60 W o más)', 'Bocinas Bluetooth impermeables', 'Bocinas con luces LED',
+                 'Bocinas Bluetooth con radio, USB y micrófono', 'Bocinas Bluetooth', 'Accesorios para bocinas']
 _BTP = _c([
     ('Accesorios para bocinas', r'^(?:\S+ ){0,3}(funda|estuche|soporte|base|cargador|cable|adaptador|correa|bateria|alfombrilla|montaje|bracket|tapa|rejilla|repuesto)s?\b|\bpara (jbl|bose|sony|marshall|soundcore|sonos|echo|alexa|altavoz|bocina)\b.{0,10}(funda|estuche|soporte|cargador|cable|adaptador|correa)|\bcompatible con\b.{0,30}(funda|estuche|soporte|cargador|cable|adaptador)'),
-    ('JBL', r'\bjbl\b'),
-    ('Sony', r'\bsony\b|\bsrs-'),
-    ('Bose', r'\bbose\b|\bsoundlink'),
-    ('Marshall y Bang & Olufsen', r'\bmarshall\b|\bbang & olufsen|\bbang and olufsen|\bb&o\b|\bbeoplay|\bbeosound|\bharman kardon|\bdevialet|\bsonos\b'),
-    ('Anker Soundcore', r'\bsoundcore|\banker\b'),
-    ('Xiaomi y Tronsmart', r'\bxiaomi|\btronsmart|\bmi (portable|outdoor)|\bredmi\b'),
     ('Mini bocinas y de llavero', r'\bmini\b|\bllavero|\bde bolsillo|\bpequen|\bbitty boomers|\bclip ?[2-5]\b|\bgo ?[2-4]\b|\bmicro\b|\bcompact'),
     ('Bocinas con luces LED', r'\bluces? led|\bled\b|\brgb\b|\bluz de colores|\bluces de colores|\bcon luz\b|\bluminos'),
-    ('Bocinas Bluetooth potentes (60 W o más)', r'\b(?:[6-9]\d|[1-9]\d{2,3}) ?w\b(?!.{0,15}(cargador|carga))|\bpartybox|\bxboom|\bboombox|\btorre de sonido|\bde fiesta'),
     ('Bocinas Bluetooth impermeables', r'\bimpermeable|\bwaterproof|\bipx?[5-8]\b|\ba prueba de agua|\bresistente al agua|\bpara ducha|\bflotante|\bsumergible'),
-    ('Bocinas Bluetooth de otras marcas', r'\bbocina|\baltavoz|\bspeaker|\bparlante|\bbluetooth'),
+    ('Bocinas Bluetooth con radio, USB y micrófono', r'\bradio\b|\bfm\b|\busb\b|\btf\b|\bmicro ?sd|\bcon microfono|\bkaraoke|\baux\b'),
 ])
+_RX_W_BOC = re.compile(r'(?<![\d.])(\d{1,4}) ?w\b(?! ?h)')
 
 
 def sub_bt_portatil(tn):
-    return _primera(tn, _BTP, {'Bocinas Bluetooth de otras marcas': 60, 'Bocinas Bluetooth impermeables': 15, 'Bocinas con luces LED': 10, 'Bocinas Bluetooth potentes (60 W o más)': 8})
+    sub = _primera(tn, _BTP, {'Bocinas con luces LED': 10, 'Bocinas Bluetooth impermeables': 15, 'Bocinas Bluetooth con radio, USB y micrófono': 25})
+    if sub in ('Accesorios para bocinas', 'Mini bocinas y de llavero'):
+        return sub
+    ws = [int(x) for x in _RX_W_BOC.findall(tn) if 1 <= int(x) <= 5000]
+    if re.search(r'\bpmpo\b', tn):
+        ws = [w // 10 for w in ws]     # los "25,000 W PMPO" son marketing
+    w = max(ws) if ws else None
+    if w is not None and w >= 60:
+        return 'Bocinas Bluetooth potentes (60 W o más)'
+    if sub:
+        return sub
+    if w is None:
+        return 'Bocinas Bluetooth'
+    return 'Bocinas Bluetooth medianas (20 a 60 W)' if w >= 20 else 'Bocinas Bluetooth compactas (hasta 20 W)'
+
 
 
 # --------------------------------------------- Componentes/Memoria RAM
@@ -1365,7 +1389,7 @@ def sub_bocina_auto(tn):
 
 
 OLA2 += [
-    ('Bocinas', ['Bluetooth portátiles'], BT_PORTATILES, lambda tn, sv: sub_bt_portatil(tn), None),
+    ('Bocinas', ['Bluetooth portátiles'] + BT_MARCAS_VIEJAS, BT_PORTATILES, lambda tn, sv: sub_bt_portatil(tn), None),
     ('Componentes y accesorios de PC', ['Memoria RAM'], RAM, lambda tn, sv: sub_ram(tn), None),
     ('Mascotas', ['Comederos'], COMEDEROS + ['Bebederos'], lambda tn, sv: sub_comedero(tn), None),
     ('Refacciones', ['Refacciones para electrodomésticos'], REF_ELECTRO, lambda tn, sv: sub_ref_electro(tn), None),
