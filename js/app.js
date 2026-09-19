@@ -1752,8 +1752,32 @@
   // ficha de producto EN ESTE navegador, nunca un número agregado de todo
   // el sitio (no hay backend que lo mida).
   const RECENT_MAX = 20;
+  // Cuántos minutos tiene que pasar para que el MISMO navegador vuelva a
+  // sumar una vista de la MISMA ficha. Sin esto, recargar una página diez
+  // veces mueve el ranking de toda la portada.
+  const VISTA_REPETIDA_MIN = 30;
+  function contarVistaEnVivo(productId) {
+    const api = window.ComparaMXAuth;
+    if (!api || typeof api.contarVista !== "function") return;
+    const p = state.data && state.data.products.find((x) => x.id === productId);
+    if (!p || !p.category) return;
+    let ultimas = {};
+    try { ultimas = JSON.parse(localStorage.getItem("comparamex.vistasEnviadas") || "{}"); } catch (e) { ultimas = {}; }
+    const ahora = Date.now();
+    if (ahora - (ultimas[productId] || 0) < VISTA_REPETIDA_MIN * 60000) return;
+    ultimas[productId] = ahora;
+    // Solo se guardan las últimas 300, para no llenar el almacenamiento.
+    const ids = Object.keys(ultimas);
+    if (ids.length > 300) {
+      ids.sort((a, b) => ultimas[a] - ultimas[b]).slice(0, ids.length - 300).forEach((k) => delete ultimas[k]);
+    }
+    try { localStorage.setItem("comparamex.vistasEnviadas", JSON.stringify(ultimas)); } catch (e) { /* modo privado */ }
+    api.contarVista(p.category);
+  }
+
   function trackProductView(productId) {
     if (!productId) return;
+    contarVistaEnVivo(productId);
     const counts = readLS(LS_KEYS.productViews, {});
     counts[productId] = (counts[productId] || 0) + 1;
     writeLS(LS_KEYS.productViews, counts);
@@ -2843,29 +2867,57 @@
   // grande y la octava acá), que es lo que hace que valga la pena mostrarlo
   // arriba de la lista de rankings del mes en vez de repetirla.
   const CAT_RANK_VISIBLES = 10;
+  // Vistas de las últimas 24-48 h por categoría, que llegan de Firestore
+  // (ComparaMXAuth.escucharPopularidad) y se actualizan solas: onSnapshot
+  // avisa en cuanto alguien abre una ficha, sin recargar ni sondear.
+  let vistasEnVivo = null;
+  // Con muy pocas visitas el orden salta con cada clic y se lee como un
+  // error. Hasta llegar a este total manda el ranking de siempre.
+  const MIN_VISTAS_PARA_MANDAR = 40;
+  function escucharPopularidadUnaVez() {
+    const api = window.ComparaMXAuth;
+    if (vistasEnVivo !== null || !api || typeof api.escucharPopularidad !== "function") return;
+    vistasEnVivo = {};
+    api.escucharPopularidad((cuentas) => {
+      vistasEnVivo = cuentas || {};
+      // Solo se repinta si la portada está a la vista: si no, ya se
+      // repintará al volver.
+      if (el.viewHome && !el.viewHome.classList.contains("hidden")) renderHomeCatRanking();
+    });
+  }
+
   function renderHomeCatRanking() {
     if (!el.homeCatRanking || !state.data) return;
+    escucharPopularidadUnaVez();
     const stats = state.data.categoryStats || {};
+    const vivo = vistasEnVivo || {};
+    const totalVivo = Object.values(vivo).reduce((s, n) => s + (n || 0), 0);
+    const enVivo = totalVivo >= MIN_VISTAS_PARA_MANDAR;
     const cats = state.data.categories
       .filter((c) => c.id !== "Otros")
-      .map((c) => ({ c, pop: (stats[c.id] || {}).pop || 0, n: (stats[c.id] || {}).n || 0 }))
+      .map((c) => ({ c, pop: (stats[c.id] || {}).pop || 0, n: (stats[c.id] || {}).n || 0, vistas: vivo[c.id] || 0 }))
       // Sin productos no hay página estática que enlazar (el generador no la
       // escribe), y sin calificaciones no hay puesto que defender.
       .filter(({ pop, n }) => pop > 0 && n > 0)
-      .sort((a, b) => b.pop - a.pop);
+      .sort((a, b) => (enVivo ? b.vistas - a.vistas || b.pop - a.pop : b.pop - a.pop));
     if (!cats.length) { el.homeCatRanking.innerHTML = ""; return; }
-    const tope = cats[0].pop;
+    const tope = enVivo ? Math.max(1, cats[0].vistas) : cats[0].pop;
     el.homeCatRanking.innerHTML =
-      `<span class="home-side-list-head">Categorías más populares</span>`;
-    cats.slice(0, CAT_RANK_VISIBLES).forEach(({ c, pop }, i) => {
+      `<span class="home-side-list-head">Categorías más populares` +
+      (enVivo ? `<span class="home-cat-rank-vivo" title="Se actualiza solo con lo que abren los visitantes">en vivo</span>` : "") +
+      `</span>`;
+    cats.slice(0, CAT_RANK_VISIBLES).forEach(({ c, pop, vistas }, i) => {
       // La barra arranca en 12% para que la décima siga siendo una barra y
       // no una línea: el primero suele tener varias veces el puntaje del
       // último y a escala cruda la cola desaparece.
-      const ancho = 12 + Math.round((pop / tope) * 88);
+      const valor = enVivo ? vistas : pop;
+      const ancho = 12 + Math.round((valor / tope) * 88);
       const fila = document.createElement("a");
       fila.className = "home-cat-rank-row";
       fila.href = `categoria/${catSlug(c.name)}/`;
-      fila.title = `${c.name} — ${pop.toLocaleString("es-MX")} calificaciones`;
+      fila.title = enVivo
+        ? `${c.name} — ${vistas.toLocaleString("es-MX")} fichas abiertas en las últimas 24 h`
+        : `${c.name} — ${pop.toLocaleString("es-MX")} calificaciones`;
       fila.innerHTML =
         `<span class="home-cat-rank-bar" style="width:${ancho}%"></span>` +
         `<span class="home-cat-rank-pos">${i + 1}</span>` +

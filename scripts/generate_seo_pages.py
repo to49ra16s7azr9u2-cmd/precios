@@ -1032,7 +1032,17 @@ def render_product_page(product, data, subs_con_pagina=None):
     breadcrumbs = breadcrumb_json_ld(migas)
     extra_head = (
         f'<script type="application/ld+json">\n{product_json_ld(product, data, canonical)}\n</script>\n'
-        f'<script type="application/ld+json">\n{breadcrumbs}\n</script>'
+        f'<script type="application/ld+json">\n{breadcrumbs}\n</script>\n'
+        # Suma una visita al contador de la categoría (ver js/popularidad.js).
+        # Es lo que alimenta el ranking "en vivo" de la portada: sin esto solo
+        # contaría quien navega dentro de la aplicación, y a estas páginas es
+        # adonde llega el tráfico de los buscadores. No manda identificadores
+        # ni usa cookies: suma uno a "Herramientas" y ya.
+        f'<script src="../../js/popularidad.js" defer></script>\n'
+        f'<script defer>document.addEventListener("DOMContentLoaded",function(){{'
+        f'window.ComparaMXVistas&&window.ComparaMXVistas.contar('
+        f'{json.dumps(product.get("category") or "", ensure_ascii=False)},'
+        f'{json.dumps(product["id"])});}});</script>'
     )
     title = f"{product['name']} — Compara precios en México | ComparaMEX"
     return page_shell(title, description, canonical_path, body, depth=2,

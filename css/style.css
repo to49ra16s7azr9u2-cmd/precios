@@ -2962,6 +2962,20 @@ tr.offer-compare-off { display: none; }
   padding: 7px 0 0;
 }
 .home-cat-rank .home-side-list-head { padding-bottom: 4px; }
+/* La marca de "en vivo" del ranking de categorías: solo aparece cuando el
+   orden lo están marcando las visitas de verdad, no el dato del catálogo. */
+.home-cat-rank-vivo {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  background: var(--red);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
 .home-cat-rank-row {
   position: relative;
   display: flex;

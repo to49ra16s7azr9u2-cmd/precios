@@ -33,6 +33,8 @@ import {
   limit,
   getDocs,
   serverTimestamp,
+  increment,
+  onSnapshot,
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -220,6 +222,63 @@ window.ComparaMXData = {
       )
     );
   },
+  // ---------- Popularidad en vivo ----------
+  //
+  // El ranking de categorías de la portada se calculaba con el reviewCount
+  // que traen las ofertas: un número honesto, pero fijo hasta la próxima
+  // regeneración del catálogo. Esto lo sustituye por lo que la gente está
+  // mirando AHORA en el sitio.
+  //
+  // Un documento por día (popularidad/AAAA-MM-DD) con un mapa
+  // {categoría: cuántas fichas se abrieron}. Por día y no acumulado para
+  // que el ranking decaiga solo: lo de la semana pasada no debe pesar hoy.
+  // La portada lee el de hoy y el de ayer, así que la ventana es de 24 a 48
+  // horas y nunca queda vacía a las 00:05.
+  //
+  // No guarda quién miró qué: solo suma uno a un contador por categoría. No
+  // hay usuario, ni sesión, ni producto en el documento.
+  diaDePopularidad(desplazamiento) {
+    const d = new Date();
+    if (desplazamiento) d.setUTCDate(d.getUTCDate() + desplazamiento);
+    return d.toISOString().slice(0, 10);
+  },
+  contarVista(categoria) {
+    if (!categoria) return Promise.resolve(null);
+    // merge + increment crea el documento si es el primero del día.
+    return guarded(() =>
+      setDoc(
+        doc(db, "popularidad", window.ComparaMXAuth.diaDePopularidad(0)),
+        { cats: { [categoria]: increment(1) }, actualizado: serverTimestamp() },
+        { merge: true }
+      )
+    );
+  },
+  // Avisa cada vez que cambia el documento de hoy (onSnapshot es push: no
+  // hay sondeo ni intervalos). Devuelve la función para desuscribirse.
+  escucharPopularidad(callback) {
+    const suma = { hoy: {}, ayer: {} };
+    const avisar = () => {
+      const total = {};
+      for (const parte of [suma.ayer, suma.hoy]) {
+        for (const k in parte) total[k] = (total[k] || 0) + (parte[k] || 0);
+      }
+      callback(total);
+    };
+    // Ayer se lee una sola vez: ya no cambia.
+    getDoc(doc(db, "popularidad", window.ComparaMXAuth.diaDePopularidad(-1)))
+      .then((s) => { if (s.exists()) { suma.ayer = s.data().cats || {}; avisar(); } })
+      .catch(() => {});
+    try {
+      return onSnapshot(
+        doc(db, "popularidad", window.ComparaMXAuth.diaDePopularidad(0)),
+        (s) => { suma.hoy = (s.exists() && s.data().cats) || {}; avisar(); },
+        () => {}   // sin permiso o sin red: la portada se queda con su ranking de siempre
+      );
+    } catch {
+      return () => {};
+    }
+  },
+
   async getHistory(uid, maxItems) {
     try {
       const q = query(

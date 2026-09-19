@@ -1,0 +1,59 @@
+// Reglas de Firestore para el ranking "en vivo" de la portada.
+//
+// ESTO ES UN FRAGMENTO, NO EL ARCHIVO COMPLETO. Hay que pegar el bloque
+// `match /popularidad/{dia}` DENTRO del `match /databases/{database}/documents`
+// que ya existe, junto a las reglas de users/ y de las reseñas, en:
+//   consola de Firebase -> Firestore Database -> Reglas
+//
+// Sin esto, la portada no rompe: el contador falla en silencio y el ranking
+// se queda con el orden de siempre (las calificaciones del catálogo). Con
+// esto puesto, el ranking pasa a ordenarse por lo que la gente abre.
+//
+// QUÉ GUARDA EL DOCUMENTO
+//   popularidad/2026-09-19 = { cats: { "Herramientas": 128, ... }, actualizado: <hora> }
+// Un contador por categoría y nada más: ni usuario, ni producto, ni IP.
+//
+// POR QUÉ LA ESCRITURA ES ANÓNIMA
+// El sitio no pide cuenta para navegar, así que quien mira una ficha casi
+// nunca tiene sesión. Las reglas de abajo no comprueban quién escribe, pero
+// sí QUÉ escribe: solo los dos campos previstos, solo números, un máximo de
+// categorías, y una sola categoría modificada por escritura. Lo peor que
+// puede hacer alguien con eso es inflar el ranking a base de peticiones.
+// Para cerrarlo del todo hay que activar App Check (reCAPTCHA Enterprise) y
+// añadir `&& request.auth != null || request.app != null` -- vale la pena si
+// el sitio crece; hoy el daño posible es un orden de categorías torcido.
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ... aquí siguen las reglas que ya tengas (users, reseñas, etc.) ...
+
+    match /popularidad/{dia} {
+      // El ranking es público: lo pinta la portada para cualquiera.
+      allow read: if true;
+      allow delete: if false;
+
+      // Solo documentos con nombre de fecha (2026-09-19).
+      function esDia() {
+        return dia.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$');
+      }
+      // Solo los dos campos previstos, y `cats` con a lo sumo 80 categorías
+      // (el catálogo tiene ~50) para que nadie infle el documento.
+      function formaValida() {
+        return request.resource.data.keys().hasOnly(['cats', 'actualizado'])
+            && request.resource.data.cats is map
+            && request.resource.data.cats.size() <= 80;
+      }
+
+      // La primera visita del día crea el documento con un solo contador en 1.
+      allow create: if esDia() && formaValida()
+                    && request.resource.data.cats.size() == 1;
+
+      // Las demás suman de a una categoría por escritura.
+      allow update: if esDia() && formaValida()
+                    && request.resource.data.cats.diff(resource.data.cats)
+                         .affectedKeys().size() == 1;
+    }
+  }
+}
