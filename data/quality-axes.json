@@ -1,5 +1,111 @@
 {
- "Celulares/Android": {
+ "Celulares/OnePlus, Nothing y Sony": {
+  "axes": [
+   {
+    "label": "Memoria",
+    "field": "ram_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v8",
+      "name": "8 GB",
+      "use": "",
+      "spec": "8 GB",
+      "values": [
+       8
+      ]
+     },
+     {
+      "id": "v12",
+      "name": "12 GB",
+      "use": "",
+      "spec": "12 GB",
+      "values": [
+       12
+      ]
+     },
+     {
+      "id": "v16",
+      "name": "16 GB",
+      "use": "",
+      "spec": "16 GB",
+      "values": [
+       16
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Celulares/OPPO, Vivo y Realme": {
+  "axes": [
+   {
+    "label": "Memoria",
+    "field": "ram_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 8 GB",
+      "max": 8
+     },
+     {
+      "id": "intermedia",
+      "name": "Intermedia",
+      "use": "Varias apps y juegos",
+      "spec": "9 GB a 12 GB",
+      "min": 8,
+      "max": 12
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Edición y estaciones de trabajo",
+      "spec": "Más de 12 GB",
+      "min": 12
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Celulares/Xiaomi, Redmi y POCO": {
+  "axes": [
+   {
+    "label": "Red",
+    "field": "network_gen",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "4g",
+      "name": "4G",
+      "use": "Suficiente para todo el día",
+      "spec": "4G",
+      "values": [
+       "4g"
+      ]
+     },
+     {
+      "id": "5g",
+      "name": "5G",
+      "use": "La red más rápida",
+      "spec": "5G",
+      "values": [
+       "5g"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Celulares/Honor y Huawei": {
   "axes": [
    {
     "label": "Red",
@@ -70,6 +176,68 @@
    }
   ]
  },
+ "Celulares/Nokia y otras marcas": {
+  "axes": [
+   {
+    "label": "Red",
+    "field": "network_gen",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "4g",
+      "name": "4G",
+      "use": "Suficiente para todo el día",
+      "spec": "4G",
+      "values": [
+       "4g"
+      ]
+     },
+     {
+      "id": "5g",
+      "name": "5G",
+      "use": "La red más rápida",
+      "spec": "5G",
+      "values": [
+       "5g"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Celulares/ZTE, TCL, Infinix y Tecno": {
+  "axes": [
+   {
+    "label": "Red",
+    "field": "network_gen",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "4g",
+      "name": "4G",
+      "use": "Suficiente para todo el día",
+      "spec": "4G",
+      "values": [
+       "4g"
+      ]
+     },
+     {
+      "id": "5g",
+      "name": "5G",
+      "use": "La red más rápida",
+      "spec": "5G",
+      "values": [
+       "5g"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
  "Celulares/iPhone": {
   "axes": [
    {
@@ -99,6 +267,81 @@
       "use": "Varios días sin cargar",
       "spec": "Más de 4,300 mAh",
       "min": 4300
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Celulares/Google Pixel": {
+  "axes": [
+   {
+    "label": "Memoria",
+    "field": "ram_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v8",
+      "name": "8 GB",
+      "use": "",
+      "spec": "8 GB",
+      "values": [
+       8
+      ]
+     },
+     {
+      "id": "v12",
+      "name": "12 GB",
+      "use": "",
+      "spec": "12 GB",
+      "values": [
+       12
+      ]
+     },
+     {
+      "id": "v16",
+      "name": "16 GB",
+      "use": "",
+      "spec": "16 GB",
+      "values": [
+       16
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Celulares/Reacondicionados": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Uso ligero",
+      "spec": "Hasta 4,000 mAh",
+      "max": 4000
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Un día completo",
+      "spec": "4,001 mAh a 5,000 mAh",
+      "min": 4000,
+      "max": 5000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Varios días sin cargar",
+      "spec": "Más de 5,000 mAh",
+      "min": 5000
      }
     ],
     "key": "extra"
@@ -442,60 +685,165 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,500",
-      "max": 1500
+      "spec": "Hasta $1,600",
+      "max": 1600
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,500 a $8,050",
-      "min": 1500,
-      "max": 8050
+      "spec": "$1,600 a $8,950",
+      "min": 1600,
+      "max": 8950
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $8,050",
-      "min": 8050
+      "spec": "Más de $8,950",
+      "min": 8950
      }
     ]
    }
   ]
  },
- "Proyectores y accesorios/Pantallas de proyección": {
+ "Proyectores y accesorios/Pantallas con trípode y portátiles": {
   "axes": [
    {
-    "label": "Tamaño",
-    "field": "screen_in",
-    "criterion": "por pantalla",
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
     "ramp": true,
     "tiers": [
      {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Recámara u oficina",
-      "spec": "Hasta 100\"",
-      "max": 100
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
      },
      {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Sala",
-      "spec": "101\" a 120\"",
-      "min": 100,
-      "max": 120
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $4,400",
+      "min": 440,
+      "max": 4400
      },
      {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Cine en casa o salón",
-      "spec": "Más de 120\"",
-      "min": 120
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,400",
+      "min": 4400
      }
-    ],
-    "key": "size"
+    ]
+   }
+  ]
+ },
+ "Proyectores y accesorios/Pantallas eléctricas motorizadas": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $14,500",
+      "max": 14500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$14,500 a $50,500",
+      "min": 14500,
+      "max": 50500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $50,500",
+      "min": 50500
+     }
+    ]
+   }
+  ]
+ },
+ "Proyectores y accesorios/Telas y pantallas ALR": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $13,500",
+      "max": 13500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$13,500 a $42,500",
+      "min": 13500,
+      "max": 42500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $42,500",
+      "min": 42500
+     }
+    ]
+   }
+  ]
+ },
+ "Proyectores y accesorios/Pantallas enrollables manuales": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,800",
+      "max": 1800
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,800 a $15,000",
+      "min": 1800,
+      "max": 15000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $15,000",
+      "min": 15000
+     }
+    ]
    }
   ]
  },
@@ -534,7 +882,341 @@
    }
   ]
  },
- "Laptops/Oficina": {
+ "Proyectores y accesorios/Pantallas inflables y de exterior": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,100",
+      "max": 3100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,100 a $14,500",
+      "min": 3100,
+      "max": 14500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $14,500",
+      "min": 14500
+     }
+    ]
+   }
+  ]
+ },
+ "Proyectores y accesorios/Soportes para proyector": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $630",
+      "max": 630
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$630 a $3,050",
+      "min": 630,
+      "max": 3050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,050",
+      "min": 3050
+     }
+    ]
+   }
+  ]
+ },
+ "Proyectores y accesorios/Lámparas de proyector": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $780",
+      "max": 780
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$780 a $1,150",
+      "min": 780,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
+ },
+ "Proyectores y accesorios/Otros accesorios de proyector": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $480",
+      "max": 480
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$480 a $1,950",
+      "min": 480,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ]
+ },
+ "Proyectores y accesorios/Pantallas de suelo y de mesa": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,350",
+      "max": 2350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,350 a $9,150",
+      "min": 2350,
+      "max": 9150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,150",
+      "min": 9150
+     }
+    ]
+   }
+  ]
+ },
+ "Proyectores y accesorios/Pantallas de proyección": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,850",
+      "max": 5850
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,850 a $21,500",
+      "min": 5850,
+      "max": 21500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $21,500",
+      "min": 21500
+     }
+    ]
+   }
+  ]
+ },
+ "Proyectores y accesorios/Pantallas de marco fijo": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $24,500",
+      "max": 24500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$24,500 a $73,000",
+      "min": 24500,
+      "max": 73000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $73,000",
+      "min": 73000
+     }
+    ]
+   }
+  ]
+ },
+ "Laptops/Ultraligeras (13\" y 14\")": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-core-i3",
+      "name": "Intel Core i3",
+      "use": "",
+      "spec": "Intel Core i3",
+      "values": [
+       "Intel Core i3"
+      ]
+     },
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     },
+     {
+      "id": "intel-core-i3-1315u",
+      "name": "Intel Core i3-1315U",
+      "use": "",
+      "spec": "Intel Core i3-1315U",
+      "values": [
+       "Intel Core i3-1315U"
+      ]
+     },
+     {
+      "id": "intel-core-i3-1215u",
+      "name": "Intel Core i3-1215U",
+      "use": "",
+      "spec": "Intel Core i3-1215U",
+      "values": [
+       "Intel Core i3-1215U"
+      ]
+     },
+     {
+      "id": "intel-core-i5-1334u",
+      "name": "Intel Core i5-1334U",
+      "use": "",
+      "spec": "Intel Core i5-1334U",
+      "values": [
+       "Intel Core i5-1334U"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Chromebook": {
+  "axes": [
+   {
+    "label": "Disco",
+    "field": "storage_type",
+    "criterion": "por tipo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "emmc",
+      "name": "emmc",
+      "use": "",
+      "spec": "emmc",
+      "values": [
+       "emmc"
+      ]
+     },
+     {
+      "id": "ssd",
+      "name": "ssd",
+      "use": "",
+      "spec": "ssd",
+      "values": [
+       "ssd"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Laptops básicas y mini": {
   "axes": [
    {
     "label": "Disco",
@@ -632,6 +1314,242 @@
    }
   ]
  },
+ "Laptops/2 en 1 y convertibles": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-n-series",
+      "name": "Intel N-series",
+      "use": "",
+      "spec": "Intel N-series",
+      "values": [
+       "Intel N-series"
+      ]
+     },
+     {
+      "id": "intel-celeron-pentium",
+      "name": "Intel Celeron/Pentium",
+      "use": "",
+      "spec": "Intel Celeron/Pentium",
+      "values": [
+       "Intel Celeron/Pentium"
+      ]
+     },
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     },
+     {
+      "id": "qualcomm-snapdragon-x",
+      "name": "Qualcomm Snapdragon X",
+      "use": "",
+      "spec": "Qualcomm Snapdragon X",
+      "values": [
+       "Qualcomm Snapdragon X"
+      ]
+     },
+     {
+      "id": "intel-core-i7",
+      "name": "Intel Core i7",
+      "use": "",
+      "spec": "Intel Core i7",
+      "values": [
+       "Intel Core i7"
+      ]
+     },
+     {
+      "id": "intel-core-ultra",
+      "name": "Intel Core Ultra",
+      "use": "",
+      "spec": "Intel Core Ultra",
+      "values": [
+       "Intel Core Ultra"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Laptops de 15\" y 16\"": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     },
+     {
+      "id": "intel-core-i3",
+      "name": "Intel Core i3",
+      "use": "",
+      "spec": "Intel Core i3",
+      "values": [
+       "Intel Core i3"
+      ]
+     },
+     {
+      "id": "amd-ryzen-5",
+      "name": "AMD Ryzen 5",
+      "use": "",
+      "spec": "AMD Ryzen 5",
+      "values": [
+       "AMD Ryzen 5"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Laptops de 17\" o más": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-core-ultra",
+      "name": "Intel Core Ultra",
+      "use": "",
+      "spec": "Intel Core Ultra",
+      "values": [
+       "Intel Core Ultra"
+      ]
+     },
+     {
+      "id": "amd-ryzen-5",
+      "name": "AMD Ryzen 5",
+      "use": "",
+      "spec": "AMD Ryzen 5",
+      "values": [
+       "AMD Ryzen 5"
+      ]
+     },
+     {
+      "id": "intel-core-i7",
+      "name": "Intel Core i7",
+      "use": "",
+      "spec": "Intel Core i7",
+      "values": [
+       "Intel Core i7"
+      ]
+     },
+     {
+      "id": "intel-core-i9-9900kf",
+      "name": "Intel Core i9-9900KF",
+      "use": "",
+      "spec": "Intel Core i9-9900KF",
+      "values": [
+       "Intel Core i9-9900KF"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/MacBook": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "apple-m",
+      "name": "Apple M",
+      "use": "",
+      "spec": "Apple M",
+      "values": [
+       "Apple M"
+      ]
+     },
+     {
+      "id": "apple-m-pro-max",
+      "name": "Apple M Pro/Max",
+      "use": "",
+      "spec": "Apple M Pro/Max",
+      "values": [
+       "Apple M Pro/Max"
+      ]
+     },
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     },
+     {
+      "id": "apple-a-series",
+      "name": "Apple A-series",
+      "use": "",
+      "spec": "Apple A-series",
+      "values": [
+       "Apple A-series"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Workstation y empresariales": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     },
+     {
+      "id": "intel-core-i7",
+      "name": "Intel Core i7",
+      "use": "",
+      "spec": "Intel Core i7",
+      "values": [
+       "Intel Core i7"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
  "Monitores/Gaming": {
   "axes": [
    {
@@ -665,6 +1583,108 @@
       "spec": "OLED",
       "values": [
        "OLED"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Monitores/28 a 34 pulgadas": {
+  "axes": [
+   {
+    "label": "Panel",
+    "field": "panel_type",
+    "criterion": "de la pantalla",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ips",
+      "name": "IPS",
+      "use": "Colores parejos desde cualquier ángulo",
+      "spec": "IPS",
+      "values": [
+       "IPS"
+      ]
+     },
+     {
+      "id": "va",
+      "name": "VA",
+      "use": "Negros más profundos",
+      "spec": "VA",
+      "values": [
+       "VA"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Monitores/Hasta 22 pulgadas": {
+  "axes": [
+   {
+    "label": "Panel",
+    "field": "panel_type",
+    "criterion": "de la pantalla",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ips",
+      "name": "IPS",
+      "use": "Colores parejos desde cualquier ángulo",
+      "spec": "IPS",
+      "values": [
+       "IPS"
+      ]
+     },
+     {
+      "id": "tn",
+      "name": "TN",
+      "use": "Respuesta rápida, ángulos cerrados",
+      "spec": "TN",
+      "values": [
+       "TN"
+      ]
+     },
+     {
+      "id": "va",
+      "name": "VA",
+      "use": "Negros más profundos",
+      "spec": "VA",
+      "values": [
+       "VA"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Monitores/Ultrawide y curvos": {
+  "axes": [
+   {
+    "label": "Panel",
+    "field": "panel_type",
+    "criterion": "de la pantalla",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ips",
+      "name": "IPS",
+      "use": "Colores parejos desde cualquier ángulo",
+      "spec": "IPS",
+      "values": [
+       "IPS"
+      ]
+     },
+     {
+      "id": "va",
+      "name": "VA",
+      "use": "Negros más profundos",
+      "spec": "VA",
+      "values": [
+       "VA"
       ]
      }
     ],
@@ -1129,10 +2149,10 @@
    }
   ]
  },
- "Muebles/Sillas": {
+ "Muebles/Taburetes y bancos": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -1142,25 +2162,114 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $2,150",
-      "max": 2150
+      "spec": "Hasta $1,700",
+      "max": 1700
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,150 a $7,450",
-      "min": 2150,
-      "max": 7450
+      "spec": "$1,700 a $6,150",
+      "min": 1700,
+      "max": 6150
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $7,450",
-      "min": 7450
+      "spec": "Más de $6,150",
+      "min": 6150
      }
     ]
+   }
+  ]
+ },
+ "Muebles/Sillas de comedor": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 50 cm",
+      "max": 50
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "51 cm a 59 cm",
+      "min": 50,
+      "max": 59
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 59 cm",
+      "min": 59
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     }
+    ],
+    "key": "size"
    }
   ]
  },
@@ -1237,6 +2346,279 @@
       "spec": "Piel sintética",
       "values": [
        "Piel sintética"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Sillas de oficina": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,350",
+      "max": 2350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,350 a $7,600",
+      "min": 2350,
+      "max": 7600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,600",
+      "min": 7600
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillones y reclinables": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,750",
+      "max": 2750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,750 a $10,500",
+      "min": 2750,
+      "max": 10500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $10,500",
+      "min": 10500
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas gamer": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,450",
+      "max": 2450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,450 a $4,150",
+      "min": 2450,
+      "max": 4150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,150",
+      "min": 4150
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas plegables y de camping": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $850",
+      "max": 850
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$850 a $3,850",
+      "min": 850,
+      "max": 3850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,850",
+      "min": 3850
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas infantiles": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $800",
+      "max": 800
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$800 a $1,650",
+      "min": 800,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas de exterior": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 50 cm",
+      "max": 50
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "51 cm a 60 cm",
+      "min": 50,
+      "max": 60
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 60 cm",
+      "min": 60
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
       ]
      }
     ],
@@ -1350,57 +2732,100 @@
    }
   ]
  },
- "Autos, bicicletas y motos/Bicicletas": {
+ "Muebles/Sillas de espera y visitas": {
   "axes": [
    {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
     "tiers": [
      {
-      "id": "accesorios",
-      "name": "Accesorios",
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $8,450",
+      "max": 8450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$8,450 a $41,000",
+      "min": 8450,
+      "max": 41000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $41,000",
+      "min": 41000
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mecedoras y colgantes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $560",
+      "max": 560
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$560 a $2,050",
+      "min": 560,
+      "max": 2050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,050",
+      "min": 2050
+     }
+    ]
+   }
+  ]
+ },
+ "Autos, bicicletas y motos/Bicicletas BMX": {
+  "axes": [
+   {
+    "label": "Rodada",
+    "field": "wheel_size",
+    "criterion": "por medida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "r16",
+      "name": "R16",
       "use": "",
-      "spec": "Accesorios",
+      "spec": "R16",
       "values": [
-       "Accesorios"
+       "R16"
       ]
      },
      {
-      "id": "infantil",
-      "name": "Infantil",
+      "id": "r20",
+      "name": "R20",
       "use": "",
-      "spec": "Infantil",
+      "spec": "R20",
       "values": [
-       "Infantil"
-      ]
-     },
-     {
-      "id": "montana",
-      "name": "Montaña",
-      "use": "",
-      "spec": "Montaña",
-      "values": [
-       "Montaña"
-      ]
-     },
-     {
-      "id": "ruta-o-urbana",
-      "name": "Ruta o urbana",
-      "use": "",
-      "spec": "Ruta o urbana",
-      "values": [
-       "Ruta o urbana"
-      ]
-     },
-     {
-      "id": "electrica",
-      "name": "Eléctrica",
-      "use": "",
-      "spec": "Eléctrica",
-      "values": [
-       "Eléctrica"
+       "R20"
       ]
      }
     ],
@@ -1417,23 +2842,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,750",
-      "max": 1750
+      "spec": "Hasta $2,650",
+      "max": 2650
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,750 a $8,150",
-      "min": 1750,
-      "max": 8150
+      "spec": "$2,650 a $4,950",
+      "min": 2650,
+      "max": 4950
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $8,150",
-      "min": 8150
+      "spec": "Más de $4,950",
+      "min": 4950
      }
     ]
    }
@@ -1693,23 +3118,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $470",
-      "max": 470
+      "spec": "Hasta $380",
+      "max": 380
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$470 a $1,750",
-      "min": 470,
-      "max": 1750
+      "spec": "$380 a $1,250",
+      "min": 380,
+      "max": 1250
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,750",
-      "min": 1750
+      "spec": "Más de $1,250",
+      "min": 1250
      }
     ]
    }
@@ -1910,6 +3335,324 @@
    }
   ]
  },
+ "Autos, bicicletas y motos/Bicicletas urbanas y de paseo": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,200",
+      "max": 1200
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,200 a $7,500",
+      "min": 1200,
+      "max": 7500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,500",
+      "min": 7500
+     }
+    ]
+   }
+  ]
+ },
+ "Autos, bicicletas y motos/Bicicletas de montaña": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Velocidades",
+    "field": "speeds",
+    "criterion": "de la bicicleta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "sin-cambios",
+      "name": "Sin cambios",
+      "use": "Ciudad plana y niños",
+      "spec": "Hasta 10",
+      "max": 10
+     },
+     {
+      "id": "pocas",
+      "name": "Pocas",
+      "use": "Cerros suaves",
+      "spec": "11 a 21",
+      "min": 10,
+      "max": 21
+     },
+     {
+      "id": "muchas",
+      "name": "Muchas",
+      "use": "Montaña y ruta",
+      "spec": "Más de 21",
+      "min": 21
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Rodada",
+    "field": "wheel_size",
+    "criterion": "por medida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "r24",
+      "name": "R24",
+      "use": "",
+      "spec": "R24",
+      "values": [
+       "R24"
+      ]
+     },
+     {
+      "id": "r26",
+      "name": "R26",
+      "use": "",
+      "spec": "R26",
+      "values": [
+       "R26"
+      ]
+     },
+     {
+      "id": "r27-5",
+      "name": "R27.5",
+      "use": "",
+      "spec": "R27.5",
+      "values": [
+       "R27.5"
+      ]
+     },
+     {
+      "id": "r29",
+      "name": "R29",
+      "use": "",
+      "spec": "R29",
+      "values": [
+       "R29"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Autos, bicicletas y motos/Bicicletas eléctricas": {
+  "axes": [
+   {
+    "label": "Velocidades",
+    "field": "speeds",
+    "criterion": "de la bicicleta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v3",
+      "name": "3",
+      "use": "",
+      "spec": "3",
+      "values": [
+       3
+      ]
+     },
+     {
+      "id": "v5",
+      "name": "5",
+      "use": "",
+      "spec": "5",
+      "values": [
+       5
+      ]
+     },
+     {
+      "id": "v27",
+      "name": "27",
+      "use": "",
+      "spec": "27",
+      "values": [
+       27
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Rodada",
+    "field": "wheel_size",
+    "criterion": "por medida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "r10",
+      "name": "R10",
+      "use": "",
+      "spec": "R10",
+      "values": [
+       "R10"
+      ]
+     },
+     {
+      "id": "r14",
+      "name": "R14",
+      "use": "",
+      "spec": "R14",
+      "values": [
+       "R14"
+      ]
+     },
+     {
+      "id": "r20",
+      "name": "R20",
+      "use": "",
+      "spec": "R20",
+      "values": [
+       "R20"
+      ]
+     },
+     {
+      "id": "r26",
+      "name": "R26",
+      "use": "",
+      "spec": "R26",
+      "values": [
+       "R26"
+      ]
+     },
+     {
+      "id": "r27",
+      "name": "R27",
+      "use": "",
+      "spec": "R27",
+      "values": [
+       "R27"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Autos, bicicletas y motos/Bicicletas plegables": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,050",
+      "max": 5050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,050 a $12,500",
+      "min": 5050,
+      "max": 12500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $12,500",
+      "min": 12500
+     }
+    ]
+   }
+  ]
+ },
+ "Autos, bicicletas y motos/Bicicletas de ruta": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $9,650",
+      "max": 9650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$9,650 a $21,500",
+      "min": 9650,
+      "max": 21500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $21,500",
+      "min": 21500
+     }
+    ]
+   }
+  ]
+ },
  "Autos, bicicletas y motos/Llantas": {
   "axes": [
    {
@@ -2065,6 +3808,183 @@
    }
   ]
  },
+ "Autos, bicicletas y motos/Bicicletas infantiles": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Rodada",
+    "field": "wheel_size",
+    "criterion": "por medida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "r12",
+      "name": "R12",
+      "use": "",
+      "spec": "R12",
+      "values": [
+       "R12"
+      ]
+     },
+     {
+      "id": "r16",
+      "name": "R16",
+      "use": "",
+      "spec": "R16",
+      "values": [
+       "R16"
+      ]
+     },
+     {
+      "id": "r20",
+      "name": "R20",
+      "use": "",
+      "spec": "R20",
+      "values": [
+       "R20"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Autos, bicicletas y motos/Bicicletas sin pedales y balance": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $990",
+      "max": 990
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$990 a $1,550",
+      "min": 990,
+      "max": 1550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,550",
+      "min": 1550
+     }
+    ]
+   }
+  ]
+ },
+ "Autos, bicicletas y motos/Triciclos y bicicletas de carga": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $38,500",
+      "max": 38500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$38,500 a $80,000",
+      "min": 38500,
+      "max": 80000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $80,000",
+      "min": 80000
+     }
+    ]
+   }
+  ]
+ },
+ "Autos, bicicletas y motos/Bicicletas de gravel y ciclocross": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $12,500",
+      "max": 12500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$12,500 a $21,000",
+      "min": 12500,
+      "max": 21000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $21,000",
+      "min": 21000
+     }
+    ]
+   }
+  ]
+ },
  "Autos, bicicletas y motos/Amplificadores para auto": {
   "axes": [
    {
@@ -2201,7 +4121,7 @@
    }
   ]
  },
- "Tabletas/Android": {
+ "Tabletas/Samsung Galaxy Tab": {
   "axes": [
    {
     "label": "Red",
@@ -2225,6 +4145,138 @@
       "spec": "5G",
       "values": [
        "5g"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Otras tabletas Android": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Uso ligero",
+      "spec": "Hasta 6,000 mAh",
+      "max": 6000
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Un día completo",
+      "spec": "6,001 mAh a 8,000 mAh",
+      "min": 6000,
+      "max": 8000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Varios días sin cargar",
+      "spec": "Más de 8,000 mAh",
+      "min": 8000
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas para niños": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Uso ligero",
+      "spec": "Hasta 3,000 mAh",
+      "max": 3000
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Un día completo",
+      "spec": "3,001 mAh a 5,000 mAh",
+      "min": 3000,
+      "max": 5000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Varios días sin cargar",
+      "spec": "Más de 5,000 mAh",
+      "min": 5000
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas Windows y rugged": {
+  "axes": [
+   {
+    "label": "Red",
+    "field": "network_gen",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "4g",
+      "name": "4G",
+      "use": "Suficiente para todo el día",
+      "spec": "4G",
+      "values": [
+       "4g"
+      ]
+     },
+     {
+      "id": "5g",
+      "name": "5G",
+      "use": "La red más rápida",
+      "spec": "5G",
+      "values": [
+       "5g"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Xiaomi, Huawei y Honor": {
+  "axes": [
+   {
+    "label": "Fluidez",
+    "field": "refresh_hz",
+    "criterion": "en hertz",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v120",
+      "name": "120 Hz",
+      "use": "",
+      "spec": "120 Hz",
+      "values": [
+       120
+      ]
+     },
+     {
+      "id": "v144",
+      "name": "144 Hz",
+      "use": "",
+      "spec": "144 Hz",
+      "values": [
+       144
       ]
      }
     ],
@@ -2435,58 +4487,35 @@
    }
   ]
  },
- "Deportes y fitness/Equipo de gimnasio": {
+ "Deportes y fitness/Máquinas de cardio": {
   "axes": [
    {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
     "tiers": [
      {
-      "id": "banco-y-soportes",
-      "name": "Banco y soportes",
-      "use": "",
-      "spec": "Banco y soportes",
-      "values": [
-       "Banco y soportes"
-      ]
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso ocasional",
+      "spec": "Hasta 100 kg",
+      "max": 100
      },
      {
-      "id": "maquinas",
-      "name": "Máquinas",
-      "use": "",
-      "spec": "Máquinas",
-      "values": [
-       "Máquinas"
-      ]
+      "id": "media",
+      "name": "Media",
+      "use": "Uso diario",
+      "spec": "101 kg a 120 kg",
+      "min": 100,
+      "max": 120
      },
      {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "peso-libre",
-      "name": "Peso libre",
-      "use": "",
-      "spec": "Peso libre",
-      "values": [
-       "Peso libre"
-      ]
-     },
-     {
-      "id": "calistenia",
-      "name": "Calistenia",
-      "use": "",
-      "spec": "Calistenia",
-      "values": [
-       "Calistenia"
-      ]
+      "id": "reforzada",
+      "name": "Reforzada",
+      "use": "Uso intensivo o más peso",
+      "spec": "Más de 120 kg",
+      "min": 120
      }
     ],
     "key": "level"
@@ -2502,23 +4531,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,450",
-      "max": 1450
+      "spec": "Hasta $2,950",
+      "max": 2950
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,450 a $6,650",
-      "min": 1450,
-      "max": 6650
+      "spec": "$2,950 a $7,950",
+      "min": 2950,
+      "max": 7950
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $6,650",
-      "min": 6650
+      "spec": "Más de $7,950",
+      "min": 7950
      }
     ]
    }
@@ -2625,6 +4654,332 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,050",
       "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Equipo de gimnasio": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "banco-y-soportes",
+      "name": "Banco y soportes",
+      "use": "",
+      "spec": "Banco y soportes",
+      "values": [
+       "Banco y soportes"
+      ]
+     },
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     },
+     {
+      "id": "peso-libre",
+      "name": "Peso libre",
+      "use": "",
+      "spec": "Peso libre",
+      "values": [
+       "Peso libre"
+      ]
+     },
+     {
+      "id": "maquinas",
+      "name": "Máquinas",
+      "use": "",
+      "spec": "Máquinas",
+      "values": [
+       "Máquinas"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $790",
+      "max": 790
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$790 a $4,550",
+      "min": 790,
+      "max": 4550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,550",
+      "min": 4550
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Máquinas multifuncionales y poleas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,500",
+      "max": 1500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,500 a $7,250",
+      "min": 1500,
+      "max": 7250
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,250",
+      "min": 7250
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Protección y soportes": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
+     },
+     {
+      "id": "basquetbol",
+      "name": "Basquetbol",
+      "use": "",
+      "spec": "Basquetbol",
+      "values": [
+       "Basquetbol"
+      ]
+     },
+     {
+      "id": "tennis",
+      "name": "Tennis",
+      "use": "",
+      "spec": "Tennis",
+      "values": [
+       "Tennis"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $230",
+      "max": 230
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$230 a $360",
+      "min": 230,
+      "max": 360
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $360",
+      "min": 360
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Máquinas de abdominales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,200",
+      "max": 1200
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,200 a $3,600",
+      "min": 1200,
+      "max": 3600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,600",
+      "min": 3600
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Bancos y racks": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,450",
+      "max": 3450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,450 a $15,500",
+      "min": 3450,
+      "max": 15500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $15,500",
+      "min": 15500
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Accesorios de fuerza": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $320",
+      "max": 320
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$320 a $1,150",
+      "min": 320,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Barras de dominadas y calistenia": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $990",
+      "max": 990
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$990 a $3,400",
+      "min": 990,
+      "max": 3400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,400",
+      "min": 3400
      }
     ]
    }
@@ -3003,77 +5358,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $880",
       "min": 880
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Protección y soportes": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     },
-     {
-      "id": "basquetbol",
-      "name": "Basquetbol",
-      "use": "",
-      "spec": "Basquetbol",
-      "values": [
-       "Basquetbol"
-      ]
-     },
-     {
-      "id": "tennis",
-      "name": "Tennis",
-      "use": "",
-      "spec": "Tennis",
-      "values": [
-       "Tennis"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $230",
-      "max": 230
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$230 a $360",
-      "min": 230,
-      "max": 360
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $360",
-      "min": 360
      }
     ]
    }
@@ -3536,6 +5820,111 @@
    }
   ]
  },
+ "Climatización/Calefactores infrarrojos y de cuarzo": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $10,500",
+      "max": 10500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$10,500 a $20,000",
+      "min": 10500,
+      "max": 20000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $20,000",
+      "min": 20000
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores portátiles y de mano": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $350",
+      "max": 350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$350 a $690",
+      "min": 350,
+      "max": 690
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $690",
+      "min": 690
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de pedestal": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,450",
+      "max": 1450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,450 a $15,500",
+      "min": 1450,
+      "max": 15500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $15,500",
+      "min": 15500
+     }
+    ]
+   }
+  ]
+ },
  "Climatización/Aires acondicionados": {
   "axes": [
    {
@@ -3571,6 +5960,181 @@
    }
   ]
  },
+ "Climatización/Calefactores para pies y personales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $680",
+      "max": 680
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$680 a $18,000",
+      "min": 680,
+      "max": 18000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $18,000",
+      "min": 18000
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de mesa y clip": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $1,050",
+      "min": 440,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Extractores y ventilación": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $9,450",
+      "max": 9450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$9,450 a $54,500",
+      "min": 9450,
+      "max": 54500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $54,500",
+      "min": 54500
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Calefactores cerámicos y de aire": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,150",
+      "max": 1150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,150 a $3,850",
+      "min": 1150,
+      "max": 3850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,850",
+      "min": 3850
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de piso e industriales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,550",
+      "max": 1550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,550 a $6,300",
+      "min": 1550,
+      "max": 6300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,300",
+      "min": 6300
+     }
+    ]
+   }
+  ]
+ },
  "Climatización/Purificadores de aire": {
   "axes": [
    {
@@ -3601,6 +6165,181 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $3,250",
       "min": 3250
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de pared": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,850",
+      "max": 1850
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,850 a $5,750",
+      "min": 1850,
+      "max": 5750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,750",
+      "min": 5750
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de techo": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,950",
+      "max": 1950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,950 a $4,100",
+      "min": 1950,
+      "max": 4100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,100",
+      "min": 4100
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Aspas y refacciones de ventilador": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $750",
+      "max": 750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$750 a $1,650",
+      "min": 750,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de torre": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,150",
+      "max": 1150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,150 a $2,350",
+      "min": 1150,
+      "max": 2350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,350",
+      "min": 2350
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores nebulizadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $11,500",
+      "max": 11500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$11,500 a $18,000",
+      "min": 11500,
+      "max": 18000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $18,000",
+      "min": 18000
      }
     ]
    }
@@ -3804,6 +6543,181 @@
    }
   ]
  },
+ "Climatización/Calefactores de pared y baño": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $4,250",
+      "max": 4250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$4,250 a $7,400",
+      "min": 4250,
+      "max": 7400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,400",
+      "min": 7400
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Calefactores de aceite": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $18,000",
+      "max": 18000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$18,000 a $51,000",
+      "min": 18000,
+      "max": 51000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $51,000",
+      "min": 51000
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Calefactores de gas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $8,350",
+      "max": 8350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$8,350 a $140,000",
+      "min": 8350,
+      "max": 140000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $140,000",
+      "min": 140000
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Chimeneas eléctricas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $8,850",
+      "max": 8850
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$8,850 a $84,500",
+      "min": 8850,
+      "max": 84500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $84,500",
+      "min": 84500
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Refacciones de calefactor": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $500",
+      "max": 500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$500 a $2,350",
+      "min": 500,
+      "max": 2350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,350",
+      "min": 2350
+     }
+    ]
+   }
+  ]
+ },
  "Domótica y hogar inteligente/Bocinas inteligentes": {
   "axes": [
    {
@@ -3985,55 +6899,10 @@
    }
   ]
  },
- "Domótica y hogar inteligente/Cerraduras inteligentes": {
+ "Domótica y hogar inteligente/Cerraduras con huella digital": {
   "axes": [
    {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "huella-dactilar",
-      "name": "Huella dactilar",
-      "use": "",
-      "spec": "Huella dactilar",
-      "values": [
-       "Huella dactilar"
-      ]
-     },
-     {
-      "id": "con-teclado",
-      "name": "Con teclado",
-      "use": "",
-      "spec": "Con teclado",
-      "values": [
-       "Con teclado"
-      ]
-     },
-     {
-      "id": "por-aplicacion",
-      "name": "Por aplicación",
-      "use": "",
-      "spec": "Por aplicación",
-      "values": [
-       "Por aplicación"
-      ]
-     },
-     {
-      "id": "con-tarjeta",
-      "name": "Con tarjeta",
-      "use": "",
-      "spec": "Con tarjeta",
-      "values": [
-       "Con tarjeta"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4043,23 +6912,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,750",
-      "max": 1750
+      "spec": "Hasta $2,300",
+      "max": 2300
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,750 a $6,950",
-      "min": 1750,
-      "max": 6950
+      "spec": "$2,300 a $13,500",
+      "min": 2300,
+      "max": 13500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $6,950",
-      "min": 6950
+      "spec": "Más de $13,500",
+      "min": 13500
      }
     ]
    }
@@ -4095,6 +6964,181 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,450",
       "min": 1450
+     }
+    ]
+   }
+  ]
+ },
+ "Domótica y hogar inteligente/Cerraduras para gabinete y casillero": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $270",
+      "max": 270
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$270 a $490",
+      "min": 270,
+      "max": 490
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $490",
+      "min": 490
+     }
+    ]
+   }
+  ]
+ },
+ "Domótica y hogar inteligente/Accesorios y refacciones de cerradura": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $400",
+      "max": 400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$400 a $3,150",
+      "min": 400,
+      "max": 3150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,150",
+      "min": 3150
+     }
+    ]
+   }
+  ]
+ },
+ "Domótica y hogar inteligente/Cerraduras con teclado y código": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,500",
+      "max": 1500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,500 a $4,850",
+      "min": 1500,
+      "max": 4850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,850",
+      "min": 4850
+     }
+    ]
+   }
+  ]
+ },
+ "Domótica y hogar inteligente/Cerraduras de puerta inteligentes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,350",
+      "max": 2350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,350 a $8,000",
+      "min": 2350,
+      "max": 8000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $8,000",
+      "min": 8000
+     }
+    ]
+   }
+  ]
+ },
+ "Domótica y hogar inteligente/Cerraduras Wi-Fi y con app": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,550",
+      "max": 2550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,550 a $5,700",
+      "min": 2550,
+      "max": 5700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,700",
+      "min": 5700
      }
     ]
    }
@@ -4205,6 +7249,76 @@
    }
   ]
  },
+ "Domótica y hogar inteligente/Cerraduras para puerta de vidrio y corrediza": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,050",
+      "max": 2050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,050 a $4,100",
+      "min": 2050,
+      "max": 4100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,100",
+      "min": 4100
+     }
+    ]
+   }
+  ]
+ },
+ "Domótica y hogar inteligente/Cerraduras inteligentes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $5,200",
+      "min": 1050,
+      "max": 5200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,200",
+      "min": 5200
+     }
+    ]
+   }
+  ]
+ },
  "Domótica y hogar inteligente/Termostatos": {
   "axes": [
    {
@@ -4235,6 +7349,41 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,650",
       "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Domótica y hogar inteligente/Candados inteligentes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $640",
+      "min": 430,
+      "max": 640
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $640",
+      "min": 640
      }
     ]
    }
@@ -4373,46 +7522,10 @@
    }
   ]
  },
- "Instrumentos musicales/Guitarras": {
+ "Instrumentos musicales/Guitarras eléctricas": {
   "axes": [
    {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "cuerdas-y-accesorios",
-      "name": "Cuerdas y accesorios",
-      "use": "",
-      "spec": "Cuerdas y accesorios",
-      "values": [
-       "Cuerdas y accesorios"
-      ]
-     },
-     {
-      "id": "electrica",
-      "name": "Eléctrica",
-      "use": "",
-      "spec": "Eléctrica",
-      "values": [
-       "Eléctrica"
-      ]
-     },
-     {
-      "id": "acustica",
-      "name": "Acústica",
-      "use": "",
-      "spec": "Acústica",
-      "values": [
-       "Acústica"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4422,23 +7535,268 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $930",
-      "max": 930
+      "spec": "Hasta $6,350",
+      "max": 6350
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$930 a $5,350",
-      "min": 930,
-      "max": 5350
+      "spec": "$6,350 a $20,500",
+      "min": 6350,
+      "max": 20500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $5,350",
-      "min": 5350
+      "spec": "Más de $20,500",
+      "min": 20500
+     }
+    ]
+   }
+  ]
+ },
+ "Instrumentos musicales/Amplificadores de guitarra y bajo": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,400",
+      "max": 1400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,400 a $5,600",
+      "min": 1400,
+      "max": 5600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,600",
+      "min": 5600
+     }
+    ]
+   }
+  ]
+ },
+ "Instrumentos musicales/Pedales y efectos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $950",
+      "max": 950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$950 a $2,300",
+      "min": 950,
+      "max": 2300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,300",
+      "min": 2300
+     }
+    ]
+   }
+  ]
+ },
+ "Instrumentos musicales/Accesorios de guitarra": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $770",
+      "max": 770
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$770 a $22,000",
+      "min": 770,
+      "max": 22000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $22,000",
+      "min": 22000
+     }
+    ]
+   }
+  ]
+ },
+ "Instrumentos musicales/Cuerdas de guitarra y bajo": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $1,100",
+      "min": 390,
+      "max": 1100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,100",
+      "min": 1100
+     }
+    ]
+   }
+  ]
+ },
+ "Instrumentos musicales/Guitarras clásicas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,350",
+      "max": 2350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,350 a $14,000",
+      "min": 2350,
+      "max": 14000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $14,000",
+      "min": 14000
+     }
+    ]
+   }
+  ]
+ },
+ "Instrumentos musicales/Ukuleles": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,900",
+      "max": 1900
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,900 a $3,750",
+      "min": 1900,
+      "max": 3750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,750",
+      "min": 3750
+     }
+    ]
+   }
+  ]
+ },
+ "Instrumentos musicales/Guitarras acústicas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $950",
+      "max": 950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$950 a $4,950",
+      "min": 950,
+      "max": 4950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,950",
+      "min": 4950
      }
     ]
    }
@@ -4648,55 +8006,10 @@
    }
   ]
  },
- "Instrumentos musicales/Cuerdas": {
+ "Instrumentos musicales/Violines, mandolinas y otras cuerdas": {
   "axes": [
    {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "violin-y-similares",
-      "name": "Violín y similares",
-      "use": "",
-      "spec": "Violín y similares",
-      "values": [
-       "Violín y similares"
-      ]
-     },
-     {
-      "id": "otros",
-      "name": "Otros",
-      "use": "",
-      "spec": "Otros",
-      "values": [
-       "Otros"
-      ]
-     },
-     {
-      "id": "guitarra-acustica",
-      "name": "Guitarra acústica",
-      "use": "",
-      "spec": "Guitarra acústica",
-      "values": [
-       "Guitarra acústica"
-      ]
-     },
-     {
-      "id": "bajo",
-      "name": "Bajo",
-      "use": "",
-      "spec": "Bajo",
-      "values": [
-       "Bajo"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4706,23 +8019,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $3,650",
-      "max": 3650
+      "spec": "Hasta $1,900",
+      "max": 1900
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$3,650 a $30,000",
-      "min": 3650,
-      "max": 30000
+      "spec": "$1,900 a $14,500",
+      "min": 1900,
+      "max": 14500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $30,000",
-      "min": 30000
+      "spec": "Más de $14,500",
+      "min": 14500
      }
     ]
    }
@@ -4785,6 +8098,41 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $6,200",
       "min": 6200
+     }
+    ]
+   }
+  ]
+ },
+ "Instrumentos musicales/Bajos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,900",
+      "max": 3900
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,900 a $9,600",
+      "min": 3900,
+      "max": 9600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,600",
+      "min": 9600
      }
     ]
    }
@@ -4860,8 +8208,39 @@
    }
   ]
  },
- "Instrumentos musicales/Efectos y pedales": {
+ "Instrumentos musicales/Amplificadores": {
   "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "para-practicar",
+      "name": "Para practicar",
+      "use": "En casa, sin molestar",
+      "spec": "Hasta 250 W",
+      "max": 250
+     },
+     {
+      "id": "para-ensayar",
+      "name": "Para ensayar",
+      "use": "Sala de ensayo",
+      "spec": "251 W a 800 W",
+      "min": 250,
+      "max": 800
+     },
+     {
+      "id": "para-tocar-en-vivo",
+      "name": "Para tocar en vivo",
+      "use": "Escenario y bocinas grandes",
+      "spec": "Más de 800 W",
+      "min": 800
+     }
+    ],
+    "key": "level"
+   },
    {
     "label": "Material",
     "field": "material",
@@ -4896,10 +8275,14 @@
       ]
      }
     ],
-    "key": "level"
-   },
+    "key": "size"
+   }
+  ]
+ },
+ "Instrumentos musicales/Fundas, soportes y atriles": {
+  "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4909,114 +8292,60 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,750",
-      "max": 1750
+      "spec": "Hasta $420",
+      "max": 420
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,750 a $3,450",
-      "min": 1750,
-      "max": 3450
+      "spec": "$420 a $1,300",
+      "min": 420,
+      "max": 1300
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,450",
-      "min": 3450
+      "spec": "Más de $1,300",
+      "min": 1300
      }
     ]
    }
   ]
  },
- "Instrumentos musicales/Amplificadores": {
+ "Instrumentos musicales/Guitarras electroacústicas": {
   "axes": [
    {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
     "ramp": true,
     "tiers": [
      {
-      "id": "para-practicar",
-      "name": "Para practicar",
-      "use": "En casa, sin molestar",
-      "spec": "Hasta 150 W",
-      "max": 150
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,150",
+      "max": 5150
      },
      {
-      "id": "para-ensayar",
-      "name": "Para ensayar",
-      "use": "Sala de ensayo",
-      "spec": "151 W a 800 W",
-      "min": 150,
-      "max": 800
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,150 a $14,500",
+      "min": 5150,
+      "max": 14500
      },
      {
-      "id": "para-tocar-en-vivo",
-      "name": "Para tocar en vivo",
-      "use": "Escenario y bocinas grandes",
-      "spec": "Más de 800 W",
-      "min": 800
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $14,500",
+      "min": 14500
      }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     }
-    ],
-    "key": "size"
+    ]
    }
   ]
  },
@@ -6473,88 +9802,40 @@
    }
   ]
  },
- "Herramientas/Herramientas eléctricas": {
+ "Herramientas/Baterías y cargadores de herramienta": {
   "axes": [
    {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
     "ramp": true,
     "tiers": [
      {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Taladros y lijadoras chicas, uso en casa",
-      "spec": "Hasta 600 W",
-      "max": 600
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $12,000",
+      "max": 12000
      },
      {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "601 W a 1,200 W",
-      "min": 600,
-      "max": 1200
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$12,000 a $30,500",
+      "min": 12000,
+      "max": 30500
      },
      {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Rotomartillos, sierras y esmeriles grandes",
-      "spec": "Más de 1,200 W",
-      "min": 1200
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $30,500",
+      "min": 30500
      }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "size"
+    ]
    }
-  ],
-  "intro": "Elige por el trabajo que le vas a dar y si la quieres con o sin cable."
+  ]
  },
  "Herramientas/Jardinería": {
   "axes": [
@@ -6884,6 +10165,637 @@
    }
   ]
  },
+ "Herramientas/Esmeriladoras y pulidoras": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 800 W",
+      "max": 800
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "801 W a 1,200 W",
+      "min": 800,
+      "max": 1200
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 1,200 W",
+      "min": 1200
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Taladros y rotomartillos": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 600 W",
+      "max": 600
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "601 W a 800 W",
+      "min": 600,
+      "max": 800
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 800 W",
+      "min": 800
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Herramientas eléctricas": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Taladros y lijadoras chicas, uso en casa",
+      "spec": "Hasta 540 W",
+      "max": 540
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "541 W a 900 W",
+      "min": 540,
+      "max": 900
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Rotomartillos, sierras y esmeriles grandes",
+      "spec": "Más de 900 W",
+      "min": 900
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "herramientas-electricas",
+      "name": "Herramientas Eléctricas",
+      "use": "",
+      "spec": "Herramientas Eléctricas",
+      "values": [
+       "Herramientas Eléctricas"
+      ]
+     },
+     {
+      "id": "soldadoras",
+      "name": "Soldadoras",
+      "use": "",
+      "spec": "Soldadoras",
+      "values": [
+       "Soldadoras"
+      ]
+     },
+     {
+      "id": "bombas",
+      "name": "Bombas",
+      "use": "",
+      "spec": "Bombas",
+      "values": [
+       "Bombas"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "intro": "Elige por el trabajo que le vas a dar y si la quieres con o sin cable."
+ },
+ "Herramientas/Medición": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $1,000",
+      "min": 430,
+      "max": 1000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,000",
+      "min": 1000
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Atornilladores": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 520 W",
+      "max": 520
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "521 W a 600 W",
+      "min": 520,
+      "max": 600
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 600 W",
+      "min": 600
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "herramientas-electricas",
+      "name": "Herramientas Eléctricas",
+      "use": "",
+      "spec": "Herramientas Eléctricas",
+      "values": [
+       "Herramientas Eléctricas"
+      ]
+     },
+     {
+      "id": "kits-de-herramientas",
+      "name": "Kits de Herramientas",
+      "use": "",
+      "spec": "Kits de Herramientas",
+      "values": [
+       "Kits de Herramientas"
+      ]
+     },
+     {
+      "id": "llaves",
+      "name": "Llaves",
+      "use": "",
+      "spec": "Llaves",
+      "values": [
+       "Llaves"
+      ]
+     },
+     {
+      "id": "taladros-y-atornilladores",
+      "name": "Taladros y Atornilladores",
+      "use": "",
+      "spec": "Taladros y Atornilladores",
+      "values": [
+       "Taladros y Atornilladores"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Herramientas/Lijadoras": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 240 W",
+      "max": 240
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "241 W a 620 W",
+      "min": 240,
+      "max": 620
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 620 W",
+      "min": 620
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "lijadoras",
+      "name": "Lijadoras",
+      "use": "",
+      "spec": "Lijadoras",
+      "values": [
+       "Lijadoras"
+      ]
+     },
+     {
+      "id": "herramientas-electricas",
+      "name": "Herramientas Eléctricas",
+      "use": "",
+      "spec": "Herramientas Eléctricas",
+      "values": [
+       "Herramientas Eléctricas"
+      ]
+     },
+     {
+      "id": "cepillos-electricos",
+      "name": "Cepillos Eléctricos",
+      "use": "",
+      "spec": "Cepillos Eléctricos",
+      "values": [
+       "Cepillos Eléctricos"
+      ]
+     },
+     {
+      "id": "pulidoras-y-lijadoras",
+      "name": "Pulidoras y Lijadoras",
+      "use": "",
+      "spec": "Pulidoras y Lijadoras",
+      "values": [
+       "Pulidoras y Lijadoras"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Herramientas/Sierras": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 710 W",
+      "max": 710
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "711 W a 1,400 W",
+      "min": 710,
+      "max": 1400
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 1,400 W",
+      "min": 1400
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
  "Herramientas/Escaleras": {
   "axes": [
    {
@@ -6916,6 +10828,193 @@
       "min": 3000
      }
     ]
+   }
+  ]
+ },
+ "Herramientas/Compresores y herramienta neumática": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 560 W",
+      "max": 560
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "561 W a 1,500 W",
+      "min": 560,
+      "max": 1500
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 1,500 W",
+      "min": 1500
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Pistolas de calor, engrapadoras y clavadoras": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 1,300 W",
+      "max": 1300
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "1,301 W a 1,800 W",
+      "min": 1300,
+      "max": 1800
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 1,800 W",
+      "min": 1800
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "pistolas-de-calor-y-neumaticas",
+      "name": "Pistolas de Calor y Neumáticas",
+      "use": "",
+      "spec": "Pistolas de Calor y Neumáticas",
+      "values": [
+       "Pistolas de Calor y Neumáticas"
+      ]
+     },
+     {
+      "id": "herramientas-electricas",
+      "name": "Herramientas Eléctricas",
+      "use": "",
+      "spec": "Herramientas Eléctricas",
+      "values": [
+       "Herramientas Eléctricas"
+      ]
+     },
+     {
+      "id": "herramientas-manuales",
+      "name": "Herramientas Manuales",
+      "use": "",
+      "spec": "Herramientas Manuales",
+      "values": [
+       "Herramientas Manuales"
+      ]
+     },
+     {
+      "id": "clavadoras",
+      "name": "Clavadoras",
+      "use": "",
+      "spec": "Clavadoras",
+      "values": [
+       "Clavadoras"
+      ]
+     }
+    ],
+    "key": "extra"
    }
   ]
  },
@@ -6997,38 +11096,212 @@
    }
   ]
  },
- "Herramientas/Medición": {
+ "Herramientas/Routers, fresadoras y multiherramientas": {
   "axes": [
    {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
     "ramp": true,
     "tiers": [
      {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 530 W",
+      "max": 530
      },
      {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$430 a $990",
-      "min": 430,
-      "max": 990
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "531 W a 1,100 W",
+      "min": 530,
+      "max": 1100
      },
      {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $990",
-      "min": 990
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 1,100 W",
+      "min": 1100
      }
-    ]
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Herramientas de banco": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 370 W",
+      "max": 370
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "371 W a 570 W",
+      "min": 370,
+      "max": 570
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 570 W",
+      "min": 570
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Hidrolavadoras": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 1,300 W",
+      "max": 1300
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "1,301 W a 1,550 W",
+      "min": 1300,
+      "max": 1550
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 1,550 W",
+      "min": 1550
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
    }
   ]
  },
@@ -7062,6 +11335,72 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,100",
       "min": 1100
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Generadores": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 850 W",
+      "max": 850
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "851 W a 2,500 W",
+      "min": 850,
+      "max": 2500
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 2,500 W",
+      "min": 2500
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $7,200",
+      "max": 7200
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$7,200 a $14,500",
+      "min": 7200,
+      "max": 14500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $14,500",
+      "min": 14500
      }
     ]
    }
@@ -7291,6 +11630,41 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,850",
       "min": 1850
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Flejadoras y empacadoras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $29,000",
+      "max": 29000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$29,000 a $50,000",
+      "min": 29000,
+      "max": 50000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $50,000",
+      "min": 50000
      }
     ]
    }
@@ -7635,69 +12009,33 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $480",
-      "max": 480
+      "spec": "Hasta $500",
+      "max": 500
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$480 a $1,200",
-      "min": 480,
-      "max": 1200
+      "spec": "$500 a $1,350",
+      "min": 500,
+      "max": 1350
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,200",
-      "min": 1200
+      "spec": "Más de $1,350",
+      "min": 1350
      }
     ]
    }
   ],
   "intro": "Elige por el tamaño y la edad de tu mascota."
  },
- "Mascotas/Jaulas y corrales": {
+ "Mascotas/Jaulas y hábitats para roedores": {
   "axes": [
    {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "para-gato",
-      "name": "Para gato",
-      "use": "",
-      "spec": "Para gato",
-      "values": [
-       "Para gato"
-      ]
-     },
-     {
-      "id": "para-perro",
-      "name": "Para perro",
-      "use": "",
-      "spec": "Para perro",
-      "values": [
-       "Para perro"
-      ]
-     },
-     {
-      "id": "para-roedores",
-      "name": "Para roedores",
-      "use": "",
-      "spec": "Para roedores",
-      "values": [
-       "Para roedores"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -7707,23 +12045,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $7,000",
-      "max": 7000
+      "spec": "Hasta $140",
+      "max": 140
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$7,000 a $33,000",
-      "min": 7000,
-      "max": 33000
+      "spec": "$140 a $420",
+      "min": 140,
+      "max": 420
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $33,000",
-      "min": 33000
+      "spec": "Más de $420",
+      "min": 420
      }
     ]
    }
@@ -7868,7 +12206,34 @@
  "Mascotas/Comederos": {
   "axes": [
    {
-    "key": "level",
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "para-perro",
+      "name": "Para perro",
+      "use": "",
+      "spec": "Para perro",
+      "values": [
+       "Para perro"
+      ]
+     },
+     {
+      "id": "para-gato",
+      "name": "Para gato",
+      "use": "",
+      "spec": "Para gato",
+      "values": [
+       "Para gato"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -7993,16 +12358,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$530 a $940",
+      "spec": "$530 a $980",
       "min": 530,
-      "max": 940
+      "max": 980
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $940",
-      "min": 940
+      "spec": "Más de $980",
+      "min": 980
      }
     ]
    }
@@ -8252,6 +12617,42 @@
   ],
   "intro": "Elige por el tamaño y la edad de tu mascota."
  },
+ "Mascotas/Jaulas para perro": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,700",
+      "max": 5700
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,700 a $20,500",
+      "min": 5700,
+      "max": 20500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $20,500",
+      "min": 20500
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por el tamaño y la edad de tu mascota."
+ },
  "Mascotas/Ropa y accesorios": {
   "axes": [
    {
@@ -8354,6 +12755,114 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $10,000",
       "min": 10000
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por el tamaño y la edad de tu mascota."
+ },
+ "Mascotas/Corrales y rejas para mascotas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $7,650",
+      "max": 7650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$7,650 a $58,000",
+      "min": 7650,
+      "max": 58000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $58,000",
+      "min": 58000
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por el tamaño y la edad de tu mascota."
+ },
+ "Mascotas/Jaulas y recintos para gato": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $33,000",
+      "max": 33000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$33,000 a $61,500",
+      "min": 33000,
+      "max": 61500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $61,500",
+      "min": 61500
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por el tamaño y la edad de tu mascota."
+ },
+ "Mascotas/Gallineros y conejeras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,950",
+      "max": 5950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,950 a $15,500",
+      "min": 5950,
+      "max": 15500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $15,500",
+      "min": 15500
      }
     ]
    }
@@ -9991,23 +14500,23 @@
       "id": "chico",
       "name": "Chico",
       "use": "Para probar o para viajar",
-      "spec": "Hasta 14 ml",
-      "max": 14
+      "spec": "Hasta 25 ml",
+      "max": 25
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "Uso de diario",
-      "spec": "15 ml a 30 ml",
-      "min": 14,
-      "max": 30
+      "spec": "26 ml a 40 ml",
+      "min": 25,
+      "max": 40
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Rinde meses",
-      "spec": "Más de 30 ml",
-      "min": 30
+      "spec": "Más de 40 ml",
+      "min": 40
      }
     ],
     "key": "level"
@@ -10023,23 +14532,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $400",
-      "max": 400
+      "spec": "Hasta $440",
+      "max": 440
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$400 a $740",
-      "min": 400,
-      "max": 740
+      "spec": "$440 a $800",
+      "min": 440,
+      "max": 800
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $740",
-      "min": 740
+      "spec": "Más de $800",
+      "min": 800
      }
     ]
    }
@@ -10415,6 +14924,41 @@
    }
   ]
  },
+ "Belleza y cuidado personal/Brochas y esponjas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $630",
+      "min": 290,
+      "max": 630
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $630",
+      "min": 630
+     }
+    ]
+   }
+  ]
+ },
  "Belleza y cuidado personal/Uñas": {
   "axes": [
    {
@@ -10450,6 +14994,41 @@
    }
   ]
  },
+ "Belleza y cuidado personal/Bases y correctores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $400",
+      "max": 400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$400 a $810",
+      "min": 400,
+      "max": 810
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $810",
+      "min": 810
+     }
+    ]
+   }
+  ]
+ },
  "Belleza y cuidado personal/Rizadores": {
   "axes": [
    {
@@ -10480,6 +15059,286 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $640",
       "min": 640
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Máscaras de pestañas y cejas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $410",
+      "max": 410
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$410 a $610",
+      "min": 410,
+      "max": 610
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $610",
+      "min": 610
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Organizadores de maquillaje": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $480",
+      "max": 480
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$480 a $1,350",
+      "min": 480,
+      "max": 1350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,350",
+      "min": 1350
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Labiales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $360",
+      "max": 360
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$360 a $650",
+      "min": 360,
+      "max": 650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $650",
+      "min": 650
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Polvos, rubores y bronceadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $400",
+      "max": 400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$400 a $800",
+      "min": 400,
+      "max": 800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $800",
+      "min": 800
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Paletas y sets de maquillaje": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $620",
+      "min": 390,
+      "max": 620
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $620",
+      "min": 620
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Primers y fijadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $360",
+      "max": 360
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$360 a $780",
+      "min": 360,
+      "max": 780
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $780",
+      "min": 780
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Sombras y delineadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $400",
+      "max": 400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$400 a $760",
+      "min": 400,
+      "max": 760
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $760",
+      "min": 760
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Pestañas postizas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $530",
+      "min": 430,
+      "max": 530
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $530",
+      "min": 530
      }
     ]
    }
@@ -10635,7 +15494,7 @@
    }
   ]
  },
- "Refacciones/Para autos": {
+ "Refacciones/Sistema eléctrico y sensores": {
   "axes": [
    {
     "key": "level",
@@ -10648,23 +15507,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $790",
-      "max": 790
+      "spec": "Hasta $700",
+      "max": 700
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$790 a $1,500",
-      "min": 790,
-      "max": 1500
+      "spec": "$700 a $1,300",
+      "min": 700,
+      "max": 1300
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,500",
-      "min": 1500
+      "spec": "Más de $1,300",
+      "min": 1300
      }
     ]
    }
@@ -10705,6 +15564,41 @@
    }
   ]
  },
+ "Refacciones/Motor y transmisión": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $620",
+      "max": 620
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$620 a $1,150",
+      "min": 620,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
+ },
  "Refacciones/Motores": {
   "axes": [
    {
@@ -10735,6 +15629,146 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $14,500",
       "min": 14500
+     }
+    ]
+   }
+  ]
+ },
+ "Refacciones/Para autos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $790",
+      "max": 790
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$790 a $1,200",
+      "min": 790,
+      "max": 1200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,200",
+      "min": 1200
+     }
+    ]
+   }
+  ]
+ },
+ "Refacciones/Enfriamiento y climatización": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $580",
+      "max": 580
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$580 a $1,600",
+      "min": 580,
+      "max": 1600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,600",
+      "min": 1600
+     }
+    ]
+   }
+  ]
+ },
+ "Refacciones/Suspensión y dirección": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,000",
+      "max": 1000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,000 a $3,800",
+      "min": 1000,
+      "max": 3800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,800",
+      "min": 3800
+     }
+    ]
+   }
+  ]
+ },
+ "Refacciones/Frenos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,100",
+      "max": 1100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,100 a $1,900",
+      "min": 1100,
+      "max": 1900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,900",
+      "min": 1900
      }
     ]
    }
@@ -10805,6 +15839,146 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $500",
       "min": 500
+     }
+    ]
+   }
+  ]
+ },
+ "Refacciones/Faros y luces": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $1,900",
+      "min": 1050,
+      "max": 1900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,900",
+      "min": 1900
+     }
+    ]
+   }
+  ]
+ },
+ "Refacciones/Bujías y encendido": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $2,000",
+      "min": 1050,
+      "max": 2000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,000",
+      "min": 2000
+     }
+    ]
+   }
+  ]
+ },
+ "Refacciones/Escape": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,000",
+      "max": 1000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,000 a $1,400",
+      "min": 1000,
+      "max": 1400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,400",
+      "min": 1400
+     }
+    ]
+   }
+  ]
+ },
+ "Refacciones/Filtros y aceites": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $530",
+      "max": 530
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$530 a $910",
+      "min": 530,
+      "max": 910
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $910",
+      "min": 910
      }
     ]
    }
@@ -11012,7 +16186,7 @@
    }
   ]
  },
- "Electrodomésticos/Purificadores de agua": {
+ "Electrodomésticos/Jarras y botellas con filtro": {
   "axes": [
    {
     "key": "level",
@@ -11025,23 +16199,93 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,200",
-      "max": 1200
+      "spec": "Hasta $930",
+      "max": 930
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,200 a $5,400",
-      "min": 1200,
-      "max": 5400
+      "spec": "$930 a $1,450",
+      "min": 930,
+      "max": 1450
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $5,400",
-      "min": 5400
+      "spec": "Más de $1,450",
+      "min": 1450
+     }
+    ]
+   }
+  ]
+ },
+ "Electrodomésticos/Filtros y membranas de repuesto": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $580",
+      "max": 580
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$580 a $1,450",
+      "min": 580,
+      "max": 1450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,450",
+      "min": 1450
+     }
+    ]
+   }
+  ]
+ },
+ "Electrodomésticos/Purificadores de grifo y encimera": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $750",
+      "max": 750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$750 a $3,300",
+      "min": 750,
+      "max": 3300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,300",
+      "min": 3300
      }
     ]
    }
@@ -11117,6 +16361,76 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $5,200",
       "min": 5200
+     }
+    ]
+   }
+  ]
+ },
+ "Electrodomésticos/Purificadores bajo tarja": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,900",
+      "max": 1900
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,900 a $6,500",
+      "min": 1900,
+      "max": 6500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,500",
+      "min": 6500
+     }
+    ]
+   }
+  ]
+ },
+ "Electrodomésticos/Accesorios de purificador": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $250",
+      "max": 250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$250 a $550",
+      "min": 250,
+      "max": 550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $550",
+      "min": 550
      }
     ]
    }
@@ -11317,6 +16631,41 @@
    }
   ]
  },
+ "Electrodomésticos/Ósmosis inversa": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,050",
+      "max": 3050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,050 a $8,550",
+      "min": 3050,
+      "max": 8550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $8,550",
+      "min": 8550
+     }
+    ]
+   }
+  ]
+ },
  "Electrodomésticos/Extractores de jugo": {
   "axes": [
    {
@@ -11418,6 +16767,41 @@
    }
   ]
  },
+ "Electrodomésticos/Dispensadores de agua": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $12,000",
+      "max": 12000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$12,000 a $18,500",
+      "min": 12000,
+      "max": 18500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $18,500",
+      "min": 18500
+     }
+    ]
+   }
+  ]
+ },
  "Electrodomésticos/Vaporizadores de ropa": {
   "axes": [
    {
@@ -11448,6 +16832,76 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,250",
       "min": 1250
+     }
+    ]
+   }
+  ]
+ },
+ "Electrodomésticos/Destiladores e ionizadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $7,700",
+      "max": 7700
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$7,700 a $12,500",
+      "min": 7700,
+      "max": 12500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $12,500",
+      "min": 12500
+     }
+    ]
+   }
+  ]
+ },
+ "Electrodomésticos/Ablandadores y filtros de casa completa": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,250",
+      "max": 2250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,250 a $7,900",
+      "min": 2250,
+      "max": 7900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,900",
+      "min": 7900
      }
     ]
    }
@@ -14087,7 +19541,7 @@
   ],
   "intro": "Elige por la edad de quien lo va a usar."
  },
- "Videojuegos/Consolas": {
+ "Videojuegos/Cables y adaptadores": {
   "axes": [
    {
     "label": "Almacenamiento",
@@ -14098,24 +19552,187 @@
      {
       "id": "basico",
       "name": "Básico",
-      "use": "Pocos juegos instalados",
-      "spec": "Hasta 500 GB",
-      "max": 500
+      "use": "Pocos juegos a la vez",
+      "spec": "Hasta 120 GB",
+      "max": 120
      },
      {
       "id": "intermedio",
       "name": "Intermedio",
-      "use": "Varios juegos a la vez",
-      "spec": "501 GB a 1,000 GB",
-      "min": 500,
-      "max": 1000
+      "use": "Varios juegos instalados",
+      "spec": "121 GB a 510 GB",
+      "min": 120,
+      "max": 510
      },
      {
       "id": "alto",
       "name": "Alto",
       "use": "Toda la biblioteca",
-      "spec": "Más de 1,000 GB",
-      "min": 1000
+      "spec": "Más de 510 GB",
+      "min": 510
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Consolas Nintendo": {
+  "axes": [
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v32",
+      "name": "32 GB",
+      "use": "",
+      "spec": "32 GB",
+      "values": [
+       32
+      ]
+     },
+     {
+      "id": "v64",
+      "name": "64 GB",
+      "use": "",
+      "spec": "64 GB",
+      "values": [
+       64
+      ]
+     },
+     {
+      "id": "v256",
+      "name": "256 GB",
+      "use": "",
+      "spec": "256 GB",
+      "values": [
+       256
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Consolas Xbox": {
+  "axes": [
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v500",
+      "name": "500 GB",
+      "use": "",
+      "spec": "500 GB",
+      "values": [
+       500
+      ]
+     },
+     {
+      "id": "v512",
+      "name": "512 GB",
+      "use": "",
+      "spec": "512 GB",
+      "values": [
+       512
+      ]
+     },
+     {
+      "id": "v1024",
+      "name": "1,024 GB",
+      "use": "",
+      "spec": "1,024 GB",
+      "values": [
+       1024
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Juegos retro y otras plataformas": {
+  "axes": [
+   {
+    "label": "Jugadores",
+    "field": "players_max",
+    "criterion": "que caben",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "solo",
+      "name": "Solitario",
+      "use": "Para jugar solo",
+      "spec": "1 jugador",
+      "max": 1
+     },
+     {
+      "id": "dos",
+      "name": "Para dos",
+      "use": "En pareja o uno contra uno",
+      "spec": "2 jugadores",
+      "min": 1,
+      "max": 2
+     },
+     {
+      "id": "chico",
+      "name": "Grupo chico",
+      "use": "Familia o cuatro amigos",
+      "spec": "3 a 4 jugadores",
+      "min": 2,
+      "max": 4
+     },
+     {
+      "id": "grande",
+      "name": "Grupo grande",
+      "use": "Fiestas y reuniones",
+      "spec": "5 o más",
+      "min": 4
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Consolas PlayStation": {
+  "axes": [
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v825",
+      "name": "825 GB",
+      "use": "",
+      "spec": "825 GB",
+      "values": [
+       825
+      ]
+     },
+     {
+      "id": "v1024",
+      "name": "1,024 GB",
+      "use": "",
+      "spec": "1,024 GB",
+      "values": [
+       1024
+      ]
+     },
+     {
+      "id": "v2048",
+      "name": "2,048 GB",
+      "use": "",
+      "spec": "2,048 GB",
+      "values": [
+       2048
+      ]
      }
     ],
     "key": "extra"
@@ -16655,15 +22272,6 @@
       ]
      },
      {
-      "id": "mujer",
-      "name": "Mujer",
-      "use": "",
-      "spec": "Mujer",
-      "values": [
-       "Mujer"
-      ]
-     },
-     {
       "id": "unisex",
       "name": "Unisex",
       "use": "",
@@ -16676,27 +22284,27 @@
     "key": "level"
    },
    {
-    "label": "Material",
-    "field": "material",
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
      {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
       "values": [
-       "Acero inoxidable"
+       "Sí"
       ]
      },
      {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
       "values": [
-       "Silicona"
+       "No"
       ]
      }
     ],
@@ -16859,6 +22467,110 @@
      }
     ],
     "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Relojes deportivos y digitales": {
+  "axes": [
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "extra"
    }
   ],
   "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
@@ -17217,6 +22929,259 @@
       "spec": "Oro",
       "values": [
        "Oro"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Relojes para hombre": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,200",
+      "max": 2200
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,200 a $4,200",
+      "min": 2200,
+      "max": 4200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,200",
+      "min": 4200
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Relojes para mujer": {
+  "axes": [
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Correas y extensibles": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $950",
+      "max": 950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$950 a $2,350",
+      "min": 950,
+      "max": 2350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,350",
+      "min": 2350
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Relojes infantiles": {
+  "axes": [
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
+      "values": [
+       "No"
       ]
      }
     ],
@@ -17669,6 +23634,37 @@
    }
   ]
  },
+ "Celulares": {
+  "axes": [
+   {
+    "label": "Red",
+    "field": "network_gen",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "4g",
+      "name": "4G",
+      "use": "Suficiente para todo el día",
+      "spec": "4G",
+      "values": [
+       "4g"
+      ]
+     },
+     {
+      "id": "5g",
+      "name": "5G",
+      "use": "La red más rápida",
+      "spec": "5G",
+      "values": [
+       "5g"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
  "Cargadores y adaptadores": {
   "axes": [
    {
@@ -17736,6 +23732,46 @@
       "min": 10000
      }
     ]
+   }
+  ]
+ },
+ "Laptops": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-celeron-pentium",
+      "name": "Intel Celeron/Pentium",
+      "use": "",
+      "spec": "Intel Celeron/Pentium",
+      "values": [
+       "Intel Celeron/Pentium"
+      ]
+     },
+     {
+      "id": "intel-n-series",
+      "name": "Intel N-series",
+      "use": "",
+      "spec": "Intel N-series",
+      "values": [
+       "Intel N-series"
+      ]
+     },
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     }
+    ],
+    "key": "extra"
    }
   ]
  },
@@ -17846,6 +23882,37 @@
       "min": 3800
      }
     ]
+   }
+  ]
+ },
+ "Tabletas": {
+  "axes": [
+   {
+    "label": "Red",
+    "field": "network_gen",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "4g",
+      "name": "4G",
+      "use": "Suficiente para todo el día",
+      "spec": "4G",
+      "values": [
+       "4g"
+      ]
+     },
+     {
+      "id": "5g",
+      "name": "5G",
+      "use": "La red más rápida",
+      "spec": "5G",
+      "values": [
+       "5g"
+      ]
+     }
+    ],
+    "key": "extra"
    }
   ]
  },
@@ -19433,6 +25500,42 @@
  "Joyería y bisutería": {
   "axes": [
    {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
     "label": "Piedra",
     "field": "stone",
     "criterion": "según la ficha",
@@ -19466,7 +25569,7 @@
       ]
      }
     ],
-    "key": "level"
+    "key": "size"
    },
    {
     "label": "Material",
@@ -19511,7 +25614,7 @@
       ]
      }
     ],
-    "key": "size"
+    "key": "extra"
    }
   ],
   "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."

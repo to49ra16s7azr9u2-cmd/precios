@@ -471,6 +471,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import capacidad_mah
 from subcategorias_finas import sub_suplemento_fino, sub_cocina_fino, sub_libro_fino
+from subcategorias_finas_ola2 import afinar_ola2
 
 def T(s):
     s = re.sub(r'\s+', ' ', s.lower())
@@ -3976,6 +3977,7 @@ for it in captura:
     elif cat == 'Relojes inteligentes': sub = sub_reloj(tn) or sub
     elif cat == 'Cámaras y fotografía': sub = sub_camara(tn)
     elif cat == 'Almacenamiento': sub = sub_almacenamiento(tn)
+    sub = afinar_ola2(cat, sub, tn)
     mk = marca(it['title'])
     if cat == 'Celulares' and not mk: mk = marca_celular(tn)
     alta.append({**base, 'brand': mk, 'category': cat,

@@ -59,6 +59,7 @@ def clasificar(g, despacho, titulo):
     if fn:
         s = fn[0](tn)
         sub = (s or sub) if fn[1] else s
+    sub = g["afinar_ola2"](cat, sub, tn)
     return cat, sub, ""
 
 

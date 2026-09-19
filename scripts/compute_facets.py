@@ -291,7 +291,7 @@ SPEC_DIRECTAS = (
     # Instantáneo, de paso o de depósito: cambia la instalación y el gasto.
     ("Electrodomésticos", "Calentadores de agua", "tipo de boiler", "heater_type"),
     ("Joyería y bisutería", "Relojes", "genero", "gender", "_gender"),
-    ("Videojuegos", "Software", "clasificacion", "age_rating", "_age"),
+    ("Videojuegos", None, "clasificacion", "age_rating", "_age"),
     ("Electrodomésticos", "Estufas", "numero de quemadores", "burners", "_burners"),
 )
 
@@ -558,7 +558,7 @@ NOMBRE_GENERALES = {
     ("Juegos de mesa", "Rompecabezas"): [("pieces", lambda t: se.pieces_of(t, 20, 60000))],
     ("Cámaras y fotografía", None): [("camera_mp", lambda t: se.megapixels_of(t, 2, 200))],
     ("Cámaras de seguridad", None): [("camera_mp", lambda t: se.megapixels_of(t, 1, 24))],
-    ("Videojuegos", "Consolas"): [("storage_gb", se.drive_capacity_gb)],
+    ("Videojuegos", None): [("storage_gb", se.drive_capacity_gb)],
     ("Proyectores y accesorios", "Pantallas de proyección"): [("screen_in", lambda t: se.inches_of(t, 40, 400))],
     ("Decoración de hogar y jardín", "Asadores"): [("size_in", lambda t: se.inches_of(t, 12, 80))],
     ("Mascotas", "Bebederos"): [("liters", lambda t: se.liters_of(t, 0.3, 30))],
@@ -587,10 +587,8 @@ NOMBRE_GENERALES = {
 # casi siempre nombra al instrumento) a lo general. Solo se admiten
 # tablas que en el catálogo cubren 35%+ y no dejan el 85% en un valor.
 _TIPOS_CRUDOS = {
- ("Instrumentos musicales","Guitarras"): [("Cuerdas y accesorios", r"\bcuerdas?\b|\bpuas?\b|\bcapo\b|correa|afinador|cejilla|pastilla|\bfunda\b|\bcable\b|\bpedal\b|amplificador|\bstand\b|soporte"),("Bajo", r"\bbajo electrico\b|\bbajo\b.{0,15}cuerdas|\bbass\b"),("Eléctrica", r"electrica|\belectric\b"),("Clásica", r"clasica|criolla|nylon"),("Acústica", r"acustica|electroacustica"),("Ukelele", r"ukelele|ukulele"),("Otros de cuerda", r"banjo|mandolina|violin|\blaud\b|charango|\bviola\b|\barpa\b")],
  ("Instrumentos musicales","Viento"): [("Accesorios", r"\bboquilla|\bcanas?\b|lubricante|\bfunda\b|\bestuche\b|atril|\bcorrea\b|abrazadera|limpiador"),("Saxofón", r"saxofon|\bsaxo\b|\bsax\b"),("Trompeta", r"trompeta|corneta"),("Flauta", r"flauta"),("Clarinete", r"clarinete"),("Trombón", r"trombon"),("Armónica", r"armonica"),("Otros de viento", r"tuba|oboe|fagot|melodica|\bpianica\b")],
  ("Instrumentos musicales","Baterías"): [("Baquetas y accesorios", r"baquetas?|\bparche|\bfunda\b|\bbanco\b|\bpedal\b|\batril\b|llave de afinacion|\bsoporte\b|\bherraje|\bstand\b"),("Electrónica", r"electronica|\bpads?\b|\bmodulo\b|\bmesh\b"),("Platillos", r"platillo|\bhi ?hat\b|\bcrash\b|\bride\b|\bsplash\b"),("Cajón y percusión", r"\bcajon\b|bongo|conga|\bdjembe\b|pandereta|\btimbal|\bcabasa\b|\bmaracas\b"),("Acústica", r"acustica|\bbateria\b")],
- ("Instrumentos musicales","Cuerdas"): [("Guitarra acústica", r"acustica|folk|\bnylon\b|clasica"),("Guitarra eléctrica", r"electrica"),("Bajo", r"\bbajo\b|\bbass\b"),("Violín y similares", r"violin|\bviola\b|cello|violonchelo|contrabajo"),("Ukelele", r"ukelele|ukulele"),("Otros", r"banjo|mandolina|\barpa\b|charango")],
  ("Instrumentos musicales","Percusión"): [("Accesorios", r"baquetas?|\bfunda\b|\bsoporte\b|\batril\b|\bparche"),("Cajón", r"\bcajon\b"),("Congas y bongós", r"conga|bongo|\btimbal"),("Djembé y étnica", r"djembe|\bdarbuka\b|\bhandpan\b|\btambor\b"),("Pandereta y menor", r"pandereta|\bmaracas\b|\bcabasa\b|\bclaves\b|\bguiro\b|triangulo|\bcascabel"),("Xilófono y metalófono", r"xilofono|metalofono|glockenspiel|\bmarimba\b")],
  ("Domótica y hogar inteligente","Cerraduras inteligentes"): [("Huella dactilar", r"huella"),("Reconocimiento facial", r"facial|reconocimiento de rostro"),("Con teclado", r"teclado|contrasena|codigo|\bpin\b|keypad"),("Con tarjeta", r"tarjeta|\brfid\b"),("Por aplicación", r"\bapp\b|aplicacion|\bwifi\b|bluetooth|tuya|\bremot")],
  ("Domótica y hogar inteligente","Interruptores inteligentes"): [("Wi-Fi", r"\bwifi\b|wi-?fi"),("Zigbee o Matter", r"zigbee|\bmatter\b|\bthread\b"),("Con control remoto", r"control remoto|inalambric|\brf\b|433"),("Táctil", r"tactil|\btouch\b")],
@@ -600,7 +598,6 @@ _TIPOS_CRUDOS = {
  ("Mascotas","Casas para mascotas"): [("Para perro", r"\bperro|\bcanin|\bcachorro|caseta"),("Para gato", r"\bgato|\bgatito|\bfelin|rascador"),("Para aves", r"\bave|\bpajaro|\bloro"),("Para roedores", r"hamster|conejo|\bhuron|chinchilla")],
  ("Mascotas","Juguetes"): [("Para perro", r"\bperro|\bcanin|\bcachorro|mordedor"),("Para gato", r"\bgato|\bgatito|\bfelin|rascador|catnip"),("Para aves", r"\bave|\bpajaro|\bloro"),("Para roedores", r"hamster|conejo|\bhuron|rueda de ejercicio")],
  ("Mascotas","Puertas para mascotas"): [("Para perro", r"\bperro|\bcanin|\bcachorro"),("Para gato", r"\bgato|\bgatito|\bfelin"),("Con microchip o sensor", r"microchip|sensor|intelig|\bchip\b")],
- ("Autos, bicicletas y motos","Bicicletas"): [("Accesorios", r"\bsillin|\bmanillar|\bpedal|\bcadena|\bcasco\b|\bcandado\b|\bbomba\b|portabici|guardabarro|\bcanasti|\bhorquilla|\bllanta|\bcamara\b|\bfreno|\bpinon|\bcuadro\b|\brayos?\b|velocimetro"),("Eléctrica", r"electrica|\be-?bike\b"),("Montaña", r"montana|\bmtb\b|todo terreno"),("Infantil", r"infantil|\bnino|\bnina|rodada 1[268]|rodada 20|\btriciclo"),("Ruta o urbana", r"\bruta\b|carretera|\bgravel\b|\bfixie\b|urbana|\bcity\b|plegable"),("Fija", r"\bfija\b|estatica|spinning")],
  ("Autos, bicicletas y motos","Baterías para auto"): [("Para auto", r"\bauto\b|\bcoche\b|\bcarro\b|automovil|camioneta"),("Para moto", r"\bmoto\b|motocicleta"),("Cargador o accesorio", r"cargador|mantenedor|arrancador|cables? pasa|\bpinzas\b")],
  ("Deportes y fitness","Equipo de gimnasio"): [("Accesorios", r"\bguantes\b|\bcinturon\b|\bcuerda\b|\bbanda|\bcorrea\b|\bagarre|\bmuneque|\brodiller"),("Banco y soportes", r"\bbanco\b|\bsoporte\b|\brack\b|\btorre\b|\bestante"),("Máquinas", r"\bmaquina\b|\bmultigimnasio\b|\bpolea\b|\bprensa\b|\bremo\b|\beliptica\b|\bcaminadora\b|\bescaladora\b"),("Peso libre", r"\bmancuerna|\bbarra\b|\bdisco|\bpesas?\b|kettlebell"),("Calistenia", r"\bdominadas\b|\bparalelas\b|\bbarra fija\b|\banillas\b|\bfondos\b|\babdominal")],
  ("Deportes y fitness","Yoga"): [("Tapetes", r"\btapete|colchoneta|\bmat\b"),("Bloques y cinturones", r"\bbloque|\bladrillo|\bcinturon|\bcorrea\b|\bstrap\b"),("Ruedas y rodillos", r"\brueda\b|\brodillo\b|\bfoam\b"),("Hamacas y columpios", r"\bhamaca\b|\bcolumpio\b|aereo"),("Pelotas", r"\bpelota|\bbalon\b|\bfitball\b")],

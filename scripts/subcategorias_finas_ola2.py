@@ -46,10 +46,10 @@ BOCINAS = ['Bluetooth portátiles', 'De fiesta y karaoke', 'Para PC y escritorio
            'Barras de sonido', 'Bocinas para auto', 'Radios y reproductores']
 _BOCINAS = _c([
     ('Barras de sonido', r'barra de sonido|\bsoundbar|\bsound ?bar\b'),
-    ('Bocinas para auto', r'\bpara (auto|coche|carro|camioneta|moto|motocicleta|marina)|\bcoaxial|\btriaxial|\b6x9\b|\b6 ?x ?9\b|\btweeter|\bmid ?bass|\bwoofer de \d|\bautomotriz|\bpara vehiculo|\b12 ?v\b.{0,20}(altavoz|bocina)|marinas?\b'),
+    ('Bocinas para auto', r'\bpara (auto|coche|carro|camioneta|moto|motocicleta|marina)|\bcoaxial|\btriaxial|\b6x9\b|\b6 ?x ?9\b|\bautomotriz|\bpara vehiculo|\b12 ?v\b.{0,20}(altavoz|bocina)|\bmarinas?\b|\bpara barco'),
     ('Subwoofers', r'\bsubwoofer|\bsub ?woofer|\bsubgrave|\bbajos activos\b'),
     ('Amplificadores y receptores', r'\bamplificador|\breceptor|\breceiver\b|\bpreamplificador|\bpreamp\b|\bmezcladora|\bmixer\b|\bdac\b|\bconsola de audio'),
-    ('Radios y reproductores', r'\bradio (am|fm|portatil|de bolsillo|de emergencia|despertador|solar)|\bam/fm\b|\bboombox\b|\breproductor de (cd|casete|cassette|dvd)|\btocadiscos|\bcd player\b|\bgrabadora\b|\bcasetera'),
+    ('Radios y reproductores', r'\bradio (am|fm|portatil|de bolsillo|de emergencia|despertador|solar)|\bam/fm\b|\bboombox\b.{0,30}(cd|casete|cassette|radio am)|\breproductor de (cd|casete|cassette|dvd)|\btocadiscos|\bcd player\b|\bgrabadora\b|\bcasetera'),
     ('De fiesta y karaoke', r'\bkaraoke|\bfiesta|\bparty\b|\bdj\b|\bmicrofono inalambrico|con microfono|\bluces led\b|\bpartybox|\btorre de sonido|\bboombox pro|\bcon ruedas\b|\btrolley\b|\bbafle\b.{0,30}bluetooth'),
     ('Bafles y audio profesional', r'\bbafle|\bpa\b|\bmonitor de estudio|\bmonitores de estudio|\bstudio monitor|\bprofesional|\blinea de arreglo|\bline array|\bpasiv[oa]s?\b|\bactiv[oa]s? de \d+|\b\d{3,4} ?w\b.{0,20}(bafle|pasiv)|\bescenario|\bpa system|\bpara eventos|\bde 15 pulgadas|\bde 12 pulgadas|\bde 18 pulgadas|\bgabinete de audio\b|\bmegafono|\bperifoneo|\bde piso\b.{0,20}(torre|columna)|\bdriver\b|\bcompresion\b|\bdiafragma'),
     ('Empotrables y de exterior', r'\bempotra|\bde techo\b|\bin-?ceiling|\bin-?wall\b|\bde pared\b|\bpara pared\b|\bexterior|\boutdoor|\bjardin\b|\bpatio\b|\bde roca|\bimpermeable.{0,30}(pared|exterior)|\bwall mount|\bpara intemperie'),
@@ -59,8 +59,19 @@ _BOCINAS = _c([
 ])
 
 
+_BT_CABEZA = re.compile(r'^(?:\S+ ){0,2}(bocina|altavoz|parlante|speaker|minialtavoz|minibocina)s? (bluetooth|portatil|inalambric|wireless|portable)')
+_BT_SENAS = re.compile(r'\bportatil|\bbluetooth|\brecargable|\bbateria|\btws\b|\bportable')
+_FIJA = re.compile(r'\bempotra|\bde techo\b|\bde pared\b|\bpara pared\b|\bin-?wall|\bin-?ceiling|\bde roca|\bwall mount')
+
+
 def sub_bocina(tn):
-    return _primera(tn, _BOCINAS, {'Bluetooth portátiles': 60, 'De estantería y Hi-Fi': 15})
+    sub = _primera(tn, _BOCINAS, {'Bluetooth portátiles': 60, 'De estantería y Hi-Fi': 15})
+    if sub in ('Empotrables y de exterior', 'Subwoofers', 'Bafles y audio profesional', 'De estantería y Hi-Fi') \
+            and _BT_CABEZA.search(tn) and not re.search(r'karaoke|fiesta|party|\bbafle', tn):
+        return 'Bluetooth portátiles'
+    if sub == 'Empotrables y de exterior' and _BT_SENAS.search(tn) and not _FIJA.search(tn):
+        return 'Bluetooth portátiles'
+    return sub
 
 
 # ------------------------------------------------------------- Videojuegos
@@ -72,15 +83,15 @@ VIDEOJUEGOS = ['Juegos PS5', 'Juegos PS4', 'Juegos Xbox', 'Juegos Nintendo Switc
 _VJ_PLATAFORMA = [
     ('Juegos PS5', r'\bps ?5\b|playstation ?5\b|\bplaystation 5\b'),
     ('Juegos PS4', r'\bps ?4\b|playstation ?4\b'),
-    ('Juegos Xbox', r'\bxbox\b'),
-    ('Juegos Nintendo Switch', r'\bswitch\b|\bnintendo\b'),
+    ('Juegos Xbox', r'\bxbox\b|\bxsx\b|\bxb1\b|\bxbsx\b|\bxone\b|\bx1\b|\bxbox360|\bx360\b'),
+    ('Juegos Nintendo Switch', r'\bswitch\b|\bnintendo\b|\bnsw\b'),
     ('Juegos para PC', r'\bpc\b|\bsteam\b|\bwindows\b'),
     ('Juegos retro y otras plataformas', r'\bps ?[123]\b|playstation ?[123]\b|\bpsp\b|\bps vita\b|\bvita\b|\bwii\b|\bgamecube\b|\bnintendo (64|ds|3ds)\b|\b3ds\b|\bnds\b|\bgame ?boy|\bsnes\b|\bnes\b|\bsega\b|\bgenesis\b|\bdreamcast\b|\bmega ?drive|\batari\b|\bretro\b'),
 ]
 _VJ = _c([
     ('Realidad virtual', r'\brealidad virtual|\bvr\b|\bmeta quest|\boculus|\bpsvr|\bps vr|\bhtc vive|\bpico 4|\bvisor\b.{0,20}(vr|virtual)'),
-    ('Volantes, arcade y simuladores', r'\bvolante|\bpedales?\b|\bracing wheel|\barcade|\bfight ?stick|\bjoystick|\bpalanca|\bsimulador|\bcockpit|\bhotas\b|\bflight stick|\bgun\b.{0,10}(controller|control)|\bpistola\b'),
-    ('Controles y gamepads', r'\bcontrol(es)?\b(?! remoto)|\bgamepad|\bmando\b|\bmandos\b|\bcontroller|\bjoy-?con|\bdualsense|\bdualshock|\bpro controller|\bjoycon|\bnunchuk|\bwiimote'),
+    ('Volantes, arcade y simuladores', r'\bvolante|\bpedales?\b|\bracing wheel|\barcade|\bfight ?stick|\bpalanca arcade|\bsimulador|\bcockpit|\bhotas\b|\bflight stick|\bgun\b.{0,10}(controller|control)|\bpistola\b|\bmaquinita'),
+    ('Controles y gamepads', r'\bcontrol(es)?\b(?! remoto)|\bgamepad|\bmando\b|\bmandos\b|\bcontroller|\bjoysticks?\b|\bjoy-?con|\bdualsense|\bdualshock|\bpro controller|\bjoycon|\bnunchuk|\bwiimote'),
     ('Cargadores, bases y soportes', r'\bcargador|\bcarga\b|\bbase de carga|\bestacion de carga|\bdock\b|\bdocking|\bsoporte|\bstand\b|\bbateria|\bpilas?\b|\bpower bank|\bventilador|\benfriador|\bcooling'),
     ('Fundas, micas y protectores', r'\bfunda|\bestuche|\bcase\b|\bmica|\bprotector|\bskin\b|\bcubierta|\bcarcasa|\bbolsa|\bmochila|\bgrips?\b|\bthumb ?grips?|\btapas? de joystick|\bcubre'),
     ('Cables y adaptadores', r'\bcable|\badaptador|\bconvertidor|\bhdmi\b|\bav\b|\bextension\b|\bhub\b|\bconector|\bmemoria|\btarjeta (micro ?sd|sd)|\bdisco duro|\bssd\b|\breceptor\b'),
@@ -104,11 +115,11 @@ def sub_videojuego(tn, sub_vieja=None):
         return 'Consolas retro y portátiles'
     if sub_vieja == 'Accesorios' or (acc and sub_vieja != 'Software'):
         return acc or 'Otros accesorios gamer'
-    if sub_vieja == 'Software' or re.search(r'\bjuego\b|\bvideojuego|\bedicion (estandar|deluxe|coleccionista|especial)\b|\bfisico\b', tn):
+    if sub_vieja == 'Software' or re.search(r'\bjuego\b|\bvideojuego|\bedicion (estandar|deluxe|coleccionista|especial)\b|\bfisico\b', tn) or not acc:
         for sub, rx in _VJ_PLATAFORMA:
             if re.search(rx, tn):
                 return sub
-        return acc or 'Juegos retro y otras plataformas'
+        return acc or ('Juegos retro y otras plataformas' if sub_vieja == 'Software' else None)
     return acc
 
 
@@ -122,10 +133,10 @@ _VENT = _c([
     ('Ventiladores de techo', r'\bde techo\b|\bceiling|\bplafon\b|\bcon luz\b|\bcon lampara|\bcon led\b|\bcandil'),
     ('Extractores y ventilación', r'\bextractor|\bextraccion|\bexhaust|\bde escape\b|\bcentrifug|\baxial|\bducto|\bconducto|\binline\b|\bventilacion\b|\bpara bano\b|\bde bano\b|\brecirculador|\bturbina|\bcortina de aire|\bcampana\b|\bsoplador|\bblower|\binvernadero|\bgallinero|\bgranja'),
     ('Ventiladores nebulizadores', r'\bnebuliz|\bmisting|\bde agua\b|\bvapor de agua|\bhumidificador\b.{0,20}ventilador|\bventilador\b.{0,30}(rocio|niebla|bruma|atomiz)|\bcon rocio'),
-    ('Ventiladores portátiles y de mano', r'\bde mano\b|\bportatil|\bmini\b|\bde cuello\b|\bcuello\b|\bpersonal|\bde bolsillo|\bcon bateria|\brecargable|\busb\b|\bplegable|\bcolgante\b|\bcochecito|\bcarriola|\bpara viaje|\bde viaje|\bde mano\b|\bventilador (turbo|pequeno)|\bcon cordon'),
+    ('Ventiladores portátiles y de mano', r'\bsin aspas\b|\bde mano\b|\bportatil|\bmini\b|\bde cuello\b|\bcuello\b|\bpersonal|\bde bolsillo|\bcon bateria|\brecargable|\busb\b|\bplegable|\bcolgante\b|\bcochecito|\bcarriola|\bpara viaje|\bde viaje|\bde mano\b|\bventilador (turbo|pequeno)|\bcon cordon'),
     ('Ventiladores de mesa y clip', r'\bde mesa\b|\bde escritorio\b|\bcon clip\b|\bclip\b|\bde clip\b|\bsobremesa|\bcompacto\b|\bde buro\b|\bde oficina\b|\bcircular\b|\bcirculador de aire|\bvornado'),
     ('Ventiladores de pared', r'\bde pared\b|\bpara pared|\bwall\b|\bmural\b|\boscilante de pared'),
-    ('Ventiladores de torre', r'\bde torre\b|\btorre\b|\btower\b|\bsin aspas\b|\bbladeless\b|\bde columna'),
+    ('Ventiladores de torre', r'\bde torre\b|\btorre\b|\btower\b|\bsin aspas\b(?!.*(usb|recargable|portatil|mini|de mesa|escritorio|de mano|bateria))|\bbladeless\b(?!.*(usb|recargable|portatil|mini))|\bde columna'),
     ('Ventiladores de piso e industriales', r'\bindustrial|\bde piso\b|\bde suelo\b|\bde alta velocidad|\bde tambor|\bde barril|\bdrum\b|\bbarril|\bcomercial|\bde taller|\bde bodega|\bde almacen|\bfloor\b|\bpotente\b|\bmetalico\b|\b\d{2} ?pulgadas\b.{0,20}(piso|industrial)|\bde caja\b|\bbox fan'),
     ('Ventiladores de pedestal', r'\bde pedestal\b|\bpedestal\b|\bde pie\b|\bstand fan|\baltura ajustable|\boscilante\b|\bde \d{2} ?pulgadas\b'),
 ])
@@ -157,16 +168,16 @@ def sub_calefactor(tn):
 
 # ---------------------------------------------------- Instrumentos/Guitarras
 GUITARRAS = ['Guitarras acústicas', 'Guitarras electroacústicas', 'Guitarras clásicas', 'Guitarras eléctricas',
-             'Bajos', 'Ukuleles', 'Mandolinas, banjos y otras cuerdas', 'Amplificadores de guitarra y bajo',
+             'Bajos', 'Ukuleles', 'Violines, mandolinas y otras cuerdas', 'Amplificadores de guitarra y bajo',
              'Pedales y efectos', 'Cuerdas de guitarra y bajo', 'Fundas, soportes y atriles', 'Accesorios de guitarra']
 _GUIT = _c([
-    ('Cuerdas de guitarra y bajo', r'\bcuerdas?\b(?! (de|para) (violin|viola|cello|violonchelo|contrabajo|arpa|piano))|\bstrings?\b|\bencordado|\bencordadura'),
+    ('Cuerdas de guitarra y bajo', r'^(?:\S+ ){0,3}cuerdas?\b(?! (de|para) (violin|viola|cello|violonchelo|contrabajo|arpa|piano))|\bjuego de cuerdas\b|\bset de cuerdas\b|\bcuerdas? (para|de) (guitarra|bajo|ukulele|electrica|acustica|clasica)|\bstrings?\b(?! (violin|viola|cello))|\bencordado|\bencordadura|\bcuerda (individual|suelta)'),
     ('Pedales y efectos', r'\bpedal(es|era)?\b|\befectos?\b|\boverdrive|\bdistorsion|\bdistortion|\breverb|\bdelay\b|\blooper|\bwah\b|\bfuzz\b|\bchorus\b|\bcompresor\b|\bafinador de pedal|\bmultiefectos|\bprocesador de (guitarra|efectos)|\bstompbox'),
     ('Amplificadores de guitarra y bajo', r'\bamplificador|\bamp\b|\bcombo\b.{0,20}(guitarra|bajo|w\b)|\bcabezal|\bgabinete\b.{0,20}(guitarra|bajo|\d+x\d+)|\bcabinet\b|\bbafle para (guitarra|bajo)'),
     ('Fundas, soportes y atriles', r'\bfunda|\bestuche|\bcase\b|\bgig ?bag|\bsoporte|\bstand\b|\batril|\bcolgador|\bgancho de pared|\brack (de|para) guitarra|\bexhibi'),
-    ('Accesorios de guitarra', r'\bcapo|\bcapotrasto|\bcejilla|\bcorrea|\bstrap\b|\bpuas?\b|\bpicks?\b|\bplumillas?\b|\bafinador|\btuner\b|\bslide\b|\bclavij|\bafinadores?\b|\bpastillas?\b|\bpickups?\b|\bpuente\b|\bcejuela|\bselector\b|\bpotenciometro|\bjack\b|\bcable (para|de) (guitarra|instrumento)|\bcable de instrumento|\btrastes?\b|\bgolpeador|\bpickguard|\bperillas?\b|\bknobs?\b|\bmastil|\bcuello de guitarra|\bdiapason|\bmetronomo|\bhumidificador|\bkit de (limpieza|mantenimiento|herramientas)|\blimpiador|\bpulidor|\bcuerdas de repuesto|\bboton (de|para) correa|\bstrap ?lock|\bcapodastro|\bejercitador de dedos|\bentrenador de dedos|\bhummer|\bwhammy|\bpalanca de (vibrato|tremolo)|\btremolo\b|\bcubierta de (puente|pastilla)|\btapa\b|\btornillos?\b|\bmecanismo de afinacion'),
+    ('Accesorios de guitarra', r'\bcapo|\bcapotrasto|\bcejilla|\bcorrea|\bstrap\b|\bpuas?\b|\bpicks?\b|\bplumillas?\b|\bafinador|\btuner\b|\bslide\b|\bclavij|\bafinadores?\b|\bpastillas?\b|\bpickups?\b|\bpuente\b|\bcejuela|\bsillin|\bselector\b|\bpotenciometro|\bjack\b|\bcable (para|de) (guitarra|instrumento)|\bcable de instrumento|\btrastes?\b|\bgolpeador|\bpickguard|\bperillas?\b|\bknobs?\b|\bmastil|\bcuello de guitarra|\bdiapason|\bmetronomo|\bhumidificador|\bkit de (limpieza|mantenimiento|herramientas)|\blimpiador|\bpulidor|\bcuerdas de repuesto|\bboton (de|para) correa|\bstrap ?lock|\bcapodastro|\bejercitador de dedos|\bentrenador de dedos|\bhummer|\bwhammy|\bpalanca de (vibrato|tremolo)|\btremolo\b|\bcubierta de (puente|pastilla)|\btapa\b|\btornillos?\b|\bmecanismo de afinacion'),
     ('Ukuleles', r'\bukulele|\bukelele|\bukulel'),
-    ('Mandolinas, banjos y otras cuerdas', r'\bmandolina|\bbanjo|\bcharango|\bcuatro\b|\bbalalaika|\bbouzouki|\blaud\b|\bbandurria|\bvihuela|\bguitarron|\bbajo sexto|\bbajo quinto|\brequinto|\bjarana|\bcavaquinho|\btres cubano|\bdobro|\bresonador|\bharpa|\barpa\b|\blira\b|\bcitara|\bsitar\b|\bkalimba|\bviolonchelo|\bcello\b|\bviolin\b|\bviola\b|\bcontrabajo'),
+    ('Violines, mandolinas y otras cuerdas', r'\bmandolina|\bbanjo|\bcharango|\bcuatro\b|\bbalalaika|\bbouzouki|\blaud\b|\bbandurria|\bvihuela|\bguitarron|\bbajo sexto|\bbajo quinto|\brequinto|\bjarana|\bcavaquinho|\btres cubano|\bdobro|\bresonador|\bharpa|\barpa\b|\blira\b|\bcitara|\bsitar\b|\bkalimba|\bviolonchelo|\bcello\b|\bviolin\b|\bviola\b|\bcontrabajo'),
     ('Bajos', r'\bbajo (electrico|acustico|electroacustico|de \d cuerdas|precision|jazz)|\bbajos?\b|\bbass\b|\bprecision bass|\bjazz bass|\bp-?bass|\bj-?bass'),
     ('Guitarras eléctricas', r'\belectrica|\belectric guitar|\bstratocaster|\btelecaster|\bles paul|\bsg\b|\bibanez\b.{0,20}(rg|gio|grg|s\d)|\bjackson\b|\bschecter|\besp ltd|\bprs\b|\bepiphone\b(?!.*acustica)|\bsquier\b|\bgretsch\b|\bflying v|\bexplorer\b|\bhollow ?body|\bsemi ?hollow|\bhumbucker|\bdiestros?\b.{0,20}electric|\bzurd[oa]s?\b.{0,20}electric'),
     ('Guitarras electroacústicas', r'\belectroacustic|\belectro-?acustic|\bacoustic-?electric|\bacustica electrica|\bcon ecualizador|\bcon preamp|\bcon pastilla|\bcon eq\b'),
@@ -188,7 +199,7 @@ _ANDROID = _c([
     ('Xiaomi, Redmi y POCO', r'\bxiaomi\b|\bredmi\b|\bpoco\b|\bmi (note|10|11|12|13|14)\b'),
     ('Honor y Huawei', r'\bhonor\b|\bhuawei\b|\bnova \d|\bmagic ?\d|\bp\d0\b|\bmate \d'),
     ('OPPO, Vivo y Realme', r'\boppo\b|\bvivo\b|\brealme\b|\breno ?\d|\bfind x|\biqoo'),
-    ('Google Pixel', r'\bpixel\b|\bgoogle\b'),
+    ('Google Pixel', r'\bgoogle pixel\b|\bpixel \d|\bpixel (fold|pro|a)\b'),
     ('OnePlus, Nothing y Sony', r'\boneplus\b|\bnothing phone|\bnothing\b|\bsony\b|\bxperia\b|\bnord\b'),
     ('ZTE, TCL, Infinix y Tecno', r'\bzte\b|\btcl\b|\binfinix\b|\btecno\b|\bnubia\b|\bblade\b|\baxon\b|\bhot \d|\bspark \d|\bcamon\b|\bpova\b'),
     ('Nokia y otras marcas', r'\bnokia\b|\balcatel\b|\blanix\b|\bbmobile\b|\bblackview\b|\bdoogee\b|\bulefone\b|\boukitel\b|\bcubot\b|\bumidigi\b|\bfossibot\b|\bkyocera\b|\bcat\b|\bcrosscall|\bblu\b|\bhotwav\b|\bagm\b|\bhisense\b|\blg\b|\bsoyes\b|\bunihertz\b|\bfairphone|\bsmartphone|\bcelular|\btelefono|\bandroid'),
@@ -204,13 +215,15 @@ def sub_android(tn):
 # ----------------------------------------------------------- Laptops/Oficina
 LAPTOPS = ['MacBook', 'Chromebook', '2 en 1 y convertibles', 'Ultraligeras (13" y 14")', 'Laptops de 15" y 16"',
            'Laptops de 17" o más', 'Laptops básicas y mini', 'Workstation y empresariales', 'Gamer']
-_RX_PULG = re.compile(r'(\d{2}(?:[.,]\d)?)\s?(?:pulgadas|pulg\b|"|”|\'\'|inch|in\b|-inch)')
+_RX_PULG = re.compile(r'(?<!\d)(\d{2}(?:[.,]\d)?)\s?(?:pulgadas|pulg\b|"|”|\'\'|inch|in\b|-inch)')
 
 
 def _pulgadas(tn):
     m = _RX_PULG.search(tn)
     if not m:
-        m = re.search(r'\b(1[0-9](?:[.,]\d)?)\b(?=\s?(?:fhd|hd|wuxga|qhd|oled|ips|led|touch|tactil))', tn)
+        m = re.search(r'(?<!\d)(1[0-9](?:[.,]\d)?)\b(?=\s?(?:fhd|hd|wuxga|qhd|oled|ips|led|touch|tactil))', tn)
+    if not m:
+        m = re.search(r'\b(?:de|laptop|portatil|notebook|ultrabook) (1[0-9](?:[.,]\d)?)\b(?!\s?(?:gb|tb|mp|hz|w\b|generacion|gen\b|core|nucleos))', tn)
     if not m:
         return None
     try:
@@ -243,7 +256,7 @@ def sub_laptop(tn, sub_vieja=None):
 # ---------------------------------------------------------- Monitores/Oficina
 MONITORES = ['Hasta 22 pulgadas', '23 a 25 pulgadas', '27 pulgadas', '28 a 34 pulgadas', '35 pulgadas o más',
              'Ultrawide y curvos', 'Táctiles e industriales', 'Monitores 4K y profesionales', 'Portátiles', 'Gaming']
-_RX_MON = re.compile(r'(\d{2}(?:[.,]\d)?)\s?(?:pulgadas|pulg\b|"|”|\'\'|inch|in\b|-inch|”)')
+_RX_MON = re.compile(r'(?<!\d)(\d{2}(?:[.,]\d)?)\s?(?:pulgadas|pulg\b|"|”|\'\'|inch|in\b|-inch|”)')
 
 
 def sub_monitor(tn, sub_vieja=None):
@@ -258,7 +271,9 @@ def sub_monitor(tn, sub_vieja=None):
         return 'Monitores 4K y profesionales'
     m = _RX_MON.search(tn)
     if not m:
-        m = re.search(r'\b(1[5-9]|2[0-9]|3[0-9]|4[0-9])(?:[.,]\d)?\b(?=\s?(?:fhd|full hd|hd|qhd|wqhd|ips|va\b|led|lcd|oled|tn\b))', tn)
+        m = re.search(r'(?<!\d)((?:1[5-9]|2[0-9]|3[0-9]|4[0-9])(?:[.,]\d)?)\b(?=\s?(?:fhd|full hd|hd|qhd|wqhd|ips|va\b|led|lcd|oled|tn\b))', tn)
+    if not m:
+        m = re.search(r'\b(?:monitor|pantalla|de) ((?:1[5-9]|2[0-9]|3[0-9]|4[0-9])(?:[.,]\d)?)\b(?!\s?(?:gb|tb|hz|w\b|ms|puertos|k\b|bit|cm))', tn)
     if not m:
         return None
     v = float(m.group(1).replace(',', '.'))
@@ -275,7 +290,7 @@ BICICLETAS = ['Bicicletas de montaña', 'Bicicletas urbanas y de paseo', 'Bicicl
               'Bicicletas BMX', 'Bicicletas plegables', 'Bicicletas eléctricas', 'Triciclos y bicicletas de carga',
               'Bicicletas sin pedales y balance', 'Bicicletas de gravel y ciclocross', 'Accesorios para bicicleta']
 _BICI = _c([
-    ('Accesorios para bicicleta', r'\bbolsa|\balforja|\bcasco|\bcandado|\bluz\b|\bluces|\bbomba\b|\bportabici|\bsoporte|\brack\b|\bcanasta|\bcanastilla|\bsillin|\basiento|\bmanubrio|\bmanillar|\bpedal(es)?\b|\bcadena\b|\bllanta|\bcamara\b|\brin\b|\brines\b|\bfreno|\bpinon|\bcambio|\bdesviador|\bguardabarro|\bsalpicadera|\btimbre|\bespejo|\bcubierta\b|\bfunda|\bruedas? de entrenamiento|\brueditas|\bpata de cabra|\bsoporte lateral|\bportaequipaje|\bportabultos|\bremolque|\bkit de (reparacion|conversion)|\bherramienta|\bcuentakilometros|\bvelocimetro|\bciclocomputador|\bsilla (infantil|para nino|portabebe)|\bpuños|\bpunos|\bgrips?\b|\bcinta de manubrio|\bplato\b|\bbiela|\bcassette|\bhorquilla|\bsuspension\b(?! completa| delantera| doble)|\bamortiguador|\brayos?\b|\bmasa\b|\bbuje|\bejes?\b|\btrainer\b|\brodillo|\bentrenador\b|\bbotella|\bportabotella|\bguantes|\bjersey|\blentes|\bzapatillas|\bcalas|\bprotector'),
+    ('Accesorios para bicicleta', r'\bbag\b|\bbell\b|\bfork\b|\bcontroller|\bbattery|\bhelmet|\bpulley|\bchain\b|\bsaddle|\bseat\b|\blights?\b|\block\b|\bpump\b|\bbottle|\bcage\b|\btires?\b|\btyres?\b|\btube\b|\bbrakes?\b|\bspeedometer|\bcomputer\b|\bdecal|\bsticker|\bcarrier|\bbox\b|\btrophy|\bmount\b|\bholder|\bcover\b|\bkit\b|\bparts?\b|\bscrews?\b|\bbolts?\b|\bshock\b|\bhandlebar|\bstem\b|\bcrank|\bderailleur|\bhub\b|\bspokes?\b|\btools?\b|\bstand\b|\bdollhouse|\bminiature|\bvinyl|\bconversion|\bconversion|\bkit de conversion|\bcontrolador|\bbateria (de|para) (bici|e-?bike)|\bmodification|\bfender|\bbasket|\bpannier|\bgloves?\b|\bjersey|\bshorts?\b|\bglasses|\bshoes?\b|\bcleats?\b|\bbolsa|\balforja|\bcasco|\bcandado|\bluz\b|\bluces|\bbomba\b|\bportabici|\bsoporte|\brack\b|\bcanasta|\bcanastilla|\bsillin|\basiento|\bmanubrio|\bmanillar|\bpedal(es)?\b|\bcadena\b|\bllanta|\bcamara\b|\brin\b|\brines\b|\bfreno|\bpinon|\bcambio|\bdesviador|\bguardabarro|\bsalpicadera|\btimbre|\bespejo|\bcubierta\b|\bfunda|\bruedas? de entrenamiento|\brueditas|\bpata de cabra|\bsoporte lateral|\bportaequipaje|\bportabultos|\bremolque|\bkit de (reparacion|conversion)|\bherramienta|\bcuentakilometros|\bvelocimetro|\bciclocomputador|\bsilla (infantil|para nino|portabebe)|\bpuños|\bpunos|\bgrips?\b|\bcinta de manubrio|\bplato\b|\bbiela|\bcassette|\bhorquilla|\bsuspension\b(?! completa| delantera| doble)|\bamortiguador|\brayos?\b|\bmasa\b|\bbuje|\bejes?\b|\btrainer\b|\brodillo|\bentrenador\b|\bbotella|\bportabotella|\bguantes|\bjersey|\blentes|\bzapatillas|\bcalas|\bprotector'),
     ('Bicicletas eléctricas', r'\belectrica|\be-?bike|\bebike|\b\d{3,4} ?w\b|\b\d{2} ?v\b.{0,15}\d+ ?ah|\bmotor\b|\bpedelec|\basistencia electrica'),
     ('Bicicletas sin pedales y balance', r'\bsin pedales|\bbalance\b|\bde equilibrio|\bbalance bike|\bcamicleta|\bcorrepasillos|\bde impulso'),
     ('Triciclos y bicicletas de carga', r'\btriciclo|\btres ruedas|\b3 ruedas|\bde carga\b|\bcargo\b|\btandem\b|\bcuadriciclo|\bcuatro ruedas|\bde reparto'),
@@ -307,4 +322,699 @@ OLA2 = [
     ('Laptops', None, LAPTOPS, sub_laptop, 'Laptops de 15" y 16"'),
     ('Monitores', None, MONITORES, sub_monitor, '23 a 25 pulgadas'),
     ('Autos, bicicletas y motos', ['Bicicletas'], BICICLETAS, lambda tn, sv: sub_bicicleta(tn), 'Bicicletas urbanas y de paseo'),
+]
+
+
+def afinar_ola2(cat, sub, tn):
+    """Gancho para el clasificador y la auditoría: después del reparto
+    normal, si (cat, sub) cae en una subcategoría que la ola 2 dividió,
+    devuelve la fina."""
+    for c, viejas, lista, f, resto in OLA2:
+        if c != cat:
+            continue
+        if viejas is not None and sub not in viejas and sub not in lista:
+            continue
+        if sub in lista and not (viejas and sub in viejas):
+            return sub
+        nueva = f(tn, sub)
+        return nueva or resto or sub
+    return sub
+
+
+# =========================================================== TERCERA OLA
+# ------------------------------------- Herramientas/Herramientas eléctricas
+HERRAMIENTAS_E = ['Taladros y rotomartillos', 'Atornilladores', 'Sierras', 'Esmeriladoras y pulidoras',
+                  'Lijadoras', 'Routers, fresadoras y multiherramientas', 'Compresores y herramienta neumática',
+                  'Generadores', 'Hidrolavadoras', 'Flejadoras y empacadoras', 'Pistolas de calor, engrapadoras y clavadoras',
+                  'Herramientas de banco', 'Baterías y cargadores de herramienta']
+_HERR_E = _c([
+    ('Medición', r'\bnivel laser|\bcinta metrica|\bmedidor laser|\bdistanciometro|\bdetector de (metales|pared|vigas|cables)|\bmultimetro|\btermometro|\bcamara termica|\bendoscopio|\bboroscopio|\bflexometro|\bmedidor de (distancia|humedad|espesor)|\bcalibrador|\bvernier|\bnivel\b'),
+    ('Baterías y cargadores de herramienta', r'^(?:\S+ ){0,3}(bateria|cargador|pila)s?\b|\bbateria (de repuesto|compatible|para (dewalt|makita|milwaukee|bosch|ryobi|black|truper|craftsman))|\bcargador (de bateria|para (dewalt|makita|milwaukee|bosch|ryobi))'),
+    ('Flejadoras y empacadoras', r'\bflejad|\bempacadora|\batadora\b|\bde flejado\b|\bfleje'),
+    ('Herramientas de banco', r'\bde banco\b|\bbanco de (trabajo|sierra)|\btaladro de columna|\bsierra de mesa|\bsierra de banco|\besmeril de banco|\btorno\b(?! (de|para) unas)|\bprensa de banco|\bcepilladora|\bcanteadora|\bsierra de cinta|\bsierra cinta'),
+    ('Generadores', r'\bgenerador|\bplanta de luz|\bplanta electrica|\binversor generador|\bgrupo electrogeno'),
+    ('Hidrolavadoras', r'\bhidrolavadora|\blavadora a presion|\blavadora de presion|\bpressure washer|\bkarcher|\blavadora electrica de alta presion'),
+    ('Compresores y herramienta neumática', r'\bcompresor|\bneumatic|\bpistola de (pintar|pintura|aire|impacto neumatica)|\baerografo|\bclavadora neumatica|\bmanguera de aire|\bpistola de clavos neumatica'),
+    ('Pistolas de calor, engrapadoras y clavadoras', r'\bpistola de (calor|silicon|silicona|grapas|clavos|pegamento)|\bengrapadora|\bclavadora|\bgrapadora|\bsoplete|\bpistola termica|\bdecapador'),
+    ('Routers, fresadoras y multiherramientas', r'\brouter\b|\bfresadora|\brebajadora|\bmultiherramienta|\bmulti ?tool|\boscilante|\bdremel|\bmototool|\bmini ?torno|\brotativa|\bgrabador\b'),
+    ('Sierras', r'\bsierra|\bcaladora|\bingletadora|\bsable\b|\bmotosierra|\bcortadora de (azulejo|ceramica|metal|concreto)|\btronzadora|\bcortadora\b'),
+    ('Esmeriladoras y pulidoras', r'\besmeril|\bamoladora|\bpulidora|\bpulidor\b|\brectificadora|\bangular\b|\bmini esmeril'),
+    ('Lijadoras', r'\blijadora|\blijador\b|\borbital|\bde banda\b|\bcepillo electrico'),
+    ('Atornilladores', r'\batornillador|\bdestornillador electrico|\bdesarmador (electrico|inalambrico|a bateria)|\bllave de impacto|\bimpact driver|\bimpacto\b(?!.*taladro)|\bpistola de impacto|\bmatraca electrica'),
+    ('Taladros y rotomartillos', r'\btaladro|\brotomartillo|\bmartillo (demoledor|perforador|rompedor|electrico)|\bdemoledor|\bperforador|\bdrill\b|\bpercutor'),
+])
+
+
+def sub_herramienta_e(tn):
+    return _primera(tn, _HERR_E, {'Baterías y cargadores de herramienta': 0})
+
+
+# ----------------------------------------------------- Belleza/Maquillaje
+MAQUILLAJE = ['Bases y correctores', 'Polvos, rubores y bronceadores', 'Labiales', 'Sombras y delineadores',
+              'Máscaras de pestañas y cejas', 'Pestañas postizas', 'Brochas y esponjas', 'Paletas y sets de maquillaje',
+              'Primers y fijadores', 'Organizadores de maquillaje']
+_MAQ = _c([
+    ('Organizadores de maquillaje', r'\borganizador|\bestuche (de|para) maquillaje|\bneceser|\bcosmetiquera|\bbolsa de maquillaje|\bespejo (de|para) maquillaje|\bespejo\b'),
+    ('Brochas y esponjas', r'\bbrochas?\b|\besponjas?\b|\bsponge|\bpuff\b|\bblender\b|\bbrush(es)?\b|\bbeauty ?blender|\bpinceles? (de|para) maquillaje|\bset de brochas|\bkit de brochas|\baplicador|\blimpiador de brochas'),
+    ('Pestañas postizas', r'\bpestanas postizas|\bpestanas magneticas|\bpestanas (de|con) (pelo|seda|vison)|\bpestanas (individuales|en racimo|3d|5d)|\bpegamento (de|para) pestanas|\bextensiones de pestanas|\bfalse lashes|\blashes?\b'),
+    ('Máscaras de pestañas y cejas', r'\bmascara (de|para) pestanas|\bmascara\b(?!.*(facial|de cara|led|hidratante))|\brimel|\bmascara de pestanas|\bpestanas\b|\bcejas?\b|\blapiz de cejas|\bgel (de|para) cejas|\bpomada (de|para) cejas|\bbrow\b|\bmascara\b'),
+    ('Primers y fijadores', r'\bprimer|\bprebase|\bfijador|\bsetting spray|\bspray fijador|\bsellador de maquillaje'),
+    ('Paletas y sets de maquillaje', r'\bpaleta|\bpalette|\bkit de maquillaje|\bset de maquillaje|\bestuche de maquillaje|\bmaletin de maquillaje|\bcaja de maquillaje'),
+    ('Labiales', r'\blabial|\blabios|\blipstick|\blip (gloss|tint|balm|liner|oil|stain)|\bgloss\b|\bdelineador de labios|\btinte labial|\bbalsamo labial|\blabiales|\bbrillo labial|\blip\b'),
+    ('Sombras y delineadores', r'\bsombras?\b|\beyeshadow|\bdelineador|\beyeliner|\blapiz de ojos|\bkajal|\bkohl\b|\bglitter\b|\bpigmento'),
+    ('Polvos, rubores y bronceadores', r'\bpolvo (compacto|suelto|translucido|matificante|bronceador)|\brubor|\bblush|\bbronceador|\bbronzer|\biluminador|\bhighlighter|\bcontorno|\bcontour|\bpolvos? (de|para) (rostro|cara|acabado)|\bpolvo\b'),
+    ('Bases y correctores', r'\bbase (de|para) maquillaje|\bbase\b|\bfoundation|\bcorrector|\bconcealer|\bbb cream|\bcc cream|\bmaquillaje (liquido|en polvo|compacto|fluido)|\btinted|\btono\b.{0,20}(base|maquillaje)|\bteint\b|\bcobertura'),
+])
+
+
+def sub_maquillaje(tn):
+    return _primera(tn, _MAQ, {'Bases y correctores': 15, 'Máscaras de pestañas y cejas': 5})
+
+
+# ------------------------------------------------------- Joyería/Relojes
+RELOJES = ['Relojes para hombre', 'Relojes para mujer', 'Relojes infantiles', 'Relojes deportivos y digitales',
+           'Relojes de bolsillo y de pared', 'Correas y extensibles', 'Cajas y estuches para relojes']
+_REL = _c([
+    ('Cajas y estuches para relojes', r'\bcaja (para|de) relojes|\bestuche (para|de) relojes|\borganizador de relojes|\bexhibidor de relojes|\bwatch (box|case|winder)|\benrollador|\bsoporte (para|de) reloj|\bvitrina'),
+    ('Correas y extensibles', r'\bcorreas?\b|\bextensibles?\b|\bpulseras? (para|de|compatible)|\bbandas? (para|de|compatible)|\bmalla (para|de)|\bbrazalete (para|de) reloj|\bhebilla|\bpasadores?\b|\bstrap\b|\bband\b.{0,20}(watch|reloj)|\brepuesto'),
+    ('Relojes de bolsillo y de pared', r'\bde bolsillo|\bde pared\b|\bdespertador|\bde mesa\b|\bde escritorio|\bleontina|\bde enfermera|\breloj de arena|\bnixie'),
+    ('Relojes infantiles', r'\binfantil|\bpara ninos?\b|\bninos?\b|\bnina\b|\bkids?\b|\bminecraft|\bpaw patrol|\bfrozen\b|\bspiderman|\bspider-man|\bprincesas|\bpokemon|\bmario\b|\bdisney|\bmarvel|\bbatman|\bcars\b|\bpeppa'),
+    ('Relojes deportivos y digitales', r'\bdigital|\bg-?shock|\bcasio (f-?91|w-?\d|ae-?\d|a1\d{2}|ca-?\d|dw-?\d)|\bcronometro|\bdeportivo|\bsport\b|\bmilitar|\btactico|\bgarmin|\bpolar\b|\bsuunto|\bcoros\b|\bmonitor de frecuencia|\bpulsometro|\bpodometro|\bled watch|\bcronografo digital'),
+    ('Relojes para mujer', r'\bmujer|\bdama|\bwomen|\bwoman|\bfemenin|\bladies|\bpara ella|\bnina\b|\bde ella'),
+    ('Relojes para hombre', r'\bhombre|\bcaballero|\bmen\b|\bmens\b|\bmasculin|\bpara el\b|\bgentleman'),
+])
+
+
+def sub_reloj_pulsera(tn):
+    return _primera(tn, _REL, {'Relojes para hombre': 5, 'Relojes deportivos y digitales': 10})
+
+
+# ------------------------------------------------- Refacciones/Para autos
+REFACCIONES_AUTO = ['Frenos', 'Suspensión y dirección', 'Motor y transmisión', 'Filtros y aceites', 'Bujías y encendido',
+                    'Sistema eléctrico y sensores', 'Faros y luces', 'Enfriamiento y climatización', 'Escape',
+                    'Carrocería, espejos y molduras', 'Limpiaparabrisas', 'Interior y tapicería', 'Llaves y cerraduras de auto']
+_REF = _c([
+    ('Limpiaparabrisas', r'\bwiper|\bwindshield wiper|\blimpiaparabrisas|\bplumas? (de|para) (limpia|parabrisas)|\bwiper|\bescobillas? (de|del) limpia|\bbomba de agua del limpiaparabrisas|\bdeposito (de|del) limpiaparabrisas'),
+    ('Llaves y cerraduras de auto', r'\bkey fob|\bkey shell|\bremote key|\bcar key|\bdoor lock actuator|\bignition switch|\bllave (de|para) (auto|coche|carro)|\bcarcasa (de|para) (llave|control)|\bcontrol remoto (de|para) (auto|coche|alarma)|\bchapa (de|para) (puerta|encendido|cajuela)|\bcerradura (de|para) (puerta|auto)|\bswitch de encendido|\bcilindro de encendido|\bactuador de cerradura|\bkeyless|\bllave inteligente|\bfob\b'),
+    ('Frenos', r'\bbrakes?\b|\bbrake (pad|disc|rotor|caliper|line|hose|drum|shoe)|\brotors?\b|\bfreno|\bbalatas?\b|\bpastillas? (de|para) freno|\bdiscos? (de|para) freno|\btambor(es)? de freno|\bcaliper|\bmordaza|\bcilindro (maestro|de rueda)|\bbooster\b|\bmanguera de freno|\bliquido de frenos|\bbrake|\babs\b|\bzapatas?\b'),
+    ('Suspensión y dirección', r'\bshocks?\b|\bstruts?\b|\bcontrol arm|\btie rod|\bball joint|\bsway bar|\bstabilizer|\bwheel (hub|bearing)|\bhub bearing|\bsteering|\bcoil spring|\bleaf spring|\bbushing|\bsuspension|\bamortiguador|\bresorte|\bespiral|\brotula|\bterminal (de|del)? ?direccion|\bbrazo (de|del)? ?(control|suspension)|\bbarra (estabilizadora|de direccion|de torsion)|\bbieleta|\bhorquilla|\bbuje|\bmaza\b|\bbalero de rueda|\bbaleros?\b|\bcremallera|\bbomba de direccion|\bdireccion (asistida|hidraulica|electrica)|\bstrut\b|\bshock\b|\bcaja de direccion|\btirante|\bsoporte de amortiguador|\bbase de amortiguador'),
+    ('Escape', r'\bexhaust|\bmuffler|\bcatalytic|\bo2 sensor|\boxygen sensor|\bescape\b|\bmofle|\bsilenciador|\bcatalizador|\bcatalitico|\bheader|\bcolector de escape|\bmuffler|\bexhaust|\bresonador|\bsensor de oxigeno|\btubo de escape'),
+    ('Enfriamiento y climatización', r'\bradiator|\bthermostat|\bwater pump|\bcooling fan|\bcondenser|\bevaporator|\ba/?c compressor|\bblower|\bheater core|\bcoolant|\bintercooler|\bradiador|\btermostato|\bbomba de agua|\bventilador (de|del) (motor|radiador)|\bmotoventilador|\bcondensador|\bevaporador|\bcompresor (de|del) (aire|a/c|ac)|\bmanguera (de|del) radiador|\bdeposito (de|del) (anticongelante|refrigerante)|\banticongelante|\brefrigerante|\bcalefaccion\b|\bnucleo de calefaccion|\bmotor del soplador|\bblower motor|\btapon de radiador|\binterenfriador|\bintercooler'),
+    ('Faros y luces', r'\bheadlights?\b|\bheadlamp|\btail ?lights?\b|\bfog (light|lamp)|\bturn signal|\bled bulbs?\b|\bbulbs?\b|\bdaytime running|\blight bar\b|\bfaros?\b|\bfaro\b|\bcalaveras?\b|\bluz (antiniebla|de freno|trasera|de reversa|de dia|de cortesia|de placa|led para|de niebla)|\bfocos? (h[1-9]|h1[0-3]|9005|9006|9007|led)|\bheadlight|\btail ?light|\bhalogeno|\bxenon|\bhid\b|\bluces? (led )?(para|de) (auto|coche|carro|camioneta)|\bbarra de luz|\bbarra led|\bcuartos?\b.{0,10}(luz|led|delantero)|\bdrl\b|\bluz antiniebla|\bcubierta de (luz|faro)|\bmica (de|para) (faro|calavera)|\bantiniebla|\bestrobo|\btorreta|\bluz de emergencia'),
+    ('Bujías y encendido', r'\bspark plugs?\b|\bignition coil|\bignition\b|\bglow plug|\bdistributor\b|\bbujias?\b|\bbobinas? (de|para) encendido|\bcables? (de|para) bujia|\bdistribuidor|\bmodulo de encendido|\bspark plug|\bignition coil|\btapa de distribuidor|\brotor de distribuidor|\bcable de bujias'),
+    ('Sistema eléctrico y sensores', r'\bsensors?\b|\bswitch\b|\brelay\b|\bfuse\b|\balternator|\bstarter\b|\bmodule\b|\bharness|\bconnector|\bactuator|\bfuel pump|\binjector|\bthrottle body|\bvoltage regulator|\bwiring|\bsensor(es)?\b|\balternador|\bmarcha\b|\bmotor de arranque|\bstarter\b|\brelevador|\brele\b|\bfusible|\bcaja de fusibles|\barnes\b|\bconector electrico|\binterruptor\b|\bswitch\b|\bmodulo\b|\bcomputadora (de|del) (motor|auto)|\becu\b|\bcuerpo de aceleracion|\bactuador\b|\bsolenoide|\bbomba de (gasolina|combustible)|\binyector|\bregulador (de|del) (voltaje|presion)|\bpotenciometro|\bcableado|\bterminal(es)? de bateria|\bcables? (de|para) bateria|\bcables? pasa ?corriente|\bportafusible|\bclaxon|\bbocina (de|del) (auto|claxon)|\bmedidor|\bindicador\b|\btablero\b'),
+    ('Filtros y aceites', r'\b(oil|air|fuel|cabin|transmission) filter|\bfilters?\b|\bmotor oil|\bengine oil|\bfiltro (de|del)? ?(aceite|aire|gasolina|combustible|cabina|habitaculo|diesel|transmision)|\baceite (de|para) motor|\baceite\b.{0,20}(sae|\d+w-?\d+)|\b\d+w-?\d+\b|\bliquido (de|para) (transmision|direccion|frenos)|\baditivo|\blimpiador de inyectores|\bgrasa\b|\blubricante|\bfiltro\b'),
+    ('Motor y transmisión', r'\bengine\b|\bvalves?\b|\bsolenoid|\bgasket|\btiming (belt|chain|kit)|\bserpentine|\bbelt\b|\bpulley|\btensioner|\btransmission|\bclutch|\bflywheel|\bcv (axle|joint)|\bdriveshaft|\bdifferential|\bturbo(charger)?\b|\bcamshaft|\bcrankshaft|\bpiston|\bcylinder head|\bintake manifold|\bcarburetor|\boil pump|\bengine mount|\bseal\b|\bmotor\b|\bpiston|\bbiela|\bciguenal|\barbol de levas|\bvalvulas?\b|\bjunta (de|del)? ?(cabeza|culata|tapa)|\bempaque|\bbanda (de|del)? ?(distribucion|tiempo|accesorios|alternador)|\bcadena de (distribucion|tiempo)|\bpolea|\btensor|\bkit de distribucion|\btransmision|\bcaja de (velocidades|cambios)|\bembrague|\bclutch|\bvolante motor|\bflecha|\bcardan|\bjunta homocinetica|\bdiferencial|\bconvertidor de par|\bsoporte (de|del)? ?(motor|transmision)|\bcarter|\btapa de valvulas|\bculata|\bcabeza de motor|\bturbo\b|\bturbina|\bmanguera (de|del)? ?(aire|turbo)|\bmultiple de admision|\bcarburador|\bcorrea\b|\bbomba de aceite|\bretén|\breten\b|\bsello\b'),
+    ('Carrocería, espejos y molduras', r'\bmirror|\bbumper|\bgrille?\b|\bfender\b|\bhood\b|\bdoor handle|\bemblem|\btrim\b|\bspoiler|\bmud ?flap|\bwindshield\b(?!.*wiper)|\bwindow\b|\bbody kit|\bespejo|\bretrovisor|\bdefensa|\bfacia|\bfascia|\bparrilla|\bcofre\b|\bsalpicadera|\bguardafango|\bloderas?\b|\bmoldura|\bemblema|\blogo\b|\bmanija|\bcalavera de puerta|\bcajuela|\bcubierta (de|para) (defensa|parrilla)|\bspoiler|\baleron|\bestribo|\bbisagra|\bpuerta\b|\bcristal|\bventana\b|\bparabrisas\b(?!.*limpia)|\bcarroceria|\bpanel\b|\bpintura (para|de) auto|\bretoque|\bprotector (de|para) (defensa|parachoques)|\bparachoques|\bfrente (2 din|universal)|\bmarco (de|para) (placa|estereo)|\bcubre ?llanta|\bportaplacas?\b|\btapon (de|para) (gasolina|rin)|\bantena\b'),
+    ('Interior y tapicería', r'\bfloor mats?\b|\bseat covers?\b|\bsteering wheel cover|\bcar mat|\bsun ?shade|\bcup holder|\btapete|\balfombra|\bfunda (de|para) (asiento|volante|palanca)|\bvolante\b|\bpalanca de (velocidades|cambios)|\bperilla|\bpedal(es)?\b|\bconsola central|\btablero\b|\bposavasos|\bcubierta de asiento|\basiento\b|\bcinturon de seguridad|\bviseras?\b|\bcortinas? (para|de) (auto|coche)|\bparasol|\bportavasos|\borganizador|\bcubre ?volante|\bpiso\b'),
+])
+
+
+def sub_refaccion_auto(tn):
+    return _primera(tn, _REF, {'Motor y transmisión': 10, 'Filtros y aceites': 5, 'Sistema eléctrico y sensores': 8, 'Carrocería, espejos y molduras': 8})
+
+
+# ------------------------------------------------- Mascotas/Jaulas y corrales
+JAULAS = ['Jaulas para perro', 'Corrales y rejas para mascotas', 'Jaulas y recintos para gato', 'Jaulas para aves',
+          'Jaulas y hábitats para roedores', 'Acuarios y terrarios', 'Gallineros y conejeras']
+_JAU = _c([
+    ('Camas', r'^(?:\S+ ){0,2}(cama|colchoneta|cojin|almohadilla)\b'),
+    ('Comederos', r'^(?:\S+ ){0,2}(comedero|dispensador (de|automatico de) (comida|alimento)|alimentador)\b'),
+    ('Transportadoras', r'^(?:\S+ ){0,2}transportadora\b|\bjaula de viaje|\bbolsa de transporte'),
+    ('Acuarios y terrarios', r'\bacuario|\bpecera|\bterrario|\bvivario|\breptil|\btortuga|\bpez\b|\bpeces\b|\biguana|\bgecko|\bserpiente|\barana\b|\btarantula|\banfibio|\bcangrejo|\bcamaron|\bhabitat (para|de) (reptil|tortuga|anfibio)'),
+    ('Gallineros y conejeras', r'\bgallinero|\bgallinas?\b|\bpollos?\b|\bconejera|\bconejos?\b|\bpatos?\b|\bcodorniz|\baves de corral|\bcorral (para|de) (gallinas|pollos|conejos|patos)|\bnido de (gallina|ave)|\bponedora'),
+    ('Jaulas para aves', r'\baves?\b|\bpajaros?\b|\bpericos?\b|\bperiquito|\bloros?\b|\bcanarios?\b|\bcacatua|\bninfa|\bagapornis|\bcotorra|\bpajarera|\bjaula (para|de) (ave|pajaro|perico|loro|canario)|\bcolumpio para (ave|pajaro)|\bpercha'),
+    ('Jaulas y hábitats para roedores', r'\bhamster|\bcobaya|\bcuyo|\bconejillo|\bchinchilla|\bhuron|\bjerbo|\brata|\braton|\berizo|\broedor|\bcuy\b|\bdegu\b|\banimales pequenos|\bpequenas mascotas|\brueda de ejercicio|\bhabitat (para|de) (hamster|roedor)|\btunel para (hamster|roedor)'),
+    ('Jaulas y recintos para gato', r'\bgatos?\b|\bgatito|\bfelino|\bcat\b|\bcatio|\bgatera'),
+    ('Corrales y rejas para mascotas', r'\bcorral|\bcerca\b|\bvalla|\breja|\bbarrera|\bplaypen|\bpanel(es)?\b|\bpuerta (para|de) (bebe|mascota|perro)|\bdivisor|\brecinto'),
+    ('Jaulas para perro', r'\bperros?\b|\bcachorro|\bcanino|\bperrera|\bcaseta|\bkennel|\bcrate|\bjaula\b|\btransportadora|\bdog\b'),
+])
+
+
+def sub_jaula(tn):
+    return _primera(tn, _JAU, {'Jaulas para perro': 0, 'Corrales y rejas para mascotas': 10})
+
+
+# ------------------------------------------------------ Tabletas/Android
+TABLETAS = ['Samsung Galaxy Tab', 'Lenovo Tab', 'Xiaomi, Huawei y Honor', 'Amazon Fire', 'Tabletas para niños',
+            'Tabletas de dibujo y escritura', 'Tabletas Windows y rugged', 'Otras tabletas Android', 'Accesorios para tableta']
+_TAB = _c([
+    ('Accesorios para tableta', r'^(?:\S+ ){0,3}(funda|estuche|case|soporte|tripode|teclado|cargador|cable|mica|protector|lapiz|stylus|pen|base|dock|montaje|brazo|bateria|adaptador|modulo|tiristor|pantalla lcd|display)s?\b|\bfunda (para|con)|\bprotector de pantalla|\bsoporte (para|de) tablet|\blapiz (para|optico|digital|stylus)|\bpara tablet\b.{0,10}(funda|soporte|teclado)|\bmodulo de|\bcomponente'),
+    ('Tabletas de dibujo y escritura', r'\btableta (de|para) (dibujo|escritura|dibujar|escribir)|\btablero de dibujo|\bpizarra (magica|electronica|lcd)|\btableta lcd|\bwacom|\bhuion|\bxp-?pen|\bgaomon|\bdibujo digital|\btableta grafica|\bwriting tablet|\bdrawing tablet|\bboox|\bremarkable|\bkindle scribe|\be ink\b|\btinta electronica|\btinta e'),
+    ('Tabletas para niños', r'\bpara ninos?\b|\binfantil|\bninos?\b|\bnina\b|\bkids?\b|\bpaw patrol|\bfrozen|\bspiderman|\bprincesas|\bbluey|\bpeppa|\beducativa'),
+    ('Amazon Fire', r'\bfire (hd|7|8|10|max)|\bamazon fire|\bkindle fire|\bfire tablet'),
+    ('Samsung Galaxy Tab', r'\bgalaxy tab|\bsamsung\b|\btab (s\d|a\d|active)'),
+    ('Lenovo Tab', r'\blenovo\b|\bidea tab|\byoga tab|\btab m\d|\btab p\d|\blegion tab|\bxiaoxin'),
+    ('Xiaomi, Huawei y Honor', r'\bxiaomi|\bredmi pad|\bmi pad|\bpoco pad|\bhuawei|\bmatepad|\bhonor pad|\bhonor\b'),
+    ('Tabletas Windows y rugged', r'\bwindows\b|\bsurface\b|\brugged|\bresistente\b|\bindustrial|\bgetac|\bpanasonic toughbook|\bzebra\b|\bhoneywell|\bintel core|\bceleron|\bn100\b|\bn150\b|\bcaja registradora|\bpos\b|\bpunto de venta|\bchuwi\b.{0,20}windows'),
+    ('Otras tabletas Android', r'\btablet|\btableta|\bandroid|\bipad'),
+])
+
+
+def sub_tableta(tn):
+    return _primera(tn, _TAB, {'Otras tabletas Android': 60, 'Tabletas para niños': 5})
+
+
+# ------------------------------------ Electrodomésticos/Purificadores de agua
+PURIFICADORES = ['Accesorios de purificador', 'Ósmosis inversa', 'Purificadores de grifo y encimera', 'Purificadores bajo tarja', 'Jarras y botellas con filtro',
+                 'Filtros y membranas de repuesto', 'Destiladores e ionizadores', 'Filtros para regadera', 'Filtros para refrigerador y cafetera',
+                 'Ablandadores y filtros de casa completa', 'Dispensadores de agua']
+_PUR = _c([
+    ('Filtros para refrigerador y cafetera', r'\brefrigerador|\bnevera|\bcafetera|\bcafe\b|\bkeurig|\bnespresso|\bbrita\b.{0,20}(cafetera)|\bmaquina de cafe|\bcompatible con (samsung|lg|whirlpool|ge|frigidaire|bosch|kenmore|maytag)|\blt\d{3,4}|\bda29|\bda97|\bultrawf|\bedr\dr|\bmwf\b|\bxwf\b|\badq\d'),
+    ('Filtros para regadera', r'\bregadera|\bducha|\bshower|\bcabezal de ducha|\bfiltro de bano'),
+    ('Jarras y botellas con filtro', r'\bjarra|\bpitcher|\bbotella (con|de) filtro|\bbotella filtrante|\bpaja de filtro|\bpajita filtrante|\bfiltro portatil|\bpurificador portatil|\bsupervivencia|\bcamping|\bmochilero|\blifestraw|\bbrita\b|\bpur\b.{0,10}jarra|\bdispensador de agua con filtro'),
+    ('Destiladores e ionizadores', r'\bdestilador|\bdestilada|\bdestilacion|\bionizador|\balcalin|\bhidrogeno|\bgenerador de agua|\bagua hidrogenada|\bph \d'),
+    ('Ablandadores y filtros de casa completa', r'\bablandador|\bsuavizador|\bcasa completa|\bwhole house|\btoda la casa|\bentrada de agua|\bsedimentos? (de|para) (casa|entrada|cisterna)|\bcisterna|\btinaco|\bdescalcificador|\bantisarro|\bpara toda la casa|\bfiltro de (entrada|sedimento)|\bcarcasa (de|para) filtro|\bportafiltro|\bbig blue'),
+    ('Dispensadores de agua', r'\bdispensador de agua\b(?!.*filtro)|\bdespachador de agua|\benfriador de agua|\bgarrafon|\bbomba (de|para) garrafon|\bwater dispenser|\bwater cooler'),
+    ('Filtros y membranas de repuesto', r'\binline\b|\ben linea\b|\bpara (rv|casa rodante|calentador)|\bprefiltro|\brepuesto|\breemplazo|\breplacement|\bmembrana|\bcartucho|\bcartuchos|\bfiltros? de (carbon|sedimento|ceramica|ultrafiltracion)|\bcarbon activado|\bpostfiltro|\bprefiltro|\bfiltro (de repuesto|compatible)|\bpaquete de \d+ filtros|\b\d+ (piezas|unidades|pack).{0,20}filtro|\betapa\b.{0,10}(repuesto|filtro)|\bfiltro\b.{0,30}(repuesto|reemplazo|compatible)|\bcompatible con'),
+    ('Ósmosis inversa', r'\bosmosis|\bro\b|\breverse osmosis|\bgpd\b|\btanque presurizado|\bsistema (de )?\d etapas|\b\d etapas'),
+    ('Accesorios de purificador', r'\btuberia|\btubo\b|\bconector|\bconexion rapida|\bllave (de|para) (purificador|osmosis|agua purificada)|\bvalvula\b|\btanque\b|\bbomba (de|para) (osmosis|presion)|\bmanometro|\bsoporte (de|para) filtro|\bkit de (instalacion|tuberia)|\bpastillas? potabilizadoras|\bpotabilizador'),
+    ('Purificadores de grifo y encimera', r'\bsobre (la )?tarja|\bgrifo|\bllave\b|\bencimera|\bsobre (la )?mesa|\bcountertop|\bfaucet|\bde mesa\b|\badaptador de grifo|\bvalvula desviadora|\bpurificador de agua (de|para) (grifo|llave|cocina|mesa)'),
+    ('Purificadores bajo tarja', r'\bbajo (tarja|fregadero|lavabo|mesada|encimera)|\bunder ?sink|\bdebajo del fregadero|\bpurificador de agua\b|\bfiltro de agua\b|\bultrafiltracion|\bpurificador\b'),
+])
+
+
+def sub_purificador(tn):
+    return _primera(tn, _PUR, {'Purificadores bajo tarja': 40, 'Filtros y membranas de repuesto': 10, 'Filtros para refrigerador y cafetera': 0})
+
+
+# ------------------------------------------ Deportes/Equipo de gimnasio
+GIMNASIO = ['Bancos y racks', 'Máquinas multifuncionales y poleas', 'Máquinas de cardio', 'Barras de dominadas y calistenia',
+            'Accesorios de fuerza', 'Tablas y balance', 'Máquinas de abdominales']
+_GYM = _c([
+    ('Protección y soportes', r'\bknee (pads?|brace|support|sleeve)|\brodillera|\bcodera|\btobillera|\bmunequera|\bfaja\b|\belbow (pad|brace)|\bankle (brace|support)|\bwrist (brace|support|wrap)'),
+    ('Máquinas de cardio', r'\bcaminadora|\bcinta de correr|\btreadmill|\beliptica|\bescaladora|\bstepper|\bremo\b|\bremadora|\browing|\bair ?bike|\bbicicleta (de ejercicio|fija|estatica|spinning)|\bspinning|\bmini bicicleta|\bpedaleador|\bcuerda para saltar|\bjump rope|\bsalto de cuerda|\btrampolin|\bmini ?trampolin|\bslide board|\bski\b'),
+    ('Máquinas de abdominales', r'\babdominal|\bab ?wheel|\brueda (abdominal|de abdominales)|\bab roller|\bcrunch|\bcore\b.{0,10}(maquina|entrenador)|\bab machine|\bcintura\b.{0,10}(maquina|twist)|\btwister|\bplancha\b.{0,10}(abdominal|entrenador)'),
+    ('Barras de dominadas y calistenia', r'\bdominadas|\bpull ?up|\bchin ?up|\bcalistenia|\bparalelas|\bdip (station|bar)|\bpower tower|\bbarras? (de|para) (dominadas|puerta|pared|flexiones)|\bflexiones|\bpush ?up|\banillos (de|para) gimnasia|\banillas|\btabla de flexiones|\bfondos\b'),
+    ('Bancos y racks', r'\bbanco (de|para) (pesas|mancuernas|press|ejercicio|fitness|abdominal|entrenamiento|musculacion)|\bbanco (plano|inclinado|ajustable|multiposicion|multiejercicio|olimpico|romano|scott|hiperextension)|\brack\b|\bjaula (de|para) (sentadillas|potencia|power)|\bpower rack|\bsquat rack|\bsoporte (de|para) (barra|pesas|sentadillas|discos|mancuernas)|\bhalf rack|\bportadiscos|\bportamancuernas|\bestante (de|para) (pesas|mancuernas|discos)|\bhack squat|\bpress de banca|\bbench\b'),
+    ('Máquinas multifuncionales y poleas', r'\bmultifuncional|\bmultiestacion|\bmultigimnasio|\bmulti ?gym|\bhome gym|\bgimnasio en casa\b(?!.*(banda|mancuerna|kit portatil))|\bmaquina smith|\bsmith\b|\bpolea|\bpoleas|\bcable (machine|crossover)|\bcrossover|\bprensa de piernas|\bleg press|\bextension de piernas|\bcurl de piernas|\bmaquina (de|para) (pecho|piernas|espalda|hombro|gluteo|abductor|aductor|pantorrilla|remo|jalon|press)|\bjalon\b|\blat pulldown|\bpulley\b|\bcable machine|\bleg press|\bhip thrust|\bsquat machine|\bbelt squat|\bgym equipment|\bfitness equipment|\bhack squat|\bestacion\b|\bmaquina de (cable|fuerza|musculacion|gimnasio)|\bpec deck|\bgluteo\b.{0,10}maquina|\bhip thrust'),
+    ('Tablas y balance', r'\bbosu|\bbalance board|\btabla de equilibrio|\bdisco de equilibrio|\bbalance\b|\bpelota (de|para) (pilates|ejercicio|estabilidad|yoga)|\bfitball|\bbalon (de|para) (ejercicio|pilates|estabilidad)|\bmedicine ball|\bbalon medicinal|\bslam ball|\bwall ball|\bplataforma vibratoria|\bvibratoria|\bstep\b.{0,10}(aerobic|ejercicio|plataforma)|\bplataforma de step|\bescalon de ejercicio'),
+    ('Accesorios de fuerza', r'\bagarre|\bgrip|\bstraps?\b|\bcorreas? (de|para) (levantamiento|muneca|tobillo|entrenamiento)|\bcinturon (de|para) (levantamiento|pesas|gimnasio|lastre)|\bmunequera|\brodillera|\bcodera|\bguantes (de|para) (gimnasio|gym|pesas|entrenamiento|levantamiento)|\bmagnesio\b|\btiza\b|\bchalk|\bcuerda (de|para) (batalla|battle)|\bbattle rope|\bchaleco (de|con) (peso|lastre)|\blastre|\btobilleras? (de|con) peso|\bmuñequeras con peso|\bpasador\b|\bcollarin|\babrazadera|\bcierre (de|para) barra|\bgancho|\bmanija|\bagarradera|\baccesorio (de|para) (polea|cable|maquina)|\bbarra (z|w|ez|romana|hexagonal|olimpica|recta|de tricep|de curl|para polea)|\bmancuernas?\b|\bdiscos? (de|para) (pesas|barra)|\bkettlebell|\bpesa rusa|\bligas? (de|para) (ejercicio|resistencia)|\bbanda (de|para) (resistencia|ejercicio)|\bbandas? (elasticas|de resistencia)|\bentrenador de (agarre|antebrazo|dedos|muneca)|\bejercitador'),
+])
+
+
+def sub_gimnasio(tn):
+    return _primera(tn, _GYM, {'Accesorios de fuerza': 20})
+
+
+# ---------------------------------------- Domótica/Cerraduras inteligentes
+CERRADURAS = ['Cerraduras con huella digital', 'Cerraduras con teclado y código', 'Cerraduras Wi-Fi y con app',
+              'Cerraduras de puerta inteligentes', 'Cerraduras para gabinete y casillero', 'Cerraduras para puerta de vidrio y corrediza',
+              'Candados inteligentes', 'Accesorios y refacciones de cerradura']
+_CERR = _c([
+    ('Accesorios y refacciones de cerradura', r'^(?:\S+ ){0,3}(bateria|cargador|tarjeta|llave|gateway|hub|puente|modulo|adaptador|cable|placa|caja|kit de instalacion|cilindro|repuesto|funda|cubierta)s?\b|\btarjetas? (rfid|ic|nfc|de acceso|de proximidad)|\bpuente wifi|\bwifi bridge|\bgateway\b|\bllaves? (de repuesto|adicionales)'),
+    ('Candados inteligentes', r'\bcandado|\bpadlock|\bcandado (de|con) huella|\bcandado inteligente|\bcandado bluetooth'),
+    ('Cerraduras para gabinete y casillero', r'\bgabinete|\bcasillero|\blocker|\bcajon|\bcajones|\barmario|\bmueble|\bvitrina|\btaquilla|\bcerradura (de|para) (gabinete|cajon|casillero|locker|armario|mueble)|\bbuzon|\bcaja fuerte'),
+    ('Cerraduras para puerta de vidrio y corrediza', r'\bvidrio|\bcristal|\bcorrediza|\bcorredera|\bpuerta de (vidrio|cristal|aluminio)|\bmarco de aluminio|\bpuerta corrediza|\bsliding'),
+    ('Cerraduras con huella digital', r'\bhuella|\bdactilar|\bfingerprint|\bbiometric|\breconocimiento facial|\bfacial|\bpalma|\bvena'),
+    ('Cerraduras Wi-Fi y con app', r'\bwifi|\bwi-?fi|\bapp\b|\balexa|\bgoogle|\btuya|\bsmart life|\bzigbee|\bmatter|\bhomekit|\bbluetooth|\bcontrol (remoto|por app)|\bremoto\b|\bttlock|\baugust\b|\byale\b.{0,20}(wifi|bluetooth|app)|\bschlage encode|\bkwikset halo|\bnuki\b'),
+    ('Cerraduras con teclado y código', r'\bteclado|\bcodigo|\bcontrasena|\bkeypad|\bclave\b|\bpin\b|\bcombinacion|\bdigital|\belectronica|\bsin llave|\bkeyless'),
+    ('Cerraduras de puerta inteligentes', r'\bcerrojo|\bdeadbolt|\bmanija|\bmanilla|\bperilla|\bpicaporte|\bchapa\b|\bcerradura\b'),
+])
+
+
+def sub_cerradura(tn):
+    return _primera(tn, _CERR, {'Cerraduras de puerta inteligentes': 40, 'Cerraduras con teclado y código': 8, 'Cerraduras Wi-Fi y con app': 12})
+
+
+# -------------------------------- Proyectores/Pantallas de proyección
+PANTALLAS = ['Pantallas enrollables manuales', 'Pantallas eléctricas motorizadas', 'Pantallas con trípode y portátiles',
+             'Pantallas de marco fijo', 'Pantallas inflables y de exterior', 'Pantallas de suelo y de mesa', 'Telas y pantallas ALR',
+             'Lámparas de proyector', 'Soportes para proyector', 'Otros accesorios de proyector']
+_PAN = _c([
+    ('Proyectores', r'^(?:\S+ ){0,3}(mini ?)?proyector(es)?\b(?!.{0,40}(pantalla|soporte|lampara|bombilla|control|filtro|cable|funda|lente|adaptador|bateria|mount|tripode))|^(?:\S+ ){0,2}(proyector|projector) (4k|1080p|portatil|led|laser|inteligente|smart|android|wifi|de bolsillo|mini)'),
+    ('Lámparas de proyector', r'\blampara|\bbombilla|\bbulb\b|\bfoco (de|para) proyector|\bmodulo de lampara|\blamp\b|\belplp|\bnp\d{2}lp|\bsp-lamp|\bpoa-lmp|\bet-lae|\bet-lal|\bdt\d{4}|\b5j\.\w+'),
+    ('Soportes para proyector', r'\bsoporte|\bmontaje|\bbase (para|de) proyector|\btripie|\btripode (para|de) proyector|\bbracket|\bmount\b|\bestante (para|de) proyector|\brepisa|\bbrazo'),
+    ('Otros accesorios de proyector', r'\bcontrol remoto|\bmando a distancia|\bfiltro|\bventilador|\bcable|\badaptador|\blente\b|\bfunda|\bmaletin|\bestuche|\bbolsa|\bcubierta|\btapa|\bplaca|\bboard\b|\bpower supply|\bfuente de alimentacion|\bbateria|\bbattery|\brepuesto (para|de) proyector|\bpara proyector\b(?!.{0,40}pantalla)|\bhead-?up|\bhud\b|\bcars? for\b'),
+    ('Pantallas inflables y de exterior', r'\binflable|\binflatable|\bexterior|\boutdoor|\bal aire libre|\bjardin|\bpatio|\bcine al aire libre|\bcamping'),
+    ('Telas y pantallas ALR', r'\balr\b|\bclr\b|\brechazo de luz ambiental|\bluz ambiental|\btela (de|para) proyecci|\blona\b(?!.*(tripode|enrollable|electrica))|\bpantalla de tela\b|\bfabric\b|\bmaterial de proyeccion|\bpantalla plegable (de tela|anti ?arrugas)|\banti ?arrugas|\bcon ojales|\bcon ganchos'),
+    ('Pantallas eléctricas motorizadas', r'\belectric|\bmotorizad|\bmotorized|\bcon control remoto|\bcon motor|\bautomatica|\bde techo\b.{0,20}(electric|motor)|\bretractil electrica|\btensionada'),
+    ('Pantallas con trípode y portátiles', r'\btripode|\btripie|\bcon soporte\b|\bde pie\b|\bde piso\b|\bportatil|\bplegable|\bcon base|\bstand\b|\bpull ?up|\bautoportante|\bcon maleta|\bcon bolsa'),
+    ('Pantallas de marco fijo', r'\bmarco fijo|\bfixed frame|\bde marco\b|\bmarco de aluminio|\bfija\b|\bfijo\b|\bde pared fija|\bmontaje en pared'),
+    ('Pantallas de suelo y de mesa', r'\bde suelo|\bde mesa\b|\bfloor rising|\bsobre mesa|\bde escritorio|\btabletop|\bcompacta'),
+    ('Pantallas enrollables manuales', r'\benrollable|\bmanual|\bretractil|\bdesplegable|\bpull ?down|\bde techo|\bde pared|\bcortina|\bpantalla (de|para) proyecci|\bpantalla proyector|\bpantalla de proyector|\bproyeccion\b'),
+])
+
+
+def sub_pantalla_proy(tn):
+    return _primera(tn, _PAN, {'Pantallas enrollables manuales': 40, 'Otros accesorios de proyector': 5})
+
+
+OLA2 += [
+    ('Herramientas', ['Herramientas eléctricas'], HERRAMIENTAS_E, lambda tn, sv: sub_herramienta_e(tn), None),
+    ('Belleza y cuidado personal', ['Maquillaje'], MAQUILLAJE, lambda tn, sv: sub_maquillaje(tn), None),
+    ('Joyería y bisutería', ['Relojes'], RELOJES, lambda tn, sv: sub_reloj_pulsera(tn), None),
+    ('Refacciones', ['Para autos'], REFACCIONES_AUTO, lambda tn, sv: sub_refaccion_auto(tn), None),
+    ('Mascotas', ['Jaulas y corrales'], JAULAS, lambda tn, sv: sub_jaula(tn), None),
+    ('Tabletas', ['Android'], TABLETAS, lambda tn, sv: sub_tableta(tn), 'Otras tabletas Android'),
+    ('Electrodomésticos', ['Purificadores de agua'], PURIFICADORES, lambda tn, sv: sub_purificador(tn), None),
+    ('Deportes y fitness', ['Equipo de gimnasio'], GIMNASIO, lambda tn, sv: sub_gimnasio(tn), None),
+    ('Domótica y hogar inteligente', ['Cerraduras inteligentes'], CERRADURAS, lambda tn, sv: sub_cerradura(tn), None),
+    ('Proyectores y accesorios', ['Pantallas de proyección'], PANTALLAS, lambda tn, sv: sub_pantalla_proy(tn), None),
+]
+
+
+# =========================================================== CUARTA OLA
+def _tamano_cama(tn):
+    if re.search(r'\bking\b|\bcalifornia king', tn): return 'king'
+    if re.search(r'\bqueen\b', tn): return 'queen'
+    if re.search(r'\bmatrimonial|\bfull\b|\bdoble\b|\b135 ?x|\b140 ?x', tn): return 'matrimonial'
+    if re.search(r'\bindividual|\btwin\b|\bsingle\b|\b90 ?x|\b100 ?x|\b105 ?x', tn): return 'individual'
+    return None
+
+
+# ------------------------------------------ Instrumentos/Baterías, Viento, Teclados
+BATERIAS = ['Baterías acústicas', 'Baterías electrónicas', 'Platillos', 'Baquetas y escobillas', 'Parches',
+            'Pedales y herrajes de batería', 'Tarolas y cajas', 'Pads de práctica', 'Fundas y accesorios de batería']
+_BAT = _c([
+    ('Pads de práctica', r'\bpad (de|para) practica|\balmohadilla de practica|\bpractice pad|\bpad\b.{0,20}practica'),
+    ('Baquetas y escobillas', r'\bbaquetas?\b|\bdrumsticks?|\bescobillas?\b|\bbrushes\b|\bmazos?\b|\bmallets?\b|\brods\b'),
+    ('Parches', r'\bparches?\b|\bdrumhead|\bhead\b.{0,15}(tom|snare|bass)|\bevans\b|\bremo\b'),
+    ('Platillos', r'\bplatillos?\b|\bcymbals?\b|\bhi-?hat|\bcrash\b|\bride\b|\bsplash\b|\bchina\b.{0,10}(platillo|cymbal)|\bzildjian|\bsabian|\bmeinl\b.{0,20}(platillo|cymbal)|\bpaiste'),
+    ('Pedales y herrajes de batería', r'\bpedal(es)?\b|\bherrajes?\b|\bhardware\b|\batril\b|\bsoporte (de|para) (platillo|tarola|tom|bombo|hi-?hat)|\bstand\b|\babrazadera|\bclamp\b|\bllave de afinacion|\bdrum key|\btornillo|\bbanco (de|para) bateria|\btrono\b|\bthrone\b|\brack (de|para) bateria|\bcadena\b|\bbeater|\bmaza\b'),
+    ('Tarolas y cajas', r'\btarola|\bsnare\b|\bcaja (de|para) bateria|\bredoblante'),
+    ('Baterías electrónicas', r'\belectronic|\belectric|\bdigital|\bmalla\b|\bmesh\b|\bmodulo (de )?(sonido|bateria)|\bbateria (de )?aire|\bair drum|\bvirtual'),
+    ('Fundas y accesorios de batería', r'\bfunda|\bestuche|\bcase\b|\bbag\b|\btapete|\balfombra|\bsilenciador|\bmute\b|\bmicrofono|\bmonitor|\bkit de (limpieza|afinacion)'),
+    ('Baterías acústicas', r'\bbateria (acustica|de \d piezas|completa|shell|junior|infantil)|\bjuego de bateria|\bdrum (set|kit)|\bshell pack|\bbombo\b|\btom\b|\btoms\b|\bbateria\b'),
+])
+
+
+def sub_bateria_musical(tn):
+    return _primera(tn, _BAT, {'Baterías acústicas': 30, 'Fundas y accesorios de batería': 5})
+
+
+VIENTO = ['Saxofones', 'Flautas traversas', 'Clarinetes y oboes', 'Trompetas, trombones y metales', 'Armónicas y melódicas',
+          'Ocarinas, silbatos y flautas dulces', 'Instrumentos de viento digitales', 'Boquillas, cañas y accesorios de viento']
+_VIE = _c([
+    ('Boquillas, cañas y accesorios de viento', r'\bboquilla|\bcanas?\b|\breeds?\b|\bligadura|\bcorrea|\bfunda|\bestuche|\bcase\b|\batril|\bsoporte|\blimpiador|\bkit de (limpieza|mantenimiento)|\baceite (de|para) (valvula|piston)|\bgrasa (de|para) corcho|\bsordina|\bmute\b|\bpaño|\bpano\b|\bhisopo|\bcordon|\barnes\b|\bpad\b|\balmohadilla|\bmouthpiece'),
+    ('Instrumentos de viento digitales', r'\bdigital|\belectronic|\bmidi\b|\bsintetizador de viento|\bewi\b|\baerophone|\bsaxofon electronico'),
+    ('Armónicas y melódicas', r'\barmonica|\bharmonica|\bmelodica|\bpianica|\bacordeon'),
+    ('Ocarinas, silbatos y flautas dulces', r'\bocarina|\bsilbato|\bwhistle|\bflauta dulce|\bflauta de pan|\bquena|\bzampona|\bflauta (nativa|indigena|de bambu|de madera|irlandesa)|\brecorder\b|\bkazoo|\bpito\b|\bflauta (para|de) ninos'),
+    ('Saxofones', r'\bsaxofon|\bsaxo\b|\bsax\b|\bsaxophone'),
+    ('Flautas traversas', r'\bflauta (traversa|transversal)|\bflauta\b|\bflute\b|\bpiccolo|\bflautin'),
+    ('Clarinetes y oboes', r'\bclarinete|\boboe|\bfagot|\bbassoon|\bclarinet'),
+    ('Trompetas, trombones y metales', r'\btrompeta|\btrombon|\btuba\b|\bcorneta|\bcorno|\btrompa\b|\bbombardino|\beufonio|\bfliscorno|\bsousafon|\bmetales?\b|\bbugle|\bcornet|\btrumpet|\bhelicon'),
+])
+
+
+def sub_viento(tn):
+    return _primera(tn, _VIE, {'Boquillas, cañas y accesorios de viento': 5})
+
+
+TECLADOS_MUS = ['Pianos digitales', 'Teclados electrónicos', 'Sintetizadores y controladores MIDI', 'Acordeones',
+                'Órganos y otros teclados', 'Bancos, soportes y accesorios de teclado']
+_TEC = _c([
+    ('Bancos, soportes y accesorios de teclado', r'\bbanco|\bsoporte|\bstand\b|\bpedal|\bfunda|\bestuche|\bcubierta|\batril|\bcable|\badaptador|\bpegatinas|\bstickers|\bbolsa'),
+    ('Acordeones', r'\bacordeon|\bbandoneon|\bconcertina|\baccordion'),
+    ('Sintetizadores y controladores MIDI', r'\bsintetizador|\bsynth|\bmidi\b|\bcontrolador|\bworkstation|\bgroovebox|\bsecuenciador|\bsampler|\bpad\b'),
+    ('Órganos y otros teclados', r'\borgano|\bclavecin|\bharmonium|\bcelesta|\bmelotron|\bmellotron'),
+    ('Pianos digitales', r'\bpiano digital|\bpiano electrico|\bpiano electronico|\bpiano de (88|76) teclas|\b88 teclas|\bpiano\b(?!.*(teclado (de|para) ninos|juguete))|\bclavinova|\bcasio (px|cdp|ap)|\byamaha (p-?\d|ydp|clp)|\broland (fp|rp|hp)|\bkorg'),
+    ('Teclados electrónicos', r'\bteclado|\bkeyboard|\bteclas\b|\bcasiotone|\bpsr\b'),
+])
+
+
+def sub_teclado_musical(tn):
+    return _primera(tn, _TEC, {'Teclados electrónicos': 20, 'Bancos, soportes y accesorios de teclado': 3})
+
+
+# ---------------------------------------------------------------- Audífonos
+AUDIFONOS_INAL = ['Earbuds con cancelación de ruido', 'Earbuds deportivos', 'Earbuds de cuello', 'Earbuds para niños',
+                  'Earbuds inalámbricos', 'Diadema con cancelación de ruido', 'Diadema inalámbrica', 'Almohadillas y repuestos']
+_AUD = _c([
+    ('Almohadillas y repuestos', r'\balmohadillas?\b|\bear ?pads?\b|\bear ?tips?\b|\bpuntas (de|para) (oido|silicona)|\bestuche (de )?(carga|reemplazo|repuesto)|\bcaja de carga|\bcable (de repuesto|de reemplazo|para)|\bfunda (para|de) (airpods|audifonos|auriculares|estuche)|\brepuesto|\bganchos? (para|de) (oreja|oido)|\bdiadema de repuesto|\bcorrea|\bsoporte (para|de) audifonos'),
+    ('Earbuds para niños', r'\bpara ninos?\b|\binfantil|\bninos?\b|\bnina\b|\bkids?\b|\bkawaii|\bhello kitty|\bdisney|\bmarvel'),
+    ('Diadema con cancelación de ruido', r'(supraaural|over-?ear|on-?ear|diadema|headphones?|over the ear|circumaural|wh-?1000|quietcomfort|qc\d+|xm[3-6]\b|beats (solo|studio)|tune (5|6|7)\d0|live 7\d0).{0,80}(cancelacion (activa )?de ruido|\banc\b|noise cancel)|(cancelacion (activa )?de ruido|\banc\b|noise cancel).{0,80}(supraaural|over-?ear|on-?ear|diadema|headphones?|circumaural)|\bwh-?1000xm|\bquietcomfort|\bbose qc|\bxm[3-6]\b|\bbeats studio|\bsony ult wear'),
+    ('Diadema inalámbrica', r'\bsupraaural|\bover-?ear|\bon-?ear|\bdiadema|\bheadphones?\b|\bover the ear|\bcircumaural|\bbeats solo|\btune (5|6|7)\d0|\blive 7\d0|\bplegables?\b|\bvincha|\bde vincha'),
+    ('Earbuds con cancelación de ruido', r'cancelacion (activa )?de ruido|\banc\b|noise cancel|\bcancelacion de ruido'),
+    ('Earbuds deportivos', r'\bdeportiv|\bsport\b|\bsports\b|\bgym\b|\bcorrer\b|\brunning|\bejercicio|\bgancho|\bear ?hook|\bipx[5-8]|\bip6[78]|\bsudor|\bsweat'),
+    ('Earbuds de cuello', r'\bcuello\b|\bneckband|\bneck\b|\bmagnetic|\bmagnetic'),
+    ('Earbuds inalámbricos', r'\btws\b|\btrue wireless|\bearbuds?\b|\bin-?ear|\bintraaur|\binalambric|\bbluetooth|\baudifono|\bauricular|\bmanos libres'),
+])
+
+
+def sub_audifono_inal(tn):
+    return _primera(tn, _AUD, {'Earbuds inalámbricos': 60, 'Diadema inalámbrica': 8, 'Earbuds de cuello': 10, 'Earbuds deportivos': 6})
+
+
+# ------------------------------------------------------------ Muebles
+COLCHONES = ['Colchones individuales', 'Colchones matrimoniales', 'Colchones queen size', 'Colchones king size',
+             'Colchones infantiles y de cuna', 'Colchones plegables y de sofá cama', 'Toppers y sobrecolchones', 'Colchones']
+_COL = _c([
+    ('Toppers y sobrecolchones', r'\btopper|\bsobrecolchon|\bcubre ?colchon|\bmattress topper|\bprotector'),
+    ('Colchones infantiles y de cuna', r'\bcuna|\binfantil|\bpara ninos?\b|\bbebe|\bcrib\b|\bmoises|\bcorral'),
+    ('Colchones plegables y de sofá cama', r'\bplegable|\bsofa cama|\bfuton|\bde suelo|\btatami|\bcolchoneta|\bcamping|\binflable|\bde aire\b|\bde viaje|\benrollable'),
+])
+
+
+def sub_colchon(tn):
+    s = _primera(tn, _COL, {})
+    if s:
+        return s
+    t = _tamano_cama(tn)
+    return {'king': 'Colchones king size', 'queen': 'Colchones queen size', 'matrimonial': 'Colchones matrimoniales',
+            'individual': 'Colchones individuales'}.get(t, 'Colchones')
+
+
+ESCRITORIOS = ['Escritorios de oficina', 'Escritorios gamer', 'Escritorios en L y esquineros', 'Escritorios de altura ajustable',
+               'Escritorios infantiles y estudiantiles', 'Mesas para laptop y de cama', 'Escritorios plegables y compactos',
+               'Accesorios y organizadores de escritorio']
+_ESC = _c([
+    ('Accesorios y organizadores de escritorio', r'\borganizador|\bsoporte (para|de) monitor|\belevador|\bbandeja (para|de) teclado|\bcajonera\b|\bcajon (para|de) escritorio|\bpasacables|\bgestion de cables|\btapete|\balfombrilla|\bprotector de escritorio|\bportalapices|\blampara|\brepisa (para|de) escritorio|\bextension de escritorio|\breposapies|\bsoporte (para|de) (laptop|cpu|computadora)|\bpc gamer\b|\bmemoria usb'),
+    ('Mesas para laptop y de cama', r'\bmesa (para|de) (laptop|cama|portatil|computadora portatil)|\bde cama\b|\bbandeja (para|de) (cama|laptop|sofa)|\bcon ruedas\b.{0,20}(cama|sofa)|\blap ?desk|\bmesita (para|de) (laptop|cama)|\bmesa auxiliar con ruedas'),
+    ('Escritorios de altura ajustable', r'\baltura ajustable|\bajustable en altura|\bde pie\b|\bstanding|\belectrico|\bsit-?stand|\belevable|\bregulable en altura|\bmotorizado|\bconvertidor'),
+    ('Escritorios gamer', r'\bgamer|\bgaming\b|\bled\b|\brgb\b|\bfibra de carbono|\bpara pc gamer'),
+    ('Escritorios en L y esquineros', r'\ben l\b|\ben forma de l|\bl-?shaped|\besquinero|\bde esquina|\besquina\b|\ben u\b'),
+    ('Escritorios infantiles y estudiantiles', r'\binfantil|\bpara ninos?\b|\bninos?\b|\bnina\b|\bkids?\b|\bestudiantil|\bestudiante|\bpupitre|\bescolar|\bjuvenil'),
+    ('Escritorios plegables y compactos', r'\bplegable|\bcompacto|\bpequeno|\bmini\b|\bflotante|\bde pared\b|\babatible|\bmesa plegable'),
+    ('Escritorios de oficina', r'\boficina|\bejecutivo|\bgerencial|\bsecretarial|\bhome office|\bcon cajones|\bde madera|\bde cristal|\bde vidrio|\bmoderno|\bescritorio|\bmesa (de|para) (computadora|computador|estudio|trabajo|oficina)|\bmesa gamer'),
+])
+
+
+def sub_escritorio(tn):
+    return _primera(tn, _ESC, {'Escritorios de oficina': 40, 'Escritorios plegables y compactos': 10, 'Escritorios gamer': 3})
+
+
+SOFAS = ['Sofás de 2 y 3 plazas', 'Sofás seccionales y esquineros', 'Sofás cama', 'Sillones de masaje', 'Sofás infantiles',
+         'Puffs y otomanas', 'Fundas y accesorios para sofá', 'Sillones y reclinables']
+_SOF = _c([
+    ('Fundas y accesorios para sofá', r'\bfundas?\b|\bcubre ?sofa|\bprotector (de|para) sofa|\bcojin(es)?\b(?! (de|para) (silla|asiento))|\bbandeja (de|para) (sofa|reposabrazos)|\bpatas? (de|para) sofa|\borganizador (de|para) sofa|\bresorte'),
+    ('Sillones de masaje', r'\bmasaje|\bmasajeador|\bmasajeadora|\bmassage'),
+    ('Sofás infantiles', r'\binfantil|\bpara ninos?\b|\bninos?\b|\bnina\b|\bkids?\b|\bbebe|\bprincesa|\bastronauta|\bdinosaurio|\bunicornio'),
+    ('Puffs y otomanas', r'\bpuff?s?\b|\bpouf|\botoman|\bbanco tapizado|\btaburete tapizado|\bpera\b|\bbean ?bag|\breposapies'),
+    ('Sofás cama', r'\bsofa ?cama|\bsofacama|\bcama (extraible|nido)|\bfuton|\bconvertible en cama|\bdesplegable'),
+    ('Sofás seccionales y esquineros', r'\bseccional|\besquiner|\ben forma de l|\ben l\b|\bmodular|\bchaise ?longue|\bsala (esquinera|modular|en l|completa|de \d piezas)|\bjuego de sala|\bconjunto de sala'),
+    ('Sillones y reclinables', r'\bsillon(es)?\b(?! (de|para) (2|3|dos|tres) plazas)|\breclinable|\breclinabl|\bbutaca|\bpoltrona|\bloveseat|\blove seat|\bindividual\b|\bde 1 plaza|\buna plaza|\bchaise'),
+    ('Sofás de 2 y 3 plazas', r'\bsofa|\b(2|3|dos|tres) plazas|\bde \d plazas|\bcouch|\bchesterfield|\bloveseat'),
+])
+
+
+def sub_sofa(tn):
+    return _primera(tn, _SOF, {'Sofás de 2 y 3 plazas': 30, 'Sillones y reclinables': 15})
+
+
+MESAS_CENTRO = ['Mesas de centro', 'Mesas auxiliares y laterales', 'Mesas para TV y consolas', 'Mesas de cama y con ruedas',
+                'Mesas plegables y multiusos', 'Mesas de exterior']
+_MC = _c([
+    ('Mesas para TV y consolas', r'\bmesa (para|de) tv|\bmueble (para|de) tv|\brack (para|de) tv|\bconsola\b(?! (mezcladora|de audio|de juegos|de videojuegos))|\bcentro de entretenimiento|\bcredenza|\baparador|\brecibidor|\bde entrada\b'),
+    ('Mesas de cama y con ruedas', r'\bmesa (de|para) cama|\bcon ruedas|\bmesa auxiliar movil|\bcarrito|\bmesa (para|de) laptop|\bsobre cama|\bmesa de hospital'),
+    ('Mesas de exterior', r'\bexterior|\bjardin|\bterraza|\bpatio|\boutdoor|\bplaya|\bcamping|\bratan|\brattan'),
+    ('Mesas plegables y multiusos', r'\bplegable|\bmultiusos|\bmulti ?funcional|\bde trabajo|\bmesa de (dibujo|manualidades|costura)|\bcaballete|\bmesa (alta|de bar)|\bmesa (de|para) (impresora|maquina)'),
+    ('Mesas auxiliares y laterales', r'\bauxiliar|\blateral|\bde esquina|\besquinera|\bmesita|\bde noche|\bnido\b|\bpedestal|\bde apoyo|\bde sala\b(?!.*centro)|\bmesa de (lampara|telefono)|\bside table|\bend table'),
+    ('Mesas de centro', r'\bmesa (de )?centro|\bcentro\b|\bcoffee table|\bmesa (de|para) (sala|cafe|te)|\bmesa\b'),
+])
+
+
+def sub_mesa_centro(tn):
+    return _primera(tn, _MC, {'Mesas de centro': 30, 'Mesas auxiliares y laterales': 5})
+
+
+CAMAS = ['Bases de cama y box', 'Cabeceras', 'Camas individuales', 'Camas matrimoniales', 'Camas queen y king', 'Literas',
+         'Camas infantiles', 'Camas plegables y catres', 'Accesorios y refacciones de cama']
+_CAM = _c([
+    ('Accesorios y refacciones de cama', r'\bpatas? (de|para) (cama|box)|\brueda|\banillos?\b|\brepuesto|\bresorte|\btrampolin|\bcama elastica|\bherraje|\bconector|\bsoporte central|\bbarandal|\bbarrera|\bescalera (de|para) litera|\bmarco de cama\b.{0,20}(piezas|patas)|\btablas? (de|para) cama'),
+    ('Cabeceras', r'\bcabecera|\bcabecero|\bheadboard|\brespaldo (de|para) cama'),
+    ('Literas', r'\blitera|\bbunk|\bcama alta|\bcama nido|\bcama elevada|\bloft bed|\bcama triple'),
+    ('Camas infantiles', r'\binfantil|\bpara ninos?\b|\bninos?\b|\bnina\b|\bkids?\b|\bbebe|\bcuna|\bprincesa|\bcarro|\bcoche\b|\bmontessori|\btoddler|\bjuvenil'),
+    ('Camas plegables y catres', r'\bplegable|\bcatre|\bcama de (campana|camping|invitados)|\bportatil|\bde aire\b|\binflable|\bcamping|\bcama auxiliar|\bde hospital|\bhospitalaria|\barticulada'),
+    ('Bases de cama y box', r'\bbox\b(?! ?spring de)|\bbase (de|para) cama|\bbase\b|\bsomier|\btambor\b|\bbox ?spring|\bbastidor|\bplataforma'),
+])
+
+
+def sub_cama(tn):
+    s = _primera(tn, _CAM, {'Bases de cama y box': 5})
+    if s:
+        return s
+    t = _tamano_cama(tn)
+    return {'king': 'Camas queen y king', 'queen': 'Camas queen y king', 'matrimonial': 'Camas matrimoniales',
+            'individual': 'Camas individuales'}.get(t)
+
+
+# ------------------------------------------------------------ Juguetes/Bebés
+BEBES = ['Alimentación y lactancia', 'Baño e higiene del bebé', 'Pañales y cambio', 'Chupones y mordederas', 'Seguridad para bebé',
+         'Ropa y calzado de bebé', 'Juguetes para bebé', 'Portabebés y canguros', 'Sillas de comer y mecedoras', 'Cuidado y salud del bebé']
+_BEB = _c([
+    ('Portabebés y canguros', r'\bportabebe|\bcanguro|\bfular|\brebozo|\bmochila (porta|ergonomica)|\bcargador de bebe|\bcarrier\b'),
+    ('Sillas de comer y mecedoras', r'\bsilla (de|para) comer|\bperiquera|\btrona\b|\bmecedora|\bcolumpio (para|de) bebe|\bbouncer|\bhamaca (para|de) bebe|\bsilla vibradora|\bgimnasio (para|de) bebe|\btapete de (juego|actividades)|\bcentro de actividades|\bbrincolin'),
+    ('Pañales y cambio', r'\bpanal|\bpanales|\bcambiador|\bcambio de panal|\btoallitas humedas|\btoallitas\b|\bcubeta (de|para) panales|\bbote (de|para) panales|\bcrema (para|de) rozaduras|\brozaduras|\bdiaper'),
+    ('Chupones y mordederas', r'\bchupon|\bchupete|\bmordedera|\bmordedor|\bdentici|\bpacifier|\bteether|\bportachupon|\bcadena (para|de) chupon'),
+    ('Alimentación y lactancia', r'\bbiberon|\bmamila|\btetina|\bextractor de leche|\bsacaleches|\blactancia|\bleche materna|\bbolsas? (de|para) leche|\besterilizador|\bcalienta ?biberon|\bplato (para|de) bebe|\bvaso (entrenador|de aprendizaje|antiderrame)|\bcuchara (para|de) bebe|\bbabero|\bpapilla|\bprocesador de alimentos para bebe|\bformula\b|\bcereal (para|de) bebe|\balimentador|\btermo (para|de) (biberon|bebe)|\bcojin de lactancia|\balmohada de lactancia|\bbrassiere de lactancia|\bprotectores de lactancia|\bpezoneras'),
+    ('Baño e higiene del bebé', r'\btina (de|para) bebe|\bbanera|\bbanadera|\bchampu\b|\bshampoo|\bjabon\b|\bgel de bano|\bespuma\b|\bcrema (hidratante|corporal)|\baceite (para|de) bebe|\btalco|\bcepillo (de|para) (bebe|cabello)|\bpeine\b|\bcortaunas|\btoalla (con capucha|para bebe)|\besponja|\btermometro de bano|\basiento (de|para) bano|\bcapa de bano|\bbath\b'),
+    ('Cuidado y salud del bebé', r'\baspirador nasal|\btermometro|\bhumidificador|\bmonitor (de|para) bebe|\bvaporizador|\bsuero\b|\bvitaminas (para|de) bebe|\bprotector solar (para|de) bebe|\bcrema (para|de) (bebe|piel)|\bkit de (cuidado|salud)|\bbotiquin|\bsalud\b|\bpomada|\bcuidado de la piel'),
+    ('Seguridad para bebé', r'\bprotector(es)? (de|para) (esquinas|enchufes|contactos|puertas|cajones)|\bseguro (de|para) (cajon|puerta|gabinete)|\bpuerta de seguridad|\breja de seguridad|\bbarrera (de|para) (escalera|cama|seguridad)|\bcerradura (de|para) (bebe|nino|cajon)|\ba prueba de ninos|\bmonitor de (respiracion|movimiento)|\bcasco (para|de) bebe|\brodilleras (para|de) bebe|\barnes (de|para) (seguridad|caminar)|\bcorrea (anti ?perdida|de seguridad)|\bandador (con|de) seguridad'),
+    ('Ropa y calzado de bebé', r'\bropa\b|\bmameluco|\bpijama|\bbody\b|\bbodys\b|\bcalcetines|\bzapatos? (de|para) bebe|\bgorro|\bmanoplas|\bconjunto (de|para) bebe|\bvestido|\bpanalero|\bcobija (de|para) bebe|\bmanta (de|para) bebe|\bsaco de dormir|\bsleeping bag|\bswaddle|\benvoltura|\bropa (de|para) bebe|\bbaby (clothes|outfit)'),
+    ('Juguetes para bebé', r'\bjuguete|\bsonaja|\bsonajero|\bmovil (para|de) cuna|\bpeluche|\bcubos? (de|para) bebe|\blibro (de tela|de bano|blandito)|\bproyector (de|para) (cuna|bebe)|\bpiano (de|para) bebe|\bcaminador|\bandadera|\bcorrepasillos|\bapilable|\bgimnasio de actividades|\bmesa de actividades|\bmuneca|\bcochecito de muneca|\bpelota (para|de) bebe|\bjuego (de|para) bebe|\bmordedor de juguete'),
+])
+
+
+def sub_bebe(tn):
+    return _primera(tn, _BEB, {'Juguetes para bebé': 10, 'Cuidado y salud del bebé': 8, 'Ropa y calzado de bebé': 8})
+
+
+# ---------------------------------------------------- Cargadores/De pared
+CARGADORES_PARED = ['Cargadores de pared hasta 20 W', 'Cargadores de pared de 25 a 45 W', 'Cargadores de pared de 65 W o más',
+                    'Cargadores multipuerto y estaciones de carga', 'Cargadores de pared con cable', 'Cargadores para reloj y accesorios pequeños']
+_RX_W = re.compile(r'(?<![\d.])(\d{1,3}) ?w\b')
+
+
+def sub_cargador_pared(tn):
+    if re.search(r'\breloj|\bwatch\b|\bairpods|\bauricular|\bearbuds|\bsmartwatch|\bpixel watch|\bgalaxy watch', tn):
+        return 'Cargadores para reloj y accesorios pequeños'
+    if re.search(r'\b([4-9]|1\d|2\d) puertos|\bmultipuerto|\bmulti ?puerto|\bestacion de carga|\bcharging station|\btorre de carga|\bconcentrador de carga|\bhub de carga|\b3 puertos|\b4 puertos', tn):
+        return 'Cargadores multipuerto y estaciones de carga'
+    ws = [int(x) for x in _RX_W.findall(tn) if 3 <= int(x) <= 400]
+    w = max(ws) if ws else None
+    con_cable = bool(re.search(r'\bcon cable|\b\+ cable|\bcable incluido|\bkit\b.{0,20}cable|\bcargador y cable|\bcable (usb|tipo|lightning|c a c)', tn))
+    if w is None:
+        return 'Cargadores de pared con cable' if con_cable else None
+    if w >= 65: return 'Cargadores de pared de 65 W o más'
+    if w >= 25: return 'Cargadores de pared de 25 a 45 W'
+    return 'Cargadores de pared con cable' if con_cable else 'Cargadores de pared hasta 20 W'
+
+
+# ---------------------------------------------- Blancos/Cobijas eléctricas
+COBIJAS_E = ['Cobijas eléctricas individuales', 'Cobijas eléctricas matrimoniales', 'Cobijas eléctricas queen y king',
+             'Mantas eléctricas USB y portátiles', 'Chales y mantas eléctricas para regazo', 'Almohadillas y cojines térmicos',
+             'Repuestos y controles de cobija eléctrica']
+
+
+def sub_cobija_electrica(tn):
+    if re.search(r'\brepuesto|\breemplazo|\bcontrol(ador)? (de|para) (manta|cobija)|\bcable calefactor|\badaptador|\bcontrolador\b', tn):
+        return 'Repuestos y controles de cobija eléctrica'
+    if re.search(r'\balmohadilla|\bcojin|\bpad\b|\bcompresa|\bcalentador de (pies|manos)|\bpara (cuello|espalda|hombros|abdomen|cintura|rodilla)', tn):
+        return 'Almohadillas y cojines térmicos'
+    if re.search(r'\bchal\b|\bmanton|\bregazo|\bpara sofa\b|\bhombros\b|\bponcho|\bwearable|\busable|\bcon mangas|\bcapa\b', tn):
+        return 'Chales y mantas eléctricas para regazo'
+    if re.search(r'\busb\b|\bpilas|\bbateria|\bportatil|\bpower ?bank|\b5 ?v\b|\b12 ?v\b|\bpara (coche|auto|carro|camping)|\bde viaje', tn):
+        return 'Mantas eléctricas USB y portátiles'
+    t = _tamano_cama(tn)
+    if t in ('king', 'queen'): return 'Cobijas eléctricas queen y king'
+    if t == 'matrimonial': return 'Cobijas eléctricas matrimoniales'
+    if t == 'individual': return 'Cobijas eléctricas individuales'
+    m = re.search(r'(\d{2,3}) ?x ?(\d{2,3}) ?(cm|pulgadas|in\b|")', tn)
+    if m:
+        a, b = int(m.group(1)), int(m.group(2)); unit = m.group(3)
+        w = max(a, b) * (2.54 if unit != 'cm' else 1)
+        if w >= 200: return 'Cobijas eléctricas queen y king'
+        if w >= 150: return 'Cobijas eléctricas matrimoniales'
+        return 'Cobijas eléctricas individuales'
+    return None
+
+
+# --------------------------------------------------------- Belleza/Faciales
+FACIALES = ['Cremas y sérums faciales', 'Limpiadores y tónicos', 'Mascarillas faciales', 'Contorno de ojos y labios',
+            'Dispositivos de cuidado facial', 'Vaporizadores y equipo de spa', 'Exfoliantes y peelings', 'Cuidado facial masculino']
+_FAC = _c([
+    ('Vaporizadores y equipo de spa', r'\bvaporizador|\bvapor ozono|\bozono\b|\bhidrodermoabrasion|\bmicrodermoabrasion|\bequipo (de|para) (spa|estetica|facial profesional)|\banalizador de piel|\bcamilla|\blampara lupa|\bdermapen|\bmicroneedling|\bradiofrecuencia|\bhifu\b|\bcavitacion|\bpistola de oxigeno|\bmaquina (facial|de belleza)|\bcabina'),
+    ('Dispositivos de cuidado facial', r'\bmascara led|\bluz led|\bterapia de luz|\blimpiador facial (electrico|sonico|ultrasonico)|\bcepillo facial|\bmasajeador facial|\bgua sha|\brodillo (de jade|facial|de cuarzo)|\bmicrocorriente|\bems\b|\bdispositivo|\bextractor de puntos negros|\baspirador de poros|\bpore cleaner|\bvacuum|\bespatula ultrasonica|\bnebulizador facial|\bvaporizador facial portatil|\bderma ?roller|\bdermaplaning|\bherramienta'),
+    ('Contorno de ojos y labios', r'\bcontorno de ojos|\beye cream|\bcrema (para|de) ojos|\bojeras|\bparches (para|de) ojos|\beye patch|\bmascarilla (de|para) ojos|\bserum de pestanas|\bbalsamo labial|\blabios\b.{0,20}(mascarilla|balsamo|exfoliante)|\bcontorno\b'),
+    ('Mascarillas faciales', r'\bmascarilla|\bmascara (facial|de arcilla|de tela|hidratante|peel)|\bsheet mask|\bface mask|\bmask\b|\bparches? (de|para) (acne|espinillas)|\bpimple patch'),
+    ('Exfoliantes y peelings', r'\bexfoliante|\bpeeling|\bscrub\b|\bacido (glicolico|salicilico|lactico|mandelico)\b.{0,20}(exfoli|peel)|\bretinol\b.{0,10}peel|\bpeel\b'),
+    ('Limpiadores y tónicos', r'\blimpiador|\bcleanser|\bjabon facial|\bgel limpiador|\bespuma limpiadora|\bagua micelar|\bdesmaquillante|\btonico|\btoner\b|\bbruma\b|\bmist\b|\bagua (de rosas|termal|floral)|\bhidrosol|\bmicellar'),
+    ('Cuidado facial masculino', r'\bpara hombre|\bmasculino|\bmen\b|\bfor men|\bbarba\b.{0,20}(crema|aceite|balsamo)|\bafter ?shave|\bpost ?afeitado'),
+    ('Cremas y sérums faciales', r'\bcrema|\bserum|\bsuero\b|\bhidratante|\bmoisturizer|\baceite facial|\bface oil|\bgel facial|\bemulsion|\besencia|\bessence|\bampolla|\bampoule|\bretinol|\bacido hialuronico|\bniacinamida|\bvitamina c\b|\bantiedad|\banti-?aging|\bantiarrugas|\bcolageno\b|\bprotector solar facial|\bbloqueador facial|\bspf\b|\bfacial\b'),
+])
+
+
+def sub_facial(tn):
+    return _primera(tn, _FAC, {'Cremas y sérums faciales': 25, 'Cuidado facial masculino': 12, 'Dispositivos de cuidado facial': 6})
+
+
+# ----------------------------------------------------------- Mascotas
+JUGUETES_MASC = ['Juguetes para perro', 'Juguetes para gato', 'Juguetes para aves y roedores']
+_JM = _c([
+    ('Juguetes para aves y roedores', r'\baves?\b|\bpajaro|\bperico|\bloro|\bcotorra|\bhamster|\bconejo|\bcobaya|\bcuyo|\bchinchilla|\broedor|\bhuron|\brueda de ejercicio|\bcolumpio para (ave|perico)|\bperchas?\b'),
+    ('Juguetes para gato', r'\bgatos?\b|\bgatito|\bfelino|\bcatnip|\bhierba gatera|\bvarita\b|\bcana (de|para) gato|\bplumas\b|\braton de juguete|\blaser\b|\bcat\b|\bkitten'),
+    ('Juguetes para perro', r'\bperros?\b|\bcachorro|\bcanino|\bkong\b|\bmordedera|\bmordedor|\bpelota|\bcuerda|\bhueso\b|\bfrisbee|\bdisco volador|\blanzador|\bchirriante|\bsqueak|\bdog\b|\bpuppy|\bjuguete'),
+])
+
+
+def sub_juguete_mascota(tn):
+    return _primera(tn, _JM, {'Juguetes para perro': 20})
+
+
+CAMAS_MASC = ['Camas para perro', 'Camas para gato', 'Camas elevadas y colchonetas', 'Cuevas, iglús y tiendas para mascotas', 'Cojines y mantas para mascotas']
+_CM = _c([
+    ('Cuevas, iglús y tiendas para mascotas', r'\bcueva|\biglu|\btienda\b|\bcarpa|\bcasa\b|\bcasita|\bnido\b|\bcapucha|\bcon techo|\bcerrada|\btunel'),
+    ('Camas elevadas y colchonetas', r'\belevada|\bcatre|\bhamaca|\bcuna elevada|\bcolchoneta|\btapete|\balfombrilla|\bcolchon (para|de) (perro|gato|mascota)|\bcojin plano|\bmat\b|\brefrescante|\bgel frio|\bcooling'),
+    ('Cojines y mantas para mascotas', r'\bcojin|\bmanta|\bcobija|\bfrazada|\bfunda (de|para) cama|\bcubierta|\balmohada'),
+    ('Camas para gato', r'\bgatos?\b|\bgatito|\bfelino|\bcat\b|\bkitten'),
+    ('Camas para perro', r'\bperros?\b|\bcachorro|\bcanino|\bdog\b|\bpuppy|\bcama'),
+])
+
+
+def sub_cama_mascota(tn):
+    return _primera(tn, _CM, {'Camas para perro': 25, 'Camas para gato': 5, 'Cojines y mantas para mascotas': 3})
+
+
+# ------------------------------- Electrodomésticos/Pequeños electrodomésticos de cocina
+PEQUENOS = ['Tostadoras', 'Arroceras y ollas multiusos', 'Wafleras, sandwicheras y creperas', 'Batidoras y amasadoras',
+            'Máquinas de helados y postres', 'Freidoras eléctricas', 'Molinos y procesadores', 'Parrillas y planchas eléctricas',
+            'Vaporeras y hervidores de huevos', 'Máquinas de palomitas y snacks', 'Máquinas de pan y pasta', 'Otros electrodomésticos de cocina']
+_PEQ = _c([
+    ('Tostadoras', r'\btostador|\btoaster'),
+    ('Wafleras, sandwicheras y creperas', r'\bwaf+lera|\bwaffle|\bgofre|\bsandwichera|\bpanini|\bcrepera|\bcrepe|\braclette|\bmaquina (de|para) (hot cakes|pancakes|donas|cake pops|tacos|tortillas)|\btortilladora electrica'),
+    ('Arroceras y ollas multiusos', r'\barrocera|\bolla (arrocera|electrica|de coccion lenta|multiusos|programable|a presion electrica|de presion electrica)|\bmulticooker|\binstant pot|\bslow cooker|\bcoccion lenta|\bolla lenta|\bcrock-?pot|\bolla express electrica'),
+    ('Freidoras eléctricas', r'\bfreidora electrica|\bfreidora de aceite|\bfreidora\b(?!.*aire)|\bdeep fryer'),
+    ('Máquinas de helados y postres', r'\bhelad|\bice cream|\bcreami|\byogurtera|\byogur|\bchocolatera|\bfuente de chocolate|\bslushi|\bgranizad|\braspado|\bmaquina de hielo|\balgodon de azucar|\bfondue'),
+    ('Máquinas de palomitas y snacks', r'\bpalomit|\bpopcorn|\bhot dog|\bmaquina de (nachos|churros|elotes|crepas)|\bcalentador de (tortillas|nachos)'),
+    ('Máquinas de pan y pasta', r'\bmaquina (de|para) (pan|pasta)|\bpanificadora|\bbread maker|\bamasadora de pan|\bextrusora de pasta|\bmaquina de tortillas'),
+    ('Batidoras y amasadoras', r'\bbatidora|\bamasadora|\bmezcladora|\bstand mixer|\bplanetaria|\bmixer\b|\bespumador de leche|\bfrother|\bbatidor electrico'),
+    ('Molinos y procesadores', r'\bmolino|\bmolinillo|\bprocesador|\bpicador|\bpicadora|\bchopper|\brallador electrico|\bcortador (de|para) verduras electrico|\bexprimidor electrico|\bmoledor|\bfood prep|\bcafe de grano'),
+    ('Parrillas y planchas eléctricas', r'\bparrilla (electrica|de interior|de contacto)|\bplancha (electrica|de asar|de cocina)|\bgrill electric|\basador electrico|\bsarten electric|\belectric skillet|\bhot plate|\bparrilla\b|\bplancha\b|\bteppanyaki|\bgriddle'),
+    ('Vaporeras y hervidores de huevos', r'\bvaporera|\bhervidor de huevos|\bcocedor de huevos|\begg cooker|\bsteamer|\bcocina al vapor|\bcalentador de biberones'),
+    ('Otros electrodomésticos de cocina', r'\bbascula|\bbalanza|\bsellador|\bal vacio|\bdeshidratador|\bfiambrera electrica|\blonchera electrica|\bcalentador de comida|\bcalienta ?platos|\besterilizador|\babrelatas electrico|\bcuchillo electrico|\bafilador electrico|\bhervidor\b|\btetera electrica|\bmaquina de (sodas|agua con gas)|\bsodastream|\bcocedor|\btermo electrico|\bjarra electrica'),
+])
+
+
+def sub_pequeno_electro(tn):
+    return _primera(tn, _PEQ, {'Otros electrodomésticos de cocina': 10, 'Parrillas y planchas eléctricas': 5})
+
+
+# ----------------------------------------------- Herramientas/Herramientas manuales
+MANUALES = ['Juegos de herramientas', 'Llaves y dados', 'Desarmadores y puntas', 'Pinzas y alicates', 'Martillos, cinceles y mazos',
+            'Herramientas de corte manual', 'Prensas y sujeción', 'Herramientas manuales']
+_MAN = _c([
+    ('Juegos de herramientas', r'\bjuego de herramientas|\bkit de herramientas|\bset de herramientas|\bcaja de herramientas\b.{0,20}(piezas|pz|pcs)|\b\d{2,3} (piezas|pzs?|pcs)\b.{0,30}herramientas|\bherramientas\b.{0,20}\b\d{2,3} (piezas|pzs?|pcs)'),
+    ('Llaves y dados', r'\bllaves?\b|\bdados?\b|\bmatraca|\btrinquete|\bratchet|\bvaso\b|\bvasos\b|\bsocket|\bwrench|\ballen\b|\bhexagonal|\btorx\b|\btorquimetro|\btorque|\bllave (inglesa|perica|stillson|combinada|espanola|mixta|de tubo|ajustable|de impacto)|\bautocle'),
+    ('Desarmadores y puntas', r'\bdesarmador|\bdestornillador|\bscrewdriver|\bpuntas?\b|\bbits?\b|\bjuego de (desarmadores|destornilladores|puntas)|\bprecision\b.{0,20}(desarmador|destornillador)'),
+    ('Pinzas y alicates', r'\bpinzas?\b|\balicates?\b|\bpliers?|\bpelacables|\bcrimpadora|\bponchadora|\bcortacable|\bcorta ?frio|\bde presion\b|\bprensa de mano|\btenazas?'),
+    ('Martillos, cinceles y mazos', r'\bmartillo|\bmazo\b|\bmarro\b|\bmaceta\b|\bcincel|\bpunzon|\bbotador|\bhammer|\bhacha\b|\bmaza\b'),
+    ('Herramientas de corte manual', r'\bcutter|\bnavaja|\bcuchilla|\bsegueta|\barco de sierra|\bserrucho|\bsierra manual|\bcortavidrio|\btijeras (de|para) (lamina|hojalata|jardin|podar|cable)|\bcortatubos|\blima\b|\bescofina|\bcortadora manual|\bcizalla|\bformon|\bgubia'),
+    ('Prensas y sujeción', r'\bprensa|\bsargento|\bclamp|\btornillo de banco|\bsujeta|\babrazadera|\bgato\b|\bcaballete|\bsoporte de trabajo'),
+])
+
+
+def sub_manual(tn):
+    return _primera(tn, _MAN, {'Juegos de herramientas': 0})
+
+
+# ---------------------------------------------- Iluminación/Lámparas de techo
+TECHO = ['Lámparas colgantes', 'Candiles y arañas', 'Plafones y lámparas de sobreponer', 'Rieles y spots', 'Lámparas industriales y de nave',
+         'Ventiladores con luz', 'Lámparas de techo para exterior']
+_TCH = _c([
+    ('Ventiladores con luz', r'\bventilador'),
+    ('Lámparas industriales y de nave', r'\bindustrial\b(?!.*(colgante|vintage|retro|estilo))|\bufo\b|\bhigh ?bay|\bnave\b|\bbodega\b|\balmacen\b|\bcampana industrial|\b\d{3} ?w\b.{0,20}(industrial|ufo|nave)'),
+    ('Rieles y spots', r'\briel|\btrack\b|\bspots?\b|\bdirigible|\bproyector de techo|\bkit de iluminacion sobre riel'),
+    ('Candiles y arañas', r'\bcandil|\barana|\bchandelier|\bde cristal|\bcristales|\bde velas|\bcandelabro'),
+    ('Lámparas de techo para exterior', r'\bexterior|\boutdoor|\bjardin|\bporche|\bterraza|\bintemperie|\bip6[5-8]'),
+    ('Lámparas colgantes', r'\bcolgante|\bpendant|\bsuspension|\bde isla|\bisla de cocina|\bfarol colgante|\blampara de (comedor|bar)'),
+    ('Plafones y lámparas de sobreponer', r'\bplafon|\bsobreponer|\bsemiempotra|\bempotra|\bflush|\bde techo|\bceiling|\bcircular|\bredonda|\bcuadrada|\bpanel led|\bluz de techo|\blampara led'),
+])
+
+
+def sub_lampara_techo(tn):
+    return _primera(tn, _TCH, {'Plafones y lámparas de sobreponer': 20})
+
+
+# -------------------------------------------- Domótica/Iluminación inteligente
+ILUM_INTEL = ['Focos inteligentes', 'Tiras LED inteligentes', 'Lámparas y plafones inteligentes', 'Luces inteligentes de exterior y solares',
+              'Paneles y luces decorativas inteligentes', 'Controladores e interruptores de luz', 'Lámparas de escritorio y noche inteligentes']
+_ILI = _c([
+    ('Controladores e interruptores de luz', r'\bcontrolador|\bcontroller|\binterruptor|\bdimmer|\bregulador|\bapagador|\bswitch\b|\bhub\b|\bpuente|\bbridge|\bmodulo|\breceptor|\bfuente de alimentacion|\btransformador|\bconector'),
+    ('Tiras LED inteligentes', r'\btiras? (led|de luz|de luces)|\bled strip|\bcinta led|\bneon\b|\bluces de cadena|\bstring lights|\bserie de luces|\bguirnalda|\bluces led (para|de) (tv|monitor|escritorio|habitacion)|\bretroiluminacion'),
+    ('Paneles y luces decorativas inteligentes', r'\bpanel(es)? (led|de luz|hexagonal|modular)|\bhexagon|\bnanoleaf|\bgovee glide|\bluz de ambiente|\blampara (de ambiente|rgb de piso|de esquina)|\bbarra de luz|\blight bar|\bluz decorativa|\bproyector (de estrellas|galaxia|led)|\blampara de lava|\bluz nocturna\b(?!.*escritorio)'),
+    ('Luces inteligentes de exterior y solares', r'\bsolar|\bexterior|\boutdoor|\bjardin|\bpatio|\bcamino|\bpathway|\bfachada|\bluz de inundacion|\bflood|\breflector|\bcon sensor de movimiento\b.{0,20}(exterior|solar)|\bip6[5-8]'),
+    ('Lámparas de escritorio y noche inteligentes', r'\bde escritorio|\bde mesa|\bde noche|\bde buro|\bde lectura|\bluz nocturna|\bdespertador|\bde cabecera|\bbedside'),
+    ('Lámparas y plafones inteligentes', r'\bplafon|\blampara de techo|\bluz de techo|\bempotra|\bdownlight|\bcolgante|\bcandil|\blampara de pie|\blampara de pared|\baplique|\bventilador de techo|\blampara\b'),
+    ('Focos inteligentes', r'\bfoco|\bbombilla|\bbulb|\bfocos|\ba19\b|\be26\b|\be27\b|\bgu10|\bpar38|\bbr30|\bvela\b|\bfilamento|\bcandelabro'),
+])
+
+
+def sub_ilum_intel(tn):
+    return _primera(tn, _ILI, {'Lámparas y plafones inteligentes': 15, 'Focos inteligentes': 5})
+
+
+# ------------------------------------------------------- Teclados/Mecánicos
+TECLADOS_MEC = ['Mecánicos 60% y compactos', 'Mecánicos 65% y 75%', 'Mecánicos TKL (80%)', 'Mecánicos tamaño completo',
+                'Mecánicos inalámbricos', 'Switches, keycaps y accesorios']
+_TKM = _c([
+    ('Switches, keycaps y accesorios', r'\bkeycaps?\b|\bteclas? (de repuesto|pbt|abs)\b|\bswitch(es)?\b(?! (mecanico|azul|rojo|marron|red|blue|brown).{0,10}teclado)|^(?:\S+ ){0,3}switches\b|\bextractor|\bkeycap puller|\blubricante|\blube\b|\bestabilizador|\breposamunecas|\bwrist rest|\bcable (coiled|espiral|aviador)|\bfunda|\bcubierta|\bplate\b|\bpcb\b|\bkit (de )?(teclado|barebone)|\bbarebone'),
+    ('Mecánicos 60% y compactos', r'\b60 ?%|\b61 teclas|\b64 teclas|\b40 ?%|\bmini\b|\bcompacto|\b6[0-4]-?key'),
+    ('Mecánicos 65% y 75%', r'\b65 ?%|\b75 ?%|\b68 teclas|\b84 teclas|\b82 teclas|\b81 teclas|\b6[5-8]-?key|\b8[0-4]-?key|\b70 ?%'),
+    ('Mecánicos TKL (80%)', r'\btkl\b|\btenkeyless|\b80 ?%|\b87 teclas|\b88 teclas|\bsin teclado numerico|\b87-?key'),
+    ('Mecánicos tamaño completo', r'\b100 ?%|\b104 teclas|\b105 teclas|\b108 teclas|\btamano completo|\bfull ?size|\b96 ?%|\b98 ?%|\b1800|\bcon teclado numerico|\b99 teclas|\b10[4-8]-?key'),
+    ('Mecánicos inalámbricos', r'\binalambric|\bwireless|\bbluetooth|\b2[.,]4 ?g|\btri-?mode|\btrimodo|\bmodo triple'),
+])
+
+
+def sub_teclado_mec(tn):
+    return _primera(tn, _TKM, {'Mecánicos inalámbricos': 30})
+
+
+# ------------------------------------------------------ Otros/Paneles solares
+SOLAR = ['Paneles solares', 'Cargadores solares portátiles', 'Kits solares y controladores de carga', 'Accesorios y limpieza de paneles solares',
+         'Luces y ventiladores solares', 'Bombas y calentadores solares']
+_SOL = _c([
+    ('Accesorios y limpieza de paneles solares', r'\blimpieza|\bcepillo|\bpertiga|\bprobador|\bmultimetro|\bconector(es)?\b|\bmc4\b|\bcable\b|\bsoporte|\bmontaje|\brack\b|\bestructura|\bcaja de conexion|\bfusible|\bdiodo|\bextension'),
+    ('Luces y ventiladores solares', r'\bluz|\bluces|\bfoco|\blampara|\bfarol|\bventilador|\breflector|\bpaisaje|\bjardin\b(?!.*(kit|panel de \d))'),
+    ('Bombas y calentadores solares', r'\bbomba|\bcalentador|\bcalefactor|\bfuente\b|\bboiler'),
+    ('Cargadores solares portátiles', r'\bcargador|\bpower ?bank|\bbanco de energia|\bplegable|\bportatil|\bde bolsillo|\bmochila|\bcelular|\btelefono|\busb\b'),
+    ('Kits solares y controladores de carga', r'\bkit\b|\bcontrolador|\binversor|\bregulador|\bbateria|\bsistema solar|\boff ?grid|\bestacion de energia|\bgenerador solar|\bmppt|\bpwm'),
+    ('Paneles solares', r'\bpanel|\bmodulo solar|\bcelda|\bmonocristalino|\bpolicristalino|\bfotovoltaic|\b\d{2,3} ?w\b'),
+])
+
+
+def sub_solar(tn):
+    return _primera(tn, _SOL, {'Paneles solares': 20, 'Accesorios y limpieza de paneles solares': 3})
+
+
+# ------------------------------------------------------- Deportes/Pesas
+PESAS = ['Mancuernas', 'Barras y discos', 'Kettlebells', 'Pesas de tobillo y chalecos con peso', 'Sets de pesas', 'Bancos y racks']
+_PES = _c([
+    ('Bancos y racks', r'\bbanco|\brack\b|\bsoporte (de|para) (barra|pesas|discos|mancuernas)|\bestante|\bportadiscos|\bjaula|\baparato para abdominales|\briel ejercitador'),
+    ('Pesas de tobillo y chalecos con peso', r'\btobillera|\btobillo|\bmunequera con peso|\bchaleco|\blastre|\bcinturon (con|de) peso|\bpesas? (de|para) (tobillo|muneca|cuerpo)|\bbrazalete con peso'),
+    ('Kettlebells', r'\bkettlebell|\bpesa rusa|\bpesas rusas'),
+    ('Sets de pesas', r'\bset de (pesas|mancuernas|discos)|\bjuego de (pesas|mancuernas|discos)|\bkit de (pesas|mancuernas)|\b\d+ en 1\b|\bajustable'),
+    ('Barras y discos', r'\bbarra|\bdiscos?\b|\bolimpic|\bbumper|\bcollarin|\bplates?\b|\bbarbell|\bcurl\b'),
+    ('Mancuernas', r'\bmancuerna|\bdumbbell|\bpesas?\b'),
+])
+
+
+def sub_pesa(tn):
+    return _primera(tn, _PES, {'Mancuernas': 15, 'Sets de pesas': 5})
+
+
+OLA2 += [
+    ('Instrumentos musicales', ['Baterías'], BATERIAS + ['Percusión'], lambda tn, sv: sub_bateria_musical(tn), None),
+    ('Instrumentos musicales', ['Viento'], VIENTO, lambda tn, sv: sub_viento(tn), None),
+    ('Instrumentos musicales', ['Teclados'], TECLADOS_MUS, lambda tn, sv: sub_teclado_musical(tn), None),
+    ('Audífonos', ['Earbuds inalámbricos', 'Diadema inalámbrica'], AUDIFONOS_INAL, lambda tn, sv: sub_audifono_inal(tn), None),
+    ('Muebles', ['Colchones'], COLCHONES, lambda tn, sv: sub_colchon(tn), None),
+    ('Muebles', ['Escritorios'], ESCRITORIOS, lambda tn, sv: sub_escritorio(tn), None),
+    ('Muebles', ['Sofás'], SOFAS, lambda tn, sv: sub_sofa(tn), None),
+    ('Muebles', ['Mesas de centro'], MESAS_CENTRO, lambda tn, sv: sub_mesa_centro(tn), None),
+    ('Muebles', ['Camas'], CAMAS, lambda tn, sv: sub_cama(tn), None),
+    ('Juguetes y bebés', ['Bebés'], BEBES, lambda tn, sv: sub_bebe(tn), None),
+    ('Cargadores y adaptadores', ['De pared'], CARGADORES_PARED, lambda tn, sv: sub_cargador_pared(tn), None),
+    ('Blancos y ropa de cama', ['Cobijas eléctricas'], COBIJAS_E, lambda tn, sv: sub_cobija_electrica(tn), None),
+    ('Belleza y cuidado personal', ['Faciales'], FACIALES, lambda tn, sv: sub_facial(tn), None),
+    ('Mascotas', ['Juguetes'], JUGUETES_MASC, lambda tn, sv: sub_juguete_mascota(tn), None),
+    ('Mascotas', ['Camas'], CAMAS_MASC, lambda tn, sv: sub_cama_mascota(tn), None),
+    ('Electrodomésticos', ['Pequeños electrodomésticos de cocina'], PEQUENOS, lambda tn, sv: sub_pequeno_electro(tn), None),
+    ('Herramientas', ['Herramientas manuales'], MANUALES, lambda tn, sv: sub_manual(tn), None),
+    ('Iluminación', ['Lámparas de techo'], TECHO, lambda tn, sv: sub_lampara_techo(tn), None),
+    ('Domótica y hogar inteligente', ['Iluminación inteligente'], ILUM_INTEL, lambda tn, sv: sub_ilum_intel(tn), None),
+    ('Teclados', ['Mecánicos'], TECLADOS_MEC, lambda tn, sv: sub_teclado_mec(tn), None),
+    ('Otros', ['Paneles solares'], SOLAR, lambda tn, sv: sub_solar(tn), None),
+    ('Deportes y fitness', ['Pesas'], PESAS, lambda tn, sv: sub_pesa(tn), None),
 ]
