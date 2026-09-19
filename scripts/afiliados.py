@@ -66,13 +66,30 @@ BASES = {
     # productos ganan una segunda oferta con la que compararse.
     "vevor": None,
 
+    # Coppel (Admitad, "Coppel MX"): 5.39% CPS sobre la venta, cookie de 15
+    # días, conversión validada 30 días después de terminado el mes, vigente
+    # hasta el 31 de diciembre de 2026. Solicitado el 19 de septiembre de 2026.
+    # Permite expresamente Comparison Engine, que es lo que es este sitio.
+    # Todavía no hay productos de Coppel en el catálogo: falta el importador.
+    "coppel": None,
+
+    # Walmart Súper OnDemand & Walmart Express (Admitad, MX): 2.5% CPS, cookie
+    # de 30 días, validación 30 días después de terminado el mes, vigente hasta
+    # el 31 de diciembre de 2026. Solicitado el 19 de septiembre de 2026.
+    # Tampoco es tienda del catálogo todavía.
+    "walmart": None,
+
+    # Bodega Aurrerá (Admitad, MX): mismas condiciones que Walmart, que es su
+    # dueño (2.5% CPS, cookie de 30 días). Solicitado el 19 de septiembre de
+    # 2026. Tampoco es tienda del catálogo todavía.
+    "bodega_aurrera": None,
+
     # --- con programa confirmado, en espera a propósito ---------------------
-    # Elektra y Coppel piden vistas mensuales en la solicitud, así que se
-    # posponen hasta que el sitio tenga tráfico que reportar. No es un olvido:
-    # solicitar con cifras flojas quema el intento, y Elektra es la tienda más
-    # grande del catálogo (69,875 ofertas, 38% del total).
+    # Elektra pide vistas mensuales en la solicitud, así que se pospone hasta
+    # que el sitio tenga tráfico que reportar. No es un olvido: solicitar con
+    # cifras flojas quema el intento, y Elektra es la tienda más grande del
+    # catálogo (69,864 ofertas, 20% del total).
     "elektra": None,  # Admitad: /store/offers/elektra-mx/
-    "coppel":  None,  # Admitad: /store/offers/coppel-mx/ -- aún sin productos
 
     # --- con programa confirmado, falta solicitarlo -------------------------
     "miniso":       None,  # Admitad: /store/offers/miniso-mx/
