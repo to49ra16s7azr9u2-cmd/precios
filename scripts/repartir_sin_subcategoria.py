@@ -95,7 +95,12 @@ REPARTIDORES = {
     "Belleza y cuidado personal": "sub_belleza",
     "Impresoras": "sub_impresora", "Computadoras de escritorio": "sub_escritorio",
     "Blancos y ropa de cama": "sub_blancos", "Relojes inteligentes": "sub_reloj",
-    "Suplementos": "sub_suplemento",
+    "Suplementos": "sub_suplemento_fino", "Cocina y comedor": "sub_cocina_fino",
+    "Baterías portátiles": "sub_bateria_tramo",
+    "Cargadores y adaptadores": "sub_cargador", "Electrodomésticos": "sub_electro",
+    "Drones": "sub_dron", "Equipo comercial": "sub_comercial", "Viajes": "sub_viaje",
+    "Impresión 3D": "sub_impresion3d", "Movilidad eléctrica": "sub_movilidad",
+    "Proyectores y accesorios": "sub_proyector", "Otros": "sub_otros",
 }
 
 
@@ -121,7 +126,18 @@ def cargar_repartidores():
         for f in (vacia.name, salida):
             if os.path.exists(f):
                 os.unlink(f)
+    # Baterías portátiles se reparte por tramo de mAh, no por un sub_*.
+    g["sub_bateria_tramo"] = lambda tn: g["tramo"](g["capacidad_mah"](tn))
     return g
+
+
+def icono_de(data):
+    icono = {}
+    for c in data["categories"]:
+        icono[(c["id"], None)] = c.get("icon")
+        for s in c.get("subcategories") or []:
+            icono[(c["id"], s["id"])] = s.get("icon") or c.get("icon")
+    return icono
 
 
 def registradas(data):
@@ -144,6 +160,8 @@ def main():
 
     g = cargar_repartidores()
     T = g["T"]
+    afinar = g["afinar_ola2"]
+    icono = icono_de(data)
     cuenta = collections.Counter()
     destinos = collections.Counter()
     sin_repartidor = collections.Counter()
@@ -156,8 +174,14 @@ def main():
             cuenta["la categoría no tiene repartidor"] += 1
             sin_repartidor[cat] += 1
             continue
-        sub = g[nombre_fn](T(p["name"]))
-        if not sub or sub in COMODIN:
+        tn = T(p["name"])
+        sub = g[nombre_fn](tn)
+        # Las subcategorías finas (olas 2-5) se aplican encima, igual que
+        # hace el clasificador de capturas al final de su main.
+        sub = afinar(cat, sub, tn) if sub else afinar(cat, p.get("subcategory"), tn)
+        if sub in COMODIN or sub == p.get("subcategory"):
+            sub = None
+        if not sub:
             cuenta["el repartidor no se decide"] += 1
             lineas.append(f"SIN SUB\t{p['id']}\t{de}\t\t\t{p['name'][:100]}")
             continue
@@ -170,6 +194,9 @@ def main():
         lineas.append(f"SUBCATEGORÍA\t{p['id']}\t{de}\t{cat}/{sub}\t\t{p['name'][:100]}")
         if args.aplicar:
             p["subcategory"] = sub
+            ic = icono.get((cat, sub)) or icono.get((cat, None))
+            if ic:
+                p["image"] = ic
 
     hoy = datetime.date.today().isoformat()
     ruta = os.path.join(AQUI, "..", "data", f"reparto-subcategorias-{hoy}.tsv")

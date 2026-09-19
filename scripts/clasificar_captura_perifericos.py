@@ -472,6 +472,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import capacidad_mah
 from subcategorias_finas import sub_suplemento_fino, sub_cocina_fino, sub_libro_fino
 from subcategorias_finas_ola2 import afinar_ola2
+from subcategorias_redes import (sub_cargador, sub_electro, sub_dron, sub_comercial, sub_viaje,
+                                 sub_impresion3d, sub_movilidad, sub_proyector, sub_otros,
+                                 sub_tv_pulgadas)
 
 def T(s):
     s = re.sub(r'\s+', ' ', s.lower())
@@ -2913,6 +2916,8 @@ def sub_videojuego(tn):
     # consola ("Consola PS5 Edición Digital").
     if RX_VJ_JUEGO.search(tn) and not re.match(r'^(?:\S+ ){0,2}consola', tn):
         return 'Software'
+    if re.search(r'playstation portal|\bps portal\b', tn):
+        return 'Consolas PlayStation'
     if RX_VJ_CONSOLA.search(tn):
         return 'Consolas'
     m = RX_VJ_PLATAFORMA.search(tn)
@@ -2969,8 +2974,18 @@ def sub_mueble(tn):
         (r'\b(sofa ?cama|sofa|sofas|sillon|loveseat|futon)\b', 'Sofás'),
         (r'\b(zapateras?|zapateros?)\b', 'Zapateras'),
         (r'\b(percheros?|paragueros?|burro de ropa)\b', 'Percheros'),
-        (r'\b(roperos?|armarios?|closets?|comodas?|vitrinas?|credenzas?|cajoneras?|aparadores?|tocador(es)?)\b', 'Roperos'),
-        (r'\b(libreros?|estanterias?|estantes? para libros)\b', 'Libreros'),
+        # "cómoda" solo cuando es el mueble: al abrir el título o con sus
+        # cajones cerca. Como adjetivo ("sandalias cómodas", "silla cómoda
+        # y ...") mandaba zapatos y patines a Roperos.
+        (r'\b(roperos?|armarios?|closets?|vitrinas?|credenzas?|cajoneras?|aparadores?|tocador(es)?|buffet|bufeteras?)\b|'
+         r'^comoda\b|\bcomoda\b.{0,25}\bcajon', 'Roperos'),
+        (r'periquera|silla alta|\btrona\b', 'Sillas'),
+        (r'\btarima\b|base (queen|king|matrimonial|individual)|\bcamita\b', 'Camas'),
+        (r'forros? (para|de) (sillon|sofa)|fundas? (para|de) (sofa|sillon)|cubre ?sofa', 'Sofás'),
+        (r'multi-?game table|game table|mesa (multijuegos?|de juegos)', 'Mesas de juego'),
+        (r'carro (de|para) computo|carro de computadora|carrito de computo', 'Escritorios'),
+        (r'\bcocina\b.{0,30}(kessa|modular|integral|gabinete|alacena|muebles)|cocina integral', 'Muebles de cocina'),
+        (r'\b(libreros?|estanterias?|estanteras?|estantes? para libros)\b', 'Libreros'),
         (r'\b(repisas?|entrepanos?)\b', 'Repisas'),
         (r'mesa de (billar|ping ?pong|futbolito|juego|poker)', 'Mesas de juego'),
         (r'\bescritorios?\b', 'Escritorios'),
@@ -3006,6 +3021,35 @@ def sub_juego_mesa(tn):
     if re.search(r'\brol\b|calabozos|dragones|\bd&d\b|\bdados\b|miniatura', tn): return 'De rol y dados'
     if re.search(r'\bloteria\b|\bmemorama\b|serpientes y escaleras|\bturista\b|'
                  r'\bmonopol|\bjenga\b|\bscrabble\b|\bbasta\b', tn): return 'De mesa clásicos'
+    # Lo que caía en "Otros juegos" (1,001 fichas) casi siempre dice de qué
+    # va: estrategia, fiesta, memoria, preguntas, educativo o para niños.
+    if re.search(r'estrategia|\bexpansi|marvel united|champions|\bcatan\b|carcassonne|'
+                 r'ticket to ride|pandemic|wargame|eurogame|deck ?building|'
+                 r'\blegacy\b|spirit island|\bcivilization\b|\bwarhammer\b|\bcolonos\b', tn):
+        return 'De estrategia'
+    if re.search(r'\brummi|\brummy\b|serpientes y escaleras|torre de madera|\bdomino', tn):
+        return 'De mesa clásicos'
+    if re.search(r'fiesta|\bparty\b|\bshots?\b|\bdrinks?\b|para adultos|\b\+?18\b|\b21 anos|'
+                 r'\bbeber\b|\bretos?\b|truth or|verdad o reto|\bcaballitos\b|\bpicante\b', tn):
+        return 'De fiesta'
+    if re.search(r'\bmemori|\bmemory\b', tn): return 'De memoria'
+    if re.search(r'\btrivia|preguntas|\bquiz\b|adivina quien|adivinanza|\bpictionary\b', tn):
+        return 'De preguntas'
+    if re.search(r'educativ|didactic|aprend|montessori|matematic|\bletras\b|palabras|\bspell|'
+                 r'orchard toys|\bciencia\b|\bstem\b|alfabeto|\bnumeros\b|\bcolores\b|'
+                 r'\bformas\b|\blogica\b|\bsensorial\b', tn):
+        return 'Educativos'
+    if re.search(r'infantil|\bninos?\b|\bninas\b|\bkids?\b|\bjunior\b|preescolar|\+ ?[2-6] anos|'
+                 r'\b[2-6] ?\+|\b[2-6] a \d+ anos|paw patrol|\bpeppa\b|\bfrozen\b|minions|'
+                 r'\bbluey\b|pokemon|\bmario\b|\bdisney\b|princesas?\b|dinosaurio|unicornio|'
+                 r'\bcocomelon\b|\bgabby', tn):
+        return 'Infantiles'
+    if re.search(r'\bhasbro\b|\bmattel\b|spin master|\bnovelty\b|\bfotorama\b|\bjumbo\b|'
+                 r'operando|tic tac|\btwister\b|\bclue\b|\brisk\b|\btrouble\b|\bconnect 4\b|'
+                 r'conecta 4|adivina quien|\bcranium\b|\bboggle\b|\byahtzee\b|\bjuego del gato\b', tn):
+        return 'De mesa clásicos'
+    if re.search(r'juego de mesa|board game|juego de (tablero|estrategia|cartas)|\bjugadores\b', tn):
+        return 'De estrategia'
     return 'Otros juegos'
 
 
@@ -3025,9 +3069,17 @@ def sub_instrumento(tn):
                  r'\bsonaja|cascabel|\bchocalho\b|\bagogo\b|\bcaba[sz]a\b|vibraslap|'
                  r'campanas? de viento|carillon|\bdjembe\b|\bkashaka\b|\baslatua|'
                  r'\bvibrafono\b|\bmarimba\b|\bwaterphone\b|campanas? de mano|'
-                 r'cuencos? (cantante|tibetano|de cristal)|tazon de cristal', tn): return 'Percusión'
+                 r'cuencos? (cantante|tibetano|de cristal)|tazon de cristal|'
+                 r'silbato de samba|samba whistle|palo de lluvia|rain ?stick|darbuka|doumbek|'
+                 r'\bbodhran\b|\btambora\b|\bcuenco\b|singing bowl|diapason(es)? de (cristal|cuarzo)|'
+                 r'instrumento musical (triangular|de rana|tradicional)|\brana\b.{0,25}madera|'
+                 r'\bsonajero\b|tambor de lengua|ocean drum|\bcabasa\b|cajita china|\bcastanet|'
+                 r'\bgong\b|instrumentos? musical(es)? (para ninos|infantil|de juguete)|'
+                 r'\bcascabeles\b|\bcampanilla', tn): return 'Percusión'
     if re.search(r'bateria|tambor|\bcajon\b|percusion|platillo|conga|\bbongo|'
-                 r'\bredoblante\b|\btarola\b|\bbombo\b|\bbaqueta|\btimbal|\bparche\b|\bcharles\b|hi-?hat', tn): return 'Baterías'
+                 r'\bredoblante\b|\btarola\b|\bbombo\b|\bbaqueta|\btimbal|\bparche\b|\bcharles\b|hi-?hat|'
+                 r'\bhardware\b|\btoms?\b|\bsnare\b|\bdrum\b|\bthrone\b|pedal de bombo|\bkick\b|'
+                 r'\bdw\b.{0,20}(serie|series|\d{4})', tn): return 'Baterías'
     if re.search(r'violin|violonchelo|\bcello\b|contrabajo|\bviola\b|\barpa\b|'
                  r'\berhu\b|\bguqin\b|guzheng|\bkoto\b|\bsitar\b|\bcitara\b|'
                  r'\blira\b|\blyre\b|\bharp\b', tn): return 'Cuerdas'
@@ -3046,7 +3098,10 @@ def sub_instrumento(tn):
     if re.search(r'microfono', tn): return 'Micrófonos'
     if re.search(r'interfaz de audio|mezcladora|mixer|monitor de estudio|'
                  r'controlador midi|\bdaw\b|preamp', tn): return 'Producción de audio'
-    if re.search(r'teclado|piano|sintetizador|organo|acordeon|melodion', tn): return 'Teclados'
+    if re.search(r'acordeon|acor[oó]n|acorde[oó]n|bandoneon|\baccordion', tn): return 'Acordeones'
+    if re.search(r'teclado|piano|sintetizador|organo|melodion|'
+                 r'controlador midi|\bmidi\b|\bkeytar\b|\bcelesta\b', tn): return 'Teclados'
+    if re.search(r'theremin', tn): return 'Sintetizadores y controladores MIDI'
     if re.search(r'amplificador|\bamp\b|combo de guitarra', tn): return 'Amplificadores'
     if re.search(r'tornamesa|tocadiscos|turntable', tn): return 'Tornamesas'
     if re.search(r'\bpedal(es)? (de|para)? ?(efecto|distorsion|reverb|delay|wah|loop)|'
@@ -3062,22 +3117,60 @@ def sub_instrumento(tn):
                  # ningún instrumento y se quedaba sin subcategoría. Acá abajo
                  # solo alcanza a lo que ninguna rama anterior reclamó, así
                  # que "guitarra con cuerdas de repuesto" sigue en Guitarras.
-                 r'\bcuerdas?\b|drum ?stick', tn): return 'Accesorios'
+                 r'\bcuerdas?\b|drum ?stick|panos? de (microfibra|limpieza)|\blimpieza\b|'
+                 r'abrazadera|soportes? antivibr|humidificador|cable de instrumento|\bplug\b|'
+                 r'\bglobos?\b|\bpedestal\b|\bstand\b', tn): return 'Accesorios'
     return None
 
 
 def sub_iluminacion(tn):
-    if re.search(r'tira (led|de luz)|cinta led|\bstrip\b', tn): return 'Tiras LED'
-    if re.search(r'foco intelig|bombilla intelig|\bwifi\b.{0,15}foco|foco.{0,15}\bwifi\b|'
-                 r'foco.{0,20}(alexa|google)', tn): return 'Focos inteligentes'
-    if re.search(r'\bfoco\b|bombilla|\bled\b.{0,10}\bw\b|luminaria', tn): return 'Focos'
-    if re.search(r'lampara de (escritorio|mesa|buro)|de escritorio', tn): return 'Lámparas de escritorio'
-    if re.search(r'lampara (de )?(techo|colgante)|luces? colgantes?|colgante|candil|plafon|arana|araña|empotra|\bspot\b|\briel\b|luminario', tn): return 'Lámparas de techo'
-    if re.search(r'lampara de (pared|muro)|arbotante|aplique', tn): return 'Lámparas de pared'
-    if re.search(r'lampara de (piso|pie)', tn): return 'Lámparas de piso'
-    if re.search(r'emergencia|linterna|recargable.{0,15}apagon', tn): return 'Lámparas de emergencia'
-    if re.search(r'exterior|jardin|solar|reflector|\bposte\b', tn): return 'Exterior'
-    if re.search(r'\blampara\b|\bluz\b|\bluces\b|anuncio luminoso|letrero|cartel|\bneon\b', tn): return 'Decorativa'
+    """Reparte Iluminación. El orden manda: la tira, el escenario y el foco
+    inteligente se nombran sin ambigüedad; el foco a secas va antes que la
+    lámpara de techo salvo que el título diga el montaje (empotrado,
+    sobreponer, riel), porque el luminario de techo también dice "led 12 W".
+    "Lámparas de techo" es la rama que la ola 4 reparte en plafones,
+    rieles, candiles, colgantes, industriales y ventiladores con luz."""
+    if re.search(r'tiras? (led|de luz|de luces)|cinta led|\bstrip\b|neon flex', tn): return 'Tiras LED'
+    if re.search(r'cabeza (movil|robotica)|cabezas moviles|\bpar ?led\b|\bpar ?\d{2,3}\b|par (rgb|64|56|38)|'
+                 r'\bestrobo|\bstrobe\b|\bdmx\b|\bwash\b|\bbeam\b|luz de escenario|moving head|'
+                 r'maquina de humo|liquido (de |para )?humo|bola (de )?disco|luz disco|barra led (dancer|rgb|dj)|'
+                 r'\bdj\b|\bderby\b|laser (de |para )?(fiesta|dj|show|escenario)|kaleidoscopio|\bblizzard\b|'
+                 r'\bsteelpro\b|\balienpro\b|megaluz.{0,30}(beam|spot|wash|show|movil)|canon de luces|'
+                 r'\bwasher\b|luz (de |para )?(fiesta|discoteca|antro)|pista de baile|elevacion.{0,20}iluminacion|'
+                 r'tripie (de |para )?(luces|iluminacion)|\bbalastro\b|\bbalasto\b|\bgobo\b|\bpixel bar\b|'
+                 r'\bblinder\b|\bfollow ?spot\b|\bhaze|consola de iluminacion|controlador dmx|splitter.{0,20}dmx', tn):
+        return 'Escenario'
+    if re.search(r'foco intelig|bombill[ao] intelig|\bwifi\b.{0,15}(foco|bombill)|'
+                 r'(foco|bombill[ao]).{0,25}(\bwifi\b|alexa|google|\bsmart\b|intelig|\bapp\b|bluetooth)|'
+                 r'\btapo l5|\bsengled\b|smart bulb|philips hue|\bhue\b', tn): return 'Focos inteligentes'
+    if re.search(r'emergencia|linterna|recargable.{0,15}apagon|\bapagon', tn): return 'Lámparas de emergencia'
+    if re.search(r'lampara (de |para )?(escritorio|mesa|buro|lectura|noche|mesita)|\bescritorio\b|\blectura\b|'
+                 r'luz de noche|luz nocturna|lampara (con )?pinza|para leer|\bde mesa\b|\bde buro\b|'
+                 r'lampara (led )?(recargable )?(de )?clip|lampara flexible|desk lamp', tn):
+        return 'Lámparas de escritorio'
+    if re.search(r'guirnalda|serie de luces|luces de (navidad|cadena)|string lights|cadena de luces|\bsolar', tn): return 'Exterior'
+    if re.search(r'lampara (de |para )?(pared|muro|espejo|bano)|arbotante|aplique', tn): return 'Lámparas de pared'
+    if re.search(r'anuncio luminoso|letrero|cartel|\bneon\b|icon light|\bpaladone\b', tn): return 'Decorativa'
+    if re.search(r'\bfocos?\b|bombill[ao]s?|\bled\b.{0,10}\bw\b|lampara (led )?(espiral|ahorradora|mini|t[2-5]\b|fluorescente|tubular)|'
+                 r'\bt[2458]\b.{0,25}\bw\b|halogen|tubo (led|fluorescente)|\bmr16\b|\bgu10\b|\bg9\b|\be27\b|\be26\b|'
+                 r'\be14\b|\ba19\b|\bbr40\b|\bpar38\b|portalampara|\bsocket\b|\bsoquet|dimeable|\blumenes\b|'
+                 r'incandescente|\bfilamento\b|vela led|\bvintage\b.{0,20}(lava|led|\bw\b)|\bbulbo\b|atenuable', tn):
+        if re.search(r'empotra|sobreponer|plafon|luminario|\briel\b|\bspot\b|colgante|candil|\btecho\b|ventilador|abanico|regleta', tn):
+            return 'Lámparas de techo'
+        return 'Focos'
+    if re.search(r'lampara (de |para )?(techo|colgante)|luces? colgantes?|colgante|candil|candelabro|plafon|'
+                 r'arana|araña|empotra|\bspot\b|\briel\b|luminario|panel led|high ?bay|nave industrial|'
+                 r'\bindustrial\b|hermetic|prueba de vapor|lampara lineal|luminaria|\bfarol\b|\bpendant\b|'
+                 r'\bde techo\b|para techo|\btecho\b|sobreponer|\bregleta\b|ventilador|abanico|downlight|\bslim\b.{0,15}led|suspendid', tn):
+        return 'Lámparas de techo'
+    if re.search(r'lampara (de |para )?(pared|muro|espejo|bano)|arbotante|aplique|\bde pared\b|para pared|'
+                 r'wall lamp|\bsconce|lamparas? (de |para )?pared', tn): return 'Lámparas de pared'
+    if re.search(r'lampara de (piso|pie)|\bde piso\b|floor lamp', tn): return 'Lámparas de piso'
+    if re.search(r'exterior|jardin|solar|reflector|\bposte\b|intemperie|\bip6[5-8]\b|fachada|\bestaca\b|'
+                 r'guirnalda|serie de luces|luces de (navidad|cadena)|string lights|\bcamino\b', tn): return 'Exterior'
+    if re.search(r'\blampara\b|\bluz\b|\bluces\b|anuncio luminoso|letrero|cartel|\bneon\b|iluminacion|'
+                 r'\blamp\b|\blights?\b|\bwinled\b|\btecnolite\b|\bvolteck\b|\bmundo lucido\b|\bsanelec\b', tn):
+        return 'Decorativa'
     return None
 
 
@@ -3129,6 +3222,20 @@ def sub_vehiculo(tn):
                  r'funda para (auto|volante|asiento)|cubre ?volante|\bcojin|'
                  r'refaccion|repuesto|\bespejo\b|\bsoporte\b', tn):
         return 'Accesorios y refacciones'
+    # La pieza o el accesorio que no abre el título pero nombra el vehículo
+    # al que va: faros, antena, alfombrillas, bolsas de moto, cargador de
+    # batería. Se reparte por el vehículo que nombra.
+    if re.search(r'\bfaros?\b|luz led|luces led|barra led|\bled\b|\bantena\b|sensor de (estacionamiento|reversa)|'
+                 r'alfombrilla|\btapete|\bcubierta\b|\bfunda\b|cargador (y mantenedor )?de bateria|mantenedor|'
+                 r'\bmodulo\b|receptor|reproductor|\bcd\b|parabrisas|\bgafas\b|\bgoggles\b|equipaje|'
+                 r'\bbolsas?\b|alforja|\basiento\b|\bkit\b|enganche|porta ?bici|\brampa\b|\bcubre|'
+                 r'\bprotector|accesorio|repuesto|refaccion|\bpieza|\bportavasos\b|\bllantitas\b|'
+                 r'tubo interior|\bcamara\b.{0,15}(700c|bicicleta|rodada)|\bestabilizador\b|\becualizador\b', tn):
+        if re.search(r'\bmoto|motocicleta|harley|\bruckus\b|\bscooter\b', tn): return 'Accesorios para moto'
+        if re.search(r'bicicleta|\bbici\b|ciclismo|\bmtb\b|700c|rodada|\bbenotto\b', tn): return 'Accesorios para bicicleta'
+        if re.search(r'\bcd\b|receptor|reproductor|\bradio\b|multimedia|pantalla tactil|\balpine\b|\bpioneer\b', tn):
+            return 'Estéreos para auto'
+        return 'Accesorios y refacciones'
     # Y recién ahora el vehículo entero.
     if re.search(r'\bmotocicleta\b|\bmoto\b|scooter de gasolina', tn):
         return 'Motocicletas'
@@ -3144,8 +3251,13 @@ def sub_domotica(tn):
     # Echo Show 21" no es una bocina inteligente.
     if re.match(r'^(?:\S+ ){0,3}(cargador|cable|funda|soporte|adaptador|base|repuesto|montura|bateria)\b', tn):
         return None
-    if re.search(r'enchufes? intelig|contactos? (de pared )?intelig|smart plug|tomacorriente intelig|enchufes? (wifi|alexa)|regleta intelig|multicontacto intelig', tn):
+    if re.search(r'enchufes? intelig|contactos? (de pared )?intelig|smart plug|tomacorriente intelig|enchufes? (wifi|alexa)|regleta intelig|multicontacto intelig|'
+                 r'tp-?link (tapo|kasa) (p|hs)1\d\d|\bhs1[01]\d\b|\bp1[01]\d\b|smart home p100', tn):
         return 'Enchufes inteligentes'
+    if re.search(r'\bshelly\b|\bsonoff\b|modulo intelig|modulo (wifi|zigbee|de rele)|rele (wifi|zigbee|intelig)', tn):
+        return 'Interruptores inteligentes'
+    if re.search(r'contacto magnetico|sensor de (puerta|ventana|contacto|apertura)', tn):
+        return 'Sensores'
     if re.search(r'apagador(es)? intelig|interruptor(es)? (de luz |de pared |tactil |de atenuacion |inalambrico )?intelig|smart switch|'
                  r'interruptor(es)? (de luz |de pared |tactil )?(wifi|zigbee|tuya)|apagador(es)? (wifi|tuya)|modulo (interruptor|rele)|rele wifi|'
                  r'atenuador intelig|dimmer intelig|pulsador de boton|interruptor.{0,30}(tuya|alexa|zigbee|wifi)', tn):
@@ -3174,7 +3286,9 @@ def sub_domotica(tn):
 def sub_deporte(tn):
     """Reparte Deportes y fitness."""
     if re.search(r'^(?:\S+ ){0,3}(pesa|mancuerna|disco olimpico|barra olimpica|kettlebell)', tn): return 'Pesas'
-    if re.search(r'bicicleta (fija|estatica|de spinning)|spinning|ciclo indoor', tn): return 'Bicicletas fijas'
+    if re.search(r'bicicleta (fija|estatica|de spinning|recumbente|vertical|de ejercicio|magnetica|reclinada)|spinning|ciclo indoor|'
+                 r'recumbente|entrenador de bicicleta|bicicleta.{0,25}(entrenamiento|fitness|unifitness|windsor|sunny)|'
+                 r'\brecumbent|upright bike|air bike|bicicleta de aire', tn): return 'Bicicletas fijas'
     if re.search(r'\bbalon\b|pelota de (futbol|basquet|voleibol)', tn): return 'Balones'
     if re.search(r'patin(es|eta)?\b|patineta|skate|scooter para nino', tn): return 'Patines y patinetas'
     if re.search(r'\byoga\b|pilates|tapete de ejercicio|colchoneta', tn): return 'Yoga'
@@ -3191,7 +3305,19 @@ def sub_deporte(tn):
     # el guante de portero "SUP-D1GLV-3" entraba como tabla de paddle.
     if re.search(r'kayak|paddle ?(board|surf)|stand up paddle|buceo|\bsurf\b|snorkel', tn):
         return 'Deportes acuáticos'
-    if re.search(r'banda(s)? (de|elastica)? ?resistencia|liga de ejercicio', tn): return 'Bandas de resistencia'
+    if re.search(r'banda(s)? (de|elastica)? ?resistencia|liga de ejercicio|bandas? elasticas?|ligas? (de |para )?(resistencia|ejercicio)|'
+                 r'set de ligas|banda de suspension|\btrx\b|entrenador de suspension|mini bandas', tn): return 'Bandas de resistencia'
+    if re.search(r'cuerda (de |para )?(salto|saltar|brincar|entrenamiento)|jump rope|speed rope|'
+                 r'magnesia|cinturon (de |para )?(pesas|hip thrust|lastre|levantamiento)|\bagarres?\b|agarraderas|'
+                 r'\bstraps\b|munequeras de levantamiento|mina terrestre|landmine|accesorio (de |para )?barra|'
+                 r'collarines|clips para barra|\bcalleras\b|\bgrips\b', tn):
+        return 'Accesorios de fuerza'
+    if re.search(r'\bsmith\b|leg press|\bhack\b|multifuncional|cross ?trainer|\btorre\b|\bpolea|'
+                 r'\bestacion\b|\brack\b|jaula de (potencia|sentadillas)|power rack|multiestacion', tn):
+        return 'Máquinas multifuncionales y poleas'
+    if re.search(r'taekwondo|karate|artes marciales|\bmma\b|muay thai|\bjudo\b|kickbox|saco de box|'
+                 r'\bcostal\b|\bpaos\b|manoplas de box|\bbox\b', tn):
+        return 'Boxeo'
     if re.search(r'campismo|camping|casa de campana|sleeping bag|bolsa de dormir', tn): return 'Campismo'
     if re.search(r'rodillera|codera|tobillera|muneque|faja|soporte (lumbar|deportivo)', tn):
         return 'Protección y soportes'
@@ -3207,6 +3333,7 @@ def sub_deporte(tn):
                  r'ejercitador de (agarre|pecho|brazos|manos)|entrenador de fuerza de agarre|'
                  r'\bcrossfit\b|\bsentadillas?\b', tn):
         return 'Equipo de gimnasio'
+    if re.search(r'\bpesas?\b|mancuerna|\bdiscos?\b|\bbarra\b|kettlebell|banco (de|para)', tn): return 'Pesas'
     return None
 
 
@@ -3285,8 +3412,20 @@ def sub_joyeria(tn):
     if re.search(r'^(?:\S+ ){0,3}(pulsera|brazalete|esclava)', tn): return 'Pulseras'
     if re.search(r'^(?:\S+ ){0,3}(anillo|anillos|sortija)', tn): return 'Anillos'
     if re.search(r'\bdije\b|\bdijes\b|\bcharm', tn): return 'Dijes y charms'
-    if re.search(r'limpiador de joyas|pano de pulido|herramienta de joyeria', tn):
+    if re.search(r'limpiador de joyas|pano de pulido|herramienta de joyeria|pano de (cuidado|limpieza)|cuidado de joyas', tn):
         return 'Cuidado y herramientas'
+    # Redes sin ancla para lo que no abre con la pieza ("Solitario de oro
+    # rosa", "Aros GUESS", "Tungsten wedding band").
+    if re.search(r'(set|conjunto|juego|jewelry set|\bsets\b).{0,40}(collar|necklace|aretes|earring|pulsera|bracelet|anillo|\bring)|'
+                 r'(collar|necklace|aretes|earrings?).{0,30}\b(y|and|&)\b.{0,20}(aretes|earrings?|pulsera|bracelet|anillo|ring|stud)', tn):
+        return 'Arras y sets'
+    if re.search(r'\brings?\b|anillo|sortija|solitario|wedding band|banda de (boda|matrimonio)|argolla|\bchurumbela', tn):
+        return 'Anillos'
+    if re.search(r'arete|\baros\b|earring|\bstuds?\b|arracada|broquel|\bhuggie|\bear ?cuff', tn): return 'Aretes'
+    if re.search(r'collar|necklace|gargantilla|\bcadena\b|\bchoker\b|colgante|pendant|medall', tn): return 'Collares'
+    if re.search(r'pulsera|brazalete|bracelet|bangle|esclava|\btobillera\b|\banklet', tn): return 'Pulseras'
+    if re.search(r'\bdije|\bcharm|llavero|keychain|\bbroche\b|\bpin\b', tn): return 'Dijes y charms'
+    if re.search(r'\breloj', tn): return 'Relojes'
     return None
 
 
@@ -3297,9 +3436,12 @@ def sub_impresora(tn):
                  tn) and not re.match(r'^(?:\S+ ){0,3}impresora', tn):
         return 'Consumibles'
     if re.search(r'fotografica|de fotos|instantanea|selphy|\bivy\b|kodak dock|liene', tn): return 'Fotográficas'
-    if re.search(r'\blaser\b|laserjet', tn): return 'Láser'
-    if re.search(r'termica|\bthermal\b|etiquetas|tickets|punto de venta', tn): return 'Térmica'
-    if re.search(r'inyeccion|inkjet|deskjet|ecotank|\bofficejet\b|pixma|multifuncional', tn):
+    if re.search(r'\blaser\b|laserjet|imageclass|\bbrother hl\b|\bdcp-l|\bmfc-l|\bxerox\b', tn): return 'Láser'
+    if re.search(r'termica|\bthermal\b|etiquetas?|tickets?|punto de venta|miniprinter|mini impresora|'
+                 r'\b(58|80) ?mm\b|\bzebra\b|\btm-?t\d|\bpos\b|codigo de barras|rotuladora|'
+                 r'\bec line\b|\b3nstar\b|star micronics|\btsp\d|monocromatica.{0,20}(usb|ethernet|lan)', tn): return 'Térmica'
+    if re.search(r'inyeccion|inkjet|deskjet|ecotank|\bofficejet\b|pixma|multifuncion|sublimacion|'
+                 r'\btinta\b|\bepson l\d|\bsmart tank\b|\bcolor\b.{0,20}wifi', tn):
         return 'Inyección de tinta'
     return None
 
@@ -3335,6 +3477,19 @@ def sub_blancos(tn):
     if re.search(r'^(?:\S+ ){0,3}(cortina|cortinas)', tn): return 'Cortinas'
     if re.search(r'funda (para|de) (sofa|sillon|sillones|mueble)|cubre ?(sofa|sillon|sillones)',
                  tn): return 'Fundas para muebles'
+    # Redes sin ancla, para lo que no abre con el nombre (la marca o el
+    # juego van primero: "Cozy Earth Nantucket sábana de baño").
+    if re.search(r'\btoalla|\btowel\b|sabana de bano|bata de bano|\balbornoz', tn): return 'Toallas'
+    if re.search(r'rodapie|faldon de cama|bed skirt|funda (de |para )?(edredon|nordica)|duvet cover', tn):
+        return 'Sábanas'
+    if re.search(r'juego de edredon|\bedredon|\bcolcha|\bcomforter\b|\bquilt\b|cubrecama|\bduvet\b|'
+                 r'fussion|microfussion|\bcobertor\b', tn): return 'Edredones'
+    if re.search(r'almohada|almoada|\bpillow\b|\bcojin\b|cojines', tn): return 'Almohadas'
+    if re.search(r'colchoneta|\btopper\b|sobrecolchon|cubierta de colchon|\bprotector\b|cubrecolchon|memory foam', tn):
+        return 'Protectores de colchón'
+    if re.search(r'\bcobija|\bmanta\b|\bmantas\b|\bfrazada|\bblanket\b|\bthrow\b', tn): return 'Cobijas'
+    if re.search(r'sabana|juego de cama|ropa de cama|\bsheets?\b', tn): return 'Sábanas'
+    if re.search(r'\bcortina', tn): return 'Cortinas'
     return None
 
 
@@ -3376,8 +3531,13 @@ def sub_red(tn):
         return 'Repetidores'
     if re.search(r'\bmodem\b|\bdocsis\b|\bont\b|\bgpon\b', tn): return 'Módems'
     if re.search(r'\bswitch\b|conmutador', tn): return 'Switches'
-    if re.search(r'access ?point|punto de acceso|\bap\b wifi', tn): return 'Access points'
-    if re.search(r'\brouter\b|\bruteador\b|enrutador', tn): return 'Routers'
+    if re.search(r'access ?point|punto de acceso|\bap\b wifi|meraki mr|\blitebeam\b|\bunifi\b|\bcpe\b|'
+                 r'\bnanostation\b|\bomada\b|\beap\d|\bpowerbeam\b|\bairfiber\b|\bbackhaul\b|\bcatalyst\b.{0,20}(inalambric|wireless)', tn):
+        return 'Access points'
+    if re.search(r'\brouter\b|\bruteador\b|enrutador|\barcher\b|\bax\d{2,4}\b|\bdeco\b|\bmeraki mx\b|\bnighthawk\b', tn): return 'Routers'
+    if re.search(r'\bcontroladora?\b.{0,30}(puertos|gigabit)|transceiver|\btransceptor|convertidor (de )?(multimedia|de medios|fibra)|'
+                 r'\bsfp\b|protector ethernet|\bpoe\b', tn):
+        return 'Switches'
     return None
 
 
@@ -3402,7 +3562,9 @@ def sub_clima(tn):
     if re.search(r'humidificador|vaporizador de ambiente|difusor de aroma', tn): return 'Humidificadores'
     if re.search(r'calefactor|calentador (de ambiente|de pared|de patio|de espacio|de interiores|'
                  r'de habitacion|de escritorio|electrico|ceramico|infrarrojo|de cuarzo|halogeno)|'
-                 r'\bcalefaccion\b|chimenea electrica|radiador (lleno de aceite|de aceite)|calefactable', tn):
+                 r'\bcalefaccion\b|chimenea electrica|radiador (lleno de aceite|de aceite)|calefactable|'
+                 r'\bcalentador\b(?!.{0,15}(de agua|solar|de paso|de toallas|de biberon|de cera|de alimentos|de acuario))|'
+                 r'\bcalenton|caloventor|calefaccionad|\bheater\b', tn):
         return 'Calefactores'
     if re.search(r'climatizador|enfriador (de aire|evaporativo)|cooler evaporativo', tn):
         return 'Climatizadores evaporativos'
@@ -3421,31 +3583,46 @@ def sub_mascota(tn):
     if re.search(r'rascador|arbol (para|de) gato|torre (para|de) gato|\bcat tree\b|'
                  r'\bscratch(er|ing)\b|poste rascador', tn): return 'Rascadores y torres'
     if re.search(r'\bjaula|\bcorral\b|\bcerca (para|de) (perro|mascota)|valla (para|de) (perro|mascota)|'
-                 r'\bperrera\b|\bcrate\b|\bkennel\b|\bplaypen\b', tn): return 'Jaulas y corrales'
+                 r'\bperrera\b|\bcrate\b|\bkennel\b|\bplaypen\b|parque (para|de) (perro|cachorro|mascota)|'
+                 r'\breja\b|barrera (para|de) (perro|mascota)|\bgallinero\b|\bconejera\b', tn): return 'Jaulas y corrales'
+    if re.search(r'acuario|pecera|terrario|\btortuga|\breptil|\bpeces\b|\bpez\b|filtro (de |para )?(acuario|pecera)|'
+                 r'bomba de aire', tn): return 'Acuarios y terrarios'
     if re.search(r'\bcepillo|\bshampoo\b|\bchampu\b|cortaunas|\btoallita|\bpanal|'
                  r'bolsa(s)? (para|de) (heces|desecho|popo)|recogedor|\bgrooming\b|quita ?pelo|'
-                 r'\bdesenredante|\bcortapelo', tn): return 'Higiene y limpieza'
+                 r'\bdesenredante|\bcortapelo|\bpeine\b|secador(a)? (para|de) (perro|mascota)|\bsoplador\b|'
+                 r'corta ?unas|lavador de (patas|pies)|\bdental\b|\bbanera\b|desodorante|limpiador', tn):
+        return 'Higiene y limpieza'
     if re.search(r'\bropa\b|\bchaleco|\bsueter|\bimpermeable (para|de) (perro|mascota)|disfraz|'
-                 r'\bbotas\b|\bzapatos\b|\bbandana\b|\bmonos?\b para perro', tn):
+                 r'\bbotas\b|\bzapatos\b|\bbandana\b|\bmonos?\b para perro|\bpijama|\bcamiseta|'
+                 r'\bvestido\b|\bsudadera|\babrigo\b|\bplayera|placa (de )?identificacion|microchip|'
+                 r'\bpanuelo\b', tn):
         return 'Ropa y accesorios'
     if re.search(r'\badiestr|entrenamiento (para|de) (perro|mascota)|\bclicker\b|collar antiladrido|'
                  r'valla invisible|\btraining\b (pad|collar)', tn): return 'Adiestramiento'
     if re.search(r'\barenero|\barena para gato|caja de arena|\blitter box\b', tn): return 'Areneros'
     if re.search(r'transportadora|jaula de viaje|canil|kennel|mochila (para|de) (perro|gato|mascota)|carriola|carreola|cochecito|coche (para|de) (perro|gato|mascota)', tn):
         return 'Transportadoras'
-    if re.search(r'comedero|plato (para|de) (perro|gato|mascota)|dispensador de alimento', tn):
+    if re.search(r'bebedero|fuente de agua|dispensador de agua|fuente (para|de) (gato|perro|mascota)|'
+                 r'dispensador de bebidas', tn): return 'Bebederos'
+    if re.search(r'comedero|\bplato|\bcuenco|\btazon|\bbowl\b|dispensador de (alimento|comida|croquetas)|'
+                 r'estacion de alimentacion|contenedor (de |para )?alimento|lick ?mat|tapete de lamer|'
+                 r'alimentador|\bcuencos\b', tn):
         return 'Comederos'
-    if re.search(r'bebedero|fuente de agua (para|de) (perro|gato|mascota)', tn): return 'Bebederos'
     if re.search(r'\bcorrea|\bpechera|\barnes\b|\bcollar\b', tn): return 'Correas'
     if re.search(r'casa (para|de) (perro|gato|mascota)|caseta|rascador|torre para gato|escondite|'
+                 r'\bcasa\b.{0,30}(perro|gato|mascota|conejo|hamster)|casa (plegable|grande|de madera|cerrada|refrescante|climatizada|de juegos)|'
+                 r'tienda de campana|\bcueva\b|refugio|\bcasita\b|\biglu\b|\bcabana\b|\bnido\b|'
+                 r'estacion de enfriamiento|sala de hielo|'
                  r'casa (de madera |acrilica |grande |pequena )?(para|de) (conejillo|cobaya|cuyo|hamster|chinchilla|conejo|erizo|huron|jerbo|roedor|animales pequenos)|'
                  r'\bhabitat\b|castillo (para|de)', tn):
         return 'Casas para mascotas'
-    if re.search(r'\bcama\b|colchoneta|cojin (para|de) (perro|gato|mascota)|\bpet bed\b|'
-                 r'\bdog bed\b|\bnido\b|tapete|alfombrilla|almohadilla', tn): return 'Camas'
+    if re.search(r'\bcamas?\b|colchoneta|cojin (para|de) (perro|gato|mascota)|\bpet bed\b|'
+                 r'\bdog bed\b|tapete|alfombrilla|almohadilla|\bmanta\b|\bcobija|\bhamaca\b|'
+                 r'\bcolchon|\bcojin\b|sofa (para|de) (perro|gato)|\bcucha\b', tn): return 'Camas'
     if re.search(r'juguete|pelota|\bkong\b|\bcatnip\b|hueso|mordedor|rat[oó]n de peluche|'
                  r'\btoy(s)?\b|squeaky|\bchew\b|\bfetch\b|disco volador|\bfrisbee\b|varita|'
-                 r'alfombra olfativa|\bsnuffle\b|\btunel\b', tn):
+                 r'alfombra olfativa|\bsnuffle\b|\btunel\b|rueda de ejercicio|rueda para gato|'
+                 r'laser (para|de) gato|\bplumero\b|\bcatnip\b|\bcuerda\b', tn):
         return 'Juguetes'
     return None
 
@@ -3458,15 +3635,15 @@ def sub_vigilancia(tn):
     """
     if re.search(r'\btimbre|videotimbre|video ?doorbell|doorbell', tn): return 'Timbres inteligentes'
     if re.search(r'cerradura|chapa intelig|smart lock', tn): return 'Cerraduras inteligentes'
-    if re.search(r'\balarma|sirena|antirrobo', tn): return 'Alarmas'
+    if re.search(r'\balarma|sirena|antirrobo|control (de )?acceso|biometric|\bzkteco\b|sistema de seguridad', tn): return 'Alarmas'
     if re.search(r'\bsensor|detector de (movimiento|humo|apertura)', tn): return 'Sensores'
     if re.search(r'\bkit\b|\bnvr\b|\bdvr\b|\d ?canales|juego de \d camaras|\d camaras\b', tn):
         return 'Kits de vigilancia'
     if re.search(r'\bptz\b|motorizada|zoom optico \d+x|seguimiento automatico', tn): return 'Cámaras PTZ'
     if re.search(r'espia|oculta|camuflaj|\bmini camara\b|llavero', tn): return 'Cámaras espía'
-    if re.search(r'exterior|intemperie|\bip6[5-8]\b|impermeable|solar', tn): return 'Cámaras exteriores'
+    if re.search(r'exterior|intemperie|\bip6[5-8]\b|impermeable|solar|floodlight|\boutdoor\b|\bbullet\b', tn): return 'Cámaras exteriores'
     if re.search(r'interior|\bbebe\b|mascota|\bindoor\b', tn): return 'Cámaras interiores'
-    if re.search(r'camara', tn): return 'Cámaras interiores'
+    if re.search(r'camara|\bcam\b|\bcamera\b', tn): return 'Cámaras interiores'
     return None
 
 
@@ -3492,15 +3669,31 @@ def sub_juguete(tn):
     if re.search(r'montable|correpasillos|carro montable', tn): return 'Montables'
     if re.search(r'\bmaqueta|modelismo|escala 1 ?[:/] ?\d|\bdie-?cast\b|fundido a presion|'
                  r'rompecabezas 3d|puzzle 3d|\bdiorama\b', tn): return 'Maquetas'
-    if re.search(r'figura de accion|\bfunko\b|\bmarvel\b|\bdc\b comics|transformers', tn):
+    if re.search(r'\bmuneca|\bbarbie\b|\bnenuco\b|\bbebote\b|monster high|rainbow high|'
+                 r'\bl\.?o\.?l\.? surprise|\bbratz\b|baby alive|the bellies|disney princess|'
+                 r'disney princesa|polly pocket|cry babies|\bdolls?\b|\bbebe reborn\b|\bcalico critters\b', tn):
+        return 'Muñecas'
+    if re.search(r'figura de accion|\bfunko\b|\bmarvel\b|\bdc\b comics|transformers|'
+                 r'playmobil|mini brands|miniverse|real littles|sonny angel|\bblokees\b|'
+                 r'figura (armable|coleccionable|de coleccion)|\bfiguras?\b|hot toys|\bbandai\b|'
+                 r'\bgunpla\b|\bnendoroid\b|\bmunecos?\b|set de (juego|aventuras)|\bplay ?set\b|'
+                 r'\bbitzee\b|\bset\b.{0,30}(peppa|dora|gabby|paw patrol|bluey|pokemon|'
+                 r'harry potter|wizarding|star wars|jurassic|spider|batman)', tn):
         return 'Figuras de acción'
-    if re.search(r'bloques|\blego\b|\bmega bloks\b|construccion', tn): return 'Bloques de construcción'
-    if re.search(r'\bmuneca|\bbarbie\b|\bnenuco\b|\bbebote\b', tn): return 'Muñecas'
+    if re.search(r'bloques|\blego\b|\bmega bloks\b|construccion|mega construx|\bconstrux\b|'
+                 r'\bcobi\b|\bsluban\b|\bknex\b|\bmagna-?tiles\b|\bmagformers\b', tn):
+        return 'Bloques de construcción'
     if re.search(r'peluche|\bplush\b', tn): return 'Peluches'
     if re.search(r'control remoto|radiocontrol|\brc\b\b', tn): return 'Vehículos a control remoto'
-    if re.search(r'\bcarrito|\bcamion\b|monster truck|hot ?wheels|pista de carreras', tn):
+    if re.search(r'\bcarrito|\bcamion\b|monster truck|hot ?wheels|pista de carreras|\bvehiculo\b|'
+                 r'pull ?& ?speed|\bcarrera\b|\bmajorette\b|\bmatchbox\b|\btomica\b|'
+                 r'auto de juguete|coche de juguete|\btractor\b|\bavion de juguete\b', tn):
         return 'Vehículos de juguete'
-    if re.search(r'educativo|didactic|\bstem\b|aprendizaje|montessori', tn): return 'Juguetes educativos'
+    if re.search(r'educativo|didactic|\bstem\b|aprendizaje|montessori|play-?doh|\bslime\b|'
+                 r'plastilina|manualidades|kit de (ciencia|cristales|cultivo|arte|experimentos)|'
+                 r'\bcrayola\b|pegatinas|cuaderno de actividades|\bsensorial\b|\bpara pintar\b|'
+                 r'\bcolorear\b', tn):
+        return 'Juguetes educativos'
     if re.search(r'juego (de|para) exterior|resbaladilla|columpio|casita de jardin|alberca', tn):
         return 'Juegos de exterior'
     if re.search(r'arcade|maquinita', tn): return 'Juegos arcade'
@@ -3516,10 +3709,22 @@ def sub_camara(tn):
     if re.search(r'^(?:\S+ ){0,5}(cargador|bateria|baterias|estacion de carga|puerta de bateria|paquete de \d+ baterias|'
                  r'soporte|adaptador|montaje|kit de montaje|cabeza de bola|cabezal|brazo|placa|abrazadera|monopie|'
                  r'marco|clip|tether|lanyard|correa)\b', tn): return 'Accesorios'
-    if re.search(r'gopro|camara (de )?accion|action cam|insta ?360|\bsjcam\b|\bakaso\b|dji (osmo|action)', tn): return 'Cámaras de acción'
+    if re.search(r'protector (de )?lente|protector de camara|mica (de|para) camara|para (iphone|samsung|galaxy|pixel|xiaomi)', tn):
+        return 'Accesorios'
+    if re.search(r'gopro|camara (de )?accion|action cam|insta ?360|\bsjcam\b|\bakaso\b|dji (osmo|action)|'
+                 r'camara (de |para )?(cuerpo|corporal|policia|casco|bicicleta|moto|deportiva|sport)|'
+                 r'body ?cam|sportcam|sport cam|dash ?cam|camara (para|de) (auto|carro)', tn): return 'Cámaras de acción'
+    if re.search(r'\bptz\b|transmision en vivo|\bstreaming\b|videoconferencia|\bwebcam\b', tn):
+        return 'Videocámaras'
+    if re.search(r'\bfpv\b|\bdji\b|\bmavic\b|\bdron\b|\bdrone\b|\bcardan\b|\bgimbal\b|\bruncam\b|\bvtx\b|'
+                 r'modulo de camara|camara modulo|\bcaddx\b|\bimx\d{3}\b|\bcmos\b|\bcamera module\b|'
+                 r'industrial|\busada\b|\bused\b', tn):
+        return 'Accesorios'
     if re.search(r'instantanea|instax|polaroid', tn): return 'Instantáneas'
     if re.search(r'videocamara|camcorder|filmadora', tn): return 'Videocámaras'
-    if re.search(r'mirrorless|sin espejo|\balpha\b|\bzv-?e\b|\bx-?[the]\d|\bx100\b|\bgfx\b|\blumix\b|om system|\bom-?\d\b', tn): return 'Mirrorless'
+    if re.search(r'mirrorless|sin espejo|\balpha\b|\bzv-?e\b|\bx-?[the]\d|\bx100\b|\bgfx\b|\blumix\b|om system|\bom-?\d\b|'
+                 r'\bilce-?\d|\bsony (alpha|a\d)|\bnikon z\b|\bz ?f\b|\bz ?[5-9]\b|\bz ?\d{2}\b|\bx-?m5\b|\bx-?s\d{2}\b|'
+                 r'\beos r\d?\b|\bcanon\b.{0,25}\br\d{1,2}\b|\br\d{1,2}\b.{0,20}\brf\b', tn): return 'Mirrorless'
     if re.search(r'reflex|\bdslr\b|\beos\b.{0,10}\d|\bd\d{3,4}\b', tn): return 'Réflex'
     # "lente" a secas se llevaba la cámara térmica ("lente de germanio"), el
     # domo IP y la grabadora láser: la subcategoría es para el objetivo
@@ -3534,7 +3739,9 @@ def sub_camara(tn):
     # sin subcategoría). Va al final de todo: puesta antes de Accesorios se
     # llevaba la "batería para cámara digital".
     if re.search(r'camara (digital|compacta|de fotos|fotografica|4k|para vlog|de vlog|deportiva|corporal|montada)|'
-                 r'mini camara|\bvlog', tn): return 'Compactas'
+                 r'mini camara|\bvlog|powershot|\belph\b|\bixus\b|coolpix|cyber-?shot|\bdsc-\w+|'
+                 r'camp snap|camara (retro|de pelicula|analogica|reutilizable|desechable|35 ?mm|tlr)|'
+                 r'estilo retro|camara portatil', tn): return 'Compactas'
     return None
 
 
@@ -3563,7 +3770,7 @@ def sub_herramienta(tn):
     if re.search(r'flejad|empacadora de flejado|maquina atadora|de flejado\b', tn):
         return 'Herramientas eléctricas'
     if re.search(r'soldadur|soldador|soldadora|estano|electrodo|\bmig\b|\btig\b|\bmma\b|'
-                 r'careta de soldar|inversora', tn):
+                 r'careta de soldar|inversora|para soldar|esquina magnetica', tn):
         return 'Soldadura'
     if re.search(r'escalera|andamio|banco de trabajo|plataforma de trabajo', tn):
         return 'Escaleras'
@@ -3583,6 +3790,22 @@ def sub_herramienta(tn):
                  r'nivel laser|distanciometro|medidor|termometro infrarrojo|'
                  r'\bescuadra\b|micrometro', tn):
         return 'Medición'
+    if re.search(r'juego de herramientas|set de herramientas|kit de herramientas|'
+                 r'herramientas?\b.{0,25}\d+ (piezas|pzas|pcs)|\d+ ?(piezas|pcs|pzas).{0,25}herramientas|'
+                 r'herramientas? (para|de) (mecanica|el hogar|manualidades)', tn):
+        return 'Juegos de herramientas'
+    if re.search(r'(herramientas?|accesorios?|juego|kit|piezas?).{0,30}(rotativa|rotatoria|giratoria|\bdremel\b|mototool)|'
+                 r'(rotativa|rotatoria|giratoria|\bdremel\b|mototool).{0,40}(accesorio|kit|juego|piezas|repuesto)', tn):
+        return 'Accesorios de multiherramienta y mototool'
+    if re.search(r'grabado(r|ra)? electric|pluma de (grabado|micrograbado)|boligrafo de grabado|'
+                 r'tallado electric|maquina grabadora|mini grabador', tn):
+        return 'Routers, fresadoras y multiherramientas'
+    if re.search(r'(accesorio|adaptador|kit|juego|ranuradora|fresa).{0,40}amoladora|amoladora.{0,40}(accesorio|adaptador|kit|ranuradora|fresa)', tn):
+        return 'Accesorios para herramientas eléctricas'
+    if re.search(r'amoladora', tn) and not re.search(r'molino|harina|piedra natural', tn):
+        return 'Esmeriladoras y pulidoras'
+    if re.search(r'manta (de seguridad )?(electrica|aislante)|anti-?electrocuci|dielectric', tn):
+        return 'Seguridad industrial'
     if re.search(r'cable (electrico|thw|calibre)|\bcontacto\b|apagador|pastilla|'
                  r'centro de carga|caja de conexion|conector electrico|'
                  r'material electrico|canaleta|\bcinta de aislar\b', tn):
@@ -3598,7 +3821,10 @@ def sub_herramienta(tn):
         return 'Construcción'
     if re.search(r'caja de herramientas|organizador de herramientas|'
                  r'\bgabinete\b.{0,15}herramienta|maletin de herramientas|'
-                 r'panel de herramientas|\bcarr(o|ito)s? .{0,40}herramientas|carr(o|ito)s? (utilitario|de servicio|rodante|de plastico)', tn):
+                 r'panel de herramientas|\bcarr(o|ito)s? .{0,40}herramientas|carr(o|ito)s? (utilitario|de servicio|rodante|de plastico)|'
+                 r'caja (organizadora|plastica|de plastico)|portaherramientas|carrito organizador|carro organizador|'
+                 r'bolsa (de|para) herramientas|estuche de herramientas|pegboard|tablero perforado|'
+                 r'organizador\b.{0,30}herramientas', tn):
         return 'Organización'
     if re.search(r'\bbroca|\bdisco de (corte|desbaste)|\blija\b|puntas? de (atornillador|desarmador)|'
                  r'\bsierra caladora hoja|accesorios? para (taladro|rotomartillo)|'
@@ -3610,7 +3836,9 @@ def sub_herramienta(tn):
         return 'Herramientas eléctricas'
     if re.search(r'\bllave\b|\bpinza|\bdesarmador|destornillador|martillo|'
                  r'\bcincel\b|\blima\b|\bsegueta\b|\bprensa\b|\bgato\b|'
-                 r'juego de dados|matraca|\bhexagonal\b|\ballen\b|herramienta manual', tn):
+                 r'juego de dados|matraca|\bhexagonal\b|\ballen\b|herramienta manual|'
+                 r'\bnavaja|multiherramienta|multi-?tool|\bleatherman\b|afilador|tallado de madera|'
+                 r'\bgubia|\bformon\b|\bcutter\b|\bratchet\b|\bwrench\b|\bsocket\b|herramientas de (tallado|mano)', tn):
         return 'Herramientas manuales'
     return None
 
@@ -3668,6 +3896,16 @@ def sub_teclado(tn):
     """El catálogo solo distinguía mecánico y membrana, y así 1,378 teclados se
     quedaban sin repartir. El combo con mouse, el ergonómico partido y el
     numérico son productos distintos, no variantes del mismo."""
+    # El teclado musical cayó acá por la palabra: no se le inventa una
+    # subcategoría de teclado de computadora.
+    if re.match(r'^(?:\S+ ){0,2}(escritorio|mesa|silla|soporte|base|mouse|tablet|laptop|alarma)\b', tn):
+        return None
+    if re.search(r'trackpad|trackball|\d\d teclas|casiotone|\bpsr|\byamaha\b|\bcasio\b|\balesis\b|\bpiano\b|\bkboard\b|'
+                 r'\bkosmos\b|\bkorg\b|\broland\b|teclado (musical|digital|infantil|portatil de)|\bmidi\b', tn):
+        return None
+    if re.search(r'wrist rest|reposa ?munecas|keycaps?|\bswitch(es)?\b(?!.{0,20}(teclado|keyboard))|'
+                 r'\bo-?rings?\b|\bcoiled\b|cable (aviador|espiral)|\bkeycap', tn):
+        return 'Switches, keycaps y accesorios'
     if re.search(r'\bcombo\b.{0,25}(mouse|raton)|teclado y (mouse|raton)|'
                  r'(mouse|raton) y teclado|kit de teclado y', tn):
         return 'Combos con mouse'
@@ -3675,18 +3913,34 @@ def sub_teclado(tn):
         return 'Numéricos'
     if re.search(r'ergonomic|dividido|partido|split', tn):
         return 'Ergonómicos'
-    if re.search(r'mecanic', tn):
+    if re.search(r'mecanic|mechanical', tn):
         return 'Mecánicos'
     if 'membrana' in tn:
         return 'Membrana'
-    if re.search(r'inalambric|bluetooth|wireless|2\.4 ?ghz', tn):
+    if re.search(r'inalambric|bluetooth|wireless|2\.4 ?ghz|magic keyboard|\bfolio\b|para ipad|para tablet|smart keyboard', tn):
         return 'Inalámbricos'
+    # Con cable y sin decir mecánico, hoy es de membrana (o de tijera, que
+    # el catálogo no distingue): el Logitech K120, el Lenovo KU-1601.
+    if re.search(r'\busb\b|alambric|con cable|\bwired\b|\bqwerty\b|\bteclado\b.{0,30}(lenovo|logitech|\bhp\b|dell|acteck|perfect choice|steren|vorago|macally|espanol)', tn):
+        return 'Membrana'
     return None
 
 def sub_tv(tn):
+    if re.search(r'roku (express|ultra|streaming|premiere|stick)|fire tv stick|fire stick|chromecast|apple tv|'
+                 r'tv box|android box|mi box|nvidia shield|streaming (stick|box|device)|reproductor de streaming', tn):
+        return 'Dispositivos de streaming'
+    # El accesorio (soporte, control, marco, cable, bocina de repuesto) no
+    # tiene subcategoría en Televisores: se queda sin ella antes que
+    # inventarle una resolución.
+    if re.search(r'\bsoporte|\bbase\b|control remoto|\bmando\b|\bcable\b|\bmarco\b|altavoz|altavoces|'
+                 r'repuesto|\bplaca\b|\bboton\b|porta ?control|\brepetidor\b|auricular|audifono|'
+                 r'barra de sonido|\bbook\b|\bguide\b|\bproduction\b|tableta grafica', tn):
+        return None
     if re.search(r'portatil|con ruedas|rodante', tn): return 'Portátiles'
     if re.search(r'\b4k\b|qled|uhd|qned|oled|miniled|mini-led', tn): return '4K'
     if re.search(r'full hd|\bfhd\b|\bhd\b|1080p|720p', tn): return 'HD'
+    if re.search(r'pantalla|\btv\b|television|televisor', tn):
+        return sub_tv_pulgadas(tn)
     return None
 
 def sub_mouse(tn):
@@ -3708,7 +3962,7 @@ def sub_lavadora(tn):
     if re.search(r'doble tina|dos tinas|2 tinas|semi[- ]?automatic[ao]', tn): return 'Semiautomáticas'
     if re.search(r'carga frontal', tn): return 'Carga frontal'
     if re.search(r'carga superior', tn): return 'Carga superior'
-    if re.search(r'^secadora', tn): return 'Secadoras'
+    if re.search(r'^secadora|secadora (de ropa|electrica|de gas|portatil)|secador de centrifugado|centrifugadora', tn): return 'Secadoras'
     # La mini lavadora de cubeta, la plegable de viaje y la manual de pedal no
     # son ni de carga superior ni frontal: son otro aparato, y el catálogo
     # tenía 1,770 lavadoras sin repartir en buena parte por esto.
@@ -3841,6 +4095,14 @@ def sub_audio(tn):
     # Dos formatos que el catálogo no tenía y que no son ni diadema ni botón:
     # el de oído abierto (clip sobre la oreja, conducción ósea) y el de
     # gaming, que se vende como categoría propia y casi siempre trae micrófono.
+    # El repuesto y el accesorio abren el título: almohadillas, espumas,
+    # puntas de silicona, el estuche, los cuernos de cosplay para diadema.
+    if re.match(r'^(?:\S+ ){0,2}(microfono|monitor|bocina|altavoz|reproductor|radio|walkie)', tn):
+        return None
+    if re.match(r'^(?:\S+ ){0,3}(almohadillas?|earpads?|espumas?|puntas|eartips?|repuesto|'
+                r'cable de repuesto|estuche|funda|soporte|cuernos|accessory|accesorios?|'
+                r'gancho|ganchos|adaptador|cable)\b', tn):
+        return 'Almohadillas y repuestos'
     if re.search(r'open[- ]?ear|oido abierto|de clip\b|con clip\b|clip \w*oreja|'
                  r'conduccion osea|bone conduction', tn):
         return 'De oído abierto'
@@ -3867,6 +4129,21 @@ def sub_audio(tn):
             return 'Earbuds inalámbricos'
         if RX_CABLE.search(tn):
             return 'Earbuds con cable'
+        # Sin forma ni conexión: lo que sí dice el título. El de DJ, de
+        # estudio, de monitoreo y el USB de oficina son diademas con cable;
+        # el mono de 3.5 mm y las familias CX/IE/Tune 1x0 son de botón con
+        # cable; las familias Buds/FreeClip/Pods son de botón inalámbricas.
+        if re.search(r'almohadilla|earpad|repuesto|reemplazo|eartip|puntas de silicona|cuernos', tn):
+            return 'Almohadillas y repuestos'
+        if re.search(r'para ninos|\bkids?\b|infantil|\bninos\b', tn):
+            return 'Earbuds para niños'
+        if re.search(r'\bdj\b|\bhdj\b|monitoreo|de estudio|\bstudio\b|\bmonitor\b|\busb\b|'
+                     r'\bhph-?\d|\brh-?\d|\bk\d{3}\b|multimedia|\bcall center\b|\boffice\b', tn):
+            return 'Diadema con cable'
+        if re.search(r'\bmono\b|monaural|\bcx ?\d|\bie ?\d|\btune ?1\d0\b|\bmobo\b|\bearphone', tn):
+            return 'Earbuds con cable'
+        if re.search(r'freeclip|freebuds|\bbuds\d?\b|\bpods\b|\bair ?\d\b|\bflow\b|\bipx[4-8]\b', tn):
+            return 'Earbuds inalámbricos'
         return None
     inal, cable = bool(RX_INAL.search(tn)), bool(RX_CABLE.search(tn))
     if not inal and not cable:
@@ -3977,6 +4254,15 @@ for it in captura:
     elif cat == 'Relojes inteligentes': sub = sub_reloj(tn) or sub
     elif cat == 'Cámaras y fotografía': sub = sub_camara(tn)
     elif cat == 'Almacenamiento': sub = sub_almacenamiento(tn)
+    elif cat == 'Cargadores y adaptadores': sub = sub_cargador(tn) or sub
+    elif cat == 'Electrodomésticos': sub = sub_electro(tn) or sub
+    elif cat == 'Drones': sub = sub_dron(tn) or sub
+    elif cat == 'Equipo comercial': sub = sub_comercial(tn) or sub
+    elif cat == 'Viajes': sub = sub_viaje(tn) or sub
+    elif cat == 'Impresión 3D': sub = sub_impresion3d(tn) or sub
+    elif cat == 'Movilidad eléctrica': sub = sub_movilidad(tn) or sub
+    elif cat == 'Proyectores y accesorios': sub = sub_proyector(tn) or sub
+    elif cat == 'Otros': sub = sub_otros(tn) or sub
     sub = afinar_ola2(cat, sub, tn)
     mk = marca(it['title'])
     if cat == 'Celulares' and not mk: mk = marca_celular(tn)
