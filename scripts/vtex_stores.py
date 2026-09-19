@@ -773,6 +773,32 @@ GANDHI_PRESETS = {
 # Registro
 # ---------------------------------------------------------------------------
 
+# Tiendas cuyos términos de uso NO permiten lo que hace este importador.
+# Se revisaron el 19 de septiembre de 2026 y todas prohíben, sin autorización
+# previa y por escrito, reproducir o usar su contenido fuera del uso personal
+# y no comercial (Refacciones Originales va más lejos: prohibe "robot, araña,
+# scraping... herramientas de inteligencia artificial"). Sus productos ya
+# salieron del catálogo publicado con scripts/ocultar_tiendas.py, que los
+# guarda en data/tiendas-ocultas.json.
+#
+# No se importan ni se refrescan mientras no haya permiso -- normalmente,
+# entrar a su programa de afiliados. add_vtex_products.py y refresh_vtex.py
+# se niegan a correr contra ellas.
+SIN_AUTORIZACION = {"chedraui", "gandhi", "juguetron", "miniso", "doto",
+                    "fantasias_miguel", "refacciones_originales"}
+
+
+def exigir_autorizacion(store_id):
+    """Corta la ejecución si la tienda no permite este uso. Se llama desde
+    los importadores, no desde acá, para que leer el módulo no falle."""
+    if store_id in SIN_AUTORIZACION:
+        raise SystemExit(
+            f"{store_id}: sus términos de uso prohíben reproducir su contenido sin autorización\n"
+            f"previa y por escrito. Consigue el permiso (p. ej. su programa de afiliados) y quita\n"
+            f"la tienda de SIN_AUTORIZACION en scripts/vtex_stores.py antes de importarla."
+        )
+
+
 TIENDAS = {
     "elektra": {
         "nombre": "Elektra",

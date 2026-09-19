@@ -29,7 +29,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from add_elektra_products import PAGE_SIZE, fetch_json, vendedor_publicable  # noqa: E402
 from data_io import load_catalog, next_id, registrar_max_id, save_catalog  # noqa: E402
 from elektra_specs import specs_from  # noqa: E402
-from vtex_stores import TIENDAS, junk_re_de, resolver, search_url  # noqa: E402
+from vtex_stores import TIENDAS, exigir_autorizacion, junk_re_de, resolver, search_url  # noqa: E402
 
 
 def iter_category(store_id, path, limit=None):
@@ -118,6 +118,7 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
+    exigir_autorizacion(args.store)
     tienda = TIENDAS[args.store]
     paths = list(args.category_path)
     if args.preset:

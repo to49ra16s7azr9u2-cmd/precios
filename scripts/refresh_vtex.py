@@ -28,7 +28,7 @@ from add_elektra_products import PAGE_SIZE, fetch_json, vendedor_publicable  # n
 from data_io import load_catalog, save_catalog, url_real  # noqa: E402
 from ean_dudosos import ean_utilizable  # noqa: E402
 from elektra_specs import specs_from  # noqa: E402
-from vtex_stores import TIENDAS, search_url  # noqa: E402
+from vtex_stores import TIENDAS, exigir_autorizacion, search_url  # noqa: E402
 
 # Si el recorrido junta menos de esta fracción de las urls de la tienda que
 # ya están en el catálogo, algo salió mal en la API y no se toca nada.
@@ -88,6 +88,7 @@ def main(argv=None):
     ap.add_argument("--prune-missing", action="store_true")
     ap.add_argument("--limit-categories", type=int, default=0, help="solo para pruebas")
     args = ap.parse_args(argv)
+    exigir_autorizacion(args.store)
     tienda = TIENDAS[args.store]
 
     data = load_catalog()
