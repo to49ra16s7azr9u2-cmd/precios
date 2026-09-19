@@ -378,6 +378,66 @@
       "icon": "speaker",
       "subcategories": [
         {
+          "id": "JBL",
+          "name": "JBL",
+          "icon": "speaker"
+        },
+        {
+          "id": "Sony",
+          "name": "Sony",
+          "icon": "speaker"
+        },
+        {
+          "id": "Bose",
+          "name": "Bose",
+          "icon": "speaker"
+        },
+        {
+          "id": "Marshall y Bang & Olufsen",
+          "name": "Marshall y Bang & Olufsen",
+          "icon": "speaker"
+        },
+        {
+          "id": "Anker Soundcore",
+          "name": "Anker Soundcore",
+          "icon": "speaker"
+        },
+        {
+          "id": "Xiaomi y Tronsmart",
+          "name": "Xiaomi y Tronsmart",
+          "icon": "speaker"
+        },
+        {
+          "id": "Bocinas con luces LED",
+          "name": "Bocinas con luces LED",
+          "icon": "speaker"
+        },
+        {
+          "id": "Mini bocinas y de llavero",
+          "name": "Mini bocinas y de llavero",
+          "icon": "speaker"
+        },
+        {
+          "id": "Bocinas Bluetooth potentes (60 W o más)",
+          "name": "Bocinas Bluetooth potentes (60 W o más)",
+          "icon": "speaker"
+        },
+        {
+          "id": "Bocinas Bluetooth impermeables",
+          "name": "Bocinas Bluetooth impermeables",
+          "icon": "speaker"
+        },
+        {
+          "id": "Bocinas Bluetooth de otras marcas",
+          "name": "Bocinas Bluetooth de otras marcas",
+          "icon": "speaker"
+        },
+        {
+          "id": "Accesorios para bocinas",
+          "name": "Accesorios para bocinas",
+          "icon": "speaker"
+        },
+        {
           "id": "Bluetooth portátiles",
           "name": "Bluetooth portátiles",
           "icon": "speaker"
@@ -595,6 +655,46 @@
       "name": "Componentes y accesorios de PC",
       "icon": "cpu",
       "subcategories": [
+        {
+          "id": "RAM DDR5 para PC de escritorio",
+          "name": "RAM DDR5 para PC de escritorio",
+          "icon": "cpu"
+        },
+        {
+          "id": "RAM DDR4 para PC de escritorio",
+          "name": "RAM DDR4 para PC de escritorio",
+          "icon": "cpu"
+        },
+        {
+          "id": "RAM DDR5 para laptop (SODIMM)",
+          "name": "RAM DDR5 para laptop (SODIMM)",
+          "icon": "cpu"
+        },
+        {
+          "id": "RAM DDR4 para laptop (SODIMM)",
+          "name": "RAM DDR4 para laptop (SODIMM)",
+          "icon": "cpu"
+        },
+        {
+          "id": "RAM DDR3 y anteriores",
+          "name": "RAM DDR3 y anteriores",
+          "icon": "cpu"
+        },
+        {
+          "id": "Memoria para servidor y workstation",
+          "name": "Memoria para servidor y workstation",
+          "icon": "cpu"
+        },
+        {
+          "id": "RAM para Mac",
+          "name": "RAM para Mac",
+          "icon": "cpu"
+        },
+        {
+          "id": "Accesorios de memoria",
+          "name": "Accesorios de memoria",
+          "icon": "cpu"
+        },
         {
           "id": "Memoria RAM",
           "name": "Memoria RAM",
@@ -959,6 +1059,41 @@
         {
           "id": "Robots limpiacristales",
           "name": "Robots limpiacristales",
+          "icon": "appliance"
+        },
+        {
+          "id": "Freidoras de aire hasta 3 L",
+          "name": "Freidoras de aire hasta 3 L",
+          "icon": "appliance"
+        },
+        {
+          "id": "Freidoras de aire de 3.5 a 5 L",
+          "name": "Freidoras de aire de 3.5 a 5 L",
+          "icon": "appliance"
+        },
+        {
+          "id": "Freidoras de aire de 5.5 a 7 L",
+          "name": "Freidoras de aire de 5.5 a 7 L",
+          "icon": "appliance"
+        },
+        {
+          "id": "Freidoras de aire de 8 L o más",
+          "name": "Freidoras de aire de 8 L o más",
+          "icon": "appliance"
+        },
+        {
+          "id": "Freidoras de aire de doble canasta",
+          "name": "Freidoras de aire de doble canasta",
+          "icon": "appliance"
+        },
+        {
+          "id": "Hornos freidora y multifunción",
+          "name": "Hornos freidora y multifunción",
+          "icon": "appliance"
+        },
+        {
+          "id": "Accesorios y repuestos para freidora de aire",
+          "name": "Accesorios y repuestos para freidora de aire",
           "icon": "appliance"
         },
         {
@@ -1446,6 +1581,36 @@
           "icon": "sofa"
         },
         {
+          "id": "Juegos de comedor",
+          "name": "Juegos de comedor",
+          "icon": "sofa"
+        },
+        {
+          "id": "Mesas de comedor extensibles",
+          "name": "Mesas de comedor extensibles",
+          "icon": "sofa"
+        },
+        {
+          "id": "Mesas altas y de bar",
+          "name": "Mesas altas y de bar",
+          "icon": "sofa"
+        },
+        {
+          "id": "Antecomedores y mesas de cocina",
+          "name": "Antecomedores y mesas de cocina",
+          "icon": "sofa"
+        },
+        {
+          "id": "Mesas de comedor para exterior",
+          "name": "Mesas de comedor para exterior",
+          "icon": "sofa"
+        },
+        {
+          "id": "Bancas de comedor",
+          "name": "Bancas de comedor",
+          "icon": "sofa"
+        },
+        {
           "id": "Sofás de 2 y 3 plazas",
           "name": "Sofás de 2 y 3 plazas",
           "icon": "sofa"
@@ -1558,11 +1723,6 @@
           "icon": "wrench"
         },
         {
-          "id": "Baterías y cargadores de herramienta",
-          "name": "Baterías y cargadores de herramienta",
-          "icon": "wrench"
-        },
-        {
           "id": "Escaleras",
           "name": "Escaleras",
           "icon": "wrench"
@@ -1573,13 +1733,58 @@
           "icon": "wrench"
         },
         {
-          "id": "Accesorios para herramientas eléctricas",
-          "name": "Accesorios para herramientas eléctricas",
+          "id": "Juegos de herramientas",
+          "name": "Juegos de herramientas",
           "icon": "wrench"
         },
         {
-          "id": "Juegos de herramientas",
-          "name": "Juegos de herramientas",
+          "id": "Brocas",
+          "name": "Brocas",
+          "icon": "wrench"
+        },
+        {
+          "id": "Discos de corte y desbaste",
+          "name": "Discos de corte y desbaste",
+          "icon": "wrench"
+        },
+        {
+          "id": "Hojas y cuchillas de sierra",
+          "name": "Hojas y cuchillas de sierra",
+          "icon": "wrench"
+        },
+        {
+          "id": "Lijas y accesorios de lijado",
+          "name": "Lijas y accesorios de lijado",
+          "icon": "wrench"
+        },
+        {
+          "id": "Puntas y dados de impacto",
+          "name": "Puntas y dados de impacto",
+          "icon": "wrench"
+        },
+        {
+          "id": "Baterías y cargadores de herramienta",
+          "name": "Baterías y cargadores de herramienta",
+          "icon": "wrench"
+        },
+        {
+          "id": "Accesorios para rotomartillo y demoledor",
+          "name": "Accesorios para rotomartillo y demoledor",
+          "icon": "wrench"
+        },
+        {
+          "id": "Accesorios de multiherramienta y mototool",
+          "name": "Accesorios de multiherramienta y mototool",
+          "icon": "wrench"
+        },
+        {
+          "id": "Refacciones de herramientas eléctricas",
+          "name": "Refacciones de herramientas eléctricas",
+          "icon": "wrench"
+        },
+        {
+          "id": "Accesorios para herramientas eléctricas",
+          "name": "Accesorios para herramientas eléctricas",
           "icon": "wrench"
         },
         {
@@ -1735,6 +1940,71 @@
           "icon": "car"
         },
         {
+          "id": "Luces para bicicleta",
+          "name": "Luces para bicicleta",
+          "icon": "car"
+        },
+        {
+          "id": "Candados para bicicleta",
+          "name": "Candados para bicicleta",
+          "icon": "car"
+        },
+        {
+          "id": "Cascos y protección para ciclismo",
+          "name": "Cascos y protección para ciclismo",
+          "icon": "car"
+        },
+        {
+          "id": "Bombas e infladores",
+          "name": "Bombas e infladores",
+          "icon": "car"
+        },
+        {
+          "id": "Sillines y asientos",
+          "name": "Sillines y asientos",
+          "icon": "car"
+        },
+        {
+          "id": "Bolsas, canastas y portabultos",
+          "name": "Bolsas, canastas y portabultos",
+          "icon": "car"
+        },
+        {
+          "id": "Portabicicletas y soportes",
+          "name": "Portabicicletas y soportes",
+          "icon": "car"
+        },
+        {
+          "id": "Pedales, manubrios y puños",
+          "name": "Pedales, manubrios y puños",
+          "icon": "car"
+        },
+        {
+          "id": "Ciclocomputadoras y soportes para celular",
+          "name": "Ciclocomputadoras y soportes para celular",
+          "icon": "car"
+        },
+        {
+          "id": "Ropa y calzado de ciclismo",
+          "name": "Ropa y calzado de ciclismo",
+          "icon": "car"
+        },
+        {
+          "id": "Refacciones y transmisión de bicicleta",
+          "name": "Refacciones y transmisión de bicicleta",
+          "icon": "car"
+        },
+        {
+          "id": "Asientos infantiles y remolques",
+          "name": "Asientos infantiles y remolques",
+          "icon": "car"
+        },
+        {
+          "id": "Herramientas y mantenimiento de bicicleta",
+          "name": "Herramientas y mantenimiento de bicicleta",
+          "icon": "car"
+        },
+        {
           "id": "Accesorios para bicicleta",
           "name": "Accesorios para bicicleta",
           "icon": "car"
@@ -1750,6 +2020,41 @@
           "icon": "car"
         },
         {
+          "id": "Llantas para auto",
+          "name": "Llantas para auto",
+          "icon": "car"
+        },
+        {
+          "id": "Llantas para camioneta y SUV",
+          "name": "Llantas para camioneta y SUV",
+          "icon": "car"
+        },
+        {
+          "id": "Llantas para moto",
+          "name": "Llantas para moto",
+          "icon": "car"
+        },
+        {
+          "id": "Llantas para bicicleta",
+          "name": "Llantas para bicicleta",
+          "icon": "car"
+        },
+        {
+          "id": "Rines",
+          "name": "Rines",
+          "icon": "car"
+        },
+        {
+          "id": "Cámaras y accesorios de llanta",
+          "name": "Cámaras y accesorios de llanta",
+          "icon": "car"
+        },
+        {
+          "id": "Llantas para carretilla y equipo",
+          "name": "Llantas para carretilla y equipo",
+          "icon": "car"
+        },
+        {
           "id": "Llantas",
           "name": "Llantas",
           "icon": "car"
@@ -1762,6 +2067,51 @@
         {
           "id": "Baterías para auto",
           "name": "Baterías para auto",
+          "icon": "car"
+        },
+        {
+          "id": "Bocinas coaxiales de 6.5 pulgadas",
+          "name": "Bocinas coaxiales de 6.5 pulgadas",
+          "icon": "car"
+        },
+        {
+          "id": "Bocinas coaxiales 6x9 y 6x8",
+          "name": "Bocinas coaxiales 6x9 y 6x8",
+          "icon": "car"
+        },
+        {
+          "id": "Bocinas de 4 a 5.25 pulgadas",
+          "name": "Bocinas de 4 a 5.25 pulgadas",
+          "icon": "car"
+        },
+        {
+          "id": "Bocinas de componentes",
+          "name": "Bocinas de componentes",
+          "icon": "car"
+        },
+        {
+          "id": "Tweeters",
+          "name": "Tweeters",
+          "icon": "car"
+        },
+        {
+          "id": "Medios rangos y bocinas profesionales",
+          "name": "Medios rangos y bocinas profesionales",
+          "icon": "car"
+        },
+        {
+          "id": "Subwoofers para auto",
+          "name": "Subwoofers para auto",
+          "icon": "car"
+        },
+        {
+          "id": "Bocinas marinas y para moto",
+          "name": "Bocinas marinas y para moto",
+          "icon": "car"
+        },
+        {
+          "id": "Accesorios de audio para auto",
+          "name": "Accesorios de audio para auto",
           "icon": "car"
         },
         {
@@ -1867,8 +2217,123 @@
           "icon": "gear"
         },
         {
+          "id": "Refacciones para lavadora y secadora",
+          "name": "Refacciones para lavadora y secadora",
+          "icon": "gear"
+        },
+        {
+          "id": "Refacciones para refrigerador",
+          "name": "Refacciones para refrigerador",
+          "icon": "gear"
+        },
+        {
+          "id": "Refacciones para estufa y horno",
+          "name": "Refacciones para estufa y horno",
+          "icon": "gear"
+        },
+        {
+          "id": "Refacciones para licuadora y batidora",
+          "name": "Refacciones para licuadora y batidora",
+          "icon": "gear"
+        },
+        {
+          "id": "Refacciones para aspiradora y robot",
+          "name": "Refacciones para aspiradora y robot",
+          "icon": "gear"
+        },
+        {
+          "id": "Refacciones para cafetera",
+          "name": "Refacciones para cafetera",
+          "icon": "gear"
+        },
+        {
+          "id": "Refacciones para freidora de aire",
+          "name": "Refacciones para freidora de aire",
+          "icon": "gear"
+        },
+        {
+          "id": "Refacciones para microondas",
+          "name": "Refacciones para microondas",
+          "icon": "gear"
+        },
+        {
+          "id": "Refacciones para aire acondicionado y ventilador",
+          "name": "Refacciones para aire acondicionado y ventilador",
+          "icon": "gear"
+        },
+        {
+          "id": "Refacciones para plancha y vaporizador",
+          "name": "Refacciones para plancha y vaporizador",
+          "icon": "gear"
+        },
+        {
+          "id": "Refacciones para bocinas y audio",
+          "name": "Refacciones para bocinas y audio",
+          "icon": "gear"
+        },
+        {
+          "id": "Refacciones para otros electrodomésticos",
+          "name": "Refacciones para otros electrodomésticos",
+          "icon": "gear"
+        },
+        {
           "id": "Refacciones para electrodomésticos",
           "name": "Refacciones para electrodomésticos",
+          "icon": "gear"
+        },
+        {
+          "id": "Frenos de moto",
+          "name": "Frenos de moto",
+          "icon": "gear"
+        },
+        {
+          "id": "Llantas y cámaras de moto",
+          "name": "Llantas y cámaras de moto",
+          "icon": "gear"
+        },
+        {
+          "id": "Cadenas, sprockets y transmisión",
+          "name": "Cadenas, sprockets y transmisión",
+          "icon": "gear"
+        },
+        {
+          "id": "Luces de moto",
+          "name": "Luces de moto",
+          "icon": "gear"
+        },
+        {
+          "id": "Carenados, plásticos y tanques",
+          "name": "Carenados, plásticos y tanques",
+          "icon": "gear"
+        },
+        {
+          "id": "Motor, carburación y escape de moto",
+          "name": "Motor, carburación y escape de moto",
+          "icon": "gear"
+        },
+        {
+          "id": "Eléctrico y baterías de moto",
+          "name": "Eléctrico y baterías de moto",
+          "icon": "gear"
+        },
+        {
+          "id": "Manubrios, espejos y controles",
+          "name": "Manubrios, espejos y controles",
+          "icon": "gear"
+        },
+        {
+          "id": "Suspensión y dirección de moto",
+          "name": "Suspensión y dirección de moto",
+          "icon": "gear"
+        },
+        {
+          "id": "Asientos, parrillas y accesorios de moto",
+          "name": "Asientos, parrillas y accesorios de moto",
+          "icon": "gear"
+        },
+        {
+          "id": "Filtros y aceites de moto",
+          "name": "Filtros y aceites de moto",
           "icon": "gear"
         },
         {
@@ -2890,6 +3355,41 @@
           "name": "Casas para mascotas"
         },
         {
+          "id": "Comederos automáticos",
+          "name": "Comederos automáticos",
+          "icon": "paw"
+        },
+        {
+          "id": "Platos y tazones para mascotas",
+          "name": "Platos y tazones para mascotas",
+          "icon": "paw"
+        },
+        {
+          "id": "Comederos elevados",
+          "name": "Comederos elevados",
+          "icon": "paw"
+        },
+        {
+          "id": "Comederos lentos y antivoracidad",
+          "name": "Comederos lentos y antivoracidad",
+          "icon": "paw"
+        },
+        {
+          "id": "Fuentes y dispensadores de agua",
+          "name": "Fuentes y dispensadores de agua",
+          "icon": "paw"
+        },
+        {
+          "id": "Comederos para aves y roedores",
+          "name": "Comederos para aves y roedores",
+          "icon": "paw"
+        },
+        {
+          "id": "Tapetes y accesorios de alimentación",
+          "name": "Tapetes y accesorios de alimentación",
+          "icon": "paw"
+        },
+        {
           "id": "Comederos",
           "name": "Comederos",
           "icon": "paw"
@@ -3071,6 +3571,36 @@
         {
           "id": "Refacciones de calefactor",
           "name": "Refacciones de calefactor",
+          "icon": "snowflake"
+        },
+        {
+          "id": "Minisplit",
+          "name": "Minisplit",
+          "icon": "snowflake"
+        },
+        {
+          "id": "Aires acondicionados portátiles",
+          "name": "Aires acondicionados portátiles",
+          "icon": "snowflake"
+        },
+        {
+          "id": "Aires acondicionados de ventana",
+          "name": "Aires acondicionados de ventana",
+          "icon": "snowflake"
+        },
+        {
+          "id": "Aires acondicionados para auto y RV",
+          "name": "Aires acondicionados para auto y RV",
+          "icon": "snowflake"
+        },
+        {
+          "id": "Mini enfriadores personales",
+          "name": "Mini enfriadores personales",
+          "icon": "snowflake"
+        },
+        {
+          "id": "Accesorios y refacciones de aire acondicionado",
+          "name": "Accesorios y refacciones de aire acondicionado",
           "icon": "snowflake"
         },
         {
@@ -3886,8 +4416,68 @@
           "icon": "pillow"
         },
         {
+          "id": "Sábanas individuales",
+          "name": "Sábanas individuales",
+          "icon": "pillow"
+        },
+        {
+          "id": "Sábanas matrimoniales",
+          "name": "Sábanas matrimoniales",
+          "icon": "pillow"
+        },
+        {
+          "id": "Sábanas queen size",
+          "name": "Sábanas queen size",
+          "icon": "pillow"
+        },
+        {
+          "id": "Sábanas king size",
+          "name": "Sábanas king size",
+          "icon": "pillow"
+        },
+        {
+          "id": "Sábanas para cuna y bebé",
+          "name": "Sábanas para cuna y bebé",
+          "icon": "pillow"
+        },
+        {
+          "id": "Fundas de almohada",
+          "name": "Fundas de almohada",
+          "icon": "pillow"
+        },
+        {
+          "id": "Fundas nórdicas y de edredón",
+          "name": "Fundas nórdicas y de edredón",
+          "icon": "pillow"
+        },
+        {
           "id": "Sábanas",
           "name": "Sábanas",
+          "icon": "pillow"
+        },
+        {
+          "id": "Protectores de colchón impermeables",
+          "name": "Protectores de colchón impermeables",
+          "icon": "pillow"
+        },
+        {
+          "id": "Protectores de colchón acolchados",
+          "name": "Protectores de colchón acolchados",
+          "icon": "pillow"
+        },
+        {
+          "id": "Toppers y sobrecolchones",
+          "name": "Toppers y sobrecolchones",
+          "icon": "pillow"
+        },
+        {
+          "id": "Protectores de almohada",
+          "name": "Protectores de almohada",
+          "icon": "pillow"
+        },
+        {
+          "id": "Protectores para cuna",
+          "name": "Protectores para cuna",
           "icon": "pillow"
         },
         {
@@ -3933,6 +4523,41 @@
         {
           "id": "Cobijas eléctricas",
           "name": "Cobijas eléctricas",
+          "icon": "pillow"
+        },
+        {
+          "id": "Toallas de baño",
+          "name": "Toallas de baño",
+          "icon": "pillow"
+        },
+        {
+          "id": "Toallas de manos y faciales",
+          "name": "Toallas de manos y faciales",
+          "icon": "pillow"
+        },
+        {
+          "id": "Juegos de toallas",
+          "name": "Juegos de toallas",
+          "icon": "pillow"
+        },
+        {
+          "id": "Toallas de playa y alberca",
+          "name": "Toallas de playa y alberca",
+          "icon": "pillow"
+        },
+        {
+          "id": "Batas y toallas con capucha",
+          "name": "Batas y toallas con capucha",
+          "icon": "pillow"
+        },
+        {
+          "id": "Toallas de microfibra y deportivas",
+          "name": "Toallas de microfibra y deportivas",
+          "icon": "pillow"
+        },
+        {
+          "id": "Toallas de cocina y paños",
+          "name": "Toallas de cocina y paños",
           "icon": "pillow"
         },
         {
@@ -4016,6 +4641,46 @@
           "id": "Enchufes inteligentes",
           "name": "Enchufes inteligentes",
           "icon": "wifi"
+        },
+        {
+          "id": "Interruptores Wi-Fi",
+          "name": "Interruptores Wi-Fi",
+          "icon": "house"
+        },
+        {
+          "id": "Interruptores Zigbee, Matter y Thread",
+          "name": "Interruptores Zigbee, Matter y Thread",
+          "icon": "house"
+        },
+        {
+          "id": "Dimmers y reguladores inteligentes",
+          "name": "Dimmers y reguladores inteligentes",
+          "icon": "house"
+        },
+        {
+          "id": "Módulos y relés inteligentes",
+          "name": "Módulos y relés inteligentes",
+          "icon": "house"
+        },
+        {
+          "id": "Interruptores y botones inalámbricos",
+          "name": "Interruptores y botones inalámbricos",
+          "icon": "house"
+        },
+        {
+          "id": "Breakers y protectores inteligentes",
+          "name": "Breakers y protectores inteligentes",
+          "icon": "house"
+        },
+        {
+          "id": "Enchufes y contactos inteligentes",
+          "name": "Enchufes y contactos inteligentes",
+          "icon": "house"
+        },
+        {
+          "id": "Interruptores táctiles y de escena",
+          "name": "Interruptores táctiles y de escena",
+          "icon": "house"
         },
         {
           "id": "Interruptores inteligentes",
@@ -6042,7 +6707,7 @@
         "Escritorios": 9,
         "Mesas para TV y consolas": 204,
         "Mesas de centro": 1416,
-        "Mesas de comedor": 1720,
+        "Mesas de comedor": 696,
         "Libreros": 610,
         "Mesas auxiliares y laterales": 505,
         "Burós": 291,
@@ -6082,9 +6747,15 @@
         "Camas individuales": 27,
         "Sofás seccionales y esquineros": 414,
         "Mesas de exterior": 61,
+        "Mesas altas y de bar": 84,
+        "Antecomedores y mesas de cocina": 69,
         "Escritorios infantiles y estudiantiles": 43,
         "Sillas de espera y visitas": 299,
         "Mecedoras y colgantes": 52,
+        "Juegos de comedor": 737,
+        "Mesas de comedor extensibles": 91,
+        "Mesas de comedor para exterior": 30,
+        "Bancas de comedor": 13,
         "Fundas y accesorios para sofá": 52,
         "Accesorios y refacciones de cama": 98,
         "": 183,
@@ -6103,25 +6774,54 @@
         "Estéreos para auto": 1373,
         "Autos": 1677,
         "Cascos para moto": 942,
-        "Accesorios para bicicleta": 1697,
+        "Candados para bicicleta": 80,
+        "Bolsas, canastas y portabultos": 229,
         "Accesorios y refacciones": 708,
         "Motocicletas": 1165,
         "Baterías para auto": 1181,
+        "Luces para bicicleta": 89,
+        "Accesorios para bicicleta": 167,
         "Bicicletas urbanas y de paseo": 479,
         "Bicicletas de montaña": 642,
+        "Cascos y protección para ciclismo": 60,
         "Bicicletas eléctricas": 153,
+        "Pedales, manubrios y puños": 284,
+        "Refacciones y transmisión de bicicleta": 357,
         "Bicicletas plegables": 64,
         "Bicicletas de ruta": 94,
-        "Llantas": 1801,
-        "Bocinas para auto": 1589,
+        "Llantas para auto": 723,
+        "Rines": 24,
+        "Bocinas coaxiales 6x9 y 6x8": 182,
+        "Bocinas para auto": 172,
+        "Bocinas coaxiales de 6.5 pulgadas": 222,
+        "Ciclocomputadoras y soportes para celular": 32,
         "Bicicletas infantiles": 405,
+        "Sillines y asientos": 234,
+        "Bombas e infladores": 28,
+        "Llantas para bicicleta": 272,
         "Bicicletas sin pedales y balance": 75,
+        "Asientos infantiles y remolques": 52,
+        "Portabicicletas y soportes": 67,
+        "Herramientas y mantenimiento de bicicleta": 12,
+        "Llantas para moto": 231,
         "Triciclos y bicicletas de carga": 419,
+        "Cámaras y accesorios de llanta": 30,
         "Bicicletas de gravel y ciclocross": 51,
+        "Llantas para camioneta y SUV": 498,
+        "Llantas": 2,
+        "Llantas para carretilla y equipo": 21,
+        "Subwoofers para auto": 170,
         "Amplificadores para auto": 141,
+        "Medios rangos y bocinas profesionales": 246,
+        "Accesorios de audio para auto": 58,
+        "Bocinas marinas y para moto": 57,
+        "Tweeters": 289,
+        "Bocinas de 4 a 5.25 pulgadas": 117,
+        "Bocinas de componentes": 76,
         "": 190,
         "Dashcams y cámaras": 89,
-        "Accesorios para moto": 171
+        "Accesorios para moto": 171,
+        "Ropa y calzado de ciclismo": 6
       },
       "pop": 23167,
       "discounted": 2517,
@@ -6199,17 +6899,36 @@
         "Chales y mantas eléctricas para regazo": 231,
         "Cobijas eléctricas queen y king": 442,
         "Cobijas eléctricas matrimoniales": 360,
-        "Protectores de colchón": 1832,
+        "Protectores de colchón": 689,
+        "Protectores para cuna": 48,
+        "Protectores de colchón impermeables": 780,
+        "Protectores de colchón acolchados": 124,
         "Almohadillas y cojines térmicos": 80,
         "Tapetes de baño": 467,
-        "Toallas": 1894,
+        "Juegos de toallas": 822,
+        "Toallas de microfibra y deportivas": 87,
+        "Toallas de manos y faciales": 205,
+        "Toallas": 4,
+        "Toallas de baño": 625,
         "Edredones": 1059,
-        "Sábanas": 1672,
+        "Toppers y sobrecolchones": 176,
+        "Sábanas individuales": 316,
+        "Fundas nórdicas y de edredón": 2,
         "Cortinas": 278,
+        "Toallas de cocina y paños": 26,
         "Almohadas": 680,
+        "Sábanas matrimoniales": 366,
         "Fundas para muebles": 10,
+        "Sábanas queen size": 297,
+        "Sábanas king size": 441,
+        "Sábanas": 205,
+        "Toallas de playa y alberca": 114,
         "": 339,
+        "Fundas de almohada": 30,
         "Cobijas eléctricas individuales": 120,
+        "Sábanas para cuna y bebé": 15,
+        "Protectores de almohada": 15,
+        "Batas y toallas con capucha": 11,
         "Repuestos y controles de cobija eléctrica": 37
       },
       "pop": 13776,
@@ -6224,12 +6943,16 @@
         "Calefactores infrarrojos y de cuarzo": 545,
         "Ventiladores portátiles y de mano": 1244,
         "Ventiladores de pedestal": 1119,
-        "Aires acondicionados": 1977,
+        "Aires acondicionados para auto y RV": 28,
         "Calefactores para pies y personales": 721,
+        "Minisplit": 561,
+        "Aires acondicionados": 221,
         "Ventiladores de mesa y clip": 335,
         "Extractores y ventilación": 555,
         "Calefactores cerámicos y de aire": 2018,
         "Ventiladores de piso e industriales": 542,
+        "Accesorios y refacciones de aire acondicionado": 367,
+        "Aires acondicionados portátiles": 418,
         "Purificadores de aire": 323,
         "Ventiladores de pared": 187,
         "Ventiladores de techo": 1330,
@@ -6241,6 +6964,8 @@
         "Climatizadores evaporativos": 216,
         "Calefactores de pared y baño": 154,
         "Calefactores de aceite": 118,
+        "Mini enfriadores personales": 309,
+        "Aires acondicionados de ventana": 73,
         "Calefactores de gas": 24,
         "": 83,
         "Chimeneas eléctricas": 55,
@@ -6257,16 +6982,28 @@
       "n": 10322,
       "subs": {
         "Para PC y escritorio": 298,
-        "Bluetooth portátiles": 5737,
+        "Bocinas Bluetooth de otras marcas": 3024,
+        "Bocinas Bluetooth impermeables": 384,
+        "Xiaomi y Tronsmart": 74,
         "Barras de sonido": 280,
         "Subwoofers": 277,
         "De fiesta y karaoke": 444,
         "De estantería y Hi-Fi": 965,
+        "Mini bocinas y de llavero": 492,
+        "Bocinas con luces LED": 175,
+        "Sony": 102,
+        "JBL": 339,
+        "Marshall y Bang & Olufsen": 144,
+        "Bose": 75,
         "Bafles y audio profesional": 705,
+        "Anker Soundcore": 61,
         "Empotrables y de exterior": 381,
+        "Bocinas Bluetooth potentes (60 W o más)": 435,
         "Amplificadores y receptores": 281,
+        "Bluetooth portátiles": 298,
         "Radios y reproductores": 732,
-        "Bocinas para auto": 222
+        "Bocinas para auto": 222,
+        "Accesorios para bocinas": 134
       },
       "pop": 80894,
       "discounted": 1097,
@@ -6279,9 +7016,11 @@
       "subs": {
         "Bocinas inteligentes": 480,
         "Iluminación inteligente": 96,
-        "Interruptores inteligentes": 2140,
+        "Interruptores táctiles y de escena": 187,
         "Cerraduras con huella digital": 680,
         "Sensores": 237,
+        "Interruptores Wi-Fi": 1169,
+        "Interruptores y botones inalámbricos": 222,
         "Lámparas y plafones inteligentes": 423,
         "Cerraduras para gabinete y casillero": 100,
         "Accesorios y refacciones de cerradura": 120,
@@ -6290,16 +7029,22 @@
         "Cerraduras Wi-Fi y con app": 286,
         "Focos inteligentes": 476,
         "Enchufes inteligentes": 535,
+        "Módulos y relés inteligentes": 166,
         "Cortinas motorizadas": 211,
+        "Interruptores inteligentes": 6,
+        "Dimmers y reguladores inteligentes": 71,
         "Hubs": 78,
         "Tiras LED inteligentes": 84,
         "Cerraduras para puerta de vidrio y corrediza": 63,
         "Cerraduras inteligentes": 37,
         "": 418,
+        "Enchufes y contactos inteligentes": 33,
         "Termostatos": 96,
         "Controladores e interruptores de luz": 88,
         "Paneles y luces decorativas inteligentes": 82,
         "Luces inteligentes de exterior y solares": 121,
+        "Interruptores Zigbee, Matter y Thread": 170,
+        "Breakers y protectores inteligentes": 116,
         "Lámparas de escritorio y noche inteligentes": 31,
         "Candados inteligentes": 26
       },
@@ -6430,9 +7175,17 @@
       "subs": {
         "Componentes": 1998,
         "Accesorios de monitor": 1190,
-        "Memoria RAM": 3110,
+        "Memoria RAM": 208,
+        "RAM DDR3 y anteriores": 642,
+        "RAM DDR4 para laptop (SODIMM)": 428,
+        "RAM DDR5 para PC de escritorio": 484,
+        "RAM DDR4 para PC de escritorio": 749,
         "Accesorios": 473,
-        "Webcams": 365
+        "Webcams": 365,
+        "Memoria para servidor y workstation": 218,
+        "Accesorios de memoria": 112,
+        "RAM DDR5 para laptop (SODIMM)": 237,
+        "RAM para Mac": 32
       },
       "pop": 3744,
       "discounted": 95,
@@ -6443,7 +7196,7 @@
     "Herramientas": {
       "n": 14223,
       "subs": {
-        "Baterías y cargadores de herramienta": 73,
+        "Baterías y cargadores de herramienta": 453,
         "Jardinería": 1560,
         "Material eléctrico": 657,
         "Soldadura": 531,
@@ -6463,7 +7216,7 @@
         "Compresores y herramienta neumática": 100,
         "Pistolas de calor, engrapadoras y clavadoras": 22,
         "Pinzas y alicates": 246,
-        "Accesorios para herramientas eléctricas": 1711,
+        "Brocas": 582,
         "Routers, fresadoras y multiherramientas": 48,
         "Herramientas de banco": 32,
         "Hidrolavadoras": 111,
@@ -6473,6 +7226,14 @@
         "Martillos, cinceles y mazos": 41,
         "Herramientas de corte manual": 6,
         "Neumáticas": 288,
+        "Accesorios para herramientas eléctricas": 470,
+        "Refacciones de herramientas eléctricas": 57,
+        "Hojas y cuchillas de sierra": 40,
+        "Puntas y dados de impacto": 78,
+        "Discos de corte y desbaste": 69,
+        "Accesorios para rotomartillo y demoledor": 8,
+        "Accesorios de multiherramienta y mototool": 16,
+        "Lijas y accesorios de lijado": 11,
         "Organización": 212,
         "Construcción": 152,
         "Gas LP": 28,
@@ -6521,7 +7282,7 @@
         "Camas": 14,
         "Camas para perro": 786,
         "Casas para mascotas": 1579,
-        "Comederos": 2587,
+        "Platos y tazones para mascotas": 1495,
         "Correas": 329,
         "Transportadoras": 216,
         "": 1042,
@@ -6529,8 +7290,15 @@
         "Juguetes": 2,
         "Juguetes para gato": 195,
         "Juguetes para perro": 670,
+        "Fuentes y dispensadores de agua": 205,
+        "Comederos automáticos": 456,
         "Bebederos": 96,
+        "Comederos": 6,
+        "Comederos elevados": 225,
+        "Comederos para aves y roedores": 31,
+        "Comederos lentos y antivoracidad": 127,
         "Juguetes para aves y roedores": 21,
+        "Tapetes y accesorios de alimentación": 42,
         "Jaulas para perro": 1337,
         "Adiestramiento": 15,
         "Ropa y accesorios": 82,
@@ -6672,26 +7440,49 @@
     "Refacciones": {
       "n": 7915,
       "subs": {
-        "Refacciones para electrodomésticos": 2437,
+        "Refacciones para refrigerador": 810,
+        "Refacciones para otros electrodomésticos": 285,
+        "Refacciones para aire acondicionado y ventilador": 123,
+        "Refacciones para electrodomésticos": 136,
+        "Refacciones para cafetera": 10,
+        "Refacciones para microondas": 8,
         "Para patinetas eléctricas": 176,
+        "Refacciones para freidora de aire": 126,
+        "Refacciones para licuadora y batidora": 27,
         "Sistema eléctrico y sensores": 249,
+        "Refacciones para aspiradora y robot": 635,
         "Bombas": 77,
         "Motor y transmisión": 199,
         "Motores": 53,
         "Para autos": 662,
+        "Refacciones para lavadora y secadora": 170,
         "Enfriamiento y climatización": 130,
         "Suspensión y dirección": 48,
         "Llaves y cerraduras de auto": 2,
         "Carrocería, espejos y molduras": 297,
         "Frenos": 550,
         "Para bicicletas eléctricas": 109,
-        "Para motos": 2413,
+        "Luces de moto": 274,
         "Faros y luces": 238,
         "Bujías y encendido": 63,
         "Escape": 72,
         "Filtros y aceites": 132,
         "Limpiaparabrisas": 4,
-        "Interior y tapicería": 4
+        "Para motos": 367,
+        "Interior y tapicería": 4,
+        "Frenos de moto": 113,
+        "Motor, carburación y escape de moto": 137,
+        "Eléctrico y baterías de moto": 184,
+        "Llantas y cámaras de moto": 7,
+        "Carenados, plásticos y tanques": 810,
+        "Suspensión y dirección de moto": 123,
+        "Cadenas, sprockets y transmisión": 63,
+        "Filtros y aceites de moto": 22,
+        "Manubrios, espejos y controles": 183,
+        "Asientos, parrillas y accesorios de moto": 130,
+        "Refacciones para estufa y horno": 9,
+        "Refacciones para bocinas y audio": 81,
+        "Refacciones para plancha y vaporizador": 17
       },
       "pop": 3243,
       "discounted": 1979,
@@ -6702,7 +7493,8 @@
     "Electrodomésticos": {
       "n": 11621,
       "subs": {
-        "Freidoras de aire": 1986,
+        "Freidoras de aire": 587,
+        "Accesorios y repuestos para freidora de aire": 94,
         "Planchas": 494,
         "Máquinas de coser": 324,
         "Pequeños electrodomésticos de cocina": 222,
@@ -6723,6 +7515,10 @@
         "Licuadoras": 572,
         "Ósmosis inversa": 346,
         "Otros": 18,
+        "Freidoras de aire de 5.5 a 7 L": 213,
+        "Freidoras de aire de doble canasta": 58,
+        "Hornos freidora y multifunción": 533,
+        "Freidoras de aire de 3.5 a 5 L": 215,
         "Extractores de jugo": 328,
         "Batidoras y amasadoras": 214,
         "Arroceras y ollas multiusos": 104,
@@ -6730,8 +7526,10 @@
         "Tostadoras": 62,
         "Máquinas de palomitas y snacks": 13,
         "Parrillas y planchas eléctricas": 121,
+        "Freidoras de aire de 8 L o más": 194,
         "Lavavajillas": 142,
         "Dispensadores de agua": 26,
+        "Freidoras de aire hasta 3 L": 92,
         "Freidoras eléctricas": 144,
         "Máquinas de helados y postres": 17,
         "Molinos y procesadores": 6,

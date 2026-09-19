@@ -1018,3 +1018,363 @@ OLA2 += [
     ('Otros', ['Paneles solares'], SOLAR, lambda tn, sv: sub_solar(tn), None),
     ('Deportes y fitness', ['Pesas'], PESAS, lambda tn, sv: sub_pesa(tn), None),
 ]
+
+
+# =========================================================== QUINTA OLA
+# ------------------------------------------------ Bocinas/Bluetooth portátiles
+BT_PORTATILES = ['JBL', 'Sony', 'Bose', 'Marshall y Bang & Olufsen', 'Anker Soundcore', 'Xiaomi y Tronsmart',
+                 'Bocinas con luces LED', 'Mini bocinas y de llavero', 'Bocinas Bluetooth potentes (60 W o más)',
+                 'Bocinas Bluetooth impermeables', 'Bocinas Bluetooth de otras marcas', 'Accesorios para bocinas']
+_BTP = _c([
+    ('Accesorios para bocinas', r'^(?:\S+ ){0,3}(funda|estuche|soporte|base|cargador|cable|adaptador|correa|bateria|alfombrilla|montaje|bracket|tapa|rejilla|repuesto)s?\b|\bpara (jbl|bose|sony|marshall|soundcore|sonos|echo|alexa|altavoz|bocina)\b.{0,10}(funda|estuche|soporte|cargador|cable|adaptador|correa)|\bcompatible con\b.{0,30}(funda|estuche|soporte|cargador|cable|adaptador)'),
+    ('JBL', r'\bjbl\b'),
+    ('Sony', r'\bsony\b|\bsrs-'),
+    ('Bose', r'\bbose\b|\bsoundlink'),
+    ('Marshall y Bang & Olufsen', r'\bmarshall\b|\bbang & olufsen|\bbang and olufsen|\bb&o\b|\bbeoplay|\bbeosound|\bharman kardon|\bdevialet|\bsonos\b'),
+    ('Anker Soundcore', r'\bsoundcore|\banker\b'),
+    ('Xiaomi y Tronsmart', r'\bxiaomi|\btronsmart|\bmi (portable|outdoor)|\bredmi\b'),
+    ('Mini bocinas y de llavero', r'\bmini\b|\bllavero|\bde bolsillo|\bpequen|\bbitty boomers|\bclip ?[2-5]\b|\bgo ?[2-4]\b|\bmicro\b|\bcompact'),
+    ('Bocinas con luces LED', r'\bluces? led|\bled\b|\brgb\b|\bluz de colores|\bluces de colores|\bcon luz\b|\bluminos'),
+    ('Bocinas Bluetooth potentes (60 W o más)', r'\b(?:[6-9]\d|[1-9]\d{2,3}) ?w\b(?!.{0,15}(cargador|carga))|\bpartybox|\bxboom|\bboombox|\btorre de sonido|\bde fiesta'),
+    ('Bocinas Bluetooth impermeables', r'\bimpermeable|\bwaterproof|\bipx?[5-8]\b|\ba prueba de agua|\bresistente al agua|\bpara ducha|\bflotante|\bsumergible'),
+    ('Bocinas Bluetooth de otras marcas', r'\bbocina|\baltavoz|\bspeaker|\bparlante|\bbluetooth'),
+])
+
+
+def sub_bt_portatil(tn):
+    return _primera(tn, _BTP, {'Bocinas Bluetooth de otras marcas': 60, 'Bocinas Bluetooth impermeables': 15, 'Bocinas con luces LED': 10, 'Bocinas Bluetooth potentes (60 W o más)': 8})
+
+
+# --------------------------------------------- Componentes/Memoria RAM
+RAM = ['RAM DDR5 para PC de escritorio', 'RAM DDR4 para PC de escritorio', 'RAM DDR5 para laptop (SODIMM)', 'RAM DDR4 para laptop (SODIMM)',
+       'RAM DDR3 y anteriores', 'Memoria para servidor y workstation', 'RAM para Mac', 'Accesorios de memoria']
+_RAM = _c([
+    ('Accesorios de memoria', r'\badaptador|\bdisipador|\bheatsink|\bprobador|\btester|\bcaja\b|\bbandeja|\btarjeta adaptadora|\bconversor|\bextractor'),
+    ('Memoria para servidor y workstation', r'\becc\b|\brdimm|\blrdimm|\bregistered|\bservidor|\bserver|\bworkstation|\bxeon|\bepyc|\bthreadripper|\bpoweredge|\bproliant|\bsupermicro'),
+    ('RAM para Mac', r'\bmac\b|\bimac\b|\bmacbook|\bmac pro|\bmac mini|\bapple\b'),
+    ('RAM DDR5 para laptop (SODIMM)', r'ddr5.{0,60}(sodimm|so-dimm|laptop|portatil|notebook|262-?pin)|(sodimm|so-dimm|laptop|portatil|notebook).{0,60}ddr5'),
+    ('RAM DDR4 para laptop (SODIMM)', r'ddr4.{0,60}(sodimm|so-dimm|laptop|portatil|notebook|260-?pin)|(sodimm|so-dimm|laptop|portatil|notebook).{0,60}ddr4'),
+    ('RAM DDR3 y anteriores', r'\bddr3|\bddr2\b|\bddr\b(?!\d)|\bpc3-|\bpc2-|\bsdram\b|\b1600 ?mhz|\b1333 ?mhz|\b1066|\b800 ?mhz|\b667 ?mhz|\b240-?pin|\b204-?pin'),
+    ('RAM DDR5 para PC de escritorio', r'\bddr5|\bpc5-|\b288-?pin.{0,30}ddr5|\b(4800|5200|5600|6000|6400|6800|7200|8000) ?m(hz|t/s)'),
+    ('RAM DDR4 para PC de escritorio', r'\bddr4|\bpc4-|\budimm|\bdimm\b|\b(2133|2400|2666|2933|3000|3200|3600|4000) ?mhz'),
+])
+
+
+def sub_ram(tn):
+    if re.search(r'\bsodimm|\bso-dimm|\blaptop|\bportatil|\bnotebook', tn) and not re.search(r'ddr[2-5]', tn):
+        return 'RAM DDR4 para laptop (SODIMM)'
+    return _primera(tn, _RAM, {'RAM DDR4 para PC de escritorio': 5})
+
+
+# ------------------------------------------------------ Mascotas/Comederos
+COMEDEROS = ['Comederos automáticos', 'Platos y tazones para mascotas', 'Comederos elevados', 'Comederos lentos y antivoracidad',
+             'Fuentes y dispensadores de agua', 'Comederos para aves y roedores', 'Tapetes y accesorios de alimentación']
+_COM = _c([
+    ('Tapetes y accesorios de alimentación', r'\btapete|\balfombrilla|\bmantel|\bcuchara (para|de) (comida|alimento|lata)|\btapa (para|de) lata|\bcontenedor (de|para) (comida|croquetas|alimento)|\bbolsa (de|para) (comida|croquetas)|\bdispensador de bolsas|\bmedidor|\bpala (para|de) (comida|croquetas)|\bportacomida|\bsoporte (para|de) (plato|tazon|comedero)'),
+    ('Comederos para aves y roedores', r'\baves?\b|\bpajaro|\bperico|\bloro|\bcanario|\bcolibri|\bhamster|\bconejo|\bcobaya|\bcuyo|\broedor|\bgallina|\bpollo|\bacuario|\bpeces|\bpez\b|\btortuga|\breptil'),
+    ('Fuentes y dispensadores de agua', r'\bfuente|\bbebedero|\bdispensador (de|automatico de) agua|\bagua\b.{0,30}(dispensador|fuente|bebedero)|\bbotella de agua|\bwater'),
+    ('Comederos automáticos', r'\bautomatic|\bprogramable|\btemporizad|\bdispensador (de|automatico de) (comida|alimento|croquetas)|\balimentador (automatico|inteligente|programable|con camara|wifi)|\bsmart feeder|\bcon camara|\bwifi|\bapp\b|\bpor gravedad|\bgravedad'),
+    ('Comederos lentos y antivoracidad', r'\blent[oa]\b|\balimentacion lenta|\bantivoracidad|\banti ?voracidad|\bslow feeder|\blaberinto|\binteractivo|\bde laberinto|\blick mat|\btapete de lamer|\bpuzzle'),
+    ('Comederos elevados', r'\belevad|\bcon soporte|\bde altura ajustable|\baltura ajustable|\bcon base|\bde acero inoxidable con soporte|\bestacion de alimentacion|\bpedestal'),
+    ('Platos y tazones para mascotas', r'\bplato|\btazon|\bcuenco|\bbowl|\bcomedero|\bdoble\b|\bde ceramica|\bde acero'),
+])
+
+
+def sub_comedero(tn):
+    return _primera(tn, _COM, {'Platos y tazones para mascotas': 30, 'Comederos elevados': 6})
+
+
+# ------------------------------------- Refacciones/Refacciones para electrodomésticos
+REF_ELECTRO = ['Refacciones para lavadora y secadora', 'Refacciones para refrigerador', 'Refacciones para estufa y horno',
+               'Refacciones para licuadora y batidora', 'Refacciones para aspiradora y robot', 'Refacciones para cafetera',
+               'Refacciones para freidora de aire', 'Refacciones para microondas', 'Refacciones para aire acondicionado y ventilador',
+               'Refacciones para calentador de agua', 'Refacciones para plancha y vaporizador', 'Refacciones para bocinas y audio',
+               'Refacciones para otros electrodomésticos']
+_RE = _c([
+    ('Refacciones para freidora de aire', r'\bfreidora|\bair ?fryer|\bninja\b.{0,20}(cesta|canasta|forro)|\bcosori|\bforros? (de|para) (freidora|air)'),
+    ('Refacciones para aspiradora y robot', r'\baspirador|\brobot\b|\broomba|\broborock|\becovacs|\bdeebot|\blimpiacristales|\bwinbot|\bhutt\b|\bdreame|\bshark\b.{0,20}(aspirador|filtro|cepillo)|\bdyson|\bmopa\b|\bpano de fregona|\bpanos? de (limpieza|microfibra) (para|compatible)|\bcepillo (lateral|central|de rodillo)|\bbolsas? (para|de) aspirador|\bfiltro hepa'),
+    ('Refacciones para cafetera', r'\bcafetera|\bnespresso|\bkeurig|\bdolce gusto|\bespresso|\bportafiltro|\bcafe\b.{0,20}(filtro|junta|empaque|valvula)|\bmolino de cafe|\bgrupo de cafe'),
+    ('Refacciones para lavadora y secadora', r'\blavadora|\bsecadora|\bwasher|\bdryer|\bagitador|\btapa de lavadora|\bmanguera de (lavadora|desague|entrada)|\bbomba de (drenaje|desague|agua de lavadora)|\bcorrea de (lavadora|secadora)|\belemento calefactor.{0,20}secador|\bfiltro de pelusa|\bperilla de lavadora|\bcapacitor de (lavadora|secadora)|\bamortiguador de lavadora|\bactuador de lavadora'),
+    ('Refacciones para refrigerador', r'\brefrigerador|\bnevera|\bcongelador|\bfrigobar|\bfridge|\bfreezer|\bcompresor\b(?!.{0,20}aire)|\bempaque de (puerta|refrigerador)|\bdespachador de hielo|\bfabricador de hielo|\bice maker|\btermostato de refrigerador|\bcharola (de|del) (refrigerador|evaporador)|\bevaporador\b|\bdamper|\bmotor (de|del) ventilador del (refrigerador|evaporador|condensador)'),
+    ('Refacciones para estufa y horno', r'\bestufa|\bhorno|\bparrilla de estufa|\bquemador|\bperilla de (estufa|horno)|\bencendedor|\btermopar|\bbujia de (estufa|horno)|\bresistencia (de|del) horno|\belemento calefactor (de|del) horno|\bvidrio de horno|\bcristal de (horno|estufa)|\bcomal de estufa|\bvalvula de gas|\bpiloto\b|\bboiler'),
+    ('Refacciones para licuadora y batidora', r'\blicuadora|\bbatidora|\bblender|\bvaso de (licuadora|nutribullet|ninja)|\bcuchilla de (licuadora|batidora)|\bnutribullet|\bvitamix|\bempaque de (licuadora|vaso)|\bacoplador|\bacoplamiento|\btapa de (licuadora|vaso)|\bmixer\b'),
+    ('Refacciones para microondas', r'\bmicroondas|\bmagnetron|\bplato (giratorio|de microondas)|\banillo giratorio|\bmica de microondas|\bfusible de microondas'),
+    ('Refacciones para aire acondicionado y ventilador', r'\baire acondicionado|\bminisplit|\bmini split|\bsplit\b|\bcontrol remoto (para|de) (aire|minisplit|ventilador)|\bcapacitor (de|para) (aire|ventilador)|\bmotor (de|del) ventilador|\bfiltro (de|del) (aire acondicionado|minisplit)|\baspa|\bventilador\b|\bcompresor de aire acondicionado|\btarjeta (de|del) (minisplit|aire)|\bturbina'),
+    ('Refacciones para calentador de agua', r'\bcalentador de agua|\bboiler|\bcalentador (de paso|instantaneo|solar)|\btermostato de (calentador|boiler)|\banodo|\bresistencia (de|para) (calentador|boiler)|\bpiloto de (calentador|boiler)|\bvalvula de (alivio|calentador)'),
+    ('Refacciones para plancha y vaporizador', r'\bplancha\b|\bvaporizador|\bsuela\b|\bplancha de (vapor|ropa)|\bbase de plancha|\bcable de plancha'),
+    ('Refacciones para bocinas y audio', r'\bbocina|\baltavoz|\bsonos|\bbose|\bjbl|\becho\b|\balexa|\baudio|\bwoofer|\btweeter|\bcargador (para|de) (bocina|altavoz|sonos|bose|jbl)|\bbase de cargador'),
+    ('Refacciones para otros electrodomésticos', r'\brepuesto|\breemplazo|\brefaccion|\bcompatible|\bpieza|\bperilla|\bfiltro|\bsensor|\btermostato|\bmotor|\bresistencia|\bempaque|\bmanguera|\bvalvula|\bcable|\btapa|\bcuchilla|\bfusible|\bcapacitor|\bbanda|\bcorrea|\bengrane|\bbomba|\btarjeta|\bmodulo|\bboton'),
+])
+
+
+def sub_ref_electro(tn):
+    return _primera(tn, _RE, {'Refacciones para otros electrodomésticos': 60, 'Refacciones para bocinas y audio': 8})
+
+
+# ---------------------------------------------------- Refacciones/Para motos
+REF_MOTO = ['Frenos de moto', 'Llantas y cámaras de moto', 'Cadenas, sprockets y transmisión', 'Luces de moto',
+            'Carenados, plásticos y tanques', 'Motor, carburación y escape de moto', 'Eléctrico y baterías de moto',
+            'Manubrios, espejos y controles', 'Suspensión y dirección de moto', 'Asientos, parrillas y accesorios de moto', 'Filtros y aceites de moto']
+_RM = _c([
+    ('Frenos de moto', r'\bfreno|\bbalata|\bpastilla|\bdisco de freno|\bcaliper|\bmordaza|\bbomba de freno|\bmanguera de freno|\bzapata|\btambor\b(?! selector)|\bpalanca de freno|\bpedal de freno'),
+    ('Llantas y cámaras de moto', r'\bllanta|\bneumatico|\bcamara\b|\brin\b|\brines\b|\bmasa\b|\brayos?\b|\bbalero de rueda|\btubeless|\bmichelin|\bpirelli|\btimsun|\bkenda\b|\bvalvula de llanta'),
+    ('Cadenas, sprockets y transmisión', r'\bcadena|\bsprocket|\bpinon|\bcorona\b|\bkit de (arrastre|transmision)|\bbanda (de|para) (transmision|cvt)|\bclutch|\bembrague|\bcaja de (cambios|velocidades)|\btambor selector|\bselector de cambios|\bpalanca de (cambios|velocidades)|\bvariador|\bcvt\b|\bclutch|\brodillos? (de|para) variador|\bcardan'),
+    ('Luces de moto', r'\bfaro|\bluz\b|\bluces|\bcalavera|\bdireccional|\bintermitente|\bfoco\b|\bled\b|\bcuarto\b|\bstop\b|\blampara'),
+    ('Eléctrico y baterías de moto', r'\bbateria|\bcdi\b|\bbobina|\bregulador|\brectificador|\bestator|\bmagneto|\bmarcha\b|\bmotor de arranque|\brele\b|\brelevador|\bswitch|\bfusible|\barnes|\bcableado|\bbujia|\bcapuchon|\bclaxon|\bsensor|\bvelocimetro|\btablero|\bcarburador electronico|\bencendido|\bcable de (bujia|acelerador|clutch|embrague|freno|velocimetro)'),
+    ('Motor, carburación y escape de moto', r'\bmotor\b|\bcarburador|\bpiston|\bcilindro|\bcigueñal|\bciguenal|\bvalvula|\bculata|\bcabeza de motor|\bjunta|\bempaque|\bescape|\bmofle|\bsilenciador|\bmultiple|\binyector|\bbomba de (gasolina|aceite|combustible)|\bradiador|\btermostato|\bbomba de agua|\bkit de (motor|cilindro)|\btapa de (motor|clutch|magneto)|\barbol de levas|\bbalancin|\bcadena de tiempo|\btensor'),
+    ('Manubrios, espejos y controles', r'\bmanubrio|\bmanillar|\bespejo|\bretrovisor|\bpuno|\bpuños|\bgrips?\b|\bmaneral|\bpalanca\b|\bacelerador|\bmanigueta|\bcontrol (de|del) (luces|manubrio)|\bmando\b|\bprotector de manos|\bcubre ?manos|\bbalancin de manubrio|\bcontrapeso'),
+    ('Suspensión y dirección de moto', r'\bamortiguador|\bsuspension|\bhorquilla|\bbarra de (suspension|horquilla)|\bbotella\b|\bsello de (aceite|horquilla)|\bretenes|\bbalero de direccion|\bbasculante|\bmono ?shock|\btijera'),
+    ('Carenados, plásticos y tanques', r'\bcarenado|\bplastico|\bcubierta|\bsalpicadera|\bguardafango|\btanque\b|\btapa de tanque|\bcofre|\bcarcasa|\bfaldon|\bdefensa|\bpanel\b|\bmascarilla|\bcupula|\bparabrisas|\bcubre|\bfrontal|\blateral\b|\btapa\b|\bemblema|\bcalcomania|\bsticker'),
+    ('Asientos, parrillas y accesorios de moto', r'\basiento|\bsillin|\bparrilla|\bportaequipaje|\bmaleta|\bbaul\b|\btop case|\balforja|\bcaballete|\bpata\b|\bpata de cabra|\bsoporte lateral|\bcandado|\balarma|\bfunda\b|\bcubierta para moto|\bespejo\b|\bposapies|\bestribo|\bpedal\b|\bprotector\b|\bslider|\bdeslizador|\brespaldo|\bportaplacas|\bportacelular|\bsoporte (para|de) (celular|telefono)'),
+    ('Filtros y aceites de moto', r'\bfiltro|\baceite|\blubricante|\bgrasa|\bliquido de frenos|\banticongelante|\brefrigerante|\baditivo'),
+])
+
+
+def sub_ref_moto(tn):
+    return _primera(tn, _RM, {'Carenados, plásticos y tanques': 10, 'Asientos, parrillas y accesorios de moto': 5})
+
+
+# ------------------------------------- Domótica/Interruptores inteligentes
+INTERRUPTORES = ['Interruptores Wi-Fi', 'Interruptores Zigbee, Matter y Thread', 'Dimmers y reguladores inteligentes',
+                 'Módulos y relés inteligentes', 'Interruptores y botones inalámbricos', 'Breakers y protectores inteligentes',
+                 'Enchufes y contactos inteligentes', 'Interruptores táctiles y de escena']
+_INT = _c([
+    ('Breakers y protectores inteligentes', r'\bdisyuntor|\bbreaker|\binterruptor termomagnetico|\bproteccion contra sobre|\bpastilla\b|\b\d{2,3} ?a\b.{0,20}(disyuntor|breaker|wifi)|\bmedidor de energia|\bconsumo\b.{0,20}(monitor|medidor)'),
+    ('Enchufes y contactos inteligentes', r'\benchufe|\bcontacto\b|\btomacorriente|\bsmart plug|\bplug\b|\bmulticontacto|\bregleta|\bextension\b|\bclavija'),
+    ('Dimmers y reguladores inteligentes', r'\bdimmer|\bregulador|\batenuador|\bregulable|\bde intensidad|\bdimmable'),
+    ('Módulos y relés inteligentes', r'\bmodulo|\brele\b|\brelay|\bmini\b.{0,20}(interruptor|switch)|\bde empotrar|\bpara empotrar|\bdetras del interruptor|\bsonoff (mini|basic|dual|4ch|pow|th)|\bshelly|\bplaca\b|\bcontrolador (de|para) (persiana|cortina|garaje|ventilador)|\bpersiana|\bcortina|\bgaraje'),
+    ('Interruptores y botones inalámbricos', r'\binalambric|\bwireless|\bsin cableado|\bsin cable|\bboton\b|\bpulsador|\bcontrol remoto|\bremoto|\b433|\brf\b|\bkinetico|\bautoalimentado|\bsin bateria|\bsin pilas|\bcon pilas|\bmando\b'),
+    ('Interruptores Zigbee, Matter y Thread', r'\bzigbee|\bmatter\b|\bthread\b|\bz-?wave|\bhue\b|\baqara|\bhomekit'),
+    ('Interruptores táctiles y de escena', r'\btactil|\btouch|\bde escena|\bescenas?\b|\bpanel de (escena|control)|\bvidrio templado|\bcristal templado|\bneon\b'),
+    ('Interruptores Wi-Fi', r'\bwifi|\bwi-?fi|\btuya|\bsmart life|\balexa|\bgoogle|\binteligente|\bsmart\b|\binterruptor|\bswitch'),
+])
+
+
+def sub_interruptor(tn):
+    return _primera(tn, _INT, {'Interruptores Wi-Fi': 40, 'Interruptores táctiles y de escena': 10, 'Interruptores y botones inalámbricos': 6})
+
+
+# ---------------------------------------- Electrodomésticos/Freidoras de aire
+FREIDORAS = ['Freidoras de aire hasta 3 L', 'Freidoras de aire de 3.5 a 5 L', 'Freidoras de aire de 5.5 a 7 L',
+             'Freidoras de aire de 8 L o más', 'Freidoras de aire de doble canasta', 'Hornos freidora y multifunción',
+             'Accesorios y repuestos para freidora de aire', 'Freidoras de aire']
+_RX_L = re.compile(r'(?<![\d.])(\d{1,2}(?:[.,]\d)?) ?(?:l\b|lt\b|lts\b|litros?\b|liter|qt\b|quart|cuartos?\b)')
+
+
+def sub_freidora(tn):
+    if re.search(r'^(?:\S+ ){0,3}(forros?|papel|cesta|canasta|bandeja|rejilla|molde|accesorios?|kit|asa|repuesto|reemplazo|filtro|tapa|manija|recetario|libro|silicona)\b|\brepuesto|\breemplazo|\baccesorios? (para|de)|\bforros? (de|para)|\bpapel (para|de)|\bcompatible (con|para)\b.{0,30}(cesta|canasta|forro|bandeja)', tn):
+        return 'Accesorios y repuestos para freidora de aire'
+    if re.search(r'\bdoble (canasta|cesta|zona|cajon)|\bdual ?zone|\bdual ?basket|\b2 (canastas|cestas|zonas|cajones)|\bdos (canastas|cestas|zonas)|\bdualzone|\bdual flex|\bflexdrawer', tn):
+        return 'Freidoras de aire de doble canasta'
+    if re.search(r'\bhorno freidora|\bhorno (de aire|tostador|multifuncion|de conveccion).{0,30}(freidora|air ?fryer)|\b(freidora|air ?fryer).{0,30}\bhorno|\btostador\b(?!.{0,30}(combo|sandwichera|\+))|\brotisserie|\basador giratorio', tn):
+        return 'Hornos freidora y multifunción'
+    vals = []
+    for m in _RX_L.finditer(tn):
+        v = float(m.group(1).replace(',', '.'))
+        if re.search(r'qt|quart|cuarto', m.group(0)):
+            v *= 0.946
+        if 0.5 <= v <= 40:
+            vals.append(v)
+    if not vals:
+        return 'Freidoras de aire'
+    v = max(vals)
+    if v >= 7.6: return 'Freidoras de aire de 8 L o más'
+    if v >= 5.2: return 'Freidoras de aire de 5.5 a 7 L'
+    if v >= 3.2: return 'Freidoras de aire de 3.5 a 5 L'
+    return 'Freidoras de aire hasta 3 L'
+
+
+# ------------------------------------------ Climatización/Aires acondicionados
+AIRES = ['Minisplit', 'Aires acondicionados portátiles', 'Aires acondicionados de ventana', 'Aires acondicionados para auto y RV',
+         'Mini enfriadores personales', 'Accesorios y refacciones de aire acondicionado', 'Aires acondicionados']
+_AC = _c([
+    ('Accesorios y refacciones de aire acondicionado', r'\bdeflector|\bcubierta|\bfunda|\bsoporte|\bbase\b|\bkit de (ventana|sellado|instalacion)|\bsellado de ventana|\bmanguera de (escape|salida|drenaje)|\btubo de escape|\bcontrol remoto|\bfiltro|\bcapacitor|\btarjeta|\bcompresor\b|\bmotor\b|\bventilador\b(?!.*(portatil|de aire acondicionado portatil))|\bgas refrigerante|\br-?410|\br-?32\b|\btuberia|\bcable|\bbomba de condensado|\btermostato|\bsensor|\brepuesto|\breemplazo|\bpanel de control|\bboard|\bplaca'),
+    ('Aires acondicionados para auto y RV', r'\bpara (auto|coche|carro|camion|camioneta|vehiculo|rv|casa rodante|autocaravana|barco|lancha)|\b12 ?v\b|\b24 ?v\b|\bde techo\b.{0,20}(rv|camion)|\brv\b|\bcamper|\bfurgon'),
+    ('Mini enfriadores personales', r'\bmini\b|\bpersonal|\bde escritorio|\bde mesa|\bportatil\b.{0,40}(usb|recargable|agua|humidificador|\d{3} ?ml)|\busb\b|\brecargable|\benfriador (de aire )?(personal|portatil|evaporativo|de agua)|\bventilador de aire acondicionado|\b\d{3} ?ml\b|\bhielo\b'),
+    ('Aires acondicionados de ventana', r'\bde ventana|\bventana\b|\bwindow\b|\bde pared\b(?!.*(minisplit|split))|\bthrough the wall|\bcasetera'),
+    ('Aires acondicionados portátiles', r'\bportatil|\bportable|\bmovil\b|\bcon ruedas|\bpinguino|\bde.?longhi'),
+    ('Minisplit', r'\bminisplit|\bmini ?split|\bsplit\b|\binverter|\bton(elada)?s?\b|\b\d{4,5} ?btu|\bseer\b|\bmultisplit|\bmulti ?zona|\bcassette|\bpiso ?techo|\bde ducto|\bcondensadora|\bevaporadora|\bmirage|\bmabe\b|\bcarrier\b|\blg\b|\bhisense|\bmidea|\bwhirlpool|\byork\b|\bdaikin|\bgree\b|\bcolden'),
+])
+
+
+def sub_aire(tn):
+    return _primera(tn, _AC, {'Minisplit': 30, 'Aires acondicionados portátiles': 10, 'Accesorios y refacciones de aire acondicionado': 3})
+
+
+# --------------------------------------------- Blancos/Toallas, Sábanas, Protectores
+TOALLAS = ['Toallas de baño', 'Toallas de manos y faciales', 'Juegos de toallas', 'Toallas de playa y alberca',
+           'Batas y toallas con capucha', 'Toallas de microfibra y deportivas', 'Toallas de cocina y paños']
+_TOA = _c([
+    ('Toallas de cocina y paños', r'\bde cocina|\bpano|\bpanos|\btrapos?\b|\bsecador de (platos|trastes)|\bwaffle\b.{0,20}cocina|\bpara (platos|trastes|vajilla)'),
+    ('Batas y toallas con capucha', r'\bbata|\balbornoz|\bcon capucha|\bponcho|\btoalla (para|de) bebe|\bbebe\b|\brobe\b|\bkimono|\bcapa de bano'),
+    ('Toallas de microfibra y deportivas', r'\bmicrofibra|\bdeportiv|\bgym\b|\bgimnasio|\byoga|\bsecado rapido|\bde viaje|\bcamping|\bcompacta|\bpara (el )?cabello|\bturbante|\bde golf|\bgolf\b|\bde enfriamiento|\bcooling'),
+    ('Toallas de playa y alberca', r'\bplaya|\balberca|\bpiscina|\bbeach|\bpool\b|\bde surf|\bredonda'),
+    ('Juegos de toallas', r'\bjuego|\bset\b|\bpaquete de \d|\b\d+ piezas|\b\d+ pzas?|\bpack de \d|\bde \d+ (toallas|piezas)|\bcombo'),
+    ('Toallas de manos y faciales', r'\bde manos?\b|\bfacial|\bpara (la )?cara|\bde tocador|\bwashcloth|\bhand towel|\bde mano\b|\btoallita|\bpequena|\b\d{2} ?x ?\d{2} ?cm\b(?!.*(bano|cuerpo))'),
+    ('Toallas de baño', r'\bde bano|\bcuerpo|\bbath|\bextra grande|\bjumbo|\bde cuerpo|\btoalla'),
+])
+
+
+def sub_toalla(tn):
+    return _primera(tn, _TOA, {'Toallas de baño': 30, 'Juegos de toallas': 8})
+
+
+SABANAS = ['Sábanas individuales', 'Sábanas matrimoniales', 'Sábanas queen size', 'Sábanas king size', 'Sábanas para cuna y bebé',
+           'Fundas de almohada', 'Fundas nórdicas y de edredón', 'Sábanas']
+
+
+def sub_sabana(tn):
+    if re.search(r'\bfundas? (de|para) almohada|\bpillowcase|\bfundas? de cojin', tn) and not re.search(r'\bjuego de sabanas|\bsabanas\b.{0,40}fundas', tn):
+        return 'Fundas de almohada'
+    if re.search(r'\bfunda (nordica|de edredon|para edredon)|\bduvet cover|\bcubre ?edredon', tn):
+        return 'Fundas nórdicas y de edredón'
+    if re.search(r'\bcuna|\bbebe|\bmoises|\bcorral|\bcrib\b|\bbassinet', tn):
+        return 'Sábanas para cuna y bebé'
+    t = _tamano_cama(tn)
+    if re.search(r'\bsplit king|\bcalifornia king|\bcal king', tn): t = 'king'
+    return {'king': 'Sábanas king size', 'queen': 'Sábanas queen size', 'matrimonial': 'Sábanas matrimoniales',
+            'individual': 'Sábanas individuales'}.get(t, 'Sábanas')
+
+
+PROTECTORES = ['Protectores de colchón impermeables', 'Protectores de colchón acolchados', 'Toppers y sobrecolchones',
+               'Protectores de almohada', 'Protectores para cuna', 'Protectores de colchón']
+
+
+def sub_protector(tn):
+    if re.search(r'\btopper|\bsobrecolchon|\bmemory foam|\bviscoelastic|\bde espuma|\b\d ?cm de (espesor|grosor)|\bcolchoneta correctora|\bplumas|\bde ganso|\bpillow ?top', tn):
+        return 'Toppers y sobrecolchones'
+    if re.search(r'\bprotector(es)? (de|para) almohada|\bfunda protectora (de|para) almohada|\bpillow protector', tn):
+        return 'Protectores de almohada'
+    if re.search(r'\bcuna|\bbebe|\bmoises|\bcrib\b|\bpara ninos\b', tn):
+        return 'Protectores para cuna'
+    if re.search(r'\bimpermeable|\bwaterproof|\ba prueba de (agua|liquidos)|\bantifluidos|\bantiacaros|\bhipoalergenico|\bantimanchas|\bcubre ?colchon (impermeable|antifluidos)', tn):
+        return 'Protectores de colchón impermeables'
+    if re.search(r'\bacolchad|\bquilted|\bmullido|\bacolchonado|\bpad\b', tn):
+        return 'Protectores de colchón acolchados'
+    return 'Protectores de colchón'
+
+
+# ------------------------------------------------------- Autos/Llantas
+LLANTAS = ['Llantas para auto', 'Llantas para camioneta y SUV', 'Llantas para moto', 'Llantas para bicicleta',
+           'Rines', 'Cámaras y accesorios de llanta', 'Llantas para carretilla y equipo']
+_LL = _c([
+    ('Cámaras y accesorios de llanta', r'\bcamara\b|\bvalvula|\btapon(es)? de (valvula|rin)|\bkit de reparacion|\bparche|\btuerca|\bbirlo|\bcubre ?llanta|\bmedidor de presion|\bmanometro|\bcompresor|\binflador|\bcadenas? (para|de) nieve|\bbalanceo|\bcontrapeso|\bsensor (de presion|tpms)|\btpms|\bllave de (cruz|rin|birlos)|\bprotector de rin|\bespaciador|\bseparador de rin|\bcubierta (de|para) llanta'),
+    ('Rines', r'\brin(es)?\b|\bwheels?\b(?! (chair|barrow))|\baro\b|\baros\b|\bllantas? y rines'),
+    ('Llantas para carretilla y equipo', r'\bcarretilla|\bdiablito|\bcarrito|\bpodadora|\btractor|\bmontacargas|\bcuatrimoto|\batv\b|\bgo ?kart|\bremolque|\btrailer|\bandador|\bsilla de ruedas|\bpatin|\bscooter|\bcarriola|\bmaquinaria|\bindustrial|\bmacizas?\b|\bsolida'),
+    ('Llantas para bicicleta', r'\bbicicleta|\bbici\b|\bciclismo|\bmtb\b|\b(24|26|27\.5|29) ?(x|pulgadas)|\b700 ?x|\br ?(12|14|16|20|24|26|29)\b|\bkenda|\bmaxxis|\bcontinental grand|\bschwalbe|\bgravel|\bruta\b.{0,10}bici'),
+    ('Llantas para moto', r'\bmoto|\bmotocicleta|\bscooter|\btubeless\b(?!.*(auto|camioneta|rin \d{2}))|\b\d{2,3}/\d{2}-\d{2}\b|\bmichelin (pilot|city|road)|\bpirelli (diablo|angel|mt)|\btimsun|\bcst\b|\bmetzeler|\bdunlop (d\d|sportmax)'),
+    ('Llantas para camioneta y SUV', r'\bcamioneta|\bsuv\b|\bpickup|\bpick-?up|\btodo terreno|\ball terrain|\ba/t\b|\bm/t\b|\bmud terrain|\blt ?\d{3}|\b\d{3}/\d{2} ?r ?(1[6-9]|2[0-4])\b|\b4x4\b|\boff ?road|\b(31|33|35)x'),
+    ('Llantas para auto', r'\bllanta|\bneumatico|\btire\b|\b\d{3}/\d{2} ?r ?1[3-9]|\bmichelin|\bbridgestone|\bgoodyear|\bcontinental|\bpirelli|\bfirestone|\bhankook|\byokohama|\bkumho|\bnexen|\btoyo|\bfalken|\buniroyal|\bgeneral tire|\bdunlop|\bbfgoodrich|\bcooper'),
+])
+
+
+def sub_llanta(tn):
+    return _primera(tn, _LL, {'Llantas para auto': 30, 'Rines': 5})
+
+
+# ------------------------------------------------ Muebles/Mesas de comedor
+COMEDOR = ['Mesas de comedor', 'Juegos de comedor', 'Mesas de comedor extensibles', 'Mesas altas y de bar',
+           'Antecomedores y mesas de cocina', 'Mesas de comedor para exterior', 'Bancas de comedor']
+_CMD = _c([
+    ('Bancas de comedor', r'\bbanca|\bbanco (de|para) comedor|\bbench'),
+    ('Mesas altas y de bar', r'\bmesa (alta|de bar|tipo bar|bistro)|\bde bar\b|\bbarra\b|\bpub\b|\baltura de bar|\balta\b'),
+    ('Mesas de comedor para exterior', r'\bexterior|\bjardin|\bterraza|\bpatio|\boutdoor|\bratan|\brattan|\bplaya|\bcamping'),
+    ('Juegos de comedor', r'\bjuego|\bcon \d sillas|\by \d sillas|\bcon sillas|\bset de comedor|\bcomedor (de|para) \d (personas|puestos|sillas)|\bconjunto|\bcomedor completo|\bcomedor (redondo|rectangular|cuadrado|moderno|minimalista)\b.{0,40}sillas|\bantecomedor\b.{0,30}sillas'),
+    ('Mesas de comedor extensibles', r'\bextensible|\bextendible|\bplegable|\babatible|\bcon extension|\bexpandible'),
+    ('Antecomedores y mesas de cocina', r'\bantecomedor|\bde cocina|\bdesayunador|\bpequena|\bpara \d personas\b(?!.*(6|8|10|12))|\bcompacta'),
+    ('Mesas de comedor', r'\bmesa|\bcomedor'),
+])
+
+
+def sub_comedor(tn):
+    return _primera(tn, _CMD, {'Mesas de comedor': 30, 'Antecomedores y mesas de cocina': 10, 'Mesas altas y de bar': 5})
+
+
+# ---------------------------- Herramientas/Accesorios para herramientas eléctricas
+ACC_ELEC = ['Brocas', 'Discos de corte y desbaste', 'Hojas y cuchillas de sierra', 'Lijas y accesorios de lijado',
+            'Puntas y dados de impacto', 'Baterías y cargadores de herramienta', 'Accesorios para rotomartillo y demoledor',
+            'Accesorios de multiherramienta y mototool', 'Refacciones de herramientas eléctricas', 'Accesorios para herramientas eléctricas']
+_AE = _c([
+    ('Baterías y cargadores de herramienta', r'\bbateria|\bcargador|\bpila\b|\bbattery|\bcharger|\badaptador de bateria'),
+    ('Brocas', r'\bbrocas?\b|\bdrill bits?|\bjuego de brocas|\bmecha|\bbroca (para|de) (concreto|madera|metal|vidrio|azulejo)|\bsierra copa|\bhole saw|\bcopa\b|\bavellanador|\bmacho\b|\bmachuelo|\btarraja|\bcortador de agujeros'),
+    ('Discos de corte y desbaste', r'\bdiscos?\b|\bde corte|\bde desbaste|\bflap\b|\bdisco (diamante|diamantado|abrasivo|de lija)|\bmuela|\bcepillo (de alambre|de copa)|\brueda (de alambre|abrasiva|de pulir)|\bpulido\b.{0,20}(disco|almohadilla|esponja)|\bbonete'),
+    ('Hojas y cuchillas de sierra', r'\bhojas?\b|\bcuchillas?\b|\bsegueta|\bblade|\bsierra (circular|caladora|sable|de cinta).{0,20}(hoja|disco)|\bnavaja (de|para) (cutter|sierra)|\bcadena (de|para) motosierra|\bespada (de|para) motosierra|\bhoja (de|para) (sierra|caladora|sable|ingletadora)'),
+    ('Lijas y accesorios de lijado', r'\blijas?\b|\blijado|\bsandpaper|\bpapel de lija|\bbanda de lija|\brollo de lija|\bplato de lija|\bbase de lija|\balmohadilla de lija|\bgrano \d'),
+    ('Puntas y dados de impacto', r'\bpuntas?\b|\bbits?\b|\bdados? de impacto|\bimpacto\b.{0,20}(dado|punta|adaptador)|\bextension (de|para) (puntas|dados)|\bportapuntas|\bportabrocas|\bmandril|\bchuck\b|\badaptador (hexagonal|de dados|de mandril)'),
+    ('Accesorios para rotomartillo y demoledor', r'\bsds\b|\bcincel(es)? (sds|para rotomartillo|de demolicion)|\bpunta (sds|de demolicion)|\bpala (sds|de demolicion)|\brotomartillo|\bdemoledor|\bmartillo demoledor'),
+    ('Accesorios de multiherramienta y mototool', r'\bdremel|\bmototool|\bmultiherramienta|\bmulti ?tool|\boscilante|\bminitorno|\bmini torno|\bgrabado|\bfresas? (de|para) (dremel|mototool|grabado)|\bpiedras? (de|para) (dremel|mototool|pulir)|\bkit de (accesorios|dremel|mototool)'),
+    ('Refacciones de herramientas eléctricas', r'\brepuesto|\breemplazo|\bcarbones?\b|\bescobillas? de carbon|\bcarbon brush|\binterruptor|\bswitch\b|\bmotor\b|\brotor|\bestator|\barmadura|\bengrane|\bpinon|\bcable\b|\bgatillo|\bresorte|\bempuñadura|\bmango\b|\bguarda\b|\bvolante|\bconjunto|\bensamble|\bkit de reparacion|\bcompatible con (dewalt|makita|bosch|milwaukee|black|truper|ryobi|craftsman|stanley)'),
+    ('Accesorios para herramientas eléctricas', r'\baccesorio|\bkit\b|\bjuego\b|\bset\b|\bguia\b|\bbase\b|\bsoporte|\bmesa\b|\bprensa|\btope\b|\bcera\b|\bmaletin|\bestuche|\bbolsa|\bfunda|\bpara (taladro|sierra|esmeril|lijadora|router|compresor|hidrolavadora|caladora|amoladora|pulidora)'),
+])
+
+
+def sub_acc_electrica(tn):
+    return _primera(tn, _AE, {'Accesorios para herramientas eléctricas': 40, 'Refacciones de herramientas eléctricas': 15})
+
+
+# ---------------------------------------- Autos/Accesorios para bicicleta
+ACC_BICI = ['Luces para bicicleta', 'Candados para bicicleta', 'Cascos y protección para ciclismo', 'Bombas e infladores',
+            'Sillines y asientos', 'Bolsas, canastas y portabultos', 'Portabicicletas y soportes', 'Pedales, manubrios y puños',
+            'Ciclocomputadoras y soportes para celular', 'Ropa y calzado de ciclismo', 'Refacciones y transmisión de bicicleta',
+            'Asientos infantiles y remolques', 'Herramientas y mantenimiento de bicicleta', 'Accesorios para bicicleta']
+_AB = _c([
+    ('Asientos infantiles y remolques', r'\basiento (infantil|para nino|delantero para|trasero para)|\bsilla (infantil|para nino|portabebe)|\bportabebe|\bremolque|\btrailer|\bruedas de entrenamiento|\brueditas|\bbarra (de|para) (remolque|arrastre)'),
+    ('Luces para bicicleta', r'\bluz|\bluces|\bfaro|\bfarol|\blampara|\bled\b|\breflej|\bcatadioptrico|\bintermitente|\bdireccional'),
+    ('Candados para bicicleta', r'\bcandado|\bcadena (de|con) (seguridad|candado)|\bu-?lock|\bantirrobo|\bcable (de|con) (seguridad|candado)|\balarma'),
+    ('Cascos y protección para ciclismo', r'\bcasco|\bhelmet|\brodillera|\bcodera|\bmunequera|\bprotecci|\bgafas|\blentes|\bguantes'),
+    ('Bombas e infladores', r'\bbomba|\binflador|\bpump\b|\bco2\b|\bcompresor|\bmanometro'),
+    ('Sillines y asientos', r'\bsillin|\basiento|\bsaddle|\bfunda (de|para) (sillin|asiento)|\bcubre ?asiento|\btija|\bposte de asiento|\bseatpost|\bcojin (de|para) (sillin|asiento)'),
+    ('Bolsas, canastas y portabultos', r'\bbolsa|\balforja|\bcanasta|\bcanastilla|\bcesta|\bportabultos|\bportaequipaje|\bparrilla|\brack\b(?! (de|para) (auto|coche|techo|pared|piso))|\bmochila|\bpannier|\bbag\b'),
+    ('Portabicicletas y soportes', r'\bportabici|\bporta ?bicicleta|\bsoporte (de|para) (bicicleta|bici|techo|pared|piso|rueda)|\bcolgador|\bgancho|\brack (de|para) (auto|coche|techo|pared|piso|bicicleta)|\bestacionamiento|\bcaballete|\bpata de cabra|\bpata lateral|\bsoporte lateral|\brodillo|\btrainer|\bentrenador|\bstand\b'),
+    ('Pedales, manubrios y puños', r'\bpedal|\bmanubrio|\bmanillar|\bpuños?\b|\bpunos?\b|\bgrips?\b|\bcinta (de|para) manubrio|\bhandlebar|\bpotencia\b|\bstem\b|\bcuernos|\bbar ?ends|\bcalapies|\btimbre|\bcampana|\bclaxon|\bespejo|\bretrovisor'),
+    ('Ciclocomputadoras y soportes para celular', r'\bciclocomputador|\bcomputadora (de|para) bicicleta|\bvelocimetro|\bcuentakilometros|\bodometro|\bgps\b|\bsoporte (de|para) (celular|telefono|smartphone|movil|gopro|camara)|\bporta ?celular|\bwahoo|\bgarmin|\bbryton|\bcadencia|\bsensor de (velocidad|cadencia|potencia)|\bmedidor de potencia'),
+    ('Ropa y calzado de ciclismo', r'\bjersey|\bmaillot|\bculotte|\bculote|\bshorts? (de|para) ciclismo|\blicra|\bzapatillas|\bzapatos (de|para) ciclismo|\bcalas|\bcleats|\bcubrezapatos|\bchaleco|\bbalaclava|\bmangas|\bpierneras|\brompevientos|\bimpermeable\b.{0,10}(ciclismo|ciclista)'),
+    ('Refacciones y transmisión de bicicleta', r'\bcadena\b|\bcassette|\bpinon|\bplato\b|\bbiela|\bdesviador|\bcambio|\bpalanca de cambio|\bshifter|\bfreno|\bbalata|\bpastilla|\bdisco de freno|\bcable (de|para) (freno|cambio)|\bfunda (de|para) cable|\bhorquilla|\bsuspension|\bamortiguador|\bllanta|\bcamara|\brin\b|\brines\b|\brayos?\b|\bmasa\b|\bbuje|\bbalero|\bcaja de (direccion|centro)|\beje\b|\bcuadro\b|\bmarco\b|\bguardabarro|\bsalpicadera|\bguardafango|\bcubierta|\bneumatico|\bshimano|\bsram|\btransmision|\bgrupo\b'),
+    ('Herramientas y mantenimiento de bicicleta', r'\bherramienta|\bmultiherramienta|\bkit de (reparacion|parches|herramientas)|\bparches|\bdesmontador|\blubricante|\baceite|\bgrasa|\blimpiador|\bdesengrasante|\bcepillo (de|para) cadena|\bextractor|\btronchacadena|\bllave (de|para) (radios|pedales|cassette|centro)|\bsoporte de reparacion|\bcaballete de (taller|reparacion)'),
+    ('Accesorios para bicicleta', r'\bbicicleta|\bbici\b|\bciclismo|\bciclista|\baccesorio'),
+])
+
+
+def sub_acc_bici(tn):
+    return _primera(tn, _AB, {'Accesorios para bicicleta': 60, 'Refacciones y transmisión de bicicleta': 6})
+
+
+# ---------------------------------------------------- Autos/Bocinas para auto
+BOC_AUTO = ['Bocinas coaxiales de 6.5 pulgadas', 'Bocinas coaxiales 6x9 y 6x8', 'Bocinas de 4 a 5.25 pulgadas',
+            'Bocinas de componentes', 'Tweeters', 'Medios rangos y bocinas profesionales', 'Subwoofers para auto',
+            'Bocinas marinas y para moto', 'Accesorios de audio para auto']
+_BA = _c([
+    ('Accesorios de audio para auto', r'\badaptador|\barnes|\bcable\b|\brejilla|\bespaciador|\banillo|\bsoporte|\bbase\b|\bkit de (instalacion|cables)|\bcapacitor|\bcrossover\b(?!.*bocina)|\bdivisor de frecuencia|\bcaja (acustica|para bocina|de bocina)|\bgabinete|\bmaterial (aislante|acustico)|\bplug|\bconector|\bfusible|\bportafusible|\bcontrol de (bajos|graves)|\bbass knob|\bmicrofono|\bepoxi|\bpegamento'),
+    ('Subwoofers para auto', r'\bsubwoofer|\bsub ?woofer|\bwoofer de (8|10|12|15|18)|\b(8|10|12|15|18) ?(pulgadas|")\b.{0,30}(woofer|graves|bajos)|\bcajon|\bamplificado|\bbajo\b'),
+    ('Bocinas marinas y para moto', r'\bmarin|\bpara (moto|motocicleta|barco|lancha|jet ?ski|golf|atv|utv|cuatrimoto)|\bimpermeable|\bwaterproof|\bmotocicleta|\bmanubrio|\bmoto\b'),
+    ('Tweeters', r'\btweeter|\bbala\b|\bdriver de (titanio|compresion)|\bagudos|\bsuper ?tweeter|\bdomo\b'),
+    ('Medios rangos y bocinas profesionales', r'\bmedio ?rango|\bmid ?range|\bmid ?bass|\bmedios?\b|\bpro audio|\bprofesional|\b(6|8|10) ?(pulgadas|")\b.{0,30}(medio|mid|rango|profesional|abierto)|\bcono de papel|\bde competencia|\bspl\b|\baudiopipe|\bprv\b|\bcerwin|\btimpano'),
+    ('Bocinas de componentes', r'\bcomponentes?\b|\bset de componentes|\bseparad|\bkit (de )?(2|3) vias\b.{0,30}(tweeter|componente)|\bcon tweeter y crossover|\bcomponent'),
+    ('Bocinas coaxiales 6x9 y 6x8', r'\b6 ?x ?9\b|\b6x9|\b6 ?x ?8\b|\b6x8|\bovalad|\b5 ?x ?7\b|\b5x7|\b4 ?x ?6\b|\b4x6|\b4 ?x ?10'),
+    ('Bocinas coaxiales de 6.5 pulgadas', r'\b6[.,]5 ?(pulgadas|"|\'\'|in\b)|\b6[.,]5\b|\b165 ?mm|\b16[.,]5 ?cm|\b6 ?(pulgadas|")|\b6 ?1/2'),
+    ('Bocinas de 4 a 5.25 pulgadas', r'\b(4|5|5[.,]25|5[.,]5|3[.,]5|3) ?(pulgadas|"|\'\'|in\b)|\b(10|13) ?cm|\b(3|4|5)-inch|\bpequen'),
+])
+
+
+def sub_bocina_auto(tn):
+    return _primera(tn, _BA, {'Accesorios de audio para auto': 5, 'Bocinas marinas y para moto': 8, 'Bocinas coaxiales de 6.5 pulgadas': 10, 'Bocinas de 4 a 5.25 pulgadas': 10})
+
+
+OLA2 += [
+    ('Bocinas', ['Bluetooth portátiles'], BT_PORTATILES, lambda tn, sv: sub_bt_portatil(tn), None),
+    ('Componentes y accesorios de PC', ['Memoria RAM'], RAM, lambda tn, sv: sub_ram(tn), None),
+    ('Mascotas', ['Comederos'], COMEDEROS + ['Bebederos'], lambda tn, sv: sub_comedero(tn), None),
+    ('Refacciones', ['Refacciones para electrodomésticos'], REF_ELECTRO, lambda tn, sv: sub_ref_electro(tn), None),
+    ('Refacciones', ['Para motos'], REF_MOTO, lambda tn, sv: sub_ref_moto(tn), None),
+    ('Domótica y hogar inteligente', ['Interruptores inteligentes'], INTERRUPTORES, lambda tn, sv: sub_interruptor(tn), None),
+    ('Electrodomésticos', ['Freidoras de aire'], FREIDORAS, lambda tn, sv: sub_freidora(tn), None),
+    ('Climatización', ['Aires acondicionados'], AIRES, lambda tn, sv: sub_aire(tn), None),
+    ('Blancos y ropa de cama', ['Toallas'], TOALLAS, lambda tn, sv: sub_toalla(tn), None),
+    ('Blancos y ropa de cama', ['Sábanas'], SABANAS, lambda tn, sv: sub_sabana(tn), None),
+    ('Blancos y ropa de cama', ['Protectores de colchón'], PROTECTORES, lambda tn, sv: sub_protector(tn), None),
+    ('Autos, bicicletas y motos', ['Llantas'], LLANTAS, lambda tn, sv: sub_llanta(tn), None),
+    ('Muebles', ['Mesas de comedor'], COMEDOR, lambda tn, sv: sub_comedor(tn), None),
+    ('Herramientas', ['Accesorios para herramientas eléctricas'], ACC_ELEC, lambda tn, sv: sub_acc_electrica(tn), None),
+    ('Autos, bicicletas y motos', ['Accesorios para bicicleta'], ACC_BICI, lambda tn, sv: sub_acc_bici(tn), None),
+    ('Autos, bicicletas y motos', ['Bocinas para auto'], BOC_AUTO, lambda tn, sv: sub_bocina_auto(tn), None),
+]
