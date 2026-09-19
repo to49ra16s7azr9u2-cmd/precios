@@ -2442,6 +2442,10 @@ def render_brand_page(nombre, slug, products, data):
         f"{len(products)} productos.{rango}{cats_note}"
     )
 
+    logo = logo_de_marca(slug)
+    logo_titulo = (f'<img class="marca-logo-titulo" src="../../{logo}" alt="Logo de {html_escape(nombre)}">'
+                   if logo else svg_icon("tag"))
+
     ranked = sorted(products, key=lambda p: (total_review_count(p), seller_total(p)), reverse=True)
     shown = ranked[:STATIC_LIST_CAP]
     rows = []
@@ -2526,7 +2530,7 @@ document.addEventListener("DOMContentLoaded", function () {
 """ if len(shown) >= 20 else "")
     body = f"""
 <nav class="breadcrumb"><a href="../../">Inicio</a> &gt; <a href="../">Marcas</a> &gt; {html_escape(nombre)}</nav>
-<div class="list-head"><h1>{svg_icon("tag")} {html_escape(nombre)} — comparar precios ({len(products)})</h1></div>
+<div class="list-head"><h1>{logo_titulo} {html_escape(nombre)} — comparar precios ({len(products)})</h1></div>
 <p class="muted small">{html_escape(description)}</p>
 {NOTA_LAG_HTML}
 {buscador}
@@ -2554,16 +2558,38 @@ document.addEventListener("DOMContentLoaded", function () {
     )
 
 
+def logo_de_marca(slug):
+    """Ruta relativa a la raíz del logo bajado por build_marcas_logos.py, o None."""
+    ruta = os.path.join(ROOT, "icons", "marcas", slug + ".png")
+    return f"icons/marcas/{slug}.png" if os.path.exists(ruta) else None
+
+
+def iniciales_de(nombre):
+    return "".join(w[0] for w in nombre.split()[:2] if w).upper()
+
+
 def render_brand_index(marcas):
     total = sum(len(items) for _, _, items in marcas)
     description = (
         f"Todas las marcas que compara ComparaMEX: {len(marcas)} marcas y "
         f"{total:,} productos con precios de varias tiendas de México."
     )
-    filas = "".join(
-        f'<a class="chip" href="{slug}/">{html_escape(nombre)} ({len(items)})</a>'
-        for nombre, slug, items in marcas
-    )
+    # Cada marca es una tarjeta con su logo (icons/marcas/, bajado de
+    # Wikidata o del sitio oficial) o, si no lo hay, sus iniciales en el
+    # mismo recuadro. El nombre y la cuenta van siempre en texto: eso es lo
+    # que filtra el buscador y lo que lee Google.
+    filas = []
+    for nombre, slug, items in marcas:
+        logo = logo_de_marca(slug)
+        cuadro = (f'<img src="../{logo}" alt="" loading="lazy" decoding="async">' if logo
+                  else html_escape(iniciales_de(nombre)))
+        filas.append(
+            f'<a class="marca-card{" has-logo" if logo else ""}" href="{slug}/">'
+            f'<span class="marca-card-logo" aria-hidden="true">{cuadro}</span>'
+            f'<span class="marca-card-name">{html_escape(nombre)}</span>'
+            f'<span class="marca-card-count">{len(items):,} productos</span></a>'
+        )
+    filas = "".join(filas)
     # 779 chips no se recorren con la vista. El filtro es JS suelto sobre lo
     # que ya está en el HTML: no pide nada al servidor, no cambia la URL y si
     # el JS no corre la lista sigue completa y enlazada, que es lo que ve
@@ -2580,13 +2606,13 @@ document.addEventListener("DOMContentLoaded", function () {
   var caja = document.getElementById("marcaFiltroCaja");
   var campo = document.getElementById("marcaFiltro");
   var cuenta = document.getElementById("marcaFiltroCuenta");
-  var chips = Array.prototype.slice.call(document.querySelectorAll("#marcaLista .chip"));
+  var chips = Array.prototype.slice.call(document.querySelectorAll("#marcaLista .marca-card"));
   if (!caja || !campo || !chips.length) return;
   caja.hidden = false;
   var sinAcentos = function (s) {
     return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   };
-  var textos = chips.map(function (c) { return sinAcentos(c.textContent); });
+  var textos = chips.map(function (c) { var n = c.querySelector(".marca-card-name"); return sinAcentos(n ? n.textContent : c.textContent); });
   var filtrar = function () {
     var q = sinAcentos(campo.value.trim());
     var visibles = 0;
@@ -2606,7 +2632,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="list-head"><h1>{svg_icon("tag")} Marcas ({len(marcas)})</h1></div>
 <p class="muted small">{html_escape(description)}</p>
 {buscador}
-<div class="panel"><div class="chip-row" id="marcaLista">{filas}</div></div>
+<div class="panel"><div class="marca-grid" id="marcaLista">{filas}</div></div>
 """
     return page_shell(
         title="Marcas comparadas — ComparaMEX",

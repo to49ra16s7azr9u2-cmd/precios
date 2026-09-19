@@ -49,9 +49,19 @@ def main():
 
     data = load_catalog()
     marcas = sorted(marcas_con_pagina(data), key=lambda m: -len(m[2]))
-    salida = [{"n": nombre, "s": slug, "c": len(items)} for nombre, slug, items in marcas]
+    # "l": 1 cuando icons/marcas/<slug>.png existe (lo baja
+    # build_marcas_logos.py): la portada pinta el logo solo en esas y las
+    # iniciales en el resto, sin pedir 987 imágenes para ver cuáles hay.
+    con_logo = 0
+    salida = []
+    for nombre, slug, items in marcas:
+        m = {"n": nombre, "s": slug, "c": len(items)}
+        if os.path.exists(os.path.join(ROOT, "icons", "marcas", slug + ".png")):
+            m["l"] = 1
+            con_logo += 1
+        salida.append(m)
     cuerpo = json.dumps(salida, ensure_ascii=False, separators=(",", ":"))
-    print(f"marcas con página: {len(salida):,}")
+    print(f"marcas con página: {len(salida):,}   con logo: {con_logo:,}")
     print(f"tamaño: {len(cuerpo) / 1024:.0f} KB")
     if salida:
         print("primeras:", ", ".join(f"{m['n']} ({m['c']})" for m in salida[:6]))

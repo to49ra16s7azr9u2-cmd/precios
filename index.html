@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=ffb7d429">
+<link rel="stylesheet" href="css/style.min.css?v=6fa6a677">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -197,6 +197,10 @@
           </div>
           <div id="homePanelMarcas" role="tabpanel" hidden>
             <div class="home-category-box">
+              <div class="home-brand-search">
+                <input id="homeBrandSearch" type="search" placeholder="Buscar marca: Samsung, Bosch, Lego…" aria-label="Buscar marca" autocomplete="off">
+                <span class="home-brand-search-count" id="homeBrandSearchCount"></span>
+              </div>
               <div id="homeBrandGrid" class="home-brand-grid"></div>
             </div>
           </div>
@@ -617,6 +621,7 @@
         <div class="sort-tabs-row">
           <div class="sort-tabs" id="sortTabs"></div>
           <div class="color-filter hidden" id="offerColorFilter"></div>
+          <div class="color-filter store-filter hidden" id="offerStoreFilter" aria-label="Filtrar por tienda"></div>
         </div>
 
         <!-- Antes esto era dos tablas separadas ("verificados" vs
@@ -1070,7 +1075,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=5da795f9"></script>
+<script src="js/app.min.js?v=1c5790bd"></script>
 </div>
 </body>
 </html>

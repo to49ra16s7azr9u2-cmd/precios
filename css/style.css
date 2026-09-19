@@ -2797,6 +2797,37 @@ tr.offer-compare-off { display: none; }
   min-width: 0;
 }
 .home-brand-card:hover { border-color: var(--red); }
+/* El logo va en un recuadro fijo (todas las tarjetas miden lo mismo tenga
+   o no logo la marca); sin logo se ven las iniciales en gris. */
+.home-brand-card-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  margin: 1px 0 5px;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  overflow: hidden;
+}
+.home-brand-card-logo img { max-width: 88%; max-height: 36px; object-fit: contain; }
+.home-brand-search { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; }
+.home-brand-search input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font: inherit;
+  font-size: 14px;
+  background: #fff;
+  color: var(--ink);
+}
+.home-brand-search input:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(227, 6, 19, .12); }
+.home-brand-search-count { font-size: 12px; color: var(--muted); white-space: nowrap; }
 .home-brand-card-name {
   font-size: 12.5px;
   font-weight: 700;
@@ -3974,6 +4005,14 @@ tr.offer-compare-off { display: none; }
   white-space: nowrap;
 }
 .color-chip:hover { border-color: var(--red); }
+/* Pastillas de tienda en la comparación: logo o punto del color de la
+   tienda, y cuántas ofertas tiene. Van en su propia fila para no
+   mezclarse con las de color. */
+.store-filter { flex-basis: 100%; }
+.store-chip-logo { width: 16px; height: 16px; object-fit: contain; border-radius: 3px; }
+.store-chip-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.store-chip-count { color: var(--muted); font-weight: 500; }
+.color-chip.active .store-chip-count { color: inherit; }
 .color-chip.active { border-color: var(--red); background: var(--red-tint); color: var(--red-dark); }
 .color-chip-dot {
   width: 11px; height: 11px; border-radius: var(--radius-circle);
@@ -3992,6 +4031,60 @@ tr.offer-compare-off { display: none; }
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+/* /marca/: la rejilla de todas las marcas, con logo (icons/marcas/) o las
+   iniciales, y el mismo recuadro para todas. */
+.marca-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+}
+.marca-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
+  min-width: 0;
+}
+.marca-card:hover { border-color: var(--red); }
+.marca-card-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  margin: 1px 0 6px;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  overflow: hidden;
+}
+.marca-card-logo img { max-width: 88%; max-height: 40px; object-fit: contain; }
+.marca-card-name { font-size: 13px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.marca-card-count { font-size: 11px; color: var(--muted); }
+.marca-filtro {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font: inherit;
+  font-size: 14px;
+}
+.marca-logo-titulo {
+  display: inline-block;
+  vertical-align: middle;
+  height: 36px;
+  max-width: 120px;
+  margin-right: 10px;
+  object-fit: contain;
 }
 .chip {
   display: inline-block;

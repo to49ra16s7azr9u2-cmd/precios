@@ -445,6 +445,9 @@
     specMulti: true,
     // Color elegido en la ficha (pastillas bajo el precio). null = todos.
     colorFilter: null,
+    // Tiendas elegidas en la tabla de comparación (storeId). Vacío = todas.
+    // Se pueden combinar: "solo Amazon y Mercado Libre", "solo Elektra"...
+    storeFilter: new Set(),
     qualityCategory: null, // categoría a la que pertenece `quality` (ver renderSpecsBanner)
     page: 1, // página actual de la lista/ranking (ver PAGE_SIZE)
     sort: "relevance",
@@ -474,6 +477,8 @@
     homeRankingLinks: document.getElementById("homeRankingLinks"),
     homeCatRanking: document.getElementById("homeCatRanking"),
     homeBrandGrid: document.getElementById("homeBrandGrid"),
+    homeBrandSearch: document.getElementById("homeBrandSearch"),
+    homeBrandSearchCount: document.getElementById("homeBrandSearchCount"),
     homeElige: document.getElementById("homeElige"),
     homeTipsBtn: document.getElementById("homeTipsBtn"),
     homeTipsPanel: document.getElementById("homeTipsPanel"),
@@ -628,6 +633,7 @@
     detailColors: document.getElementById("detailColors"),
     detailColorFilter: document.getElementById("detailColorFilter"),
     offerColorFilter: document.getElementById("offerColorFilter"),
+    offerStoreFilter: document.getElementById("offerStoreFilter"),
     detailFromPrice: document.getElementById("detailFromPrice"),
     detailCompareBtn: document.getElementById("detailCompareBtn"),
     detailFavBtn: document.getElementById("detailFavBtn"),
@@ -2943,6 +2949,47 @@
     return brandIndexPromise;
   }
 
+  // Sin texto en el buscador se ven las 60 marcas con más productos y el
+  // enlace a todas; con texto, todas las que lo contienen (sin acentos ni
+  // mayúsculas), hasta un tope para no pintar cientos de tarjetas.
+  const BRAND_GRID_BUSCADAS = 200;
+  let brandGridMarcas = null;
+  const sinAcentosMarca = (s) => String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+  // La tarjeta: el logo real cuando scripts/build_marcas_logos.py lo bajó
+  // (m.l, que marca build_marcas_index.py) y, si no, las iniciales en un
+  // recuadro del mismo tamaño para que la rejilla no baile. El nombre va
+  // siempre escrito debajo: el logo identifica, el texto se busca y se lee.
+  function homeBrandCardHtml(m) {
+    const iniciales = String(m.n || "").split(/\s+/).slice(0, 2).map((w) => w[0] || "").join("").toUpperCase();
+    const logo = m.l
+      ? `<img src="icons/marcas/${encodeURIComponent(m.s)}.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.textContent='${htmlEscapeAttr(iniciales)}'">`
+      : htmlEscapeAttr(iniciales);
+    return `<a class="home-brand-card${m.l ? " has-logo" : ""}" href="marca/${encodeURIComponent(m.s)}/">` +
+      `<span class="home-brand-card-logo" aria-hidden="true">${logo}</span>` +
+      `<span class="home-brand-card-name">${htmlEscapeAttr(m.n)}</span>` +
+      `<span class="home-brand-card-count">${m.c.toLocaleString("es-MX")} productos</span></a>`;
+  }
+
+  function pintarHomeBrandGrid() {
+    const marcas = brandGridMarcas || [];
+    const q = sinAcentosMarca(el.homeBrandSearch ? el.homeBrandSearch.value.trim() : "");
+    let lista, pie = "";
+    if (q) {
+      const todas = marcas.filter((m) => sinAcentosMarca(m.n).indexOf(q) !== -1);
+      lista = todas.slice(0, BRAND_GRID_BUSCADAS);
+      if (el.homeBrandSearchCount) el.homeBrandSearchCount.textContent = todas.length + " de " + marcas.length + " marcas";
+      if (!todas.length) pie = `<p class="muted small" style="grid-column:1/-1">Ninguna marca se llama así. <a href="marca/">Ver todas las marcas</a>.</p>`;
+      else if (todas.length > lista.length) pie = `<p class="home-brand-grid-more" style="grid-column:1/-1">Se muestran ${lista.length}; afina la búsqueda o <a href="marca/">ve todas</a>.</p>`;
+    } else {
+      lista = marcas.slice(0, BRAND_GRID_VISIBLES);
+      if (el.homeBrandSearchCount) el.homeBrandSearchCount.textContent = "";
+      const resto = marcas.length - BRAND_GRID_VISIBLES;
+      if (resto > 0) pie = `<p class="home-brand-grid-more" style="grid-column:1/-1"><a href="marca/">Ver las ${marcas.length.toLocaleString("es-MX")} marcas →</a></p>`;
+    }
+    el.homeBrandGrid.innerHTML = lista.map(homeBrandCardHtml).join("") + pie;
+  }
+
   function renderHomeBrandGrid() {
     if (!el.homeBrandGrid || el.homeBrandGrid.childElementCount) return;
     el.homeBrandGrid.innerHTML = `<p class="muted small">Cargando marcas…</p>`;
@@ -2954,15 +3001,12 @@
           `<p class="muted small">Ver todas las marcas en <a href="marca/">/marca/</a>.</p>`;
         return;
       }
-      const tarjetas = marcas.slice(0, BRAND_GRID_VISIBLES).map((m) =>
-        `<a class="home-brand-card" href="marca/${encodeURIComponent(m.s)}/">` +
-        `<span class="home-brand-card-name">${htmlEscapeAttr(m.n)}</span>` +
-        `<span class="home-brand-card-count">${m.c.toLocaleString("es-MX")} productos</span></a>`
-      ).join("");
-      const resto = marcas.length - BRAND_GRID_VISIBLES;
-      el.homeBrandGrid.innerHTML = tarjetas + (resto > 0
-        ? `<p class="home-brand-grid-more" style="grid-column:1/-1"><a href="marca/">Ver las ${marcas.length.toLocaleString("es-MX")} marcas →</a></p>`
-        : "");
+      brandGridMarcas = marcas;
+      if (el.homeBrandSearch && !el.homeBrandSearch.dataset.listo) {
+        el.homeBrandSearch.dataset.listo = "1";
+        el.homeBrandSearch.addEventListener("input", pintarHomeBrandGrid);
+      }
+      pintarHomeBrandGrid();
     });
   }
 
@@ -5939,6 +5983,7 @@
     // lo tenía, escondiendo el resto sin que nadie lo hubiera pedido).
     if (colorFilterProduct !== productId) {
       state.colorFilter = null;
+      state.storeFilter = new Set();
       colorFilterProduct = productId;
     }
 
@@ -6160,7 +6205,54 @@
       el.sortTabs.appendChild(btn);
     });
     const product = currentProduct();
-    if (product) colorFilterButtons(el.offerColorFilter, product);
+    if (product) {
+      colorFilterButtons(el.offerColorFilter, product);
+      storeFilterButtons(el.offerStoreFilter, product);
+    }
+  }
+
+  // Pastillas para quedarse solo con las tiendas que interesan (a pedido
+  // del usuario: "solo Amazon y Mercado Libre", "solo Elektra"). Se
+  // combinan: cada clic enciende o apaga una tienda; "Todas" las apaga
+  // todas. Solo aparecen cuando la ficha tiene ofertas de dos o más
+  // tiendas: con una sola no hay nada que filtrar.
+  function storeFilterButtons(container, product) {
+    if (!container) return;
+    const filas = sellerRows(product);
+    const porTienda = new Map();
+    for (const o of filas) porTienda.set(o.storeId, (porTienda.get(o.storeId) || 0) + 1);
+    // Las tiendas elegidas que ya no están (cambió el color, por ejemplo)
+    // se olvidan: si no, la tabla quedaría vacía sin ninguna pastilla activa.
+    for (const id of Array.from(state.storeFilter)) if (!porTienda.has(id)) state.storeFilter.delete(id);
+    if (porTienda.size < 2) {
+      container.innerHTML = "";
+      container.classList.add("hidden");
+      return;
+    }
+    container.classList.remove("hidden");
+    const tiendas = Array.from(porTienda.keys()).map((id) => ({ id, store: storeById(id), n: porTienda.get(id) }));
+    tiendas.sort((a, b) => b.n - a.n || a.store.name.localeCompare(b.store.name, "es"));
+    const ninguna = state.storeFilter.size === 0;
+    const pastilla = (id, activa, dentro) =>
+      `<button type="button" class="color-chip store-chip${activa ? " active" : ""}" data-store="${htmlEscapeAttr(id)}" aria-pressed="${activa}">${dentro}</button>`;
+    container.innerHTML = pastilla("", ninguna, "Todas las tiendas") + tiendas.map((t) => {
+      const logo = t.store.logoImg
+        ? `<img class="store-chip-logo" src="${htmlEscapeAttr(t.store.logoImg)}" alt="" loading="lazy">`
+        : `<span class="store-chip-dot" style="background:${htmlEscapeAttr(t.store.color || "#999")}"></span>`;
+      return pastilla(t.id, state.storeFilter.has(t.id), `${logo}${htmlEscapeAttr(t.store.name)} <span class="store-chip-count">${t.n}</span>`);
+    }).join("");
+    container.querySelectorAll(".store-chip").forEach((btn) => {
+      btn.onclick = () => {
+        const id = btn.dataset.store;
+        if (!id) state.storeFilter.clear();
+        else if (state.storeFilter.has(id)) state.storeFilter.delete(id);
+        else state.storeFilter.add(id);
+        const p = currentProduct();
+        if (!p) return;
+        storeFilterButtons(container, p);
+        renderOfferTable(p);
+      };
+    });
   }
 
   function updateLocationBtn() {
@@ -6500,6 +6592,13 @@
         shipEstimateFee: shippingFeeInfo(o).estimated ? shippingFeeInfo(o).fee : null,
       };
     });
+
+    // El filtro de tiendas (pastillas de arriba). Si lo elegido dejara la
+    // tabla vacía, se muestran todas antes que una tabla en blanco.
+    if (state.storeFilter.size) {
+      const elegidas = rows.filter((r) => state.storeFilter.has(r.storeId));
+      if (elegidas.length) rows = elegidas;
+    }
 
     if (state.offerSort === "rating") rows.sort((a, b) => (b.rating || 0) - (a.rating || 0));
     else rows.sort((a, b) => a.price - b.price);
