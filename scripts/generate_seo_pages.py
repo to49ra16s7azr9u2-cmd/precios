@@ -913,9 +913,12 @@ def render_product_page(product, data, subs_con_pagina=None):
     )
 
     related = related_products(product, data["products"])
+    # La foto de verdad, como en el resto de las listas: estas tarjetas
+    # llevaban SIEMPRE el icono gris de la categoría, así que cuatro
+    # celulares distintos se veían idénticos y no invitaban a entrar.
     related_items = "".join(
         f'<a class="related-item" href="../../producto/{r["id"]}/">'
-        f'<span class="row-icon">{svg_icon(r.get("image", "box"))}</span>'
+        f'{product_photo_html(r, "row-icon related-icon")}'
         f'<span class="related-name">{html_escape(r["name"])}</span>'
         f'<span class="related-price">{"Desde " if len(r["offers"]) > 1 else ""}{money(min_price(r))}</span>'
         f"</a>"

@@ -47,6 +47,7 @@ REQUIERE el Worker con /by-gtin desplegado:
     cd backend/mercadolibre-worker && npx wrangler deploy
 """
 import argparse
+import datetime
 import json
 import os
 import re
@@ -62,6 +63,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ean_dudosos import ean_utilizable  # noqa: E402
 from data_io import load_catalog, save_catalog  # noqa: E402
 from phone_signature import condition_of  # noqa: E402  -- nuevo/reacondicionado
+
+# Códigos ya preguntados y qué día. Sin esto, cada corrida vuelve a
+# preguntar por los mismos ~70 mil y la cuota del Worker (100 mil al día) se
+# gasta en repetir no-resultados: la corrida del 18 de septiembre se quedó a
+# 25 mil del final por eso. Un no-resultado no es para siempre (el vendedor
+# puede publicar mañana), así que se reconsulta a los 30 días.
+CONSULTADOS = "data/gtin-consultados.json"
+DIAS_RECONSULTA = 30
 
 BY_GTIN = "https://comparamx-mercadolibre-proxy.comparamx.workers.dev/by-gtin"
 ITEM = "https://comparamx-mercadolibre-proxy.comparamx.workers.dev/item"
@@ -149,6 +158,20 @@ def get_json(url, retries=2):
                 return _get_curl(url)
             time.sleep(1.5 * (attempt + 1))
     return None
+
+
+def leer_consultados():
+    ruta = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), CONSULTADOS)
+    if not os.path.exists(ruta):
+        return {}
+    with open(ruta, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def guardar_consultados(mapa):
+    ruta = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), CONSULTADOS)
+    with open(ruta, "w", encoding="utf-8") as f:
+        json.dump(mapa, f, separators=(",", ":"), sort_keys=True)
 
 
 def candidates(products, store=None):
@@ -262,11 +285,21 @@ def main():
     ap.add_argument("--concurrency", type=int, default=4)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--store", help="solo productos con oferta de esta tienda (p. ej. chedraui)")
+    ap.add_argument("--todos", action="store_true",
+                    help="no saltar los códigos ya preguntados (ignora data/gtin-consultados.json)")
+    ap.add_argument("--reconsultar-dias", type=int, default=DIAS_RECONSULTA,
+                    help="volver a preguntar un código sin resultado después de tantos días")
     args = ap.parse_args()
 
     data = load_catalog()
     todo = candidates(data["products"], args.store)
     print(f"Productos con código de barras y sin oferta de Mercado Libre: {len(todo)}")
+    consultados = {} if args.todos else leer_consultados()
+    if consultados:
+        corte = (datetime.date.today() - datetime.timedelta(days=args.reconsultar_dias)).isoformat()
+        antes = len(todo)
+        todo = [(p, g) for p, g in todo if consultados.get(g, "") < corte]
+        print(f"Ya preguntados hace menos de {args.reconsultar_dias} días: {antes - len(todo)}   quedan: {len(todo)}")
     todo = todo[args.offset:]
     if args.limit:
         todo = todo[: args.limit]
@@ -304,12 +337,18 @@ def main():
         offer, info = ml_offer_for(gtin, product.get("name", ""))
         with lock:
             stats["consultados"] += 1
+            # Solo cuenta como preguntado lo que el Worker contestó: un fallo
+            # de red o de cuota no dice nada del código y hay que reintentarlo.
+            if offer is not None or info not in ("sin_respuesta", "error_worker"):
+                preguntados.append(gtin)
             if offer is None:
                 stats[info] = stats.get(info, 0) + 1
                 return
             product.setdefault("offers", []).append(offer)
             stats["unidos"] += 1
             unidos.append((product["id"], product["name"], gtin, info.get("name"), offer["price"]))
+
+    preguntados = []
 
     with ThreadPoolExecutor(max_workers=args.concurrency) as pool:
         list(pool.map(work, todo))
@@ -327,6 +366,13 @@ def main():
     if args.dry_run:
         print("\n(--dry-run: no se guardó nada)")
         return
+    if preguntados:
+        mapa = leer_consultados()
+        hoy = datetime.date.today().isoformat()
+        for g in preguntados:
+            mapa[g] = hoy
+        guardar_consultados(mapa)
+        print(f"\nAnotados {len(preguntados)} códigos preguntados ({len(mapa)} en total).")
     if unidos:
         save_catalog(data)
         print(f"\nGuardado: {len(unidos)} productos ahora comparan precio entre dos tiendas.")
