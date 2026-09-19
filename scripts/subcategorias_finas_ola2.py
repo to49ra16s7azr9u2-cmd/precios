@@ -660,7 +660,7 @@ def sub_audifono_inal(tn):
 COLCHONES = ['Colchones individuales', 'Colchones matrimoniales', 'Colchones queen size', 'Colchones king size',
              'Colchones infantiles y de cuna', 'Colchones plegables y de sofá cama', 'Toppers y sobrecolchones', 'Colchones']
 _COL = _c([
-    ('Toppers y sobrecolchones', r'\btopper|\bsobrecolchon|\bcubre ?colchon|\bmattress topper|\bprotector'),
+    ('Toppers y sobrecolchones', r'^(?:\S+ ){0,3}(topper|sobrecolchon|cubre ?colchon|mattress topper|protector (de|para) colchon)\b'),
     ('Colchones infantiles y de cuna', r'\bcuna|\binfantil|\bpara ninos?\b|\bbebe|\bcrib\b|\bmoises|\bcorral'),
     ('Colchones plegables y de sofá cama', r'\bplegable|\bsofa cama|\bfuton|\bde suelo|\btatami|\bcolchoneta|\bcamping|\binflable|\bde aire\b|\bde viaje|\benrollable'),
 ])

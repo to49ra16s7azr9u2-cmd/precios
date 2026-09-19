@@ -95,6 +95,36 @@
       "icon": "charger",
       "subcategories": [
         {
+          "id": "Cargadores de pared hasta 20 W",
+          "name": "Cargadores de pared hasta 20 W",
+          "icon": "charger"
+        },
+        {
+          "id": "Cargadores de pared de 25 a 45 W",
+          "name": "Cargadores de pared de 25 a 45 W",
+          "icon": "charger"
+        },
+        {
+          "id": "Cargadores de pared de 65 W o más",
+          "name": "Cargadores de pared de 65 W o más",
+          "icon": "charger"
+        },
+        {
+          "id": "Cargadores multipuerto y estaciones de carga",
+          "name": "Cargadores multipuerto y estaciones de carga",
+          "icon": "charger"
+        },
+        {
+          "id": "Cargadores de pared con cable",
+          "name": "Cargadores de pared con cable",
+          "icon": "charger"
+        },
+        {
+          "id": "Cargadores para reloj y accesorios pequeños",
+          "name": "Cargadores para reloj y accesorios pequeños",
+          "icon": "charger"
+        },
+        {
           "id": "De pared",
           "name": "De pared",
           "icon": "charger"
@@ -415,18 +445,48 @@
           "icon": "headphones"
         },
         {
-          "id": "Diadema inalámbrica",
-          "name": "Diadema inalámbrica",
+          "id": "Earbuds con cancelación de ruido",
+          "name": "Earbuds con cancelación de ruido",
           "icon": "headphones"
         },
         {
-          "id": "Earbuds con cable",
-          "name": "Earbuds con cable",
+          "id": "Earbuds deportivos",
+          "name": "Earbuds deportivos",
+          "icon": "headphones"
+        },
+        {
+          "id": "Earbuds de cuello",
+          "name": "Earbuds de cuello",
+          "icon": "headphones"
+        },
+        {
+          "id": "Earbuds para niños",
+          "name": "Earbuds para niños",
           "icon": "headphones"
         },
         {
           "id": "Earbuds inalámbricos",
           "name": "Earbuds inalámbricos",
+          "icon": "headphones"
+        },
+        {
+          "id": "Diadema con cancelación de ruido",
+          "name": "Diadema con cancelación de ruido",
+          "icon": "headphones"
+        },
+        {
+          "id": "Diadema inalámbrica",
+          "name": "Diadema inalámbrica",
+          "icon": "headphones"
+        },
+        {
+          "id": "Almohadillas y repuestos",
+          "name": "Almohadillas y repuestos",
+          "icon": "headphones"
+        },
+        {
+          "id": "Earbuds con cable",
+          "name": "Earbuds con cable",
           "icon": "headphones"
         },
         {
@@ -446,6 +506,36 @@
       "name": "Teclados",
       "icon": "keyboard",
       "subcategories": [
+        {
+          "id": "Mecánicos 60% y compactos",
+          "name": "Mecánicos 60% y compactos",
+          "icon": "keyboard"
+        },
+        {
+          "id": "Mecánicos 65% y 75%",
+          "name": "Mecánicos 65% y 75%",
+          "icon": "keyboard"
+        },
+        {
+          "id": "Mecánicos TKL (80%)",
+          "name": "Mecánicos TKL (80%)",
+          "icon": "keyboard"
+        },
+        {
+          "id": "Mecánicos tamaño completo",
+          "name": "Mecánicos tamaño completo",
+          "icon": "keyboard"
+        },
+        {
+          "id": "Mecánicos inalámbricos",
+          "name": "Mecánicos inalámbricos",
+          "icon": "keyboard"
+        },
+        {
+          "id": "Switches, keycaps y accesorios",
+          "name": "Switches, keycaps y accesorios",
+          "icon": "keyboard"
+        },
         {
           "id": "Mecánicos",
           "name": "Mecánicos",
@@ -877,6 +967,66 @@
           "icon": "appliance"
         },
         {
+          "id": "Tostadoras",
+          "name": "Tostadoras",
+          "icon": "appliance"
+        },
+        {
+          "id": "Arroceras y ollas multiusos",
+          "name": "Arroceras y ollas multiusos",
+          "icon": "appliance"
+        },
+        {
+          "id": "Wafleras, sandwicheras y creperas",
+          "name": "Wafleras, sandwicheras y creperas",
+          "icon": "appliance"
+        },
+        {
+          "id": "Batidoras y amasadoras",
+          "name": "Batidoras y amasadoras",
+          "icon": "appliance"
+        },
+        {
+          "id": "Máquinas de helados y postres",
+          "name": "Máquinas de helados y postres",
+          "icon": "appliance"
+        },
+        {
+          "id": "Freidoras eléctricas",
+          "name": "Freidoras eléctricas",
+          "icon": "appliance"
+        },
+        {
+          "id": "Molinos y procesadores",
+          "name": "Molinos y procesadores",
+          "icon": "appliance"
+        },
+        {
+          "id": "Parrillas y planchas eléctricas",
+          "name": "Parrillas y planchas eléctricas",
+          "icon": "appliance"
+        },
+        {
+          "id": "Vaporeras y hervidores de huevos",
+          "name": "Vaporeras y hervidores de huevos",
+          "icon": "appliance"
+        },
+        {
+          "id": "Máquinas de palomitas y snacks",
+          "name": "Máquinas de palomitas y snacks",
+          "icon": "appliance"
+        },
+        {
+          "id": "Máquinas de pan y pasta",
+          "name": "Máquinas de pan y pasta",
+          "icon": "appliance"
+        },
+        {
+          "id": "Otros electrodomésticos de cocina",
+          "name": "Otros electrodomésticos de cocina",
+          "icon": "appliance"
+        },
+        {
           "id": "Pequeños electrodomésticos de cocina",
           "name": "Pequeños electrodomésticos de cocina",
           "icon": "appliance"
@@ -1066,11 +1216,6 @@
           "icon": "sofa"
         },
         {
-          "id": "Sillones y reclinables",
-          "name": "Sillones y reclinables",
-          "icon": "sofa"
-        },
-        {
           "id": "Sillas de exterior",
           "name": "Sillas de exterior",
           "icon": "sofa"
@@ -1091,6 +1236,46 @@
           "icon": "sofa"
         },
         {
+          "id": "Escritorios de oficina",
+          "name": "Escritorios de oficina",
+          "icon": "sofa"
+        },
+        {
+          "id": "Escritorios gamer",
+          "name": "Escritorios gamer",
+          "icon": "sofa"
+        },
+        {
+          "id": "Escritorios en L y esquineros",
+          "name": "Escritorios en L y esquineros",
+          "icon": "sofa"
+        },
+        {
+          "id": "Escritorios de altura ajustable",
+          "name": "Escritorios de altura ajustable",
+          "icon": "sofa"
+        },
+        {
+          "id": "Escritorios infantiles y estudiantiles",
+          "name": "Escritorios infantiles y estudiantiles",
+          "icon": "sofa"
+        },
+        {
+          "id": "Mesas para laptop y de cama",
+          "name": "Mesas para laptop y de cama",
+          "icon": "sofa"
+        },
+        {
+          "id": "Escritorios plegables y compactos",
+          "name": "Escritorios plegables y compactos",
+          "icon": "sofa"
+        },
+        {
+          "id": "Accesorios y organizadores de escritorio",
+          "name": "Accesorios y organizadores de escritorio",
+          "icon": "sofa"
+        },
+        {
           "id": "Escritorios",
           "name": "Escritorios",
           "icon": "sofa"
@@ -1106,6 +1291,76 @@
           "icon": "sofa"
         },
         {
+          "id": "Mesas auxiliares y laterales",
+          "name": "Mesas auxiliares y laterales",
+          "icon": "sofa"
+        },
+        {
+          "id": "Mesas para TV y consolas",
+          "name": "Mesas para TV y consolas",
+          "icon": "sofa"
+        },
+        {
+          "id": "Mesas de cama y con ruedas",
+          "name": "Mesas de cama y con ruedas",
+          "icon": "sofa"
+        },
+        {
+          "id": "Mesas plegables y multiusos",
+          "name": "Mesas plegables y multiusos",
+          "icon": "sofa"
+        },
+        {
+          "id": "Mesas de exterior",
+          "name": "Mesas de exterior",
+          "icon": "sofa"
+        },
+        {
+          "id": "Bases de cama y box",
+          "name": "Bases de cama y box",
+          "icon": "sofa"
+        },
+        {
+          "id": "Cabeceras",
+          "name": "Cabeceras",
+          "icon": "sofa"
+        },
+        {
+          "id": "Camas individuales",
+          "name": "Camas individuales",
+          "icon": "sofa"
+        },
+        {
+          "id": "Camas matrimoniales",
+          "name": "Camas matrimoniales",
+          "icon": "sofa"
+        },
+        {
+          "id": "Camas queen y king",
+          "name": "Camas queen y king",
+          "icon": "sofa"
+        },
+        {
+          "id": "Literas",
+          "name": "Literas",
+          "icon": "sofa"
+        },
+        {
+          "id": "Camas infantiles",
+          "name": "Camas infantiles",
+          "icon": "sofa"
+        },
+        {
+          "id": "Camas plegables y catres",
+          "name": "Camas plegables y catres",
+          "icon": "sofa"
+        },
+        {
+          "id": "Accesorios y refacciones de cama",
+          "name": "Accesorios y refacciones de cama",
+          "icon": "sofa"
+        },
+        {
           "id": "Camas",
           "name": "Camas",
           "icon": "sofa"
@@ -1118,6 +1373,41 @@
         {
           "id": "Burós",
           "name": "Burós",
+          "icon": "sofa"
+        },
+        {
+          "id": "Colchones individuales",
+          "name": "Colchones individuales",
+          "icon": "sofa"
+        },
+        {
+          "id": "Colchones matrimoniales",
+          "name": "Colchones matrimoniales",
+          "icon": "sofa"
+        },
+        {
+          "id": "Colchones queen size",
+          "name": "Colchones queen size",
+          "icon": "sofa"
+        },
+        {
+          "id": "Colchones king size",
+          "name": "Colchones king size",
+          "icon": "sofa"
+        },
+        {
+          "id": "Colchones infantiles y de cuna",
+          "name": "Colchones infantiles y de cuna",
+          "icon": "sofa"
+        },
+        {
+          "id": "Colchones plegables y de sofá cama",
+          "name": "Colchones plegables y de sofá cama",
+          "icon": "sofa"
+        },
+        {
+          "id": "Toppers y sobrecolchones",
+          "name": "Toppers y sobrecolchones",
           "icon": "sofa"
         },
         {
@@ -1151,13 +1441,48 @@
           "icon": "sofa"
         },
         {
-          "id": "Sofás",
-          "name": "Sofás",
+          "id": "Mesas de comedor",
+          "name": "Mesas de comedor",
           "icon": "sofa"
         },
         {
-          "id": "Mesas de comedor",
-          "name": "Mesas de comedor",
+          "id": "Sofás de 2 y 3 plazas",
+          "name": "Sofás de 2 y 3 plazas",
+          "icon": "sofa"
+        },
+        {
+          "id": "Sofás seccionales y esquineros",
+          "name": "Sofás seccionales y esquineros",
+          "icon": "sofa"
+        },
+        {
+          "id": "Sofás cama",
+          "name": "Sofás cama",
+          "icon": "sofa"
+        },
+        {
+          "id": "Sillones de masaje",
+          "name": "Sillones de masaje",
+          "icon": "sofa"
+        },
+        {
+          "id": "Sofás infantiles",
+          "name": "Sofás infantiles",
+          "icon": "sofa"
+        },
+        {
+          "id": "Puffs y otomanas",
+          "name": "Puffs y otomanas",
+          "icon": "sofa"
+        },
+        {
+          "id": "Fundas y accesorios para sofá",
+          "name": "Fundas y accesorios para sofá",
+          "icon": "sofa"
+        },
+        {
+          "id": "Sillones y reclinables",
+          "name": "Sillones y reclinables",
           "icon": "sofa"
         },
         {
@@ -1250,6 +1575,41 @@
         {
           "id": "Accesorios para herramientas eléctricas",
           "name": "Accesorios para herramientas eléctricas",
+          "icon": "wrench"
+        },
+        {
+          "id": "Juegos de herramientas",
+          "name": "Juegos de herramientas",
+          "icon": "wrench"
+        },
+        {
+          "id": "Llaves y dados",
+          "name": "Llaves y dados",
+          "icon": "wrench"
+        },
+        {
+          "id": "Desarmadores y puntas",
+          "name": "Desarmadores y puntas",
+          "icon": "wrench"
+        },
+        {
+          "id": "Pinzas y alicates",
+          "name": "Pinzas y alicates",
+          "icon": "wrench"
+        },
+        {
+          "id": "Martillos, cinceles y mazos",
+          "name": "Martillos, cinceles y mazos",
+          "icon": "wrench"
+        },
+        {
+          "id": "Herramientas de corte manual",
+          "name": "Herramientas de corte manual",
+          "icon": "wrench"
+        },
+        {
+          "id": "Prensas y sujeción",
+          "name": "Prensas y sujeción",
           "icon": "wrench"
         },
         {
@@ -1638,6 +1998,31 @@
           "icon": "box"
         },
         {
+          "id": "Cargadores solares portátiles",
+          "name": "Cargadores solares portátiles",
+          "icon": "box"
+        },
+        {
+          "id": "Kits solares y controladores de carga",
+          "name": "Kits solares y controladores de carga",
+          "icon": "box"
+        },
+        {
+          "id": "Accesorios y limpieza de paneles solares",
+          "name": "Accesorios y limpieza de paneles solares",
+          "icon": "box"
+        },
+        {
+          "id": "Luces y ventiladores solares",
+          "name": "Luces y ventiladores solares",
+          "icon": "box"
+        },
+        {
+          "id": "Bombas y calentadores solares",
+          "name": "Bombas y calentadores solares",
+          "icon": "box"
+        },
+        {
           "id": "Radios",
           "name": "Radios",
           "icon": "box"
@@ -1895,6 +2280,51 @@
           "icon": "guitar"
         },
         {
+          "id": "Baterías acústicas",
+          "name": "Baterías acústicas",
+          "icon": "guitar"
+        },
+        {
+          "id": "Baterías electrónicas",
+          "name": "Baterías electrónicas",
+          "icon": "guitar"
+        },
+        {
+          "id": "Platillos",
+          "name": "Platillos",
+          "icon": "guitar"
+        },
+        {
+          "id": "Baquetas y escobillas",
+          "name": "Baquetas y escobillas",
+          "icon": "guitar"
+        },
+        {
+          "id": "Parches",
+          "name": "Parches",
+          "icon": "guitar"
+        },
+        {
+          "id": "Pedales y herrajes de batería",
+          "name": "Pedales y herrajes de batería",
+          "icon": "guitar"
+        },
+        {
+          "id": "Tarolas y cajas",
+          "name": "Tarolas y cajas",
+          "icon": "guitar"
+        },
+        {
+          "id": "Pads de práctica",
+          "name": "Pads de práctica",
+          "icon": "guitar"
+        },
+        {
+          "id": "Fundas y accesorios de batería",
+          "name": "Fundas y accesorios de batería",
+          "icon": "guitar"
+        },
+        {
           "id": "Baterías",
           "name": "Baterías",
           "icon": "guitar"
@@ -1902,6 +2332,46 @@
         {
           "id": "Percusión",
           "name": "Percusión",
+          "icon": "guitar"
+        },
+        {
+          "id": "Saxofones",
+          "name": "Saxofones",
+          "icon": "guitar"
+        },
+        {
+          "id": "Flautas traversas",
+          "name": "Flautas traversas",
+          "icon": "guitar"
+        },
+        {
+          "id": "Clarinetes y oboes",
+          "name": "Clarinetes y oboes",
+          "icon": "guitar"
+        },
+        {
+          "id": "Trompetas, trombones y metales",
+          "name": "Trompetas, trombones y metales",
+          "icon": "guitar"
+        },
+        {
+          "id": "Armónicas y melódicas",
+          "name": "Armónicas y melódicas",
+          "icon": "guitar"
+        },
+        {
+          "id": "Ocarinas, silbatos y flautas dulces",
+          "name": "Ocarinas, silbatos y flautas dulces",
+          "icon": "guitar"
+        },
+        {
+          "id": "Instrumentos de viento digitales",
+          "name": "Instrumentos de viento digitales",
+          "icon": "guitar"
+        },
+        {
+          "id": "Boquillas, cañas y accesorios de viento",
+          "name": "Boquillas, cañas y accesorios de viento",
           "icon": "guitar"
         },
         {
@@ -1920,8 +2390,33 @@
           "icon": "guitar"
         },
         {
-          "id": "Teclados",
-          "name": "Teclados",
+          "id": "Pianos digitales",
+          "name": "Pianos digitales",
+          "icon": "guitar"
+        },
+        {
+          "id": "Teclados electrónicos",
+          "name": "Teclados electrónicos",
+          "icon": "guitar"
+        },
+        {
+          "id": "Sintetizadores y controladores MIDI",
+          "name": "Sintetizadores y controladores MIDI",
+          "icon": "guitar"
+        },
+        {
+          "id": "Acordeones",
+          "name": "Acordeones",
+          "icon": "guitar"
+        },
+        {
+          "id": "Órganos y otros teclados",
+          "name": "Órganos y otros teclados",
+          "icon": "guitar"
+        },
+        {
+          "id": "Bancos, soportes y accesorios de teclado",
+          "name": "Bancos, soportes y accesorios de teclado",
           "icon": "guitar"
         },
         {
@@ -2056,6 +2551,36 @@
           "icon": "bulb"
         },
         {
+          "id": "Lámparas colgantes",
+          "name": "Lámparas colgantes",
+          "icon": "bulb"
+        },
+        {
+          "id": "Candiles y arañas",
+          "name": "Candiles y arañas",
+          "icon": "bulb"
+        },
+        {
+          "id": "Plafones y lámparas de sobreponer",
+          "name": "Plafones y lámparas de sobreponer",
+          "icon": "bulb"
+        },
+        {
+          "id": "Rieles y spots",
+          "name": "Rieles y spots",
+          "icon": "bulb"
+        },
+        {
+          "id": "Lámparas industriales y de nave",
+          "name": "Lámparas industriales y de nave",
+          "icon": "bulb"
+        },
+        {
+          "id": "Lámparas de techo para exterior",
+          "name": "Lámparas de techo para exterior",
+          "icon": "bulb"
+        },
+        {
           "id": "Lámparas de techo",
           "name": "Lámparas de techo",
           "icon": "bulb"
@@ -2156,6 +2681,56 @@
           "id": "Otros",
           "name": "Otros",
           "icon": "box"
+        },
+        {
+          "id": "Alimentación y lactancia",
+          "name": "Alimentación y lactancia",
+          "icon": "toy"
+        },
+        {
+          "id": "Baño e higiene del bebé",
+          "name": "Baño e higiene del bebé",
+          "icon": "toy"
+        },
+        {
+          "id": "Pañales y cambio",
+          "name": "Pañales y cambio",
+          "icon": "toy"
+        },
+        {
+          "id": "Chupones y mordederas",
+          "name": "Chupones y mordederas",
+          "icon": "toy"
+        },
+        {
+          "id": "Seguridad para bebé",
+          "name": "Seguridad para bebé",
+          "icon": "toy"
+        },
+        {
+          "id": "Ropa y calzado de bebé",
+          "name": "Ropa y calzado de bebé",
+          "icon": "toy"
+        },
+        {
+          "id": "Juguetes para bebé",
+          "name": "Juguetes para bebé",
+          "icon": "toy"
+        },
+        {
+          "id": "Portabebés y canguros",
+          "name": "Portabebés y canguros",
+          "icon": "toy"
+        },
+        {
+          "id": "Sillas de comer y mecedoras",
+          "name": "Sillas de comer y mecedoras",
+          "icon": "toy"
+        },
+        {
+          "id": "Cuidado y salud del bebé",
+          "name": "Cuidado y salud del bebé",
+          "icon": "toy"
         },
         {
           "id": "Bebés",
@@ -2260,8 +2835,48 @@
           "icon": "paw"
         },
         {
+          "id": "Juguetes para perro",
+          "name": "Juguetes para perro",
+          "icon": "paw"
+        },
+        {
+          "id": "Juguetes para gato",
+          "name": "Juguetes para gato",
+          "icon": "paw"
+        },
+        {
+          "id": "Juguetes para aves y roedores",
+          "name": "Juguetes para aves y roedores",
+          "icon": "paw"
+        },
+        {
           "id": "Juguetes",
           "name": "Juguetes",
+          "icon": "paw"
+        },
+        {
+          "id": "Camas para perro",
+          "name": "Camas para perro",
+          "icon": "paw"
+        },
+        {
+          "id": "Camas para gato",
+          "name": "Camas para gato",
+          "icon": "paw"
+        },
+        {
+          "id": "Camas elevadas y colchonetas",
+          "name": "Camas elevadas y colchonetas",
+          "icon": "paw"
+        },
+        {
+          "id": "Cuevas, iglús y tiendas para mascotas",
+          "name": "Cuevas, iglús y tiendas para mascotas",
+          "icon": "paw"
+        },
+        {
+          "id": "Cojines y mantas para mascotas",
+          "name": "Cojines y mantas para mascotas",
           "icon": "paw"
         },
         {
@@ -2491,11 +3106,6 @@
       "icon": "dumbbell",
       "subcategories": [
         {
-          "id": "Bancos y racks",
-          "name": "Bancos y racks",
-          "icon": "dumbbell"
-        },
-        {
           "id": "Máquinas multifuncionales y poleas",
           "name": "Máquinas multifuncionales y poleas",
           "icon": "dumbbell"
@@ -2558,6 +3168,36 @@
         {
           "id": "Pesas",
           "name": "Pesas",
+          "icon": "dumbbell"
+        },
+        {
+          "id": "Mancuernas",
+          "name": "Mancuernas",
+          "icon": "dumbbell"
+        },
+        {
+          "id": "Barras y discos",
+          "name": "Barras y discos",
+          "icon": "dumbbell"
+        },
+        {
+          "id": "Kettlebells",
+          "name": "Kettlebells",
+          "icon": "dumbbell"
+        },
+        {
+          "id": "Pesas de tobillo y chalecos con peso",
+          "name": "Pesas de tobillo y chalecos con peso",
+          "icon": "dumbbell"
+        },
+        {
+          "id": "Sets de pesas",
+          "name": "Sets de pesas",
+          "icon": "dumbbell"
+        },
+        {
+          "id": "Bancos y racks",
+          "name": "Bancos y racks",
           "icon": "dumbbell"
         },
         {
@@ -2729,6 +3369,46 @@
         {
           "id": "Organizadores de maquillaje",
           "name": "Organizadores de maquillaje",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Cremas y sérums faciales",
+          "name": "Cremas y sérums faciales",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Limpiadores y tónicos",
+          "name": "Limpiadores y tónicos",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Mascarillas faciales",
+          "name": "Mascarillas faciales",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Contorno de ojos y labios",
+          "name": "Contorno de ojos y labios",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Dispositivos de cuidado facial",
+          "name": "Dispositivos de cuidado facial",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Vaporizadores y equipo de spa",
+          "name": "Vaporizadores y equipo de spa",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Exfoliantes y peelings",
+          "name": "Exfoliantes y peelings",
+          "icon": "sparkle"
+        },
+        {
+          "id": "Cuidado facial masculino",
+          "name": "Cuidado facial masculino",
           "icon": "sparkle"
         },
         {
@@ -3216,6 +3896,41 @@
           "icon": "pillow"
         },
         {
+          "id": "Cobijas eléctricas individuales",
+          "name": "Cobijas eléctricas individuales",
+          "icon": "pillow"
+        },
+        {
+          "id": "Cobijas eléctricas matrimoniales",
+          "name": "Cobijas eléctricas matrimoniales",
+          "icon": "pillow"
+        },
+        {
+          "id": "Cobijas eléctricas queen y king",
+          "name": "Cobijas eléctricas queen y king",
+          "icon": "pillow"
+        },
+        {
+          "id": "Mantas eléctricas USB y portátiles",
+          "name": "Mantas eléctricas USB y portátiles",
+          "icon": "pillow"
+        },
+        {
+          "id": "Chales y mantas eléctricas para regazo",
+          "name": "Chales y mantas eléctricas para regazo",
+          "icon": "pillow"
+        },
+        {
+          "id": "Almohadillas y cojines térmicos",
+          "name": "Almohadillas y cojines térmicos",
+          "icon": "pillow"
+        },
+        {
+          "id": "Repuestos y controles de cobija eléctrica",
+          "name": "Repuestos y controles de cobija eléctrica",
+          "icon": "pillow"
+        },
+        {
           "id": "Cobijas eléctricas",
           "name": "Cobijas eléctricas",
           "icon": "pillow"
@@ -3306,6 +4021,41 @@
           "id": "Interruptores inteligentes",
           "name": "Interruptores inteligentes",
           "icon": "wifi"
+        },
+        {
+          "id": "Focos inteligentes",
+          "name": "Focos inteligentes",
+          "icon": "house"
+        },
+        {
+          "id": "Tiras LED inteligentes",
+          "name": "Tiras LED inteligentes",
+          "icon": "house"
+        },
+        {
+          "id": "Lámparas y plafones inteligentes",
+          "name": "Lámparas y plafones inteligentes",
+          "icon": "house"
+        },
+        {
+          "id": "Luces inteligentes de exterior y solares",
+          "name": "Luces inteligentes de exterior y solares",
+          "icon": "house"
+        },
+        {
+          "id": "Paneles y luces decorativas inteligentes",
+          "name": "Paneles y luces decorativas inteligentes",
+          "icon": "house"
+        },
+        {
+          "id": "Controladores e interruptores de luz",
+          "name": "Controladores e interruptores de luz",
+          "icon": "house"
+        },
+        {
+          "id": "Lámparas de escritorio y noche inteligentes",
+          "name": "Lámparas de escritorio y noche inteligentes",
+          "icon": "house"
         },
         {
           "id": "Iluminación inteligente",
@@ -5188,7 +5938,11 @@
     "Cargadores y adaptadores": {
       "n": 5921,
       "subs": {
-        "De pared": 2036,
+        "Cargadores de pared de 25 a 45 W": 386,
+        "De pared": 666,
+        "Cargadores multipuerto y estaciones de carga": 264,
+        "Cargadores de pared de 65 W o más": 387,
+        "Cargadores de pared con cable": 102,
         "Cable": 619,
         "Adaptador de corriente": 430,
         "De auto": 399,
@@ -5196,7 +5950,9 @@
         "De pilas": 388,
         "Base de carga": 186,
         "Otros": 120,
+        "Cargadores de pared hasta 20 W": 126,
         "Para laptop": 631,
+        "Cargadores para reloj y accesorios pequeños": 105,
         "Para herramientas": 4,
         "": 119
       },
@@ -5273,31 +6029,66 @@
       "n": 28698,
       "subs": {
         "Percheros": 326,
-        "Escritorios": 3238,
-        "Mesas de centro": 2556,
+        "Escritorios de altura ajustable": 374,
+        "Mesas de cama y con ruedas": 28,
+        "Escritorios de oficina": 1748,
+        "Accesorios y organizadores de escritorio": 352,
         "Roperos": 872,
         "Zapateras": 268,
-        "Colchones": 5706,
-        "Camas": 2021,
+        "Colchones": 293,
+        "Colchones plegables y de sofá cama": 311,
+        "Camas": 186,
+        "Escritorios en L y esquineros": 306,
+        "Escritorios": 9,
+        "Mesas para TV y consolas": 204,
+        "Mesas de centro": 1416,
         "Mesas de comedor": 1720,
         "Libreros": 610,
+        "Mesas auxiliares y laterales": 505,
         "Burós": 291,
         "Repisas": 419,
+        "Escritorios plegables y compactos": 227,
+        "Escritorios gamer": 158,
         "Muebles de cocina": 154,
         "Taburetes y bancos": 1461,
         "Sillas de comedor": 1818,
-        "Sofás": 2585,
+        "Sillones y reclinables": 926,
         "Sillas de oficina": 2107,
-        "Sillones y reclinables": 366,
+        "Camas plegables y catres": 51,
         "Sillas gamer": 179,
+        "Sillones de masaje": 129,
         "Sillas plegables y de camping": 781,
+        "Sofás infantiles": 219,
+        "Camas infantiles": 79,
+        "Colchones infantiles y de cuna": 70,
+        "Puffs y otomanas": 85,
+        "Sofás de 2 y 3 plazas": 540,
         "Sillas infantiles": 216,
+        "Mesas plegables y multiusos": 342,
         "Sillas de exterior": 169,
         "Otros": 268,
+        "Literas": 59,
+        "Bases de cama y box": 637,
+        "Cabeceras": 805,
+        "Camas matrimoniales": 33,
+        "Sofás cama": 586,
+        "Colchones individuales": 805,
+        "Colchones matrimoniales": 1740,
+        "Colchones queen size": 1176,
         "Mesas de juego": 33,
+        "Colchones king size": 1271,
+        "Mesas para laptop y de cama": 21,
+        "Camas queen y king": 46,
+        "Camas individuales": 27,
+        "Sofás seccionales y esquineros": 414,
+        "Mesas de exterior": 61,
+        "Escritorios infantiles y estudiantiles": 43,
         "Sillas de espera y visitas": 299,
         "Mecedoras y colgantes": 52,
-        "": 183
+        "Fundas y accesorios para sofá": 52,
+        "Accesorios y refacciones de cama": 98,
+        "": 183,
+        "Toppers y sobrecolchones": 40
       },
       "pop": 70523,
       "discounted": 10429,
@@ -5361,9 +6152,12 @@
     "Deportes y fitness": {
       "n": 9360,
       "subs": {
-        "Pesas": 1749,
+        "Sets de pesas": 224,
+        "Mancuernas": 451,
+        "Bancos y racks": 1035,
         "Dardos": 240,
         "Bicicletas fijas": 313,
+        "Pesas": 58,
         "Máquinas de cardio": 311,
         "Campismo": 3,
         "Otros": 46,
@@ -5372,7 +6166,6 @@
         "Máquinas multifuncionales y poleas": 634,
         "Protección y soportes": 179,
         "Máquinas de abdominales": 164,
-        "Bancos y racks": 231,
         "Accesorios de fuerza": 198,
         "Barras de dominadas y calistenia": 158,
         "Bandas de resistencia": 257,
@@ -5383,6 +6176,9 @@
         "Voleibol": 297,
         "Ping pong": 135,
         "Patines y patinetas": 399,
+        "Barras y discos": 114,
+        "Pesas de tobillo y chalecos con peso": 28,
+        "Kettlebells": 70,
         "Natación": 498,
         "Fútbol": 104,
         "": 123,
@@ -5397,9 +6193,14 @@
     "Blancos y ropa de cama": {
       "n": 10800,
       "subs": {
-        "Cobijas eléctricas": 2113,
+        "Mantas eléctricas USB y portátiles": 293,
+        "Cobijas eléctricas": 550,
         "Cobijas": 456,
+        "Chales y mantas eléctricas para regazo": 231,
+        "Cobijas eléctricas queen y king": 442,
+        "Cobijas eléctricas matrimoniales": 360,
         "Protectores de colchón": 1832,
+        "Almohadillas y cojines térmicos": 80,
         "Tapetes de baño": 467,
         "Toallas": 1894,
         "Edredones": 1059,
@@ -5407,7 +6208,9 @@
         "Cortinas": 278,
         "Almohadas": 680,
         "Fundas para muebles": 10,
-        "": 339
+        "": 339,
+        "Cobijas eléctricas individuales": 120,
+        "Repuestos y controles de cobija eléctrica": 37
       },
       "pop": 13776,
       "discounted": 3052,
@@ -5475,22 +6278,29 @@
       "n": 8699,
       "subs": {
         "Bocinas inteligentes": 480,
-        "Iluminación inteligente": 1401,
+        "Iluminación inteligente": 96,
         "Interruptores inteligentes": 2140,
         "Cerraduras con huella digital": 680,
         "Sensores": 237,
+        "Lámparas y plafones inteligentes": 423,
         "Cerraduras para gabinete y casillero": 100,
         "Accesorios y refacciones de cerradura": 120,
         "Cerraduras con teclado y código": 775,
         "Cerraduras de puerta inteligentes": 1016,
         "Cerraduras Wi-Fi y con app": 286,
+        "Focos inteligentes": 476,
         "Enchufes inteligentes": 535,
         "Cortinas motorizadas": 211,
         "Hubs": 78,
+        "Tiras LED inteligentes": 84,
         "Cerraduras para puerta de vidrio y corrediza": 63,
         "Cerraduras inteligentes": 37,
         "": 418,
         "Termostatos": 96,
+        "Controladores e interruptores de luz": 88,
+        "Paneles y luces decorativas inteligentes": 82,
+        "Luces inteligentes de exterior y solares": 121,
+        "Lámparas de escritorio y noche inteligentes": 31,
         "Candados inteligentes": 26
       },
       "pop": 155591,
@@ -5502,28 +6312,50 @@
     "Instrumentos musicales": {
       "n": 16823,
       "subs": {
-        "Teclados": 505,
-        "Viento": 3325,
+        "Teclados electrónicos": 57,
+        "Instrumentos de viento digitales": 136,
+        "Pianos digitales": 198,
+        "Saxofones": 517,
         "Guitarras eléctricas": 1243,
         "Amplificadores de guitarra y bajo": 186,
         "Pedales y efectos": 414,
         "Accesorios de guitarra": 1028,
         "Cuerdas de guitarra y bajo": 1312,
+        "Viento": 444,
         "Guitarras clásicas": 93,
         "Ukuleles": 403,
         "Guitarras acústicas": 513,
         "Micrófonos": 837,
-        "Baterías": 3890,
+        "Pedales y herrajes de batería": 287,
         "Percusión": 715,
         "Violines, mandolinas y otras cuerdas": 789,
+        "Baterías": 465,
+        "Platillos": 732,
+        "Baterías acústicas": 677,
+        "Armónicas y melódicas": 234,
+        "Sintetizadores y controladores MIDI": 98,
+        "Bancos, soportes y accesorios de teclado": 55,
+        "Tarolas y cajas": 51,
+        "Trompetas, trombones y metales": 617,
+        "Acordeones": 96,
         "Producción de audio": 123,
+        "Baterías electrónicas": 910,
         "Bajos": 268,
+        "Flautas traversas": 268,
         "Tornamesas": 64,
+        "Baquetas y escobillas": 411,
+        "Ocarinas, silbatos y flautas dulces": 296,
         "": 537,
+        "Boquillas, cañas y accesorios de viento": 448,
+        "Parches": 201,
         "Accesorios": 203,
+        "Clarinetes y oboes": 365,
         "Amplificadores": 47,
+        "Pads de práctica": 26,
+        "Fundas y accesorios de batería": 130,
         "Fundas, soportes y atriles": 178,
-        "Guitarras electroacústicas": 150
+        "Guitarras electroacústicas": 150,
+        "Órganos y otros teclados": 1
       },
       "pop": 4415,
       "discounted": 1519,
@@ -5534,13 +6366,19 @@
     "Audífonos": {
       "n": 9306,
       "subs": {
-        "Earbuds inalámbricos": 4156,
-        "Diadema inalámbrica": 1178,
+        "Earbuds inalámbricos": 3013,
+        "Earbuds con cancelación de ruido": 747,
+        "Earbuds deportivos": 199,
+        "Diadema con cancelación de ruido": 373,
         "Gamer": 866,
         "De oído abierto": 528,
+        "Diadema inalámbrica": 684,
+        "Earbuds para niños": 152,
         "": 1078,
         "Earbuds con cable": 1123,
-        "Diadema con cable": 377
+        "Diadema con cable": 377,
+        "Earbuds de cuello": 67,
+        "Almohadillas y repuestos": 99
       },
       "pop": 283960,
       "discounted": 1774,
@@ -5610,23 +6448,30 @@
         "Material eléctrico": 657,
         "Soldadura": 531,
         "Grabado láser": 415,
-        "Herramientas manuales": 1477,
+        "Herramientas manuales": 221,
         "Esmeriladoras y pulidoras": 184,
         "Taladros y rotomartillos": 470,
         "Herramientas eléctricas": 301,
         "Medición": 499,
+        "Desarmadores y puntas": 95,
+        "Prensas y sujeción": 97,
+        "Llaves y dados": 704,
         "Atornilladores": 46,
         "Lijadoras": 57,
         "Sierras": 187,
         "Escaleras": 667,
         "Compresores y herramienta neumática": 100,
         "Pistolas de calor, engrapadoras y clavadoras": 22,
+        "Pinzas y alicates": 246,
         "Accesorios para herramientas eléctricas": 1711,
         "Routers, fresadoras y multiherramientas": 48,
         "Herramientas de banco": 32,
         "Hidrolavadoras": 111,
         "Seguridad industrial": 389,
         "Generadores": 61,
+        "Juegos de herramientas": 67,
+        "Martillos, cinceles y mazos": 41,
+        "Herramientas de corte manual": 6,
         "Neumáticas": 288,
         "Organización": 212,
         "Construcción": 152,
@@ -5645,11 +6490,17 @@
     "Teclados": {
       "n": 2237,
       "subs": {
-        "Mecánicos": 839,
+        "Mecánicos 65% y 75%": 110,
+        "Mecánicos": 147,
         "Combos con mouse": 292,
         "Membrana": 418,
         "Inalámbricos": 304,
+        "Mecánicos 60% y compactos": 132,
+        "Mecánicos TKL (80%)": 60,
+        "Switches, keycaps y accesorios": 101,
+        "Mecánicos tamaño completo": 75,
         "": 223,
+        "Mecánicos inalámbricos": 214,
         "Ergonómicos": 88,
         "Numéricos": 73
       },
@@ -5662,23 +6513,31 @@
     "Mascotas": {
       "n": 12117,
       "subs": {
-        "Camas": 1907,
+        "Camas para gato": 219,
         "Jaulas y hábitats para roedores": 71,
         "Puertas para mascotas": 715,
+        "Camas elevadas y colchonetas": 245,
+        "Cuevas, iglús y tiendas para mascotas": 609,
+        "Camas": 14,
+        "Camas para perro": 786,
         "Casas para mascotas": 1579,
         "Comederos": 2587,
         "Correas": 329,
         "Transportadoras": 216,
         "": 1042,
         "Areneros": 97,
-        "Juguetes": 888,
+        "Juguetes": 2,
+        "Juguetes para gato": 195,
+        "Juguetes para perro": 670,
         "Bebederos": 96,
+        "Juguetes para aves y roedores": 21,
         "Jaulas para perro": 1337,
         "Adiestramiento": 15,
         "Ropa y accesorios": 82,
         "Higiene y limpieza": 51,
         "Rascadores y torres": 90,
         "Jaulas para aves": 8,
+        "Cojines y mantas para mascotas": 34,
         "Corrales y rejas para mascotas": 147,
         "Jaulas y recintos para gato": 822,
         "Gallineros y conejeras": 37,
@@ -5765,7 +6624,11 @@
     "Belleza y cuidado personal": {
       "n": 10345,
       "subs": {
-        "Faciales": 1801,
+        "Vaporizadores y equipo de spa": 358,
+        "Dispositivos de cuidado facial": 186,
+        "Faciales": 17,
+        "Cremas y sérums faciales": 970,
+        "Mascarillas faciales": 139,
         "Extensiones de cabello": 311,
         "Pelucas": 438,
         "Secadoras de cabello": 657,
@@ -5778,12 +6641,15 @@
         "Cuidado personal": 306,
         "Protección solar": 360,
         "Corporales": 621,
+        "Cuidado facial masculino": 6,
         "Manicure": 238,
         "Brochas y esponjas": 83,
         "Uñas": 208,
         "Bases y correctores": 740,
+        "Exfoliantes y peelings": 46,
         "Rizadores": 381,
         "Máscaras de pestañas y cejas": 213,
+        "Limpiadores y tónicos": 68,
         "Organizadores de maquillaje": 54,
         "Labiales": 440,
         "Polvos, rubores y bronceadores": 307,
@@ -5791,6 +6657,7 @@
         "Primers y fijadores": 71,
         "Sombras y delineadores": 251,
         "Pestañas postizas": 82,
+        "Contorno de ojos y labios": 11,
         "Mobiliario para salón": 100,
         "Estilizadores": 5,
         "Perfumes": 11,
@@ -5838,13 +6705,15 @@
         "Freidoras de aire": 1986,
         "Planchas": 494,
         "Máquinas de coser": 324,
-        "Pequeños electrodomésticos de cocina": 1254,
+        "Pequeños electrodomésticos de cocina": 222,
+        "Vaporeras y hervidores de huevos": 8,
         "Jarras y botellas con filtro": 117,
         "Filtros para refrigerador y cafetera": 3,
         "Filtros y membranas de repuesto": 333,
         "Purificadores de grifo y encimera": 276,
         "Calentadores de agua": 477,
         "Campanas de cocina": 722,
+        "Otros electrodomésticos de cocina": 192,
         "Purificadores bajo tarja": 624,
         "Accesorios de purificador": 86,
         "Hornos": 230,
@@ -5855,11 +6724,21 @@
         "Ósmosis inversa": 346,
         "Otros": 18,
         "Extractores de jugo": 328,
+        "Batidoras y amasadoras": 214,
+        "Arroceras y ollas multiusos": 104,
+        "Wafleras, sandwicheras y creperas": 148,
+        "Tostadoras": 62,
+        "Máquinas de palomitas y snacks": 13,
+        "Parrillas y planchas eléctricas": 121,
         "Lavavajillas": 142,
         "Dispensadores de agua": 26,
+        "Freidoras eléctricas": 144,
+        "Máquinas de helados y postres": 17,
+        "Molinos y procesadores": 6,
         "Vaporizadores de ropa": 110,
         "Destiladores e ionizadores": 241,
         "": 76,
+        "Máquinas de pan y pasta": 3,
         "Ablandadores y filtros de casa completa": 53,
         "Filtros para regadera": 13,
         "Purificadores de agua": 11
@@ -5888,7 +6767,10 @@
       "n": 5506,
       "subs": {
         "Decorativa": 835,
-        "Lámparas de techo": 1173,
+        "Lámparas colgantes": 543,
+        "Candiles y arañas": 160,
+        "Plafones y lámparas de sobreponer": 406,
+        "Rieles y spots": 26,
         "Lámparas de emergencia": 343,
         "Tiras LED": 91,
         "Exterior": 390,
@@ -5897,9 +6779,12 @@
         "Escenario": 62,
         "Lámparas de escritorio": 51,
         "Focos inteligentes": 35,
+        "Lámparas de techo": 11,
         "Lámparas de piso": 9,
         "": 1104,
-        "Empotrada": 2
+        "Empotrada": 2,
+        "Lámparas de techo para exterior": 9,
+        "Lámparas industriales y de nave": 18
       },
       "pop": 6368,
       "discounted": 2077,
@@ -5963,9 +6848,19 @@
         "Corrales": 27,
         "Monitores de bebé": 13,
         "Sillas de auto": 18,
-        "Bebés": 1947,
+        "Pañales y cambio": 207,
+        "Bebés": 780,
+        "Cuidado y salud del bebé": 25,
         "Vehículos a control remoto": 127,
         "Juegos de exterior": 5,
+        "Baño e higiene del bebé": 128,
+        "Juguetes para bebé": 144,
+        "Sillas de comer y mecedoras": 87,
+        "Portabebés y canguros": 40,
+        "Ropa y calzado de bebé": 17,
+        "Chupones y mordederas": 121,
+        "Alimentación y lactancia": 376,
+        "Seguridad para bebé": 22,
         "Montables": 85,
         "Trampolines": 10,
         "Juguetes para exterior": 87,
@@ -6088,13 +6983,18 @@
         "Radios": 113,
         "Varios": 941,
         "Estaciones de energía": 588,
-        "Paneles solares": 1879,
+        "Cargadores solares portátiles": 244,
         "Generadores": 50,
         "Inversores": 59,
+        "Paneles solares": 451,
+        "Kits solares y controladores de carga": 349,
         "": 3,
         "Baño": 158,
         "Organización del hogar": 245,
-        "Soportes para dispositivos": 791
+        "Soportes para dispositivos": 791,
+        "Accesorios y limpieza de paneles solares": 729,
+        "Luces y ventiladores solares": 102,
+        "Bombas y calentadores solares": 4
       },
       "pop": 5382,
       "discounted": 752,

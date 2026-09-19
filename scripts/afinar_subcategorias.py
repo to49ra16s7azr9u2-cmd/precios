@@ -194,6 +194,10 @@ def main():
         for p in (ocultas or {}).get("productos", []):
             usadas[(p.get("category"), p.get("subcategory"))] += 1
         for c in data["categories"]:
+            # Una categoría sin ninguna ficha (ni visible ni oculta) conserva
+            # su lista tal cual: es una categoría prevista, no vacía por error.
+            if not any(k[0] == c["id"] for k in usadas):
+                continue
             antes = len(c.get("subcategories") or [])
             c["subcategories"] = [s_ for s_ in (c.get("subcategories") or []) if usadas.get((c["id"], s_["id"]))]
             if len(c["subcategories"]) != antes:
