@@ -2918,7 +2918,11 @@ tr.offer-compare-off { display: none; }
   min-width: 0;
   display: flex;
   align-items: center;
-  border: 2px solid var(--border);
+  /* A la mitad de alto (pedido del usuario, 20-sep): la línea baja de 2 a
+     1 px y el logo de 168 a 90 px, que es lo que manda la altura de la
+     pieza. La entrada a "Compara marcas" va al mismo ancho para que las
+     dos se lean iguales. */
+  border: 1px solid var(--border);
   border-radius: var(--marco-radio);
   background: var(--card);
   overflow: hidden;
@@ -2926,15 +2930,15 @@ tr.offer-compare-off { display: none; }
 /* Dentro de la pieza el logo pierde su propio borde: el del buscador ya
    lo rodea, y dos líneas pegadas se ven como un error de dibujo. */
 .home-buscador .home-tab,
-.home-buscador .home-tab.is-active { border: 0; border-radius: 0; padding: 6px 10px; }
-.home-buscador .home-tab-marca { width: 168px; flex: 0 0 auto; }
+.home-buscador .home-tab.is-active { border: 0; border-radius: 0; padding: 2px 8px; }
+.home-buscador .home-tab-marca { width: 90px; flex: 0 0 auto; }
 .home-grid[data-home-tab="precios"] .home-buscador { border-color: var(--red); }
 /* La línea que separa el logo del campo: el único trazo interior, para que
    se note dónde termina uno y empieza el otro sin partir la pieza. Va en
    las dos reglas (la genérica y la de .is-active) porque la de arriba
    pone border:0 con más peso y se la comía. */
 .home-buscador .home-tab,
-.home-buscador .home-tab.is-active { border-right: 2px solid var(--border); }
+.home-buscador .home-tab.is-active { border-right: 1px solid var(--border); }
 .home-grid[data-home-tab="precios"] .home-buscador .home-tab.is-active { border-right-color: var(--red); }
 .home-buscador input[type="search"] {
   flex: 1 1 auto;
@@ -2943,9 +2947,10 @@ tr.offer-compare-off { display: none; }
   outline: none;
   background: transparent;
   font: inherit;
-  font-size: 14px;
+  font-size: 13px;
+  line-height: 1.4;
   color: var(--ink);
-  padding: 10px 12px;
+  padding: 1px 10px;
 }
 .home-buscador input[type="search"]::placeholder { color: var(--muted); }
 .home-buscador:focus-within { border-color: var(--red); box-shadow: 0 0 0 2px rgba(224, 32, 32, 0.12); }
@@ -2954,8 +2959,8 @@ tr.offer-compare-off { display: none; }
    h1 de la portada, pero ya no compite con el buscador. */
 .home-elige-row + .home-elige { margin: 0 0 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
 .home-elige-row .home-elige { flex: 1 1 auto; margin: 0; }
-.home-elige-row .home-tab-marca { flex: 0 0 auto; width: 168px; padding: 6px 8px; }
-.home-elige-row > .home-tab.is-active { border-width: 2px; border-color: var(--tab-color); }
+.home-elige-row .home-tab-marca { flex: 0 0 auto; width: 90px; padding: 3px 7px; }
+.home-elige-row > .home-tab.is-active { border-width: 1px; border-color: var(--tab-color); }
 /* Sin columna izquierda no hay lengüeta que unir: el arco y el puente que
    cruzaban el hueco sobran. */
 .home-tab.is-active::before, .home-tab.is-active::after { display: none; }
