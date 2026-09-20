@@ -1019,7 +1019,10 @@ OLA2 += [
     ('Audífonos', ['Earbuds inalámbricos', 'Diadema inalámbrica'], AUDIFONOS_INAL, lambda tn, sv: sub_audifono_inal(tn), None),
     ('Muebles', ['Colchones'], COLCHONES, lambda tn, sv: sub_colchon(tn), None),
     ('Muebles', ['Escritorios'], ESCRITORIOS, lambda tn, sv: sub_escritorio(tn), None),
-    ('Muebles', ['Sofás'], SOFAS, lambda tn, sv: sub_sofa(tn), None),
+    # Con resto: el sofá que no dice de qué tipo es ("Sala 3 2 1", "sofá
+    # de tela gris") se queda en el de dos y tres plazas, que es el más
+    # común; sin él quedaba en 'Sofás', que ya no existe en la lista.
+    ('Muebles', ['Sofás'], SOFAS, lambda tn, sv: sub_sofa(tn), 'Sofás de 2 y 3 plazas'),
     ('Muebles', ['Mesas de centro'], MESAS_CENTRO, lambda tn, sv: sub_mesa_centro(tn), None),
     ('Muebles', ['Camas'], CAMAS, lambda tn, sv: sub_cama(tn), None),
     ('Juguetes y bebés', ['Bebés'], BEBES, lambda tn, sv: sub_bebe(tn), None),
