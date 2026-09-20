@@ -2958,6 +2958,36 @@ RX_MUEBLE = re.compile(
 
 
 def sub_mueble(tn):
+    # Familias que faltaban (20-sep): el gabinete de cocina, el mueble para
+    # microondas, el organizador de cubos y el juego de exterior.
+    if re.search(r'gabinete (integral|de cocina)|mueble cocina|mostrador \d|'
+                 r'\bmadesa\b.{0,25}(gabinete|mostrador|glamy|agata|reims)|'
+                 r'(rack|modulo).{0,20}microondas|alacena|barra de cocina|'
+                 r'cajon(es)? de cocina', tn):
+        return 'Muebles de cocina'
+    if re.search(r'organizador.{0,20}\d+ cubos|\bcubos\b.{0,15}(abiertos|modular)|'
+                 r'estantes? de equipaje|organizador modular', tn):
+        return 'Repisas'
+    if re.search(r'\bdivan\b|kamasutra', tn): return 'Sofás de 2 y 3 plazas'
+    if re.search(r'estacion de trabajo|\bmayline\b', tn): return 'Escritorios de oficina'
+    if re.search(r'(juego|set|conjunto).{0,25}(exterior|terraza|bistro|jardin)|'
+                 r'muebles? (de )?exterior', tn):
+        return 'Mesas de exterior'
+    if re.search(r'cajones y archivadores|\barchivero\b|archivador', tn):
+        return 'Accesorios y organizadores de escritorio'
+    if re.search(r'centro (de )?entretenimiento|\bmueble\b.{0,20}\btv\b|'
+                 r'\brack\b.{0,25}\btv\b|soporte.{0,20}\btv\b.{0,25}pulgadas|'
+                 r'soporte 3d para tv', tn):
+        return 'Mesas para TV y consolas'
+    if re.search(r'\bcabecer[ao]\b|\bcabecero\b', tn): return 'Cabeceras'
+    if re.search(r'base (box|tubular)|\bbox spring\b|base (de )?cama', tn):
+        return 'Bases de cama y box'
+    if re.search(r'sobrecolchon|\btopper\b', tn): return 'Toppers y sobrecolchones'
+    # La cantina mexicana es el mueble bar, no un mueble de cocina.
+    if re.search(r'\bcantina\b|mueble bar\b|\bbotellero\b', tn): return 'Mesas altas y de bar'
+    if re.search(r'sillon(es)?.{0,25}(exterior|terraza|jardin)', tn): return 'Sillas de exterior'
+    if re.search(r'flash (furniture|muebles).{0,40}(hercules|ladder back|restaurant|capacidad)', tn):
+        return 'Sillas de espera y visitas'
     """Reparte Muebles por el PRIMER mueble que nombra el título.
 
     Los títulos encadenan varios ("Escritorio para computadora con buró y
@@ -4608,8 +4638,13 @@ RX_DIADEMA = re.compile(r'diadema|over[- ]ear|on[- ]ear|circumaural|supra ?a?ura
                         r'surface headphones|positive vibration|nicecomfort|\bbowie\b|inspire xp|'
                         r'\brig ?\d{3}|\bairman\b|\bkhs-?\d|alchem-?e|\bcs-t\d|\bepg\d{3}|'
                         r'\bzx ?\d{3}\b|ult wear|\bm-?200\b|v-?moda|dyson zone|\bbphs ?\d|'
-                        r'\bath-?m\d|bowers|wilkins|sonorous|para dormir|\bsrh ?\d{3,4}\b|'
-                        r'detras de la cabeza|sobre la cabeza|'
+                        r'\bath-?m\d|bowers|wilkins|sonorous|para dormir|\bsrh-? ?\d{3}|'
+                        r'\bcm500\b|\bkhf-?\d{4}|hkledbthp|'
+                        r'detras de la cabeza|sobre la cabeza|serie zx|'
+                        r'auriculares? con microfono|audifonos? con microfono|'
+                        r'con microfono integrado|disco silencioso|discotecas? silencios|'
+                        r'transmisor silencioso|para motocicleta|\bintercomunicad|'
+                        r'reduccion de ruido de fabrica|'
                         r'\bzx ?\d{3}|\bwh-?ch\d|\bwhult|\bmdr-?zx|cleardryve|'
                         r'microsoft surface \d|\bproset-?\d|\bhosa\b|\bew-?d\b|\bsl dw|'
                         r'fiestas? silenciosas?|hamilton|\beartec\b|\baccsoon\b|\btv ears\b|'
@@ -4628,7 +4663,10 @@ RX_EARBUD  = re.compile(r'in[- ]ear|earbuds?\b|\btws\b|true wireless|intraura|in
                         r'\bhafx|\bue ?600|\btws ?\d|\ba30i\b|ear koko|momentum sport|'
                         r'accentum clip|traducci[oó]n|traductor|interpreter|\bplugfones\b|'
                         r'\bam61\b|tipo-?c|type-?c|intraoseo|\bkd100\b|\bmp-?240\b|'
-                        r'monitores internos')
+                        r'monitores internos|ultimate ears \d{3}|\bue ?\d{3}\b|'
+                        r'audifonos? pulsera|\bwraps\b|para google pixel|para apple\b|'
+                        r'auriculares de radio|arete para|\bsl\dk\b|\bse-?\d{3}\b|'
+                        r'go pop|\bjlab\b')
 # Se probó agregar "\bbt\b", "anc" y "cancelación de ruido" para rescatar
 # los títulos que llevan la conexión en la sigla ("Jbl Tune 530 Bt"), y la
 # regresión lo tiró: la cancelación activa SÍ existe con cable --Jabra

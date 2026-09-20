@@ -195,16 +195,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$790 a $4,750",
+      "spec": "$790 a $4,650",
       "min": 790,
-      "max": 4750
+      "max": 4650
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,750",
-      "min": 4750
+      "spec": "Más de $4,650",
+      "min": 4650
      }
     ]
    }
@@ -18019,15 +18019,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $3,250",
-      "max": 3250
+      "spec": "Hasta $3,300",
+      "max": 3300
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$3,250 a $11,500",
-      "min": 3250,
+      "spec": "$3,300 a $11,500",
+      "min": 3300,
       "max": 11500
      },
      {
@@ -20064,7 +20064,34 @@
  "Muebles/Toppers y sobrecolchones": {
   "axes": [
    {
-    "key": "level",
+    "label": "Medida",
+    "field": "bed_size",
+    "criterion": "de la cama",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "individual",
+      "name": "Individual",
+      "use": "",
+      "spec": "Individual",
+      "values": [
+       "Individual"
+      ]
+     },
+     {
+      "id": "king",
+      "name": "King",
+      "use": "",
+      "spec": "King",
+      "values": [
+       "King"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
