@@ -250,10 +250,17 @@ def product_photo_html(product, css_class="detail-icon"):
 
 
 def page_shell(title, description, canonical_path, body, depth, extra_head="", robots="index, follow", og_image=None):
-    """depth = niveles bajo la raíz del sitio (para las rutas relativas ../)."""
-    # Enlace relativo al pie: la profundidad ya la sabe cada página.
-    prefijo = "../" * depth
-    prefix = "../" * depth
+    """depth = niveles bajo la raíz del sitio (para las rutas relativas ../).
+
+    depth=None es el caso del 404: GitHub Pages sirve /404.html como
+    respuesta de CUALQUIER url mala, incluida /producto/loquesea/, y el
+    navegador resuelve las rutas relativas contra ESA url, no contra la
+    raíz. Con "css/style.min.css" la hoja de estilos se buscaba en
+    /producto/loquesea/css/ y la página de error salía sin un solo estilo.
+    Con la raíz absoluta funciona a cualquier profundidad.
+    """
+    prefijo = "/" if depth is None else "../" * depth
+    prefix = prefijo
     canonical = f"{SITE_URL}{canonical_path}"
     # noai/noimageai va SIEMPRE, sin importar qué valor de robots use cada
     # llamador (index/follow normal, o noindex en alguna página puntual):
@@ -2365,7 +2372,7 @@ def render_404(data):
     return page_shell(
         "Página no encontrada | ComparaMEX",
         "La página que buscas no existe. Vuelve al inicio de ComparaMEX o busca por categoría.",
-        "/404.html", body, depth=0, robots="noindex, follow",
+        "/404.html", body, depth=None, robots="noindex, follow",
     )
 
 
