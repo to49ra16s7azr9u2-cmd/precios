@@ -3353,6 +3353,20 @@ def sub_domotica(tn):
         return 'Interruptores inteligentes'
     if re.search(r'contacto magnetico|sensor de (puerta|ventana|contacto|apertura)', tn):
         return 'Sensores'
+    # Familias que la ronda de Mercado Libre trajo y no tenían rama (20-sep):
+    # el breaker con WiFi, el medidor de energía, el tomacorriente con
+    # temporizador. Se nombran en inglés a medias ("smart circuit breaker"),
+    # que es como las vende la tienda.
+    if re.search(r'smart circuit breaker|disyuntor intelig|breaker intelig|\bycb9zf\b|'
+                 r'protector de medidor|medidor de (energia|potencia|corriente)', tn):
+        return 'Breakers y protectores inteligentes'
+    if re.search(r'tomacorriente(s)? (electrico )?intelig|enchufe.{0,25}(temporizador|intelig)|'
+                 r'toma de temporizador|tomacorriente programable|adaptador usb intelig', tn):
+        return 'Enchufes inteligentes'
+    if re.search(r'\bdimmer\b|regulador de (luz|intensidad)', tn):
+        return 'Dimmers y reguladores inteligentes'
+    if re.search(r'termometro.{0,20}(wifi|refrigerador)|sensor de (temperatura|humedad).{0,20}wifi', tn):
+        return 'Sensores'
     if re.search(r'apagador(es)? intelig|interruptor(es)? (de luz |de pared |tactil |de atenuacion |inalambrico )?intelig|smart switch|'
                  r'interruptor(es)? (de luz |de pared |tactil )?(wifi|zigbee|tuya)|apagador(es)? (wifi|tuya)|modulo (interruptor|rele)|rele wifi|'
                  r'atenuador intelig|dimmer intelig|pulsador de boton|interruptor.{0,30}(tuya|alexa|zigbee|wifi)', tn):
@@ -3864,6 +3878,11 @@ def sub_juguete(tn):
 
 
 def sub_camara(tn):
+    # Compactas por familia de modelo (20-sep): la tienda vende la Kodak
+    # PIXPRO y la Minolta MND por su número, sin decir nunca "compacta".
+    if re.search(r'\bpixpro\b|\bmnd\d{2}|\bmn\d{2}z\b|\bmn4kp\d|camara puente|'
+                 r'zoom (optico )?de \d{2}x|\bektar\b|camara de cine', tn):
+        return 'Compactas'
     # El cargador o la batería que abren el título son accesorio aunque
     # nombren la cámara (el cargador Panasonic "para Lumix" caía en
     # Mirrorless): solo en la cabeza, para no tocar la cámara "con batería

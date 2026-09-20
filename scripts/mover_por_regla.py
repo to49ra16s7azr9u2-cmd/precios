@@ -498,6 +498,49 @@ REGLAS = [
     ('Audífonos', r'kit de soldadura', None, 'Herramientas', 'Soldadura', {None}),
     ('Audífonos', r'kit de audio portero', None, 'Domótica y hogar inteligente', 'Videoporteros', {None}),
     ('Audífonos', r'compatible con dji', None, 'Drones', 'Accesorios', {None}),
+
+    # ---- Domótica y Cámaras (20-sep). Los dos rubros juntan lo que la
+    # tienda etiquetó "smart" o "cámara" sin más: relés industriales,
+    # controles de aire, mandos de videojuego, cámaras de coche.
+    ('Domótica y hogar inteligente',
+     r'\bdh48s\b|rele programable|\bioLogik\b|\bmoxa\b|\branco\b|\bxr06cx\b|'
+     r'controlador (electronico )?de temperatura|controlador.{0,15}cnc|\bgrbl\b',
+     None, 'Herramientas', 'Material eléctrico', {None}),
+    ('Domótica y hogar inteligente', r'^control(ador)? (para )?aire ac\b|control para aire',
+     None, 'Climatización', 'Accesorios y refacciones de aire acondicionado', {None}),
+    ('Domótica y hogar inteligente',
+     r'control(ador)? (inalambrico )?de (videojuegos|juego)|\bgamesir\b|\bretro-?bit\b|'
+     r'caja de botones sim-?panel|\bserafim\b',
+     None, 'Videojuegos', 'Otros accesorios gamer', {None}),
+    ('Domótica y hogar inteligente',
+     r'camara (wifi|de monitoreo|oculta|de seguridad|inteligente)|camara.{0,20}(interior|exterior)',
+     None, 'Cámaras de seguridad', 'Cámaras interiores', {None}),
+    ('Domótica y hogar inteligente', r'sistema de intrusion|\bhoneywell v\d{2}', None,
+     'Cámaras de seguridad', 'Alarmas', {None}),
+    ('Domótica y hogar inteligente', r'convertidor hdmi|muro de video|\bhdmi\b.{0,25}(1080p|4k)', None,
+     'Televisores', 'Accesorios y soportes', {None}),
+    ('Domótica y hogar inteligente', r'fire tv stick|\bchromecast\b|\bstreaming stick\b', None,
+     'Televisores', 'Accesorios y soportes', {None}),
+    ('Domótica y hogar inteligente', r'cinta led|tira led', None, 'Iluminación', 'Tiras LED', {None}),
+    ('Domótica y hogar inteligente', r'difusor de aceites|humidificador aroma', None,
+     'Belleza y cuidado personal', 'Cuidado personal', {None}),
+    ('Domótica y hogar inteligente', r'manija de puerta|\bkwikset\b(?!.{0,20}intelig)', None,
+     'Herramientas', 'Cerraduras y candados', {None}),
+
+    ('Cámaras y fotografía',
+     r'camara de (salpicadero|tablero|respaldo|reversa)|\bdash ?cam\b|camara.{0,20}retrovisor|'
+     r'\bthinkware\b|\bfitcamx\b|\bauto-?vox\b|\bcrimestopper\b|\balpine hce\b|\bmufu\b|'
+     r'cobertura para mando de llave',
+     None, 'Autos, bicicletas y motos', 'Dashcams y cámaras', {None}),
+    ('Cámaras y fotografía',
+     r'\bring\b.{0,25}(cam|spotlight|exterior|interior)|\bblink\b (outdoor|indoor|mini)|'
+     r'camara (de )?(rastreo|caza|vigilancia|espia|falsa)|\btactacam\b|\bmoultrie\b|'
+     r'yellowstone\.ai|camara domo|\bcamara ip\b|camara.{0,20}(para exteriores|para interior)|'
+     r'detector de camara oculta|foco led inteligente camara',
+     None, 'Cámaras de seguridad', 'Cámaras exteriores', {None}),
+    ('Cámaras y fotografía',
+     r'\bmicroscopio\b|camara intraoral|camara de inspeccion|\bendoscop|boroscopio',
+     None, 'Herramientas', 'Medición', {None}),
 ]
 
 

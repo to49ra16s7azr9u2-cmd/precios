@@ -140,6 +140,422 @@
    }
   ]
  },
+ "Audífonos/Earbuds inalámbricos": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $1,950",
+      "min": 540,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Diadema inalámbrica": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $790",
+      "max": 790
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$790 a $4,750",
+      "min": 790,
+      "max": 4750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,750",
+      "min": 4750
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Diadema con cancelación de ruido": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,350",
+      "max": 3350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,350 a $9,850",
+      "min": 3350,
+      "max": 9850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,850",
+      "min": 9850
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Earbuds con cancelación de ruido": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Audífonos/Earbuds deportivos": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $510",
+      "max": 510
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$510 a $1,850",
+      "min": 510,
+      "max": 1850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,850",
+      "min": 1850
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Gamer": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $750",
+      "max": 750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$750 a $2,000",
+      "min": 750,
+      "max": 2000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,000",
+      "min": 2000
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/De oído abierto": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $830",
+      "max": 830
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$830 a $2,750",
+      "min": 830,
+      "max": 2750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,750",
+      "min": 2750
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Earbuds para niños": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $400",
+      "max": 400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$400 a $670",
+      "min": 400,
+      "max": 670
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $670",
+      "min": 670
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Earbuds con cable": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $340",
+      "max": 340
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$340 a $1,200",
+      "min": 340,
+      "max": 1200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,200",
+      "min": 1200
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Diadema con cable": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $700",
+      "max": 700
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$700 a $3,750",
+      "min": 700,
+      "max": 3750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,750",
+      "min": 3750
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Earbuds de cuello": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $300",
+      "max": 300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$300 a $730",
+      "min": 300,
+      "max": 730
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $730",
+      "min": 730
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Almohadillas y repuestos": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $340",
+      "max": 340
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$340 a $640",
+      "min": 340,
+      "max": 640
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $640",
+      "min": 640
+     }
+    ]
+   }
+  ]
+ },
  "Laptops/Laptops básicas y mini": {
   "axes": [
    {
@@ -4047,23 +4463,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $740",
-      "max": 740
+      "spec": "Hasta $780",
+      "max": 780
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$740 a $1,600",
-      "min": 740,
-      "max": 1600
+      "spec": "$780 a $1,950",
+      "min": 780,
+      "max": 1950
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,600",
-      "min": 1600
+      "spec": "Más de $1,950",
+      "min": 1950
      }
     ]
    }
@@ -4614,422 +5030,6 @@
      }
     ],
     "key": "extra"
-   }
-  ]
- },
- "Audífonos/Earbuds inalámbricos": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $540",
-      "max": 540
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$540 a $1,950",
-      "min": 540,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ]
- },
- "Audífonos/Diadema inalámbrica": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $790",
-      "max": 790
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$790 a $4,750",
-      "min": 790,
-      "max": 4750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,750",
-      "min": 4750
-     }
-    ]
-   }
-  ]
- },
- "Audífonos/Diadema con cancelación de ruido": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,350",
-      "max": 3350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,350 a $9,850",
-      "min": 3350,
-      "max": 9850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $9,850",
-      "min": 9850
-     }
-    ]
-   }
-  ]
- },
- "Audífonos/Earbuds con cancelación de ruido": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Audífonos/Earbuds deportivos": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $510",
-      "max": 510
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$510 a $1,850",
-      "min": 510,
-      "max": 1850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,850",
-      "min": 1850
-     }
-    ]
-   }
-  ]
- },
- "Audífonos/Gamer": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $750",
-      "max": 750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$750 a $2,000",
-      "min": 750,
-      "max": 2000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,000",
-      "min": 2000
-     }
-    ]
-   }
-  ]
- },
- "Audífonos/De oído abierto": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $830",
-      "max": 830
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$830 a $2,750",
-      "min": 830,
-      "max": 2750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,750",
-      "min": 2750
-     }
-    ]
-   }
-  ]
- },
- "Audífonos/Earbuds para niños": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $400",
-      "max": 400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$400 a $670",
-      "min": 400,
-      "max": 670
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $670",
-      "min": 670
-     }
-    ]
-   }
-  ]
- },
- "Audífonos/Earbuds con cable": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $340",
-      "max": 340
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$340 a $1,200",
-      "min": 340,
-      "max": 1200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,200",
-      "min": 1200
-     }
-    ]
-   }
-  ]
- },
- "Audífonos/Diadema con cable": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $700",
-      "max": 700
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$700 a $3,750",
-      "min": 700,
-      "max": 3750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,750",
-      "min": 3750
-     }
-    ]
-   }
-  ]
- },
- "Audífonos/Earbuds de cuello": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $300",
-      "max": 300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$300 a $730",
-      "min": 300,
-      "max": 730
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $730",
-      "min": 730
-     }
-    ]
-   }
-  ]
- },
- "Audífonos/Almohadillas y repuestos": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $340",
-      "max": 340
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$340 a $640",
-      "min": 340,
-      "max": 640
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $640",
-      "min": 640
-     }
-    ]
    }
   ]
  },
@@ -12299,23 +12299,627 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $700",
-      "max": 700
+      "spec": "Hasta $730",
+      "max": 730
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$700 a $1,700",
-      "min": 700,
-      "max": 1700
+      "spec": "$730 a $1,800",
+      "min": 730,
+      "max": 1800
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,700",
-      "min": 1700
+      "spec": "Más de $1,800",
+      "min": 1800
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras exteriores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $900",
+      "max": 900
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$900 a $1,850",
+      "min": 900,
+      "max": 1850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,850",
+      "min": 1850
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Alarmas": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $740",
+      "max": 740
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$740 a $3,350",
+      "min": 740,
+      "max": 3350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,350",
+      "min": 3350
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras interiores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $750",
+      "max": 750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$750 a $1,650",
+      "min": 750,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras PTZ": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,000",
+      "max": 1000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,000 a $2,950",
+      "min": 1000,
+      "max": 2950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,950",
+      "min": 2950
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras espía": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $370",
+      "max": 370
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$370 a $1,050",
+      "min": 370,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Kits de vigilancia": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,050",
+      "max": 3050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,050 a $5,450",
+      "min": 3050,
+      "max": 5450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,450",
+      "min": 5450
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Interiores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,350",
+      "max": 1350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,350 a $5,050",
+      "min": 1350,
+      "max": 5050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,050",
+      "min": 5050
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Timbres inteligentes": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,250",
+      "max": 1250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,250 a $3,450",
+      "min": 1250,
+      "max": 3450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,450",
+      "min": 3450
      }
     ]
    }
@@ -21458,6 +22062,41 @@
    }
   ]
  },
+ "Domótica y hogar inteligente/Enchufes inteligentes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $790",
+      "min": 430,
+      "max": 790
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $790",
+      "min": 790
+     }
+    ]
+   }
+  ]
+ },
  "Domótica y hogar inteligente/Controladores e interruptores de luz": {
   "axes": [
    {
@@ -21488,6 +22127,41 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,150",
       "min": 1150
+     }
+    ]
+   }
+  ]
+ },
+ "Domótica y hogar inteligente/Breakers y protectores inteligentes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $3,350",
+      "min": 1050,
+      "max": 3350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,350",
+      "min": 3350
      }
     ]
    }
@@ -21663,41 +22337,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,650",
       "min": 1650
-     }
-    ]
-   }
-  ]
- },
- "Domótica y hogar inteligente/Breakers y protectores inteligentes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,550",
-      "max": 1550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,550 a $3,800",
-      "min": 1550,
-      "max": 3800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,800",
-      "min": 3800
      }
     ]
    }
@@ -21983,6 +22622,41 @@
    }
   ]
  },
+ "Domótica y hogar inteligente/Dimmers y reguladores inteligentes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $720",
+      "max": 720
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$720 a $1,350",
+      "min": 720,
+      "max": 1350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,350",
+      "min": 1350
+     }
+    ]
+   }
+  ]
+ },
  "Domótica y hogar inteligente/Interruptores Wi-Fi": {
   "axes": [
    {
@@ -22153,76 +22827,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $790",
       "min": 790
-     }
-    ]
-   }
-  ]
- },
- "Domótica y hogar inteligente/Enchufes inteligentes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$430 a $800",
-      "min": 430,
-      "max": 800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $800",
-      "min": 800
-     }
-    ]
-   }
-  ]
- },
- "Domótica y hogar inteligente/Dimmers y reguladores inteligentes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $720",
-      "max": 720
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$720 a $1,850",
-      "min": 720,
-      "max": 1850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,850",
-      "min": 1850
      }
     ]
    }
@@ -22473,145 +23077,38 @@
    }
   ]
  },
- "Monitores/Hasta 22 pulgadas": {
+ "Climatización/Accesorios y refacciones de aire acondicionado": {
   "axes": [
    {
-    "label": "Panel",
-    "field": "panel_type",
-    "criterion": "de la pantalla",
-    "ramp": false,
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
     "tiers": [
      {
-      "id": "ips",
-      "name": "IPS",
-      "use": "Colores parejos desde cualquier ángulo",
-      "spec": "IPS",
-      "values": [
-       "IPS"
-      ]
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
      },
      {
-      "id": "tn",
-      "name": "TN",
-      "use": "Respuesta rápida, ángulos cerrados",
-      "spec": "TN",
-      "values": [
-       "TN"
-      ]
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $1,350",
+      "min": 390,
+      "max": 1350
      },
      {
-      "id": "va",
-      "name": "VA",
-      "use": "Negros más profundos",
-      "spec": "VA",
-      "values": [
-       "VA"
-      ]
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,350",
+      "min": 1350
      }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Monitores/28 a 34 pulgadas": {
-  "axes": [
-   {
-    "label": "Panel",
-    "field": "panel_type",
-    "criterion": "de la pantalla",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "ips",
-      "name": "IPS",
-      "use": "Colores parejos desde cualquier ángulo",
-      "spec": "IPS",
-      "values": [
-       "IPS"
-      ]
-     },
-     {
-      "id": "va",
-      "name": "VA",
-      "use": "Negros más profundos",
-      "spec": "VA",
-      "values": [
-       "VA"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Monitores/Ultrawide y curvos": {
-  "axes": [
-   {
-    "label": "Panel",
-    "field": "panel_type",
-    "criterion": "de la pantalla",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "ips",
-      "name": "IPS",
-      "use": "Colores parejos desde cualquier ángulo",
-      "spec": "IPS",
-      "values": [
-       "IPS"
-      ]
-     },
-     {
-      "id": "va",
-      "name": "VA",
-      "use": "Negros más profundos",
-      "spec": "VA",
-      "values": [
-       "VA"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Monitores/Gaming": {
-  "axes": [
-   {
-    "label": "Panel",
-    "field": "panel_type",
-    "criterion": "de la pantalla",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "ips",
-      "name": "IPS",
-      "use": "Colores parejos desde cualquier ángulo",
-      "spec": "IPS",
-      "values": [
-       "IPS"
-      ]
-     },
-     {
-      "id": "va",
-      "name": "VA",
-      "use": "Negros más profundos",
-      "spec": "VA",
-      "values": [
-       "VA"
-      ]
-     },
-     {
-      "id": "oled",
-      "name": "OLED",
-      "use": "Negro real y más contraste",
-      "spec": "OLED",
-      "values": [
-       "OLED"
-      ]
-     }
-    ],
-    "key": "extra"
+    ]
    }
   ]
  },
@@ -22956,41 +23453,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $10,000",
       "min": 10000
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Accesorios y refacciones de aire acondicionado": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $390",
-      "max": 390
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$390 a $1,350",
-      "min": 390,
-      "max": 1350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,350",
-      "min": 1350
      }
     ]
    }
@@ -23654,6 +24116,148 @@
       "min": 2350
      }
     ]
+   }
+  ]
+ },
+ "Monitores/Hasta 22 pulgadas": {
+  "axes": [
+   {
+    "label": "Panel",
+    "field": "panel_type",
+    "criterion": "de la pantalla",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ips",
+      "name": "IPS",
+      "use": "Colores parejos desde cualquier ángulo",
+      "spec": "IPS",
+      "values": [
+       "IPS"
+      ]
+     },
+     {
+      "id": "tn",
+      "name": "TN",
+      "use": "Respuesta rápida, ángulos cerrados",
+      "spec": "TN",
+      "values": [
+       "TN"
+      ]
+     },
+     {
+      "id": "va",
+      "name": "VA",
+      "use": "Negros más profundos",
+      "spec": "VA",
+      "values": [
+       "VA"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Monitores/28 a 34 pulgadas": {
+  "axes": [
+   {
+    "label": "Panel",
+    "field": "panel_type",
+    "criterion": "de la pantalla",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ips",
+      "name": "IPS",
+      "use": "Colores parejos desde cualquier ángulo",
+      "spec": "IPS",
+      "values": [
+       "IPS"
+      ]
+     },
+     {
+      "id": "va",
+      "name": "VA",
+      "use": "Negros más profundos",
+      "spec": "VA",
+      "values": [
+       "VA"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Monitores/Ultrawide y curvos": {
+  "axes": [
+   {
+    "label": "Panel",
+    "field": "panel_type",
+    "criterion": "de la pantalla",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ips",
+      "name": "IPS",
+      "use": "Colores parejos desde cualquier ángulo",
+      "spec": "IPS",
+      "values": [
+       "IPS"
+      ]
+     },
+     {
+      "id": "va",
+      "name": "VA",
+      "use": "Negros más profundos",
+      "spec": "VA",
+      "values": [
+       "VA"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Monitores/Gaming": {
+  "axes": [
+   {
+    "label": "Panel",
+    "field": "panel_type",
+    "criterion": "de la pantalla",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ips",
+      "name": "IPS",
+      "use": "Colores parejos desde cualquier ángulo",
+      "spec": "IPS",
+      "values": [
+       "IPS"
+      ]
+     },
+     {
+      "id": "va",
+      "name": "VA",
+      "use": "Negros más profundos",
+      "spec": "VA",
+      "values": [
+       "VA"
+      ]
+     },
+     {
+      "id": "oled",
+      "name": "OLED",
+      "use": "Negro real y más contraste",
+      "spec": "OLED",
+      "values": [
+       "OLED"
+      ]
+     }
+    ],
+    "key": "extra"
    }
   ]
  },
@@ -27955,610 +28559,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $7,900",
       "min": 7900
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Cámaras interiores": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $750",
-      "max": 750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$750 a $1,650",
-      "min": 750,
-      "max": 1650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,650",
-      "min": 1650
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Cámaras exteriores": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $890",
-      "max": 890
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$890 a $1,850",
-      "min": 890,
-      "max": 1850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,850",
-      "min": 1850
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Cámaras PTZ": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,000 a $2,950",
-      "min": 1000,
-      "max": 2950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Cámaras espía": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $370",
-      "max": 370
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$370 a $1,050",
-      "min": 370,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Kits de vigilancia": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,050",
-      "max": 3050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,050 a $5,450",
-      "min": 3050,
-      "max": 5450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,450",
-      "min": 5450
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Alarmas": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $670",
-      "max": 670
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$670 a $3,050",
-      "min": 670,
-      "max": 3050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,050",
-      "min": 3050
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Interiores": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,350",
-      "max": 1350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,350 a $5,050",
-      "min": 1350,
-      "max": 5050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,050",
-      "min": 5050
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Timbres inteligentes": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,250",
-      "max": 1250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,250 a $3,450",
-      "min": 1250,
-      "max": 3450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,450",
-      "min": 3450
      }
     ]
    }
@@ -33650,6 +33650,41 @@
    }
   ]
  },
+ "Audífonos": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $590",
+      "max": 590
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$590 a $2,350",
+      "min": 590,
+      "max": 2350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,350",
+      "min": 2350
+     }
+    ]
+   }
+  ]
+ },
  "Laptops": {
   "axes": [
    {
@@ -33963,41 +33998,6 @@
    }
   ]
  },
- "Audífonos": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $590",
-      "max": 590
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$590 a $2,350",
-      "min": 590,
-      "max": 2350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,350",
-      "min": 2350
-     }
-    ]
-   }
-  ]
- },
  "Salud": {
   "axes": [
    {
@@ -34269,6 +34269,86 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $3,500",
       "min": 3500
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $2,950",
+      "min": 1050,
+      "max": 2950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,950",
+      "min": 2950
      }
     ]
    }
@@ -34733,6 +34813,41 @@
    }
   ]
  },
+ "Climatización": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,150",
+      "max": 1150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,150 a $6,400",
+      "min": 1150,
+      "max": 6400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,400",
+      "min": 6400
+     }
+    ]
+   }
+  ]
+ },
  "Monitores": {
   "axes": [
    {
@@ -34770,41 +34885,6 @@
      }
     ],
     "key": "extra"
-   }
-  ]
- },
- "Climatización": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,150",
-      "max": 1150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,150 a $6,400",
-      "min": 1150,
-      "max": 6400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,400",
-      "min": 6400
-     }
-    ]
    }
   ]
  },
@@ -34944,86 +35024,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $4,950",
       "min": 4950
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,050",
-      "max": 1050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,050 a $2,950",
-      "min": 1050,
-      "max": 2950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
      }
     ]
    }
