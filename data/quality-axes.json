@@ -33865,16 +33865,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,700 a $8,300",
+      "spec": "$2,700 a $8,250",
       "min": 2700,
-      "max": 8300
+      "max": 8250
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $8,300",
-      "min": 8300
+      "spec": "Más de $8,250",
+      "min": 8250
      }
     ]
    }
@@ -34143,16 +34143,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,150 a $3,750",
+      "spec": "$1,150 a $3,800",
       "min": 1150,
-      "max": 3750
+      "max": 3800
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,750",
-      "min": 3750
+      "spec": "Más de $3,800",
+      "min": 3800
      }
     ]
    }
@@ -34442,70 +34442,7 @@
  "Herramientas": {
   "axes": [
    {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "herramientas-manuales",
-      "name": "Herramientas Manuales",
-      "use": "",
-      "spec": "Herramientas Manuales",
-      "values": [
-       "Herramientas Manuales"
-      ]
-     },
-     {
-      "id": "brocas-y-juego-de-dados",
-      "name": "Brocas y Juego de Dados",
-      "use": "",
-      "spec": "Brocas y Juego de Dados",
-      "values": [
-       "Brocas y Juego de Dados"
-      ]
-     },
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "herramientas-de-medicion",
-      "name": "Herramientas de Medición",
-      "use": "",
-      "spec": "Herramientas de Medición",
-      "values": [
-       "Herramientas de Medición"
-      ]
-     },
-     {
-      "id": "llaves",
-      "name": "Llaves",
-      "use": "",
-      "spec": "Llaves",
-      "values": [
-       "Llaves"
-      ]
-     },
-     {
-      "id": "herramientas-electricas",
-      "name": "Herramientas Eléctricas",
-      "use": "",
-      "spec": "Herramientas Eléctricas",
-      "values": [
-       "Herramientas Eléctricas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -34515,23 +34452,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $580",
-      "max": 580
+      "spec": "Hasta $500",
+      "max": 500
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$580 a $2,450",
-      "min": 580,
-      "max": 2450
+      "spec": "$500 a $2,100",
+      "min": 500,
+      "max": 2100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,450",
-      "min": 2450
+      "spec": "Más de $2,100",
+      "min": 2100
      }
     ]
    }
@@ -34874,16 +34811,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$390 a $950",
+      "spec": "$390 a $960",
       "min": 390,
-      "max": 950
+      "max": 960
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $950",
-      "min": 950
+      "spec": "Más de $960",
+      "min": 960
      }
     ]
    }

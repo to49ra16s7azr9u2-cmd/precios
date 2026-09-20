@@ -3,7 +3,7 @@
     "currency": "MXN",
     "updated": "2026-08-19",
     "note": "Catálogo en reconstrucción con datos reales: 16857 productos. Taxonomía de categorías rediseñada por completo (18 categorías planas → 15 categorías con subcategorías, a partir de un diagrama que definió el usuario: Celulares y accesorios, Cargadores y adaptadores, Computadoras, Televisores y control remoto, Electrodomésticos, Videojuegos, Muebles, Herramientas, Autos/bicicletas/motos, Refacciones, Ropa, Calzado, Maquillaje, Viajes, Otros). Cada producto se reclasificó por su título real con un clasificador por palabras clave (con respaldo en la categoría vieja para los casos ambiguos de marcas curadas, ej. \"Celulares\" siempre fueron teléfonos). Categorías que no tenían equivalente nuevo (Joyería y relojes, Artículos de lujo, Decoración del hogar, Componentes electrónicos) quedaron honestamente en \"Otros\" en vez de forzar un mal encaje (~14% del catálogo). La barra de categorías ahora despliega un submenú al pasar el mouse por las que tienen subcategorías, y el filtro lateral de la lista también las muestra sangradas debajo de la categoría activa. SUNSKY, Geekbuying, Molnija, StyleWE, Glasseslit, Woodestic, The Luxury Closet, Noracora y JustFashionNow ya están \"terminadas\" a fondo. De Alibaba van 2,788 productos en Maquillaje. AliExpress y Alibaba se incorporan de a poco (sus feeds no son el catálogo curado de una sola marca sino volcados gigantescos de todo el marketplace). Se paginan las listas/rankings (60 productos por página) y las páginas SEO estáticas de categoría se limitan a un top 100, para que el sitio no se ponga lento según crece el catálogo. Variantes de color/talla/capacidad se muestran como pastillas clicables y como insignia \"🎨 +N\". Los productos usados/preowned muestran insignia \"🔄 Usado\" y se pueden excluir con un filtro. El mapa de Leaflet se carga de forma perezosa. Precios convertidos de USD/EUR/RUB a MXN a un tipo de cambio aproximado. Se excluyeron a propósito: contenido para adultos, mercancía con nombres de bandas/famosos/personajes reales sin licencia, réplicas realistas de armas, y productos con riesgo real de seguridad (rellenos inyectables, mesoterapia, crioterapia casera, láser de uso clínico, microblading/tatuaje profesional, blanqueadores de piel sin regular). SHEIN pendiente de aprobación en Admitad. Se investigó por qué ningún producto mostraba 2+ tiendas: existe un algoritmo de product matching (scripts/product_matcher.py, EAN->modelo+specs->similitud) pero nunca se había corrido contra el catálogo completo, y en ~77% de los productos (Noracora, Alibaba, JustFashionNow, AliExpress, StyleWE) el campo \"brand\" tenía el nombre de la tienda en vez de la marca real, lo que bloqueaba cualquier coincidencia entre tiendas. Se corrigió la marca real en los productos de Alibaba/AliExpress donde era detectable (24 productos: Xiaomi, HONOR, Creality, KuKirin, Flashforge, Elegoo, etc.) y se corrió el matcher sobre electrónica/celulares (842 productos reales, excluyendo fundas/cables/refacciones). Resultado: 0 coincidencias genuinas -- cada tienda tiene modelos específicos distintos incluso dentro de la misma marca (ej. OUKITEL en SUNSKY son celulares, en Geekbuying son estaciones de energía; ningún modelo se repite). Las 7 \"coincidencias\" que sí encontró el matcher sin filtrar accesorios resultaron ser falsos positivos (producto principal vs. refacción/funda de la misma marca), así que no se fusionó nada. Con la composición actual del catálogo (muestreo independiente de miles de candidatos por feed), la comparación de precios real entre tiendas para el mismo producto es la excepción, no la regla. Se hicieron mucho más finas las 6 categorías que se habían quedado sin ninguna subcategoría en el rediseño anterior (Maquillaje, Otros, Computadoras, Herramientas, Refacciones, Viajes -- juntas, un tercio del catálogo): ahora tienen entre 2 y 6 subcategorías cada una (ej. Maquillaje se separa en maquillaje de rostro/ojos, cuidado de la piel, pelucas y extensiones, estilizado de cabello, uñas y accesorios), clasificadas con un clasificador por palabras clave probado contra el catálogo real, mismo método que la taxonomía original. Cobertura de subcategoría en el catálogo completo: 67% -> 91%. De paso, revisando estas categorías a mano se encontraron 22 productos de mercancía sin licencia que habían evadido el filtro automático ofuscando el nombre con guiones (personajes/bandas/celebridades reales de Bloodborne, Sonic, Borderlands, Gintama, WWE, etc.) y se removieron, y se corrigieron 4 miscategorizaciones puntuales de antes (lentes Glasseslit que habían quedado en Refacciones, playeras Polo que habían quedado en Otros).",
-    "maxProductId": 377421
+    "maxProductId": 384681
   },
   "categories": [
     {
@@ -6090,7 +6090,8 @@
     ],
     "Muebles": [
       "data/cat/muebles-1.json",
-      "data/cat/muebles-2.json"
+      "data/cat/muebles-2.json",
+      "data/cat/muebles-3.json"
     ],
     "Calzado": [
       "data/cat/calzado-1.json"
@@ -6140,7 +6141,8 @@
       "data/cat/domotica-y-hogar-inteligente-1.json"
     ],
     "Herramientas": [
-      "data/cat/herramientas-1.json"
+      "data/cat/herramientas-1.json",
+      "data/cat/herramientas-2.json"
     ],
     "Belleza y cuidado personal": [
       "data/cat/belleza-y-cuidado-personal-1.json"
@@ -6281,7 +6283,8 @@
       "data/det/muebles-12.json",
       "data/det/muebles-13.json",
       "data/det/muebles-14.json",
-      "data/det/muebles-15.json"
+      "data/det/muebles-15.json",
+      "data/det/muebles-16.json"
     ],
     "Calzado": [
       "data/det/calzado-1.json"
@@ -6394,7 +6397,10 @@
       "data/det/herramientas-4.json",
       "data/det/herramientas-5.json",
       "data/det/herramientas-6.json",
-      "data/det/herramientas-7.json"
+      "data/det/herramientas-7.json",
+      "data/det/herramientas-8.json",
+      "data/det/herramientas-9.json",
+      "data/det/herramientas-10.json"
     ],
     "Belleza y cuidado personal": [
       "data/det/belleza-y-cuidado-personal-1.json",
@@ -6519,7 +6525,7 @@
   },
   "indexFile": "data/index.json",
   "homeFile": "data/home.json",
-  "totalProducts": 296391,
+  "totalProducts": 303643,
   "categoryStats": {
     "Celulares": {
       "n": 4692,
@@ -6643,7 +6649,7 @@
       "maxShip": 60
     },
     "Muebles": {
-      "n": 29059,
+      "n": 30284,
       "subs": {
         "Percheros": 333,
         "Escritorios de altura ajustable": 375,
@@ -6710,13 +6716,13 @@
         "Bancas de comedor": 13,
         "Fundas y accesorios para sofá": 52,
         "Accesorios y refacciones de cama": 98,
-        "": 379,
+        "": 1604,
         "Toppers y sobrecolchones": 40
       },
       "pop": 70540,
-      "discounted": 10649,
+      "discounted": 11619,
       "max": 82,
-      "discountedShip": 10650,
+      "discountedShip": 11620,
       "maxShip": 82
     },
     "Calzado": {
@@ -6894,7 +6900,7 @@
       "maxShip": 75
     },
     "Autos, bicicletas y motos": {
-      "n": 15224,
+      "n": 15325,
       "subs": {
         "Bicicletas BMX": 71,
         "Estéreos para auto": 1385,
@@ -6944,15 +6950,15 @@
         "Tweeters": 289,
         "Bocinas de 4 a 5.25 pulgadas": 117,
         "Bocinas de componentes": 76,
-        "": 108,
+        "": 209,
         "Dashcams y cámaras": 89,
         "Accesorios para moto": 203,
         "Ropa y calzado de ciclismo": 6
       },
       "pop": 23167,
-      "discounted": 2521,
+      "discounted": 2585,
       "max": 93,
-      "discountedShip": 2550,
+      "discountedShip": 2614,
       "maxShip": 93
     },
     "Audífonos": {
@@ -7273,7 +7279,7 @@
       "maxShip": 72
     },
     "Herramientas": {
-      "n": 13807,
+      "n": 19661,
       "subs": {
         "Material eléctrico": 849,
         "Jardinería": 1552,
@@ -7317,15 +7323,15 @@
         "Construcción": 148,
         "Gas LP": 28,
         "Plomería": 1503,
-        "": 207,
+        "": 6061,
         "Flejadoras y empacadoras": 1384,
         "Cerraduras y candados": 358
       },
       "pop": 182871,
-      "discounted": 5230,
-      "max": 76,
-      "discountedShip": 5331,
-      "maxShip": 76
+      "discounted": 6175,
+      "max": 80,
+      "discountedShip": 6276,
+      "maxShip": 80
     },
     "Belleza y cuidado personal": {
       "n": 10902,
@@ -7376,7 +7382,7 @@
       "maxShip": 79
     },
     "Cámaras de seguridad": {
-      "n": 1424,
+      "n": 1433,
       "subs": {
         "Kits de vigilancia": 298,
         "Interiores": 240,
@@ -7387,12 +7393,12 @@
         "Cámaras interiores": 394,
         "Timbres inteligentes": 26,
         "Alarmas": 50,
-        "": 12
+        "": 21
       },
       "pop": 21354,
-      "discounted": 645,
+      "discounted": 649,
       "max": 81,
-      "discountedShip": 645,
+      "discountedShip": 649,
       "maxShip": 81
     },
     "Equipo comercial": {
@@ -7495,7 +7501,7 @@
       "maxShip": 80
     },
     "Refacciones": {
-      "n": 7915,
+      "n": 7971,
       "subs": {
         "Refacciones para refrigerador": 810,
         "Refacciones para otros electrodomésticos": 285,
@@ -7539,12 +7545,13 @@
         "Asientos, parrillas y accesorios de moto": 130,
         "Refacciones para estufa y horno": 9,
         "Refacciones para bocinas y audio": 81,
-        "Refacciones para plancha y vaporizador": 17
+        "Refacciones para plancha y vaporizador": 17,
+        "": 56
       },
       "pop": 3243,
-      "discounted": 1979,
+      "discounted": 1985,
       "max": 52,
-      "discountedShip": 1979,
+      "discountedShip": 1985,
       "maxShip": 52
     },
     "Electrodomésticos": {
@@ -7937,17 +7944,17 @@
       "maxShip": 70
     },
     "Viajes": {
-      "n": 1064,
+      "n": 1071,
       "subs": {
         "Camping": 172,
         "Pesca": 39,
         "Maletas": 849,
-        "": 4
+        "": 11
       },
       "pop": 1671,
-      "discounted": 643,
+      "discounted": 649,
       "max": 69,
-      "discountedShip": 643,
+      "discountedShip": 649,
       "maxShip": 66
     },
     "Drones": {
@@ -8164,11 +8171,11 @@
     ],
     "Herramientas": [
       "p60484",
+      "p381063",
       "p61184",
       "p60438",
       "p121622",
-      "p122501",
-      "p60468"
+      "p122501"
     ],
     "Belleza y cuidado personal": [
       "p103304",
