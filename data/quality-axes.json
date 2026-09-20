@@ -2828,16 +2828,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,400 a $4,450",
+      "spec": "$1,400 a $4,400",
       "min": 1400,
-      "max": 4450
+      "max": 4400
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,450",
-      "min": 4450
+      "spec": "Más de $4,400",
+      "min": 4400
      }
     ]
    }
@@ -4484,6 +4484,4293 @@
     ]
    }
   ]
+ },
+ "Herramientas/Hidrolavadoras": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 1,300 W",
+      "max": 1300
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "1,301 W a 1,550 W",
+      "min": 1300,
+      "max": 1550
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 1,550 W",
+      "min": 1550
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Soldadura": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 80 W",
+      "max": 80
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "81 W a 750 W",
+      "min": 80,
+      "max": 750
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 750 W",
+      "min": 750
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Material eléctrico": {
+  "axes": [
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $210",
+      "max": 210
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$210 a $410",
+      "min": 210,
+      "max": 410
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $410",
+      "min": 410
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Accesorios para herramientas eléctricas": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "brocas-y-juego-de-dados",
+      "name": "Brocas y Juego de Dados",
+      "use": "",
+      "spec": "Brocas y Juego de Dados",
+      "values": [
+       "Brocas y Juego de Dados"
+      ]
+     },
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     },
+     {
+      "id": "sierras",
+      "name": "Sierras",
+      "use": "",
+      "spec": "Sierras",
+      "values": [
+       "Sierras"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $480",
+      "max": 480
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$480 a $830",
+      "min": 480,
+      "max": 830
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $830",
+      "min": 830
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Herramientas manuales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $310",
+      "max": 310
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$310 a $1,050",
+      "min": 310,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Jardinería": {
+  "axes": [
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     },
+     {
+      "id": "herramientas-manuales",
+      "name": "Herramientas Manuales",
+      "use": "",
+      "spec": "Herramientas Manuales",
+      "values": [
+       "Herramientas Manuales"
+      ]
+     },
+     {
+      "id": "desbrozadoras",
+      "name": "Desbrozadoras",
+      "use": "",
+      "spec": "Desbrozadoras",
+      "values": [
+       "Desbrozadoras"
+      ]
+     },
+     {
+      "id": "herramientas-electricas",
+      "name": "Herramientas Eléctricas",
+      "use": "",
+      "spec": "Herramientas Eléctricas",
+      "values": [
+       "Herramientas Eléctricas"
+      ]
+     },
+     {
+      "id": "mangueras",
+      "name": "Mangueras",
+      "use": "",
+      "spec": "Mangueras",
+      "values": [
+       "Mangueras"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Seguridad industrial": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $490",
+      "max": 490
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$490 a $1,100",
+      "min": 490,
+      "max": 1100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,100",
+      "min": 1100
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Medición": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $1,000",
+      "min": 430,
+      "max": 1000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,000",
+      "min": 1000
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Grabado láser": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,400",
+      "max": 1400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,400 a $6,050",
+      "min": 1400,
+      "max": 6050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,050",
+      "min": 6050
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Esmeriladoras y pulidoras": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 800 W",
+      "max": 800
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "801 W a 1,250 W",
+      "min": 800,
+      "max": 1250
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 1,250 W",
+      "min": 1250
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Taladros y rotomartillos": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 650 W",
+      "max": 650
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "651 W a 840 W",
+      "min": 650,
+      "max": 840
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 840 W",
+      "min": 840
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Herramientas eléctricas": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Taladros y lijadoras chicas, uso en casa",
+      "spec": "Hasta 540 W",
+      "max": 540
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "541 W a 900 W",
+      "min": 540,
+      "max": 900
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Rotomartillos, sierras y esmeriles grandes",
+      "spec": "Más de 900 W",
+      "min": 900
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "herramientas-electricas",
+      "name": "Herramientas Eléctricas",
+      "use": "",
+      "spec": "Herramientas Eléctricas",
+      "values": [
+       "Herramientas Eléctricas"
+      ]
+     },
+     {
+      "id": "soldadoras",
+      "name": "Soldadoras",
+      "use": "",
+      "spec": "Soldadoras",
+      "values": [
+       "Soldadoras"
+      ]
+     },
+     {
+      "id": "bombas",
+      "name": "Bombas",
+      "use": "",
+      "spec": "Bombas",
+      "values": [
+       "Bombas"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "intro": "Elige por el trabajo que le vas a dar y si la quieres con o sin cable."
+ },
+ "Herramientas/Desarmadores y puntas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $130",
+      "max": 130
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$130 a $430",
+      "min": 130,
+      "max": 430
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $430",
+      "min": 430
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Prensas y sujeción": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $1,100",
+      "min": 290,
+      "max": 1100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,100",
+      "min": 1100
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Llaves y dados": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "herramientas-manuales",
+      "name": "Herramientas Manuales",
+      "use": "",
+      "spec": "Herramientas Manuales",
+      "values": [
+       "Herramientas Manuales"
+      ]
+     },
+     {
+      "id": "llaves",
+      "name": "Llaves",
+      "use": "",
+      "spec": "Llaves",
+      "values": [
+       "Llaves"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $240",
+      "max": 240
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$240 a $710",
+      "min": 240,
+      "max": 710
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $710",
+      "min": 710
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Atornilladores": {
+  "axes": [
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,600",
+      "max": 1600
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,600 a $3,300",
+      "min": 1600,
+      "max": 3300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,300",
+      "min": 3300
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Lijadoras": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 260 W",
+      "max": 260
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "261 W a 650 W",
+      "min": 260,
+      "max": 650
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 650 W",
+      "min": 650
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "lijadoras",
+      "name": "Lijadoras",
+      "use": "",
+      "spec": "Lijadoras",
+      "values": [
+       "Lijadoras"
+      ]
+     },
+     {
+      "id": "herramientas-electricas",
+      "name": "Herramientas Eléctricas",
+      "use": "",
+      "spec": "Herramientas Eléctricas",
+      "values": [
+       "Herramientas Eléctricas"
+      ]
+     },
+     {
+      "id": "cepillos-electricos",
+      "name": "Cepillos Eléctricos",
+      "use": "",
+      "spec": "Cepillos Eléctricos",
+      "values": [
+       "Cepillos Eléctricos"
+      ]
+     },
+     {
+      "id": "pulidoras-y-lijadoras",
+      "name": "Pulidoras y Lijadoras",
+      "use": "",
+      "spec": "Pulidoras y Lijadoras",
+      "values": [
+       "Pulidoras y Lijadoras"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Herramientas/Sierras": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 1,100 W",
+      "max": 1100
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "1,101 W a 1,500 W",
+      "min": 1100,
+      "max": 1500
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 1,500 W",
+      "min": 1500
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Escaleras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,250",
+      "max": 1250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,250 a $3,000",
+      "min": 1250,
+      "max": 3000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,000",
+      "min": 3000
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Baterías y cargadores de herramienta": {
+  "axes": [
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,000",
+      "max": 1000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,000 a $2,250",
+      "min": 1000,
+      "max": 2250
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,250",
+      "min": 2250
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Compresores y herramienta neumática": {
+  "axes": [
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,550",
+      "max": 2550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,550 a $4,900",
+      "min": 2550,
+      "max": 4900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,900",
+      "min": 4900
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Pistolas de calor, engrapadoras y clavadoras": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 1,300 W",
+      "max": 1300
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "1,301 W a 1,800 W",
+      "min": 1300,
+      "max": 1800
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 1,800 W",
+      "min": 1800
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "pistolas-de-calor-y-neumaticas",
+      "name": "Pistolas de Calor y Neumáticas",
+      "use": "",
+      "spec": "Pistolas de Calor y Neumáticas",
+      "values": [
+       "Pistolas de Calor y Neumáticas"
+      ]
+     },
+     {
+      "id": "herramientas-electricas",
+      "name": "Herramientas Eléctricas",
+      "use": "",
+      "spec": "Herramientas Eléctricas",
+      "values": [
+       "Herramientas Eléctricas"
+      ]
+     },
+     {
+      "id": "herramientas-manuales",
+      "name": "Herramientas Manuales",
+      "use": "",
+      "spec": "Herramientas Manuales",
+      "values": [
+       "Herramientas Manuales"
+      ]
+     },
+     {
+      "id": "clavadoras",
+      "name": "Clavadoras",
+      "use": "",
+      "spec": "Clavadoras",
+      "values": [
+       "Clavadoras"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Herramientas/Pinzas y alicates": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $220",
+      "max": 220
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$220 a $490",
+      "min": 220,
+      "max": 490
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $490",
+      "min": 490
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Brocas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $380",
+      "max": 380
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$380 a $620",
+      "min": 380,
+      "max": 620
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $620",
+      "min": 620
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Routers, fresadoras y multiherramientas": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 710 W",
+      "max": 710
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "711 W a 900 W",
+      "min": 710,
+      "max": 900
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 900 W",
+      "min": 900
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Herramientas de banco": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 370 W",
+      "max": 370
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "371 W a 570 W",
+      "min": 370,
+      "max": 570
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 570 W",
+      "min": 570
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Generadores": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 1,200 W",
+      "max": 1200
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "1,201 W a 2,500 W",
+      "min": 1200,
+      "max": 2500
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 2,500 W",
+      "min": 2500
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $8,050",
+      "max": 8050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$8,050 a $14,500",
+      "min": 8050,
+      "max": 14500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $14,500",
+      "min": 14500
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Neumáticas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $3,650",
+      "min": 1050,
+      "max": 3650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,650",
+      "min": 3650
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Juegos de herramientas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $670",
+      "max": 670
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$670 a $2,150",
+      "min": 670,
+      "max": 2150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,150",
+      "min": 2150
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Martillos, cinceles y mazos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $240",
+      "max": 240
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$240 a $610",
+      "min": 240,
+      "max": 610
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $610",
+      "min": 610
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Refacciones de herramientas eléctricas": {
+  "axes": [
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     },
+     {
+      "id": "sierras",
+      "name": "Sierras",
+      "use": "",
+      "spec": "Sierras",
+      "values": [
+       "Sierras"
+      ]
+     },
+     {
+      "id": "herramientas-manuales",
+      "name": "Herramientas Manuales",
+      "use": "",
+      "spec": "Herramientas Manuales",
+      "values": [
+       "Herramientas Manuales"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Herramientas/Hojas y cuchillas de sierra": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     },
+     {
+      "id": "sierras",
+      "name": "Sierras",
+      "use": "",
+      "spec": "Sierras",
+      "values": [
+       "Sierras"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $680",
+      "min": 390,
+      "max": 680
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $680",
+      "min": 680
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Puntas y dados de impacto": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "brocas-y-juego-de-dados",
+      "name": "Brocas y Juego de Dados",
+      "use": "",
+      "spec": "Brocas y Juego de Dados",
+      "values": [
+       "Brocas y Juego de Dados"
+      ]
+     },
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     },
+     {
+      "id": "sierras",
+      "name": "Sierras",
+      "use": "",
+      "spec": "Sierras",
+      "values": [
+       "Sierras"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $380",
+      "max": 380
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$380 a $800",
+      "min": 380,
+      "max": 800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $800",
+      "min": 800
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Discos de corte y desbaste": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $460",
+      "max": 460
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$460 a $920",
+      "min": 460,
+      "max": 920
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $920",
+      "min": 920
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Accesorios para rotomartillo y demoledor": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso en casa",
+      "spec": "Hasta 870 W",
+      "max": 870
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Taller y trabajos frecuentes",
+      "spec": "871 W a 1,200 W",
+      "min": 870,
+      "max": 1200
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o profesional",
+      "spec": "Más de 1,200 W",
+      "min": 1200
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $760",
+      "max": 760
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$760 a $2,450",
+      "min": 760,
+      "max": 2450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,450",
+      "min": 2450
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Accesorios de multiherramienta y mototool": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "tool_type",
+    "criterion": "de herramienta",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "moto-tool",
+      "name": "Moto Tool",
+      "use": "",
+      "spec": "Moto Tool",
+      "values": [
+       "Moto Tool"
+      ]
+     },
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     },
+     {
+      "id": "brocas-y-juego-de-dados",
+      "name": "Brocas y Juego de Dados",
+      "use": "",
+      "spec": "Brocas y Juego de Dados",
+      "values": [
+       "Brocas y Juego de Dados"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $600",
+      "min": 290,
+      "max": 600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $600",
+      "min": 600
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Organización": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $650",
+      "max": 650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$650 a $1,650",
+      "min": 650,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Construcción": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $940",
+      "max": 940
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$940 a $1,550",
+      "min": 940,
+      "max": 1550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,550",
+      "min": 1550
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Gas LP": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $590",
+      "max": 590
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$590 a $1,650",
+      "min": 590,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Plomería": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $670",
+      "max": 670
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$670 a $1,700",
+      "min": 670,
+      "max": 1700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,700",
+      "min": 1700
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Flejadoras y empacadoras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $29,000",
+      "max": 29000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$29,000 a $47,500",
+      "min": 29000,
+      "max": 47500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $47,500",
+      "min": 47500
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas/Cerraduras y candados": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $240",
+      "max": 240
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$240 a $480",
+      "min": 240,
+      "max": 480
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $480",
+      "min": 480
+     }
+    ]
+   }
+  ]
+ },
+ "Juguetes y bebés/Vehículos de juguete": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $400",
+      "max": 400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$400 a $750",
+      "min": 400,
+      "max": 750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $750",
+      "min": 750
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Juegos de exterior": {
+  "axes": [
+   {
+    "label": "Jugadores",
+    "field": "players_max",
+    "criterion": "que caben",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "solo",
+      "name": "Solitario",
+      "use": "Para jugar solo",
+      "spec": "1 jugador",
+      "max": 1
+     },
+     {
+      "id": "dos",
+      "name": "Para dos",
+      "use": "En pareja o uno contra uno",
+      "spec": "2 jugadores",
+      "min": 1,
+      "max": 2
+     },
+     {
+      "id": "chico",
+      "name": "Grupo chico",
+      "use": "Familia o cuatro amigos",
+      "spec": "3 a 4 jugadores",
+      "min": 2,
+      "max": 4
+     },
+     {
+      "id": "grande",
+      "name": "Grupo grande",
+      "use": "Fiestas y reuniones",
+      "spec": "5 o más",
+      "min": 4
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Juguetes para bebé": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso ocasional",
+      "spec": "Hasta 12 kg",
+      "max": 12
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso diario",
+      "spec": "13 kg a 15 kg",
+      "min": 12,
+      "max": 15
+     },
+     {
+      "id": "reforzada",
+      "name": "Reforzada",
+      "use": "Uso intensivo o más peso",
+      "spec": "Más de 15 kg",
+      "min": 15
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Bloques de construcción": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $590",
+      "max": 590
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$590 a $1,300",
+      "min": 590,
+      "max": 1300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,300",
+      "min": 1300
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Carriolas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,650",
+      "max": 2650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,650 a $6,450",
+      "min": 2650,
+      "max": 6450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,450",
+      "min": 6450
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Figuras de acción": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Para colección en repisa",
+      "spec": "Hasta 15 cm",
+      "max": 15
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "La escala más común",
+      "spec": "16 cm a 18 cm",
+      "min": 15,
+      "max": 18
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Para exhibir",
+      "spec": "Más de 18 cm",
+      "min": 18
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Cunas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,900",
+      "max": 1900
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,900 a $6,250",
+      "min": 1900,
+      "max": 6250
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,250",
+      "min": 6250
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Juguetes educativos": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Juguetes musicales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $660",
+      "max": 660
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$660 a $1,050",
+      "min": 660,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Muñecas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $890",
+      "min": 540,
+      "max": 890
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $890",
+      "min": 890
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Biberones": {
+  "axes": [
+   {
+    "label": "Contenido",
+    "field": "volume_ml",
+    "criterion": "en mililitros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Para probar o para viajar",
+      "spec": "Hasta 160 ml",
+      "max": 160
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Uso de diario",
+      "spec": "161 ml a 260 ml",
+      "min": 160,
+      "max": 260
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Rinde meses",
+      "spec": "Más de 260 ml",
+      "min": 260
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $420",
+      "max": 420
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$420 a $900",
+      "min": 420,
+      "max": 900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $900",
+      "min": 900
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Peluches": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "De bolsillo o llavero",
+      "spec": "Hasta 20 cm",
+      "max": 20
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Para abrazar",
+      "spec": "21 cm a 28 cm",
+      "min": 20,
+      "max": 28
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Para la cama",
+      "spec": "Más de 28 cm",
+      "min": 28
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Triciclos": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,450",
+      "max": 1450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,450 a $1,950",
+      "min": 1450,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Corrales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,850",
+      "max": 1850
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,850 a $2,950",
+      "min": 1850,
+      "max": 2950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,950",
+      "min": 2950
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Pañales y cambio": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $470",
+      "max": 470
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$470 a $890",
+      "min": 470,
+      "max": 890
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $890",
+      "min": 890
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Bebés": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $490",
+      "max": 490
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$490 a $810",
+      "min": 490,
+      "max": 810
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $810",
+      "min": 810
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Cuidado y salud del bebé": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Vehículos a control remoto": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $490",
+      "max": 490
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$490 a $920",
+      "min": 490,
+      "max": 920
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $920",
+      "min": 920
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Baño e higiene del bebé": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $320",
+      "max": 320
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$320 a $590",
+      "min": 320,
+      "max": 590
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $590",
+      "min": 590
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Sillas de comer y mecedoras": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso ocasional",
+      "spec": "Hasta 15 kg",
+      "max": 15
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso diario",
+      "spec": "16 kg a 25 kg",
+      "min": 15,
+      "max": 25
+     },
+     {
+      "id": "reforzada",
+      "name": "Reforzada",
+      "use": "Uso intensivo o más peso",
+      "spec": "Más de 25 kg",
+      "min": 25
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Portabebés y canguros": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,300",
+      "max": 1300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,300 a $1,950",
+      "min": 1300,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Ropa y calzado de bebé": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Chupones y mordederas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $380",
+      "max": 380
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$380 a $430",
+      "min": 380,
+      "max": 430
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $430",
+      "min": 430
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Alimentación y lactancia": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "vidrio",
+      "name": "Vidrio",
+      "use": "",
+      "spec": "Vidrio",
+      "values": [
+       "Vidrio"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $510",
+      "max": 510
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$510 a $890",
+      "min": 510,
+      "max": 890
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $890",
+      "min": 890
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Seguridad para bebé": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Montables": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Juguetes para exterior": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $470",
+      "max": 470
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$470 a $900",
+      "min": 470,
+      "max": 900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $900",
+      "min": 900
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Maquetas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $610",
+      "max": 610
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$610 a $3,400",
+      "min": 610,
+      "max": 3400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,400",
+      "min": 3400
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Computadoras de escritorio/All in One": {
   "axes": [
@@ -7963,2533 +12250,6 @@
    }
   ]
  },
- "Herramientas/Soldadura": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 80 W",
-      "max": 80
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "81 W a 750 W",
-      "min": 80,
-      "max": 750
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 750 W",
-      "min": 750
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Herramientas/Material eléctrico": {
-  "axes": [
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $210",
-      "max": 210
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$210 a $410",
-      "min": 210,
-      "max": 410
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $410",
-      "min": 410
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Accesorios para herramientas eléctricas": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "brocas-y-juego-de-dados",
-      "name": "Brocas y Juego de Dados",
-      "use": "",
-      "spec": "Brocas y Juego de Dados",
-      "values": [
-       "Brocas y Juego de Dados"
-      ]
-     },
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "sierras",
-      "name": "Sierras",
-      "use": "",
-      "spec": "Sierras",
-      "values": [
-       "Sierras"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $480",
-      "max": 480
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$480 a $830",
-      "min": 480,
-      "max": 830
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $830",
-      "min": 830
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Herramientas manuales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $310",
-      "max": 310
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$310 a $1,050",
-      "min": 310,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Jardinería": {
-  "axes": [
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "herramientas-manuales",
-      "name": "Herramientas Manuales",
-      "use": "",
-      "spec": "Herramientas Manuales",
-      "values": [
-       "Herramientas Manuales"
-      ]
-     },
-     {
-      "id": "desbrozadoras",
-      "name": "Desbrozadoras",
-      "use": "",
-      "spec": "Desbrozadoras",
-      "values": [
-       "Desbrozadoras"
-      ]
-     },
-     {
-      "id": "herramientas-electricas",
-      "name": "Herramientas Eléctricas",
-      "use": "",
-      "spec": "Herramientas Eléctricas",
-      "values": [
-       "Herramientas Eléctricas"
-      ]
-     },
-     {
-      "id": "mangueras",
-      "name": "Mangueras",
-      "use": "",
-      "spec": "Mangueras",
-      "values": [
-       "Mangueras"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Herramientas/Seguridad industrial": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $490",
-      "max": 490
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$490 a $1,100",
-      "min": 490,
-      "max": 1100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,100",
-      "min": 1100
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Medición": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$430 a $1,000",
-      "min": 430,
-      "max": 1000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,000",
-      "min": 1000
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Grabado láser": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,400",
-      "max": 1400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,400 a $6,050",
-      "min": 1400,
-      "max": 6050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,050",
-      "min": 6050
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Esmeriladoras y pulidoras": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 800 W",
-      "max": 800
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "801 W a 1,250 W",
-      "min": 800,
-      "max": 1250
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 1,250 W",
-      "min": 1250
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Herramientas/Taladros y rotomartillos": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 650 W",
-      "max": 650
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "651 W a 840 W",
-      "min": 650,
-      "max": 840
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 840 W",
-      "min": 840
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Herramientas/Herramientas eléctricas": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Taladros y lijadoras chicas, uso en casa",
-      "spec": "Hasta 540 W",
-      "max": 540
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "541 W a 900 W",
-      "min": 540,
-      "max": 900
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Rotomartillos, sierras y esmeriles grandes",
-      "spec": "Más de 900 W",
-      "min": 900
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "herramientas-electricas",
-      "name": "Herramientas Eléctricas",
-      "use": "",
-      "spec": "Herramientas Eléctricas",
-      "values": [
-       "Herramientas Eléctricas"
-      ]
-     },
-     {
-      "id": "soldadoras",
-      "name": "Soldadoras",
-      "use": "",
-      "spec": "Soldadoras",
-      "values": [
-       "Soldadoras"
-      ]
-     },
-     {
-      "id": "bombas",
-      "name": "Bombas",
-      "use": "",
-      "spec": "Bombas",
-      "values": [
-       "Bombas"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ],
-  "intro": "Elige por el trabajo que le vas a dar y si la quieres con o sin cable."
- },
- "Herramientas/Desarmadores y puntas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $130",
-      "max": 130
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$130 a $430",
-      "min": 130,
-      "max": 430
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $430",
-      "min": 430
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Prensas y sujeción": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $1,100",
-      "min": 290,
-      "max": 1100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,100",
-      "min": 1100
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Llaves y dados": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "herramientas-manuales",
-      "name": "Herramientas Manuales",
-      "use": "",
-      "spec": "Herramientas Manuales",
-      "values": [
-       "Herramientas Manuales"
-      ]
-     },
-     {
-      "id": "llaves",
-      "name": "Llaves",
-      "use": "",
-      "spec": "Llaves",
-      "values": [
-       "Llaves"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $240",
-      "max": 240
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$240 a $710",
-      "min": 240,
-      "max": 710
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $710",
-      "min": 710
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Atornilladores": {
-  "axes": [
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,600",
-      "max": 1600
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,600 a $3,300",
-      "min": 1600,
-      "max": 3300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,300",
-      "min": 3300
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Lijadoras": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 260 W",
-      "max": 260
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "261 W a 650 W",
-      "min": 260,
-      "max": 650
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 650 W",
-      "min": 650
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "lijadoras",
-      "name": "Lijadoras",
-      "use": "",
-      "spec": "Lijadoras",
-      "values": [
-       "Lijadoras"
-      ]
-     },
-     {
-      "id": "herramientas-electricas",
-      "name": "Herramientas Eléctricas",
-      "use": "",
-      "spec": "Herramientas Eléctricas",
-      "values": [
-       "Herramientas Eléctricas"
-      ]
-     },
-     {
-      "id": "cepillos-electricos",
-      "name": "Cepillos Eléctricos",
-      "use": "",
-      "spec": "Cepillos Eléctricos",
-      "values": [
-       "Cepillos Eléctricos"
-      ]
-     },
-     {
-      "id": "pulidoras-y-lijadoras",
-      "name": "Pulidoras y Lijadoras",
-      "use": "",
-      "spec": "Pulidoras y Lijadoras",
-      "values": [
-       "Pulidoras y Lijadoras"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Herramientas/Sierras": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 1,100 W",
-      "max": 1100
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "1,101 W a 1,500 W",
-      "min": 1100,
-      "max": 1500
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 1,500 W",
-      "min": 1500
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Herramientas/Escaleras": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,250",
-      "max": 1250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,250 a $3,000",
-      "min": 1250,
-      "max": 3000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,000",
-      "min": 3000
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Baterías y cargadores de herramienta": {
-  "axes": [
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,000 a $2,250",
-      "min": 1000,
-      "max": 2250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,250",
-      "min": 2250
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Compresores y herramienta neumática": {
-  "axes": [
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,550",
-      "max": 2550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,550 a $4,900",
-      "min": 2550,
-      "max": 4900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,900",
-      "min": 4900
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Pistolas de calor, engrapadoras y clavadoras": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 1,300 W",
-      "max": 1300
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "1,301 W a 1,800 W",
-      "min": 1300,
-      "max": 1800
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 1,800 W",
-      "min": 1800
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "pistolas-de-calor-y-neumaticas",
-      "name": "Pistolas de Calor y Neumáticas",
-      "use": "",
-      "spec": "Pistolas de Calor y Neumáticas",
-      "values": [
-       "Pistolas de Calor y Neumáticas"
-      ]
-     },
-     {
-      "id": "herramientas-electricas",
-      "name": "Herramientas Eléctricas",
-      "use": "",
-      "spec": "Herramientas Eléctricas",
-      "values": [
-       "Herramientas Eléctricas"
-      ]
-     },
-     {
-      "id": "herramientas-manuales",
-      "name": "Herramientas Manuales",
-      "use": "",
-      "spec": "Herramientas Manuales",
-      "values": [
-       "Herramientas Manuales"
-      ]
-     },
-     {
-      "id": "clavadoras",
-      "name": "Clavadoras",
-      "use": "",
-      "spec": "Clavadoras",
-      "values": [
-       "Clavadoras"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Herramientas/Pinzas y alicates": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $220",
-      "max": 220
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$220 a $490",
-      "min": 220,
-      "max": 490
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $490",
-      "min": 490
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Brocas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $380",
-      "max": 380
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$380 a $620",
-      "min": 380,
-      "max": 620
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $620",
-      "min": 620
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Routers, fresadoras y multiherramientas": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 710 W",
-      "max": 710
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "711 W a 900 W",
-      "min": 710,
-      "max": 900
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 900 W",
-      "min": 900
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Herramientas/Herramientas de banco": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 370 W",
-      "max": 370
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "371 W a 570 W",
-      "min": 370,
-      "max": 570
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 570 W",
-      "min": 570
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Herramientas/Hidrolavadoras": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 1,300 W",
-      "max": 1300
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "1,301 W a 1,550 W",
-      "min": 1300,
-      "max": 1550
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 1,550 W",
-      "min": 1550
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Herramientas/Generadores": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 1,200 W",
-      "max": 1200
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "1,201 W a 2,500 W",
-      "min": 1200,
-      "max": 2500
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 2,500 W",
-      "min": 2500
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $8,050",
-      "max": 8050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$8,050 a $14,500",
-      "min": 8050,
-      "max": 14500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $14,500",
-      "min": 14500
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Neumáticas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,050",
-      "max": 1050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,050 a $3,650",
-      "min": 1050,
-      "max": 3650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,650",
-      "min": 3650
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Juegos de herramientas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $670",
-      "max": 670
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$670 a $2,150",
-      "min": 670,
-      "max": 2150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,150",
-      "min": 2150
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Martillos, cinceles y mazos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $240",
-      "max": 240
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$240 a $610",
-      "min": 240,
-      "max": 610
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $610",
-      "min": 610
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Refacciones de herramientas eléctricas": {
-  "axes": [
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "sierras",
-      "name": "Sierras",
-      "use": "",
-      "spec": "Sierras",
-      "values": [
-       "Sierras"
-      ]
-     },
-     {
-      "id": "herramientas-manuales",
-      "name": "Herramientas Manuales",
-      "use": "",
-      "spec": "Herramientas Manuales",
-      "values": [
-       "Herramientas Manuales"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Herramientas/Hojas y cuchillas de sierra": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "sierras",
-      "name": "Sierras",
-      "use": "",
-      "spec": "Sierras",
-      "values": [
-       "Sierras"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $390",
-      "max": 390
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$390 a $680",
-      "min": 390,
-      "max": 680
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $680",
-      "min": 680
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Puntas y dados de impacto": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "brocas-y-juego-de-dados",
-      "name": "Brocas y Juego de Dados",
-      "use": "",
-      "spec": "Brocas y Juego de Dados",
-      "values": [
-       "Brocas y Juego de Dados"
-      ]
-     },
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "sierras",
-      "name": "Sierras",
-      "use": "",
-      "spec": "Sierras",
-      "values": [
-       "Sierras"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $380",
-      "max": 380
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$380 a $800",
-      "min": 380,
-      "max": 800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $800",
-      "min": 800
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Discos de corte y desbaste": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $460",
-      "max": 460
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$460 a $920",
-      "min": 460,
-      "max": 920
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $920",
-      "min": 920
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Accesorios para rotomartillo y demoledor": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 870 W",
-      "max": 870
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "871 W a 1,200 W",
-      "min": 870,
-      "max": 1200
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 1,200 W",
-      "min": 1200
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $760",
-      "max": 760
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$760 a $2,450",
-      "min": 760,
-      "max": 2450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,450",
-      "min": 2450
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Accesorios de multiherramienta y mototool": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "tool_type",
-    "criterion": "de herramienta",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "moto-tool",
-      "name": "Moto Tool",
-      "use": "",
-      "spec": "Moto Tool",
-      "values": [
-       "Moto Tool"
-      ]
-     },
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "brocas-y-juego-de-dados",
-      "name": "Brocas y Juego de Dados",
-      "use": "",
-      "spec": "Brocas y Juego de Dados",
-      "values": [
-       "Brocas y Juego de Dados"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $600",
-      "min": 290,
-      "max": 600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $600",
-      "min": 600
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Organización": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $650",
-      "max": 650
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$650 a $1,650",
-      "min": 650,
-      "max": 1650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,650",
-      "min": 1650
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Construcción": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $940",
-      "max": 940
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$940 a $1,550",
-      "min": 940,
-      "max": 1550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,550",
-      "min": 1550
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Gas LP": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $590",
-      "max": 590
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$590 a $1,650",
-      "min": 590,
-      "max": 1650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,650",
-      "min": 1650
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Plomería": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $680",
-      "max": 680
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$680 a $1,700",
-      "min": 680,
-      "max": 1700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,700",
-      "min": 1700
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Flejadoras y empacadoras": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $29,000",
-      "max": 29000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$29,000 a $47,500",
-      "min": 29000,
-      "max": 47500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $47,500",
-      "min": 47500
-     }
-    ]
-   }
-  ]
- },
- "Herramientas/Cerraduras y candados": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $240",
-      "max": 240
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$240 a $480",
-      "min": 240,
-      "max": 480
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $480",
-      "min": 480
-     }
-    ]
-   }
-  ]
- },
  "Deportes y fitness/Bicicletas fijas": {
   "axes": [
    {
@@ -12924,1766 +14684,6 @@
     ]
    }
   ]
- },
- "Juguetes y bebés/Juegos de exterior": {
-  "axes": [
-   {
-    "label": "Jugadores",
-    "field": "players_max",
-    "criterion": "que caben",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "solo",
-      "name": "Solitario",
-      "use": "Para jugar solo",
-      "spec": "1 jugador",
-      "max": 1
-     },
-     {
-      "id": "dos",
-      "name": "Para dos",
-      "use": "En pareja o uno contra uno",
-      "spec": "2 jugadores",
-      "min": 1,
-      "max": 2
-     },
-     {
-      "id": "chico",
-      "name": "Grupo chico",
-      "use": "Familia o cuatro amigos",
-      "spec": "3 a 4 jugadores",
-      "min": 2,
-      "max": 4
-     },
-     {
-      "id": "grande",
-      "name": "Grupo grande",
-      "use": "Fiestas y reuniones",
-      "spec": "5 o más",
-      "min": 4
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Juguetes para bebé": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso ocasional",
-      "spec": "Hasta 12 kg",
-      "max": 12
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso diario",
-      "spec": "13 kg a 15 kg",
-      "min": 12,
-      "max": 15
-     },
-     {
-      "id": "reforzada",
-      "name": "Reforzada",
-      "use": "Uso intensivo o más peso",
-      "spec": "Más de 15 kg",
-      "min": 15
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Bloques de construcción": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $590",
-      "max": 590
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$590 a $1,300",
-      "min": 590,
-      "max": 1300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,300",
-      "min": 1300
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Carriolas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,650",
-      "max": 2650
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,650 a $6,450",
-      "min": 2650,
-      "max": 6450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,450",
-      "min": 6450
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Figuras de acción": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Para colección en repisa",
-      "spec": "Hasta 15 cm",
-      "max": 15
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "La escala más común",
-      "spec": "16 cm a 18 cm",
-      "min": 15,
-      "max": 18
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Para exhibir",
-      "spec": "Más de 18 cm",
-      "min": 18
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Cunas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,900",
-      "max": 1900
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,900 a $6,250",
-      "min": 1900,
-      "max": 6250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,250",
-      "min": 6250
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Juguetes educativos": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Juguetes musicales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $660",
-      "max": 660
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$660 a $1,050",
-      "min": 660,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Muñecas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $540",
-      "max": 540
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$540 a $890",
-      "min": 540,
-      "max": 890
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $890",
-      "min": 890
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Biberones": {
-  "axes": [
-   {
-    "label": "Contenido",
-    "field": "volume_ml",
-    "criterion": "en mililitros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Para probar o para viajar",
-      "spec": "Hasta 160 ml",
-      "max": 160
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Uso de diario",
-      "spec": "161 ml a 260 ml",
-      "min": 160,
-      "max": 260
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Rinde meses",
-      "spec": "Más de 260 ml",
-      "min": 260
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $420",
-      "max": 420
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$420 a $900",
-      "min": 420,
-      "max": 900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $900",
-      "min": 900
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Peluches": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "De bolsillo o llavero",
-      "spec": "Hasta 20 cm",
-      "max": 20
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Para abrazar",
-      "spec": "21 cm a 28 cm",
-      "min": 20,
-      "max": 28
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Para la cama",
-      "spec": "Más de 28 cm",
-      "min": 28
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Triciclos": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,450",
-      "max": 1450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,450 a $1,950",
-      "min": 1450,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Corrales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,850",
-      "max": 1850
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,850 a $2,950",
-      "min": 1850,
-      "max": 2950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Pañales y cambio": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $470",
-      "max": 470
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$470 a $890",
-      "min": 470,
-      "max": 890
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $890",
-      "min": 890
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Bebés": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $490",
-      "max": 490
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$490 a $810",
-      "min": 490,
-      "max": 810
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $810",
-      "min": 810
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Cuidado y salud del bebé": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Vehículos a control remoto": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $490",
-      "max": 490
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$490 a $920",
-      "min": 490,
-      "max": 920
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $920",
-      "min": 920
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Baño e higiene del bebé": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $320",
-      "max": 320
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$320 a $590",
-      "min": 320,
-      "max": 590
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $590",
-      "min": 590
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Sillas de comer y mecedoras": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso ocasional",
-      "spec": "Hasta 15 kg",
-      "max": 15
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso diario",
-      "spec": "16 kg a 25 kg",
-      "min": 15,
-      "max": 25
-     },
-     {
-      "id": "reforzada",
-      "name": "Reforzada",
-      "use": "Uso intensivo o más peso",
-      "spec": "Más de 25 kg",
-      "min": 25
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Portabebés y canguros": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,300 a $1,950",
-      "min": 1300,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Ropa y calzado de bebé": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Chupones y mordederas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $380",
-      "max": 380
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$380 a $430",
-      "min": 380,
-      "max": 430
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $430",
-      "min": 430
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Alimentación y lactancia": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "vidrio",
-      "name": "Vidrio",
-      "use": "",
-      "spec": "Vidrio",
-      "values": [
-       "Vidrio"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $510",
-      "max": 510
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$510 a $890",
-      "min": 510,
-      "max": 890
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $890",
-      "min": 890
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Seguridad para bebé": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Montables": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Juguetes para exterior": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $470",
-      "max": 470
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$470 a $900",
-      "min": 470,
-      "max": 900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $900",
-      "min": 900
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Maquetas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $610",
-      "max": 610
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$610 a $3,400",
-      "min": 610,
-      "max": 3400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,400",
-      "min": 3400
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Vehículos de juguete": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $380",
-      "max": 380
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$380 a $710",
-      "min": 380,
-      "max": 710
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $710",
-      "min": 710
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Mascotas/Acuarios y terrarios": {
   "axes": [
@@ -22448,16 +22448,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$390 a $720",
+      "spec": "$390 a $700",
       "min": 390,
-      "max": 720
+      "max": 700
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $720",
-      "min": 720
+      "spec": "Más de $700",
+      "min": 700
      }
     ]
    }
@@ -33896,6 +33896,130 @@
    }
   ]
  },
+ "Herramientas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $500",
+      "max": 500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$500 a $2,100",
+      "min": 500,
+      "max": 2100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,100",
+      "min": 2100
+     }
+    ]
+   }
+  ]
+ },
+ "Juguetes y bebés": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
  "Computadoras de escritorio": {
   "axes": [
    {
@@ -34138,41 +34262,6 @@
    }
   ]
  },
- "Herramientas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $500",
-      "max": 500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$500 a $2,100",
-      "min": 500,
-      "max": 2100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,100",
-      "min": 2100
-     }
-    ]
-   }
-  ]
- },
  "Deportes y fitness": {
   "axes": [
    {
@@ -34353,95 +34442,6 @@
     ]
    }
   ]
- },
- "Juguetes y bebés": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Mascotas": {
   "axes": [

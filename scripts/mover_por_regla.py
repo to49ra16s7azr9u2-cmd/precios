@@ -586,6 +586,30 @@ REGLAS = [
      'Juguetes y bebés', 'Monitores de bebé', {None}),
     ('Cámaras y fotografía', r'para acuarios y terrarios|camara para mascotas', None,
      'Mascotas', 'Acuarios y terrarios', {None}),
+
+    # ---- Iluminación y Autos (20-sep).
+    ('Iluminación', r'bobina de encendido|\bmorimoto\b', None,
+     'Autos, bicicletas y motos', 'Accesorios y refacciones', {None}),
+    ('Iluminación', r'tubo de espectro|\beisco\b', None, 'Otros', 'Varios', {None}),
+    ('Iluminación', r'flotadores iluminados|\bthill\b', None, 'Deportes y fitness', 'Otros', {None}),
+    ('Iluminación', r'mezcladora de audio', None, 'Instrumentos musicales', 'Producción de audio', {None}),
+    ('Iluminación', r'\bestevez\b|valvula (de union |final )?anti-?retorno|rejilla plastica', None,
+     'Herramientas', 'Plomería', {None}),
+    ('Iluminación',
+     r'mata ?mosquitos|antimosquitos|exterminador de insectos|atrapa mosquitos|trampa.{0,15}mosquitos',
+     None, 'Otros', 'Varios', {None}),
+    ('Autos, bicicletas y motos',
+     r'^(?:\S+ ){0,3}(top 10x10|motocicletas en accion)|manual.{0,20}motocicletas|'
+     r'electricidad (y electronica )?(de|para) motocicletas|reparacion mecanica de motocicletas|'
+     r'mantenimiento y servicio profesional de motocicletas|comportamiento dinamico|'
+     r'\bspanish edition\b|manuales tecnicos profesionales',
+     None, 'Libros', 'Técnicos y profesionales', {None}),
+    ('Autos, bicicletas y motos', r'hot wheels|pista.{0,20}(lavado de autos|carreras)', None,
+     'Juguetes y bebés', 'Vehículos de juguete', {None}),
+    ('Autos, bicicletas y motos',
+     r'cabina de pintura|maquina de lavado de autos|barrera de estacionamiento|\bbolardo\b|'
+     r'adaptador de pistola de lavado',
+     None, 'Herramientas', 'Hidrolavadoras', {None}),
 ]
 
 

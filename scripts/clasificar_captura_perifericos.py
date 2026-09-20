@@ -3078,6 +3078,23 @@ def sub_juego_mesa(tn):
         return 'De mesa clásicos'
     if re.search(r'juego de mesa|board game|juego de (tablero|estrategia|cartas)|\bjugadores\b', tn):
         return 'De estrategia'
+    # La marca, cuando el título es nada más el nombre del juego ("Ziggurat
+    # - Devir", "Laboratorio de Anatomía Clementoni"). Sin esto caían en
+    # 'Otros juegos', y el reparto se niega a colocar en un cajón: quedaban
+    # sin subcategoría y sin página. Las marcas de juguete educativo van a
+    # Educativos; las editoriales de juego de mesa moderno publican de todo,
+    # así que su seña más honesta es la estrategia, que es el grueso de su
+    # catálogo (Devir, Asmodee, CMON).
+    if re.search(r'\bclementoni\b|\beduca\b|\bborras\b|learning resources|mi alegria|'
+                 r'wuundentoy|\bcayro\b|laboratorio de|\bmecano\b|\btrucos\b|'
+                 r'\bmentalismo\b|\bmagia\b', tn):
+        return 'Educativos'
+    if re.search(r'\bdevir\b|\basmodee\b|\bcmon\b|\bgoliath\b|usaopoly|\bfunkoverse\b|'
+                 r'\bexit:|\bziggurat\b|\bcardinal\b|\bartik\b|\btriominos\b', tn):
+        return 'De estrategia'
+    if re.search(r'guess who|\bpinball\b|palitos chinos|cuatro en linea|\bpentominos\b|'
+                 r'juegos? clasicos?|multijuegos', tn):
+        return 'De mesa clásicos'
     return 'Otros juegos'
 
 
@@ -3225,7 +3242,17 @@ def sub_iluminacion(tn):
     sobreponer, riel), porque el luminario de techo también dice "led 12 W".
     "Lámparas de techo" es la rama que la ola 4 reparte en plafones,
     rieles, candiles, colgantes, industriales y ventiladores con luz."""
-    if re.search(r'tiras? (led|de luz|de luces)|cinta led|\bstrip\b|neon flex', tn): return 'Tiras LED'
+    if re.search(r'tiras? (led|de luz|de luces)|cinta led|\bstrip\b|neon flex|'
+                 r'difusor(es)?\b.{0,25}(led|perfil|aluminio)|perfil de aluminio', tn):
+        return 'Tiras LED'
+    # Familias decorativas que la ronda trajo (20-sep): la bola de cristal
+    # grabada, la lámpara de planetas, el tulipán infinito.
+    if re.search(r'bola (de )?(cristal|magica)|lampara(s)? de (esfera|planetas)|'
+                 r'tulipanes infinitos|\bhalloween\b|luna 3d|\bsaturno\b|'
+                 r'regalo del dia de la madre', tn):
+        return 'Decorativa'
+    if re.search(r'lampara(s)? para entrada|lampara(s)? de entrada', tn): return 'Exterior'
+    if re.search(r'\bfeit electric\b|\bsatco\b|adaptador de enchufe para bombil', tn): return 'Focos'
     if re.search(r'cabeza (movil|robotica)|cabezas moviles|\bpar ?led\b|\bpar ?\d{2,3}\b|par (rgb|64|56|38)|'
                  r'\bestrobo|\bstrobe\b|\bdmx\b|\bwash\b|\bbeam\b|luz de escenario|moving head|'
                  r'maquina de humo|liquido (de |para )?humo|bola (de )?disco|luz disco|barra led (dancer|rgb|dj)|'
@@ -3270,6 +3297,19 @@ def sub_iluminacion(tn):
 
 
 def sub_vehiculo(tn):
+    # Familias que faltaban (20-sep): el arrancador, el escáner, el producto
+    # de limpieza y la charola de batería no tenían rama y caían fuera.
+    if re.search(r'jump starter|arrancador de (salto|bateria)|escaner (profesional|automotriz)|'
+                 r'\bobd2?\b|removedor.{0,20}rayones|shampoo para (autos|camiones)|'
+                 r'\bturtle wax\b|cera para auto|sistema de seguridad (de|del) vehiculo|'
+                 r'\bcompustar\b|\bviper\b.{0,20}seguridad', tn):
+        return 'Accesorios y refacciones'
+    if re.search(r'charola de bateria|caja de bateria para vehiculo|\bnoco\b|\bcamco\b', tn):
+        return 'Baterías para auto'
+    if re.search(r'^(?:\S+ ){0,3}(altavoz|bocina)\b.{0,25}(automovil|auto|carro)', tn):
+        return 'Bocinas para auto'
+    if re.search(r'guantes.{0,25}motocicleta|casco.{0,20}moto\b|chamarra.{0,20}moto', tn):
+        return 'Accesorios para moto'
     """Reparte Autos, bicicletas y motos.
 
     Lo PRIMERO es la pieza, no el vehículo: un sillín para bicicleta nombra la
