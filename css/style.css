@@ -1992,6 +1992,56 @@ tr.offer-compare-off { display: none; }
 }
 .modal-close:hover { color: var(--ink); background: var(--border); }
 
+/* Guía de uso ("Cómo utilizar"). Es texto para leer, así que va un poco
+   más ancha que el modal normal y con renglón alto: quien la abre es quien
+   todavía no sabe qué es un comparador. */
+.modal.guia-modal { max-width: 640px; }
+.guia-body { font-size: 14px; line-height: 1.6; color: var(--ink); }
+.guia-intro {
+  margin: 12px 0 16px;
+  padding: 12px 14px;
+  background: var(--bg);
+  border-left: 3px solid var(--red);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.guia-pasos { list-style: none; counter-reset: guia; margin: 0; padding: 0; }
+.guia-pasos > li {
+  counter-increment: guia;
+  position: relative;
+  padding: 0 0 4px 38px;
+  margin-bottom: 14px;
+}
+/* El número del paso, en su círculo: es lo que hace que se lea como un
+   recorrido de tres pasos y no como tres párrafos sueltos. */
+.guia-pasos > li::before {
+  content: counter(guia);
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-circle);
+  background: var(--red);
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.guia-body h3 { margin: 0 0 4px; font-size: 15px; color: var(--ink); }
+.guia-body h3.guia-sec {
+  margin: 20px 0 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.guia-body p { margin: 0 0 8px; }
+.guia-body ul { margin: 0; padding-left: 18px; }
+.guia-body li + li { margin-top: 6px; }
+.guia-body em { font-style: normal; font-weight: 700; color: var(--red-dark); }
+.guia-notas { color: var(--muted); }
+.guia-notas strong { color: var(--ink); }
+
 /* Compare table */
 .compare-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
 .compare-table th {

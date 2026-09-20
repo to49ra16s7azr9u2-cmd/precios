@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=f2195a9a">
+<link rel="stylesheet" href="css/style.min.css?v=0b16ea85">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -163,9 +163,8 @@
         <aside class="home-col home-col-left">
           <button type="button" class="home-side-btn" id="homeTipsBtn" aria-expanded="false" aria-controls="homeTipsPanel">
             <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.7 9.4a2.4 2.4 0 1 1 3.2 2.3c-.6.2-.9.8-.9 1.4v.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1" fill="currentColor"/></svg></span>
-            <span><strong>Cómo utilizar</strong><span class="home-side-btn-sub">Tips en 3 pasos</span></span>
+            <span><strong>Cómo utilizar</strong><span class="home-side-btn-sub">Guía para empezar</span></span>
           </button>
-          <div class="home-tips" id="homeTipsPanel" hidden></div>
           <div class="home-tabs" role="tablist" aria-label="Cómo buscar">
             <button type="button" class="home-tab home-tab-marca is-active" role="tab" aria-selected="true" aria-controls="homePanelPrecios" data-tab="precios">
               <img class="hero-logo" src="icons/logo-comparaprecios.png" alt="Compara precios">
@@ -1017,6 +1016,19 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
 </button>
 
+<!-- Guía de uso. Va en un modal y no desplegada en la columna: esa
+     columna mide 120 px y ahí no cabe una explicación de verdad. El cuerpo
+     lo llena GUIA_HTML (js/app.js). -->
+<div id="guiaModal" class="modal-overlay hidden">
+  <div class="modal guia-modal">
+    <div class="modal-head">
+      <h2>Cómo usar ComparaMEX</h2>
+      <button class="modal-close" id="guiaModalClose" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="guia-body" id="guiaModalBody"></div>
+  </div>
+</div>
+
 <div id="mapModal" class="modal-overlay hidden">
   <div class="modal">
     <div class="modal-head">
@@ -1085,7 +1097,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=5c74f9e7"></script>
+<script src="js/app.min.js?v=556c1ee9"></script>
 </div>
 </body>
 </html>

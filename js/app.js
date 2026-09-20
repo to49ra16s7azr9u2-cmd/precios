@@ -726,6 +726,9 @@
 
     mapModal: document.getElementById("mapModal"),
     mapModalClose: document.getElementById("mapModalClose"),
+    guiaModal: document.getElementById("guiaModal"),
+    guiaModalClose: document.getElementById("guiaModalClose"),
+    guiaModalBody: document.getElementById("guiaModalBody"),
     metroTabs: document.getElementById("metroTabs"),
     regionChips: document.getElementById("regionChips"),
 
@@ -2965,23 +2968,92 @@
       `<span class="home-rank-mes-sub">Lo más popular de cada categoría, por mes</span></div>${enlaces}`;
   }
 
-  // "Cómo utilizar": tres pasos, que son los tres que el sitio pide de
-  // verdad (categoría -> producto -> tienda). Se despliega en el mismo lugar
-  // en vez de abrir un modal, para no tapar la portada.
-  const TIPS_HTML = `
-    <ol>
-      <li><strong>Elige una categoría</strong> y mira el ranking de lo más popular.</li>
-      <li><strong>Abre un producto</strong> para ver su precio en cada tienda y cómo se movió.</li>
-      <li><strong>Compra en la tienda</strong> que prefieras: el enlace va a su sitio real.</li>
-    </ol>`;
+  // "Cómo utilizar": la guía completa, pensada para quien entra por
+  // primera vez y no sabe qué es un comparador. Antes eran tres renglones
+  // desplegables en la columna izquierda; ahí no cabía nada (la columna
+  // mide 120 px) y quedaba en tres frases que no explicaban ni qué hace el
+  // sitio, ni de dónde salen los precios, ni qué pasa al comprar. Ahora
+  // abre un modal con el recorrido completo, lo que hay dentro de una
+  // ficha y las tres cosas que conviene decir de frente (el retraso de los
+  // precios, la comisión y que no guardamos datos en ninguna cuenta).
+  const GUIA_HTML = `
+    <p class="guia-intro">ComparaMEX junta el <strong>mismo producto</strong> de varias tiendas mexicanas
+      y te dice quién lo tiene más barato hoy. Es gratis, no necesitas crear una cuenta
+      y no vendemos nada: solo te llevamos a la tienda.</p>
+
+    <ol class="guia-pasos">
+      <li>
+        <h3>Encuentra lo que buscas</h3>
+        <p>Tres caminos, el que te acomode:</p>
+        <ul>
+          <li><strong>El buscador de arriba.</strong> Escribe el producto —&ldquo;iPhone 17&rdquo;,
+            &ldquo;licuadora&rdquo;, &ldquo;tenis para correr&rdquo;— y las sugerencias aparecen
+            mientras escribes.</li>
+          <li><strong>Por categoría.</strong> En <em>Compara precios</em> eliges una
+            (Celulares, Electrodomésticos, Herramientas…) y ves primero lo más popular.
+            Dentro puedes afinar por subcategoría, marca, precio y características.</li>
+          <li><strong>Por marca.</strong> En <em>Compara marcas</em> están todas las marcas
+            del catálogo, con todos sus productos.</li>
+        </ul>
+      </li>
+      <li>
+        <h3>Abre el producto y compáralo</h3>
+        <p>Cada ficha reúne en una sola pantalla lo que normalmente hay que buscar
+          tienda por tienda:</p>
+        <ul>
+          <li><strong>El precio en cada tienda</strong>, del más barato al más caro, con el
+            envío cuando la tienda lo publica y el nombre del vendedor.</li>
+          <li><strong>Cómo se movió el precio</strong> en las últimas semanas. Sirve para saber
+            si la oferta es real o si el producto ya estuvo más barato.</li>
+          <li><strong>Compara calidad:</strong> lo que de verdad separa un modelo de otro
+            (capacidad, potencia, tamaño…), explicado sin tecnicismos.</li>
+          <li><strong>Opiniones y preguntas</strong> de quienes ya lo compraron.</li>
+        </ul>
+      </li>
+      <li>
+        <h3>Compra en la tienda que elijas</h3>
+        <p>El botón te lleva al sitio de esa tienda. El pago, el envío, la factura y la
+          garantía son con ella; ComparaMEX no cobra nada ni interviene en la compra.</p>
+      </li>
+    </ol>
+
+    <h3 class="guia-sec">Otras cosas que te pueden servir</h3>
+    <ul class="guia-lista">
+      <li><strong>Bajaron de precio.</strong> Productos que de verdad bajaron: comparamos
+        contra lo que costaban antes en la <em>misma</em> tienda y con el <em>mismo</em>
+        vendedor, así que no entran las rebajas que solo lo parecen.</li>
+      <li><strong>Favoritos.</strong> El corazón guarda un producto para volver después.
+        Se queda en este navegador, sin cuenta ni correo.</li>
+      <li><strong>¿Dónde estás?</strong> Si eliges tu municipio, calculamos un envío
+        estimado a tu zona y lo sumamos al comparar.</li>
+      <li><strong>Rankings del mes.</strong> En la portada, abajo, está el ranking de cada
+        categoría con lo más popular del mes.</li>
+    </ul>
+
+    <h3 class="guia-sec">Para que sepas a qué atenerte</h3>
+    <ul class="guia-lista guia-notas">
+      <li>Los precios se toman de cada tienda varias veces al día y pueden llevar algunas
+        horas de retraso. <strong>El precio que vale es el de la tienda</strong> al momento
+        de pagar.</li>
+      <li>Si compras por nuestros enlaces, algunas tiendas nos pagan una comisión.
+        <strong>Tú pagas lo mismo</strong> y eso no cambia el orden en que se muestran
+        los resultados.</li>
+      <li>No pedimos datos personales. Tus favoritos, tu zona y lo que has visto se
+        guardan en tu navegador.</li>
+    </ul>`;
   function bindHomeTips() {
-    if (!el.homeTipsBtn || !el.homeTipsPanel) return;
-    el.homeTipsPanel.innerHTML = TIPS_HTML;
+    if (!el.homeTipsBtn || !el.guiaModal) return;
+    if (el.guiaModalBody && !el.guiaModalBody.innerHTML) el.guiaModalBody.innerHTML = GUIA_HTML;
     el.homeTipsBtn.onclick = () => {
-      const abierto = !el.homeTipsPanel.hidden;
-      el.homeTipsPanel.hidden = abierto;
-      el.homeTipsBtn.setAttribute("aria-expanded", String(!abierto));
+      el.guiaModal.classList.remove("hidden");
+      el.homeTipsBtn.setAttribute("aria-expanded", "true");
+      if (el.guiaModalClose) el.guiaModalClose.focus();
     };
+  }
+  function cerrarGuia() {
+    if (!el.guiaModal) return;
+    el.guiaModal.classList.add("hidden");
+    if (el.homeTipsBtn) el.homeTipsBtn.setAttribute("aria-expanded", "false");
   }
 
   // Las dos entradas al catálogo de la portada: por precio (elegir
@@ -7436,6 +7508,15 @@
     el.mapModalClose.addEventListener("click", closeMapModal);
     el.mapModal.addEventListener("click", (e) => {
       if (e.target === el.mapModal) closeMapModal();
+    });
+
+    if (el.guiaModalClose) el.guiaModalClose.addEventListener("click", cerrarGuia);
+    if (el.guiaModal) el.guiaModal.addEventListener("click", (e) => {
+      if (e.target === el.guiaModal) cerrarGuia();
+    });
+    // Escape cierra la guía: es el modal que más se abre "a ver qué es".
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && el.guiaModal && !el.guiaModal.classList.contains("hidden")) cerrarGuia();
     });
 
     el.compareBarGo.addEventListener("click", () => { location.hash = "#/comparar"; });
