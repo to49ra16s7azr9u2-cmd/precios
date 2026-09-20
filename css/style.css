@@ -2930,8 +2930,8 @@ tr.offer-compare-off { display: none; }
 /* Dentro de la pieza el logo pierde su propio borde: el del buscador ya
    lo rodea, y dos líneas pegadas se ven como un error de dibujo. */
 .home-buscador .home-tab,
-.home-buscador .home-tab.is-active { border: 0; border-radius: 0; padding: 2px 8px; }
-.home-buscador .home-tab-marca { width: 90px; flex: 0 0 auto; }
+.home-buscador .home-tab.is-active { border: 0; border-radius: 0; padding: 5px 10px; }
+.home-buscador .home-tab-marca { width: 132px; flex: 0 0 auto; }
 .home-grid[data-home-tab="precios"] .home-buscador { border-color: var(--red); }
 /* La línea que separa el logo del campo: el único trazo interior, para que
    se note dónde termina uno y empieza el otro sin partir la pieza. Va en
@@ -2947,10 +2947,10 @@ tr.offer-compare-off { display: none; }
   outline: none;
   background: transparent;
   font: inherit;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
   color: var(--ink);
-  padding: 1px 10px;
+  padding: 5px 11px;
 }
 .home-buscador input[type="search"]::placeholder { color: var(--muted); }
 .home-buscador:focus-within { border-color: var(--red); box-shadow: 0 0 0 2px rgba(224, 32, 32, 0.12); }
@@ -2959,7 +2959,7 @@ tr.offer-compare-off { display: none; }
    h1 de la portada, pero ya no compite con el buscador. */
 .home-elige-row + .home-elige { margin: 0 0 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
 .home-elige-row .home-elige { flex: 1 1 auto; margin: 0; }
-.home-elige-row .home-tab-marca { flex: 0 0 auto; width: 90px; padding: 3px 7px; }
+.home-elige-row .home-tab-marca { flex: 0 0 auto; width: 132px; padding: 4px 9px; }
 .home-elige-row > .home-tab.is-active { border-width: 1px; border-color: var(--tab-color); }
 /* Sin columna izquierda no hay lengüeta que unir: el arco y el puente que
    cruzaban el hueco sobran. */
@@ -3044,6 +3044,13 @@ tr.offer-compare-off { display: none; }
 .home-center-frame .category-card-name { font-weight: 600; color: color-mix(in srgb, var(--ink) 78%, var(--card)); }
 .home-center-frame .category-card:hover { border-color: var(--red); background: var(--card); }
 .home-center-frame .category-card:hover .category-card-name { color: var(--ink); }
+
+/* Lista de salidas de la página de una ficha retirada (la que dejó de
+   publicarse porque bajó a una sola tienda). Es una lista de enlaces, no
+   de viñetas: la viñeta no aporta nada y el sangrado la separa del resto
+   del panel sin motivo. */
+.plain-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.plain-list li { line-height: 1.4; }
 
 /* Rejilla de marcas de la pestaña "Marcas" de la portada. Prefijo
    home- a propósito: .brand-grid/.brand-card ya existen más abajo, son las

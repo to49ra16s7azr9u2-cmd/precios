@@ -2253,6 +2253,72 @@ def write_if_changed(path, body):
     return True
 
 
+def render_producto_retirado(product, data):
+    """Página de un producto que dejó de publicarse.
+
+    El catálogo solo publica ficha cuando hay dos o más tiendas vendiendo
+    (MIN_OFERTAS_PARA_PAGINA): comparar precios con un solo vendedor no es
+    comparar nada. Pero cuando una ficha baja del mínimo, su url ya está
+    indexada, y borrar la carpeta mandaba a un 404 a quien llegaba desde un
+    resultado de Google. Un callejón sin salida.
+
+    Esta página dice por qué no está y ofrece la salida más cercana: su
+    subcategoría, su categoría y unos cuantos productos hermanos que sí
+    tienen ficha. Va con noindex para que el buscador la deje ir, y con
+    follow para que siga los enlaces de salida.
+    """
+    cat = next((c for c in data["categories"] if c["id"] == product.get("category")), None)
+    cat_slug = slugify(cat["name"]) if cat else ""
+    sub_nombre = product.get("subcategory")
+    sub_slug = slugify(sub_nombre) if sub_nombre else ""
+    # Hermanos con página: los de la misma subcategoría, y si no alcanzan,
+    # los de la categoría. Se ordenan por número de tiendas, que es lo que
+    # hace útil una comparación.
+    def _con_pagina(lista):
+        return [q for q in lista if q["id"] != product["id"] and q["id"] in _CON_PAGINA]
+    mismos = [q for q in data["products"] if q.get("category") == product.get("category")]
+    hermanos = _con_pagina([q for q in mismos if q.get("subcategory") == sub_nombre]) if sub_nombre else []
+    if len(hermanos) < 6:
+        hermanos += [q for q in _con_pagina(mismos) if q not in hermanos]
+    hermanos.sort(key=lambda q: -len(q.get("offers") or []))
+    hermanos = hermanos[:8]
+
+    filas = "".join(
+        f'<li><a href="../../producto/{q["id"]}/">{html_escape(q["name"])}</a>'
+        f' <span class="muted">· {len(q.get("offers") or [])} tiendas</span></li>'
+        for q in hermanos
+    )
+    salidas = []
+    if cat and sub_slug:
+        salidas.append(f'<a class="chip" href="../../categoria/{cat_slug}/{sub_slug}/">'
+                       f'{html_escape(sub_nombre)}</a>')
+    if cat:
+        salidas.append(f'<a class="chip" href="../../categoria/{cat_slug}/">'
+                       f'{html_escape(cat["name"])}</a>')
+    body = f"""
+<div class="panel">
+  <h1>{html_escape(product["name"])}</h1>
+  <p class="muted">Ya no publicamos esta ficha: hoy la vende una sola tienda, y
+     ComparaMEX existe para comparar entre varias. Si vuelve a haber dos o más,
+     la ficha vuelve sola.</p>
+  <p>{"".join(salidas)}</p>
+</div>
+{f'''<div class="panel">
+  <h2>Productos parecidos que sí puedes comparar</h2>
+  <ul class="plain-list">{filas}</ul>
+</div>''' if filas else ""}
+<div class="panel" style="text-align:center">
+  <p><a class="buy-btn" href="../../">Volver al inicio de ComparaMEX →</a></p>
+</div>
+"""
+    return page_shell(
+        f'{product["name"]} — ya no disponible | ComparaMEX',
+        "Esta ficha dejó de publicarse porque hoy la vende una sola tienda. "
+        "Mira productos parecidos con varias tiendas.",
+        f'/producto/{product["id"]}/', body, depth=2, robots="noindex, follow",
+    )
+
+
 def borrar_paginas_huerfanas(data, ofertas_vigentes, marcas_vigentes=None, dry_run=False):
     """Borra las páginas de productos y categorías que ya no están.
 
@@ -2275,16 +2341,31 @@ def borrar_paginas_huerfanas(data, ofertas_vigentes, marcas_vigentes=None, dry_r
     # un producto se queda con una sola oferta deja de publicarse y su
     # carpeta se borra acá.
     vivos = {p["id"] for p in data["products"] if tiene_pagina(p)}
+    en_catalogo = {p["id"]: p for p in data["products"]}
     borrados = {"producto": 0, "categoria": 0, "ofertas": 0, "marca": 0}
+    retirados = 0
 
     carpeta = os.path.join(ROOT, "producto")
     if os.path.isdir(carpeta):
         for nombre in os.listdir(carpeta):
             ruta = os.path.join(carpeta, nombre)
-            if os.path.isdir(ruta) and nombre not in vivos:
-                borrados["producto"] += 1
+            if not os.path.isdir(ruta) or nombre in vivos:
+                continue
+            producto = en_catalogo.get(nombre)
+            if producto is not None:
+                # Sigue en el catálogo, solo bajó del mínimo de tiendas: en
+                # vez de borrar la carpeta y mandar un 404 a quien venga de
+                # Google, queda una página que explica y ofrece salidas.
                 if not dry_run:
-                    shutil.rmtree(ruta)
+                    write_if_changed(os.path.join(ruta, "index.html"),
+                                     render_producto_retirado(producto, data))
+                retirados += 1
+                continue
+            borrados["producto"] += 1
+            if not dry_run:
+                shutil.rmtree(ruta)
+    if retirados:
+        print(f"Fichas retiradas (una sola tienda, con página de salida): {retirados:,}")
 
     slugs_cat = {slugify(c["name"]) for c in data["categories"]}
     subs_por_cat = {}
@@ -2358,8 +2439,55 @@ def render_404(data):
         f'<a class="chip" href="/categoria/{slugify(c["name"])}/">{html_escape(c["name"])}</a>'
         for c in data["categories"]
     )
+    # Cuando la url es la de una ficha que dejó de publicarse, esta misma
+    # página se convierte en su despedida: GitHub Pages sirve /404.html para
+    # CUALQUIER url mala, así que basta con mirar la dirección. El nombre y
+    # la categoría salen de data/retirados/, partido en trozos de 2,000 ids
+    # para bajar 240 KB y no el índice entero (ver
+    # scripts/build_retirados_index.py). Escribir una página de verdad para
+    # cada una serían 197 mil archivos HTML, doce veces lo que publica el
+    # sitio, y eso deshace lo que se ganó publicando solo lo comparable.
+    script = """
+<script>
+(function () {
+  var m = location.pathname.match(/\\/producto\\/(p(\\d+))\\/?$/);
+  if (!m) return;
+  var caja = document.getElementById('retirado');
+  if (!caja) return;
+  var base = '/data/retirados/';
+  fetch(base + 'meta.json').then(function (r) { return r.json(); }).then(function (meta) {
+    return fetch(base + Math.floor(+m[2] / meta.tamano) + '.json')
+      .then(function (r) { return r.json(); })
+      .then(function (trozo) { return { meta: meta, ficha: trozo[m[1]] }; });
+  }).then(function (d) {
+    if (!d.ficha) return;
+    var nombre = d.ficha[0], i = d.ficha[1], sub = d.ficha[2];
+    var slug = i >= 0 ? d.meta.slugs[i] : null;
+    var cat = i >= 0 ? d.meta.categorias[i] : null;
+    var h = document.createElement('div');
+    var enlaces = '';
+    if (slug) {
+      if (sub) {
+        enlaces += '<a class="chip" href="/categoria/' + slug + '/' +
+          sub.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '')
+             .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '/">' + sub + '</a>';
+      }
+      enlaces += '<a class="chip" href="/categoria/' + slug + '/">' + cat + '</a>';
+    }
+    h.innerHTML = '<h1>' + nombre + '</h1>' +
+      '<p class="muted">Ya no publicamos esta ficha: hoy la vende una sola tienda, y ' +
+      'ComparaMEX existe para comparar entre varias. Si vuelve a haber dos o más, la ficha vuelve sola.</p>' +
+      (enlaces ? '<p>' + enlaces + '</p>' : '');
+    caja.innerHTML = '';
+    caja.appendChild(h);
+    caja.style.textAlign = 'left';
+    document.title = nombre + ' — ya no disponible | ComparaMEX';
+  }).catch(function () {});
+})();
+</script>
+"""
     body = f"""
-<div class="panel" style="text-align:center">
+<div class="panel" id="retirado" style="text-align:center">
   <h1>Esta página no existe</h1>
   <p class="muted">Puede que el producto ya no esté en el catálogo, o que la dirección tenga un error.</p>
   <p><a class="buy-btn" href="/">Volver al inicio de ComparaMEX →</a></p>
@@ -2368,6 +2496,7 @@ def render_404(data):
   <h2>Buscar por categoría</h2>
   <div class="chip-row">{cats}</div>
 </div>
+{script}
 """
     return page_shell(
         "Página no encontrada | ComparaMEX",

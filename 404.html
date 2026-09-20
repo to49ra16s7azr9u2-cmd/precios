@@ -63,7 +63,7 @@
 </header>
 <main class="container">
 
-<div class="panel" style="text-align:center">
+<div class="panel" id="retirado" style="text-align:center">
   <h1>Esta página no existe</h1>
   <p class="muted">Puede que el producto ya no esté en el catálogo, o que la dirección tenga un error.</p>
   <p><a class="buy-btn" href="/">Volver al inicio de ComparaMEX →</a></p>
@@ -72,6 +72,45 @@
   <h2>Buscar por categoría</h2>
   <div class="chip-row"><a class="chip" href="/categoria/celulares/">Celulares</a><a class="chip" href="/categoria/cargadores-y-adaptadores/">Cargadores y adaptadores</a><a class="chip" href="/categoria/baterias-portatiles-power-bank/">Baterías portátiles (power bank)</a><a class="chip" href="/categoria/laptops/">Laptops</a><a class="chip" href="/categoria/tabletas/">Tabletas</a><a class="chip" href="/categoria/monitores/">Monitores</a><a class="chip" href="/categoria/bocinas/">Bocinas</a><a class="chip" href="/categoria/audifonos-y-auriculares/">Audífonos y auriculares</a><a class="chip" href="/categoria/teclados/">Teclados</a><a class="chip" href="/categoria/mouse/">Mouse</a><a class="chip" href="/categoria/componentes-y-accesorios-de-pc/">Componentes y accesorios de PC</a><a class="chip" href="/categoria/computadoras-de-escritorio/">Computadoras de escritorio</a><a class="chip" href="/categoria/televisores/">Televisores</a><a class="chip" href="/categoria/proyectores-y-accesorios/">Proyectores y accesorios</a><a class="chip" href="/categoria/lavadoras/">Lavadoras</a><a class="chip" href="/categoria/aspiradoras/">Aspiradoras</a><a class="chip" href="/categoria/cafeteras/">Cafeteras</a><a class="chip" href="/categoria/refrigeradores/">Refrigeradores</a><a class="chip" href="/categoria/electrodomesticos/">Electrodomésticos</a><a class="chip" href="/categoria/videojuegos/">Videojuegos</a><a class="chip" href="/categoria/muebles/">Muebles</a><a class="chip" href="/categoria/herramientas/">Herramientas</a><a class="chip" href="/categoria/autos-bicicletas-y-motos/">Autos, bicicletas y motos</a><a class="chip" href="/categoria/refacciones/">Refacciones</a><a class="chip" href="/categoria/calzado/">Calzado</a><a class="chip" href="/categoria/viajes/">Viajes</a><a class="chip" href="/categoria/otros/">Otros</a><a class="chip" href="/categoria/relojes-inteligentes/">Relojes inteligentes</a><a class="chip" href="/categoria/camaras-de-seguridad/">Cámaras de seguridad</a><a class="chip" href="/categoria/redes-y-wifi/">Redes y WiFi</a><a class="chip" href="/categoria/drones/">Drones</a><a class="chip" href="/categoria/impresoras/">Impresoras</a><a class="chip" href="/categoria/instrumentos-musicales/">Instrumentos musicales</a><a class="chip" href="/categoria/camaras-y-fotografia/">Cámaras y fotografía</a><a class="chip" href="/categoria/almacenamiento/">Almacenamiento</a><a class="chip" href="/categoria/iluminacion/">Iluminación</a><a class="chip" href="/categoria/juguetes-y-bebes/">Juguetes y bebés</a><a class="chip" href="/categoria/mascotas/">Mascotas</a><a class="chip" href="/categoria/salud/">Salud</a><a class="chip" href="/categoria/climatizacion/">Climatización</a><a class="chip" href="/categoria/deportes-y-fitness/">Deportes y fitness</a><a class="chip" href="/categoria/papeleria-y-oficina/">Papelería y oficina</a><a class="chip" href="/categoria/fitness/">Fitness</a><a class="chip" href="/categoria/belleza-y-cuidado-personal/">Belleza y cuidado personal</a><a class="chip" href="/categoria/joyeria-y-bisuteria/">Joyería y bisutería</a><a class="chip" href="/categoria/articulos-de-lujo-preowned/">Artículos de lujo (preowned)</a><a class="chip" href="/categoria/decoracion-de-hogar-y-jardin/">Decoración de hogar y jardín</a><a class="chip" href="/categoria/juegos-de-mesa/">Juegos de mesa</a><a class="chip" href="/categoria/impresion-3d/">Impresión 3D</a><a class="chip" href="/categoria/movilidad-electrica/">Movilidad eléctrica</a><a class="chip" href="/categoria/blancos-y-ropa-de-cama/">Blancos y ropa de cama</a><a class="chip" href="/categoria/domotica-y-hogar-inteligente/">Domótica y hogar inteligente</a><a class="chip" href="/categoria/ropa-y-accesorios/">Ropa y accesorios</a><a class="chip" href="/categoria/equipo-comercial/">Equipo comercial</a><a class="chip" href="/categoria/libros/">Libros</a><a class="chip" href="/categoria/cocina-y-comedor/">Cocina y comedor</a><a class="chip" href="/categoria/suplementos/">Suplementos</a></div>
 </div>
+
+<script>
+(function () {
+  var m = location.pathname.match(/\/producto\/(p(\d+))\/?$/);
+  if (!m) return;
+  var caja = document.getElementById('retirado');
+  if (!caja) return;
+  var base = '/data/retirados/';
+  fetch(base + 'meta.json').then(function (r) { return r.json(); }).then(function (meta) {
+    return fetch(base + Math.floor(+m[2] / meta.tamano) + '.json')
+      .then(function (r) { return r.json(); })
+      .then(function (trozo) { return { meta: meta, ficha: trozo[m[1]] }; });
+  }).then(function (d) {
+    if (!d.ficha) return;
+    var nombre = d.ficha[0], i = d.ficha[1], sub = d.ficha[2];
+    var slug = i >= 0 ? d.meta.slugs[i] : null;
+    var cat = i >= 0 ? d.meta.categorias[i] : null;
+    var h = document.createElement('div');
+    var enlaces = '';
+    if (slug) {
+      if (sub) {
+        enlaces += '<a class="chip" href="/categoria/' + slug + '/' +
+          sub.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+             .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '/">' + sub + '</a>';
+      }
+      enlaces += '<a class="chip" href="/categoria/' + slug + '/">' + cat + '</a>';
+    }
+    h.innerHTML = '<h1>' + nombre + '</h1>' +
+      '<p class="muted">Ya no publicamos esta ficha: hoy la vende una sola tienda, y ' +
+      'ComparaMEX existe para comparar entre varias. Si vuelve a haber dos o más, la ficha vuelve sola.</p>' +
+      (enlaces ? '<p>' + enlaces + '</p>' : '');
+    caja.innerHTML = '';
+    caja.appendChild(h);
+    caja.style.textAlign = 'left';
+    document.title = nombre + ' — ya no disponible | ComparaMEX';
+  }).catch(function () {});
+})();
+</script>
+
 
 </main>
 <footer class="site-footer">
