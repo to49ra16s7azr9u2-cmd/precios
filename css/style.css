@@ -103,7 +103,12 @@ a, button, input, select,
 
 a { color: inherit; text-decoration: none; }
 
-.container { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+/* width:100% a propósito: el body es un flex en columna y, con margin
+   auto, el contenedor se ajustaba a su contenido en vez de estirarse. En
+   el teléfono eso lo hacía tan ancho como la línea más larga que no
+   puede partirse (el título en una sola línea de las páginas de
+   categoría) y la página salía cortada por la derecha (iPhone, 20-sep). */
+.container { width: 100%; box-sizing: border-box; max-width: 1120px; margin: 0 auto; padding: 0 16px; min-width: 0; }
 
 .hidden { display: none !important; }
 
@@ -696,7 +701,9 @@ a { color: inherit; text-decoration: none; }
    el título. */
 @media (max-width: 760px) {
   .list-head { flex-wrap: wrap; }
-  .list-head h1 { flex: 1 1 100%; }
+  /* En el teléfono el título se parte en dos líneas en vez de cortarse
+     con puntos suspensivos: "Almacenamiento: los más populares" completo. */
+  .list-head h1 { flex: 1 1 100%; white-space: normal; }
 }
 /* Barra de orden, justo encima de la lista que ordena. Las cinco opciones
    van a la vista en una sola fila: la que está activa se lee sin abrir
