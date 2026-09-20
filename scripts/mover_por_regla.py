@@ -106,7 +106,10 @@ REGLAS = [
               r'limpieza de (cafetera|cocina)|tabletas de limpieza|descalcificador',
      r'parrilla|asador|\bcarbon\b|para mascotas|para perros|para gatos|\bbano\b|celular|telefono|camara|'
      r'\bsilla|\bsoporte|\bcoche\b|\bauto\b|tablet|ipad|\bbuffet\b|catering|calentador|\bportavasos\b',
-     'Cocina y comedor', lambda tn: sub_cocina_fino(tn), (None, 'Varios', 'Organización del hogar')),
+     'Cocina y comedor', lambda tn: sub_cocina_fino(tn) or 'Utensilios de cocina', (None, 'Varios', 'Organización del hogar')),
+    ('Otros', r'\basador\b|parrilla.{0,20}(carbon|gas|electrica)|\bbbq\b|\bahumado\b|churrasco|'
+              r'tabla de charcuteria|\bcharcuteria\b',
+     r'cobertura|funda|cubierta', 'Cocina y comedor', 'Utensilios de cocina', (None, 'Varios')),
     ('Juegos de mesa', r'piscina|acuatico|\bplaya\b|\bbalon\b|\balberca\b|water ?football|aros de buceo|resbaladilla|columpio|tobogan',
      r'rompecabezas|puzzle|juego de mesa|juego de cartas', 'Juguetes y bebés', 'Juegos de exterior'),
     ('Juegos de mesa', r'kit de (arte|manualidades|ciencia|cristales|cultivo|experimentos)|manualidades|estampilla|tatuajes|alcancia|engranajes|'
@@ -122,6 +125,26 @@ REGLAS = [
      r'compresor|acuario|pecera', 'Autos, bicicletas y motos', 'Bombas e infladores'),
     ('Herramientas', r'taburete|\bsilla\b|\bbanco\b (de|para) (taller|trabajo|garaje)|banco rodante', r'banco de trabajo con|prensa|escalera|escalon|peldano|fregadero|\bcarro\b|carrito', 'Muebles', 'Taburetes y bancos'),
     ('Herramientas', r'\blibrero\b|bookshelf|estante organizador.{0,30}(sala|cocina|bano|hogar)|estanteria de almacenamiento para (cocina|bano)', None, 'Muebles', 'Libreros'),
+    # --- Tercera tanda (20-sep, tarde) ---
+    ('Audífonos', r'^(?:\S+ ){0,2}radios? (fm|am|portatil|de bolsillo|recargable)', None,
+     'Bocinas', 'Radios y reproductores', (None,)),
+    ('Audífonos', r'detector de ruido|probador de sonido|\bestetoscopio\b', None, 'Herramientas', 'Medición', (None,)),
+    ('Audífonos', r'traje de bano|kit de natacion|\bgoggles?\b', None, 'Deportes y fitness', 'Natación', (None,)),
+    ('Audífonos', r'ventilador.{0,25}(xbox|consola|ps5)', None, 'Videojuegos', 'Cargadores, bases y soportes', (None,)),
+    ('Audífonos', r'tapon(es)? para (los )?oidos|proteccion auditiva|orejeras de seguridad|para trabajadores de la construccion',
+     None, 'Herramientas', 'Seguridad industrial', (None,)),
+    ('Baterías portátiles', r'herramienta de prensado|crimpado hidraulico|abrazadera hidraulica|prensado de bateria',
+     None, 'Herramientas', 'Herramientas manuales', (None,)),
+    ('Baterías portátiles', r'^(?:\S+ ){0,3}(mini )?ventilador', None, 'Climatización', 'Ventiladores portátiles y de mano', (None,)),
+    ('Baterías portátiles', r'\blinterna\b', None, 'Iluminación', 'Lámparas de emergencia', (None,)),
+    ('Baterías portátiles', r'cortadora de cesped|podadora|desbrozadora', None, 'Herramientas', 'Jardinería', (None,)),
+    ('Baterías portátiles', r'\bgarmin\b|smart ?watch|reloj intelig', None, 'Relojes inteligentes', 'Smartwatches', (None,)),
+    ('Baterías portátiles', r'monitor de bebe|baby monitor', None, 'Juguetes y bebés', 'Monitores de bebé', (None,)),
+    ('Baterías portátiles', r'\bhubs?\b.{0,20}usb|adaptador(es)? de puerto', None, 'Cargadores y adaptadores', 'Cable', (None,)),
+    ('Baterías portátiles', r'(pilas|baterias) recargables (de litio )?(aaa|aa)\b|paquete de \d+ (pilas|baterias)',
+     None, 'Cargadores y adaptadores', 'De pilas', (None,)),
+    ('Baterías portátiles', r'central electrica|estacion de energia|power station|generador portatil',
+     None, 'Otros', 'Estaciones de energía', (None,)),
     # --- Segunda tanda, con lo que trajo la ronda de Mercado Libre ---
     ('Instrumentos musicales', r'maquina de (burbujas|nieve|humo)|liquido (de |para )?humo|snowcraft|'
                                r'\btruss\b|braguero|slip cover', None, 'Iluminación', 'Escenario', (None,)),

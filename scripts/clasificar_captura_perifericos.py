@@ -3006,6 +3006,10 @@ def sub_mueble(tn):
         (r'\bgabinete\b.{0,30}(bano|sala|multiusos)', 'Roperos'),
         (r'\b(repisas?|entrepanos?)\b', 'Repisas'),
         (r'mesa de (billar|ping ?pong|futbolito|juego|poker)', 'Mesas de juego'),
+        (r'mueble\b.{0,18}\btv\b|centro de entretenimiento|\brack\b.{0,12}\btv\b|rack de tv|'
+         r'mesa (para|de) (tv|television)|mueble flotante', 'Mesas para TV y consolas'),
+        (r'^cocina \w|gabinete\b.{0,25}(cocina|despens)|^barra\b|^bar \w|frontal.{0,20}gabinete', 'Muebles de cocina'),
+        (r'\bottoman\b|\botomana\b', 'Sofás'),
         (r'\bescritorios?\b', 'Escritorios'),
         (r'\bsillas? (de|para) comedor|\bbancos? (de|para) comedor', 'Sillas'),
         (r'\b(comedor|antecomedor)\b', 'Mesas de comedor'),
@@ -4232,8 +4236,11 @@ def sub_audio(tn):
         # cable; las familias Buds/FreeClip/Pods son de botón inalámbricas.
         if re.search(r'almohadilla|earpad|repuesto|reemplazo|eartip|puntas de silicona|cuernos', tn):
             return 'Almohadillas y repuestos'
-        if re.search(r'para ninos|\bkids?\b|infantil|\bninos\b|\bninas\b', tn):
+        if re.search(r'para ninos|\bkids?\b|infantil|\bninos\b|\bninas\b|\bdisney\b|minnie|'
+                     r'\bfrozen\b|paw patrol|\bpeppa\b', tn):
             return 'Earbuds para niños'
+        if re.search(r'deportiv|\brunning\b|para correr|\bgancho de oreja\b|\bip6[78]\b', tn):
+            return 'Earbuds deportivos'
         if re.search(r'\bcorsair\b|\bhyperx\b|\bastro a\d|\blogitech g\d|\bhs\d{2}\b|'
                      r'turtle beach|\bsteelseries\b|\brazer\b|\bgamer\b|\bgaming\b', tn):
             return 'Gamer'
@@ -4242,7 +4249,9 @@ def sub_audio(tn):
                      # Familias que dicen la forma sin decirla: los HD de
                      # Sennheiser y los MDR grandes de Sony son de diadema y
                      # con cable salvo que el modelo lleve BT/WH.
-                     r'\bhd ?\d{2,3}\b(?!.{0,12}bt)|\bmdr-?\d|de referencia|audiofil|'
+                     r'\bhd ?\d{2,3}\b(?!.{0,12}bt)|\bmdr[a-z-]*\d|de referencia|audiofil|'
+                     r'espalda abierta|open-?back|para mezcla|mastering|\bneumann\b|beyerdynamic|'
+                     r'\bbehringer\b|\bakg\b|fiesta silenciosa|silent disco|sobre la cabeza|'
                      r'\bcerrados?\b|\babiertos? de\b|aislamiento|\bbdj\b|semi ?abiert', tn):
             return 'Diadema con cable'
         if re.search(r'\bmono\b|monaural|\bcx ?\d|\bie ?\d|\btune ?1\d0\b|\bmobo\b|\bearphone', tn):
