@@ -2930,8 +2930,12 @@ tr.offer-compare-off { display: none; }
 .home-buscador .home-tab-marca { width: 168px; flex: 0 0 auto; }
 .home-grid[data-home-tab="precios"] .home-buscador { border-color: var(--red); }
 /* La línea que separa el logo del campo: el único trazo interior, para que
-   se note dónde termina uno y empieza el otro sin partir la pieza. */
-.home-buscador .home-tab { border-right: 1px solid var(--border); }
+   se note dónde termina uno y empieza el otro sin partir la pieza. Va en
+   las dos reglas (la genérica y la de .is-active) porque la de arriba
+   pone border:0 con más peso y se la comía. */
+.home-buscador .home-tab,
+.home-buscador .home-tab.is-active { border-right: 2px solid var(--border); }
+.home-grid[data-home-tab="precios"] .home-buscador .home-tab.is-active { border-right-color: var(--red); }
 .home-buscador input[type="search"] {
   flex: 1 1 auto;
   min-width: 0;

@@ -2841,7 +2841,12 @@
         settleCategoryBadge();
       }
       card.onclick = () => goCategoryRanking(cat.id);
-      card.dataset.nombre = sinAcentosMarca(cat.name);
+      // Se busca por el nombre de la categoría Y por el de sus
+      // subcategorías: quien escribe "lavadoras" o "taladro" está nombrando
+      // lo que quiere, no el rubro que la tienda le puso encima.
+      card.dataset.nombre = sinAcentosMarca(
+        [cat.name].concat((cat.subcategories || []).map((sc) => sc.name)).join(" ")
+      );
       el.homeCategoryGrid.appendChild(card);
     });
     bindHomeCatSearch();
