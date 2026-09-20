@@ -1,9 +1,18 @@
-"""Toma la banda de ventaja 9-15 del informe de vocabulario y deja pasar
-solo los pares origen->destino que se revisaron a mano y salieron bien."""
+"""Deja pasar del informe de vocabulario solo los pares origen->destino que
+se revisaron a mano y salieron bien, por banda de ventaja.
+
+Los errores del auditor no están repartidos al azar: se agrupan por par.
+"Refacciones -> Electrodomésticos" está mal SIEMPRE (la bandeja de repuesto
+de una freidora sí es una refacción), y "Muebles -> Juegos de mesa" está
+bien siempre. Por eso la revisión es por par y no por ficha.
+
+Cuanto más abajo la banda, menos pares sobreviven: en 9-15 pasaron 19 y en
+3-9 solo 8. Abajo de 3 no se revisó: el auditor ahí ya no distingue.
+"""
 import collections, csv, json, re, sys
 
 # (origen, destino): None = pasa todo; regex = tiene que NO cumplirla
-ACEPTADOS = {
+ACEPTADOS_9_15 = {
     ('Muebles', 'Blancos y ropa de cama'): None,
     ('Muebles', 'Juegos de mesa'): None,
     ('Muebles', 'Equipo comercial'): None,
@@ -39,18 +48,36 @@ ACEPTADOS = {
         r'|base de conexion|\bdocking\b|\bdock\b|todo en uno|all.?in.?one',
 }
 
+# Banda 3-9: casi todo se cae. Los pares que sobreviven son los que el
+# auditor acierta por goleada aunque la ventaja sea chica.
+ACEPTADOS_3_9 = {
+    ('Muebles', 'Juegos de mesa'): None,
+    ('Muebles', 'Blancos y ropa de cama'): None,
+    ('Muebles', 'Otros'): None,
+    ('Muebles', 'Almacenamiento'): None,
+    ('Otros', 'Cocina y comedor'): None,
+    ('Fitness', 'Deportes y fitness'): None,
+    ('Refacciones', 'Movilidad eléctrica'): None,
+    # Cremas y champús de bebé sí; el kit de ciencia del cuerpo humano no.
+    ('Juguetes y bebés', 'Belleza y cuidado personal'):
+        r'kit de ciencia|cuerpo humano|\bmodelo\b',
+}
+
+BANDAS = [(9.0, 15.0, ACEPTADOS_9_15), (3.0, 9.0, ACEPTADOS_3_9)]
+
 filas = list(csv.DictReader(open(sys.argv[1], encoding='utf-8'), delimiter='\t'))
 grupos = collections.defaultdict(list)
 cuenta = collections.Counter()
 for f in filas:
     v = float(f['ventaja'])
-    if not (9.0 <= v < 15.0):
+    tabla = next((t for lo, hi, t in BANDAS if lo <= v < hi), None)
+    if tabla is None:
         continue
     par = (f['categoria'], f['destino_propuesto'])
-    if par not in ACEPTADOS:
+    if par not in tabla:
         cuenta['par no aceptado'] += 1
         continue
-    no = ACEPTADOS[par]
+    no = tabla[par]
     if no and re.search(no, f['nombre'].lower()):
         cuenta['filtrado dentro del par'] += 1
         continue
