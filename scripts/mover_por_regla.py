@@ -122,6 +122,34 @@ REGLAS = [
      r'compresor|acuario|pecera', 'Autos, bicicletas y motos', 'Bombas e infladores'),
     ('Herramientas', r'taburete|\bsilla\b|\bbanco\b (de|para) (taller|trabajo|garaje)|banco rodante', r'banco de trabajo con|prensa|escalera|escalon|peldano|fregadero|\bcarro\b|carrito', 'Muebles', 'Taburetes y bancos'),
     ('Herramientas', r'\blibrero\b|bookshelf|estante organizador.{0,30}(sala|cocina|bano|hogar)|estanteria de almacenamiento para (cocina|bano)', None, 'Muebles', 'Libreros'),
+    # --- Segunda tanda, con lo que trajo la ronda de Mercado Libre ---
+    ('Instrumentos musicales', r'maquina de (burbujas|nieve|humo)|liquido (de |para )?humo|snowcraft|'
+                               r'\btruss\b|braguero|slip cover', None, 'Iluminación', 'Escenario', (None,)),
+    ('Cámaras y fotografía', r'camara (ip|de seguridad|trampa|floodlight)|\btimbre\b|night owl|'
+                             r'videovigilancia|\bnvr\b|\bdvr\b', None, 'Cámaras de seguridad',
+     lambda tn: 'Timbres inteligentes' if 'timbre' in tn else ('Cámaras exteriores' if re.search(r'exterior|floodlight|trampa|intemperie', tn) else 'Cámaras interiores'), (None,)),
+    ('Cámaras y fotografía', r'camara (trasera|de reversa|de vision trasera)|espejo retrovisor|para bicicleta',
+     None, 'Autos, bicicletas y motos', 'Dashcams y cámaras', (None,)),
+    ('Domótica y hogar inteligente', r'\brouter\b|\bmesh\b|repetidor wifi', None, 'Redes', 'Routers', (None,)),
+    ('Domótica y hogar inteligente', r'controlador.{0,25}(movil|bluetooth)|\b8bitdo\b|\bgamepad\b',
+     None, 'Videojuegos', 'Controles y gamepads', (None,)),
+    ('Domótica y hogar inteligente', r'sistema de camaras|camaras? de seguridad|\bnvr\b|\bdvr\b',
+     None, 'Cámaras de seguridad', 'Kits de vigilancia', (None,)),
+    ('Mascotas', r'\bunas\b|esmalte de unas|ojos? de gato.{0,20}(gel|unas)|imanes.{0,20}unas',
+     r'cortaunas|corta unas', 'Belleza y cuidado personal', 'Uñas', (None,)),
+    ('Juegos de mesa', r'\bcarpa\b|tienda (de juego|infantil)|castillo para|piedras de paso|\bscooter\b|'
+                       r'resbaladilla|columpio|casa de juegos', None, 'Juguetes y bebés', 'Juegos de exterior',
+     (None, 'Otros juegos')),
+    ('Juegos de mesa', r'set de actividades|kit (de )?(casa|diy|cientifico|de ciencia)|manualidades|'
+                       r'pizarras? magnetica|\bsticker|aviones de papel|lace and trace|melissa & doug|'
+                       r'\bdidax\b|edxeducation|para dibujar|\bplastilina\b|\bteching\b',
+     None, 'Juguetes y bebés', 'Juguetes educativos', (None, 'Otros juegos')),
+    ('Videojuegos', r'gaming headset|\bheadsets?\b|\barctis\b|blackshark|\bkraken\b|\bcloud (ii|alpha)\b',
+     r'\bsoporte\b|\bstand\b|\bgancho\b|\bbase\b|almohadilla|\bfunda\b', 'Audífonos', 'Gamer',
+     (None, 'Otros accesorios gamer')),
+    ('Videojuegos', r'^(?:\S+ ){0,3}microfono\b', None, 'Instrumentos musicales', 'Micrófonos', (None, 'Otros accesorios gamer')),
+    ('Videojuegos', r'palancas? de (freno|embrague)|para motocicletas', None, 'Autos, bicicletas y motos',
+     'Accesorios para moto', (None, 'Otros accesorios gamer')),
     # --- Fichas que la tienda dejó en la categoría equivocada (20-sep) ---
     ('Audífonos', r'^(?:\S+ ){0,3}(tocadiscos|turntable)', None, 'Instrumentos musicales', 'Tornamesas', (None,)),
     ('Audífonos', r'reposacabezas|monitor.{0,25}(coche|auto)', None, 'Autos, bicicletas y motos', 'Estéreos para auto', (None,)),

@@ -2983,23 +2983,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $640",
-      "max": 640
+      "spec": "Hasta $740",
+      "max": 740
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$640 a $1,350",
-      "min": 640,
-      "max": 1350
+      "spec": "$740 a $1,600",
+      "min": 740,
+      "max": 1600
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,350",
-      "min": 1350
+      "spec": "Más de $1,600",
+      "min": 1600
      }
     ]
    }
@@ -3018,23 +3018,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,450",
-      "max": 1450
+      "spec": "Hasta $1,400",
+      "max": 1400
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,450 a $4,500",
-      "min": 1450,
-      "max": 4500
+      "spec": "$1,400 a $4,450",
+      "min": 1400,
+      "max": 4450
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,500",
-      "min": 4500
+      "spec": "Más de $4,450",
+      "min": 4450
      }
     ]
    }
@@ -4141,6 +4141,1707 @@
   ],
   "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
  },
+ "Juguetes y bebés/Juguetes educativos": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Juegos de exterior": {
+  "axes": [
+   {
+    "label": "Jugadores",
+    "field": "players_max",
+    "criterion": "que caben",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "solo",
+      "name": "Solitario",
+      "use": "Para jugar solo",
+      "spec": "1 jugador",
+      "max": 1
+     },
+     {
+      "id": "dos",
+      "name": "Para dos",
+      "use": "En pareja o uno contra uno",
+      "spec": "2 jugadores",
+      "min": 1,
+      "max": 2
+     },
+     {
+      "id": "chico",
+      "name": "Grupo chico",
+      "use": "Familia o cuatro amigos",
+      "spec": "3 a 4 jugadores",
+      "min": 2,
+      "max": 4
+     },
+     {
+      "id": "grande",
+      "name": "Grupo grande",
+      "use": "Fiestas y reuniones",
+      "spec": "5 o más",
+      "min": 4
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Carriolas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,650",
+      "max": 2650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,650 a $6,550",
+      "min": 2650,
+      "max": 6550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,550",
+      "min": 6550
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Muñecas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $920",
+      "min": 540,
+      "max": 920
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $920",
+      "min": 920
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Bloques de construcción": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $590",
+      "max": 590
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$590 a $1,300",
+      "min": 590,
+      "max": 1300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,300",
+      "min": 1300
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Cunas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,350",
+      "max": 2350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,350 a $6,250",
+      "min": 2350,
+      "max": 6250
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,250",
+      "min": 6250
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Biberones": {
+  "axes": [
+   {
+    "label": "Contenido",
+    "field": "volume_ml",
+    "criterion": "en mililitros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Para probar o para viajar",
+      "spec": "Hasta 160 ml",
+      "max": 160
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Uso de diario",
+      "spec": "161 ml a 260 ml",
+      "min": 160,
+      "max": 260
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Rinde meses",
+      "spec": "Más de 260 ml",
+      "min": 260
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $420",
+      "max": 420
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$420 a $900",
+      "min": 420,
+      "max": 900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $900",
+      "min": 900
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Peluches": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "De bolsillo o llavero",
+      "spec": "Hasta 20 cm",
+      "max": 20
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Para abrazar",
+      "spec": "21 cm a 28 cm",
+      "min": 20,
+      "max": 28
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Para la cama",
+      "spec": "Más de 28 cm",
+      "min": 28
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Triciclos": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,450",
+      "max": 1450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,450 a $1,950",
+      "min": 1450,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Corrales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,850",
+      "max": 1850
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,850 a $2,950",
+      "min": 1850,
+      "max": 2950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,950",
+      "min": 2950
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Pañales y cambio": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $490",
+      "max": 490
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$490 a $890",
+      "min": 490,
+      "max": 890
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $890",
+      "min": 890
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Bebés": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $480",
+      "max": 480
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$480 a $800",
+      "min": 480,
+      "max": 800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $800",
+      "min": 800
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Cuidado y salud del bebé": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $780",
+      "max": 780
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$780 a $1,950",
+      "min": 780,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Vehículos a control remoto": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $490",
+      "max": 490
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$490 a $920",
+      "min": 490,
+      "max": 920
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $920",
+      "min": 920
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Baño e higiene del bebé": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $320",
+      "max": 320
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$320 a $550",
+      "min": 320,
+      "max": 550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $550",
+      "min": 550
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Juguetes para bebé": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso ocasional",
+      "spec": "Hasta 12 kg",
+      "max": 12
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso diario",
+      "spec": "13 kg a 15 kg",
+      "min": 12,
+      "max": 15
+     },
+     {
+      "id": "reforzada",
+      "name": "Reforzada",
+      "use": "Uso intensivo o más peso",
+      "spec": "Más de 15 kg",
+      "min": 15
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Sillas de comer y mecedoras": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso ocasional",
+      "spec": "Hasta 15 kg",
+      "max": 15
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso diario",
+      "spec": "16 kg a 25 kg",
+      "min": 15,
+      "max": 25
+     },
+     {
+      "id": "reforzada",
+      "name": "Reforzada",
+      "use": "Uso intensivo o más peso",
+      "spec": "Más de 25 kg",
+      "min": 25
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Portabebés y canguros": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,300",
+      "max": 1300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,300 a $1,950",
+      "min": 1300,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Ropa y calzado de bebé": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Chupones y mordederas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $380",
+      "max": 380
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$380 a $430",
+      "min": 380,
+      "max": 430
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $430",
+      "min": 430
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Alimentación y lactancia": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "vidrio",
+      "name": "Vidrio",
+      "use": "",
+      "spec": "Vidrio",
+      "values": [
+       "Vidrio"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $510",
+      "max": 510
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$510 a $890",
+      "min": 510,
+      "max": 890
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $890",
+      "min": 890
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Seguridad para bebé": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Montables": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Juguetes para exterior": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $470",
+      "max": 470
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$470 a $900",
+      "min": 470,
+      "max": 900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $900",
+      "min": 900
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Figuras de acción": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Para colección en repisa",
+      "spec": "Hasta 15 cm",
+      "max": 15
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "La escala más común",
+      "spec": "16 cm a 18 cm",
+      "min": 15,
+      "max": 18
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Para exhibir",
+      "spec": "Más de 18 cm",
+      "min": 18
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Maquetas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $610",
+      "max": 610
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$610 a $3,450",
+      "min": 610,
+      "max": 3450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,450",
+      "min": 3450
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Juguetes y bebés/Vehículos de juguete": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $380",
+      "max": 380
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$380 a $700",
+      "min": 380,
+      "max": 700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $700",
+      "min": 700
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
  "Otros/Varios": {
   "axes": [
    {
@@ -4911,16 +6612,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,600 a $4,400",
+      "spec": "$1,600 a $4,300",
       "min": 1600,
-      "max": 4400
+      "max": 4300
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,400",
-      "min": 4400
+      "spec": "Más de $4,300",
+      "min": 4300
      }
     ]
    }
@@ -6634,23 +8335,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,250",
-      "max": 1250
+      "spec": "Hasta $1,200",
+      "max": 1200
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,250 a $6,600",
-      "min": 1250,
-      "max": 6600
+      "spec": "$1,200 a $6,550",
+      "min": 1200,
+      "max": 6550
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $6,600",
-      "min": 6600
+      "spec": "Más de $6,550",
+      "min": 6550
      }
     ]
    }
@@ -7030,15 +8731,15 @@
       "id": "chico",
       "name": "Chico",
       "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 49 cm",
-      "max": 49
+      "spec": "Hasta 47 cm",
+      "max": 47
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "El tamaño más común",
-      "spec": "50 cm a 100 cm",
-      "min": 49,
+      "spec": "48 cm a 100 cm",
+      "min": 47,
       "max": 100
      },
      {
@@ -7924,23 +9625,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $2,400",
-      "max": 2400
+      "spec": "Hasta $2,550",
+      "max": 2550
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,400 a $4,800",
-      "min": 2400,
-      "max": 4800
+      "spec": "$2,550 a $4,950",
+      "min": 2550,
+      "max": 4950
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,800",
-      "min": 4800
+      "spec": "Más de $4,950",
+      "min": 4950
      }
     ]
    }
@@ -8347,15 +10048,15 @@
       "id": "chico",
       "name": "Chico",
       "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 68 cm",
-      "max": 68
+      "spec": "Hasta 84 cm",
+      "max": 84
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "El tamaño más común",
-      "spec": "69 cm a 140 cm",
-      "min": 68,
+      "spec": "85 cm a 140 cm",
+      "min": 84,
       "max": 140
      },
      {
@@ -9215,15 +10916,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $12,000",
-      "max": 12000
+      "spec": "Hasta $13,000",
+      "max": 13000
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$12,000 a $28,500",
-      "min": 12000,
+      "spec": "$13,000 a $28,500",
+      "min": 13000,
       "max": 28500
      },
      {
@@ -10055,15 +11756,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $800",
-      "max": 800
+      "spec": "Hasta $790",
+      "max": 790
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$800 a $2,750",
-      "min": 800,
+      "spec": "$790 a $2,750",
+      "min": 790,
       "max": 2750
      },
      {
@@ -10645,23 +12346,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $360",
-      "max": 360
+      "spec": "Hasta $320",
+      "max": 320
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$360 a $480",
-      "min": 360,
-      "max": 480
+      "spec": "$320 a $430",
+      "min": 320,
+      "max": 430
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $480",
-      "min": 480
+      "spec": "Más de $430",
+      "min": 430
      }
     ]
    }
@@ -10789,23 +12490,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $180",
-      "max": 180
+      "spec": "Hasta $190",
+      "max": 190
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$180 a $690",
-      "min": 180,
-      "max": 690
+      "spec": "$190 a $790",
+      "min": 190,
+      "max": 790
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $690",
-      "min": 690
+      "spec": "Más de $790",
+      "min": 790
      }
     ]
    }
@@ -10992,7 +12693,7 @@
   ],
   "intro": "Elige por el tamaño y la edad de tu mascota."
  },
- "Juguetes y bebés/Carriolas": {
+ "Belleza y cuidado personal/Uñas": {
   "axes": [
    {
     "key": "level",
@@ -11005,624 +12706,32 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $2,650",
-      "max": 2650
+      "spec": "Hasta $150",
+      "max": 150
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,650 a $6,550",
-      "min": 2650,
-      "max": 6550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,550",
-      "min": 6550
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Juguetes educativos": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Muñecas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $540",
-      "max": 540
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$540 a $920",
-      "min": 540,
-      "max": 920
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $920",
-      "min": 920
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Bloques de construcción": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $590",
-      "max": 590
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$590 a $1,300",
-      "min": 590,
-      "max": 1300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,300",
-      "min": 1300
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Cunas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,350",
-      "max": 2350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,350 a $6,250",
-      "min": 2350,
-      "max": 6250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,250",
-      "min": 6250
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Biberones": {
-  "axes": [
-   {
-    "label": "Contenido",
-    "field": "volume_ml",
-    "criterion": "en mililitros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Para probar o para viajar",
-      "spec": "Hasta 160 ml",
-      "max": 160
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Uso de diario",
-      "spec": "161 ml a 260 ml",
-      "min": 160,
+      "spec": "$150 a $260",
+      "min": 150,
       "max": 260
      },
      {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Rinde meses",
-      "spec": "Más de 260 ml",
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $260",
       "min": 260
      }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $420",
-      "max": 420
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$420 a $900",
-      "min": 420,
-      "max": 900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $900",
-      "min": 900
-     }
     ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
- "Juguetes y bebés/Peluches": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "De bolsillo o llavero",
-      "spec": "Hasta 20 cm",
-      "max": 20
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Para abrazar",
-      "spec": "21 cm a 28 cm",
-      "min": 20,
-      "max": 28
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Para la cama",
-      "spec": "Más de 28 cm",
-      "min": 28
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Triciclos": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,450",
-      "max": 1450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,450 a $1,950",
-      "min": 1450,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Corrales": {
+ "Belleza y cuidado personal/Cuidado personal": {
   "axes": [
    {
     "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,850",
-      "max": 1850
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,850 a $2,950",
-      "min": 1850,
-      "max": 2950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Pañales y cambio": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $490",
-      "max": 490
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$490 a $890",
-      "min": 490,
-      "max": 890
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $890",
-      "min": 890
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Bebés": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -11639,8 +12748,109 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$480 a $800",
+      "spec": "$480 a $900",
       "min": 480,
+      "max": 900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $900",
+      "min": 900
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Cuidado del cabello": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $720",
+      "min": 440,
+      "max": 720
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $720",
+      "min": 720
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Maquillaje": {
+  "axes": [
+   {
+    "label": "Contenido",
+    "field": "volume_ml",
+    "criterion": "en mililitros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Para probar o para viajar",
+      "spec": "Hasta 25 ml",
+      "max": 25
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Uso de diario",
+      "spec": "26 ml a 40 ml",
+      "min": 25,
+      "max": 40
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Rinde meses",
+      "spec": "Más de 40 ml",
+      "min": 40
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $800",
+      "min": 440,
       "max": 800
      },
      {
@@ -11652,42 +12862,396 @@
      }
     ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
- "Juguetes y bebés/Cuidado y salud del bebé": {
+ "Belleza y cuidado personal/Dispositivos de cuidado facial": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $450",
+      "max": 450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$450 a $10,500",
+      "min": 450,
+      "max": 10500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $10,500",
+      "min": 10500
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Masajeadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $690",
+      "max": 690
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$690 a $1,900",
+      "min": 690,
+      "max": 1900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,900",
+      "min": 1900
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Vaporizadores y equipo de spa": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $6,050",
+      "max": 6050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$6,050 a $14,500",
+      "min": 6050,
+      "max": 14500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $14,500",
+      "min": 14500
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Cremas y sérums faciales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $550",
+      "max": 550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$550 a $1,450",
+      "min": 550,
+      "max": 1450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,450",
+      "min": 1450
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Mascarillas faciales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $2,350",
+      "min": 440,
+      "max": 2350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,350",
+      "min": 2350
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Extensiones de cabello": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $250",
+      "max": 250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$250 a $1,100",
+      "min": 250,
+      "max": 1100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,100",
+      "min": 1100
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Pelucas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $230",
+      "max": 230
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$230 a $390",
+      "min": 230,
+      "max": 390
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $390",
+      "min": 390
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Secadoras de cabello": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "suave",
+      "name": "Suave",
+      "use": "Cabello corto o de viaje",
+      "spec": "Hasta 1,400 W",
+      "max": 1400
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de diario",
+      "spec": "1,401 W a 1,850 W",
+      "min": 1400,
+      "max": 1850
+     },
+     {
+      "id": "potente",
+      "name": "Potente",
+      "use": "Cabello largo o grueso, secado rápido",
+      "spec": "Más de 1,850 W",
+      "min": 1850
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $610",
+      "max": 610
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$610 a $1,650",
+      "min": 610,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Planchas para cabello": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $400",
+      "max": 400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$400 a $1,150",
+      "min": 400,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Rasuradoras": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
     "ramp": false,
     "tiers": [
      {
-      "id": "plastico",
-      "name": "Plástico",
+      "id": "repuestos-y-accesorios",
+      "name": "Repuestos y accesorios",
       "use": "",
-      "spec": "Plástico",
+      "spec": "Repuestos y accesorios",
       "values": [
-       "Plástico"
+       "Repuestos y accesorios"
       ]
      },
      {
-      "id": "silicona",
-      "name": "Silicona",
+      "id": "para-barba",
+      "name": "Para barba",
       "use": "",
-      "spec": "Silicona",
+      "spec": "Para barba",
       "values": [
-       "Silicona"
+       "Para barba"
       ]
      },
      {
-      "id": "metal",
-      "name": "Metal",
+      "id": "para-cabello",
+      "name": "Para cabello",
       "use": "",
-      "spec": "Metal",
+      "spec": "Para cabello",
       "values": [
-       "Metal"
+       "Para cabello"
+      ]
+     },
+     {
+      "id": "corporal-o-depilacion",
+      "name": "Corporal o depilación",
+      "use": "",
+      "spec": "Corporal o depilación",
+      "values": [
+       "Corporal o depilación"
       ]
      }
     ],
@@ -11704,53 +13268,140 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $780",
-      "max": 780
+      "spec": "Hasta $530",
+      "max": 530
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$780 a $1,950",
-      "min": 780,
-      "max": 1950
+      "spec": "$530 a $1,150",
+      "min": 530,
+      "max": 1150
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
+      "spec": "Más de $1,150",
+      "min": 1150
      }
     ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
- "Juguetes y bebés/Vehículos a control remoto": {
+ "Belleza y cuidado personal/Depilación": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $260",
+      "max": 260
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$260 a $650",
+      "min": 260,
+      "max": 650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $650",
+      "min": 650
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Protección solar": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $350",
+      "max": 350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$350 a $800",
+      "min": 350,
+      "max": 800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $800",
+      "min": 800
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Corporales": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
     "ramp": false,
     "tiers": [
      {
-      "id": "plastico",
-      "name": "Plástico",
+      "id": "cremas-y-lociones",
+      "name": "Cremas y lociones",
       "use": "",
-      "spec": "Plástico",
+      "spec": "Cremas y lociones",
       "values": [
-       "Plástico"
+       "Cremas y lociones"
       ]
      },
      {
-      "id": "metal",
-      "name": "Metal",
+      "id": "aparatos",
+      "name": "Aparatos",
       "use": "",
-      "spec": "Metal",
+      "spec": "Aparatos",
       "values": [
-       "Metal"
+       "Aparatos"
+      ]
+     },
+     {
+      "id": "exfoliantes",
+      "name": "Exfoliantes",
+      "use": "",
+      "spec": "Exfoliantes",
+      "values": [
+       "Exfoliantes"
+      ]
+     },
+     {
+      "id": "aceites",
+      "name": "Aceites",
+      "use": "",
+      "spec": "Aceites",
+      "values": [
+       "Aceites"
       ]
      }
     ],
@@ -11767,113 +13418,134 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $490",
-      "max": 490
+      "spec": "Hasta $350",
+      "max": 350
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$490 a $920",
-      "min": 490,
-      "max": 920
+      "spec": "$350 a $1,400",
+      "min": 350,
+      "max": 1400
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $920",
-      "min": 920
+      "spec": "Más de $1,400",
+      "min": 1400
      }
     ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
- "Juguetes y bebés/Juegos de exterior": {
+ "Belleza y cuidado personal/Manicure": {
   "axes": [
    {
-    "label": "Jugadores",
-    "field": "players_max",
-    "criterion": "que caben",
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
     "ramp": true,
     "tiers": [
      {
-      "id": "solo",
-      "name": "Solitario",
-      "use": "Para jugar solo",
-      "spec": "1 jugador",
-      "max": 1
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $210",
+      "max": 210
      },
      {
-      "id": "dos",
-      "name": "Para dos",
-      "use": "En pareja o uno contra uno",
-      "spec": "2 jugadores",
-      "min": 1,
-      "max": 2
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$210 a $400",
+      "min": 210,
+      "max": 400
      },
      {
-      "id": "chico",
-      "name": "Grupo chico",
-      "use": "Familia o cuatro amigos",
-      "spec": "3 a 4 jugadores",
-      "min": 2,
-      "max": 4
-     },
-     {
-      "id": "grande",
-      "name": "Grupo grande",
-      "use": "Fiestas y reuniones",
-      "spec": "5 o más",
-      "min": 4
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $400",
+      "min": 400
      }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "size"
+    ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
- "Juguetes y bebés/Baño e higiene del bebé": {
+ "Belleza y cuidado personal/Brochas y esponjas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $630",
+      "min": 290,
+      "max": 630
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $630",
+      "min": 630
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Bases y correctores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $400",
+      "max": 400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$400 a $810",
+      "min": 400,
+      "max": 810
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $810",
+      "min": 810
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Exfoliantes y peelings": {
   "axes": [
    {
     "key": "level",
@@ -11893,357 +13565,22 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$320 a $550",
+      "spec": "$320 a $740",
       "min": 320,
-      "max": 550
+      "max": 740
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $550",
-      "min": 550
+      "spec": "Más de $740",
+      "min": 740
      }
     ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
- "Juguetes y bebés/Juguetes para bebé": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso ocasional",
-      "spec": "Hasta 12 kg",
-      "max": 12
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso diario",
-      "spec": "13 kg a 15 kg",
-      "min": 12,
-      "max": 15
-     },
-     {
-      "id": "reforzada",
-      "name": "Reforzada",
-      "use": "Uso intensivo o más peso",
-      "spec": "Más de 15 kg",
-      "min": 15
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Sillas de comer y mecedoras": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso ocasional",
-      "spec": "Hasta 15 kg",
-      "max": 15
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso diario",
-      "spec": "16 kg a 25 kg",
-      "min": 15,
-      "max": 25
-     },
-     {
-      "id": "reforzada",
-      "name": "Reforzada",
-      "use": "Uso intensivo o más peso",
-      "spec": "Más de 25 kg",
-      "min": 25
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Portabebés y canguros": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,300 a $1,950",
-      "min": 1300,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Ropa y calzado de bebé": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Chupones y mordederas": {
+ "Belleza y cuidado personal/Rizadores": {
   "axes": [
    {
     "key": "level",
@@ -12256,78 +13593,32 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $380",
-      "max": 380
+      "spec": "Hasta $340",
+      "max": 340
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$380 a $430",
-      "min": 380,
-      "max": 430
+      "spec": "$340 a $640",
+      "min": 340,
+      "max": 640
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $430",
-      "min": 430
+      "spec": "Más de $640",
+      "min": 640
      }
     ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
- "Juguetes y bebés/Alimentación y lactancia": {
+ "Belleza y cuidado personal/Máscaras de pestañas y cejas": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "vidrio",
-      "name": "Vidrio",
-      "use": "",
-      "spec": "Vidrio",
-      "values": [
-       "Vidrio"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -12337,183 +13628,67 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $510",
-      "max": 510
+      "spec": "Hasta $410",
+      "max": 410
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$510 a $890",
-      "min": 510,
-      "max": 890
+      "spec": "$410 a $610",
+      "min": 410,
+      "max": 610
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $890",
-      "min": 890
+      "spec": "Más de $610",
+      "min": 610
      }
     ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
- "Juguetes y bebés/Seguridad para bebé": {
+ "Belleza y cuidado personal/Limpiadores y tónicos": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Montables": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
     "ramp": true,
     "tiers": [
      {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
      },
      {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $1,050",
+      "min": 390,
+      "max": 1050
      },
      {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
      }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "size"
+    ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
- "Juguetes y bebés/Juguetes para exterior": {
+ "Belleza y cuidado personal/Organizadores de maquillaje": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -12530,101 +13705,280 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$470 a $900",
+      "spec": "$470 a $1,300",
       "min": 470,
-      "max": 900
+      "max": 1300
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $900",
-      "min": 900
+      "spec": "Más de $1,300",
+      "min": 1300
      }
     ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
- "Juguetes y bebés/Figuras de acción": {
+ "Belleza y cuidado personal/Labiales": {
   "axes": [
    {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
     "ramp": true,
     "tiers": [
      {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Para colección en repisa",
-      "spec": "Hasta 15 cm",
-      "max": 15
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $360",
+      "max": 360
      },
      {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "La escala más común",
-      "spec": "16 cm a 18 cm",
-      "min": 15,
-      "max": 18
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$360 a $650",
+      "min": 360,
+      "max": 650
      },
      {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Para exhibir",
-      "spec": "Más de 18 cm",
-      "min": 18
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $650",
+      "min": 650
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Polvos, rubores y bronceadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $400",
+      "max": 400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$400 a $800",
+      "min": 400,
+      "max": 800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $800",
+      "min": 800
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Paletas y sets de maquillaje": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $620",
+      "min": 390,
+      "max": 620
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $620",
+      "min": 620
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Primers y fijadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $360",
+      "max": 360
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$360 a $780",
+      "min": 360,
+      "max": 780
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $780",
+      "min": 780
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Sombras y delineadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $400",
+      "max": 400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$400 a $760",
+      "min": 400,
+      "max": 760
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $760",
+      "min": 760
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Pestañas postizas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $530",
+      "min": 430,
+      "max": 530
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $530",
+      "min": 530
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Mobiliario para salón": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
      }
     ],
     "key": "level"
    },
    {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Maquetas": {
-  "axes": [
-   {
-    "key": "level",
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -12634,64 +13988,27 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $610",
-      "max": 610
+      "spec": "Hasta $5,250",
+      "max": 5250
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$610 a $3,450",
-      "min": 610,
-      "max": 3450
+      "spec": "$5,250 a $8,350",
+      "min": 5250,
+      "max": 8350
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,450",
-      "min": 3450
+      "spec": "Más de $8,350",
+      "min": 8350
      }
     ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
- },
- "Juguetes y bebés/Vehículos de juguete": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $380",
-      "max": 380
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$380 a $700",
-      "min": 380,
-      "max": 700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
  "Blancos y ropa de cama/Cobijas": {
   "axes": [
@@ -14004,15 +15321,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $730",
-      "max": 730
+      "spec": "Hasta $750",
+      "max": 750
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$730 a $2,000",
-      "min": 730,
+      "spec": "$750 a $2,000",
+      "min": 750,
       "max": 2000
      },
      {
@@ -14311,23 +15628,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,900",
-      "max": 1900
+      "spec": "Hasta $1,650",
+      "max": 1650
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,900 a $5,400",
-      "min": 1900,
-      "max": 5400
+      "spec": "$1,650 a $5,150",
+      "min": 1650,
+      "max": 5150
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $5,400",
-      "min": 5400
+      "spec": "Más de $5,150",
+      "min": 5150
      }
     ]
    }
@@ -19927,23 +21244,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $420",
-      "max": 420
+      "spec": "Hasta $430",
+      "max": 430
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$420 a $770",
-      "min": 420,
-      "max": 770
+      "spec": "$430 a $800",
+      "min": 430,
+      "max": 800
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $770",
-      "min": 770
+      "spec": "Más de $800",
+      "min": 800
      }
     ]
    }
@@ -20509,6 +21826,1105 @@
    }
   ]
  },
+ "Videojuegos/Consolas PlayStation": {
+  "axes": [
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v825",
+      "name": "825 GB",
+      "use": "",
+      "spec": "825 GB",
+      "values": [
+       825
+      ]
+     },
+     {
+      "id": "v1024",
+      "name": "1,024 GB",
+      "use": "",
+      "spec": "1,024 GB",
+      "values": [
+       1024
+      ]
+     },
+     {
+      "id": "v2048",
+      "name": "2,048 GB",
+      "use": "",
+      "spec": "2,048 GB",
+      "values": [
+       2048
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Cables y adaptadores": {
+  "axes": [
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basico",
+      "name": "Básico",
+      "use": "Pocos juegos a la vez",
+      "spec": "Hasta 120 GB",
+      "max": 120
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedio",
+      "use": "Varios juegos instalados",
+      "spec": "121 GB a 510 GB",
+      "min": 120,
+      "max": 510
+     },
+     {
+      "id": "alto",
+      "name": "Alto",
+      "use": "Toda la biblioteca",
+      "spec": "Más de 510 GB",
+      "min": 510
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Juegos retro y otras plataformas": {
+  "axes": [
+   {
+    "label": "Jugadores",
+    "field": "players_max",
+    "criterion": "que caben",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "solo",
+      "name": "Solitario",
+      "use": "Para jugar solo",
+      "spec": "1 jugador",
+      "max": 1
+     },
+     {
+      "id": "dos",
+      "name": "Para dos",
+      "use": "En pareja o uno contra uno",
+      "spec": "2 jugadores",
+      "min": 1,
+      "max": 2
+     },
+     {
+      "id": "chico",
+      "name": "Grupo chico",
+      "use": "Familia o cuatro amigos",
+      "spec": "3 a 4 jugadores",
+      "min": 2,
+      "max": 4
+     },
+     {
+      "id": "grande",
+      "name": "Grupo grande",
+      "use": "Fiestas y reuniones",
+      "spec": "5 o más",
+      "min": 4
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Consolas Nintendo": {
+  "axes": [
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v32",
+      "name": "32 GB",
+      "use": "",
+      "spec": "32 GB",
+      "values": [
+       32
+      ]
+     },
+     {
+      "id": "v64",
+      "name": "64 GB",
+      "use": "",
+      "spec": "64 GB",
+      "values": [
+       64
+      ]
+     },
+     {
+      "id": "v256",
+      "name": "256 GB",
+      "use": "",
+      "spec": "256 GB",
+      "values": [
+       256
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Consolas Xbox": {
+  "axes": [
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v500",
+      "name": "500 GB",
+      "use": "",
+      "spec": "500 GB",
+      "values": [
+       500
+      ]
+     },
+     {
+      "id": "v512",
+      "name": "512 GB",
+      "use": "",
+      "spec": "512 GB",
+      "values": [
+       512
+      ]
+     },
+     {
+      "id": "v1024",
+      "name": "1,024 GB",
+      "use": "",
+      "spec": "1,024 GB",
+      "values": [
+       1024
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Redes/Routers": {
+  "axes": [
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     },
+     {
+      "id": "wi-fi-7",
+      "name": "Wi-Fi 7",
+      "use": "La generación más nueva",
+      "spec": "Wi-Fi 7",
+      "values": [
+       "Wi-Fi 7"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $960",
+      "max": 960
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$960 a $2,650",
+      "min": 960,
+      "max": 2650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,650",
+      "min": 2650
+     }
+    ]
+   }
+  ]
+ },
+ "Redes/Access points": {
+  "axes": [
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     },
+     {
+      "id": "wi-fi-7",
+      "name": "Wi-Fi 7",
+      "use": "La generación más nueva",
+      "spec": "Wi-Fi 7",
+      "values": [
+       "Wi-Fi 7"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,150",
+      "max": 2150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,150 a $4,700",
+      "min": 2150,
+      "max": 4700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,700",
+      "min": 4700
+     }
+    ]
+   }
+  ]
+ },
+ "Redes/Repetidores": {
+  "axes": [
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-4",
+      "name": "Wi-Fi 4",
+      "use": "Básico, para pocos equipos",
+      "spec": "Wi-Fi 4",
+      "values": [
+       "Wi-Fi 4"
+      ]
+     },
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $1,100",
+      "min": 540,
+      "max": 1100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,100",
+      "min": 1100
+     }
+    ]
+   }
+  ]
+ },
+ "Redes/Switches": {
+  "axes": [
+   {
+    "label": "Puertos",
+    "field": "ports",
+    "criterion": "por número de puertos",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "pocos",
+      "name": "Pocos",
+      "use": "Un escritorio o una sala",
+      "spec": "Hasta 8 puertos",
+      "max": 8
+     },
+     {
+      "id": "medios",
+      "name": "Medios",
+      "use": "Casa u oficina chica",
+      "spec": "9 puertos a 20 puertos",
+      "min": 8,
+      "max": 20
+     },
+     {
+      "id": "muchos",
+      "name": "Muchos",
+      "use": "Oficina o rack",
+      "spec": "Más de 20 puertos",
+      "min": 20
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,750",
+      "max": 1750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,750 a $6,450",
+      "min": 1750,
+      "max": 6450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,450",
+      "min": 6450
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Kits de vigilancia": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,100",
+      "max": 3100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,100 a $5,450",
+      "min": 3100,
+      "max": 5450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,450",
+      "min": 5450
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Interiores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,350",
+      "max": 1350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,350 a $5,050",
+      "min": 1350,
+      "max": 5050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,050",
+      "min": 5050
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras exteriores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $890",
+      "max": 890
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$890 a $1,850",
+      "min": 890,
+      "max": 1850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,850",
+      "min": 1850
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras espía": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $240",
+      "max": 240
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$240 a $640",
+      "min": 240,
+      "max": 640
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $640",
+      "min": 640
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras PTZ": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $790",
+      "max": 790
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$790 a $2,850",
+      "min": 790,
+      "max": 2850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,850",
+      "min": 2850
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras interiores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $760",
+      "max": 760
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$760 a $1,650",
+      "min": 760,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Timbres inteligentes": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,250",
+      "max": 1250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,250 a $3,450",
+      "min": 1250,
+      "max": 3450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,450",
+      "min": 3450
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Alarmas": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $670",
+      "max": 670
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$670 a $3,050",
+      "min": 670,
+      "max": 3050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,050",
+      "min": 3050
+     }
+    ]
+   }
+  ]
+ },
  "Herramientas/Material eléctrico": {
   "axes": [
    {
@@ -20826,23 +23242,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
+      "spec": "Hasta $280",
+      "max": 280
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$290 a $1,050",
-      "min": 290,
-      "max": 1050
+      "spec": "$280 a $890",
+      "min": 280,
+      "max": 890
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
+      "spec": "Más de $890",
+      "min": 890
      }
     ]
    }
@@ -21179,23 +23595,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $150",
-      "max": 150
+      "spec": "Hasta $130",
+      "max": 130
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$150 a $500",
-      "min": 150,
-      "max": 500
+      "spec": "$130 a $430",
+      "min": 130,
+      "max": 430
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $500",
-      "min": 500
+      "spec": "Más de $430",
+      "min": 430
      }
     ]
    }
@@ -21276,23 +23692,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $220",
-      "max": 220
+      "spec": "Hasta $240",
+      "max": 240
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$220 a $630",
-      "min": 220,
-      "max": 630
+      "spec": "$240 a $710",
+      "min": 240,
+      "max": 710
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $630",
-      "min": 630
+      "spec": "Más de $710",
+      "min": 710
      }
     ]
    }
@@ -21699,6 +24115,13 @@
       "spec": "110 a 127 V",
       "min": 100,
       "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
      }
     ],
     "key": "level"
@@ -21714,23 +24137,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $910",
-      "max": 910
+      "spec": "Hasta $1,000",
+      "max": 1000
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$910 a $2,100",
-      "min": 910,
-      "max": 2100
+      "spec": "$1,000 a $2,150",
+      "min": 1000,
+      "max": 2150
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,100",
-      "min": 2100
+      "spec": "Más de $2,150",
+      "min": 2150
      }
     ]
    }
@@ -21738,37 +24161,6 @@
  },
  "Herramientas/Compresores y herramienta neumática": {
   "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
-      "spec": "Hasta 500 W",
-      "max": 500
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
-      "spec": "501 W a 1,500 W",
-      "min": 500,
-      "max": 1500
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
-      "spec": "Más de 1,500 W",
-      "min": 1500
-     }
-    ],
-    "key": "level"
-   },
    {
     "label": "Alimentación",
     "field": "volt",
@@ -21814,7 +24206,38 @@
       "min": 150
      }
     ],
-    "key": "size"
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,800",
+      "max": 2800
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,800 a $4,950",
+      "min": 2800,
+      "max": 4950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,950",
+      "min": 4950
+     }
+    ]
    }
   ]
  },
@@ -21936,23 +24359,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $230",
-      "max": 230
+      "spec": "Hasta $220",
+      "max": 220
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$230 a $470",
-      "min": 230,
-      "max": 470
+      "spec": "$220 a $490",
+      "min": 220,
+      "max": 490
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $470",
-      "min": 470
+      "spec": "Más de $490",
+      "min": 490
      }
     ]
    }
@@ -22359,23 +24782,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $590",
-      "max": 590
+      "spec": "Hasta $620",
+      "max": 620
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$590 a $1,350",
-      "min": 590,
-      "max": 1350
+      "spec": "$620 a $2,100",
+      "min": 620,
+      "max": 2100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,350",
-      "min": 1350
+      "spec": "Más de $2,100",
+      "min": 2100
      }
     ]
    }
@@ -22670,23 +25093,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $410",
-      "max": 410
+      "spec": "Hasta $370",
+      "max": 370
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$410 a $890",
-      "min": 410,
-      "max": 890
+      "spec": "$370 a $800",
+      "min": 370,
+      "max": 800
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $890",
-      "min": 890
+      "spec": "Más de $800",
+      "min": 800
      }
     ]
    }
@@ -22884,16 +25307,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$720 a $1,900",
+      "spec": "$720 a $1,850",
       "min": 720,
-      "max": 1900
+      "max": 1850
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,900",
-      "min": 1900
+      "spec": "Más de $1,850",
+      "min": 1850
      }
     ]
    }
@@ -23069,1945 +25492,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $530",
       "min": 530
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Cuidado personal": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $480",
-      "max": 480
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$480 a $900",
-      "min": 480,
-      "max": 900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $900",
-      "min": 900
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Uñas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $150",
-      "max": 150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$150 a $260",
-      "min": 150,
-      "max": 260
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $260",
-      "min": 260
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Cuidado del cabello": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$440 a $720",
-      "min": 440,
-      "max": 720
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $720",
-      "min": 720
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Maquillaje": {
-  "axes": [
-   {
-    "label": "Contenido",
-    "field": "volume_ml",
-    "criterion": "en mililitros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Para probar o para viajar",
-      "spec": "Hasta 25 ml",
-      "max": 25
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Uso de diario",
-      "spec": "26 ml a 40 ml",
-      "min": 25,
-      "max": 40
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Rinde meses",
-      "spec": "Más de 40 ml",
-      "min": 40
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$440 a $800",
-      "min": 440,
-      "max": 800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $800",
-      "min": 800
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Dispositivos de cuidado facial": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $450",
-      "max": 450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$450 a $10,500",
-      "min": 450,
-      "max": 10500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $10,500",
-      "min": 10500
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Masajeadores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $690",
-      "max": 690
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$690 a $1,900",
-      "min": 690,
-      "max": 1900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,900",
-      "min": 1900
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Vaporizadores y equipo de spa": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $6,050",
-      "max": 6050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$6,050 a $14,500",
-      "min": 6050,
-      "max": 14500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $14,500",
-      "min": 14500
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Cremas y sérums faciales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $550",
-      "max": 550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$550 a $1,450",
-      "min": 550,
-      "max": 1450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,450",
-      "min": 1450
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Mascarillas faciales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$440 a $2,350",
-      "min": 440,
-      "max": 2350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,350",
-      "min": 2350
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Extensiones de cabello": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $250",
-      "max": 250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$250 a $1,100",
-      "min": 250,
-      "max": 1100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,100",
-      "min": 1100
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Pelucas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $230",
-      "max": 230
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$230 a $390",
-      "min": 230,
-      "max": 390
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $390",
-      "min": 390
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Secadoras de cabello": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "suave",
-      "name": "Suave",
-      "use": "Cabello corto o de viaje",
-      "spec": "Hasta 1,400 W",
-      "max": 1400
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de diario",
-      "spec": "1,401 W a 1,850 W",
-      "min": 1400,
-      "max": 1850
-     },
-     {
-      "id": "potente",
-      "name": "Potente",
-      "use": "Cabello largo o grueso, secado rápido",
-      "spec": "Más de 1,850 W",
-      "min": 1850
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $610",
-      "max": 610
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$610 a $1,650",
-      "min": 610,
-      "max": 1650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,650",
-      "min": 1650
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Planchas para cabello": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $400",
-      "max": 400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$400 a $1,150",
-      "min": 400,
-      "max": 1150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Rasuradoras": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "repuestos-y-accesorios",
-      "name": "Repuestos y accesorios",
-      "use": "",
-      "spec": "Repuestos y accesorios",
-      "values": [
-       "Repuestos y accesorios"
-      ]
-     },
-     {
-      "id": "para-barba",
-      "name": "Para barba",
-      "use": "",
-      "spec": "Para barba",
-      "values": [
-       "Para barba"
-      ]
-     },
-     {
-      "id": "para-cabello",
-      "name": "Para cabello",
-      "use": "",
-      "spec": "Para cabello",
-      "values": [
-       "Para cabello"
-      ]
-     },
-     {
-      "id": "corporal-o-depilacion",
-      "name": "Corporal o depilación",
-      "use": "",
-      "spec": "Corporal o depilación",
-      "values": [
-       "Corporal o depilación"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $530",
-      "max": 530
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$530 a $1,150",
-      "min": 530,
-      "max": 1150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Depilación": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $260",
-      "max": 260
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$260 a $650",
-      "min": 260,
-      "max": 650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $650",
-      "min": 650
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Protección solar": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $350",
-      "max": 350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$350 a $800",
-      "min": 350,
-      "max": 800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $800",
-      "min": 800
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Corporales": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "cremas-y-lociones",
-      "name": "Cremas y lociones",
-      "use": "",
-      "spec": "Cremas y lociones",
-      "values": [
-       "Cremas y lociones"
-      ]
-     },
-     {
-      "id": "aparatos",
-      "name": "Aparatos",
-      "use": "",
-      "spec": "Aparatos",
-      "values": [
-       "Aparatos"
-      ]
-     },
-     {
-      "id": "exfoliantes",
-      "name": "Exfoliantes",
-      "use": "",
-      "spec": "Exfoliantes",
-      "values": [
-       "Exfoliantes"
-      ]
-     },
-     {
-      "id": "aceites",
-      "name": "Aceites",
-      "use": "",
-      "spec": "Aceites",
-      "values": [
-       "Aceites"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $350",
-      "max": 350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$350 a $1,400",
-      "min": 350,
-      "max": 1400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,400",
-      "min": 1400
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Manicure": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $210",
-      "max": 210
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$210 a $400",
-      "min": 210,
-      "max": 400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $400",
-      "min": 400
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Brochas y esponjas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $630",
-      "min": 290,
-      "max": 630
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $630",
-      "min": 630
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Bases y correctores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $400",
-      "max": 400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$400 a $810",
-      "min": 400,
-      "max": 810
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $810",
-      "min": 810
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Exfoliantes y peelings": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $320",
-      "max": 320
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$320 a $740",
-      "min": 320,
-      "max": 740
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $740",
-      "min": 740
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Rizadores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $340",
-      "max": 340
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$340 a $640",
-      "min": 340,
-      "max": 640
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $640",
-      "min": 640
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Máscaras de pestañas y cejas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $410",
-      "max": 410
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$410 a $610",
-      "min": 410,
-      "max": 610
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $610",
-      "min": 610
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Limpiadores y tónicos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $390",
-      "max": 390
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$390 a $1,050",
-      "min": 390,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Organizadores de maquillaje": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $470",
-      "max": 470
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$470 a $1,300",
-      "min": 470,
-      "max": 1300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,300",
-      "min": 1300
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Labiales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $360",
-      "max": 360
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$360 a $650",
-      "min": 360,
-      "max": 650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $650",
-      "min": 650
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Polvos, rubores y bronceadores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $400",
-      "max": 400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$400 a $800",
-      "min": 400,
-      "max": 800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $800",
-      "min": 800
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Paletas y sets de maquillaje": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $390",
-      "max": 390
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$390 a $620",
-      "min": 390,
-      "max": 620
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $620",
-      "min": 620
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Primers y fijadores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $360",
-      "max": 360
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$360 a $780",
-      "min": 360,
-      "max": 780
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $780",
-      "min": 780
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Sombras y delineadores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $400",
-      "max": 400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$400 a $760",
-      "min": 400,
-      "max": 760
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $760",
-      "min": 760
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Pestañas postizas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$430 a $530",
-      "min": 430,
-      "max": 530
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $530",
-      "min": 530
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Mobiliario para salón": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $5,250",
-      "max": 5250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$5,250 a $8,350",
-      "min": 5250,
-      "max": 8350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $8,350",
-      "min": 8350
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Kits de vigilancia": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,100",
-      "max": 3100
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,100 a $5,450",
-      "min": 3100,
-      "max": 5450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,450",
-      "min": 5450
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Interiores": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,350",
-      "max": 1350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,350 a $5,050",
-      "min": 1350,
-      "max": 5050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,050",
-      "min": 5050
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Cámaras exteriores": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $890",
-      "max": 890
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$890 a $1,750",
-      "min": 890,
-      "max": 1750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,750",
-      "min": 1750
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Cámaras espía": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $240",
-      "max": 240
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$240 a $640",
-      "min": 240,
-      "max": 640
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $640",
-      "min": 640
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Cámaras PTZ": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $790",
-      "max": 790
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$790 a $2,850",
-      "min": 790,
-      "max": 2850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,850",
-      "min": 2850
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Cámaras interiores": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $750",
-      "max": 750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$750 a $1,650",
-      "min": 750,
-      "max": 1650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,650",
-      "min": 1650
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Timbres inteligentes": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,400",
-      "max": 1400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,400 a $3,550",
-      "min": 1400,
-      "max": 3550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,550",
-      "min": 3550
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Alarmas": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $670",
-      "max": 670
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$670 a $3,050",
-      "min": 670,
-      "max": 3050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,050",
-      "min": 3050
      }
     ]
    }
@@ -26700,15 +27184,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $690",
-      "max": 690
+      "spec": "Hasta $700",
+      "max": 700
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$690 a $1,600",
-      "min": 690,
+      "spec": "$700 a $1,600",
+      "min": 700,
       "max": 1600
      },
      {
@@ -26968,23 +27452,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $6,650",
-      "max": 6650
+      "spec": "Hasta $5,950",
+      "max": 5950
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$6,650 a $21,500",
-      "min": 6650,
-      "max": 21500
+      "spec": "$5,950 a $20,500",
+      "min": 5950,
+      "max": 20500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $21,500",
-      "min": 21500
+      "spec": "Más de $20,500",
+      "min": 20500
      }
     ]
    }
@@ -29913,204 +30397,6 @@
    }
   ]
  },
- "Videojuegos/Consolas PlayStation": {
-  "axes": [
-   {
-    "label": "Almacenamiento",
-    "field": "storage_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v825",
-      "name": "825 GB",
-      "use": "",
-      "spec": "825 GB",
-      "values": [
-       825
-      ]
-     },
-     {
-      "id": "v1024",
-      "name": "1,024 GB",
-      "use": "",
-      "spec": "1,024 GB",
-      "values": [
-       1024
-      ]
-     },
-     {
-      "id": "v2048",
-      "name": "2,048 GB",
-      "use": "",
-      "spec": "2,048 GB",
-      "values": [
-       2048
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Videojuegos/Cables y adaptadores": {
-  "axes": [
-   {
-    "label": "Almacenamiento",
-    "field": "storage_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basico",
-      "name": "Básico",
-      "use": "Pocos juegos a la vez",
-      "spec": "Hasta 120 GB",
-      "max": 120
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedio",
-      "use": "Varios juegos instalados",
-      "spec": "121 GB a 510 GB",
-      "min": 120,
-      "max": 510
-     },
-     {
-      "id": "alto",
-      "name": "Alto",
-      "use": "Toda la biblioteca",
-      "spec": "Más de 510 GB",
-      "min": 510
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Videojuegos/Juegos retro y otras plataformas": {
-  "axes": [
-   {
-    "label": "Jugadores",
-    "field": "players_max",
-    "criterion": "que caben",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "solo",
-      "name": "Solitario",
-      "use": "Para jugar solo",
-      "spec": "1 jugador",
-      "max": 1
-     },
-     {
-      "id": "dos",
-      "name": "Para dos",
-      "use": "En pareja o uno contra uno",
-      "spec": "2 jugadores",
-      "min": 1,
-      "max": 2
-     },
-     {
-      "id": "chico",
-      "name": "Grupo chico",
-      "use": "Familia o cuatro amigos",
-      "spec": "3 a 4 jugadores",
-      "min": 2,
-      "max": 4
-     },
-     {
-      "id": "grande",
-      "name": "Grupo grande",
-      "use": "Fiestas y reuniones",
-      "spec": "5 o más",
-      "min": 4
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Videojuegos/Consolas Nintendo": {
-  "axes": [
-   {
-    "label": "Almacenamiento",
-    "field": "storage_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v32",
-      "name": "32 GB",
-      "use": "",
-      "spec": "32 GB",
-      "values": [
-       32
-      ]
-     },
-     {
-      "id": "v64",
-      "name": "64 GB",
-      "use": "",
-      "spec": "64 GB",
-      "values": [
-       64
-      ]
-     },
-     {
-      "id": "v256",
-      "name": "256 GB",
-      "use": "",
-      "spec": "256 GB",
-      "values": [
-       256
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Videojuegos/Consolas Xbox": {
-  "axes": [
-   {
-    "label": "Almacenamiento",
-    "field": "storage_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v500",
-      "name": "500 GB",
-      "use": "",
-      "spec": "500 GB",
-      "values": [
-       500
-      ]
-     },
-     {
-      "id": "v512",
-      "name": "512 GB",
-      "use": "",
-      "spec": "512 GB",
-      "values": [
-       512
-      ]
-     },
-     {
-      "id": "v1024",
-      "name": "1,024 GB",
-      "use": "",
-      "spec": "1,024 GB",
-      "values": [
-       1024
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
  "Refrigeradores/Frigobares": {
   "axes": [
    {
@@ -30211,285 +30497,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $34,000",
       "min": 34000
-     }
-    ]
-   }
-  ]
- },
- "Redes/Access points": {
-  "axes": [
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     },
-     {
-      "id": "wi-fi-7",
-      "name": "Wi-Fi 7",
-      "use": "La generación más nueva",
-      "spec": "Wi-Fi 7",
-      "values": [
-       "Wi-Fi 7"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,150",
-      "max": 2150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,150 a $4,700",
-      "min": 2150,
-      "max": 4700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,700",
-      "min": 4700
-     }
-    ]
-   }
-  ]
- },
- "Redes/Repetidores": {
-  "axes": [
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-4",
-      "name": "Wi-Fi 4",
-      "use": "Básico, para pocos equipos",
-      "spec": "Wi-Fi 4",
-      "values": [
-       "Wi-Fi 4"
-      ]
-     },
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $540",
-      "max": 540
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$540 a $1,100",
-      "min": 540,
-      "max": 1100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,100",
-      "min": 1100
-     }
-    ]
-   }
-  ]
- },
- "Redes/Routers": {
-  "axes": [
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     },
-     {
-      "id": "wi-fi-7",
-      "name": "Wi-Fi 7",
-      "use": "La generación más nueva",
-      "spec": "Wi-Fi 7",
-      "values": [
-       "Wi-Fi 7"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $980",
-      "max": 980
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$980 a $2,650",
-      "min": 980,
-      "max": 2650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,650",
-      "min": 2650
-     }
-    ]
-   }
-  ]
- },
- "Redes/Switches": {
-  "axes": [
-   {
-    "label": "Puertos",
-    "field": "ports",
-    "criterion": "por número de puertos",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "pocos",
-      "name": "Pocos",
-      "use": "Un escritorio o una sala",
-      "spec": "Hasta 8 puertos",
-      "max": 8
-     },
-     {
-      "id": "medios",
-      "name": "Medios",
-      "use": "Casa u oficina chica",
-      "spec": "9 puertos a 20 puertos",
-      "min": 8,
-      "max": 20
-     },
-     {
-      "id": "muchos",
-      "name": "Muchos",
-      "use": "Oficina o rack",
-      "spec": "Más de 20 puertos",
-      "min": 20
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,750",
-      "max": 1750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,750 a $6,450",
-      "min": 1750,
-      "max": 6450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,450",
-      "min": 6450
      }
     ]
    }
@@ -33883,6 +33890,95 @@
   ],
   "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
  },
+ "Juguetes y bebés": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
  "Otros": {
   "axes": [
    {
@@ -33931,15 +34027,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $310",
-      "max": 310
+      "spec": "Hasta $320",
+      "max": 320
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$310 a $870",
-      "min": 310,
+      "spec": "$320 a $870",
+      "min": 320,
       "max": 870
      },
      {
@@ -34185,94 +34281,40 @@
   ],
   "intro": "Elige por el tamaño y la edad de tu mascota."
  },
- "Juguetes y bebés": {
+ "Belleza y cuidado personal": {
   "axes": [
    {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
     "ramp": true,
     "tiers": [
      {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $400",
+      "max": 400
      },
      {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$400 a $990",
+      "min": 400,
+      "max": 990
      },
      {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $990",
+      "min": 990
      }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "size"
+    ]
    }
-  ],
-  "intro": "Elige por la edad de quien lo va a usar."
+  ]
  },
  "Blancos y ropa de cama": {
   "axes": [
@@ -34554,45 +34596,55 @@
    }
   ]
  },
- "Herramientas": {
+ "Redes": {
   "axes": [
    {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
     "ramp": true,
     "tiers": [
      {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $500",
-      "max": 500
+      "id": "wi-fi-4",
+      "name": "Wi-Fi 4",
+      "use": "Básico, para pocos equipos",
+      "spec": "Wi-Fi 4",
+      "values": [
+       "Wi-Fi 4"
+      ]
      },
      {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$500 a $2,100",
-      "min": 500,
-      "max": 2100
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
      },
      {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,100",
-      "min": 2100
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     },
+     {
+      "id": "wi-fi-7",
+      "name": "Wi-Fi 7",
+      "use": "La generación más nueva",
+      "spec": "Wi-Fi 7",
+      "values": [
+       "Wi-Fi 7"
+      ]
      }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal": {
-  "axes": [
+    ],
+    "key": "level"
+   },
    {
-    "key": "level",
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -34602,23 +34654,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $400",
-      "max": 400
+      "spec": "Hasta $1,300",
+      "max": 1300
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$400 a $990",
-      "min": 400,
-      "max": 990
+      "spec": "$1,300 a $4,250",
+      "min": 1300,
+      "max": 4250
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $990",
-      "min": 990
+      "spec": "Más de $4,250",
+      "min": 4250
      }
     ]
    }
@@ -34699,6 +34751,41 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $2,950",
       "min": 2950
+     }
+    ]
+   }
+  ]
+ },
+ "Herramientas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $500",
+      "max": 500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$500 a $2,100",
+      "min": 500,
+      "max": 2100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,100",
+      "min": 2100
      }
     ]
    }
@@ -35073,86 +35160,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $11,500",
       "min": 11500
-     }
-    ]
-   }
-  ]
- },
- "Redes": {
-  "axes": [
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-4",
-      "name": "Wi-Fi 4",
-      "use": "Básico, para pocos equipos",
-      "spec": "Wi-Fi 4",
-      "values": [
-       "Wi-Fi 4"
-      ]
-     },
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     },
-     {
-      "id": "wi-fi-7",
-      "name": "Wi-Fi 7",
-      "use": "La generación más nueva",
-      "spec": "Wi-Fi 7",
-      "values": [
-       "Wi-Fi 7"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,300 a $4,300",
-      "min": 1300,
-      "max": 4300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,300",
-      "min": 4300
      }
     ]
    }
