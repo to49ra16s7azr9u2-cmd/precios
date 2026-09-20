@@ -2907,15 +2907,51 @@ tr.offer-compare-off { display: none; }
    se veían las dos líneas por separado). */
 /* Encabezado del panel: logo de la entrada activa, texto y la otra entrada
    a la derecha, todo en una línea. */
-/* Los dos logos juntos a la izquierda (pedido del usuario, 20-sep) y el
-   texto ocupando lo que sobra: se leen como un par de entradas, no como
-   dos extremos de la fila. El hueco entre ellos es más chico que el que
-   los separa del texto, que es lo que los agrupa. */
-.home-elige-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.home-elige-row .home-elige { margin-left: 6px; }
+/* El encabezado del panel es una sola pieza (pedido del usuario, 20-sep):
+   el logo de "Compara precios" hace de tapa izquierda del buscador de
+   categorías y los dos comparten un único borde, así que se leen como un
+   solo control y no como un logo al lado de una caja de texto. La entrada
+   a "Compara marcas" queda a la derecha, fuera de esa pieza. */
+.home-elige-row { display: flex; align-items: stretch; gap: 8px; margin-bottom: 6px; }
+.home-buscador {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--border);
+  border-radius: var(--marco-radio);
+  background: var(--card);
+  overflow: hidden;
+}
+/* Dentro de la pieza el logo pierde su propio borde: el del buscador ya
+   lo rodea, y dos líneas pegadas se ven como un error de dibujo. */
+.home-buscador .home-tab,
+.home-buscador .home-tab.is-active { border: 0; border-radius: 0; padding: 6px 10px; }
+.home-buscador .home-tab-marca { width: 168px; flex: 0 0 auto; }
+.home-grid[data-home-tab="precios"] .home-buscador { border-color: var(--red); }
+/* La línea que separa el logo del campo: el único trazo interior, para que
+   se note dónde termina uno y empieza el otro sin partir la pieza. */
+.home-buscador .home-tab { border-right: 1px solid var(--border); }
+.home-buscador input[type="search"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  padding: 10px 12px;
+}
+.home-buscador input[type="search"]::placeholder { color: var(--muted); }
+.home-buscador:focus-within { border-color: var(--red); box-shadow: 0 0 0 2px rgba(224, 32, 32, 0.12); }
+.home-cat-search-count { flex: 0 0 auto; padding-right: 12px; font-size: 12px; color: var(--muted); white-space: nowrap; }
+/* El texto de siempre baja debajo de la pieza, en chico: sigue siendo el
+   h1 de la portada, pero ya no compite con el buscador. */
+.home-elige-row + .home-elige { margin: 0 0 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
 .home-elige-row .home-elige { flex: 1 1 auto; margin: 0; }
 .home-elige-row .home-tab-marca { flex: 0 0 auto; width: 168px; padding: 6px 8px; }
-.home-elige-row .home-tab.is-active { border-width: 2px; border-color: var(--tab-color); }
+.home-elige-row > .home-tab.is-active { border-width: 2px; border-color: var(--tab-color); }
 /* Sin columna izquierda no hay lengüeta que unir: el arco y el puente que
    cruzaban el hueco sobran. */
 .home-tab.is-active::before, .home-tab.is-active::after { display: none; }

@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=96e9aa70">
+<link rel="stylesheet" href="css/style.min.css?v=38949b95">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -171,14 +171,18 @@
                el texto explica y la otra entrada queda a la derecha. Antes
                eran dos lengüetas en una columna propia de 120 px. -->
           <div class="home-elige-row" role="tablist" aria-label="Cómo buscar">
-            <button type="button" class="home-tab home-tab-marca is-active" role="tab" aria-selected="true" aria-controls="homePanelPrecios" data-tab="precios">
-              <img class="hero-logo" src="icons/logo-comparaprecios.png" alt="Compara precios">
-            </button>
+            <div class="home-buscador" role="presentation">
+              <button type="button" class="home-tab home-tab-marca is-active" role="tab" aria-selected="true" aria-controls="homePanelPrecios" data-tab="precios">
+                <img class="hero-logo" src="icons/logo-comparaprecios.png" alt="Compara precios">
+              </button>
+              <input id="homeCatSearch" type="search" placeholder="Busca una categoría: celulares, herramientas, cocina…" aria-label="Buscar categoría" autocomplete="off">
+              <span class="home-cat-search-count" id="homeCatSearchCount"></span>
+            </div>
             <button type="button" class="home-tab home-tab-marca" role="tab" aria-selected="false" aria-controls="homePanelMarcas" data-tab="marcas">
               <img class="hero-logo" src="icons/logo-comparamarcas.png" alt="Compara marcas">
             </button>
-            <h1 class="home-elige" id="homeElige">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</h1>
           </div>
+          <h1 class="home-elige" id="homeElige">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</h1>
           <div id="homePanelPrecios" role="tabpanel">
             <div class="home-category-box">
               <div id="homeCategoryGrid" class="category-card-grid"></div>
@@ -1100,7 +1104,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=ad0c6e47"></script>
+<script src="js/app.min.js?v=2f1cdf80"></script>
 </div>
 </body>
 </html>

@@ -477,6 +477,8 @@
     homeRankingLinks: document.getElementById("homeRankingLinks"),
     homeCatRanking: document.getElementById("homeCatRanking"),
     homeBrandGrid: document.getElementById("homeBrandGrid"),
+    homeCatSearch: document.getElementById("homeCatSearch"),
+    homeCatSearchCount: document.getElementById("homeCatSearchCount"),
     homeBrandSearch: document.getElementById("homeBrandSearch"),
     homeBrandSearchCount: document.getElementById("homeBrandSearchCount"),
     homeElige: document.getElementById("homeElige"),
@@ -2839,8 +2841,10 @@
         settleCategoryBadge();
       }
       card.onclick = () => goCategoryRanking(cat.id);
+      card.dataset.nombre = sinAcentosMarca(cat.name);
       el.homeCategoryGrid.appendChild(card);
     });
+    bindHomeCatSearch();
 
     renderHomeRankings();
     renderHomeCatRanking();
@@ -3107,6 +3111,40 @@
       `<span class="home-brand-card-logo" aria-hidden="true">${logo}</span>` +
       `<span class="home-brand-card-name">${htmlEscapeAttr(m.n)}</span>` +
       `<span class="home-brand-card-count">${m.c.toLocaleString("es-MX")} productos</span></a>`;
+  }
+
+  // Buscador de categorías del encabezado. Filtra las tarjetas que ya
+  // están pintadas en vez de rehacer la rejilla: cada tarjeta trae una foto
+  // real que se resolvió con renderProductMedia, y volver a crearlas la
+  // pediría de nuevo en cada tecla. "Todas" se queda siempre visible, que es
+  // la salida cuando la búsqueda no encuentra nada.
+  function filtrarHomeCategorias() {
+    if (!el.homeCategoryGrid) return;
+    const q = sinAcentosMarca(el.homeCatSearch ? el.homeCatSearch.value.trim() : "");
+    const tarjetas = el.homeCategoryGrid.querySelectorAll(".category-card");
+    let vistas = 0, total = 0;
+    tarjetas.forEach((c) => {
+      const nombre = c.dataset.nombre;
+      if (nombre === undefined) return;          // la tarjeta "Todas"
+      total += 1;
+      const cabe = !q || nombre.indexOf(q) !== -1;
+      c.hidden = !cabe;
+      if (cabe) vistas += 1;
+    });
+    if (el.homeCatSearchCount) {
+      el.homeCatSearchCount.textContent = q ? vistas + " de " + total : "";
+    }
+  }
+
+  function bindHomeCatSearch() {
+    if (!el.homeCatSearch || el.homeCatSearch.dataset.listo) return;
+    el.homeCatSearch.dataset.listo = "1";
+    el.homeCatSearch.addEventListener("input", filtrarHomeCategorias);
+    el.homeCatSearch.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      el.homeCatSearch.value = "";
+      filtrarHomeCategorias();
+    });
   }
 
   function pintarHomeBrandGrid() {
