@@ -2897,11 +2897,10 @@ tr.offer-compare-off { display: none; }
   width: var(--r2);
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(circle at 0 100%, var(--arco)) 0 100% / var(--r2) var(--r2) no-repeat;
-}
-/* Con "Compara marcas" activa el borde del panel también baja por encima
-   de la pestaña: la esquina de arriba lleva el mismo arco. */
-.home-grid[data-home-tab="marcas"] .home-tab.is-active::before {
+  /* Las dos esquinas: el borde del panel baja por encima de la pestaña y
+     sigue por debajo. Desde que "Cómo utilizar" va arriba del todo
+     (20-sep) ninguna de las dos entradas queda a ras del borde superior
+     del panel, así que las dos llevan arco arriba y abajo. */
   background: radial-gradient(circle at 0 100%, var(--arco)) 0 100% / var(--r2) var(--r2) no-repeat,
               radial-gradient(circle at 0 0, var(--arco)) 0 0 / var(--r2) var(--r2) no-repeat;
 }
@@ -3220,7 +3219,6 @@ tr.offer-compare-off { display: none; }
   .home-tab.is-active { border-right: 3px solid var(--tab-color); border-radius: var(--marco-radio); }
   .home-tab-marca.is-active { padding-right: 6px; }
   .home-tab.is-active::after, .home-tab.is-active::before { display: none; }
-  .home-grid[data-home-tab="precios"] .home-center-frame { border-top-left-radius: var(--marco-radio); }
 }
 @media (max-width: 720px) {
   .home-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }

@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=8278cf47">
+<link rel="stylesheet" href="css/style.min.css?v=55c3dada">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -161,6 +161,11 @@
         </div>
 
         <aside class="home-col home-col-left">
+          <button type="button" class="home-side-btn" id="homeTipsBtn" aria-expanded="false" aria-controls="homeTipsPanel">
+            <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.7 9.4a2.4 2.4 0 1 1 3.2 2.3c-.6.2-.9.8-.9 1.4v.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1" fill="currentColor"/></svg></span>
+            <span><strong>Cómo utilizar</strong><span class="home-side-btn-sub">Tips en 3 pasos</span></span>
+          </button>
+          <div class="home-tips" id="homeTipsPanel" hidden></div>
           <div class="home-tabs" role="tablist" aria-label="Cómo buscar">
             <button type="button" class="home-tab home-tab-marca is-active" role="tab" aria-selected="true" aria-controls="homePanelPrecios" data-tab="precios">
               <img class="hero-logo" src="icons/logo-comparaprecios.png" alt="Compara precios">
@@ -173,11 +178,6 @@
                renderHomeCatRanking(); el ancho de cada barra sale del mismo
                número, para que el orden se lea sin comparar cifras. -->
           <nav class="home-cat-rank" id="homeCatRanking" aria-label="Categorías más populares"></nav>
-          <button type="button" class="home-side-btn" id="homeTipsBtn" aria-expanded="false" aria-controls="homeTipsPanel">
-            <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.7 9.4a2.4 2.4 0 1 1 3.2 2.3c-.6.2-.9.8-.9 1.4v.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1" fill="currentColor"/></svg></span>
-            <span><strong>Cómo utilizar</strong><span class="home-side-btn-sub">Tips en 3 pasos</span></span>
-          </button>
-          <div class="home-tips" id="homeTipsPanel" hidden></div>
           <button type="button" class="home-side-btn" id="homeLocationBtn">
             <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.6 7-12.2A7 7 0 0 0 5 9.3c0 5.6 7 12.2 7 12.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.2" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span><strong>¿Dónde estás?</strong><span class="home-side-btn-sub" id="homeLocationBtnLabel">Mi ubicación</span></span>
