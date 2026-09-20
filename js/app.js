@@ -2787,14 +2787,12 @@
     }
     el.homeCategoryGrid.innerHTML = "";
 
-    const stats = (state.data && state.data.categoryStats) || {};
     const allCard = document.createElement("button");
     allCard.type = "button";
     allCard.className = "category-card";
     allCard.innerHTML = `
       <span class="category-card-icon category-card-icon--photo">${icon("shopping-bag")}</span>
       <span class="category-card-name">Todas</span>
-      <span class="category-card-count">${state.data.totalProducts || 0} productos</span>
     `;
     allCard.onclick = () => { state.sort = "relevance"; goList({ category: null, query: "" }); };
     el.homeCategoryGrid.appendChild(allCard);
@@ -2809,7 +2807,6 @@
       card.innerHTML = `
         <span class="category-card-icon category-card-icon--photo"></span>
         <span class="category-card-name">${cat.name}</span>
-        <span class="category-card-count">${(stats[cat.id] || {}).n || 0} productos</span>
       `;
       const iconEl = card.querySelector(".category-card-icon");
       const settleCategoryBadge = () => {

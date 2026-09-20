@@ -2892,12 +2892,11 @@ tr.offer-compare-off { display: none; }
 .home-center-frame {
   position: relative;
   z-index: 1;
-  border: 3px solid var(--tab-color);
-  /* El sitio es de esquinas rectas (--radius: 0); solo el marco grueso las
-     lleva redondas (pedido del usuario, 20-sep), y solo las de fuera: las
-     de la unión pestaña-panel siguen rectas para que la línea sea una. */
-  border-radius: var(--marco-radio);
-  padding: 8px 8px 6px;
+  /* Sin línea alrededor (pedido del usuario, 20-sep): el panel se apoya
+     solo en su fondo. La pestaña activa sigue con su borde de color, que
+     es lo único que señala en cuál de las dos entradas se está. */
+  border: 0;
+  padding: 0;
   background: var(--card);
 }
 .home-center-frame .home-elige { margin-top: 0; }
@@ -2911,7 +2910,7 @@ tr.offer-compare-off { display: none; }
 .home-elige-row { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
 .home-elige-row .home-elige { flex: 1 1 auto; margin: 0; }
 .home-elige-row .home-tab-marca { flex: 0 0 auto; width: 168px; padding: 6px 8px; }
-.home-elige-row .home-tab.is-active { border-width: 3px; border-color: var(--tab-color); }
+.home-elige-row .home-tab.is-active { border-width: 2px; border-color: var(--tab-color); }
 /* Sin columna izquierda no hay lengüeta que unir: el arco y el puente que
    cruzaban el hueco sobran. */
 .home-tab.is-active::before, .home-tab.is-active::after { display: none; }
@@ -2920,20 +2919,13 @@ tr.offer-compare-off { display: none; }
 .home-acciones .home-side-btn { flex: 1 1 0; }
 .home-tab.is-active {
   position: relative;
-  border-width: 3px;
+  /* Al quitar el marco del panel ya no hay nada con qué unirse: la entrada
+     activa se cierra por los cuatro lados y baja a 2px, lo justo para
+     distinguirse de la otra sin volver a ser un recuadro pesado. */
+  border-width: 2px;
   border-color: var(--tab-color);
-  /* Sin borde derecho (ni transparente: algún navegador lo pintaba
-     oscuro): la pestaña queda abierta hacia el panel. Las esquinas de ese
-     lado van rectas para que la línea siga derecha hasta el marco. */
-  border-right: 0;
-  border-top-left-radius: var(--marco-radio);
-  border-bottom-left-radius: var(--marco-radio);
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-radius: var(--marco-radio);
 }
-/* Sin borde derecho, el relleno de ese lado hace de compensación: con 6px
-   el logo mide lo mismo que en la pestaña inactiva (1px de borde + 5px). */
-.home-tab-marca.is-active { padding-right: 6px; }
 /* Al hacer clic, el botón queda con el foco y Chrome le pinta su anillo
    negro por encima del borde de color: la pestaña se veía con un marco
    negro que no casaba con el rojo del panel. La pestaña activa ya está
@@ -2989,6 +2981,19 @@ tr.offer-compare-off { display: none; }
 /* Dentro del marco grueso sobra el borde fino rosa de la caja de
    categorías: se veía como una segunda línea pegada a la roja. */
 .home-center-frame .home-category-box { border: 0; }
+
+/* Las entradas a las categorías de la portada van más tenues que las del
+   resto del sitio (pedido del usuario, 20-sep): la línea apenas se
+   insinúa y el nombre pesa menos, para que la fila de fotos sea lo que
+   se lea primero. El hover y la seleccionada mantienen el rojo, que es
+   lo que dice dónde se está parado. */
+.home-center-frame .category-card {
+  border-color: color-mix(in srgb, var(--border) 55%, var(--card));
+  background: color-mix(in srgb, var(--card) 94%, var(--bg));
+}
+.home-center-frame .category-card-name { font-weight: 600; color: color-mix(in srgb, var(--ink) 78%, var(--card)); }
+.home-center-frame .category-card:hover { border-color: var(--red); background: var(--card); }
+.home-center-frame .category-card:hover .category-card-name { color: var(--ink); }
 
 /* Rejilla de marcas de la pestaña "Marcas" de la portada. Prefijo
    home- a propósito: .brand-grid/.brand-card ya existen más abajo, son las
@@ -3317,8 +3322,7 @@ tr.offer-compare-off { display: none; }
      sin la sangría de la columna. */
   .home-tabs { flex: 1 1 100%; flex-direction: row; margin-left: 0; }
   .home-tab-marca .hero-logo { max-width: 160px; }
-  .home-tab.is-active { border-right: 3px solid var(--tab-color); border-radius: var(--marco-radio); }
-  .home-tab-marca.is-active { padding-right: 6px; }
+  .home-tab.is-active { border-radius: var(--marco-radio); }
   .home-tab.is-active::after, .home-tab.is-active::before { display: none; }
 }
 @media (max-width: 720px) {
