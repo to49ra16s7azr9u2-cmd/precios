@@ -2836,7 +2836,14 @@ tr.offer-compare-off { display: none; }
    columna (pedido del usuario, 20-sep): así sobresalen del panel como las
    lengüetas de una carpeta en vez de leerse como una tarjeta más de la
    columna. El borde derecho no se mueve, que es donde engancha el arco. */
-.home-tabs { display: flex; flex-direction: column; gap: 4px; padding-left: 20px; }
+/* Las lengüetas aprovechan TODO el ancho disponible, porque el logo es lo
+   único que dice de qué va cada entrada y en una columna de 120 px se leía
+   chiquito. Salen 16 px a la izquierda --el relleno lateral del
+   contenedor, así que siguen dentro de la página-- y se quedan sin
+   sangría; el resto de la columna (Cómo utilizar, el top de categorías)
+   no se mueve, y ese escalón es justo lo que las hace ver como
+   lengüetas. El borde derecho, donde engancha el arco, tampoco se mueve. */
+.home-tabs { display: flex; flex-direction: column; gap: 4px; margin-left: -16px; }
 .home-tab {
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -2853,7 +2860,11 @@ tr.offer-compare-off { display: none; }
 .home-tab:hover { color: var(--red-dark); border-color: var(--red); }
 .home-tab.is-active { background: var(--card); color: var(--red-dark); border-color: var(--red); }
 /* La primera pestaña es el logo, no texto. */
-.home-tab-marca { padding: 5px 6px; }
+.home-tab-marca { padding: 2px 3px; }
+/* La inactiva tiene el borde de 1px y la activa de 3px: el relleno
+   compensa para que el logo mida lo mismo en las dos y no dé un salto al
+   cambiar de pestaña. */
+.home-tab-marca:not(.is-active) { padding-left: 5px; padding-right: 5px; }
 .home-col-left .home-cat-rank, .home-col-left .home-tips { font-size: 12px; }
 .home-tab-marca .hero-logo { display: block; width: 100%; height: auto; }
 .home-tab-marca:not(.is-active) .hero-logo { filter: grayscale(1); opacity: 0.55; }
@@ -2906,7 +2917,9 @@ tr.offer-compare-off { display: none; }
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.home-tab-marca.is-active { padding-right: 9px; }
+/* Sin borde derecho, el relleno de ese lado hace de compensación: con 6px
+   el logo mide lo mismo que en la pestaña inactiva (1px de borde + 5px). */
+.home-tab-marca.is-active { padding-right: 6px; }
 /* Al hacer clic, el botón queda con el foco y Chrome le pinta su anillo
    negro por encima del borde de color: la pestaña se veía con un marco
    negro que no casaba con el rojo del panel. La pestaña activa ya está
@@ -3288,7 +3301,7 @@ tr.offer-compare-off { display: none; }
   .home-rank-mes { grid-column: 1 / -1; grid-row: auto; }
   /* En fila (tablet y teléfono) las pestañas no cuelgan de ningún panel:
      sin la sangría de la columna. */
-  .home-tabs { flex: 1 1 100%; flex-direction: row; padding-left: 0; }
+  .home-tabs { flex: 1 1 100%; flex-direction: row; margin-left: 0; }
   .home-tab-marca .hero-logo { max-width: 160px; }
   .home-tab.is-active { border-right: 3px solid var(--tab-color); border-radius: var(--marco-radio); }
   .home-tab-marca.is-active { padding-right: 6px; }
