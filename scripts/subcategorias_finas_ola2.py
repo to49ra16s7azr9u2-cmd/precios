@@ -90,10 +90,10 @@ _VJ_PLATAFORMA = [
 ]
 _VJ = _c([
     ('Realidad virtual', r'\brealidad virtual|\bvr\b|\bmeta quest|\boculus|\bpsvr|\bps vr|\bhtc vive|\bpico 4|\bvisor\b.{0,20}(vr|virtual)'),
-    ('Volantes, arcade y simuladores', r'\bvolante|\bpedales?\b|\bracing wheel|\barcade|\bfight ?stick|\bpalanca arcade|\bsimulador|\bcockpit|\bhotas\b|\bflight stick|\bgun\b.{0,10}(controller|control)|\bpistola\b|\bmaquinita'),
-    ('Controles y gamepads', r'\bcontrol(es)?\b(?! remoto)|\bgamepad|\bmando\b|\bmandos\b|\bcontroller|\bjoysticks?\b|\bjoy-?con|\bdualsense|\bdualshock|\bpro controller|\bjoycon|\bnunchuk|\bwiimote'),
+    ('Volantes, arcade y simuladores', r'\bvolante|\bpedales?\b|\bracing wheel|\barcade|\bfight ?stick|\bpalanca arcade|\bsimulador|\bcockpit|\bhotas\b|\bflight stick|\bgun\b.{0,10}(controller|control)|\bpistola\b|\bmaquinita|\bfreno de mano|\bhandbrake|\bshifter|\bpalanca de cambios'),
+    ('Controles y gamepads', r'\bcontrol(es)?\b(?! remoto)|\bcontrolador(es)?\b|\bgamepad|\bmando\b|\bmandos\b|\bcontroller|\bjoysticks?\b|\bjoy-?con|\bdualsense|\bdualshock|\bpro controller|\bjoycon|\bnunchuk|\bwiimote|\bboton(es)? trasero|\bpaddles?\b|\bsplit pad'),
     ('Cargadores, bases y soportes', r'\bcargador|\bcarga\b|\bbase de carga|\bestacion de carga|\bdock\b|\bdocking|\bsoporte|\bstand\b|\bbateria|\bpilas?\b|\bpower bank|\bventilador|\benfriador|\bcooling'),
-    ('Fundas, micas y protectores', r'\bfunda|\bestuche|\bcase\b|\bmica|\bprotector|\bskin\b|\bcubierta|\bcarcasa|\bbolsa|\bmochila|\bgrips?\b|\bthumb ?grips?|\btapas? de joystick|\bcubre'),
+    ('Fundas, micas y protectores', r'\bfunda|\bestuche|\bcase\b|\bmica|\bprotector|\bskin\b|\bcubierta|\bcarcasa|\bbolsa|\bmochila|\bgrips?\b|\bthumb ?grips?|\btapas? de joystick|\bcubre|cristal templado|vidrio templado|tempered glass|placa frontal|faceplate|dust cover|antipolvo|\bempunadura|\bsling\b'),
     ('Cables y adaptadores', r'\bcable|\badaptador|\bconvertidor|\bhdmi\b|\bav\b|\bextension\b|\bhub\b|\bconector|\bmemoria|\btarjeta (micro ?sd|sd)|\bdisco duro|\bssd\b|\breceptor\b'),
     ('Tarjetas y suscripciones', r'\btarjeta (de )?(regalo|prepago|psn|xbox|nintendo|steam|roblox|fortnite)|\bgift card|\bsuscripcion|\bgame pass|\bps plus|\bplaystation plus|\bnintendo switch online|\bmembresia|\bv-?bucks|\brobux|\bcodigo digital|\bdigital code'),
     ('Otros accesorios gamer', r'\baccesori|\bkit\b|\bauricular|\baudifono|\bheadset|\bmicrofono|\bcamara\b|\bteclado|\bmouse\b|\btapete|\bmousepad|\bsilla|\bluz\b|\blampara|\bfigura|\bamiibo|\bllavero|\bposter|\bpeluche|\btaza|\bplayera'),

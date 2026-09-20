@@ -32,6 +32,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 from data_io import load_catalog  # noqa: E402
 from subcategorias_finas import sub_cocina_fino  # noqa: E402
+import subcategorias_finas_ola2 as ola2  # noqa: E402
 
 
 def T(s):
@@ -121,6 +122,46 @@ REGLAS = [
      r'compresor|acuario|pecera', 'Autos, bicicletas y motos', 'Bombas e infladores'),
     ('Herramientas', r'taburete|\bsilla\b|\bbanco\b (de|para) (taller|trabajo|garaje)|banco rodante', r'banco de trabajo con|prensa|escalera|escalon|peldano|fregadero|\bcarro\b|carrito', 'Muebles', 'Taburetes y bancos'),
     ('Herramientas', r'\blibrero\b|bookshelf|estante organizador.{0,30}(sala|cocina|bano|hogar)|estanteria de almacenamiento para (cocina|bano)', None, 'Muebles', 'Libreros'),
+    # --- Fichas que la tienda dejó en la categoría equivocada (20-sep) ---
+    ('Audífonos', r'^(?:\S+ ){0,3}(tocadiscos|turntable)', None, 'Instrumentos musicales', 'Tornamesas', (None,)),
+    ('Audífonos', r'reposacabezas|monitor.{0,25}(coche|auto)', None, 'Autos, bicicletas y motos', 'Estéreos para auto', (None,)),
+    ('Audífonos', r'^(?:\S+ ){0,3}(dac|amplificador|interfaz de audio|mezclador|mezcladora)\b',
+     None, 'Instrumentos musicales', 'Producción de audio', (None,)),
+    ('Videojuegos', r'^(?:\S+ ){0,3}(audifonos?|auriculares|headsets?|diadema)\b|\bstereo headset\b',
+     r'\bsoporte\b|\bbase\b|\bgancho\b|amplificador|\bfunda\b|\bcable\b|almohadilla',
+     'Audífonos', 'Gamer', (None, 'Otros accesorios gamer')),
+    ('Videojuegos', r'baston para auto|bloqueo antirrobo', None, 'Autos, bicicletas y motos', 'Accesorios y refacciones', (None, 'Otros accesorios gamer')),
+    ('Otros', r'computadora portatil|\blaptop\b|\bnotebook\b', r'soporte|funda|mochila|base|cargador|adaptador',
+     'Laptops', lambda tn: ola2.sub_laptop(tn, None) or 'Laptops de 15" y 16"', (None, 'Varios')),
+    # La cámara entera va a "Cámaras de acción"; el palo, el soporte o la
+    # funda son accesorio aunque nombren la marca.
+    ('Otros', r'insta ?360|\bgopro\b|camara de accion', None, 'Cámaras y fotografía',
+     lambda tn: 'Accesorios' if re.match(r'^(?:\S+ ){0,6}(palo|selfie|tripode|tripie|soporte|montaje|brazo|abrazadera|clamp|mount|adaptador|funda|estuche|bolsa|correa|bateria|cargador|filtro|kit)\b', tn) else 'Cámaras de acción',
+     (None, 'Varios')),
+    ('Otros', r'\bbicicleta\b|cuadro de bicicleta|\bciclismo\b', None, 'Autos, bicicletas y motos', 'Accesorios para bicicleta', (None, 'Varios')),
+    ('Otros', r'armor all|limpiador.{0,20}(vidrios|parabrisas|auto|coche)', None, 'Autos, bicicletas y motos', 'Accesorios y refacciones', (None, 'Varios')),
+    ('Otros', r'kit de supervivencia|tienda de campana|casa de campana|sleeping bag|bolsa de dormir|'
+              r'mesa de playa|silla de playa|\bacampar\b',
+     r'panel solar|estacion de energia|power ?bank|cargador', 'Deportes y fitness', 'Campismo', (None, 'Varios')),
+    ('Baterías portátiles', r'bateria de (coche|auto|carro)|plomo-?acido|pinzas? de bateria|'
+                            r'correas? para transporte de bateria|cargador de bateria.{0,30}(12 ?v|24 ?v|amperios)',
+     None, 'Autos, bicicletas y motos', 'Baterías para auto', (None, 'Hasta 10,000 mAh', '10,000 a 20,000 mAh', 'Más de 20,000 mAh')),
+    ('Baterías portátiles', r'\bajedrez\b', None, 'Juegos de mesa', 'Ajedrez', (None,)),
+    ('Baterías portátiles', r'barra de luces|estroboscopic|luz de emergencia', None, 'Iluminación', 'Lámparas de emergencia', (None,)),
+    ('Baterías portátiles', r'\bmatamoscas\b|raqueta.{0,20}insectos', None, 'Otros', 'Varios', (None,)),
+    ('Teclados', r'\bmazas\b|\bmallets\b|percusion', None, 'Instrumentos musicales', 'Percusión', (None,)),
+    ('Teclados', r'mezclador(a)? de audio|\bmixer\b', None, 'Instrumentos musicales', 'Producción de audio', (None,)),
+    ('Teclados', r'terminal de venta|punto de venta', None, 'Equipo comercial', 'Punto de venta', (None,)),
+    ('Teclados', r'keyboard for .{0,25}(laptop|hp|dell|lenovo)|laptops with|touchpad keyboard|\bfor 15-|\bfor 14-',
+     None, 'Componentes y accesorios de PC', 'Accesorios', (None,)),
+    ('Televisores', r'\baltavoc(es|z)\b|\bbocinas?\b', r'repuesto|de repuesto',
+     'Bocinas', lambda tn: 'Barras de sonido' if 'barra' in tn else 'De estantería y Hi-Fi', (None,)),
+    ('Televisores', r'repetidor.{0,20}(wifi|red)|extensor de (red|wifi)', None, 'Redes', 'Repetidores', (None,)),
+    ('Televisores', r'unidad flash|memoria usb', None, 'Almacenamiento', 'Memorias USB', (None,)),
+    ('Televisores', r'lente (de camara|sin espejo)', None, 'Cámaras y fotografía', 'Lentes', (None,)),
+    ('Televisores', r'jaulas? para perro|casa for mascotas', None, 'Mascotas', 'Jaulas para perro', (None,)),
+    ('Muebles', r'pedicure chair|silla de pedicura|nail salon|spa pedicure', None, 'Belleza y cuidado personal', 'Mobiliario para salón', (None, 'Otros')),
+    ('Muebles', r'skateboard seat|patineta electrica|electric skateboard', None, 'Movilidad eléctrica', 'Accesorios', (None, 'Otros')),
     ('Muebles', r'^(?:\S+ ){0,2}(sandalias?|chanclas?|zapat(os|illas)|tenis)\b', r'zapatera|mueble|organizador|estante|taburete|banco|\bmesa\b|sensor|cambiador', 'Calzado', lambda tn: 'Sandalias' if re.search(r'sandalia|chancla', tn) else ('Tenis' if 'tenis' in tn else 'Zapatos de vestir')),
 ]
 

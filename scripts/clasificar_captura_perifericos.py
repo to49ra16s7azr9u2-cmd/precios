@@ -2968,7 +2968,17 @@ def sub_mueble(tn):
     candidatos = [
         (r'isla de cocina|mueble(s)? (de|para) cocina|gabinete (de|para) (cocina|bano)|\balacena|barra de (cafe|desayuno)|'
          r'estante para (panadero|microondas)|\bdespensa\b|carrito de cocina|vinoteca|gabinete de vino|mueble bar', 'Muebles de cocina'),
-        (r'\bcolchon|box spring|\bsomier\b', 'Colchones'),
+        (r'\bcolchon|box spring|\bsomier\b|\bmattress\b', 'Colchones'),
+        # "Sala 3 2 1 Alba Perla": los juegos de sala se nombran por el
+        # número de plazas de cada pieza, sin la palabra sofá.
+        (r'^sala \d|\bsala \d ?\d|juego de sala|chaise longue|love ?seat|\bsofa ?bed\b|\brecliner\b', 'Sofás'),
+        (r'\bcoffee table\b|\bside table\b|\bend table\b', 'Mesas de centro'),
+        (r'\bdining table\b|\bdining set\b', 'Mesas de comedor'),
+        (r'\boffice chair\b|\bgaming chair\b|\bstool\b|\bbench\b|\bchairs?\b', 'Sillas'),
+        (r'\bbookshelf\b|\bbookcase\b|\bbiblioteca\b', 'Libreros'),
+        (r'\bwardrobe\b|\bcloset\b|\bdresser\b|\bcabinet\b|\bnightstand\b', 'Roperos'),
+        (r'\bdesk\b', 'Escritorios'),
+        (r'\bbed frame\b|base (de madera|queen|king|matrimonial|individual)', 'Camas'),
         (r'\b(buro|mesita de noche|mesa de noche|mesa de luz)\b', 'Burós'),
         (r'\b(litera|cabecera|base de cama|cama|camas)\b', 'Camas'),
         (r'\b(sofa ?cama|sofa|sofas|sillon|loveseat|futon)\b', 'Sofás'),
@@ -3418,7 +3428,8 @@ def sub_joyeria(tn):
     paquete de "dijes para pulsera" es material, no una pulsera."""
     if re.search(r'^(?:\S+ ){0,3}(kit|paquete|lote|set) de (dijes|cuentas|abalorios|hilo|mostacilla)', tn):
         return 'Material para bisutería'
-    if re.search(r'\bjoyero\b|caja (para|de) joyas|organizador de joyas', tn): return 'Joyeros'
+    if re.search(r'\bjoyero\b|caja (para|de) joyas|organizador de joyas|jewelry (box|display|stand|organizer)|'
+                 r'exhibidor de joyas|display stand', tn): return 'Joyeros'
     if re.search(r'\barras\b|set de novia', tn): return 'Arras y sets'
     if re.search(r'lentes de sol|gafas de sol', tn): return 'Lentes de sol'
     if re.search(r'^(?:\S+ ){0,3}(reloj|relojes)\b', tn): return 'Relojes'
@@ -3427,18 +3438,19 @@ def sub_joyeria(tn):
     if re.search(r'^(?:\S+ ){0,3}(pulsera|brazalete|esclava)', tn): return 'Pulseras'
     if re.search(r'^(?:\S+ ){0,3}(anillo|anillos|sortija)', tn): return 'Anillos'
     if re.search(r'\bdije\b|\bdijes\b|\bcharm', tn): return 'Dijes y charms'
-    if re.search(r'limpiador de joyas|pano de pulido|herramienta de joyeria|pano de (cuidado|limpieza)|cuidado de joyas', tn):
+    if re.search(r'limpiador de joyas|pano de pulido|herramienta de joyeria|pano de (cuidado|limpieza)|cuidado de joyas|'
+                 r'kit de limpieza|neutralizador de acido|piedra de prueba|\bpulidor', tn):
         return 'Cuidado y herramientas'
     # Redes sin ancla para lo que no abre con la pieza ("Solitario de oro
     # rosa", "Aros GUESS", "Tungsten wedding band").
     if re.search(r'(set|conjunto|juego|jewelry set|\bsets\b).{0,40}(collar|necklace|aretes|earring|pulsera|bracelet|anillo|\bring)|'
                  r'(collar|necklace|aretes|earrings?).{0,30}\b(y|and|&)\b.{0,20}(aretes|earrings?|pulsera|bracelet|anillo|ring|stud)', tn):
         return 'Arras y sets'
-    if re.search(r'\brings?\b|anillo|sortija|solitario|wedding band|banda de (boda|matrimonio)|argolla|\bchurumbela', tn):
+    if re.search(r'\brings?\b|anillo|sortija|solitario|wedding band|banda de (boda|matrimonio)|argolla|\bchurumbela|alianza de boda', tn):
         return 'Anillos'
-    if re.search(r'arete|\baros\b|earring|\bstuds?\b|arracada|broquel|\bhuggie|\bear ?cuff', tn): return 'Aretes'
+    if re.search(r'arete|\baros\b|earring|\bstuds?\b|arracada|broquel|\bhuggie|\bear ?cuff|pendientes?\b', tn): return 'Aretes'
     if re.search(r'collar|necklace|gargantilla|\bcadena\b|\bchoker\b|colgante|pendant|medall', tn): return 'Collares'
-    if re.search(r'pulsera|brazalete|bracelet|bangle|esclava|\btobillera\b|\banklet', tn): return 'Pulseras'
+    if re.search(r'pulsera|brazalete|bracelet|bangle|esclava|\btobillera\b|\banklet|^pulso\b|\bpulso (torzal|tejido|de)\b', tn): return 'Pulseras'
     if re.search(r'\bdije|\bcharm|llavero|keychain|\bbroche\b|\bpin\b', tn): return 'Dijes y charms'
     if re.search(r'\breloj', tn): return 'Relojes'
     return None
@@ -3945,13 +3957,16 @@ def sub_teclado(tn):
                  r'\bo-?rings?\b|\bcoiled\b|cable (aviador|espiral)|\bkeycap', tn):
         return 'Switches, keycaps y accesorios'
     if re.search(r'\bcombo\b.{0,25}(mouse|raton)|teclado y (mouse|raton)|'
-                 r'(mouse|raton) y teclado|kit de teclado y', tn):
+                 r'(mouse|raton) y teclado|kit de teclado y|kit (gamer )?(de )?teclado|'
+                 r'teclado.{0,20}\+.{0,15}(mouse|raton)|conjunto (de )?escritorio|\bmk\d{3}\b|'
+                 r'\bdesktop\b.{0,15}(teclado|keyboard)|teclado.{0,10}y.{0,10}raton', tn):
         return 'Combos con mouse'
     if re.search(r'teclado numerico|\bnumpad\b|pad numerico', tn):
         return 'Numéricos'
     if re.search(r'ergonomic|dividido|partido|split', tn):
         return 'Ergonómicos'
-    if re.search(r'mecanic|mechanical', tn):
+    if re.search(r'mecanic|mechanical|hot ?swap|switch(es)? (outemu|blue|red|brown|gateron|cherry)|'
+                 r'\boutemu\b|\bgateron\b|cherry mx|switch optic|\banalog optical\b', tn):
         return 'Mecánicos'
     if 'membrana' in tn:
         return 'Membrana'
@@ -3970,10 +3985,17 @@ def sub_tv(tn):
     # El accesorio (soporte, control, marco, cable, bocina de repuesto) no
     # tiene subcategoría en Televisores: se queda sin ella antes que
     # inventarle una resolución.
-    if re.search(r'\bsoporte|\bbase\b|control remoto|\bmando\b|\bcable\b|\bmarco\b|altavoz|altavoces|'
-                 r'repuesto|\bplaca\b|\bboton\b|porta ?control|\brepetidor\b|auricular|audifono|'
-                 r'barra de sonido|\bbook\b|\bguide\b|\bproduction\b|tableta grafica', tn):
+    # El accesorio de televisor (soporte, control, antena, patas, marco)
+    # tiene subcategoría propia desde el 20-sep: eran 125 fichas sin
+    # ninguna, y no se les puede inventar una resolución.
+    if re.search(r'altavoz|altavoces|barra de sonido|auricular|audifono|\bbook\b|\bguide\b|'
+                 r'\bproduction\b|tableta grafica|\brepetidor\b', tn):
         return None
+    if re.search(r'\bsoporte|\bbase\b|control remoto|\bmando\b|\bcable\b|\bmarco\b|'
+                 r'repuesto|\bplaca\b|\bboton\b|porta ?control|\bantena\b|\bpatas\b|'
+                 r'\bmontaje\b|\bbrazo\b|correas? de seguridad|\bfunda\b|retroiluminacion|'
+                 r'tiras? led (para|de) (tv|television)|protector de pantalla', tn):
+        return 'Accesorios y soportes'
     if re.search(r'portatil|con ruedas|rodante', tn): return 'Portátiles'
     if re.search(r'\b4k\b|qled|uhd|qned|oled|miniled|mini-led', tn): return '4K'
     if re.search(r'full hd|\bfhd\b|\bhd\b|1080p|720p', tn): return 'HD'
@@ -4138,7 +4160,8 @@ def sub_audio(tn):
     if re.match(r'^(?:\S+ ){0,2}(microfono|monitor|bocina|altavoz|reproductor|radio|walkie)', tn):
         return None
     if re.match(r'^(?:\S+ ){0,3}(almohadillas?|earpads?|espumas?|puntas|eartips?|repuesto|'
-                r'cable de repuesto|estuche|funda|soporte|cuernos|accessory|accesorios?)\b', tn):
+                r'cable de repuesto|estuche|funda|soporte|cuernos|accessory|accesorios?|'
+                r'ear ?pads?|ear ?cushions?|ear ?tips?)\b', tn):
         return 'Almohadillas y repuestos'
     if re.search(r'open[- ]?ear|oido abierto|de clip\b|con clip\b|clip \w*oreja|'
                  r'conduccion osea|bone conduction', tn):
@@ -4172,14 +4195,23 @@ def sub_audio(tn):
         # cable; las familias Buds/FreeClip/Pods son de botón inalámbricas.
         if re.search(r'almohadilla|earpad|repuesto|reemplazo|eartip|puntas de silicona|cuernos', tn):
             return 'Almohadillas y repuestos'
-        if re.search(r'para ninos|\bkids?\b|infantil|\bninos\b', tn):
+        if re.search(r'para ninos|\bkids?\b|infantil|\bninos\b|\bninas\b', tn):
             return 'Earbuds para niños'
+        if re.search(r'\bcorsair\b|\bhyperx\b|\bastro a\d|\blogitech g\d|\bhs\d{2}\b|'
+                     r'turtle beach|\bsteelseries\b|\brazer\b|\bgamer\b|\bgaming\b', tn):
+            return 'Gamer'
         if re.search(r'\bdj\b|\bhdj\b|monitoreo|de estudio|\bstudio\b|\bmonitor\b|\busb\b|'
-                     r'\bhph-?\d|\brh-?\d|\bk\d{3}\b|multimedia|\bcall center\b|\boffice\b', tn):
+                     r'\bhph-?\d|\brh-?\d|\bk\d{3}\b|multimedia|\bcall center\b|\boffice\b|'
+                     # Familias que dicen la forma sin decirla: los HD de
+                     # Sennheiser y los MDR grandes de Sony son de diadema y
+                     # con cable salvo que el modelo lleve BT/WH.
+                     r'\bhd ?\d{2,3}\b(?!.{0,12}bt)|\bmdr-?\d|de referencia|audiofil|'
+                     r'\bcerrados?\b|\babiertos? de\b|aislamiento|\bbdj\b|semi ?abiert', tn):
             return 'Diadema con cable'
         if re.search(r'\bmono\b|monaural|\bcx ?\d|\bie ?\d|\btune ?1\d0\b|\bmobo\b|\bearphone', tn):
             return 'Earbuds con cable'
-        if re.search(r'freeclip|freebuds|\bbuds\d?\b|\bpods\b|\bair ?\d\b|\bflow\b|\bipx[4-8]\b', tn):
+        if re.search(r'freeclip|freebuds|\bbuds\d?\b|\bpods\b|\bair ?\d\b|\bflow\b|\bipx[4-8]\b|'
+                     r'\binpods?\b|\bi\d{2} ?tws\b|\btws\b|magneticos?\b', tn):
             return 'Earbuds inalámbricos'
         if re.search(r'para (tv|television|televisor)|sennheiser.{0,15}\btv\b|\brs ?\d{3}\b', tn):
             return 'Diadema inalámbrica'

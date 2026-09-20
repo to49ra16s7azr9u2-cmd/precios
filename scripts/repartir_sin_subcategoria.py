@@ -73,7 +73,12 @@ CLASIFICADOR = os.path.join(AQUI, "clasificar_captura_perifericos.py")
 
 # Subcategorías que no dicen nada: ni se toman como origen bueno ni se
 # aceptan como destino.
-COMODIN = {"Otros", "Varios", "Otro", "Otros juegos", "Otro calzado"}
+# "Otros accesorios gamer" entra acá aunque sea una subcategoría fina:
+# las fichas que Mercado Libre trae ya con ella nunca pasaron por el
+# repartidor, y la mayoría son controles, fundas o cables que sí tienen
+# subcategoría propia. Como destino sigue vetada, así que lo que no se
+# reconoce se queda donde está.
+COMODIN = {"Otros", "Varios", "Otro", "Otros juegos", "Otro calzado", "Otros accesorios gamer"}
 
 
 # Qué repartidor le toca a cada categoría. Es el mismo reparto que hace el
