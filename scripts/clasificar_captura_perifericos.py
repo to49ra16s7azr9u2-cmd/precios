@@ -3016,9 +3016,13 @@ def sub_juego_mesa(tn):
     if re.search(r'rompecabeza|\bpuzzle\b|\bpuzle\b', tn): return 'Rompecabezas'
     if re.search(r'\bajedrez\b|\bchess\b', tn): return 'Ajedrez'
     if re.search(r'woodestic', tn): return 'Woodestic'
-    if re.search(r'\bdomino\b|\bbackgammon\b|\bdamas\b|\bgo\b(?= )', tn): return 'Clásicos'
-    if re.search(r'cartas|\bnaipes\b|\bbaraja\b|\buno\b|\bpoker\b|mazo\b', tn): return 'De cartas'
-    if re.search(r'\brol\b|calabozos|dragones|\bd&d\b|\bdados\b|miniatura', tn): return 'De rol y dados'
+    if re.search(r'\bdomino\b|\bbackgammon\b|\bdamas\b|\bgo\b(?= )|mahjong|mah-jong|cribbage|\bshogi\b|\bxiangqi\b|'
+                 r'juego de (mesa )?chino|\bparchis\b|\bparques\b|\bludo\b', tn): return 'Clásicos'
+    if re.search(r'cartas|\bnaipes\b|\bbaraja\b|\buno\b|\bpoker\b|mazo\b|\btcg\b|tapete de juego|'
+                 r'magic: the gathering|\bmtg\b|pokemon tcg|one piece card|yu-?gi-?oh|\bsleeves\b|'
+                 r'fundas para cartas|deck box|contador de vida|\bplaymat\b|\bbooster\b', tn): return 'De cartas'
+    if re.search(r'\brol\b|calabozos|dragones|\bd&d\b|\bdados?\b|\bd20\b|\brpg\b|\bdnd\b|miniatura|'
+                 r'\bpathfinder\b|\bwarhammer\b|dice set|juego de dados', tn): return 'De rol y dados'
     if re.search(r'\bloteria\b|\bmemorama\b|serpientes y escaleras|\bturista\b|'
                  r'\bmonopol|\bjenga\b|\bscrabble\b|\bbasta\b', tn): return 'De mesa clásicos'
     # Lo que caía en "Otros juegos" (1,001 fichas) casi siempre dice de qué
@@ -3033,6 +3037,8 @@ def sub_juego_mesa(tn):
                  r'\bbeber\b|\bretos?\b|truth or|verdad o reto|\bcaballitos\b|\bpicante\b', tn):
         return 'De fiesta'
     if re.search(r'\bmemori|\bmemory\b', tn): return 'De memoria'
+    if re.search(r'\bsudoku|crucigrama|brain games|\blogica\b|rompecabezas de (logica|ingenio)|\bingenio\b|'
+                 r'cubo (rubik|magico)|\brubik', tn): return 'Educativos'
     if re.search(r'\btrivia|preguntas|\bquiz\b|adivina quien|adivinanza|\bpictionary\b', tn):
         return 'De preguntas'
     if re.search(r'educativ|didactic|aprend|montessori|matematic|\bletras\b|palabras|\bspell|'
@@ -3059,7 +3065,9 @@ def sub_instrumento(tn):
     # están en el catálogo. Lo que se agrega son las familias que faltaban,
     # dentro de la rama que les corresponde.
     if re.search(r'guitarra|\bbajo\b|ukulele|ukelele|\bbanjo\b|banjolele|mandolina|'
-                 r'charango|requinto|\bjarana\b|\blaud\b', tn): return 'Guitarras'
+                 r'charango|requinto|\bjarana\b|\blaud\b|stratocaster|telecaster|les paul|'
+                 r'jazzmaster|\bjaguar\b|precision bass|jazz bass|\bstrat\b|\bsg standard\b|'
+                 r'\bibanez\b|\bepiphone\b|\bsquier\b|\bgretsch\b|\bprs\b', tn): return 'Guitarras'
     # Percusión de mano y de placas ANTES que Baterías: una pandereta o un
     # xilófono no son un kit de batería, y la rama de abajo se los llevaba
     # por la palabra "percusion" que casi todos traen en el título.
@@ -3081,7 +3089,7 @@ def sub_instrumento(tn):
                  r'\bhardware\b|\btoms?\b|\bsnare\b|\bdrum\b|\bthrone\b|pedal de bombo|\bkick\b|'
                  r'\bdw\b.{0,20}(serie|series|\d{4})', tn): return 'Baterías'
     if re.search(r'violin|violonchelo|\bcello\b|contrabajo|\bviola\b|\barpa\b|'
-                 r'\berhu\b|\bguqin\b|guzheng|\bkoto\b|\bsitar\b|\bcitara\b|'
+                 r'\berhu\b|\bguqin\b|guzheng|\bkoto\b|\bsitar\b|\bcitara\b|\bpipa\b|\bruan\b|'
                  r'\blira\b|\blyre\b|\bharp\b', tn): return 'Cuerdas'
     if re.search(r'saxofon|trompeta|flauta|clarinete|trombon|\btuba\b|armonica|oboe|'
                  r'\bfagot\b|\bcorno\b|\btrompa\b|corneta|melodica|\bpianica\b|'
@@ -3097,7 +3105,10 @@ def sub_instrumento(tn):
                  r'fliscorno|\beufonio\b|french horn|\bbugle\b', tn): return 'Viento'
     if re.search(r'microfono', tn): return 'Micrófonos'
     if re.search(r'interfaz de audio|mezcladora|mixer|monitor de estudio|'
-                 r'controlador midi|\bdaw\b|preamp', tn): return 'Producción de audio'
+                 r'controlador midi|\bdaw\b|preamp|sistema inalambrico|\btransmisor\b|\breceptor\b|'
+                 r'lavalier|caja directa|\bdi box\b|\bdi\d{3}\b|gestion de parlantes|\bcrossover\b|'
+                 r'procesador de (audio|senal)|\bbroadcast\b|\bpodcast\b|\becualizador\b|'
+                 r'\bcompresor de audio\b|\bshure\b|\bbehringer\b|\bfocusrite\b', tn): return 'Producción de audio'
     if re.search(r'acordeon|acor[oó]n|acorde[oó]n|bandoneon|\baccordion', tn): return 'Acordeones'
     if re.search(r'teclado|piano|sintetizador|organo|melodion|'
                  r'controlador midi|\bmidi\b|\bkeytar\b|\bcelesta\b', tn): return 'Teclados'
@@ -3119,7 +3130,11 @@ def sub_instrumento(tn):
                  # que "guitarra con cuerdas de repuesto" sigue en Guitarras.
                  r'\bcuerdas?\b|drum ?stick|panos? de (microfibra|limpieza)|\blimpieza\b|'
                  r'abrazadera|soportes? antivibr|humidificador|cable de instrumento|\bplug\b|'
-                 r'\bglobos?\b|\bpedestal\b|\bstand\b', tn): return 'Accesorios'
+                 r'\bglobos?\b|\bpedestal\b|\bstand\b|plectrum|plumilla|lubricante|limpiador|'
+                 r'\bpolish\b|barniz|\bbanco\b|\bbanquillo\b|multiclamp|\bclamp\b|'
+                 r'fuente de alimentacion|power supply|\bcable\b|tanque de reverb|bolsa protectora|'
+                 r'palanca de afinacion|\bclavijas?\b|\bpuente\b|\bcejilla\b|\bpickguard\b|'
+                 r'accesorios? para instrumentos', tn): return 'Accesorios'
     return None
 
 
@@ -3580,10 +3595,17 @@ def sub_mascota(tn):
     palabras en inglés.
     """
     if re.search(r'\bpuerta|\bgatera\b|\bpet door\b|\bdog door\b', tn): return 'Puertas para mascotas'
+    if re.search(r'mesa de aseo|grooming table|estacion de bano|\btoallas?\b|\balbornoz\b|\bbata\b|'
+                 r'alfombras? (lavables|absorbentes)|tapete (entrenador|absorbente|de entrenamiento)|'
+                 r'\borina\b|\bdesechos\b|removedor de (manchas|olores)|\bbalsamo\b|\bpatas\b.{0,15}(crema|balsamo)|'
+                 r'limpieza de (orina|oidos|dientes)|\bcepillo de dientes\b', tn): return 'Higiene y limpieza'
+    if re.search(r'estantes? de pared para gatos|\btrepar\b|escalador para gatos|\bcat shelf|rascadero', tn):
+        return 'Rascadores y torres'
     if re.search(r'rascador|arbol (para|de) gato|torre (para|de) gato|\bcat tree\b|'
                  r'\bscratch(er|ing)\b|poste rascador', tn): return 'Rascadores y torres'
     if re.search(r'\bjaula|\bcorral\b|\bcerca (para|de) (perro|mascota)|valla (para|de) (perro|mascota)|'
-                 r'\bperrera\b|\bcrate\b|\bkennel\b|\bplaypen\b|parque (para|de) (perro|cachorro|mascota)|'
+                 r'\bperrera\b|\bcrate\b|\bkennel\b|\bplaypen\b|parque (para|de) (perro|cachorro|mascota)|corralito|'
+                 r'\bpluma para perros\b|\bpen\b (for|para) (dogs?|perros?)|'
                  r'\breja\b|barrera (para|de) (perro|mascota)|\bgallinero\b|\bconejera\b', tn): return 'Jaulas y corrales'
     if re.search(r'acuario|pecera|terrario|\btortuga|\breptil|\bpeces\b|\bpez\b|filtro (de |para )?(acuario|pecera)|'
                  r'bomba de aire', tn): return 'Acuarios y terrarios'
@@ -3597,20 +3619,24 @@ def sub_mascota(tn):
                  r'\bvestido\b|\bsudadera|\babrigo\b|\bplayera|placa (de )?identificacion|microchip|'
                  r'\bpanuelo\b', tn):
         return 'Ropa y accesorios'
-    if re.search(r'\badiestr|entrenamiento (para|de) (perro|mascota)|\bclicker\b|collar antiladrido|'
+    if re.search(r'\badiestr|entrenamiento|\btraining\b|\bclicker\b|collar antiladrido|poste.{0,15}orina|'
                  r'valla invisible|\btraining\b (pad|collar)', tn): return 'Adiestramiento'
     if re.search(r'\barenero|\barena para gato|caja de arena|\blitter box\b', tn): return 'Areneros'
-    if re.search(r'transportadora|jaula de viaje|canil|kennel|mochila (para|de) (perro|gato|mascota)|carriola|carreola|cochecito|coche (para|de) (perro|gato|mascota)', tn):
+    if re.search(r'transportador|jaula de viaje|canil|kennel|mochila|carriola|carreola|cochecito|coche (para|de) (perro|gato|mascota)|'
+                 r'asiento (de )?seguridad|asiento (para|de) (perro|mascota)|car seat|bolsa de transporte|bolso de transporte|'
+                 r'caja de casos|\bcarretilla\b.{0,20}mascota', tn):
         return 'Transportadoras'
     if re.search(r'bebedero|fuente de agua|dispensador de agua|fuente (para|de) (gato|perro|mascota)|'
                  r'dispensador de bebidas', tn): return 'Bebederos'
-    if re.search(r'comedero|\bplato|\bcuenco|\btazon|\bbowl\b|dispensador de (alimento|comida|croquetas)|'
+    if re.search(r'comedero|\bplato|\bcuenco|\btazon|\bbowl\b|dispensador.{0,20}(alimento|comida|croquetas)|'
+                 r'biberon (para|de) (gatitos|cachorros|mascotas)|muebles? de alimentacion|soporte para comida|'
                  r'estacion de alimentacion|contenedor (de |para )?alimento|lick ?mat|tapete de lamer|'
                  r'alimentador|\bcuencos\b', tn):
         return 'Comederos'
     if re.search(r'\bcorrea|\bpechera|\barnes\b|\bcollar\b', tn): return 'Correas'
     if re.search(r'casa (para|de) (perro|gato|mascota)|caseta|rascador|torre para gato|escondite|'
                  r'\bcasa\b.{0,30}(perro|gato|mascota|conejo|hamster)|casa (plegable|grande|de madera|cerrada|refrescante|climatizada|de juegos)|'
+                 r'dog house|cat house|club house|\bshelter\b|\bcubo\b.{0,20}gatos?|'
                  r'refugio|\bcasita\b|\bcabana\b|'
                  r'casa (de madera |acrilica |grande |pequena )?(para|de) (conejillo|cobaya|cuyo|hamster|chinchilla|conejo|erizo|huron|jerbo|roedor|animales pequenos)|'
                  r'\bhabitat\b|castillo (para|de)', tn):
@@ -3625,7 +3651,8 @@ def sub_mascota(tn):
     if re.search(r'juguete|pelota|\bkong\b|\bcatnip\b|hueso|mordedor|rat[oó]n de peluche|'
                  r'\btoy(s)?\b|squeaky|\bchew\b|\bfetch\b|disco volador|\bfrisbee\b|varita|'
                  r'alfombra olfativa|\bsnuffle\b|\btunel\b|rueda de ejercicio|rueda para gato|'
-                 r'laser (para|de) gato|\bplumero\b|\bcatnip\b|\bcuerda\b', tn):
+                 r'laser (para|de) gato|\bplumero\b|\bcatnip\b|\bcuerda\b|\bcana\b (para|de) gatos?|'
+                 r'\bcana\b.{0,20}(pluma|cascabel)|juguetes? interactivo', tn):
         return 'Juguetes'
     return None
 
@@ -3791,7 +3818,8 @@ def sub_herramienta(tn):
         return 'Plomería'
     if re.search(r'multimetro|\bvernier\b|calibrador|flexometro|cinta metrica|'
                  r'nivel laser|distanciometro|medidor|termometro infrarrojo|'
-                 r'\bescuadra\b|micrometro', tn):
+                 r'\bescuadra\b|micrometro|manometro|bomba de vacio|\bmanifold\b|probador|'
+                 r'\btester\b|indicadores? de (radio|caratula)|galgas?\b|\bcalibre\b', tn):
         return 'Medición'
     if re.search(r'juego de herramientas|set de herramientas|kit de herramientas|'
                  r'herramientas?\b.{0,25}\d+ (piezas|pzas|pcs)|\d+ ?(piezas|pcs|pzas).{0,25}herramientas|'
@@ -3813,6 +3841,9 @@ def sub_herramienta(tn):
                  r'centro de carga|caja de conexion|conector electrico|'
                  r'material electrico|canaleta|\bcinta de aislar\b', tn):
         return 'Material eléctrico'
+    if re.search(r'aerografo|cabina de pintura|pistola (de |para )?pintar|pulverizador de pintura|'
+                 r'\bairbrush\b', tn):
+        return 'Compresores y herramienta neumática'
     if re.search(r'neumatic|\baire comprimido\b|compresor de aire|pistola de aire|'
                  r'\bimpacto\b.{0,15}neumatic', tn):
         return 'Neumáticas'
@@ -3827,7 +3858,9 @@ def sub_herramienta(tn):
                  r'panel de herramientas|\bcarr(o|ito)s? .{0,40}herramientas|carr(o|ito)s? (utilitario|de servicio|rodante|de plastico)|'
                  r'caja (organizadora|plastica|de plastico)|portaherramientas|carrito organizador|carro organizador|'
                  r'bolsa (de|para) herramientas|estuche de herramientas|pegboard|tablero perforado|'
-                 r'organizador\b.{0,30}herramientas', tn):
+                 r'organizador\b.{0,30}herramientas|organizador (de gavetas|\d+ compartimentos|\d+"|\d+ pulgadas)(?!.{0,30}(sala|cocina|bano|hogar))|'
+                 r'\bgavetero\b|\bpackout\b|estante organizador(?!.{0,30}(sala|cocina|bano|hogar))|estanteria (de cochera|de garaje|para garaje)|'
+                 r'\btruper\b.{0,20}organizador|organizador.{0,20}\btruper\b', tn):
         return 'Organización'
     if re.search(r'\bbroca|\bdisco de (corte|desbaste)|\blija\b|puntas? de (atornillador|desarmador)|'
                  r'\bsierra caladora hoja|accesorios? para (taladro|rotomartillo)|'
@@ -3841,7 +3874,9 @@ def sub_herramienta(tn):
                  r'\bcincel\b|\blima\b|\bsegueta\b|\bprensa\b|\bgato\b|'
                  r'juego de dados|matraca|\bhexagonal\b|\ballen\b|herramienta manual|'
                  r'\bnavaja|multiherramienta|multi-?tool|\bleatherman\b|afilador|tallado de madera|'
-                 r'\bgubia|\bformon\b|\bcutter\b|\bratchet\b|\bwrench\b|\bsocket\b|herramientas de (tallado|mano)', tn):
+                 r'\bgubia|\bformon\b|\bcutter\b|\bratchet\b|\bwrench\b|\bsocket\b|herramientas de (tallado|mano)|'
+                 r'\bpolea\b|cabrestante|\bwinch\b|\bpolipasto\b|\bgato\b|tijeras?\b|\bespatula\b|'
+                 r'\bcuchillo\b|\bnavaja\b|\bmartillo\b', tn):
         return 'Herramientas manuales'
     return None
 
@@ -4146,6 +4181,15 @@ def sub_audio(tn):
             return 'Earbuds con cable'
         if re.search(r'freeclip|freebuds|\bbuds\d?\b|\bpods\b|\bair ?\d\b|\bflow\b|\bipx[4-8]\b', tn):
             return 'Earbuds inalámbricos'
+        if re.search(r'para (tv|television|televisor)|sennheiser.{0,15}\btv\b|\brs ?\d{3}\b', tn):
+            return 'Diadema inalámbrica'
+        if re.search(r'hifiman|planar|closed-?back|open-?back|audiophile|high res|\bath-|de madera|'
+                     r'\bpilot|aviacion|\bpeltor\b|de comunicacion|\bxlr|para pc\b|estereo personales|'
+                     r'\bhamiltonbuhl\b|cyber acoustics|\bkoss\b|para (el )?aula|paquete de \d+', tn):
+            return 'Diadema con cable'
+        if re.search(r'tipo c\b|usb-?c\b|lightning|3[.,]5 ?mm|manos libres|\binterno|\bin-?ear|'
+                     r'aislamiento de ruido|\bmitzu\b|\b1hora\b|\bjib\b|\bmdr-ex|\bnecnon\b', tn):
+            return 'Earbuds con cable'
         return None
     inal, cable = bool(RX_INAL.search(tn)), bool(RX_CABLE.search(tn))
     if not inal and not cable:
