@@ -3218,7 +3218,9 @@ tr.offer-compare-off { display: none; }
   .home-col-left .home-side-btn { width: auto; flex: 1 1 180px; }
   .home-col-left .home-cat-rank { flex: 1 1 100%; }
   .home-rank-mes { grid-column: 1 / -1; grid-row: auto; }
-  .home-tabs { flex: 1 1 100%; flex-direction: row; }
+  /* En fila (tablet y teléfono) las pestañas no cuelgan de ningún panel:
+     sin la sangría de la columna. */
+  .home-tabs { flex: 1 1 100%; flex-direction: row; padding-left: 0; }
   .home-tab-marca .hero-logo { max-width: 160px; }
   .home-tab.is-active { border-right: 3px solid var(--tab-color); border-radius: var(--marco-radio); }
   .home-tab-marca.is-active { padding-right: 6px; }
