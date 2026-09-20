@@ -6146,20 +6146,20 @@
     "Audífonos": [
       "data/cat/audifonos-1.json"
     ],
+    "Videojuegos": [
+      "data/cat/videojuegos-1.json"
+    ],
+    "Tabletas": [
+      "data/cat/tabletas-1.json"
+    ],
     "Bocinas": [
       "data/cat/bocinas-1.json"
     ],
     "Deportes y fitness": [
       "data/cat/deportes-y-fitness-1.json"
     ],
-    "Tabletas": [
-      "data/cat/tabletas-1.json"
-    ],
     "Domótica y hogar inteligente": [
       "data/cat/domotica-y-hogar-inteligente-1.json"
-    ],
-    "Videojuegos": [
-      "data/cat/videojuegos-1.json"
     ],
     "Redes": [
       "data/cat/redes-1.json"
@@ -6397,6 +6397,17 @@
       "data/det/audifonos-4.json",
       "data/det/audifonos-5.json"
     ],
+    "Videojuegos": [
+      "data/det/videojuegos-1.json",
+      "data/det/videojuegos-2.json",
+      "data/det/videojuegos-3.json",
+      "data/det/videojuegos-4.json",
+      "data/det/videojuegos-5.json"
+    ],
+    "Tabletas": [
+      "data/det/tabletas-1.json",
+      "data/det/tabletas-2.json"
+    ],
     "Bocinas": [
       "data/det/bocinas-1.json",
       "data/det/bocinas-2.json",
@@ -6412,23 +6423,12 @@
       "data/det/deportes-y-fitness-4.json",
       "data/det/deportes-y-fitness-5.json"
     ],
-    "Tabletas": [
-      "data/det/tabletas-1.json",
-      "data/det/tabletas-2.json"
-    ],
     "Domótica y hogar inteligente": [
       "data/det/domotica-y-hogar-inteligente-1.json",
       "data/det/domotica-y-hogar-inteligente-2.json",
       "data/det/domotica-y-hogar-inteligente-3.json",
       "data/det/domotica-y-hogar-inteligente-4.json",
       "data/det/domotica-y-hogar-inteligente-5.json"
-    ],
-    "Videojuegos": [
-      "data/det/videojuegos-1.json",
-      "data/det/videojuegos-2.json",
-      "data/det/videojuegos-3.json",
-      "data/det/videojuegos-4.json",
-      "data/det/videojuegos-5.json"
     ],
     "Redes": [
       "data/det/redes-1.json"
@@ -6533,9 +6533,9 @@
   "totalProducts": 303643,
   "categoryStats": {
     "Celulares": {
-      "n": 4692,
+      "n": 4694,
       "subs": {
-        "Android": 3246,
+        "Android": 3248,
         "Resistentes": 348,
         "iPhone": 455,
         "Reacondicionados": 93,
@@ -6544,13 +6544,13 @@
         "Básicos": 334
       },
       "pop": 304385,
-      "discounted": 1361,
+      "discounted": 1363,
       "max": 80,
-      "discountedShip": 1361,
+      "discountedShip": 1363,
       "maxShip": 80
     },
     "Cargadores y adaptadores": {
-      "n": 6127,
+      "n": 6128,
       "subs": {
         "Cargadores de pared de 25 a 45 W": 432,
         "De pared": 745,
@@ -6561,7 +6561,7 @@
         "Adaptador de corriente": 456,
         "De auto": 447,
         "Inalámbrico": 1019,
-        "De pilas": 402,
+        "De pilas": 403,
         "Otros": 20,
         "Base de carga": 186,
         "Cargadores de pared hasta 20 W": 144,
@@ -6591,9 +6591,9 @@
       "maxShip": 72
     },
     "Relojes inteligentes": {
-      "n": 1102,
+      "n": 1104,
       "subs": {
-        "Smartwatches": 1072,
+        "Smartwatches": 1074,
         "Bandas de actividad": 27,
         "": 3
       },
@@ -6720,7 +6720,7 @@
       "maxShip": 77
     },
     "Otros": {
-      "n": 4511,
+      "n": 4512,
       "subs": {
         "Estaciones de energía": 591,
         "Varios": 455,
@@ -6730,7 +6730,7 @@
         "Inversores": 59,
         "Paneles solares": 451,
         "Kits solares y controladores de carga": 352,
-        "Organización del hogar": 258,
+        "Organización del hogar": 259,
         "": 3,
         "Baño": 179,
         "Soportes para dispositivos": 898,
@@ -6898,7 +6898,7 @@
       "maxShip": 93
     },
     "Instrumentos musicales": {
-      "n": 16841,
+      "n": 16844,
       "subs": {
         "Tornamesas": 67,
         "Producción de audio": 179,
@@ -6908,7 +6908,7 @@
         "Pianos digitales": 200,
         "Saxofones": 519,
         "Guitarras eléctricas": 1248,
-        "Amplificadores de guitarra y bajo": 185,
+        "Amplificadores de guitarra y bajo": 188,
         "Pedales y efectos": 412,
         "Accesorios de guitarra": 1040,
         "Cuerdas de guitarra y bajo": 1313,
@@ -7268,27 +7268,75 @@
       "maxShip": 75
     },
     "Audífonos": {
-      "n": 9258,
+      "n": 9238,
       "subs": {
         "Earbuds inalámbricos": 3100,
         "Diadema con cancelación de ruido": 384,
         "Earbuds con cancelación de ruido": 761,
         "Earbuds deportivos": 216,
         "Gamer": 944,
-        "De oído abierto": 532,
+        "De oído abierto": 534,
         "Diadema inalámbrica": 721,
         "Earbuds para niños": 181,
-        "": 337,
-        "Earbuds con cable": 1206,
-        "Diadema con cable": 658,
+        "": 259,
+        "Earbuds con cable": 1217,
+        "Diadema con cable": 698,
         "Earbuds de cuello": 69,
-        "Almohadillas y repuestos": 149
+        "Almohadillas y repuestos": 154
       },
       "pop": 283960,
-      "discounted": 1834,
+      "discounted": 1832,
       "max": 80,
-      "discountedShip": 1829,
+      "discountedShip": 1827,
       "maxShip": 80
+    },
+    "Videojuegos": {
+      "n": 9033,
+      "subs": {
+        "Realidad virtual": 23,
+        "Controles y gamepads": 758,
+        "Cargadores, bases y soportes": 382,
+        "Fundas, micas y protectores": 367,
+        "Consolas PlayStation": 69,
+        "Juegos PS5": 1178,
+        "Otros accesorios gamer": 152,
+        "Cables y adaptadores": 243,
+        "Juegos retro y otras plataformas": 556,
+        "Consolas retro y portátiles": 42,
+        "Consolas Nintendo": 56,
+        "Consolas Xbox": 30,
+        "Tarjetas y suscripciones": 5,
+        "Juegos Nintendo Switch": 2450,
+        "Volantes, arcade y simuladores": 114,
+        "Juegos Xbox": 1469,
+        "Juegos PS4": 1126,
+        "Juegos para PC": 13
+      },
+      "pop": 335855,
+      "discounted": 4132,
+      "max": 85,
+      "discountedShip": 4134,
+      "maxShip": 85
+    },
+    "Tabletas": {
+      "n": 3386,
+      "subs": {
+        "Tabletas Windows y rugged": 661,
+        "Tabletas Android de 10 a 11 pulgadas": 434,
+        "Tabletas Android de 12 pulgadas o más": 367,
+        "Tabletas Android con 4G o 5G": 312,
+        "Tabletas de dibujo y escritura": 87,
+        "Tabletas para niños": 253,
+        "Accesorios para tableta": 53,
+        "Tabletas Android de 8 pulgadas o menos": 198,
+        "Tabletas Android": 736,
+        "Apple": 285
+      },
+      "pop": 14290,
+      "discounted": 388,
+      "max": 76,
+      "discountedShip": 388,
+      "maxShip": 76
     },
     "Bocinas": {
       "n": 11858,
@@ -7360,26 +7408,6 @@
       "discountedShip": 1464,
       "maxShip": 92
     },
-    "Tabletas": {
-      "n": 3384,
-      "subs": {
-        "Tabletas Android de 10 a 11 pulgadas": 434,
-        "Tabletas Android de 12 pulgadas o más": 367,
-        "Tabletas Android con 4G o 5G": 312,
-        "Tabletas de dibujo y escritura": 87,
-        "Tabletas para niños": 253,
-        "Tabletas Windows y rugged": 659,
-        "Accesorios para tableta": 53,
-        "Tabletas Android de 8 pulgadas o menos": 198,
-        "Tabletas Android": 736,
-        "Apple": 285
-      },
-      "pop": 14290,
-      "discounted": 388,
-      "max": 76,
-      "discountedShip": 388,
-      "maxShip": 76
-    },
     "Domótica y hogar inteligente": {
       "n": 8515,
       "subs": {
@@ -7422,34 +7450,6 @@
       "max": 75,
       "discountedShip": 686,
       "maxShip": 72
-    },
-    "Videojuegos": {
-      "n": 9024,
-      "subs": {
-        "Controles y gamepads": 758,
-        "Cargadores, bases y soportes": 382,
-        "Fundas, micas y protectores": 367,
-        "Consolas PlayStation": 69,
-        "Juegos PS5": 1178,
-        "Otros accesorios gamer": 152,
-        "Cables y adaptadores": 243,
-        "Juegos retro y otras plataformas": 556,
-        "Consolas retro y portátiles": 42,
-        "Realidad virtual": 14,
-        "Consolas Nintendo": 56,
-        "Consolas Xbox": 30,
-        "Tarjetas y suscripciones": 5,
-        "Juegos Nintendo Switch": 2450,
-        "Volantes, arcade y simuladores": 114,
-        "Juegos Xbox": 1469,
-        "Juegos PS4": 1126,
-        "Juegos para PC": 13
-      },
-      "pop": 335855,
-      "discounted": 4132,
-      "max": 85,
-      "discountedShip": 4134,
-      "maxShip": 85
     },
     "Redes": {
       "n": 845,
@@ -8171,6 +8171,22 @@
       "p43523",
       "p42103"
     ],
+    "Videojuegos": [
+      "p60337",
+      "p28364",
+      "p28372",
+      "p56985",
+      "p58977",
+      "p59438"
+    ],
+    "Tabletas": [
+      "p50660",
+      "p50589",
+      "p50622",
+      "p126969",
+      "p50581",
+      "p50809"
+    ],
     "Bocinas": [
       "p42154",
       "p366660",
@@ -8187,14 +8203,6 @@
       "p138694",
       "p73457"
     ],
-    "Tabletas": [
-      "p50660",
-      "p50589",
-      "p50622",
-      "p126969",
-      "p50581",
-      "p50809"
-    ],
     "Domótica y hogar inteligente": [
       "p44880",
       "p42668",
@@ -8202,14 +8210,6 @@
       "p42348",
       "p44894",
       "p44886"
-    ],
-    "Videojuegos": [
-      "p60337",
-      "p28364",
-      "p28372",
-      "p56985",
-      "p58977",
-      "p59438"
     ],
     "Redes": [
       "p291396",

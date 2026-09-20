@@ -125,6 +125,21 @@ REGLAS = [
      r'compresor|acuario|pecera', 'Autos, bicicletas y motos', 'Bombas e infladores'),
     ('Herramientas', r'taburete|\bsilla\b|\bbanco\b (de|para) (taller|trabajo|garaje)|banco rodante', r'banco de trabajo con|prensa|escalera|escalon|peldano|fregadero|\bcarro\b|carrito', 'Muebles', 'Taburetes y bancos'),
     ('Herramientas', r'\blibrero\b|bookshelf|estante organizador.{0,30}(sala|cocina|bano|hogar)|estanteria de almacenamiento para (cocina|bano)', None, 'Muebles', 'Libreros'),
+    # --- Quinta tanda: lo que no es un audífono ---
+    # El teléfono que regala audífonos: la tienda lo deja en Audífonos y se
+    # reconoce por el modelo, no por la palabra "celular".
+    ('Audífonos', r'galaxy (s|a|z)\d{1,2}|\biphone 1[3-9]\b|redmi (note )?\d|\bpoco [xfm]\d|'
+                  r'moto (g|e)\d{1,2}|\bhonor \d{2,3}|\bzte blade\b',
+     r'\bfunda\b|\bmica\b|\bcable\b|\bcargador\b|\bprotector\b|compatible con|\bpara \b',
+     'Celulares', lambda tn: 'iPhone' if 'iphone' in tn else 'Android', (None,)),
+    ('Audífonos', r'\bvr\b|realidad virtual|valve index|meta quest', None, 'Videojuegos', 'Realidad virtual', (None,)),
+    ('Audífonos', r'^(?:\S+ ){0,3}tablet\b|tablet con windows', None, 'Tabletas', 'Tabletas Windows y rugged', (None,)),
+    ('Audífonos', r'bolsa para tablet|funda de transporte para ipad', None, 'Tabletas', 'Fundas y teclados', (None,)),
+    ('Audífonos', r'smartwatch y audifonos|active pack', None, 'Relojes inteligentes', 'Smartwatches', (None,)),
+    ('Audífonos', r'bateria para audifonos|\bpr44\b|tamano 675', None, 'Cargadores y adaptadores', 'De pilas', (None,)),
+    ('Audífonos', r'amplificador de auriculares.{0,25}guitarra|enchufe de guitarra', None,
+     'Instrumentos musicales', 'Amplificadores de guitarra y bajo', (None,)),
+    ('Audífonos', r'tablero de clavijas|almacenamiento lateral de escritorio', None, 'Otros', 'Organización del hogar', (None,)),
     # --- Cuarta tanda: lo que Mercado Libre dejó en Herramientas ---
     ('Herramientas', r'divisores? de estante|organizador (de )?(utensilios|menaje)|bandeja cubiertos|'
                      r'organizador\b.{0,20}cocina', None, 'Cocina y comedor', 'Organización de cocina', (None,)),

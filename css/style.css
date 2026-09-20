@@ -2806,7 +2806,10 @@ tr.offer-compare-off { display: none; }
      sobre tres maquetas): las dos pestañas caben con el logo a la mitad y
      los rankings van a 12px con puntos suspensivos; el ancho que se ahorra
      lo gana la rejilla de categorías, que pasa de 4 a 5 columnas. */
-  grid-template-columns: 120px minmax(0, 1fr) 300px;
+  /* Dos columnas desde el 20-sep: la de 120 px desapareció y su contenido
+     se repartió (los logos al encabezado del panel, los dos botones debajo
+     de las categorías, el top de categorías a la derecha). */
+  grid-template-columns: minmax(0, 1fr) 300px;
   /* La fila 1 es sólo la franja de "Más visto" y la 2 el resto. Hace falta
      decirlo: la columna derecha cruza las dos filas y, con filas
      automáticas, su altura se reparte entre ambas -- la fila 1 crecía a
@@ -2823,11 +2826,10 @@ tr.offer-compare-off { display: none; }
    columnas 1-2 y la barra izquierda se va sola a la fila 1 columna 3: las
    pestañas aparecían donde va la publicidad. La columna de la derecha
    arranca arriba del todo, al lado de la franja, como en el boceto. */
-.home-most-viewed-band { grid-column: 1 / 3; grid-row: 1; }
-.home-col-left { grid-column: 1; grid-row: 2; }
-.home-col-center { grid-column: 2; grid-row: 2; }
-.home-col-right { grid-column: 3; grid-row: 1 / span 3; }
-.home-rank-mes { grid-column: 1 / 3; grid-row: 3; }
+.home-most-viewed-band { grid-column: 1; grid-row: 1; }
+.home-col-center { grid-column: 1; grid-row: 2; }
+.home-col-right { grid-column: 2; grid-row: 1 / span 3; }
+.home-rank-mes { grid-column: 1; grid-row: 3; }
 /* Las dos entradas al catálogo, arriba de todo en la columna izquierda
    (es el orden del boceto): la marca --que abre las categorías-- y
    "Marcas". La activa se pinta en rojo; la otra queda apagada, para que se
@@ -2904,8 +2906,18 @@ tr.offer-compare-off { display: none; }
    el borde izquierdo del marco pase lo que pase con los contextos de
    apilamiento de cada navegador (en Windows el marco se pintaba encima y
    se veían las dos líneas por separado). */
-.home-col-left { position: relative; z-index: 2; }
-.home-col-center { position: relative; z-index: 1; }
+/* Encabezado del panel: logo de la entrada activa, texto y la otra entrada
+   a la derecha, todo en una línea. */
+.home-elige-row { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
+.home-elige-row .home-elige { flex: 1 1 auto; margin: 0; }
+.home-elige-row .home-tab-marca { flex: 0 0 auto; width: 168px; padding: 6px 8px; }
+.home-elige-row .home-tab.is-active { border-width: 3px; border-color: var(--tab-color); }
+/* Sin columna izquierda no hay lengüeta que unir: el arco y el puente que
+   cruzaban el hueco sobran. */
+.home-tab.is-active::before, .home-tab.is-active::after { display: none; }
+/* "Cómo utilizar" y "¿Dónde estás?", debajo de las categorías. */
+.home-acciones { display: flex; gap: var(--hueco-inicio); margin-top: var(--hueco-inicio); }
+.home-acciones .home-side-btn { flex: 1 1 0; }
 .home-tab.is-active {
   position: relative;
   border-width: 3px;

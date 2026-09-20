@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=ab0e8f57">
+<link rel="stylesheet" href="css/style.min.css?v=afa5dc59">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -160,24 +160,6 @@
           </div>
         </div>
 
-        <aside class="home-col home-col-left">
-          <button type="button" class="home-side-btn" id="homeTipsBtn" aria-expanded="false" aria-controls="homeTipsPanel">
-            <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.7 9.4a2.4 2.4 0 1 1 3.2 2.3c-.6.2-.9.8-.9 1.4v.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1" fill="currentColor"/></svg></span>
-            <span><strong>Cómo utilizar</strong><span class="home-side-btn-sub">Guía para empezar</span></span>
-          </button>
-          <div class="home-tabs" role="tablist" aria-label="Cómo buscar">
-            <button type="button" class="home-tab home-tab-marca is-active" role="tab" aria-selected="true" aria-controls="homePanelPrecios" data-tab="precios">
-              <img class="hero-logo" src="icons/logo-comparaprecios.png" alt="Compara precios">
-            </button>
-            <button type="button" class="home-tab home-tab-marca" role="tab" aria-selected="false" aria-controls="homePanelMarcas" data-tab="marcas">
-              <img class="hero-logo" src="icons/logo-comparamarcas.png" alt="Compara marcas">
-            </button>
-          </div>
-          <button type="button" class="home-side-btn" id="homeLocationBtn">
-            <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.6 7-12.2A7 7 0 0 0 5 9.3c0 5.6 7 12.2 7 12.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.2" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><strong>¿Dónde estás?</strong><span class="home-side-btn-sub" id="homeLocationBtnLabel">Mi ubicación</span></span>
-          </button>
-        </aside>
 
         <main class="home-col home-col-center">
           <!-- El marco de color une la pestaña activa de la izquierda con
@@ -185,7 +167,18 @@
                como una carpeta con lengüeta. El color lo pone
                .home-grid[data-home-tab]. -->
           <div class="home-center-frame" id="homeCenterFrame">
-          <h1 class="home-elige" id="homeElige">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</h1>
+          <!-- Encabezado del panel: la entrada activa (logo) abre la fila,
+               el texto explica y la otra entrada queda a la derecha. Antes
+               eran dos lengüetas en una columna propia de 120 px. -->
+          <div class="home-elige-row" role="tablist" aria-label="Cómo buscar">
+            <button type="button" class="home-tab home-tab-marca is-active" role="tab" aria-selected="true" aria-controls="homePanelPrecios" data-tab="precios">
+              <img class="hero-logo" src="icons/logo-comparaprecios.png" alt="Compara precios">
+            </button>
+            <h1 class="home-elige" id="homeElige">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</h1>
+            <button type="button" class="home-tab home-tab-marca" role="tab" aria-selected="false" aria-controls="homePanelMarcas" data-tab="marcas">
+              <img class="hero-logo" src="icons/logo-comparamarcas.png" alt="Compara marcas">
+            </button>
+          </div>
           <div id="homePanelPrecios" role="tabpanel">
             <div class="home-category-box">
               <div id="homeCategoryGrid" class="category-card-grid"></div>
@@ -200,6 +193,16 @@
               <div id="homeBrandGrid" class="home-brand-grid"></div>
             </div>
           </div>
+          </div>
+          <div class="home-acciones">
+            <button type="button" class="home-side-btn" id="homeTipsBtn" aria-expanded="false" aria-controls="homeTipsPanel">
+            <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.7 9.4a2.4 2.4 0 1 1 3.2 2.3c-.6.2-.9.8-.9 1.4v.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1" fill="currentColor"/></svg></span>
+            <span><strong>Cómo utilizar</strong><span class="home-side-btn-sub">Guía para empezar</span></span>
+          </button>
+            <button type="button" class="home-side-btn" id="homeLocationBtn">
+            <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.6 7-12.2A7 7 0 0 0 5 9.3c0 5.6 7 12.2 7 12.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.2" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span><strong>¿Dónde estás?</strong><span class="home-side-btn-sub" id="homeLocationBtnLabel">Mi ubicación</span></span>
+          </button>
           </div>
         </main>
 

@@ -4225,8 +4225,16 @@ def sub_audio(tn):
                 r'cable de repuesto|estuche|funda|soporte|cuernos|accessory|accesorios?|'
                 r'ear ?pads?|ear ?cushions?|ear ?tips?)\b', tn):
         return 'Almohadillas y repuestos'
+    if re.search(r'protectores? de puerto|cordon para auriculares|decorativa para auriculares|'
+                 r'\brepuesto\b|\bde repuesto\b|tubo acustico adicional|(5|10) pares', tn):
+        return 'Almohadillas y repuestos'
+    # Auricular de radio (walkie, PTT, tubo acústico): es un audífono de
+    # cable, aunque el título hable de la radio y no de la forma.
+    if re.search(r'tubo acustico|conducto acustico|air conduit|\bptt\b|[12] ?pines|dos pines|'
+                 r'walkie|intercomunicador|radios? bidireccional|\btactico\b', tn):
+        return 'Earbuds con cable'
     if re.search(r'open[- ]?ear|oido abierto|de clip\b|con clip\b|clip \w*oreja|'
-                 r'conduccion osea|bone conduction', tn):
+                 r'conduccion osea|bone conduction|float run|off-?ear|openwear|open ?wear', tn):
         return 'De oído abierto'
     if re.search(r'\bgamer\b|\bgaming\b|para juegos|para gaming|\bheadset\b.{0,30}(juego|gamer)|'
                  r'\bquantum\b|\bkraken\b|\bcloud (ii|alpha|stinger)\b|\barctis\b|'
@@ -4273,6 +4281,11 @@ def sub_audio(tn):
                      r'\bhd ?\d{2,3}\b(?!.{0,12}bt)|\bmdr[a-z-]*\d|de referencia|audiofil|'
                      r'espalda abierta|open-?back|para mezcla|mastering|\bneumann\b|beyerdynamic|'
                      r'\bbehringer\b|\bakg\b|fiesta silenciosa|silent disco|sobre la cabeza|'
+                     r'discoteca silenciosa|auriculares silenciosos|moondrop|\bdenon\b|\bkrk\b|'
+                     r'\btascam\b|westone|\bshp ?\d{4}|\bkns ?\d|\bth-?mx|\bah-?d ?\d|\byh-?\d{4}|'
+                     r'\bepos\b|\bpoly\b|encorepro|\bpc \d chat\b|adapt \d{3}|\bgamecom\b|'
+                     r'hi-?fi|\bestudio\b|profesionales para|\bdj\b|\bsrh ?\d{3,4}\b|blackwire|'
+                     r'\btune ?[5-9]\d{2}\b|'
                      r'\bcerrados?\b|\babiertos? de\b|aislamiento|\bbdj\b|semi ?abiert', tn):
             return 'Diadema con cable'
         if re.search(r'\bmono\b|monaural|\bcx ?\d|\bie ?\d|\btune ?1\d0\b|\bmobo\b|\bearphone', tn):

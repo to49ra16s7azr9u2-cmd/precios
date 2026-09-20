@@ -4750,15 +4750,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $740",
-      "max": 740
+      "spec": "Hasta $730",
+      "max": 730
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$740 a $2,650",
-      "min": 740,
+      "spec": "$730 a $2,650",
+      "min": 730,
       "max": 2650
      },
      {
@@ -10778,23 +10778,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,400",
-      "max": 1400
+      "spec": "Hasta $1,300",
+      "max": 1300
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,400 a $5,600",
-      "min": 1400,
-      "max": 5600
+      "spec": "$1,300 a $5,550",
+      "min": 1300,
+      "max": 5550
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $5,600",
-      "min": 5600
+      "spec": "Más de $5,550",
+      "min": 5550
      }
     ]
    }
@@ -21420,15 +21420,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $820",
-      "max": 820
+      "spec": "Hasta $830",
+      "max": 830
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$820 a $2,750",
-      "min": 820,
+      "spec": "$830 a $2,750",
+      "min": 830,
       "max": 2750
      },
      {
@@ -21560,23 +21560,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $690",
-      "max": 690
+      "spec": "Hasta $700",
+      "max": 700
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$690 a $3,550",
-      "min": 690,
-      "max": 3550
+      "spec": "$700 a $3,750",
+      "min": 700,
+      "max": 3750
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,550",
-      "min": 3550
+      "spec": "Más de $3,750",
+      "min": 3750
      }
     ]
    }
@@ -21630,15 +21630,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $330",
-      "max": 330
+      "spec": "Hasta $340",
+      "max": 340
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$330 a $630",
-      "min": 330,
+      "spec": "$340 a $630",
+      "min": 340,
       "max": 630
      },
      {
@@ -21649,6 +21649,525 @@
       "min": 630
      }
     ]
+   }
+  ]
+ },
+ "Videojuegos/Consolas PlayStation": {
+  "axes": [
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v825",
+      "name": "825 GB",
+      "use": "",
+      "spec": "825 GB",
+      "values": [
+       825
+      ]
+     },
+     {
+      "id": "v1024",
+      "name": "1,024 GB",
+      "use": "",
+      "spec": "1,024 GB",
+      "values": [
+       1024
+      ]
+     },
+     {
+      "id": "v2048",
+      "name": "2,048 GB",
+      "use": "",
+      "spec": "2,048 GB",
+      "values": [
+       2048
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Cables y adaptadores": {
+  "axes": [
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basico",
+      "name": "Básico",
+      "use": "Pocos juegos a la vez",
+      "spec": "Hasta 120 GB",
+      "max": 120
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedio",
+      "use": "Varios juegos instalados",
+      "spec": "121 GB a 510 GB",
+      "min": 120,
+      "max": 510
+     },
+     {
+      "id": "alto",
+      "name": "Alto",
+      "use": "Toda la biblioteca",
+      "spec": "Más de 510 GB",
+      "min": 510
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Juegos retro y otras plataformas": {
+  "axes": [
+   {
+    "label": "Jugadores",
+    "field": "players_max",
+    "criterion": "que caben",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "solo",
+      "name": "Solitario",
+      "use": "Para jugar solo",
+      "spec": "1 jugador",
+      "max": 1
+     },
+     {
+      "id": "dos",
+      "name": "Para dos",
+      "use": "En pareja o uno contra uno",
+      "spec": "2 jugadores",
+      "min": 1,
+      "max": 2
+     },
+     {
+      "id": "chico",
+      "name": "Grupo chico",
+      "use": "Familia o cuatro amigos",
+      "spec": "3 a 4 jugadores",
+      "min": 2,
+      "max": 4
+     },
+     {
+      "id": "grande",
+      "name": "Grupo grande",
+      "use": "Fiestas y reuniones",
+      "spec": "5 o más",
+      "min": 4
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Consolas Nintendo": {
+  "axes": [
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v32",
+      "name": "32 GB",
+      "use": "",
+      "spec": "32 GB",
+      "values": [
+       32
+      ]
+     },
+     {
+      "id": "v64",
+      "name": "64 GB",
+      "use": "",
+      "spec": "64 GB",
+      "values": [
+       64
+      ]
+     },
+     {
+      "id": "v256",
+      "name": "256 GB",
+      "use": "",
+      "spec": "256 GB",
+      "values": [
+       256
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Videojuegos/Consolas Xbox": {
+  "axes": [
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v500",
+      "name": "500 GB",
+      "use": "",
+      "spec": "500 GB",
+      "values": [
+       500
+      ]
+     },
+     {
+      "id": "v512",
+      "name": "512 GB",
+      "use": "",
+      "spec": "512 GB",
+      "values": [
+       512
+      ]
+     },
+     {
+      "id": "v1024",
+      "name": "1,024 GB",
+      "use": "",
+      "spec": "1,024 GB",
+      "values": [
+       1024
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas Windows y rugged": {
+  "axes": [
+   {
+    "label": "Red",
+    "field": "network_gen",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "4g",
+      "name": "4G",
+      "use": "Suficiente para todo el día",
+      "spec": "4G",
+      "values": [
+       "4g"
+      ]
+     },
+     {
+      "id": "5g",
+      "name": "5G",
+      "use": "La red más rápida",
+      "spec": "5G",
+      "values": [
+       "5g"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas Android de 10 a 11 pulgadas": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Uso ligero",
+      "spec": "Hasta 6,000 mAh",
+      "max": 6000
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Un día completo",
+      "spec": "6,001 mAh a 8,000 mAh",
+      "min": 6000,
+      "max": 8000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Varios días sin cargar",
+      "spec": "Más de 8,000 mAh",
+      "min": 8000
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas Android de 12 pulgadas o más": {
+  "axes": [
+   {
+    "label": "Memoria",
+    "field": "ram_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 4 GB",
+      "max": 4
+     },
+     {
+      "id": "intermedia",
+      "name": "Intermedia",
+      "use": "Varias apps y juegos",
+      "spec": "5 GB a 8 GB",
+      "min": 4,
+      "max": 8
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Edición y estaciones de trabajo",
+      "spec": "Más de 8 GB",
+      "min": 8
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas Android con 4G o 5G": {
+  "axes": [
+   {
+    "label": "Red",
+    "field": "network_gen",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "4g",
+      "name": "4G",
+      "use": "Suficiente para todo el día",
+      "spec": "4G",
+      "values": [
+       "4g"
+      ]
+     },
+     {
+      "id": "5g",
+      "name": "5G",
+      "use": "La red más rápida",
+      "spec": "5G",
+      "values": [
+       "5g"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas para niños": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Uso ligero",
+      "spec": "Hasta 3,500 mAh",
+      "max": 3500
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Un día completo",
+      "spec": "3,501 mAh a 5,000 mAh",
+      "min": 3500,
+      "max": 5000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Varios días sin cargar",
+      "spec": "Más de 5,000 mAh",
+      "min": 5000
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Accesorios para tableta": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v6000",
+      "name": "6,000 mAh",
+      "use": "",
+      "spec": "6,000 mAh",
+      "values": [
+       6000
+      ]
+     },
+     {
+      "id": "v6580",
+      "name": "6,580 mAh",
+      "use": "",
+      "spec": "6,580 mAh",
+      "values": [
+       6580
+      ]
+     },
+     {
+      "id": "v7000",
+      "name": "7,000 mAh",
+      "use": "",
+      "spec": "7,000 mAh",
+      "values": [
+       7000
+      ]
+     },
+     {
+      "id": "v10000",
+      "name": "10,000 mAh",
+      "use": "",
+      "spec": "10,000 mAh",
+      "values": [
+       10000
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas Android de 8 pulgadas o menos": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Uso ligero",
+      "spec": "Hasta 3,500 mAh",
+      "max": 3500
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Un día completo",
+      "spec": "3,501 mAh a 5,100 mAh",
+      "min": 3500,
+      "max": 5100
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Varios días sin cargar",
+      "spec": "Más de 5,100 mAh",
+      "min": 5100
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Tabletas Android": {
+  "axes": [
+   {
+    "label": "Memoria",
+    "field": "ram_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 4 GB",
+      "max": 4
+     },
+     {
+      "id": "intermedia",
+      "name": "Intermedia",
+      "use": "Varias apps y juegos",
+      "spec": "5 GB a 8 GB",
+      "min": 4,
+      "max": 8
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Edición y estaciones de trabajo",
+      "spec": "Más de 8 GB",
+      "min": 8
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Tabletas/Apple": {
+  "axes": [
+   {
+    "label": "Memoria",
+    "field": "ram_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 4 GB",
+      "max": 4
+     },
+     {
+      "id": "intermedia",
+      "name": "Intermedia",
+      "use": "Varias apps y juegos",
+      "spec": "5 GB a 8 GB",
+      "min": 4,
+      "max": 8
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Edición y estaciones de trabajo",
+      "spec": "Más de 8 GB",
+      "min": 8
+     }
+    ],
+    "key": "extra"
    }
   ]
  },
@@ -23017,327 +23536,6 @@
    }
   ]
  },
- "Tabletas/Tabletas Android de 10 a 11 pulgadas": {
-  "axes": [
-   {
-    "label": "Batería",
-    "field": "battery_mah",
-    "criterion": "en mAh",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Uso ligero",
-      "spec": "Hasta 6,000 mAh",
-      "max": 6000
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Un día completo",
-      "spec": "6,001 mAh a 8,000 mAh",
-      "min": 6000,
-      "max": 8000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Varios días sin cargar",
-      "spec": "Más de 8,000 mAh",
-      "min": 8000
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Tabletas/Tabletas Android de 12 pulgadas o más": {
-  "axes": [
-   {
-    "label": "Memoria",
-    "field": "ram_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 4 GB",
-      "max": 4
-     },
-     {
-      "id": "intermedia",
-      "name": "Intermedia",
-      "use": "Varias apps y juegos",
-      "spec": "5 GB a 8 GB",
-      "min": 4,
-      "max": 8
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Edición y estaciones de trabajo",
-      "spec": "Más de 8 GB",
-      "min": 8
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Tabletas/Tabletas Android con 4G o 5G": {
-  "axes": [
-   {
-    "label": "Red",
-    "field": "network_gen",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "4g",
-      "name": "4G",
-      "use": "Suficiente para todo el día",
-      "spec": "4G",
-      "values": [
-       "4g"
-      ]
-     },
-     {
-      "id": "5g",
-      "name": "5G",
-      "use": "La red más rápida",
-      "spec": "5G",
-      "values": [
-       "5g"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Tabletas/Tabletas para niños": {
-  "axes": [
-   {
-    "label": "Batería",
-    "field": "battery_mah",
-    "criterion": "en mAh",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Uso ligero",
-      "spec": "Hasta 3,500 mAh",
-      "max": 3500
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Un día completo",
-      "spec": "3,501 mAh a 5,000 mAh",
-      "min": 3500,
-      "max": 5000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Varios días sin cargar",
-      "spec": "Más de 5,000 mAh",
-      "min": 5000
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Tabletas/Tabletas Windows y rugged": {
-  "axes": [
-   {
-    "label": "Red",
-    "field": "network_gen",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "4g",
-      "name": "4G",
-      "use": "Suficiente para todo el día",
-      "spec": "4G",
-      "values": [
-       "4g"
-      ]
-     },
-     {
-      "id": "5g",
-      "name": "5G",
-      "use": "La red más rápida",
-      "spec": "5G",
-      "values": [
-       "5g"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Tabletas/Accesorios para tableta": {
-  "axes": [
-   {
-    "label": "Batería",
-    "field": "battery_mah",
-    "criterion": "en mAh",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v6000",
-      "name": "6,000 mAh",
-      "use": "",
-      "spec": "6,000 mAh",
-      "values": [
-       6000
-      ]
-     },
-     {
-      "id": "v6580",
-      "name": "6,580 mAh",
-      "use": "",
-      "spec": "6,580 mAh",
-      "values": [
-       6580
-      ]
-     },
-     {
-      "id": "v7000",
-      "name": "7,000 mAh",
-      "use": "",
-      "spec": "7,000 mAh",
-      "values": [
-       7000
-      ]
-     },
-     {
-      "id": "v10000",
-      "name": "10,000 mAh",
-      "use": "",
-      "spec": "10,000 mAh",
-      "values": [
-       10000
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Tabletas/Tabletas Android de 8 pulgadas o menos": {
-  "axes": [
-   {
-    "label": "Batería",
-    "field": "battery_mah",
-    "criterion": "en mAh",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Uso ligero",
-      "spec": "Hasta 3,500 mAh",
-      "max": 3500
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Un día completo",
-      "spec": "3,501 mAh a 5,100 mAh",
-      "min": 3500,
-      "max": 5100
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Varios días sin cargar",
-      "spec": "Más de 5,100 mAh",
-      "min": 5100
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Tabletas/Tabletas Android": {
-  "axes": [
-   {
-    "label": "Memoria",
-    "field": "ram_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 4 GB",
-      "max": 4
-     },
-     {
-      "id": "intermedia",
-      "name": "Intermedia",
-      "use": "Varias apps y juegos",
-      "spec": "5 GB a 8 GB",
-      "min": 4,
-      "max": 8
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Edición y estaciones de trabajo",
-      "spec": "Más de 8 GB",
-      "min": 8
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Tabletas/Apple": {
-  "axes": [
-   {
-    "label": "Memoria",
-    "field": "ram_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 4 GB",
-      "max": 4
-     },
-     {
-      "id": "intermedia",
-      "name": "Intermedia",
-      "use": "Varias apps y juegos",
-      "spec": "5 GB a 8 GB",
-      "min": 4,
-      "max": 8
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Edición y estaciones de trabajo",
-      "spec": "Más de 8 GB",
-      "min": 8
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
  "Domótica y hogar inteligente/Bocinas inteligentes": {
   "axes": [
    {
@@ -24420,204 +24618,6 @@
       "min": 640
      }
     ]
-   }
-  ]
- },
- "Videojuegos/Consolas PlayStation": {
-  "axes": [
-   {
-    "label": "Almacenamiento",
-    "field": "storage_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v825",
-      "name": "825 GB",
-      "use": "",
-      "spec": "825 GB",
-      "values": [
-       825
-      ]
-     },
-     {
-      "id": "v1024",
-      "name": "1,024 GB",
-      "use": "",
-      "spec": "1,024 GB",
-      "values": [
-       1024
-      ]
-     },
-     {
-      "id": "v2048",
-      "name": "2,048 GB",
-      "use": "",
-      "spec": "2,048 GB",
-      "values": [
-       2048
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Videojuegos/Cables y adaptadores": {
-  "axes": [
-   {
-    "label": "Almacenamiento",
-    "field": "storage_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basico",
-      "name": "Básico",
-      "use": "Pocos juegos a la vez",
-      "spec": "Hasta 120 GB",
-      "max": 120
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedio",
-      "use": "Varios juegos instalados",
-      "spec": "121 GB a 510 GB",
-      "min": 120,
-      "max": 510
-     },
-     {
-      "id": "alto",
-      "name": "Alto",
-      "use": "Toda la biblioteca",
-      "spec": "Más de 510 GB",
-      "min": 510
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Videojuegos/Juegos retro y otras plataformas": {
-  "axes": [
-   {
-    "label": "Jugadores",
-    "field": "players_max",
-    "criterion": "que caben",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "solo",
-      "name": "Solitario",
-      "use": "Para jugar solo",
-      "spec": "1 jugador",
-      "max": 1
-     },
-     {
-      "id": "dos",
-      "name": "Para dos",
-      "use": "En pareja o uno contra uno",
-      "spec": "2 jugadores",
-      "min": 1,
-      "max": 2
-     },
-     {
-      "id": "chico",
-      "name": "Grupo chico",
-      "use": "Familia o cuatro amigos",
-      "spec": "3 a 4 jugadores",
-      "min": 2,
-      "max": 4
-     },
-     {
-      "id": "grande",
-      "name": "Grupo grande",
-      "use": "Fiestas y reuniones",
-      "spec": "5 o más",
-      "min": 4
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Videojuegos/Consolas Nintendo": {
-  "axes": [
-   {
-    "label": "Almacenamiento",
-    "field": "storage_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v32",
-      "name": "32 GB",
-      "use": "",
-      "spec": "32 GB",
-      "values": [
-       32
-      ]
-     },
-     {
-      "id": "v64",
-      "name": "64 GB",
-      "use": "",
-      "spec": "64 GB",
-      "values": [
-       64
-      ]
-     },
-     {
-      "id": "v256",
-      "name": "256 GB",
-      "use": "",
-      "spec": "256 GB",
-      "values": [
-       256
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Videojuegos/Consolas Xbox": {
-  "axes": [
-   {
-    "label": "Almacenamiento",
-    "field": "storage_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v500",
-      "name": "500 GB",
-      "use": "",
-      "spec": "500 GB",
-      "values": [
-       500
-      ]
-     },
-     {
-      "id": "v512",
-      "name": "512 GB",
-      "use": "",
-      "spec": "512 GB",
-      "values": [
-       512
-      ]
-     },
-     {
-      "id": "v1024",
-      "name": "1,024 GB",
-      "use": "",
-      "spec": "1,024 GB",
-      "values": [
-       1024
-      ]
-     }
-    ],
-    "key": "extra"
    }
   ]
  },
@@ -34489,41 +34489,6 @@
    }
   ]
  },
- "Deportes y fitness": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$440 a $1,950",
-      "min": 440,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ]
- },
  "Tabletas": {
   "axes": [
    {
@@ -34556,6 +34521,41 @@
      }
     ],
     "key": "extra"
+   }
+  ]
+ },
+ "Deportes y fitness": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $1,950",
+      "min": 440,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
    }
   ]
  },
