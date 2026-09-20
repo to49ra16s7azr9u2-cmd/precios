@@ -2860,11 +2860,13 @@ tr.offer-compare-off { display: none; }
 .home-tab:hover { color: var(--red-dark); border-color: var(--red); }
 .home-tab.is-active { background: var(--card); color: var(--red-dark); border-color: var(--red); }
 /* La primera pestaña es el logo, no texto. */
-.home-tab-marca { padding: 2px 3px; }
+/* Relleno vertical amplio y horizontal mínimo: el aire va arriba y abajo
+   del logo (pedido del usuario, 20-sep) sin quitarle ancho. */
+.home-tab-marca { padding: 9px 3px; }
 /* La inactiva tiene el borde de 1px y la activa de 3px: el relleno
    compensa para que el logo mida lo mismo en las dos y no dé un salto al
    cambiar de pestaña. */
-.home-tab-marca:not(.is-active) { padding-left: 5px; padding-right: 5px; }
+.home-tab-marca:not(.is-active) { padding: 11px 5px; }
 .home-col-left .home-cat-rank, .home-col-left .home-tips { font-size: 12px; }
 .home-tab-marca .hero-logo { display: block; width: 100%; height: auto; }
 .home-tab-marca:not(.is-active) .hero-logo { filter: grayscale(1); opacity: 0.55; }
