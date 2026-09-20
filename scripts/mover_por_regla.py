@@ -556,6 +556,36 @@ REGLAS = [
     ('Teclados', r'pedal (sustain|de expresion|sostenido)|teclado electronico lexibook', None,
      'Instrumentos musicales', 'Bancos, soportes y accesorios de teclado', {None}),
     ('Teclados', r'\bviking pro\b|2 in 1 tablet laptop', None, 'Tabletas', 'Tabletas Windows y rugged', {None}),
+
+    # ---- Segunda tanda de Domótica y Cámaras (20-sep).
+    ('Domótica y hogar inteligente',
+     r'\baiphone\b|\bisonas\b|global cache|\bbrainboxes\b|kb electronics|\batosa\b|\barduino\b|'
+     r'inserto (decorativo|pasacables)|panel de pared para garaje|fibra optica|'
+     r'placa controladora|modulo de seguridad',
+     None, 'Herramientas', 'Material eléctrico', {None}),
+    ('Domótica y hogar inteligente', r'\bbascula\b|body scale', None, 'Salud', 'Básculas', {None}),
+    ('Domótica y hogar inteligente',
+     r'serie navidena|manguera led|starlight headliner|\bfriendship lamp\b',
+     None, 'Iluminación', 'Decorativa', {None}),
+    ('Domótica y hogar inteligente',
+     r'\bpuk grip\b|control (inalambrico )?iine|grip ergonomico para juegos',
+     None, 'Videojuegos', 'Otros accesorios gamer', {None}),
+    ('Domótica y hogar inteligente', r'\beufy\b.{0,20}(llavero|quick arm)|panel solar.{0,10}ring',
+     None, 'Cámaras de seguridad', 'Otros', {None}),
+    ('Domótica y hogar inteligente', r'dispositivo de seguimiento|localizador xiaomi|\btag\b.{0,8}1pz',
+     None, 'Otros', 'Varios', {None}),
+
+    ('Cámaras y fotografía',
+     r'\bring\b.{0,20}(plug|2k|interiores?)|\bblink\b|\bchamberlain\b|\bmyq\b|\baosu\b|'
+     r'\bseco-?larm\b|\blicaevey\b|\bsq11\b|xiaomi (mi home|camara para exterior)|'
+     r'camara (inalambrica )?(pequena )?para (el hogar|oficina)',
+     None, 'Cámaras de seguridad', 'Cámaras interiores', {None}),
+    ('Cámaras y fotografía', r'\bshure\b.{0,20}(blx|sistema inalambrico)|sistema inalambrico de microfono',
+     None, 'Instrumentos musicales', 'Micrófonos', {None}),
+    ('Cámaras y fotografía', r'\bbabycam\b|monitor de video inalambrico en el vehiculo', None,
+     'Juguetes y bebés', 'Monitores de bebé', {None}),
+    ('Cámaras y fotografía', r'para acuarios y terrarios|camara para mascotas', None,
+     'Mascotas', 'Acuarios y terrarios', {None}),
 ]
 
 
@@ -575,7 +605,11 @@ def main():
             subs = regla[5] if len(regla) > 5 else None   # subcategorías de origen a las que se limita
             if p.get('category') != cat or not re.search(si, tn) or (no and re.search(no, tn)):
                 continue
-            if subs is not None and p.get('subcategory') not in subs:
+            # La ficha "sin subcategoría" viene de dos formas, None y cadena
+            # vacía, según por dónde entró al catálogo. Comparar contra {None}
+            # a secas dejaba fuera a las vacías, y con ellas a familias
+            # enteras (los relés DH48S, que son siete fichas iguales).
+            if subs is not None and (p.get('subcategory') or None) not in subs:
                 continue
             s2 = sub2(tn) if callable(sub2) else sub2
             if not s2 or s2 not in reg.get(cat2, ()):

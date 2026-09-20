@@ -3921,6 +3921,20 @@ def sub_juguete(tn):
 
 
 def sub_camara(tn):
+    # Familias que la ronda trajo y no tenían rama (20-sep).
+    if re.search(r'camara de video\b|videocamara|camcorder|\bordro\b|\bzv-?1\b|'
+                 r'camara de (mano|bolsillo)|\by3000\b|camara.{0,20}pantalla de \d', tn):
+        return 'Videocámaras'
+    if re.search(r'gafas (de sol )?con camara|camara de gafas|gafas.{0,20}grabacion|'
+                 r'camara.{0,25}(collar|casco)|\bpov\b', tn):
+        return 'Cámaras de acción'
+    if re.search(r'\bsmile\+?\b|\binstax\b|\bpolaroid\b|camara instantanea', tn):
+        return 'Instantáneas'
+    if re.search(r'\bsigma bf\b', tn):
+        return 'Mirrorless'
+    if re.search(r'^(?:\S+ ){0,5}(montura|ventosa|tapa de lente|cabina 360|'
+                 r'fuente de alimentacion|cable de alimentacion|brazo magico)\b', tn):
+        return 'Accesorios'
     # Compactas por familia de modelo (20-sep): la tienda vende la Kodak
     # PIXPRO y la Minolta MND por su número, sin decir nunca "compacta".
     if re.search(r'\bpixpro\b|\bmnd\d{2}|\bmn\d{2}z\b|\bmn4kp\d|camara puente|'

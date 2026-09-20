@@ -6140,6 +6140,12 @@
     "Cámaras de seguridad": [
       "data/cat/camaras-de-seguridad-1.json"
     ],
+    "Juguetes y bebés": [
+      "data/cat/juguetes-y-bebes-1.json"
+    ],
+    "Mascotas": [
+      "data/cat/mascotas-1.json"
+    ],
     "Almacenamiento": [
       "data/cat/almacenamiento-1.json"
     ],
@@ -6155,9 +6161,6 @@
     ],
     "Juegos de mesa": [
       "data/cat/juegos-de-mesa-1.json"
-    ],
-    "Juguetes y bebés": [
-      "data/cat/juguetes-y-bebes-1.json"
     ],
     "Iluminación": [
       "data/cat/iluminacion-1.json"
@@ -6176,9 +6179,6 @@
     ],
     "Monitores": [
       "data/cat/monitores-1.json"
-    ],
-    "Mascotas": [
-      "data/cat/mascotas-1.json"
     ],
     "Libros": [
       "data/cat/libros-1.json"
@@ -6361,6 +6361,22 @@
     "Cámaras de seguridad": [
       "data/det/camaras-de-seguridad-1.json"
     ],
+    "Juguetes y bebés": [
+      "data/det/juguetes-y-bebes-1.json",
+      "data/det/juguetes-y-bebes-2.json",
+      "data/det/juguetes-y-bebes-3.json",
+      "data/det/juguetes-y-bebes-4.json",
+      "data/det/juguetes-y-bebes-5.json"
+    ],
+    "Mascotas": [
+      "data/det/mascotas-1.json",
+      "data/det/mascotas-2.json",
+      "data/det/mascotas-3.json",
+      "data/det/mascotas-4.json",
+      "data/det/mascotas-5.json",
+      "data/det/mascotas-6.json",
+      "data/det/mascotas-7.json"
+    ],
     "Almacenamiento": [
       "data/det/almacenamiento-1.json",
       "data/det/almacenamiento-2.json"
@@ -6399,13 +6415,6 @@
       "data/det/juegos-de-mesa-1.json",
       "data/det/juegos-de-mesa-2.json"
     ],
-    "Juguetes y bebés": [
-      "data/det/juguetes-y-bebes-1.json",
-      "data/det/juguetes-y-bebes-2.json",
-      "data/det/juguetes-y-bebes-3.json",
-      "data/det/juguetes-y-bebes-4.json",
-      "data/det/juguetes-y-bebes-5.json"
-    ],
     "Iluminación": [
       "data/det/iluminacion-1.json",
       "data/det/iluminacion-2.json",
@@ -6440,15 +6449,6 @@
       "data/det/monitores-3.json",
       "data/det/monitores-4.json",
       "data/det/monitores-5.json"
-    ],
-    "Mascotas": [
-      "data/det/mascotas-1.json",
-      "data/det/mascotas-2.json",
-      "data/det/mascotas-3.json",
-      "data/det/mascotas-4.json",
-      "data/det/mascotas-5.json",
-      "data/det/mascotas-6.json",
-      "data/det/mascotas-7.json"
     ],
     "Libros": [
       "data/det/libros-1.json"
@@ -6763,25 +6763,25 @@
       "maxShip": 76
     },
     "Salud": {
-      "n": 820,
+      "n": 821,
       "subs": {
         "Salud": 137,
         "": 29,
         "Cuidado dental": 281,
         "Equipo de monitoreo médico": 73,
-        "Básculas": 70,
+        "Básculas": 71,
         "Movilidad": 230
       },
       "pop": 20995,
-      "discounted": 289,
+      "discounted": 290,
       "max": 76,
-      "discountedShip": 289,
+      "discountedShip": 290,
       "maxShip": 69
     },
     "Otros": {
-      "n": 4549,
+      "n": 4551,
       "subs": {
-        "Varios": 381,
+        "Varios": 383,
         "": 33,
         "Estaciones de energía": 616,
         "Inversores": 65,
@@ -6798,9 +6798,9 @@
         "Bombas y calentadores solares": 4
       },
       "pop": 5021,
-      "discounted": 510,
+      "discounted": 512,
       "max": 60,
-      "discountedShip": 510,
+      "discountedShip": 512,
       "maxShip": 60
     },
     "Drones": {
@@ -6820,7 +6820,7 @@
       "maxShip": 75
     },
     "Instrumentos musicales": {
-      "n": 16810,
+      "n": 16812,
       "subs": {
         "Accesorios": 281,
         "Accesorios de guitarra": 1056,
@@ -6830,7 +6830,7 @@
         "": 18,
         "Tornamesas": 70,
         "Producción de audio": 199,
-        "Micrófonos": 886,
+        "Micrófonos": 888,
         "Teclados electrónicos": 115,
         "Instrumentos de viento digitales": 141,
         "Pianos digitales": 202,
@@ -6874,13 +6874,13 @@
       "maxShip": 84
     },
     "Videojuegos": {
-      "n": 8942,
+      "n": 8944,
       "subs": {
         "Cargadores, bases y soportes": 377,
         "Cables y adaptadores": 225,
-        "Fundas, micas y protectores": 368,
+        "Fundas, micas y protectores": 369,
         "Realidad virtual": 23,
-        "Controles y gamepads": 761,
+        "Controles y gamepads": 762,
         "Consolas PlayStation": 69,
         "Juegos PS5": 1141,
         "Otros accesorios gamer": 148,
@@ -6896,9 +6896,9 @@
         "Juegos para PC": 5
       },
       "pop": 335855,
-      "discounted": 4135,
+      "discounted": 4137,
       "max": 85,
-      "discountedShip": 4137,
+      "discountedShip": 4139,
       "maxShip": 85
     },
     "Bocinas": {
@@ -6931,10 +6931,10 @@
       "maxShip": 80
     },
     "Herramientas": {
-      "n": 19239,
+      "n": 19252,
       "subs": {
         "Soldadura": 416,
-        "Material eléctrico": 763,
+        "Material eléctrico": 776,
         "Accesorios para herramientas eléctricas": 512,
         "Herramientas manuales": 294,
         "Jardinería": 1555,
@@ -6980,9 +6980,9 @@
         "": 69
       },
       "pop": 182871,
-      "discounted": 6153,
+      "discounted": 6165,
       "max": 80,
-      "discountedShip": 6254,
+      "discountedShip": 6266,
       "maxShip": 80
     },
     "Deportes y fitness": {
@@ -7027,32 +7027,32 @@
       "maxShip": 92
     },
     "Cámaras y fotografía": {
-      "n": 5276,
+      "n": 5262,
       "subs": {
-        "Videocámaras": 1161,
+        "Videocámaras": 1177,
         "Mirrorless": 201,
         "Lentes": 263,
-        "Accesorios": 1062,
-        "Cámaras de acción": 1507,
-        "Instantáneas": 537,
+        "Accesorios": 1066,
+        "Cámaras de acción": 1512,
+        "Instantáneas": 538,
         "Réflex": 45,
         "Compactas": 380,
-        "": 120
+        "": 80
       },
       "pop": 5132,
-      "discounted": 884,
+      "discounted": 879,
       "max": 80,
-      "discountedShip": 884,
+      "discountedShip": 879,
       "maxShip": 80
     },
     "Cámaras de seguridad": {
-      "n": 1525,
+      "n": 1536,
       "subs": {
+        "Cámaras interiores": 424,
         "Cámaras exteriores": 293,
         "Alarmas": 57,
-        "Cámaras interiores": 414,
         "Cámaras PTZ": 93,
-        "Cámaras espía": 54,
+        "Cámaras espía": 55,
         "Kits de vigilancia": 312,
         "Interiores": 240,
         "Sensores": 20,
@@ -7060,10 +7060,101 @@
         "": 12
       },
       "pop": 21357,
-      "discounted": 679,
+      "discounted": 684,
       "max": 81,
-      "discountedShip": 679,
+      "discountedShip": 684,
       "maxShip": 81
+    },
+    "Juguetes y bebés": {
+      "n": 8999,
+      "subs": {
+        "Monitores de bebé": 15,
+        "Juegos de exterior": 54,
+        "Juguetes para bebé": 151,
+        "Bloques de construcción": 800,
+        "Carriolas": 1151,
+        "Figuras de acción": 1259,
+        "Cunas": 26,
+        "Juguetes educativos": 350,
+        "Juguetes musicales": 24,
+        "Muñecas": 1509,
+        "Otros": 15,
+        "Biberones": 36,
+        "Peluches": 575,
+        "Andaderas": 17,
+        "Triciclos": 55,
+        "Corrales": 27,
+        "Sillas de auto": 18,
+        "Pañales y cambio": 198,
+        "Bebés": 764,
+        "Cuidado y salud del bebé": 21,
+        "Vehículos a control remoto": 127,
+        "Baño e higiene del bebé": 117,
+        "Sillas de comer y mecedoras": 87,
+        "Portabebés y canguros": 40,
+        "Ropa y calzado de bebé": 16,
+        "Chupones y mordederas": 119,
+        "Alimentación y lactancia": 376,
+        "Seguridad para bebé": 22,
+        "Montables": 86,
+        "Trampolines": 15,
+        "Juguetes para exterior": 87,
+        "Juegos arcade": 5,
+        "Maquetas": 785,
+        "Vehículos de juguete": 50,
+        "": 2
+      },
+      "pop": 18912,
+      "discounted": 3818,
+      "max": 77,
+      "discountedShip": 3823,
+      "maxShip": 77
+    },
+    "Mascotas": {
+      "n": 12218,
+      "subs": {
+        "Acuarios y terrarios": 32,
+        "Transportadoras": 449,
+        "Higiene y limpieza": 140,
+        "Rascadores y torres": 153,
+        "Casas para mascotas": 1784,
+        "Puertas para mascotas": 743,
+        "Jaulas y hábitats para roedores": 76,
+        "": 102,
+        "Platos y tazones para mascotas": 1601,
+        "Tapetes y accesorios de alimentación": 50,
+        "Comederos automáticos": 469,
+        "Juguetes para perro": 677,
+        "Camas para perro": 799,
+        "Camas para gato": 222,
+        "Camas elevadas y colchonetas": 255,
+        "Cuevas, iglús y tiendas para mascotas": 623,
+        "Camas": 14,
+        "Areneros": 98,
+        "Juguetes": 2,
+        "Juguetes para gato": 198,
+        "Correas": 333,
+        "Fuentes y dispensadores de agua": 206,
+        "Bebederos": 120,
+        "Comederos": 15,
+        "Comederos elevados": 265,
+        "Comederos para aves y roedores": 34,
+        "Comederos lentos y antivoracidad": 146,
+        "Juguetes para aves y roedores": 21,
+        "Jaulas para perro": 1385,
+        "Adiestramiento": 19,
+        "Ropa y accesorios": 84,
+        "Jaulas para aves": 14,
+        "Cojines y mantas para mascotas": 63,
+        "Corrales y rejas para mascotas": 157,
+        "Jaulas y recintos para gato": 823,
+        "Gallineros y conejeras": 46
+      },
+      "pop": 12003,
+      "discounted": 866,
+      "max": 75,
+      "discountedShip": 865,
+      "maxShip": 71
     },
     "Almacenamiento": {
       "n": 2577,
@@ -7267,58 +7358,13 @@
       "discountedShip": 1553,
       "maxShip": 66
     },
-    "Juguetes y bebés": {
-      "n": 8998,
-      "subs": {
-        "Juegos de exterior": 54,
-        "Juguetes para bebé": 151,
-        "Bloques de construcción": 800,
-        "Carriolas": 1151,
-        "Figuras de acción": 1259,
-        "Cunas": 26,
-        "Monitores de bebé": 14,
-        "Juguetes educativos": 350,
-        "Juguetes musicales": 24,
-        "Muñecas": 1509,
-        "Otros": 15,
-        "Biberones": 36,
-        "Peluches": 575,
-        "Andaderas": 17,
-        "Triciclos": 55,
-        "Corrales": 27,
-        "Sillas de auto": 18,
-        "Pañales y cambio": 198,
-        "Bebés": 764,
-        "Cuidado y salud del bebé": 21,
-        "Vehículos a control remoto": 127,
-        "Baño e higiene del bebé": 117,
-        "Sillas de comer y mecedoras": 87,
-        "Portabebés y canguros": 40,
-        "Ropa y calzado de bebé": 16,
-        "Chupones y mordederas": 119,
-        "Alimentación y lactancia": 376,
-        "Seguridad para bebé": 22,
-        "Montables": 86,
-        "Trampolines": 15,
-        "Juguetes para exterior": 87,
-        "Juegos arcade": 5,
-        "Maquetas": 785,
-        "Vehículos de juguete": 50,
-        "": 2
-      },
-      "pop": 18912,
-      "discounted": 3817,
-      "max": 77,
-      "discountedShip": 3822,
-      "maxShip": 77
-    },
     "Iluminación": {
-      "n": 5655,
+      "n": 5658,
       "subs": {
         "Exterior": 449,
         "Focos": 1140,
         "Lámparas de escritorio": 177,
-        "Decorativa": 960,
+        "Decorativa": 963,
         "Lámparas industriales y de nave": 49,
         "Plafones y lámparas de sobreponer": 669,
         "Lámparas colgantes": 578,
@@ -7337,9 +7383,9 @@
         "Ventiladores con luz": 25
       },
       "pop": 6607,
-      "discounted": 2092,
+      "discounted": 2093,
       "max": 80,
-      "discountedShip": 2098,
+      "discountedShip": 2099,
       "maxShip": 78
     },
     "Equipo comercial": {
@@ -7361,7 +7407,7 @@
       "maxShip": 78
     },
     "Domótica y hogar inteligente": {
-      "n": 8617,
+      "n": 8595,
       "subs": {
         "Cerraduras de puerta inteligentes": 1047,
         "Interruptores táctiles y de escena": 184,
@@ -7369,7 +7415,7 @@
         "Controladores e interruptores de luz": 118,
         "Breakers y protectores inteligentes": 134,
         "Tiras LED inteligentes": 85,
-        "": 161,
+        "": 139,
         "Cortinas motorizadas": 212,
         "Sensores": 302,
         "Termostatos": 97,
@@ -7398,9 +7444,9 @@
         "Candados inteligentes": 28
       },
       "pop": 155591,
-      "discounted": 669,
+      "discounted": 650,
       "max": 75,
-      "discountedShip": 671,
+      "discountedShip": 652,
       "maxShip": 72
     },
     "Televisores": {
@@ -7479,52 +7525,6 @@
       "max": 60,
       "discountedShip": 201,
       "maxShip": 60
-    },
-    "Mascotas": {
-      "n": 12217,
-      "subs": {
-        "Transportadoras": 449,
-        "Higiene y limpieza": 140,
-        "Rascadores y torres": 153,
-        "Casas para mascotas": 1784,
-        "Puertas para mascotas": 743,
-        "Jaulas y hábitats para roedores": 76,
-        "": 102,
-        "Platos y tazones para mascotas": 1601,
-        "Tapetes y accesorios de alimentación": 50,
-        "Comederos automáticos": 469,
-        "Juguetes para perro": 677,
-        "Camas para perro": 799,
-        "Camas para gato": 222,
-        "Camas elevadas y colchonetas": 255,
-        "Cuevas, iglús y tiendas para mascotas": 623,
-        "Camas": 14,
-        "Areneros": 98,
-        "Juguetes": 2,
-        "Juguetes para gato": 198,
-        "Correas": 333,
-        "Fuentes y dispensadores de agua": 206,
-        "Bebederos": 120,
-        "Comederos": 15,
-        "Comederos elevados": 265,
-        "Comederos para aves y roedores": 34,
-        "Comederos lentos y antivoracidad": 146,
-        "Juguetes para aves y roedores": 21,
-        "Jaulas para perro": 1385,
-        "Adiestramiento": 19,
-        "Ropa y accesorios": 84,
-        "Jaulas para aves": 14,
-        "Cojines y mantas para mascotas": 63,
-        "Corrales y rejas para mascotas": 157,
-        "Jaulas y recintos para gato": 823,
-        "Gallineros y conejeras": 46,
-        "Acuarios y terrarios": 31
-      },
-      "pop": 12003,
-      "discounted": 866,
-      "max": 75,
-      "discountedShip": 865,
-      "maxShip": 71
     },
     "Libros": {
       "n": 8,
@@ -8181,6 +8181,22 @@
       "p44748",
       "p44754"
     ],
+    "Juguetes y bebés": [
+      "p134601",
+      "p107292",
+      "p225388",
+      "p136103",
+      "p371246",
+      "p136163"
+    ],
+    "Mascotas": [
+      "p32289",
+      "p74693",
+      "p287678",
+      "p29361",
+      "p75051",
+      "p338060"
+    ],
     "Almacenamiento": [
       "p127206",
       "p49515",
@@ -8220,14 +8236,6 @@
       "p288251",
       "p135257",
       "p288196"
-    ],
-    "Juguetes y bebés": [
-      "p134601",
-      "p107292",
-      "p225388",
-      "p136103",
-      "p371246",
-      "p136163"
     ],
     "Iluminación": [
       "p85941",
@@ -8276,14 +8284,6 @@
       "p49016",
       "p375262",
       "p49093"
-    ],
-    "Mascotas": [
-      "p32289",
-      "p74693",
-      "p287678",
-      "p29361",
-      "p75051",
-      "p338060"
     ],
     "Libros": [
       "p310125",
