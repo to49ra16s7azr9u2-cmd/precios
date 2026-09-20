@@ -2782,7 +2782,11 @@ tr.offer-compare-off { display: none; }
    (es el orden del boceto): la marca --que abre las categorías-- y
    "Marcas". La activa se pinta en rojo; la otra queda apagada, para que se
    vea cuál de las dos manda sin tener que leer el texto. */
-.home-tabs { display: flex; flex-direction: column; gap: 4px; }
+/* Las dos entradas van metidas hacia la derecha respecto del resto de la
+   columna (pedido del usuario, 20-sep): así sobresalen del panel como las
+   lengüetas de una carpeta en vez de leerse como una tarjeta más de la
+   columna. El borde derecho no se mueve, que es donde engancha el arco. */
+.home-tabs { display: flex; flex-direction: column; gap: 4px; padding-left: 14px; }
 .home-tab {
   border: 1px solid var(--border);
   border-radius: var(--radius);
