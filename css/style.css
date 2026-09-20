@@ -2738,7 +2738,11 @@ tr.offer-compare-off { display: none; }
 :root { --hueco-inicio: 8px; }
 .home-grid {
   display: grid;
-  grid-template-columns: 208px minmax(0, 1fr) 300px;
+  /* Columna izquierda estrecha (120px, elegido por el usuario el 20-sep
+     sobre tres maquetas): las dos pestañas caben con el logo a la mitad y
+     los rankings van a 12px con puntos suspensivos; el ancho que se ahorra
+     lo gana la rejilla de categorías, que pasa de 4 a 5 columnas. */
+  grid-template-columns: 120px minmax(0, 1fr) 300px;
   /* La fila 1 es sólo la franja de "Más visto" y la 2 el resto. Hace falta
      decirlo: la columna derecha cruza las dos filas y, con filas
      automáticas, su altura se reparte entre ambas -- la fila 1 crecía a
@@ -2780,7 +2784,8 @@ tr.offer-compare-off { display: none; }
 .home-tab:hover { color: var(--red-dark); border-color: var(--red); }
 .home-tab.is-active { background: var(--card); color: var(--red-dark); border-color: var(--red); }
 /* La primera pestaña es el logo, no texto. */
-.home-tab-marca { padding: 7px 9px; }
+.home-tab-marca { padding: 5px 6px; }
+.home-col-left .home-cat-rank, .home-col-left .home-side-list, .home-col-left .home-tips { font-size: 12px; }
 .home-tab-marca .hero-logo { display: block; width: 100%; height: auto; }
 .home-tab-marca:not(.is-active) .hero-logo { filter: grayscale(1); opacity: 0.55; }
 
@@ -2800,13 +2805,25 @@ tr.offer-compare-off { display: none; }
   background: var(--card);
 }
 .home-center-frame .home-elige { margin-top: 0; }
+/* El orden de pintado se fija en las COLUMNAS, no en la pestaña: la
+   columna izquierda queda siempre encima de la central, así el puente tapa
+   el borde izquierdo del marco pase lo que pase con los contextos de
+   apilamiento de cada navegador (en Windows el marco se pintaba encima y
+   se veían las dos líneas por separado). */
+.home-col-left { position: relative; z-index: 2; }
+.home-col-center { position: relative; z-index: 1; }
 .home-tab.is-active {
   position: relative;
-  z-index: 2;
   border-width: 3px;
   border-color: var(--tab-color);
-  border-right-color: transparent;
+  /* Sin borde derecho (ni transparente: algún navegador lo pintaba
+     oscuro): la pestaña queda abierta hacia el panel. Las esquinas de ese
+     lado van rectas para que la línea siga derecha hasta el marco. */
+  border-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
+.home-tab-marca.is-active { padding-right: 9px; }
 .home-tab.is-active::after {
   content: "";
   position: absolute;
@@ -2819,6 +2836,10 @@ tr.offer-compare-off { display: none; }
   border-top: 3px solid var(--tab-color);
   border-bottom: 3px solid var(--tab-color);
 }
+/* Con "Compara precios" activa, la pestaña arranca a la misma altura que
+   el marco: la esquina superior izquierda del marco va recta para que el
+   borde de arriba sea una sola línea de la pestaña al panel. */
+.home-grid[data-home-tab="precios"] .home-center-frame { border-top-left-radius: 0; }
 
 /* Rejilla de marcas de la pestaña "Marcas" de la portada. Prefijo
    home- a propósito: .brand-grid/.brand-card ya existen más abajo, son las
@@ -3106,8 +3127,10 @@ tr.offer-compare-off { display: none; }
   .home-col-left .home-cat-rank { flex: 1 1 100%; }
   .home-tabs { flex: 1 1 100%; flex-direction: row; }
   .home-tab-marca .hero-logo { max-width: 160px; }
-  .home-tab.is-active { border-right-color: var(--tab-color); }
+  .home-tab.is-active { border-right: 3px solid var(--tab-color); border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+  .home-tab-marca.is-active { padding-right: 6px; }
   .home-tab.is-active::after { display: none; }
+  .home-grid[data-home-tab="precios"] .home-center-frame { border-top-left-radius: var(--radius); }
 }
 @media (max-width: 720px) {
   .home-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
