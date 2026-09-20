@@ -4474,13 +4474,38 @@ RX_DIADEMA = re.compile(r'diadema|over[- ]ear|on[- ]ear|circumaural|supra ?a?ura
                         r'over the ear|around[- ]ear|\bgamer\b.{0,20}(microfono|mic\b)|'
                         r'\bheadphones?\b|\bheadset\b|\bcascos?\b|\bvincha\b|banda para la cabeza|'
                         r'conduccion osea|bone conduction|\bwh-?\d|\bhd ?[2-9]\d{2}\b|\bath-m\d|\bdt ?\d{3}\b|'
-                        r'\bqc ?\d{2}\b|quietcomfort|\bmomentum \d|\bxm[3-6]\b|crusher|hesh')
+                        r'\bqc ?\d{2}\b|quietcomfort|\bmomentum \d|\bxm[3-6]\b|crusher|hesh|'
+                        # Familias de diadema que solo se nombran por modelo
+                        # (20-sep). El \b final de "hd 400" sobraba: el
+                        # catálogo escribe "HD 400S" y no enganchaba.
+                        r'\bhd ?[2-9]\d{2}|\bpx[5-9]\b|\bhmd ?\d|amperior|\baccentum\b(?! ?clip)|'
+                        r'\bbathys\b|azurys|hadenys|celestee|clear mg|focal listen|\baudeze\b|'
+                        r'\blcd-?\d|\bmaxwell\b|heddphone|\bvsx\b|\bkse ?\d{4}|se-master|'
+                        r'\brhp ?\d|\bnth-?\d{3}|\bevolve ?2?\b|perform ?\d{2}|zone ?9\d{2}|'
+                        r'surface headphones|positive vibration|nicecomfort|\bbowie\b|inspire xp|'
+                        r'\brig ?\d{3}|\bairman\b|\bkhs-?\d|alchem-?e|\bcs-t\d|\bepg\d{3}|'
+                        r'\bzx ?\d{3}\b|ult wear|\bm-?200\b|v-?moda|dyson zone|\bbphs ?\d|'
+                        r'\bath-?m\d|bowers|wilkins|sonorous|para dormir|\bsrh ?\d{3,4}\b|'
+                        r'detras de la cabeza|sobre la cabeza|'
+                        r'\bzx ?\d{3}|\bwh-?ch\d|\bwhult|\bmdr-?zx|cleardryve|'
+                        r'microsoft surface \d|\bproset-?\d|\bhosa\b|\bew-?d\b|\bsl dw|'
+                        r'fiestas? silenciosas?|hamilton|\beartec\b|\baccsoon\b|\btv ears\b|'
+                        r'lamborghini|star wars|opennote|auricular(es)? host|desechables|'
+                        r'escucha de cd|\bsloflo\b|\bhuracan\b')
 RX_EARBUD  = re.compile(r'in[- ]ear|earbuds?\b|\btws\b|true wireless|intraura|intraaura|intraudit|'
                         r'de boton\b|\bbotones?\b(?!.*grandes)|earphones?\b|\bairpods?\b|\bbuds\b|'
                         r'intrauricular|monitor(es)? in ?ear|\biem\b|\bcanalphone|'
                         r'banda para el cuello|neckband|de cuello|\bwf-?\d|\bie ?\d{3}\b|\bse ?\d{3}\b|'
                         r'\bfreebuds\b|\bgalaxy buds\b|\bpods\b|gancho (para|de) (la )?oreja|clip de oreja|ear ?hook|'
-                        r'\bsemi-?in-?ear\b|auriculares? de boton')
+                        r'\bsemi-?in-?ear\b|auriculares? de boton|'
+                        # Familias de botón que tampoco dicen la forma: los
+                        # IEM de audiófilo y los traductores, que son todos
+                        # de botón porque se llevan en el oído todo el día.
+                        r'\bwf[a-z]?\d{3}|truthear|thieaudio|linsoul|\bdunu\b|\bse ?2\d{2}\b|'
+                        r'\bhafx|\bue ?600|\btws ?\d|\ba30i\b|ear koko|momentum sport|'
+                        r'accentum clip|traducci[oó]n|traductor|interpreter|\bplugfones\b|'
+                        r'\bam61\b|tipo-?c|type-?c|intraoseo|\bkd100\b|\bmp-?240\b|'
+                        r'monitores internos')
 # Se probó agregar "\bbt\b", "anc" y "cancelación de ruido" para rescatar
 # los títulos que llevan la conexión en la sigla ("Jbl Tune 530 Bt"), y la
 # regresión lo tiró: la cancelación activa SÍ existe con cable --Jabra
@@ -4548,7 +4573,10 @@ def sub_audio(tn):
         # estudio, de monitoreo y el USB de oficina son diademas con cable;
         # el mono de 3.5 mm y las familias CX/IE/Tune 1x0 son de botón con
         # cable; las familias Buds/FreeClip/Pods son de botón inalámbricas.
-        if re.search(r'almohadilla|earpad|repuesto|reemplazo|eartip|puntas de silicona|cuernos', tn):
+        if re.search(r'almohadilla|earpad|repuesto|reemplazo|eartip|puntas de silicona|cuernos|'
+                     r'cargador.{0,30}(audifonos|auriculares)|secador de audifonos|'
+                     r'cordon (para|antiperdida)|baterias para audifonos|clip de soporte|'
+                     r'correa para audifono|auriculares suaves', tn):
             return 'Almohadillas y repuestos'
         if re.search(r'para ninos|\bkids?\b|infantil|\bninos\b|\bninas\b|\bdisney\b|minnie|'
                      r'\bfrozen\b|paw patrol|\bpeppa\b', tn):
@@ -4556,7 +4584,8 @@ def sub_audio(tn):
         if re.search(r'deportiv|\brunning\b|para correr|\bgancho de oreja\b|\bip6[78]\b', tn):
             return 'Earbuds deportivos'
         if re.search(r'\bcorsair\b|\bhyperx\b|\bastro a\d|\blogitech g\d|\bhs\d{2}\b|'
-                     r'turtle beach|\bsteelseries\b|\brazer\b|\bgamer\b|\bgaming\b', tn):
+                     r'turtle beach|\bsteelseries\b|\brazer\b|\bgamer\b|\bgaming\b|'
+                     r'\bg7\d{2}\b|auriculares? de(l)? juego|\b7\.1\b|para videojuegos', tn):
             return 'Gamer'
         if re.search(r'\bdj\b|\bhdj\b|monitoreo|de estudio|\bstudio\b|\bmonitor\b|\busb\b|'
                      r'\bhph-?\d|\brh-?\d|\bk\d{3}\b|multimedia|\bcall center\b|\boffice\b|'

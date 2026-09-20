@@ -694,8 +694,24 @@ _AUD = _c([
 ])
 
 
-def sub_audifono_inal(tn):
-    return _primera(tn, _AUD, {'Earbuds inalámbricos': 60, 'Diadema inalámbrica': 8, 'Earbuds de cuello': 10, 'Earbuds deportivos': 6})
+_RX_ANC = re.compile(r'cancelacion (activa )?de ruido|\banc\b|noise cancel')
+
+
+def sub_audifono_inal(tn, sub_vieja=None):
+    s = _primera(tn, _AUD, {'Earbuds inalámbricos': 60, 'Diadema inalámbrica': 8,
+                            'Earbuds de cuello': 10, 'Earbuds deportivos': 6})
+    # El despachador ya decidió la forma (diadema o botón) mirando el modelo;
+    # acá solo se elige DENTRO de esa familia. Sin esto un "Sennheiser HD
+    # 400S", bien puesto en Diadema, salía como Earbuds: la palabra
+    # "audífono" del título cae en la rama de botón y ninguna de diadema
+    # engancha, porque el título nunca dice "diadema".
+    if s and sub_vieja and s != 'Almohadillas y repuestos':
+        anc = bool(_RX_ANC.search(tn))
+        if sub_vieja.startswith('Diadema') and s.startswith('Earbuds'):
+            return 'Diadema con cancelación de ruido' if anc else 'Diadema inalámbrica'
+        if sub_vieja.startswith('Earbuds') and s.startswith('Diadema'):
+            return 'Earbuds con cancelación de ruido' if anc else 'Earbuds inalámbricos'
+    return s
 
 
 # ------------------------------------------------------------ Muebles
@@ -1040,7 +1056,7 @@ OLA2 += [
     ('Instrumentos musicales', ['Baterías'], BATERIAS + ['Percusión'], lambda tn, sv: sub_bateria_musical(tn), None),
     ('Instrumentos musicales', ['Viento'], VIENTO, lambda tn, sv: sub_viento(tn), None),
     ('Instrumentos musicales', ['Teclados'], TECLADOS_MUS, lambda tn, sv: sub_teclado_musical(tn), None),
-    ('Audífonos', ['Earbuds inalámbricos', 'Diadema inalámbrica'], AUDIFONOS_INAL, lambda tn, sv: sub_audifono_inal(tn), None),
+    ('Audífonos', ['Earbuds inalámbricos', 'Diadema inalámbrica'], AUDIFONOS_INAL, lambda tn, sv: sub_audifono_inal(tn, sv), None),
     ('Muebles', ['Colchones'], COLCHONES, lambda tn, sv: sub_colchon(tn), None),
     ('Muebles', ['Escritorios'], ESCRITORIOS, lambda tn, sv: sub_escritorio(tn), None),
     # Con resto: el sofá que no dice de qué tipo es ("Sala 3 2 1", "sofá

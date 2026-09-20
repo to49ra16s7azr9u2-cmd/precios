@@ -467,6 +467,37 @@ REGLAS = [
      r'enfriador)\b|\bm\.?2 ngff\b|\bmsata\b|so-?dimm a desktop|dimm memory.{0,20}connector',
      r'\b(core i[3579]|ryzen|celeron|intel|amd)\b.{0,40}\b(ram|ssd|gb)\b',
      'Componentes y accesorios de PC', 'Accesorios'),
+
+    # ---- Audífonos (20-sep). "Audífono" es el auricular Y el aparato para
+    # oír: los cargadores Starkey, las pilas HearClear y los transductores de
+    # audiómetro son productos médicos. Y el rubro junta además el teléfono
+    # que viene "+ audífonos de regalo".
+    ('Audífonos',
+     r'\bstarkey\b|hearclear|baterias para audifonos|\baudiometro\b|\btdh39\b|\bdd45\b|'
+     r'conversation enhancing|\bbte\b|para personas mayores.{0,30}audifono',
+     None, 'Salud', 'Salud', {None}),
+    ('Audífonos', r'^(?:\S+ ){0,3}(honor|oppo|samsung galaxy|xiaomi redmi|motorola)\b.{0,40}\bgb\b',
+     None, 'Celulares', 'Android', {None}),
+    ('Audífonos', r'posee \d auriculares.{0,20}agenda', None, 'Celulares', 'Teléfonos fijos', {None}),
+    ('Audífonos', r'^(?:\S+ ){0,3}(bolsa|funda) para tablet', None, 'Tabletas', 'Accesorios para tableta', {None}),
+    ('Audífonos', r'cane creek|\bzs44\b|\bzs56\b', None,
+     'Autos, bicicletas y motos', 'Refacciones y transmisión de bicicleta', {None}),
+    ('Audífonos', r'auriculares falso|para disfraz', None, 'Otros', 'Varios', {None}),
+    ('Audífonos', r'^(?:\S+ ){0,3}(teclado|amplificador|pedal|bateria de silicona|guitarra)\b|'
+     r'\bomnichord\b|\bblackstar\b|\bamplug\b|liberlive|steinberg ur\d|fonografo',
+     None, 'Instrumentos musicales', 'Accesorios', {None}),
+    ('Audífonos', r'^(?:\S+ ){0,3}microfono\b|\bfifine\b|\bjyx\b|preamplificador de microfono',
+     # El audífono con micrófono sigue siendo un audífono, y el micrófono de
+     # repuesto de un headset es un repuesto de audífono.
+     r'\baudifono|\bauricular|\bheadset\b|\bdiadema\b|\breemplazo\b|\bg7\d{2}\b',
+     'Instrumentos musicales', 'Micrófonos', {None}),
+    ('Audífonos', r'wall mount de pared ps5|ventilador de refrigeracion rgb.{0,20}xbox|para consola xbox',
+     None, 'Videojuegos', 'Otros accesorios gamer', {None}),
+    ('Audífonos', r'^(?:\S+ ){0,4}(mini )?radio (digital )?fm|receptor de radio portatil',
+     None, 'Bocinas', 'Radios y reproductores', {None}),
+    ('Audífonos', r'kit de soldadura', None, 'Herramientas', 'Soldadura', {None}),
+    ('Audífonos', r'kit de audio portero', None, 'Domótica y hogar inteligente', 'Videoporteros', {None}),
+    ('Audífonos', r'compatible con dji', None, 'Drones', 'Accesorios', {None}),
 ]
 
 
