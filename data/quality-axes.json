@@ -10818,6 +10818,741 @@
    }
   ]
  },
+ "Cocina y comedor/Utensilios de cocina": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $890",
+      "min": 540,
+      "max": 890
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $890",
+      "min": 890
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Organización de cocina": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $830",
+      "max": 830
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$830 a $4,400",
+      "min": 830,
+      "max": 4400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,400",
+      "min": 4400
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Botellas de agua": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $480",
+      "max": 480
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$480 a $810",
+      "min": 480,
+      "max": 810
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $810",
+      "min": 810
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Botellas de vidrio y plástico": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $600",
+      "min": 290,
+      "max": 600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $600",
+      "min": 600
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Termos y botellas térmicas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $560",
+      "max": 560
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$560 a $800",
+      "min": 560,
+      "max": 800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $800",
+      "min": 800
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Contenedores herméticos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $490",
+      "max": 490
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$490 a $2,000",
+      "min": 490,
+      "max": 2000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,000",
+      "min": 2000
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Vasos térmicos y de viaje": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $820",
+      "max": 820
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$820 a $1,150",
+      "min": 820,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Tarros y frascos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $700",
+      "max": 700
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$700 a $980",
+      "min": 700,
+      "max": 980
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $980",
+      "min": 980
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Desechables": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $450",
+      "max": 450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$450 a $820",
+      "min": 450,
+      "max": 820
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $820",
+      "min": 820
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Tazas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $530",
+      "max": 530
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$530 a $720",
+      "min": 530,
+      "max": 720
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $720",
+      "min": 720
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Baterías de cocina": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,300",
+      "max": 1300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,300 a $2,450",
+      "min": 1300,
+      "max": 2450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,450",
+      "min": 2450
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Cubiertos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $450",
+      "max": 450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$450 a $930",
+      "min": 450,
+      "max": 930
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $930",
+      "min": 930
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Sartenes y comales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $760",
+      "max": 760
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$760 a $2,200",
+      "min": 760,
+      "max": 2200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,200",
+      "min": 2200
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Ollas y cacerolas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $2,250",
+      "min": 1050,
+      "max": 2250
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,250",
+      "min": 2250
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Platos y bowls": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $520",
+      "max": 520
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$520 a $910",
+      "min": 520,
+      "max": 910
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $910",
+      "min": 910
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Cuchillos y tablas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $910",
+      "min": 430,
+      "max": 910
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $910",
+      "min": 910
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Repostería y moldes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $550",
+      "max": 550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$550 a $750",
+      "min": 550,
+      "max": 750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $750",
+      "min": 750
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Vasos y copas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $560",
+      "max": 560
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$560 a $860",
+      "min": 560,
+      "max": 860
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $860",
+      "min": 860
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Bar y coctelería": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,100",
+      "max": 1100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,100 a $2,750",
+      "min": 1100,
+      "max": 2750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,750",
+      "min": 2750
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Vajillas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $950",
+      "max": 950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$950 a $2,200",
+      "min": 950,
+      "max": 2200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,200",
+      "min": 2200
+     }
+    ]
+   }
+  ]
+ },
+ "Cocina y comedor/Jarras y dispensadores de bebidas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $760",
+      "max": 760
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$760 a $1,250",
+      "min": 760,
+      "max": 1250
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,250",
+      "min": 1250
+     }
+    ]
+   }
+  ]
+ },
  "Iluminación/Tiras LED": {
   "axes": [
    {
@@ -21999,741 +22734,6 @@
   ],
   "intro": "Elige por tu trayecto: distancia y subidas."
  },
- "Cocina y comedor/Organización de cocina": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $830",
-      "max": 830
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$830 a $4,400",
-      "min": 830,
-      "max": 4400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,400",
-      "min": 4400
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Utensilios de cocina": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $540",
-      "max": 540
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$540 a $920",
-      "min": 540,
-      "max": 920
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $920",
-      "min": 920
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Botellas de agua": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $480",
-      "max": 480
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$480 a $810",
-      "min": 480,
-      "max": 810
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $810",
-      "min": 810
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Botellas de vidrio y plástico": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $600",
-      "min": 290,
-      "max": 600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $600",
-      "min": 600
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Termos y botellas térmicas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $560",
-      "max": 560
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$560 a $800",
-      "min": 560,
-      "max": 800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $800",
-      "min": 800
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Contenedores herméticos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $490",
-      "max": 490
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$490 a $2,000",
-      "min": 490,
-      "max": 2000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,000",
-      "min": 2000
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Vasos térmicos y de viaje": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $820",
-      "max": 820
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$820 a $1,150",
-      "min": 820,
-      "max": 1150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Tarros y frascos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $700",
-      "max": 700
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$700 a $980",
-      "min": 700,
-      "max": 980
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $980",
-      "min": 980
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Desechables": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $450",
-      "max": 450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$450 a $820",
-      "min": 450,
-      "max": 820
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $820",
-      "min": 820
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Tazas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $530",
-      "max": 530
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$530 a $720",
-      "min": 530,
-      "max": 720
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $720",
-      "min": 720
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Baterías de cocina": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,300 a $2,450",
-      "min": 1300,
-      "max": 2450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,450",
-      "min": 2450
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Cubiertos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $450",
-      "max": 450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$450 a $930",
-      "min": 450,
-      "max": 930
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $930",
-      "min": 930
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Sartenes y comales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $760",
-      "max": 760
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$760 a $2,200",
-      "min": 760,
-      "max": 2200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,200",
-      "min": 2200
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Ollas y cacerolas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,050",
-      "max": 1050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,050 a $2,250",
-      "min": 1050,
-      "max": 2250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,250",
-      "min": 2250
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Platos y bowls": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $520",
-      "max": 520
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$520 a $910",
-      "min": 520,
-      "max": 910
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $910",
-      "min": 910
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Cuchillos y tablas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$430 a $910",
-      "min": 430,
-      "max": 910
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $910",
-      "min": 910
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Repostería y moldes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $550",
-      "max": 550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$550 a $750",
-      "min": 550,
-      "max": 750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $750",
-      "min": 750
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Vasos y copas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $560",
-      "max": 560
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$560 a $860",
-      "min": 560,
-      "max": 860
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $860",
-      "min": 860
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Bar y coctelería": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,100",
-      "max": 1100
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,100 a $2,750",
-      "min": 1100,
-      "max": 2750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,750",
-      "min": 2750
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Vajillas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $950",
-      "max": 950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$950 a $2,200",
-      "min": 950,
-      "max": 2200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,200",
-      "min": 2200
-     }
-    ]
-   }
-  ]
- },
- "Cocina y comedor/Jarras y dispensadores de bebidas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $760",
-      "max": 760
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$760 a $1,250",
-      "min": 760,
-      "max": 1250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,250",
-      "min": 1250
-     }
-    ]
-   }
-  ]
- },
  "Joyería y bisutería/Dijes y charms": {
   "axes": [
    {
@@ -27195,6 +27195,216 @@
      }
     ],
     "key": "extra"
+   }
+  ]
+ },
+ "Suplementos/Herbolaria y superalimentos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $1,050",
+      "min": 430,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Suplementos/Antioxidantes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,300",
+      "max": 1300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,300 a $2,150",
+      "min": 1300,
+      "max": 2150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,150",
+      "min": 2150
+     }
+    ]
+   }
+  ]
+ },
+ "Suplementos/Colágeno": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $610",
+      "max": 610
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$610 a $1,100",
+      "min": 610,
+      "max": 1100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,100",
+      "min": 1100
+     }
+    ]
+   }
+  ]
+ },
+ "Suplementos/Probióticos y prebióticos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $640",
+      "max": 640
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$640 a $1,550",
+      "min": 640,
+      "max": 1550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,550",
+      "min": 1550
+     }
+    ]
+   }
+  ]
+ },
+ "Suplementos/Enzimas, fibra y digestivos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,000",
+      "max": 1000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,000 a $1,350",
+      "min": 1000,
+      "max": 1350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,350",
+      "min": 1350
+     }
+    ]
+   }
+  ]
+ },
+ "Suplementos/Omega 3 y aceites": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,150",
+      "max": 1150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,150 a $2,500",
+      "min": 1150,
+      "max": 2500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,500",
+      "min": 2500
+     }
+    ]
    }
   ]
  },
@@ -32030,23 +32240,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $6,000",
-      "max": 6000
+      "spec": "Hasta $6,600",
+      "max": 6600
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$6,000 a $13,000",
-      "min": 6000,
-      "max": 13000
+      "spec": "$6,600 a $13,500",
+      "min": 6600,
+      "max": 13500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $13,000",
-      "min": 13000
+      "spec": "Más de $13,500",
+      "min": 13500
      }
     ]
    }
@@ -32065,15 +32275,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $11,000",
-      "max": 11000
+      "spec": "Hasta $14,000",
+      "max": 14000
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$11,000 a $34,000",
-      "min": 11000,
+      "spec": "$14,000 a $34,000",
+      "min": 14000,
       "max": 34000
      },
      {
@@ -32280,216 +32490,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,150",
       "min": 1150
-     }
-    ]
-   }
-  ]
- },
- "Suplementos/Colágeno": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $610",
-      "max": 610
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$610 a $1,100",
-      "min": 610,
-      "max": 1100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,100",
-      "min": 1100
-     }
-    ]
-   }
-  ]
- },
- "Suplementos/Antioxidantes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,300 a $2,300",
-      "min": 1300,
-      "max": 2300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,300",
-      "min": 2300
-     }
-    ]
-   }
-  ]
- },
- "Suplementos/Probióticos y prebióticos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $640",
-      "max": 640
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$640 a $1,550",
-      "min": 640,
-      "max": 1550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,550",
-      "min": 1550
-     }
-    ]
-   }
-  ]
- },
- "Suplementos/Herbolaria y superalimentos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $610",
-      "max": 610
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$610 a $1,700",
-      "min": 610,
-      "max": 1700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,700",
-      "min": 1700
-     }
-    ]
-   }
-  ]
- },
- "Suplementos/Enzimas, fibra y digestivos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,000 a $1,350",
-      "min": 1000,
-      "max": 1350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,350",
-      "min": 1350
-     }
-    ]
-   }
-  ]
- },
- "Suplementos/Omega 3 y aceites": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,150",
-      "max": 1150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,150 a $2,500",
-      "min": 1150,
-      "max": 2500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,500",
-      "min": 2500
      }
     ]
    }
@@ -34121,6 +34121,41 @@
    }
   ]
  },
+ "Cocina y comedor": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $580",
+      "max": 580
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$580 a $960",
+      "min": 580,
+      "max": 960
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $960",
+      "min": 960
+     }
+    ]
+   }
+  ]
+ },
  "Iluminación": {
   "axes": [
    {
@@ -34739,41 +34774,6 @@
   ],
   "intro": "Elige por tu trayecto: distancia y subidas."
  },
- "Cocina y comedor": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $580",
-      "max": 580
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$580 a $960",
-      "min": 580,
-      "max": 960
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $960",
-      "min": 960
-     }
-    ]
-   }
-  ]
- },
  "Joyería y bisutería": {
   "axes": [
    {
@@ -35129,6 +35129,41 @@
    }
   ]
  },
+ "Suplementos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $610",
+      "max": 610
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$610 a $1,450",
+      "min": 610,
+      "max": 1450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,450",
+      "min": 1450
+     }
+    ]
+   }
+  ]
+ },
  "Domótica y hogar inteligente": {
   "axes": [
    {
@@ -35464,23 +35499,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $3,500",
-      "max": 3500
+      "spec": "Hasta $3,750",
+      "max": 3750
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$3,500 a $11,500",
-      "min": 3500,
-      "max": 11500
+      "spec": "$3,750 a $12,000",
+      "min": 3750,
+      "max": 12000
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $11,500",
-      "min": 11500
+      "spec": "Más de $12,000",
+      "min": 12000
      }
     ]
    }
@@ -35547,41 +35582,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,650",
       "min": 1650
-     }
-    ]
-   }
-  ]
- },
- "Suplementos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $680",
-      "max": 680
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$680 a $1,500",
-      "min": 680,
-      "max": 1500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,500",
-      "min": 1500
      }
     ]
    }

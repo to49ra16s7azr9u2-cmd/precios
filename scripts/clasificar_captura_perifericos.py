@@ -4302,6 +4302,12 @@ def sub_aspiradora(tn):
     # El resto es la aspiradora de casa. El catálogo mete aquí también las de
     # cable (Atrix ERGO Lite, SIPPON vertical), así que el nombre de la
     # subcategoría se queda corto pero la convención ya está tomada.
+    # El repuesto no es la aspiradora: el filtro, la boquilla, el cepillo y
+    # el cable de carga caían en 'Portátiles' porque era el final del camino.
+    if re.search(r'\bfiltros?\b|\bboquillas?\b|\bcepillos? (de|para)\b|\bmangueras?\b|'
+                 r'\bbolsas? (de|para)\b|\brepuestos?\b|cable de carga|'
+                 r'\baccesorios?\b|\bextension(es)?\b|\badaptador\b', tn):
+        return 'Accesorios'
     return 'Portátiles'
 
 def sub_refri(tn):
@@ -4316,6 +4322,15 @@ def sub_refri(tn):
     if re.search(r'\bmini\b|frigobar|compact[ao]|personal|portatil|de encimera|'
                  r'refrigerador de bebidas', tn):
         return 'Frigobares'
+    # Igual que la aspiradora: el tapón de drenaje, el foco, el termistor y
+    # el termómetro de gancho salían como refrigeradores porque no había más
+    # ramas después. Se quedan sin subcategoría y mover_por_regla los manda a
+    # Refacciones, que es donde se buscan.
+    if re.search(r'\btapon(es)?\b|\btermometro\b|\btermistor\b|\bsensor\b|\bfoco\b|'
+                 r'\bsonda\b|medidor de temperatura|indicador de temperatura|'
+                 r'\brepuesto\b|\bempaque\b|\bbisagra\b|barra divisoria|'
+                 r'\bcerradura\b|\bcandado\b|filtro de agua', tn):
+        return None
     return 'Refrigeradores'
 
 def sub_cafetera(tn):
@@ -4398,6 +4413,15 @@ def sub_celular(tn):
     return 'Android'
 
 def sub_tableta(tn):
+    # "Tableta" es la pantalla Y la forma farmacéutica: el catálogo tenía 113
+    # cajas de suplementos y medicamentos ("Espirulina 180 tabletas de 500 mg",
+    # "Zyrtec 10 mg c/10 tabletas") listadas como tabletas Android, y como son
+    # baratas encabezaban la categoría. El mg es la seña que ninguna tableta
+    # electrónica trae.
+    if re.search(r'\b\d+(\.\d+)? ?mg\b|\bcomprimidos?\b|\bgrageas?\b|'
+                 r'caja con \d+ tabletas|solucion inyectable|\bjarabe\b|'
+                 r'suplemento alimenticio', tn):
+        return None
     return 'Apple' if 'ipad' in tn else 'Android'
 
 # La marca del celular cuando abre el título y no está en MARCAS: "vivo" y

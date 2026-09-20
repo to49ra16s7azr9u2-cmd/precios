@@ -31,7 +31,7 @@ import sys
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 from data_io import load_catalog  # noqa: E402
-from subcategorias_finas import sub_cocina_fino  # noqa: E402
+from subcategorias_finas import sub_cocina_fino, sub_suplemento_fino  # noqa: E402
 import subcategorias_finas_ola2 as ola2  # noqa: E402
 
 
@@ -429,6 +429,23 @@ REGLAS = [
     ('Celulares', r'almohadilla calefactora de pantalla|maquina laser|separadora', None,
      'Herramientas', 'Accesorios para herramientas eléctricas'),
     ('Celulares', r'^(?:\S+ ){0,3}(taza|vaso)\b', None, 'Cocina y comedor', 'Tazas'),
+
+    # ---- Auditoría de despachadores (20-sep). "Tableta" es la pantalla y la
+    # forma farmacéutica: 113 cajas de suplementos estaban listadas como
+    # tabletas Android. No se limita a las fichas sin subcategoría porque el
+    # problema es justamente que tienen una.
+    ('Tabletas',
+     r'\b\d+(\.\d+)? ?mg\b|\bcomprimidos?\b|\bgrageas?\b|caja con \d+ tabletas|'
+     r'suplemento alimenticio',
+     r'\bram\b|\brom\b|\bgb\b|\bpulgadas\b|\bandroid\b|\bwifi\b',
+     'Suplementos', lambda tn: sub_suplemento_fino(tn) or 'Herbolaria y superalimentos'),
+    # El repuesto del refrigerador se busca en Refacciones, no entre los
+    # refrigeradores: el despachador ya lo deja sin subcategoría.
+    ('Refrigeradores',
+     r'\btapon(es)?\b|\btermometro\b|\btermistor\b|\bsensor\b|\bfoco\b|\bsonda\b|'
+     r'medidor de temperatura|indicador de temperatura|\bempaque\b|\bbisagra\b|'
+     r'barra divisoria|filtro de agua',
+     None, 'Refacciones', 'Refacciones para refrigerador'),
 ]
 
 

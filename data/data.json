@@ -6090,6 +6090,9 @@
     "Audífonos": [
       "data/cat/audifonos-1.json"
     ],
+    "Bocinas": [
+      "data/cat/bocinas-1.json"
+    ],
     "Instrumentos musicales": [
       "data/cat/instrumentos-musicales-1.json",
       "data/cat/instrumentos-musicales-2.json"
@@ -6113,6 +6116,9 @@
     ],
     "Otros": [
       "data/cat/otros-1.json"
+    ],
+    "Cocina y comedor": [
+      "data/cat/cocina-y-comedor-1.json"
     ],
     "Iluminación": [
       "data/cat/iluminacion-1.json"
@@ -6157,12 +6163,6 @@
     "Movilidad eléctrica": [
       "data/cat/movilidad-electrica-1.json"
     ],
-    "Cocina y comedor": [
-      "data/cat/cocina-y-comedor-1.json"
-    ],
-    "Bocinas": [
-      "data/cat/bocinas-1.json"
-    ],
     "Joyería y bisutería": [
       "data/cat/joyeria-y-bisuteria-1.json"
     ],
@@ -6186,6 +6186,9 @@
     ],
     "Tabletas": [
       "data/cat/tabletas-1.json"
+    ],
+    "Suplementos": [
+      "data/cat/suplementos-1.json"
     ],
     "Domótica y hogar inteligente": [
       "data/cat/domotica-y-hogar-inteligente-1.json"
@@ -6216,9 +6219,6 @@
     ],
     "Televisores": [
       "data/cat/televisores-1.json"
-    ],
-    "Suplementos": [
-      "data/cat/suplementos-1.json"
     ],
     "Impresoras": [
       "data/cat/impresoras-1.json"
@@ -6272,6 +6272,14 @@
       "data/det/audifonos-3.json",
       "data/det/audifonos-4.json",
       "data/det/audifonos-5.json"
+    ],
+    "Bocinas": [
+      "data/det/bocinas-1.json",
+      "data/det/bocinas-2.json",
+      "data/det/bocinas-3.json",
+      "data/det/bocinas-4.json",
+      "data/det/bocinas-5.json",
+      "data/det/bocinas-6.json"
     ],
     "Instrumentos musicales": [
       "data/det/instrumentos-musicales-1.json",
@@ -6328,6 +6336,11 @@
       "data/det/otros-2.json",
       "data/det/otros-3.json"
     ],
+    "Cocina y comedor": [
+      "data/det/cocina-y-comedor-1.json",
+      "data/det/cocina-y-comedor-2.json",
+      "data/det/cocina-y-comedor-3.json"
+    ],
     "Iluminación": [
       "data/det/iluminacion-1.json",
       "data/det/iluminacion-2.json",
@@ -6349,7 +6362,8 @@
       "data/det/refacciones-1.json",
       "data/det/refacciones-2.json",
       "data/det/refacciones-3.json",
-      "data/det/refacciones-4.json"
+      "data/det/refacciones-4.json",
+      "data/det/refacciones-5.json"
     ],
     "Proyectores y accesorios": [
       "data/det/proyectores-y-accesorios-1.json",
@@ -6407,19 +6421,6 @@
     "Movilidad eléctrica": [
       "data/det/movilidad-electrica-1.json"
     ],
-    "Cocina y comedor": [
-      "data/det/cocina-y-comedor-1.json",
-      "data/det/cocina-y-comedor-2.json",
-      "data/det/cocina-y-comedor-3.json"
-    ],
-    "Bocinas": [
-      "data/det/bocinas-1.json",
-      "data/det/bocinas-2.json",
-      "data/det/bocinas-3.json",
-      "data/det/bocinas-4.json",
-      "data/det/bocinas-5.json",
-      "data/det/bocinas-6.json"
-    ],
     "Joyería y bisutería": [
       "data/det/joyeria-y-bisuteria-1.json",
       "data/det/joyeria-y-bisuteria-2.json",
@@ -6462,6 +6463,9 @@
     "Tabletas": [
       "data/det/tabletas-1.json",
       "data/det/tabletas-2.json"
+    ],
+    "Suplementos": [
+      "data/det/suplementos-1.json"
     ],
     "Domótica y hogar inteligente": [
       "data/det/domotica-y-hogar-inteligente-1.json",
@@ -6506,9 +6510,6 @@
     ],
     "Televisores": [
       "data/det/televisores-1.json"
-    ],
-    "Suplementos": [
-      "data/det/suplementos-1.json"
     ],
     "Impresoras": [
       "data/det/impresoras-1.json"
@@ -6616,7 +6617,7 @@
       "maxShip": 80
     },
     "Audífonos": {
-      "n": 9248,
+      "n": 9247,
       "subs": {
         "Earbuds inalámbricos": 3104,
         "Diadema con cancelación de ruido": 389,
@@ -6627,7 +6628,7 @@
         "Diadema inalámbrica": 721,
         "Earbuds para niños": 181,
         "": 259,
-        "Earbuds con cable": 1218,
+        "Earbuds con cable": 1217,
         "Diadema con cable": 698,
         "Earbuds de cuello": 69,
         "Almohadillas y repuestos": 154
@@ -6636,6 +6637,35 @@
       "discounted": 1832,
       "max": 80,
       "discountedShip": 1827,
+      "maxShip": 80
+    },
+    "Bocinas": {
+      "n": 11864,
+      "subs": {
+        "Radios y reproductores": 929,
+        "Accesorios para bocinas": 139,
+        "Para PC y escritorio": 329,
+        "Bocinas Bluetooth": 3103,
+        "Bocinas Bluetooth potentes (60 W o más)": 592,
+        "Barras de sonido": 308,
+        "Subwoofers": 379,
+        "Bocinas Bluetooth con radio, USB y micrófono": 431,
+        "Bocinas Bluetooth medianas (20 a 60 W)": 146,
+        "Bocinas Bluetooth impermeables": 784,
+        "De fiesta y karaoke": 554,
+        "De estantería y Hi-Fi": 982,
+        "Mini bocinas y de llavero": 755,
+        "Bocinas con luces LED": 348,
+        "Bafles y audio profesional": 905,
+        "Empotrables y de exterior": 403,
+        "Amplificadores y receptores": 354,
+        "Bocinas Bluetooth compactas (hasta 20 W)": 194,
+        "Bocinas para auto": 229
+      },
+      "pop": 80894,
+      "discounted": 1662,
+      "max": 80,
+      "discountedShip": 1662,
       "maxShip": 80
     },
     "Instrumentos musicales": {
@@ -6867,9 +6897,9 @@
       "maxShip": 82
     },
     "Otros": {
-      "n": 4537,
+      "n": 4536,
       "subs": {
-        "Varios": 468,
+        "Varios": 467,
         "Cargadores solares portátiles": 256,
         "Estaciones de energía": 591,
         "Radios": 116,
@@ -6890,6 +6920,42 @@
       "max": 60,
       "discountedShip": 557,
       "maxShip": 60
+    },
+    "Cocina y comedor": {
+      "n": 4220,
+      "subs": {
+        "Utensilios de cocina": 154,
+        "Organización de cocina": 369,
+        "Botellas de agua": 843,
+        "Botellas de vidrio y plástico": 154,
+        "Termos y botellas térmicas": 791,
+        "Contenedores herméticos": 107,
+        "Vasos térmicos y de viaje": 324,
+        "Tarros y frascos": 59,
+        "": 36,
+        "Desechables": 42,
+        "Tazas": 248,
+        "Baterías de cocina": 70,
+        "Ollas de presión": 4,
+        "Cubiertos": 73,
+        "Sartenes y comales": 73,
+        "Ollas y cacerolas": 47,
+        "Platos y bowls": 153,
+        "Cuchillos y tablas": 60,
+        "Básculas y medidores": 14,
+        "Repostería y moldes": 36,
+        "Vasos y copas": 344,
+        "Bar y coctelería": 79,
+        "Limpieza de cocina": 12,
+        "Vajillas": 83,
+        "Jarras y dispensadores de bebidas": 38,
+        "Loncheras y termos para alimentos": 7
+      },
+      "pop": 2403,
+      "discounted": 2094,
+      "max": 77,
+      "discountedShip": 2095,
+      "maxShip": 69
     },
     "Iluminación": {
       "n": 5584,
@@ -6980,10 +7046,10 @@
       "maxShip": 72
     },
     "Refacciones": {
-      "n": 7979,
+      "n": 8018,
       "subs": {
         "Refacciones para otros electrodomésticos": 293,
-        "Refacciones para refrigerador": 810,
+        "Refacciones para refrigerador": 849,
         "Refacciones para aire acondicionado y ventilador": 123,
         "Refacciones para electrodomésticos": 136,
         "Refacciones para cafetera": 10,
@@ -7028,9 +7094,9 @@
         "": 56
       },
       "pop": 3243,
-      "discounted": 1985,
+      "discounted": 1987,
       "max": 52,
-      "discountedShip": 1985,
+      "discountedShip": 1987,
       "maxShip": 52
     },
     "Proyectores y accesorios": {
@@ -7332,71 +7398,6 @@
       "discountedShip": 121,
       "maxShip": 70
     },
-    "Cocina y comedor": {
-      "n": 4219,
-      "subs": {
-        "Organización de cocina": 369,
-        "Utensilios de cocina": 153,
-        "Botellas de agua": 843,
-        "Botellas de vidrio y plástico": 154,
-        "Termos y botellas térmicas": 791,
-        "Contenedores herméticos": 107,
-        "Vasos térmicos y de viaje": 324,
-        "Tarros y frascos": 59,
-        "": 36,
-        "Desechables": 42,
-        "Tazas": 248,
-        "Baterías de cocina": 70,
-        "Ollas de presión": 4,
-        "Cubiertos": 73,
-        "Sartenes y comales": 73,
-        "Ollas y cacerolas": 47,
-        "Platos y bowls": 153,
-        "Cuchillos y tablas": 60,
-        "Básculas y medidores": 14,
-        "Repostería y moldes": 36,
-        "Vasos y copas": 344,
-        "Bar y coctelería": 79,
-        "Limpieza de cocina": 12,
-        "Vajillas": 83,
-        "Jarras y dispensadores de bebidas": 38,
-        "Loncheras y termos para alimentos": 7
-      },
-      "pop": 2403,
-      "discounted": 2094,
-      "max": 77,
-      "discountedShip": 2095,
-      "maxShip": 69
-    },
-    "Bocinas": {
-      "n": 11863,
-      "subs": {
-        "Accesorios para bocinas": 139,
-        "Radios y reproductores": 928,
-        "Para PC y escritorio": 329,
-        "Bocinas Bluetooth": 3103,
-        "Bocinas Bluetooth potentes (60 W o más)": 592,
-        "Barras de sonido": 308,
-        "Subwoofers": 379,
-        "Bocinas Bluetooth con radio, USB y micrófono": 431,
-        "Bocinas Bluetooth medianas (20 a 60 W)": 146,
-        "Bocinas Bluetooth impermeables": 784,
-        "De fiesta y karaoke": 554,
-        "De estantería y Hi-Fi": 982,
-        "Mini bocinas y de llavero": 755,
-        "Bocinas con luces LED": 348,
-        "Bafles y audio profesional": 905,
-        "Empotrables y de exterior": 403,
-        "Amplificadores y receptores": 354,
-        "Bocinas Bluetooth compactas (hasta 20 W)": 194,
-        "Bocinas para auto": 229
-      },
-      "pop": 80894,
-      "discounted": 1662,
-      "max": 80,
-      "discountedShip": 1662,
-      "maxShip": 80
-    },
     "Joyería y bisutería": {
       "n": 5332,
       "subs": {
@@ -7577,7 +7578,7 @@
       "maxShip": 85
     },
     "Tabletas": {
-      "n": 3386,
+      "n": 3273,
       "subs": {
         "Tabletas Windows y rugged": 661,
         "Tabletas Android de 10 a 11 pulgadas": 434,
@@ -7587,14 +7588,54 @@
         "Tabletas para niños": 253,
         "Accesorios para tableta": 53,
         "Tabletas Android de 8 pulgadas o menos": 198,
-        "Tabletas Android": 736,
+        "Tabletas Android": 623,
         "Apple": 285
       },
       "pop": 14290,
-      "discounted": 388,
+      "discounted": 382,
       "max": 76,
-      "discountedShip": 388,
+      "discountedShip": 382,
       "maxShip": 76
+    },
+    "Suplementos": {
+      "n": 694,
+      "subs": {
+        "Melatonina y sueño": 8,
+        "Herbolaria y superalimentos": 143,
+        "Articulaciones": 21,
+        "Antioxidantes": 70,
+        "Vitamina C": 4,
+        "Aminoácidos y pre-entreno": 14,
+        "Creatina": 13,
+        "Colágeno": 49,
+        "Vitamina D y K": 1,
+        "Proteínas": 19,
+        "Probióticos y prebióticos": 108,
+        "Salud ocular": 8,
+        "Zinc": 5,
+        "Sistema inmune": 10,
+        "Cabello, piel y uñas": 18,
+        "Magnesio": 20,
+        "Enzimas, fibra y digestivos": 46,
+        "Memoria y concentración": 13,
+        "Salud cardiovascular": 11,
+        "Complejo B y biotina": 7,
+        "Electrolitos y minerales": 3,
+        "": 22,
+        "Salud hormonal y sexual": 20,
+        "Control de peso": 2,
+        "Control de glucosa": 4,
+        "Omega 3 y aceites": 36,
+        "Hígado, riñón y vías urinarias": 10,
+        "Multivitamínicos": 5,
+        "Energía y vitalidad": 3,
+        "Otras vitaminas": 1
+      },
+      "pop": 0,
+      "discounted": 9,
+      "max": 29,
+      "discountedShip": 9,
+      "maxShip": 25
     },
     "Domótica y hogar inteligente": {
       "n": 8515,
@@ -7794,17 +7835,17 @@
       "maxShip": 71
     },
     "Refrigeradores": {
-      "n": 1538,
+      "n": 1499,
       "subs": {
-        "Frigobares": 489,
-        "Refrigeradores": 787,
-        "Uso comercial": 244,
-        "Congeladores": 18
+        "Frigobares": 488,
+        "Refrigeradores": 756,
+        "Uso comercial": 238,
+        "Congeladores": 17
       },
       "pop": 13137,
-      "discounted": 492,
+      "discounted": 490,
       "max": 76,
-      "discountedShip": 498,
+      "discountedShip": 496,
       "maxShip": 76
     },
     "Mouse": {
@@ -7835,46 +7876,6 @@
       "max": 70,
       "discountedShip": 560,
       "maxShip": 70
-    },
-    "Suplementos": {
-      "n": 581,
-      "subs": {
-        "Creatina": 13,
-        "Colágeno": 49,
-        "Vitamina D y K": 1,
-        "Antioxidantes": 69,
-        "Proteínas": 19,
-        "Probióticos y prebióticos": 108,
-        "Salud ocular": 8,
-        "Zinc": 5,
-        "Sistema inmune": 10,
-        "Cabello, piel y uñas": 18,
-        "Magnesio": 20,
-        "Herbolaria y superalimentos": 35,
-        "Enzimas, fibra y digestivos": 46,
-        "Memoria y concentración": 13,
-        "Salud cardiovascular": 11,
-        "Complejo B y biotina": 7,
-        "Electrolitos y minerales": 3,
-        "": 22,
-        "Vitamina C": 3,
-        "Articulaciones": 20,
-        "Salud hormonal y sexual": 20,
-        "Aminoácidos y pre-entreno": 13,
-        "Control de peso": 2,
-        "Control de glucosa": 4,
-        "Omega 3 y aceites": 36,
-        "Hígado, riñón y vías urinarias": 10,
-        "Melatonina y sueño": 7,
-        "Multivitamínicos": 5,
-        "Energía y vitalidad": 3,
-        "Otras vitaminas": 1
-      },
-      "pop": 0,
-      "discounted": 3,
-      "max": 29,
-      "discountedShip": 3,
-      "maxShip": 25
     },
     "Impresoras": {
       "n": 1322,
@@ -8046,6 +8047,14 @@
       "p43523",
       "p42103"
     ],
+    "Bocinas": [
+      "p42154",
+      "p366660",
+      "p375834",
+      "p128326",
+      "p178016",
+      "p376241"
+    ],
     "Instrumentos musicales": [
       "p291853",
       "p45459",
@@ -8101,6 +8110,14 @@
       "p96205",
       "p96153",
       "p35871"
+    ],
+    "Cocina y comedor": [
+      "p340858",
+      "p96326",
+      "p294786",
+      "p96675",
+      "p97114",
+      "p96984"
     ],
     "Iluminación": [
       "p85941",
@@ -8212,22 +8229,6 @@
       "p73477",
       "p33623"
     ],
-    "Cocina y comedor": [
-      "p340858",
-      "p96326",
-      "p294786",
-      "p96675",
-      "p97114",
-      "p96984"
-    ],
-    "Bocinas": [
-      "p42154",
-      "p366660",
-      "p375834",
-      "p128326",
-      "p178016",
-      "p376241"
-    ],
     "Joyería y bisutería": [
       "p76869",
       "p76978",
@@ -8289,6 +8290,14 @@
       "p126969",
       "p50581",
       "p50809"
+    ],
+    "Suplementos": [
+      "p375073",
+      "p375140",
+      "p375098",
+      "p375072",
+      "p375087",
+      "p375100"
     ],
     "Domótica y hogar inteligente": [
       "p44880",
@@ -8369,14 +8378,6 @@
       "p127575",
       "p26546",
       "p268580"
-    ],
-    "Suplementos": [
-      "p34090",
-      "p34091",
-      "p34092",
-      "p158003",
-      "p159212",
-      "p160983"
     ],
     "Impresoras": [
       "p49563",
