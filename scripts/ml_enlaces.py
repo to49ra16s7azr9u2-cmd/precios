@@ -77,6 +77,45 @@ def titulo_api(mlm):
         return mlm, None
 
 
+def titulos_de_entrada(ids, ogs):
+    """Pide el título de cada url de entrada, por bloques y en orden.
+
+    POR QUÉ POR BLOQUES: el worker tiene tope diario (100,000 peticiones,
+    se reinicia a las 00:00 UTC) y pedir los 3,000 títulos de todos los
+    lotes en cada corrida se lo come sin necesidad. Los lotes van en orden
+    de prioridad y el panel se llena de arriba hacia abajo, así que los
+    enlaces devueltos casi siempre salen de los primeros: se corta apenas
+    no quedan enlaces por emparejar, o cuando tres bloques seguidos no
+    emparejan ninguno más.
+
+    NO HAY SEGUNDA FUENTE: la página del producto (mercadolibre.com.mx/p/…)
+    contesta con la pantalla de verificación de cuenta, sin og:title, así
+    que si el worker está en 429 no se puede emparejar y hay que esperar al
+    reinicio. Se avisa en vez de emparejar a ciegas.
+    """
+    api, faltan, sin_avance, BLOQUE = {}, {norm(t) for t in ogs.values() if t}, 0, 250
+    for i in range(0, len(ids), BLOQUE):
+        with cf.ThreadPoolExecutor(max_workers=5) as ex:
+            bloque = dict(ex.map(titulo_api, ids[i:i + BLOQUE]))
+        api.update(bloque)
+        if not any(bloque.values()):
+            print("  el worker no devolvió ni un título: suele ser el tope diario "
+                  "(429, se reinicia a las 00:00 UTC). Vuelve a correrlo después.")
+            break
+        antes = len(faltan)
+        for t in bloque.values():
+            if t:
+                faltan.discard(norm(t))
+        print(f"  títulos leídos: {min(i + BLOQUE, len(ids)):,}/{len(ids):,}   "
+              f"enlaces por emparejar: {len(faltan)}")
+        if not faltan:
+            break
+        sin_avance = sin_avance + 1 if len(faltan) == antes else 0
+        if sin_avance >= 3:
+            break
+    return api
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -99,8 +138,7 @@ def main():
         print(f"  sin og:title (no se pueden emparejar): {len(faltan)}")
 
     ids = [u.rsplit("/", 1)[-1] for u in urls]
-    with cf.ThreadPoolExecutor(max_workers=5) as ex:
-        api = dict(ex.map(titulo_api, ids))
+    api = titulos_de_entrada(ids, ogs)
 
     por_titulo = collections.defaultdict(list)
     for mlm, t in api.items():
