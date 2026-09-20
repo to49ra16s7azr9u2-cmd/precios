@@ -125,6 +125,27 @@ REGLAS = [
      r'compresor|acuario|pecera', 'Autos, bicicletas y motos', 'Bombas e infladores'),
     ('Herramientas', r'taburete|\bsilla\b|\bbanco\b (de|para) (taller|trabajo|garaje)|banco rodante', r'banco de trabajo con|prensa|escalera|escalon|peldano|fregadero|\bcarro\b|carrito', 'Muebles', 'Taburetes y bancos'),
     ('Herramientas', r'\blibrero\b|bookshelf|estante organizador.{0,30}(sala|cocina|bano|hogar)|estanteria de almacenamiento para (cocina|bano)', None, 'Muebles', 'Libreros'),
+    # --- Cuarta tanda: lo que Mercado Libre dejó en Herramientas ---
+    ('Herramientas', r'divisores? de estante|organizador (de )?(utensilios|menaje)|bandeja cubiertos|'
+                     r'organizador\b.{0,20}cocina', None, 'Cocina y comedor', 'Organización de cocina', (None,)),
+    ('Herramientas', r'bomba.{0,25}bicicleta|ruedas de entrenamiento|porton trasero.{0,25}bicicleta|'
+                     r'reparacion bicicletas|\bciclismo\b', None, 'Autos, bicicletas y motos',
+     'Accesorios para bicicleta', (None,)),
+    ('Herramientas', r'\balforjas?\b', None, 'Autos, bicicletas y motos', 'Accesorios para moto', (None,)),
+    ('Herramientas', r'estanteria|\bestante\b.{0,20}niveles|\blibrero\b', r'herramienta|garaje|cochera|taller',
+     'Muebles', 'Libreros', (None,)),
+    ('Herramientas', r'soporte de motocicleta|para motocicleta|tanque de combustible|\bmoto\b',
+     None, 'Autos, bicicletas y motos', 'Accesorios para moto', (None,)),
+    ('Herramientas', r'bicicleta de equilibrio|\bstrider\b', None, 'Autos, bicicletas y motos',
+     'Bicicletas sin pedales y balance', (None,)),
+    ('Herramientas', r'tocadiscos|\bstylus\b|\bvinilos?\b', None, 'Instrumentos musicales', 'Tornamesas', (None,)),
+    ('Herramientas', r'interdental|cuidado oral|\bdental\b', None, 'Belleza y cuidado personal', 'Cuidado personal', (None,)),
+    ('Herramientas', r'\bcornhole\b|juego de lanzamiento', None, 'Juegos de mesa', 'De fiesta', (None,)),
+    ('Herramientas', r'cama elastica|\btrampolin\b', None, 'Juguetes y bebés', 'Trampolines', (None,)),
+    ('Herramientas', r'molino de harina|molino de (granos|maiz)', None, 'Cocina y comedor', 'Utensilios de cocina', (None,)),
+    ('Herramientas', r'paneles? solares?', r'\btaladro\b|\bsierra\b', 'Otros',
+     'Accesorios y limpieza de paneles solares', (None,)),
+    ('Herramientas', r'^(?:\S+ ){0,3}ventilador\b', None, 'Climatización', 'Ventiladores de piso e industriales', (None,)),
     # --- Tercera tanda (20-sep, tarde) ---
     ('Audífonos', r'^(?:\S+ ){0,2}radios? (fm|am|portatil|de bolsillo|recargable)', None,
      'Bocinas', 'Radios y reproductores', (None,)),

@@ -3848,17 +3848,20 @@ def sub_herramienta(tn):
     if re.search(r'plomeria|llave de paso|\bcespol\b|coflex|tuberia|\bpvc\b|'
                  r'destapacanos|manguera de jardin|conexion hidraulica|'
                  r'\bniple\b|\bcodo\b.{0,12}(pvc|cobre)|bombeo|bomba (de agua|sumergible)|'
+                 r'pestanadora|\bcanos?\b (de )?cobre|abocardador|\bvalvula\b|\bcespol\b|'
                  r'\bflotador\b|\bregadera\b|\bllave de (nariz|manguera)', tn):
         return 'Plomería'
     if re.search(r'multimetro|\bvernier\b|calibrador|flexometro|cinta metrica|'
                  r'nivel laser|distanciometro|medidor|termometro infrarrojo|'
-                 r'\bescuadra\b|micrometro|manometro|bomba de vacio|\bmanifold\b|probador|'
-                 r'\btester\b|indicadores? de (radio|caratula)|galgas?\b|\bcalibre\b', tn):
+                 r'\bescuadras?\b|micrometro|manometro|bomba de vacio|\bmanifold\b|probador|'
+                 r'\btester\b|indicadores? de (radio|caratula)|galgas?\b|\bcalibre\b|estetoscopio', tn):
         return 'Medición'
     if re.search(r'juego de (\d+ )?herramientas|set de herramientas|kit (de )?herramientas|'
                  r'herramientas?\b.{0,25}\d+ (piezas|pzas|pcs)|\d+ ?(piezas|pcs|pzas).{0,25}herramientas|'
                  r'herramientas? (para|de) (mecanica|el hogar|manualidades|reparacion)|'
-                 r'kit combinado|combo de herramientas', tn):
+                 r'kit combinado|combo de herramientas|afinaciones automotrices|para mecanico|'
+                 r'sincronizar motor|remover ventiladores|reparacion (de )?(roscas|cuerdas)|'
+                 r'juego (combinado|para|p/) ', tn):
         return 'Juegos de herramientas'
     if re.search(r'(herramientas?|accesorios?|juego|kit|piezas?).{0,30}(rotativa|rotatoria|giratoria|\bdremel\b|mototool)|'
                  r'(rotativa|rotatoria|giratoria|\bdremel\b|mototool).{0,40}(accesorio|kit|juego|piezas|repuesto)', tn):
@@ -3874,7 +3877,8 @@ def sub_herramienta(tn):
         return 'Seguridad industrial'
     if re.search(r'cable (electrico|thw|calibre)|\bcontacto\b|apagador|pastilla|'
                  r'centro de carga|caja de conexion|conector electrico|'
-                 r'material electrico|canaleta|\bcinta de aislar\b', tn):
+                 r'material electrico|canaleta|\bcinta de aislar\b|sensor de proximidad|'
+                 r'calcetines? de cable|\bconducto\b|\bterminales?\b.{0,20}(cable|cobre)', tn):
         return 'Material eléctrico'
     if re.search(r'aerografo|cabina de pintura|pistola (de |para )?pintar|pulverizador de pintura|'
                  r'\bairbrush\b', tn):
@@ -3903,13 +3907,27 @@ def sub_herramienta(tn):
     if re.search(r'puntas?\b.{0,25}impacto|dados? de impacto|impact (bits?|sockets?)|shockwave', tn):
         return 'Puntas y dados de impacto'
     # Batería o cargador de herramienta: lo dice la marca o el voltaje.
-    if re.match(r'^(?:\S+ ){0,2}(bateria|baterias|cargador|pila)s?\b', tn) and \
-       re.search(r'dewalt|makita|milwaukee|\bbosch\b|ryobi|stanley|truper|craftsman|\bskil\b|'
-                 r'\b\d{2} ?v\b|litio|li-?ion|\bah\b', tn):
+    if (re.match(r'^(?:\S+ ){0,3}(bateria|baterias|cargador|pila)s?\b', tn) or
+            re.search(r'kit de \d+ baterias|baterias? y cargador', tn)) and \
+       re.search(r'dewalt|makita|milwaukee|\bbosch\b|ryobi|\bridgid\b|stanley|truper|craftsman|\bskil\b|'
+                 r'\b\d{2} ?v\b|\d+ voltios|litio|li-?ion|\bah\b', tn):
         return 'Baterías y cargadores de herramienta'
+    # Atornillador y pistola de impacto: es lo que más trajo la ronda.
+    if re.search(r'\batornillador|pistola de impacto|\bimpacto\b.{0,25}(bateria|litio|inalambric|\bnm\b|1/[24]in)|'
+                 r'\bdtd\d{3}|\bdcf\d{3}', tn):
+        return 'Atornilladores'
+    if re.search(r'\bserra\b|table saw|cortadora de metales|ranuradora|tronzadora|\bserrucho\b|'
+                 r'sierra (circular|caladora|de mesa|sable|cinta)', tn):
+        return 'Sierras'
+    if re.search(r'\binflador\b|\bcompresor', tn):
+        return 'Compresores y herramienta neumática'
+    if re.search(r'\bdremel\b|herramientas? oscilantes?|\bmototool\b|\bmultiherramienta\b.{0,20}accesorio', tn):
+        return 'Accesorios de multiherramienta y mototool'
+    if re.search(r'\bborlas\b|esponjas.{0,20}velcro|boinas? de pulir|respaldo.{0,15}velcro', tn):
+        return 'Lijas y accesorios de lijado'
     if re.search(r'\bbroca|\bdisco de (corte|desbaste)|\blija\b|puntas? de (atornillador|desarmador)|'
                  r'\bsierra caladora hoja|accesorios? para (taladro|rotomartillo)|'
-                 r'\bmandril\b|adaptador de brocas', tn):
+                 r'\bmandril\b|adaptador de brocas|base de inclinacion|base (para|de) router', tn):
         return 'Accesorios para herramientas eléctricas'
     if re.search(r'taladro|rotomartillo|esmeriladora|sierra|lijadora|pulidora|'
                  r'router\b|\benrutador\b|\brecortador\b|cepillo electrico|atornillador (electrico|inalambrico)|'
@@ -3928,6 +3946,9 @@ def sub_herramienta(tn):
                  # matraca. El repartidor fino de "Herramientas manuales"
                  # (MANUALES en subcategorias_finas_ola2) ya sabe separarlos.
                  r'\bpuntas?\b|\bdados?\b|\bperico\b|\balicate|\btorx\b|\bmatraca\b|\bvaso\b|'
+                 r'\bprensas?\b|\bsargento|\bclamp\b|abrazadera|\bmarro\b|\bmaceta\b|minipinza|\bpinza|'
+                 r'maneral|mango articulado|extensiones? hexagonal|elevador de precision|\bextractor\b|'
+                 r'\bcrique\b|\bmatraca\b|\bdesarmadores?\b|'
                  r'\bcopa\b.{0,12}(dado|impacto)|\btrinquete\b|\bpinzas?\b|\bllaves?\b|\bmazo\b|'
                  r'\bcincel\b|\bpunzon\b|\bextension\b.{0,20}(matraca|dado)|\bavellanadora\b', tn):
         return 'Herramientas manuales'
