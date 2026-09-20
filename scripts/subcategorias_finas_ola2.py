@@ -171,13 +171,13 @@ GUITARRAS = ['Guitarras acústicas', 'Guitarras electroacústicas', 'Guitarras c
              'Bajos', 'Ukuleles', 'Violines, mandolinas y otras cuerdas', 'Amplificadores de guitarra y bajo',
              'Pedales y efectos', 'Cuerdas de guitarra y bajo', 'Fundas, soportes y atriles', 'Accesorios de guitarra']
 _GUIT = _c([
-    ('Cuerdas de guitarra y bajo', r'^(?:\S+ ){0,3}cuerdas?\b(?! (de|para) (violin|viola|cello|violonchelo|contrabajo|arpa|piano))|\bjuego de cuerdas\b|\bset de cuerdas\b|\bcuerdas? (para|de) (guitarra|bajo|ukulele|electrica|acustica|clasica)|\bstrings?\b(?! (violin|viola|cello))|\bencordado|\bencordadura|\bcuerda (individual|suelta)'),
+    ('Cuerdas de guitarra y bajo', r'^(?:\S+ ){0,3}cuerdas?\b(?! (de|para) (violin|viola|cello|violonchelo|contrabajo|arpa|piano))|\bjuego de cuerdas\b|\bset de cuerdas\b|\bcuerdas? (para|de) (guitarra|bajo|ukulele|electrica|acustica|clasica)|\bstrings?\b(?! (violin|viola|cello))|\bencordado|\bencordadura|\bcuerda (individual|suelta)|\brotosound\b|\btru bass\b'),
     ('Pedales y efectos', r'\bpedal(es|era)?\b|\befectos?\b|\boverdrive|\bdistorsion|\bdistortion|\breverb|\bdelay\b|\blooper|\bwah\b|\bfuzz\b|\bchorus\b|\bcompresor\b|\bafinador de pedal|\bmultiefectos|\bprocesador de (guitarra|efectos)|\bstompbox'),
     ('Amplificadores de guitarra y bajo', r'\bamplificador|\bamp\b|\bcombo\b.{0,20}(guitarra|bajo|w\b)|\bcabezal|\bgabinete\b.{0,20}(guitarra|bajo|\d+x\d+)|\bcabinet\b|\bbafle para (guitarra|bajo)'),
     ('Fundas, soportes y atriles', r'\bfunda|\bestuche|\bcase\b|\bgig ?bag|\bsoporte|\bstand\b|\batril|\bcolgador|\bgancho de pared|\brack (de|para) guitarra|\bexhibi'),
     ('Accesorios de guitarra', r'\bcapo|\bcapotrasto|\bcejilla|\bcorrea|\bstrap\b|\bpuas?\b|\bpicks?\b|\bplumillas?\b|\bafinador|\btuner\b|\bslide\b|\bclavij|\bafinadores?\b|\bpastillas?\b|\bpickups?\b|\bpuente\b|\bcejuela|\bsillin|\bselector\b|\bpotenciometro|\bjack\b|\bcable (para|de) (guitarra|instrumento)|\bcable de instrumento|\btrastes?\b|\bgolpeador|\bpickguard|\bperillas?\b|\bknobs?\b|\bmastil|\bcuello de guitarra|\bdiapason|\bmetronomo|\bhumidificador|\bkit de (limpieza|mantenimiento|herramientas)|\blimpiador|\bpulidor|\bcuerdas de repuesto|\bboton (de|para) correa|\bstrap ?lock|\bcapodastro|\bejercitador de dedos|\bentrenador de dedos|\bhummer|\bwhammy|\bpalanca de (vibrato|tremolo)|\btremolo\b|\bcubierta de (puente|pastilla)|\btapa\b|\btornillos?\b|\bmecanismo de afinacion'),
     ('Ukuleles', r'\bukulele|\bukelele|\bukulel'),
-    ('Violines, mandolinas y otras cuerdas', r'\bmandolina|\bbanjo|\bcharango|\bcuatro\b|\bbalalaika|\bbouzouki|\blaud\b|\bbandurria|\bvihuela|\bguitarron|\bbajo sexto|\bbajo quinto|\brequinto|\bjarana|\bcavaquinho|\btres cubano|\bdobro|\bresonador|\bharpa|\barpa\b|\blira\b|\bcitara|\bsitar\b|\bkalimba|\bviolonchelo|\bcello\b|\bviolin\b|\bviola\b|\bcontrabajo'),
+    ('Violines, mandolinas y otras cuerdas', r'\bmandolina|\bbanjo|\bcharango|\bcuatro\b|\bbalalaika|\bbouzouki|\blaud\b|\bbandurria|\bvihuela|\bguitarron|\bbajo sexto|\bbajo quinto|\brequinto|\bjarana|\bcavaquinho|\btres cubano|\bdobro|\bresonador|\bharpa|\barpa\b|\blira\b|\bcitara|\bsitar\b|\bkalimba|\bviolonchelo|\bcello\b|\bviolin\b|\bviola\b|\bcontrabajo|\bshamisen\b|\bektara\b|\biktara\b|\btumbi\b'),
     ('Bajos', r'\bbajo (electrico|acustico|electroacustico|de \d cuerdas|precision|jazz)|\bbajos?\b|\bbass\b|\bprecision bass|\bjazz bass|\bp-?bass|\bj-?bass'),
     ('Guitarras eléctricas', r'\belectrica|\belectric guitar|\bstratocaster|\btelecaster|\bles paul|\bsg\b|\bibanez\b.{0,20}(rg|gio|grg|s\d)|\bjackson\b|\bschecter|\besp ltd|\bprs\b|\bepiphone\b(?!.*acustica)|\bsquier\b|\bgretsch\b|\bflying v|\bexplorer\b|\bhollow ?body|\bsemi ?hollow|\bhumbucker|\bdiestros?\b.{0,20}electric|\bzurd[oa]s?\b.{0,20}electric'),
     ('Guitarras electroacústicas', r'\belectroacustic|\belectro-?acustic|\bacoustic-?electric|\bacustica electrica|\bcon ecualizador|\bcon preamp|\bcon pastilla|\bcon eq\b'),
@@ -605,14 +605,14 @@ def _tamano_cama(tn):
 BATERIAS = ['Baterías acústicas', 'Baterías electrónicas', 'Platillos', 'Baquetas y escobillas', 'Parches',
             'Pedales y herrajes de batería', 'Tarolas y cajas', 'Pads de práctica', 'Fundas y accesorios de batería']
 _BAT = _c([
-    ('Pads de práctica', r'\bpad (de|para) practica|\balmohadilla de practica|\bpractice pad|\bpad\b.{0,20}practica'),
+    ('Pads de práctica', r'\bpad (de|para) practica|\balmohadilla de practica|\bpractice pad|\bpad\b.{0,20}practica|\bpracticador\b|\breflexx\b'),
     ('Baquetas y escobillas', r'\bbaquetas?\b|\bdrumsticks?|\bescobillas?\b|\bbrushes\b|\bmazos?\b|\bmallets?\b|\brods\b'),
     ('Parches', r'\bparches?\b|\bdrumhead|\bhead\b.{0,15}(tom|snare|bass)|\bevans\b|\bremo\b'),
     ('Platillos', r'\bplatillos?\b|\bcymbals?\b|\bhi-?hat|\bcrash\b|\bride\b|\bsplash\b|\bchina\b.{0,10}(platillo|cymbal)|\bzildjian|\bsabian|\bmeinl\b.{0,20}(platillo|cymbal)|\bpaiste'),
-    ('Pedales y herrajes de batería', r'\bpedal(es)?\b|\bherrajes?\b|\bhardware\b|\batril\b|\bsoporte (de|para) (platillo|tarola|tom|bombo|hi-?hat)|\bstand\b|\babrazadera|\bclamp\b|\bllave de afinacion|\bdrum key|\btornillo|\bbanco (de|para) bateria|\btrono\b|\bthrone\b|\brack (de|para) bateria|\bcadena\b|\bbeater|\bmaza\b'),
+    ('Pedales y herrajes de batería', r'\bpedal(es)?\b|\bherrajes?\b|\bhardware\b|\batril\b|\bsoporte (de|para) (platillo|tarola|tom|bombo|hi-?hat)|\bstand\b|\babrazadera|\bclamp\b|\bllaves? de afinacion|\bdrum ?key|\bllaves?\b.{0,20}\bdw\b|\bdwsm\d|\btornillo|\bbanco (de|para) bateria|\btrono\b|\bthrone\b|\brack (de|para) bateria|\bcadena\b|\bbeater|\bmaza\b'),
     ('Tarolas y cajas', r'\btarola|\bsnare\b|\bcaja (de|para) bateria|\bredoblante'),
-    ('Baterías electrónicas', r'\belectronic|\belectric|\bdigital|\bmalla\b|\bmesh\b|\bmodulo (de )?(sonido|bateria)|\bbateria (de )?aire|\bair drum|\bvirtual'),
-    ('Fundas y accesorios de batería', r'\bfunda|\bestuche|\bcase\b|\bbag\b|\btapete|\balfombra|\bsilenciador|\bmute\b|\bmicrofono|\bmonitor|\bkit de (limpieza|afinacion)'),
+    ('Baterías electrónicas', r'\bcaja de ritmos|\bdrum machine|\belectronic|\belectric|\bdigital|\bmalla\b|\bmesh\b|\bmodulo (de )?(sonido|bateria)|\bbateria (de )?aire|\bair drum|\bvirtual'),
+    ('Fundas y accesorios de batería', r'\bfunda|\bestuche|\bcase\b|\bbag\b|\btapete|\balfombra|\bsilenciador|\bmute\b|\bmicrofono|\bmonitor|\bkit de (limpieza|afinacion|supervivencia)|\bmochila\b|\bbaquetero\b'),
     ('Baterías acústicas', r'\bbateria (acustica|de \d piezas|completa|shell|junior|infantil)|\bjuego de bateria|\bdrum (set|kit)|\bshell pack|\bbombo\b|\btom\b|\btoms\b|\bbateria\b'),
 ])
 
@@ -624,28 +624,36 @@ def sub_bateria_musical(tn):
 VIENTO = ['Saxofones', 'Flautas traversas', 'Clarinetes y oboes', 'Trompetas, trombones y metales', 'Armónicas y melódicas',
           'Ocarinas, silbatos y flautas dulces', 'Instrumentos de viento digitales', 'Boquillas, cañas y accesorios de viento']
 _VIE = _c([
-    ('Boquillas, cañas y accesorios de viento', r'\bboquilla|\bcanas?\b|\breeds?\b|\bligadura|\bcorrea|\bfunda|\bestuche|\bcase\b|\batril|\bsoporte|\blimpiador|\bkit de (limpieza|mantenimiento)|\baceite (de|para) (valvula|piston)|\bgrasa (de|para) corcho|\bsordina|\bmute\b|\bpaño|\bpano\b|\bhisopo|\bcordon|\barnes\b|\bpad\b|\balmohadilla|\bmouthpiece'),
+    ('Boquillas, cañas y accesorios de viento', r'\bboquilla|\bcanas?\b|\breeds?\b|\bligadura|\bcorrea|\bfunda|\bestuche|\bcase\b|\batril|\bsoporte|\blimpiador|\bkit de (limpieza|mantenimiento)|\baceite (de|para) (valvula|piston)|\bgrasa (de|para) corcho|\bsordina|\bmute\b|\bpaño|\bpano\b|\bhisopo|\bcordon|\barnes\b|\bpad\b|\balmohadilla|\bmouthpiece|\bembocadura|\bpistones?\b|\btubistas?\b|papel en polvo|\bfieltro\b'),
     ('Instrumentos de viento digitales', r'\bdigital|\belectronic|\bmidi\b|\bsintetizador de viento|\bewi\b|\baerophone|\bsaxofon electronico'),
     ('Armónicas y melódicas', r'\barmonica|\bharmonica|\bmelodica|\bpianica|\bacordeon'),
-    ('Ocarinas, silbatos y flautas dulces', r'\bocarina|\bsilbato|\bwhistle|\bflauta dulce|\bflauta de pan|\bquena|\bzampona|\bflauta (nativa|indigena|de bambu|de madera|irlandesa)|\brecorder\b|\bkazoo|\bpito\b|\bflauta (para|de) ninos'),
+    ('Ocarinas, silbatos y flautas dulces', r'\bocarina|\bsilbato|\bwhistle|\bflauta dulce|\bflauta de pan|\bquena|\bzampona|\bflauta (nativa|indigena|de bambu|de madera|irlandesa)|\brecorder\b|\bkazoo|\bpito\b|\bflauta (para|de) ninos|\bdescantador\b|\bflautas? de pan\b|\bpanflauta\b'),
     ('Saxofones', r'\bsaxofon|\bsaxo\b|\bsax\b|\bsaxophone'),
     ('Flautas traversas', r'\bflauta (traversa|transversal)|\bflauta\b|\bflute\b|\bpiccolo|\bflautin'),
-    ('Clarinetes y oboes', r'\bclarinete|\boboe|\bfagot|\bbassoon|\bclarinet'),
-    ('Trompetas, trombones y metales', r'\btrompeta|\btrombon|\btuba\b|\bcorneta|\bcorno|\btrompa\b|\bbombardino|\beufonio|\bfliscorno|\bsousafon|\bmetales?\b|\bbugle|\bcornet|\btrumpet|\bhelicon'),
+    ('Clarinetes y oboes', r'\bclarinete|\boboe|\bfagot|\bbassoon|\bclarinet|\bshehnai\b'),
+    ('Trompetas, trombones y metales', r'\btrompeta|\btrombon|\btuba\b|\bcorneta|\bcorno|\btrompa\b|\bbombardino|\beufonio|\bfliscorno|\bsousafon|\bmetales?\b|\bbugle|\bcornet|\btrumpet|\bhelicon|\beuphonium\b'),
 ])
 
 
 def sub_viento(tn):
-    return _primera(tn, _VIE, {'Boquillas, cañas y accesorios de viento': 5})
+    s = _primera(tn, _VIE, {'Boquillas, cañas y accesorios de viento': 5})
+    if s:
+        return s
+    # Sin nombre propio: "instrumento de viento madera", la suona china y la
+    # barra de palisandro son todos de lengüeta, la familia del oboe.
+    if re.search(r'viento (de )?madera|woodwind|\bsuona\b|\bpalisandro\b|'
+                 r'viento (folclorico|popular)', tn):
+        return 'Clarinetes y oboes'
+    return None
 
 
 TECLADOS_MUS = ['Pianos digitales', 'Teclados electrónicos', 'Sintetizadores y controladores MIDI', 'Acordeones',
                 'Órganos y otros teclados', 'Bancos, soportes y accesorios de teclado']
 _TEC = _c([
-    ('Bancos, soportes y accesorios de teclado', r'\bbanco|\bsoporte|\bstand\b|\bpedal|\bfunda|\bestuche|\bcubierta|\batril|\bcable|\badaptador|\bpegatinas|\bstickers|\bbolsa'),
+    ('Bancos, soportes y accesorios de teclado', r'\bbanco|\bsoporte|\bstand\b|\bpedal|\bfunda|\bestuche|\bcubierta|\batril|\bcable|\badaptador|\bpegatinas?|\bstickers?|\bbolsa|\bllave de afinacion'),
     ('Acordeones', r'\bacordeon|\bbandoneon|\bconcertina|\baccordion'),
-    ('Sintetizadores y controladores MIDI', r'\bsintetizador|\bsynth|\bmidi\b|\bcontrolador|\bworkstation|\bgroovebox|\bsecuenciador|\bsampler|\bpad\b'),
-    ('Órganos y otros teclados', r'\borgano|\bclavecin|\bharmonium|\bcelesta|\bmelotron|\bmellotron'),
+    ('Sintetizadores y controladores MIDI', r'\bsintetizador|\bsynth|\bmidi\b|\bcontrolador|\bworkstation|\bgroovebox|\bsecuenciador|\bsampler|\bpad\b|\bmontage\b|\barturia\b|\bminilab\b'),
+    ('Órganos y otros teclados', r'\borgano|\bclavecin|\bharmonium|\barmonio\b|\bshruti\b|\bsurpeti\b|\bcelesta|\bmelotron|\bmellotron'),
     ('Pianos digitales', r'\bpiano digital|\bpiano electrico|\bpiano electronico|\bpiano de (88|76) teclas|\b88 teclas|\bpiano\b(?!.*(teclado (de|para) ninos|juguete))|\bclavinova|\bcasio (px|cdp|ap)|\byamaha (p-?\d|ydp|clp)|\broland (fp|rp|hp)|\bkorg'),
     ('Teclados electrónicos', r'\bteclado|\bkeyboard|\bteclas\b|\bcasiotone|\bpsr\b'),
 ])

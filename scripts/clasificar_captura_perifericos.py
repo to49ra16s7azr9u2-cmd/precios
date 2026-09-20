@@ -3082,6 +3082,13 @@ def sub_juego_mesa(tn):
 
 
 def sub_instrumento(tn):
+    # "Bajo" nombra el instrumento de cuerda, pero también la tesitura: el
+    # trombón bajo y el clarinete bajo son de viento y la rama de Guitarras
+    # se los llevaba por esa palabra. Va antes que todo lo demás.
+    if re.search(r'\bbajo\b', tn) and re.search(
+            r'\bviento\b|clarinete|trombon|\btuba\b|saxofon|trompeta|\bsuona\b|'
+            r'\bmetales?\b|bombardino|\beufonio\b|euphonium', tn):
+        return 'Viento'
     # El orden de siempre (el instrumento primero, los accesorios al final)
     # se conserva tal cual: cambiarlo movería de subcategoría fichas que ya
     # están en el catálogo. Lo que se agrega son las familias que faltaban,
@@ -3089,7 +3096,12 @@ def sub_instrumento(tn):
     if re.search(r'guitarra|\bbajo\b|ukulele|ukelele|\bbanjo\b|banjolele|mandolina|'
                  r'charango|requinto|\bjarana\b|\blaud\b|stratocaster|telecaster|les paul|'
                  r'jazzmaster|\bjaguar\b|precision bass|jazz bass|\bstrat\b|\bsg standard\b|'
-                 r'\bibanez\b|\bepiphone\b|\bsquier\b|\bgretsch\b|\bprs\b', tn): return 'Guitarras'
+                 r'\bibanez\b|\bepiphone\b|\bsquier\b|\bgretsch\b(?!.{0,40}(drum|tambor|bateria))|\bprs\b|'
+                 # Piezas sueltas que no dicen "guitarra": la refinadora de
+                 # abajo las manda a Accesorios de guitarra, que es su lugar.
+                 r'\bguitar\b|guitarrist|varilla de traccion|truss rod|\bfender\b|'
+                 r'pastillas? (acustica|de guitarra|para guitarra|de bobina)|\bfishman\b|'
+                 r'\bresomax\b|\brotosound\b|\bstrap\b|\bboveda\b', tn): return 'Guitarras'
     # Percusión de mano y de placas ANTES que Baterías: una pandereta o un
     # xilófono no son un kit de batería, y la rama de abajo se los llevaba
     # por la palabra "percusion" que casi todos traen en el título.
@@ -3102,17 +3114,36 @@ def sub_instrumento(tn):
                  r'cuencos? (cantante|tibetano|de cristal)|tazon de cristal|'
                  r'silbato de samba|samba whistle|palo de lluvia|rain ?stick|darbuka|doumbek|'
                  r'\bbodhran\b|\btambora\b|\bcuenco\b|singing bowl|diapason(es)? de (cristal|cuarzo)|'
-                 r'instrumento musical (triangular|de rana|tradicional)|\brana\b.{0,25}madera|'
+                 r'instrumento musical (triangular|de rana)|\brana\b.{0,25}madera|'
                  r'\bsonajero\b|tambor de lengua|ocean drum|\bcabasa\b|cajita china|\bcastanet|'
                  r'\bgong\b|instrumentos? musical(es)? (para ninos|infantil|de juguete)|'
-                 r'\bcascabeles\b|\bcampanilla', tn): return 'Percusión'
+                 r'\bcascabeles\b|\bcampanilla|'
+                 # Segunda tanda (20-sep): idiófonos de mano y de orquesta
+                 # que caían sin subcategoría o se los llevaba Baterías por
+                 # decir "percussion" en la marca.
+                 r'\bshekere\b|\bcowbell\b|cow ?bell|\bsurdo\b|\bghungroo\b|\bmatraca\b|'
+                 r'\bcrotalos?\b|\bzills?\b|\bkoshi\b|campanas? artesanal|\btecomate\b|'
+                 r'\bcencerros?\b|campana de (acero|vaca)|bloque de tono|madera.{0,12}\brana\b|'
+                 r'coctelera de huevos|egg shaker|\bhuevos?\b|caja de musica.{0,25}manivela|'
+                 r'campanario de viento|wind ?chime|tubos? de bambu|tazon de canto|'
+                 r'piramide de cuarzo|singing town|'
+                 r'diapasones?.{0,40}(sanacion|chakra|healing|curacion)|'
+                 r'tuning forks?.{0,60}(sound )?healing', tn): return 'Percusión'
+    if (re.search(r'\blp\d{3,4}\b|latin percussion', tn)
+            and not re.search(r'\bbaqueta|\bplatillo|\bparche\b|\bpedal\b|\btarola|'
+                              r'\bfunda|\bsoporte|\bcymbal|\bstand\b', tn)):
+        return 'Percusión'
     if re.search(r'bateria|tambor|\bcajon\b|percusion|platillo|conga|\bbongo|'
                  r'\bredoblante\b|\btarola\b|\bbombo\b|\bbaqueta|\btimbal|\bparche\b|\bcharles\b|hi-?hat|'
                  r'\bhardware\b|\btoms?\b|\bsnare\b|\bdrum\b|\bthrone\b|pedal de bombo|\bkick\b|'
-                 r'\bdw\b.{0,20}(serie|series|\d{4})', tn): return 'Baterías'
+                 r'\bdw\b.{0,20}(serie|series|\d{4})|'
+                 r'\bzildjian\b|\bsabian\b|\bpaiste\b|\bcymbal|\bdrumco\b|\bbaquetero\b|'
+                 r'caja de ritmos|drum machine|'
+                 r'practicador|\bdwsm\d|drum ?key', tn): return 'Baterías'
     if re.search(r'violin|violonchelo|\bcello\b|contrabajo|\bviola\b|\barpa\b|'
                  r'\berhu\b|\bguqin\b|guzheng|\bkoto\b|\bsitar\b|\bcitara\b|\bpipa\b|\bruan\b|'
-                 r'\blira\b|\blyre\b|\bharp\b', tn): return 'Cuerdas'
+                 r'\blira\b|\blyre\b|\bharp\b|\bshamisen\b|\bektara\b|\biktara\b|'
+                 r'\btumbi\b', tn): return 'Cuerdas'
     if re.search(r'saxofon|trompeta|flauta|clarinete|trombon|\btuba\b|armonica|oboe|'
                  r'\bfagot\b|\bcorno\b|\btrompa\b|corneta|melodica|\bpianica\b|'
                  r'\bkazoo\b|ocarina|didgeridoo|\bgaita\b|\bquena\b|zampo|flautin|'
@@ -3122,25 +3153,47 @@ def sub_instrumento(tn):
                  # dicen "instrumento de viento" sin nombrar cuál, y los del
                  # resto del mundo (suona, sheng, xun, dizi, bansuri, bawu)
                  # caían sin subcategoría, que es quedarse fuera de su página.
-                 r'instrumentos? (de )?viento|\bsuona\b|\bsheng\b|\bxun\b|\bdizi\b|'
+                 r'instrumentos? (musicales? )?(de )?viento|\bsuona\b|\bsheng\b|\bxun\b|\bdizi\b|'
                  r'bansuri|pan ?pipes?|panpipe|\bpiccolo\b|\bbawu\b|\bcucurbita\b|'
-                 r'fliscorno|\beufonio\b|french horn|\bbugle\b', tn): return 'Viento'
+                 r'fliscorno|\beufonio\b|french horn|\bbugle\b|'
+                 r'\bsilbato\b|\bwhistle\b|silbido de samba|\beuphonium\b|\bshehnai\b|'
+                 r'\bembocadura\b|\bpistones?\b|\btubistas?\b|viento (de )?madera|'
+                 r'descantador|papel en polvo|viento metal|panflauta|flautas? de pan', tn): return 'Viento'
+    # Después de las familias: la pastilla suelta (sin tambor ni cajón que la
+    # reclame) es de guitarra, y la refinadora la manda a sus accesorios.
+    if re.search(r'\bpastillas?\b|\bpickups?\b', tn): return 'Guitarras'
     if re.search(r'\bpicks?\b|\bpuas?\b|\btortex\b|\bplectrum\b', tn): return 'Accesorios'
-    if re.search(r'microfono|megafono', tn): return 'Micrófonos'
+    if re.search(r'microfono|megafono|microphones?\b|\brode\b|\baudix\b|\bmxl\b|'
+                 r'hollyland|sennheiser profile|streaming set|boom ?pole|'
+                 r'gemini sound|dual uhf|\buhf\b.{0,20}inalambric', tn): return 'Micrófonos'
     if re.search(r'interfaz de audio|mezcladora|mixer|monitor de estudio|'
                  r'controlador midi|\bdaw\b|preamp|sistema inalambrico|\btransmisor\b|\breceptor\b|'
                  r'lavalier|caja directa|\bdi box\b|\bdi\d{3}\b|gestion de parlantes|\bcrossover\b|'
                  r'procesador de (audio|senal)|\bbroadcast\b|\bpodcast\b|\becualizador\b|'
                  r'\bcompresor de audio\b|\bshure\b|\bbehringer\b|\bfocusrite\b|\birig\b|'
-                 r'controlador de movimiento|\bserato\b|timecode|vinyl performance', tn): return 'Producción de audio'
-    if re.search(r'acordeon|acor[oó]n|acorde[oó]n|bandoneon|\baccordion', tn): return 'Acordeones'
+                 r'controlador de movimiento|\bserato\b|timecode|vinyl performance|'
+                 r'caja di\b|\bdi ?box\b|\bdib-\d|mezclador|anti.?pop|filtro pop|pop filter|'
+                 r'pantalla anti|filtro de reflexion|\brf pro\b|stage snake|bastidor ventilado|'
+                 r'sistema (de )?monitoreo|monitoreo|in.?ear monitor|\bbodypack\b|\biem ?\d{3,4}|'
+                 r'plugin de|\bheadtap\b|\bmicrodot\b|\bgochanmi\b|\bxtuga\b', tn): return 'Producción de audio'
+    if re.search(r'acordeon|acor[oó]n|acorde[oó]n|bandoneon|\baccordion|\bconcertina\b', tn): return 'Acordeones'
     if re.search(r'teclado|piano|sintetizador|organo|melodion|'
-                 r'controlador midi|\bmidi\b|\bkeytar\b|\bcelesta\b', tn): return 'Teclados'
+                 r'controlador midi|\bmidi\b|\bkeytar\b|\bcelesta\b|\bcontrolador\b|'
+                 r'\bteclas\b|\barmonio\b|harmonium|\bshruti\b|\bsurpeti\b|'
+                 r'yamaha p-?\d{2,3}|\bmontage\b|\barturia\b|minilab', tn): return 'Teclados'
     if re.search(r'theremin', tn): return 'Sintetizadores y controladores MIDI'
-    if re.search(r'amplificador|\bamp\b|combo de guitarra', tn): return 'Amplificadores'
-    if re.search(r'tornamesa|tocadiscos|turntable', tn): return 'Tornamesas'
+    if re.search(r'amplificador|\bamp\b|combo de guitarra|tubo de vacio|'
+                 r'\b12a[uxyt]7\b|\b6072a\b|\bel34\b|\b6l6\b|camara de reverberacion|'
+                 r'\baccutronics\b', tn): return 'Amplificadores'
+    if re.search(r'tornamesa|tocadiscos|turntable|cartucho (dj|de aguja|fonoc)|'
+                 r'\bheadshell\b|\bortofon\b|control vinyl|\bdvs\b|\btraktor\b|\breloop\b|'
+                 r'\bat-?vm95', tn): return 'Tornamesas'
     if re.search(r'\bpedal(es)? (de|para)? ?(efecto|distorsion|reverb|delay|wah|loop)|'
-                 r'pedalera|\bmultiefecto', tn): return 'Efectos y pedales'
+                 r'pedalera|\bmultiefecto|atenuador de potencia|power soak|\bfootswitch\b|'
+                 r'interruptor de pie|\bfsc?-\d|\bpedl-\d{4}|pedalboard|plataforma para pedales|'
+                 r'procesador de (tono|multiples? efectos|efectos)|poly shifter|'
+                 r'tira de efectos|\bdapper\b|barra de energia|bolsa de concierto|'
+                 r'(reverb|effect) pedal', tn): return 'Pedales y efectos'
     if re.search(r'atril|funda|estuche|correa|cuerdas de repuesto|afinador|'
                  r'capotraste|puas?\b|banqueta|\bboquilla\b|\bcanas?\b|colofonia|'
                  r'\bresina\b|pastilla (de|para)|\bpickup\b|parche (de|para)|'
@@ -3158,7 +3211,10 @@ def sub_instrumento(tn):
                  r'\bpolish\b|barniz|\bbanco\b|\bbanquillo\b|multiclamp|\bclamp\b|'
                  r'fuente de alimentacion|power supply|\bcable\b|tanque de reverb|bolsa protectora|'
                  r'palanca de afinacion|\bclavijas?\b|\bpuente\b|\bcejilla\b|\bpickguard\b|'
-                 r'accesorios? para instrumentos', tn): return 'Accesorios'
+                 r'accesorios? para instrumentos|cuello de ganso|\bmaletin\b|'
+                 r'girador de paginas|pasa ?paginas|page turner|\bde pagina\b|'
+                 r'entrenador vocal|pajilla de canto|manijas? de instrumentos|'
+                 r'ebony wood blank|almohadillas? de fieltro|\bdiapasones?\b', tn): return 'Accesorios'
     return None
 
 

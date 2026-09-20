@@ -250,6 +250,53 @@ REGLAS = [
     ('Muebles', r'pedicure chair|silla de pedicura|nail salon|spa pedicure', None, 'Belleza y cuidado personal', 'Mobiliario para salón', (None, 'Otros')),
     ('Muebles', r'skateboard seat|patineta electrica|electric skateboard', None, 'Movilidad eléctrica', 'Accesorios', (None, 'Otros')),
     ('Muebles', r'^(?:\S+ ){0,2}(sandalias?|chanclas?|zapat(os|illas)|tenis)\b', r'zapatera|mueble|organizador|estante|taburete|banco|\bmesa\b|sensor|cambiador', 'Calzado', lambda tn: 'Sandalias' if re.search(r'sandalia|chancla', tn) else ('Tenis' if 'tenis' in tn else 'Zapatos de vestir')),
+
+    # ---- Instrumentos musicales (20-sep). Lo que queda sin subcategoría en
+    # el rubro es, en su mayoría, equipo de escenario, juguete o adorno que
+    # entró ahí porque la tienda lo vende junto con los instrumentos. Casi
+    # todas se limitan a las fichas SIN subcategoría (última tupla) para no
+    # tocar lo que ya está colocado.
+    ('Instrumentos musicales',
+     r'maquina de (humo|niebla|burbujas)|camara de humo|liquido.{0,25}(humo|burbujas)|'
+     r'galon liquido|generador de burbujas|\bnebula\d|\bcosmo-\d|\bghost-\d|'
+     r'canones? par\b|\bwashers?\b|\bstrobe\b|\bderby\b|jelly movil|mini spot|mini planet|'
+     r'\balienpro\b|\bsteelpro\b|blizzard lighting|esferas? de cristal|\bdiscoball\b|'
+     r'soporte.{0,25}hamburguesa|hamburguesa \d|pinza.{0,30}iluminacion|'
+     r'soporte universal para luces|\blaser\b',
+     r'\bpedal\b|\bguitarra\b|microfono', 'Iluminación', 'Escenario', {None}),
+    ('Instrumentos musicales',
+     r'\botamatone\b|instrumentos? musicales? (para (ninos|bebes)|infantil)|'
+     r'instrumentos musicales de madera para ninos|juego de (musica|instrumentos musicales)|'
+     r'kit de instrumentos musicales|\bmake a melody\b|\bpeppa pig\b|'
+     r'campanas de computadora|juguete de musica|piezas de instrumentos musicales para ni',
+     None, 'Juguetes y bebés', 'Juguetes musicales', {None}),
+    ('Instrumentos musicales', r'juego (de )?loteria|juego didactico', None,
+     'Juguetes y bebés', 'Juguetes educativos', {None}),
+    ('Instrumentos musicales', r'casa de munecas|\bbook nook\b|miniaturas?\b.{0,30}munecas', None,
+     'Juguetes y bebés', 'Maquetas', {None}),
+    ('Instrumentos musicales', r'bloques de construccion', None,
+     'Juguetes y bebés', 'Bloques de construcción', {None}),
+    ('Instrumentos musicales', r'\bdijes?\b|\bcharms?\b|colgantes para (collares|pulseras)', None,
+     'Joyería y bisutería', 'Dijes y charms', {None}),
+    ('Instrumentos musicales',
+     r'adornos? de instrumento|decoraciones 2d|acrilico (rosa|2d)|adornos de navidad|'
+     r'plantillas de notas|decoracion de pared|guirnalda de fiesta|pancarta de feliz cumpleanos',
+     None, 'Otros', 'Varios', {None}),
+    ('Instrumentos musicales', r'\bbafle\b|\bstagepro\b|elite system|medio grave colgante', None,
+     'Bocinas', 'Accesorios para bocinas', {None}),
+    ('Instrumentos musicales',
+     r'convertidor de salida de linea|control de graves|\bskar audio\b|\baudiocontrol\b|\blc2i\b',
+     None, 'Autos, bicicletas y motos', 'Accesorios de audio para auto', {None}),
+    ('Instrumentos musicales', r'unidad flash usb|memoria usb|\bpendrive\b', None,
+     'Almacenamiento', 'Memorias USB', {None}),
+    ('Instrumentos musicales', r'\bpolipasto\b|\bgarrucha\b', None,
+     'Herramientas', 'Herramientas manuales', {None}),
+    ('Instrumentos musicales', r'\bcargador\b.{0,40}m ?ah|\d{4,6} ?m ?ah', None,
+     'Baterías portátiles', tramo_mah, {None}),
+    ('Instrumentos musicales', r'libro para colorear', None, 'Libros', 'Infantil', {None}),
+    ('Instrumentos musicales', r'libro publicado', None, 'Libros', 'Música y cine', {None}),
+    ('Instrumentos musicales', r'\bfox 40\b|silbato.{0,30}(arbitro|deportiv)', None,
+     'Deportes y fitness', 'Otros', None),
 ]
 
 

@@ -6114,6 +6114,21 @@
       "data/cat/instrumentos-musicales-1.json",
       "data/cat/instrumentos-musicales-2.json"
     ],
+    "Libros": [
+      "data/cat/libros-1.json"
+    ],
+    "Bocinas": [
+      "data/cat/bocinas-1.json"
+    ],
+    "Deportes y fitness": [
+      "data/cat/deportes-y-fitness-1.json"
+    ],
+    "Joyería y bisutería": [
+      "data/cat/joyeria-y-bisuteria-1.json"
+    ],
+    "Almacenamiento": [
+      "data/cat/almacenamiento-1.json"
+    ],
     "Juegos de mesa": [
       "data/cat/juegos-de-mesa-1.json"
     ],
@@ -6152,12 +6167,6 @@
     "Tabletas": [
       "data/cat/tabletas-1.json"
     ],
-    "Bocinas": [
-      "data/cat/bocinas-1.json"
-    ],
-    "Deportes y fitness": [
-      "data/cat/deportes-y-fitness-1.json"
-    ],
     "Domótica y hogar inteligente": [
       "data/cat/domotica-y-hogar-inteligente-1.json"
     ],
@@ -6176,9 +6185,6 @@
     "Teclados": [
       "data/cat/teclados-1.json"
     ],
-    "Almacenamiento": [
-      "data/cat/almacenamiento-1.json"
-    ],
     "Cámaras y fotografía": [
       "data/cat/camaras-y-fotografia-1.json"
     ],
@@ -6196,9 +6202,6 @@
     ],
     "Mouse": [
       "data/cat/mouse-1.json"
-    ],
-    "Joyería y bisutería": [
-      "data/cat/joyeria-y-bisuteria-1.json"
     ],
     "Televisores": [
       "data/cat/televisores-1.json"
@@ -6322,6 +6325,33 @@
       "data/det/instrumentos-musicales-8.json",
       "data/det/instrumentos-musicales-9.json"
     ],
+    "Libros": [
+      "data/det/libros-1.json"
+    ],
+    "Bocinas": [
+      "data/det/bocinas-1.json",
+      "data/det/bocinas-2.json",
+      "data/det/bocinas-3.json",
+      "data/det/bocinas-4.json",
+      "data/det/bocinas-5.json",
+      "data/det/bocinas-6.json"
+    ],
+    "Deportes y fitness": [
+      "data/det/deportes-y-fitness-1.json",
+      "data/det/deportes-y-fitness-2.json",
+      "data/det/deportes-y-fitness-3.json",
+      "data/det/deportes-y-fitness-4.json",
+      "data/det/deportes-y-fitness-5.json"
+    ],
+    "Joyería y bisutería": [
+      "data/det/joyeria-y-bisuteria-1.json",
+      "data/det/joyeria-y-bisuteria-2.json",
+      "data/det/joyeria-y-bisuteria-3.json"
+    ],
+    "Almacenamiento": [
+      "data/det/almacenamiento-1.json",
+      "data/det/almacenamiento-2.json"
+    ],
     "Juegos de mesa": [
       "data/det/juegos-de-mesa-1.json",
       "data/det/juegos-de-mesa-2.json"
@@ -6408,21 +6438,6 @@
       "data/det/tabletas-1.json",
       "data/det/tabletas-2.json"
     ],
-    "Bocinas": [
-      "data/det/bocinas-1.json",
-      "data/det/bocinas-2.json",
-      "data/det/bocinas-3.json",
-      "data/det/bocinas-4.json",
-      "data/det/bocinas-5.json",
-      "data/det/bocinas-6.json"
-    ],
-    "Deportes y fitness": [
-      "data/det/deportes-y-fitness-1.json",
-      "data/det/deportes-y-fitness-2.json",
-      "data/det/deportes-y-fitness-3.json",
-      "data/det/deportes-y-fitness-4.json",
-      "data/det/deportes-y-fitness-5.json"
-    ],
     "Domótica y hogar inteligente": [
       "data/det/domotica-y-hogar-inteligente-1.json",
       "data/det/domotica-y-hogar-inteligente-2.json",
@@ -6449,10 +6464,6 @@
     "Teclados": [
       "data/det/teclados-1.json",
       "data/det/teclados-2.json"
-    ],
-    "Almacenamiento": [
-      "data/det/almacenamiento-1.json",
-      "data/det/almacenamiento-2.json"
     ],
     "Cámaras y fotografía": [
       "data/det/camaras-y-fotografia-1.json",
@@ -6481,11 +6492,6 @@
     ],
     "Mouse": [
       "data/det/mouse-1.json"
-    ],
-    "Joyería y bisutería": [
-      "data/det/joyeria-y-bisuteria-1.json",
-      "data/det/joyeria-y-bisuteria-2.json",
-      "data/det/joyeria-y-bisuteria-3.json"
     ],
     "Televisores": [
       "data/det/televisores-1.json"
@@ -6577,17 +6583,17 @@
       "maxShip": 73
     },
     "Baterías portátiles": {
-      "n": 1731,
+      "n": 1732,
       "subs": {
         "Hasta 10,000 mAh": 1137,
-        "10,000 a 20,000 mAh": 264,
+        "10,000 a 20,000 mAh": 265,
         "Más de 20,000 mAh": 188,
         "": 142
       },
       "pop": 3929,
-      "discounted": 247,
+      "discounted": 248,
       "max": 74,
-      "discountedShip": 247,
+      "discountedShip": 248,
       "maxShip": 72
     },
     "Relojes inteligentes": {
@@ -6604,10 +6610,10 @@
       "maxShip": 76
     },
     "Iluminación": {
-      "n": 5559,
+      "n": 5583,
       "subs": {
         "Lámparas de emergencia": 363,
-        "Escenario": 200,
+        "Escenario": 224,
         "Decorativa": 957,
         "Lámparas colgantes": 567,
         "Candiles y arañas": 164,
@@ -6627,10 +6633,10 @@
         "Lámparas industriales y de nave": 48,
         "Ventiladores con luz": 21
       },
-      "pop": 6598,
-      "discounted": 2078,
+      "pop": 6607,
+      "discounted": 2091,
       "max": 80,
-      "discountedShip": 2084,
+      "discountedShip": 2097,
       "maxShip": 78
     },
     "Climatización": {
@@ -6675,16 +6681,16 @@
       "maxShip": 90
     },
     "Juguetes y bebés": {
-      "n": 9009,
+      "n": 9023,
       "subs": {
         "Monitores de bebé": 14,
-        "Juguetes educativos": 346,
+        "Juguetes educativos": 347,
         "Juegos de exterior": 50,
         "Carriolas": 1145,
-        "Juguetes musicales": 15,
+        "Juguetes musicales": 24,
         "Muñecas": 1397,
         "Otros": 19,
-        "Bloques de construcción": 786,
+        "Bloques de construcción": 787,
         "Cunas": 25,
         "Biberones": 36,
         "Peluches": 575,
@@ -6709,21 +6715,21 @@
         "Juguetes para exterior": 87,
         "Figuras de acción": 1183,
         "Juegos arcade": 4,
-        "Maquetas": 782,
+        "Maquetas": 785,
         "Vehículos de juguete": 48,
         "": 205
       },
       "pop": 19195,
-      "discounted": 3850,
+      "discounted": 3853,
       "max": 77,
-      "discountedShip": 3856,
+      "discountedShip": 3859,
       "maxShip": 77
     },
     "Otros": {
-      "n": 4512,
+      "n": 4522,
       "subs": {
         "Estaciones de energía": 591,
-        "Varios": 455,
+        "Varios": 465,
         "Radios": 116,
         "Cargadores solares portátiles": 244,
         "Generadores": 50,
@@ -6745,9 +6751,9 @@
       "maxShip": 60
     },
     "Herramientas": {
-      "n": 19624,
+      "n": 19625,
       "subs": {
-        "Herramientas manuales": 263,
+        "Herramientas manuales": 264,
         "Jardinería": 1568,
         "Seguridad industrial": 399,
         "Medición": 554,
@@ -6836,7 +6842,7 @@
       "maxShip": 69
     },
     "Autos, bicicletas y motos": {
-      "n": 15394,
+      "n": 15396,
       "subs": {
         "Accesorios para moto": 210,
         "Accesorios para bicicleta": 189,
@@ -6882,7 +6888,7 @@
         "Subwoofers para auto": 170,
         "Amplificadores para auto": 141,
         "Medios rangos y bocinas profesionales": 246,
-        "Accesorios de audio para auto": 58,
+        "Accesorios de audio para auto": 60,
         "Bocinas marinas y para moto": 57,
         "Tweeters": 289,
         "Bocinas de 4 a 5.25 pulgadas": 117,
@@ -6892,64 +6898,192 @@
         "Ropa y calzado de ciclismo": 6
       },
       "pop": 23167,
-      "discounted": 2597,
+      "discounted": 2599,
       "max": 93,
-      "discountedShip": 2626,
+      "discountedShip": 2628,
       "maxShip": 93
     },
     "Instrumentos musicales": {
-      "n": 16844,
+      "n": 16780,
       "subs": {
-        "Tornamesas": 67,
-        "Producción de audio": 179,
-        "Micrófonos": 889,
+        "Tornamesas": 71,
+        "Producción de audio": 199,
+        "Micrófonos": 902,
         "Teclados electrónicos": 121,
         "Instrumentos de viento digitales": 136,
-        "Pianos digitales": 200,
+        "Pianos digitales": 202,
         "Saxofones": 519,
         "Guitarras eléctricas": 1248,
         "Amplificadores de guitarra y bajo": 188,
-        "Pedales y efectos": 412,
-        "Accesorios de guitarra": 1040,
-        "Cuerdas de guitarra y bajo": 1313,
-        "Viento": 444,
+        "Pedales y efectos": 425,
+        "Accesorios de guitarra": 1052,
+        "Cuerdas de guitarra y bajo": 1314,
+        "Clarinetes y oboes": 494,
         "Guitarras clásicas": 93,
         "Ukuleles": 403,
         "Guitarras acústicas": 514,
-        "Pedales y herrajes de batería": 292,
-        "Percusión": 751,
-        "Violines, mandolinas y otras cuerdas": 789,
-        "Baterías": 466,
-        "Platillos": 732,
+        "Pedales y herrajes de batería": 293,
+        "Percusión": 869,
+        "Violines, mandolinas y otras cuerdas": 792,
+        "Platillos": 735,
         "Baterías acústicas": 677,
         "Armónicas y melódicas": 234,
-        "Sintetizadores y controladores MIDI": 106,
-        "Bancos, soportes y accesorios de teclado": 57,
+        "Sintetizadores y controladores MIDI": 109,
+        "Bancos, soportes y accesorios de teclado": 59,
         "Tarolas y cajas": 52,
-        "Trompetas, trombones y metales": 617,
-        "Acordeones": 124,
-        "Baterías electrónicas": 910,
+        "Baterías": 372,
+        "Viento": 315,
+        "Trompetas, trombones y metales": 619,
+        "Acordeones": 125,
+        "Baterías electrónicas": 912,
         "Bajos": 269,
         "Flautas traversas": 268,
         "Baquetas y escobillas": 409,
-        "Ocarinas, silbatos y flautas dulces": 296,
-        "": 221,
-        "Boquillas, cañas y accesorios de viento": 448,
+        "Ocarinas, silbatos y flautas dulces": 306,
+        "Boquillas, cañas y accesorios de viento": 457,
         "Parches": 201,
-        "Accesorios": 251,
-        "Clarinetes y oboes": 365,
-        "Amplificadores": 47,
-        "Pads de práctica": 26,
-        "Fundas y accesorios de batería": 141,
+        "Accesorios": 258,
+        "": 17,
+        "Amplificadores": 44,
+        "Pads de práctica": 28,
+        "Fundas y accesorios de batería": 145,
         "Fundas, soportes y atriles": 178,
         "Guitarras electroacústicas": 150,
-        "Órganos y otros teclados": 1
+        "Órganos y otros teclados": 6
       },
-      "pop": 4144,
-      "discounted": 1505,
+      "pop": 4135,
+      "discounted": 1482,
       "max": 84,
-      "discountedShip": 1506,
+      "discountedShip": 1483,
       "maxShip": 84
+    },
+    "Libros": {
+      "n": 2,
+      "subs": {
+        "Música y cine": 1,
+        "Infantil": 1
+      },
+      "pop": 0,
+      "discounted": 1,
+      "max": 11,
+      "discountedShip": 1,
+      "maxShip": 11
+    },
+    "Bocinas": {
+      "n": 11863,
+      "subs": {
+        "Accesorios para bocinas": 139,
+        "Radios y reproductores": 928,
+        "Para PC y escritorio": 329,
+        "Bocinas Bluetooth": 3103,
+        "Bocinas Bluetooth potentes (60 W o más)": 592,
+        "Barras de sonido": 308,
+        "Subwoofers": 379,
+        "Bocinas Bluetooth con radio, USB y micrófono": 431,
+        "Bocinas Bluetooth medianas (20 a 60 W)": 146,
+        "Bocinas Bluetooth impermeables": 784,
+        "De fiesta y karaoke": 554,
+        "De estantería y Hi-Fi": 982,
+        "Mini bocinas y de llavero": 755,
+        "Bocinas con luces LED": 348,
+        "Bafles y audio profesional": 905,
+        "Empotrables y de exterior": 403,
+        "Amplificadores y receptores": 354,
+        "Bocinas Bluetooth compactas (hasta 20 W)": 194,
+        "Bocinas para auto": 229
+      },
+      "pop": 80894,
+      "discounted": 1662,
+      "max": 80,
+      "discountedShip": 1662,
+      "maxShip": 80
+    },
+    "Deportes y fitness": {
+      "n": 9372,
+      "subs": {
+        "Otros": 32,
+        "Natación": 510,
+        "Sets de pesas": 226,
+        "Mancuernas": 449,
+        "Bancos y racks": 1042,
+        "Dardos": 240,
+        "Bicicletas fijas": 343,
+        "Pesas": 58,
+        "Máquinas de cardio": 308,
+        "Campismo": 6,
+        "Raquetas": 544,
+        "Equipo de gimnasio": 102,
+        "Máquinas multifuncionales y poleas": 647,
+        "Protección y soportes": 179,
+        "Máquinas de abdominales": 164,
+        "Accesorios de fuerza": 208,
+        "Barras de dominadas y calistenia": 158,
+        "Bandas de resistencia": 296,
+        "Yoga": 944,
+        "Balones": 1032,
+        "Boxeo": 611,
+        "Deportes acuáticos": 89,
+        "Voleibol": 297,
+        "Ping pong": 135,
+        "Patines y patinetas": 399,
+        "Barras y discos": 117,
+        "Pesas de tobillo y chalecos con peso": 28,
+        "Kettlebells": 69,
+        "Fútbol": 105,
+        "": 29,
+        "Tablas y balance": 5
+      },
+      "pop": 25139,
+      "discounted": 1463,
+      "max": 92,
+      "discountedShip": 1464,
+      "maxShip": 92
+    },
+    "Joyería y bisutería": {
+      "n": 5332,
+      "subs": {
+        "Dijes y charms": 281,
+        "Correas y extensibles": 364,
+        "Relojes": 671,
+        "Otros": 93,
+        "Aretes": 658,
+        "Relojes deportivos y digitales": 166,
+        "Material para bisutería": 5,
+        "Anillos": 423,
+        "Pulseras": 371,
+        "Collares": 405,
+        "Arras y sets": 36,
+        "Joyeros": 15,
+        "Relojes para hombre": 1208,
+        "Relojes para mujer": 550,
+        "Relojes infantiles": 49,
+        "Relojes de bolsillo y de pared": 9,
+        "Cajas y estuches para relojes": 5,
+        "Cuidado y herramientas": 18,
+        "": 5
+      },
+      "pop": 5898,
+      "discounted": 4093,
+      "max": 80,
+      "discountedShip": 4093,
+      "maxShip": 77
+    },
+    "Almacenamiento": {
+      "n": 2434,
+      "subs": {
+        "Memorias USB": 1332,
+        "Tarjetas de memoria": 275,
+        "Externo": 224,
+        "NAS": 51,
+        "SSD": 302,
+        "Interno": 229,
+        "": 21
+      },
+      "pop": 53260,
+      "discounted": 393,
+      "max": 71,
+      "discountedShip": 402,
+      "maxShip": 68
     },
     "Juegos de mesa": {
       "n": 3221,
@@ -7338,76 +7472,6 @@
       "discountedShip": 388,
       "maxShip": 76
     },
-    "Bocinas": {
-      "n": 11858,
-      "subs": {
-        "Radios y reproductores": 928,
-        "Para PC y escritorio": 329,
-        "Bocinas Bluetooth": 3103,
-        "Bocinas Bluetooth potentes (60 W o más)": 592,
-        "Barras de sonido": 308,
-        "Subwoofers": 379,
-        "Bocinas Bluetooth con radio, USB y micrófono": 431,
-        "Bocinas Bluetooth medianas (20 a 60 W)": 146,
-        "Bocinas Bluetooth impermeables": 784,
-        "De fiesta y karaoke": 554,
-        "De estantería y Hi-Fi": 982,
-        "Mini bocinas y de llavero": 755,
-        "Bocinas con luces LED": 348,
-        "Bafles y audio profesional": 905,
-        "Empotrables y de exterior": 403,
-        "Amplificadores y receptores": 354,
-        "Bocinas Bluetooth compactas (hasta 20 W)": 194,
-        "Bocinas para auto": 229,
-        "Accesorios para bocinas": 134
-      },
-      "pop": 80894,
-      "discounted": 1659,
-      "max": 80,
-      "discountedShip": 1659,
-      "maxShip": 80
-    },
-    "Deportes y fitness": {
-      "n": 9371,
-      "subs": {
-        "Natación": 510,
-        "Sets de pesas": 226,
-        "Mancuernas": 449,
-        "Bancos y racks": 1042,
-        "Dardos": 240,
-        "Bicicletas fijas": 343,
-        "Pesas": 58,
-        "Máquinas de cardio": 308,
-        "Campismo": 6,
-        "Otros": 31,
-        "Raquetas": 544,
-        "Equipo de gimnasio": 102,
-        "Máquinas multifuncionales y poleas": 647,
-        "Protección y soportes": 179,
-        "Máquinas de abdominales": 164,
-        "Accesorios de fuerza": 208,
-        "Barras de dominadas y calistenia": 158,
-        "Bandas de resistencia": 296,
-        "Yoga": 944,
-        "Balones": 1032,
-        "Boxeo": 611,
-        "Deportes acuáticos": 89,
-        "Voleibol": 297,
-        "Ping pong": 135,
-        "Patines y patinetas": 399,
-        "Barras y discos": 117,
-        "Pesas de tobillo y chalecos con peso": 28,
-        "Kettlebells": 69,
-        "Fútbol": 105,
-        "": 29,
-        "Tablas y balance": 5
-      },
-      "pop": 25139,
-      "discounted": 1463,
-      "max": 92,
-      "discountedShip": 1464,
-      "maxShip": 92
-    },
     "Domótica y hogar inteligente": {
       "n": 8515,
       "subs": {
@@ -7549,23 +7613,6 @@
       "max": 69,
       "discountedShip": 264,
       "maxShip": 69
-    },
-    "Almacenamiento": {
-      "n": 2433,
-      "subs": {
-        "Memorias USB": 1331,
-        "Tarjetas de memoria": 275,
-        "Externo": 224,
-        "NAS": 51,
-        "SSD": 302,
-        "Interno": 229,
-        "": 21
-      },
-      "pop": 53260,
-      "discounted": 393,
-      "max": 71,
-      "discountedShip": 402,
-      "maxShip": 68
     },
     "Cámaras y fotografía": {
       "n": 5125,
@@ -7737,35 +7784,6 @@
       "max": 68,
       "discountedShip": 100,
       "maxShip": 59
-    },
-    "Joyería y bisutería": {
-      "n": 5329,
-      "subs": {
-        "Correas y extensibles": 364,
-        "Relojes": 671,
-        "Otros": 93,
-        "Aretes": 658,
-        "Relojes deportivos y digitales": 166,
-        "Material para bisutería": 5,
-        "Anillos": 423,
-        "Pulseras": 371,
-        "Collares": 405,
-        "Dijes y charms": 278,
-        "Arras y sets": 36,
-        "Joyeros": 15,
-        "Relojes para hombre": 1208,
-        "Relojes para mujer": 550,
-        "Relojes infantiles": 49,
-        "Relojes de bolsillo y de pared": 9,
-        "Cajas y estuches para relojes": 5,
-        "Cuidado y herramientas": 18,
-        "": 5
-      },
-      "pop": 5898,
-      "discounted": 4093,
-      "max": 80,
-      "discountedShip": 4093,
-      "maxShip": 77
     },
     "Televisores": {
       "n": 1223,
@@ -8093,6 +8111,42 @@
       "p366886",
       "p35824"
     ],
+    "Libros": [
+      "p45998",
+      "p277077"
+    ],
+    "Bocinas": [
+      "p42154",
+      "p366660",
+      "p375834",
+      "p128326",
+      "p178016",
+      "p376241"
+    ],
+    "Deportes y fitness": [
+      "p34702",
+      "p73403",
+      "p73404",
+      "p29752",
+      "p138694",
+      "p73457"
+    ],
+    "Joyería y bisutería": [
+      "p76869",
+      "p76978",
+      "p293535",
+      "p77007",
+      "p77038",
+      "p33332"
+    ],
+    "Almacenamiento": [
+      "p127206",
+      "p49515",
+      "p369361",
+      "p49517",
+      "p49507",
+      "p49520"
+    ],
     "Juegos de mesa": [
       "p293649",
       "p135374",
@@ -8187,22 +8241,6 @@
       "p50581",
       "p50809"
     ],
-    "Bocinas": [
-      "p42154",
-      "p366660",
-      "p375834",
-      "p128326",
-      "p178016",
-      "p376241"
-    ],
-    "Deportes y fitness": [
-      "p34702",
-      "p73403",
-      "p73404",
-      "p29752",
-      "p138694",
-      "p73457"
-    ],
     "Domótica y hogar inteligente": [
       "p44880",
       "p42668",
@@ -8251,14 +8289,6 @@
       "p27060",
       "p289457"
     ],
-    "Almacenamiento": [
-      "p127206",
-      "p49515",
-      "p369361",
-      "p49517",
-      "p49507",
-      "p49520"
-    ],
     "Cámaras y fotografía": [
       "p44416",
       "p44827",
@@ -8306,14 +8336,6 @@
       "p29843",
       "p27331",
       "p27319"
-    ],
-    "Joyería y bisutería": [
-      "p76869",
-      "p76978",
-      "p293535",
-      "p77007",
-      "p77038",
-      "p33332"
     ],
     "Televisores": [
       "p41991",

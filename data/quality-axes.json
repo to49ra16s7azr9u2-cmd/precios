@@ -983,23 +983,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,600",
-      "max": 1600
+      "spec": "Hasta $1,550",
+      "max": 1550
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,600 a $4,300",
-      "min": 1600,
-      "max": 4300
+      "spec": "$1,550 a $4,200",
+      "min": 1550,
+      "max": 4200
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,300",
-      "min": 4300
+      "spec": "Más de $4,200",
+      "min": 4200
      }
     ]
    }
@@ -2768,6 +2768,42 @@
   ],
   "intro": "Elige por la edad de quien lo va a usar."
  },
+ "Juguetes y bebés/Juguetes musicales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $660",
+      "max": 660
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$660 a $1,050",
+      "min": 660,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
+ },
  "Juguetes y bebés/Muñecas": {
   "axes": [
    {
@@ -4227,16 +4263,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$610 a $3,450",
+      "spec": "$610 a $3,400",
       "min": 610,
-      "max": 3450
+      "max": 3400
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,450",
-      "min": 3450
+      "spec": "Más de $3,400",
+      "min": 3400
      }
     ]
    }
@@ -4997,15 +5033,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
+      "spec": "Hasta $310",
+      "max": 310
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$290 a $1,150",
-      "min": 290,
+      "spec": "$310 a $1,150",
+      "min": 310,
       "max": 1150
      },
      {
@@ -10261,23 +10297,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $200",
-      "max": 200
+      "spec": "Hasta $210",
+      "max": 210
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$200 a $550",
-      "min": 200,
-      "max": 550
+      "spec": "$210 a $610",
+      "min": 210,
+      "max": 610
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $550",
-      "min": 550
+      "spec": "Más de $610",
+      "min": 610
      }
     ]
    }
@@ -10540,16 +10576,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,650 a $5,150",
+      "spec": "$1,650 a $4,650",
       "min": 1650,
-      "max": 5150
+      "max": 4650
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $5,150",
-      "min": 5150
+      "spec": "Más de $4,650",
+      "min": 4650
      }
     ]
    }
@@ -10680,16 +10716,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,150 a $9,800",
+      "spec": "$1,150 a $10,000",
       "min": 1150,
-      "max": 9800
+      "max": 10000
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $9,800",
-      "min": 9800
+      "spec": "Más de $10,000",
+      "min": 10000
      }
     ]
    }
@@ -10813,15 +10849,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $930",
-      "max": 930
+      "spec": "Hasta $950",
+      "max": 950
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$930 a $2,300",
-      "min": 930,
+      "spec": "$950 a $2,300",
+      "min": 950,
       "max": 2300
      },
      {
@@ -10848,23 +10884,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $770",
-      "max": 770
+      "spec": "Hasta $750",
+      "max": 750
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$770 a $22,500",
-      "min": 770,
-      "max": 22500
+      "spec": "$750 a $21,500",
+      "min": 750,
+      "max": 21500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $22,500",
-      "min": 22500
+      "spec": "Más de $21,500",
+      "min": 21500
      }
     ]
    }
@@ -10883,15 +10919,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $390",
-      "max": 390
+      "spec": "Hasta $400",
+      "max": 400
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$390 a $1,100",
-      "min": 390,
+      "spec": "$400 a $1,100",
+      "min": 400,
       "max": 1100
      },
      {
@@ -10905,7 +10941,7 @@
    }
   ]
  },
- "Instrumentos musicales/Viento": {
+ "Instrumentos musicales/Clarinetes y oboes": {
   "axes": [
    {
     "key": "level",
@@ -10918,23 +10954,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,150",
-      "max": 1150
+      "spec": "Hasta $3,450",
+      "max": 3450
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,150 a $2,650",
-      "min": 1150,
-      "max": 2650
+      "spec": "$3,450 a $30,000",
+      "min": 3450,
+      "max": 30000
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,650",
-      "min": 2650
+      "spec": "Más de $30,000",
+      "min": 30000
      }
     ]
    }
@@ -11123,6 +11159,15 @@
       "values": [
        "Xilófono y metalófono"
       ]
+     },
+     {
+      "id": "congas-y-bongos",
+      "name": "Congas y bongós",
+      "use": "",
+      "spec": "Congas y bongós",
+      "values": [
+       "Congas y bongós"
+      ]
      }
     ],
     "key": "level"
@@ -11138,23 +11183,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $370",
-      "max": 370
+      "spec": "Hasta $390",
+      "max": 390
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$370 a $1,350",
-      "min": 370,
-      "max": 1350
+      "spec": "$390 a $1,400",
+      "min": 390,
+      "max": 1400
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,350",
-      "min": 1350
+      "spec": "Más de $1,400",
+      "min": 1400
      }
     ]
    }
@@ -11173,15 +11218,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,900",
-      "max": 1900
+      "spec": "Hasta $1,850",
+      "max": 1850
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,900 a $14,500",
-      "min": 1900,
+      "spec": "$1,850 a $14,500",
+      "min": 1850,
       "max": 14500
      },
      {
@@ -11190,68 +11235,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $14,500",
       "min": 14500
-     }
-    ]
-   }
-  ]
- },
- "Instrumentos musicales/Baterías": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "cajon-y-percusion",
-      "name": "Cajón y percusión",
-      "use": "",
-      "spec": "Cajón y percusión",
-      "values": [
-       "Cajón y percusión"
-      ]
-     },
-     {
-      "id": "baquetas-y-accesorios",
-      "name": "Baquetas y accesorios",
-      "use": "",
-      "spec": "Baquetas y accesorios",
-      "values": [
-       "Baquetas y accesorios"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $610",
-      "max": 610
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$610 a $3,250",
-      "min": 610,
-      "max": 3250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,250",
-      "min": 3250
      }
     ]
    }
@@ -11410,23 +11393,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $560",
-      "max": 560
+      "spec": "Hasta $550",
+      "max": 550
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$560 a $2,600",
-      "min": 560,
-      "max": 2600
+      "spec": "$550 a $2,550",
+      "min": 550,
+      "max": 2550
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,600",
-      "min": 2600
+      "spec": "Más de $2,550",
+      "min": 2550
      }
     ]
    }
@@ -11489,6 +11472,103 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $2,900",
       "min": 2900
+     }
+    ]
+   }
+  ]
+ },
+ "Instrumentos musicales/Baterías": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "cajon-y-percusion",
+      "name": "Cajón y percusión",
+      "use": "",
+      "spec": "Cajón y percusión",
+      "values": [
+       "Cajón y percusión"
+      ]
+     },
+     {
+      "id": "baquetas-y-accesorios",
+      "name": "Baquetas y accesorios",
+      "use": "",
+      "spec": "Baquetas y accesorios",
+      "values": [
+       "Baquetas y accesorios"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $680",
+      "max": 680
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$680 a $3,500",
+      "min": 680,
+      "max": 3500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,500",
+      "min": 3500
+     }
+    ]
+   }
+  ]
+ },
+ "Instrumentos musicales/Viento": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $2,550",
+      "min": 1050,
+      "max": 2550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,550",
+      "min": 2550
      }
     ]
    }
@@ -11577,15 +11657,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $2,650",
-      "max": 2650
+      "spec": "Hasta $2,700",
+      "max": 2700
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,650 a $25,000",
-      "min": 2650,
+      "spec": "$2,700 a $25,000",
+      "min": 2700,
       "max": 25000
      },
      {
@@ -11724,16 +11804,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$320 a $1,400",
+      "spec": "$320 a $1,250",
       "min": 320,
-      "max": 1400
+      "max": 1250
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,400",
-      "min": 1400
+      "spec": "Más de $1,250",
+      "min": 1250
      }
     ]
    }
@@ -11759,16 +11839,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$430 a $1,450",
+      "spec": "$430 a $1,500",
       "min": 430,
-      "max": 1450
+      "max": 1500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,450",
-      "min": 1450
+      "spec": "Más de $1,500",
+      "min": 1500
      }
     ]
    }
@@ -11871,41 +11951,6 @@
    }
   ]
  },
- "Instrumentos musicales/Clarinetes y oboes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $9,150",
-      "max": 9150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$9,150 a $33,000",
-      "min": 9150,
-      "max": 33000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $33,000",
-      "min": 33000
-     }
-    ]
-   }
-  ]
- },
  "Instrumentos musicales/Amplificadores": {
   "axes": [
    {
@@ -11918,23 +11963,23 @@
       "id": "para-practicar",
       "name": "Para practicar",
       "use": "En casa, sin molestar",
-      "spec": "Hasta 250 W",
-      "max": 250
+      "spec": "Hasta 300 W",
+      "max": 300
      },
      {
       "id": "para-ensayar",
       "name": "Para ensayar",
       "use": "Sala de ensayo",
-      "spec": "251 W a 800 W",
-      "min": 250,
-      "max": 800
+      "spec": "301 W a 1,200 W",
+      "min": 300,
+      "max": 1200
      },
      {
       "id": "para-tocar-en-vivo",
       "name": "Para tocar en vivo",
       "use": "Escenario y bocinas grandes",
-      "spec": "Más de 800 W",
-      "min": 800
+      "spec": "Más de 1,200 W",
+      "min": 1200
      }
     ],
     "key": "level"
@@ -11955,21 +12000,21 @@
       ]
      },
      {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
       "id": "aluminio",
       "name": "Aluminio",
       "use": "",
       "spec": "Aluminio",
       "values": [
        "Aluminio"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
       ]
      }
     ],
@@ -11990,15 +12035,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $400",
-      "max": 400
+      "spec": "Hasta $570",
+      "max": 570
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$400 a $1,150",
-      "min": 400,
+      "spec": "$570 a $1,150",
+      "min": 570,
       "max": 1150
      },
      {
@@ -12025,23 +12070,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $680",
-      "max": 680
+      "spec": "Hasta $670",
+      "max": 670
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$680 a $2,250",
-      "min": 680,
-      "max": 2250
+      "spec": "$670 a $2,200",
+      "min": 670,
+      "max": 2200
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,250",
-      "min": 2250
+      "spec": "Más de $2,200",
+      "min": 2200
      }
     ]
    }
@@ -12112,6 +12157,2690 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $14,500",
       "min": 14500
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Otros": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "beisbol",
+      "name": "Béisbol",
+      "use": "",
+      "spec": "Béisbol",
+      "values": [
+       "Béisbol"
+      ]
+     },
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
+     },
+     {
+      "id": "basquetbol",
+      "name": "Basquetbol",
+      "use": "",
+      "spec": "Basquetbol",
+      "values": [
+       "Basquetbol"
+      ]
+     },
+     {
+      "id": "tennis",
+      "name": "Tennis",
+      "use": "",
+      "spec": "Tennis",
+      "values": [
+       "Tennis"
+      ]
+     },
+     {
+      "id": "autos-y-motos",
+      "name": "Autos Y Motos",
+      "use": "",
+      "spec": "Autos Y Motos",
+      "values": [
+       "Autos Y Motos"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $680",
+      "max": 680
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$680 a $2,900",
+      "min": 680,
+      "max": 2900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,900",
+      "min": 2900
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Natación": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "natacion",
+      "name": "Natación",
+      "use": "",
+      "spec": "Natación",
+      "values": [
+       "Natación"
+      ]
+     },
+     {
+      "id": "buceo",
+      "name": "Buceo",
+      "use": "",
+      "spec": "Buceo",
+      "values": [
+       "Buceo"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $230",
+      "max": 230
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$230 a $390",
+      "min": 230,
+      "max": 390
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $390",
+      "min": 390
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Sets de pesas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,000",
+      "max": 1000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,000 a $3,300",
+      "min": 1000,
+      "max": 3300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,300",
+      "min": 3300
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Mancuernas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $740",
+      "max": 740
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$740 a $1,800",
+      "min": 740,
+      "max": 1800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,800",
+      "min": 1800
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Bancos y racks": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $16,000",
+      "max": 16000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$16,000 a $47,500",
+      "min": 16000,
+      "max": 47500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $47,500",
+      "min": 47500
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Dardos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $320",
+      "max": 320
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$320 a $950",
+      "min": 320,
+      "max": 950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $950",
+      "min": 950
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Bicicletas fijas": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso ocasional",
+      "spec": "Hasta 130 kg",
+      "max": 130
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso diario",
+      "spec": "131 kg a 150 kg",
+      "min": 130,
+      "max": 150
+     },
+     {
+      "id": "reforzada",
+      "name": "Reforzada",
+      "use": "Uso intensivo o más peso",
+      "spec": "Más de 150 kg",
+      "min": 150
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,100",
+      "max": 3100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,100 a $10,000",
+      "min": 3100,
+      "max": 10000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $10,000",
+      "min": 10000
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Pesas": {
+  "axes": [
+   {
+    "label": "Peso",
+    "field": "weight_kg",
+    "criterion": "en kilos",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligeras",
+      "name": "Ligeras",
+      "use": "Para empezar y tonificar",
+      "spec": "Hasta 8 kg",
+      "max": 8
+     },
+     {
+      "id": "medias",
+      "name": "Medias",
+      "use": "Fuerza general",
+      "spec": "9 kg a 18 kg",
+      "min": 8,
+      "max": 18
+     },
+     {
+      "id": "pesadas",
+      "name": "Pesadas",
+      "use": "Fuerza avanzada",
+      "spec": "Más de 18 kg",
+      "min": 18
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
+     },
+     {
+      "id": "artes-marciales",
+      "name": "Artes Marciales",
+      "use": "",
+      "spec": "Artes Marciales",
+      "values": [
+       "Artes Marciales"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por dónde estás: se empieza ligero y se sube."
+ },
+ "Deportes y fitness/Máquinas de cardio": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso ocasional",
+      "spec": "Hasta 100 kg",
+      "max": 100
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso diario",
+      "spec": "101 kg a 120 kg",
+      "min": 100,
+      "max": 120
+     },
+     {
+      "id": "reforzada",
+      "name": "Reforzada",
+      "use": "Uso intensivo o más peso",
+      "spec": "Más de 120 kg",
+      "min": 120
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,950",
+      "max": 2950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,950 a $7,950",
+      "min": 2950,
+      "max": 7950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,950",
+      "min": 7950
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Raquetas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $360",
+      "max": 360
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$360 a $1,050",
+      "min": 360,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Equipo de gimnasio": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "banco-y-soportes",
+      "name": "Banco y soportes",
+      "use": "",
+      "spec": "Banco y soportes",
+      "values": [
+       "Banco y soportes"
+      ]
+     },
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     },
+     {
+      "id": "peso-libre",
+      "name": "Peso libre",
+      "use": "",
+      "spec": "Peso libre",
+      "values": [
+       "Peso libre"
+      ]
+     },
+     {
+      "id": "maquinas",
+      "name": "Máquinas",
+      "use": "",
+      "spec": "Máquinas",
+      "values": [
+       "Máquinas"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $790",
+      "max": 790
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$790 a $4,750",
+      "min": 790,
+      "max": 4750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,750",
+      "min": 4750
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Máquinas multifuncionales y poleas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,550",
+      "max": 1550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,550 a $7,550",
+      "min": 1550,
+      "max": 7550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,550",
+      "min": 7550
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Protección y soportes": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
+     },
+     {
+      "id": "basquetbol",
+      "name": "Basquetbol",
+      "use": "",
+      "spec": "Basquetbol",
+      "values": [
+       "Basquetbol"
+      ]
+     },
+     {
+      "id": "tennis",
+      "name": "Tennis",
+      "use": "",
+      "spec": "Tennis",
+      "values": [
+       "Tennis"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $230",
+      "max": 230
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$230 a $360",
+      "min": 230,
+      "max": 360
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $360",
+      "min": 360
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Máquinas de abdominales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,200",
+      "max": 1200
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,200 a $3,600",
+      "min": 1200,
+      "max": 3600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,600",
+      "min": 3600
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Accesorios de fuerza": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $320",
+      "max": 320
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$320 a $1,150",
+      "min": 320,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Barras de dominadas y calistenia": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $990",
+      "max": 990
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$990 a $3,400",
+      "min": 990,
+      "max": 3400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,400",
+      "min": 3400
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Bandas de resistencia": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $260",
+      "max": 260
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$260 a $490",
+      "min": 260,
+      "max": 490
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $490",
+      "min": 490
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Yoga": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tapetes",
+      "name": "Tapetes",
+      "use": "",
+      "spec": "Tapetes",
+      "values": [
+       "Tapetes"
+      ]
+     },
+     {
+      "id": "bloques-y-cinturones",
+      "name": "Bloques y cinturones",
+      "use": "",
+      "spec": "Bloques y cinturones",
+      "values": [
+       "Bloques y cinturones"
+      ]
+     },
+     {
+      "id": "pelotas",
+      "name": "Pelotas",
+      "use": "",
+      "spec": "Pelotas",
+      "values": [
+       "Pelotas"
+      ]
+     },
+     {
+      "id": "ruedas-y-rodillos",
+      "name": "Ruedas y rodillos",
+      "use": "",
+      "spec": "Ruedas y rodillos",
+      "values": [
+       "Ruedas y rodillos"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $230",
+      "max": 230
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$230 a $500",
+      "min": 230,
+      "max": 500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $500",
+      "min": 500
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Balones": {
+  "axes": [
+   {
+    "label": "Número",
+    "field": "ball_no",
+    "criterion": "del balón",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "n3",
+      "name": "No. 3",
+      "use": "Niños chicos",
+      "spec": "No. 3",
+      "max": 3
+     },
+     {
+      "id": "n4",
+      "name": "No. 4",
+      "use": "Juvenil",
+      "spec": "No. 4",
+      "min": 3,
+      "max": 4
+     },
+     {
+      "id": "n5",
+      "name": "No. 5",
+      "use": "Adultos, medida oficial de futbol",
+      "spec": "No. 5",
+      "min": 4,
+      "max": 5
+     },
+     {
+      "id": "n6",
+      "name": "No. 6",
+      "use": "Basquetbol femenil",
+      "spec": "No. 6",
+      "min": 5,
+      "max": 6
+     },
+     {
+      "id": "n7",
+      "name": "No. 7",
+      "use": "Basquetbol varonil y futbol americano",
+      "spec": "No. 7",
+      "min": 6
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $320",
+      "max": 320
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$320 a $670",
+      "min": 320,
+      "max": 670
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $670",
+      "min": 670
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Boxeo": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "guantes",
+      "name": "Guantes",
+      "use": "",
+      "spec": "Guantes",
+      "values": [
+       "Guantes"
+      ]
+     },
+     {
+      "id": "protecciones",
+      "name": "Protecciones",
+      "use": "",
+      "spec": "Protecciones",
+      "values": [
+       "Protecciones"
+      ]
+     },
+     {
+      "id": "costales-y-soportes",
+      "name": "Costales y soportes",
+      "use": "",
+      "spec": "Costales y soportes",
+      "values": [
+       "Costales y soportes"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "box",
+      "name": "Box",
+      "use": "",
+      "spec": "Box",
+      "values": [
+       "Box"
+      ]
+     },
+     {
+      "id": "artes-marciales",
+      "name": "Artes Marciales",
+      "use": "",
+      "spec": "Artes Marciales",
+      "values": [
+       "Artes Marciales"
+      ]
+     },
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Deportes y fitness/Deportes acuáticos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $990",
+      "max": 990
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$990 a $11,000",
+      "min": 990,
+      "max": 11000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $11,000",
+      "min": 11000
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Voleibol": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $280",
+      "max": 280
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$280 a $560",
+      "min": 280,
+      "max": 560
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $560",
+      "min": 560
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Ping pong": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $260",
+      "max": 260
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$260 a $880",
+      "min": 260,
+      "max": 880
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $880",
+      "min": 880
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Patines y patinetas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $620",
+      "max": 620
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$620 a $1,450",
+      "min": 620,
+      "max": 1450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,450",
+      "min": 1450
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Barras y discos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $950",
+      "max": 950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$950 a $1,950",
+      "min": 950,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Pesas de tobillo y chalecos con peso": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $210",
+      "max": 210
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$210 a $360",
+      "min": 210,
+      "max": 360
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $360",
+      "min": 360
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Kettlebells": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $640",
+      "max": 640
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$640 a $1,400",
+      "min": 640,
+      "max": 1400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,400",
+      "min": 1400
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Fútbol": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $270",
+      "max": 270
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$270 a $490",
+      "min": 270,
+      "max": 490
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $490",
+      "min": 490
+     }
+    ]
+   }
+  ]
+ },
+ "Joyería y bisutería/Dijes y charms": {
+  "axes": [
+   {
+    "label": "Piedra",
+    "field": "stone",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "sin-piedra",
+      "name": "Sin piedra",
+      "use": "",
+      "spec": "Sin piedra",
+      "values": [
+       "Sin piedra"
+      ]
+     },
+     {
+      "id": "zirconia",
+      "name": "Zirconia",
+      "use": "",
+      "spec": "Zirconia",
+      "values": [
+       "Zirconia"
+      ]
+     },
+     {
+      "id": "diamante",
+      "name": "Diamante",
+      "use": "",
+      "spec": "Diamante",
+      "values": [
+       "Diamante"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chapa-de-oro",
+      "name": "Chapa de oro",
+      "use": "",
+      "spec": "Chapa de oro",
+      "values": [
+       "Chapa de oro"
+      ]
+     },
+     {
+      "id": "oro",
+      "name": "Oro",
+      "use": "",
+      "spec": "Oro",
+      "values": [
+       "Oro"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Correas y extensibles": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $470",
+      "max": 470
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$470 a $920",
+      "min": 470,
+      "max": 920
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $920",
+      "min": 920
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Relojes": {
+  "axes": [
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Otros": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chapa-de-oro",
+      "name": "Chapa de oro",
+      "use": "",
+      "spec": "Chapa de oro",
+      "values": [
+       "Chapa de oro"
+      ]
+     },
+     {
+      "id": "piel",
+      "name": "Piel",
+      "use": "",
+      "spec": "Piel",
+      "values": [
+       "Piel"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "vidrio",
+      "name": "Vidrio",
+      "use": "",
+      "spec": "Vidrio",
+      "values": [
+       "Vidrio"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $420",
+      "max": 420
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$420 a $660",
+      "min": 420,
+      "max": 660
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $660",
+      "min": 660
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Aretes": {
+  "axes": [
+   {
+    "label": "Piedra",
+    "field": "stone",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "sin-piedra",
+      "name": "Sin piedra",
+      "use": "",
+      "spec": "Sin piedra",
+      "values": [
+       "Sin piedra"
+      ]
+     },
+     {
+      "id": "zirconia",
+      "name": "Zirconia",
+      "use": "",
+      "spec": "Zirconia",
+      "values": [
+       "Zirconia"
+      ]
+     },
+     {
+      "id": "diamante",
+      "name": "Diamante",
+      "use": "",
+      "spec": "Diamante",
+      "values": [
+       "Diamante"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "oro",
+      "name": "Oro",
+      "use": "",
+      "spec": "Oro",
+      "values": [
+       "Oro"
+      ]
+     },
+     {
+      "id": "plata",
+      "name": "Plata",
+      "use": "",
+      "spec": "Plata",
+      "values": [
+       "Plata"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Relojes deportivos y digitales": {
+  "axes": [
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Anillos": {
+  "axes": [
+   {
+    "label": "Piedra",
+    "field": "stone",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "sin-piedra",
+      "name": "Sin piedra",
+      "use": "",
+      "spec": "Sin piedra",
+      "values": [
+       "Sin piedra"
+      ]
+     },
+     {
+      "id": "zirconia",
+      "name": "Zirconia",
+      "use": "",
+      "spec": "Zirconia",
+      "values": [
+       "Zirconia"
+      ]
+     },
+     {
+      "id": "moissanita",
+      "name": "Moissanita",
+      "use": "",
+      "spec": "Moissanita",
+      "values": [
+       "Moissanita"
+      ]
+     },
+     {
+      "id": "diamante",
+      "name": "Diamante",
+      "use": "",
+      "spec": "Diamante",
+      "values": [
+       "Diamante"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "oro",
+      "name": "Oro",
+      "use": "",
+      "spec": "Oro",
+      "values": [
+       "Oro"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Pulseras": {
+  "axes": [
+   {
+    "label": "Piedra",
+    "field": "stone",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "sin-piedra",
+      "name": "Sin piedra",
+      "use": "",
+      "spec": "Sin piedra",
+      "values": [
+       "Sin piedra"
+      ]
+     },
+     {
+      "id": "zirconia",
+      "name": "Zirconia",
+      "use": "",
+      "spec": "Zirconia",
+      "values": [
+       "Zirconia"
+      ]
+     },
+     {
+      "id": "perla",
+      "name": "Perla",
+      "use": "",
+      "spec": "Perla",
+      "values": [
+       "Perla"
+      ]
+     },
+     {
+      "id": "diamante",
+      "name": "Diamante",
+      "use": "",
+      "spec": "Diamante",
+      "values": [
+       "Diamante"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "oro",
+      "name": "Oro",
+      "use": "",
+      "spec": "Oro",
+      "values": [
+       "Oro"
+      ]
+     },
+     {
+      "id": "chapa-de-oro",
+      "name": "Chapa de oro",
+      "use": "",
+      "spec": "Chapa de oro",
+      "values": [
+       "Chapa de oro"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "plata",
+      "name": "Plata",
+      "use": "",
+      "spec": "Plata",
+      "values": [
+       "Plata"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Collares": {
+  "axes": [
+   {
+    "label": "Piedra",
+    "field": "stone",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "sin-piedra",
+      "name": "Sin piedra",
+      "use": "",
+      "spec": "Sin piedra",
+      "values": [
+       "Sin piedra"
+      ]
+     },
+     {
+      "id": "zirconia",
+      "name": "Zirconia",
+      "use": "",
+      "spec": "Zirconia",
+      "values": [
+       "Zirconia"
+      ]
+     },
+     {
+      "id": "perla",
+      "name": "Perla",
+      "use": "",
+      "spec": "Perla",
+      "values": [
+       "Perla"
+      ]
+     },
+     {
+      "id": "diamante",
+      "name": "Diamante",
+      "use": "",
+      "spec": "Diamante",
+      "values": [
+       "Diamante"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "oro",
+      "name": "Oro",
+      "use": "",
+      "spec": "Oro",
+      "values": [
+       "Oro"
+      ]
+     },
+     {
+      "id": "chapa-de-oro",
+      "name": "Chapa de oro",
+      "use": "",
+      "spec": "Chapa de oro",
+      "values": [
+       "Chapa de oro"
+      ]
+     },
+     {
+      "id": "plata",
+      "name": "Plata",
+      "use": "",
+      "spec": "Plata",
+      "values": [
+       "Plata"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Arras y sets": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     },
+     {
+      "id": "plata",
+      "name": "Plata",
+      "use": "",
+      "spec": "Plata",
+      "values": [
+       "Plata"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,800",
+      "max": 1800
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,800 a $2,100",
+      "min": 1800,
+      "max": 2100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,100",
+      "min": 2100
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Joyeros": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "piel",
+      "name": "Piel",
+      "use": "",
+      "spec": "Piel",
+      "values": [
+       "Piel"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Relojes para hombre": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,200",
+      "max": 2200
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,200 a $4,200",
+      "min": 2200,
+      "max": 4200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,200",
+      "min": 4200
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Relojes para mujer": {
+  "axes": [
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Relojes infantiles": {
+  "axes": [
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Sí",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Sí",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No",
+      "use": "Mantener seco",
+      "spec": "No",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Joyería y bisutería/Cuidado y herramientas": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     },
+     {
+      "id": "vidrio",
+      "name": "Vidrio",
+      "use": "",
+      "spec": "Vidrio",
+      "values": [
+       "Vidrio"
+      ]
+     },
+     {
+      "id": "oro",
+      "name": "Oro",
+      "use": "",
+      "spec": "Oro",
+      "values": [
+       "Oro"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Almacenamiento/Memorias USB": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $510",
+      "max": 510
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$510 a $2,200",
+      "min": 510,
+      "max": 2200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,200",
+      "min": 2200
+     }
+    ]
+   }
+  ]
+ },
+ "Almacenamiento/Tarjetas de memoria": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $1,850",
+      "min": 540,
+      "max": 1850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,850",
+      "min": 1850
+     }
+    ]
+   }
+  ]
+ },
+ "Almacenamiento/Externo": {
+  "axes": [
+   {
+    "label": "Disco",
+    "field": "storage_type",
+    "criterion": "por tipo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hdd",
+      "name": "hdd",
+      "use": "",
+      "spec": "hdd",
+      "values": [
+       "hdd"
+      ]
+     },
+     {
+      "id": "ssd",
+      "name": "ssd",
+      "use": "",
+      "spec": "ssd",
+      "values": [
+       "ssd"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Almacenamiento/NAS": {
+  "axes": [
+   {
+    "label": "Disco",
+    "field": "storage_type",
+    "criterion": "por tipo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hdd",
+      "name": "hdd",
+      "use": "",
+      "spec": "hdd",
+      "values": [
+       "hdd"
+      ]
+     },
+     {
+      "id": "ssd",
+      "name": "ssd",
+      "use": "",
+      "spec": "ssd",
+      "values": [
+       "ssd"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Almacenamiento/SSD": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,950",
+      "max": 1950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,950 a $4,150",
+      "min": 1950,
+      "max": 4150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,150",
+      "min": 4150
+     }
+    ]
+   }
+  ]
+ },
+ "Almacenamiento/Interno": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,050",
+      "max": 2050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,050 a $4,850",
+      "min": 2050,
+      "max": 4850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,850",
+      "min": 4850
      }
     ]
    }
@@ -22171,1371 +24900,6 @@
    }
   ]
  },
- "Deportes y fitness/Natación": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "natacion",
-      "name": "Natación",
-      "use": "",
-      "spec": "Natación",
-      "values": [
-       "Natación"
-      ]
-     },
-     {
-      "id": "buceo",
-      "name": "Buceo",
-      "use": "",
-      "spec": "Buceo",
-      "values": [
-       "Buceo"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $230",
-      "max": 230
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$230 a $390",
-      "min": 230,
-      "max": 390
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $390",
-      "min": 390
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Sets de pesas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,000 a $3,300",
-      "min": 1000,
-      "max": 3300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,300",
-      "min": 3300
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Mancuernas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $740",
-      "max": 740
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$740 a $1,800",
-      "min": 740,
-      "max": 1800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,800",
-      "min": 1800
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Bancos y racks": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $16,000",
-      "max": 16000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$16,000 a $47,500",
-      "min": 16000,
-      "max": 47500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $47,500",
-      "min": 47500
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Dardos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $320",
-      "max": 320
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$320 a $950",
-      "min": 320,
-      "max": 950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $950",
-      "min": 950
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Bicicletas fijas": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso ocasional",
-      "spec": "Hasta 130 kg",
-      "max": 130
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso diario",
-      "spec": "131 kg a 150 kg",
-      "min": 130,
-      "max": 150
-     },
-     {
-      "id": "reforzada",
-      "name": "Reforzada",
-      "use": "Uso intensivo o más peso",
-      "spec": "Más de 150 kg",
-      "min": 150
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,100",
-      "max": 3100
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,100 a $10,000",
-      "min": 3100,
-      "max": 10000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $10,000",
-      "min": 10000
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Pesas": {
-  "axes": [
-   {
-    "label": "Peso",
-    "field": "weight_kg",
-    "criterion": "en kilos",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligeras",
-      "name": "Ligeras",
-      "use": "Para empezar y tonificar",
-      "spec": "Hasta 8 kg",
-      "max": 8
-     },
-     {
-      "id": "medias",
-      "name": "Medias",
-      "use": "Fuerza general",
-      "spec": "9 kg a 18 kg",
-      "min": 8,
-      "max": 18
-     },
-     {
-      "id": "pesadas",
-      "name": "Pesadas",
-      "use": "Fuerza avanzada",
-      "spec": "Más de 18 kg",
-      "min": 18
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     },
-     {
-      "id": "artes-marciales",
-      "name": "Artes Marciales",
-      "use": "",
-      "spec": "Artes Marciales",
-      "values": [
-       "Artes Marciales"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por dónde estás: se empieza ligero y se sube."
- },
- "Deportes y fitness/Máquinas de cardio": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso ocasional",
-      "spec": "Hasta 100 kg",
-      "max": 100
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso diario",
-      "spec": "101 kg a 120 kg",
-      "min": 100,
-      "max": 120
-     },
-     {
-      "id": "reforzada",
-      "name": "Reforzada",
-      "use": "Uso intensivo o más peso",
-      "spec": "Más de 120 kg",
-      "min": 120
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,950",
-      "max": 2950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,950 a $7,950",
-      "min": 2950,
-      "max": 7950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $7,950",
-      "min": 7950
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Otros": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "beisbol",
-      "name": "Béisbol",
-      "use": "",
-      "spec": "Béisbol",
-      "values": [
-       "Béisbol"
-      ]
-     },
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     },
-     {
-      "id": "basquetbol",
-      "name": "Basquetbol",
-      "use": "",
-      "spec": "Basquetbol",
-      "values": [
-       "Basquetbol"
-      ]
-     },
-     {
-      "id": "tennis",
-      "name": "Tennis",
-      "use": "",
-      "spec": "Tennis",
-      "values": [
-       "Tennis"
-      ]
-     },
-     {
-      "id": "autos-y-motos",
-      "name": "Autos Y Motos",
-      "use": "",
-      "spec": "Autos Y Motos",
-      "values": [
-       "Autos Y Motos"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $680",
-      "max": 680
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$680 a $2,900",
-      "min": 680,
-      "max": 2900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,900",
-      "min": 2900
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Raquetas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $360",
-      "max": 360
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$360 a $1,050",
-      "min": 360,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Equipo de gimnasio": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "banco-y-soportes",
-      "name": "Banco y soportes",
-      "use": "",
-      "spec": "Banco y soportes",
-      "values": [
-       "Banco y soportes"
-      ]
-     },
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "peso-libre",
-      "name": "Peso libre",
-      "use": "",
-      "spec": "Peso libre",
-      "values": [
-       "Peso libre"
-      ]
-     },
-     {
-      "id": "maquinas",
-      "name": "Máquinas",
-      "use": "",
-      "spec": "Máquinas",
-      "values": [
-       "Máquinas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $790",
-      "max": 790
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$790 a $4,750",
-      "min": 790,
-      "max": 4750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,750",
-      "min": 4750
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Máquinas multifuncionales y poleas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,550",
-      "max": 1550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,550 a $7,550",
-      "min": 1550,
-      "max": 7550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $7,550",
-      "min": 7550
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Protección y soportes": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     },
-     {
-      "id": "basquetbol",
-      "name": "Basquetbol",
-      "use": "",
-      "spec": "Basquetbol",
-      "values": [
-       "Basquetbol"
-      ]
-     },
-     {
-      "id": "tennis",
-      "name": "Tennis",
-      "use": "",
-      "spec": "Tennis",
-      "values": [
-       "Tennis"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $230",
-      "max": 230
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$230 a $360",
-      "min": 230,
-      "max": 360
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $360",
-      "min": 360
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Máquinas de abdominales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,200",
-      "max": 1200
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,200 a $3,600",
-      "min": 1200,
-      "max": 3600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,600",
-      "min": 3600
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Accesorios de fuerza": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $320",
-      "max": 320
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$320 a $1,150",
-      "min": 320,
-      "max": 1150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Barras de dominadas y calistenia": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $990",
-      "max": 990
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$990 a $3,400",
-      "min": 990,
-      "max": 3400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,400",
-      "min": 3400
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Bandas de resistencia": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $260",
-      "max": 260
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$260 a $490",
-      "min": 260,
-      "max": 490
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $490",
-      "min": 490
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Yoga": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tapetes",
-      "name": "Tapetes",
-      "use": "",
-      "spec": "Tapetes",
-      "values": [
-       "Tapetes"
-      ]
-     },
-     {
-      "id": "bloques-y-cinturones",
-      "name": "Bloques y cinturones",
-      "use": "",
-      "spec": "Bloques y cinturones",
-      "values": [
-       "Bloques y cinturones"
-      ]
-     },
-     {
-      "id": "pelotas",
-      "name": "Pelotas",
-      "use": "",
-      "spec": "Pelotas",
-      "values": [
-       "Pelotas"
-      ]
-     },
-     {
-      "id": "ruedas-y-rodillos",
-      "name": "Ruedas y rodillos",
-      "use": "",
-      "spec": "Ruedas y rodillos",
-      "values": [
-       "Ruedas y rodillos"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $230",
-      "max": 230
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$230 a $500",
-      "min": 230,
-      "max": 500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $500",
-      "min": 500
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Balones": {
-  "axes": [
-   {
-    "label": "Número",
-    "field": "ball_no",
-    "criterion": "del balón",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "n3",
-      "name": "No. 3",
-      "use": "Niños chicos",
-      "spec": "No. 3",
-      "max": 3
-     },
-     {
-      "id": "n4",
-      "name": "No. 4",
-      "use": "Juvenil",
-      "spec": "No. 4",
-      "min": 3,
-      "max": 4
-     },
-     {
-      "id": "n5",
-      "name": "No. 5",
-      "use": "Adultos, medida oficial de futbol",
-      "spec": "No. 5",
-      "min": 4,
-      "max": 5
-     },
-     {
-      "id": "n6",
-      "name": "No. 6",
-      "use": "Basquetbol femenil",
-      "spec": "No. 6",
-      "min": 5,
-      "max": 6
-     },
-     {
-      "id": "n7",
-      "name": "No. 7",
-      "use": "Basquetbol varonil y futbol americano",
-      "spec": "No. 7",
-      "min": 6
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $320",
-      "max": 320
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$320 a $670",
-      "min": 320,
-      "max": 670
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $670",
-      "min": 670
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Boxeo": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "guantes",
-      "name": "Guantes",
-      "use": "",
-      "spec": "Guantes",
-      "values": [
-       "Guantes"
-      ]
-     },
-     {
-      "id": "protecciones",
-      "name": "Protecciones",
-      "use": "",
-      "spec": "Protecciones",
-      "values": [
-       "Protecciones"
-      ]
-     },
-     {
-      "id": "costales-y-soportes",
-      "name": "Costales y soportes",
-      "use": "",
-      "spec": "Costales y soportes",
-      "values": [
-       "Costales y soportes"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "box",
-      "name": "Box",
-      "use": "",
-      "spec": "Box",
-      "values": [
-       "Box"
-      ]
-     },
-     {
-      "id": "artes-marciales",
-      "name": "Artes Marciales",
-      "use": "",
-      "spec": "Artes Marciales",
-      "values": [
-       "Artes Marciales"
-      ]
-     },
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Deportes y fitness/Deportes acuáticos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $990",
-      "max": 990
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$990 a $11,000",
-      "min": 990,
-      "max": 11000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $11,000",
-      "min": 11000
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Voleibol": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $280",
-      "max": 280
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$280 a $560",
-      "min": 280,
-      "max": 560
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $560",
-      "min": 560
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Ping pong": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $260",
-      "max": 260
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$260 a $880",
-      "min": 260,
-      "max": 880
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $880",
-      "min": 880
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Patines y patinetas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $620",
-      "max": 620
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$620 a $1,450",
-      "min": 620,
-      "max": 1450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,450",
-      "min": 1450
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Barras y discos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $950",
-      "max": 950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$950 a $1,950",
-      "min": 950,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Pesas de tobillo y chalecos con peso": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $210",
-      "max": 210
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$210 a $360",
-      "min": 210,
-      "max": 360
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $360",
-      "min": 360
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Kettlebells": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $640",
-      "max": 640
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$640 a $1,400",
-      "min": 640,
-      "max": 1400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,400",
-      "min": 1400
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Fútbol": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $270",
-      "max": 270
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$270 a $490",
-      "min": 270,
-      "max": 490
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $490",
-      "min": 490
-     }
-    ]
-   }
-  ]
- },
  "Domótica y hogar inteligente/Bocinas inteligentes": {
   "axes": [
    {
@@ -26892,208 +28256,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,050",
       "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Almacenamiento/Memorias USB": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $510",
-      "max": 510
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$510 a $2,200",
-      "min": 510,
-      "max": 2200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,200",
-      "min": 2200
-     }
-    ]
-   }
-  ]
- },
- "Almacenamiento/Tarjetas de memoria": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $540",
-      "max": 540
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$540 a $1,850",
-      "min": 540,
-      "max": 1850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,850",
-      "min": 1850
-     }
-    ]
-   }
-  ]
- },
- "Almacenamiento/Externo": {
-  "axes": [
-   {
-    "label": "Disco",
-    "field": "storage_type",
-    "criterion": "por tipo",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "hdd",
-      "name": "hdd",
-      "use": "",
-      "spec": "hdd",
-      "values": [
-       "hdd"
-      ]
-     },
-     {
-      "id": "ssd",
-      "name": "ssd",
-      "use": "",
-      "spec": "ssd",
-      "values": [
-       "ssd"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Almacenamiento/NAS": {
-  "axes": [
-   {
-    "label": "Disco",
-    "field": "storage_type",
-    "criterion": "por tipo",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "hdd",
-      "name": "hdd",
-      "use": "",
-      "spec": "hdd",
-      "values": [
-       "hdd"
-      ]
-     },
-     {
-      "id": "ssd",
-      "name": "ssd",
-      "use": "",
-      "spec": "ssd",
-      "values": [
-       "ssd"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Almacenamiento/SSD": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,950",
-      "max": 1950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,950 a $4,150",
-      "min": 1950,
-      "max": 4150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,150",
-      "min": 4150
-     }
-    ]
-   }
-  ]
- },
- "Almacenamiento/Interno": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,050",
-      "max": 2050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,050 a $4,850",
-      "min": 2050,
-      "max": 4850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,850",
-      "min": 4850
      }
     ]
    }
@@ -30725,1123 +31887,6 @@
    }
   ]
  },
- "Joyería y bisutería/Correas y extensibles": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $470",
-      "max": 470
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$470 a $920",
-      "min": 470,
-      "max": 920
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $920",
-      "min": 920
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Relojes": {
-  "axes": [
-   {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "hombre",
-      "name": "Hombre",
-      "use": "",
-      "spec": "Hombre",
-      "values": [
-       "Hombre"
-      ]
-     },
-     {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
-      "values": [
-       "Unisex"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Otros": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "chapa-de-oro",
-      "name": "Chapa de oro",
-      "use": "",
-      "spec": "Chapa de oro",
-      "values": [
-       "Chapa de oro"
-      ]
-     },
-     {
-      "id": "piel",
-      "name": "Piel",
-      "use": "",
-      "spec": "Piel",
-      "values": [
-       "Piel"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "vidrio",
-      "name": "Vidrio",
-      "use": "",
-      "spec": "Vidrio",
-      "values": [
-       "Vidrio"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $420",
-      "max": 420
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$420 a $660",
-      "min": 420,
-      "max": 660
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $660",
-      "min": 660
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Aretes": {
-  "axes": [
-   {
-    "label": "Piedra",
-    "field": "stone",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "sin-piedra",
-      "name": "Sin piedra",
-      "use": "",
-      "spec": "Sin piedra",
-      "values": [
-       "Sin piedra"
-      ]
-     },
-     {
-      "id": "zirconia",
-      "name": "Zirconia",
-      "use": "",
-      "spec": "Zirconia",
-      "values": [
-       "Zirconia"
-      ]
-     },
-     {
-      "id": "diamante",
-      "name": "Diamante",
-      "use": "",
-      "spec": "Diamante",
-      "values": [
-       "Diamante"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "oro",
-      "name": "Oro",
-      "use": "",
-      "spec": "Oro",
-      "values": [
-       "Oro"
-      ]
-     },
-     {
-      "id": "plata",
-      "name": "Plata",
-      "use": "",
-      "spec": "Plata",
-      "values": [
-       "Plata"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Relojes deportivos y digitales": {
-  "axes": [
-   {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "hombre",
-      "name": "Hombre",
-      "use": "",
-      "spec": "Hombre",
-      "values": [
-       "Hombre"
-      ]
-     },
-     {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
-      "values": [
-       "Unisex"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Anillos": {
-  "axes": [
-   {
-    "label": "Piedra",
-    "field": "stone",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "sin-piedra",
-      "name": "Sin piedra",
-      "use": "",
-      "spec": "Sin piedra",
-      "values": [
-       "Sin piedra"
-      ]
-     },
-     {
-      "id": "zirconia",
-      "name": "Zirconia",
-      "use": "",
-      "spec": "Zirconia",
-      "values": [
-       "Zirconia"
-      ]
-     },
-     {
-      "id": "moissanita",
-      "name": "Moissanita",
-      "use": "",
-      "spec": "Moissanita",
-      "values": [
-       "Moissanita"
-      ]
-     },
-     {
-      "id": "diamante",
-      "name": "Diamante",
-      "use": "",
-      "spec": "Diamante",
-      "values": [
-       "Diamante"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "oro",
-      "name": "Oro",
-      "use": "",
-      "spec": "Oro",
-      "values": [
-       "Oro"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Pulseras": {
-  "axes": [
-   {
-    "label": "Piedra",
-    "field": "stone",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "sin-piedra",
-      "name": "Sin piedra",
-      "use": "",
-      "spec": "Sin piedra",
-      "values": [
-       "Sin piedra"
-      ]
-     },
-     {
-      "id": "zirconia",
-      "name": "Zirconia",
-      "use": "",
-      "spec": "Zirconia",
-      "values": [
-       "Zirconia"
-      ]
-     },
-     {
-      "id": "perla",
-      "name": "Perla",
-      "use": "",
-      "spec": "Perla",
-      "values": [
-       "Perla"
-      ]
-     },
-     {
-      "id": "diamante",
-      "name": "Diamante",
-      "use": "",
-      "spec": "Diamante",
-      "values": [
-       "Diamante"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "oro",
-      "name": "Oro",
-      "use": "",
-      "spec": "Oro",
-      "values": [
-       "Oro"
-      ]
-     },
-     {
-      "id": "chapa-de-oro",
-      "name": "Chapa de oro",
-      "use": "",
-      "spec": "Chapa de oro",
-      "values": [
-       "Chapa de oro"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "plata",
-      "name": "Plata",
-      "use": "",
-      "spec": "Plata",
-      "values": [
-       "Plata"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Collares": {
-  "axes": [
-   {
-    "label": "Piedra",
-    "field": "stone",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "sin-piedra",
-      "name": "Sin piedra",
-      "use": "",
-      "spec": "Sin piedra",
-      "values": [
-       "Sin piedra"
-      ]
-     },
-     {
-      "id": "zirconia",
-      "name": "Zirconia",
-      "use": "",
-      "spec": "Zirconia",
-      "values": [
-       "Zirconia"
-      ]
-     },
-     {
-      "id": "perla",
-      "name": "Perla",
-      "use": "",
-      "spec": "Perla",
-      "values": [
-       "Perla"
-      ]
-     },
-     {
-      "id": "diamante",
-      "name": "Diamante",
-      "use": "",
-      "spec": "Diamante",
-      "values": [
-       "Diamante"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "oro",
-      "name": "Oro",
-      "use": "",
-      "spec": "Oro",
-      "values": [
-       "Oro"
-      ]
-     },
-     {
-      "id": "chapa-de-oro",
-      "name": "Chapa de oro",
-      "use": "",
-      "spec": "Chapa de oro",
-      "values": [
-       "Chapa de oro"
-      ]
-     },
-     {
-      "id": "plata",
-      "name": "Plata",
-      "use": "",
-      "spec": "Plata",
-      "values": [
-       "Plata"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Dijes y charms": {
-  "axes": [
-   {
-    "label": "Piedra",
-    "field": "stone",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "sin-piedra",
-      "name": "Sin piedra",
-      "use": "",
-      "spec": "Sin piedra",
-      "values": [
-       "Sin piedra"
-      ]
-     },
-     {
-      "id": "zirconia",
-      "name": "Zirconia",
-      "use": "",
-      "spec": "Zirconia",
-      "values": [
-       "Zirconia"
-      ]
-     },
-     {
-      "id": "diamante",
-      "name": "Diamante",
-      "use": "",
-      "spec": "Diamante",
-      "values": [
-       "Diamante"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "chapa-de-oro",
-      "name": "Chapa de oro",
-      "use": "",
-      "spec": "Chapa de oro",
-      "values": [
-       "Chapa de oro"
-      ]
-     },
-     {
-      "id": "oro",
-      "name": "Oro",
-      "use": "",
-      "spec": "Oro",
-      "values": [
-       "Oro"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Arras y sets": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plata",
-      "name": "Plata",
-      "use": "",
-      "spec": "Plata",
-      "values": [
-       "Plata"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,800",
-      "max": 1800
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,800 a $2,100",
-      "min": 1800,
-      "max": 2100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,100",
-      "min": 2100
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Joyeros": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "piel",
-      "name": "Piel",
-      "use": "",
-      "spec": "Piel",
-      "values": [
-       "Piel"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Relojes para hombre": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,200",
-      "max": 2200
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,200 a $4,200",
-      "min": 2200,
-      "max": 4200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,200",
-      "min": 4200
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Relojes para mujer": {
-  "axes": [
-   {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "mujer",
-      "name": "Mujer",
-      "use": "",
-      "spec": "Mujer",
-      "values": [
-       "Mujer"
-      ]
-     },
-     {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
-      "values": [
-       "Unisex"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Relojes infantiles": {
-  "axes": [
-   {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "hombre",
-      "name": "Hombre",
-      "use": "",
-      "spec": "Hombre",
-      "values": [
-       "Hombre"
-      ]
-     },
-     {
-      "id": "mujer",
-      "name": "Mujer",
-      "use": "",
-      "spec": "Mujer",
-      "values": [
-       "Mujer"
-      ]
-     },
-     {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
-      "values": [
-       "Unisex"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Sí",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Sí",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No",
-      "use": "Mantener seco",
-      "spec": "No",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
- "Joyería y bisutería/Cuidado y herramientas": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     },
-     {
-      "id": "vidrio",
-      "name": "Vidrio",
-      "use": "",
-      "spec": "Vidrio",
-      "values": [
-       "Vidrio"
-      ]
-     },
-     {
-      "id": "oro",
-      "name": "Oro",
-      "use": "",
-      "spec": "Oro",
-      "values": [
-       "Oro"
-      ]
-     }
-    ],
-    "key": "level"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
- },
  "Salud/Movilidad": {
   "axes": [
    {
@@ -33915,16 +33960,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$710 a $5,500",
+      "spec": "$710 a $5,400",
       "min": 710,
-      "max": 5500
+      "max": 5400
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $5,500",
-      "min": 5500
+      "spec": "Más de $5,400",
+      "min": 5400
      }
     ]
    }
@@ -34055,18 +34100,206 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,050 a $6,650",
+      "spec": "$1,050 a $6,700",
       "min": 1050,
-      "max": 6650
+      "max": 6700
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $6,650",
-      "min": 6650
+      "spec": "Más de $6,700",
+      "min": 6700
      }
     ]
+   }
+  ]
+ },
+ "Deportes y fitness": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $1,950",
+      "min": 440,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ]
+ },
+ "Joyería y bisutería": {
+  "axes": [
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Piedra",
+    "field": "stone",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "sin-piedra",
+      "name": "Sin piedra",
+      "use": "",
+      "spec": "Sin piedra",
+      "values": [
+       "Sin piedra"
+      ]
+     },
+     {
+      "id": "zirconia",
+      "name": "Zirconia",
+      "use": "",
+      "spec": "Zirconia",
+      "values": [
+       "Zirconia"
+      ]
+     },
+     {
+      "id": "diamante",
+      "name": "Diamante",
+      "use": "",
+      "spec": "Diamante",
+      "values": [
+       "Diamante"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "oro",
+      "name": "Oro",
+      "use": "",
+      "spec": "Oro",
+      "values": [
+       "Oro"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "chapa-de-oro",
+      "name": "Chapa de oro",
+      "use": "",
+      "spec": "Chapa de oro",
+      "values": [
+       "Chapa de oro"
+      ]
+     },
+     {
+      "id": "plata",
+      "name": "Plata",
+      "use": "",
+      "spec": "Plata",
+      "values": [
+       "Plata"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
+ },
+ "Almacenamiento": {
+  "axes": [
+   {
+    "label": "Disco",
+    "field": "storage_type",
+    "criterion": "por tipo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ssd",
+      "name": "ssd",
+      "use": "",
+      "spec": "ssd",
+      "values": [
+       "ssd"
+      ]
+     },
+     {
+      "id": "hdd",
+      "name": "hdd",
+      "use": "",
+      "spec": "hdd",
+      "values": [
+       "hdd"
+      ]
+     }
+    ],
+    "key": "size"
    }
   ]
  },
@@ -34524,41 +34757,6 @@
    }
   ]
  },
- "Deportes y fitness": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$440 a $1,950",
-      "min": 440,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ]
- },
  "Domótica y hogar inteligente": {
   "axes": [
    {
@@ -34856,37 +35054,6 @@
       "min": 2050
      }
     ]
-   }
-  ]
- },
- "Almacenamiento": {
-  "axes": [
-   {
-    "label": "Disco",
-    "field": "storage_type",
-    "criterion": "por tipo",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "ssd",
-      "name": "ssd",
-      "use": "",
-      "spec": "ssd",
-      "values": [
-       "ssd"
-      ]
-     },
-     {
-      "id": "hdd",
-      "name": "hdd",
-      "use": "",
-      "spec": "hdd",
-      "values": [
-       "hdd"
-      ]
-     }
-    ],
-    "key": "size"
    }
   ]
  },
@@ -35193,128 +35360,6 @@
     ]
    }
   ]
- },
- "Joyería y bisutería": {
-  "axes": [
-   {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "hombre",
-      "name": "Hombre",
-      "use": "",
-      "spec": "Hombre",
-      "values": [
-       "Hombre"
-      ]
-     },
-     {
-      "id": "mujer",
-      "name": "Mujer",
-      "use": "",
-      "spec": "Mujer",
-      "values": [
-       "Mujer"
-      ]
-     },
-     {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
-      "values": [
-       "Unisex"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Piedra",
-    "field": "stone",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "sin-piedra",
-      "name": "Sin piedra",
-      "use": "",
-      "spec": "Sin piedra",
-      "values": [
-       "Sin piedra"
-      ]
-     },
-     {
-      "id": "zirconia",
-      "name": "Zirconia",
-      "use": "",
-      "spec": "Zirconia",
-      "values": [
-       "Zirconia"
-      ]
-     },
-     {
-      "id": "diamante",
-      "name": "Diamante",
-      "use": "",
-      "spec": "Diamante",
-      "values": [
-       "Diamante"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "oro",
-      "name": "Oro",
-      "use": "",
-      "spec": "Oro",
-      "values": [
-       "Oro"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "chapa-de-oro",
-      "name": "Chapa de oro",
-      "use": "",
-      "spec": "Chapa de oro",
-      "values": [
-       "Chapa de oro"
-      ]
-     },
-     {
-      "id": "plata",
-      "name": "Plata",
-      "use": "",
-      "spec": "Plata",
-      "values": [
-       "Plata"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ],
-  "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
  },
  "Salud": {
   "axes": [

@@ -78,7 +78,12 @@ CLASIFICADOR = os.path.join(AQUI, "clasificar_captura_perifericos.py")
 # repartidor, y la mayoría son controles, fundas o cables que sí tienen
 # subcategoría propia. Como destino sigue vetada, así que lo que no se
 # reconoce se queda donde está.
-COMODIN = {"Otros", "Varios", "Otro", "Otros juegos", "Otro calzado", "Otros accesorios gamer"}
+# "Baterías", "Viento" y "Amplificadores" son los cajones de Instrumentos
+# musicales (y solo de ahí: ningún otro rubro usa esos nombres), de cuando la
+# categoría se repartía en familias y no en instrumentos. Entran acá para que
+# el refinador los abra igual que a "Otros".
+COMODIN = {"Otros", "Varios", "Otro", "Otros juegos", "Otro calzado", "Otros accesorios gamer",
+           "Baterías", "Viento", "Amplificadores"}
 
 
 # Qué repartidor le toca a cada categoría. Es el mismo reparto que hace el
