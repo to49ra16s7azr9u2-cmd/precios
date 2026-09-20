@@ -541,6 +541,21 @@ REGLAS = [
     ('Cámaras y fotografía',
      r'\bmicroscopio\b|camara intraoral|camara de inspeccion|\bendoscop|boroscopio',
      None, 'Herramientas', 'Medición', {None}),
+
+    # ---- Mascotas y Teclados (20-sep).
+    ('Mascotas', r'^(?:\S+ ){0,3}(yo,? el gato|el gato que)|seguridad alimentaria|salud publica veterinaria',
+     None, 'Libros', 'Hogar, manualidades y mascotas', {None}),
+    ('Mascotas', r'world cup|\bfifa\b|figuras coleccionables', None,
+     'Juguetes y bebés', 'Figuras de acción', {None}),
+    ('Mascotas', r'camara de seguridad|camara de mascotas|\bnoorio\b', None,
+     'Cámaras de seguridad', 'Cámaras interiores', {None}),
+    ('Mascotas', r'dobladora|\bplegadora\b', None, 'Herramientas', 'Construcción', {None}),
+    ('Teclados', r'keyboard (for|with backlight).{0,30}laptop|top cover with|para laptops?\b', None,
+     'Componentes y accesorios de PC', 'Accesorios', {None}),
+    ('Teclados', r'alfombrilla|mouse ?pad|tapete para mouse', None, 'Mouse', 'Oficina', {None}),
+    ('Teclados', r'pedal (sustain|de expresion|sostenido)|teclado electronico lexibook', None,
+     'Instrumentos musicales', 'Bancos, soportes y accesorios de teclado', {None}),
+    ('Teclados', r'\bviking pro\b|2 in 1 tablet laptop', None, 'Tabletas', 'Tabletas Windows y rugged', {None}),
 ]
 
 

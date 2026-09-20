@@ -7101,23 +7101,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $550",
-      "max": 550
+      "spec": "Hasta $560",
+      "max": 560
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$550 a $2,550",
-      "min": 550,
-      "max": 2550
+      "spec": "$560 a $2,100",
+      "min": 560,
+      "max": 2100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,550",
-      "min": 2550
+      "spec": "Más de $2,100",
+      "min": 2100
      }
     ]
    }
@@ -24261,6 +24261,42 @@
    }
   ]
  },
+ "Mascotas/Transportadoras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $800",
+      "max": 800
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$800 a $2,850",
+      "min": 800,
+      "max": 2850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,850",
+      "min": 2850
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por el tamaño y la edad de tu mascota."
+ },
  "Mascotas/Higiene y limpieza": {
   "axes": [
    {
@@ -24274,23 +24310,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $230",
-      "max": 230
+      "spec": "Hasta $190",
+      "max": 190
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$230 a $830",
-      "min": 230,
-      "max": 830
+      "spec": "$190 a $790",
+      "min": 190,
+      "max": 790
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $830",
-      "min": 830
+      "spec": "Más de $790",
+      "min": 790
      }
     ]
    }
@@ -24389,16 +24425,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$750 a $2,300",
+      "spec": "$750 a $2,350",
       "min": 750,
-      "max": 2300
+      "max": 2350
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,300",
-      "min": 2300
+      "spec": "Más de $2,350",
+      "min": 2350
      }
     ]
    }
@@ -24805,59 +24841,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,100",
-      "max": 1100
+      "spec": "Hasta $1,050",
+      "max": 1050
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,100 a $3,100",
-      "min": 1100,
-      "max": 3100
+      "spec": "$1,050 a $3,050",
+      "min": 1050,
+      "max": 3050
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,100",
-      "min": 3100
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por el tamaño y la edad de tu mascota."
- },
- "Mascotas/Transportadoras": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $800",
-      "max": 800
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$800 a $2,850",
-      "min": 800,
-      "max": 2850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,850",
-      "min": 2850
+      "spec": "Más de $3,050",
+      "min": 3050
      }
     ]
    }
@@ -25431,23 +25431,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $5,500",
-      "max": 5500
+      "spec": "Hasta $4,750",
+      "max": 4750
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$5,500 a $49,500",
-      "min": 5500,
-      "max": 49500
+      "spec": "$4,750 a $43,000",
+      "min": 4750,
+      "max": 43000
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $49,500",
-      "min": 49500
+      "spec": "Más de $43,000",
+      "min": 43000
      }
     ]
    }
@@ -28836,251 +28836,6 @@
    }
   ]
  },
- "Teclados/Membrana": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $520",
-      "max": 520
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$520 a $2,000",
-      "min": 520,
-      "max": 2000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,000",
-      "min": 2000
-     }
-    ]
-   }
-  ]
- },
- "Teclados/Combos con mouse": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $520",
-      "max": 520
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$520 a $830",
-      "min": 520,
-      "max": 830
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $830",
-      "min": 830
-     }
-    ]
-   }
-  ]
- },
- "Teclados/Ergonómicos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $540",
-      "max": 540
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$540 a $1,550",
-      "min": 540,
-      "max": 1550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,550",
-      "min": 1550
-     }
-    ]
-   }
-  ]
- },
- "Teclados/Inalámbricos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $710",
-      "max": 710
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$710 a $1,950",
-      "min": 710,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ]
- },
- "Teclados/Switches, keycaps y accesorios": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $820",
-      "max": 820
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$820 a $2,650",
-      "min": 820,
-      "max": 2650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,650",
-      "min": 2650
-     }
-    ]
-   }
-  ]
- },
- "Teclados/Mecánicos inalámbricos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,550",
-      "max": 1550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,550 a $2,700",
-      "min": 1550,
-      "max": 2700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,700",
-      "min": 2700
-     }
-    ]
-   }
-  ]
- },
- "Teclados/Mecánicos 65% y 75%": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,600",
-      "max": 1600
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,600 a $3,400",
-      "min": 1600,
-      "max": 3400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,400",
-      "min": 3400
-     }
-    ]
-   }
-  ]
- },
  "Teclados/Mecánicos": {
   "axes": [
    {
@@ -29121,15 +28876,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $990",
-      "max": 990
+      "spec": "Hasta $960",
+      "max": 960
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$990 a $2,950",
-      "min": 990,
+      "spec": "$960 a $2,950",
+      "min": 960,
       "max": 2950
      },
      {
@@ -29138,6 +28893,251 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $2,950",
       "min": 2950
+     }
+    ]
+   }
+  ]
+ },
+ "Teclados/Switches, keycaps y accesorios": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $760",
+      "max": 760
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$760 a $2,550",
+      "min": 760,
+      "max": 2550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,550",
+      "min": 2550
+     }
+    ]
+   }
+  ]
+ },
+ "Teclados/Membrana": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $490",
+      "max": 490
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$490 a $2,000",
+      "min": 490,
+      "max": 2000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,000",
+      "min": 2000
+     }
+    ]
+   }
+  ]
+ },
+ "Teclados/Combos con mouse": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $520",
+      "max": 520
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$520 a $820",
+      "min": 520,
+      "max": 820
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $820",
+      "min": 820
+     }
+    ]
+   }
+  ]
+ },
+ "Teclados/Mecánicos inalámbricos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,550",
+      "max": 1550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,550 a $2,700",
+      "min": 1550,
+      "max": 2700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,700",
+      "min": 2700
+     }
+    ]
+   }
+  ]
+ },
+ "Teclados/Ergonómicos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $1,450",
+      "min": 540,
+      "max": 1450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,450",
+      "min": 1450
+     }
+    ]
+   }
+  ]
+ },
+ "Teclados/Inalámbricos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $710",
+      "max": 710
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$710 a $1,950",
+      "min": 710,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ]
+ },
+ "Teclados/Mecánicos 65% y 75%": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,500",
+      "max": 1500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,500 a $3,350",
+      "min": 1500,
+      "max": 3350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,350",
+      "min": 3350
      }
     ]
    }
@@ -29163,16 +29163,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$600 a $1,300",
+      "spec": "$600 a $1,250",
       "min": 600,
-      "max": 1300
+      "max": 1250
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,300",
-      "min": 1300
+      "spec": "Más de $1,250",
+      "min": 1250
      }
     ]
    }
@@ -29191,23 +29191,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,600",
-      "max": 1600
+      "spec": "Hasta $1,650",
+      "max": 1650
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,600 a $3,100",
-      "min": 1600,
-      "max": 3100
+      "spec": "$1,650 a $3,200",
+      "min": 1650,
+      "max": 3200
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,100",
-      "min": 3100
+      "spec": "Más de $3,200",
+      "min": 3200
      }
     ]
    }
@@ -29278,6 +29278,204 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,050",
       "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Mouse/Oficina": {
+  "axes": [
+   {
+    "label": "Sensibilidad",
+    "field": "dpi",
+    "criterion": "en DPI",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 1,200 DPI",
+      "max": 1200
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Juegos casuales",
+      "spec": "1,201 DPI a 2,800 DPI",
+      "min": 1200,
+      "max": 2800
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Juegos competitivos y pantallas grandes",
+      "spec": "Más de 2,800 DPI",
+      "min": 2800
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $380",
+      "max": 380
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$380 a $1,500",
+      "min": 380,
+      "max": 1500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,500",
+      "min": 1500
+     }
+    ]
+   }
+  ]
+ },
+ "Mouse/Ergonómicos": {
+  "axes": [
+   {
+    "label": "Sensibilidad",
+    "field": "dpi",
+    "criterion": "en DPI",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 1,600 DPI",
+      "max": 1600
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Juegos casuales",
+      "spec": "1,601 DPI a 4,000 DPI",
+      "min": 1600,
+      "max": 4000
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Juegos competitivos y pantallas grandes",
+      "spec": "Más de 4,000 DPI",
+      "min": 4000
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $450",
+      "max": 450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$450 a $1,150",
+      "min": 450,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
+ },
+ "Mouse/Gaming": {
+  "axes": [
+   {
+    "label": "Sensibilidad",
+    "field": "dpi",
+    "criterion": "en DPI",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 10,000 DPI",
+      "max": 10000
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Juegos casuales",
+      "spec": "10,001 DPI a 25,500 DPI",
+      "min": 10000,
+      "max": 25500
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Juegos competitivos y pantallas grandes",
+      "spec": "Más de 25,500 DPI",
+      "min": 25500
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $770",
+      "max": 770
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$770 a $1,850",
+      "min": 770,
+      "max": 1850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,850",
+      "min": 1850
      }
     ]
    }
@@ -30983,204 +31181,6 @@
    }
   ],
   "intro": "Elige por tu trayecto: distancia y subidas."
- },
- "Mouse/Oficina": {
-  "axes": [
-   {
-    "label": "Sensibilidad",
-    "field": "dpi",
-    "criterion": "en DPI",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 1,200 DPI",
-      "max": 1200
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Juegos casuales",
-      "spec": "1,201 DPI a 2,800 DPI",
-      "min": 1200,
-      "max": 2800
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Juegos competitivos y pantallas grandes",
-      "spec": "Más de 2,800 DPI",
-      "min": 2800
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $380",
-      "max": 380
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$380 a $1,500",
-      "min": 380,
-      "max": 1500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,500",
-      "min": 1500
-     }
-    ]
-   }
-  ]
- },
- "Mouse/Ergonómicos": {
-  "axes": [
-   {
-    "label": "Sensibilidad",
-    "field": "dpi",
-    "criterion": "en DPI",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 1,600 DPI",
-      "max": 1600
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Juegos casuales",
-      "spec": "1,601 DPI a 4,000 DPI",
-      "min": 1600,
-      "max": 4000
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Juegos competitivos y pantallas grandes",
-      "spec": "Más de 4,000 DPI",
-      "min": 4000
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $450",
-      "max": 450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$450 a $1,150",
-      "min": 450,
-      "max": 1150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
-     }
-    ]
-   }
-  ]
- },
- "Mouse/Gaming": {
-  "axes": [
-   {
-    "label": "Sensibilidad",
-    "field": "dpi",
-    "criterion": "en DPI",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 10,000 DPI",
-      "max": 10000
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Juegos casuales",
-      "spec": "10,001 DPI a 25,500 DPI",
-      "min": 10000,
-      "max": 25500
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Juegos competitivos y pantallas grandes",
-      "spec": "Más de 25,500 DPI",
-      "min": 25500
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $770",
-      "max": 770
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$770 a $1,850",
-      "min": 770,
-      "max": 1850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,850",
-      "min": 1850
-     }
-    ]
-   }
-  ]
  },
  "Proyectores y accesorios/Proyectores": {
   "axes": [
@@ -35169,6 +35169,72 @@
    }
   ]
  },
+ "Mouse": {
+  "axes": [
+   {
+    "label": "Sensibilidad",
+    "field": "dpi",
+    "criterion": "en DPI",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 2,400 DPI",
+      "max": 2400
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Juegos casuales",
+      "spec": "2,401 DPI a 12,000 DPI",
+      "min": 2400,
+      "max": 12000
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Juegos competitivos y pantallas grandes",
+      "spec": "Más de 12,000 DPI",
+      "min": 12000
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $510",
+      "max": 510
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$510 a $1,650",
+      "min": 510,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
  "Relojes inteligentes": {
   "axes": [
    {
@@ -35385,72 +35451,6 @@
    }
   ],
   "intro": "Elige por tu trayecto: distancia y subidas."
- },
- "Mouse": {
-  "axes": [
-   {
-    "label": "Sensibilidad",
-    "field": "dpi",
-    "criterion": "en DPI",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 2,400 DPI",
-      "max": 2400
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Juegos casuales",
-      "spec": "2,401 DPI a 12,000 DPI",
-      "min": 2400,
-      "max": 12000
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Juegos competitivos y pantallas grandes",
-      "spec": "Más de 12,000 DPI",
-      "min": 12000
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $510",
-      "max": 510
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$510 a $1,700",
-      "min": 510,
-      "max": 1700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,700",
-      "min": 1700
-     }
-    ]
-   }
-  ]
  },
  "Proyectores y accesorios": {
   "axes": [

@@ -6180,6 +6180,9 @@
     "Mascotas": [
       "data/cat/mascotas-1.json"
     ],
+    "Libros": [
+      "data/cat/libros-1.json"
+    ],
     "Suplementos": [
       "data/cat/suplementos-1.json"
     ],
@@ -6201,6 +6204,9 @@
     "Teclados": [
       "data/cat/teclados-1.json"
     ],
+    "Mouse": [
+      "data/cat/mouse-1.json"
+    ],
     "Relojes inteligentes": [
       "data/cat/relojes-inteligentes-1.json"
     ],
@@ -6213,9 +6219,6 @@
     "Movilidad eléctrica": [
       "data/cat/movilidad-electrica-1.json"
     ],
-    "Mouse": [
-      "data/cat/mouse-1.json"
-    ],
     "Proyectores y accesorios": [
       "data/cat/proyectores-y-accesorios-1.json"
     ],
@@ -6227,9 +6230,6 @@
     ],
     "Viajes": [
       "data/cat/viajes-1.json"
-    ],
-    "Libros": [
-      "data/cat/libros-1.json"
     ],
     "Cafeteras": [
       "data/cat/cafeteras-1.json"
@@ -6450,6 +6450,9 @@
       "data/det/mascotas-6.json",
       "data/det/mascotas-7.json"
     ],
+    "Libros": [
+      "data/det/libros-1.json"
+    ],
     "Suplementos": [
       "data/det/suplementos-1.json"
     ],
@@ -6482,6 +6485,9 @@
       "data/det/teclados-1.json",
       "data/det/teclados-2.json"
     ],
+    "Mouse": [
+      "data/det/mouse-1.json"
+    ],
     "Relojes inteligentes": [
       "data/det/relojes-inteligentes-1.json"
     ],
@@ -6496,9 +6502,6 @@
     ],
     "Movilidad eléctrica": [
       "data/det/movilidad-electrica-1.json"
-    ],
-    "Mouse": [
-      "data/det/mouse-1.json"
     ],
     "Proyectores y accesorios": [
       "data/det/proyectores-y-accesorios-1.json",
@@ -6517,9 +6520,6 @@
     ],
     "Viajes": [
       "data/det/viajes-1.json"
-    ],
-    "Libros": [
-      "data/det/libros-1.json"
     ],
     "Cafeteras": [
       "data/det/cafeteras-1.json"
@@ -6601,9 +6601,9 @@
       "maxShip": 67
     },
     "Componentes y accesorios de PC": {
-      "n": 6896,
+      "n": 6900,
       "subs": {
-        "Accesorios": 456,
+        "Accesorios": 460,
         "": 61,
         "Accesorios de monitor": 1107,
         "Componentes": 1848,
@@ -6619,9 +6619,9 @@
         "RAM para Mac": 32
       },
       "pop": 3744,
-      "discounted": 93,
+      "discounted": 94,
       "max": 68,
-      "discountedShip": 92,
+      "discountedShip": 93,
       "maxShip": 68
     },
     "Cargadores y adaptadores": {
@@ -6743,9 +6743,9 @@
       "maxShip": 71
     },
     "Tabletas": {
-      "n": 3286,
+      "n": 3288,
       "subs": {
-        "Tabletas Windows y rugged": 661,
+        "Tabletas Windows y rugged": 663,
         "Tabletas Android de 10 a 11 pulgadas": 440,
         "Tabletas Android": 620,
         "Tabletas Android de 12 pulgadas o más": 371,
@@ -6820,7 +6820,7 @@
       "maxShip": 75
     },
     "Instrumentos musicales": {
-      "n": 16805,
+      "n": 16810,
       "subs": {
         "Accesorios": 281,
         "Accesorios de guitarra": 1056,
@@ -6849,7 +6849,7 @@
         "Baterías acústicas": 678,
         "Armónicas y melódicas": 234,
         "Sintetizadores y controladores MIDI": 109,
-        "Bancos, soportes y accesorios de teclado": 59,
+        "Bancos, soportes y accesorios de teclado": 64,
         "Tarolas y cajas": 52,
         "Baterías": 372,
         "Viento": 315,
@@ -6867,10 +6867,10 @@
         "Guitarras electroacústicas": 150,
         "Órganos y otros teclados": 6
       },
-      "pop": 4135,
-      "discounted": 1481,
+      "pop": 4136,
+      "discounted": 1486,
       "max": 84,
-      "discountedShip": 1482,
+      "discountedShip": 1487,
       "maxShip": 84
     },
     "Videojuegos": {
@@ -6931,7 +6931,7 @@
       "maxShip": 80
     },
     "Herramientas": {
-      "n": 19238,
+      "n": 19239,
       "subs": {
         "Soldadura": 416,
         "Material eléctrico": 763,
@@ -6972,7 +6972,7 @@
         "Accesorios de multiherramienta y mototool": 40,
         "Lijas y accesorios de lijado": 14,
         "Organización": 269,
-        "Construcción": 144,
+        "Construcción": 145,
         "Gas LP": 31,
         "Plomería": 1581,
         "Flejadoras y empacadoras": 1384,
@@ -7268,13 +7268,13 @@
       "maxShip": 66
     },
     "Juguetes y bebés": {
-      "n": 8997,
+      "n": 8998,
       "subs": {
         "Juegos de exterior": 54,
         "Juguetes para bebé": 151,
         "Bloques de construcción": 800,
         "Carriolas": 1151,
-        "Figuras de acción": 1258,
+        "Figuras de acción": 1259,
         "Cunas": 26,
         "Monitores de bebé": 14,
         "Juguetes educativos": 350,
@@ -7481,24 +7481,24 @@
       "maxShip": 60
     },
     "Mascotas": {
-      "n": 12223,
+      "n": 12217,
       "subs": {
-        "": 162,
-        "Higiene y limpieza": 120,
+        "Transportadoras": 449,
+        "Higiene y limpieza": 140,
         "Rascadores y torres": 153,
-        "Casas para mascotas": 1778,
+        "Casas para mascotas": 1784,
         "Puertas para mascotas": 743,
         "Jaulas y hábitats para roedores": 76,
+        "": 102,
         "Platos y tazones para mascotas": 1601,
         "Tapetes y accesorios de alimentación": 50,
         "Comederos automáticos": 469,
-        "Juguetes para perro": 676,
+        "Juguetes para perro": 677,
         "Camas para perro": 799,
         "Camas para gato": 222,
-        "Camas elevadas y colchonetas": 252,
-        "Cuevas, iglús y tiendas para mascotas": 616,
+        "Camas elevadas y colchonetas": 255,
+        "Cuevas, iglús y tiendas para mascotas": 623,
         "Camas": 14,
-        "Transportadoras": 445,
         "Areneros": 98,
         "Juguetes": 2,
         "Juguetes para gato": 198,
@@ -7509,13 +7509,13 @@
         "Comederos elevados": 265,
         "Comederos para aves y roedores": 34,
         "Comederos lentos y antivoracidad": 146,
-        "Juguetes para aves y roedores": 20,
-        "Jaulas para perro": 1384,
-        "Adiestramiento": 17,
+        "Juguetes para aves y roedores": 21,
+        "Jaulas para perro": 1385,
+        "Adiestramiento": 19,
         "Ropa y accesorios": 84,
-        "Jaulas para aves": 13,
-        "Cojines y mantas para mascotas": 61,
-        "Corrales y rejas para mascotas": 151,
+        "Jaulas para aves": 14,
+        "Cojines y mantas para mascotas": 63,
+        "Corrales y rejas para mascotas": 157,
         "Jaulas y recintos para gato": 823,
         "Gallineros y conejeras": 46,
         "Acuarios y terrarios": 31
@@ -7525,6 +7525,20 @@
       "max": 75,
       "discountedShip": 865,
       "maxShip": 71
+    },
+    "Libros": {
+      "n": 8,
+      "subs": {
+        "Hogar, manualidades y mascotas": 4,
+        "Psicología": 2,
+        "Música y cine": 1,
+        "Infantil": 1
+      },
+      "pop": 0,
+      "discounted": 1,
+      "max": 11,
+      "discountedShip": 1,
+      "maxShip": 11
     },
     "Suplementos": {
       "n": 697,
@@ -7715,27 +7729,40 @@
       "maxShip": 76
     },
     "Teclados": {
-      "n": 2394,
+      "n": 2382,
       "subs": {
-        "": 136,
-        "Membrana": 468,
-        "Combos con mouse": 364,
-        "Ergonómicos": 96,
-        "Inalámbricos": 354,
-        "Switches, keycaps y accesorios": 131,
-        "Mecánicos inalámbricos": 218,
-        "Mecánicos 65% y 75%": 115,
-        "Mecánicos": 160,
-        "Mecánicos 60% y compactos": 135,
-        "Mecánicos TKL (80%)": 64,
+        "Mecánicos": 169,
+        "": 76,
+        "Switches, keycaps y accesorios": 140,
+        "Membrana": 479,
+        "Combos con mouse": 370,
+        "Mecánicos inalámbricos": 220,
+        "Ergonómicos": 97,
+        "Inalámbricos": 355,
+        "Mecánicos 65% y 75%": 120,
+        "Mecánicos 60% y compactos": 136,
+        "Mecánicos TKL (80%)": 67,
         "Mecánicos tamaño completo": 75,
         "Numéricos": 78
       },
-      "pop": 5370,
-      "discounted": 265,
+      "pop": 5369,
+      "discounted": 259,
       "max": 69,
-      "discountedShip": 265,
+      "discountedShip": 259,
       "maxShip": 69
+    },
+    "Mouse": {
+      "n": 1942,
+      "subs": {
+        "Oficina": 945,
+        "Ergonómicos": 209,
+        "Gaming": 788
+      },
+      "pop": 5242,
+      "discounted": 102,
+      "max": 68,
+      "discountedShip": 100,
+      "maxShip": 59
     },
     "Relojes inteligentes": {
       "n": 1110,
@@ -7834,19 +7861,6 @@
       "discountedShip": 126,
       "maxShip": 70
     },
-    "Mouse": {
-      "n": 1941,
-      "subs": {
-        "Oficina": 944,
-        "Ergonómicos": 209,
-        "Gaming": 788
-      },
-      "pop": 5242,
-      "discounted": 102,
-      "max": 68,
-      "discountedShip": 100,
-      "maxShip": 59
-    },
     "Proyectores y accesorios": {
       "n": 7782,
       "subs": {
@@ -7932,19 +7946,6 @@
       "max": 69,
       "discountedShip": 649,
       "maxShip": 66
-    },
-    "Libros": {
-      "n": 4,
-      "subs": {
-        "Psicología": 2,
-        "Música y cine": 1,
-        "Infantil": 1
-      },
-      "pop": 0,
-      "discounted": 1,
-      "max": 11,
-      "discountedShip": 1,
-      "maxShip": 11
     },
     "Cafeteras": {
       "n": 663,
@@ -8284,6 +8285,14 @@
       "p75051",
       "p338060"
     ],
+    "Libros": [
+      "p310125",
+      "p359388",
+      "p359390",
+      "p359391",
+      "p309492",
+      "p359399"
+    ],
     "Suplementos": [
       "p375073",
       "p375140",
@@ -8340,6 +8349,14 @@
       "p27060",
       "p289457"
     ],
+    "Mouse": [
+      "p33380",
+      "p27313",
+      "p29836",
+      "p29843",
+      "p27331",
+      "p27319"
+    ],
     "Relojes inteligentes": [
       "p35967",
       "p53996",
@@ -8372,14 +8389,6 @@
       "p73477",
       "p33623"
     ],
-    "Mouse": [
-      "p33380",
-      "p27313",
-      "p29836",
-      "p29843",
-      "p27331",
-      "p27319"
-    ],
     "Proyectores y accesorios": [
       "p192101",
       "p192233",
@@ -8411,12 +8420,6 @@
       "p82994",
       "p82657",
       "p82811"
-    ],
-    "Libros": [
-      "p309492",
-      "p359399",
-      "p45998",
-      "p277077"
     ],
     "Cafeteras": [
       "p40700",

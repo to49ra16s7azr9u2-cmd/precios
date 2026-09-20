@@ -3684,6 +3684,49 @@ def sub_clima(tn):
 
 
 def sub_mascota(tn):
+    # Familias que faltaban (20-sep): la tienda de campaña y la casa de
+    # exterior, la barrera y el parque, la urna conmemorativa, el inodoro y
+    # el pasto entrenador, la carriola y el trolley de viaje.
+    if re.search(r'tienda de (campana|perros)|carpas?\b|tienda para perros|\bcanopy\b|'
+                 r'casa (al aire libre|de refrigeracion)|\biglu\b|\bcueva\b', tn):
+        return 'Cuevas, iglús y tiendas para mascotas'
+    if re.search(r'barrera (ajustable|para)|\bparque\b (de juegos|infantil)|\bcorral\b|'
+                 r'reja (para|de) (mascota|perro)|\bplaypen\b', tn):
+        return 'Corrales y rejas para mascotas'
+    if re.search(r'\burna\b|\bcenizas\b|conmemorativ|\bmemorial\b|guardar pelo', tn):
+        return 'Higiene y limpieza'
+    if re.search(r'inodoro para|pasto entrenador|bandeja sanitaria|entrenador de bano|'
+                 r'empapador|bote de basura.{0,20}caca|guantes para banar|perfume para perro|'
+                 r'aditivo para el aliento|eliminar garrapatas', tn):
+        return 'Higiene y limpieza'
+    if re.search(r'\bstroller\b|carriola|\btrolley\b|\bback ?pack\b|mochila (de )?(viaje|transporte)|'
+                 r'portador de|caja suave para perros', tn):
+        return 'Transportadoras'
+    if re.search(r'alberca para mascotas|piscina para (perros|mascotas)', tn):
+        return 'Juguetes para perro'
+    if re.search(r'rueda silenciosa|rueda de ejercicio.{0,20}(hamster|roedor)', tn):
+        return 'Juguetes para aves y roedores'
+    if re.search(r'casa de aves|caja de cria de aves|\bpajarera\b', tn):
+        return 'Jaulas para aves'
+    if re.search(r'cuna elevada|elevad[oa] para (perros|mascotas)|cama elevada', tn):
+        return 'Camas elevadas y colchonetas'
+    if re.search(r'asiento de coche para|asiento para (perro|mascota)|booster para perro', tn):
+        return 'Transportadoras'
+    if re.search(r'cinta de correr para (perros|mascotas)|\btreadmill\b|dispensador.{0,20}premios|'
+                 r'\bclicker\b|boton de (perro|mascota)', tn):
+        return 'Adiestramiento'
+    if re.search(r'rasuradora para (perros|gatos)|foam limpieza|mesa (plegable )?de aseo|'
+                 r'\bcortaunas\b.{0,15}(perro|gato)|shampoo para (perro|gato)', tn):
+        return 'Higiene y limpieza'
+    if re.search(r'escalera(s)? para (perros|mascotas)|rampa para (perros|mascotas)|'
+                 r'caja.{0,15}mesa auxiliar para mascotas|ecoflex', tn):
+        return 'Casas para mascotas'
+    if re.search(r'\bicrate\b|caja de metal plegable para perros|\bkennel\b', tn):
+        return 'Jaulas para perro'
+    if re.search(r'mantas? para (mascotas|perros|gatos)|cobija para (perro|gato)', tn):
+        return 'Cojines y mantas para mascotas'
+    if re.search(r'pluma de juego|\bplaypen\b|tienda plegable', tn):
+        return 'Corrales y rejas para mascotas'
     """Reparte Mascotas.
 
     Media captura de mascotas viene con el título en inglés ("dog squeaky
@@ -4242,9 +4285,12 @@ def sub_teclado(tn):
     numérico son productos distintos, no variantes del mismo."""
     # El teclado musical cayó acá por la palabra: no se le inventa una
     # subcategoría de teclado de computadora.
+    if re.search(r'keyboard (for|with backlight).{0,30}laptop|para laptops?\b|top cover with|'
+                 r'\bviking pro\b|alfombrilla|mouse ?pad|pedal (sustain|de expresion|sostenido)', tn):
+        return None
     if re.match(r'^(?:\S+ ){0,2}(escritorio|mesa|silla|soporte|base|mouse|tablet|laptop|alarma)\b', tn):
         return None
-    if re.search(r'trackpad|trackball|\d\d teclas|casiotone|\bpsr|\byamaha\b|\bcasio\b|\balesis\b|\bpiano\b|\bkboard\b|'
+    if re.search(r'trackpad|trackball|\b(25|32|37|44|49|54|61|76|88) teclas\b|casiotone|\bpsr|\byamaha\b|\bcasio\b|\balesis\b|\bpiano\b|\bkboard\b|'
                  r'\bkosmos\b|\bkorg\b|\broland\b|teclado (musical|digital|infantil|portatil de)|\bmidi\b', tn):
         return None
     if re.search(r'wrist rest|reposa ?munecas|keycaps?|\bswitch(es)?\b(?!.{0,20}(teclado|keyboard))|'
@@ -4260,7 +4306,11 @@ def sub_teclado(tn):
     if re.search(r'ergonomic|dividido|partido|split', tn):
         return 'Ergonómicos'
     if re.search(r'mecanic|mechanical|hot ?swap|switch(es)? (outemu|blue|red|brown|gateron|cherry)|'
-                 r'\boutemu\b|\bgateron\b|cherry mx|switch optic|\banalog optical\b', tn):
+                 r'\boutemu\b|\bgateron\b|cherry mx|switch optic|\banalog optical\b|'
+                 # El teclado gamer de última hornada se vende por su
+                 # interruptor magnético de efecto Hall y no dice "mecánico".
+                 r'efecto hall|hall effect|interruptor(es)? magnetic|rapid trigger|'
+                 r'\battack shark\b|\bnuphy\b|\bmchose\b|pulsar gaming|\bazeron\b', tn):
         return 'Mecánicos'
     if 'membrana' in tn:
         return 'Membrana'
