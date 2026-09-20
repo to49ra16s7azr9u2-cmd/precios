@@ -2742,7 +2742,14 @@ tr.offer-compare-off { display: none; }
    variable porque el pedido explícito fue "que no sobre aire en ningún
    lado": un solo número gobierna la separación entre columnas y entre las
    piezas de cada columna. */
-:root { --hueco-inicio: 8px; }
+:root {
+  --hueco-inicio: 8px;
+  /* Entre columnas se separa más que entre tarjetas (20-sep, a pedido del
+     usuario: "多少大きめにスペースをとってもかまいません"). Ese hueco es
+     además el radio del arco que une la pestaña con el panel: cuanto más
+     ancho, más suave la curva. */
+  --hueco-col: 14px;
+}
 .home-grid {
   display: grid;
   /* Columna izquierda estrecha (120px, elegido por el usuario el 20-sep
@@ -2757,7 +2764,7 @@ tr.offer-compare-off { display: none; }
      más abajo, justo el hueco que no debe haber. Al ser flexible la fila 2,
      el sobrante de lo que cruza las dos filas se va entero ahí. */
   grid-template-rows: min-content 1fr auto;
-  gap: var(--hueco-inicio);
+  gap: var(--hueco-inicio) var(--hueco-col);
   align-items: start;
   margin-top: var(--hueco-inicio);
 }
@@ -2802,7 +2809,16 @@ tr.offer-compare-off { display: none; }
    sobre el hueco entre columnas los junta en una sola forma, como una
    carpeta. Cada pestaña tiene su color: rojo para "Compara precios",
    amarillo (el de su logo) para "Compara marcas". */
-.home-grid { --tab-color: var(--red); --marco-radio: 10px; }
+.home-grid {
+  --tab-color: var(--red);
+  --marco-radio: 10px;
+  /* radio exterior del arco de la unión = ancho del hueco (para que salga
+     y entre tangente), interior = 3 px más, el grosor de la línea. */
+  --r: var(--hueco-col);
+  --r2: calc(var(--hueco-col) + 3px);
+  --arco: var(--bg) calc(var(--r) - 0.5px), var(--tab-color) calc(var(--r) + 0.5px),
+          var(--tab-color) calc(var(--r2) - 0.5px), var(--card) calc(var(--r2) + 0.5px);
+}
 .home-grid[data-home-tab="marcas"] { --tab-color: #f2b31c; }
 .home-center-frame {
   position: relative;
@@ -2850,39 +2866,46 @@ tr.offer-compare-off { display: none; }
   top: -3px;
   bottom: -3px;
   left: 100%;
+  z-index: 1;
   /* cubre el hueco entre columnas y se mete 3px en el borde del marco.
      Las dos líneas van como BORDES y no como capas de fondo: con zoom del
      navegador el fondo y el borde de la pestaña redondean el medio píxel
      por separado y la línea de arriba salía con un escalón. */
-  width: calc(var(--hueco-inicio) + 3px);
+  width: calc(var(--hueco-col) + 3px);
   background: var(--card);
   border-top: 3px solid var(--tab-color);
   border-bottom: 3px solid var(--tab-color);
 }
-/* Las esquinas CÓNCAVAS de la unión (pedido del usuario, 20-sep): donde
-   la línea de abajo de la pestaña dobla hacia el borde izquierdo del
-   panel, un cuarto de círculo del color del fondo recorta el ángulo y la
-   línea se curva en vez de quebrarse. Va en ::before, pegado por fuera
-   del puente: un cuadrado de un radio bajo la línea de abajo (y otro
-   sobre la de arriba cuando "Compara marcas" está activa, que ahí el
-   borde del panel también baja por encima de la pestaña). */
+/* La curva de la unión, encima del puente (z-index 2) porque REEMPLAZA a
+   su línea recta en esa esquina. Sin esto el rojo se triplicaba justo ahí:
+   se sumaban la línea de abajo de la pestaña, el borde izquierdo del panel
+   y la cuña que redondeaba el ángulo, y la junta se veía como un borrón.
+
+   Es un ARCO de 3 px de ancho, el mismo grosor que las rectas que une. La
+   circunferencia tiene su centro en el hueco, a ras de la esquina de la
+   pestaña (0 100% del cuadro): el radio exterior (8 px, el ancho del
+   hueco) sale tangente a la línea de abajo y llega tangente al borde del
+   panel, y el interior (11 px) hace lo mismo con las caras internas. Fuera
+   del arco va el blanco del panel, que tapa el trozo de borde que ahí ya
+   no corresponde; dentro, el gris de la página. */
 .home-tab.is-active::before {
   content: "";
   position: absolute;
   left: 100%;
-  --r: var(--hueco-inicio);
   top: calc(-3px - var(--r));
   bottom: calc(-3px - var(--r));
-  width: var(--r);
+  width: var(--r2);
+  z-index: 2;
   pointer-events: none;
-  background:
-    radial-gradient(circle at 0 100%, var(--bg) calc(var(--r) - 0.6px), var(--tab-color) calc(var(--r) + 0.4px)) 0 100% / var(--r) var(--r) no-repeat;
+  background: radial-gradient(circle at 0 100%, var(--arco)) 0 100% / var(--r2) var(--r2) no-repeat;
 }
+/* Con "Compara marcas" activa el borde del panel también baja por encima
+   de la pestaña: la esquina de arriba lleva el mismo arco. */
 .home-grid[data-home-tab="marcas"] .home-tab.is-active::before {
-  background:
-    radial-gradient(circle at 0 100%, var(--bg) calc(var(--r) - 0.6px), var(--tab-color) calc(var(--r) + 0.4px)) 0 100% / var(--r) var(--r) no-repeat,
-    radial-gradient(circle at 0 0, var(--bg) calc(var(--r) - 0.6px), var(--tab-color) calc(var(--r) + 0.4px)) 0 0 / var(--r) var(--r) no-repeat;
+  background: radial-gradient(circle at 0 100%, var(--arco)) 0 100% / var(--r2) var(--r2) no-repeat,
+              radial-gradient(circle at 0 0, var(--arco)) 0 0 / var(--r2) var(--r2) no-repeat;
 }
+
 /* Dentro del marco grueso sobra el borde fino rosa de la caja de
    categorías: se veía como una segunda línea pegada a la roja. */
 .home-center-frame .home-category-box { border: 0; }
