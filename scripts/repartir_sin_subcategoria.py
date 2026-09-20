@@ -62,6 +62,7 @@ import datetime
 import io
 import json
 import os
+import re
 import sys
 import tempfile
 
@@ -136,8 +137,24 @@ def cargar_repartidores():
         for f in (vacia.name, salida):
             if os.path.exists(f):
                 os.unlink(f)
-    # Baterías portátiles se reparte por tramo de mAh, no por un sub_*.
-    g["sub_bateria_tramo"] = lambda tn: g["tramo"](g["capacidad_mah"](tn))
+    # Baterías portátiles se reparte por tramo de mAh, no por un sub_*. Lo
+    # que no trae mAh en el título y tampoco es un power bank (la funda, el
+    # módulo de carga, la tapa del compartimento, el cable con batería) cae
+    # en "Accesorios y repuestos": el rubro solo tenía los tres tramos de
+    # capacidad y esas fichas se quedaban sin ningún lugar donde ir.
+    def _bateria_tramo(tn):
+        t = g["tramo"](g["capacidad_mah"](tn))
+        if t:
+            return t
+        if re.search(r"\bfundas?\b|\bcarcasas?\b|\bcubiertas?\b|\btapas?\b|\bcajas?\b|\bestuches?\b|"
+                     r"\bshell\b|\bconvertidora|usb c to usb|extension de la garantia|"
+                     r"\bmodulo\b|\bpcba?\b|\bplaca\b|\btarjeta de carga\b|\bsoporte\b|"
+                     r"\bcable\b|\badaptador\b|\brepuesto\b|\breemplazo\b|\bprotector(es)?\b|"
+                     r"\beliminador(es)?\b|\bconvertidor\b|\bbolsa\b|\bcargador de (bateria|pilas)\b|"
+                     r"\bcompatible con\b|\bpara \w+ para \w+\b", tn):
+            return "Accesorios y repuestos"
+        return None
+    g["sub_bateria_tramo"] = _bateria_tramo
     return g
 
 

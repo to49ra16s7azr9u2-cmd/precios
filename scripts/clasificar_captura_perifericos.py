@@ -3964,7 +3964,14 @@ def sub_herramienta(tn):
                  r'herramientas? (para|de) (mecanica|el hogar|manualidades|reparacion)|'
                  r'kit combinado|combo de herramientas|afinaciones automotrices|para mecanico|'
                  r'sincronizar motor|remover ventiladores|reparacion (de )?(roscas|cuerdas)|'
-                 r'juego (combinado|para|p/) ', tn):
+                 r'juego (combinado|para|p/) |'
+                 r'\bautocle\b|\bjgo\b|juego \d+ herramienta|\bversastack\b|'
+                 r'\d+ ?(pzas|pcs|piezas)\.?\b.{0,25}(mecanic|herramienta|combinado)|'
+                 r'herramientas? (mecanica|manuales|aisladas|estandar|milimetrica|'
+                 r'automotriz|universales)|repair tool set|\bcmmt\d|\bbgs ?\d|'
+                 r'herramienta.{0,20}sincroni|kit de sincronia|portafolio de herramientas|'
+                 r'juego (de )?copas|juego herramientas|kit de cambio de banda|\bct225r\b|'
+                 r'juego \d+ pzas de herramienta|set \d+ ?pcs|set \d+ herramientas', tn):
         return 'Juegos de herramientas'
     if re.search(r'(herramientas?|accesorios?|juego|kit|piezas?).{0,30}(rotativa|rotatoria|giratoria|\bdremel\b|mototool)|'
                  r'(rotativa|rotatoria|giratoria|\bdremel\b|mototool).{0,40}(accesorio|kit|juego|piezas|repuesto)', tn):
@@ -4003,7 +4010,8 @@ def sub_herramienta(tn):
                  r'organizador\b.{0,30}herramientas|organizador (de gavetas|\d+ compartimentos|\d+"|\d+ pulgadas)(?!.{0,30}(sala|cocina|bano|hogar))|'
                  r'caja (para|porta|metalica|modular|plastica)\b|caja\b.{0,20}herramientas|'
                  r'\bgavetero\b|\bpackout\b|estante organizador(?!.{0,30}(sala|cocina|bano|hogar))|estanteria (de cochera|de garaje|para garaje)|'
-                 r'\btruper\b.{0,20}organizador|organizador.{0,20}\btruper\b', tn):
+                 r'\btruper\b.{0,20}organizador|organizador.{0,20}\btruper\b|'
+                 r'\borganizador(es)?\b|\btoughsystem\b|cajones extraibles', tn):
         return 'Organización'
     # Consumible de impacto: va a su subcategoría fina directa porque el
     # repartidor de "Herramientas manuales" no la conoce (es de eléctricas).
@@ -4015,19 +4023,85 @@ def sub_herramienta(tn):
        re.search(r'dewalt|makita|milwaukee|\bbosch\b|ryobi|\bridgid\b|stanley|truper|craftsman|\bskil\b|'
                  r'\b\d{2} ?v\b|\d+ voltios|litio|li-?ion|\bah\b', tn):
         return 'Baterías y cargadores de herramienta'
+    # La misma familia cuando la marca o el modelo van adelante: "Bat Alto
+    # Rendimiento 20v Dcb200-b3 Dewalt", "Makita Bl1014 12v Max", "Starter
+    # Kit Bosch 2 Baterias 18v 4ah + Cargador". El ancla de arriba pide que
+    # el título EMPIECE por batería o cargador y estos no lo hacen.
+    if (re.search(r'\bbateri|\bbattery\b|\bcargador\b|\bpwr core\b|\bgopak\b|'
+                  r'\bbat\b.{0,25}\d{2} ?v|estacion de energia', tn)
+            and re.search(r'dewalt|makita|milwaukee|\bbosch\b|ryobi|\bridgid\b|stanley|'
+                          r'truper|craftsman|\bskil\b|\bingco\b|pretul|karcher|husqvarna|'
+                          r'\baksi\b|\bdcb\d{3,4}|\bbl\d{4}\b|\bgba\b|\d{2} ?v\b|\bah\b', tn)):
+        return 'Baterías y cargadores de herramienta'
     # Atornillador y pistola de impacto: es lo que más trajo la ronda.
     if re.search(r'\batornillador|pistola de impacto|\bimpacto\b.{0,25}(bateria|litio|inalambric|\bnm\b|1/[24]in)|'
-                 r'\bdtd\d{3}|\bdcf\d{3}', tn):
+                 r'\bdtd\d{3}|\bdcf\d{3}|\bgdr ?\d|\bfs2[57]00\b|tornillador|'
+                 r'toalimentador|\bbdcs\d{2}|\bcmcf\d{3}', tn):
         return 'Atornilladores'
     if re.search(r'\bserra\b|table saw|cortadora de metales|ranuradora|tronzadora|\bserrucho\b|'
-                 r'sierra (circular|caladora|de mesa|sable|cinta)', tn):
+                 r'sierra (circular|caladora|de mesa|sable|cinta)|\bwet tile saw\b|'
+                 r'cortadora de (concreto|metal|marmol|loseta|ceramica|tile|disco|vidrio)|'
+                 r'corta(dora)? concreto|\bgks ?\d|\bsrr\d{3,4}|\bcs10\d{2}|\bd28730\b|\bd24000\b|'
+                 r'\bcortadora\b(?!.{0,25}perforacion)|pwr core 20 xp', tn):
         return 'Sierras'
-    if re.search(r'\binflador\b|\bcompresor', tn):
+    if re.search(r'\binflador\b|\bcompresor|inflallantas|\bcomp-?kit|air tools|\bcompressor\b', tn):
         return 'Compresores y herramienta neumática'
     if re.search(r'\bdremel\b|herramientas? oscilantes?|\bmototool\b|\bmultiherramienta\b.{0,20}accesorio', tn):
         return 'Accesorios de multiherramienta y mototool'
-    if re.search(r'\bborlas\b|esponjas.{0,20}velcro|boinas? de pulir|respaldo.{0,15}velcro', tn):
+    if re.search(r'\bborlas\b|esponjas.{0,20}velcro|boinas? de pulir|respaldo.{0,15}velcro|'
+                 r'hook ?and ?loop', tn):
         return 'Lijas y accesorios de lijado'
+    # Familias que la ronda de Mercado Libre trajo y no tenían rama (20-sep).
+    if re.search(r'\bruteadora|\btupia\b|rebordeadora|multicortador|\bgop\b|'
+                 r'herramienta oscilante|\brp0900|\bdwe625\b|\bm360[01]b\b|\bdrt50\b|'
+                 r'base recortadora|\bscw400\b|riel guia', tn):
+        return 'Routers, fresadoras y multiherramientas'
+    if re.search(r'cortacirculos|cortador(es)? anular|cortador anular|avellanador|'
+                 r'\bmachuelo|\btarraja|corona de diamante|\bbarrena\b|\bdwa\d{4}', tn):
+        return 'Brocas'
+    if re.search(r'extension(es)? magnetica|guia magnetica|portabroca|sockets? magnetico|'
+                 r'regulador(es)? de profundidad|limitador de retroceso|\bcollet\b|'
+                 r'bru(n|ñ)idora|rectificador para cilindro|aceite (de )?corte|'
+                 r'adaptador.{0,25}poleas|\bwobble\b', tn):
+        return 'Accesorios para herramientas eléctricas'
+    if re.search(r'control (de )?velocidad compatible|ensamblaje del protector|kit de topes|'
+                 r'\bsacabujia\b', tn):
+        return 'Refacciones de herramientas eléctricas'
+    if re.search(r'\bgbh ?\d|\bgsb ?\d|\broto-?\d|\bstdh\d|\bld12sc\b', tn):
+        return 'Taladros y rotomartillos'
+    if re.search(r'\bgwx ?\d|x-?lock|abrillantadora|kit de pulido|esponja para pulido|'
+                 r'\brb61g\b', tn):
+        return 'Esmeriladoras y pulidoras'
+    if re.search(r'\bm9201', tn):
+        return 'Lijadoras'
+    if re.search(r'\bhila-?\d|hidrolavadora', tn):
+        return 'Hidrolavadoras'
+    if re.search(r'ingersoll rand', tn):
+        return 'Neumáticas'
+    if re.search(r'tanque (de )?(gasolina|diesel)', tn):
+        return 'Generadores'
+    if re.search(r'\btaburete\b|\bescalon\b', tn):
+        return 'Escaleras'
+    if re.search(r'\bcavador\b|elevador de troncos', tn):
+        return 'Jardinería'
+    if re.search(r'soporte con rodillos', tn):
+        return 'Herramientas de banco'
+    if re.search(r'\bbar press\b', tn):
+        return 'Prensas y sujeción'
+    if re.search(r'pistola de clavos', tn):
+        return 'Pistolas de calor, engrapadoras y clavadoras'
+    if re.search(r'sujetador magnetico.{0,25}soldar', tn):
+        return 'Soldadura'
+    if re.search(r'cuello de cera', tn):
+        return 'Plomería'
+    if re.search(r'vasos de impacto', tn):
+        return 'Puntas y dados de impacto'
+    if re.search(r'rodilleras|proteccion contra caidas|arnes anticaidas', tn):
+        return 'Seguridad industrial'
+    if re.search(r'marcar metales|micropercusion|\bmarcadora\b', tn):
+        return 'Grabado láser'
+    if re.search(r'ferreteria|bricolaje|instalacion de puertas', tn):
+        return 'Juegos de herramientas'
     if re.search(r'\bbroca|\bdisco de (corte|desbaste)|\blija\b|puntas? de (atornillador|desarmador)|'
                  r'\bsierra caladora hoja|accesorios? para (taladro|rotomartillo)|'
                  r'\bmandril\b|adaptador de brocas|base de inclinacion|base (para|de) router', tn):
@@ -4053,7 +4127,13 @@ def sub_herramienta(tn):
                  r'maneral|mango articulado|extensiones? hexagonal|elevador de precision|\bextractor\b|'
                  r'\bcrique\b|\bmatraca\b|\bdesarmadores?\b|'
                  r'\bcopa\b.{0,12}(dado|impacto)|\btrinquete\b|\bpinzas?\b|\bllaves?\b|\bmazo\b|'
-                 r'\bcincel\b|\bpunzon\b|\bextension\b.{0,20}(matraca|dado)|\bavellanadora\b', tn):
+                 r'\bcincel\b|\bpunzon\b|\bextension\b.{0,20}(matraca|dado)|\bavellanadora\b|'
+                 r'\bperica\b|hombresolo|cortapernos?|corta perno|cortacables|\bknipex\b|'
+                 r'\bcizalla\b|magnetizador|desmagnetizador|sacapines|saca ?clavos|\bpison\b|'
+                 r'zapa-?pico|\bmarro(n)? demoledor\b|\bmaza\b|\boz claw\b|\bbarrote\b|'
+                 r'\bbocallave\b|\bmuelas\b|\bberbiqui\b|gira machos|entibador|sacamoldura|'
+                 r'driver de impacto|juego de perno|\breiniciador\b|micro grip|'
+                 r'numeros? de golpe|\bmartelo\b|\bmartilo\b|ganchos? de precision', tn):
         return 'Herramientas manuales'
     return None
 
@@ -4254,15 +4334,67 @@ def sub_cafetera(tn):
         return 'De goteo'
     return None
 
+MARCAS_CELULAR = re.compile(r'\b(vivo|oppo|realme|honor|xiaomi|redmi|poco|motorola|moto|samsung|huawei|zte|nokia|tcl|'
+                            r'oneplus|infinix|\btecno\b|google|apple|iphone|nubia|alcatel|lanix|bmobile|blackview|doogee|'
+                            r'ulefone|oukitel|cubot|umidigi|fossibot|kyocera|blu|hotwav|agm|cat|nothing|sony|'
+                            r'blackberry|htc|lg|asus|zebra|hisense)\b')
 def sub_celular(tn):
-    if re.search(r'protector(es)? (de )?(lente|camara)|\bmica\b', tn): return 'Accesorios'
+    # El rubro entero terminaba en 'Android' porque la última línea lo daba
+    # por hecho, y "para personas mayores" bastaba para 'Básicos': así el
+    # protector de colchón, el baumanómetro y el cepillo de dientes para
+    # adultos mayores aparecían como teléfonos en la lista de celulares.
+    # Primero se separa lo que NO es un teléfono; lo que no es ni teléfono ni
+    # accesorio de teléfono se queda sin subcategoría y lo recoge
+    # mover_por_regla, que sabe a qué rubro mandarlo.
+    # El accesorio solo cuenta cuando ABRE el título: casi todo teléfono
+    # menciona "cargador incluido" o "protector de pantalla" en la ficha, y
+    # sin el ancla el Pixel 4 y el Ulefone Armor salían de la categoría.
+    if re.search(r'^(?:\S+ ){0,6}(fundas?|micas?|cristal templado|cargador(es)?|cables?|'
+                 r'soportes?|clip|stylus|lapiz|anillo|adhesivos?|pegamento|antena|bolsa|'
+                 r'bolso|correa|tripie|tripode|selfie|aro de luz|popsocket|ventilador usb|'
+                 r'puerto de carga|estante de carga|estacion usb|estante de colocacion|'
+                 r'protector(es)? (de )?(lente|camara|pantalla)|herramientas? de (reparacion|apertura)|'
+                 r'accesorios? de reparacion|juego (de herramientas )?(p/|para )?reparacion|'
+                 r'cortador de molibdeno|bandeja expulsora|roseta telefonica)\b', tn):
+        return 'Accesorios'
+    # El teléfono de casa tiene su propia subcategoría y no la usaba nadie.
+    if re.search(r'telefono (inalambrico|alambrico|fijo|de linea)|telefono de (linea|casa)|'
+                 r'\bkx-?t|contestador|\bfsk/dtmf\b|identificador de llamadas', tn):
+        return 'Teléfonos fijos'
+    # Lo que no es un teléfono ni un accesorio de teléfono: se queda sin
+    # subcategoría a propósito y mover_por_regla lo manda a su rubro.
+    if re.search(r'juguete|masticar|\bmascota\b|peluche|llavero|tiras? de luces|'
+                 r'pasta de dientes|cepillo de dientes|colchon|incontinencia|'
+                 r'baumanometro|presion arterial|masajeador|cobija|manta termica|'
+                 r'unidades? flash|memory stick|pastillas de guitarra|'
+                 r'tabletas? profesionales? de dibujo|caja conmemorativa|'
+                 r'controlador (inteligente )?led|reposabrazos|punto de acceso wifi|'
+                 r'\benrutador\b|maquina laser|'
+                 r'almohadilla (protectora|de cama|calefactora)', tn):
+        return None
+    # El audífono y el micrófono, solo si ABREN el título: el teléfono que
+    # viene "+ Honor Choice Earbuds" sigue siendo un teléfono.
+    if re.search(r'^(?:\S+ ){0,3}(auriculares?|earbuds?|earphones?|headphones?|headset|'
+                 r'audifonos?|microfono|mic\b|tws\b|action cam)', tn):
+        return None
     if 'iphone' in tn: return 'iPhone'
     if re.search(r'resistente|rugged|robusto|todoterreno|\bip6[89]\b|a prueba de (golpes|agua)', tn): return 'Resistentes'
     # El teléfono básico (de tapa, de botones grandes, 2G) no es Android:
     # tiene su propia subcategoría.
-    if re.search(r'\b[23]g\b|botones? grandes?|(personas|adultos) mayores|\bsenior\b|abatible|(flip|feature) ?phone|'
+    if re.search(r'\b[23]g\b|botones? grandes?|\bsenior\b|abatible|(flip|feature) ?phone|'
                  r'(de|con) tapa\b|rotary|telefono (celular |movil )?basico|celular basico|boton sos|\bsos\b|'
-                 r'(pantalla (de )?)?\b[12][.,]\d+ ?(pulgadas|")|unlocked phone', tn): return 'Básicos'
+                 r'(pantalla (de )?)?\b[12][.,]\d+ ?(pulgadas|")|unlocked phone|'
+                 # "Para personas mayores" solo cuenta si además nombra el
+                 # teléfono: si no, se lo llevaba todo lo demás que se vende
+                 # para adultos mayores, que en esta tienda es mucho.
+                 r'(personas|adultos) mayores.{0,60}(telefono|celular|movil|phone)|'
+                 r'(telefono|celular|movil|phone).{0,60}(personas|adultos) mayores', tn):
+        return 'Básicos'
+    # 'Android' sigue siendo el final del camino: media tienda nombra el
+    # teléfono solo por su modelo ("Galaxy S25 Ultra 256gb", "G15 Power
+    # 8GB RAM"), sin decir "celular" ni la marca, y exigir la palabra dejaba
+    # 200 teléfonos de verdad sin subcategoría. Lo que no es teléfono ya se
+    # separó arriba, que es donde corresponde.
     return 'Android'
 
 def sub_tableta(tn):
@@ -4271,10 +4403,6 @@ def sub_tableta(tn):
 # La marca del celular cuando abre el título y no está en MARCAS: "vivo" y
 # "honor" son palabras corrientes ("en vivo", "honor a") y no pueden entrar
 # a la lista general, pero al principio del nombre de un celular son la marca.
-MARCAS_CELULAR = re.compile(r'\b(vivo|oppo|realme|honor|xiaomi|redmi|poco|motorola|moto|samsung|huawei|zte|nokia|tcl|'
-                            r'oneplus|infinix|\btecno\b|google|apple|iphone|nubia|alcatel|lanix|bmobile|blackview|doogee|'
-                            r'ulefone|oukitel|cubot|umidigi|fossibot|kyocera|blu|hotwav|agm|cat|nothing|sony|'
-                            r'blackberry|htc|lg|asus|zebra|hisense)\b')
 def marca_celular(tn):
     m = MARCAS_CELULAR.search(tn[:50])
     if not m: return None

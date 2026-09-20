@@ -333,6 +333,102 @@ REGLAS = [
      r'compatible con (hp|dell|msi|macbook|panasonic)|\bab06xl\b|\bbty-m6h\b|\bvh08\b|\ba1383\b|'
      r'cargador portatil de 65 w para toshiba',
      None, 'Refacciones', 'Refacciones para otros electrodomésticos', {None}),
+
+    # ---- Herramientas, segunda tanda (20-sep). "Herramienta" es la palabra
+    # que más se usa de relleno en los títulos de Mercado Libre ("herramienta
+    # de entrenamiento", "herramienta de belleza", "herramientas profesionales
+    # de diseño de sonido"), y el rubro se llenó de cosas que no son una
+    # herramienta. Todas se limitan a las fichas sin subcategoría.
+    ('Herramientas',
+     r'\bsintetizador\b|teoria musical|\bmaracas\b|limpiar cuerdas|herramienta de acordes|'
+     r'ajuste de bastidor|gong mallet|\bcarillon|pedal de efectos|guitar strings?|'
+     r'chakra sound|barras? de resonantes',
+     None, 'Instrumentos musicales', 'Accesorios', {None}),
+    ('Herramientas',
+     r'limpieza (de )?camara|sensor (ccd|cmos)|lupa sensor|cabeza de bola',
+     None, 'Cámaras y fotografía', 'Accesorios', {None}),
+    ('Herramientas',
+     r'soporte de montaje de disco duro|tarjetas? de memoria micro sd|soporte de expansion de \d discos',
+     None, 'Almacenamiento', 'Tarjetas de memoria', {None}),
+    ('Herramientas', r'tubo acustico', None, 'Audífonos', 'Earbuds con cable', {None}),
+    ('Herramientas',
+     r'radio de coche|car radio|reproductor multimedia compatible for|restauracion de faros|'
+     r'esponja para pulido|arrancador de salto|bocinas? de trompeta',
+     None, 'Autos, bicicletas y motos', 'Accesorios y refacciones', {None}),
+    ('Herramientas',
+     r'\bgolf\b|\bdardos\b|pelotas de tenis|supervivencia|\bbrujula\b|gimnasia ritmica|'
+     r'bloques de yoga|estirador de piernas|fuerza para antebrazo|equipo de ejercicio|'
+     r'bascula de pesca|organizador de equipos de gimnasio',
+     None, 'Deportes y fitness', 'Otros', {None}),
+    ('Herramientas',
+     r'cuticula|removedor de piel|dreadlocks|diagnostico de la piel|\bfascia\b|'
+     r'cortapelos|cera para (el vello|eliminar el vello)|\bloofah\b|\blufa\b|'
+     r'esterilizacion para herramientas|tarro de desinfeccion|botellas de limpieza de pestanas',
+     None, 'Belleza y cuidado personal', 'Cuidado personal', {None}),
+    ('Herramientas', r'irrigador|ortodoncia|\bbrackets\b', None,
+     'Belleza y cuidado personal', 'Cuidado personal', {None}),
+    ('Herramientas',
+     r'composicion corporal|bascula.{0,30}(peso corporal|medir la altura|440)|analizador ultrasonico',
+     None, 'Salud', 'Básculas', {None}),
+    ('Herramientas',
+     r'aire acondicionado|refrigerante|deshumidificad|deshdificador|fugas de (ca|aire)',
+     None, 'Climatización', 'Accesorios y refacciones de aire acondicionado', {None}),
+    ('Herramientas', r'estanteria|carro con ruedas cocina|carrito de bebidas', None,
+     'Muebles', 'Libreros', {None}),
+    ('Herramientas', r'castillo hinchable|casa de rebote|ruleta de premios|rueda de la fortuna', None,
+     'Juguetes y bebés', 'Juegos de exterior', {None}),
+    ('Herramientas', r'ruedas dedicadas para carriola de mascotas|caseta de exterior', None,
+     'Mascotas', 'Casas para mascotas', {None}),
+    ('Herramientas', r'reposacabezas thule|respaldo de carriola', None,
+     'Juguetes y bebés', 'Carriolas', {None}),
+    ('Herramientas', r'salud mental|practica clinica|herramientas psicologicas', None,
+     'Libros', 'Psicología', {None}),
+    ('Herramientas', r'bolso frontal para scooter', None,
+     'Movilidad eléctrica', 'Accesorios', {None}),
+    ('Herramientas', r'soporte magnetico para starlink', None, 'Redes', 'Routers', {None}),
+
+    # ---- Celulares (20-sep). Sin restringir a las fichas sin subcategoría,
+    # a diferencia del resto: acá el problema es justamente que TIENEN una
+    # (el despachador daba 'Android' por hecho), así que limitarlas a las
+    # vacías no movería ninguna.
+    # ---- Celulares (20-sep). El rubro daba 'Android' por hecho a todo lo
+    # que entraba, así que el micrófono, el masajeador, el protector de
+    # colchón y el juguete para perro aparecían como teléfonos en la lista
+    # (y en la de "más baratos", que es la que abre la categoría, salían
+    # todos primeros). El despachador ya los deja sin subcategoría; acá van
+    # a su rubro.
+    ('Celulares', r'^(?:\S+ ){0,3}(microfono|dji mic)|lavalier|microfono de solapa',
+     r'\bcelular\b|\btelefono\b|smartphone|\bgalaxy\b|\biphone\b|\bmoto \w|\bredmi\b|feature phone|rugged phone|\bdual sim\b|\bdesbloqueado\b|\bram\b', 'Instrumentos musicales', 'Micrófonos'),
+    ('Celulares',
+     r'^(?:\S+ ){0,4}(auriculares?|earbuds?|earphones?|headphones?|headset|audifonos?|tws|'
+     r'enco|true wireless)\b',
+     r'\bcelular\b|\btelefono\b|smartphone|\bgalaxy\b|\biphone\b|\bmoto \w|\bredmi\b|feature phone|rugged phone|\bdual sim\b|\bdesbloqueado\b|\bram\b', 'Audífonos', 'Earbuds inalámbricos'),
+    ('Celulares', r'masajeador|liberador(es)? (de musculos|fasciales)|fascia|rodillo masajeador', None,
+     'Salud', 'Salud'),
+    ('Celulares', r'baumanometro|presion arterial', None, 'Salud', 'Equipo de monitoreo médico'),
+    ('Celulares', r'cepillo de dientes|pasta de dientes', None, 'Salud', 'Cuidado dental'),
+    ('Celulares',
+     r'incontinencia|protector(a)? de colchon|colchon impermeable|almohadillas? de cama|'
+     r'sabanas impermeables|almohadillas? (protectora|absorbente)',
+     None, 'Salud', 'Salud'),
+    ('Celulares', r'cobija electrica|manta termica|alfombrillas? de calefaccion', None,
+     'Otros', 'Varios'),
+    ('Celulares', r'silla reclinable', None, 'Muebles', 'Sillones y reclinables'),
+    ('Celulares', r'reposabrazos', None, 'Muebles', 'Accesorios y organizadores de escritorio'),
+    ('Celulares', r'^(?:\S+ ){0,3}llaveros?\b', None, 'Otros', 'Varios'),
+    ('Celulares', r'masticar|chirrido de peluche', None, 'Mascotas', 'Juguetes para perro'),
+    ('Celulares', r'caja conmemorativa de mascotas', None, 'Mascotas', 'Higiene y limpieza'),
+    ('Celulares', r'unidades? (de memoria )?flash|memory stick', None,
+     'Almacenamiento', 'Memorias USB'),
+    ('Celulares', r'action cam|super clamp', None, 'Cámaras y fotografía', 'Accesorios'),
+    ('Celulares', r'pastillas de guitarra', None, 'Instrumentos musicales', 'Accesorios de guitarra'),
+    ('Celulares', r'tabletas? profesionales? de dibujo', None, 'Tabletas', 'Tabletas de dibujo'),
+    ('Celulares', r'punto de acceso wifi|\benrutador\b', r'rugged phone|\btelefono resistente\b',
+     'Redes', 'Routers'),
+    ('Celulares', r'controlador (inteligente )?led', None, 'Iluminación', 'Tiras LED'),
+    ('Celulares', r'almohadilla calefactora de pantalla|maquina laser|separadora', None,
+     'Herramientas', 'Accesorios para herramientas eléctricas'),
+    ('Celulares', r'^(?:\S+ ){0,3}(taza|vaso)\b', None, 'Cocina y comedor', 'Tazas'),
 ]
 
 
