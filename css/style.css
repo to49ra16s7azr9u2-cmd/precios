@@ -3139,6 +3139,24 @@ tr.offer-compare-off { display: none; }
 .home-rank-mes-name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .home-rank-mes-n { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .home-rank-mes-go { font-size: 12px; font-weight: 700; color: var(--red); white-space: nowrap; }
+/* Plegado: solo las primeras filas, el resto tras "Ver más". */
+.home-rank-mes-row.is-extra { display: none; }
+.home-rank-mes.is-abierto .home-rank-mes-row.is-extra { display: grid; }
+.home-rank-mes-mas {
+  display: block;
+  width: 100%;
+  margin-top: 2px;
+  padding: 9px 4px;
+  border: 0;
+  border-top: 1px solid var(--border);
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+  cursor: pointer;
+}
+.home-rank-mes-mas:hover { background: var(--bg); color: var(--red-dark); }
 
 /* Top 10 de categorías por calificaciones, entre las pestañas y el botón de
    tips. Cada puesto es un rectángulo cuyo ancho es su puntaje: la barra va

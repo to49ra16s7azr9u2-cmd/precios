@@ -2939,6 +2939,10 @@
   }
 
   const RANKING_LINKS_VISIBLES = 18;
+  // Cuántas filas se ven antes de "Ver más". El bloque va debajo del panel
+  // central y con las 18 se comía una pantalla entera; plegado a cuatro
+  // ocupa lo que el usuario pidió (20-sep) y el resto sigue a un clic.
+  const RANKING_LINKS_PLEGADO = 4;
   // Mismo slug que slugify() de scripts/data_io.py, que es el que nombra la
   // carpeta de la página (categoria/<slug>/). Si los dos no dan lo mismo, el
   // enlace de la portada apunta a una carpeta que no existe.
@@ -2957,15 +2961,25 @@
       .filter(({ n }) => n > 0)
       .sort((a, b) => b.n - a.n);
     if (!cats.length) return;
-    const enlaces = cats.slice(0, RANKING_LINKS_VISIBLES).map(({ c, n }) =>
-      `<a class="home-rank-mes-row" href="categoria/${catSlug(c.name)}/" title="${htmlEscapeAttr(c.name)} — ranking del mes">` +
+    const enlaces = cats.slice(0, RANKING_LINKS_VISIBLES).map(({ c, n }, i) =>
+      `<a class="home-rank-mes-row${i >= RANKING_LINKS_PLEGADO ? " is-extra" : ""}" href="categoria/${catSlug(c.name)}/" title="${htmlEscapeAttr(c.name)} — ranking del mes">` +
       `${icon(c.icon, "cat-item-icon")}<span class="home-rank-mes-name">${htmlEscapeAttr(c.name)}</span>` +
       `<span class="home-rank-mes-n">${n.toLocaleString("es-MX")} productos</span>` +
       `<span class="home-rank-mes-go">Ver ranking →</span></a>`
     ).join("");
+    const ocultas = Math.min(cats.length, RANKING_LINKS_VISIBLES) - RANKING_LINKS_PLEGADO;
+    const boton = ocultas > 0
+      ? `<button type="button" class="home-rank-mes-mas" aria-expanded="false">Ver más (${ocultas})</button>`
+      : "";
     el.homeRankingLinks.innerHTML =
       `<div class="home-rank-mes-head">${icon("trophy")}<span>Rankings del mes</span>` +
-      `<span class="home-rank-mes-sub">Lo más popular de cada categoría, por mes</span></div>${enlaces}`;
+      `<span class="home-rank-mes-sub">Lo más popular de cada categoría, por mes</span></div>${enlaces}${boton}`;
+    const mas = el.homeRankingLinks.querySelector(".home-rank-mes-mas");
+    if (mas) mas.onclick = () => {
+      const abierto = el.homeRankingLinks.classList.toggle("is-abierto");
+      mas.setAttribute("aria-expanded", String(abierto));
+      mas.textContent = abierto ? "Ver menos" : `Ver más (${ocultas})`;
+    };
   }
 
   // "Cómo utilizar": la guía completa, pensada para quien entra por
