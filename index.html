@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=beaf6704">
+<link rel="stylesheet" href="css/style.min.css?v=1f930978">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -182,10 +182,6 @@
             <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.6 7-12.2A7 7 0 0 0 5 9.3c0 5.6 7 12.2 7 12.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.2" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span><strong>¿Dónde estás?</strong><span class="home-side-btn-sub" id="homeLocationBtnLabel">Mi ubicación</span></span>
           </button>
-          <!-- Las páginas de ranking mensual (/categoria/<slug>/). Desde la
-               portada es el único enlace que las alcanza; sin él solo
-               colgarían del sitemap. Lo llena renderHomeRankingLinks(). -->
-          <nav class="home-side-list" id="homeRankingLinks" aria-label="Rankings por categoría"></nav>
         </aside>
 
         <main class="home-col home-col-center">
@@ -211,6 +207,14 @@
           </div>
           </div>
         </main>
+
+        <!-- Las páginas de ranking mensual (/categoria/<slug>/). Desde la
+             portada es el único enlace que las alcanza; sin él solo
+             colgarían del sitemap. Va debajo del panel central, a lo ancho
+             de las columnas izquierda y central (boceto del usuario,
+             20-sep): cabecera con icono y una fila por categoría. Lo llena
+             renderHomeRankingLinks(). -->
+        <section class="home-rank-mes" id="homeRankingLinks" aria-label="Rankings del mes"></section>
 
         <aside class="home-col home-col-right">
           <div class="home-ad-banner">
@@ -1081,7 +1085,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=7f6b523c"></script>
+<script src="js/app.min.js?v=5c74f9e7"></script>
 </div>
 </body>
 </html>

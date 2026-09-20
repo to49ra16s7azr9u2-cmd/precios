@@ -2954,12 +2954,15 @@
       .filter(({ n }) => n > 0)
       .sort((a, b) => b.n - a.n);
     if (!cats.length) return;
-    const enlaces = cats.slice(0, RANKING_LINKS_VISIBLES).map(({ c }) =>
-      `<a href="categoria/${catSlug(c.name)}/" title="${htmlEscapeAttr(c.name)} — ranking del mes">` +
-      `${htmlEscapeAttr(c.name)}</a>`
+    const enlaces = cats.slice(0, RANKING_LINKS_VISIBLES).map(({ c, n }) =>
+      `<a class="home-rank-mes-row" href="categoria/${catSlug(c.name)}/" title="${htmlEscapeAttr(c.name)} — ranking del mes">` +
+      `${icon(c.icon, "cat-item-icon")}<span class="home-rank-mes-name">${htmlEscapeAttr(c.name)}</span>` +
+      `<span class="home-rank-mes-n">${n.toLocaleString("es-MX")} productos</span>` +
+      `<span class="home-rank-mes-go">Ver ranking →</span></a>`
     ).join("");
     el.homeRankingLinks.innerHTML =
-      `<span class="home-side-list-head">Rankings del mes</span>${enlaces}`;
+      `<div class="home-rank-mes-head">${icon("trophy")}<span>Rankings del mes</span>` +
+      `<span class="home-rank-mes-sub">Lo más popular de cada categoría, por mes</span></div>${enlaces}`;
   }
 
   // "Cómo utilizar": tres pasos, que son los tres que el sitio pide de

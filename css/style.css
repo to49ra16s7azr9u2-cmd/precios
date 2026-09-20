@@ -2749,7 +2749,7 @@ tr.offer-compare-off { display: none; }
      321px para una franja de 69px y las otras dos columnas empezaban 250px
      más abajo, justo el hueco que no debe haber. Al ser flexible la fila 2,
      el sobrante de lo que cruza las dos filas se va entero ahí. */
-  grid-template-rows: min-content 1fr;
+  grid-template-rows: min-content 1fr auto;
   gap: var(--hueco-inicio);
   align-items: start;
   margin-top: var(--hueco-inicio);
@@ -2762,7 +2762,8 @@ tr.offer-compare-off { display: none; }
 .home-most-viewed-band { grid-column: 1 / 3; grid-row: 1; }
 .home-col-left { grid-column: 1; grid-row: 2; }
 .home-col-center { grid-column: 2; grid-row: 2; }
-.home-col-right { grid-column: 3; grid-row: 1 / span 2; }
+.home-col-right { grid-column: 3; grid-row: 1 / span 3; }
+.home-rank-mes { grid-column: 1 / 3; grid-row: 3; }
 /* Las dos entradas al catálogo, arriba de todo en la columna izquierda
    (es el orden del boceto): la marca --que abre las categorías-- y
    "Marcas". La activa se pinta en rojo; la otra queda apagada, para que se
@@ -2785,7 +2786,7 @@ tr.offer-compare-off { display: none; }
 .home-tab.is-active { background: var(--card); color: var(--red-dark); border-color: var(--red); }
 /* La primera pestaña es el logo, no texto. */
 .home-tab-marca { padding: 5px 6px; }
-.home-col-left .home-cat-rank, .home-col-left .home-side-list, .home-col-left .home-tips { font-size: 12px; }
+.home-col-left .home-cat-rank, .home-col-left .home-tips { font-size: 12px; }
 .home-tab-marca .hero-logo { display: block; width: 100%; height: auto; }
 .home-tab-marca:not(.is-active) .hero-logo { filter: grayscale(1); opacity: 0.55; }
 
@@ -2824,6 +2825,13 @@ tr.offer-compare-off { display: none; }
   border-bottom-right-radius: 0;
 }
 .home-tab-marca.is-active { padding-right: 9px; }
+/* Al hacer clic, el botón queda con el foco y Chrome le pinta su anillo
+   negro por encima del borde de color: la pestaña se veía con un marco
+   negro que no casaba con el rojo del panel. La pestaña activa ya está
+   señalada por el marco, así que no necesita anillo; la inactiva lo
+   conserva solo para el teclado, del color de la pestaña. */
+.home-tab:focus { outline: none; }
+.home-tab:not(.is-active):focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 .home-tab.is-active::after {
   content: "";
   position: absolute;
@@ -2977,34 +2985,46 @@ tr.offer-compare-off { display: none; }
 .home-tips li + li { margin-top: 5px; }
 .home-tips strong { color: var(--ink); }
 
-/* Lista de las páginas de ranking mensual. */
-.home-side-list {
+/* "Rankings del mes": el bloque ancho bajo el panel central (a lo ancho de
+   las columnas izquierda y central). Cabecera como la de los rankings de la
+   derecha (icono + título con subrayado rojo) y una fila por categoría:
+   icono, nombre, cuántos productos y el enlace a su página mensual. */
+.home-rank-mes {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--card);
-  padding: 7px 0;
+  padding: 10px 12px 4px;
+  min-width: 0;
 }
-.home-side-list-head {
-  display: block;
-  padding: 0 10px 5px;
-  font-size: 11px;
+.home-rank-mes-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--muted);
+  font-size: 15px;
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+  border-bottom: 2px solid var(--red);
 }
-.home-side-list a {
-  display: block;
-  padding: 4px 10px;
-  font-size: 12px;
+.home-rank-mes-head .icon { width: 20px; height: 20px; color: var(--red); flex: 0 0 auto; }
+.home-rank-mes-sub { font-weight: 500; font-size: 12px; color: var(--muted); margin-left: auto; }
+.home-rank-mes-row {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 4px;
+  border-top: 1px solid var(--border);
   color: var(--ink);
   text-decoration: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 13px;
 }
-.home-side-list a:hover { background: var(--bg); color: var(--red-dark); }
-.home-side-list a.home-side-list-more { color: var(--red); font-weight: 700; }
+.home-rank-mes-row:first-of-type { border-top: 0; }
+.home-rank-mes-row:hover { background: var(--bg); color: var(--red-dark); }
+.home-rank-mes-row .icon { width: 20px; height: 20px; color: var(--muted); }
+.home-rank-mes-name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.home-rank-mes-n { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.home-rank-mes-go { font-size: 12px; font-weight: 700; color: var(--red); white-space: nowrap; }
 
 /* Top 10 de categorías por calificaciones, entre las pestañas y el botón de
    tips. Cada puesto es un rectángulo cuyo ancho es su puntaje: la barra va
@@ -3017,6 +3037,15 @@ tr.offer-compare-off { display: none; }
   border-radius: var(--radius);
   background: var(--card);
   padding: 7px 0 0;
+}
+.home-side-list-head {
+  display: block;
+  padding: 0 10px 5px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
 }
 .home-cat-rank .home-side-list-head { padding-bottom: 4px; }
 /* La marca de "en vivo" del ranking de categorías: solo aparece cuando el
@@ -3123,8 +3152,8 @@ tr.offer-compare-off { display: none; }
   .home-col-right { grid-column: 2; grid-row: auto; }
   .home-col-left { grid-column: 1 / -1; grid-row: auto; flex-direction: row; flex-wrap: wrap; align-items: center; }
   .home-col-left .home-side-btn { width: auto; flex: 1 1 180px; }
-  .home-col-left .home-side-list,
   .home-col-left .home-cat-rank { flex: 1 1 100%; }
+  .home-rank-mes { grid-column: 1 / -1; grid-row: auto; }
   .home-tabs { flex: 1 1 100%; flex-direction: row; }
   .home-tab-marca .hero-logo { max-width: 160px; }
   .home-tab.is-active { border-right: 3px solid var(--tab-color); border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
@@ -3140,24 +3169,11 @@ tr.offer-compare-off { display: none; }
   .home-tab-marca .hero-logo { max-width: 150px; }
   .home-most-viewed-band { grid-column: auto; grid-row: auto; }
   .home-col-left, .home-col-center, .home-col-right { grid-column: auto; grid-row: auto; }
-  /* Apilada, la lista de 18 rankings empujaba la rejilla de categorías
-     --que es a lo que se viene a Inicio-- casi dos pantallas hacia abajo.
-     En el teléfono se convierte en una fila que se desplaza de lado, como
-     la de "lo último que viste": ocupa un renglón en vez de dieciocho. */
-  .home-side-list {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    padding: 6px;
-    align-items: center;
-  }
-  .home-side-list-head { padding: 0 4px 0 2px; white-space: nowrap; }
-  .home-side-list a {
-    flex: 0 0 auto;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 5px 9px;
-  }
+  .home-rank-mes { grid-column: auto; grid-row: auto; }
+  /* En el teléfono cada fila se queda con icono, nombre y flecha: el
+     conteo de productos no cabe y no decide nada. */
+  .home-rank-mes-row { grid-template-columns: 22px minmax(0, 1fr) auto; }
+  .home-rank-mes-n { display: none; }
 }
 
 /* "Visto recientemente" / "Recomendado para ti": solo con sesión iniciada
