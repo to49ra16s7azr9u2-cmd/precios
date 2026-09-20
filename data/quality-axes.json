@@ -25375,6 +25375,568 @@
    }
   ]
  },
+ "Componentes y accesorios de PC/Accesorios": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $700",
+      "min": 290,
+      "max": 700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $700",
+      "min": 700
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/Accesorios de monitor": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "size_in",
+    "criterion": "en pulgadas",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "El más compacto",
+      "spec": "Hasta 27\"",
+      "max": 27
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "28\" a 32\"",
+      "min": 27,
+      "max": 32
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "El más grande",
+      "spec": "Más de 32\"",
+      "min": 32
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $690",
+      "max": 690
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$690 a $2,800",
+      "min": 690,
+      "max": 2800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,800",
+      "min": 2800
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/Componentes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,200",
+      "max": 1200
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,200 a $7,800",
+      "min": 1200,
+      "max": 7800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,800",
+      "min": 7800
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/Memoria RAM": {
+  "axes": [
+   {
+    "label": "Memoria",
+    "field": "ram_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basica",
+      "name": "Básica",
+      "use": "Oficina y navegar",
+      "spec": "Hasta 8 GB",
+      "max": 8
+     },
+     {
+      "id": "intermedia",
+      "name": "Intermedia",
+      "use": "Varias apps y juegos",
+      "spec": "9 GB a 16 GB",
+      "min": 8,
+      "max": 16
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Edición y estaciones de trabajo",
+      "spec": "Más de 16 GB",
+      "min": 16
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $9,350",
+      "max": 9350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$9,350 a $14,000",
+      "min": 9350,
+      "max": 14000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $14,000",
+      "min": 14000
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/RAM DDR3 y anteriores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $340",
+      "max": 340
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$340 a $710",
+      "min": 340,
+      "max": 710
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $710",
+      "min": 710
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/RAM DDR4 para laptop (SODIMM)": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,050",
+      "max": 2050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,050 a $3,250",
+      "min": 2050,
+      "max": 3250
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,250",
+      "min": 3250
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/RAM DDR5 para PC de escritorio": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $10,500",
+      "max": 10500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$10,500 a $21,000",
+      "min": 10500,
+      "max": 21000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $21,000",
+      "min": 21000
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/RAM DDR4 para PC de escritorio": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,200",
+      "max": 2200
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,200 a $5,750",
+      "min": 2200,
+      "max": 5750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,750",
+      "min": 5750
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/Webcams": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $830",
+      "max": 830
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$830 a $2,900",
+      "min": 830,
+      "max": 2900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,900",
+      "min": 2900
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/Memoria para servidor y workstation": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $23,000",
+      "max": 23000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$23,000 a $51,000",
+      "min": 23000,
+      "max": 51000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $51,000",
+      "min": 51000
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/Accesorios de memoria": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $190",
+      "max": 190
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$190 a $400",
+      "min": 190,
+      "max": 400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $400",
+      "min": 400
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/RAM DDR5 para laptop (SODIMM)": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $10,500",
+      "max": 10500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$10,500 a $19,500",
+      "min": 10500,
+      "max": 19500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $19,500",
+      "min": 19500
+     }
+    ]
+   }
+  ]
+ },
+ "Componentes y accesorios de PC/RAM para Mac": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,300",
+      "max": 1300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,300 a $4,000",
+      "min": 1300,
+      "max": 4000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,000",
+      "min": 4000
+     }
+    ]
+   }
+  ]
+ },
  "Monitores/Gaming": {
   "axes": [
    {
@@ -29476,568 +30038,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $16,500",
       "min": 16500
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/Componentes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,200",
-      "max": 1200
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,200 a $7,800",
-      "min": 1200,
-      "max": 7800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $7,800",
-      "min": 7800
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/Accesorios de monitor": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "size_in",
-    "criterion": "en pulgadas",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "El más compacto",
-      "spec": "Hasta 27\"",
-      "max": 27
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "28\" a 32\"",
-      "min": 27,
-      "max": 32
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "El más grande",
-      "spec": "Más de 32\"",
-      "min": 32
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $730",
-      "max": 730
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$730 a $2,900",
-      "min": 730,
-      "max": 2900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,900",
-      "min": 2900
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/Memoria RAM": {
-  "axes": [
-   {
-    "label": "Memoria",
-    "field": "ram_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basica",
-      "name": "Básica",
-      "use": "Oficina y navegar",
-      "spec": "Hasta 8 GB",
-      "max": 8
-     },
-     {
-      "id": "intermedia",
-      "name": "Intermedia",
-      "use": "Varias apps y juegos",
-      "spec": "9 GB a 16 GB",
-      "min": 8,
-      "max": 16
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Edición y estaciones de trabajo",
-      "spec": "Más de 16 GB",
-      "min": 16
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $9,350",
-      "max": 9350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$9,350 a $14,000",
-      "min": 9350,
-      "max": 14000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $14,000",
-      "min": 14000
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/RAM DDR3 y anteriores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $340",
-      "max": 340
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$340 a $710",
-      "min": 340,
-      "max": 710
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $710",
-      "min": 710
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/RAM DDR4 para laptop (SODIMM)": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,050",
-      "max": 2050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,050 a $3,250",
-      "min": 2050,
-      "max": 3250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,250",
-      "min": 3250
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/RAM DDR5 para PC de escritorio": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $10,500",
-      "max": 10500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$10,500 a $21,000",
-      "min": 10500,
-      "max": 21000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $21,000",
-      "min": 21000
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/RAM DDR4 para PC de escritorio": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,200",
-      "max": 2200
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,200 a $5,750",
-      "min": 2200,
-      "max": 5750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,750",
-      "min": 5750
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/Accesorios": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $720",
-      "min": 290,
-      "max": 720
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $720",
-      "min": 720
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/Webcams": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $830",
-      "max": 830
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$830 a $2,900",
-      "min": 830,
-      "max": 2900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,900",
-      "min": 2900
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/Memoria para servidor y workstation": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $23,000",
-      "max": 23000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$23,000 a $51,000",
-      "min": 23000,
-      "max": 51000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $51,000",
-      "min": 51000
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/Accesorios de memoria": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $190",
-      "max": 190
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$190 a $400",
-      "min": 190,
-      "max": 400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $400",
-      "min": 400
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/RAM DDR5 para laptop (SODIMM)": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $10,500",
-      "max": 10500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$10,500 a $19,500",
-      "min": 10500,
-      "max": 19500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $19,500",
-      "min": 19500
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC/RAM para Mac": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,300 a $4,000",
-      "min": 1300,
-      "max": 4000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,000",
-      "min": 4000
      }
     ]
    }
@@ -35019,6 +35019,41 @@
    }
   ]
  },
+ "Componentes y accesorios de PC": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,000",
+      "max": 1000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,000 a $6,200",
+      "min": 1000,
+      "max": 6200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,200",
+      "min": 6200
+     }
+    ]
+   }
+  ]
+ },
  "Monitores": {
   "axes": [
    {
@@ -35309,41 +35344,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $13,000",
       "min": 13000
-     }
-    ]
-   }
-  ]
- },
- "Componentes y accesorios de PC": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,000 a $6,250",
-      "min": 1000,
-      "max": 6250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,250",
-      "min": 6250
      }
     ]
    }

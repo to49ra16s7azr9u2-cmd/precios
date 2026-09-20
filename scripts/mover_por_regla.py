@@ -446,6 +446,27 @@ REGLAS = [
      r'medidor de temperatura|indicador de temperatura|\bempaque\b|\bbisagra\b|'
      r'barra divisoria|filtro de agua',
      None, 'Refacciones', 'Refacciones para refrigerador'),
+
+    # ---- Piezas y accesorios que estaban como producto terminado (20-sep).
+    # Todas piden que la palabra ABRA el título: la ficha técnica de un
+    # monitor dice "antirreflejo" y la de una bocina "bobina de voz", así que
+    # sin el ancla se llevaban el producto terminado.
+    ('Bocinas',
+     r'^(?:\S+ ){0,4}(bobina de voz|voice coil|cono de (papel|altavoz)|papel de cono|'
+     r'tubo de graves|caja de (conexiones|terminales)|binding post|esquinero|'
+     r'diafragma)\b|rejilla (para|de) (bocina|altavoz|woofer|subwoofer)',
+     r'\bbluetooth\b|\bkaraoke\b|\bpasivas?\b|\bhi-?fi\b', 'Bocinas', 'Accesorios para bocinas'),
+    ('Monitores',
+     r'^(?:\S+ ){0,4}(funda|cubierta|protector(es)?|filtro|pelicula|mica|soporte|brazo|'
+     r'adaptador|cable|convertidor|limpiador|antipolvo)\b|monitor de nailon para polvo',
+     r'\b(fhd|qhd|uhd|ips|hz|ms|1920|2560|3840)\b',
+     'Componentes y accesorios de PC', 'Accesorios de monitor'),
+    ('Laptops',
+     r'^(?:\S+ ){0,4}(concentrador|hub|adaptador(a)?|convertidor|soporte|base|funda|'
+     r'maletin|mochila|cargador|cable|conector|protector|pelicula|mica|limpiador|'
+     r'enfriador)\b|\bm\.?2 ngff\b|\bmsata\b|so-?dimm a desktop|dimm memory.{0,20}connector',
+     r'\b(core i[3579]|ryzen|celeron|intel|amd)\b.{0,40}\b(ram|ssd|gb)\b',
+     'Componentes y accesorios de PC', 'Accesorios'),
 ]
 
 

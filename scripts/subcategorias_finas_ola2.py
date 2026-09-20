@@ -217,8 +217,23 @@ LAPTOPS = ['MacBook', 'Chromebook', '2 en 1 y convertibles', 'Ultraligeras (13" 
            'Laptops de 17" o más', 'Laptops básicas y mini', 'Workstation y empresariales', 'Gamer']
 _RX_PULG = re.compile(r'(?<!\d)(\d{2}(?:[.,]\d)?)\s?(?:pulgadas|pulg\b|"|”|\'\'|inch|in\b|-inch)')
 
+# "27 x 27 pulgadas" es un tapete, no un monitor de 27". Las medidas en
+# forma A x B (y las resoluciones 1920 x 1080) se borran del título ANTES
+# de buscar el tamaño de pantalla: ningún monitor ni laptop dice su tamaño
+# así, y con ellas dentro entraban a las subcategorías por pulgadas un
+# tapete para trasplante de plantas, una puerta para perro de 71 x 28.3
+# pulgadas y una funda antipolvo de 24 27 32 pulgadas.
+_RX_DIM = re.compile(r'\d+(?:[.,]\d+)?\s?[x×]\s?\d+(?:[.,]\d+)?'
+                     r'(?:\s?[x×]\s?\d+(?:[.,]\d+)?)?'
+                     r'(?:\s?(?:pulgadas|pulg\b|"|”|cm|mm|m\b|in\b))?')
+
+
+def _sin_dimensiones(tn):
+    return _RX_DIM.sub(' ', tn)
+
 
 def _pulgadas(tn):
+    tn = _sin_dimensiones(tn)
     m = _RX_PULG.search(tn)
     if not m:
         m = re.search(r'(?<!\d)(1[0-9](?:[.,]\d)?)\b(?=\s?(?:fhd|hd|wuxga|qhd|oled|ips|led|touch|tactil))', tn)
@@ -269,6 +284,7 @@ def sub_monitor(tn, sub_vieja=None):
     if re.search(r'\bultrawide|\bultra ?wide|\b21:9\b|\b32:9\b|\bcurv|\b1500r\b|\b1800r\b|\b1000r\b|\bsuper ?wide', tn): return 'Ultrawide y curvos'
     if re.search(r'\b4k\b|\buhd\b|\b3840\s?x\s?2160|\b5k\b|\b5120\s?x|\b6k\b|\b8k\b|\bprofesional|\bcreadores|\bcreators?|\bdiseno grafico|\bcolor accurate|\badobe rgb|\bdci-?p3\b|\bcalibrad|\bthunderbolt|\bstudio display|\bpro display', tn):
         return 'Monitores 4K y profesionales'
+    tn = _sin_dimensiones(tn)
     m = _RX_MON.search(tn)
     if not m:
         m = re.search(r'(?<!\d)((?:1[5-9]|2[0-9]|3[0-9]|4[0-9])(?:[.,]\d)?)\b(?=\s?(?:fhd|full hd|hd|qhd|wqhd|ips|va\b|led|lcd|oled|tn\b))', tn)

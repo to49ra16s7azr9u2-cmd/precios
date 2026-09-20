@@ -6172,6 +6172,9 @@
     "Laptops": [
       "data/cat/laptops-1.json"
     ],
+    "Componentes y accesorios de PC": [
+      "data/cat/componentes-y-accesorios-de-pc-1.json"
+    ],
     "Monitores": [
       "data/cat/monitores-1.json"
     ],
@@ -6198,9 +6201,6 @@
     ],
     "Equipo comercial": [
       "data/cat/equipo-comercial-1.json"
-    ],
-    "Componentes y accesorios de PC": [
-      "data/cat/componentes-y-accesorios-de-pc-1.json"
     ],
     "Teclados": [
       "data/cat/teclados-1.json"
@@ -6435,6 +6435,12 @@
       "data/det/laptops-2.json",
       "data/det/laptops-3.json"
     ],
+    "Componentes y accesorios de PC": [
+      "data/det/componentes-y-accesorios-de-pc-1.json",
+      "data/det/componentes-y-accesorios-de-pc-2.json",
+      "data/det/componentes-y-accesorios-de-pc-3.json",
+      "data/det/componentes-y-accesorios-de-pc-4.json"
+    ],
     "Monitores": [
       "data/det/monitores-1.json",
       "data/det/monitores-2.json",
@@ -6480,12 +6486,6 @@
     "Equipo comercial": [
       "data/det/equipo-comercial-1.json",
       "data/det/equipo-comercial-2.json"
-    ],
-    "Componentes y accesorios de PC": [
-      "data/det/componentes-y-accesorios-de-pc-1.json",
-      "data/det/componentes-y-accesorios-de-pc-2.json",
-      "data/det/componentes-y-accesorios-de-pc-3.json",
-      "data/det/componentes-y-accesorios-de-pc-4.json"
     ],
     "Teclados": [
       "data/det/teclados-1.json",
@@ -6643,12 +6643,12 @@
       "n": 11864,
       "subs": {
         "Radios y reproductores": 929,
-        "Accesorios para bocinas": 139,
+        "Accesorios para bocinas": 186,
         "Para PC y escritorio": 329,
-        "Bocinas Bluetooth": 3103,
-        "Bocinas Bluetooth potentes (60 W o más)": 592,
+        "Bocinas Bluetooth": 3096,
+        "Bocinas Bluetooth potentes (60 W o más)": 588,
         "Barras de sonido": 308,
-        "Subwoofers": 379,
+        "Subwoofers": 378,
         "Bocinas Bluetooth con radio, USB y micrófono": 431,
         "Bocinas Bluetooth medianas (20 a 60 W)": 146,
         "Bocinas Bluetooth impermeables": 784,
@@ -6656,7 +6656,7 @@
         "De estantería y Hi-Fi": 982,
         "Mini bocinas y de llavero": 755,
         "Bocinas con luces LED": 348,
-        "Bafles y audio profesional": 905,
+        "Bafles y audio profesional": 870,
         "Empotrables y de exterior": 403,
         "Amplificadores y receptores": 354,
         "Bocinas Bluetooth compactas (hasta 20 W)": 194,
@@ -7453,17 +7453,17 @@
       "maxShip": 66
     },
     "Laptops": {
-      "n": 4298,
+      "n": 4291,
       "subs": {
         "Ultraligeras (13\" y 14\")": 330,
         "Chromebook": 322,
         "Laptops básicas y mini": 1045,
         "Gamer": 512,
-        "2 en 1 y convertibles": 189,
-        "Laptops de 15\" y 16\"": 1378,
+        "2 en 1 y convertibles": 188,
+        "Laptops de 15\" y 16\"": 1373,
         "Laptops de 17\" o más": 89,
         "MacBook": 109,
-        "Workstation y empresariales": 324
+        "Workstation y empresariales": 323
       },
       "pop": 7877,
       "discounted": 877,
@@ -7471,24 +7471,47 @@
       "discountedShip": 877,
       "maxShip": 67
     },
-    "Monitores": {
-      "n": 8389,
+    "Componentes y accesorios de PC": {
+      "n": 7173,
       "subs": {
-        "Portátiles": 2327,
+        "Accesorios": 484,
+        "Accesorios de monitor": 1216,
+        "Componentes": 1998,
+        "Memoria RAM": 208,
+        "RAM DDR3 y anteriores": 642,
+        "RAM DDR4 para laptop (SODIMM)": 428,
+        "RAM DDR5 para PC de escritorio": 484,
+        "RAM DDR4 para PC de escritorio": 749,
+        "Webcams": 365,
+        "Memoria para servidor y workstation": 218,
+        "Accesorios de memoria": 112,
+        "RAM DDR5 para laptop (SODIMM)": 237,
+        "RAM para Mac": 32
+      },
+      "pop": 3744,
+      "discounted": 96,
+      "max": 68,
+      "discountedShip": 95,
+      "maxShip": 68
+    },
+    "Monitores": {
+      "n": 8362,
+      "subs": {
+        "Portátiles": 2322,
         "Táctiles e industriales": 1615,
         "Gaming": 2265,
         "Monitores 4K y profesionales": 385,
-        "27 pulgadas": 404,
-        "23 a 25 pulgadas": 745,
-        "28 a 34 pulgadas": 109,
-        "Hasta 22 pulgadas": 348,
-        "35 pulgadas o más": 48,
+        "27 pulgadas": 402,
+        "23 a 25 pulgadas": 744,
+        "28 a 34 pulgadas": 96,
+        "Hasta 22 pulgadas": 347,
+        "35 pulgadas o más": 43,
         "Ultrawide y curvos": 143
       },
       "pop": 5518,
-      "discounted": 201,
+      "discounted": 200,
       "max": 60,
-      "discountedShip": 201,
+      "discountedShip": 200,
       "maxShip": 60
     },
     "Calzado": {
@@ -7716,29 +7739,6 @@
       "max": 78,
       "discountedShip": 152,
       "maxShip": 78
-    },
-    "Componentes y accesorios de PC": {
-      "n": 7139,
-      "subs": {
-        "Componentes": 1998,
-        "Accesorios de monitor": 1189,
-        "Memoria RAM": 208,
-        "RAM DDR3 y anteriores": 642,
-        "RAM DDR4 para laptop (SODIMM)": 428,
-        "RAM DDR5 para PC de escritorio": 484,
-        "RAM DDR4 para PC de escritorio": 749,
-        "Accesorios": 477,
-        "Webcams": 365,
-        "Memoria para servidor y workstation": 218,
-        "Accesorios de memoria": 112,
-        "RAM DDR5 para laptop (SODIMM)": 237,
-        "RAM para Mac": 32
-      },
-      "pop": 3744,
-      "discounted": 95,
-      "max": 68,
-      "discountedShip": 94,
-      "maxShip": 68
     },
     "Teclados": {
       "n": 2348,
@@ -8253,6 +8253,14 @@
       "p48149",
       "p48152"
     ],
+    "Componentes y accesorios de PC": [
+      "p127003",
+      "p31578",
+      "p30673",
+      "p127005",
+      "p127007",
+      "p127001"
+    ],
     "Monitores": [
       "p49118",
       "p49133",
@@ -8322,14 +8330,6 @@
       "p35627",
       "p35721",
       "p288784"
-    ],
-    "Componentes y accesorios de PC": [
-      "p127003",
-      "p31578",
-      "p30673",
-      "p127005",
-      "p127007",
-      "p127001"
     ],
     "Teclados": [
       "p183711",

@@ -4146,6 +4146,17 @@ def sub_bocina(tn):
     en medio queda todo lo demás. Cuando no hay watts se decide por cómo
     se vende: "torre", "profesional" y "boombox" son grandes; "mini",
     "clip" y "de ducha" son chicas."""
+    # La pieza suelta con la que se ARMA una bocina (bobina de voz, cono de
+    # papel, tubo de graves, caja de conexiones, esquinero) caía en las
+    # subcategorías de producto terminado y encabezaba la lista por precio.
+    # Tiene que ABRIR el título: una bocina terminada nombra su bobina de voz
+    # y su diafragma en la ficha técnica ("bocinas pasivas de estantería
+    # EVERSOLO, bobina de voz de cobre"), y sin el ancla se la llevaba.
+    if re.search(r'^(?:\S+ ){0,4}(bobina de voz|voice coil|cono de (papel|altavoz)|'
+                 r'papel de cono|tubo de graves|puerto de graves|caja de (conexiones|terminales)|'
+                 r'binding post|terminal(es)? de (bocina|altavoz)|esquinero|diafragma|'
+                 r'kit de reparacion)\b|rejilla (para|de) (bocina|altavoz|woofer|subwoofer)', tn):
+        return 'Accesorios para bocinas'
     if re.search(r'barra de sonido|\bsound ?bar\b|teatro en casa|home theater|\bhtib\b', tn):
         return 'Barras de sonido'
     m = re.search(r'(\d{2,4})\s?w(?:atts?)?\b', tn)
@@ -4168,6 +4179,17 @@ def sub_monitor(tn):
     mochila (lo dice el título o es un extensor de laptop); el gamer se
     anuncia como tal o pasa de 100 Hz, que es el corte que usa el
     catálogo. Lo demás es de oficina."""
+    # Lo que se le pone AL monitor no es un monitor: la funda antipolvo, el
+    # filtro de luz azul, el soporte y el adaptador de video caían en las
+    # subcategorías por tamaño (la funda "24 27 32 pulgadas" entraba en
+    # "28 a 34 pulgadas") y salían primeros en la lista por precio.
+    # Solo cuando ABRE el título: un monitor de verdad dice "antirreflejo",
+    # "luz azul baja" y "soporte ajustable" en su ficha técnica, y con esas
+    # palabras sueltas se iban de la categoría los monitores BenQ y AOC.
+    if re.search(r'^(?:\S+ ){0,4}(funda|cubierta|protector(es)?|filtro|pelicula|mica|'
+                 r'soporte|brazo|adaptador|cable|convertidor|limpiador|antipolvo)\b|'
+                 r'monitor de nailon para polvo', tn):
+        return None
     if re.search(r'monitor portatil|portatil.{0,20}monitor|extensor de pantalla|pantalla portatil|'
                  r'monitor (usb-?c )?de viaje|segunda pantalla portatil', tn):
         return 'Portátiles'
@@ -4181,6 +4203,14 @@ def sub_laptop(tn):
     """Gamer u Oficina, que es como parte el catálogo. La gamer se anuncia
     como tal: lo dice en el nombre, o trae GPU dedicada (RTX, GTX, Radeon
     RX) o una pantalla de más de 120 Hz. Lo demás es de oficina."""
+    # Lo que se conecta a la laptop no es una laptop: el hub USB, el soporte
+    # del SSD M.2, el adaptador de RAM SO-DIMM y la funda entraban a las
+    # subcategorías por pulgadas porque el título trae una medida cualquiera.
+    if re.search(r'^(?:\S+ ){0,4}(concentrador|hub|adaptador(a)?|convertidor|soporte|base|'
+                 r'funda|maletin|mochila|cargador|cable|conector|tarjeta adaptadora|'
+                 r'protector|pelicula|mica|limpiador|enfriador)\b|'
+                 r'\bm\.?2 ngff\b|\bmsata\b|so-?dimm a desktop|dimm memory.{0,20}connector', tn):
+        return None
     if re.search(r'\bgamer\b|\bgaming\b|\brtx ?\d|\bgtx ?\d|radeon rx ?\d|\brog\b|\btuf\b|predator|nitro \d|'
                  r'legion|victus|katana|cyborg|omen|\balienware\b|raider|stealth|zephyrus|\d{3} ?hz|'
                  r'\b(1[4-9]\d|[2-9]\d\d) ?hz\b', tn):
