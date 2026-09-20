@@ -2840,14 +2840,34 @@ tr.offer-compare-off { display: none; }
 .home-tab.is-active::after {
   content: "";
   position: absolute;
-  top: -3px;
-  bottom: -3px;
   left: 100%;
-  /* cubre el hueco entre columnas y se mete 3px en el borde del marco */
+  /* El puente cubre el hueco entre columnas y se mete 3px en el borde del
+     marco; sobresale además un radio por arriba y por abajo para dibujar
+     las esquinas CÓNCAVAS de la unión (pedido del usuario, 20-sep): donde
+     la línea de abajo de la pestaña dobla hacia el borde izquierdo del
+     panel, un cuarto de círculo del color del fondo recorta el ángulo y
+     la línea se curva en vez de quebrarse. Todo va en capas de fondo (las
+     dos líneas, el blanco de en medio y el redondeo) porque un pseudo
+     elemento no puede tener otro. */
+  --r: var(--hueco-inicio);
+  top: calc(-3px - var(--r));
+  bottom: calc(-3px - var(--r));
   width: calc(var(--hueco-inicio) + 3px);
-  background: var(--card);
-  border-top: 3px solid var(--tab-color);
-  border-bottom: 3px solid var(--tab-color);
+  background:
+    linear-gradient(var(--tab-color), var(--tab-color)) 0 var(--r) / 100% 3px no-repeat,
+    linear-gradient(var(--tab-color), var(--tab-color)) 0 calc(100% - var(--r)) / 100% 3px no-repeat,
+    linear-gradient(var(--card), var(--card)) 0 calc(var(--r) + 3px) / 100% calc(100% - 2 * var(--r) - 6px) no-repeat,
+    radial-gradient(circle at 0 100%, var(--bg) calc(var(--r) - 0.6px), var(--tab-color) calc(var(--r) + 0.4px)) 0 100% / var(--r) var(--r) no-repeat;
+}
+/* Con "Compara marcas" activa el borde del panel también baja por encima
+   de la pestaña: la esquina de arriba se redondea igual. */
+.home-grid[data-home-tab="marcas"] .home-tab.is-active::after {
+  background:
+    linear-gradient(var(--tab-color), var(--tab-color)) 0 var(--r) / 100% 3px no-repeat,
+    linear-gradient(var(--tab-color), var(--tab-color)) 0 calc(100% - var(--r)) / 100% 3px no-repeat,
+    linear-gradient(var(--card), var(--card)) 0 calc(var(--r) + 3px) / 100% calc(100% - 2 * var(--r) - 6px) no-repeat,
+    radial-gradient(circle at 0 100%, var(--bg) calc(var(--r) - 0.6px), var(--tab-color) calc(var(--r) + 0.4px)) 0 100% / var(--r) var(--r) no-repeat,
+    radial-gradient(circle at 0 0, var(--bg) calc(var(--r) - 0.6px), var(--tab-color) calc(var(--r) + 0.4px)) 0 0 / var(--r) var(--r) no-repeat;
 }
 /* Con "Compara precios" activa, la pestaña arranca a la misma altura que
    el marco: la esquina superior izquierda del marco va recta para que el
