@@ -2795,13 +2795,16 @@ tr.offer-compare-off { display: none; }
    sobre el hueco entre columnas los junta en una sola forma, como una
    carpeta. Cada pestaña tiene su color: rojo para "Compara precios",
    amarillo (el de su logo) para "Compara marcas". */
-.home-grid { --tab-color: var(--red); }
+.home-grid { --tab-color: var(--red); --marco-radio: 10px; }
 .home-grid[data-home-tab="marcas"] { --tab-color: #f2b31c; }
 .home-center-frame {
   position: relative;
   z-index: 1;
   border: 3px solid var(--tab-color);
-  border-radius: var(--radius);
+  /* El sitio es de esquinas rectas (--radius: 0); solo el marco grueso las
+     lleva redondas (pedido del usuario, 20-sep), y solo las de fuera: las
+     de la unión pestaña-panel siguen rectas para que la línea sea una. */
+  border-radius: var(--marco-radio);
   padding: 8px 8px 6px;
   background: var(--card);
 }
@@ -2821,6 +2824,8 @@ tr.offer-compare-off { display: none; }
      oscuro): la pestaña queda abierta hacia el panel. Las esquinas de ese
      lado van rectas para que la línea siga derecha hasta el marco. */
   border-right: 0;
+  border-top-left-radius: var(--marco-radio);
+  border-bottom-left-radius: var(--marco-radio);
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -3156,10 +3161,10 @@ tr.offer-compare-off { display: none; }
   .home-rank-mes { grid-column: 1 / -1; grid-row: auto; }
   .home-tabs { flex: 1 1 100%; flex-direction: row; }
   .home-tab-marca .hero-logo { max-width: 160px; }
-  .home-tab.is-active { border-right: 3px solid var(--tab-color); border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+  .home-tab.is-active { border-right: 3px solid var(--tab-color); border-radius: var(--marco-radio); }
   .home-tab-marca.is-active { padding-right: 6px; }
   .home-tab.is-active::after { display: none; }
-  .home-grid[data-home-tab="precios"] .home-center-frame { border-top-left-radius: var(--radius); }
+  .home-grid[data-home-tab="precios"] .home-center-frame { border-top-left-radius: var(--marco-radio); }
 }
 @media (max-width: 720px) {
   .home-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
