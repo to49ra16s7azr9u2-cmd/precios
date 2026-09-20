@@ -3779,11 +3779,36 @@ def sub_juguete(tn):
     if re.search(r'andadera|caminadora de bebe', tn): return 'Andaderas'
     if re.search(r'biberon|mamila|chupon|esterilizador de biberon', tn): return 'Biberones'
     if re.search(r'monitor (de|para) bebe|baby monitor', tn): return 'Monitores de bebé'
+    if re.search(r'juguetes? (para|de) bebes?|\b(0|3|6|9|12|18)\+? ?meses\b|\bpreescolar\b|'
+                 r'libro interactivo|gimnasio de actividades|\bmordedera\b|\bapilable\b|'
+                 r'\boruguita\b|\bsonajero\b', tn): return 'Juguetes para bebé'
     if re.search(r'trampolin|brincolin', tn): return 'Trampolines'
     if re.search(r'triciclo', tn): return 'Triciclos'
     if re.search(r'montable|correpasillos|carro montable', tn): return 'Montables'
     if re.search(r'\bmaqueta|modelismo|escala 1 ?[:/] ?\d|\bdie-?cast\b|fundido a presion|'
                  r'rompecabezas 3d|puzzle 3d|\bdiorama\b', tn): return 'Maquetas'
+    # Cuando el título dice la palabra exacta, no hay nada que deducir:
+    # "Figura de acción Mega Construx" y "Figura de acción LEGO Minifiguras"
+    # son figuras, aunque nombren al fabricante de bloques.
+    if re.search(r'figuras? de accion|action figure', tn): return 'Figuras de acción'
+    # El TIPO manda sobre el personaje: "Set de construcción Lego Star
+    # Wars" es un juego de bloques y "Figura de peluche Little Live Pets"
+    # es un peluche; con Figuras primero (como estaba) la licencia se los
+    # llevaba a los dos. Muñecas y Figuras quedan al final de este tramo,
+    # que es donde solo alcanzan a lo que ninguna otra rama reclamó.
+    if re.search(r'bloques|\blego\b|\bmega bloks\b|construccion|mega construx|\bconstrux\b|'
+                 r'\bcobi\b|\bsluban\b|\bknex\b|\bmagna-?tiles\b|\bmagformers\b|'
+                 r'\blego ?\d|\bmega blocks\b|\bkeeppley\b|bloque armable|mould king|'
+                 r'brick shop|juego de armar|cifras construibles|kit para construir|'
+                 r'\btensegrity\b|numero de piezas|\bminifiguras\b', tn):
+        return 'Bloques de construcción'
+    if re.search(r'peluche|\bplush\b', tn): return 'Peluches'
+    if re.search(r'control remoto|radiocontrol|\brc\b\b', tn): return 'Vehículos a control remoto'
+    if re.search(r'\bcarrito|\bcamion\b|monster truck|hot ?wheels|pista de carreras|\bvehiculo\b|'
+                 r'pull ?& ?speed|\bcarrera\b|\bmajorette\b|\bmatchbox\b|\btomica\b|'
+                 r'auto de juguete|coche de juguete|\btractor\b|\bavion de juguete\b|'
+                 r'\btransportador\b|\bracers?\b|\bgaraje\b', tn):
+        return 'Vehículos de juguete'
     if re.search(r'\bmuneca|\bbarbie\b|\bnenuco\b|\bbebote\b|monster high|rainbow high|'
                  r'\bl\.?o\.?l\.? surprise|\bbratz\b|baby alive|the bellies|disney princess|'
                  r'disney princesa|polly pocket|cry babies|\bdolls?\b|\bbebe reborn\b|\bcalico critters\b', tn):
@@ -3795,24 +3820,46 @@ def sub_juguete(tn):
                  r'\bbitzee\b|\bset\b.{0,30}(peppa|dora|gabby|paw patrol|bluey|pokemon|'
                  r'harry potter|wizarding|star wars|jurassic|spider|batman)', tn):
         return 'Figuras de acción'
-    if re.search(r'bloques|\blego\b|\bmega bloks\b|construccion|mega construx|\bconstrux\b|'
-                 r'\bcobi\b|\bsluban\b|\bknex\b|\bmagna-?tiles\b|\bmagformers\b', tn):
-        return 'Bloques de construcción'
-    if re.search(r'peluche|\bplush\b', tn): return 'Peluches'
-    if re.search(r'control remoto|radiocontrol|\brc\b\b', tn): return 'Vehículos a control remoto'
-    if re.search(r'\bcarrito|\bcamion\b|monster truck|hot ?wheels|pista de carreras|\bvehiculo\b|'
-                 r'pull ?& ?speed|\bcarrera\b|\bmajorette\b|\bmatchbox\b|\btomica\b|'
-                 r'auto de juguete|coche de juguete|\btractor\b|\bavion de juguete\b', tn):
-        return 'Vehículos de juguete'
     if re.search(r'educativo|didactic|\bstem\b|aprendizaje|montessori|play-?doh|\bslime\b|'
+                 r'clementoni|melissa ?& ?doug|ciencia y juego|\bb\.? toys\b|super quimica|'
+                 r'kit de (quimica|laboratorio)|'
                  r'plastilina|manualidades|kit de (ciencia|cristales|cultivo|arte|experimentos)|'
                  r'\bcrayola\b|pegatinas|cuaderno de actividades|\bsensorial\b|\bpara pintar\b|'
                  r'\bcolorear\b', tn):
         return 'Juguetes educativos'
-    if re.search(r'juego (de|para) exterior|resbaladilla|columpio|casita de jardin|alberca', tn):
+    if re.search(r'juego (de|para) exterior|resbaladilla|columpio|casita de jardin|alberca|'
+                 r'\bnerf\b|lanzador de dardos|dardos de espuma|pistola de agua', tn):
         return 'Juegos de exterior'
-    if re.search(r'arcade|maquinita', tn): return 'Juegos arcade'
+    if re.search(r'arcade|maquinita|maquina expendedora de premios', tn): return 'Juegos arcade'
     if re.search(r'instrumento|tambor|xilofono|piano de juguete', tn): return 'Juguetes musicales'
+    # Última red (20-sep), DESPUÉS de todas las ramas que miran el tipo de
+    # juguete: la licencia y la marca. La juguetería se vende por personaje
+    # ("Disney Moana clásica", que nunca dice "muñeca") y sin esto se quedaba
+    # sin subcategoría; pero un peluche de Stitch o un Lego de Star Wars sí
+    # dicen qué son, y por eso esas ramas van antes que esta.
+    if re.search(r'\bnancy\b|pinypon|pin ?& ?pon|bebes? llorones|cry baby|\bbellies\b|'
+                 r'kindi kids|hairdorables|dream ella|my mini baby|\bdistroller\b|'
+                 r'\bneonato\b|lalalopsy|lalaloopsy|bizzy bubs|\btrotties\b|wandi-?doos|'
+                 r'\bhamstars\b|sylvanian|ternurines|honey bee acres|gabby.?s dollhouse|'
+                 r'casa de munecas|\bmirabel\b|\bisabela\b|maribel madrigal|\bmoana\b|'
+                 r'\bcenicienta\b|\bpocahontas\b|\brapunzel\b|\bariel\b|\belsa\b|'
+                 r'\bfrozen\b|\bencanto\b|magic mixies|\bmixlings\b|cicciobello|'
+                 r'precious moments|creatable world|styling head|cabeza de peinado|'
+                 r'\bfotorama\b|chilloncitos|\bhatchimals\b|party pop teenies|\bfurby\b|'
+                 r'\d ?sorpresas?\b|super cute|little babies|\bmerlina\b|\bwednesday\b|'
+                 r'hello kitty|\bsanrio\b|purse pets|mis pastelitos|huevo sorpresa|'
+                 r'\bsurprise\b|wonder makers|mini super de amigos', tn):
+        return 'Muñecas'
+    if re.search(r'wizarding world|harry potter|my little pony|paw ?(patrol|soccer|pup)|'
+                 r'little people|\btrolls\b|powerpuff|super hero girls|\bsupergirl\b|'
+                 r'\bbatgirl\b|\bmezco\b|\blabubu\b|the monsters|\bdoorables\b|'
+                 r'nano-?mals|miraculous|\bladybug\b|\bdora\b|\bpeppa\b|\bstitch\b|'
+                 r'\bsullivan\b|\bjakks\b|pets alive|little live pets|wonder ponyland|'
+                 r'fidgie friends|doc mcstuffins|\bzombies\b|\bkpop\b|\bk pop\b|'
+                 r'dungeons ?& ?dragons|\bhasbro\b|\bmattel\b|spin master|just play|'
+                 r'moose toys|\bfamosa\b|\bimc toys\b|\bruz\b|\bzuru\b|sunny days|'
+                 r'fisher-?price|\bdisney\b|\bpokemon\b', tn):
+        return 'Figuras de acción'
     return None
 
 

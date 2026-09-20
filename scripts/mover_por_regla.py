@@ -297,6 +297,42 @@ REGLAS = [
     ('Instrumentos musicales', r'libro publicado', None, 'Libros', 'Música y cine', {None}),
     ('Instrumentos musicales', r'\bfox 40\b|silbato.{0,30}(arbitro|deportiv)', None,
      'Deportes y fitness', 'Otros', None),
+
+    # ---- Juguetes y bebés (20-sep)
+    ('Juguetes y bebés', r'remolque de bicicleta|portabebes? (individual|doble)', None,
+     'Autos, bicicletas y motos', 'Asientos infantiles y remolques', {None}),
+
+    # ---- Baterías portátiles (20-sep). El rubro junta el power bank con
+    # todo lo que dice "portátil" y "batería" en el título: la batería de
+    # repuesto de una laptop, el cargador de pilas de una cámara, la tapa
+    # del compartimento. Cada regla se limita a las fichas sin subcategoría.
+    ('Baterías portátiles', r'\bauriculares?\b|\baudifonos?\b|quietcomfort|\bwh-1000|sonido oseo', None,
+     'Audífonos', 'Diadema con cancelación de ruido', {None}),
+    ('Baterías portátiles',
+     r'camara (espia|oculta|de accion|de ninera)|\bosmo pocket\b|\bgopro\b|ultra hd \d+mp|'
+     r'cubierta de la (puerta de la )?bateria de la camara|puerta de bateria|'
+     r'\bnp-?(6l|fv5|fw50|f970)\b|speedlite|bateria.{0,20}(flash|camara)',
+     None, 'Cámaras y fotografía', 'Accesorios', {None}),
+    ('Baterías portátiles', r'\brouter\b|punto de acceso wifi|hotspot|\b4g lte\b|modem wifi', None,
+     'Redes', 'Routers', {None}),
+    ('Baterías portátiles', r'panel(es)? solar|cargador solar|banco de energia solar|celulas solares', None,
+     'Otros', 'Cargadores solares portátiles', {None}),
+    ('Baterías portátiles', r'\bproyector\b', None, 'Proyectores y accesorios', 'Proyectores', {None}),
+    ('Baterías portátiles', r'\bmouse\b', None, 'Mouse', 'Mouse inalámbrico', {None}),
+    ('Baterías portátiles', r'extensor de (visualizacion|monitor)|triple extensor', None,
+     'Monitores', 'Monitores portátiles', {None}),
+    ('Baterías portátiles',
+     r'^(?:\S+ ){0,6}cables? (usb|de datos|de carga|puente)|\bcable\b.{0,30}(usb c a usb|240w|xh2\.54|xt60)',
+     None, 'Cargadores y adaptadores', 'Cable', {None}),
+    ('Baterías portátiles',
+     r'cargador inalambrico|\bqi2|\bmagsafe\b|estacion de carga|\bmaggo\b|base de braun|'
+     r'cargador de (cepillo|bateria) de dientes',
+     None, 'Cargadores y adaptadores', 'Base de carga', {None}),
+    ('Baterías portátiles',
+     r'bateria portatil.{0,40}(hp|dell|msi|macbook|toshiba|elitebook|envy|precision|satellite)|'
+     r'compatible con (hp|dell|msi|macbook|panasonic)|\bab06xl\b|\bbty-m6h\b|\bvh08\b|\ba1383\b|'
+     r'cargador portatil de 65 w para toshiba',
+     None, 'Refacciones', 'Refacciones para otros electrodomésticos', {None}),
 ]
 
 
