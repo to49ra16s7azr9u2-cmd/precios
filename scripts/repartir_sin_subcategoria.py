@@ -156,6 +156,19 @@ def cargar_repartidores():
                      r"\beliminador(es)?\b|\bconvertidor\b|\bbolsa\b|\bcargador de (bateria|pilas)\b|"
                      r"\bcompatible con\b|\bpara \w+ para \w+\b", tn):
             return "Accesorios y repuestos"
+        # La estación de energía se mide en Wh, no en mAh: 288 Wh son más de
+        # 20,000 mAh por mucho. Y la batería de fosfato de 24 V no es un
+        # power bank de bolsillo, sino batería suelta.
+        m = re.search(r"(\d{2,4}) ?wh\b", tn)
+        if m and int(m.group(1)) >= 100:
+            return "Más de 20,000 mAh"
+        if re.search(r"fosfato de hierro|lifepo4|\bbateria de litio\b.{0,25}\d{1,3} ?v\b|"
+                     r"bateria de \d{1,3} ?v\b", tn):
+            return "Accesorios y repuestos"
+        # "Cargador Portátil Mophie Powerstation 36hs": el power bank que no
+        # dice su capacidad se queda en el tramo más común del catálogo.
+        if re.search(r"power ?bank|banco de energia|cargador portatil|powerbank", tn):
+            return "Hasta 10,000 mAh"
         return None
     g["sub_bateria_tramo"] = _bateria_tramo
     return g

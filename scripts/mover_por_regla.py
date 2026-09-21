@@ -550,6 +550,22 @@ REGLAS = [
     ('Domótica y hogar inteligente', r'manija de puerta|\bkwikset\b(?!.{0,20}intelig)', None,
      'Herramientas', 'Cerraduras y candados', {None}),
 
+    # Belleza y Baterías portátiles (21-sep): el libro de Scrum, el kit de
+    # cuidado del bebé y el cargador de herramienta no son del rubro.
+    ('Belleza y cuidado personal', r'para scrum\b|libro impreso con espiral', None,
+     'Libros', 'Negocios y finanzas', {None}),
+    ('Belleza y cuidado personal',
+     r'\bpanal\b|dermatitis del panal|\bmordedor|denticion|balsamo.{0,15}pezones|'
+     r'spray para extraccion|\bbaby\b|\bkids\b|pediatric|\binfantino\b|'
+     r'kit de cuidado para bebe|oxido de zinc',
+     None, 'Juguetes y bebés', 'Bebés', {None}),
+    ('Belleza y cuidado personal', r'cepillo de dientes', None, 'Salud', 'Cuidado dental', {None}),
+    ('Baterías portátiles', r'cargador de litio.{0,20}\bryobi\b|\bbpl-?\d|cortadores de cables', None,
+     'Herramientas', 'Baterías y cargadores de herramienta', {None}),
+    ('Baterías portátiles', r'\bmouse\b inalambrico', None, 'Mouse', 'Inalámbricos', {None}),
+    ('Baterías portátiles', r'radio portatil', None, 'Bocinas', 'Radios y reproductores', {None}),
+    ('Baterías portátiles', r'calentador de bateria', None, 'Climatización', 'Calefactores', {None}),
+
     # Televisores y Lavadoras: la mitad de lo que colgaba de ahí era el
     # accesorio de otra categoría (21-sep).
     ('Televisores', r'auriculares? (inalambricos? )?(para|digitales para)|\bavantree\b|\bsennheiser\b|'

@@ -3682,6 +3682,18 @@ def sub_belleza(tn):
     if re.search(r'\bserum\b|crema|limpiador facial|gel limpiador|agua micelar|tonico facial|'
                  r'contorno de ojos|mascarilla|exfoliante|\bretinol\b|\bniacinamida\b|'
                  r'acido (salicilico|hialuronico|glicolico|kojico)|facial', tn): return 'Faciales'
+    # Última red (21-sep): el cepillo y el peine del pelo, el aceite capilar,
+    # la recortadora todo en uno y la toalla de baño en seco.
+    if re.search(r'cepillos? (de|para) (el )?(cabello|pelo)|peines? para peinar|'
+                 r'kit de peine|cepillos? y peines|cepillo de paleta|cepillo de masaje|'
+                 r'aceite de (argan|ricino|romero|coco|almendras)|gel fijador|'
+                 r'\bcastor oil\b|cuero cabelludo', tn):
+        return 'Cuidado del cabello'
+    if re.search(r'recortadora|trimmer|\bmultigroom\b|\bnorelco\b|recortador de', tn):
+        return 'Rasuradoras'
+    if re.search(r'\bipl\b|laser de diodo|depilacion (permanente|laser)|picosegundo', tn):
+        return 'Depilación'
+    if re.search(r'toallas? (de )?bano en seco|bano en seco', tn): return 'Cuidado personal'
     return None
 
 
