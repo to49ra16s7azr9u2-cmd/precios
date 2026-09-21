@@ -24,8 +24,8 @@ seis horas de descarga.
 
 RITMO
 -----
-Por omisión, tandas de 8 urls por llamada a curl (que reusa la conexión) y
-medio segundo entre tandas. No es educación abstracta: una tienda que ve
+Por omisión, 5 tandas simultáneas de 8 urls cada una (cada tanda es un curl
+que reusa la conexión) y cuatro décimas entre bloques. No es educación abstracta: una tienda que ve
 350,000 peticiones en una hora corta el acceso, y el acceso es lo que hace
 falta mantener todos los días para refrescar precios.
 
@@ -36,6 +36,7 @@ USO
     python3 scripts/cosechar_coppel.py                     # todas las familias
 """
 import argparse
+import concurrent.futures
 import json
 import os
 import re
@@ -54,6 +55,8 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIR_TRABAJO = os.path.join(RAIZ, "data", "coppel")
 URLS_JSON = os.path.join(DIR_TRABAJO, "urls.json")
 FICHAS_JSONL = os.path.join(DIR_TRABAJO, "fichas.jsonl")
+# Las que no se pudieron leer, para no volver a pedirlas en cada corrida.
+FALLIDAS_TXT = os.path.join(DIR_TRABAJO, "fallidas.txt")
 
 RE_LD = re.compile(r'<script type="application/ld\+json"[^>]*>(.*?)</script>', re.S)
 
@@ -190,6 +193,16 @@ def ficha_de(url, html):
     }
 
 
+# Coppel mira de dónde viene la petición (Akamai: contesta con
+# "set-cookie: ak_geo=US") y a algunas fichas les responde 302 a la portada
+# con un cuerpo de un byte en vez de la página. Desde fuera de México eso
+# pasa con cerca del 8% de las urls. No es un error de red ni algo que
+# arregle un reintento: es la tienda diciendo que ahí no vende. Se anotan
+# aparte para no volver a pedirlas en cada corrida.
+def es_redireccion_de_region(html):
+    return html is not None and len(html) <= 8
+
+
 def ya_cosechadas():
     """Las urls que ya están en el JSONL, para poder seguir donde se cortó."""
     hechas = set()
@@ -204,27 +217,51 @@ def ya_cosechadas():
     return hechas
 
 
-def cosechar(urls, salida, tanda_n, pausa, familia):
-    cuenta = {"ok": 0, "sin_ficha": 0}
+def ya_fallidas():
+    if not os.path.exists(FALLIDAS_TXT):
+        return set()
+    with open(FALLIDAS_TXT, encoding="utf-8") as f:
+        return {l.strip() for l in f if l.strip()}
+
+
+def cosechar(urls, salida, tanda_n, pausa, familia, paralelas=1, fallidas=None):
+    """Baja `urls` y va escribiendo las fichas en `salida`.
+
+    Una llamada a curl con varias urls las baja UNA DETRÁS DE OTRA sobre la
+    misma conexión: ahorra el saludo TLS, pero no acorta la espera. Medido
+    con tandas de 8 en serie: 1.4 fichas/s, que para 83,673 son dieciséis
+    horas. De ahí las tandas simultáneas, cada una con su curl. Lo que se le
+    pide a la tienda por vez es `paralelas` conexiones, no más.
+    """
+    cuenta = {"ok": 0, "sin_ficha": 0, "fuera_de_region": 0}
     t0 = time.time()
-    for i in range(0, len(urls), tanda_n):
-        tanda = urls[i:i + tanda_n]
-        for url, html in zip(tanda, bajar_tanda(tanda)):
-            ficha = ficha_de(url, html)
-            if ficha is None:
-                cuenta["sin_ficha"] += 1
-                continue
-            ficha["familia"] = familia
-            salida.write(json.dumps(ficha, ensure_ascii=False) + "\n")
-            cuenta["ok"] += 1
-        hechas = cuenta["ok"] + cuenta["sin_ficha"]
-        if (i // max(tanda_n, 1)) % 10 == 0:
-            salida.flush()
-            ritmo = hechas / max(time.time() - t0, 1)
-            faltan = (len(urls) - hechas) / max(ritmo, 0.01) / 60
-            print(f"    {hechas:>7,}/{len(urls):,}  "
-                  f"{ritmo:.1f}/s  faltan ~{faltan:.0f} min", flush=True)
-        time.sleep(pausa)
+    bloque = tanda_n * paralelas
+    with concurrent.futures.ThreadPoolExecutor(max_workers=paralelas) as pool:
+        for i in range(0, len(urls), bloque):
+            grupo = urls[i:i + bloque]
+            tandas = [grupo[j:j + tanda_n] for j in range(0, len(grupo), tanda_n)]
+            for tanda, cuerpos in zip(tandas, pool.map(bajar_tanda, tandas)):
+                for url, html in zip(tanda, cuerpos):
+                    ficha = ficha_de(url, html)
+                    if ficha is None:
+                        if es_redireccion_de_region(html):
+                            cuenta["fuera_de_region"] += 1
+                        else:
+                            cuenta["sin_ficha"] += 1
+                        if fallidas is not None:
+                            fallidas.write(url + "\n")
+                        continue
+                    ficha["familia"] = familia
+                    salida.write(json.dumps(ficha, ensure_ascii=False) + "\n")
+                    cuenta["ok"] += 1
+            hechas = sum(cuenta.values())
+            if (i // max(bloque, 1)) % 10 == 0:
+                salida.flush()
+                ritmo = hechas / max(time.time() - t0, 1)
+                faltan = (len(urls) - hechas) / max(ritmo, 0.01) / 60
+                print(f"    {hechas:>7,}/{len(urls):,}  "
+                      f"{ritmo:.1f}/s  faltan ~{faltan:.0f} min", flush=True)
+            time.sleep(pausa)
     salida.flush()
     return cuenta
 
@@ -243,8 +280,12 @@ def main():
                     help="fichas por familia, para pruebas")
     ap.add_argument("--tanda", type=int, default=8,
                     help="urls por llamada a curl (reusan la conexión)")
-    ap.add_argument("--pausa", type=float, default=0.5,
-                    help="segundos entre tandas")
+    ap.add_argument("--reintentar-fallidas", action="store_true",
+                    help="volver a pedir las urls que fallaron antes")
+    ap.add_argument("--paralelas", type=int, default=5,
+                    help="tandas simultáneas (cada una es un curl)")
+    ap.add_argument("--pausa", type=float, default=0.4,
+                    help="segundos entre bloques")
     args = ap.parse_args()
 
     os.makedirs(DIR_TRABAJO, exist_ok=True)
@@ -277,9 +318,16 @@ def main():
     hechas = ya_cosechadas()
     if hechas:
         print(f"Ya cosechadas antes: {len(hechas):,} (se saltan)")
+    if not args.reintentar_fallidas:
+        malas = ya_fallidas()
+        if malas:
+            print(f"Fallidas antes: {len(malas):,} (se saltan; "
+                  f"--reintentar-fallidas para volver a pedirlas)")
+        hechas |= malas
 
-    total = {"ok": 0, "sin_ficha": 0}
-    with open(FICHAS_JSONL, "a", encoding="utf-8") as salida:
+    total = {"ok": 0, "sin_ficha": 0, "fuera_de_region": 0}
+    with open(FICHAS_JSONL, "a", encoding="utf-8") as salida, \
+            open(FALLIDAS_TXT, "a", encoding="utf-8") as fallidas:
         for fam in sorted(por_familia):
             if pedidas and fam not in pedidas:
                 continue
@@ -289,14 +337,17 @@ def main():
             if not urls:
                 continue
             print(f"\n== {fam}: {len(urls):,} fichas por bajar")
-            c = cosechar(urls, salida, args.tanda, args.pausa, fam)
-            print(f"   ok={c['ok']:,}  sin ficha={c['sin_ficha']:,}")
+            c = cosechar(urls, salida, args.tanda, args.pausa, fam,
+                         args.paralelas, fallidas)
+            print(f"   ok={c['ok']:,}  fuera de región={c['fuera_de_region']:,}  "
+                  f"sin ficha={c['sin_ficha']:,}")
             for k in total:
                 total[k] += c[k]
 
     print(f"\n=== {total['ok']:,} fichas guardadas en "
           f"{os.path.relpath(FICHAS_JSONL, RAIZ)} "
-          f"({total['sin_ficha']:,} sin ficha legible) ===")
+          f"({total['fuera_de_region']:,} fuera de región, "
+          f"{total['sin_ficha']:,} sin ficha legible) ===")
     return 0
 
 

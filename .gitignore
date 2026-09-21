@@ -1,3 +1,8 @@
 __pycache__/
 *.pyc
 node_modules/
+
+# Lo que baja cosechar_coppel.py antes de entrar al catálogo: archivo de
+# trabajo que crece a decenas de MB y cambia en cada corrida. El catálogo
+# publicado es data/data.json y sus trozos, no esto.
+data/coppel/

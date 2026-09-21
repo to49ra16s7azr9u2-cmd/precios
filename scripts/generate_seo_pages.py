@@ -2040,10 +2040,14 @@ def _fila_barato(pr, p, prefijo, puesto):
     dibujarla.
     """
     n = seller_total(p)
-    clase = f" rank-{puesto}" if puesto <= 3 else ""
+    # Mismo medallero que el resto del sitio: corona al primero, y
+    # dorado/plata/bronce del 2 al 4 (ver .rank-badge en style.css). Acá la
+    # corona se la lleva el más barato, que es de lo que trata la página.
+    clase = f" rank-{puesto}" if 2 <= puesto <= 4 else ""
+    insignia = svg_icon("crown") if puesto == 1 else str(puesto)
     return (
         f'<div class="product-row has-rank{clase}">'
-        f'<span class="rank-badge">{puesto}</span>'
+        f'<span class="rank-badge">{insignia}</span>'
         f'{product_photo_html(p, "row-icon")}'
         f'<div class="row-info">'
         f'<div class="row-brand">{html_escape(p["brand"])}</div>'
