@@ -2975,7 +2975,8 @@ tr.offer-compare-off { display: none; }
   gap: 6px;
   padding: 5px 11px;
   border: 1px solid var(--border);
-  border-radius: var(--marco-radio);
+  /* Esquinas rectas (pedido del usuario, 21-sep). */
+  border-radius: 0;
   background: var(--card);
   color: var(--ink);
   font: inherit;
