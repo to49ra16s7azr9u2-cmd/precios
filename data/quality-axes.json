@@ -195,16 +195,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$790 a $4,750",
+      "spec": "$790 a $4,650",
       "min": 790,
-      "max": 4750
+      "max": 4650
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,750",
-      "min": 4750
+      "spec": "Más de $4,650",
+      "min": 4650
      }
     ]
    }
@@ -2730,23 +2730,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $330",
-      "max": 330
+      "spec": "Hasta $340",
+      "max": 340
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$330 a $700",
-      "min": 330,
-      "max": 700
+      "spec": "$340 a $710",
+      "min": 340,
+      "max": 710
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
+      "spec": "Más de $710",
+      "min": 710
      }
     ]
    }
@@ -3295,16 +3295,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,100 a $4,350",
+      "spec": "$2,100 a $4,300",
       "min": 2100,
-      "max": 4350
+      "max": 4300
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,350",
-      "min": 4350
+      "spec": "Más de $4,300",
+      "min": 4300
      }
     ]
    }
@@ -3323,15 +3323,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $500",
-      "max": 500
+      "spec": "Hasta $490",
+      "max": 490
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$500 a $1,950",
-      "min": 500,
+      "spec": "$490 a $1,950",
+      "min": 490,
       "max": 1950
      },
      {
@@ -4137,6 +4137,72 @@
    }
   ]
  },
+ "Baterías portátiles/10,000 a 20,000 mAh": {
+  "axes": [
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 30 W",
+      "max": 30
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "31 W a 55 W",
+      "min": 30,
+      "max": 55
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 55 W",
+      "min": 55
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $790",
+      "max": 790
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$790 a $1,150",
+      "min": 790,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
+ },
  "Baterías portátiles/Hasta 10,000 mAh": {
   "axes": [
    {
@@ -4330,72 +4396,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,400",
       "min": 1400
-     }
-    ]
-   }
-  ]
- },
- "Baterías portátiles/10,000 a 20,000 mAh": {
-  "axes": [
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 30 W",
-      "max": 30
-     },
-     {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "31 W a 55 W",
-      "min": 30,
-      "max": 55
-     },
-     {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 55 W",
-      "min": 55
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $790",
-      "max": 790
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$790 a $1,150",
-      "min": 790,
-      "max": 1150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
      }
     ]
    }
@@ -23562,16 +23562,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,650 a $4,400",
+      "spec": "$2,650 a $4,450",
       "min": 2650,
-      "max": 4400
+      "max": 4450
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,400",
-      "min": 4400
+      "spec": "Más de $4,450",
+      "min": 4450
      }
     ]
    }
@@ -24398,6 +24398,82 @@
    }
   ]
  },
+ "Muebles/Bases de cama y box": {
+  "axes": [
+   {
+    "label": "Medida",
+    "field": "bed_size",
+    "criterion": "de la cama",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "individual",
+      "name": "Individual",
+      "use": "",
+      "spec": "Individual",
+      "values": [
+       "Individual"
+      ]
+     },
+     {
+      "id": "matrimonial",
+      "name": "Matrimonial",
+      "use": "",
+      "spec": "Matrimonial",
+      "values": [
+       "Matrimonial"
+      ]
+     },
+     {
+      "id": "queen",
+      "name": "Queen",
+      "use": "",
+      "spec": "Queen",
+      "values": [
+       "Queen"
+      ]
+     },
+     {
+      "id": "king",
+      "name": "King",
+      "use": "",
+      "spec": "King",
+      "values": [
+       "King"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
  "Muebles/Otros": {
   "axes": [
    {
@@ -24501,82 +24577,6 @@
       "min": 9950
      }
     ]
-   }
-  ]
- },
- "Muebles/Bases de cama y box": {
-  "axes": [
-   {
-    "label": "Medida",
-    "field": "bed_size",
-    "criterion": "de la cama",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "individual",
-      "name": "Individual",
-      "use": "",
-      "spec": "Individual",
-      "values": [
-       "Individual"
-      ]
-     },
-     {
-      "id": "matrimonial",
-      "name": "Matrimonial",
-      "use": "",
-      "spec": "Matrimonial",
-      "values": [
-       "Matrimonial"
-      ]
-     },
-     {
-      "id": "queen",
-      "name": "Queen",
-      "use": "",
-      "spec": "Queen",
-      "values": [
-       "Queen"
-      ]
-     },
-     {
-      "id": "king",
-      "name": "King",
-      "use": "",
-      "spec": "King",
-      "values": [
-       "King"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     }
-    ],
-    "key": "size"
    }
   ]
  },

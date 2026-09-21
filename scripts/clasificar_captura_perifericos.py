@@ -3143,6 +3143,33 @@ def sub_juego_mesa(tn):
     if re.search(r'guess who|\bpinball\b|palitos chinos|cuatro en linea|\bpentominos\b|'
                  r'juegos? clasicos?|multijuegos', tn):
         return 'De mesa clásicos'
+    # Antes de caer en el comodín (que el reparto se niega a usar): el juego
+    # de mesa se vende por su título y su editorial, no por su género.
+    if re.search(r'\bdice game\b|\bdados\b|\bbang\b|\brol\b', tn): return 'De rol y dados'
+    if re.search(r'\bdobble\b|\bvirus\b|halli galli|\bclaim\b|just one|'
+                 r'what do you meme|meme maker|talk to strangers|adivina la pelicula|'
+                 r'juego de cartas|\bcard game\b|\bmazo\b', tn): return 'De cartas'
+    if re.search(r'rompecabezas|\bpuzzle\b|\bgeodes?\b|buffalo games', tn): return 'Rompecabezas'
+    if re.search(r'inteligencia emocional|habilidades sociales|autoestima|supera tus miedos|'
+                 r'national geographic|\bsilabario\b|\bcolorku\b|activity kit|educativ|'
+                 r'\bterapia\b', tn): return 'Educativos'
+    if re.search(r'\bhaba\b|\borchard\b|monos locos|nickelodeon|jurassic world|space jam|'
+                 r'unicorn jewels|para \d+ anos|infantil|\bninos\b', tn): return 'Infantiles'
+    if re.search(r'\bmemoarrr\b|\bmemoria\b|\bmemory\b', tn): return 'De memoria'
+    if re.search(r'scattergories|ahora o nunca|\bpreguntas\b|\btrivia\b', tn): return 'De preguntas'
+    if re.search(r'\bbingo\b|\bdomino\b|\bloteria\b|\bdamas\b|backgammon|\bserpientes\b', tn):
+        return 'De mesa clásicos'
+    if re.search(r'\barnak\b|\bequinox\b|machi koro|\bhive\b|\blondon\b|res arcana|senjutsu|'
+                 r'imperial assault|star realms|thunder road|lucky numbers|\bquoridor\b|'
+                 r'cronicas del crimen|\bbrains\b|\bhorrified\b|villainous|\bzombies\b|diagon alley|'
+                 r'sd games|maldito games|\bmaldon\b|tranjis|plan b games|pandasaurus|'
+                 r'fantasy flight|czech games|\bgigamic\b|ravensburger|winning (moves|solutions)|'
+                 r'cryptozoic|\bfjords\b|mar ludico|\bdeduccion\b|\bestrategia\b', tn) \
+            and 'calendario' not in tn:
+        return 'De estrategia'
+    if (re.search(r'star wars|harry potter|super mario|\bpac-?man\b|\bdisney\b', tn)
+            and not re.search(r'laberinto|perplexus|\bcalendario\b', tn)):
+        return 'De mesa clásicos'
     return 'Otros juegos'
 
 
