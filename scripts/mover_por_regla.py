@@ -54,7 +54,14 @@ REGLAS = [
     ('Audífonos', r'walkie|talkie|\bradios?\b(?! ?control)|onda corta|reproductor (mp3|de cd|de musica)|discman|intercomunicador',
      r'^(?:\S+ ){0,2}(auricular|audifono|headset|earbud|headphone)|radio fm|for iphone|mp3 player|conduccion osea|open ?ear',
      'Bocinas', 'Radios y reproductores'),
-    ('Audífonos', r'^(?:\S+ )?microfono', r'diadema con microfono|con microfono|auricular|audifonos? con', 'Instrumentos musicales', 'Micrófonos'),
+    # El "no" pedía que el título no dijera "auricular" en ninguna parte, y
+    # el micrófono de podcast anuncia su salida para auriculares: ahora solo
+    # se salva el que ABRE nombrando el audífono.
+    ('Audífonos', r'^(?:\S+ )?microfono',
+     r'^(?:\S+ ){0,3}(auricular|audifono|headset|diadema)|diadema con microfono|audifonos? con|'
+     r'microfono desmontable|reemplazo de microfono|\bcon audifonos\b|\by audifonos\b|'
+     r'de repuesto para (auriculares|audifonos)|repuesto para auriculares',
+     'Instrumentos musicales', 'Micrófonos'),
     ('Herramientas', r'\bdental|\bbucal|articulador', None, 'Belleza y cuidado personal', 'Cuidado personal'),
     ('Herramientas', r'manicura|pedicura|\bunas\b|nail (art|drill|lamp|tips)|\bnails\b', r'aerografo|pulverizador de pintura', 'Belleza y cuidado personal', 'Uñas'),
     ('Herramientas', r'\bfacial|guasha|gua sha|analizador de (piel|cabello)|cuero cabelludo|celulitis|drenaje linfatico|escultura corporal|esculpir corporal',
@@ -65,7 +72,16 @@ REGLAS = [
     ('Herramientas', r'masaje|masajeador|rodillo de masaje|spiky ball', None, 'Belleza y cuidado personal', 'Masajeadores'),
     ('Herramientas', r'agarres? (para|de) gym|agarraderas|para gym\b|para gimnasio', None, 'Deportes y fitness', 'Accesorios de fuerza'),
     ('Domótica y hogar inteligente', r'apagador|tapa ciega|placa (armada|ciega|cristal|valo|solaris|lugano|flat|slim|dimmer|de (acero|aluminio|plastico|nylon|cristal|pared)|con \d|\d|cubre)|'
-     r'(\d|con|dos|tres) (contactos?|interruptores?|apagadores?|modulos?)\b|cubierta para interruptor|tapa para placa|placa cubre',
+     r'(\d|con|dos|tres) (contactos?|interruptores?|apagadores?|modulos?)\b|cubierta para interruptor|tapa para placa|placa cubre|'
+     # La placa y el apagador de catálogo eléctrico se nombran por su línea
+     # y su marca, no por la palabra "placa ciega": Leviton, Volteck, Aksi,
+     # iGoto, Lutron. Son material eléctrico, no domótica.
+     r'placas? (duplex|dup\b|inox|contacto|interruptor|redonda|termoplastica|quickport|nylon|acero|lucek|con toma|de baquelita|plastic|economica)|'
+     r'\bplacas?\b.{0,30}(leviton|volteck|voltech|aksi|igoto|lutron|quickport|termoplastic|baquelita|standard)|'
+     r'(leviton|aksi|volteck|voltech|igoto) placas?\b|'
+     r'interruptor(es)? (electrico|de escalera|escalera|combinacion|palanca|sencillo|vertical|unipolar)|'
+     r'tapa (decora|lisa|leviton)|tapa \w+ intemperie|'
+     r'\bclavija\b|adaptador aterrizado|contrachapa de placa',
      r'intelig|wifi|wi-fi|tuya|zigbee|alexa|smart|matter|\bapp\b|magnetic|shelly|sonoff|\bwiz\b|connected',
      'Herramientas', 'Material eléctrico'),
     ('Domótica y hogar inteligente', r'letrero|\bneon\b', r'intelig|wifi|smart|tuya|alexa|\bapp\b|rgbic|govee|tira', 'Iluminación', 'Decorativa'),
@@ -445,7 +461,10 @@ REGLAS = [
      r'\btapon(es)?\b|\btermometro\b|\btermistor\b|\bsensor\b|\bfoco\b|\bsonda\b|'
      r'medidor de temperatura|indicador de temperatura|\bempaque\b|\bbisagra\b|'
      r'barra divisoria|filtro de agua',
-     None, 'Refacciones', 'Refacciones para refrigerador'),
+     # El refrigerador entero también anuncia su "Smart Sensor": si el título
+     # abre nombrando el aparato, no es refacción.
+     r'^(?:\S+ ){0,4}(refrigerador|refrigeradora|frigobar|congelador|minibar|nevera)\b|\bpies cubicos\b',
+     'Refacciones', 'Refacciones para refrigerador'),
 
     # ---- Piezas y accesorios que estaban como producto terminado (20-sep).
     # Todas piden que la palabra ABRA el título: la ficha técnica de un
@@ -519,8 +538,12 @@ REGLAS = [
      'Cámaras de seguridad', 'Alarmas', {None}),
     ('Domótica y hogar inteligente', r'convertidor hdmi|muro de video|\bhdmi\b.{0,25}(1080p|4k)', None,
      'Televisores', 'Accesorios y soportes', {None}),
-    ('Domótica y hogar inteligente', r'fire tv stick|\bchromecast\b|\bstreaming stick\b', None,
+    ('Domótica y hogar inteligente', r'fire tv\b|\bchromecast\b|\bstreaming stick\b|efecto espejo a tv|\bmiracast\b', None,
      'Televisores', 'Accesorios y soportes', {None}),
+    # El interruptor de vacío de 10 kV se anuncia "inteligente" y por eso se
+    # escapaba del filtro de material eléctrico: va por su cuenta.
+    ('Domótica y hogar inteligente', r'interruptor de (demarcacion|vacio)|\b\d+ ?kv\b|seccionador', None,
+     'Herramientas', 'Material eléctrico', {None}),
     ('Domótica y hogar inteligente', r'cinta led|tira led', None, 'Iluminación', 'Tiras LED', {None}),
     ('Domótica y hogar inteligente', r'difusor de aceites|humidificador aroma', None,
      'Belleza y cuidado personal', 'Cuidado personal', {None}),
@@ -610,6 +633,14 @@ REGLAS = [
      r'cabina de pintura|maquina de lavado de autos|barrera de estacionamiento|\bbolardo\b|'
      r'adaptador de pistola de lavado',
      None, 'Herramientas', 'Hidrolavadoras', {None}),
+    # Lo que la tienda colgó de Cocina y comedor sin serlo: la cortina de
+    # baño con sus ganchos, la bufetera de bufet y la bolsa de cuadro.
+    ('Cocina y comedor', r'cortinas? de ducha|cortinas? de bano|ganchos? para cortina',
+     None, 'Blancos y ropa de cama', 'Cortinas', {None}),
+    ('Cocina y comedor', r'\bchafer\b|\bbufetera\b|\bchafing\b|mesa (caliente|termica) (de|para) bufet',
+     None, 'Equipo comercial', 'Cocina industrial', {None}),
+    ('Cocina y comedor', r'bolsas? (para |de )?bicicleta|bolsa bicicleta',
+     None, 'Autos, bicicletas y motos', 'Bolsas, canastas y portabultos', {None}),
 ]
 
 
@@ -644,7 +675,9 @@ def main():
             # grupo que se aplicaba, tapando los movimientos de verdad.
             if cat2 == cat and s2 == (p.get('subcategory') or None):
                 break
-            k = f"{cat} | {p.get('subcategory')} | {cat2} | {s2}"
+            # aplicar_movimientos normaliza la subcategoría vacía a "None":
+            # sin esto la clave decía "" y ningún producto casaba.
+            k = f"{cat} | {p.get('subcategory') or None} | {cat2} | {s2}"
             grupos[k].append(p['id'])
             if len(muestras[k]) < args.muestras:
                 muestras[k].append((p.get('name') or '')[:100])

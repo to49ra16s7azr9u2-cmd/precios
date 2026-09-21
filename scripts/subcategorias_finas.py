@@ -139,67 +139,75 @@ _C = [
     # botellas", "cepillo para botellas") y se llevaría la botella.
     ('Limpieza de cocina', r'\bcepillos? (de|para) (limpieza|botella|biberon|vaso|taza|platos|cocina)|\bcepillos? de cocina\b|\bsoporte para esponja|limpia ?botellas|\besponja|'
                            r'\bestropajo|\bfibra (de|para) (cocina|trastes)|\blavatrastes\b|\bpano de cocina\b|\btrapos? de cocina\b|'
-                           r'\bescobilla|\bjabon (para|de) trastes\b'),
+                           r'\bescobilla|\bjabon (para|de) trastes\b|\bcubo de basura\b|\bbote de basura\b|\bbasurero\b'),
     ('Organización de cocina', r'\borganizador|\bestante|\brack\b|\brepisa|\bespeciero|\bporta ?(vasos|botellas|tazas|cubiertos|rollo|utensilios|platos|tapas|cuchillos)|'
                                r'\bbotellero|\bescurridor|\bescurreplatos|\bsoporte (para|de) (botellas|vasos|tazas|platos|cuchillos|tapas|tablas|ollas|sartenes)|'
                                r'\bcajonera|\bcesta (para|de) (cocina|fruta|pan)|\bfrutero|\bpanera\b|\bcarrito (de|para) (cocina|verduras)|'
                                r'\bdispensador (de|para) (cereal|granos|jabon)|\bganchos? (para|de) (cocina|tazas)|\bcolgador|\bbandeja (giratoria|organizadora)|'
                                r'\blazy susan\b|\bseparador de cajon|\bdivisor(es)? de cajon|\btapete (para|de) (escurrir|secado)|\balmacenamiento de cocina\b|'
-                               r'\borganizadores? (de|para) (refrigerador|alacena|despensa|cocina)|\bcaja de almacenamiento\b'),
+                               r'\borganizadores? (de|para) (refrigerador|alacena|despensa|cocina)|\bcaja de almacenamiento\b|'
+                               r'\bportarrollos?\b|\bclips? (para|de) bolsa|\brevestimientos? antideslizantes?|\bforro (de|para) (gabinete|cajon|repisa)|'
+                               r'\bcaballete de mesa\b|\bbolsa (de|para) plancha\b|\bfunda (de|para) plancha\b|\bcubierta (para|de) microondas'),
     # Bar
     ('Bar y coctelería', r'\bcoctelera|\bshaker\b|\bcocteler|\bsacacorchos|\bdescorchador|\bdestapador|\babridor(es)? de (botellas|cerveza|vino)|'
                          r'\bcubos? de hielo\b|\bhielera|\bcubitera|\bmolde para hielo\b|\bbomba de vacio para vino\b|\btapon(es)? (de|para) vino|'
                          r'\bvertedor(es)?\b|\bdecantador|\baireador de vino\b|\bjigger\b|\bmedidor de (licor|cocteles)|\bmezclador de (bebidas|cocteles)|'
                          r'\bbarra de bar\b|\bkit de (bar|cocteleria|barman)|\bcerveza\b.{0,20}\bkit\b|\bposavasos|\bcopas? de (vino|champa|coctel|martini|whisky|brandy)|'
-                         r'\bvasos? (de|para) (whisky|shot|chupito|cerveza|coctel|tequila|mezcal)|\bshots?\b|\bcaballitos? (de|para) tequila|\bjarra cervecera\b|\btarro cervecero\b'),
+                         r'\bvasos? (de|para) (whisky|shot|chupito|cerveza|coctel|tequila|mezcal)|\bshots?\b|\bcaballitos? (de|para) tequila|\bjarra cervecera\b|\btarro cervecero\b|'
+                         r'\btapa (de|para) vino\b|\bherramientas? de bar\b|\bmixologia\b'),
     # Bebidas para llevar
     ('Loncheras y termos para alimentos', r'\blonchera|\blunch ?box|\bbento\b|\btermo (para|de) (alimentos|comida|sopa)|\bporta ?alimentos|\bportaviandas|'
                                           r'\bfiambrera|\bcontenedor (de|para) (almuerzo|lunch)|\bbolsa (termica|de almuerzo|para lunch)|\btermo alimentos\b|'
-                                          r'\btermo de comida\b|\bjarro (para|de) sopa\b|\bfood jar\b|\bcalienta ?comida\b'),
-    ('Vasos térmicos y de viaje', r'\bvasos? (termic|de viaje|de acero|con popote|con tapa y popote|aislad)|\btumbler|\bvaso (stanley|yeti|owala|hydro flask|contigo|thermos)\b|'
+                                          r'\btermo de comida\b|\bjarro (para|de) sopa\b|\bfood jar\b|\bcalienta ?comida\b|'
+                                          r'\bbentgo\b.{0,25}(compartimentos|lunch|snack|bento)|\bbote (para|de) comida\b'),
+    ('Vasos térmicos y de viaje', r'\bbubba\b|\bdual sip\b|\bcold cup\b|\bmagslider\b|\benfriador de lata\b|\bcan cooler\b|'
+                                  r'\bvasos? (termic|de viaje|de acero|con popote|con tapa y popote|aislad)|\btumbler|\bvaso (stanley|yeti|owala|hydro flask|contigo|thermos)\b|'
                                   r'\bvaso (de|para) (cafe|viaje)\b|\btravel mug\b|\btaza (termica|de viaje|con tapa)|\bvaso quencher\b|\bquencher\b|'
                                   r'\bvaso (de )?\d+ ?(oz|onzas)\b.{0,40}(tapa|popote|aislad|acero)|\bvasos?\b.{0,50}(popote|pajita|pajilla|aislad|termic)|\bvaso (con|de) asa\b|\bsmoothsip\b|\bflip ?top\b|\bvaso (para|de) (smoothie|licuado|malteada)'),
-    ('Termos y botellas térmicas', r'\btermos?\b(?!\s*(electrico|de agua|de gas))|\bbotella (termica|de acero|aislada|termo)|\btermica\b.{0,30}botella|^(hydro ?flask|yeti|stanley|thermos)\b.{0,25}(botella|termo|\d+ ?(ml|oz|l)\b)|\bacero inoxidable\b.{0,40}\bbotella|\bbotella\b.{0,40}\bacero inoxidable\b|'
+    ('Termos y botellas térmicas', r'\btermos?\b(?!\s*(electrico|de gas))|\bbotella (termica|de acero|aislada|termo)|\btermica\b.{0,30}botella|^(hydro ?flask|yeti|stanley|thermos)\b.{0,25}(botella|termo|\d+ ?(ml|oz|l)\b)|\bacero inoxidable\b.{0,40}\bbotella|\bbotella\b.{0,40}\bacero inoxidable\b|'
                                    r'\bdoble pared\b|\baislad[ao]s? al vacio\b|\bvacuum\b|\baislamiento\b.{0,30}botella|\bbotella\b.{0,30}aislamiento'),
-    ('Botellas de agua', r'\bbotellas? (de|para) agua|\bcantimplora|\bbotella (deportiva|plegable|de tritan|de plastico|infantil|para ninos|para gym|con popote|con filtro|motivacional)|'
+    ('Botellas de agua', r'\bfreesip\b|\bhydrojug\b|\bsoft flask\b|\bbotellas? (de|para) agua|\bcantimplora|\bbotella (deportiva|plegable|de tritan|de plastico|infantil|para ninos|para gym|con popote|con filtro|motivacional)|'
                          r'\bnalgene\b|\btritan\b|\bbotella\b.{0,30}(\bml\b|\bl\b|litro|onzas|\boz\b).{0,40}(deport|gym|ciclismo|bici|escolar|ninos)|\bbotella\b.{0,20}(gym|deportiva|ciclismo|para bicicleta)|'
                          r'\bbotella (con|de) (marcador|medidor|tiempo)|\bbotella galon\b|\bbotella (de )?1 galon\b|\banfora\b|\bbotella\b.{0,40}(silicona|plegable|colapsable)'),
-    ('Vasos y copas', r'\bvasos?\b|\bcopas?\b|\bcaballitos?\b|\bhighball\b|\bcaliz\b|\bvaso (de vidrio|de cristal|de plastico|para beber|apilable)'),
-    ('Tazas', r'\btazas?\b|\bmugs?\b|\btaza (de|para) (cafe|te)|\bjarro\b|\bjarritos?\b|\btaza de ceramica\b|\btazon (para|de) (cafe|te)\b|\bpocillo'),
-    ('Jarras y dispensadores de bebidas', r'\bjarras?\b|\bpitcher\b|\bdispensador (de|para) (bebidas|agua|jugo|limonada|aguas frescas)|\bvitrolero|\bgarrafa|'
+    ('Vasos y copas', r'\bsin tallo\b|\bstemless\b|\bvasos?\b|\bcopas?\b|\bcaballitos?\b|\bhighball\b|\bcaliz\b|\bvaso (de vidrio|de cristal|de plastico|para beber|apilable)'),
+    ('Tazas', r'\bminitazas?\b|\bset de mate\b|\bmate de (acero|calabaza)\b|\btazas?\b|\bmugs?\b|\btaza (de|para) (cafe|te)|\bjarro\b|\bjarritos?\b|\btaza de ceramica\b|\btazon (para|de) (cafe|te)\b|\bpocillo'),
+    ('Jarras y dispensadores de bebidas', r'\bairpot\b|\bcanon dispensador\b|\bespigas? de agua\b|\bjarras?\b|\bpitcher\b|\bdispensador (de|para) (bebidas|agua|jugo|limonada|aguas frescas)|\bvitrolero|\bgarrafa|'
                                           r'\bdispensador de agua\b|\bjarra (de|para) (agua|jugo|leche|te|cafe)|\btetera\b|\bcafetera (de|para) (piston|prensa|servir)|\bprensa francesa\b|'
                                           r'\bjarra electrica\b|\bhervidor\b'),
-    ('Tarros y frascos', r'\btarros?\b(?! cervecer)|\bfrascos?\b|\bmason\b|\btapas? (para|de) (tarro|frasco|mason)|\banillos? de sellado\b|\bfrasco (de vidrio|hermetico|con tapa|para conserva)|'
+    ('Tarros y frascos', r'\bmatra(z|ces)\b|\berlenmeyer\b|\btarros?\b(?! cervecer)|\bfrascos?\b|\bmason\b|\btapas? (para|de) (tarro|frasco|mason)|\banillos? de sellado\b|\bfrasco (de vidrio|hermetico|con tapa|para conserva)|'
                          r'\bjuego de frascos\b|\bbotes? (de|para) (vidrio|cocina|almacenamiento|especias)\b|\balacena\b.{0,20}frasco|\bfrascos? (para|de) (especias|condimentos|salsa|miel|mermelada)'),
     ('Botellas de vidrio y plástico', r'\bbotellas? (de |para )?(vidrio|plastico|pet\b|jugo|leche|aceite|salsa|condimento|vino|licor|cerveza|kombucha|kefir|agua mineral|almacenamiento|vacias?|con tapa|con tapon|exprimibles?|hermeticas?)|'
                                       r'\bdispensador(es)? (de|para) (aceite|salsa|condimento|vinagre|jabon de cocina|jabon)|\baceitera|\bvinagrera|\brociador de aceite\b|\bbotellas? (de|con) (corcho|rosca)|'
                                       r'\bbotellas? de \d+ ?(ml|oz|onzas)\b'),
-    ('Contenedores herméticos', r'\brecipientes? hermetic|\bcontenedor(es)? (hermetic|de alimentos|para alimentos|de comida|para comida|de cocina|para cereal|de vidrio|de plastico|con tapa|apilable)|'
+    ('Contenedores herméticos', r'\btapas? de silicona\b|\btapas? reutilizables\b|\btapa (para|de) lata\b|\bcaja de aislamiento\b|\balmacenamiento de alimentos\b|\brecipientes? hermetic|\bcontenedor(es)? (hermetic|de alimentos|para alimentos|de comida|para comida|de cocina|para cereal|de vidrio|de plastico|con tapa|apilable)|'
                                 r'\btuppers?\b|\btupperware|\btopper(s)?\b|\brecipientes? (de|para) (almacenamiento|alimentos|comida|vidrio|plastico|cocina|cereal|refrigerador|congelador)|'
                                 r'\bjuego de recipientes\b|\bcontenedores? (organizador|para refrigerador)|\bcajas? (para|de) (alimentos|comida|pan|galletas|cereal)|\bhermetic|'
                                 r'\bbolsas? (de silicona|reutilizables|para congelar|ziploc|con cierre)|\bcontenedor(es)?\b|\brecipientes?\b|\bfiambrera\b|\bcubo de almacenamiento\b|\bbarril (de|para) (arroz|granos)'),
     # Mesa
     ('Vajillas', r'\bvajillas?\b|\bjuego de (vajilla|platos|mesa)|\bset de (vajilla|platos)|\bservicio para \d+ personas\b|\bplatos? y tazones?\b.{0,20}(juego|set|piezas)'),
-    ('Desechables', r'\bdesechabl|\bpajillas?\b|\bagitador(es)?\b|\bbiodegradabl|\bcompostabl|\bhoja de palma\b|\bpopotes?\b|\bpajitas?\b|\bsorbetes?\b|\bde carton\b|\bde papel\b.{0,20}(platos|vasos)|'
+    ('Desechables', r'\bbolsas? (para|de) (horno|asado)\b|\bdesechabl|\bpajillas?\b|\bagitador(es)?\b|\bbiodegradabl|\bcompostabl|\bhoja de palma\b|\bpopotes?\b|\bpajitas?\b|\bsorbetes?\b|\bde carton\b|\bde papel\b.{0,20}(platos|vasos)|'
                     r'\bvasos? (de papel|de carton|de plastico transparente|desechable)|\bplatos? (de papel|de carton|desechable|de unicel)|\bservilletas?\b|\bmantel(es)? de plastico\b|'
                     r'\bcubiertos? desechable|\bcharolas? de (carton|papel|aluminio)|\bpapel (aluminio|encerado|de hornear|film|antiadherente)\b|\bplastico (adherente|film)\b'),
-    ('Cubiertos', r'\bcubiertos?\b|\bcucharas?\b(?! (de madera|de silicona|medidora|para servir|para helado|ranurada|de cocina|para sopa|espumadera|de nylon))|\btenedor(es)?\b|'
+    ('Cubiertos', r'\bcubiertos?\b|\bcucharas?\b(?! (de madera|de silicona|medidora|para servir|para helado|ranurada|de cocina|espumadera|de nylon))|\btenedor(es)?\b|'
                   r'\bcuchillos? de mesa\b|\bcucharitas?\b|\bcucharillas?\b|\bset de cubiertos\b|\bjuego de cubiertos\b|\bcubertería|\bpalillos? (chinos|para comer|de bambu)\b|\bchopsticks?\b'),
-    ('Cuchillos y tablas', r'\bcuchillos?\b|\btablas? (de|para) (cortar|picar|cocina|queso|carne|pan)|\bafilador|\bchaira\b|\bset de cuchillos\b|\bjuego de cuchillos\b|\bcuchillo (de chef|santoku|cebollero|de pan|para verduras)\b|'
+    ('Cuchillos y tablas', r'\bbarra de afilado\b|\btijeras?\b|\bcuchillos?\b|\btablas? (de|para) (cortar|picar|cocina|queso|carne|pan)|\bafilador|\bchaira\b|\bset de cuchillos\b|\bjuego de cuchillos\b|\bcuchillo (de chef|santoku|cebollero|de pan|para verduras)\b|'
                            r'\bmandolina\b|\bhacha de cocina\b|\btabla de picar\b|\bbloque (de|para) cuchillos\b|\btijeras? de cocina\b|\bpelador\b|\bcortador de (verduras|pizza|manzana|frutas|espiral)|\bespiralizador|\brebanador'),
-    ('Platos y bowls', r'\bplatos?\b|\btazon(es)?\b|\bbowls?\b|\bensaladera|\bcuencos?\b|\bfuentes? (para|de) (servir|mesa|ensalada)|\bplaton(es)?\b|\bbandejas? (para|de) servir\b|\bcharolas?\b|'
+    ('Platos y bowls', r'\bmantequera\b|\bvasitos? (para|de) salsa\b|\b(bolas?|bowls?) de mezcla\b|\bpropagador de mantequilla\b|\bplatos?\b|\btazon(es)?\b|\bbowls?\b|\bensaladera|\bcuencos?\b|\bfuentes? (para|de) (servir|mesa|ensalada)|\bplaton(es)?\b|\bbandejas? (para|de) servir\b|\bcharolas?\b|'
                        r'\bplatitos?\b|\bsoperas?\b|\bsalseras?\b|\bmantequillera|\bazucarera|\bsalero|\bpimentero|\bramekin|\bmolcajete|\bportacubiertos'),
     # Cocción
     ('Baterías de cocina', r'\bbaterias? de cocina\b|\bjuego de (ollas|sartenes|cacerolas)|\bset de (ollas|sartenes|cacerolas)|\bollas? y sartenes\b|\bcookware set\b|\butensilios de cocina\b.{0,20}\d+ ?(pz|piezas)'),
     ('Ollas de presión', r'\bollas? (express|expres|a presion|de presion|presto)|\bolla exprés\b|\bpresto\b|\bpressure cooker\b|\bolla rapida\b'),
-    ('Sartenes y comales', r'\bsart[eé]n|\bcomal(es)?\b|\bwok\b|\bplanchas? (de|para) (asar|cocina|carne)|\bparrilla (de|para) (estufa|cocina)\b|\bgrill (de|para) estufa\b|\bcrepera\b(?!.*electric)|\bpaellera|\bomelet'),
-    ('Ollas y cacerolas', r'\bollas?\b|\bcacerolas?\b|\bcazuela|\bcazo\b|\bmarmita|\bvaporera\b|\bpocillo|\bolla (de|para) (caldo|frijoles|tamales|pasta)|\bbudinera|\bcaldero|\bolla holandesa\b|\bdutch oven\b|\bcaldera\b'),
-    ('Repostería y moldes', r'\bmoldes?\b|\breposteri|\bpasteler|\bmanga pastelera\b|\bduyas?\b|\brodillo\b|\bespatula (de|para) (reposteria|pastel|decorar)|\bsoporte (para|de) pastel\b|\bbase giratoria\b|'
+    ('Sartenes y comales', r'\bkadai\b|\bsart[eé]n|\bcomal(es)?\b|\bwok\b|\bplanchas? (de|para) (asar|cocina|carne)|\bparrilla (de|para) (estufa|cocina)\b|\bgrill (de|para) estufa\b|\bcrepera\b(?!.*electric)|\bpaellera|\bomelet'),
+    ('Ollas y cacerolas', r'\basadera\b|\brostizador\b|\btapas?\b(?=.{0,25}(vidrio|cristal))|\binserto (de )?acero inoxidable\b|\bollas?\b|\bcacerolas?\b|\bcazuela|\bcazo\b|\bmarmita|\bvaporera\b|\bpocillo|\bolla (de|para) (caldo|frijoles|tamales|pasta)|\bbudinera|\bcaldero|\bolla holandesa\b|\bdutch oven\b|\bcaldera\b'),
+    ('Repostería y moldes', r'\b(plancha|piedra) (de acero )?(para|de) pizza\b|\bacero para pizza\b|\bmoldes?\b|\breposteri|\bpasteler|\bmanga pastelera\b|\bduyas?\b|\brodillo\b|\bespatula (de|para) (reposteria|pastel|decorar)|\bsoporte (para|de) pastel\b|\bbase giratoria\b|'
                             r'\bcharola (para|de) (hornear|horno|galletas)|\bbandeja (para|de) (hornear|horno|galletas)|\bcortadores? de galletas\b|\bcupcake|\bmuffin|\bcake\b|\bpastel\b|\bhornear\b|\bhorneado\b|'
                             r'\btapete de silicona\b|\bcapacillos?\b|\bbatidor(es)? (de globo|manual)\b|\btamiz|\bcernidor|\bbrocha (de|para) (reposteria|cocina)|\bpanaderia\b|\bmasa\b.{0,20}(pizza|pan)|\bpizza\b.{0,20}(piedra|pala|cortador)'),
     ('Básculas y medidores', r'\bbascula|\bbalanza|\bpesa (de|para) cocina\b|\btazas? medidoras?\b|\bcucharas? medidoras?\b|\bmedidor(es)?\b|\btermometro|\btemporizador|\btimer\b|\bvaso medidor\b|\bjarra medidora\b'),
-    ('Utensilios de cocina', r'\butensilio|\bespatula|\bcucharon|\bvolteador|\bpinzas?\b|\bbatidor|\bpelador|\brallador|\bcolador|\bescurridor de (pasta|verduras)|\bexprimidor|\bprensa (de|para) (ajo|papas|limon|tortilla)|'
-                             r'\bmachacador|\bpasapures|\btortillero|\bmortero|\bmolinillo|\bcuchara (de madera|de silicona|para servir|ranurada|de cocina|para sopa|de nylon)|\bespumadera|\bcucharas? para helado\b|'
+    ('Utensilios de cocina', r'\bdelantal(es)?\b|\bguantes?\b.{0,25}(horno|barbacoa|asador|fuego|parrilla)|'
+                             r'\bcentrifugador(a)? de ensaladas?\b|\bsoplete\b|\bflameador\b|\bsoplador (de )?carbon\b|'
+                             r'\binfusor|\bsacabolas\b|\bcaminos? de mesa\b|'
+                             r'\b(juego|set) de herramientas\b(?! de bar)|\bherramientas? (de|para) (barbacoa|asador|parrilla|cocina)\b|\butensilio|\bespatula|\bcucharon|\bvolteador|\bpinzas?\b|\bbatidor|\bpelador|\brallador|\bcolador|\bescurridor de (pasta|verduras)|\bexprimidor|\bprensa (de|para) (ajo|papas|limon|tortilla)|'
+                             r'\bmachacador|\bpasapures|\btortillero|\bmortero|\bmolinillo|\bcucharas? (de madera|de silicona|para servir|ranurada|de cocina|de nylon)|\bespumadera|\bcucharas? para helado\b|'
                              r'\babrelatas|\babridor|\bembudo|\brasp?ador|\bbrocha\b|\bcepillo (de|para) (verduras|papas)|\bpincel de cocina\b|\bprensa\b|\bdescorazonador|\bdeshuesador|\bcortador\b|\bpicador\b|'
                              r'\btenedor (para|de) (carne|asador)|\bpala (de|para) (cocina|pizza)|\bmanoplas?\b|\bguantes? (de|para) (cocina|horno)|\bagarradera|\bsalvamantel|\bposa ?olla|\bposa ?plato|\bmantel(es)?\b|'
                              r'\bindividual(es)? (de|para) mesa\b|\bservilleteros?\b|\bcolador\b|\bprensador\b|\brebanadora\b|\bcortador de huevo\b|\bseparador de yema\b|\bcascanueces|\bmoledor|\bespiral'),
@@ -219,6 +227,7 @@ def sub_cocina_fino(tn):
     if re.search(r'\btapon(es)?\b|\bcorcho', tn): return 'Bar y coctelería'
     if re.search(r'juego de cocina|set de cocina|utensilios', tn): return 'Baterías de cocina'
     if re.search(r'\bpopote|\bpajita', tn): return 'Desechables'
+    if re.search(r'\b\d{1,2} ?(oz|onzas)\b', tn): return 'Termos y botellas térmicas'
     return None
 
 

@@ -3414,7 +3414,13 @@ def sub_vehiculo(tn):
 def sub_domotica(tn):
     # El accesorio DEL aparato no es el aparato: "Cargador de 18 V ... para
     # Echo Show 21" no es una bocina inteligente.
+    if re.search(r'contrachapa|chapa (electrica|magnetica)|electroiman|soporte (zl|tipo zl)|bracket tipo zl', tn):
+        return 'Accesorios y refacciones de cerradura'
     if re.match(r'^(?:\S+ ){0,3}(cargador|cable|funda|soporte|adaptador|base|repuesto|montura|bateria)\b', tn):
+        # ...salvo cuando el accesorio es de la bocina: no hay subcategoría de
+        # accesorios y el soporte del Echo Dot se busca junto al Echo Dot.
+        if re.search(r'\becho (dot|pop|show|spot|studio)\b|google (home|nest)|homepod|nest mini|alexa echo', tn):
+            return 'Bocinas inteligentes'
         return None
     if re.search(r'enchufes? intelig|enchufe.{0,25}intelig|contactos? (de pared )?intelig|smart plug|tomacorriente intelig|enchufes? (wifi|alexa)|regleta intelig|multicontacto intelig|'
                  r'tp-?link (tapo|kasa) (p|hs)1\d\d|\bhs1[01]\d\b|\bp1[01]\d\b|smart home p100', tn):
@@ -3441,7 +3447,8 @@ def sub_domotica(tn):
                  r'interruptor(es)? (de luz |de pared |tactil )?(wifi|zigbee|tuya)|apagador(es)? (wifi|tuya)|modulo (interruptor|rele)|rele wifi|'
                  r'atenuador intelig|dimmer intelig|pulsador de boton|interruptor.{0,30}(tuya|alexa|zigbee|wifi)', tn):
         return 'Interruptores inteligentes'
-    if re.search(r'cerradura|chapa intelig|smart lock|cerrojo|manija.{0,30}huella|bloqueo de puerta|\block\b', tn): return 'Cerraduras inteligentes'
+    if re.search(r'cerradura|chapas? intelig|smart lock|cerrojo|manija.{0,30}huella|bloqueo de puerta|\block\b|'
+                 r'\bdeadbolt\b|\byale\b|\bschlage\b|\bassure\b|\bkeyed\b|\bzkteco\b', tn): return 'Cerraduras inteligentes'
     if re.search(r'cortina|persiana', tn): return 'Cortinas motorizadas'
     if re.search(r'termostato|honeywell home', tn): return 'Termostatos'
     if re.match(r'^(?:\S+ ){0,1}(sensor|detector|valvula)', tn): return 'Sensores'
@@ -3459,18 +3466,54 @@ def sub_domotica(tn):
     if re.search(r'cortina|persiana', tn): return 'Cortinas motorizadas'
     if re.search(r'sensor|detector|timbre intelig|videoportero', tn): return 'Sensores'
     if re.search(r'termostato', tn): return 'Termostatos'
+    # Última red (21-sep) para lo que la cadena no reconoció. Va al final a
+    # propósito: son expresiones amplias — "alarma", "medidor", "candado" —
+    # que arriba le robarían la ficha a la cerradura y al enchufe.
+    if re.match(r'^(?:\S+ ){0,3}(alarma|alarm|sirena)\b', tn) or 'kit de seguridad' in tn:
+        return 'Sensores'
+    if re.search(r'protector sti|\bsti-\d', tn): return 'Sensores'
+    if 'candado' in tn: return 'Candados inteligentes'
+    if 'caja fuerte' in tn: return 'Cerraduras para gabinete y casillero'
+    if re.search(r'interruptor(es)? termomagnetico|circuit breaker|din rail|interruptor de circuito|'
+                 r'interruptor de transferencia|protector de voltaje|monitor de energia', tn):
+        return 'Breakers y protectores inteligentes'
+    if (re.match(r'^(?:\S+ ){0,3}(medidor|termometro|higrometro|monitor|monitoreo)\b', tn)
+            and not re.search(r'\bcamara\b|\bvideo\b', tn)):
+        return 'Sensores'
+    if re.search(r'dispositivo (de )?medicion|medidor clima|interruptor fotoelectrico|fotocelda|'
+                 r'video portero|campana para video', tn):
+        return 'Sensores'
+    if re.search(r'toma(corriente)?s? (de (pared|corriente) )?intelig|receptaculo.{0,30}intelig|'
+                 r'toma de (pared|corriente).{0,30}(intelig|usb|carga rapida)|placas? duplex smart|'
+                 r'enchufe (de pared|convertidor).{0,30}(intelig|carga)|enchufe convertidor|'
+                 r'temporizador.{0,25}toma|temporizador exterior|\bclapper\b', tn):
+        return 'Enchufes inteligentes'
+    if re.search(r'\bbroadlink\b|interfaz usb|receptor.{0,25}(gerenciador|433)|'
+                 r'control(ador)? intelig\w* (de |por )?infrarrojos?|control remoto.{0,20}infrarrojo', tn):
+        return 'Hubs'
+    if re.search(r'caja de sincronizacion|sync box', tn): return 'Tiras LED inteligentes'
+    if 'parlante intelig' in tn: return 'Bocinas inteligentes'
+    if re.search(r'interruptor(es)? touch|interruptor(es)? tactil|apagador.{0,40}touch', tn):
+        return 'Interruptores inteligentes'
+    if re.search(r'interruptor(es)?.{0,30}intelig|switch.{0,30}(smart home|wireless)', tn):
+        return 'Interruptores inteligentes'
     return None
 
 
 def sub_deporte(tn):
     """Reparte Deportes y fitness."""
     if re.search(r'^(?:\S+ ){0,3}(pesa|mancuerna|disco olimpico|barra olimpica|kettlebell)', tn): return 'Pesas'
-    if re.search(r'bicicleta (fija|estatica|de spinning|recumbente|vertical|de ejercicio|magnetica|reclinada)|spinning|ciclo indoor|'
+    if re.search(r'bicicletas? (fijas?|estaticas?|de spinning|recumbentes?|vertical(es)?|de ejercicio|magneticas?|reclinadas?)|spinning|ciclo indoor|'
                  r'recumbente|entrenador de bicicleta|bicicleta.{0,25}(entrenamiento|fitness|unifitness|windsor|sunny)|'
-                 r'\brecumbent|upright bike|air bike|bicicleta de aire', tn): return 'Bicicletas fijas'
+                 r'\brecumbent|upright bike|air ?bike|bicicleta de aire|\bairbike\b|'
+                 # La pedalera, la mini bicicleta y la bicicleta de brazos son
+                 # bicicleta fija aunque no lleven cuadro ni asiento.
+                 r'mini bicicleta|bicicleta de brazos|pedalera|pedal ejercitador|ejercitador de pedal|'
+                 r'pedal exerciser|rehabilitation bicycle|bicicleta de rehabilitacion|'
+                 r'sunny (health ?(& ?|and )?fitness )?bicicleta|bicicleta sunny', tn): return 'Bicicletas fijas'
     if re.search(r'\bbalon\b|pelota de (futbol|basquet|voleibol)', tn): return 'Balones'
     if re.search(r'patin(es|eta)?\b|patineta|skate|scooter para nino', tn): return 'Patines y patinetas'
-    if re.search(r'\byoga\b|pilates|tapete de ejercicio|colchoneta', tn): return 'Yoga'
+    if re.search(r'\byoga\b|pilates|tapete de ejercicio|colchoneta|foam roller|rodillo de espuma', tn): return 'Yoga'
     if re.search(r'\bboxeo\b|costal de box|guantes de box', tn): return 'Boxeo'
     if re.search(r'raqueta|\btenis de mesa\b|badminton|\bpadel\b|squash', tn): return 'Raquetas'
     if re.search(r'ping ?pong|mesa de tenis de mesa', tn): return 'Ping pong'
@@ -3482,37 +3525,73 @@ def sub_deporte(tn):
         return 'Natación'
     # Sin "\bsup\b": el guión del número de parte hace de borde de palabra y
     # el guante de portero "SUP-D1GLV-3" entraba como tabla de paddle.
-    if re.search(r'kayak|paddle ?(board|surf)|stand up paddle|buceo|\bsurf\b|snorkel', tn):
+    if re.search(r'kayak|paddle ?(board|surf)|stand up paddle|buceo|\bsurf\b|snorkel|'
+                 r'esqui acuatico|wakeboard|cuerda remolcable|\bflotador de arrastre\b', tn):
         return 'Deportes acuáticos'
     if re.search(r'banda(s)? (de|elastica)? ?resistencia|liga de ejercicio|bandas? elasticas?|ligas? (de |para )?(resistencia|ejercicio)|'
-                 r'set de ligas|banda de suspension|\btrx\b|entrenador de suspension|mini bandas', tn): return 'Bandas de resistencia'
+                 r'set de ligas|banda de suspension|\btrx\b|entrenador de suspension|mini bandas|'
+                 # "Liga" a secas es también la competencia, así que pide el
+                 # contexto de entrenamiento cerca: liga de tensión, liga para
+                 # tobillos, ligas gim, banda circular de látex.
+                 r'\bligas?\b.{0,40}\b(resistencia|resistenca|tension|entrenamiento|ejercicio|tobillos?|gim|gym|fitness|latex|elastica)\b|'
+                 r'\bbandas?\b.{0,40}\b(resistencia|resistenca|ejercicio|entrenamiento|circulares?|latex)\b|'
+                 r'resistance loop|\bflossband|banda ?/ ?liga|banda suspension|'
+                 r'\bloop bands?\b|liga tubular|banda tubular', tn): return 'Bandas de resistencia'
     if re.search(r'cuerda (de |para )?(salto|saltar|brincar|entrenamiento)|jump rope|speed rope|'
                  r'magnesia|cinturon (de |para )?(pesas|hip thrust|lastre|levantamiento)|\bagarres?\b|agarraderas|'
                  r'\bstraps\b|munequeras de levantamiento|mina terrestre|landmine|accesorio (de |para )?barra|'
                  r'collarines|clips para barra|\bcalleras\b|\bgrips\b', tn):
         return 'Accesorios de fuerza'
+    # El pasador de la placa de peso y el rodillo de la guía son pieza de
+    # máquina, no máquina: van a accesorios antes de que 'maquina' los lea
+    # como aparato completo.
+    if re.search(r'pines? de carga|pull ?pin|pin knob|perno de carga|'
+                 r'pasador(es)? (de|para) (peso|placa|carga|maquina)|'
+                 r'(rodillo|guia|riel|polea).{0,60}(de repuesto|repuesto|refaccion)|'
+                 r'(de repuesto|repuesto).{0,30}(maquina|eliptica|caminadora)', tn):
+        return 'Accesorios de fuerza'
     if re.search(r'\bsmith\b|leg press|\bhack\b|multifuncional|cross ?trainer|\btorre\b|\bpolea|'
-                 r'\bestacion\b|\brack\b|jaula de (potencia|sentadillas)|power rack|multiestacion', tn):
+                 r'\bestacion(es)?\b|\brack\b|jaula de (potencia|sentadillas)|power rack|multiestacion|'
+                 r'\bpulley\b|remo en t|t-?bar row|'
+                 # "Peso integrado" también lo dice la barra fija de 20 lb:
+                 # pide que sea la máquina la que lo lleve.
+                 r'(maquina|aparato|equipo|estacion).{0,30}peso integrado|peso integrado.{0,25}(maquina|estacion)|'
+                 r'maquina.{0,25}(pecho|pectoral|espalda|piernas|gluteo|jalon|press|dorsal)|'
+                 r'press (de )?pecho|prensa de piernas', tn):
         return 'Máquinas multifuncionales y poleas'
     if re.search(r'taekwondo|karate|artes marciales|\bmma\b|muay thai|\bjudo\b|kickbox|saco de box|'
                  r'\bcostal\b|\bpaos\b|manoplas de box|\bbox\b', tn):
         return 'Boxeo'
+    if re.search(r'chaleco (lastrado|con peso|de peso|lastrable)|chaleco.{0,20}lastrad|'
+                 r'barras? de peso.{0,25}chaleco|tobilleras? con peso', tn):
+        return 'Pesas de tobillo y chalecos con peso'
     if re.search(r'campismo|camping|casa de campana|sleeping bag|bolsa de dormir', tn): return 'Campismo'
-    if re.search(r'rodillera|codera|tobillera|muneque|faja|soporte (lumbar|deportivo)', tn):
+    if re.search(r'rodillera|codera|tobillera|muneque|faja|soporte (lumbar|deportivo)|'
+                 r'mangas? (para|de) brazos?|arm sleeves?|manguillas|bandanas? deportivas?|'
+                 r'banda (de )?tela absorbente', tn):
         return 'Protección y soportes'
     # Lo que la captura de 12,398 dejaba sin repartir (2,693 fichas) era
     # casi todo aparato de gimnasio con otro nombre: la polea, la barra de
     # dominadas, el banco, la escaladora y la tabla de flexiones.
-    if re.search(r'caminadora|trotadora|eliptica|escaladora|maquina de remo|remo (de|para) ejercicio|'
-                 r'multigimnasio|multiestacion|banco (de|para) (ejercicio|pesas|abdominales)|'
+    if re.search(r'caminadora|trotadora|eliptica|escalador(a)?|maquina de remo|remo (de|para) ejercicio|'
+                 r'cinta (de|para) correr|treadmill|\bstepper\b|\bremadora|\browing\b|'
+                 r'cama elastica|\btrampolin|\brebounder\b|'
+                 r'plataforma (vibratoria|de step|de pasos|de ejercicio)|step (aerobico|de ejercicio)|'
+                 r'pasos aerobicos|'
+                 r'multigimnasio|multiestacion|banco (de |para )?(ejercicio|pesas|abdominales|abdominal)|'
                  r'banco fitness|banco multiposicion|gimnasio|home gym|'
-                 r'\bdominadas?\b|pull ?up bar|\babdominales?\b|ab wheel|rueda para abdominal|'
+                 r'\bdominadas?\b|pull ?up bar|\babdominal(es)?\b|ab ?wheel|ab ?roller|rueda para abdominal|'
                  r'tabla de flexiones|push ?up board|polea|lat pulldown|'
                  r'suspension trainer|entrenador de suspension|'
                  r'ejercitador de (agarre|pecho|brazos|manos)|entrenador de fuerza de agarre|'
                  r'\bcrossfit\b|\bsentadillas?\b', tn):
         return 'Equipo de gimnasio'
     if re.search(r'\bpesas?\b|mancuerna|\bdiscos?\b|\bbarra\b|kettlebell|banco (de|para)', tn): return 'Pesas'
+    # Ya estamos dentro de Deportes y fitness: lo que se anuncia como equipo
+    # de gimnasio o de entrenamiento y no encajó arriba es aparato de gym.
+    if re.search(r'\bgym\b|gimnasio|\bfitness\b|equipo (de |portatil )?entrenamiento|'
+                 r'entrenamiento de fuerza|maquina de ejercicio', tn):
+        return 'Equipo de gimnasio'
     return None
 
 
@@ -4714,14 +4793,24 @@ def sub_audio(tn):
     # gaming, que se vende como categoría propia y casi siempre trae micrófono.
     # El repuesto y el accesorio abren el título: almohadillas, espumas,
     # puntas de silicona, el estuche, los cuernos de cosplay para diadema.
+    # "Auriculares Walkie Talkie 2 pines" es un audífono: el título nombra la
+    # radio a la que se conecta, y la red de abajo lo leía como radio.
+    if (re.match(r'^(?:\S+ ){0,2}(auricular|audifono|headset|earbud|headphone)', tn)
+            and re.search(r'walkie|\bptt\b|tubo acustico|conducto acustico|air conduit|[12] ?pines', tn)
+            and not re.search(r'\badicional\b|\brepuesto\b|de recambio', tn)):
+        return 'Earbuds con cable'
     if re.match(r'^(?:\S+ ){0,2}(microfono|monitor|bocina|altavoz|reproductor|radio|walkie)', tn):
         return None
     if re.match(r'^(?:\S+ ){0,3}(almohadillas?|earpads?|espumas?|puntas|eartips?|repuesto|'
                 r'cable de repuesto|estuche|funda|soporte|cuernos|accessory|accesorios?|'
                 r'ear ?pads?|ear ?cushions?|ear ?tips?)\b', tn):
         return 'Almohadillas y repuestos'
-    if re.search(r'protectores? de puerto|cordon para auriculares|decorativa para auriculares|'
-                 r'\brepuesto\b|\bde repuesto\b|tubo acustico adicional|(5|10) pares', tn):
+    if re.search(r'protectores? de puerto|cord[a-z?]+n para auriculares|decorativa para auriculares|'
+                 r'\brepuesto\b|\bde repuesto\b|tubo acustico adicional|(5|10) pares|'
+                 r'reemplazo de microfono|microfono desmontable para (auriculares|audifonos)|'
+                 r'conector de audio para (auriculares|audifonos)|'
+                 r'deshumidificador.{0,40}(audifono|auricular)|'
+                 r'^(?:\S+ ){0,3}(pluma|kit|cepillo|sistema)\b.{0,25}limpieza', tn):
         return 'Almohadillas y repuestos'
     # Auricular de radio (walkie, PTT, tubo acústico): es un audífono de
     # cable, aunque el título hable de la radio y no de la forma.
@@ -4729,7 +4818,12 @@ def sub_audio(tn):
                  r'walkie|intercomunicador|radios? bidireccional|\btactico\b', tn):
         return 'Earbuds con cable'
     if re.search(r'open[- ]?ear|oido abierto|de clip\b|con clip\b|clip \w*oreja|'
-                 r'conduccion osea|bone conduction|float run|off-?ear|openwear|open ?wear', tn):
+                 r'conduccion osea|bone conduction|float run|off-?ear|openwear|open ?wear|'
+                 # "Abiertos" a secas es también el de espalda abierta de
+                 # estudio: solo cuentan las familias de oído abierto.
+                 r'\bshokz\b|openrun|openfit|opendots|\baeropex\b|openaudio|'
+                 r'(auriculares?|audifonos?) ultra abiertos?|abiertos con camara|conduccion de aire', tn) \
+            and not re.search(r'para ninos|\bkids?\b|infantil', tn):
         return 'De oído abierto'
     if re.search(r'\bgamer\b|\bgaming\b|para juegos|para gaming|\bheadset\b.{0,30}(juego|gamer)|'
                  r'\bquantum\b|\bkraken\b|\bcloud (ii|alpha|stinger)\b|\barctis\b|'
@@ -4801,6 +4895,28 @@ def sub_audio(tn):
         if re.search(r'tipo c\b|usb-?c\b|lightning|3[.,]5 ?mm|manos libres|\binterno|\bin-?ear|'
                      r'aislamiento de ruido|\bmitzu\b|\b1hora\b|\bjib\b|\bmdr-ex|\bnecnon\b', tn):
             return 'Earbuds con cable'
+        # El monitor intraural (IEM) se vende por su configuración de
+        # drivers: "2dd+1ba+1pm", "trihíbrido", "monitores personales".
+        if re.search(r'\d ?dd ?\+ ?\d ?ba|tri-?hibrid|hibrido dual|monitores? (personales|internos)|'
+                     r'\bse ?\d{3}[a-z]*\b|\biem\b|hires \dd|monitoreo profesional', tn):
+            return 'Earbuds con cable'
+        if re.search(r'tipo collar|de cuello|\bneckband\b', tn):
+            return 'Earbuds de cuello'
+        if re.search(r'quietcomfort|quietconfort|\bqc\d{2}\b', tn):
+            return 'Diadema con cancelación de ruido'
+        # "Bt 5.3", "65 hrs de reproducción", "con estuche": el título no dice
+        # la forma pero sí que es inalámbrico, y sin forma declarada el
+        # formato que se vende así es el de botón.
+        if re.search(r'\bbt ?\d[.,]\d\b|\bbt\b (?=\d)|\d+ ?(hrs|horas) de (reproduccion|bateria)|'
+                     r'\bcon estuche\b|\+ ?estuche\b|carga magnetica', tn):
+            return 'Earbuds inalámbricos'
+        # "Auriculares con micrófono para computadora, 3.5 mm": sin forma
+        # declarada, el uso que dice el título es lo único que hay.
+        if 'microfono' in tn:
+            if re.search(r'\bjuegos?\b|\bgamer\b|gaming|7[.,]1', tn): return 'Gamer'
+            if re.search(r'correr|ciclismo|deportiv|running', tn): return 'Earbuds deportivos'
+            if re.search(r'computadora|\bpc\b|3[.,]5 ?mm|\busb\b|call center|oficina', tn):
+                return 'Diadema con cable'
         return None
     inal, cable = bool(RX_INAL.search(tn)), bool(RX_CABLE.search(tn))
     if not inal and not cable:
