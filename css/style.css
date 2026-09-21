@@ -4667,3 +4667,28 @@ tr.offer-compare-off { display: none; }
   .cargando-marca::before { animation: cargando-late 1.6s ease-in-out infinite; }
   @keyframes cargando-late { 50% { opacity: 0.25; } }
 }
+
+/* Vendedor del marketplace de la tienda, no la tienda misma. El 91% de lo
+   que entra de Coppel lo vende un tercero y casi la mitad de eso sale de
+   fuera de México: el precio es real, pero quién responde por la compra y
+   cuánto tarda en llegar no son los mismos. Va al lado del nombre de la
+   tienda, en gris y pequeño, sin competir con el precio. */
+.vendedor-tercero {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 6px;
+  padding: 1px 5px;
+  border: 1px solid var(--border);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.vendedor-tercero .icon { width: 11px; height: 11px; }
+/* El envío gratis que depende de un mínimo de compra no es el mismo dato
+   que "gratis" a secas, así que no lleva el verde del badge confirmado. */
+.ship-badge-umbral { background: transparent; border: 1px solid var(--border); color: var(--muted); }

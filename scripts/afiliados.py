@@ -58,6 +58,13 @@ BASES = {
     # los productos. El enlace queda anotado para cuando lo haya.
     "shopee": "https://zallj.com/g/qy94wfbelw43517c81ee6e79f7c2cd/",
 
+    # Lenovo (Admitad): aprobado y activo desde 2017 en el programa; el feed
+    # "Mexico Main" trae 292 productos con la url YA convertida en deeplink
+    # ("Links in product descriptions have been replaced by deeplinks", dice
+    # la página de Product Feeds), así que no hay que envolver nada después.
+    # Por eso queda en None y no es un olvido: no hace falta una base.
+    "lenovo": None,
+
     # --- solicitado, esperando moderación -----------------------------------
     # Vevor (Admitad, "Vevor Many GEOs"): 5% de comisión, pago a 47 días, 3% de
     # conversión y 86% de confirmación. Todavía no es una tienda del catálogo:

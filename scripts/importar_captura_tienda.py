@@ -94,6 +94,14 @@ TIENDAS = {
     # entrar por acá son las guardas que ya están escritas -- deduplicado
     # contra el catálogo, clasificación por título y techo de precio por
     # subcategoría -- en vez de un importador propio que las repita.
+    # Lenovo entra por el feed de Admitad ("Mexico Main"), no por captura:
+    # el feed ya trae la url convertida en deeplink, así que no hace falta
+    # envolverla después con aplicar_afiliados.py.
+    "lenovo": {
+        "dominios": ("lenovo.com",),
+        "store": {"id": "lenovo", "name": "Lenovo", "hubRegion": None, "color": "#E1140A",
+                  "logo": "LN", "typicalShippingDays": [4, 12]},
+    },
     "coppel": {
         "dominios": ("coppel.com",),
         "store": {"id": "coppel", "name": "Coppel", "hubRegion": None, "color": "#FFD100",
@@ -102,15 +110,20 @@ TIENDAS = {
 }
 
 RX_ID_URL = re.compile(r"/ip/(?:[^/?#]+/)*?(\d{6,})(?:[/?#]|$)")
-# Coppel numera distinto: /pdp/<slug>-pm-<id>.
-RX_ID_COPPEL = re.compile(r"/pdp/[^/?#]*-pm-(\d+)(?:[/?#]|$)")
+# Coppel numera distinto, y de dos maneras: /pdp/<slug>-pm-<id> es lo que
+# vende la tienda y /pdp/<slug>-mkp-<id> lo que venden terceros en su
+# marketplace. El tipo queda pegado al id (ver coppel_sitemap.id_de).
+RX_ID_COPPEL = re.compile(r"/pdp/[^?#]*-(pm|mkp)-(\d+)(?:[/?#]|$)")
 
 
 def id_de_url(url):
     """El id de producto que va al final de la url, según la tienda."""
     u = url_real(url) or url or ""
-    m = RX_ID_URL.search(u) or RX_ID_COPPEL.search(u)
-    return m.group(1) if m else None
+    m = RX_ID_URL.search(u)
+    if m:
+        return m.group(1)
+    m = RX_ID_COPPEL.search(u)
+    return f"{m.group(1)}{m.group(2)}" if m else None
 
 
 def tienda_de_url(url):
@@ -144,7 +157,9 @@ def items_de_captura(rutas, tienda):
                 continue
             item = {"store": sid, "id": pid, "title": it["title"].strip(), "price": precio(it.get("price")),
                     "photo": it.get("photo") or None, "url": it["url"]}
-            for k in ("dept", "brand", "listPrice", "agotado", "sponsored"):
+            for k in ("dept", "brand", "listPrice", "agotado", "sponsored",
+                      "shippingFee", "freeShippingFromMXN", "internacional",
+                      "marketplace"):
                 if it.get(k):
                     item[k] = it[k]
             out.append(item)
@@ -177,13 +192,21 @@ def items_de_feed(rows, tienda, contadores):
         if not url or not title or not pid:
             contadores["sin_datos"] += 1
             continue
+        # La columna de la foto no se llama igual en todos los feeds de
+        # Admitad: el de Walmart la trae como "picture" y el de Lenovo como
+        # "image". Se miran las dos antes de dar la ficha por sin foto.
+        foto = (row.get("picture") or row.get("image") or "").strip() or None
         item = {"store": tienda, "id": pid, "title": title, "price": precio(row.get("price")),
-                "photo": (row.get("picture") or "").strip() or None, "url": url}
+                "photo": foto, "url": url}
         old = precio(row.get("oldprice"))
         if old and item["price"] and old > item["price"]:
             item["listPrice"] = old
-        if row.get("vendor"):
-            item["brand"] = row["vendor"].strip()
+        # "None" en texto es lo que escribe Admitad cuando el anunciante no
+        # declaró marca. Sin esto queda una marca llamada None, con su página
+        # y todo.
+        vendor = (row.get("vendor") or "").strip()
+        if vendor and vendor.lower() not in ("none", "null", "n/a", "-"):
+            item["brand"] = vendor
         if row.get("categoryId"):
             item["dept"] = row["categoryId"].strip().split("/")[-1].strip()
         out.append(item)
@@ -247,6 +270,13 @@ def dar_de_alta(data, clasificados, originales):
         offer = {"storeId": orig["store"], "price": it["price"], "stock": "in_stock", "url": orig["url"]}
         if orig.get("listPrice") and orig["listPrice"] > it["price"]:
             offer["listPrice"] = orig["listPrice"]
+        # Envío y quién vende, cuando la captura los trae (ver
+        # coppel_a_captura.py). shippingFee=0 es "gratis confirmado por la
+        # tienda", que es lo que la UI ya sabe leer; el resto son datos que
+        # la ficha muestra al lado del precio.
+        for k in ("shippingFee", "freeShippingFromMXN", "internacional", "marketplace"):
+            if orig.get(k) is not None:
+                offer[k] = orig[k]
         product = {
             "id": f"p{nid}",
             "name": it["title"],

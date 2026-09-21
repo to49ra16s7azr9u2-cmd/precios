@@ -42,18 +42,45 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from afiliados import base_de  # noqa: E402
+from coppel_sitemap import id_de  # noqa: E402
 from cosechar_coppel import FICHAS_JSONL  # noqa: E402
+from envios_coppel import ENVIOS_JSONL  # noqa: E402
 from data_io import url_afiliado  # noqa: E402
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def convertir(fichas, con_afiliado=True):
+def cargar_envios(ruta=ENVIOS_JSONL):
+    """{url: datos de envío} de lo que leyó envios_coppel.py.
+
+    Si el archivo no está, el lote entra sin dato de envío: es una sección
+    de más en la oferta, no un requisito para importar.
+    """
+    if not os.path.exists(ruta):
+        return {}
+    por_url = {}
+    with open(ruta, encoding="utf-8") as f:
+        for linea in f:
+            try:
+                d = json.loads(linea)
+            except ValueError:
+                continue
+            if d.get("url"):
+                por_url[d["url"]] = d
+    return por_url
+
+
+def convertir(fichas, con_afiliado=True, envios=None):
     base = base_de("coppel") if con_afiliado else None
+    envios = envios or {}
     vistos = set()
     salida, motivos = [], {"repetida": 0, "sin_nombre": 0, "agotada": 0, "sin_precio": 0}
     for f in fichas:
-        pid = f.get("id")
+        # El id se recalcula desde la url en vez de creerle al JSONL: las
+        # fichas cosechadas antes de que id_de() conociera el numerador
+        # "-mkp-" (el 92% de las prioritarias) se guardaron con id nulo, y
+        # son 55,000 que no hace falta volver a bajar para arreglar.
+        pid = f.get("id") or id_de(f.get("url") or "")
         if not pid or pid in vistos:
             motivos["repetida"] += 1
             continue
@@ -81,6 +108,25 @@ def convertir(fichas, con_afiliado=True):
         }
         if f.get("marca"):
             item["brand"] = f["marca"]
+        # Lo que la ficha dice del envío y de quién vende. En Coppel el 91%
+        # de lo que entra lo vende un tercero en su marketplace y casi la
+        # mitad de eso sale de fuera de México: ponerlo al lado del precio
+        # de Amazon sin decirlo sería comparar dos cosas distintas.
+        env = envios.get(f["url"])
+        if env:
+            if env.get("gratis") and not env.get("minimoGratis"):
+                item["shippingFee"] = 0
+            elif env.get("gratis") and env.get("minimoGratis"):
+                item["freeShippingFromMXN"] = env["minimoGratis"]
+            if env.get("internacional"):
+                item["internacional"] = True
+            if env.get("marketplace"):
+                item["marketplace"] = True
+        elif "-mkp-" in f["url"]:
+            # Sin la pasada de envíos, al menos lo que dice la url.
+            item["marketplace"] = True
+            if "venta-internacional" in f["url"]:
+                item["internacional"] = True
         salida.append(item)
     return salida, motivos
 
@@ -113,7 +159,11 @@ def main():
                 continue
             fichas.append(d)
 
-    items, motivos = convertir(fichas, con_afiliado=not args.sin_afiliado)
+    envios = cargar_envios()
+    if envios:
+        print(f"envíos leídos: {len(envios):,}")
+    items, motivos = convertir(fichas, con_afiliado=not args.sin_afiliado,
+                               envios=envios)
     salida = args.salida or os.path.join(
         RAIZ, "capturas",
         f"coppel-{datetime.date.today().isoformat()}-{len(items)}.json")

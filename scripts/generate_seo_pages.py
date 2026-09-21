@@ -44,6 +44,7 @@ from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import load_catalog, slugify  # noqa: E402
+from roles_subcategorias import ORDEN as ORDEN_ROLES, TITULOS as TITULOS_ROL, es_producto, rol_de  # noqa: E402
 from web_summary import purchase_options, seller_rows, seller_total  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -1934,30 +1935,17 @@ SINGULAR = {
 }
 
 # El producto más barato de una categoría casi nunca es el producto: es su
-# accesorio. Medido hoy: en Refrigeradores ganaba un filtro de vegetales de
-# $199, en Televisores un receptor de espejo de $224 y en Herramientas una
-# placa ciega de $38. La subcategoría "Accesorios" ya se iba, pero cada
-# categoría le puso otro nombre a lo mismo ("Accesorios y soportes",
-# "Material eléctrico", "Consumibles"), así que el filtro va por patrón.
-RE_SUB_NO_ES_EL_PRODUCTO = re.compile(
-    r"accesorio|repuesto|refacci|soporte|funda|carcasa|protector|"
-    r"cable|adaptador|cargador|consumible|cartucho|tinta|tóner|toner|"
-    r"filtro|material el[ée]ctrico|limpieza|mantenimiento|instalaci[óo]n|"
-    r"herrajes?|torniller[íi]a|pilas?\b|almohadillas?", re.I)
-
-# Lo que el patrón no puede saber: son productos de pleno derecho, pero no
-# son lo que busca quien escribe "<categoría> mas barato". El teléfono
-# alámbrico de $299 es un teléfono, y encabezaba "Celular más barato".
-SUBS_FUERA_DE_BARATO = {
-    "Celulares": {"Teléfonos fijos"},
-    "Televisores": {"Dispositivos de streaming"},
-    "Videojuegos": {"Tarjetas de regalo"},
-    # Un juego de cuerdas es un producto de pleno derecho y su subcategoría
-    # tiene fichas de sobra, así que ni el patrón ni la mediana lo tocan.
-    # Pero no es un instrumento, y el titular decía "el instrumento musical
-    # más barato: Cuerdas para guitarra eléctrica Darco".
-    "Instrumentos musicales": {"Cuerdas de guitarra y bajo"},
-}
+# accesorio. Medido el 21 de septiembre de 2026: en Refrigeradores ganaba un
+# filtro de vegetales de $199, en Televisores un receptor de espejo de $224
+# y en Herramientas una placa ciega de $38.
+#
+# Esto se tapaba con un patrón sobre el NOMBRE de la subcategoría más una
+# lista escrita a mano. Ahora lo contesta roles_subcategorias.py, que dice
+# qué papel juega cada subcategoría DENTRO de su categoría -- que es la
+# pregunta correcta, porque un cable es accesorio en Celulares y es el
+# producto en "Cargadores y adaptadores". La idea es de kakaku.com, que
+# agrupa su portada de PC en 本体 / 周辺機器 / パーツ en vez de listar 125
+# subcategorías en plano.
 
 # Lo que queda después de los dos filtros de arriba son errores sueltos de
 # clasificación, y esta página los premia: el filtro de agua metido en
@@ -2004,15 +1992,18 @@ def _barato_listables(products, cat=None):
     fundas. Una página que abra con eso contesta mal la pregunta y no la
     vuelve a leer nadie.
     """
-    fuera = SUBS_FUERA_DE_BARATO.get(cat["name"], set()) if cat else set()
     piso = _piso_por_subcategoria(products)
     salida = []
     for p in products:
         sub = p.get("subcategory")
-        if sub in SUBCATEGORIAS_OPT_IN or sub in fuera:
+        # El papel de la subcategoría dentro de SU categoría: sólo el grupo
+        # "producto" puede encabezar un "lo más barato".
+        if sub in SUBCATEGORIAS_OPT_IN or not es_producto(p.get("category"), sub):
             continue
-        if sub and RE_SUB_NO_ES_EL_PRODUCTO.search(sub):
-            continue
+        # La mediana sigue haciendo falta, pero ya no para separar el
+        # accesorio del producto: ahora sólo caza la ficha suelta MAL
+        # CLASIFICADA dentro de una subcategoría de producto (el filtro de
+        # agua metido en Refrigeradores/Refrigeradores).
         if sub in piso and (min_price(p) or 0) < piso[sub]:
             continue
         # Solo lo que tiene página propia, o sea lo que vieron dos tiendas.

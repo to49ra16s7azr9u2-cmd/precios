@@ -862,6 +862,14 @@
   //      afirmación, no este fee ya resuelto.
   function shippingFeeInfo(offer) {
     if (offer.shippingFee != null) return { fee: offer.shippingFee, estimated: false };
+    // Umbral de envío gratis EN PESOS y de la propia oferta, no de la
+    // tienda: Coppel lo pone por producto ("Envío gratis a partir de
+    // $499*"), así que dos productos de la misma tienda pueden tener
+    // condiciones distintas. Si el precio lo alcanza, el envío es gratis
+    // con la misma base que el badge de la tienda.
+    if (offer.freeShippingFromMXN != null && offer.price >= offer.freeShippingFromMXN) {
+      return { fee: 0, estimated: false };
+    }
     const store = storeById(offer.storeId);
     const threshold = store && store.freeShippingThresholdUSD;
     const priceUSD = offer.priceOriginal && offer.priceOriginal.currency === "USD" ? offer.priceOriginal.amount : null;
@@ -888,8 +896,19 @@
   // Devuelve {text, cls} (cls para el color: "free"/"estimated"/"" neutro)
   // o null si no hay nada honesto que decir.
   function shippingCaptionOf(offer) {
-    if (offer.shippingFee === 0) return { text: "Envío gratis", cls: "free" };
+    // "internacional" es de la OFERTA y no de la tienda: en Coppel conviven
+    // el producto que sale de su bodega en México y el que un tercero manda
+    // desde fuera, y la diferencia es de semanas de espera.
+    const intl = offer.internacional === true;
+    if (offer.shippingFee === 0) {
+      return { text: intl ? "Envío internacional gratis" : "Envío gratis", cls: "free" };
+    }
     if (offer.shippingFee != null) return { text: `+ ${money(offer.shippingFee)} envío`, cls: "" };
+    if (offer.freeShippingFromMXN != null) {
+      return offer.price >= offer.freeShippingFromMXN
+        ? { text: intl ? "Envío internacional gratis" : "Envío gratis", cls: "free" }
+        : { text: `Envío gratis desde ${money(offer.freeShippingFromMXN)}`, cls: "" };
+    }
     const store = storeById(offer.storeId);
     const threshold = store && store.freeShippingThresholdUSD;
     const priceUSD = offer.priceOriginal && offer.priceOriginal.currency === "USD" ? offer.priceOriginal.amount : null;
@@ -6580,6 +6599,20 @@
   // cada oferta tiene que entrar en un renglón de teléfono: "Gratis" en vez de
   // "Envío gratis", "Internacional" en vez de "Envío internacional". La tabla
   // completa de abajo los sigue mostrando enteros.
+  // De las fichas de Coppel que entran al catálogo, el 91% no las vende
+  // Coppel: las vende un tercero en su marketplace, igual que en Mercado
+  // Libre, y casi la mitad de esas salen de fuera de México. El precio es
+  // real y el enlace lleva a la misma página, pero quien responde por la
+  // compra y cuánto tarda en llegar no son los mismos que cuando vende la
+  // tienda. Eso se dice al lado del nombre, no en letra chica.
+  function vendedorTerceroHtml(r) {
+    const aviso = r.internacional
+      ? `Lo vende un tercero en el marketplace de ${r.store.name} y lo envía desde fuera de México: la entrega tarda más que un envío nacional.`
+      : `Lo vende un tercero en el marketplace de ${r.store.name}, no ${r.store.name} directamente.`;
+    return ` <span class="vendedor-tercero" title="${htmlEscapeAttr(aviso)}">`
+      + `${r.internacional ? `${icon("globe")} tercero, del extranjero` : "tercero"}</span>`;
+  }
+
   function shippingBadgeHtml(r, compacto = false) {
     const txtGratis = compacto ? "Gratis" : "Envío gratis";
     const txtIntl = compacto ? "Internacional" : "Envío internacional";
@@ -6589,8 +6622,18 @@
     const intlTooltip = threshold != null
       ? `Envío gratis en compras mayores a $${threshold} USD según ${r.store.name}; este producto ($${priceUSD} USD) no alcanza el mínimo.`
       : r.store.shippingNote || `${r.store.name} no tiene centro de distribución en México; el costo de envío se cotiza en su sitio.`;
-    return r.shippingFee === 0 ? `<span class="ship-badge">${txtGratis}</span>`
+    const intlPropio = r.internacional === true;
+    const txtGratisIntl = compacto ? "Gratis intl." : "Envío internacional gratis";
+    const umbralMXN = r.freeShippingFromMXN;
+    return r.shippingFee === 0
+      ? `<span class="ship-badge${intlPropio ? " ship-badge-intl" : ""}"${intlPropio
+          ? ` title="${htmlEscapeAttr("Lo envía un vendedor de fuera de México. El envío es gratis, pero la entrega tarda más que un envío nacional.")}"`
+          : ""}>${intlPropio ? txtGratisIntl : txtGratis}</span>`
       : r.shippingFee != null ? money(r.shippingFee)
+      : umbralMXN != null
+      ? (r.price >= umbralMXN
+          ? `<span class="ship-badge${intlPropio ? " ship-badge-intl" : ""}">${intlPropio ? txtGratisIntl : txtGratis}</span>`
+          : `<span class="ship-badge ship-badge-umbral" title="${htmlEscapeAttr(`${r.store.name} da envío gratis en este producto a partir de $${umbralMXN}; este cuesta menos.`)}">Gratis desde ${money(umbralMXN)}</span>`)
       : qualifiesFreeShipping
       ? `<span class="ship-badge" title="${htmlEscapeAttr(`Según la política pública de ${r.store.name}: envío gratis en compras de $${threshold}+ USD, y este producto ($${priceUSD} USD) sí alcanza el mínimo.`)}">${txtGratis}</span>`
       : r.shipEstimateFee != null
@@ -6793,7 +6836,7 @@
         <td>
           <span class="store-badge">
             ${storeDotHtml(r.store)}
-            ${r.store.name}${r.colorLabel ? ` <span class="store-color-label">— ${htmlEscapeAttr(r.colorLabel)}</span>` : ""}${r.sellerState ? ` <span class="store-color-label">· ${htmlEscapeAttr(r.sellerState)}</span>` : ""}
+            ${r.store.name}${r.marketplace ? vendedorTerceroHtml(r) : ""}${r.colorLabel ? ` <span class="store-color-label">— ${htmlEscapeAttr(r.colorLabel)}</span>` : ""}${r.sellerState ? ` <span class="store-color-label">· ${htmlEscapeAttr(r.sellerState)}</span>` : ""}
           </span>
           ${r.sellerOfficial ? `<span class="seller-tag official">Tienda oficial</span>` : ""}
           ${r.isBuyBox ? `<span class="seller-tag buybox" title="Es el vendedor que Mercado Libre cobra si entras al producto sin elegir vendedor.">Vendedor por defecto</span>` : ""}

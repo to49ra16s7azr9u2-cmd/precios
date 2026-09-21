@@ -121,7 +121,11 @@ PRIORITARIAS = [
 ]
 
 RE_PDP = re.compile(r"https://www\.coppel\.com/pdp/[^\s<>\"]+")
-RE_ID = re.compile(r"-pm-(\d+)$")
+# Coppel numera de dos maneras y al principio sólo se vio una: "-pm-<id>"
+# es lo que vende la tienda y "-mkp-<id>" lo que venden terceros en su
+# marketplace. De las fichas prioritarias, el 92% son mkp. El tipo va pegado
+# al id porque los dos numeradores son independientes y podrían chocar.
+RE_ID = re.compile(r"-(pm|mkp)-(\d+)$")
 RE_CT = re.compile(r"https://www\.coppel\.com/ct/[^\s<>\"]+")
 # En la página de categoría los enlaces vienen relativos.
 RE_PDP_RELATIVA = re.compile(r"/pdp/[a-z0-9\-]+-pm-\d+")
@@ -147,6 +151,6 @@ def familia_de(url_sitemap):
 
 
 def id_de(url_pdp):
-    """El id de producto que Coppel pone al final de la url ('…-pm-5002363')."""
+    """'…-pm-5002363' -> 'pm5002363'; '…-mkp-747225311' -> 'mkp747225311'."""
     m = RE_ID.search(urllib.parse.urlparse(url_pdp).path)
-    return m.group(1) if m else None
+    return f"{m.group(1)}{m.group(2)}" if m else None
