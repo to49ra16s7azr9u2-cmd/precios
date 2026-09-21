@@ -550,6 +550,28 @@ REGLAS = [
     ('Domótica y hogar inteligente', r'manija de puerta|\bkwikset\b(?!.{0,20}intelig)', None,
      'Herramientas', 'Cerraduras y candados', {None}),
 
+    # Autos: el coche de juguete y el libro de motos (21-sep). El de
+    # juguete se reconoce por la escala, la marca y el "para niños".
+    ('Autos, bicicletas y motos',
+     r'\bmaisto\b|\bcaterpillar\b|cat ?toys|paw patrol|\btamiya\b|picassotiles|'
+     r'\b1:\d{1,3}\b|fundido a troquel|die ?cast|pista de (carros|autos)|'
+     r'vehiculo de ingenieria|camion (portador|transportador) de dinosaurios|'
+     r'calendario de adviento|mini machines|mini vehiculos|vehiculo de paseo|'
+     r'bloques de construccion|para dioramas',
+     None, 'Juguetes y bebés', 'Vehículos de juguete', {None}),
+    ('Autos, bicicletas y motos',
+     r'^motocicletas?$|^motocicletas y ciclomotores$|motocicletas em figuras|'
+     r'manutencao de motocicletas|zen e arte|hell\'s angels|conduccion deportiva|'
+     r'reparacion de motocicletas|cube books|motocicletas motor y caja',
+     None, 'Libros', 'Técnicos y profesionales', {None}),
+    ('Autos, bicicletas y motos', r'tarjeta de memoria\b', None,
+     'Almacenamiento', 'Tarjetas de memoria', {None}),
+    ('Autos, bicicletas y motos', r'camara fpv|\bruncam\b|\bsiyi\b|cardan.{0,20}zoom', None,
+     'Drones', 'Cámaras y gimbals', {None}),
+    ('Autos, bicicletas y motos', r'raquetas? de tenis', None, 'Deportes y fitness', 'Raquetas', {None}),
+    ('Autos, bicicletas y motos', r'cobija electrica|manta electrica', None,
+     'Blancos y ropa de cama', 'Cobijas eléctricas', {None}),
+
     # Blancos y ropa de cama: el colchón, la cabecera y el sofá infantil
     # tienen categoría propia en Muebles (21-sep).
     ('Blancos y ropa de cama', r'colchon.{0,25}(cuna|cochecito|bebe)|colchon de cuna', None,

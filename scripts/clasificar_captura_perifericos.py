@@ -3327,6 +3327,24 @@ def sub_iluminacion(tn):
 
 
 def sub_vehiculo(tn):
+    # Familias que faltaban (21-sep): el aire acondicionado de casa rodante,
+    # el radio de ajuste directo para clásicos y la pieza de moto que se
+    # nombra por el modelo con el que es compatible. La rodada (R20) NO
+    # sirve para separar: es la medida de la llanta, y la lleva igual la BMX,
+    # la de montaña, el rin y la cámara.
+    #
+    if re.search(r'aire acondicionado|acondicionador de aire|calentador de vehiculo|'
+                 r'combo de calentador|compresor de aire acondicionado', tn):
+        return 'Accesorios y refacciones'
+    if re.search(r'\bretrosound\b|retro manufacturing|\bsiriusxm\b|'
+                 r'radio (de ajuste directo|portatil).{0,40}vehiculo|radio.{0,25}vehiculos? clasico', tn):
+        return 'Estéreos para auto'
+    if re.search(r'\bbackrest\b|bloque de cilindros|perno hueco|barras de choque|'
+                 r'guarderia de barro|ruedas supermoto|bomba de freno trasera|'
+                 r'plataforma elevadora para motocicletas|interruptor de (parada|apagado) del motor', tn):
+        return 'Accesorios para moto'
+    if re.search(r'panos? de limpieza|microfibra para automoviles|\bvinipiel\b', tn):
+        return 'Accesorios y refacciones'
     # Familias que faltaban (20-sep): el arrancador, el escáner, el producto
     # de limpieza y la charola de batería no tenían rama y caían fuera.
     if re.search(r'jump starter|arrancador de (salto|bateria)|escaner (profesional|automotriz)|'
@@ -3725,12 +3743,15 @@ def sub_blancos(tn):
     # Familias que la ronda del 21-sep dejó sin repartir. Van primero porque
     # todas llevan una palabra que más abajo se las lleva otra rama:
     # "almohadilla" contra almohada, "funda" contra sábana.
-    if re.search(r'almohadilla (termica|calefactora|de calefaccion|de jade)|calentador de pies|'
-                 r'funda termica|colchon.{0,25}(termico|de masaje)|alfombra electrica calefactable|'
-                 r'almohadilla.{0,35}(calor|dolor|cuello y hombros)|almohadilla calefactora|'
-                 r'calefaccion usb|(manta|cojin).{0,25}(usb|calefactable)', tn):
+    # Solo la almohadilla: la manta y el cubre colchón eléctricos ya tienen
+    # sus propias subcategorías más abajo y esta red se las llevaba.
+    if re.search(r'almohadilla (termica|calefactora|de calefaccion|de jade|electrica)|'
+                 r'calentador de pies|funda termica (para|de) (cuello|hombros)|'
+                 r'alfombra electrica calefactable|'
+                 r'almohadilla.{0,35}(calor|dolor|cuello y hombros)', tn):
         return 'Almohadillas y cojines térmicos'
-    if re.search(r'almohadillas?.{0,35}(cama|absorbente|impermeable|incontinencia|reutilizable)', tn):
+    if (re.search(r'almohadillas?.{0,35}(cama|absorbente|impermeable|incontinencia|reutilizable)', tn)
+            and not re.search(r'\bprotector|\bcuna\b|\bpanal|\bbebe\b', tn)):
         return 'Protectores de colchón impermeables'
     if re.search(r'\bsabanita', tn): return 'Sábanas para cuna y bebé'
     if re.search(r'fundas?.{0,25}(de|para) sillas?\b|cubre ?sillas?\b', tn): return 'Fundas para muebles'
@@ -3741,8 +3762,9 @@ def sub_blancos(tn):
         return 'Protectores de colchón impermeables'
     if re.search(r'funda (de |para )?colchon|bolsas? de colchon|sombrero de cama', tn):
         return 'Protectores de colchón'
-    if re.search(r'funda decorativa|funda (de |para )?cojin', tn): return 'Almohadas'
-    if re.search(r'\bpillows?\b|rellenos? de (almohadon|hueco)|inserto lumbar|euro sham', tn):
+    if re.search(r'^(?:\S+ ){0,3}(funda decorativa|funda (de |para )?cojin)', tn): return 'Almohadas'
+    if (re.search(r'\bpillows?\b|rellenos? de (almohadon|hueco)|inserto lumbar|euro sham', tn)
+            and not re.search(r'pillow ?top', tn)):
         return 'Almohadas'
     if re.search(r'\bedrecolcha', tn): return 'Edredones'
     if re.search(r'^(?:\S+ ){0,3}(sabana|juego de cama|ropa de cama|funda de almohada)', tn): return 'Sábanas'
