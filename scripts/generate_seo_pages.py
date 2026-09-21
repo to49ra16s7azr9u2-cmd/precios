@@ -2282,16 +2282,36 @@ def render_category_page(cat, products, data):
     # Enlaces a las subcategorías con página propia. Sin esto esas páginas
     # solo serían alcanzables desde el sitemap, que es la peor forma de que
     # un buscador las encuentre y les dé importancia.
+    # Los tipos, agrupados por el papel que juegan en la categoría (ver
+    # roles_subcategorias.py). Antes era una sola fila: Muebles sacaba 66
+    # chips seguidos donde "Camas" y "Accesorios y organizadores de
+    # escritorio" pesaban lo mismo. Es lo que hace kakaku.com en su portada
+    # de PC, que separa 本体 de 周辺機器 y de パーツ en vez de listar las 125
+    # subcategorías de corrido.
+    #
+    # El grupo "Productos" no lleva encabezado: es lo que el visitante vino
+    # a ver, y ponerle un título por encima sólo agrega un renglón entre él
+    # y los chips. Los encabezados aparecen recién a partir del segundo
+    # grupo, que es donde hacen falta para explicar el corte.
     subs_html = ""
     subs = subcategorias_con_pagina(cat, products)
     if subs:
-        chips = "".join(
-            f'<a class="chip" href="{slugify(sub["name"])}/">{html_escape(sub["name"])} ({len(items)})</a>'
-            for sub, items in subs
-        )
+        por_rol = collections.OrderedDict((r, []) for r in ORDEN_ROLES)
+        for sub, items in subs:
+            por_rol[rol_de(cat["name"], sub["name"])].append(
+                f'<a class="chip" href="{slugify(sub["name"])}/">'
+                f'{html_escape(sub["name"])} ({len(items)})</a>'
+            )
+        bloques = []
+        for i, rol in enumerate(ORDEN_ROLES):
+            if not por_rol[rol]:
+                continue
+            titulo = ("" if i == 0 else
+                      f'<h3 class="grupo-rol">{html_escape(TITULOS_ROL[rol])}</h3>')
+            bloques.append(f'{titulo}<div class="chip-row">{"".join(por_rol[rol])}</div>')
         subs_html = (
             f'<div class="panel"><h2>Buscar por tipo de {html_escape(cat["name"].lower())}</h2>'
-            f'<div class="chip-row">{chips}</div></div>'
+            + "".join(bloques) + '</div>'
         )
 
     # Enlace a las bajadas de precio de esta categoría, si tiene página. Sin

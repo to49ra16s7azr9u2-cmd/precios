@@ -4692,3 +4692,17 @@ tr.offer-compare-off { display: none; }
 /* El envío gratis que depende de un mínimo de compra no es el mismo dato
    que "gratis" a secas, así que no lleva el verde del badge confirmado. */
 .ship-badge-umbral { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+
+/* Encabezado de cada grupo de tipos en la página de categoría (Accesorios,
+   Refacciones, Consumibles…). El primer grupo --los productos-- va sin
+   encabezado a propósito: es lo que el visitante vino a ver, y un título
+   encima sólo mete un renglón entre él y los chips. */
+.grupo-rol {
+  margin: 16px 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.grupo-rol:first-child { margin-top: 0; }
