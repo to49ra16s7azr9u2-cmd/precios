@@ -40,6 +40,16 @@ def T(s):
     return s.translate(str.maketrans('áéíóúñü', 'aeiounu'))
 
 
+def _tramo_mah_mover(tn):
+    """Tramo de capacidad para el power bank que se mueve desde Cargadores.
+    Sin cifra, el tramo más común del catálogo."""
+    m = re.search(r'(\d{4,6}) ?mah|\b(\d{1,2}) ?ah\b', tn)
+    if not m:
+        return 'Hasta 10,000 mAh'
+    n = int(m.group(1)) if m.group(1) else int(m.group(2)) * 1000
+    return 'Hasta 10,000 mAh' if n <= 10000 else ('10,000 a 20,000 mAh' if n <= 20000 else 'Más de 20,000 mAh')
+
+
 def tramo_mah(tn):
     m = re.search(r'(\d{1,3}[.,]?\d{3}|\d{4,6})\s*m ?ah', tn)
     if not m:
@@ -549,6 +559,33 @@ REGLAS = [
      'Belleza y cuidado personal', 'Cuidado personal', {None}),
     ('Domótica y hogar inteligente', r'manija de puerta|\bkwikset\b(?!.{0,20}intelig)', None,
      'Herramientas', 'Cerraduras y candados', {None}),
+
+    # Cargadores, Almacenamiento y Suplementos (21-sep): el power bank tiene
+    # categoría propia, la RAM es componente y la guía es un libro.
+    ('Cargadores y adaptadores',
+     r'banco de (energia|poder)|power ?bank|powerbank|bateria (portatil|externa)|'
+     r'\bstash mini\b|\bmophie\b.{0,20}mah|\d{4,6} ?mah',
+     r'cargador de pared|\bcable\b de datos$', 'Baterías portátiles',
+     lambda tn: _tramo_mah_mover(tn), {None}),
+    ('Almacenamiento', r'memoria ddr[2345]?\b', None,
+     'Componentes y accesorios de PC', 'RAM DDR3 y anteriores', {None}),
+    ('Suplementos', r'gran guia de la suplementacion|manual definitivo', None,
+     'Libros', 'Salud y nutrición', {None}),
+
+    # Audífonos (21-sep): el celular que regala audífonos, la funda de
+    # tableta y el teclado Yamaha no son audífonos.
+    ('Audífonos', r'\b\d+gb \d+ ?gb\b|\bmovistar\b.{0,25}audifonos|honor x7d|oppo a58', None,
+     'Celulares', 'Android', {None}),
+    ('Audífonos', r'bolsa para tablet|funda de transporte para ipad', None,
+     'Tabletas', 'Fundas y teclados', {None}),
+    ('Audífonos', r'soporte de pared para ps5|\bplayvital\b', None,
+     'Videojuegos', 'Otros accesorios gamer', {None}),
+    ('Audífonos', r'hubs splitter|panel frontal de auriculares', None,
+     'Componentes y accesorios de PC', 'Accesorios', {None}),
+    ('Audífonos', r'paquete de teclado premium|\b\d{2} teclas\b', None,
+     'Instrumentos musicales', 'Teclados', {None}),
+    ('Audífonos', r'preamplificador de microfono|mezclador de auriculares', None,
+     'Instrumentos musicales', 'Micrófonos', {None}),
 
     # Belleza y Baterías portátiles (21-sep): el libro de Scrum, el kit de
     # cuidado del bebé y el cargador de herramienta no son del rubro.

@@ -4203,6 +4203,72 @@
    }
   ]
  },
+ "Baterías portátiles/Más de 20,000 mAh": {
+  "axes": [
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 22 W",
+      "max": 22
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "23 W a 100 W",
+      "min": 22,
+      "max": 100
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 100 W",
+      "min": 100
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $1,550",
+      "min": 1050,
+      "max": 1550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,550",
+      "min": 1550
+     }
+    ]
+   }
+  ]
+ },
  "Baterías portátiles/Accesorios y repuestos": {
   "axes": [
    {
@@ -4247,23 +4313,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $340",
-      "max": 340
+      "spec": "Hasta $440",
+      "max": 440
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$340 a $1,200",
-      "min": 340,
-      "max": 1200
+      "spec": "$440 a $1,400",
+      "min": 440,
+      "max": 1400
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,200",
-      "min": 1200
+      "spec": "Más de $1,400",
+      "min": 1400
      }
     ]
    }
@@ -4335,35 +4401,51 @@
    }
   ]
  },
- "Baterías portátiles/Más de 20,000 mAh": {
+ "Herramientas/Baterías y cargadores de herramienta": {
   "axes": [
    {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
     "tiers": [
      {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 22 W",
-      "max": 22
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
      },
      {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "23 W a 100 W",
-      "min": 22,
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
       "max": 100
      },
      {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 100 W",
-      "min": 100
+      "id": "cable",
+      "name": "De cable",
+      "use": "Enchufe de casa",
+      "spec": "110 a 127 V",
+      "min": 100,
+      "max": 150
+     },
+     {
+      "id": "cable220",
+      "name": "De 220 V",
+      "use": "Instalación de 220 V",
+      "spec": "220 V",
+      "min": 150
      }
     ],
     "key": "level"
@@ -4379,634 +4461,27 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,050",
-      "max": 1050
+      "spec": "Hasta $1,000",
+      "max": 1000
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,050 a $1,500",
-      "min": 1050,
-      "max": 1500
+      "spec": "$1,000 a $2,250",
+      "min": 1000,
+      "max": 2250
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,500",
-      "min": 1500
+      "spec": "Más de $2,250",
+      "min": 2250
      }
     ]
    }
   ]
- },
- "Iluminación/Lámparas de emergencia": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $320",
-      "max": 320
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$320 a $700",
-      "min": 320,
-      "max": 700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Exterior": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $870",
-      "min": 290,
-      "max": 870
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $870",
-      "min": 870
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Focos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $150",
-      "max": 150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$150 a $400",
-      "min": 150,
-      "max": 400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $400",
-      "min": 400
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Lámparas de escritorio": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $270",
-      "max": 270
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$270 a $990",
-      "min": 270,
-      "max": 990
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $990",
-      "min": 990
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Decorativa": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $390",
-      "max": 390
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$390 a $700",
-      "min": 390,
-      "max": 700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Lámparas industriales y de nave": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $710",
-      "max": 710
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$710 a $1,450",
-      "min": 710,
-      "max": 1450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,450",
-      "min": 1450
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Plafones y lámparas de sobreponer": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $360",
-      "max": 360
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$360 a $920",
-      "min": 360,
-      "max": 920
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $920",
-      "min": 920
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Lámparas colgantes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $990",
-      "max": 990
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$990 a $1,850",
-      "min": 990,
-      "max": 1850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,850",
-      "min": 1850
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Candiles y arañas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,100",
-      "max": 2100
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,100 a $5,900",
-      "min": 2100,
-      "max": 5900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,900",
-      "min": 5900
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Lámparas de pared": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $230",
-      "max": 230
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$230 a $700",
-      "min": 230,
-      "max": 700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Rieles y spots": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $230",
-      "max": 230
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$230 a $490",
-      "min": 230,
-      "max": 490
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $490",
-      "min": 490
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Escenario": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,550",
-      "max": 1550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,550 a $4,200",
-      "min": 1550,
-      "max": 4200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,200",
-      "min": 4200
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Tiras LED": {
-  "axes": [
-   {
-    "label": "Largo",
-    "field": "length_m",
-    "criterion": "en metros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "corta",
-      "name": "Corta",
-      "use": "Un mueble o un marco",
-      "spec": "Hasta 5 m",
-      "max": 5
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Una pared",
-      "spec": "6 m a 10 m",
-      "min": 5,
-      "max": 10
-     },
-     {
-      "id": "larga",
-      "name": "Larga",
-      "use": "Un cuarto entero",
-      "spec": "Más de 10 m",
-      "min": 10
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$440 a $660",
-      "min": 440,
-      "max": 660
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $660",
-      "min": 660
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Focos inteligentes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $340",
-      "max": 340
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$340 a $760",
-      "min": 340,
-      "max": 760
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $760",
-      "min": 760
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Lámparas de techo": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $250",
-      "max": 250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$250 a $750",
-      "min": 250,
-      "max": 750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $750",
-      "min": 750
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Iluminación/Ventiladores con luz": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $240",
-      "max": 240
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$240 a $390",
-      "min": 240,
-      "max": 390
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $390",
-      "min": 390
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
  },
  "Herramientas/Material eléctrico": {
   "axes": [
@@ -6303,88 +5778,6 @@
    }
   ]
  },
- "Herramientas/Baterías y cargadores de herramienta": {
-  "axes": [
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     },
-     {
-      "id": "cable",
-      "name": "De cable",
-      "use": "Enchufe de casa",
-      "spec": "110 a 127 V",
-      "min": 100,
-      "max": 150
-     },
-     {
-      "id": "cable220",
-      "name": "De 220 V",
-      "use": "Instalación de 220 V",
-      "spec": "220 V",
-      "min": 150
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,000 a $2,250",
-      "min": 1000,
-      "max": 2250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,250",
-      "min": 2250
-     }
-    ]
-   }
-  ]
- },
  "Herramientas/Compresores y herramienta neumática": {
   "axes": [
    {
@@ -7534,6 +6927,613 @@
     ]
    }
   ]
+ },
+ "Iluminación/Lámparas de emergencia": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $320",
+      "max": 320
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$320 a $700",
+      "min": 320,
+      "max": 700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $700",
+      "min": 700
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Exterior": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $870",
+      "min": 290,
+      "max": 870
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $870",
+      "min": 870
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Focos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $150",
+      "max": 150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$150 a $400",
+      "min": 150,
+      "max": 400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $400",
+      "min": 400
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Lámparas de escritorio": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $270",
+      "max": 270
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$270 a $990",
+      "min": 270,
+      "max": 990
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $990",
+      "min": 990
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Decorativa": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $700",
+      "min": 390,
+      "max": 700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $700",
+      "min": 700
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Lámparas industriales y de nave": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $710",
+      "max": 710
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$710 a $1,450",
+      "min": 710,
+      "max": 1450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,450",
+      "min": 1450
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Plafones y lámparas de sobreponer": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $360",
+      "max": 360
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$360 a $920",
+      "min": 360,
+      "max": 920
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $920",
+      "min": 920
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Lámparas colgantes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $990",
+      "max": 990
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$990 a $1,850",
+      "min": 990,
+      "max": 1850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,850",
+      "min": 1850
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Candiles y arañas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,100",
+      "max": 2100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,100 a $5,900",
+      "min": 2100,
+      "max": 5900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,900",
+      "min": 5900
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Lámparas de pared": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $230",
+      "max": 230
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$230 a $700",
+      "min": 230,
+      "max": 700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $700",
+      "min": 700
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Rieles y spots": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $230",
+      "max": 230
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$230 a $490",
+      "min": 230,
+      "max": 490
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $490",
+      "min": 490
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Escenario": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,550",
+      "max": 1550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,550 a $4,200",
+      "min": 1550,
+      "max": 4200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,200",
+      "min": 4200
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Tiras LED": {
+  "axes": [
+   {
+    "label": "Largo",
+    "field": "length_m",
+    "criterion": "en metros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "corta",
+      "name": "Corta",
+      "use": "Un mueble o un marco",
+      "spec": "Hasta 5 m",
+      "max": 5
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Una pared",
+      "spec": "6 m a 10 m",
+      "min": 5,
+      "max": 10
+     },
+     {
+      "id": "larga",
+      "name": "Larga",
+      "use": "Un cuarto entero",
+      "spec": "Más de 10 m",
+      "min": 10
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $660",
+      "min": 440,
+      "max": 660
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $660",
+      "min": 660
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Focos inteligentes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $340",
+      "max": 340
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$340 a $760",
+      "min": 340,
+      "max": 760
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $760",
+      "min": 760
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Lámparas de techo": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $250",
+      "max": 250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$250 a $750",
+      "min": 250,
+      "max": 750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $750",
+      "min": 750
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Ventiladores con luz": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $240",
+      "max": 240
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$240 a $390",
+      "min": 240,
+      "max": 390
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $390",
+      "min": 390
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
  },
  "Domótica y hogar inteligente/Focos inteligentes": {
   "axes": [
@@ -21359,7 +21359,7 @@
    }
   ]
  },
- "Belleza y cuidado personal/Vaporizadores y equipo de spa": {
+ "Belleza y cuidado personal/Cuidado del cabello": {
   "axes": [
    {
     "key": "level",
@@ -21372,23 +21372,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $5,950",
-      "max": 5950
+      "spec": "Hasta $430",
+      "max": 430
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$5,950 a $14,500",
-      "min": 5950,
-      "max": 14500
+      "spec": "$430 a $710",
+      "min": 430,
+      "max": 710
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $14,500",
-      "min": 14500
+      "spec": "Más de $710",
+      "min": 710
      }
     ]
    }
@@ -21403,21 +21403,21 @@
     "ramp": false,
     "tiers": [
      {
-      "id": "repuestos-y-accesorios",
-      "name": "Repuestos y accesorios",
-      "use": "",
-      "spec": "Repuestos y accesorios",
-      "values": [
-       "Repuestos y accesorios"
-      ]
-     },
-     {
       "id": "para-barba",
       "name": "Para barba",
       "use": "",
       "spec": "Para barba",
       "values": [
        "Para barba"
+      ]
+     },
+     {
+      "id": "repuestos-y-accesorios",
+      "name": "Repuestos y accesorios",
+      "use": "",
+      "spec": "Repuestos y accesorios",
+      "values": [
+       "Repuestos y accesorios"
       ]
      },
      {
@@ -21452,15 +21452,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $530",
-      "max": 530
+      "spec": "Hasta $520",
+      "max": 520
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$530 a $1,150",
-      "min": 530,
+      "spec": "$520 a $1,150",
+      "min": 520,
       "max": 1150
      },
      {
@@ -21469,6 +21469,41 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,150",
       "min": 1150
+     }
+    ]
+   }
+  ]
+ },
+ "Belleza y cuidado personal/Vaporizadores y equipo de spa": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,950",
+      "max": 5950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,950 a $14,500",
+      "min": 5950,
+      "max": 14500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $14,500",
+      "min": 14500
      }
     ]
    }
@@ -21549,41 +21584,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,400",
       "min": 1400
-     }
-    ]
-   }
-  ]
- },
- "Belleza y cuidado personal/Cuidado del cabello": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$430 a $720",
-      "min": 430,
-      "max": 720
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $720",
-      "min": 720
      }
     ]
    }
@@ -34055,6 +34055,41 @@
    }
   ]
  },
+ "Herramientas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $490",
+      "max": 490
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$490 a $2,050",
+      "min": 490,
+      "max": 2050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,050",
+      "min": 2050
+     }
+    ]
+   }
+  ]
+ },
  "Iluminación": {
   "axes": [
    {
@@ -34090,41 +34125,6 @@
    }
   ],
   "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
- "Herramientas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $490",
-      "max": 490
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$490 a $2,050",
-      "min": 490,
-      "max": 2050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,050",
-      "min": 2050
-     }
-    ]
-   }
-  ]
  },
  "Domótica y hogar inteligente": {
   "axes": [
@@ -34209,23 +34209,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $460",
-      "max": 460
+      "spec": "Hasta $370",
+      "max": 370
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$460 a $1,550",
-      "min": 460,
-      "max": 1550
+      "spec": "$370 a $1,150",
+      "min": 370,
+      "max": 1150
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,550",
-      "min": 1550
+      "spec": "Más de $1,150",
+      "min": 1150
      }
     ]
    }

@@ -3057,7 +3057,25 @@ def sub_mueble(tn):
         m = re.search(patron, tn)
         if m and (mejor is None or m.start() < mejor[0]):
             mejor = (m.start(), sub)
-    return mejor[1] if mejor else 'Otros'
+    if mejor:
+        return mejor[1]
+    # Antes de caer en 'Otros' (que el reparto se niega a usar): el rack y el
+    # panel de TV, la cabecera flotante y la base de cama, que se nombran por
+    # el tamaño de la pantalla o de la cama y no por el tipo de mueble.
+    if re.search(r'^rack\b|\brack\b.{0,30}tv|panel (de|para) tv|soporte de tv|'
+                 r'(para|hasta) tvs? (de )?\d{2}|para tv hasta|\bfurinno\b|mueble para tv', tn):
+        return 'Mesas para TV y consolas'
+    if re.search(r'cabeceras? flotantes?|\bcabecera', tn): return 'Cabeceras'
+    if re.search(r'^base\b.{0,30}(matrimonial|individual|queen|king)|base de cama|\bbox\b', tn):
+        return 'Bases de cama y box'
+    if re.search(r'\bking size\b.{0,40}(memory foam|resorte|ortopedico)', tn):
+        return 'Colchones king size'
+    if re.search(r'carro bar|\bbar\b.{0,20}ruedas', tn): return 'Mesas auxiliares y laterales'
+    if re.search(r'reposapies', tn): return 'Puffs y otomanas'
+    if re.search(r'conjunto de muebles sala|juego de \d+ sillones|\bsillon', tn):
+        return 'Sillones y reclinables'
+    if re.search(r'\bcon cajones\b|\bburo\b', tn): return 'Burós'
+    return 'Otros'
 
 
 # Categorías que tenían subcategorías declaradas pero ninguna función que las
@@ -4375,6 +4393,14 @@ def sub_almacenamiento(tn):
     if re.search(r'\bssd\b|nvme|m\.2|estado solido', tn): return 'SSD'
     if re.search(r'disco duro|\bhdd\b|\bsata\b|\bsas\b|\bst\d{4,}[a-z]*\b|\b\d+ ?tb\b', tn): return 'Interno'
     if re.search(r'\busb\b|ironkey|cruzer|\bdt\d+', tn): return 'Memorias USB'
+    # Última red (21-sep): el disco interno se anuncia con "interno" al
+    # frente y su número de parte, sin decir SSD ni disco duro.
+    if re.search(r'^interno\b|\bdisco rigido\b|\bscsi\b|\bwd[0-9a-z]{6,}\b|'
+                 r'\b(hpe|lenovo|kingston|hiksemi|xpg|seagate|synology) ?[a-z0-9/-]{5,}\b', tn):
+        return 'SSD' if re.search(r'\bssd\b|nvme|sx8200|spectrix|v300x|sv300', tn) else 'Interno'
+    if re.search(r'dual drive|sddd|\bflash\b', tn): return 'Memorias USB'
+    if re.search(r'\bcfast\b|\bsdcf|compact ?flash', tn): return 'Tarjetas de memoria'
+    if re.search(r'unidad solida externa|\bxs2000\b', tn): return 'Externo'
     return None
 
 
@@ -4617,7 +4643,9 @@ def sub_herramienta(tn):
         return 'Material eléctrico'
     if re.search(r'atomizador|pulverizador de agua|\baspersor', tn): return 'Jardinería'
     if re.search(r'placa de reparacion|\bplaca\b.{0,20}forma de t', tn): return 'Construcción'
-    if re.search(r'bomba (extractora|sumergible|de agua)|monofasica', tn): return 'Bombas'
+    # Herramientas no tiene rubro de bombas: la bomba de agua y el motor
+    # monofásico van con la plomería, que es donde se instalan.
+    if re.search(r'bomba (extractora|sumergible|de agua)|monofasica', tn): return 'Plomería'
     return None
 
 
@@ -5081,7 +5109,12 @@ def sub_audio(tn):
             and re.search(r'walkie|\bptt\b|tubo acustico|conducto acustico|air conduit|[12] ?pines', tn)
             and not re.search(r'\badicional\b|\brepuesto\b|de recambio', tn)):
         return 'Earbuds con cable'
-    if re.match(r'^(?:\S+ ){0,2}(microfono|monitor|bocina|altavoz|reproductor|radio|walkie)', tn):
+    if (re.match(r'^(?:\S+ ){0,2}(microfono|monitor|bocina|altavoz|reproductor|radio|walkie)\b', tn)
+            # ...salvo el repuesto, que abre nombrando la pieza que sustituye,
+            # y salvo cuando el título ABRE diciendo audífono: "Auriculares
+            # con micrófono para computadora" es un audífono con micrófono.
+            and not re.search(r'reemplazo de microfono|microfono desmontable para (auriculares|audifonos)', tn)
+            and not re.match(r'^(?:\S+ ){0,2}(auricular|audifono|headset|earbud|headphone)', tn)):
         return None
     if re.match(r'^(?:\S+ ){0,3}(almohadillas?|earpads?|espumas?|puntas|eartips?|repuesto|'
                 r'cable de repuesto|estuche|funda|soporte|cuernos|accessory|accesorios?|'
@@ -5199,6 +5232,17 @@ def sub_audio(tn):
             if re.search(r'correr|ciclismo|deportiv|running', tn): return 'Earbuds deportivos'
             if re.search(r'computadora|\bpc\b|3[.,]5 ?mm|\busb\b|call center|oficina', tn):
                 return 'Diadema con cable'
+        # Última red: "Audífonos <marca> <modelo> <color>" y nada más. La
+        # rama de arriba ya asume que lo que no dice la forma es de botón;
+        # acá se aplica lo mismo, con el ANC y el uso profesional como
+        # únicas distinciones.
+        if re.search(r'audifono|auricular|headphone|\bearbud|\btune ?\d{3}\b|aura fit', tn):
+            if re.search(r'\banc\b|cancelacion (activa )?de ruido|noise cancelling', tn):
+                return 'Earbuds con cancelación de ruido'
+            if re.search(r'alta fidelidad|hi-?fi|monitoreo|de estudio|profesional|\bdj\b|'
+                         r'bateria electronica|\d[.,]\d ?m\b|con cable|cableado', tn):
+                return 'Diadema con cable'
+            return 'Earbuds inalámbricos'
         return None
     inal, cable = bool(RX_INAL.search(tn)), bool(RX_CABLE.search(tn))
     if not inal and not cable:

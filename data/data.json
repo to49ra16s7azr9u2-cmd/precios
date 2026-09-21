@@ -6108,12 +6108,15 @@
     "Baterías portátiles": [
       "data/cat/baterias-portatiles-1.json"
     ],
-    "Iluminación": [
-      "data/cat/iluminacion-1.json"
-    ],
     "Herramientas": [
       "data/cat/herramientas-1.json",
       "data/cat/herramientas-2.json"
+    ],
+    "Bocinas": [
+      "data/cat/bocinas-1.json"
+    ],
+    "Iluminación": [
+      "data/cat/iluminacion-1.json"
     ],
     "Domótica y hogar inteligente": [
       "data/cat/domotica-y-hogar-inteligente-1.json"
@@ -6154,9 +6157,6 @@
     ],
     "Videojuegos": [
       "data/cat/videojuegos-1.json"
-    ],
-    "Bocinas": [
-      "data/cat/bocinas-1.json"
     ],
     "Cámaras y fotografía": [
       "data/cat/camaras-y-fotografia-1.json"
@@ -6298,11 +6298,6 @@
     "Baterías portátiles": [
       "data/det/baterias-portatiles-1.json"
     ],
-    "Iluminación": [
-      "data/det/iluminacion-1.json",
-      "data/det/iluminacion-2.json",
-      "data/det/iluminacion-3.json"
-    ],
     "Herramientas": [
       "data/det/herramientas-1.json",
       "data/det/herramientas-2.json",
@@ -6314,6 +6309,19 @@
       "data/det/herramientas-8.json",
       "data/det/herramientas-9.json",
       "data/det/herramientas-10.json"
+    ],
+    "Bocinas": [
+      "data/det/bocinas-1.json",
+      "data/det/bocinas-2.json",
+      "data/det/bocinas-3.json",
+      "data/det/bocinas-4.json",
+      "data/det/bocinas-5.json",
+      "data/det/bocinas-6.json"
+    ],
+    "Iluminación": [
+      "data/det/iluminacion-1.json",
+      "data/det/iluminacion-2.json",
+      "data/det/iluminacion-3.json"
     ],
     "Domótica y hogar inteligente": [
       "data/det/domotica-y-hogar-inteligente-1.json",
@@ -6387,14 +6395,6 @@
       "data/det/videojuegos-3.json",
       "data/det/videojuegos-4.json",
       "data/det/videojuegos-5.json"
-    ],
-    "Bocinas": [
-      "data/det/bocinas-1.json",
-      "data/det/bocinas-2.json",
-      "data/det/bocinas-3.json",
-      "data/det/bocinas-4.json",
-      "data/det/bocinas-5.json",
-      "data/det/bocinas-6.json"
     ],
     "Cámaras y fotografía": [
       "data/det/camaras-y-fotografia-1.json",
@@ -6561,19 +6561,19 @@
     "Audífonos": {
       "n": 9234,
       "subs": {
-        "Earbuds inalámbricos": 3140,
+        "Earbuds inalámbricos": 3178,
         "Diadema inalámbrica": 812,
         "Diadema con cancelación de ruido": 412,
-        "Earbuds con cancelación de ruido": 762,
+        "Earbuds con cancelación de ruido": 767,
         "Earbuds deportivos": 217,
         "Gamer": 948,
         "De oído abierto": 542,
         "Earbuds para niños": 181,
-        "": 61,
-        "Earbuds con cable": 1231,
-        "Diadema con cable": 696,
+        "Earbuds con cable": 1232,
+        "Diadema con cable": 700,
         "Earbuds de cuello": 72,
-        "Almohadillas y repuestos": 160
+        "Almohadillas y repuestos": 162,
+        "": 11
       },
       "pop": 283960,
       "discounted": 1831,
@@ -6737,13 +6737,13 @@
       "maxShip": 73
     },
     "Baterías portátiles": {
-      "n": 1679,
+      "n": 1676,
       "subs": {
-        "Hasta 10,000 mAh": 1128,
-        "": 32,
-        "Accesorios y repuestos": 62,
+        "Hasta 10,000 mAh": 1147,
+        "Más de 20,000 mAh": 189,
+        "Accesorios y repuestos": 69,
         "10,000 a 20,000 mAh": 269,
-        "Más de 20,000 mAh": 188
+        "": 2
       },
       "pop": 3929,
       "discounted": 248,
@@ -6751,39 +6751,10 @@
       "discountedShip": 248,
       "maxShip": 72
     },
-    "Iluminación": {
-      "n": 5625,
-      "subs": {
-        "Lámparas de emergencia": 358,
-        "Exterior": 450,
-        "Focos": 1156,
-        "Lámparas de escritorio": 179,
-        "Decorativa": 974,
-        "Lámparas industriales y de nave": 51,
-        "Plafones y lámparas de sobreponer": 669,
-        "Lámparas colgantes": 578,
-        "Candiles y arañas": 176,
-        "Lámparas de pared": 428,
-        "Rieles y spots": 78,
-        "Escenario": 224,
-        "Tiras LED": 95,
-        "Focos inteligentes": 43,
-        "Lámparas de techo": 94,
-        "Lámparas de piso": 9,
-        "": 17,
-        "Empotrada": 2,
-        "Lámparas de techo para exterior": 19,
-        "Ventiladores con luz": 25
-      },
-      "pop": 6237,
-      "discounted": 2074,
-      "max": 80,
-      "discountedShip": 2079,
-      "maxShip": 78
-    },
     "Herramientas": {
-      "n": 19340,
+      "n": 19342,
       "subs": {
+        "Baterías y cargadores de herramienta": 695,
         "Material eléctrico": 866,
         "Hidrolavadoras": 118,
         "Soldadura": 417,
@@ -6803,7 +6774,6 @@
         "Lijadoras": 62,
         "Sierras": 459,
         "Escaleras": 648,
-        "Baterías y cargadores de herramienta": 693,
         "Compresores y herramienta neumática": 219,
         "Pistolas de calor, engrapadoras y clavadoras": 30,
         "Pinzas y alicates": 591,
@@ -6835,6 +6805,65 @@
       "max": 80,
       "discountedShip": 6292,
       "maxShip": 80
+    },
+    "Bocinas": {
+      "n": 11805,
+      "subs": {
+        "Radios y reproductores": 934,
+        "Accesorios para bocinas": 179,
+        "Para PC y escritorio": 327,
+        "Bocinas Bluetooth": 3057,
+        "Bocinas Bluetooth potentes (60 W o más)": 588,
+        "Barras de sonido": 309,
+        "Subwoofers": 380,
+        "Bocinas Bluetooth con radio, USB y micrófono": 425,
+        "Bocinas Bluetooth medianas (20 a 60 W)": 144,
+        "Bocinas Bluetooth impermeables": 784,
+        "De fiesta y karaoke": 556,
+        "De estantería y Hi-Fi": 991,
+        "Mini bocinas y de llavero": 750,
+        "Bocinas con luces LED": 343,
+        "Bafles y audio profesional": 861,
+        "Empotrables y de exterior": 398,
+        "Amplificadores y receptores": 355,
+        "Bocinas Bluetooth compactas (hasta 20 W)": 194,
+        "Bocinas para auto": 230
+      },
+      "pop": 80894,
+      "discounted": 1663,
+      "max": 80,
+      "discountedShip": 1663,
+      "maxShip": 80
+    },
+    "Iluminación": {
+      "n": 5625,
+      "subs": {
+        "Lámparas de emergencia": 358,
+        "Exterior": 450,
+        "Focos": 1156,
+        "Lámparas de escritorio": 179,
+        "Decorativa": 974,
+        "Lámparas industriales y de nave": 51,
+        "Plafones y lámparas de sobreponer": 669,
+        "Lámparas colgantes": 578,
+        "Candiles y arañas": 176,
+        "Lámparas de pared": 428,
+        "Rieles y spots": 78,
+        "Escenario": 224,
+        "Tiras LED": 95,
+        "Focos inteligentes": 43,
+        "Lámparas de techo": 94,
+        "Lámparas de piso": 9,
+        "": 17,
+        "Empotrada": 2,
+        "Lámparas de techo para exterior": 19,
+        "Ventiladores con luz": 25
+      },
+      "pop": 6237,
+      "discounted": 2074,
+      "max": 80,
+      "discountedShip": 2079,
+      "maxShip": 78
     },
     "Domótica y hogar inteligente": {
       "n": 8540,
@@ -6942,13 +6971,14 @@
       "maxShip": 93
     },
     "Libros": {
-      "n": 34,
+      "n": 41,
       "subs": {
         "Técnicos y profesionales": 26,
         "Hogar, manualidades y mascotas": 4,
         "Psicología": 2,
         "Música y cine": 1,
-        "Infantil": 1
+        "Infantil": 1,
+        "Negocios y finanzas": 7
       },
       "pop": 0,
       "discounted": 1,
@@ -6957,7 +6987,7 @@
       "maxShip": 11
     },
     "Juguetes y bebés": {
-      "n": 9016,
+      "n": 9030,
       "subs": {
         "Vehículos de juguete": 67,
         "Monitores de bebé": 15,
@@ -6978,7 +7008,7 @@
         "Corrales": 27,
         "Sillas de auto": 18,
         "Pañales y cambio": 198,
-        "Bebés": 764,
+        "Bebés": 778,
         "Cuidado y salud del bebé": 21,
         "Vehículos a control remoto": 127,
         "Baño e higiene del bebé": 117,
@@ -6996,9 +7026,9 @@
         "": 2
       },
       "pop": 18912,
-      "discounted": 3818,
+      "discounted": 3831,
       "max": 77,
-      "discountedShip": 3823,
+      "discountedShip": 3836,
       "maxShip": 77
     },
     "Deportes y fitness": {
@@ -7188,19 +7218,19 @@
       "maxShip": 76
     },
     "Salud": {
-      "n": 834,
+      "n": 835,
       "subs": {
         "Salud": 137,
-        "Cuidado dental": 311,
+        "Cuidado dental": 312,
         "": 1,
         "Equipo de monitoreo médico": 82,
         "Básculas": 73,
         "Movilidad": 230
       },
       "pop": 20995,
-      "discounted": 292,
+      "discounted": 293,
       "max": 76,
-      "discountedShip": 292,
+      "discountedShip": 293,
       "maxShip": 69
     },
     "Drones": {
@@ -7246,35 +7276,6 @@
       "max": 85,
       "discountedShip": 4139,
       "maxShip": 85
-    },
-    "Bocinas": {
-      "n": 11804,
-      "subs": {
-        "Radios y reproductores": 933,
-        "Accesorios para bocinas": 179,
-        "Para PC y escritorio": 327,
-        "Bocinas Bluetooth": 3057,
-        "Bocinas Bluetooth potentes (60 W o más)": 588,
-        "Barras de sonido": 309,
-        "Subwoofers": 380,
-        "Bocinas Bluetooth con radio, USB y micrófono": 425,
-        "Bocinas Bluetooth medianas (20 a 60 W)": 144,
-        "Bocinas Bluetooth impermeables": 784,
-        "De fiesta y karaoke": 556,
-        "De estantería y Hi-Fi": 991,
-        "Mini bocinas y de llavero": 750,
-        "Bocinas con luces LED": 343,
-        "Bafles y audio profesional": 861,
-        "Empotrables y de exterior": 398,
-        "Amplificadores y receptores": 355,
-        "Bocinas Bluetooth compactas (hasta 20 W)": 194,
-        "Bocinas para auto": 230
-      },
-      "pop": 80894,
-      "discounted": 1663,
-      "max": 80,
-      "discountedShip": 1663,
-      "maxShip": 80
     },
     "Cámaras y fotografía": {
       "n": 5238,
@@ -7403,18 +7404,17 @@
       "maxShip": 90
     },
     "Belleza y cuidado personal": {
-      "n": 11012,
+      "n": 10990,
       "subs": {
         "Uñas": 285,
         "Dispositivos de cuidado facial": 353,
         "Masajeadores": 366,
-        "Cuidado personal": 461,
+        "Cuidado personal": 462,
         "Cremas y sérums faciales": 1001,
-        "": 40,
+        "Cuidado del cabello": 385,
+        "Rasuradoras": 925,
         "Vaporizadores y equipo de spa": 359,
-        "Rasuradoras": 921,
         "Corporales": 626,
-        "Cuidado del cabello": 374,
         "Maquillaje": 280,
         "Faciales": 16,
         "Mascarillas faciales": 140,
@@ -7422,7 +7422,7 @@
         "Pelucas": 439,
         "Secadoras de cabello": 657,
         "Planchas para cabello": 392,
-        "Depilación": 433,
+        "Depilación": 435,
         "Protección solar": 359,
         "Cuidado facial masculino": 6,
         "Manicure": 238,
@@ -7445,9 +7445,9 @@
         "Perfumes": 11
       },
       "pop": 47894,
-      "discounted": 3396,
+      "discounted": 3382,
       "max": 79,
-      "discountedShip": 3405,
+      "discountedShip": 3391,
       "maxShip": 79
     },
     "Muebles": {
@@ -8101,14 +8101,6 @@
       "p28196",
       "p288853"
     ],
-    "Iluminación": [
-      "p85941",
-      "p85916",
-      "p369742",
-      "p87221",
-      "p30169",
-      "p86974"
-    ],
     "Herramientas": [
       "p60484",
       "p381063",
@@ -8116,6 +8108,22 @@
       "p60438",
       "p121622",
       "p122501"
+    ],
+    "Bocinas": [
+      "p42154",
+      "p366660",
+      "p375834",
+      "p128326",
+      "p178016",
+      "p376241"
+    ],
+    "Iluminación": [
+      "p85941",
+      "p85916",
+      "p369742",
+      "p87221",
+      "p30169",
+      "p86974"
     ],
     "Domótica y hogar inteligente": [
       "p44880",
@@ -8220,14 +8228,6 @@
       "p56985",
       "p58977",
       "p59438"
-    ],
-    "Bocinas": [
-      "p42154",
-      "p366660",
-      "p375834",
-      "p128326",
-      "p178016",
-      "p376241"
     ],
     "Cámaras y fotografía": [
       "p44416",
