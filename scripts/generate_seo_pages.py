@@ -1985,6 +1985,10 @@ def _piso_por_subcategoria(products):
 # de cuatro filas.
 MIN_PARA_RANKING_PROPIO = 12
 
+# Debajo de esto una categoría no publica página: cuatro filas no son una
+# página de categoría, son una url vacía con un título.
+MIN_PRODUCTOS_CATEGORIA = 12
+
 MIN_PARA_PAGINA_BARATO = 40
 BARATO_TOPE = 60
 
@@ -2931,23 +2935,32 @@ def build_robots():
 
 
 def hide_empty_taxonomy(data):
-    """Quita categorías y subcategorías que se quedaron sin productos.
+    """Quita categorías y subcategorías que se quedaron sin productos, o
+    con tan pocos que su página no dice nada.
 
     Mismo criterio que `hideEmptyTaxonomy` en js/app.js: una subcategoría
     vacía es un enlace a una lista vacía, y como página estática además sería
     contenido indexable sin nada dentro.
+
+    El mínimo no estaba y hacía falta. Medido el 21 de septiembre de 2026:
+    "Calzado" publicaba su página con CUATRO productos y "Fitness" con ocho
+    repartidos en Grande / Mediana / Pequeña. Una página de categoría con
+    cuatro filas no ayuda a nadie y, para un buscador, es exactamente lo que
+    penaliza: una url indexable sin contenido. Las que no llegan siguen
+    existiendo en el catálogo y sus fichas se ven en la búsqueda y en su
+    página de producto; lo que no tienen es página de categoría propia.
     """
-    with_products = set()
+    with_products = collections.Counter()
     for p in data.get("products", []):
-        with_products.add((p["category"], p.get("subcategory") or ""))
-        with_products.add(p["category"])
+        with_products[(p["category"], p.get("subcategory") or "")] += 1
+        with_products[p["category"]] += 1
     cats = []
     for c in data.get("categories", []):
-        if c["id"] not in with_products:
+        if with_products[c["id"]] < MIN_PRODUCTOS_CATEGORIA:
             continue
         c = dict(c)
         c["subcategories"] = [
-            s for s in c.get("subcategories", []) if (c["id"], s["id"]) in with_products
+            s for s in c.get("subcategories", []) if with_products[(c["id"], s["id"])]
         ]
         cats.append(c)
     data["categories"] = cats

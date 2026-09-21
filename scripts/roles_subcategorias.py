@@ -262,11 +262,23 @@ TITULOS = {
 ORDEN = [PRODUCTO, AFIN, ACCESORIO, PARTE, CONSUMIBLE]
 
 
+# Una subcategoría llamada exactamente "Accesorios" es un accesorio en
+# cualquier categoría: no hay caso donde una categoría se llame así. Vale la
+# pena tenerlo como regla y no como 9 entradas repetidas, sobre todo porque
+# cada categoría nueva que estrene la suya la hereda sin que nadie tenga que
+# acordarse. Es el mismo nombre que ya usa SUBCATEGORIAS_OPT_IN en
+# generate_seo_pages.py, web_summary.py y js/app.js.
+POR_NOMBRE = {"Accesorios": ACCESORIO}
+
+
 def rol_de(categoria, subcategoria):
     """El papel de esa subcategoría dentro de esa categoría."""
     if not subcategoria:
         return PRODUCTO
-    return ROLES.get(categoria, {}).get(subcategoria, PRODUCTO)
+    explicito = ROLES.get(categoria, {}).get(subcategoria)
+    if explicito:
+        return explicito
+    return POR_NOMBRE.get(subcategoria, PRODUCTO)
 
 
 def es_producto(categoria, subcategoria):

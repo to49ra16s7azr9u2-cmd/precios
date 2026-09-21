@@ -61,6 +61,150 @@ def tramo_mah(tn):
 # (categoría origen, regex que debe cumplir, regex que NO debe cumplir o None,
 #  categoría destino, subcategoría destino o función(tn) -> sub|None)
 REGLAS = [
+    # --- Lotes del 21 de septiembre de 2026 -----------------------------
+    # Cortes que faltaban, al estilo de kakaku.com: parte 掃除機 en
+    # スティック / ハンディ / キャニスター / ロボット y スーツケース por
+    # "機内持ち込み可否". Acá "Portátiles" juntaba la aspiradora de mano con
+    # la de escoba (750 fichas, el 61% de la categoría) y "Maletas" juntaba
+    # la de cabina, la documentada y la mochila de viaje (852, el 80%).
+    # El orden importa: primero lo específico, después lo general.
+
+    ('Aspiradoras', r'\bde escoba\b|\bvertical(es)?\b|\bstick\b|escoba inalambrica',
+     None, 'Aspiradoras', 'De escoba', ['Portátiles']),
+    ('Aspiradoras', r'\bde mano\b|\bhandheld\b|para auto|de coche|portatil de mano',
+     None, 'Aspiradoras', 'De mano', ['Portátiles']),
+
+    # Una mochila de viaje no es una maleta: es lo primero que hay que
+    # sacar, porque si no el corte por tamaño mezcla peras con manzanas.
+    ('Viajes', r'^\W*(mochila|bolsa|neceser|maleta deportiva|bolso|'
+     r'organizador|porta ?traje|cangurera|rinonera)',
+     None, 'Viajes', 'Mochilas y bolsas de viaje', ['Maletas']),
+    ('Viajes', r'\b(set|juego|kit) de \d? ?maletas|set de maletas|'
+     r'\b[234] ?piezas\b|juego de maletas',
+     None, 'Viajes', 'Sets de maletas', ['Maletas']),
+    ('Viajes', r'\bcabina\b|carry ?on|equipaje de mano|\bde mano\b|'
+     r'\b(1[6-9]|20|21)\s*(?:"|pulg|pulgadas|in\b)',
+     None, 'Viajes', 'Maletas de cabina', ['Maletas']),
+    ('Viajes', r'\b(2[4-9]|3[0-2])\s*(?:"|pulg|pulgadas|in\b)|\bgrande\b|'
+     r'\bdocumentad|\b(8[0-9]|9[0-9]|1\d\d)\s*l\b',
+     None, 'Viajes', 'Maletas grandes', ['Maletas']),
+
+    # Auditoría de taxonomía: subcategorías con nombre de MARCA, el mismo
+    # concepto repetido en dos categorías, y una categoría fantasma.
+
+    # "Drones / DJI" era una subcategoría con nombre de marca --que es
+    # justo lo que no se hace-- y encima no tenía drones DJI adentro: son
+    # accesorios PARA drones (megáfono, soporte de tableta para el control).
+    ('Drones', r'.', None, 'Drones', 'Accesorios', ['DJI']),
+
+    # "Juegos de mesa / Woodestic" también era una marca. Lo que vende son
+    # juegos de madera de puntería (crokinole, shuffleboard), que es un tipo
+    # de juego, no un fabricante.
+    ('Juegos de mesa', r'.', None, 'Juegos de mesa', 'De mesa clásicos', ['Woodestic']),
+
+    # "Bicicletas eléctricas" estaba en dos categorías. En Autos lo que hay
+    # son PIEZAS de e-bike (controladores, corte de freno), no bicicletas;
+    # las bicicletas enteras están en Movilidad eléctrica.
+    ('Autos, bicicletas y motos',
+     r'controller|controlador|corte de freno|\bkit\b|conversion|display|'
+     r'acelerador|throttle|\bbms\b|celda|motor de rueda|\bcableado\b',
+     None, 'Refacciones', 'Para bicicletas eléctricas', ['Bicicletas eléctricas']),
+    ('Autos, bicicletas y motos', r'.', None,
+     'Movilidad eléctrica', 'Bicicletas eléctricas', ['Bicicletas eléctricas']),
+
+    # Todo el audio de auto vive en Autos (coaxiales, componentes,
+    # tweeters, subwoofers, amplificadores, estéreos). "Bocinas para auto"
+    # tenía además una copia dentro de Bocinas, partida en dos el mismo
+    # catálogo.
+    ('Bocinas', r'.', None,
+     'Autos, bicicletas y motos', 'Bocinas para auto', ['Bocinas para auto']),
+
+    # Generadores repetido en Herramientas y en Otros. Se juntan donde ya
+    # están los compresores y las hidrolavadoras.
+    ('Otros', r'.', None, 'Herramientas', 'Generadores', ['Generadores']),
+
+    # Un foco inteligente es domótica; en Iluminación quedaba la copia chica.
+    ('Iluminación', r'.', None,
+     'Domótica y hogar inteligente', 'Focos inteligentes', ['Focos inteligentes']),
+
+    # La categoría "Fitness" tenía ocho fichas repartidas en Grande /
+    # Mediana / Pequeña, y existe "Deportes y fitness" con treinta
+    # subcategorías de verdad. No era una categoría: era un resto de una
+    # importación vieja, con su página publicada y casi nada adentro.
+    ('Fitness', r'cinta de correr|caminadora|remadora|eliptica|spinning|'
+     r'bicicleta (fija|de spinning)', None,
+     'Deportes y fitness', 'Máquinas de cardio'),
+    ('Fitness', r'disco|mancuerna|\bbarra\b|\bpesa', None,
+     'Deportes y fitness', 'Barras y discos'),
+    ('Fitness', r'cinturon|rodillera|muneque|coderas?|soporte lumbar|faja', None,
+     'Deportes y fitness', 'Protección y soportes'),
+    ('Fitness', r'rodillo|foam roller|masaje|cuerda (para )?saltar|saltar', None,
+     'Deportes y fitness', 'Accesorios de fuerza'),
+    ('Fitness', r'.', None, 'Deportes y fitness', 'Otros'),
+
+    # El topper es ropa de cama, no un mueble.
+    ('Muebles', r'.', None,
+     'Blancos y ropa de cama', 'Toppers y sobrecolchones', ['Toppers y sobrecolchones']),
+
+    # Salieron de una auditoría nueva: buscar la ficha que está en una
+    # subcategoría de PRODUCTO (ver roles_subcategorias.py) pero cuyo
+    # nombre ARRANCA nombrando un accesorio, una parte o un consumible --
+    # descartando el caso en que la categoría o la subcategoría ya se
+    # llaman así, porque un cargador dentro de "Cargadores y adaptadores"
+    # está en su casa. Dio 4,319 fichas en 382 subcategorías; acá van las
+    # que tienen un destino que ya existe.
+
+    # El filtro de repuesto no es el purificador. 245 fichas en
+    # "Purificadores bajo tarja" y 82 en "Ósmosis inversa" abrían diciendo
+    # "Filtro de agua…" y competían con el sistema entero.
+    ('Electrodomésticos',
+     r'^(?:\S+ ){0,2}(filtro|membrana|cartucho)s?\b',
+     r'purificador (de agua )?(bajo|con filtro)|sistema de (osmosis|filtracion)|'
+     r'^(?:\S+ ){0,3}(purificador|sistema|equipo)\b',
+     'Electrodomésticos', 'Filtros y membranas de repuesto',
+     ['Purificadores bajo tarja', 'Ósmosis inversa', 'Purificadores de agua',
+      'Purificadores de grifo y encimera']),
+
+    # La funda y el cable de la batería portátil no son la batería.
+    ('Baterías portátiles',
+     r'^(?:\S+ ){0,2}(funda|estuche|carcasa|bolsa|cable|adaptador|soporte)s?\b',
+     r'power ?bank|banco de energia|bateria portatil|\d+ ?mah\b',
+     'Baterías portátiles', 'Accesorios y repuestos',
+     ['Hasta 10,000 mAh', '10,000 a 20,000 mAh', 'Más de 20,000 mAh']),
+
+    # La funda del estuche de los earbuds no es un par de audífonos. 210
+    # fichas repartidas entre "Earbuds inalámbricos" y "Earbuds con cable".
+    # Para esto hubo que darle a la categoría una subcategoría "Accesorios",
+    # que no tenía: sin destino, la auditoría sólo podía señalar.
+    ('Audífonos',
+     r'^\W*(funda|estuche|carcasa|bolsa para|soporte|gancho|mosqueton|'
+     r'almohadilla|espuma|adaptador|clip de|correa para|cable para|'
+     r'kit de (limpieza|estuche)|repuesto)s?\b',
+     r'(audifono|auricular|earbud|diadema|headset|headphone)s? '
+     r'(inalambric|bluetooth|con cable|deportiv|gamer|tws)',
+     'Audífonos', 'Accesorios',
+     ['Earbuds inalámbricos', 'Earbuds con cable', 'Earbuds de cuello',
+      'Earbuds deportivos', 'Earbuds para niños', 'Earbuds con cancelación de ruido',
+      'Diadema con cable', 'Diadema inalámbrica', 'Diadema con cancelación de ruido',
+      'De oído abierto', 'Gamer']),
+
+    # Lo mismo con el reloj: el soporte y el bumper no son el smartwatch.
+    ('Relojes inteligentes',
+     r'^\W*(funda|estuche|carcasa|bumper|mica|protector de pantalla|soporte|'
+     r'base de carga|cargador para|cable para|correa|extensible|'
+     r'pulsera de repuesto)s?\b',
+     r'\b(smartwatch|smart watch|reloj inteligente|banda de actividad)\b.{0,30}'
+     r'(amoled|gps|llamadas|bluetooth|pantalla)',
+     'Relojes inteligentes', 'Accesorios'),
+
+    # El cable SATA y el filtro antipolvo de la caja no son un componente
+    # con el que se compare una tarjeta madre.
+    ('Componentes y accesorios de PC',
+     r'^(?:\S+ ){0,2}(cable|filtro|tornillo|adaptador|soporte|funda)s?\b',
+     r'tarjeta (madre|grafica|de video)|procesador|fuente de poder|disipador',
+     'Componentes y accesorios de PC', 'Accesorios',
+     ['Componentes']),
+
     ('Audífonos', r'walkie|talkie|\bradios?\b(?! ?control)|onda corta|reproductor (mp3|de cd|de musica)|discman|intercomunicador',
      r'^(?:\S+ ){0,2}(auricular|audifono|headset|earbud|headphone)|radio fm|for iphone|mp3 player|conduccion osea|open ?ear',
      'Bocinas', 'Radios y reproductores'),

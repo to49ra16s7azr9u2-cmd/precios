@@ -2021,6 +2021,13 @@
   // scripts/web_summary.py) en vez de recorrer el catálogo: desde que los
   // productos se bajan por categoría y bajo demanda, en Inicio no hay
   // catálogo que recorrer.
+  // Mismo número que MIN_PRODUCTOS_CATEGORIA en
+  // scripts/generate_seo_pages.py: el nav y las páginas estáticas tienen
+  // que estar de acuerdo sobre qué categorías existen, o el menú ofrece una
+  // que devuelve 404. "Calzado" tenía cuatro productos y "Fitness" ocho
+  // repartidos en Grande / Mediana / Pequeña.
+  const MIN_PRODUCTOS_CATEGORIA = 12;
+
   function hideEmptyTaxonomy(data) {
     const stats = data.categoryStats || {};
     data.categories = (data.categories || [])
@@ -2030,7 +2037,7 @@
           (s) => ((stats[c.id] || {}).subs || {})[s.id]
         ),
       }))
-      .filter((c) => (stats[c.id] || {}).n);
+      .filter((c) => ((stats[c.id] || {}).n || 0) >= MIN_PRODUCTOS_CATEGORIA);
     return data;
   }
 

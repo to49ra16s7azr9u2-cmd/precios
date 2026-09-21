@@ -93,6 +93,10 @@ FACET_CATEGORIES = (
 
 _FOLDABLE_RE = re.compile(r"\bplegable\b|\bfold\b|\bflip\b")
 _SCREEN_RANGE = {
+    # El reloj entra con su propio rango: sus fichas dicen "1.85 Pulgadas" y
+    # el rango del celular las descartaba por chicas. 22% de la categoría
+    # trae el dato.
+    "Relojes inteligentes": (0.8, 3.0),
     "Celulares": (3.0, 7.5),
     "Celulares_foldable": (3.0, 11.0),
     "Laptops": (9.0, 19.0),
@@ -129,6 +133,35 @@ def _in_range(val, ranges, category):
         return None
     lo, hi = ranges[category]
     return val if lo <= val <= hi else None
+
+
+def _si_no(v):
+    """"Sí, monitoreo continuo de..." -> "Sí". Las fichas contestan estos
+    campos con una frase, no con un sí pelado."""
+    t = se._norm(v)
+    if not t or t in ("no aplica", "n/a", "-"):
+        return None
+    if t.startswith("no"):
+        return "No"
+    if t.startswith("si") or t.startswith("yes") or "integrado" in t:
+        return "Sí"
+    return None
+
+
+def _os_compat(v):
+    """"IOS Android" -> "iOS y Android". Es con lo que el comprador descarta
+    la mitad del catálogo de una: el reloj que no habla con su teléfono no
+    le sirve por barato que esté."""
+    t = se._norm(v)
+    ios = "ios" in t or "iphone" in t or "apple" in t
+    android = "android" in t
+    if ios and android:
+        return "iOS y Android"
+    if ios:
+        return "Solo iOS"
+    if android:
+        return "Solo Android"
+    return None
 
 
 def _screen_in(category, name, spec_map):
@@ -499,6 +532,14 @@ SPEC_GENERALES = (
     ("capacidad en litros", "liters", lambda v: se.liters_of(v, 0.1, 2000)),
     ("genero", "gender", _gender),
     ("capacidad de bateria (mah)", "battery_mah", lambda v: se.mah_of(v, 100, 100000)),
+    # El reloj inteligente publica estos tres y ninguno se estaba leyendo:
+    # su "Compara calidad" se armaba sólo con el precio, o sea que decía
+    # "caro / medio / barato" con el nombre de comparar calidad. Con GPS y
+    # pulso se separa el reloj de correr del que sólo avisa notificaciones,
+    # que es la decisión real de quien compra.
+    ("gps", "gps", _si_no),
+    ("monitor de frecuencia cardiaca", "heart_rate", _si_no),
+    ("compatibilidad", "os_compat", _os_compat),
 )
 
 # (categoría, subcategoría o None) -> [(campo, función(nombre))]. El rango

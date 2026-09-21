@@ -3257,5 +3257,60 @@
    "Redes | None | Herramientas | Material eléctrico": 1,
    "Electrodomésticos | None | Herramientas | Herramientas de corte manual": 1
   }
+ },
+ {
+  "fecha": "2026-09-21",
+  "origen": "mover_roles.json",
+  "motivo": "Auditoría de papel: accesorios y consumibles dentro de subcategorías de producto",
+  "grupos": {
+   "Componentes y accesorios de PC | Componentes | Componentes y accesorios de PC | Accesorios": 103,
+   "Baterías portátiles | Más de 20,000 mAh | Baterías portátiles | Accesorios y repuestos": 1,
+   "Baterías portátiles | Hasta 10,000 mAh | Baterías portátiles | Accesorios y repuestos": 12,
+   "Otros | Varios | Autos, bicicletas y motos | Accesorios para bicicleta": 1,
+   "Otros | Varios | Cocina y comedor | Platos y bowls": 2,
+   "Electrodomésticos | Purificadores bajo tarja | Electrodomésticos | Filtros y membranas de repuesto": 189,
+   "Electrodomésticos | Purificadores de grifo y encimera | Electrodomésticos | Filtros y membranas de repuesto": 71,
+   "Electrodomésticos | Ósmosis inversa | Electrodomésticos | Filtros y membranas de repuesto": 95
+  }
+ },
+ {
+  "fecha": "2026-09-21",
+  "origen": "mover_roles2.json",
+  "motivo": "Auditoría de papel: accesorios de audífonos y relojes a su nueva subcategoría",
+  "grupos": {
+   "Audífonos | Diadema con cable | Audífonos | Accesorios": 1,
+   "Audífonos | Earbuds con cable | Audífonos | Accesorios": 62,
+   "Audífonos | Earbuds deportivos | Audífonos | Accesorios": 6,
+   "Audífonos | Earbuds inalámbricos | Audífonos | Accesorios": 148,
+   "Audífonos | Earbuds de cuello | Audífonos | Accesorios": 9,
+   "Relojes inteligentes | Smartwatches | Relojes inteligentes | Accesorios": 118,
+   "Relojes inteligentes | None | Relojes inteligentes | Accesorios": 2
+  }
+ },
+ {
+  "fecha": "2026-09-21",
+  "origen": "mover_tax.json",
+  "motivo": "Auditoría de taxonomía: marcas como subcategoría, conceptos duplicados, categoría Fitness y cortes de aspiradoras y maletas",
+  "grupos": {
+   "Iluminación | Focos inteligentes | Domótica y hogar inteligente | Focos inteligentes": 43,
+   "Autos, bicicletas y motos | Bicicletas eléctricas | Refacciones | Para bicicletas eléctricas": 16,
+   "Autos, bicicletas y motos | Bicicletas eléctricas | Movilidad eléctrica | Bicicletas eléctricas": 129,
+   "Otros | Generadores | Herramientas | Generadores": 54,
+   "Bocinas | Bocinas para auto | Autos, bicicletas y motos | Bocinas para auto": 233,
+   "Drones | DJI | Drones | Accesorios": 33,
+   "Juegos de mesa | Woodestic | Juegos de mesa | De mesa clásicos": 63,
+   "Muebles | Toppers y sobrecolchones | Blancos y ropa de cama | Toppers y sobrecolchones": 34,
+   "Viajes | Maletas | Viajes | Mochilas y bolsas de viaje": 155,
+   "Viajes | Maletas | Viajes | Maletas grandes": 98,
+   "Viajes | Maletas | Viajes | Maletas de cabina": 227,
+   "Viajes | Maletas | Viajes | Sets de maletas": 9,
+   "Aspiradoras | Portátiles | Aspiradoras | De escoba": 79,
+   "Aspiradoras | Portátiles | Aspiradoras | De mano": 183,
+   "Fitness | Grande | Deportes y fitness | Máquinas de cardio": 3,
+   "Fitness | Pequeña | Deportes y fitness | Accesorios de fuerza": 1,
+   "Fitness | Mediana | Deportes y fitness | Accesorios de fuerza": 2,
+   "Fitness | Grande | Deportes y fitness | Barras y discos": 1,
+   "Fitness | Pequeña | Deportes y fitness | Protección y soportes": 1
+  }
  }
 ]
