@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=924dc13e">
+<link rel="stylesheet" href="css/style.min.css?v=2964492a">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -182,7 +182,17 @@
               <img class="hero-logo" src="icons/logo-comparamarcas.png" alt="Compara marcas">
             </button>
           </div>
-          <h1 class="home-elige" id="homeElige">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</h1>
+          <!-- La frase de entrada y, a su derecha, la entrada a la guía.
+               El botón ya existía al pie de la columna (.home-acciones),
+               pero ahí queda debajo del catálogo y no se ve al llegar: se
+               repite aquí, en la línea que el visitante lee primero. -->
+          <div class="home-elige-linea">
+            <h1 class="home-elige" id="homeElige">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</h1>
+            <button type="button" class="home-como-btn" id="homeComoBtn" aria-expanded="false" aria-controls="guiaModal">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.7 9.4a2.4 2.4 0 1 1 3.2 2.3c-.6.2-.9.8-.9 1.4v.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1" fill="currentColor"/></svg>
+              Cómo utilizar
+            </button>
+          </div>
           <div id="homePanelPrecios" role="tabpanel">
             <div class="home-category-box">
               <div id="homeCategoryGrid" class="category-card-grid"></div>
@@ -1104,7 +1114,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=e9254aac"></script>
+<script src="js/app.min.js?v=cfe85deb"></script>
 </div>
 </body>
 </html>

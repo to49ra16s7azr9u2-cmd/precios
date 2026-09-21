@@ -483,6 +483,7 @@
     homeBrandSearchCount: document.getElementById("homeBrandSearchCount"),
     homeElige: document.getElementById("homeElige"),
     homeTipsBtn: document.getElementById("homeTipsBtn"),
+    homeComoBtn: document.getElementById("homeComoBtn"),
     homeTipsPanel: document.getElementById("homeTipsPanel"),
     homeRecentStrip: document.getElementById("homeRecentStrip"),
     homeAccountSections: document.getElementById("homeAccountSections"),
@@ -3061,19 +3062,28 @@
       <li>No pedimos datos personales. Tus favoritos, tu zona y lo que has visto se
         guardan en tu navegador.</li>
     </ul>`;
+  // Dos botones abren la misma guía: el de la línea de entrada (arriba del
+  // catálogo) y el del pie de la columna. Se atan juntos para que el
+  // aria-expanded de los dos siga al modal.
+  function botonesGuia() {
+    return [el.homeComoBtn, el.homeTipsBtn].filter(Boolean);
+  }
   function bindHomeTips() {
-    if (!el.homeTipsBtn || !el.guiaModal) return;
+    const botones = botonesGuia();
+    if (!botones.length || !el.guiaModal) return;
     if (el.guiaModalBody && !el.guiaModalBody.innerHTML) el.guiaModalBody.innerHTML = GUIA_HTML;
-    el.homeTipsBtn.onclick = () => {
-      el.guiaModal.classList.remove("hidden");
-      el.homeTipsBtn.setAttribute("aria-expanded", "true");
-      if (el.guiaModalClose) el.guiaModalClose.focus();
-    };
+    botones.forEach((boton) => {
+      boton.onclick = () => {
+        el.guiaModal.classList.remove("hidden");
+        botones.forEach((b) => b.setAttribute("aria-expanded", "true"));
+        if (el.guiaModalClose) el.guiaModalClose.focus();
+      };
+    });
   }
   function cerrarGuia() {
     if (!el.guiaModal) return;
     el.guiaModal.classList.add("hidden");
-    if (el.homeTipsBtn) el.homeTipsBtn.setAttribute("aria-expanded", "false");
+    botonesGuia().forEach((b) => b.setAttribute("aria-expanded", "false"));
   }
 
   // Las dos entradas al catálogo de la portada: por precio (elegir

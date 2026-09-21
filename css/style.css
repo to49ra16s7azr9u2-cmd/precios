@@ -2957,7 +2957,40 @@ tr.offer-compare-off { display: none; }
 .home-cat-search-count { flex: 0 0 auto; padding-right: 12px; font-size: 12px; color: var(--muted); white-space: nowrap; }
 /* El texto de siempre baja debajo de la pieza, en chico: sigue siendo el
    h1 de la portada, pero ya no compite con el buscador. */
-.home-elige-row + .home-elige { margin: 0 0 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
+.home-elige-row + .home-elige-linea .home-elige { margin: 0; font-size: 13px; font-weight: 400; color: var(--muted); }
+/* La frase de entrada y la entrada a la guía comparten línea: la frase
+   crece y el botón se queda pegado al borde derecho del panel, a la altura
+   de la entrada a "Compara marcas" que tiene justo encima. */
+.home-elige-linea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 8px;
+}
+.home-como-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--marco-radio);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.home-como-btn .icon { width: 15px; height: 15px; color: var(--red); }
+.home-como-btn:hover { border-color: var(--red); color: var(--red); }
+.home-como-btn:hover .icon { color: var(--red); }
+@media (max-width: 520px) {
+  .home-elige-linea { flex-wrap: wrap; }
+  .home-como-btn { order: -1; }
+}
 .home-elige-row .home-elige { flex: 1 1 auto; margin: 0; }
 .home-elige-row .home-tab-marca { flex: 0 0 auto; width: 132px; padding: 4px 9px; }
 .home-elige-row > .home-tab.is-active { border-width: 1px; border-color: var(--tab-color); }
