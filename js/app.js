@@ -3250,9 +3250,20 @@
     el.homeBrandGrid.innerHTML = lista.map(homeBrandCardHtml).join("") + pie;
   }
 
+  // La marca girando mientras se baja algo. Un texto quieto ("Cargando
+  // productos…") no se distingue de una página colgada; el aro sí. `enLinea`
+  // es para los sitios donde el indicador comparte espacio con otra cosa.
+  function htmlCargando(texto, enLinea) {
+    return (
+      `<div class="cargando${enLinea ? " cargando-linea" : ""}" role="status" aria-live="polite">` +
+      `<span class="cargando-marca" aria-hidden="true"></span>` +
+      `<span class="cargando-texto">${texto}</span></div>`
+    );
+  }
+
   function renderHomeBrandGrid() {
     if (!el.homeBrandGrid || el.homeBrandGrid.childElementCount) return;
-    el.homeBrandGrid.innerHTML = `<p class="muted small">Cargando marcas…</p>`;
+    el.homeBrandGrid.innerHTML = htmlCargando("Cargando marcas…");
     ensureBrandIndex().then((marcas) => {
       if (!marcas || !marcas.length) {
         // Sin índice (el paso de build no corrió) se cae al enlace de
@@ -3835,7 +3846,7 @@
   }
 
   function showListLoading() {
-    el.productList.innerHTML = `<p class="muted">Cargando productos…</p>`;
+    el.productList.innerHTML = htmlCargando("Cargando productos…");
     el.pagination.innerHTML = "";
   }
 
@@ -5620,7 +5631,7 @@
     const cs = getCompareState();
     const products = cs.ids.map((id) => productById(id)).filter(Boolean);
     if (faltanPorBajar(cs.ids).length) {
-      el.compareBody.innerHTML = `<div class="panel muted">Cargando productos…</div>`;
+      el.compareBody.innerHTML = `<div class="panel">${htmlCargando("Cargando productos…")}</div>`;
       ensureProductsByIds(cs.ids).then(() => {
         if (!el.viewCompare.classList.contains("hidden")) renderCompare();
       });
@@ -5690,7 +5701,7 @@
     // Los favoritos son ids sueltos guardados en este navegador: pueden ser
     // de categorías que todavía no se bajaron (ver ensureProductsByIds).
     if (faltanPorBajar(favIds).length) {
-      el.favoritesList.innerHTML = `<p class="muted">Cargando favoritos…</p>`;
+      el.favoritesList.innerHTML = htmlCargando("Cargando favoritos…");
       ensureProductsByIds(favIds).then(() => {
         if (!el.viewFavorites.classList.contains("hidden")) renderFavorites();
       });

@@ -4598,3 +4598,72 @@ tr.offer-compare-off { display: none; }
 .tabla-barato th { font-weight: 600; color: var(--muted); white-space: nowrap; }
 .tabla-barato .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .tabla-barato tbody tr:last-child td { border-bottom: 0; }
+
+/* ---------- Indicador de carga ---------- */
+/* Hasta ahora, mientras se bajaba un trozo del catálogo la lista decía
+   "Cargando productos…" y nada más. Un texto quieto no se distingue de una
+   página colgada: a los dos segundos el visitante no sabe si esperar o
+   recargar. La marca girando sí se distingue, y de paso dice de quién es la
+   página mientras no hay nada que mirar.
+
+   La C va incrustada como data-URI y no como <img src="icons/…">: el
+   indicador tiene que poder dibujarse ANTES de que termine de bajar nada, y
+   una petición más es justo lo que no hay en ese momento. Es el mismo trazo
+   de icons/icon.svg (mismo arco, mismo grosor relativo), en rojo y sin el
+   cuadro, para que se lea igual sobre claro y sobre oscuro. */
+.cargando {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 36px 16px;
+  text-align: center;
+}
+.cargando-marca {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 auto;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M34.24 31.18 A12.5 12.5 0 1 1 34.24 16.83" fill="none" stroke="%23FF0211" stroke-width="8.5" stroke-linecap="round"/></svg>') center / 26px 26px no-repeat;
+}
+/* El aro que da la vuelta: un borde circular con un solo lado pintado.
+   Girarlo entero es una sola propiedad animada (transform), que el
+   navegador resuelve sin volver a calcular el diseño de la página. */
+.cargando-marca::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--border);
+  border-top-color: var(--red);
+  /* Redondo a mano y no con --radius-circle, que en este sitio vale 0: las
+     esquinas cuadradas son de las cajas que uno lee, y un cuadrado girando
+     da tumbos en vez de girar. */
+  border-radius: 50%;
+  animation: cargando-giro 0.85s linear infinite;
+}
+@keyframes cargando-giro { to { transform: rotate(360deg); } }
+
+.cargando-texto {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* En línea, para los sitios donde el indicador no es el único contenido
+   (un botón que espera, una tarjeta que se rellena). */
+.cargando-linea {
+  flex-direction: row;
+  gap: 10px;
+  padding: 14px 0;
+  justify-content: flex-start;
+  text-align: left;
+}
+.cargando-linea .cargando-marca { width: 26px; height: 26px; background-size: 13px 13px; }
+.cargando-linea .cargando-marca::before { border-width: 2px; }
+
+/* Quien pidió menos movimiento no recibe un aro girando: la marca late
+   despacio, que sigue diciendo "esto está vivo" sin el giro. */
+@media (prefers-reduced-motion: reduce) {
+  .cargando-marca::before { animation: cargando-late 1.6s ease-in-out infinite; }
+  @keyframes cargando-late { 50% { opacity: 0.25; } }
+}
