@@ -239,12 +239,26 @@ def _ranking_pool(products, n):
     (sin clics/vistas/favoritos guardados): puntaje de reseñas, y como
     desempate la cantidad de vendedores. El orden de empate se resuelve por
     el orden del catálogo, igual que el sort estable de JavaScript."""
-    # Fuera del ranking las piezas sueltas: un filtro de aspiradora no compite
-    # con una aspiradora (mismo criterio que SUBCATEGORIAS_OPT_IN en
-    # js/app.js y generate_seo_pages.py; ver scripts/split_accesorios.py).
+    # El import va acá dentro, como el de `re` más arriba: este módulo no
+    # tiene imports de nivel superior; lo carga quien ya puso scripts/ en el
+    # path.
+    from roles_subcategorias import es_producto
+
+    # Fuera del ranking lo que no es el producto de su categoría: un filtro
+    # de aspiradora no compite con una aspiradora. Eso lo decía este
+    # comentario desde el principio, pero la única regla escrita era
+    # SUBCATEGORIAS_OPT_IN, o sea la subcategoría llamada literalmente
+    # "Accesorios" -- y los accesorios con cualquier otro nombre seguían
+    # compitiendo. Medido el 21 de septiembre de 2026: 6 de 6 en "Autos,
+    # bicicletas y motos" (cascos, autoestéreos, amplificadores), 5 de 6 en
+    # Instrumentos musicales, 3 de 6 en Televisores. Ahora lo contesta
+    # roles_subcategorias.py, que sabe qué papel juega cada subcategoría
+    # DENTRO de su categoría.
     candidates = [
         p for p in products
-        if not is_used(p) and p.get("subcategory") not in SUBCATEGORIAS_OPT_IN
+        if not is_used(p)
+        and p.get("subcategory") not in SUBCATEGORIAS_OPT_IN
+        and es_producto(p.get("category"), p.get("subcategory"))
     ]
     ranked = sorted(
         enumerate(candidates),

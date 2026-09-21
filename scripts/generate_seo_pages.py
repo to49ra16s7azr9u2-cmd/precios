@@ -1980,6 +1980,11 @@ def _piso_por_subcategoria(products):
 
 # Menos de esto la página sería una lista de veinte filas que dice lo mismo
 # que la categoría: no aporta y gasta presupuesto de rastreo.
+# Debajo de esto, el ranking de la categoría usa todas sus fichas en vez de
+# sólo las del papel "producto": más vale un ranking con accesorios que uno
+# de cuatro filas.
+MIN_PARA_RANKING_PROPIO = 12
+
 MIN_PARA_PAGINA_BARATO = 40
 BARATO_TOPE = 60
 
@@ -2214,6 +2219,25 @@ def render_category_page(cat, products, data):
     productos_listables = [
         p for p in products if p.get("subcategory") not in SUBCATEGORIAS_OPT_IN
     ]
+    # Y el ranking tampoco lista lo que no es el producto de la categoría.
+    # Medido el 21 de septiembre de 2026 en "Autos, bicicletas y motos": 8
+    # de los 10 primeros eran amplificadores de auto, autoestéreos y cascos
+    # de moto -- el primer vehículo aparecía en el sexto puesto. En
+    # Televisores, el primero y el tercero eran sticks de Roku.
+    #
+    # No se pierden: cada uno sigue en su subcategoría, con su página y su
+    # propio ranking, y desde acá se llega por los chips agrupados. Lo que
+    # cambia es qué contesta esta página, que se llama "ranking de <la
+    # categoría>". Si el corte dejara la lista casi vacía (una categoría
+    # que sea casi toda accesorios), se usa el conjunto completo antes que
+    # publicar un ranking de cuatro filas.
+    del_papel_producto = [
+        p for p in productos_listables
+        if es_producto(cat["name"], p.get("subcategory"))
+    ]
+    pool_ranking = (del_papel_producto
+                    if len(del_papel_producto) >= MIN_PARA_RANKING_PROPIO
+                    else productos_listables)
     canonical_path = f"/categoria/{slug}/"
     # Igual que en la de subcategoría: Google corta cerca de los 160
     # caracteres. Acá se volcaban TODAS las marcas de la categoría (la de
@@ -2232,7 +2256,7 @@ def render_category_page(cat, products, data):
     # desempate por número de vendedores: hoy ninguna oferta del catálogo
     # trae reseñas, así que sin él TODA la categoría empataba en 0 y el
     # "top 100" que ve el buscador era el orden crudo de importación.
-    ranked = sorted(products, key=lambda p: (total_review_count(p), seller_total(p)), reverse=True)
+    ranked = sorted(pool_ranking, key=lambda p: (total_review_count(p), seller_total(p)), reverse=True)
     # La página estática no es interactiva (no hay paginación de JS aquí),
     # así que se limita a un top fijo en vez de volcar la categoría entera:
     # sin esto, "Moda y accesorios" generaba un solo archivo HTML de ~4MB
@@ -2276,8 +2300,8 @@ def render_category_page(cat, products, data):
         )
     more_note = (
         f"<p class=\"muted small\" style=\"text-align:center; margin-top:10px\">"
-        f"Mostrando los {len(shown)} más populares de {len(productos_listables)}.</p>"
-        if len(productos_listables) > len(shown) else ""
+        f"Mostrando los {len(shown)} más populares de {len(pool_ranking)}.</p>"
+        if len(pool_ranking) > len(shown) else ""
     )
     # Enlaces a las subcategorías con página propia. Sin esto esas páginas
     # solo serían alcanzables desde el sitemap, que es la peor forma de que
