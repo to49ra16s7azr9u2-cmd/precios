@@ -3306,7 +3306,18 @@ def sub_instrumento(tn):
                  r'accesorios? para instrumentos|cuello de ganso|\bmaletin\b|'
                  r'girador de paginas|pasa ?paginas|page turner|\bde pagina\b|'
                  r'entrenador vocal|pajilla de canto|manijas? de instrumentos|'
-                 r'ebony wood blank|almohadillas? de fieltro|\bdiapasones?\b', tn): return 'Accesorios'
+                 r'ebony wood blank|almohadillas? de fieltro|\bdiapasones?\b|'
+                 # Última red (21-sep): la pieza suelta del amplificador y el
+                 # pedal de transcripción, que no son un instrumento.
+                 r'tubo de vacio|camara de reverberacion|\btermostato\b|control de pie|'
+                 r'\bacc\d{4}\b|\bpuno (clasico|tipo)', tn): return 'Accesorios'
+    # El instrumento de viento folclórico de palisandro es una flauta; las
+    # bocinas de resina del hulusi son su accesorio.
+    if re.search(r'bocinas? de resina|\bhulusi\b.{0,30}accesorio|boquilla', tn):
+        return 'Boquillas, cañas y accesorios de viento'
+    if re.search(r'instrumento (musical )?de viento|viento (folclorico|popular|metal)|'
+                 r'barra de palisandro|\bhulusi\b', tn):
+        return 'Ocarinas, silbatos y flautas dulces'
     return None
 
 
@@ -3372,12 +3383,15 @@ def sub_iluminacion(tn):
     # temperatura de color, sin decir nunca "foco".
     if re.search(r'gabinete (rejilla|vapor)|\bt8\b|\bt5\b|nave industrial', tn):
         return 'Lámparas industriales y de nave'
-    if re.search(r'\btira\b.{0,20}led|difusor(es)? (de )?(aluminio|led)|\bleds\b \d{3,4}', tn):
+    if re.search(r'\btira\b.{0,20}led|\bdifus|\bleds\b \d{3,4}', tn):
         return 'Tiras LED'
     if re.search(r'lamparas? (de )?mesa|lamparas? recargables?', tn): return 'Lámparas de escritorio'
     if re.search(r'\bgalaxia\b|\bproyector de estrellas\b|luz decorativa', tn): return 'Decorativa'
+    if re.search(r'\bpendulum\b|\bcolgante', tn): return 'Lámparas colgantes'
+    if re.search(r'vidrio facetado|\d ?lite\b|\bplafon', tn): return 'Lámparas de techo'
     if re.search(r'\b\d{1,3} ?w\b|\bwatts?\b|\b\d{4} ?k\b|blanco (frio|calido|neutro)|'
-                 r'\be27\b|\be26\b|\bg13\b|\bgu10\b|\btubo de led\b|equivalente a \d+ ?w', tn):
+                 r'\be27\b|\be26\b|\bg13\b|\bgu10\b|\btubo de led\b|equivalente a \d+ ?w|'
+                 r'led espiral|\bst\d{2}\b|\d tonos\b|\bmxlhn\b', tn):
         return 'Focos'
     return None
 
@@ -3397,9 +3411,11 @@ def sub_vehiculo(tn):
         return 'Estéreos para auto'
     if re.search(r'\bbackrest\b|bloque de cilindros|perno hueco|barras de choque|'
                  r'guarderia de barro|ruedas supermoto|bomba de freno trasera|'
-                 r'plataforma elevadora para motocicletas|interruptor de (parada|apagado) del motor', tn):
+                 r'plataforma elevadora para motocicletas|interruptor de (parada|apagado) del motor|'
+                 r'interruptor de apagado universal|parada de emergencia con cordon', tn):
         return 'Accesorios para moto'
-    if re.search(r'panos? de limpieza|microfibra para automoviles|\bvinipiel\b', tn):
+    if re.search(r'panos? de limpieza|microfibra para automoviles|\bvinipiel\b|'
+                 r'sensor de distancia ultrasonico|detector de estacionamiento|sensor de reversa', tn):
         return 'Accesorios y refacciones'
     # Familias que faltaban (20-sep): el arrancador, el escáner, el producto
     # de limpieza y la charola de batería no tenían rama y caían fuera.
@@ -3482,6 +3498,10 @@ def sub_vehiculo(tn):
         return 'Bicicletas'
     if re.search(r'\bauto\b|\bcoche\b|\bcarro\b|camioneta|\bautomovil\b', tn):
         return 'Autos'
+    # Al final: "bicicleta de montaña" y "MTB" los dice también la llanta,
+    # el sillín y la palanca de cambios. Aquí ya solo queda la bici entera.
+    if re.search(r'mountain bike|bicicleta de montana|\bmtb\b|\briprock\b|\bstarbike\b', tn):
+        return 'Bicicletas de montaña'
     return None
 
 
@@ -3789,6 +3809,16 @@ def sub_impresora(tn):
     if re.search(r'inyeccion|inkjet|deskjet|ecotank|\bofficejet\b|pixma|multifuncion|sublimacion|'
                  r'\btinta\b|\bepson l\d|\bsmart tank\b|\bcolor\b.{0,20}wifi', tn):
         return 'Inyección de tinta'
+    # Última red (21-sep): la impresora se vende por su modelo y su marca.
+    if re.search(r'instax mini link|hi-?print|impresora para smartphone|photo printer|'
+                 r'\bkodak\b ?\d{4}|\bpolaroid\b', tn):
+        return 'Fotográficas'
+    if re.search(r'impresora de tarjetas|\bevolis\b|\bbadgy\b|smart-?21|\bprimacy\b|\bymcko\b|'
+                 r'\btsc\b ?ttp|\bcz-?\d{4}\b|etiquetas|\d+ ?mm x \d+ ?m\b|portatil.{0,25}bluetooth',
+                 tn):
+        return 'Térmica'
+    if re.search(r'designjet|\bplotter\b|canon tc-|gran formato', tn): return 'Inyección de tinta'
+    if re.search(r'\bpantum\b|\bkyocera\b|\bapeos\b|\blaserjet\b|\bc11c', tn): return 'Láser'
     return None
 
 
@@ -3819,7 +3849,10 @@ def sub_blancos(tn):
                  r'almohadilla.{0,35}(calor|dolor|cuello y hombros)', tn):
         return 'Almohadillas y cojines térmicos'
     if (re.search(r'almohadillas?.{0,35}(cama|absorbente|impermeable|incontinencia|reutilizable)', tn)
-            and not re.search(r'\bprotector|\bcuna\b|\bpanal|\bbebe\b', tn)):
+            # El "protector" solo descarta cuando no abre el título: la
+            # "Almohadilla Absorbente ... Protectora" sí es de esta rama.
+            and (re.match(r'^(?:\S+ ){0,2}almohadillas?\b', tn)
+                 or not re.search(r'\bprotector|\bcuna\b|\bpanal|\bbebe\b', tn))):
         return 'Protectores de colchón impermeables'
     if re.search(r'\bsabanita', tn): return 'Sábanas para cuna y bebé'
     if re.search(r'fundas?.{0,25}(de|para) sillas?\b|cubre ?sillas?\b', tn): return 'Fundas para muebles'
@@ -3911,6 +3944,19 @@ def sub_red(tn):
     if re.search(r'\bcontroladora?\b.{0,30}(puertos|gigabit)|transceiver|\btransceptor|convertidor (de )?(multimedia|de medios|fibra)|'
                  r'\bsfp\b|protector ethernet|\bpoe\b', tn):
         return 'Switches'
+    # Última red (21-sep): el equipo de radioenlace y el punto de acceso de
+    # exterior se nombran por su modelo, no por su tipo.
+    if re.search(r'\bswitch\b|interruptor (de|exterior)|prosafe|\bcrs\d{3}|\bfs\d{3}\b|'
+                 r'\bpoe\b.{0,15}puertos', tn):
+        return 'Switches'
+    if re.search(r'access point|\brap\d|omnidireccional|catalyst|\bairmax\b|radio estacion|'
+                 r'bullet ?m\d|enlace inalambrico|estacion base|\bairmetro\b|\bantena\b|'
+                 r'\br5ac\b|adaptador inalambrico', tn):
+        return 'Access points'
+    if re.search(r'powerline|\bwpa\d{4}\b|extensor de (red|cobertura)', tn): return 'Repetidores'
+    if re.search(r'\bmalla\b|\bmesh\b|\beero\b|\bhalo h\d|\bh50g\b|\bmeraki\b|\bmx6\d\b|'
+                 r'gl\.? ?inet|\bzte\b.{0,10}4g|\brouter\b', tn):
+        return 'Routers'
     return None
 
 
@@ -3942,6 +3988,20 @@ def sub_clima(tn):
     if re.search(r'climatizador|enfriador (de aire|evaporativo)|cooler evaporativo', tn):
         return 'Climatizadores evaporativos'
     if re.search(r'ventilador|\bfan\b', tn): return 'Ventiladores'
+    # Última red (21-sep): el calefactor y el vaporizador se venden por su
+    # línea ("ComfortTemp", "UberHeat"), no por decir qué son.
+    if re.search(r'calentador (de )?(torre|ceramic|personal)|calefactor ceramic|comforttemp|'
+                 r'uberheat|\blasko\b|calentador personal', tn):
+        return 'Calefactores cerámicos y de aire'
+    if re.search(r'smart-?heat|calefactor (de )?(exterior|patio|terraza)|\bbromic\b', tn):
+        return 'Calefactores de exterior y patio'
+    if re.search(r'vaporizador|\bvapor\b|inhalador|warm steam|\bvicks\b|\bhwm\d{3}', tn):
+        return 'Humidificadores'
+    if re.search(r'obturador de escape|ac infinity|\bairlift\b|ducto de escape', tn):
+        return 'Extractores y ventilación'
+    if re.search(r'\d{2} ?inch|ventilador de techo|\bwestinghouse\b', tn):
+        return 'Ventiladores de techo'
+    if re.search(r'\bde mesa\b|\bbreezix\b', tn): return 'Ventiladores de mesa y clip'
     return None
 
 
@@ -4080,7 +4140,8 @@ def sub_mascota(tn):
                  r'\btoy(s)?\b|squeaky|\bchew\b|\bfetch\b|disco volador|\bfrisbee\b|varita|'
                  r'alfombra olfativa|\bsnuffle\b|\btunel\b|rueda de ejercicio|rueda para gato|'
                  r'laser (para|de) gato|\bplumero\b|\bcatnip\b|\bcuerda\b|\bcana\b (para|de) gatos?|'
-                 r'\bcana\b.{0,20}(pluma|cascabel)|juguetes? interactivo', tn):
+                 r'\bcana\b.{0,25}(pluma|cascabel|gatos?|interactiva)|juguetes? interactivo|'
+                 r'juego (grande )?para gatos', tn):
         return 'Juguetes'
     # Última red (21-sep) para lo que la cadena no reconoció.
     if re.search(r'purificador(a)? (de )?aire|control de olores|antiolores|aditivo de agua|'
@@ -4107,8 +4168,11 @@ def sub_mascota(tn):
     if re.search(r'fabricante (automatico )?de alimentos|pelletizador|procesador.{0,25}alimentos para mascotas',
                  tn):
         return 'Comederos automáticos'
-    if re.search(r'soporte elevado.{0,25}comida|comederos? elevados?|\bboles\b|\btazones?\b', tn):
+    if re.search(r'soporte elevado.{0,25}comida|comederos? elevados?|\bboles\b|\btazones?\b|'
+                 r'\belevados?\b.{0,20}(gatos?|perros?)', tn):
         return 'Comederos elevados'
+    if re.search(r'\bdispensador\b.{0,30}(boton|trate)|clicker|adiestramiento', tn):
+        return 'Adiestramiento'
     if re.search(r'inserto de lento|comedero lento|antivoracidad', tn):
         return 'Comederos lentos y antivoracidad'
     if re.search(r'dispensador (de )?agua|estacion de agua|fuente (de|para) agua', tn):
@@ -4137,6 +4201,13 @@ def sub_vigilancia(tn):
     if re.search(r'exterior|intemperie|\bip6[5-8]\b|impermeable|solar|floodlight|\boutdoor\b|\bbullet\b', tn): return 'Cámaras exteriores'
     if re.search(r'interior|\bbebe\b|mascota|\bindoor\b', tn): return 'Cámaras interiores'
     if re.search(r'camara|\bcam\b|\bcamera\b', tn): return 'Cámaras interiores'
+    # Última red (21-sep): la cámara bullet Dahua y el hub del timbre.
+    if re.search(r'\bhub\b.{0,15}chime|\bchime\b|\bh100\b|timbre', tn):
+        return 'Timbres inteligentes'
+    if re.search(r'kits? de seguridad|vision nocturna.{0,25}audio bidireccional', tn):
+        return 'Kits de vigilancia'
+    if re.search(r'\bdahua\b.{0,25}(cooper|b\d[a-z]\d{2}|x-spans)|\bbullet\b|\bdomo\b', tn):
+        return 'Cámaras exteriores'
     return None
 
 
@@ -4658,13 +4729,29 @@ def sub_herramienta(tn):
                  r'clave combinada|llave (combinada|espanola|allen|de tubo)|\bdados?\b|'
                  r'mango (l |de )?(de acero|forjado)|\bvastago\b|cojin redondo', tn):
         return 'Llaves y dados'
-    if re.search(r'cortadores? diagonal|\bpinzas?\b|pelacables|\bpericas\b|\balicate', tn):
+    if re.search(r'cortadores? diagonal|diagonal-?cutt|\bpinzas?\b|pelacables|\bpericas\b|\balicate|'
+                 r'klein tools d\d{3}', tn):
         return 'Pinzas y alicates'
     if re.search(r'\bhammer\b|\bmartillo\b|\bmazo\b|\bcincel', tn):
         return 'Martillos, cinceles y mazos'
     if re.search(r'\bphillips\b|desarmador|destornillador|\btip\b.{0,15}(md|ins)', tn):
         return 'Desarmadores y puntas'
     if re.search(r'soldering|soldadura|\bsoldador\b', tn): return 'Soldadura'
+    # El catálogo ferretero remata en marca + número de parte: "Craftsman
+    # 31639 100" son 100 piezas, "Irwin 10235 1 HSS" es una broca.
+    if re.search(r'\bhss\b|\bbrocas?\b|\birwin\b \d{4,}', tn): return 'Brocas'
+    if re.search(r'(craftsman|black\+?decker|apollo tools|stanley|truper|surtek) [a-z0-9+-]+ ?\d{0,4}$|'
+                 r'kit (de )?montaje|\bbda\d{4,}\b|\bdt\d{4}\b', tn):
+        return 'Juegos de herramientas'
+    if re.search(r'circula electrica|sierra circular|\bwx\d{3}', tn): return 'Sierras'
+    if re.search(r'deburring|swivel head|cortadora.{0,30}perforaciones|herramienta flexible', tn):
+        return 'Herramientas de corte manual'
+    if re.search(r'\btizador\b|\btiza\b|linea gruesa', tn): return 'Medición'
+    if re.search(r'roto\+?impacto|rotomartillo|\bp3\d{2}-\d{4}\b', tn): return 'Taladros y rotomartillos'
+    if re.search(r'\b49-66-\d{4}\b|\d/\d ?x ?\d', tn): return 'Llaves y dados'
+    if re.search(r'almacenamiento de herramientas|caja de herramientas|\borganizador\b', tn):
+        return 'Organización'
+    if re.search(r'\bpua\b|rondana|resorte de freno|\b48-22-\d{4}\b', tn): return 'Herramientas manuales'
     if re.search(r'cinta para pescado|empunadura para alambre|\bcable\b|sensor de proximidad|'
                  r'interruptor de proximidad', tn):
         return 'Material eléctrico'
@@ -4844,6 +4931,12 @@ def sub_tv(tn):
     # El accesorio de televisor (soporte, control, antena, patas, marco)
     # tiene subcategoría propia desde el 20-sep: eran 125 fichas sin
     # ninguna, y no se les puede inventar una resolución.
+    # El altavoz de repuesto DEL televisor sí es accesorio de televisor; el
+    # altavoz suelto y la barra de sonido no.
+    if re.search(r'(altavoz|altavoces|bocinas?).{0,40}(de repuesto|repuesto).{0,25}(tv|television)|'
+                 r'(altavoz|altavoces).{0,15}(de|para) (tv|television)|magic remote|'
+                 r'control(es)? remotos?.{0,30}(televisor|tv\b)', tn):
+        return 'Accesorios y soportes'
     if re.search(r'altavoz|altavoces|barra de sonido|auricular|audifono|\bbook\b|\bguide\b|'
                  r'\bproduction\b|tableta grafica|\brepetidor\b', tn):
         return None
@@ -4853,7 +4946,7 @@ def sub_tv(tn):
                  r'tiras? led (para|de) (tv|television)|protector de pantalla', tn):
         return 'Accesorios y soportes'
     if re.search(r'portatil|con ruedas|rodante', tn): return 'Portátiles'
-    if re.search(r'\b4k\b|qled|uhd|qned|oled|miniled|mini-led', tn): return '4K'
+    if re.search(r'\b4k\b|qled|uhd|qned|oled|mini ?-? ?led|\bbravia\b', tn): return '4K'
     if re.search(r'full hd|\bfhd\b|\bhd\b|1080p|720p|\b2k\b', tn): return 'HD'
     if re.search(r'pantalla|\btv\b|television|televisor', tn):
         sub = sub_tv_pulgadas(tn)

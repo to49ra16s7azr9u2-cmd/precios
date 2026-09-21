@@ -70,8 +70,11 @@ BASES = {
     # días, conversión validada 30 días después de terminado el mes, vigente
     # hasta el 31 de diciembre de 2026. Solicitado el 19 de septiembre de 2026.
     # Permite expresamente Comparison Engine, que es lo que es este sitio.
-    # Todavía no hay productos de Coppel en el catálogo: falta el importador.
-    "coppel": None,
+    # Aprobado. El enlace se verificó contra el generador de deeplinks del
+    # panel: pegando una url de coppel.com, el panel devuelve exactamente lo
+    # mismo que arma url_afiliado() con esta base, así que no hace falta
+    # pasar por el panel producto por producto.
+    "coppel":     "https://naiawork.com/g/gv50tsjuxf43517c81ee2d12238cbb/",
 
     # Walmart Súper OnDemand & Walmart Express (Admitad, MX): 2.5% CPS, cookie
     # de 30 días, validación 30 días después de terminado el mes, vigente hasta

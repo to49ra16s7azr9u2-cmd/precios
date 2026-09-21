@@ -4573,3 +4573,28 @@ tr.offer-compare-off { display: none; }
    tienen el suyo. Sin esto, el filtro de las páginas de marca contaba bien
    ("1 de 779 marcas") y no ocultaba nada. */
 [hidden] { display: none !important; }
+
+/* ---------- Página de "lo más barato" de una categoría ---------- */
+/* La primera línea es la respuesta corta a "<producto> mas barato": va
+   destacada porque es la que el buscador puede levantar como fragmento y la
+   que contesta a quien llegó desde esa búsqueda sin hacerle leer la lista. */
+.lead-barato {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  background: var(--card);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.tabla-scroll { overflow-x: auto; }
+.tabla-barato { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tabla-barato th, .tabla-barato td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+.tabla-barato th { font-weight: 600; color: var(--muted); white-space: nowrap; }
+.tabla-barato .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tabla-barato tbody tr:last-child td { border-bottom: 0; }

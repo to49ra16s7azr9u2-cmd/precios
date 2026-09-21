@@ -1827,6 +1827,21 @@ def faq_categoria(cat, products, ejes, ranked, tiendas_cat):
             f"El más barato está en {money(precios[0])}, el más caro en {money(precios[-1])} "
             f"y la mitad del catálogo se consigue por {money(mediana)} o menos."
         ))
+    # La pregunta que más se escribe en el buscador. Va segunda, justo
+    # después del precio: es la misma consulta al catálogo, y contestarla acá
+    # -- y no solo en /barato/<slug>/ -- es lo que hace que la categoría
+    # también pueda salir para "<producto> mas barato".
+    baratos = _barato_listables(products, cat)
+    if baratos:
+        pr_b, p_b = baratos[0]
+        sing_b = SINGULAR.get(cat["name"], (None, None))[0]
+        qa.append((
+            f"¿Cuál es {'el ' + sing_b if sing_b else 'el producto'} más barato en {nombre.lower()}?",
+            f"Hoy es {p_b['name']}, en {money(pr_b)}"
+            + (f", comparando {seller_total(p_b)} vendedores. " if seller_total(p_b) > 1 else ". ")
+            + f"La lista completa, ordenada de menor a mayor precio y sin accesorios, "
+              f"está en la página de {nombre.lower()} más baratos."
+        ))
     if ranked:
         top = ranked[0]
         qa.append((
@@ -1868,6 +1883,333 @@ def faq_categoria(cat, products, ejes, ranked, tiendas_cat):
         f'<div class="panel" id="preguntas">'
         f'<h2>{svg_icon("search")} Preguntas frecuentes</h2>{html}</div>'
     ), json_ld
+
+
+# ---------------------------------------------------------------------
+# La página de "lo más barato" de cada categoría
+# ---------------------------------------------------------------------
+# La búsqueda que más gente escribe no es "celulares" ni "mejores celulares":
+# es "celular mas barato". Hoy esa búsqueda la contestan artículos de
+# revista --una selección de siete modelos que alguien eligió a mano y que
+# envejece en un mes-- porque no hay nadie contestándola con precios de
+# verdad. Un comparador sí puede: la respuesta es una consulta al catálogo,
+# y cambia sola todos los días.
+#
+# El singular hace falta porque la búsqueda va en singular ("celular mas
+# barato", no "celulares mas baratos"). No se deduce con una regla: hay
+# categorías compuestas ("Autos, bicicletas y motos") donde el singular no
+# significa nada. Las que no están en el mapa publican la página igual, solo
+# que el titular va en plural.
+SINGULAR = {
+    "Celulares": ("celular", "el"),
+    "Laptops": ("laptop", "la"),
+    "Tabletas": ("tableta", "la"),
+    "Monitores": ("monitor", "el"),
+    "Bocinas": ("bocina", "la"),
+    "Teclados": ("teclado", "el"),
+    "Televisores": ("televisor", "el"),
+    "Lavadoras": ("lavadora", "la"),
+    "Aspiradoras": ("aspiradora", "la"),
+    "Cafeteras": ("cafetera", "la"),
+    "Refrigeradores": ("refrigerador", "el"),
+    "Impresoras": ("impresora", "la"),
+    "Drones": ("dron", "el"),
+    "Proyectores y accesorios": ("proyector", "el"),
+    "Relojes inteligentes": ("reloj inteligente", "el"),
+    "Cámaras de seguridad": ("cámara de seguridad", "la"),
+    "Computadoras de escritorio": ("computadora de escritorio", "la"),
+    "Audífonos y auriculares": ("audífono", "el"),
+    "Baterías portátiles (power bank)": ("power bank", "el"),
+    "Cargadores y adaptadores": ("cargador", "el"),
+    "Videojuegos": ("videojuego", "el"),
+    "Muebles": ("mueble", "el"),
+    "Herramientas": ("herramienta", "la"),
+    "Mascotas": ("producto para mascotas", "el"),
+    "Juegos de mesa": ("juego de mesa", "el"),
+    "Instrumentos musicales": ("instrumento musical", "el"),
+    "Libros": ("libro", "el"),
+    "Calzado": ("calzado", "el"),
+    "Suplementos": ("suplemento", "el"),
+    "Almacenamiento": ("disco", "el"),
+}
+
+# El producto más barato de una categoría casi nunca es el producto: es su
+# accesorio. Medido hoy: en Refrigeradores ganaba un filtro de vegetales de
+# $199, en Televisores un receptor de espejo de $224 y en Herramientas una
+# placa ciega de $38. La subcategoría "Accesorios" ya se iba, pero cada
+# categoría le puso otro nombre a lo mismo ("Accesorios y soportes",
+# "Material eléctrico", "Consumibles"), así que el filtro va por patrón.
+RE_SUB_NO_ES_EL_PRODUCTO = re.compile(
+    r"accesorio|repuesto|refacci|soporte|funda|carcasa|protector|"
+    r"cable|adaptador|cargador|consumible|cartucho|tinta|tóner|toner|"
+    r"filtro|material el[ée]ctrico|limpieza|mantenimiento|instalaci[óo]n|"
+    r"herrajes?|torniller[íi]a|pilas?\b|almohadillas?", re.I)
+
+# Lo que el patrón no puede saber: son productos de pleno derecho, pero no
+# son lo que busca quien escribe "<categoría> mas barato". El teléfono
+# alámbrico de $299 es un teléfono, y encabezaba "Celular más barato".
+SUBS_FUERA_DE_BARATO = {
+    "Celulares": {"Teléfonos fijos"},
+    "Televisores": {"Dispositivos de streaming"},
+    "Videojuegos": {"Tarjetas de regalo"},
+    # Un juego de cuerdas es un producto de pleno derecho y su subcategoría
+    # tiene fichas de sobra, así que ni el patrón ni la mediana lo tocan.
+    # Pero no es un instrumento, y el titular decía "el instrumento musical
+    # más barato: Cuerdas para guitarra eléctrica Darco".
+    "Instrumentos musicales": {"Cuerdas de guitarra y bajo"},
+}
+
+# Lo que queda después de los dos filtros de arriba son errores sueltos de
+# clasificación, y esta página los premia: el filtro de agua metido en
+# Refrigeradores vale $199 contra una mediana de miles, así que gana el
+# primer puesto de "el refrigerador más barato". No hace falta saber qué es
+# para descartarlo -- basta con que sea un precio imposible PARA SU PROPIA
+# subcategoría. Un foco de $35 entre focos de $80 se queda (es un foco
+# barato); un Fire Stick de $588 entre televisores 4K de $9,000 se va.
+UMBRAL_ATIPICO = 0.15
+MIN_PARA_MEDIANA = 8
+
+
+def _piso_por_subcategoria(products):
+    """{subcategoría: precio mínimo creíble} = 15% de su mediana.
+
+    Solo para las subcategorías con fichas suficientes: con cuatro productos
+    la mediana no dice nada y el piso saldría de la nada.
+    """
+    por_sub = collections.defaultdict(list)
+    for p in products:
+        pr = min_price(p)
+        if pr and p.get("subcategory"):
+            por_sub[p["subcategory"]].append(pr)
+    piso = {}
+    for sub, precios in por_sub.items():
+        if len(precios) < MIN_PARA_MEDIANA:
+            continue
+        precios.sort()
+        piso[sub] = precios[len(precios) // 2] * UMBRAL_ATIPICO
+    return piso
+
+
+# Menos de esto la página sería una lista de veinte filas que dice lo mismo
+# que la categoría: no aporta y gasta presupuesto de rastreo.
+MIN_PARA_PAGINA_BARATO = 40
+BARATO_TOPE = 60
+
+
+def _barato_listables(products, cat=None):
+    """Los productos de la categoría que pueden encabezar un "más barato".
+
+    Se van los accesorios (SUBCATEGORIAS_OPT_IN): en Celulares los veinte
+    productos más baratos del catálogo son pegamento, pinzas de apertura y
+    fundas. Una página que abra con eso contesta mal la pregunta y no la
+    vuelve a leer nadie.
+    """
+    fuera = SUBS_FUERA_DE_BARATO.get(cat["name"], set()) if cat else set()
+    piso = _piso_por_subcategoria(products)
+    salida = []
+    for p in products:
+        sub = p.get("subcategory")
+        if sub in SUBCATEGORIAS_OPT_IN or sub in fuera:
+            continue
+        if sub and RE_SUB_NO_ES_EL_PRODUCTO.search(sub):
+            continue
+        if sub in piso and (min_price(p) or 0) < piso[sub]:
+            continue
+        # Solo lo que tiene página propia, o sea lo que vieron dos tiendas.
+        # No es un capricho de coherencia interna: la ficha de un solo
+        # vendedor es de donde sale casi toda la basura mal clasificada, y
+        # esta página la premia -- el error más barato de la categoría le
+        # gana el titular al producto real. Medido hoy en Celulares: el
+        # primer puesto era un micrófono de $75 metido en "Android", y el
+        # segundo una pelota de voleibol en "Resistentes". Con dos tiendas
+        # de por medio ese ruido no llega: nadie cruza un error con otro.
+        if not tiene_pagina(p):
+            continue
+        pr = min_price(p)
+        if pr:
+            salida.append((pr, p))
+    salida.sort(key=lambda t: (t[0], t[1]["name"]))
+    return salida
+
+
+def _fila_barato(pr, p, prefijo, puesto):
+    """Misma fila que el ranking de la categoría, pero el puesto es el precio.
+
+    La insignia de posición (.rank-badge) se reutiliza tal cual: acá el 1 no
+    es "el más popular" sino "el más barato", y el resto del sitio ya sabe
+    dibujarla.
+    """
+    n = seller_total(p)
+    clase = f" rank-{puesto}" if puesto <= 3 else ""
+    return (
+        f'<div class="product-row has-rank{clase}">'
+        f'<span class="rank-badge">{puesto}</span>'
+        f'{product_photo_html(p, "row-icon")}'
+        f'<div class="row-info">'
+        f'<div class="row-brand">{html_escape(p["brand"])}</div>'
+        f'<div class="row-name">{enlace_producto(p, prefijo)}</div>'
+        f'<div class="muted small">'
+        + (f'{html_escape(str(p.get("subcategory")))} &middot; ' if p.get("subcategory") else "")
+        + (f'{n} vendedores comparados' if n > 1 else 'un vendedor')
+        + f'</div></div>'
+        f'<div class="row-priceblock">'
+        f'<div class="row-from">Desde</div>'
+        f'<div class="row-price">{money(pr)}</div></div>'
+        f'</div>'
+    )
+
+
+def render_barato_page(cat, products, data):
+    """/barato/<slug>/ — lo más económico de la categoría, con precio de hoy."""
+    slug = slugify(cat["name"])
+    nombre = cat["name"]
+    plural = nombre.lower()
+    sing, art = SINGULAR.get(nombre, (None, None))
+    # "la lavadora más barato" no lo escribe nadie. El artículo ya trae el
+    # género, así que el adjetivo sale de ahí.
+    bar = "barata" if art == "la" else "barato"
+    prefijo = "../../"
+    canonical_path = f"/barato/{slug}/"
+
+    orden = _barato_listables(products, cat)
+    mostrados = orden[:BARATO_TOPE]
+    barato_pr, barato_p = orden[0]
+    precios = [pr for pr, _ in orden]
+    mediana = precios[len(precios) // 2]
+
+    if sing:
+        h1 = f"{plural.capitalize()} más baratos de México"
+        titulo_seo = f"{sing.capitalize()} más {bar} en México"
+        pregunta = f"¿Cuál es {art} {sing} más {bar}?"
+    else:
+        h1 = f"{plural.capitalize()} más baratos de México"
+        titulo_seo = f"{nombre} baratos en México"
+        pregunta = f"¿Qué es lo más barato en {plural}?"
+
+    # La respuesta corta va primero y en una sola frase: es la que el
+    # buscador puede levantar tal cual como fragmento destacado.
+    respuesta = (
+        f"{'Hoy ' + art + ' ' + sing + ' más ' + bar + ' de México es' if sing else 'Hoy lo más barato es'} "
+        f"{barato_p['name']}, en {money(barato_pr)}, "
+        f"comparando {seller_total(barato_p)} vendedores."
+    )
+
+    # Lo más barato de cada tipo: es la tabla que un artículo de revista no
+    # puede escribir, porque tendría que revisar el catálogo entero cada día.
+    por_sub = {}
+    for pr, p in orden:
+        s = p.get("subcategory")
+        if s and s not in por_sub:
+            por_sub[s] = (pr, p)
+    filas_sub = "".join(
+        f'<tr><td>{html_escape(s)}</td>'
+        f'<td>{enlace_producto(p, prefijo)}</td>'
+        f'<td class="num">{money(pr)}</td></tr>'
+        for s, (pr, p) in sorted(por_sub.items(), key=lambda kv: kv[1][0])[:25]
+    )
+    tabla_sub = (
+        f'<div class="panel"><h2>{svg_icon("chart")} Lo más barato de cada tipo de '
+        f'{plural}</h2><div class="tabla-scroll"><table class="tabla-barato">'
+        f'<thead><tr><th>Tipo</th><th>El más barato hoy</th><th class="num">Precio</th></tr></thead>'
+        f'<tbody>{filas_sub}</tbody></table></div></div>'
+    ) if len(por_sub) >= 3 else ""
+
+    tiendas_cat = sorted({
+        store_by_id_name(p, o.get("storeId"))
+        for _pr, p in orden for o in (p.get("offers") or []) if o.get("storeId")
+    })
+
+    filas = "".join(
+        _fila_barato(pr, p, prefijo, i)
+        for i, (pr, p) in enumerate(mostrados, start=1)
+    )
+
+    qa = [
+        (pregunta, respuesta),
+        (
+            f"¿Cuánto hay que gastar como mínimo en {plural}?",
+            f"De los {len(orden):,} {plural} con precio que compara ComparaMEX, "
+            f"el más barato cuesta {money(precios[0])} y la mitad del catálogo "
+            f"está por debajo de {money(mediana)}. Abajo de {money(precios[0])} "
+            f"no hay nada hoy en las tiendas que seguimos."
+        ),
+    ]
+    if len(tiendas_cat) > 1:
+        qa.append((
+            f"¿Dónde comprar {plural} baratos en México?",
+            f"Esta lista compara el precio de cada modelo en {len(tiendas_cat)} tiendas: "
+            f"{', '.join(tiendas_cat[:8])}"
+            + ("." if len(tiendas_cat) <= 8 else f" y {len(tiendas_cat) - 8} más.")
+            + " El precio que se muestra es el más bajo de todas ellas."
+        ))
+    faq_html = "".join(
+        f'<div class="faq-item"><h3>{html_escape(p)}</h3><p>{html_escape(r)}</p></div>'
+        for p, r in qa
+    )
+
+    migas = (
+        f'<nav class="breadcrumb"><a href="{prefijo}">Inicio</a> &gt; '
+        f'<a href="{prefijo}categoria/{slug}/">{html_escape(nombre)}</a> &gt; Más baratos</nav>'
+    )
+
+    body = f"""
+{migas}
+<div class="list-head"><h1>{html_escape(h1)}</h1></div>
+<p class="lead-barato"><strong>{html_escape(pregunta)}</strong> {html_escape(respuesta)}</p>
+<p class="muted small">Precios de {HOY_LARGO}, tomados de {len(tiendas_cat)} tiendas
+mexicanas. La lista se rehace sola cada día: no es una selección escrita a
+mano, es el catálogo ordenado de menor a mayor precio. No entran accesorios,
+ni los productos que vimos en una sola tienda: un precio que nadie más
+confirma no sirve para decir qué es lo más barato.</p>
+{NOTA_LAG_HTML}
+<div class="panel"><h2>{svg_icon("chart")} Los {len(mostrados)} {plural} más baratos de hoy</h2>
+<div class="product-list">{filas}</div></div>
+{tabla_sub}
+<div class="panel" id="preguntas"><h2>{svg_icon("search")} Preguntas frecuentes</h2>{faq_html}</div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  <a class="buy-btn" href="{prefijo}categoria/{slug}/">Ver {html_escape(plural)}: ranking, guía y filtros →</a>
+</div>
+"""
+    breadcrumbs = breadcrumb_json_ld([
+        ("Inicio", f"{SITE_URL}/"),
+        (nombre, f"{SITE_URL}/categoria/{slug}/"),
+        ("Más baratos", None),
+    ])
+    lista_ld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": f"{titulo_seo} — {MES_ANIO}",
+        "numberOfItems": len([1 for _pr, p in mostrados if tiene_pagina(p)]),
+        "itemListElement": [
+            {"@type": "ListItem", "position": i,
+             "url": f"{SITE_URL}/producto/{p['id']}/", "name": p["name"]}
+            for i, (_pr, p) in enumerate(
+                [x for x in mostrados if tiene_pagina(x[1])], start=1)
+        ],
+    }, ensure_ascii=False, indent=2)
+    faq_ld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": p,
+             "acceptedAnswer": {"@type": "Answer", "text": r}}
+            for p, r in qa
+        ],
+    }, ensure_ascii=False, indent=2)
+    extra_head = (
+        f'<script type="application/ld+json">\n{breadcrumbs}\n</script>\n'
+        f'<script type="application/ld+json">\n{lista_ld}\n</script>\n'
+        f'<script type="application/ld+json">\n{faq_ld}\n</script>'
+    )
+    description = (
+        f"{titulo_seo}, {MES_ANIO}: desde {money(precios[0])}. "
+        f"{len(orden):,} modelos ordenados de menor a mayor precio, "
+        f"comparados en {len(tiendas_cat)} tiendas. Sin accesorios."
+    )[:158]
+    title = f"{titulo_seo} — {MES_ANIO} | ComparaMEX"
+    return page_shell(title, description, canonical_path, body, depth=2,
+                      extra_head=extra_head,
+                      og_image=next((p.get("photo") for _pr, p in mostrados if p.get("photo")), None))
 
 
 def render_category_page(cat, products, data):
@@ -2000,6 +2342,14 @@ def render_category_page(cat, products, data):
         indice.append('<a class="chip" href="#preguntas">Preguntas</a>')
     if ofertas_chip:
         indice.append(ofertas_chip)
+    # El chip de "más baratos" va al final y con su propia página detrás: es
+    # la entrada por la que llega quien buscó "<producto> mas barato", y
+    # desde acá es también el enlace que la hace rastreable.
+    if len(_barato_listables(products, cat)) >= MIN_PARA_PAGINA_BARATO:
+        indice.append(
+            f'<a class="chip chip-icono" href="../../barato/{slug}/">'
+            f'{svg_icon("tag")} Los más baratos</a>'
+        )
     indice_html = f'<div class="chip-row chip-row-indice">{"".join(indice)}</div>'
 
     body = f"""
@@ -2115,7 +2465,8 @@ def _urlset_xml(urls, lastmod=None, images=None):
     )
 
 
-def write_sitemaps(data, root, lastmod=None, ofertas_urls=(), marca_urls=()):
+def write_sitemaps(data, root, lastmod=None, ofertas_urls=(), marca_urls=(),
+                   barato_urls=()):
     """Escribe el árbol de sitemaps y devuelve las rutas escritas.
 
     Un solo sitemap.xml con más de 50,000 URLs es inválido para Google; en
@@ -2136,6 +2487,7 @@ def write_sitemaps(data, root, lastmod=None, ofertas_urls=(), marca_urls=()):
         for sub, _ in subcategorias_con_pagina(cat, productos_cat):
             page_urls.append(f"{SITE_URL}/categoria/{cat_slug}/{slugify(sub['name'])}/")
     page_urls.extend(ofertas_urls)
+    page_urls.extend(barato_urls)
     page_urls.extend(marca_urls)
     pages_path = os.path.join(root, "sitemap-pages.xml")
     if write_if_changed(pages_path, _urlset_xml(page_urls, lastmod)):
@@ -2322,7 +2674,8 @@ def render_producto_retirado(product, data):
     )
 
 
-def borrar_paginas_huerfanas(data, ofertas_vigentes, marcas_vigentes=None, dry_run=False):
+def borrar_paginas_huerfanas(data, ofertas_vigentes, marcas_vigentes=None,
+                             barato_vigentes=None, dry_run=False):
     """Borra las páginas de productos y categorías que ya no están.
 
     `ofertas_vigentes` son los slugs de categoría que SÍ tuvieron página de
@@ -2345,7 +2698,8 @@ def borrar_paginas_huerfanas(data, ofertas_vigentes, marcas_vigentes=None, dry_r
     # carpeta se borra acá.
     vivos = {p["id"] for p in data["products"] if tiene_pagina(p)}
     en_catalogo = {p["id"]: p for p in data["products"]}
-    borrados = {"producto": 0, "categoria": 0, "ofertas": 0, "marca": 0}
+    borrados = {"producto": 0, "categoria": 0, "ofertas": 0, "marca": 0,
+                "barato": 0}
     retirados = 0
 
     carpeta = os.path.join(ROOT, "producto")
@@ -2424,6 +2778,19 @@ def borrar_paginas_huerfanas(data, ofertas_vigentes, marcas_vigentes=None, dry_r
                 ruta = os.path.join(carpeta, nombre)
                 if os.path.isdir(ruta) and nombre not in marcas_vigentes:
                     borrados["marca"] += 1
+                    if not dry_run:
+                        shutil.rmtree(ruta)
+
+    # Igual que las de marca: una categoría que se queda por debajo del
+    # mínimo deja de generar su página de "lo más barato" y la vieja seguía
+    # publicada, con los precios del día en que se escribió.
+    if barato_vigentes is not None:
+        carpeta = os.path.join(ROOT, "barato")
+        if os.path.isdir(carpeta):
+            for nombre in os.listdir(carpeta):
+                ruta = os.path.join(carpeta, nombre)
+                if os.path.isdir(ruta) and nombre not in barato_vigentes:
+                    borrados["barato"] += 1
                     if not dry_run:
                         shutil.rmtree(ruta)
 
@@ -3028,6 +3395,29 @@ def main():
     print(f"Bajadas de precio publicables: {len(todas_bajadas):,} "
           f"({len(ofertas_urls)} páginas)")
 
+    # "<producto> más barato" es la búsqueda con más volumen del sector y hoy
+    # la contestan artículos de revista. La respuesta sale del catálogo, así
+    # que se publica como página propia por categoría.
+    barato_dir = os.path.join(ROOT, "barato")
+    os.makedirs(barato_dir, exist_ok=True)
+    barato_urls = []
+    barato_vigentes = set()
+    for cat in data["categories"]:
+        productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
+        if len(_barato_listables(productos_cat, cat)) < MIN_PARA_PAGINA_BARATO:
+            continue
+        slug = slugify(cat["name"])
+        d = os.path.join(barato_dir, slug)
+        os.makedirs(d, exist_ok=True)
+        path = os.path.join(d, "index.html")
+        if write_if_changed(path, render_barato_page(cat, productos_cat, data)):
+            written.append(path)
+            marcar(f"{SITE_URL}/barato/{slug}/")
+        barato_urls.append(f"{SITE_URL}/barato/{slug}/")
+        barato_vigentes.add(slug)
+
+    print(f"Páginas de \"lo más barato\": {len(barato_urls)}")
+
     # La portada no la escribe este script, pero su contenido (los carruseles
     # de data/home.json) sale del mismo catálogo: si cambió alguna ficha,
     # cambió también lo que se ve en la portada.
@@ -3036,7 +3426,7 @@ def main():
 
     # Las urls que ya no existen (productos borrados, subcategorías que
     # bajaron del mínimo) se sacan del registro para que no crezca sin fin.
-    vigentes = {f"{SITE_URL}/"} | set(ofertas_urls)
+    vigentes = {f"{SITE_URL}/"} | set(ofertas_urls) | set(barato_urls)
     vigentes |= {f"{SITE_URL}/producto/{p['id']}/" for p in data["products"] if tiene_pagina(p)}
     for cat in data["categories"]:
         slug = slugify(cat["name"])
@@ -3046,7 +3436,8 @@ def main():
             vigentes.add(f"{SITE_URL}/categoria/{slug}/{slugify(sub['name'])}/")
     lastmod = {u: f for u, f in lastmod.items() if u in vigentes}
 
-    written += write_sitemaps(data, ROOT, lastmod, ofertas_urls, marca_urls)
+    written += write_sitemaps(data, ROOT, lastmod, ofertas_urls, marca_urls,
+                               barato_urls)
 
     if write_if_changed(LASTMOD_FILE, json.dumps(lastmod, ensure_ascii=False, indent=0, sort_keys=True)):
         written.append(LASTMOD_FILE)
@@ -3056,7 +3447,7 @@ def main():
         written.append(robots_path)
 
     borrados = borrar_paginas_huerfanas(
-        data, ofertas_vigentes, {slug for _n, slug, _i in marcas})
+        data, ofertas_vigentes, {slug for _n, slug, _i in marcas}, barato_vigentes)
     if any(borrados.values()):
         print("Páginas borradas (el producto o la categoría ya no está): "
               + ", ".join(f"{v:,} de {k}/" for k, v in borrados.items() if v))

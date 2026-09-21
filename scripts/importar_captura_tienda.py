@@ -88,14 +88,28 @@ TIENDAS = {
         "store": {"id": "bodega_aurrera", "name": "Bodega Aurrerá", "hubRegion": None, "color": "#1E8E3E",
                   "logo": "BA", "typicalShippingDays": [2, 7]},
     },
+    # Coppel no se captura con el navegador como las dos de arriba: sus
+    # fichas se leen del sitemap que publica (ver coppel_sitemap.py) y
+    # coppel_a_captura.py las deja en este mismo formato. Lo que aporta
+    # entrar por acá son las guardas que ya están escritas -- deduplicado
+    # contra el catálogo, clasificación por título y techo de precio por
+    # subcategoría -- en vez de un importador propio que las repita.
+    "coppel": {
+        "dominios": ("coppel.com",),
+        "store": {"id": "coppel", "name": "Coppel", "hubRegion": None, "color": "#FFD100",
+                  "logo": "CP", "typicalShippingDays": [3, 10]},
+    },
 }
 
 RX_ID_URL = re.compile(r"/ip/(?:[^/?#]+/)*?(\d{6,})(?:[/?#]|$)")
+# Coppel numera distinto: /pdp/<slug>-pm-<id>.
+RX_ID_COPPEL = re.compile(r"/pdp/[^/?#]*-pm-(\d+)(?:[/?#]|$)")
 
 
 def id_de_url(url):
-    """El id de producto que va al final de las urls /ip/<slug>/<id>."""
-    m = RX_ID_URL.search(url_real(url) or url or "")
+    """El id de producto que va al final de la url, según la tienda."""
+    u = url_real(url) or url or ""
+    m = RX_ID_URL.search(u) or RX_ID_COPPEL.search(u)
     return m.group(1) if m else None
 
 

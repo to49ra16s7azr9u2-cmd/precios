@@ -117,7 +117,21 @@ _S_PENAL = {'Otras vitaminas': 40, 'Herbolaria y superalimentos': 40,
 
 
 def sub_suplemento_fino(tn):
-    return _primera(tn, _S, _S_PENAL)
+    sub = _primera(tn, _S, _S_PENAL)
+    if sub:
+        return sub
+    # Última red (21-sep): el probiótico se nombra por su marca y su cuenta
+    # de UFC ("60 billones", "18 mil millones de CFU").
+    if re.search(r'\bprobi[oó]?tic|\bbio-?k\b|afterbiotics|\btruflora\b|probioslim|'
+                 r'\d+ (billones|mil millones)|\bcepas\b|\bcfu\b|\bufc\b', tn):
+        return 'Probióticos y prebióticos'
+    if re.search(r'urolit(h)?ina?|\bd-?limoneno\b|\bcacao\b|remolacha|superbeets|'
+                 r'extracto de cascara', tn):
+        return 'Antioxidantes'
+    if re.search(r'\bdiosmina\b|salud vascular|microcirculacion|endocalyx|glicocaliz', tn):
+        return 'Salud y bienestar'
+    if re.search(r'\bprostat|\bfenogreco\b|salud hormonal', tn): return 'Salud hormonal y sexual'
+    return None
 
 
 # ------------------------------------------------------------ Cocina y comedor

@@ -18,7 +18,10 @@ import re
 def sub_cargador(tn):
     # Lo que no es cargador de pared ni de auto: el power bank (es de
     # Baterías portátiles), el adaptador Wi-Fi de domótica.
-    if re.search(r'power ?bank|banco de energia|bateria (externa|portatil)|\btuya\b|\bwifi\b|intelig', tn):
+    # "Inteligente" y "wifi" a secas también los dice el cargador de auto de
+    # carga rápida: el descarte pide que sea un enchufe o contacto smart.
+    if re.search(r'power ?bank|banco de energia|bateria (externa|portatil)|\btuya\b|'
+                 r'(enchufe|contacto|toma)\w*.{0,20}intelig|smart plug', tn):
         return None
     if re.search(r'bateria(s)? (para|de|compatible)? ?(camara|videocamara|canon|sony|nikon|motorola|radio|gopro|dji)|'
                  r'\blp-e\d|\bnp-[fw]\d|para videocamara|cargador (dual|doble|de bateria).{0,40}(bateria|baterias)|'
@@ -54,7 +57,11 @@ def sub_cargador(tn):
         return 'Para herramientas'
     if re.search(r'adaptador (universal )?de (viaje|enchufe|corriente)|adaptador universal|'
                  r'enchufe (europeo|americano|universal)|convertidor de (voltaje|enchufe)|'
-                 r'adaptador de alimentacion|fuente de (poder|alimentacion)', tn):
+                 r'adaptador de alimentacion|fuente de (poder|alimentacion)|'
+                 # La regleta, el multicontacto y la placa de pared con USB
+                 # son toma de corriente, no cargador de un aparato.
+                 r'\bregleta\b|multicontacto|extension electrica|tira de alimentacion|'
+                 r'extensor de alimentacion|placa de pared usb|\bgfci\b|conector de enchufe usb', tn):
         return 'Adaptador de corriente'
     if re.search(r'cargador|carga rapida|turbopower|\bpd\b|\bqc ?3|\bgan\b|de pared|'
                  r'\d+ ?w\b|multipuerto|adaptador', tn):
@@ -93,6 +100,24 @@ def sub_electro(tn):
                  r'maquina de (helados|palomitas|pan|pasta)|procesador|molino|picadora|'
                  r'parrilla electrica|plancha electrica|\bgriddle\b|vaporera|hervidor|'
                  r'freidora electrica|cafetera|tetera electrica|\bhervidora\b', tn):
+        return 'Pequeños electrodomésticos de cocina'
+    # Última red (21-sep): la marca y la línea dicen el aparato cuando el
+    # título no lo nombra ("Rowenta Perfomance 1725w DW2350").
+    if re.search(r'\browenta\b|\bt-fal\b.{0,25}(puregliss|fv\d)|\bdw\d{4}\b|\bfv\d{4}\b|'
+                 r'estacion de planchado|zapata (de )?teflon|manguera.{0,15}plancha|'
+                 r'suela antiadherente|\bplanchas\b', tn):
+        return 'Planchas'
+    if re.search(r'plancha y parrilla|\bgriddler\b|parrilla para interiores|\bgx1\d{2}\b', tn):
+        return 'Parrillas y planchas eléctricas'
+    if re.search(r'batidor (de )?mano|licuadora de mano|batidor de inmersion', tn):
+        return 'Licuadoras'
+    if re.search(r'robot de limpieza (de |automatica de )?(ventanas|vidrio|cristal)|\bhutt\b|'
+                 r'limpieza de vidrio inteligente', tn):
+        return 'Robots limpiacristales'
+    if re.search(r'extractor purificador|purificador.{0,25}(isla|de cocina)', tn):
+        return 'Campanas de cocina'
+    if re.search(r'\bcocina\b \w+ ?\d|puerta ciega', tn): return 'Estufas'
+    if re.search(r'mezclador para pan ?cake|dosificador.{0,20}pancake|pancake machine', tn):
         return 'Pequeños electrodomésticos de cocina'
     return None
 
@@ -235,6 +260,20 @@ def sub_otros(tn):
                  r'zapatera|estante|repisa|cubo (de )?basura|bote de basura|tendedero|'
                  r'burro de planchar|\bbandeja giratoria\b|separador de cajon', tn):
         return 'Organización del hogar'
+    # Última red (21-sep): la herramienta de limpieza del panel, el conector
+    # solar y el soporte de laptop, que no abren el título con "soporte". Va
+    # al final para no quitarle la ficha al baño ni a la organización.
+    if re.search(r'lavadora de paneles|limpieza.{0,30}(panel|solar)|cepillo.{0,30}(taladro|polvo)|'
+                 r'poste de extension|\bplumero\b|brocha para limpiar|paneles fotovoltaicos', tn):
+        return 'Accesorios y limpieza de paneles solares'
+    if re.search(r'(cable|conector|conectores).{0,25}solar|rack-?a-?tiers|\bmc4\b', tn):
+        return 'Kits solares y controladores de carga'
+    if re.search(r'panel de carga solar|sol-?pak|bateria(s)? solar(es)?', tn):
+        return 'Cargadores solares portátiles'
+    if re.search(r'bateria de expansion|\bsolix\b|\bbp2000\b', tn): return 'Estaciones de energía'
+    if re.search(r'soporte (para|de) (laptop|pc|micr[oó]fono|monitor)|soporte ajustable|'
+                 r'soporte de (brazo|silicona)|\bmount-?pc\b', tn):
+        return 'Soportes para dispositivos'
     return None
 
 
