@@ -3722,6 +3722,29 @@ def sub_escritorio(tn):
 
 def sub_blancos(tn):
     """Reparte Blancos y ropa de cama."""
+    # Familias que la ronda del 21-sep dejó sin repartir. Van primero porque
+    # todas llevan una palabra que más abajo se las lleva otra rama:
+    # "almohadilla" contra almohada, "funda" contra sábana.
+    if re.search(r'almohadilla (termica|calefactora|de calefaccion|de jade)|calentador de pies|'
+                 r'funda termica|colchon.{0,25}(termico|de masaje)|alfombra electrica calefactable|'
+                 r'almohadilla.{0,35}(calor|dolor|cuello y hombros)|almohadilla calefactora|'
+                 r'calefaccion usb|(manta|cojin).{0,25}(usb|calefactable)', tn):
+        return 'Almohadillas y cojines térmicos'
+    if re.search(r'almohadillas?.{0,35}(cama|absorbente|impermeable|incontinencia|reutilizable)', tn):
+        return 'Protectores de colchón impermeables'
+    if re.search(r'\bsabanita', tn): return 'Sábanas para cuna y bebé'
+    if re.search(r'fundas?.{0,25}(de|para) sillas?\b|cubre ?sillas?\b', tn): return 'Fundas para muebles'
+    if re.search(r'alfombrillas? (de|para) bano|alfombras? absorbentes', tn): return 'Tapetes de baño'
+    if re.search(r'falda (de|para) cama|^skirt\b|\bskirt\b.{0,30}(king|queen|microfibra|caida)', tn):
+        return 'Sábanas'
+    if re.search(r'funda impermeable.{0,35}(matrimonial|queen|king|individual|colchon)', tn):
+        return 'Protectores de colchón impermeables'
+    if re.search(r'funda (de |para )?colchon|bolsas? de colchon|sombrero de cama', tn):
+        return 'Protectores de colchón'
+    if re.search(r'funda decorativa|funda (de |para )?cojin', tn): return 'Almohadas'
+    if re.search(r'\bpillows?\b|rellenos? de (almohadon|hueco)|inserto lumbar|euro sham', tn):
+        return 'Almohadas'
+    if re.search(r'\bedrecolcha', tn): return 'Edredones'
     if re.search(r'^(?:\S+ ){0,3}(sabana|juego de cama|ropa de cama|funda de almohada)', tn): return 'Sábanas'
     if re.search(r'^(?:\S+ ){0,3}(edredon|colcha|quilt|duvet|cubrecama)', tn): return 'Edredones'
     if re.search(r'(cobija|manta|frazada)( calefactora| termica| calefactable)? (electrica|calefactora|termica|calefactable|con calefaccion|calentada)|manton calentado|chal (calefactor|calentado|termico)', tn): return 'Cobijas eléctricas'
@@ -4093,17 +4116,108 @@ def sub_juguete(tn):
     return None
 
 
+def sub_salud(tn):
+    """Salud. Lo que quedaba sin repartir era todo bucal: el irrigador, el
+    cepillo eléctrico, el hilo y su soporte, la pasta y el espejo dental."""
+    # El gel dental del veterinario es de Mascotas, no de Salud.
+    if re.search(r'\bperros?\b|\bgatos?\b|\bmascota|veterinari', tn):
+        return None
+    if re.search(r'\bdental\b|\bdientes\b|\bbucal\b|hilo dental|\bflosser\b|irrigador|'
+                 r'\bencias\b|\boral\b|\bdentobacteriana\b|pasta de dientes|cepillo de dientes', tn):
+        return 'Cuidado dental'
+    if re.search(r'\bbascula\b|\bbalanza\b|peso corporal', tn): return 'Básculas'
+    if re.search(r'\boximetro\b|baumanometro|presion arterial|\bglucometro\b|termometro|'
+                 r'estetoscopio|monitor de (presion|glucosa)', tn):
+        return 'Equipo de monitoreo médico'
+    if re.search(r'\bsilla de ruedas\b|\bandadera\b|\bbaston\b|\bmuletas?\b|\bandador\b', tn):
+        return 'Movilidad'
+    return None
+
+
+def sub_refaccion(tn):
+    """Refacciones. Dos familias enteras entraron sin subcategoría: el aspa
+    de nylon para motores diésel (que es ventilación de motor) y la cámara
+    de aire de la moto, que en México se llama "cámara" igual que la
+    fotográfica."""
+    if re.search(r'\baspas?\b|ventilador(es)? (nylon |tipo nylon |para |de )?motor|'
+                 r'ventilacion para motores|helice de nylon|ventiladores? (de|para) motores', tn):
+        return 'Enfriamiento y climatización'
+    if re.search(r'\bevaporador\b|\bcondensador\b|\bcongelador\b.{0,40}(vitrina|comercial)|'
+                 r'\bcompresor\b.{0,25}refriger', tn):
+        return 'Refacciones para refrigerador'
+    if re.search(r'camaras? (de aire |de butilo |llanta |para llantas? )?.{0,25}'
+                 r'(motocicleta|moto\b|italika|vento|cuatriciclo|\batv\b)|'
+                 r'camara.{0,15}\d{2,3}/\d{2,3}-?\d{2}|camara \d[.,]\d{2}', tn):
+        return 'Para motos'
+    return None
+
+
+def sub_decoracion(tn):
+    """Decoración de hogar y jardín solo tiene Espejos y Asadores, y lo que
+    quedaba sin repartir era casi todo espejo: de baño, de maquillaje, el
+    gabinete con espejo y el tocador iluminado. El interruptor y la lámpara
+    que cayeron acá no son decoración y se mueven de categoría."""
+    # El espejo va primero: media docena se anuncia "con interruptor
+    # inteligente" y la red de interruptores se los llevaba.
+    if re.search(r'\bespejo|\btocador\b|\bbotiquin\b|gabinete de medicina|\bvanity\b', tn):
+        return 'Espejos'
+    if re.search(r'\binterruptor|\bapagador|\bkcd1\b|\bla38\b|boton de encendido', tn):
+        return None
+    if re.search(r'\basador|\bparrilla|\bbarbacoa\b|\bahumador\b', tn):
+        return 'Asadores'
+    return None
+
+
+def sub_componentes(tn):
+    """Componentes y accesorios de PC. El disco y la PC armada que caen acá
+    se mueven de categoría; lo que se queda es memoria, componente y
+    accesorio, y la memoria se separa por generación porque es lo que el
+    comprador filtra."""
+    # La PC armada y el disco tienen categoría propia: no se les inventa
+    # una subcategoría de componente.
+    if re.search(r'\bpc gamer\b|computadora de escritorio armada|\bnas de escritorio\b', tn):
+        return None
+    if re.search(r'\bssd\b|disco duro|\bnvme\b|\bhdd\b|unidad de estado solido|'
+                 r'memoria usb|tarjeta (sd|micro ?sd)', tn):
+        return None
+    # El disipador y el ventilador PARA memoria son accesorio de memoria,
+    # no memoria: van antes de la red de DDR.
+    if re.search(r'(enfriador|ventilador|disipador|cooler).{0,40}(memoria|ram|ddr)|'
+                 r'(memoria|ram|ddr).{0,40}(enfriador|ventilador|disipador)', tn):
+        return 'Accesorios de memoria'
+    if re.search(r'\bddr5\b', tn):
+        return 'RAM DDR5 para laptop (SODIMM)' if re.search(r'sodimm|laptop|portatil|notebook', tn) \
+            else 'RAM DDR5 para PC de escritorio'
+    if re.search(r'\bddr4\b', tn):
+        return 'RAM DDR4 para laptop (SODIMM)' if re.search(r'sodimm|laptop|portatil|notebook', tn) \
+            else 'RAM DDR4 para PC de escritorio'
+    if re.search(r'\bddr3\b|\bddr2\b|\bddr\b|pc2-?\d{4}|pc3-?\d{4,5}|\bsdram\b', tn):
+        return 'RAM DDR3 y anteriores'
+    if re.search(r'memoria (ram|de escritorio|para)|modulos? de memoria|\brdimm\b|\becc\b', tn):
+        return 'Memoria RAM'
+    if re.search(r'refrigera(cion|dor) liquid|\baio\b.{0,15}(cpu|liquid)|\bprocesador\b|\bcpu\b|'
+                 r'tarjeta madre|\bmotherboard\b|tarjeta de video|fuente de poder|\bgabinete\b|'
+                 r'ventilador (de |para )?(gabinete|cpu|pc)|pasta termica', tn):
+        return 'Componentes'
+    if re.search(r'\badaptador|\bconvertidor|\bcable\b|\bbahia\b|\bcaddy\b|\bsoporte\b', tn):
+        return 'Accesorios'
+    return None
+
+
 def sub_camara(tn):
     # Familias que la ronda trajo y no tenían rama (20-sep).
-    if re.search(r'camara de video\b|videocamara|camcorder|\bordro\b|\bzv-?1\b|'
+    if re.search(r'camara de video\b|videocamara|camcorder|\bordro\b|\bzv-?1f?\b|'
                  r'camara de (mano|bolsillo)|\by3000\b|camara.{0,20}pantalla de \d', tn):
         return 'Videocámaras'
     if re.search(r'gafas (de sol )?con camara|camara de gafas|gafas.{0,20}grabacion|'
-                 r'camara.{0,25}(collar|casco)|\bpov\b', tn):
+                 r'camara.{0,25}(collar|casco)|collar de camara|\bpov\b|'
+                 r'camara 360|\b360\b.{0,15}(vr|panoram)|camara panoramica|\bpanono\b|'
+                 r'camara action|camara de pesca|camara de grabacion|\bwearable\b|'
+                 r'sports camera|diving.{0,25}camera|camara frontal.{0,40}(luz|casco|diadema)', tn):
         return 'Cámaras de acción'
     if re.search(r'\bsmile\+?\b|\binstax\b|\bpolaroid\b|camara instantanea', tn):
         return 'Instantáneas'
-    if re.search(r'\bsigma bf\b', tn):
+    if re.search(r'\bsigma bf\b|\bsigma\b.{0,12}\bbf\b', tn):
         return 'Mirrorless'
     if re.search(r'^(?:\S+ ){0,5}(montura|ventosa|tapa de lente|cabina 360|'
                  r'fuente de alimentacion|cable de alimentacion|brazo magico)\b', tn):
@@ -4122,13 +4236,17 @@ def sub_camara(tn):
                  r'marco|clip|tether|lanyard|correa)\b', tn): return 'Accesorios'
     if re.search(r'protector (de )?lente|protector de camara|mica (de|para) camara|para (iphone|samsung|galaxy|pixel|xiaomi)', tn):
         return 'Accesorios'
-    if re.search(r'gopro|camara (de )?accion|action cam|insta ?360|\bsjcam\b|\bakaso\b|dji (osmo|action)|'
+    if re.search(r'go ?pro|camara (de )?accion|action cam|insta ?360|\bsjcam\b|\bakaso\b|dji (osmo|action)|'
                  r'camara (de |para )?(cuerpo|corporal|policia|casco|bicicleta|moto|deportiva|sport)|'
                  r'body ?cam|sportcam|sport cam|dash ?cam|camara (para|de) (auto|carro)', tn): return 'Cámaras de acción'
-    if re.search(r'\bptz\b|transmision en vivo|\bstreaming\b|videoconferencia|\bwebcam\b', tn):
+    if re.search(r'\bptz\b|ptzoptics|transmision en vivo|\bstreaming\b|videoconferencia|\bwebcam\b|'
+                 r'camara web|camara de conferencia|camara de seguimiento|lapso (de )?tiempo', tn) \
+            and not re.search(r'camara digital|\bgafas\b', tn):
         return 'Videocámaras'
     if re.search(r'\bfpv\b|\bdji\b|\bmavic\b|\bdron\b|\bdrone\b|\bcardan\b|\bgimbal\b|\bruncam\b|\bvtx\b|'
                  r'modulo de camara|camara modulo|\bcaddx\b|\bimx\d{3}\b|\bcmos\b|\bcamera module\b|'
+                 r'\bov\d{4}\b|camara vga|walksnail|\bocular\b|caja mate|matte box|'
+                 r'camara de profundidad|\btof\b|'
                  r'industrial|\busada\b|\bused\b', tn):
         return 'Accesorios'
     if re.search(r'instantanea|instax|polaroid', tn): return 'Instantáneas'
@@ -4140,6 +4258,13 @@ def sub_camara(tn):
     # "lente" a secas se llevaba la cámara térmica ("lente de germanio"), el
     # domo IP y la grabadora láser: la subcategoría es para el objetivo
     # intercambiable, que dice su focal o su montura.
+    # El objetivo se vende por marca y focal, sin decir nunca "lente":
+    # "Samyang 12mm f/2.0", "Tamron 150-500 Mm". Va DESPUÉS de mirrorless y
+    # réflex porque la cámara con lente de kit también dice la focal.
+    if re.search(r'\b7artisans\b|\bsamyang\b|\btamron\b|\bviltrox\b|\bmeike\b|'
+                 r'\b(sigma|nikkor|laowa)\b.{0,20}\d{2,3} ?mm|\bcanon rf ?\d|lente telephoto|'
+                 r'\d{2,3} ?- ?\d{2,3} ?mm\b|\d{1,3} ?mm ?(f/|t)\d|ojo de pez|\bfisheye\b', tn):
+        return 'Lentes'
     if re.search(r'(lente|objetivo) .{0,30}(\bmm\b|f/|canon|nikon|sony|fujifilm|sigma|tamron|\bef\b|\brf\b|\bz\b)|'
                  r'teleobjetivo|(lente|objetivo) gran angular|\b\d{2,3} ?mm ?f\d|\bfujinon\b|\brokinon\b|'
                  r'\byongnuo\b.{0,15}\d{2}|lens x?f?\d{2}mm', tn): return 'Lentes'
@@ -4154,7 +4279,9 @@ def sub_camara(tn):
     if re.search(r'camara (digital|compacta|de fotos|fotografica|4k|para vlog|de vlog|deportiva|corporal|montada)|'
                  r'mini camara|\bvlog|powershot|\belph\b|\bixus\b|coolpix|cyber-?shot|\bdsc-\w+|'
                  r'camp snap|camara (retro|de pelicula|analogica|reutilizable|desechable|35 ?mm|tlr)|'
-                 r'estilo retro|camara portatil', tn): return 'Compactas'
+                 r'estilo retro|camara portatil|\breutilizable\b|\bdesechable\b|de un (solo )?uso\b|'
+                 r'quick snap|\btlr\b|mini retro|\bcompacta\b|zoom digital \d{1,2}x|llavero camara', tn):
+        return 'Compactas'
     return None
 
 
@@ -4476,17 +4603,45 @@ def sub_teclado(tn):
                  r'\bviking pro\b|alfombrilla|mouse ?pad|pedal (sustain|de expresion|sostenido)', tn):
         return None
     if re.match(r'^(?:\S+ ){0,2}(escritorio|mesa|silla|soporte|base|mouse|tablet|laptop|alarma)\b', tn):
+        # ...pero "Kit Mouse y Teclado Dell" es un combo y "Soporte de muñeca
+        # para teclado" es un accesorio de teclado: solo se descarta lo que
+        # no nombra el teclado.
+        if (re.search(r'\bteclado|keyboard|conjunto escritorio|\bmk\d{3}\b', tn)
+                and not re.search(r'partitura|musical|instrumento', tn)):
+            if re.match(r'^(?:\S+ ){0,2}(soporte|base)\b', tn):
+                return 'Switches, keycaps y accesorios'
+            if re.search(r'\bmouse\b|\braton\b|conjunto escritorio|\bmk\d{3}\b', tn):
+                return 'Combos con mouse'
+            return None
         return None
-    if re.search(r'trackpad|trackball|\b(25|32|37|44|49|54|61|76|88) teclas\b|casiotone|\bpsr|\byamaha\b|\bcasio\b|\balesis\b|\bpiano\b|\bkboard\b|'
-                 r'\bkosmos\b|\bkorg\b|\broland\b|teclado (musical|digital|infantil|portatil de)|\bmidi\b', tn):
+    # El número de teclas delata al teclado musical... salvo cuando el de
+    # computadora también lo dice: el compacto 60% tiene 61 teclas.
+    if (re.search(r'\b(25|32|37|44|49|54|61|76|88) teclas\b|casiotone|\bpsr|\byamaha\b|\bcasio\b|\balesis\b|\bpiano\b|\bkboard\b|'
+                  r'\bkosmos\b|\bkorg\b|\broland\b|teclado (musical|digital|infantil|portatil de)|\bmidi\b|'
+                  r'\belektron\b|analog heat|streichfett|\bworlde\b|melodic|coolmusic|'
+                  r'pedal de teclado|soporte de partitura|cable de instrumento', tn)
+            and not re.search(r'\bgamer\b|gaming|mecanic|rapid trigger|hot ?swap|'
+                              r'efecto hall|hall effect|\bqwerty\b|mini teclado|teclado mini', tn)):
+        return None
+    # "Trackpad" y "trackball" descartan el señalador suelto, no el teclado
+    # industrial que trae la bola ni el Magic Keyboard vendido con trackpad.
+    if re.search(r'trackpad|trackball', tn) and not re.search(r'\bteclado|keyboard', tn):
         return None
     if re.search(r'wrist rest|reposa ?munecas|keycaps?|\bswitch(es)?\b(?!.{0,20}(teclado|keyboard))|'
-                 r'\bo-?rings?\b|\bcoiled\b|cable (aviador|espiral)|\bkeycap', tn):
+                 r'\bo-?rings?\b|\bcoiled\b|cable (aviador|espiral)|\bkeycap|'
+                 r'keyboard cover|cubre ?teclado|protector de teclado|soporte de munec', tn):
         return 'Switches, keycaps y accesorios'
     if re.search(r'\bcombo\b.{0,25}(mouse|raton)|teclado y (mouse|raton)|'
                  r'(mouse|raton) y teclado|kit de teclado y|kit (gamer )?(de )?teclado|'
                  r'teclado.{0,20}\+.{0,15}(mouse|raton)|conjunto (de )?escritorio|\bmk\d{3}\b|'
                  r'\bdesktop\b.{0,15}(teclado|keyboard)|teclado.{0,10}y.{0,10}raton', tn):
+        return 'Combos con mouse'
+    # "Combo Logitech Pop Icon" y "Keyboard & Mouse": el combo se anuncia solo
+    # como "combo" y la marca, o en inglés. La bandeja y el soporte "para
+    # teclado y mouse" no son el combo, así que se descartan acá.
+    if (re.search(r'^combo\b|keyboard (&|and|\+) mouse|(mouse|raton) (and|&|\+) keyboard|'
+                  r'keyboard.{0,15}mouse\b', tn)
+            and not re.search(r'\bstand\b|\bsoporte\b|\brack\b|\bbandeja\b|\bbrazo\b', tn)):
         return 'Combos con mouse'
     if re.search(r'teclado numerico|\bnumpad\b|pad numerico', tn):
         return 'Numéricos'
@@ -4497,15 +4652,23 @@ def sub_teclado(tn):
                  # El teclado gamer de última hornada se vende por su
                  # interruptor magnético de efecto Hall y no dice "mecánico".
                  r'efecto hall|hall effect|interruptor(es)? magnetic|rapid trigger|'
-                 r'\battack shark\b|\bnuphy\b|\bmchose\b|pulsar gaming|\bazeron\b', tn):
+                 r'\battack shark\b|\bnuphy\b|\bmchose\b|pulsar gaming|\bazeron\b|'
+                 # Familias que se venden por su nombre y nunca dicen
+                 # "mecánico": Blackwidow, Fizz, Skiller, GK61, Mercury V75.
+                 r'blackwidow|huntsman|\bfizz\b|skiller|\bsgk\d{2}|\bgk\d{2}\b|gravastar|'
+                 r'\bajazz\b|magegee|hk gaming|\bkailh\b|mercury v\d{2}|\btkl\b|tenkeyless', tn):
         return 'Mecánicos'
-    if 'membrana' in tn:
+    if re.search(r'membrana|membran\b|membrane', tn):
         return 'Membrana'
     if re.search(r'inalambric|bluetooth|wireless|2\.4 ?ghz|magic keyboard|\bfolio\b|para ipad|para tablet|smart keyboard', tn):
         return 'Inalámbricos'
     # Con cable y sin decir mecánico, hoy es de membrana (o de tijera, que
     # el catálogo no distingue): el Logitech K120, el Lenovo KU-1601.
     if re.search(r'\busb\b|alambric|con cable|\bwired\b|\bqwerty\b|\bteclado\b.{0,30}(lenovo|logitech|\bhp\b|dell|acteck|perfect choice|steren|vorago|macally|espanol)', tn):
+        return 'Membrana'
+    # Ya estamos dentro de Teclados y el título solo dice "Teclado <marca>
+    # <modelo>": sin mención de mecánico ni de inalámbrico, es de membrana.
+    if re.search(r'\bteclado\b|keyboard\b', tn):
         return 'Membrana'
     return None
 

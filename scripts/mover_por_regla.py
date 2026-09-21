@@ -550,8 +550,60 @@ REGLAS = [
     ('Domótica y hogar inteligente', r'manija de puerta|\bkwikset\b(?!.{0,20}intelig)', None,
      'Herramientas', 'Cerraduras y candados', {None}),
 
+    # Blancos y ropa de cama: el colchón, la cabecera y el sofá infantil
+    # tienen categoría propia en Muebles (21-sep).
+    ('Blancos y ropa de cama', r'colchon.{0,25}(cuna|cochecito|bebe)|colchon de cuna', None,
+     'Muebles', 'Colchones infantiles y de cuna', {None}),
+    ('Blancos y ropa de cama',
+     r'^(?:\S+ ){0,3}colchon\b|colchon (de latex|organico|ecologico|plegable|hibrido)',
+     r'funda|protector|topper|sobrecolchon', 'Muebles', 'Colchones', {None}),
+    ('Blancos y ropa de cama', r'sofa plegable|sillon infantil', None,
+     'Muebles', 'Sofás infantiles', {None}),
+    ('Blancos y ropa de cama', r'^(?:\S+ ){0,2}respaldo\b|\bcabecera\b', None,
+     'Muebles', 'Cabeceras', {None}),
+    ('Blancos y ropa de cama', r'night ?guard|protector (bucal|dental)|rechinar los dientes', None,
+     'Salud', 'Cuidado dental', {None}),
+    ('Blancos y ropa de cama', r'pistola masajeadora|\btheragun\b|masajeador', None,
+     'Belleza y cuidado personal', 'Masajeadores', {None}),
+
+    # Decoración solo tiene Espejos y Asadores: el interruptor industrial y
+    # la lámpara que cayeron ahí pertenecen a otra categoría (21-sep).
+    ('Decoración de hogar y jardín',
+     r'^(?:\S+ ){0,3}(interruptor|apagador|boton de encendido)|\bkcd1\b|\bla38\b',
+     r'\bespejo|\btocador\b', 'Herramientas', 'Material eléctrico', {None}),
+    ('Decoración de hogar y jardín', r'aplique de pared|barra de luz led|tira de pared', r'\bespejo',
+     'Iluminación', 'Lámparas de pared', {None}),
+    ('Decoración de hogar y jardín', r'lampara (de )?escritorio', r'\bespejo',
+     'Iluminación', 'Lámparas de escritorio', {None}),
+    # Componentes y accesorios de PC: el disco y la PC armada tienen
+    # categoría propia y no una subcategoría de componente.
+    ('Componentes y accesorios de PC', r'\bnas de escritorio\b|\bnas\b.{0,25}bahias', None,
+     'Almacenamiento', 'NAS', {None}),
+    ('Componentes y accesorios de PC', r'\bpc gamer\b|computadora (de escritorio )?armada', None,
+     'Computadoras de escritorio', 'Torre', {None}),
+    ('Componentes y accesorios de PC', r'\bssd\b|\bnvme\b|disco duro|unidad de estado solido',
+     r'\bpc gamer\b|\bnas\b', 'Almacenamiento',
+     # Los ids de Almacenamiento no son los nombres: 'SSD' e 'Interno'.
+     lambda tn: 'SSD' if re.search(r'\bssd\b|\bnvme\b|estado solido', tn) else 'Interno',
+     {None}),
+
+    # Lo que la tienda colgó de Cámaras sin serlo (21-sep): el comedero con
+    # cámara, la cámara de aire del scooter y el escáner de piel de salón.
+    ('Cámaras y fotografía', r'\bcomedero\b|alimentador automatico|dispensador de comida', None,
+     'Mascotas', 'Comederos automáticos', {None}),
     ('Cámaras y fotografía',
-     r'camara de (salpicadero|tablero|respaldo|reversa)|\bdash ?cam\b|camara.{0,20}retrovisor|'
+     r'camara reforzada|camara.{0,35}(scooter|patin electrico)|valvula de neumatico|'
+     r'neumatico sin camara',
+     None, 'Refacciones', 'Para patinetas eléctricas', {None}),
+    ('Cámaras y fotografía', r'analizador facial|iriscopio|cuero cabelludo|escaner de piel', None,
+     'Belleza y cuidado personal', 'Dispositivos de cuidado facial', {None}),
+    ('Cámaras y fotografía',
+     r'camaras? interiores?|camara wifi solar|kit inalambrico con zoom|\bring 2\b',
+     r'camara de accion|gopro', 'Cámaras de seguridad', 'Cámaras interiores', {None}),
+    ('Cámaras y fotografía', r'\bblader\b.{0,30}balon|camara.{0,15}latex.{0,20}balon', None,
+     'Deportes y fitness', 'Balones', {None}),
+    ('Cámaras y fotografía',
+     r'camara de (salpicadero|tablero|respaldo|reversa)|camara salpicadero|\bdash ?cam\b|camara.{0,20}retrovisor|'
      r'\bthinkware\b|\bfitcamx\b|\bauto-?vox\b|\bcrimestopper\b|\balpine hce\b|\bmufu\b|'
      r'cobertura para mando de llave',
      None, 'Autos, bicicletas y motos', 'Dashcams y cámaras', {None}),

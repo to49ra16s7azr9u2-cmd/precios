@@ -112,6 +112,9 @@ REPARTIDORES = {
     "Drones": "sub_dron", "Equipo comercial": "sub_comercial", "Viajes": "sub_viaje",
     "Impresión 3D": "sub_impresion3d", "Movilidad eléctrica": "sub_movilidad",
     "Proyectores y accesorios": "sub_proyector", "Otros": "sub_otros",
+    "Decoración de hogar y jardín": "sub_decoracion",
+    "Salud": "sub_salud", "Refacciones": "sub_refaccion",
+    "Componentes y accesorios de PC": "sub_componentes",
 }
 
 
