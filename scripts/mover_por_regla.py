@@ -638,6 +638,12 @@ def main():
             s2 = sub2(tn) if callable(sub2) else sub2
             if not s2 or s2 not in reg.get(cat2, ()):
                 break
+            # Mover una ficha a donde ya está no es un movimiento: la regla
+            # de piezas de bocina alcanzaba también a las que ya estaban en
+            # "Accesorios para bocinas", y esas 50 llenaban el informe y el
+            # grupo que se aplicaba, tapando los movimientos de verdad.
+            if cat2 == cat and s2 == (p.get('subcategory') or None):
+                break
             k = f"{cat} | {p.get('subcategory')} | {cat2} | {s2}"
             grupos[k].append(p['id'])
             if len(muestras[k]) < args.muestras:

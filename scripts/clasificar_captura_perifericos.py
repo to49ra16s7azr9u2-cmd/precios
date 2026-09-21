@@ -3757,9 +3757,33 @@ def sub_mascota(tn):
     # Familias que faltaban (20-sep): la tienda de campaña y la casa de
     # exterior, la barrera y el parque, la urna conmemorativa, el inodoro y
     # el pasto entrenador, la carriola y el trolley de viaje.
-    if re.search(r'tienda de (campana|perros)|carpas?\b|tienda para perros|\bcanopy\b|'
-                 r'casa (al aire libre|de refrigeracion)|\biglu\b|\bcueva\b', tn):
+    if re.search(r'tienda.{0,25}campana|tienda (de|para) (perros|gatos|mascotas)|carpas?\b|'
+                 r'\bcanopy\b|casa (al aire libre|de refrigeracion)|\biglu\b|\bcueva\b|'
+                 r'casa semi cerrada', tn):
         return 'Cuevas, iglús y tiendas para mascotas'
+    # Alimentación: el comedero automático, el plato, el antivoracidad y la
+    # fuente son productos distintos y el rubro ya los separa.
+    if re.search(r'(dispensador|comedero|alimentador).{0,25}(automatic|programable)|'
+                 r'automatico.{0,25}(perros|gatos|mascotas).{0,25}(2l|capacidad|pasos)|'
+                 r'\d+ horarios de comida', tn):
+        return 'Comederos automáticos'
+    if re.search(r'alimentacion lenta|antivoracidad|comedero lento', tn):
+        return 'Comederos lentos y antivoracidad'
+    if re.search(r'fuente.{0,20}(beber|agua)|bebedero automatico|botella.{0,15}beber', tn):
+        return 'Fuentes y dispensadores de agua'
+    if re.search(r'recipiente.{0,25}(mascotas|perros|gatos)|plato.{0,20}(perro|gato)|'
+                 r'\btazon(es)?\b.{0,20}(perro|gato|mascota)', tn):
+        return 'Platos y tazones para mascotas'
+    if re.search(r'almacenamiento de comida|cubo de comida|contenedor.{0,20}(croquetas|alimento)|'
+                 r'caja de bocadillos', tn):
+        return 'Tapetes y accesorios de alimentación'
+    if re.search(r'\bteaser\b|juguete.{0,20}(gato|gatos)|gota de agua.{0,25}gato', tn):
+        return 'Juguetes para gato'
+    if re.search(r'bandera sanitaria|bandeja sanitaria', tn): return 'Higiene y limpieza'
+    if re.search(r'sofa.{0,20}(mascotas|perros|gatos)|felpa.{0,20}mascotas', tn):
+        return 'Camas para perro'
+    if re.search(r'hamster cage|jaula.{0,20}(hamster|roedor|cobayo)', tn):
+        return 'Jaulas y hábitats para roedores'
     if re.search(r'barrera (ajustable|para)|\bparque\b (de juegos|infantil)|\bcorral\b|'
                  r'reja (para|de) (mascota|perro)|\bplaypen\b', tn):
         return 'Corrales y rejas para mascotas'
