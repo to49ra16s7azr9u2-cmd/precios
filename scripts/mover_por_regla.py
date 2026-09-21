@@ -550,6 +550,73 @@ REGLAS = [
     ('Domótica y hogar inteligente', r'manija de puerta|\bkwikset\b(?!.{0,20}intelig)', None,
      'Herramientas', 'Cerraduras y candados', {None}),
 
+    # Televisores y Lavadoras: la mitad de lo que colgaba de ahí era el
+    # accesorio de otra categoría (21-sep).
+    ('Televisores', r'auriculares? (inalambricos? )?(para|digitales para)|\bavantree\b|\bsennheiser\b|'
+     r'solidcom|altavoz de tv inalambrico.{0,40}audicion',
+     None, 'Audífonos', 'Diadema inalámbrica', {None}),
+    ('Televisores', r'mueble para tv|repisas? flotantes?|estante elevador', None,
+     'Muebles', 'Mesas para TV y consolas', {None}),
+    ('Televisores', r'tableta grafica|\bxppen\b', None, 'Tabletas', 'Tabletas de dibujo', {None}),
+    ('Televisores', r'sports production|logbook|complete guide to live', None,
+     'Libros', 'Técnicos y profesionales', {None}),
+    ('Televisores', r'barras? de luz rgbic|\bgovee\b', None, 'Iluminación', 'Tiras LED', {None}),
+    ('Televisores', r'amplificador wifi|repetidor inalambrico', None, 'Redes', 'Repetidores', {None}),
+    ('Televisores', r'juguete interactivo para perro|wobble wag', None,
+     'Mascotas', 'Juguetes para perro', {None}),
+    ('Televisores', r'altavoz de piso|\bmaxxbass\b|q acoustics', None, 'Bocinas', 'Bocinas Bluetooth', {None}),
+    ('Lavadoras', r'bano de pies|masaje.{0,20}pies', None,
+     'Belleza y cuidado personal', 'Cuidado personal', {None}),
+    ('Lavadoras', r'fregadora de (pisos|suelos)', None, 'Aspiradoras', 'Limpiadoras de pisos', {None}),
+    ('Lavadoras', r'estantes? (de almacenamiento )?para lavadora|mini estantes para lavadora|'
+     r'elevadores de (mesa|cama)',
+     None, 'Muebles', 'Repisas', {None}),
+    ('Lavadoras', r'tapete (de microfibra|frio)|tapetes? refrescante', None,
+     'Mascotas', 'Tapetes y accesorios de alimentación', {None}),
+    ('Lavadoras', r'cable para secadora', None, 'Refacciones', 'Refacciones para lavadora y secadora', {None}),
+    ('Lavadoras', r'ahorro de electricidad|protector de sobretensiones|\bgfci\b|enchufe de reemplazo', None,
+     'Herramientas', 'Material eléctrico', {None}),
+    ('Lavadoras', r'alfombras? (absorbente|de bano)|protector de colchon|compresa caliente|'
+     r'almohadilla termica',
+     None, 'Blancos y ropa de cama', 'Tapetes de baño', {None}),
+    ('Lavadoras', r'purificador(es)? de aire', None, 'Climatización', 'Purificadores de aire', {None}),
+    ('Lavadoras', r'platillos de bateria|tuercas de ala', None,
+     'Instrumentos musicales', 'Baterías', {None}),
+
+    # Iluminación: la placa ciega y la extensión de uso rudo son material
+    # eléctrico, y el foco inteligente es de Domótica (21-sep).
+    ('Iluminación',
+     r'placas? (ciega|de \d ?modulo|de \d+ modulos)|\blugano\b|'
+     r'extension uso rudo|adaptador clavija|\bclavija\b',
+     r'intelig|wifi|smart|tuya|alexa', 'Herramientas', 'Material eléctrico', {None}),
+    ('Iluminación', r'smart led bulb|foco intelig|\bnexxt\b.{0,20}smart', None,
+     'Domótica y hogar inteligente', 'Focos inteligentes', {None}),
+
+    # Herramientas: la báscula de cocina y el batidor no son herramienta.
+    ('Herramientas', r'\bbascula\b|\bbalanzas?\b|juego de pesas de escala', None,
+     'Cocina y comedor', 'Básculas y medidores', {None}),
+    ('Herramientas', r'\bbatidor\b|herramienta multiusos de cocina', None,
+     'Cocina y comedor', 'Utensilios de cocina', {None}),
+    ('Herramientas', r'lente de camara trasera|maniqui|modelo de anatomia|'
+     r'herramientas de dibujo|figures de dibujo',
+     None, 'Otros', 'Varios', {None}),
+    ('Herramientas', r'maquina de prensado en caliente|prensa de calor', None,
+     'Equipo comercial', 'Prensas de calor', {None}),
+
+    # Mascotas: el equipo veterinario, el humidificador con forma de gato y
+    # el esmalte "ojo de gato" (21-sep). Ninguno es un producto de mascota.
+    ('Mascotas',
+     r'oximetro|monitor.{0,30}(frecuencia cardiaca|presion arterial)|detector de pulso|'
+     r'ultrasonido veterinario|equipo veterinario|uso veterinario',
+     None, 'Salud', 'Equipo de monitoreo médico', {None}),
+    ('Mascotas', r'\bbascula\b|\bb\?scula\b', None, 'Salud', 'Básculas', {None}),
+    ('Mascotas', r'humidificador', None, 'Climatización', 'Humidificadores', {None}),
+    ('Mascotas', r'esmalte en gel|\bbeetles\b.{0,25}esmalte', None,
+     'Belleza y cuidado personal', 'Uñas', {None}),
+    ('Mascotas', r'silla infantil|taburete infantil|silla montessori|set mesa cuadrada con silla', None,
+     'Muebles', 'Sillas infantiles', {None}),
+    ('Mascotas', r'feather flag|\bbandera\b', None, 'Otros', 'Varios', {None}),
+
     # Autos: el coche de juguete y el libro de motos (21-sep). El de
     # juguete se reconoce por la escala, la marca y el "para niños".
     ('Autos, bicicletas y motos',

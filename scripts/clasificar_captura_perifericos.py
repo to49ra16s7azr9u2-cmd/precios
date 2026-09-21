@@ -3323,6 +3323,17 @@ def sub_iluminacion(tn):
     if re.search(r'\blampara\b|\bluz\b|\bluces\b|anuncio luminoso|letrero|cartel|\bneon\b|iluminacion|'
                  r'\blamp\b|\blights?\b|\bwinled\b|\btecnolite\b|\bvolteck\b|\bmundo lucido\b|\bsanelec\b', tn):
         return 'Decorativa'
+    # Última red (21-sep): el foco y el tubo se venden por su potencia y su
+    # temperatura de color, sin decir nunca "foco".
+    if re.search(r'gabinete (rejilla|vapor)|\bt8\b|\bt5\b|nave industrial', tn):
+        return 'Lámparas industriales y de nave'
+    if re.search(r'\btira\b.{0,20}led|difusor(es)? (de )?(aluminio|led)|\bleds\b \d{3,4}', tn):
+        return 'Tiras LED'
+    if re.search(r'lamparas? (de )?mesa|lamparas? recargables?', tn): return 'Lámparas de escritorio'
+    if re.search(r'\bgalaxia\b|\bproyector de estrellas\b|luz decorativa', tn): return 'Decorativa'
+    if re.search(r'\b\d{1,3} ?w\b|\bwatts?\b|\b\d{4} ?k\b|blanco (frio|calido|neutro)|'
+                 r'\be27\b|\be26\b|\bg13\b|\bgu10\b|\btubo de led\b|equivalente a \d+ ?w', tn):
+        return 'Focos'
     return None
 
 
@@ -3881,7 +3892,7 @@ def sub_mascota(tn):
     # Familias que faltaban (20-sep): la tienda de campaña y la casa de
     # exterior, la barrera y el parque, la urna conmemorativa, el inodoro y
     # el pasto entrenador, la carriola y el trolley de viaje.
-    if re.search(r'tienda.{0,25}campana|tienda (de|para) (perros|gatos|mascotas)|carpas?\b|'
+    if re.search(r'tienda.{0,45}campana|tienda (de|para) (perros|gatos|mascotas)|carpas?\b|'
                  r'\bcanopy\b|casa (al aire libre|de refrigeracion)|\biglu\b|\bcueva\b|'
                  r'casa semi cerrada', tn):
         return 'Cuevas, iglús y tiendas para mascotas'
@@ -4014,6 +4025,41 @@ def sub_mascota(tn):
                  r'laser (para|de) gato|\bplumero\b|\bcatnip\b|\bcuerda\b|\bcana\b (para|de) gatos?|'
                  r'\bcana\b.{0,20}(pluma|cascabel)|juguetes? interactivo', tn):
         return 'Juguetes'
+    # Última red (21-sep) para lo que la cadena no reconoció.
+    if re.search(r'purificador(a)? (de )?aire|control de olores|antiolores|aditivo de agua|'
+                 r'\bclippers?\b|rasuradora|extractor de pelo|cortapelo|'
+                 r'mesa plegable para (mascotas|perros)|mesa de (bano|grooming)|'
+                 r'para banar mascotas|\bmasajeador', tn):
+        return 'Higiene y limpieza'
+    if re.search(r'parque (hexagonal|plegable|para cachorros)|\bvallas? para perros\b|'
+                 r'cerca de seguridad|corral(es)? (plegable|para)', tn):
+        return 'Corrales y rejas para mascotas'
+    if re.search(r'alfombras? de cesped|cesped artificial|inodoro (antideslizante )?(para|de) (perros|gatos)|'
+                 r'caja.{0,45}(autolimpieza|arena)|arenero', tn):
+        return 'Areneros'
+    if re.search(r'asientos? de coche|cubierta de asientos|bolsa (de )?transporte|\bcanguru\b|'
+                 r'mochila (para|de) (perro|gato|mascota)', tn):
+        return 'Transportadoras'
+    if re.search(r'arbol (pequeno )?de gato|barras? de soporte para gato|\brascador', tn):
+        return 'Rascadores y torres'
+    if re.search(r'\bperca para aves\b|\bloro\b|\bjaula\b.{0,20}(ave|pajaro|loro)', tn):
+        return 'Jaulas para aves'
+    if re.search(r'rastreador gps|\betiqueta para mascotas\b|prueba de adn|collar(es)? con gps|'
+                 r'disfra(z|ces)|gomas elasticas|accesorios? (de|para) (cabeza|pelo) de mascota', tn):
+        return 'Ropa y accesorios'
+    if re.search(r'fabricante (automatico )?de alimentos|pelletizador|procesador.{0,25}alimentos para mascotas',
+                 tn):
+        return 'Comederos automáticos'
+    if re.search(r'soporte elevado.{0,25}comida|comederos? elevados?|\bboles\b|\btazones?\b', tn):
+        return 'Comederos elevados'
+    if re.search(r'inserto de lento|comedero lento|antivoracidad', tn):
+        return 'Comederos lentos y antivoracidad'
+    if re.search(r'dispensador (de )?agua|estacion de agua|fuente (de|para) agua', tn):
+        return 'Fuentes y dispensadores de agua'
+    if re.search(r'\btoldo\b|casa(s)? (para|de) mascotas|casa universal', tn):
+        return 'Cuevas, iglús y tiendas para mascotas'
+    if re.search(r'almohada (lavable )?para (perro|gato|mascota)|almohadas? calmantes', tn):
+        return 'Cojines y mantas para mascotas'
     return None
 
 
@@ -4533,6 +4579,33 @@ def sub_herramienta(tn):
                  r'driver de impacto|juego de perno|\breiniciador\b|micro grip|'
                  r'numeros? de golpe|\bmartelo\b|\bmartilo\b|ganchos? de precision', tn):
         return 'Herramientas manuales'
+    # Última red (21-sep) para el catálogo ferretero que se nombra por
+    # marca y número de parte: "Truper 13920", "Klein Tools D243".
+    if re.search(r'\bbateria\b|\bbatteria\b|\bgopak\b|\bbl1\d{3}\b|\bgba\b|power kar|'
+                 r'bateria (enchufable|de repuesto)|cargador (de |para )?(bateria|herramienta)', tn):
+        return 'Baterías y cargadores de herramienta'
+    if re.search(r'juego (basico|intermedio|de \d+|profesional)|\bset de herramienta|'
+                 r'juego de \d+ (herramientas|accesorios|piezas|pzas)|\bjuego\b.{0,25}herramientas|'
+                 r'\bkit\b.{0,25}(herramientas|electricista)|\d+ (pzas|piezas|herramientas)\b|'
+                 r'conjunto de\b.{0,25}herramientas|set de herramienta mecanica', tn):
+        return 'Juegos de herramientas'
+    if re.search(r'\bextension\b \d|barra corrediza|\bmatraca\b|set de vasos|aprietatuercas|'
+                 r'clave combinada|llave (combinada|espanola|allen|de tubo)|\bdados?\b|'
+                 r'mango (l |de )?(de acero|forjado)|\bvastago\b|cojin redondo', tn):
+        return 'Llaves y dados'
+    if re.search(r'cortadores? diagonal|\bpinzas?\b|pelacables|\bpericas\b|\balicate', tn):
+        return 'Pinzas y alicates'
+    if re.search(r'\bhammer\b|\bmartillo\b|\bmazo\b|\bcincel', tn):
+        return 'Martillos, cinceles y mazos'
+    if re.search(r'\bphillips\b|desarmador|destornillador|\btip\b.{0,15}(md|ins)', tn):
+        return 'Desarmadores y puntas'
+    if re.search(r'soldering|soldadura|\bsoldador\b', tn): return 'Soldadura'
+    if re.search(r'cinta para pescado|empunadura para alambre|\bcable\b|sensor de proximidad|'
+                 r'interruptor de proximidad', tn):
+        return 'Material eléctrico'
+    if re.search(r'atomizador|pulverizador de agua|\baspersor', tn): return 'Jardinería'
+    if re.search(r'placa de reparacion|\bplaca\b.{0,20}forma de t', tn): return 'Construcción'
+    if re.search(r'bomba (extractora|sumergible|de agua)|monofasica', tn): return 'Bombas'
     return None
 
 
@@ -4714,9 +4787,16 @@ def sub_tv(tn):
         return 'Accesorios y soportes'
     if re.search(r'portatil|con ruedas|rodante', tn): return 'Portátiles'
     if re.search(r'\b4k\b|qled|uhd|qned|oled|miniled|mini-led', tn): return '4K'
-    if re.search(r'full hd|\bfhd\b|\bhd\b|1080p|720p', tn): return 'HD'
+    if re.search(r'full hd|\bfhd\b|\bhd\b|1080p|720p|\b2k\b', tn): return 'HD'
     if re.search(r'pantalla|\btv\b|television|televisor', tn):
-        return sub_tv_pulgadas(tn)
+        sub = sub_tv_pulgadas(tn)
+        if sub:
+            return sub
+        # "Xiaomi Tv S Pro Mini Led 65", "Onn 43 Smart Tv": el tamaño va
+        # suelto, sin la palabra pulgadas. De 40" para arriba, hoy es 4K.
+        m = re.search(r'\b(2[4-9]|[3-9]\d)\b(?! ?(w|hz|kg|ml|cm|mm|v\b))', tn)
+        if m:
+            return '4K' if int(m.group(1)) >= 40 else 'HD'
     return None
 
 def sub_mouse(tn):
@@ -4749,6 +4829,11 @@ def sub_lavadora(tn):
     # Automática de tamaño normal que no dice por dónde se carga. Se nombra por
     # lo que sí afirma, en vez de adivinar la puerta.
     if re.search(r'\bautomatica\b|\d{1,2} ?kg\b|\d{1,2} ?kilos', tn):
+        return 'Automáticas'
+    # La lavadora de marca se anuncia solo con su número de modelo: "Mabe
+    # LRM23A", "Whirlpool 8MWTW2244WSG", "Mirage LMS016L".
+    if re.search(r'\blavadora\b|\b(mabe|whirlpool|mirage|dace|easy|acros|samsung|lg)\b.{0,25}'
+                 r'(l[a-z]{2}\d|\d[a-z]{4}\d)', tn):
         return 'Automáticas'
     return None
 
