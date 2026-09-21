@@ -2848,6 +2848,7 @@
       card.dataset.nombre = sinAcentosMarca(
         [cat.name].concat((cat.subcategories || []).map((sc) => sc.name)).join(" ")
       );
+      card.dataset.cat = cat.id;
       el.homeCategoryGrid.appendChild(card);
     });
     bindHomeCatSearch();
@@ -3133,16 +3134,69 @@
   // real que se resolvió con renderProductMedia, y volver a crearlas la
   // pediría de nuevo en cada tecla. "Todas" se queda siempre visible, que es
   // la salida cuando la búsqueda no encuentra nada.
+  // data/home-index.json: por palabra, las categorías y las marcas donde
+  // esa palabra PESA (ver scripts/build_home_index.py). No sirve el índice
+  // de búsqueda: ese guarda presencia, y con él "iphone" toca 29 de 54
+  // categorías -- fundas, cables y cargadores incluidos.
+  //
+  // Se baja al primer tecleo, no al abrir la portada.
+  let indiceInicio = null;
+  let indiceInicioPromesa = null;
+  function pedirIndiceInicio(alLlegar) {
+    if (indiceInicio) return true;
+    if (!indiceInicioPromesa) {
+      indiceInicioPromesa = fetch("data/home-index.json")
+        .then((r) => (r.ok ? r.json() : null))
+        .catch(() => null);
+    }
+    indiceInicioPromesa.then((ix) => {
+      if (!ix || !ix.w || indiceInicio) return;
+      indiceInicio = ix;
+      alLlegar();
+    });
+    return false;
+  }
+
+  // Los índices (de categorías o de marcas) que el índice de portada asocia
+  // a la consulta. Varias palabras se cruzan: "colchon matrimonial" es lo
+  // que cumple las dos. null = el índice no sabe de esta consulta.
+  function indicesDePortada(q, campo) {
+    if (!indiceInicio) return null;
+    const palabras = String(q || "").split(/\s+/)
+      .map((w) => w.replace(/[^a-z0-9]/g, "")).filter((w) => w.length >= 3);
+    let acc = null;
+    for (const w of palabras) {
+      const ent = indiceInicio.w[w];
+      if (!ent || !ent[campo]) continue;          // palabra que no pesa: se ignora
+      const set = new Set(ent[campo]);
+      acc = acc === null ? set : new Set([...acc].filter((i) => set.has(i)));
+      if (!acc.size) break;
+    }
+    return acc;
+  }
+
   function filtrarHomeCategorias() {
     if (!el.homeCategoryGrid) return;
     const q = sinAcentosMarca(el.homeCatSearch ? el.homeCatSearch.value.trim() : "");
+    // Quien escribe "iphone" o "taladro" nombra el producto, no el rubro:
+    // el índice dice qué categorías lo tienen y esas también se muestran.
+    let porProducto = null;
+    if (q) {
+      if (indiceInicio) {
+        const idx = indicesDePortada(q, "c");
+        if (idx && idx.size) porProducto = new Set([...idx].map((i) => indiceInicio.cats[i]));
+      } else {
+        pedirIndiceInicio(filtrarHomeCategorias);
+      }
+    }
     const tarjetas = el.homeCategoryGrid.querySelectorAll(".category-card");
     let vistas = 0, total = 0;
     tarjetas.forEach((c) => {
       const nombre = c.dataset.nombre;
       if (nombre === undefined) return;          // la tarjeta "Todas"
       total += 1;
-      const cabe = !q || nombre.indexOf(q) !== -1;
+      const cabe = !q || nombre.indexOf(q) !== -1
+        || (porProducto !== null && porProducto.has(c.dataset.cat));
       c.hidden = !cabe;
       if (cabe) vistas += 1;
     });
@@ -3167,7 +3221,22 @@
     const q = sinAcentosMarca(el.homeBrandSearch ? el.homeBrandSearch.value.trim() : "");
     let lista, pie = "";
     if (q) {
-      const todas = marcas.filter((m) => sinAcentosMarca(m.n).indexOf(q) !== -1);
+      // Igual que con las categorías: "taladro" no es el nombre de ninguna
+      // marca, pero sí resuelve a una categoría, y las marcas guardan en
+      // qué categorías venden ("k", índices de la misma lista).
+      let porProducto = null;
+      if (indiceInicio) {
+        const idx = indicesDePortada(q, "b");
+        if (idx && idx.size) {
+          porProducto = new Set([...idx].map((i) => sinAcentosMarca(indiceInicio.brands[i] || "")));
+        }
+      } else {
+        pedirIndiceInicio(pintarHomeBrandGrid);
+      }
+      const todas = marcas.filter((m) => {
+        const n = sinAcentosMarca(m.n);
+        return n.indexOf(q) !== -1 || (porProducto !== null && porProducto.has(n));
+      });
       lista = todas.slice(0, BRAND_GRID_BUSCADAS);
       if (el.homeBrandSearchCount) el.homeBrandSearchCount.textContent = todas.length + " de " + marcas.length + " marcas";
       if (!todas.length) pie = `<p class="muted small" style="grid-column:1/-1">Ninguna marca se llama así. <a href="marca/">Ver todas las marcas</a>.</p>`;

@@ -1959,13 +1959,15 @@ def render_category_page(cat, products, data):
 
     # Enlace a las bajadas de precio de esta categoría, si tiene página. Sin
     # esto /ofertas/<cat>/ solo colgaría del sitemap.
-    ofertas_link = ""
+    # Va como un chip más del índice de la página (pedido del usuario,
+    # 21-sep): suelto y centrado ocupaba media pantalla y empujaba el
+    # ranking fuera del primer vistazo.
+    ofertas_chip = ""
     n_bajadas = sum(1 for p in products if bajada_de(p["id"]))
     if n_bajadas >= MIN_BAJADAS_PARA_PAGINA:
-        ofertas_link = (
-            f'<p style="text-align:center; margin:10px 0"><a class="chip" '
-            f'href="../../ofertas/{slug}/">{svg_icon("chart")} '
-            f'{n_bajadas} productos bajaron de precio en {html_escape(cat["name"].lower())}</a></p>'
+        ofertas_chip = (
+            f'<a class="chip chip-icono" href="../../ofertas/{slug}/">'
+            f'{svg_icon("chart")} {n_bajadas} bajaron de precio</a>'
         )
 
     # Las secciones nuevas (ver el bloque de arriba): salen del catálogo, no
@@ -1996,6 +1998,8 @@ def render_category_page(cat, products, data):
         indice.append('<a class="chip" href="#marcas">Marcas</a>')
     if faq_html:
         indice.append('<a class="chip" href="#preguntas">Preguntas</a>')
+    if ofertas_chip:
+        indice.append(ofertas_chip)
     indice_html = f'<div class="chip-row chip-row-indice">{"".join(indice)}</div>'
 
     body = f"""
@@ -2003,7 +2007,6 @@ def render_category_page(cat, products, data):
 <div class="list-head"><h1>{svg_icon("trophy")} {html_escape(cat['name'])}: los más populares de {MES_ANIO}</h1></div>
 <p class="muted">{len(productos_listables)} productos comparados entre {len(tiendas_cat)} tiendas mexicanas. Precios actualizados el {HOY_LARGO}.</p>
 {indice_html}
-{ofertas_link}
 {subs_html}
 {guia_html}
 {presu_html}

@@ -4455,6 +4455,14 @@ tr.offer-compare-off { display: none; }
   border-color: var(--red);
   color: var(--red);
 }
+/* Un <svg class="icon"> sin medidas dentro de un chip se pinta al tamaño
+   de la ilustración (400 px de alto en la página de categoría). */
+.chip-icono {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.chip .icon { width: 15px; height: 15px; }
 
 /* ---------- Evolución del precio ----------
    El gráfico es un <svg> inline sin JavaScript: estas páginas son estáticas y

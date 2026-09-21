@@ -15,9 +15,16 @@ catálogo, para que Inicio pueda responder sin bajar 214 mil fichas.
 
 QUÉ GUARDA
 ----------
-[{"n": nombre, "s": slug, "c": cuántos productos}], ordenado de más a
-menos productos. Las claves son de una letra a propósito: son 784
-entradas y este archivo se baja en la portada.
+[{"n": nombre, "s": slug, "c": cuántos productos, "k": categorías}],
+ordenado de más a menos productos. Las claves son de una letra a
+propósito: son 784 entradas y este archivo se baja en la portada.
+
+"k" son ÍNDICES sobre la lista cats de data/search-index.json, no
+nombres: así el buscador de marcas puede responder a un nombre de
+producto ("taladro") resolviéndolo primero a categorías con el mismo
+índice que ya usa la búsqueda, y la lista cabe en unos 10 KB en vez de
+75. Si el índice de búsqueda no está, "k" se omite y el buscador de
+marcas sigue casando solo por nombre.
 
 El nombre, el slug y el mínimo salen de generate_seo_pages.py --se
 importa-- para que no puedan desincronizarse: si la página de una marca se
@@ -49,6 +56,14 @@ def main():
 
     data = load_catalog()
     marcas = sorted(marcas_con_pagina(data), key=lambda m: -len(m[2]))
+    # La lista de categorías del índice de búsqueda, para numerar igual.
+    cats = []
+    try:
+        with open(os.path.join(ROOT, "data", "search-index.json"), encoding="utf-8") as f:
+            cats = json.load(f).get("cats") or []
+    except (OSError, ValueError):
+        pass
+    pos = {c: i for i, c in enumerate(cats)}
     # "l": 1 cuando icons/marcas/<slug>.png existe (lo baja
     # build_marcas_logos.py): la portada pinta el logo solo en esas y las
     # iniciales en el resto, sin pedir 987 imágenes para ver cuáles hay.
@@ -56,6 +71,10 @@ def main():
     salida = []
     for nombre, slug, items in marcas:
         m = {"n": nombre, "s": slug, "c": len(items)}
+        if pos:
+            k = sorted({pos[p.get("category")] for p in items if p.get("category") in pos})
+            if k:
+                m["k"] = k
         if os.path.exists(os.path.join(ROOT, "icons", "marcas", slug + ".png")):
             m["l"] = 1
             con_logo += 1
