@@ -48,7 +48,8 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from coppel_sitemap import (  # noqa: E402
-    FAMILIAS, PRIORITARIAS, RE_PDP, SITEMAP_INDICE, familia_de, id_de,
+    FAMILIAS, PRIORITARIAS, RE_CT, RE_PDP, RE_PDP_RELATIVA,
+    SITEMAP_CATEGORIAS, SITEMAP_INDICE, familia_de, familia_de_categoria, id_de,
 )
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -142,6 +143,41 @@ def juntar_urls(familias_pedidas=None):
     return salida
 
 
+def urls_desde_categorias(familias_pedidas, tanda_n=8, paralelas=5, pausa=0.4):
+    """{familia: [url de producto]} recorriendo las páginas de categoría.
+
+    Es el complemento al sitemap de producto, que tiene más de un año (ver
+    coppel_sitemap.py): acá salen las fichas que Coppel puso a la venta
+    desde entonces. Cada categoría sirve diecisiete en el HTML, así que esto
+    no enumera el catálogo -- lo refresca.
+    """
+    indice = bajar(SITEMAP_CATEGORIAS)
+    if not indice:
+        print("No se pudo leer el sitemap de categorías.", file=sys.stderr)
+        return {}
+    categorias = [u for u in RE_CT.findall(indice)
+                  if familia_de_categoria(u) in (familias_pedidas or FAMILIAS)]
+    print(f"{len(categorias):,} páginas de categoría por recorrer")
+    salida, t0 = {}, time.time()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=paralelas) as pool:
+        bloque = tanda_n * paralelas
+        for i in range(0, len(categorias), bloque):
+            grupo = categorias[i:i + bloque]
+            tandas = [grupo[j:j + tanda_n] for j in range(0, len(grupo), tanda_n)]
+            for tanda, cuerpos in zip(tandas, pool.map(bajar_tanda, tandas)):
+                for url_ct, html in zip(tanda, cuerpos):
+                    fam = familia_de_categoria(url_ct)
+                    for rel in set(RE_PDP_RELATIVA.findall(html or "")):
+                        salida.setdefault(fam, set()).add("https://www.coppel.com" + rel)
+            if (i // max(bloque, 1)) % 5 == 0:
+                hechas = min(i + bloque, len(categorias))
+                print(f"    {hechas:>5,}/{len(categorias):,}  "
+                      f"{sum(len(v) for v in salida.values()):,} urls  "
+                      f"{hechas / max(time.time() - t0, 1):.1f}/s", flush=True)
+            time.sleep(pausa)
+    return {k: sorted(v) for k, v in salida.items()}
+
+
 # ---------------------------------------------------------------------
 # Paso 2: las fichas
 # ---------------------------------------------------------------------
@@ -193,13 +229,19 @@ def ficha_de(url, html):
     }
 
 
-# Coppel mira de dónde viene la petición (Akamai: contesta con
-# "set-cookie: ak_geo=US") y a algunas fichas les responde 302 a la portada
-# con un cuerpo de un byte en vez de la página. Desde fuera de México eso
-# pasa con cerca del 8% de las urls. No es un error de red ni algo que
-# arregle un reintento: es la tienda diciendo que ahí no vende. Se anotan
-# aparte para no volver a pedirlas en cada corrida.
-def es_redireccion_de_region(html):
+# A una parte de las urls del sitemap, Coppel contesta 302 a la portada con
+# un cuerpo de un byte en vez de la ficha. Son productos que ya no vende: el
+# sitemap dice "Última actualización: 10 de Septiembre 2025", o sea más de
+# un año, y en ese tiempo se le cayó del catálogo cerca de una de cada cinco
+# fichas que sigue listando.
+#
+# Conviene no confundirse con esto. La primera lectura fue que la tienda
+# bloqueaba por país, porque la respuesta trae "set-cookie: ak_geo=US"; pero
+# esa cookie viene EN TODAS las respuestas, también en las que devuelven la
+# ficha entera, así que no es lo que decide. Lo que lo decide es si el
+# producto existe: de diez urls sacadas de una página de categoría viva,
+# diez contestan bien. Ni una VPN ni una IP mexicana cambian esto.
+def es_ficha_retirada(html):
     return html is not None and len(html) <= 8
 
 
@@ -233,7 +275,7 @@ def cosechar(urls, salida, tanda_n, pausa, familia, paralelas=1, fallidas=None):
     horas. De ahí las tandas simultáneas, cada una con su curl. Lo que se le
     pide a la tienda por vez es `paralelas` conexiones, no más.
     """
-    cuenta = {"ok": 0, "sin_ficha": 0, "fuera_de_region": 0}
+    cuenta = {"ok": 0, "sin_ficha": 0, "retirada": 0}
     t0 = time.time()
     bloque = tanda_n * paralelas
     with concurrent.futures.ThreadPoolExecutor(max_workers=paralelas) as pool:
@@ -244,8 +286,8 @@ def cosechar(urls, salida, tanda_n, pausa, familia, paralelas=1, fallidas=None):
                 for url, html in zip(tanda, cuerpos):
                     ficha = ficha_de(url, html)
                     if ficha is None:
-                        if es_redireccion_de_region(html):
-                            cuenta["fuera_de_region"] += 1
+                        if es_ficha_retirada(html):
+                            cuenta["retirada"] += 1
                         else:
                             cuenta["sin_ficha"] += 1
                         if fallidas is not None:
@@ -276,6 +318,10 @@ def main():
                     help="sólo las familias de coppel_sitemap.PRIORITARIAS")
     ap.add_argument("--urls", action="store_true",
                     help="sólo juntar las urls y guardarlas, sin bajar fichas")
+    ap.add_argument("--categorias", action="store_true",
+                    help="recorrer las páginas de categoría (que sí están al "
+                         "día) y sumar a urls.json lo que el sitemap de "
+                         "producto no trae; no baja fichas")
     ap.add_argument("--limite", type=int, default=0,
                     help="fichas por familia, para pruebas")
     ap.add_argument("--tanda", type=int, default=8,
@@ -296,6 +342,23 @@ def main():
             print(f"Familias desconocidas: {', '.join(sorted(desconocidas))}",
                   file=sys.stderr)
             return 2
+
+    if args.categorias:
+        por_familia = {}
+        if os.path.exists(URLS_JSON):
+            with open(URLS_JSON, encoding="utf-8") as f:
+                por_familia = json.load(f)
+        antes = sum(len(v) for v in por_familia.values())
+        nuevas = urls_desde_categorias(pedidas, args.tanda, args.paralelas, args.pausa)
+        for fam, urls in nuevas.items():
+            juntas = set(por_familia.get(fam, [])) | set(urls)
+            por_familia[fam] = sorted(juntas)
+        despues = sum(len(v) for v in por_familia.values())
+        with open(URLS_JSON, "w", encoding="utf-8") as f:
+            json.dump(por_familia, f, ensure_ascii=False)
+        print(f"\nurls: {antes:,} -> {despues:,} (+{despues - antes:,} que el "
+              f"sitemap de producto no traía)")
+        return 0
 
     if os.path.exists(URLS_JSON) and not args.urls:
         with open(URLS_JSON, encoding="utf-8") as f:
@@ -325,7 +388,7 @@ def main():
                   f"--reintentar-fallidas para volver a pedirlas)")
         hechas |= malas
 
-    total = {"ok": 0, "sin_ficha": 0, "fuera_de_region": 0}
+    total = {"ok": 0, "sin_ficha": 0, "retirada": 0}
     with open(FICHAS_JSONL, "a", encoding="utf-8") as salida, \
             open(FALLIDAS_TXT, "a", encoding="utf-8") as fallidas:
         for fam in sorted(por_familia):
@@ -339,14 +402,14 @@ def main():
             print(f"\n== {fam}: {len(urls):,} fichas por bajar")
             c = cosechar(urls, salida, args.tanda, args.pausa, fam,
                          args.paralelas, fallidas)
-            print(f"   ok={c['ok']:,}  fuera de región={c['fuera_de_region']:,}  "
+            print(f"   ok={c['ok']:,}  ya no se vende={c['retirada']:,}  "
                   f"sin ficha={c['sin_ficha']:,}")
             for k in total:
                 total[k] += c[k]
 
     print(f"\n=== {total['ok']:,} fichas guardadas en "
           f"{os.path.relpath(FICHAS_JSONL, RAIZ)} "
-          f"({total['fuera_de_region']:,} fuera de región, "
+          f"({total['retirada']:,} que Coppel ya no vende, "
           f"{total['sin_ficha']:,} sin ficha legible) ===")
     return 0
 

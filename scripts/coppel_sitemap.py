@@ -27,6 +27,23 @@ De cada ficha se lee el bloque JSON-LD `@type: Product` que Coppel pone para
 los buscadores: nombre, marca, foto, sku, precio, moneda y existencia. Es el
 mismo dato que la tienda le da a Google, leído de la misma manera.
 
+EL SITEMAP ESTÁ VIEJO
+---------------------
+Dice "Última actualización: 10 de Septiembre 2025". En ese año largo se le
+cayeron del catálogo muchas de las fichas que sigue listando: a cerca de una
+de cada cinco urls, Coppel contesta 302 a la portada. cosechar_coppel.py las
+anota en data/coppel/fallidas.txt y no las vuelve a pedir.
+
+Dos cosas que se siguen de ahí. La primera: eso NO es un bloqueo por país
+--la respuesta trae "set-cookie: ak_geo=US", pero esa cookie viene en todas,
+también en las que sí devuelven la ficha; diez urls sacadas de una página de
+categoría viva contestan diez-- así que no hay nada que arreglar con una IP
+mexicana. La segunda, y esta sí importa: si el sitemap tiene un año, también
+le FALTA lo que Coppel empezó a vender desde entonces. Las páginas de
+categoría (/ct/...) sí están al día, pero sirven diecisiete productos cada
+una y el resto lo piden por /graphql, que su robots.txt prohíbe. Por ahora
+el sitemap es la única enumeración completa que la tienda publica.
+
 QUÉ NO TRAE
 -----------
 EAN/GTIN. Las tiendas VTEX lo dan y por eso sus productos se cruzan con los
@@ -48,6 +65,16 @@ import re
 import urllib.parse
 
 SITEMAP_INDICE = "https://www.coppel.com/l/sitemap/sitemap-pdp.xml"
+
+# La segunda fuente, y la que está al día. Son 2,019 páginas de categoría
+# (1,995 de ellas hojas), con los mismos nombres de familia en el primer
+# tramo de la ruta que los archivos del sitemap de producto. Cada hoja sirve
+# diecisiete fichas en el HTML; el resto de su lista lo pide por /graphql,
+# que el robots.txt prohíbe, y los parámetros de paginación (?pageSize=,
+# ?fromPage=) también están prohibidos. O sea: no sustituye al sitemap de
+# producto, pero es lo único que trae lo que Coppel empezó a vender después
+# de septiembre de 2025.
+SITEMAP_CATEGORIAS = "https://www.coppel.com/l/sitemap/sitemap-categorias.xml"
 
 # Las familias del sitemap de Coppel que sí se importan, con la categoría del
 # sitio que se usa como PISTA cuando el clasificador por nombre no decide.
@@ -95,6 +122,17 @@ PRIORITARIAS = [
 
 RE_PDP = re.compile(r"https://www\.coppel\.com/pdp/[^\s<>\"]+")
 RE_ID = re.compile(r"-pm-(\d+)$")
+RE_CT = re.compile(r"https://www\.coppel\.com/ct/[^\s<>\"]+")
+# En la página de categoría los enlaces vienen relativos.
+RE_PDP_RELATIVA = re.compile(r"/pdp/[a-z0-9\-]+-pm-\d+")
+
+
+def familia_de_categoria(url_ct):
+    """'https://www.coppel.com/ct/electronica/tablets/cat000068' -> 'electronica'."""
+    try:
+        return url_ct.split("/ct/", 1)[1].split("/")[0]
+    except IndexError:
+        return ""
 
 
 def familia_de(url_sitemap):
