@@ -3211,6 +3211,22 @@
       const panel = document.getElementById(t.getAttribute("aria-controls"));
       if (panel) panel.hidden = !activa;
     });
+    // La barra es de la pestaña ACTIVA: su logo entra dentro del recuadro,
+    // con su buscador, y el de la otra pestaña sale al botón de la derecha.
+    // Antes el logo de precios se quedaba dentro aunque estuvieras en
+    // marcas, y la barra decía "busca una categoría" en la vista de marcas.
+    const barra = document.querySelector(".home-buscador");
+    const fila = document.querySelector(".home-elige-row");
+    if (barra && fila) {
+      tabs.forEach((t) => {
+        if (t.dataset.tab === cual) barra.insertBefore(t, barra.firstChild);
+        else fila.appendChild(t);
+      });
+    }
+    const esMarcas = cual === "marcas";
+    [[el.homeCatSearch, !esMarcas], [el.homeCatSearchCount, !esMarcas],
+     [el.homeBrandSearch, esMarcas], [el.homeBrandSearchCount, esMarcas]]
+      .forEach(([nodo, visible]) => { if (nodo) nodo.hidden = !visible; });
     if (el.homeElige && TEXTO_ELIGE[cual]) el.homeElige.textContent = TEXTO_ELIGE[cual];
     const grid = document.querySelector(".home-grid");
     if (grid) grid.dataset.homeTab = cual;

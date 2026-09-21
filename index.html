@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=0c0210c9">
+<link rel="stylesheet" href="css/style.min.css?v=6a4ee8b6">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -177,6 +177,8 @@
               </button>
               <input id="homeCatSearch" type="search" placeholder="Busca una categoría: celulares, herramientas, cocina…" aria-label="Buscar categoría" autocomplete="off">
               <span class="home-cat-search-count" id="homeCatSearchCount"></span>
+              <input id="homeBrandSearch" type="search" placeholder="Busca una marca: Samsung, Bosch, Lego…" aria-label="Buscar marca" autocomplete="off" hidden>
+              <span class="home-cat-search-count" id="homeBrandSearchCount" hidden></span>
             </div>
             <button type="button" class="home-tab home-tab-marca" role="tab" aria-selected="false" aria-controls="homePanelMarcas" data-tab="marcas">
               <img class="hero-logo" src="icons/logo-comparamarcas.png" alt="Compara marcas">
@@ -200,10 +202,6 @@
           </div>
           <div id="homePanelMarcas" role="tabpanel" hidden>
             <div class="home-category-box">
-              <div class="home-brand-search">
-                <input id="homeBrandSearch" type="search" placeholder="Buscar marca: Samsung, Bosch, Lego…" aria-label="Buscar marca" autocomplete="off">
-                <span class="home-brand-search-count" id="homeBrandSearchCount"></span>
-              </div>
               <div id="homeBrandGrid" class="home-brand-grid"></div>
             </div>
           </div>
@@ -1110,7 +1108,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=cfe85deb"></script>
+<script src="js/app.min.js?v=7dba5a88"></script>
 </div>
 </body>
 </html>

@@ -2932,14 +2932,16 @@ tr.offer-compare-off { display: none; }
 .home-buscador .home-tab,
 .home-buscador .home-tab.is-active { border: 0; border-radius: 0; padding: 5px 10px; }
 .home-buscador .home-tab-marca { width: 132px; flex: 0 0 auto; }
-.home-grid[data-home-tab="precios"] .home-buscador { border-color: var(--red); }
+/* La barra toma el color de la pestaña que la ocupa: rojo en precios,
+   ámbar en marcas (--tab-color lo pone .home-grid[data-home-tab]). */
+.home-buscador { border-color: var(--tab-color, var(--border)); }
 /* La línea que separa el logo del campo: el único trazo interior, para que
    se note dónde termina uno y empieza el otro sin partir la pieza. Va en
    las dos reglas (la genérica y la de .is-active) porque la de arriba
    pone border:0 con más peso y se la comía. */
 .home-buscador .home-tab,
 .home-buscador .home-tab.is-active { border-right: 1px solid var(--border); }
-.home-grid[data-home-tab="precios"] .home-buscador .home-tab.is-active { border-right-color: var(--red); }
+.home-buscador .home-tab.is-active { border-right-color: var(--tab-color, var(--border)); }
 .home-buscador input[type="search"] {
   flex: 1 1 auto;
   min-width: 0;
@@ -3126,6 +3128,9 @@ tr.offer-compare-off { display: none; }
   overflow: hidden;
 }
 .home-brand-card-logo img { max-width: 88%; max-height: 36px; object-fit: contain; }
+/* La caja de búsqueda de marcas dejó de existir como bloque aparte: el
+   buscador de marcas vive dentro de .home-buscador, igual que el de
+   categorías, y solo se ve el de la pestaña activa. */
 .home-brand-search { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; }
 .home-brand-search input {
   flex: 1;
