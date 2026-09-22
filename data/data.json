@@ -6417,6 +6417,9 @@
     "Salud": [
       "data/cat/salud-1.json"
     ],
+    "Belleza y cuidado personal": [
+      "data/cat/belleza-y-cuidado-personal-1.json"
+    ],
     "Libros": [
       "data/cat/libros-1.json"
     ],
@@ -6434,9 +6437,6 @@
     ],
     "Domótica y hogar inteligente": [
       "data/cat/domotica-y-hogar-inteligente-1.json"
-    ],
-    "Belleza y cuidado personal": [
-      "data/cat/belleza-y-cuidado-personal-1.json"
     ],
     "Mouse": [
       "data/cat/mouse-1.json"
@@ -6718,6 +6718,14 @@
     "Salud": [
       "data/det/salud-1.json"
     ],
+    "Belleza y cuidado personal": [
+      "data/det/belleza-y-cuidado-personal-1.json",
+      "data/det/belleza-y-cuidado-personal-2.json",
+      "data/det/belleza-y-cuidado-personal-3.json",
+      "data/det/belleza-y-cuidado-personal-4.json",
+      "data/det/belleza-y-cuidado-personal-5.json",
+      "data/det/belleza-y-cuidado-personal-6.json"
+    ],
     "Libros": [
       "data/det/libros-1.json"
     ],
@@ -6747,14 +6755,6 @@
       "data/det/domotica-y-hogar-inteligente-3.json",
       "data/det/domotica-y-hogar-inteligente-4.json",
       "data/det/domotica-y-hogar-inteligente-5.json"
-    ],
-    "Belleza y cuidado personal": [
-      "data/det/belleza-y-cuidado-personal-1.json",
-      "data/det/belleza-y-cuidado-personal-2.json",
-      "data/det/belleza-y-cuidado-personal-3.json",
-      "data/det/belleza-y-cuidado-personal-4.json",
-      "data/det/belleza-y-cuidado-personal-5.json",
-      "data/det/belleza-y-cuidado-personal-6.json"
     ],
     "Mouse": [
       "data/det/mouse-1.json",
@@ -6875,7 +6875,7 @@
       "maxShip": 80
     },
     "Herramientas": {
-      "n": 32253,
+      "n": 32262,
       "subs": {
         "Construcción": 201,
         "Accesorios para herramientas eléctricas": 562,
@@ -6888,7 +6888,7 @@
         "Herramientas manuales": 382,
         "Jardinería": 1656,
         "Seguridad industrial": 384,
-        "Medición": 1064,
+        "Medición": 1066,
         "Escaleras": 831,
         "Grabado láser": 399,
         "Refacciones de herramientas eléctricas": 87,
@@ -6921,7 +6921,7 @@
         "Lijas y accesorios de lijado": 23,
         "Organización": 1052,
         "Gas LP": 66,
-        "Plomería": 856,
+        "Plomería": 863,
         "Bombas de agua": 429,
         "Regaderas y duchas": 759,
         "Sanitarios y accesorios de baño": 112,
@@ -6972,14 +6972,14 @@
       "maxShip": 73
     },
     "Otros": {
-      "n": 6800,
+      "n": 6851,
       "subs": {
         "Inversores": 161,
         "Baño": 231,
         "Varios": 523,
         "Soportes para dispositivos": 2743,
         "Cargadores solares portátiles": 371,
-        "Organización del hogar": 438,
+        "Organización del hogar": 489,
         "Estaciones de energía": 490,
         "Accesorios y limpieza de paneles solares": 994,
         "Radios": 287,
@@ -7124,13 +7124,13 @@
       "maxShip": 84
     },
     "Refacciones": {
-      "n": 42091,
+      "n": 42175,
       "subs": {
         "Faros y luces": 449,
         "Suspensión y dirección": 49,
         "Filtros y aceites": 194,
         "Refacciones para otros electrodomésticos": 292,
-        "Enfriamiento y climatización": 1349,
+        "Enfriamiento y climatización": 1433,
         "Bombas": 6640,
         "Para bicicletas eléctricas": 131,
         "Para patinetas eléctricas": 172,
@@ -7171,9 +7171,9 @@
         "Refacciones para plancha y vaporizador": 30
       },
       "pop": 3040,
-      "discounted": 2043,
+      "discounted": 2044,
       "max": 76,
-      "discountedShip": 2043,
+      "discountedShip": 2044,
       "maxShip": 76
     },
     "Juguetes y bebés": {
@@ -7475,13 +7475,13 @@
       "maxShip": 93
     },
     "Electrodomésticos": {
-      "n": 15589,
+      "n": 15593,
       "subs": {
         "Filtros para refrigerador y cafetera": 63,
         "Accesorios y refacciones de máquina de coser": 57,
         "Extractores de jugo": 374,
         "Filtros y membranas de repuesto": 1101,
-        "Calentadores de agua": 636,
+        "Calentadores de agua": 640,
         "Máquinas de coser": 464,
         "Robots limpiacristales": 1408,
         "Campanas de cocina": 974,
@@ -7528,18 +7528,18 @@
         "Purificadores de agua": 17
       },
       "pop": 147756,
-      "discounted": 1902,
+      "discounted": 1903,
       "max": 80,
-      "discountedShip": 1908,
+      "discountedShip": 1909,
       "maxShip": 80
     },
     "Componentes y accesorios de PC": {
-      "n": 8493,
+      "n": 8495,
       "subs": {
         "Baterías para laptop": 18,
         "Accesorios de monitor": 1061,
         "Tarjetas madre": 156,
-        "Enfriamiento y ventiladores": 1726,
+        "Enfriamiento y ventiladores": 1728,
         "Accesorios": 633,
         "RAM DDR5 para laptop (SODIMM)": 252,
         "RAM DDR3 y anteriores": 645,
@@ -7565,9 +7565,9 @@
       "maxShip": 68
     },
     "Mascotas": {
-      "n": 12453,
+      "n": 12472,
       "subs": {
-        "Acuarios y terrarios": 166,
+        "Acuarios y terrarios": 182,
         "Comederos para aves y roedores": 53,
         "Transportadoras": 482,
         "Rascadores y torres": 165,
@@ -7576,7 +7576,7 @@
         "Correas": 324,
         "Camas": 7,
         "Casas para mascotas": 2388,
-        "Cojines y mantas para mascotas": 87,
+        "Cojines y mantas para mascotas": 90,
         "Higiene y limpieza": 180,
         "Comederos automáticos": 540,
         "Puertas para mascotas": 528,
@@ -7615,36 +7615,36 @@
     "Deportes y fitness": {
       "n": 9868,
       "subs": {
-        "Bicicletas fijas": 387,
-        "Voleibol": 300,
-        "Yoga": 818,
-        "Dardos": 244,
-        "Raquetas": 515,
-        "Campismo": 121,
-        "Máquinas multifuncionales y poleas": 690,
-        "Protección y soportes": 218,
-        "Fútbol": 114,
-        "Máquinas de cardio": 355,
-        "Barras y discos": 121,
-        "Equipo de gimnasio": 113,
-        "Accesorios de fuerza": 202,
-        "Bandas de resistencia": 461,
-        "Ping pong": 179,
-        "Pesas de tobillo y chalecos con peso": 34,
-        "Bancos y racks": 1121,
-        "Máquinas de abdominales": 164,
+        "Bicicletas fijas": 396,
+        "Voleibol": 369,
+        "Yoga": 701,
+        "Dardos": 242,
+        "Raquetas": 339,
+        "Campismo": 120,
+        "Máquinas multifuncionales y poleas": 561,
+        "Protección y soportes": 270,
+        "Fútbol": 175,
+        "Máquinas de cardio": 383,
+        "Equipo de gimnasio": 62,
+        "Accesorios de fuerza": 274,
+        "Bandas de resistencia": 548,
+        "Bancos y racks": 1242,
+        "Ping pong": 356,
+        "Pesas de tobillo y chalecos con peso": 57,
+        "Barras y discos": 133,
         "Patines y patinetas": 402,
-        "Mancuernas": 464,
-        "Natación": 529,
-        "Otros": 30,
-        "Sets de pesas": 227,
-        "Pesas": 58,
-        "Barras de dominadas y calistenia": 158,
-        "Balones": 1050,
-        "Boxeo": 611,
-        "Deportes acuáticos": 104,
-        "Kettlebells": 71,
-        "Tablas y balance": 7
+        "Mancuernas": 488,
+        "Natación": 523,
+        "Otros": 23,
+        "Sets de pesas": 195,
+        "Pesas": 29,
+        "Máquinas de abdominales": 157,
+        "Barras de dominadas y calistenia": 183,
+        "Balones": 897,
+        "Boxeo": 530,
+        "Deportes acuáticos": 129,
+        "Kettlebells": 69,
+        "Tablas y balance": 15
       },
       "pop": 25333,
       "discounted": 1497,
@@ -7653,7 +7653,7 @@
       "maxShip": 92
     },
     "Blancos y ropa de cama": {
-      "n": 11769,
+      "n": 11796,
       "subs": {
         "Cobijas": 691,
         "Protectores para cuna": 88,
@@ -7662,7 +7662,7 @@
         "Protectores de colchón": 765,
         "Cortinas": 351,
         "Almohadas": 908,
-        "Almohadillas y cojines térmicos": 89,
+        "Almohadillas y cojines térmicos": 97,
         "Sábanas para cuna y bebé": 70,
         "Cobijas eléctricas": 588,
         "Fundas para muebles": 31,
@@ -7678,7 +7678,7 @@
         "Sábanas king size": 468,
         "Cobijas eléctricas matrimoniales": 361,
         "Chales y mantas eléctricas para regazo": 237,
-        "Mantas eléctricas USB y portátiles": 301,
+        "Mantas eléctricas USB y portátiles": 320,
         "Toallas de cocina y paños": 119,
         "Toallas de playa y alberca": 122,
         "Cobijas eléctricas queen y king": 443,
@@ -7721,19 +7721,65 @@
       "maxShip": 78
     },
     "Salud": {
-      "n": 890,
+      "n": 927,
       "subs": {
-        "Equipo de monitoreo médico": 103,
-        "Básculas": 78,
-        "Salud": 157,
-        "Cuidado dental": 317,
-        "Movilidad": 235
+        "Equipo de monitoreo médico": 138,
+        "Básculas": 86,
+        "Salud": 79,
+        "Cuidado dental": 374,
+        "Movilidad": 250
       },
-      "pop": 20995,
-      "discounted": 294,
+      "pop": 14561,
+      "discounted": 303,
       "max": 76,
-      "discountedShip": 294,
+      "discountedShip": 303,
       "maxShip": 69
+    },
+    "Belleza y cuidado personal": {
+      "n": 11159,
+      "subs": {
+        "Masajeadores": 308,
+        "Perfumes": 26,
+        "Uñas": 536,
+        "Mobiliario para salón": 98,
+        "Cuidado del cabello": 334,
+        "Corporales": 683,
+        "Vaporizadores y equipo de spa": 449,
+        "Dispositivos de cuidado facial": 361,
+        "Brochas y esponjas": 90,
+        "Cuidado personal": 316,
+        "Mascarillas faciales": 150,
+        "Planchas para cabello": 385,
+        "Bases y correctores": 807,
+        "Organizadores de maquillaje": 51,
+        "Extensiones de cabello": 330,
+        "Cremas y sérums faciales": 1077,
+        "Rasuradoras": 1060,
+        "Depilación": 442,
+        "Maquillaje": 189,
+        "Polvos, rubores y bronceadores": 323,
+        "Máscaras de pestañas y cejas": 202,
+        "Estilizadores": 155,
+        "Exfoliantes y peelings": 50,
+        "Faciales": 13,
+        "Pelucas": 432,
+        "Secadoras de cabello": 537,
+        "Protección solar": 283,
+        "Limpiadores y tónicos": 86,
+        "Contorno de ojos y labios": 84,
+        "Primers y fijadores": 70,
+        "Cuidado facial masculino": 3,
+        "Pestañas postizas": 110,
+        "Rizadores": 352,
+        "Labiales": 398,
+        "Paletas y sets de maquillaje": 72,
+        "Sombras y delineadores": 297
+      },
+      "pop": 54328,
+      "discounted": 3375,
+      "max": 79,
+      "discountedShip": 3384,
+      "maxShip": 79
     },
     "Libros": {
       "n": 54,
@@ -7899,52 +7945,6 @@
       "discountedShip": 650,
       "maxShip": 72
     },
-    "Belleza y cuidado personal": {
-      "n": 11194,
-      "subs": {
-        "Mobiliario para salón": 120,
-        "Masajeadores": 434,
-        "Uñas": 529,
-        "Dispositivos de cuidado facial": 354,
-        "Cuidado del cabello": 399,
-        "Brochas y esponjas": 84,
-        "Cuidado personal": 474,
-        "Corporales": 628,
-        "Mascarillas faciales": 141,
-        "Planchas para cabello": 396,
-        "Bases y correctores": 744,
-        "Organizadores de maquillaje": 45,
-        "Extensiones de cabello": 312,
-        "Cremas y sérums faciales": 1009,
-        "Rasuradoras": 940,
-        "Vaporizadores y equipo de spa": 359,
-        "Maquillaje": 280,
-        "Faciales": 16,
-        "Pelucas": 440,
-        "Secadoras de cabello": 658,
-        "Depilación": 435,
-        "Protección solar": 393,
-        "Cuidado facial masculino": 6,
-        "Exfoliantes y peelings": 46,
-        "Rizadores": 379,
-        "Máscaras de pestañas y cejas": 213,
-        "Limpiadores y tónicos": 69,
-        "Labiales": 441,
-        "Polvos, rubores y bronceadores": 307,
-        "Paletas y sets de maquillaje": 105,
-        "Primers y fijadores": 71,
-        "Sombras y delineadores": 251,
-        "Pestañas postizas": 82,
-        "Contorno de ojos y labios": 11,
-        "Estilizadores": 5,
-        "Perfumes": 18
-      },
-      "pop": 47894,
-      "discounted": 3384,
-      "max": 79,
-      "discountedShip": 3393,
-      "maxShip": 79
-    },
     "Mouse": {
       "n": 3005,
       "subs": {
@@ -7999,44 +7999,44 @@
       "maxShip": 85
     },
     "Climatización": {
-      "n": 13763,
+      "n": 13565,
       "subs": {
-        "Deshumidificadores": 373,
-        "Aires acondicionados portátiles": 495,
-        "Accesorios y refacciones de aire acondicionado": 391,
-        "Ventiladores portátiles y de mano": 1324,
-        "Aires acondicionados": 241,
-        "Ventiladores de piso e industriales": 556,
-        "Humidificadores": 421,
-        "Minisplit": 667,
-        "Extractores y ventilación": 585,
-        "Ventiladores de mesa y clip": 347,
-        "Calefactores cerámicos y de aire": 1626,
-        "Calefactores para pies y personales": 504,
-        "Aires acondicionados de ventana": 86,
-        "Ventiladores de pedestal": 1245,
-        "Calefactores infrarrojos y de cuarzo": 249,
-        "Purificadores de aire": 329,
-        "Ventiladores nebulizadores": 192,
-        "Aires acondicionados para auto y RV": 29,
-        "Tapetes y alfombras calefactoras": 719,
-        "Ventiladores de pared": 189,
-        "Ventiladores de techo": 1371,
-        "Ventiladores de torre": 325,
+        "Deshumidificadores": 327,
+        "Ventiladores portátiles y de mano": 1134,
+        "Aires acondicionados portátiles": 458,
+        "Climatizadores evaporativos": 192,
+        "Accesorios y refacciones de aire acondicionado": 378,
+        "Aires acondicionados": 222,
+        "Ventiladores de piso e industriales": 517,
+        "Humidificadores": 403,
+        "Aires acondicionados para auto y RV": 116,
+        "Extractores y ventilación": 591,
+        "Ventiladores de mesa y clip": 430,
+        "Calefactores cerámicos y de aire": 1330,
+        "Calefactores para pies y personales": 430,
+        "Aires acondicionados de ventana": 82,
+        "Ventiladores de pedestal": 1056,
+        "Calefactores infrarrojos y de cuarzo": 208,
+        "Purificadores de aire": 318,
+        "Ventiladores nebulizadores": 217,
+        "Minisplit": 751,
+        "Tapetes y alfombras calefactoras": 808,
+        "Ventiladores de pared": 227,
+        "Ventiladores de techo": 1379,
+        "Ventiladores de torre": 321,
         "Aspas y refacciones de ventilador": 109,
-        "Climatizadores evaporativos": 238,
-        "Calefactores de pared y baño": 161,
-        "Calefactores de aceite": 120,
-        "Mini enfriadores personales": 339,
-        "Calefactores de gas": 30,
-        "Refacciones de calefactor": 427,
-        "Calefactores de exterior y patio": 18,
+        "Mini enfriadores personales": 392,
+        "Calefactores de pared y baño": 199,
+        "Calefactores de aceite": 106,
+        "Calefactores de gas": 21,
+        "Calefactores de exterior y patio": 21,
+        "Refacciones de calefactor": 765,
         "Chimeneas eléctricas": 57
       },
       "pop": 51248,
-      "discounted": 1231,
+      "discounted": 1229,
       "max": 90,
-      "discountedShip": 1233,
+      "discountedShip": 1231,
       "maxShip": 90
     },
     "Calzado": {
@@ -8571,10 +8571,18 @@
     "Salud": [
       "p32039",
       "p32040",
-      "p33732",
       "p121213",
-      "p33491",
-      "p33845"
+      "p118662",
+      "p118670",
+      "p118655"
+    ],
+    "Belleza y cuidado personal": [
+      "p103304",
+      "p102730",
+      "p106618",
+      "p103444",
+      "p101114",
+      "p102805"
     ],
     "Libros": [
       "p248238",
@@ -8623,14 +8631,6 @@
       "p42348",
       "p44894",
       "p44886"
-    ],
-    "Belleza y cuidado personal": [
-      "p103304",
-      "p102730",
-      "p106618",
-      "p103444",
-      "p101114",
-      "p102805"
     ],
     "Mouse": [
       "p33380",
