@@ -2522,7 +2522,7 @@ REGLAS = [
  # "Cama infantil Minnie Mouse", "Mickey Mouse", "Danger Mouse", "Mouse
  # Trap": el personaje no es el ratón de computadora. Tampoco la
  # trampa para ratones ni el pad/alfombrilla (esos ya tienen su regla).
- (re.compile(r'^(?!.*(mickey|minnie|danger|trampa|veneno|raticida|cebo).{0,12}(mouse|raton))'
+ (re.compile(r'^(?!.*(mickey|minnie|minie|mikey|micky|danger|trampa|veneno|raticida|cebo|disney).{0,12}(mouse|raton))'
              r'(?!.*(mouse|raton) trap)(?=.*(\bmouse\b|\braton\b|\bratones\b))'), ('Mouse', None, 'mouse')),
  # Lo que dice "cargador" y no cayó en ninguna subcategoría: el del reloj
  # inteligente, el de la cámara vieja, el genérico "para Samsung". Al

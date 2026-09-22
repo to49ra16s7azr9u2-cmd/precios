@@ -6371,6 +6371,9 @@
     "Juguetes y bebés": [
       "data/cat/juguetes-y-bebes-1.json"
     ],
+    "Juegos de mesa": [
+      "data/cat/juegos-de-mesa-1.json"
+    ],
     "Cocina y comedor": [
       "data/cat/cocina-y-comedor-1.json"
     ],
@@ -6434,9 +6437,6 @@
     ],
     "Belleza y cuidado personal": [
       "data/cat/belleza-y-cuidado-personal-1.json"
-    ],
-    "Juegos de mesa": [
-      "data/cat/juegos-de-mesa-1.json"
     ],
     "Mouse": [
       "data/cat/mouse-1.json"
@@ -6612,6 +6612,10 @@
       "data/det/juguetes-y-bebes-5.json",
       "data/det/juguetes-y-bebes-6.json"
     ],
+    "Juegos de mesa": [
+      "data/det/juegos-de-mesa-1.json",
+      "data/det/juegos-de-mesa-2.json"
+    ],
     "Cocina y comedor": [
       "data/det/cocina-y-comedor-1.json",
       "data/det/cocina-y-comedor-2.json",
@@ -6751,10 +6755,6 @@
       "data/det/belleza-y-cuidado-personal-4.json",
       "data/det/belleza-y-cuidado-personal-5.json",
       "data/det/belleza-y-cuidado-personal-6.json"
-    ],
-    "Juegos de mesa": [
-      "data/det/juegos-de-mesa-1.json",
-      "data/det/juegos-de-mesa-2.json"
     ],
     "Mouse": [
       "data/det/mouse-1.json",
@@ -6972,7 +6972,7 @@
       "maxShip": 73
     },
     "Otros": {
-      "n": 6783,
+      "n": 6800,
       "subs": {
         "Inversores": 161,
         "Baño": 231,
@@ -6982,7 +6982,7 @@
         "Organización del hogar": 438,
         "Estaciones de energía": 490,
         "Accesorios y limpieza de paneles solares": 994,
-        "Radios": 270,
+        "Radios": 287,
         "Paneles solares": 303,
         "Kits solares y controladores de carga": 202,
         "Luces y ventiladores solares": 53,
@@ -6995,9 +6995,9 @@
       "maxShip": 63
     },
     "Bocinas": {
-      "n": 11854,
+      "n": 11865,
       "subs": {
-        "Radios y reproductores": 879,
+        "Radios y reproductores": 890,
         "Accesorios para bocinas": 387,
         "Bocinas Bluetooth": 2863,
         "Amplificadores y receptores": 413,
@@ -7042,16 +7042,16 @@
       "maxShip": 81
     },
     "Iluminación": {
-      "n": 12317,
+      "n": 12289,
       "subs": {
         "Exterior": 1344,
         "Lámparas colgantes": 928,
-        "Lámparas de emergencia": 738,
-        "Lámparas industriales y de nave": 97,
-        "Lámparas de escritorio": 683,
+        "Lámparas de emergencia": 692,
+        "Lámparas industriales y de nave": 79,
+        "Lámparas de escritorio": 701,
         "Tiras LED": 340,
         "Decorativa": 2910,
-        "Plafones y lámparas de sobreponer": 1574,
+        "Plafones y lámparas de sobreponer": 1592,
         "Candiles y arañas": 437,
         "Lámparas de pared": 906,
         "Focos": 1442,
@@ -7177,15 +7177,15 @@
       "maxShip": 76
     },
     "Juguetes y bebés": {
-      "n": 10075,
+      "n": 10049,
       "subs": {
         "Muñecas": 1580,
-        "Maquetas": 777,
+        "Maquetas": 766,
         "Vehículos a control remoto": 118,
         "Triciclos": 87,
         "Montables": 172,
         "Carriolas": 1455,
-        "Juguetes educativos": 350,
+        "Juguetes educativos": 335,
         "Cunas": 67,
         "Sillas de comer y mecedoras": 108,
         "Pañales y cambio": 195,
@@ -7204,12 +7204,12 @@
         "Peluches": 590,
         "Andaderas": 62,
         "Corrales": 37,
-        "Sillas de auto": 116,
+        "Sillas de auto": 134,
         "Chupones y mordederas": 126,
-        "Bebés": 664,
+        "Bebés": 556,
         "Ropa y calzado de bebé": 178,
-        "Alimentación y lactancia": 191,
-        "Seguridad para bebé": 22,
+        "Alimentación y lactancia": 271,
+        "Seguridad para bebé": 32,
         "Cuidado y salud del bebé": 18,
         "Juegos arcade": 5
       },
@@ -7218,6 +7218,28 @@
       "max": 77,
       "discountedShip": 3842,
       "maxShip": 77
+    },
+    "Juegos de mesa": {
+      "n": 3571,
+      "subs": {
+        "Rompecabezas": 618,
+        "De estrategia": 541,
+        "Infantiles": 244,
+        "De fiesta": 70,
+        "De rol y dados": 80,
+        "De mesa clásicos": 998,
+        "De cartas": 419,
+        "Otros juegos": 226,
+        "Educativos": 149,
+        "Ajedrez": 142,
+        "De preguntas": 57,
+        "De memoria": 27
+      },
+      "pop": 4009,
+      "discounted": 1538,
+      "max": 73,
+      "discountedShip": 1559,
+      "maxShip": 66
     },
     "Cocina y comedor": {
       "n": 12215,
@@ -7756,42 +7778,42 @@
       "maxShip": 80
     },
     "Almacenamiento": {
-      "n": 3126,
+      "n": 3136,
       "subs": {
         "Memorias USB": 1400,
-        "Tarjetas de memoria": 326,
+        "Tarjetas de memoria": 336,
         "Interno": 330,
         "Externo": 351,
         "SSD": 624,
         "NAS": 93,
         "": 2
       },
-      "pop": 59791,
-      "discounted": 394,
+      "pop": 59795,
+      "discounted": 403,
       "max": 71,
-      "discountedShip": 403,
+      "discountedShip": 412,
       "maxShip": 68
     },
     "Cámaras y fotografía": {
-      "n": 5587,
+      "n": 5577,
       "subs": {
-        "Accesorios": 763,
+        "Accesorios": 751,
         "Trípodes y soportes": 156,
-        "Videocámaras": 1000,
+        "Videocámaras": 1028,
         "Lentes": 312,
         "Mirrorless": 190,
-        "Cámaras de acción": 1504,
-        "Compactas": 629,
+        "Cámaras de acción": 1540,
+        "Compactas": 565,
         "Instantáneas": 523,
-        "Baterías y cargadores de cámara": 258,
+        "Baterías y cargadores de cámara": 260,
         "Réflex": 37,
         "Filtros y parasoles": 199,
         "": 16
       },
-      "pop": 5132,
-      "discounted": 856,
+      "pop": 5128,
+      "discounted": 847,
       "max": 80,
-      "discountedShip": 856,
+      "discountedShip": 847,
       "maxShip": 80
     },
     "Suplementos": {
@@ -7922,28 +7944,6 @@
       "max": 79,
       "discountedShip": 3393,
       "maxShip": 79
-    },
-    "Juegos de mesa": {
-      "n": 3545,
-      "subs": {
-        "De estrategia": 541,
-        "Infantiles": 244,
-        "De fiesta": 70,
-        "De rol y dados": 80,
-        "De mesa clásicos": 998,
-        "De cartas": 419,
-        "Otros juegos": 226,
-        "Rompecabezas": 592,
-        "Educativos": 149,
-        "Ajedrez": 142,
-        "De preguntas": 57,
-        "De memoria": 27
-      },
-      "pop": 4009,
-      "discounted": 1538,
-      "max": 73,
-      "discountedShip": 1559,
-      "maxShip": 66
     },
     "Mouse": {
       "n": 3005,
@@ -8464,6 +8464,14 @@
       "p371246",
       "p136163"
     ],
+    "Juegos de mesa": [
+      "p293649",
+      "p135374",
+      "p293971",
+      "p288251",
+      "p135257",
+      "p288196"
+    ],
     "Cocina y comedor": [
       "p340858",
       "p96326",
@@ -8623,14 +8631,6 @@
       "p103444",
       "p101114",
       "p102805"
-    ],
-    "Juegos de mesa": [
-      "p293649",
-      "p135374",
-      "p293971",
-      "p288251",
-      "p135257",
-      "p288196"
     ],
     "Mouse": [
       "p33380",
