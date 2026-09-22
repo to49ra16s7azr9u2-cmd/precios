@@ -4719,6 +4719,21 @@ def sub_herramienta(tn):
         return 'Esmeriladoras y pulidoras'
     if re.search(r'manta (de seguridad )?(electrica|aislante)|anti-?electrocuci|dielectric', tn):
         return 'Seguridad industrial'
+    # «Material eléctrico» eran 910 fichas con el apagador, el contacto y la
+    # placa que los tapa. Se venden por separado y se eligen por separado: la
+    # placa se elige por cuántos módulos tiene y de qué línea es, el apagador
+    # por cuántos polos. El cable, la canaleta y el centro de carga se quedan
+    # en «Material eléctrico», que ahí sí es lo que son.
+    # La ventana de 30 caracteres dejaba fuera a «Placa Ciega Color Negro»,
+    # que es media línea del catálogo de placas: la palabra que la identifica
+    # puede estar en cualquier parte del título, no pegada al sustantivo.
+    if re.search(r'^(?:\S+ ){0,3}(placa|tapa)\b', tn) and \
+       re.search(r'\bmodulo|\bapagador|\bcontacto|\binterruptor|\bdimmer|'
+                 r'\bciega\b|\belectric|\bde pared\b|\bpara pared\b', tn):
+        return 'Placas y tapas eléctricas'
+    if re.search(r'^(?:\S+ ){0,3}(apagador|interruptor|contacto|toma ?corriente|'
+                 r'atenuador|dimmer)\b', tn):
+        return 'Apagadores y contactos'
     if re.search(r'cable (electrico|thw|calibre)|\bcontacto\b|apagador|pastilla|'
                  r'centro de carga|caja de conexion|conector electrico|'
                  r'material electrico|canaleta|\bcinta de aislar\b|sensor de proximidad|'
@@ -4730,6 +4745,13 @@ def sub_herramienta(tn):
     if re.search(r'neumatic|\baire comprimido\b|\bcompresor\b|pistola de aire|'
                  r'\bimpacto\b.{0,15}neumatic', tn):
         return 'Compresores y herramienta neumática' if 'compresor' in tn else 'Neumáticas'
+    # La podadora de césped es una máquina de varios miles de pesos y estaba
+    # con la manguera y las tijeras de podar. Es la compra más cara del rubro
+    # y la que más se compara: merece su propio cajón.
+    if re.search(r'cortacesped|corta ?cesped|podadora (de cesped|de pasto|electrica|'
+                 r'a gasolina|inalambrica)|lawn mower|\btractor de jardin\b|'
+                 r'podadora autopropulsada', tn):
+        return 'Podadoras y cortacésped'
     if re.search(r'jardin|podadora|desbrozadora|motosierra|cortasetos|'
                  r'\bmanguera\b|aspersor|tijeras de podar|soplador de hojas', tn):
         return 'Jardinería'
