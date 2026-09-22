@@ -1457,16 +1457,20 @@ def render_subcategory_page(cat, sub, products, data):
 
     # Enlaces a las subcategorías hermanas: sin esto cada página quedaría en
     # una rama muerta del sitio, alcanzable solo desde el sitemap.
+    #
+    # Va por subcategorias_con_pagina y no por su propia cuenta: acá había una
+    # copia del criterio que miraba el mínimo pero no la lista de nombres sin
+    # página, y enlazaba a «Otros» y «Varios», que nunca se generan. Eran los
+    # 15 enlaces rotos del sitio.
+    productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
     hermanas = []
-    for otra in cat.get("subcategories", []):
+    for otra, items in subcategorias_con_pagina(cat, productos_cat):
         if otra["id"] == sub["id"]:
             continue
-        n = sum(1 for p in data["products"]
-                if p["category"] == cat["id"] and p.get("subcategory") == otra["id"])
-        if n >= MIN_PRODUCTOS_SUBCATEGORIA:
-            hermanas.append(
-                f'<a class="chip" href="../{slugify(otra["name"])}/">{html_escape(otra["name"])} ({n})</a>'
-            )
+        hermanas.append(
+            f'<a class="chip" href="../{slugify(otra["name"])}/">'
+            f'{html_escape(otra["name"])} ({len(items)})</a>'
+        )
     hermanas_html = (
         f'<div class="panel"><h2>Otras subcategorías de {html_escape(cat["name"])}</h2>'
         f'<div class="chip-row">{"".join(hermanas)}</div></div>'
