@@ -1009,6 +1009,8 @@ REGLAS = [
   ('Laptops', None, 'laptop')),
  # La tableta sube junto a la laptop, por la misma razón: su ficha
  # técnica la mandaba a Memoria RAM ("16GB RAM 128GB ROM", 265 casos),
+ (re.compile(r'osciloscopio|multimetro|probador de dureza|durometro|generador de senales|analizador de espectro|tester de (baterias|componentes)'),
+  ('Herramientas', 'Medición', 'wrench')),
  # a Celulares ("8 GB de RAM, solo wifi", 256) y al all-in-one ("panel
  # táctil todo en uno"). Lo que se vende para la tableta (funda, lápiz,
  # teclado, soporte) se aparta por el principio del título, y el panel
@@ -1020,7 +1022,7 @@ REGLAS = [
              r'soporte (para|de|magnetico|universal|plegable)|'
              r'lapiz optico|stylus pen|(para|con|compatible con|y) (ipad|tablet|mac)\b|para (celulares|telefonos)|'
              r'panel (industrial|pc)|todo en uno|all[- ]in[- ]one|reposacabezas|para (coche|auto|carro)|'
-             r'drawing (tablet|monitor)|tableta (grafica|digitalizadora|de dibujo)|monitor tactil|tabletas? (de |para )?(purificacion|potabilizacion|cloro|limpieza|lavavajillas|efervescentes|desinfec)|purificacion de agua|tabletas? (de |para )?\w+ (de |para )?agua|pastillas))'
+             r'drawing (tablet|monitor)|tableta (grafica|digitalizadora|de dibujo)|monitor tactil|tabletas? (de |para )?(purificacion|potabilizacion|cloro|limpieza|lavavajillas|efervescentes|desinfec)|purificacion de agua|\d+ tabletas\b(?!.{0,40}(android|pulgadas|\bram\b|\bgb\b))|pasta dental|masticables|suplemento|vitamin|colageno|magnesio|homeopatic|descalcificad|detergente|chocolate|osciloscopio|probador de dureza|durometro|multimetro|tabletas? (de |para )?\w+ (de |para )?agua|pastillas))'
              r'(?!.*(power ?bank|banco de energia|bateria (externa|portatil)|audifono|auricular|earbud|'
              r'\bcable\b|cargador|hub |concentrador|\bdock\b))'
              r'(?=^(?:\S+ ){0,6}(\btablets?\b|\btabletas?\b|\bipad\b|galaxy tab\b|matepad|redmi pad|idea ?tab|'
