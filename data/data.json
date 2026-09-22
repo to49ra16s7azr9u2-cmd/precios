@@ -6369,14 +6369,17 @@
       "data/cat/muebles-2.json",
       "data/cat/muebles-3.json"
     ],
+    "Belleza y cuidado personal": [
+      "data/cat/belleza-y-cuidado-personal-1.json"
+    ],
+    "Mascotas": [
+      "data/cat/mascotas-1.json"
+    ],
     "Juegos de mesa": [
       "data/cat/juegos-de-mesa-1.json"
     ],
     "Juguetes y bebés": [
       "data/cat/juguetes-y-bebes-1.json"
-    ],
-    "Belleza y cuidado personal": [
-      "data/cat/belleza-y-cuidado-personal-1.json"
     ],
     "Iluminación": [
       "data/cat/iluminacion-1.json"
@@ -6386,9 +6389,6 @@
     ],
     "Blancos y ropa de cama": [
       "data/cat/blancos-y-ropa-de-cama-1.json"
-    ],
-    "Mascotas": [
-      "data/cat/mascotas-1.json"
     ],
     "Componentes y accesorios de PC": [
       "data/cat/componentes-y-accesorios-de-pc-1.json"
@@ -6610,6 +6610,23 @@
       "data/det/muebles-16.json",
       "data/det/muebles-17.json"
     ],
+    "Belleza y cuidado personal": [
+      "data/det/belleza-y-cuidado-personal-1.json",
+      "data/det/belleza-y-cuidado-personal-2.json",
+      "data/det/belleza-y-cuidado-personal-3.json",
+      "data/det/belleza-y-cuidado-personal-4.json",
+      "data/det/belleza-y-cuidado-personal-5.json",
+      "data/det/belleza-y-cuidado-personal-6.json"
+    ],
+    "Mascotas": [
+      "data/det/mascotas-1.json",
+      "data/det/mascotas-2.json",
+      "data/det/mascotas-3.json",
+      "data/det/mascotas-4.json",
+      "data/det/mascotas-5.json",
+      "data/det/mascotas-6.json",
+      "data/det/mascotas-7.json"
+    ],
     "Juegos de mesa": [
       "data/det/juegos-de-mesa-1.json",
       "data/det/juegos-de-mesa-2.json"
@@ -6620,14 +6637,6 @@
       "data/det/juguetes-y-bebes-3.json",
       "data/det/juguetes-y-bebes-4.json",
       "data/det/juguetes-y-bebes-5.json"
-    ],
-    "Belleza y cuidado personal": [
-      "data/det/belleza-y-cuidado-personal-1.json",
-      "data/det/belleza-y-cuidado-personal-2.json",
-      "data/det/belleza-y-cuidado-personal-3.json",
-      "data/det/belleza-y-cuidado-personal-4.json",
-      "data/det/belleza-y-cuidado-personal-5.json",
-      "data/det/belleza-y-cuidado-personal-6.json"
     ],
     "Iluminación": [
       "data/det/iluminacion-1.json",
@@ -6653,15 +6662,6 @@
       "data/det/blancos-y-ropa-de-cama-4.json",
       "data/det/blancos-y-ropa-de-cama-5.json",
       "data/det/blancos-y-ropa-de-cama-6.json"
-    ],
-    "Mascotas": [
-      "data/det/mascotas-1.json",
-      "data/det/mascotas-2.json",
-      "data/det/mascotas-3.json",
-      "data/det/mascotas-4.json",
-      "data/det/mascotas-5.json",
-      "data/det/mascotas-6.json",
-      "data/det/mascotas-7.json"
     ],
     "Componentes y accesorios de PC": [
       "data/det/componentes-y-accesorios-de-pc-1.json",
@@ -6858,7 +6858,7 @@
       "maxShip": 80
     },
     "Herramientas": {
-      "n": 32349,
+      "n": 32353,
       "subs": {
         "Construcción": 206,
         "Accesorios para herramientas eléctricas": 567,
@@ -6905,7 +6905,7 @@
         "Gas LP": 67,
         "Plomería": 910,
         "Bombas de agua": 362,
-        "Sanitarios y accesorios de baño": 108,
+        "Sanitarios y accesorios de baño": 112,
         "Tarjas y fregaderos": 427,
         "Grifos y monomandos": 545,
         "Regaderas y duchas": 709,
@@ -6945,19 +6945,19 @@
       "maxShip": 78
     },
     "Otros": {
-      "n": 6985,
+      "n": 6994,
       "subs": {
         "Varios": 533,
         "Soportes para dispositivos": 2744,
         "Cargadores solares portátiles": 274,
-        "Organización del hogar": 426,
+        "Organización del hogar": 428,
         "Estaciones de energía": 637,
         "Inversores": 82,
         "Accesorios y limpieza de paneles solares": 775,
         "Kits solares y controladores de carga": 372,
         "Radios": 266,
         "Paneles solares": 471,
-        "Baño": 298,
+        "Baño": 305,
         "Luces y ventiladores solares": 103,
         "Bombas y calentadores solares": 4
       },
@@ -7132,9 +7132,9 @@
       "maxShip": 84
     },
     "Almacenamiento": {
-      "n": 3132,
+      "n": 3135,
       "subs": {
-        "Memorias USB": 1412,
+        "Memorias USB": 1415,
         "Tarjetas de memoria": 325,
         "Interno": 334,
         "Externo": 332,
@@ -7294,15 +7294,15 @@
       "maxShip": 72
     },
     "Muebles": {
-      "n": 33216,
+      "n": 33186,
       "subs": {
         "Taburetes y bancos": 1480,
-        "Roperos": 962,
+        "Roperos": 953,
         "Escritorios de oficina": 1730,
-        "Repisas": 474,
+        "Repisas": 451,
         "Libreros": 650,
         "Otros": 84,
-        "Escritorios de altura ajustable": 398,
+        "Escritorios de altura ajustable": 407,
         "Escritorios en L y esquineros": 348,
         "Escritorios gamer": 204,
         "Sillas infantiles": 256,
@@ -7312,31 +7312,31 @@
         "Colchones": 212,
         "Cabeceras": 926,
         "Sillas de espera y visitas": 417,
-        "Sillas plegables y de camping": 899,
+        "Sillas plegables y de camping": 897,
         "Sillas de oficina": 2117,
-        "Mesas auxiliares y laterales": 503,
-        "Accesorios y organizadores de escritorio": 362,
+        "Mesas auxiliares y laterales": 505,
+        "Accesorios y organizadores de escritorio": 350,
         "Sillones y reclinables": 914,
         "Percheros": 337,
         "Mesas de cama y con ruedas": 30,
         "Zapateras": 247,
-        "Camas": 109,
+        "Camas": 102,
         "Escritorios": 15,
-        "Mesas para TV y consolas": 566,
+        "Mesas para TV y consolas": 583,
         "Mesas de centro": 1235,
-        "Mesas de comedor": 725,
+        "Mesas de comedor": 719,
         "Burós": 333,
         "Escritorios plegables y compactos": 192,
         "Herrajes y refacciones de muebles": 243,
         "Carros e islas de cocina": 93,
-        "Muebles de cocina": 121,
-        "Sillas de comedor": 2040,
+        "Muebles de cocina": 127,
+        "Sillas de comedor": 2035,
         "Camas plegables y catres": 42,
         "Sillones de masaje": 160,
         "Sillas gamer": 247,
         "Camas infantiles": 119,
         "Puffs y otomanas": 93,
-        "Sofás de 2 y 3 plazas": 583,
+        "Sofás de 2 y 3 plazas": 579,
         "Mesas plegables y multiusos": 419,
         "Sillas de exterior": 227,
         "Bases de cama y box": 798,
@@ -7355,14 +7355,14 @@
         "Mesas de exterior": 54,
         "Alacenas y gabinetes de cocina": 1355,
         "Mesas altas y de bar": 108,
-        "Antecomedores y mesas de cocina": 173,
-        "Accesorios y refacciones para sillas": 240,
+        "Antecomedores y mesas de cocina": 175,
+        "Accesorios y refacciones para sillas": 241,
         "Escritorios infantiles y estudiantiles": 45,
-        "Mecedoras y colgantes": 77,
+        "Mecedoras y colgantes": 76,
         "Juegos de comedor": 700,
         "Mesas de comedor extensibles": 57,
         "Mesas de comedor para exterior": 31,
-        "Bancas de comedor": 14,
+        "Bancas de comedor": 16,
         "Fundas y accesorios para sofá": 56,
         "Accesorios y refacciones de cama": 86,
         "Cocinas integrales": 1204,
@@ -7373,6 +7373,100 @@
       "max": 82,
       "discountedShip": 12081,
       "maxShip": 82
+    },
+    "Belleza y cuidado personal": {
+      "n": 11194,
+      "subs": {
+        "Mobiliario para salón": 120,
+        "Masajeadores": 434,
+        "Uñas": 529,
+        "Dispositivos de cuidado facial": 354,
+        "Cuidado del cabello": 399,
+        "Brochas y esponjas": 84,
+        "Cuidado personal": 474,
+        "Corporales": 628,
+        "Mascarillas faciales": 141,
+        "Planchas para cabello": 396,
+        "Bases y correctores": 744,
+        "Organizadores de maquillaje": 45,
+        "Extensiones de cabello": 312,
+        "Cremas y sérums faciales": 1009,
+        "Rasuradoras": 940,
+        "Vaporizadores y equipo de spa": 359,
+        "Maquillaje": 280,
+        "Faciales": 16,
+        "Pelucas": 440,
+        "Secadoras de cabello": 658,
+        "Depilación": 435,
+        "Protección solar": 393,
+        "Cuidado facial masculino": 6,
+        "Exfoliantes y peelings": 46,
+        "Rizadores": 379,
+        "Máscaras de pestañas y cejas": 213,
+        "Limpiadores y tónicos": 69,
+        "Labiales": 441,
+        "Polvos, rubores y bronceadores": 307,
+        "Paletas y sets de maquillaje": 105,
+        "Primers y fijadores": 71,
+        "Sombras y delineadores": 251,
+        "Pestañas postizas": 82,
+        "Contorno de ojos y labios": 11,
+        "Estilizadores": 5,
+        "Perfumes": 18
+      },
+      "pop": 47894,
+      "discounted": 3384,
+      "max": 79,
+      "discountedShip": 3393,
+      "maxShip": 79
+    },
+    "Mascotas": {
+      "n": 12454,
+      "subs": {
+        "Transportadoras": 458,
+        "Rascadores y torres": 157,
+        "Camas para perro": 807,
+        "Camas para gato": 225,
+        "Correas": 342,
+        "Camas": 15,
+        "Acuarios y terrarios": 163,
+        "Casas para mascotas": 1787,
+        "Cojines y mantas para mascotas": 66,
+        "Higiene y limpieza": 161,
+        "Comederos automáticos": 485,
+        "Puertas para mascotas": 747,
+        "Jaulas y hábitats para roedores": 77,
+        "Platos y tazones para mascotas": 1605,
+        "Tapetes y accesorios de alimentación": 58,
+        "Juguetes para perro": 680,
+        "Camas elevadas y colchonetas": 256,
+        "Cuevas, iglús y tiendas para mascotas": 631,
+        "Areneros": 101,
+        "Juguetes": 2,
+        "Juguetes para gato": 201,
+        "Fuentes y dispensadores de agua": 209,
+        "Bebederos": 120,
+        "Comederos": 15,
+        "Comederos elevados": 268,
+        "Comederos para aves y roedores": 34,
+        "Comederos lentos y antivoracidad": 148,
+        "Juguetes para aves y roedores": 21,
+        "Jaulas para perro": 1385,
+        "Adiestramiento": 21,
+        "Ropa y accesorios": 98,
+        "Jaulas para aves": 16,
+        "Corrales y rejas para mascotas": 70,
+        "Jaulas y recintos para gato": 914,
+        "Gallineros y conejeras": 46,
+        "Alimento y premios": 4,
+        "": 40,
+        "GPS y localizadores": 21
+      },
+      "pop": 12003,
+      "discounted": 868,
+      "max": 75,
+      "discountedShip": 867,
+      "maxShip": 71
     },
     "Juegos de mesa": {
       "n": 3545,
@@ -7438,52 +7532,6 @@
       "max": 77,
       "discountedShip": 3835,
       "maxShip": 77
-    },
-    "Belleza y cuidado personal": {
-      "n": 11184,
-      "subs": {
-        "Masajeadores": 434,
-        "Mobiliario para salón": 110,
-        "Uñas": 529,
-        "Dispositivos de cuidado facial": 354,
-        "Cuidado del cabello": 399,
-        "Brochas y esponjas": 84,
-        "Cuidado personal": 474,
-        "Corporales": 628,
-        "Mascarillas faciales": 141,
-        "Planchas para cabello": 396,
-        "Bases y correctores": 744,
-        "Organizadores de maquillaje": 45,
-        "Extensiones de cabello": 312,
-        "Cremas y sérums faciales": 1009,
-        "Rasuradoras": 940,
-        "Vaporizadores y equipo de spa": 359,
-        "Maquillaje": 280,
-        "Faciales": 16,
-        "Pelucas": 440,
-        "Secadoras de cabello": 658,
-        "Depilación": 435,
-        "Protección solar": 393,
-        "Cuidado facial masculino": 6,
-        "Exfoliantes y peelings": 46,
-        "Rizadores": 379,
-        "Máscaras de pestañas y cejas": 213,
-        "Limpiadores y tónicos": 69,
-        "Labiales": 441,
-        "Polvos, rubores y bronceadores": 307,
-        "Paletas y sets de maquillaje": 105,
-        "Primers y fijadores": 71,
-        "Sombras y delineadores": 251,
-        "Pestañas postizas": 82,
-        "Contorno de ojos y labios": 11,
-        "Estilizadores": 5,
-        "Perfumes": 18
-      },
-      "pop": 47894,
-      "discounted": 3384,
-      "max": 79,
-      "discountedShip": 3393,
-      "maxShip": 79
     },
     "Iluminación": {
       "n": 12298,
@@ -7582,54 +7630,6 @@
       "max": 75,
       "discountedShip": 3068,
       "maxShip": 75
-    },
-    "Mascotas": {
-      "n": 12450,
-      "subs": {
-        "Camas para perro": 806,
-        "Camas para gato": 225,
-        "Correas": 342,
-        "Camas": 15,
-        "Rascadores y torres": 156,
-        "Acuarios y terrarios": 163,
-        "Casas para mascotas": 1787,
-        "Cojines y mantas para mascotas": 66,
-        "Higiene y limpieza": 161,
-        "Comederos automáticos": 485,
-        "Transportadoras": 456,
-        "Puertas para mascotas": 747,
-        "Jaulas y hábitats para roedores": 77,
-        "Platos y tazones para mascotas": 1605,
-        "Tapetes y accesorios de alimentación": 58,
-        "Juguetes para perro": 680,
-        "Camas elevadas y colchonetas": 256,
-        "Cuevas, iglús y tiendas para mascotas": 631,
-        "Areneros": 101,
-        "Juguetes": 2,
-        "Juguetes para gato": 201,
-        "Fuentes y dispensadores de agua": 209,
-        "Bebederos": 120,
-        "Comederos": 15,
-        "Comederos elevados": 268,
-        "Comederos para aves y roedores": 34,
-        "Comederos lentos y antivoracidad": 148,
-        "Juguetes para aves y roedores": 21,
-        "Jaulas para perro": 1385,
-        "Adiestramiento": 21,
-        "Ropa y accesorios": 98,
-        "Jaulas para aves": 16,
-        "Corrales y rejas para mascotas": 70,
-        "Jaulas y recintos para gato": 914,
-        "Gallineros y conejeras": 46,
-        "Alimento y premios": 4,
-        "": 40,
-        "GPS y localizadores": 21
-      },
-      "pop": 12003,
-      "discounted": 868,
-      "max": 75,
-      "discountedShip": 867,
-      "maxShip": 71
     },
     "Componentes y accesorios de PC": {
       "n": 8469,
@@ -8475,6 +8475,22 @@
       "p108970",
       "p29615"
     ],
+    "Belleza y cuidado personal": [
+      "p103304",
+      "p102730",
+      "p106618",
+      "p103444",
+      "p101114",
+      "p102805"
+    ],
+    "Mascotas": [
+      "p32289",
+      "p74693",
+      "p287678",
+      "p29361",
+      "p75051",
+      "p338060"
+    ],
     "Juegos de mesa": [
       "p293649",
       "p135374",
@@ -8490,14 +8506,6 @@
       "p136103",
       "p371246",
       "p136163"
-    ],
-    "Belleza y cuidado personal": [
-      "p103304",
-      "p102730",
-      "p106618",
-      "p103444",
-      "p101114",
-      "p102805"
     ],
     "Iluminación": [
       "p85941",
@@ -8522,14 +8530,6 @@
       "p294408",
       "p31635",
       "p96203"
-    ],
-    "Mascotas": [
-      "p32289",
-      "p74693",
-      "p287678",
-      "p29361",
-      "p75051",
-      "p338060"
     ],
     "Componentes y accesorios de PC": [
       "p127003",
