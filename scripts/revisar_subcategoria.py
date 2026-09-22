@@ -129,9 +129,20 @@ def expediente(data, cat, sub, marcas, args):
     # celular Samsung Galaxy A16» abre con «teléfono», que dentro de Celulares
     # nombra a «Teléfonos fijos», pero el «celular» de al lado dice que no.
     # Sin este freno, Android proponía mandar 140 smartphones a fijos.
-    de_cat = {w[:-1] if w.endswith("s") else w
-              for w in re.split(r"[^a-z0-9]+", T(cat)) if len(w) >= 5}
+    def _sing(w):
+        return w[:-2] if len(w) > 5 and w.endswith("es") else (w[:-1] if w.endswith("s") else w)
+    de_cat = {_sing(w) for w in re.split(r"[^a-z0-9]+", T(cat)) if len(w) >= 5}
     rx_cat = re.compile(r"\b(" + "|".join(re.escape(w) for w in de_cat) + r")") if de_cat else None
+    # Y la cabecera tiene que ser MINORITARIA en la categoría, como en
+    # proponer_corte: «teléfono» abre el 30% de Celulares y no distingue un
+    # fijo de un smartphone. Se cuenta sobre toda la categoría, no sólo
+    # sobre esta subcategoría.
+    cab_cat = collections.Counter()
+    for p in en_cat:
+        h = cabecera(p["name"], p.get("brand"), marcas)
+        if h:
+            cab_cat[h] += 1
+    tot_cat = sum(cab_cat.values()) or 1
     cab = collections.Counter()
     cab_de = {}
     for p in items:
@@ -142,7 +153,8 @@ def expediente(data, cat, sub, marcas, args):
     print("   cabeceras:", ", ".join(f"{h} {n}" for h, n in cab.most_common(10)))
     for h, n in cab.most_common(40):
         destino = propio.get(h)
-        if destino and destino != sub and h not in mias and n >= 2:
+        if destino and destino != sub and h not in mias and n >= 2 \
+                and cab_cat[h] / tot_cat <= 0.05:
             for p in items:
                 if cab_de.get(p["id"]) == h:
                     if rx_cat and rx_cat.search(T(p["name"])):
