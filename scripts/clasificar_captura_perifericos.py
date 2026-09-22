@@ -1416,6 +1416,8 @@ REGLAS = [
   ('Componentes y accesorios de PC', 'Componentes', 'cpu')),
  (re.compile(r'walkie|\bptt\b|radios? de comunicacion|radio bidireccional|two-?way radio|retevis|baofeng|\buhf\b.{0,30}radio|radio.{0,30}\buhf\b|\bvhf\b'),
   ('Otros', 'Radios', 'box')),
+ (re.compile(r'motoventilador|moto ?ventilador (automotriz|universal|para)'), ('Refacciones', 'Enfriamiento y climatización', 'gear')),
+ (re.compile(r'bomba (de )?(gasolina|diesel|de combustible)\b'), ('Refacciones', 'Bombas', 'gear')),
  # El radio de bolsillo, el inversor y la báscula tienen su sitio y no lo
  # alcanzaba ninguna regla (el radio acababa en Mobiliario por 'la mejor
  # recepción', el inversor en Herramientas, la báscula de cocina en manuales).
