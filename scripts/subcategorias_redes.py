@@ -15,53 +15,111 @@ de la categoría que la ficha ya tiene; nunca la cambian de categoría.
 import re
 
 
+RX_RELOJ = re.compile(r'\breloj|\bwatch\b|\bairpods|\bauricular|\bearbuds|\bsmartwatch|\bpixel watch|\bgalaxy watch|'
+                      r'\bgalaxy fit|\bfitbit|\bgarmin|\bamazfit|\bhuawei band|\bmi band|\bband \d|\bredmi watch|'
+                      r'\boura\b|\baura[- ]?ring|ultrahuman|ringconn|\banillo (inteligente|ultrahumano)|\bsmart ring|\bpulsera|\bgalaxy buds|\bwhoop\b|\bforerunner|\bfenix\b|\bvenu\b|\bversa \d|\binspire \d')
+RX_ESTACION = re.compile(r'estacion|\b[2-9] en 1\b|\b[2-9]-en-1\b|\b[2-9]in1\b|\b[2-9] in 1\b|\bdock\b')
+
+
+def sub_cable(tn):
+    """El cable por su conector, como lo pide la búsqueda: el de video
+    (HDMI), el del reloj, el de varias puntas, el Lightning, el micro USB y
+    el USB-C. Lo que no dice el conector se queda en "Cable"."""
+    if re.search(r'\bhdmi\b|displayport|\bvga\b|\bdvi\b|\bthunderbolt\b.{0,20}(monitor|pantalla|display)|'
+                 r'usb-?c a (monitor|pantalla|tv)|\b4k\b.{0,20}(cable|adaptador)', tn):
+        return 'Cables y adaptadores de video'
+    if RX_RELOJ.search(tn) and not RX_ESTACION.search(tn):
+        return 'Cargadores para reloj y accesorios pequeños'
+    if re.search(r'\b[3-6] en 1\b|\b[3-6]-en-1\b|\b[3-6]in1\b|multi ?cable|multi ?cargador|multiconector|'
+                 r'(lightning|micro ?usb).{0,30}(tipo c|usb-?c).{0,30}(lightning|micro ?usb)|'
+                 r'cable (universal|multiple|multifuncion)', tn):
+        return 'Cables multiconector'
+    if re.search(r'lightning|\bmfi\b', tn):
+        return 'Cables Lightning'
+    if re.search(r'para iphone|para ipad|apple original', tn) and \
+       not re.search(r'(usb ?-?c|tipo ?c|type ?c) (a|to|-) ?(usb ?-?c|tipo ?c|type ?c)|\bc a c\b|\bc-c\b', tn):
+        return 'Cables Lightning'
+    if re.search(r'micro ?-?usb|\bv8\b|micro b\b', tn):
+        return 'Cables micro USB'
+    if re.search(r'usb ?-?c|tipo ?-?c|type ?-?c|\bc a c\b|\bc-c\b|\bpd\b.{0,20}cable|cable.{0,20}\bpd\b|thunderbolt', tn):
+        return 'Cables USB-C'
+    return 'Cable'
+
+
+LAPTOP = re.compile(r'laptop|notebook|macbook|chromebook|thinkpad|ordenador(es)? portatil(es)?|computadoras? portatil(es)?|pc portatil|'
+                    r'(cargador|adaptador|fuente) (de |para )(el |la |mi )?portatil|'
+                    r'\bdell\b|\bhp\b|lenovo|\basus\b|\bacer\b|\bmsi\b|inspiron|pavilion|ideapad|vivobook|zenbook|latitude|'
+                    r'\blegion\b|\bsurface\b|alienware|\bxps\b|elitebook|probook|voltaje variable|'
+                    r'\b19(\.5)? ?v\b|magsafe [123]\b(?![.,])|forma de [lt]\b|toshiba|satellite|portege|\blg gram\b|razer blade|matebook|galaxy book|\bpsu\b')
+# El GaN de varios puertos que "también carga laptop" es de pared; el
+# cargador USB-C de un puerto "para MacBook / HP / Lenovo" es de laptop.
+
+
 def sub_cargador(tn):
     # Lo que no es cargador de pared ni de auto: el power bank (es de
     # Baterías portátiles), el adaptador Wi-Fi de domótica.
     # "Inteligente" y "wifi" a secas también los dice el cargador de auto de
     # carga rápida: el descarte pide que sea un enchufe o contacto smart.
-    if re.search(r'power ?bank|banco de energia|bateria (externa|portatil)|\btuya\b|'
+    if re.search(r'power ?bank|banco de energia|bateria (externa|portatil)(?! de celda)|\btuya\b|'
                  r'(enchufe|contacto|toma)\w*.{0,20}intelig|smart plug', tn):
         return None
+    # El cargador del reloj, de los audífonos o del anillo va a su cajón
+    # antes que nada: la estación con varios sitios (reloj + teléfono +
+    # audífonos) no, ésa es inalámbrica. "Echo Dot con reloj" tampoco.
+    if RX_RELOJ.search(tn) and not RX_ESTACION.search(tn) and not re.search(r'\becho\b|alexa', tn):
+        return 'Cargadores para reloj y accesorios pequeños'
+    # La regleta y el multicontacto son toma de corriente, no cargador de
+    # un aparato; tienen su cajón (22-sep).
+    if re.search(r'\bregletas?\b|multicontactos?\b|barra de contactos|power strip|extension electrica|'
+                 r'tira de alimentacion|extensor de (alimentacion|toma|corriente)|toma de corriente (emergente|empotrable|de escritorio)|'
+                 r'\b[3-9] (tomas|enchufes|contactos|salidas ac)\b|protector de (picos|sobretension|voltaje)|supresor de picos', tn):
+        return 'Regletas y multicontactos'
+    # El adaptador de enchufe (europeo, universal, de viaje) y el de tres a
+    # dos clavijas: la clavija cambia, el cargador no viene.
+    if re.search(r'adaptador(es)? (universal(es)? )?(de |para )?(viaje|enchufes?|clavijas?)|adaptador(es)? universal(es)?|juego de adaptadores|'
+                 r'enchufe (europeo|americano|universal|britanico|australiano|de viaje)|clavija (universal|internacional|europea)|'
+                 r'convertidor de (voltaje|enchufe)|adaptador (de corriente )?(internacional|europeo|de 3 a 2|3 a 2)|'
+                 r'\b(3|tres) a (2|dos) (clavijas|patas)|adaptador con tierra', tn):
+        return 'Adaptadores de enchufe y de viaje'
+    # El de pilas y baterías sueltas, antes que el de laptop: "cargador de
+    # batería portátil de celda de botón" dice "portátil" sin ser laptop.
     if re.search(r'bateria(s)? (para|de|compatible)? ?(camara|videocamara|canon|sony|nikon|motorola|radio|gopro|dji)|'
                  r'\blp-e\d|\bnp-[fw]\d|para videocamara|cargador (dual|doble|de bateria).{0,40}(bateria|baterias)|'
-                 r'cargador de baterias?\b', tn):
+                 r'cargador de baterias?\b|\bpilas?\b|\baa\b|\baaa\b|18650|\bnimh\b|ni-mh|\blir ?20\d\d|'
+                 r'eneloop|k-kj\d|\b\d (posiciones|ranuras|bahias|slots)\b|celda de boton|pila de boton', tn):
         return 'De pilas'
-    # El accesorio del cargador no es un cargador: el lector de tarjetas,
-    # el adaptador USB-C a HDMI o a Ethernet son cables y adaptadores de
-    # datos, y van a "Cable" que es lo más cercano que tiene la lista.
-    if re.search(r'lector de tarjetas|\botg\b|a hdmi|a ethernet|\brj45\b|hub usb|'
+    # El adaptador de video y el hub tienen cajón propio; el lector de
+    # tarjetas y el OTG siguen en "Cable", que es lo más cercano.
+    if re.search(r'\bhdmi\b|displayport|\bvga\b|\bdvi\b', tn):
+        return 'Cables y adaptadores de video'
+    if re.search(r'lector de tarjetas|\botg\b|a ethernet|\brj45\b|hub usb|'
                  r'cable adaptador|adaptador (usb|tipo c|usb-?c) a ', tn):
-        return 'Cable'
-    if re.search(r'cargador (de |para |\S+ )?(auto|coche|carro|vehicul)|de auto\b|para auto\b|'
-                 r'encendedor|\b12 ?v\b.{0,20}(auto|coche|carro)|car charger', tn):
+        return sub_cable(tn)
+    # El de auto (con o sin cable, inalámbrico o no) antes que el
+    # inalámbrico: "cargador inalámbrico para coche" es de auto.
+    if re.search(r'cargador.{0,30}\b(auto|coche|carro|vehiculo|automovil|camioneta)\b|(de|para) (el |tu )?(auto|coche|carro|automovil)\b|'
+                 r'encendedor|\b12 ?v\b.{0,20}(auto|coche|carro)|car charger|para (tesla|ford|toyota|honda|nissan|chevrolet|mazda|kia|hyundai|vw|volkswagen|subaru|bmw|audi|mercedes) \w+ 20\d\d', tn):
         return 'De auto'
-    if re.search(r'cargador (de |para )?(laptop|portatil|notebook)|para laptop|eliminador|'
-                 r'adaptador (de corriente |de alimentacion )?(para|de) (laptop|notebook)|'
-                 r'\b(19|19\.5|20) ?v\b.{0,25}\b\d\.\d+ ?a\b', tn):
+    # El de laptop: lo dice la palabra, la marca o el voltaje de la punta.
+    # El GaN de varios puertos que "también carga laptop" es de pared.
+    if LAPTOP.search(tn) and re.search(r'cargador|adaptador|fuente|eliminador|charger', tn) and \
+       not re.search(r'\d[\d,.]* ?mah|\d ?-?puertos|multipuerto|celular|iphone|para samsung galaxy [sa]\d|nintendo|steam deck|\bhub\b|magsafe [123]?\.\d|qi2?\b', tn):
         return 'Para laptop'
-    if re.search(r'\bpilas?\b|\baa\b|\baaa\b|18650|\bnimh\b|ni-mh', tn):
-        return 'De pilas'
-    if re.search(r'inalambric|wireless|\bqi2?\b|magsafe|magnetic|magnetico|'
-                 r'base de carga|estacion de carga|dock de carga|soporte de carga|'
-                 r'\bbanco de energia inalambrico\b', tn):
-        # La base con varios sitios (reloj, audífonos y teléfono) se vende
-        # como estación; la de un solo sitio, como cargador inalámbrico.
-        if re.search(r'\b3 en 1\b|\b2 en 1\b|estacion|\bdock\b|\bbase\b', tn):
-            return 'Base de carga'
+    # El inalámbrico, con uno o varios sitios (la estación 3 en 1 también).
+    if re.search(r'inalambric|wireless|\bqi2?\b|magsafe|magnetic|magnetico|carga por induccion|induccion', tn):
         return 'Inalámbrico'
-    if re.match(r'^(?:\S+ )?cables?\b', tn) or (
+    # La base o estación con cable: la de varios puertos USB es de pared
+    # (la ola 2 la manda a multipuerto); la del aparato es base de carga.
+    if re.search(r'base de carga|estacion de carga|dock de carga|soporte de carga|\bdock\b|base cargadora|cuna de carga', tn):
+        if re.search(r'\d+ puertos|multipuerto|\bgan\b|\d+ ?w\b|\busb\b', tn) and not re.search(r'control|mando|joy|reloj|watch|cepillo|afeitadora|aspiradora|radio|camara', tn):
+            return 'De pared'
+        return 'Base de carga'
+    if (re.match(r'^(?:\S+ ){0,3}cables?\b', tn) and not re.match(r'^(?:\S+ ){0,2}cargador', tn)) or (
             'cargador' not in tn and re.search(r'^(?:\S+ ){0,4}cables?\b|cable (usb|tipo c|lightning|micro)', tn)):
-        return 'Cable'
-    if re.search(r'para herramienta|dewalt|makita|milwaukee|\bryobi\b|\bbosch\b.{0,20}bateria', tn):
-        return 'Para herramientas'
-    if re.search(r'adaptador (universal )?de (viaje|enchufe|corriente)|adaptador universal|'
-                 r'enchufe (europeo|americano|universal)|convertidor de (voltaje|enchufe)|'
-                 r'adaptador de alimentacion|fuente de (poder|alimentacion)|'
-                 # La regleta, el multicontacto y la placa de pared con USB
-                 # son toma de corriente, no cargador de un aparato.
-                 r'\bregleta\b|multicontacto|extension electrica|tira de alimentacion|'
-                 r'extensor de alimentacion|placa de pared usb|\bgfci\b|conector de enchufe usb', tn):
+        return sub_cable(tn)
+    if re.search(r'adaptador de alimentacion|fuente de (poder|alimentacion)|eliminador|'
+                 r'placa de pared usb|\bgfci\b|conector de enchufe usb|adaptador de corriente', tn) and \
+       not re.search(r'\busb\b|tipo c|usb-?c|\bgan\b|\bpd\b|puertos?|celular|iphone|samsung|carga rapida', tn):
         return 'Adaptador de corriente'
     if re.search(r'cargador|carga rapida|turbopower|\bpd\b|\bqc ?3|\bgan\b|de pared|'
                  r'\d+ ?w\b|multipuerto|adaptador', tn):

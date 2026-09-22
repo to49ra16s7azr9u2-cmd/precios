@@ -869,8 +869,12 @@ _RX_W = re.compile(r'(?<![\d.])(\d{1,3}) ?w\b')
 
 
 def sub_cargador_pared(tn):
-    if re.search(r'\breloj|\bwatch\b|\bairpods|\bauricular|\bearbuds|\bsmartwatch|\bpixel watch|\bgalaxy watch', tn):
+    if re.search(r'\breloj|\bwatch\b|\bairpods|\bauricular|\bearbuds|\bsmartwatch|\bpixel watch|\bgalaxy watch|'
+                 r'\bfitbit|\bgarmin|\bamazfit|\bhuawei band|\bmi band|\boura\b|\banillo inteligente', tn) and \
+       not re.search(r'estacion|\b[2-9] en 1\b|\bdock\b', tn):
         return 'Cargadores para reloj y accesorios pequeños'
+    if re.search(r'\bregletas?\b|multicontactos?\b|power strip|extension electrica|\b[3-9] (tomas|enchufes)\b', tn):
+        return 'Regletas y multicontactos'
     if re.search(r'\b([4-9]|1\d|2\d) puertos|\bmultipuerto|\bmulti ?puerto|\bestacion de carga|\bcharging station|\btorre de carga|\bconcentrador de carga|\bhub de carga|\b3 puertos|\b4 puertos', tn):
         return 'Cargadores multipuerto y estaciones de carga'
     ws = [int(x) for x in _RX_W.findall(tn) if 3 <= int(x) <= 400]

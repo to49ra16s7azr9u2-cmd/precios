@@ -1479,11 +1479,12 @@ REGLAS = [
   ('Componentes y accesorios de PC', 'Accesorios', 'cpu')),
  # Punto de venta: la caja registradora, la terminal POS, el cajón de
  # dinero y la impresora de tickets iban a Tabletas, Celulares o AiO.
- (re.compile(r'terminal (pos|de punto de venta|de cobro|de pago|para tarjetas)|\bpos\b (terminal|todo en uno|tactil|android|de doble pantalla)|'
+ (re.compile(r'^(?!.*(\bsd\b|micro ?sd|de memoria|\botg\b|\btf\b|\bcf\b|lector de tarjetas (usb|3 en 1|4 en 1|multi)))'
+             r'(?:terminal (pos|de punto de venta|de cobro|de pago|para tarjetas)|\bpos\b (terminal|todo en uno|tactil|android|de doble pantalla)|'
              r'caja registradora|cajas registradoras|cajon (de dinero|portamonedas|de efectivo|monedero)|impresora (termica )?de (tickets|recibos)|miniprinter|'
              r'impresora termica.{0,30}(58|80) ?mm|escaner de codigos? de barras|lector de codigos? de barras|lector de tarjetas|\btpv\b|'
              r'maquina expendedora|rollos? termicos?|papel termico|terminal de (cobro|pago)|\bpda\b.{0,50}(escaner|codigo de barras|colector)|colector de datos|'
-             r'sistema (de )?punto de venta|mercado pago point|punto de venta'),
+             r'sistema (de )?punto de venta|mercado pago point|punto de venta)'),
   ('Equipo comercial', 'Punto de venta', 'factory')),
  # Mobiliario comercial: el exhibidor, el mostrador y la recepción.
  (re.compile(r'^(?!.*(refriger|congel|vitrina|\bfrio\b|\bfria\b|celular|telefono|tablet|pastel|postres|cupcake|torta|joyeria|anillos|relojes|figuras|funko|munec|juguete|estatua|statue|adorno|decoraci|altura de mostrador|mesita|buro|de noche|antipolvo|protector|escritorio de))'
@@ -1815,6 +1816,44 @@ REGLAS = [
              r'caminadora|eliptica|rowing|\bremo\b|nordictrack|peloton|bicicleta estatica|humidificador|purificador|maquina de coser|licuadora|mosquito|walkie|resmed|cpap|'
              r'\bbose\b|sonos|\bjbl\b|\bbeats\b|barra de sonido|altavoz|bocina|concentrador de oxigeno|inogen)'),
   ('Refacciones', 'Refacciones para electrodomésticos', 'gear')),
+ # Lo que dice "cargador" y no es un cargador de celular (22-sep, recorrido
+ # de Cargadores y adaptadores): el de la batería de herramienta, el de la
+ # consola, el de la cámara, el del auto eléctrico, el de la batería de
+ # plomo y el módulo TP4056 tienen cada uno su cajón en otra categoría.
+ (re.compile(r'^(?!.*(power ?bank|\d[\d,.]* ?mah|celular|iphone|samsung galaxy|cargador de (coche|auto|pared)|car charger|\bgan\b|\bpd\b|\d puertos|usb-?c|tipo c))'
+             r'(?=.*(cargador|charger|adaptador de bateria|inversor))'
+             r'(?=.*(dewalt|milwaukee|makita|\bbosch\b|\bryobi\b|black ?(and|\+|&) ?decker|craftsman|\bridgid\b|\bskil\b|\btruper\b|\bpretul\b|einhell|\bhilti\b|\bworx\b|\bgreenworks\b|\bego\b power|\bkobalt\b|\bdcb\d{3}|\bm18\b|\bm12\b|\bxr\b|redlithium|\bgal ?1\d|\bgba\b))'
+             r'(?=.*(bateria|\b(12|18|20|36|40) ?v\b|\bah\b|litio|redlithium|\bm18\b|\bm12\b|\bxr\b))'),
+  ('Herramientas', 'Baterías y cargadores de herramienta', 'wrench')),
+ (re.compile(r'^(?!.*(\bgan\b|\bpd\b|power delivery|\d+ ?w\b.{0,40}(tipo c|usb-?c|usb c)|celular|iphone|samsung|laptop|macbook|tablet|ipad|steam deck))'
+             r'(?=.*(cargador|adaptador|base de carga|estacion de carga|dock|stand|fuente de alimentacion|eliminador|cable))'
+             r'(?=.*(\bps5\b|\bps4\b|\bps3\b|\bpsp\b|\bps vita\b|\bxbox\b|\bnintendo\b|\bswitch (2|lite|oled)\b|nintendo switch|\b3ds\b|\b2ds\b|\bds lite\b|\bdsi\b|\bwii\b|joy-?con|dualsense|dualshock|gamecube|game ?boy|\bpro controller\b|control(es)? (de |inalambrico )?(ps|xbox|switch)))'
+             r'(?=.*(base de carga|estacion de carga|dock|stand|cargador (de|para) (control|mando|driver|joy)|charging (dock|station|stand)|cargador (dual|doble)))'),
+  ('Videojuegos', 'Cargadores, bases y soportes', 'gamepad')),
+ (re.compile(r'^(?!.*(\bgan\b|\bpd\b|power delivery|\d+ ?w\b.{0,40}(tipo c|usb-?c|usb c)|celular|iphone|samsung|laptop|macbook|tablet|ipad|steam deck))'
+             r'(?=.*(cargador|adaptador|fuente de alimentacion|eliminador|cable))'
+             r'(?=.*(\bps5\b|\bps4\b|\bps3\b|\bps2\b|\bpsp\b|\bps vita\b|\bxbox\b|\bnintendo\b|\bswitch (2|lite|oled)\b|nintendo switch|\b3ds\b|\b2ds\b|\bds lite\b|\bdsi\b|\bwii\b|joy-?con|dualsense|dualshock|gamecube|game ?boy|\bsnes\b|\bnes\b|sega|\bpro controller\b))'),
+  ('Videojuegos', 'Cables y adaptadores', 'gamepad')),
+ (re.compile(r'^(?:\S+ ){0,3}(cargador|bateria|baterias|kit de bateria)s?\b.{0,50}'
+             r'(\bcanon\b|\bnikon\b|\bsony\b|\bfujifilm\b|\bpanasonic\b|\bolympus\b|\bgopro\b|\bdji\b|\binsta360\b|\bhero ?\d|\bnp-?[a-z]{1,2}\d|\blp-?e\d|\ben-?el\d|\bdmw-|\bbln-|\bcb-2|\bcg-|\bmh-\d|camara|videocamara|action cam)'),
+  ('Cámaras y fotografía', 'Baterías y cargadores de cámara', 'camera')),
+ (re.compile(r'(cargador|estacion de carga|cable de carga|conector|adaptador).{0,60}(vehiculos? electricos?|\bev\b|\btesla\b|\bj1772\b|\bnacs\b|nema 14-50|\bnivel [12]\b|level [12]\b|\btipo 2\b.{0,20}(cargador|ev)|\bwallbox\b)|'
+             r'(vehiculos? electricos?|\bev\b|\btesla\b|\bj1772\b|\bnacs\b|\bwallbox\b).{0,40}(cargador|estacion de carga|cable de carga)'),
+  ('Autos, bicicletas y motos', 'Cargadores para vehículo eléctrico', 'plug')),
+ (re.compile(r'^(?!.*(power ?bank|celular|iphone|laptop|\baa\b|\baaa\b|18650))'
+             r'(?=.*(cargador|mantenedor|charger))'
+             r'(?=.*(plomo|acido|\bagm\b|\bgel\b|\bsla\b|battery charger.{0,40}\b(6|12|24) ?v|\b(12|24) ?v.{0,20}battery charger|12v24v|\bnoco\b|\bschumacher\b|cargador de alternador|\bxlr\b.{0,30}bateria|silla de ruedas|\bgolf\b|scooter electrico|patin electrico|motocicleta|\bmoto\b|lancha|marino|\b(12|24|36|48) ?v\b.{0,30}(bateria|acumulador|\d+ ?a\b)|bateria (de|para) (coche|auto|carro|moto|camion|barco)))'),
+  ('Autos, bicicletas y motos', 'Arrancadores y cargadores de batería', 'plug')),
+ (re.compile(r'\btp4056\b|\bcn3065\b|modulo(s)? (de )?(carga|cargador|cargadores)|placa (de )?(carga|cargador)|'
+             r'modulo (reductor|elevador|step|boost|buck)|placa reductora|\bpcb\b.{0,30}(carga|cargador|bateria)|'
+             r'modulo.{0,30}(bateria de litio|litio|18650|li-?ion)|circuito de carga'),
+  ('Baterías portátiles (power bank)', 'Accesorios y repuestos', 'battery')),
+ (re.compile(r'^(?!.*(auto\b|coche|carro|automovil|estereo|amplificador))'
+             r'^(?:\S+ ){0,3}cables? (de |para )?(altavo|bocina|parlante|speaker)|cable speakon'),
+  ('Bocinas', 'Accesorios para bocinas', 'speaker')),
+ (re.compile(r'^(?:\S+ ){0,3}cables? (de |para )?(altavo|bocina|parlante|speaker).{0,40}(auto\b|coche|carro|automovil|estereo|amplificador)|'
+             r'cable (de )?(remoto|rca).{0,30}(auto|amplificador)|kit de (cables|instalacion) (de|para) amplificador'),
+  ('Autos, bicicletas y motos', 'Accesorios de audio para auto', 'speaker')),
  # Y los cargadores de consumo, por subcategoría del catálogo: el de auto
  # (encendedor), el de pilas AA, el de laptop (punta o marca de laptop en
  # el título), el de pared (USB, tipo C, GaN, watts), el inalámbrico, la
@@ -1935,10 +1974,9 @@ REGLAS = [
  # o tres vías, de rango medio, o diciendo "para auto".
  # El cable de altavoz y el driver suelto no son la bocina: uno es cable
  # y el otro la pieza que va dentro de una caja que hay que construir.
- (re.compile(r'^(?:\S+ ){0,3}cables? (de |para )?(altavo|bocina|parlante|speaker)|cable speakon|'
-             r'(altavo(z|ces)|bocinas?) internos? (de repuesto|izquierd|derech)|'
+ (re.compile(r'(altavo(z|ces)|bocinas?) internos? (de repuesto|izquierd|derech)|'
              r'(altavo(z|ces)|bocinas?) de repuesto (para|compatible)'),
-  ('Cargadores y adaptadores', 'Cable', 'plug')),
+  ('Bocinas', 'Accesorios para bocinas', 'speaker')),
  (re.compile(r'\bcoaxial|\b6 ?x ?9\b|(rango medio|medio rango)|'
              r'(bocinas?|altavo(z|ces)|parlantes?|tweeters?|woofers?) (para|de) (auto|coche|carro|automovil|vehiculo)|'
              r'autoestereo|car audio|\bdoor speakers?\b|^(?:\S+ ){0,4}(altavoz de agudos|\btweeters?\b|super bullet)|'
@@ -2737,7 +2775,7 @@ REGLAS = [
  (re.compile(r'^(?!.*(de juguete|para (muneca|barbie)|\bmaqueta\b|'
              r'control remoto.{0,15}escala|montable para nino|'
              r'carr(o|ito)s? (de|para) (servicio|cocina|almacenamiento|bar|te|postres|helados|comida|bebidas|limpieza|lavanderia|compras|mandado|supermercado|libros|utilidad|herramientas|carga|mano|jardin)|'
-             r'carr(o|ito)s? (rodante|multifuncion|utilitario|auxiliar|movil|organizador|plegable|metalico|con ruedas)|auto ?reset|inodoro|\bbide\b))'
+             r'carr(o|ito)s? (rodante|multifuncion|utilitario|auxiliar|movil|organizador|plegable|metalico|con ruedas)|auto ?reset|inodoro|\bbide\b|motorola|\bmoto (g|e|edge|one|z|x)\d?\b))'
              r'(?=.*(\bbicicleta|\bbici\b|ciclismo|\btriciclo|\bmotocicleta|\bmoto\b|'
              r'\bautomovil|\bvehiculo|\bauto\b|\bcoche\b|\bcarro\b|camioneta|'
              r'\bllanta|neumatico|autoestereo|estereo (para|de) (auto|coche|carro)|'
@@ -3567,7 +3605,8 @@ def sub_vehiculo(tn):
     # precio y otra pregunta («¿arranca mi motor?» contra «¿cabe en mi
     # auto?»), así que va en su propio cajón.
     if re.search(r'jump ?starter|arrancador\b|booster de bateria|'
-                 r'cargador (de|para) (bateria|acumulador)|battery charger|'
+                 r'cargador (de|para) (bateria|acumulador)|battery charger|cargador.{0,20}para (las )?baterias? de|'
+                 r'\bschumacher\b|\bnoco\b|cargador de alternador|mantenedor de bateria|'
                  r'mantenedor de bateria|cargador.{0,15}\b(6|12|24) ?v\b.{0,25}bateria', tn):
         return 'Arrancadores y cargadores de batería'
     if re.search(r'escaner (profesional|automotriz)|'
@@ -3642,8 +3681,18 @@ def sub_vehiculo(tn):
         if re.search(r'\bcd\b|receptor|reproductor|\bradio\b|multimedia|pantalla tactil|\balpine\b|\bpioneer\b', tn):
             return 'Estéreos para auto'
         return 'Accesorios y refacciones'
+    if re.search(r'(cargador|estacion de carga|cable de carga|conector|adaptador).{0,60}(vehiculos? electricos?|\bev\b|\btesla\b|\bj1772\b|\bnacs\b|nema 14-50|\bnivel [12]\b|level [12]\b|\bwallbox\b)|'
+                 r'(vehiculos? electricos?|\bev\b|\btesla\b|\bj1772\b|\bnacs\b|\bwallbox\b).{0,40}(cargador|estacion de carga|cable de carga)', tn):
+        return 'Cargadores para vehículo eléctrico'
+    # El cargador USB, el soporte o la funda "para moto" son accesorio, no
+    # la moto; y "Motorola Moto Edge" no es ninguna de las dos (22-sep).
+    if re.search(r'(?<!motorola )\bmoto\b(?! (g|e|edge|one|z|x)\d?\b)|\bmotocicleta\b', tn) and \
+       re.search(r'cargador|\busb\b|soporte|funda|cubierta|candado|espejo|maleta|alforja|manubrio|porta ?celular', tn):
+        return 'Accesorios para moto'
+    if re.search(r'motorola moto|\bmoto (g|e|edge|one|z|x)\d?\b', tn):
+        return None
     # Y recién ahora el vehículo entero.
-    if re.search(r'\bmotocicleta\b|\bmoto\b|scooter de gasolina', tn):
+    if re.search(r'\bmotocicleta\b|(?<!motorola )\bmoto\b(?! (g|e|edge|one|z|x)\d?\b)|scooter de gasolina', tn):
         return 'Motocicletas'
     if re.search(r'\bbicicleta|\bbici\b|\bmtb\b|ciclismo|\btriciclo\b', tn):
         return 'Bicicletas'
