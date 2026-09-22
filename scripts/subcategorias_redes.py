@@ -144,7 +144,26 @@ def sub_comercial(tn):
     if re.search(r'refrigerad|congelador|enfriador|vitrina (refrigerada|fria)|'
                  r'mesa refrigerada|exhibidor (refrigerado|frio)|camara fria|'
                  r'refrigeracion', tn): return 'Refrigeración comercial'
-    if re.search(r'punto de venta|\bpos\b|caja registradora|lector de codigo|'
+    # «Punto de venta» eran 1,326 fichas con la caja registradora, la terminal,
+    # el cajón de dinero, el lector de códigos y hasta el exhibidor de
+    # cigarrillos, que sólo comparten la frase «punto de venta» en su título.
+    # Son compras distintas y se separan como las separa kakaku.
+    #
+    # El exhibidor va PRIMERO porque «Estante para Cigarrillos ... Punto de
+    # Venta» decía la frase y se quedaba acá en vez de irse a Mobiliario.
+    if re.search(r'^(?:\S+ ){0,3}(estante|exhibidor|anaquel|vitrina|mostrador|gondola)\b', tn):
+        return 'Mobiliario'
+    if re.search(r'caja registradora|cash register|\bregistradora\b|'
+                 r'sistema de punto de venta', tn):
+        return 'Cajas registradoras'
+    if re.search(r'cajon (de|para) dinero|cash drawer|gaveta (de|para) dinero', tn):
+        return 'Cajones de dinero'
+    if re.search(r'lector (de|para) codigo|escaner (de|para) codigo|barcode scanner|'
+                 r'lector de barras', tn):
+        return 'Lectores de código de barras'
+    if re.search(r'terminal (de|punto)|terminal pos\b|\btpv\b', tn):
+        return 'Terminales punto de venta'
+    if re.search(r'punto de venta|\bpos\b|lector de codigo|'
                  r'terminal|cajon de dinero|impresora de tickets|escaner de codigo', tn):
         return 'Punto de venta'
     if re.search(r'prensa de calor|plancha de sublimacion|prensa (termica|para tazas|para gorras)|'

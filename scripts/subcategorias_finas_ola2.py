@@ -148,9 +148,21 @@ def sub_ventilador(tn):
 
 CALEFACTORES = ['Calefactores cerámicos y de aire', 'Calefactores de aceite', 'Calefactores infrarrojos y de cuarzo',
                 'Calefactores de gas', 'Calefactores de pared y baño', 'Calefactores de exterior y patio',
-                'Calefactores para pies y personales', 'Chimeneas eléctricas', 'Refacciones de calefactor']
+                'Calefactores para pies y personales', 'Chimeneas eléctricas', 'Refacciones de calefactor',
+                'Tapetes y alfombras calefactoras']
 _CALEF = _c([
-    ('Refacciones de calefactor', r'\brepuesto|\breemplazo|\btermostato (de|para)|\bresistencia (de|para)|\bcontrol remoto para|\bfiltro (de|para)|\bpiloto\b|\bvalvula\b|\bquemador\b|\bmanguera\b|\bregulador\b'),
+    # El elemento calefactor es la pieza suelta, casi siempre de una secadora
+    # o de un electrodoméstico: 234 fichas en el cajón de los calefactores
+    # cerámicos, que es donde va el aparato entero.
+    ('Refacciones de calefactor', r'\brepuesto|\breemplazo|\belemento calefactor|\bresistencia calefactora|\btermostato (de|para)|\bresistencia (de|para)|\bcontrol remoto para|\bfiltro (de|para)|\bpiloto\b|\bvalvula\b|\bquemador\b|\bmanguera\b|\bregulador\b'),
+    # El tapete calefactor no es un calefactor de pie: se pisa o se pone bajo
+    # algo, no calienta el aire. Estaban repartidos entre dos cajones (101 en
+    # «cerámicos y de aire» y 324 en «para pies y personales») porque la regla
+    # de este último se quedaba con «alfombrilla» y «tapete».
+    ('Tapetes y alfombras calefactoras', r'\balfombra calefact|\balfombrilla calefact|'
+                                          r'\btapete calefact|\bmanta calefact|\bmanta termica\b|'
+                                          r'\balmohadilla calefact|\bcalefactora?\b.{0,12}(alfombra|tapete)|'
+                                          r'\b(alfombra|alfombrilla|tapete)\b.{0,18}(calefactor|calefaccion|termic|calienta)'),
     ('Chimeneas eléctricas', r'\bchimenea|\bfireplace|\bhogar electrico|\bestufa de lena electrica|\bllama\b'),
     ('Calefactores de exterior y patio', r'\bexterior|\bpatio\b|\bterraza\b|\bjardin\b|\boutdoor|\bde hongo\b|\bhongo\b|\bpiramide|\bde pie para (patio|terraza|exterior)|\bpirámide|\bfogata'),
     ('Calefactores de gas', r'\bde gas\b|\bgas (lp|natural|butano|propano)|\bpropano|\bbutano\b|\ba gas\b|\bcatalitic|\bceramica a gas'),
