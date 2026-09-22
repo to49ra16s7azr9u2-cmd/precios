@@ -44,6 +44,7 @@ from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import load_catalog, slugify  # noqa: E402
+from familias_subcategorias import agrupar as agrupar_familias  # noqa: E402
 from roles_subcategorias import ORDEN as ORDEN_ROLES, TITULOS as TITULOS_ROL, es_producto, rol_de  # noqa: E402
 from web_summary import purchase_options, seller_rows, seller_total  # noqa: E402
 
@@ -2325,22 +2326,41 @@ def render_category_page(cat, products, data):
     # a ver, y ponerle un título por encima sólo agrega un renglón entre él
     # y los chips. Los encabezados aparecen recién a partir del segundo
     # grupo, que es donde hacen falta para explicar el corte.
+    # Y dentro de «Productos», un escalón más: las familias de
+    # familias_subcategorias.py. Es el tercer nivel que usa kakaku: パソコン no
+    # lista sus 125 subcategorías de corrido, las agrupa en ノートパソコン,
+    # デスクトップ, PCパーツ. Sin esto Muebles seguía sacando cincuenta chips
+    # seguidos con «Sillas de oficina» y «Colchones king size» al mismo nivel.
     subs_html = ""
     subs = subcategorias_con_pagina(cat, products)
     if subs:
+        chip_de = {}
         por_rol = collections.OrderedDict((r, []) for r in ORDEN_ROLES)
         for sub, items in subs:
-            por_rol[rol_de(cat["name"], sub["name"])].append(
+            chip_de[sub["name"]] = (
                 f'<a class="chip" href="{slugify(sub["name"])}/">'
                 f'{html_escape(sub["name"])} ({len(items)})</a>'
             )
+            por_rol[rol_de(cat["name"], sub["name"])].append(sub["name"])
+        cuenta_sub = {sub["name"]: len(items) for sub, items in subs}
         bloques = []
         for i, rol in enumerate(ORDEN_ROLES):
             if not por_rol[rol]:
                 continue
             titulo = ("" if i == 0 else
                       f'<h3 class="grupo-rol">{html_escape(TITULOS_ROL[rol])}</h3>')
-            bloques.append(f'{titulo}<div class="chip-row">{"".join(por_rol[rol])}</div>')
+            if i == 0:
+                familias = agrupar_familias(cat["name"], por_rol[rol], cuenta_sub)
+                filas = []
+                for familia, miembros in familias:
+                    enc = (f'<h4 class="grupo-familia">{html_escape(familia)}</h4>'
+                           if familia else "")
+                    filas.append(enc + '<div class="chip-row">'
+                                 + "".join(chip_de[m] for m in miembros) + '</div>')
+                bloques.append(titulo + "".join(filas))
+            else:
+                bloques.append(f'{titulo}<div class="chip-row">'
+                               + "".join(chip_de[m] for m in por_rol[rol]) + '</div>')
         subs_html = (
             f'<div class="panel"><h2>Buscar por tipo de {html_escape(cat["name"].lower())}</h2>'
             + "".join(bloques) + '</div>'

@@ -4706,3 +4706,15 @@ tr.offer-compare-off { display: none; }
   color: var(--muted);
 }
 .grupo-rol:first-child { margin-top: 0; }
+
+/* El tercer escalón: las familias de subcategorías dentro de «Productos»
+   (ver familias_subcategorias.py). Pesa menos que el encabezado de rol —no va
+   en versalitas ni en gris— porque es un corte más fino y no tiene que
+   competir con él por la atención. */
+.grupo-familia {
+  margin: 14px 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.grupo-familia:first-child { margin-top: 0; }
