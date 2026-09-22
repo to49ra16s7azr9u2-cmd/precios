@@ -1663,6 +1663,14 @@ REGLAS = [
  # ocho estaciones de carga Tilta y el hub del X3 cargan celdas NP-FZ100,
  # LP-E6 y DMW-BLK22, y el catálogo guarda esas piezas en Accesorios de
  # cámaras. Tilta, además, solo fabrica accesorios de cámara: su brazo
+ # El filtro de lente no tenía regla de categoría: «Filtro Polarizador
+ # Circular 72mm para Lente de Cámara» salía descartado por no encajar en
+ # ninguna, y las 142 que hay en el catálogo llegaron por la taxonomía de su
+ # tienda, no por acá.
+ (re.compile(r'^(?:\S+ ){0,3}(filtro|portafiltros|parasol|lens hood)\b'
+             r'(?=.*(\bcamara\b|\blente\b|\bobjetivo\b|\bgopro\b|\bdji\b|'
+             r'\bpolarizador\b|\bnd\d|\buv\b|\bcpl\b|\d{2} ?mm\b))'),
+  ('Cámaras y fotografía', 'Filtros y parasoles', 'camera')),
  # articulado entra por la marca.
  (re.compile(r'^(?!.*(power ?bank|\b([5-9]\d{3}|\d{5,}) ?mah|\d{2},\d{3} ?mah))'
              r'(?=.*(\btilta\b|np-?fz100|lp-?e6|dmw-?blk|bateria (para|de) camara|'
@@ -4555,6 +4563,21 @@ def sub_componentes(tn):
 
 
 def sub_camara(tn):
+    # «Accesorios» eran 1,113 fichas con el filtro polarizador, el trípode, la
+    # batería y el montaje de casco juntos. Son cuatro compras distintas y el
+    # comprador llega buscando una: quien quiere un filtro de 72 mm no quiere
+    # ver 200 trípodes. Va arriba de todo porque varias de estas palabras las
+    # alcanzarían después las ramas de cámara.
+    if re.search(r'^(?:\S+ ){0,3}(filtro|parasol|lens hood|portafiltros)\b', tn):
+        return 'Filtros y parasoles'
+    if re.search(r'^(?:\S+ ){0,3}(tripode|tripie|monopod|soporte|rotula|gimbal|'
+                 r'estabilizador|montaje|abrazadera|arnes|grua|slider|'
+                 r'adaptador de casco)\b', tn):
+        return 'Trípodes y soportes'
+    if re.search(r'^(?:\S+ ){0,3}(bateria|cargador)\b.{0,40}'
+                 r'(camara|gopro|dji|canon|nikon|sony|\bnp-?[a-z0-9]|\blp-?e\d)', tn) or \
+       re.search(r'^(?:\S+ ){0,3}(bateria|cargador)\b.{0,25}(de|para) (camara|dron)', tn):
+        return 'Baterías y cargadores de cámara'
     # Familias que la ronda trajo y no tenían rama (20-sep).
     if re.search(r'camara de video\b|videocamara|camcorder|\bordro\b|\bzv-?1f?\b|'
                  r'camara de (mano|bolsillo)|\by3000\b|camara.{0,20}pantalla de \d', tn):
