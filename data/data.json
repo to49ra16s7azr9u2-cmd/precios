@@ -6319,6 +6319,10 @@
     "Cocina y comedor": [
       "data/cat/cocina-y-comedor-1.json"
     ],
+    "Electrodomésticos": [
+      "data/cat/electrodomesticos-1.json",
+      "data/cat/electrodomesticos-2.json"
+    ],
     "Salud": [
       "data/cat/salud-1.json"
     ],
@@ -6408,10 +6412,6 @@
     ],
     "Aspiradoras": [
       "data/cat/aspiradoras-1.json"
-    ],
-    "Electrodomésticos": [
-      "data/cat/electrodomesticos-1.json",
-      "data/cat/electrodomesticos-2.json"
     ],
     "Belleza y cuidado personal": [
       "data/cat/belleza-y-cuidado-personal-1.json"
@@ -6511,6 +6511,16 @@
       "data/det/cocina-y-comedor-4.json",
       "data/det/cocina-y-comedor-5.json",
       "data/det/cocina-y-comedor-6.json"
+    ],
+    "Electrodomésticos": [
+      "data/det/electrodomesticos-1.json",
+      "data/det/electrodomesticos-2.json",
+      "data/det/electrodomesticos-3.json",
+      "data/det/electrodomesticos-4.json",
+      "data/det/electrodomesticos-5.json",
+      "data/det/electrodomesticos-6.json",
+      "data/det/electrodomesticos-7.json",
+      "data/det/electrodomesticos-8.json"
     ],
     "Salud": [
       "data/det/salud-1.json"
@@ -6698,16 +6708,6 @@
     "Aspiradoras": [
       "data/det/aspiradoras-1.json",
       "data/det/aspiradoras-2.json"
-    ],
-    "Electrodomésticos": [
-      "data/det/electrodomesticos-1.json",
-      "data/det/electrodomesticos-2.json",
-      "data/det/electrodomesticos-3.json",
-      "data/det/electrodomesticos-4.json",
-      "data/det/electrodomesticos-5.json",
-      "data/det/electrodomesticos-6.json",
-      "data/det/electrodomesticos-7.json",
-      "data/det/electrodomesticos-8.json"
     ],
     "Belleza y cuidado personal": [
       "data/det/belleza-y-cuidado-personal-1.json",
@@ -6916,12 +6916,12 @@
     "Cocina y comedor": {
       "n": 11595,
       "subs": {
-        "Utensilios de cocina": 693,
+        "Utensilios de cocina": 692,
         "Repostería y moldes": 143,
         "Contenedores herméticos": 662,
         "Termos y botellas térmicas": 933,
         "Básculas y medidores": 199,
-        "Organización de cocina": 707,
+        "Organización de cocina": 708,
         "Bar y coctelería": 249,
         "Ollas y cacerolas": 401,
         "Platos y bowls": 434,
@@ -6947,6 +6947,65 @@
       "max": 77,
       "discountedShip": 2187,
       "maxShip": 69
+    },
+    "Electrodomésticos": {
+      "n": 15167,
+      "subs": {
+        "Extractores de jugo": 332,
+        "Filtros y membranas de repuesto": 1024,
+        "Calentadores de agua": 496,
+        "Máquinas de coser": 463,
+        "Robots limpiacristales": 1408,
+        "Campanas de cocina": 974,
+        "Accesorios y repuestos para freidora de aire": 196,
+        "Vaporizadores de ropa": 278,
+        "Lavavajillas": 153,
+        "Freidoras de aire de 8 L o más": 139,
+        "Purificadores de grifo y encimera": 275,
+        "Filtros para refrigerador y cafetera": 12,
+        "Accesorios de purificador": 141,
+        "Freidoras de aire": 479,
+        "Planchas": 550,
+        "Vaporeras y hervidores de huevos": 21,
+        "Jarras y botellas con filtro": 146,
+        "Otros electrodomésticos de cocina": 206,
+        "Hornos": 397,
+        "Microondas": 615,
+        "Estufas": 1011,
+        "Purificadores bajo tarja": 412,
+        "Licuadoras": 1062,
+        "Batidoras y amasadoras": 363,
+        "Ósmosis inversa": 248,
+        "Otros": 11,
+        "Pequeños electrodomésticos de cocina": 288,
+        "Freidoras de aire de 5.5 a 7 L": 200,
+        "Freidoras de aire de doble canasta": 64,
+        "Hornos freidora y multifunción": 711,
+        "Freidoras de aire de 3.5 a 5 L": 213,
+        "Arroceras y ollas multiusos": 337,
+        "Wafleras, sandwicheras y creperas": 401,
+        "Tostadoras": 212,
+        "Parrillas y planchas eléctricas": 278,
+        "Dispensadores de agua": 26,
+        "Hervidores y teteras eléctricas": 282,
+        "Freidoras de aire hasta 3 L": 93,
+        "Máquinas de helados y postres": 28,
+        "Accesorios y refacciones de máquina de coser": 40,
+        "Molinos y procesadores": 8,
+        "Deshidratadores de alimentos": 73,
+        "Destiladores e ionizadores": 239,
+        "Máquinas de palomitas y snacks": 6,
+        "Máquinas de pan y pasta": 6,
+        "Freidoras eléctricas": 170,
+        "Filtros para regadera": 16,
+        "Ablandadores y filtros de casa completa": 48,
+        "Purificadores de agua": 16
+      },
+      "pop": 146573,
+      "discounted": 1900,
+      "max": 80,
+      "discountedShip": 1906,
+      "maxShip": 80
     },
     "Salud": {
       "n": 869,
@@ -7795,65 +7854,6 @@
       "discountedShip": 225,
       "maxShip": 72
     },
-    "Electrodomésticos": {
-      "n": 15166,
-      "subs": {
-        "Accesorios y refacciones de máquina de coser": 627,
-        "Calentadores de agua": 494,
-        "Máquinas de coser": 463,
-        "Robots limpiacristales": 1407,
-        "Campanas de cocina": 966,
-        "Accesorios y repuestos para freidora de aire": 163,
-        "Vaporizadores de ropa": 277,
-        "Freidoras de aire de 8 L o más": 138,
-        "Filtros y membranas de repuesto": 737,
-        "Purificadores de grifo y encimera": 272,
-        "Filtros para refrigerador y cafetera": 10,
-        "Accesorios de purificador": 132,
-        "Freidoras de aire": 460,
-        "Planchas": 549,
-        "Vaporeras y hervidores de huevos": 20,
-        "Jarras y botellas con filtro": 144,
-        "Otros electrodomésticos de cocina": 206,
-        "Hornos": 323,
-        "Microondas": 582,
-        "Estufas": 987,
-        "Purificadores bajo tarja": 399,
-        "Licuadoras": 1058,
-        "Ósmosis inversa": 242,
-        "Otros": 11,
-        "Pequeños electrodomésticos de cocina": 280,
-        "Freidoras de aire de 5.5 a 7 L": 199,
-        "Freidoras de aire de doble canasta": 62,
-        "Hornos freidora y multifunción": 778,
-        "Freidoras de aire de 3.5 a 5 L": 213,
-        "Extractores de jugo": 315,
-        "Batidoras y amasadoras": 304,
-        "Arroceras y ollas multiusos": 332,
-        "Wafleras, sandwicheras y creperas": 398,
-        "Tostadoras": 210,
-        "Parrillas y planchas eléctricas": 277,
-        "Lavavajillas": 147,
-        "Dispensadores de agua": 26,
-        "Hervidores y teteras eléctricas": 282,
-        "Freidoras de aire hasta 3 L": 93,
-        "Máquinas de helados y postres": 27,
-        "Molinos y procesadores": 7,
-        "Deshidratadores de alimentos": 73,
-        "Destiladores e ionizadores": 239,
-        "Máquinas de palomitas y snacks": 6,
-        "Máquinas de pan y pasta": 6,
-        "Freidoras eléctricas": 148,
-        "Filtros para regadera": 16,
-        "Ablandadores y filtros de casa completa": 47,
-        "Purificadores de agua": 14
-      },
-      "pop": 146573,
-      "discounted": 1900,
-      "max": 80,
-      "discountedShip": 1906,
-      "maxShip": 80
-    },
     "Belleza y cuidado personal": {
       "n": 11101,
       "subs": {
@@ -8208,13 +8208,13 @@
       "maxShip": 69
     },
     "Refrigeradores": {
-      "n": 1582,
+      "n": 1581,
       "subs": {
-        "Refrigeradores": 597,
+        "Refrigeradores": 602,
         "Uso comercial": 307,
         "Cavas de vino": 64,
-        "Frigobares": 498,
-        "Congeladores": 116
+        "Frigobares": 494,
+        "Congeladores": 114
       },
       "pop": 13137,
       "discounted": 466,
@@ -8344,6 +8344,14 @@
       "p294786",
       "p96675",
       "p97114"
+    ],
+    "Electrodomésticos": [
+      "p36197",
+      "p40404",
+      "p114687",
+      "p114737",
+      "p114748",
+      "p40344"
     ],
     "Salud": [
       "p32039",
@@ -8568,14 +8576,6 @@
       "p40201",
       "p285817",
       "p40294"
-    ],
-    "Electrodomésticos": [
-      "p36197",
-      "p40404",
-      "p114687",
-      "p114737",
-      "p114748",
-      "p40344"
     ],
     "Belleza y cuidado personal": [
       "p103304",
