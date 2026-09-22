@@ -849,6 +849,23 @@ PERI = (PC, 'Accesorios', 'cpu')
 COMP = (PC, 'Componentes', 'cpu')
 
 REGLAS = [
+ # Equipo de red. No había ninguna regla que asignara la categoría Redes:
+ # un "Switch de Red 8 Puertos para Escritorio" caía en Muebles por la
+ # palabra "escritorio". La regla pide la pieza Y una señal de red
+ # (puertos, PoE, gigabit, rack) para no robarle nada a la consola Switch.
+ (re.compile(r'^(?:\S+ ){0,3}(switch|conmutador)\b(?=.*(\d+ ?puertos|\bpoe\b|'
+             r'gigabit|ethernet|\brj ?45\b|de red|administrable|no administrable|'
+             r'rack|montaje en rack|fibra|sfp|10/100|10 ?gb|2\.5 ?gb))'),
+  ('Redes', None, 'router')),
+ (re.compile(r'^(?:\S+ ){0,3}(router|ruteador|enrutador|modem|módem|repetidor|'
+             r'extensor de (red|wifi|senal|señal)|access point|punto de acceso|'
+             r'antena (wifi|de red)|tarjeta de red|adaptador (wifi|de red|ethernet)|'
+             r'nvr|patch panel|panel de parcheo|cable (utp|de red|ethernet)|'
+             r'jack rj ?45|conector rj ?45|ponchadora)\b(?=.*(wifi|wi-fi|red|redes|'
+             r'ethernet|internet|lan\b|rj ?45|utp|cat ?[5-8]|mbps|gbps|banda dual|'
+             r'mesh|repetidor|gigabit|adsl|fibra|4g|5g|lte))'),
+  ('Redes', None, 'router')),
+
  # --- Huecos que destapó la importación de Coppel (21-sep-2026) --------
  # De las 57,437 fichas convertidas, 26,895 salieron "no encaja en ninguna
  # categoría". Agrupadas por cómo ARRANCA el título, no eran productos
@@ -4221,6 +4238,16 @@ def sub_red(tn):
     if re.search(r'\bmalla\b|\bmesh\b|\beero\b|\bhalo h\d|\bh50g\b|\bmeraki\b|\bmx6\d\b|'
                  r'gl\.? ?inet|\bzte\b.{0,10}4g|\brouter\b', tn):
         return 'Routers'
+    # Cableado y piezas sueltas: el cable de red, el jack y el panel de
+    # parcheo se nombran siempre por la pieza, y no son ninguno de los
+    # equipos de arriba.
+    if re.search(r'\bcable\b.{0,20}(utp|ethernet|de red|cat ?[5-8])|\bcable (utp|ethernet)\b|'
+                 r'\bpatch (cord|panel)\b|panel de parcheo|\bjack\b.{0,6}rj ?45|conector rj ?45|'
+                 r'\brj ?45\b|ponchadora|crimpadora|probador de cable|tester de red|'
+                 r'\bkeystone\b|face ?plate|canaleta de red|organizador de cable de red|'
+                 r'adaptador (usb )?(a )?ethernet|tarjeta de red|antena (wifi|de red)|'
+                 r'\bpigtail\b|acoplador rj ?45|divisor de red|splitter de red', tn):
+        return 'Cables y adaptadores de red'
     return None
 
 

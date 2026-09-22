@@ -100,7 +100,11 @@ _VJ = _c([
 ])
 _VJ_CONSOLA = re.compile(r'^(?:\S+ ){0,2}consola\b|\bconsola (de )?(videojuegos|portatil|retro|nueva|nintendo|xbox|playstation|ps\d)|'
                          r'^(?:\S+ ){0,3}(playstation ?5|ps5|playstation ?4|ps4|xbox (series|one)|nintendo switch( 2| lite| oled)?|steam deck|rog ally|legion go)\b.{0,40}\b(consola|\d+ ?(gb|tb)|slim|pro|digital|edicion|bundle|paquete|blanco|negro)\b|'
-                         r'\bsteam deck\b|\brog ally\b|\blegion go\b|\bmsi claw\b|\bconsola\b')
+                         r'\bsteam deck\b|\brog ally\b|\blegion go\b|\bmsi claw\b|\bconsola\b|'
+                         # El nombre pelado de la consola, sin más palabras, también es
+                         # la consola: "Nintendo Switch OLED" caía en juegos.
+                         r'^(nintendo switch( 2| lite| oled)?|playstation ?[45]|ps ?[45]|'
+                         r'xbox (series [sx]|one [sx]?)|wii ?u?)\s*$')
 _VJ_ACCESORIO_DE_CONSOLA = re.compile(r'\b(para|for|compatible con) (la )?(consola|ps\d|playstation|xbox|nintendo|switch)|\bcontrol|\bmando\b|\bfunda|\bcable|\bcargador|\bsoporte|\bbase\b|\bmica|\bskin|\badaptador|\bjuego\b|\bvideojuego')
 
 
