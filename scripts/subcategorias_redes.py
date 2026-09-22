@@ -186,7 +186,7 @@ def sub_dron(tn):
                  r'landing|control remoto para|gafas|goggles)', tn):
         return 'Accesorios'
     if re.search(r'\bdji\b|\bmavic\b|\bmini [234]\b|\bair [23]\b|\bavata\b|\bneo\b', tn):
-        return 'DJI'
+        return 'Con GPS'  # 'DJI' no existe como subcategoría; el pack DJI con GPS va aquí (22-sep)
     if re.search(r'\bfpv\b|gafas vr|racing', tn): return 'FPV'
     if re.search(r'\bgps\b|retorno automatico|return to home', tn): return 'Con GPS'
     if re.search(r'mini dron|mini drone|drone mini|dron mini|plegable|de bolsillo', tn):

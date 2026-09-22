@@ -6350,11 +6350,25 @@
     "Otros": [
       "data/cat/otros-1.json"
     ],
+    "Bocinas": [
+      "data/cat/bocinas-1.json"
+    ],
     "Cámaras de seguridad": [
       "data/cat/camaras-de-seguridad-1.json"
     ],
+    "Iluminación": [
+      "data/cat/iluminacion-1.json"
+    ],
     "Cocina y comedor": [
       "data/cat/cocina-y-comedor-1.json"
+    ],
+    "Muebles": [
+      "data/cat/muebles-1.json",
+      "data/cat/muebles-2.json",
+      "data/cat/muebles-3.json"
+    ],
+    "Monitores": [
+      "data/cat/monitores-1.json"
     ],
     "Decoración de hogar y jardín": [
       "data/cat/decoracion-de-hogar-y-jardin-1.json"
@@ -6375,9 +6389,6 @@
       "data/cat/electrodomesticos-1.json",
       "data/cat/electrodomesticos-2.json"
     ],
-    "Bocinas": [
-      "data/cat/bocinas-1.json"
-    ],
     "Componentes y accesorios de PC": [
       "data/cat/componentes-y-accesorios-de-pc-1.json"
     ],
@@ -6392,14 +6403,6 @@
     ],
     "Equipo comercial": [
       "data/cat/equipo-comercial-1.json"
-    ],
-    "Muebles": [
-      "data/cat/muebles-1.json",
-      "data/cat/muebles-2.json",
-      "data/cat/muebles-3.json"
-    ],
-    "Iluminación": [
-      "data/cat/iluminacion-1.json"
     ],
     "Salud": [
       "data/cat/salud-1.json"
@@ -6458,9 +6461,6 @@
     ],
     "Teclados": [
       "data/cat/teclados-1.json"
-    ],
-    "Monitores": [
-      "data/cat/monitores-1.json"
     ],
     "Computadoras de escritorio": [
       "data/cat/computadoras-de-escritorio-1.json"
@@ -6549,8 +6549,25 @@
       "data/det/otros-3.json",
       "data/det/otros-4.json"
     ],
+    "Bocinas": [
+      "data/det/bocinas-1.json",
+      "data/det/bocinas-2.json",
+      "data/det/bocinas-3.json",
+      "data/det/bocinas-4.json",
+      "data/det/bocinas-5.json",
+      "data/det/bocinas-6.json"
+    ],
     "Cámaras de seguridad": [
       "data/det/camaras-de-seguridad-1.json"
+    ],
+    "Iluminación": [
+      "data/det/iluminacion-1.json",
+      "data/det/iluminacion-2.json",
+      "data/det/iluminacion-3.json",
+      "data/det/iluminacion-4.json",
+      "data/det/iluminacion-5.json",
+      "data/det/iluminacion-6.json",
+      "data/det/iluminacion-7.json"
     ],
     "Cocina y comedor": [
       "data/det/cocina-y-comedor-1.json",
@@ -6560,6 +6577,32 @@
       "data/det/cocina-y-comedor-5.json",
       "data/det/cocina-y-comedor-6.json",
       "data/det/cocina-y-comedor-7.json"
+    ],
+    "Muebles": [
+      "data/det/muebles-1.json",
+      "data/det/muebles-2.json",
+      "data/det/muebles-3.json",
+      "data/det/muebles-4.json",
+      "data/det/muebles-5.json",
+      "data/det/muebles-6.json",
+      "data/det/muebles-7.json",
+      "data/det/muebles-8.json",
+      "data/det/muebles-9.json",
+      "data/det/muebles-10.json",
+      "data/det/muebles-11.json",
+      "data/det/muebles-12.json",
+      "data/det/muebles-13.json",
+      "data/det/muebles-14.json",
+      "data/det/muebles-15.json",
+      "data/det/muebles-16.json",
+      "data/det/muebles-17.json"
+    ],
+    "Monitores": [
+      "data/det/monitores-1.json",
+      "data/det/monitores-2.json",
+      "data/det/monitores-3.json",
+      "data/det/monitores-4.json",
+      "data/det/monitores-5.json"
     ],
     "Decoración de hogar y jardín": [
       "data/det/decoracion-de-hogar-y-jardin-1.json"
@@ -6613,14 +6656,6 @@
       "data/det/electrodomesticos-7.json",
       "data/det/electrodomesticos-8.json"
     ],
-    "Bocinas": [
-      "data/det/bocinas-1.json",
-      "data/det/bocinas-2.json",
-      "data/det/bocinas-3.json",
-      "data/det/bocinas-4.json",
-      "data/det/bocinas-5.json",
-      "data/det/bocinas-6.json"
-    ],
     "Componentes y accesorios de PC": [
       "data/det/componentes-y-accesorios-de-pc-1.json",
       "data/det/componentes-y-accesorios-de-pc-2.json",
@@ -6656,34 +6691,6 @@
       "data/det/equipo-comercial-1.json",
       "data/det/equipo-comercial-2.json",
       "data/det/equipo-comercial-3.json"
-    ],
-    "Muebles": [
-      "data/det/muebles-1.json",
-      "data/det/muebles-2.json",
-      "data/det/muebles-3.json",
-      "data/det/muebles-4.json",
-      "data/det/muebles-5.json",
-      "data/det/muebles-6.json",
-      "data/det/muebles-7.json",
-      "data/det/muebles-8.json",
-      "data/det/muebles-9.json",
-      "data/det/muebles-10.json",
-      "data/det/muebles-11.json",
-      "data/det/muebles-12.json",
-      "data/det/muebles-13.json",
-      "data/det/muebles-14.json",
-      "data/det/muebles-15.json",
-      "data/det/muebles-16.json",
-      "data/det/muebles-17.json"
-    ],
-    "Iluminación": [
-      "data/det/iluminacion-1.json",
-      "data/det/iluminacion-2.json",
-      "data/det/iluminacion-3.json",
-      "data/det/iluminacion-4.json",
-      "data/det/iluminacion-5.json",
-      "data/det/iluminacion-6.json",
-      "data/det/iluminacion-7.json"
     ],
     "Salud": [
       "data/det/salud-1.json"
@@ -6788,13 +6795,6 @@
       "data/det/teclados-1.json",
       "data/det/teclados-2.json"
     ],
-    "Monitores": [
-      "data/det/monitores-1.json",
-      "data/det/monitores-2.json",
-      "data/det/monitores-3.json",
-      "data/det/monitores-4.json",
-      "data/det/monitores-5.json"
-    ],
     "Computadoras de escritorio": [
       "data/det/computadoras-de-escritorio-1.json"
     ],
@@ -6875,7 +6875,7 @@
       "maxShip": 80
     },
     "Herramientas": {
-      "n": 32172,
+      "n": 32241,
       "subs": {
         "Construcción": 201,
         "Accesorios para herramientas eléctricas": 562,
@@ -6923,20 +6923,20 @@
         "Gas LP": 66,
         "Plomería": 856,
         "Bombas de agua": 429,
-        "Regaderas y duchas": 715,
+        "Regaderas y duchas": 759,
         "Sanitarios y accesorios de baño": 112,
         "Tarjas y fregaderos": 438,
-        "Grifos y monomandos": 585,
+        "Grifos y monomandos": 610,
         "Tuberías y conexiones": 61,
         "Podadoras y cortacésped": 346,
         "Flejadoras y empacadoras": 1455,
         "": 308,
         "Motores eléctricos": 13
       },
-      "pop": 178917,
-      "discounted": 6766,
+      "pop": 179026,
+      "discounted": 6832,
       "max": 80,
-      "discountedShip": 6867,
+      "discountedShip": 6933,
       "maxShip": 80
     },
     "Cargadores y adaptadores": {
@@ -6972,32 +6972,60 @@
       "maxShip": 73
     },
     "Otros": {
-      "n": 6961,
+      "n": 6782,
       "subs": {
         "Inversores": 161,
-        "Baño": 300,
-        "Varios": 544,
+        "Baño": 231,
+        "Varios": 523,
         "Soportes para dispositivos": 2743,
-        "Cargadores solares portátiles": 390,
-        "Organización del hogar": 444,
+        "Cargadores solares portátiles": 371,
+        "Organización del hogar": 437,
         "Estaciones de energía": 490,
         "Accesorios y limpieza de paneles solares": 994,
-        "Radios": 279,
+        "Radios": 270,
         "Paneles solares": 303,
         "Kits solares y controladores de carga": 202,
-        "Luces y ventiladores solares": 107,
+        "Luces y ventiladores solares": 53,
         "Bombas y calentadores solares": 4
       },
-      "pop": 4032,
-      "discounted": 509,
-      "max": 60,
-      "discountedShip": 509,
-      "maxShip": 60
+      "pop": 3923,
+      "discounted": 446,
+      "max": 63,
+      "discountedShip": 446,
+      "maxShip": 63
+    },
+    "Bocinas": {
+      "n": 11854,
+      "subs": {
+        "Radios y reproductores": 879,
+        "Accesorios para bocinas": 387,
+        "Bocinas Bluetooth": 2863,
+        "Amplificadores y receptores": 413,
+        "Para PC y escritorio": 302,
+        "Bocinas Bluetooth potentes (60 W o más)": 649,
+        "Barras de sonido": 368,
+        "Subwoofers": 388,
+        "Bocinas Bluetooth con radio, USB y micrófono": 478,
+        "Bocinas Bluetooth medianas (20 a 60 W)": 162,
+        "Bocinas Bluetooth impermeables": 834,
+        "De fiesta y karaoke": 582,
+        "De estantería y Hi-Fi": 1046,
+        "Mini bocinas y de llavero": 730,
+        "Bocinas con luces LED": 364,
+        "Bafles y audio profesional": 814,
+        "Empotrables y de exterior": 387,
+        "Bocinas Bluetooth compactas (hasta 20 W)": 208
+      },
+      "pop": 80742,
+      "discounted": 1780,
+      "max": 80,
+      "discountedShip": 1780,
+      "maxShip": 80
     },
     "Cámaras de seguridad": {
-      "n": 1668,
+      "n": 1641,
       "subs": {
-        "Accesorios de videovigilancia": 178,
+        "Accesorios de videovigilancia": 151,
         "Cámaras espía": 50,
         "Cámaras interiores": 645,
         "Cámaras exteriores": 293,
@@ -7008,16 +7036,44 @@
         "Sensores": 12
       },
       "pop": 21357,
-      "discounted": 670,
+      "discounted": 669,
       "max": 81,
-      "discountedShip": 670,
+      "discountedShip": 669,
       "maxShip": 81
     },
-    "Cocina y comedor": {
-      "n": 12194,
+    "Iluminación": {
+      "n": 12380,
       "subs": {
+        "Exterior": 1323,
+        "Lámparas industriales y de nave": 68,
+        "Lámparas de emergencia": 539,
+        "Lámparas de escritorio": 707,
+        "Tiras LED": 286,
+        "Decorativa": 3279,
+        "Lámparas colgantes": 619,
+        "Plafones y lámparas de sobreponer": 2398,
+        "Focos": 1500,
+        "Escenario": 258,
+        "Candiles y arañas": 176,
+        "Lámparas de pared": 924,
+        "Rieles y spots": 78,
+        "Lámparas de piso": 134,
+        "Empotrada": 2,
+        "Lámparas de techo para exterior": 19,
+        "": 45,
+        "Ventiladores con luz": 25
+      },
+      "pop": 6052,
+      "discounted": 2088,
+      "max": 80,
+      "discountedShip": 2093,
+      "maxShip": 78
+    },
+    "Cocina y comedor": {
+      "n": 12215,
+      "subs": {
+        "Limpieza de cocina": 52,
         "Utensilios de cocina": 659,
-        "Limpieza de cocina": 31,
         "Botellas de agua": 906,
         "Repostería y moldes": 143,
         "Contenedores herméticos": 911,
@@ -7048,6 +7104,107 @@
       "max": 77,
       "discountedShip": 2194,
       "maxShip": 69
+    },
+    "Muebles": {
+      "n": 33201,
+      "subs": {
+        "Accesorios y organizadores de escritorio": 357,
+        "Alacenas y gabinetes de cocina": 1363,
+        "Taburetes y bancos": 1480,
+        "Roperos": 953,
+        "Escritorios de oficina": 1730,
+        "Repisas": 451,
+        "Libreros": 650,
+        "Otros": 84,
+        "Escritorios de altura ajustable": 407,
+        "Escritorios en L y esquineros": 348,
+        "Escritorios gamer": 204,
+        "Sillas infantiles": 256,
+        "Colchones plegables y de sofá cama": 276,
+        "Sofás infantiles": 213,
+        "Colchones infantiles y de cuna": 101,
+        "Colchones": 212,
+        "Cabeceras": 926,
+        "Sillas de espera y visitas": 417,
+        "Sillas plegables y de camping": 897,
+        "Sillas de oficina": 2117,
+        "Mesas auxiliares y laterales": 505,
+        "Sillones y reclinables": 914,
+        "Percheros": 337,
+        "Mesas de cama y con ruedas": 30,
+        "Zapateras": 247,
+        "Camas": 102,
+        "Escritorios": 15,
+        "Mesas para TV y consolas": 583,
+        "Mesas de centro": 1235,
+        "Mesas de comedor": 719,
+        "Burós": 333,
+        "Escritorios plegables y compactos": 192,
+        "Herrajes y refacciones de muebles": 243,
+        "Carros e islas de cocina": 93,
+        "Muebles de cocina": 127,
+        "Sillas de comedor": 2035,
+        "Camas plegables y catres": 42,
+        "Sillones de masaje": 160,
+        "Sillas gamer": 247,
+        "Camas infantiles": 119,
+        "Puffs y otomanas": 93,
+        "Sofás de 2 y 3 plazas": 579,
+        "Mesas plegables y multiusos": 419,
+        "Sillas de exterior": 227,
+        "Bases de cama y box": 798,
+        "Literas": 79,
+        "Camas matrimoniales": 36,
+        "Sofás cama": 582,
+        "Colchones individuales": 839,
+        "Colchones matrimoniales": 1824,
+        "Colchones queen size": 1229,
+        "Mesas de juego": 28,
+        "Colchones king size": 1350,
+        "Mesas para laptop y de cama": 41,
+        "Camas queen y king": 49,
+        "Camas individuales": 34,
+        "Sofás seccionales y esquineros": 419,
+        "Mesas de exterior": 54,
+        "Mesas altas y de bar": 108,
+        "Antecomedores y mesas de cocina": 175,
+        "Accesorios y refacciones para sillas": 241,
+        "Escritorios infantiles y estudiantiles": 45,
+        "Mecedoras y colgantes": 76,
+        "Juegos de comedor": 700,
+        "Mesas de comedor extensibles": 57,
+        "Mesas de comedor para exterior": 31,
+        "Bancas de comedor": 16,
+        "Fundas y accesorios para sofá": 56,
+        "Accesorios y refacciones de cama": 86,
+        "Cocinas integrales": 1204,
+        "Encimeras y cubiertas": 6
+      },
+      "pop": 70540,
+      "discounted": 12080,
+      "max": 82,
+      "discountedShip": 12081,
+      "maxShip": 82
+    },
+    "Monitores": {
+      "n": 8707,
+      "subs": {
+        "Táctiles e industriales": 1584,
+        "Portátiles": 2388,
+        "Gaming": 2490,
+        "Monitores 4K y profesionales": 369,
+        "23 a 25 pulgadas": 693,
+        "27 pulgadas": 434,
+        "Hasta 22 pulgadas": 456,
+        "28 a 34 pulgadas": 100,
+        "Ultrawide y curvos": 159,
+        "35 pulgadas o más": 34
+      },
+      "pop": 5518,
+      "discounted": 223,
+      "max": 64,
+      "discountedShip": 223,
+      "maxShip": 64
     },
     "Decoración de hogar y jardín": {
       "n": 256,
@@ -7257,42 +7414,14 @@
       "discountedShip": 1908,
       "maxShip": 80
     },
-    "Bocinas": {
-      "n": 11819,
-      "subs": {
-        "Accesorios para bocinas": 387,
-        "Radios y reproductores": 853,
-        "Bocinas Bluetooth": 2863,
-        "Amplificadores y receptores": 413,
-        "Para PC y escritorio": 302,
-        "Bocinas Bluetooth potentes (60 W o más)": 649,
-        "Barras de sonido": 368,
-        "Subwoofers": 388,
-        "Bocinas Bluetooth con radio, USB y micrófono": 478,
-        "Bocinas Bluetooth medianas (20 a 60 W)": 162,
-        "Bocinas Bluetooth impermeables": 834,
-        "De fiesta y karaoke": 573,
-        "De estantería y Hi-Fi": 1046,
-        "Mini bocinas y de llavero": 730,
-        "Bocinas con luces LED": 364,
-        "Bafles y audio profesional": 814,
-        "Empotrables y de exterior": 387,
-        "Bocinas Bluetooth compactas (hasta 20 W)": 208
-      },
-      "pop": 80742,
-      "discounted": 1780,
-      "max": 80,
-      "discountedShip": 1780,
-      "maxShip": 80
-    },
     "Componentes y accesorios de PC": {
-      "n": 8478,
+      "n": 8484,
       "subs": {
         "Baterías para laptop": 18,
         "Accesorios de monitor": 1061,
         "Tarjetas madre": 156,
         "Enfriamiento y ventiladores": 1725,
-        "Accesorios": 619,
+        "Accesorios": 625,
         "RAM DDR5 para laptop (SODIMM)": 252,
         "RAM DDR3 y anteriores": 645,
         "RAM DDR4 para laptop (SODIMM)": 501,
@@ -7311,9 +7440,9 @@
         "Refacciones para laptop": 14
       },
       "pop": 3627,
-      "discounted": 89,
+      "discounted": 90,
       "max": 70,
-      "discountedShip": 88,
+      "discountedShip": 89,
       "maxShip": 68
     },
     "Mascotas": {
@@ -7365,7 +7494,7 @@
       "maxShip": 71
     },
     "Deportes y fitness": {
-      "n": 9862,
+      "n": 9868,
       "subs": {
         "Bicicletas fijas": 387,
         "Voleibol": 300,
@@ -7387,7 +7516,7 @@
         "Máquinas de abdominales": 164,
         "Patines y patinetas": 402,
         "Mancuernas": 464,
-        "Natación": 523,
+        "Natación": 529,
         "Otros": 30,
         "Sets de pesas": 227,
         "Pesas": 58,
@@ -7469,115 +7598,6 @@
       "discountedShip": 166,
       "maxShip": 78
     },
-    "Muebles": {
-      "n": 33194,
-      "subs": {
-        "Alacenas y gabinetes de cocina": 1363,
-        "Taburetes y bancos": 1480,
-        "Roperos": 953,
-        "Escritorios de oficina": 1730,
-        "Repisas": 451,
-        "Libreros": 650,
-        "Otros": 84,
-        "Escritorios de altura ajustable": 407,
-        "Escritorios en L y esquineros": 348,
-        "Escritorios gamer": 204,
-        "Sillas infantiles": 256,
-        "Colchones plegables y de sofá cama": 276,
-        "Sofás infantiles": 213,
-        "Colchones infantiles y de cuna": 101,
-        "Colchones": 212,
-        "Cabeceras": 926,
-        "Sillas de espera y visitas": 417,
-        "Sillas plegables y de camping": 897,
-        "Sillas de oficina": 2117,
-        "Mesas auxiliares y laterales": 505,
-        "Accesorios y organizadores de escritorio": 350,
-        "Sillones y reclinables": 914,
-        "Percheros": 337,
-        "Mesas de cama y con ruedas": 30,
-        "Zapateras": 247,
-        "Camas": 102,
-        "Escritorios": 15,
-        "Mesas para TV y consolas": 583,
-        "Mesas de centro": 1235,
-        "Mesas de comedor": 719,
-        "Burós": 333,
-        "Escritorios plegables y compactos": 192,
-        "Herrajes y refacciones de muebles": 243,
-        "Carros e islas de cocina": 93,
-        "Muebles de cocina": 127,
-        "Sillas de comedor": 2035,
-        "Camas plegables y catres": 42,
-        "Sillones de masaje": 160,
-        "Sillas gamer": 247,
-        "Camas infantiles": 119,
-        "Puffs y otomanas": 93,
-        "Sofás de 2 y 3 plazas": 579,
-        "Mesas plegables y multiusos": 419,
-        "Sillas de exterior": 227,
-        "Bases de cama y box": 798,
-        "Literas": 79,
-        "Camas matrimoniales": 36,
-        "Sofás cama": 582,
-        "Colchones individuales": 839,
-        "Colchones matrimoniales": 1824,
-        "Colchones queen size": 1229,
-        "Mesas de juego": 28,
-        "Colchones king size": 1350,
-        "Mesas para laptop y de cama": 41,
-        "Camas queen y king": 49,
-        "Camas individuales": 34,
-        "Sofás seccionales y esquineros": 419,
-        "Mesas de exterior": 54,
-        "Mesas altas y de bar": 108,
-        "Antecomedores y mesas de cocina": 175,
-        "Accesorios y refacciones para sillas": 241,
-        "Escritorios infantiles y estudiantiles": 45,
-        "Mecedoras y colgantes": 76,
-        "Juegos de comedor": 700,
-        "Mesas de comedor extensibles": 57,
-        "Mesas de comedor para exterior": 31,
-        "Bancas de comedor": 16,
-        "Fundas y accesorios para sofá": 56,
-        "Accesorios y refacciones de cama": 86,
-        "Cocinas integrales": 1204,
-        "Encimeras y cubiertas": 6
-      },
-      "pop": 70540,
-      "discounted": 12080,
-      "max": 82,
-      "discountedShip": 12081,
-      "maxShip": 82
-    },
-    "Iluminación": {
-      "n": 12316,
-      "subs": {
-        "Lámparas industriales y de nave": 68,
-        "Lámparas de emergencia": 529,
-        "Lámparas de escritorio": 707,
-        "Tiras LED": 286,
-        "Decorativa": 3279,
-        "Lámparas colgantes": 619,
-        "Plafones y lámparas de sobreponer": 2398,
-        "Focos": 1500,
-        "Escenario": 258,
-        "Exterior": 1269,
-        "Candiles y arañas": 176,
-        "Lámparas de pared": 924,
-        "Rieles y spots": 78,
-        "Lámparas de piso": 134,
-        "Empotrada": 2,
-        "Lámparas de techo para exterior": 19,
-        "": 45,
-        "Ventiladores con luz": 25
-      },
-      "pop": 6052,
-      "discounted": 2080,
-      "max": 80,
-      "discountedShip": 2085,
-      "maxShip": 78
-    },
     "Salud": {
       "n": 890,
       "subs": {
@@ -7612,10 +7632,10 @@
       "maxShip": 11
     },
     "Instrumentos musicales": {
-      "n": 16832,
+      "n": 16814,
       "subs": {
         "Accesorios de guitarra": 1139,
-        "Micrófonos": 982,
+        "Micrófonos": 964,
         "Accesorios": 412,
         "Teclados electrónicos": 167,
         "Amplificadores de guitarra y bajo": 195,
@@ -7660,9 +7680,9 @@
         "Viento": 310
       },
       "pop": 4136,
-      "discounted": 1480,
+      "discounted": 1477,
       "max": 84,
-      "discountedShip": 1481,
+      "discountedShip": 1478,
       "maxShip": 84
     },
     "Audífonos": {
@@ -8089,26 +8109,6 @@
       "discountedShip": 256,
       "maxShip": 69
     },
-    "Monitores": {
-      "n": 8669,
-      "subs": {
-        "Táctiles e industriales": 1546,
-        "Portátiles": 2388,
-        "Gaming": 2490,
-        "Monitores 4K y profesionales": 369,
-        "23 a 25 pulgadas": 693,
-        "27 pulgadas": 434,
-        "Hasta 22 pulgadas": 456,
-        "28 a 34 pulgadas": 100,
-        "Ultrawide y curvos": 159,
-        "35 pulgadas o más": 34
-      },
-      "pop": 5518,
-      "discounted": 222,
-      "max": 64,
-      "discountedShip": 222,
-      "maxShip": 64
-    },
     "Computadoras de escritorio": {
       "n": 1334,
       "subs": {
@@ -8270,11 +8270,11 @@
     "Drones": {
       "n": 280,
       "subs": {
-        "Accesorios": 168,
-        "FPV": 29,
-        "Mini drones": 35,
-        "Para principiantes": 32,
-        "Con GPS": 16
+        "Accesorios": 141,
+        "FPV": 34,
+        "Mini drones": 47,
+        "Para principiantes": 35,
+        "Con GPS": 23
       },
       "pop": 373,
       "discounted": 112,
@@ -8285,13 +8285,13 @@
     "Impresoras": {
       "n": 1362,
       "subs": {
-        "Inyección de tinta": 259,
+        "Inyección de tinta": 239,
         "Cartuchos de tinta": 293,
         "Láser": 118,
         "Cabezales y refacciones de impresión": 106,
-        "Térmica": 156,
+        "Térmica": 161,
         "Consumibles": 139,
-        "Fotográficas": 32,
+        "Fotográficas": 47,
         "Tóner": 259
       },
       "pop": 41424,
@@ -8304,8 +8304,8 @@
       "n": 1123,
       "subs": {
         "Accesorios": 144,
-        "Smartwatches": 952,
-        "Bandas de actividad": 27
+        "Smartwatches": 936,
+        "Bandas de actividad": 43
       },
       "pop": 59168,
       "discounted": 442,
@@ -8314,19 +8314,19 @@
       "maxShip": 76
     },
     "Redes": {
-      "n": 865,
+      "n": 859,
       "subs": {
         "Cables y adaptadores de red": 6,
         "Repetidores": 99,
         "Routers": 177,
         "Access points": 103,
         "Módems": 20,
-        "Switches": 460
+        "Switches": 454
       },
       "pop": 2469,
-      "discounted": 142,
+      "discounted": 141,
       "max": 69,
-      "discountedShip": 142,
+      "discountedShip": 141,
       "maxShip": 69
     },
     "Refrigeradores": {
@@ -8358,20 +8358,20 @@
       "maxShip": 70
     },
     "Viajes": {
-      "n": 1062,
+      "n": 1046,
       "subs": {
-        "Camping": 172,
+        "Camping": 162,
         "Pesca": 38,
         "Mochilas y bolsas de viaje": 158,
         "Maletas grandes": 98,
-        "Maletas": 360,
+        "Maletas": 354,
         "Maletas de cabina": 227,
         "Sets de maletas": 9
       },
       "pop": 1671,
-      "discounted": 644,
+      "discounted": 636,
       "max": 69,
-      "discountedShip": 644,
+      "discountedShip": 636,
       "maxShip": 66
     }
   },
@@ -8416,6 +8416,14 @@
       "p96153",
       "p35871"
     ],
+    "Bocinas": [
+      "p42154",
+      "p385014",
+      "p366660",
+      "p375834",
+      "p385032",
+      "p128326"
+    ],
     "Cámaras de seguridad": [
       "p44897",
       "p44706",
@@ -8424,6 +8432,14 @@
       "p44757",
       "p44748"
     ],
+    "Iluminación": [
+      "p85941",
+      "p85916",
+      "p369742",
+      "p87221",
+      "p30169",
+      "p86974"
+    ],
     "Cocina y comedor": [
       "p340858",
       "p96326",
@@ -8431,6 +8447,22 @@
       "p96675",
       "p97114",
       "p96984"
+    ],
+    "Muebles": [
+      "p339987",
+      "p35226",
+      "p99530",
+      "p290289",
+      "p108970",
+      "p29615"
+    ],
+    "Monitores": [
+      "p49118",
+      "p49133",
+      "p375223",
+      "p49016",
+      "p375262",
+      "p49093"
     ],
     "Decoración de hogar y jardín": [
       "p131245",
@@ -8472,14 +8504,6 @@
       "p114748",
       "p40344"
     ],
-    "Bocinas": [
-      "p42154",
-      "p385014",
-      "p366660",
-      "p375834",
-      "p385032",
-      "p128326"
-    ],
     "Componentes y accesorios de PC": [
       "p127003",
       "p31578",
@@ -8519,22 +8543,6 @@
       "p41460",
       "p35627",
       "p41461"
-    ],
-    "Muebles": [
-      "p339987",
-      "p35226",
-      "p99530",
-      "p290289",
-      "p108970",
-      "p29615"
-    ],
-    "Iluminación": [
-      "p85941",
-      "p85916",
-      "p369742",
-      "p87221",
-      "p30169",
-      "p86974"
     ],
     "Salud": [
       "p32039",
@@ -8683,14 +8691,6 @@
       "p27060",
       "p289457"
     ],
-    "Monitores": [
-      "p49118",
-      "p49133",
-      "p375223",
-      "p49016",
-      "p375262",
-      "p49093"
-    ],
     "Computadoras de escritorio": [
       "p48378",
       "p48375",
@@ -8759,12 +8759,12 @@
       "p324461"
     ],
     "Drones": [
+      "p28601",
+      "p28611",
+      "p28605",
+      "p28609",
       "p31647",
-      "p286934",
-      "p286944",
-      "p28588",
-      "p29250",
-      "p34259"
+      "p286934"
     ],
     "Impresoras": [
       "p49563",
