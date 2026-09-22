@@ -3513,6 +3513,33 @@ def sub_iluminacion(tn):
 
 
 def sub_vehiculo(tn):
+    # «Altavoz» es la palabra de España y el catálogo entero está escrito con
+    # «bocina», así que ninguna rama los reconocía: 155 fichas de Coppel se
+    # quedaron sin subcategoría por eso. Se reparten por el tamaño, que es
+    # como se compran.
+    # El cableado y el tweeter del car audio: Coppel los vende sueltos y no
+    # tenían rama, igual que las bocinas.
+    if re.search(r'cable rca.{0,25}car audio|car audio.{0,25}cable|'
+                 r'cable de refuerzo.{0,20}calibre|\bkit de instalacion\b.{0,20}audio|'
+                 r'capacitor.{0,20}(audio|amplificador)', tn):
+        return 'Accesorios de audio para auto'
+    if re.search(r'\btweeter|driver de compresion|\bsuperbocina\b', tn):
+        return 'Tweeters'
+    if re.search(r'\bextintor\b', tn):
+        return 'Accesorios y refacciones'
+    if re.search(r'\baltav(oz|oces)\b|\bbocinas?\b', tn) and \
+       re.search(r'coaxial|componentes|medio rango|\brms\b|\bohms?\b|\bohmios?\b|'
+                 r'\bvias\b|\bwatts?\b|\b\d+ ?w\b|'
+                 r'\b\d(\.\d)? ?x ?\d(\.\d)?\b', tn):
+        if re.search(r'\b6 ?x ?9\b|\b6 ?x ?8\b|\b5 ?x ?7\b', tn):
+            return 'Bocinas coaxiales 6x9 y 6x8'
+        if re.search(r'\b6[.,]?5\b|\b165 ?mm\b', tn):
+            return 'Bocinas coaxiales de 6.5 pulgadas'
+        if re.search(r'\b[345](\.\d+)? ?(pulgada|plg|")|\b4 ?x ?6\b', tn):
+            return 'Bocinas de 4 a 5.25 pulgadas'
+        if re.search(r'medio rango|profesional|\bpro series\b', tn):
+            return 'Medios rangos y bocinas profesionales'
+        return 'Bocinas para auto'
     # Familias que faltaban (21-sep): el aire acondicionado de casa rodante,
     # el radio de ajuste directo para clásicos y la pieza de moto que se
     # nombra por el modelo con el que es compatible. La rodada (R20) NO
@@ -4147,6 +4174,11 @@ def sub_mascota(tn):
     if re.search(r'popsocket|pop ?grip|phone grip|soporte.{0,25}airtag|'
                  r'airtag.{0,25}(collar|soporte)', tn):
         return None
+    if re.search(r'cubre ?asiento|cubre ?cajuela|forro de carga|'
+                 r'(manta|funda).{0,20}(auto|coche|cajuela)|soporte de remolque', tn):
+        return 'Ropa y accesorios'
+    if re.search(r'banito|bano entrenador|entrenador.{0,15}(conejo|roedor)', tn):
+        return 'Higiene y limpieza'
     # El rastreador y el alimento no tenían rubro y se quedaban sin
     # subcategoría: 31 y 40 fichas repartidas por toda la categoría.
     if re.search(r'\b(gps|localizador|rastreador|tracker)\b.{0,30}'
@@ -4366,6 +4398,12 @@ def sub_vigilancia(tn):
 
 
 def sub_juguete(tn):
+    # La cangurera y el arnés de portabebé: 165 fichas de Coppel sin
+    # subcategoría porque la rama pedía «portabebe» y la tienda los llama
+    # «cangurera» o «arnés para caminar».
+    if re.search(r'\bcanguera\b|\bcangurera\b|\bcanguro\b|portabebe|porta ?bebe|'
+                 r'arnes.{0,25}(nino|bebe|caminar)|mochila portabebe', tn):
+        return 'Portabebés y canguros'
     """Reparte Juguetes y bebés.
 
     Lo de bebé (carriola, silla de auto, cuna) va primero: son productos
@@ -4856,6 +4894,9 @@ def sub_herramienta(tn):
         return 'Motores eléctricos'
     if re.search(r'roto-?orbital|lijadora orbital', tn):
         return 'Lijadoras'
+    if re.search(r'herramienta para (desmontar|montar|resetear|abrir|cobre)|'
+                 r'\bbirlos?\b|hebilla del llavero', tn):
+        return 'Herramientas manuales'
     if re.search(r'hand tools?\b|tool set\b|juego de \d+ (piezas|herramientas)|'
                  r'set de \d+ (piezas|herramientas)', tn):
         return 'Juegos de herramientas'
