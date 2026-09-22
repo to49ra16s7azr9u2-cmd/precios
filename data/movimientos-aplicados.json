@@ -3600,5 +3600,118 @@
    "Juguetes y bebés | Juegos de exterior | Juguetes y bebés | Juguetes para exterior": 51,
    "Juegos de mesa | Clásicos | Juegos de mesa | De mesa clásicos": 268
   }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_plom.json",
+  "motivo": "Completar el corte de Plomería: las bombas de agua que quedaron bajo el mínimo del lote",
+  "grupos": {
+   "Herramientas | Plomería | Herramientas | Bombas de agua": 3
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_cabecera.json",
+  "motivo": "Cabecera minoritaria del título que nombra a otra subcategoría existente",
+  "grupos": {
+   "Celulares | iPhone | Celulares | Reacondicionados": 106,
+   "Herramientas | Plomería | Herramientas | Bombas de agua": 268,
+   "Audífonos | Accesorios | Audífonos | Almohadillas y repuestos": 31,
+   "Componentes y accesorios de PC | Componentes | Componentes y accesorios de PC | Procesadores": 44,
+   "Componentes y accesorios de PC | Componentes | Componentes y accesorios de PC | Enfriamiento y ventiladores": 73,
+   "Muebles | Juegos de comedor | Muebles | Antecomedores y mesas de cocina": 100,
+   "Deportes y fitness | Raquetas | Deportes y fitness | Ping pong": 41,
+   "Deportes y fitness | Yoga | Deportes y fitness | Bandas de resistencia": 141,
+   "Electrodomésticos | Planchas | Electrodomésticos | Vaporizadores de ropa": 104,
+   "Electrodomésticos | Pequeños electrodomésticos de cocina | Electrodomésticos | Arroceras y ollas multiusos": 39,
+   "Electrodomésticos | Licuadoras | Electrodomésticos | Batidoras y amasadoras": 72,
+   "Electrodomésticos | Otros electrodomésticos de cocina | Electrodomésticos | Vaporeras y hervidores de huevos": 171,
+   "Juguetes y bebés | Juguetes para bebé | Juguetes y bebés | Andaderas": 39,
+   "Juguetes y bebés | Alimentación y lactancia | Juguetes y bebés | Biberones": 134,
+   "Cargadores y adaptadores | Base de carga | Cargadores y adaptadores | Cargadores multipuerto y estaciones de carga": 209,
+   "Cargadores y adaptadores | Inalámbrico | Cargadores y adaptadores | Cargadores multipuerto y estaciones de carga": 78,
+   "Mascotas | Corrales y rejas para mascotas | Mascotas | Jaulas y recintos para gato": 91
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_arr.json",
+  "motivo": "Corte propuesto por proponer_corte.py: el cajón tenía dos productos distintos adentro",
+  "grupos": {
+   "Autos, bicicletas y motos | Baterías para auto | Autos, bicicletas y motos | Arrancadores y cargadores de batería": 990,
+   "Autos, bicicletas y motos | Baterías para auto | Autos, bicicletas y motos | Motocicletas": 35,
+   "Autos, bicicletas y motos | Baterías para auto | Autos, bicicletas y motos | Accesorios y refacciones": 13
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_cons.json",
+  "motivo": "Corte propuesto por proponer_corte.py: el cajón tenía dos productos distintos adentro",
+  "grupos": {
+   "Impresoras | Consumibles | Impresoras | Cartuchos de tinta": 41,
+   "Impresoras | Consumibles | Impresoras | Tóner": 19,
+   "Impresoras | Consumibles | Impresoras | Cabezales y refacciones de impresión": 90
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_pdv.json",
+  "motivo": "Corte propuesto por proponer_corte.py",
+  "grupos": {
+   "Equipo comercial | Punto de venta | Equipo comercial | Lectores de código de barras": 84,
+   "Equipo comercial | Punto de venta | Equipo comercial | Cajas registradoras": 642,
+   "Equipo comercial | Punto de venta | Equipo comercial | Terminales punto de venta": 92,
+   "Equipo comercial | Punto de venta | Equipo comercial | Mobiliario": 147,
+   "Equipo comercial | Punto de venta | Equipo comercial | Refrigeración comercial": 14
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_calef1.json",
+  "motivo": "Corte propuesto por proponer_corte.py",
+  "grupos": {
+   "Climatización | Calefactores cerámicos y de aire | Climatización | Tapetes y alfombras calefactoras": 77,
+   "Climatización | Calefactores cerámicos y de aire | Climatización | Refacciones de calefactor": 382,
+   "Climatización | Calefactores cerámicos y de aire | Climatización | Ventiladores de pedestal": 16
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_calef2.json",
+  "motivo": "Corte propuesto por proponer_corte.py",
+  "grupos": {
+   "Climatización | Calefactores para pies y personales | Climatización | Tapetes y alfombras calefactoras": 249
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_melec.json",
+  "motivo": "Corte propuesto por proponer_corte.py",
+  "grupos": {
+   "Herramientas | Material eléctrico | Herramientas | Placas y tapas eléctricas": 42,
+   "Herramientas | Material eléctrico | Herramientas | Apagadores y contactos": 273,
+   "Herramientas | Material eléctrico | Herramientas | Escaleras": 37
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_jard.json",
+  "motivo": "Corte propuesto por proponer_corte.py",
+  "grupos": {
+   "Herramientas | Jardinería | Herramientas | Podadoras y cortacésped": 249,
+   "Herramientas | Jardinería | Herramientas | Juegos de herramientas": 39,
+   "Herramientas | Jardinería | Herramientas | Baterías y cargadores de herramienta": 76,
+   "Herramientas | Jardinería | Herramientas | Compresores y herramienta neumática": 30
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_camacc.json",
+  "motivo": "Corte propuesto por proponer_corte.py: accesorios de cámara por tipo",
+  "grupos": {
+   "Cámaras y fotografía | Accesorios | Cámaras y fotografía | Baterías y cargadores de cámara": 123,
+   "Cámaras y fotografía | Accesorios | Cámaras y fotografía | Filtros y parasoles": 123,
+   "Cámaras y fotografía | Accesorios | Cámaras y fotografía | Trípodes y soportes": 123
+  }
  }
 ]
