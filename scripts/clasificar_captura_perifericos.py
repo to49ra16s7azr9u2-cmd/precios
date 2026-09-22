@@ -1707,7 +1707,9 @@ REGLAS = [
  # bank" van las cinco maneras de decir lo mismo que trae la captura:
  # batería externa, magnética, inalámbrica, MagSafe y powerstation.
  (re.compile(r'^(?!.*(bocina|barra de sonido|soundbar|altavo|\bev\b|nivel [12]|vehiculo|'
-             r'carrito|golf|encendedor|lir\d|celda de boton|^(?!.*mah).*panel solar|celula solar|celda solar|almohadilla|'
+             # El arrancador trae mAh en el título y por eso entraba como
+             # batería portátil; es un producto de auto, no un power bank.
+             r'arrancador|jump ?starter|booster de bateria|carrito|golf|encendedor|lir\d|celda de boton|^(?!.*mah).*panel solar|celula solar|celda solar|almohadilla|'
              r'\bdiy\b|caja (de|para) (bateria|banco de energia|powerbank|pilas)|soporte de bateria|sin celdas|'
              r'probador|comprobador|medidor de (voltaje|bateria)|analizador|cortacesped|pulverizador|nebulizador|'
              r'tijeras|silla (de )?ruedas|\d{2} ?v ?max|stanley|dewalt|makita|milwaukee|ryobi|flejad|amoladora|pulidora|taladro|herramienta|\bmaquina\b|empacadora|atornillador|sierra|rotomartillo))'
@@ -3495,7 +3497,15 @@ def sub_vehiculo(tn):
         return 'Accesorios y refacciones'
     # Familias que faltaban (20-sep): el arrancador, el escáner, el producto
     # de limpieza y la charola de batería no tenían rama y caían fuera.
-    if re.search(r'jump starter|arrancador de (salto|bateria)|escaner (profesional|automotriz)|'
+    # El arrancador y el cargador no son una batería de auto: de las 1,218
+    # fichas de ese cajón, 801 eran uno de los dos. Es otra compra, con otro
+    # precio y otra pregunta («¿arranca mi motor?» contra «¿cabe en mi
+    # auto?»), así que va en su propio cajón.
+    if re.search(r'jump ?starter|arrancador\b|booster de bateria|'
+                 r'cargador (de|para) (bateria|acumulador)|battery charger|'
+                 r'mantenedor de bateria|cargador.{0,15}\b(6|12|24) ?v\b.{0,25}bateria', tn):
+        return 'Arrancadores y cargadores de batería'
+    if re.search(r'escaner (profesional|automotriz)|'
                  r'\bobd2?\b|removedor.{0,20}rayones|shampoo para (autos|camiones)|'
                  r'\bturtle wax\b|cera para auto|sistema de seguridad (de|del) vehiculo|'
                  r'\bcompustar\b|\bviper\b.{0,20}seguridad', tn):
@@ -3532,7 +3542,7 @@ def sub_vehiculo(tn):
         return 'Dashcams y cámaras'
     if re.search(r'\bllanta|neumatico|\brin\b|\brines\b', tn):
         return 'Llantas'
-    if re.search(r'bateria (para|de) (auto|coche|carro)|acumulador|arrancador', tn):
+    if re.search(r'bateria (para|de) (auto|coche|carro)|acumulador', tn):
         return 'Baterías para auto'
     if re.search(r'estereo|autoestereo|radio (para|de) (auto|carro)|carplay|android auto|'
                  r'car ?radio|doble din|2 ?din', tn):
@@ -3874,8 +3884,19 @@ def sub_joyeria(tn):
 def sub_impresora(tn):
     """Reparte Impresoras. El consumible primero: el cartucho y el tóner
     nombran la impresora para la que sirven."""
+    # «Consumibles» eran 751 fichas con el cartucho de tinta, el tóner láser
+    # y el cabezal de impresión juntos. Son tres compras distintas: el
+    # cartucho se elige por el número (HP 954), el tóner por el modelo de la
+    # láser, y el cabezal es una refacción que se cambia una vez en la vida.
+    # El papel y la cinta se quedan en «Consumibles», que ahí sí es lo que son.
     if re.search(r'cartucho|\btoner\b|\btinta\b|papel (fotografico|bond|de sublimacion|para sublimacion|sublimar)|cinta de impresion|\bdrum\b|cabezal',
                  tn) and not re.match(r'^(?:\S+ ){0,3}impresora', tn):
+        if re.search(r'\bcabezal|print ?head|\bdrum\b|tambor de impresion', tn):
+            return 'Cabezales y refacciones de impresión'
+        if re.search(r'\btoner\b|laserjet|\bcf\d{3}|\bce\d{3}|\bq\d{4}[ax]\b|\btn-?\d{3}', tn):
+            return 'Tóner'
+        if re.search(r'cartucho|\btinta\b|\bink\b', tn):
+            return 'Cartuchos de tinta'
         return 'Consumibles'
     if re.search(r'fotografica|de fotos|instantanea|selphy|\bivy\b|kodak dock|liene', tn): return 'Fotográficas'
     if re.search(r'\blaser\b|laserjet|imageclass|\bbrother hl\b|\bdcp-l|\bmfc-l|\bxerox\b', tn): return 'Láser'
