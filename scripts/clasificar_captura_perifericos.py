@@ -1401,12 +1401,27 @@ REGLAS = [
   ('Equipo comercial', 'Refrigeración comercial', 'snowflake')),
  (re.compile(r'(cortina|puerta|tiras?) (de |enfriadora de )?(pvc|tiras|plastico|vinilo)|tiras? de pvc|cortina de tiras'),
   ('Herramientas', 'Construcción', 'wrench')),
+ # Lo que dice "bocina" y no suena música (22-sep, recorrido de Bocinas):
+ # el claxon del auto o la moto, el brazo del servo, el zumbador de la
+ # placa base y el radio de comunicación tienen otro cajón.
+ (re.compile(r'^(?!.*(bluetooth|inalambric|\btws\b|amplificad|motorola|sound flow))'
+             r'(?=.*(bocina (de |para )?(el |la )?(moto\b|motocicleta|casco)|bocina de casco))'),
+  ('Refacciones', 'Eléctrico y baterías de moto', 'gear')),
+ (re.compile(r'^(?!.*(bluetooth|inalambric|\btws\b|amplificad|autoamplificad|\d+ ?w\b|pulg|vias|coaxial|woofer|tweeter))'
+             r'(?=.*(bocina (de |para )?(el |la )?(auto|coche|carro|camion|automovil|vehiculo|barco|lancha)\b|\bclaxon|\bklaxon|bocinas? de aire|air horn|'
+             r'alarma de (marcha atras|reversa)|bocina de (alarma|senal|respaldo|marcha atras|trompeta)|bocina de \d+ ?(v|db)\b|cubiertas? de bocina de puerta))'),
+  ('Refacciones', 'Sistema eléctrico y sensores', 'gear')),
+ (re.compile(r'brazo servo|servo horn|bocina (de |del )?servo'), ('Juguetes y bebés', 'Vehículos a control remoto', 'toy')),
+ (re.compile(r'(bocina|altavoz|zumbador).{0,30}(placa base|placa madre|motherboard|\bbios\b)|(placa base|placa madre|motherboard).{0,30}(bocina|altavoz|zumbador)|bocina interna para (pc|computadora)'),
+  ('Componentes y accesorios de PC', 'Componentes', 'cpu')),
+ (re.compile(r'walkie|\bptt\b|radios? de comunicacion|radio bidireccional|two-?way radio|retevis|baofeng|\buhf\b.{0,30}radio|radio.{0,30}\buhf\b|\bvhf\b'),
+  ('Otros', 'Radios', 'box')),
  # El radio de bolsillo, el inversor y la báscula tienen su sitio y no lo
  # alcanzaba ninguna regla (el radio acababa en Mobiliario por 'la mejor
  # recepción', el inversor en Herramientas, la báscula de cocina en manuales).
  (re.compile(r'^(?!.*(bocina|altavoz|para (auto|coche|carro)|estereo|\bcd\b|tocadiscos|bluetooth|speaker|parlante|\btv\b))'
              r'(?=(?:\S+ ){0,3}radios? (am|fm|portatil|de onda corta|de transistores|multibanda|de bolsillo|solar|de emergencia|retro|vintage|de mesa|digital|dab|despertador)|.*radio (am|fm)\b|.*radio.{0,30}(onda corta|transistores))'),
-  ('Otros', 'Radios', 'box')),
+  ('Bocinas', 'Radios y reproductores', 'speaker')),
  (re.compile(r'^(?!.*(estacion de energia|estacion electrica|generador|power station|central electrica))(?=.*(inversor(es)? de (corriente|voltaje|onda|energia)|inversor .{0,25}\d+ ?w\b|convertidor (cc|dc) a (ca|ac)|inversor (solar|senoidal|de onda)))'),
   ('Otros', 'Inversores', 'box')),
  (re.compile(r'basculas? (de bano|corporal|digital de bano|intelig|de peso corporal|para personas|de grasa corporal)|bascula.{0,30}(bluetooth|app|grasa corporal|imc)'),
