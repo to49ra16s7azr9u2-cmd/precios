@@ -2289,7 +2289,7 @@ REGLAS = [
  # lo suyo, y lo que ninguna reclama sigue teniendo a Videojuegos de red.
  (re.compile(r'^(?!.*(teclado gamer|\bmouse\b|\braton\b|\bmonitor\b|\bsilla\b|'
              r'escritorio|smart tv|televisor|\bproyector|\bimpresora))'
-             r'(?=.*(nintendo switch|switch ?2|switch oled|switch lite|'
+             r'(?=.*(nintendo switch|switch ?2\b(?! ?puertos)|switch oled|switch lite|'
              r'playstation ?[345]|\bps[345]\b|playstation portal|'
              r'xbox series [xs]|xbox one|xbox 360|\bxbox\b|'
              r'steam ?deck|rog ally|legion go|msi claw|\bwii u\b|\bwii\b|'
@@ -3069,7 +3069,7 @@ def tramo(mah):
 # El accesorio manda sobre los otros dos porque un control para Switch nombra
 # la consola igual que la consola misma.
 RX_VJ_PLATAFORMA = re.compile(
-    r'\b(nintendo switch|switch ?2|switch oled|switch lite|'
+    r'\b(nintendo switch|switch ?2\b(?! ?puertos)|switch oled|switch lite|'
     r'playstation ?[345]|ps[345]\b|playstation portal|'
     r'xbox series [xs]|xbox one|xbox 360|xbox\b|'
     r'steam ?deck|rog ally|legion go|msi claw|'
