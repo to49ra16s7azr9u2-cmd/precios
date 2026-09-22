@@ -988,7 +988,7 @@ REGLAS = [
              r'(?=.*((tv|television|televisor|smart tv) portatil|tableta portatil (para|de) tv|(tv|televisor|television|pantalla inteligente|tableta inteligente).{0,50}(con ruedas|rodante|sobre ruedas)))'),
   ('Televisores', 'Portátiles', 'tv')),
  (re.compile(r'^(?!(?:\S+ ){0,4}(ssd|disco duro|unidad (de estado solido|interna)|hdd|memoria ram|modulo de memoria)\b)(?!(?:\S+ ){0,3}(mouse|raton|teclado(?! (retro)?iluminado)|combo|funda|maletin|mochila|soporte|base|cargador|adaptador|cable|bocina|altavoz|audifonos|webcam|hub|docking|dock|bolsa|estuche|backpack|porta ?laptop|set de viaje|pantalla|lcd|panel|cubierta|cover|adhesivos?|tornillos?|bisagra|ventilador|enfriador|memoria|disco|\bssd\b|\bram\b|bateria|pila|protector|mica|limpiador|'
-             r'juego de|kit de|paquete de|par de|extensor|monitor|impresora|proyector|escaner|silla|escritorio|lampara)\b)'
+             r'juego de|kit de|paquete de|par de|extensor|monitor|impresora|proyector|escaner|silla|sillas|sillon|escritorio|lampara|taburete|taburetes|banco|banquito|mesa|mesita|mesas|sofa|colchon|cama|repisa|estante|estanteria|librero|carrito|carro|maleta|mochila|caja|bolsa|atril|tripie|tripode)\b)'
              r'(?!.*(sodimm|udimm|modulo de memoria|solo memoria|kit de memoria|\bmonitor(es)?\b|caja de disco|(pc|escritorio) o portatil|smart tv|\btv\b|televis|con ruedas|rodante|(para|compatible con|de repuesto para) (laptop|notebook|macbook)\b|mini telefono|telefono inteligente|smartphone|\bcelular(es)?\b|dual sim|back cover|bottom cover|lcd (display|screen|panel)|display panel|nexiq|diesel laptops|\baio\b|all[- ]in[- ]one|todo en uno|desktop|de escritorio|\bimac\b|mini pc|lavadora|proyecc|monitor portatil|extensor de pantalla|\btarola\b|baqueta|bombo|platillo|reproductor de dvd|para bateria|de bateria\b|flejad|\bestufa|\bhorno\b|horno de pizza|\bquemador|\bparrilla\b|plancha (de |a )?vapor|\bfreidora|licuadora|\bcampana\b|purificador|filtro de agua|vaporizador|cafetera|\bmicroondas\b|lavavajillas|aspiradora|calentador de agua|deshumidificador|humidificador|maquina de coser|\binodoro\b|\bregadera\b))'
              r'(?=.*(\blaptops?\b|\bnotebooks?\b|\bportatil(es)?\b|macbook|chromebook|ultrabook|omnibook|\bgram\b\s?\d|thinkpad|ideapad|'
              r'vivobook|zenbook|inspiron|latitude|pavilion|elitebook|probook|aspire|\bnitro\b|predator|omen|legion|'
@@ -2518,7 +2518,11 @@ REGLAS = [
              # componentes de PC; este era el tercero, y medido contra el
              # catálogo dejaba Teclados en 18% de acierto.
              r'(?=.*(teclado|keyboard))'), ('Teclados', None, 'keyboard')),
- (re.compile(r'\bmouse\b|\braton\b|\bratones\b'), ('Mouse', None, 'mouse')),
+ # "Cama infantil Minnie Mouse", "Mickey Mouse", "Danger Mouse", "Mouse
+ # Trap": el personaje no es el ratón de computadora. Tampoco la
+ # trampa para ratones ni el pad/alfombrilla (esos ya tienen su regla).
+ (re.compile(r'^(?!.*(mickey|minnie|danger|trampa|veneno|raticida|cebo).{0,12}(mouse|raton))'
+             r'(?!.*(mouse|raton) trap)(?=.*(\bmouse\b|\braton\b|\bratones\b))'), ('Mouse', None, 'mouse')),
  # Lo que dice "cargador" y no cayó en ninguna subcategoría: el del reloj
  # inteligente, el de la cámara vieja, el genérico "para Samsung". Al
  # final de REGLAS para que cualquier regla más precisa gane antes.
@@ -2814,7 +2818,8 @@ REGLAS = [
  (re.compile(r'^(?!.*(de juguete|para (muneca|barbie)|\bmaqueta\b|'
              r'control remoto.{0,15}escala|montable para nino|'
              r'carr(o|ito)s? (de|para) (servicio|cocina|almacenamiento|bar|te|postres|helados|comida|bebidas|limpieza|lavanderia|compras|mandado|supermercado|libros|utilidad|herramientas|carga|mano|jardin)|'
-             r'carr(o|ito)s? (rodante|multifuncion|utilitario|auxiliar|movil|organizador|plegable|metalico|con ruedas)|auto ?reset|inodoro|\bbide\b|motorola|\bmoto (g|e|edge|one|z|x)\d?\b))'
+             r'carr(o|ito)s? (rodante|multifuncion|utilitario|auxiliar|movil|organizador|plegable|metalico|con ruedas)|auto ?reset|inodoro|\bbide\b|motorola|\bmoto (g|e|edge|one|z|x)\d?\b|'
+             r'(ajuste|piston|cilindro|elevacion|elevador|sistema|amortiguacion) neumatic[oa]|neumatic[oa] (de|para) (silla|sillon|taburete)|\bsillas? (de |para )?(oficina|escritorio|gamer|bar|comedor)))'
              r'(?=.*(\bbicicleta|\bbici\b|ciclismo|\btriciclo|\bmotocicleta|\bmoto\b|'
              r'\bautomovil|\bvehiculo|\bauto\b|\bcoche\b|\bcarro\b|camioneta|'
              r'\bllanta|neumatico|autoestereo|estereo (para|de) (auto|coche|carro)|'
@@ -3172,7 +3177,8 @@ def sub_mueble(tn):
                  r'\brack\b.{0,25}\btv\b|soporte.{0,20}\btv\b.{0,25}pulgadas|'
                  r'soporte 3d para tv', tn):
         return 'Mesas para TV y consolas'
-    if re.search(r'\bcabecer[ao]\b|\bcabecero\b', tn): return 'Cabeceras'
+    if re.search(r'\bcabecer[ao]\b|\bcabecero\b', tn) and not re.search(r'\b(silla|sillas|sillon|sillones|sofa|reposet|reclinable|taburete|banco|escritorio)\b', tn):
+        return 'Cabeceras'
     if re.search(r'base (box|tubular)|\bbox spring\b|base (de )?cama', tn):
         return 'Bases de cama y box'
     if re.search(r'sobrecolchon|\btopper\b', tn): return 'Toppers y sobrecolchones'
