@@ -987,14 +987,25 @@ REGLAS = [
              r'(?!.*(altavoz|bocina|subwoofer|barra de sonido|speaker|reproductor de dvd|prensa|videojuegos|juego de mano|consola|videoconferencia|controlador))'
              r'(?=.*((tv|television|televisor|smart tv) portatil|tableta portatil (para|de) tv|(tv|televisor|television|pantalla inteligente|tableta inteligente).{0,50}(con ruedas|rodante|sobre ruedas)))'),
   ('Televisores', 'Portátiles', 'tv')),
- (re.compile(r'^(?!(?:\S+ ){0,3}(mouse|raton|teclado(?! (retro)?iluminado)|combo|funda|maletin|mochila|soporte|base|cargador|adaptador|cable|bocina|altavoz|audifonos|webcam|hub|docking|dock|bolsa|estuche|backpack|porta ?laptop|set de viaje|pantalla|lcd|panel|cubierta|cover|adhesivos?|tornillos?|bisagra|ventilador|enfriador|memoria|disco|\bssd\b|\bram\b|bateria|pila|protector|mica|limpiador|'
+ (re.compile(r'^(?!(?:\S+ ){0,4}(ssd|disco duro|unidad (de estado solido|interna)|hdd|memoria ram|modulo de memoria)\b)(?!(?:\S+ ){0,3}(mouse|raton|teclado(?! (retro)?iluminado)|combo|funda|maletin|mochila|soporte|base|cargador|adaptador|cable|bocina|altavoz|audifonos|webcam|hub|docking|dock|bolsa|estuche|backpack|porta ?laptop|set de viaje|pantalla|lcd|panel|cubierta|cover|adhesivos?|tornillos?|bisagra|ventilador|enfriador|memoria|disco|\bssd\b|\bram\b|bateria|pila|protector|mica|limpiador|'
              r'juego de|kit de|paquete de|par de|extensor|monitor|impresora|proyector|escaner|silla|escritorio|lampara)\b)'
-             r'(?!.*(sodimm|udimm|modulo de memoria|solo memoria|kit de memoria|\bmonitor(es)?\b|\bssd\b.{0,60}(interno|sata|nvme|m\.2)|disco duro|caja de disco|\bhdd\b|estado solido|unidad interna|(pc|escritorio) o portatil|smart tv|\btv\b|televis|con ruedas|rodante|(para|compatible con|de repuesto para) (laptop|notebook|macbook)\b|mini telefono|telefono inteligente|smartphone|\bcelular(es)?\b|dual sim|back cover|bottom cover|lcd (display|screen|panel)|display panel|nexiq|diesel laptops|\baio\b|all[- ]in[- ]one|todo en uno|desktop|de escritorio|\bimac\b|mini pc|lavadora|proyecc|monitor portatil|extensor de pantalla|\btarola\b|baqueta|bombo|platillo|reproductor de dvd|para bateria|de bateria\b|flejad|\bestufa|\bhorno\b|horno de pizza|\bquemador|\bparrilla\b|plancha (de |a )?vapor|\bfreidora|licuadora|\bcampana\b|purificador|filtro de agua|vaporizador|cafetera|\bmicroondas\b|lavavajillas|aspiradora|calentador de agua|deshumidificador|humidificador|maquina de coser|\binodoro\b|\bregadera\b))'
+             r'(?!.*(sodimm|udimm|modulo de memoria|solo memoria|kit de memoria|\bmonitor(es)?\b|caja de disco|(pc|escritorio) o portatil|smart tv|\btv\b|televis|con ruedas|rodante|(para|compatible con|de repuesto para) (laptop|notebook|macbook)\b|mini telefono|telefono inteligente|smartphone|\bcelular(es)?\b|dual sim|back cover|bottom cover|lcd (display|screen|panel)|display panel|nexiq|diesel laptops|\baio\b|all[- ]in[- ]one|todo en uno|desktop|de escritorio|\bimac\b|mini pc|lavadora|proyecc|monitor portatil|extensor de pantalla|\btarola\b|baqueta|bombo|platillo|reproductor de dvd|para bateria|de bateria\b|flejad|\bestufa|\bhorno\b|horno de pizza|\bquemador|\bparrilla\b|plancha (de |a )?vapor|\bfreidora|licuadora|\bcampana\b|purificador|filtro de agua|vaporizador|cafetera|\bmicroondas\b|lavavajillas|aspiradora|calentador de agua|deshumidificador|humidificador|maquina de coser|\binodoro\b|\bregadera\b))'
              r'(?=.*(\blaptops?\b|\bnotebooks?\b|\bportatil(es)?\b|macbook|chromebook|ultrabook|omnibook|\bgram\b\s?\d|thinkpad|ideapad|'
              r'vivobook|zenbook|inspiron|latitude|pavilion|elitebook|probook|aspire|\bnitro\b|predator|omen|legion|'
              r'victus|swift|yoga \d|thinkbook|travelmate|modern \d|katana|cyborg|\btuf gaming\b|rog (zephyrus|strix|flow)))'
              r'(?=.*(\d{2}([.,]\d)? ?(pulgadas|")|\bfhd\b|\bwqxga\b|\bwuxga\b|intel (core|ultra|celeron|n\d)|ryzen|\bcore i[3579]\b|'
-             r'\bi[3579]-?\d|snapdragon x|win(dows)? 1[01]|chrome ?os|mediatek|\bm[1-5] (pro|max|chip)?|chip m[1-5]|\bssd\b|\bemmc\b|\d+ ?gb de ram|\bcpu\b|microsoft (365|office)|ultra ?(ligero|delgado|thin)))'),
+             r'\bi[3579]-?\d|snapdragon x|win(dows)? 1[01]|chrome ?os|mediatek|\bm[1-5] (pro|max|chip)?|chip m[1-5]|\bssd\b|\bemmc\b|\d+ ?gb (de )?ram|\bcpu\b|\bceleron\b|\bpentium\b|\bn\d{3,4}\b|\b1[0-7][.,]\d\b|microsoft (365|office)|ultra ?(ligero|delgado|thin)))'),
+  ('Laptops', None, 'laptop')),
+ # La laptop que no dice "laptop": marca o línea, pulgadas, procesador y
+ # RAM o SSD ("HP 14 pulgadas, Intel N150, 8 GB RAM 256 GB", "Gaming
+ # empresarial profesional, PowerLux, MXPWU-069, Intel Core i7 10750H").
+ # Sin esto se iba a Memoria RAM, a Celulares o a Webcams (22-sep).
+ (re.compile(r'^(?!(?:\S+ ){0,4}(ssd|disco duro|unidad|hdd|memoria|monitor|pantalla|teclado|mouse|funda|mochila|cargador|bateria|adaptador|cable|soporte|base|hub|dock)\b)'
+             r'(?!.*(\bmonitor(es)?\b|\btv\b|televisor|escritorio|all in one|todo en uno|mini pc|\bnuc\b|tablet(?! pc)|tableta|smartphone|celular|telefono|\bsff\b|torre|gabinete|placa base|motherboard|tarjeta madre|kit de actualizacion|\bsodimm\b|\budimm\b))'
+             r'(?=.*(\bhp\b|\bdell\b|lenovo|\basus\b|\bacer\b|\bmsi\b|huawei|samsung galaxy book|gateway|\bnimo\b|powerlux|evoblaze|turboglide|versatech|kooforway|\bchuwi\b|\bawow\b|\bavita\b|hyundai|\blg\b|microsoft surface|surface (laptop|book)|razer blade|\bxiaomi\b|honor magicbook|\bmagicbook\b|matebook|alienware|toughbook))'
+             r'(?=.*(\d{2}([.,]\d)? ?(pulgadas|pulg|"|\bin\b)|\bfhd\b|\bwuxga\b|\b1[0-7][.,]\d\b|\bhd\b))'
+             r'(?=.*(intel|ryzen|core ?i[3579]|\bi[3579]-\d|celeron|pentium|\bn\d{3}\b|snapdragon|core ?ultra|mediatek|core ?\d ?\d{3}h))'
+             r'(?=.*(\bram\b|\bssd\b|\bemmc\b|win(dows)? 1[01]))'),
   ('Laptops', None, 'laptop')),
  # La tableta sube junto a la laptop, por la misma razón: su ficha
  # técnica la mandaba a Memoria RAM ("16GB RAM 128GB ROM", 265 casos),
@@ -2405,11 +2416,20 @@ REGLAS = [
              r'(?=.*(\blinterna\b|luz de trabajo|luces de inundacion|reflector led|lampara de campamento|'
              r'lampara recargable|luz de lectura|farol(a)? (led|solar|recargable)|luz de emergencia|lampara de emergencia))'),
   ('Iluminación', 'Lámparas de emergencia', 'bulb')),
+ # La torre de marca que lista "teclado" entre lo que trae: Alienware
+ # Aurora R16, MSI Trident, HP Z2 (22-sep). "Aurora 16" con pulgadas es la
+ # laptop del mismo nombre y la agarra la regla de laptops de arriba.
+ (re.compile(r'^(?!.*(\d{2}([.,]\d)? ?(pulgadas|")|laptop|portatil|notebook))'
+             r'(?=.*(alienware aurora r?\d|\btrident\b|hp z\d|\bworkstation\b|escritorio para (juegos|videojuegos|gaming)|computadora (armada|para juegos)|pc armada|gaming desktop|torre gamer))'
+             r'(?=.*(ryzen|intel|core ?i\d|\brtx|\bgtx|\bxeon\b|\d+ ?gb))'),
+  ('Computadoras de escritorio', 'Torre', 'desktop')),
+ (re.compile(r'microsoft surface (go|pro)\b|surface (go|pro) \d|\bsurface pro\b'), ('Tabletas', 'Tabletas Windows y rugged', 'tablet')),
  # La PC gamer armada nombraba 'escritorio' y se iba a Muebles, o 'RAM'
  # y se iba a Memoria RAM. Pide procesador o gráfica para no llevarse
  # el kit de periféricos gamer.
  (re.compile(r'^(?!.*(\bmouse\b|teclado|silla|escritorio gamer|mesa gamer|mesa (de|para)|audifono|kit gamer|combo gamer|^(?:\S+ ){0,3}monitor\b|funda|mochila|tapete|alfombrilla|gabinete (vacio|solo|sin)|probador|analizador))'
-             r'(?=.*(pc gamer|computadora gamer|cpu gamer|pc (de )?escritorio|computadora (de )?escritorio|pc armada|pc completa|desktop gamer|torre gamer|gabinete gamer armado))'
+             r'(?=.*(pc gamer|computadora gamer|cpu gamer|pc (de )?escritorio|computadora (de )?escritorio|pc armada|pc completa|desktop gamer|torre gamer|gabinete gamer armado|'
+             r'escritorio para (juegos|videojuegos|gaming)|\btrident\b|\baurora r?\d|\bworkstation\b|computadora armada|gaming desktop|desktop (pc|computer)|computadora para juegos|\bomen \d{2}l\b|\bxps desktop\b))'
              r'(?=.*(ryzen|intel|core i\d|\bi[3579]\b|\brtx|\bgtx|\brx ?\d{3,4}|\d+ ?gb|\bssd\b))'),
   ('Computadoras de escritorio', 'Torre', 'desktop')),
  (re.compile(r'^(?!.*(radio|estereo|coche|\bjeep\b|\bdodge\b|tablet|celular|smartphone|pc gamer|computadora|mini pc|all in one|todo en uno|laptop|notebook|\bpickup\b|camioneta|\btruck\b|\bhemi\b|defensa|parrilla|faro|\bpolaris\b|\brzr\b|\bnavaja\b))'
