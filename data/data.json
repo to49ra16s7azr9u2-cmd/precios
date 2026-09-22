@@ -617,6 +617,11 @@
           "id": "Ergonómicos",
           "name": "Ergonómicos",
           "icon": "mouse"
+        },
+        {
+          "id": "Mousepads y tapetes",
+          "name": "Mousepads y tapetes",
+          "icon": "mouse"
         }
       ]
     },
@@ -6405,6 +6410,9 @@
     "Mouse": [
       "data/cat/mouse-1.json"
     ],
+    "Teclados": [
+      "data/cat/teclados-1.json"
+    ],
     "Climatización": [
       "data/cat/climatizacion-1.json"
     ],
@@ -6428,9 +6436,6 @@
     ],
     "Redes": [
       "data/cat/redes-1.json"
-    ],
-    "Teclados": [
-      "data/cat/teclados-1.json"
     ],
     "Refrigeradores": [
       "data/cat/refrigeradores-1.json"
@@ -6717,6 +6722,10 @@
       "data/det/mouse-1.json",
       "data/det/mouse-2.json"
     ],
+    "Teclados": [
+      "data/det/teclados-1.json",
+      "data/det/teclados-2.json"
+    ],
     "Climatización": [
       "data/det/climatizacion-1.json",
       "data/det/climatizacion-2.json",
@@ -6751,10 +6760,6 @@
     ],
     "Redes": [
       "data/det/redes-1.json"
-    ],
-    "Teclados": [
-      "data/det/teclados-1.json",
-      "data/det/teclados-2.json"
     ],
     "Refrigeradores": [
       "data/det/refrigeradores-1.json"
@@ -6943,7 +6948,7 @@
       "maxShip": 69
     },
     "Instrumentos musicales": {
-      "n": 16939,
+      "n": 16941,
       "subs": {
         "Accesorios de guitarra": 1060,
         "Micrófonos": 962,
@@ -6971,7 +6976,7 @@
         "Baterías acústicas": 690,
         "Armónicas y melódicas": 234,
         "Sintetizadores y controladores MIDI": 110,
-        "Bancos, soportes y accesorios de teclado": 64,
+        "Bancos, soportes y accesorios de teclado": 66,
         "Tarolas y cajas": 52,
         "Viento": 319,
         "Acordeones": 125,
@@ -7265,15 +7270,15 @@
       "maxShip": 85
     },
     "Componentes y accesorios de PC": {
-      "n": 9564,
+      "n": 9604,
       "subs": {
         "Tarjetas madre": 5,
         "Accesorios de monitor": 1167,
         "Enfriamiento y ventiladores": 1648,
-        "Accesorios": 667,
+        "Accesorios": 704,
         "RAM DDR5 para laptop (SODIMM)": 245,
         "RAM DDR3 y anteriores": 691,
-        "Componentes": 1845,
+        "Componentes": 1848,
         "Memoria RAM": 272,
         "RAM DDR4 para laptop (SODIMM)": 456,
         "RAM DDR5 para PC de escritorio": 593,
@@ -7290,13 +7295,13 @@
         "Refacciones para laptop": 12
       },
       "pop": 3744,
-      "discounted": 98,
+      "discounted": 99,
       "max": 70,
-      "discountedShip": 97,
+      "discountedShip": 98,
       "maxShip": 68
     },
     "Juguetes y bebés": {
-      "n": 9608,
+      "n": 9612,
       "subs": {
         "Juguetes para bebé": 71,
         "Juguetes educativos": 346,
@@ -7310,7 +7315,7 @@
         "Cunas": 26,
         "Juguetes musicales": 24,
         "Muñecas": 1509,
-        "Otros": 12,
+        "Otros": 16,
         "Biberones": 170,
         "Peluches": 583,
         "Andaderas": 56,
@@ -7765,10 +7770,10 @@
       "maxShip": 70
     },
     "Tabletas": {
-      "n": 3252,
+      "n": 3354,
       "subs": {
         "Tabletas Android de 8 pulgadas o menos": 184,
-        "Accesorios para tableta": 85,
+        "Accesorios para tableta": 187,
         "Tabletas para niños": 249,
         "Tabletas Android": 477,
         "Tabletas Windows y rugged": 699,
@@ -7779,9 +7784,9 @@
         "Apple": 289
       },
       "pop": 14290,
-      "discounted": 389,
+      "discounted": 392,
       "max": 76,
-      "discountedShip": 389,
+      "discountedShip": 392,
       "maxShip": 76
     },
     "Iluminación": {
@@ -7950,17 +7955,41 @@
       "maxShip": 71
     },
     "Mouse": {
-      "n": 3126,
+      "n": 3115,
       "subs": {
-        "Gaming": 1114,
-        "Oficina": 1717,
-        "Ergonómicos": 295
+        "Mousepads y tapetes": 94,
+        "Oficina": 1652,
+        "Ergonómicos": 295,
+        "Gaming": 1074
       },
-      "pop": 5242,
+      "pop": 5291,
       "discounted": 102,
       "max": 68,
       "discountedShip": 100,
       "maxShip": 59
+    },
+    "Teclados": {
+      "n": 3478,
+      "subs": {
+        "Switches, keycaps y accesorios": 310,
+        "Combos con mouse": 766,
+        "Mecánicos": 280,
+        "Mecánicos 60% y compactos": 178,
+        "Membrana": 548,
+        "Mecánicos inalámbricos": 308,
+        "Ergonómicos": 110,
+        "Inalámbricos": 447,
+        "Mecánicos 65% y 75%": 155,
+        "Mecánicos TKL (80%)": 135,
+        "Mecánicos tamaño completo": 95,
+        "Numéricos": 145,
+        "": 1
+      },
+      "pop": 5320,
+      "discounted": 256,
+      "max": 69,
+      "discountedShip": 256,
+      "maxShip": 69
     },
     "Climatización": {
       "n": 13694,
@@ -8061,9 +8090,9 @@
       "maxShip": 0
     },
     "Computadoras de escritorio": {
-      "n": 1347,
+      "n": 1352,
       "subs": {
-        "Torre": 581,
+        "Torre": 586,
         "Mini PC": 254,
         "All in One": 512
       },
@@ -8131,29 +8160,6 @@
       "discounted": 142,
       "max": 69,
       "discountedShip": 142,
-      "maxShip": 69
-    },
-    "Teclados": {
-      "n": 3620,
-      "subs": {
-        "Combos con mouse": 773,
-        "Mecánicos": 300,
-        "Mecánicos 60% y compactos": 167,
-        "Switches, keycaps y accesorios": 244,
-        "Membrana": 657,
-        "Mecánicos inalámbricos": 312,
-        "Ergonómicos": 119,
-        "Inalámbricos": 553,
-        "Mecánicos 65% y 75%": 161,
-        "Mecánicos TKL (80%)": 113,
-        "Mecánicos tamaño completo": 96,
-        "Numéricos": 124,
-        "": 1
-      },
-      "pop": 5369,
-      "discounted": 260,
-      "max": 69,
-      "discountedShip": 260,
       "maxShip": 69
     },
     "Refrigeradores": {
@@ -8584,6 +8590,14 @@
       "p27331",
       "p27319"
     ],
+    "Teclados": [
+      "p183711",
+      "p366910",
+      "p127362",
+      "p186183",
+      "p27060",
+      "p289457"
+    ],
     "Climatización": [
       "p340441",
       "p39258",
@@ -8642,14 +8656,6 @@
       "p286875",
       "p28545",
       "p286789"
-    ],
-    "Teclados": [
-      "p183711",
-      "p366910",
-      "p127362",
-      "p186183",
-      "p27060",
-      "p289457"
     ],
     "Refrigeradores": [
       "p31626",
