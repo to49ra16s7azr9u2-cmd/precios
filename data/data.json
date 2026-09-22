@@ -6341,6 +6341,10 @@
     "Audífonos": [
       "data/cat/audifonos-1.json"
     ],
+    "Autos, bicicletas y motos": [
+      "data/cat/autos-bicicletas-y-motos-1.json",
+      "data/cat/autos-bicicletas-y-motos-2.json"
+    ],
     "Equipo comercial": [
       "data/cat/equipo-comercial-1.json"
     ],
@@ -6364,10 +6368,6 @@
     ],
     "Bocinas": [
       "data/cat/bocinas-1.json"
-    ],
-    "Autos, bicicletas y motos": [
-      "data/cat/autos-bicicletas-y-motos-1.json",
-      "data/cat/autos-bicicletas-y-motos-2.json"
     ],
     "Cámaras de seguridad": [
       "data/cat/camaras-de-seguridad-1.json"
@@ -6587,6 +6587,18 @@
       "data/det/audifonos-5.json",
       "data/det/audifonos-6.json"
     ],
+    "Autos, bicicletas y motos": [
+      "data/det/autos-bicicletas-y-motos-1.json",
+      "data/det/autos-bicicletas-y-motos-2.json",
+      "data/det/autos-bicicletas-y-motos-3.json",
+      "data/det/autos-bicicletas-y-motos-4.json",
+      "data/det/autos-bicicletas-y-motos-5.json",
+      "data/det/autos-bicicletas-y-motos-6.json",
+      "data/det/autos-bicicletas-y-motos-7.json",
+      "data/det/autos-bicicletas-y-motos-8.json",
+      "data/det/autos-bicicletas-y-motos-9.json",
+      "data/det/autos-bicicletas-y-motos-10.json"
+    ],
     "Equipo comercial": [
       "data/det/equipo-comercial-1.json",
       "data/det/equipo-comercial-2.json"
@@ -6639,18 +6651,6 @@
       "data/det/bocinas-4.json",
       "data/det/bocinas-5.json",
       "data/det/bocinas-6.json"
-    ],
-    "Autos, bicicletas y motos": [
-      "data/det/autos-bicicletas-y-motos-1.json",
-      "data/det/autos-bicicletas-y-motos-2.json",
-      "data/det/autos-bicicletas-y-motos-3.json",
-      "data/det/autos-bicicletas-y-motos-4.json",
-      "data/det/autos-bicicletas-y-motos-5.json",
-      "data/det/autos-bicicletas-y-motos-6.json",
-      "data/det/autos-bicicletas-y-motos-7.json",
-      "data/det/autos-bicicletas-y-motos-8.json",
-      "data/det/autos-bicicletas-y-motos-9.json",
-      "data/det/autos-bicicletas-y-motos-10.json"
     ],
     "Cámaras de seguridad": [
       "data/det/camaras-de-seguridad-1.json"
@@ -6870,7 +6870,7 @@
       "maxShip": 80
     },
     "Otros": {
-      "n": 6549,
+      "n": 6589,
       "subs": {
         "Varios": 494,
         "Soportes para dispositivos": 2733,
@@ -6880,16 +6880,16 @@
         "Inversores": 78,
         "Accesorios y limpieza de paneles solares": 769,
         "Kits solares y controladores de carga": 368,
-        "Radios": 224,
+        "Radios": 264,
         "Paneles solares": 456,
         "Baño": 178,
         "Luces y ventiladores solares": 102,
         "Bombas y calentadores solares": 4
       },
       "pop": 4032,
-      "discounted": 506,
+      "discounted": 507,
       "max": 60,
-      "discountedShip": 506,
+      "discountedShip": 507,
       "maxShip": 60
     },
     "Cocina y comedor": {
@@ -6928,11 +6928,11 @@
       "maxShip": 69
     },
     "Salud": {
-      "n": 850,
+      "n": 853,
       "subs": {
         "Equipo de monitoreo médico": 88,
         "Básculas": 78,
-        "Salud": 136,
+        "Salud": 139,
         "Cuidado dental": 313,
         "Movilidad": 235
       },
@@ -7339,7 +7339,7 @@
       "maxShip": 77
     },
     "Joyería y bisutería": {
-      "n": 5486,
+      "n": 5488,
       "subs": {
         "Correas y extensibles": 365,
         "Pulseras": 386,
@@ -7347,7 +7347,7 @@
         "Collares": 419,
         "Dijes y charms": 287,
         "Relojes": 625,
-        "Otros": 95,
+        "Otros": 97,
         "Aretes": 659,
         "Relojes deportivos y digitales": 167,
         "Material para bisutería": 5,
@@ -7368,28 +7368,91 @@
       "maxShip": 77
     },
     "Audífonos": {
-      "n": 10202,
+      "n": 10144,
       "subs": {
-        "Accesorios": 217,
-        "Earbuds inalámbricos": 3316,
-        "Diadema inalámbrica": 920,
-        "Diadema con cancelación de ruido": 463,
-        "Earbuds con cancelación de ruido": 884,
-        "Earbuds deportivos": 217,
-        "Gamer": 1176,
-        "De oído abierto": 580,
-        "Earbuds para niños": 187,
-        "Earbuds con cable": 1249,
-        "Diadema con cable": 757,
-        "Earbuds de cuello": 63,
-        "Almohadillas y repuestos": 167,
-        "": 6
+        "Accesorios": 362,
+        "Earbuds inalámbricos": 2810,
+        "Diadema inalámbrica": 951,
+        "Diadema con cancelación de ruido": 527,
+        "De oído abierto": 629,
+        "Earbuds con cancelación de ruido": 948,
+        "Gamer": 1307,
+        "Earbuds deportivos": 250,
+        "Earbuds para niños": 394,
+        "Earbuds con cable": 1015,
+        "Diadema con cable": 696,
+        "Earbuds de cuello": 92,
+        "Almohadillas y repuestos": 161,
+        "": 2
       },
       "pop": 283960,
-      "discounted": 1901,
+      "discounted": 1896,
       "max": 80,
-      "discountedShip": 1896,
+      "discountedShip": 1891,
       "maxShip": 80
+    },
+    "Autos, bicicletas y motos": {
+      "n": 18914,
+      "subs": {
+        "Accesorios para moto": 315,
+        "Amplificadores para auto": 176,
+        "Accesorios para bicicleta": 220,
+        "Bocinas para auto": 408,
+        "Autos": 1789,
+        "Arrancadores y cargadores de batería": 1095,
+        "Motocicletas": 1222,
+        "Accesorios y refacciones": 1080,
+        "Refacciones y transmisión de bicicleta": 352,
+        "Estéreos para auto": 1635,
+        "Llantas para bicicleta": 343,
+        "Pedales, manubrios y puños": 286,
+        "Bolsas, canastas y portabultos": 233,
+        "Triciclos y bicicletas de carga": 441,
+        "Cascos para moto": 943,
+        "Asientos infantiles y remolques": 59,
+        "Bicicletas sin pedales y balance": 78,
+        "Baterías para auto": 197,
+        "Bicicletas BMX": 92,
+        "Candados para bicicleta": 83,
+        "Luces para bicicleta": 92,
+        "Bicicletas urbanas y de paseo": 468,
+        "Bicicletas de montaña": 717,
+        "Cascos y protección para ciclismo": 55,
+        "Bicicletas plegables": 67,
+        "Bicicletas de ruta": 104,
+        "Llantas para auto": 1696,
+        "Rines": 136,
+        "Bocinas coaxiales 6x9 y 6x8": 214,
+        "Bocinas coaxiales de 6.5 pulgadas": 260,
+        "Ciclocomputadoras y soportes para celular": 33,
+        "Bicicletas infantiles": 470,
+        "Sillines y asientos": 234,
+        "Bombas e infladores": 57,
+        "Portabicicletas y soportes": 72,
+        "Herramientas y mantenimiento de bicicleta": 13,
+        "Llantas para moto": 297,
+        "Cámaras y accesorios de llanta": 39,
+        "Bicicletas de gravel y ciclocross": 56,
+        "Llantas para camioneta y SUV": 1445,
+        "Llantas": 3,
+        "Llantas para carretilla y equipo": 25,
+        "Subwoofers para auto": 183,
+        "Medios rangos y bocinas profesionales": 256,
+        "Accesorios de audio para auto": 65,
+        "Bocinas marinas y para moto": 59,
+        "Tweeters": 327,
+        "Bocinas de 4 a 5.25 pulgadas": 132,
+        "Bocinas de componentes": 76,
+        "Dashcams y cámaras": 142,
+        "Ropa y calzado de ciclismo": 6,
+        "": 42,
+        "Cargadores para vehículo eléctrico": 26
+      },
+      "pop": 22863,
+      "discounted": 2607,
+      "max": 93,
+      "discountedShip": 2636,
+      "maxShip": 93
     },
     "Equipo comercial": {
       "n": 3994,
@@ -7597,69 +7660,6 @@
       "max": 80,
       "discountedShip": 1779,
       "maxShip": 80
-    },
-    "Autos, bicicletas y motos": {
-      "n": 18901,
-      "subs": {
-        "Amplificadores para auto": 176,
-        "Accesorios para bicicleta": 220,
-        "Bocinas para auto": 408,
-        "Autos": 1789,
-        "Arrancadores y cargadores de batería": 1095,
-        "Motocicletas": 1222,
-        "Accesorios y refacciones": 1080,
-        "Accesorios para moto": 302,
-        "Refacciones y transmisión de bicicleta": 352,
-        "Estéreos para auto": 1635,
-        "Llantas para bicicleta": 343,
-        "Pedales, manubrios y puños": 286,
-        "Bolsas, canastas y portabultos": 233,
-        "Triciclos y bicicletas de carga": 441,
-        "Cascos para moto": 943,
-        "Asientos infantiles y remolques": 59,
-        "Bicicletas sin pedales y balance": 78,
-        "Baterías para auto": 197,
-        "Bicicletas BMX": 92,
-        "Candados para bicicleta": 83,
-        "Luces para bicicleta": 92,
-        "Bicicletas urbanas y de paseo": 468,
-        "Bicicletas de montaña": 717,
-        "Cascos y protección para ciclismo": 55,
-        "Bicicletas plegables": 67,
-        "Bicicletas de ruta": 104,
-        "Llantas para auto": 1696,
-        "Rines": 136,
-        "Bocinas coaxiales 6x9 y 6x8": 214,
-        "Bocinas coaxiales de 6.5 pulgadas": 260,
-        "Ciclocomputadoras y soportes para celular": 33,
-        "Bicicletas infantiles": 470,
-        "Sillines y asientos": 234,
-        "Bombas e infladores": 57,
-        "Portabicicletas y soportes": 72,
-        "Herramientas y mantenimiento de bicicleta": 13,
-        "Llantas para moto": 297,
-        "Cámaras y accesorios de llanta": 39,
-        "Bicicletas de gravel y ciclocross": 56,
-        "Llantas para camioneta y SUV": 1445,
-        "Llantas": 3,
-        "Llantas para carretilla y equipo": 25,
-        "Subwoofers para auto": 183,
-        "Medios rangos y bocinas profesionales": 256,
-        "Accesorios de audio para auto": 65,
-        "Bocinas marinas y para moto": 59,
-        "Tweeters": 327,
-        "Bocinas de 4 a 5.25 pulgadas": 132,
-        "Bocinas de componentes": 76,
-        "Dashcams y cámaras": 142,
-        "Ropa y calzado de ciclismo": 6,
-        "": 42,
-        "Cargadores para vehículo eléctrico": 26
-      },
-      "pop": 22863,
-      "discounted": 2603,
-      "max": 93,
-      "discountedShip": 2632,
-      "maxShip": 93
     },
     "Cámaras de seguridad": {
       "n": 1605,
@@ -8424,6 +8424,14 @@
       "p43523",
       "p42103"
     ],
+    "Autos, bicicletas y motos": [
+      "p138128",
+      "p44089",
+      "p72510",
+      "p72195",
+      "p72716",
+      "p223713"
+    ],
     "Equipo comercial": [
       "p35652",
       "p35597",
@@ -8479,14 +8487,6 @@
       "p375834",
       "p385032",
       "p128326"
-    ],
-    "Autos, bicicletas y motos": [
-      "p138128",
-      "p44089",
-      "p72510",
-      "p72195",
-      "p72716",
-      "p223713"
     ],
     "Cámaras de seguridad": [
       "p44897",
