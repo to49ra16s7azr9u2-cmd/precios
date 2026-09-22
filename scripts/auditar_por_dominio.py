@@ -51,7 +51,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog  # noqa: E402
+from data_io import load_catalog, save_catalog  # noqa: E402
 from dominios_ml import SALIDA, ids_del_catalogo  # noqa: E402
 
 
@@ -137,6 +137,10 @@ def main():
                     help="grupos con menos fichas no se listan (%(default)s)")
     ap.add_argument("--mandato", action="store_true",
                     help="listar los dominios que mandan y salir")
+    ap.add_argument("--asignar", action="store_true",
+                    help="poner subcategoría a las fichas que no tienen, "
+                         "usando el mandato de su dominio")
+    ap.add_argument("--aplicar", action="store_true")
     ap.add_argument("--salida", help="JSON de movimientos para aplicar_movimientos.py")
     ap.add_argument("--limite", type=int, default=45)
     args = ap.parse_args()
@@ -155,6 +159,40 @@ def main():
         for d, (destino, n, total) in sorted(manda.items(), key=lambda kv: -kv[1][2])[:args.limite]:
             etq = destino if args.nivel == "categoria" else f"{destino[0]} / {destino[1]}"
             print(f"  {total:>6,} fichas  {d:42} -> {etq}   ({n/total:.0%})")
+        return 0
+
+    if args.asignar:
+        # El otro uso del dominio: no contradecir lo que hay, sino poner lo
+        # que falta. De las fichas sin subcategoría, 177 vienen de Mercado
+        # Libre con su `/p/MLM…`, y su título no dice nada («Bosch Heavy
+        # Duty», «Truper Modelo D4990»). El dominio sí.
+        if args.nivel != "sub":
+            print("--asignar necesita --nivel sub", file=sys.stderr)
+            return 1
+        puestas, cuenta = [], collections.Counter()
+        for p in data["products"]:
+            if p.get("subcategory") or not p.get("category"):
+                continue
+            d = doms.get(p["id"])
+            if d not in manda:
+                continue
+            cat, sub = manda[d][0]
+            if cat != p["category"]:
+                continue        # el dominio manda en otra categoría: no es su caso
+            puestas.append((p, sub))
+            cuenta[f"{cat} / {sub}"] += 1
+        for k, n in cuenta.most_common(25):
+            print(f"  {n:>4}  {k}")
+        print(f"\nasignables: {len(puestas):,}")
+        for p, sub in puestas[:8]:
+            print(f"    -> {sub:34} {p['name'][:46]}")
+        if args.aplicar:
+            for p, sub in puestas:
+                p["subcategory"] = sub
+            save_catalog(data)
+            print("\nCatálogo guardado.")
+        else:
+            print("\n(sin --aplicar no se guarda nada)")
         return 0
 
     grupos = collections.defaultdict(list)

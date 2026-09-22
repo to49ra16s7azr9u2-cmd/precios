@@ -165,9 +165,14 @@ def cargar_repartidores():
         if re.search(r"fosfato de hierro|lifepo4|\bbateria de litio\b.{0,25}\d{1,3} ?v\b|"
                      r"bateria de \d{1,3} ?v\b", tn):
             return "Accesorios y repuestos"
-        # "Cargador Portátil Mophie Powerstation 36hs": el power bank que no
-        # dice su capacidad se queda en el tramo más común del catálogo.
-        if re.search(r"power ?bank|banco de energia|cargador portatil|powerbank", tn):
+        # "Cargador Portátil Mophie Powerstation 36hs", "Batería Externa
+        # 22.5w", "Batería Portátil Belug": el power bank que no dice su
+        # capacidad se queda en el tramo más común del catálogo (1,320 de
+        # 1,866 fichas con tramo). Faltaban las dos formas más frecuentes de
+        # nombrarlo en México, «batería externa» y «batería portátil», y por
+        # eso quedaban 34 fichas sin subcategoría en el rubro.
+        if re.search(r"power ?bank|banco de energia|cargador portatil|powerbank|"
+                     r"bateria (externa|portatil|de respaldo)", tn):
             return "Hasta 10,000 mAh"
         return None
     g["sub_bateria_tramo"] = _bateria_tramo

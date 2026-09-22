@@ -2625,6 +2625,12 @@ REGLAS = [
   ('Deportes y fitness', None, 'dumbbell')),
  # Se excluye el gato HIDRÁULICO, que es una herramienta de auto, y la
  # puerta "para gato" de una casa, que es ferretería.
+ # El agarre de celular con estampado de gato es un agarre de celular. Sin
+ # esta regla, «Adhesivo Popsockets Popgrip Con Estampado De Patas De Perro»
+ # entraba a Mascotas por decir «perro» y se quedaba sin subcategoría, porque
+ # ninguna rama de esa categoría lo reclamaba. Eran 18 fichas.
+ (re.compile(r'\bpopsockets?\b|\bpop ?grip\b'),
+  ('Otros', 'Soportes para dispositivos', 'phone')),
  (re.compile(r'^(?!.*(gato (hidraulico|de piso|de botella|tipo patin)|perro caliente|'
              r'\bhot ?dog\b|pinza de gato|gato mecanico|'
              # La cámara que vigila a la mascota es una cámara de seguridad:
@@ -3804,7 +3810,7 @@ def sub_belleza(tn):
                  r'unas postizas|press ?on nails|lampara (uv|led) (para|de) unas|'
                  r'torno (de|para) unas|drill (para|de) unas|taladro (de|para) unas|pulidor (de|para) unas|brocas? (de|para) (manicura|pedicura|unas)', tn): return 'Uñas'
     if re.search(r'kit de manicura|juego de manicura|\bcortaunas\b|empujador de cuticula|'
-                 r'lima de unas|\bpedicure\b|tijeras (de|para) cuticula', tn): return 'Manicure'
+                 r'lima de unas|\bpedicure\b|tijeras (de|para) cuticula', tn): return 'Uñas'
     if re.search(r'silla (de|para) (salon|barbero|estilista)|carrito de belleza|'
                  r'mostrador de recepcion|lavacabezas|camilla (de|para) (masaje|spa)', tn):
         return 'Mobiliario para salón'
@@ -4111,6 +4117,25 @@ def sub_clima(tn):
 
 
 def sub_mascota(tn):
+    # El agarre de celular con estampado de gato no es un producto para
+    # mascotas: es un agarre de celular. Eran 18 fichas de Mascotas sin
+    # subcategoría, todas PopSockets.
+    if re.search(r'popsocket|pop ?grip|phone grip|soporte.{0,25}airtag|'
+                 r'airtag.{0,25}(collar|soporte)', tn):
+        return None
+    # El rastreador y el alimento no tenían rubro y se quedaban sin
+    # subcategoría: 31 y 40 fichas repartidas por toda la categoría.
+    if re.search(r'\b(gps|localizador|rastreador|tracker)\b.{0,30}'
+                 r'(mascota|perro|gato|felino|can\b)|'
+                 r'(mascota|perro|gato|felino)s?.{0,20}\b(gps|localizador|rastreador)\b', tn):
+        return 'GPS y localizadores'
+    if re.search(r'\bcroqueta|alimento (seco|humedo|completo)? ?para (perro|gato|mascota)|'
+                 r'\bpate para (perro|gato)|premios para (perro|gato)|'
+                 r'snacks? para (perro|gato)|\bgolosinas? para (perro|gato)', tn):
+        return 'Alimento y premios'
+    if re.search(r'contenedor (de comida|de alimento|para croquetas)|'
+                 r'dispensador de croquetas', tn):
+        return 'Tapetes y accesorios de alimentación'
     # Familias que faltaban (20-sep): la tienda de campaña y la casa de
     # exterior, la barrera y el parque, la urna conmemorativa, el inodoro y
     # el pasto entrenador, la carriola y el trolley de viaje.
@@ -4762,6 +4787,57 @@ def sub_herramienta(tn):
                  r'material electrico|canaleta|\bcinta de aislar\b|sensor de proximidad|'
                  r'calcetines? de cable|\bconducto\b|\bterminales?\b.{0,20}(cable|cobre)', tn):
         return 'Material eléctrico'
+    # La lanza de espuma, la boquilla y el cañón son de la hidrolavadora, y
+    # sin regla propia se quedaban sin subcategoría: era el grupo más grande
+    # de las 299 fichas de Herramientas sin clasificar.
+    if re.search(r'lanza (de |para )?espuma|canon de espuma|espuma para nieve|'
+                 r'\blanza\b.{0,25}(presion|turbo|ajustable|dosificadora|lava-?\d)|'
+                 r'boquilla.{0,30}(lavadora a presion|hidrolavadora|lava-?\d|presion)|'
+                 r'(karcher|koblenz|pretul|greenworks).{0,25}(lanza|boquilla|espuma)', tn):
+        return 'Hidrolavadoras'
+    # El motor monofásico de 3 HP no es una herramienta, es lo que las mueve,
+    # y se vende en la misma ferretería. Carroll y Energy los venden por su
+    # número de modelo y su fase, sin decir nunca «motor» en algunos casos.
+    if re.search(r'\bmotor\b.{0,30}(\d+ ?hp|\d{3,4} ?rpm|monofasic|trifasic|bifasic)|'
+                 r'motor (electrico|de induccion)', tn):
+        return 'Motores eléctricos'
+    if re.search(r'roto-?orbital|lijadora orbital', tn):
+        return 'Lijadoras'
+    if re.search(r'hand tools?\b|tool set\b|juego de \d+ (piezas|herramientas)|'
+                 r'set de \d+ (piezas|herramientas)', tn):
+        return 'Juegos de herramientas'
+    # Urrea y Truper venden el mueble de taller por su nombre propio (baúl,
+    # gaveta, chapetón) y ninguna rama lo reclamaba.
+    if re.search(r'^(?:\S+ ){0,3}(baul|gabinete|estacion de trabajo|centro (de )?trabajo|'
+                 r'maleta|caja impermeable|banco de trabajo|gaveta|carro de herramienta)\b|'
+                 r'para (el )?lugar de trabajo|porta ?herramienta', tn):
+        return 'Organización'
+    # La bomba de agua ya tiene rubro propio desde el corte de Plomería; hasta
+    # entonces «no tenía rubro de bombas» y se quedaba sin clasificar.
+    if re.search(r'\bbomba (de agua|centrifuga|sumergible|periferica)|'
+                 r'\bmotobomba\b|sello mecanico para bomba|\bpresurizador', tn):
+        return 'Bombas de agua'
+    if re.search(r'^(?:\S+ ){0,3}(chapeton|brazo (a|de) pared|dica\b)|'
+                 r'cabezal de ducha|regadera de \d|brazo.{0,20}(ducha|regadera)', tn):
+        return 'Regaderas y duchas'
+    if re.search(r'\bpica\b.{0,20}(mango|oz)|\bestwing\b', tn):
+        return 'Martillos, cinceles y mazos'
+    if re.search(r'herramienta (elevadora|movil)? ?para mover|para mover muebles', tn):
+        return 'Organización'
+    if re.search(r'herramienta de distribucion de cafe|niveler.{0,15}espresso', tn):
+        return None
+    if re.search(r'cortador de (azulejo|ceramica|loseta|piso)|cortadora de azulejo', tn):
+        return 'Construcción'
+    if re.search(r'adaptador (de|para) herramienta|recoleccion de polvo|'
+                 r'\brodillo (de carga|delantero)|rodacarga', tn):
+        return 'Accesorios para herramientas eléctricas'
+    # Carroll y Energy venden el motor por su número de modelo y su fase, sin
+    # decir «motor» en ninguna parte del título.
+    if re.search(r'\bcarroll\b.{0,30}(bifasic|trifasic|monofasic)|'
+                 r'\b(bi|tri|mono)fasica?\b', tn):
+        return 'Motores eléctricos'
+    if re.search(r'herramientas? para (pulir|alisar|abrillantar)', tn):
+        return 'Esmeriladoras y pulidoras'
     if re.search(r'aerografo|cabina de pintura|pistola (de |para )?pintar|pulverizador de pintura|'
                  r'\bairbrush\b', tn):
         return 'Compresores y herramienta neumática'
@@ -5249,18 +5325,43 @@ def sub_refri(tn):
     return 'Refrigeradores'
 
 def sub_cafetera(tn):
-    if re.search(r'capsula', tn): return 'De cápsulas'
-    if re.search(r'espresso|expreso|\d+ bares', tn):
+    # El accesorio va primero: el espumador, la báscula de café, la placa
+    # calefactora y el tapete decían «cafetera» en el título y se quedaban sin
+    # subcategoría porque ninguna rama de tipo los reclamaba. Eran 143 fichas.
+    if re.search(r'espumador|bascula (de|para) cafe|placa calefactora|'
+                 r'\btapete\b|alfombrilla|^(?:\S+ ){0,3}accesorio|jarra de repuesto|'
+                 r'filtro de repuesto|portafiltro|\btamper\b|'
+                 r'organizador (de|para) (capsulas|cafe)|'
+                 # El grueso de lo que quedaba sin clasificar en Cafeteras era
+                 # esto: lo que se le cambia o se le echa a la máquina.
+                 r'canastilla|cesta de preparacion|cartucho (desincrustante|de agua)|'
+                 r'deposito de agua|descalcificador|desincrustante|'
+                 r'grasa de silicona|kit de mantenimiento|tabletas? de limpieza|'
+                 r'set de (cepillos|cucharas)|cucharas? (cafetera|para cafe)|'
+                 r'\bfreshpacks?\b', tn):
+        return 'Accesorios para cafetera'
+    if re.search(r'capsula|k-?cup|nespresso|dolce gusto', tn): return 'De cápsulas'
+    if re.search(r'espresso|expreso|\d+ bares|\d+ ?bar\b|cappuccin|capuchin|'
+                 r'\blatte\b|barista', tn):
         return 'Espresso'
-    if re.search(r'portatil|de viaje', tn): return 'Portátiles'
-    if re.search(r'molinillo|molino de cafe', tn): return 'Molinillos de café'
+    if re.search(r'portatil|de viaje|\b12 ?v\b', tn): return 'Portátiles'
+    if re.search(r'molinillo|molino de cafe|grinder', tn): return 'Molinillos de café'
     # Las que no llevan bomba ni cápsula: la prensa francesa, el sifón, el
     # vertidor y la de frío. Son un grupo grande y se vendían sin repartir.
     if re.search(r'prensa francesa|french press|\bsifon\b|cold ?brew|'
                  r'vertidor|pour ?over|\bchemex\b|\bv60\b|cafetera italiana|'
-                 r'\bmoka\b|greca', tn):
+                 r'\bmoka\b|greca|\bbialetti\b|aeropress|para verter|'
+                 r'de vidrio.{0,30}filtro|filtro reutilizable|\bembolo\b', tn):
         return 'Manuales'
-    if re.search(r'goteo|drip|\d{1,2} tazas|programable|percoladora', tn):
+    if re.search(r'goteo|drip|\d{1,2} tazas|programable|percoladora|'
+                 r'filtro permanente|single ?serve|una sola porcion|\bjarra\b|'
+                 r'dual brew|\d en 1\b', tn):
+        return 'De goteo'
+    # Última red: una «Cafetera Belug de 2 L de acero inoxidable» no dice de
+    # qué tipo es, y en México la cafetera eléctrica que se vende por su
+    # capacidad y su jarra es de goteo. Se exige que el título ABRA con la
+    # palabra para no arrastrar acá cualquier cosa que la mencione de paso.
+    if re.match(r'^(?:\S+ ){0,2}cafetera', tn):
         return 'De goteo'
     return None
 
