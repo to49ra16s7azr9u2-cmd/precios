@@ -1053,6 +1053,30 @@ REGLAS = [
              r'\b(jalador|escurridor|espatula|raspador|rasqueta) (de (goma|silicona) )?'
              r'(para )?(vidrio|cristal|ventana|mampara)'),
   ('Otros', 'Varios', 'box')),
+ # La refacción de auto. Coppel vende decenas de miles con la misma forma de
+ # título —«Inyector Gasolina Cardic Para Gmc Savana 2500 5.0 1996 1997»— y
+ # ninguna regla de categoría las reclamaba: 28,532 caían en «no encaja en
+ # ninguna categoría» en la primera pasada.
+ #
+ # Pide las dos cosas: el sustantivo de la pieza Y el «para <marca de auto>».
+ # Sólo con la pieza entraría el sensor de la lavadora y la bomba de la
+ # alberca; sólo con la marca entrarían la funda y el tapete del coche, que
+ # son accesorio y no refacción.
+ (re.compile(r'(?=.*\b(sensor|bobina|inyector|marcha|alternador|bulbo|'
+             r'cuerpo (de )?aceleracion|cilindro de llave|llave de encendido|'
+             r'bomba de (agua|aceite|gasolina|combustible|alta presion|direccion)|'
+             r'amortiguador|rotula|terminal de direccion|cremallera|bieleta|'
+             r'pastillas? de freno|balatas?|discos? de freno|caliper|'
+             r'filtro de (aceite|aire|gasolina|combustible|cabina)|'
+             r'bujias?|cables? de bujia|distribuidor|radiador|termostato|'
+             r'catalizador|silenciador|mofle|clutch|embrague|carburador|'
+             r'banda de tiempo|cadena de tiempo|arbol de levas|monoblock|'
+             r'culata|empaque de cabeza|faro|calavera|direccional)\b)'
+             r'(?=.*\bpara (gmc|ford|nissan|chevrolet|chrysler|dodge|toyota|honda|'
+             r'vw|volkswagen|audi|bmw|mazda|kia|hyundai|jeep|ram\b|seat|renault|'
+             r'peugeot|mitsubishi|suzuki|subaru|fiat|acura|buick|cadillac|'
+             r'lincoln|mercury|pontiac|saturn|isuzu|infiniti|lexus|volvo|mini\b)\b)'),
+  ('Refacciones', None, 'gear')),
  (re.compile(r'(?=.*(limpiacristales|limpiavidrios|winbot|hobot))'
              r'(?=.*(\bsolucion\b|\blimpiador liquido\b|detergente|'
              r'\btrapo|\bpano|toallitas?|almohadillas?|\bfiltros?\b|'
@@ -4475,6 +4499,35 @@ def sub_refaccion(tn):
                  r'(motocicleta|moto\b|italika|vento|cuatriciclo|\batv\b)|'
                  r'camara.{0,15}\d{2,3}/\d{2,3}-?\d{2}|camara \d[.,]\d{2}', tn):
         return 'Para motos'
+    # La refacción de auto, por la pieza que es. Coppel vende decenas de miles
+    # con la misma forma de título: «<pieza> <marca del refaccionario> Para
+    # <marca de auto> <modelo> <cilindrada> <años>».
+    if re.search(r'\bpastillas? de freno|\bbalatas?\b|\bdiscos? de freno|\bcaliper\b|'
+                 r'\bmangueras? de freno|\bbomba de freno', tn):
+        return 'Frenos'
+    if re.search(r'\bfiltro (de )?(aceite|aire|gasolina|combustible|cabina)|\baceite de motor', tn):
+        return 'Filtros y aceites'
+    if re.search(r'\bbujias?\b|\bbobinas?\b|\bcables? de bujia|\bdistribuidor\b', tn):
+        return 'Bujías y encendido'
+    if re.search(r'\bsensor|\bswitch\b|\bbulbo\b|\bmarcha\b|\balternador\b|'
+                 r'\bcilindro (de )?llave|llave (de )?encendido|\brele\b|\bfusible', tn):
+        return 'Sistema eléctrico y sensores'
+    if re.search(r'\binyector|cuerpo (de )?aceleracion|\bmonoblock\b|\bculata\b|'
+                 r'\bempaque de cabeza|\bcigueñal|\bcigüeñal|\barbol de levas|'
+                 r'\bclutch\b|\bembrague\b|\bvolante motor|\bbanda de tiempo|'
+                 r'\bcadena de tiempo|\bturbo\b|\bcarburador', tn):
+        return 'Motor y transmisión'
+    if re.search(r'\bbomba (de )?(agua|aceite|gasolina|combustible|alta presion|direccion)', tn):
+        return 'Bombas'
+    if re.search(r'\bamortiguador|\bresorte\b|\brotula\b|\bterminal de direccion|'
+                 r'\bcremallera\b|\bbieleta\b|\bhorquilla\b', tn):
+        return 'Suspensión y dirección'
+    if re.search(r'\bfaro\b|\bcalavera\b|\bstop\b|\bdireccional\b', tn):
+        return 'Faros y luces'
+    if re.search(r'\bradiador\b|\bventilador de radiador|\btermostato\b', tn):
+        return 'Enfriamiento y climatización'
+    if re.search(r'\bescape\b|\bcatalizador\b|\bsilenciador\b|\bmofle\b', tn):
+        return 'Escape'
     return None
 
 
@@ -5783,6 +5836,10 @@ for it in captura:
     elif cat == 'Proyectores y accesorios': sub = sub_proyector(tn) or sub
     elif cat == 'Componentes y accesorios de PC' and sub == 'Componentes':
         sub = afinar_componentes(tn) or sub
+    # sub_refaccion existía y nadie lo llamaba: sólo lo usaba
+    # repartir_sin_subcategoria.py sobre fichas ya dadas de alta, así que
+    # toda refacción nueva entraba sin subcategoría.
+    elif cat == 'Refacciones': sub = sub_refaccion(tn) or sub
     elif cat == 'Otros': sub = sub_otros(tn) or sub
     sub = afinar_ola2(cat, sub, tn)
     mk = marca(it['title'])
