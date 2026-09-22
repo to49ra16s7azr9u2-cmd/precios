@@ -517,6 +517,14 @@ def agrupar(categoria, subcategorias, cuenta=None):
         salida.append((_titulo(c, v), v))
         usadas.update(v)
 
+    # Todas juntas, de mayor a menor. Sin esto las de tabla salían antes que
+    # las deducidas por el solo hecho de estar escritas: en Muebles, «Comedor»
+    # (1,848 fichas) aparecía arriba de «Sillas» (6,322), y en Climatización
+    # «Enfriar» arriba de «Ventiladores». El orden lo decide el tamaño, que es
+    # lo que el visitante espera.
+    if cuenta:
+        salida.sort(key=lambda kv: -sum(cuenta.get(m, 0) for m in kv[1]))
+
     sueltas = [s for s in quedan if s not in usadas] + otras
     if sueltas:
         salida.append((SIN_FAMILIA, sueltas))
