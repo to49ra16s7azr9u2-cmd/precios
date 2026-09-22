@@ -3458,5 +3458,40 @@
   "grupos": {
    "Proyectores y accesorios | Pantallas enrollables manuales | Proyectores y accesorios | Pantallas de proyección": 1884
   }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_bat.json",
+  "motivo": "El tambor de mano no es una batería: sale del cajón de Baterías a Percusión",
+  "grupos": {
+   "Instrumentos musicales | Baterías | Instrumentos musicales | Percusión": 346
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_mcocina.json",
+  "motivo": "Partir «Muebles de cocina»: la cocina integral de dos metros no compite con la alacena suelta",
+  "grupos": {
+   "Muebles | Muebles de cocina | Muebles | Carros e islas de cocina": 45,
+   "Muebles | Muebles de cocina | Muebles | Alacenas y gabinetes de cocina": 1352,
+   "Muebles | Muebles de cocina | Muebles | Cocinas integrales": 1204,
+   "Muebles | Muebles de cocina | Muebles | Encimeras y cubiertas": 6
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_plom.json",
+  "motivo": "Partir «Plomería» en grifos, regaderas, tarjas, bombas, tuberías y sanitarios",
+  "grupos": {
+   "Herramientas | Plomería | Herramientas | Sanitarios y accesorios de baño": 18,
+   "Herramientas | Plomería | Herramientas | Tarjas y fregaderos": 342,
+   "Herramientas | Plomería | Herramientas | Grifos y monomandos": 330,
+   "Herramientas | Plomería | Herramientas | Regaderas y duchas": 220,
+   "Herramientas | Plomería | Herramientas | Juegos de herramientas": 7,
+   "Herramientas | Plomería | Herramientas | Jardinería": 7,
+   "Herramientas | Plomería | Herramientas | Tuberías y conexiones": 30,
+   "Herramientas | Plomería | Herramientas | Taladros y rotomartillos": 8,
+   "Herramientas | Plomería | Herramientas | Neumáticas": 7
+  }
  }
 ]

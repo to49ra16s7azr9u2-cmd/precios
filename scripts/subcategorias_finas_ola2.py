@@ -628,16 +628,29 @@ def _tamano_cama(tn):
 
 # ------------------------------------------ Instrumentos/Baterías, Viento, Teclados
 BATERIAS = ['Baterías acústicas', 'Baterías electrónicas', 'Platillos', 'Baquetas y escobillas', 'Parches',
-            'Pedales y herrajes de batería', 'Tarolas y cajas', 'Pads de práctica', 'Fundas y accesorios de batería']
+            'Pedales y herrajes de batería', 'Tarolas y cajas', 'Pads de práctica', 'Fundas y accesorios de batería',
+            'Percusión']
 _BAT = _c([
     ('Pads de práctica', r'\bpad (de|para) practica|\balmohadilla de practica|\bpractice pad|\bpad\b.{0,20}practica|\bpracticador\b|\breflexx\b'),
     ('Baquetas y escobillas', r'\bbaquetas?\b|\bdrumsticks?|\bescobillas?\b|\bbrushes\b|\bmazos?\b|\bmallets?\b|\brods\b'),
     ('Parches', r'\bparches?\b|\bdrumhead|\bhead\b.{0,15}(tom|snare|bass)|\bevans\b|\bremo\b'),
     ('Platillos', r'\bplatillos?\b|\bcymbals?\b|\bhi-?hat|\bcrash\b|\bride\b|\bsplash\b|\bchina\b.{0,10}(platillo|cymbal)|\bzildjian|\bsabian|\bmeinl\b.{0,20}(platillo|cymbal)|\bpaiste'),
-    ('Pedales y herrajes de batería', r'\bpedal(es)?\b|\bherrajes?\b|\bhardware\b|\batril\b|\bsoporte (de|para) (platillo|tarola|tom|bombo|hi-?hat)|\bstand\b|\babrazadera|\bclamp\b|\bllaves? de afinacion|\bdrum ?key|\bllaves?\b.{0,20}\bdw\b|\bdwsm\d|\btornillo|\bbanco (de|para) bateria|\btrono\b|\bthrone\b|\brack (de|para) bateria|\bcadena\b|\bbeater|\bmaza\b'),
+    ('Pedales y herrajes de batería', r'\bpedal(es)?\b|\bherrajes?\b|\bhardware\b|\batril\b|\bsoporte (de|para) (platillo|tarola|tom|bombo|hi-?hat)|\bstand\b|\babrazadera|\bclamp\b|\bllaves?\b.{0,30}afinacion|\bdrum ?key|\bllaves?\b.{0,20}\bdw\b|\bdwsm\d|\btornillo|\bbanco (de|para) bateria|\btrono\b|\bthrone\b|\brack (de|para) bateria|\bcadena\b|\bbeater|\bmaza\b'),
     ('Tarolas y cajas', r'\btarola|\bsnare\b|\bcaja (de|para) bateria|\bredoblante'),
     ('Baterías electrónicas', r'\bcaja de ritmos|\bdrum machine|\belectronic|\belectric|\bdigital|\bmalla\b|\bmesh\b|\bmodulo (de )?(sonido|bateria)|\bbateria (de )?aire|\bair drum|\bvirtual'),
     ('Fundas y accesorios de batería', r'\bfunda|\bestuche|\bcase\b|\bbag\b|\btapete|\balfombra|\bsilenciador|\bmute\b|\bmicrofono|\bmonitor|\bkit de (limpieza|afinacion|supervivencia)|\bmochila\b|\bbaquetero\b'),
+    # El tambor de mano no es una batería, y «Percusión» ya existía. El cajón
+    # de «Baterías» tenía 374 fichas y adentro había timbales, tambores de
+    # lengua, panderetas y cucharas irlandesas: todo lo que se golpea y no es
+    # un kit. Va después de los accesorios y antes del kit: la «llave de
+    # afinación de tambor» es un herraje de batería, no un instrumento, y si
+    # esta regla fuera primero se lo llevaría por decir «tambor».
+    ('Percusión', r'\btambor(es)?\b|\btimbal|\bpandereta|\bpandero\b|\bcajon (flamenco|peruano)|'
+                  r'\bbongo|\bconga|\bdjembe|\bcabasa|\bguiro\b|\bmaracas?\b|\bclaves\b|'
+                  r'\bcascabel|\bchimes\b|\bcowbell|\bcencerro|\bhandpan|\bhang drum|'
+                  r'\btongue drum|\bsteel tongue|\bpanda drum|\brain drum|\btriangulo musical|'
+                  r'\bcastanuelas?\b|\bxilofono|\bglockenspiel|\bmarimba|\bshaker\b|'
+                  r'\bpercusion\b|\bsonaja|\bpalo de lluvia|\bvibraslap|\bgong\b'),
     ('Baterías acústicas', r'\bbateria (acustica|de \d piezas|completa|shell|junior|infantil)|\bjuego de bateria|\bdrum (set|kit)|\bshell pack|\bbombo\b|\btom\b|\btoms\b|\bbateria\b'),
 ])
 
@@ -1457,4 +1470,56 @@ OLA2 += [
     ('Herramientas', ['Accesorios para herramientas eléctricas'], ACC_ELEC, lambda tn, sv: sub_acc_electrica(tn), None),
     ('Autos, bicicletas y motos', ['Accesorios para bicicleta'], ACC_BICI, lambda tn, sv: sub_acc_bici(tn), None),
     ('Autos, bicicletas y motos', ['Bocinas para auto'], BOC_AUTO, lambda tn, sv: sub_bocina_auto(tn), None),
+]
+
+
+# ------------------------------------------------ Muebles/Muebles de cocina
+# 2,749 fichas en un solo cajón, y adentro dos productos que no se parecen en
+# nada: la cocina integral de dos metros y la alacena suelta. Es la partición
+# que hace kakaku y la que hace falta para que comparar sirva de algo: una
+# cocina integral de 220 cm no compite con un gabinete superior de 80.
+MUEBLES_COCINA = ['Cocinas integrales', 'Alacenas y gabinetes de cocina',
+                  'Encimeras y cubiertas', 'Carros e islas de cocina']
+_MCO = _c([
+    ('Cocinas integrales', r'\bcocina integral|\bcocina modular|\bcocineta\b'),
+    ('Carros e islas de cocina', r'\bcarro (de|para) cocina|\bcarrito (de|para) cocina|'
+                                 r'\bisla (de|para) cocina|\bmueble auxiliar'),
+    ('Encimeras y cubiertas', r'\bencimera|\bcubierta (de|para) cocina|\bbarra (de|para) cocina'),
+    ('Alacenas y gabinetes de cocina', r'\balacena|\bgabinete|\barmario|\bdespensero|'
+                                       r'\bmueble (rack )?(de |para )?cocina|\borganizador (de|para) cocina'),
+])
+
+
+def sub_mueble_cocina(tn):
+    # Sólo la cabecera: «lámparas colgantes para isla de cocina» no es un
+    # mueble de cocina, y mirando el título entero se iría a islas.
+    return _primera(" ".join(tn.split()[:6]), _MCO, {})
+
+
+# ------------------------------------------------------ Herramientas/Plomería
+# «Plomería» juntaba el monomando, la regadera, la tarja, la bomba de agua y
+# el tubo. Son cinco compras distintas con cinco rangos de precio distintos.
+PLOMERIA = ['Grifos y monomandos', 'Regaderas y duchas', 'Tarjas y fregaderos',
+            'Bombas de agua', 'Tuberías y conexiones', 'Sanitarios y accesorios de baño']
+_PLO = _c([
+    ('Bombas de agua', r'\bbomba (de agua|sumergible|centrifuga|periferica)|\bhidroneumatic|'
+                       r'\bpresurizador|\bmotobomba'),
+    ('Regaderas y duchas', r'\bregadera|\bducha\b|\bcabezal de ducha|\bshower\b'),
+    ('Grifos y monomandos', r'\bmonomando|\bgrifo|\bmezcladora|\bfaucet|'
+                            r'\bllave (de|para) (fregadero|lavabo|cocina|jardin|nariz)'),
+    ('Tarjas y fregaderos', r'\btarja\b|\bfregadero|\blavabo|\blavadero\b|\bsink\b'),
+    ('Sanitarios y accesorios de baño', r'\bwc\b|\binodoro|\bsanitario\b|\btaza de bano|'
+                                        r'\bmingitorio|\basiento (de|para) (wc|bano)'),
+    ('Tuberías y conexiones', r'\btuberia|\btubo (de|pvc|cpvc|cobre)|\bconexion|\bniple\b|'
+                              r'\bcople\b|\bvalvula|\bcodo (de|pvc|cpvc)|\bmanguera (de|para) (agua|jardin)'),
+])
+
+
+def sub_plomeria(tn):
+    return _primera(" ".join(tn.split()[:6]), _PLO, {})
+
+
+OLA2 += [
+    ('Muebles', ['Muebles de cocina'], MUEBLES_COCINA, lambda tn, sv: sub_mueble_cocina(tn), None),
+    ('Herramientas', ['Plomería'], PLOMERIA, lambda tn, sv: sub_plomeria(tn), None),
 ]

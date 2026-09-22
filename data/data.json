@@ -1631,6 +1631,26 @@
           "icon": "sofa"
         },
         {
+          "id": "Cocinas integrales",
+          "name": "Cocinas integrales",
+          "icon": "sofa"
+        },
+        {
+          "id": "Alacenas y gabinetes de cocina",
+          "name": "Alacenas y gabinetes de cocina",
+          "icon": "sofa"
+        },
+        {
+          "id": "Encimeras y cubiertas",
+          "name": "Encimeras y cubiertas",
+          "icon": "sofa"
+        },
+        {
+          "id": "Carros e islas de cocina",
+          "name": "Carros e islas de cocina",
+          "icon": "sofa"
+        },
+        {
           "id": "Muebles de cocina",
           "name": "Muebles de cocina",
           "icon": "sofa"
@@ -1815,6 +1835,36 @@
         {
           "id": "Construcción",
           "name": "Construcción",
+          "icon": "wrench"
+        },
+        {
+          "id": "Grifos y monomandos",
+          "name": "Grifos y monomandos",
+          "icon": "wrench"
+        },
+        {
+          "id": "Regaderas y duchas",
+          "name": "Regaderas y duchas",
+          "icon": "wrench"
+        },
+        {
+          "id": "Tarjas y fregaderos",
+          "name": "Tarjas y fregaderos",
+          "icon": "wrench"
+        },
+        {
+          "id": "Bombas de agua",
+          "name": "Bombas de agua",
+          "icon": "wrench"
+        },
+        {
+          "id": "Tuberías y conexiones",
+          "name": "Tuberías y conexiones",
+          "icon": "wrench"
+        },
+        {
+          "id": "Sanitarios y accesorios de baño",
+          "name": "Sanitarios y accesorios de baño",
           "icon": "wrench"
         },
         {
@@ -6604,12 +6654,12 @@
         "Hidrolavadoras": 424,
         "Soldadura": 408,
         "Herramientas manuales": 326,
-        "Jardinería": 1604,
+        "Jardinería": 1611,
         "Seguridad industrial": 407,
         "Medición": 561,
         "Grabado láser": 412,
         "Esmeriladoras y pulidoras": 314,
-        "Taladros y rotomartillos": 862,
+        "Taladros y rotomartillos": 870,
         "Herramientas eléctricas": 298,
         "Desarmadores y puntas": 1150,
         "Prensas y sujeción": 348,
@@ -6625,8 +6675,8 @@
         "Routers, fresadoras y multiherramientas": 148,
         "Herramientas de banco": 34,
         "Generadores": 108,
-        "Neumáticas": 632,
-        "Juegos de herramientas": 387,
+        "Neumáticas": 639,
+        "Juegos de herramientas": 394,
         "Martillos, cinceles y mazos": 427,
         "Herramientas de corte manual": 12,
         "Refacciones de herramientas eléctricas": 66,
@@ -6639,7 +6689,12 @@
         "Organización": 279,
         "Construcción": 150,
         "Gas LP": 39,
-        "Plomería": 2125,
+        "Plomería": 1156,
+        "Sanitarios y accesorios de baño": 18,
+        "Tarjas y fregaderos": 342,
+        "Grifos y monomandos": 330,
+        "Regaderas y duchas": 220,
+        "Tuberías y conexiones": 30,
         "Flejadoras y empacadoras": 1451,
         "Cerraduras y candados": 329,
         "": 116
@@ -6698,7 +6753,7 @@
         "Ukuleles": 409,
         "Guitarras acústicas": 515,
         "Pedales y herrajes de batería": 288,
-        "Percusión": 870,
+        "Percusión": 1216,
         "Violines, mandolinas y otras cuerdas": 804,
         "Platillos": 741,
         "Baterías acústicas": 684,
@@ -6706,10 +6761,10 @@
         "Sintetizadores y controladores MIDI": 109,
         "Bancos, soportes y accesorios de teclado": 64,
         "Tarolas y cajas": 52,
-        "Baterías": 374,
         "Viento": 316,
         "Acordeones": 124,
         "Bajos": 268,
+        "Baterías": 28,
         "Flautas traversas": 268,
         "Baquetas y escobillas": 409,
         "Ocarinas, silbatos y flautas dulces": 310,
@@ -6857,7 +6912,7 @@
         "Libreros": 679,
         "Otros": 58,
         "Escritorios de altura ajustable": 390,
-        "Muebles de cocina": 2749,
+        "Muebles de cocina": 142,
         "Escritorios en L y esquineros": 354,
         "Roperos": 1006,
         "Colchones king size": 1354,
@@ -6885,6 +6940,7 @@
         "Mesas de comedor": 751,
         "Burós": 296,
         "Escritorios plegables y compactos": 204,
+        "Carros e islas de cocina": 45,
         "Sillas de comedor": 2065,
         "Camas plegables y catres": 47,
         "Sillas gamer": 255,
@@ -6907,6 +6963,7 @@
         "Camas individuales": 38,
         "Sofás seccionales y esquineros": 431,
         "Mesas de exterior": 71,
+        "Alacenas y gabinetes de cocina": 1352,
         "Mesas altas y de bar": 107,
         "Antecomedores y mesas de cocina": 78,
         "Escritorios infantiles y estudiantiles": 44,
@@ -6917,7 +6974,9 @@
         "Bancas de comedor": 14,
         "Fundas y accesorios para sofá": 51,
         "Accesorios y refacciones de cama": 91,
-        "": 12
+        "": 12,
+        "Cocinas integrales": 1204,
+        "Encimeras y cubiertas": 6
       },
       "pop": 70540,
       "discounted": 12121,
