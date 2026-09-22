@@ -170,7 +170,7 @@ GRUPOS = {
     ("Cámaras y fotografía", None): [
         (r"\b(seguridad|vigilancia|videovigilancia|\bcctv\b|\bptz\b|"
          r"vision nocturna|timbre con camara|videoportero)\b",
-         "Cámaras de seguridad", "Interiores"),
+         "Cámaras de seguridad", "Cámaras interiores"),
         (r"\b(webcam|camara web)\b", "Componentes y accesorios de PC", "Webcams"),
         (r"\b(digital|compacta|llavero|vintage|infantil)\b",
          "Cámaras y fotografía", "Compactas"),
@@ -188,7 +188,7 @@ GRUPOS = {
         (r"\b(lampara|luz|luces|linterna)\b", "Iluminación", "Decorativa"),
     ],
     ("Domótica y hogar inteligente", None): [
-        (r"\b(camara|videoportero|timbre con camara)\b", "Cámaras de seguridad", "Interiores"),
+        (r"\b(camara|videoportero|timbre con camara)\b", "Cámaras de seguridad", "Cámaras interiores"),
         (r"\b(timbre|sensor|detector|alarma)\b", "Domótica y hogar inteligente", "Sensores"),
         (r"\b(luz|foco|lampara|empotrada|\bhue\b|tira led)\b",
          "Domótica y hogar inteligente", "Iluminación inteligente"),

@@ -3562,5 +3562,43 @@
    "Juegos de mesa | Educativos | Juegos de mesa | Rompecabezas": 6,
    "Salud | Salud | Salud | Movilidad": 5
   }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_dom_cat2.json",
+  "motivo": "El reloj inteligente no es bisutería: lo dice MLM-SMARTWATCHES",
+  "grupos": {
+   "Joyería y bisutería | Relojes | Relojes inteligentes | None": 4
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_dom_sub2.json",
+  "motivo": "Segunda pasada de la auditoría por dominio, con la cosecha completa",
+  "grupos": {
+   "Herramientas | Pinzas y alicates | Herramientas | Prensas y sujeción": 4,
+   "Herramientas | Puntas y dados de impacto | Herramientas | Brocas": 4,
+   "Herramientas | Juegos de herramientas | Herramientas | Brocas": 4,
+   "Herramientas | Desarmadores y puntas | Herramientas | Baterías y cargadores de herramienta": 4,
+   "Herramientas | Refacciones de herramientas eléctricas | Herramientas | Baterías y cargadores de herramienta": 4,
+   "Herramientas | Baterías y cargadores de herramienta | Herramientas | Hidrolavadoras": 4,
+   "Muebles | Colchones plegables y de sofá cama | Deportes y fitness | Yoga": 4,
+   "Muebles | Repisas | Muebles | Libreros": 8,
+   "Teclados | Membrana | Teclados | Combos con mouse": 7,
+   "Juguetes y bebés | Juegos de exterior | Juguetes y bebés | Juguetes para exterior": 4,
+   "Cámaras y fotografía | Accesorios | Cámaras y fotografía | Lentes": 4,
+   "Impresión 3D | Accesorios | Impresión 3D | Impresoras": 7
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "fusion_dup.json",
+  "motivo": "Subcategorías duplicadas: el mismo dominio de Mercado Libre domina las dos",
+  "grupos": {
+   "Cámaras de seguridad | Interiores | Cámaras de seguridad | Cámaras interiores": 240,
+   "Iluminación | Lámparas de techo | Iluminación | Plafones y lámparas de sobreponer": 96,
+   "Juguetes y bebés | Juegos de exterior | Juguetes y bebés | Juguetes para exterior": 51,
+   "Juegos de mesa | Clásicos | Juegos de mesa | De mesa clásicos": 268
+  }
  }
 ]

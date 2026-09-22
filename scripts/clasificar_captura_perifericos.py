@@ -3163,7 +3163,7 @@ def sub_juego_mesa(tn):
     if re.search(r'\bajedrez\b|\bchess\b', tn): return 'Ajedrez'
     if re.search(r'woodestic', tn): return 'Woodestic'
     if re.search(r'\bdomino\b|\bbackgammon\b|\bdamas\b|\bgo\b(?= )|mahjong|mah-jong|cribbage|\bshogi\b|\bxiangqi\b|'
-                 r'juego de (mesa )?chino|\bparchis\b|\bparques\b|\bludo\b', tn): return 'Clásicos'
+                 r'juego de (mesa )?chino|\bparchis\b|\bparques\b|\bludo\b', tn): return 'De mesa clásicos'
     if re.search(r'cartas|\bnaipes\b|\bbaraja\b|\buno\b|\bpoker\b|mazo\b|\btcg\b|tapete de juego|'
                  r'magic: the gathering|\bmtg\b|pokemon tcg|one piece card|yu-?gi-?oh|\bsleeves\b|'
                  r'fundas para cartas|deck box|contador de vida|\bplaymat\b|\bbooster\b', tn): return 'De cartas'
@@ -3440,13 +3440,13 @@ def sub_iluminacion(tn):
                  r'\be14\b|\ba19\b|\bbr40\b|\bpar38\b|portalampara|\bsocket\b|\bsoquet|dimeable|\blumenes\b|'
                  r'incandescente|\bfilamento\b|vela led|\bvintage\b.{0,20}(lava|led|\bw\b)|\bbulbo\b|atenuable', tn):
         if re.search(r'empotra|sobreponer|plafon|luminario|\briel\b|\bspot\b|colgante|candil|\btecho\b|ventilador|abanico|regleta', tn):
-            return 'Lámparas de techo'
+            return 'Plafones y lámparas de sobreponer'
         return 'Focos'
     if re.search(r'lampara (de |para )?(techo|colgante)|luces? colgantes?|colgante|candil|candelabro|plafon|'
                  r'arana|araña|empotra|\bspot\b|\briel\b|luminario|panel led|high ?bay|nave industrial|'
                  r'\bindustrial\b|hermetic|prueba de vapor|lampara lineal|luminaria|\bfarol\b|\bpendant\b|'
                  r'\bde techo\b|para techo|\btecho\b|sobreponer|\bregleta\b|ventilador|abanico|downlight|\bslim\b.{0,15}led|suspendid', tn):
-        return 'Lámparas de techo'
+        return 'Plafones y lámparas de sobreponer'
     if re.search(r'lampara (de |para )?(pared|muro|espejo|bano)|arbotante|aplique|\bde pared\b|para pared|'
                  r'wall lamp|\bsconce|lamparas? (de |para )?pared', tn): return 'Lámparas de pared'
     if re.search(r'lampara de (piso|pie)|\bde piso\b|floor lamp', tn): return 'Lámparas de piso'
@@ -3464,7 +3464,7 @@ def sub_iluminacion(tn):
     if re.search(r'lamparas? (de )?mesa|lamparas? recargables?', tn): return 'Lámparas de escritorio'
     if re.search(r'\bgalaxia\b|\bproyector de estrellas\b|luz decorativa', tn): return 'Decorativa'
     if re.search(r'\bpendulum\b|\bcolgante', tn): return 'Lámparas colgantes'
-    if re.search(r'vidrio facetado|\d ?lite\b|\bplafon', tn): return 'Lámparas de techo'
+    if re.search(r'vidrio facetado|\d ?lite\b|\bplafon', tn): return 'Plafones y lámparas de sobreponer'
     if re.search(r'\b\d{1,3} ?w\b|\bwatts?\b|\b\d{4} ?k\b|blanco (frio|calido|neutro)|'
                  r'\be27\b|\be26\b|\bg13\b|\bgu10\b|\btubo de led\b|equivalente a \d+ ?w|'
                  r'led espiral|\bst\d{2}\b|\d tonos\b|\bmxlhn\b', tn):
@@ -4354,7 +4354,7 @@ def sub_juguete(tn):
         return 'Juguetes educativos'
     if re.search(r'juego (de|para) exterior|resbaladilla|columpio|casita de jardin|alberca|'
                  r'\bnerf\b|lanzador de dardos|dardos de espuma|pistola de agua', tn):
-        return 'Juegos de exterior'
+        return 'Juguetes para exterior'
     if re.search(r'arcade|maquinita|maquina expendedora de premios', tn): return 'Juegos arcade'
     if re.search(r'instrumento|tambor|xilofono|piano de juguete', tn): return 'Juguetes musicales'
     # Última red (20-sep), DESPUÉS de todas las ramas que miran el tipo de

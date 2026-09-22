@@ -2605,11 +2605,6 @@
           "id": "Alarmas",
           "name": "Alarmas",
           "icon": "security-cam"
-        },
-        {
-          "id": "Interiores",
-          "name": "Interiores",
-          "icon": "security-cam"
         }
       ]
     },
@@ -3076,11 +3071,6 @@
           "icon": "bulb"
         },
         {
-          "id": "Lámparas de techo",
-          "name": "Lámparas de techo",
-          "icon": "bulb"
-        },
-        {
           "id": "Lámparas de pared",
           "name": "Lámparas de pared",
           "icon": "bulb"
@@ -3280,11 +3270,6 @@
         {
           "id": "Vehículos de juguete",
           "name": "Vehículos de juguete",
-          "icon": "toy"
-        },
-        {
-          "id": "Juegos de exterior",
-          "name": "Juegos de exterior",
           "icon": "toy"
         }
       ]
@@ -4317,11 +4302,6 @@
         {
           "id": "Ajedrez",
           "name": "Ajedrez",
-          "icon": "dice"
-        },
-        {
-          "id": "Clásicos",
-          "name": "Clásicos",
           "icon": "dice"
         },
         {
@@ -6193,11 +6173,17 @@
       "data/cat/muebles-2.json",
       "data/cat/muebles-3.json"
     ],
+    "Deportes y fitness": [
+      "data/cat/deportes-y-fitness-1.json"
+    ],
     "Computadoras de escritorio": [
       "data/cat/computadoras-de-escritorio-1.json"
     ],
     "Joyería y bisutería": [
       "data/cat/joyeria-y-bisuteria-1.json"
+    ],
+    "Relojes inteligentes": [
+      "data/cat/relojes-inteligentes-1.json"
     ],
     "Equipo comercial": [
       "data/cat/equipo-comercial-1.json"
@@ -6239,9 +6225,6 @@
     ],
     "Otros": [
       "data/cat/otros-1.json"
-    ],
-    "Deportes y fitness": [
-      "data/cat/deportes-y-fitness-1.json"
     ],
     "Refrigeradores": [
       "data/cat/refrigeradores-1.json"
@@ -6296,9 +6279,6 @@
     ],
     "Mouse": [
       "data/cat/mouse-1.json"
-    ],
-    "Relojes inteligentes": [
-      "data/cat/relojes-inteligentes-1.json"
     ],
     "Proyectores y accesorios": [
       "data/cat/proyectores-y-accesorios-1.json"
@@ -6414,6 +6394,13 @@
       "data/det/muebles-16.json",
       "data/det/muebles-17.json"
     ],
+    "Deportes y fitness": [
+      "data/det/deportes-y-fitness-1.json",
+      "data/det/deportes-y-fitness-2.json",
+      "data/det/deportes-y-fitness-3.json",
+      "data/det/deportes-y-fitness-4.json",
+      "data/det/deportes-y-fitness-5.json"
+    ],
     "Computadoras de escritorio": [
       "data/det/computadoras-de-escritorio-1.json"
     ],
@@ -6421,6 +6408,9 @@
       "data/det/joyeria-y-bisuteria-1.json",
       "data/det/joyeria-y-bisuteria-2.json",
       "data/det/joyeria-y-bisuteria-3.json"
+    ],
+    "Relojes inteligentes": [
+      "data/det/relojes-inteligentes-1.json"
     ],
     "Equipo comercial": [
       "data/det/equipo-comercial-1.json",
@@ -6510,13 +6500,6 @@
       "data/det/otros-2.json",
       "data/det/otros-3.json"
     ],
-    "Deportes y fitness": [
-      "data/det/deportes-y-fitness-1.json",
-      "data/det/deportes-y-fitness-2.json",
-      "data/det/deportes-y-fitness-3.json",
-      "data/det/deportes-y-fitness-4.json",
-      "data/det/deportes-y-fitness-5.json"
-    ],
     "Refrigeradores": [
       "data/det/refrigeradores-1.json"
     ],
@@ -6595,9 +6578,6 @@
       "data/det/mouse-1.json",
       "data/det/mouse-2.json"
     ],
-    "Relojes inteligentes": [
-      "data/det/relojes-inteligentes-1.json"
-    ],
     "Proyectores y accesorios": [
       "data/det/proyectores-y-accesorios-1.json",
       "data/det/proyectores-y-accesorios-2.json",
@@ -6649,9 +6629,9 @@
       "n": 21908,
       "subs": {
         "Accesorios para herramientas eléctricas": 486,
-        "Baterías y cargadores de herramienta": 733,
+        "Baterías y cargadores de herramienta": 737,
         "Material eléctrico": 910,
-        "Hidrolavadoras": 465,
+        "Hidrolavadoras": 469,
         "Soldadura": 408,
         "Herramientas manuales": 250,
         "Jardinería": 1583,
@@ -6661,8 +6641,8 @@
         "Esmeriladoras y pulidoras": 315,
         "Taladros y rotomartillos": 870,
         "Herramientas eléctricas": 281,
-        "Desarmadores y puntas": 1271,
-        "Prensas y sujeción": 348,
+        "Desarmadores y puntas": 1267,
+        "Prensas y sujeción": 352,
         "Llaves y dados": 1951,
         "Atornilladores": 134,
         "Lijadoras": 262,
@@ -6670,18 +6650,18 @@
         "Escaleras": 656,
         "Compresores y herramienta neumática": 250,
         "Pistolas de calor, engrapadoras y clavadoras": 32,
-        "Pinzas y alicates": 709,
-        "Brocas": 1651,
+        "Pinzas y alicates": 705,
+        "Brocas": 1659,
         "Routers, fresadoras y multiherramientas": 148,
         "Herramientas de banco": 26,
         "Generadores": 108,
         "Neumáticas": 639,
-        "Juegos de herramientas": 377,
+        "Juegos de herramientas": 373,
         "Martillos, cinceles y mazos": 436,
         "Herramientas de corte manual": 12,
-        "Refacciones de herramientas eléctricas": 66,
+        "Refacciones de herramientas eléctricas": 62,
         "Hojas y cuchillas de sierra": 39,
-        "Puntas y dados de impacto": 111,
+        "Puntas y dados de impacto": 107,
         "Discos de corte y desbaste": 72,
         "Accesorios para rotomartillo y demoledor": 28,
         "Accesorios de multiherramienta y mototool": 46,
@@ -6709,13 +6689,12 @@
       "n": 1538,
       "subs": {
         "": 7,
-        "Cámaras interiores": 433,
+        "Cámaras interiores": 673,
         "Cámaras exteriores": 296,
         "Alarmas": 57,
         "Cámaras PTZ": 93,
         "Cámaras espía": 55,
         "Kits de vigilancia": 314,
-        "Interiores": 240,
         "Sensores": 12,
         "Timbres inteligentes": 31
       },
@@ -6841,13 +6820,12 @@
         "Lámparas de escritorio": 188,
         "Decorativa": 1040,
         "Lámparas industriales y de nave": 51,
-        "Plafones y lámparas de sobreponer": 673,
+        "Plafones y lámparas de sobreponer": 769,
         "Lámparas colgantes": 579,
         "Candiles y arañas": 176,
         "Lámparas de pared": 428,
         "Rieles y spots": 78,
         "Tiras LED": 100,
-        "Lámparas de techo": 96,
         "Lámparas de piso": 13,
         "Empotrada": 2,
         "Lámparas de techo para exterior": 19,
@@ -6953,11 +6931,11 @@
       "maxShip": 68
     },
     "Muebles": {
-      "n": 33482,
+      "n": 33478,
       "subs": {
         "Escritorios de oficina": 1794,
-        "Repisas": 509,
-        "Libreros": 686,
+        "Repisas": 501,
+        "Libreros": 694,
         "Otros": 58,
         "Escritorios de altura ajustable": 390,
         "Muebles de cocina": 142,
@@ -6980,7 +6958,7 @@
         "Percheros": 334,
         "Mesas de cama y con ruedas": 36,
         "Zapateras": 270,
-        "Colchones plegables y de sofá cama": 322,
+        "Colchones plegables y de sofá cama": 318,
         "Camas": 131,
         "Escritorios": 16,
         "Mesas para TV y consolas": 520,
@@ -7027,10 +7005,51 @@
         "Encimeras y cubiertas": 6
       },
       "pop": 70540,
-      "discounted": 12124,
+      "discounted": 12120,
       "max": 82,
-      "discountedShip": 12125,
+      "discountedShip": 12121,
       "maxShip": 82
+    },
+    "Deportes y fitness": {
+      "n": 9681,
+      "subs": {
+        "Yoga": 958,
+        "Dardos": 244,
+        "Raquetas": 556,
+        "Campismo": 10,
+        "Bicicletas fijas": 384,
+        "Máquinas multifuncionales y poleas": 690,
+        "Protección y soportes": 196,
+        "Fútbol": 114,
+        "Máquinas de cardio": 351,
+        "Barras y discos": 121,
+        "Voleibol": 299,
+        "Equipo de gimnasio": 113,
+        "Accesorios de fuerza": 199,
+        "Bandas de resistencia": 318,
+        "Pesas de tobillo y chalecos con peso": 34,
+        "Bancos y racks": 1121,
+        "Máquinas de abdominales": 164,
+        "Patines y patinetas": 400,
+        "Mancuernas": 463,
+        "Natación": 511,
+        "Otros": 30,
+        "Sets de pesas": 227,
+        "Pesas": 58,
+        "Barras de dominadas y calistenia": 158,
+        "Balones": 1043,
+        "Boxeo": 611,
+        "Deportes acuáticos": 90,
+        "Ping pong": 136,
+        "Kettlebells": 71,
+        "Tablas y balance": 7,
+        "": 4
+      },
+      "pop": 25332,
+      "discounted": 1490,
+      "max": 92,
+      "discountedShip": 1491,
+      "maxShip": 92
     },
     "Computadoras de escritorio": {
       "n": 1328,
@@ -7047,14 +7066,14 @@
       "maxShip": 71
     },
     "Joyería y bisutería": {
-      "n": 5405,
+      "n": 5401,
       "subs": {
         "Pulseras": 375,
         "Anillos": 461,
         "Collares": 413,
         "Dijes y charms": 283,
         "Correas y extensibles": 364,
-        "Relojes": 626,
+        "Relojes": 622,
         "Otros": 93,
         "Aretes": 659,
         "Relojes deportivos y digitales": 167,
@@ -7070,10 +7089,24 @@
         "": 9
       },
       "pop": 5898,
-      "discounted": 4093,
+      "discounted": 4092,
       "max": 80,
-      "discountedShip": 4093,
+      "discountedShip": 4092,
       "maxShip": 77
+    },
+    "Relojes inteligentes": {
+      "n": 1122,
+      "subs": {
+        "": 5,
+        "Bandas de actividad": 31,
+        "Smartwatches": 963,
+        "Accesorios": 123
+      },
+      "pop": 59168,
+      "discounted": 441,
+      "max": 76,
+      "discountedShip": 441,
+      "maxShip": 76
     },
     "Equipo comercial": {
       "n": 3981,
@@ -7140,11 +7173,11 @@
     "Teclados": {
       "n": 3627,
       "subs": {
-        "Combos con mouse": 762,
+        "Combos con mouse": 769,
         "Mecánicos": 298,
         "Mecánicos 60% y compactos": 167,
         "Switches, keycaps y accesorios": 244,
-        "Membrana": 664,
+        "Membrana": 657,
         "Mecánicos inalámbricos": 312,
         "Ergonómicos": 119,
         "Inalámbricos": 551,
@@ -7378,7 +7411,7 @@
         "Triciclos": 59,
         "Vehículos de juguete": 68,
         "Monitores de bebé": 15,
-        "Juegos de exterior": 55,
+        "Juguetes para exterior": 136,
         "Juguetes para bebé": 151,
         "Bloques de construcción": 800,
         "Carriolas": 1151,
@@ -7406,7 +7439,6 @@
         "Seguridad para bebé": 22,
         "Montables": 86,
         "Trampolines": 15,
-        "Juguetes para exterior": 81,
         "Juegos arcade": 5,
         "Maquetas": 780,
         "": 5
@@ -7542,47 +7574,6 @@
       "discountedShip": 502,
       "maxShip": 60
     },
-    "Deportes y fitness": {
-      "n": 9677,
-      "subs": {
-        "Dardos": 244,
-        "Raquetas": 556,
-        "Campismo": 10,
-        "Bicicletas fijas": 384,
-        "Máquinas multifuncionales y poleas": 690,
-        "Protección y soportes": 196,
-        "Fútbol": 114,
-        "Máquinas de cardio": 351,
-        "Barras y discos": 121,
-        "Voleibol": 299,
-        "Equipo de gimnasio": 113,
-        "Accesorios de fuerza": 199,
-        "Bandas de resistencia": 318,
-        "Yoga": 954,
-        "Pesas de tobillo y chalecos con peso": 34,
-        "Bancos y racks": 1121,
-        "Máquinas de abdominales": 164,
-        "Patines y patinetas": 400,
-        "Mancuernas": 463,
-        "Natación": 511,
-        "Otros": 30,
-        "Sets de pesas": 227,
-        "Pesas": 58,
-        "Barras de dominadas y calistenia": 158,
-        "Balones": 1043,
-        "Boxeo": 611,
-        "Deportes acuáticos": 90,
-        "Ping pong": 136,
-        "Kettlebells": 71,
-        "Tablas y balance": 7,
-        "": 4
-      },
-      "pop": 25332,
-      "discounted": 1486,
-      "max": 92,
-      "discountedShip": 1487,
-      "maxShip": 92
-    },
     "Refrigeradores": {
       "n": 1662,
       "subs": {
@@ -7704,10 +7695,10 @@
     "Cámaras y fotografía": {
       "n": 5312,
       "subs": {
-        "Accesorios": 1117,
+        "Accesorios": 1113,
         "Videocámaras": 1185,
         "Mirrorless": 197,
-        "Lentes": 280,
+        "Lentes": 284,
         "Cámaras de acción": 1534,
         "Instantáneas": 539,
         "Réflex": 49,
@@ -7740,13 +7731,12 @@
       "subs": {
         "Rompecabezas": 578,
         "": 5,
-        "De mesa clásicos": 722,
+        "De mesa clásicos": 990,
         "De cartas": 417,
         "Infantiles": 241,
         "De estrategia": 504,
         "Educativos": 149,
         "Ajedrez": 141,
-        "Clásicos": 268,
         "De preguntas": 57,
         "De fiesta": 67,
         "De memoria": 27,
@@ -7951,9 +7941,9 @@
       "subs": {
         "Filamentos": 103,
         "": 1,
-        "Impresoras": 146,
+        "Impresoras": 153,
         "Escáneres 3D": 17,
-        "Accesorios": 200
+        "Accesorios": 193
       },
       "pop": 1293,
       "discounted": 87,
@@ -7973,20 +7963,6 @@
       "max": 68,
       "discountedShip": 100,
       "maxShip": 59
-    },
-    "Relojes inteligentes": {
-      "n": 1118,
-      "subs": {
-        "Bandas de actividad": 31,
-        "Smartwatches": 963,
-        "Accesorios": 123,
-        "": 1
-      },
-      "pop": 59168,
-      "discounted": 440,
-      "max": 76,
-      "discountedShip": 440,
-      "maxShip": 76
     },
     "Proyectores y accesorios": {
       "n": 7798,
@@ -8207,6 +8183,14 @@
       "p108970",
       "p29615"
     ],
+    "Deportes y fitness": [
+      "p34702",
+      "p73403",
+      "p73404",
+      "p29752",
+      "p138694",
+      "p73457"
+    ],
     "Computadoras de escritorio": [
       "p48378",
       "p48375",
@@ -8222,6 +8206,14 @@
       "p77007",
       "p77038",
       "p33332"
+    ],
+    "Relojes inteligentes": [
+      "p35967",
+      "p53996",
+      "p54022",
+      "p32339",
+      "p30085",
+      "p53966"
     ],
     "Equipo comercial": [
       "p35652",
@@ -8326,14 +8318,6 @@
       "p96205",
       "p96153",
       "p35871"
-    ],
-    "Deportes y fitness": [
-      "p34702",
-      "p73403",
-      "p73404",
-      "p29752",
-      "p138694",
-      "p73457"
     ],
     "Refrigeradores": [
       "p31626",
@@ -8478,14 +8462,6 @@
       "p29843",
       "p27331",
       "p27319"
-    ],
-    "Relojes inteligentes": [
-      "p35967",
-      "p53996",
-      "p54022",
-      "p32339",
-      "p30085",
-      "p53966"
     ],
     "Proyectores y accesorios": [
       "p192101",

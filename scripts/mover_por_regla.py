@@ -388,7 +388,7 @@ REGLAS = [
               r'tabla de charcuteria|\bcharcuteria\b',
      r'cobertura|funda|cubierta', 'Cocina y comedor', 'Utensilios de cocina', (None, 'Varios')),
     ('Juegos de mesa', r'piscina|acuatico|\bplaya\b|\bbalon\b|\balberca\b|water ?football|aros de buceo|resbaladilla|columpio|tobogan',
-     r'rompecabezas|puzzle|juego de mesa|juego de cartas', 'Juguetes y bebés', 'Juegos de exterior'),
+     r'rompecabezas|puzzle|juego de mesa|juego de cartas', 'Juguetes y bebés', 'Juguetes para exterior'),
     ('Juegos de mesa', r'kit de (arte|manualidades|ciencia|cristales|cultivo|experimentos)|manualidades|estampilla|tatuajes|alcancia|engranajes|'
                        r'modelo (anatomico|de flor|del cuerpo|de cerebro|de esqueleto)|\besqueleto\b|\bosmo\b|set de juego de (limpieza|cocina|te|doctor)|'
                        r'\bplay-?doh\b|\bslime\b|plastilina|\bcrayola\b|pegatinas|\bstickers\b|cuaderno de actividades|libro de (pegatinas|actividades|colorear)|'
@@ -474,7 +474,7 @@ REGLAS = [
     ('Mascotas', r'\bunas\b|esmalte de unas|ojos? de gato.{0,20}(gel|unas)|imanes.{0,20}unas',
      r'cortaunas|corta unas', 'Belleza y cuidado personal', 'Uñas', (None,)),
     ('Juegos de mesa', r'\bcarpa\b|tienda (de juego|infantil)|castillo para|piedras de paso|\bscooter\b|'
-                       r'resbaladilla|columpio|casa de juegos', None, 'Juguetes y bebés', 'Juegos de exterior',
+                       r'resbaladilla|columpio|casa de juegos', None, 'Juguetes y bebés', 'Juguetes para exterior',
      (None, 'Otros juegos')),
     ('Juegos de mesa', r'set de actividades|kit (de )?(casa|diy|cientifico|de ciencia)|manualidades|'
                        r'pizarras? magnetica|\bsticker|aviones de papel|lace and trace|melissa & doug|'
@@ -653,7 +653,7 @@ REGLAS = [
     ('Herramientas', r'estanteria|carro con ruedas cocina|carrito de bebidas', None,
      'Muebles', 'Libreros', {None}),
     ('Herramientas', r'castillo hinchable|casa de rebote|ruleta de premios|rueda de la fortuna', None,
-     'Juguetes y bebés', 'Juegos de exterior', {None}),
+     'Juguetes y bebés', 'Juguetes para exterior', {None}),
     ('Herramientas', r'ruedas dedicadas para carriola de mascotas|caseta de exterior', None,
      'Mascotas', 'Casas para mascotas', {None}),
     ('Herramientas', r'reposacabezas thule|respaldo de carriola', None,
