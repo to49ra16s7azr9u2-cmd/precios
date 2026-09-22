@@ -6394,6 +6394,9 @@
     "Juegos de mesa": [
       "data/cat/juegos-de-mesa-1.json"
     ],
+    "Libros": [
+      "data/cat/libros-1.json"
+    ],
     "Cocina y comedor": [
       "data/cat/cocina-y-comedor-1.json"
     ],
@@ -6442,9 +6445,6 @@
     ],
     "Belleza y cuidado personal": [
       "data/cat/belleza-y-cuidado-personal-1.json"
-    ],
-    "Libros": [
-      "data/cat/libros-1.json"
     ],
     "Audífonos": [
       "data/cat/audifonos-1.json"
@@ -6636,6 +6636,9 @@
       "data/det/juegos-de-mesa-1.json",
       "data/det/juegos-de-mesa-2.json"
     ],
+    "Libros": [
+      "data/det/libros-1.json"
+    ],
     "Cocina y comedor": [
       "data/det/cocina-y-comedor-1.json",
       "data/det/cocina-y-comedor-2.json",
@@ -6748,9 +6751,6 @@
       "data/det/belleza-y-cuidado-personal-4.json",
       "data/det/belleza-y-cuidado-personal-5.json",
       "data/det/belleza-y-cuidado-personal-6.json"
-    ],
-    "Libros": [
-      "data/det/libros-1.json"
     ],
     "Audífonos": [
       "data/det/audifonos-1.json",
@@ -7194,7 +7194,7 @@
       "maxShip": 76
     },
     "Juguetes y bebés": {
-      "n": 10054,
+      "n": 10087,
       "subs": {
         "Muñecas": 1580,
         "Maquetas": 766,
@@ -7202,17 +7202,17 @@
         "Triciclos": 87,
         "Montables": 172,
         "Carriolas": 1455,
-        "Juguetes educativos": 335,
+        "Juguetes educativos": 352,
         "Cunas": 67,
         "Sillas de comer y mecedoras": 108,
         "Pañales y cambio": 195,
-        "Juguetes para exterior": 131,
+        "Juguetes para exterior": 144,
         "Trampolines": 28,
         "Figuras de acción": 1100,
         "Baño e higiene del bebé": 169,
         "Portabebés y canguros": 203,
         "Monitores de bebé": 47,
-        "Juguetes para bebé": 60,
+        "Juguetes para bebé": 62,
         "Vehículos de juguete": 123,
         "Bloques de construcción": 941,
         "Juguetes musicales": 106,
@@ -7220,7 +7220,7 @@
         "Biberones": 213,
         "Peluches": 590,
         "Andaderas": 62,
-        "Corrales": 37,
+        "Corrales": 38,
         "Sillas de auto": 134,
         "Chupones y mordederas": 126,
         "Bebés": 556,
@@ -7230,33 +7230,51 @@
         "Cuidado y salud del bebé": 19,
         "Juegos arcade": 5
       },
-      "pop": 19148,
-      "discounted": 3837,
+      "pop": 19173,
+      "discounted": 3869,
       "max": 77,
-      "discountedShip": 3842,
+      "discountedShip": 3874,
       "maxShip": 77
     },
     "Juegos de mesa": {
-      "n": 3571,
+      "n": 3514,
       "subs": {
         "Rompecabezas": 621,
         "De estrategia": 538,
         "Infantiles": 244,
-        "De fiesta": 66,
+        "De fiesta": 68,
         "De rol y dados": 78,
-        "De mesa clásicos": 1020,
-        "De cartas": 408,
-        "Otros juegos": 224,
+        "De mesa clásicos": 1029,
+        "De cartas": 409,
         "Educativos": 148,
         "Ajedrez": 140,
         "De preguntas": 57,
-        "De memoria": 27
+        "De memoria": 27,
+        "Otros juegos": 155
       },
-      "pop": 4009,
-      "discounted": 1538,
+      "pop": 3984,
+      "discounted": 1482,
       "max": 73,
-      "discountedShip": 1559,
+      "discountedShip": 1503,
       "maxShip": 66
+    },
+    "Libros": {
+      "n": 78,
+      "subs": {
+        "Infantil": 26,
+        "Técnicos y profesionales": 31,
+        "Clásicos": 6,
+        "Hogar, manualidades y mascotas": 4,
+        "Psicología": 2,
+        "Música y cine": 1,
+        "Negocios y finanzas": 7,
+        "Salud y bienestar": 1
+      },
+      "pop": 0,
+      "discounted": 25,
+      "max": 11,
+      "discountedShip": 25,
+      "maxShip": 11
     },
     "Cocina y comedor": {
       "n": 12215,
@@ -7807,24 +7825,6 @@
       "max": 79,
       "discountedShip": 3384,
       "maxShip": 79
-    },
-    "Libros": {
-      "n": 54,
-      "subs": {
-        "Técnicos y profesionales": 31,
-        "Clásicos": 6,
-        "Infantil": 2,
-        "Hogar, manualidades y mascotas": 4,
-        "Psicología": 2,
-        "Música y cine": 1,
-        "Negocios y finanzas": 7,
-        "Salud y bienestar": 1
-      },
-      "pop": 0,
-      "discounted": 1,
-      "max": 11,
-      "discountedShip": 1,
-      "maxShip": 11
     },
     "Audífonos": {
       "n": 10157,
@@ -8482,6 +8482,14 @@
       "p135257",
       "p288196"
     ],
+    "Libros": [
+      "p108643",
+      "p109109",
+      "p108168",
+      "p108226",
+      "p108239",
+      "p108243"
+    ],
     "Cocina y comedor": [
       "p340858",
       "p96326",
@@ -8601,14 +8609,6 @@
       "p103444",
       "p101114",
       "p102805"
-    ],
-    "Libros": [
-      "p248238",
-      "p248243",
-      "p248665",
-      "p248681",
-      "p248684",
-      "p359386"
     ],
     "Audífonos": [
       "p28020",
