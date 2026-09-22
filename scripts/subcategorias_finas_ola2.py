@@ -574,7 +574,8 @@ def sub_cerradura(tn):
 # -------------------------------- Proyectores/Pantallas de proyección
 PANTALLAS = ['Pantallas enrollables manuales', 'Pantallas eléctricas motorizadas', 'Pantallas con trípode y portátiles',
              'Pantallas de marco fijo', 'Pantallas inflables y de exterior', 'Pantallas de suelo y de mesa', 'Telas y pantallas ALR',
-             'Lámparas de proyector', 'Soportes para proyector', 'Otros accesorios de proyector']
+             'Lámparas de proyector', 'Soportes para proyector', 'Otros accesorios de proyector',
+             'Pantallas de proyección']
 _PAN = _c([
     ('Proyectores', r'^(?:\S+ ){0,3}(mini ?)?proyector(es)?\b(?!.{0,40}(pantalla|soporte|lampara|bombilla|control|filtro|cable|funda|lente|adaptador|bateria|mount|tripode))|^(?:\S+ ){0,2}(proyector|projector) (4k|1080p|portatil|led|laser|inteligente|smart|android|wifi|de bolsillo|mini)'),
     ('Lámparas de proyector', r'\blampara|\bbombilla|\bbulb\b|\bfoco (de|para) proyector|\bmodulo de lampara|\blamp\b|\belplp|\bnp\d{2}lp|\bsp-lamp|\bpoa-lmp|\bet-lae|\bet-lal|\bdt\d{4}|\b5j\.\w+'),
@@ -586,12 +587,20 @@ _PAN = _c([
     ('Pantallas con trípode y portátiles', r'\btripode|\btripie|\bcon soporte\b|\bde pie\b|\bde piso\b|\bportatil|\bplegable|\bcon base|\bstand\b|\bpull ?up|\bautoportante|\bcon maleta|\bcon bolsa'),
     ('Pantallas de marco fijo', r'\bmarco fijo|\bfixed frame|\bde marco\b|\bmarco de aluminio|\bfija\b|\bfijo\b|\bde pared fija|\bmontaje en pared'),
     ('Pantallas de suelo y de mesa', r'\bde suelo|\bde mesa\b|\bfloor rising|\bsobre mesa|\bde escritorio|\btabletop|\bcompacta'),
-    ('Pantallas enrollables manuales', r'\benrollable|\bmanual|\bretractil|\bdesplegable|\bpull ?down|\bde techo|\bde pared|\bcortina|\bpantalla (de|para) proyecci|\bpantalla proyector|\bpantalla de proyector|\bproyeccion\b'),
+    ('Pantallas enrollables manuales', r'\benrollable|\bmanual|\bretractil|\bdesplegable|\bpull ?down|\bde techo|\bde pared|\bcortina'),
+    # La pantalla que no dice cómo se monta va al cajón genérico, que ya
+    # existe. Antes esta línea estaba pegada a la de «enrollables manuales» y
+    # se llevaba 2,462 fichas ahí: casi toda la ficha de Amazon dice «pantalla
+    # de proyección» y nada más, así que el cajón específico terminó lleno de
+    # pantallas que nadie dijo que fueran enrollables. Va al final, después de
+    # que todas las formas concretas tuvieron su turno.
+    ('Pantallas de proyección', r'\bpantalla (de|para) proyecci|\bpantalla proyector|'
+                                r'\bpantalla de proyector|\bproyeccion\b'),
 ])
 
 
 def sub_pantalla_proy(tn):
-    return _primera(tn, _PAN, {'Pantallas enrollables manuales': 40, 'Otros accesorios de proyector': 5})
+    return _primera(tn, _PAN, {'Pantallas de proyección': 40, 'Otros accesorios de proyector': 5})
 
 
 OLA2 += [

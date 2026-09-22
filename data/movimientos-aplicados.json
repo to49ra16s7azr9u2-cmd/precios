@@ -3312,5 +3312,151 @@
    "Fitness | Grande | Deportes y fitness | Barras y discos": 1,
    "Fitness | Pequeña | Deportes y fitness | Protección y soportes": 1
   }
+ },
+ {
+  "fecha": "2026-09-21",
+  "origen": "mover_coppel.json",
+  "motivo": "Importación de Coppel",
+  "grupos": {
+   "Celulares | Android | Herramientas | Accesorios para herramientas eléctricas": 1,
+   "Audífonos | Earbuds inalámbricos | Audífonos | Accesorios": 1,
+   "Componentes y accesorios de PC | Componentes | Componentes y accesorios de PC | Accesorios": 24,
+   "Baterías portátiles | None | Autos, bicicletas y motos | Baterías para auto": 1,
+   "Baterías portátiles | None | Otros | Cargadores solares portátiles": 2,
+   "Baterías portátiles | None | Cargadores y adaptadores | Base de carga": 6,
+   "Baterías portátiles | None | Iluminación | Lámparas de emergencia": 2,
+   "Herramientas | None | Belleza y cuidado personal | Cuidado personal": 1,
+   "Electrodomésticos | Ósmosis inversa | Electrodomésticos | Filtros y membranas de repuesto": 7,
+   "Electrodomésticos | Purificadores bajo tarja | Electrodomésticos | Filtros y membranas de repuesto": 68,
+   "Electrodomésticos | Purificadores de grifo y encimera | Electrodomésticos | Filtros y membranas de repuesto": 5,
+   "Electrodomésticos | Purificadores de agua | Electrodomésticos | Filtros y membranas de repuesto": 1,
+   "Otros | Varios | Autos, bicicletas y motos | Accesorios para bicicleta": 47,
+   "Otros | Varios | Cámaras y fotografía | Accesorios": 6,
+   "Juegos de mesa | De rol y dados | Juguetes y bebés | Figuras de acción": 1,
+   "Videojuegos | Otros accesorios gamer | Audífonos | Gamer": 3,
+   "Videojuegos | Otros accesorios gamer | Instrumentos musicales | Micrófonos": 1,
+   "Cámaras y fotografía | None | Autos, bicicletas y motos | Dashcams y cámaras": 1,
+   "Refrigeradores | None | Refacciones | Refacciones para refrigerador": 2,
+   "Teclados | None | Mouse | Oficina": 3,
+   "Teclados | None | Componentes y accesorios de PC | Accesorios": 3,
+   "Teclados | None | Instrumentos musicales | Teclados electrónicos": 3,
+   "Relojes inteligentes | Smartwatches | Relojes inteligentes | Accesorios": 3,
+   "Aspiradoras | Portátiles | Aspiradoras | De mano": 119,
+   "Aspiradoras | Portátiles | Aspiradoras | De escoba": 34
+  }
+ },
+ {
+  "fecha": "2026-09-21",
+  "origen": "mover_audit.json",
+  "motivo": "Auditoría estadística: subcategoría contradicha por el modelo de su propia categoría",
+  "grupos": {
+   "Herramientas | Baterías y cargadores de herramienta | Herramientas | Flejadoras y empacadoras": 55,
+   "Herramientas | Soldadura | Herramientas | Flejadoras y empacadoras": 12,
+   "Audífonos | Almohadillas y repuestos | Audífonos | Earbuds inalámbricos": 28,
+   "Autos, bicicletas y motos | Accesorios para bicicleta | Autos, bicicletas y motos | Triciclos y bicicletas de carga": 20,
+   "Autos, bicicletas y motos | Accesorios y refacciones | Autos, bicicletas y motos | Triciclos y bicicletas de carga": 2,
+   "Climatización | Aspas y refacciones de ventilador | Climatización | Ventiladores portátiles y de mano": 20,
+   "Climatización | Refacciones de calefactor | Climatización | Calefactores cerámicos y de aire": 2,
+   "Deportes y fitness | Máquinas de abdominales | Deportes y fitness | Bancos y racks": 19,
+   "Deportes y fitness | Mancuernas | Deportes y fitness | Bancos y racks": 14,
+   "Deportes y fitness | Equipo de gimnasio | Deportes y fitness | Bancos y racks": 10,
+   "Deportes y fitness | Accesorios de fuerza | Deportes y fitness | Bancos y racks": 23,
+   "Blancos y ropa de cama | Repuestos y controles de cobija eléctrica | Blancos y ropa de cama | Cobijas eléctricas": 33
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_audit2.json",
+  "motivo": "Auditoría estadística, segunda tanda",
+  "grupos": {
+   "Refacciones | Refacciones para otros electrodomésticos | Refacciones | Refacciones para refrigerador": 48,
+   "Climatización | Minisplit | Climatización | Aires acondicionados portátiles": 43,
+   "Bocinas | Bocinas Bluetooth | Bocinas | De estantería y Hi-Fi": 113,
+   "Bocinas | Bocinas Bluetooth | Bocinas | Radios y reproductores": 27,
+   "Muebles | Mesas de comedor extensibles | Muebles | Mesas plegables y multiusos": 35,
+   "Muebles | Otros | Muebles | Muebles de cocina": 24
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_componentes.json",
+  "motivo": "Partir el balde «Componentes» en gabinetes, fuentes, tarjetas, procesadores y enfriamiento; sacar los discos a Almacenamiento",
+  "grupos": {
+   "Componentes y accesorios de PC | Componentes | Muebles | Escritorios de oficina": 19,
+   "Componentes y accesorios de PC | Componentes | Componentes y accesorios de PC | RAM DDR5 para PC de escritorio": 12,
+   "Componentes y accesorios de PC | Componentes | Computadoras de escritorio | Torre": 12,
+   "Componentes y accesorios de PC | Componentes | Joyería y bisutería | Pulseras": 1,
+   "Componentes y accesorios de PC | Componentes | Herramientas | Compresores y herramienta neumática": 1,
+   "Componentes y accesorios de PC | Componentes | Equipo comercial | Punto de venta": 1,
+   "Componentes y accesorios de PC | Componentes | Muebles | Repisas": 14,
+   "Componentes y accesorios de PC | Componentes | Muebles | Libreros": 9,
+   "Componentes y accesorios de PC | Componentes | Muebles | Otros": 1,
+   "Componentes y accesorios de PC | Componentes | Videojuegos | Juegos PS4": 1,
+   "Componentes y accesorios de PC | Componentes | Teclados | Combos con mouse": 1,
+   "Componentes y accesorios de PC | Componentes | Equipo comercial | Refrigeración comercial": 3,
+   "Componentes y accesorios de PC | Componentes | Muebles | Escritorios de altura ajustable": 4,
+   "Componentes y accesorios de PC | Componentes | Equipo comercial | Mobiliario": 5,
+   "Componentes y accesorios de PC | Componentes | Almacenamiento | Interno": 64,
+   "Componentes y accesorios de PC | Componentes | Herramientas | Seguridad industrial": 2,
+   "Componentes y accesorios de PC | Componentes | Cocina y comedor | Organización de cocina": 10,
+   "Componentes y accesorios de PC | Componentes | Climatización | Aires acondicionados": 1,
+   "Componentes y accesorios de PC | Componentes | Autos, bicicletas y motos | Motocicletas": 1,
+   "Componentes y accesorios de PC | Componentes | Herramientas | Material eléctrico": 2,
+   "Componentes y accesorios de PC | Componentes | Muebles | Muebles de cocina": 1,
+   "Componentes y accesorios de PC | Componentes | Blancos y ropa de cama | Toppers y sobrecolchones": 1,
+   "Componentes y accesorios de PC | Componentes | Instrumentos musicales | Fundas, soportes y atriles": 1,
+   "Componentes y accesorios de PC | Componentes | Instrumentos musicales | Amplificadores de guitarra y bajo": 1,
+   "Componentes y accesorios de PC | Componentes | Domótica y hogar inteligente | Cerraduras para gabinete y casillero": 1,
+   "Componentes y accesorios de PC | Componentes | Almacenamiento | Externo": 15,
+   "Componentes y accesorios de PC | Componentes | Almacenamiento | SSD": 185,
+   "Componentes y accesorios de PC | Componentes | Almacenamiento | NAS": 40,
+   "Componentes y accesorios de PC | Componentes | Muebles | Escritorios en L y esquineros": 2,
+   "Componentes y accesorios de PC | Componentes | Refacciones | Refacciones para otros electrodomésticos": 1,
+   "Componentes y accesorios de PC | Componentes | Muebles | Roperos": 1,
+   "Componentes y accesorios de PC | Componentes | Domótica y hogar inteligente | Accesorios y refacciones de cerradura": 1,
+   "Componentes y accesorios de PC | Componentes | Autos, bicicletas y motos | Accesorios y refacciones": 1,
+   "Componentes y accesorios de PC | Componentes | Otros | Varios": 1,
+   "Componentes y accesorios de PC | Componentes | Deportes y fitness | Dardos": 2,
+   "Componentes y accesorios de PC | Componentes | Cocina y comedor | Bar y coctelería": 1,
+   "Componentes y accesorios de PC | Componentes | Blancos y ropa de cama | Cortinas": 2,
+   "Componentes y accesorios de PC | Componentes | Muebles | Colchones king size": 1,
+   "Componentes y accesorios de PC | Componentes | Equipo comercial | Carros de servicio": 1,
+   "Componentes y accesorios de PC | Componentes | Cocina y comedor | Ollas y cacerolas": 2,
+   "Componentes y accesorios de PC | Componentes | Refrigeradores | Refrigeradores": 3,
+   "Componentes y accesorios de PC | Componentes | Muebles | Escritorios gamer": 1,
+   "Componentes y accesorios de PC | Componentes | Computadoras de escritorio | Mini PC": 9,
+   "Componentes y accesorios de PC | Componentes | Climatización | Ventiladores portátiles y de mano": 1
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_componentes2.json",
+  "motivo": "Partir el balde «Componentes» en gabinetes, fuentes, tarjetas, procesadores y enfriamiento",
+  "grupos": {
+   "Componentes y accesorios de PC | Componentes | Componentes y accesorios de PC | Enfriamiento y ventiladores": 745,
+   "Componentes y accesorios de PC | Componentes | Componentes y accesorios de PC | Gabinetes": 196,
+   "Componentes y accesorios de PC | Componentes | Componentes y accesorios de PC | Fuentes de poder": 61,
+   "Componentes y accesorios de PC | Componentes | Componentes y accesorios de PC | Tarjetas de video": 45,
+   "Componentes y accesorios de PC | Componentes | Componentes y accesorios de PC | Procesadores": 14,
+   "Componentes y accesorios de PC | Componentes | Componentes y accesorios de PC | Tarjetas madre": 2
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_attr.json",
+  "motivo": "La ficha técnica saca del balde: género -> Relojes para hombre/mujer, tamaño -> Sábanas matrimoniales",
+  "grupos": {
+   "Joyería y bisutería | Relojes | Joyería y bisutería | Relojes para mujer": 11,
+   "Joyería y bisutería | Relojes | Joyería y bisutería | Relojes para hombre": 42,
+   "Blancos y ropa de cama | Sábanas | Blancos y ropa de cama | Sábanas matrimoniales": 3
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_pantallas.json",
+  "motivo": "La pantalla que no dice cómo se monta va al cajón genérico, no a «enrollables manuales»",
+  "grupos": {
+   "Proyectores y accesorios | Pantallas enrollables manuales | Proyectores y accesorios | Pantallas de proyección": 1884
+  }
  }
 ]

@@ -62,6 +62,113 @@ def tramo_mah(tn):
 #  categoría destino, subcategoría destino o función(tn) -> sub|None)
 REGLAS = [
     # --- Lotes del 21 de septiembre de 2026 -----------------------------
+    # Segunda tanda de la auditoría estadística (margen 14). De 2,289
+    # señalados van los grupos donde el modelo tiene razón al leerlos; se
+    # dejan fuera los que acierta la clasificación actual y falla el modelo
+    # ("Laptop de 17.3 pulgadas" está bien en 17" o más, y el modelo la
+    # quería en 15"; la silla gamer está bien donde está).
+
+    # El tocadiscos y el fonógrafo no son una bocina Bluetooth.
+    # El "no": las patas de goma y los cables de un tocadiscos también lo
+    # nombran, y son accesorios.
+    ('Bocinas', r'tocadiscos|fonografo|reproductor de vinilo|vinilo vintage|'
+     r'\bgramofono\b|tornamesa',
+     r'^(?:\S+ ){0,3}(patas?|pata|base|soporte|cable|funda|aguja|capsula|'
+     r'almohadilla|kit|adaptador|tapete|correa)\b',
+     'Bocinas', 'Radios y reproductores', ['Bocinas Bluetooth']),
+
+    # El altavoz de estantería de dos o tres vías es Hi-Fi, no portátil.
+    ('Bocinas', r'de estanteria|bookshelf|(dos|tres|2|3) vias|\bhi-?fi\b|'
+     r'monitor de estudio',
+     r'^(?:\S+ ){0,3}(patas?|base|soporte|cable|funda|rejilla|kit|'
+     r'adaptador|almohadilla)\b',
+     'Bocinas', 'De estantería y Hi-Fi', ['Bocinas Bluetooth']),
+
+    # El aire portátil de ruedas no es un minisplit (que va en la pared).
+    ('Climatización', r'\bportatil(es)?\b.{0,40}\b\d{4,5} ?btu|'
+     r'aire acondicionado portatil|unidad de ca portatil', None,
+     'Climatización', 'Aires acondicionados portátiles', ['Minisplit']),
+
+    # La batería compatible ES una batería, aunque diga "compatible con".
+    ('Herramientas', r'^(?:\S+ ){0,4}bateria\b|bateria (compacta|de iones|de litio|'
+     r'recargable).{0,30}(milwaukee|dewalt|makita|bosch|ryobi|truper)', None,
+     'Herramientas', 'Baterías y cargadores de herramienta',
+     ['Refacciones de herramientas eléctricas']),
+
+    # El sensor y el empaque del refrigerador tenían subcategoría propia.
+    ('Refacciones', r'refrigerador|nevera|congelador|frigorific', None,
+     'Refacciones', 'Refacciones para refrigerador',
+     ['Refacciones para otros electrodomésticos']),
+
+    # El gabinete y la alacena de cocina dentro del cajón "Otros".
+    ('Muebles', r'gabinete (inferior|superior|bajo|alto|de cocina)|alacena|'
+     r'despensero|mueble de cocina|modulo de cocina', None,
+     'Muebles', 'Muebles de cocina', ['Otros', 'Varios']),
+
+    # La mesa plegable de pared no es una mesa de comedor extensible.
+    ('Muebles', r'plegable de pared|abatible de pared|que ahorra espacio.{0,20}pared', None,
+     'Muebles', 'Mesas plegables y multiusos', ['Mesas de comedor extensibles']),
+
+    # Salidos de aprender_subcategoria.py --auditar: un bayes ingenuo
+    # entrenado con las fichas YA clasificadas de cada categoría señala las
+    # que su propia subcategoría explica mucho peor que otra. No es un
+    # oráculo (marca de más), así que de sus 780 señalados van sólo los
+    # grupos donde el error es evidente al leerlos.
+
+    # 53 fichas. La flejadora --la máquina que pone el fleje a una caja--
+    # cayó en "Baterías y cargadores de herramienta" por decir "a batería"
+    # y en "Soldadura" por decir "máquina". Tiene subcategoría propia.
+    ('Herramientas', r'flejadora|flejado|zunchadora|empacadora de fleje|'
+     r'maquina de fleje', None,
+     'Herramientas', 'Flejadoras y empacadoras',
+     ['Baterías y cargadores de herramienta', 'Soldadura', 'Herramientas eléctricas']),
+
+    # 32. El banco de pesas y el rack de sentadillas tienen su subcategoría;
+    # estaban repartidos entre mancuernas, abdominales y "equipo de gimnasio"
+    # porque el título nombra las pesas que se usan encima.
+    ('Deportes y fitness',
+     r'^(?:\S+ ){0,3}(banco|bancos|rack|racks|estante|soporte|jaula|'
+     r'taburete de entrenamiento)\b.{0,40}'
+     r'(pesas|mancuernas|sentadilla|press|banca|gimnasio|barra)|'
+     r'press de banca|banco (ajustable|plegable|olimpico|de gimnasio)', None,
+     'Deportes y fitness', 'Bancos y racks',
+     ['Mancuernas', 'Máquinas de abdominales', 'Accesorios de fuerza',
+      'Equipo de gimnasio', 'Pesas', 'Barras y discos']),
+
+    # 11. El triciclo de tres ruedas para adulto estaba entre los accesorios
+    # de bicicleta.
+    ('Autos, bicicletas y motos',
+     r'triciclo|tres ruedas|3 ruedas|bicicleta de carga|\bcargo bike\b', None,
+     'Autos, bicicletas y motos', 'Triciclos y bicicletas de carga',
+     ['Accesorios para bicicleta', 'Accesorios y refacciones']),
+
+    # 10. "Ventilador sin aspas" fue a parar a la subcategoría de las aspas
+    # de repuesto, que es lo contrario de lo que es.
+    ('Climatización',
+     r'sin aspas|bladeless|ventilador (portatil|de mano|personal|recargable|'
+     r'de camping|usb)\b', None,
+     'Climatización', 'Ventiladores portátiles y de mano',
+     ['Aspas y refacciones de ventilador']),
+
+    # 10. Audífonos enteros dentro de "Almohadillas y repuestos".
+    ('Audífonos',
+     r'^(?:\S+ ){0,3}audifonos?\b.{0,50}(inalambric|bluetooth|in ?ear|tws)|'
+     r'^(?:\S+ ){0,3}(earbuds?|auriculares) (inalambric|bluetooth|tws)', None,
+     'Audífonos', 'Earbuds inalámbricos', ['Almohadillas y repuestos']),
+
+    # 6. El calefactor entero dentro de sus propias refacciones.
+    ('Climatización',
+     r'^(?:\S+ ){0,3}(calefactor|calentador de (espacio|ambiente|cuarto))\b'
+     r'.{0,40}(ceramic|de aire|con termostato|con control)', None,
+     'Climatización', 'Calefactores cerámicos y de aire', ['Refacciones de calefactor']),
+
+    # 6. Cobijas eléctricas enteras dentro de "Repuestos y controles".
+    ('Blancos y ropa de cama',
+     r'^(?:\S+ ){0,3}(cobija|manta|frazada|colcha)\b.{0,40}'
+     r'(electric|termica|calefactable|con calor)', None,
+     'Blancos y ropa de cama', 'Cobijas eléctricas',
+     ['Repuestos y controles de cobija eléctrica']),
+
     # Cortes que faltaban, al estilo de kakaku.com: parte 掃除機 en
     # スティック / ハンディ / キャニスター / ロボット y スーツケース por
     # "機内持ち込み可否". Acá "Portátiles" juntaba la aspiradora de mano con

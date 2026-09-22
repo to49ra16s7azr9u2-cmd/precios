@@ -849,6 +849,82 @@ PERI = (PC, 'Accesorios', 'cpu')
 COMP = (PC, 'Componentes', 'cpu')
 
 REGLAS = [
+ # --- Huecos que destapó la importación de Coppel (21-sep-2026) --------
+ # De las 57,437 fichas convertidas, 26,895 salieron "no encaja en ninguna
+ # categoría". Agrupadas por cómo ARRANCA el título, no eran productos
+ # raros: eran grupos grandes con destino ya existente y sin una regla que
+ # los nombrara. Coppel vende mucho mueble de cocina y mucho utensilio, que
+ # es lo que Amazon y Mercado Libre casi no traían, así que el vocabulario
+ # nunca se había necesitado.
+
+ # 1,323 fichas. La cocina integral es el mueble entero; el gabinete bajo
+ # o alto es una pieza de ese mueble, y las dos van al mismo sitio.
+ (re.compile(r'^(?:\S+ ){0,2}(cocina integral|gabinete (bajo|alto|superior|inferior)|'
+             r'alacena|despensero|mueble (de |para )?cocina|modulo de cocina|'
+             r'barra de cocina|isla de cocina|fregadero con mueble)'),
+  ('Muebles', 'Muebles de cocina', 'sofa')),
+
+ # 296. "Gabinete" a secas es de cocina; con "PC", "torre" o "ATX" es la
+ # caja de la computadora. La regla va DESPUÉS de la de cocina a propósito
+ # -- no: va antes, porque es la más específica de las dos.
+ (re.compile(r'^(?:\S+ ){0,3}gabinete .{0,30}(\bpc\b|computadora|gamer|torre|'
+             r'\batx\b|\bitx\b|micro ?atx|mini torre)|'
+             r'gabinete gamer|case para pc'),
+  ('Componentes y accesorios de PC', 'Componentes', 'cpu')),
+
+ # 373. El filtro de repuesto del refrigerador o del purificador.
+ # Sin el "no", la junta de repuesto de una cafetera Bialetti salía de
+ # Cafeteras para caer en un cajón de electrodomésticos.
+ (re.compile(r'^(?!.*(cafetera|espresso|moka|bialetti|nespresso|capsula))'
+             r'^(?:\S+ ){0,3}filtros? (de )?(repuesto|agua|aire|carbon)\b.{0,40}'
+             r'(refrigerador|nevera|purificador|sistema|\bge\b|frigidaire|whirlpool|samsung|lg\b)|'
+             r'^(?:\S+ ){0,2}filtros? de repuesto\b'),
+  ('Electrodomésticos', 'Filtros y membranas de repuesto', 'appliance')),
+
+ # 210. La batería de cocina es el juego de ollas y sartenes.
+ (re.compile(r'^(?:\S+ ){0,2}bateria (de )?cocina\b|'
+             r'bateria de \d+ (pz|piezas).{0,30}(cocina|acero|aluminio)'),
+  ('Cocina y comedor', 'Baterías de cocina', 'coffee')),
+
+ # 171 + 156 + 133. Utensilios, cubiertos y moldes: los tres tenían
+ # subcategoría y ninguna regla que los nombrara al abrir el título.
+ (re.compile(r'^(?:\S+ ){0,3}(juego|set|kit) de \d{0,3} ?utensilios( de cocina)?|'
+             r'^(?:\S+ ){0,2}utensilios de cocina\b'),
+  ('Cocina y comedor', 'Utensilios de cocina', 'coffee')),
+ (re.compile(r'^(?:\S+ ){0,3}(juego|set) de \d{0,3} ?cubiertos\b|'
+             r'^(?:\S+ ){0,2}cubiertos de (acero|plastico|mesa)'),
+  ('Cocina y comedor', 'Cubiertos', 'coffee')),
+ (re.compile(r'^(?:\S+ ){0,2}molde(s)? (para|de) (\d+ )?(cupcakes?|panque|pastel|'
+             r'reposteria|galletas?|muffins?|rosca|pan\b|gelatina|hielo)|'
+             r'^(?:\S+ ){0,2}(charola|bandeja) (para|de) (hornear|reposteria|galletas)'),
+  ('Cocina y comedor', 'Repostería y moldes', 'coffee')),
+
+ # 88. El molinillo manual de café tiene subcategoría propia en Cafeteras.
+ (re.compile(r'^(?:\S+ ){0,2}molinillos? (de |para )?(cafe|granos|especias)|'
+             r'^(?:\S+ ){0,2}molino (de |para )?cafe\b'),
+  ('Cafeteras', 'Molinillos de café', 'coffee')),
+
+ # El equipo de ciclismo y de moto: casco, guantes, bomba, rack y rampa
+ # tienen todos su subcategoría y salían "no encaja".
+ (re.compile(r'^(?:\S+ ){0,2}(casco|guantes?|rodilleras?|coderas?|'
+             r'espinilleras?|protecciones?|juego de proteccion)\b.{0,40}'
+             r'(ciclis|bicicleta|\bbici\b|patineta|scooter|skate|\bmtb\b)|'
+             r'^(?:\S+ ){0,2}casco (para )?(ciclista|bicicleta|patineta|scooter)'),
+  ('Autos, bicicletas y motos', 'Cascos y protección para ciclismo', 'car')),
+ # El "no" del principio: la bomba de condensado del minisplit, la
+ # sumergible y la presurizadora también dicen "bomba" y "aire", y no
+ # son de bicicleta.
+ (re.compile(r'^(?!.*(condensado|mini ?split|aire acondicionado|sumergible|'
+             r'achique|presurizadora|periferica|centrifuga|pecera|acuario))'
+             r'^(?:\S+ ){0,2}(bomba|inflador|bombin)\b.{0,40}'
+             r'(aire|bicicleta|\bbici\b|llanta|neumatico|balon)|'
+             r'^(?:\S+ ){0,3}bomba de aire\b'),
+  ('Autos, bicicletas y motos', 'Bombas e infladores', 'car')),
+ (re.compile(r'^(?:\S+ ){0,2}(rack|portabicicleta|porta ?bici|soporte)\b.{0,40}'
+             r'(bicicleta|\bbici\b|para auto y bici)|^(?:\S+ ){0,2}rampa (para|de) '
+             r'(scooter|patineta|skate|bicicleta)'),
+  ('Autos, bicicletas y motos', 'Portabicicletas y soportes', 'car')),
+
  # La persiana celular (de ventana) y la cortina se descartaban para que
  # no entraran como celular; ahora tienen su sitio en Blancos / Cortinas.
  (re.compile(r'barras? (de|para) cortina de (ducha|bano)|tubo para cortina de (bano|ducha)|cortinas? (de|para) (ducha|bano)|organizador de ducha'),
@@ -4364,6 +4440,64 @@ def sub_decoracion(tn):
     return None
 
 
+# Las piezas que el comprador de PC elige una por una, con el sustantivo que
+# las nombra. El orden de esta lista no decide nada: ver afinar_componentes.
+PIEZAS_PC = [
+    ('Gabinetes', r'gabinete|case atx'),
+    ('Fuentes de poder', r'fuente de poder|fuente atx|fuente modular|psu'),
+    ('Tarjetas madre', r'tarjeta madre|motherboard|placa base|mainboard'),
+    ('Tarjetas de video', r'tarjeta (?:de video|grafica)|graphics card|quadro|'
+                          r'(?:rtx|gtx|radeon rx) ?\d{3,4}'),
+    ('Procesadores', r'procesador|cpu (?:amd|intel)|threadripper|xeon|'
+                     r'ryzen [3579]|core i[3579]'),
+    ('Enfriamiento y ventiladores', r'enfriamiento|enfriador|disipador|cooler|'
+                                    r'ventilador|refrigeracion|abanico'),
+]
+_PIEZAS_PC = [(sub, re.compile(r'\b(?:' + rx + r')\b')) for sub, rx in PIEZAS_PC]
+# Enfriamiento líquido y pasta térmica no tienen sustantivo de cabecera propio.
+_PC_LIQUIDO = re.compile(r'(?:enfriamiento|refrigeracion) liquid|water ?cooler|'
+                         r'pasta termica|\baio\b.{0,15}(?:cpu|liquid)')
+# Lo que se llama enfriador y no es una pieza de PC.
+_PC_NO_PIEZA = re.compile(r'para (?:celular|telefono|movil)|de bebidas|\bhielera\b')
+
+
+def afinar_componentes(tn):
+    """El corte fino dentro del balde «Componentes».
+
+    «Componentes» era un balde de 2,652 fichas con el gabinete, la fuente, el
+    procesador, la tarjeta y el ventilador revueltos: justo las piezas que el
+    comprador de PC elige una por una, y que kakaku separa.
+
+    Vive aparte de sub_componentes porque se usa en otro momento:
+    sub_componentes le pone subcategoría a una ficha que no tiene ninguna,
+    esto afina una que ya cayó en «Componentes». Juntas se estorbarían: un
+    soporte de monitor está bien en «Accesorios de monitor», y la última rama
+    de sub_componentes lo mandaría a «Accesorios» a secas.
+
+    Decide el sustantivo que aparece PRIMERO, y sólo si está en la cabecera
+    del título. Las dos condiciones salieron de equivocarse:
+
+      * sin mirar la cabecera, el gabinete Corsair que dice «compatible con
+        placa base mATX» se iba a Tarjetas madre, y el que dice «sin
+        ventiladores incluidos» a Enfriamiento. Lo que el producto ES se dice
+        al principio; lo que ADMITE, después.
+      * con la cabecera pero sin el desempate por posición, «Ventilador Para
+        Gabinete Naceb» se iba a Gabinetes, porque esa rama estaba escrita
+        antes. Quien manda es el sustantivo con el que arranca el título.
+    """
+    if _PC_NO_PIEZA.search(tn):
+        return None
+    cabeza = " ".join(tn.split()[:6])
+    mejor = None
+    for sub, rx in _PIEZAS_PC:
+        m = rx.search(cabeza)
+        if m and (mejor is None or m.start() < mejor[0]):
+            mejor = (m.start(), sub)
+    if mejor:
+        return mejor[1]
+    return 'Enfriamiento y ventiladores' if _PC_LIQUIDO.search(tn) else None
+
+
 def sub_componentes(tn):
     """Componentes y accesorios de PC. El disco y la PC armada que caen acá
     se mueven de categoría; lo que se queda es memoria, componente y
@@ -4391,10 +4525,9 @@ def sub_componentes(tn):
         return 'RAM DDR3 y anteriores'
     if re.search(r'memoria (ram|de escritorio|para)|modulos? de memoria|\brdimm\b|\becc\b', tn):
         return 'Memoria RAM'
-    if re.search(r'refrigera(cion|dor) liquid|\baio\b.{0,15}(cpu|liquid)|\bprocesador\b|\bcpu\b|'
-                 r'tarjeta madre|\bmotherboard\b|tarjeta de video|fuente de poder|\bgabinete\b|'
-                 r'ventilador (de |para )?(gabinete|cpu|pc)|pasta termica', tn):
-        return 'Componentes'
+    fino = afinar_componentes(tn)
+    if fino:
+        return fino
     if re.search(r'\badaptador|\bconvertidor|\bcable\b|\bbahia\b|\bcaddy\b|\bsoporte\b', tn):
         return 'Accesorios'
     return None
@@ -5481,6 +5614,8 @@ for it in captura:
     elif cat == 'Impresión 3D': sub = sub_impresion3d(tn) or sub
     elif cat == 'Movilidad eléctrica': sub = sub_movilidad(tn) or sub
     elif cat == 'Proyectores y accesorios': sub = sub_proyector(tn) or sub
+    elif cat == 'Componentes y accesorios de PC' and sub == 'Componentes':
+        sub = afinar_componentes(tn) or sub
     elif cat == 'Otros': sub = sub_otros(tn) or sub
     sub = afinar_ola2(cat, sub, tn)
     mk = marca(it['title'])
