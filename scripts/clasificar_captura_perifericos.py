@@ -2451,7 +2451,8 @@ REGLAS = [
              r'escritorio para (juegos|videojuegos|gaming)|\btrident\b|\baurora r?\d|\bworkstation\b|computadora armada|gaming desktop|desktop (pc|computer)|computadora para juegos|\bomen \d{2}l\b|\bxps desktop\b))'
              r'(?=.*(ryzen|intel|core i\d|\bi[3579]\b|\brtx|\bgtx|\brx ?\d{3,4}|\d+ ?gb|\bssd\b))'),
   ('Computadoras de escritorio', 'Torre', 'desktop')),
- (re.compile(r'^(?!.*(radio|estereo|coche|\bjeep\b|\bdodge\b|tablet|celular|smartphone|pc gamer|computadora|mini pc|all in one|todo en uno|laptop|notebook|\bpickup\b|camioneta|\btruck\b|\bhemi\b|defensa|parrilla|faro|\bpolaris\b|\brzr\b|\bnavaja\b))'
+ (re.compile(r'^(?!.*(radio|estereo|coche|\bjeep\b|\bdodge\b|tablet|celular|smartphone|pc gamer|computadora|mini pc|all in one|todo en uno|laptop|notebook|\bpickup\b|camioneta|\btruck\b|\bhemi\b|defensa|parrilla|faro|\bpolaris\b|\brzr\b|\bnavaja\b|'
+             r'\bram (1500|2500|3500|4500|5500|promaster|pickup|rebel|trx)\b|manguera|freno|balata|bujia|sensor|filtro|amortiguador|para (auto|carro|coche)|bicicleta|montana))'
              r'(?=.*(memoria ram|\bram\b|sodimm|udimm|\bddr[45]|modulo de memoria))'),
   (PC, 'Memoria RAM', 'cpu')),
  # El enfriador de aire de la sala, no el del procesador. El catálogo
@@ -4665,7 +4666,8 @@ def sub_refaccion(tn):
         return 'Faros y luces'
     if re.search(r'\bradiador\b|\bventilador de radiador|\btermostato\b', tn):
         return 'Enfriamiento y climatización'
-    if re.search(r'\bescape\b|\bcatalizador\b|\bsilenciador\b|\bmofle\b', tn):
+    # "Motoventilador para Ford Escape": el modelo, no el sistema de escape.
+    if re.search(r'\bescape\b|\bcatalizador\b|\bsilenciador\b|\bmofle\b', tn) and not re.search(r'ford escape', tn):
         return 'Escape'
     return None
 
