@@ -3967,5 +3967,41 @@
    "Teclados | None | Instrumentos musicales | Sintetizadores y controladores MIDI": 1,
    "Mascotas | None | Otros | Varios": 1
   }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_powerbank.json",
+  "motivo": "El módulo, la placa de carga y la pila de botón no son un power bank: encabezaban la lista al ordenar por precio",
+  "grupos": {
+   "Baterías portátiles | Hasta 10,000 mAh | Baterías portátiles | Accesorios y repuestos": 44
+  }
+ },
+ {
+  "fecha": "2026-09-22",
+  "origen": "mover_barato.json",
+  "motivo": "Lo que encabezaba la lista al ordenar por precio y no era el producto: refacciones de control, auriculares en Bocinas, estantes para router, libros en Muebles",
+  "grupos": {
+   "Herramientas | Routers, fresadoras y multiherramientas | Otros | Soportes para dispositivos": 7,
+   "Herramientas | Taladros y rotomartillos | Otros | Soportes para dispositivos": 1,
+   "Bocinas | Radios y reproductores | Audífonos | None": 7,
+   "Bocinas | Bocinas Bluetooth | Audífonos | None": 10,
+   "Bocinas | Mini bocinas y de llavero | Audífonos | None": 3,
+   "Bocinas | Para PC y escritorio | Audífonos | None": 1,
+   "Bocinas | Bocinas con luces LED | Audífonos | None": 2,
+   "Bocinas | De fiesta y karaoke | Audífonos | None": 9,
+   "Bocinas | Bafles y audio profesional | Audífonos | None": 1,
+   "Bocinas | Bocinas Bluetooth con radio, USB y micrófono | Audífonos | None": 1,
+   "Bocinas | Amplificadores y receptores | Audífonos | None": 4,
+   "Videojuegos | Controles y gamepads | Videojuegos | Otros accesorios gamer": 48,
+   "Videojuegos | Volantes, arcade y simuladores | Videojuegos | Otros accesorios gamer": 1,
+   "Videojuegos | Consolas Xbox | Videojuegos | Otros accesorios gamer": 2,
+   "Videojuegos | Juegos Xbox | Videojuegos | Otros accesorios gamer": 1,
+   "Muebles | Otros | Libros | Clásicos": 2,
+   "Instrumentos musicales | Guitarras acústicas | Instrumentos musicales | Accesorios": 4,
+   "Instrumentos musicales | Flautas traversas | Instrumentos musicales | Accesorios": 4,
+   "Instrumentos musicales | Ocarinas, silbatos y flautas dulces | Instrumentos musicales | Accesorios": 6,
+   "Instrumentos musicales | Saxofones | Instrumentos musicales | Accesorios": 1,
+   "Blancos y ropa de cama | Toallas de manos y faciales | Otros | Varios": 1
+  }
  }
 ]

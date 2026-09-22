@@ -5822,7 +5822,21 @@ for it in captura:
     cat, sub, img = hit
     if hit is pista:
         por_dept += 1
-    elif cat == 'Baterías portátiles': sub = tramo(capacidad_mah(it['title']))
+    elif cat == 'Baterías portátiles':
+        # El módulo, la placa de carga, la pila de botón y la caja
+        # organizadora NO son un power bank, y como el tramo se saca de los
+        # mAh del título caían en «Hasta 10,000 mAh» y encabezaban la lista
+        # cuando alguien ordena por precio: un «Módulo USB de batería
+        # portátil» de $19 arriba de las power banks de verdad.
+        if re.search(r'\bmodulo\b|\bplaca de carga\b|\bpilas? de boton\b|'
+                     r'\bbaterias? de moneda|\bag\d\b|\blr\d{2}\b|\bsr\d{3}\b|'
+                     r'contenedor de almacenamiento|caja organizadora|'
+                     r'almacenamiento de bateria|organizador de (pilas|baterias)|'
+                     r'\bprotoboard\b|\bpcb\b|\btablero\b|'
+                     r'^(?:\S+ ){0,3}adaptadores? de bateria', T(it['title'])):
+            sub = 'Accesorios y repuestos'
+        else:
+            sub = tramo(capacidad_mah(it['title']))
     elif cat == 'Bocinas': sub = sub_bocina(tn)
     elif cat == 'Monitores': sub = sub_monitor(tn)
     elif cat == 'Laptops': sub = sub_laptop(tn)
