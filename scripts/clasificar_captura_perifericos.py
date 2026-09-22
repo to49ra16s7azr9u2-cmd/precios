@@ -1810,7 +1810,7 @@ REGLAS = [
              r'tripie|tripode|lente|kit de|audifonos|auriculares|bocina|altavoz|teclado|\bmouse\b|monitor|proyector|camara|'
              r'estuche|bolsa|brazalete|correa|adaptador|memoria|tarjeta)\b)'
              r'(?!.*((funda|mica|protector|carcasa|cristal templado|vidrio templado) (para|compatible|de|transparente|rigid|antigolpes|silicona)|'
-             r'car ?radio|carplay|android auto|doble din|2 ?din|autoestereo|estereo (para|de) (coche|auto|carro)|bicicleta|triciclo|motocicleta|casillero|persiana|cortina|caja registradora|punto de venta|terminal (pos|de cobro|de pago)|\bpos\b|\btpv\b|colector de datos|\bpda\b|de repuesto|refaccion|reemplazo|laptop|notebook|macbook|'
+             r'car ?radio|carplay|android auto|doble din|2 ?din|double din|car stereo|head ?unit|navegacion gps|radio (de|para) (coche|auto|carro)|pantalla (para|de) (auto|coche|carro)|multimedia (para|estereo)|para (ford|toyota|honda|nissan|chevrolet|chevy|dodge|kia|hyundai|mazda|vw|volkswagen|jeep|ram|subaru|suzuki|mitsubishi|renault|peugeot|seat|bmw|audi|mercedes)\b|autoestereo|estereo (para|de) (coche|auto|carro)|bicicleta|triciclo|motocicleta|casillero|persiana|cortina|caja registradora|punto de venta|terminal (pos|de cobro|de pago)|\bpos\b|\btpv\b|colector de datos|\bpda\b|de repuesto|refaccion|reemplazo|laptop|notebook|macbook|'
              r'chromebook|mini pc|\bpc\b|\btablet\b|tableta|\bipad\b|\bpad\b|router|modem|consola|\bretro\b|'
              r'\btv\b|television|\bssd\b|memoria usb|\bwatch\b|smartwatch|reloj|camara (de seguridad|ip|web)|'
              r'\bdron\b|estereo|\bdin\b|carplay|android auto|para (auto|coche|carro)|pantalla (lcd|amoled|oled).{0,30}(repuesto|reemplazo|reparacion)))'
@@ -3663,7 +3663,12 @@ def sub_vehiculo(tn):
         return 'Baterías para auto'
     if re.search(r'^(?:\S+ ){0,3}(altavoz|bocina)\b.{0,25}(automovil|auto|carro)', tn):
         return 'Bocinas para auto'
-    if re.search(r'guantes.{0,25}motocicleta|casco.{0,20}moto\b|chamarra.{0,20}moto', tn):
+    # El casco es casco (22-sep): esta regla iba antes que la de Cascos para
+    # moto y se llevaba los 900 cascos a Accesorios para moto.
+    if re.search(r'\bcascos?\b.{0,20}\bmoto', tn) and not re.search(
+            r'^(?:\S+ ){0,2}(soporte|soportes|base|porta ?cascos?|red|redes|malla|correa|correas|gancho|ganchos|candado|bolsa|funda|mica|visor|intercomunicador|audifonos|auriculares|luz|luces|camara|kit|pinlock|spoiler)\b', tn):
+        return 'Cascos para moto'
+    if re.search(r'guantes.{0,25}motocicleta|chamarra.{0,20}moto', tn):
         return 'Accesorios para moto'
     """Reparte Autos, bicicletas y motos.
 
@@ -3685,7 +3690,8 @@ def sub_vehiculo(tn):
         return 'Bicicletas'
     if re.match(r'^(motocicleta|motoneta|scooter de gasolina)\b', tn):
         return 'Motocicletas'
-    if re.search(r'\b(casco|guantes de moto|chamarra de moto)\b', tn):
+    if re.search(r'\b(casco|guantes de moto|chamarra de moto)\b', tn) and not re.search(
+            r'^(?:\S+ ){0,2}(soporte|soportes|base|porta ?cascos?|red|redes|malla|correa|correas|gancho|ganchos|candado|bolsa|funda|mica|visor|intercomunicador|audifonos|auriculares|luz|luces|camara|kit|pinlock|spoiler)\b', tn):
         return 'Cascos para moto'
     if re.search(r'dash ?cam|camara (para|de) (auto|carro|coche|tablero)|camara de reversa', tn):
         return 'Dashcams y cámaras'
@@ -3693,8 +3699,9 @@ def sub_vehiculo(tn):
         return 'Llantas'
     if re.search(r'bateria (para|de) (auto|coche|carro)|acumulador', tn):
         return 'Baterías para auto'
-    if re.search(r'estereo|autoestereo|radio (para|de) (auto|carro)|carplay|android auto|'
-                 r'car ?radio|doble din|2 ?din', tn):
+    if re.search(r'estereo|autoestereo|radio (para|de) (auto|carro|coche)|carplay|android auto|'
+                 r'car ?radio|doble din|2 ?din|double din|car stereo|head ?unit|navegacion gps|'
+                 r'multimedia (para|estereo)|pantalla (para|de) (auto|coche|carro)', tn):
         return 'Estéreos para auto'
     if re.search(r'bocina.{0,20}(auto|carro)|\bwoofer\b|subwoofer', tn):
         return 'Bocinas para auto'
@@ -5991,6 +5998,11 @@ for it in captura:
     elif cat == 'Refacciones': sub = sub_refaccion(tn) or sub
     elif cat == 'Otros': sub = sub_otros(tn) or sub
     sub = afinar_ola2(cat, sub, tn)
+    # La subcategoría fina 'Bocinas para auto' vive en Autos, no en Bocinas
+    # (22-sep): el clasificador la proponía y el catálogo la ignoraba.
+    if cat == 'Bocinas' and sub == 'Bocinas para auto':
+        cat = 'Autos, bicicletas y motos'
+        sub = 'Bocinas marinas y para moto' if re.search(r'\bmoto|motocicleta|marin', tn) else 'Bocinas para auto'
     mk = marca(it['title'])
     if cat == 'Celulares' and not mk: mk = marca_celular(tn)
     alta.append({**base, 'brand': mk, 'category': cat,
