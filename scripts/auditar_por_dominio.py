@@ -166,8 +166,12 @@ def main():
         if args.nivel == "categoria":
             if p.get("category") == destino:
                 continue
-            # Sin subcategoría destino: se deja que el clasificador la ponga.
-            clave = f"{p.get('category')} | {p.get('subcategory') or ''} | {destino} | "
+            # Sin subcategoría destino: la ficha llega a la categoría nueva sin
+            # subcategoría y se la pone después repartir_sin_subcategoria.py.
+            # Va "None" literal porque es lo que aplicar_movimientos entiende
+            # por vacío; con la cadena vacía escribiría subcategory="".
+            clave = (f"{p.get('category')} | {p.get('subcategory') or 'None'} "
+                     f"| {destino} | None")
         else:
             actual = (p.get("category"), p.get("subcategory"))
             if actual == destino or not actual[1]:
