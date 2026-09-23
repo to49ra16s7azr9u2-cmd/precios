@@ -2992,7 +2992,7 @@ tr.offer-compare-off { display: none; }
 .home-como-btn:hover .icon { color: var(--red); }
 @media (max-width: 520px) {
   .home-elige-linea { flex-wrap: wrap; }
-  .home-como-btn { order: -1; }
+  .home-elige-botones { order: -1; }
 }
 .home-elige-row .home-elige { flex: 1 1 auto; margin: 0; }
 .home-elige-row .home-tab-marca { flex: 0 0 auto; width: 132px; padding: 4px 9px; }
@@ -3000,9 +3000,20 @@ tr.offer-compare-off { display: none; }
 /* Sin columna izquierda no hay lengüeta que unir: el arco y el puente que
    cruzaban el hueco sobran. */
 .home-tab.is-active::before, .home-tab.is-active::after { display: none; }
-/* "Cómo utilizar" y "¿Dónde estás?", debajo de las categorías. */
-.home-acciones { display: flex; gap: var(--hueco-inicio); margin-top: var(--hueco-inicio); }
-.home-acciones .home-side-btn { flex: 1 1 0; }
+/* "¿Dónde estás?" y "Cómo utilizar", juntos a la derecha de la frase de
+   entrada. El de ubicación toma la forma del de la guía: mismo alto, mismo
+   borde, esquinas rectas. */
+.home-elige-botones { flex: 0 0 auto; display: flex; gap: 8px; align-items: stretch; }
+.home-elige-botones .home-ubicacion-btn {
+  width: auto;
+  max-width: 230px;
+  padding: 5px 11px;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  line-height: 1.4;
+}
+.home-elige-botones .home-ubicacion-btn:hover { border-color: var(--red); background: var(--card); }
+.home-elige-botones .home-ubicacion-btn .home-side-btn-icon .icon { width: 15px; height: 15px; }
 .home-tab.is-active {
   position: relative;
   /* Al quitar el marco del panel ya no hay nada con qué unirse: la entrada

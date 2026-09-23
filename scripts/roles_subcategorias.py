@@ -115,6 +115,8 @@ ROLES = {
         "Filtros para regadera": CONSUMIBLE,
         "Filtros para refrigerador y cafetera": CONSUMIBLE,
         "Filtros y membranas de repuesto": CONSUMIBLE,
+        # Affresh y las toallitas de la tienda de marca (23-sep).
+        "Limpiadores para electrodomésticos": CONSUMIBLE,
     },
     # Los controles y volantes se quedan como producto: la gente los compara
     # entre sí ("control de PS5 más barato"), no son un extra de la consola.

@@ -511,6 +511,11 @@ def sustantivo_manda(titulo, cat):
     a la regla que eligió `cat`, o None si la regla vale."""
     if not VOCAB_CABEZA:
         return None
+    # «Puzzle interactivo PARA PERROS» es de Mascotas aunque arranque por
+    # «puzzle»: cuando el título dice para quién es (mascota, bebé, niño),
+    # ese destinatario define la categoría y el sustantivo no manda.
+    if re.search(r'\bpara (perr|gat|mascot|beb|nin)', T(titulo)):
+        return None
     antes = atipicos.PALABRAS_CABEZA
     atipicos.PALABRAS_CABEZA = 4
     try:
@@ -900,6 +905,25 @@ PC   = 'Componentes y accesorios de PC'
 VJ   = ('Videojuegos', 'Accesorios', 'gamepad')
 PERI = (PC, 'Accesorios', 'cpu')
 COMP = (PC, 'Componentes', 'cpu')
+
+# Lo que una tienda de marca vende junto a sus aparatos y que FUERA
+# descartaría por nombrar el aparato («Pastillas limpiadoras para
+# lavadoras»): se mira ANTES que FUERA. Son consumibles y refacciones con
+# nombre propio de la marca; van a subcategorías de papel consumible o
+# refacción, así que no se mezclan con los aparatos al ordenar por precio.
+# (whirlpool.mx, 23-sep: 20 fichas que quedaban fuera del catálogo.)
+ANTES_DE_FUERA = [
+    (re.compile(r'^(combo )?affresh\b|^toall(a|itas) limpiadoras? para (parrillas|acero)'),
+     ('Electrodomésticos', 'Limpiadores para electrodomésticos', 'appliance')),
+    (re.compile(r'^pedestal \d{2} ?cm\b'),
+     ('Refacciones', 'Refacciones para lavadora y secadora', 'gear')),
+    (re.compile(r'^cepillo para polvo de bobina|^trim metalico para sidekicks'),
+     ('Refacciones', 'Refacciones para refrigerador', 'gear')),
+    (re.compile(r'^filtro hepa.{0,30}para purificador de aire'),
+     ('Electrodomésticos', 'Filtros y membranas de repuesto', 'appliance')),
+    (re.compile(r'^regulador electronico de voltaje'),
+     ('Herramientas', 'Material eléctrico', 'wrench')),
+]
 
 REGLAS = [
     # Línea blanca con el nombre pelado, como la nombra una tienda de marca
@@ -2127,7 +2151,7 @@ REGLAS = [
  # una herramienta, y por eso el juego de dados se reconoce por el juego
  # de rol, no por la palabra suelta.
  (re.compile(
-             r'^(?!.*(tablero de dardos|tablero (electronico|de control|de circuito|arduino|de anuncios)|'
+             r'^(?!.*(tocador|maquillaje|tablero de dardos|tablero (electronico|de control|de circuito|arduino|de anuncios)|'
              r'\bdardos?\b|mesa de (centro|comedor|noche|trabajo|billar|ping ?pong)|'
              r'juego de (sabanas|toallas|herramientas|llaves|desarmador|dados de impacto|copas|vasos|platos)|'
              r'\bdado de impacto\b|\bmatraca\b|\bsocket\b|\bmilimetric|\bpulgada\b|\bllave de impacto\b|'
@@ -2172,7 +2196,7 @@ REGLAS = [
  # 34 fichas que entraban por decir "oro". Solo cuenta con quilates
  # ("oro 14k"), chapado o plata 925.
  (re.compile(
-             r'^(?!.*(\bperro|\bgato\b|\bgatos\b|mascota|\bcanino|\bfelino|\bcachorro|'
+             r'^(?!.*(\bcolchon|\bperro|\bgato\b|\bgatos\b|mascota|\bcanino|\bfelino|\bcachorro|'
              r'smart ?watch|reloj intelig|apple watch|galaxy watch|banda de actividad|'
              # El reloj de pulsera SÍ es joyería (2,345 fichas del catálogo),
              # pero el inteligente tiene su propia categoría y va antes que
@@ -2430,7 +2454,7 @@ REGLAS = [
   ('Refacciones', 'Otros', 'gear')),
  # Después de webcams y soportes: "para iMac" es un soporte, "Intel NUC" es
  # una placa VESA y el sistema Yealink es "todo en uno" pero es una cámara.
- (re.compile(r'^(?!.*(sodimm|udimm|modulo de memoria|adaptador|cargador|fuente|red electrica))(?=.*(all[- ]in[- ]one|\baio desktop|todo en uno|\bimac\b|omnistudio|proone|'
+ (re.compile(r'^(?!.*(sodimm|udimm|modulo de memoria|adaptador|cargador|fuente|red electrica))(?=.*(all[- ]in[- ]one|\baio desktop|(?=.*(\bpc\b|computadora|intel|ryzen|\bcore i|\bram\b|\bssd\b)).*todo en uno|\bimac\b|omnistudio|proone|'
              r'panel industrial))'),
   ('Computadoras de escritorio', 'All in One', 'desktop')),
  # Lo que se le cuelga a un mini PC va antes que el mini PC: soportes de
@@ -6024,6 +6048,12 @@ for it in captura:
     if it['asin'] in EXPLICITOS:
         mk, cat, sub, img = EXPLICITOS[it['asin']]
         alta.append({**base, 'brand': mk, 'category': cat, 'subcategory': sub, 'image': img})
+        continue
+    antes = next((v for rx, v in ANTES_DE_FUERA if rx.search(tn)), None)
+    if antes:
+        cat, sub, img = antes
+        alta.append({**base, 'brand': marca(it['title']), 'category': cat,
+                     'subcategory': sub, 'image': img})
         continue
     motivo = (next((m for rx, m in FUERA if rx.search(tn)), None)
               or next((m for rx, m in CABECERA if rx.search(tn[:55])), None))
