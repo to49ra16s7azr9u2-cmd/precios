@@ -2152,6 +2152,25 @@ tr.offer-compare-off { display: none; }
 /* Equipo de uso comercial/industrial (refrigeradores de restaurante,
    aspiradoras industriales, etc.): tono azul para no confundirse con el
    ámbar de "usado" ni el rojo de descuento. */
+/* Set de varios productos: va DELANTE del nombre y en rojo de la marca,
+   porque su precio no se compara contra un producto solo. */
+.set-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--red);
+  border-radius: var(--radius);
+  padding: 1px 7px;
+  vertical-align: 2px;
+  white-space: nowrap;
+}
+.set-badge .icon { width: 12px; height: 12px; }
 .commercial-badge {
   display: inline-block;
   font-size: 11px;
@@ -4737,3 +4756,55 @@ tr.offer-compare-off { display: none; }
 .subcat-card-familia { border-color: #c9c9c9; }
 .subcat-card-volver { background: transparent; border-style: dashed; }
 .subcat-card-volver .subcat-card-photo { display: none; }
+
+/* ---------- «¿Dónde estás?»: mapa de estados y municipios (23-sep) ----------
+   El mapa de la página del usuario («México, municipio por municipio»):
+   trazo negro fino, el estado abierto con contorno grueso, el resto del
+   país en gris, y el municipio elegido en el rojo del sitio. */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* El aviso de cookies (z-index 200) tapaba «Usar esta ubicación» en el
+   celular: el mapa va por encima mientras está abierto. */
+#mapModal { z-index: 210; }
+.mx-modal { max-width: 760px; display: flex; flex-direction: column; gap: 10px; }
+.mx-map-top { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; }
+.mx-miga { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; }
+.mx-miga-volver { border: 1px solid var(--border); background: var(--card); padding: 3px 8px; cursor: pointer; font: inherit; font-weight: 600; font-size: 12px; }
+.mx-miga-volver:hover { border-color: var(--ink); }
+.mx-map-buscar { position: relative; flex: 1 1 220px; max-width: 320px; }
+.mx-map-buscar input { width: 100%; box-sizing: border-box; border: 1px solid var(--ink); padding: 7px 10px; font: inherit; font-size: 13px; background: var(--card); color: var(--ink); border-radius: 0; }
+.mx-map-results { position: absolute; top: 100%; left: 0; right: 0; z-index: 5; background: var(--card); border: 1px solid var(--ink); border-top: 0; max-height: 260px; overflow: auto; }
+.mx-map-results button { display: flex; justify-content: space-between; gap: 10px; width: 100%; text-align: left; border: 0; border-top: 1px solid var(--border); background: none; padding: 7px 10px; cursor: pointer; font: inherit; font-size: 13px; color: var(--ink); }
+.mx-map-results button:first-child { border-top: 0; }
+.mx-map-results button:hover, .mx-map-results button:focus-visible { background: var(--ink); color: var(--card); }
+.mx-map-results small { color: inherit; opacity: .7; white-space: nowrap; }
+.mx-map-wrap { position: relative; height: min(58vh, 460px); min-height: 260px; border: 1px solid var(--ink); background: var(--card); overflow: hidden; }
+#mxMap { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+#mxMap:active { cursor: grabbing; }
+.mx-mun { fill: var(--card); stroke: #d4d4d4; stroke-width: .35; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.mx-mun.es-fuera { fill: #f3f3f3; stroke: #f3f3f3; }
+.mx-mun.es-activo { cursor: pointer; }
+.mx-mun.es-activo:hover { fill: var(--red-tint); }
+.mx-mun.es-elegido { fill: var(--red) !important; }
+.mx-est { fill: transparent; stroke: none; cursor: pointer; pointer-events: all; }
+.mx-est:hover { fill: var(--ink); fill-opacity: .08; }
+.mx-est.es-abierto { pointer-events: none; }
+.mx-borde { fill: none; stroke: var(--ink); stroke-width: 1; vector-effect: non-scaling-stroke; stroke-linejoin: round; pointer-events: none; }
+.mx-contorno { fill: none; stroke: var(--ink); stroke-width: 2.4; vector-effect: non-scaling-stroke; pointer-events: none; }
+.mx-marca { fill: none; stroke: var(--red-dark); stroke-width: 2.4; vector-effect: non-scaling-stroke; pointer-events: none; }
+.mx-etq text { paint-order: stroke; stroke: var(--card); stroke-linejoin: round; fill: var(--ink); text-anchor: middle; dominant-baseline: middle; pointer-events: none; font-family: inherit; }
+.mx-etq text.es-estado { font-weight: 700; letter-spacing: .05em; }
+.mx-map-zoom { position: absolute; right: 10px; top: 10px; display: flex; flex-direction: column; border: 1px solid var(--ink); background: var(--card); }
+.mx-map-zoom button { width: 32px; height: 32px; border: 0; background: none; cursor: pointer; font-size: 16px; color: var(--ink); }
+.mx-map-zoom button + button { border-top: 1px solid var(--ink); }
+.mx-map-zoom button:hover { background: var(--ink); color: var(--card); }
+.mx-map-tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--card); padding: 4px 8px; font-size: 12px; z-index: 3; max-width: 200px; }
+.mx-map-status { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; padding: 20px; text-align: center; background: var(--card); color: var(--muted); font-size: 13px; }
+.mx-map-hint { margin: 0; }
+.mx-map-confirm { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; border: 1px solid var(--ink); padding: 10px 12px; font-size: 14px; }
+.mx-map-usar { background: var(--red); color: #fff; border: 0; padding: 8px 14px; font: inherit; font-weight: 700; font-size: 13px; cursor: pointer; }
+.mx-map-usar:hover { background: var(--red-dark); }
+.mx-map-nota { margin: 0; }
+@media (max-width: 520px) {
+  .mx-map-wrap { height: 56vh; }
+  .mx-map-buscar { max-width: none; }
+}

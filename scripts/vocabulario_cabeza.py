@@ -116,10 +116,18 @@ def main():
         img = icono[(w, cat, sub)].most_common(1)
         sustantivos[w] = [cat, sub, round(c / tot, 2), tot, img[0][0] if img else "box"]
 
+    # Las palabras que arrancan muchos nombres, sean de una categoría o de
+    # varias («cuadro», «smartwatch», «mesa»): si un título arranca por una
+    # de ellas y no es de la categoría que se le quiere dar, el título no es
+    # de esa categoría (es_coherente en clasificar_captura_perifericos.py).
+    cabezas = sorted(w for w, cuenta in primera.items()
+                     if sum(cuenta.values()) >= MIN_FICHAS_PALABRA
+                     and not (marcas[w] >= MIN_FICHAS_MARCA and marcas[w] >= FRACCION_MARCA * sum(cuenta.values())))
     with open(SALIDA, "w", encoding="utf-8") as f:
-        json.dump({"cats": cats, "sustantivos": sustantivos}, f, ensure_ascii=False, separators=(",", ":"))
+        json.dump({"cats": cats, "sustantivos": sustantivos, "cabezas": cabezas}, f,
+                  ensure_ascii=False, separators=(",", ":"))
     print(f"{len(cats)} categorías, {sum(len(v) for v in cats.values()):,} palabras; "
-          f"{len(sustantivos):,} sustantivos que deciden -> {os.path.relpath(SALIDA)}")
+          f"{len(sustantivos):,} sustantivos que deciden, {len(cabezas):,} cabezas -> {os.path.relpath(SALIDA)}")
 
 
 if __name__ == "__main__":

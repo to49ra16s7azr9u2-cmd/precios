@@ -32,6 +32,9 @@ sys.path.insert(0, AQUI)
 from data_io import load_catalog, save_catalog  # noqa: E402
 
 BITACORA = os.path.join(ROOT, "data", "movimientos-aplicados.json")
+# Las fichas movidas por una persona, una por una: reaplicar_reglas.py no las
+# devuelve adonde las mandaría una regla (la decisión a mano manda).
+CANDADO = os.path.join(ROOT, "data", "clasificacion-a-mano.json")
 
 
 def plano(s):
@@ -90,6 +93,7 @@ def main():
 
     movidas = collections.Counter()
     saltadas = 0
+    a_mano = json.load(io.open(CANDADO, encoding="utf-8")) if os.path.exists(CANDADO) else {}
     for k in elegidos:
         partes = [x.strip() for x in k.split("|")]
         if len(partes) != 4:
@@ -110,6 +114,7 @@ def main():
             if f_out and f_out.search(nombre):
                 continue
             p["category"], p["subcategory"] = cat2, sub2
+            a_mano[pid] = [cat2, sub2]
             ic = icono.get((cat2, sub2)) or icono.get((cat2, None))
             if ic:
                 p["image"] = ic
@@ -128,6 +133,8 @@ def main():
     bit.append({"fecha": datetime.date.today().isoformat(), "origen": os.path.basename(args.json), "motivo": args.motivo,
                 "grupos": {k: n for k, n in movidas.items()}})
     json.dump(bit, io.open(BITACORA, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    json.dump(a_mano, io.open(CANDADO, "w", encoding="utf-8"), ensure_ascii=False, sort_keys=True,
+              separators=(",", ":"))
     print(f"Guardado. Bitácora: {os.path.relpath(BITACORA, ROOT)}")
     print("Ahora: sync_subcategories, compute_facets, compute_quality_axes, build_search_index, build_marcas_index, generate_seo_pages.")
 

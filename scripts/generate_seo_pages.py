@@ -46,7 +46,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import load_catalog, slugify  # noqa: E402
 from familias_subcategorias import agrupar as agrupar_familias, es_familia_de_papel  # noqa: E402
 from roles_subcategorias import ORDEN as ORDEN_ROLES, TITULOS as TITULOS_ROL, es_producto, rol_de  # noqa: E402
-from web_summary import purchase_options, seller_rows, seller_total  # noqa: E402
+from web_summary import productos_del_set, purchase_options, seller_rows, seller_total  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ICONS_PATH = os.path.join(ROOT, "data", "icons.json")
@@ -1010,7 +1010,7 @@ def render_product_page(product, data, subs_con_pagina=None):
   {product_photo_html(product)}
   <div class="detail-headinfo">
     <p class="muted small">{html_escape(product['brand'])}</p>
-    <h1>{html_escape(product['name'])}{f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>' if is_used(product) else ''}</h1>
+    <h1>{set_badge_html(product)}{html_escape(product['name'])}{f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>' if is_used(product) else ''}</h1>
     <p class="detail-rating">{f'{avg} / 5 ({plural(count, "calificación", "calificaciones")})' if count else 'Sin calificaciones todavía'}</p>
     <p class="detail-fromprice">{'Desde ' if n_sellers > 1 else ''}<strong>{money(price)}</strong> en {plural(n_sellers, "vendedor", "vendedores")}</p>
     {NOTA_LAG_HTML}
@@ -1155,6 +1155,15 @@ def _minuscula_titulo(nombre):
                           or (i and w[:1].isupper()))
                     else w.lower()
                     for i, w in enumerate(nombre.split()))
+
+
+def set_badge_html(product):
+    """El sello de set delante del nombre (ver productos_del_set)."""
+    n = productos_del_set(product)
+    if not n:
+        return ""
+    return (f'<span class="set-badge" title="El precio es por el set completo, no por un solo producto">'
+            f'{svg_icon("box")} Set de {n} productos</span>')
 
 
 def familias_con_pagina(cat, products_de_la_cat):
@@ -1523,7 +1532,7 @@ def render_subcategory_page(cat, sub, products, data, pares_familia=None):
             f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
-            f'<div class="row-name">{enlace_producto(p, "../../../")}{used_badge}</div>'
+            f'<div class="row-name">{set_badge_html(p)}{enlace_producto(p, "../../../")}{used_badge}</div>'
             # Las estrellas van como carácter y no como svg_icon: data/icons.json
             # no trae una estrella, y la ficha de producto ya pinta sus reseñas
             # con "★"/"☆" (ver render_product_page), así que es el mismo signo.
@@ -2401,7 +2410,7 @@ def render_category_page(cat, products, data):
             f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p["brand"])}</div>'
-            f'<div class="row-name">{enlace_producto(p, "../../")}{used_badge}{variant_badge}</div>'
+            f'<div class="row-name">{set_badge_html(p)}{enlace_producto(p, "../../")}{used_badge}{variant_badge}</div>'
             + (f'<div class="row-rating"><span class="row-stars">'
                f'{"★" * int(round(rating))}{"☆" * (5 - int(round(rating)))}</span> {rating} '
                f'<span class="row-rating-n">({n_reviews:,})</span></div>' if n_reviews else "")
@@ -3334,7 +3343,7 @@ def render_brand_page(nombre, slug, products, data):
             f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
             f'<div class="row-brand">{html_escape(p.get("category") or "")}</div>'
-            f'<div class="row-name">{enlace_producto(p, "../../")}{used_badge}</div>'
+            f'<div class="row-name">{set_badge_html(p)}{enlace_producto(p, "../../")}{used_badge}</div>'
             + (f'<div class="row-rating"><span class="row-stars">'
                f'{"★" * int(round(rating))}{"☆" * (5 - int(round(rating)))}</span> {rating} '
                f'<span class="row-rating-n">({n_reviews:,})</span></div>' if n_reviews else "")

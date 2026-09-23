@@ -500,10 +500,38 @@ try:
     VOCAB_CABEZA = json.load(io.open(_VOCAB_CABEZA, encoding='utf-8'))
 except (OSError, ValueError):
     VOCAB_CABEZA = None
+CABEZAS = set((VOCAB_CABEZA or {}).get('cabezas') or [])
 SUSTANTIVO_SHARE = 0.95
 SUSTANTIVO_MIN = 25
 NO_RECIBEN_POR_SUSTANTIVO = {'Refacciones', 'Herramientas', 'Belleza y cuidado personal',
                              'Joyería y bisutería'}
+
+
+def es_coherente(titulo, cat, marca=''):
+    """¿El título arranca como los productos de `cat`? Alguna de sus primeras
+    palabras (sin contar las que vienen tras «de») es propia de la categoría
+    según data/vocabulario-cabeza.json. Sin vocabulario, sí."""
+    if not VOCAB_CABEZA:
+        return True
+    antes = atipicos.PALABRAS_CABEZA
+    atipicos.PALABRAS_CABEZA = 4
+    try:
+        cabeza = atipicos.cabeza({'name': titulo, 'brand': marca or ''})
+    finally:
+        atipicos.PALABRAS_CABEZA = antes
+    if not cabeza:
+        return True
+    voc = VOCAB_CABEZA['cats'].get(cat) or {}
+    primera = cabeza[0][0]
+    if primera in voc:
+        return True
+    # Arranca por el nombre de OTRO producto («Cuadro canvas cámara
+    # vintage», «Smartwatch con altavoz»): no es de esta categoría aunque
+    # más adelante nombre algo que sí lo sea.
+    if primera in CABEZAS:
+        return False
+    nucleo = [w for w, tras_de in cabeza[1:] if not tras_de]
+    return any(w in voc for w in nucleo)
 
 
 def sustantivo_manda(titulo, cat):
@@ -519,13 +547,18 @@ def sustantivo_manda(titulo, cat):
     antes = atipicos.PALABRAS_CABEZA
     atipicos.PALABRAS_CABEZA = 4
     try:
-        cab = [w for w, _ in atipicos.cabeza({'name': titulo, 'brand': ''})]
+        cabeza = atipicos.cabeza({'name': titulo, 'brand': ''})
     finally:
         atipicos.PALABRAS_CABEZA = antes
-    if not cab:
+    if not cabeza:
         return None
+    cab = [w for w, _ in cabeza]
+    # La coherencia se mira sólo con lo que NO viene tras «de»: en
+    # «Rompecabezas de perros lindos» los perros son el dibujo, no el
+    # producto, y no hacen de la ficha algo de Mascotas.
+    nucleo = [w for w, tras_de in cabeza if not tras_de] or cab[:1]
     voc = VOCAB_CABEZA['cats'].get(cat) or {}
-    if any(w in voc for w in cab):
+    if any(w in voc for w in nucleo):
         return None
     s = VOCAB_CABEZA['sustantivos'].get(cab[0])
     if (not s or s[0] == cat or s[0] in NO_RECIBEN_POR_SUSTANTIVO
@@ -932,6 +965,10 @@ REGLAS = [
     # palabra de contexto ("de cocina", "4 quemadores") que una tienda de
     # electrodomésticos no escribe porque no le hace falta. Los combos con
     # "+" quedan afuera: son dos aparatos, no uno comparable.
+    # Mesa refrigerada de barra (restaurante): es refrigeración comercial,
+    # no una mesa de centro.
+    (re.compile(r'^(?:\S+ ){0,1}mesas? (refrigerada|de refrigeracion|fria)'),
+     ('Equipo comercial', 'Refrigeración comercial', 'snowflake')),
     (re.compile(r'^(?:\S+ ){0,1}(rack|pedestal|base|soporte|kit de apilado)\b.{0,25}(lavadora|secadora)'),
      ('Refacciones', 'Refacciones para lavadora y secadora', 'gear')),
     (re.compile(r'^(?:\S+ ){0,2}secadora\b(?=.*(\bgas\b|electrica|\d+ ?kg|carga (superior|frontal)|de ropa))'
@@ -1455,7 +1492,7 @@ REGLAS = [
              r'\btazas? (termicas?|de cafe|de ceramica|para cafe|de te)|\btermo para cafe|\btumblers?\b|'
              r'\bcopas? (de vino|de cristal|de vidrio|para vino)|\bshots? de vidrio|\bjarras? (de vidrio|de cristal|para agua))'),
   ('Cocina y comedor', 'Vasos y tazas', 'coffee')),
- (re.compile(r'\baspirador|shop vac|wet/?dry shop'), ('Aspiradoras', None, 'vacuum')),
+ (re.compile(r'^(?!.*(aspirador nasal|saca ?mocos|nasal))(?=.*(\baspirador|shop vac|wet/?dry shop))'), ('Aspiradoras', None, 'vacuum')),
  # Secadoras de cabello. "Secadora" a secas es ambigua -- la de ropa se llama
  # igual -- así que el título tiene que nombrar además el pelo o lo que se le
  # hace: rizos, frizz, difusor, iones, turmalina, peinado. El catálogo las
@@ -6037,44 +6074,66 @@ def pistas_de_departamento():
             pistas.setdefault(k, (c['id'], None, icono(c['id'], None, c.get('icon'))))
     return pistas
 
-captura = json.load(io.open(sys.argv[1], encoding='utf-8'))
-PISTAS = pistas_de_departamento() if any(it.get('dept') for it in captura) else {}
-por_dept = 0
-por_sustantivo = 0
-alta, fuera = [], []
-for it in captura:
+RX_COMBO = re.compile(r'^\s*combo\b(?=.*[^\d\s]\s*\+\s*\D)')
+
+
+def decidir(it, pistas=None):
+    """La decisión del clasificador para UN título: {'estado': 'alta', ...}
+    con categoría, subcategoría, icono, marca y `via` (explicito,
+    antes_de_fuera, departamento, regla o sustantivo), o {'estado': 'fuera',
+    'motivo': ...}. Es lo mismo que hace la captura ficha por ficha, puesto
+    en una función para que reaplicar_reglas.py pueda pasar por AQUÍ las
+    fichas que ya están en el catálogo cuando cambian las reglas.
+    """
     tn = T(it['title'])
-    base = {k: it[k] for k in ('asin','title','price','photo','url')}
+    via = 'regla'
+    # Un combo («Combo Lavadora 20 kg + Secadora 22 kg») se da de alta como
+    # SET (pedido del usuario, 23-sep): antes FUERA lo descartaba por no ser
+    # comparable contra un aparato solo. Se clasifica por el PRIMER aparato
+    # (la lavadora manda en el combo lavadora + secadora) y la página lo
+    # muestra marcado como set (es_set en web_summary.py y app.js). El «+»
+    # entre números («8+16 GB de RAM») no separa productos.
+    if RX_COMBO.match(tn) and it.get('_combo') is None:
+        principal = re.split(r'(?<!\d)\s*\+\s*(?!\d)', it['title'], maxsplit=1)[0]
+        principal = re.sub(r'^\s*combo\s+(de\s+)?', '', principal, flags=re.I)
+        d = decidir({**it, 'title': principal, '_combo': True}, pistas)
+        if d['estado'] == 'alta':
+            d['via'] = 'combo'
+            d['brand'] = d['brand'] or marca(it['title'])
+        return d
     if it['asin'] in EXPLICITOS:
         mk, cat, sub, img = EXPLICITOS[it['asin']]
-        alta.append({**base, 'brand': mk, 'category': cat, 'subcategory': sub, 'image': img})
-        continue
+        return {'estado': 'alta', 'brand': mk, 'category': cat, 'subcategory': sub,
+                'image': img, 'via': 'explicito'}
     antes = next((v for rx, v in ANTES_DE_FUERA if rx.search(tn)), None)
     if antes:
         cat, sub, img = antes
-        alta.append({**base, 'brand': marca(it['title']), 'category': cat,
-                     'subcategory': sub, 'image': img})
-        continue
+        return {'estado': 'alta', 'brand': marca(it['title']), 'category': cat,
+                'subcategory': sub, 'image': img, 'via': 'antes_de_fuera'}
     motivo = (next((m for rx, m in FUERA if rx.search(tn)), None)
               or next((m for rx, m in CABECERA if rx.search(tn[:55])), None))
     if motivo:
-        fuera.append((it, motivo)); continue
+        return {'estado': 'fuera', 'motivo': motivo}
     # El departamento de Amazon manda cuando nombra una subcategoría del
     # catálogo; si solo nombra la categoría, es la red para lo que ninguna
     # regla reconoce.
-    pista = PISTAS.get(T(it.get('dept') or ''))
-    hit = pista if pista and pista[1] else next((v for rx, v in REGLAS if rx.search(tn)), None)
+    pista = (pistas or {}).get(T(it.get('dept') or ''))
+    n_regla, hit = None, None
+    if pista and pista[1]:
+        hit = pista
+    else:
+        n_regla, hit = next(((i, v) for i, (rx, v) in enumerate(REGLAS) if rx.search(tn)), (None, None))
     if not hit and pista: hit = pista
     if not hit:
-        fuera.append((it, 'no encaja en ninguna categoría')); continue
+        return {'estado': 'fuera', 'motivo': 'no encaja en ninguna categoría'}
     cat, sub, img = hit
     if hit is not pista:
         manda = sustantivo_manda(it['title'], cat)
         if manda:
             cat, sub, img = manda
-            por_sustantivo += 1
+            via = 'sustantivo'
     if hit is pista:
-        por_dept += 1
+        via = 'departamento'
     elif cat == 'Baterías portátiles':
         # El módulo, la placa de carga, la pila de botón y la caja
         # organizadora NO son un power bank, y como el tramo se saca de los
@@ -6162,20 +6221,41 @@ for it in captura:
         sub = 'Bocinas marinas y para moto' if re.search(r'\bmoto|motocicleta|marin', tn) else 'Bocinas para auto'
     mk = marca(it['title'])
     if cat == 'Celulares' and not mk: mk = marca_celular(tn)
-    alta.append({**base, 'brand': mk, 'category': cat,
-                 'subcategory': sub, 'image': img})
+    return {'estado': 'alta', 'brand': mk, 'category': cat, 'subcategory': sub,
+            'image': img, 'via': via, 'regla': n_regla}
 
-json.dump(alta, io.open(sys.argv[2], 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-print(f'ALTA: {len(alta)}   FUERA: {len(fuera)}   sin precio (no se dan de alta): '
-      f'{sum(1 for a in alta if a["price"] is None)}'
-      + (f'   por departamento de Amazon: {por_dept}' if por_dept else '')
-      + (f'   corregidas por el sustantivo: {por_sustantivo}' if por_sustantivo else '') + '\n')
-for k, n in collections.Counter((a['category'], a['subcategory']) for a in alta).most_common():
-    print(f'  {n:4}  {k[0]} / {k[1]}')
-print('\nsin marca:', sum(1 for a in alta if not a['brand']))
-print('\n--- descartados ---')
-for k, n in collections.Counter(m for _, m in fuera).most_common():
-    print(f'  {n:4}  {k}')
-print()
-for it, m in fuera:
-    print(f'  [{m[:30]:30}] {it["asin"]} {it["title"][:75]}')
+
+
+def main():
+    captura = json.load(io.open(sys.argv[1], encoding='utf-8'))
+    pistas = pistas_de_departamento() if any(it.get('dept') for it in captura) else {}
+    alta, fuera = [], []
+    por_via = collections.Counter()
+    for it in captura:
+        d = decidir(it, pistas)
+        if d['estado'] == 'fuera':
+            fuera.append((it, d['motivo']))
+            continue
+        por_via[d['via']] += 1
+        base = {k: it[k] for k in ('asin', 'title', 'price', 'photo', 'url')}
+        alta.append({**base, 'brand': d['brand'], 'category': d['category'],
+                     'subcategory': d['subcategory'], 'image': d['image']})
+    por_dept, por_sustantivo = por_via['departamento'], por_via['sustantivo']
+    json.dump(alta, io.open(sys.argv[2], 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    print(f'ALTA: {len(alta)}   FUERA: {len(fuera)}   sin precio (no se dan de alta): '
+          f'{sum(1 for a in alta if a["price"] is None)}'
+          + (f'   por departamento de Amazon: {por_dept}' if por_dept else '')
+          + (f'   corregidas por el sustantivo: {por_sustantivo}' if por_sustantivo else '') + '\n')
+    for k, n in collections.Counter((a['category'], a['subcategory']) for a in alta).most_common():
+        print(f'  {n:4}  {k[0]} / {k[1]}')
+    print('\nsin marca:', sum(1 for a in alta if not a['brand']))
+    print('\n--- descartados ---')
+    for k, n in collections.Counter(m for _, m in fuera).most_common():
+        print(f'  {n:4}  {k}')
+    print()
+    for it, m in fuera:
+        print(f'  [{m[:30]:30}] {it["asin"]} {it["title"][:75]}')
+
+
+if __name__ == '__main__':
+    main()

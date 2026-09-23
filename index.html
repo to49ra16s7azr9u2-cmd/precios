@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=5ef0a2e7">
+<link rel="stylesheet" href="css/style.min.css?v=b1710d09">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -1044,15 +1044,35 @@
 </div>
 
 <div id="mapModal" class="modal-overlay hidden">
-  <div class="modal">
+  <div class="modal mx-modal" role="dialog" aria-modal="true" aria-labelledby="mxMapTitulo">
     <div class="modal-head">
-      <h2>Elige tu municipio o alcaldía</h2>
+      <h2 id="mxMapTitulo">¿Dónde estás?</h2>
       <button class="modal-close" id="mapModalClose" aria-label="Cerrar">✕</button>
     </div>
-    <p class="muted small">Cubrimos las 32 entidades de México (desliza la lista de pestañas para verlas todas). Ciudad de México, Guadalajara y Monterrey tienen varios municipios o alcaldías para elegir con precisión; el resto del país usa un solo punto de referencia, la capital del estado, así que el tiempo de entrega dentro de un estado grande puede variar más de lo que muestra el estimado.</p>
-    <div class="metro-tabs" id="metroTabs"></div>
-    <div id="map" class="map"></div>
-    <div class="region-chips" id="regionChips"></div>
+    <div class="mx-map-top">
+      <nav class="mx-miga" id="mxMapMiga" aria-label="Estado elegido"></nav>
+      <div class="mx-map-buscar">
+        <label for="mxMapSearch" class="sr-only">Buscar estado o municipio</label>
+        <input id="mxMapSearch" type="search" placeholder="Busca tu municipio (p. ej. Zapopan)" autocomplete="off">
+        <div class="mx-map-results" id="mxMapResults" hidden></div>
+      </div>
+    </div>
+    <div class="mx-map-wrap" id="mxMapWrap">
+      <svg id="mxMap" role="img" aria-label="Mapa de los estados y municipios de México"></svg>
+      <div class="mx-map-zoom">
+        <button type="button" id="mxZoomIn" aria-label="Acercar">+</button>
+        <button type="button" id="mxZoomOut" aria-label="Alejar">−</button>
+        <button type="button" id="mxZoomFit" aria-label="Ver todo el estado o el país">⤢</button>
+      </div>
+      <div class="mx-map-tip" id="mxMapTip" hidden></div>
+      <p class="mx-map-status" id="mxMapStatus" hidden></p>
+    </div>
+    <p class="mx-map-hint muted small" id="mxMapHint"></p>
+    <div class="mx-map-confirm" id="mxMapConfirm" hidden>
+      <span>Entregar en <strong id="mxMapElegido"></strong></span>
+      <button type="button" class="mx-map-usar" id="mxMapUsar">Usar esta ubicación</button>
+    </div>
+    <p class="muted small mx-map-nota">El tiempo y el costo de envío se estiman desde la zona de reparto más cercana a tu municipio.</p>
   </div>
 </div>
 
@@ -1111,7 +1131,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=f2f5890a"></script>
+<script src="js/app.min.js?v=ca4bc0a2"></script>
 </div>
 </body>
 </html>

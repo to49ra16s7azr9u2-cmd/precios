@@ -220,6 +220,19 @@ def review_star_points(product):
     return sum(points.get(r.get("rating"), 0) for r in (product.get("reviews") or []))
 
 
+def productos_del_set(product):
+    """Cuántos productos trae un set («Combo Lavadora 20 kg + Secadora 22 kg»
+    -> 2), o 0 si no es un set. Misma regla que productosDelSet() en
+    js/app.js: «combo» al principio y un «+» entre productos; el de
+    «8+16 GB de RAM» no cuenta."""
+    import re
+    nombre = str(product.get("name") or "")
+    if not re.match(r"\s*combo\b", nombre, re.I):
+        return 0
+    partes = re.split(r"\s*\+\s*", re.sub(r"(\d)\s*\+\s*(\d)", r"\1·\2", nombre))
+    return len(partes) if len(partes) >= 2 else 0
+
+
 def is_used(product):
     """Espejo de isUsed() en js/app.js."""
     import re

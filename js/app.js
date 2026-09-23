@@ -402,6 +402,7 @@
     icons: null, // set de ilustraciones SVG (data/icons.json) que reemplaza a los emoji en todo el sitio
     selectedMetro: null,
     selectedRegion: null, // null hasta que el usuario elige un municipio en el mapa
+    municipio: null,      // {id, n, ent} del mapa de municipios; la zona de envío es selectedRegion
     query: "",
     category: null, // filtro activo en la vista de lista
     // LISTA, no un valor suelto: el filtro es multi-selección (ver toSubList
@@ -733,14 +734,24 @@
     guiaModal: document.getElementById("guiaModal"),
     guiaModalClose: document.getElementById("guiaModalClose"),
     guiaModalBody: document.getElementById("guiaModalBody"),
-    metroTabs: document.getElementById("metroTabs"),
-    regionChips: document.getElementById("regionChips"),
+    mxMap: document.getElementById("mxMap"),
+    mxMapWrap: document.getElementById("mxMapWrap"),
+    mxMapTip: document.getElementById("mxMapTip"),
+    mxMapStatus: document.getElementById("mxMapStatus"),
+    mxMapMiga: document.getElementById("mxMapMiga"),
+    mxMapHint: document.getElementById("mxMapHint"),
+    mxMapConfirm: document.getElementById("mxMapConfirm"),
+    mxMapElegido: document.getElementById("mxMapElegido"),
+    mxMapUsar: document.getElementById("mxMapUsar"),
+    mxMapSearch: document.getElementById("mxMapSearch"),
+    mxMapResults: document.getElementById("mxMapResults"),
+    mxZoomIn: document.getElementById("mxZoomIn"),
+    mxZoomOut: document.getElementById("mxZoomOut"),
+    mxZoomFit: document.getElementById("mxZoomFit"),
 
     backToTopBtn: document.getElementById("backToTopBtn"),
   };
 
-  let map = null;
-  let regionMarkers = {};
 
   function money(n) {
     return n.toLocaleString("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 });
@@ -1171,6 +1182,25 @@
       return `<span class="used-badge" title="Producto usado/preowned">${icon("rotate")} Usado</span>`;
     }
     return "";
+  }
+
+  // Set de varios productos vendidos juntos («Combo Lavadora 20 kg +
+  // Secadora 22 kg»). Se da de alta como una ficha más (pedido del usuario,
+  // 23-sep), pero el precio es de TODO el set: el sello va delante del
+  // nombre, para que nadie lo compare contra un aparato solo. Misma regla
+  // que es_set() en scripts/web_summary.py: «combo» al principio y un «+»
+  // entre productos (el de «8+16 GB» no cuenta).
+  function productosDelSet(product) {
+    const n = String(product.name || "");
+    if (!/^\s*combo\b/i.test(n)) return 0;
+    // Sin lookbehind: Safari viejo no lo entiende y rompería todo el script.
+    const partes = n.replace(/(\d)\s*\+\s*(\d)/g, "$1·$2").split(/\s*\+\s*/);
+    return partes.length >= 2 ? partes.length : 0;
+  }
+  function setBadge(product) {
+    const n = productosDelSet(product);
+    if (!n) return "";
+    return `<span class="set-badge" title="El precio es por el set completo, no por un solo producto">${icon("box")} Set de ${n} productos</span>`;
   }
 
   // Equipo de uso comercial/industrial (p.ej. refrigeradores de
@@ -1973,7 +2003,10 @@
       // de ubicación (updateLocationBtn) y el mapa (initOrUpdateMap), que
       // corren en el arranque de la sesión.
       if (cloud.selectedMetro && metroById(cloud.selectedMetro)) state.selectedMetro = cloud.selectedMetro;
-      if (cloud.selectedRegion && regionById(cloud.selectedRegion)) state.selectedRegion = cloud.selectedRegion;
+      if (cloud.selectedRegion && regionById(cloud.selectedRegion)) {
+        state.selectedRegion = cloud.selectedRegion;
+        state.municipio = cloud.municipio || null;
+      }
     } else {
       window.ComparaMXData.setUserData(user.uid, {
         favorites: getFavorites(),
@@ -2580,6 +2613,8 @@
 
     manifest.products = [];
     state.data = hideEmptyTaxonomy(manifest);
+    restaurarUbicacion();
+    if (state.selectedRegion) updateLocationBtn();
     [state.brandsData, state.icons, state.shippingRates] = await Promise.all([marcas, iconos, tarifas]);
   }
 
@@ -3435,7 +3470,7 @@
       <div class="most-viewed-info">
         <p class="most-viewed-heading">${icon("eye")} Más visto en este navegador</p>
         <p class="muted small">${htmlEscapeAttr(product.brand)} · ${plural(count, "visita", "visitas")} en este navegador</p>
-        <h3>${htmlEscapeAttr(product.name)}${conditionBadge(product)}${usageBadge(product)}</h3>
+        <h3>${setBadge(product)}${htmlEscapeAttr(product.name)}${conditionBadge(product)}${usageBadge(product)}</h3>
         <div class="detail-rating">
           ${ratingCount > 0
             ? `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${plural(ratingCount, "calificación", "calificaciones")})</span>`
@@ -4160,7 +4195,7 @@
               .join("")
           }
           <div class="row-brand">${htmlEscapeAttr(p.brand)}</div>
-          <div class="row-name">${htmlEscapeAttr(p.name)}${usedBadge}${commercialBadge}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">${icon("palette")} +${variantCount}</span>` : ""}</div>
+          <div class="row-name">${setBadge(p)}${htmlEscapeAttr(p.name)}${usedBadge}${commercialBadge}${variantCount > 0 ? `<span class="variant-count-badge" title="También disponible en otros colores/tallas">${icon("palette")} +${variantCount}</span>` : ""}</div>
           ${
             // Sin reseñas propias todavía, la fila mostraba "☆☆☆☆☆ 0.0 (0)"
             // en los 16 mil productos: 60 veces por página de puro ruido que
@@ -6517,7 +6552,7 @@
     renderProductMedia(el.detailIcon, product, "detail", () => attachDiscountRibbon(el.detailIcon, product));
     attachDiscountRibbon(el.detailIcon, product);
     el.detailBrand.textContent = product.brand;
-    el.detailName.innerHTML = `${htmlEscapeAttr(product.name)}${conditionBadge(product)}${usageBadge(product)}`;
+    el.detailName.innerHTML = `${setBadge(product)}${htmlEscapeAttr(product.name)}${conditionBadge(product)}${usageBadge(product)}`;
     const { avg, count } = aggregateRating(product);
     el.detailRating.innerHTML =
       count > 0
@@ -6755,11 +6790,12 @@
       el.locationBtnLabel.textContent = "Cambiar ubicación";
       el.locationBtn.classList.add("is-set");
       el.deliveryBanner.classList.add("is-set");
-      el.deliveryBannerTitle.textContent = `✓ Mostrando entrega a ${region.name}`;
+      const lugar = state.municipio ? etiquetaMunicipio(state.municipio) : region.name;
+      el.deliveryBannerTitle.textContent = `✓ Mostrando entrega a ${lugar}`;
       el.deliveryBannerSubtitle.textContent = "¿Otro municipio? Puedes cambiarlo cuando quieras.";
       // Con guarda: la portada cambió de forma una vez y estas líneas se
       // rompieron. Si el botón vuelve a moverse, esto no se entera.
-      if (el.homeLocationBtnLabel) el.homeLocationBtnLabel.textContent = region.name;
+      if (el.homeLocationBtnLabel) el.homeLocationBtnLabel.textContent = lugar;
       if (el.homeLocationBtn) el.homeLocationBtn.classList.add("is-set");
     } else {
       el.locationBtnLabel.textContent = "Elegir mi ubicación";
@@ -7214,160 +7250,350 @@
   }
 
   // ---------- Mapa de entrega (modal) ----------
-  // Leaflet se carga de forma perezosa (recién al abrir el mapa) para no
-  // bloquear la carga inicial de la página con un <script> externo síncrono.
-  let leafletLoadPromise = null;
-  function ensureLeafletLoaded() {
-    if (window.L) return Promise.resolve();
-    if (leafletLoadPromise) return leafletLoadPromise;
-    leafletLoadPromise = new Promise((resolve, reject) => {
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
-      document.head.appendChild(link);
-      const script = document.createElement("script");
-      script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
-      script.onload = () => resolve();
-      script.onerror = () => reject(new Error("No se pudo cargar el mapa."));
-      document.head.appendChild(script);
+  // El mapa de municipios de la página del usuario (artifact «México,
+  // municipio por municipio», 23-sep): los 32 estados y sus 2,475
+  // municipios dibujados con d3 + topojson, sin mosaicos de un servidor de
+  // mapas. Primero se toca el estado, el mapa se acerca y se elige el
+  // municipio. Antes era Leaflet con 32 pestañas y un pin por estado.
+  //
+  // Todo se baja recién al abrir el modal (d3, topojson y
+  // data/mexico-municipios.json, ~340 KB comprimido): la portada no lo paga.
+  //
+  // El envío se sigue estimando por las 47 zonas de data.json (regions): el
+  // municipio elegido se asigna a la zona de su estado con el mismo nombre
+  // o, si no hay, a la más cercana (en 29 estados hay una sola: la capital).
+  const MX_ESTADOS = {
+    "01": ["Aguascalientes", "AGS", "ags"], "02": ["Baja California", "BC", "bc"],
+    "03": ["Baja California Sur", "BCS", "bcs"], "04": ["Campeche", "CAMP", "camp"],
+    "05": ["Coahuila", "COAH", "coah"], "06": ["Colima", "COL", "col"],
+    "07": ["Chiapas", "CHIS", "chis"], "08": ["Chihuahua", "CHIH", "chih"],
+    "09": ["Ciudad de México", "CDMX", "cdmx"], "10": ["Durango", "DGO", "dgo"],
+    "11": ["Guanajuato", "GTO", "gto"], "12": ["Guerrero", "GRO", "gro"],
+    "13": ["Hidalgo", "HGO", "hgo"], "14": ["Jalisco", "JAL", "gdl"],
+    "15": ["Estado de México", "MEX", "mex"], "16": ["Michoacán", "MICH", "mich"],
+    "17": ["Morelos", "MOR", "mor"], "18": ["Nayarit", "NAY", "nay"],
+    "19": ["Nuevo León", "NL", "mty"], "20": ["Oaxaca", "OAX", "oax"],
+    "21": ["Puebla", "PUE", "pue"], "22": ["Querétaro", "QRO", "qro"],
+    "23": ["Quintana Roo", "QROO", "qroo"], "24": ["San Luis Potosí", "SLP", "slp"],
+    "25": ["Sinaloa", "SIN", "sin"], "26": ["Sonora", "SON", "son"],
+    "27": ["Tabasco", "TAB", "tab"], "28": ["Tamaulipas", "TAMS", "tamps"],
+    "29": ["Tlaxcala", "TLAX", "tlax"], "30": ["Veracruz", "VER", "ver"],
+    "31": ["Yucatán", "YUC", "yuc"], "32": ["Zacatecas", "ZAC", "zac"],
+  };
+  const LS_UBICACION = "comparamx_ubicacion";
+  let mapaCarga = null;
+  let mapa = null;          // {svg, g, zoom, path, muns, porEstado, estados, ...} una vez armado
+  let mapaEstado = null;    // "14" con Jalisco abierto, null en la vista del país
+  let mapaElegido = null;   // municipio marcado, pendiente de confirmar
+
+  function cargarScript(src) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = src;
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error("No se pudo cargar " + src));
+      document.head.appendChild(s);
     });
-    return leafletLoadPromise;
+  }
+  function cargarMapa() {
+    if (mapaCarga) return mapaCarga;
+    mapaCarga = Promise.all([
+      window.d3 ? null : cargarScript("https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"),
+      window.topojson ? null : cargarScript("https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"),
+      fetch("data/mexico-municipios.json").then((r) => r.json()),
+    ]).then(([, , topo]) => topo);
+    mapaCarga.catch(() => { mapaCarga = null; });
+    return mapaCarga;
+  }
+
+  function sinAcentos(s) {
+    return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  }
+
+  // La zona de envío de un municipio: la de su estado con el mismo nombre
+  // («Zapopan», «Guadalupe»), si no la más cercana a su centro.
+  function zonaDeMunicipio(f) {
+    const est = MX_ESTADOS[f.ent];
+    const zonas = est ? regionsInMetro(est[2]) : [];
+    if (!zonas.length) return null;
+    const n = sinAcentos(f.properties.n);
+    const igual = zonas.find((r) => sinAcentos(r.name).replace(/ centro$/, "") === n);
+    if (igual) return igual;
+    const [lng, lat] = window.d3.geoCentroid(f);
+    let mejor = zonas[0], dmin = Infinity;
+    zonas.forEach((r) => {
+      const d = window.d3.geoDistance([lng, lat], [r.lng, r.lat]);
+      if (d < dmin) { dmin = d; mejor = r; }
+    });
+    return mejor;
+  }
+
+  function etiquetaMunicipio(m) {
+    const est = m && MX_ESTADOS[m.ent];
+    return m ? (est ? `${m.n}, ${est[1]}` : m.n) : "";
+  }
+
+  function restaurarUbicacion() {
+    const u = readLS(LS_UBICACION, null);
+    if (!u || !u.region || !regionById(u.region)) return;
+    state.selectedRegion = u.region;
+    state.selectedMetro = regionById(u.region).metro;
+    state.municipio = u.municipio || null;
   }
 
   function openMapModal() {
-    if (!state.selectedMetro) {
-      state.selectedMetro = state.data.metros[0].id;
-    }
-    renderMetroTabs();
-    renderRegionChips();
     el.mapModal.classList.remove("hidden");
-    ensureLeafletLoaded()
-      .then(() => initOrUpdateMap())
-      .catch(() => closeMapModal());
+    mapaElegido = state.municipio || null;
+    renderMapaBarra();
+    if (mapa) {
+      requestAnimationFrame(() => { mapaLayout(); mapaAbrirEstado(state.municipio ? state.municipio.ent : null, true); });
+      return;
+    }
+    el.mxMapStatus.textContent = "Cargando el mapa…";
+    el.mxMapStatus.hidden = false;
+    cargarMapa()
+      .then((topo) => {
+        armarMapa(topo);
+        el.mxMapStatus.hidden = true;
+        mapaAbrirEstado(state.municipio ? state.municipio.ent : null, true);
+      })
+      .catch(() => {
+        el.mxMapStatus.textContent = "No se pudo cargar el mapa. Revisa tu conexión y vuelve a intentarlo.";
+      });
   }
 
   function closeMapModal() {
     el.mapModal.classList.add("hidden");
+    el.mxMapTip.hidden = true;
   }
 
-  function renderMetroTabs() {
-    el.metroTabs.innerHTML = "";
-    let activeTab = null;
-    state.data.metros.forEach((m) => {
-      const tab = document.createElement("button");
-      tab.className = "metro-tab" + (m.id === state.selectedMetro ? " active" : "");
-      tab.textContent = m.name;
-      tab.onclick = () => {
-        state.selectedMetro = m.id;
-        renderMetroTabs();
-        renderRegionChips();
-        panToMetro(m);
-        renderMarkersForMetro();
-        // 29 de los 32 estados tienen un solo punto de referencia (la
-        // capital, ver el aviso arriba del mapa) -- ahí no hay nada que
-        // elegir en el mapa, así que un solo toque en la pestaña del
-        // estado ya es la elección completa. Solo CDMX/Guadalajara/
-        // Monterrey (varios municipios) necesitan que se toque un pin.
-        const regions = regionsInMetro(m.id);
-        if (regions.length === 1) selectRegion(regions[0].id);
-      };
-      if (m.id === state.selectedMetro) activeTab = tab;
-      el.metroTabs.appendChild(tab);
+  function armarMapa(topo) {
+    const d3 = window.d3, tj = window.topojson;
+    const obj = topo.objects.mun;
+    const muns = tj.feature(topo, obj).features;
+    const porEstado = new Map();
+    muns.forEach((f) => {
+      f.ent = String(f.id).slice(0, 2);
+      if (!porEstado.has(f.ent)) porEstado.set(f.ent, []);
+      porEstado.get(f.ent).push(f);
     });
-    // Con 32 estados la barra es más ancha que la pantalla: al elegir uno
-    // que quedó fuera de vista (o al abrir el modal) la pestaña activa se
-    // trae a la vista en vez de dejarla escondida a la izquierda o derecha.
-    if (activeTab) activeTab.scrollIntoView({ block: "nearest", inline: "center" });
+    const ents = Object.keys(MX_ESTADOS).filter((e) => porEstado.has(e));
+    const estados = new Map(ents.map((e) => [e, {
+      type: "Feature", id: e,
+      geometry: tj.merge(topo, obj.geometries.filter((g) => String(g.id).slice(0, 2) === e)),
+    }]));
+    const svg = d3.select(el.mxMap);
+    svg.selectAll("*").remove();
+    const g = svg.append("g");
+    const projection = d3.geoConicConformal().parallels([17.5, 29.5]).rotate([102, 0]);
+    const path = d3.geoPath(projection);
+    const nacion = { type: "FeatureCollection", features: [...estados.values()] };
+    const fronteras = tj.mesh(topo, obj, (a, b) => a === b || String(a.id).slice(0, 2) !== String(b.id).slice(0, 2));
+
+    const selMun = g.append("g").selectAll("path").data(muns).join("path").attr("class", "mx-mun")
+      .on("pointerenter", (ev, f) => { if (f.ent === mapaEstado) mapaTip(ev, f.properties.n); })
+      .on("pointermove", (ev, f) => { if (f.ent === mapaEstado) mapaTipMover(ev); })
+      .on("pointerleave", () => { el.mxMapTip.hidden = true; })
+      .on("click", (ev, f) => { if (f.ent !== mapaEstado) return; ev.stopPropagation(); mapaMarcar(f); });
+    const selEst = g.append("g").selectAll("path").data(ents).join("path").attr("class", "mx-est")
+      .on("pointerenter", (ev, e) => mapaTip(ev, MX_ESTADOS[e][0]))
+      .on("pointermove", (ev) => mapaTipMover(ev))
+      .on("pointerleave", () => { el.mxMapTip.hidden = true; })
+      .on("click", (ev, e) => { ev.stopPropagation(); mapaAbrirEstado(e); });
+    const borde = g.append("path").attr("class", "mx-borde");
+    const contorno = g.append("path").attr("class", "mx-contorno");
+    const marca = g.append("path").attr("class", "mx-marca");
+    const gEtq = g.append("g").attr("class", "mx-etq");
+
+    const zoom = d3.zoom().scaleExtent([1, 160]).on("zoom", (ev) => {
+      g.attr("transform", ev.transform);
+      gEtq.attr("font-size", 11 / ev.transform.k).attr("stroke-width", 3 / ev.transform.k);
+    }).on("end", () => mapaEtiquetas());
+    svg.call(zoom).on("dblclick.zoom", null);
+
+    mapa = { svg, g, zoom, path, projection, nacion, fronteras, muns, porEstado, ents, estados,
+      selMun, selEst, borde, contorno, marca, gEtq, W: 600, H: 420 };
+    mapaLayout();
   }
 
-  function renderRegionChips() {
-    el.regionChips.innerHTML = "";
-    regionsInMetro(state.selectedMetro).forEach((r) => {
-      const chip = document.createElement("button");
-      chip.className = "region-chip" + (r.id === state.selectedRegion ? " active" : "");
-      chip.textContent = r.name;
-      chip.onclick = () => selectRegion(r.id);
-      el.regionChips.appendChild(chip);
-    });
+  function mapaLayout() {
+    if (!mapa) return;
+    const r = el.mxMapWrap.getBoundingClientRect();
+    mapa.W = Math.max(280, r.width);
+    mapa.H = Math.max(260, r.height);
+    const { W, H } = mapa;
+    mapa.svg.attr("viewBox", [0, 0, W, H]);
+    mapa.zoom.extent([[0, 0], [W, H]]).translateExtent([[-W, -H], [2 * W, 2 * H]]);
+    mapa.projection.fitExtent([[10, 10], [W - 10, H - 10]], mapa.nacion);
+    mapa.selMun.attr("d", mapa.path);
+    mapa.selEst.attr("d", (e) => mapa.path(mapa.estados.get(e)));
+    mapa.borde.attr("d", mapa.path(mapa.fronteras));
+    mapa.muns.forEach((f) => { f.c = mapa.path.centroid(f); const b = mapa.path.bounds(f); f.bw = b[1][0] - b[0][0]; f.bh = b[1][1] - b[0][1]; });
+    mapaPintar();
+  }
+
+  function mapaPintar() {
+    const e = mapaEstado;
+    mapa.selMun
+      .classed("es-fuera", (f) => !!e && f.ent !== e)
+      .classed("es-activo", (f) => !!e && f.ent === e)
+      .classed("es-elegido", (f) => !!mapaElegido && f.id === mapaElegido.id);
+    mapa.selEst.classed("es-abierto", (x) => x === e);
+    mapa.contorno.attr("d", e ? mapa.path(mapa.estados.get(e)) : null);
+    const f = mapaElegido && mapa.muns.find((m) => m.id === mapaElegido.id);
+    mapa.marca.attr("d", f ? mapa.path(f) : null);
+    // Etiquetas: abreviaturas de estados en el país, nombres de municipios
+    // (los que caben) dentro de un estado.
+    const datos = e
+      ? mapa.porEstado.get(e).map((m) => ({ id: m.id, x: m.c[0], y: m.c[1], t: m.properties.n, w: m.bw, h: m.bh }))
+      : mapa.ents.map((x) => { const c = mapa.path.centroid(mapa.estados.get(x)); return { id: x, x: c[0], y: c[1], t: MX_ESTADOS[x][1], w: 99, h: 99 }; });
+    mapa.gEtq.selectAll("text").data(datos, (d) => d.id).join("text")
+      .attr("x", (d) => d.x).attr("y", (d) => d.y).text((d) => d.t)
+      .classed("es-estado", !e);
+    mapaEtiquetas();
+  }
+
+  // Sólo las etiquetas que caben dentro de su municipio y no se pisan.
+  function mapaEtiquetas() {
+    if (!mapa) return;
+    const t = window.d3.zoomTransform(mapa.svg.node());
+    const cajas = [];
+    const fs = 11;
+    const orden = mapa.gEtq.selectAll("text").data().slice()
+      .sort((a, b) => (mapaElegido && b.id === mapaElegido.id) - (mapaElegido && a.id === mapaElegido.id) || b.w * b.h - a.w * a.h);
+    const ver = new Set();
+    for (const d of orden) {
+      const x = t.applyX(d.x), y = t.applyY(d.y);
+      const tw = d.t.length * fs * 0.56, th = fs * 1.2;
+      if (x < -40 || x > mapa.W + 40 || y < -20 || y > mapa.H + 20) continue;
+      const elegido = mapaElegido && d.id === mapaElegido.id;
+      if (mapaEstado && !elegido && !(d.w * t.k > tw * 0.8 && d.h * t.k > th * 0.9)) continue;
+      const c = [x - tw / 2 - 2, y - th / 2, x + tw / 2 + 2, y + th / 2];
+      if (cajas.some((b) => !(c[2] < b[0] || c[0] > b[2] || c[3] < b[1] || c[1] > b[3]))) continue;
+      cajas.push(c);
+      ver.add(d.id);
+    }
+    mapa.gEtq.selectAll("text").attr("display", (d) => (ver.has(d.id) ? null : "none"));
+  }
+
+  function mapaZoomA(feature, instantaneo) {
+    const { W, H } = mapa;
+    let k = 1, tx = 0, ty = 0;
+    if (feature) {
+      const b = mapa.path.bounds(feature);
+      const dx = b[1][0] - b[0][0], dy = b[1][1] - b[0][1];
+      const cx = (b[0][0] + b[1][0]) / 2, cy = (b[0][1] + b[1][1]) / 2;
+      k = Math.min(160, 0.88 / Math.max(dx / W, dy / H));
+      tx = W / 2 - k * cx;
+      ty = H / 2 - k * cy;
+    }
+    const tr = window.d3.zoomIdentity.translate(tx, ty).scale(k);
+    const reducir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (instantaneo || reducir) mapa.svg.call(mapa.zoom.transform, tr);
+    else mapa.svg.transition().duration(650).call(mapa.zoom.transform, tr);
+  }
+
+  function mapaAbrirEstado(ent, instantaneo) {
+    if (!mapa) return;
+    mapaEstado = ent && mapa.estados.has(ent) ? ent : null;
+    if (mapaElegido && mapaElegido.ent !== mapaEstado) mapaElegido = null;
+    mapaPintar();
+    mapaZoomA(mapaEstado ? mapa.estados.get(mapaEstado) : null, instantaneo);
+    renderMapaBarra();
+  }
+
+  function mapaMarcar(f) {
+    el.mxMapTip.hidden = true;
+    mapaElegido = { id: f.id, n: f.properties.n, ent: f.ent };
+    mapaPintar();
+    renderMapaBarra();
+  }
+
+  function mapaTip(ev, texto) {
+    el.mxMapTip.textContent = texto;
+    el.mxMapTip.hidden = false;
+    mapaTipMover(ev);
+  }
+  function mapaTipMover(ev) {
+    const r = el.mxMapWrap.getBoundingClientRect();
+    el.mxMapTip.style.left = Math.min(r.width - 150, ev.clientX - r.left + 12) + "px";
+    el.mxMapTip.style.top = (ev.clientY - r.top + 12) + "px";
+  }
+
+  // La barra de arriba del mapa: dónde está uno («México › Jalisco») y,
+  // con un municipio marcado, el botón que lo confirma.
+  function renderMapaBarra() {
+    const est = mapaEstado && MX_ESTADOS[mapaEstado];
+    el.mxMapMiga.innerHTML = est
+      ? `<button type="button" class="mx-miga-volver">← México</button><span>${htmlEscapeAttr(est[0])}</span>`
+      : `<span>México</span>`;
+    const volver = el.mxMapMiga.querySelector(".mx-miga-volver");
+    if (volver) volver.onclick = () => mapaAbrirEstado(null);
+    el.mxMapHint.textContent = est
+      ? "Toca tu municipio (puedes acercar con + o pellizcando)."
+      : "Toca tu estado para ver sus municipios.";
+    if (mapaElegido) {
+      el.mxMapConfirm.hidden = false;
+      el.mxMapElegido.textContent = etiquetaMunicipio(mapaElegido);
+    } else {
+      el.mxMapConfirm.hidden = true;
+    }
+  }
+
+  function confirmarMunicipio() {
+    if (!mapaElegido || !mapa) return;
+    const f = mapa.muns.find((m) => m.id === mapaElegido.id);
+    const zona = f && zonaDeMunicipio(f);
+    if (!zona) return;
+    state.municipio = mapaElegido;
+    state.selectedMetro = zona.metro;
+    selectRegion(zona.id);
   }
 
   function selectRegion(regionId) {
     state.selectedRegion = regionId;
+    writeLS(LS_UBICACION, { region: regionId, municipio: state.municipio || null });
     if (state.user && window.ComparaMXData) {
       window.ComparaMXData.setUserData(state.user.uid, {
         selectedRegion: regionId,
         selectedMetro: state.selectedMetro,
+        municipio: state.municipio || null,
       });
     }
-    renderRegionChips();
-    highlightMarker();
     updateLocationBtn();
     const product = currentProduct();
     if (product) renderDetailTopOffers(product, renderOfferTable(product));
     closeMapModal();
   }
 
-  function panToMetro(metro) {
-    if (!map) return;
-    map.setView([metro.center.lat, metro.center.lng], metro.zoom);
-  }
-
-  function initOrUpdateMap() {
-    if (!map) {
-      const metro = metroById(state.selectedMetro);
-      map = L.map("map", { zoomControl: true, scrollWheelZoom: false }).setView(
-        [metro.center.lat, metro.center.lng],
-        metro.zoom
-      );
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "&copy; OpenStreetMap",
-        maxZoom: 15,
-      }).addTo(map);
-    }
-    renderMarkersForMetro();
-    setTimeout(() => map.invalidateSize(), 50);
-  }
-
-  function renderMarkersForMetro() {
-    Object.values(regionMarkers).forEach((m) => map.removeLayer(m));
-    regionMarkers = {};
-
-    // Pins grandes (antes 10px de radio, 14px activo) y con el nombre
-    // siempre a la vista arriba del pin (antes solo aparecía al pasar el
-    // mouse, así que en celular -- sin cursor que pueda "pasar por
-    // encima" -- no había forma de saber qué pin era cuál sin tocarlo a
-    // ciegas primero). A pedido del usuario: más fácil de ver y de
-    // acertarle al tocar.
-    regionsInMetro(state.selectedMetro).forEach((r) => {
-      const marker = L.circleMarker([r.lat, r.lng], {
-        radius: 16,
-        color: "#FF0211",
-        weight: 3,
-        fillColor: "#ffb3b3",
-        fillOpacity: 0.95,
-      }).addTo(map);
-      marker.bindTooltip(r.name, {
-        permanent: true,
-        direction: "top",
-        offset: [0, -10],
-        className: "region-marker-label",
-      });
-      marker.on("click", () => selectRegion(r.id));
-      regionMarkers[r.id] = marker;
+  // Buscador del modal: estados y municipios por nombre, sin acentos.
+  function buscarEnMapa(q) {
+    const t = sinAcentos(q).trim();
+    el.mxMapResults.innerHTML = "";
+    if (!mapa || t.length < 2) { el.mxMapResults.hidden = true; return; }
+    const res = [];
+    Object.entries(MX_ESTADOS).forEach(([e, v]) => { if (sinAcentos(v[0]).includes(t)) res.push({ tipo: "estado", e, n: v[0] }); });
+    mapa.muns.forEach((f) => {
+      const n = sinAcentos(f.properties.n);
+      if (n.includes(t)) res.push({ tipo: "mun", f, n: f.properties.n, empieza: n.startsWith(t) });
     });
-    highlightMarker();
-  }
-
-  function highlightMarker() {
-    Object.entries(regionMarkers).forEach(([id, marker]) => {
-      const isActive = id === state.selectedRegion;
-      marker.setStyle({
-        radius: isActive ? 22 : 16,
-        weight: isActive ? 4 : 3,
-        fillColor: isActive ? "#FF0211" : "#ffb3b3",
-        color: isActive ? "#8c0007" : "#FF0211",
-      });
+    res.sort((a, b) => (a.tipo === "estado" ? -1 : 0) - (b.tipo === "estado" ? -1 : 0) || (b.empieza ? 1 : 0) - (a.empieza ? 1 : 0) || a.n.localeCompare(b.n));
+    res.slice(0, 12).forEach((r) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.innerHTML = r.tipo === "estado"
+        ? `<span>${htmlEscapeAttr(r.n)}</span><small>Estado</small>`
+        : `<span>${htmlEscapeAttr(r.n)}</span><small>${htmlEscapeAttr(MX_ESTADOS[r.f.ent][0])}</small>`;
+      b.onclick = () => {
+        el.mxMapResults.hidden = true;
+        el.mxMapSearch.value = "";
+        if (r.tipo === "estado") { mapaAbrirEstado(r.e); return; }
+        mapaAbrirEstado(r.f.ent);
+        mapaMarcar(r.f);
+      };
+      el.mxMapResults.appendChild(b);
     });
+    el.mxMapResults.hidden = !res.length;
   }
 
   // ---------- Autocompletado de categorías en el buscador ----------
@@ -7895,6 +8121,14 @@
     el.locationBtn.addEventListener("click", openMapModal);
     if (el.homeLocationBtn) el.homeLocationBtn.addEventListener("click", openMapModal);
     el.mapModalClose.addEventListener("click", closeMapModal);
+    el.mxMapUsar.addEventListener("click", confirmarMunicipio);
+    el.mxMapSearch.addEventListener("input", () => buscarEnMapa(el.mxMapSearch.value));
+    el.mxZoomIn.addEventListener("click", () => mapa && mapa.svg.transition().duration(250).call(mapa.zoom.scaleBy, 1.8));
+    el.mxZoomOut.addEventListener("click", () => mapa && mapa.svg.transition().duration(250).call(mapa.zoom.scaleBy, 1 / 1.8));
+    el.mxZoomFit.addEventListener("click", () => mapa && mapaZoomA(mapaEstado ? mapa.estados.get(mapaEstado) : null));
+    window.addEventListener("resize", () => {
+      if (mapa && !el.mapModal.classList.contains("hidden")) { mapaLayout(); mapaZoomA(mapaEstado ? mapa.estados.get(mapaEstado) : null, true); }
+    });
     el.mapModal.addEventListener("click", (e) => {
       if (e.target === el.mapModal) closeMapModal();
     });
