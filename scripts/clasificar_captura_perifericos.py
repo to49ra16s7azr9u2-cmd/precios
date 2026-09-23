@@ -958,7 +958,76 @@ ANTES_DE_FUERA = [
      ('Herramientas', 'Material eléctrico', 'wrench')),
 ]
 
+# CABEZA: en las reglas «atrapalotodo» (Herramientas, Autos, Muebles,
+# Bocinas, Lavadoras) la palabra tiene que estar entre las tres primeras
+# del título y no detrás de «de/para/con...». Antes valía en cualquier
+# parte y era la mayor fuente de discrepancias con el catálogo (24-sep):
+# «Andadera bebé ... auto», «Cámara PTZ ... Auto Tracking», «Lámpara
+# colgante para isla de cocina», «Teléfono con altavoz».
 REGLAS = [
+    # --- DEFINICIONES (24-sep-2026) ------------------------------------
+    # Una sola casa por tipo de producto, como en kakaku.com: donde dos
+    # categorías podían reclamar lo mismo, manda la que ya usa el catálogo
+    # (medido sobre las discrepancias de reaplicar_reglas.py). Van antes
+    # que el resto porque cada una resuelve un choque entre dos reglas
+    # generales.
+    # Bicicletas y patinetes ELÉCTRICOS: Movilidad eléctrica, no Autos.
+    (re.compile(r'^(?:\S+ ){0,2}(bicicletas?|bicimoto|scooters?|patinet(e|a)s?|monopatin(es)?) electric(o|a|os|as)\b(?!.*\b(repuesto|refaccion|bateria para|cargador|freno|llanta|camara de llanta|acelerador|controlador|motor de cubo)\b)'),
+     ('Movilidad eléctrica', None, 'scooter')),
+    # Bicicleta fija, de spinning, elíptica, caminadora: Deportes (cardio).
+    (re.compile(r'^(?:\S+ ){0,3}(bicicletas? (de |para )?(ejercicio|fija|estatica|spinning|reclinada)|bici (fija|estatica)|spinning|elipticas?|caminadoras?)\b'),
+     ('Deportes y fitness', None, 'dumbbell')),
+    # Lo que va con el bebé o el niño: triciclo infantil, andadera, montable,
+    # asiento elevador para auto.
+    (re.compile(r'^(?:\S+ ){0,2}(triciclos? (infantil|para (bebe|nino|nina)s?)|andaderas?|montables?\b|asiento elevador (para )?auto)'),
+     ('Juguetes y bebés', None, 'toy')),
+    (re.compile(r'^(?:\S+ ){0,2}(vasos?|tazas?)\b.{0,60}\b(para (bebe|nino|nina)s?|ninos pequenos|infantil|entrenador|boquilla)\b|\b(nuby|nuk|infantino|munchkin|tommee tippee)\b'),
+     ('Juguetes y bebés', 'Alimentación y lactancia', 'toy')),
+    # Extintor: seguridad, aunque sea «para auto».
+    (re.compile(r'^(?:\S+ ){0,2}extintor'),
+     ('Herramientas', 'Seguridad industrial', 'wrench')),
+    # Faros y calaveras con marca y modelo de vehículo: Refacciones.
+    (re.compile(r'^(?:\S+ ){0,4}(luz trasera|luces traseras|calaveras?|faros?|cuartos? (delanteros?|traseros?)|conjunto de luces)\b.*\b(ford|chevrolet|chevy|nissan|toyota|dodge|ram|jeep|honda|mazda|volkswagen|vw|kia|hyundai|gmc|mitsubishi|seat|renault|peugeot|suzuki|f-?150|f-?250|silverado|tacoma|sentra|tsuru|jetta|(19|20)\d\d)\b'),
+     ('Refacciones', 'Faros y luces', 'gear')),
+    # Pieza de motor, freno o sensor «para» un vehículo: Refacciones.
+    (re.compile(r'^(?:\S+ ){0,3}(sensor(es)?|empaques?|juntas?|engranes?|balatas?|pistones?|anillos de piston|bobinas? de encendido|bujias?|filtros? de (aceite|aire|gasolina|combustible)|amortiguadores?|clutch|embrague|carburador|arnes|relevador|termostato|valvulas?|radiador|alternador|marcha|discos? de freno|pastillas de freno|bomba de (gasolina|agua|aceite)|tensor|bandas? de distribucion|cadena de distribucion|soporte de motor|horquilla|rotula|terminal de direccion|cremallera)\b.*\b(para|compatible con)\b.*\b(auto|autos|carro|coche|camioneta|moto|motocicleta|vehiculo|ford|chevrolet|nissan|toyota|dodge|volkswagen|vw|honda|yamaha|italika|vento|suzuki|kawasaki|bajaj|(19|20)\d\d)\b'),
+     ('Refacciones', None, 'gear')),
+    # Bocinas, tweeters y subwoofers de auto: Autos (audio para auto).
+    (re.compile(r'^(?:\S+ ){0,3}(bocinas?|altavoces?|tweeters?|subwoofers?|woofers?|medios? rangos?)\b.*\b(para (auto|autos|coche|carro|vehiculo|camioneta)|automotri[zc]|car audio|puerta (delantera|trasera)|ford|chevrolet|nissan|toyota|dodge|jeep|honda|mazda|volkswagen|f-?150|(19|20)\d\d ?- ?(19|20)?\d\d)\b'),
+     ('Autos, bicicletas y motos', None, 'car')),
+    # Estéreo Android para auto: Autos, no Celulares.
+    (re.compile(r'\bandroid\b.{0,60}\b(estereo|autoestereo|car ?stereo|carplay|android auto|para (auto|coche|carro)|navegacion gps|pantalla (para|de) auto)\b|\b(estereo|autoestereo|car ?stereo)\b.{0,60}\bandroid\b'),
+     ('Autos, bicicletas y motos', 'Estéreos para auto', 'car')),
+    # Enfriador de aire evaporativo: Climatización, no un enfriador de PC.
+    (re.compile(r'(enfriador(es)? (de )?aire|aire evaporativo|climatizador|cooler evaporativo|enfriador evaporativo)(?!.*\b(cpu|procesador|pc|laptop|gpu)\b)'),
+     ('Climatización', 'Climatizadores evaporativos', 'snowflake')),
+    # Proyector de estrellas o de luces: una lámpara decorativa.
+    (re.compile(r'^(?:\S+ ){0,3}(proyector(es)? (de )?(estrellas|luz|luces|galaxia|galaxias|aurora|nubes|oceano|olas|patrones|navideno)|luz (de noche|nocturna) proyector|lampara proyector)'),
+     ('Iluminación', 'Decorativa', 'lightbulb')),
+    # Tomacorriente o interruptor inteligente / Wi-Fi / Alexa: Domótica.
+    (re.compile(r'^(?:\S+ ){0,3}(tomacorrientes?|enchufes?|contactos?|interruptor(es)?|apagador(es)?)\b.{0,60}\b(inteligentes?|wi-?fi|alexa|google home|zigbee|tuya|smart|rf|433 ?mhz|inalambrico)\b'),
+     ('Domótica y hogar inteligente', None, 'house')),
+    # CPU/PC de escritorio armada o reacondicionada: Computadoras, aunque
+    # diga los GB de RAM.
+    (re.compile(r'^(?:\S+ ){0,1}(cpu|pc|computadora|desktop)\b(?!.*\b(gabinete|case|enfriador|disipador|ventilador|fuente de poder|pasta termica|soporte)\b).*\b(core i[3579]|ryzen|sff|optiplex|elitedesk|prodesk|thinkcentre|reacondicionad[oa]|armada|gamer)\b'),
+     ('Computadoras de escritorio', 'Torre', 'desktop')),
+    # Teclado para iPad o tableta (Magic Keyboard): accesorio de tableta.
+    (re.compile(r'(magic keyboard|smart keyboard|teclado.{0,40}\b(ipad|galaxy tab|tableta|tablet|surface pro|xiaomi pad|redmi pad|lenovo tab))'),
+     ('Tabletas', 'Accesorios para tableta', 'tablet')),
+    # Cámara mini Wi-Fi / IP / espía / robotizada: vigilancia.
+    (re.compile(r'^(?:\S+ ){0,2}camaras? (mini |ip |espia |de seguridad |robotizada |wi-?fi |inteligente )+(?!.*\b(accion|deportiva|instantanea|reflex|mirrorless|web|para (auto|coche)|trasera|de reversa)\b)'),
+     ('Cámaras de seguridad', None, 'security-cam')),
+    # Peluches (salvo los que son para la mascota), micrófonos y las pinzas
+    # de pestañas: al quitarles la regla equivocada se quedaban sin casa.
+    (re.compile(r'^(?:\S+ ){0,2}peluches?\b(?!.*(\bpara (tu |su )?|\bp/ ?)(perros?|gatos?|mascotas?)\b)(?!.*\bpet\b)'),
+     ('Juguetes y bebés', 'Peluches', 'toy')),
+    (re.compile(r'^(?:(?!(?:con|de|del|y|para|sin|e)\b)\S+ ){0,3}microfonos?\b(?!.*\b(para (celular|telefono|iphone)|repuesto|esponja|antipop|filtro|soporte|brazo|pedestal)\b)'),
+     ('Instrumentos musicales', 'Micrófonos', 'guitar')),
+    (re.compile(r'^(?:\S+ ){0,3}(pinzas?|herramienta)\b.{0,50}\b(pestanas?|cejas?|dermaplaning|cuticulas?|depilar|depilacion)\b'),
+     ('Belleza y cuidado personal', None, 'sparkle')),
+    # Impresora térmica de tickets / punto de venta: Equipo comercial.
+    (re.compile(r'^(?:\S+ ){0,3}(impresora termica|impresora de tickets|miniprinter)\b.*\b(tickets?|punto de venta|pos|80 ?mm|58 ?mm)\b|kit de punto de venta'),
+     ('Equipo comercial', 'Punto de venta', 'factory')),
     # Línea blanca con el nombre pelado, como la nombra una tienda de marca
     # (whirlpool.mx, 23-sep): "Secadora a gas 22kg", "Estufa eléctrica de 30
     # pulgadas", "Campana Empotrable 76 cm". Las reglas de abajo pedían la
@@ -1424,7 +1493,7 @@ REGLAS = [
              r'tarjeta (para|de) lavadora|escobillas|bomba de drenaje|'
              r'(repuesto|refaccion|reemplazo|compatible con) .{0,30}lavadora|'
              r'lavadora .{0,20}(de repuesto|compatible)))'
-             r'(?=.*(\blavadora|\blava\w*secadora|\bcentrifugadora))'),
+             r'(?=^(?:(?!(?:de|del|para|con|y|e|sin|compatible|for|en|a|al)\b)\S+ ){0,2}(\blavadora|\blava\w*secadora|\bcentrifugadora))'),
   ('Lavadoras', None, 'washer')),
  # Aspiradoras: el título siempre nombra el aparato ("aspiradora", "aspirador",
  # "robot aspirador", "shop vac"). La licuadora que Amazon metió en la sección
@@ -1645,7 +1714,7 @@ REGLAS = [
  # La cerradura mecánica y el candado: no eran de nadie y acababan en
  # Teclados ("con teclado"), en Roperos ("para armario") o en Componentes
  # ("de gabinete").
- (re.compile(r'^(?!.*(intelig|\bwifi\b|biometric|huella|bluetooth|\bapp\b|tuya|alexa|bicicleta|\bbici\b|\bmoto\b|maleta|equipaje|mascota|laptop|notebook|casillero|para auto|de auto|coche|volante))'
+ (re.compile(r'^(?!.*(\baretes?\b|\bcollar|\bpulsera|\banillo|\bdije|chapa de oro|oro 18k|intelig|\bwifi\b|biometric|huella|bluetooth|\bapp\b|tuya|alexa|bicicleta|\bbici\b|\bmoto\b|maleta|equipaje|mascota|laptop|notebook|casillero|para auto|de auto|coche|volante))'
              r'(?:\S+ ){0,4}(cerraduras?|cerrojos?|candados?|chapas?|picaportes?|pasador(es)? de puerta|aldabas?|cerradura de gabinete|manijas? (de|para|con) (puerta|cerradura))\b'),
   ('Herramientas', 'Cerraduras y candados', 'wrench')),
  # Material eléctrico: el temporizador de pared, el interruptor de
@@ -2425,14 +2494,14 @@ REGLAS = [
              r'(?:\S+ ){0,3}almohadas?\b'),
   ('Blancos y ropa de cama', 'Almohadas', 'pillow')),
  (re.compile(r'^(?!(?:\S+ ){0,2}(cables? (auxiliar|usb|micro|divisor|de carga|tipo c|hdmi)|cargador|estante|antena|banda|soporte|funda)\b)'
-             r'(?=.*(bocina|bafle|altavo(z|ces)|maquina de cantar|\bspeaker\b|barra de sonido|sound ?bar|sistema activo estereo|\bsonos\b|'
+             r'(?=^(?:(?!(?:de|del|para|con|y|e|sin|compatible|for|en|a|al)\b)\S+ ){0,2}(bocina|bafle|altavo(z|ces)|maquina de cantar|\bspeaker\b|barra de sonido|sound ?bar|sistema activo estereo|\bsonos\b|'
              r'monitores? (de |tipo )?estudio))'),
   ('Bocinas', None, 'speaker')),
  # Audífonos: "audífonos" es la palabra del catálogo, pero media captura
  # dice "auriculares", y las marcas grandes venden "Buds" y "headphones"
  # sin traducir. "Diadema" sola no basta -- también es una vincha -- así
  # que pide cable, micrófono o inalámbrico al lado.
- (re.compile(r'^(?!(?:\S+ ){0,3}(soporte|cables? (auxiliar|usb|micro|divisor|de carga|tipo c|hdmi)|estante|gafas|lentes|'
+ (re.compile(r'^(?!(?:\S+ ){0,2}(microfonos?|instrumento de viento|walkman|reproductor de (cd|musica))\b)^(?!(?:\S+ ){0,3}(soporte|cables? (auxiliar|usb|micro|divisor|de carga|tipo c|hdmi)|estante|gafas|lentes|'
              r'mesa|escritorio|silla|mueble|organizador|gancho|percha|almohadilla|espuma|repuesto|puntas?|'
              r'adaptador|estuche|funda|bolsa)\b)'
              r'(?!.*(gancho para (auriculares|audifonos)|puntas? para (audifonos|auriculares)|'
@@ -2683,7 +2752,7 @@ REGLAS = [
  # "Cama infantil Minnie Mouse", "Mickey Mouse", "Danger Mouse", "Mouse
  # Trap": el personaje no es el ratón de computadora. Tampoco la
  # trampa para ratones ni el pad/alfombrilla (esos ya tienen su regla).
- (re.compile(r'^(?!.*(mickey|minnie|minie|mikey|micky|danger|trampa|veneno|raticida|cebo|disney).{0,12}(mouse|raton))'
+ (re.compile(r'^(?!.*\b(juguetes?|gatos?|gatitos?|perros?|mascotas?)\b)^(?!.*(mickey|minnie|minie|mikey|micky|danger|trampa|veneno|raticida|cebo|disney).{0,12}(mouse|raton))'
              r'(?!.*(mouse|raton) trap)(?=.*(\bmouse\b|\braton\b|\bratones\b))'), ('Mouse', None, 'mouse')),
  # Lo que dice "cargador" y no cayó en ninguna subcategoría: el del reloj
  # inteligente, el de la cámara vieja, el genérico "para Samsung". Al
@@ -2912,6 +2981,7 @@ REGLAS = [
              # "depilación de mascotas" entraban todos como productos de
              # mascota. Lo que SÍ es para la mascota lo dice al principio:
              # "Cama para perros", "Cuencos para Perros y Gatos".
+             r'(?!(?!.*(\bpara (tu |su )?|\bp/ ?)(perro|gato|mascota))^(?:\S+ ){0,3}(peluches?|andaderas?|bebes?|arte de pared|cuadros?|bolsas? resellables?)\b)'
              r'(?=^.{0,55}?(\bperro|\bperros\b|\bgato\b|\bgatos\b|\bgatito|mascota|\bcanino|\bfelino|'
              r'\bcachorro|\bhuron\b|\bconejo\b|\bhamster|\bloro\b|\bpericos?\b|'
              # Sin "pez"/"peces" sueltos: "ojo de pez" es un tipo de lente.
@@ -2931,8 +3001,8 @@ REGLAS = [
  # La casa del conejillo de indias 'con escaleras' se iba a Herramientas/Escaleras.
  (re.compile(r'(casa|escondite|nido|habitat|castillo|jaula|corral|hamaca) (de madera |acrilica |grande |pequena |plegable )?(para|de|for) (conejillo|cobaya|cuyo|hamster|chinchilla|conejo|erizo|huron|jerbo|animales pequenos|roedor|rata|raton|gallina)'),
   ('Mascotas', None, 'paw')),
- (re.compile(r'^(?!.*(de juguete|para nino|didactic|\bmaqueta\b|compresor de aire acondicionado|inversor de corriente|bascula (de bano|corporal|de cocina|de precision|de bolsillo)|balanza de cocina|belleza|facial|\bcutis\b|maquillaje|masajeador|depilaci|terapia de luz|manicura|pedicura|\bunas\b|cuidado de la piel|skincare))'
-             r'(?=.*(herramienta|taladro|rotomartillo|esmeriladora|soldador|'
+ (re.compile(r'^(?!.*(pestana|\bcejas?\b|dermaplaning|cuticula|\bspa\b|de juguete|para nino|didactic|\bmaqueta\b|compresor de aire acondicionado|inversor de corriente|bascula (de bano|corporal|de cocina|de precision|de bolsillo)|balanza de cocina|belleza|facial|\bcutis\b|maquillaje|masajeador|depilaci|terapia de luz|manicura|pedicura|\bunas\b|cuidado de la piel|skincare))'
+             r'(?=^(?:(?!(?:de|del|para|con|y|e|sin|compatible|for|en|a|al)\b)\S+ ){0,2}(herramienta|taladro|rotomartillo|esmeriladora|soldador|'
              r'soldadura|escalera|andamio|\bbroca|\blija\b|desarmador|'
              r'destornillador|\bpinzas?\b|\bllave (allen|hexagonal|inglesa|perica|mixta)|'
              r'martillo|\bcincel\b|grabado(r|ra)? ?laser|multimetro|\bvernier\b|'
@@ -2982,7 +3052,7 @@ REGLAS = [
              r'carr(o|ito)s? (de|para) (servicio|cocina|almacenamiento|bar|te|postres|helados|comida|bebidas|limpieza|lavanderia|compras|mandado|supermercado|libros|utilidad|herramientas|carga|mano|jardin)|'
              r'carr(o|ito)s? (rodante|multifuncion|utilitario|auxiliar|movil|organizador|plegable|metalico|con ruedas)|auto ?reset|inodoro|\bbide\b|motorola|\bmoto (g|e|edge|one|z|x)\d?\b|'
              r'(ajuste|piston|cilindro|elevacion|elevador|sistema|amortiguacion) neumatic[oa]|neumatic[oa] (de|para) (silla|sillon|taburete)|\bsillas? (de |para )?(oficina|escritorio|gamer|bar|comedor)))'
-             r'(?=.*(\bbicicleta|\bbici\b|ciclismo|\btriciclo|\bmotocicleta|\bmoto\b|'
+             r'(?=.*\bpara (?:tu |el |la |su |las |los )?(?:bicicletas?|bicis?|motos?|motocicletas?|autos?|automovil(?:es)?|coches?|carros?|vehiculos?|camionetas?|scooters?)\b|^(?:(?!(?:de|del|para|con|y|e|sin|compatible|for|en|a|al)\b)\S+ ){0,2}(\bbicicleta|\bbici\b|ciclismo|\btriciclo|\bmotocicleta|\bmoto\b|'
              r'\bautomovil|\bvehiculo|\bauto\b|\bcoche\b|\bcarro\b|camioneta|'
              r'\bllanta|neumatico|autoestereo|estereo (para|de) (auto|coche|carro)|'
              r'car ?radio|carplay|android auto|dash ?cam|casco (de|para) (moto|ciclismo)|'
@@ -3005,7 +3075,7 @@ REGLAS = [
              r'difusor|reloj|espejo|estufa|parrilla|horno|proyector|monitor|'
              r'impresora|telefono|radio|television|pantalla|bocina|caja fuerte)'
              r' (de|para) (escritorio|mesa|buro|cama)))'
-             r'(?=.*(\bsilla|\bsillon|\bsofa|\bescritorio|\bmesa|\bmesita|'
+             r'(?=^(?:(?!(?:de|del|para|con|y|e|sin|compatible|for|en|a|al)\b)\S+ ){0,2}(\bsilla|\bsillon|\bsofa|\bescritorio|\bmesa|\bmesita|'
              r'\bcama\b|\bcolchon|\blibrero|\brepisa|\bburo\b|\bzapater|'
              r'\bperchero|\bropero|\barmario|\bcloset|\bcomoda|\bcomedor|'
              r'\btaburete|\bbanca\b|\bvitrina|\bcredenza|\blitera|'
@@ -6074,7 +6144,76 @@ def pistas_de_departamento():
             pistas.setdefault(k, (c['id'], None, icono(c['id'], None, c.get('icon'))))
     return pistas
 
+# Las reglas con CABEZA conservan su forma amplia (la palabra en cualquier
+# parte) como segunda oportunidad: vale sólo si el título arranca como los
+# productos de esa categoría (es_coherente). Así «Sony SRS-XB33 Extra Bass
+# Altavoz» sigue siendo una bocina, y «Andadera bebé ... auto» deja de ser
+# de Autos.
+_CAB = '^(?:(?!(?:de|del|para|con|y|e|sin|compatible|for|en|a|al)\\b)\\S+ ){0,2}('
+AMPLIAS = {i: re.compile(rx.pattern.replace(_CAB, '.*('), rx.flags)
+           for i, (rx, _) in enumerate(REGLAS) if _CAB in rx.pattern}
+
+
+def regla_para(titulo, tn):
+    for i, (rx, v) in enumerate(REGLAS):
+        if rx.search(tn):
+            return i, v
+        amplia = AMPLIAS.get(i)
+        if amplia is not None and amplia.search(tn) and es_coherente(titulo, v[0]):
+            return i, v
+    return None, None
+
+
 RX_COMBO = re.compile(r'^\s*combo\b(?=.*[^\d\s]\s*\+\s*\D)')
+
+
+class ModeloCatalogo:
+    """La categoría que el catálogo le daría a un título que ninguna regla
+    reconoce: bayesiano ingenuo entrenado sobre los nombres de todas las
+    fichas (el mismo de detectar_mal_clasificados.py). Sólo decide con
+    margen: con MARGEN nats sobre la segunda categoría, en una prueba con
+    4,000 títulos sin regla apartados del entrenamiento, acertó el 95.5%
+    y cubrió el 68% (24-sep-2026); sin margen acertaba el 85%."""
+    MARGEN = 8.0
+
+    def __init__(self):
+        from data_io import load_catalog
+        from detectar_mal_clasificados import Bayes, tokens
+        self._tokens = tokens
+        self.m = Bayes()
+        self.subs = collections.defaultdict(Bayes)
+        iconos = collections.defaultdict(collections.Counter)
+        for p in load_catalog()['products']:
+            cat = p.get('category')
+            if not cat or cat == 'Otros':
+                continue
+            ts = tokens(p.get('name'))
+            self.m.entrenar(cat, ts)
+            if p.get('subcategory'):
+                self.subs[cat].entrenar(p['subcategory'], ts)
+            if p.get('image'):
+                iconos[cat][p['image']] += 1
+        self.m.preparar()
+        for b in self.subs.values():
+            b.preparar()
+        self.icono = {c: n.most_common(1)[0][0] for c, n in iconos.items()}
+
+    def categoria(self, titulo):
+        ts = self._tokens(titulo)
+        if len(ts) < 2:
+            return None
+        orden = sorted(self.m.puntajes(ts).items(), key=lambda kv: -kv[1])
+        if len(orden) < 2 or orden[0][1] - orden[1][1] < self.MARGEN:
+            return None
+        cat = orden[0][0]
+        # La subcategoría también la dice el catálogo: el repartidor de
+        # Celulares supone un teléfono y mandaba la lupa de pantalla a
+        # «Android».
+        sub = None
+        ps = self.subs[cat].puntajes(ts) if cat in self.subs else {}
+        if ps:
+            sub = max(ps, key=ps.get)
+        return (cat, sub, self.icono.get(cat, 'box'))
 
 
 def decidir(it, pistas=None):
@@ -6122,17 +6261,22 @@ def decidir(it, pistas=None):
     if pista and pista[1]:
         hit = pista
     else:
-        n_regla, hit = next(((i, v) for i, (rx, v) in enumerate(REGLAS) if rx.search(tn)), (None, None))
+        n_regla, hit = regla_para(it['title'], tn)
     if not hit and pista: hit = pista
+    if not hit and it.get('_modelo'):
+        hit = it['_modelo']
+        via = 'modelo'
     if not hit:
         return {'estado': 'fuera', 'motivo': 'no encaja en ninguna categoría'}
     cat, sub, img = hit
-    if hit is not pista:
+    if hit is not pista and via != 'modelo':
         manda = sustantivo_manda(it['title'], cat)
         if manda:
             cat, sub, img = manda
             via = 'sustantivo'
-    if hit is pista:
+    if via == 'modelo' and sub:
+        pass
+    elif hit is pista:
         via = 'departamento'
     elif cat == 'Baterías portátiles':
         # El módulo, la placa de carga, la pila de botón y la caja
@@ -6161,7 +6305,7 @@ def decidir(it, pistas=None):
     elif cat == 'Refrigeradores': sub = sub_refri(tn)
     elif cat == 'Cafeteras': sub = sub_cafetera(tn)
     elif cat == 'Celulares': sub = sub_celular(tn)
-    elif cat == 'Tabletas': sub = sub_tableta(tn)
+    elif cat == 'Tabletas': sub = sub if sub == 'Accesorios para tableta' else sub_tableta(tn)
     elif cat == 'Videojuegos': sub = sub_videojuego(tn)
     elif cat == 'Muebles': sub = sub_mueble(tn)
     elif cat == 'Herramientas': sub = sub_herramienta(tn) or sub
@@ -6231,8 +6375,19 @@ def main():
     pistas = pistas_de_departamento() if any(it.get('dept') for it in captura) else {}
     alta, fuera = [], []
     por_via = collections.Counter()
+    modelo = None
     for it in captura:
         d = decidir(it, pistas)
+        if d['estado'] == 'fuera' and d['motivo'] == 'no encaja en ninguna categoría':
+            # Ninguna regla lo reconoce: decide el catálogo (ver
+            # ModeloCatalogo). Sin esto, apretar una regla para que no
+            # clasifique mal dejaba afuera los productos que antes
+            # clasificaba bien de casualidad.
+            if modelo is None:
+                modelo = ModeloCatalogo()
+            propuesta = modelo.categoria(it['title'])
+            if propuesta:
+                d = decidir({**it, '_modelo': propuesta}, pistas)
         if d['estado'] == 'fuera':
             fuera.append((it, d['motivo']))
             continue
@@ -6241,6 +6396,8 @@ def main():
         alta.append({**base, 'brand': d['brand'], 'category': d['category'],
                      'subcategory': d['subcategory'], 'image': d['image']})
     por_dept, por_sustantivo = por_via['departamento'], por_via['sustantivo']
+    if por_via['modelo']:
+        print(f"clasificadas por el modelo del catálogo (ninguna regla las reconoce): {por_via['modelo']}")
     json.dump(alta, io.open(sys.argv[2], 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'ALTA: {len(alta)}   FUERA: {len(fuera)}   sin precio (no se dan de alta): '
           f'{sum(1 for a in alta if a["price"] is None)}'

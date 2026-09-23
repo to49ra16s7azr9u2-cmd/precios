@@ -175,6 +175,224 @@
    }
   ]
  },
+ "Computadoras de escritorio/Torre": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "amd-ryzen-7",
+      "name": "AMD Ryzen 7",
+      "use": "",
+      "spec": "AMD Ryzen 7",
+      "values": [
+       "AMD Ryzen 7"
+      ]
+     },
+     {
+      "id": "amd-ryzen-7-5700g",
+      "name": "AMD Ryzen 7 5700G",
+      "use": "",
+      "spec": "AMD Ryzen 7 5700G",
+      "values": [
+       "AMD Ryzen 7 5700G"
+      ]
+     },
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     },
+     {
+      "id": "amd-ryzen-5",
+      "name": "AMD Ryzen 5",
+      "use": "",
+      "spec": "AMD Ryzen 5",
+      "values": [
+       "AMD Ryzen 5"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Gráficos",
+    "field": "gpu",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "nvidia-rtx-5060",
+      "name": "NVIDIA RTX 5060",
+      "use": "",
+      "spec": "NVIDIA RTX 5060",
+      "values": [
+       "NVIDIA RTX 5060"
+      ]
+     },
+     {
+      "id": "nvidia-rtx-5060-ti",
+      "name": "NVIDIA RTX 5060 Ti",
+      "use": "",
+      "spec": "NVIDIA RTX 5060 Ti",
+      "values": [
+       "NVIDIA RTX 5060 Ti"
+      ]
+     },
+     {
+      "id": "nvidia-rtx-5070",
+      "name": "NVIDIA RTX 5070",
+      "use": "",
+      "spec": "NVIDIA RTX 5070",
+      "values": [
+       "NVIDIA RTX 5070"
+      ]
+     },
+     {
+      "id": "nvidia-rtx-5070-ti",
+      "name": "NVIDIA RTX 5070 Ti",
+      "use": "",
+      "spec": "NVIDIA RTX 5070 Ti",
+      "values": [
+       "NVIDIA RTX 5070 Ti"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Computadoras de escritorio/Mini PC": {
+  "axes": [
+   {
+    "label": "Sistema",
+    "field": "os",
+    "criterion": "operativo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "windows-11",
+      "name": "Windows 11",
+      "use": "",
+      "spec": "Windows 11",
+      "values": [
+       "Windows 11"
+      ]
+     },
+     {
+      "id": "windows-10",
+      "name": "Windows 10",
+      "use": "",
+      "spec": "Windows 10",
+      "values": [
+       "Windows 10"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basico",
+      "name": "Básico",
+      "use": "Pocos juegos a la vez",
+      "spec": "Hasta 250 GB",
+      "max": 250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedio",
+      "use": "Varios juegos instalados",
+      "spec": "251 GB a 510 GB",
+      "min": 250,
+      "max": 510
+     },
+     {
+      "id": "alto",
+      "name": "Alto",
+      "use": "Toda la biblioteca",
+      "spec": "Más de 510 GB",
+      "min": 510
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Computadoras de escritorio/All in One": {
+  "axes": [
+   {
+    "label": "Sistema",
+    "field": "os",
+    "criterion": "operativo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "windows-10",
+      "name": "Windows 10",
+      "use": "",
+      "spec": "Windows 10",
+      "values": [
+       "Windows 10"
+      ]
+     },
+     {
+      "id": "windows-11",
+      "name": "Windows 11",
+      "use": "",
+      "spec": "Windows 11",
+      "values": [
+       "Windows 11"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Almacenamiento",
+    "field": "storage_gb",
+    "criterion": "en GB",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "basico",
+      "name": "Básico",
+      "use": "Pocos juegos a la vez",
+      "spec": "Hasta 120 GB",
+      "max": 120
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedio",
+      "use": "Varios juegos instalados",
+      "spec": "121 GB a 510 GB",
+      "min": 120,
+      "max": 510
+     },
+     {
+      "id": "alto",
+      "name": "Alto",
+      "use": "Toda la biblioteca",
+      "spec": "Más de 510 GB",
+      "min": 510
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
  "Iluminación/Decorativa": {
   "axes": [
    {
@@ -1297,15 +1515,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $750",
-      "max": 750
+      "spec": "Hasta $770",
+      "max": 770
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$750 a $1,850",
-      "min": 750,
+      "spec": "$770 a $1,850",
+      "min": 770,
       "max": 1850
      },
      {
@@ -1968,6 +2186,2441 @@
    }
   ]
  },
+ "Deportes y fitness/Bicicletas fijas": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso ocasional",
+      "spec": "Hasta 130 kg",
+      "max": 130
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso diario",
+      "spec": "131 kg a 150 kg",
+      "min": 130,
+      "max": 150
+     },
+     {
+      "id": "reforzada",
+      "name": "Reforzada",
+      "use": "Uso intensivo o más peso",
+      "spec": "Más de 150 kg",
+      "min": 150
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,050",
+      "max": 3050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,050 a $10,000",
+      "min": 3050,
+      "max": 10000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $10,000",
+      "min": 10000
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Bancos y racks": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $13,000",
+      "max": 13000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$13,000 a $44,000",
+      "min": 13000,
+      "max": 44000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $44,000",
+      "min": 44000
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Balones de fútbol": {
+  "axes": [
+   {
+    "label": "Número",
+    "field": "ball_no",
+    "criterion": "del balón",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "n3",
+      "name": "No. 3",
+      "use": "Niños chicos",
+      "spec": "No. 3",
+      "max": 3
+     },
+     {
+      "id": "n4",
+      "name": "No. 4",
+      "use": "Juvenil",
+      "spec": "No. 4",
+      "min": 3,
+      "max": 4
+     },
+     {
+      "id": "n5",
+      "name": "No. 5",
+      "use": "Adultos, medida oficial de futbol",
+      "spec": "No. 5",
+      "min": 4,
+      "max": 5
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $590",
+      "min": 290,
+      "max": 590
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $590",
+      "min": 590
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Goggles de natación": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $270",
+      "max": 270
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$270 a $450",
+      "min": 270,
+      "max": 450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $450",
+      "min": 450
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Campismo": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $510",
+      "max": 510
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$510 a $1,050",
+      "min": 510,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Raquetas de ping pong": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $260",
+      "max": 260
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$260 a $720",
+      "min": 260,
+      "max": 720
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $720",
+      "min": 720
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Remadoras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,950",
+      "max": 2950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,950 a $5,550",
+      "min": 2950,
+      "max": 5550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,550",
+      "min": 5550
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Raquetas de tenis": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $840",
+      "max": 840
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$840 a $2,450",
+      "min": 840,
+      "max": 2450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,450",
+      "min": 2450
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Pelotas y accesorios de raqueta": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $220",
+      "max": 220
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$220 a $590",
+      "min": 220,
+      "max": 590
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $590",
+      "min": 590
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Patines en línea": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,550",
+      "max": 1550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,550 a $2,450",
+      "min": 1550,
+      "max": 2450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,450",
+      "min": 2450
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Bádminton": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $270",
+      "max": 270
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$270 a $710",
+      "min": 270,
+      "max": 710
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $710",
+      "min": 710
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Máquinas multifuncionales y poleas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,600",
+      "max": 1600
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,600 a $7,750",
+      "min": 1600,
+      "max": 7750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,750",
+      "min": 7750
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Balones de voleibol": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $550",
+      "min": 290,
+      "max": 550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $550",
+      "min": 550
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Tapetes de yoga": {
+  "axes": [
+   {
+    "label": "Grosor",
+    "field": "thickness_mm",
+    "criterion": "en milímetros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "delgado",
+      "name": "Delgado",
+      "use": "Equilibrio y viajes",
+      "spec": "Hasta 5 mm",
+      "max": 5
+     },
+     {
+      "id": "medio",
+      "name": "Medio",
+      "use": "El grosor más común",
+      "spec": "6 mm a 10 mm",
+      "min": 5,
+      "max": 10
+     },
+     {
+      "id": "grueso",
+      "name": "Grueso",
+      "use": "Rodillas y suelo duro",
+      "spec": "Más de 10 mm",
+      "min": 10
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $350",
+      "max": 350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$350 a $690",
+      "min": 350,
+      "max": 690
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $690",
+      "min": 690
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Tableros de dardos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $1,150",
+      "min": 390,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Rodilleras, muñequeras y soportes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $260",
+      "max": 260
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$260 a $480",
+      "min": 260,
+      "max": 480
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $480",
+      "min": 480
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Otros deportes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $410",
+      "max": 410
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$410 a $590",
+      "min": 410,
+      "max": 590
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $590",
+      "min": 590
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Elípticas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,400",
+      "max": 2400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,400 a $7,950",
+      "min": 2400,
+      "max": 7950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,950",
+      "min": 7950
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Caminadoras": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso ocasional",
+      "spec": "Hasta 100 kg",
+      "max": 100
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso diario",
+      "spec": "101 kg a 120 kg",
+      "min": 100,
+      "max": 120
+     },
+     {
+      "id": "reforzada",
+      "name": "Reforzada",
+      "use": "Uso intensivo o más peso",
+      "spec": "Más de 120 kg",
+      "min": 120
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,450",
+      "max": 3450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,450 a $9,150",
+      "min": 3450,
+      "max": 9150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,150",
+      "min": 9150
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Escaladoras y steppers": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligera",
+      "name": "Ligera",
+      "use": "Uso ocasional",
+      "spec": "Hasta 120 kg",
+      "max": 120
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso diario",
+      "spec": "121 kg a 150 kg",
+      "min": 120,
+      "max": 150
+     },
+     {
+      "id": "reforzada",
+      "name": "Reforzada",
+      "use": "Uso intensivo o más peso",
+      "spec": "Más de 150 kg",
+      "min": 150
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,750",
+      "max": 1750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,750 a $3,850",
+      "min": 1750,
+      "max": 3850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,850",
+      "min": 3850
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Equipo de gimnasio": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "banco-y-soportes",
+      "name": "Banco y soportes",
+      "use": "",
+      "spec": "Banco y soportes",
+      "values": [
+       "Banco y soportes"
+      ]
+     },
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     },
+     {
+      "id": "peso-libre",
+      "name": "Peso libre",
+      "use": "",
+      "spec": "Peso libre",
+      "values": [
+       "Peso libre"
+      ]
+     },
+     {
+      "id": "maquinas",
+      "name": "Máquinas",
+      "use": "",
+      "spec": "Máquinas",
+      "values": [
+       "Máquinas"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $830",
+      "max": 830
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$830 a $5,200",
+      "min": 830,
+      "max": 5200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,200",
+      "min": 5200
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Accesorios de fuerza": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $320",
+      "max": 320
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$320 a $700",
+      "min": 320,
+      "max": 700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $700",
+      "min": 700
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Cuerdas para saltar": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $280",
+      "max": 280
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$280 a $620",
+      "min": 280,
+      "max": 620
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $620",
+      "min": 620
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Bandas de resistencia": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $190",
+      "max": 190
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$190 a $410",
+      "min": 190,
+      "max": 410
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $410",
+      "min": 410
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Pelotas y aros de pilates": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $210",
+      "max": 210
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$210 a $290",
+      "min": 210,
+      "max": 290
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $290",
+      "min": 290
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Mesas de ping pong": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,950",
+      "max": 2950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,950 a $7,950",
+      "min": 2950,
+      "max": 7950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,950",
+      "min": 7950
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Pesas de tobillo y chalecos con peso": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $220",
+      "max": 220
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$220 a $420",
+      "min": 220,
+      "max": 420
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $420",
+      "min": 420
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Barras y discos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $860",
+      "max": 860
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$860 a $1,950",
+      "min": 860,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Protección para patinar": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $1,450",
+      "min": 440,
+      "max": 1450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,450",
+      "min": 1450
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Guantes de box": {
+  "axes": [
+   {
+    "label": "Peso",
+    "field": "glove_oz",
+    "criterion": "en onzas",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligeros",
+      "name": "Ligeros",
+      "use": "Niños y saco",
+      "spec": "Hasta 12 oz",
+      "max": 12
+     },
+     {
+      "id": "medios",
+      "name": "Medios",
+      "use": "Entrenamiento general",
+      "spec": "13 oz a 14 oz",
+      "min": 12,
+      "max": 14
+     },
+     {
+      "id": "pesados",
+      "name": "Pesados",
+      "use": "Sparring y protección",
+      "spec": "Más de 14 oz",
+      "min": 14
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "box",
+      "name": "Box",
+      "use": "",
+      "spec": "Box",
+      "values": [
+       "Box"
+      ]
+     },
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
+     },
+     {
+      "id": "artes-marciales",
+      "name": "Artes Marciales",
+      "use": "",
+      "spec": "Artes Marciales",
+      "values": [
+       "Artes Marciales"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Deportes y fitness/Trajes de baño deportivos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $390",
+      "min": 290,
+      "max": 390
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $390",
+      "min": 390
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Dardos y accesorios": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $850",
+      "min": 290,
+      "max": 850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $850",
+      "min": 850
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Bloques, correas y ruedas de yoga": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $260",
+      "max": 260
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$260 a $330",
+      "min": 260,
+      "max": 330
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $330",
+      "min": 330
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Sets de pesas": {
+  "axes": [
+   {
+    "label": "Peso",
+    "field": "weight_kg",
+    "criterion": "en kilos",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "ligeras",
+      "name": "Ligeras",
+      "use": "Para empezar y tonificar",
+      "spec": "Hasta 12 kg",
+      "max": 12
+     },
+     {
+      "id": "medias",
+      "name": "Medias",
+      "use": "Fuerza general",
+      "spec": "13 kg a 40 kg",
+      "min": 12,
+      "max": 40
+     },
+     {
+      "id": "pesadas",
+      "name": "Pesadas",
+      "use": "Fuerza avanzada",
+      "spec": "Más de 40 kg",
+      "min": 40
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $940",
+      "max": 940
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$940 a $2,050",
+      "min": 940,
+      "max": 2050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,050",
+      "min": 2050
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Mancuernas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $790",
+      "max": 790
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$790 a $1,850",
+      "min": 790,
+      "max": 1850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,850",
+      "min": 1850
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Pelotas, redes y accesorios de ping pong": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $260",
+      "max": 260
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$260 a $480",
+      "min": 260,
+      "max": 480
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $480",
+      "min": 480
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Máquinas de abdominales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,100",
+      "max": 1100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,100 a $3,050",
+      "min": 1100,
+      "max": 3050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,050",
+      "min": 3050
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Barras de dominadas y calistenia": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $990",
+      "max": 990
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$990 a $3,100",
+      "min": 990,
+      "max": 3100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,100",
+      "min": 3100
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Accesorios y ropa de yoga": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $550",
+      "min": 290,
+      "max": 550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $550",
+      "min": 550
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Balones de básquetbol": {
+  "axes": [
+   {
+    "label": "Número",
+    "field": "ball_no",
+    "criterion": "del balón",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "n3",
+      "name": "No. 3",
+      "use": "Niños chicos",
+      "spec": "No. 3",
+      "max": 3
+     },
+     {
+      "id": "n5",
+      "name": "No. 5",
+      "use": "Adultos, medida oficial de futbol",
+      "spec": "No. 5",
+      "min": 4,
+      "max": 5
+     },
+     {
+      "id": "n6",
+      "name": "No. 6",
+      "use": "Basquetbol femenil",
+      "spec": "No. 6",
+      "min": 5,
+      "max": 6
+     },
+     {
+      "id": "n7",
+      "name": "No. 7",
+      "use": "Basquetbol varonil y futbol americano",
+      "spec": "No. 7",
+      "min": 6
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $280",
+      "max": 280
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$280 a $450",
+      "min": 280,
+      "max": 450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $450",
+      "min": 450
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Balones medicinales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $550",
+      "max": 550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$550 a $1,150",
+      "min": 550,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Paddle, surf y kayak": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,050",
+      "max": 2050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,050 a $14,000",
+      "min": 2050,
+      "max": 14000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $14,000",
+      "min": 14000
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Redes de voleibol": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $1,350",
+      "min": 540,
+      "max": 1350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,350",
+      "min": 1350
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Rodilleras y mangas de voleibol": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $190",
+      "max": 190
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$190 a $290",
+      "min": 190,
+      "max": 290
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $290",
+      "min": 290
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Patines de 4 ruedas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $890",
+      "max": 890
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$890 a $1,500",
+      "min": 890,
+      "max": 1500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,500",
+      "min": 1500
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Accesorios de patinaje": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $500",
+      "max": 500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$500 a $1,300",
+      "min": 500,
+      "max": 1300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,300",
+      "min": 1300
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Costales, peras y entrenadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $560",
+      "max": 560
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$560 a $1,050",
+      "min": 560,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Protección, vendas y artes marciales": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "box",
+      "name": "Box",
+      "use": "",
+      "spec": "Box",
+      "values": [
+       "Box"
+      ]
+     },
+     {
+      "id": "artes-marciales",
+      "name": "Artes Marciales",
+      "use": "",
+      "spec": "Artes Marciales",
+      "values": [
+       "Artes Marciales"
+      ]
+     },
+     {
+      "id": "entrenamiento",
+      "name": "Entrenamiento",
+      "use": "",
+      "spec": "Entrenamiento",
+      "values": [
+       "Entrenamiento"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $350",
+      "max": 350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$350 a $840",
+      "min": 350,
+      "max": 840
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $840",
+      "min": 840
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Protectores bucales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $500",
+      "max": 500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$500 a $580",
+      "min": 500,
+      "max": 580
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $580",
+      "min": 580
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Fútbol americano": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $750",
+      "min": 290,
+      "max": 750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $750",
+      "min": 750
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Kettlebells": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $640",
+      "max": 640
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$640 a $1,300",
+      "min": 640,
+      "max": 1300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,300",
+      "min": 1300
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Patinetas y scooters": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $520",
+      "max": 520
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$520 a $1,050",
+      "min": 520,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Espinilleras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $250",
+      "max": 250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$250 a $490",
+      "min": 250,
+      "max": 490
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $490",
+      "min": 490
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Guantes de portero": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $650",
+      "min": 430,
+      "max": 650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $650",
+      "min": 650
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Aletas, tablas y entrenamiento de natación": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $240",
+      "max": 240
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$240 a $530",
+      "min": 240,
+      "max": 530
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $530",
+      "min": 530
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Snorkel y buceo": {
+  "axes": [
+   {
+    "label": "Deporte",
+    "field": "sport",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "snorkeling",
+      "name": "Snorkeling",
+      "use": "",
+      "spec": "Snorkeling",
+      "values": [
+       "Snorkeling"
+      ]
+     },
+     {
+      "id": "buceo",
+      "name": "Buceo",
+      "use": "",
+      "spec": "Buceo",
+      "values": [
+       "Buceo"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $990",
+      "max": 990
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$990 a $1,650",
+      "min": 990,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Raquetas de pádel": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,150",
+      "max": 2150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,150 a $3,400",
+      "min": 2150,
+      "max": 3400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,400",
+      "min": 3400
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Tapones y accesorios de natación": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $190",
+      "max": 190
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$190 a $380",
+      "min": 190,
+      "max": 380
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $380",
+      "min": 380
+     }
+    ]
+   }
+  ]
+ },
+ "Deportes y fitness/Gorros de natación": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $190",
+      "max": 190
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$190 a $280",
+      "min": 190,
+      "max": 280
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $280",
+      "min": 280
+     }
+    ]
+   }
+  ]
+ },
  "Videojuegos/Juegos retro y otras plataformas": {
   "axes": [
    {
@@ -2421,23 +5074,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $410",
-      "max": 410
+      "spec": "Hasta $400",
+      "max": 400
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$410 a $1,300",
-      "min": 410,
-      "max": 1300
+      "spec": "$400 a $1,250",
+      "min": 400,
+      "max": 1250
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,300",
-      "min": 1300
+      "spec": "Más de $1,250",
+      "min": 1250
      }
     ]
    }
@@ -2658,15 +5311,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $3,500",
-      "max": 3500
+      "spec": "Hasta $3,700",
+      "max": 3700
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$3,500 a $12,000",
-      "min": 3500,
+      "spec": "$3,700 a $12,000",
+      "min": 3700,
       "max": 12000
      },
      {
@@ -2710,6 +5363,1098 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,050",
       "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial/Refrigeración comercial": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,300",
+      "max": 5300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,300 a $13,000",
+      "min": 5300,
+      "max": 13000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $13,000",
+      "min": 13000
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial/Carros de servicio": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "de-metal-o-alambre",
+      "name": "De metal o alambre",
+      "use": "",
+      "spec": "De metal o alambre",
+      "values": [
+       "De metal o alambre"
+      ]
+     },
+     {
+      "id": "de-madera",
+      "name": "De madera",
+      "use": "",
+      "spec": "De madera",
+      "values": [
+       "De madera"
+      ]
+     },
+     {
+      "id": "de-acero-inoxidable",
+      "name": "De acero inoxidable",
+      "use": "",
+      "spec": "De acero inoxidable",
+      "values": [
+       "De acero inoxidable"
+      ]
+     },
+     {
+      "id": "de-plastico",
+      "name": "De plástico",
+      "use": "",
+      "spec": "De plástico",
+      "values": [
+       "De plástico"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,150",
+      "max": 2150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,150 a $16,500",
+      "min": 2150,
+      "max": 16500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $16,500",
+      "min": 16500
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial/Mobiliario": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,400",
+      "max": 3400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,400 a $12,500",
+      "min": 3400,
+      "max": 12500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $12,500",
+      "min": 12500
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial/Lectores de código de barras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $810",
+      "max": 810
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$810 a $1,650",
+      "min": 810,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial/Cocina industrial": {
+  "axes": [
+   {
+    "label": "Capacidad",
+    "field": "liters",
+    "criterion": "en litros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Una o dos personas",
+      "spec": "Hasta 16 L",
+      "max": 16
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Para la familia",
+      "spec": "17 L a 22 L",
+      "min": 16,
+      "max": 22
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Reuniones o uso intensivo",
+      "spec": "Más de 22 L",
+      "min": 22
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,750",
+      "max": 3750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,750 a $15,500",
+      "min": 3750,
+      "max": 15500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $15,500",
+      "min": 15500
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial/Prensas de calor": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $990",
+      "max": 990
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$990 a $4,100",
+      "min": 990,
+      "max": 4100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,100",
+      "min": 4100
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial/Cajas registradoras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $7,650",
+      "max": 7650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$7,650 a $12,500",
+      "min": 7650,
+      "max": 12500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $12,500",
+      "min": 12500
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial/Punto de venta": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "terminal-o-caja-registradora",
+      "name": "Terminal o caja registradora",
+      "use": "",
+      "spec": "Terminal o caja registradora",
+      "values": [
+       "Terminal o caja registradora"
+      ]
+     },
+     {
+      "id": "impresora-de-tickets",
+      "name": "Impresora de tickets",
+      "use": "",
+      "spec": "Impresora de tickets",
+      "values": [
+       "Impresora de tickets"
+      ]
+     },
+     {
+      "id": "lector-de-codigos",
+      "name": "Lector de códigos",
+      "use": "",
+      "spec": "Lector de códigos",
+      "values": [
+       "Lector de códigos"
+      ]
+     },
+     {
+      "id": "consumibles",
+      "name": "Consumibles",
+      "use": "",
+      "spec": "Consumibles",
+      "values": [
+       "Consumibles"
+      ]
+     },
+     {
+      "id": "cajon-de-dinero",
+      "name": "Cajón de dinero",
+      "use": "",
+      "spec": "Cajón de dinero",
+      "values": [
+       "Cajón de dinero"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,950",
+      "max": 1950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,950 a $8,100",
+      "min": 1950,
+      "max": 8100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $8,100",
+      "min": 8100
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial/Impresoras de sublimación": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,000",
+      "max": 3000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,000 a $13,500",
+      "min": 3000,
+      "max": 13500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $13,500",
+      "min": 13500
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial/Terminales punto de venta": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $7,900",
+      "max": 7900
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$7,900 a $14,500",
+      "min": 7900,
+      "max": 14500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $14,500",
+      "min": 14500
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial/Cajones de dinero": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,550",
+      "max": 1550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,550 a $2,450",
+      "min": 1550,
+      "max": 2450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,450",
+      "min": 2450
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras exteriores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $970",
+      "max": 970
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$970 a $1,950",
+      "min": 970,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Alarmas": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,100",
+      "max": 1100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,100 a $3,350",
+      "min": 1100,
+      "max": 3350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,350",
+      "min": 3350
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras interiores": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $910",
+      "max": 910
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$910 a $2,350",
+      "min": 910,
+      "max": 2350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,350",
+      "min": 2350
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Accesorios de videovigilancia": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $450",
+      "max": 450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$450 a $1,000",
+      "min": 450,
+      "max": 1000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,000",
+      "min": 1000
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras espía": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $250",
+      "max": 250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$250 a $730",
+      "min": 250,
+      "max": 730
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $730",
+      "min": 730
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Timbres inteligentes": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $2,300",
+      "min": 1050,
+      "max": 2300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,300",
+      "min": 2300
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Cámaras PTZ": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $940",
+      "max": 940
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$940 a $2,950",
+      "min": 940,
+      "max": 2950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,950",
+      "min": 2950
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad/Kits de vigilancia": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,100",
+      "max": 3100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,100 a $5,550",
+      "min": 3100,
+      "max": 5550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,550",
+      "min": 5550
      }
     ]
    }
@@ -11179,2441 +14924,6 @@
   ],
   "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
  },
- "Deportes y fitness/Bancos y racks": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $13,000",
-      "max": 13000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$13,000 a $44,000",
-      "min": 13000,
-      "max": 44000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $44,000",
-      "min": 44000
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Bicicletas fijas": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso ocasional",
-      "spec": "Hasta 130 kg",
-      "max": 130
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso diario",
-      "spec": "131 kg a 150 kg",
-      "min": 130,
-      "max": 150
-     },
-     {
-      "id": "reforzada",
-      "name": "Reforzada",
-      "use": "Uso intensivo o más peso",
-      "spec": "Más de 150 kg",
-      "min": 150
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,950",
-      "max": 2950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,950 a $10,000",
-      "min": 2950,
-      "max": 10000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $10,000",
-      "min": 10000
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Balones de fútbol": {
-  "axes": [
-   {
-    "label": "Número",
-    "field": "ball_no",
-    "criterion": "del balón",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "n3",
-      "name": "No. 3",
-      "use": "Niños chicos",
-      "spec": "No. 3",
-      "max": 3
-     },
-     {
-      "id": "n4",
-      "name": "No. 4",
-      "use": "Juvenil",
-      "spec": "No. 4",
-      "min": 3,
-      "max": 4
-     },
-     {
-      "id": "n5",
-      "name": "No. 5",
-      "use": "Adultos, medida oficial de futbol",
-      "spec": "No. 5",
-      "min": 4,
-      "max": 5
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $590",
-      "min": 290,
-      "max": 590
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $590",
-      "min": 590
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Goggles de natación": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $270",
-      "max": 270
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$270 a $450",
-      "min": 270,
-      "max": 450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $450",
-      "min": 450
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Campismo": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $510",
-      "max": 510
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$510 a $1,050",
-      "min": 510,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Raquetas de ping pong": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $260",
-      "max": 260
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$260 a $720",
-      "min": 260,
-      "max": 720
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $720",
-      "min": 720
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Remadoras": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,950",
-      "max": 2950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,950 a $5,550",
-      "min": 2950,
-      "max": 5550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,550",
-      "min": 5550
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Raquetas de tenis": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $840",
-      "max": 840
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$840 a $2,450",
-      "min": 840,
-      "max": 2450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,450",
-      "min": 2450
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Pelotas y accesorios de raqueta": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $220",
-      "max": 220
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$220 a $590",
-      "min": 220,
-      "max": 590
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $590",
-      "min": 590
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Patines en línea": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,550",
-      "max": 1550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,550 a $2,450",
-      "min": 1550,
-      "max": 2450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,450",
-      "min": 2450
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Bádminton": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $270",
-      "max": 270
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$270 a $710",
-      "min": 270,
-      "max": 710
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $710",
-      "min": 710
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Máquinas multifuncionales y poleas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,600",
-      "max": 1600
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,600 a $7,750",
-      "min": 1600,
-      "max": 7750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $7,750",
-      "min": 7750
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Balones de voleibol": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $550",
-      "min": 290,
-      "max": 550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $550",
-      "min": 550
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Tapetes de yoga": {
-  "axes": [
-   {
-    "label": "Grosor",
-    "field": "thickness_mm",
-    "criterion": "en milímetros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "delgado",
-      "name": "Delgado",
-      "use": "Equilibrio y viajes",
-      "spec": "Hasta 5 mm",
-      "max": 5
-     },
-     {
-      "id": "medio",
-      "name": "Medio",
-      "use": "El grosor más común",
-      "spec": "6 mm a 10 mm",
-      "min": 5,
-      "max": 10
-     },
-     {
-      "id": "grueso",
-      "name": "Grueso",
-      "use": "Rodillas y suelo duro",
-      "spec": "Más de 10 mm",
-      "min": 10
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $350",
-      "max": 350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$350 a $690",
-      "min": 350,
-      "max": 690
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $690",
-      "min": 690
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Tableros de dardos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $390",
-      "max": 390
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$390 a $1,150",
-      "min": 390,
-      "max": 1150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Rodilleras, muñequeras y soportes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $260",
-      "max": 260
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$260 a $480",
-      "min": 260,
-      "max": 480
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $480",
-      "min": 480
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Otros deportes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $410",
-      "max": 410
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$410 a $590",
-      "min": 410,
-      "max": 590
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $590",
-      "min": 590
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Elípticas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,400",
-      "max": 2400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,400 a $7,950",
-      "min": 2400,
-      "max": 7950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $7,950",
-      "min": 7950
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Caminadoras": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso ocasional",
-      "spec": "Hasta 100 kg",
-      "max": 100
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso diario",
-      "spec": "101 kg a 120 kg",
-      "min": 100,
-      "max": 120
-     },
-     {
-      "id": "reforzada",
-      "name": "Reforzada",
-      "use": "Uso intensivo o más peso",
-      "spec": "Más de 120 kg",
-      "min": 120
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,450",
-      "max": 3450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,450 a $9,150",
-      "min": 3450,
-      "max": 9150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $9,150",
-      "min": 9150
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Escaladoras y steppers": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso ocasional",
-      "spec": "Hasta 120 kg",
-      "max": 120
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso diario",
-      "spec": "121 kg a 150 kg",
-      "min": 120,
-      "max": 150
-     },
-     {
-      "id": "reforzada",
-      "name": "Reforzada",
-      "use": "Uso intensivo o más peso",
-      "spec": "Más de 150 kg",
-      "min": 150
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,750",
-      "max": 1750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,750 a $3,850",
-      "min": 1750,
-      "max": 3850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,850",
-      "min": 3850
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Equipo de gimnasio": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "banco-y-soportes",
-      "name": "Banco y soportes",
-      "use": "",
-      "spec": "Banco y soportes",
-      "values": [
-       "Banco y soportes"
-      ]
-     },
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     },
-     {
-      "id": "peso-libre",
-      "name": "Peso libre",
-      "use": "",
-      "spec": "Peso libre",
-      "values": [
-       "Peso libre"
-      ]
-     },
-     {
-      "id": "maquinas",
-      "name": "Máquinas",
-      "use": "",
-      "spec": "Máquinas",
-      "values": [
-       "Máquinas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $830",
-      "max": 830
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$830 a $5,200",
-      "min": 830,
-      "max": 5200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,200",
-      "min": 5200
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Accesorios de fuerza": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $320",
-      "max": 320
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$320 a $700",
-      "min": 320,
-      "max": 700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Cuerdas para saltar": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $280",
-      "max": 280
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$280 a $620",
-      "min": 280,
-      "max": 620
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $620",
-      "min": 620
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Bandas de resistencia": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $190",
-      "max": 190
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$190 a $410",
-      "min": 190,
-      "max": 410
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $410",
-      "min": 410
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Pelotas y aros de pilates": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $210",
-      "max": 210
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$210 a $290",
-      "min": 210,
-      "max": 290
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $290",
-      "min": 290
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Mesas de ping pong": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,950",
-      "max": 2950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,950 a $7,950",
-      "min": 2950,
-      "max": 7950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $7,950",
-      "min": 7950
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Pesas de tobillo y chalecos con peso": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $220",
-      "max": 220
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$220 a $420",
-      "min": 220,
-      "max": 420
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $420",
-      "min": 420
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Barras y discos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $860",
-      "max": 860
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$860 a $1,950",
-      "min": 860,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Protección para patinar": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$440 a $1,450",
-      "min": 440,
-      "max": 1450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,450",
-      "min": 1450
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Guantes de box": {
-  "axes": [
-   {
-    "label": "Peso",
-    "field": "glove_oz",
-    "criterion": "en onzas",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligeros",
-      "name": "Ligeros",
-      "use": "Niños y saco",
-      "spec": "Hasta 12 oz",
-      "max": 12
-     },
-     {
-      "id": "medios",
-      "name": "Medios",
-      "use": "Entrenamiento general",
-      "spec": "13 oz a 14 oz",
-      "min": 12,
-      "max": 14
-     },
-     {
-      "id": "pesados",
-      "name": "Pesados",
-      "use": "Sparring y protección",
-      "spec": "Más de 14 oz",
-      "min": 14
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "box",
-      "name": "Box",
-      "use": "",
-      "spec": "Box",
-      "values": [
-       "Box"
-      ]
-     },
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     },
-     {
-      "id": "artes-marciales",
-      "name": "Artes Marciales",
-      "use": "",
-      "spec": "Artes Marciales",
-      "values": [
-       "Artes Marciales"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Deportes y fitness/Trajes de baño deportivos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $390",
-      "min": 290,
-      "max": 390
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $390",
-      "min": 390
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Dardos y accesorios": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $850",
-      "min": 290,
-      "max": 850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $850",
-      "min": 850
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Bloques, correas y ruedas de yoga": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $260",
-      "max": 260
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$260 a $330",
-      "min": 260,
-      "max": 330
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $330",
-      "min": 330
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Sets de pesas": {
-  "axes": [
-   {
-    "label": "Peso",
-    "field": "weight_kg",
-    "criterion": "en kilos",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "ligeras",
-      "name": "Ligeras",
-      "use": "Para empezar y tonificar",
-      "spec": "Hasta 12 kg",
-      "max": 12
-     },
-     {
-      "id": "medias",
-      "name": "Medias",
-      "use": "Fuerza general",
-      "spec": "13 kg a 40 kg",
-      "min": 12,
-      "max": 40
-     },
-     {
-      "id": "pesadas",
-      "name": "Pesadas",
-      "use": "Fuerza avanzada",
-      "spec": "Más de 40 kg",
-      "min": 40
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $940",
-      "max": 940
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$940 a $2,050",
-      "min": 940,
-      "max": 2050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,050",
-      "min": 2050
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Mancuernas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $790",
-      "max": 790
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$790 a $1,850",
-      "min": 790,
-      "max": 1850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,850",
-      "min": 1850
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Pelotas, redes y accesorios de ping pong": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $260",
-      "max": 260
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$260 a $480",
-      "min": 260,
-      "max": 480
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $480",
-      "min": 480
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Máquinas de abdominales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,100",
-      "max": 1100
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,100 a $3,050",
-      "min": 1100,
-      "max": 3050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,050",
-      "min": 3050
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Barras de dominadas y calistenia": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $990",
-      "max": 990
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$990 a $3,100",
-      "min": 990,
-      "max": 3100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,100",
-      "min": 3100
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Accesorios y ropa de yoga": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $550",
-      "min": 290,
-      "max": 550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $550",
-      "min": 550
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Balones de básquetbol": {
-  "axes": [
-   {
-    "label": "Número",
-    "field": "ball_no",
-    "criterion": "del balón",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "n3",
-      "name": "No. 3",
-      "use": "Niños chicos",
-      "spec": "No. 3",
-      "max": 3
-     },
-     {
-      "id": "n5",
-      "name": "No. 5",
-      "use": "Adultos, medida oficial de futbol",
-      "spec": "No. 5",
-      "min": 4,
-      "max": 5
-     },
-     {
-      "id": "n6",
-      "name": "No. 6",
-      "use": "Basquetbol femenil",
-      "spec": "No. 6",
-      "min": 5,
-      "max": 6
-     },
-     {
-      "id": "n7",
-      "name": "No. 7",
-      "use": "Basquetbol varonil y futbol americano",
-      "spec": "No. 7",
-      "min": 6
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $280",
-      "max": 280
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$280 a $450",
-      "min": 280,
-      "max": 450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $450",
-      "min": 450
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Balones medicinales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $550",
-      "max": 550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$550 a $1,150",
-      "min": 550,
-      "max": 1150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Paddle, surf y kayak": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,050",
-      "max": 2050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,050 a $14,000",
-      "min": 2050,
-      "max": 14000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $14,000",
-      "min": 14000
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Redes de voleibol": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $540",
-      "max": 540
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$540 a $1,350",
-      "min": 540,
-      "max": 1350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,350",
-      "min": 1350
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Rodilleras y mangas de voleibol": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $190",
-      "max": 190
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$190 a $290",
-      "min": 190,
-      "max": 290
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $290",
-      "min": 290
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Patines de 4 ruedas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $890",
-      "max": 890
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$890 a $1,500",
-      "min": 890,
-      "max": 1500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,500",
-      "min": 1500
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Accesorios de patinaje": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $500",
-      "max": 500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$500 a $1,300",
-      "min": 500,
-      "max": 1300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,300",
-      "min": 1300
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Costales, peras y entrenadores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $560",
-      "max": 560
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$560 a $1,050",
-      "min": 560,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Protección, vendas y artes marciales": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "box",
-      "name": "Box",
-      "use": "",
-      "spec": "Box",
-      "values": [
-       "Box"
-      ]
-     },
-     {
-      "id": "artes-marciales",
-      "name": "Artes Marciales",
-      "use": "",
-      "spec": "Artes Marciales",
-      "values": [
-       "Artes Marciales"
-      ]
-     },
-     {
-      "id": "entrenamiento",
-      "name": "Entrenamiento",
-      "use": "",
-      "spec": "Entrenamiento",
-      "values": [
-       "Entrenamiento"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $350",
-      "max": 350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$350 a $840",
-      "min": 350,
-      "max": 840
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $840",
-      "min": 840
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Protectores bucales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $500",
-      "max": 500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$500 a $580",
-      "min": 500,
-      "max": 580
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $580",
-      "min": 580
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Fútbol americano": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $750",
-      "min": 290,
-      "max": 750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $750",
-      "min": 750
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Kettlebells": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $640",
-      "max": 640
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$640 a $1,300",
-      "min": 640,
-      "max": 1300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,300",
-      "min": 1300
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Patinetas y scooters": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $520",
-      "max": 520
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$520 a $1,050",
-      "min": 520,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Espinilleras": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $250",
-      "max": 250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$250 a $490",
-      "min": 250,
-      "max": 490
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $490",
-      "min": 490
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Guantes de portero": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$430 a $650",
-      "min": 430,
-      "max": 650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $650",
-      "min": 650
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Aletas, tablas y entrenamiento de natación": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $240",
-      "max": 240
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$240 a $530",
-      "min": 240,
-      "max": 530
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $530",
-      "min": 530
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Snorkel y buceo": {
-  "axes": [
-   {
-    "label": "Deporte",
-    "field": "sport",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "snorkeling",
-      "name": "Snorkeling",
-      "use": "",
-      "spec": "Snorkeling",
-      "values": [
-       "Snorkeling"
-      ]
-     },
-     {
-      "id": "buceo",
-      "name": "Buceo",
-      "use": "",
-      "spec": "Buceo",
-      "values": [
-       "Buceo"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $990",
-      "max": 990
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$990 a $1,650",
-      "min": 990,
-      "max": 1650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,650",
-      "min": 1650
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Raquetas de pádel": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,150",
-      "max": 2150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,150 a $3,400",
-      "min": 2150,
-      "max": 3400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,400",
-      "min": 3400
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Tapones y accesorios de natación": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $190",
-      "max": 190
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$190 a $380",
-      "min": 190,
-      "max": 380
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $380",
-      "min": 380
-     }
-    ]
-   }
-  ]
- },
- "Deportes y fitness/Gorros de natación": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $190",
-      "max": 190
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$190 a $280",
-      "min": 190,
-      "max": 280
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $280",
-      "min": 280
-     }
-    ]
-   }
-  ]
- },
  "Joyería y bisutería/Dijes y charms": {
   "axes": [
    {
@@ -17771,224 +19081,6 @@
       "min": 8350
      }
     ]
-   }
-  ]
- },
- "Computadoras de escritorio/Torre": {
-  "axes": [
-   {
-    "label": "Procesador",
-    "field": "cpu_family",
-    "criterion": "por familia",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "amd-ryzen-7",
-      "name": "AMD Ryzen 7",
-      "use": "",
-      "spec": "AMD Ryzen 7",
-      "values": [
-       "AMD Ryzen 7"
-      ]
-     },
-     {
-      "id": "amd-ryzen-7-5700g",
-      "name": "AMD Ryzen 7 5700G",
-      "use": "",
-      "spec": "AMD Ryzen 7 5700G",
-      "values": [
-       "AMD Ryzen 7 5700G"
-      ]
-     },
-     {
-      "id": "intel-core-i5",
-      "name": "Intel Core i5",
-      "use": "",
-      "spec": "Intel Core i5",
-      "values": [
-       "Intel Core i5"
-      ]
-     },
-     {
-      "id": "amd-ryzen-5",
-      "name": "AMD Ryzen 5",
-      "use": "",
-      "spec": "AMD Ryzen 5",
-      "values": [
-       "AMD Ryzen 5"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Gráficos",
-    "field": "gpu",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "nvidia-rtx-5060",
-      "name": "NVIDIA RTX 5060",
-      "use": "",
-      "spec": "NVIDIA RTX 5060",
-      "values": [
-       "NVIDIA RTX 5060"
-      ]
-     },
-     {
-      "id": "nvidia-rtx-5060-ti",
-      "name": "NVIDIA RTX 5060 Ti",
-      "use": "",
-      "spec": "NVIDIA RTX 5060 Ti",
-      "values": [
-       "NVIDIA RTX 5060 Ti"
-      ]
-     },
-     {
-      "id": "nvidia-rtx-5070",
-      "name": "NVIDIA RTX 5070",
-      "use": "",
-      "spec": "NVIDIA RTX 5070",
-      "values": [
-       "NVIDIA RTX 5070"
-      ]
-     },
-     {
-      "id": "nvidia-rtx-5070-ti",
-      "name": "NVIDIA RTX 5070 Ti",
-      "use": "",
-      "spec": "NVIDIA RTX 5070 Ti",
-      "values": [
-       "NVIDIA RTX 5070 Ti"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Computadoras de escritorio/Mini PC": {
-  "axes": [
-   {
-    "label": "Sistema",
-    "field": "os",
-    "criterion": "operativo",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "windows-11",
-      "name": "Windows 11",
-      "use": "",
-      "spec": "Windows 11",
-      "values": [
-       "Windows 11"
-      ]
-     },
-     {
-      "id": "windows-10",
-      "name": "Windows 10",
-      "use": "",
-      "spec": "Windows 10",
-      "values": [
-       "Windows 10"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Almacenamiento",
-    "field": "storage_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basico",
-      "name": "Básico",
-      "use": "Pocos juegos a la vez",
-      "spec": "Hasta 250 GB",
-      "max": 250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedio",
-      "use": "Varios juegos instalados",
-      "spec": "251 GB a 510 GB",
-      "min": 250,
-      "max": 510
-     },
-     {
-      "id": "alto",
-      "name": "Alto",
-      "use": "Toda la biblioteca",
-      "spec": "Más de 510 GB",
-      "min": 510
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Computadoras de escritorio/All in One": {
-  "axes": [
-   {
-    "label": "Sistema",
-    "field": "os",
-    "criterion": "operativo",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "windows-10",
-      "name": "Windows 10",
-      "use": "",
-      "spec": "Windows 10",
-      "values": [
-       "Windows 10"
-      ]
-     },
-     {
-      "id": "windows-11",
-      "name": "Windows 11",
-      "use": "",
-      "spec": "Windows 11",
-      "values": [
-       "Windows 11"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Almacenamiento",
-    "field": "storage_gb",
-    "criterion": "en GB",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "basico",
-      "name": "Básico",
-      "use": "Pocos juegos a la vez",
-      "spec": "Hasta 120 GB",
-      "max": 120
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedio",
-      "use": "Varios juegos instalados",
-      "spec": "121 GB a 510 GB",
-      "min": 120,
-      "max": 510
-     },
-     {
-      "id": "alto",
-      "name": "Alto",
-      "use": "Toda la biblioteca",
-      "spec": "Más de 510 GB",
-      "min": 510
-     }
-    ],
-    "key": "extra"
    }
   ]
  },
@@ -26229,521 +27321,6 @@
    }
   ]
  },
- "Equipo comercial/Carros de servicio": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "de-metal-o-alambre",
-      "name": "De metal o alambre",
-      "use": "",
-      "spec": "De metal o alambre",
-      "values": [
-       "De metal o alambre"
-      ]
-     },
-     {
-      "id": "de-madera",
-      "name": "De madera",
-      "use": "",
-      "spec": "De madera",
-      "values": [
-       "De madera"
-      ]
-     },
-     {
-      "id": "de-acero-inoxidable",
-      "name": "De acero inoxidable",
-      "use": "",
-      "spec": "De acero inoxidable",
-      "values": [
-       "De acero inoxidable"
-      ]
-     },
-     {
-      "id": "de-plastico",
-      "name": "De plástico",
-      "use": "",
-      "spec": "De plástico",
-      "values": [
-       "De plástico"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,150",
-      "max": 2150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,150 a $16,500",
-      "min": 2150,
-      "max": 16500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $16,500",
-      "min": 16500
-     }
-    ]
-   }
-  ]
- },
- "Equipo comercial/Mobiliario": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,400",
-      "max": 3400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,400 a $12,500",
-      "min": 3400,
-      "max": 12500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $12,500",
-      "min": 12500
-     }
-    ]
-   }
-  ]
- },
- "Equipo comercial/Lectores de código de barras": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $810",
-      "max": 810
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$810 a $1,650",
-      "min": 810,
-      "max": 1650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,650",
-      "min": 1650
-     }
-    ]
-   }
-  ]
- },
- "Equipo comercial/Cocina industrial": {
-  "axes": [
-   {
-    "label": "Capacidad",
-    "field": "liters",
-    "criterion": "en litros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Una o dos personas",
-      "spec": "Hasta 16 L",
-      "max": 16
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Para la familia",
-      "spec": "17 L a 22 L",
-      "min": 16,
-      "max": 22
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Reuniones o uso intensivo",
-      "spec": "Más de 22 L",
-      "min": 22
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,750",
-      "max": 3750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,750 a $15,500",
-      "min": 3750,
-      "max": 15500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $15,500",
-      "min": 15500
-     }
-    ]
-   }
-  ]
- },
- "Equipo comercial/Refrigeración comercial": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $5,350",
-      "max": 5350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$5,350 a $13,000",
-      "min": 5350,
-      "max": 13000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $13,000",
-      "min": 13000
-     }
-    ]
-   }
-  ]
- },
- "Equipo comercial/Prensas de calor": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $990",
-      "max": 990
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$990 a $4,100",
-      "min": 990,
-      "max": 4100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,100",
-      "min": 4100
-     }
-    ]
-   }
-  ]
- },
- "Equipo comercial/Cajas registradoras": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $7,650",
-      "max": 7650
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$7,650 a $12,500",
-      "min": 7650,
-      "max": 12500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $12,500",
-      "min": 12500
-     }
-    ]
-   }
-  ]
- },
- "Equipo comercial/Punto de venta": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "terminal-o-caja-registradora",
-      "name": "Terminal o caja registradora",
-      "use": "",
-      "spec": "Terminal o caja registradora",
-      "values": [
-       "Terminal o caja registradora"
-      ]
-     },
-     {
-      "id": "impresora-de-tickets",
-      "name": "Impresora de tickets",
-      "use": "",
-      "spec": "Impresora de tickets",
-      "values": [
-       "Impresora de tickets"
-      ]
-     },
-     {
-      "id": "lector-de-codigos",
-      "name": "Lector de códigos",
-      "use": "",
-      "spec": "Lector de códigos",
-      "values": [
-       "Lector de códigos"
-      ]
-     },
-     {
-      "id": "consumibles",
-      "name": "Consumibles",
-      "use": "",
-      "spec": "Consumibles",
-      "values": [
-       "Consumibles"
-      ]
-     },
-     {
-      "id": "cajon-de-dinero",
-      "name": "Cajón de dinero",
-      "use": "",
-      "spec": "Cajón de dinero",
-      "values": [
-       "Cajón de dinero"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,950",
-      "max": 1950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,950 a $8,100",
-      "min": 1950,
-      "max": 8100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $8,100",
-      "min": 8100
-     }
-    ]
-   }
-  ]
- },
- "Equipo comercial/Impresoras de sublimación": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,000",
-      "max": 3000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,000 a $13,500",
-      "min": 3000,
-      "max": 13500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $13,500",
-      "min": 13500
-     }
-    ]
-   }
-  ]
- },
- "Equipo comercial/Terminales punto de venta": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $7,900",
-      "max": 7900
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$7,900 a $14,500",
-      "min": 7900,
-      "max": 14500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $14,500",
-      "min": 14500
-     }
-    ]
-   }
-  ]
- },
- "Equipo comercial/Cajones de dinero": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,550",
-      "max": 1550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,550 a $2,450",
-      "min": 1550,
-      "max": 2450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,450",
-      "min": 2450
-     }
-    ]
-   }
-  ]
- },
  "Cargadores y adaptadores/Inalámbrico": {
   "axes": [
    {
@@ -27539,16 +28116,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$440 a $990",
+      "spec": "$440 a $1,000",
       "min": 440,
-      "max": 990
+      "max": 1000
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $990",
-      "min": 990
+      "spec": "Más de $1,000",
+      "min": 1000
      }
     ]
    }
@@ -31903,583 +32480,6 @@
    }
   ]
  },
- "Cámaras de seguridad/Cámaras exteriores": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $970",
-      "max": 970
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$970 a $1,950",
-      "min": 970,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Cámaras interiores": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $910",
-      "max": 910
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$910 a $2,350",
-      "min": 910,
-      "max": 2350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,350",
-      "min": 2350
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Accesorios de videovigilancia": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $450",
-      "max": 450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$450 a $1,000",
-      "min": 450,
-      "max": 1000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,000",
-      "min": 1000
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Cámaras espía": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $250",
-      "max": 250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$250 a $730",
-      "min": 250,
-      "max": 730
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $730",
-      "min": 730
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Alarmas": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,100",
-      "max": 1100
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,100 a $3,350",
-      "min": 1100,
-      "max": 3350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,350",
-      "min": 3350
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Timbres inteligentes": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,050",
-      "max": 1050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,050 a $2,300",
-      "min": 1050,
-      "max": 2300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,300",
-      "min": 2300
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Cámaras PTZ": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $940",
-      "max": 940
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$940 a $2,950",
-      "min": 940,
-      "max": 2950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad/Kits de vigilancia": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,100",
-      "max": 3100
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,100 a $5,550",
-      "min": 3100,
-      "max": 5550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,550",
-      "min": 5550
-     }
-    ]
-   }
-  ]
- },
  "Monitores/Gaming": {
   "axes": [
    {
@@ -32999,15 +32999,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $650",
-      "max": 650
+      "spec": "Hasta $640",
+      "max": 640
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$650 a $1,950",
-      "min": 650,
+      "spec": "$640 a $1,950",
+      "min": 640,
       "max": 1950
      },
      {
@@ -36800,6 +36800,41 @@
    }
   ]
  },
+ "Computadoras de escritorio": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $11,000",
+      "max": 11000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$11,000 a $20,500",
+      "min": 11000,
+      "max": 20500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $20,500",
+      "min": 20500
+     }
+    ]
+   }
+  ]
+ },
  "Iluminación": {
   "axes": [
    {
@@ -36946,6 +36981,41 @@
    }
   ]
  },
+ "Deportes y fitness": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $450",
+      "max": 450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$450 a $1,950",
+      "min": 450,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ]
+ },
  "Otros": {
   "axes": [
    {
@@ -36966,16 +37036,131 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$600 a $1,550",
+      "spec": "$600 a $1,500",
       "min": 600,
-      "max": 1550
+      "max": 1500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,550",
-      "min": 1550
+      "spec": "Más de $1,500",
+      "min": 1500
+     }
+    ]
+   }
+  ]
+ },
+ "Equipo comercial": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,950",
+      "max": 2950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,950 a $12,000",
+      "min": 2950,
+      "max": 12000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $12,000",
+      "min": 12000
+     }
+    ]
+   }
+  ]
+ },
+ "Cámaras de seguridad": {
+  "axes": [
+   {
+    "label": "Resolución",
+    "field": "resolution",
+    "criterion": "de la imagen",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "hd",
+      "name": "HD",
+      "use": "Para videollamadas básicas",
+      "spec": "HD",
+      "values": [
+       "HD"
+      ]
+     },
+     {
+      "id": "fhd",
+      "name": "FHD",
+      "use": "Nítida, la más común",
+      "spec": "FHD",
+      "values": [
+       "FHD"
+      ]
+     },
+     {
+      "id": "qhd",
+      "name": "QHD",
+      "use": "Más detalle que Full HD",
+      "spec": "QHD",
+      "values": [
+       "QHD"
+      ]
+     },
+     {
+      "id": "4k-uhd",
+      "name": "4K UHD",
+      "use": "El máximo detalle",
+      "spec": "4K UHD",
+      "values": [
+       "4K UHD"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $990",
+      "max": 990
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$990 a $2,850",
+      "min": 990,
+      "max": 2850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,850",
+      "min": 2850
      }
     ]
    }
@@ -37269,41 +37454,6 @@
   ],
   "intro": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica."
  },
- "Deportes y fitness": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $450",
-      "max": 450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$450 a $1,900",
-      "min": 450,
-      "max": 1900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,900",
-      "min": 1900
-     }
-    ]
-   }
-  ]
- },
  "Joyería y bisutería": {
   "axes": [
    {
@@ -37450,41 +37600,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $3,250",
       "min": 3250
-     }
-    ]
-   }
-  ]
- },
- "Computadoras de escritorio": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $11,000",
-      "max": 11000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$11,000 a $20,500",
-      "min": 11000,
-      "max": 20500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $20,500",
-      "min": 20500
      }
     ]
    }
@@ -38040,41 +38155,6 @@
    }
   ]
  },
- "Equipo comercial": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,950",
-      "max": 2950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,950 a $12,000",
-      "min": 2950,
-      "max": 12000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $12,000",
-      "min": 12000
-     }
-    ]
-   }
-  ]
- },
  "Cargadores y adaptadores": {
   "axes": [
    {
@@ -38241,86 +38321,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $770",
       "min": 770
-     }
-    ]
-   }
-  ]
- },
- "Cámaras de seguridad": {
-  "axes": [
-   {
-    "label": "Resolución",
-    "field": "resolution",
-    "criterion": "de la imagen",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "hd",
-      "name": "HD",
-      "use": "Para videollamadas básicas",
-      "spec": "HD",
-      "values": [
-       "HD"
-      ]
-     },
-     {
-      "id": "fhd",
-      "name": "FHD",
-      "use": "Nítida, la más común",
-      "spec": "FHD",
-      "values": [
-       "FHD"
-      ]
-     },
-     {
-      "id": "qhd",
-      "name": "QHD",
-      "use": "Más detalle que Full HD",
-      "spec": "QHD",
-      "values": [
-       "QHD"
-      ]
-     },
-     {
-      "id": "4k-uhd",
-      "name": "4K UHD",
-      "use": "El máximo detalle",
-      "spec": "4K UHD",
-      "values": [
-       "4K UHD"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $990",
-      "max": 990
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$990 a $2,850",
-      "min": 990,
-      "max": 2850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,850",
-      "min": 2850
      }
     ]
    }
