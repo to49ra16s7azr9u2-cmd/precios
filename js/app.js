@@ -2894,9 +2894,31 @@
     vistasEnVivo = {};
     api.escucharPopularidad((cuentas) => {
       vistasEnVivo = cuentas || {};
-      // Solo se repinta si la portada está a la vista: si no, ya se
+      // Solo se actualiza si la portada está a la vista: si no, ya se
       // repintará al volver.
-      if (el.viewHome && !el.viewHome.classList.contains("hidden")) renderHomeCatRanking();
+      //
+      // Y SIN reordenar. Antes cada aviso volvía a ordenar la lista, y el
+      // aviso llega cada vez que CUALQUIER visitante abre una ficha: si
+      // justo en ese momento alguien tocaba "Deportes y fitness", la lista
+      // se reacomodaba entre el toque y el clic y el dedo terminaba sobre
+      // otra fila -- "toqué Deportes y me llevó a Laptops" (reporte del
+      // usuario, 23-sep). El orden se decide al pintar la portada; acá solo
+      // cambian las barras y los números de las filas que ya están.
+      if (el.viewHome && !el.viewHome.classList.contains("hidden")) actualizarValoresRanking();
+    });
+  }
+
+  function actualizarValoresRanking() {
+    if (!el.homeCatRanking) return;
+    const vivo = vistasEnVivo || {};
+    const filas = [...el.homeCatRanking.querySelectorAll(".home-cat-rank-row[data-cat]")];
+    if (!filas.length || el.homeCatRanking.dataset.modo !== "vivo") return;
+    const tope = Math.max(1, ...filas.map((f) => vivo[f.dataset.cat] || 0));
+    filas.forEach((f) => {
+      const vistas = vivo[f.dataset.cat] || 0;
+      const barra = f.querySelector(".home-cat-rank-bar");
+      if (barra) barra.style.width = `${12 + Math.round((vistas / tope) * 88)}%`;
+      f.title = `${f.dataset.nombre} — ${vistas.toLocaleString("es-MX")} fichas abiertas en las últimas 24 h`;
     });
   }
 
@@ -2916,6 +2938,7 @@
       .sort((a, b) => (enVivo ? b.vistas - a.vistas || b.pop - a.pop : b.pop - a.pop));
     if (!cats.length) { el.homeCatRanking.innerHTML = ""; return; }
     const tope = enVivo ? Math.max(1, cats[0].vistas) : cats[0].pop;
+    el.homeCatRanking.dataset.modo = enVivo ? "vivo" : "calificaciones";
     el.homeCatRanking.innerHTML =
       `<span class="home-side-list-head">Categorías más populares` +
       (enVivo ? `<span class="home-cat-rank-vivo" title="Se actualiza solo con lo que abren los visitantes">en vivo</span>` : "") +
@@ -2928,6 +2951,8 @@
       const ancho = 12 + Math.round((valor / tope) * 88);
       const fila = document.createElement("a");
       fila.className = "home-cat-rank-row";
+      fila.dataset.cat = c.id;
+      fila.dataset.nombre = c.name;
       fila.href = `categoria/${catSlug(c.name)}/`;
       fila.title = enVivo
         ? `${c.name} — ${vistas.toLocaleString("es-MX")} fichas abiertas en las últimas 24 h`
