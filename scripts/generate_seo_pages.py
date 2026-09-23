@@ -1955,32 +1955,8 @@ SINGULAR = {
 # Lo que queda después de los dos filtros de arriba son errores sueltos de
 # clasificación, y esta página los premia: el filtro de agua metido en
 # Refrigeradores vale $199 contra una mediana de miles, así que gana el
-# primer puesto de "el refrigerador más barato". No hace falta saber qué es
-# para descartarlo -- basta con que sea un precio imposible PARA SU PROPIA
-# subcategoría. Un foco de $35 entre focos de $80 se queda (es un foco
-# barato); un Fire Stick de $588 entre televisores 4K de $9,000 se va.
-UMBRAL_ATIPICO = 0.15
-MIN_PARA_MEDIANA = 8
-
-
-def _piso_por_subcategoria(products):
-    """{subcategoría: precio mínimo creíble} = 15% de su mediana.
-
-    Solo para las subcategorías con fichas suficientes: con cuatro productos
-    la mediana no dice nada y el piso saldría de la nada.
-    """
-    por_sub = collections.defaultdict(list)
-    for p in products:
-        pr = min_price(p)
-        if pr and p.get("subcategory"):
-            por_sub[p["subcategory"]].append(pr)
-    piso = {}
-    for sub, precios in por_sub.items():
-        if len(precios) < MIN_PARA_MEDIANA:
-            continue
-        precios.sort()
-        piso[sub] = precios[len(precios) // 2] * UMBRAL_ATIPICO
-    return piso
+# primer puesto de "el refrigerador más barato". Esos los marca
+# save_catalog con "a" (ver scripts/atipicos.py).
 
 
 # Menos de esto la página sería una lista de veinte filas que dice lo mismo
@@ -2006,7 +1982,6 @@ def _barato_listables(products, cat=None):
     fundas. Una página que abra con eso contesta mal la pregunta y no la
     vuelve a leer nadie.
     """
-    piso = _piso_por_subcategoria(products)
     salida = []
     for p in products:
         sub = p.get("subcategory")
@@ -2014,11 +1989,13 @@ def _barato_listables(products, cat=None):
         # "producto" puede encabezar un "lo más barato".
         if sub in SUBCATEGORIAS_OPT_IN or not es_producto(p.get("category"), sub):
             continue
-        # La mediana sigue haciendo falta, pero ya no para separar el
-        # accesorio del producto: ahora sólo caza la ficha suelta MAL
-        # CLASIFICADA dentro de una subcategoría de producto (el filtro de
-        # agua metido en Refrigeradores/Refrigeradores).
-        if sub in piso and (min_price(p) or 0) < piso[sub]:
+        # La ficha suelta MAL CLASIFICADA dentro de una subcategoría de
+        # producto (el filtro de agua metido en Refrigeradores). Antes se
+        # descartaba todo lo que valía menos del 15% de la mediana, y con
+        # eso también la bocina de $179 que sí es una bocina; ahora se
+        # descarta sólo lo que además no se llama como sus vecinas (la
+        # marca "a" que pone save_catalog, ver atipicos.py).
+        if p.get("a"):
             continue
         # Solo lo que tiene página propia, o sea lo que vieron dos tiendas.
         # No es un capricho de coherencia interna: la ficha de un solo

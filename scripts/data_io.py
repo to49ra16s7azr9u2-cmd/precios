@@ -580,14 +580,42 @@ def _product_index(light, slugs):
     return {"categories": cat_order, "runs": runs, "extra": extra}
 
 
+def _marcar_roles(categories):
+    """Anota en cada subcategoría del manifiesto su papel si no es "producto".
+
+    La SPA lo necesita para lo mismo que ya hacían las páginas estáticas
+    (ver roles_subcategorias.py): que la lista de una categoría, y sobre todo
+    su orden por "más barato", muestre televisores y no controles remotos.
+    Sólo se escribe cuando no es "producto", que es casi siempre, para no
+    engordar el manifiesto que baja toda visita.
+    """
+    from roles_subcategorias import PRODUCTO, rol_de
+    for c in categories:
+        for s in c.get("subcategories") or []:
+            rol = rol_de(c.get("id"), s.get("id"))
+            if rol == PRODUCTO:
+                s.pop("rol", None)
+            else:
+                s["rol"] = rol
+
+
 def save_catalog(data):
     products = data.pop("products", [])
 
     # Se separan los campos de "solo ficha" ANTES de partir, para que el
     # archivo que baja el navegador no los lleve.
     light, details = [], {}
+    # "a": la ficha no debería encabezar un orden por precio (ver
+    # atipicos.py). Se recalcula en cada guardado porque depende de la
+    # mediana y del vocabulario de TODA su subcategoría.
+    from atipicos import marcar as marcar_atipicos
+    atipicos = marcar_atipicos(products)
     for p in products:
         light_p, detail = _split_detail(p)
+        light_p.pop("a", None)
+        p.pop("a", None)
+        if p["id"] in atipicos:
+            light_p["a"] = 1
         light.append(light_p)
         if detail:
             details[p["id"]] = detail
@@ -657,6 +685,7 @@ def save_catalog(data):
     data["scopesFile"] = SCOPES_FILE
     data.update(summary)
     data.pop("productFiles", None)
+    _marcar_roles(data.get("categories") or [])
     with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     data["products"] = products

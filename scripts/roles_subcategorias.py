@@ -69,6 +69,9 @@ ROLES = {
         "Accesorios y repuestos": ACCESORIO,
     },
     "Tabletas": {
+        # Las pizarras LCD de escritura son un producto, pero no son una
+        # tableta: kakaku.com separa 電子メモ de タブレット.
+        "Tabletas de dibujo y escritura": AFIN,
         "Accesorios para tableta": ACCESORIO,
     },
     "Bocinas": {
@@ -83,11 +86,13 @@ ROLES = {
     # Ojo: en esta categoría la memoria RAM y los componentes SON el
     # producto; lo que sobra son los accesorios DE esos componentes.
     "Componentes y accesorios de PC": {
+        "Refacciones para laptop": PARTE,
         "Accesorios": ACCESORIO,
         "Accesorios de memoria": ACCESORIO,
         "Accesorios de monitor": ACCESORIO,
     },
     "Televisores": {
+        "Accesorios de TV": ACCESORIO,
         "Accesorios y soportes": ACCESORIO,
         "Dispositivos de streaming": AFIN,
     },
@@ -104,6 +109,7 @@ ROLES = {
         "Accesorios": ACCESORIO,
     },
     "Electrodomésticos": {
+        "Accesorios y refacciones de máquina de coser": PARTE,
         "Accesorios de purificador": ACCESORIO,
         "Accesorios y repuestos para freidora de aire": ACCESORIO,
         "Filtros para regadera": CONSUMIBLE,
@@ -120,6 +126,8 @@ ROLES = {
         "Tarjetas y suscripciones": CONSUMIBLE,
     },
     "Muebles": {
+        "Accesorios y refacciones para sillas": PARTE,
+        "Herrajes y refacciones de muebles": PARTE,
         "Accesorios y organizadores de escritorio": ACCESORIO,
         "Fundas y accesorios para sofá": ACCESORIO,
         "Accesorios y refacciones de cama": PARTE,
@@ -128,6 +136,7 @@ ROLES = {
     # usar la herramienta, y con ellos arriba "la herramienta más barata"
     # cuesta $38 y es un disco de corte.
     "Herramientas": {
+        "Baterías y cargadores de herramienta": ACCESORIO,
         "Accesorios de multiherramienta y mototool": ACCESORIO,
         "Accesorios para herramientas eléctricas": ACCESORIO,
         "Accesorios para rotomartillo y demoledor": ACCESORIO,
@@ -140,6 +149,8 @@ ROLES = {
         "Puntas y dados de impacto": CONSUMIBLE,
     },
     "Autos, bicicletas y motos": {
+        "Tapetes, fundas y parasoles": ACCESORIO,
+        "Limpieza y cuidado del auto": CONSUMIBLE,
         # El audio de auto y las cámaras son productos, pero no son el auto
         # ni la bicicleta: "el auto más barato" no es una bocina de $265.
         "Bocinas para auto": AFIN,
@@ -190,7 +201,16 @@ ROLES = {
     "Drones": {
         "Accesorios": ACCESORIO,
     },
+    "Cafeteras": {
+        "Accesorios para cafetera": ACCESORIO,
+    },
+    "Cámaras de seguridad": {
+        "Accesorios de videovigilancia": ACCESORIO,
+    },
     "Impresoras": {
+        "Cartuchos de tinta": CONSUMIBLE,
+        "Tóner": CONSUMIBLE,
+        "Cabezales y refacciones de impresión": PARTE,
         "Consumibles": CONSUMIBLE,
     },
     "Instrumentos musicales": {
@@ -213,6 +233,9 @@ ROLES = {
     # Los lentes se quedan como producto: son de lo más comparado de la
     # categoría y kakaku les da categoría propia (レンズ).
     "Cámaras y fotografía": {
+        "Filtros y parasoles": ACCESORIO,
+        "Trípodes y soportes": ACCESORIO,
+        "Baterías y cargadores de cámara": ACCESORIO,
         "Accesorios": ACCESORIO,
     },
     "Impresión 3D": {
@@ -271,11 +294,25 @@ ORDEN = [PRODUCTO, AFIN, ACCESORIO, PARTE, CONSUMIBLE]
 POR_NOMBRE = {"Accesorios": ACCESORIO}
 
 
+# Tres categorías tienen un id distinto de su nombre, y ROLES está escrito
+# con el nombre. Casi todos los que preguntan pasan p["category"], que es el
+# id, así que sin este puente los papeles de Audífonos y de Baterías
+# portátiles nunca se aplicaban (medido el 23 de septiembre de 2026: sus
+# repuestos seguían compitiendo en los rankings). Se acepta cualquiera de
+# los dos.
+ALIAS_CATEGORIA = {
+    "Audífonos": "Audífonos y auriculares",
+    "Baterías portátiles": "Baterías portátiles (power bank)",
+    "Redes": "Redes y WiFi",
+}
+
+
 def rol_de(categoria, subcategoria):
-    """El papel de esa subcategoría dentro de esa categoría."""
+    """El papel de esa subcategoría dentro de esa categoría (id o nombre)."""
     if not subcategoria:
         return PRODUCTO
-    explicito = ROLES.get(categoria, {}).get(subcategoria)
+    roles = ROLES.get(categoria) or ROLES.get(ALIAS_CATEGORIA.get(categoria), {})
+    explicito = roles.get(subcategoria)
     if explicito:
         return explicito
     return POR_NOMBRE.get(subcategoria, PRODUCTO)

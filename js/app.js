@@ -3704,9 +3704,50 @@
   // aspiradoras. Siguen estando: aparecen al elegir esa subcategoría, al
   // buscarlas por nombre y en su propia página (ver scripts/split_accesorios.py).
   const SUBCATEGORIAS_OPT_IN = new Set(["Accesorios"]);
-  function esOptIn(p) {
-    return SUBCATEGORIAS_OPT_IN.has(p.subcategory);
+  //
+  // Lo mismo, pero para toda subcategoría que no es "el producto" de su
+  // categoría (accesorio, parte, consumible, afín): el manifiesto trae ese
+  // papel en `rol` (ver scripts/roles_subcategorias.py). Las páginas
+  // estáticas ya lo usaban; la lista de la SPA no, y al ordenar
+  // Televisores por "Precio: menor a mayor" abría con limpiadores de
+  // pantalla, controles remotos y soportes -- se leía como si el orden
+  // mezclara otras categorías. Con menos de MIN_PRODUCTO_PROPIO fichas de
+  // papel "producto" la categoría se muestra entera (misma regla que
+  // MIN_PARA_RANKING_PROPIO en generate_seo_pages.py): más vale una lista
+  // con accesorios que una casi vacía.
+  const MIN_PRODUCTO_PROPIO = 12;
+  let rolesCache = null;
+  function rolesPorCategoria() {
+    const cats = (state.data && state.data.categories) || [];
+    if (rolesCache && rolesCache.cats === cats) return rolesCache;
+    const stats = (state.data && state.data.categoryStats) || {};
+    const rol = new Map();
+    const propios = new Map();
+    for (const c of cats) {
+      const subsN = (stats[c.id] || {}).subs || {};
+      let nProducto = 0;
+      for (const [sub, n] of Object.entries(subsN)) {
+        const s = (c.subcategories || []).find((x) => x.id === sub);
+        if (!(s && s.rol) && !SUBCATEGORIAS_OPT_IN.has(sub)) nProducto += n;
+      }
+      propios.set(c.id, nProducto >= MIN_PRODUCTO_PROPIO);
+      for (const s of c.subcategories || []) if (s.rol) rol.set(`${c.id}\u0000${s.id}`, s.rol);
+    }
+    rolesCache = { cats, rol, propios };
+    return rolesCache;
   }
+  function esOptIn(p) {
+    if (SUBCATEGORIAS_OPT_IN.has(p.subcategory)) return true;
+    const r = rolesPorCategoria();
+    return r.rol.has(`${p.category}\u0000${p.subcategory}`) && r.propios.get(p.category) === true;
+  }
+
+  // La ficha suelta MAL CLASIFICADA dentro de una subcategoría de producto
+  // (el imán de $149 metido en Refrigeradores > Refrigeradores) ganaba el
+  // primer lugar de "Precio: menor a mayor". El build la marca con `a: 1`
+  // (ver scripts/atipicos.py: precio imposible para su subcategoría Y un
+  // nombre que no arranca como sus productos). No se oculta: se manda al
+  // final del orden por precio.
 
   function filteredProducts() {
     const ratingMin = (RATING_FILTERS.find((r) => r.id === state.minRating) || RATING_FILTERS[0]).min;
@@ -3799,7 +3840,12 @@
   function sortedProducts(products) {
     const list = products.slice();
     if (state.sort === "popularity") return sortByPopularity(list);
-    else if (state.sort === "price_asc") list.sort((a, b) => minPrice(a) - minPrice(b));
+    else if (state.sort === "price_asc") {
+      return list
+        .map((p) => ({ p, pr: minPrice(p), a: p.a ? 1 : 0 }))
+        .sort((x, y) => x.a - y.a || x.pr - y.pr)
+        .map((x) => x.p);
+    }
     else if (state.sort === "price_desc") list.sort((a, b) => minPrice(b) - minPrice(a));
     // "Mejor calificados" empata igual de seguido que "más popular" (hoy
     // ninguna oferta del catálogo trae calificación), así que usa el mismo
