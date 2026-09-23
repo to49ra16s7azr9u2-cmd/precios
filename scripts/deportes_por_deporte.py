@@ -95,7 +95,10 @@ FAMILIAS = [
     ("Dardos", ["Dardos y accesorios", "Tableros de dardos"]),
     ("Protección y recuperación", [
         "Rodilleras, muñequeras y soportes", "Protectores bucales"]),
-    ("Otros deportes", [
+    # "Más deportes" y no "Otros deportes": la familia tiene página propia
+    # (/categoria/deportes-y-fitness/<familia>/) y ese nombre es también el
+    # de una de sus subcategorías; dos páginas no pueden vivir en la misma url.
+    ("Más deportes", [
         "Fútbol americano", "Béisbol y softbol", "Golf", "Campismo",
         "Otros deportes"]),
 ]

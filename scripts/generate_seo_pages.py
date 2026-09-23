@@ -242,11 +242,19 @@ def product_photo_html(product, css_class="detail-icon"):
     foto = product.get("photo")
     if not foto:
         return f'<div class="{css_class}">{svg_icon(product.get("image", "box"))}</div>'
+    # La foto grande de la ficha es el elemento más grande de la página (el
+    # LCP que mide Google): con loading="lazy" el navegador la dejaba para
+    # después del resto. Las miniaturas de las listas sí van diferidas. El
+    # ancho y alto declarados sólo reservan la proporción (el css las lleva
+    # al tamaño de su recuadro); sin ellos Lighthouse marca cada imagen.
+    principal = css_class == "detail-icon"
+    lado = 400 if principal else 56
+    carga = 'fetchpriority="high"' if principal else 'loading="lazy"'
     return (
         f'<div class="{css_class} has-photo">'
         f'<img class="product-photo product-photo-detail" src="{html_escape(foto)}" '
         f'alt="{html_escape(product["name"])}" referrerpolicy="no-referrer" '
-        f'loading="lazy" decoding="async">'
+        f'width="{lado}" height="{lado}" {carga} decoding="async">'
         f'</div>'
     )
 
@@ -287,7 +295,9 @@ def page_shell(title, description, canonical_path, body, depth, extra_head="", r
 <meta name="description" content="{html_escape(description)}">
 <meta name="robots" content="{robots_full}">
 {canonical_tag}
-<meta property="og:type" content="product">
+<meta property="og:type" content="{'product' if canonical_path.startswith('/producto/') else 'website'}">
+<meta property="og:site_name" content="ComparaMEX">
+<meta property="og:locale" content="es_MX">
 <meta property="og:title" content="{html_escape(title)}">
 <meta property="og:description" content="{html_escape(description)}">
 <meta property="og:url" content="{canonical}">
@@ -1103,6 +1113,80 @@ def subcategorias_con_pagina(cat, products_de_la_cat):
     return salida
 
 
+# Subcategorías cuyo nombre es un modificador y no dice qué es sin su
+# categoría: "4K" (Televisores), "Android" (Celulares), "De escoba"
+# (Aspiradoras), "27 pulgadas" (Monitores). En el <title> y el <h1> van con
+# la categoría adelante -- "Televisores 4K" es lo que alguien escribe en el
+# buscador; "4K — Comparar precios" no le dice ni a Google ni a nadie que
+# son televisores. La miga de pan sigue con el nombre corto: ahí la
+# categoría ya está un escalón arriba.
+_MODIFICADOR = re.compile(
+    r"^(\d|de |del |con |sin |para |hasta |uso |tipo |[A-Z0-9]{1,4}\b|"
+    r"\w+(icos|icas|ales|bles|ados|adas|idos|idas|ivos|ivas|entes|antes|ares)\b|"
+    r"android|windows|gamer|gaming|mediana|grande|peque|carga )", re.IGNORECASE)
+# Nombres propios que no se bajan a minúscula al ir detrás de la categoría.
+_NOMBRE_PROPIO = {"Android", "Windows", "Apple", "Bluetooth", "Chromebook", "Smart", "Linux"}
+
+
+def nombre_completo_sub(cat, sub_name):
+    """El nombre de la subcategoría que se entiende sin su categoría."""
+    cat_name = cat["name"]
+    if cat_name == "Libros" and not sub_name.lower().startswith("libros"):
+        return f"Libros de {sub_name[0].lower() + sub_name[1:]}"
+    if not _MODIFICADOR.match(sub_name):
+        return sub_name
+    primera = sub_name.split(" ", 1)[0]
+    # Siglas y nombres propios conservan su forma (4K, HD, Android).
+    conserva = primera.isupper() or any(c.isupper() for c in primera[1:]) or primera in _NOMBRE_PROPIO
+    cola = sub_name if conserva else sub_name[0].lower() + sub_name[1:]
+    if re.match(r"(uso|carga) ", cola, re.IGNORECASE):
+        cola = "de " + cola
+    return f"{cat_name} {cola}"
+
+
+FAMILIA_MIN_PRODUCTOS = 20
+
+
+def familias_con_pagina(cat, products_de_la_cat):
+    """[(familia, [(sub, productos)], productos)] de las familias con página.
+
+    Es el escalón del medio (familias_subcategorias.py): en Deportes y fitness
+    el deporte -- Fútbol, Natación --, que es justo lo que se busca ("artículos
+    de fútbol") y no tenía página. La url es /categoria/<cat>/<familia>/, así
+    que una familia cuyo nombre choca con una subcategoría de la misma
+    categoría no la lleva (la subcategoría manda).
+    """
+    subs = subcategorias_con_pagina(cat, products_de_la_cat)
+    por_nombre = {sub["name"]: (sub, items) for sub, items in subs}
+    slugs_sub = {slugify(s["name"]) for s in cat.get("subcategories", [])}
+    cuenta = {n: len(it) for n, (_, it) in por_nombre.items()}
+    productores = [n for n in por_nombre if rol_de(cat["name"], n) == "producto"]
+    grupos = [(f, m) for f, m in agrupar_familias(cat["name"], productores, cuenta) if f]
+    if len(grupos) < 2:
+        return []
+    salida = []
+    for familia, miembros in grupos:
+        if slugify(familia) in slugs_sub or len(miembros) < 2:
+            continue
+        pares = [por_nombre[m] for m in miembros]
+        items = [p for _, it in pares for p in it]
+        if len(items) >= FAMILIA_MIN_PRODUCTOS:
+            salida.append((familia, pares, items))
+    return salida
+
+
+def familia_de_sub(cat, sub_name, products_de_la_cat, _cache={}):
+    """La familia con página de una subcategoría, o None."""
+    clave = cat["id"]
+    if clave not in _cache:
+        _cache[clave] = {
+            sub["name"]: familia
+            for familia, pares, _ in familias_con_pagina(cat, products_de_la_cat)
+            for sub, _ in pares
+        }
+    return _cache[clave].get(sub_name)
+
+
 def _valor_eje(p, campo):
     """El dato por el que corta un eje. "price" no es un facet: es el precio
     más barato de hoy, el mismo que imprime la fila (min_price)."""
@@ -1354,7 +1438,7 @@ document.addEventListener('DOMContentLoaded', function () {
 """
 
 
-def render_subcategory_page(cat, sub, products, data):
+def render_subcategory_page(cat, sub, products, data, pares_familia=None):
     """Página de una subcategoría ("Sillas de oficina", "Cargadores USB-C").
 
     Es el hueco más grande que tenía el sitio: había 48 páginas de categoría
@@ -1364,9 +1448,22 @@ def render_subcategory_page(cat, sub, products, data):
     llevaran. Además le dan a las fichas un enlace interno desde una página
     temática, en vez de colgar todas del listado general de la categoría.
     """
+    # Con pares_familia es la página de una FAMILIA (el deporte, en Deportes
+    # y fitness): `sub` trae sólo el nombre de la familia y `products` son
+    # los de todas sus subcategorías. Se reusa esta misma página porque es
+    # la misma pregunta un escalón más arriba ("artículos de fútbol" en vez
+    # de "balones de fútbol").
     cat_slug = slugify(cat["name"])
     sub_slug = slugify(sub["name"])
     canonical_path = f"/categoria/{cat_slug}/{sub_slug}/"
+    productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
+    if pares_familia:
+        tipos = [s["name"] for s, _ in pares_familia]
+        nombre_largo = f"{sub['name']}: {', '.join(t.lower() for t in tipos[:3])}" + (" y más" if len(tipos) > 3 else "")
+        familia = None
+    else:
+        nombre_largo = nombre_completo_sub(cat, sub["name"])
+        familia = familia_de_sub(cat, sub["name"], productos_cat)
     precios = [min_price(p) for p in products if p.get("offers")]
     rango = ""
     if precios:
@@ -1379,13 +1476,13 @@ def render_subcategory_page(cat, sub, products, data):
     top_marcas = [m for m, _ in por_marca.most_common(5)]
     marcas_note = f" Marcas como {', '.join(top_marcas)}." if top_marcas else ""
     description = (
-        f"Compara precios de {sub['name'].lower()} en México entre tiendas: "
+        f"Compara precios de {nombre_largo[0].lower() + nombre_largo[1:] if not nombre_largo.split(' ')[0].isupper() else nombre_largo} en México entre tiendas: "
         f"{len(products)} productos.{rango}{marcas_note}"
     )
 
     ranked = sorted(products, key=lambda p: (total_review_count(p), seller_total(p)), reverse=True)
     shown = ranked[:STATIC_LIST_CAP]
-    ejes = ejes_de_subcategoria(cat, sub)
+    ejes = [] if pares_familia else ejes_de_subcategoria(cat, sub)
     rows = []
     for i, p in enumerate(shown, start=1):
         corona = svg_icon("crown")
@@ -1463,32 +1560,50 @@ def render_subcategory_page(cat, sub, products, data):
     # copia del criterio que miraba el mínimo pero no la lista de nombres sin
     # página, y enlazaba a «Otros» y «Varios», que nunca se generan. Eran los
     # 15 enlaces rotos del sitio.
-    productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
     hermanas = []
-    for otra, items in subcategorias_con_pagina(cat, productos_cat):
-        if otra["id"] == sub["id"]:
-            continue
-        hermanas.append(
-            f'<a class="chip" href="../{slugify(otra["name"])}/">'
-            f'{html_escape(otra["name"])} ({len(items)})</a>'
-        )
+    if pares_familia:
+        for otra, items in pares_familia:
+            hermanas.append(
+                f'<a class="chip" href="../{slugify(otra["name"])}/">'
+                f'{html_escape(otra["name"])} ({len(items)})</a>'
+            )
+        titulo_hermanas = f"{html_escape(sub['name'])} por tipo"
+    else:
+        for otra, items in subcategorias_con_pagina(cat, productos_cat):
+            if otra["id"] == sub["id"]:
+                continue
+            hermanas.append(
+                f'<a class="chip" href="../{slugify(otra["name"])}/">'
+                f'{html_escape(otra["name"])} ({len(items)})</a>'
+            )
+        titulo_hermanas = f"Otras subcategorías de {html_escape(cat['name'])}"
     hermanas_html = (
-        f'<div class="panel"><h2>Otras subcategorías de {html_escape(cat["name"])}</h2>'
+        f'<div class="panel"><h2>{titulo_hermanas}</h2>'
         f'<div class="chip-row">{"".join(hermanas)}</div></div>'
         if hermanas else ""
     )
+    # Arriba de todo, en la página de familia: sus tipos son lo primero que se
+    # elige (Fútbol -> Balones), igual que en la SPA.
+    tipos_arriba = hermanas_html if pares_familia else ""
+    if pares_familia:
+        hermanas_html = ""
+    miga_familia = (
+        f' &gt; <a href="../{slugify(familia)}/">{html_escape(familia)}</a>' if familia else ""
+    )
+    ids_enlace = ",".join(s["id"] for s, _ in pares_familia) if pares_familia else sub["id"]
 
     body = f"""
-<nav class="breadcrumb"><a href="../../../">Inicio</a> &gt; <a href="../">{html_escape(cat['name'])}</a> &gt; {html_escape(sub['name'])}</nav>
-<div class="list-head"><h1>{svg_icon("trophy")} {html_escape(sub['name'])} — comparar precios ({len(products)})</h1></div>
+<nav class="breadcrumb"><a href="../../../">Inicio</a> &gt; <a href="../">{html_escape(cat['name'])}</a>{miga_familia} &gt; {html_escape(sub['name'])}</nav>
+<div class="list-head"><h1>{svg_icon("trophy")} {html_escape(nombre_largo)} — comparar precios ({len(products)})</h1></div>
 <p class="muted small">{html_escape(description)}</p>
+{tipos_arriba}
 {marcas_html}
 {compara_calidad_html(ejes, shown, '../../../')}
 {SORT_BAR_HTML}
 <div class="product-list" id="lista">{''.join(rows)}</div>
 <p class="muted small" id="lista-vacia" hidden>Ningún producto de esta lista publica ese dato. Quita el filtro para ver todos.</p>
 <div class="panel" style="text-align:center; margin-top:20px">
-  <a class="buy-btn" href="../../../#/list?cat={cat['id']}&amp;sub={sub['id']}">Ver con filtros interactivos →</a>
+  <a class="buy-btn" href="../../../#/list?cat={quote(cat['id'])}&amp;sub={quote(ids_enlace)}">Ver con filtros interactivos →</a>
   {more_note}
 </div>
 {hermanas_html}
@@ -1497,12 +1612,13 @@ def render_subcategory_page(cat, sub, products, data):
     breadcrumbs = breadcrumb_json_ld([
         ("Inicio", f"{SITE_URL}/"),
         (cat["name"], f"{SITE_URL}/categoria/{cat_slug}/"),
+    ] + ([(familia, f"{SITE_URL}/categoria/{cat_slug}/{slugify(familia)}/")] if familia else []) + [
         (sub["name"], None),
     ])
     lista_ld = json.dumps({
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "name": f"{sub['name']} — comparar precios en México",
+        "name": f"{nombre_largo} — comparar precios en México",
         "numberOfItems": len([p for p in shown if tiene_pagina(p)]),
         "itemListElement": [
             {
@@ -1518,7 +1634,7 @@ def render_subcategory_page(cat, sub, products, data):
         f'<script type="application/ld+json">\n{breadcrumbs}\n</script>\n'
         f'<script type="application/ld+json">\n{lista_ld}\n</script>'
     )
-    title = f"{sub['name']} — Comparar precios en México | ComparaMEX"
+    title = f"{nombre_largo} — Comparar precios en México | ComparaMEX"
     return page_shell(title, description, canonical_path, body, depth=3,
                       extra_head=extra_head, og_image=next((p.get("photo") for p in shown if p.get("photo")), None))
 
@@ -2328,10 +2444,15 @@ def render_category_page(cat, products, data):
                       f'<h3 class="grupo-rol">{html_escape(TITULOS_ROL[rol])}</h3>')
             if i == 0:
                 familias = agrupar_familias(cat["name"], por_rol[rol], cuenta_sub)
+                con_pagina = {f for f, _, _ in familias_con_pagina(cat, products)}
                 filas = []
                 for familia, miembros in familias:
-                    enc = (f'<h4 class="grupo-familia">{html_escape(familia)}</h4>'
-                           if familia else "")
+                    if familia in con_pagina:
+                        enc = (f'<h4 class="grupo-familia"><a href="{slugify(familia)}/">'
+                               f'{html_escape(familia)}</a></h4>')
+                    else:
+                        enc = (f'<h4 class="grupo-familia">{html_escape(familia)}</h4>'
+                               if familia else "")
                     filas.append(enc + '<div class="chip-row">'
                                  + "".join(chip_de[m] for m in miembros) + '</div>')
                 bloques.append(titulo + "".join(filas))
@@ -2530,6 +2651,8 @@ def write_sitemaps(data, root, lastmod=None, ofertas_urls=(), marca_urls=(),
         productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
         for sub, _ in subcategorias_con_pagina(cat, productos_cat):
             page_urls.append(f"{SITE_URL}/categoria/{cat_slug}/{slugify(sub['name'])}/")
+        for familia, _, _ in familias_con_pagina(cat, productos_cat):
+            page_urls.append(f"{SITE_URL}/categoria/{cat_slug}/{slugify(familia)}/")
     page_urls.extend(ofertas_urls)
     page_urls.extend(barato_urls)
     page_urls.extend(marca_urls)
@@ -2764,8 +2887,17 @@ def escribir_redirecciones(data):
     for vieja, nueva in rutas.items():
         vieja, nueva = vieja.strip("/") + "/", nueva.strip("/") + "/"
         if not os.path.exists(os.path.join(ROOT, nueva, "index.html")):
-            continue  # el destino no tiene página: mejor un 404 que un bucle
+            # El destino no tiene página (bajó del mínimo): la categoría de
+            # arriba es mejor aterrizaje que un 404.
+            padre = "/".join(nueva.strip("/").split("/")[:2]) + "/"
+            if not os.path.exists(os.path.join(ROOT, padre, "index.html")):
+                continue
+            nueva = padre
         if vieja in vigentes:
+            continue
+        # Sólo las urls que llegaron a publicarse: una subcategoría que nunca
+        # tuvo página (bajo el mínimo) no tiene nada que redirigir.
+        if not os.path.isdir(os.path.join(ROOT, vieja)):
             continue
         ruta = os.path.join(ROOT, vieja, "index.html")
         if write_if_changed(ruta, render_redireccion(nueva)):
@@ -2829,6 +2961,8 @@ def borrar_paginas_huerfanas(data, ofertas_vigentes, marcas_vigentes=None,
     for cat in data["categories"]:
         productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
         subs_por_cat[slugify(cat["name"])] = {
+            slugify(f) for f, _, _ in familias_con_pagina(cat, productos_cat)
+        } | {
             slugify(sub["name"]) for sub, _ in subcategorias_con_pagina(cat, productos_cat)
         }
 
@@ -2850,9 +2984,24 @@ def borrar_paginas_huerfanas(data, ofertas_vigentes, marcas_vigentes=None,
                 if f"categoria/{nombre}/{sub}/" in conservar:
                     continue  # redirección de una subcategoría renombrada
                 if os.path.isdir(sub_ruta) and sub not in subs_por_cat[nombre]:
+                    # Una subcategoría que deja de tener página (bajó del
+                    # mínimo, se repartió) ya pudo quedar indexada o enlazada
+                    # desde afuera: en vez de un 404 queda una redirección a
+                    # su categoría. La que ya es redirección se deja como está.
+                    indice = os.path.join(sub_ruta, "index.html")
+                    try:
+                        with open(indice, encoding="utf-8") as f:
+                            ya_redirige = 'http-equiv="refresh"' in f.read(3000)
+                    except OSError:
+                        ya_redirige = False
+                    if ya_redirige:
+                        continue
                     borrados["categoria"] += 1
                     if not dry_run:
                         shutil.rmtree(sub_ruta)
+                        if os.path.exists(os.path.join(ruta, "index.html")):
+                            os.makedirs(sub_ruta, exist_ok=True)
+                            write_if_changed(indice, render_redireccion(f"categoria/{nombre}/"))
 
     carpeta = os.path.join(ROOT, "ofertas")
     if os.path.isdir(carpeta):
@@ -3415,6 +3564,7 @@ def main():
             marcar(f"{SITE_URL}/producto/{product['id']}/")
 
     subcats_generadas = 0
+    familias_generadas = 0
     for cat in data["categories"]:
         products = [p for p in data["products"] if p["category"] == cat["id"]]
         slug = slugify(cat["name"])
@@ -3434,6 +3584,19 @@ def main():
             if write_if_changed(sub_path, render_subcategory_page(cat, sub, items, data)):
                 written.append(sub_path)
                 marcar(f"{SITE_URL}/categoria/{slug}/{sub_slug}/")
+
+        # El escalón del medio: en Deportes y fitness, el deporte (Fútbol,
+        # Natación). Ver familias_con_pagina.
+        for familia, pares, items in familias_con_pagina(cat, products):
+            fam_slug = slugify(familia)
+            fam_dir = os.path.join(out_dir, fam_slug)
+            os.makedirs(fam_dir, exist_ok=True)
+            fam_path = os.path.join(fam_dir, "index.html")
+            familias_generadas += 1
+            if write_if_changed(fam_path, render_subcategory_page(
+                    cat, {"id": familia, "name": familia}, items, data, pares_familia=pares)):
+                written.append(fam_path)
+                marcar(f"{SITE_URL}/categoria/{slug}/{fam_slug}/")
 
     # Ranking de bajadas de precio. Va después de las fichas porque usa el
     # mismo historial ya cargado, y antes del sitemap para que sus urls entren.
@@ -3570,7 +3733,7 @@ def main():
     if write_if_changed(path_404, render_404(data)):
         written.append(path_404)
 
-    print(f"Subcategorías con página propia: {subcats_generadas}")
+    print(f"Subcategorías con página propia: {subcats_generadas}; familias: {familias_generadas}")
     print(f"Generadas {len(written)} páginas/archivos SEO en {ROOT}:")
     for path in written[:200]:
         print(" -", os.path.relpath(path, ROOT))

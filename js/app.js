@@ -2556,6 +2556,16 @@
     // Solo el manifiesto: la taxonomía, las tiendas, las estadísticas de
     // Inicio y la lista de archivos por categoría. Los productos se bajan
     // después, y solo los de la vista que se abra (ver ensureCategory).
+    //
+    // Los archivos chicos de al lado (marcas, iconos, tarifas de envío) se
+    // piden AL MISMO TIEMPO que el manifiesto. Antes iban uno detrás del
+    // otro, cada uno esperando al anterior: cinco viajes de ida y vuelta
+    // antes de pintar nada, que en un celular con 4G son fácilmente un
+    // segundo entero de pantalla en blanco.
+    const pedir = (ruta, respaldo) => fetch(ruta).then((r) => r.json()).catch(() => respaldo);
+    const marcas = pedir("data/brands.json", { brands: [] });
+    const iconos = pedir("data/icons.json", {});
+    const tarifas = pedir("data/shipping-rates.json", null);
     let manifest = await (await fetch("data/data.json")).json();
 
     // Auto-reparación: si el manifiesto que llegó no trae la lista de
@@ -2570,41 +2580,7 @@
 
     manifest.products = [];
     state.data = hideEmptyTaxonomy(manifest);
-    // Ejes de "Compara calidad" generados por scripts/compute_quality_axes.py
-    // para las subcategorías que no tienen eje escrito a mano en
-    // QUALITY_AXES. Si falla, esas subcategorías simplemente no llevan el
-    // bloque, como antes.
-    try {
-      const resQ = await fetch("data/quality-axes.json");
-      qualityAxesJson = materializeQualityAxes(await resQ.json());
-    } catch {
-      qualityAxesJson = {};
-    }
-    // Catálogo de marcas/afiliados (Admitad): independiente del comparador de
-    // electrónica, así que un fallo aquí no debe tumbar el resto del sitio.
-    try {
-      const res2 = await fetch("data/brands.json");
-      state.brandsData = await res2.json();
-    } catch {
-      state.brandsData = { brands: [] };
-    }
-    // Set de iconos ilustrados (SVG en línea) usado en vez de emoji en todo
-    // el sitio; si falla, ICON_FALLBACK cubre cualquier clave pedida.
-    try {
-      const res3 = await fetch("data/icons.json");
-      state.icons = await res3.json();
-    } catch {
-      state.icons = {};
-    }
-    // Tarifas de referencia (ESTIMADAS) para la calculadora de envío de
-    // AliExpress/Alibaba/SUNSKY/Geekbuying; si falla, la calculadora
-    // muestra un aviso en vez de números inventados en el momento.
-    try {
-      const res4 = await fetch("data/shipping-rates.json");
-      state.shippingRates = await res4.json();
-    } catch {
-      state.shippingRates = null;
-    }
+    [state.brandsData, state.icons, state.shippingRates] = await Promise.all([marcas, iconos, tarifas]);
   }
 
   // Markup SVG de línea para un box de 24x24 si el set de iconos no cargó.
@@ -2756,7 +2732,7 @@
         // una lista de cero productos con el título de la categoría llena;
         // se descarta y se muestra la categoría entera.
         state.subcategory = existe
-          ? toSubList(qs.get("sub")).filter((sub) => subcategoryById(pedida, sub))
+          ? subsDeParametro(qs.get("sub"), pedida)
           : [];
         // Tramo de precio en la URL. Lo usan las páginas de categoría, que
         // ofrecen "por presupuesto" con los tramos reales del catálogo: sin
@@ -4506,6 +4482,28 @@
   // van reduciendo a nada a medida que el usuario marca otros (un "16GB
   // RAM" no debería desaparecer solo porque ya se marcó "SSD").
   // Normaliza a lista: null, "" , "Uno" o ["Uno","Dos"].
+  // El parámetro sub= de los enlaces de las páginas estáticas. Varias
+  // subcategorías llevan coma en el nombre ("Routers, fresadoras y
+  // multiherramientas", "Paddle, surf y kayak"), así que partir por coma a
+  // secas las rompía y el enlace abría la categoría entera. Se vuelven a
+  // juntar los pedazos hasta que forman una subcategoría que existe.
+  function subsDeParametro(v, catId) {
+    if (!v) return [];
+    const cat = categoryById(catId);
+    const ids = new Set(((cat && cat.subcategories) || []).map((s) => s.id));
+    if (ids.has(v)) return [v];
+    const out = [];
+    let acc = null;
+    for (const parte of v.split(",")) {
+      acc = acc === null ? parte : `${acc},${parte}`;
+      if (ids.has(acc.trim())) {
+        out.push(acc.trim());
+        acc = null;
+      }
+    }
+    return out;
+  }
+
   function toSubList(v) {
     if (Array.isArray(v)) return v.filter(Boolean);
     if (typeof v === "string" && v) return v.split(",").map((x) => x.trim()).filter(Boolean);
@@ -4834,7 +4832,27 @@
     conFichas.filter((s) => !s.fam).forEach((sub) => tarjetaSub(sub, false));
   }
 
+  // Ejes de "Compara calidad" generados por scripts/compute_quality_axes.py
+  // para las subcategorías que no tienen eje escrito a mano en QUALITY_AXES.
+  // Son 730 KB (49 KB comprimidos) que sólo usa la lista de una categoría:
+  // se piden la primera vez que se abre una, no al arrancar, así Inicio y la
+  // ficha no los bajan. Cuando llegan se redibuja el bloque. Si fallan, esas
+  // subcategorías simplemente no llevan el bloque, como antes.
+  let qualityAxesPedidos = false;
+  function pedirQualityAxes() {
+    if (qualityAxesPedidos) return;
+    qualityAxesPedidos = true;
+    fetch("data/quality-axes.json")
+      .then((r) => r.json())
+      .then((j) => {
+        qualityAxesJson = materializeQualityAxes(j);
+        if (!el.viewList.classList.contains("hidden") && state.category) renderSpecsBanner();
+      })
+      .catch(() => {});
+  }
+
   function renderSpecsBanner() {
+    pedirQualityAxes();
     // Los ids de nivel/tamaño son por categoría (el "Alto" de Laptops son
     // 24 GB de RAM; el de Monitores, 4K), así que al cambiar de categoría
     // una selección vieja no significa nada y se suelta. Se hace acá, y no

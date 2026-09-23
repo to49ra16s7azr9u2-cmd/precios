@@ -61,8 +61,10 @@ CATEGORY_CHUNK_SIZE = 15000
 # descargar y parsear (gzip los comprime bien, pero el parseo y la memoria
 # no se benefician). Nadie lee estos archivos a mano -- un diff de 87,000
 # productos no es revisable con o sin sangrado -- así que el formato legible
-# no compra nada. El manifiesto (data.json) sí queda indentado: es chico y
-# sí se lee/edita a mano.
+# no compra nada. El manifiesto (data.json) también va compacto desde el
+# 23-sep-2026: dejó de ser chico (256 KB con sangrado, con el papel y la
+# familia de cada una de las ~1,000 subcategorías) y lo baja TODA visita.
+# Para leerlo a mano: python3 -m json.tool data/data.json
 COMPACT = {"ensure_ascii": False, "separators": (",", ":")}
 
 # Campos de la oferta que SOLO hacen falta en la ficha de producto (la tabla
@@ -715,5 +717,5 @@ def save_catalog(data):
     _marcar_roles(data.get("categories") or [])
     _marcar_familias(data.get("categories") or [], light)
     with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+        json.dump(data, f, **COMPACT)
     data["products"] = products
