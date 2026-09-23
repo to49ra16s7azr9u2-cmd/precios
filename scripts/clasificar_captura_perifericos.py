@@ -476,6 +476,58 @@ from deportes_por_deporte import reclasificar as deporte_reclasificar
 from subcategorias_redes import (sub_cargador, sub_electro, sub_dron, sub_comercial, sub_viaje,
                                  sub_impresion3d, sub_movilidad, sub_proyector, sub_otros,
                                  sub_tv_pulgadas)
+import atipicos
+
+# EL SUSTANTIVO MANDA (23-sep-2026)
+# De 1,305 fichas que hubo que corregir a mano, 1,071 las volvía a poner mal
+# este mismo clasificador: las reglas buscan la palabra de la categoría en
+# cualquier parte del título y la encuentran de complemento («Organizador de
+# zapatos para CLOSET» -> Roperos; «Pulsera de CHAPA» -> Cerraduras). Un
+# nombre de producto arranca por lo que ES, así que después de la regla se
+# miran las primeras palabras del título (data/vocabulario-cabeza.json, que
+# vocabulario_cabeza.py saca del catálogo en cada corrida):
+#   - si alguna es típica de la categoría que eligió la regla, la regla vale;
+#   - si no, y la primera es un sustantivo que en el catálogo es de OTRA
+#     categoría casi siempre (95%, 25 fichas o más), manda el sustantivo.
+# Contra 185 mil fichas capturadas: cambia 1 de cada 180 decisiones y, a
+# ojo sobre una muestra, acierta cuatro de cada cinco. Refacciones,
+# Herramientas, Belleza y Joyería no reciben por sustantivo: «sensor»,
+# «llave», «repuesto» y «juego» arrancan títulos de todo el catálogo, y ahí
+# el sustantivo se equivocaba más de lo que acertaba.
+_VOCAB_CABEZA = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                             'data', 'vocabulario-cabeza.json')
+try:
+    VOCAB_CABEZA = json.load(io.open(_VOCAB_CABEZA, encoding='utf-8'))
+except (OSError, ValueError):
+    VOCAB_CABEZA = None
+SUSTANTIVO_SHARE = 0.95
+SUSTANTIVO_MIN = 25
+NO_RECIBEN_POR_SUSTANTIVO = {'Refacciones', 'Herramientas', 'Belleza y cuidado personal',
+                             'Joyería y bisutería'}
+
+
+def sustantivo_manda(titulo, cat):
+    """(categoría, subcategoría, icono) si el arranque del título contradice
+    a la regla que eligió `cat`, o None si la regla vale."""
+    if not VOCAB_CABEZA:
+        return None
+    antes = atipicos.PALABRAS_CABEZA
+    atipicos.PALABRAS_CABEZA = 4
+    try:
+        cab = [w for w, _ in atipicos.cabeza({'name': titulo, 'brand': ''})]
+    finally:
+        atipicos.PALABRAS_CABEZA = antes
+    if not cab:
+        return None
+    voc = VOCAB_CABEZA['cats'].get(cat) or {}
+    if any(w in voc for w in cab):
+        return None
+    s = VOCAB_CABEZA['sustantivos'].get(cab[0])
+    if (not s or s[0] == cat or s[0] in NO_RECIBEN_POR_SUSTANTIVO
+            or s[2] < SUSTANTIVO_SHARE or s[3] < SUSTANTIVO_MIN):
+        return None
+    return s[0], s[1], (s[4] if len(s) > 4 else 'box')
+
 
 def T(s):
     s = re.sub(r'\s+', ' ', s.lower())
@@ -1035,7 +1087,10 @@ REGLAS = [
  (re.compile(r'^(?!(?:\S+ ){0,4}(ssd|disco duro|unidad (de estado solido|interna)|hdd|memoria ram|modulo de memoria)\b)(?!(?:\S+ ){0,3}(mouse|raton|teclado(?! (retro)?iluminado)|combo|funda|maletin|mochila|soporte|base|cargador|adaptador|cable|bocina|altavoz|audifonos|webcam|hub|docking|dock|bolsa|estuche|backpack|porta ?laptop|set de viaje|pantalla|lcd|panel|cubierta|cover|adhesivos?|tornillos?|bisagra|ventilador|enfriador|memoria|disco|\bssd\b|\bram\b|bateria|pila|protector|mica|limpiador|'
              r'juego de|kit de|paquete de|par de|extensor|monitor|impresora|proyector|escaner|silla|sillas|sillon|escritorio|lampara|taburete|taburetes|banco|banquito|mesa|mesita|mesas|sofa|colchon|cama|repisa|estante|estanteria|librero|carrito|carro|maleta|mochila|caja|bolsa|atril|tripie|tripode)\b)'
              r'(?!.*(sodimm|udimm|modulo de memoria|solo memoria|kit de memoria|\bmonitor(es)?\b|caja de disco|(pc|escritorio) o portatil|smart tv|\btv\b|televis|con ruedas|rodante|(para|compatible con|de repuesto para) (laptop|notebook|macbook)\b|mini telefono|telefono inteligente|smartphone|\bcelular(es)?\b|dual sim|back cover|bottom cover|lcd (display|screen|panel)|display panel|nexiq|diesel laptops|\baio\b|all[- ]in[- ]one|todo en uno|desktop|de escritorio|\bimac\b|mini pc|lavadora|proyecc|monitor portatil|extensor de pantalla|\btarola\b|baqueta|bombo|platillo|reproductor de dvd|para bateria|de bateria\b|flejad|\bestufa|\bhorno\b|horno de pizza|\bquemador|\bparrilla\b|plancha (de |a )?vapor|\bfreidora|licuadora|\bcampana\b|purificador|filtro de agua|vaporizador|cafetera|\bmicroondas\b|lavavajillas|aspiradora|calentador de agua|deshumidificador|humidificador|maquina de coser|\binodoro\b|\bregadera\b))'
-             r'(?=.*(\blaptops?\b|\bnotebooks?\b|\bportatil(es)?\b|macbook|chromebook|ultrabook|omnibook|\bgram\b\s?\d|thinkpad|ideapad|'
+             # «portátil» a secas no: «Tapete ... 27 pulgadas, portátil» caía
+             # acá por la palabra y las pulgadas. Tiene que ser la computadora
+             # portátil, o el nombre tiene que arrancar por «portátil».
+             r'(?=.*(\blaptops?\b|\bnotebooks?\b|(computadora|computador|ordenador|\bpc|equipo) portatil(es)?\b|^(\S+ ){0,3}portatil(es)?\b|macbook|envy|spectre|zbook|galaxy book|surface laptop|matebook|magicbook|thunderobot|chromebook|ultrabook|omnibook|\bgram\b\s?\d|thinkpad|ideapad|'
              r'vivobook|zenbook|inspiron|latitude|pavilion|elitebook|probook|aspire|\bnitro\b|predator|omen|legion|'
              r'victus|swift|yoga \d|thinkbook|travelmate|modern \d|katana|cyborg|\btuf gaming\b|rog (zephyrus|strix|flow)))'
              r'(?=.*(\d{2}([.,]\d)? ?(pulgadas|")|\bfhd\b|\bwqxga\b|\bwuxga\b|intel (core|ultra|celeron|n\d)|ryzen|\bcore i[3579]\b|'
@@ -5961,6 +6016,7 @@ def pistas_de_departamento():
 captura = json.load(io.open(sys.argv[1], encoding='utf-8'))
 PISTAS = pistas_de_departamento() if any(it.get('dept') for it in captura) else {}
 por_dept = 0
+por_sustantivo = 0
 alta, fuera = [], []
 for it in captura:
     tn = T(it['title'])
@@ -5982,6 +6038,11 @@ for it in captura:
     if not hit:
         fuera.append((it, 'no encaja en ninguna categoría')); continue
     cat, sub, img = hit
+    if hit is not pista:
+        manda = sustantivo_manda(it['title'], cat)
+        if manda:
+            cat, sub, img = manda
+            por_sustantivo += 1
     if hit is pista:
         por_dept += 1
     elif cat == 'Baterías portátiles':
@@ -6077,7 +6138,8 @@ for it in captura:
 json.dump(alta, io.open(sys.argv[2], 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print(f'ALTA: {len(alta)}   FUERA: {len(fuera)}   sin precio (no se dan de alta): '
       f'{sum(1 for a in alta if a["price"] is None)}'
-      + (f'   por departamento de Amazon: {por_dept}' if por_dept else '') + '\n')
+      + (f'   por departamento de Amazon: {por_dept}' if por_dept else '')
+      + (f'   corregidas por el sustantivo: {por_sustantivo}' if por_sustantivo else '') + '\n')
 for k, n in collections.Counter((a['category'], a['subcategory']) for a in alta).most_common():
     print(f'  {n:4}  {k[0]} / {k[1]}')
 print('\nsin marca:', sum(1 for a in alta if not a['brand']))

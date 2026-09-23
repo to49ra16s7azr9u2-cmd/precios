@@ -44,7 +44,7 @@ from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import load_catalog, slugify  # noqa: E402
-from familias_subcategorias import agrupar as agrupar_familias  # noqa: E402
+from familias_subcategorias import agrupar as agrupar_familias, es_familia_de_papel  # noqa: E402
 from roles_subcategorias import ORDEN as ORDEN_ROLES, TITULOS as TITULOS_ROL, es_producto, rol_de  # noqa: E402
 from web_summary import purchase_options, seller_rows, seller_total  # noqa: E402
 
@@ -1147,6 +1147,16 @@ def nombre_completo_sub(cat, sub_name):
 FAMILIA_MIN_PRODUCTOS = 20
 
 
+def _minuscula_titulo(nombre):
+    """El nombre de un tipo en minúscula para ir en medio de una frase, sin
+    romper las siglas: «Llantas para camioneta y SUV» -> «llantas para
+    camioneta y SUV», no «...y suv»; «Monitores 4K» sigue con 4K."""
+    return " ".join(w if (sum(c.isupper() for c in w) > 1 or any(c.isdigit() for c in w)
+                          or (i and w[:1].isupper()))
+                    else w.lower()
+                    for i, w in enumerate(nombre.split()))
+
+
 def familias_con_pagina(cat, products_de_la_cat):
     """[(familia, [(sub, productos)], productos)] de las familias con página.
 
@@ -1160,8 +1170,12 @@ def familias_con_pagina(cat, products_de_la_cat):
     por_nombre = {sub["name"]: (sub, items) for sub, items in subs}
     slugs_sub = {slugify(s["name"]) for s in cat.get("subcategories", [])}
     cuenta = {n: len(it) for n, (_, it) in por_nombre.items()}
-    productores = [n for n in por_nombre if rol_de(cat["name"], n) == "producto"]
-    grupos = [(f, m) for f, m in agrupar_familias(cat["name"], productores, cuenta) if f]
+    # Todas las subcategorías, no sólo las de producto: una familia de la
+    # tabla puede juntar producto y accesorio (Llantas y rines). Las familias
+    # que son sólo un papel («Accesorios», «Consumibles») no llevan página:
+    # «Accesorios de Autos» no es algo que alguien busque así.
+    grupos = [(f, m) for f, m in agrupar_familias(cat["name"], list(por_nombre), cuenta)
+              if f and not es_familia_de_papel(f)]
     if len(grupos) < 2:
         return []
     salida = []
@@ -1459,7 +1473,7 @@ def render_subcategory_page(cat, sub, products, data, pares_familia=None):
     productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
     if pares_familia:
         tipos = [s["name"] for s, _ in pares_familia]
-        nombre_largo = f"{sub['name']}: {', '.join(t.lower() for t in tipos[:3])}" + (" y más" if len(tipos) > 3 else "")
+        nombre_largo = f"{sub['name']}: {', '.join(_minuscula_titulo(t) for t in tipos[:3])}" + (" y más" if len(tipos) > 3 else "")
         familia = None
     else:
         nombre_largo = nombre_completo_sub(cat, sub["name"])
@@ -2428,37 +2442,43 @@ def render_category_page(cat, products, data):
     subs = subcategorias_con_pagina(cat, products)
     if subs:
         chip_de = {}
-        por_rol = collections.OrderedDict((r, []) for r in ORDEN_ROLES)
         for sub, items in subs:
             chip_de[sub["name"]] = (
                 f'<a class="chip" href="{slugify(sub["name"])}/">'
                 f'{html_escape(sub["name"])} ({len(items)})</a>'
             )
-            por_rol[rol_de(cat["name"], sub["name"])].append(sub["name"])
         cuenta_sub = {sub["name"]: len(items) for sub, items in subs}
+        # Desde el 23-sep las familias salen de TODAS las subcategorías, no
+        # sólo de las de producto: la tabla puede juntar el producto con sus
+        # accesorios (Motos: motocicletas, cascos, llantas de moto), y lo que
+        # queda de accesorios y refacciones forma su propia familia por papel
+        # («Accesorios», «Consumibles»). Así la página y la SPA muestran el
+        # mismo árbol. Lo suelto va al final: primero los productos, sin
+        # encabezado, y después cada papel con el suyo.
+        familias = agrupar_familias(cat["name"], list(chip_de), cuenta_sub)
+        con_pagina = {f for f, _, _ in familias_con_pagina(cat, products)}
         bloques = []
+        for familia, miembros in familias:
+            if familia is None:
+                continue
+            if familia in con_pagina:
+                enc = (f'<h4 class="grupo-familia"><a href="{slugify(familia)}/">'
+                       f'{html_escape(familia)}</a></h4>')
+            else:
+                enc = f'<h4 class="grupo-familia">{html_escape(familia)}</h4>'
+            bloques.append(enc + '<div class="chip-row">'
+                           + "".join(chip_de[m] for m in miembros) + '</div>')
+        sueltas = next((m for f, m in familias if f is None), [])
+        por_rol = collections.OrderedDict((r, []) for r in ORDEN_ROLES)
+        for m in sueltas:
+            por_rol[rol_de(cat["name"], m)].append(m)
         for i, rol in enumerate(ORDEN_ROLES):
             if not por_rol[rol]:
                 continue
-            titulo = ("" if i == 0 else
-                      f'<h3 class="grupo-rol">{html_escape(TITULOS_ROL[rol])}</h3>')
-            if i == 0:
-                familias = agrupar_familias(cat["name"], por_rol[rol], cuenta_sub)
-                con_pagina = {f for f, _, _ in familias_con_pagina(cat, products)}
-                filas = []
-                for familia, miembros in familias:
-                    if familia in con_pagina:
-                        enc = (f'<h4 class="grupo-familia"><a href="{slugify(familia)}/">'
-                               f'{html_escape(familia)}</a></h4>')
-                    else:
-                        enc = (f'<h4 class="grupo-familia">{html_escape(familia)}</h4>'
-                               if familia else "")
-                    filas.append(enc + '<div class="chip-row">'
-                                 + "".join(chip_de[m] for m in miembros) + '</div>')
-                bloques.append(titulo + "".join(filas))
-            else:
-                bloques.append(f'{titulo}<div class="chip-row">'
-                               + "".join(chip_de[m] for m in por_rol[rol]) + '</div>')
+            titulo = ("" if i == 0 and not bloques else
+                      f'<h3 class="grupo-rol">{html_escape("Otros tipos" if i == 0 else TITULOS_ROL[rol])}</h3>')
+            bloques.append(f'{titulo}<div class="chip-row">'
+                           + "".join(chip_de[m] for m in por_rol[rol]) + '</div>')
         subs_html = (
             f'<div class="panel"><h2>Buscar por tipo de {html_escape(cat["name"].lower())}</h2>'
             + "".join(bloques) + '</div>'

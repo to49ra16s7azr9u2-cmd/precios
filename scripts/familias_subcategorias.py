@@ -55,7 +55,7 @@ import sys
 import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from roles_subcategorias import PRODUCTO, rol_de  # noqa: E402
+from roles_subcategorias import ORDEN as ORDEN_ROLES, PRODUCTO, TITULOS as TITULOS_ROL, rol_de  # noqa: E402
 from deportes_por_deporte import FAMILIAS as _FAMILIAS_DEPORTES  # noqa: E402
 
 MIN_SUBS = 2          # una sola subcategoría no hace familia
@@ -99,7 +99,8 @@ FAMILIAS = {
     ],
     "Electrodomésticos": [
         ("Cocción", [
-            "Estufas", "Hornos", "Microondas", "Parrillas y planchas eléctricas",
+            "Estufas", "Hornos", "Microondas", "Campanas de cocina",
+            "Hervidores y teteras eléctricas", "Parrillas y planchas eléctricas",
             "Wafleras, sandwicheras y creperas", "Tostadoras",
             "Arroceras y ollas multiusos", "Vaporeras y hervidores de huevos",
             "Máquinas de pan y pasta"]),
@@ -112,7 +113,7 @@ FAMILIAS = {
         ("Preparación de alimentos", [
             "Licuadoras", "Batidoras y amasadoras", "Extractores de jugo",
             "Molinos y procesadores", "Máquinas de helados y postres",
-            "Máquinas de palomitas y snacks",
+            "Máquinas de palomitas y snacks", "Deshidratadores de alimentos",
             "Pequeños electrodomésticos de cocina",
             "Otros electrodomésticos de cocina"]),
         ("Agua y purificación", [
@@ -133,7 +134,10 @@ FAMILIAS = {
             "Motor y transmisión", "Filtros y aceites",
             "Suspensión y dirección", "Escape", "Bujías y encendido",
             "Motores", "Bombas", "Limpiaparabrisas", "Interior y tapicería",
-            "Llaves y cerraduras de auto"]),
+            "Llaves y cerraduras de auto",
+            # Motoventiladores y radiadores de auto, no de aire acondicionado
+            # de casa: el nombre de la subcategoría engañaba.
+            "Enfriamiento y climatización"]),
         ("Para moto", [
             "Para motos", "Carenados, plásticos y tanques", "Luces de moto",
             "Manubrios, espejos y controles", "Eléctrico y baterías de moto",
@@ -151,17 +155,21 @@ FAMILIAS = {
             "Refacciones para licuadora y batidora",
             "Refacciones para plancha y vaporizador",
             "Refacciones para cafetera", "Refacciones para microondas",
-            "Refacciones para estufa y horno", "Enfriamiento y climatización",
+            "Refacciones para estufa y horno",
             "Refacciones para aire acondicionado y ventilador",
             "Refacciones para bocinas y audio"]),
         ("Para movilidad eléctrica", [
             "Para patinetas eléctricas", "Para bicicletas eléctricas"]),
     ],
+    # Antes eran «Por tamaño» y «Por uso», dos ejes cruzados: un monitor
+    # gamer de 27" está en Gaming y no en 27 pulgadas, así que «Por tamaño»
+    # no era todo lo de ese tamaño. Lo que de verdad separan es el tipo: los
+    # de uso general (por tamaño) y los especializados.
     "Monitores": [
-        ("Por tamaño", [
+        ("Monitores de uso general", [
             "Hasta 22 pulgadas", "23 a 25 pulgadas", "27 pulgadas",
             "28 a 34 pulgadas", "35 pulgadas o más"]),
-        ("Por uso", [
+        ("Monitores especializados", [
             "Gaming", "Monitores 4K y profesionales", "Ultrawide y curvos",
             "Táctiles e industriales", "Portátiles"]),
     ],
@@ -219,6 +227,14 @@ FAMILIAS = {
         ("Decorativa y de efecto", ["Tiras LED", "Decorativa", "Escenario"]),
     ],
     "Climatización": [
+        # Mismo nombre que la familia deducida (y su página); la tabla sólo
+        # le suma lo que calienta sin llamarse «Calefactor».
+        ("Calefactores", [
+            "Calefactores cerámicos y de aire", "Calefactores de aceite",
+            "Calefactores infrarrojos y de cuarzo", "Calefactores de gas",
+            "Calefactores de pared y baño", "Calefactores de exterior y patio",
+            "Calefactores para pies y personales",
+            "Tapetes y alfombras calefactoras", "Chimeneas eléctricas"]),
         ("Enfriar", [
             "Minisplit", "Aires acondicionados", "Aires acondicionados portátiles",
             "Aires acondicionados de ventana",
@@ -255,11 +271,19 @@ FAMILIAS = {
             "Rascadores y torres"]),
         ("Alimentación", [
             "Platos y tazones para mascotas", "Fuentes y dispensadores de agua",
-            "Tapetes y accesorios de alimentación", "Bebederos"]),
+            "Tapetes y accesorios de alimentación", "Bebederos",
+            "Alimento y premios"]),
         ("Paseo y adiestramiento", [
             "Transportadoras", "Correas", "Adiestramiento",
-            "Puertas para mascotas", "Ropa y accesorios"]),
+            "Puertas para mascotas", "Ropa y accesorios",
+            "GPS y localizadores"]),
         ("Higiene", ["Areneros", "Higiene y limpieza"]),
+        # Se llama igual que la familia que ya salía deducida, para que su
+        # página (/categoria/mascotas/jaulas/) no cambie de dirección.
+        ("Jaulas", [
+            "Jaulas para perro", "Jaulas y recintos para gato",
+            "Jaulas para aves", "Jaulas y hábitats para roedores",
+            "Corrales y rejas para mascotas", "Gallineros y conejeras"]),
     ],
     "Cocina y comedor": [
         ("Beber", [
@@ -272,7 +296,8 @@ FAMILIAS = {
             "Baterías de cocina", "Repostería y moldes",
             "Utensilios de cocina", "Cuchillos y tablas",
             "Básculas y medidores"]),
-        ("Servir la mesa", ["Platos y bowls", "Vajillas", "Cubiertos"]),
+        ("Servir la mesa", ["Platos y bowls", "Vajillas", "Cubiertos",
+                            "Manteles y caminos de mesa"]),
         ("Guardar", [
             "Contenedores herméticos", "Tarros y frascos",
             "Loncheras y termos para alimentos", "Organización de cocina"]),
@@ -319,6 +344,11 @@ FAMILIAS = {
         ("Para otros aparatos", [
             "De auto", "Para laptop", "De pilas", "Para herramientas",
             "Adaptador de corriente"]),
+        ("Cables", [
+            "Cables USB-C", "Cables Lightning", "Cables micro USB",
+            "Cables multiconector", "Cables y adaptadores de video", "Cable"]),
+        ("Enchufes y regletas", [
+            "Regletas y multicontactos", "Adaptadores de enchufe y de viaje"]),
     ],
     # Muebles deduce solas «Sillas», «Mesas», «Escritorios», «Colchones»,
     # «Sofás» y «Camas»; acá sólo van las que el nombre no junta.
@@ -339,6 +369,8 @@ FAMILIAS = {
         ("Almacenamiento", [
             "Roperos", "Libreros", "Repisas", "Zapateras", "Percheros",
             "Burós"]),
+        ("Asientos auxiliares", [
+            "Taburetes y bancos", "Puffs y otomanas", "Mecedoras y colgantes"]),
     ],
     "Belleza y cuidado personal": [
         ("Maquillaje", [
@@ -357,7 +389,7 @@ FAMILIAS = {
             "Extensiones de cabello", "Pelucas", "Cuidado del cabello",
             "Estilizadores"]),
         ("Afeitado y depilación", ["Rasuradoras", "Depilación"]),
-        ("Uñas", ["Uñas", "Manicure"]),
+        ("Uñas y salón", ["Uñas", "Manicure", "Mobiliario para salón"]),
         ("Cuerpo y spa", [
             "Corporales", "Masajeadores", "Vaporizadores y equipo de spa",
             "Perfumes", "Cuidado personal"]),
@@ -406,6 +438,184 @@ FAMILIAS = {
         ("Amplificación y efectos", [
             "Amplificadores de guitarra y bajo", "Amplificadores",
             "Pedales y efectos"]),
+    ],
+    # --- 23-sep-2026: el escalón del medio para las categorías que no lo
+    # tenían (pedido del usuario: «como kakaku.com, por tipo»). Donde hace
+    # falta, la familia junta también accesorios o refacciones que son del
+    # mismo mundo -- kakaku pone タイヤ・ホイール como un grupo, no reparte
+    # las llantas entre «Refacciones» y el rin entre «Accesorios» --.
+    "Autos, bicicletas y motos": [
+        ("Bicicletas", [
+            "Bicicletas de montaña", "Bicicletas urbanas y de paseo",
+            "Bicicletas de ruta", "Bicicletas infantiles", "Bicicletas BMX",
+            "Bicicletas plegables", "Bicicletas sin pedales y balance",
+            "Bicicletas de gravel y ciclocross", "Triciclos y bicicletas de carga"]),
+        ("Partes y accesorios de bicicleta", [
+            "Refacciones y transmisión de bicicleta", "Llantas para bicicleta",
+            "Pedales, manubrios y puños", "Sillines y asientos",
+            "Portabicicletas y soportes", "Accesorios para bicicleta",
+            "Bolsas, canastas y portabultos", "Cascos y protección para ciclismo",
+            "Bombas e infladores", "Luces para bicicleta",
+            "Candados para bicicleta", "Ciclocomputadoras y soportes para celular",
+            "Asientos infantiles y remolques", "Ropa y calzado de ciclismo",
+            "Herramientas y mantenimiento de bicicleta"]),
+        ("Motos", [
+            "Motocicletas", "Cascos para moto", "Accesorios para moto",
+            "Llantas para moto"]),
+        ("Llantas y rines", [
+            "Llantas para auto", "Llantas para camioneta y SUV", "Rines",
+            "Cámaras y accesorios de llanta", "Llantas para carretilla y equipo",
+            "Llantas"]),
+        ("Audio y video para auto", [
+            "Estéreos para auto", "Bocinas para auto",
+            "Bocinas coaxiales de 6.5 pulgadas", "Bocinas coaxiales 6x9 y 6x8",
+            "Bocinas de 4 a 5.25 pulgadas", "Bocinas de componentes", "Tweeters",
+            "Medios rangos y bocinas profesionales", "Subwoofers para auto",
+            "Bocinas marinas y para moto", "Amplificadores para auto",
+            "Accesorios de audio para auto", "Dashcams y cámaras"]),
+        ("Batería y carga", [
+            "Arrancadores y cargadores de batería", "Baterías para auto",
+            "Cargadores para vehículo eléctrico"]),
+        ("Accesorios y cuidado del auto", [
+            "Autos", "Accesorios y refacciones", "Tapetes, fundas y parasoles",
+            "Limpieza y cuidado del auto", "Portaequipajes y racks"]),
+    ],
+    "Celulares": [
+        ("Smartphones", ["Android", "iPhone", "Resistentes", "Reacondicionados"]),
+        ("Teléfonos básicos y fijos", ["Básicos", "Teléfonos fijos"]),
+    ],
+    "Laptops": [
+        ("Laptops para casa y oficina", [
+            "Laptops básicas y mini", "Ultraligeras (13\" y 14\")",
+            "Laptops de 15\" y 16\"", "Laptops de 17\" o más"]),
+        ("Alto rendimiento", ["Gamer", "Workstation y empresariales"]),
+        ("MacBook, Chromebook y 2 en 1", [
+            "MacBook", "Chromebook", "2 en 1 y convertibles"]),
+    ],
+    "Tabletas": [
+        ("Tabletas Android", [
+            "Tabletas Android de 8 pulgadas o menos",
+            "Tabletas Android de 10 a 11 pulgadas",
+            "Tabletas Android de 12 pulgadas o más",
+            "Tabletas Android con 4G o 5G", "Tabletas Android"]),
+        ("iPad, Windows y para niños", [
+            "Apple", "Tabletas Windows y rugged", "Tabletas para niños"]),
+    ],
+    # Deducía «RAM», «Memoria» y «Tarjetas»: dos trozos de lo mismo y un
+    # tercero que juntaba la tarjeta madre con la de video por el nombre.
+    "Componentes y accesorios de PC": [
+        ("Memoria RAM", [
+            "RAM DDR5 para PC de escritorio", "RAM DDR4 para PC de escritorio",
+            "RAM DDR5 para laptop (SODIMM)", "RAM DDR4 para laptop (SODIMM)",
+            "RAM DDR3 y anteriores", "RAM para Mac",
+            "Memoria para servidor y workstation", "Memoria RAM"]),
+        ("Procesadores y tarjetas", [
+            "Procesadores", "Tarjetas madre", "Tarjetas de video"]),
+        ("Gabinetes, fuentes y enfriamiento", [
+            "Enfriamiento y ventiladores", "Gabinetes", "Fuentes de poder"]),
+    ],
+    "Proyectores y accesorios": [
+        ("Pantallas de proyección", [
+            "Pantallas con trípode y portátiles", "Pantallas de proyección",
+            "Pantallas enrollables manuales", "Pantallas inflables y de exterior",
+            "Pantallas eléctricas motorizadas", "Telas y pantallas ALR",
+            "Pantallas de marco fijo", "Pantallas de suelo y de mesa"]),
+    ],
+    "Lavadoras": [
+        ("Lavadoras", [
+            "Automáticas", "Carga superior", "Carga frontal",
+            "Lavadoras de carga frontal", "Semiautomáticas", "Portátiles"]),
+        ("Secadoras y lavasecadoras", [
+            "Secadoras", "Lavasecadoras", "Centros de lavado"]),
+    ],
+    "Aspiradoras": [
+        ("Escoba y de mano", ["Portátiles", "De mano", "De escoba"]),
+        ("Robots y de tanque", ["Robots aspiradores", "De tanque"]),
+    ],
+    "Cafeteras": [
+        ("Cafeteras eléctricas", [
+            "De goteo", "Cafeteras de filtro", "Espresso", "De cápsulas",
+            "Uso comercial"]),
+        ("Manuales y portátiles", ["Manuales", "Portátiles"]),
+    ],
+    "Refrigeradores": [
+        ("Refrigeradores y frigobares", ["Refrigeradores", "Frigobares"]),
+        ("Congeladores y cavas", ["Congeladores", "Cavas de vino"]),
+    ],
+    "Videojuegos": [
+        ("Controles y simuladores", [
+            "Controles y gamepads", "Volantes, arcade y simuladores",
+            "Realidad virtual"]),
+    ],
+    "Viajes": [
+        ("Maletas", ["Maletas", "Maletas de cabina", "Maletas grandes",
+                     "Sets de maletas"]),
+        ("Camping y pesca", ["Camping", "Pesca"]),
+    ],
+    "Otros": [
+        ("Energía solar", [
+            "Paneles solares", "Cargadores solares portátiles",
+            "Kits solares y controladores de carga", "Luces y ventiladores solares",
+            "Bombas y calentadores solares",
+            "Accesorios y limpieza de paneles solares"]),
+        ("Respaldo de energía", ["Estaciones de energía", "Inversores"]),
+        ("Baño y organización", ["Baño", "Organización del hogar"]),
+    ],
+    "Cámaras de seguridad": [
+        ("Cámaras", [
+            "Cámaras interiores", "Cámaras exteriores", "Kits de vigilancia",
+            "Cámaras PTZ", "Cámaras espía"]),
+        ("Timbres, alarmas y sensores", [
+            "Timbres inteligentes", "Alarmas", "Sensores"]),
+    ],
+    "Redes": [
+        ("Wi-Fi", ["Routers", "Repetidores", "Access points"]),
+        ("Red cableada", ["Switches", "Módems", "Cables y adaptadores de red"]),
+    ],
+    "Impresoras": [
+        ("Impresoras", ["Inyección de tinta", "Láser", "Térmica", "Fotográficas"]),
+    ],
+    "Cámaras y fotografía": [
+        ("Cámaras fotográficas", [
+            "Compactas", "Instantáneas", "Mirrorless", "Réflex"]),
+        ("Video y acción", ["Cámaras de acción", "Videocámaras"]),
+    ],
+    "Almacenamiento": [
+        ("Discos y SSD", ["SSD", "Externo", "Interno", "NAS"]),
+        ("Memorias USB y tarjetas", ["Memorias USB", "Tarjetas de memoria"]),
+    ],
+    "Juegos de mesa": [
+        ("Estrategia y rol", ["De estrategia", "Ajedrez", "De rol y dados"]),
+        ("Familiares y de fiesta", [
+            "De mesa clásicos", "De fiesta", "De preguntas", "De memoria"]),
+        ("Infantiles y educativos", ["Infantiles", "Educativos"]),
+    ],
+    "Equipo comercial": [
+        ("Punto de venta", [
+            "Cajas registradoras", "Terminales punto de venta", "Punto de venta",
+            "Cajones de dinero", "Lectores de código de barras",
+            "Básculas comerciales"]),
+        ("Mobiliario y carros", ["Carros de servicio", "Mobiliario"]),
+        ("Cocina y refrigeración", ["Cocina industrial", "Refrigeración comercial"]),
+        ("Sublimación y estampado", ["Prensas de calor", "Impresoras de sublimación"]),
+    ],
+    "Suplementos": [
+        ("Nutrición deportiva", [
+            "Proteínas", "Creatina", "Aminoácidos y pre-entreno",
+            "Energía y vitalidad", "Control de peso"]),
+        ("Vitaminas y minerales", [
+            "Multivitamínicos", "Vitamina C", "Vitamina D y K",
+            "Complejo B y biotina", "Otras vitaminas", "Magnesio", "Zinc",
+            "Electrolitos y minerales"]),
+        ("Naturales y antioxidantes", [
+            "Herbolaria y superalimentos", "Antioxidantes", "Colágeno",
+            "Omega 3 y aceites"]),
+        ("Digestión", ["Probióticos y prebióticos", "Enzimas, fibra y digestivos"]),
+        ("Por necesidad", [
+            "Articulaciones", "Salud hormonal y sexual", "Cabello, piel y uñas",
+            "Salud cardiovascular", "Hígado, riñón y vías urinarias",
+            "Memoria y concentración", "Sistema inmune", "Melatonina y sueño",
+            "Salud ocular", "Control de glucosa"]),
     ],
 }
 
@@ -464,24 +674,33 @@ def agrupar(categoria, subcategorias, cuenta=None):
     """[(familia | None, [subcategorías])] en el orden en que se muestran.
 
     `subcategorias` son los nombres; `cuenta` es un dict opcional
-    {subcategoría: fichas} que se usa para ordenar las familias deducidas por
-    tamaño. Las que no entran en ninguna familia salen al final con
-    familia None, que el que dibuja muestra sin encabezado.
+    {subcategoría: fichas} que se usa para ordenar las familias por tamaño.
+    Las que no entran en ninguna familia salen al final con familia None,
+    que el que dibuja muestra sin encabezado.
+
+    Tres pasadas, en este orden:
+      1. la tabla FAMILIAS, que puede reclamar subcategorías de cualquier
+         papel (Llantas y rines junta llantas, rines y cámaras);
+      2. la deducción por nombre, sólo sobre las de papel «producto»;
+      3. lo que quede de accesorios, refacciones, consumibles y afines, en
+         una familia por papel («Accesorios», «Consumibles»...) si son dos o
+         más. Es el 本体 / 周辺機器 / パーツ de kakaku: antes esas quedaban
+         sueltas, y en Autos eran cuarenta tarjetas seguidas.
+    Las familias con algún producto van primero (de mayor a menor), después
+    las que son sólo de accesorios o refacciones, en el orden de los papeles.
     """
-    quedan = [s for s in subcategorias if rol_de(categoria, s) == PRODUCTO]
-    otras = [s for s in subcategorias if rol_de(categoria, s) != PRODUCTO]
-    if not quedan:
-        return [(SIN_FAMILIA, list(subcategorias))]
+    rol = {s: rol_de(categoria, s) for s in subcategorias}
+    quedan = [s for s in subcategorias if rol[s] == PRODUCTO]
+    presentes = set(subcategorias)
 
     salida, usadas = [], set()
-    presentes = set(quedan)
     # La tabla va primero y la deducción DESPUÉS, sobre lo que la tabla no
     # reclamó. Al principio la tabla reemplazaba a la deducción, y entonces
     # escribir una familia nueva en una categoría obligaba a escribirlas
     # todas: agregar «Cocina» a Muebles hacía desaparecer «Sillas»,
     # «Colchones» y «Mesas», que salían solas y estaban bien.
     for familia, miembros in FAMILIAS.get(categoria, []):
-        hay = [m for m in miembros if m in presentes]
+        hay = [m for m in miembros if m in presentes and m not in usadas]
         if len(hay) >= MIN_SUBS:
             salida.append((familia, hay))
             usadas.update(hay)
@@ -504,18 +723,43 @@ def agrupar(categoria, subcategorias, cuenta=None):
         salida.append((_titulo(c, v), v))
         usadas.update(v)
 
+    por_rol = collections.defaultdict(list)
+    for x in subcategorias:
+        if x not in usadas and rol[x] != PRODUCTO:
+            por_rol[rol[x]].append(x)
+    nombres = {f for f, _ in salida}
+    for r in ORDEN_ROLES:
+        v = por_rol.get(r) or []
+        if len(v) >= MIN_SUBS and TITULOS_ROL[r] not in nombres:
+            salida.append((TITULOS_ROL[r], v))
+            usadas.update(v)
+
     # Todas juntas, de mayor a menor. Sin esto las de tabla salían antes que
     # las deducidas por el solo hecho de estar escritas: en Muebles, «Comedor»
     # (1,848 fichas) aparecía arriba de «Sillas» (6,322), y en Climatización
     # «Enfriar» arriba de «Ventiladores». El orden lo decide el tamaño, que es
-    # lo que el visitante espera.
-    if cuenta:
-        salida.sort(key=lambda kv: -sum(cuenta.get(m, 0) for m in kv[1]))
+    # lo que el visitante espera -- pero lo que vino a buscar (el producto)
+    # antes que sus accesorios, aunque los accesorios sean más.
+    def orden(kv):
+        miembros = kv[1]
+        if any(rol[m] == PRODUCTO for m in miembros):
+            grupo = 0
+        else:
+            grupo = 1 + min(ORDEN_ROLES.index(rol[m]) for m in miembros)
+        tam = sum(cuenta.get(m, 0) for m in miembros) if cuenta else len(miembros)
+        return (grupo, -tam)
+    salida.sort(key=orden)
 
-    sueltas = [s for s in quedan if s not in usadas] + otras
+    sueltas = ([s for s in quedan if s not in usadas]
+               + [s for s in subcategorias if s not in usadas and rol[s] != PRODUCTO])
     if sueltas:
         salida.append((SIN_FAMILIA, sueltas))
     return salida
+
+
+def es_familia_de_papel(familia):
+    """¿Es una de las familias de la pasada 3 («Accesorios», «Consumibles»...)?"""
+    return familia in set(TITULOS_ROL.values())
 
 
 def familia_de(categoria, subcategoria, subcategorias):

@@ -4844,9 +4844,16 @@
     // Primer paso: las familias, de la más grande a la más chica, y después
     // los tipos que no son de ninguna (accesorios, consumibles, sueltos).
     el.subcatTitle.textContent = "¿Qué buscas?";
+    // Lo que el visitante vino a buscar va antes que sus accesorios: las
+    // familias con algún producto primero, después las que son sólo de
+    // accesorios, refacciones o consumibles (`rol` en cada subcategoría).
     [...familias.entries()]
-      .map(([fam, miembros]) => ({ fam, miembros, items: miembros.flatMap((s) => porSub.get(s.id) || []) }))
-      .sort((a, b) => b.items.length - a.items.length)
+      .map(([fam, miembros]) => ({
+        fam, miembros,
+        items: miembros.flatMap((s) => porSub.get(s.id) || []),
+        soloPapel: miembros.every((s) => s.rol) ? 1 : 0,
+      }))
+      .sort((a, b) => (a.soloPapel - b.soloPapel) || (b.items.length - a.items.length))
       .forEach(({ fam, miembros, items }) => {
         tarjeta(fam, items, false, () => {
           state.subcategory = miembros.map((s) => s.id);
