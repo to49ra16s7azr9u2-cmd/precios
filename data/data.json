@@ -3,7 +3,7 @@
     "currency": "MXN",
     "updated": "2026-08-19",
     "note": "Catálogo en reconstrucción con datos reales: 16857 productos. Taxonomía de categorías rediseñada por completo (18 categorías planas → 15 categorías con subcategorías, a partir de un diagrama que definió el usuario: Celulares y accesorios, Cargadores y adaptadores, Computadoras, Televisores y control remoto, Electrodomésticos, Videojuegos, Muebles, Herramientas, Autos/bicicletas/motos, Refacciones, Ropa, Calzado, Maquillaje, Viajes, Otros). Cada producto se reclasificó por su título real con un clasificador por palabras clave (con respaldo en la categoría vieja para los casos ambiguos de marcas curadas, ej. \"Celulares\" siempre fueron teléfonos). Categorías que no tenían equivalente nuevo (Joyería y relojes, Artículos de lujo, Decoración del hogar, Componentes electrónicos) quedaron honestamente en \"Otros\" en vez de forzar un mal encaje (~14% del catálogo). La barra de categorías ahora despliega un submenú al pasar el mouse por las que tienen subcategorías, y el filtro lateral de la lista también las muestra sangradas debajo de la categoría activa. SUNSKY, Geekbuying, Molnija, StyleWE, Glasseslit, Woodestic, The Luxury Closet, Noracora y JustFashionNow ya están \"terminadas\" a fondo. De Alibaba van 2,788 productos en Maquillaje. AliExpress y Alibaba se incorporan de a poco (sus feeds no son el catálogo curado de una sola marca sino volcados gigantescos de todo el marketplace). Se paginan las listas/rankings (60 productos por página) y las páginas SEO estáticas de categoría se limitan a un top 100, para que el sitio no se ponga lento según crece el catálogo. Variantes de color/talla/capacidad se muestran como pastillas clicables y como insignia \"🎨 +N\". Los productos usados/preowned muestran insignia \"🔄 Usado\" y se pueden excluir con un filtro. El mapa de Leaflet se carga de forma perezosa. Precios convertidos de USD/EUR/RUB a MXN a un tipo de cambio aproximado. Se excluyeron a propósito: contenido para adultos, mercancía con nombres de bandas/famosos/personajes reales sin licencia, réplicas realistas de armas, y productos con riesgo real de seguridad (rellenos inyectables, mesoterapia, crioterapia casera, láser de uso clínico, microblading/tatuaje profesional, blanqueadores de piel sin regular). SHEIN pendiente de aprobación en Admitad. Se investigó por qué ningún producto mostraba 2+ tiendas: existe un algoritmo de product matching (scripts/product_matcher.py, EAN->modelo+specs->similitud) pero nunca se había corrido contra el catálogo completo, y en ~77% de los productos (Noracora, Alibaba, JustFashionNow, AliExpress, StyleWE) el campo \"brand\" tenía el nombre de la tienda en vez de la marca real, lo que bloqueaba cualquier coincidencia entre tiendas. Se corrigió la marca real en los productos de Alibaba/AliExpress donde era detectable (24 productos: Xiaomi, HONOR, Creality, KuKirin, Flashforge, Elegoo, etc.) y se corrió el matcher sobre electrónica/celulares (842 productos reales, excluyendo fundas/cables/refacciones). Resultado: 0 coincidencias genuinas -- cada tienda tiene modelos específicos distintos incluso dentro de la misma marca (ej. OUKITEL en SUNSKY son celulares, en Geekbuying son estaciones de energía; ningún modelo se repite). Las 7 \"coincidencias\" que sí encontró el matcher sin filtrar accesorios resultaron ser falsos positivos (producto principal vs. refacción/funda de la misma marca), así que no se fusionó nada. Con la composición actual del catálogo (muestreo independiente de miles de candidatos por feed), la comparación de precios real entre tiendas para el mismo producto es la excepción, no la regla. Se hicieron mucho más finas las 6 categorías que se habían quedado sin ninguna subcategoría en el rediseño anterior (Maquillaje, Otros, Computadoras, Herramientas, Refacciones, Viajes -- juntas, un tercio del catálogo): ahora tienen entre 2 y 6 subcategorías cada una (ej. Maquillaje se separa en maquillaje de rostro/ojos, cuidado de la piel, pelucas y extensiones, estilizado de cabello, uñas y accesorios), clasificadas con un clasificador por palabras clave probado contra el catálogo real, mismo método que la taxonomía original. Cobertura de subcategoría en el catálogo completo: 67% -> 91%. De paso, revisando estas categorías a mano se encontraron 22 productos de mercancía sin licencia que habían evadido el filtro automático ofuscando el nombre con guiones (personajes/bandas/celebridades reales de Bloodborne, Sonic, Borderlands, Gintama, WWE, etc.) y se removieron, y se corrigieron 4 miscategorizaciones puntuales de antes (lentes Glasseslit que habían quedado en Refacciones, playeras Polo que habían quedado en Otros).",
-    "maxProductId": 540200
+    "maxProductId": 540241
   },
   "categories": [
     {
@@ -7850,7 +7850,7 @@
   },
   "indexFile": "data/index.json",
   "homeFile": "data/home.json",
-  "totalProducts": 458421,
+  "totalProducts": 458432,
   "categoryStats": {
     "Celulares": {
       "n": 5159,
@@ -8440,20 +8440,20 @@
       "maxShip": 93
     },
     "Electrodomésticos": {
-      "n": 16458,
+      "n": 16465,
       "subs": {
         "Robots limpiacristales": 1442,
-        "Filtros y membranas de repuesto": 1182,
-        "Purificadores bajo tarja": 458,
-        "Estufas": 1026,
+        "Filtros y membranas de repuesto": 1185,
+        "Purificadores bajo tarja": 459,
+        "Estufas": 1025,
         "Licuadoras": 1068,
         "Accesorios de purificador": 146,
-        "Filtros para refrigerador y cafetera": 63,
+        "Filtros para refrigerador y cafetera": 69,
         "Accesorios y refacciones de máquina de coser": 57,
         "Extractores de jugo": 380,
         "Calentadores de agua": 651,
         "Máquinas de coser": 494,
-        "Campanas de cocina": 973,
+        "Campanas de cocina": 971,
         "Accesorios y repuestos para freidora de aire": 210,
         "Vaporizadores de ropa": 278,
         "Freidoras de aire de 8 L o más": 139,
@@ -8462,8 +8462,8 @@
         "Freidoras de aire": 473,
         "Vaporeras y hervidores de huevos": 21,
         "Jarras y botellas con filtro": 147,
-        "Otros electrodomésticos de cocina": 216,
-        "Hornos": 401,
+        "Otros electrodomésticos de cocina": 217,
+        "Hornos": 399,
         "Microondas": 620,
         "Batidoras y amasadoras": 366,
         "Ósmosis inversa": 252,
@@ -8488,7 +8488,7 @@
         "Máquinas de pan y pasta": 6,
         "Freidoras eléctricas": 174,
         "Filtros para regadera": 18,
-        "Ablandadores y filtros de casa completa": 51,
+        "Ablandadores y filtros de casa completa": 52,
         "Destiladores e ionizadores": 231,
         "Purificadores de agua": 17,
         "": 513
@@ -8496,7 +8496,7 @@
       "pop": 148472,
       "discounted": 2048,
       "max": 80,
-      "discountedShip": 2054,
+      "discountedShip": 2053,
       "maxShip": 80
     },
     "Cocina y comedor": {
@@ -8536,13 +8536,13 @@
       "maxShip": 69
     },
     "Climatización": {
-      "n": 13826,
+      "n": 13824,
       "subs": {
         "Humidificadores": 571,
         "Calefactores para pies y personales": 435,
         "Calefactores cerámicos y de aire": 1385,
         "Purificadores de aire": 327,
-        "Minisplit": 749,
+        "Minisplit": 747,
         "Ventiladores portátiles y de mano": 1160,
         "Refacciones de calefactor": 773,
         "Ventiladores de techo": 1387,
@@ -9090,13 +9090,13 @@
       "maxShip": 64
     },
     "Refacciones": {
-      "n": 42274,
+      "n": 42275,
       "subs": {
         "Escape": 80,
         "Refacciones para aspiradora y robot": 697,
         "Motor, carburación y escape de moto": 205,
         "Para motos": 379,
-        "Refacciones para refrigerador": 1030,
+        "Refacciones para refrigerador": 1029,
         "Faros y luces": 450,
         "Suspensión y dirección": 50,
         "Filtros y aceites": 203,
@@ -9112,7 +9112,7 @@
         "Refacciones para freidora de aire": 110,
         "Refacciones para licuadora y batidora": 60,
         "Sistema eléctrico y sensores": 15708,
-        "Refacciones para lavadora y secadora": 300,
+        "Refacciones para lavadora y secadora": 301,
         "Motor y transmisión": 4935,
         "Motores": 33,
         "Para autos": 247,
@@ -9132,7 +9132,7 @@
         "Filtros y aceites de moto": 36,
         "Manubrios, espejos y controles": 243,
         "Asientos, parrillas y accesorios de moto": 249,
-        "Refacciones para estufa y horno": 44,
+        "Refacciones para estufa y horno": 45,
         "Refacciones para bocinas y audio": 278,
         "Refacciones para plancha y vaporizador": 30
       },
@@ -9316,13 +9316,13 @@
       "maxShip": 71
     },
     "Lavadoras": {
-      "n": 2078,
+      "n": 2083,
       "subs": {
         "Automáticas": 577,
         "Portátiles": 707,
-        "Carga superior": 186,
+        "Carga superior": 188,
         "Semiautomáticas": 314,
-        "Carga frontal": 93,
+        "Carga frontal": 96,
         "Lavasecadoras": 104,
         "Secadoras": 73,
         "Centros de lavado": 17,
@@ -9330,9 +9330,9 @@
         "": 3
       },
       "pop": 36252,
-      "discounted": 281,
+      "discounted": 278,
       "max": 76,
-      "discountedShip": 291,
+      "discountedShip": 290,
       "maxShip": 76
     },
     "Impresión 3D": {
@@ -9402,17 +9402,17 @@
     "Refrigeradores": {
       "n": 1533,
       "subs": {
-        "Refrigeradores": 559,
+        "Refrigeradores": 560,
         "Uso comercial": 295,
         "Cavas de vino": 64,
         "Frigobares": 488,
-        "Congeladores": 114,
+        "Congeladores": 113,
         "": 13
       },
       "pop": 13137,
-      "discounted": 464,
+      "discounted": 463,
       "max": 76,
-      "discountedShip": 470,
+      "discountedShip": 469,
       "maxShip": 76
     }
   },

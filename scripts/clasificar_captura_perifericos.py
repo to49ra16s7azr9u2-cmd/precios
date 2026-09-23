@@ -850,6 +850,33 @@ PERI = (PC, 'Accesorios', 'cpu')
 COMP = (PC, 'Componentes', 'cpu')
 
 REGLAS = [
+    # Línea blanca con el nombre pelado, como la nombra una tienda de marca
+    # (whirlpool.mx, 23-sep): "Secadora a gas 22kg", "Estufa eléctrica de 30
+    # pulgadas", "Campana Empotrable 76 cm". Las reglas de abajo pedían la
+    # palabra de contexto ("de cocina", "4 quemadores") que una tienda de
+    # electrodomésticos no escribe porque no le hace falta. Los combos con
+    # "+" quedan afuera: son dos aparatos, no uno comparable.
+    (re.compile(r'^(?:\S+ ){0,1}(rack|pedestal|base|soporte|kit de apilado)\b.{0,25}(lavadora|secadora)'),
+     ('Refacciones', 'Refacciones para lavadora y secadora', 'gear')),
+    (re.compile(r'^(?:\S+ ){0,2}secadora\b(?=.*(\bgas\b|electrica|\d+ ?kg|carga (superior|frontal)|de ropa))'
+                r'(?!.*(cabello|pelo|\+))'),
+     ('Lavadoras', 'Secadoras', 'washer')),
+    (re.compile(r'^(?:\S+ ){0,2}estufa (de gas|a gas|electrica|de piso|al piso|empotrable|de induccion|'
+                r'de \d+ (pulgadas|quemadores))\b(?!.*(camping|acampar|campismo|\+))'),
+     ('Electrodomésticos', 'Estufas', 'appliance')),
+    (re.compile(r'^(?:\S+ ){0,2}campana (empotrable|decorativa|de isla|de pared|extractora|purificadora|'
+                r'de acero)\b(?!.*\+)'),
+     ('Electrodomésticos', 'Campanas de cocina', 'appliance')),
+    (re.compile(r'everydrop|filtro.{0,40}(refrigerador|fabrica de hielo|nevera)'),
+     ('Electrodomésticos', 'Filtros para refrigerador y cafetera', 'appliance')),
+    (re.compile(r'^(?:\S+ ){0,2}filtro de (reemplazo|repuesto) de (carbon|membrana|sedimentos)'),
+     ('Electrodomésticos', 'Filtros y membranas de repuesto', 'appliance')),
+    (re.compile(r'^(?:\S+ ){0,2}filtro de entrada a toda la casa|filtro.{0,20}toda la casa'),
+     ('Electrodomésticos', 'Ablandadores y filtros de casa completa', 'appliance')),
+    (re.compile(r'^(?:\S+ ){0,2}triturador de desperdicios'),
+     ('Electrodomésticos', 'Otros electrodomésticos de cocina', 'appliance')),
+    (re.compile(r'parrillas? para (asar.{0,30})?estufas?|kit.{0,20}parrillas.{0,40}estufa'),
+     ('Refacciones', 'Refacciones para estufa y horno', 'gear')),
  # Equipo de red. No había ninguna regla que asignara la categoría Redes:
  # un "Switch de Red 8 Puertos para Escritorio" caía en Muebles por la
  # palabra "escritorio". La regla pide la pieza Y una señal de red
@@ -5476,6 +5503,10 @@ def sub_lavadora(tn):
     if re.search(r'lava\w*secadora|lava ?y ?seca', tn): return 'Lavasecadoras'
     if re.search(r'centro de lavado', tn): return 'Centros de lavado'
     if re.search(r'doble tina|dos tinas|2 tinas|semi[- ]?automatic[ao]', tn): return 'Semiautomáticas'
+    # La secadora también dice por dónde se carga ("Secadora a gas 22kg
+    # Carga superior"): si el nombre ARRANCA por secadora, es secadora, no
+    # lavadora de carga superior (whirlpool.mx, 23-sep).
+    if re.search(r'^(?:\S+ ){0,1}secadora\b', tn) and not re.search(r'\blavadora', tn): return 'Secadoras'
     if re.search(r'carga frontal', tn): return 'Carga frontal'
     if re.search(r'carga superior', tn): return 'Carga superior'
     if re.search(r'^secadora|secadora (de ropa|electrica|de gas|portatil)|secador de centrifugado|centrifugadora', tn): return 'Secadoras'

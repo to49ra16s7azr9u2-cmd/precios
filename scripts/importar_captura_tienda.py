@@ -102,6 +102,14 @@ TIENDAS = {
         "store": {"id": "lenovo", "name": "Lenovo", "hubRegion": None, "color": "#E1140A",
                   "logo": "LN", "typicalShippingDays": [4, 12]},
     },
+    # Whirlpool entra por el sitemap y el JSON-LD de sus fichas (ver
+    # whirlpool_a_captura.py), igual que Coppel: el importador pone la
+    # clasificación y las guardas.
+    "whirlpool": {
+        "dominios": ("whirlpool.mx",),
+        "store": {"id": "whirlpool", "name": "Whirlpool", "hubRegion": None, "color": "#7B0028",
+                  "logo": "WP", "typicalShippingDays": [5, 12], "logoImg": "icons/stores/whirlpool.png"},
+    },
     "coppel": {
         "dominios": ("coppel.com",),
         "store": {"id": "coppel", "name": "Coppel", "hubRegion": None, "color": "#FFD100",

@@ -46,7 +46,10 @@ BASES = {
                    "?erid=MvGzQC98w3Z1gMq1owpZAzT3&f_id=25405"),
     "motorola":   "https://qbzdl.com/g/1unk9900kb43517c81eeb708316999/?f_id=25850",
     "sunsky":     "https://dorinebeaumont.com/g/7npkd4cs1i43517c81ee869a299fda/?f_id=15762",
-    "whirlpool":  "https://rzekl.com/c/hkjqq2fi8q43517c81ee82ed2bb6aa/",
+    # Whirlpool MX/CO: /g/ (deeplink con ?ulp=) y no /c/. El generador del
+    # panel devuelve /g/ (verificado el 23-sep-2026 con la lavadora
+    # 8MWTW2024MJM); /c/ es el enlace de clic sin destino propio.
+    "whirlpool":  "https://rzekl.com/g/hkjqq2fi8q43517c81ee82ed2bb6aa/",
     "woodestic":  "https://naiawork.com/g/do86ucnzhx43517c81eec586cc6aee/?f_id=26480",
     "sharkninja": "https://qbzdl.com/g/q0sfihl3xd43517c81eefd1d6a8d3c/",
 

@@ -195,11 +195,16 @@ def extract_product(page_html, url):
             except ValueError:
                 continue
             name = node.get("name")
+            marca = node.get("brand")
+            if isinstance(marca, dict):
+                marca = marca.get("name")
             return {
                 "name": html.unescape(name) if name else name,
+                "brand": html.unescape(marca) if isinstance(marca, str) else None,
                 "image": node.get("image"),
                 "description": node.get("description") or "",
                 "sku": node.get("sku") or node.get("mpn"),
+                "gtin": str(node.get("gtin") or node.get("gtin13") or "").strip() or None,
                 "price": price,
                 "currency": currency,
                 "in_stock": in_stock,
