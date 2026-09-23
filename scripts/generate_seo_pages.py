@@ -2718,8 +2718,64 @@ def render_producto_retirado(product, data):
     )
 
 
+REDIRECCIONES_PATH = os.path.join(ROOT, "data", "redirecciones.json")
+
+
+def render_redireccion(destino):
+    """Página que manda a `destino` (ruta relativa a la raíz del sitio).
+
+    GitHub Pages no sirve 301, así que esto es lo que Google trata como una:
+    canonical al destino y refresh inmediato. Sin ella, renombrar una
+    subcategoría dejaba la url vieja --ya indexada y quizá enlazada-- en un
+    404, y lo ganado por esa página se perdía.
+    """
+    url = f"{SITE_URL}/{destino}"
+    return f"""<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Esta sección se mudó | ComparaMEX</title>
+<link rel="canonical" href="{url}">
+<meta http-equiv="refresh" content="0; url=/{destino}">
+</head>
+<body>
+<p>Esta sección ahora está en <a href="/{destino}">{url}</a>.</p>
+</body>
+</html>
+"""
+
+
+def escribir_redirecciones(data):
+    """Escribe las páginas de data/redirecciones.json. Devuelve (escritas,
+    rutas viejas a conservar)."""
+    if not os.path.exists(REDIRECCIONES_PATH):
+        return [], set()
+    with open(REDIRECCIONES_PATH, encoding="utf-8") as f:
+        rutas = json.load(f).get("rutas", {})
+    # Una ruta vieja que volvió a ser subcategoría (o categoría) de verdad es
+    # de la página, no de la redirección.
+    vigentes = set()
+    for cat in data["categories"]:
+        cs = slugify(cat["name"])
+        vigentes.add(f"categoria/{cs}/")
+        for sub in cat.get("subcategories") or []:
+            vigentes.add(f"categoria/{cs}/{slugify(sub['name'])}/")
+    escritas, conservar = [], set()
+    for vieja, nueva in rutas.items():
+        vieja, nueva = vieja.strip("/") + "/", nueva.strip("/") + "/"
+        if not os.path.exists(os.path.join(ROOT, nueva, "index.html")):
+            continue  # el destino no tiene página: mejor un 404 que un bucle
+        if vieja in vigentes:
+            continue
+        ruta = os.path.join(ROOT, vieja, "index.html")
+        if write_if_changed(ruta, render_redireccion(nueva)):
+            escritas.append(ruta)
+        conservar.add(vieja)
+    return escritas, conservar
+
+
 def borrar_paginas_huerfanas(data, ofertas_vigentes, marcas_vigentes=None,
-                             barato_vigentes=None, dry_run=False):
+                             barato_vigentes=None, dry_run=False, conservar=frozenset()):
     """Borra las páginas de productos y categorías que ya no están.
 
     `ofertas_vigentes` son los slugs de categoría que SÍ tuvieron página de
@@ -2791,6 +2847,8 @@ def borrar_paginas_huerfanas(data, ofertas_vigentes, marcas_vigentes=None,
             # mínimo, o se renombraron).
             for sub in os.listdir(ruta):
                 sub_ruta = os.path.join(ruta, sub)
+                if f"categoria/{nombre}/{sub}/" in conservar:
+                    continue  # redirección de una subcategoría renombrada
                 if os.path.isdir(sub_ruta) and sub not in subs_por_cat[nombre]:
                     borrados["categoria"] += 1
                     if not dry_run:
@@ -3499,8 +3557,11 @@ def main():
     if write_if_changed(robots_path, build_robots()):
         written.append(robots_path)
 
+    redirecciones, conservar = escribir_redirecciones(data)
+    written += redirecciones
     borrados = borrar_paginas_huerfanas(
-        data, ofertas_vigentes, {slug for _n, slug, _i in marcas}, barato_vigentes)
+        data, ofertas_vigentes, {slug for _n, slug, _i in marcas}, barato_vigentes,
+        conservar=conservar)
     if any(borrados.values()):
         print("Páginas borradas (el producto o la categoría ya no está): "
               + ", ".join(f"{v:,} de {k}/" for k, v in borrados.items() if v))

@@ -59,42 +59,50 @@
         {
           "id": "Cargadores de pared hasta 20 W",
           "name": "Cargadores de pared hasta 20 W",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Cargadores de pared"
         },
         {
           "id": "Cargadores de pared de 25 a 45 W",
           "name": "Cargadores de pared de 25 a 45 W",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Cargadores de pared"
         },
         {
           "id": "Cargadores de pared de 65 W o más",
           "name": "Cargadores de pared de 65 W o más",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Cargadores de pared"
         },
         {
           "id": "Cargadores multipuerto y estaciones de carga",
           "name": "Cargadores multipuerto y estaciones de carga",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Cargadores de pared"
         },
         {
           "id": "Cargadores de pared con cable",
           "name": "Cargadores de pared con cable",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Cargadores de pared"
         },
         {
           "id": "Cargadores para reloj y accesorios pequeños",
           "name": "Cargadores para reloj y accesorios pequeños",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Inalámbricos"
         },
         {
           "id": "De pared",
           "name": "De pared",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Cargadores de pared"
         },
         {
           "id": "Inalámbrico",
           "name": "Inalámbrico",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Inalámbricos"
         },
         {
           "id": "Otros",
@@ -104,7 +112,8 @@
         {
           "id": "De auto",
           "name": "De auto",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Para otros aparatos"
         },
         {
           "id": "Cable",
@@ -114,22 +123,26 @@
         {
           "id": "Adaptador de corriente",
           "name": "Adaptador de corriente",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Para otros aparatos"
         },
         {
           "id": "Para laptop",
           "name": "Para laptop",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Para otros aparatos"
         },
         {
           "id": "Base de carga",
           "name": "Base de carga",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Inalámbricos"
         },
         {
           "id": "De pilas",
           "name": "De pilas",
-          "icon": "charger"
+          "icon": "charger",
+          "fam": "Para otros aparatos"
         },
         {
           "id": "Regletas y multicontactos",
@@ -144,27 +157,32 @@
         {
           "id": "Cables USB-C",
           "name": "Cables USB-C",
-          "icon": "plug"
+          "icon": "plug",
+          "fam": "Cables"
         },
         {
           "id": "Cables Lightning",
           "name": "Cables Lightning",
-          "icon": "plug"
+          "icon": "plug",
+          "fam": "Cables"
         },
         {
           "id": "Cables micro USB",
           "name": "Cables micro USB",
-          "icon": "plug"
+          "icon": "plug",
+          "fam": "Cables"
         },
         {
           "id": "Cables multiconector",
           "name": "Cables multiconector",
-          "icon": "plug"
+          "icon": "plug",
+          "fam": "Cables"
         },
         {
           "id": "Cables y adaptadores de video",
           "name": "Cables y adaptadores de video",
-          "icon": "plug"
+          "icon": "plug",
+          "fam": "Cables"
         }
       ]
     },
@@ -322,52 +340,62 @@
         {
           "id": "Hasta 22 pulgadas",
           "name": "Hasta 22 pulgadas",
-          "icon": "monitor"
+          "icon": "monitor",
+          "fam": "Por tamaño"
         },
         {
           "id": "23 a 25 pulgadas",
           "name": "23 a 25 pulgadas",
-          "icon": "monitor"
+          "icon": "monitor",
+          "fam": "Por tamaño"
         },
         {
           "id": "27 pulgadas",
           "name": "27 pulgadas",
-          "icon": "monitor"
+          "icon": "monitor",
+          "fam": "Por tamaño"
         },
         {
           "id": "28 a 34 pulgadas",
           "name": "28 a 34 pulgadas",
-          "icon": "monitor"
+          "icon": "monitor",
+          "fam": "Por tamaño"
         },
         {
           "id": "35 pulgadas o más",
           "name": "35 pulgadas o más",
-          "icon": "monitor"
+          "icon": "monitor",
+          "fam": "Por tamaño"
         },
         {
           "id": "Ultrawide y curvos",
           "name": "Ultrawide y curvos",
-          "icon": "monitor"
+          "icon": "monitor",
+          "fam": "Por uso"
         },
         {
           "id": "Táctiles e industriales",
           "name": "Táctiles e industriales",
-          "icon": "monitor"
+          "icon": "monitor",
+          "fam": "Por uso"
         },
         {
           "id": "Monitores 4K y profesionales",
           "name": "Monitores 4K y profesionales",
-          "icon": "monitor"
+          "icon": "monitor",
+          "fam": "Por uso"
         },
         {
           "id": "Portátiles",
           "name": "Portátiles",
-          "icon": "monitor"
+          "icon": "monitor",
+          "fam": "Por uso"
         },
         {
           "id": "Gaming",
           "name": "Gaming",
-          "icon": "monitor"
+          "icon": "monitor",
+          "fam": "Por uso"
         }
       ],
       "iconImage": "icons/categorias/monitores.jpg"
@@ -380,42 +408,50 @@
         {
           "id": "Mini bocinas y de llavero",
           "name": "Mini bocinas y de llavero",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Bluetooth y portátiles"
         },
         {
           "id": "Bocinas Bluetooth compactas (hasta 20 W)",
           "name": "Bocinas Bluetooth compactas (hasta 20 W)",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Bluetooth y portátiles"
         },
         {
           "id": "Bocinas Bluetooth medianas (20 a 60 W)",
           "name": "Bocinas Bluetooth medianas (20 a 60 W)",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Bluetooth y portátiles"
         },
         {
           "id": "Bocinas Bluetooth potentes (60 W o más)",
           "name": "Bocinas Bluetooth potentes (60 W o más)",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Bluetooth y portátiles"
         },
         {
           "id": "Bocinas Bluetooth impermeables",
           "name": "Bocinas Bluetooth impermeables",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Bluetooth y portátiles"
         },
         {
           "id": "Bocinas con luces LED",
           "name": "Bocinas con luces LED",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Bluetooth y portátiles"
         },
         {
           "id": "Bocinas Bluetooth con radio, USB y micrófono",
           "name": "Bocinas Bluetooth con radio, USB y micrófono",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Bluetooth y portátiles"
         },
         {
           "id": "Bocinas Bluetooth",
           "name": "Bocinas Bluetooth",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Bluetooth y portátiles"
         },
         {
           "id": "Accesorios para bocinas",
@@ -426,47 +462,56 @@
         {
           "id": "De fiesta y karaoke",
           "name": "De fiesta y karaoke",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Sonido profesional"
         },
         {
           "id": "Para PC y escritorio",
           "name": "Para PC y escritorio",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Para la casa"
         },
         {
           "id": "De estantería y Hi-Fi",
           "name": "De estantería y Hi-Fi",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Para la casa"
         },
         {
           "id": "Subwoofers",
           "name": "Subwoofers",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Para la casa"
         },
         {
           "id": "Empotrables y de exterior",
           "name": "Empotrables y de exterior",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Para la casa"
         },
         {
           "id": "Bafles y audio profesional",
           "name": "Bafles y audio profesional",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Sonido profesional"
         },
         {
           "id": "Amplificadores y receptores",
           "name": "Amplificadores y receptores",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Para la casa"
         },
         {
           "id": "Barras de sonido",
           "name": "Barras de sonido",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Para la casa"
         },
         {
           "id": "Radios y reproductores",
           "name": "Radios y reproductores",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Para la casa"
         }
       ]
     },
@@ -478,42 +523,50 @@
         {
           "id": "Diadema con cable",
           "name": "Diadema con cable",
-          "icon": "headphones"
+          "icon": "headphones",
+          "fam": "Diadema"
         },
         {
           "id": "Earbuds con cancelación de ruido",
           "name": "Earbuds con cancelación de ruido",
-          "icon": "headphones"
+          "icon": "headphones",
+          "fam": "Earbuds"
         },
         {
           "id": "Earbuds deportivos",
           "name": "Earbuds deportivos",
-          "icon": "headphones"
+          "icon": "headphones",
+          "fam": "Earbuds"
         },
         {
           "id": "Earbuds de cuello",
           "name": "Earbuds de cuello",
-          "icon": "headphones"
+          "icon": "headphones",
+          "fam": "Earbuds"
         },
         {
           "id": "Earbuds para niños",
           "name": "Earbuds para niños",
-          "icon": "headphones"
+          "icon": "headphones",
+          "fam": "Earbuds"
         },
         {
           "id": "Earbuds inalámbricos",
           "name": "Earbuds inalámbricos",
-          "icon": "headphones"
+          "icon": "headphones",
+          "fam": "Earbuds"
         },
         {
           "id": "Diadema con cancelación de ruido",
           "name": "Diadema con cancelación de ruido",
-          "icon": "headphones"
+          "icon": "headphones",
+          "fam": "Diadema"
         },
         {
           "id": "Diadema inalámbrica",
           "name": "Diadema inalámbrica",
-          "icon": "headphones"
+          "icon": "headphones",
+          "fam": "Diadema"
         },
         {
           "id": "Almohadillas y repuestos",
@@ -524,7 +577,8 @@
         {
           "id": "Earbuds con cable",
           "name": "Earbuds con cable",
-          "icon": "headphones"
+          "icon": "headphones",
+          "fam": "Earbuds"
         },
         {
           "id": "De oído abierto",
@@ -545,7 +599,8 @@
         {
           "id": "Diadema",
           "name": "Diadema",
-          "icon": "headphones"
+          "icon": "headphones",
+          "fam": "Diadema"
         }
       ]
     },
@@ -557,27 +612,32 @@
         {
           "id": "Mecánicos 60% y compactos",
           "name": "Mecánicos 60% y compactos",
-          "icon": "keyboard"
+          "icon": "keyboard",
+          "fam": "Mecánicos"
         },
         {
           "id": "Mecánicos 65% y 75%",
           "name": "Mecánicos 65% y 75%",
-          "icon": "keyboard"
+          "icon": "keyboard",
+          "fam": "Mecánicos"
         },
         {
           "id": "Mecánicos TKL (80%)",
           "name": "Mecánicos TKL (80%)",
-          "icon": "keyboard"
+          "icon": "keyboard",
+          "fam": "Mecánicos"
         },
         {
           "id": "Mecánicos tamaño completo",
           "name": "Mecánicos tamaño completo",
-          "icon": "keyboard"
+          "icon": "keyboard",
+          "fam": "Mecánicos"
         },
         {
           "id": "Mecánicos inalámbricos",
           "name": "Mecánicos inalámbricos",
-          "icon": "keyboard"
+          "icon": "keyboard",
+          "fam": "Mecánicos"
         },
         {
           "id": "Switches, keycaps y accesorios",
@@ -588,32 +648,38 @@
         {
           "id": "Mecánicos",
           "name": "Mecánicos",
-          "icon": "keyboard"
+          "icon": "keyboard",
+          "fam": "Mecánicos"
         },
         {
           "id": "Membrana",
           "name": "Membrana",
-          "icon": "keyboard"
+          "icon": "keyboard",
+          "fam": "De membrana y oficina"
         },
         {
           "id": "Combos con mouse",
           "name": "Combos con mouse",
-          "icon": "keyboard"
+          "icon": "keyboard",
+          "fam": "De membrana y oficina"
         },
         {
           "id": "Numéricos",
           "name": "Numéricos",
-          "icon": "keyboard"
+          "icon": "keyboard",
+          "fam": "De membrana y oficina"
         },
         {
           "id": "Ergonómicos",
           "name": "Ergonómicos",
-          "icon": "keyboard"
+          "icon": "keyboard",
+          "fam": "De membrana y oficina"
         },
         {
           "id": "Inalámbricos",
           "name": "Inalámbricos",
-          "icon": "keyboard"
+          "icon": "keyboard",
+          "fam": "De membrana y oficina"
         }
       ]
     },
@@ -652,37 +718,44 @@
         {
           "id": "RAM DDR5 para PC de escritorio",
           "name": "RAM DDR5 para PC de escritorio",
-          "icon": "cpu"
+          "icon": "cpu",
+          "fam": "RAM"
         },
         {
           "id": "RAM DDR4 para PC de escritorio",
           "name": "RAM DDR4 para PC de escritorio",
-          "icon": "cpu"
+          "icon": "cpu",
+          "fam": "RAM"
         },
         {
           "id": "RAM DDR5 para laptop (SODIMM)",
           "name": "RAM DDR5 para laptop (SODIMM)",
-          "icon": "cpu"
+          "icon": "cpu",
+          "fam": "RAM"
         },
         {
           "id": "RAM DDR4 para laptop (SODIMM)",
           "name": "RAM DDR4 para laptop (SODIMM)",
-          "icon": "cpu"
+          "icon": "cpu",
+          "fam": "RAM"
         },
         {
           "id": "RAM DDR3 y anteriores",
           "name": "RAM DDR3 y anteriores",
-          "icon": "cpu"
+          "icon": "cpu",
+          "fam": "RAM"
         },
         {
           "id": "Memoria para servidor y workstation",
           "name": "Memoria para servidor y workstation",
-          "icon": "cpu"
+          "icon": "cpu",
+          "fam": "Memoria"
         },
         {
           "id": "RAM para Mac",
           "name": "RAM para Mac",
-          "icon": "cpu"
+          "icon": "cpu",
+          "fam": "RAM"
         },
         {
           "id": "Accesorios de memoria",
@@ -693,7 +766,8 @@
         {
           "id": "Memoria RAM",
           "name": "Memoria RAM",
-          "icon": "cpu"
+          "icon": "cpu",
+          "fam": "Memoria"
         },
         {
           "id": "Webcams",
@@ -714,12 +788,14 @@
         {
           "id": "Tarjetas madre",
           "name": "Tarjetas madre",
-          "icon": "cpu"
+          "icon": "cpu",
+          "fam": "Tarjetas"
         },
         {
           "id": "Tarjetas de video",
           "name": "Tarjetas de video",
-          "icon": "cpu"
+          "icon": "cpu",
+          "fam": "Tarjetas"
         },
         {
           "id": "Enfriamiento y ventiladores",
@@ -1081,22 +1157,26 @@
         {
           "id": "Ósmosis inversa",
           "name": "Ósmosis inversa",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Agua y purificación"
         },
         {
           "id": "Purificadores de grifo y encimera",
           "name": "Purificadores de grifo y encimera",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Agua y purificación"
         },
         {
           "id": "Purificadores bajo tarja",
           "name": "Purificadores bajo tarja",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Agua y purificación"
         },
         {
           "id": "Jarras y botellas con filtro",
           "name": "Jarras y botellas con filtro",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Agua y purificación"
         },
         {
           "id": "Filtros y membranas de repuesto",
@@ -1107,7 +1187,8 @@
         {
           "id": "Destiladores e ionizadores",
           "name": "Destiladores e ionizadores",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Agua y purificación"
         },
         {
           "id": "Filtros para regadera",
@@ -1124,17 +1205,20 @@
         {
           "id": "Ablandadores y filtros de casa completa",
           "name": "Ablandadores y filtros de casa completa",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Agua y purificación"
         },
         {
           "id": "Dispensadores de agua",
           "name": "Dispensadores de agua",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Agua y purificación"
         },
         {
           "id": "Planchas",
           "name": "Planchas",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Limpieza y ropa"
         },
         {
           "id": "Otros",
@@ -1144,37 +1228,44 @@
         {
           "id": "Robots limpiacristales",
           "name": "Robots limpiacristales",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Limpieza y ropa"
         },
         {
           "id": "Freidoras de aire hasta 3 L",
           "name": "Freidoras de aire hasta 3 L",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Freidoras"
         },
         {
           "id": "Freidoras de aire de 3.5 a 5 L",
           "name": "Freidoras de aire de 3.5 a 5 L",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Freidoras"
         },
         {
           "id": "Freidoras de aire de 5.5 a 7 L",
           "name": "Freidoras de aire de 5.5 a 7 L",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Freidoras"
         },
         {
           "id": "Freidoras de aire de 8 L o más",
           "name": "Freidoras de aire de 8 L o más",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Freidoras"
         },
         {
           "id": "Freidoras de aire de doble canasta",
           "name": "Freidoras de aire de doble canasta",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Freidoras"
         },
         {
           "id": "Hornos freidora y multifunción",
           "name": "Hornos freidora y multifunción",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Freidoras"
         },
         {
           "id": "Accesorios y repuestos para freidora de aire",
@@ -1185,87 +1276,104 @@
         {
           "id": "Freidoras de aire",
           "name": "Freidoras de aire",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Freidoras"
         },
         {
           "id": "Tostadoras",
           "name": "Tostadoras",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Cocción"
         },
         {
           "id": "Arroceras y ollas multiusos",
           "name": "Arroceras y ollas multiusos",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Cocción"
         },
         {
           "id": "Wafleras, sandwicheras y creperas",
           "name": "Wafleras, sandwicheras y creperas",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Cocción"
         },
         {
           "id": "Batidoras y amasadoras",
           "name": "Batidoras y amasadoras",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Preparación de alimentos"
         },
         {
           "id": "Máquinas de helados y postres",
           "name": "Máquinas de helados y postres",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Preparación de alimentos"
         },
         {
           "id": "Freidoras eléctricas",
           "name": "Freidoras eléctricas",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Freidoras"
         },
         {
           "id": "Molinos y procesadores",
           "name": "Molinos y procesadores",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Preparación de alimentos"
         },
         {
           "id": "Parrillas y planchas eléctricas",
           "name": "Parrillas y planchas eléctricas",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Cocción"
         },
         {
           "id": "Vaporeras y hervidores de huevos",
           "name": "Vaporeras y hervidores de huevos",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Cocción"
         },
         {
           "id": "Máquinas de palomitas y snacks",
           "name": "Máquinas de palomitas y snacks",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Preparación de alimentos"
         },
         {
           "id": "Máquinas de pan y pasta",
           "name": "Máquinas de pan y pasta",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Cocción"
         },
         {
           "id": "Otros electrodomésticos de cocina",
           "name": "Otros electrodomésticos de cocina",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Preparación de alimentos"
         },
         {
           "id": "Pequeños electrodomésticos de cocina",
           "name": "Pequeños electrodomésticos de cocina",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Preparación de alimentos"
         },
         {
           "id": "Máquinas de coser",
           "name": "Máquinas de coser",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Limpieza y ropa"
         },
         {
           "id": "Microondas",
           "name": "Microondas",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Cocción"
         },
         {
           "id": "Lavavajillas",
           "name": "Lavavajillas",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Limpieza y ropa"
         },
         {
           "id": "Campanas de cocina",
@@ -1275,37 +1383,44 @@
         {
           "id": "Calentadores de agua",
           "name": "Calentadores de agua",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Agua y purificación"
         },
         {
           "id": "Vaporizadores de ropa",
           "name": "Vaporizadores de ropa",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Limpieza y ropa"
         },
         {
           "id": "Estufas",
           "name": "Estufas",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Cocción"
         },
         {
           "id": "Licuadoras",
           "name": "Licuadoras",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Preparación de alimentos"
         },
         {
           "id": "Hornos",
           "name": "Hornos",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Cocción"
         },
         {
           "id": "Extractores de jugo",
           "name": "Extractores de jugo",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Preparación de alimentos"
         },
         {
           "id": "Purificadores de agua",
           "name": "Purificadores de agua",
-          "icon": "appliance"
+          "icon": "appliance",
+          "fam": "Agua y purificación"
         },
         {
           "id": "Hervidores y teteras eléctricas",
@@ -1333,52 +1448,62 @@
         {
           "id": "Juegos PS5",
           "name": "Juegos PS5",
-          "icon": "gamepad"
+          "icon": "gamepad",
+          "fam": "Juegos"
         },
         {
           "id": "Juegos PS4",
           "name": "Juegos PS4",
-          "icon": "gamepad"
+          "icon": "gamepad",
+          "fam": "Juegos"
         },
         {
           "id": "Juegos Xbox",
           "name": "Juegos Xbox",
-          "icon": "gamepad"
+          "icon": "gamepad",
+          "fam": "Juegos"
         },
         {
           "id": "Juegos Nintendo Switch",
           "name": "Juegos Nintendo Switch",
-          "icon": "gamepad"
+          "icon": "gamepad",
+          "fam": "Juegos"
         },
         {
           "id": "Juegos para PC",
           "name": "Juegos para PC",
-          "icon": "gamepad"
+          "icon": "gamepad",
+          "fam": "Juegos"
         },
         {
           "id": "Juegos retro y otras plataformas",
           "name": "Juegos retro y otras plataformas",
-          "icon": "gamepad"
+          "icon": "gamepad",
+          "fam": "Juegos"
         },
         {
           "id": "Consolas PlayStation",
           "name": "Consolas PlayStation",
-          "icon": "gamepad"
+          "icon": "gamepad",
+          "fam": "Consolas"
         },
         {
           "id": "Consolas Xbox",
           "name": "Consolas Xbox",
-          "icon": "gamepad"
+          "icon": "gamepad",
+          "fam": "Consolas"
         },
         {
           "id": "Consolas Nintendo",
           "name": "Consolas Nintendo",
-          "icon": "gamepad"
+          "icon": "gamepad",
+          "fam": "Consolas"
         },
         {
           "id": "Consolas retro y portátiles",
           "name": "Consolas retro y portátiles",
-          "icon": "gamepad"
+          "icon": "gamepad",
+          "fam": "Consolas"
         },
         {
           "id": "Controles y gamepads",
@@ -1435,17 +1560,20 @@
         {
           "id": "Sillas de oficina",
           "name": "Sillas de oficina",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sillas"
         },
         {
           "id": "Sillas gamer",
           "name": "Sillas gamer",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sillas"
         },
         {
           "id": "Sillas de comedor",
           "name": "Sillas de comedor",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sillas"
         },
         {
           "id": "Taburetes y bancos",
@@ -1455,22 +1583,26 @@
         {
           "id": "Sillas plegables y de camping",
           "name": "Sillas plegables y de camping",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sillas"
         },
         {
           "id": "Sillas de exterior",
           "name": "Sillas de exterior",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sillas"
         },
         {
           "id": "Sillas infantiles",
           "name": "Sillas infantiles",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sillas"
         },
         {
           "id": "Sillas de espera y visitas",
           "name": "Sillas de espera y visitas",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sillas"
         },
         {
           "id": "Mecedoras y colgantes",
@@ -1486,37 +1618,44 @@
         {
           "id": "Escritorios de oficina",
           "name": "Escritorios de oficina",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Escritorios"
         },
         {
           "id": "Escritorios gamer",
           "name": "Escritorios gamer",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Escritorios"
         },
         {
           "id": "Escritorios en L y esquineros",
           "name": "Escritorios en L y esquineros",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Escritorios"
         },
         {
           "id": "Escritorios de altura ajustable",
           "name": "Escritorios de altura ajustable",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Escritorios"
         },
         {
           "id": "Escritorios infantiles y estudiantiles",
           "name": "Escritorios infantiles y estudiantiles",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Escritorios"
         },
         {
           "id": "Mesas para laptop y de cama",
           "name": "Mesas para laptop y de cama",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Mesas"
         },
         {
           "id": "Escritorios plegables y compactos",
           "name": "Escritorios plegables y compactos",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Escritorios"
         },
         {
           "id": "Accesorios y organizadores de escritorio",
@@ -1527,7 +1666,8 @@
         {
           "id": "Escritorios",
           "name": "Escritorios",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Escritorios"
         },
         {
           "id": "Otros",
@@ -1537,72 +1677,86 @@
         {
           "id": "Mesas de centro",
           "name": "Mesas de centro",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Mesas"
         },
         {
           "id": "Mesas auxiliares y laterales",
           "name": "Mesas auxiliares y laterales",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Mesas"
         },
         {
           "id": "Mesas para TV y consolas",
           "name": "Mesas para TV y consolas",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Mesas"
         },
         {
           "id": "Mesas de cama y con ruedas",
           "name": "Mesas de cama y con ruedas",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Mesas"
         },
         {
           "id": "Mesas plegables y multiusos",
           "name": "Mesas plegables y multiusos",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Mesas"
         },
         {
           "id": "Mesas de exterior",
           "name": "Mesas de exterior",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Mesas"
         },
         {
           "id": "Bases de cama y box",
           "name": "Bases de cama y box",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Dormitorio"
         },
         {
           "id": "Cabeceras",
           "name": "Cabeceras",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Dormitorio"
         },
         {
           "id": "Camas individuales",
           "name": "Camas individuales",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Dormitorio"
         },
         {
           "id": "Camas matrimoniales",
           "name": "Camas matrimoniales",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Dormitorio"
         },
         {
           "id": "Camas queen y king",
           "name": "Camas queen y king",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Dormitorio"
         },
         {
           "id": "Literas",
           "name": "Literas",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Dormitorio"
         },
         {
           "id": "Camas infantiles",
           "name": "Camas infantiles",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Dormitorio"
         },
         {
           "id": "Camas plegables y catres",
           "name": "Camas plegables y catres",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Dormitorio"
         },
         {
           "id": "Accesorios y refacciones de cama",
@@ -1613,137 +1767,164 @@
         {
           "id": "Camas",
           "name": "Camas",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Dormitorio"
         },
         {
           "id": "Libreros",
           "name": "Libreros",
-          "icon": "box"
+          "icon": "box",
+          "fam": "Almacenamiento"
         },
         {
           "id": "Burós",
           "name": "Burós",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Almacenamiento"
         },
         {
           "id": "Colchones individuales",
           "name": "Colchones individuales",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Colchones"
         },
         {
           "id": "Colchones matrimoniales",
           "name": "Colchones matrimoniales",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Colchones"
         },
         {
           "id": "Colchones queen size",
           "name": "Colchones queen size",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Colchones"
         },
         {
           "id": "Colchones king size",
           "name": "Colchones king size",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Colchones"
         },
         {
           "id": "Colchones infantiles y de cuna",
           "name": "Colchones infantiles y de cuna",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Colchones"
         },
         {
           "id": "Colchones plegables y de sofá cama",
           "name": "Colchones plegables y de sofá cama",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Colchones"
         },
         {
           "id": "Colchones",
           "name": "Colchones",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Colchones"
         },
         {
           "id": "Zapateras",
           "name": "Zapateras",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Almacenamiento"
         },
         {
           "id": "Percheros",
           "name": "Percheros",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Almacenamiento"
         },
         {
           "id": "Repisas",
           "name": "Repisas",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Almacenamiento"
         },
         {
           "id": "Roperos",
           "name": "Roperos",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Almacenamiento"
         },
         {
           "id": "Mesas de juego",
           "name": "Mesas de juego",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Mesas"
         },
         {
           "id": "Mesas de comedor",
           "name": "Mesas de comedor",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Comedor"
         },
         {
           "id": "Juegos de comedor",
           "name": "Juegos de comedor",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Comedor"
         },
         {
           "id": "Mesas de comedor extensibles",
           "name": "Mesas de comedor extensibles",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Comedor"
         },
         {
           "id": "Mesas altas y de bar",
           "name": "Mesas altas y de bar",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Comedor"
         },
         {
           "id": "Antecomedores y mesas de cocina",
           "name": "Antecomedores y mesas de cocina",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Comedor"
         },
         {
           "id": "Mesas de comedor para exterior",
           "name": "Mesas de comedor para exterior",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Comedor"
         },
         {
           "id": "Bancas de comedor",
           "name": "Bancas de comedor",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Comedor"
         },
         {
           "id": "Sofás de 2 y 3 plazas",
           "name": "Sofás de 2 y 3 plazas",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sofás"
         },
         {
           "id": "Sofás seccionales y esquineros",
           "name": "Sofás seccionales y esquineros",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sofás"
         },
         {
           "id": "Sofás cama",
           "name": "Sofás cama",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sofás"
         },
         {
           "id": "Sillones de masaje",
           "name": "Sillones de masaje",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sillones"
         },
         {
           "id": "Sofás infantiles",
           "name": "Sofás infantiles",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sofás"
         },
         {
           "id": "Puffs y otomanas",
@@ -1765,32 +1946,38 @@
         {
           "id": "Sillones y reclinables",
           "name": "Sillones y reclinables",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Sillones"
         },
         {
           "id": "Cocinas integrales",
           "name": "Cocinas integrales",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Cocina"
         },
         {
           "id": "Alacenas y gabinetes de cocina",
           "name": "Alacenas y gabinetes de cocina",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Cocina"
         },
         {
           "id": "Encimeras y cubiertas",
           "name": "Encimeras y cubiertas",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Cocina"
         },
         {
           "id": "Carros e islas de cocina",
           "name": "Carros e islas de cocina",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Cocina"
         },
         {
           "id": "Muebles de cocina",
           "name": "Muebles de cocina",
-          "icon": "sofa"
+          "icon": "sofa",
+          "fam": "Cocina"
         }
       ]
     },
@@ -1802,42 +1989,50 @@
         {
           "id": "Taladros y rotomartillos",
           "name": "Taladros y rotomartillos",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta eléctrica"
         },
         {
           "id": "Atornilladores",
           "name": "Atornilladores",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta eléctrica"
         },
         {
           "id": "Sierras",
           "name": "Sierras",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta eléctrica"
         },
         {
           "id": "Esmeriladoras y pulidoras",
           "name": "Esmeriladoras y pulidoras",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta eléctrica"
         },
         {
           "id": "Lijadoras",
           "name": "Lijadoras",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta eléctrica"
         },
         {
           "id": "Routers, fresadoras y multiherramientas",
           "name": "Routers, fresadoras y multiherramientas",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta eléctrica"
         },
         {
           "id": "Compresores y herramienta neumática",
           "name": "Compresores y herramienta neumática",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Aire comprimido"
         },
         {
           "id": "Generadores",
           "name": "Generadores",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Instalación eléctrica"
         },
         {
           "id": "Motores eléctricos",
@@ -1847,37 +2042,44 @@
         {
           "id": "Hidrolavadoras",
           "name": "Hidrolavadoras",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Jardín y exterior"
         },
         {
           "id": "Flejadoras y empacadoras",
           "name": "Flejadoras y empacadoras",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Aire comprimido"
         },
         {
           "id": "Pistolas de calor, engrapadoras y clavadoras",
           "name": "Pistolas de calor, engrapadoras y clavadoras",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta eléctrica"
         },
         {
           "id": "Herramientas de banco",
           "name": "Herramientas de banco",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta eléctrica"
         },
         {
           "id": "Escaleras",
           "name": "Escaleras",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Obra y taller"
         },
         {
           "id": "Seguridad industrial",
           "name": "Seguridad industrial",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Medición y seguridad"
         },
         {
           "id": "Juegos de herramientas",
           "name": "Juegos de herramientas",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta manual"
         },
         {
           "id": "Brocas",
@@ -1942,57 +2144,68 @@
         {
           "id": "Llaves y dados",
           "name": "Llaves y dados",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta manual"
         },
         {
           "id": "Desarmadores y puntas",
           "name": "Desarmadores y puntas",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta manual"
         },
         {
           "id": "Pinzas y alicates",
           "name": "Pinzas y alicates",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta manual"
         },
         {
           "id": "Martillos, cinceles y mazos",
           "name": "Martillos, cinceles y mazos",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta manual"
         },
         {
           "id": "Herramientas de corte manual",
           "name": "Herramientas de corte manual",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta manual"
         },
         {
           "id": "Prensas y sujeción",
           "name": "Prensas y sujeción",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta manual"
         },
         {
           "id": "Herramientas manuales",
           "name": "Herramientas manuales",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta manual"
         },
         {
           "id": "Podadoras y cortacésped",
           "name": "Podadoras y cortacésped",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Jardín y exterior"
         },
         {
           "id": "Jardinería",
           "name": "Jardinería",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Jardín y exterior"
         },
         {
           "id": "Apagadores y contactos",
           "name": "Apagadores y contactos",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Instalación eléctrica"
         },
         {
           "id": "Placas y tapas eléctricas",
           "name": "Placas y tapas eléctricas",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Instalación eléctrica"
         },
         {
           "id": "Material eléctrico",
@@ -2003,82 +2216,98 @@
         {
           "id": "Construcción",
           "name": "Construcción",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Obra y taller"
         },
         {
           "id": "Grifos y monomandos",
           "name": "Grifos y monomandos",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Plomería y baño"
         },
         {
           "id": "Regaderas y duchas",
           "name": "Regaderas y duchas",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Plomería y baño"
         },
         {
           "id": "Tarjas y fregaderos",
           "name": "Tarjas y fregaderos",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Plomería y baño"
         },
         {
           "id": "Bombas de agua",
           "name": "Bombas de agua",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Plomería y baño"
         },
         {
           "id": "Tuberías y conexiones",
           "name": "Tuberías y conexiones",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Plomería y baño"
         },
         {
           "id": "Sanitarios y accesorios de baño",
           "name": "Sanitarios y accesorios de baño",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Plomería y baño"
         },
         {
           "id": "Plomería",
           "name": "Plomería",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Plomería y baño"
         },
         {
           "id": "Medición",
           "name": "Medición",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Medición y seguridad"
         },
         {
           "id": "Grabado láser",
           "name": "Grabado láser",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta eléctrica"
         },
         {
           "id": "Neumáticas",
           "name": "Neumáticas",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Aire comprimido"
         },
         {
           "id": "Organización",
           "name": "Organización",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Obra y taller"
         },
         {
           "id": "Soldadura",
           "name": "Soldadura",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Instalación eléctrica"
         },
         {
           "id": "Gas LP",
           "name": "Gas LP",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Obra y taller"
         },
         {
           "id": "Cerraduras y candados",
           "name": "Cerraduras y candados",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Medición y seguridad"
         },
         {
           "id": "Herramientas eléctricas",
           "name": "Herramientas eléctricas",
-          "icon": "wrench"
+          "icon": "wrench",
+          "fam": "Herramienta eléctrica"
         }
       ]
     },
@@ -2412,217 +2641,260 @@
         {
           "id": "Frenos",
           "name": "Frenos",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Suspensión y dirección",
           "name": "Suspensión y dirección",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Motor y transmisión",
           "name": "Motor y transmisión",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Filtros y aceites",
           "name": "Filtros y aceites",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Bujías y encendido",
           "name": "Bujías y encendido",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Sistema eléctrico y sensores",
           "name": "Sistema eléctrico y sensores",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Faros y luces",
           "name": "Faros y luces",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Enfriamiento y climatización",
           "name": "Enfriamiento y climatización",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Escape",
           "name": "Escape",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Carrocería, espejos y molduras",
           "name": "Carrocería, espejos y molduras",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Limpiaparabrisas",
           "name": "Limpiaparabrisas",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Interior y tapicería",
           "name": "Interior y tapicería",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Llaves y cerraduras de auto",
           "name": "Llaves y cerraduras de auto",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Refacciones para lavadora y secadora",
           "name": "Refacciones para lavadora y secadora",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para refrigerador",
           "name": "Refacciones para refrigerador",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para estufa y horno",
           "name": "Refacciones para estufa y horno",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para licuadora y batidora",
           "name": "Refacciones para licuadora y batidora",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para aspiradora y robot",
           "name": "Refacciones para aspiradora y robot",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para cafetera",
           "name": "Refacciones para cafetera",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para freidora de aire",
           "name": "Refacciones para freidora de aire",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para microondas",
           "name": "Refacciones para microondas",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para aire acondicionado y ventilador",
           "name": "Refacciones para aire acondicionado y ventilador",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para plancha y vaporizador",
           "name": "Refacciones para plancha y vaporizador",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para bocinas y audio",
           "name": "Refacciones para bocinas y audio",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para otros electrodomésticos",
           "name": "Refacciones para otros electrodomésticos",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Refacciones para electrodomésticos",
           "name": "Refacciones para electrodomésticos",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para electrodomésticos"
         },
         {
           "id": "Frenos de moto",
           "name": "Frenos de moto",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Llantas y cámaras de moto",
           "name": "Llantas y cámaras de moto",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Cadenas, sprockets y transmisión",
           "name": "Cadenas, sprockets y transmisión",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Luces de moto",
           "name": "Luces de moto",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Carenados, plásticos y tanques",
           "name": "Carenados, plásticos y tanques",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Motor, carburación y escape de moto",
           "name": "Motor, carburación y escape de moto",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Eléctrico y baterías de moto",
           "name": "Eléctrico y baterías de moto",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Manubrios, espejos y controles",
           "name": "Manubrios, espejos y controles",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Suspensión y dirección de moto",
           "name": "Suspensión y dirección de moto",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Asientos, parrillas y accesorios de moto",
           "name": "Asientos, parrillas y accesorios de moto",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Filtros y aceites de moto",
           "name": "Filtros y aceites de moto",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Para motos",
           "name": "Para motos",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para moto"
         },
         {
           "id": "Bombas",
           "name": "Bombas",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Para patinetas eléctricas",
           "name": "Para patinetas eléctricas",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para movilidad eléctrica"
         },
         {
           "id": "Motores",
           "name": "Motores",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         },
         {
           "id": "Para bicicletas eléctricas",
           "name": "Para bicicletas eléctricas",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para movilidad eléctrica"
         },
         {
           "id": "Para autos",
           "name": "Para autos",
-          "icon": "gear"
+          "icon": "gear",
+          "fam": "Para auto"
         }
       ]
     },
@@ -2979,47 +3251,56 @@
         {
           "id": "Guitarras acústicas",
           "name": "Guitarras acústicas",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Cuerdas"
         },
         {
           "id": "Guitarras electroacústicas",
           "name": "Guitarras electroacústicas",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Cuerdas"
         },
         {
           "id": "Guitarras clásicas",
           "name": "Guitarras clásicas",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Cuerdas"
         },
         {
           "id": "Guitarras eléctricas",
           "name": "Guitarras eléctricas",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Cuerdas"
         },
         {
           "id": "Bajos",
           "name": "Bajos",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Cuerdas"
         },
         {
           "id": "Ukuleles",
           "name": "Ukuleles",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Cuerdas"
         },
         {
           "id": "Violines, mandolinas y otras cuerdas",
           "name": "Violines, mandolinas y otras cuerdas",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Cuerdas"
         },
         {
           "id": "Amplificadores de guitarra y bajo",
           "name": "Amplificadores de guitarra y bajo",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Amplificación y efectos"
         },
         {
           "id": "Pedales y efectos",
           "name": "Pedales y efectos",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Amplificación y efectos"
         },
         {
           "id": "Cuerdas de guitarra y bajo",
@@ -3042,17 +3323,20 @@
         {
           "id": "Baterías acústicas",
           "name": "Baterías acústicas",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Percusión"
         },
         {
           "id": "Baterías electrónicas",
           "name": "Baterías electrónicas",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Percusión"
         },
         {
           "id": "Platillos",
           "name": "Platillos",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Percusión"
         },
         {
           "id": "Baquetas y escobillas",
@@ -3075,7 +3359,8 @@
         {
           "id": "Tarolas y cajas",
           "name": "Tarolas y cajas",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Percusión"
         },
         {
           "id": "Pads de práctica",
@@ -3092,47 +3377,56 @@
         {
           "id": "Baterías",
           "name": "Baterías",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Percusión"
         },
         {
           "id": "Percusión",
           "name": "Percusión",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Percusión"
         },
         {
           "id": "Saxofones",
           "name": "Saxofones",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Viento"
         },
         {
           "id": "Flautas traversas",
           "name": "Flautas traversas",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Viento"
         },
         {
           "id": "Clarinetes y oboes",
           "name": "Clarinetes y oboes",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Viento"
         },
         {
           "id": "Trompetas, trombones y metales",
           "name": "Trompetas, trombones y metales",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Viento"
         },
         {
           "id": "Armónicas y melódicas",
           "name": "Armónicas y melódicas",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Viento"
         },
         {
           "id": "Ocarinas, silbatos y flautas dulces",
           "name": "Ocarinas, silbatos y flautas dulces",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Viento"
         },
         {
           "id": "Instrumentos de viento digitales",
           "name": "Instrumentos de viento digitales",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Viento"
         },
         {
           "id": "Boquillas, cañas y accesorios de viento",
@@ -3143,7 +3437,8 @@
         {
           "id": "Viento",
           "name": "Viento",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Viento"
         },
         {
           "id": "Micrófonos",
@@ -3160,27 +3455,32 @@
         {
           "id": "Pianos digitales",
           "name": "Pianos digitales",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Teclados"
         },
         {
           "id": "Teclados electrónicos",
           "name": "Teclados electrónicos",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Teclados"
         },
         {
           "id": "Sintetizadores y controladores MIDI",
           "name": "Sintetizadores y controladores MIDI",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Teclados"
         },
         {
           "id": "Acordeones",
           "name": "Acordeones",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Teclados"
         },
         {
           "id": "Órganos y otros teclados",
           "name": "Órganos y otros teclados",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Teclados"
         },
         {
           "id": "Bancos, soportes y accesorios de teclado",
@@ -3191,7 +3491,8 @@
         {
           "id": "Amplificadores",
           "name": "Amplificadores",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Amplificación y efectos"
         },
         {
           "id": "Tornamesas",
@@ -3318,67 +3619,80 @@
         {
           "id": "Tiras LED",
           "name": "Tiras LED",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "Decorativa y de efecto"
         },
         {
           "id": "Lámparas de escritorio",
           "name": "Lámparas de escritorio",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "De pie y de mesa"
         },
         {
           "id": "Lámparas de emergencia",
           "name": "Lámparas de emergencia",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "Exterior e industrial"
         },
         {
           "id": "Exterior",
           "name": "Exterior",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "Exterior e industrial"
         },
         {
           "id": "Lámparas colgantes",
           "name": "Lámparas colgantes",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "De techo"
         },
         {
           "id": "Candiles y arañas",
           "name": "Candiles y arañas",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "De techo"
         },
         {
           "id": "Plafones y lámparas de sobreponer",
           "name": "Plafones y lámparas de sobreponer",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "De techo"
         },
         {
           "id": "Rieles y spots",
           "name": "Rieles y spots",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "De techo"
         },
         {
           "id": "Lámparas industriales y de nave",
           "name": "Lámparas industriales y de nave",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "Exterior e industrial"
         },
         {
           "id": "Lámparas de techo para exterior",
           "name": "Lámparas de techo para exterior",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "Exterior e industrial"
         },
         {
           "id": "Ventiladores con luz",
           "name": "Ventiladores con luz",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "De techo"
         },
         {
           "id": "Lámparas de pared",
           "name": "Lámparas de pared",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "De pie y de mesa"
         },
         {
           "id": "Lámparas de piso",
           "name": "Lámparas de piso",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "De pie y de mesa"
         },
         {
           "id": "Focos",
@@ -3388,17 +3702,20 @@
         {
           "id": "Decorativa",
           "name": "Decorativa",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "Decorativa y de efecto"
         },
         {
           "id": "Empotrada",
           "name": "Empotrada",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "De techo"
         },
         {
           "id": "Escenario",
           "name": "Escenario",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "Decorativa y de efecto"
         }
       ]
     },
@@ -3410,57 +3727,68 @@
         {
           "id": "Muñecas",
           "name": "Muñecas",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Cunas",
           "name": "Cunas",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Dormir y seguridad"
         },
         {
           "id": "Peluches",
           "name": "Peluches",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Biberones",
           "name": "Biberones",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Alimentación"
         },
         {
           "id": "Andaderas",
           "name": "Andaderas",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Paseo y transporte"
         },
         {
           "id": "Vehículos a control remoto",
           "name": "Vehículos a control remoto",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Monitores de bebé",
           "name": "Monitores de bebé",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Dormir y seguridad"
         },
         {
           "id": "Corrales",
           "name": "Corrales",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Dormir y seguridad"
         },
         {
           "id": "Triciclos",
           "name": "Triciclos",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Juguetes educativos",
           "name": "Juguetes educativos",
-          "icon": "graduation-cap"
+          "icon": "graduation-cap",
+          "fam": "Juguetes"
         },
         {
           "id": "Juguetes musicales",
           "name": "Juguetes musicales",
-          "icon": "guitar"
+          "icon": "guitar",
+          "fam": "Juguetes"
         },
         {
           "id": "Otros",
@@ -3470,107 +3798,128 @@
         {
           "id": "Alimentación y lactancia",
           "name": "Alimentación y lactancia",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Alimentación"
         },
         {
           "id": "Baño e higiene del bebé",
           "name": "Baño e higiene del bebé",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Higiene y cuidado"
         },
         {
           "id": "Pañales y cambio",
           "name": "Pañales y cambio",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Higiene y cuidado"
         },
         {
           "id": "Chupones y mordederas",
           "name": "Chupones y mordederas",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Alimentación"
         },
         {
           "id": "Seguridad para bebé",
           "name": "Seguridad para bebé",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Dormir y seguridad"
         },
         {
           "id": "Ropa y calzado de bebé",
           "name": "Ropa y calzado de bebé",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Higiene y cuidado"
         },
         {
           "id": "Juguetes para bebé",
           "name": "Juguetes para bebé",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Portabebés y canguros",
           "name": "Portabebés y canguros",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Paseo y transporte"
         },
         {
           "id": "Sillas de comer y mecedoras",
           "name": "Sillas de comer y mecedoras",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Alimentación"
         },
         {
           "id": "Cuidado y salud del bebé",
           "name": "Cuidado y salud del bebé",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Higiene y cuidado"
         },
         {
           "id": "Bebés",
           "name": "Bebés",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Dormir y seguridad"
         },
         {
           "id": "Juguetes para exterior",
           "name": "Juguetes para exterior",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Trampolines",
           "name": "Trampolines",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Juegos arcade",
           "name": "Juegos arcade",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Figuras de acción",
           "name": "Figuras de acción",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Bloques de construcción",
           "name": "Bloques de construcción",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Montables",
           "name": "Montables",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Maquetas",
           "name": "Maquetas",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         },
         {
           "id": "Carriolas",
           "name": "Carriolas",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Paseo y transporte"
         },
         {
           "id": "Sillas de auto",
           "name": "Sillas de auto",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Paseo y transporte"
         },
         {
           "id": "Vehículos de juguete",
           "name": "Vehículos de juguete",
-          "icon": "toy"
+          "icon": "toy",
+          "fam": "Juguetes"
         }
       ]
     },
@@ -3582,7 +3931,8 @@
         {
           "id": "Jaulas para perro",
           "name": "Jaulas para perro",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Jaulas"
         },
         {
           "id": "Corrales y rejas para mascotas",
@@ -3592,17 +3942,20 @@
         {
           "id": "Jaulas y recintos para gato",
           "name": "Jaulas y recintos para gato",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Jaulas"
         },
         {
           "id": "Jaulas para aves",
           "name": "Jaulas para aves",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Jaulas"
         },
         {
           "id": "Jaulas y hábitats para roedores",
           "name": "Jaulas y hábitats para roedores",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Jaulas"
         },
         {
           "id": "Acuarios y terrarios",
@@ -3617,132 +3970,158 @@
         {
           "id": "Juguetes para perro",
           "name": "Juguetes para perro",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Juguetes"
         },
         {
           "id": "Juguetes para gato",
           "name": "Juguetes para gato",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Juguetes"
         },
         {
           "id": "Juguetes para aves y roedores",
           "name": "Juguetes para aves y roedores",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Juguetes"
         },
         {
           "id": "Juguetes",
           "name": "Juguetes",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Juguetes"
         },
         {
           "id": "Camas para perro",
           "name": "Camas para perro",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Camas"
         },
         {
           "id": "Camas para gato",
           "name": "Camas para gato",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Camas"
         },
         {
           "id": "Camas elevadas y colchonetas",
           "name": "Camas elevadas y colchonetas",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Camas"
         },
         {
           "id": "Cuevas, iglús y tiendas para mascotas",
           "name": "Cuevas, iglús y tiendas para mascotas",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Descanso y refugio"
         },
         {
           "id": "Cojines y mantas para mascotas",
           "name": "Cojines y mantas para mascotas",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Descanso y refugio"
         },
         {
           "id": "Camas",
           "name": "Camas",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Camas"
         },
         {
           "id": "Casas para mascotas",
           "icon": "house",
-          "name": "Casas para mascotas"
+          "name": "Casas para mascotas",
+          "fam": "Descanso y refugio"
         },
         {
           "id": "Comederos automáticos",
           "name": "Comederos automáticos",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Comederos"
         },
         {
           "id": "Platos y tazones para mascotas",
           "name": "Platos y tazones para mascotas",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Alimentación"
         },
         {
           "id": "Comederos elevados",
           "name": "Comederos elevados",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Comederos"
         },
         {
           "id": "Comederos lentos y antivoracidad",
           "name": "Comederos lentos y antivoracidad",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Comederos"
         },
         {
           "id": "Fuentes y dispensadores de agua",
           "name": "Fuentes y dispensadores de agua",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Alimentación"
         },
         {
           "id": "Comederos para aves y roedores",
           "name": "Comederos para aves y roedores",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Comederos"
         },
         {
           "id": "Tapetes y accesorios de alimentación",
           "name": "Tapetes y accesorios de alimentación",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Alimentación"
         },
         {
           "id": "Comederos",
           "name": "Comederos",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Comederos"
         },
         {
           "id": "Transportadoras",
           "name": "Transportadoras",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Paseo y adiestramiento"
         },
         {
           "id": "Bebederos",
           "name": "Bebederos",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Alimentación"
         },
         {
           "id": "Correas",
           "name": "Correas",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Paseo y adiestramiento"
         },
         {
           "id": "Areneros",
           "name": "Areneros",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Higiene"
         },
         {
           "id": "Puertas para mascotas",
           "name": "Puertas para mascotas",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Paseo y adiestramiento"
         },
         {
           "id": "Rascadores y torres",
           "name": "Rascadores y torres",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Descanso y refugio"
         },
         {
           "id": "Higiene y limpieza",
           "name": "Higiene y limpieza",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Higiene"
         },
         {
           "id": "GPS y localizadores",
@@ -3757,12 +4136,14 @@
         {
           "id": "Ropa y accesorios",
           "name": "Ropa y accesorios",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Paseo y adiestramiento"
         },
         {
           "id": "Adiestramiento",
           "name": "Adiestramiento",
-          "icon": "paw"
+          "icon": "paw",
+          "fam": "Paseo y adiestramiento"
         }
       ]
     },
@@ -3806,47 +4187,56 @@
         {
           "id": "Ventiladores de techo",
           "name": "Ventiladores de techo",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Ventiladores"
         },
         {
           "id": "Ventiladores de pedestal",
           "name": "Ventiladores de pedestal",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Ventiladores"
         },
         {
           "id": "Ventiladores de torre",
           "name": "Ventiladores de torre",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Ventiladores"
         },
         {
           "id": "Ventiladores de piso e industriales",
           "name": "Ventiladores de piso e industriales",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Ventiladores"
         },
         {
           "id": "Ventiladores de mesa y clip",
           "name": "Ventiladores de mesa y clip",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Ventiladores"
         },
         {
           "id": "Ventiladores portátiles y de mano",
           "name": "Ventiladores portátiles y de mano",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Ventiladores"
         },
         {
           "id": "Ventiladores de pared",
           "name": "Ventiladores de pared",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Ventiladores"
         },
         {
           "id": "Extractores y ventilación",
           "name": "Extractores y ventilación",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Calidad del aire"
         },
         {
           "id": "Ventiladores nebulizadores",
           "name": "Ventiladores nebulizadores",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Ventiladores"
         },
         {
           "id": "Aspas y refacciones de ventilador",
@@ -3857,32 +4247,38 @@
         {
           "id": "Calefactores cerámicos y de aire",
           "name": "Calefactores cerámicos y de aire",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Calefactores"
         },
         {
           "id": "Calefactores de aceite",
           "name": "Calefactores de aceite",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Calefactores"
         },
         {
           "id": "Calefactores infrarrojos y de cuarzo",
           "name": "Calefactores infrarrojos y de cuarzo",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Calefactores"
         },
         {
           "id": "Calefactores de gas",
           "name": "Calefactores de gas",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Calefactores"
         },
         {
           "id": "Calefactores de pared y baño",
           "name": "Calefactores de pared y baño",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Calefactores"
         },
         {
           "id": "Calefactores de exterior y patio",
           "name": "Calefactores de exterior y patio",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Calefactores"
         },
         {
           "id": "Tapetes y alfombras calefactoras",
@@ -3892,7 +4288,8 @@
         {
           "id": "Calefactores para pies y personales",
           "name": "Calefactores para pies y personales",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Calefactores"
         },
         {
           "id": "Chimeneas eléctricas",
@@ -3908,27 +4305,32 @@
         {
           "id": "Minisplit",
           "name": "Minisplit",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Enfriar"
         },
         {
           "id": "Aires acondicionados portátiles",
           "name": "Aires acondicionados portátiles",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Enfriar"
         },
         {
           "id": "Aires acondicionados de ventana",
           "name": "Aires acondicionados de ventana",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Enfriar"
         },
         {
           "id": "Aires acondicionados para auto y RV",
           "name": "Aires acondicionados para auto y RV",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Enfriar"
         },
         {
           "id": "Mini enfriadores personales",
           "name": "Mini enfriadores personales",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Enfriar"
         },
         {
           "id": "Accesorios y refacciones de aire acondicionado",
@@ -3939,27 +4341,32 @@
         {
           "id": "Aires acondicionados",
           "name": "Aires acondicionados",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Enfriar"
         },
         {
           "id": "Purificadores de aire",
           "name": "Purificadores de aire",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Calidad del aire"
         },
         {
           "id": "Deshumidificadores",
           "name": "Deshumidificadores",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Calidad del aire"
         },
         {
           "id": "Humidificadores",
           "name": "Humidificadores",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Calidad del aire"
         },
         {
           "id": "Climatizadores evaporativos",
           "name": "Climatizadores evaporativos",
-          "icon": "snowflake"
+          "icon": "snowflake",
+          "fam": "Enfriar"
         }
       ]
     },
@@ -3969,19 +4376,70 @@
       "icon": "dumbbell",
       "subcategories": [
         {
-          "id": "Máquinas multifuncionales y poleas",
-          "name": "Máquinas multifuncionales y poleas",
-          "icon": "dumbbell"
+          "id": "Mancuernas",
+          "name": "Mancuernas",
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
         },
         {
-          "id": "Máquinas de cardio",
-          "name": "Máquinas de cardio",
-          "icon": "dumbbell"
+          "id": "Kettlebells",
+          "name": "Kettlebells",
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
+        },
+        {
+          "id": "Barras y discos",
+          "name": "Barras y discos",
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
+        },
+        {
+          "id": "Sets de pesas",
+          "name": "Sets de pesas",
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
+        },
+        {
+          "id": "Pesas de tobillo y chalecos con peso",
+          "name": "Pesas de tobillo y chalecos con peso",
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
+        },
+        {
+          "id": "Balones medicinales",
+          "name": "Balones medicinales",
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
+        },
+        {
+          "id": "Bancos y racks",
+          "name": "Bancos y racks",
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
+        },
+        {
+          "id": "Máquinas multifuncionales y poleas",
+          "name": "Máquinas multifuncionales y poleas",
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
+        },
+        {
+          "id": "Máquinas de abdominales",
+          "name": "Máquinas de abdominales",
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
         },
         {
           "id": "Barras de dominadas y calistenia",
           "name": "Barras de dominadas y calistenia",
-          "icon": "dumbbell"
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
+        },
+        {
+          "id": "Bandas de resistencia",
+          "name": "Bandas de resistencia",
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
         },
         {
           "id": "Accesorios de fuerza",
@@ -3990,134 +4448,346 @@
           "rol": "accesorio"
         },
         {
-          "id": "Tablas y balance",
-          "name": "Tablas y balance",
-          "icon": "dumbbell"
+          "id": "Equipo de gimnasio",
+          "name": "Equipo de gimnasio",
+          "icon": "dumbbell",
+          "fam": "Gimnasio y pesas"
         },
         {
-          "id": "Máquinas de abdominales",
-          "name": "Máquinas de abdominales",
-          "icon": "dumbbell"
-        },
-        {
-          "id": "Balones",
-          "name": "Balones",
-          "icon": "dumbbell"
+          "id": "Caminadoras",
+          "name": "Caminadoras",
+          "icon": "dumbbell",
+          "fam": "Cardio"
         },
         {
           "id": "Bicicletas fijas",
           "name": "Bicicletas fijas",
-          "icon": "dumbbell"
+          "icon": "dumbbell",
+          "fam": "Cardio"
         },
         {
-          "id": "Otros",
-          "name": "Otros",
-          "icon": "dumbbell"
+          "id": "Elípticas",
+          "name": "Elípticas",
+          "icon": "dumbbell",
+          "fam": "Cardio"
         },
         {
-          "id": "Voleibol",
-          "name": "Voleibol",
-          "icon": "dumbbell"
+          "id": "Remadoras",
+          "name": "Remadoras",
+          "icon": "dumbbell",
+          "fam": "Cardio"
         },
         {
-          "id": "Dardos",
-          "name": "Dardos",
-          "icon": "dumbbell"
+          "id": "Escaladoras y steppers",
+          "name": "Escaladoras y steppers",
+          "icon": "dumbbell",
+          "fam": "Cardio"
         },
         {
-          "id": "Ping pong",
-          "name": "Ping pong",
-          "icon": "dumbbell"
+          "id": "Cuerdas para saltar",
+          "name": "Cuerdas para saltar",
+          "icon": "dumbbell",
+          "fam": "Cardio"
         },
         {
-          "id": "Pesas",
-          "name": "Pesas",
-          "icon": "dumbbell"
+          "id": "Otros aparatos de cardio",
+          "name": "Otros aparatos de cardio",
+          "icon": "dumbbell",
+          "fam": "Cardio"
         },
         {
-          "id": "Mancuernas",
-          "name": "Mancuernas",
-          "icon": "dumbbell"
+          "id": "Tapetes de yoga",
+          "name": "Tapetes de yoga",
+          "icon": "dumbbell",
+          "fam": "Yoga y pilates"
         },
         {
-          "id": "Barras y discos",
-          "name": "Barras y discos",
-          "icon": "dumbbell"
+          "id": "Bloques, correas y ruedas de yoga",
+          "name": "Bloques, correas y ruedas de yoga",
+          "icon": "dumbbell",
+          "fam": "Yoga y pilates"
         },
         {
-          "id": "Kettlebells",
-          "name": "Kettlebells",
-          "icon": "dumbbell"
+          "id": "Pelotas y aros de pilates",
+          "name": "Pelotas y aros de pilates",
+          "icon": "dumbbell",
+          "fam": "Yoga y pilates"
         },
         {
-          "id": "Pesas de tobillo y chalecos con peso",
-          "name": "Pesas de tobillo y chalecos con peso",
-          "icon": "dumbbell"
+          "id": "Rodillos de espuma y masaje",
+          "name": "Rodillos de espuma y masaje",
+          "icon": "dumbbell",
+          "fam": "Yoga y pilates"
         },
         {
-          "id": "Sets de pesas",
-          "name": "Sets de pesas",
-          "icon": "dumbbell"
+          "id": "Tablas y balance",
+          "name": "Tablas y balance",
+          "icon": "dumbbell",
+          "fam": "Yoga y pilates"
         },
         {
-          "id": "Bancos y racks",
-          "name": "Bancos y racks",
-          "icon": "dumbbell"
+          "id": "Accesorios y ropa de yoga",
+          "name": "Accesorios y ropa de yoga",
+          "icon": "dumbbell",
+          "fam": "Yoga y pilates"
         },
         {
-          "id": "Boxeo",
-          "name": "Boxeo",
-          "icon": "dumbbell"
+          "id": "Balones de fútbol",
+          "name": "Balones de fútbol",
+          "icon": "dumbbell",
+          "fam": "Fútbol"
         },
         {
-          "id": "Yoga",
-          "name": "Yoga",
-          "icon": "dumbbell"
+          "id": "Porterías y redes de fútbol",
+          "name": "Porterías y redes de fútbol",
+          "icon": "dumbbell",
+          "fam": "Fútbol"
         },
         {
-          "id": "Bandas de resistencia",
-          "name": "Bandas de resistencia",
-          "icon": "dumbbell"
+          "id": "Espinilleras",
+          "name": "Espinilleras",
+          "icon": "dumbbell",
+          "fam": "Fútbol"
         },
         {
-          "id": "Natación",
-          "name": "Natación",
-          "icon": "dumbbell"
+          "id": "Guantes de portero",
+          "name": "Guantes de portero",
+          "icon": "dumbbell",
+          "fam": "Fútbol"
         },
         {
-          "id": "Fútbol",
-          "name": "Fútbol",
-          "icon": "dumbbell"
+          "id": "Entrenamiento de fútbol",
+          "name": "Entrenamiento de fútbol",
+          "icon": "dumbbell",
+          "fam": "Fútbol"
         },
         {
-          "id": "Patines y patinetas",
-          "name": "Patines y patinetas",
-          "icon": "dumbbell"
+          "id": "Ropa y accesorios de fútbol",
+          "name": "Ropa y accesorios de fútbol",
+          "icon": "dumbbell",
+          "fam": "Fútbol"
         },
         {
-          "id": "Deportes acuáticos",
-          "name": "Deportes acuáticos",
-          "icon": "dumbbell"
+          "id": "Balones de básquetbol",
+          "name": "Balones de básquetbol",
+          "icon": "dumbbell",
+          "fam": "Básquetbol"
+        },
+        {
+          "id": "Tableros y canastas",
+          "name": "Tableros y canastas",
+          "icon": "dumbbell",
+          "fam": "Básquetbol"
+        },
+        {
+          "id": "Balones de voleibol",
+          "name": "Balones de voleibol",
+          "icon": "dumbbell",
+          "fam": "Voleibol"
+        },
+        {
+          "id": "Redes de voleibol",
+          "name": "Redes de voleibol",
+          "icon": "dumbbell",
+          "fam": "Voleibol"
+        },
+        {
+          "id": "Rodilleras y mangas de voleibol",
+          "name": "Rodilleras y mangas de voleibol",
+          "icon": "dumbbell",
+          "fam": "Voleibol"
+        },
+        {
+          "id": "Raquetas de tenis",
+          "name": "Raquetas de tenis",
+          "icon": "dumbbell",
+          "fam": "Tenis, pádel y bádminton"
+        },
+        {
+          "id": "Raquetas de pádel",
+          "name": "Raquetas de pádel",
+          "icon": "dumbbell",
+          "fam": "Tenis, pádel y bádminton"
+        },
+        {
+          "id": "Bádminton",
+          "name": "Bádminton",
+          "icon": "dumbbell",
+          "fam": "Tenis, pádel y bádminton"
+        },
+        {
+          "id": "Pelotas y accesorios de raqueta",
+          "name": "Pelotas y accesorios de raqueta",
+          "icon": "dumbbell",
+          "fam": "Tenis, pádel y bádminton"
+        },
+        {
+          "id": "Mesas de ping pong",
+          "name": "Mesas de ping pong",
+          "icon": "dumbbell",
+          "fam": "Ping pong"
+        },
+        {
+          "id": "Raquetas de ping pong",
+          "name": "Raquetas de ping pong",
+          "icon": "dumbbell",
+          "fam": "Ping pong"
+        },
+        {
+          "id": "Pelotas, redes y accesorios de ping pong",
+          "name": "Pelotas, redes y accesorios de ping pong",
+          "icon": "dumbbell",
+          "fam": "Ping pong"
+        },
+        {
+          "id": "Guantes de box",
+          "name": "Guantes de box",
+          "icon": "dumbbell",
+          "fam": "Boxeo y artes marciales"
+        },
+        {
+          "id": "Costales, peras y entrenadores",
+          "name": "Costales, peras y entrenadores",
+          "icon": "dumbbell",
+          "fam": "Boxeo y artes marciales"
+        },
+        {
+          "id": "Protección, vendas y artes marciales",
+          "name": "Protección, vendas y artes marciales",
+          "icon": "dumbbell",
+          "fam": "Boxeo y artes marciales"
+        },
+        {
+          "id": "Goggles de natación",
+          "name": "Goggles de natación",
+          "icon": "dumbbell",
+          "fam": "Natación"
+        },
+        {
+          "id": "Gorros de natación",
+          "name": "Gorros de natación",
+          "icon": "dumbbell",
+          "fam": "Natación"
+        },
+        {
+          "id": "Trajes de baño deportivos",
+          "name": "Trajes de baño deportivos",
+          "icon": "dumbbell",
+          "fam": "Natación"
+        },
+        {
+          "id": "Aletas, tablas y entrenamiento de natación",
+          "name": "Aletas, tablas y entrenamiento de natación",
+          "icon": "dumbbell",
+          "fam": "Natación"
+        },
+        {
+          "id": "Tapones y accesorios de natación",
+          "name": "Tapones y accesorios de natación",
+          "icon": "dumbbell",
+          "fam": "Natación"
+        },
+        {
+          "id": "Paddle, surf y kayak",
+          "name": "Paddle, surf y kayak",
+          "icon": "dumbbell",
+          "fam": "Deportes acuáticos"
+        },
+        {
+          "id": "Snorkel y buceo",
+          "name": "Snorkel y buceo",
+          "icon": "dumbbell",
+          "fam": "Deportes acuáticos"
+        },
+        {
+          "id": "Chalecos, bolsas secas y accesorios acuáticos",
+          "name": "Chalecos, bolsas secas y accesorios acuáticos",
+          "icon": "dumbbell",
+          "fam": "Deportes acuáticos"
+        },
+        {
+          "id": "Patines en línea",
+          "name": "Patines en línea",
+          "icon": "dumbbell",
+          "fam": "Patinaje"
+        },
+        {
+          "id": "Patines de 4 ruedas",
+          "name": "Patines de 4 ruedas",
+          "icon": "dumbbell",
+          "fam": "Patinaje"
+        },
+        {
+          "id": "Patinetas y scooters",
+          "name": "Patinetas y scooters",
+          "icon": "dumbbell",
+          "fam": "Patinaje"
+        },
+        {
+          "id": "Protección para patinar",
+          "name": "Protección para patinar",
+          "icon": "dumbbell",
+          "fam": "Patinaje"
+        },
+        {
+          "id": "Accesorios de patinaje",
+          "name": "Accesorios de patinaje",
+          "icon": "dumbbell",
+          "fam": "Patinaje"
+        },
+        {
+          "id": "Dardos y accesorios",
+          "name": "Dardos y accesorios",
+          "icon": "dumbbell",
+          "fam": "Dardos"
+        },
+        {
+          "id": "Tableros de dardos",
+          "name": "Tableros de dardos",
+          "icon": "dumbbell",
+          "fam": "Dardos"
+        },
+        {
+          "id": "Rodilleras, muñequeras y soportes",
+          "name": "Rodilleras, muñequeras y soportes",
+          "icon": "dumbbell",
+          "fam": "Protección y recuperación"
+        },
+        {
+          "id": "Protectores bucales",
+          "name": "Protectores bucales",
+          "icon": "dumbbell",
+          "fam": "Protección y recuperación"
+        },
+        {
+          "id": "Fútbol americano",
+          "name": "Fútbol americano",
+          "icon": "dumbbell",
+          "fam": "Otros deportes"
+        },
+        {
+          "id": "Béisbol y softbol",
+          "name": "Béisbol y softbol",
+          "icon": "dumbbell",
+          "fam": "Otros deportes"
+        },
+        {
+          "id": "Golf",
+          "name": "Golf",
+          "icon": "dumbbell",
+          "fam": "Otros deportes"
         },
         {
           "id": "Campismo",
           "name": "Campismo",
-          "icon": "dumbbell"
+          "icon": "dumbbell",
+          "fam": "Otros deportes"
         },
         {
-          "id": "Raquetas",
-          "name": "Raquetas",
-          "icon": "dumbbell"
-        },
-        {
-          "id": "Protección y soportes",
-          "name": "Protección y soportes",
-          "icon": "dumbbell"
-        },
-        {
-          "id": "Equipo de gimnasio",
-          "name": "Equipo de gimnasio",
-          "icon": "dumbbell"
+          "id": "Otros deportes",
+          "name": "Otros deportes",
+          "icon": "dumbbell",
+          "fam": "Otros deportes"
         }
       ]
     },
@@ -4188,102 +4858,122 @@
         {
           "id": "Bases y correctores",
           "name": "Bases y correctores",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Maquillaje"
         },
         {
           "id": "Polvos, rubores y bronceadores",
           "name": "Polvos, rubores y bronceadores",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Maquillaje"
         },
         {
           "id": "Labiales",
           "name": "Labiales",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Maquillaje"
         },
         {
           "id": "Sombras y delineadores",
           "name": "Sombras y delineadores",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Maquillaje"
         },
         {
           "id": "Máscaras de pestañas y cejas",
           "name": "Máscaras de pestañas y cejas",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Maquillaje"
         },
         {
           "id": "Pestañas postizas",
           "name": "Pestañas postizas",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Maquillaje"
         },
         {
           "id": "Brochas y esponjas",
           "name": "Brochas y esponjas",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Maquillaje"
         },
         {
           "id": "Paletas y sets de maquillaje",
           "name": "Paletas y sets de maquillaje",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Maquillaje"
         },
         {
           "id": "Primers y fijadores",
           "name": "Primers y fijadores",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Maquillaje"
         },
         {
           "id": "Organizadores de maquillaje",
           "name": "Organizadores de maquillaje",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Maquillaje"
         },
         {
           "id": "Cremas y sérums faciales",
           "name": "Cremas y sérums faciales",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuidado facial"
         },
         {
           "id": "Limpiadores y tónicos",
           "name": "Limpiadores y tónicos",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuidado facial"
         },
         {
           "id": "Mascarillas faciales",
           "name": "Mascarillas faciales",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuidado facial"
         },
         {
           "id": "Contorno de ojos y labios",
           "name": "Contorno de ojos y labios",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuidado facial"
         },
         {
           "id": "Dispositivos de cuidado facial",
           "name": "Dispositivos de cuidado facial",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuidado facial"
         },
         {
           "id": "Vaporizadores y equipo de spa",
           "name": "Vaporizadores y equipo de spa",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuerpo y spa"
         },
         {
           "id": "Exfoliantes y peelings",
           "name": "Exfoliantes y peelings",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuidado facial"
         },
         {
           "id": "Cuidado facial masculino",
           "name": "Cuidado facial masculino",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuidado facial"
         },
         {
           "id": "Faciales",
           "name": "Faciales",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuidado facial"
         },
         {
           "id": "Corporales",
           "name": "Corporales",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuerpo y spa"
         },
         {
           "id": "Uñas",
@@ -4293,7 +4983,8 @@
         {
           "id": "Masajeadores",
           "name": "Masajeadores",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuerpo y spa"
         },
         {
           "id": "Mobiliario para salón",
@@ -4303,67 +4994,80 @@
         {
           "id": "Secadoras de cabello",
           "name": "Secadoras de cabello",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cabello"
         },
         {
           "id": "Depilación",
           "name": "Depilación",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Afeitado y depilación"
         },
         {
           "id": "Estilizadores",
           "name": "Estilizadores",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cabello"
         },
         {
           "id": "Planchas para cabello",
           "name": "Planchas para cabello",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cabello"
         },
         {
           "id": "Rasuradoras",
           "name": "Rasuradoras",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Afeitado y depilación"
         },
         {
           "id": "Rizadores",
           "name": "Rizadores",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cabello"
         },
         {
           "id": "Extensiones de cabello",
           "name": "Extensiones de cabello",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cabello"
         },
         {
           "id": "Pelucas",
           "name": "Pelucas",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cabello"
         },
         {
           "id": "Protección solar",
           "name": "Protección solar",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuidado facial"
         },
         {
           "id": "Perfumes",
           "name": "Perfumes",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuerpo y spa"
         },
         {
           "id": "Cuidado del cabello",
           "name": "Cuidado del cabello",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cabello"
         },
         {
           "id": "Cuidado personal",
           "name": "Cuidado personal",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Cuerpo y spa"
         },
         {
           "id": "Maquillaje",
           "name": "Maquillaje",
-          "icon": "sparkle"
+          "icon": "sparkle",
+          "fam": "Maquillaje"
         }
       ]
     },
@@ -4375,27 +5079,32 @@
         {
           "id": "Relojes para hombre",
           "name": "Relojes para hombre",
-          "icon": "ring"
+          "icon": "ring",
+          "fam": "Relojes"
         },
         {
           "id": "Relojes para mujer",
           "name": "Relojes para mujer",
-          "icon": "ring"
+          "icon": "ring",
+          "fam": "Relojes"
         },
         {
           "id": "Relojes infantiles",
           "name": "Relojes infantiles",
-          "icon": "ring"
+          "icon": "ring",
+          "fam": "Relojes"
         },
         {
           "id": "Relojes deportivos y digitales",
           "name": "Relojes deportivos y digitales",
-          "icon": "ring"
+          "icon": "ring",
+          "fam": "Relojes"
         },
         {
           "id": "Relojes de bolsillo y de pared",
           "name": "Relojes de bolsillo y de pared",
-          "icon": "ring"
+          "icon": "ring",
+          "fam": "Relojes"
         },
         {
           "id": "Correas y extensibles",
@@ -4412,22 +5121,26 @@
         {
           "id": "Aretes",
           "name": "Aretes",
-          "icon": "ring"
+          "icon": "ring",
+          "fam": "Joyería"
         },
         {
           "id": "Collares",
           "name": "Collares",
-          "icon": "ring"
+          "icon": "ring",
+          "fam": "Joyería"
         },
         {
           "id": "Pulseras",
           "name": "Pulseras",
-          "icon": "ring"
+          "icon": "ring",
+          "fam": "Joyería"
         },
         {
           "id": "Anillos",
           "name": "Anillos",
-          "icon": "ring"
+          "icon": "ring",
+          "fam": "Joyería"
         },
         {
           "id": "Otros",
@@ -4437,7 +5150,8 @@
         {
           "id": "Dijes y charms",
           "name": "Dijes y charms",
-          "icon": "crown"
+          "icon": "crown",
+          "fam": "Joyería"
         },
         {
           "id": "Joyeros",
@@ -4448,7 +5162,8 @@
         {
           "id": "Arras y sets",
           "name": "Arras y sets",
-          "icon": "crown"
+          "icon": "crown",
+          "fam": "Joyería"
         },
         {
           "id": "Cuidado y herramientas",
@@ -4465,7 +5180,8 @@
         {
           "id": "Relojes",
           "name": "Relojes",
-          "icon": "ring"
+          "icon": "ring",
+          "fam": "Relojes"
         }
       ]
     },
@@ -4731,107 +5447,128 @@
         {
           "id": "Almohadas",
           "name": "Almohadas",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Cama"
         },
         {
           "id": "Sábanas individuales",
           "name": "Sábanas individuales",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Cama"
         },
         {
           "id": "Sábanas matrimoniales",
           "name": "Sábanas matrimoniales",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Cama"
         },
         {
           "id": "Sábanas queen size",
           "name": "Sábanas queen size",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Cama"
         },
         {
           "id": "Sábanas king size",
           "name": "Sábanas king size",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Cama"
         },
         {
           "id": "Sábanas para cuna y bebé",
           "name": "Sábanas para cuna y bebé",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Cama"
         },
         {
           "id": "Fundas de almohada",
           "name": "Fundas de almohada",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Cama"
         },
         {
           "id": "Fundas nórdicas y de edredón",
           "name": "Fundas nórdicas y de edredón",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Cama"
         },
         {
           "id": "Sábanas",
           "name": "Sábanas",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Cama"
         },
         {
           "id": "Protectores de colchón impermeables",
           "name": "Protectores de colchón impermeables",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Protección de colchón"
         },
         {
           "id": "Protectores de colchón acolchados",
           "name": "Protectores de colchón acolchados",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Protección de colchón"
         },
         {
           "id": "Toppers y sobrecolchones",
           "name": "Toppers y sobrecolchones",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Protección de colchón"
         },
         {
           "id": "Protectores de almohada",
           "name": "Protectores de almohada",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Protección de colchón"
         },
         {
           "id": "Protectores para cuna",
           "name": "Protectores para cuna",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Protección de colchón"
         },
         {
           "id": "Protectores de colchón",
           "name": "Protectores de colchón",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Protección de colchón"
         },
         {
           "id": "Cobijas eléctricas individuales",
           "name": "Cobijas eléctricas individuales",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Calor eléctrico"
         },
         {
           "id": "Cobijas eléctricas matrimoniales",
           "name": "Cobijas eléctricas matrimoniales",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Calor eléctrico"
         },
         {
           "id": "Cobijas eléctricas queen y king",
           "name": "Cobijas eléctricas queen y king",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Calor eléctrico"
         },
         {
           "id": "Mantas eléctricas USB y portátiles",
           "name": "Mantas eléctricas USB y portátiles",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Calor eléctrico"
         },
         {
           "id": "Chales y mantas eléctricas para regazo",
           "name": "Chales y mantas eléctricas para regazo",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Calor eléctrico"
         },
         {
           "id": "Almohadillas y cojines térmicos",
           "name": "Almohadillas y cojines térmicos",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Calor eléctrico"
         },
         {
           "id": "Repuestos y controles de cobija eléctrica",
@@ -4842,72 +5579,86 @@
         {
           "id": "Cobijas eléctricas",
           "name": "Cobijas eléctricas",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Calor eléctrico"
         },
         {
           "id": "Toallas de baño",
           "name": "Toallas de baño",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Baño"
         },
         {
           "id": "Toallas de manos y faciales",
           "name": "Toallas de manos y faciales",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Baño"
         },
         {
           "id": "Juegos de toallas",
           "name": "Juegos de toallas",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Baño"
         },
         {
           "id": "Toallas de playa y alberca",
           "name": "Toallas de playa y alberca",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Baño"
         },
         {
           "id": "Batas y toallas con capucha",
           "name": "Batas y toallas con capucha",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Baño"
         },
         {
           "id": "Toallas de microfibra y deportivas",
           "name": "Toallas de microfibra y deportivas",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Resto de la casa"
         },
         {
           "id": "Toallas de cocina y paños",
           "name": "Toallas de cocina y paños",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Resto de la casa"
         },
         {
           "id": "Toallas",
           "name": "Toallas",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Baño"
         },
         {
           "id": "Tapetes de baño",
           "name": "Tapetes de baño",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Baño"
         },
         {
           "id": "Fundas para muebles",
           "name": "Fundas para muebles",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Resto de la casa"
         },
         {
           "id": "Cortinas",
           "name": "Cortinas",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Resto de la casa"
         },
         {
           "id": "Edredones",
           "name": "Edredones",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Cama"
         },
         {
           "id": "Cobijas",
           "name": "Cobijas",
-          "icon": "pillow"
+          "icon": "pillow",
+          "fam": "Cama"
         }
       ]
     },
@@ -4919,37 +5670,44 @@
         {
           "id": "Cerraduras con huella digital",
           "name": "Cerraduras con huella digital",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Cerraduras y candados"
         },
         {
           "id": "Cerraduras con teclado y código",
           "name": "Cerraduras con teclado y código",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Cerraduras y candados"
         },
         {
           "id": "Cerraduras Wi-Fi y con app",
           "name": "Cerraduras Wi-Fi y con app",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Cerraduras y candados"
         },
         {
           "id": "Cerraduras de puerta inteligentes",
           "name": "Cerraduras de puerta inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Cerraduras y candados"
         },
         {
           "id": "Cerraduras para gabinete y casillero",
           "name": "Cerraduras para gabinete y casillero",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Cerraduras y candados"
         },
         {
           "id": "Cerraduras para puerta de vidrio y corrediza",
           "name": "Cerraduras para puerta de vidrio y corrediza",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Cerraduras y candados"
         },
         {
           "id": "Candados inteligentes",
           "name": "Candados inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Cerraduras y candados"
         },
         {
           "id": "Accesorios y refacciones de cerradura",
@@ -4960,122 +5718,146 @@
         {
           "id": "Enchufes inteligentes",
           "name": "Enchufes inteligentes",
-          "icon": "wifi"
+          "icon": "wifi",
+          "fam": "Interruptores y enchufes"
         },
         {
           "id": "Interruptores Wi-Fi",
           "name": "Interruptores Wi-Fi",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Interruptores y enchufes"
         },
         {
           "id": "Interruptores Zigbee, Matter y Thread",
           "name": "Interruptores Zigbee, Matter y Thread",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Interruptores y enchufes"
         },
         {
           "id": "Dimmers y reguladores inteligentes",
           "name": "Dimmers y reguladores inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Interruptores y enchufes"
         },
         {
           "id": "Módulos y relés inteligentes",
           "name": "Módulos y relés inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Interruptores y enchufes"
         },
         {
           "id": "Interruptores y botones inalámbricos",
           "name": "Interruptores y botones inalámbricos",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Interruptores y enchufes"
         },
         {
           "id": "Breakers y protectores inteligentes",
           "name": "Breakers y protectores inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Interruptores y enchufes"
         },
         {
           "id": "Enchufes y contactos inteligentes",
           "name": "Enchufes y contactos inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Interruptores y enchufes"
         },
         {
           "id": "Interruptores táctiles y de escena",
           "name": "Interruptores táctiles y de escena",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Interruptores y enchufes"
         },
         {
           "id": "Interruptores inteligentes",
           "name": "Interruptores inteligentes",
-          "icon": "wifi"
+          "icon": "wifi",
+          "fam": "Interruptores y enchufes"
         },
         {
           "id": "Focos inteligentes",
           "name": "Focos inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Iluminación"
         },
         {
           "id": "Tiras LED inteligentes",
           "name": "Tiras LED inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Iluminación"
         },
         {
           "id": "Lámparas y plafones inteligentes",
           "name": "Lámparas y plafones inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Iluminación"
         },
         {
           "id": "Luces inteligentes de exterior y solares",
           "name": "Luces inteligentes de exterior y solares",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Iluminación"
         },
         {
           "id": "Paneles y luces decorativas inteligentes",
           "name": "Paneles y luces decorativas inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Iluminación"
         },
         {
           "id": "Controladores e interruptores de luz",
           "name": "Controladores e interruptores de luz",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Iluminación"
         },
         {
           "id": "Lámparas de escritorio y noche inteligentes",
           "name": "Lámparas de escritorio y noche inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Iluminación"
         },
         {
           "id": "Iluminación inteligente",
           "name": "Iluminación inteligente",
-          "icon": "bulb"
+          "icon": "bulb",
+          "fam": "Iluminación"
         },
         {
           "id": "Bocinas inteligentes",
           "name": "Bocinas inteligentes",
-          "icon": "speaker"
+          "icon": "speaker",
+          "fam": "Control y sensores"
         },
         {
           "id": "Hubs",
           "name": "Hubs",
-          "icon": "wifi"
+          "icon": "wifi",
+          "fam": "Control y sensores"
         },
         {
           "id": "Cortinas motorizadas",
           "name": "Cortinas motorizadas",
-          "icon": "wifi"
+          "icon": "wifi",
+          "fam": "Control y sensores"
         },
         {
           "id": "Sensores",
           "name": "Sensores",
-          "icon": "wifi"
+          "icon": "wifi",
+          "fam": "Control y sensores"
         },
         {
           "id": "Termostatos",
           "name": "Termostatos",
-          "icon": "wifi"
+          "icon": "wifi",
+          "fam": "Control y sensores"
         },
         {
           "id": "Cerraduras inteligentes",
           "name": "Cerraduras inteligentes",
-          "icon": "house"
+          "icon": "house",
+          "fam": "Cerraduras y candados"
         }
       ]
     },
@@ -5358,112 +6140,134 @@
         {
           "id": "Termos y botellas térmicas",
           "name": "Termos y botellas térmicas",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Beber"
         },
         {
           "id": "Botellas de agua",
           "name": "Botellas de agua",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Beber"
         },
         {
           "id": "Vasos térmicos y de viaje",
           "name": "Vasos térmicos y de viaje",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Beber"
         },
         {
           "id": "Tazas",
           "name": "Tazas",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Beber"
         },
         {
           "id": "Vasos y copas",
           "name": "Vasos y copas",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Beber"
         },
         {
           "id": "Jarras y dispensadores de bebidas",
           "name": "Jarras y dispensadores de bebidas",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Beber"
         },
         {
           "id": "Tarros y frascos",
           "name": "Tarros y frascos",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Guardar"
         },
         {
           "id": "Botellas de vidrio y plástico",
           "name": "Botellas de vidrio y plástico",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Beber"
         },
         {
           "id": "Contenedores herméticos",
           "name": "Contenedores herméticos",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Guardar"
         },
         {
           "id": "Loncheras y termos para alimentos",
           "name": "Loncheras y termos para alimentos",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Guardar"
         },
         {
           "id": "Platos y bowls",
           "name": "Platos y bowls",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Servir la mesa"
         },
         {
           "id": "Vajillas",
           "name": "Vajillas",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Servir la mesa"
         },
         {
           "id": "Cubiertos",
           "name": "Cubiertos",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Servir la mesa"
         },
         {
           "id": "Cuchillos y tablas",
           "name": "Cuchillos y tablas",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Cocinar"
         },
         {
           "id": "Utensilios de cocina",
           "name": "Utensilios de cocina",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Cocinar"
         },
         {
           "id": "Ollas de presión",
           "name": "Ollas de presión",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Cocinar"
         },
         {
           "id": "Ollas y cacerolas",
           "name": "Ollas y cacerolas",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Cocinar"
         },
         {
           "id": "Sartenes y comales",
           "name": "Sartenes y comales",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Cocinar"
         },
         {
           "id": "Baterías de cocina",
           "name": "Baterías de cocina",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Cocinar"
         },
         {
           "id": "Repostería y moldes",
           "name": "Repostería y moldes",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Cocinar"
         },
         {
           "id": "Básculas y medidores",
           "name": "Básculas y medidores",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Cocinar"
         },
         {
           "id": "Bar y coctelería",
           "name": "Bar y coctelería",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Beber"
         },
         {
           "id": "Desechables",
@@ -5479,7 +6283,8 @@
         {
           "id": "Organización de cocina",
           "name": "Organización de cocina",
-          "icon": "coffee"
+          "icon": "coffee",
+          "fam": "Guardar"
         },
         {
           "id": "Limpieza de cocina",
@@ -7853,36 +8658,75 @@
     "Deportes y fitness": {
       "n": 10187,
       "subs": {
-        "Ping pong": 370,
-        "Balones": 944,
-        "Voleibol": 389,
-        "Natación": 535,
-        "Campismo": 119,
-        "Máquinas de cardio": 384,
-        "Patines y patinetas": 541,
-        "Raquetas": 341,
-        "Máquinas multifuncionales y poleas": 564,
-        "Bicicletas fijas": 394,
-        "Yoga": 714,
-        "Dardos": 263,
-        "Protección y soportes": 298,
-        "Fútbol": 172,
-        "Equipo de gimnasio": 60,
-        "Accesorios de fuerza": 276,
-        "Bandas de resistencia": 556,
-        "Bancos y racks": 1243,
+        "Balones de fútbol": 580,
+        "Golf": 14,
+        "Goggles de natación": 124,
+        "Campismo": 121,
+        "Raquetas de ping pong": 145,
+        "Remadoras": 46,
+        "Raquetas de tenis": 125,
+        "Pelotas y accesorios de raqueta": 102,
+        "Patines en línea": 92,
+        "Bádminton": 47,
+        "Máquinas multifuncionales y poleas": 558,
+        "Bicicletas fijas": 408,
+        "Balones de voleibol": 236,
+        "Accesorios y ropa de yoga": 215,
+        "Tapetes de yoga": 155,
+        "Tableros de dardos": 117,
+        "Rodilleras, muñequeras y soportes": 264,
+        "Otros deportes": 35,
+        "Elípticas": 80,
+        "Otros aparatos de cardio": 12,
+        "Caminadoras": 200,
+        "Escaladoras y steppers": 32,
+        "Equipo de gimnasio": 106,
+        "Accesorios de fuerza": 241,
+        "Cuerdas para saltar": 51,
+        "Bandas de resistencia": 648,
+        "Bancos y racks": 1236,
+        "Pelotas y aros de pilates": 49,
+        "Mesas de ping pong": 68,
         "Pesas de tobillo y chalecos con peso": 57,
-        "Barras y discos": 132,
-        "Boxeo": 550,
-        "Otros": 22,
-        "Sets de pesas": 195,
-        "Mancuernas": 488,
-        "Pesas": 29,
-        "Máquinas de abdominales": 152,
-        "Barras de dominadas y calistenia": 183,
-        "Deportes acuáticos": 132,
+        "Barras y discos": 131,
+        "Ropa y accesorios de fútbol": 147,
+        "Protección para patinar": 36,
+        "Guantes de box": 161,
+        "Trajes de baño deportivos": 56,
+        "Dardos y accesorios": 148,
+        "Bloques, correas y ruedas de yoga": 58,
+        "Entrenamiento de fútbol": 16,
+        "Sets de pesas": 224,
+        "Mancuernas": 492,
+        "Pelotas, redes y accesorios de ping pong": 193,
+        "Béisbol y softbol": 5,
+        "Máquinas de abdominales": 151,
+        "Barras de dominadas y calistenia": 188,
+        "Balones de básquetbol": 94,
+        "Balones medicinales": 38,
+        "Paddle, surf y kayak": 60,
+        "Redes de voleibol": 78,
+        "Rodilleras y mangas de voleibol": 87,
+        "Patines de 4 ruedas": 169,
+        "Accesorios de patinaje": 45,
+        "Costales, peras y entrenadores": 144,
+        "Protección, vendas y artes marciales": 201,
+        "Protectores bucales": 113,
+        "Fútbol americano": 51,
         "Kettlebells": 69,
-        "Tablas y balance": 15
+        "Patinetas y scooters": 211,
+        "Rodillos de espuma y masaje": 20,
+        "Tablas y balance": 17,
+        "Espinilleras": 54,
+        "Guantes de portero": 68,
+        "Aletas, tablas y entrenamiento de natación": 107,
+        "Snorkel y buceo": 66,
+        "Raquetas de pádel": 52,
+        "Tapones y accesorios de natación": 155,
+        "Gorros de natación": 91,
+        "Tableros y canastas": 6,
+        "Porterías y redes de fútbol": 15,
+        "Chalecos, bolsas secas y accesorios acuáticos": 6
       },
       "pop": 25333,
       "discounted": 1496,

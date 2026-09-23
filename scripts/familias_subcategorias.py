@@ -56,6 +56,7 @@ import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from roles_subcategorias import PRODUCTO, rol_de  # noqa: E402
+from deportes_por_deporte import FAMILIAS as _FAMILIAS_DEPORTES  # noqa: E402
 
 MIN_SUBS = 2          # una sola subcategoría no hace familia
 MIN_FICHAS = 120      # y una familia sin fichas tampoco: Libros deducía
@@ -361,23 +362,9 @@ FAMILIAS = {
             "Corporales", "Masajeadores", "Vaporizadores y equipo de spa",
             "Perfumes", "Cuidado personal"]),
     ],
-    "Deportes y fitness": [
-        ("Fuerza", [
-            "Mancuernas", "Sets de pesas", "Pesas", "Kettlebells",
-            "Barras y discos", "Bancos y racks", "Equipo de gimnasio",
-            "Máquinas multifuncionales y poleas", "Máquinas de abdominales",
-            "Pesas de tobillo y chalecos con peso",
-            "Barras de dominadas y calistenia"]),
-        ("Cardio", ["Bicicletas fijas", "Máquinas de cardio"]),
-        ("Entrenamiento funcional", [
-            "Bandas de resistencia", "Yoga", "Tablas y balance",
-            "Protección y soportes"]),
-        ("Deportes de equipo", ["Balones", "Voleibol", "Fútbol"]),
-        ("Raqueta y precisión", ["Raquetas", "Ping pong", "Dardos"]),
-        ("Agua y exterior", [
-            "Natación", "Deportes acuáticos", "Patines y patinetas",
-            "Campismo"]),
-    ],
+    # Por deporte y después por equipo: la tabla vive en
+    # deportes_por_deporte.py, que es también quien reparte las fichas.
+    "Deportes y fitness": _FAMILIAS_DEPORTES,
     "Juguetes y bebés": [
         ("Juguetes", [
             "Muñecas", "Figuras de acción", "Peluches",

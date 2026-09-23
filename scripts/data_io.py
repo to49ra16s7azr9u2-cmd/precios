@@ -580,6 +580,33 @@ def _product_index(light, slugs):
     return {"categories": cat_order, "runs": runs, "extra": extra}
 
 
+def _marcar_familias(categories, products):
+    """Anota en cada subcategoría del manifiesto su familia (`fam`).
+
+    Es el escalón del medio de familias_subcategorias.py -- el mismo que ya
+    usaban las páginas estáticas de categoría --, y la SPA lo necesita para
+    abrir primero por familia y después por tipo: en Deportes y fitness,
+    primero el deporte (Fútbol) y después el equipo (Balones de fútbol).
+    Sólo se anota en las categorías que quedan con dos familias o más: con
+    una sola, el escalón no separa nada.
+    """
+    from familias_subcategorias import agrupar
+    cuenta = {}
+    for p in products:
+        k = (p.get("category"), p.get("subcategory"))
+        cuenta[k] = cuenta.get(k, 0) + 1
+    for c in categories:
+        subs = [s.get("id") for s in c.get("subcategories") or []]
+        cuenta_cat = {s: cuenta.get((c.get("id"), s), 0) for s in subs}
+        grupos = [(f, m) for f, m in agrupar(c.get("name") or c.get("id"), subs, cuenta_cat) if f]
+        fam_de = {m: f for f, ms in grupos for m in ms} if len(grupos) >= 2 else {}
+        for s in c.get("subcategories") or []:
+            if s.get("id") in fam_de:
+                s["fam"] = fam_de[s["id"]]
+            else:
+                s.pop("fam", None)
+
+
 def _marcar_roles(categories):
     """Anota en cada subcategoría del manifiesto su papel si no es "producto".
 
@@ -686,6 +713,7 @@ def save_catalog(data):
     data.update(summary)
     data.pop("productFiles", None)
     _marcar_roles(data.get("categories") or [])
+    _marcar_familias(data.get("categories") or [], light)
     with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     data["products"] = products

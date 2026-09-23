@@ -472,6 +472,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import capacidad_mah
 from subcategorias_finas import sub_suplemento_fino, sub_cocina_fino, sub_libro_fino
 from subcategorias_finas_ola2 import afinar_ola2
+from deportes_por_deporte import reclasificar as deporte_reclasificar
 from subcategorias_redes import (sub_cargador, sub_electro, sub_dron, sub_comercial, sub_viaje,
                                  sub_impresion3d, sub_movilidad, sub_proyector, sub_otros,
                                  sub_tv_pulgadas)
@@ -6027,6 +6028,11 @@ for it in captura:
     elif cat == 'Refacciones': sub = sub_refaccion(tn) or sub
     elif cat == 'Otros': sub = sub_otros(tn) or sub
     sub = afinar_ola2(cat, sub, tn)
+    # Deportes va por deporte y después por equipo (23-sep): sub_deporte y
+    # afinar_ola2 siguen devolviendo el tipo de equipo, y esto lo lleva a la
+    # subcategoría del deporte.
+    if cat == 'Deportes y fitness':
+        sub = deporte_reclasificar(it['title'], sub)
     # La subcategoría fina 'Bocinas para auto' vive en Autos, no en Bocinas
     # (22-sep): el clasificador la proponía y el catálogo la ignoraba.
     if cat == 'Bocinas' and sub == 'Bocinas para auto':

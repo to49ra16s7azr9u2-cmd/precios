@@ -42,6 +42,21 @@ def main():
     data = load_catalog()
     cat_by_id = {c["id"]: c for c in data["categories"]}
 
+    # Deportes y fitness va por deporte (deportes_por_deporte.py). Varios
+    # importadores (Elektra, las tiendas VTEX, reglas viejas de
+    # mover_por_regla) todavía devuelven las subcategorías por tipo de
+    # equipo -- «Balones», «Raquetas» --; en vez de tocarlos uno por uno, lo
+    # que llegue con una subcategoría que ya no existe se reparte acá, que
+    # es el primer paso de toda regeneración.
+    from deportes_por_deporte import CATEGORIA as DEP, SUBCATEGORIAS as DEP_SUBS, reclasificar
+    normalizadas = 0
+    for p in data["products"]:
+        if p.get("category") == DEP and p.get("subcategory") not in DEP_SUBS:
+            p["subcategory"] = reclasificar(p.get("name"), p.get("subcategory"))
+            normalizadas += 1
+    if normalizadas:
+        print(f"Deportes y fitness: {normalizadas} fichas llevadas a su deporte")
+
     # Ícono más común entre los productos de cada (categoría, subcategoría)
     # huérfana, por si algún outlier trae uno raro.
     icon_votes = {}
@@ -72,7 +87,7 @@ def main():
     if args.dry_run:
         print("(--dry-run: no se escribió nada)")
         return
-    if added:
+    if added or normalizadas:
         save_catalog(data)
         print("data.json actualizado.")
 

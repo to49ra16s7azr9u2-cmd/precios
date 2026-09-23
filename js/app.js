@@ -566,6 +566,7 @@
     specsBannerLink: document.getElementById("specsBannerLink"),
     subcatPicker: document.getElementById("subcatPicker"),
     subcatGrid: document.getElementById("subcatGrid"),
+    subcatTitle: document.querySelector("#subcatPicker .subcat-title"),
     subcatMultiToggle: document.getElementById("subcatMultiToggle"),
     filterBedSizeGroup: document.getElementById("filterBedSizeGroup"),
     filterBedSize: document.getElementById("filterBedSize"),
@@ -3945,12 +3946,24 @@
       // categorías inexistentes, pero acá también se llega desde goList().
       const nombreCat = (cat && cat.name) || state.category;
       el.listBreadcrumb.innerHTML += ` &gt; <a href="#" id="breadcrumbCatOnly">${nombreCat}</a>`;
+      const fam = familiaActiva((cat && cat.subcategories) || []);
+      if (fam) el.listBreadcrumb.innerHTML += ` &gt; <a href="#" id="breadcrumbFamilia">${fam}</a>`;
       const sub = subcategoryById(state.category, singleSub());
       if (sub) el.listBreadcrumb.innerHTML += ` &gt; ${sub.name}`;
     } else if (state.query) {
       el.listBreadcrumb.innerHTML += ` &gt; Resultados de búsqueda`;
     } else {
       el.listBreadcrumb.innerHTML += ` &gt; Todos los productos`;
+    }
+    const breadcrumbFamilia = document.getElementById("breadcrumbFamilia");
+    if (breadcrumbFamilia) {
+      breadcrumbFamilia.onclick = (e) => {
+        e.preventDefault();
+        const subsCat = (categoryById(state.category) || {}).subcategories || [];
+        const fam = familiaActiva(subsCat);
+        state.subcategory = subsCat.filter((s) => s.fam === fam).map((s) => s.id);
+        renderList();
+      };
     }
     const breadcrumbCatOnly = document.getElementById("breadcrumbCatOnly");
     if (breadcrumbCatOnly) {
@@ -4701,6 +4714,15 @@
     };
   }
 
+  // La familia (el escalón del medio, `fam` en el manifiesto -- ver
+  // _marcar_familias en scripts/data_io.py) que tiene elegida la lista: la
+  // de las subcategorías marcadas, si son todas de la misma.
+  function familiaActiva(subs) {
+    if (!state.subcategory.length) return null;
+    const fams = new Set(state.subcategory.map((id) => (subs.find((s) => s.id === id) || {}).fam || null));
+    return fams.size === 1 ? [...fams][0] : null;
+  }
+
   function renderSubcatPicker() {
     const cat = state.category ? categoryById(state.category) : null;
     const subs = (cat && cat.subcategories) || [];
@@ -4716,26 +4738,45 @@
       if (!porSub.has(p.subcategory)) porSub.set(p.subcategory, []);
       porSub.get(p.subcategory).push(p);
     });
+    const conFichas = subs.filter((s) => (porSub.get(s.id) || []).length);
+
+    // Con familias (en Deportes y fitness: el deporte), primero se elige la
+    // familia y después el tipo, como en kakaku.com: スポーツ → サッカー →
+    // サッカーボール. Pedido del usuario: "Fútbol → Balones", no
+    // "Balones → fútbol".
+    const familias = new Map();
+    conFichas.forEach((s) => {
+      if (!s.fam) return;
+      if (!familias.has(s.fam)) familias.set(s.fam, []);
+      familias.get(s.fam).push(s);
+    });
+    const usaFamilias = familias.size >= 2;
+    const activa = usaFamilias ? familiaActiva(subs) : null;
 
     el.subcatGrid.innerHTML = "";
-    subs.forEach((sub) => {
-      const items = porSub.get(sub.id) || [];
-      // Un tipo sin productos en el catálogo no se ofrece: llevaría a una
-      // lista vacía.
-      if (!items.length) return;
+    const tarjeta = (nombre, items, activo, onclick, extraClase = "") => {
       const card = document.createElement("button");
       card.type = "button";
-      card.className = "subcat-card" + (state.subcategory.includes(sub.id) ? " active" : "");
+      card.className = "subcat-card" + extraClase + (activo ? " active" : "");
       card.innerHTML = `<span class="subcat-card-photo"></span>
         <span class="subcat-card-text">
-          <span class="subcat-card-name">${sub.name}</span>
+          <span class="subcat-card-name">${nombre}</span>
           <span class="subcat-card-count">${items.length.toLocaleString("es-MX")} productos</span>
         </span>`;
       const sample = sortByPopularity(items.filter((p) => p.photo))[0];
       if (sample) renderProductMedia(card.querySelector(".subcat-card-photo"), sample);
-      card.onclick = () => {
+      card.onclick = onclick;
+      el.subcatGrid.appendChild(card);
+    };
+    const tarjetaSub = (sub, soloFamilia) => {
+      const items = porSub.get(sub.id) || [];
+      tarjeta(sub.name, items, state.subcategory.includes(sub.id) && !soloFamilia, () => {
         const marcado = state.subcategory.includes(sub.id);
-        if (state.subcatMulti) {
+        if (soloFamilia) {
+          // Con la familia entera elegida, tocar un tipo es afinar a ese
+          // tipo, no quitarlo de la selección.
+          state.subcategory = [sub.id];
+        } else if (state.subcatMulti) {
           state.subcategory = marcado
             ? state.subcategory.filter((x) => x !== sub.id)
             : state.subcategory.concat(sub.id);
@@ -4746,9 +4787,51 @@
         }
         state.page = 1;
         renderList();
-      };
-      el.subcatGrid.appendChild(card);
-    });
+      });
+    };
+
+    if (!usaFamilias) {
+      // Un tipo sin productos en el catálogo no se ofrece: llevaría a una
+      // lista vacía.
+      conFichas.forEach((sub) => tarjetaSub(sub, false));
+      el.subcatTitle.textContent = "¿Qué tipo buscas?";
+      return;
+    }
+
+    if (activa) {
+      const miembros = familias.get(activa) || [];
+      const idsFamilia = miembros.map((s) => s.id);
+      const soloFamilia = state.subcategory.length === idsFamilia.length
+        && idsFamilia.every((id) => state.subcategory.includes(id));
+      el.subcatTitle.textContent = `${activa}: ¿qué tipo buscas?`;
+      tarjeta(`← Todo ${cat.name}`, scoped, false, () => {
+        state.subcategory = [];
+        state.page = 1;
+        renderList();
+      }, " subcat-card-volver");
+      tarjeta(`Todo ${activa}`, miembros.flatMap((s) => porSub.get(s.id) || []), soloFamilia, () => {
+        state.subcategory = idsFamilia;
+        state.page = 1;
+        renderList();
+      }, " subcat-card-familia");
+      miembros.forEach((sub) => tarjetaSub(sub, soloFamilia));
+      return;
+    }
+
+    // Primer paso: las familias, de la más grande a la más chica, y después
+    // los tipos que no son de ninguna (accesorios, consumibles, sueltos).
+    el.subcatTitle.textContent = "¿Qué buscas?";
+    [...familias.entries()]
+      .map(([fam, miembros]) => ({ fam, miembros, items: miembros.flatMap((s) => porSub.get(s.id) || []) }))
+      .sort((a, b) => b.items.length - a.items.length)
+      .forEach(({ fam, miembros, items }) => {
+        tarjeta(fam, items, false, () => {
+          state.subcategory = miembros.map((s) => s.id);
+          state.page = 1;
+          renderList();
+        }, " subcat-card-familia");
+      });
+    conFichas.filter((s) => !s.fam).forEach((sub) => tarjetaSub(sub, false));
   }
 
   function renderSpecsBanner() {

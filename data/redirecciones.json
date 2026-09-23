@@ -1,0 +1,20 @@
+{
+ "_nota": "Rutas viejas -> nuevas. generate_seo_pages.py escribe en cada ruta vieja una página de redirección (canonical + refresh inmediato) y no la borra como huérfana. Se agrega una entrada cada vez que se renombra o se reparte una subcategoría con página publicada.",
+ "rutas": {
+  "categoria/deportes-y-fitness/balones/": "categoria/deportes-y-fitness/balones-de-futbol/",
+  "categoria/deportes-y-fitness/voleibol/": "categoria/deportes-y-fitness/balones-de-voleibol/",
+  "categoria/deportes-y-fitness/futbol/": "categoria/deportes-y-fitness/balones-de-futbol/",
+  "categoria/deportes-y-fitness/raquetas/": "categoria/deportes-y-fitness/raquetas-de-tenis/",
+  "categoria/deportes-y-fitness/ping-pong/": "categoria/deportes-y-fitness/mesas-de-ping-pong/",
+  "categoria/deportes-y-fitness/boxeo/": "categoria/deportes-y-fitness/guantes-de-box/",
+  "categoria/deportes-y-fitness/yoga/": "categoria/deportes-y-fitness/tapetes-de-yoga/",
+  "categoria/deportes-y-fitness/natacion/": "categoria/deportes-y-fitness/goggles-de-natacion/",
+  "categoria/deportes-y-fitness/deportes-acuaticos/": "categoria/deportes-y-fitness/paddle-surf-y-kayak/",
+  "categoria/deportes-y-fitness/patines-y-patinetas/": "categoria/deportes-y-fitness/patines-de-4-ruedas/",
+  "categoria/deportes-y-fitness/maquinas-de-cardio/": "categoria/deportes-y-fitness/caminadoras/",
+  "categoria/deportes-y-fitness/proteccion-y-soportes/": "categoria/deportes-y-fitness/rodilleras-munequeras-y-soportes/",
+  "categoria/deportes-y-fitness/pesas/": "categoria/deportes-y-fitness/sets-de-pesas/",
+  "categoria/deportes-y-fitness/otros/": "categoria/deportes-y-fitness/otros-deportes/",
+  "categoria/deportes-y-fitness/dardos/": "categoria/deportes-y-fitness/dardos-y-accesorios/"
+ }
+}

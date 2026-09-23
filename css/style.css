@@ -4718,3 +4718,11 @@ tr.offer-compare-off { display: none; }
   color: var(--text);
 }
 .grupo-familia:first-child { margin-top: 0; }
+
+/* Familias del escalón del medio (en Deportes: el deporte). Se distinguen
+   de los tipos por el nombre más grueso y el borde más marcado:
+   son la puerta a un grupo, no un filtro final. */
+.subcat-card-familia .subcat-card-name { font-size: 13px; font-weight: 800; }
+.subcat-card-familia { border-color: #c9c9c9; }
+.subcat-card-volver { background: transparent; border-style: dashed; }
+.subcat-card-volver .subcat-card-photo { display: none; }
