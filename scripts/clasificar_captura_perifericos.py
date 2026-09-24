@@ -472,6 +472,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import capacidad_mah
 from subcategorias_finas import sub_suplemento_fino, sub_cocina_fino, sub_libro_fino
 from subcategorias_finas_ola2 import afinar_ola2
+import reubicar_otros
 from deportes_por_deporte import reclasificar as deporte_reclasificar
 from subcategorias_redes import (sub_cargador, sub_electro, sub_dron, sub_comercial, sub_viaje,
                                  sub_impresion3d, sub_movilidad, sub_proyector, sub_otros,
@@ -988,6 +989,10 @@ ANTES_DE_FUERA = [
 # «Andadera bebé ... auto», «Cámara PTZ ... Auto Tracking», «Lámpara
 # colgante para isla de cocina», «Teléfono con altavoz».
 DEFINICIONES = [
+    # Agarradera/anillo de celular (Popsockets): antes que los teléfonos, que
+    # se la quedaban por «Teléfono celular grip…». decidir() la lleva a
+    # Celulares / Soportes y agarraderas (reubicar_otros.py).
+    (reubicar_otros.AGARRE, ('Otros', 'Soportes para dispositivos', 'phone')),
     # Power bank (batería externa con mAh): Baterías portátiles, aunque
     # traiga cable, MagSafe o carga inalámbrica.
     (re.compile(r'^(?:\S+ ){0,4}(bater(i|í)as? (portatil|externa|inalambrica|magnetica)|power ?bank|banco de (energia|bateria)|cargador portatil)\b(?=.*\b\d[\d.,]* ?mah\b)'),
@@ -6247,7 +6252,11 @@ class ModeloCatalogo:
         self.m = Bayes()
         self.subs = collections.defaultdict(Bayes)
         iconos = collections.defaultdict(collections.Counter)
-        for p in load_catalog()['products']:
+        productos = load_catalog()['products']
+        # Tercer juez del alta: los vecinos más parecidos (vecinos_catalogo.py).
+        from vecinos_catalogo import Vecinos
+        self.vecinos = Vecinos(productos)
+        for p in productos:
             cat = p.get('category')
             if not cat or cat == 'Otros':
                 continue
@@ -6303,7 +6312,7 @@ class ModeloCatalogo:
         return None
 
 
-def decidir(it, pistas=None):
+def _decidir_base(it, pistas=None):
     """La decisión del clasificador para UN título: {'estado': 'alta', ...}
     con categoría, subcategoría, icono, marca y `via` (explicito,
     antes_de_fuera, departamento, regla o sustantivo), o {'estado': 'fuera',
@@ -6461,6 +6470,21 @@ def decidir(it, pistas=None):
 
 
 
+def decidir(it, pistas=None):
+    d = _decidir_base(it, pistas)
+    # «Otros» ya no es destino (24-sep-2026, reubicar_otros.py): lo que las
+    # reglas mandaban a Otros/Soportes, Otros/Paneles solares, Otros/Baño...
+    # va a su categoría de verdad. Sólo «Varios» se queda.
+    if d.get('estado') == 'alta' and d.get('category') == 'Otros':
+        r = reubicar_otros.reubicar('Otros', d.get('subcategory'), T(it['title']))
+        if r:
+            cat, sub = r
+            if sub is None:
+                dd = _decidir_base({**it, '_forzar': (cat, None, reubicar_otros.ICONO.get(cat, 'box'))}, pistas)
+                sub = dd.get('subcategory') if dd.get('category') == cat else None
+            d = {**d, 'category': cat, 'subcategory': sub, 'image': reubicar_otros.ICONO.get(cat, d.get('image'))}
+    return d
+
 def main():
     captura = json.load(io.open(sys.argv[1], encoding='utf-8'))
     pistas = pistas_de_departamento() if any(it.get('dept') for it in captura) else {}
@@ -6491,7 +6515,11 @@ def main():
             if modelo is None:
                 modelo = ModeloCatalogo()
             otra = modelo.contradice(it['title'], d['category'])
-            if otra and es_coherente(it['title'], otra, d.get('brand') or ''):
+            # ...y los vecinos (las 25 fichas más parecidas) tienen que estar
+            # sobre todo en esa otra categoría: sin esto el modelo mandaba
+            # tabletas y NAS a Laptops por «8 GB RAM» y «SSD».
+            if otra and es_coherente(it['title'], otra, d.get('brand') or '') \
+                    and modelo.vecinos.respalda(otra, d['category'], titulo=it['title']):
                 icono = modelo.icono.get(otra, 'box')
                 df = decidir({**it, '_forzar': (otra, None, icono)}, pistas)
                 if df['estado'] == 'alta' and df['category'] == otra:
@@ -6507,7 +6535,7 @@ def main():
     if por_via['modelo']:
         print(f"clasificadas por el modelo del catálogo (ninguna regla las reconoce): {por_via['modelo']}")
     if por_via['doble_filtro']:
-        print(f"doble filtro: el catálogo corrigió a la regla en {por_via['doble_filtro']}")
+        print(f"doble filtro (modelo + vecinos): el catálogo corrigió a la regla en {por_via['doble_filtro']}")
     json.dump(alta, io.open(sys.argv[2], 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'ALTA: {len(alta)}   FUERA: {len(fuera)}   sin precio (no se dan de alta): '
           f'{sum(1 for a in alta if a["price"] is None)}'

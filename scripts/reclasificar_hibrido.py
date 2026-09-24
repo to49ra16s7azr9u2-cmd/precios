@@ -19,6 +19,8 @@ ya está en el catálogo, manda el modelo, con dos controles:
      nueva (es_coherente de clasificar_captura_perifericos.py).
   3. Las REGLAS no respaldan la categoría actual (si la regla de hoy dice
      la actual, hace falta un margen mucho mayor) ni proponen una tercera.
+  4. Los VECINOS (vecinos_catalogo.py): las fichas más parecidas están sobre
+     todo en la categoría nueva. Medido: de 87% a 93% de cambios correctos.
 
 Lo movido a mano (data/clasificacion-a-mano.json) y lo que viene del árbol
 de Mercado Libre no se toca. Una ficha que una DEFINICIÓN del clasificador
@@ -154,6 +156,8 @@ def main():
     print(f"fichas: {len(productos):,}; el modelo prefiere otra categoría con margen >= {args.margen}: {len(prefieren):,}")
 
     import clasificar_captura_perifericos as clasif
+    from vecinos_catalogo import Vecinos
+    vecinos = Vecinos(productos)
     a_mano = cargar_json(CANDADO, {})
     ya_movidas = cargar_json(YA_MOVIDAS, {})
     subs_de = {c["id"]: {s["id"] for s in (c.get("subcategories") or [])} for c in data["categories"]}
@@ -190,6 +194,12 @@ def main():
             continue
         if not clasif.es_coherente(p.get("name") or "", nueva, p.get("brand") or ""):
             motivos["el título no arranca como la categoría nueva"] += 1
+            continue
+        # Tercer juez (vecinos_catalogo.py): las 25 fichas más parecidas
+        # tienen que estar sobre todo en la categoría nueva. Frena la atracción
+        # de las categorías grandes (tabletas, NAS y consolas a Laptops).
+        if not vecinos.respalda(nueva, cat, pid=pid):
+            motivos["los vecinos no la respaldan"] += 1
             continue
         # La subcategoría la eligen los repartidores del clasificador, como
         # si la regla hubiera dicho la categoría nueva.

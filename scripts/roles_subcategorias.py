@@ -315,6 +315,12 @@ for _cat, _roles in ROLES_TRES_NIVELES.items():
     ROLES.setdefault(_clave, {}).update(_roles)
 
 
+import reubicar_otros as _ro  # noqa: E402
+ROLES.setdefault(_ro.SOLAR, {}).update(_ro.ROLES_SOLAR)
+for _cat, _roles in _ro.ROLES_NUEVAS.items():
+    ROLES.setdefault(_cat, {}).update({s: {'accesorio': ACCESORIO, 'afin': AFIN}[r] for s, r in _roles.items()})
+
+
 def rol_de(categoria, subcategoria):
     """El papel de esa subcategoría dentro de esa categoría (id o nombre)."""
     if not subcategoria:
