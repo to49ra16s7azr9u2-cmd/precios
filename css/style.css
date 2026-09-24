@@ -4823,3 +4823,40 @@ tr.offer-compare-off { display: none; }
   .mx-map-wrap { height: 56vh; }
   .mx-map-buscar { max-width: none; }
 }
+
+/* ComparaMEX Local (experimental): la columna «Tienda local» de la lista.
+   Solo aparece cuando en la página hay al menos un producto con tienda
+   local; las filas sin ella llevan el hueco, para que la columna se lea
+   alineada de arriba abajo. */
+.product-row .row-local {
+  flex: 0 0 190px;
+  align-self: stretch;
+  border-left: 3px solid var(--green);
+  padding: 2px 0 2px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  font-size: 12px;
+  min-width: 0;
+}
+.product-row .row-local.is-empty { border-left-color: var(--border); color: var(--muted); }
+.row-local-head { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--green); }
+.row-local.is-empty .row-local-head { color: var(--muted); }
+.row-local-demo { background: var(--gold); color: #222; padding: 0 5px; margin-left: 4px; letter-spacing: 0; text-transform: none; font-size: 10px; }
+.row-local-store { font-weight: 700; color: var(--ink); }
+.row-local-text { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row-local-price { font-weight: 800; font-size: 16px; color: var(--green); font-variant-numeric: tabular-nums; }
+.row-local-meta { color: var(--green); font-size: 11px; }
+.row-local-none { font-size: 12px; }
+@media (max-width: 760px) {
+  .product-row:has(.row-local) { flex-wrap: wrap; }
+  .product-row .row-local {
+    flex: 1 0 100%;
+    order: 10;
+    border-left: 0;
+    border-top: 2px solid var(--green);
+    padding: 6px 0 0;
+  }
+  .product-row .row-local.is-empty { display: none; }
+}

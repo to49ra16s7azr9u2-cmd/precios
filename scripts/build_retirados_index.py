@@ -67,6 +67,29 @@ def main():
             nombre, idx_cat.get(p.get("category"), -1), p.get("subcategory") or ""
         ]
 
+    # Las fichas absorbidas por una fusión (data/fusionadas.json): su url
+    # pudo estar indexada. El 404 manda a la ficha que quedó si tiene página
+    # (5o elemento = 1) o, si no, dice qué era y a qué categoría ir.
+    from data_io import FUSIONADAS_PATH, resolver_fusion  # noqa: E402
+    if os.path.exists(FUSIONADAS_PATH):
+        with open(FUSIONADAS_PATH, encoding="utf-8") as f:
+            fusionadas = json.load(f)
+        por_id = {p["id"]: p for p in data["products"]}
+        redirigidas = 0
+        for vieja in fusionadas:
+            m = RX_ID.match(vieja)
+            destino = resolver_fusion(vieja, fusionadas, por_id)
+            if not m or not destino or vieja in por_id:
+                continue
+            q = por_id[destino]
+            nombre = (q.get("name") or "").strip()
+            if len(nombre) > 70:
+                nombre = nombre[:69].rstrip() + "…"
+            con_pagina = 1 if len(q.get("offers") or []) >= MIN_OFERTAS_PARA_PAGINA else 0
+            trozos.setdefault(int(m.group(1)) // TAMANO, {})[vieja] = [
+                nombre, idx_cat.get(q.get("category"), -1), q.get("subcategory") or "", destino, con_pagina]
+            redirigidas += 1
+        print(f"Fichas absorbidas con destino: {redirigidas:,}")
     os.makedirs(SALIDA, exist_ok=True)
     viejos = {f for f in os.listdir(SALIDA) if f.endswith(".json")}
     escritos = 0

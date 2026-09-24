@@ -2627,6 +2627,9 @@
     const marcas = pedir("data/brands.json", { brands: [] });
     const iconos = pedir("data/icons.json", {});
     const tarifas = pedir("data/shipping-rates.json", null);
+    // ComparaMEX Local (experimental): tiendas del municipio y sus precios,
+    // aparte del catálogo (ver scripts/local_importar.py).
+    const locales = pedir("data/local.json", null);
     let manifest = await (await fetch("data/data.json")).json();
 
     // Auto-reparación: si el manifiesto que llegó no trae la lista de
@@ -2643,7 +2646,7 @@
     state.data = hideEmptyTaxonomy(manifest);
     restaurarUbicacion();
     if (state.selectedRegion) updateLocationBtn();
-    [state.brandsData, state.icons, state.shippingRates] = await Promise.all([marcas, iconos, tarifas]);
+    [state.brandsData, state.icons, state.shippingRates, state.local] = await Promise.all([marcas, iconos, tarifas, locales]);
   }
 
   // Markup SVG de línea para un box de 24x24 si el set de iconos no cargó.
@@ -4183,6 +4186,39 @@
     });
   }
 
+  // ComparaMEX Local (función experimental). Las ofertas de las tiendas del
+  // municipio viven en data/local.json, NO en p.offers: todavía no cambian
+  // el «Desde», la cuenta de vendedores ni el orden. Una tienda con
+  // municipio «*» tiene sucursal en todos (la tienda Demo).
+  function localOffersFor(p) {
+    const L = state.local;
+    if (!L || !L.ofertas || !L.ofertas[p.id]) return [];
+    const mun = state.municipio && state.municipio.id;
+    return L.ofertas[p.id].filter((o) => {
+      const t = L.tiendas[o.t];
+      return t && (t.m === "*" || (mun && t.m === mun));
+    });
+  }
+
+  function localBoxHtml(p, listaConLocal) {
+    if (!listaConLocal) return "";
+    const ofs = localOffersFor(p);
+    if (!ofs.length) {
+      return `<div class="row-local is-empty"><div class="row-local-head">Tienda local</div>` +
+        `<div class="row-local-none">Sin tienda local</div></div>`;
+    }
+    const o = ofs.reduce((a, b) => (a.p <= b.p ? a : b));
+    const t = state.local.tiendas[o.t];
+    const titulo = t.d ? "Datos de prueba de una función experimental" : "";
+    return `<div class="row-local"${titulo ? ` title="${titulo}"` : ""}>
+      <div class="row-local-head">Tienda local${t.d ? ` <span class="row-local-demo">Demo</span>` : ""}</div>
+      <div class="row-local-store">${htmlEscapeAttr(t.n)}</div>
+      <div class="row-local-text">${htmlEscapeAttr(o.x || "")}</div>
+      <div class="row-local-price">${money(o.p)}</div>
+      <div class="row-local-meta">Recoger hoy · Puedes verlo en tienda</div>
+    </div>`;
+  }
+
   // Renderiza una lista de filas de producto (usada en /list y /favorites)
   function renderProductListInto(container, products, opts) {
     container.innerHTML = "";
@@ -4190,6 +4226,7 @@
       container.innerHTML = `<p class="empty-state">${opts.emptyText}</p>`;
       return;
     }
+    const listaConLocal = products.some((p) => localOffersFor(p).length > 0);
     products.forEach((p, i) => {
       const { avg, count } = aggregateRating(p);
       const rank = (opts.rankOffset || 0) + i + 1;
@@ -4252,6 +4289,7 @@
           }
           <div class="row-stores">${plural(sellerTotal(p), "vendedor", "vendedores")}</div>
         </div>
+        ${localBoxHtml(p, listaConLocal)}
         ${
           // Comparador de specs: solo tiene sentido con una categoría
           // concreta activa (ver renderList) -- comparar un celular contra

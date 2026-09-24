@@ -17,6 +17,7 @@ import argparse
 import csv
 import datetime
 import io
+import json
 import os
 import sys
 
@@ -34,26 +35,30 @@ def main():
 
     data = load_catalog()
     nombres = {s["id"]: s.get("name", s["id"]) for s in data.get("stores") or []}
-    tienda = next((s for s in data.get("stores") or [] if s["id"] == args.tienda), None)
+    local = json.load(io.open(os.path.join(RAIZ, "data", "local.json"), encoding="utf-8"))
+    tienda = local["tiendas"].get(args.tienda)
     if not tienda:
-        sys.exit(f"la tienda {args.tienda} no está en el catálogo (¿se corrió local_importar.py --aplicar?)")
+        sys.exit(f"la tienda {args.tienda} no está en data/local.json (¿se corrió local_importar.py --aplicar?)")
+    por_id = {p["id"]: p for p in data["products"]}
     filas = []
-    for p in data["products"]:
-        mias = [o for o in p.get("offers") or [] if o.get("storeId") == args.tienda]
-        if not mias:
+    for pid, ofs in local["ofertas"].items():
+        mias = [o for o in ofs if o["t"] == args.tienda]
+        p = por_id.get(pid)
+        if not mias or not p:
             continue
-        mio = min(o["price"] for o in mias)
-        otras = [o for o in p["offers"] if o.get("storeId") != args.tienda and o.get("price")]
+        mio = min(o["p"] for o in mias)
+        otras = [o for o in p.get("offers") or [] if o.get("price")]
         mejor = min(otras, key=lambda o: o["price"]) if otras else None
-        mismo_mun = [o for o in otras if (o.get("local") or {}).get("municipio") == tienda.get("municipio")]
+        # Otras tiendas locales del mismo municipio (o con sucursal en todos).
+        del_mun = [o["p"] for o in ofs if o["t"] != args.tienda
+                   and local["tiendas"].get(o["t"], {}).get("m") in (tienda.get("m"), "*")]
         filas.append({
-            "ficha": p["id"], "producto": p["name"], "tu_precio": mio,
+            "ficha": pid, "producto": p["name"], "tu_precio": mio,
             "mas_barato_otra_tienda": mejor["price"] if mejor else "",
             "tienda_mas_barata": nombres.get(mejor["storeId"], mejor["storeId"]) if mejor else "",
             "diferencia_pct": round((mio / mejor["price"] - 1) * 100, 1) if mejor else "",
-            "tiendas_que_lo_venden": len({o.get("storeId") for o in p["offers"]}),
-            "mas_barato_del_municipio": ("" if not tienda.get("municipio")
-                                         else "si" if all(mio <= o["price"] for o in mismo_mun) else "no"),
+            "tiendas_que_lo_venden": len({o.get("storeId") for o in p.get("offers") or []}),
+            "mas_barato_del_municipio": "si" if all(mio <= x for x in del_mun) else "no",
         })
     filas.sort(key=lambda f: (f["diferencia_pct"] == "", -(f["diferencia_pct"] or 0)))
     os.makedirs(args.salida_dir, exist_ok=True)
@@ -63,7 +68,7 @@ def main():
         w.writeheader()
         w.writerows(filas)
     con = [f for f in filas if f["diferencia_pct"] != ""]
-    print(f"{nombres.get(args.tienda)}: {len(filas)} productos en el catálogo; comparables {len(con)}")
+    print(f"{tienda.get('n')}: {len(filas)} productos en el catálogo; comparables {len(con)}")
     print(f"  el más barato de todas las tiendas: {sum(1 for f in con if f['diferencia_pct'] <= 0)}")
     print(f"  15% o más arriba del más barato: {sum(1 for f in con if f['diferencia_pct'] >= 15)}")
     print(f"  el más barato de su municipio: {sum(1 for f in filas if f['mas_barato_del_municipio'] == 'si')}")

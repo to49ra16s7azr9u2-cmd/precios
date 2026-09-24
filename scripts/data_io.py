@@ -486,6 +486,37 @@ def _con_obvios(p, cat_id, icono_cat):
     return p
 
 
+# Qué ficha se quedó con cada ficha absorbida por una fusión (24-sep-2026).
+# La url de la absorbida pudo estar publicada e indexada: sin esto su
+# /producto/<id>/ caía en el 404 genérico y se perdía lo ganado en el
+# buscador. build_retirados_index.py lo usa para que el 404 lleve a la
+# ficha que quedó.
+FUSIONADAS_PATH = os.path.join(DATA_DIR, "fusionadas.json")
+
+
+def registrar_fusiones(pares):
+    """pares: iterable de (id absorbida, id de la ficha que quedó)."""
+    try:
+        with open(FUSIONADAS_PATH, encoding="utf-8") as f:
+            mapa = json.load(f)
+    except FileNotFoundError:
+        mapa = {}
+    for vieja, nueva in pares:
+        if vieja != nueva:
+            mapa[vieja] = nueva
+    with open(FUSIONADAS_PATH, "w", encoding="utf-8") as f:
+        json.dump(mapa, f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
+
+def resolver_fusion(pid, mapa, vivos):
+    """Sigue la cadena absorbida -> ... hasta una ficha que siga en el catálogo."""
+    vistos = set()
+    while pid not in vivos and pid in mapa and pid not in vistos:
+        vistos.add(pid)
+        pid = mapa[pid]
+    return pid if pid in vivos else None
+
+
 def load_catalog():
     with open(MANIFEST_PATH, encoding="utf-8") as f:
         manifest = json.load(f)

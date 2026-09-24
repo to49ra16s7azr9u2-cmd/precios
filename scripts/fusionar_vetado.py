@@ -47,7 +47,7 @@ import sys
 import unicodedata
 
 sys.path.insert(0, "scripts")
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, registrar_fusiones, save_catalog  # noqa: E402
 import merge_amazon_cross_store as mcs  # noqa: E402
 
 UNIDAD_RE = re.compile(
@@ -157,6 +157,7 @@ def main():
     data = load_catalog()
     por_id = {p["id"]: p for p in data["products"]}
     absorbidas = set()
+    pares = []
     hechas = 0
     for g in ok:
         fichas = [por_id[f["id"]] for f in g if f["id"] in por_id and f["id"] not in absorbidas]
@@ -167,9 +168,11 @@ def main():
         mcs.fusionar(fichas)
         for p in fichas[1:]:
             absorbidas.add(p["id"])
+            pares.append((p["id"], fichas[0]["id"]))
         hechas += 1
     data["products"] = [p for p in data["products"] if p["id"] not in absorbidas]
     save_catalog(data)
+    registrar_fusiones(pares)
     print(f"Fusiones aplicadas: {hechas}; fichas absorbidas: {len(absorbidas)}; catálogo: {len(data['products']):,}")
     if not args.keep_pages:
         import shutil, os

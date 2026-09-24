@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": "loc-demo",
+    "nombre": "Demo",
+    "giro": "Tienda de demostración (datos de prueba de una función experimental)",
+    "municipio": "*",
+    "direccion": null,
+    "horario": null,
+    "whatsapp": null,
+    "sitio": null,
+    "plan": "demo",
+    "alta": "2026-09-24",
+    "activa": true,
+    "demo": true,
+    "fuente": {"tipo": "csv"}
+  }
+]

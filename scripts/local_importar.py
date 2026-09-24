@@ -15,13 +15,15 @@ QUÉ HACE, POR TIENDA ACTIVA DE local/tiendas.json
    Lo que no se une queda en local/revision/<id>.csv con las tres fichas más
    parecidas (vecinos_catalogo.py), para que la tienda elija. No se da de
    alta ninguna ficha nueva: una tienda local compara contra lo que ya está.
-3. Reemplaza las ofertas de esa tienda por las de la lista de hoy: cada
-   oferta lleva `local` (municipio, lat, lng) y `verificado` (la fecha que
-   puso la tienda). Un precio con más de DIAS_VIGENCIA días sin confirmar no
-   entra.
-4. Registra la tienda en data.json (stores) con local=true y la zona de
-   envío (hubRegion) más cercana, para que el cálculo de entrega por
-   municipio que ya existe la trate como tienda de la zona.
+3. Escribe data/local.json con las tiendas y sus precios vigentes (por
+   ficha). NO toca las ofertas del catálogo: mientras la función sea
+   experimental, un precio local no cambia el «Desde», la cuenta de
+   vendedores, las páginas estáticas ni lo que ve un buscador; la SPA lo
+   muestra aparte, en la columna «Tienda local» de la lista. Un precio con
+   más de DIAS_VIGENCIA días sin confirmar no entra (salvo en una tienda
+   de demostración, «demo»: true).
+
+   municipio «*» = una sucursal en cada municipio (la tienda Demo).
 
 USO
 ---
@@ -35,7 +37,6 @@ import csv
 import datetime
 import io
 import json
-import math
 import os
 import re
 import sys
@@ -44,12 +45,13 @@ import urllib.request
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(AQUI)
 sys.path.insert(0, AQUI)
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog  # noqa: E402
 import adjuntar_tienda_de_marca as A  # noqa: E402
 import fusionar_vetado as FV  # noqa: E402
 from emparejar_feed import codigos, gtin_norm, MAX_FICHAS_POR_CODIGO  # noqa: E402
 
 DIAS_VIGENCIA = 14
+SALIDA = os.path.join(RAIZ, "data", "local.json")
 EXISTENCIA = {"si": "in_stock", "sí": "in_stock", "pocas": "low_stock", "no": None}
 
 
@@ -74,14 +76,6 @@ def precio(x):
     except ValueError:
         return None
     return v if v > 0 else None
-
-
-def zona_mas_cercana(regiones, lat, lng):
-    if lat is None or lng is None:
-        return None
-    def dist(r):
-        return math.hypot((r["lat"] - lat), (r["lng"] - lng) * math.cos(math.radians(lat)))
-    return min((r for r in regiones if r.get("lat") is not None), key=dist)["id"]
 
 
 def texto_renglon(r):
@@ -139,7 +133,7 @@ def main():
             if not pr or not r.get("producto"):
                 cuenta["sin precio o sin producto"] += 1
                 continue
-            if (hoy - fecha).days > DIAS_VIGENCIA:
+            if (hoy - fecha).days > DIAS_VIGENCIA and not t.get("demo"):
                 cuenta[f"precio con más de {DIAS_VIGENCIA} días"] += 1
                 continue
             if stock is None:
@@ -172,11 +166,10 @@ def main():
                 cuenta["por confirmar"] += 1
                 continue
             cuenta[via] += 1
-            oferta = {"storeId": t["id"], "price": pr, "stock": stock,
-                      "url": t.get("sitio") or (f"https://wa.me/{t['whatsapp']}" if t.get("whatsapp") else None),
-                      "verificado": fecha.isoformat(),
-                      "local": {"municipio": t["municipio"], "lat": t.get("lat"), "lng": t.get("lng")}}
-            nuevas[ficha["id"]].append(oferta)
+            nuevas[ficha["id"]].append({"t": t["id"], "p": pr, "s": stock, "v": fecha.isoformat(),
+                                        # Por ahora el texto de la oferta local es el nombre
+                                        # del producto como lo escribe la tienda.
+                                        "x": r.get("producto") or ficha["name"]})
         resumen.append((t["id"], dict(cuenta)))
         if sin_unir:
             os.makedirs(args.revision_dir, exist_ok=True)
@@ -200,25 +193,15 @@ def main():
         print("(sin --aplicar: no se tocó el catálogo)")
         return
 
-    # Las ofertas de estas tiendas se reemplazan enteras por la lista de hoy.
-    for p in productos:
-        if any(o.get("storeId") in ids_locales for o in p.get("offers") or []):
-            p["offers"] = [o for o in p["offers"] if o.get("storeId") not in ids_locales]
-    for pid, ofs in nuevas.items():
-        por_id[pid].setdefault("offers", []).extend(ofs)
-    stores = data.setdefault("stores", [])
-    regiones = data.get("regions") or []
-    for t in tiendas:
-        s = next((s for s in stores if s["id"] == t["id"]), None)
-        if s is None:
-            s = {"id": t["id"]}
-            stores.append(s)
-        s.update({"name": t["nombre"], "local": True, "municipio": t["municipio"],
-                  "hubRegion": zona_mas_cercana(regiones, t.get("lat"), t.get("lng")),
-                  "typicalShippingDays": [0, 1], "logo": "".join(w[0] for w in t["nombre"].split()[:2]).upper(),
-                  "color": "#0a8a3c"})
-    save_catalog(data)
-    print(f"Guardado: {total} ofertas locales.")
+    tiendas_pub = {t["id"]: {k: v for k, v in (("n", t["nombre"]), ("g", t.get("giro")), ("m", t["municipio"]),
+                                                ("h", t.get("horario")), ("w", t.get("whatsapp")),
+                                                ("d", 1 if t.get("demo") else None)) if v}
+                   for t in tiendas}
+    salida = {"actualizado": hoy.isoformat(), "tiendas": tiendas_pub,
+              "ofertas": {pid: ofs for pid, ofs in sorted(nuevas.items())}}
+    with io.open(SALIDA, "w", encoding="utf-8") as f:
+        json.dump(salida, f, ensure_ascii=False, separators=(",", ":"))
+    print(f"Guardado: {total} ofertas locales en {os.path.relpath(SALIDA, RAIZ)}.")
 
 
 if __name__ == "__main__":

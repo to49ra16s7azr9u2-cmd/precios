@@ -356,7 +356,7 @@ def _page_shell(title, description, canonical_path, body, depth, extra_head="", 
 </main>
 <footer class="site-footer">
   <div class="container">
-    <p><a href="{prefijo}marca/">Todas las marcas</a> &middot; <a href="{prefijo}ofertas/">Ofertas de hoy</a></p>
+    <p><a href="{prefijo}marca/">Todas las marcas</a> &middot; <a href="{prefijo}ofertas/">Ofertas de hoy</a> &middot; <a href="{prefijo}mejores/">Los mejores por presupuesto</a></p>
     ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
   </div>
 </footer>
@@ -1660,6 +1660,10 @@ def render_subcategory_page(cat, sub, products, data, pares_familia=None):
         f' &gt; <a href="../{slugify(familia)}/">{html_escape(familia)}</a>' if familia else ""
     )
     ids_enlace = ",".join(s["id"] for s, _ in pares_familia) if pares_familia else sub["id"]
+    mejores_html = (
+        f'<p><a class="chip chip-icono" href="../../../mejores/{cat_slug}/{sub_slug}/">'
+        f'{svg_icon("trophy")} Los mejores por presupuesto</a></p>'
+        if not pares_familia and (cat["id"], sub["id"]) in _CON_MEJORES else "")
 
     body = f"""
 <nav class="breadcrumb"><a href="../../../">Inicio</a> &gt; <a href="../">{html_escape(cat['name'])}</a>{miga_familia} &gt; {html_escape(sub['name'])}</nav>
@@ -1668,6 +1672,7 @@ def render_subcategory_page(cat, sub, products, data, pares_familia=None):
 {tipos_arriba}
 {marcas_html}
 {compara_calidad_html(ejes, shown, '../../../')}
+{mejores_html}
 {SORT_BAR_HTML}
 <div class="product-list" id="lista">{''.join(rows)}</div>
 <p class="muted small" id="lista-vacia" hidden>Ningún producto de esta lista publica ese dato. Quita el filtro para ver todos.</p>
@@ -2229,6 +2234,239 @@ def _fila_barato(pr, p, prefijo, puesto):
         f'</div>'
     )
 
+
+
+# ---------------------------------------------------------------------------
+# /mejores/<categoría>/<subcategoría>/ — «los mejores por presupuesto»
+# (24-sep-2026). En México se compra por uso y presupuesto más que por un
+# modelo fijo: la búsqueda es «mejor licuadora calidad precio», no el
+# número de parte. Esta página contesta con Compara calidad y los precios
+# de hoy, sin puntuaciones inventadas: cada nivel es un dato publicado del
+# producto (potencia, capacidad, red...), el mismo corte que los botones de
+# Compara calidad, y «lo mejor» de un presupuesto es el nivel más alto que
+# cabe en él, al precio más bajo.
+# ---------------------------------------------------------------------------
+MEJORES_MIN = 40          # productos comparables para que la página valga
+MEJORES_POR_TRAMO = 5
+# Ejes con orden pero sin «más es mejor»: una edad, un número de jugadores
+# o un largo no hacen «mejor» a un producto, sólo distinto. No ordenan aquí.
+MEJORES_EJES_NEUTROS = {"Edad", "Jugadores", "Tamaño", "Largo", "Focal", "Grosor", "Contenido", "Peso"}
+_CON_MEJORES = set()      # (cat_id, sub_id) con página; lo llena main()
+
+
+def _mejores_datos(cat, sub, products):
+    """(listables, ejes con rampa, tramos) o None si no hay para una página."""
+    listables = []
+    for p in products:
+        # También lo que vende una sola tienda (pedido del usuario: se
+        # compra por uso y presupuesto, no sólo lo que ya se compara). El
+        # ruido de las fichas sueltas mal clasificadas se contiene de otra
+        # forma: sólo entra al ranking lo que publica el dato de algún eje.
+        if p.get("subcategory") != sub["id"] or p.get("a"):
+            continue
+        if not es_producto(cat["id"], p.get("subcategory")):
+            continue
+        pr = min_price(p)
+        if pr:
+            listables.append((pr, p))
+    if len(listables) < MEJORES_MIN:
+        return None
+    ejes = []
+    for eje, tiers in ejes_de_subcategoria(cat, sub):
+        if not eje.get("ramp") or eje["field"] == "price" or eje.get("label") in MEJORES_EJES_NEUTROS:
+            continue
+        con = sum(1 for _pr, p in listables if _tier_de(_valor_eje(p, eje["field"]), tiers))
+        if con >= max(12, len(listables) * 0.3):
+            ejes.append((eje, tiers))
+    if not ejes:
+        return None
+    listables = [(pr, p) for pr, p in listables
+                 if any(_tier_de(_valor_eje(p, e["field"]), t) for e, t in ejes)]
+    if len(listables) < MEJORES_MIN:
+        return None
+    tramos = tramos_de_precio([p for _pr, p in listables])
+    if len(tramos) < 3:
+        return None
+    # Un eje sirve para decir «lo mejor de este presupuesto» sólo si dentro
+    # de los presupuestos hay niveles distintos: si todo lo de cada tramo cae
+    # en el mismo nivel, el orden lo terminaría decidiendo otra cosa y la
+    # página diría «mejores» sin serlo (medido: iPhone, todos «batería
+    # grande»). Se ordenan los ejes por cuántos tramos distinguen.
+    def distingue(eje, tiers):
+        n = 0
+        for lo, hi, _ in tramos:
+            niveles = {_nivel(p, eje, tiers) for pr, p in listables
+                       if (lo is None or pr >= lo) and (hi is None or pr < hi)} - {-1}
+            n += len(niveles) >= 2
+        return n
+    ejes = sorted(((distingue(e, t), e, t) for e, t in ejes), key=lambda x: -x[0])
+    ejes = [(e, t) for n, e, t in ejes if n >= 2]
+    if not ejes:
+        return None
+    return listables, ejes, tramos
+
+
+def _nivel(p, eje, tiers):
+    """Posición del tramo del producto en el eje (0 = el más bajo), o -1."""
+    t = _tier_de(_valor_eje(p, eje["field"]), tiers)
+    ids = [x["id"] for x in tiers]
+    return ids.index(t) if t in ids else -1
+
+
+def _etiqueta_tramo(lo, hi):
+    if lo is None:
+        return f"Hasta {money(hi)}"
+    if hi is None:
+        return f"{money(lo)} o más"
+    return f"De {money(lo)} a {money(hi)}"
+
+
+def render_mejores_page(cat, sub, products, data):
+    datos = _mejores_datos(cat, sub, products)
+    listables, ejes, tramos = datos
+    cat_slug, sub_slug = slugify(cat["name"]), slugify(sub["name"])
+    prefijo = "../../../"
+    canonical_path = f"/mejores/{cat_slug}/{sub_slug}/"
+    # En minúscula sólo lo que es palabra común con mayúscula inicial
+    # («Licuadoras» -> «licuadoras»); «iPhone», «4K» o «USB-C» se quedan.
+    minus = " ".join(w[0].lower() + w[1:] if w[:1].isupper() and w[1:] == w[1:].lower() and i == 0 else w
+                     for i, w in enumerate(nombre_completo_sub(cat, sub["name"]).split()))
+    tiendas = sorted({store_by_id_name(p, o.get("storeId")) for _pr, p in listables
+                      for o in (p.get("offers") or []) if o.get("storeId")})
+
+    def enlace_mejores(p):
+        # La ficha de una sola tienda no tiene página estática: se abre en
+        # la app (#/p/<id>), que sí la muestra.
+        if p["id"] in _CON_PAGINA:
+            return enlace_producto(p, prefijo)
+        return f'<a href="{prefijo}#/p/{p["id"]}">{html_escape(p["name"])}</a>'
+
+    def chips(p):
+        out = []
+        for eje, tiers in ejes:
+            i = _nivel(p, eje, tiers)
+            if i >= 0:
+                t = tiers[i]
+                out.append(f'<span class="chip chip-nivel">{html_escape(eje["label"])}: '
+                           f'{html_escape(t["name"])}</span>')
+        return "".join(out)
+
+    def fila(pr, p, puesto):
+        n = seller_total(p)
+        return (
+            f'<div class="product-row has-rank">'
+            f'<span class="rank-badge">{puesto}</span>'
+            f'{product_photo_html(p, "row-icon")}'
+            f'<div class="row-info">'
+            f'<div class="row-brand">{html_escape(p["brand"])}</div>'
+            f'<div class="row-name">{enlace_mejores(p)}</div>'
+            f'<div class="chip-row">{chips(p)}</div>'
+            f'<div class="muted small">{f"{n} vendedores comparados" if n > 1 else "una tienda"}</div></div>'
+            f'<div class="row-priceblock"><div class="row-from">Desde</div>'
+            f'<div class="row-price">{money(pr)}</div></div></div>'
+        )
+
+    secciones, lista_ld, resumen = [], [], []
+    for lo, hi, _n in tramos:
+        en = [(pr, p) for pr, p in listables if (lo is None or pr >= lo) and (hi is None or pr < hi)]
+        if not en:
+            continue
+        # Lo mejor que cabe: más nivel en los ejes (el primero pesa más),
+        # después más tiendas que lo confirman, después más barato.
+        en.sort(key=lambda t: (tuple(-_nivel(t[1], e, ts) for e, ts in ejes),
+                               -seller_total(t[1]), t[0]))
+        top = en[:MEJORES_POR_TRAMO]
+        maximos = []
+        for eje, tiers in ejes:
+            niveles = [_nivel(p, eje, tiers) for _pr, p in en]
+            m = max(niveles)
+            if m >= 0:
+                maximos.append(f'{html_escape(eje["label"])}: <strong>{html_escape(tiers[m]["name"])}</strong>'
+                               + (f' <span class="muted">({html_escape(tiers[m]["spec"])})</span>'
+                                  if tiers[m].get("spec") and tiers[m]["spec"] != tiers[m]["name"] else ""))
+        etiqueta = _etiqueta_tramo(lo, hi)
+        resumen.append((etiqueta, top[0][1]))
+        secciones.append(
+            f'<div class="panel"><h2>{svg_icon("tag")} {html_escape(etiqueta)}'
+            f' <span class="muted small">({len(en)} modelos)</span></h2>'
+            + (f'<p class="small">Lo máximo que consigues con este presupuesto: {"; ".join(maximos)}.</p>' if maximos else "")
+            + f'<div class="product-list">{"".join(fila(pr, p, i) for i, (pr, p) in enumerate(top, 1))}</div></div>'
+        )
+        lista_ld += [p for _pr, p in top if p["id"] in _CON_PAGINA]
+
+    # ¿Cuánto cuesta cada nivel? El más barato de cada tramo del primer eje.
+    eje0, tiers0 = ejes[0]
+    filas_nivel = []
+    for i, t in enumerate(tiers0):
+        con = [(pr, p) for pr, p in listables if _nivel(p, eje0, tiers0) == i]
+        if not con:
+            continue
+        pr, p = min(con, key=lambda x: x[0])
+        filas_nivel.append(
+            f'<tr><td><strong>{html_escape(t["name"])}</strong>'
+            + (f'<br><span class="muted small">{html_escape(t.get("use") or "")}</span>' if t.get("use") else "")
+            + f'</td><td class="num">{money(pr)}</td><td>{enlace_mejores(p)}</td></tr>')
+    tabla_nivel = (
+        f'<div class="panel"><h2>{svg_icon("chart")} ¿Cuánto cuesta cada nivel de {html_escape(eje0["label"].lower())}?</h2>'
+        f'<div class="tabla-scroll"><table class="tabla-barato"><thead><tr><th>Nivel</th>'
+        f'<th class="num">Desde</th><th>El más barato con ese nivel</th></tr></thead>'
+        f'<tbody>{"".join(filas_nivel)}</tbody></table></div></div>'
+    ) if len(filas_nivel) >= 2 else ""
+
+    que_es = "".join(
+        f'<li><strong>{html_escape(e["label"])}</strong> ({html_escape(e.get("criterion") or "")}): '
+        + ", ".join(f'{html_escape(t["name"])}' + (f' — {html_escape(t["use"])}' if t.get("use") else "")
+                    for t in ts) + "</li>"
+        for e, ts in ejes)
+
+    barato_et, barato_p = resumen[0]
+    tope_et, tope_p = resumen[-1]
+    qa = [
+        (f"¿Cuál es la mejor opción calidad-precio en {minus}?",
+         f"Depende de cuánto quieras gastar: no hay una calificación única. {barato_et}, lo que más "
+         f"ofrece hoy es {barato_p['name']}; {tope_et.lower()}, {tope_p['name']}. Cada presupuesto "
+         f"tiene abajo su lista, ordenada por lo que ofrece y no por publicidad."),
+        (f"¿Cuánto cuestan {minus} buenos?",
+         f"De los {len(listables):,} modelos con datos que comparamos en {len(tiendas)} tiendas, el más barato "
+         f"cuesta {money(min(pr for pr, _ in listables))} y la mitad está por debajo de "
+         f"{money(sorted(pr for pr, _ in listables)[len(listables) // 2])}."),
+    ]
+    faq_html = "".join(f'<div class="faq-item"><h3>{html_escape(q)}</h3><p>{html_escape(r)}</p></div>' for q, r in qa)
+    h1 = f"Mejores {minus} por presupuesto"
+    body = f"""
+<nav class="breadcrumb"><a href="{prefijo}">Inicio</a> &gt; <a href="{prefijo}categoria/{cat_slug}/">{html_escape(cat['name'])}</a> &gt; <a href="{prefijo}categoria/{cat_slug}/{sub_slug}/">{html_escape(sub['name'])}</a> &gt; Mejores por presupuesto</nav>
+<div class="list-head"><h1>{svg_icon("trophy")} {html_escape(h1)}</h1></div>
+<p class="lead-barato">Elige tu presupuesto y mira lo máximo que consigues por ese dinero. {len(listables):,} modelos comparados en {len(tiendas)} tiendas mexicanas, con precios de {HOY_LARGO}.</p>
+<p class="muted small">Cómo se ordena: primero el nivel de {html_escape(" y ".join(e["label"].lower() for e, _ in ejes))} (datos que publica cada producto, los mismos de Compara calidad), después cuántas tiendas lo venden y al final el precio. Sólo entran los modelos que publican esos datos. Nadie paga por aparecer aquí.</p>
+{NOTA_LAG_HTML}
+{"".join(secciones)}
+{tabla_nivel}
+<div class="panel"><h2>{svg_icon("search")} Qué significa cada nivel</h2><ul class="small">{que_es}</ul></div>
+<div class="panel" id="preguntas"><h2>{svg_icon("search")} Preguntas frecuentes</h2>{faq_html}</div>
+<div class="panel" style="text-align:center; margin-top:20px">
+  <a class="buy-btn" href="{prefijo}categoria/{cat_slug}/{sub_slug}/">Ver todos: {html_escape(sub['name'])} con filtros →</a>
+</div>
+"""
+    breadcrumbs = breadcrumb_json_ld([
+        ("Inicio", f"{SITE_URL}/"), (cat["name"], f"{SITE_URL}/categoria/{cat_slug}/"),
+        (sub["name"], f"{SITE_URL}/categoria/{cat_slug}/{sub_slug}/"), ("Mejores por presupuesto", None)])
+    ld = json.dumps({"@context": "https://schema.org", "@type": "ItemList", "name": f"{h1} — {MES_ANIO}",
+                     "numberOfItems": len(lista_ld),
+                     "itemListElement": [{"@type": "ListItem", "position": i, "name": p["name"],
+                                          "url": f"{SITE_URL}/producto/{p['id']}/"}
+                                         for i, p in enumerate(lista_ld, 1)]}, ensure_ascii=False, indent=2)
+    faq_ld = json.dumps({"@context": "https://schema.org", "@type": "FAQPage",
+                         "mainEntity": [{"@type": "Question", "name": q,
+                                         "acceptedAnswer": {"@type": "Answer", "text": r}} for q, r in qa]},
+                        ensure_ascii=False, indent=2)
+    extra_head = (f'<script type="application/ld+json">\n{breadcrumbs}\n</script>\n'
+                  f'<script type="application/ld+json">\n{ld}\n</script>\n'
+                  f'<script type="application/ld+json">\n{faq_ld}\n</script>')
+    description = (f"{h1}, {MES_ANIO}: lo máximo que consigues en cada rango de precio. "
+                   f"{len(listables):,} modelos comparados en {len(tiendas)} tiendas.")[:158]
+    return page_shell(f"{h1} — {MES_ANIO} | ComparaMEX", description, canonical_path, body, depth=3,
+                      extra_head=extra_head,
+                      og_image=next((p.get("photo") for p in lista_ld if p.get("photo")), None))
 
 def render_barato_page(cat, products, data):
     """/barato/<slug>/ — lo más económico de la categoría, con precio de hoy."""
@@ -3157,6 +3395,12 @@ def render_404(data):
       .then(function (trozo) { return { meta: meta, ficha: trozo[m[1]] }; });
   }).then(function (d) {
     if (!d.ficha) return;
+    // Ficha absorbida por una fusión cuya ficha sobreviviente tiene página:
+    // se va ahí (Google trata este reemplazo como una redirección).
+    if (d.ficha[3] && d.ficha[4]) {
+      location.replace('/producto/' + d.ficha[3] + '/');
+      return;
+    }
     var nombre = d.ficha[0], i = d.ficha[1], sub = d.ficha[2];
     var slug = i >= 0 ? d.meta.slugs[i] : null;
     var cat = i >= 0 ? d.meta.categorias[i] : null;
@@ -3640,6 +3884,13 @@ def main():
 
     subcats_generadas = 0
     familias_generadas = 0
+    # Qué subcategorías tienen página de «mejores por presupuesto», antes de
+    # escribir las de subcategoría, que la enlazan.
+    for cat in data["categories"]:
+        products = [p for p in data["products"] if p["category"] == cat["id"]]
+        for sub, items in subcategorias_con_pagina(cat, products):
+            if _mejores_datos(cat, sub, items):
+                _CON_MEJORES.add((cat["id"], sub["id"]))
     for cat in data["categories"]:
         products = [p for p in data["products"] if p["category"] == cat["id"]]
         slug = slugify(cat["name"])
@@ -3767,6 +4018,53 @@ def main():
 
     print(f"Páginas de \"lo más barato\": {len(barato_urls)}")
 
+    # «Los mejores por presupuesto», una por subcategoría con Compara calidad.
+    mejores_urls, mejores_vigentes = [], set()
+    for cat in data["categories"]:
+        productos_cat = [p for p in data["products"] if p["category"] == cat["id"]]
+        for sub, items in subcategorias_con_pagina(cat, productos_cat):
+            if (cat["id"], sub["id"]) not in _CON_MEJORES:
+                continue
+            rel = f"{slugify(cat['name'])}/{slugify(sub['name'])}"
+            d = os.path.join(ROOT, "mejores", rel)
+            os.makedirs(d, exist_ok=True)
+            path = os.path.join(d, "index.html")
+            if write_if_changed(path, render_mejores_page(cat, sub, items, data)):
+                written.append(path)
+                marcar(f"{SITE_URL}/mejores/{rel}/")
+            mejores_urls.append(f"{SITE_URL}/mejores/{rel}/")
+            mejores_vigentes.add(rel)
+    carpeta = os.path.join(ROOT, "mejores")
+    for c in (os.listdir(carpeta) if os.path.isdir(carpeta) else []):
+        for sb in (os.listdir(os.path.join(carpeta, c)) if os.path.isdir(os.path.join(carpeta, c)) else []):
+            if f"{c}/{sb}" not in mejores_vigentes:
+                shutil.rmtree(os.path.join(carpeta, c, sb))
+        if os.path.isdir(os.path.join(carpeta, c)) and not os.listdir(os.path.join(carpeta, c)):
+            os.rmdir(os.path.join(carpeta, c))
+    if mejores_vigentes:
+        por_cat = {}
+        for cat in data["categories"]:
+            for sub in cat.get("subcategories") or []:
+                rel = f"{slugify(cat['name'])}/{slugify(sub['name'])}"
+                if rel in mejores_vigentes:
+                    por_cat.setdefault(cat["name"], []).append((sub["name"], rel))
+        bloques = "".join(
+            f'<div class="panel"><h2>{html_escape(c)}</h2><div class="chip-row">'
+            + "".join(f'<a class="chip" href="{rel}/">{html_escape(n)}</a>' for n, rel in subs)
+            + '</div></div>' for c, subs in por_cat.items())
+        cuerpo = (f'<nav class="breadcrumb"><a href="../">Inicio</a> &gt; Mejores por presupuesto</nav>'
+                  f'<div class="list-head"><h1>{svg_icon("trophy")} Los mejores por presupuesto</h1></div>'
+                  f'<p class="lead-barato">Elige qué buscas y mira lo máximo que consigues en cada rango de precio, '
+                  f'con los datos que publica cada producto y los precios de hoy.</p>{bloques}')
+        hub = page_shell(f"Los mejores por presupuesto — {MES_ANIO} | ComparaMEX",
+                         "Qué comprar según tu presupuesto: lo máximo que consigues en cada rango de precio, "
+                         "con datos de cada producto y precios de hoy en tiendas de México.",
+                         "/mejores/", cuerpo, depth=1)
+        if write_if_changed(os.path.join(ROOT, "mejores", "index.html"), hub):
+            written.append(os.path.join(ROOT, "mejores", "index.html"))
+        mejores_urls.append(f"{SITE_URL}/mejores/")
+    print(f"Páginas de \"los mejores por presupuesto\": {len(mejores_urls)}")
+
     # La portada no la escribe este script, pero su contenido (los carruseles
     # de data/home.json) sale del mismo catálogo: si cambió alguna ficha,
     # cambió también lo que se ve en la portada.
@@ -3775,7 +4073,7 @@ def main():
 
     # Las urls que ya no existen (productos borrados, subcategorías que
     # bajaron del mínimo) se sacan del registro para que no crezca sin fin.
-    vigentes = {f"{SITE_URL}/"} | set(ofertas_urls) | set(barato_urls)
+    vigentes = {f"{SITE_URL}/"} | set(ofertas_urls) | set(barato_urls) | set(mejores_urls)
     vigentes |= {f"{SITE_URL}/producto/{p['id']}/" for p in data["products"] if tiene_pagina(p)}
     for cat in data["categories"]:
         slug = slugify(cat["name"])
@@ -3786,7 +4084,7 @@ def main():
     lastmod = {u: f for u, f in lastmod.items() if u in vigentes}
 
     written += write_sitemaps(data, ROOT, lastmod, ofertas_urls, marca_urls,
-                               barato_urls)
+                               barato_urls + mejores_urls)
 
     if write_if_changed(LASTMOD_FILE, json.dumps(lastmod, ensure_ascii=False, indent=0, sort_keys=True)):
         written.append(LASTMOD_FILE)

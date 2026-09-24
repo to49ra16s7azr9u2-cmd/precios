@@ -101,7 +101,7 @@ def numero(x):
 # Suplementos, Juguetes y bebés). Los medicamentos quedan fuera porque su
 # publicidad está regulada (COFEPRIS) y el catálogo no los compara.
 DEPARTAMENTOS_FUERA = re.compile(
-    r'medicamento|farmacia|analg|estomacal|antigripal|refresco|vino|queso|carne|comida|caramelo|helado|pur[eé]|'
+    r'medicamento|medicina|farmacia|analg|estomacal|antigripal|refresco|vino|queso|carne|comida|caramelo|helado|pur[eé]|'
     r'verdura|fruta|chocolate|cerveza|licor|tequila|whisky|brandy|\bron\b|vodka|mezcal|ginebra|\bgin\b|cognac|'
     r'champagne|abarrote|l[aá]cteo|^leche|leches?\b|botana|galleta|cereal|\bpan\b|panader|embutido|salchich|'
     r'jam[oó]n|pollo|pescado|marisco|huevo|aceites y vinagres|arroz|frijol|^pastas$|sopa|salsa|condimento|'
@@ -171,11 +171,14 @@ def main():
     ap.add_argument("--max-paginas", type=int)
     ap.add_argument("--un-producto-por-nombre", action="store_true",
                     help="junta en uno los productos con la misma marca y el mismo nombre (tonos de Sephora)")
+    ap.add_argument("--solo-departamentos",
+                    help="regex: sólo los productos cuyo departamento coincide (para completar una bajada anterior)")
     ap.add_argument("--todo", action="store_true", help="no descartar los departamentos de súper y farmacia")
     args = ap.parse_args()
     token, aid = credenciales(args.env)
 
     items, vistos, total, sin = [], set(), 0, 0
+    solo = re.compile(args.solo_departamentos, re.I) if args.solo_departamentos else None
     for cat in args.categoria or [None]:
         n, ultima = 1, None
         while ultima is None or n <= ultima:
@@ -185,6 +188,8 @@ def main():
                 ultima = min(ultima, args.max_paginas)
             for x in d["data"]:
                 total += 1
+                if solo and not solo.search(x.get("category") or ""):
+                    continue
                 it = item(x, args.tienda, args.todo)
                 if not it:
                     sin += 1

@@ -60,7 +60,7 @@ import sys
 import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, registrar_fusiones, save_catalog  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MIN_CODIGO = 7
@@ -191,6 +191,7 @@ def main():
         absorbidas.add(w["id"])
     data["products"] = [p for p in productos if p["id"] not in absorbidas]
     save_catalog(data)
+    registrar_fusiones((w["id"], jefe["id"]) for w, jefe in uniones)
     for pid in absorbidas:
         ruta = os.path.join(ROOT, "producto", pid)
         if os.path.isdir(ruta):
