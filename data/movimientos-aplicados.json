@@ -11917,5 +11917,28 @@
    "Deportes y fitness | Bancos y racks | Muebles | Taburetes y bancos": 1,
    "Refacciones | Refacciones para refrigerador | Electrodomésticos | Filtros para refrigerador y cafetera": 1
   }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador f909a28321b0bd2e) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Teclados | Numéricos | Tabletas | Accesorios para tableta": 1,
+   "Cargadores y adaptadores | Cargadores de pared de 65 W o más | Drones | Accesorios": 1,
+   "Cargadores y adaptadores | De pilas | Drones | Accesorios": 1
+  }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Celulares | Android | Tabletas | Tabletas Android con 4G o 5G": 1,
+   "Muebles | Escritorios de oficina | Laptops | Laptops de 15\" y 16\"": 1,
+   "Refrigeradores | Frigobares | Electrodomésticos | None": 1,
+   "Juegos de mesa | Rompecabezas | Muebles | Otros": 1
+  }
  }
 ]

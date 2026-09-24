@@ -40,7 +40,17 @@ USO
 ---
     python3 scripts/adjuntar_tienda_de_marca.py --tienda whirlpool --dry-run
     python3 scripts/adjuntar_tienda_de_marca.py --tienda whirlpool
+
+Mejor, con --informe: escribe las uniones en el formato de
+merge_amazon_cross_store.py y se aplican con fusionar_vetado.py, que tira
+las que no tienen las mismas medidas y códigos (con las tiendas de Soicos,
+24-sep-2026, el código de CPU «i5-13420h» unía una IdeaPad Slim 3i con una
+V14 G4):
+
+    python3 scripts/adjuntar_tienda_de_marca.py --tienda lenovo --dry-run --informe /tmp/lenovo.json
+    python3 scripts/fusionar_vetado.py /tmp/lenovo.json --aplicar
 """
+import json
 import argparse
 import collections
 import os
@@ -95,6 +105,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--tienda", required=True)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--informe", help="escribe las uniones para fusionar_vetado.py")
     args = ap.parse_args()
     tienda = args.tienda
 
@@ -157,6 +168,13 @@ def main():
         print(f"  {w['id']:>8} ${precio_min(w):>9,.0f}  {w['name'][:55]}")
         print(f"   -> {j['id']:>6} ${precio_min(j) or 0:>9,.0f}  {j['name'][:55]}  "
               f"[{', '.join(sorted({o['storeId'] for o in j['offers']}))}]")
+    if args.informe:
+        def ficha(p):
+            return {"id": p["id"], "tiendas": sorted({o.get("storeId") for o in p.get("offers") or []}),
+                    "categoria": p.get("category"), "nombre": p["name"], "precio": precio_min(p)}
+        with open(args.informe, "w", encoding="utf-8") as f:
+            json.dump([[ficha(j), ficha(w)] for w, j in uniones], f, ensure_ascii=False, indent=1)
+        print(f"Informe: {args.informe}")
     if args.dry_run or not uniones:
         print("(--dry-run: no se escribió nada)" if args.dry_run else "")
         return

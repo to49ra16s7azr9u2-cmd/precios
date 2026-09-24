@@ -1025,6 +1025,22 @@ DEFINICIONES = [
      ('Computadoras de escritorio', 'PC gamer', 'desktop')),
     (re.compile(r'^lenovo (thinkcentre|ideacentre|thinkstation)\b'),
      ('Computadoras de escritorio', 'Torres de casa y oficina', 'desktop')),
+    # Lo que el feed de Sam's Club (24-sep-2026) trae con nombre de otra
+    # cosa: autos a escala a «Autos», motos infantiles a «Motocicletas»,
+    # pijamas con personaje a «Figuras de acción» o, por la marca Anne
+    # Klein, a «Relojes para mujer», lavabos con llave a «Llaves y dados».
+    (re.compile(r'^(?:\S+ ){0,1}(auto|vehiculo|camion|carro|coche|camioneta)s? a escala\b'),
+     ('Juguetes y bebés', 'Vehículos de juguete', 'toy')),
+    (re.compile(r'^(?:\S+ ){0,1}(moto|motocicleta|cuatrimoto)s? (electrica )?(infantil|correpasillos)\b|^(?:\S+ ){0,2}motocicleta electrica\b.{0,30}\bmontable'),
+     ('Juguetes y bebés', 'Montables', 'toy')),
+    (re.compile(r'^triciclos? infanti'),
+     ('Juguetes y bebés', 'Triciclos', 'toy')),
+    (re.compile(r'^(?:\S+ ){0,1}pijamas?\b(?!.{0,30}\b(para (perro|gato|mascota|muneca))\b)'),
+     ('Ropa y accesorios', 'Pijamas', 'shirt')),
+    (re.compile(r'^(?:\S+ ){0,2}(pantaletas?|brasieres?|boxers?|boxer brief|calzones?|trusas?|fajas? moldeadoras?)\b'),
+     ('Ropa y accesorios', 'Ropa interior', 'shirt')),
+    (re.compile(r'^(?:\S+ ){0,3}lavabos?\b(?!.{0,30}\b(organizador|tapete)\b)'),
+     ('Herramientas', 'Sanitarios y accesorios de baño', 'wrench')),
     (re.compile(r'^lenovo (yoga |idea )?tab\b(?!.{0,30}\b(funda|mica|protector|cargador)\b)'),
      ('Tabletas', None, 'tablet')),
     (re.compile(r'^lenovo (yoga (pro |slim |book )?\d{1,2}[a-z]?|ideapad|thinkpad|thinkbook|legion (pro |slim )?\d|loq)\b'

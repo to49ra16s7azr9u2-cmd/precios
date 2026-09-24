@@ -103,7 +103,7 @@ DEPARTAMENTOS_FUERA = re.compile(
     r'detergente|papel higi|pañal|toallas? femenin|vitamina|suplemento|farmacia|analg|alimento para|croqueta|'
     r'caf[eé] (en grano|molido|soluble)|^t[eé]\b|mantequilla|yogur|tortilla|harina|mayonesa|at[uú]n|sardina|'
     r'cigarr|champagne|mezcal|ginebra|\bgin\b|cognac|limpieza para mascotas|suavizante|cloro|desinfectante|'
-    r'lavatrastes|insecticida|nutrici|f[oó]rmula', re.I)
+    r'lavatrastes|insecticida|nutrici|f[oó]rmula|papas|frituras|palomitas|ingredientes|estomacal', re.I)
 
 RX_ID_TIENDA = re.compile(r"/ip/(?:[^/?#]+/)*?(\d{6,})(?:[/?#]|$)")
 
