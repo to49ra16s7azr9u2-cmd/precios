@@ -1543,3 +1543,8 @@ OLA2 += [
     ('Muebles', ['Muebles de cocina'], MUEBLES_COCINA, lambda tn, sv: sub_mueble_cocina(tn), None),
     ('Herramientas', ['Plomería'], PLOMERIA, lambda tn, sv: sub_plomeria(tn), None),
 ]
+
+# Tercer nivel de las categorías que seguían en plano (24-sep-2026): Baterías
+# portátiles, Almacenamiento, Mouse, Aspiradoras, Televisores... Ver el módulo.
+from subcategorias_tres_niveles import TRES_NIVELES  # noqa: E402
+OLA2 += TRES_NIVELES

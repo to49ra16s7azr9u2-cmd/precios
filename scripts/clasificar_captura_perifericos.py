@@ -961,6 +961,24 @@ ANTES_DE_FUERA = [
      ('Electrodomésticos', 'Filtros y membranas de repuesto', 'appliance')),
     (re.compile(r'^regulador electronico de voltaje'),
      ('Herramientas', 'Material eléctrico', 'wrench')),
+    # Sets LEGO (captura de 2,749 del 24-sep-2026): FUERA los descartaba como
+    # «juguete, no es un aparato» (850) y el resto caía por palabras sueltas
+    # en Mascotas («Gato», «Cachorro»), Anillos («El Señor de los Anillos»),
+    # Autos («Speed Champions Auto») o Vasos («Trofeo Copa Mundial»). Un set
+    # es un set: Bloques de construcción. Lo que sólo lleva la marca (taza,
+    # lonchera, lámpara, videojuego, kit de luces de otro fabricante) no entra
+    # aquí y sigue su camino normal.
+    (re.compile(r'^(?!.*\b(compatible|tipo lego|estilo lego|para lego|kit de luz|kit de luces|luces led|luz led|'
+                r'iluminacion|lampara|vitrina|urna|display case|ps[45]|xbox|nintendo switch|playstation|'
+                r'storage|lonchera|taza|botella|termo|caja de almacenamiento|mochila|reloj|libro|rompecabezas|'
+                r'pegatinas|calcomanias|playera|camiseta|pijama|disfraz|adaptador|cargador|llavero)\b)'
+                r'(?:\S+ ){0,6}lego\b'),
+     ('Juguetes y bebés', 'Bloques de construcción', 'toy')),
+    (re.compile(r'^(?:\S+ ){0,3}((set|kit|juego) de (construccion|bloques)|bloques de construccion|micro ?bloques|nano ?bloques)\b'),
+     ('Juguetes y bebés', 'Bloques de construcción', 'toy')),
+    # La vitrina acrílica para un set armado caía en Muebles/Roperos.
+    (re.compile(r'^(?:\S+ ){0,3}(vitrinas?( acrilica| de acrilico)?|caja de exhibicion|urna)\b.{0,60}\blego\b'),
+     ('Otros', 'Organización del hogar', 'box')),
 ]
 
 # CABEZA: en las reglas «atrapalotodo» (Herramientas, Autos, Muebles,

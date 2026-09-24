@@ -619,6 +619,21 @@ FAMILIAS = {
     ],
 }
 
+# Las categorías que pasaron a tres niveles el 24-sep-2026 traen su tabla en
+# subcategorias_tres_niveles.py, junto al repartidor que llena cada una.
+from subcategorias_tres_niveles import FAMILIAS_TRES_NIVELES  # noqa: E402
+# Reemplazan a la tabla de arriba: son para las subcategorías nuevas, y una
+# entrada vieja (Almacenamiento tenía «Discos y SSD» con SSD/Externo/Interno)
+# nombraría subcategorías que ya no existen.
+# agrupar() se llama con el NOMBRE visible de la categoría («Baterías
+# portátiles (power bank)», «Redes y WiFi»), no con su id: se registran con
+# los dos.
+from roles_subcategorias import ALIAS_CATEGORIA  # noqa: E402
+for _cat, _fams in FAMILIAS_TRES_NIVELES.items():
+    FAMILIAS[_cat] = _fams
+    if _cat in ALIAS_CATEGORIA:
+        FAMILIAS[ALIAS_CATEGORIA[_cat]] = _fams
+
 # Palabras que no pueden ser la cabeza de una familia.
 _VACIAS = {"de", "para", "y", "con", "en", "del", "la", "el", "los", "las",
            "otros", "otras", "otro", "otra", "a", "por", "sin", "e"}

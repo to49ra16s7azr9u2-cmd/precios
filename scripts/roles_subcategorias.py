@@ -309,6 +309,12 @@ ALIAS_CATEGORIA = {
 }
 
 
+from subcategorias_tres_niveles import ROLES_TRES_NIVELES  # noqa: E402
+for _cat, _roles in ROLES_TRES_NIVELES.items():
+    _clave = _cat if _cat in ROLES else ALIAS_CATEGORIA.get(_cat, _cat)
+    ROLES.setdefault(_clave, {}).update(_roles)
+
+
 def rol_de(categoria, subcategoria):
     """El papel de esa subcategoría dentro de esa categoría (id o nombre)."""
     if not subcategoria:

@@ -47,6 +47,7 @@ from data_io import load_catalog, slugify  # noqa: E402
 from familias_subcategorias import agrupar as agrupar_familias, es_familia_de_papel  # noqa: E402
 from roles_subcategorias import ORDEN as ORDEN_ROLES, TITULOS as TITULOS_ROL, es_producto, rol_de  # noqa: E402
 from web_summary import productos_del_set, purchase_options, seller_rows, seller_total  # noqa: E402
+from lego_set import numero_set as lego_numero_set, url_lego_store  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ICONS_PATH = os.path.join(ROOT, "data", "icons.json")
@@ -765,6 +766,17 @@ def enlace_producto(p, prefijo):
     return nombre
 
 
+def lego_html(product):
+    """Enlace a la tienda oficial LEGO (Soicos) en la ficha de un set, sin
+    precio: los términos de lego.com prohíben copiar su contenido con fines
+    comerciales. Mismo enlace que legoHtml() en js/app.js."""
+    url = url_lego_store(product)
+    if not url:
+        return ""
+    return (f'<p><a class="official-store-link" href="{html_escape(url)}" target="_blank" rel="sponsored noopener">'
+            f'{svg_icon("shopping-bag")} Ver el set {lego_numero_set(product)} en LEGO Store</a></p>')
+
+
 def render_product_page(product, data, subs_con_pagina=None):
     cat = next(c for c in data["categories"] if c["id"] == product["category"])
     cat_slug = slugify(cat["name"])
@@ -1013,6 +1025,7 @@ def render_product_page(product, data, subs_con_pagina=None):
     <h1>{set_badge_html(product)}{html_escape(product['name'])}{f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>' if is_used(product) else ''}</h1>
     <p class="detail-rating">{f'{avg} / 5 ({plural(count, "calificación", "calificaciones")})' if count else 'Sin calificaciones todavía'}</p>
     <p class="detail-fromprice">{'Desde ' if n_sellers > 1 else ''}<strong>{money(price)}</strong> en {plural(n_sellers, "vendedor", "vendedores")}</p>
+    {lego_html(product)}
     {NOTA_LAG_HTML}
   </div>
   {quicknav_html}

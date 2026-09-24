@@ -125,3 +125,14 @@ BASES = {
 def base_de(store_id):
     """El enlace de la tienda, o None si no tiene programa todavía."""
     return BASES.get(store_id)
+
+
+# --- Soicos ------------------------------------------------------------------
+# LEGO MX (Soicos, programa 15321, implementación «COMPARAMEX» del 24-sep-2026):
+# deeplink ad.soicos.com/-4Xrf?dl=<url de lego.com codificada>. Cookie de 30
+# días, conversión validada a 30 días. Sin feed de productos, y los términos
+# de lego.com (mod. 27-feb-2026) prohíben copiar su contenido con fines
+# comerciales y se reservan la minería de datos: por eso NO se lee lego.com y
+# NO se muestra su precio. Sólo se enlaza, desde la ficha de cada set, a su
+# búsqueda por número de set (lego_set.py, y legoStoreUrl() en js/app.js).
+SOICOS_LEGO = "https://ad.soicos.com/-4Xrf?dl="

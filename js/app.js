@@ -6402,7 +6402,45 @@
       ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}${sellerTotal(product) > offerCount(product) ? ` · ${plural(sellerTotal(product), "vendedor", "vendedores")}` : ""}
       ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
       ${shipHtml}
+      ${legoHtml(product)}
     `;
+  }
+
+  // Tienda oficial LEGO (Soicos, programa LEGO MX): sólo el ENLACE a la
+  // búsqueda del set en lego.com, sin precio -- los términos de lego.com
+  // prohíben copiar su contenido con fines comerciales, así que su precio se
+  // ve allá. Mismo criterio que scripts/lego_set.py (la página estática
+  // pinta el mismo enlace): si se cambia uno, se cambia el otro.
+  const SOICOS_LEGO = "https://ad.soicos.com/-4Xrf?dl=";
+  const LEGO_NO_ES_SET = /compatible|tipo lego|estilo lego|para lego|kit de luz|kit de luces|luz led|luces led|iluminaci|l[aá]mpara|vitrina|display case|videojuego|\bps[45]\b|xbox|nintendo|switch|playstation/i;
+  const LEGO_CANTIDADES = /\b\d{3,6}\s*(piezas|pzas|pzs|pcs|pieces|pz)\b|\b(piezas|pzas|pzs|pcs|pieces)\s*:?\s*\d{3,6}\b/gi;
+  function legoSetNumber(product) {
+    const nombre = product.name || "";
+    const marca = (product.brand || "").trim().toLowerCase();
+    if (product.category === "Videojuegos" || LEGO_NO_ES_SET.test(nombre)) return null;
+    if (marca !== "lego" && !/^(\S+ ){0,3}lego\b/i.test(nombre)) return null;
+    const limpio = nombre.replace(LEGO_CANTIDADES, " ");
+    // Sin lookbehind (Safari viejo): se descarta el número pegado a otro
+    // («1,500» o «1.500» es una cantidad, no un set).
+    const nums = [];
+    const rx = /(\d{4,6})/g;
+    let m;
+    while ((m = rx.exec(limpio))) {
+      const antes = limpio.slice(Math.max(0, m.index - 2), m.index);
+      const despues = limpio.slice(m.index + m[0].length, m.index + m[0].length + 2);
+      if (/\d$/.test(antes) || /\d[.,]$/.test(antes) || /^\d/.test(despues) || /^[.,]\d/.test(despues)) continue;
+      nums.push(m[1]);
+    }
+    return nums.find((n) => n.length === 5)
+      || nums.find((n) => n.length === 4 && !/^(19|20)\d\d$/.test(n))
+      || nums.find((n) => n.length === 6)
+      || null;
+  }
+  function legoHtml(product) {
+    const n = legoSetNumber(product);
+    if (!n) return "";
+    const url = SOICOS_LEGO + encodeURIComponent(`https://www.lego.com/es-mx/search?q=${n}`);
+    return `<a class="official-store-link" href="${htmlEscapeAttr(url)}" target="_blank" rel="sponsored noopener">${icon("shopping-bag")} Ver el set ${n} en LEGO Store</a>`;
   }
 
   // Botón "Comparar" de la ficha: agrega ESTE producto a la comparación de
