@@ -947,6 +947,26 @@ COMP = (PC, 'Componentes', 'cpu')
 # refacción, así que no se mezclan con los aparatos al ordenar por precio.
 # (whirlpool.mx, 23-sep: 20 fichas que quedaban fuera del catálogo.)
 ANTES_DE_FUERA = [
+    # Consumibles de la casa (feeds de Walmart, Bodega Aurrerá y Sam's): la
+    # categoría «Limpieza y hogar» se creó para ellos (reubicar_otros.py). Van
+    # antes del filtro de «fuera», que los descartaba como «consumible de
+    # limpieza, no es el aparato» (pensado para los accesorios de aspiradora).
+    (re.compile(r'^(?:\S+ ){0,3}(detergente|suavizante|jabon (liquido |en polvo )?para (ropa|lavadora)|quitamanchas|blanqueador|aromatizante de ropa)\b'),
+     ('Limpieza y hogar', 'Detergentes y suavizantes', 'house')),
+    (re.compile(r'^(?:\S+ ){0,3}(cloro|desinfectante|limpiador (multiusos|de pisos|de vidrios|de banos?|liquido)|lavatrastes|desengrasante|limpiavidrios|pinol|fabuloso|destapacanos)\b(?!.{0,30}\b(aspiradora|robot|maquina)\b)'),
+     ('Limpieza y hogar', 'Limpiadores y desinfectantes', 'house')),
+    (re.compile(r'^(?:\S+ ){0,3}(papel higienico|servilletas?( de papel)?|toallas? de papel|panuelos desechables|toallas? interdobladas?)\b'),
+     ('Limpieza y hogar', 'Papel higiénico y servilletas', 'house')),
+    (re.compile(r'^(?:\S+ ){0,3}(bolsas? (para|de) basura|platos desechables|vasos desechables|cubiertos desechables|papel aluminio|pelicula plastica|papel encerado)\b'),
+     ('Limpieza y hogar', 'Bolsas de basura y desechables', 'house')),
+    (re.compile(r'^(?:\S+ ){0,3}(aromatizante|ambientador|desodorante ambiental|velas? aromaticas?|repuesto (de |para )?aromatizante|difusor de aromas)\b'),
+     ('Limpieza y hogar', 'Aromatizantes y velas', 'house')),
+    (re.compile(r'^(?:\S+ ){0,3}(insecticida|mata ?(cucarachas|moscas|mosquitos|hormigas)|raid\b|baygon|repelente (de|para) (insectos|mosquitos)|trampa para (cucarachas|ratas|ratones))'),
+     ('Limpieza y hogar', 'Insecticidas y repelentes', 'house')),
+    (re.compile(r'^(?:\S+ ){0,3}(panales?|toallitas humedas|calzoncitos? (entrenadores|desechables))\b(?!.{0,30}\b(para (perro|mascota)|pastel)\b)'),
+     ('Juguetes y bebés', 'Pañales y cambio', 'toy')),
+    (re.compile(r'^(?:\S+ ){0,3}(toallas? (femeninas|sanitarias)|tampones?|protectores? diarios?|copa menstrual)\b'),
+     ('Belleza y cuidado personal', 'Cuidado personal', 'sparkle')),
     # Silla de ruedas, rollator, andadera ortopédica: Salud. FUERA las
     # descartaba («silla de ruedas» no es una silla) y el modelo del
     # catálogo las mandaba a Muebles.

@@ -32,6 +32,7 @@ USO
     python3 scripts/ocultar_tiendas.py --listar
 """
 import argparse
+import gzip
 import io
 import json
 import os
@@ -42,18 +43,21 @@ ROOT = os.path.dirname(AQUI)
 sys.path.insert(0, AQUI)
 from data_io import load_catalog, save_catalog  # noqa: E402
 
-ARCHIVO = os.path.join(ROOT, "data", "tiendas-ocultas.json")
+# Comprimido (24-sep-2026): el sitio no lo lee y en JSON plano eran 33 MB
+# publicados con cada página. gzip con mtime=0 para que el mismo contenido
+# dé el mismo archivo (y no un cambio en git en cada corrida).
+ARCHIVO = os.path.join(ROOT, "data", "tiendas-ocultas.json.gz")
 
 
 def leer():
     if not os.path.exists(ARCHIVO):
         return {"tiendas": {}, "productos": [], "ofertas": []}
-    with io.open(ARCHIVO, encoding="utf-8") as f:
+    with gzip.open(ARCHIVO, "rt", encoding="utf-8") as f:
         return json.load(f)
 
 
 def guardar(d):
-    with io.open(ARCHIVO, "w", encoding="utf-8") as f:
+    with gzip.GzipFile(ARCHIVO, "wb", mtime=0) as g, io.TextIOWrapper(g, encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
 
 

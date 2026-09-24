@@ -638,6 +638,7 @@ for _cat, _fams in FAMILIAS_TRES_NIVELES.items():
 # Energía solar y las subcategorías nuevas en la familia que les toca.
 import reubicar_otros as _ro  # noqa: E402
 FAMILIAS[_ro.SOLAR] = _ro.FAMILIAS_SOLAR
+FAMILIAS[_ro.LIMPIEZA_HOGAR] = _ro.FAMILIAS_LIMPIEZA_HOGAR
 for _cat, (_fam, _sub) in _ro.FAMILIAS_AGREGAR.items():
     FAMILIAS[_cat] = [(f, (m + [_sub] if f == _fam and _sub not in m else m)) for f, m in FAMILIAS.get(_cat, [])]
 for _cat, _pares in _ro.FAMILIAS_AGREGAR_VARIAS.items():

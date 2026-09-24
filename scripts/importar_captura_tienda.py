@@ -123,6 +123,13 @@ TIENDAS = {
         "store": {"id": "reuse_mx", "name": "Reuse", "hubRegion": None, "color": "#00A676",
                   "logo": "RU", "typicalShippingDays": [2, 6]},
     },
+    # Sephora: belleza y perfumes (feed de Soicos). Entra sólo a fichas que
+    # ya existen (emparejar_feed.py), igual que Walmart y Bodega Aurrerá.
+    "sephora_mx": {
+        "dominios": ("sephora.com.mx",),
+        "store": {"id": "sephora_mx", "name": "Sephora", "hubRegion": None, "color": "#000000",
+                  "logo": "SE", "typicalShippingDays": [2, 6]},
+    },
     "coppel": {
         "dominios": ("coppel.com",),
         "store": {"id": "coppel", "name": "Coppel", "hubRegion": None, "color": "#FFD100",

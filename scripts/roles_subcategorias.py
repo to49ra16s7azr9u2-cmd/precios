@@ -317,6 +317,7 @@ for _cat, _roles in ROLES_TRES_NIVELES.items():
 
 import reubicar_otros as _ro  # noqa: E402
 ROLES.setdefault(_ro.SOLAR, {}).update(_ro.ROLES_SOLAR)
+ROLES.setdefault(_ro.LIMPIEZA_HOGAR, {}).update(_ro.ROLES_LIMPIEZA_HOGAR)
 for _cat, _roles in _ro.ROLES_NUEVAS.items():
     ROLES.setdefault(_cat, {}).update({s: {'accesorio': ACCESORIO, 'afin': AFIN}[r] for s, r in _roles.items()})
 

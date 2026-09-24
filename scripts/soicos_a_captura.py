@@ -22,11 +22,10 @@ producto, que es público (es lo que se pone en el botón).
 QUÉ SE DESCARTA
 ---------------
 Lo agotado (stock 0) y lo que no trae precio: un comparador que ofrece un
-precio que no se puede pagar miente. Y los departamentos de súper y
-farmacia (comida, bebidas, vinos y licores, medicamentos, limpieza del
-hogar, pañales, alimento para mascotas): el catálogo no los compara y el
-clasificador los mandaría, por el título, a la categoría que más se les
-parezca (un queso a «Cocina y comedor»). Con --todo entran igual.
+precio que no se puede pagar miente. Y los departamentos de comida,
+bebidas, tabaco y medicamentos (ver DEPARTAMENTOS_FUERA): el clasificador
+los mandaría, por el título, a la categoría que más se les parezca (un
+queso a «Cocina y comedor»). Con --todo entran igual.
 
 PROGRAMAS (aceptados el 24-sep-2026)
 ------------------------------------
@@ -95,15 +94,20 @@ def numero(x):
     return v if v > 0 else None
 
 
+# Sólo comida, bebidas (con y sin alcohol), tabaco y medicamentos: lo demás
+# del súper (detergentes, papel, pañales, alimento para mascotas, vitaminas)
+# SÍ entra desde el 24-sep-2026, a pedido del usuario («基本的に食品以外は取
+# り込んでいきましょう»); tiene su categoría («Limpieza y hogar», Mascotas,
+# Suplementos, Juguetes y bebés). Los medicamentos quedan fuera porque su
+# publicidad está regulada (COFEPRIS) y el catálogo no los compara.
 DEPARTAMENTOS_FUERA = re.compile(
-    r'medicamento|refresco|vino|queso|carne|comida|caramelo|helado|pur[eé]|verdura|fruta|chocolate|cerveza|'
-    r'licor|tequila|whisky|brandy|\bron\b|vodka|abarrote|l[aá]cteo|leche|botana|galleta|cereal|\bpan\b|panader|'
-    r'embutido|salchich|jam[oó]n|pollo|pescado|marisco|huevo|aceites y vinagres|arroz|frijol|^pastas$|sopa|salsa|'
-    r'condimento|especias|endulzante|az[uú]car|^agua$|jugo|bebida|snack|dulce|semilla|enlatad|^congelados|'
-    r'detergente|papel higi|pañal|toallas? femenin|vitamina|suplemento|farmacia|analg|alimento para|croqueta|'
-    r'caf[eé] (en grano|molido|soluble)|^t[eé]\b|mantequilla|yogur|tortilla|harina|mayonesa|at[uú]n|sardina|'
-    r'cigarr|champagne|mezcal|ginebra|\bgin\b|cognac|limpieza para mascotas|suavizante|cloro|desinfectante|'
-    r'lavatrastes|insecticida|nutrici|f[oó]rmula|papas|frituras|palomitas|ingredientes|estomacal', re.I)
+    r'medicamento|farmacia|analg|estomacal|antigripal|refresco|vino|queso|carne|comida|caramelo|helado|pur[eé]|'
+    r'verdura|fruta|chocolate|cerveza|licor|tequila|whisky|brandy|\bron\b|vodka|mezcal|ginebra|\bgin\b|cognac|'
+    r'champagne|abarrote|l[aá]cteo|^leche|leches?\b|botana|galleta|cereal|\bpan\b|panader|embutido|salchich|'
+    r'jam[oó]n|pollo|pescado|marisco|huevo|aceites y vinagres|arroz|frijol|^pastas$|sopa|salsa|condimento|'
+    r'especias|endulzante|az[uú]car|^agua$|jugo|bebida|snack|dulce|semilla|enlatad|^congelados|caf[eé] '
+    r'(en grano|molido|soluble)|^t[eé]\b|mantequilla|margarina|yogur|tortilla|harina|mayonesa|at[uú]n|sardina|'
+    r'cigarr|tabaco|papas|frituras|palomitas|ingredientes|cacahuate|nueces|comida para beb[eé]', re.I)
 
 RX_ID_TIENDA = re.compile(r"/ip/(?:[^/?#]+/)*?(\d{6,})(?:[/?#]|$)")
 
@@ -122,6 +126,12 @@ def item(d, tienda, todo=False):
     # y a veces con un prefijo de sistema («trained_algorithmic_media:"...»).
     titulo = re.sub(r"^[a-z_]+:", "", re.sub(r"\s+", " ", d["name"]).strip())
     titulo = titulo.strip(':"\' ').replace('""', '"')
+    # Sephora escribe el nombre sin la marca («Light Blue Eau De Parfum»):
+    # se antepone, para quien lee la lista y para emparejarla con la misma
+    # fragancia en otra tienda.
+    marca_feed = (d.get("brand") or "").strip()
+    if tienda == "sephora_mx" and marca_feed and marca_feed.lower() not in titulo.lower():
+        titulo = f"{marca_feed} {titulo}"
     # Reuse sólo vende reacondicionados, pero no todos sus nombres lo dicen
     # («Samsung Galaxy A15 4G Negro»): se escribe, para que la ficha no se
     # lea como nueva ni se una con la nueva (fusionar_vetado.USADO_RE).
@@ -159,6 +169,8 @@ def main():
     ap.add_argument("--categoria", type=int, action="append", default=[],
                     help="category_id del feed (se puede repetir); sin esto, el feed entero")
     ap.add_argument("--max-paginas", type=int)
+    ap.add_argument("--un-producto-por-nombre", action="store_true",
+                    help="junta en uno los productos con la misma marca y el mismo nombre (tonos de Sephora)")
     ap.add_argument("--todo", action="store_true", help="no descartar los departamentos de súper y farmacia")
     args = ap.parse_args()
     token, aid = credenciales(args.env)
@@ -185,6 +197,18 @@ def main():
                 print(f"  página {n}/{ultima}: {len(items):,} productos", file=sys.stderr)
             n += 1
             time.sleep(PAUSA)
+    if args.un_producto_por_nombre:
+        # Sephora publica cada tono como un producto aparte con el MISMO
+        # nombre y sin el tono en ningún campo: 11,533 productos que son
+        # 4,405 nombres. Se deja uno por nombre, el tono más barato (el
+        # precio «desde»), en vez de 20 fichas idénticas en la lista.
+        por_nombre = {}
+        for it in items:
+            k = ((it.get("brand") or "").lower(), it["title"].lower())
+            if k not in por_nombre or it["price"] < por_nombre[k]["price"]:
+                por_nombre[k] = it
+        print(f"un producto por nombre: {len(items):,} -> {len(por_nombre):,}")
+        items = list(por_nombre.values())
     json.dump(items, open(args.salida, "w", encoding="utf-8"), ensure_ascii=False)
     print(f"feed: {total:,}; agotados, sin precio o de súper: {sin:,}; productos distintos: {len(items):,} -> {args.salida}")
 

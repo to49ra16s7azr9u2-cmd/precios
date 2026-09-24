@@ -36,7 +36,8 @@ from data_io import load_catalog, save_catalog  # noqa: E402
 import subcategorias_finas as fino  # noqa: E402
 import subcategorias_finas_ola2 as ola2  # noqa: E402
 
-OCULTAS = os.path.join(AQUI, "..", "data", "tiendas-ocultas.json")
+import ocultar_tiendas as O  # noqa: E402
+OCULTAS = os.path.join(AQUI, "..", "data", "tiendas-ocultas.json.gz")   # ver ocultar_tiendas.py
 
 # Palabras de marketing que Gandhi mete en el subtítulo (PIM_H1) de todos
 # los libros: "Un viaje literario", "obra maestra", "clásico indispensable".
@@ -124,7 +125,7 @@ def main():
     trabajos = [t for t in TRABAJOS if t[0] in cats]
 
     data = load_catalog()
-    ocultas = json.load(open(OCULTAS, encoding="utf-8")) if os.path.exists(OCULTAS) else None
+    ocultas = O.leer() if os.path.exists(OCULTAS) else None
     cat_by_id = {c["id"]: c for c in data["categories"]}
 
     for cat, viejas, lista, f0, resto in trabajos:
@@ -207,8 +208,7 @@ def main():
         return
     save_catalog(data)
     if ocultas:
-        with open(OCULTAS, "w", encoding="utf-8") as fh:
-            json.dump(ocultas, fh, ensure_ascii=False)
+        O.guardar(ocultas)
     print("Guardado. Ahora: sync_subcategories, compute_facets, compute_quality_axes, build_search_index, build_marcas_index, generate_seo_pages.")
 
 

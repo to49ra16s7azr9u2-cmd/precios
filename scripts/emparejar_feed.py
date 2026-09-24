@@ -47,6 +47,7 @@ import fusionar_vetado as FV  # noqa: E402
 from importar_captura_tienda import TIENDAS  # noqa: E402
 
 MAX_FICHAS_POR_CODIGO = 8
+CADENA_WALMART = {"walmart_mx", "bodega_aurrera", "sams_mx"}
 
 
 def gtin_norm(g):
@@ -96,9 +97,32 @@ def main():
             por_codigo[c].append(p)
     por_codigo = {c: ps for c, ps in por_codigo.items() if len(ps) <= MAX_FICHAS_POR_CODIGO}
 
+    # Walmart, Bodega Aurrerá y Sam's son de la misma cadena y numeran igual
+    # sus artículos (/ip/<nombre>/<id>): el mismo id en otra de las tres es
+    # el mismo artículo, aunque cada una lo nombre distinto.
+    from importar_captura_tienda import id_de_url
+    por_articulo = {}
+    for p in otras:
+        for o in p.get("offers") or []:
+            if o.get("storeId") in CADENA_WALMART:
+                a = id_de_url(o.get("url"))
+                if a:
+                    por_articulo.setdefault(a, p)
+
     motivos = collections.Counter()
     elegidas = {}   # id de ficha -> (item, por_gtin)
     for it in items:
+        a = id_de_url(it["url"]) if tienda in CADENA_WALMART else None
+        p = por_articulo.get(a) if a else None
+        if p is not None:
+            pm = A.precio_min(p)
+            if pm and max(pm, it["price"]) / min(pm, it["price"]) > 3:
+                motivos["mismo artículo de la cadena, precio 3x"] += 1
+            elif p["id"] in elegidas:
+                motivos["la ficha ya recibió otra oferta de la tienda"] += 1
+            else:
+                elegidas[p["id"]] = (it, True, p)
+            continue
         cands = {}
         g = gtin_norm(it.get("gtin"))
         for p in por_gtin.get(g, []) if g else []:

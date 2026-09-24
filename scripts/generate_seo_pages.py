@@ -99,10 +99,15 @@ with open(ICONS_PATH, encoding="utf-8") as f:
 def svg_icon(key, cls=""):
     """Ilustración SVG en línea (data/icons.json), en vez de emoji, para que
     estas páginas estáticas usen el mismo set de iconos que la SPA (ver
-    icon() en js/app.js)."""
-    inner = ICONS.get(key) or ICONS["box"]
+    icon() en js/app.js).
+
+    Va como referencia (<use>) a un <symbol> que page_shell() pone UNA vez
+    por página (sprite_iconos): con el dibujo entero en cada uso, las 100
+    filas de una página de categoría repetían la corona, la bolsa de
+    vendedores y demás, y los iconos eran casi la mitad de sus ~180 KB."""
+    key = key if key in ICONS else "box"
     css_class = f" {cls}" if cls else ""
-    return f'<svg class="icon{css_class}" viewBox="0 0 24 24" aria-hidden="true">{inner}</svg>'
+    return f'<svg class="icon{css_class}" aria-hidden="true"><use href="#i-{key}"/></svg>'
 
 # Estas páginas cargaban css/style.css SIN minificar: 114 KB en vez de 56 KB,
 # en las ~82 mil páginas, y son justo las que reciben la primera visita desde
@@ -261,7 +266,24 @@ def product_photo_html(product, css_class="detail-icon"):
     )
 
 
+RX_USO_ICONO = re.compile(r'#i-([a-z0-9-]+)')
+
+
+def sprite_iconos(html):
+    """Los <symbol> de los iconos que la página usa, una vez cada uno."""
+    claves = sorted(set(RX_USO_ICONO.findall(html)) & set(ICONS))
+    if not claves:
+        return ""
+    simbolos = "".join(f'<symbol id="i-{k}" viewBox="0 0 24 24">{ICONS[k]}</symbol>' for k in claves)
+    return f'<svg width="0" height="0" style="position:absolute" aria-hidden="true">{simbolos}</svg>'
+
+
 def page_shell(title, description, canonical_path, body, depth, extra_head="", robots="index, follow", og_image=None):
+    html = _page_shell(title, description, canonical_path, body, depth, extra_head, robots, og_image)
+    return html.replace("<body>\n", "<body>\n" + sprite_iconos(html) + "\n", 1)
+
+
+def _page_shell(title, description, canonical_path, body, depth, extra_head="", robots="index, follow", og_image=None):
     """depth = niveles bajo la raíz del sitio (para las rutas relativas ../).
 
     depth=None es el caso del 404: GitHub Pages sirve /404.html como

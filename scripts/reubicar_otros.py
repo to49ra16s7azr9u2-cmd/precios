@@ -581,3 +581,23 @@ _GRUPOS_5 = [
 ]
 _POR_GRUPO = ([(cats, re.compile(rx), dest) for cats, rx, dest in _LIBROS_5] + _POR_GRUPO
               + [(cats, re.compile(rx), dest) for cats, rx, dest in _GRUPOS_5])
+
+
+# ------------------------------------------------------------------------
+# «Limpieza y hogar» (24-sep-2026): con los feeds de Walmart, Bodega Aurrerá
+# y Sam's entra todo lo que no es comida (a pedido del usuario: «基本的に食
+# 品以外は取り込んでいきましょう»), y los consumibles de la casa no tenían
+# dónde caer (un detergente a «Blancos», un insecticida a «Electrodomésticos»).
+LIMPIEZA_HOGAR = 'Limpieza y hogar'
+SUBS_LIMPIEZA_HOGAR = ['Detergentes y suavizantes', 'Limpiadores y desinfectantes', 'Papel higiénico y servilletas',
+                       'Bolsas de basura y desechables', 'Aromatizantes y velas', 'Insecticidas y repelentes']
+ICONO[LIMPIEZA_HOGAR] = 'house'
+FAMILIAS_LIMPIEZA_HOGAR = [
+    ('Lavandería', ['Detergentes y suavizantes']),
+    ('Limpieza de la casa', ['Limpiadores y desinfectantes', 'Insecticidas y repelentes']),
+    ('Papel y desechables', ['Papel higiénico y servilletas', 'Bolsas de basura y desechables']),
+    ('Ambiente', ['Aromatizantes y velas']),
+]
+# En esta categoría el consumible ES el producto: todas quedan con el rol
+# por defecto («producto»), para que encabecen su orden por precio.
+ROLES_LIMPIEZA_HOGAR = {}

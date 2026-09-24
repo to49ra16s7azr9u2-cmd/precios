@@ -6,3 +6,14 @@ node_modules/
 # trabajo que crece a decenas de MB y cambia en cada corrida. El catálogo
 # publicado es data/data.json y sus trozos, no esto.
 data/coppel/
+
+# ComparaMEX Local: los reportes de precios de mercado son para cada tienda,
+# no para publicar (el repositorio se sirve entero como sitio).
+local/reportes/
+local/revision/
+
+# Las capturas crudas (JSON del marcador, feeds bajados) no se publican: el
+# repositorio se sirve entero como sitio y eran 131 MB que ninguna página
+# lee. Lo que traían ya está en el catálogo; las viejas siguen en el
+# historial de git.
+capturas/

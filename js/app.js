@@ -2110,8 +2110,25 @@
   let productIndexPromise = null;       // data/index.json (id -> categoría)
   let allProductsPromise = null;
 
+  // Las shards de categoría no traen lo obvio (ver _sin_obvios en
+  // scripts/data_io.py): la categoría, la marca vacía, la ficha técnica
+  // vacía y el icono de la categoría. Se ponen acá, al fusionar, para que el
+  // resto de la app vea el producto completo.
+  function conObvios(p, catId) {
+    if (catId == null) return p;
+    if (p.category == null) p.category = catId;
+    if (p.brand == null) p.brand = "";
+    if (p.specs == null) p.specs = [];
+    if (p.image == null) {
+      const c = ((state.data && state.data.categories) || []).find((x) => x.id === catId);
+      if (c && c.icon) p.image = c.icon;
+    }
+    return p;
+  }
+
   function mergeProducts(list, catId) {
     list.forEach((p, i) => {
+      conObvios(p, catId);
       // La posición dentro de la categoría es la que ubica el chunk de
       // detalle, así que se guarda aunque el producto ya estuviera cargado
       // (los rankings de Inicio traen algunos productos sueltos, sin

@@ -462,17 +462,48 @@ def _file_lists(mapping):
     return [f for files in mapping.values() for f in files]
 
 
+# Lo que en una shard de categoría es obvio no se escribe (24-sep-2026, 14%
+# de data/cat): la categoría (es la de la shard), la marca vacía, la ficha
+# técnica vacía y el icono cuando es el de la categoría. load_catalog() y
+# mergeProducts() en js/app.js lo vuelven a poner al leer, así que para todo
+# lo demás el producto se ve igual que antes.
+def _sin_obvios(p, cat_id, icono_cat):
+    q = p
+    for campo, obvio in (("category", cat_id), ("brand", ""), ("specs", []), ("image", icono_cat)):
+        if campo in q and q[campo] == obvio and obvio is not None:
+            if q is p:
+                q = dict(p)
+            del q[campo]
+    return q
+
+
+def _con_obvios(p, cat_id, icono_cat):
+    p.setdefault("category", cat_id)
+    p.setdefault("brand", "")
+    p.setdefault("specs", [])
+    if icono_cat is not None:
+        p.setdefault("image", icono_cat)
+    return p
+
+
 def load_catalog():
     with open(MANIFEST_PATH, encoding="utf-8") as f:
         manifest = json.load(f)
 
     # Partición por categoría (actual) o, si el árbol viene de antes de la
     # migración, la partición ciega por conteo.
-    product_files = _file_lists(manifest.get("categoryFiles", {})) or manifest.get("productFiles", [])
     products = []
-    for fname in product_files:
-        with open(os.path.join(ROOT, fname), encoding="utf-8") as f:
-            products.extend(json.load(f))
+    iconos_cat = {c["id"]: c.get("icon") for c in manifest.get("categories") or []}
+    por_categoria = manifest.get("categoryFiles") or {}
+    if isinstance(por_categoria, dict) and por_categoria:
+        for cat_id, files in por_categoria.items():
+            for fname in files:
+                with open(os.path.join(ROOT, fname), encoding="utf-8") as f:
+                    products.extend(_con_obvios(p, cat_id, iconos_cat.get(cat_id)) for p in json.load(f))
+    else:
+        for fname in _file_lists(por_categoria) or manifest.get("productFiles", []):
+            with open(os.path.join(ROOT, fname), encoding="utf-8") as f:
+                products.extend(json.load(f))
 
     # Los detalles se vuelven a pegar acá: del lado de Python (importadores,
     # refrescos, generador de páginas SEO) el catálogo se sigue viendo
@@ -661,6 +692,7 @@ def save_catalog(data):
     slugs = _category_slugs(groups.keys())
 
     category_files, detail_files = {}, {}
+    iconos_cat = {c["id"]: c.get("icon") for c in data.get("categories") or []}
     for cat_id, items in groups.items():
         slug = slugs[cat_id]
         chunks = [
@@ -668,10 +700,11 @@ def save_catalog(data):
             for i in range(0, len(items), CATEGORY_CHUNK_SIZE)
         ] or [[]]
         files = []
+        icono_cat = iconos_cat.get(cat_id)
         for i, chunk in enumerate(chunks, 1):
             fname = f"{CAT_DIR}/{slug}-{i}.json"
             files.append(fname)
-            _write(fname, chunk)
+            _write(fname, [_sin_obvios(p, cat_id, icono_cat) for p in chunk])
         category_files[cat_id] = files
 
         # Los detalles se parten por POSICIÓN DENTRO DE LA CATEGORÍA: la SPA
