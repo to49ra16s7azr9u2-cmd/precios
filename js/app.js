@@ -926,14 +926,19 @@
     const priceUSD = offer.priceOriginal && offer.priceOriginal.currency === "USD" ? offer.priceOriginal.amount : null;
     if (threshold != null && priceUSD != null && priceUSD >= threshold) return { text: "Envío gratis", cls: "free" };
     const info = shippingFeeInfo(offer);
-    if (info.estimated) return { text: `+ ${money(info.fee)} envío (estimado)`, cls: "estimated" };
+    if (info.estimated) return { text: `+ ${money(info.fee)} envío`, cls: "estimated", estimado: true };
     if (store && !store.hubRegion) return { text: "Envío internacional", cls: "" };
     return null;
   }
 
+  const AVISO_ESTIMADO = '<span class="aviso-estimado" title="Costo de envío estimado" aria-label="estimado">⚠</span>';
+
   function shippingCaptionHtml(offer) {
     const c = shippingCaptionOf(offer);
-    return c ? `<span class="ship-caption ship-caption--${c.cls || "neutral"}">${c.text}</span>` : "";
+    // «Estimado» va sólo como el signo de aviso (a pedido del usuario), con
+    // la palabra en el title/aria-label para quien la necesite.
+    const aviso = c && c.estimado ? ` ${AVISO_ESTIMADO}` : "";
+    return c ? `<span class="ship-caption ship-caption--${c.cls || "neutral"}">${c.text}${aviso}</span>` : "";
   }
 
   // Precio a mostrar/ordenar/filtrar en toda la app, según el toggle
@@ -4163,7 +4168,7 @@
       // que shippingCaptionHtml() para el resto del catálogo.
       const shippingText = item.shippingFree
         ? `<span class="ship-caption ship-caption--free">Envío gratis</span>`
-        : `<span class="ship-caption ship-caption--estimated">+ ${money(SHIPPING_ESTIMATE_MXN.mercadolibre)} envío (estimado)</span>`;
+        : `<span class="ship-caption ship-caption--estimated">+ ${money(SHIPPING_ESTIMATE_MXN.mercadolibre)} envío ${AVISO_ESTIMADO}</span>`;
       const liveShipEstimated = state.includeShipping && !item.shippingFree;
       const livePrice = item.price + (liveShipEstimated ? SHIPPING_ESTIMATE_MXN.mercadolibre : 0);
       row.innerHTML = `
@@ -7046,7 +7051,7 @@
       // sola pastilla, con el mismo aviso al tocarla.
       ? compacto
         ? `<span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">${money(r.shipEstimateFee)} est.</span>`
-        : `${money(r.shipEstimateFee)} <span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">${icon("alert-triangle")} estimado</span>`
+        : `${money(r.shipEstimateFee)} <span class="est-badge" title="${htmlEscapeAttr(`Referencia aproximada, no una cotización real de paquetería. ${intlTooltip}`)}">${icon("alert-triangle")}</span>`
       : !r.store.hubRegion
       ? `<span class="ship-badge ship-badge-intl" title="${htmlEscapeAttr(intlTooltip)}">${icon("globe")} ${txtIntl}</span>`
       : "—";
@@ -7139,7 +7144,7 @@
       // (ver estimateShippingFee) cuando hay una región seleccionada.
       const shippingShort = r.shippingFee === 0 ? "envío gratis"
         : r.shippingFee != null ? `envío ${money(r.shippingFee)}`
-        : r.shipEstimateFee != null ? `envío ${money(r.shipEstimateFee)} (estimado)`
+        : r.shipEstimateFee != null ? `envío ${money(r.shipEstimateFee)} ${AVISO_ESTIMADO}`
         : null;
       let deliveryHtml = "";
       if (r.days !== null) {
@@ -7149,7 +7154,7 @@
         // todavía, a diferencia del precio) — se marca igual que los
         // precios "de referencia", para no dar a entender que es un dato
         // confirmado con la tienda.
-        deliveryHtml = `<div class="delivery-sub ${d.cls}">${d.text}${r.days === fastestDays ? '<span class="best-tag">MÁS RÁPIDO</span>' : ""}${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Estimado por distancia, no confirmado con la tienda">${icon("alert-triangle")} estimado</span></div>`;
+        deliveryHtml = `<div class="delivery-sub ${d.cls}">${d.text}${r.days === fastestDays ? '<span class="best-tag">MÁS RÁPIDO</span>' : ""}${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Estimado por distancia, no confirmado con la tienda">${icon("alert-triangle")}</span></div>`;
       } else if (r.store.typicalShippingDays) {
         // Mismo hueco que el de "Envío": sin hubRegion nunca se calcula un
         // estimado por distancia, así que esta celda se quedaba vacía en el
@@ -7157,7 +7162,7 @@
         // publicado en la página de envíos de cada tienda (investigado por
         // tienda, no inventado) en vez de dejarla en blanco.
         const [lo, hi] = r.store.typicalShippingDays;
-        deliveryHtml = `<div class="delivery-sub">Entrega en ${lo}–${hi} días${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Rango típico publicado por la tienda para envío internacional, no una estimación por distancia ni un dato confirmado por pedido">${icon("alert-triangle")} estimado</span></div>`;
+        deliveryHtml = `<div class="delivery-sub">Entrega en ${lo}–${hi} días${shippingShort ? ` · ${shippingShort}` : ""}<span class="est-badge" title="Rango típico publicado por la tienda para envío internacional, no una estimación por distancia ni un dato confirmado por pedido">${icon("alert-triangle")}</span></div>`;
       }
       const stockInfo = STOCK_INFO[r.stock] || null;
       // r.price/r.listPrice ya vienen ajustados por displayPrice()/

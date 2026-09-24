@@ -4867,3 +4867,6 @@ tr.offer-compare-off { display: none; }
   /* En el teléfono va arriba de la lista: con los tres primeros basta. */
   .local-item:nth-child(n+4) { display: none; }
 }
+
+/* «Estimado» sólo como signo de aviso (la palabra va en el title). */
+.aviso-estimado { color: #a15c00; font-weight: 700; cursor: help; margin-left: 2px; }
