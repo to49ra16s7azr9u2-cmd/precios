@@ -640,6 +640,9 @@ import reubicar_otros as _ro  # noqa: E402
 FAMILIAS[_ro.SOLAR] = _ro.FAMILIAS_SOLAR
 for _cat, (_fam, _sub) in _ro.FAMILIAS_AGREGAR.items():
     FAMILIAS[_cat] = [(f, (m + [_sub] if f == _fam and _sub not in m else m)) for f, m in FAMILIAS.get(_cat, [])]
+for _cat, _pares in _ro.FAMILIAS_AGREGAR_VARIAS.items():
+    for _fam, _sub in _pares:
+        FAMILIAS[_cat] = [(f, (m + [_sub] if f == _fam and _sub not in m else m)) for f, m in FAMILIAS.get(_cat, [])]
 
 # Palabras que no pueden ser la cabeza de una familia.
 _VACIAS = {"de", "para", "y", "con", "en", "del", "la", "el", "los", "las",

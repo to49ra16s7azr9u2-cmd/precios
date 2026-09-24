@@ -6245,14 +6245,17 @@ class ModeloCatalogo:
     y cubrió el 68% (24-sep-2026); sin margen acertaba el 85%."""
     MARGEN = 8.0
 
-    def __init__(self):
+    def __init__(self, productos=None):
+        # `productos`: entrenar con una lista en memoria (clasificar_restantes.py
+        # lo reentrena después de cada ronda, con lo que acaba de clasificar).
         from data_io import load_catalog
         from detectar_mal_clasificados import Bayes, tokens
         self._tokens = tokens
         self.m = Bayes()
         self.subs = collections.defaultdict(Bayes)
         iconos = collections.defaultdict(collections.Counter)
-        productos = load_catalog()['products']
+        if productos is None:
+            productos = load_catalog()['products']
         # Tercer juez del alta: los vecinos más parecidos (vecinos_catalogo.py).
         from vecinos_catalogo import Vecinos
         self.vecinos = Vecinos(productos)
@@ -6483,6 +6486,17 @@ def decidir(it, pistas=None):
                 dd = _decidir_base({**it, '_forzar': (cat, None, reubicar_otros.ICONO.get(cat, 'box'))}, pistas)
                 sub = dd.get('subcategory') if dd.get('category') == cat else None
             d = {**d, 'category': cat, 'subcategory': sub, 'image': reubicar_otros.ICONO.get(cat, d.get('image'))}
+    # Grupos a los que antes les faltaba subcategoría (muebles de baño,
+    # aparadores, cilindros de gas, power banks que caían en Cargadores).
+    if d.get('estado') == 'alta' and (not d.get('subcategory') or d.get('subcategory') in ('Otros', 'Varios')):
+        g = reubicar_otros.por_grupo(d.get('category'), T(it['title']))
+        if g:
+            cat, sub = g
+            if sub is None:
+                dd = _decidir_base({**it, '_forzar': (cat, None, reubicar_otros.ICONO.get(cat, 'box'))}, pistas)
+                sub = dd.get('subcategory') if dd.get('category') == cat else None
+            if sub:
+                d = {**d, 'category': cat, 'subcategory': sub, 'image': reubicar_otros.ICONO.get(cat, d.get('image'))}
     return d
 
 def main():
