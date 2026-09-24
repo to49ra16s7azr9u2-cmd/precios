@@ -12,6 +12,12 @@ cd "$(dirname "$0")/.."
 echo "=== reaplicar_reglas ==="
 python3 scripts/reaplicar_reglas.py --aplicar > /tmp/reaplicar_reglas.log 2>&1
 sed -n '1,25p;/^Guardado/p' /tmp/reaplicar_reglas.log
+# Después, el juez híbrido: el modelo del catálogo + el sustantivo + las
+# reglas (reclasificar_hibrido.py). Mueve lo que el catálogo mismo dice que
+# está fuera de lugar, con las definiciones y lo movido a mano intocables.
+echo "=== reclasificar_hibrido ==="
+python3 scripts/reclasificar_hibrido.py --aplicar > /tmp/reclasificar_hibrido.log 2>&1
+sed -n '1,12p;/^Guardado/p' /tmp/reclasificar_hibrido.log
 echo "=== sync_subcategories ==="; python3 scripts/sync_subcategories.py 2>&1 | tail -3
 echo "=== compute_facets ==="; python3 scripts/compute_facets.py 2>&1 | tail -2
 echo "=== compute_quality_axes ==="; python3 scripts/compute_quality_axes.py 2>&1 | tail -2

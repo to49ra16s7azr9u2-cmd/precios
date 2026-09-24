@@ -946,6 +946,11 @@ COMP = (PC, 'Componentes', 'cpu')
 # refacción, así que no se mezclan con los aparatos al ordenar por precio.
 # (whirlpool.mx, 23-sep: 20 fichas que quedaban fuera del catálogo.)
 ANTES_DE_FUERA = [
+    # Silla de ruedas, rollator, andadera ortopédica: Salud. FUERA las
+    # descartaba («silla de ruedas» no es una silla) y el modelo del
+    # catálogo las mandaba a Muebles.
+    (re.compile(r'^(?:\S+ ){0,3}(sillas? de ruedas|rollator|andaderas? (ortopedica|para adultos|de aluminio|rollator)|silla de traslado)'),
+     ('Salud', 'Movilidad', 'heart-pulse')),
     (re.compile(r'^(combo )?affresh\b|^toall(a|itas) limpiadoras? para (parrillas|acero)'),
      ('Electrodomésticos', 'Limpiadores para electrodomésticos', 'appliance')),
     (re.compile(r'^pedestal \d{2} ?cm\b'),
@@ -964,7 +969,42 @@ ANTES_DE_FUERA = [
 # parte y era la mayor fuente de discrepancias con el catálogo (24-sep):
 # «Andadera bebé ... auto», «Cámara PTZ ... Auto Tracking», «Lámpara
 # colgante para isla de cocina», «Teléfono con altavoz».
-REGLAS = [
+DEFINICIONES = [
+    # Power bank (batería externa con mAh): Baterías portátiles, aunque
+    # traiga cable, MagSafe o carga inalámbrica.
+    (re.compile(r'^(?:\S+ ){0,4}(bater(i|í)as? (portatil|externa|inalambrica|magnetica)|power ?bank|banco de (energia|bateria)|cargador portatil)\b(?=.*\b\d[\d.,]* ?mah\b)'),
+     ('Baterías portátiles', None, 'battery')),
+    # Hieleras y enfriadores portátiles (también el de insulina):
+    # Refrigeradores, no Climatización.
+    (re.compile(r'^(?:\S+ ){0,3}(hieleras?|neveras? portatil(es)?|enfriador(es)? (termoelectrico|portatil|de insulina|de medicamentos)|refrigerador(es)? (portatil|de insulina))'),
+     ('Refrigeradores', None, 'fridge')),
+    # Cafeteras y máquinas de espresso: Cafeteras.
+    (re.compile(r'^(?:\S+ ){0,4}(cafeteras?|maquinas? (de|para) (cafe|espresso)|espresso)\b(?!.*\b(filtros? de|repuesto|jarra de repuesto|capsulas? (de|para) (cafe|repuesto)|limpiador|descalcificador)\b)'),
+     ('Cafeteras', None, 'coffee')),
+    # Aspirador nasal: cuidado del bebé.
+    (re.compile(r'aspirador(es)? nasal|saca ?mocos'),
+     ('Juguetes y bebés', 'Cuidado y salud del bebé', 'toy')),
+    # Silla alta / periquera para bebé: Juguetes y bebés.
+    (re.compile(r'^(?:\S+ ){0,3}(periqueras?|sillas? altas? (para |de )?(bebe|comer)|sillas? de comer)\b'),
+     ('Juguetes y bebés', 'Sillas de comer y mecedoras', 'toy')),
+    # Cama o camilla de masaje / spa: mobiliario de salón.
+    (re.compile(r'^(?:\S+ ){0,3}(camas? de masajes?|camillas? (de masajes?|facial|para spa|de spa|de pestanas)|sillon(es)? (de )?(barberia|barbero|peluqueria))'),
+     ('Belleza y cuidado personal', 'Mobiliario para salón', 'sparkle')),
+    # All in One, Mini PC, iMac y Surface Studio en cualquier parte del
+    # título, con procesador o memoria: Computadoras de escritorio.
+    (re.compile(r'(?=.*\b(all[- ]in[- ]one|aio|todo en uno|mini ?pc|imac|surface studio|computadora de sobremesa)\b)(?=.*\b(core i[3579]|core ultra|intel|ryzen|celeron|n\d{3,4}|\d+ ?gb)\b)(?!^(?:\S+ ){0,3}(soporte|funda|brazo|base|cable|cargador|adaptador|memoria|ssd|disco|teclado|mouse|monitor portatil)\b)'),
+     ('Computadoras de escritorio', None, 'desktop')),
+    # Máquinas de cocina de uso comercial o industrial: Equipo comercial.
+    (re.compile(r'^(?:\S+ ){0,5}(maquinas?|batidoras?|licuadoras?|freidoras?|planchas?|parrillas?|calentador(es)? de alimentos|peladoras?|rebanadoras?|vitrinas?|hornos?|estufas?|dispensador(es)?|asadores?|marmitas?|tostador(es)?)\b.*\b(comercial(es)?|industrial(es)?|para restaurantes?|para negocios?)\b'),
+     ('Equipo comercial', 'Cocina industrial', 'factory')),
+    # Silla de ruedas, andadera ortopédica, rollator: Salud (movilidad).
+    # Tabletas por nombre de línea: iPad, Galaxy Tab, Redmi/Xiaomi/Poco Pad.
+    (re.compile(r'^(?:\S+ ){0,3}(ipad|galaxy tab|(xiaomi|redmi|poco|honor|oneplus|lenovo|huawei|realme) (redmi )?(pad|tab|matepad))\b(?!.*\b(funda|case|protector|mica|teclado|lapiz|stylus|cargador|cable|soporte)\b)'),
+     ('Tabletas', None, 'tablet')),
+    # PC de escritorio y All in One con procesador: Computadoras de
+    # escritorio (el modelo los confundía con laptops por las specs).
+    (re.compile(r'^(?:\S+ ){0,4}(aio|all[- ]in[- ]one|todo en uno|desktop|computadora de escritorio|pc de escritorio|computadora de sobremesa|sobremesa)\b(?=.*\b(core i[3579]|core ultra|intel|ryzen|celeron|pentium|\d+ ?gb)\b)(?!.*\b(escritorio (gamer|para|de oficina|en l|elevable)|mesa|soporte|organizador|funda|memoria ram|ssd interno)\b)'),
+     ('Computadoras de escritorio', None, 'desktop')),
     # --- DEFINICIONES (24-sep-2026) ------------------------------------
     # Una sola casa por tipo de producto, como en kakaku.com: donde dos
     # categorías podían reclamar lo mismo, manda la que ya usa el catálogo
@@ -975,7 +1015,7 @@ REGLAS = [
     (re.compile(r'^(?:\S+ ){0,2}(bicicletas?|bicimoto|scooters?|patinet(e|a)s?|monopatin(es)?) electric(o|a|os|as)\b(?!.*\b(repuesto|refaccion|bateria para|cargador|freno|llanta|camara de llanta|acelerador|controlador|motor de cubo)\b)'),
      ('Movilidad eléctrica', None, 'scooter')),
     # Bicicleta fija, de spinning, elíptica, caminadora: Deportes (cardio).
-    (re.compile(r'^(?:\S+ ){0,3}(bicicletas? (de |para )?(ejercicio|fija|estatica|spinning|reclinada)|bici (fija|estatica)|spinning|elipticas?|caminadoras?)\b'),
+    (re.compile(r'^(?:\S+ ){0,6}(bicicletas? (de |para )?(ejercicio|fija|estatica|spinning|reclinada|de aire)|bici (fija|estatica)|spinning|elipticas?|caminadoras?)\b'),
      ('Deportes y fitness', None, 'dumbbell')),
     # Lo que va con el bebé o el niño: triciclo infantil, andadera, montable,
     # asiento elevador para auto.
@@ -1028,6 +1068,12 @@ REGLAS = [
     # Impresora térmica de tickets / punto de venta: Equipo comercial.
     (re.compile(r'^(?:\S+ ){0,3}(impresora termica|impresora de tickets|miniprinter)\b.*\b(tickets?|punto de venta|pos|80 ?mm|58 ?mm)\b|kit de punto de venta'),
      ('Equipo comercial', 'Punto de venta', 'factory')),
+]
+# Las definiciones van primero; además reclasificar_hibrido.py nunca saca
+# de su categoría a una ficha que una definición pone ahí.
+N_DEFINICIONES = len(DEFINICIONES)
+
+REGLAS = DEFINICIONES + [
     # Línea blanca con el nombre pelado, como la nombra una tienda de marca
     # (whirlpool.mx, 23-sep): "Secadora a gas 22kg", "Estufa eléctrica de 30
     # pulgadas", "Campana Empotrable 76 cm". Las reglas de abajo pedían la
@@ -6244,21 +6290,24 @@ def decidir(it, pistas=None):
         mk, cat, sub, img = EXPLICITOS[it['asin']]
         return {'estado': 'alta', 'brand': mk, 'category': cat, 'subcategory': sub,
                 'image': img, 'via': 'explicito'}
-    antes = next((v for rx, v in ANTES_DE_FUERA if rx.search(tn)), None)
+    antes = None if it.get('_forzar') else next((v for rx, v in ANTES_DE_FUERA if rx.search(tn)), None)
     if antes:
         cat, sub, img = antes
         return {'estado': 'alta', 'brand': marca(it['title']), 'category': cat,
                 'subcategory': sub, 'image': img, 'via': 'antes_de_fuera'}
     motivo = (next((m for rx, m in FUERA if rx.search(tn)), None)
               or next((m for rx, m in CABECERA if rx.search(tn[:55])), None))
-    if motivo:
+    if motivo and not it.get('_forzar'):
         return {'estado': 'fuera', 'motivo': motivo}
     # El departamento de Amazon manda cuando nombra una subcategoría del
     # catálogo; si solo nombra la categoría, es la red para lo que ninguna
     # regla reconoce.
     pista = (pistas or {}).get(T(it.get('dept') or ''))
     n_regla, hit = None, None
-    if pista and pista[1]:
+    if it.get('_forzar'):
+        hit = it['_forzar']
+        via = 'forzado'
+    elif pista and pista[1]:
         hit = pista
     else:
         n_regla, hit = regla_para(it['title'], tn)
@@ -6269,7 +6318,8 @@ def decidir(it, pistas=None):
     if not hit:
         return {'estado': 'fuera', 'motivo': 'no encaja en ninguna categoría'}
     cat, sub, img = hit
-    if hit is not pista and via != 'modelo':
+    es_definicion = isinstance(n_regla, int) and n_regla < N_DEFINICIONES
+    if hit is not pista and via not in ('modelo', 'forzado') and not es_definicion:
         manda = sustantivo_manda(it['title'], cat)
         if manda:
             cat, sub, img = manda
