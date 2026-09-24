@@ -11834,5 +11834,88 @@
    "Cocina y comedor | Repostería y moldes | Muebles | Otros": 1,
    "Viajes | Camping | Electrodomésticos | Planchas": 1
   }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador 8ec842d4ad83e1ec) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Celulares | Android | Almacenamiento | NAS": 2,
+   "Baterías portátiles | Estaciones de energía | Energía solar | Kits solares y controladores de carga": 1,
+   "Baterías portátiles | Hasta 10,000 mAh | Impresoras | Inyección de tinta": 1,
+   "Cargadores y adaptadores | Cable | Energía solar | Accesorios y limpieza de paneles solares": 1,
+   "Cargadores y adaptadores | De pilas | Drones | Accesorios": 3,
+   "Cargadores y adaptadores | De pared | Drones | Accesorios": 1,
+   "Cargadores y adaptadores | De pilas | Drones | Mini drones": 1,
+   "Decoración de hogar y jardín | Albercas y spa | Tabletas | Tabletas Android": 1,
+   "Climatización | Calefactores para pies y personales | Blancos y ropa de cama | Chales y mantas eléctricas para regazo": 1,
+   "Climatización | Calefactores cerámicos y de aire | Blancos y ropa de cama | Cobijas eléctricas": 2,
+   "Autos, bicicletas y motos | Autos | Energía solar | Inversores": 1,
+   "Bocinas | Bocinas con luces LED | Cámaras de seguridad | Cámaras PTZ": 1,
+   "Herramientas | Herramientas eléctricas | Energía solar | Inversores": 2,
+   "Herramientas | Baterías y cargadores de herramienta | Energía solar | Inversores": 2,
+   "Videojuegos | Otros accesorios gamer | Bocinas | Bocinas Bluetooth": 1,
+   "Mascotas | Bebederos | Equipo comercial | Cocina industrial": 1,
+   "Mascotas | Correas | Joyería y bisutería | Collares": 1,
+   "Domótica y hogar inteligente | Bocinas inteligentes | Impresoras | Inyección de tinta": 1,
+   "Refacciones | Para patinetas eléctricas | Salud | None": 3,
+   "Aspiradoras | Accesorios | Electrodomésticos | Filtros y membranas de repuesto": 1
+  }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Celulares | Soportes y agarraderas | Muebles | Sillas plegables y de camping": 1,
+   "Autos, bicicletas y motos | Bicicletas urbanas y de paseo | Deportes y fitness | Bicicletas fijas": 1
+  }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador 332cc5b91c2e7b30) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Celulares | Android | Computadoras de escritorio | All in One": 1,
+   "Celulares | Soportes y agarraderas | Teclados | Inalámbricos": 2,
+   "Cargadores y adaptadores | De pilas | Drones | Accesorios": 3,
+   "Cargadores y adaptadores | De auto | Drones | Accesorios": 1,
+   "Cargadores y adaptadores | De pared | Drones | Accesorios": 1,
+   "Climatización | Calefactores para pies y personales | Blancos y ropa de cama | Cobijas eléctricas": 1,
+   "Refacciones | Para patinetas eléctricas | Salud | None": 1
+  }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Celulares | Soportes y agarraderas | Teclados | Combos con mouse": 1,
+   "Electrodomésticos | Limpieza del hogar y lavandería | Muebles | None": 1
+  }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador 332cc5b91c2e7b30) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Libros | Técnicos y profesionales | Videojuegos | Otros accesorios gamer": 1,
+   "Cargadores y adaptadores | Cargadores multipuerto y estaciones de carga | Drones | Accesorios": 1
+  }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Deportes y fitness | Bancos y racks | Muebles | Taburetes y bancos": 1,
+   "Refacciones | Refacciones para refrigerador | Electrodomésticos | Filtros para refrigerador y cafetera": 1
+  }
  }
 ]

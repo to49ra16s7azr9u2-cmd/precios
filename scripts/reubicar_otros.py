@@ -354,3 +354,230 @@ _GRUPOS_3 = [
 _POR_GRUPO += [(cats, re.compile(rx), dest) for cats, rx, dest in _GRUPOS_3]
 FAMILIAS_AGREGAR_VARIAS.setdefault('Electrodomésticos', []).append(('Limpieza y ropa', LIMPIEZA))
 FAMILIAS_AGREGAR_VARIAS.setdefault('Cocina y comedor', []).append(('Cocinar', DELANTALES))
+
+
+# ------------------------------------------------------------------------
+# Cuarta pasada (24-sep-2026, 48 en Varios y 414 sin subcategoría). Aquí
+# muchas fichas estaban en la CATEGORÍA equivocada (artículos de bebé y de
+# alberca en Juegos de mesa, tablas de planchar en Muebles, libros en
+# inglés en cualquier lado), así que varias reglas cambian de categoría.
+_MJ = ('Juegos de mesa',)
+_JO = ('Joyería y bisutería',)
+_MU = ('Muebles',)
+_HE = ('Herramientas',)
+_EL = ('Electrodomésticos',)
+_VI = ('Videojuegos',)
+_TODAS = ('Otros', 'Juegos de mesa', 'Muebles', 'Joyería y bisutería', 'Videojuegos', 'Herramientas')
+_GRUPOS_4 = [
+    # libros sueltos en cualquier categoría
+    (_TODAS, r'^(?:\S+ ){0,4}(libro|el libro)\b|\bpublicacion independiente|\blibro autoeditado|\bintroduction to|\bresearch, theory|'
+             r'\ba simple guide\b|\bwriting\b.{0,40}\b(routledge|research)|\bpublications international\b', ('Libros', None)),
+    # Otros / Varios
+    (_O, r'^(?:\S+ ){0,2}balanza', ('Cocina y comedor', 'Básculas y medidores')),
+    (_O, r'\bbancos? de energia|\bbateria para magsafe', ('Baterías portátiles', None)),
+    (_O, r'^(?:\S+ ){0,1}biberon', ('Juguetes y bebés', 'Biberones')),
+    (_O + _HE, r'\bcaja fuerte|\bcandado biometrico', ('Herramientas', 'Cerraduras y candados')),
+    (_O, r'^(?:\S+ ){0,1}cilindro \d+ ?kg', ('Herramientas', 'Gas LP')),
+    (_O, r'\barmonica|\bbigote clip.?on para tuba|\bdjembe', ('Instrumentos musicales', None)),
+    (_O, r'\bestuche.{0,40}\bpara (audifonos|auriculares)', ('Audífonos', 'Accesorios')),
+    (_O, r'\bestuche para anteojos', ('Viajes', 'Accesorios de viaje')),
+    (_O, r'\bteleprompter', ('Cámaras y fotografía', 'Accesorios')),
+    (_O, r'\bteclado\b.{0,30}\b(bluetooth|inalambric)|\bkit de teclado', ('Teclados', None)),
+    (_O, r'^(?:\S+ ){0,2}lana\b|\barcilla polimerica|\btela autoadhesiva para manualidades|\bherramientas de dibujo', ('Juegos de mesa', PINTAR)),
+    (_O, r'\breloj despertador', ('Joyería y bisutería', 'Relojes de bolsillo y de pared')),
+    (_O, r'\btapon de drenaje para refrigeradores igloo', ('Viajes', 'Camping')),
+    (_O, r'\btabla colgante escalada', ('Deportes y fitness', None)),
+    (_O, r'\bempunadura para telefono|\bagarre de telefono', ('Celulares', SOPORTES)),
+    (_O, r'\btrituradora(s)? de (tejidos|muestras)', ('Herramientas', 'Medición')),
+    # Juegos de mesa / Otros juegos
+    (_MJ, r'\bbeb[ea]s?\b|\bbaby\b|\bplay space|\bcapazo|\bcaballito montable', ('Juguetes y bebés', None)),
+    (_MJ, r'\bnatacion|\bflotacion|\bpistolas? de agua|\barenero|\bbolos\b|\bflying disc|\bpopdarts|\bjuego activo|\bluz roja luz verde',
+     ('Juguetes y bebés', 'Juguetes para exterior')),
+    (_MJ, r'\bkit de (diseccion|actividades|practica de soldadura|modelo de motor)|\btriops|\bterrario|\bpellets .{0,20}buho|\bhotel de bichos|'
+          r'\bteaching stones|\bagenda visual|\btangram|\bsopa de silabas|\basociacion de imagenes|\blaberinto|\bbrain challenger|\bcilindros de encaje|'
+          r'\bglobe toy|\borboot|\bdiana emocional|\btarro de recompensas|\bgorra de seguimiento eeg', ('Juegos de mesa', 'Educativos')),
+    (_MJ, r'\bjuego de viaje|\bhedbanz|\bque soy\b|\btaco gato|\bmah jongg|\bshut the box|\bjuego de hilo|\bcat.?s cradle|\bequilibrio\b|'
+          r'\bset de juegos \d+ en 1|\bbandeja para tarjetas|\bjuego de gato|\bdoteki|\bslang-o-matic', ('Juegos de mesa', 'De mesa clásicos')),
+    (_MJ, r'\brollos (de )?(hilo|liston)|\bplay-?doh|\bplastilina|\bpegatina|\bfold-roller|\bcarton\b', ('Juegos de mesa', PINTAR)),
+    (_MJ, r'\bjuego nintendo|\bnintendo switch\b', ('Videojuegos', 'Juegos Nintendo Switch')),
+    (_MJ, r'\bimanes decorativos|\bpuerta y ventanas de hadas|\brueda de oracion', ('Decoración de hogar y jardín', ADORNOS)),
+    (_MJ, r'\bguarderia|\bmunecas?\b|\bsupermercado|\bcasita\b', ('Juguetes y bebés', 'Muñecas')),
+    # Joyería / Otros
+    (_JO, r'\b(conjunto|juego|set) (de )?joyeria|\bjewelry set|\bjoyeria de \d piezas|\bset nudo de bruja|\bjuego joyeria', ('Joyería y bisutería', 'Arras y sets')),
+    (_JO, r'^(?:\S+ ){0,1}(aro|arracadas?|arrancadas|violadores)\b|\bjoyas para las orejas|\bpiercing|\bperforacion de orejas', ('Joyería y bisutería', 'Aretes')),
+    (_JO, r'\balicates para joyeria|\bcortadores (generic )?para joyeria|\bfranela para limpiar joyeria|\bmaquina de perforacion.{0,30}joyeria',
+     ('Joyería y bisutería', 'Cuidado y herramientas')),
+    (_JO, r'\banillas abiertas|\bgemas\b|\bagata\b|\bempaques de bisuteria|\bestuches para bisuteria|\btaller de joyeria|\bkit de joyeria|'
+          r'\bkit de actividad sorpresa de estudio de joyeria|\bmi taller de joyeria', ('Joyería y bisutería', 'Material para bisutería')),
+    (_JO, r'\bcinturon', ('Joyería y bisutería', MANCUERNILLAS)),
+    (_JO, r'\bporta-?puas', ('Instrumentos musicales', 'Accesorios de guitarra')),
+    (_JO, r'\bjoyeria (de fe|espiritual|religiosa)|\bfeventdepot|\bespiritualventdepot', ('Joyería y bisutería', 'Collares')),
+    # Muebles / Otros y sin subcategoría
+    (_MU, r'\bburro de planchar|\btabla de planchar', ('Electrodomésticos', 'Planchas')),
+    (_MU, r'\btendedero|\bcesto de ropa', ('Electrodomésticos', LIMPIEZA)),
+    (_MU, r'\bco?l?chon\b.{0,40}\bqueen|\bqueen\b.{0,40}\bco?l?chon', ('Muebles', 'Colchones queen size')),
+    (_MU, r'\bco?l?chon\b.{0,40}\bking|\bking\b.{0,40}\bco?l?chon', ('Muebles', 'Colchones king size')),
+    (_MU, r'\bnapnest|\bco?l?chon\b.{0,40}\bmatrimonial', ('Muebles', 'Colchones matrimoniales')),
+    (_MU, r'\bdespensero|\bgabinete inferior|\bmueble organizador multiusos|\bgabinete de bar', ('Muebles', GABINETES)),
+    (_MU, r'\bmesitas auxiliares', ('Muebles', 'Mesas auxiliares y laterales')),
+    (_MU, r'\bmesitas\b.{0,40}\bcajones', ('Muebles', 'Burós')),
+    (_MU, r'\bespejo cuerpo completo', ('Decoración de hogar y jardín', 'Espejos de cuerpo completo')),
+    (_MU, r'\bmaceta decorativa', ('Decoración de hogar y jardín', ADORNOS)),
+    (_MU, r'\bbase para monitor|\bsoporte para laptop|\bbandeja ergonomica para teclado', ('Componentes y accesorios de PC', 'Accesorios de monitor')),
+    (_MU, r'\bportarrollos de bano', ('Blancos y ropa de cama', BANO)),
+    (_MU, r'\bbetafpv|\bdron fpv|\btransmisor de radio', ('Drones', 'Accesorios')),
+    (_MU, r'\bcorrea de cabeza vr|\bmeta quest', ('Videojuegos', 'Realidad virtual')),
+    (_MU, r'\bpeluches?\b|\bpillow plush', ('Juguetes y bebés', 'Peluches')),
+    (_MU, r'\bbaby bouncer|\bbright starts', ('Juguetes y bebés', 'Sillas de comer y mecedoras')),
+    (_MU, r'\bcarpa infantil|\btunel exterior|\bset de gis', ('Juguetes y bebés', 'Juguetes para exterior')),
+    (_MU, r'\bpatines\b', ('Deportes y fitness', None)),
+    (_MU, r'\bprotector de bozal', ('Mascotas', None)),
+    (_MU, r'\btable curling|\bhold.?em table|\bchess table', ('Juegos de mesa', 'De mesa clásicos')),
+    (_MU, r'\bbase giratoria ateco', ('Cocina y comedor', 'Repostería y moldes')),
+    # Herramientas sin subcategoría
+    (_HE, r'\babocinad|\bexpansora de resorte|\bcompresion de resortes|\bguia para atornillar|\bkit tipo cartera|\btool-check|\bmango ajustable',
+     ('Herramientas', 'Herramientas manuales')),
+    (_HE, r'\bbomba (autocebante|rotativa)|\btornillo de purga', ('Herramientas', 'Bombas de agua')),
+    (_HE, r'\bcabezal de duch|\bhansgrohe', ('Herramientas', 'Regaderas y duchas')),
+    (_HE, r'\bmueble para bano', ('Muebles', MUEBLES_BANO)),
+    (_HE, r'\barcon rodante', ('Herramientas', 'Organización')),
+    (_HE, r'\bcaja porta ?equipaje|\bportaquipaje', ('Autos, bicicletas y motos', 'Accesorios y refacciones')),
+    (_HE, r'\bpulidor|\bgorros de pulido|\bmenzerna', ('Herramientas', 'Esmeriladoras y pulidoras')),
+    (_HE, r'\blaminadora|\bprensado de tabletas|\bmolino de laminacion|\bmicromotor.{0,40}joyeria|\bperforacion.{0,60}joyeria',
+     ('Joyería y bisutería', 'Cuidado y herramientas')),
+    (_HE, r'\bconexion presion rapida', ('Herramientas', 'Neumáticas')),
+    (_HE, r'\bcadena distribucion', ('Autos, bicicletas y motos', 'Accesorios y refacciones')),
+    (_HE, r'\bplaca de control.{0,40}lavadora', ('Refacciones', 'Refacciones para lavadora y secadora')),
+    (_HE, r'\bmango de armario', ('Muebles', 'Herrajes y refacciones de muebles')),
+    (_HE, r'\bmaquina de limpieza de suelos|\blimpiacristales', ('Electrodomésticos', LIMPIEZA)),
+    # Electrodomésticos sin subcategoría
+    (_EL, r'\bninja slushi|\bbebidas congeladas', ('Electrodomésticos', 'Máquinas de helados y postres')),
+    (_EL, r'\bfreidora (neumatica|de aire)', ('Electrodomésticos', 'Freidoras de aire')),
+    (_EL, r'\bfreidora de mesa', ('Electrodomésticos', 'Freidoras eléctricas')),
+    (_EL, r'\bmini maquina (para|portatil)|\btaiyaki|\bbanderillas|\bcupcakes', ('Electrodomésticos', 'Pequeños electrodomésticos de cocina')),
+    (_EL, r'\bjuice fountain|\bextractor de jugo', ('Electrodomésticos', 'Extractores de jugo')),
+    (_EL, r'\bcalentador instantaneo|\brheem\b', ('Electrodomésticos', 'Calentadores de agua')),
+    (_EL, r'\bfiltro (de sedimentos|para agua)', ('Electrodomésticos', 'Filtros y membranas de repuesto')),
+    (_EL, r'\brecubri\w* (de )?tabletas|\bpurificador de frutas', ('Electrodomésticos', 'Otros electrodomésticos de cocina')),
+    (_EL, r'\bcuidado de sombreros', ('Electrodomésticos', 'Vaporizadores de ropa')),
+    # Videojuegos / Otros accesorios gamer
+    (_VI, r'\bpalanca de velocidades', ('Videojuegos', 'Volantes, arcade y simuladores')),
+    (_VI, r'\btarjeta de captura|\bamiibo|\bemulador|\bamplificador de audifonos', ('Videojuegos', 'Cables y adaptadores')),
+    (_VI, r'\bxbox live|\btarjeta de acceso', ('Videojuegos', 'Tarjetas y suscripciones')),
+    (_VI, r'\bteclado\b.{0,40}\bpara (controlador|xbox|ps5)|\bagarres para palanca|\bcobertura para palanca|\bpara palanca analogica',
+     ('Videojuegos', 'Controles y gamepads')),
+    (_VI, r'\bkit (de )?(\d+ )?accesorios|\bkit de inicio|\bkit powera|\bjuego de proteccion', ('Videojuegos', 'Fundas, micas y protectores')),
+    (_VI, r'\bkit de herramientas.{0,30}(abrir|desmontar)', ('Videojuegos', REFACCIONES_CONSOLA)),
+    (_VI, r'\bvideojuego\b.{0,60}\bps4', ('Videojuegos', 'Juegos PS4')),
+    (_VI, r'-switch\b|\bswitch \(\[bonus', ('Videojuegos', 'Juegos Nintendo Switch')),
+]
+_POR_GRUPO += [(cats, re.compile(rx), dest) for cats, rx, dest in _GRUPOS_4]
+
+
+# ------------------------------------------------------------------------
+# Quinta pasada (24-sep-2026): las ~240 que seguían sin clasificar, leídas
+# título por título. Muchas estaban en una categoría equivocada que ninguna
+# regla de arriba miraba (colchones en Blancos, calentadores de biberón en
+# Climatización, peluches para perro y libros en Mascotas...), por eso casi
+# todas son «cualquier categoría» (None): por_grupo sólo toca lo que está
+# en «Otros», sin subcategoría o en un comodín.
+#
+# Libros con su género: van ANTES que todo (la regla de libros de la cuarta
+# pasada no les daba subcategoría y el repartidor de Libros no encontraba
+# una, así que se quedaban donde estaban).
+_LIBROS_5 = [
+    (None, r'\bbodily autonomy|\bwomen.?s writing', ('Libros', 'Filosofía y ensayo')),
+    (None, r'\bcreative writing and wellbeing', ('Libros', 'Psicología')),
+    (None, r'\bmy period my power', ('Libros', 'Salud y bienestar')),
+    (None, r'\blibro completo de solitario', ('Libros', 'Hogar, manualidades y mascotas')),
+    (None, r'\blibro de imagenes de cachorros|\bel gato que (amaba los libros|venia del cielo)|^yo, el gato$', ('Libros', 'Infantil')),
+    (None, r'\bhacking the xbox', ('Libros', 'Técnicos y profesionales')),
+    (None, r'\bprovidence \(tides of fortune\)', ('Libros', 'Fantasía')),
+    (None, r'\bwarrior of my own', ('Libros', 'Autoayuda y desarrollo personal')),
+    (None, r'\blibro dutton decadence', ('Libros', 'Novela romántica')),
+]
+_BEBE = 'Juguetes y bebés'
+_GRUPOS_5 = [
+    # colchones y protectores fuera de Muebles
+    (None, r'\bcolchon impermeable', ('Blancos y ropa de cama', 'Protectores de colchón impermeables')),
+    (None, r'\bcolchon acolchado|\bcolchon utopia bedding acolchado', ('Blancos y ropa de cama', 'Protectores de colchón acolchados')),
+    (None, r'\bcolchon (de cuna|para corral)', ('Muebles', 'Colchones infantiles y de cuna')),
+    (None, r'\bcolchon viscoelastico.{0,60}\b(doble|matrimonial)', ('Muebles', 'Colchones matrimoniales')),
+    (None, r'\b(alfombra )?cambiador(a)?\b.{0,40}\b(panal|impermeable)|^(?:\S+ ){0,1}cambiador colchon', (_BEBE, 'Pañales y cambio')),
+    (None, r'\bropa para cama\b.{0,30}\bmuneca', (_BEBE, 'Muñecas')),
+    (None, r'^tapete de mesa', ('Cocina y comedor', 'Manteles y caminos de mesa')),
+    # bebés
+    (None, r'\bcalentador (portatil )?de biberon', (_BEBE, 'Alimentación y lactancia')),
+    (None, r'\bmedicion del tamano de bridas', (_BEBE, 'Alimentación y lactancia')),
+    (None, r'\bcolumpio electrico\b.{0,30}\bbebe', (_BEBE, 'Sillas de comer y mecedoras')),
+    (None, r'\bmamadera\b', (_BEBE, 'Biberones')),
+    (None, r'\bpolvo para bebes|\bmustela baby', (_BEBE, 'Baño e higiene del bebé')),
+    (None, r'\bbaby trend\b.{0,40}\bcapazo', (_BEBE, 'Carriolas')),
+    (None, r'\bplay space\b|\bcorral\b.{0,20}\bpaneles', (_BEBE, 'Corrales')),
+    (None, r'\bstroll .?n trike', (_BEBE, 'Triciclos')),
+    (None, r'\bjuego de instrumentos musicales\b.{0,30}\bninos|\bmusical instrument toy|\bteclado electrico\b.{0,40}\bninos', (_BEBE, 'Juguetes musicales')),
+    (None, r'^playmobil\b|\bpop funko|\bfunko pop', (_BEBE, 'Figuras de acción')),
+    (None, r'\bcasa de campana infantil', (_BEBE, 'Juguetes para exterior')),
+    (None, r'\bcompatible con lego\b', (_BEBE, 'Bloques de construcción')),
+    # mascotas
+    (None, r'\bpeluche\b.{0,50}\bpara (perro|mascotas)|\bpeluche (pesado )?para (perro|mascotas)', ('Mascotas', 'Juguetes para perro')),
+    (None, r'\bpuerta\b.{0,40}\bpara mascotas', ('Mascotas', 'Puertas para mascotas')),
+    # salud y cuidado personal
+    (None, r'\bnebulizador compresor', ('Salud', 'Nebulizadores')),
+    (None, r'\bcepillos? de dientes plegables|\besmerilado dental', ('Salud', 'Cuidado dental')),
+    (None, r'\bgel corporal', ('Belleza y cuidado personal', 'Corporales')),
+    (None, r'\bgel nail lamp|\blampara (uv )?de unas|\breposabrazos para unas', ('Belleza y cuidado personal', 'Uñas')),
+    (None, r'\bcepillo de joyas', ('Joyería y bisutería', 'Cuidado y herramientas')),
+    # climatización
+    (None, r'\bcirculador de aire industrial', ('Climatización', 'Ventiladores de piso e industriales')),
+    (None, r'\balfombrillas? de calefaccion usb', ('Blancos y ropa de cama', 'Mantas eléctricas USB y portátiles')),
+    # muebles
+    (None, r'\bcarro de (bebidas|cocina)|\bcarro de bebidas', ('Muebles', 'Carros e islas de cocina')),
+    (None, r'^mueble multimedia', ('Muebles', 'Mesas para TV y consolas')),
+    (None, r'\bde 2 cuerpos\b.{0,20}\btela', ('Muebles', 'Sofás de 2 y 3 plazas')),
+    (None, r'\bdescansa ?pies|\breposapies?\b', ('Muebles', 'Puffs y otomanas')),
+    (None, r'^gabinete multifuncional', ('Muebles', 'Gabinetes de almacenamiento')),
+    (None, r'\bhinge\b', ('Muebles', 'Herrajes y refacciones de muebles')),
+    (None, r'duerme comodamente con esta almohada', ('Blancos y ropa de cama', 'Almohadas')),
+    # domótica
+    (('Domótica y hogar inteligente',), r'\binterruptor regulador|\batenuador\b', ('Domótica y hogar inteligente', 'Dimmers y reguladores inteligentes')),
+    (None, r'\bcalendario digital inteligente|\bhogar inteligente panel de control', ('Domótica y hogar inteligente', 'Hubs')),
+    (None, r'\btuya\b.{0,40}\binterruptor', ('Domótica y hogar inteligente', 'Módulos y relés inteligentes')),
+    (None, r'^philips hue\b.{0,20}\bcable colgante', ('Domótica y hogar inteligente', 'Lámparas y plafones inteligentes')),
+    # teclados
+    (None, r'^kit\b.{0,40}\bteclado\b.{0,60}\bmouse|\bteclado inalambrico con mouse', ('Teclados', 'Combos con mouse')),
+    (('Teclados',), r'\bteclado iluminado\b.{0,40}\bcon cable', ('Teclados', 'Membrana')),
+    # autos y refacciones
+    (None, r'\baltavoces frontales\b.{0,40}\b5\.25|\bbocinas traseras\b.{0,40}\b5\.25', ('Autos, bicicletas y motos', 'Bocinas de 4 a 5.25 pulgadas')),
+    (None, r'^bocina italika', ('Autos, bicicletas y motos', 'Accesorios para moto')),
+    (None, r'\bbocina electrica para (ford|gm)|\bbocina de sirena antirrobo', ('Autos, bicicletas y motos', 'Accesorios y refacciones')),
+    (None, r'^camara (llanta|para bicicleta)\b', ('Autos, bicicletas y motos', 'Cámaras y accesorios de llanta')),
+    (None, r'\bbomba de refrigeracion del compresor de aire acondicionado', ('Refacciones', 'Enfriamiento y climatización')),
+    (None, r'\bbocinas marinas', ('Autos, bicicletas y motos', 'Bocinas marinas y para moto')),
+    # computación
+    (None, r'\bsynology diskstation|\bkit diy nas', ('Almacenamiento', 'NAS')),
+    (None, r'\bssd nvme\b', ('Almacenamiento', 'SSD NVMe M.2')),
+    (None, r'^ventilador de refrigeracion\b.{0,20}\bpara asus', ('Componentes y accesorios de PC', 'Enfriamiento y ventiladores')),
+    (None, r'\bmonitor intrauditivo|\biem\b', ('Audífonos', 'Earbuds con cable')),
+    # cocina
+    (None, r'^(?:\S+ ){0,1}jarra de agua|^juego de jarra de agua|\bdispensador de cafe\b.{0,30}\b\d+ ?l\b', ('Cocina y comedor', 'Jarras y dispensadores de bebidas')),
+    (None, r'^(set de \d+ )?tablas? para (picar|cortar)', ('Cocina y comedor', 'Cuchillos y tablas')),
+    (None, r'\bcajas transparentes\b.{0,40}\bpasteles', ('Cocina y comedor', 'Repostería y moldes')),
+    (None, r'\bpiezas medidoras', ('Cocina y comedor', 'Básculas y medidores')),
+    (None, r'^lunch box\b', ('Cocina y comedor', 'Loncheras y termos para alimentos')),
+    (None, r'^secadora de ropa portatil', ('Electrodomésticos', LIMPIEZA)),
+    (None, r'\baccesorio cafeteras superautomaticas|\bpara cafeteras jura', ('Cafeteras', 'Accesorios para cafetera')),
+    # varios
+    (None, r'\btablas de pizarra', ('Papelería y oficina', 'Pizarrones')),
+    (None, r'^adaptador t power 12v', ('Cargadores y adaptadores', 'Adaptador de corriente')),
+    (None, r'^panel solar de \d+ ?w', ('Energía solar', 'Paneles solares')),
+    (None, r'\bprensado en caliente\b.{0,30}\bsublimacion', ('Equipo comercial', 'Prensas de calor')),
+    (None, r'\bvolteador de paginas', ('Instrumentos musicales', 'Accesorios')),
+    (None, r'\beslabon doble\b.{0,30}\bpandora', ('Joyería y bisutería', 'Dijes y charms')),
+    (None, r'^crossbody coach', ('Joyería y bisutería', 'Carteras y billeteras')),
+    (None, r'\bconjunto millenia\b|\bjoyeria cristal para mujer', ('Joyería y bisutería', 'Arras y sets')),
+    (None, r'^reloj despertador\b', ('Joyería y bisutería', 'Relojes de bolsillo y de pared')),
+    (None, r'\blampara(s)? redondas de papel', ('Iluminación', 'Decorativa')),
+]
+_POR_GRUPO = ([(cats, re.compile(rx), dest) for cats, rx, dest in _LIBROS_5] + _POR_GRUPO
+              + [(cats, re.compile(rx), dest) for cats, rx, dest in _GRUPOS_5])

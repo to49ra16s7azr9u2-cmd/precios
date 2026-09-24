@@ -6403,6 +6403,7 @@
       ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
       ${shipHtml}
       ${legoHtml(product)}
+      ${lenovoHtml(product)}
     `;
   }
 
@@ -6435,6 +6436,34 @@
       || nums.find((n) => n.length === 4 && !/^(19|20)\d\d$/.test(n))
       || nums.find((n) => n.length === 6)
       || null;
+  }
+  // Tienda oficial Lenovo MX (Soicos): igual que LEGO, sólo el enlace. Los
+  // términos de lenovo.com prohíben recolectar su información con procesos
+  // automáticos y el programa no trae feed, así que no hay precio. Mismo
+  // criterio que scripts/lenovo_link.py.
+  const SOICOS_LENOVO = "https://ad.soicos.com/-4XB4?dl=";
+  const LENOVO_NO = /compatible|\bpara (lenovo|thinkpad|ideapad|legion|yoga)\b|\bfunda|\bmica\b|\bcargador|\bbateria para|\bprotector|\bcarcasa|\brepuesto|\breemplazo|\bteclado para|\bpantalla para/i;
+  const LENOVO_PARTE = /\b(\d{2}[A-Z0-9]{2}\d{4}[A-Z]{2}|\d{2}[A-Z0-9]{2}[A-Z0-9]{6})\b/gi;
+  const LENOVO_SERIE = /\b(ideapad(?: (?:slim|flex|gaming|pro|duet))?(?: \d{1,2}i?)?|thinkpad(?: [a-z]\d{1,2}[a-z]?)?|legion(?: (?:pro|slim|go|tower))?(?: \d{1,2}i?)?|yoga(?: (?:slim|pro|book|tab))?(?: \d{1,2}i?)?|thinkbook(?: \d{2}s?)?|loq(?: \d{2}i?)?|ideacentre(?: aio)?(?: \d)?|thinkcentre(?: [a-z]\d{2}[a-z]?)?|thinkvision(?: [a-z]\d{2}[a-z]?-?\d{0,2})?|tab (?:m|p|k)\d{1,2}(?: plus)?|legion go(?: s)?|chromebook(?: duet)?|v1[45](?= g\d| gen|\b))\b/i;
+  function lenovoDestino(product) {
+    const nombre = product.name || "";
+    const marca = (product.brand || "").trim().toLowerCase();
+    if (LENOVO_NO.test(nombre)) return null;
+    if (marca !== "lenovo" && !/^(\S+ ){0,2}lenovo\b/i.test(nombre)) return null;
+    LENOVO_PARTE.lastIndex = 0;
+    let m;
+    while ((m = LENOVO_PARTE.exec(nombre))) {
+      const parte = m[1].toUpperCase();
+      if (/\d/.test(parte.slice(4)) && !parte.endsWith("US")) return `https://www.lenovo.com/mx/es/p/${parte}`;
+    }
+    const s = nombre.match(LENOVO_SERIE);
+    return s ? `https://www.lenovo.com/mx/es/search?text=${encodeURIComponent(s[1])}` : null;
+  }
+  function lenovoHtml(product) {
+    const d = lenovoDestino(product);
+    if (!d) return "";
+    const url = SOICOS_LENOVO + encodeURIComponent(d);
+    return `<a class="official-store-link" href="${htmlEscapeAttr(url)}" target="_blank" rel="sponsored noopener">${icon("shopping-bag")} Ver en Lenovo.com</a>`;
   }
   function legoHtml(product) {
     const n = legoSetNumber(product);

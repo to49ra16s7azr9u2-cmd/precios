@@ -425,8 +425,12 @@ def url_afiliado(base, target_url):
 def url_real(offer_url):
     """La url de la tienda que hay dentro de un enlace de afiliado (ulp=), sin
     disparar la redirección. None si el enlace no es de afiliado."""
-    qs = urllib.parse.parse_qs(urllib.parse.urlparse(offer_url or "").query)
+    u = urllib.parse.urlparse(offer_url or "")
+    qs = urllib.parse.parse_qs(u.query)
     ulp = qs.get("ulp", [None])[0]
+    # Soicos (ad.soicos.com/-XXXX?dl=<url>) guarda la url de la tienda en dl=.
+    if not ulp and u.netloc.endswith("soicos.com"):
+        ulp = qs.get("dl", [None])[0]
     return urllib.parse.unquote(ulp) if ulp else None
 
 

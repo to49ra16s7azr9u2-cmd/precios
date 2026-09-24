@@ -977,6 +977,11 @@ ANTES_DE_FUERA = [
      ('Juguetes y bebés', 'Bloques de construcción', 'toy')),
     (re.compile(r'^(?:\S+ ){0,3}((set|kit|juego) de (construccion|bloques)|bloques de construccion|micro ?bloques|nano ?bloques)\b'),
      ('Juguetes y bebés', 'Bloques de construcción', 'toy')),
+    # Surface Studio (todo en uno de Microsoft): la regla la mandaba bien a
+    # Computadoras de escritorio pero «Microsoft Surface Studio» no arranca
+    # como esa categoría y el filtro de coherencia la dejaba en Celulares.
+    (re.compile(r'^(?:\S+ ){0,2}(microsoft )?surface studio\b(?!.{0,40}\b(funda|cargador|pluma|pen|dial)\b)'),
+     ('Computadoras de escritorio', 'All in One', 'desktop')),
     # La vitrina acrílica para un set armado caía en Muebles/Roperos.
     (re.compile(r'^(?:\S+ ){0,3}(vitrinas?( acrilica| de acrilico)?|caja de exhibicion|urna)\b.{0,60}\blego\b'),
      ('Otros', 'Organización del hogar', 'box')),
@@ -1008,6 +1013,22 @@ DEFINICIONES = [
     # y los IdeaPad/Legion/Yoga (81xx, 82xx, 83xx) llegan de algunas tiendas
     # como «Lenovo 20KS003WUS Tablet 15.6"...» y caían en Tabletas (163).
     (re.compile(r'^(?:\S+ ){0,1}lenovo (20|8[1-3])[a-z0-9]{8}\b(?!.{0,40}\b(funda|cargador|bateria|teclado para)\b)'),
+     ('Laptops', None, 'laptop')),
+    # Las líneas de Lenovo por nombre, como las escribe su tienda (feed de
+    # Soicos, 24-sep-2026): sin esto un ThinkCentre Tiny caía en Laptops y
+    # una Yoga Pro 7i en «Accesorios y ropa de yoga».
+    (re.compile(r'^lenovo (thinkcentre|ideacentre)\b.{0,40}\b(aio|all.in.one)\b'),
+     ('Computadoras de escritorio', 'All in One', 'desktop')),
+    (re.compile(r'^lenovo (thinkcentre|ideacentre)\b.{0,40}\b(tiny|mini)\b'),
+     ('Computadoras de escritorio', 'Mini PC', 'desktop')),
+    (re.compile(r'^lenovo legion (tower|t\d)\b'),
+     ('Computadoras de escritorio', 'PC gamer', 'desktop')),
+    (re.compile(r'^lenovo (thinkcentre|ideacentre|thinkstation)\b'),
+     ('Computadoras de escritorio', 'Torres de casa y oficina', 'desktop')),
+    (re.compile(r'^lenovo (yoga |idea )?tab\b(?!.{0,30}\b(funda|mica|protector|cargador)\b)'),
+     ('Tabletas', None, 'tablet')),
+    (re.compile(r'^lenovo (yoga (pro |slim |book )?\d{1,2}[a-z]?|ideapad|thinkpad|thinkbook|legion (pro |slim )?\d|loq)\b'
+                r'(?!.{0,60}\b(funda|mochila|cargador|bateria|teclado|mouse|audifonos|auriculares|dock|base|tab)\b)'),
      ('Laptops', None, 'laptop')),
     (re.compile(r'\bsistema (de )?(teatro|cine) en casa|\bdolby atmos \d\.\d|\bhome theater\b|\bsoundbar\b.{0,30}\b\d\.\d\.\d'),
      ('Bocinas', 'Barras de sonido', 'speaker')),

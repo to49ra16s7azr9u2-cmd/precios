@@ -110,6 +110,13 @@ TIENDAS = {
         "store": {"id": "whirlpool", "name": "Whirlpool", "hubRegion": None, "color": "#7B0028",
                   "logo": "WP", "typicalShippingDays": [5, 12], "logoImg": "icons/stores/whirlpool.png"},
     },
+    # Sam's Club entra por el feed de Soicos (ver soicos_a_captura.py): las
+    # urls ya vienen como deeplink de afiliado.
+    "sams_mx": {
+        "dominios": ("sams.com.mx",),
+        "store": {"id": "sams_mx", "name": "Sam's Club", "hubRegion": None, "color": "#0067A0",
+                  "logo": "SC", "typicalShippingDays": [2, 7]},
+    },
     "coppel": {
         "dominios": ("coppel.com",),
         "store": {"id": "coppel", "name": "Coppel", "hubRegion": None, "color": "#FFD100",
@@ -165,7 +172,7 @@ def items_de_captura(rutas, tienda):
                 continue
             item = {"store": sid, "id": pid, "title": it["title"].strip(), "price": precio(it.get("price")),
                     "photo": it.get("photo") or None, "url": it["url"]}
-            for k in ("dept", "brand", "listPrice", "agotado", "sponsored",
+            for k in ("dept", "brand", "listPrice", "agotado", "sponsored", "gtin",
                       "shippingFee", "freeShippingFromMXN", "internacional",
                       "marketplace"):
                 if it.get(k):
@@ -297,6 +304,10 @@ def dar_de_alta(data, clasificados, originales):
         }
         if it.get("photo") or orig.get("photo"):
             product["photo"] = it.get("photo") or orig.get("photo")
+        # El GTIN del feed (Soicos lo trae para parte de Walmart): es lo que
+        # mejor empareja con la misma ficha en otra tienda.
+        if orig.get("gtin"):
+            product["gtin"] = orig["gtin"]
         data["products"].append(product)
         creados.append(product)
         nid += 1
