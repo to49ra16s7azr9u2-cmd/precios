@@ -11802,5 +11802,37 @@
    "Aspiradoras | Verticales y de escoba | Celulares | Accesorios": 1,
    "Drones | Accesorios | Cargadores y adaptadores | De pilas": 1
   }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador e0125b6f6d2925aa) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Decoración de hogar y jardín | Figuras y adornos | Joyería y bisutería | None": 2,
+   "Decoración de hogar y jardín | Albercas y spa | Tabletas | Tabletas Android": 2,
+   "Autos, bicicletas y motos | Autos | Energía solar | Inversores": 1,
+   "Aspiradoras | Accesorios | Electrodomésticos | Filtros y membranas de repuesto": 1
+  }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Celulares | Soportes y agarraderas | Muebles | Sillas de oficina": 2,
+   "Cargadores y adaptadores | De pared | Celulares | Radios de dos vías": 1,
+   "Cargadores y adaptadores | Cargadores para reloj y accesorios pequeños | Celulares | Radios de dos vías": 1,
+   "Muebles | Organizadores y almacenamiento | Equipo comercial | Carros de servicio": 1,
+   "Decoración de hogar y jardín | Asadores | Electrodomésticos | Planchas": 2,
+   "Teclados | Membrana | Cámaras y fotografía | Videocámaras": 1,
+   "Autos, bicicletas y motos | Bicicletas urbanas y de paseo | Deportes y fitness | Bicicletas fijas": 1,
+   "Autos, bicicletas y motos | Accesorios y refacciones | Celulares | Accesorios": 1,
+   "Cámaras y fotografía | Trípodes y soportes | Celulares | Accesorios": 1,
+   "Herramientas | Herramientas eléctricas | Baterías portátiles | Estaciones de energía": 1,
+   "Cocina y comedor | Repostería y moldes | Muebles | Otros": 1,
+   "Viajes | Camping | Electrodomésticos | Planchas": 1
+  }
  }
 ]

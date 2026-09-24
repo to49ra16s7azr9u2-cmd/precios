@@ -993,6 +993,24 @@ DEFINICIONES = [
     # se la quedaban por «Teléfono celular grip…». decidir() la lleva a
     # Celulares / Soportes y agarraderas (reubicar_otros.py).
     (reubicar_otros.AGARRE, ('Otros', 'Soportes para dispositivos', 'phone')),
+    # NAS (servidor de discos): la regla de celulares se lo quedaba por «4 GB
+    # de RAM», y sin ella caía en Memoria RAM.
+    (re.compile(r'\bnas\b.{0,60}\b(bahias?|bays?|\dbay)\b|\b(bahias?|\dbay|\d bay)\b.{0,60}\bnas\b|\bdiskstation\b|\bsynology ds\d|\bnasync\b'),
+     ('Almacenamiento', 'NAS', 'storage')),
+    # iPhone y Galaxy Z por nombre de modelo al principio del título: «iPhone
+    # Air 1TB Libre» y «Samsung Galaxy Z Fold8 Ultra 1TB» no traían «GB de
+    # RAM» ni «desbloqueado», y ninguna regla de celulares los reconocía.
+    (re.compile(r'^(?:\S+ ){0,2}(apple )?iphone (\d{1,2}|air|se|xr|xs)\b(?!.{0,50}\b(funda|mica|case|protector|cargador|cable|soporte|pantalla de repuesto)\b)'),
+     ('Celulares', 'iPhone', 'phone')),
+    (re.compile(r'^(?:\S+ ){0,2}(samsung )?galaxy z ?(fold|flip) ?\d(?!.{0,50}\b(funda|mica|case|protector|cargador|cable|soporte)\b)'),
+     ('Celulares', 'Plegables', 'phone')),
+    # Laptops Lenovo por número de parte al principio: los ThinkPad (20xx...)
+    # y los IdeaPad/Legion/Yoga (81xx, 82xx, 83xx) llegan de algunas tiendas
+    # como «Lenovo 20KS003WUS Tablet 15.6"...» y caían en Tabletas (163).
+    (re.compile(r'^(?:\S+ ){0,1}lenovo (20|8[1-3])[a-z0-9]{8}\b(?!.{0,40}\b(funda|cargador|bateria|teclado para)\b)'),
+     ('Laptops', None, 'laptop')),
+    (re.compile(r'\bsistema (de )?(teatro|cine) en casa|\bdolby atmos \d\.\d|\bhome theater\b|\bsoundbar\b.{0,30}\b\d\.\d\.\d'),
+     ('Bocinas', 'Barras de sonido', 'speaker')),
     # Power bank (batería externa con mAh): Baterías portátiles, aunque
     # traiga cable, MagSafe o carga inalámbrica.
     (re.compile(r'^(?:\S+ ){0,4}(bater(i|í)as? (portatil|externa|inalambrica|magnetica)|power ?bank|banco de (energia|bateria)|cargador portatil)\b(?=.*\b\d[\d.,]* ?mah\b)'),
@@ -2109,7 +2127,7 @@ REGLAS = DEFINICIONES + [
              r'tripie|tripode|lente|kit de|audifonos|auriculares|bocina|altavoz|teclado|\bmouse\b|monitor|proyector|camara|'
              r'estuche|bolsa|brazalete|correa|adaptador|memoria|tarjeta)\b)'
              r'(?!.*((funda|mica|protector|carcasa|cristal templado|vidrio templado) (para|compatible|de|transparente|rigid|antigolpes|silicona)|'
-             r'car ?radio|carplay|android auto|doble din|2 ?din|double din|car stereo|head ?unit|navegacion gps|radio (de|para) (coche|auto|carro)|pantalla (para|de) (auto|coche|carro)|multimedia (para|estereo)|para (ford|toyota|honda|nissan|chevrolet|chevy|dodge|kia|hyundai|mazda|vw|volkswagen|jeep|ram|subaru|suzuki|mitsubishi|renault|peugeot|seat|bmw|audi|mercedes)\b|autoestereo|estereo (para|de) (coche|auto|carro)|bicicleta|triciclo|motocicleta|casillero|persiana|cortina|caja registradora|punto de venta|terminal (pos|de cobro|de pago)|\bpos\b|\btpv\b|colector de datos|\bpda\b|de repuesto|refaccion|reemplazo|laptop|notebook|macbook|'
+             r'car ?radio|carplay|android auto|doble din|2 ?din|double din|car stereo|head ?unit|navegacion gps|radio (de|para) (coche|auto|carro)|pantalla (para|de) (auto|coche|carro)|multimedia (para|estereo)|para (ford|toyota|honda|nissan|chevrolet|chevy|dodge|kia|hyundai|mazda|vw|volkswagen|jeep|ram|subaru|suzuki|mitsubishi|renault|peugeot|seat|bmw|audi|mercedes)\b|autoestereo|estereo (para|de) (coche|auto|carro)|bicicleta|triciclo|tricycle|\btrike\b|\bbike\b|motocicleta|\bnas\b|\bbahias?\b|\d ?bay\b|desktop|sobremesa|todo en uno|all in one|\baio\b|workstation|servidor|surface (studio|pro|go|laptop|book)|computadora|ordenador|casillero|persiana|cortina|caja registradora|punto de venta|terminal (pos|de cobro|de pago)|\bpos\b|\btpv\b|colector de datos|\bpda\b|de repuesto|refaccion|reemplazo|laptop|notebook|macbook|'
              r'chromebook|mini pc|\bpc\b|\btablet\b|tableta|\bipad\b|\bpad\b|router|modem|consola|\bretro\b|'
              r'\btv\b|television|\bssd\b|memoria usb|\bwatch\b|smartwatch|reloj|camara (de seguridad|ip|web)|'
              r'\bdron\b|estereo|\bdin\b|carplay|android auto|para (auto|coche|carro)|pantalla (lcd|amoled|oled).{0,30}(repuesto|reemplazo|reparacion)))'

@@ -136,3 +136,9 @@ def base_de(store_id):
 # NO se muestra su precio. Sólo se enlaza, desde la ficha de cada set, a su
 # búsqueda por número de set (lego_set.py, y legoStoreUrl() en js/app.js).
 SOICOS_LEGO = "https://ad.soicos.com/-4Xrf?dl="
+
+# Lenovo MX (Soicos, implementación «COMPARAMEX» del 24-sep-2026): mismo
+# formato que LEGO, ad.soicos.com/-4XB4?dl=<url de lenovo.com codificada>.
+# El programa tiene «Feed»: los productos y precios de lenovo.com/mx entran
+# de ahí (la url del feed NO se escribe en el repo).
+SOICOS_LENOVO = "https://ad.soicos.com/-4XB4?dl="

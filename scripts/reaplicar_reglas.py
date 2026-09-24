@@ -185,6 +185,14 @@ def main():
             if len(partes) == 4 and partes[0] != partes[2]:
                 revertir_no.add((partes[2], partes[0]))   # (hoy en, iría a)
 
+    _vec = []
+
+    def vecinos():
+        if not _vec:
+            from vecinos_catalogo import Vecinos
+            _vec.append(Vecinos(productos))
+        return _vec[0]
+
     # Modelo del catálogo (para el veto)
     modelo = Bayes()
     toks = {}
@@ -224,7 +232,13 @@ def main():
             conflictos[f"regla#{n_regla} ({via}) sin coherencia | {cat} -> {cat2}"].append(p["id"])
             continue
         pt = modelo.puntajes(toks[p["id"]])
-        if cat in pt and cat2 in pt and pt[cat] - pt[cat2] > VETO:
+        # El veto cede cuando los vecinos (vecinos_catalogo.py) respaldan a la
+        # regla: dos jueces contra uno. Sin esto, lo que se archivó mal en
+        # bloque quedaba protegido por el propio error -- la Surface Studio,
+        # el NAS de Synology y los monitores que estaban en Celulares hacían
+        # que el Bayes «prefiriera» Celulares para ellos mismos (24-sep-2026).
+        if cat in pt and cat2 in pt and pt[cat] - pt[cat2] > VETO \
+                and not vecinos().respalda(cat2, cat, pid=p["id"]):
             motivos["veto del catálogo"] += 1
             conflictos[f"regla#{n_regla} ({via}) | {cat} -> {cat2}"].append(p["id"])
             continue

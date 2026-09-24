@@ -219,7 +219,9 @@ def main():
             cats[c2].setdefault("subcategories", []).append(
                 {"id": s2, "name": s2, "icon": cats[c2].get("icon") or "box"})
     candado = json.load(io.open(CANDADO, encoding="utf-8"))
-    registro = {}
+    # El registro se acumula entre corridas (una corrida nueva no borra lo
+    # que anotó la anterior).
+    registro = json.load(io.open(REGISTRO, encoding="utf-8")) if os.path.exists(REGISTRO) else {}
     for p, c0, s0, c2, s2, via in hechos:
         if candado.get(p["id"], [None])[0] == c0:
             candado[p["id"]] = [c2, s2]
