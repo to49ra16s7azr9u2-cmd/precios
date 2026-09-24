@@ -6261,6 +6261,29 @@ class ModeloCatalogo:
             sub = max(ps, key=ps.get)
         return (cat, sub, self.icono.get(cat, 'box'))
 
+    # Segundo filtro del alta (24-sep-2026): la regla ya decidió y el
+    # catálogo la contradice. Medido contra las 48 mil fichas del candado
+    # manual, con 12 nats el 85% de lo que cambia queda bien (reglas solas:
+    # 83.1% de aciertos; con el segundo filtro, 88.0%). Con 8 nats cambia
+    # más pero sólo el 82% queda bien; con 16, deja pasar errores de la
+    # regla que el catálogo ve claros. reclasificar_hibrido.py usa el mismo
+    # umbral para las fichas que ya están (MARGEN_CONTRA_REGLA).
+    MARGEN_CONTRA_REGLA = 12.0
+
+    def contradice(self, titulo, cat_regla):
+        """La categoría que el catálogo prefiere a `cat_regla` por
+        MARGEN_CONTRA_REGLA nats o más, o None si están de acuerdo."""
+        ts = self._tokens(titulo)
+        if len(ts) < 3:
+            return None
+        pt = self.m.puntajes(ts)
+        if cat_regla not in pt:
+            return None
+        mejor = max(pt, key=pt.get)
+        if mejor != cat_regla and pt[mejor] - pt[cat_regla] >= self.MARGEN_CONTRA_REGLA:
+            return mejor
+        return None
+
 
 def decidir(it, pistas=None):
     """La decisión del clasificador para UN título: {'estado': 'alta', ...}
@@ -6438,6 +6461,23 @@ def main():
             propuesta = modelo.categoria(it['title'])
             if propuesta:
                 d = decidir({**it, '_modelo': propuesta}, pistas)
+        elif (d['estado'] == 'alta' and d['via'] in ('regla', 'sustantivo')
+              and not (isinstance(d.get('regla'), int) and d['regla'] < N_DEFINICIONES)):
+            # Doble filtro: lo que decidió una regla (no una definición, ni
+            # el departamento de Amazon, ni un combo) pasa también por el
+            # modelo del catálogo. Si éste prefiere otra categoría con
+            # margen claro y el título arranca como los productos de esa
+            # categoría, manda el catálogo; si no, se queda la regla. Sin
+            # esto, el error de una regla entraba al catálogo y después el
+            # híbrido lo protegía porque «la regla respalda la actual».
+            if modelo is None:
+                modelo = ModeloCatalogo()
+            otra = modelo.contradice(it['title'], d['category'])
+            if otra and es_coherente(it['title'], otra, d.get('brand') or ''):
+                icono = modelo.icono.get(otra, 'box')
+                df = decidir({**it, '_forzar': (otra, None, icono)}, pistas)
+                if df['estado'] == 'alta' and df['category'] == otra:
+                    d = {**df, 'image': df.get('image') or icono, 'via': 'doble_filtro'}
         if d['estado'] == 'fuera':
             fuera.append((it, d['motivo']))
             continue
@@ -6448,6 +6488,8 @@ def main():
     por_dept, por_sustantivo = por_via['departamento'], por_via['sustantivo']
     if por_via['modelo']:
         print(f"clasificadas por el modelo del catálogo (ninguna regla las reconoce): {por_via['modelo']}")
+    if por_via['doble_filtro']:
+        print(f"doble filtro: el catálogo corrigió a la regla en {por_via['doble_filtro']}")
     json.dump(alta, io.open(sys.argv[2], 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'ALTA: {len(alta)}   FUERA: {len(fuera)}   sin precio (no se dan de alta): '
           f'{sum(1 for a in alta if a["price"] is None)}'
