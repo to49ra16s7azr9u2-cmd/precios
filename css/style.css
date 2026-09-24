@@ -3031,7 +3031,15 @@ tr.offer-compare-off { display: none; }
   border-radius: 0;
   line-height: 1.4;
 }
-.home-elige-botones .home-ubicacion-btn:hover { border-color: var(--red); background: var(--card); }
+/* «Elige tu pueblo» en rojo mientras no hay pueblo; con pueblo elegido
+   dice su nombre y se pone verde (pedido del usuario, 24-sep). */
+.home-elige-botones .home-ubicacion-btn { background: var(--red); border-color: var(--red); color: #fff; }
+.home-elige-botones .home-ubicacion-btn .home-side-btn-icon { color: #fff; }
+.home-elige-botones .home-ubicacion-btn strong { color: #fff; }
+.home-elige-botones .home-ubicacion-btn:hover { background: var(--red-dark); border-color: var(--red-dark); }
+.home-elige-botones .home-ubicacion-btn.is-set { background: var(--green); border-color: var(--green); }
+.home-elige-botones .home-ubicacion-btn.is-set:hover { background: #07702f; border-color: #07702f; }
+.home-elige-botones .home-ubicacion-btn strong { max-width: 190px; overflow: hidden; text-overflow: ellipsis; }
 .home-elige-botones .home-ubicacion-btn .home-side-btn-icon .icon { width: 15px; height: 15px; }
 .home-tab.is-active {
   position: relative;

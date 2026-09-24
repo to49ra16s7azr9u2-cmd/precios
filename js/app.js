@@ -2006,12 +2006,23 @@
       if (cloud.selectedRegion && regionById(cloud.selectedRegion)) {
         state.selectedRegion = cloud.selectedRegion;
         state.municipio = cloud.municipio || null;
+        writeLS(LS_UBICACION, { region: state.selectedRegion, municipio: state.municipio });
+      } else if (state.selectedRegion) {
+        // La cuenta todavía no tiene pueblo guardado pero este navegador sí
+        // (se eligió antes de iniciar sesión): se sube, para que la cuenta
+        // lo recuerde en cualquier dispositivo.
+        window.ComparaMXData.setUserData(user.uid, {
+          selectedMetro: state.selectedMetro,
+          selectedRegion: state.selectedRegion,
+          municipio: state.municipio || null,
+        });
       }
     } else {
       window.ComparaMXData.setUserData(user.uid, {
         favorites: getFavorites(),
         selectedMetro: state.selectedMetro,
         selectedRegion: state.selectedRegion,
+        municipio: state.municipio || null,
       });
     }
     updateLocationBtn();
@@ -3109,7 +3120,7 @@
         vendedor, así que no entran las rebajas que solo lo parecen.</li>
       <li><strong>Favoritos.</strong> El corazón guarda un producto para volver después.
         Se queda en este navegador, sin cuenta ni correo.</li>
-      <li><strong>¿Dónde estás?</strong> Si eliges tu municipio, calculamos un envío
+      <li><strong>Elige tu pueblo</strong> Si eliges tu municipio, calculamos un envío
         estimado a tu zona y lo sumamos al comparar.</li>
       <li><strong>Rankings del mes.</strong> En la portada, abajo, está el ranking de cada
         categoría con lo más popular del mes.</li>
@@ -6795,7 +6806,9 @@
       el.deliveryBannerSubtitle.textContent = "¿Otro municipio? Puedes cambiarlo cuando quieras.";
       // Con guarda: la portada cambió de forma una vez y estas líneas se
       // rompieron. Si el botón vuelve a moverse, esto no se entera.
+      // Elegido: el botón de la portada dice el pueblo y se pone verde.
       if (el.homeLocationBtnLabel) el.homeLocationBtnLabel.textContent = lugar;
+      if (el.homeLocationBtn) el.homeLocationBtn.title = "Cambiar mi pueblo";
       if (el.homeLocationBtn) el.homeLocationBtn.classList.add("is-set");
     } else {
       el.locationBtnLabel.textContent = "Elegir mi ubicación";
@@ -6803,7 +6816,8 @@
       el.deliveryBanner.classList.remove("is-set");
       el.deliveryBannerTitle.textContent = "¿Cuándo llega a tu casa?";
       el.deliveryBannerSubtitle.textContent = "Elige tu municipio y compara el tiempo de entrega de cada tienda.";
-      if (el.homeLocationBtnLabel) el.homeLocationBtnLabel.textContent = "Mi ubicación";
+      if (el.homeLocationBtnLabel) el.homeLocationBtnLabel.textContent = "Elige tu pueblo";
+      if (el.homeLocationBtn) el.homeLocationBtn.title = "Elige tu pueblo para ver cuándo llega y cuánto cuesta el envío";
       if (el.homeLocationBtn) el.homeLocationBtn.classList.remove("is-set");
     }
   }

@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=b1710d09">
+<link rel="stylesheet" href="css/style.min.css?v=3f3da0c7">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -190,13 +190,13 @@
                se movió aquí, a la línea que se lee primero. -->
           <div class="home-elige-linea">
             <h1 class="home-elige" id="homeElige">Elige una categoría para ver los productos más populares y comparar precios entre tiendas.</h1>
-            <!-- «¿Dónde estás?» junto a «Cómo utilizar» (pedido del usuario,
+            <!-- «Elige tu pueblo» (antes «¿Dónde estás?») junto a «Cómo utilizar» (pedido del usuario,
                  23-sep): al pie de la columna, debajo de todo el catálogo,
                  no se veía. -->
             <div class="home-elige-botones">
-            <button type="button" class="home-side-btn home-ubicacion-btn" id="homeLocationBtn">
+            <button type="button" class="home-side-btn home-ubicacion-btn" id="homeLocationBtn" title="Elige tu pueblo para ver cuándo llega y cuánto cuesta el envío">
             <span class="home-side-btn-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s7-6.6 7-12.2A7 7 0 0 0 5 9.3c0 5.6 7 12.2 7 12.2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9.2" r="2.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <span><strong>¿Dónde estás?</strong><span class="home-side-btn-sub" id="homeLocationBtnLabel">Mi ubicación</span></span>
+            <span><strong id="homeLocationBtnLabel">Elige tu pueblo</strong></span>
           </button>
             <button type="button" class="home-como-btn" id="homeComoBtn" aria-expanded="false" aria-controls="guiaModal">
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.7 9.4a2.4 2.4 0 1 1 3.2 2.3c-.6.2-.9.8-.9 1.4v.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1" fill="currentColor"/></svg>
@@ -1046,7 +1046,7 @@
 <div id="mapModal" class="modal-overlay hidden">
   <div class="modal mx-modal" role="dialog" aria-modal="true" aria-labelledby="mxMapTitulo">
     <div class="modal-head">
-      <h2 id="mxMapTitulo">¿Dónde estás?</h2>
+      <h2 id="mxMapTitulo">Elige tu pueblo</h2>
       <button class="modal-close" id="mapModalClose" aria-label="Cerrar">✕</button>
     </div>
     <div class="mx-map-top">
@@ -1131,7 +1131,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=ca4bc0a2"></script>
+<script src="js/app.min.js?v=63108efb"></script>
 </div>
 </body>
 </html>
