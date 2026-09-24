@@ -117,6 +117,12 @@ TIENDAS = {
         "store": {"id": "sams_mx", "name": "Sam's Club", "hubRegion": None, "color": "#0067A0",
                   "logo": "SC", "typicalShippingDays": [2, 7]},
     },
+    # Reuse: celulares, tabletas y laptops reacondicionados (feed de Soicos).
+    "reuse_mx": {
+        "dominios": ("reuse.mx",),
+        "store": {"id": "reuse_mx", "name": "Reuse", "hubRegion": None, "color": "#00A676",
+                  "logo": "RU", "typicalShippingDays": [2, 6]},
+    },
     "coppel": {
         "dominios": ("coppel.com",),
         "store": {"id": "coppel", "name": "Coppel", "hubRegion": None, "color": "#FFD100",

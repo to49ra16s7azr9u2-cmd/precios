@@ -27,7 +27,8 @@ fusiones de esos informes, pero solo las que además cumplen:
   3. Mismos códigos: todo token con letras y dígitos (2+ caracteres) que
      tenga una ficha lo tienen todas ("fm1" contra "q7", "ks311w" contra
      nada).
-  4. Precio máximo / precio mínimo menor a 1.8. Un producto idéntico puede
+  4. Reacondicionado en todas o en ninguna.
+  5. Precio máximo / precio mínimo menor a 1.8. Un producto idéntico puede
      costar el doble en otra tienda, pero a este catálogo esa señal le ha
      costado más fusiones falsas de las que ha permitido buenas.
 
@@ -53,6 +54,7 @@ UNIDAD_RE = re.compile(
     r'\b(\d+(?:[.,]\d+)?)\s*(tb|gb|mb|ml|lts?|litros?|kg|kgs|gr?|gramos|cm|mm|m|"|pulgadas?|pulg|w|watts?|mah|hz|ghz|mhz|'
     r'piezas?|pzas?|pcs|unidades|pack|tazas)\b')
 PAQUETE_RE = re.compile(r'\b(bundle|kit|pack|combo|incluye|mas|\+)\b|\bcon (soporte|accesorios|funda|estuche|base|tripie|tripode|cargador|bateria extra|almohadas?)\b')
+USADO_RE = re.compile(r'\b(reacondicionad[oa]s?|renewed|refurbished|seminuev[oa]s?|usad[oa]s?|open box|grado [abc]\b)')
 CODIGO_RE = re.compile(r'\b(?=[a-z0-9-]*\d)(?=[a-z0-9-]*[a-z])[a-z0-9][a-z0-9-]{1,}\b')
 
 
@@ -96,6 +98,11 @@ def motivo(grupo):
         for j in range(i + 1, len(meds)):
             if meds[i] and meds[j] and meds[i] != meds[j]:
                 return f"medidas distintas {sorted(meds[i]-meds[j])[:2]} vs {sorted(meds[j]-meds[i])[:2]}"
+    # Un reacondicionado no es el mismo artículo que uno nuevo (Reuse y
+    # Amazon Renewed contra el nuevo: otro precio, otra garantía).
+    usado = [bool(USADO_RE.search(n)) for n in nombres]
+    if any(usado) and not all(usado):
+        return "reacondicionado contra nuevo"
     paq = [bool(PAQUETE_RE.search(n)) for n in nombres]
     if any(paq) and not all(paq):
         return "paquete/bundle en solo una ficha"

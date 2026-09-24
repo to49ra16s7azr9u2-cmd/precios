@@ -118,7 +118,15 @@ def item(d, tienda, todo=False):
     real = urllib.parse.unquote(urllib.parse.parse_qs(urllib.parse.urlparse(d["url"]).query).get("dl", [""])[0])
     m = RX_ID_TIENDA.search(real)
     pid = m.group(1) if m else (d.get("sku") or str(d["id"]))
-    titulo = re.sub(r"\s+", " ", d["name"]).strip()
+    # Reuse manda el nombre envuelto en «:"...»; se quita el envoltorio.
+    # y a veces con un prefijo de sistema («trained_algorithmic_media:"...»).
+    titulo = re.sub(r"^[a-z_]+:", "", re.sub(r"\s+", " ", d["name"]).strip())
+    titulo = titulo.strip(':"\' ').replace('""', '"')
+    # Reuse sólo vende reacondicionados, pero no todos sus nombres lo dicen
+    # («Samsung Galaxy A15 4G Negro»): se escribe, para que la ficha no se
+    # lea como nueva ni se una con la nueva (fusionar_vetado.USADO_RE).
+    if tienda == "reuse_mx" and not re.search(r"reacondicionad", titulo, re.I):
+        titulo += " Reacondicionado"
     # Lenovo no escribe el número de parte en el nombre y es lo que empareja
     # su ficha con la misma laptop en Amazon o Mercado Libre
     # (adjuntar_tienda_de_marca.py busca códigos de modelo en el nombre).

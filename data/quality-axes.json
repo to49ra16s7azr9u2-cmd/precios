@@ -634,16 +634,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$450 a $1,150",
+      "spec": "$450 a $1,100",
       "min": 450,
-      "max": 1150
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -2352,6 +2352,420 @@
       "use": "Toda la biblioteca",
       "spec": "Más de 510 GB",
       "min": 510
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Laptops básicas y mini": {
+  "axes": [
+   {
+    "label": "Disco",
+    "field": "storage_type",
+    "criterion": "por tipo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ssd",
+      "name": "ssd",
+      "use": "",
+      "spec": "ssd",
+      "values": [
+       "ssd"
+      ]
+     },
+     {
+      "id": "emmc",
+      "name": "emmc",
+      "use": "",
+      "spec": "emmc",
+      "values": [
+       "emmc"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Laptops de 15\" y 16\"": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     },
+     {
+      "id": "intel-core-i3",
+      "name": "Intel Core i3",
+      "use": "",
+      "spec": "Intel Core i3",
+      "values": [
+       "Intel Core i3"
+      ]
+     },
+     {
+      "id": "amd-ryzen-5",
+      "name": "AMD Ryzen 5",
+      "use": "",
+      "spec": "AMD Ryzen 5",
+      "values": [
+       "AMD Ryzen 5"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/2 en 1 y convertibles": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-core-ultra",
+      "name": "Intel Core Ultra",
+      "use": "",
+      "spec": "Intel Core Ultra",
+      "values": [
+       "Intel Core Ultra"
+      ]
+     },
+     {
+      "id": "intel-n-series",
+      "name": "Intel N-series",
+      "use": "",
+      "spec": "Intel N-series",
+      "values": [
+       "Intel N-series"
+      ]
+     },
+     {
+      "id": "intel-celeron-pentium",
+      "name": "Intel Celeron/Pentium",
+      "use": "",
+      "spec": "Intel Celeron/Pentium",
+      "values": [
+       "Intel Celeron/Pentium"
+      ]
+     },
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     },
+     {
+      "id": "qualcomm-snapdragon-x",
+      "name": "Qualcomm Snapdragon X",
+      "use": "",
+      "spec": "Qualcomm Snapdragon X",
+      "values": [
+       "Qualcomm Snapdragon X"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Ultraligeras (13\" y 14\")": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-core-ultra",
+      "name": "Intel Core Ultra",
+      "use": "",
+      "spec": "Intel Core Ultra",
+      "values": [
+       "Intel Core Ultra"
+      ]
+     },
+     {
+      "id": "intel-core-i3",
+      "name": "Intel Core i3",
+      "use": "",
+      "spec": "Intel Core i3",
+      "values": [
+       "Intel Core i3"
+      ]
+     },
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     },
+     {
+      "id": "intel-core-i3-1315u",
+      "name": "Intel Core i3-1315U",
+      "use": "",
+      "spec": "Intel Core i3-1315U",
+      "values": [
+       "Intel Core i3-1315U"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Workstation y empresariales": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-core-ultra",
+      "name": "Intel Core Ultra",
+      "use": "",
+      "spec": "Intel Core Ultra",
+      "values": [
+       "Intel Core Ultra"
+      ]
+     },
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     },
+     {
+      "id": "intel-core-i7",
+      "name": "Intel Core i7",
+      "use": "",
+      "spec": "Intel Core i7",
+      "values": [
+       "Intel Core i7"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Laptops de 17\" o más": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-core-ultra",
+      "name": "Intel Core Ultra",
+      "use": "",
+      "spec": "Intel Core Ultra",
+      "values": [
+       "Intel Core Ultra"
+      ]
+     },
+     {
+      "id": "amd-ryzen-5",
+      "name": "AMD Ryzen 5",
+      "use": "",
+      "spec": "AMD Ryzen 5",
+      "values": [
+       "AMD Ryzen 5"
+      ]
+     },
+     {
+      "id": "intel-core-i7",
+      "name": "Intel Core i7",
+      "use": "",
+      "spec": "Intel Core i7",
+      "values": [
+       "Intel Core i7"
+      ]
+     },
+     {
+      "id": "intel-core-i9-9900kf",
+      "name": "Intel Core i9-9900KF",
+      "use": "",
+      "spec": "Intel Core i9-9900KF",
+      "values": [
+       "Intel Core i9-9900KF"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Gamer": {
+  "axes": [
+   {
+    "label": "Gráficos",
+    "field": "gpu",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "nvidia-rtx-5060",
+      "name": "NVIDIA RTX 5060",
+      "use": "",
+      "spec": "NVIDIA RTX 5060",
+      "values": [
+       "NVIDIA RTX 5060"
+      ]
+     },
+     {
+      "id": "nvidia-rtx-3050",
+      "name": "NVIDIA RTX 3050",
+      "use": "",
+      "spec": "NVIDIA RTX 3050",
+      "values": [
+       "NVIDIA RTX 3050"
+      ]
+     },
+     {
+      "id": "nvidia-rtx-4050",
+      "name": "NVIDIA RTX 4050",
+      "use": "",
+      "spec": "NVIDIA RTX 4050",
+      "values": [
+       "NVIDIA RTX 4050"
+      ]
+     },
+     {
+      "id": "nvidia-rtx-5070",
+      "name": "NVIDIA RTX 5070",
+      "use": "",
+      "spec": "NVIDIA RTX 5070",
+      "values": [
+       "NVIDIA RTX 5070"
+      ]
+     },
+     {
+      "id": "nvidia-rtx-5050",
+      "name": "NVIDIA RTX 5050",
+      "use": "",
+      "spec": "NVIDIA RTX 5050",
+      "values": [
+       "NVIDIA RTX 5050"
+      ]
+     },
+     {
+      "id": "nvidia-otra",
+      "name": "NVIDIA (otra)",
+      "use": "",
+      "spec": "NVIDIA (otra)",
+      "values": [
+       "NVIDIA (otra)"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/Chromebook": {
+  "axes": [
+   {
+    "label": "Disco",
+    "field": "storage_type",
+    "criterion": "por tipo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "emmc",
+      "name": "emmc",
+      "use": "",
+      "spec": "emmc",
+      "values": [
+       "emmc"
+      ]
+     },
+     {
+      "id": "ssd",
+      "name": "ssd",
+      "use": "",
+      "spec": "ssd",
+      "values": [
+       "ssd"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Laptops/MacBook": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "apple-m",
+      "name": "Apple M",
+      "use": "",
+      "spec": "Apple M",
+      "values": [
+       "Apple M"
+      ]
+     },
+     {
+      "id": "apple-m-pro-max",
+      "name": "Apple M Pro/Max",
+      "use": "",
+      "spec": "Apple M Pro/Max",
+      "values": [
+       "Apple M Pro/Max"
+      ]
+     },
+     {
+      "id": "apple-a-series",
+      "name": "Apple A-series",
+      "use": "",
+      "spec": "Apple A-series",
+      "values": [
+       "Apple A-series"
+      ]
+     },
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
      }
     ],
     "key": "extra"
@@ -5749,420 +6163,6 @@
       "min": 29500
      }
     ]
-   }
-  ]
- },
- "Laptops/Laptops de 15\" y 16\"": {
-  "axes": [
-   {
-    "label": "Procesador",
-    "field": "cpu_family",
-    "criterion": "por familia",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "intel-core-i5",
-      "name": "Intel Core i5",
-      "use": "",
-      "spec": "Intel Core i5",
-      "values": [
-       "Intel Core i5"
-      ]
-     },
-     {
-      "id": "intel-core-i3",
-      "name": "Intel Core i3",
-      "use": "",
-      "spec": "Intel Core i3",
-      "values": [
-       "Intel Core i3"
-      ]
-     },
-     {
-      "id": "amd-ryzen-5",
-      "name": "AMD Ryzen 5",
-      "use": "",
-      "spec": "AMD Ryzen 5",
-      "values": [
-       "AMD Ryzen 5"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Laptops/2 en 1 y convertibles": {
-  "axes": [
-   {
-    "label": "Procesador",
-    "field": "cpu_family",
-    "criterion": "por familia",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "intel-core-ultra",
-      "name": "Intel Core Ultra",
-      "use": "",
-      "spec": "Intel Core Ultra",
-      "values": [
-       "Intel Core Ultra"
-      ]
-     },
-     {
-      "id": "intel-n-series",
-      "name": "Intel N-series",
-      "use": "",
-      "spec": "Intel N-series",
-      "values": [
-       "Intel N-series"
-      ]
-     },
-     {
-      "id": "intel-celeron-pentium",
-      "name": "Intel Celeron/Pentium",
-      "use": "",
-      "spec": "Intel Celeron/Pentium",
-      "values": [
-       "Intel Celeron/Pentium"
-      ]
-     },
-     {
-      "id": "intel-core-i5",
-      "name": "Intel Core i5",
-      "use": "",
-      "spec": "Intel Core i5",
-      "values": [
-       "Intel Core i5"
-      ]
-     },
-     {
-      "id": "qualcomm-snapdragon-x",
-      "name": "Qualcomm Snapdragon X",
-      "use": "",
-      "spec": "Qualcomm Snapdragon X",
-      "values": [
-       "Qualcomm Snapdragon X"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Laptops/Ultraligeras (13\" y 14\")": {
-  "axes": [
-   {
-    "label": "Procesador",
-    "field": "cpu_family",
-    "criterion": "por familia",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "intel-core-ultra",
-      "name": "Intel Core Ultra",
-      "use": "",
-      "spec": "Intel Core Ultra",
-      "values": [
-       "Intel Core Ultra"
-      ]
-     },
-     {
-      "id": "intel-core-i3",
-      "name": "Intel Core i3",
-      "use": "",
-      "spec": "Intel Core i3",
-      "values": [
-       "Intel Core i3"
-      ]
-     },
-     {
-      "id": "intel-core-i5",
-      "name": "Intel Core i5",
-      "use": "",
-      "spec": "Intel Core i5",
-      "values": [
-       "Intel Core i5"
-      ]
-     },
-     {
-      "id": "intel-core-i3-1315u",
-      "name": "Intel Core i3-1315U",
-      "use": "",
-      "spec": "Intel Core i3-1315U",
-      "values": [
-       "Intel Core i3-1315U"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Laptops/Laptops básicas y mini": {
-  "axes": [
-   {
-    "label": "Disco",
-    "field": "storage_type",
-    "criterion": "por tipo",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "ssd",
-      "name": "ssd",
-      "use": "",
-      "spec": "ssd",
-      "values": [
-       "ssd"
-      ]
-     },
-     {
-      "id": "emmc",
-      "name": "emmc",
-      "use": "",
-      "spec": "emmc",
-      "values": [
-       "emmc"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Laptops/Workstation y empresariales": {
-  "axes": [
-   {
-    "label": "Procesador",
-    "field": "cpu_family",
-    "criterion": "por familia",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "intel-core-ultra",
-      "name": "Intel Core Ultra",
-      "use": "",
-      "spec": "Intel Core Ultra",
-      "values": [
-       "Intel Core Ultra"
-      ]
-     },
-     {
-      "id": "intel-core-i5",
-      "name": "Intel Core i5",
-      "use": "",
-      "spec": "Intel Core i5",
-      "values": [
-       "Intel Core i5"
-      ]
-     },
-     {
-      "id": "intel-core-i7",
-      "name": "Intel Core i7",
-      "use": "",
-      "spec": "Intel Core i7",
-      "values": [
-       "Intel Core i7"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Laptops/Laptops de 17\" o más": {
-  "axes": [
-   {
-    "label": "Procesador",
-    "field": "cpu_family",
-    "criterion": "por familia",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "intel-core-ultra",
-      "name": "Intel Core Ultra",
-      "use": "",
-      "spec": "Intel Core Ultra",
-      "values": [
-       "Intel Core Ultra"
-      ]
-     },
-     {
-      "id": "amd-ryzen-5",
-      "name": "AMD Ryzen 5",
-      "use": "",
-      "spec": "AMD Ryzen 5",
-      "values": [
-       "AMD Ryzen 5"
-      ]
-     },
-     {
-      "id": "intel-core-i7",
-      "name": "Intel Core i7",
-      "use": "",
-      "spec": "Intel Core i7",
-      "values": [
-       "Intel Core i7"
-      ]
-     },
-     {
-      "id": "intel-core-i9-9900kf",
-      "name": "Intel Core i9-9900KF",
-      "use": "",
-      "spec": "Intel Core i9-9900KF",
-      "values": [
-       "Intel Core i9-9900KF"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Laptops/Gamer": {
-  "axes": [
-   {
-    "label": "Gráficos",
-    "field": "gpu",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "nvidia-rtx-5060",
-      "name": "NVIDIA RTX 5060",
-      "use": "",
-      "spec": "NVIDIA RTX 5060",
-      "values": [
-       "NVIDIA RTX 5060"
-      ]
-     },
-     {
-      "id": "nvidia-rtx-3050",
-      "name": "NVIDIA RTX 3050",
-      "use": "",
-      "spec": "NVIDIA RTX 3050",
-      "values": [
-       "NVIDIA RTX 3050"
-      ]
-     },
-     {
-      "id": "nvidia-rtx-4050",
-      "name": "NVIDIA RTX 4050",
-      "use": "",
-      "spec": "NVIDIA RTX 4050",
-      "values": [
-       "NVIDIA RTX 4050"
-      ]
-     },
-     {
-      "id": "nvidia-rtx-5070",
-      "name": "NVIDIA RTX 5070",
-      "use": "",
-      "spec": "NVIDIA RTX 5070",
-      "values": [
-       "NVIDIA RTX 5070"
-      ]
-     },
-     {
-      "id": "nvidia-rtx-5050",
-      "name": "NVIDIA RTX 5050",
-      "use": "",
-      "spec": "NVIDIA RTX 5050",
-      "values": [
-       "NVIDIA RTX 5050"
-      ]
-     },
-     {
-      "id": "nvidia-otra",
-      "name": "NVIDIA (otra)",
-      "use": "",
-      "spec": "NVIDIA (otra)",
-      "values": [
-       "NVIDIA (otra)"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Laptops/Chromebook": {
-  "axes": [
-   {
-    "label": "Disco",
-    "field": "storage_type",
-    "criterion": "por tipo",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "emmc",
-      "name": "emmc",
-      "use": "",
-      "spec": "emmc",
-      "values": [
-       "emmc"
-      ]
-     },
-     {
-      "id": "ssd",
-      "name": "ssd",
-      "use": "",
-      "spec": "ssd",
-      "values": [
-       "ssd"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Laptops/MacBook": {
-  "axes": [
-   {
-    "label": "Procesador",
-    "field": "cpu_family",
-    "criterion": "por familia",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "apple-m",
-      "name": "Apple M",
-      "use": "",
-      "spec": "Apple M",
-      "values": [
-       "Apple M"
-      ]
-     },
-     {
-      "id": "apple-m-pro-max",
-      "name": "Apple M Pro/Max",
-      "use": "",
-      "spec": "Apple M Pro/Max",
-      "values": [
-       "Apple M Pro/Max"
-      ]
-     },
-     {
-      "id": "apple-a-series",
-      "name": "Apple A-series",
-      "use": "",
-      "spec": "Apple A-series",
-      "values": [
-       "Apple A-series"
-      ]
-     },
-     {
-      "id": "intel-core-i5",
-      "name": "Intel Core i5",
-      "use": "",
-      "spec": "Intel Core i5",
-      "values": [
-       "Intel Core i5"
-      ]
-     }
-    ],
-    "key": "extra"
    }
   ]
  },
@@ -17607,16 +17607,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$940 a $2,250",
+      "spec": "$940 a $2,200",
       "min": 940,
-      "max": 2250
+      "max": 2200
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,250",
-      "min": 2250
+      "spec": "Más de $2,200",
+      "min": 2200
      }
     ]
    }
@@ -21320,16 +21320,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$680 a $2,350",
+      "spec": "$680 a $2,450",
       "min": 680,
-      "max": 2350
+      "max": 2450
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,350",
-      "min": 2350
+      "spec": "Más de $2,450",
+      "min": 2450
      }
     ]
    }
@@ -27444,23 +27444,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $240",
-      "max": 240
+      "spec": "Hasta $230",
+      "max": 230
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$240 a $540",
-      "min": 240,
-      "max": 540
+      "spec": "$230 a $530",
+      "min": 230,
+      "max": 530
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $540",
-      "min": 540
+      "spec": "Más de $530",
+      "min": 530
      }
     ]
    }
@@ -36136,15 +36136,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $610",
-      "max": 610
+      "spec": "Hasta $600",
+      "max": 600
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$610 a $1,300",
-      "min": 610,
+      "spec": "$600 a $1,300",
+      "min": 600,
       "max": 1300
      },
      {
@@ -39023,6 +39023,46 @@
    }
   ]
  },
+ "Laptops": {
+  "axes": [
+   {
+    "label": "Procesador",
+    "field": "cpu_family",
+    "criterion": "por familia",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "intel-celeron-pentium",
+      "name": "Intel Celeron/Pentium",
+      "use": "",
+      "spec": "Intel Celeron/Pentium",
+      "values": [
+       "Intel Celeron/Pentium"
+      ]
+     },
+     {
+      "id": "intel-n-series",
+      "name": "Intel N-series",
+      "use": "",
+      "spec": "Intel N-series",
+      "values": [
+       "Intel N-series"
+      ]
+     },
+     {
+      "id": "intel-core-i5",
+      "name": "Intel Core i5",
+      "use": "",
+      "spec": "Intel Core i5",
+      "values": [
+       "Intel Core i5"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
  "Muebles": {
   "axes": [
    {
@@ -39100,46 +39140,6 @@
       "min": 7800
      }
     ]
-   }
-  ]
- },
- "Laptops": {
-  "axes": [
-   {
-    "label": "Procesador",
-    "field": "cpu_family",
-    "criterion": "por familia",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "intel-celeron-pentium",
-      "name": "Intel Celeron/Pentium",
-      "use": "",
-      "spec": "Intel Celeron/Pentium",
-      "values": [
-       "Intel Celeron/Pentium"
-      ]
-     },
-     {
-      "id": "intel-n-series",
-      "name": "Intel N-series",
-      "use": "",
-      "spec": "Intel N-series",
-      "values": [
-       "Intel N-series"
-      ]
-     },
-     {
-      "id": "intel-core-i5",
-      "name": "Intel Core i5",
-      "use": "",
-      "spec": "Intel Core i5",
-      "values": [
-       "Intel Core i5"
-      ]
-     }
-    ],
-    "key": "extra"
    }
   ]
  },

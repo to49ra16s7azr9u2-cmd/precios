@@ -1005,6 +1005,12 @@ DEFINICIONES = [
     # iPhone y Galaxy Z por nombre de modelo al principio del título: «iPhone
     # Air 1TB Libre» y «Samsung Galaxy Z Fold8 Ultra 1TB» no traían «GB de
     # RAM» ni «desbloqueado», y ninguna regla de celulares los reconocía.
+    # Celular reacondicionado (Reuse, Amazon Renewed): a «Reacondicionados»
+    # antes que la definición de iPhone, que lo mezclaba con los nuevos.
+    (re.compile(r'^(?:\S+ ){0,2}(apple iphone|iphone|samsung galaxy [asmz]|galaxy [asmz]\d|xiaomi|redmi|poco|motorola|moto [gex]|oppo|vivo|realme|honor|huawei|google pixel|pixel)\b'
+                r'(?!.{0,60}\b(funda|mica|case|protector|cargador|cable|soporte|tab|ipad|watch|buds)\b)'
+                r'.{0,80}\b(reacondicionad[oa]|renewed|refurbished|seminuev[oa])\b'),
+     ('Celulares', 'Reacondicionados', 'phone')),
     (re.compile(r'^(?:\S+ ){0,2}(apple )?iphone (\d{1,2}|air|se|xr|xs)\b(?!.{0,50}\b(funda|mica|case|protector|cargador|cable|soporte|pantalla de repuesto)\b)'),
      ('Celulares', 'iPhone', 'phone')),
     (re.compile(r'^(?:\S+ ){0,2}(samsung )?galaxy z ?(fold|flip) ?\d(?!.{0,50}\b(funda|mica|case|protector|cargador|cable|soporte)\b)'),
@@ -5974,6 +5980,9 @@ def sub_celular(tn):
     if re.search(r'^(?:\S+ ){0,3}(auriculares?|earbuds?|earphones?|headphones?|headset|'
                  r'audifonos?|microfono|mic\b|tws\b|action cam)', tn):
         return None
+    # El reacondicionado antes que la marca: un iPhone reacondicionado no se
+    # lista con los nuevos (feed de Reuse, 24-sep-2026).
+    if re.search(r'\b(reacondicionad[oa]|renewed|refurbished|seminuev[oa])\b', tn): return 'Reacondicionados'
     if 'iphone' in tn: return 'iPhone'
     if re.search(r'resistente|rugged|robusto|todoterreno|\bip6[89]\b|a prueba de (golpes|agua)', tn): return 'Resistentes'
     # El teléfono básico (de tapa, de botones grandes, 2G) no es Android:

@@ -11940,5 +11940,27 @@
    "Refrigeradores | Frigobares | Electrodomésticos | None": 1,
    "Juegos de mesa | Rompecabezas | Muebles | Otros": 1
   }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador 346bd59c4ce5516e) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Teclados | Numéricos | Tabletas | Accesorios para tableta": 1,
+   "Cargadores y adaptadores | De pilas | Drones | Accesorios": 2
+  }
+ },
+ {
+  "fecha": "2026-09-24",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Computadoras de escritorio | Mini PC | Laptops | Laptops básicas y mini": 1,
+   "Autos, bicicletas y motos | Autos | Juguetes y bebés | Vehículos de juguete": 1,
+   "Autos, bicicletas y motos | Autos | Juguetes y bebés | None": 1,
+   "Autos, bicicletas y motos | Autos | Juguetes y bebés | Bloques de construcción": 3
+  }
  }
 ]
