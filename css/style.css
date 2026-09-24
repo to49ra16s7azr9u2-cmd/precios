@@ -4861,11 +4861,64 @@ tr.offer-compare-off { display: none; }
 .local-meta { color: var(--green); font-size: 11px; }
 .local-more { padding: 8px 12px; font-size: 12px; color: var(--muted); }
 .row-local-demo { background: var(--gold); color: #222; padding: 0 5px; margin-left: 4px; font-size: 10px; font-weight: 700; }
+/* Teléfono y tableta: el ranking local sigue a la DERECHA, como columna
+   angosta junto a las filas (a pedido del usuario, no encima de la lista).
+   Para hacerle lugar, cada tienda se apila en vertical y la fila del
+   producto se compacta (ver abajo). */
 @media (max-width: 900px) {
-  .list-with-local.has-local { flex-direction: column; align-items: stretch; }
-  .local-ranking { position: static; flex: 0 0 auto; width: 100%; order: -1; }
-  /* En el teléfono va arriba de la lista: con los tres primeros basta. */
-  .local-item:nth-child(n+4) { display: none; }
+  .list-with-local.has-local { gap: 6px; }
+  .local-ranking { flex: 0 0 116px; width: 116px; position: static; }
+  .local-head { padding: 7px 7px 6px; }
+  .local-title { font-size: 10px; letter-spacing: .04em; line-height: 1.25; }
+  .local-sub { font-size: 10px; line-height: 1.3; }
+  .local-demo-note { font-size: 10px; line-height: 1.3; }
+  .local-item { flex-direction: column; gap: 3px; padding: 7px; }
+  .local-rank { flex: 0 0 auto; width: 18px; height: 18px; font-size: 10px; }
+  .local-body { font-size: 11px; line-height: 1.3; }
+  .local-store { font-size: 11px; }
+  .local-text { -webkit-line-clamp: 3; font-size: 10.5px; }
+  .local-price { font-size: 13px; }
+  .local-meta { font-size: 10px; }
+  .local-more { padding: 6px 7px; font-size: 10.5px; }
+  .row-local-demo { font-size: 9px; padding: 0 3px; margin-left: 2px; }
+}
+/* La fila del producto, junto al ranking local en el teléfono: el precio
+   baja debajo del nombre, y «Comparar» se escribe en vertical bajo el
+   corazón, en una columna de 20px. Así el nombre conserva su ancho aunque
+   la lista ceda ~120px a las tiendas locales. */
+@media (max-width: 560px) {
+  .list-with-local.has-local .product-row {
+    display: grid;
+    grid-template-columns: auto 40px minmax(0, 1fr) 22px;
+    grid-template-areas:
+      "rank icon info fav"
+      "rank icon price cmp";
+    align-items: start;
+    column-gap: 6px;
+    row-gap: 2px;
+    /* 14px arriba: el sello «Descuento -30%» cuelga de la esquina y, sin
+       la foto de 56px debajo, tapaba la marca. */
+    padding: 14px 6px 8px 7px;
+  }
+  .list-with-local.has-local .product-row .rank-badge { grid-area: rank; align-self: center; width: 20px; height: 20px; font-size: 10px; }
+  .list-with-local.has-local .product-row .row-icon { grid-area: icon; align-self: center; width: 40px; }
+  .list-with-local.has-local .product-row .row-icon.has-photo { width: 40px; height: 40px; }
+  .list-with-local.has-local .product-row .row-info { grid-area: info; }
+  .list-with-local.has-local .product-row .row-name { font-size: 12.5px; margin: 1px 0; }
+  .list-with-local.has-local .product-row .row-priceblock { grid-area: price; text-align: left; line-height: 1.25; }
+  .list-with-local.has-local .product-row .row-from { display: inline; margin-right: 4px; }
+  .list-with-local.has-local .product-row .row-price { display: inline; }
+  .list-with-local.has-local .product-row .row-price .discount-badge { display: inline-block; margin: 0 0 0 4px; }
+  .list-with-local.has-local .product-row .row-fav-btn { grid-area: fav; justify-self: center; padding: 2px; }
+  .list-with-local.has-local .product-row .row-compare {
+    grid-area: cmp;
+    justify-self: center;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 10px;
+  }
+  .list-with-local.has-local .product-row .row-compare span { writing-mode: vertical-rl; letter-spacing: .02em; }
+  .list-with-local.has-local .product-row .row-compare input { width: 14px; height: 14px; }
 }
 
 /* «Estimado» sólo como signo de aviso (la palabra va en el title). */

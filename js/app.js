@@ -3922,27 +3922,50 @@
       box.innerHTML = "";
       return;
     }
+    // Se cuentan solo los resultados que de verdad son lo buscado (los de
+    // relevancia cercana a la más alta), no todo lo que lo menciona: con
+    // "refrigerador" los filtros «para refrigerador» no deben sugerir
+    // Refacciones, y con "lg" el «aLGodón» no debe sugerir Blancos.
+    const terms = queryTerms(state.query);
+    let base = filtered;
+    if (terms.length) {
+      const puntos = filtered.map((p) => queryRelevanceScore(p, terms));
+      let tope = 0;
+      puntos.forEach((x) => { if (x > tope) tope = x; });
+      if (tope > 0) base = filtered.filter((p, i) => puntos[i] >= tope * 0.7);
+    }
     const porCat = new Map();
     const porSub = new Map();
-    filtered.forEach((p) => {
+    base.forEach((p) => {
       porCat.set(p.category, (porCat.get(p.category) || 0) + 1);
       const k = `${p.category}\u0000${p.subcategory || ""}`;
       porSub.set(k, (porSub.get(k) || 0) + 1);
     });
-    const minimo = Math.max(3, Math.round(filtered.length * 0.04));
+    const minimo = Math.max(3, Math.round(base.length * 0.04));
     const sugerencias = [];
     [...porCat.entries()].sort((a, b) => b[1] - a[1]).forEach(([catId, n]) => {
       if (sugerencias.length >= 3 || n < minimo) return;
       const cat = categoryById(catId);
       if (!cat) return;
+      const subs = [...porSub.entries()]
+        .filter(([k, m]) => k.startsWith(catId + "\u0000") && m >= 3)
+        .sort((a, b) => b[1] - a[1]);
+      // Si casi todo lo encontrado de la categoría es de un solo tipo
+      // ("colchón" -> Colchones dentro de Muebles), se ofrece ese tipo, que
+      // tiene niveles más finos que los de toda la categoría.
+      if (subs.length && subs[0][1] >= n * 0.7) {
+        const subId = subs[0][0].split("\u0000")[1];
+        if (subId && tieneEjes(catId, subId)) {
+          const sub = subcategoryById(catId, subId);
+          sugerencias.push({ catId, subId, nombre: (sub && sub.name) || subId, n: subs[0][1] });
+          return;
+        }
+      }
       if (tieneEjes(catId)) {
         sugerencias.push({ catId, subId: null, nombre: cat.name, n });
         return;
       }
       // Sin niveles para toda la categoría: el tipo más buscado que sí tenga.
-      const subs = [...porSub.entries()]
-        .filter(([k, m]) => k.startsWith(catId + "\u0000") && m >= 3)
-        .sort((a, b) => b[1] - a[1]);
       for (const [k, m] of subs) {
         const subId = k.split("\u0000")[1];
         if (subId && tieneEjes(catId, subId)) {
@@ -3951,6 +3974,11 @@
           break;
         }
       }
+    });
+    // El número del botón es lo que se verá al elegirlo: todos los
+    // resultados de la búsqueda en esa categoría o tipo.
+    sugerencias.forEach((s) => {
+      s.n = filtered.filter((p) => p.category === s.catId && (!s.subId || p.subcategory === s.subId)).length;
     });
     if (!sugerencias.length) {
       box.classList.add("hidden");
