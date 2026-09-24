@@ -4824,37 +4824,46 @@ tr.offer-compare-off { display: none; }
   .mx-map-buscar { max-width: none; }
 }
 
-/* ComparaMEX Local (experimental): el recuadro «Tienda local», aparte de
-   la ficha. Solo aparece cuando en la página hay al menos un producto con
-   tienda local; las filas sin ella llevan el recuadro vacío, para que la
-   columna se lea alineada de arriba abajo. */
-.row-local-wrap { display: flex; gap: 10px; align-items: stretch; }
-.row-local-wrap > .product-row { flex: 1 1 auto; min-width: 0; }
-.row-local-wrap > .row-local {
-  flex: 0 0 210px;
-  background: var(--green-tint);
+/* ComparaMEX Local (experimental): el ranking de las tiendas locales, en
+   su propia columna a la derecha de la lista, con su propia numeración (no
+   es la misma lista con otra columna: es otro ranking). */
+.list-with-local.has-local { display: flex; gap: 12px; align-items: flex-start; }
+.list-with-local.has-local > .product-list { flex: 1 1 auto; min-width: 0; }
+.local-ranking {
+  flex: 0 0 250px;
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + 72px);
+  background: var(--card);
   border: 1px solid var(--border);
   border-top: 4px solid var(--green);
   border-radius: var(--radius);
-  padding: 8px 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1px;
-  font-size: 12px;
-  min-width: 0;
 }
-.row-local-wrap > .row-local.is-empty { background: var(--card); border-top-color: var(--border); color: var(--muted); }
-.row-local-head { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--green); }
-.row-local.is-empty .row-local-head { color: var(--muted); }
-.row-local-demo { background: var(--gold); color: #222; padding: 0 5px; margin-left: 4px; letter-spacing: 0; text-transform: none; font-size: 10px; }
-.row-local-store { font-weight: 700; color: var(--ink); }
-.row-local-text { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.row-local-price { font-weight: 800; font-size: 16px; color: var(--green); font-variant-numeric: tabular-nums; }
-.row-local-meta { color: var(--green); font-size: 11px; }
-.row-local-none { font-size: 12px; }
-@media (max-width: 760px) {
-  .row-local-wrap { flex-direction: column; gap: 4px; }
-  .row-local-wrap > .row-local { flex: 0 0 auto; }
-  .row-local-wrap > .row-local.is-empty { display: none; }
+.local-head { padding: 10px 12px 8px; border-bottom: 1px solid var(--border); background: var(--green-tint); }
+.local-title { font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--green); }
+.local-sub { font-size: 12px; color: var(--muted); }
+.local-demo-note { margin-top: 4px; font-size: 11px; color: #7a5a00; }
+.local-list { display: flex; flex-direction: column; }
+.local-item {
+  display: flex; gap: 10px; align-items: flex-start; text-align: left;
+  width: 100%; padding: 10px 12px; border: 0; border-bottom: 1px solid var(--border);
+  background: transparent; font: inherit; color: inherit; cursor: pointer;
+}
+.local-item:hover { background: var(--green-tint); }
+.local-item:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; }
+.local-rank {
+  flex: 0 0 24px; height: 24px; display: grid; place-items: center;
+  background: var(--green); color: #fff; font-weight: 800; font-size: 12px;
+}
+.local-body { display: flex; flex-direction: column; gap: 1px; min-width: 0; font-size: 12px; }
+.local-store { font-weight: 700; color: var(--ink); }
+.local-text { color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.local-price { font-weight: 800; font-size: 16px; color: var(--green); font-variant-numeric: tabular-nums; }
+.local-meta { color: var(--green); font-size: 11px; }
+.local-more { padding: 8px 12px; font-size: 12px; color: var(--muted); }
+.row-local-demo { background: var(--gold); color: #222; padding: 0 5px; margin-left: 4px; font-size: 10px; font-weight: 700; }
+@media (max-width: 900px) {
+  .list-with-local.has-local { flex-direction: column; align-items: stretch; }
+  .local-ranking { position: static; flex: 0 0 auto; width: 100%; order: -1; }
+  /* En el teléfono va arriba de la lista: con los tres primeros basta. */
+  .local-item:nth-child(n+4) { display: none; }
 }

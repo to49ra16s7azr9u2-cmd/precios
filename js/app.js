@@ -4091,6 +4091,7 @@
       withCompare: hasQualityBlock(),
     });
     renderPagination(totalPages);
+    renderLocalRanking(sorted);
 
     const subLabel = subcategoryById(state.category, singleSub());
     // El título decía siempre "más populares" aunque el orden fuera otro:
@@ -4200,23 +4201,69 @@
     });
   }
 
-  function localBoxHtml(p, listaConLocal) {
-    if (!listaConLocal) return "";
-    const ofs = localOffersFor(p);
-    if (!ofs.length) {
-      return `<div class="row-local is-empty"><div class="row-local-head">Tienda local</div>` +
-        `<div class="row-local-none">Sin tienda local</div></div>`;
+  // El ranking de las tiendas locales es OTRO ranking, aparte del de la
+  // lista (a pedido del usuario: «ほかのランキングとLocalたちのランキングは
+  // 別物として扱ってください»): su propia columna, su propia numeración, y
+  // sólo con los productos que venden las tiendas de la zona. Sigue el mismo
+  // orden elegido arriba (popularidad, precio...), aplicado a SUS precios.
+  const LOCAL_TOPE = 10;
+
+  function localRankingEl() {
+    let aside = document.getElementById("localRanking");
+    if (aside) return aside;
+    const lista = el.productList;
+    const envoltura = document.createElement("div");
+    envoltura.className = "list-with-local";
+    lista.parentNode.insertBefore(envoltura, lista);
+    envoltura.appendChild(lista);
+    aside = document.createElement("aside");
+    aside.id = "localRanking";
+    aside.className = "local-ranking";
+    aside.hidden = true;
+    envoltura.appendChild(aside);
+    return aside;
+  }
+
+  function renderLocalRanking(sorted) {
+    const aside = localRankingEl();
+    const entradas = [];
+    sorted.forEach((p) => {
+      const ofs = localOffersFor(p);
+      if (!ofs.length) return;
+      const o = ofs.reduce((a, b) => (a.p <= b.p ? a : b));
+      entradas.push({ p, o, t: state.local.tiendas[o.t] });
+    });
+    aside.hidden = entradas.length === 0;
+    aside.parentNode.classList.toggle("has-local", entradas.length > 0);
+    if (!entradas.length) {
+      aside.innerHTML = "";
+      return;
     }
-    const o = ofs.reduce((a, b) => (a.p <= b.p ? a : b));
-    const t = state.local.tiendas[o.t];
-    const titulo = t.d ? "Datos de prueba de una función experimental" : "";
-    return `<div class="row-local"${titulo ? ` title="${titulo}"` : ""}>
-      <div class="row-local-head">Tienda local${t.d ? ` <span class="row-local-demo">Demo</span>` : ""}</div>
-      <div class="row-local-store">${htmlEscapeAttr(t.n)}</div>
-      <div class="row-local-text">${htmlEscapeAttr(o.x || "")}</div>
-      <div class="row-local-price">${money(o.p)}</div>
-      <div class="row-local-meta">Recoger hoy · Puedes verlo en tienda</div>
-    </div>`;
+    if (state.sort === "price_asc") entradas.sort((a, b) => a.o.p - b.o.p);
+    else if (state.sort === "price_desc") entradas.sort((a, b) => b.o.p - a.o.p);
+    const demo = entradas.some((e) => e.t.d);
+    const lugar = state.municipio ? etiquetaMunicipio(state.municipio) : "tu municipio";
+    const filas = entradas.slice(0, LOCAL_TOPE).map((e, i) => `
+      <button type="button" class="local-item" data-id="${htmlEscapeAttr(e.p.id)}">
+        <span class="local-rank">${i + 1}</span>
+        <span class="local-body">
+          <span class="local-store">${htmlEscapeAttr(e.t.n)}${e.t.d ? ` <span class="row-local-demo">Demo</span>` : ""}</span>
+          <span class="local-text">${htmlEscapeAttr(e.o.x || e.p.name)}</span>
+          <span class="local-price">${money(e.o.p)}</span>
+          <span class="local-meta">Recoger hoy · Puedes verlo en tienda</span>
+        </span>
+      </button>`).join("");
+    aside.innerHTML = `
+      <div class="local-head">
+        <div class="local-title">Tiendas locales</div>
+        <div class="local-sub">En ${htmlEscapeAttr(lugar)} · ${plural(entradas.length, "producto", "productos")}</div>
+        ${demo ? `<div class="local-demo-note">Datos de prueba de una función experimental</div>` : ""}
+      </div>
+      <div class="local-list">${filas}</div>
+      ${entradas.length > LOCAL_TOPE ? `<div class="local-more">y ${entradas.length - LOCAL_TOPE} más</div>` : ""}`;
+    aside.querySelectorAll(".local-item").forEach((b) => {
+      b.onclick = () => goDetail(b.dataset.id);
+    });
   }
 
   // Renderiza una lista de filas de producto (usada en /list y /favorites)
@@ -4226,7 +4273,6 @@
       container.innerHTML = `<p class="empty-state">${opts.emptyText}</p>`;
       return;
     }
-    const listaConLocal = products.some((p) => localOffersFor(p).length > 0);
     products.forEach((p, i) => {
       const { avg, count } = aggregateRating(p);
       const rank = (opts.rankOffset || 0) + i + 1;
@@ -4317,19 +4363,7 @@
           refreshCompareCheckboxes(container);
         };
       }
-      if (listaConLocal) {
-        // La tienda local va en su propio recuadro, separado de la ficha
-        // (a pedido del usuario: «完全に線引きをし、別バナーに»): lo que
-        // compara el catálogo nacional y lo que ofrece la tienda de la zona
-        // no se leen como una sola cosa.
-        const envoltura = document.createElement("div");
-        envoltura.className = "row-local-wrap";
-        envoltura.appendChild(row);
-        envoltura.insertAdjacentHTML("beforeend", localBoxHtml(p, true));
-        container.appendChild(envoltura);
-      } else {
-        container.appendChild(row);
-      }
+      container.appendChild(row);
     });
     if (opts.withCompare) refreshCompareCheckboxes(container);
   }
