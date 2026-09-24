@@ -3895,6 +3895,88 @@
   // Solo se nombran las palabras que de verdad ampliaron la búsqueda (las
   // de un grupo de sinónimos), no el singular/plural: que "laptops"
   // encuentre "Laptop" no es un resultado ajeno, es la misma palabra.
+  // Buscando texto sin categoría ("lenovo"), los resultados mezclan
+  // laptops, tabletas, monitores... y Compara calidad no aparece, porque
+  // sus niveles son de una categoría. Estos botones ofrecen las categorías
+  // (o tipos) que más aparecen en los resultados y que tienen Compara
+  // calidad: al elegir uno, la búsqueda se queda y se le aplican los niveles
+  // de esa categoría ("¿Buscas laptops? -> Compara calidad de Laptops").
+  function tieneEjes(catId, subId) {
+    const clave = subId ? `${catId}/${subId}` : catId;
+    const gen = qualityAxesJson[clave];
+    return !!((QUALITY_AXES[clave] && QUALITY_AXES[clave].length) || (gen && gen.axes && gen.axes.length));
+  }
+
+  function renderSearchCqSuggest(filtered) {
+    let box = document.getElementById("searchCq");
+    if (!box && el.searchNote) {
+      box = document.createElement("div");
+      box.id = "searchCq";
+      box.className = "search-cq hidden";
+      el.searchNote.insertAdjacentElement("afterend", box);
+    }
+    if (!box) return;
+    pedirQualityAxes();
+    if (!state.query || state.category || !filtered.length) {
+      box.classList.add("hidden");
+      box.innerHTML = "";
+      return;
+    }
+    const porCat = new Map();
+    const porSub = new Map();
+    filtered.forEach((p) => {
+      porCat.set(p.category, (porCat.get(p.category) || 0) + 1);
+      const k = `${p.category}\u0000${p.subcategory || ""}`;
+      porSub.set(k, (porSub.get(k) || 0) + 1);
+    });
+    const minimo = Math.max(3, Math.round(filtered.length * 0.04));
+    const sugerencias = [];
+    [...porCat.entries()].sort((a, b) => b[1] - a[1]).forEach(([catId, n]) => {
+      if (sugerencias.length >= 3 || n < minimo) return;
+      const cat = categoryById(catId);
+      if (!cat) return;
+      if (tieneEjes(catId)) {
+        sugerencias.push({ catId, subId: null, nombre: cat.name, n });
+        return;
+      }
+      // Sin niveles para toda la categoría: el tipo más buscado que sí tenga.
+      const subs = [...porSub.entries()]
+        .filter(([k, m]) => k.startsWith(catId + "\u0000") && m >= 3)
+        .sort((a, b) => b[1] - a[1]);
+      for (const [k, m] of subs) {
+        const subId = k.split("\u0000")[1];
+        if (subId && tieneEjes(catId, subId)) {
+          const sub = subcategoryById(catId, subId);
+          sugerencias.push({ catId, subId, nombre: (sub && sub.name) || subId, n: m });
+          break;
+        }
+      }
+    });
+    if (!sugerencias.length) {
+      box.classList.add("hidden");
+      box.innerHTML = "";
+      return;
+    }
+    box.innerHTML = `<span class="search-cq-lead">${icon("search")} Afina tu búsqueda con Compara calidad:</span>` +
+      sugerencias.map((s, i) => `
+        <button type="button" class="search-cq-btn" data-i="${i}">
+          <span class="search-cq-q">¿Buscas ${htmlEscapeAttr(s.nombre.toLowerCase())}?</span>
+          <span class="search-cq-go">Compara calidad de ${htmlEscapeAttr(s.nombre)} <span class="muted">(${s.n})</span> →</span>
+        </button>`).join("");
+    box.classList.remove("hidden");
+    box.querySelectorAll(".search-cq-btn").forEach((b) => {
+      b.onclick = () => {
+        const s = sugerencias[+b.dataset.i];
+        state.category = s.catId;
+        state.subcategory = s.subId ? [s.subId] : [];
+        state.brands.clear();
+        state.specFilters = buildSpecFilterState();
+        clearQuality();
+        renderList();
+      };
+    });
+  }
+
   function renderSearchNote() {
     if (!el.searchNote) return;
     const extras = [];
@@ -4113,6 +4195,7 @@
     };
     const sortLabel = SORT_LABELS[state.sort] || SORT_LABELS.relevance;
     renderSearchNote();
+    renderSearchCqSuggest(filtered);
     el.listTitle.textContent = state.query
       ? `Resultados para "${state.query}" (${filtered.length})`
       : state.category
@@ -4700,6 +4783,16 @@
     if (state.subcategory.length) {
       scoped = scoped.filter((p) => state.subcategory.includes(p.subcategory));
     }
+    // Con una búsqueda escrita, el alcance es lo que la búsqueda encontró
+    // dentro de la categoría: si no, Compara calidad y los filtros contaban
+    // las 4,415 laptops cuando la lista mostraba las 858 de "lenovo".
+    if (state.query) {
+      const terms = queryTerms(state.query);
+      if (terms.length) {
+        const fuzzy = !scoped.some((p) => literalQueryMatch(p, terms));
+        scoped = scoped.filter((p) => (fuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, terms)));
+      }
+    }
     return scoped;
   }
 
@@ -5030,6 +5123,10 @@
       .then((j) => {
         qualityAxesJson = materializeQualityAxes(j);
         if (!el.viewList.classList.contains("hidden") && state.category) renderSpecsBanner();
+        // Las sugerencias de Compara calidad de una búsqueda dependen de
+        // estos ejes: si la búsqueda se pintó antes de que llegaran, se
+        // vuelven a calcular.
+        else if (!el.viewList.classList.contains("hidden") && state.query) renderSearchCqSuggest(filteredProducts());
       })
       .catch(() => {});
   }

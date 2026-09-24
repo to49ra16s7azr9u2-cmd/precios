@@ -4870,3 +4870,17 @@ tr.offer-compare-off { display: none; }
 
 /* «Estimado» sólo como signo de aviso (la palabra va en el title). */
 .aviso-estimado { color: #a15c00; font-weight: 700; cursor: help; margin-left: 2px; }
+
+/* Buscando sin categoría: botones para aplicar Compara calidad de una de
+   las categorías que más salen en los resultados. */
+.search-cq { display: flex; flex-wrap: wrap; gap: 8px; align-items: stretch; margin: 6px 0 4px; }
+.search-cq-lead { flex: 1 0 100%; font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.search-cq-btn {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--red);
+  border-radius: var(--radius); padding: 8px 12px; font: inherit; color: var(--ink); cursor: pointer; text-align: left;
+}
+.search-cq-btn:hover { border-color: var(--red); background: var(--red-tint); }
+.search-cq-btn:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.search-cq-q { font-size: 12px; color: var(--muted); }
+.search-cq-go { font-size: 14px; font-weight: 700; color: var(--red); }
