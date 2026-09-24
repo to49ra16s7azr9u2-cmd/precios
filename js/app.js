@@ -4289,7 +4289,6 @@
           }
           <div class="row-stores">${plural(sellerTotal(p), "vendedor", "vendedores")}</div>
         </div>
-        ${localBoxHtml(p, listaConLocal)}
         ${
           // Comparador de specs: solo tiene sentido con una categoría
           // concreta activa (ver renderList) -- comparar un celular contra
@@ -4318,7 +4317,19 @@
           refreshCompareCheckboxes(container);
         };
       }
-      container.appendChild(row);
+      if (listaConLocal) {
+        // La tienda local va en su propio recuadro, separado de la ficha
+        // (a pedido del usuario: «完全に線引きをし、別バナーに»): lo que
+        // compara el catálogo nacional y lo que ofrece la tienda de la zona
+        // no se leen como una sola cosa.
+        const envoltura = document.createElement("div");
+        envoltura.className = "row-local-wrap";
+        envoltura.appendChild(row);
+        envoltura.insertAdjacentHTML("beforeend", localBoxHtml(p, true));
+        container.appendChild(envoltura);
+      } else {
+        container.appendChild(row);
+      }
     });
     if (opts.withCompare) refreshCompareCheckboxes(container);
   }
