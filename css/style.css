@@ -5030,3 +5030,25 @@ tr.offer-compare-off { display: none; }
   .lv-foto { width: 100%; height: 180px; }
   .lv-siguiente { margin: 0 -12px; padding: 8px 12px; }
 }
+
+/* Aviso de ComparaMEX Local arriba de Inicio: una banda delgada, del verde de
+   las tiendas locales, que no compite con el contenido. */
+.local-aviso {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px;
+  margin: 10px 0 12px; padding: 9px 14px;
+  background: var(--green-tint); border: 1px solid var(--green); border-left-width: 5px;
+  border-radius: var(--radius); font-size: 14px;
+}
+.local-aviso p { margin: 0; }
+.local-aviso-sello {
+  flex: 0 0 auto; background: var(--green); color: #fff; font-size: 11px; font-weight: 800;
+  letter-spacing: .05em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px;
+}
+.local-aviso-texto { flex: 1 1 320px; }
+.local-aviso-texto a { color: var(--green); font-weight: 800; white-space: nowrap; }
+.local-aviso-contacto { flex: 0 1 auto; color: var(--muted); font-size: 13px; }
+.local-aviso-contacto a { color: var(--green); font-weight: 700; }
+@media (max-width: 640px) {
+  .local-aviso { font-size: 13px; padding: 8px 12px; }
+  .local-aviso-texto { flex-basis: 100%; }
+}

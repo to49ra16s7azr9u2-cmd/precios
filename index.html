@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=b9625b38">
+<link rel="stylesheet" href="css/style.min.css?v=5f5a19ea">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -147,6 +147,15 @@
   <!-- ranking de productos populares → comparación de precios) -->
   <section id="viewHome" class="view">
     <div class="container">
+      <!-- Aviso de ComparaMEX Local para dueños de tiendas (pedido del usuario,
+           25-sep): lleva a /tu-tienda/, que explica el proyecto, y deja el
+           correo de contacto a la vista. -->
+      <aside class="local-aviso" aria-label="ComparaMEX Local para tiendas">
+        <span class="local-aviso-sello">Nuevo · Tienda local</span>
+        <p class="local-aviso-texto"><strong>¿Tienes una tienda?</strong> Que la gente de tu municipio vea tus precios cuando compara.
+          <a href="tu-tienda/">Conoce el proyecto →</a></p>
+        <p class="local-aviso-contacto">¿Te interesa? Escríbenos a <a href="mailto:hola@comparamex.com?subject=ComparaMEX%20Local">hola@comparamex.com</a></p>
+      </aside>
       <!-- Inicio en tres columnas, según el boceto del usuario. El orden de
            la columna izquierda es el del dibujo: las dos entradas al
            catálogo como pestañas arriba del todo (la marca, que abre las
