@@ -3990,11 +3990,18 @@
       box.innerHTML = "";
       return;
     }
-    box.innerHTML = `<span class="search-cq-lead">${icon("search")} Afina tu búsqueda con Compara calidad:</span>` +
+    // Con el logo de verdad de Compara calidad (a pedido del usuario) y la
+    // acción dicha con todas las letras: aplica los niveles a ESTA búsqueda.
+    box.innerHTML = `<span class="search-cq-lead">${icon("search")} Afina tu búsqueda con
+        <img class="search-cq-lead-logo" src="icons/logo-comparacalidad.png" alt="Compara calidad"></span>` +
       sugerencias.map((s, i) => `
         <button type="button" class="search-cq-btn" data-i="${i}">
           <span class="search-cq-q">¿Buscas ${htmlEscapeAttr(s.nombre.toLowerCase())}?</span>
-          <span class="search-cq-go">Compara calidad de ${htmlEscapeAttr(s.nombre)} <span class="muted">(${s.n})</span> →</span>
+          <span class="search-cq-go">
+            <img class="search-cq-logo" src="icons/logo-comparacalidad.png" alt="Compara calidad">
+            <span>de ${htmlEscapeAttr(s.nombre)} <span class="muted">(${s.n})</span></span>
+          </span>
+          <span class="search-cq-aplicar">Aplicar a esta búsqueda →</span>
         </button>`).join("");
     box.classList.remove("hidden");
     box.querySelectorAll(".search-cq-btn").forEach((b) => {
