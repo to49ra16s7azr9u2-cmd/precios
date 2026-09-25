@@ -3913,7 +3913,9 @@
       box = document.createElement("div");
       box.id = "searchCq";
       box.className = "search-cq hidden";
-      el.searchNote.insertAdjacentElement("afterend", box);
+      // Debajo de la cabecera de la lista, no dentro: .list-head es una fila
+      // flex y ahí la caja quedaba apretada al costado del título.
+      (el.searchNote.closest(".list-head") || el.searchNote).insertAdjacentElement("afterend", box);
     }
     if (!box) return;
     pedirQualityAxes();

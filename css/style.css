@@ -4928,6 +4928,7 @@ tr.offer-compare-off { display: none; }
    las categorías que más salen en los resultados. */
 .search-cq { display: flex; flex-wrap: wrap; gap: 8px; align-items: stretch; margin: 6px 0 4px; }
 .search-cq-lead { flex: 1 0 100%; font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.search-cq-lead .icon { width: 16px; height: 16px; flex: 0 0 auto; }
 .search-cq-btn {
   display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
   background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--red);
