@@ -4368,13 +4368,13 @@
       const dif = enLinea ? o.p - enLinea : 0;
       return `
         <li class="lv-oferta${o === elegida ? " is-elegida" : ""}">
+          <div class="lv-oferta-sellos">
+            <span class="lv-sello">${EXISTENCIA_LOCAL[o.s] || "Hay existencia"}</span>
+            <span class="lv-sello">Recoger hoy</span>
+            <span class="lv-sello">Puedes verlo en tienda</span>
+          </div>
           <div class="lv-oferta-tienda">${htmlEscapeAttr(tt.n)}${tt.d ? ` <span class="row-local-demo">Demo</span>` : ""}</div>
           <div class="lv-oferta-precio">${money(o.p)}</div>
-          <div class="lv-oferta-meta">
-            <span>${EXISTENCIA_LOCAL[o.s] || "Hay existencia"}</span>
-            <span>Recoger hoy</span>
-            <span>Puedes verlo en tienda</span>
-          </div>
           <div class="lv-oferta-nota">«${htmlEscapeAttr(o.x || product.name)}» · precio confirmado el ${fechaCorta(o.v)}${
             enLinea ? ` · ${dif > 0 ? `${money(dif)} más que` : dif < 0 ? `${money(-dif)} menos que` : "igual que"} el precio en línea más bajo` : ""}</div>
         </li>`;
@@ -4498,10 +4498,13 @@
       <button type="button" class="local-item" data-id="${htmlEscapeAttr(e.p.id)}" data-t="${htmlEscapeAttr(e.o.t)}">
         <span class="local-rank">${i + 1}</span>
         <span class="local-body">
+          <span class="local-sellos">
+            <span class="lv-sello">Recoger hoy</span>
+            <span class="lv-sello">Puedes verlo en tienda</span>
+          </span>
           <span class="local-store">${htmlEscapeAttr(e.t.n)}${e.t.d ? ` <span class="row-local-demo">Demo</span>` : ""}</span>
           <span class="local-text">${htmlEscapeAttr(e.o.x || e.p.name)}</span>
           <span class="local-price">${money(e.o.p)}</span>
-          <span class="local-meta">Recoger hoy · Puedes verlo en tienda</span>
         </span>
       </button>`).join("");
     aside.innerHTML = `
