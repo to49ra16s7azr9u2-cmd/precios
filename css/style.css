@@ -3793,7 +3793,7 @@ tr.offer-compare-off { display: none; }
 }
 #homeCategoryGrid { padding: 0; margin: 0; }
 /* Línea tenue con el nombre del grupo, a todo el ancho de la grilla. */
-/* Títulos de grupo de la portada: rojo de marca en negrita, con la letra del
+/* Títulos de grupo de la portada: negro en negrita (antes rojo; pedido del usuario), con la letra del
    logo (Poppins Bold) y la raya divisoria también en rojo (pedido del
    usuario, 26-sep-2026: el gris claro de 11px no se veía). Abajo dejan aire
    para la etiqueta «Hasta -79%», que sobresale por encima de la tarjeta. */
@@ -3807,12 +3807,12 @@ tr.offer-compare-off { display: none; }
   font-weight: 700;
   font-size: 17px;
   line-height: 1.2;
-  color: var(--red);
+  color: #1a1a1a;
 }
 .home-cat-grupo::after {
   content: "";
   flex: 1;
-  border-top: 2px solid var(--red);
+  border-top: 2px solid #1a1a1a;
 }
 @media (max-width: 600px) {
   .home-cat-grupo { font-size: 15px; margin: 12px 0 8px; }
