@@ -7953,6 +7953,27 @@
   // adelanto de las TOP_N ofertas más baratas con lo esencial (tienda,
   // precio, envío, botón).
   const DETAIL_TOP_OFFERS_N = 5;
+
+  // ¿Esta oferta es de un producto reacondicionado o usado? Para la banda
+  // junto al precio en las ofertas de arriba de la ficha (pedido del
+  // usuario, 25-sep; solo ahí). Casi ninguna tienda marca la condición por
+  // oferta, así que se decide por la tienda (Reuse solo vende
+  // reacondicionados), por el dato de la oferta si lo trae, y si no por la
+  // ficha: su Condición, su tipo o su nombre -- con el mismo patrón que usa
+  // fusionar_vetado.py para no fusionar un reacondicionado con uno nuevo.
+  const USADO_RE = /\b(reacondicionad[oa]s?|renewed|refurbished|seminuev[oa]s?|usad[oa]s?|open box|grado [abc]\b)/;
+  function condicionDeOferta(product, offer) {
+    const c = String(offer.condition || "").toLowerCase();
+    if (c === "refurbished" || c === "reconditioned") return "Reacondicionado";
+    if (c === "used") return "Usado";
+    if (offer.storeId === "reuse_mx") return "Reacondicionado";
+    const spec = (product.specs || []).find((x) => x.label === "Condición");
+    const texto = normalizeSearchText(`${spec ? spec.value : ""} ${product.subcategory || ""} ${product.name || ""}`);
+    const m = texto.match(USADO_RE);
+    if (!m) return "";
+    return /usad|seminuev|open box|grado/.test(m[1]) ? "Usado" : "Reacondicionado";
+  }
+
   function renderDetailTopOffers(product, rows) {
     const sorted = [...rows].sort((a, b) => a.price - b.price);
     const top = sorted.slice(0, DETAIL_TOP_OFFERS_N);
@@ -7965,6 +7986,7 @@
             ${storeDotHtml(r.store)}
             <span class="detail-top-offer-names">
               <span class="detail-top-offer-storename">${r.store.name}</span>${r.colorLabel ? `<span class="detail-top-offer-color">${htmlEscapeAttr(r.colorLabel)}</span>` : ""}${
+                condicionDeOferta(product, r) ? `<span class="detail-top-offer-cond-movil">${condicionDeOferta(product, r)}</span>` : ""}${
                 r.rating && r.reviewCount ? `<span class="detail-top-offer-stars-movil">★ ${Number(r.rating).toFixed(1)}</span>` : ""}
             </span>
           </span>
@@ -7976,6 +7998,10 @@
               ? `<span class="detail-top-offer-stars" title="Calificación en ${htmlEscapeAttr(r.store.name)}"><span class="row-stars">${starsHtml(r.rating)}</span> ${Number(r.rating).toFixed(1)} <span class="detail-top-offer-stars-n">(${Number(r.reviewCount).toLocaleString("es-MX")})</span></span>`
               : `<span class="detail-top-offer-stars"></span>`
           }
+          ${(() => {
+            const cond = condicionDeOferta(product, r);
+            return cond ? `<span class="detail-top-offer-cond">${cond}</span>` : "";
+          })()}
           <span class="detail-top-offer-price">${money(r.price)}${r.price === bestPrice ? '<span class="best-tag">MÁS BARATO</span>' : ""}</span>
           <span class="detail-top-offer-ship">${shippingBadgeHtml(r, true)}</span>
           <button type="button" class="buy-btn detail-top-offer-btn">Ver oferta</button>
