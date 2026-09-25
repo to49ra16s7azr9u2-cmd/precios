@@ -3122,6 +3122,27 @@
   // Inicio ahora es puramente el primer paso del recorrido estilo
   // Kakaku.com: categoría → ranking de productos populares → comparación de
   // precios. Los rankings en sí viven en la vista de categoría (renderList).
+  // Grupos de Inicio, en el orden pedido por el usuario (26-sep): equipos
+  // de precisión, electrodomésticos, muebles, otras máquinas, deportes y
+  // ropa, y lo demás. Una categoría nueva que no esté en ninguna lista cae
+  // en el último grupo.
+  const GRUPOS_INICIO = [
+    { nombre: "Tecnología y electrónica", cats: ["Celulares", "Laptops", "Tabletas", "Computadoras de escritorio", "Monitores",
+      "Componentes y accesorios de PC", "Teclados", "Mouse", "Almacenamiento", "Redes", "Impresoras", "Impresión 3D",
+      "Cámaras y fotografía", "Cámaras de seguridad", "Relojes inteligentes", "Audífonos", "Bocinas", "Televisores",
+      "Proyectores y accesorios", "Videojuegos", "Domótica y hogar inteligente", "Cargadores y adaptadores", "Baterías portátiles"] },
+    { nombre: "Electrodomésticos", cats: ["Refrigeradores", "Lavadoras", "Electrodomésticos", "Cafeteras", "Aspiradoras",
+      "Climatización", "Iluminación"] },
+    { nombre: "Muebles y hogar", cats: ["Muebles", "Blancos y ropa de cama", "Decoración de hogar y jardín", "Cocina y comedor",
+      "Jardín y exterior", "Limpieza y hogar"] },
+    { nombre: "Herramientas, vehículos y máquinas", cats: ["Herramientas", "Autos y motos", "Autopartes", "Bicicletas y movilidad",
+      "Energía solar", "Equipo comercial"] },
+    { nombre: "Deportes, ropa y moda", cats: ["Deportes y fitness", "Ropa y accesorios", "Calzado", "Bolsas y mochilas",
+      "Joyería y bisutería", "Viajes"] },
+    { nombre: "Otros", cats: ["Belleza y cuidado personal", "Salud", "Suplementos", "Bebés", "Juguetes", "Juegos de mesa",
+      "Mascotas", "Instrumentos musicales", "Papelería y oficina", "Libros", "Otros"] },
+  ];
+
   function renderHome() {
     setActiveView("home");
     // Inicio no baja ninguna categoría: le alcanza con las estadísticas del
@@ -3147,7 +3168,43 @@
 
     const saleBadges = categorySaleBadges();
 
-    state.data.categories.forEach((cat) => {
+    // Las categorías van por grupos (pedido del usuario): tecnología,
+    // electrodomésticos, muebles y hogar, máquinas y vehículos, deportes y
+    // ropa, y el resto. Antes de cada grupo, una línea tenue con su nombre.
+    const porId = new Map(state.data.categories.map((c) => [c.id, c]));
+    const usadas = new Set();
+    const grupos = GRUPOS_INICIO.map((g) => {
+      const cats = g.cats.filter((id) => porId.has(id) && !usadas.has(id) && usadas.add(id)).map((id) => porId.get(id));
+      return { nombre: g.nombre, cats };
+    });
+    const sueltas = state.data.categories.filter((c) => !usadas.has(c.id));
+    grupos[grupos.length - 1].cats.push(...sueltas);
+
+    grupos.forEach((grupo) => {
+      if (!grupo.cats.length) return;
+      const sep = document.createElement("div");
+      sep.className = "home-cat-grupo";
+      sep.setAttribute("role", "separator");
+      sep.innerHTML = `<span>${htmlEscapeAttr(grupo.nombre)}</span>`;
+      el.homeCategoryGrid.appendChild(sep);
+      grupo.cats.forEach((cat) => pintarTarjetaCategoria(cat, saleBadges));
+    });
+    bindHomeCatSearch();
+    filtrarHomeCategorias();
+
+    renderHomeRankings();
+    renderHomeCatRanking();
+    renderHomeRankingLinks();
+    bindHomeTips();
+    bindHomeTabs();
+    renderHomeMostViewed();
+    renderHomeRecent();
+    renderHomeAccountSections();
+  }
+
+  // Una tarjeta de categoría de Inicio (foto del más popular + nombre).
+  function pintarTarjetaCategoria(cat, saleBadges) {
+    {
       const categoryProducts = homePool(cat.id);
       const card = document.createElement("button");
       card.type = "button";
@@ -3195,17 +3252,7 @@
       );
       card.dataset.cat = cat.id;
       el.homeCategoryGrid.appendChild(card);
-    });
-    bindHomeCatSearch();
-
-    renderHomeRankings();
-    renderHomeCatRanking();
-    renderHomeRankingLinks();
-    bindHomeTips();
-    bindHomeTabs();
-    renderHomeMostViewed();
-    renderHomeRecent();
-    renderHomeAccountSections();
+    }
   }
 
   // Enlaces a las páginas de ranking mensual (/categoria/<slug>/), que son
@@ -3533,6 +3580,15 @@
         || (porProducto !== null && porProducto.has(c.dataset.cat));
       c.hidden = !cabe;
       if (cabe) vistas += 1;
+    });
+    // Una línea de grupo sin tarjetas visibles debajo se oculta también.
+    el.homeCategoryGrid.querySelectorAll(".home-cat-grupo").forEach((sep) => {
+      let n = sep.nextElementSibling, alguna = false;
+      while (n && !n.classList.contains("home-cat-grupo")) {
+        if (!n.hidden) { alguna = true; break; }
+        n = n.nextElementSibling;
+      }
+      sep.hidden = !alguna;
     });
     if (el.homeCatSearchCount) {
       el.homeCatSearchCount.textContent = q ? vistas + " de " + total : "";
@@ -4382,9 +4438,31 @@
     renderSpecFilters();
     renderSubcatPicker();
     renderSpecsBanner();
+    pintarPistaFiltros();
 
     renderProductListPage();
     renderLiveSearchSection();
+  }
+
+  // Debajo de "Filtros", en gris claro, por qué se puede afinar la lista
+  // (pedido del usuario): los títulos de los grupos que están a la vista
+  // ahora mismo -- Precio, Marca... y los de ficha técnica que apliquen a
+  // la categoría --, sin Categoría, que ya se ve abierta justo abajo.
+  function pintarPistaFiltros() {
+    const hint = document.getElementById("filtersHint");
+    if (!hint || !el.filtersPanel) return;
+    const vistos = [];
+    el.filtersPanel.querySelectorAll(".filter-group").forEach((g) => {
+      if (g.classList.contains("hidden") || g.hidden || g.classList.contains("filter-group-category")) return;
+      if (g.style && g.style.display === "none") return;
+      const t = g.querySelector(".filter-group-title");
+      const nombre = t && t.textContent.trim();
+      if (nombre && !vistos.includes(nombre)) vistos.push(nombre);
+    });
+    const MAX = 6;
+    hint.textContent = vistos.length
+      ? "Afina por " + vistos.slice(0, MAX).join(" · ") + (vistos.length > MAX ? " y más" : "")
+      : "";
   }
 
   // Dibuja solo el cuerpo de la lista (filas + paginación + título) sin
