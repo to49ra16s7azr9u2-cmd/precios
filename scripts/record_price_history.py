@@ -78,6 +78,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import web_summary
 from data_io import (
+    leer_json, escribir_texto_json, nombre_logico, borrar_json,
     DETAIL_CHUNK_SIZE, ROOT, load_catalog, slugify, _category_slugs,
 )
 from vtex_stores import TIENDAS_VTEX
@@ -181,25 +182,15 @@ def podar(serie, dia_hoy):
 
 
 def cargar(fname):
-    path = os.path.join(ROOT, fname)
+    # En disco es <fname>.gz (ver COMPRIMIDOS en data_io.py).
     try:
-        with open(path, encoding="utf-8") as f:
-            return json.load(f)
-    except (OSError, ValueError):
+        return leer_json(fname)
+    except (OSError, ValueError, EOFError):
         return {}
 
 
 def escribir(fname, payload):
-    path = os.path.join(ROOT, fname)
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    nuevo = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
-    if os.path.exists(path):
-        with open(path, encoding="utf-8") as f:
-            if f.read() == nuevo:
-                return False
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(nuevo)
-    return True
+    return escribir_texto_json(fname, json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
 
 
 def ubicacion_actual(products):
@@ -310,9 +301,8 @@ def limpiar_huerfanos(donde, dry_run=False):
     quitados, archivos, movidos = 0, 0, 0
     reubicar = {}  # archivo destino -> {pid: serie}
     tocados = set()
-    for nombre in sorted(os.listdir(hist_dir)):
+    for nombre in sorted({nombre_logico(n) for n in os.listdir(hist_dir)}):
         fname = f"{HIST_DIR}/{nombre}"
-        path = os.path.join(hist_dir, nombre)
         if fname not in vigentes:
             archivos += 1
             hist = cargar(fname)
@@ -323,7 +313,7 @@ def limpiar_huerfanos(donde, dry_run=False):
                 else:
                     quitados += 1
             if not dry_run:
-                os.remove(path)
+                borrar_json(fname)
             continue
         hist = cargar(fname)
         sobran = [pid for pid in hist if donde.get(pid) != fname]

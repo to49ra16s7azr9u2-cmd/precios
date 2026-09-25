@@ -261,6 +261,7 @@ FAMILIAS = {
         ("Joyería", [
             "Aretes", "Collares", "Pulseras", "Anillos", "Dijes y charms",
             "Arras y sets"]),
+        ("Accesorios", ["Lentes de sol"]),
     ],
     # Mascotas deduce solas «Jaulas», «Camas», «Comederos» y «Juguetes»; acá
     # van las que quedan, agrupadas por lo que el dueño va a hacer con ellas.
@@ -606,7 +607,7 @@ FAMILIAS = {
         ("Vitaminas y minerales", [
             "Multivitamínicos", "Vitamina C", "Vitamina D y K",
             "Complejo B y biotina", "Otras vitaminas", "Magnesio", "Zinc",
-            "Electrolitos y minerales"]),
+            "Calcio", "Hierro", "Electrolitos y minerales"]),
         ("Naturales y antioxidantes", [
             "Herbolaria y superalimentos", "Antioxidantes", "Colágeno",
             "Omega 3 y aceites"]),

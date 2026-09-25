@@ -234,7 +234,8 @@ def limpiar_historial(deshechos, dry_run=False):
     if not os.path.isdir(carpeta):
         return 0
     quitadas = 0
-    for nombre in sorted(os.listdir(carpeta)):
+    from data_io import nombre_logico
+    for nombre in sorted({nombre_logico(n) for n in os.listdir(carpeta)}):
         if not nombre.endswith(".json"):
             continue
         fname = f"{HIST_DIR}/{nombre}"

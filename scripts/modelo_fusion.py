@@ -56,6 +56,14 @@ import fusionar_vetado as FV  # noqa: E402
 RUTA_MODELO = os.path.join(RAIZ, "data", "modelo-fusion.json")
 RX_TOKEN = re.compile(r"[a-z0-9]+")
 RX_NUM = re.compile(r"\d+(?:[.,]\d+)?")
+# Lo que separa dos productos de la misma línea (medido en los falsos
+# positivos del primer entrenamiento: el juego «Deluxe» contra el normal,
+# «Buds 8 Active» contra «Buds 8 Lite», la PC con otra tarjeta de video).
+EDICIONES = {"deluxe", "ultimate", "edition", "edicion", "collection", "coleccion", "goty", "premium",
+             "special", "especial", "definitive", "definitiva", "complete", "completa", "gold", "standard"}
+VARIANTES = {"pro", "max", "plus", "mini", "ultra", "lite", "active", "air", "se", "fe", "neo", "slim", "prime", "xl"}
+PLATAFORMAS = {"ps4", "ps5", "xbox", "switch", "nsw", "pc", "one"}
+RX_NUM_LARGO = re.compile(r"(?<![\d.])\d{3,5}(?![\d.])")
 COLORES = {"negro", "negra", "blanco", "blanca", "gris", "azul", "rojo", "roja", "rosa", "verde", "plata",
            "plateado", "dorado", "oro", "morado", "lila", "amarillo", "naranja", "cafe", "beige", "grafito",
            "black", "white", "gray", "grey", "blue", "red", "pink", "green", "silver", "gold", "purple",
@@ -64,7 +72,8 @@ COLORES = {"negro", "negra", "blanco", "blanca", "gris", "azul", "rojo", "roja",
 NOMBRES = ["cos_idf", "jaccard", "cubre_min", "cubre_max", "cod_comun", "cod_solo_a", "cod_solo_b",
            "cod_conflicto", "med_igual", "med_conflicto", "num_jaccard", "precio_log", "precio_18",
            "paquete_distinto", "usado_distinto", "marca_igual", "marca_distinta", "largo_ratio",
-           "color_distinto", "color_igual"]
+           "color_distinto", "color_igual", "edicion_distinta", "variante_distinta",
+           "plataforma_distinta", "num_largo_distinto", "num_largo_igual"]
 
 
 def toks(s):
@@ -97,6 +106,7 @@ class Rasgos:
             plog = abs(math.log(pa / pb))
         else:
             plog = 0.0
+        nla, nlb = set(RX_NUM_LARGO.findall(na)), set(RX_NUM_LARGO.findall(nb))
         marca_a, marca_b = FV.norm(ma or ""), FV.norm(mb or "")
         marca_igual = 1.0 if marca_a and marca_b and (marca_a == marca_b or marca_a in nb or marca_b in na) else 0.0
         marca_dist = 1.0 if marca_a and marca_b and not marca_igual else 0.0
@@ -111,7 +121,12 @@ class Rasgos:
                 marca_igual, marca_dist,
                 min(len(ta), len(tb)) / max(len(ta), len(tb), 1),
                 1.0 if (ta & COLORES) and (tb & COLORES) and not (ta & tb & COLORES) else 0.0,
-                1.0 if ta & tb & COLORES else 0.0]
+                1.0 if ta & tb & COLORES else 0.0,
+                1.0 if (ta & EDICIONES) ^ (tb & EDICIONES) else 0.0,
+                1.0 if (ta & VARIANTES) ^ (tb & VARIANTES) else 0.0,
+                1.0 if (ta & PLATAFORMAS) and (tb & PLATAFORMAS) and not (ta & tb & PLATAFORMAS) else 0.0,
+                1.0 if nla and nlb and nla != nlb else 0.0,
+                1.0 if nla and nla == nlb else 0.0]
 
 
 def idf_de(productos):

@@ -1117,6 +1117,7 @@
   }
 
   function minPrice(product) {
+    if (product.__stub) return product.__precio;
     return displayPrice(cheapestOffer(product));
   }
 
@@ -1147,6 +1148,7 @@
   // el encabezado no diga "en 1 tienda" mientras la fila de abajo dice "2
   // vendedores": son dos cosas distintas y juntas se leían como contradicción.
   function sellerTotal(product) {
+    if (product.__stub) return product.__f >> 5;   // rango de popularidad, como desempate
     return purchaseOptions(product).reduce((sum, o) => sum + (o.sellerCount || 1), 0);
   }
 
@@ -1168,6 +1170,7 @@
   // y preowned del mismo modelo se agrupan como un solo producto) para
   // poder mostrarlo de un vistazo y ofrecer un filtro "Excluir usados".
   function isUsed(product) {
+    if (product.__stub) return !!(product.__f & 8);
     return (product.specs || []).some(
       (s) => s.label === "Condición" && /preowned|usado|reacondicionad/i.test(s.value)
     );
@@ -1303,6 +1306,7 @@
   }
 
   function popularityRank(p) {
+    if (p.__stub) return p.__f >> 5;
     const vendedores = Math.min(sellerTotal(p) - 1, 2) * 2;   // 0, 2 o 4
     const ficha = (p.photo ? 2 : 0) + ((p.specs && p.specs.length) ? 1 : 0);
     const dto = bestDiscountPct(p);
@@ -1320,6 +1324,7 @@
   // Descuento de la oferta más barata, si tiene listPrice (precio de lista)
   // más alto que el precio actual. Devuelve el % o null.
   function bestDiscountPct(product) {
+    if (product.__stub) return null;
     const cheapest = cheapestOffer(product);
     const price = displayPrice(cheapest);
     const listPrice = displayListPrice(cheapest);
@@ -2145,12 +2150,49 @@
     });
   }
 
+  // data/cat, data/det, data/hist y los trozos de data/retirados están en
+  // disco como <archivo>.json.gz (ver COMPRIMIDOS en scripts/data_io.py): con
+  // 860 mil fichas el sitio pasaba del GB que admite GitHub Pages. Pages los
+  // sirve tal cual (application/gzip, sin Content-Encoding), así que por la
+  // red viaja lo mismo que antes y el navegador los descomprime acá. El
+  // manifiesto los sigue nombrando .json; el .gz se agrega solo aquí.
+  const DATOS_GZ = /^\/?data\/(cat|det|hist|retirados|buscar\/[bwf])\/[^/]+\.json$/;
+  let pakoPromesa = null;
+  function cargarPako() {
+    // Solo para navegadores sin DecompressionStream (Safari < 16.4).
+    if (!pakoPromesa) {
+      pakoPromesa = new Promise((ok, falla) => {
+        const s = document.createElement("script");
+        s.src = "https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako_inflate.min.js";
+        s.onload = () => ok(window.pako);
+        s.onerror = () => { pakoPromesa = null; falla(new Error("pako")); };
+        document.head.appendChild(s);
+      });
+    }
+    return pakoPromesa;
+  }
+  function pedirDatos(url, siFalta) {
+    const gz = DATOS_GZ.test(url) && !/\/meta\.json$/.test(url);
+    return fetch(gz ? url + ".gz" : url).then((r) => {
+      if (!r.ok) {
+        if (siFalta !== undefined) return siFalta;
+        throw new Error(`${url}: HTTP ${r.status}`);
+      }
+      if (!gz) return r.json();
+      if (typeof DecompressionStream === "function") {
+        return new Response(r.body.pipeThrough(new DecompressionStream("gzip"))).json();
+      }
+      return Promise.all([r.arrayBuffer(), cargarPako()])
+        .then(([buf, pako]) => JSON.parse(pako.inflate(new Uint8Array(buf), { to: "string" })));
+    });
+  }
+
   // Baja (una sola vez) las shards de una categoría y las fusiona.
   function ensureCategory(catId) {
     if (!catId) return Promise.resolve();
     if (categoryLoads.has(catId)) return categoryLoads.get(catId);
     const files = ((state.data && state.data.categoryFiles) || {})[catId] || [];
-    const load = Promise.all(files.map((f) => fetch(f).then((r) => r.json())))
+    const load = Promise.all(files.map((f) => pedirDatos(f)))
       .then((batches) => {
         mergeProducts(batches.flat(), catId);
         loadedCategories.add(catId);
@@ -2244,6 +2286,176 @@
     return [...acumulado].map((i) => cats[i]).filter(Boolean);
   }
 
+  // --- Índice por palabra (data/buscar, ver scripts/build_buscador.py) ------
+  // El índice de arriba solo dice qué CATEGORÍAS tienen la palabra, y con
+  // 860 mil fichas eso seguía siendo bajar casi todo: «samsung» tocaba 36 de
+  // 56 categorías (~48 MB). Este dice qué FICHAS, con lo justo de cada una
+  // (precio, categoría, popularidad) para contar, ordenar y filtrar; de la
+  // página que se ve se bajan después sus filas (data/buscar/f/). Mientras
+  // la búsqueda no tenga categoría elegida, la lista trabaja sobre esos
+  // «resúmenes» (__stub); al elegir una categoría vuelve al camino de siempre.
+  const PALABRAS_VACIAS = new Set(["de", "del", "la", "el", "los", "las", "para", "con", "sin", "por",
+    "en", "al", "y", "o", "e", "u", "un", "una", "unos", "unas", "a", "que", "se", "su", "sus",
+    "the", "and", "for", "of", "with"]);
+  let buscadorMetaPromesa = null;
+  function pedirBuscadorMeta() {
+    if (!buscadorMetaPromesa) {
+      buscadorMetaPromesa = fetch("data/buscar/meta.json")
+        .then((r) => (r.ok ? r.json() : null))
+        .catch(() => null);
+    }
+    return buscadorMetaPromesa;
+  }
+  const cubetasIndice = new Map();     // 3 primeras letras -> Promise<{raíz: posting | "*"}>
+  const frecuentesIndice = new Map();  // raíz -> Promise<posting>
+  function cubetaIndice(pre) {
+    if (!cubetasIndice.has(pre)) {
+      cubetasIndice.set(pre, pedirDatos(`data/buscar/b/${pre}.json`, {})
+        .catch(() => { cubetasIndice.delete(pre); return {}; }));
+    }
+    return cubetasIndice.get(pre);
+  }
+  function postingIndice(raiz, entrada) {
+    if (entrada !== "*") return Promise.resolve(entrada);
+    if (!frecuentesIndice.has(raiz)) {
+      frecuentesIndice.set(raiz, pedirDatos(`data/buscar/w/${raiz}.json`, null)
+        .catch(() => { frecuentesIndice.delete(raiz); return null; }));
+    }
+    return frecuentesIndice.get(raiz);
+  }
+
+  // Las palabras de la consulta, con la misma normalización que el índice
+  // (sin signos: «refri,» es «refri»). Las vacías no están indexadas.
+  function terminosIndice(query) {
+    const palabras = splitAlphaNumeric(normalizeSearchText(query)).match(/[a-z0-9]+/g) || [];
+    return palabras
+      .filter((w) => !PALABRAS_VACIAS.has(w) && (w.length > 1 || /\d/.test(w)))
+      .map((w) => {
+        const raiz = searchStem(w);
+        return { word: w, stems: SYNONYM_INDEX.get(raiz) || [raiz] };
+      });
+  }
+
+  // num -> [puntos, f, precio, cat, sub]. Puntos como queryRelevanceScore:
+  // palabra entera en el nombre 4, en la categoría 3, en la marca 2; por
+  // prefijo («sams» -> samsung) la mitad.
+  function sumarPosting(res, post, entera) {
+    const [ids, fs, ps, cs, ss] = post;
+    let num = 0;
+    for (let i = 0; i < ids.length; i++) {
+      num += ids[i];
+      const f = fs[i];
+      const pts = entera
+        ? (f & 1 ? 4 : 0) + (f & 2 ? 3 : 0) + (f & 4 ? 2 : 0)
+        : (f & 1 ? 2 : 0) + (f & 2 ? 1 : 0) + (f & 4 ? 1 : 0);
+      const previo = res.get(num);
+      if (!previo) res.set(num, [pts, f, ps[i], cs[i], ss[i]]);
+      else if (pts > previo[0]) previo[0] = pts;
+    }
+  }
+
+  async function coincidenciasDeTermino(t, difusa, ligera) {
+    const claves = new Map();   // raíz -> ¿palabra entera?
+    if (!difusa) t.stems.forEach((r) => claves.set(r, true));
+    if (t.word.length >= 3) {
+      const cub = await cubetaIndice(t.word.slice(0, 3));
+      const tol = Math.max(1, Math.floor(t.word.length * 0.34));
+      let frecuentes = 0;
+      for (const k in cub) {
+        if (claves.has(k)) continue;
+        const sirve = difusa
+          ? t.word.length >= 4 && levenshteinDistance(t.word, k) <= tol
+          : k.startsWith(t.word);
+        if (!sirve) continue;
+        // Un prefijo corto puede abrir decenas de palabras frecuentes, cada
+        // una con su archivo: se toman las primeras.
+        if (cub[k] === "*" && ++frecuentes > (ligera ? 0 : 6)) continue;
+        claves.set(k, difusa);
+      }
+    }
+    const res = new Map();
+    await Promise.all([...claves].map(async ([k, entera]) => {
+      const cub = await cubetaIndice(k.slice(0, 3));
+      if (cub[k] === undefined) return;
+      const post = await postingIndice(k, cub[k]);
+      if (post) sumarPosting(res, post, entera);
+    }));
+    return res;
+  }
+
+  function interseccion(mapas) {
+    if (!mapas.length) return new Map();
+    const orden = mapas.slice().sort((a, b) => a.size - b.size);
+    const out = new Map();
+    for (const [num, v] of orden[0]) {
+      let pts = v[0];
+      let ok = true;
+      for (let i = 1; i < orden.length; i++) {
+        const w = orden[i].get(num);
+        if (!w) { ok = false; break; }
+        pts += w[0];
+      }
+      if (ok) out.set(num, [pts, v[1], v[2], v[3], v[4]]);
+    }
+    return out;
+  }
+
+  // null = sin índice (o una consulta sin palabras indexables): la lista
+  // sigue por el camino de las categorías.
+  // ligera: para el autocompletado -- los prefijos no abren archivos de
+  // palabras frecuentes (escribir «ref» no baja «refaccion» y compañía).
+  async function buscarEnIndice(query, ligera) {
+    const meta = await pedirBuscadorMeta();
+    if (!meta) return null;
+    const terms = terminosIndice(query);
+    if (!terms.length) return null;
+    let res = interseccion(await Promise.all(terms.map((t) => coincidenciasDeTermino(t, false, ligera))));
+    let difusa = false;
+    if (!res.size && !ligera) {
+      res = interseccion(await Promise.all(terms.map((t) => coincidenciasDeTermino(t, true))));
+      difusa = res.size > 0;
+    }
+    const stubs = [];
+    for (const [num, [pts, f, precio, c, sub]] of res) {
+      const subs = meta.subs[c] || [];
+      const stub = {
+        id: `p${num}`, __stub: true, __score: pts, __f: f, __precio: precio,
+        category: meta.cats[c], subcategory: sub >= 0 ? subs[sub] || "" : "", brand: "", offers: [],
+      };
+      if (f & 16) stub.a = 1;
+      stubs.push(stub);
+    }
+    return { query, stubs, difusa };
+  }
+
+  function modoIndice() {
+    return !!(state.query && !state.category && state.busqueda && state.busqueda.query === state.query);
+  }
+
+  // Filas de la página: data/buscar/f/<número de ficha // 100>, la ficha
+  // ligera igual que en su shard de categoría, con su categoría y su
+  // posición en ella (_i, que ubica el chunk de detalle).
+  const bloquesFilas = new Map();
+  function cargarFilas(ids) {
+    const meta = state.busquedaMeta;
+    const tam = (meta && meta.filas) || 100;
+    const bloques = [...new Set(ids.map((id) => Math.floor(+id.slice(1) / tam)))];
+    return Promise.all(bloques.map((b) => {
+      if (!bloquesFilas.has(b)) {
+        bloquesFilas.set(b, pedirDatos(`data/buscar/f/${b}.json`, {}).then((fila) => {
+          Object.values(fila).forEach((p) => {
+            conObvios(p, p.category);
+            if (!productMeta.has(p.id)) productMeta.set(p.id, { cat: p.category, i: p._i });
+            if (productIndexById.has(p.id)) return;
+            productIndexById.set(p.id, state.data.products.length);
+            state.data.products.push(p);
+          });
+        }).catch(() => { bloquesFilas.delete(b); }));
+      }
+      return bloquesFilas.get(b);
+    }));
+  }
+
   // Deja state.data.products en un orden que no dependa de cuál shard llegó
   // primero. Importa porque los ordenamientos de la lista son estables: los
   // empates (y con un catálogo donde casi todo tiene un solo vendedor, son
@@ -2327,8 +2539,19 @@
   }
 
   async function ensureProductsByIds(ids) {
-    const missing = faltanPorBajar(ids);
+    let missing = faltanPorBajar(ids);
     if (!missing.length) return;
+    // Primero por las filas del índice de búsqueda (data/buscar/f/, ~8 KB
+    // cada bloque): abrir una ficha por enlace directo bajaba data/index.json
+    // (4 MB) y la categoría entera -- decenas de MB en las grandes -- para
+    // mostrar un solo producto.
+    const meta = await pedirBuscadorMeta();
+    if (meta) {
+      state.busquedaMeta = meta;
+      await cargarFilas(missing.filter((id) => /^p\d+$/.test(id)));
+      missing = missing.filter((id) => !productIndexById.has(id));
+      if (!missing.length) return;
+    }
     const index = await ensureProductIndex();
     const cats = new Set(missing.map((id) => categoryOfId(index, id)).filter(Boolean));
     await Promise.all([...cats].map(ensureCategory));
@@ -2539,7 +2762,7 @@
     let serie = [];
     try {
       if (!histChunkCache.has(file)) {
-        histChunkCache.set(file, fetch(file).then((r) => (r.ok ? r.json() : {})));
+        histChunkCache.set(file, pedirDatos(file, {}));
       }
       const chunk = await histChunkCache.get(file);
       serie = dailySeries(chunk[product.id]);
@@ -2585,7 +2808,7 @@
     if (!file) return;
     try {
       if (!detailChunkCache.has(file)) {
-        detailChunkCache.set(file, fetch(file).then((r) => r.json()));
+        detailChunkCache.set(file, pedirDatos(file));
       }
       const chunk = await detailChunkCache.get(file);
       const detail = chunk[product.id];
@@ -3661,7 +3884,7 @@
     // filtro real sino porque la combinación nunca podía tener resultados.
     let scoped = state.category
       ? state.data.products.filter((p) => p.category === state.category)
-      : state.data.products;
+      : modoIndice() ? state.busqueda.stubs : state.data.products;
     if (state.subcategory.length) scoped = scoped.filter((p) => state.subcategory.includes(p.subcategory));
     else scoped = scoped.filter((p) => !esOptIn(p));
     // Una ficha puede no tener marca: el título de la tienda no la dice y
@@ -3679,7 +3902,7 @@
   function priceScopeBounds() {
     const scoped = state.category
       ? state.data.products.filter((p) => p.category === state.category)
-      : state.data.products;
+      : modoIndice() ? state.busqueda.stubs : state.data.products;
     if (scoped.length === 0) return { min: 0, max: 1000 };
     const prices = scoped.map(minPrice);
     const min = Math.floor(minOf(prices));
@@ -3827,6 +4050,16 @@
 
   function filteredProducts() {
     const ratingMin = (RATING_FILTERS.find((r) => r.id === state.minRating) || RATING_FILTERS[0]).min;
+    if (modoIndice()) {
+      // Resúmenes del índice: ya coinciden con la búsqueda; quedan los
+      // filtros que el resumen sabe responder (precio, usado). Calificación
+      // y marca necesitan la ficha: se aplican al elegir una categoría.
+      return state.busqueda.stubs.filter((p) =>
+        (state.priceMin == null || p.__precio >= state.priceMin)
+        && (state.priceMax == null || p.__precio <= state.priceMax)
+        && (!state.excludeUsed || !(p.__f & 8))
+        && ratingMin <= 0);
+    }
     const terms = queryTerms(state.query);
     const useFuzzy = terms.length > 0 && !state.data.products.some((p) => literalQueryMatch(p, terms));
     return state.data.products.filter((p) => {
@@ -3871,6 +4104,7 @@
   // "iPhone 17" y "iPhone 14" queden empatados solo por matchear la
   // consulta, quedando el orden librado a la popularidad de cada uno.
   function queryRelevanceScore(p, terms) {
+    if (p.__stub) return p.__score;
     const name = normalizeSearchText(p.name);
     const rest = normalizeSearchText(`${p.brand} ${p.category} ${p.subcategory || ""}`);
     const st = productStems(p);
@@ -4078,7 +4312,9 @@
   // La clave sirve además para descartar una carga que llegó tarde (el
   // usuario ya se fue a otro lado).
   function listScopeKey() {
-    return state.query || !state.category ? "*" : state.category;
+    // Con categoría elegida basta su shard, haya búsqueda o no: la lista
+    // se filtra a esa categoría de todos modos.
+    return state.category ? state.category : "*";
   }
 
   // Qué categorías necesita la búsqueda actual, según el índice: un arreglo
@@ -4095,7 +4331,15 @@
     // índice señala.
     if (!state.query) return ensureAllProducts();
     const query = state.query;
-    return ensureSearchIndex().then((index) => {
+    return Promise.all([buscarEnIndice(query), pedirBuscadorMeta()]).then(([r, meta]) => {
+      if (r) {
+        state.busqueda = r;
+        state.busquedaMeta = meta;
+        return null;
+      }
+      return ensureSearchIndex();
+    }).then((index) => {
+      if (state.busqueda && state.busqueda.query === query) return;
       const cats = categoriesForQuery(query, index);
       searchScope = { query, cats };
       if (!cats) return ensureAllProducts();
@@ -4106,6 +4350,7 @@
   function listScopeReady() {
     const key = listScopeKey();
     if (key !== "*") return loadedCategories.has(key);
+    if (modoIndice()) return true;
     if (state.query && searchScope.query === state.query && Array.isArray(searchScope.cats)) {
       return searchScope.cats.every((c) => loadedCategories.has(c));
     }
@@ -4200,9 +4445,29 @@
     const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
     state.page = Math.min(Math.max(1, state.page), totalPages);
     const startIdx = (state.page - 1) * PAGE_SIZE;
-    const pageItems = sorted.slice(startIdx, startIdx + PAGE_SIZE);
+    let pageItems = sorted.slice(startIdx, startIdx + PAGE_SIZE);
 
-    renderProductListInto(el.productList, pageItems, {
+    // Con el índice, la página son resúmenes: se bajan sus filas y se vuelve
+    // a pintar. Una fila que no llegó (bloque caído) se omite en vez de
+    // dejar la página esperando para siempre.
+    let esperando = false;
+    if (pageItems.some((p) => p.__stub)) {
+      const faltan = pageItems.filter((p) => !productIndexById.has(p.id)).map((p) => p.id);
+      const clave = `${state.query}\u0000${state.page}\u0000${state.sort}`;
+      if (faltan.length && renderProductListPage.intento !== clave) {
+        renderProductListPage.intento = clave;
+        esperando = true;
+        cargarFilas(faltan).then(() => {
+          if (`${state.query}\u0000${state.page}\u0000${state.sort}` === clave
+            && !el.viewList.classList.contains("hidden")) renderProductListPage();
+        });
+      }
+      pageItems = pageItems.map((p) => (productIndexById.has(p.id) ? state.data.products[productIndexById.get(p.id)] : null))
+        .filter(Boolean);
+    }
+
+    if (esperando) el.productList.innerHTML = htmlCargando("Cargando productos…");
+    else renderProductListInto(el.productList, pageItems, {
       emptyText: "No se encontraron productos con estos filtros.",
       onFavToggle: renderProductListPage,
       withRank: isCategoryRanking,
@@ -8203,6 +8468,7 @@
     return best <= tolerance ? 4 + best : null;
   }
 
+  let sugerenciasIndice = null;   // {q, ids}: las fichas que el índice sugiere para q
   function buildSearchSuggestions(query) {
     if (!state.data || !normalizeSearchText(query)) return [];
     const catIconByName = new Map();
@@ -8251,7 +8517,18 @@
     // costoso para un simple autocompletado.
     const qWords = splitAlphaNumeric(normalizeSearchText(query)).split(/\s+/).filter(Boolean);
     const productOut = [];
-    if (qWords.length && state.data.products) {
+    if (sugerenciasIndice && sugerenciasIndice.q === query) {
+      sugerenciasIndice.ids.forEach((id) => {
+        const i = productIndexById.get(id);
+        const p = i === undefined ? null : state.data.products[i];
+        if (!p) return;
+        productOut.push({
+          type: "product", label: p.name, catLabel: null, price: minPrice(p), productId: p.id,
+          icon: catIconByName.get(p.category) || "search",
+        });
+      });
+    }
+    if (!productOut.length && qWords.length && state.data.products) {
       for (const p of state.data.products) {
         const text = normalizeSearchText(`${p.name} ${p.brand} ${p.category} ${p.subcategory || ""}`);
         if (!qWords.every((w) => text.includes(w))) continue;
@@ -8404,14 +8681,33 @@
         // pidieron, se bajan las que el índice señala para lo escrito --
         // pocas (2.1 por palabra en promedio), no las 53 -- y se repinta
         // si el texto sigue siendo el mismo.
-        ensureSearchIndex().then((index) => {
-          const cats = categoriesForQuery(value, index);
-          if (!cats || !cats.length || cats.length > 8) return;
-          if (cats.every((c) => loadedCategories.has(c))) return;
-          loadCategories(cats).then(() => {
+        // Con el índice por palabra: las 5 fichas que mejor coinciden, con
+        // sus filas. Sin él, como antes: las categorías que el índice viejo
+        // señala.
+        pedirBuscadorMeta().then((meta) => {
+          const repintar = () => {
             if (document.activeElement === el.searchInput && el.searchInput.value === value) {
               renderSearchSuggestions(buildSearchSuggestions(value));
             }
+          };
+          if (meta) {
+            state.busquedaMeta = meta;
+            return buscarEnIndice(value, true).then((r) => {
+              if (!r || !r.stubs.length) return;
+              const top = r.stubs.slice()
+                .sort((a, b) => b.__score - a.__score || (b.__f >> 5) - (a.__f >> 5))
+                .slice(0, 5);
+              return cargarFilas(top.map((p) => p.id)).then(() => {
+                sugerenciasIndice = { q: value, ids: top.map((p) => p.id) };
+                repintar();
+              });
+            });
+          }
+          return ensureSearchIndex().then((index) => {
+            const cats = categoriesForQuery(value, index);
+            if (!cats || !cats.length || cats.length > 8) return;
+            if (cats.every((c) => loadedCategories.has(c))) return;
+            return loadCategories(cats).then(repintar);
           });
         });
       }, 150);
@@ -8423,7 +8719,7 @@
       // tiraba abajo el índice de búsqueda, que existe justamente para no
       // bajar todo. Ahora se precarga solo el índice (2 MB); las
       // categorías que hagan falta se bajan cuando se sabe qué se busca.
-      ensureSearchIndex();
+      pedirBuscadorMeta().then((meta) => { if (!meta) ensureSearchIndex(); });
       if (el.searchInput.value.trim()) renderSearchSuggestions(buildSearchSuggestions(el.searchInput.value));
     });
     el.searchInput.addEventListener("blur", () => setTimeout(hideSearchSuggestions, 120));

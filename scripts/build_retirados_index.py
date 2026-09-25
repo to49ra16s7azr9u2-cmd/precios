@@ -26,7 +26,7 @@ import sys
 AQUI = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(AQUI)
 sys.path.insert(0, AQUI)
-from data_io import load_catalog  # noqa: E402
+from data_io import load_catalog, ofertas_para_comparar  # noqa: E402
 
 TAMANO = 2000
 SALIDA = os.path.join(ROOT, "data", "retirados")
@@ -46,7 +46,7 @@ def main():
     trozos = {}
     sin_numero = 0
     for p in data["products"]:
-        if len(p.get("offers") or []) >= MIN_OFERTAS_PARA_PAGINA:
+        if ofertas_para_comparar(p) >= MIN_OFERTAS_PARA_PAGINA:
             continue
         m = RX_ID.match(p["id"])
         if not m:
@@ -85,27 +85,25 @@ def main():
             nombre = (q.get("name") or "").strip()
             if len(nombre) > 70:
                 nombre = nombre[:69].rstrip() + "…"
-            con_pagina = 1 if len(q.get("offers") or []) >= MIN_OFERTAS_PARA_PAGINA else 0
+            con_pagina = 1 if ofertas_para_comparar(q) >= MIN_OFERTAS_PARA_PAGINA else 0
             trozos.setdefault(int(m.group(1)) // TAMANO, {})[vieja] = [
                 nombre, idx_cat.get(q.get("category"), -1), q.get("subcategory") or "", destino, con_pagina]
             redirigidas += 1
         print(f"Fichas absorbidas con destino: {redirigidas:,}")
     os.makedirs(SALIDA, exist_ok=True)
-    viejos = {f for f in os.listdir(SALIDA) if f.endswith(".json")}
+    # Los trozos van en gzip (<n>.json.gz, ver COMPRIMIDOS en data_io.py);
+    # meta.json queda plano.
+    from data_io import escribir_texto_json, nombre_logico, borrar_json
+    viejos = {nombre_logico(f) for f in os.listdir(SALIDA)
+              if f.endswith((".json", ".json.gz")) and f != "meta.json"}
     escritos = 0
     for n, mapa in trozos.items():
         ruta = os.path.join(SALIDA, f"{n}.json")
-        nuevo = json.dumps(mapa, ensure_ascii=False, separators=(",", ":"))
         viejos.discard(f"{n}.json")
-        if os.path.exists(ruta):
-            with open(ruta, encoding="utf-8") as f:
-                if f.read() == nuevo:
-                    continue
-        with open(ruta, "w", encoding="utf-8") as f:
-            f.write(nuevo)
-        escritos += 1
+        if escribir_texto_json(ruta, json.dumps(mapa, ensure_ascii=False, separators=(",", ":"))):
+            escritos += 1
     for sobra in viejos:
-        os.remove(os.path.join(SALIDA, sobra))
+        borrar_json(os.path.join(SALIDA, sobra))
 
     meta = {"tamano": TAMANO, "categorias": cats,
             "slugs": [slugify(c) for c in cats]}

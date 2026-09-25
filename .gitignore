@@ -17,3 +17,9 @@ local/revision/
 # lee. Lo que traían ya está en el catálogo; las viejas siguen en el
 # historial de git.
 capturas/
+
+# Informes que escriben los scripts de auditoría (salidas, no entradas): el
+# repo es el sitio publicado y cada MB cuenta contra el GB de GitHub Pages.
+data/reparto-subcategorias-*.tsv
+data/vocabulario-sospechosas.tsv
+data/fusiones-*-20*.json

@@ -970,8 +970,13 @@ ANTES_DE_FUERA = [
     # Silla de ruedas, rollator, andadera ortopédica: Salud. FUERA las
     # descartaba («silla de ruedas» no es una silla) y el modelo del
     # catálogo las mandaba a Muebles.
-    (re.compile(r'^(?:\S+ ){0,3}(sillas? de ruedas|rollator|andaderas? (ortopedica|para adultos|de aluminio|rollator)|silla de traslado)'),
-     ('Salud', 'Movilidad', 'heart-pulse')),
+    (re.compile(r'^(?:\S+ ){0,3}(sillas? de ruedas|silla de traslado)'),
+     ('Salud', 'Sillas de ruedas', 'heart-pulse')),
+    (re.compile(r'^(?:\S+ ){0,3}(rollator|andaderas? (ortopedica|para adultos|de aluminio|rollator))'),
+     ('Salud', 'Andaderas, bastones y muletas', 'heart-pulse')),
+    # El sobrecolchón es ropa de cama, no un mueble (Muebles no tiene ese tipo).
+    (re.compile(r'^(?:\S+ ){0,3}(sobrecolchon(es)?|toppers? (de|para) colchon|colchoneta topper)\b'),
+     ('Blancos y ropa de cama', 'Toppers y sobrecolchones', 'pillow')),
     (re.compile(r'^(combo )?affresh\b|^toall(a|itas) limpiadoras? para (parrillas|acero)'),
      ('Electrodomésticos', 'Limpiadores para electrodomésticos', 'appliance')),
     (re.compile(r'^pedestal \d{2} ?cm\b'),
@@ -5010,8 +5015,10 @@ def sub_salud(tn):
     if re.search(r'\boximetro\b|baumanometro|presion arterial|\bglucometro\b|termometro|'
                  r'estetoscopio|monitor de (presion|glucosa)', tn):
         return 'Equipo de monitoreo médico'
-    if re.search(r'\bsilla de ruedas\b|\bandadera\b|\bbaston\b|\bmuletas?\b|\bandador\b', tn):
-        return 'Movilidad'
+    # «Movilidad» es la familia, no un tipo: el tipo es la silla o el apoyo.
+    if re.search(r'\bsillas? de ruedas\b', tn): return 'Sillas de ruedas'
+    if re.search(r'\bandaderas?\b|\bbaston(es)?\b|\bmuletas?\b|\bandador\b', tn):
+        return 'Andaderas, bastones y muletas'
     return None
 
 

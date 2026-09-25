@@ -33,6 +33,7 @@ Los scripts (add_*.py, generate_seo_pages.py, refresh_*.py) siguen usando
 COMPLETO con la misma forma de siempre ({meta, categories, ...,
 products: [...]}). Toda la partición vive acá adentro.
 """
+import gzip
 import json
 import os
 import re
@@ -66,6 +67,110 @@ CATEGORY_CHUNK_SIZE = 15000
 # familia de cada una de las ~1,000 subcategorías) y lo baja TODA visita.
 # Para leerlo a mano: python3 -m json.tool data/data.json
 COMPACT = {"ensure_ascii": False, "separators": (",", ":")}
+
+
+# Walmart, Bodega Aurrerá y Sam's son la misma empresa y venden el mismo
+# artículo (mismo id de Walmart): para decidir si una ficha COMPARA algo,
+# sus ofertas cuentan como una. Sin esto, al sumar el feed de Bodega a las
+# fichas de Walmart, 400 mil fichas pasaban a «tener dos vendedores» y a
+# pedir página propia (~7 GB) sin comparar nada.
+MISMA_EMPRESA = {"bodega_aurrera": "walmart_mx", "sams_mx": "walmart_mx"}
+
+
+def ofertas_para_comparar(product):
+    """Cuántas ofertas cuentan para comparar: las de la misma empresa (ver
+    MISMA_EMPRESA) valen una sola."""
+    ofs = product.get("offers") or []
+    grupo = {MISMA_EMPRESA.get(o.get("storeId"), o.get("storeId")) for o in ofs
+             if o.get("storeId") in MISMA_EMPRESA or o.get("storeId") == "walmart_mx"}
+    resto = sum(1 for o in ofs if not (o.get("storeId") in MISMA_EMPRESA or o.get("storeId") == "walmart_mx"))
+    return resto + len(grupo)
+
+
+# Las carpetas grandes se guardan en gzip (<nombre>.json.gz): GitHub Pages
+# no deja pasar de 1 GB publicado, y con Walmart y Bodega Aurrerá (860 mil
+# fichas) data/cat + det + hist + retirados pasaban de 380 MB en crudo. En
+# gzip son ~70 MB. Pages sirve el .gz tal cual (application/gzip, sin
+# Content-Encoding), así que por la red viaja lo mismo que antes y el
+# navegador lo descomprime (ver pedirDatos en js/app.js).
+#
+# El NOMBRE lógico sigue siendo <nombre>.json -- el del manifiesto, el que
+# usan las funciones de acá --; solo el archivo en disco lleva el .gz.
+COMPRIMIDOS = ("data/cat/", "data/det/", "data/hist/", "data/retirados/", "data/buscar/")
+
+
+def comprimido(fname):
+    f = fname.replace(os.sep, "/")
+    if os.path.isabs(f):
+        f = os.path.relpath(fname, ROOT).replace(os.sep, "/")
+    return f.startswith(COMPRIMIDOS) and os.path.basename(f) != "meta.json"
+
+
+def ruta_fisica(fname):
+    """Ruta en disco de un nombre lógico (relativo a ROOT o absoluto)."""
+    path = fname if os.path.isabs(fname) else os.path.join(ROOT, fname)
+    return path + ".gz" if comprimido(fname) else path
+
+
+def nombre_logico(nombre):
+    """"x-1.json.gz" (de un listdir) -> "x-1.json"."""
+    return nombre[:-3] if nombre.endswith(".json.gz") else nombre
+
+
+def existe_json(fname):
+    path = fname if os.path.isabs(fname) else os.path.join(ROOT, fname)
+    return os.path.exists(path + ".gz") or os.path.exists(path)
+
+
+def leer_texto_json(fname):
+    """El texto JSON de un nombre lógico: del .gz si está, si no del plano
+    (un árbol de antes de la compresión)."""
+    path = fname if os.path.isabs(fname) else os.path.join(ROOT, fname)
+    # Con los dos en disco manda el más nuevo (un proceso con el código de
+    # antes pudo reescribir el plano después de que se creó el .gz).
+    if os.path.exists(path + ".gz") and not (
+            os.path.exists(path) and os.path.getmtime(path) > os.path.getmtime(path + ".gz")):
+        with gzip.open(path + ".gz", "rt", encoding="utf-8") as f:
+            return f.read()
+    with open(path, encoding="utf-8") as f:
+        return f.read()
+
+
+def leer_json(fname):
+    return json.loads(leer_texto_json(fname))
+
+
+def escribir_texto_json(fname, body):
+    """Escribe body SOLO si cambió; devuelve True si escribió. En las
+    carpetas comprimidas escribe el .gz (mtime=0: el mismo contenido da los
+    mismos bytes, y git no ve un cambio donde no lo hay) y borra el plano
+    que hubiera quedado de antes."""
+    path = fname if os.path.isabs(fname) else os.path.join(ROOT, fname)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    try:
+        if leer_texto_json(fname) == body and not (comprimido(fname) and not os.path.exists(path + ".gz")):
+            if comprimido(fname) and os.path.exists(path):
+                os.remove(path)
+            return False
+    except (OSError, ValueError, EOFError):
+        pass
+    if comprimido(fname):
+        with open(path + ".gz", "wb") as f:
+            with gzip.GzipFile(filename="", mode="wb", fileobj=f, mtime=0, compresslevel=9) as g:
+                g.write(body.encode("utf-8"))
+        if os.path.exists(path):
+            os.remove(path)
+    else:
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(body)
+    return True
+
+
+def borrar_json(fname):
+    path = fname if os.path.isabs(fname) else os.path.join(ROOT, fname)
+    for p in (path, path + ".gz"):
+        if os.path.exists(p):
+            os.remove(p)
 
 # Campos de la oferta que SOLO hacen falta en la ficha de producto (la tabla
 # de ofertas y sus botones "Ver oferta"), nunca en portada/listas/búsqueda.
@@ -529,8 +634,7 @@ def load_catalog():
     if isinstance(por_categoria, dict) and por_categoria:
         for cat_id, files in por_categoria.items():
             for fname in files:
-                with open(os.path.join(ROOT, fname), encoding="utf-8") as f:
-                    products.extend(_con_obvios(p, cat_id, iconos_cat.get(cat_id)) for p in json.load(f))
+                products.extend(_con_obvios(p, cat_id, iconos_cat.get(cat_id)) for p in leer_json(fname))
     else:
         for fname in _file_lists(por_categoria) or manifest.get("productFiles", []):
             with open(os.path.join(ROOT, fname), encoding="utf-8") as f:
@@ -544,11 +648,9 @@ def load_catalog():
         detail_files = _file_lists(detail_files)
     details = {}
     for fname in detail_files:
-        path = os.path.join(ROOT, fname)
-        if not os.path.exists(path):
+        if not existe_json(fname):
             continue
-        with open(path, encoding="utf-8") as f:
-            details.update(json.load(f))
+        details.update(leer_json(fname))
     if details:
         for p in products:
             d = details.get(p["id"])
@@ -591,15 +693,7 @@ def _write(fname, payload):
     los mismos. Comparando antes de escribir, el commit de cada corrida
     toca solo las categorías donde de verdad se movió un precio.
     """
-    path = os.path.join(ROOT, fname)
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    body = json.dumps(payload, **COMPACT)
-    if os.path.exists(path):
-        with open(path, encoding="utf-8") as f:
-            if f.read() == body:
-                return
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(body)
+    escribir_texto_json(fname, json.dumps(payload, **COMPACT))
 
 
 def _remove_stale(dirname, keep):
@@ -612,7 +706,7 @@ def _remove_stale(dirname, keep):
         return
     keep_names = {os.path.basename(f) for f in keep}
     for name in os.listdir(path):
-        if name.endswith(".json") and name not in keep_names:
+        if name.endswith((".json", ".json.gz")) and nombre_logico(name) not in keep_names:
             os.remove(os.path.join(path, name))
 
 

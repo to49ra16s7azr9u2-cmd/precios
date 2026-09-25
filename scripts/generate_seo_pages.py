@@ -485,13 +485,13 @@ def historial_de(product_id):
         _HIST = {}
         carpeta = os.path.join(ROOT, "data", "hist")
         if os.path.isdir(carpeta):
-            for nombre in os.listdir(carpeta):
+            from data_io import leer_json, nombre_logico
+            for nombre in {nombre_logico(n) for n in os.listdir(carpeta)}:
                 if not nombre.endswith(".json"):
                     continue
                 try:
-                    with open(os.path.join(carpeta, nombre), encoding="utf-8") as f:
-                        _HIST.update(json.load(f))
-                except (OSError, ValueError):
+                    _HIST.update(leer_json(os.path.join(carpeta, nombre)))
+                except (OSError, ValueError, EOFError):
                     continue
     return _HIST.get(product_id) or {}
 
@@ -774,7 +774,10 @@ _CON_PAGINA = set()
 
 
 def tiene_pagina(product):
-    return len(product.get("offers") or []) >= MIN_OFERTAS_PARA_PAGINA
+    # Walmart + Bodega Aurrerá del mismo artículo no es comparar: cuentan
+    # como una (ver MISMA_EMPRESA en data_io.py).
+    from data_io import ofertas_para_comparar
+    return ofertas_para_comparar(product) >= MIN_OFERTAS_PARA_PAGINA
 
 
 def enlace_producto(p, prefijo):
@@ -3390,8 +3393,9 @@ def render_404(data):
   if (!caja) return;
   var base = '/data/retirados/';
   fetch(base + 'meta.json').then(function (r) { return r.json(); }).then(function (meta) {
-    return fetch(base + Math.floor(+m[2] / meta.tamano) + '.json')
-      .then(function (r) { return r.json(); })
+    // Los trozos están en gzip (ver COMPRIMIDOS en scripts/data_io.py).
+    return fetch(base + Math.floor(+m[2] / meta.tamano) + '.json.gz')
+      .then(function (r) { return new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).json(); })
       .then(function (trozo) { return { meta: meta, ficha: trozo[m[1]] }; });
   }).then(function (d) {
     if (!d.ficha) return;
@@ -3509,7 +3513,15 @@ def hide_empty_taxonomy(data):
 # temática distinta de su categoría, que es lo que hace que una ficha
 # enterrada a tres clics del inicio se rastree.
 
-MIN_PRODUCTOS_MARCA = 20
+# Era 20. Con Walmart y Bodega Aurrerá las marcas con 20+ productos pasaron de
+# 1,736 a 3,064 (casi todas vendedores chicos de marketplace) y el sitio
+# pasaba del GB de GitHub Pages; con 50 quedan ~1,600.
+MIN_PRODUCTOS_MARCA = 50
+# Filas por página de marca. Eran STATIC_LIST_CAP (100), pero con Walmart y
+# Bodega Aurrerá las marcas pasaron de 1,736 a 3,065 y sus páginas de 117 a
+# 233 MB: el sitio pasaba del GB de GitHub Pages. Con las 40 más populares la
+# página sigue presentando la marca (y sus categorías, que llevan al resto).
+MARCA_LIST_CAP = 40
 
 # clave de marca -> slug de su página. Se llena en main() una sola vez; las
 # páginas de subcategoría lo consultan para enlazar sin recalcular nada.
@@ -3604,7 +3616,7 @@ def render_brand_page(nombre, slug, products, data):
                    if logo else svg_icon("tag"))
 
     ranked = sorted(products, key=lambda p: (total_review_count(p), seller_total(p)), reverse=True)
-    shown = ranked[:STATIC_LIST_CAP]
+    shown = ranked[:MARCA_LIST_CAP]
     rows = []
     for i, p in enumerate(shown, start=1):
         corona = svg_icon("crown")

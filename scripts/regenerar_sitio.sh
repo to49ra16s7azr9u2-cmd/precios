@@ -24,8 +24,10 @@ echo "=== compute_quality_axes ==="; python3 scripts/compute_quality_axes.py 2>&
 echo "=== aplicar_afiliados ==="; python3 scripts/aplicar_afiliados.py --todas 2>&1 | tail -3
 echo "=== record_price_history ==="; python3 scripts/record_price_history.py 2>&1 | tail -4
 echo "=== build_search_index ==="; python3 scripts/build_search_index.py 2>&1 | tail -2
+echo "=== build_buscador ==="; python3 scripts/build_buscador.py 2>&1 | tail -1
 echo "=== build_retirados_index ==="; python3 scripts/build_retirados_index.py 2>&1 | tail -2
 echo "=== build_marcas_index ==="; python3 scripts/build_marcas_index.py 2>&1 | tail -2
 echo "=== vocabulario_cabeza ==="; python3 scripts/vocabulario_cabeza.py 2>&1 | tail -1
 echo "=== generate_seo_pages ==="; python3 scripts/generate_seo_pages.py 2>&1 | tail -12
+echo "=== comprimir_datos ==="; python3 scripts/comprimir_datos.py 2>&1 | tail -1
 echo "=== FINAL OK ==="
