@@ -1625,6 +1625,23 @@ tr.offer-compare-off { display: none; }
    estaba antes ("Mercado Libre — Azul profundo"). */
 .detail-top-offer-color { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .detail-top-offer-color::before { content: "— "; }
+.detail-top-offer-stars { flex: 1 1 140px; font-size: 13px; color: var(--muted); white-space: nowrap; }
+.detail-top-offer-stars .row-stars { color: var(--gold); letter-spacing: -1px; }
+.detail-top-offer-stars-n { font-size: 12px; }
+/* El precio ocupa siempre el mismo ancho (con o sin «MÁS BARATO») para que
+   las estrellas queden en columna. */
+@media (min-width: 641px) {
+  .detail-top-offer-price { min-width: 230px; text-align: right; }
+}
+/* En el teléfono no hay lugar al lado del nombre: las estrellas bajan a una
+   segunda línea, debajo de la tienda. */
+/* En el teléfono la oferta es UN renglón (ver abajo): la columna de
+   estrellas se oculta y queda «★ 4.7» chico debajo del nombre y el color. */
+.detail-top-offer-stars-movil { display: none; }
+@media (max-width: 640px) {
+  .detail-top-offer-stars { display: none; }
+  .detail-top-offer-stars-movil { display: block; font-size: 11px; font-weight: 600; color: var(--gold); }
+}
 .detail-top-offer-price {
   flex: 0 0 auto;
   font-size: 16px;

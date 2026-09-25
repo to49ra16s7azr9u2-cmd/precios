@@ -356,7 +356,7 @@ def _page_shell(title, description, canonical_path, body, depth, extra_head="", 
 </main>
 <footer class="site-footer">
   <div class="container">
-    <p><a href="{prefijo}marca/">Todas las marcas</a> &middot; <a href="{prefijo}ofertas/">Ofertas de hoy</a> &middot; <a href="{prefijo}mejores/">Los mejores por presupuesto</a></p>
+    <p><a href="{prefijo}ofertas/">Ofertas de hoy</a> &middot; <a href="{prefijo}mejores/">Los mejores por presupuesto</a></p>
     ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
   </div>
 </footer>
@@ -3387,6 +3387,12 @@ def render_404(data):
     script = """
 <script>
 (function () {
+  // Compara marcas se retiró: una url vieja de marca busca esa marca.
+  var mm = location.pathname.match(/^\\/marca\\/([^\\/]+)\\/?$/);
+  if (mm) {
+    location.replace('/#/list?q=' + encodeURIComponent(decodeURIComponent(mm[1]).replace(/-/g, ' ')));
+    return;
+  }
   var m = location.pathname.match(/\\/producto\\/(p(\\d+))\\/?$/);
   if (!m) return;
   var caja = document.getElementById('retirado');
@@ -3567,8 +3573,19 @@ def nombre_canonico(grafias):
     return top if len(top) <= 4 else top.title()
 
 
+# Compara marcas se retiró (pedido del usuario, 25-sep: «ComparaMarcas完全に
+# なくしちゃっていいです»): no hay páginas /marca/, así que tampoco enlaces a
+# ellas -- con la lista vacía, los nombres de marca de las demás páginas
+# quedan como texto y borrar_paginas_huerfanas quita las carpetas viejas.
+# Las urls viejas de /marca/<slug>/ las atiende 404.html (manda a buscar la
+# marca en el sitio).
+PAGINAS_DE_MARCA = False
+
+
 def marcas_con_pagina(data):
     """[(nombre, slug, productos)] de las marcas que llegan al mínimo."""
+    if not PAGINAS_DE_MARCA:
+        return []
     por_clave = collections.defaultdict(lambda: (collections.Counter(), []))
     for p in data["products"]:
         b = (p.get("brand") or "").strip()
@@ -3961,12 +3978,15 @@ def main():
     # ranking por popularidad, y antes del sitemap para que sus urls entren.
     marca_urls = []
     marca_dir = os.path.join(ROOT, "marca")
-    os.makedirs(marca_dir, exist_ok=True)
-    path = os.path.join(marca_dir, "index.html")
-    if write_if_changed(path, render_brand_index(marcas)):
-        written.append(path)
-        marcar(f"{SITE_URL}/marca/")
-    marca_urls.append(f"{SITE_URL}/marca/")
+    if PAGINAS_DE_MARCA:
+        os.makedirs(marca_dir, exist_ok=True)
+        path = os.path.join(marca_dir, "index.html")
+        if write_if_changed(path, render_brand_index(marcas)):
+            written.append(path)
+            marcar(f"{SITE_URL}/marca/")
+        marca_urls.append(f"{SITE_URL}/marca/")
+    elif os.path.isdir(marca_dir):
+        shutil.rmtree(marca_dir)
     for nombre, slug, items in marcas:
         d = os.path.join(marca_dir, slug)
         os.makedirs(d, exist_ok=True)

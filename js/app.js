@@ -1502,6 +1502,10 @@
   // Mercado Libre -- Amazon no tiene API abierta y Elektra no publica
   // reseñas (ver scripts/refresh_ml_reviews.py).
   function renderStoreReviews(product) {
+    // La sección «Lo que dicen los compradores» (reseña destacada de Mercado
+    // Libre) se retiró a pedido del usuario (25-sep); las estrellas y el
+    // número de calificaciones siguen junto al nombre y en las listas.
+    if (!el.storeReviews) return;
     const conReseñas = (product.offers || []).filter(
       (o) => o.reviewCount && (o.rating != null || o.topReview)
     );
@@ -2445,8 +2449,15 @@
         bloquesFilas.set(b, pedirDatos(`data/buscar/f/${b}.json`, {}).then((fila) => {
           Object.values(fila).forEach((p) => {
             conObvios(p, p.category);
-            if (!productMeta.has(p.id)) productMeta.set(p.id, { cat: p.category, i: p._i });
-            if (productIndexById.has(p.id)) return;
+            const sinUbicar = !productMeta.has(p.id);
+            if (sinUbicar) productMeta.set(p.id, { cat: p.category, i: p._i });
+            if (productIndexById.has(p.id)) {
+              // Ya estaba, pero sin ubicación: es una ficha recortada de
+              // Inicio (data/home.json, sin specs ni posición). La fila
+              // completa la reemplaza.
+              if (sinUbicar) state.data.products[productIndexById.get(p.id)] = p;
+              return;
+            }
             productIndexById.set(p.id, state.data.products.length);
             state.data.products.push(p);
           });
@@ -3339,8 +3350,6 @@
           <li><strong>Por categoría.</strong> En <em>Compara precios</em> eliges una
             (Celulares, Electrodomésticos, Herramientas…) y ves primero lo más popular.
             Dentro puedes afinar por subcategoría, marca, precio y características.</li>
-          <li><strong>Por marca.</strong> En <em>Compara marcas</em> están todas las marcas
-            del catálogo, con todos sus productos.</li>
         </ul>
       </li>
       <li>
@@ -3607,6 +3616,9 @@
   }
 
   function activarPestanaInicio(cual) {
+    // Compara marcas se retiró: queda solo la pestaña de precios (una
+    // preferencia guardada de «marcas» ya no tiene a dónde ir).
+    cual = "precios";
     const tabs = document.querySelectorAll(".home-tab");
     if (!tabs.length) return;
     tabs.forEach((t) => {
@@ -7227,6 +7239,16 @@
       colorFilterProduct = productId;
     }
 
+    // Una ficha que llegó recortada desde Inicio (sin posición en su
+    // categoría ni specs) se completa con su fila del índice.
+    if (!productMeta.has(productId) && await pedirBuscadorMeta()) {
+      state.busquedaMeta = state.busquedaMeta || await pedirBuscadorMeta();
+      await cargarFilas([productId]);
+      if (location.hash !== `#/p/${productId}`) return;
+      const completa = state.data.products[productIndexById.get(productId)];
+      if (completa && completa !== product) return renderDetail(productId);
+    }
+
     // Las urls de las ofertas viajan aparte (ver ensureDetail): se esperan
     // ANTES de pintar para que la tabla de ofertas nunca aparezca con
     // botones "Ver oferta" sin destino.
@@ -7942,9 +7964,18 @@
           <span class="detail-top-offer-store">
             ${storeDotHtml(r.store)}
             <span class="detail-top-offer-names">
-              <span class="detail-top-offer-storename">${r.store.name}</span>${r.colorLabel ? `<span class="detail-top-offer-color">${htmlEscapeAttr(r.colorLabel)}</span>` : ""}
+              <span class="detail-top-offer-storename">${r.store.name}</span>${r.colorLabel ? `<span class="detail-top-offer-color">${htmlEscapeAttr(r.colorLabel)}</span>` : ""}${
+                r.rating && r.reviewCount ? `<span class="detail-top-offer-stars-movil">★ ${Number(r.rating).toFixed(1)}</span>` : ""}
             </span>
           </span>
+          ${
+            // La calificación de ESA tienda, solo las estrellas (a pedido del
+            // usuario, en lugar de la reseña de texto que se retiró). Sin
+            // dato, la celda queda vacía.
+            r.rating && r.reviewCount
+              ? `<span class="detail-top-offer-stars" title="Calificación en ${htmlEscapeAttr(r.store.name)}"><span class="row-stars">${starsHtml(r.rating)}</span> ${Number(r.rating).toFixed(1)} <span class="detail-top-offer-stars-n">(${Number(r.reviewCount).toLocaleString("es-MX")})</span></span>`
+              : `<span class="detail-top-offer-stars"></span>`
+          }
           <span class="detail-top-offer-price">${money(r.price)}${r.price === bestPrice ? '<span class="best-tag">MÁS BARATO</span>' : ""}</span>
           <span class="detail-top-offer-ship">${shippingBadgeHtml(r, true)}</span>
           <button type="button" class="buy-btn detail-top-offer-btn">Ver oferta</button>

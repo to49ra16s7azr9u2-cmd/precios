@@ -790,6 +790,14 @@ def _marcar_roles(categories):
 
 def save_catalog(data):
     products = data.pop("products", [])
+    # La reseña destacada de Mercado Libre ya no se muestra (se retiró la
+    # sección «Lo que dicen los compradores», 25-sep): no se guarda.
+    for p in products:
+        for o in p.get("offers") or []:
+            o.pop("topReview", None)
+        for v in p.get("colorVariants") or []:
+            for o in v.get("offers") or []:
+                o.pop("topReview", None)
 
     # Se separan los campos de "solo ficha" ANTES de partir, para que el
     # archivo que baja el navegador no los lleve.

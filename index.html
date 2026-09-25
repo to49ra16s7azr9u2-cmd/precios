@@ -58,7 +58,7 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=e9344d5e">
+<link rel="stylesheet" href="css/style.min.css?v=b9625b38">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -177,12 +177,7 @@
               </button>
               <input id="homeCatSearch" type="search" placeholder="Busca una categoría: celulares, herramientas, cocina…" aria-label="Buscar categoría" autocomplete="off">
               <span class="home-cat-search-count" id="homeCatSearchCount"></span>
-              <input id="homeBrandSearch" type="search" placeholder="Busca una marca: Samsung, Bosch, Lego…" aria-label="Buscar marca" autocomplete="off" hidden>
-              <span class="home-cat-search-count" id="homeBrandSearchCount" hidden></span>
             </div>
-            <button type="button" class="home-tab home-tab-marca" role="tab" aria-selected="false" aria-controls="homePanelMarcas" data-tab="marcas">
-              <img class="hero-logo" src="icons/logo-comparamarcas.png" alt="Compara marcas">
-            </button>
           </div>
           <!-- La frase de entrada y, a su derecha, la entrada a la guía.
                El botón estaba al pie de la columna (.home-acciones), debajo
@@ -207,11 +202,6 @@
           <div id="homePanelPrecios" role="tabpanel">
             <div class="home-category-box">
               <div id="homeCategoryGrid" class="category-card-grid"></div>
-            </div>
-          </div>
-          <div id="homePanelMarcas" role="tabpanel" hidden>
-            <div class="home-category-box">
-              <div id="homeBrandGrid" class="home-brand-grid"></div>
             </div>
           </div>
           </div>
@@ -627,14 +617,6 @@
         </div>
         <div class="detail-top-offers" id="detailTopOffers"></div>
       </div>
-
-      <!-- Calificación y reseña destacada de cada tienda que las publique.
-           Hoy solo Mercado Libre (ver scripts/refresh_ml_reviews.py). Lo
-           llena renderStoreReviews() en js/app.js. -->
-      <section class="panel store-reviews hidden" id="storeReviews">
-        <h2 class="store-reviews-title">Lo que dicen los compradores</h2>
-        <div id="storeReviewsBody"></div>
-      </section>
 
       <div class="panel compare-panel detail-anchor-target" id="comparePanel">
         <div class="compare-panel-head">
@@ -1131,7 +1113,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=17fdba1d"></script>
+<script src="js/app.min.js?v=e6db87bb"></script>
 </div>
 </body>
 </html>
