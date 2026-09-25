@@ -374,8 +374,8 @@
     { key: "firmness", facetField: "firmness", categories: ["Muebles"], label: "Firmeza", groupEl: "filterFirmnessGroup", listEl: "filterFirmness", format: (v) => v },
     { key: "fanType", facetField: "fan_type", categories: ["Climatización"], label: "Tipo de ventilador", groupEl: "filterFanTypeGroup", listEl: "filterFanType", format: (v) => v },
     { key: "speakerCount", facetField: "speaker_count", categories: ["Bocinas"], label: "Número de bocinas", groupEl: "filterSpeakerCountGroup", listEl: "filterSpeakerCount", sortNum: true, format: (v) => v },
-    { key: "compatModel", facetField: "compat_model", categories: ["Refacciones"], multi: true, label: "Compatible con", groupEl: "filterCompatModelGroup", listEl: "filterCompatModel", format: (v) => v },
-    { key: "compatYear", facetField: "compat_year", categories: ["Refacciones"], multi: true, label: "Año del modelo", groupEl: "filterCompatYearGroup", listEl: "filterCompatYear", sortNum: true, format: (v) => v },
+    { key: "compatModel", facetField: "compat_model", categories: ["Refacciones", "Autopartes"], multi: true, label: "Compatible con", groupEl: "filterCompatModelGroup", listEl: "filterCompatModel", format: (v) => v },
+    { key: "compatYear", facetField: "compat_year", categories: ["Refacciones", "Autopartes"], multi: true, label: "Año del modelo", groupEl: "filterCompatYearGroup", listEl: "filterCompatYear", sortNum: true, format: (v) => v },
     { key: "battery", facetField: "battery_mah", categories: ["Celulares", "Tabletas"], label: "Batería", groupEl: "filterBatteryGroup", listEl: "filterBattery", sortNum: true, format: (v) => `${v.toLocaleString("es-MX")} mAh` },
     // Hogar: un campo por decisión de compra (ver _hogar_facets en
     // scripts/compute_facets.py). La categoría decide qué significa el
@@ -6936,6 +6936,12 @@
     "Herramientas": { weightKg: 2, lengthCm: 35, widthCm: 25, heightCm: 15 },
     "Autos, bicicletas y motos": { weightKg: 15, lengthCm: 120, widthCm: 60, heightCm: 40 },
     "Refacciones": { weightKg: 0.6, lengthCm: 20, widthCm: 15, heightCm: 10 },
+    "Autopartes": { weightKg: 0.6, lengthCm: 20, widthCm: 15, heightCm: 10 },
+    "Libros": { weightKg: 0.5, lengthCm: 23, widthCm: 16, heightCm: 3 },
+    "Bolsas y mochilas": { weightKg: 0.8, lengthCm: 45, widthCm: 32, heightCm: 15 },
+    "Jardín y exterior": { weightKg: 3, lengthCm: 50, widthCm: 40, heightCm: 30 },
+    "Juguetes": { weightKg: 1, lengthCm: 35, widthCm: 25, heightCm: 20 },
+    "Bebés": { weightKg: 2, lengthCm: 45, widthCm: 35, heightCm: 25 },
     "Calzado": { weightKg: 1, lengthCm: 33, widthCm: 20, heightCm: 13 },
     "Viajes": { weightKg: 1.5, lengthCm: 45, widthCm: 30, heightCm: 20 },
     "Relojes inteligentes": { weightKg: 0.2, lengthCm: 12, widthCm: 9, heightCm: 6 },

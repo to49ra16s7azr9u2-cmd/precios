@@ -792,7 +792,19 @@ def save_catalog(data):
     products = data.pop("products", [])
     # La reseña destacada de Mercado Libre ya no se muestra (se retiró la
     # sección «Lo que dicen los compradores», 25-sep): no se guarda.
+    # Categorías reorganizadas el 25-sep (reorganizar_categorias.destino): lo
+    # que cualquier importador todavía guarde como «Refacciones», «Drones»,
+    # «Juguetes y bebés»... queda en la categoría de hoy.
+    # Sólo una vez que el manifiesto ya tiene las categorías nuevas (lo hace
+    # reorganizar_categorias.py --aplicar): antes, mover fichas a una
+    # categoría que la lista no declara las dejaría fuera de la SPA.
+    from reorganizar_categorias import destino, AUTOPARTES
+    reorganizado = any(c.get("id") == AUTOPARTES for c in data.get("categories") or [])
     for p in products:
+        if reorganizado:
+            cat, sub = destino(p.get("category"), p.get("subcategory"))
+            if cat != p.get("category") or sub != p.get("subcategory"):
+                p["category"], p["subcategory"] = cat, sub
         for o in p.get("offers") or []:
             o.pop("topReview", None)
         for v in p.get("colorVariants") or []:

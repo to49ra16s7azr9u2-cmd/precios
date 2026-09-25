@@ -3384,9 +3384,26 @@ def render_404(data):
     # scripts/build_retirados_index.py). Escribir una página de verdad para
     # cada una serían 197 mil archivos HTML, doce veces lo que publica el
     # sitio, y eso deshace lo que se ganó publicando solo lo comparable.
+    import reorganizar_categorias as _rc
+    redir_cat = {viejo: [nuevo, viejo in ("refacciones", "juguetes-y-bebes")]
+                 for viejo, nuevo in _rc.REDIRECCIONES.items()}
+    redir_sub = {}
+    for sub in _rc.REFACCIONES_ELECTRO:
+        redir_sub[f"refacciones/{slugify(sub)}"] = f"{slugify('Electrodomésticos')}/{slugify(sub)}"
+    for sub in _rc.SUBS_BEBES:
+        redir_sub[f"juguetes-y-bebes/{slugify(sub)}"] = f"{slugify(_rc.BEBES)}/{slugify(sub)}"
     script = """
 <script>
 (function () {
+  // Categorías reorganizadas el 25-sep (reorganizar_categorias.py): la url
+  // vieja de categoría, «lo más barato» o «los mejores» va a la nueva.
+  var RC = __REDIR_CAT__, RS = __REDIR_SUB__;
+  var mc = location.pathname.match(/^\\/(categoria|barato|mejores)\\/([^\\/]+)(?:\\/([^\\/]+))?\\/?$/);
+  if (mc && (RC[mc[2]] || RS[mc[2] + '/' + mc[3]])) {
+    var nueva = RS[mc[2] + '/' + mc[3]] || (RC[mc[2]][0] + (mc[3] && RC[mc[2]][1] ? '/' + mc[3] : ''));
+    location.replace('/' + mc[1] + '/' + nueva + '/');
+    return;
+  }
   // Compara marcas se retiró: una url vieja de marca busca esa marca.
   var mm = location.pathname.match(/^\\/marca\\/([^\\/]+)\\/?$/);
   if (mm) {
@@ -3436,6 +3453,8 @@ def render_404(data):
 })();
 </script>
 """
+    script = (script.replace("__REDIR_CAT__", json.dumps(redir_cat, ensure_ascii=False))
+                    .replace("__REDIR_SUB__", json.dumps(redir_sub, ensure_ascii=False)))
     body = f"""
 <div class="panel" id="retirado" style="text-align:center">
   <h1>Esta página no existe</h1>

@@ -261,7 +261,7 @@ FAMILIAS = {
         ("Joyería", [
             "Aretes", "Collares", "Pulseras", "Anillos", "Dijes y charms",
             "Arras y sets"]),
-        ("Accesorios", ["Lentes de sol"]),
+        ("Accesorios", ["Lentes de sol", "Lentes oftálmicos y de lectura"]),
     ],
     # Mascotas deduce solas «Jaulas», «Camas», «Comederos» y «Juguetes»; acá
     # van las que quedan, agrupadas por lo que el dueño va a hacer con ellas.
@@ -640,6 +640,14 @@ for _cat, _fams in FAMILIAS_TRES_NIVELES.items():
 import reubicar_otros as _ro  # noqa: E402
 FAMILIAS[_ro.SOLAR] = _ro.FAMILIAS_SOLAR
 FAMILIAS[_ro.LIMPIEZA_HOGAR] = _ro.FAMILIAS_LIMPIEZA_HOGAR
+# Reorganización del 25-sep (reorganizar_categorias.py): categorías nuevas y
+# familias que se suman a las que ya estaban.
+import reorganizar_categorias as _rc  # noqa: E402
+FAMILIAS.update(_rc.FAMILIAS_NUEVAS)
+for _cat, _fams in _rc.FAMILIAS_AGREGAR.items():
+    FAMILIAS.setdefault(_cat, []).extend(_fams)
+for _vieja in _rc.CATEGORIAS_QUE_SE_VAN:
+    FAMILIAS.pop(_vieja, None)
 for _cat, (_fam, _sub) in _ro.FAMILIAS_AGREGAR.items():
     FAMILIAS[_cat] = [(f, (m + [_sub] if f == _fam and _sub not in m else m)) for f, m in FAMILIAS.get(_cat, [])]
 for _cat, _pares in _ro.FAMILIAS_AGREGAR_VARIAS.items():

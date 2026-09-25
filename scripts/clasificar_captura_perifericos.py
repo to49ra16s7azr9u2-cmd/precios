@@ -473,6 +473,8 @@ from data_io import capacidad_mah
 from subcategorias_finas import sub_suplemento_fino, sub_cocina_fino, sub_libro_fino
 from subcategorias_finas_ola2 import afinar_ola2
 import reubicar_otros
+import reglas_nuevas
+from reorganizar_categorias import destino
 from deportes_por_deporte import reclasificar as deporte_reclasificar
 from subcategorias_redes import (sub_cargador, sub_electro, sub_dron, sub_comercial, sub_viaje,
                                  sub_impresion3d, sub_movilidad, sub_proyector, sub_otros,
@@ -6434,6 +6436,19 @@ def _decidir_base(it, pistas=None):
         mk, cat, sub, img = EXPLICITOS[it['asin']]
         return {'estado': 'alta', 'brand': mk, 'category': cat, 'subcategory': sub,
                 'image': img, 'via': 'explicito'}
+    # Categorías nuevas del 25-sep (reglas_nuevas.py): lo inconfundible por su
+    # primera palabra (tenis, libro, mochila...) o, en autopartes, por años de
+    # modelo y marca de auto junto a la pieza.
+    if not it.get('_forzar'):
+        nc = reglas_nuevas.nueva_categoria(tn, sub_refaccion, sub_libro_fino)
+        if nc:
+            cat, sub, img = nc
+            if sub is None and cat == 'Cocina y comedor':
+                sub = sub_cocina_fino(tn)
+            if sub is None and cat == 'Libros' and it.get('dept'):
+                sub = reglas_nuevas.sub_libro_por_departamento(T(it['dept']))
+            return {'estado': 'alta', 'brand': marca(it['title']), 'category': cat,
+                    'subcategory': sub, 'image': img, 'via': 'nueva_categoria'}
     antes = None if it.get('_forzar') else next((v for rx, v in ANTES_DE_FUERA if rx.search(tn)), None)
     if antes:
         cat, sub, img = antes
@@ -6456,6 +6471,15 @@ def _decidir_base(it, pistas=None):
     else:
         n_regla, hit = regla_para(it['title'], tn)
     if not hit and pista: hit = pista
+    # Departamento de Walmart/Bodega (reglas_nuevas.por_departamento): la
+    # última red, sólo para lo que nada más reconoce.
+    if not hit and it.get('dept') and not it.get('_forzar'):
+        dd = reglas_nuevas.por_departamento(T(it['dept']))
+        if dd is False:
+            return {'estado': 'fuera', 'motivo': 'departamento descartado (comida, bebida, películas)'}
+        if dd:
+            hit = dd
+            via = 'departamento_walmart'
     if not hit and it.get('_modelo'):
         hit = it['_modelo']
         via = 'modelo'
@@ -6463,7 +6487,10 @@ def _decidir_base(it, pistas=None):
         return {'estado': 'fuera', 'motivo': 'no encaja en ninguna categoría'}
     cat, sub, img = hit
     es_definicion = isinstance(n_regla, int) and n_regla < N_DEFINICIONES
-    if hit is not pista and via not in ('modelo', 'forzado') and not es_definicion:
+    # Los departamentos de Walmart de reglas_nuevas se revisaron a mano: el
+    # «sustantivo que manda» no los pisa (convertía «El camino del arquero»,
+    # de Clásicos, en un camino de mesa).
+    if hit is not pista and via not in ('modelo', 'forzado', 'departamento_walmart') and not es_definicion:
         manda = sustantivo_manda(it['title'], cat)
         if manda:
             cat, sub, img = manda
@@ -6516,7 +6543,8 @@ def _decidir_base(it, pistas=None):
     # comportamiento está calibrado contra las 16 capturas.
     elif cat == 'Suplementos': sub = sub_suplemento_fino(tn) or sub
     elif cat == 'Cocina y comedor': sub = sub_cocina_fino(tn) or sub
-    elif cat == 'Libros': sub = sub_libro_fino(tn) or sub
+    elif cat == 'Libros': sub = (sub_libro_fino(tn) or sub
+                                 or reglas_nuevas.sub_libro_por_departamento(T(it.get('dept') or '')))
     elif cat == 'Redes': sub = sub_red(tn) or sub
     elif cat == 'Climatización': sub = sub_clima(tn) or sub
     elif cat == 'Belleza y cuidado personal': sub = sub_belleza(tn) or sub
@@ -6544,9 +6572,20 @@ def _decidir_base(it, pistas=None):
     # sub_refaccion existía y nadie lo llamaba: sólo lo usaba
     # repartir_sin_subcategoria.py sobre fichas ya dadas de alta, así que
     # toda refacción nueva entraba sin subcategoría.
-    elif cat == 'Refacciones': sub = sub_refaccion(tn) or sub
+    elif cat in ('Refacciones', 'Autopartes'):
+        # Primero la pieza que el título nombra primero (reglas_nuevas); la de
+        # electrodoméstico (evaporador de refrigerador) sigue en sub_refaccion.
+        sr = sub_refaccion(tn)
+        sub = (sr if sr and sr.startswith('Refacciones para') else None) or reglas_nuevas.sub_autoparte(tn) or sr or sub
+    elif cat == 'Calzado': sub = reglas_nuevas.sub_calzado(tn)
+    elif cat == 'Ropa y accesorios': sub = reglas_nuevas.sub_ropa(tn)
+    elif cat == 'Bolsas y mochilas': sub = reglas_nuevas.sub_bolsa(tn)
+    elif cat == 'Jardín y exterior': sub = reglas_nuevas.sub_jardin(tn)
+    elif cat == 'Papelería y oficina': sub = reglas_nuevas.sub_papeleria(tn)
     elif cat == 'Otros': sub = sub_otros(tn) or sub
     sub = afinar_ola2(cat, sub, tn)
+    if via == 'departamento_walmart' and cat == 'Decoración de hogar y jardín':
+        sub = reglas_nuevas.sub_decoracion_nueva(tn)
     # Deportes va por deporte y después por equipo (23-sep): sub_deporte y
     # afinar_ola2 siguen devolviendo el tipo de equipo, y esto lo lleva a la
     # subcategoría del deporte.
@@ -6565,6 +6604,21 @@ def _decidir_base(it, pistas=None):
 
 
 def decidir(it, pistas=None):
+    d = _mapear(_decidir(it, pistas))
+    return d
+
+
+def _mapear(d):
+    """Pasa la decisión a las categorías de hoy (reorganizar_categorias.destino):
+    las reglas viejas siguen diciendo «Refacciones» o «Drones»."""
+    if d.get('estado') == 'alta':
+        cat, sub = destino(d.get('category'), d.get('subcategory'))
+        if (cat, sub) != (d.get('category'), d.get('subcategory')):
+            d = {**d, 'category': cat, 'subcategory': sub}
+    return d
+
+
+def _decidir(it, pistas=None):
     d = _decidir_base(it, pistas)
     # «Otros» ya no es destino (24-sep-2026, reubicar_otros.py): lo que las
     # reglas mandaban a Otros/Soportes, Otros/Paneles solares, Otros/Baño...

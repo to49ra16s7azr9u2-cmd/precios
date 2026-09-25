@@ -82,7 +82,7 @@ FACET_CATEGORIES = (
     "Televisores", "Videojuegos", "Lavadoras", "Refrigeradores",
     "Blancos y ropa de cama", "Muebles",
     "Computadoras de escritorio", "Almacenamiento", "Climatización",
-    "Refacciones", "Herramientas", "Bocinas",
+    "Refacciones", "Autopartes", "Herramientas", "Bocinas",
     "Autos, bicicletas y motos", "Electrodomésticos", "Joyería y bisutería",
     "Cargadores y adaptadores",
     # Hogar: lo que decide la compra es UN dato (tazas, litros, watts,
@@ -279,7 +279,7 @@ def _compat_key(modelo):
 def build_compat_canon(products):
     conteo = {}
     for p in products:
-        if p.get("category") != "Refacciones":
+        if p.get("category") not in ("Refacciones", "Autopartes"):
             continue
         compat = _spec_map(p).get("compatibilidad")
         if not compat:
@@ -815,7 +815,7 @@ def _facets_propias(product):
                     "Electrodomésticos", "Joyería y bisutería"):
         return f or None
 
-    if category == "Refacciones":
+    if category in ("Refacciones", "Autopartes"):
         # Con qué moto/coche es compatible y de qué años. Solo del formato
         # con viñeta de la ficha de Elektra; ver compat_of() para por qué el
         # resto no se toca.
