@@ -676,10 +676,6 @@
     reviewFormSuccess: document.getElementById("reviewFormSuccess"),
     reviewFormWriteAnother: document.getElementById("reviewFormWriteAnother"),
 
-    viewBrands: document.getElementById("viewBrands"),
-    brandCategoryFilter: document.getElementById("brandCategoryFilter"),
-    brandsTitle: document.getElementById("brandsTitle"),
-    brandGrid: document.getElementById("brandGrid"),
 
     viewFavorites: document.getElementById("viewFavorites"),
     viewCompare: document.getElementById("viewCompare"),
@@ -1745,10 +1741,51 @@
       };
       container.textContent = "";
       container.appendChild(img);
-      img.src = product.photo;
+      // En listas y tarjetas, la versión chica que ya sirve el CDN de la
+      // tienda (miniatura()); si esa falla, el siguiente intento pide la
+      // original. La ficha grande usa siempre la original.
+      img.src = variant !== "detail" && attempt === 0 ? miniatura(product.photo) : product.photo;
       if (onSettled) onSettled();
     };
     attach();
+  }
+
+  // Foto chica para listas (pedido del usuario, 26-sep: aligerar el sitio).
+  // Las tiendas sirven la foto a 1,200-2,000 px y una tarjeta la muestra a
+  // ~200: medido, Mercado Libre 68 KB -> 13 KB (-O.webp, 500 px), VTEX
+  // (Elektra, Chedraui, Martí...) 146 KB -> 26 KB (400x400), Amazon
+  // 109 KB -> 13 KB (_SL400_). Cada CDN lo pide a su manera; lo que no se
+  // reconoce se deja como está.
+  function miniatura(url) {
+    if (!url) return url;
+    let m;
+    if (/^https?:\/\/http2\.mlstatic\.com\//.test(url)) {
+      return url.replace(/-[A-Z]\.(jpe?g|webp|png)(\?.*)?$/i, "-O.webp");
+    }
+    if ((m = url.match(/^(https?:\/\/[^/]+\.(?:vteximg\.com\.br|vtexassets\.com)\/arquivos\/ids\/)(\d+)(?:-\d+-\d+)?(\/.*)$/))) {
+      return `${m[1]}${m[2]}-400-400${m[3]}`;
+    }
+    if (/^https?:\/\/i5\.walmartimages\.com(\.mx)?\//.test(url)) {
+      try {
+        const u = new URL(url);
+        u.searchParams.set("odnHeight", "400");
+        u.searchParams.set("odnWidth", "400");
+        return u.toString();
+      } catch (e) { return url; }
+    }
+    if (/^https?:\/\/m\.media-amazon\.com\/images\/I\//.test(url)) {
+      return /\._[^/]*_\.(jpe?g|png|webp)$/i.test(url)
+        ? url.replace(/\._[^/]*_\.(jpe?g|png|webp)$/i, "._AC_SL400_.$1")
+        : url.replace(/\.(jpe?g|png|webp)$/i, "._AC_SL400_.$1");
+    }
+    if (/^https?:\/\/cdn\.shopify\.com\//.test(url)) {
+      try {
+        const u = new URL(url);
+        u.searchParams.set("width", "400");
+        return u.toString();
+      } catch (e) { return url; }
+    }
+    return url;
   }
 
   // Distancia aproximada entre dos puntos (km), fórmula de Haversine
@@ -2863,7 +2900,7 @@
     // antes de pintar nada, que en un celular con 4G son fácilmente un
     // segundo entero de pantalla en blanco.
     const pedir = (ruta, respaldo) => fetch(ruta).then((r) => r.json()).catch(() => respaldo);
-    const marcas = pedir("data/brands.json", { brands: [] });
+    const marcas = Promise.resolve({ brands: [] });   // directorio de marcas retirado (26-sep)
     const iconos = pedir("data/icons.json", {});
     const tarifas = pedir("data/shipping-rates.json", null);
     // ComparaMEX Local (experimental): tiendas del municipio y sus precios,
@@ -2905,7 +2942,6 @@
     el.viewHome.classList.toggle("hidden", name !== "home");
     el.viewList.classList.toggle("hidden", name !== "list");
     el.viewDetail.classList.toggle("hidden", name !== "detail");
-    el.viewBrands.classList.toggle("hidden", name !== "brands");
     el.viewFavorites.classList.toggle("hidden", name !== "favorites");
     el.viewCompare.classList.toggle("hidden", name !== "compare");
     el.viewAccount.classList.toggle("hidden", name !== "account");
@@ -2977,7 +3013,8 @@
     else if (hash === "#/favorites") renderFavorites();
     else if (hash === "#/comparar") renderCompare();
     else if (hash === "#/account") renderAccount();
-    else if (hash === "#/marcas" || hash.startsWith("#/marcas?")) renderBrands();
+    // El directorio de marcas se retiró (26-sep): la url vieja va a Inicio.
+    else if (hash === "#/marcas" || hash.startsWith("#/marcas?")) { location.hash = "#/"; }
     else if (hash === "#/envio" || hash.startsWith("#/envio?")) renderShippingCalculator();
     else if (hash === "#/privacidad") renderPrivacy();
     else if (hash === "#/terminos") renderTerms();
@@ -3064,10 +3101,7 @@
     } else if (hash === "#/account") {
       renderAccount();
     } else if (hash === "#/marcas" || hash.startsWith("#/marcas?")) {
-      const qs = hash.includes("?") ? new URLSearchParams(hash.split("?")[1]) : null;
-      const cat = qs && qs.get("cat");
-      if (cat) state.brandCategory = cat;
-      renderBrands();
+      location.hash = "#/";
     } else if (hash === "#/envio" || hash.startsWith("#/envio?")) {
       renderShippingCalculator();
     } else if (hash === "#/privacidad") {
@@ -3421,47 +3455,13 @@
     botonesGuia().forEach((b) => b.setAttribute("aria-expanded", "false"));
   }
 
-  // Las dos entradas al catálogo de la portada: por precio (elegir
-  // categoría) o por marca. La de marcas se alimenta de data/marcas.json
-  // --el índice que arma scripts/build_marcas_index.py-- y no del catálogo:
-  // Inicio no lo baja, y son 787 marcas contra 214 mil fichas.
-  const BRAND_GRID_VISIBLES = 60;
   const TEXTO_ELIGE = {
     precios: "Elige una categoría para ver los productos más populares y comparar precios entre tiendas.",
     marcas: "Elige una marca para ver todos sus productos y comparar precios entre tiendas.",
   };
   let brandIndexPromise = null;
-  function ensureBrandIndex() {
-    if (!brandIndexPromise) {
-      const file = state.data && state.data.brandIndexFile;
-      brandIndexPromise = file
-        ? fetch(file).then((r) => (r.ok ? r.json() : null)).catch(() => null)
-        : Promise.resolve(null);
-    }
-    return brandIndexPromise;
-  }
 
-  // Sin texto en el buscador se ven las 60 marcas con más productos y el
-  // enlace a todas; con texto, todas las que lo contienen (sin acentos ni
-  // mayúsculas), hasta un tope para no pintar cientos de tarjetas.
-  const BRAND_GRID_BUSCADAS = 200;
-  let brandGridMarcas = null;
   const sinAcentosMarca = (s) => String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-  // La tarjeta: el logo real cuando scripts/build_marcas_logos.py lo bajó
-  // (m.l, que marca build_marcas_index.py) y, si no, las iniciales en un
-  // recuadro del mismo tamaño para que la rejilla no baile. El nombre va
-  // siempre escrito debajo: el logo identifica, el texto se busca y se lee.
-  function homeBrandCardHtml(m) {
-    const iniciales = String(m.n || "").split(/\s+/).slice(0, 2).map((w) => w[0] || "").join("").toUpperCase();
-    const logo = m.l
-      ? `<img src="icons/marcas/${encodeURIComponent(m.s)}.png" alt="" loading="lazy" decoding="async" onerror="this.parentNode.textContent='${htmlEscapeAttr(iniciales)}'">`
-      : htmlEscapeAttr(iniciales);
-    return `<a class="home-brand-card${m.l ? " has-logo" : ""}" href="marca/${encodeURIComponent(m.s)}/">` +
-      `<span class="home-brand-card-logo" aria-hidden="true">${logo}</span>` +
-      `<span class="home-brand-card-name">${htmlEscapeAttr(m.n)}</span>` +
-      `<span class="home-brand-card-count">${m.c.toLocaleString("es-MX")} productos</span></a>`;
-  }
 
   // Buscador de categorías del encabezado. Filtra las tarjetas que ya
   // están pintadas en vez de rehacer la rejilla: cada tarjeta trae una foto
@@ -3550,40 +3550,6 @@
     });
   }
 
-  function pintarHomeBrandGrid() {
-    const marcas = brandGridMarcas || [];
-    const q = sinAcentosMarca(el.homeBrandSearch ? el.homeBrandSearch.value.trim() : "");
-    let lista, pie = "";
-    if (q) {
-      // Igual que con las categorías: "taladro" no es el nombre de ninguna
-      // marca, pero sí resuelve a una categoría, y las marcas guardan en
-      // qué categorías venden ("k", índices de la misma lista).
-      let porProducto = null;
-      if (indiceInicio) {
-        const idx = indicesDePortada(q, "b");
-        if (idx && idx.size) {
-          porProducto = new Set([...idx].map((i) => sinAcentosMarca(indiceInicio.brands[i] || "")));
-        }
-      } else {
-        pedirIndiceInicio(pintarHomeBrandGrid);
-      }
-      const todas = marcas.filter((m) => {
-        const n = sinAcentosMarca(m.n);
-        return n.indexOf(q) !== -1 || (porProducto !== null && porProducto.has(n));
-      });
-      lista = todas.slice(0, BRAND_GRID_BUSCADAS);
-      if (el.homeBrandSearchCount) el.homeBrandSearchCount.textContent = todas.length + " de " + marcas.length + " marcas";
-      if (!todas.length) pie = `<p class="muted small" style="grid-column:1/-1">Ninguna marca se llama así. <a href="marca/">Ver todas las marcas</a>.</p>`;
-      else if (todas.length > lista.length) pie = `<p class="home-brand-grid-more" style="grid-column:1/-1">Se muestran ${lista.length}; afina la búsqueda o <a href="marca/">ve todas</a>.</p>`;
-    } else {
-      lista = marcas.slice(0, BRAND_GRID_VISIBLES);
-      if (el.homeBrandSearchCount) el.homeBrandSearchCount.textContent = "";
-      const resto = marcas.length - BRAND_GRID_VISIBLES;
-      if (resto > 0) pie = `<p class="home-brand-grid-more" style="grid-column:1/-1"><a href="marca/">Ver las ${marcas.length.toLocaleString("es-MX")} marcas →</a></p>`;
-    }
-    el.homeBrandGrid.innerHTML = lista.map(homeBrandCardHtml).join("") + pie;
-  }
-
   // La marca girando mientras se baja algo. Un texto quieto ("Cargando
   // productos…") no se distingue de una página colgada; el aro sí. `enLinea`
   // es para los sitios donde el indicador comparte espacio con otra cosa.
@@ -3593,26 +3559,6 @@
       `<span class="cargando-marca" aria-hidden="true"></span>` +
       `<span class="cargando-texto">${texto}</span></div>`
     );
-  }
-
-  function renderHomeBrandGrid() {
-    if (!el.homeBrandGrid || el.homeBrandGrid.childElementCount) return;
-    el.homeBrandGrid.innerHTML = htmlCargando("Cargando marcas…");
-    ensureBrandIndex().then((marcas) => {
-      if (!marcas || !marcas.length) {
-        // Sin índice (el paso de build no corrió) se cae al enlace de
-        // siempre: la página estática con todas las marcas.
-        el.homeBrandGrid.innerHTML =
-          `<p class="muted small">Ver todas las marcas en <a href="marca/">/marca/</a>.</p>`;
-        return;
-      }
-      brandGridMarcas = marcas;
-      if (el.homeBrandSearch && !el.homeBrandSearch.dataset.listo) {
-        el.homeBrandSearch.dataset.listo = "1";
-        el.homeBrandSearch.addEventListener("input", pintarHomeBrandGrid);
-      }
-      pintarHomeBrandGrid();
-    });
   }
 
   function activarPestanaInicio(cual) {
@@ -3647,7 +3593,6 @@
     if (el.homeElige && TEXTO_ELIGE[cual]) el.homeElige.textContent = TEXTO_ELIGE[cual];
     const grid = document.querySelector(".home-grid");
     if (grid) grid.dataset.homeTab = cual;
-    if (cual === "marcas") renderHomeBrandGrid();
   }
 
   function bindHomeTabs() {
@@ -6610,103 +6555,6 @@
     });
   }
 
-  // ---------- Vista: Marcas y ofertas (catálogo de afiliados, Admitad) ----------
-
-  // Iconos ilustrados (subidos por el usuario) para las categorías que tienen
-  // uno; el resto usa un emoji plano como respaldo, mismo criterio visual
-  // que el resto del sitio (ver cat.icon en renderCatNav).
-  const CATEGORY_ICONS = {
-    "Electrónica y gaming": "icons/categories/electronica-gaming.png",
-    "VPN y seguridad": "icons/categories/vpn-seguridad.png",
-    "Moda y accesorios": "icons/categories/moda-accesorios.png",
-    "Electrodomésticos y hogar": "icons/categories/electrodomesticos-hogar.png",
-    "Joyería y relojes": "icons/categories/joyeria-relojes.png",
-    "Finanzas": "icons/categories/finanzas.png",
-  };
-  const CATEGORY_ICON_FALLBACK = {
-    "Compras generales": "shopping-bag",
-    "Belleza": "sparkle",
-    "Viajes": "plane",
-    "Educación": "graduation-cap",
-    "Software e IA": "robot",
-    "Hosting y dominios": "server",
-    "Otros": "box",
-    "Salud y bienestar": "leaf",
-  };
-
-  function brandCategories() {
-    const list = state.brandsData.brands.map((b) => b.category);
-    return [...new Set(list)].sort();
-  }
-
-  function categoryCardIconHtml(cat) {
-    const photo = CATEGORY_ICONS[cat];
-    if (photo) return `<img src="${photo}" alt="" loading="lazy">`;
-    return icon(CATEGORY_ICON_FALLBACK[cat] || "tag");
-  }
-
-  function renderBrandCategoryFilter() {
-    el.brandCategoryFilter.innerHTML = "";
-    const all = state.brandsData.brands;
-
-    const allCard = document.createElement("button");
-    allCard.type = "button";
-    allCard.className = "category-card" + (!state.brandCategory ? " active" : "");
-    allCard.innerHTML = `
-      <span class="category-card-icon">${icon("shopping-bag")}</span>
-      <span class="category-card-name">Todas</span>
-      <span class="category-card-count">${all.length}</span>
-    `;
-    allCard.onclick = () => { state.brandCategory = null; renderBrands(); };
-    el.brandCategoryFilter.appendChild(allCard);
-
-    brandCategories().forEach((cat) => {
-      const count = all.filter((b) => b.category === cat).length;
-      const isActive = state.brandCategory === cat;
-      const card = document.createElement("button");
-      card.type = "button";
-      card.className = "category-card" + (isActive ? " active" : "");
-      card.innerHTML = `
-        <span class="category-card-icon">${categoryCardIconHtml(cat)}</span>
-        <span class="category-card-name">${cat}</span>
-        <span class="category-card-count">${count}</span>
-      `;
-      card.onclick = () => { state.brandCategory = cat; renderBrands(); };
-      el.brandCategoryFilter.appendChild(card);
-    });
-  }
-
-  function renderBrands() {
-    setActiveView("brands");
-    renderBrandCategoryFilter();
-
-    const all = state.brandsData.brands;
-    const shown = state.brandCategory ? all.filter((b) => b.category === state.brandCategory) : all;
-    el.brandsTitle.textContent = state.brandCategory ? `${state.brandCategory} (${shown.length})` : `Todas las marcas (${shown.length})`;
-
-    el.brandGrid.innerHTML = "";
-    if (shown.length === 0) {
-      el.brandGrid.innerHTML = `<p class="empty-state">No hay marcas en esta categoría todavía.</p>`;
-      return;
-    }
-    shown.forEach((b) => {
-      const card = document.createElement("a");
-      card.className = "brand-card";
-      card.href = b.url;
-      card.target = "_blank";
-      card.rel = "noopener sponsored";
-      card.innerHTML = `
-        <div class="brand-card-logo"><img src="${b.logo}" alt="${b.name}" loading="lazy"></div>
-        <div class="brand-card-body">
-          <div class="brand-card-cat">${b.category}</div>
-          <div class="brand-card-name">${b.name}</div>
-          <p class="brand-card-desc">${b.description}</p>
-        </div>
-      `;
-      el.brandGrid.appendChild(card);
-    });
-  }
-
   // ---------- Vista: Mi cuenta ----------
 
   function renderAccount() {
@@ -7762,7 +7610,7 @@
         ? `<div class="variant-pills" title="También disponible en otras variantes">
             <span class="variant-pills-label">${icon("palette")} ${r.variants.length + 1} variantes:</span>
             ${[{ label: "Esta", url: r.url, photo: r.photo || basePhoto }, ...r.variants].map(
-              (v, i) => `<button class="variant-pill${i === 0 ? " active" : ""}" data-url="${htmlEscapeAttr(v.url)}">${v.photo ? `<img src="${htmlEscapeAttr(v.photo)}" alt="" loading="lazy">` : ""}<span>${htmlEscapeAttr(v.label)}</span></button>`
+              (v, i) => `<button class="variant-pill${i === 0 ? " active" : ""}" data-url="${htmlEscapeAttr(v.url)}">${v.photo ? `<img src="${htmlEscapeAttr(miniatura(v.photo))}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${htmlEscapeAttr(v.photo)}'">` : ""}<span>${htmlEscapeAttr(v.label)}</span></button>`
             ).join("")}
           </div>`
         : "";

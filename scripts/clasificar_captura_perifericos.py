@@ -6362,6 +6362,10 @@ class ModeloCatalogo:
                 self.subs[cat].entrenar(p['subcategory'], ts)
             if p.get('image'):
                 iconos[cat][p['image']] += 1
+        # Los ejemplos verificados a mano pesan más (ejemplos_verificados.py):
+        # el modelo crece con cada revisión, no solo con el catálogo.
+        import ejemplos_verificados
+        ejemplos_verificados.entrenar(self.m, self.subs, tokens)
         self.m.preparar()
         for b in self.subs.values():
             b.preparar()

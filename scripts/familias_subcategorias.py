@@ -49,6 +49,7 @@ USO
     python3 scripts/familias_subcategorias.py        # revisar el resultado
 """
 import collections
+import json
 import os
 import re
 import sys
@@ -665,6 +666,23 @@ for _cat, (_fam, _sub) in _ro.FAMILIAS_AGREGAR.items():
 for _cat, _pares in _ro.FAMILIAS_AGREGAR_VARIAS.items():
     for _fam, _sub in _pares:
         FAMILIAS[_cat] = [(f, (m + [_sub] if f == _fam and _sub not in m else m)) for f, m in FAMILIAS.get(_cat, [])]
+
+# Subcategorías con nombre que salieron de una comodín (partir_genericas.py,
+# 25-sep, noche): van en la familia donde estaba la comodín.
+_RUTA_PARTICION = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "particion-genericas.json")
+if os.path.exists(_RUTA_PARTICION):
+    with open(_RUTA_PARTICION, encoding="utf-8") as _f:
+        _hijas = json.load(_f).get("hijas", {})
+    for _k, _subs in _hijas.items():
+        _cat, _gen = _k.split("|", 1)
+        _fams = FAMILIAS.get(_cat)
+        if not _fams:
+            continue
+        _i = next((i for i, (f, m) in enumerate(_fams) if _gen in m), None)
+        if _i is None:
+            continue
+        _f0, _m0 = _fams[_i]
+        _fams[_i] = (_f0, _m0 + [s for s in _subs if s not in _m0 and not any(s in m for _, m in _fams)])
 
 # Palabras que no pueden ser la cabeza de una familia.
 _VACIAS = {"de", "para", "y", "con", "en", "del", "la", "el", "los", "las",

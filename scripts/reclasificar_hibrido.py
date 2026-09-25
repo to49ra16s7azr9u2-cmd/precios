@@ -78,6 +78,14 @@ class Modelo:
             ts = tokens(p.get("name"))
             self.doc[c] += 1
             self.cnt[c].update(ts)
+        # Lo revisado a mano pesa más (ejemplos_verificados.py): el modelo
+        # crece con cada revisión, no solo con el catálogo.
+        import ejemplos_verificados
+        for e in ejemplos_verificados.cargar():
+            ts = tokens(e["nombre"])
+            for _ in range(ejemplos_verificados.PESO):
+                self.doc[e["cat"]] += 1
+                self.cnt[e["cat"]].update(ts)
         self.cats = [c for c, n in self.doc.items() if n >= MIN_FICHAS_CLASE]
         self.N = sum(self.doc.values())
         vocab = set()

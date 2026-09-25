@@ -340,6 +340,19 @@ for _cat, _subs in list(ROLES.items()):
         if (_nc, _ns) != (_cat, _sub) and _ns:
             ROLES.setdefault(_nc, {}).setdefault(_ns, _rol)
 ROLES.setdefault(_rc.AUTOS, {})["Accesorios para auto"] = ACCESORIO
+# Subcategorías con nombre que salieron de una comodín (partir_genericas.py):
+# el papel de la comodín (accesorio, parte...).
+import json as _json  # noqa: E402
+import os as _os  # noqa: E402
+_RUTA_PARTICION = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "data", "particion-genericas.json")
+if _os.path.exists(_RUTA_PARTICION):
+    with open(_RUTA_PARTICION, encoding="utf-8") as _f:
+        for _k, _subs in _json.load(_f).get("hijas", {}).items():
+            _cat, _gen = _k.split("|", 1)
+            _rol = (ROLES.get(_cat) or {}).get(_gen)
+            if _rol:
+                for _s in _subs:
+                    ROLES.setdefault(_cat, {}).setdefault(_s, _rol)
 
 
 def rol_de(categoria, subcategoria):

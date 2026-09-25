@@ -18,6 +18,10 @@ sed -n '1,25p;/^Guardado/p' /tmp/reaplicar_reglas.log
 echo "=== reclasificar_hibrido ==="
 python3 scripts/reclasificar_hibrido.py --aplicar > /tmp/reclasificar_hibrido.log 2>&1
 sed -n '1,12p;/^Guardado/p' /tmp/reclasificar_hibrido.log
+# Subcategorías comodín («Accesorios», «Refacciones para X») partidas por
+# el nombre de la pieza; el modelo se reentrena en cada corrida con el
+# catálogo y los ejemplos verificados (partir_genericas.py).
+echo "=== partir_genericas ==="; python3 scripts/partir_genericas.py --aplicar 2>&1 | tail -2
 echo "=== sync_subcategories ==="; python3 scripts/sync_subcategories.py 2>&1 | tail -3
 echo "=== compute_facets ==="; python3 scripts/compute_facets.py 2>&1 | tail -2
 echo "=== compute_quality_axes ==="; python3 scripts/compute_quality_axes.py 2>&1 | tail -2

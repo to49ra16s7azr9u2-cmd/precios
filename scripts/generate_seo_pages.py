@@ -40,6 +40,7 @@ import re
 import shutil
 import sys
 import unicodedata
+import urllib.parse
 from urllib.parse import quote
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -66,31 +67,12 @@ SITE_URL = "https://comparamex.com"
 # SPA (mismo origen, mismo storage). Un visitante nuevo que aterriza
 # directo en una de estas páginas no se cuenta hasta que entre a la SPA y
 # responda al aviso ahí.
-GA_SNIPPET = """<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('consent', 'default', {
-    'analytics_storage': 'denied',
-    'ad_storage': 'denied',
-    'ad_user_data': 'denied',
-    'ad_personalization': 'denied'
-  });
-  try {
-    if (localStorage.getItem('comparamexCookieConsent') === 'accepted') {
-      gtag('consent', 'update', {
-        'analytics_storage': 'granted',
-        'ad_storage': 'granted',
-        'ad_user_data': 'granted',
-        'ad_personalization': 'granted'
-      });
-    }
-  } catch (e) {}
-</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>
-<script>
-  gtag('js', new Date());
-  gtag('config', 'G-NZ0RG4S274');
-</script>"""
+# Todo en /js/ga.js (26-sep, aligerar el sitio): eran ~700 bytes repetidos en
+# cada una de las 21 mil páginas; como archivo aparte se baja una vez y queda
+# en caché. Va sin async ni defer, antes que gtag.js, para que el
+# consentimiento por defecto quede puesto antes de la primera medición.
+GA_SNIPPET = """<script src="/js/ga.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ0RG4S274"></script>"""
 
 with open(ICONS_PATH, encoding="utf-8") as f:
     ICONS = json.load(f)
@@ -107,7 +89,7 @@ def svg_icon(key, cls=""):
     vendedores y demás, y los iconos eran casi la mitad de sus ~180 KB."""
     key = key if key in ICONS else "box"
     css_class = f" {cls}" if cls else ""
-    return f'<svg class="icon{css_class}" aria-hidden="true"><use href="#i-{key}"/></svg>'
+    return f'<svg class="icon{css_class}" aria-hidden="true"><use href="/icons/sprite.svg#i-{key}"/></svg>'
 
 # Estas páginas cargaban css/style.css SIN minificar: 114 KB en vez de 56 KB,
 # en las ~82 mil páginas, y son justo las que reciben la primera visita desde
@@ -235,6 +217,29 @@ def aggregate_rating(product):
     return round(weighted / total_reviews, 1), total_reviews
 
 
+def miniatura(url, lado):
+    """La foto al tamaño en que se muestra, pedida al CDN de la tienda (igual
+    que miniatura() de js/app.js; 26-sep, aligerar el sitio). Lo que no se
+    reconoce queda como está. El JSON-LD y og:image siguen con la original."""
+    if not url:
+        return url
+    if url.startswith(("https://http2.mlstatic.com/", "http://http2.mlstatic.com/")):
+        return re.sub(r"-[A-Z]\.(jpe?g|webp|png)(\?.*)?$", "-O.webp" if lado > 320 else "-V.webp", url, flags=re.I)
+    m = re.match(r"^(https?://[^/]+\.(?:vteximg\.com\.br|vtexassets\.com)/arquivos/ids/)(\d+)(?:-\d+-\d+)?(/.*)$", url)
+    if m:
+        return f"{m.group(1)}{m.group(2)}-{lado}-{lado}{m.group(3)}"
+    if re.match(r"^https?://i5\.walmartimages\.com(\.mx)?/", url):
+        pr = urllib.parse.urlsplit(url)
+        q = [(k, v) for k, v in urllib.parse.parse_qsl(pr.query) if k not in ("odnHeight", "odnWidth")]
+        q += [("odnHeight", str(lado)), ("odnWidth", str(lado))]
+        return urllib.parse.urlunsplit(pr._replace(query=urllib.parse.urlencode(q)))
+    if url.startswith("https://m.media-amazon.com/images/I/"):
+        if re.search(r"\._[^/]*_\.(jpe?g|png|webp)$", url, re.I):
+            return re.sub(r"\._[^/]*_\.(jpe?g|png|webp)$", rf"._AC_SL{lado}_.\1", url, flags=re.I)
+        return re.sub(r"\.(jpe?g|png|webp)$", rf"._AC_SL{lado}_.\1", url, flags=re.I)
+    return url
+
+
 def product_photo_html(product, css_class="detail-icon"):
     """La foto del producto, o la ilustración de la categoría si no hay.
 
@@ -256,17 +261,33 @@ def product_photo_html(product, css_class="detail-icon"):
     # al tamaño de su recuadro); sin ellos Lighthouse marca cada imagen.
     principal = css_class == "detail-icon"
     lado = 400 if principal else 56
+    original = foto
+    foto = miniatura(foto, 600 if principal else 200)
+    # Si el CDN no sirve el tamaño pedido, la original (estas páginas no
+    # tienen app.js que reintente).
+    respaldo = (f' onerror="this.onerror=null;this.src=\'{html_escape(original)}\'"'
+                if foto != original else "")
     carga = 'fetchpriority="high"' if principal else 'loading="lazy"'
     return (
         f'<div class="{css_class} has-photo">'
         f'<img class="product-photo product-photo-detail" src="{html_escape(foto)}" '
         f'alt="{html_escape(product["name"])}" referrerpolicy="no-referrer" '
-        f'width="{lado}" height="{lado}" {carga} decoding="async">'
+        f'width="{lado}" height="{lado}" {carga} decoding="async"{respaldo}>'
         f'</div>'
     )
 
 
 RX_USO_ICONO = re.compile(r'#i-([a-z0-9-]+)')
+SPRITE_PATH = os.path.join(ROOT, "icons", "sprite.svg")
+
+
+def escribir_sprite():
+    """Todos los iconos en un solo /icons/sprite.svg (26-sep, aligerar el
+    sitio): antes cada página llevaba en línea los <symbol> que usaba
+    (~1.5 KB x 21 mil páginas); ahora los pide por <use href> al archivo,
+    que el navegador baja una vez."""
+    simbolos = "".join(f'<symbol id="i-{k}" viewBox="0 0 24 24">{v}</symbol>' for k, v in sorted(ICONS.items()))
+    return write_if_changed(SPRITE_PATH, f'<svg xmlns="http://www.w3.org/2000/svg">{simbolos}</svg>')
 
 
 def sprite_iconos(html):
@@ -279,8 +300,7 @@ def sprite_iconos(html):
 
 
 def page_shell(title, description, canonical_path, body, depth, extra_head="", robots="index, follow", og_image=None):
-    html = _page_shell(title, description, canonical_path, body, depth, extra_head, robots, og_image)
-    return html.replace("<body>\n", "<body>\n" + sprite_iconos(html) + "\n", 1)
+    return _page_shell(title, description, canonical_path, body, depth, extra_head, robots, og_image)
 
 
 def _page_shell(title, description, canonical_path, body, depth, extra_head="", robots="index, follow", og_image=None):
@@ -357,7 +377,7 @@ def _page_shell(title, description, canonical_path, body, depth, extra_head="", 
 <footer class="site-footer">
   <div class="container">
     <p><a href="{prefijo}ofertas/">Ofertas de hoy</a> &middot; <a href="{prefijo}mejores/">Los mejores por presupuesto</a></p>
-    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. No tenemos relación comercial con las tiendas que comparamos; los enlaces de la sección «Marcas y ofertas» de la portada sí son de afiliado.
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. Algunos enlaces de este sitio son de afiliado: si compras a través de ellos, podemos recibir una comisión, sin costo adicional para ti.
   </div>
 </footer>
 </body>
@@ -3891,6 +3911,8 @@ def main():
     data = hide_empty_taxonomy(load_catalog())
 
     written = []
+    if escribir_sprite():
+        written.append("icons/sprite.svg")
     lastmod = load_lastmod()
     hoy = datetime.date.today().isoformat()
 

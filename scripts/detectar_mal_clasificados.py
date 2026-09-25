@@ -138,6 +138,8 @@ def main():
         modelo_cat.entrenar(cat, ts)
         if sub and sub != "Otros":
             modelo_sub[cat].entrenar(sub, ts)
+    import ejemplos_verificados  # lo revisado a mano pesa más (el modelo crece con cada revisión)
+    ejemplos_verificados.entrenar(modelo_cat, modelo_sub, tokens)
     modelo_cat.preparar()
     for m in modelo_sub.values():
         m.preparar()

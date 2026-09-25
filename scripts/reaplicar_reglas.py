@@ -201,6 +201,8 @@ def main():
         toks[p["id"]] = ts
         if p.get("category") and p["category"] != "Otros":
             modelo.entrenar(p["category"], ts)
+    import ejemplos_verificados  # lo revisado a mano pesa más (el modelo crece con cada revisión)
+    ejemplos_verificados.entrenar(modelo, None, tokens)
     modelo.preparar()
 
     subs_de = {c["id"]: {s["id"] for s in (c.get("subcategories") or [])} for c in data["categories"]}

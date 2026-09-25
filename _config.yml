@@ -1,0 +1,34 @@
+# GitHub Pages arma el sitio con Jekyll (por eso /_headers da 404). Esta
+# lista deja FUERA del sitio publicado lo que solo usan los scripts: siguen
+# en el repositorio, pero no se publican ni cuentan para el límite de 1 GB
+# (pedido del usuario, 26-sep: aligerar el sitio). Antes de agregar un
+# archivo de data/ acá, confirmar que js/app.js no lo pide (ni directo ni
+# por data/data.json: scopesFile, indexFile, homeFile...).
+exclude:
+  - scripts/
+  - backend/
+  - .github/
+  - README.md
+  - package.json
+  - package-lock.json
+  - build.mjs
+  - firestore-popularidad.rules
+  - local/README.md
+  - data/clasificacion-a-mano.json
+  - data/clasificacion-hibrida.json
+  - data/clasificacion-restantes.json
+  - data/ejemplos-verificados.jsonl
+  - data/gtin-auditoria.json
+  - data/gtin-confirmados.json
+  - data/gtin-consultados.json
+  - data/ml-afiliados.json
+  - data/ml-dominios-producto.json
+  - data/ml-pendientes/
+  - data/movimientos-aplicados.json
+  - data/particion-genericas.json
+  - data/redirecciones.json
+  - data/reparacion-celulares-2026-09-16.tsv
+  - data/revision-subcategorias.json
+  - data/seo-lastmod.json
+  - data/tiendas-ocultas.json.gz
+  - data/vocabulario-cabeza.json

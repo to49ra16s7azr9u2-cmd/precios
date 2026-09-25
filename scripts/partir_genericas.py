@@ -494,8 +494,15 @@ def main():
         q = origen[pid]
         if c == q[0]:
             hijas[f"{q[0]}|{q[1]}"].add(s)
+    # Corre en cada regeneración: lo de antes se conserva y se le suma lo nuevo.
+    previo = json.load(io.open(TABLA, encoding="utf-8")) if os.path.exists(TABLA) else {}
+    for k, v in (previo.get("hijas") or {}).items():
+        hijas[k].update(v)
+    for k, v in (previo.get("tabla") or {}).items():
+        tabla[k] = {**v, **tabla.get(k, {})}
+    comodines = set(previo.get("comodines") or []) | {f"{c}|{s}" for c, s in genericas}
     with io.open(TABLA, "w", encoding="utf-8") as f:
-        json.dump({"tabla": tabla, "comodines": sorted(f"{c}|{s}" for c, s in genericas),
+        json.dump({"tabla": tabla, "comodines": sorted(comodines),
                    "hijas": {k: sorted(v) for k, v in hijas.items()}}, f,
                   ensure_ascii=False, indent=1, sort_keys=True)
     save_catalog(data)
