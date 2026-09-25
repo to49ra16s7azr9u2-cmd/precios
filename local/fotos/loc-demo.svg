@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Ilustración de la fachada de la tienda Demo">
+  <title>Fachada de la tienda Demo (ilustración)</title>
+  <defs>
+    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fd3f4"/>
+      <stop offset="1" stop-color="#d9f1fb"/>
+    </linearGradient>
+    <linearGradient id="vidrio" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#cfe9f1"/>
+      <stop offset="1" stop-color="#9cc9d8"/>
+    </linearGradient>
+    <linearGradient id="refri" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f4f6f7"/>
+      <stop offset="1" stop-color="#c9d1d6"/>
+    </linearGradient>
+  </defs>
+  <!-- cielo y sol -->
+  <rect width="640" height="400" fill="url(#cielo)"/>
+  <circle cx="570" cy="52" r="26" fill="#ffd166"/>
+  <!-- edificio -->
+  <rect x="40" y="70" width="560" height="270" fill="#f29cbf"/>
+  <rect x="40" y="70" width="560" height="14" fill="#e27aa6"/>
+  <rect x="40" y="300" width="560" height="40" fill="#2bb3a3"/>
+  <rect x="40" y="300" width="560" height="5" fill="#1f9486"/>
+  <!-- papel picado -->
+  <path d="M40 92 Q180 112 320 92 Q460 112 600 92" fill="none" stroke="#6b4f3a" stroke-width="1.5"/>
+  <g stroke="none">
+    <path d="M62 95 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#d62839"/>
+    <path d="M100 99 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#ffd166"/>
+    <path d="M138 102 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#2bb3a3"/>
+    <path d="M176 103 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#7b61c4"/>
+    <path d="M214 102 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#f28c28"/>
+    <path d="M252 99 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#1a8f4c"/>
+    <path d="M366 99 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#d62839"/>
+    <path d="M404 102 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#ffd166"/>
+    <path d="M442 103 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#2bb3a3"/>
+    <path d="M480 102 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#7b61c4"/>
+    <path d="M518 99 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#f28c28"/>
+    <path d="M556 95 h22 v18 l-5 -4 -6 4 -6 -4 -5 4z" fill="#1a8f4c"/>
+  </g>
+  <!-- letrero -->
+  <rect x="236" y="112" width="168" height="46" rx="6" fill="#d62839"/>
+  <rect x="242" y="118" width="156" height="34" rx="4" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="320" y="144" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700" fill="#fff" letter-spacing="4">DEMO</text>
+  <!-- toldo -->
+  <g>
+    <rect x="60" y="168" width="520" height="30" fill="#ffffff"/>
+    <g fill="#1a8f4c">
+      <rect x="60" y="168" width="40" height="30"/><rect x="140" y="168" width="40" height="30"/>
+      <rect x="220" y="168" width="40" height="30"/><rect x="300" y="168" width="40" height="30"/>
+      <rect x="380" y="168" width="40" height="30"/><rect x="460" y="168" width="40" height="30"/>
+      <rect x="540" y="168" width="40" height="30"/>
+    </g>
+    <path d="M60 198 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0z" fill="#1a8f4c"/>
+  </g>
+  <!-- ventana izquierda con dos refris -->
+  <rect x="72" y="214" width="170" height="86" fill="#6b4f3a"/>
+  <rect x="78" y="220" width="158" height="80" fill="url(#vidrio)"/>
+  <rect x="96" y="226" width="48" height="74" rx="4" fill="url(#refri)" stroke="#8a969e"/>
+  <line x1="96" y1="250" x2="144" y2="250" stroke="#8a969e"/>
+  <rect x="136" y="232" width="3" height="12" fill="#6d7a82"/><rect x="136" y="256" width="3" height="18" fill="#6d7a82"/>
+  <rect x="162" y="236" width="44" height="64" rx="4" fill="url(#refri)" stroke="#8a969e"/>
+  <line x1="162" y1="256" x2="206" y2="256" stroke="#8a969e"/>
+  <rect x="198" y="242" width="3" height="10" fill="#6d7a82"/><rect x="198" y="262" width="3" height="16" fill="#6d7a82"/>
+  <path d="M84 222 l40 0 -30 30z" fill="#ffffff" opacity=".35"/>
+  <!-- puerta -->
+  <rect x="276" y="208" width="88" height="92" fill="#6b4f3a"/>
+  <rect x="283" y="215" width="74" height="85" fill="url(#vidrio)"/>
+  <line x1="320" y1="215" x2="320" y2="300" stroke="#6b4f3a" stroke-width="4"/>
+  <rect x="296" y="232" width="48" height="16" rx="3" fill="#ffd166"/>
+  <text x="320" y="244" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#6b4f3a">ABIERTO</text>
+  <circle cx="312" cy="266" r="2.5" fill="#ffd166"/><circle cx="328" cy="266" r="2.5" fill="#ffd166"/>
+  <!-- ventana derecha con un refri y precio -->
+  <rect x="398" y="214" width="170" height="86" fill="#6b4f3a"/>
+  <rect x="404" y="220" width="158" height="80" fill="url(#vidrio)"/>
+  <rect x="420" y="230" width="46" height="70" rx="4" fill="url(#refri)" stroke="#8a969e"/>
+  <line x1="420" y1="252" x2="466" y2="252" stroke="#8a969e"/>
+  <rect x="458" y="236" width="3" height="11" fill="#6d7a82"/><rect x="458" y="258" width="3" height="18" fill="#6d7a82"/>
+  <g transform="rotate(-6 516 250)">
+    <rect x="484" y="232" width="64" height="38" rx="3" fill="#ffffff" stroke="#d62839" stroke-width="2"/>
+    <text x="516" y="248" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6b4f3a">¡Pásele!</text>
+    <text x="516" y="263" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#d62839">Véalo aquí</text>
+  </g>
+  <path d="M410 222 l40 0 -30 30z" fill="#ffffff" opacity=".35"/>
+  <!-- banqueta -->
+  <rect x="0" y="340" width="640" height="60" fill="#c9c3b8"/>
+  <rect x="0" y="340" width="640" height="6" fill="#b3ac9f"/>
+  <g stroke="#b3ac9f" stroke-width="2"><line x1="80" y1="346" x2="60" y2="400"/><line x1="220" y1="346" x2="210" y2="400"/><line x1="360" y1="346" x2="365" y2="400"/><line x1="500" y1="346" x2="515" y2="400"/></g>
+  <!-- macetas -->
+  <path d="M248 318 h24 l-4 22 h-16z" fill="#c8693a"/>
+  <path d="M260 318 q-14 -22 -4 -34 q2 16 4 34z M260 318 q14 -24 6 -38 q-4 18 -6 38z M260 318 q-2 -26 0 -40 q4 20 0 40z" fill="#3f9b5a"/>
+  <path d="M368 318 h24 l-4 22 h-16z" fill="#c8693a"/>
+  <path d="M380 318 q-14 -22 -4 -34 q2 16 4 34z M380 318 q14 -24 6 -38 q-4 18 -6 38z M380 318 q-2 -26 0 -40 q4 20 0 40z" fill="#3f9b5a"/>
+  <!-- número -->
+  <rect x="560" y="226" width="30" height="20" rx="3" fill="#2bb3a3"/>
+  <text x="575" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#fff">42</text>
+</svg>

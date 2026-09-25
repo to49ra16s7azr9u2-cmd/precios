@@ -2715,7 +2715,10 @@
     goList({ category: categoryId, subcategory: subcategoryId || null, query: "" });
   }
 
-  function goDetail(productId) {
+  function goDetail(productId, opts) {
+    // Entrando desde «Tiendas locales», la ficha abre con la tienda (ver
+    // renderLocalVista); desde cualquier otro lado, sin ella.
+    state.localVista = opts && opts.local ? { pid: productId, t: opts.local } : null;
     // Si el hash ya es el de este mismo producto (p. ej. se hace clic de
     // nuevo en la misma ficha sin haber navegado a otro lado), navigateTo()
     // llama renderDetail() directo sin cambiar location.hash -- eso nunca
@@ -4305,6 +4308,129 @@
     });
   }
 
+  // Ficha abierta desde «Tiendas locales» (a pedido del usuario): primero la
+  // tienda -- su fachada y dónde está --, después el producto con los
+  // precios de las tiendas de la zona, y después la ficha de siempre con los
+  // precios en línea. La fachada de la tienda Demo es una ilustración.
+  function coordsMunicipio() {
+    const m = state.municipio;
+    if (!m) return Promise.resolve(null);
+    if (m.c) return Promise.resolve(m.c);
+    return cargarMapa().then((topo) => {
+      const g = topo.objects.mun.geometries.find((x) => String(x.id) === String(m.id));
+      if (!g) return null;
+      const [lng, lat] = window.d3.geoCentroid(window.topojson.feature(topo, g));
+      m.c = [+lat.toFixed(4), +lng.toFixed(4)];
+      writeLS(LS_UBICACION, { region: state.selectedRegion, municipio: m });
+      return m.c;
+    }).catch(() => null);
+  }
+
+  const EXISTENCIA_LOCAL = { in_stock: "Hay existencia", low_stock: "Quedan pocas" };
+
+  function fechaCorta(iso) {
+    const d = new Date(`${iso}T12:00:00`);
+    return Number.isNaN(d.getTime()) ? iso
+      : d.toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" });
+  }
+
+  function renderLocalVista(product) {
+    let box = document.getElementById("localVista");
+    if (!box) {
+      const hero = document.querySelector("#viewDetail .detail-hero-panel");
+      if (!hero) return;
+      box = document.createElement("section");
+      box.id = "localVista";
+      box.className = "local-vista";
+      hero.parentNode.insertBefore(box, hero);
+    }
+    const v = state.localVista;
+    const ofs = v && v.pid === product.id ? localOffersFor(product).slice().sort((a, b) => a.p - b.p) : [];
+    if (!ofs.length) {
+      box.hidden = true;
+      box.innerHTML = "";
+      document.getElementById("viewDetail").classList.remove("con-local");
+      return;
+    }
+    const elegida = ofs.find((o) => o.t === v.t) || ofs[0];
+    const t = state.local.tiendas[elegida.t];
+    const lugar = state.municipio ? etiquetaMunicipio(state.municipio) : null;
+    const enLinea = minPrice(product);
+    const filas = ofs.map((o) => {
+      const tt = state.local.tiendas[o.t];
+      const dif = enLinea ? o.p - enLinea : 0;
+      return `
+        <li class="lv-oferta${o === elegida ? " is-elegida" : ""}">
+          <div class="lv-oferta-tienda">${htmlEscapeAttr(tt.n)}${tt.d ? ` <span class="row-local-demo">Demo</span>` : ""}</div>
+          <div class="lv-oferta-precio">${money(o.p)}</div>
+          <div class="lv-oferta-meta">
+            <span>${EXISTENCIA_LOCAL[o.s] || "Hay existencia"}</span>
+            <span>Recoger hoy</span>
+            <span>Puedes verlo en tienda</span>
+          </div>
+          <div class="lv-oferta-nota">«${htmlEscapeAttr(o.x || product.name)}» · precio confirmado el ${fechaCorta(o.v)}${
+            enLinea ? ` · ${dif > 0 ? `${money(dif)} más que` : dif < 0 ? `${money(-dif)} menos que` : "igual que"} el precio en línea más bajo` : ""}</div>
+        </li>`;
+    }).join("");
+    box.hidden = false;
+    document.getElementById("viewDetail").classList.add("con-local");
+    box.innerHTML = `
+      <div class="lv-cabeza">
+        <span class="lv-eyebrow">Tienda local</span>
+        <h2 class="lv-nombre">${htmlEscapeAttr(t.n)}</h2>
+        ${t.d ? `<span class="lv-demo">Demo · datos de prueba de una función experimental</span>` : ""}
+      </div>
+      <div class="lv-tienda">
+        <figure class="lv-fachada">
+          ${t.f ? `<img src="${htmlEscapeAttr(t.f)}" alt="Fachada de ${htmlEscapeAttr(t.n)}${t.d ? " (ilustración)" : ""}">`
+            : `<div class="lv-sin-foto">${icon("house")}<span>Esta tienda todavía no subió una foto</span></div>`}
+          ${t.d ? `<figcaption>Ilustración: la tienda Demo no existe.</figcaption>` : ""}
+        </figure>
+        <div class="lv-mapa" id="lvMapa"><div class="lv-mapa-cargando">Cargando el mapa…</div></div>
+      </div>
+      <ul class="lv-datos">
+        ${t.g && !t.d ? `<li>${htmlEscapeAttr(t.g)}</li>` : ""}
+        ${t.dir ? `<li>${icon("pin")} ${htmlEscapeAttr(t.dir)}</li>` : ""}
+        ${t.h ? `<li>Horario: ${htmlEscapeAttr(t.h)}</li>` : ""}
+        ${t.w ? `<li><a href="https://wa.me/${encodeURIComponent(t.w)}" target="_blank" rel="noopener">WhatsApp</a></li>` : ""}
+      </ul>
+      <div class="lv-producto">
+        <div class="lv-foto" id="lvFoto"></div>
+        <div class="lv-precios">
+          <h3>Precio en tiendas de ${lugar ? htmlEscapeAttr(lugar) : "tu zona"}</h3>
+          <ul class="lv-ofertas">${filas}</ul>
+        </div>
+      </div>
+      <div class="lv-siguiente">Precios en tiendas en línea</div>`;
+    renderProductMedia(document.getElementById("lvFoto"), product, "detail");
+
+    const mapa = document.getElementById("lvMapa");
+    const pintar = (c, aproximada) => {
+      if (!mapa.isConnected) return;
+      if (!c) {
+        mapa.innerHTML = `
+          <div class="lv-mapa-vacio">
+            <p>Elige tu municipio para ver la sucursal más cercana.</p>
+            <button type="button" class="lv-mapa-btn" id="lvElegir">${icon("pin")} ¿Dónde estás?</button>
+          </div>`;
+        document.getElementById("lvElegir").onclick = () => openMapModal();
+        return;
+      }
+      const [lat, lng] = c;
+      const d = aproximada ? 0.03 : 0.006;
+      const bbox = [lng - d * 1.6, lat - d, lng + d * 1.6, lat + d].map((x) => x.toFixed(4)).join(",");
+      mapa.innerHTML = `
+        <iframe title="Mapa: ubicación de ${htmlEscapeAttr(t.n)}" loading="lazy"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik&amp;marker=${lat},${lng}"></iframe>
+        <div class="lv-mapa-pie">
+          <span>${aproximada ? `Ubicación aproximada: centro de ${htmlEscapeAttr(lugar || "tu municipio")}` : "Ubicación de la tienda"}</span>
+          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=${lat},${lng}" target="_blank" rel="noopener">Cómo llegar</a>
+        </div>`;
+    };
+    if (t.ll) pintar(t.ll, false);
+    else coordsMunicipio().then((c) => pintar(c, true));
+  }
+
   // ComparaMEX Local (función experimental). Las ofertas de las tiendas del
   // municipio viven en data/local.json, NO en p.offers: todavía no cambian
   // el «Desde», la cuenta de vendedores ni el orden. Una tienda con
@@ -4362,7 +4488,7 @@
     const demo = entradas.some((e) => e.t.d);
     const lugar = state.municipio ? etiquetaMunicipio(state.municipio) : "tu municipio";
     const filas = entradas.slice(0, LOCAL_TOPE).map((e, i) => `
-      <button type="button" class="local-item" data-id="${htmlEscapeAttr(e.p.id)}">
+      <button type="button" class="local-item" data-id="${htmlEscapeAttr(e.p.id)}" data-t="${htmlEscapeAttr(e.o.t)}">
         <span class="local-rank">${i + 1}</span>
         <span class="local-body">
           <span class="local-store">${htmlEscapeAttr(e.t.n)}${e.t.d ? ` <span class="row-local-demo">Demo</span>` : ""}</span>
@@ -4380,7 +4506,7 @@
       <div class="local-list">${filas}</div>
       ${entradas.length > LOCAL_TOPE ? `<div class="local-more">y ${entradas.length - LOCAL_TOPE} más</div>` : ""}`;
     aside.querySelectorAll(".local-item").forEach((b) => {
-      b.onclick = () => goDetail(b.dataset.id);
+      b.onclick = () => goDetail(b.dataset.id, { local: b.dataset.t });
     });
   }
 
@@ -6840,6 +6966,7 @@
     }
 
     setActiveView("detail");
+    renderLocalVista(product);
 
     const cat = categoryById(product.category);
     const sub = subcategoryById(product.category, product.subcategory);
@@ -7858,7 +7985,10 @@
     const f = mapa.muns.find((m) => m.id === mapaElegido.id);
     const zona = f && zonaDeMunicipio(f);
     if (!zona) return;
-    state.municipio = mapaElegido;
+    // El centro del municipio queda guardado: con él se dibuja el mapa de
+    // una tienda local que todavía no dio su ubicación exacta.
+    const [lng, lat] = window.d3.geoCentroid(f);
+    state.municipio = { ...mapaElegido, c: [+lat.toFixed(4), +lng.toFixed(4)] };
     state.selectedMetro = zona.metro;
     selectRegion(zona.id);
   }
@@ -7875,7 +8005,10 @@
     }
     updateLocationBtn();
     const product = currentProduct();
-    if (product) renderDetailTopOffers(product, renderOfferTable(product));
+    if (product) {
+      renderDetailTopOffers(product, renderOfferTable(product));
+      renderLocalVista(product);
+    }
     closeMapModal();
   }
 

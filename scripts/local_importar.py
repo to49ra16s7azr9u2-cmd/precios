@@ -195,6 +195,8 @@ def main():
 
     tiendas_pub = {t["id"]: {k: v for k, v in (("n", t["nombre"]), ("g", t.get("giro")), ("m", t["municipio"]),
                                                 ("h", t.get("horario")), ("w", t.get("whatsapp")),
+                                                ("f", t.get("foto")), ("dir", t.get("direccion")),
+                                                ("ll", [t["lat"], t["lng"]] if t.get("lat") and t.get("lng") else None),
                                                 ("d", 1 if t.get("demo") else None)) if v}
                    for t in tiendas}
     salida = {"actualizado": hoy.isoformat(), "tiendas": tiendas_pub,

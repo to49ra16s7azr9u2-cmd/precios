@@ -25,15 +25,20 @@ contacto personales, RFC, cuentas ni pagos.
   "municipio": "14098",
   "direccion": "Av. Juárez 120, Centro, San Pedro Tlaquepaque, Jal.",
   "lat": 20.6409, "lng": -103.3117,
+  "foto": "local/fotos/loc-14098-ferreteria-del-centro.jpg",
   "horario": "L-S 9:00-19:00",
   "whatsapp": "523300000000",
   "sitio": null,
-  "plan": "gratis",
+  "plan": "mensual",
   "alta": "2026-09-24",
   "activa": true,
   "fuente": {"tipo": "csv"}
 }
 ```
+
+`foto` es la fachada (la primera imagen al entrar desde «Tiendas locales»),
+guardada en `local/fotos/`; `lat`/`lng` ubican la sucursal en el mapa. Sin
+coordenadas, el mapa se centra en el municipio.
 
 `municipio` es la clave INEGI de 5 dígitos (la misma que usa el mapa de
 «¿Dónde estás?», `data/mexico-municipios.json`).
