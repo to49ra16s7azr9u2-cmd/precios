@@ -5068,3 +5068,8 @@ tr.offer-compare-off { display: none; }
   .local-aviso { font-size: 13px; padding: 8px 12px; }
   .local-aviso-texto { flex-basis: 100%; }
 }
+
+/* Banda de ComparaMEX Local como imagen (diseño del usuario, 25-sep). */
+.local-aviso-banner { display: block; margin: 10px 0 12px; border-radius: var(--radius); overflow: hidden; line-height: 0; }
+.local-aviso-banner img { display: block; width: 100%; height: auto; }
+.local-aviso-banner:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
