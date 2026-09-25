@@ -377,7 +377,7 @@ def _page_shell(title, description, canonical_path, body, depth, extra_head="", 
 <footer class="site-footer">
   <div class="container">
     <p><a href="{prefijo}ofertas/">Ofertas de hoy</a> &middot; <a href="{prefijo}mejores/">Los mejores por presupuesto</a></p>
-    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. Algunos enlaces de este sitio son de afiliado: si compras a través de ellos, podemos recibir una comisión, sin costo adicional para ti.
+    ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. Algunos enlaces de este sitio son de afiliado: si compras a través de ellos, podemos recibir una comisión, sin costo adicional para ti. Como Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.
   </div>
 </footer>
 </body>
@@ -832,6 +832,143 @@ def lenovo_html(product):
             f'{svg_icon("shopping-bag")} Ver en Lenovo.com</a></p>')
 
 
+# Lo que el sitio sabe del producto aunque la tienda no lo declare en specs
+# (compute_facets.py y specs_titulo.py, sacado del nombre): filas más de la
+# tabla de especificaciones, con las mismas etiquetas que los filtros de la
+# SPA (SPEC_FACETS en js/app.js). Sin repetir lo que la tienda ya puso.
+def _fmt(suf):
+    return lambda v: f"{v}{suf}"
+
+
+ETIQUETAS_FACETAS = [
+    ("ram_gb", "Memoria RAM", _fmt(" GB")), ("storage_gb", "Almacenamiento", _fmt(" GB")),
+    ("screen_in", "Tamaño de pantalla", _fmt('"')), ("refresh_hz", "Frecuencia de actualización", _fmt(" Hz")),
+    ("resolution", "Resolución", str), ("panel_type", "Tipo de panel", str), ("cpu_family", "Procesador", str),
+    ("gpu", "Tarjeta gráfica", str), ("os", "Sistema operativo", str), ("chipset_family", "Chipset", str),
+    ("camera_mp", "Megapíxeles", _fmt(" MP")), ("battery_mah", "Batería", _fmt(" mAh")),
+    ("bed_size", "Medida de cama", str), ("platform", "Consola", str), ("wash_kg", "Capacidad de carga", _fmt(" kg")),
+    ("fridge_ft3", "Capacidad", _fmt(" pies cúbicos")), ("drive_gb", "Capacidad", _fmt(" GB")),
+    ("ac_btu", "Capacidad de enfriamiento", _fmt(" BTU")), ("charger_w", "Potencia", _fmt(" W")),
+    ("veh_brand", "Marca del vehículo", str), ("compat_model", "Compatible con", str),
+    ("compat_year", "Año del modelo", str), ("position", "Posición", str), ("side", "Lado", str),
+    ("tire_size", "Medida de llanta", str), ("color", "Color", str), ("gender", "Para quién", str),
+    ("shoe_size", "Talla (MX)", str), ("size_label", "Talla", str), ("pet", "Mascota", str),
+    ("light_temp", "Color de luz", str), ("socket", "Base del foco", str), ("lumens", "Lúmenes", _fmt(" lm")),
+    ("audio_conn", "Conexión", str), ("anc", "Cancelación de ruido", str), ("units", "Cantidad", str),
+    ("supp_form", "Presentación", str), ("volume_ml", "Contenido", _fmt(" ml")), ("power_source", "Alimentación", str),
+    ("liters", "Capacidad", _fmt(" L")), ("pieces", "Piezas", str), ("power_w", "Potencia", _fmt(" W")),
+    ("material", "Material", str), ("volt", "Voltaje", _fmt(" V")), ("water_resistant", "Resistente al agua", str),
+    ("age_min", "Edad desde", lambda v: f"{v} años" if v else "Recién nacido"), ("load_kg", "Soporta hasta", _fmt(" kg")),
+    ("engine_cc", "Cilindrada", _fmt(" cc")), ("stone", "Piedra", str), ("wifi_std", "Wi-Fi", str),
+    ("dpi", "DPI", str), ("cups", "Tazas", str), ("burners", "Número de quemadores", str),
+]
+
+
+def filas_de_facetas(product):
+    f = product.get("facets") or {}
+    ya = {slugify(s.get("label") or "") for s in product.get("specs") or []}
+    filas, etiquetas = [], set()
+    for campo, etiqueta, fmt in ETIQUETAS_FACETAS:
+        v = f.get(campo)
+        if v in (None, "", []) or slugify(etiqueta) in ya or etiqueta in etiquetas:
+            continue
+        if isinstance(v, list):
+            if campo == "compat_year" and len(v) > 2 and all(str(x).isdigit() for x in v):
+                texto = f"{min(map(int, v))}–{max(map(int, v))}"
+            else:
+                texto = ", ".join(fmt(x) for x in v)
+        elif v is True:
+            texto = "Sí"
+        else:
+            texto = fmt(v)
+        etiquetas.add(etiqueta)
+        filas.append(f"<tr><th>{html_escape(etiqueta)}</th><td>{html_escape(str(texto))}</td></tr>")
+    return "".join(filas)
+
+
+# «Buscar en Amazon» en todas las fichas (igual que pintarBusquedaAmazon en
+# js/app.js; pedido del usuario, 26-sep-2026): nombre completo, la marca si
+# el nombre no la dice, y las specs que distinguen al producto de su hermano
+# (capacidad, tamaño, color...) si el nombre no las dice. Sin precio: el
+# Programa de Afiliados no deja mostrarlo sin la API.
+AMAZON_TAG = "comparamex-20"
+FACETAS_BUSQUEDA = ("model_name", "storage_gb", "ram_gb", "drive_gb", "screen_in", "size_in", "battery_mah",
+                    "power_w", "charger_w", "liters", "volume_ml", "wash_kg", "ac_btu", "resolution",
+                    "shoe_size", "size_label", "bed_size", "color", "units", "pieces", "tire_size", "rim_size",
+                    "wheel_size", "socket", "light_temp", "volt")
+_FMT_FACETA = {campo: fmt for campo, _, fmt in ETIQUETAS_FACETAS}
+# Una frase por grupo de categorías donde Amazon México tiene de verdad
+# ventaja de surtido (pedido del usuario, 26-sep-2026: «Amazonはこのカテゴリ
+# の商品たちに強みを持っています、を場合分けしながら»). Salen de lo que se vio
+# al capturar Amazon: las categorías donde tenía miles de fichas que ninguna
+# otra tienda trae. Dice surtido o servicio, nunca precio: el precio de
+# Amazon no se puede mostrar ni afirmar sin la API.
+AMAZON_FUERTE = {
+    "En libros, Amazon suele tener el catálogo más amplio: novedades, importados y ediciones difíciles de encontrar.": ["Libros"],
+    "En accesorios y electrónica, Amazon suele tener mucha variedad de marcas y modelos, incluidos importados.": ["Cargadores y adaptadores", "Baterías portátiles", "Audífonos", "Mouse", "Teclados", "Componentes y accesorios de PC", "Almacenamiento", "Redes", "Cámaras y fotografía", "Proyectores y accesorios", "Bocinas", "Monitores", "Domótica y hogar inteligente", "Iluminación", "Impresión 3D", "Videojuegos", "Relojes inteligentes", "Cámaras de seguridad"],
+    "En instrumentos musicales y sus accesorios (cuerdas, pedales, cables), Amazon suele tener mucha variedad.": ["Instrumentos musicales"],
+    "En juguetes y juegos de mesa, Amazon suele tener mucha variedad, incluidas ediciones importadas.": ["Juguetes", "Juegos de mesa", "Bebés"],
+    "En productos que se vuelven a comprar, Amazon ofrece en muchos artículos compras programadas («Suscríbete y ahorra»).": ["Mascotas", "Limpieza y hogar", "Suplementos", "Belleza y cuidado personal"],
+    "En herramientas, refacciones y equipo deportivo, Amazon suele tener mucha variedad de marcas y repuestos.": ["Herramientas", "Autopartes", "Deportes y fitness", "Bicicletas y movilidad"],
+}
+AMAZON_FUERTE_POR_CATEGORIA = {c: t for t, cs in AMAZON_FUERTE.items() for c in cs}
+
+
+def _norm_busqueda(t):
+    return re.sub(r"[^a-z0-9]+", " ", unicodedata.normalize("NFKD", str(t)).encode("ascii", "ignore")
+                  .decode("ascii").lower()).strip()
+
+
+def texto_busqueda_amazon(product, color=None):
+    nombre = re.sub(r"\s+", " ", product.get("name") or "").strip()
+    partes = []
+    marca = product.get("brand") or ""
+    if marca and _norm_busqueda(marca) not in _norm_busqueda(nombre):
+        partes.append(marca)
+    partes.append(nombre)
+    f = product.get("facets") or {}
+    for campo in FACETAS_BUSQUEDA:
+        if campo == "color" and color:
+            continue
+        v = f.get(campo)
+        if isinstance(v, list):
+            v = v[0] if len(v) == 1 else None
+        if v in (None, "", True, False):
+            continue
+        texto = str(_FMT_FACETA.get(campo, str)(v)).replace('"', " pulgadas").strip()
+        num = re.search(r"\d+(?:\.\d+)?", str(v))
+        if f" {_norm_busqueda(texto)} " in f" {_norm_busqueda(' '.join(partes))} ":
+            continue
+        if num and re.search(rf"\b{re.escape(num.group(0))}\s*[a-z\"]", nombre, re.I):
+            continue
+        partes.append(texto)
+    if color and f" {_norm_busqueda(color)} " not in f" {_norm_busqueda(' '.join(partes))} ":
+        partes.append(color)
+    return re.sub(r"\s+", " ", " ".join(partes)).strip()
+
+
+def busqueda_amazon_html(product):
+    colores = []
+    for v in product.get("colorVariants") or []:
+        if v.get("color") and v["color"] not in colores:
+            colores.append(v["color"])
+
+    def enlace(texto, etiqueta):
+        url = "https://www.amazon.com.mx/s?" + urllib.parse.urlencode({"k": texto, "tag": AMAZON_TAG})
+        return (f'<a class="btn-solo-enlace" href="{html_escape(url)}" target="_blank" '
+                f'rel="nofollow sponsored noopener" title="{html_escape(texto)}">{html_escape(etiqueta)}</a>')
+    if len(colores) > 1:
+        botones = " ".join(enlace(texto_busqueda_amazon(product, c), c) for c in colores)
+    else:
+        texto = texto_busqueda_amazon(product, colores[0] if colores else None)
+        if not texto:
+            return ""
+        botones = enlace(texto, "Buscar en Amazon")
+    fuerte = AMAZON_FUERTE_POR_CATEGORIA.get(product.get("category"))
+    nota = f'<span class="amazon-fuerte">{html_escape(fuerte)}</span>' if fuerte else ""
+    return f'<p class="amazon-busqueda">Buscar este producto en Amazon: {botones}{nota}</p>'
+
+
 def render_product_page(product, data, subs_con_pagina=None):
     cat = next(c for c in data["categories"] if c["id"] == product["category"])
     cat_slug = slugify(cat["name"])
@@ -975,11 +1112,20 @@ def render_product_page(product, data, subs_con_pagina=None):
             f"<td>{ship}</td><td>{stock_label}</td>"
             f"<td>{rating_label}</td></tr>"
         )
+    # Tiendas en «solo enlace» (tienda_solo_enlace.py): sin precio, que no
+    # se puede mostrar, y con el botón a su página.
+    for e in reversed(product.get("enlaces") or []):
+        store = store_by_id(data, e["storeId"])
+        table_rows.insert(0, 
+            f'<tr class="fila-solo-enlace"><td><span class="store-badge">{html_escape(store["name"])}</span></td>'
+            f'<td colspan="4"><a class="btn-solo-enlace" href="{html_escape(e["url"])}" target="_blank" '
+            f'rel="nofollow sponsored noopener">Ver precio en {html_escape(store["name"])}</a></td></tr>'
+        )
 
     specs_rows = "".join(
         f"<tr><th>{html_escape(s['label'])}</th><td>{html_escape(s['value'])}</td></tr>"
         for s in product["specs"]
-    )
+    ) + filas_de_facetas(product)
 
     # Texto de reseñas real (no simulado, viene del catálogo curado) para que
     # los buscadores tengan contenido único que indexar, no solo la tabla de
@@ -1088,13 +1234,14 @@ def render_product_page(product, data, subs_con_pagina=None):
 </div>
 <div class="panel detail-anchor-target" id="comparePanel">
   <h2>Comparación de precios</h2>
+  {busqueda_amazon_html(product)}
   <div class="table-scroll">
     <table class="compare-table">
       <thead><tr><th>Vendedor</th><th>Precio</th><th>Envío</th><th>Disponibilidad</th><th>Calificación</th></tr></thead>
       <tbody>{''.join(table_rows)}</tbody>
     </table>
   </div>
-  <p class="disclaimer">{NOTA_LAG} {STORE_ORDER_NOTE}</p>
+  <p class="disclaimer">{NOTA_LAG} {STORE_ORDER_NOTE} <a href="../../tiendas/">Envío, meses sin intereses y devoluciones de cada tienda</a>.</p>
 </div>
 {history_html}
 <div class="panel detail-anchor-target" id="specsPanel">
@@ -1777,6 +1924,111 @@ def store_by_id_name(product, store_id):
 # Se llena en main() desde data["stores"], que es donde vive el nombre
 # legible de cada tienda.
 _NOMBRES_TIENDA = {}
+
+
+# ---------------------------------------------------------------------
+# Tiendas que comparamos (/tiendas/): condiciones de compra e indicadores
+# ---------------------------------------------------------------------
+# Pedido del usuario (26-sep-2026): «お店の評価». No hay reseñas propias de
+# tiendas todavía, y copiar calificaciones de otros sitios no se puede; lo
+# que sí es nuestro son los números del catálogo: cuánto vende cada tienda
+# de lo que comparamos, en qué parte de esas comparaciones es la más barata
+# y cuánto de lo suyo está disponible. Más las condiciones que la tienda
+# publica (envío, MSI, devoluciones: politicas_tiendas.py).
+def indicadores_tiendas(data):
+    ind = {}
+    for p in data["products"]:
+        ofertas = [o for o in p.get("offers") or [] if o.get("price")]
+        if not ofertas:
+            continue
+        tiendas = {o["storeId"] for o in ofertas}
+        minimo = min(o["price"] for o in ofertas)
+        for t in tiendas:
+            d = ind.setdefault(t, {"productos": 0, "comparados": 0, "mas_barata": 0, "empata": 0,
+                                   "con_stock": 0, "disponibles": 0})
+            d["productos"] += 1
+            mias = [o for o in ofertas if o["storeId"] == t]
+            # Disponibilidad solo donde la tienda dice algo: sin dato no es
+            # «disponible», es no saber.
+            if any(o.get("stock") for o in mias):
+                d["con_stock"] += 1
+                if any(o.get("stock") in ("in_stock", "low_stock") for o in mias):
+                    d["disponibles"] += 1
+            if len(tiendas) >= 2:
+                d["comparados"] += 1
+                # Solo si es ESTRICTAMENTE más barata que las demás: Walmart y
+                # Bodega Aurrera tienen casi siempre el mismo precio, y con el
+                # empate contado salían las dos «más baratas en el 99%».
+                otras = min(o["price"] for o in ofertas if o["storeId"] != t)
+                propia = min(o["price"] for o in mias)
+                if propia < otras:
+                    d["mas_barata"] += 1
+                elif propia == otras:
+                    d["empata"] += 1
+    return ind
+
+
+def render_tiendas_page(data):
+    ind = indicadores_tiendas(data)
+    tiendas = sorted((s for s in data.get("stores") or [] if s["id"] in ind or s.get("soloEnlace")),
+                     key=lambda s: -ind.get(s["id"], {}).get("productos", 0))
+    tarjetas = []
+    for s in tiendas:
+        d = ind.get(s["id"], {})
+        filas = []
+        if s.get("tipo"):
+            filas.append(("Tipo", s["tipo"]))
+        if s.get("envioSiempreGratis"):
+            filas.append(("Envío", "Gratis en toda compra en línea"))
+        elif s.get("envioGratisDesdeMXN") is not None:
+            txt = f"Gratis desde {money(s['envioGratisDesdeMXN'])}"
+            if s.get("envioCostoMXN") is not None:
+                txt += f"; si no, {money(s['envioCostoMXN'])}"
+            filas.append(("Envío", txt))
+        if s.get("typicalShippingDays"):
+            a, b = s["typicalShippingDays"][:2]
+            filas.append(("Entrega típica", f"{a} a {b} días"))
+        if s.get("msi"):
+            filas.append(("Meses sin intereses", s["msi"]))
+        if s.get("devoluciones"):
+            filas.append(("Devoluciones", s["devoluciones"]))
+        if s.get("nota"):
+            filas.append(("Nota", s["nota"]))
+        if s.get("soloEnlace"):
+            filas.append(("Precio", "No lo mostramos: enlazamos a la tienda para que lo veas ahí"))
+        if d.get("productos"):
+            filas.append(("Productos en ComparaMEX", f"{d['productos']:,}"))
+        if d.get("comparados"):
+            unica = 100 * d["mas_barata"] / d["comparados"]
+            con_empate = 100 * (d["mas_barata"] + d["empata"]) / d["comparados"]
+            filas.append(("Precio más bajo", f"En {con_empate:.0f}% de {d['comparados']:,} productos que también vende "
+                                             f"otra tienda (única más barata en {unica:.0f}%)"))
+        if d.get("con_stock", 0) >= 0.5 * d.get("productos", 0) and d.get("con_stock"):
+            filas.append(("Disponibles", f"{100 * d['disponibles'] / d['con_stock']:.0f}% de sus productos"))
+        fuente = ""
+        if s.get("fuente"):
+            fuente = (f'<p class="muted small">Condiciones según la tienda, revisadas el '
+                      f'{html_escape(s.get("politicaVerificada", ""))}: '
+                      f'<a href="{html_escape(s["fuente"])}" rel="nofollow noopener" target="_blank">ver en su sitio</a>. '
+                      f'Pueden cambiar con cada promoción.</p>')
+        tabla = "".join(f"<tr><th>{html_escape(k)}</th><td>{html_escape(v)}</td></tr>" for k, v in filas)
+        tarjetas.append(
+            f'<div class="panel tienda-ficha" id="{html_escape(s["id"])}"><h2>{html_escape(s["name"])}</h2>'
+            f'<table class="spec-table">{tabla}</table>{fuente}</div>'
+        )
+    body = f"""
+<nav class="breadcrumb"><a href="../">Inicio</a> &gt; Tiendas</nav>
+<div class="list-head"><h1>{svg_icon("shopping-bag")} Tiendas que comparamos</h1></div>
+<p class="muted small">Las condiciones de envío, meses sin intereses y devoluciones son las que
+cada tienda publica en su sitio. «Precio más bajo» y «Disponibles» los calculamos nosotros con los
+precios del catálogo: en qué parte de los productos que también vende otra tienda tiene el precio
+más bajo, y cuánto de lo suyo está a la venta.</p>
+{''.join(tarjetas)}
+"""
+    return page_shell("Tiendas que comparamos: envío, meses sin intereses y devoluciones | ComparaMEX",
+                      "Condiciones de envío, meses sin intereses y devoluciones de las tiendas en línea de México "
+                      "que compara ComparaMEX, y en qué parte de los productos cada una es la más barata.",
+                      "/tiendas/", body, depth=1)
 
 
 def render_ofertas_page(items, data, cat=None):
@@ -4041,6 +4293,13 @@ def main():
     print(f"Marcas con página propia: {len(marcas):,} "
           f"(mínimo {MIN_PRODUCTOS_MARCA} productos)")
 
+    tiendas_dir = os.path.join(ROOT, "tiendas")
+    os.makedirs(tiendas_dir, exist_ok=True)
+    path = os.path.join(tiendas_dir, "index.html")
+    if write_if_changed(path, render_tiendas_page(data)):
+        written.append(path)
+        marcar(f"{SITE_URL}/tiendas/")
+
     ofertas_dir = os.path.join(ROOT, "ofertas")
     os.makedirs(ofertas_dir, exist_ok=True)
     ofertas_urls = []
@@ -4050,6 +4309,7 @@ def main():
         written.append(path)
         marcar(f"{SITE_URL}/ofertas/")
     ofertas_urls.append(f"{SITE_URL}/ofertas/")
+    ofertas_urls.append(f"{SITE_URL}/tiendas/")
 
     # Una categoría con cuatro bajadas no merece página propia: sería casi
     # igual a la general y solo gastaría presupuesto de rastreo.

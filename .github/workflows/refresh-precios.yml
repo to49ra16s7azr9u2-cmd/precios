@@ -30,6 +30,22 @@
 # No hace falta ningún secreto: refresh_prices.py habla con el Worker
 # público (backend/mercadolibre-worker), no con la API de Mercado Libre
 # directamente -- las credenciales viven en el Worker, no acá.
+#
+# DESDE EL 26-SEP-2026
+# --------------------
+# Con el catálogo en 928 mil fichas la corrida ya no terminaba: pasaba las
+# 5 h en el paso de Mercado Libre (recorría todas las fichas y guardaba cada
+# 100) y se cancelaba sin publicar nada. Ahora:
+#   - Mercado Libre revisa sólo sus ~65 mil fichas y con tope diario
+#     (--tope-diario): una tajada por día, todas en dos días, sin pasar el
+#     límite de 100 mil pedidos por día del Worker.
+#   - Walmart, Bodega Aurrerá, Sam's, Sephora, Lenovo y Reuse (el 80% de las
+#     ofertas) se actualizan desde los feeds de Soicos (soicos_precios.py).
+#     La bajada es casi toda espera de red, así que corre en segundo plano
+#     mientras se refrescan las demás tiendas. Necesita los secretos
+#     SOICOS_TOKEN y SOICOS_AID del repositorio; sin ellos se saltea.
+#   - Después de los precios se rehacen también los índices de búsqueda,
+#     que llevan el precio.
 name: Actualizar precios
 
 on:
@@ -65,11 +81,12 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    # ~8,200 productos de Mercado Libre a 4 en paralelo (~1 h), el recorrido
-    # de Elektra (~32 min), las 1,679 fichas de las demás tiendas (~13 min)
-    # y la regeneración de las páginas SEO. El tope es holgado para que un
+    # Una tajada de Mercado Libre (~34 mil consultas a 4 en paralelo, ~70
+    # min), las tres tiendas VTEX (~45 min) y las demás (~13 min), con los
+    # feeds de Soicos bajando a la par (~2 h, tope 170 min); después
+    # historial, facetas, páginas e índices. El tope es holgado para que un
     # día lento no la corte por la mitad.
-    timeout-minutes: 300
+    timeout-minutes: 330
 
     steps:
       - uses: actions/checkout@v4
@@ -77,6 +94,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name: Bajar los feeds de Soicos (en segundo plano)
+        # Sólo baja precios a un archivo, sin tocar el catálogo, así puede
+        # correr a la par de los refrescos de abajo. Se aplica más adelante,
+        # en «Aplicar los precios de Soicos».
+        env:
+          SOICOS_TOKEN: ${{ secrets.SOICOS_TOKEN }}
+          SOICOS_AID: ${{ secrets.SOICOS_AID }}
+        run: |
+          nohup python3 scripts/soicos_precios.py --bajar "$RUNNER_TEMP/soicos.json.gz" --minutos 170 \
+            > "$RUNNER_TEMP/soicos.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/soicos.pid"
 
       - name: Descubrir productos nuevos en Mercado Libre
         # Una ventana de subcategorías por día (ver ml_discover.py): busca
@@ -98,11 +127,14 @@ jobs:
         # que nada se borra por agotarse. En una corrida por horario
         # `inputs` viene vacío y la comparación con "true" da falso, que es
         # justo lo que se quiere.
+        # Si el Worker no responde, las demás tiendas (y Soicos, que ya
+        # está bajando) se publican igual.
+        continue-on-error: true
         env:
           LIMIT: ${{ inputs.limit }}
           PRUNE: ${{ inputs.prune }}
         run: |
-          ARGS="--limit ${LIMIT:-0}"
+          ARGS="--limit ${LIMIT:-0} --tope-diario 34000"
           if [ "$PRUNE" != "true" ]; then ARGS="$ARGS --no-prune"; fi
           echo "Corriendo: refresh_prices.py $ARGS"
           python3 scripts/refresh_prices.py $ARGS
@@ -150,6 +182,17 @@ jobs:
           echo "Corriendo: refresh_other_stores.py $ARGS"
           python3 scripts/refresh_other_stores.py $ARGS
 
+      - name: Aplicar los precios de Soicos
+        # Espera a que termine la bajada (tiene su propio tope de 170 min) y
+        # aplica todo con una sola carga del catálogo. Si la bajada no dejó
+        # archivo (sin secretos, API caída), no cambia nada.
+        continue-on-error: true
+        run: |
+          PID=$(cat "$RUNNER_TEMP/soicos.pid")
+          while kill -0 "$PID" 2>/dev/null; do sleep 30; done
+          cat "$RUNNER_TEMP/soicos.log"
+          python3 scripts/soicos_precios.py --aplicar "$RUNNER_TEMP/soicos.json.gz"
+
       - name: Anotar el precio del día en el historial
         # ANTES de las facetas y del SEO, y después de los tres refrescos:
         # este paso es el único del workflow cuyo dato NO se puede rehacer
@@ -174,6 +217,13 @@ jobs:
         # commit muestra únicamente lo que se movió.
         run: python3 scripts/generate_seo_pages.py
 
+      - name: Rehacer los índices de búsqueda
+        # El buscador y las listas por palabra llevan el precio de cada ficha.
+        run: |
+          python3 scripts/build_search_index.py
+          python3 scripts/build_buscador.py
+          python3 scripts/comprimir_datos.py
+
       - name: Publicar los cambios
         run: |
           if [ -z "$(git status --porcelain)" ]; then
@@ -190,7 +240,7 @@ jobs:
           git commit -m "Actualizar precios de todas las tiendas leíbles (automático)
 
           Corrida automática de scripts/refresh_prices.py +
-          refresh_elektra.py + refresh_other_stores.py +
+          refresh_vtex.py + refresh_other_stores.py + soicos_precios.py +
           record_price_history.py + compute_facets.py +
           generate_seo_pages.py. Ver el log del workflow para el resumen
           de cuántos precios se movieron y qué se podó."
@@ -225,6 +275,9 @@ jobs:
           python3 scripts/compute_facets.py
           python3 scripts/compute_quality_axes.py
           python3 scripts/generate_seo_pages.py
+          python3 scripts/build_search_index.py
+          python3 scripts/build_buscador.py
+          python3 scripts/comprimir_datos.py
           if [ -z "$(git status --porcelain)" ]; then
             echo "Sobre el main nuevo no queda ningún cambio que publicar."
             exit 0

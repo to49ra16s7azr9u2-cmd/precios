@@ -58,7 +58,11 @@
 <link rel="icon" href="icons/icon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="icons/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="css/style.min.css?v=c75cf5a2">
+<!-- Poppins Bold, la letra del logo, sólo con las letras de los títulos de grupo
+     de la portada (text=): pesa ~3 KB en vez de la familia entera. -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap&text=%20%2CDEHMOTabcdeghilmnopqrstuvy%C3%A1%C3%A9%C3%AD%C3%B3">
+<link rel="stylesheet" href="css/style.min.css?v=0fc7ef2c">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -140,6 +144,8 @@
     </div>
   </div>
 </header>
+<!-- Aviso de bajada de precio de favoritos/avisos (revisarAlertas en js/app.js). -->
+<div class="alerta-barra hidden" id="alertaBarra" role="status"></div>
 
 <main id="app">
 
@@ -614,6 +620,9 @@
               <button type="button" class="detail-compare" id="detailCompareBtn"></button>
               <button type="button" class="detail-fav" id="detailFavBtn"></button>
             </div>
+            <!-- Aviso de precio (renderDetailAlerta): se guarda en este navegador
+                 y en la cuenta si hay sesión; se revisa al abrir el sitio. -->
+            <div class="detail-alerta" id="detailAlerta"></div>
           </div>
           <!-- Botones que bajan a cada sección. Se arma en JS
                (renderDetailQuickNav) porque el desplazamiento tiene que
@@ -652,6 +661,9 @@
             <span class="offer-compare-count"></span>
             <button type="button" class="link-btn offer-compare-clear">Ver todas</button>
           </div>
+          <!-- Búsqueda del producto en Amazon, sin precio (ver pintarBusquedaAmazon en js/app.js).
+               Va arriba de la tabla para que no se pierda debajo de los vendedores. -->
+          <p class="amazon-busqueda hidden" id="amazonBusqueda"></p>
           <div class="table-scroll">
             <table class="compare-table">
               <thead>
@@ -801,6 +813,7 @@
         <p class="muted small">Guardados solo en este navegador.</p>
       </div>
       <p class="nota-lag">Los precios se toman de cada tienda y pueden llevar algunas horas de retraso.</p>
+      <div id="favoritesAlertas"></div>
       <div id="favoritesList" class="product-list"></div>
     </div>
   </section>
@@ -931,6 +944,7 @@
         <ul>
           <li><strong>Google</strong> (Analytics y Firebase), como encargado del tratamiento de los datos de navegación y de cuenta.</li>
           <li><strong>Admitad</strong>, <strong>Soicos</strong> y otras redes de afiliados, que reciben un clic anónimo (sin datos personales) cuando sigues un enlace de afiliado, para efectos de la comisión.</li>
+          <li><strong>Amazon</strong> (Programa de Afiliados de Amazon México): al seguir un enlace a Amazon, Amazon puede poner cookies en tu navegador para saber que llegaste desde ComparaMEX y atribuir la compra. Esas cookies las controla Amazon, según su propio aviso de privacidad y de cookies.</li>
           <li>Las tiendas enlazadas (Mercado Libre, Amazon, Elektra, Chedraui, AliExpress, etc.) no reciben ningún dato tuyo de parte de ComparaMEX antes de que hagas clic; a partir de ahí, la relación es directamente entre tú y esa tienda, bajo su propia política de privacidad.</li>
         </ul>
         <p>No vendemos tus datos personales a terceros.</p>
@@ -966,7 +980,7 @@
         <p>ComparaMEX es un comparador de precios: reúne información de precios publicada por distintas tiendas en línea y la muestra en un solo lugar para facilitar la comparación. <strong>No somos una tienda, no vendemos productos ni procesamos pagos.</strong> Cada botón "Ver oferta" te lleva al sitio real de la tienda, donde ocurre la compra bajo los términos, precios y disponibilidad de esa tienda — no los nuestros.</p>
 
         <h2>3. Enlaces de afiliado</h2>
-        <p>Algunos enlaces de este sitio hacia las tiendas son de afiliado (a través de redes como Admitad y Soicos). Si compras después de seguir un enlace de afiliado, ComparaMEX puede recibir una comisión de la tienda, sin costo adicional para ti. Esto no influye en qué precio mostramos ni en el orden de la comparación.</p>
+        <p>Algunos enlaces de este sitio hacia las tiendas son de afiliado (a través de redes como Admitad y Soicos, y del Programa de Afiliados de Amazon México). Si compras después de seguir un enlace de afiliado, ComparaMEX puede recibir una comisión de la tienda, sin costo adicional para ti. Esto no influye en qué precio mostramos ni en el orden de la comparación. Como Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
 
         <h2>4. Exactitud de los precios y la disponibilidad</h2>
         <p>Nos esforzamos por mantener los precios actualizados (algunos se verifican automáticamente contra la tienda; ver la insignia "Precios verificados en tiempo real" cuando aplica), pero un precio, existencia o promoción puede cambiar en la tienda antes de que la reflejemos. <strong>El precio y la disponibilidad válidos son siempre los que confirma la tienda al momento de comprar</strong>, no los que muestra ComparaMEX.</p>
@@ -1072,7 +1086,7 @@
 
 <footer class="site-footer">
   <div class="container">
-    <p>ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Proyecto de demostración (MVP). Algunos enlaces de este sitio son de afiliado: si compras a través de ellos, podemos recibir una comisión, sin costo adicional para ti.</p>
+    <p>ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Algunos enlaces de este sitio son de afiliado: si compras a través de ellos, podemos recibir una comisión, sin costo adicional para ti. Como Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
     <nav class="footer-legal-links">
       <a href="#/privacidad">Política de privacidad</a>
       <a href="#/terminos">Términos y condiciones</a>
@@ -1102,7 +1116,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=d0cc931d"></script>
+<script src="js/app.min.js?v=5d81c721"></script>
 </div>
 </body>
 </html>

@@ -25,6 +25,7 @@ echo "=== partir_genericas ==="; python3 scripts/partir_genericas.py --aplicar 2
 echo "=== sync_subcategories ==="; python3 scripts/sync_subcategories.py 2>&1 | tail -3
 echo "=== compute_facets ==="; python3 scripts/compute_facets.py 2>&1 | tail -2
 echo "=== compute_quality_axes ==="; python3 scripts/compute_quality_axes.py 2>&1 | tail -2
+echo "=== politicas_tiendas ==="; python3 scripts/politicas_tiendas.py 2>&1 | tail -1
 echo "=== aplicar_afiliados ==="; python3 scripts/aplicar_afiliados.py --todas 2>&1 | tail -3
 echo "=== record_price_history ==="; python3 scripts/record_price_history.py 2>&1 | tail -4
 echo "=== build_search_index ==="; python3 scripts/build_search_index.py 2>&1 | tail -2

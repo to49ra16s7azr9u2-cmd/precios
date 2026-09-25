@@ -34,7 +34,7 @@ propósito: así se ve de un vistazo qué falta, en vez de que la ausencia de un
 clave se confunda con un olvido.
 """
 
-TAG_AMAZON = "comparamex0d-20"
+TAG_AMAZON = "comparamex-20"
 
 # storeId -> enlace base de Admitad, o None si todavía no hay programa.
 BASES = {

@@ -41,6 +41,7 @@
     storeClicks: "comparamx_store_clicks",
     reviewDrafts: "comparamx_review_drafts",
     compare: "comparamx_compare",
+    alerts: "comparamx_price_alerts",
   };
 
   // Cuántos productos entran en el comparador de specs lado a lado.
@@ -391,6 +392,116 @@
     { key: "multifunction", facetField: "multifunction", categories: ["Impresoras"], label: "Funciones", groupEl: "filterMultifunctionGroup", listEl: "filterMultifunction", format: (v) => v },
   ];
 
+  // Campos que compute_facets.py ya calculaba y no tenían filtro (material,
+  // voltaje, edad, piezas...) y los que saca del NOMBRE specs_titulo.py
+  // (26-sep: vehículo, posición, color, género, talla, mascota, luz...).
+  // Si el campo ya tiene filtro en otra categoría, se le suman categorías;
+  // si no, entra como filtro nuevo con su grupo armado en el DOM
+  // (crearGruposFacetasExtra) en vez de uno más en index.html. `cobertura`:
+  // el grupo solo se muestra si al menos esa fracción de lo que se está
+  // viendo tiene el dato -- un filtro que cubre el 3% esconde el 97% al
+  // primer clic.
+  (function facetasExtra() {
+    const MODA = ["Calzado", "Ropa y accesorios", "Bolsas y mochilas", "Joyería y bisutería", "Viajes"];
+    const HOGAR = ["Muebles", "Decoración de hogar y jardín", "Blancos y ropa de cama", "Cocina y comedor"];
+    const AUTOS = ["Autopartes", "Autos y motos"];
+    const txt = (v) => v;
+    const num = (suf) => (v) => `${v}${suf}`;
+    const EXTRA = [
+      ["color", "Color", [...MODA, ...HOGAR, "Relojes inteligentes", "Audífonos", "Celulares", "Bebés"], txt],
+      ["gender", "Para quién", [...MODA, "Deportes y fitness", "Belleza y cuidado personal", "Relojes inteligentes", "Bebés"], txt],
+      ["shoe_size", "Talla (MX)", ["Calzado"], txt, true],
+      ["size_label", "Talla", ["Ropa y accesorios", "Deportes y fitness", "Autos y motos", "Mascotas"], txt],
+      ["veh_brand", "Marca del vehículo", AUTOS, txt],
+      ["compat_model", "Compatible con", AUTOS, txt],
+      ["compat_year", "Año del modelo", AUTOS, txt, true],
+      ["position", "Posición", AUTOS, txt],
+      ["side", "Lado", AUTOS, txt],
+      ["tire_size", "Medida de llanta", AUTOS, txt],
+      ["pet", "Mascota", ["Mascotas"], txt],
+      ["pet_stage", "Etapa", ["Mascotas"], txt],
+      ["breed_size", "Tamaño de raza", ["Mascotas"], txt],
+      ["light_temp", "Color de luz", ["Iluminación", "Domótica y hogar inteligente"], txt],
+      ["socket", "Base del foco", ["Iluminación", "Domótica y hogar inteligente"], txt],
+      ["lumens", "Lúmenes", ["Iluminación"], num(" lm"), true],
+      ["length_m", "Largo", ["Iluminación"], num(" m"), true],
+      ["audio_conn", "Conexión", ["Audífonos"], txt],
+      ["anc", "Cancelación de ruido", ["Audífonos"], txt],
+      ["units", "Cantidad", ["Suplementos"], txt, true],
+      ["supp_form", "Presentación", ["Suplementos"], txt],
+      ["volume_ml", "Contenido", ["Belleza y cuidado personal", "Limpieza y hogar", "Suplementos"], num(" ml"), true],
+      ["power_source", "Alimentación", ["Herramientas"], txt],
+      ["liters", "Capacidad", ["Cocina y comedor", "Mascotas", "Equipo comercial"], num(" L"), true],
+      ["pieces", "Piezas", ["Cocina y comedor", "Herramientas", "Juguetes", "Juegos de mesa"], num(" piezas"), true],
+      ["power_w", "Potencia", ["Cafeteras", "Herramientas", "Belleza y cuidado personal", "Iluminación", "Equipo comercial"], num(" W"), true],
+      ["material", "Material", ["Muebles", "Joyería y bisutería", "Bebés", "Instrumentos musicales", "Bicicletas y movilidad", "Viajes",
+        "Cocina y comedor", "Herramientas", "Decoración de hogar y jardín", "Juguetes", "Electrodomésticos", "Blancos y ropa de cama",
+        "Belleza y cuidado personal", "Mascotas", "Deportes y fitness", "Jardín y exterior", "Iluminación", "Climatización",
+        "Refrigeradores", "Lavadoras", "Salud", "Equipo comercial", "Bolsas y mochilas", "Calzado"], txt],
+      ["volt", "Voltaje", ["Herramientas", "Electrodomésticos", "Climatización", "Autos y motos", "Iluminación", "Equipo comercial"], num(" V"), true],
+      ["age_min", "Edad desde", ["Juguetes", "Juegos de mesa", "Bebés", "Bicicletas y movilidad"], (v) => (v ? `${v} años` : "Recién nacido"), true],
+      ["players_max", "Jugadores", ["Juegos de mesa"], (v) => (v >= 99 ? "Sin límite" : `Hasta ${v}`), true],
+      ["load_kg", "Soporta hasta", ["Muebles", "Deportes y fitness", "Salud", "Bebés", "Bicicletas y movilidad"], num(" kg"), true],
+      ["water_resistant", "Resistente al agua", ["Relojes inteligentes", "Audífonos", "Bocinas", "Joyería y bisutería", "Cámaras y fotografía"], txt],
+      ["kind", "Tipo", ["Instrumentos musicales", "Mascotas", "Belleza y cuidado personal", "Deportes y fitness", "Domótica y hogar inteligente",
+        "Autos y motos", "Bicicletas y movilidad", "Teclados", "Iluminación", "Equipo comercial", "Celulares"], txt],
+      ["sport", "Deporte", ["Deportes y fitness", "Ropa y accesorios", "Calzado"], txt],
+      ["ball_no", "Número de balón", ["Deportes y fitness"], txt, true],
+      ["weight_kg", "Peso", ["Deportes y fitness"], num(" kg"), true],
+      ["speeds", "Velocidades", ["Bicicletas y movilidad"], txt, true],
+      ["bike_type", "Tipo de bicicleta", ["Bicicletas y movilidad"], txt],
+      ["engine_cc", "Cilindrada", ["Autos y motos"], num(" cc"), true],
+      ["helmet_type", "Tipo de casco", ["Autos y motos"], txt],
+      ["size_in", "Medida", ["Viajes", "Autos y motos"], num('"'), true],
+      ["stone", "Piedra", ["Joyería y bisutería"], txt],
+      ["thread_count", "Hilos", ["Blancos y ropa de cama"], txt, true],
+      ["dpi", "DPI", ["Mouse"], txt, true],
+      ["wifi_std", "Wi-Fi", ["Redes"], txt],
+      ["ports", "Puertos", ["Redes"], txt, true],
+      ["filament", "Filamento", ["Impresión 3D"], txt],
+      ["focal_mm", "Distancia focal", ["Cámaras y fotografía"], num(" mm"), true],
+      ["camera_mp", "Megapíxeles", ["Cámaras y fotografía", "Cámaras de seguridad"], num(" MP"), true],
+      ["resolution", "Resolución", ["Cámaras de seguridad", "Componentes y accesorios de PC"], txt],
+      ["os_compat", "Compatible con", ["Relojes inteligentes", "Audífonos"], txt],
+      ["gps", "GPS", ["Relojes inteligentes"], txt],
+      ["heart_rate", "Ritmo cardiaco", ["Relojes inteligentes"], txt],
+      ["charger_w", "Potencia", ["Baterías portátiles"], num(" W"), true],
+    ];
+    EXTRA.forEach(([field, label, cats, format, sortNum]) => {
+      // Solo los filtros "sueltos" (un valor por categoría) se amplían; si
+      // el campo ya existe con otra etiqueta, igual se le suman categorías.
+      const existente = SPEC_FACETS.find((c) => c.facetField === field);
+      if (existente) {
+        cats.forEach((c) => { if (!existente.categories.includes(c)) existente.categories.push(c); });
+        return;
+      }
+      const id = "filterX" + field.replace(/(^|_)(\w)/g, (_, __, ch) => ch.toUpperCase());
+      SPEC_FACETS.push({
+        key: "x_" + field, facetField: field, categories: cats, label, format,
+        sortNum: !!sortNum, multi: field === "compat_year", groupEl: id + "Group", listEl: id,
+        auto: true, cobertura: 0.08,
+      });
+    });
+  })();
+
+  // Los grupos de los filtros de arriba que no están en index.html, con la
+  // misma forma que los demás, justo después del último grupo de specs.
+  (function crearGruposFacetasExtra() {
+    let prev = document.getElementById("filterMultifunctionGroup");
+    if (!prev) return;
+    SPEC_FACETS.filter((c) => c.auto).forEach((c) => {
+      if (document.getElementById(c.groupEl)) return;
+      const g = document.createElement("div");
+      g.className = "filter-group filter-group-collapsible collapsed hidden";
+      g.id = c.groupEl;
+      g.innerHTML = `<h3><span class="filter-group-title-row"><span class="filter-group-title">${c.label}</span>` +
+        `<span class="filter-group-toggle">▾</span></span><span class="filter-group-desc">Según el nombre y la ficha del producto.</span></h3>` +
+        `<div id="${c.listEl}" class="filter-options"></div>`;
+      prev.after(g);
+      prev = g;
+    });
+  })();
+
   function buildSpecFilterState() {
     const obj = {};
     SPEC_FACETS.forEach((cfg) => { obj[cfg.key] = new Set(); });
@@ -678,6 +789,9 @@
 
 
     viewFavorites: document.getElementById("viewFavorites"),
+    favoritesAlertas: document.getElementById("favoritesAlertas"),
+    alertaBarra: document.getElementById("alertaBarra"),
+    detailAlerta: document.getElementById("detailAlerta"),
     viewCompare: document.getElementById("viewCompare"),
     compareIntro: document.getElementById("compareIntro"),
     compareBody: document.getElementById("compareBody"),
@@ -879,6 +993,13 @@
       return { fee: 0, estimated: false };
     }
     const store = storeById(offer.storeId);
+    // Condiciones que la tienda publica (scripts/politicas_tiendas.py):
+    // envío siempre gratis, o gratis desde un monto en pesos.
+    if (store && store.envioSiempreGratis) return { fee: 0, estimated: false };
+    if (store && store.envioGratisDesdeMXN != null) {
+      if (offer.price >= store.envioGratisDesdeMXN) return { fee: 0, estimated: false };
+      if (store.envioCostoMXN != null) return { fee: store.envioCostoMXN, estimated: true };
+    }
     const threshold = store && store.freeShippingThresholdUSD;
     const priceUSD = offer.priceOriginal && offer.priceOriginal.currency === "USD" ? offer.priceOriginal.amount : null;
     if (threshold != null && priceUSD != null && priceUSD >= threshold) return { fee: 0, estimated: false };
@@ -918,6 +1039,14 @@
         : { text: `Envío gratis desde ${money(offer.freeShippingFromMXN)}`, cls: "" };
     }
     const store = storeById(offer.storeId);
+    if (store && store.envioSiempreGratis) return { text: intl ? "Envío internacional gratis" : "Envío gratis", cls: "free" };
+    if (store && store.envioGratisDesdeMXN != null) {
+      if (offer.price >= store.envioGratisDesdeMXN) return { text: "Envío gratis", cls: "free" };
+      if (store.envioCostoMXN != null) {
+        return { text: `+ ${money(store.envioCostoMXN)} envío (gratis desde ${money(store.envioGratisDesdeMXN)})`, cls: "estimated", estimado: true };
+      }
+      return { text: `Envío gratis desde ${money(store.envioGratisDesdeMXN)}`, cls: "" };
+    }
     const threshold = store && store.freeShippingThresholdUSD;
     const priceUSD = offer.priceOriginal && offer.priceOriginal.currency === "USD" ? offer.priceOriginal.amount : null;
     if (threshold != null && priceUSD != null && priceUSD >= threshold) return { text: "Envío gratis", cls: "free" };
@@ -925,6 +1054,32 @@
     if (info.estimated) return { text: `+ ${money(info.fee)} envío`, cls: "estimated", estimado: true };
     if (store && !store.hubRegion) return { text: "Envío internacional", cls: "" };
     return null;
+  }
+
+  // «Total con envío» bajo el precio de cada oferta (pedido del usuario,
+  // 26-sep: el total, como Kakaku). Solo cuando se sabe el envío: gratis
+  // confirmado o un costo (real o estimado, con el aviso). Con el toggle
+  // «Incluir envío» encendido el precio ya lo trae y no se repite.
+  function totalConEnvioHtml(offer) {
+    if (state.includeShipping) return "";
+    const cap = shippingCaptionOf(offer);
+    if (!cap) return "";
+    const info = shippingFeeInfo(offer);
+    if (cap.cls !== "free" && !(info.fee > 0)) return "";
+    const total = offer.price + (cap.cls === "free" ? 0 : info.fee);
+    return `<span class="total-con-envio">Total con envío ${money(total)}${info.estimated && cap.cls !== "free" ? ` ${AVISO_ESTIMADO}` : ""}</span>`;
+  }
+
+  // Meses sin intereses y devoluciones de la tienda (politicas_tiendas.py),
+  // como etiqueta con el detalle en el title y enlace a /tiendas/.
+  function condicionesTiendaHtml(store) {
+    if (!store) return "";
+    const partes = [];
+    if (store.msi) partes.push(`<span class="seller-tag msi" title="${htmlEscapeAttr(store.msi)}">MSI</span>`);
+    if (store.devoluciones || store.msi || store.envioGratisDesdeMXN != null || store.envioSiempreGratis) {
+      partes.push(`<a class="store-conditions-link" href="/tiendas/#${htmlEscapeAttr(store.id)}" target="_blank" rel="noopener">Condiciones</a>`);
+    }
+    return partes.join(" ");
   }
 
   const AVISO_ESTIMADO = '<span class="aviso-estimado" title="Costo de envío estimado" aria-label="estimado">⚠</span>';
@@ -1929,11 +2084,129 @@
   function toggleFavorite(productId) {
     const favs = getFavorites();
     const idx = favs.indexOf(productId);
-    if (idx === -1) favs.push(productId);
-    else favs.splice(idx, 1);
+    if (idx === -1) {
+      favs.push(productId);
+      guardarBaseDePrecio(productId);
+    } else favs.splice(idx, 1);
     writeLS(LS_KEYS.favorites, favs);
     if (state.user && window.ComparaMXData) window.ComparaMXData.setUserData(state.user.uid, { favorites: favs });
     return idx === -1;
+  }
+
+  // ---------- Avisos de precio (pedido del usuario, 26-sep) ----------
+  // Por ahora solo DENTRO del sitio: al abrirlo se revisan los productos con
+  // aviso y los favoritos, y si alguno bajó sale una barra arriba y el
+  // detalle en Favoritos. Cada aviso guarda:
+  //   base     precio del día en que se guardó (favorito o aviso)
+  //   objetivo precio al que el usuario quiere que se le avise (o null:
+  //            cualquier bajada respecto de la base)
+  //   visto    último precio que ya se le avisó, para no repetir el mismo
+  function getAlertas() {
+    return readLS(LS_KEYS.alerts, {});
+  }
+  function setAlertas(a) {
+    writeLS(LS_KEYS.alerts, a);
+    if (state.user && window.ComparaMXData) window.ComparaMXData.setUserData(state.user.uid, { alerts: a });
+  }
+  function precioActual(p) {
+    const offers = (p && p.offers) || [];
+    return offers.length || (p && p.__stub) ? minPrice(p) : null;
+  }
+  function guardarBaseDePrecio(productId, objetivo) {
+    const p = productById(productId);
+    const precio = precioActual(p);
+    const a = getAlertas();
+    const previo = a[productId] || {};
+    a[productId] = {
+      base: precio != null ? precio : previo.base ?? null,
+      objetivo: objetivo !== undefined ? objetivo : previo.objetivo ?? null,
+      fecha: new Date().toISOString().slice(0, 10),
+      visto: null,
+    };
+    setAlertas(a);
+  }
+  function quitarAlerta(productId) {
+    const a = getAlertas();
+    delete a[productId];
+    setAlertas(a);
+  }
+  // Bajadas vigentes: [{p, antes, ahora, objetivo}].
+  function bajadasDeAlertas() {
+    const a = getAlertas();
+    const favs = new Set(getFavorites());
+    const out = [];
+    Object.keys(a).forEach((id) => {
+      const al = a[id];
+      if (!favs.has(id) && al.objetivo == null) return;   // favorito quitado y sin aviso propio
+      const p = productById(id);
+      const ahora = precioActual(p);
+      if (ahora == null) return;
+      const umbral = al.objetivo != null ? al.objetivo : al.base;
+      if (umbral == null) return;
+      const bajo = al.objetivo != null ? ahora <= al.objetivo : ahora < al.base;
+      if (!bajo) return;
+      out.push({ p, antes: al.base, ahora, objetivo: al.objetivo, visto: al.visto });
+    });
+    return out;
+  }
+  async function revisarAlertas() {
+    const ids = Object.keys(getAlertas());
+    if (!ids.length || !el.alertaBarra) return;
+    await ensureProductsByIds(ids);
+    const nuevas = bajadasDeAlertas().filter((b) => b.visto == null || b.ahora < b.visto);
+    if (!nuevas.length) { el.alertaBarra.classList.add("hidden"); return; }
+    const n = nuevas.length;
+    el.alertaBarra.innerHTML = `<div class="container alerta-barra-inner">${icon("bell")}
+      <span>${n === 1 ? `<strong>${htmlEscapeAttr(nuevas[0].p.name.slice(0, 60))}</strong> bajó a ${money(nuevas[0].ahora)}`
+        : `<strong>${n} productos</strong> que guardaste bajaron de precio`}</span>
+      <a href="#/favorites" class="alerta-barra-ver">Ver</a>
+      <button type="button" class="alerta-barra-cerrar" aria-label="Cerrar">×</button></div>`;
+    el.alertaBarra.classList.remove("hidden");
+    const marcarVistas = () => {
+      const a = getAlertas();
+      nuevas.forEach((b) => { if (a[b.p.id]) a[b.p.id].visto = b.ahora; });
+      setAlertas(a);
+      el.alertaBarra.classList.add("hidden");
+    };
+    el.alertaBarra.querySelector(".alerta-barra-cerrar").onclick = marcarVistas;
+    el.alertaBarra.querySelector(".alerta-barra-ver").onclick = marcarVistas;
+  }
+  // El bloque de avisos en la ficha: «Avísame si baja de $X».
+  function renderDetailAlerta(product) {
+    const box = el.detailAlerta;
+    if (!box) return;
+    const a = getAlertas()[product.id];
+    const precio = precioActual(product);
+    if (a && a.objetivo != null) {
+      box.innerHTML = `${icon("bell")} Te avisamos cuando baje de <strong>${money(a.objetivo)}</strong>
+        <button type="button" class="alerta-quitar">Quitar aviso</button>`;
+      box.querySelector(".alerta-quitar").onclick = () => {
+        if (isFavorite(product.id)) guardarBaseDePrecio(product.id, null); else quitarAlerta(product.id);
+        renderDetailAlerta(product);
+      };
+      return;
+    }
+    const sugerido = precio ? Math.floor(precio * 0.95) : "";
+    box.innerHTML = `<label for="alertaObjetivo">${icon("bell")} Avísame si baja de $</label>
+      <input id="alertaObjetivo" type="number" min="1" step="1" inputmode="numeric" value="${sugerido}">
+      <button type="button" class="alerta-crear">Crear aviso</button>
+      <span class="muted small">Se revisa cada vez que abres ComparaMEX.</span>`;
+    box.querySelector(".alerta-crear").onclick = () => {
+      const v = Number(box.querySelector("#alertaObjetivo").value);
+      if (!v || v <= 0) return;
+      guardarBaseDePrecio(product.id, Math.round(v));
+      renderDetailAlerta(product);
+    };
+  }
+  // En Favoritos, arriba de la lista: lo que bajó desde que se guardó.
+  function renderFavoritesAlertas() {
+    const box = el.favoritesAlertas;
+    if (!box) return;
+    const bajadas = bajadasDeAlertas();
+    box.innerHTML = bajadas.length ? `<div class="panel alertas-panel"><h2>${icon("bell")} Bajaron de precio</h2>
+      <ul>${bajadas.map((b) => `<li><a href="#/p/${b.p.id}">${htmlEscapeAttr(b.p.name.slice(0, 80))}</a>
+        <span class="alertas-precio">${b.antes != null && b.antes > b.ahora ? `<s>${money(b.antes)}</s> → ` : ""}<strong>${money(b.ahora)}</strong></span>
+        ${b.objetivo != null ? `<span class="muted small">(tu aviso: ${money(b.objetivo)})</span>` : ""}</li>`).join("")}</ul></div>` : "";
   }
 
   function getProfile() {
@@ -2047,6 +2320,7 @@
     const cloud = await window.ComparaMXData.getUserData(user.uid);
     if (cloud) {
       if (Array.isArray(cloud.favorites)) writeLS(LS_KEYS.favorites, cloud.favorites);
+      if (cloud.alerts && typeof cloud.alerts === "object") writeLS(LS_KEYS.alerts, cloud.alerts);
       // La zona guardada en la nube puede ser de una versión anterior del
       // catálogo (un municipio que se quitó o al que se le cambió el id).
       // Se comprueba que siga existiendo antes de adoptarla: si no,
@@ -2071,6 +2345,7 @@
     } else {
       window.ComparaMXData.setUserData(user.uid, {
         favorites: getFavorites(),
+        alerts: getAlertas(),
         selectedMetro: state.selectedMetro,
         selectedRegion: state.selectedRegion,
         municipio: state.municipio || null,
@@ -2923,6 +3198,8 @@
     restaurarUbicacion();
     if (state.selectedRegion) updateLocationBtn();
     [state.brandsData, state.icons, state.shippingRates, state.local] = await Promise.all([marcas, iconos, tarifas, locales]);
+    // Avisos de precio: en segundo plano, sin frenar el primer dibujo.
+    setTimeout(() => { revisarAlertas().catch(() => {}); }, 1500);
   }
 
   // Markup SVG de línea para un box de 24x24 si el set de iconos no cargó.
@@ -5295,7 +5572,40 @@
     return input;
   }
 
+  // Lo que el sitio sabe del producto aunque la tienda no lo declare en
+  // specs (compute_facets.py / specs_titulo.py: del nombre), como filas más
+  // de la tabla. Sin repetir una etiqueta que la tienda ya puso.
+  function filasDeFacetas(product) {
+    const f = product.facets || {};
+    const ya = new Set((product.specs || []).map((s) => normalizeSearchText(s.label)));
+    const filas = [];
+    const vistos = new Set();
+    SPEC_FACETS.forEach((cfg) => {
+      if (!cfg.categories.includes(product.category) || vistos.has(cfg.facetField)) return;
+      const v = f[cfg.facetField];
+      if (v == null || v === "" || (Array.isArray(v) && !v.length)) return;
+      if (ya.has(normalizeSearchText(cfg.label))) return;
+      vistos.add(cfg.facetField);
+      let texto;
+      if (Array.isArray(v)) {
+        const nums = v.map(Number);
+        texto = cfg.facetField === "compat_year" && nums.every((n) => !isNaN(n)) && v.length > 2
+          ? `${Math.min(...nums)}–${Math.max(...nums)}`
+          : v.map((x) => cfg.format(x)).join(", ");
+      } else {
+        texto = cfg.format(v);
+      }
+      filas.push(`<tr><th>${htmlEscapeAttr(cfg.label)}</th><td>${htmlEscapeAttr(String(texto))}</td></tr>`);
+    });
+    return filas.join("");
+  }
+
   function renderSpecFacetFilter(cfg) {
+    if (!el[cfg.groupEl]) {
+      el[cfg.groupEl] = document.getElementById(cfg.groupEl);
+      el[cfg.listEl] = document.getElementById(cfg.listEl);
+    }
+    if (!el[cfg.groupEl]) return;
     const relevant = cfg.categories.includes(state.category);
     el[cfg.groupEl].classList.toggle("hidden", !relevant);
     if (!relevant) {
@@ -5319,6 +5629,14 @@
     if (values.size === 0) {
       el[cfg.groupEl].classList.add("hidden");
       return;
+    }
+    if (cfg.cobertura && scoped.length) {
+      let con = 0;
+      scoped.forEach((p) => { if (specValuesOf(cfg, p).length) con += 1; });
+      if (con / scoped.length < cfg.cobertura && !state.specFilters[cfg.key].size) {
+        el[cfg.groupEl].classList.add("hidden");
+        return;
+      }
     }
     let vals = [...values];
     vals = cfg.sortNum ? vals.sort((a, b) => a - b) : vals.sort((a, b) => String(a).localeCompare(String(b)));
@@ -6436,7 +6754,8 @@
   // renderSpecFacetFilter) y simplemente no se ven ahí tampoco.
   function openSpecsModal() {
     SPEC_FACETS.forEach((cfg) => {
-      const groupEl = el[cfg.groupEl];
+      const groupEl = el[cfg.groupEl] || (el[cfg.groupEl] = document.getElementById(cfg.groupEl));
+      if (!groupEl) return;
       groupEl.classList.add("collapsed"); // arrancan cerrados -- con 12 tarjetas posibles, todas abiertas de entrada es una pared de opciones
       el.specsModalBody.appendChild(groupEl);
     });
@@ -6447,6 +6766,7 @@
   function closeSpecsModal() {
     SPEC_FACETS.forEach((cfg) => {
       const groupEl = el[cfg.groupEl];
+      if (!groupEl) return;
       groupEl.classList.add("collapsed"); // vuelven al estado colapsado de siempre en el sidebar
       el.filtersPanel.appendChild(groupEl);
     });
@@ -6627,6 +6947,7 @@
       return;
     }
     const products = state.data.products.filter((p) => favIds.includes(p.id));
+    renderFavoritesAlertas();
     renderProductListInto(el.favoritesList, products, {
       emptyText: "Aún no tienes favoritos. Toca el corazón en cualquier producto para guardarlo aquí.",
       onFavToggle: renderFavorites,
@@ -7234,11 +7555,12 @@
     renderDetailPriceHeader(product);
     renderDetailCompare(product);
     renderDetailFav(product);
+    renderDetailAlerta(product);
     renderDetailQuickNav();
 
     el.specTable.innerHTML = product.specs
       .map((s) => `<tr><th>${s.label}</th><td>${s.value}</td></tr>`)
-      .join("");
+      .join("") + filasDeFacetas(product);
 
     renderStoreReviews(product);
     renderPriceHistory(product);
@@ -7732,6 +8054,7 @@
             ${r.store.name}${r.marketplace ? vendedorTerceroHtml(r) : ""}${r.colorLabel ? ` <span class="store-color-label">— ${htmlEscapeAttr(r.colorLabel)}</span>` : ""}${r.sellerState ? ` <span class="store-color-label">· ${htmlEscapeAttr(r.sellerState)}</span>` : ""}
           </span>
           ${r.sellerOfficial ? `<span class="seller-tag official">Tienda oficial</span>` : ""}
+          ${condicionesTiendaHtml(r.store)}
           ${r.isBuyBox ? `<span class="seller-tag buybox" title="Es el vendedor que Mercado Libre cobra si entras al producto sin elegir vendedor.">Vendedor por defecto</span>` : ""}
           ${sellersHtml}
           ${wholesaleHtml}
@@ -7743,6 +8066,7 @@
             ${money(r.price)}${r.price === bestPrice ? '<span class="best-tag">MÁS BARATO</span>' : ""}${isRecommended ? `<span class="best-tag recommended-tag" title="Mejor combinación de precio, calificación y disponibilidad">${icon("trophy")} RECOMENDADO</span>` : ""}
           </div>
           ${r.bundleNote ? `<span class="bundle-badge">${icon("headphones")} ${htmlEscapeAttr(r.bundleNote)}</span>` : ""}
+          ${totalConEnvioHtml(r)}
           ${shipEstimateNote}
           ${deliveryHtml}
         </td>
@@ -7781,10 +8105,107 @@
       });
       tbody.appendChild(tr);
     });
+    // Tiendas en «solo enlace» (Amazon, 26-sep; ver scripts/tienda_solo_enlace.py):
+    // su precio no se puede mostrar, así que van con un botón a su página. Van
+    // ARRIBA de la tabla: al final se perdían debajo de ocho vendedores.
+    ((productById(productId) || {}).enlaces || []).slice().reverse().forEach((e) => {
+      const store = storeById(e.storeId) || { name: e.storeId };
+      const tr = document.createElement("tr");
+      tr.className = "fila-solo-enlace";
+      tr.innerHTML = `<td><span class="store-badge">${htmlEscapeAttr(store.name)}</span></td>` +
+        `<td colspan="7"><a class="btn-solo-enlace" href="${htmlEscapeAttr(e.url)}" target="_blank" ` +
+        `rel="nofollow sponsored noopener">Ver precio en ${htmlEscapeAttr(store.name)}</a></td>`;
+      tbody.insertBefore(tr, tbody.firstChild);
+    });
     // Reaplica el estado a las filas recién creadas: si el usuario tenía
     // ofertas marcadas y llegó una actualización en vivo, la tabla vuelve
     // a quedar como la había dejado.
     applyOfferCompare(tbody);
+  }
+
+  // «Buscar en Amazon» en TODAS las fichas (pedido del usuario, 26-sep-2026:
+  // «Amazonで調べる、は全商品につけ、スペック、色、商品名、などすべて確実に
+  // 一致した文言で検索»). El Programa de Afiliados permite enlazar cualquier
+  // página de Amazon con la etiqueta; lo que no permite es mostrar su precio
+  // sin la API, así que acá no hay precio.
+  //
+  // La búsqueda lleva el nombre COMPLETO de la ficha (sin cortar), la marca
+  // si el nombre no la dice, y las specs de la ficha que el nombre no dice
+  // (capacidad, tamaño, color...): son las palabras con que la tienda nombra
+  // ese mismo producto. Un producto con varios colores lleva una búsqueda por
+  // color. No se usan comillas: Amazon no las respeta y con ellas a veces no
+  // devuelve nada.
+  const AMAZON_TAG = "comparamex-20";
+  // Specs que distinguen un producto de su hermano (un 128 GB de un 256 GB).
+  // Las demás (compatibilidad, material, edad...) llenarían la búsqueda de
+  // palabras que el título de Amazon no trae.
+  const FACETAS_BUSQUEDA = new Set(["model_name", "storage_gb", "ram_gb", "drive_gb", "screen_in", "size_in",
+    "battery_mah", "power_w", "charger_w", "liters", "volume_ml", "wash_kg", "ac_btu", "resolution",
+    "shoe_size", "size_label", "bed_size", "color", "units", "pieces", "tire_size", "rim_size", "wheel_size",
+    "socket", "light_temp", "volt"]);
+  function textoBusquedaAmazon(product, color) {
+    const nombre = String(product.name || "").replace(/\s+/g, " ").trim();
+    const norm = normalizeSearchText(nombre);
+    const partes = [];
+    if (product.brand && !norm.includes(normalizeSearchText(product.brand))) partes.push(product.brand);
+    partes.push(nombre);
+    const dice = (t) => normalizeSearchText(partes.join(" ")).includes(normalizeSearchText(String(t)));
+    const f = product.facets || {};
+    const vistos = new Set();
+    SPEC_FACETS.forEach((cfg) => {
+      if (!FACETAS_BUSQUEDA.has(cfg.facetField) || vistos.has(cfg.facetField)) return;
+      if (!cfg.categories.includes(product.category)) return;
+      vistos.add(cfg.facetField);
+      if (cfg.facetField === "color" && color) return;
+      let v = f[cfg.facetField];
+      if (v == null || v === "" || (Array.isArray(v) && v.length !== 1)) return;
+      if (Array.isArray(v)) v = v[0];
+      const texto = String(cfg.format(v)).replace(/"/g, " pulgadas").trim();
+      // Si el número ya está en el nombre (con otra unidad escrita: «256GB»
+      // contra «256 GB»), no se repite.
+      const num = String(v).match(/\d+(?:\.\d+)?/);
+      if (dice(texto) || (num && new RegExp(`\\b${num[0].replace(".", "\\.")}\\s*[a-z"]`, "i").test(nombre))) return;
+      partes.push(texto);
+    });
+    if (color && !dice(color)) partes.push(color);
+    return partes.join(" ").replace(/\s+/g, " ").trim();
+  }
+  // Frase por grupo de categorías donde Amazon México tiene ventaja de
+  // surtido (misma tabla que AMAZON_FUERTE en generate_seo_pages.py). Dice
+  // surtido o servicio, nunca precio.
+  const AMAZON_FUERTE = {
+    "En libros, Amazon suele tener el catálogo más amplio: novedades, importados y ediciones difíciles de encontrar.": ["Libros"],
+    "En accesorios y electrónica, Amazon suele tener mucha variedad de marcas y modelos, incluidos importados.": ["Cargadores y adaptadores", "Baterías portátiles", "Audífonos", "Mouse", "Teclados", "Componentes y accesorios de PC", "Almacenamiento", "Redes", "Cámaras y fotografía", "Proyectores y accesorios", "Bocinas", "Monitores", "Domótica y hogar inteligente", "Iluminación", "Impresión 3D", "Videojuegos", "Relojes inteligentes", "Cámaras de seguridad"],
+    "En instrumentos musicales y sus accesorios (cuerdas, pedales, cables), Amazon suele tener mucha variedad.": ["Instrumentos musicales"],
+    "En juguetes y juegos de mesa, Amazon suele tener mucha variedad, incluidas ediciones importadas.": ["Juguetes", "Juegos de mesa", "Bebés"],
+    "En productos que se vuelven a comprar, Amazon ofrece en muchos artículos compras programadas («Suscríbete y ahorra»).": ["Mascotas", "Limpieza y hogar", "Suplementos", "Belleza y cuidado personal"],
+    "En herramientas, refacciones y equipo deportivo, Amazon suele tener mucha variedad de marcas y repuestos.": ["Herramientas", "Autopartes", "Deportes y fitness", "Bicicletas y movilidad"],
+  };
+  const AMAZON_FUERTE_POR_CATEGORIA = {};
+  Object.entries(AMAZON_FUERTE).forEach(([t, cs]) => cs.forEach((c) => { AMAZON_FUERTE_POR_CATEGORIA[c] = t; }));
+  function urlBusquedaAmazon(texto) {
+    return `https://www.amazon.com.mx/s?k=${encodeURIComponent(texto)}&tag=${AMAZON_TAG}`;
+  }
+  function pintarBusquedaAmazon(product) {
+    const nodo = document.getElementById("amazonBusqueda");
+    if (!nodo) return;
+    const colores = [...new Set((product.colorVariants || []).map((v) => v.color).filter(Boolean))];
+    const enlace = (texto, etiqueta) =>
+      `<a class="btn-solo-enlace" href="${htmlEscapeAttr(urlBusquedaAmazon(texto))}" target="_blank" ` +
+      `rel="nofollow sponsored noopener" title="${htmlEscapeAttr(texto)}">${htmlEscapeAttr(etiqueta)}</a>`;
+    let html;
+    if (colores.length > 1) {
+      html = `Buscar este producto en Amazon: ` +
+        colores.map((c) => enlace(textoBusquedaAmazon(product, c), c)).join(" ");
+    } else {
+      const texto = textoBusquedaAmazon(product, colores[0] || null);
+      if (!texto) { nodo.classList.add("hidden"); nodo.innerHTML = ""; return; }
+      html = `Buscar este producto en Amazon: ${enlace(texto, "Buscar en Amazon")}`;
+    }
+    const fuerte = AMAZON_FUERTE_POR_CATEGORIA[product.category];
+    if (fuerte) html += `<span class="amazon-fuerte">${htmlEscapeAttr(fuerte)}</span>`;
+    nodo.innerHTML = html;
+    nodo.classList.remove("hidden");
   }
 
   function renderOfferTable(product) {
@@ -7843,6 +8264,7 @@
     // comparación, aunque sí aparecía (correctamente) en el resumen de
     // arriba, que nunca tuvo ese split. Una sola tabla, todo junto.
     renderOfferRows(el.offerRows, rows, bestPrice, fastestDays, recommendedStoreId, product.id);
+    pintarBusquedaAmazon(product);
 
     // La tabla trae hasta MAX_SELLERS vendedores por publicación (ver
     // winnerOffer en el Worker), pero el encabezado cuenta todos los que hay:

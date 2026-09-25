@@ -728,6 +728,10 @@ def _titulo(cabeza, nombres):
             comun.append(w)
         else:
             break
+    # Un prefijo común que termina en conector («Ventiladores de», «Balones
+    # de»: de mesa / de pared) se corta ahí: la familia es «Ventiladores».
+    while comun and _plano(comun[-1]) in ("de", "del", "para", "con", "y", "e", "o", "en", "la", "el", "los", "las", "a"):
+        comun.pop()
     if comun:
         return " ".join(comun).rstrip(" ,")
     corto = min(nombres, key=len)

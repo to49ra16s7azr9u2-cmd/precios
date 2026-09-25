@@ -3793,20 +3793,34 @@ tr.offer-compare-off { display: none; }
 }
 #homeCategoryGrid { padding: 0; margin: 0; }
 /* Línea tenue con el nombre del grupo, a todo el ancho de la grilla. */
+/* Títulos de grupo de la portada: rojo de marca en negrita, con la letra del
+   logo (Poppins Bold) y la raya divisoria también en rojo (pedido del
+   usuario, 26-sep-2026: el gris claro de 11px no se veía). Abajo dejan aire
+   para la etiqueta «Hasta -79%», que sobresale por encima de la tarjeta. */
 .home-cat-grupo {
   grid-column: 1 / -1;
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin: 8px 0 0;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: #a0a0a0;
+  gap: 10px;
+  margin: 16px 0 10px;
+  font-family: "Poppins", "Hiragino Sans", "Noto Sans", "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.2;
+  color: var(--red);
 }
 .home-cat-grupo::after {
   content: "";
   flex: 1;
-  border-top: 1px solid #e6e6e6;
+  border-top: 2px solid var(--red);
+}
+@media (max-width: 600px) {
+  .home-cat-grupo { font-size: 15px; margin: 12px 0 8px; }
+}
+/* Un poco más de aire entre tarjetas en la portada (pedido del usuario). */
+#homeCategoryGrid { gap: 10px; }
+@media (max-width: 600px) {
+  #homeCategoryGrid { gap: 8px; }
 }
 .home-cat-grupo[hidden] { display: none; }
 .category-card {
@@ -5107,3 +5121,43 @@ tr.offer-compare-off { display: none; }
   .local-aviso-banner { max-width: 820px; margin-left: auto; margin-right: auto; }
 }
 .local-aviso-banner:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+
+/* Tienda en «solo enlace» (sin precio mostrado): botón a su página. */
+.fila-solo-enlace td { color: var(--muted); }
+.btn-solo-enlace {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+.btn-solo-enlace:hover { border-color: var(--red); color: var(--red); }
+
+/* Total con envío bajo el precio de cada oferta, y condiciones de la tienda. */
+.total-con-envio { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.seller-tag.msi { background: var(--green-tint); color: var(--green); }
+.store-conditions-link { font-size: 12px; color: var(--muted); text-decoration: underline; margin-left: 4px; }
+
+/* Avisos de precio */
+.alerta-barra { background: var(--green-tint); border-bottom: 1px solid var(--border); font-size: 14px; }
+.alerta-barra-inner { display: flex; align-items: center; gap: 10px; padding-top: 8px; padding-bottom: 8px; }
+.alerta-barra-ver { font-weight: 700; color: var(--green); text-decoration: underline; }
+.alerta-barra-cerrar { margin-left: auto; background: none; border: 0; font-size: 20px; cursor: pointer; color: var(--muted); }
+.detail-alerta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; font-size: 13px; }
+.detail-alerta input { width: 110px; padding: 4px 6px; border: 1px solid var(--border); }
+.detail-alerta button { padding: 4px 10px; border: 1px solid var(--border); background: var(--card); cursor: pointer; }
+.detail-alerta button:hover { border-color: var(--red); color: var(--red); }
+.alertas-panel ul { margin: 0; padding-left: 18px; }
+.alertas-panel li { margin: 4px 0; }
+.alertas-precio { margin-left: 6px; }
+
+/* «Buscar en Amazon» debajo de la tabla de precios (pintarBusquedaAmazon). */
+.amazon-busqueda { margin: 0 0 8px; font-size: 0.9rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.amazon-busqueda .btn-solo-enlace { font-size: 0.85rem; }
+.amazon-busqueda .amazon-fuerte { flex-basis: 100%; font-size: 0.8rem; color: var(--muted); }
+/* El ícono de campana de los avisos de precio iba sin tamaño y se pintaba a
+   ancho completo. */
+.detail-alerta .icon, #favoritesAlertas .icon, .alerta-barra .icon { width: 16px; height: 16px; vertical-align: -3px; }
+.detail-alerta label { display: inline-flex; align-items: center; gap: 4px; }

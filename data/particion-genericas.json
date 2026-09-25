@@ -135,6 +135,7 @@
    "Faros y luces",
    "Frenos",
    "Manubrios, espejos y controles",
+   "Ruedas para auto",
    "Sistema eléctrico y sensores",
    "Suspensión y dirección"
   ],
@@ -240,6 +241,7 @@
    "Pedales, manubrios y puños",
    "Portabicicletas y soportes",
    "Scooters eléctricos",
+   "Sillines y asientos",
    "Triciclos y bicicletas de carga"
   ],
   "Blancos y ropa de cama|Cortinas de baño y accesorios": [
@@ -275,6 +277,9 @@
    "Correas para reloj y gadgets",
    "De pared",
    "De pilas"
+  ],
+  "Cargadores y adaptadores|Otros": [
+   "Adaptador de corriente"
   ],
   "Celulares|Accesorios": [
    "Android",
@@ -412,12 +417,14 @@
    "Bancos y racks",
    "Bandas de resistencia",
    "Barras",
+   "Barras y discos",
    "Bicicletas fijas",
    "Campismo",
    "Cinturones",
    "Cuerdas",
    "Ejercitadores",
    "Guantes",
+   "Rodilleras, muñequeras y soportes",
    "Tapetes de yoga"
   ],
   "Deportes y fitness|Pelotas y accesorios de raqueta": [
@@ -432,8 +439,10 @@
    "Toallas para natación"
   ],
   "Deportes y fitness|Pelotas, redes y accesorios de ping pong": [
+   "Balones de fútbol",
    "Bolsas de ping pong",
    "Pelotas de ping pong",
+   "Raquetas de ping pong",
    "Robots de ping pong"
   ],
   "Deportes y fitness|Ropa y accesorios de fútbol": [
@@ -464,6 +473,7 @@
   "Electrodomésticos|Accesorios y repuestos para freidora de aire": [
    "Arroceras y ollas multiusos",
    "Freidoras de aire",
+   "Hornos",
    "Hornos freidora y multifunción"
   ],
   "Electrodomésticos|Otros electrodomésticos de cocina": [
@@ -482,6 +492,7 @@
   ],
   "Electrodomésticos|Refacciones para aspiradora y robot": [
    "Almohadillas para aspiradora y robot",
+   "Filtros y membranas de repuesto",
    "Mopas y paños para aspiradora y robot",
    "Robots limpiacristales",
    "Soluciones de limpieza para aspiradora y robot"
@@ -605,6 +616,7 @@
    "Cerraduras y candados",
    "Llaves y dados",
    "Material eléctrico",
+   "Pinzas y alicates",
    "Sierras",
    "Taladros y rotomartillos"
   ],
@@ -742,9 +754,12 @@
   "Muebles|Otros": [
    "Burós",
    "Cojines",
+   "Colchones plegables y de sofá cama",
+   "Mesas para TV y consolas",
    "Roperos",
    "Sillas de oficina",
-   "Sillas plegables y de camping"
+   "Sillas plegables y de camping",
+   "Taburetes y bancos"
   ],
   "Proyectores y accesorios|Accesorios": [
    "Proyectores"
@@ -769,6 +784,7 @@
    "Tabletas Android de 10 a 11 pulgadas",
    "Tabletas Windows y rugged",
    "Tabletas de dibujo y escritura",
+   "Tabletas para niños",
    "Teclados para tableta"
   ],
   "Teclados|Switches, keycaps y accesorios": [
@@ -820,7 +836,8 @@
   },
   "Autopartes|Para autos": {
    "bocina": "Bocinas para auto",
-   "cilindro": "Cilindros para auto"
+   "cilindro": "Cilindros para auto",
+   "rueda": "Ruedas para auto"
   },
   "Autopartes|Para motos": {
    "eje": "Ejes para moto",

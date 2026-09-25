@@ -658,6 +658,102 @@ _TIPOS_CRUDOS = {
 TIPOS = {k: [(et, re.compile(rx)) for et, rx in v] for k, v in _TIPOS_CRUDOS.items()}
 
 
+# Las reorganizaciones de categorías (25-sep) dejaron varias claves de
+# arriba apuntando a categorías y subcategorías que ya no existen: esas
+# reglas no corrían nunca. Se traducen al nombre de hoy acá (lo que
+# reorganizar_categorias.destino no sabe, a mano) en vez de reescribir las
+# tablas.
+_RENOMBRES = {
+    ("Otros", "Generadores"): ("Herramientas", "Generadores"),
+    ("Otros", "Inversores"): ("Energía solar", "Inversores"),
+    ("Otros", "Paneles solares"): ("Energía solar", "Paneles solares"),
+    ("Otros", "Estaciones de energía"): ("Baterías portátiles", "Estaciones de energía"),
+    ("Otros", "Radios"): ("Bocinas", "Radios y reproductores"),
+    ("Refrigeradores", "Uso comercial"): ("Refrigeradores", "Refrigeradores comerciales"),
+    ("Salud", "Cuidado del cabello"): ("Belleza y cuidado personal", "Cuidado del cabello"),
+    ("Salud", "Cuidado personal"): ("Belleza y cuidado personal", "Cuidado personal"),
+    ("Salud", "Depilación"): ("Belleza y cuidado personal", "Depilación"),
+    ("Viajes", "Maletas"): ("Viajes", None),
+    ("Otros", "Soportes para dispositivos"): ("Celulares", "Soportes y agarraderas"),
+}
+
+
+def _al_dia(tabla):
+    try:
+        from reorganizar_categorias import destino
+    except ImportError:
+        destino = None
+    out = {}
+    for (cat, sub), reglas in tabla.items():
+        nueva = _RENOMBRES.get((cat, sub))
+        if nueva is None and destino is not None:
+            d = destino(cat, sub, etapa2=True)
+            nueva = d if d and d != (cat, sub) else (cat, sub)
+            if sub is None and nueva:
+                nueva = (nueva[0], None)   # regla de categoría entera: sigue siéndolo
+        out.setdefault(nueva or (cat, sub), [])
+        out[nueva or (cat, sub)] = out[nueva or (cat, sub)] + list(reglas)
+    return out
+
+
+NOMBRE_GENERALES = _al_dia(NOMBRE_GENERALES)
+TIPOS = _al_dia(TIPOS)
+
+
+# Del NOMBRE, por categoría entera (specs_titulo.py, 26-sep): lo que en
+# Autopartes, Calzado, Ropa, Mascotas... la tienda casi nunca declara.
+import specs_titulo as st  # noqa: E402
+
+_MODA = ("Calzado", "Ropa y accesorios", "Bolsas y mochilas", "Joyería y bisutería", "Viajes")
+_HOGAR = ("Muebles", "Decoración de hogar y jardín", "Blancos y ropa de cama", "Cocina y comedor")
+REGLAS_TITULO = {}
+for _c in _MODA + _HOGAR + ("Relojes inteligentes", "Audífonos", "Celulares", "Bebés"):
+    REGLAS_TITULO.setdefault(_c, []).append(("color", st.color))
+for _c in _MODA + ("Deportes y fitness", "Belleza y cuidado personal", "Relojes inteligentes", "Bebés"):
+    REGLAS_TITULO.setdefault(_c, []).append(("gender", st.genero))
+REGLAS_TITULO.setdefault("Calzado", []).append(("shoe_size", st.talla_calzado))
+for _c in ("Ropa y accesorios", "Deportes y fitness"):
+    REGLAS_TITULO.setdefault(_c, []).append(("size_label", se.size_label_of))
+for _c in ("Autopartes", "Autos y motos"):
+    REGLAS_TITULO.setdefault(_c, []).extend([("position", st.posicion), ("side", st.lado),
+                                             ("tire_size", st.medida_llanta)])
+REGLAS_TITULO.setdefault("Mascotas", []).append(("pet", st.mascota))
+for _c in ("Iluminación", "Domótica y hogar inteligente"):
+    REGLAS_TITULO.setdefault(_c, []).extend([("light_temp", st.temperatura_luz), ("socket", st.base_foco)])
+REGLAS_TITULO.setdefault("Audífonos", []).extend([("audio_conn", st.conexion_audio), ("anc", st.cancelacion_ruido)])
+REGLAS_TITULO.setdefault("Suplementos", []).extend([("units", st.unidades), ("supp_form", st.forma_suplemento)])
+REGLAS_TITULO.setdefault("Herramientas", []).append(("power_source", st.inalambrico_herramienta))
+for _c in ("Belleza y cuidado personal", "Limpieza y hogar", "Suplementos"):
+    REGLAS_TITULO.setdefault(_c, []).append(("volume_ml", lambda t: se.ml_of(t, 5, 5000)))
+REGLAS_TITULO.setdefault("Cocina y comedor", []).extend([("liters", lambda t: se.liters_of(t, 0.2, 60)),
+                                                        ("pieces", lambda t: se.pieces_of(t, 2, 200))])
+REGLAS_TITULO.setdefault("Herramientas", []).append(("pieces", lambda t: se.pieces_of(t, 5, 1000)))
+for _c in ("Electrodomésticos", "Aspiradoras", "Cafeteras", "Climatización"):
+    REGLAS_TITULO.setdefault(_c, []).append(("power_w", _w(20, 6000)))
+REGLAS_TITULO.setdefault("Climatización", []).append(("ac_btu", se.ac_btu))
+
+
+def _titulo(product, name, f):
+    cat = product.get("category")
+    for campo, fn in REGLAS_TITULO.get(cat, ()):
+        if campo in f:
+            continue
+        try:
+            v = fn(name)
+        except (ValueError, AttributeError, TypeError):
+            v = None
+        if v is not None:
+            f[campo] = v
+    if cat in ("Autopartes", "Autos y motos") and "compat_model" not in f:
+        marca, modelo, anios = st.vehiculo(name)
+        if marca:
+            f["veh_brand"] = marca
+        if modelo:
+            f["compat_model"] = [modelo]
+        if anios and "compat_year" not in f:
+            f["compat_year"] = [str(a) for a in anios]
+
+
 # Campos que en esa subcategoría dicen otra cosa: el "material" de un
 # colchón es el de su box de madera.
 NO_GENERALES = {("Muebles", "Colchones"): {"material"}}
@@ -700,6 +796,7 @@ def facets_for(product):
     que cualquier categoría puede tener. Ninguno de los dos pisa al otro."""
     f = _facets_propias(product) or {}
     _generales(product, product.get("name", ""), _spec_map(product), f)
+    _titulo(product, product.get("name", ""), f)
     return f or None
 
 
@@ -856,12 +953,16 @@ def _facets_propias(product):
         # sí: el minisplit se compra por BTU y el ventilador por pulgadas
         # de aspa. El resto (purificadores, humidificadores) no dice nada
         # comparable en el nombre y se queda sin facet.
-        sub = product.get("subcategory")
-        if sub == "Aires acondicionados":
+        # Las subcategorías se partieron (26-sep: «Minisplit», «Aires
+        # acondicionados portátiles», «Ventiladores de techo»...): con el
+        # nombre exacto de antes, el BTU salía en 11 fichas de 7 mil. Se
+        # decide por la palabra de la subcategoría.
+        sub = (product.get("subcategory") or "").lower()
+        if "aire" in sub or "minisplit" in sub or "climatizador" in sub:
             btu = se.ac_btu(name)
             if btu is not None:
                 f["ac_btu"] = btu
-        elif sub == "Ventiladores":
+        elif "ventilador" in sub:
             pulg = se.fan_size_in(name)
             if pulg is not None:
                 f["fan_in"] = pulg

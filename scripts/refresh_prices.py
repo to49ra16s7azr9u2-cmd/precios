@@ -39,8 +39,21 @@ tandas sin repetir. Guarda en cada tanda (--save-every) para no perder el avance
 si se interrumpe. La poda se aplica siempre al final, sobre el catálogo
 completo (no por tanda), así una corrida con --offset/--limit nunca borra un
 producto por no haber sido parte de esa tanda.
+
+CORRIDA DIARIA (--tope-diario)
+------------------------------
+Con el catálogo en 928 mil fichas, recorrerlas todas y guardar cada 100 hacía
+que la corrida automática no terminara nunca: se cortaba a las 5 horas sin
+publicar nada (desde el 15-sep-2026). Ahora sólo se miran las fichas con
+alguna oferta de Mercado Libre (~65 mil), se guarda por tiempo
+(--guardar-cada-min) y, con --tope-diario N, cada día se revisa una tajada
+de a lo sumo N consultas: las fichas se reparten en tajadas fijas por su id y
+el día del año elige cuál toca, así en unos pocos días pasan todas. El tope
+cuida el límite del Worker (100 mil pedidos por día, que también usa la
+ficha al abrirse).
 """
 import argparse
+import datetime
 import json
 import os
 import re
@@ -49,6 +62,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import zlib
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -262,7 +276,11 @@ def main():
     ap.add_argument("--limit", type=int, default=0, help="máximo de productos a procesar (0 = todos)")
     ap.add_argument("--offset", type=int, default=0, help="saltar los primeros N productos")
     ap.add_argument("--concurrency", type=int, default=4)
-    ap.add_argument("--save-every", type=int, default=100, help="guardar cada N productos")
+    ap.add_argument("--save-every", type=int, default=0, help="guardar cada N productos (0 = por tiempo)")
+    ap.add_argument("--guardar-cada-min", type=float, default=30,
+                    help="guardar el avance cada tantos minutos (guardar 928 mil fichas tarda ~1 min)")
+    ap.add_argument("--tope-diario", type=int, default=0,
+                    help="máximo de consultas al Worker en esta corrida; rota por día del año (0 = sin tope)")
     ap.add_argument("--dry-run", action="store_true", help="no escribe data.json")
     ap.add_argument("--prune", dest="prune", action="store_true", default=True,
                      help="saca del catálogo lo que quedó sin ofertas activas (default)")
@@ -276,7 +294,16 @@ def main():
     data = load_catalog()
 
     all_products = data["products"]
-    products = all_products[args.offset:]
+    # Sólo lo que tiene algo que consultar: las ~860 mil fichas sin oferta de
+    # Mercado Libre no piden nada, pero antes igual contaban para --offset,
+    # --limit y el guardado por tandas.
+    products = [p for p in all_products if targets_of(p)][args.offset:]
+    if args.tope_diario:
+        consultas = sum(len(targets_of(p)) for p in products)
+        tajadas = max(1, -(-consultas // args.tope_diario))
+        hoy = datetime.date.today().timetuple().tm_yday % tajadas
+        products = [p for p in products if zlib.crc32(str(p["id"]).encode()) % tajadas == hoy]
+        print(f"Tope diario {args.tope_diario:,}: {consultas:,} consultas en {tajadas} tajadas; hoy la {hoy + 1}")
     if args.limit:
         products = products[: args.limit]
     print(f"Productos a revisar: {len(products)} (offset {args.offset})")
@@ -285,15 +312,15 @@ def main():
     # ?id=, no tiene sentido lanzar miles de llamadas que van a fallar todas
     # (y, peor, con --prune activado se leería "sin ofertas activas" en TODO
     # el catálogo y se borraría todo).
-    probe_id = next(
-        (catalog_id(n["url"]) for p in products for _, n in targets_of(p)),
-        None,
-    )
-    if probe_id is None:
+    # Varias fichas y no una: el 400 que cortó la corrida del 19-sep-2026 fue
+    # de UNA publicación, con el Worker andando bien. Sólo se corta si
+    # ninguna responde.
+    probe_ids = [catalog_id(n["url"]) for p in products[:40] for _, n in targets_of(p)][:8]
+    if not probe_ids:
         print("Ninguno de estos productos tiene URL de catálogo de Mercado Libre; nada que hacer.")
         return
-    probe = fetch_by_id(probe_id)
-    if probe is None or probe.get("__http") == 400:
+    probes = [fetch_by_id(i) for i in probe_ids]
+    if all(r is None or r.get("__http") == 400 for r in probes):
         print(
             "El Worker no reconoce ?id= (HTTP 400).\n"
             "Despliega la versión nueva antes de usar este script:\n"
@@ -390,15 +417,20 @@ def main():
             changed = True
         return changed
 
+    ultimo_guardado = time.time()
     with ThreadPoolExecutor(max_workers=args.concurrency) as pool:
         for i, changed in enumerate(pool.map(work, products), 1):
             stats["revisados"] += 1
             if changed:
                 stats["actualizados"] += 1
-            if i % 25 == 0:
+            if i % 1000 == 0:
                 print(f"  {i}/{len(products)} — {stats['precios']} precios actualizados, {len(dead_ids)} sin ofertas", flush=True)
-            if not args.dry_run and args.save_every and i % args.save_every == 0:
+            if args.dry_run:
+                continue
+            if (args.save_every and i % args.save_every == 0) or \
+                    (not args.save_every and time.time() - ultimo_guardado > args.guardar_cada_min * 60):
                 save_catalog(data)
+                ultimo_guardado = time.time()
 
     removed_ids = []
     trimmed = 0

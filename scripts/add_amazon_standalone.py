@@ -46,7 +46,7 @@ Lista de objetos, uno por producto nuevo:
 USO
 ---
     python3 scripts/add_amazon_standalone.py nuevos.json --dry-run
-    python3 scripts/add_amazon_standalone.py nuevos.json --tag comparamex0d-20
+    python3 scripts/add_amazon_standalone.py nuevos.json --tag comparamex-20
 """
 import argparse
 import collections

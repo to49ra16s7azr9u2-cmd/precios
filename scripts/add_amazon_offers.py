@@ -48,8 +48,8 @@ USO
     python3 scripts/add_amazon_offers.py --search "iphone 17 pro max 256"
 
     # Agregar las ofertas del archivo:
-    python3 scripts/add_amazon_offers.py ofertas.json --tag comparamex0d-20 --dry-run
-    python3 scripts/add_amazon_offers.py ofertas.json --tag comparamex0d-20
+    python3 scripts/add_amazon_offers.py ofertas.json --tag comparamex-20 --dry-run
+    python3 scripts/add_amazon_offers.py ofertas.json --tag comparamex-20
 
     # --tag es opcional: sin él se agrega con link normal (sin comisión) --
     # útil mientras Amazon México Afiliados no acepta solicitudes nuevas.

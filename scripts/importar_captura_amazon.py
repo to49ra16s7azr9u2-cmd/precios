@@ -40,7 +40,7 @@ sys.path.insert(0, AQUI)
 from add_amazon_standalone import existing_asins  # noqa: E402
 from data_io import load_catalog  # noqa: E402
 
-TAG = "comparamex0d-20"
+TAG = "comparamex-20"
 
 
 def main():

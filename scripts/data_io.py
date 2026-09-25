@@ -235,7 +235,10 @@ SPEC_LABELS_EN_LISTADO = ("Condición", "MagSafe", "Tamaño", "Uso")
 #            Libre. Solo lo usa fetchLiveOffer(), que corre desde renderDetail
 #            después de `await ensureDetail(product)`. 0.47 MB en crudo, y en
 #            Celulares --donde casi todo lo tiene-- vale un 7% de la shard.
-DETAIL_PRODUCT_FIELDS = ("mlQuery",)
+# "enlaces" (tiendas en solo enlace, tienda_solo_enlace.py): solo lo usa la
+# tabla de la ficha, y la ficha abierta por enlace directo arma el producto
+# con la fila del buscador, que no lo trae: tiene que venir en el detalle.
+DETAIL_PRODUCT_FIELDS = ("mlQuery", "enlaces")
 
 # Chunks de detalle chicos (~2,000 productos, ~100 KB con gzip): abrir una
 # ficha baja UN chunk, no el catálogo entero de detalles.
@@ -789,6 +792,18 @@ def _marcar_roles(categories):
 
 
 def save_catalog(data):
+    # Tiendas en «solo enlace» (tienda_solo_enlace.py: Amazon, 26-sep): si
+    # un importador volvió a meter ofertas con precio de esa tienda, pasan a
+    # enlace (o la ficha va al archivo, si era su única oferta) ANTES de
+    # guardar, para que un precio no autorizado nunca llegue al sitio.
+    solo_enlace = {s["id"] for s in data.get("stores") or [] if s.get("soloEnlace")}
+    if solo_enlace and any(o.get("storeId") in solo_enlace
+                           for p in data.get("products") or []
+                           for lista in [p.get("offers") or []]
+                           + [v.get("offers") or [] for v in p.get("colorVariants") or []]
+                           for o in lista):
+        import tienda_solo_enlace
+        tienda_solo_enlace.convertir(data, solo_enlace)
     products = data.pop("products", [])
     # La reseña destacada de Mercado Libre ya no se muestra (se retiró la
     # sección «Lo que dicen los compradores», 25-sep): no se guarda.
