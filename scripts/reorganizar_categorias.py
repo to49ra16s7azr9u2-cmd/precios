@@ -89,8 +89,15 @@ MOVILIDAD_A = {
 DECORACION_A_JARDIN = {"Asadores": "Asadores y parrillas", "Albercas y spa": "Albercas e inflables"}
 
 
-def destino(cat, sub):
-    """(cat, sub) de hoy para una (cat, sub) posiblemente vieja."""
+def destino(cat, sub, etapa2=True):
+    """(cat, sub) de hoy para una (cat, sub) posiblemente vieja. Con
+    etapa2=False solo aplica la reorganización del 25-sep por la mañana (la
+    usa save_catalog mientras el manifiesto no tenga la segunda)."""
+    cat, sub = _destino1(cat, sub)
+    return _destino2(cat, sub) if etapa2 else (cat, sub)
+
+
+def _destino1(cat, sub):
     if cat == "Refacciones":
         if sub in REFACCIONES_ELECTRO:
             return "Electrodomésticos", sub
@@ -143,7 +150,8 @@ SUBS_NUEVAS = {
     "Joyería y bisutería": ["Lentes oftálmicos y de lectura"],
 }
 
-CATEGORIAS_QUE_SE_VAN = {"Refacciones", "Juguetes y bebés", "Drones", "Movilidad eléctrica", "Fitness"}
+CATEGORIAS_QUE_SE_VAN = {"Refacciones", "Juguetes y bebés", "Drones", "Movilidad eléctrica", "Fitness",
+                         "Autos, bicicletas y motos", "Artículos de lujo (preowned)"}
 
 # slug de categoría viejo -> nuevo (404.html). Las subcategorías conservan
 # su slug salvo en las que se fusionaron, que van a la raíz de la nueva.
@@ -151,7 +159,9 @@ REDIRECCIONES = {
     "refacciones": "autopartes",
     "juguetes-y-bebes": "juguetes",
     "drones": "camaras-y-fotografia",
-    "movilidad-electrica": "autos-bicicletas-y-motos",
+    "movilidad-electrica": "bicicletas-y-movilidad",
+    "autos-bicicletas-y-motos": "autos-y-motos",
+    "articulos-de-lujo-preowned": "ropa-y-accesorios",
     "fitness": "deportes-y-fitness",
 }
 
@@ -176,7 +186,7 @@ def reorganizar_manifiesto(manifest):
         if c["id"] not in CATEGORIAS_QUE_SE_VAN and c["id"] != "Decoración de hogar y jardín":
             continue
         for s in c.get("subcategories") or []:
-            ncat, nsub = destino(c["id"], s["id"])
+            ncat, nsub = _destino1(c["id"], s["id"])
             if ncat == c["id"] or not nsub:
                 continue
             dest = por_id[ncat]
@@ -212,6 +222,7 @@ def reorganizar_manifiesto(manifest):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--aplicar", action="store_true")
+    ap.add_argument("--etapa2", action="store_true", help="la segunda reorganización (25-sep, noche)")
     args = ap.parse_args()
     sys.path.insert(0, AQUI)
     from data_io import load_catalog, save_catalog
@@ -249,16 +260,16 @@ def main():
     if not args.aplicar:
         print("(sin --aplicar: no se guardó nada)")
         return
-    reorganizar_manifiesto(data)
+    if args.etapa2:
+        reorganizar_manifiesto2(data)
+    else:
+        reorganizar_manifiesto(data)
     save_catalog(data)
     if os.path.exists(candado):
         with io.open(candado, "w", encoding="utf-8") as f:
             json.dump(lock, f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     print("Guardado.")
 
-
-if __name__ == "__main__":
-    main()
 
 
 # Familias (el escalón del medio, ver familias_subcategorias.py) de las
@@ -329,3 +340,191 @@ FAMILIAS_AGREGAR = {
                                                           "Hoverboards y patinetas eléctricas",
                                                           "Accesorios de movilidad eléctrica"])],
 }
+
+
+# ---------------------------------------------------------------------------
+# SEGUNDA REORGANIZACIÓN (25-sep-2026, noche)
+#
+# El usuario vio muchos errores de clasificación en lo importado de Walmart y
+# aprobó revisar las categorías donde el error nace de la estructura: dos
+# lugares igual de «correctos» para la misma cosa.
+#
+#   1. Autos, bicicletas y motos se parte: «Autos y motos» (llantas, audio,
+#      accesorios, cuidado, motos y cascos) y «Bicicletas y movilidad»
+#      (bicicletas, sus accesorios y la movilidad eléctrica). Autopartes queda
+#      para lo que se MONTA en el vehículo; lo que se le agrega o se usa con él
+#      (tapetes, cubrevolantes, fundas de asiento) va a Autos y motos.
+#   2. Una sola casa para cada cosa: correas de smartwatch en Relojes
+#      inteligentes, mochilas en Bolsas, focos inteligentes y sensores en
+#      Domótica, juguetes de bebé en Bebés, campismo y pesca en Deportes.
+#   3. Artículos de lujo (preowned), vacía, se quita: lo usado va en su
+#      categoría normal con la etiqueta de usado o reacondicionado.
+#   4. Casa: Blancos es lo textil de cama y baño; cortinas pasan a Decoración;
+#      las fundas de sillón a Muebles.
+# ---------------------------------------------------------------------------
+AUTOS_VIEJA = "Autos, bicicletas y motos"
+AUTOS = "Autos y motos"
+BICIS = "Bicicletas y movilidad"
+DOMOTICA = "Domótica y hogar inteligente"
+DECORACION = "Decoración de hogar y jardín"
+
+SUBS_BICIS = [
+    "Bicicletas de montaña", "Bicicletas urbanas y de paseo", "Bicicletas de ruta", "Bicicletas infantiles",
+    "Bicicletas BMX", "Bicicletas plegables", "Triciclos y bicicletas de carga", "Bicicletas sin pedales y balance",
+    "Bicicletas de gravel y ciclocross", "Bicicletas", "Luces para bicicleta", "Candados para bicicleta",
+    "Cascos y protección para ciclismo", "Bombas e infladores", "Sillines y asientos",
+    "Bolsas, canastas y portabultos", "Portabicicletas y soportes", "Pedales, manubrios y puños",
+    "Ciclocomputadoras y soportes para celular", "Ropa y calzado de ciclismo",
+    "Refacciones y transmisión de bicicleta", "Asientos infantiles y remolques",
+    "Herramientas y mantenimiento de bicicleta", "Accesorios para bicicleta", "Llantas para bicicleta",
+    "Bicicletas eléctricas", "Scooters eléctricos", "Hoverboards y patinetas eléctricas",
+    "Accesorios de movilidad eléctrica", "Para patinetas eléctricas", "Para bicicletas eléctricas",
+]
+_SUBS_BICIS = set(SUBS_BICIS)
+AUTOS_SUB = {"Accesorios y refacciones": "Accesorios para auto"}
+
+LUJO_A = {
+    "Tenis": ("Calzado", "Tenis"), "Tacones": ("Calzado", "Zapatos de vestir"),
+    "Sandalias": ("Calzado", "Sandalias"), "Mocasines": ("Calzado", "Zapatos casuales"),
+    "Flats": ("Calzado", "Zapatos casuales"), "Botas": ("Calzado", "Botas"),
+    "Pantalones": ("Ropa y accesorios", "Pantalones y jeans"), "Shorts": ("Ropa y accesorios", "Shorts y bermudas"),
+    "Blusas": ("Ropa y accesorios", "Blusas y tops"), "Camisas": ("Ropa y accesorios", "Camisas"),
+    "Suéteres": ("Ropa y accesorios", "Chamarras y suéteres"), "Chamarras": ("Ropa y accesorios", "Chamarras y suéteres"),
+    "Abrigos": ("Ropa y accesorios", "Chamarras y suéteres"), "Sudaderas": ("Ropa y accesorios", "Sudaderas"),
+    "Vestidos": ("Ropa y accesorios", "Vestidos"), "Faldas": ("Ropa y accesorios", "Faldas"),
+    "Bolsas": (BOLSAS, "Bolsas para mujer"), "Carteras": (BOLSAS, "Carteras y monederos"),
+    "Relojes": ("Joyería y bisutería", "Relojes"), "Lentes de sol": ("Joyería y bisutería", "Lentes de sol"),
+    "Joyería": ("Joyería y bisutería", "Collares"), "Accesorios": ("Ropa y accesorios", "Gorras y sombreros"),
+}
+
+# (cat, sub) -> (cat, sub): una sola casa para cada cosa.
+MUDANZAS2 = {
+    ("Autopartes", "Llantas y cámaras de moto"): (AUTOS, "Llantas para moto"),
+    ("Papelería y oficina", "Mochilas"): (BOLSAS, "Mochilas"),
+    ("Iluminación", "Focos inteligentes"): (DOMOTICA, "Focos inteligentes"),
+    ("Cámaras de seguridad", "Sensores"): (DOMOTICA, "Sensores"),
+    ("Herramientas", "Organización"): ("Herramientas", "Organizadores de herramientas"),
+    ("Juguetes", "Bebés"): (BEBES, "Juguetes para bebé"),
+    ("Viajes", "Camping"): ("Deportes y fitness", "Campismo"),
+    ("Viajes", "Pesca"): ("Deportes y fitness", "Pesca"),
+    ("Mascotas", "Ropa y accesorios"): ("Mascotas", "Ropa para mascotas"),
+    ("Mascotas", "Alimento para mascotas"): ("Mascotas", "Alimento y premios"),
+    ("Joyería y bisutería", "Carteras y billeteras"): (BOLSAS, "Carteras y monederos"),
+    ("Joyería y bisutería", "Correas y extensibles"): ("Joyería y bisutería", "Correas para reloj"),
+    ("Blancos y ropa de cama", "Cortinas"): (DECORACION, "Cortinas"),
+    ("Blancos y ropa de cama", "Fundas para muebles"): ("Muebles", "Fundas y accesorios para sofá"),
+}
+
+
+def _destino2(cat, sub):
+    if cat == AUTOS_VIEJA:
+        if sub in _SUBS_BICIS:
+            return BICIS, sub
+        return AUTOS, AUTOS_SUB.get(sub, sub)
+    if cat == AUTOS:
+        return AUTOS, AUTOS_SUB.get(sub, sub)
+    if cat == "Autopartes" and sub in ("Para patinetas eléctricas", "Para bicicletas eléctricas"):
+        return BICIS, sub
+    if cat == "Artículos de lujo (preowned)":
+        return LUJO_A.get(sub, ("Ropa y accesorios", None))
+    return MUDANZAS2.get((cat, sub), (cat, sub))
+
+
+CATEGORIAS_NUEVAS2 = {AUTOS: "car", BICIS: "bike"}   # «bike» se agregó a data/icons.json
+SUBS_NUEVAS2 = {
+    AUTOS: ["Accesorios para auto"],
+    "Mascotas": ["Ropa para mascotas"],
+    "Joyería y bisutería": ["Correas para reloj"],
+    "Herramientas": ["Organizadores de herramientas"],
+    "Deportes y fitness": ["Pesca"],
+    DECORACION: ["Cortinas", "Relojes de pared"],
+    "Muebles": ["Fundas y accesorios para sofá"],
+    DOMOTICA: ["Focos inteligentes", "Sensores"],
+    BEBES: ["Juguetes para bebé"],
+    BOLSAS: ["Mochilas", "Carteras y monederos"],
+}
+# slug viejo de subcategoría -> «cat/sub» nuevo, para 404.html.
+def redirecciones_sub2(slugify):
+    out = {}
+    for sub in SUBS_BICIS:
+        out[f"{slugify(AUTOS_VIEJA)}/{slugify(sub)}"] = f"{slugify(BICIS)}/{slugify(sub)}"
+    for viejo, nuevo in AUTOS_SUB.items():
+        out[f"{slugify(AUTOS_VIEJA)}/{slugify(viejo)}"] = f"{slugify(AUTOS)}/{slugify(nuevo)}"
+    for (c, s), (nc, ns) in MUDANZAS2.items():
+        out[f"{slugify(c)}/{slugify(s)}"] = f"{slugify(nc)}/{slugify(ns)}"
+    for s in ("Para patinetas eléctricas", "Para bicicletas eléctricas"):
+        out[f"{slugify('Autopartes')}/{slugify(s)}"] = f"{slugify(BICIS)}/{slugify(s)}"
+    for s, (nc, ns) in LUJO_A.items():
+        out[f"{slugify('Artículos de lujo (preowned)')}/{slugify(s)}"] = f"{slugify(nc)}/{slugify(ns)}"
+    return out
+
+
+def reorganizar_manifiesto2(manifest):
+    """Aplica la segunda reorganización a manifest['categories']."""
+    cats = manifest["categories"]
+    por_id = {c["id"]: c for c in cats}
+    vieja = por_id.get(AUTOS_VIEJA)
+    for cid, icono in CATEGORIAS_NUEVAS2.items():
+        if cid not in por_id:
+            c = {"id": cid, "name": cid, "icon": icono, "subcategories": []}
+            por_id[cid] = c
+            cats.append(c)
+    # Subcategorías que se mudan: las de la categoría vieja de autos, las de
+    # MUDANZAS2 y las de Autopartes que van a bicicletas.
+    fuentes = []
+    if vieja:
+        fuentes += [(AUTOS_VIEJA, s) for s in vieja.get("subcategories") or []]
+    for (c, sid) in list(MUDANZAS2) + [("Autopartes", "Para patinetas eléctricas"),
+                                        ("Autopartes", "Para bicicletas eléctricas")]:
+        cc = por_id.get(c)
+        s = next((x for x in (cc or {}).get("subcategories") or [] if x["id"] == sid), None)
+        if s:
+            fuentes.append((c, s))
+    for c, s in fuentes:
+        ncat, nsub = _destino2(c, s["id"])
+        dest = por_id[ncat]
+        if nsub and not any(x["id"] == nsub for x in dest["subcategories"]):
+            dest["subcategories"].append(_sub(nsub, s.get("icon") or dest.get("icon")))
+        if (ncat, nsub) != (c, s["id"]) and c != AUTOS_VIEJA:
+            por_id[c]["subcategories"] = [x for x in por_id[c]["subcategories"] if x["id"] != s["id"]]
+    for cid, subs in SUBS_NUEVAS2.items():
+        c = por_id[cid]
+        for n in subs:
+            if not any(x["id"] == n for x in c["subcategories"]):
+                c["subcategories"].append(_sub(n, c.get("icon")))
+    # Autos y motos y Bicicletas en el lugar de la vieja.
+    lista = []
+    for c in cats:
+        if c["id"] == AUTOS_VIEJA:
+            lista += [por_id[AUTOS], por_id[BICIS]]
+        elif c["id"] in (AUTOS, BICIS) or c["id"] in CATEGORIAS_QUE_SE_VAN:
+            continue
+        else:
+            lista.append(c)
+    for cid in (AUTOS, BICIS):
+        if por_id[cid] not in lista:
+            lista.append(por_id[cid])
+    manifest["categories"] = lista
+
+
+FAMILIAS_NUEVAS2 = {
+    BICIS: [
+        ("Bicicletas", ["Bicicletas de montaña", "Bicicletas urbanas y de paseo", "Bicicletas de ruta",
+                        "Bicicletas de gravel y ciclocross", "Bicicletas plegables", "Bicicletas BMX",
+                        "Bicicletas infantiles", "Bicicletas sin pedales y balance", "Triciclos y bicicletas de carga",
+                        "Bicicletas"]),
+        ("Accesorios y refacciones de bicicleta", [
+            "Luces para bicicleta", "Candados para bicicleta", "Cascos y protección para ciclismo",
+            "Bombas e infladores", "Sillines y asientos", "Bolsas, canastas y portabultos",
+            "Portabicicletas y soportes", "Pedales, manubrios y puños", "Ciclocomputadoras y soportes para celular",
+            "Ropa y calzado de ciclismo", "Refacciones y transmisión de bicicleta", "Asientos infantiles y remolques",
+            "Herramientas y mantenimiento de bicicleta", "Accesorios para bicicleta", "Llantas para bicicleta"]),
+        ("Movilidad eléctrica", ["Bicicletas eléctricas", "Scooters eléctricos", "Hoverboards y patinetas eléctricas",
+                                 "Accesorios de movilidad eléctrica", "Para patinetas eléctricas",
+                                 "Para bicicletas eléctricas"]),
+    ],
+}
+
+
+if __name__ == "__main__":
+    main()

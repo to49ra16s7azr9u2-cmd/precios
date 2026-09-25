@@ -8,11 +8,8 @@ Las que dependen solo de eso las hace reorganizar_categorias.py --etapa2.
   - Tapetes, cubrevolantes y fundas de asiento (en Autopartes/Interior) ->
     Autos y motos / Tapetes, fundas y parasoles: se le agregan al auto, no
     se montan.
-  - Refacciones de verdad que estaban en Autos y motos/Accesorios para auto
-    («Bocina claxon para ford 1988», «Amortiguador ... 2009 a 2015») ->
-    Autopartes, por la pieza (reglas_nuevas.sub_autoparte).
   - Espejos de auto en Decoración/Espejos -> Autopartes.
-  - Camas y juguetes de Mascotas sin especie -> de perro o de gato.
+  - Camas de Mascotas sin especie -> de perro o de gato.
 
 Correr DESPUÉS de reorganizar_categorias.py --aplicar --etapa2. Sin --aplicar
 cuenta y muestra. No toca lo corregido a mano.
@@ -36,8 +33,6 @@ RX_SMARTWATCH = re.compile(r"\b(apple watch|iwatch|galaxy watch|smartwatch|smart
                            r"mi band|xiaomi|amazfit|fitbit|garmin|redmi watch|pixel watch|fossil gen|"
                            r"\d{2} ?/ ?\d{2} ?mm)\b")
 RX_AGREGADO = re.compile(r"^(\S+ ){0,2}(tapetes?|cubrevolantes?|fundas?|cubreasientos?|cubre asientos?)\b")
-RX_ACCESORIO = re.compile(r"\b(tapetes?|cubrevolantes?|fundas?|cubreasientos?|organizador|aromatizante|cargador|soporte (para|de) celular|"
-                          r"porta ?vasos|cojin|parasol|kit de emergencia|cables? pasa ?corriente|compresor portatil|aspiradora)\b")
 
 
 def destino(p, tn):
@@ -48,19 +43,15 @@ def destino(p, tn):
         return "Decoración de hogar y jardín", "Relojes de pared"
     if cat == "Autopartes" and sub == "Interior y tapicería" and RX_AGREGADO.search(tn):
         return "Autos y motos", "Tapetes, fundas y parasoles"
-    if cat == "Autos y motos" and sub == "Accesorios para auto" and not RX_ACCESORIO.search(tn):
-        nc = R.nueva_categoria(tn, C.sub_refaccion, C.sub_libro_fino)
-        if nc and nc[0] == "Refacciones":
-            s = R.sub_autoparte(tn) or nc[1]
-            if s:
-                return "Autopartes", s
     if cat == "Decoración de hogar y jardín" and sub and sub.startswith("Espejos"):
         nc = R.nueva_categoria(tn, C.sub_refaccion, C.sub_libro_fino)
         if nc and nc[0] == "Refacciones":
             return "Autopartes", R.sub_autoparte(tn) or "Carrocería, espejos y molduras"
-    if cat == "Mascotas" and sub in ("Camas", "Juguetes"):
+    # Solo camas: en «Juguetes» de Mascotas hay juguetes de niño con
+    # mascotas (Super Wings, kits de veterinario) que no son de perro.
+    if cat == "Mascotas" and sub == "Camas" and not re.search(r"\bpeces\b|escamas", tn):
         gato = re.search(r"\bgatos?\b|\bfelin", tn)
-        return "Mascotas", f"{sub} para {'gato' if gato else 'perro'}"
+        return "Mascotas", f"Camas para {'gato' if gato else 'perro'}"
     return None
 
 

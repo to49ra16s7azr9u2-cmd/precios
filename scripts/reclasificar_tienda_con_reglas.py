@@ -65,6 +65,7 @@ def main():
     ap.add_argument("--aplicar", action="store_true")
     ap.add_argument("--grupos", nargs="*", default=[])
     ap.add_argument("--hilos", type=int, default=4)
+    ap.add_argument("--excluir", help="regex: fichas de los grupos aprobados cuyo nombre la cumpla se dejan")
     args = ap.parse_args()
 
     dept = {}
@@ -112,6 +113,8 @@ def main():
         n = 0
         for g in args.grupos:
             for p, cat, sub in grupos.get(g, []):
+                if args.excluir and re.search(args.excluir, C.T(p.get("name") or "")):
+                    continue
                 p["category"], p["subcategory"] = cat, sub
                 n += 1
         save_catalog(data)

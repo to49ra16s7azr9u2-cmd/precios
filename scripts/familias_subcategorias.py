@@ -646,8 +646,20 @@ import reorganizar_categorias as _rc  # noqa: E402
 FAMILIAS.update(_rc.FAMILIAS_NUEVAS)
 for _cat, _fams in _rc.FAMILIAS_AGREGAR.items():
     FAMILIAS.setdefault(_cat, []).extend(_fams)
+_autos_viejas = FAMILIAS.get(_rc.AUTOS_VIEJA, [])
 for _vieja in _rc.CATEGORIAS_QUE_SE_VAN:
     FAMILIAS.pop(_vieja, None)
+# Segunda reorganización (25-sep, noche): Autos y motos se queda con las
+# familias de la vieja que no son de bicicleta; Bicicletas y movilidad trae
+# las suyas; las subcategorías renombradas en su lugar y las mudadas fuera.
+FAMILIAS[_rc.AUTOS] = [(f, [_rc.AUTOS_SUB.get(x, x) for x in m if x not in _rc._SUBS_BICIS])
+                       for f, m in _autos_viejas]
+FAMILIAS[_rc.AUTOS] = [(f, m) for f, m in FAMILIAS[_rc.AUTOS] if m]
+FAMILIAS.update(_rc.FAMILIAS_NUEVAS2)
+for (_c, _s), (_nc, _ns) in _rc.MUDANZAS2.items():
+    if _c in FAMILIAS:
+        FAMILIAS[_c] = [(f, [(_ns if x == _s else x) for x in m] if _c == _nc else [x for x in m if x != _s])
+                        for f, m in FAMILIAS[_c]]
 for _cat, (_fam, _sub) in _ro.FAMILIAS_AGREGAR.items():
     FAMILIAS[_cat] = [(f, (m + [_sub] if f == _fam and _sub not in m else m)) for f, m in FAMILIAS.get(_cat, [])]
 for _cat, _pares in _ro.FAMILIAS_AGREGAR_VARIAS.items():

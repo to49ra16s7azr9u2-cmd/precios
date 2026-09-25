@@ -330,8 +330,16 @@ ROLES.setdefault("Electrodomésticos", {}).update({s: PARTE for s in _rc.REFACCI
 ROLES.setdefault("Cámaras y fotografía", {})["Accesorios para drones"] = ACCESORIO
 ROLES.setdefault("Autos, bicicletas y motos", {})["Accesorios de movilidad eléctrica"] = ACCESORIO
 for _sub, _rol in (ROLES.get("Juguetes y bebés") or {}).items():
-    _cat = _rc.destino("Juguetes y bebés", _sub)[0]
-    ROLES.setdefault(_cat, {})[_sub] = _rol
+    _cat, _nsub = _rc.destino("Juguetes y bebés", _sub)
+    ROLES.setdefault(_cat, {})[_nsub or _sub] = _rol
+# Segunda reorganización (25-sep, noche): cada papel sigue a su
+# subcategoría adonde se mudó (Autos y motos, Bicicletas y movilidad...).
+for _cat, _subs in list(ROLES.items()):
+    for _sub, _rol in list(_subs.items()):
+        _nc, _ns = _rc._destino2(_cat, _sub)
+        if (_nc, _ns) != (_cat, _sub) and _ns:
+            ROLES.setdefault(_nc, {}).setdefault(_ns, _rol)
+ROLES.setdefault(_rc.AUTOS, {})["Accesorios para auto"] = ACCESORIO
 
 
 def rol_de(categoria, subcategoria):

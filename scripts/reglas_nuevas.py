@@ -211,6 +211,10 @@ def nueva_categoria(tn, sub_refaccion=None, sub_libro=None):
     es_auto = not RX_NO_AUTO.search(tn) and (
         (RX_ANIOS.search(tn) and (RX_AUTO_MARCA.search(tn) or re.search(r'\boem\b', tn)))
         or (re.search(r'\boem\b', tn) and RX_AUTO_MARCA.search(tn)))
+    # Tapetes, cubrevolantes y fundas de asiento «para ford f-250 1996»: se le
+    # agregan al auto, no se montan (segunda reorganización del 25-sep).
+    if es_auto and re.match(r'^(\S+ ){0,2}(tapetes?|cubrevolantes?|fundas?|cubreasientos?|cubre asientos?)\b', tn):
+        return ('Autos, bicicletas y motos', 'Tapetes, fundas y parasoles', 'car')
     if es_auto or (not RX_NO_AUTO.search(tn) and RX_AUTO_PIEZA.search(tn) and RX_AUTO_MARCA.search(tn)
                    and re.match(r'^(?:\S+ ){0,3}(' + AUTO_PIEZA + r')\b', tn)):
         if True:

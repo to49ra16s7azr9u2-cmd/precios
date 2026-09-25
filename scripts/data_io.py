@@ -798,11 +798,14 @@ def save_catalog(data):
     # Sólo una vez que el manifiesto ya tiene las categorías nuevas (lo hace
     # reorganizar_categorias.py --aplicar): antes, mover fichas a una
     # categoría que la lista no declara las dejaría fuera de la SPA.
-    from reorganizar_categorias import destino, AUTOPARTES
-    reorganizado = any(c.get("id") == AUTOPARTES for c in data.get("categories") or [])
+    # La segunda reorganización (25-sep, noche: Autos y motos, Bicicletas y
+    # movilidad...) igual: solo cuando el manifiesto ya tiene Bicicletas.
+    from reorganizar_categorias import destino, AUTOPARTES, BICIS
+    ids = {c.get("id") for c in data.get("categories") or []}
+    reorganizado, etapa2 = AUTOPARTES in ids, BICIS in ids
     for p in products:
         if reorganizado:
-            cat, sub = destino(p.get("category"), p.get("subcategory"))
+            cat, sub = destino(p.get("category"), p.get("subcategory"), etapa2=etapa2)
             if cat != p.get("category") or sub != p.get("subcategory"):
                 p["category"], p["subcategory"] = cat, sub
         for o in p.get("offers") or []:

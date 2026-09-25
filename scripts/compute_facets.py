@@ -83,7 +83,8 @@ FACET_CATEGORIES = (
     "Blancos y ropa de cama", "Muebles",
     "Computadoras de escritorio", "Almacenamiento", "Climatización",
     "Refacciones", "Autopartes", "Herramientas", "Bocinas",
-    "Autos, bicicletas y motos", "Electrodomésticos", "Joyería y bisutería",
+    "Autos, bicicletas y motos", "Autos y motos", "Bicicletas y movilidad",
+    "Electrodomésticos", "Joyería y bisutería",
     "Cargadores y adaptadores",
     # Hogar: lo que decide la compra es UN dato (tazas, litros, watts,
     # horas de batería) y las tiendas lo escriben en el nombre o la ficha.
@@ -312,8 +313,8 @@ SPEC_DIRECTAS = (
     # Medida de la llanta y de la rueda: la primera pregunta al comprar
     # cualquiera de las dos, y la tienda las escribe siempre igual (R14,
     # R16, R26, R29...).
-    ("Autos, bicicletas y motos", "Llantas", "rin", "rim_size"),
-    ("Autos, bicicletas y motos", None, "rodada", "wheel_size"),
+    ("Autos y motos", "Llantas", "rin", "rim_size"),
+    ("Bicicletas y movilidad", None, "rodada", "wheel_size"),
     # Con qué funciona la estufa: gas LP, natural o electricidad. Cambia si
     # se puede instalar en la casa, no es un detalle de ficha.
     ("Electrodomésticos", "Estufas", "emplea", "fuel"),
@@ -553,12 +554,12 @@ NOMBRE_GENERALES = {
     ("Herramientas", None): [("power_w", _w(50, 5000)), ("volt", lambda t: se.volts_of(t, 3, 240))],
     ("Movilidad eléctrica", None): [("power_w", _w(100, 8000)), ("range_km", lambda t: se.range_km_of(t, 10, 300)),
                                     ("battery_ah", lambda t: se.ah_of(t, 2, 100)), ("volt", lambda t: se.volts_of(t, 12, 120))],
-    ("Autos, bicicletas y motos", "Bocinas para auto"): [("power_w", _w(10, 20000)), ("size_in", lambda t: se.inches_of(t, 3, 21))],
-    ("Autos, bicicletas y motos", "Amplificadores para auto"): [("power_w", _w(10, 20000))],
-    ("Autos, bicicletas y motos", "Estéreos para auto"): [("size_in", lambda t: se.inches_of(t, 4, 13)), ("power_w", _w(10, 500))],
-    ("Autos, bicicletas y motos", "Motocicletas"): [("engine_cc", lambda t: se.engine_cc_of(t, 49, 2500)), ("power_w", _w(200, 20000))],
-    ("Autos, bicicletas y motos", "Cascos para moto"): [("size_label", se.size_label_of)],
-    ("Autos, bicicletas y motos", "Baterías para auto"): [("volt", lambda t: se.volts_of(t, 6, 48))],
+    ("Autos y motos", "Bocinas para auto"): [("power_w", _w(10, 20000)), ("size_in", lambda t: se.inches_of(t, 3, 21))],
+    ("Autos y motos", "Amplificadores para auto"): [("power_w", _w(10, 20000))],
+    ("Autos y motos", "Estéreos para auto"): [("size_in", lambda t: se.inches_of(t, 4, 13)), ("power_w", _w(10, 500))],
+    ("Autos y motos", "Motocicletas"): [("engine_cc", lambda t: se.engine_cc_of(t, 49, 2500)), ("power_w", _w(200, 20000))],
+    ("Autos y motos", "Cascos para moto"): [("size_label", se.size_label_of)],
+    ("Autos y motos", "Baterías para auto"): [("volt", lambda t: se.volts_of(t, 6, 48))],
     ("Instrumentos musicales", "Amplificadores"): [("power_w", _w(5, 5000))],
     ("Iluminación", None): [("power_w", _w(1, 600))],
     ("Domótica y hogar inteligente", "Iluminación inteligente"): [("power_w", _w(1, 200))],
@@ -606,7 +607,7 @@ NOMBRE_GENERALES = {
     ("Mascotas", "Bebederos"): [("liters", lambda t: se.liters_of(t, 0.3, 30))],
     ("Cargadores y adaptadores", "De pilas"): [("volt", lambda t: se.volts_of(t, 1, 48))],
     ("Viajes", "Maletas"): [("size_in", lambda t: se.inches_of(t, 14, 34))],
-    ("Autos, bicicletas y motos", "Baterías para auto"): [("battery_ah", lambda t: se.ah_of(t, 2, 300))],
+    ("Autos y motos", "Baterías para auto"): [("battery_ah", lambda t: se.ah_of(t, 2, 300))],
     ("Deportes y fitness", "Guantes de box"): [("glove_oz", lambda t: se.oz_of(t, 4, 20))],
     ("Deportes y fitness", "Tapetes de yoga"): [("thickness_mm", lambda t: se.mm_of(t, 2, 30))],
     ("Impresión 3D", "Filamentos"): [("filament", se.filament_of)],
@@ -640,7 +641,7 @@ _TIPOS_CRUDOS = {
  ("Mascotas","Casas para mascotas"): [("Para perro", r"\bperro|\bcanin|\bcachorro|caseta"),("Para gato", r"\bgato|\bgatito|\bfelin|rascador"),("Para aves", r"\bave|\bpajaro|\bloro"),("Para roedores", r"hamster|conejo|\bhuron|chinchilla")],
  ("Mascotas","Juguetes"): [("Para perro", r"\bperro|\bcanin|\bcachorro|mordedor"),("Para gato", r"\bgato|\bgatito|\bfelin|rascador|catnip"),("Para aves", r"\bave|\bpajaro|\bloro"),("Para roedores", r"hamster|conejo|\bhuron|rueda de ejercicio")],
  ("Mascotas","Puertas para mascotas"): [("Para perro", r"\bperro|\bcanin|\bcachorro"),("Para gato", r"\bgato|\bgatito|\bfelin"),("Con microchip o sensor", r"microchip|sensor|intelig|\bchip\b")],
- ("Autos, bicicletas y motos","Baterías para auto"): [("Para auto", r"\bauto\b|\bcoche\b|\bcarro\b|automovil|camioneta"),("Para moto", r"\bmoto\b|motocicleta"),("Cargador o accesorio", r"cargador|mantenedor|arrancador|cables? pasa|\bpinzas\b")],
+ ("Autos y motos","Baterías para auto"): [("Para auto", r"\bauto\b|\bcoche\b|\bcarro\b|automovil|camioneta"),("Para moto", r"\bmoto\b|motocicleta"),("Cargador o accesorio", r"cargador|mantenedor|arrancador|cables? pasa|\bpinzas\b")],
  ("Deportes y fitness","Equipo de gimnasio"): [("Accesorios", r"\bguantes\b|\bcinturon\b|\bcuerda\b|\bbanda|\bcorrea\b|\bagarre|\bmuneque|\brodiller"),("Banco y soportes", r"\bbanco\b|\bsoporte\b|\brack\b|\btorre\b|\bestante"),("Máquinas", r"\bmaquina\b|\bmultigimnasio\b|\bpolea\b|\bprensa\b|\bremo\b|\beliptica\b|\bcaminadora\b|\bescaladora\b"),("Peso libre", r"\bmancuerna|\bbarra\b|\bdisco|\bpesas?\b|kettlebell"),("Calistenia", r"\bdominadas\b|\bparalelas\b|\bbarra fija\b|\banillas\b|\bfondos\b|\babdominal")],
  ("Belleza y cuidado personal","Rasuradoras"): [("Para barba", r"\bbarba\b|\brostro\b|facial|\bpatilla"),("Para cabello", r"\bcabello\b|\bpelo\b|\bcorte\b|\bmaquina de cortar\b|\bclipper\b"),("Corporal o depilación", r"\bcorporal\b|\bcuerpo\b|\bdepila|\bingle\b|\bpiernas\b|\baxila"),("Repuestos y accesorios", r"\brepuesto|\bcuchilla|\bcabezal|\bpeine\b|\baceite\b|\bcargador\b")],
  ("Otros","Soportes para dispositivos"): [("Para celular", r"celular|telefono|smartphone|\bmovil\b"),("Para tablet", r"tablet|tableta|\bipad\b"),("Para laptop", r"laptop|portatil|notebook|macbook"),("Para monitor o TV", r"monitor|\btv\b|television|pantalla"),("Para auto", r"\bauto\b|\bcoche\b|\bcarro\b|\brejilla\b|\bparabrisas\b|\bsalpicadero\b")],
@@ -650,8 +651,8 @@ _TIPOS_CRUDOS = {
  ("Equipo comercial","Carros de servicio"): [("De acero inoxidable", r"acero inoxidable|\binox\b"),("De plástico", r"\bplastico\b|\bpolimero\b|\bresina\b"),("De madera", r"\bmadera\b|\bbambu\b"),("De metal o alambre", r"\bmetal\b|\balambre\b|\bhierro\b|\bacero\b")],
  ("Belleza y cuidado personal","Faciales"): [("Limpieza", r"limpiador|\bjabon\b|\bgel\b|\bespuma\b|desmaquill|\btonico\b|\bagua micelar\b"),("Hidratación", r"crema|hidratant|\bserum\b|\bgotas\b|\baceite\b|\bbalsamo\b"),("Mascarillas", r"mascarilla|\bparches?\b|\bpatch\b"),("Aparatos", r"\bmasajeador\b|\bcepillo\b|\bdispositivo\b|\blimpiadora\b|\bmicrocorriente\b|\bled\b"),("Protector solar", r"protector solar|\bspf\b|\bfps\b|bloqueador")],
  ("Belleza y cuidado personal","Corporales"): [("Cremas y lociones", r"crema|locion|hidratant|\bmanteca\b|\bbalsamo\b"),("Exfoliantes", r"exfoliant|\bscrub\b|\bsal\b"),("Jabones y geles", r"\bjabon\b|\bgel de bano\b|\bshower\b|\bespuma\b"),("Aceites", r"\baceite\b|\boleo\b"),("Aparatos", r"\bmasajeador\b|\bcepillo\b|\bdispositivo\b")],
- ("Autos, bicicletas y motos","Accesorios para bicicleta"): [("Luces y seguridad", r"\bluz\b|\bluces\b|\bcandado\b|\bcasco\b|\btimbre\b|\breflej"),("Transporte y carga", r"portabici|\bcanasti|\balforja|\bparrilla\b|\bremolque\b"),("Herramienta y mantenimiento", r"\bbomba\b|\bherramienta|\bmultiusos\b|\blubricante\b|\bparche"),("Comodidad", r"\bsillin|\bpuno|\bguantes\b|\basiento\b|\bfunda\b"),("Computadoras y soportes", r"velocimetro|ciclocomputadora|\bsoporte\b|\bporta ?celular\b")],
- ("Autos, bicicletas y motos","Accesorios y refacciones"): [("Interior", r"\btapete|\bfunda\b|\bvolante\b|\basiento\b|\borganizador\b|\bcubre"),("Exterior", r"\bespejo|\bfaro|\bparrilla\b|\bcubierta\b|\bloderas?\b|\bemblema\b|\bmolduras?\b"),("Mecánica", r"\bfiltro\b|\baceite\b|\bbalata|\bbujia|\bamortiguador|\bbanda\b|\bbomba\b"),("Herramienta y emergencia", r"\bgato\b|\bllave de cruz\b|\bcables? pasa|\bextintor\b|\btriangulo\b|\bcompresor\b"),("Audio y electrónica", r"\bcamara\b|\bdash ?cam\b|\bsensor\b|\balarma\b|\bantena\b|\bcargador\b")],
+ ("Bicicletas y movilidad","Accesorios para bicicleta"): [("Luces y seguridad", r"\bluz\b|\bluces\b|\bcandado\b|\bcasco\b|\btimbre\b|\breflej"),("Transporte y carga", r"portabici|\bcanasti|\balforja|\bparrilla\b|\bremolque\b"),("Herramienta y mantenimiento", r"\bbomba\b|\bherramienta|\bmultiusos\b|\blubricante\b|\bparche"),("Comodidad", r"\bsillin|\bpuno|\bguantes\b|\basiento\b|\bfunda\b"),("Computadoras y soportes", r"velocimetro|ciclocomputadora|\bsoporte\b|\bporta ?celular\b")],
+ ("Autos y motos","Accesorios para auto"): [("Interior", r"\btapete|\bfunda\b|\bvolante\b|\basiento\b|\borganizador\b|\bcubre"),("Exterior", r"\bespejo|\bfaro|\bparrilla\b|\bcubierta\b|\bloderas?\b|\bemblema\b|\bmolduras?\b"),("Mecánica", r"\bfiltro\b|\baceite\b|\bbalata|\bbujia|\bamortiguador|\bbanda\b|\bbomba\b"),("Herramienta y emergencia", r"\bgato\b|\bllave de cruz\b|\bcables? pasa|\bextintor\b|\btriangulo\b|\bcompresor\b"),("Audio y electrónica", r"\bcamara\b|\bdash ?cam\b|\bsensor\b|\balarma\b|\bantena\b|\bcargador\b")],
 }
 
 TIPOS = {k: [(et, re.compile(rx)) for et, rx in v] for k, v in _TIPOS_CRUDOS.items()}
@@ -811,7 +812,7 @@ def _facets_propias(product):
     # Categorías cuyas facetas salen ENTERAS de la ficha técnica: no tienen
     # nada que leerle al nombre, así que devuelven acá mismo en vez de caer
     # en la lógica de RAM/almacenamiento de más abajo.
-    if category in ("Herramientas", "Bocinas", "Autos, bicicletas y motos",
+    if category in ("Herramientas", "Bocinas", "Autos, bicicletas y motos", "Autos y motos", "Bicicletas y movilidad",
                     "Electrodomésticos", "Joyería y bisutería"):
         return f or None
 

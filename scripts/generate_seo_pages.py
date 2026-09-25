@@ -3385,9 +3385,11 @@ def render_404(data):
     # cada una serían 197 mil archivos HTML, doce veces lo que publica el
     # sitio, y eso deshace lo que se ganó publicando solo lo comparable.
     import reorganizar_categorias as _rc
-    redir_cat = {viejo: [nuevo, viejo in ("refacciones", "juguetes-y-bebes")]
+    redir_cat = {viejo: [nuevo, viejo in ("refacciones", "juguetes-y-bebes", "autos-bicicletas-y-motos")]
                  for viejo, nuevo in _rc.REDIRECCIONES.items()}
-    redir_sub = {}
+    # Segunda reorganización (25-sep, noche): subcategorías que cambiaron de
+    # categoría o de nombre (bicicletas, cortinas, correas de smartwatch...).
+    redir_sub = dict(_rc.redirecciones_sub2(slugify))
     for sub in _rc.REFACCIONES_ELECTRO:
         redir_sub[f"refacciones/{slugify(sub)}"] = f"{slugify('Electrodomésticos')}/{slugify(sub)}"
     for sub in _rc.SUBS_BEBES:
