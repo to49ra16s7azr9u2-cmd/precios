@@ -908,10 +908,17 @@ AMAZON_FUERTE = {
     "En accesorios y electrónica, Amazon suele tener mucha variedad de marcas y modelos, incluidos importados.": ["Cargadores y adaptadores", "Baterías portátiles", "Audífonos", "Mouse", "Teclados", "Componentes y accesorios de PC", "Almacenamiento", "Redes", "Cámaras y fotografía", "Proyectores y accesorios", "Bocinas", "Monitores", "Domótica y hogar inteligente", "Iluminación", "Impresión 3D", "Videojuegos", "Relojes inteligentes", "Cámaras de seguridad"],
     "En instrumentos musicales y sus accesorios (cuerdas, pedales, cables), Amazon suele tener mucha variedad.": ["Instrumentos musicales"],
     "En juguetes y juegos de mesa, Amazon suele tener mucha variedad, incluidas ediciones importadas.": ["Juguetes", "Juegos de mesa", "Bebés"],
-    "En productos que se vuelven a comprar, Amazon ofrece en muchos artículos compras programadas («Suscríbete y ahorra»).": ["Mascotas", "Limpieza y hogar", "Suplementos", "Belleza y cuidado personal"],
-    "En herramientas, refacciones y equipo deportivo, Amazon suele tener mucha variedad de marcas y repuestos.": ["Herramientas", "Autopartes", "Deportes y fitness", "Bicicletas y movilidad"],
+    "En productos que se vuelven a comprar, Amazon ofrece en muchos artículos compras programadas («Suscríbete y ahorra»).": ["Salud", "Mascotas", "Limpieza y hogar", "Suplementos", "Belleza y cuidado personal"],
+    "En herramientas, refacciones y equipo deportivo, Amazon suele tener mucha variedad de marcas y repuestos.": ["Autos y motos", "Herramientas", "Autopartes", "Deportes y fitness", "Bicicletas y movilidad"],
+    "En tecnología, Amazon suele tener modelos importados y, en muchos productos, envío rápido con Prime.": ["Celulares", "Laptops", "Tabletas", "Computadoras de escritorio", "Televisores", "Impresoras"],
+    "En electrodomésticos, Amazon suele tener marcas y modelos que no siempre están en tiendas físicas.": ["Lavadoras", "Aspiradoras", "Cafeteras", "Refrigeradores", "Electrodomésticos", "Climatización", "Equipo comercial", "Energía solar"],
+    "En hogar y muebles, Amazon suele tener mucha variedad de modelos, medidas y colores.": ["Muebles", "Decoración de hogar y jardín", "Jardín y exterior", "Blancos y ropa de cama", "Cocina y comedor"],
+    "En moda y accesorios, Amazon suele tener muchas tallas, colores y marcas internacionales.": ["Calzado", "Bolsas y mochilas", "Ropa y accesorios", "Joyería y bisutería", "Viajes"],
+    "En papelería y oficina, Amazon suele tener paquetes grandes y compras programadas en muchos artículos.": ["Papelería y oficina"],
 }
 AMAZON_FUERTE_POR_CATEGORIA = {c: t for t, cs in AMAZON_FUERTE.items() for c in cs}
+# Categoría sin frase propia («Otros»): una neutra, que no afirma nada de Amazon.
+AMAZON_FRASE_GENERICA = "Compara también en Amazon México antes de decidir tu compra."
 
 
 def _norm_busqueda(t):
@@ -982,14 +989,15 @@ def amazon_grande_html(product):
             return ""
         url = "https://www.amazon.com.mx/s?" + urllib.parse.urlencode({"k": texto, "tag": AMAZON_TAG})
         titulo = "Buscar en Amazon"
-    fuerte = AMAZON_FUERTE_POR_CATEGORIA.get(product.get("category"))
-    nota = f'<span class="amazon-grande-nota">{html_escape(fuerte)}</span>' if fuerte else ""
-    return (f'<a class="amazon-grande" href="{html_escape(url)}" target="_blank" rel="nofollow sponsored noopener">'
+    fuerte = AMAZON_FUERTE_POR_CATEGORIA.get(product.get("category"), AMAZON_FRASE_GENERICA)
+    nota = ""
+    return (f'<div class="amazon-fila"><a class="amazon-grande" href="{html_escape(url)}" target="_blank" rel="nofollow sponsored noopener">'
             '<svg class="amazon-grande-lupa" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="amazon-grande-divisor" aria-hidden="true"></span>'
             + (f'<img class="amazon-grande-logo" src="../../icons/amazon-insignia.png" alt="Amazon">'
                if os.path.exists(os.path.join(ROOT, "icons", "amazon-insignia.png")) else "")
             + f'<span class="amazon-grande-texto"><span class="amazon-grande-titulo">{titulo}</span>{nota}</span>'
-            '<span class="amazon-grande-flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>')
+            '<span class="amazon-grande-flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>'
+            f'<p class="amazon-fila-nota">{html_escape(fuerte)}</p></div>')
 
 
 def render_product_page(product, data, subs_con_pagina=None):

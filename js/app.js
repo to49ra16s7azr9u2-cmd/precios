@@ -8178,10 +8178,16 @@
     "En accesorios y electrónica, Amazon suele tener mucha variedad de marcas y modelos, incluidos importados.": ["Cargadores y adaptadores", "Baterías portátiles", "Audífonos", "Mouse", "Teclados", "Componentes y accesorios de PC", "Almacenamiento", "Redes", "Cámaras y fotografía", "Proyectores y accesorios", "Bocinas", "Monitores", "Domótica y hogar inteligente", "Iluminación", "Impresión 3D", "Videojuegos", "Relojes inteligentes", "Cámaras de seguridad"],
     "En instrumentos musicales y sus accesorios (cuerdas, pedales, cables), Amazon suele tener mucha variedad.": ["Instrumentos musicales"],
     "En juguetes y juegos de mesa, Amazon suele tener mucha variedad, incluidas ediciones importadas.": ["Juguetes", "Juegos de mesa", "Bebés"],
-    "En productos que se vuelven a comprar, Amazon ofrece en muchos artículos compras programadas («Suscríbete y ahorra»).": ["Mascotas", "Limpieza y hogar", "Suplementos", "Belleza y cuidado personal"],
-    "En herramientas, refacciones y equipo deportivo, Amazon suele tener mucha variedad de marcas y repuestos.": ["Herramientas", "Autopartes", "Deportes y fitness", "Bicicletas y movilidad"],
+    "En productos que se vuelven a comprar, Amazon ofrece en muchos artículos compras programadas («Suscríbete y ahorra»).": ["Salud", "Mascotas", "Limpieza y hogar", "Suplementos", "Belleza y cuidado personal"],
+    "En herramientas, refacciones y equipo deportivo, Amazon suele tener mucha variedad de marcas y repuestos.": ["Autos y motos", "Herramientas", "Autopartes", "Deportes y fitness", "Bicicletas y movilidad"],
+    "En tecnología, Amazon suele tener modelos importados y, en muchos productos, envío rápido con Prime.": ["Celulares", "Laptops", "Tabletas", "Computadoras de escritorio", "Televisores", "Impresoras"],
+    "En electrodomésticos, Amazon suele tener marcas y modelos que no siempre están en tiendas físicas.": ["Lavadoras", "Aspiradoras", "Cafeteras", "Refrigeradores", "Electrodomésticos", "Climatización", "Equipo comercial", "Energía solar"],
+    "En hogar y muebles, Amazon suele tener mucha variedad de modelos, medidas y colores.": ["Muebles", "Decoración de hogar y jardín", "Jardín y exterior", "Blancos y ropa de cama", "Cocina y comedor"],
+    "En moda y accesorios, Amazon suele tener muchas tallas, colores y marcas internacionales.": ["Calzado", "Bolsas y mochilas", "Ropa y accesorios", "Joyería y bisutería", "Viajes"],
+    "En papelería y oficina, Amazon suele tener paquetes grandes y compras programadas en muchos artículos.": ["Papelería y oficina"],
   };
   const AMAZON_FUERTE_POR_CATEGORIA = {};
+  const AMAZON_FRASE_GENERICA = "Compara también en Amazon México antes de decidir tu compra.";
   Object.entries(AMAZON_FUERTE).forEach(([t, cs]) => cs.forEach((c) => { AMAZON_FUERTE_POR_CATEGORIA[c] = t; }));
   function urlBusquedaAmazon(texto) {
     return `https://www.amazon.com.mx/s?k=${encodeURIComponent(texto)}&tag=${AMAZON_TAG}`;
@@ -8340,13 +8346,13 @@
     const colores = [...new Set((product.colorVariants || []).map((v) => v.color).filter(Boolean))];
     const url = directo ? directo.url : urlBusquedaAmazon(textoBusquedaAmazon(product, colores.length === 1 ? colores[0] : null));
     const titulo = directo ? "Ver precio en Amazon" : "Buscar en Amazon";
-    const fuerte = AMAZON_FUERTE_POR_CATEGORIA[product.category];
-    return `<a class="amazon-grande" href="${htmlEscapeAttr(url)}" target="_blank" rel="nofollow sponsored noopener">` +
+    const fuerte = AMAZON_FUERTE_POR_CATEGORIA[product.category] || AMAZON_FRASE_GENERICA;
+    return `<div class="amazon-fila"><a class="amazon-grande" href="${htmlEscapeAttr(url)}" target="_blank" rel="nofollow sponsored noopener">` +
       `<svg class="amazon-grande-lupa" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="amazon-grande-divisor" aria-hidden="true"></span>` +
       `<img class="amazon-grande-logo" src="icons/amazon-insignia.png" alt="Amazon" onerror="this.remove()">` +
       `<span class="amazon-grande-texto"><span class="amazon-grande-titulo">${titulo}</span>` +
-      (fuerte ? `<span class="amazon-grande-nota">${htmlEscapeAttr(fuerte)}</span>` : "") +
-      `</span><span class="amazon-grande-flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>`;
+      `</span><span class="amazon-grande-flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>` +
+      `<p class="amazon-fila-nota">${htmlEscapeAttr(fuerte)}</p></div>`;
   }
 
   function renderDetailTopOffers(product, rows) {

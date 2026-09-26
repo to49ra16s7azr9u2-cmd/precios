@@ -5167,10 +5167,14 @@ tr.offer-compare-off { display: none; }
    lupa naranja, divisor fino, texto blanco y círculo naranja con flecha
    (maqueta que mandó el usuario el 26-sep-2026). La frase de la categoría
    va adentro, debajo del título. */
+/* Fila: el botón a la izquierda, del ancho de su texto, y la frase de la
+   categoría a la derecha (pedido del usuario, 26-sep-2026). */
+.amazon-fila { display: flex; align-items: center; gap: 22px; margin: 6px 0 10px; }
+.amazon-fila-nota { flex: 1; min-width: 0; margin: 0; font-size: 15px; line-height: 1.45; color: var(--ink); font-weight: 500; }
 .amazon-grande {
   display: flex; align-items: center; gap: 16px;
-  width: 100%; box-sizing: border-box;
-  margin: 6px 0 10px; padding: 8px 8px 8px 26px;
+  flex: 0 0 auto; width: 420px; max-width: 50%; box-sizing: border-box;
+  padding: 8px 8px 8px 26px;
   background: #1F2937; border-radius: 999px;
   color: #fff; text-decoration: none;
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
@@ -5194,7 +5198,9 @@ tr.offer-compare-off { display: none; }
 .amazon-grande-flecha svg { width: 26px; height: 26px; fill: none; stroke: #1F2937; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .amazon-grande:hover .amazon-grande-flecha { background: #FFB733; }
 @media (max-width: 600px) {
-  .amazon-grande { gap: 10px; padding: 6px 6px 6px 16px; }
+  .amazon-fila { flex-direction: column; align-items: stretch; gap: 8px; }
+  .amazon-fila-nota { font-size: 13px; }
+  .amazon-grande { width: 100%; max-width: none; gap: 10px; padding: 6px 6px 6px 16px; }
   .amazon-grande-lupa { width: 20px; height: 20px; }
   .amazon-grande-titulo { font-size: 16px; }
   .amazon-grande-nota { font-size: 11.5px; }
