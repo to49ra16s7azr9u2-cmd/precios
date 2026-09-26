@@ -118,7 +118,24 @@ jobs:
           python3 scripts/ml_discover.py
           python3 scripts/clasificar_subcategorias.py
           python3 scripts/classify_cargadores.py
+          # Lo que ninguna regla supo repartir entra sin subcategoría (así
+          # llegaban cientos por día): los vecinos del catálogo la llenan
+          # donde aciertan >= 85% (ver completar_subcategorias.py).
+          python3 scripts/completar_subcategorias.py --aplicar
           python3 scripts/sync_subcategories.py
+
+      - name: Fusionar los duplicados que entraron
+        # Lo nuevo de Mercado Libre y de los feeds suele ser un producto que
+        # ya estaba (mismo nombre en otra tienda, otro color del mismo
+        # equipo, la misma publicación con otra foto). Sin esto se acumulaban
+        # fichas repetidas entre una regeneración completa y la siguiente.
+        # Las absorbidas redirigen a la que quedó (build_retirados_index).
+        continue-on-error: true
+        run: |
+          python3 scripts/merge_cross_store.py | tail -2
+          python3 scripts/merge_by_color.py | tail -2
+          python3 scripts/merge_misma_foto.py --muestra 0 | tail -2
+          python3 scripts/build_retirados_index.py | tail -2
 
       - name: Actualizar precios contra Mercado Libre
         # Los inputs se leen por variable de entorno y se decide en shell.
@@ -139,7 +156,7 @@ jobs:
           echo "Corriendo: refresh_prices.py $ARGS"
           python3 scripts/refresh_prices.py $ARGS
 
-      - name: Actualizar precios contra Elektra, Chedraui y Martí (VTEX)
+      - name: Actualizar precios contra Elektra y Martí (VTEX)
         # Las tres tiendas corren sobre VTEX y se refrescan con el mismo
         # script (refresh_vtex.py, ver vtex_stores.py). Cada una sale con 2
         # cuando su recorrido cubre menos de la mitad de sus urls del
@@ -156,7 +173,9 @@ jobs:
         run: |
           ARGS=""
           if [ "$PRUNE" != "true" ]; then ARGS="--no-prune"; fi
-          for TIENDA in elektra chedraui marti; do
+          # Chedraui no: sus términos prohíben reproducir su contenido sin
+          # permiso escrito (SIN_AUTORIZACION en vtex_stores.py).
+          for TIENDA in elektra marti; do
             echo "Corriendo: refresh_vtex.py --store $TIENDA $ARGS"
             python3 scripts/refresh_vtex.py --store "$TIENDA" $ARGS || echo "AVISO: el refresco de $TIENDA no se aplicó (salida $?)"
           done

@@ -1244,6 +1244,13 @@ _RM = _c([
 
 
 def sub_ref_moto(tn):
+    # La comodín «Para motos» de algunas tiendas traía piezas de AUTO
+    # («Cubre polvo macheta tsuru 1984 nissan»): esas no se reparten entre
+    # las de moto (26-sep-2026). Devuelve None y las toma el repartidor de
+    # autopartes.
+    import reglas_nuevas as _rn
+    if _rn.RX_AUTO_MARCA.search(tn) and not _rn.RX_MOTO_EXPLICITA.search(tn):
+        return None
     return _primera(tn, _RM, {'Carenados, plásticos y tanques': 10, 'Asientos, parrillas y accesorios de moto': 5})
 
 
@@ -1375,14 +1382,67 @@ _LL = _c([
     ('Rines', r'\brin(es)?\b|\bwheels?\b(?! (chair|barrow))|\baro\b|\baros\b|\bllantas? y rines'),
     ('Llantas para carretilla y equipo', r'\bcarretilla|\bdiablito|\bcarrito|\bpodadora|\btractor|\bmontacargas|\bcuatrimoto|\batv\b|\bgo ?kart|\bremolque|\btrailer|\bandador|\bsilla de ruedas|\bpatin|\bscooter|\bcarriola|\bmaquinaria|\bindustrial|\bmacizas?\b|\bsolida'),
     ('Llantas para bicicleta', r'\bbicicleta|\bbici\b|\bciclismo|\bmtb\b|\b(24|26|27\.5|29) ?(x|pulgadas)|\b700 ?x|\br ?(12|14|16|20|24|26|29)\b|\bkenda|\bmaxxis|\bcontinental grand|\bschwalbe|\bgravel|\bruta\b.{0,10}bici'),
-    ('Llantas para moto', r'\bmoto|\bmotocicleta|\bscooter|\btubeless\b(?!.*(auto|camioneta|rin \d{2}))|\b\d{2,3}/\d{2}-\d{2}\b|\bmichelin (pilot|city|road)|\bpirelli (diablo|angel|mt)|\btimsun|\bcst\b|\bmetzeler|\bdunlop (d\d|sportmax)'),
-    ('Llantas para camioneta y SUV', r'\bcamioneta|\bsuv\b|\bpickup|\bpick-?up|\btodo terreno|\ball terrain|\ba/t\b|\bm/t\b|\bmud terrain|\blt ?\d{3}|\b\d{3}/\d{2} ?r ?(1[6-9]|2[0-4])\b|\b4x4\b|\boff ?road|\b(31|33|35)x'),
+    ('Llantas para moto', r'\bmoto|\bitalika|\b[1-4]\.\d{2}-\d{2}\b|\bmotocicleta|\bscooter|\btubeless\b(?!.*(auto|camioneta|rin \d{2}))|\b\d{2,3}/\d{2}-\d{2}\b|\bmichelin (pilot|city|road)|\bpirelli (diablo|angel|mt)|\btimsun|\bcst\b|\bmetzeler|\bdunlop (d\d|sportmax)'),
+    ('Llantas para camioneta y SUV', r'\bcamioneta|\bsuv\b|\bpickup|\bpick-?up|\btodo terreno|\ball terrain|\ba/t\b|\bm/t\b|\bmud terrain|\blt ?\d{3}|\b4x4\b|\bsuv\b|\b\d{2} ?r ?\d{2}\.5\b|\b\d{2}x\d{1,2}\.\d{2}|\boff ?road|\b(31|33|35)x'),
     ('Llantas para auto', r'\bllanta|\bneumatico|\btire\b|\b\d{3}/\d{2} ?r ?1[3-9]|\bmichelin|\bbridgestone|\bgoodyear|\bcontinental|\bpirelli|\bfirestone|\bhankook|\byokohama|\bkumho|\bnexen|\btoyo|\bfalken|\buniroyal|\bgeneral tire|\bdunlop|\bbfgoodrich|\bcooper'),
 ])
 
 
+# Medida de llanta de auto o camioneta, con o sin diagonal: «275/35zr20»,
+# «235 70 r16», «185 r14», «p185/60 r16», «11 r24.5», «27x8.50 r14». Ancho 155+: «120/70zr17»
+# y «110/80zr19» son de moto (26-sep-2026).
+MEDIDA_AUTO = (r'(?:\b|lt|p)(?:1[5-9]|2\d|3[0-5])\d[ /-]\d{2} ?z? ?r ?f?\d{2}(\.5)?c?\b|\b\d{3} ?-? ?r ?1[3-9] ?c?\b|'
+               r'\b\d{2} ?r ?\d{2}\.5\b|\b\d{2}x\d{1,2}\.\d{2} ?-?r? ?\d{2}\b|\b\d{1,2}\.\d{2} ?r ?1[3-9]\b|'
+               r'\b\d{3}/\d{2} [a-z]+ r ?1[3-9]\b')
+
+
+_MEDIDA_ANCHO = re.compile(r'(?:\b|lt|p)(\d{3})[ /-](\d{2}) ?z? ?r ?f?(\d{2})\b')
+
+
+def _medida_de_camioneta(tn):
+    """Ancho/perfil/rin de camioneta o SUV: rin 17+ con perfil 60+, rin 16
+    con perfil 65+, rin 20+ con perfil 50+, o 265 de ancho o más en rin 17+.
+    «205/55 r16» o «215/60 r16» (Jetta, Camry) quedan de auto."""
+    for m in _MEDIDA_ANCHO.finditer(tn):
+        w, a, r = (int(x) for x in m.groups())
+        if (r >= 17 and a >= 60) or (r == 16 and a >= 65) or (r >= 20 and a >= 50) \
+                or (w >= 265 and r >= 17 and a >= 50):
+            return True
+    return False
+
+
+_RX_SUV = dict(_LL)['Llantas para camioneta y SUV']
+
+
+def _auto_o_camioneta(tn, s):
+    # Entre auto y camioneta no decide la posición en el título: «llanta» va
+    # casi siempre primero y con la ventaja de 30 caracteres le ganaba a la
+    # medida de camioneta que viene al final (26-sep-2026: «llanta kenda
+    # klever a/t2 245/70r16» quedaba de auto; 10,877 fichas iban y venían).
+    if s in ('Llantas para auto', 'Llantas para camioneta y SUV'):
+        return 'Llantas para camioneta y SUV' if (_RX_SUV.search(tn) or _medida_de_camioneta(tn)) \
+            else 'Llantas para auto'
+    return s
+
+
 def sub_llanta(tn):
-    return _primera(tn, _LL, {'Llantas para auto': 30, 'Rines': 5})
+    # Medida de auto («275/35zr20», «205/55 r16») y ninguna palabra de moto:
+    # no es llanta de moto aunque diga «michelin pilot», ni de bicicleta por «r16» (26-sep-2026: 37
+    # llantas Michelin Pilot Sport de auto estaban entre las de moto).
+    if re.search(MEDIDA_AUTO, tn) and not re.search(
+            r'\bmoto|motocicleta|scooter|cuatrimoto|italika|pirelli (diablo|angel)|pilot (power|road|street)|'
+            r'michelin road|sportmax|metzeler|timsun', tn):
+        s = _primera(tn, [x for x in _LL if x[0] not in ('Llantas para moto', 'Llantas para bicicleta')],
+                     {'Llantas para auto': 30, 'Rines': 5})
+        return _auto_o_camioneta(tn, s)
+    s = _primera(tn, _LL, {'Llantas para auto': 30, 'Rines': 5})
+    s = _auto_o_camioneta(tn, s)
+    # «r14» o «r12» solos también son rines de auto y de moto: sin una
+    # palabra de bicicleta no se decide bicicleta (26-sep-2026).
+    if s == 'Llantas para bicicleta' and not re.search(
+            r'bici|ciclismo|\bmtb\b|\b700 ?x|\b(12|16|20|24|26|27\.5|28|29) ?x ?[1-4](\.\d+)?\b|rodada|kenda|schwalbe|gravel', tn):
+        return None
+    return s
 
 
 # ------------------------------------------------ Muebles/Mesas de comedor

@@ -46,6 +46,8 @@ LIFT_MIN = 3.0
 FRACCION_MIN = 0.01      # la palabra aparece en al menos 1% de los arranques de la categoría
 MIN_FICHAS_PALABRA = 25  # un sustantivo con menos apariciones no decide nada
 SHARE_SUSTANTIVO = 0.7   # y decide sólo si el 70% de las fichas que arrancan con él son de UNA categoría
+SEGUNDA_MIN = 30         # ... y ninguna OTRA categoría tiene 30 fichas (o el 5%) que arrancan igual
+SEGUNDA_FRACCION = 0.05
 # Una marca no es un sustantivo: «Xiaomi Air Fryer» arranca por Xiaomi y el
 # 95% de lo que arranca por Xiaomi es un celular. Se descarta la palabra si
 # es la marca de al menos MIN_FICHAS_MARCA fichas y eso es al menos el 5% de
@@ -111,6 +113,15 @@ def main():
             por_categoria[cat] += c
         cat, c = por_categoria.most_common(1)[0]
         if c / tot < SHARE_SUSTANTIVO:
+            continue
+        # Palabra de dos mundos (26-sep-2026): «bomba», «banda», «par»,
+        # «sensor», «repuesto» pasaban el 70% por el peso de Autopartes (cientos
+        # de miles de fichas), aunque 1,062 bombas de agua arrancan igual en
+        # Herramientas y 366 «par de discos» en Deportes. Con una segunda
+        # categoría así de grande el sustantivo no decide nada: juzgarlo por
+        # el 70% mandaba bombas de agua y pesas a Autopartes.
+        segunda = por_categoria.most_common(2)[1][1] if len(por_categoria) > 1 else 0
+        if segunda >= max(SEGUNDA_MIN, SEGUNDA_FRACCION * tot):
             continue
         sub, _ = max(((s, k) for (cc, s), k in cuenta.items() if cc == cat), key=lambda t: t[1])
         img = icono[(w, cat, sub)].most_common(1)

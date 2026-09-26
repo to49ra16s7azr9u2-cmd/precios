@@ -57,13 +57,14 @@ USO
     python3 scripts/merge_by_color.py
 """
 import argparse
+import json
 import os
 import re
 import sys
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import id_num, load_catalog, save_catalog  # noqa: E402
+from data_io import id_num, load_catalog, registrar_fusiones, save_catalog  # noqa: E402
 from phone_signature import (  # noqa: E402
     FINISH_QUALIFIERS, color_full_of, condition_of, signature,
 )
@@ -306,9 +307,29 @@ def _quita_si_es_color(m):
     siguiente = re.match(r"\s+([A-Za-zÁÉÍÓÚÑáéíóúñ]+)", resto)
     if siguiente:
         palabra = siguiente.group(1)
-        if palabra[:1].isupper() and palabra.lower() not in _TRAS_COLOR_OK:
+        if (palabra[:1].isupper() and palabra.lower() not in _TRAS_COLOR_OK
+                and (m.group(0).lower() in _COLORES_EN_INGLES or not _es_titulo(m.string))):
             return m.group(0)
     return " "
+
+
+# La mayúscula de la palabra siguiente sólo dice algo cuando el nombre está
+# escrito en minúscula ("xiaomi Black Shark"). Coppel, Elektra y Mercado
+# Libre escriben Cada Palabra Con Mayúscula, y ahí «Colcha Trinity Color
+# Negro Matrimonial» perdía el «Negro» como si fuera nombre propio: la ficha
+# quedaba sin color y no se juntaba con la Rosa ni con la Gris (medido el
+# 26-sep: miles de grupos así). En esos nombres sólo un color en INGLÉS
+# seguido de mayúscula se lee como nombre propio (Black Shark, White Rabbit).
+_COLORES_EN_INGLES = {
+    "black", "white", "blue", "red", "green", "silver", "gold", "pink", "rose",
+    "gray", "grey", "purple", "yellow", "orange", "brown", "violet", "navy",
+    "midnight", "starlight", "graphite", "space", "cream", "coral", "lime",
+}
+
+
+def _es_titulo(texto):
+    palabras = re.findall(r"[A-Za-zÁÉÍÓÚÑáéíóúñ]{4,}", texto)
+    return len(palabras) >= 3 and sum(w[0].isupper() for w in palabras) >= 0.7 * len(palabras)
 
 
 def strip_color_from_name(name, labels):
@@ -390,36 +411,121 @@ def variant_min_price(variant):
     return min(precios) if precios else float("inf")
 
 
+def firma_telefono(p):
+    """Firma de teléfono de la ficha, también para las que no dicen el color
+    en el nombre pero SÍ lo traen en colorVariants.
+
+    Las fichas del catálogo de Mercado Libre se llaman «iPhone 17 (256 GB)»
+    y los colores van en colorVariants: con signature() a secas quedaban
+    fuera de todo grupo, y las fichas de un solo color de las demás tiendas
+    (Walmart, Coppel, Telcel...) no tenían dónde entrar. El 26-sep-2026 el
+    iPhone 17 de 256 GB estaba repartido en ~40 fichas.
+    """
+    sig = signature(p)
+    if sig:
+        return sig
+    colores = [v.get("color") for v in p.get("colorVariants") or [] if v.get("color")]
+    if not colores:
+        return None
+    return signature({**p, "name": f"{p.get('name') or ''} {colores[0]}"})
+
+
+# «Libre» y no decir compañía son lo mismo: un equipo sin compañía se vende
+# liberado. Telcel, AT&T, Movistar y Unefon sí separan.
+def _compania(c):
+    return None if c in (None, "libre") else c
+
+
+def _partir_por_comodines(ps, firmas):
+    """RAM y red sin declarar valen como comodín, pero sólo si en
+    el grupo hay a lo sumo UN valor declarado de cada una. Con dos (4G y
+    5G, 6 y 8 GB) no se sabe a cuál pertenece el que no dice: se parte por
+    el valor declarado y los que no dicen se quedan fuera."""
+    grupos = [ps]
+    for i in (0, 1):        # ram, red
+        nuevos = []
+        for g in grupos:
+            declarados = {firmas[p["id"]][i] for p in g} - {None}
+            if len(declarados) <= 1:
+                nuevos.append(g)
+                continue
+            for val in declarados:
+                nuevos.append([p for p in g if firmas[p["id"]][i] == val])
+        grupos = nuevos
+    return grupos
+
+
+def _precio_min(p):
+    precios = [o.get("price") for o in p.get("offers") or [] if o.get("price")]
+    for v in p.get("colorVariants") or []:
+        precios += [o.get("price") for o in v.get("offers") or [] if o.get("price")]
+    return min(precios) if precios else None
+
+
+PRECIO_MAX_RATIO = 1.8   # el mismo tope que fusionar_vetado.py
+
+
+def _sin_precios_raros(ps):
+    """Fuera las fichas con precio a 1.8 veces o más de la mediana del grupo:
+    un «iPhone 17» a mitad de precio es otra cosa (reacondicionado sin
+    decirlo, una funda, un anticipo)."""
+    precios = sorted(x for x in (_precio_min(p) for p in ps) if x)
+    if not precios:
+        return ps
+    med = precios[len(precios) // 2]
+    return [p for p in ps if _precio_min(p) and med / PRECIO_MAX_RATIO < _precio_min(p) < med * PRECIO_MAX_RATIO]
+
+
+def _colores_de(p, etiquetas):
+    cs = {v.get("color") for v in p.get("colorVariants") or [] if v.get("color")}
+    if etiquetas.get(p["id"]):
+        cs.add(etiquetas[p["id"]])
+    return cs
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--informe", help="guarda los grupos (ids y nombres) para revisarlos a mano")
     args = ap.parse_args()
 
     data = load_catalog()
     grupos = defaultdict(list)
+    firmas = {}
     for p in data["products"]:
         if p.get("category") in CATEGORIES:
-            sig = signature(p)
+            sig = firma_telefono(p)
             if not sig:
                 continue  # firma incompleta -> no se junta con nadie
             brand, model, storage, ram, _color, carrier, bundle, cond, esim, net = sig
-            grupos[("tel", brand, model, storage, ram, carrier, bundle, cond, esim, net)].append(p)
+            firmas[p["id"]] = (ram, net)
+            # La compañía NO es comodín: sin compañía = liberado, y un Telcel
+            # no es el mismo equipo que uno liberado.
+            grupos[("tel", brand, model, storage, _compania(carrier), bundle, cond, esim)].append(p)
         else:
             clave = generic_key(p)
             if clave:
                 grupos[("gen",) + clave].append(p)
 
     fusionables = []
-    for clave, ps in grupos.items():
-        if len(ps) < 2:
+    for clave, ps0 in grupos.items():
+        if len(ps0) < 2:
             continue
-        etiquetas = collapse_colors(ps)
-        colores = set(etiquetas.values())
-        # Dos fichas del mismo color no son "el mismo equipo en otro color":
-        # eso es un duplicado y lo resuelve merge_by_signature.py.
-        if len(colores) < 2:
-            continue
-        fusionables.append(sorted(ps, key=id_num))
+        partes = _partir_por_comodines(ps0, firmas) if clave[0] == "tel" else [ps0]
+        for ps in partes:
+            ps = _sin_precios_raros(ps)
+            if len(ps) < 2:
+                continue
+            etiquetas = collapse_colors(ps)
+            colores = set().union(*(_colores_de(p, etiquetas) for p in ps))
+            # Dos fichas del mismo color no son "el mismo equipo en otro color":
+            # eso es un duplicado y lo resuelve merge_by_signature.py.
+            if len(colores) < 2:
+                continue
+            # Una ficha sin color (ni en el nombre ni en variantes) no entra.
+            ps = [p for p in ps if _colores_de(p, etiquetas)]
+            if len(ps) >= 2:
+                fusionables.append(sorted(ps, key=id_num))
 
     drop = set()
     resumen = []
@@ -494,6 +600,12 @@ def main():
     if len(resumen) > 25:
         print(f"   ... y {len(resumen) - 25} grupos más")
 
+    if args.informe:
+        with open(args.informe, "w", encoding="utf-8") as f:
+            json.dump([{"queda": ps[0]["id"], "nombre": ps[0]["name"],
+                        "fichas": [[p["id"], p["name"], _precio_min(p)] for p in ps]} for ps in fusionables],
+                      f, ensure_ascii=False, indent=0)
+        print(f"Informe: {args.informe}")
     if args.dry_run:
         print("\n(--dry-run: no se escribió nada)")
         return
@@ -502,21 +614,11 @@ def main():
         return
     data["products"] = [p for p in data["products"] if p["id"] not in drop]
     save_catalog(data)
-    print(f"\nGuardado. Catálogo: {len(data['products'])} productos")
-
-    removed = 0
-    for pid in drop:
-        path = os.path.join(ROOT, "producto", f"{pid}.html")
-        if os.path.exists(path):
-            os.remove(path)
-            removed += 1
-        d = os.path.join(ROOT, "producto", pid)
-        if os.path.isdir(d):
-            for f in os.listdir(d):
-                os.remove(os.path.join(d, f))
-            os.rmdir(d)
-            removed += 1
-    print(f"Páginas estáticas huérfanas eliminadas: {removed}")
+    # La url de la absorbida pudo estar indexada: su /producto/<id>/ lleva a
+    # la que quedó (build_retirados_index.py). Antes se borraban las páginas
+    # y la url caía en el 404 genérico.
+    registrar_fusiones((p["id"], ps[0]["id"]) for ps in fusionables for p in ps[1:] if p["id"] in drop)
+    print(f"\nGuardado. Catálogo: {len(data['products'])} productos; fusiones registradas para redirigir.")
 
 
 if __name__ == "__main__":

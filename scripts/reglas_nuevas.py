@@ -451,6 +451,12 @@ _MOTO = {
 _RX_PIEZAS = [(s, re.compile(r'\b(' + rx + r')\b')) for s, rx in _PIEZAS]
 RX_MOTO_CTX = re.compile(r'\b(motos?|motocicletas?|motoneta|italika|cuatrimoto|scooter|\d{2,4} ?cc|harley|yamaha|kawasaki|'
                          r'suzuki gn|honda (cg|cb|xr|cbr|goldwing|gl)|vento|dinamo|bajaj|ktm|ducati)\b')
+RX_AUTO_MARCA = re.compile(r'\b(chevrolet|ford|nissan|volkswagen|vw|toyota|dodge|chrysler|jeep|kia|hyundai|mazda|bmw|audi|'
+                           r'mercedes|gmc|mercury|lincoln|buick|cadillac|pontiac|plymouth|seat|renault|peugeot|mitsubishi|'
+                           r'subaru|isuzu|acura|infiniti|lexus|volvo|fiat|ram|tsuru|sentra|jetta|aveo|tiida)\b|'
+                           r'\b[vl]\d \d\.\dl\b|\b\d\.\dl\b|\bsedan\b|\bpickup\b|\bcamioneta\b')
+RX_MOTO_EXPLICITA = re.compile(r'\b(motos?|motocicletas?|motoneta|italika|cuatrimoto|scooter|harley|vento|dinamo|bajaj|'
+                               r'ktm|ducati|carabela)\b')
 RX_MOTO_PROPIAS = re.compile(r'\b(cadenas?|sprockets?|catarinas?|kit de arrastre|pinon(es)?)\b')
 RX_MOTO_MANUBRIO = re.compile(r'\b(manubrios?|punos?|manetas?|espejos?|controles? de manubrio|acelerador)\b')
 
@@ -464,6 +470,12 @@ def sub_autoparte(tn):
         if m and (mejor is None or m.start() < mejor[0]):
             mejor = (m.start(), s)
     moto = RX_MOTO_CTX.search(tn) and not re.search(r'\b(bocina|tapete)s? .{0,40}\b(19|20)\d\d\b', tn)
+    # «206 cc» es un Peugeot coupé-cabriolet, no 206 centímetros cúbicos: si
+    # el título nombra una marca o un motor de auto y ninguna palabra de moto,
+    # es pieza de auto (26-sep-2026: 1,992 piezas de auto en subcategorías de
+    # moto).
+    if moto and RX_AUTO_MARCA.search(tn) and not RX_MOTO_EXPLICITA.search(tn):
+        moto = False
     if moto:
         if RX_MOTO_PROPIAS.search(tn):
             return 'Cadenas, sprockets y transmisión'

@@ -972,6 +972,35 @@ def busqueda_amazon_html(product):
     return f'<p class="amazon-busqueda">Buscar este producto en Amazon por color: {botones}</p>'
 
 
+# «Amazon fue más barato en el N%» (scripts/amazon_mas_barato.py). Sólo si el
+# archivo existe y dice "activo": hoy sale apagado porque sus precios de
+# Amazon son capturas, no de la API (ver el docstring de ese script).
+def _cargar_amazon_mas_barato():
+    ruta = os.path.join(ROOT, "data", "amazon-mas-barato.json")
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            d = json.load(f)
+    except (OSError, ValueError):
+        return None
+    return d if d.get("activo") else None
+
+
+AMAZON_MAS_BARATO = _cargar_amazon_mas_barato()
+
+
+def amazon_mas_barato_html(product):
+    d = AMAZON_MAS_BARATO
+    if not d:
+        return ""
+    cat = product.get("category") or ""
+    v = (d.get("subcategorias") or {}).get(f"{cat}|{product.get('subcategory') or ''}") \
+        or (d.get("categorias") or {}).get(cat) or d.get("total")
+    if not v:
+        return ""
+    return (f'<span class="amazon-grande-prob" title="Comparación de ComparaMEX ({html_escape(d.get("fecha", ""))}): '
+            f'{v[1]:,} productos con precio en Amazon y en otra tienda">Amazon fue más barato en el {v[0]}% de los casos</span>')
+
+
 def amazon_grande_html(product):
     """El botón grande amarillo de Amazon de la cabecera de la ficha (igual
     que amazonBotonGrandeHtml en js/app.js): al producto enlazado si lo hay,
@@ -995,7 +1024,8 @@ def amazon_grande_html(product):
             '<svg class="amazon-grande-lupa" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="amazon-grande-divisor" aria-hidden="true"></span>'
             + (f'<img class="amazon-grande-logo" src="../../icons/amazon-insignia.png" alt="Amazon">'
                if os.path.exists(os.path.join(ROOT, "icons", "amazon-insignia.png")) else "")
-            + f'<span class="amazon-grande-texto"><span class="amazon-grande-titulo">{titulo}</span>{nota}</span>'
+            + f'<span class="amazon-grande-texto"><span class="amazon-grande-linea"><span class="amazon-grande-titulo">{titulo}</span>'
+              f'{amazon_mas_barato_html(product)}</span>{nota}</span>'
             '<span class="amazon-grande-flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>'
             f'<p class="amazon-fila-nota">{html_escape(fuerte)}</p></div>')
 

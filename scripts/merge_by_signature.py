@@ -45,12 +45,11 @@ USO
 import argparse
 import os
 import re
-import shutil
 import sys
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import id_num, load_catalog, save_catalog  # noqa: E402
+from data_io import id_num, load_catalog, registrar_fusiones, save_catalog  # noqa: E402
 from phone_signature import signature  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -184,13 +183,8 @@ def main():
     # La página estática del producto que desaparece queda huérfana:
     # generate_seo_pages.py solo escribe las de los productos actuales,
     # nunca borra las de los que dejaron de existir.
-    removed = 0
-    for pid in drop_ids:
-        d = os.path.join(ROOT, "producto", pid)
-        if os.path.isdir(d):
-            shutil.rmtree(d)
-            removed += 1
-    print(f"Páginas estáticas huérfanas eliminadas: {removed}")
+    # Las absorbidas redirigen a la que quedó (build_retirados_index.py).
+    registrar_fusiones((p["id"], ps[0]["id"]) for ps in groups for p in ps[1:])
 
 
 if __name__ == "__main__":

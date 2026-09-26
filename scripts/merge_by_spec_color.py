@@ -68,7 +68,7 @@ import sys
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import id_num, load_catalog, save_catalog, texto_plano  # noqa: E402
+from data_io import id_num, load_catalog, registrar_fusiones, save_catalog, texto_plano  # noqa: E402
 from merge_by_color import (  # noqa: E402
     CATEGORIES_SIN_COLOR, collapse_labels, strip_color_from_name,
     variant_min_price, variants_of,
@@ -272,6 +272,7 @@ def main():
         return
 
     a_borrar = set()
+    pares = []
     con_variantes = repetidas = 0
     for fichas in grupos:
         colores = fusionar(fichas)
@@ -280,6 +281,7 @@ def main():
         else:
             repetidas += 1
         a_borrar |= {p["id"] for p in fichas[1:]}
+        pares += [(p["id"], fichas[0]["id"]) for p in fichas[1:]]
 
     data["products"] = [p for p in data["products"] if p["id"] not in a_borrar]
     save_catalog(data)
@@ -287,13 +289,9 @@ def main():
           f"(grupos con variantes de color: {con_variantes}, publicaciones repetidas: {repetidas})")
     print(f"Catálogo: {len(data['products'])} productos")
 
-    borradas = 0
-    for pid in a_borrar:
-        d = os.path.join(ROOT, "producto", pid)
-        if os.path.isdir(d):
-            shutil.rmtree(d)
-            borradas += 1
-    print(f"Páginas estáticas huérfanas eliminadas: {borradas}")
+    # La url de la que desaparece lleva a la que quedó (build_retirados_index.py).
+    registrar_fusiones(pares)
+    print("Fusiones registradas para redirigir.")
 
 
 if __name__ == "__main__":

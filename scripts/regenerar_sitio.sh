@@ -15,17 +15,44 @@ sed -n '1,25p;/^Guardado/p' /tmp/reaplicar_reglas.log
 # Después, el juez híbrido: el modelo del catálogo + el sustantivo + las
 # reglas (reclasificar_hibrido.py). Mueve lo que el catálogo mismo dice que
 # está fuera de lugar, con las definiciones y lo movido a mano intocables.
+# --vecinos-fuertes: cuando el 80%+ de las 25 fichas más parecidas está en la
+# categoría nueva y casi ninguna en la actual, no se exige el sustantivo
+# (es_coherente bloqueaba 5,206 correcciones). Medido el 26-sep-2026: 53 de
+# 60 bien (88%), ~900 fichas.
 echo "=== reclasificar_hibrido ==="
-python3 scripts/reclasificar_hibrido.py --aplicar > /tmp/reclasificar_hibrido.log 2>&1
+python3 scripts/reclasificar_hibrido.py --aplicar --vecinos-fuertes > /tmp/reclasificar_hibrido.log 2>&1
 sed -n '1,12p;/^Guardado/p' /tmp/reclasificar_hibrido.log
 # Subcategorías comodín («Accesorios», «Refacciones para X») partidas por
 # el nombre de la pieza; el modelo se reentrena en cada corrida con el
 # catálogo y los ejemplos verificados (partir_genericas.py).
 echo "=== partir_genericas ==="; python3 scripts/partir_genericas.py --aplicar 2>&1 | tail -2
+echo "=== prior_tienda ==="; python3 scripts/prior_tienda.py --aplicar 2>&1 | tail -1
+# Autopartes por pieza (ver subcategorias_autopartes_finas.py): también lo que
+# el candado de movimientos dejó en el sistema viejo.
+echo "=== autopartes_finas ==="; python3 scripts/subcategorias_autopartes_finas.py --aplicar 2>&1 | tail -2
+echo "=== divisiones ==="; python3 scripts/subcategorias_divisiones.py --aplicar 2>&1 | tail -2
+# Fusiones: sin esto el catálogo acumulaba duplicados desde el 17-sep (los
+# scripts existían pero nadie los corría). Van después de clasificar porque
+# casi todas exigen la misma categoría. Salidas completas en /tmp/fusiones.log.
+echo "=== fusiones ==="
+{
+  python3 scripts/merge_by_gtin.py
+  python3 scripts/merge_cross_store.py
+  python3 scripts/merge_amazon_cross_store.py --dry-run --todas-las-tiendas --muestra 0 --informe /tmp/fusion_amazon.json
+  python3 scripts/fusionar_vetado.py /tmp/fusion_amazon.json --aplicar
+  python3 scripts/merge_by_color.py
+  python3 scripts/merge_by_signature.py
+  python3 scripts/merge_same_store.py --muestra 0
+  python3 scripts/merge_by_spec_color.py --muestra 0
+  python3 scripts/merge_misma_foto.py --muestra 0
+} > /tmp/fusiones.log 2>&1
+grep -E "absorbidas|fusionados|Catálogo|catálogo" /tmp/fusiones.log | tail -12
+echo "=== completar_subcategorias ==="; python3 scripts/completar_subcategorias.py --aplicar 2>&1 | tail -1
 echo "=== sync_subcategories ==="; python3 scripts/sync_subcategories.py 2>&1 | tail -3
 echo "=== compute_facets ==="; python3 scripts/compute_facets.py 2>&1 | tail -2
 echo "=== compute_quality_axes ==="; python3 scripts/compute_quality_axes.py 2>&1 | tail -2
 echo "=== politicas_tiendas ==="; python3 scripts/politicas_tiendas.py 2>&1 | tail -1
+echo "=== enlaces_manuales ==="; python3 scripts/aplicar_enlaces_manuales.py 2>&1 | tail -1
 echo "=== aplicar_afiliados ==="; python3 scripts/aplicar_afiliados.py --todas 2>&1 | tail -3
 echo "=== record_price_history ==="; python3 scripts/record_price_history.py 2>&1 | tail -4
 echo "=== build_search_index ==="; python3 scripts/build_search_index.py 2>&1 | tail -2

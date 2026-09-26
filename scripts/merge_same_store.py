@@ -60,7 +60,7 @@ import sys
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import id_num, load_catalog, save_catalog, texto_plano  # noqa: E402
+from data_io import id_num, load_catalog, registrar_fusiones, save_catalog, texto_plano  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -247,15 +247,10 @@ def main():
     print(f"\nFichas fusionadas y eliminadas: {len(a_borrar)}")
     print(f"Catálogo: {len(data['products'])} productos")
 
-    # La página estática de la ficha que desaparece queda huérfana:
-    # generate_seo_pages.py solo escribe las de los productos actuales.
-    borradas = 0
-    for pid in a_borrar:
-        d = os.path.join(ROOT, "producto", pid)
-        if os.path.isdir(d):
-            shutil.rmtree(d)
-            borradas += 1
-    print(f"Páginas estáticas huérfanas eliminadas: {borradas}")
+    # La url de la que desaparece lleva a la que quedó (build_retirados_index.py);
+    # las carpetas sobrantes las limpia generate_seo_pages.py.
+    registrar_fusiones((p["id"], fichas[0]["id"]) for fichas in grupos for p in fichas[1:])
+    print("Fusiones registradas para redirigir.")
 
 
 if __name__ == "__main__":

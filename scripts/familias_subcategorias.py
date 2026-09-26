@@ -684,6 +684,34 @@ if os.path.exists(_RUTA_PARTICION):
         _f0, _m0 = _fams[_i]
         _fams[_i] = (_f0, _m0 + [s for s in _subs if s not in _m0 and not any(s in m for _, m in _fams)])
 
+# Autopartes por pieza (26-sep-2026, subcategorias_autopartes_finas.py): cada
+# sistema del auto es una familia con sus piezas; lo de moto y movilidad
+# eléctrica sigue como estaba.
+import subcategorias_autopartes_finas as _apf  # noqa: E402
+_ap_viejas = FAMILIAS.get(_apf.CATEGORIA, [])
+_ap_para_auto = next((m for f, m in _ap_viejas if f == "Para auto"), [])
+FAMILIAS[_apf.CATEGORIA] = _apf.familias(_ap_para_auto) + [(f, m) for f, m in _ap_viejas if f != "Para auto"]
+
+# Subcategorías partidas el 26-sep-2026 (subcategorias_divisiones.py): las
+# nuevas van en la familia de la que se partió.
+import subcategorias_divisiones as _div  # noqa: E402
+for (_c, _vieja), _nuevas in _div.nuevas_por_vieja().items():
+    _fams = FAMILIAS.get(_c)
+    if not _fams:
+        continue
+    FAMILIAS[_c] = [(f, (m + [x for x in _nuevas if x not in m]) if _vieja in m else m) for f, m in _fams]
+
+# Llantas por rin: 22 subcategorías en una sola familia no se leen. Se parte
+# en auto / camioneta y camión / rines y accesorios.
+_ll = next(((i, m) for i, (f, m) in enumerate(FAMILIAS.get("Autos y motos", [])) if f == "Llantas y rines"), None)
+if _ll:
+    _i, _m = _ll
+    _auto = ["Llantas para auto"] + _div.LLANTAS_AUTO
+    _suv = ["Llantas para camioneta y SUV"] + _div.LLANTAS_SUV
+    FAMILIAS["Autos y motos"][_i:_i + 1] = [
+        ("Llantas para auto", _auto), ("Llantas para camioneta y camión", _suv),
+        ("Rines y accesorios de llanta", [x for x in _m if x not in _auto and x not in _suv])]
+
 # Palabras que no pueden ser la cabeza de una familia.
 _VACIAS = {"de", "para", "y", "con", "en", "del", "la", "el", "los", "las",
            "otros", "otras", "otro", "otra", "a", "por", "sin", "e"}

@@ -2561,7 +2561,10 @@
   }
 
   function normalizeIndexWord(w) {
-    return w.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+    // NFKC primero: el teclado japonés del iPhone escribe «１７» y «ｉｐｈｏｎｅ»
+    // en ancho completo, y NFD solo no los vuelve «17» / «iphone» (con
+    // «Iphone１７» salían todos los iPhone, 15 y 16 incluidos; 26-sep-2026).
+    return w.normalize("NFKC").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
       .replace(/[^a-z0-9]/g, "");
   }
 
@@ -3250,7 +3253,11 @@
     // tipos a la vez (un cargador de pared O uno de auto). Se sigue
     // aceptando null/string de quien llame, para no tocar cada goList().
     state.subcategory = toSubList(opts && opts.subcategory !== undefined ? opts.subcategory : null);
-    if (opts && opts.query !== undefined) state.query = opts.query;
+    // NFKC de una vez para toda la búsqueda: el teclado japonés escribe
+    // «Iphone１７» y la separación letra/número de más abajo sólo reconoce
+    // dígitos ASCII, así que «１７» quedaba pegado y la búsqueda se abría a
+    // todo lo que dijera «iphone».
+    if (opts && opts.query !== undefined) state.query = typeof opts.query === "string" ? opts.query.normalize("NFKC") : opts.query;
     navigateTo("#/list", renderList);
   }
 
@@ -4025,7 +4032,7 @@
         <h3>${setBadge(product)}${htmlEscapeAttr(product.name)}${conditionBadge(product)}${usageBadge(product)}</h3>
         <div class="detail-rating">
           ${ratingCount > 0
-            ? `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${plural(ratingCount, "calificación", "calificaciones")})</span>`
+            ? `${starsHtml(avg)} ${avg.toFixed(1)} <span class="rc">(${plural(ratingCount, "calificación", "calificaciones")})</span>${colorSwatchHtml(product.colorVariants)}`
             : colorSwatchHtml(product.colorVariants) || `<span class="rc">Sin calificaciones todavía</span>`}
         </div>
         <p class="detail-fromprice">
@@ -5147,9 +5154,12 @@
             // En su lugar, si el producto junta varios colores (fusionados
             // por merge_color_variants.py), ese mismo espacio muestra los
             // puntos de color disponibles.
-            count > 0
+            // Estrellas Y colores: antes era uno u otro, y un equipo con
+            // calificaciones escondía sus colores (el iPhone 17 de 256 GB
+            // con negro, blanco y violeta salía sin ninguno; 26-sep-2026).
+            (count > 0
               ? `<div class="row-stars">${starsHtml(avg)} <span class="muted">${avg.toFixed(1)} (${count})</span></div>`
-              : colorSwatchHtml(p.colorVariants)
+              : "") + colorSwatchHtml(p.colorVariants)
           }
         </div>
         <div class="row-priceblock">
@@ -8341,6 +8351,35 @@
   // logo es la insignia oficial del Programa de Afiliados
   // (icons/amazon-insignia.png, la que Amazon entrega para usar); si el
   // archivo no está, el botón sale sin logo.
+  // «Amazon fue más barato en el N% de los casos» al lado del título del
+  // botón (scripts/amazon_mas_barato.py). APAGADO: los únicos precios de
+  // Amazon que hay son capturas, no de la API, y las reglas de Afiliados
+  // piden la API. Con la Creators API: recalcular, pasar esto a true y sacar
+  // data/amazon-mas-barato.json del exclude de _config.yml.
+  const AMAZON_MAS_BARATO_ACTIVO = false;
+  let amazonMasBaratoPromesa = null;
+  function pedirAmazonMasBarato() {
+    if (!AMAZON_MAS_BARATO_ACTIVO) return Promise.resolve(null);
+    if (!amazonMasBaratoPromesa) {
+      amazonMasBaratoPromesa = fetch("data/amazon-mas-barato.json")
+        .then((r) => (r.ok ? r.json() : null)).catch(() => null)
+        .then((d) => (d && d.activo ? d : null));
+    }
+    return amazonMasBaratoPromesa;
+  }
+  function llenarAmazonMasBarato(raiz) {
+    pedirAmazonMasBarato().then((d) => {
+      if (!d) return;
+      (raiz || document).querySelectorAll(".amazon-grande-prob[data-cat]").forEach((span) => {
+        const cat = span.dataset.cat;
+        const v = (d.subcategorias || {})[`${cat}|${span.dataset.sub || ""}`] || (d.categorias || {})[cat] || d.total;
+        if (!v) return;
+        span.textContent = `Amazon fue más barato en el ${v[0]}% de los casos`;
+        span.title = `Comparación de ComparaMEX (${d.fecha}): ${v[1].toLocaleString("es-MX")} productos con precio en Amazon y en otra tienda`;
+      });
+    });
+  }
+
   function amazonBotonGrandeHtml(product) {
     const directo = (product.enlaces || []).find((e) => e.storeId === "amazon_mx");
     const colores = [...new Set((product.colorVariants || []).map((v) => v.color).filter(Boolean))];
@@ -8350,7 +8389,8 @@
     return `<div class="amazon-fila"><a class="amazon-grande" href="${htmlEscapeAttr(url)}" target="_blank" rel="nofollow sponsored noopener">` +
       `<svg class="amazon-grande-lupa" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="amazon-grande-divisor" aria-hidden="true"></span>` +
       `<img class="amazon-grande-logo" src="icons/amazon-insignia.png" alt="Amazon" onerror="this.remove()">` +
-      `<span class="amazon-grande-texto"><span class="amazon-grande-titulo">${titulo}</span>` +
+      `<span class="amazon-grande-texto"><span class="amazon-grande-linea"><span class="amazon-grande-titulo">${titulo}</span>` +
+      `<span class="amazon-grande-prob" data-cat="${htmlEscapeAttr(product.category || "")}" data-sub="${htmlEscapeAttr(product.subcategory || "")}"></span></span>` +
       `</span><span class="amazon-grande-flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>` +
       `<p class="amazon-fila-nota">${htmlEscapeAttr(fuerte)}</p></div>`;
   }
@@ -8389,6 +8429,7 @@
         </div>
       `)
       .join("");
+    llenarAmazonMasBarato(el.detailTopOffers);
     el.detailTopOffers.querySelectorAll(".detail-top-offer-btn").forEach((btn, i) => {
       btn.onclick = () => { trackStoreClick(product.id); window.open(top[i].url, "_blank"); };
     });
@@ -8768,6 +8809,7 @@
 
   function normalizeSearchText(s) {
     return (s || "")
+      .normalize("NFKC")          // ancho completo -> normal (ver normalizeIndexWord)
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
@@ -9150,6 +9192,11 @@
         });
       }, 150);
     });
+    // Al terminar de componer (teclado japonés) se recalculan las sugerencias
+    // con el texto ya confirmado: algunos navegadores no mandan «input» ahí.
+    el.searchInput.addEventListener("compositionend", () => {
+      el.searchInput.dispatchEvent(new Event("input"));
+    });
     el.searchInput.addEventListener("focus", () => {
       // Antes, tocar el buscador disparaba ensureAllProducts(): el catálogo
       // entero (53 shards, 17.5 MB comprimidos) por el solo hecho de hacer
@@ -9179,6 +9226,10 @@
         return;
       }
       if (e.key === "Enter") {
+        // Con teclado japonés el Enter también CONFIRMA la conversión
+        // (isComposing / keyCode 229): ese Enter no es «buscar», y buscaba
+        // con el texto a medio escribir.
+        if (e.isComposing || e.keyCode === 229) return;
         if (searchActiveIndex >= 0 && searchSuggestionItems[searchActiveIndex]) {
           e.preventDefault();
           selectSearchSuggestion(searchSuggestionItems[searchActiveIndex]);

@@ -34,5 +34,8 @@ exclude:
   - data/indexnow-enviado.json
   - data/historial-oculto.json.gz
   - data/fichas-ocultas.json.gz
+  # Porcentaje «Amazon más barato» (scripts/amazon_mas_barato.py): sale de
+  # capturas, no de la API de Amazon; no se publica hasta tener la API.
+  - data/amazon-mas-barato.json
   - data/tiendas-ocultas.json.gz
   - data/vocabulario-cabeza.json

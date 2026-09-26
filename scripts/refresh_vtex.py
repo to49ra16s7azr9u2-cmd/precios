@@ -22,9 +22,10 @@ USO
 import argparse
 import os
 import sys
+import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from add_elektra_products import PAGE_SIZE, fetch_json, vendedor_publicable  # noqa: E402
+from add_elektra_products import HEADERS, PAGE_SIZE, fetch_json, vendedor_publicable  # noqa: E402
 from data_io import load_catalog, save_catalog, url_real  # noqa: E402
 from ean_dudosos import ean_utilizable  # noqa: E402
 from elektra_specs import specs_from  # noqa: E402
@@ -105,6 +106,19 @@ def main(argv=None):
     paths = list(tienda["categorias"])
     if args.limit_categories:
         paths = paths[: args.limit_categories]
+
+    # Sonda: un pedido a la primera categoría, mostrando el error tal cual.
+    # fetch_json se traga los errores y devuelve None, así que cuando la
+    # tienda bloquea la IP del runner (Elektra desde GitHub Actions, 26-sep-
+    # 2026: 95 categorías con 0 productos, 17 min perdidos) no se sabía por
+    # qué. Si la sonda no trae nada, se sale ya.
+    sonda = f"{search_url(args.store)}?fq=C:/{paths[0]}/&_from=0&_to=0"
+    try:
+        with urllib.request.urlopen(urllib.request.Request(sonda, headers=HEADERS), timeout=25) as r:
+            print(f"Sonda: HTTP {r.status}")
+    except Exception as e:  # noqa: BLE001
+        print(f"ABORTA: la API de {tienda['nombre']} no responde desde aquí ({e!r}). No se escribió nada.")
+        return 2
 
     live, fichas = {}, {}
     for i, path in enumerate(paths, 1):
@@ -228,4 +242,4 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

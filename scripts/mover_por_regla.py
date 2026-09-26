@@ -82,8 +82,9 @@ REGLAS = [
     # El altavoz de estantería de dos o tres vías es Hi-Fi, no portátil.
     ('Bocinas', r'de estanteria|bookshelf|(dos|tres|2|3) vias|\bhi-?fi\b|'
      r'monitor de estudio',
+     # Las de auto también son «de 2 vías» (Kicker, Soundstream 4x6 pulg).
      r'^(?:\S+ ){0,3}(patas?|base|soporte|cable|funda|rejilla|kit|'
-     r'adaptador|almohadilla)\b',
+     r'adaptador|almohadilla)\b|\bautos?\b|carro|coche|kicker|soundstream|\d ?pulg|inteligente',
      'Bocinas', 'De estantería y Hi-Fi', ['Bocinas Bluetooth']),
 
     # El aire portátil de ruedas no es un minisplit (que va en la pared).
@@ -366,7 +367,10 @@ REGLAS = [
     ('Cámaras y fotografía', r'protector (de )?lente.{0,40}(iphone|samsung|galaxy|pixel|xiaomi|celular|smartphone)|mica.{0,20}camara.{0,30}(iphone|galaxy|pixel)',
      None, 'Celulares', 'Accesorios'),
     ('Televisores', r'^(?:\S+ ){0,3}(auriculares|audifonos)', None, 'Audífonos', 'Diadema inalámbrica'),
-    ('Televisores', r'barra de sonido|\bsoundbar\b', None, 'Bocinas', 'Barras de sonido'),
+    # Un combo «Pantalla ... con/+ barra de sonido» es un televisor con regalo,
+    # no una barra (26-sep-2026: 9 combos LG OLED habían ido a Barras).
+    ('Televisores', r'barra de sonido|\bsoundbar\b', r'^(combo )?(pantalla|smart ?tv|tv\b|televis)',
+     'Bocinas', 'Barras de sonido'),
     ('Mascotas', r'carriola.{0,25}\bbebe\b|para bebe\b', r'perro|gato|mascota', 'Juguetes y bebés', 'Carriolas'),
     # "Otros / Varios" es en buena parte cocina y mesa (Elektra manda ahí
     # tablas, vajilla, moldes, especieros): la subcategoría fina la decide
@@ -1204,9 +1208,7 @@ REGLAS = [
     ('Autopartes', r'^valvula|balancin|junta|bendix', None, 'Autopartes', 'Motor y transmisión', {None}),
     ('Autos y motos', r'\bllantas?\b', r'bicicleta|carretilla|moto\b|motocicleta',
      'Autos y motos',
-     lambda tn: 'Llantas para camioneta y SUV'
-     if re.search(r'\br ?(1[6-9]|2[0-6])\b|\blt\b|\ba/?t\b|\bm/?t\b|\bh/?t\b|x\d{1,2}\.\d{2}', tn)
-     else 'Llantas para auto', {None}),
+     lambda tn: ola2._auto_o_camioneta(tn, 'Llantas para auto'), {None}),
     ('Autos y motos', r'^guantes', None, 'Autos y motos', 'Guantes para moto', {None}),
     ('Autos y motos', r'^medio', None, 'Autos y motos', 'Medios rangos y bocinas profesionales', {None}),
     ('Mascotas', r'jersey|bandanas?|impermeable|\bcapa\b|chamarra|\bpants\b|sudadera|playera|sueter|vestido|disfraz',
@@ -1293,7 +1295,122 @@ REGLAS = [
     ('Mascotas', r'casa de campana', None, 'Deportes y fitness', 'Campismo', {None}),
     ('Mascotas', r'editorial|lectorum|tapa blanda|ediciones|\blibro\b|\b97[89]\d{10}\b', None,
      'Libros', 'Hogar, manualidades y mascotas', {None}),
+    ('Bocinas', r'^(combo )?(pantalla|smart ?tv|televis)', None, 'Televisores',
+     lambda tn: (lambda m: None if not m else '70 pulgadas o más' if int(m.group(1)) >= 70
+                 else '58 a 65 pulgadas' if int(m.group(1)) >= 58 else '50 a 55 pulgadas' if int(m.group(1)) >= 50
+                 else None)(re.search(r'\b(\d{2}) ?(pulgadas|")', tn)), {'Barras de sonido'}),
+    # ---- Por sustantivo de arranque (26-sep-2026) ----
+    ('Decoración de hogar y jardín', r'^(par de )?espejos? .{0,40}\b(19[5-9]\d|20[0-3]\d)\b|espejo lateral|retrovisor', None,
+     'Autopartes', 'Carrocería, espejos y molduras'),
+    ('Herramientas', r'^(par de )?(manijas?|chapas?) (de )?(puerta )?(exterior|interior)?.{0,40}\b(19[5-9]\d|20[0-3]\d)\b', None,
+     'Autopartes', 'Carrocería, espejos y molduras'),
+    ('Componentes y accesorios de PC', r'^condensador de enfriamiento|condensador .{0,30}\b(19[5-9]\d|20[0-3]\d)\b', None,
+     'Autopartes', 'Enfriamiento y climatización'),
+    ('Audífonos', r'^(combo )?smartwatch|^reloj inteligente', None, 'Relojes inteligentes', 'Smartwatches'),
+    ('Electrodomésticos', r'^repuesto de lona|lona (para )?toldo', None, 'Jardín y exterior', 'Sombrillas, toldos y carpas'),
+    # ---- Piezas de AUTO en subcategorías de MOTO (26-sep-2026) ----
+    # Venían de la comodín «Para motos» de una tienda y de «206 cc» leído como
+    # cilindrada (ver RX_AUTO_MARCA en reglas_nuevas.py).
+    ('Autopartes', r'\b(chevrolet|ford|nissan|volkswagen|vw|toyota|dodge|chrysler|jeep|kia|hyundai|mazda|bmw|audi|mercedes|'
+     r'gmc|mercury|lincoln|buick|cadillac|pontiac|plymouth|seat|renault|peugeot|mitsubishi|subaru|isuzu|acura|infiniti|'
+     r'lexus|volvo|fiat|ram|tsuru|sentra|jetta|aveo|tiida)\b|\b[vl]\d \d\.\dl\b|\b\d\.\dl\b|\bsedan\b|\bpickup\b',
+     r'\b(motos?|motocicletas?|motoneta|italika|cuatrimoto|scooter|harley|vento|dinamo|bajaj|ktm|ducati|carabela)\b',
+     'Autopartes',
+     lambda tn: 'Frenos' if re.search(r'freno|balata|cilindro (de )?rueda|mangueta|rondana|caliper|disco', tn)
+     else 'Suspensión y dirección' if re.search(r'cubre ?polvo|macheta|flecha|homocinetica|camber|rotula|terminal|'
+                                                r'horquilla|buje|varilla|flector|amortiguador|direccion|tuerca|brazo', tn)
+     else 'Motor y transmisión' if re.search(r'chicote|clutch|tensor|soporte (de )?motor|banda|junta|empaque', tn)
+     else 'Enfriamiento y climatización' if re.search(r'anticongelante|radiador|enfria|termostato', tn)
+     else 'Faros y luces' if re.search(r'calavera|faro|cuarto|luz', tn)
+     else 'Limpiaparabrisas' if re.search(r'limpiaparabrisas|pluma', tn)
+     else 'Ruedas para auto' if re.search(r'\brin(es)?\b', tn)
+     else 'Sistema eléctrico y sensores' if re.search(r'velocimetro|sensor|cable|switch', tn)
+     else 'Carrocería, espejos y molduras' if re.search(r'espejo|moldura|manija|puerta|cubierta|tapa', tn)
+     else 'Para autos',
+     {'Frenos de moto', 'Cadenas, sprockets y transmisión', 'Luces de moto', 'Carenados, plásticos y tanques',
+      'Motor, carburación y escape de moto', 'Eléctrico y baterías de moto', 'Manubrios, espejos y controles',
+      'Suspensión y dirección de moto', 'Asientos, parrillas y accesorios de moto', 'Filtros y aceites de moto',
+      'Para motos', 'Varillas para moto'}),
+    ('Joyería y bisutería', r'^reloj inteligente|smartwatch', None, 'Relojes inteligentes', 'Smartwatches'),
+    ('Viajes', r'^catre|campismo|casa de campana', None, 'Deportes y fitness', 'Campismo'),
+    ('Autos y motos', r'^moto (sound|buds)', None, 'Audífonos', 'Earbuds inalámbricos'),
+    ('Autos y motos', r'^moto watch', None, 'Relojes inteligentes', 'Smartwatches'),
+    ('Autopartes', r'patinete|scooter electric|bicicleta electrica|e-?bike|monopatin', r'\bmoto',
+     'Bicicletas y movilidad', lambda tn: 'Para bicicletas eléctricas' if re.search(r'bicicleta|e-?bike', tn) else 'Para patinetas eléctricas'),
+    # ---- Controles remotos entre los aparatos (26-sep-2026) ----
+    ('Televisores', r'^(\S+ ){0,1}control (para|remoto|universal)|^mando (para|a distancia)', r'\bcon control',
+     'Televisores', 'Controles para TV'),
+    ('Climatización', r'^(\S+ ){0,1}control (para|remoto|universal|minisplit|mini split)|^mando', r'\bcon control',
+     'Climatización', 'Controles para aire acondicionado'),
+    ('Proyectores y accesorios', r'^control (para|remoto|universal)', r'\bcon control',
+     'Proyectores y accesorios', 'Controles para proyector'),
+    # ---- Llantas por medida (26-sep-2026): «225/45 r17» es de auto, no de
+    # camioneta; «275/35zr20 michelin pilot» es de auto, no de moto; «165/60
+    # r14» no es de bicicleta. Ver MEDIDA_AUTO en subcategorias_finas_ola2.py.
+    ('Autos y motos', r'llanta|neumatico', None, 'Autos y motos',
+     lambda tn: ola2.sub_llanta(tn) if ola2.sub_llanta(tn) in ('Llantas para auto', 'Llantas para camioneta y SUV',
+                                                              'Llantas para moto') else None,
+     {'Llantas para auto', 'Llantas para camioneta y SUV', 'Llantas para moto', 'Llantas'}),
+    ('Bicicletas y movilidad', r'llanta|neumatico', None, 'Autos y motos',
+     lambda tn: ola2.sub_llanta(tn) if ola2.sub_llanta(tn) in ('Llantas para auto', 'Llantas para camioneta y SUV') else None,
+     {'Llantas para bicicleta'}),
+    # ---- Televisores por pulgadas (26-sep-2026): 129 en el tramo equivocado
+    # («Pantalla hisense 75"» en 50 a 55).
+    ('Televisores', r'\b\d{2} ?(pulgadas|pulg|plg|"|\'\'|”|¨)', r'^(soporte|control|base|mueble|funda|protector)',
+     'Televisores',
+     lambda tn: (lambda m: None if not m else (lambda x: 'Hasta 32 pulgadas' if x <= 32 else '40 a 43 pulgadas' if 40 <= x <= 43
+                 else '50 a 55 pulgadas' if 50 <= x <= 55 else '58 a 65 pulgadas' if 58 <= x <= 65
+                 else '70 pulgadas o más' if x >= 70 else None)(int(m.group(1))))(
+         re.search(r'\b(\d{2}) ?(?:pulgadas|pulg|plg|"|\'\'|”|¨)', tn)),
+     {'Hasta 32 pulgadas', '40 a 43 pulgadas', '50 a 55 pulgadas', '58 a 65 pulgadas', '70 pulgadas o más'}),
+    ('Laptops', r'trampolin', None, 'Juguetes', 'Trampolines'),
 ]
+
+
+REGLAS += [
+    # «Carda copa» es un cepillo de alambre para esmeril, no una copa.
+    ('Cocina y comedor', r'^carda|\bcarda (copa|circular|de alambre)', None, 'Herramientas', 'Esmeriladoras y pulidoras'),
+    # Blusas con estampado de gatos no son para gatos.
+    ('Mascotas', r'^(playera|blusa|sudadera|camiseta|vestido)\b.{0,60}\b(mujer|dama|hombre|unisex|nina|nino)\b', r'para (perro|gato|mascota)',
+     'Ropa y accesorios', 'Blusas y tops'),
+]
+
+# ---- Libros fuera de Libros (26-sep-2026) ----
+# 521 libros estaban en otras categorías porque su título nombra un objeto:
+# «La historia contada en televisión» (Televisores), «El anillo del
+# nibelungo» (Joyería), «El martillo de las brujas» (Herramientas). Un ISBN
+# o «editorial / tapa blanda / autor» dicen que es un libro, se llame como
+# se llame.
+from subcategorias_finas import sub_libro_fino  # noqa: E402
+_RX_LIBRO = (r'\b97[89]\d{10}\b|\beditorial\b|\btapa (blanda|dura)\b|\bpasta (blanda|dura)\b|\bautor\b|'
+             r'\bediciones\b|^libro\b')
+_NO_LIBRO = (r'para colorear con|cuaderno|agenda|libreta|separador|estante|atril|porta ?libros|lampara|funda|'
+             r'soporte|reproductor|lector|librero|repisa|perfume|eau de|parfum|\ben blanco\b|'
+             # Kits de «Running Press Mini Ediciones», tazas «collage editorial»,
+             # la lotería de «Gallo Editor», el Echo Pop «Ediciones del Mundial»
+             # y martillos «con tapa blanda» (26-sep-2026).
+             r'running press|mini ediciones|ediciones mini|\btazas?\b|echo pop|spec ops|\bloteria\b|'
+             r'martillo perforador|\bjuego de disc golf')
+
+
+def _genero(tn):
+    g = sub_libro_fino(tn)
+    if g:
+        return g
+    if re.search(r'\bnin[oa]s\b|infantil|cuento|scholastic|disney|peppa|paw patrol|para colorear|bebe', tn):
+        return 'Infantil'
+    return 'Novela contemporánea'
+
+
+try:
+    _cats_manifiesto = [c['id'] for c in json.load(open(os.path.join(os.path.dirname(AQUI), 'data', 'data.json'),
+                                                          encoding='utf-8'))['categories']]
+except Exception:  # noqa: BLE001
+    _cats_manifiesto = []
+# «Cambio de luz» es el interruptor de columna del auto (Cardic, Total Parts),
+# no una lámpara: 1,209 en Iluminación / Decorativa (26-sep-2026).
+REGLAS += [('Iluminación', r'^cambio de luz\b', None, 'Autopartes', 'Faros y luces')]
+REGLAS += [(c, _RX_LIBRO, _NO_LIBRO, 'Libros', _genero) for c in _cats_manifiesto if c != 'Libros']
 
 
 def main():
@@ -1340,6 +1457,203 @@ def main():
             print(f"           {m}")
     print(f"\nTotal: {sum(len(v) for v in grupos.values())} fichas en {len(grupos)} grupos -> {args.salida}")
     json.dump(grupos, open(args.salida, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+
+
+# ---- Cola sin subcategoría (26-sep-2026, tercera pasada) ----
+# Lo último sin subcategoría es, casi todo, ficha en la CATEGORÍA equivocada
+# porque el título nombra un animal o un vehículo: «Perro apestoso» (libro),
+# aretes de gatito, rompecabezas de gatos, carritos de juguete en Autos y
+# motos, «literatura» en Muebles. Sólo se tocan las que no tienen
+# subcategoría (o están en «Otros»): las demás ya pasaron por su regla.
+_SIN = {None}
+_SIN_U_OTROS = {None, 'Otros', 'Varios'}
+_EDITORIAL = (r'\b(macmillan|alfaomega|zenith|planeta|larousse|booket|tusquets|nordica libros|koral book|b4u publishing|'
+              r'gato sueco|fontamara|textofilia|gustavo gili|vr editoras|diaz de santos|az editora|elefanta|'
+              r'castillo a macmillan|molino|varios autores|tomo books|pearson|mcgraw hill|random house|hachette|akal|'
+              r'alianza|anagrama|salamandra|sexto piso|fce|siglo xxi|urano|oceano|santillana|norma|edelvives|'
+              r'kalandraka|ekare|sm ediciones|debolsillo|penguin|harpercollins|scholastic|editores?|editora)\b|'
+              r', de [a-z]+ [a-z]+|, (dura|blanda)\b|\b(dura|blanda)$|/ pd\.?$')
+def _genero_mascotas(tn):
+    # Los libros que caían en Mascotas son, sobre todo, infantiles («Perro
+    # apestoso», «Patrulla de cachorros») o de animales.
+    if re.search(r'castillo|macmillan|cuento|patrulla|gato sueco|ekare|kalandraka|infantil', tn):
+        return 'Infantil'
+    return sub_libro_fino(tn) or 'Hogar, manualidades y mascotas'
+
+
+_NO_LIB2 = _NO_LIBRO + r'|rompecabezas|peluche|llavero|arete|pendiente|taza|cerveza|\bgin\b|tamagotchi'
+REGLAS += [
+    ('Mascotas', _EDITORIAL, _NO_LIB2, 'Libros', _genero_mascotas, _SIN),
+    ('Muebles', r'literatura|literarios|escritos|\bmesalina\b', _NO_LIB2, 'Libros', _genero, _SIN_U_OTROS),
+    ('Autos y motos', _EDITORIAL, _NO_LIB2, 'Libros', _genero, _SIN),
+    ('Mascotas', r'\b(aretes?|pendientes|earring(cat|dog)\d*)\b', None, 'Joyería y bisutería', 'Aretes', _SIN),
+    ('Mascotas', r'\bllavero', None, 'Joyería y bisutería', 'Llaveros', _SIN),
+    ('Mascotas', r'^rompecabezas', None, 'Juegos de mesa', 'Rompecabezas', _SIN),
+    ('Mascotas', r'\btazas?\b', r'para (perro|gato|mascota)', 'Cocina y comedor', 'Tazas', _SIN),
+    ('Mascotas', r'^(libreta|cuaderno|agenda)', None, 'Papelería y oficina', 'Libretas y agendas', _SIN),
+    ('Mascotas', r'^(sacapuntas|clips|lapicera|crayones|colibrix|divisores de libros|pizarron|gomas en forma)|^ooy',
+     None, 'Papelería y oficina', 'Útiles escolares', _SIN),
+    ('Mascotas', r'\bcarda\b|cardina|deslanador|desenredador|peinado y autolimpieza|cortadora de mascotas|'
+                 r'corte pelo canina|secador .{0,40}mascotas|aseo y cepillado|\btalco\b|colonia .{0,20}perro|'
+                 r'espuma .{0,30}bano seco|antipulgas|pack higiene|refrescante de aliento|veteribac|antiseptica|'
+                 r'dispensador de bolsas|bolsas para perro|baglife|alfombra sanitaria|\barena\b|bandeja esquinera|'
+                 r'pill coat|bano para perros', None, 'Mascotas', 'Higiene y limpieza', _SIN),
+    ('Mascotas', r'repelente|zakese|ahuyentador|entrenador|canine calm|calmante', r'moscas para caballos',
+     'Mascotas', 'Adiestramiento', _SIN),
+    ('Mascotas', r'\b(cachorro|adulto) \d+ ?kg|comida (para )?mascotas|maka receta|balu cachorro|alpha cachorro|'
+                 r'perfect sense', r'kit', 'Mascotas', 'Alimento para perro', _SIN),
+    ('Mascotas', r'botana|carnaza|golosinas|refresco para perro|pasto de trigo|mezcla para pastel', r'dispensador|camara',
+     'Mascotas', 'Premios y snacks para mascotas', _SIN),
+    ('Mascotas', r'vitaminas|suplemento|condroprotector|colageno|tabletas masticables|probioticos|omega ?3|omegapet|'
+                 r'apoyo urinario|soporte piel|lifestages|lion.?s mane|carbodetox|dolodog|derma care|congestion nasal',
+     None, 'Mascotas', 'Alimento y premios', _SIN),
+    ('Mascotas', r'transportadora|carriers?\b|portabebes|bolsa de viaje .{0,30}mascotas|bolso portatil .{0,30}mascota|'
+                 r'carrito (para|multiusos) .{0,20}mascotas|caja p/mascotas', None, 'Mascotas', 'Transportadoras', _SIN),
+    ('Mascotas', r'mueble .{0,15}gato|mueble para gato|kitty sill', None, 'Mascotas', 'Rascadores y torres', _SIN),
+    ('Mascotas', r'cat bed|tent igloo|soft mat|\bcama\b', None, 'Mascotas', 'Camas', _SIN),
+    ('Mascotas', r'filtros? .{0,30}fuentes?|fuentes carbon|despachador de agua', None,
+     'Mascotas', 'Fuentes y dispensadores de agua', _SIN),
+    ('Mascotas', r'cable de amarre|estaca para', None, 'Mascotas', 'Correas', _SIN),
+    ('Mascotas', r'mordedera .{0,20}perro|trixie|bola .{0,20}perro|chupete para perro|lickimat|flotadores para perros|'
+                 r'juguete', r'kidz|musical', 'Mascotas', 'Juguetes para perro', _SIN),
+    ('Mascotas', r'lactancia|pezon de lactancia', None, 'Mascotas', 'Comederos', _SIN),
+    ('Mascotas', r'doggie door', None, 'Mascotas', 'Puertas para mascotas', _SIN),
+    ('Mascotas', r'etiquetas identificacion', None, 'Mascotas', 'Collares para mascotas', _SIN),
+    ('Mascotas', r'camisas .{0,20}perros', None, 'Mascotas', 'Ropa para mascotas', _SIN),
+    ('Mascotas', r'escalera (redlemon )?para perro|soporte triangular para perros|silla de coche elevadora|barreras para perros',
+     None, 'Mascotas', 'Corrales y rejas para mascotas', _SIN),
+    ('Mascotas', r'bascula (veterinaria|digital)', None, 'Mascotas', 'Higiene y limpieza', _SIN),
+    ('Mascotas', r'peluche|lamaze|\bgund\b|aurora world|pelucheria|titi 15 cm', r'para perro', 'Juguetes', 'Peluches', _SIN),
+    ('Mascotas', r'play-?doh|set de juego|melissa & doug|set veterinario|set mascota play|shinymals|l\.o\.l|tamagotchi',
+     None, 'Juguetes', 'Juguetes educativos', _SIN),
+    ('Mascotas', r'^vehiculo', None, 'Juguetes', 'Vehículos de juguete', _SIN),
+    ('Mascotas', r'^gato (automotriz|botella|hidraulico)', None, 'Autos y motos', 'Gatos hidráulicos para auto', _SIN),
+    ('Mascotas', r'escultura|estatua|adorno para mesa|velas en forma|portallaves|alcancia|imanes', None,
+     'Decoración de hogar y jardín', 'Figuras y adornos', _SIN),
+    ('Mascotas', r'^inflable .{0,20}(halloween|navidad)', None, 'Decoración de hogar y jardín', 'Navidad y temporada', _SIN),
+    ('Mascotas', r'vinil decorativo', None, 'Decoración de hogar y jardín', 'Vinil decorativo', _SIN),
+    ('Mascotas', r'^(set \d+ bolsas|cartera|monedero)', None, 'Bolsas y mochilas', 'Carteras y monederos', _SIN),
+    ('Mascotas', r'^(diadema|donas de pelo)', None, 'Belleza y cuidado personal', 'Cuidado del cabello', _SIN),
+    # Autos y motos sin subcategoría
+    ('Autos y motos', r'^(\S+ ){0,2}llantas?\d', r'bicicleta|carretilla|moto\b|motocicleta', 'Autos y motos',
+     lambda tn: ola2._auto_o_camioneta(re.sub(r'(llantas?)(\d)', r'\1 \2', tn), 'Llantas para auto'), _SIN),
+    ('Autos y motos', r'^vehiculos?\b|batimovil|bburago|hot ?wheels|camion de bomberos', r'emergencia|torreta',
+     'Juguetes', 'Vehículos de juguete', _SIN),
+    ('Autos y motos', r'altavo(z|ces)|alta voz|set de medios|\bmedios? rango', None, 'Autos y motos',
+     'Bocinas para auto', _SIN),
+    ('Autos y motos', r'meguiar|cera liquida|pulido|removedor de oxidacion|shampoo para auto', None, 'Autos y motos',
+     'Limpieza y cuidado del auto', _SIN),
+    ('Autos y motos', r'^llavero', None, 'Joyería y bisutería', 'Llaveros', _SIN),
+    ('Autos y motos', r'compresor|inflador', None, 'Autos y motos', 'Compresores e infladores', _SIN),
+    ('Autos y motos', r'^pulidora', None, 'Herramientas', 'Esmeriladoras y pulidoras', _SIN),
+    ('Autos y motos', r'^lona\b', None, 'Herramientas', 'Construcción', _SIN),
+    ('Autos y motos', r'torreta|estrobo', None, 'Autos y motos', 'Luces LED para auto', _SIN),
+    ('Autos y motos', r'pintura en aerosol', None, 'Autos y motos', 'Limpieza y cuidado del auto', _SIN),
+    # Muebles «Otros»
+    ('Muebles', r'^espejo', None, 'Decoración de hogar y jardín', 'Espejos decorativos de pared', _SIN_U_OTROS),
+    ('Muebles', r'^piso autoadhesivo', None, 'Herramientas', 'Construcción', _SIN_U_OTROS),
+    ('Muebles', r'carro de bar', None, 'Muebles', 'Mesas de cama y con ruedas', _SIN_U_OTROS),
+    ('Muebles', r'baul|caja de almacenamiento|organizacion plegable', r'guillotina', 'Muebles', 'Repisas', _SIN_U_OTROS),
+    ('Muebles', r'comoda', r'mujer|hombre|sudadera|filipina|pantalon|blusa|playera', 'Muebles', 'Cómodas y cajoneras', _SIN_U_OTROS),
+    ('Muebles', r'casillero|locker', None, 'Muebles', 'Roperos', _SIN_U_OTROS),
+    ('Muebles', r'mesa ?decorativa|mesa auxiliar', None, 'Muebles', 'Mesas auxiliares y laterales', _SIN_U_OTROS),
+    ('Muebles', r'banqueta', None, 'Muebles', 'Taburetes y bancos', _SIN_U_OTROS),
+    # Belleza sin subcategoría
+    ('Belleza y cuidado personal', r'^(\d+ )?(pcs |piezas |paquete \d+ )?(mini )?pinzas? (para|de) (cabello|metal)|pinza para cabello|'
+     r'pinzas para cabello', None, 'Belleza y cuidado personal', 'Cuidado del cabello', _SIN),
+    ('Belleza y cuidado personal', r'pestanas', None, 'Belleza y cuidado personal', 'Pestañas postizas', _SIN),
+    ('Belleza y cuidado personal', r'^acondi?cionador', None, 'Belleza y cuidado personal', 'Acondicionadores', _SIN),
+    ('Belleza y cuidado personal', r'\bsuero\b', None, 'Belleza y cuidado personal', 'Sérums faciales', _SIN),
+    ('Belleza y cuidado personal', r'aceite esencial', None, 'Belleza y cuidado personal',
+     'Aceites esenciales y de masaje', _SIN),
+    ('Belleza y cuidado personal', r'recortadora|clipper', None, 'Belleza y cuidado personal', 'Cortadoras de cabello', _SIN),
+    ('Belleza y cuidado personal', r'leave in|tratamiento reparador|vitamino color', None, 'Belleza y cuidado personal',
+     'Tratamientos y mascarillas capilares', _SIN),
+    ('Belleza y cuidado personal', r'toalla de microfibra|hair towel', None, 'Belleza y cuidado personal',
+     'Cuidado del cabello', _SIN),
+    ('Belleza y cuidado personal', r'electrolitos', None, 'Suplementos', 'Electrolitos y minerales', _SIN),
+    ('Belleza y cuidado personal', r'^marcadores', None, 'Papelería y oficina', 'Arte y dibujo', _SIN),
+    ('Belleza y cuidado personal', r'^mascara .{0,40}halloween', None, 'Juguetes', 'Disfraces', _SIN),
+    ('Belleza y cuidado personal', r'cejas', None, 'Belleza y cuidado personal', 'Máscaras de pestañas y cejas', _SIN),
+    # Suplementos sin subcategoría: la función fina ya existente, y los arneses
+    # «suplementarios» de Italika son autoparte de moto.
+    ('Suplementos', r'arnes suplementario', None, 'Autopartes', 'Eléctrico y baterías de moto', _SIN),
+    ('Suplementos', r'.', None, 'Suplementos',
+     lambda tn: sub_suplemento_fino(tn) or ('Herbolaria y superalimentos' if re.search(
+         r'raiz|hierba|herbal|extracto|semilla|hawthorn|vitex|chaste|melon|clorofila|spirulina|ganoderma|maitake|'
+         r'mushroom|hongos|oregano|malvavisco|solanum|carbon (vegetal|activado)|shilajit', tn) else None), _SIN),
+    # Libros sin subcategoría: género por título; si no se sabe, novela.
+    ('Libros', r'.', None, 'Libros', _genero, _SIN),
+    # Juguetes sin subcategoría
+    ('Juguetes', r'^vehiculos?|^auto\b|^carro\b|^pista', None, 'Juguetes', 'Vehículos de juguete', _SIN),
+    ('Juguetes', r'^figura', None, 'Juguetes', 'Figuras de acción', _SIN),
+    # Iluminación sin subcategoría
+    ('Iluminación', r'^lamparas? (de )?(techo|colgante)', None, 'Iluminación', 'Lámparas colgantes', _SIN),
+    ('Iluminación', r'^proyector', None, 'Iluminación', 'Proyectores de luz y efectos', _SIN),
+    ('Iluminación', r'^lamparas? solar', None, 'Iluminación', 'Lámparas solares', _SIN),
+    ('Iluminación', r'faroles?', None, 'Iluminación', 'Decorativa', _SIN),
+    ('Iluminación', r'^focos?\b', None, 'Iluminación', 'Focos', _SIN),
+    # Cámaras sin subcategoría: casi todas son cámaras de vigilancia.
+    ('Cámaras y fotografía', r'^camara .{0,60}(seguridad|vigilancia|wifi|ip\b|espia|bombilla|foco|exterior|interior)',
+     None, 'Cámaras de seguridad',
+     lambda tn: ('Cámaras espía' if 'espia' in tn else 'Cámaras PTZ' if re.search(r'\bptz\b', tn)
+                 else 'Cámaras exteriores' if re.search(r'exterior|intemperie|solar|\bbala\b', tn) else 'Cámaras interiores'),
+     _SIN),
+]
+
+# ---- Errores sistemáticos de la muestra de 100 (26-sep-2026) ----
+# De 10,639 fichas que el modelo marca, a mano: 43/100 mal puestas. Las
+# familias que se repiten van por regla (el modelo solo acierta el destino
+# ~30% de las veces, así que no se le hace caso a ciegas).
+def _tenis(tn):
+    if re.search(r'^botas?\b|botas? de combate', tn):
+        return 'Botas'
+    if re.search(r'bebe|\bninos?\b|\bninas?\b|infantil|12-21|\bjr\b|\binf\b|\bk\b', tn):
+        return 'Tenis para niños'
+    if re.search(r'\bmujer\b|\bdama\b', tn):
+        return 'Tenis para mujer'
+    if re.search(r'\bhombre\b|caballero', tn):
+        return 'Tenis para hombre'
+    return 'Tenis'
+
+
+_MOTO_MARCAS = r'bajaj|pulsar|vento|italika|\bdm ?\d{3}|\bft ?\d{3}|yamaha|suzuki gn|\bmoto\b|motocicleta|\bcc\b|screamer'
+_ESPEJO_AUTO = (r'^(\(\d+\) )?(par de |juego |set )?espejos?\b.{0,80}\b(izq|der|izquierdo|derecho|piloto|pasajero|'
+                r's/control|c/control|electrico|manual|retrovisor|lateral)\b|^espejo generica|^juego espejos')
+REGLAS += [
+    ('Deportes y fitness', r'^(tacos|taquetes|tachones?|tachos?)\b|^pirma brasil', None,
+     'Deportes y fitness', 'Tachones de fútbol'),
+    ('Deportes y fitness', r'^(tenis|calzado|botas? de combate)\b|bubble gummers.{0,20}tenis|^tenis ',
+     r'raqueta|pelota|mesa|\bred\b|bola', 'Calzado', _tenis),
+    ('Deportes y fitness', r'^mochila\b', r'bebe|cabeza', 'Bolsas y mochilas', 'Mochilas'),
+    ('Decoración de hogar y jardín', _ESPEJO_AUTO, r'bano|tocador|maquillaje|cuerpo completo|pared|bebe',
+     'Autopartes', lambda tn: 'Manubrios, espejos y controles' if re.search(_MOTO_MARCAS, tn)
+     else 'Carrocería, espejos y molduras'),
+    ('Refrigeradores', r'palanca|bomba de agua|linea de agua|\bpin de|arnes|valvula|pestillo|empaque|termostato|'
+                       r'repuesto|refaccion|bisagra|\boem\b|protector de (sobretension|voltaje)|marco magnetico|'
+                       r'para (puerta de )?refrigerador',
+     r'^refrigerador(?!.*(palanca|valvula|pestillo))|mini nevera|frigobar', 'Electrodomésticos', 'Filtros para refrigerador y cafetera'),
+    ('Refrigeradores', r'bloques? de hielo|paquete de hielo|hielo reutilizable', None, 'Cocina y comedor',
+     'Loncheras y termos para alimentos'),
+    ('Refrigeradores', r'mini nevera|nevera compacta|frigobar|mini refrigerador', None, 'Refrigeradores', 'Frigobares',
+     {'Top mount', 'Bottom freezer', 'Una puerta'}),
+    ('Proyectores y accesorios', r'proyector (de |led )?(logotipos?|luz|estrellas|nebulosa|historias|figuras|galaxia|aurora)|'
+                                 r'star shower|lampara de estrellas|\bgobo\b|moonlite|storytime|frases intercambiables|'
+                                 r'con proyector (nebulosa|de estrellas)|puntero laser|proyector navideno',
+     r'video|hdmi|1080|4k|lumenes ansi|wifi', 'Iluminación', 'Proyectores de luz y efectos'),
+    ('Joyería y bisutería', r'anillos? para cortinas', None, 'Decoración de hogar y jardín', 'Cortinas'),
+    ('Joyería y bisutería', r'opresor de anillos|juego de anillos de cobre|para anillos de cobre|remache y anillo|tuberia pex', None,
+     'Herramientas', 'Herramientas manuales'),
+    ('Joyería y bisutería', r'anillos? para moto', None, 'Autopartes', 'Motor, carburación y escape de moto'),
+    ('Joyería y bisutería', r'anillos? para pestanas', None, 'Belleza y cuidado personal', 'Pestañas postizas'),
+    ('Joyería y bisutería', r'anillo de cocina', None, 'Cocina y comedor', 'Utensilios de cocina'),
+    ('Laptops', r'^(computadora|pc|completo|cpu)\b.{0,80}\bmonitor\b|^pc (intel|amd)', r'para laptop|funda|mochila',
+     'Computadoras de escritorio', 'Torres de casa y oficina'),
+    ('Celulares', r'lenovo m\d{3}|thinkcentre|optiplex|elitedesk|prodesk', None,
+     'Computadoras de escritorio', 'Reacondicionadas'),
+    ('Juguetes', r'roman fashion', None, 'Ropa y accesorios',
+     lambda tn: 'Pantalones y jeans' if re.search(r'pants|pantalon|jogger', tn) else 'Chamarras y suéteres'),
+]
 
 
 if __name__ == '__main__':

@@ -61,15 +61,25 @@ import unicodedata
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import id_num, load_catalog, save_catalog  # noqa: E402
+from data_io import id_num, load_catalog, registrar_fusiones, save_catalog  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def norm_name(s):
+    """Nombre comparable: sin acentos, sin mayúsculas y SIN PUNTUACIÓN.
+
+    La puntuación partía el mismo producto en dos (26-sep-2026): Coppel
+    escribe «Usb-c», Walmart «usb-C»; «Town & Country» / «Town Country»;
+    «185/70 r14» / «185 70 r14». El «+» sí se conserva (como «plus»): un
+    Galaxy S25+ no es un S25. Y la coletilla «- Venta Internacional.» de
+    Coppel no es parte del producto.
+    """
     s = unicodedata.normalize("NFKD", (s or "").lower())
     s = "".join(c for c in s if not unicodedata.combining(c))
-    return re.sub(r"\s+", " ", s).strip()
+    s = re.sub(r"[\s\-–—|,.]*venta internacional\W*$", "", s)
+    s = s.replace("+", " plus ")
+    return re.sub(r"[^a-z0-9]+", " ", s).strip()
 
 
 
@@ -83,13 +93,29 @@ def mergeable_groups(products):
     for (category, name), ps in groups.items():
         if len(ps) < 2 or not name:
             continue
-        if any(len(p.get("offers") or []) != 1 for p in ps):
+        # Antes cada ficha tenía que traer UNA oferta. Desde Soicos, Walmart y
+        # Bodega Aurrerá llegan juntas en una ficha (dos ofertas) y quedaban
+        # fuera de todo grupo: la misma cama de Coppel y de Walmart/Bodega
+        # seguía en dos fichas (26-sep-2026, 13,614 grupos así). Ahora vale
+        # cualquier número de ofertas mientras NINGUNA tienda aparezca en dos
+        # fichas del grupo: dos fichas de una misma tienda con el mismo nombre
+        # siguen siendo, casi siempre, SKU distintos (ver arriba).
+        tiendas_por_ficha = [{(o or {}).get("storeId") for o in p.get("offers") or []} for p in ps]
+        if any(not t or None in t for t in tiendas_por_ficha):
             continue
-        stores = [(p["offers"][0] or {}).get("storeId") for p in ps]
-        if None in stores or len(set(stores)) != len(stores):
+        todas = [t for ts in tiendas_por_ficha for t in ts]
+        if len(set(todas)) != len(todas):
+            continue
+        # Y el precio: el mismo producto no cuesta 1.8 veces más en otra
+        # tienda (mismo tope que fusionar_vetado.py).
+        minimos = [min((o.get("price") for o in p.get("offers") or [] if o.get("price")), default=None) for p in ps]
+        if None in minimos or max(minimos) >= PRECIO_MAX_RATIO * min(minimos):
             continue
         out.append((category, name, sorted(ps, key=id_num)))
     return out
+
+
+PRECIO_MAX_RATIO = 1.8
 
 
 # La regla "misma url = mismo producto" vivía acá sin ninguna guarda más, y
@@ -169,15 +195,11 @@ def main():
         return
 
     save_catalog(data)
-    if not args.keep_pages:
-        gone = 0
-        for pid in absorbed:
-            path = os.path.join(ROOT, "producto", pid)
-            if os.path.isdir(path):
-                shutil.rmtree(path)
-                gone += 1
-        print(f"Páginas estáticas borradas: {gone}")
-    print("Catálogo actualizado.")
+    # Las páginas de las absorbidas ya no se borran: se registran para que su
+    # url lleve a la ficha que quedó (build_retirados_index.py) y
+    # generate_seo_pages.py limpia las carpetas que sobran.
+    registrar_fusiones((p["id"], ps[0]["id"]) for _c, _n, ps in groups for p in ps[1:])
+    print("Catálogo actualizado; fusiones registradas para redirigir.")
 
 
 if __name__ == "__main__":

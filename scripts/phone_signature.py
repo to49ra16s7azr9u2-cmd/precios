@@ -101,8 +101,17 @@ def bundle_of(name):
 ESIM_RE = re.compile(r"s[oó]lo\s*e-?sim|\be-?sim\b", re.IGNORECASE)
 
 
+# En México el iPhone 17, 17 Air, 17 Pro y 17 Pro Max se venden SÓLO con
+# eSIM (Apple quitó la bandeja en este mercado, sep-2025). Que el nombre lo
+# diga o no, es el mismo equipo: sin esto el «Apple iPhone 17 Pro (256 GB)»
+# y el «... - Sólo eSIM» de Mercado Libre quedaban en dos fichas. El 17e no
+# entra (tiene otra historia).
+_IPHONE_SOLO_ESIM_RE = re.compile(r"\biphone\s*17(?!\s*e\b)(?!\d)")
+
+
 def esim_of(name):
-    return bool(ESIM_RE.search(_norm(name)))
+    n = _norm(name)
+    return bool(ESIM_RE.search(n) or _IPHONE_SOLO_ESIM_RE.search(n))
 
 
 # ---- red 4G / 5G ----------------------------------------------------
@@ -240,6 +249,9 @@ FINISH_QUALIFIERS = {
     "intenso", "oscuro", "claro", "titanio", "titanium", "del", "de",
     "nocturno", "nebula", "aurora", "marino", "navy", "cielo", "sky",
     "hielo", "ice", "menta", "lima", "medianoche", "midnight",
+    # «Rosa Pálido» del iPhone 17e: sin esto «pálido» quedaba dentro del
+    # modelo («iphone 17 e palido») y la ficha no se juntaba con nadie.
+    "palido", "pale", "mate",
 }
 
 
@@ -307,6 +319,11 @@ def _color_region(toks):
 
 def model_of(name, brand):
     n = _norm(name)
+    # «promax» (Walmart, Bodega) es «pro max».
+    n = re.sub(r"\bpro\s*max\b", "pro max", n)
+    # «Galaxy S24+» es el S24 Plus, no el S24: el «+» pegado a un número de
+    # modelo también cuenta (el _plus de abajo sólo miraba «Pro+»).
+    n = re.sub(r"\b([a-z]+\d+)\+", r"\1 plus", n)
     # corta en el primer marcador de "ficha técnica"
     m = MODEL_STOP_RE.search(n)
     if m:
@@ -406,6 +423,12 @@ def model_of(name, brand):
     return joined or None
 
 
+def _colores_distintos(name):
+    from match_amazon_capture import _COLOR_RE, COLOR_CANON
+    vistos = {COLOR_CANON.get(c, c) for c in _COLOR_RE.findall(_norm(name))}
+    return vistos - {"titanio", "titanium"}
+
+
 def signature(product):
     name = product.get("name") or ""
     brand = (product.get("brand") or "").strip()
@@ -417,6 +440,10 @@ def signature(product):
     carrier = carrier_of(name)
     # Firma INCOMPLETA -> no se fusiona con nadie.
     if not (model and storage and color):
+        return None
+    # Dos colores distintos en el nombre («negro ... plata + audífonos»): no
+    # se sabe cuál es el del equipo, así que no se junta con nadie.
+    if len(_colores_distintos(name)) > 1:
         return None
     return (
         brand.lower(),

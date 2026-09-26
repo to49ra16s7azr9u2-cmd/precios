@@ -67,7 +67,7 @@ import shutil
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, registrar_fusiones, save_catalog  # noqa: E402
 import audit_gtin_matches as ag  # noqa: E402
 import merge_by_url as mu  # noqa: E402
 from ean_dudosos import ean_utilizable  # noqa: E402
@@ -98,9 +98,18 @@ def cantidad(nombre):
     return n
 
 
+MIN_SIMILITUD_MISMA_TIENDA = 0.8
+
+
 def gtins_de(product):
-    """Todos los códigos utilizables de la ficha, de cualquier tienda."""
+    """Todos los códigos utilizables de la ficha, de cualquier tienda, más el
+    GTIN ya confirmado de la ficha (match_by_gtin.py): 3,187 códigos estaban
+    repetidos entre fichas sólo por ese campo (26-sep-2026)."""
     out = set()
+    if product.get("gtin"):
+        g = normalize_gtin(str(product["gtin"]))
+        if g:
+            out.add(g)
     for o in product.get("offers") or []:
         if not ean_utilizable(o):
             continue
@@ -132,10 +141,26 @@ def se_puede_fusionar(fichas):
     if any(not t for t in tiendas):
         return False, "alguna ficha no dice de qué tienda es"
     vistas = set()
+    misma_tienda = False
     for t in tiendas:
         if t & vistas:
-            return False, "dos fichas de la misma tienda"
+            misma_tienda = True
         vistas |= t
+    # Dos fichas de la MISMA tienda con el mismo código: el candado se puso
+    # por los EAN falsos de Elektra (prefijo compartido: una bomba de $76 mil
+    # con una llave de $130), que tienen nombres que no se parecen en nada.
+    # Pero Mercado Libre publica el mismo juego como dos productos de
+    # catálogo ("Sonic Forces Nintendo Switch" dos veces, mismo EAN): 1,299
+    # grupos así quedaban sin juntar (26-sep-2026). Se aceptan sólo con
+    # nombres casi iguales y precio a menos de 1.8x.
+    if misma_tienda:
+        nombres = [p.get("name") or "" for p in fichas]
+        for otro in nombres[1:]:
+            sim = ag.similitud(nombres[0], otro)
+            if sim is None or sim < MIN_SIMILITUD_MISMA_TIENDA:
+                return False, "dos fichas de la misma tienda"
+        if ratio_del_grupo(fichas) >= 1.8:
+            return False, "dos fichas de la misma tienda (precio distinto)"
 
     confirmados = {p["gtin"] for p in fichas if p.get("gtin")}
     if len(confirmados) > 1:
@@ -256,15 +281,10 @@ def main():
         return
 
     save_catalog(data)
-    if not args.keep_pages:
-        n = 0
-        for pid in absorbidas:
-            ruta = os.path.join(ROOT, "producto", pid)
-            if os.path.isdir(ruta):
-                shutil.rmtree(ruta)
-                n += 1
-        print(f"Páginas estáticas borradas: {n}")
-    print("Catálogo actualizado.")
+    # La url de cada absorbida lleva a la que quedó (build_retirados_index.py);
+    # las carpetas sobrantes las limpia generate_seo_pages.py.
+    registrar_fusiones((p["id"], jefe["id"]) for _g, jefe, resto in hechos for p in resto)
+    print("Catálogo actualizado; fusiones registradas para redirigir.")
 
 
 if __name__ == "__main__":

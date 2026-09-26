@@ -65,6 +65,7 @@ PROGRAMAS = [
 # espera sin pasar el límite (16 páginas en 69 s, medido el 25-sep-2026).
 HILOS = 8
 ENTRE_PEDIDOS = 1.1
+SALTO_MAX = 10
 
 
 class Ritmo:
@@ -151,8 +152,9 @@ def aplicar(archivo, dry_run):
         feed = json.load(f)
     precios = feed["precios"]
     data = load_catalog()
-    stats = {t: {"ofertas": 0, "cambian": 0, "iguales": 0, "agotadas": 0, "sin_feed": 0} for t in precios}
-    deltas = []
+    stats = {t: {"ofertas": 0, "cambian": 0, "iguales": 0, "agotadas": 0, "sin_feed": 0, "saltos": 0}
+             for t in precios}
+    deltas, saltos = [], []
     for p in data["products"]:
         ofertas = list(p.get("offers") or [])
         for v in p.get("colorVariants") or []:
@@ -178,6 +180,13 @@ def aplicar(archivo, dry_run):
                 st["iguales"] += 1
                 continue
             viejo = o.get("price")
+            # Un salto de 10 veces o más no es un cambio de precio: es el
+            # precio de relleno de un vendedor (llanta de $2,112 a $80,000 en
+            # el feed de Walmart, 26-sep-2026). Se deja como estaba.
+            if viejo and not (viejo / SALTO_MAX <= precio <= viejo * SALTO_MAX):
+                st["saltos"] += 1
+                saltos.append((p["name"], viejo, precio))
+                continue
             if viejo and abs(viejo - precio) >= 0.01:
                 deltas.append((abs(precio - viejo) / viejo, p["name"], viejo, precio))
             o.update(nuevo)
@@ -187,7 +196,10 @@ def aplicar(archivo, dry_run):
     for t, st in stats.items():
         cubre = (st["ofertas"] - st["sin_feed"]) / (st["ofertas"] or 1)
         print(f"  {t:15} ofertas {st['ofertas']:>8,}  cambian {st['cambian']:>7,}  iguales {st['iguales']:>8,}  "
-              f"agotadas {st['agotadas']:>6,}  fuera del feed {st['sin_feed']:>7,}  ({cubre:.0%} cubiertas)")
+              f"agotadas {st['agotadas']:>6,}  saltos x{SALTO_MAX} {st['saltos']:>4,}  "
+              f"fuera del feed {st['sin_feed']:>7,}  ({cubre:.0%} cubiertas)")
+    for nombre, viejo, nuevo in saltos[:8]:
+        print(f"   NO se aplica (salto): {nombre[:56]:56} ${viejo:,.2f} -> ${nuevo:,.2f}")
     deltas.sort(reverse=True)
     for pct, nombre, viejo, nuevo in deltas[:10]:
         print(f"   {pct:6.0%}  {nombre[:56]:56} ${viejo:,.2f} -> ${nuevo:,.2f}")

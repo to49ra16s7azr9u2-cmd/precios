@@ -339,10 +339,19 @@ def main():
             if cat in declaradas and sub not in declaradas[cat]:
                 errores.append(f"{cat}: no declara la subcategoría {sub!r}")
     if errores:
-        print("Reglas que no cuadran con el catálogo:")
+        # Antes esto cortaba con salida 1, y como en la corrida diaria va con
+        # `bash -e`, un solo renombre de subcategoría dejaba SIN subcategoría a
+        # todo lo nuevo de Mercado Libre y ni siquiera corrían los pasos de
+        # después (pasó desde el reordenamiento de subcategorías hasta el
+        # 26-sep-2026). Ahora la regla que apunta a una subcategoría que ya no
+        # existe se salta y se avisa; lo que quede vacío lo llena
+        # completar_subcategorias.py.
+        print("AVISO: reglas que no cuadran con el catálogo (se saltan):")
         for e in errores:
             print("  -", e)
-        return 1
+    for cat in list(COMPILADAS):
+        if cat in declaradas:
+            COMPILADAS[cat] = [r for r in COMPILADAS[cat] if r[0] in declaradas[cat]]
 
     objetivo = set(args.categorias) if args.categorias else (
         set(REGLAS) | set(REGLAS_ESPECIALES))

@@ -6622,7 +6622,20 @@ def _mapear(d):
     return d
 
 
+# Un ISBN dice «libro» aunque el título nombre un objeto («La historia contada
+# en televisión», «El anillo del nibelungo»): 521 libros estaban en
+# Televisores, Joyería, Herramientas... (26-sep-2026).
+RX_ISBN = re.compile(r'\b97[89]\d{10}\b')
+RX_NO_LIBRO = re.compile(r'cuaderno|agenda|libreta|separador|estante|atril|porta ?libros|lampara|funda|soporte|'
+                         r'reproductor|lector|librero|repisa|perfume|eau de|parfum')
+
+
 def _decidir(it, pistas=None):
+    tn_isbn = T(it.get('title') or '')
+    if not it.get('_forzar') and RX_ISBN.search(tn_isbn) and not RX_NO_LIBRO.search(tn_isbn):
+        d = _decidir_base({**it, '_forzar': ('Libros', None, reubicar_otros.ICONO.get('Libros', 'book'))}, pistas)
+        if d.get('estado') == 'alta' and d.get('category') == 'Libros':
+            return d
     d = _decidir_base(it, pistas)
     # «Otros» ya no es destino (24-sep-2026, reubicar_otros.py): lo que las
     # reglas mandaban a Otros/Soportes, Otros/Paneles solares, Otros/Baño...

@@ -69,7 +69,9 @@ USADO_RE = re.compile(r"preowned|usado|reacondicionad", re.I)
 
 
 def normalizar(s):
-    s = unicodedata.normalize("NFD", s or "")
+    # NFKC antes: nombres con «ＵＳＢ» o «１ＴＢ» en ancho completo se indexan
+    # como «usb» / «1tb», igual que la consulta (ver normalizeIndexWord en app.js).
+    s = unicodedata.normalize("NFD", unicodedata.normalize("NFKC", s or ""))
     return "".join(c for c in s if not ("̀" <= c <= "ͯ")).lower()
 
 

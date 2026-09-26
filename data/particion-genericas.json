@@ -10,6 +10,7 @@
   "Autos y motos|Accesorios para auto",
   "Autos y motos|Accesorios para moto",
   "Autos y motos|Cámaras y accesorios de llanta",
+  "Autos y motos|Micas y accesorios para casco",
   "Baterías portátiles|Accesorios y repuestos",
   "Bicicletas y movilidad|Accesorios de movilidad eléctrica",
   "Bicicletas y movilidad|Accesorios para bicicleta",
@@ -206,6 +207,9 @@
    "Rines",
    "Tapones para llanta",
    "Válvulas para llanta"
+  ],
+  "Autos y motos|Micas y accesorios para casco": [
+   "Frenos para casco"
   ],
   "Baterías portátiles|Accesorios y repuestos": [
    "Cargadores para batería portátil",
@@ -425,6 +429,7 @@
    "Ejercitadores",
    "Guantes",
    "Rodilleras, muñequeras y soportes",
+   "Soportes",
    "Tapetes de yoga"
   ],
   "Deportes y fitness|Pelotas y accesorios de raqueta": [
@@ -874,6 +879,9 @@
    "tapon": "Tapones para llanta",
    "valvula": "Válvulas para llanta"
   },
+  "Autos y motos|Micas y accesorios para casco": {
+   "freno": "Frenos para casco"
+  },
   "Baterías portátiles|Accesorios y repuestos": {
    "cargador": "Cargadores para batería portátil"
   },
@@ -980,7 +988,8 @@
    "cinturon": "Cinturones",
    "cuerda": "Cuerdas",
    "ejercitador": "Ejercitadores",
-   "guante": "Guantes"
+   "guante": "Guantes",
+   "soporte": "Soportes"
   },
   "Deportes y fitness|Pelotas y accesorios de raqueta": {
    "pelota": "Pelotas para raqueta"

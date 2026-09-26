@@ -644,3 +644,12 @@ ROLES_TRES_NIVELES = {
     "Televisores": {"Accesorios y soportes": "accesorio"},
     "Almacenamiento": {},
 }
+
+# Autopartes por pieza (26-sep-2026): el sistema del auto pasa a familia.
+from subcategorias_autopartes_finas import TRES_NIVELES_AUTOPARTES  # noqa: E402
+TRES_NIVELES += TRES_NIVELES_AUTOPARTES
+
+# Cajones de miles partidos por lo que se elige (26-sep-2026): llantas por rin,
+# tenis y perfumes por género, cubrevolantes, box con cabecera, Funko...
+from subcategorias_divisiones import TRES_NIVELES_DIVISIONES  # noqa: E402
+TRES_NIVELES += TRES_NIVELES_DIVISIONES

@@ -58,6 +58,8 @@ BITACORA = os.path.join(ROOT, "data", "movimientos-aplicados.json")
 MARGEN = 8.0              # nats sobre la categoría actual
 MARGEN_CONTRA_REGLA = 16.0  # si la regla de hoy respalda la categoría actual
 MIN_FICHAS_CLASE = 15
+VECINOS_FUERTES = 0.8     # parte de las 25 más parecidas en la categoría nueva
+VECINOS_ACTUAL_MAX = 0.1  # ... y como mucho esta parte en la actual
 FUENTES_ESTRUCTURADAS = {"mercadolibre"}
 
 _M = None  # modelo compartido con los procesos (fork)
@@ -151,6 +153,10 @@ def main():
     ap.add_argument("--aplicar", action="store_true")
     ap.add_argument("--informe")
     ap.add_argument("--margen", type=float, default=MARGEN)
+    ap.add_argument("--candidatos", help="guarda TODAS las fichas que el modelo marca (id, nombre, categoría "
+                                         "actual, la que prefiere, margen) para medir cuántas son error de verdad")
+    ap.add_argument("--vecinos-fuertes", action="store_true",
+                    help="deja pasar sin el control del sustantivo si los vecinos votan en masa por la categoría nueva")
     args = ap.parse_args()
 
     data = load_catalog()
@@ -162,6 +168,10 @@ def main():
             _evaluar, [(p["id"], p.get("name") or "", p.get("category")) for p in productos], chunksize=2000))
     prefieren = {pid: v for pid, v in res.items() if v and v[1] >= args.margen}
     print(f"fichas: {len(productos):,}; el modelo prefiere otra categoría con margen >= {args.margen}: {len(prefieren):,}")
+    if args.candidatos:
+        with open(args.candidatos, "w", encoding="utf-8") as f:
+            json.dump([[pid, por_id[pid].get("name"), por_id[pid].get("category"), por_id[pid].get("subcategory"),
+                        nueva, round(m, 1)] for pid, (nueva, m) in prefieren.items()], f, ensure_ascii=False)
 
     import clasificar_captura_perifericos as clasif
     from vecinos_catalogo import Vecinos
@@ -172,6 +182,7 @@ def main():
 
     motivos = collections.Counter()
     mover = collections.defaultdict(list)
+    via_vf = set()
     for pid, (nueva, margen) in prefieren.items():
         p = por_id[pid]
         cat = p.get("category")
@@ -201,8 +212,18 @@ def main():
             motivos["la regla respalda la actual"] += 1
             continue
         if not clasif.es_coherente(p.get("name") or "", nueva, p.get("brand") or ""):
-            motivos["el título no arranca como la categoría nueva"] += 1
-            continue
+            # Vía de los vecinos fuertes (26-sep-2026): el control del
+            # sustantivo frenaba justo las colisiones de palabras -- «Banda
+            # accesorios rodatech 1500 ram v8» no arranca como Autopartes y
+            # se quedaba en Memoria RAM. Si casi todas las fichas parecidas
+            # (VECINOS_FUERTES) están en la categoría nueva y casi ninguna
+            # en la actual, pasa igual.
+            v = vecinos.votos(pid=pid) if args.vecinos_fuertes else {}
+            if not (v.get(nueva, 0) >= VECINOS_FUERTES and v.get(cat, 0) <= VECINOS_ACTUAL_MAX):
+                motivos["el título no arranca como la categoría nueva"] += 1
+                continue
+            motivos["(pasa por vecinos fuertes sin el sustantivo)"] += 1
+            via_vf.add(pid)
         # Tercer juez (vecinos_catalogo.py): las 25 fichas más parecidas
         # tienen que estar sobre todo en la categoría nueva. Frena la atracción
         # de las categorías grandes (tabletas, NAS y consolas a Laptops).
@@ -220,6 +241,13 @@ def main():
             sub = None
         mover[(cat, p.get("subcategory"), nueva, sub)].append((pid, margen))
 
+    if via_vf:
+        import random as _r
+        _r.seed(1)
+        movidas_vf = [(pid, k) for k, v in mover.items() for pid, _ in v if pid in via_vf]
+        print(f"por vecinos fuertes: {len(movidas_vf):,} (muestra)")
+        for pid, k in _r.sample(movidas_vf, min(60, len(movidas_vf))):
+            print(f"   VF  {k[0]} -> {k[2]} / {k[3]}  |  {por_id[pid]['name'][:80]}")
     total = sum(len(v) for v in mover.values())
     print(f"se mueven: {total:,} en {len(mover)} grupos")
     for k, n in motivos.most_common():
