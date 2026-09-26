@@ -60,6 +60,8 @@ def tramo_mah(tn):
 
 # (categoría origen, regex que debe cumplir, regex que NO debe cumplir o None,
 #  categoría destino, subcategoría destino o función(tn) -> sub|None)
+AUTOS_BALDE = {'Autos'}
+
 REGLAS = [
     # --- Lotes del 21 de septiembre de 2026 -----------------------------
     # Segunda tanda de la auditoría estadística (margen 14). De 2,289
@@ -1138,6 +1140,159 @@ REGLAS = [
      None, 'Equipo comercial', 'Cocina industrial', {None}),
     ('Cocina y comedor', r'bolsas? (para |de )?bicicleta|bolsa bicicleta',
      None, 'Autos, bicicletas y motos', 'Bolsas, canastas y portabultos', {None}),
+    # ---- Ronda del 26-sep-2026 (colisiones de palabras y comodines) ----
+    # «RAM 1500» es una camioneta, no memoria: refacciones de auto que
+    # cayeron en Componentes de PC por la palabra.
+    ('Componentes y accesorios de PC',
+     r'\bram (700|1500|2500|3500|4500|5500)\b|promaster|\bdodge\b|sprinter|windstar|plymouth|\bmercury\b|\bv6\b|\bv8\b',
+     None, 'Autopartes',
+     lambda tn: 'Enfriamiento y climatización' if re.search(r'enfria|condensador|radiador|tubo de', tn)
+     else 'Motor y transmisión'),
+    ('Celulares', r'manija|tapa batea', None, 'Autopartes', 'Carrocería, espejos y molduras'),
+    # Hieleras y bolsas térmicas no son refrigeradores.
+    ('Refrigeradores', r'^(\S+ ){0,3}(bolsa|mochila|lonchera)\b|\blunch\b', r'para refrigerador',
+     'Cocina y comedor', 'Loncheras y termos para alimentos'),
+    ('Refrigeradores', r'hielera|\bcooler\b', r'para refrigerador|refrigerador con',
+     'Deportes y fitness', 'Campismo'),
+    # Focos de auto (H11, 9006, T10...) en Iluminación de la casa.
+    ('Iluminación',
+     r'^(\S+ ){0,3}(focos?|bombillas?|kit de (faros|focos|luces)|luces led)\b.{0,60}'
+     r'\b(h1|h3|h4|h7|h8|h9|h11|h13|h16|9003|9004|9005|9006|9007|9012|880|881|hb3|hb4|d1s|d2s|d3s|d4s|'
+     r't10|t15|194|921|1156|1157|3157|7440|7443|ba15s|ba15d)\b|antiniebla|canbus|'
+     r'^(\S+ ){0,3}(focos?|bombillas?|faros?)\b.{0,40}para (auto|coche|carro|moto|camioneta)',
+     r'\bfarol\b|lampara de pared|colgante|e27|e26', 'Autopartes', 'Faros y luces'),
+    ('Belleza y cuidado personal', r'parabrisas', None, 'Autos y motos', 'Tapetes, fundas y parasoles'),
+    ('Relojes inteligentes', r'^(\S+ ){0,2}(correa|pulsera de repuesto|malla)\b', r'^(reloj|smartwatch|banda inteligente)',
+     'Relojes inteligentes', 'Correas y extensibles', {'Bandas de actividad', 'Smartwatches'}),
+    # Cables sueltos en los cargadores de pared.
+    ('Cargadores y adaptadores', r'^(\S+ ){0,1}cable\b',
+     r'cargador (de pared|con cable)|\bcubo\b|adaptador de corriente|\+ ?cable|con cable|cabezal|\bkit\b',
+     'Cargadores y adaptadores',
+     lambda tn: 'Cables multiconector' if re.search(r'\b[23] en 1\b|multi', tn)
+     else 'Cables Lightning' if 'lightning' in tn
+     else 'Cables micro USB' if re.search(r'micro ?usb', tn)
+     else 'Cables USB-C' if re.search(r'tipo ?-?c|usb ?-?c|type ?-?c', tn) else 'Cable',
+     {'De pared', 'Cargadores de pared de 25 a 45 W', 'Cargadores de pared de 65 W o más',
+      'Cargadores de pared hasta 20 W'}),
+    # Micas para el celular Moto G (Motorola) en Motocicletas.
+    ('Autos y motos', r'hidrogel|protector de pantalla|\bmoto (g|e|edge)\s?\d|\bmotorola\b', r'\bcasco',
+     'Celulares', lambda tn: 'Micas para celular' if re.search(r'mica|hidrogel|pantalla|cristal|vidrio', tn)
+     else 'Protectores para celular', {'Motocicletas', 'Accesorios para moto'}),
+    # «Autos» era un cajón: carritos de juguete, montables, sillas de bebé...
+    ('Autos y motos', r'hot wheels|matchbox|jada|bburago|burago|maisto|majorette|welly|greenlight|'
+     r'escala 1[:/]\d+|\b1[:/](18|24|32|43|64)\b|a escala|diecast|fundido', None,
+     'Juguetes', 'Vehículos de juguete', {'Autos'}),
+    ('Autos y motos', r'montable|(carro|coche|camioneta|auto) electric[oa] (para ni|infantil)|bumper car|'
+     r'scooter.{0,30}ni(n|ñ)os', r'silla|asiento|motor de|bateria de repuesto',
+     'Juguetes', 'Montables', {'Autos'}),
+    ('Autos y motos', r'\brc\b|control remoto|2\.4 ?ghz|radio ?control', r'alarma|arranque|restaurador|epicentro|servo tester',
+     'Juguetes', 'Vehículos a control remoto', {'Autos'}),
+    ('Autos y motos', r'silla(s)? (de|para) auto|asiento (de|para) (coche|auto) (infantil|para bebe)|autoasiento|'
+     r'uppababy|chicco|graco|britax|cybex|maxi-?cosi', None, 'Bebés', 'Sillas de auto', {'Autos'}),
+    ('Autos y motos', r'inversor|arrancador|cargador de bateria', None,
+     'Autos y motos', 'Arrancadores y cargadores de batería', {'Autos'}),
+    ('Autos y motos', r'transmisor|\bfm\b|altavoces|audiobahn|estereo', r'alarma',
+     'Autos y motos', 'Accesorios de audio para auto', {'Autos'}),
+    ('Autos y motos', r'pulidora|almohadillas? (de pulido|de lana|para (lijar|pulir|pulidora))|shampoo|\bcera\b|'
+     r'cera liquida|liquido (limpia|para limpiar)|limpia|microfibra|abrillantador|clay bar',
+     None, 'Autos y motos', 'Limpieza y cuidado del auto', {'Autos'}),
+    ('Autos y motos', r'alarma|organizador|bandeja|ambientador|aromatizante|funda', None,
+     'Autos y motos', 'Accesorios para auto', {'Autos'}),
+    # ---- Sin subcategoría (26-sep-2026) ----
+    ('Autopartes', r'^engrane|^engranes', None, 'Autopartes', 'Motor y transmisión', {None}),
+    ('Autopartes', r'^conector|sensor|arnes', None, 'Autopartes', 'Sistema eléctrico y sensores', {None}),
+    ('Autopartes', r'^valvula|balancin|junta|bendix', None, 'Autopartes', 'Motor y transmisión', {None}),
+    ('Autos y motos', r'\bllantas?\b', r'bicicleta|carretilla|moto\b|motocicleta',
+     'Autos y motos',
+     lambda tn: 'Llantas para camioneta y SUV'
+     if re.search(r'\br ?(1[6-9]|2[0-6])\b|\blt\b|\ba/?t\b|\bm/?t\b|\bh/?t\b|x\d{1,2}\.\d{2}', tn)
+     else 'Llantas para auto', {None}),
+    ('Autos y motos', r'^guantes', None, 'Autos y motos', 'Guantes para moto', {None}),
+    ('Autos y motos', r'^medio', None, 'Autos y motos', 'Medios rangos y bocinas profesionales', {None}),
+    ('Mascotas', r'jersey|bandanas?|impermeable|\bcapa\b|chamarra|\bpants\b|sudadera|playera|sueter|vestido|disfraz',
+     r'libro', 'Mascotas', 'Ropa para mascotas', {None}),
+    ('Mascotas', r'alimento|croqueta|hill.?s|pedigree|churu|snack|premios?|golosina|whiskas|purina|pro plan|nupec',
+     r'libro|comedero|plato|dispensador', 'Mascotas', 'Alimento y premios', {None}),
+    ('Mascotas', r'^cadena|collar|pechera|arnes', r'libro', 'Mascotas', 'Correas', {None}),
+    ('Mascotas', r'corta ?pelo|cepillo|peine|shampoo|champu|quita ?pelo|removedor|toallitas|cortau(n|ñ)as', r'libro',
+     'Mascotas', 'Higiene y limpieza', {None}),
+    ('Autos y motos', r'^(\S+ ){0,3}llantas? .{0,25}(bicicleta|\bbici\b|\bmtb\b)|llanta.{0,40}\b(700 ?x ?\d{2}|2[0679](\.5)? ?x ?[12]\.\d)',
+     r'motocicleta|palanca|desmontar', 'Bicicletas y movilidad', 'Llantas para bicicleta'),
+    # ---- Lo que quedaba en «Autos y motos / Autos» (26-sep-2026, segunda pasada) ----
+    ('Autos y motos', r'stroller|carriola', None, 'Bebés', 'Carriolas', AUTOS_BALDE),
+    ('Autos y motos', r'silla para bebe|auto silla|booster|base de asiento infantil|adaptador (de asiento|peg perego)|'
+     r'bucklebee|hebilla release|asiento de coche (y cochecito|bugaboo)|coche de bebe|camara .{0,25}bebe|back seat baby|'
+     r'tiny traveler|pata de apoyo para asiento|carrito de viaje para asiento|mochila (de viaje )?para asiento|'
+     r'asientos de coche de bebes|doona|evenflo', None, 'Bebés', 'Sillas de auto', AUTOS_BALDE),
+    ('Autos y motos', r'step ?2|cozy coupe|coche de empuje|cruiser|buggy electrico|go kart|carro electrico|'
+     r'camioneta electrica|drift trike|montable|carro buggy', None, 'Juguetes', 'Montables', AUTOS_BALDE),
+    ('Autos y motos', r'mando a distancia|teledirigido|control remoto|a control\b|doble control|servo tester|\bfpv\b',
+     r'restaurador|epicentro', 'Juguetes', 'Vehículos a control remoto', AUTOS_BALDE),
+    ('Autos y motos', r'bloques|building|bricks|\blego\b|city f1|speed champions|\bloz\b|armable|diybee|modelo de montaje',
+     None, 'Juguetes', 'Bloques de construcción', AUTOS_BALDE),
+    ('Autos y motos', r'juguete|\btoys?\b|playset|pinypon|playmobil|paw patrol|barbie|spidey|marvel|star wars|mandalorian|'
+     r'monster (truck|jam)|fisher-price|tonka|transformable|friccion|inercial|coleccion|replica|'
+     r'coche de (policia|bomberos|carreras)|camion (de policia|de remolque|portajuguetes|volquete|shinesignal)|'
+     r'vehiculo (excavador|volquete|spin master|monster|razor|teledirigido)|super wings|hot ?wheels|hw collector|'
+     r'green toys|\bpista\b|figuras? de accion|lionel|mcfarlane|batimovil|bburago|coche lab\.?g|coche (esmaltado|mamut)|'
+     r'todo terreno giratorio|coche arana|mecanicos qaba|carro (marvel|fisher|monster|clasico|todo ?terreno)|'
+     r'camioneta (toy|todo terreno wuundentoy|lori)|auto (de dinosaurio|de friccion|marvel|frjv|deportivo ford)|'
+     r'auto de carreras wuundentoy|vehiculos coches|vehiculos monster|juego con forma de coche', None,
+     'Juguetes', 'Vehículos de juguete', AUTOS_BALDE),
+    ('Autos y motos', r'grand theft auto', None, 'Videojuegos', 'Juegos retro y otras plataformas', AUTOS_BALDE),
+    ('Autos y motos', r'baston (de seguridad|para volante)|antirrobo|antirobo|inmovilizador|obd2? port lock|'
+     r'localizador|rastreador|gps tracker|tkstar|rastreo|monitor de voz', None,
+     'Autos y motos', 'Accesorios para auto', AUTOS_BALDE),
+    ('Autos y motos', r'^camara|\bdvr\b|reversa|respaldo|dashcam|auto-vox|radar mount|navegador gps|garmin', None,
+     'Autos y motos', 'Dashcams y cámaras', AUTOS_BALDE),
+    ('Autos y motos', r'bocinas?|altavoz|parlantes|crossover|stereo|epicentro|driver de graves|set de medios|'
+     r'sistema de (audio|mejora)|audio (para|de) coche|handsfree|planchas a prueba de sonido|amortiguacion de sonido',
+     r'farbin', 'Autos y motos', 'Accesorios de audio para auto', AUTOS_BALDE),
+    ('Autos y motos', r'\bjacks?\b|torres? (para )?auto|torre auto|torres para automovil|gato hidraulico|tijera|'
+     r'wheel dolly|llave (de )?cruz|probador|\bobd|scanner|diagnostic|detector de fugas|endoscope|manometro|'
+     r'extractor tipo pitman|prensa de rotulas|saca golpes|abolladuras|embudo de refrigerante|junta universal|'
+     r'universal joint|air compressor|air pump', None, 'Autos y motos', 'Gatos y herramientas para auto', AUTOS_BALDE),
+    ('Autos y motos', r'liquido (de|para) frenos', None, 'Autopartes', 'Frenos', AUTOS_BALDE),
+    ('Autos y motos', r'headlight|headlamp|faros?\b|lampara de coche|bombillas? led|minibombillas|\bbulb|'
+     r'luz reguladora|lampara led redonda', None, 'Autopartes', 'Faros y luces', AUTOS_BALDE),
+    ('Autos y motos', r'radiator|condenser|turbocharger|water pump|exhaust|sensor de flujo|steering wheel switch|'
+     r'ball head|grille|bumper|aleron|mounting fixed bracket|motor de caja|clips? (de|para) (coche|retencion)|'
+     r'remaches|sujetadores para coche|kit de clips|surtido de clips|valvula de neumatico|tapones de valvula|'
+     r'tapa de vastago', None, 'Autopartes', 'Carrocería, espejos y molduras', AUTOS_BALDE),
+    ('Autos y motos', r'pulid|pulimento|ceramic|sellador|restaurador de plasticos|restauracion|shampoo|\bcera\b|'
+     r'\bwash\b|lavar|lavado|hidrolavado|detalles|scuff|\bpads\b|discos de pulido|espuma colorante|'
+     r'removedor de adhesivos|plumero|cepillo|guante lavar|\bfoam\b|nu finish|black restorer|tonyin|vonixx|'
+     r'carbrite|raspadores de nieve', None, 'Autos y motos', 'Limpieza y cuidado del auto', AUTOS_BALDE),
+    ('Autos y motos', r'aroma|aromatiz|difusor|california scents|ambientador', None,
+     'Autos y motos', 'Aromatizantes para auto', AUTOS_BALDE),
+    ('Autos y motos', r'sunshade|parasol|visera', None, 'Autos y motos', 'Tapetes, fundas y parasoles', AUTOS_BALDE),
+    ('Autos y motos', r'toldo|carpa|roof tent|parking shed|canopy|awning', None,
+     'Jardín y exterior', 'Sombrillas, toldos y carpas', AUTOS_BALDE),
+    ('Autos y motos', r'basura|organizador|ganchos|monedero|bandeja|consola|reposabrazos|portaplaca|marco de matricula|'
+     r'license plate|panel de toma|amarres|cinturones de seguridad|hebilla .{0,20}cinturon|revestimientos de suelo|'
+     r'alfombrilla para coche|adorno|colgante|bling|pelicula', None,
+     'Autos y motos', 'Accesorios para auto', AUTOS_BALDE),
+    ('Autos y motos', r'cargador (auto )?bateria|cargador bateria|inverter|inversor', None,
+     'Autos y motos', 'Arrancadores y cargadores de batería', AUTOS_BALDE),
+    ('Autos y motos', r'fiambrera|lonchera electrica|rice cooker', None,
+     'Cocina y comedor', 'Loncheras y termos para alimentos', AUTOS_BALDE),
+    # ---- Sin subcategoría, tercera pasada (26-sep-2026) ----
+    ('Blancos y ropa de cama', r'^(\S+ ){0,2}cortinas? (de )?(regadera|bano|ducha)|shower curtain', None,
+     'Blancos y ropa de cama', 'Cortinas para baño', {None}),
+    ('Blancos y ropa de cama', r'^(\S+ ){0,2}cortinas?\b', r'regadera|bano|ducha|flecos',
+     'Decoración de hogar y jardín', 'Cortinas', {None}),
+    ('Blancos y ropa de cama', r'^(\S+ ){0,2}(edredon|colcha|cobertor|duvet)', None,
+     'Blancos y ropa de cama', 'Edredones', {None}),
+    ('Blancos y ropa de cama', r'^(\S+ ){0,2}(cobija|frazada|manta)\b', r'electric', 'Blancos y ropa de cama', 'Cobijas', {None}),
+    ('Blancos y ropa de cama', r'^(\S+ ){0,2}tapete', None, 'Blancos y ropa de cama', 'Tapetes de baño', {None}),
+    ('Blancos y ropa de cama', r'^(\S+ ){0,2}toallas?\b', None, 'Blancos y ropa de cama', 'Toallas', {None}),
+    ('Blancos y ropa de cama', r'^(\S+ ){0,2}(sabanas?|juego de sabanas)\b', None, 'Blancos y ropa de cama', 'Sábanas', {None}),
+    ('Blancos y ropa de cama', r'^(\S+ ){0,2}almohadas?\b', None, 'Blancos y ropa de cama', 'Almohadas', {None}),
+    ('Mascotas', r'\bgato (para|hidraulico|de patin|tipo|de botella)|prensa hidraulica|mikel|surtek|truper|urrea', None,
+     'Autos y motos', 'Gatos y herramientas para auto', {None}),
+    ('Mascotas', r'casa de campana', None, 'Deportes y fitness', 'Campismo', {None}),
+    ('Mascotas', r'editorial|lectorum|tapa blanda|ediciones|\blibro\b|\b97[89]\d{10}\b', None,
+     'Libros', 'Hogar, manualidades y mascotas', {None}),
 ]
 
 

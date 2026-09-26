@@ -480,6 +480,13 @@ def main():
     for pid, (c, s, _v) in propuesta.items():
         p = por_id[pid]
         p["category"], p["subcategory"] = c, s
+    # Las que ya existían antes de esta partición (Minisplit, Robots
+    # aspiradores...): una ficha de «Accesorios» que resultó ser un aparato va
+    # a su subcategoría de producto, y esa subcategoría NO es hija de la
+    # comodín -- si se anotaba como hija, heredaba el papel «accesorio» y el
+    # aparato dejaba de contar como producto (26-sep-2026: 60 subcategorías
+    # de producto marcadas como accesorio o parte).
+    existentes = {(c["id"], x["id"]) for c in data["categories"] for x in c["subcategories"]}
     for cat, subs in nuevas.items():
         c = cats[cat]
         for s in sorted(subs):
@@ -492,7 +499,7 @@ def main():
     hijas = collections.defaultdict(set)
     for pid, (c, s, _v) in propuesta.items():
         q = origen[pid]
-        if c == q[0]:
+        if c == q[0] and (c, s) not in existentes:
             hijas[f"{q[0]}|{q[1]}"].add(s)
     # Corre en cada regeneración: lo de antes se conserva y se le suma lo nuevo.
     previo = json.load(io.open(TABLA, encoding="utf-8")) if os.path.exists(TABLA) else {}

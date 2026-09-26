@@ -344,6 +344,13 @@ ROLES.setdefault(_rc.AUTOS, {})["Accesorios para auto"] = ACCESORIO
 # el papel de la comodín (accesorio, parte...).
 import json as _json  # noqa: E402
 import os as _os  # noqa: E402
+import re as _re  # noqa: E402
+_PARECE_ACCESORIO = _re.compile(
+    r"\bpara\b|refacci|repuest|accesori|funda|filtro|bolsas?\b|cables?\b|cargador|almohadilla|cepillo|"
+    r"manguera|\baspas?\b|cuchilla|resistencia|\btubos?\b|n[uú]cleo|deflector|cabezal|boquilla|pieza|\bkits?\b|"
+    r"soporte|consumible|tinta|t[oó]ner|cartucho|herraje|\bpatas?\b|protector|mica|estuche|correa|"
+    r"bater[ií]as?\b|pilas?\b|l[aá]mparas?\b|focos?\b|tapas?\b|cubierta|organizador|limpiador|mopa|pa[nñ]o",
+    _re.I)
 _RUTA_PARTICION = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "data", "particion-genericas.json")
 if _os.path.exists(_RUTA_PARTICION):
     with open(_RUTA_PARTICION, encoding="utf-8") as _f:
@@ -352,12 +359,33 @@ if _os.path.exists(_RUTA_PARTICION):
             _rol = (ROLES.get(_cat) or {}).get(_gen)
             if _rol:
                 for _s in _subs:
-                    ROLES.setdefault(_cat, {}).setdefault(_s, _rol)
+                    # Sólo hereda la hija que por su nombre es de verdad un
+                    # accesorio o una pieza («Baterías para aspiradora»). La
+                    # tabla vieja anotaba también subcategorías de producto
+                    # que ya existían (Minisplit, 50 a 55 pulgadas, Robots
+                    # aspiradores) y las volvía accesorios (26-sep-2026).
+                    if _PARECE_ACCESORIO.search(_s):
+                        ROLES.setdefault(_cat, {}).setdefault(_s, _rol)
+
+
+# Aparatos cuyo nombre parece de accesorio («con bolsa», «Baterías
+# electrónicas», «para niños») y que heredaban el papel de la comodín de la
+# que salieron (revisado a mano el 26-sep-2026). Pisan todo lo de arriba.
+PRODUCTO_FORZADO = {
+    ("Aspiradoras", "De trineo y con bolsa"),
+    ("Instrumentos musicales", "Baterías electrónicas"),
+    ("Tabletas", "Tabletas para niños"),
+    ("Televisores", "Portátiles y para auto"),
+    ("Impresoras", "Térmica"),
+    ("Componentes y accesorios de PC", "RAM DDR4 para PC de escritorio"),
+}
+for _cat, _sub in PRODUCTO_FORZADO:
+    (ROLES.get(_cat) or {}).pop(_sub, None)
 
 
 def rol_de(categoria, subcategoria):
     """El papel de esa subcategoría dentro de esa categoría (id o nombre)."""
-    if not subcategoria:
+    if not subcategoria or (categoria, subcategoria) in PRODUCTO_FORZADO:
         return PRODUCTO
     roles = ROLES.get(categoria) or ROLES.get(ALIAS_CATEGORIA.get(categoria), {})
     explicito = roles.get(subcategoria)

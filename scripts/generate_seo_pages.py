@@ -957,16 +957,38 @@ def busqueda_amazon_html(product):
         url = "https://www.amazon.com.mx/s?" + urllib.parse.urlencode({"k": texto, "tag": AMAZON_TAG})
         return (f'<a class="btn-solo-enlace" href="{html_escape(url)}" target="_blank" '
                 f'rel="nofollow sponsored noopener" title="{html_escape(texto)}">{html_escape(etiqueta)}</a>')
-    if len(colores) > 1:
-        botones = " ".join(enlace(texto_busqueda_amazon(product, c), c) for c in colores)
+    # Con un solo color, el botón grande de arriba (amazon_grande_html) ya
+    # lleva a esa búsqueda: acá sólo quedan los colores cuando hay varios.
+    if len(colores) <= 1:
+        return ""
+    botones = " ".join(enlace(texto_busqueda_amazon(product, c), c) for c in colores)
+    return f'<p class="amazon-busqueda">Buscar este producto en Amazon por color: {botones}</p>'
+
+
+def amazon_grande_html(product):
+    """El botón grande amarillo de Amazon de la cabecera de la ficha (igual
+    que amazonBotonGrandeHtml en js/app.js): al producto enlazado si lo hay,
+    si no a la búsqueda, con la frase de la categoría adentro."""
+    directo = next((e for e in product.get("enlaces") or [] if e.get("storeId") == "amazon_mx"), None)
+    colores = []
+    for v in product.get("colorVariants") or []:
+        if v.get("color") and v["color"] not in colores:
+            colores.append(v["color"])
+    if directo:
+        url, titulo = directo["url"], "Ver precio en Amazon"
     else:
-        texto = texto_busqueda_amazon(product, colores[0] if colores else None)
+        texto = texto_busqueda_amazon(product, colores[0] if len(colores) == 1 else None)
         if not texto:
             return ""
-        botones = enlace(texto, "Buscar en Amazon")
+        url = "https://www.amazon.com.mx/s?" + urllib.parse.urlencode({"k": texto, "tag": AMAZON_TAG})
+        titulo = "Buscar en Amazon"
     fuerte = AMAZON_FUERTE_POR_CATEGORIA.get(product.get("category"))
-    nota = f'<span class="amazon-fuerte">{html_escape(fuerte)}</span>' if fuerte else ""
-    return f'<p class="amazon-busqueda">Buscar este producto en Amazon: {botones}{nota}</p>'
+    nota = f'<span class="amazon-grande-nota">{html_escape(fuerte)}</span>' if fuerte else ""
+    return (f'<a class="amazon-grande" href="{html_escape(url)}" target="_blank" rel="nofollow sponsored noopener">'
+            + (f'<img class="amazon-grande-logo" src="../../icons/amazon-insignia.png" alt="Amazon">'
+               if os.path.exists(os.path.join(ROOT, "icons", "amazon-insignia.png")) else "")
+            + f'<span class="amazon-grande-texto"><span class="amazon-grande-titulo">{titulo}</span>{nota}</span>'
+            f'<span class="amazon-grande-flecha" aria-hidden="true">›</span></a>')
 
 
 def render_product_page(product, data, subs_con_pagina=None):
@@ -1228,6 +1250,7 @@ def render_product_page(product, data, subs_con_pagina=None):
     <p class="detail-fromprice">{'Desde ' if n_sellers > 1 else ''}<strong>{money(price)}</strong> en {plural(n_sellers, "vendedor", "vendedores")}</p>
     {lego_html(product)}
     {lenovo_html(product)}
+    {amazon_grande_html(product)}
     {NOTA_LAG_HTML}
   </div>
   {quicknav_html}

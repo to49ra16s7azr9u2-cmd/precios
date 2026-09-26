@@ -8202,8 +8202,6 @@
       if (!texto) { nodo.classList.add("hidden"); nodo.innerHTML = ""; return; }
       html = `Buscar este producto en Amazon: ${enlace(texto, "Buscar en Amazon")}`;
     }
-    const fuerte = AMAZON_FUERTE_POR_CATEGORIA[product.category];
-    if (fuerte) html += `<span class="amazon-fuerte">${htmlEscapeAttr(fuerte)}</span>`;
     nodo.innerHTML = html;
     nodo.classList.remove("hidden");
   }
@@ -8330,12 +8328,32 @@
     return /usad|seminuev|open box|grado/.test(m[1]) ? "Usado" : "Reacondicionado";
   }
 
+  // Botón grande de Amazon en la primera fila de las ofertas de arriba
+  // (pedido del usuario, 26-sep-2026: «一段目にでかく黄色で、ロゴ付き、文言も
+  // ボタンの中に»). Si la ficha tiene el mismo producto de Amazon enlazado,
+  // lleva a ese; si no, a la búsqueda armada con nombre, marca y specs. El
+  // logo es la insignia oficial del Programa de Afiliados
+  // (icons/amazon-insignia.png, la que Amazon entrega para usar); si el
+  // archivo no está, el botón sale sin logo.
+  function amazonBotonGrandeHtml(product) {
+    const directo = (product.enlaces || []).find((e) => e.storeId === "amazon_mx");
+    const colores = [...new Set((product.colorVariants || []).map((v) => v.color).filter(Boolean))];
+    const url = directo ? directo.url : urlBusquedaAmazon(textoBusquedaAmazon(product, colores.length === 1 ? colores[0] : null));
+    const titulo = directo ? "Ver precio en Amazon" : "Buscar en Amazon";
+    const fuerte = AMAZON_FUERTE_POR_CATEGORIA[product.category];
+    return `<a class="amazon-grande" href="${htmlEscapeAttr(url)}" target="_blank" rel="nofollow sponsored noopener">` +
+      `<img class="amazon-grande-logo" src="icons/amazon-insignia.png" alt="Amazon" onerror="this.remove()">` +
+      `<span class="amazon-grande-texto"><span class="amazon-grande-titulo">${titulo}</span>` +
+      (fuerte ? `<span class="amazon-grande-nota">${htmlEscapeAttr(fuerte)}</span>` : "") +
+      `</span><span class="amazon-grande-flecha" aria-hidden="true">›</span></a>`;
+  }
+
   function renderDetailTopOffers(product, rows) {
     const sorted = [...rows].sort((a, b) => a.price - b.price);
     const top = sorted.slice(0, DETAIL_TOP_OFFERS_N);
     const remaining = sorted.length - top.length;
     const bestPrice = sorted.length ? sorted[0].price : null;
-    el.detailTopOffers.innerHTML = top
+    el.detailTopOffers.innerHTML = amazonBotonGrandeHtml(product) + top
       .map((r) => `
         <div class="detail-top-offer-row${r.price === bestPrice ? " detail-top-offer-best" : ""}">
           <span class="detail-top-offer-store">

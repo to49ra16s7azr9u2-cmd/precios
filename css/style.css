@@ -5161,3 +5161,28 @@ tr.offer-compare-off { display: none; }
    ancho completo. */
 .detail-alerta .icon, #favoritesAlertas .icon, .alerta-barra .icon { width: 16px; height: 16px; vertical-align: -3px; }
 .detail-alerta label { display: inline-flex; align-items: center; gap: 4px; }
+
+/* Botón grande de Amazon en la primera fila de las ofertas de la ficha
+   (amazonBotonGrandeHtml). Amarillo de botón de compra, con la insignia
+   oficial del Programa de Afiliados y la frase de la categoría adentro. */
+.amazon-grande {
+  display: flex; align-items: center; gap: 14px;
+  width: 100%; box-sizing: border-box;
+  margin: 4px 0 8px; padding: 12px 18px;
+  background: #FFD814; border: 1px solid #F2C200; border-radius: 10px;
+  color: #0F1111; text-decoration: none;
+  box-shadow: 0 1px 2px rgba(15, 17, 17, 0.15);
+}
+.amazon-grande:hover { background: #F7CA00; }
+.amazon-grande:focus-visible { outline: 3px solid #0F1111; outline-offset: 2px; }
+.amazon-grande-logo { height: 30px; width: auto; flex-shrink: 0; }
+.amazon-grande-texto { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.amazon-grande-titulo { font-size: 19px; font-weight: 800; line-height: 1.2; }
+.amazon-grande-nota { font-size: 13px; line-height: 1.35; color: #3a3a3a; }
+.amazon-grande-flecha { font-size: 30px; font-weight: 700; line-height: 1; }
+@media (max-width: 600px) {
+  .amazon-grande { padding: 10px 12px; gap: 10px; }
+  .amazon-grande-titulo { font-size: 16px; }
+  .amazon-grande-nota { font-size: 12px; }
+  .amazon-grande-logo { height: 24px; }
+}
