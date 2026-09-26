@@ -72,6 +72,7 @@ import urllib.request
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 from add_amazon_standalone import FACTOR_PRECIO_ABSURDO, techos_por_subcategoria  # noqa: E402
+from soicos_a_captura import ALCOHOL_TITULO, _NO_BEBIDA  # noqa: E402
 from data_io import load_catalog, next_id, registrar_max_id, save_catalog, url_real  # noqa: E402
 
 # storeId -> cómo se registra en data.json (stores) la primera vez que entra
@@ -86,7 +87,7 @@ TIENDAS = {
     "bodega_aurrera": {
         "dominios": ("bodegaaurrera.com.mx",),
         "store": {"id": "bodega_aurrera", "name": "Bodega Aurrerá", "hubRegion": None, "color": "#1E8E3E",
-                  "logo": "BA", "typicalShippingDays": [2, 7]},
+                  "logo": "BA", "typicalShippingDays": [2, 7], "logoImg": "icons/stores/bodega_aurrera.png"},
     },
     # Coppel no se captura con el navegador como las dos de arriba: sus
     # fichas se leen del sitemap que publica (ver coppel_sitemap.py) y
@@ -100,7 +101,7 @@ TIENDAS = {
     "lenovo": {
         "dominios": ("lenovo.com",),
         "store": {"id": "lenovo", "name": "Lenovo", "hubRegion": None, "color": "#E1140A",
-                  "logo": "LN", "typicalShippingDays": [4, 12]},
+                  "logo": "LN", "typicalShippingDays": [4, 12], "logoImg": "icons/stores/lenovo.png"},
     },
     # Whirlpool entra por el sitemap y el JSON-LD de sus fichas (ver
     # whirlpool_a_captura.py), igual que Coppel: el importador pone la
@@ -115,25 +116,25 @@ TIENDAS = {
     "sams_mx": {
         "dominios": ("sams.com.mx",),
         "store": {"id": "sams_mx", "name": "Sam's Club", "hubRegion": None, "color": "#0067A0",
-                  "logo": "SC", "typicalShippingDays": [2, 7]},
+                  "logo": "SC", "typicalShippingDays": [2, 7], "logoImg": "icons/stores/sams_mx.png"},
     },
     # Reuse: celulares, tabletas y laptops reacondicionados (feed de Soicos).
     "reuse_mx": {
         "dominios": ("reuse.mx",),
         "store": {"id": "reuse_mx", "name": "Reuse", "hubRegion": None, "color": "#00A676",
-                  "logo": "RU", "typicalShippingDays": [2, 6]},
+                  "logo": "RU", "typicalShippingDays": [2, 6], "logoImg": "icons/stores/reuse_mx.png"},
     },
     # Sephora: belleza y perfumes (feed de Soicos). Entra sólo a fichas que
     # ya existen (emparejar_feed.py), igual que Walmart y Bodega Aurrerá.
     "sephora_mx": {
         "dominios": ("sephora.com.mx",),
         "store": {"id": "sephora_mx", "name": "Sephora", "hubRegion": None, "color": "#000000",
-                  "logo": "SE", "typicalShippingDays": [2, 6]},
+                  "logo": "SE", "typicalShippingDays": [2, 6], "logoImg": "icons/stores/sephora_mx.png"},
     },
     "coppel": {
         "dominios": ("coppel.com",),
         "store": {"id": "coppel", "name": "Coppel", "hubRegion": None, "color": "#FFD100",
-                  "logo": "CP", "typicalShippingDays": [3, 10]},
+                  "logo": "CP", "typicalShippingDays": [3, 10], "logoImg": "icons/stores/coppel.png"},
     },
 }
 
@@ -264,6 +265,37 @@ def conocidos(products):
 # ---------------------------------------------------------------------------
 # Alta
 # ---------------------------------------------------------------------------
+# Departamentos de libros del feed de Walmart/Bodega (Soicos). El título de un
+# libro de Walmart no dice «libro» y trae la editorial pegada («Cien años de
+# soledad diana mexico gabriel garcia marquez»): por el título solo, el
+# clasificador lo mandaba a Tableros de dardos («diana»), Iluminación
+# («luz»), Perfumes, Joyería... (26-sep-2026: ~800 libros fuera de Libros).
+# El departamento de estos sí es confiable; el de otros (p. ej. «Herramientas
+# Eléctricas», lleno de autopartes) no, por eso sólo se usa para libros.
+DEPTOS_LIBRO = {"idiomas", "clasicos", "novelas", "literatura juvenil", "cuentos y fabulas", "libros de moda",
+                "terror y suspenso", "diccionarios y enciclopedias", "lo mas vendido - libros y revistas"}
+_NO_ES_LIBRO = re.compile(r"\b(led|luces|focos?|sabanas?|cuadro|canva|defensa|tong yang|funda|peluche|rompecabezas|"
+                          r"figura|juguete|guitarra|cable|bocina|audifonos)\b|\d+ ?(cm|ml|w|pzas?|piezas|kg)\b")
+
+
+def _sin_acentos(s):
+    import unicodedata
+    s = unicodedata.normalize("NFKD", (s or "").lower())
+    return "".join(c for c in s if not unicodedata.combining(c))
+
+
+def libro_por_departamento(orig, titulo):
+    """(«Libros», género) si el departamento del feed es de libros y el
+    título no nombra un objeto; si no, None."""
+    if _sin_acentos(orig.get("dept")).strip() not in DEPTOS_LIBRO:
+        return None
+    tn = _sin_acentos(titulo)
+    if _NO_ES_LIBRO.search(tn):
+        return None
+    from subcategorias_finas import sub_libro_fino
+    return "Libros", sub_libro_fino(tn) or "Novela contemporánea"
+
+
 def dar_de_alta(data, clasificados, originales):
     """Mete en `data` las fichas nuevas. Devuelve (creados, saltados)."""
     cat_ids = {c["id"]: {s["id"] for s in (c.get("subcategories") or [])} for c in data["categories"]}
@@ -281,7 +313,17 @@ def dar_de_alta(data, clasificados, originales):
         if orig.get("agotado"):
             saltados.append((it["title"], "agotado en la tienda"))
             continue
+        # Bebidas con alcohol: el feed ya las filtra (soicos_a_captura.item),
+        # pero las capturas de tienda entraban sin ese filtro («12 pack
+        # cerveza artesanal Wendlandt Perro del Mar» terminó en Mascotas).
+        titulo = (it.get("title") or orig.get("title") or "").strip()
+        if ALCOHOL_TITULO.search(titulo) and not _NO_BEBIDA.search(titulo):
+            saltados.append((it["title"], "bebida con alcohol"))
+            continue
         cat, sub = it.get("category"), it.get("subcategory")
+        libro = libro_por_departamento(orig, it.get("title") or orig.get("title"))
+        if libro:
+            cat, sub = libro
         if cat not in cat_ids:
             saltados.append((it["title"], f"categoría desconocida: {cat}"))
             continue

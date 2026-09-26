@@ -273,7 +273,7 @@ TIENDAS_JSON = {
         "plataforma": "shopify",
         "categorias": MASKOTA,
         "store": {"id": "maskota", "name": "Maskota", "hubRegion": None,
-                  "color": "#00A0DF", "logo": "MK", "typicalShippingDays": [3, 8]},
+                  "color": "#00A0DF", "logo": "MK", "typicalShippingDays": [3, 8], "logoImg": "icons/stores/maskota.png"},
     },
     # Gonher contesta la ruta de WooCommerce, pero es el catálogo del
     # fabricante y no una tienda: los 72 productos vienen con precio 0 y casi

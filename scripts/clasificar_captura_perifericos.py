@@ -3100,7 +3100,10 @@ REGLAS = DEFINICIONES + [
              r'\bbalon\b|pelota (de|para) (futbol|basquet|voleibol|yoga|pilates|ejercicio)|'
              r'raqueta (de|para) (tenis|padel|badminton|squash|ping)|ping ?pong|tenis de mesa|'
              r'\bbadminton\b|\bpadel\b|\bsquash\b|'
-             r'tablero de dardos|juego de dardos|dardos de (acero|punta|aluminio)|\bdiana\b|'
+             r'tablero de dardos|juego de dardos|dardos de (acero|punta|aluminio)|'
+             # «diana» sola no: Diana es la editorial de cientos de libros de Walmart
+             # («Cien años de soledad diana mexico ...»), que caían en dardos.
+             r'\bdiana (de tiro|de dardos|para dardos|electronica|magnetica|de arqueria)\b|dardos?.{0,40}\bdiana\b|'
              r'\bboxeo\b|costal de box|guantes de box|taekwondo|protector bucal|'
              r'patin(es|eta)\b|\bpatineta\b|\bskate\b|monopatin|'
              r'\bnatacion\b|goggles de nadar|aletas? de buceo|\bsnorkel\b|\bkayak\b|'

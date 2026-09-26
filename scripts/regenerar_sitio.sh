@@ -31,6 +31,16 @@ echo "=== prior_tienda ==="; python3 scripts/prior_tienda.py --aplicar 2>&1 | ta
 # el candado de movimientos dejó en el sistema viejo.
 echo "=== autopartes_finas ==="; python3 scripts/subcategorias_autopartes_finas.py --aplicar 2>&1 | tail -2
 echo "=== divisiones ==="; python3 scripts/subcategorias_divisiones.py --aplicar 2>&1 | tail -2
+# Reglas de la auditoría por subcategoría (auditar_subcategorias_tienda.py):
+# lo que entra nuevo con los mismos errores se corrige en cada corrida.
+echo "=== reglas de auditoría ==="
+python3 scripts/mover_por_regla.py --lote todos --salida /tmp/auditoria-mov.json > /tmp/auditoria-mov.log 2>&1
+tail -1 /tmp/auditoria-mov.log
+# Sin movimientos (todo lo de las reglas ya está en su lugar) aplicar_movimientos
+# sale con error «ningún grupo elegido» y con pipefail cortaba la cadena.
+if python3 -c "import json,sys; sys.exit(0 if json.load(open('/tmp/auditoria-mov.json')) else 1)"; then
+  python3 scripts/aplicar_movimientos.py /tmp/auditoria-mov.json --todos --motivo "reglas de auditoría (automático)" 2>&1 | tail -1
+fi
 # Fusiones: sin esto el catálogo acumulaba duplicados desde el 17-sep (los
 # scripts existían pero nadie los corría). Van después de clasificar porque
 # casi todas exigen la misma categoría. Salidas completas en /tmp/fusiones.log.

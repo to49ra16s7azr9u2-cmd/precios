@@ -112,9 +112,26 @@ DEPARTAMENTOS_FUERA = re.compile(
 RX_ID_TIENDA = re.compile(r"/ip/(?:[^/?#]+/)*?(\d{6,})(?:[/?#]|$)")
 
 
+# Bebidas con alcohol por el TÍTULO: 25 cervezas y vinos entraron el 24-sep con
+# un departamento que no decía «cerveza» ni «vino» (quedaron en Vasos y copas,
+# Botellas y hasta en Mascotas por «perro del mar»). Los perfumes «Vodka en
+# las rocas» o «Champagne pink» no son bebida: por eso se exige que no diga
+# perfume/eau de.
+ALCOHOL_TITULO = re.compile(
+    r'^(\d+ ?pack |six pack |paquete (de |con )?\d+ |caja (de |con )?\d+ |\d+ )?(cerveza|vino (tinto|blanco|rosado|espumoso)|'
+    r'tequila|mezcal|whisky|whiskey|vodka|ginebra|gin artesanal|brandy|licor de|champagne|ron a[nñ]ejo)\b', re.I)
+# El título ya empieza por la bebida (ALCOHOL_TITULO va anclado al inicio), así
+# que «vaso», «copa» o «tarro» no la salvan: «Cerveza Minerva navideña duo pack
+# con copa» es cerveza con regalo y entró a Tazas (26-sep). Sólo se salvan los
+# que no son bebida aunque empiecen igual: perfumes, libros, kits para hacerla.
+_NO_BEBIDA = re.compile(r'perfume|eau de|parfum|libro|para hacer|jabon|jab\u00f3n|vela\b|aroma', re.I)
+
+
 def item(d, tienda, todo=False):
     """Un producto del feed en el formato del marcador, o None si no entra."""
     if not todo and DEPARTAMENTOS_FUERA.search(d.get("category") or ""):
+        return None
+    if not todo and ALCOHOL_TITULO.search((d.get("name") or "").strip()) and not _NO_BEBIDA.search(d.get("name") or ""):
         return None
     precio = numero(d.get("price"))
     if not precio or not d.get("name") or not d.get("url") or not d.get("stock"):

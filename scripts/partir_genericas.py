@@ -196,6 +196,11 @@ REGLAS = {
         (r"^(\S+ ){0,2}(funda|cubre ?moto|cubierta|lona)\b", ("Autos y motos", "Fundas para moto")),
     ],
     ("Autopartes", "Para motos"): [(r".", AUTOPARTE)],
+    # El líquido de frenos Pentosin caía en «Micas y accesorios para casco» y la
+    # cabeza «freno» inventaba «Frenos para casco» (53 fichas, 26-sep-2026).
+    ("Autos y motos", "Micas y accesorios para casco"): [
+        (r"liquido de frenos|\bfrenos?\b", ("Autopartes", "Frenos")),
+    ],
     ("Autopartes", "Asientos, parrillas y accesorios de moto"): [
         (r"\b(asiento|respaldo|cojin)\b", ("Autopartes", "Asientos y respaldos de moto")),
         (r"\b(parrilla|portaequipaje|alforja|baul)\b", ("Autopartes", "Parrillas y portaequipajes de moto")),
