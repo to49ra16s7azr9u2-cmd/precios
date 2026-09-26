@@ -1273,13 +1273,19 @@ def render_product_page(product, data, subs_con_pagina=None):
         + "</nav>"
     )
 
+    # El aviso de categoría equivocada se manda desde la app (Firestore y la
+    # lista de categorías viven allá): ?reportar=<id> abre el formulario en
+    # la ficha. Va en la query y no en el hash para no tocar las rutas #/p/.
     body = f"""
+<div class="detail-crumb-row">
 <nav class="breadcrumb">
   <a href="../../">Inicio</a> &gt;
   <a href="../../categoria/{cat_slug}/">{html_escape(cat['name'])}</a> &gt;
   {sub_crumb}
   {html_escape(product['name'])}
 </nav>
+<a class="cat-report-btn" rel="nofollow" href="../../?reportar={product['id']}#/p/{product['id']}">¿Está en la categoría equivocada?</a>
+</div>
 <div class="detail-head">
   {product_photo_html(product)}
   <div class="detail-headinfo">

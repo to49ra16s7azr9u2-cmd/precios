@@ -975,6 +975,19 @@
       };
       box.classList.remove("hidden");
     };
+    // Desde la página estática de la ficha: ?reportar=<id>#/p/<id> llega con
+    // el formulario ya abierto. Se quita de la url para que recargar o
+    // compartir el enlace no lo vuelva a abrir.
+    const params = new URLSearchParams(location.search);
+    if (params.get("reportar") === product.id) {
+      params.delete("reportar");
+      const q = params.toString();
+      history.replaceState(history.state, "", location.pathname + (q ? "?" + q : "") + location.hash);
+      if (!btn.disabled) {
+        btn.onclick();
+        box.scrollIntoView({ block: "center" });
+      }
+    }
   }
 
   function categoryById(id) {
