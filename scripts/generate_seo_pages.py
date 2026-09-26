@@ -985,10 +985,11 @@ def amazon_grande_html(product):
     fuerte = AMAZON_FUERTE_POR_CATEGORIA.get(product.get("category"))
     nota = f'<span class="amazon-grande-nota">{html_escape(fuerte)}</span>' if fuerte else ""
     return (f'<a class="amazon-grande" href="{html_escape(url)}" target="_blank" rel="nofollow sponsored noopener">'
+            '<svg class="amazon-grande-lupa" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="amazon-grande-divisor" aria-hidden="true"></span>'
             + (f'<img class="amazon-grande-logo" src="../../icons/amazon-insignia.png" alt="Amazon">'
                if os.path.exists(os.path.join(ROOT, "icons", "amazon-insignia.png")) else "")
             + f'<span class="amazon-grande-texto"><span class="amazon-grande-titulo">{titulo}</span>{nota}</span>'
-            f'<span class="amazon-grande-flecha" aria-hidden="true">›</span></a>')
+            '<span class="amazon-grande-flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>')
 
 
 def render_product_page(product, data, subs_con_pagina=None):

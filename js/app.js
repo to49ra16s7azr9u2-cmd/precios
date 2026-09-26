@@ -8342,10 +8342,11 @@
     const titulo = directo ? "Ver precio en Amazon" : "Buscar en Amazon";
     const fuerte = AMAZON_FUERTE_POR_CATEGORIA[product.category];
     return `<a class="amazon-grande" href="${htmlEscapeAttr(url)}" target="_blank" rel="nofollow sponsored noopener">` +
+      `<svg class="amazon-grande-lupa" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="amazon-grande-divisor" aria-hidden="true"></span>` +
       `<img class="amazon-grande-logo" src="icons/amazon-insignia.png" alt="Amazon" onerror="this.remove()">` +
       `<span class="amazon-grande-texto"><span class="amazon-grande-titulo">${titulo}</span>` +
       (fuerte ? `<span class="amazon-grande-nota">${htmlEscapeAttr(fuerte)}</span>` : "") +
-      `</span><span class="amazon-grande-flecha" aria-hidden="true">›</span></a>`;
+      `</span><span class="amazon-grande-flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>`;
   }
 
   function renderDetailTopOffers(product, rows) {
