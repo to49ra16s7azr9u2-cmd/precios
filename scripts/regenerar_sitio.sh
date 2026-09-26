@@ -41,6 +41,29 @@ tail -1 /tmp/auditoria-mov.log
 if python3 -c "import json,sys; sys.exit(0 if json.load(open('/tmp/auditoria-mov.json')) else 1)"; then
   python3 scripts/aplicar_movimientos.py /tmp/auditoria-mov.json --todos --motivo "reglas de auditoría (automático)" 2>&1 | tail -1
 fi
+# Juez de origen (juez_origen.py): mueve sólo cuando coinciden la categoría
+# que le puso la tienda, las 25 fichas más parecidas y el precio. Medido el
+# 26-sep-2026: ~90% de acierto en categoría sobre 80 al azar.
+echo "=== juez de origen ==="
+python3 scripts/juez_origen.py --muestras 0 --salida /tmp/juez-origen.json > /tmp/juez-origen.log 2>&1
+grep "coinciden" /tmp/juez-origen.log
+if python3 -c "import json,sys; sys.exit(0 if json.load(open('/tmp/juez-origen.json')) else 1)"; then
+  python3 scripts/aplicar_movimientos.py /tmp/juez-origen.json --todos --motivo "juez de origen (automático)" 2>&1 | tail -1
+fi
+# Precio imposible para su subcategoría (precio_atipico.py): un control de
+# TV entre los televisores, un bajo eléctrico entre las cuerdas. Mueve sólo
+# si los vecinos proponen otro lugar y el precio cabe ahí. Medido el
+# 26-sep-2026 con la tabla de papeles completada: ~87% sobre 60 al azar.
+echo "=== precio atípico ==="; python3 scripts/precio_atipico.py --aplicar --muestras 0 2>&1 | grep -E "sospechosas|se mueven|Guardado"
+# Avisos de visitantes («¿Está en la categoría equivocada?», reportes_categoria.py):
+# basta un aviso si los vecinos no lo contradicen; si los vecinos están mal en
+# bloque con la ficha, decide el origen de la tienda o la cabeza del nombre.
+echo "=== avisos de visitantes ==="
+python3 scripts/reportes_categoria.py --salida /tmp/reportes-categoria.json --cola data/reportes-categoria-cola.json > /tmp/reportes-categoria.log 2>&1 || true
+grep -E "avisos:|se mueven|cola de|Firestore" /tmp/reportes-categoria.log || true
+if python3 -c "import json,sys; sys.exit(0 if json.load(open('/tmp/reportes-categoria.json')) else 1)" 2>/dev/null; then
+  python3 scripts/aplicar_movimientos.py /tmp/reportes-categoria.json --todos --motivo "avisos de visitantes" 2>&1 | tail -1
+fi
 # Fusiones: sin esto el catálogo acumulaba duplicados desde el 17-sep (los
 # scripts existían pero nadie los corría). Van después de clasificar porque
 # casi todas exigen la misma categoría. Salidas completas en /tmp/fusiones.log.

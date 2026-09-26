@@ -1586,7 +1586,12 @@ def compara_calidad_html(ejes, products, prefijo):
         f'<div class="cq-head"><img class="cq-logo" src="{prefijo}icons/logo-comparacalidad.png"'
         ' alt="Compara calidad">'
         '<span class="cq-sub">Elige el nivel que buscas y la lista se filtra sola.</span>'
-        '<button type="button" class="cq-clear" hidden>Quitar filtro</button></div>'
+        '<button type="button" class="cq-clear" hidden>Quitar filtro</button>'
+        # Afinar sube la precisión de lo que se ve, no sólo lo acorta: el
+        # tipo y el nivel dejan fuera accesorios y fichas de otro tipo que
+        # la categoría ancha todavía mezcla (pedido del usuario, 26-sep-2026).
+        '<span class="cq-hint">Entre más afines (tipo, nivel, tamaño), más precisa es la lista: quedan fuera los accesorios y lo que no es de ese tipo.</span>'
+        '</div>'
         + "".join(bloques) + "</section>"
     )
 

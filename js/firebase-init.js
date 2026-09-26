@@ -279,6 +279,29 @@ window.ComparaMXData = {
     }
   },
 
+  // ---------- «Esta ficha está en la categoría equivocada» ----------
+  //
+  // Un aviso por envío en reportes-categoria/{auto}: la ficha, dónde está y
+  // dónde debería estar según quien la mira (elegido de nuestra lista de
+  // categorías, o «no sé, pero aquí no va»). Sin texto libre ni usuario:
+  // no hay dato personal que guardar, y por eso la colección se puede leer
+  // en público (scripts/reportes_categoria.py la baja por REST sin llaves).
+  // Las reglas (firestore-reportes.rules) sólo dejan CREAR, con esos campos.
+  reportarCategoria(aviso) {
+    if (!aviso || !aviso.pid) return Promise.resolve({ ok: false });
+    return guarded(() =>
+      addDoc(collection(db, "reportes-categoria"), {
+        pid: String(aviso.pid),
+        deCat: String(aviso.deCat || ""),
+        deSub: String(aviso.deSub || ""),
+        aCat: String(aviso.aCat || ""),
+        aSub: String(aviso.aSub || ""),
+        v: 1,
+        creado: serverTimestamp(),
+      })
+    );
+  },
+
   async getHistory(uid, maxItems) {
     try {
       const q = query(

@@ -27,6 +27,8 @@ USO
 """
 import argparse
 import collections
+import datetime
+import json
 import math
 import os
 import random
@@ -69,8 +71,14 @@ def main():
             por_sub[(p["category"], p["subcategory"])].append(x)
     mediana = {k: statistics.median(v) for k, v in por_sub.items() if len(v) >= 10}
 
+    # Lo que una decisión a mano dejó donde está no se toca (candado).
+    ruta_candado = os.path.join(os.path.dirname(AQUI), "data", "clasificacion-a-mano.json")
+    candado = json.load(open(ruta_candado, encoding="utf-8")) if os.path.exists(ruta_candado) else {}
     sospechosas = []
     for p in prods:
+        fijo = candado.get(p["id"])
+        if fijo and fijo[0] == p.get("category") and (fijo[1] or None) == (p.get("subcategory") or None):
+            continue
         k = (p.get("category"), p.get("subcategory"))
         x = precio(p)
         if not x or k not in mediana or len(por_sub[k]) < MIN_FICHAS:
@@ -134,6 +142,13 @@ def main():
         for p, c2, s2 in mover:
             p["category"], p["subcategory"] = c2, s2
         save_catalog(data)
+        # Bitácora, igual que aplicar_movimientos.py, para saber después qué movió esto.
+        ruta_bit = os.path.join(os.path.dirname(AQUI), "data", "movimientos-aplicados.json")
+        bit = json.load(open(ruta_bit, encoding="utf-8")) if os.path.exists(ruta_bit) else []
+        bit.append({"fecha": datetime.date.today().isoformat(), "origen": "precio_atipico.py",
+                    "motivo": "precio imposible para su subcategoría (vecinos + precio)",
+                    "grupos": {f"{a} | {b} | {c} | {d}": n for (a, b, c, d), n in grupos.items()}})
+        json.dump(bit, open(ruta_bit, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         print("Guardado.")
 
 

@@ -1,0 +1,52 @@
+// Reglas de Firestore para el botón «¿Categoría equivocada?» de la ficha.
+//
+// ESTO ES UN FRAGMENTO, NO EL ARCHIVO COMPLETO. Hay que pegar el bloque
+// `match /reportes-categoria/{id}` DENTRO del `match /databases/{database}/documents`
+// que ya existe (junto a users/, reviews/ y popularidad/), en:
+//   consola de Firebase -> Firestore Database -> Reglas
+//
+// Sin esto el botón no rompe nada: el envío falla en silencio y la ficha
+// dice «Gracias» igual. Con esto puesto, los avisos llegan y
+// scripts/reportes_categoria.py los baja y los cruza con el catálogo.
+//
+// QUÉ GUARDA CADA DOCUMENTO
+//   { pid: "p123", deCat, deSub, aCat, aSub, v: 1, creado: <hora> }
+// La ficha, dónde estaba y a dónde la manda quien avisa (elegido de la lista
+// de categorías del sitio; aCat vacío = «no sé, pero aquí no va»). No hay
+// texto libre, usuario ni IP: nada personal. Por eso se puede leer en público
+// y el script no necesita llaves de administrador.
+//
+// POR QUÉ LA ESCRITURA ES ANÓNIMA
+// Quien mira una ficha casi nunca tiene sesión. Las reglas no comprueban
+// quién escribe, pero sí QUÉ: sólo esos campos, sólo texto corto, y nunca se
+// puede editar ni borrar lo enviado. Lo peor que puede hacer alguien es
+// mandar avisos falsos; el script no mueve nada con un solo aviso y exige
+// que los vecinos del catálogo no lo contradigan. Para cerrarlo del todo,
+// activar App Check igual que en popularidad/.
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ... aquí siguen las reglas que ya tengas (users, reviews, popularidad) ...
+
+    match /reportes-categoria/{id} {
+      allow read: if true;
+      allow update, delete: if false;
+
+      function texto(campo, max) {
+        return request.resource.data[campo] is string
+            && request.resource.data[campo].size() <= max;
+      }
+
+      allow create: if request.resource.data.keys().hasOnly(
+                         ['pid', 'deCat', 'deSub', 'aCat', 'aSub', 'v', 'creado'])
+                    && request.resource.data.pid is string
+                    && request.resource.data.pid.matches('^p[0-9]{1,9}$')
+                    && texto('deCat', 80) && texto('deSub', 80)
+                    && texto('aCat', 80) && texto('aSub', 80)
+                    && request.resource.data.v == 1
+                    && request.resource.data.creado == request.time;
+    }
+  }
+}

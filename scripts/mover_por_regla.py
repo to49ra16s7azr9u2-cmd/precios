@@ -2559,6 +2559,34 @@ LOTES['wb12'] = [
 ]
 REGLAS += LOTES['wb12']
 
+# ---- Lote camas (26-sep-2026): exclusiones de «cama» por la CABEZA del nombre ----
+# La idea (sugerida por el usuario): una cama infantil que dice «barandilla»,
+# «camping» o «adulto» no es una cama infantil, y «para cama», «accesorio» o
+# «refacción» mandan al accesorio. Medido sobre las subcategorías de camas y
+# colchones: por palabra suelta casi siempre FALLA --«Colchón + Protector +
+# Almohadas» es un colchón con regalo (2,966 así), «adulto» es la talla de
+# Luuna y Nooz, «con Barandales removibles» es una cama Montessori--. Lo que
+# sí decide es la palabra con la que EMPIEZA el nombre: «Barandilla de cama
+# anticaídas», «Falda de cama», «Soportes para cama», «Mosquitero para cama».
+_CAMAS = {'Camas', 'Camas infantiles', 'Camas individuales', 'Camas matrimoniales', 'Camas queen y king',
+          'Camas plegables y catres', 'Literas', 'Box con cabecera'}
+_COLCHONES = {'Colchones', 'Colchones individuales', 'Colchones matrimoniales', 'Colchones queen size',
+              'Colchones king size', 'Colchones infantiles y de cuna'}
+LOTES['camas'] = [
+    ('Muebles', _P + r'(barandillas?|barandal(es)?|faldas? de cama|soportes? (para|de) cama|mosquitero|patas? (para|de) cama|'
+                r'ruedas? (para|de) cama|tornillos? (para|de) cama)\b', None,
+     'Muebles', 'Accesorios y refacciones de cama', _CAMAS),
+    ('Muebles', _P + r'palanca de puerta', None, 'Herramientas', 'Cerraduras y chapas de puerta', _CAMAS),
+    ('Muebles', r'^cama (de )?(hospital|hospitalaria)|^cama hospitalaria|cama de hospital', None,
+     'Salud', 'Movilidad y apoyo', _CAMAS),
+    ('Muebles', r'^cama (camastro|alta toy)|montable inflable|calico critters', None, 'Juguetes', 'Juguetes para exterior', _CAMAS),
+    ('Muebles', r'^colchon inflable|^colchoneta inflable|^colchon de aire', r'\+', 'Muebles', 'Colchones plegables y de sofá cama',
+     _COLCHONES),
+    ('Muebles', r'^(colchoneta|catre|cama inflable|colchon de aire).{0,40}\b(acampar|camping)\b', None,
+     'Deportes y fitness', 'Campismo', _CAMAS | _COLCHONES | {'Colchones plegables y de sofá cama'}),
+]
+REGLAS += LOTES['camas']
+
 
 if __name__ == '__main__':
     main()

@@ -432,6 +432,26 @@ a { color: inherit; text-decoration: none; }
 .breadcrumb { font-size: 11px; color: var(--muted); padding: 14px 0 0; }
 .breadcrumb a:hover { color: var(--red); }
 
+/* Fila de la miga de pan en la ficha, con el aviso de categoría a la derecha.
+   Es texto chico y gris para no competir con el precio: quien lo necesita lo
+   busca al ver que la ficha no es lo que esperaba. */
+.detail-crumb-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.detail-crumb-row .breadcrumb { flex: 1 1 auto; min-width: 0; }
+.cat-report-btn {
+  border: 0; background: none; padding: 0; cursor: pointer;
+  font: inherit; font-size: 11px; color: var(--muted); text-decoration: underline;
+}
+.cat-report-btn:hover, .cat-report-btn:focus-visible { color: var(--red-dark); }
+.cat-report {
+  margin: 8px 0 0; padding: 10px 12px; background: var(--card);
+  border: 1px solid var(--border); border-left: 3px solid var(--red); font-size: 12px;
+}
+.cat-report-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+.cat-report select { font: inherit; padding: 5px 6px; border: 1px solid var(--border); background: var(--card); max-width: 100%; }
+.cat-report-send { border: 1px solid var(--red); background: var(--red); color: #fff; padding: 5px 12px; cursor: pointer; font: inherit; font-weight: 700; }
+.cat-report-cancel { border: 1px solid var(--border); background: var(--card); padding: 5px 12px; cursor: pointer; font: inherit; }
+.cat-report-note { color: var(--muted); margin-top: 6px; }
+
 .list-layout {
   display: grid;
   /* Ancho por proporción con un piso fijo en vez de un ancho fijo puro: el
@@ -975,6 +995,13 @@ tr.offer-compare-off { display: none; }
 }
 .quality-logo { display: block; height: 17px; width: auto; flex-shrink: 0; }
 .quality-sub { font-size: 11px; color: var(--muted); }
+/* Aviso de que afinar sube la precisión: ocupa su propia línea debajo de la
+   frase del eje para no competir con ella. */
+.quality-hint, .cq-hint {
+  flex-basis: 100%;
+  font-size: 11px;
+  color: var(--red-dark);
+}
 
 .quality-row { padding: 9px 12px; }
 .quality-row + .quality-row { border-top: 1px solid var(--border); }

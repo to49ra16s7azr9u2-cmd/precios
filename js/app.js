@@ -42,6 +42,7 @@
     reviewDrafts: "comparamx_review_drafts",
     compare: "comparamx_compare",
     alerts: "comparamx_price_alerts",
+    catReports: "comparamx_cat_reports",
   };
 
   // Cuántos productos entran en el comparador de specs lado a lado.
@@ -901,6 +902,79 @@
       return `<span class="store-dot has-logo"><img src="${store.logoImg}" alt="${store.name}" loading="lazy"></span>`;
     }
     return `<span class="store-dot" style="background:${store.color}">${store.logo}</span>`;
+  }
+
+  // ---------- «¿Está en la categoría equivocada?» ----------
+  //
+  // Como el aviso de dato mal puesto de kakaku.com: quien ve una cama
+  // infantil de $235 entre las camas sabe antes que nadie que no es una cama.
+  // El aviso va a Firestore (ComparaMXData.reportarCategoria) sin texto libre
+  // ni usuario: la ficha, dónde está y a dónde la mandaría, elegido de nuestra
+  // propia lista. scripts/reportes_categoria.py los junta y sólo mueve cuando
+  // varios coinciden y los vecinos del catálogo no lo contradicen.
+  function setupCategoryReport(product) {
+    const btn = document.getElementById("catReportBtn");
+    const box = document.getElementById("catReport");
+    if (!btn || !box) return;
+    box.classList.add("hidden");
+    box.innerHTML = "";
+    const avisados = readLS(LS_KEYS.catReports, {});
+    btn.textContent = avisados[product.id] ? "Ya avisaste de esta ficha. Gracias." : "¿Está en la categoría equivocada?";
+    btn.disabled = !!avisados[product.id];
+    btn.onclick = () => {
+      if (!box.classList.contains("hidden")) { box.classList.add("hidden"); return; }
+      const cat = categoryById(product.category);
+      const sub = subcategoryById(product.category, product.subcategory);
+      const cats = state.data.categories.slice().sort((a, b) => a.name.localeCompare(b.name, "es"));
+      box.innerHTML =
+        `<div>Esta ficha está en <strong>${htmlEscapeAttr(cat ? cat.name : product.category)}${sub ? " › " + htmlEscapeAttr(sub.name) : ""}</strong>. ¿Dónde debería estar?</div>` +
+        `<div class="cat-report-row">` +
+        `<select id="catReportCat" aria-label="Categoría correcta"><option value="">No sé, pero aquí no va</option>` +
+        cats.map((c) => `<option value="${htmlEscapeAttr(c.id)}"${c.id === product.category ? " selected" : ""}>${htmlEscapeAttr(c.name)}</option>`).join("") +
+        `</select>` +
+        `<select id="catReportSub" aria-label="Tipo de producto"></select>` +
+        `<button type="button" class="cat-report-send" id="catReportSend">Enviar aviso</button>` +
+        `<button type="button" class="cat-report-cancel" id="catReportCancel">Cancelar</button>` +
+        `</div>` +
+        `<div class="cat-report-note">No pedimos datos tuyos: sólo se guarda la ficha y la categoría que elegiste.</div>`;
+      const selCat = document.getElementById("catReportCat");
+      const selSub = document.getElementById("catReportSub");
+      const llenarSubs = () => {
+        const c = categoryById(selCat.value);
+        const subs = (c && c.subcategories) || [];
+        selSub.innerHTML = `<option value="">Cualquier tipo</option>` +
+          subs.map((x) => `<option value="${htmlEscapeAttr(x.id)}">${htmlEscapeAttr(x.name)}</option>`).join("");
+        selSub.disabled = !subs.length;
+      };
+      selCat.onchange = llenarSubs;
+      llenarSubs();
+      document.getElementById("catReportCancel").onclick = () => box.classList.add("hidden");
+      document.getElementById("catReportSend").onclick = () => {
+        const aCat = selCat.value;
+        const aSub = aCat ? selSub.value : "";
+        if (aCat === product.category && (aSub || "") === (product.subcategory || "")) {
+          box.querySelector(".cat-report-note").textContent = "Elige una categoría o un tipo distinto del actual.";
+          return;
+        }
+        const aviso = { pid: product.id, deCat: product.category, deSub: product.subcategory || "", aCat, aSub };
+        const guardar = () => {
+          const todos = readLS(LS_KEYS.catReports, {});
+          todos[product.id] = new Date().toISOString().slice(0, 10);
+          writeLS(LS_KEYS.catReports, todos);
+          box.innerHTML = "<div><strong>Gracias.</strong> Lo revisamos junto con los demás avisos: así las listas quedan más precisas para todos.</div>";
+          btn.textContent = "Ya avisaste de esta ficha. Gracias.";
+          btn.disabled = true;
+        };
+        // Sin Firebase (bloqueado, sin red) se agradece igual: un aviso no es
+        // algo que la persona tenga que reintentar.
+        if (window.ComparaMXData && window.ComparaMXData.reportarCategoria) {
+          window.ComparaMXData.reportarCategoria(aviso).finally(guardar);
+        } else {
+          guardar();
+        }
+      };
+      box.classList.remove("hidden");
+    };
   }
 
   function categoryById(id) {
@@ -7547,6 +7621,7 @@
         goList({ category: product.category, subcategory: product.subcategory, query: "" });
       };
     }
+    setupCategoryReport(product);
 
     renderProductMedia(el.detailIcon, product, "detail", () => attachDiscountRibbon(el.detailIcon, product));
     attachDiscountRibbon(el.detailIcon, product);

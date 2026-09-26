@@ -74,6 +74,7 @@ sys.path.insert(0, AQUI)
 from add_amazon_standalone import FACTOR_PRECIO_ABSURDO, techos_por_subcategoria  # noqa: E402
 from soicos_a_captura import ALCOHOL_TITULO, _NO_BEBIDA  # noqa: E402
 from data_io import load_catalog, next_id, registrar_max_id, save_catalog, url_real  # noqa: E402
+from origen_categorias import registrar as registrar_origen  # noqa: E402
 
 # storeId -> cómo se registra en data.json (stores) la primera vez que entra
 # un producto suyo. El id walmart_mx ya lo usaban js/app.js (LIVE_API_CONFIG)
@@ -411,6 +412,11 @@ def main():
     print(f"Capturados: {len(unicos)} productos distintos")
     if not unicos:
         return
+    # La categoría que les puso la tienda se guarda aparte (origen_categorias.py):
+    # es un voto más para juez_origen.py, y antes se tiraba al dar de alta.
+    n_origen = registrar_origen(unicos)
+    if n_origen:
+        print(f"Categorías de origen registradas: {n_origen:,}")
     data = load_catalog()
     ids, urls = conocidos(data["products"])
     nuevos = [it for it in unicos if (it["store"], it["id"]) not in ids and (url_real(it["url"]) or it["url"]) not in urls]

@@ -62,7 +62,7 @@
      de la portada (text=): pesa ~3 KB en vez de la familia entera. -->
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap&text=%20%2CDEHMOTabcdeghilmnopqrstuvy%C3%A1%C3%A9%C3%AD%C3%B3">
-<link rel="stylesheet" href="css/style.min.css?v=69f9aec0">
+<link rel="stylesheet" href="css/style.min.css?v=50428a3b">
 <!-- Datos estructurados de la portada. Las ~82 mil páginas de producto ya
      llevaban Product + BreadcrumbList, pero la portada -- que es la que
      Google usa para entender QUÉ es el sitio -- no llevaba ninguno.
@@ -541,6 +541,7 @@
             <div class="quality-head">
               <img class="quality-logo" src="icons/logo-comparacalidad.png" alt="Compara calidad">
               <span class="quality-sub" id="qualitySub"></span>
+              <span class="quality-hint">Entre más afines (tipo, nivel, tamaño), más precisa es la lista: quedan fuera los accesorios y lo que no es de ese tipo.</span>
             </div>
             <div id="qualityRows"></div>
             <button type="button" id="specsBannerLink" class="quality-more">
@@ -591,7 +592,12 @@
   <!-- Ficha de producto -->
   <section id="viewDetail" class="view hidden">
     <div class="container">
-      <nav class="breadcrumb" id="detailBreadcrumb"></nav>
+      <div class="detail-crumb-row">
+        <nav class="breadcrumb" id="detailBreadcrumb"></nav>
+        <!-- Aviso de categoría equivocada (reportes-categoria en Firestore). -->
+        <button type="button" class="cat-report-btn" id="catReportBtn">¿Está en la categoría equivocada?</button>
+      </div>
+      <div id="catReport" class="cat-report hidden" role="region" aria-label="Avisar categoría equivocada"></div>
 
       <div class="panel detail-hero-panel">
         <div class="detail-head">
@@ -933,6 +939,7 @@
           <li><strong>Datos de navegación (Google Analytics 4):</strong> páginas visitadas, tiempo en el sitio, dispositivo/navegador aproximado, y clics en los botones "Ver oferta" hacia las tiendas. Estos datos son agregados y no identifican a una persona por nombre.</li>
           <li><strong>Cuenta (opcional, Firebase Authentication):</strong> si inicias sesión con Google o correo/contraseña, guardamos tu correo, nombre y foto de perfil (si Google los provee) para asociarlos a tus favoritos y reseñas.</li>
           <li><strong>Favoritos, ubicación elegida y reseñas:</strong> sin sesión iniciada se guardan solo en tu navegador (localStorage). Con sesión iniciada se guardan también en nuestra base de datos (Firebase Firestore, de Google) para que estén disponibles en cualquier dispositivo.</li>
+          <li><strong>Avisos de categoría equivocada:</strong> si usas el botón «¿Está en la categoría equivocada?» de una ficha, guardamos en Firebase Firestore solo el identificador de la ficha, la categoría en que estaba y la que elegiste, con la fecha. No se guarda tu nombre, correo, sesión ni dirección IP, y el aviso no se asocia a ti. Tu navegador recuerda (localStorage) que ya avisaste de esa ficha para no pedírtelo otra vez.</li>
           <li><strong>Preferencia de cookies:</strong> tu elección en el aviso de cookies se guarda en tu navegador para no volver a preguntarte.</li>
         </ul>
         <p>No procesamos pagos ni recopilamos datos de tarjetas de crédito/débito: toda compra ocurre en el sitio de la tienda, fuera de ComparaMEX.</p>
@@ -1104,7 +1111,7 @@
   </div>
 </div>
 
-<script type="module" src="js/firebase-init.min.js?v=671b2597"></script>
+<script type="module" src="js/firebase-init.min.js?v=4d4bc145"></script>
 <!-- Barra flotante del comparador: sigue visible al cambiar de vista, por eso
      vive fuera de <main> y no dentro de la vista de lista. -->
 <div id="compareBar" class="compare-bar hidden">
@@ -1116,7 +1123,7 @@
     </div>
   </div>
 
-<script src="js/app.min.js?v=cb5e9502"></script>
+<script src="js/app.min.js?v=08981650"></script>
 </div>
 </body>
 </html>

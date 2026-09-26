@@ -368,6 +368,29 @@ if _os.path.exists(_RUTA_PARTICION):
                         ROLES.setdefault(_cat, {}).setdefault(_s, _rol)
 
 
+# Subcategorías finas que nacieron después de la tabla y se quedaban como
+# «producto» por omisión (revisadas el 26-sep-2026 con la lista de las 255
+# que tienen nombre de accesorio y papel de producto). Sin esto, «el
+# celular más barato» podía ser una mica y precio_atipico.py no miraba las
+# correas de reloj que eran relojes enteros.
+for _cat, _subs, _rol in (
+    ("Celulares", ("PopSockets y agarraderas", "Tripiés y palos selfie", "Bolsas para celular",
+                   "Micas para celular", "Protectores para celular", "Soportes para celular"), ACCESORIO),
+    ("Relojes inteligentes", ("Correas para Apple Watch", "Correas para Galaxy Watch",
+                              "Correas para Huawei, Xiaomi y Amazfit"), ACCESORIO),
+    ("Audífonos", ("Almohadillas para audífonos",), PARTE),
+    ("Baterías portátiles", ("Cargadores para batería portátil",), ACCESORIO),
+    ("Bicicletas y movilidad", ("Para patinetas eléctricas", "Para bicicletas eléctricas"), PARTE),
+    ("Herramientas", ("Brocas para concreto y SDS", "Brocas para metal", "Brocas para madera",
+                      "Puntas para atornillar", "Consumibles de soldadura"), CONSUMIBLE),
+    ("Componentes y accesorios de PC", ("Pasta térmica",), CONSUMIBLE),
+    ("Componentes y accesorios de PC", ("Baterías para laptop",), PARTE),
+    ("Autos y motos", ("Micas y accesorios para casco", "Frenos para casco"), ACCESORIO),
+):
+    for _s in _subs:
+        ROLES.setdefault(_cat, {}).setdefault(_s, _rol)
+
+
 # Aparatos cuyo nombre parece de accesorio («con bolsa», «Baterías
 # electrónicas», «para niños») y que heredaban el papel de la comodín de la
 # que salieron (revisado a mano el 26-sep-2026). Pisan todo lo de arriba.
