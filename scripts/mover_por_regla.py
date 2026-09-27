@@ -2743,6 +2743,47 @@ LOTES['impresoras'] = [
 ]
 REGLAS += LOTES['impresoras']
 
+# ---- Lote impresión 3D y viajes (27-sep-2026, capturas del usuario) ----
+# En «Impresoras FDM/de resina» estaban filamentos («3D printer consumables»),
+# resina, estaciones de lavado y curado, fundas térmicas, motores, placas,
+# pantallas LCD y el Sonic Pad: todo dice «3D printer» y no es una impresora.
+# En Viajes, básculas de equipaje entre las maletas medianas y bolsas al
+# vacío, de zapatos y de vino entre las mochilas.
+_IMP3D_ORIGEN = {'Impresoras FDM', 'Impresoras de resina', 'Escáneres 3D', None}
+LOTES['impresion3d_viajes'] = [
+    ('Impresión 3D', r'consumables|filament|filamento|\bline 1 ?kg|\b(tpu|petg|pla\+?|abs|asa)\b.{0,40}\b1\.75|\bwire\b.*\bpa\d',
+     r'^(\S+ ){0,2}impresora|\bcover\b|insulation', 'Impresión 3D', 'Filamentos', _IMP3D_ORIGEN),
+    ('Impresión 3D', r'curable resin|light curable|^(\S+ ){0,2}resinas?\b', r'^(\S+ ){0,2}impresora',
+     'Impresión 3D', 'Resinas', _IMP3D_ORIGEN),
+    ('Impresión 3D', r'estacion de lavado|lavado y curado|\bcover\b|insulation|sealed box|\bfunda\b|\bheater\b|tubing|\bptfe\b|'
+                     r'main board|control board|\bplaca\b|\bmotor\b|17hs\d|lcd screen|\bscreen\b|display|toolhead|print head|'
+                     r'blower|\bfan\b|\btray\b|bandeja|hebilla|componentes|sonic pad|\bams\b|board sheet|intelligent detection',
+     r'(^(\S+ ){0,2}impresora\b|\bcombo\b)(?!.*sonic pad)', 'Impresión 3D', 'Refacciones y accesorios', _IMP3D_ORIGEN),
+    ('Viajes', r'^(\S+ ){0,3}(bascula|candados?|etiquetas?|almohada|organizador|neceser|cubo|compression cube|adaptador)\b|'
+               r'bolsas? (de almacenamiento|al vacio|para zapatos|de vino|reutilizables para vino)|travel pack|toiletry',
+     r'^(\S+ ){0,2}(maleta|mochila|bolso|bolsa de viaje|maletin)\b(?!.*(al vacio|toiletry))', 'Viajes', 'Accesorios de viaje',
+     {'Maletas de cabina', 'Maletas medianas', 'Maletas grandes', 'Sets de maletas', 'Mochilas y bolsas de viaje', None}),
+]
+REGLAS += LOTES['impresion3d_viajes']
+
+# ---- Lote cámaras ajenas (27-sep-2026, captura del usuario) ----
+# «Cámara» es también la de la llanta (cámara de aire 110/90-17, 700x18-32)
+# y la máquina de humo («cámara de humo»). Los binoculares «antiniebla» sí
+# son de aquí.
+_BICI = r'bicicleta|\b700x|\b2[0-9]x1|\bmtb\b'
+LOTES['camaras_ajenas'] = [
+    ('Cámaras y fotografía', r'^camaras? (de (llanta|aire)|neumatica|para (moto|motocicleta|llanta)|moto|motocicleta)\b|'
+                             r'^camaras? \d{2,3}/\d{2}|^camara .{0,20}\b\d{2,3}/\d{2}[-x]\d{2}', _BICI,
+     'Autos y motos', 'Cámaras y accesorios de llanta', None),
+    ('Cámaras y fotografía', r'^camaras? (para )?bicicleta|^camara .{0,30}\b(700x|2[0-9]x1)', None,
+     'Bicicletas y movilidad', 'Llantas para bicicleta', None),
+    ('Cámaras y fotografía', r'\bhumo\b', r'binocular', 'Iluminación', 'Escenario', None),
+    ('Cámaras y fotografía', r'\bmicas?\b.*\blente\b|lente (de )?camara.*\b(iphone|galaxy|redmi|pixel)\b', None,
+     'Celulares', 'Micas para celular', None),
+    ('Cámaras y fotografía', r'^filtro (de )?aire\b', None, 'Autopartes', 'Filtros y aceites de moto', None),
+]
+REGLAS += LOTES['camaras_ajenas']
+
 
 if __name__ == '__main__':
     main()

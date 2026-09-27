@@ -18006,5 +18006,67 @@
    "Almacenamiento | None | Aspiradoras | Mangueras para aspiradora": 1,
    "Almacenamiento | None | Aspiradoras | Filtros para aspiradora": 1
   }
+ },
+ {
+  "fecha": "2026-09-27",
+  "origen": "lavadoras.json",
+  "motivo": "lavadoras: refacciones, arandelas y ajenas (capturas del usuario, 27-sep)",
+  "grupos": {
+   "Lavadoras | Carga frontal | Electrodomésticos | Válvulas para lavadora y secadora": 1,
+   "Lavadoras | Carga frontal | Herramientas | Plomería": 2,
+   "Lavadoras | Carga frontal | Electrodomésticos | Refacciones para lavadora y secadora": 1,
+   "Lavadoras | Automáticas | Mascotas | Higiene y limpieza": 1,
+   "Lavadoras | Secadoras | Electrodomésticos | Limpieza del hogar y lavandería": 1,
+   "Lavadoras | Automáticas | Electrodomésticos | Refacciones para lavadora y secadora": 5,
+   "Lavadoras | Automáticas | Electrodomésticos | Tarjetas para lavadora y secadora": 2,
+   "Lavadoras | None | Cocina y comedor | Utensilios de cocina": 2,
+   "Lavadoras | Automáticas | Herramientas | Plomería": 5,
+   "Lavadoras | Automáticas | Electrodomésticos | Válvulas para lavadora y secadora": 1,
+   "Lavadoras | Automáticas | Lavadoras | Portátiles": 1,
+   "Lavadoras | Portátiles | Mascotas | Higiene y limpieza": 5
+  }
+ },
+ {
+  "fecha": "2026-09-27",
+  "origen": "impresoras.json",
+  "motivo": "impresoras: consumibles y térmicas (capturas del usuario, 27-sep)",
+  "grupos": {
+   "Impresoras | Inyección de tinta | Impresoras | Térmica": 2,
+   "Impresoras | Inyección de tinta | Papelería y oficina | Papel y sobres": 14,
+   "Impresoras | Inyección de tinta | Impresoras | Cabezales y refacciones de impresión": 4,
+   "Impresoras | Inyección de tinta | Impresoras | Consumibles": 8,
+   "Impresoras | None | Impresoras | Cartuchos de tinta": 2,
+   "Impresoras | Inyección de tinta | Impresoras | Cartuchos de tinta": 26,
+   "Impresoras | Láser | Impresoras | Cabezales y refacciones de impresión": 3
+  }
+ },
+ {
+  "fecha": "2026-09-27",
+  "origen": "impresion3d_viajes.json",
+  "motivo": "impresión 3D y viajes (capturas del usuario, 27-sep)",
+  "grupos": {
+   "Viajes | Maletas medianas | Viajes | Accesorios de viaje": 4,
+   "Viajes | Mochilas y bolsas de viaje | Viajes | Accesorios de viaje": 2,
+   "Viajes | Maletas de cabina | Viajes | Accesorios de viaje": 1,
+   "Impresión 3D | Impresoras FDM | Impresión 3D | Refacciones y accesorios": 21,
+   "Impresión 3D | Impresoras FDM | Impresión 3D | Filamentos": 10,
+   "Impresión 3D | Impresoras de resina | Impresión 3D | Refacciones y accesorios": 2,
+   "Impresión 3D | Impresoras de resina | Impresión 3D | Resinas": 1
+  }
+ },
+ {
+  "fecha": "2026-09-27",
+  "origen": "camaras_ajenas.json",
+  "motivo": "cámaras de llanta, humo y filtros en Cámaras (captura del usuario, 27-sep)",
+  "grupos": {
+   "Cámaras y fotografía | Filtros y parasoles | Celulares | Micas para celular": 1,
+   "Cámaras y fotografía | Accesorios | Autos y motos | Cámaras y accesorios de llanta": 4,
+   "Cámaras y fotografía | Filtros y parasoles | Autopartes | Filtros y aceites de moto": 12,
+   "Cámaras y fotografía | None | Autos y motos | Cámaras y accesorios de llanta": 8,
+   "Cámaras y fotografía | None | Iluminación | Escenario": 5,
+   "Cámaras y fotografía | Cámaras de acción | Bicicletas y movilidad | Llantas para bicicleta": 3,
+   "Cámaras y fotografía | None | Celulares | Micas para celular": 1,
+   "Cámaras y fotografía | Cámaras de acción | Autos y motos | Cámaras y accesorios de llanta": 4
+  }
  }
 ]
