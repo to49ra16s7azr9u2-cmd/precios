@@ -5240,3 +5240,7 @@ tr.offer-compare-off { display: none; }
   .amazon-grande-flecha svg { width: 21px; height: 21px; }
   .amazon-grande-logo { height: 20px; }
 }
+
+/* Puntos de la gráfica del precio más bajo: fecha, precio y tienda al pasar el ratón. */
+.price-spark .spark-dot { fill: var(--red); stroke: #fff; stroke-width: 1; cursor: default; }
+.price-spark .spark-dot:hover { r: 5; }

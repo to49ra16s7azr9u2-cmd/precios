@@ -251,7 +251,7 @@ GRUPOS = {
          r"\bbase (de cama|box)\b|\bsomier\b", "Muebles", "Camas"),
         (r"\b(repisa|estante|entrepano)\b", "Muebles", "Repisas"),
         (r"\b(silla|sillon|banco|taburete)\b", "Muebles", "Sillas"),
-        (r"\b(mesa|mesita)\b", "Muebles", "Mesas de centro"),
+        (r"^(\S+ ){0,3}(?<!\bde )(?<!\bpara )(mesa|mesita)\b", "Muebles", "Mesas de centro"),
     ],
     ("Deportes y fitness", "Otros"): [
         (r"\b(casco|motocicleta)\b", "Autos, bicicletas y motos", "Cascos para moto"),

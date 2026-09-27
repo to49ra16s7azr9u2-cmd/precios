@@ -558,6 +558,25 @@ def serie_diaria(por_tienda, hasta=None):
     return salida
 
 
+def tienda_minima_por_dia(por_tienda, dias):
+    """{día: tienda que tenía el precio más bajo ese día} para los días dados."""
+    cambios = {t: dict(zip(s[::2], s[1::2])) for t, s in (por_tienda or {}).items()
+               if not t.startswith("_")}
+    vigente, salida, pendientes = {}, {}, set(dias)
+    if not cambios or not pendientes:
+        return salida
+    for dia in range(min(min(c) for c in cambios.values() if c), max(pendientes) + 1):
+        for tienda, c in cambios.items():
+            if dia in c:
+                if c[dia] is None:
+                    vigente.pop(tienda, None)
+                else:
+                    vigente[tienda] = c[dia]
+        if dia in pendientes and vigente:
+            salida[dia] = min(vigente, key=vigente.get)
+    return salida
+
+
 MESES_CORTOS = ("ene", "feb", "mar", "abr", "may", "jun", "jul",
                 "ago", "sep", "oct", "nov", "dic")
 
@@ -583,7 +602,7 @@ def precios_de_eje(lo, hi):
     return [lo, (lo + hi) / 2, hi]
 
 
-def sparkline_svg(serie, ancho=560, alto=92):
+def sparkline_svg(serie, ancho=560, alto=92, tiendas=None):
     """Gráfico de la evolución, en SVG inline, con ejes.
 
     Sin JavaScript ni librería a propósito: estas páginas son estáticas y las
@@ -621,8 +640,22 @@ def sparkline_svg(serie, ancho=560, alto=92):
     def xy(d, p):
         return f"{x_de(d):.1f},{y_de(p):.1f}"
 
-    linea = " ".join(xy(d, p) for d, p in serie)
+    # En escalones, como el mínimo de Kakaku: el precio más bajo se mantiene
+    # hasta el día en que cambia (con rectas entre días parecía un promedio).
+    pts = []
+    for i, (d, p) in enumerate(serie):
+        if i and p != serie[i - 1][1]:
+            pts.append(xy(d, serie[i - 1][1]))
+        pts.append(xy(d, p))
+    linea = " ".join(pts)
     area = f"{x0},{y1} " + linea + f" {x1:.1f},{y1}"
+    puntos = []
+    for i, (d, p) in enumerate(serie):
+        if i in (0, len(serie) - 1) or p != serie[i - 1][1]:
+            t = (tiendas or {}).get(d)
+            quien = f" en {html_escape(_NOMBRES_TIENDA.get(t, t))}" if t else ""
+            puntos.append(f'<circle cx="{x_de(d):.1f}" cy="{y_de(p):.1f}" r="3" class="spark-dot">'
+                          f'<title>{fecha_larga(d)}: {money(p)}{quien}</title></circle>')
     ejes = []
     for p in precios_de_eje(lo_real, hi_real):
         y = y_de(p)
@@ -636,12 +669,13 @@ def sparkline_svg(serie, ancho=560, alto=92):
     ejes.append(f'<line x1="{x0}" y1="{y1}" x2="{x1}" y2="{y1}" class="spark-axis"/>')
     return (
         f'<svg class="price-spark" viewBox="0 0 {ancho} {alto}" '
-        f'role="img" aria-label="Evolución del precio: de {money(precios[0])} a {money(precios[-1])}">'
+        f'role="img" aria-label="Evolución del precio más bajo: de {money(precios[0])} a {money(precios[-1])}">'
         + "".join(ejes)
         + f'<polygon points="{area}" fill="rgba(255,2,17,.08)"/>'
         f'<polyline points="{linea}" fill="none" stroke="var(--red)" stroke-width="1.5" '
         f'stroke-linejoin="round" stroke-linecap="round"/>'
-        f'</svg>'
+        + "".join(puntos)
+        + '</svg>'
     )
 
 
@@ -735,6 +769,9 @@ def render_price_history(product):
     dia_lo = next(d for d, p in serie if p == lo)
     dia_hi = next(d for d, p in serie if p == hi)
     hoy = precios[-1]
+    tiendas = tienda_minima_por_dia(por_tienda, [d for d, _ in serie])
+    t_hoy = tiendas.get(serie[-1][0])
+    en_tienda = f" en {html_escape(_NOMBRES_TIENDA.get(t_hoy, t_hoy))}" if t_hoy else ""
 
     # Si la serie no llega a hoy es que ninguna tienda lo vende ya (todas las
     # series terminan en null). No se dice "hoy está en": no está.
@@ -743,19 +780,19 @@ def render_price_history(product):
 
     if hoy <= lo:
         veredicto = (
-            f'<p class="history-verdict history-low">Hoy está en '
-            f'<strong>{money(hoy)}</strong>: el precio más bajo que le registramos.</p>'
+            f'<p class="history-verdict history-low">El precio más bajo hoy es '
+            f'<strong>{money(hoy)}</strong>{en_tienda}: el más bajo que le registramos.</p>'
         )
     else:
         subida = round(100 * (hoy - lo) / lo)
         veredicto = (
-            f'<p class="history-verdict">Hoy está en <strong>{money(hoy)}</strong>, '
-            f'{money(hoy - lo)} ({subida}%) por encima de su mínimo registrado.</p>'
+            f'<p class="history-verdict">El precio más bajo hoy es <strong>{money(hoy)}</strong>{en_tienda}, '
+            f'{money(hoy - lo)} ({subida}%) por encima del mínimo registrado.</p>'
         )
 
     rango = (
         f'<p class="history-range">Entre el {fecha_larga(serie[0][0])} y el {fecha_larga(serie[-1][0])} '
-        f"osciló entre {money(lo)} (el {fecha_larga(dia_lo)}) y {money(hi)} "
+        f"el precio más bajo osciló entre {money(lo)} (el {fecha_larga(dia_lo)}) y {money(hi)} "
         f"(el {fecha_larga(dia_hi)})."
         if hi != lo else
         f'<p class="history-range">No se ha movido de {money(lo)} desde el {fecha_larga(serie[0][0])}.'
@@ -763,11 +800,12 @@ def render_price_history(product):
 
     return f"""
 <div class="panel detail-anchor-target" id="historyPanel">
-  <h2>Evolución del precio</h2>
+  <h2>Evolución del precio más bajo</h2>
   {veredicto}
   {rango}
-  {sparkline_svg(serie)}
-  <p class="muted small">El historial arranca el {fecha_larga(serie[0][0])},
+  {sparkline_svg(serie, tiendas=tiendas)}
+  <p class="muted small">La línea es el precio más bajo entre todas las tiendas, día por día
+  (no un promedio). El historial arranca el {fecha_larga(serie[0][0])},
   que es cuando empezamos a guardarlo — no antes.</p>
 </div>
 """
@@ -4234,6 +4272,12 @@ def main():
                     "usa write_if_changed, así que reescribe solo lo que cambió."
     ).parse_args()
     data = hide_empty_taxonomy(load_catalog())
+    # Antes de las fichas: la gráfica del precio más bajo dice en qué tienda
+    # estaba cada día. Llenado más abajo (sólo para el ranking de bajadas),
+    # las fichas decían «en mercadolibre» en vez de «en Mercado Libre».
+    _NOMBRES_TIENDA.update(
+        {st["id"]: st.get("name") or st["id"] for st in (data.get("stores") or [])}
+    )
 
     written = []
     if escribir_sprite():

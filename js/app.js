@@ -3092,7 +3092,12 @@
         if (m.get(d) == null) current.delete(store);
         else current.set(store, m.get(d));
       }
-      if (current.size) out.push([d, Math.min(...current.values())]);
+      if (current.size) {
+        // [día, precio más bajo entre tiendas, tienda que lo tenía]
+        let mejor = null, precio = Infinity;
+        for (const [store, p] of current) if (p < precio) { precio = p; mejor = store; }
+        out.push([d, precio, mejor]);
+      }
     }
     return out;
   }
@@ -3144,9 +3149,25 @@
     const x0 = izq, x1 = ancho - der, y0 = arriba, y1 = alto - abajo;
     const xDe = (d) => x0 + ((d - d0) / spanDias) * (x1 - x0);
     const yDe = (p) => y0 + (1 - (p - lo) / span) * (y1 - y0);
-    const xy = ([d, p]) => `${xDe(d).toFixed(1)},${yDe(p).toFixed(1)}`;
-    const linea = serie.map(xy).join(" ");
+    // En escalones, como el mínimo de Kakaku: el precio más bajo se mantiene
+    // hasta el día en que cambia. Con una línea recta entre dos días la
+    // gráfica parecía un promedio que sube poco a poco.
+    const pts = [];
+    serie.forEach(([d, p], i) => {
+      if (i > 0 && p !== serie[i - 1][1]) pts.push(`${xDe(d).toFixed(1)},${yDe(serie[i - 1][1]).toFixed(1)}`);
+      pts.push(`${xDe(d).toFixed(1)},${yDe(p).toFixed(1)}`);
+    });
+    const linea = pts.join(" ");
     const area = `${x0},${y1} ${linea} ${x1.toFixed(1)},${y1}`;
+    // Un punto por cada cambio del mínimo (y el de hoy), con la fecha, el
+    // precio y la tienda que lo tenía.
+    const puntos = serie
+      .filter((s, i) => i === 0 || i === serie.length - 1 || s[1] !== serie[i - 1][1])
+      .map(([d, p, t]) => {
+        const tienda = t ? (storeById(t) || { name: t }).name : "";
+        return `<circle cx="${xDe(d).toFixed(1)}" cy="${yDe(p).toFixed(1)}" r="3" class="spark-dot"><title>${histDateLabel(d)}: ${money(p)}${tienda ? ` en ${htmlEscapeAttr(tienda)}` : ""}</title></circle>`;
+      })
+      .join("");
     const ejes = [];
     for (const p of histAxisPrices(loReal, hiReal)) {
       const y = yDe(p);
@@ -3160,10 +3181,11 @@
     }
     ejes.push(`<line x1="${x0}" y1="${y0}" x2="${x0}" y2="${y1}" class="spark-axis"/>`);
     ejes.push(`<line x1="${x0}" y1="${y1}" x2="${x1}" y2="${y1}" class="spark-axis"/>`);
-    return `<svg class="price-spark" viewBox="0 0 ${ancho} ${alto}" role="img" aria-label="Evolución del precio: de ${money(precios[0])} a ${money(precios[precios.length - 1])}">
+    return `<svg class="price-spark" viewBox="0 0 ${ancho} ${alto}" role="img" aria-label="Evolución del precio más bajo: de ${money(precios[0])} a ${money(precios[precios.length - 1])}">
         ${ejes.join("\n        ")}
         <polygon points="${area}" fill="rgba(255,2,17,.08)"/>
         <polyline points="${linea}" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+        ${puntos}
       </svg>`;
   }
 
@@ -3199,14 +3221,16 @@
     const hoy = precios[precios.length - 1];
     const diaLo = serie.find((s) => s[1] === lo)[0];
     const diaHi = serie.find((s) => s[1] === hi)[0];
+    const tiendaHoy = serie[serie.length - 1][2];
+    const enTienda = tiendaHoy ? ` en ${htmlEscapeAttr((storeById(tiendaHoy) || { name: tiendaHoy }).name)}` : "";
     const veredicto = hoy <= lo
-      ? `<p class="history-verdict history-low">Hoy está en <strong>${money(hoy)}</strong>: el precio más bajo que le registramos.</p>`
-      : `<p class="history-verdict">Hoy está en <strong>${money(hoy)}</strong>, ${money(hoy - lo)} (${Math.round((100 * (hoy - lo)) / lo)}%) por encima de su mínimo registrado.</p>`;
+      ? `<p class="history-verdict history-low">El precio más bajo hoy es <strong>${money(hoy)}</strong>${enTienda}: el más bajo que le registramos.</p>`
+      : `<p class="history-verdict">El precio más bajo hoy es <strong>${money(hoy)}</strong>${enTienda}, ${money(hoy - lo)} (${Math.round((100 * (hoy - lo)) / lo)}%) por encima del mínimo registrado.</p>`;
     const rango = hi !== lo
-      ? `<p class="history-range">Entre el ${histDateLabel(serie[0][0])} y el ${histDateLabel(serie[serie.length - 1][0])} osciló entre ${money(lo)} (el ${histDateLabel(diaLo)}) y ${money(hi)} (el ${histDateLabel(diaHi)}).</p>`
+      ? `<p class="history-range">Entre el ${histDateLabel(serie[0][0])} y el ${histDateLabel(serie[serie.length - 1][0])} el precio más bajo osciló entre ${money(lo)} (el ${histDateLabel(diaLo)}) y ${money(hi)} (el ${histDateLabel(diaHi)}).</p>`
       : `<p class="history-range">No se ha movido de ${money(lo)} desde el ${histDateLabel(serie[0][0])}.</p>`;
     el.historyBody.innerHTML = `${veredicto}${rango}${sparklineSvg(serie)}
-      <p class="muted small">El historial arranca el ${histDateLabel(serie[0][0])}, que es cuando empezamos a guardarlo — no antes.</p>`;
+      <p class="muted small">La línea es el precio más bajo entre todas las tiendas, día por día (no un promedio). El historial arranca el ${histDateLabel(serie[0][0])}, que es cuando empezamos a guardarlo — no antes.</p>`;
     el.historyPanel.classList.remove("hidden");
     renderDetailQuickNav();
   }

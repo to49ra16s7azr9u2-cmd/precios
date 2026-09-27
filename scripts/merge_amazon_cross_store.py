@@ -265,8 +265,19 @@ ALIAS_MARCA = {"soundcore": "anker", "iem": "mabe", "redmi": "xiaomi", "poco": "
                "black & decker": "black+decker", "kärcher": "karcher"}
 
 
+# «Genérica» no es una marca: Coppel la pone en 22 mil fichas y Bodega en 9
+# mil. Tratada como marca, una ficha «Genérica» contra la misma pieza con su
+# marca real daba «marca distinta» y no se fusionaba; vacía, la marca de la
+# otra ficha se busca en el título (marca_coincide).
+MARCAS_VACIAS = {"generico", "generica", "genericos", "genericas", "generic",
+                 "sin marca", "marca generica", "n a", "na", "none", "otros", "otras", "varios",
+                 "unbranded", "no aplica"}
+
+
 def marca_de(p):
     m = texto_plano(p.get("brand") or "").strip()
+    if m in MARCAS_VACIAS:
+        return ""
     return ALIAS_MARCA.get(m, m)
 
 

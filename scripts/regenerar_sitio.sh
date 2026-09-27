@@ -72,6 +72,9 @@ python3 scripts/unificar_subcategorias.py --muestras 0 --salida /tmp/unificar-su
 if python3 -c "import json,sys; sys.exit(0 if json.load(open('/tmp/unificar-subcategorias.json')) else 1)" 2>/dev/null; then
   python3 scripts/aplicar_movimientos.py /tmp/unificar-subcategorias.json --todos --motivo "unificar subcategorías (automático)" 2>&1 | tail -1
 fi
+# Marcas que Elektra cambió por otra parecida (PURINA en unos pañales «Pura»):
+# ensuciaban las páginas de marca y frenaban fusiones. Ver sanear_marcas.py.
+echo "=== sanear marcas ==="; python3 scripts/sanear_marcas.py --aplicar --muestra 0 2>&1 | grep -E "Marcas|Guardado"
 # Fusiones: sin esto el catálogo acumulaba duplicados desde el 17-sep (los
 # scripts existían pero nadie los corría). Van después de clasificar porque
 # casi todas exigen la misma categoría. Salidas completas en /tmp/fusiones.log.

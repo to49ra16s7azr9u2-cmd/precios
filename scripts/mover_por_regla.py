@@ -3831,6 +3831,134 @@ LOTES['auditoria_10'] = [
 REGLAS += LOTES['auditoria_10']
 
 
+# «Mesas de centro» se tragaba todo lo que dice «de mesa» o «centro de mesa»:
+# el 24% (421 de 1,769, medido el 27-sep-2026 en los shards) no eran mesas.
+# Más los atípicos por marca (marcas con >=98% de sus fichas en una categoría):
+# playeras de pareja en ropa para mascotas, módulos para microondas entre los
+# microondas, muebles para fregadero entre las tarjas.
+_MC = {'Mesas de centro'}
+LOTES['auditoria_11'] = [
+    ('Muebles', r'papel tapiz|deco ?film|panel(es)? (decorativo|3d|tipo marmol)|lambrin|vinil adhesivo|rumi 4d', None,
+     'Decoración de hogar y jardín', 'Vinil decorativo', _MC),
+    ('Muebles', r'lazy susan|charola giratoria|base giratoria|bandeja giratoria|giratorio de madera', None,
+     'Cocina y comedor', 'Organización de cocina', _MC),
+    ('Muebles', r'(hoja|hojas) de sierra', None, 'Herramientas', 'Hojas y cuchillas de sierra', _MC),
+    ('Muebles', r'(para|de) (sierras? de mesa|mesas? de router|mesas? fresadoras?|amoladora de mesa|la mesa bosch)|^cepillo de alambre para mesa|^varilla de empuje|^parada de produccion|^fence flip',
+     None, 'Herramientas', 'Accesorios para herramientas eléctricas', _MC),
+    ('Muebles', r'miniaturas de mesa|juego de guerra de mesa', None, 'Juegos de mesa', 'De estrategia', _MC),
+    ('Muebles', r'repuesto para el juego de mesa|juegos? de mesa (etna|cribbage)|juego de mesa cribbage|rummy|juego mesa ek', None,
+     'Juegos de mesa', 'De mesa clásicos', _MC),
+    ('Muebles', r'set de fichas', None, 'Juegos de mesa', 'De cartas', _MC),
+    ('Muebles', r'pintura (con|de) diamantes?|pintura con forma de diamante|diamond art', None,
+     'Juegos de mesa', 'Manualidades y pintar por números', _MC),
+    ('Muebles', r'futbolito|billar|hockey de (mesa|aire)|futbol de mesa', None, 'Muebles', 'Mesas de juego', _MC),
+    ('Muebles', r'manteles? individual|faldones? para mesa', None, 'Cocina y comedor', 'Manteles y caminos de mesa', _MC),
+    ('Muebles', r'porta globos|arco de globos|mesas? de (dulces|postres)|candy bar|para postres|porta (conos|donas)|elevadores de mesa|expositores de comida',
+     None, 'Juguetes', 'Artículos para fiestas', _MC),
+    ('Muebles', r'^(\S+ ){0,3}lampara de mesa', None, 'Iluminación', 'Decorativa', _MC),
+    ('Muebles', r'porta ?velas|candelabro|crucifijo|libros decorativos|fuente de agua de mesa', None,
+     'Decoración de hogar y jardín', 'Figuras y adornos', _MC),
+    ('Muebles', r'marcos de fotos', None, 'Decoración de hogar y jardín', 'Portarretratos', _MC),
+    ('Muebles', r'^nacimiento|pino navideno|arbol pino de navidad|santa claus', None, 'Decoración de hogar y jardín', 'Navidad y temporada', _MC),
+    ('Muebles', r'frutero|centro de mesa|bandeja (cuadrada )?decorativa|bandeja de madera', r'mesas? (de|para) centro',
+     'Decoración de hogar y jardín', 'Floreros y centros de mesa', _MC),
+    ('Muebles', r'dispensador de agua', None, 'Electrodomésticos', 'Dispensadores de agua', _MC),
+    ('Muebles', r'\bcestas?\b|cesto|cajas de madera|caja organizadora|almacenamiento de 5 cajones|mueble almacenador', None,
+     'Muebles', 'Organizadores y almacenamiento', _MC),
+    ('Muebles', r'base (metalica|para microfono).*microfono|base para microfono', None,
+     'Instrumentos musicales', 'Fundas, soportes y atriles', _MC),
+    ('Muebles', r'^mini bar|mueble bar|muebles de bar', None, 'Muebles', 'Cavas y porta botellas', _MC),
+    ('Muebles', r'organizador para asiento', None, 'Autos y motos', 'Organizadores para auto', _MC),
+    ('Muebles', r'protectores esquineros', None, 'Bebés', 'Seguridad para bebé', _MC),
+    ('Muebles', r'^pupitre', None, 'Muebles', 'Escritorios infantiles y estudiantiles', _MC),
+    ('Muebles', r'^rodaja de madera', None, 'Decoración de hogar y jardín', 'Floreros y centros de mesa', _MC),
+    # Atípicos por marca.
+    ('*', r'^duos de playera', None, 'Ropa y accesorios', 'Playeras', None),
+    ('Electrodomésticos', r'^modulo (para|de) microondas|^mueble (para|de) microondas', None, 'Muebles', 'Muebles de cocina', {'Microondas'}),
+    ('Herramientas', r'^(mueble|armario|gabinete)( para)? (fregadero|tarja)|^mueble fregadero', None, 'Muebles', 'Muebles de cocina', {'Tarjas y fregaderos'}),
+    ('Equipo comercial', r'^mostrador de cocina', None, 'Muebles', 'Muebles de cocina', {'Mobiliario'}),
+    ('Muebles', r'^garrafa termica', None, 'Cocina y comedor', 'Jarras y dispensadores de bebidas', None),
+    ('Mascotas', r'hojalata|signo de estano|letrero', None, 'Decoración de hogar y jardín', 'Cuadros y decoración de pared', {'Acuarios y terrarios'}),
+    ('Juguetes', r'^chamarra', None, 'Ropa y accesorios', 'Chamarras y suéteres', {'Peluches'}),
+    ('Muebles', r'^colchoneta .*(gym|entrenamiento|yoga)|^colchoneta bicolor', None, 'Deportes y fitness', 'Accesorios y ropa de yoga', {'Colchones plegables y de sofá cama'}),
+    ('Cafeteras', r'^silla', None, 'Muebles', 'Sillas de comedor', None),
+    ('Joyería y bisutería', r'^impulsor', None, 'Herramientas', 'Bombas de agua', {'Anillos'}),
+    ('Celulares', r'instax', None, 'Cámaras y fotografía', 'Instantáneas', None),
+]
+LOTES['auditoria_11'] += [
+    ('Muebles', r'^tapete de mesa|^camino de mesa', None, 'Cocina y comedor', 'Manteles y caminos de mesa', _MC),
+    ('Herramientas', r'^extension electrica', None, 'Herramientas', 'Cables y extensiones eléctricas', {'Juegos de herramientas'}),
+    ('Herramientas', r'^placas?\b.*(apagador|interruptor)', None, 'Herramientas', 'Placas y tapas eléctricas', {'Escaleras'}),
+    ('Muebles', r'^deshumidificador', None, 'Climatización', 'Deshumidificadores', {'Organizadores y almacenamiento'}),
+    ('Muebles', r'^(buffet|bufetero|aparador)', None, 'Muebles', 'Aparadores y bufeteros', {'Mesas de comedor'}),
+]
+
+
+# Muebles sin subcategoría (1,288 el 27-sep-2026): el repartidor de Muebles
+# no les encontró lugar, pero la primera palabra lo dice casi siempre.
+def _colchon_medida(tn):
+    return ('Colchones king size' if re.search(r'\bking\b', tn) else 'Colchones queen size' if re.search(r'\bqueen\b', tn)
+            else 'Colchones matrimoniales' if re.search(r'matrimonial|\bfull\b', tn)
+            else 'Colchones individuales' if re.search(r'individual|\btwin\b|indiv\b', tn)
+            else 'Colchones infantiles y de cuna' if re.search(r'cuna|infantil|bebe', tn) else 'Colchones')
+
+
+def _base_medida(tn):
+    return 'Box con cabecera' if re.search(r'cabecera', tn) else 'Bases de cama y box'
+
+
+def _silla(tn):
+    return ('Sillas gamer' if re.search(r'gamer|gaming', tn) else 'Sillas ergonómicas' if re.search(r'ergonomica', tn)
+            else 'Sillas ejecutivas' if re.search(r'ejecutiva', tn) else 'Sillas de oficina' if re.search(r'oficina|escritorio', tn)
+            else 'Sillas de exterior' if re.search(r'exterior|jardin|playa', tn)
+            else 'Sillas plegables y de camping' if re.search(r'plegable|camping', tn)
+            else 'Sillas infantiles' if re.search(r'infantil|ninos?\b', tn) else 'Sillas de comedor')
+
+
+def _sofa(tn):
+    return ('Sofás cama' if re.search(r'sofa ?cama|futon', tn) else 'Sofás seccionales y esquineros' if re.search(r'seccional|esquinero|modular|\bl\b', tn)
+            else 'Sofás de 2 y 3 plazas')
+
+
+def _escritorio(tn):
+    return ('Escritorios gamer' if re.search(r'gamer|gaming', tn) else 'Escritorios de altura ajustable' if re.search(r'ajustable|elevable|electrico', tn)
+            else 'Escritorios en L y esquineros' if re.search(r'\ben l\b|esquinero|forma de l', tn) else 'Escritorios de oficina')
+
+
+_M0 = r'^(\S+ ){0,1}'
+LOTES['auditoria_11'] += [
+    ('Muebles', _M0 + r'colchon(es)?\b', r'protector|funda|cubre ?colchon|inflable', 'Muebles', _colchon_medida, _SIN),
+    ('Muebles', _M0 + r'(base|box)( de)? (cama|box|matrimonial|individual|queen|king)|^box\b', None, 'Muebles', _base_medida, _SIN),
+    ('Muebles', _M0 + r'sillas?\b', r'para silla|cojin|funda', 'Muebles', _silla, _SIN),
+    ('Muebles', _M0 + r'(sofa|sofas|sala)\b', r'funda|protector|cubre', 'Muebles', _sofa, _SIN),
+    ('Muebles', _M0 + r'(sillon|sillones)\b', r'funda|protector|cubre', 'Muebles', 'Sillones y reclinables', _SIN),
+    ('Muebles', _M0 + r'love ?seat', r'funda|protector|cubre', 'Muebles', 'Love seats', _SIN),
+    ('Muebles', _M0 + r'(comoda|cajonera|chifonier)', None, 'Muebles', 'Cómodas y cajoneras', _SIN),
+    ('Muebles', _M0 + r'tocador|maquillador|vanity', None, 'Muebles', 'Tocadores', _SIN),
+    ('Muebles', _M0 + r'escritorio', None, 'Muebles', _escritorio, _SIN),
+    ('Muebles', _M0 + r'(buffet|bufetero|aparador|credenza|vitrina)', None, 'Muebles', 'Aparadores y bufeteros', _SIN),
+    ('Muebles', _M0 + r'cabecera', None, 'Muebles', 'Cabeceras', _SIN),
+    ('Muebles', _M0 + r'(alacenas?|gabinete de cocina|despensero)', None, 'Muebles', 'Alacenas y gabinetes de cocina', _SIN),
+    ('Muebles', _M0 + r'(ropero|closets?|armarios?)\b', None, 'Muebles', 'Roperos', _SIN),
+    ('Muebles', _M0 + r'literas?\b', None, 'Muebles', 'Literas', _SIN),
+    ('Muebles', _M0 + r'(librero|biblioteca)', None, 'Muebles', 'Libreros', _SIN),
+    ('Muebles', _M0 + r'mesa (de |para )?comedor', r'sillas', 'Muebles', 'Mesas de comedor', _SIN),
+    ('Muebles', _M0 + r'(comedor|juego de comedor|mesa (de |para )?comedor)', None, 'Muebles', 'Juegos de comedor', _SIN),
+    ('Muebles', _M0 + r'(taburete|banco|bancos)\b', None, 'Muebles', 'Taburetes y bancos', _SIN),
+    ('Muebles', _M0 + r'(reposapies)', None, 'Muebles', 'Reposapiés de escritorio', _SIN),
+    ('Muebles', _M0 + r'otomana|puff', None, 'Muebles', 'Puffs y otomanas', _SIN),
+    ('Muebles', _M0 + r'cama\b', r'mesa|colchon', 'Muebles', 'Camas', _SIN),
+    ('Muebles', _M0 + r'mesa de centro', None, 'Muebles', 'Mesas de centro', _SIN),
+    ('Muebles', _M0 + r'mesa (para|de) (tv|television)|(rack|mueble) (para|de) tv', None, 'Muebles', 'Mesas para TV y consolas', _SIN),
+    ('Muebles', _M0 + r'(mesa|mesita) (auxiliar|lateral|de noche)', None, 'Muebles', 'Mesas auxiliares y laterales', _SIN),
+    ('Muebles', _M0 + r'(gabinete|mueble) (de|para) bano', None, 'Muebles', 'Muebles de baño', _SIN),
+    ('Muebles', _M0 + r'gabinete', None, 'Muebles', 'Gabinetes de almacenamiento', _SIN),
+    ('Muebles', _M0 + r'(cocina integral|cocina \d)', None, 'Muebles', 'Cocinas integrales', _SIN),
+    # Sets de LEGO (número de set de 5 dígitos) entre las figuras de acción.
+    ('Juguetes', r'^(set )?lego\b.*\b\d{5}\b', r'llavero|minifigura|figura coleccionable', 'Juguetes', 'Bloques de construcción', {'Figuras de acción'}),
+]
+REGLAS += LOTES['auditoria_11']
+
 # Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que
 # se agregó debajo (reglas por marca, auditoria_2 a 10, sin_subcategoria_2:
 # ~6,000 fichas) no existía todavía cuando main() corría como script: la

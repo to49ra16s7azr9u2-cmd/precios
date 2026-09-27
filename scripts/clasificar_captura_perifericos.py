@@ -3640,7 +3640,10 @@ def sub_mueble(tn):
         # llegue después de "mesa".
         (r'\bmesas?\b.{0,45}\b(comedor|cocina|de bar|desayunador|alta|de cafeteria|de restaurante)\b', 'Mesas de comedor'),
         (r'\b(sillas?|bancos?|taburetes?|butacas?|bancas?|banquitos?|puff?s?|otomanas?)\b', 'Sillas'),
-        (r'\b(mesa|mesas|mesita)\b', 'Mesas de centro'),
+        # «mesa» tiene que ser lo que es el producto, no un complemento: el
+        # 27-sep-2026 el 24% de Mesas de centro eran «juego de mesa», «lámpara
+        # de mesa», «centro de mesa», «sierra de mesa», papel tapiz...
+        (r'^(\S+ ){0,3}(?<!\bde )(?<!\bpara )(mesa|mesas|mesita)\b', 'Mesas de centro'),
         (r'\bestante\b', 'Repisas'),
     ]
     mejor = None
