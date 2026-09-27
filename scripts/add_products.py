@@ -210,6 +210,13 @@ def main(argv=None):
         targets = json.load(f)
 
     added = []
+    # {id de catálogo MLM…: domain_id} de lo que entra. La consulta ya va
+    # acotada a ese dominio, así que es la clasificación de Mercado Libre
+    # para el producto, gratis. Sin guardarla, lo que traía ml_discover.py
+    # entraba sin subcategoría y sin dominio (27-sep-2026: 477 campanas y
+    # calentadores en Electrodomésticos/None tras una sola ronda), y la
+    # segunda opinión por dominio (auditar_por_dominio.py) no lo alcanzaba.
+    dominios_nuevos = {}
     skipped = {"dup": 0, "banned": 0, "refurb": 0, "filtro": 0, "nodata": 0}
     for t in targets:
         cat, sub = t["cat"], t.get("sub")
@@ -321,6 +328,8 @@ def main(argv=None):
                 next_num += 1
                 seen_ml.add(iid)
                 seen_sig.add(sig(title))
+                if t.get("domain") and str(iid).startswith("MLM"):
+                    dominios_nuevos[str(iid)] = t["domain"]
                 added.append((cat, sub, title, it["price"]))
                 got += 1
             time.sleep(0.3)
@@ -337,6 +346,30 @@ def main(argv=None):
         registrar_max_id(data, next_num - 1)
         save_catalog(data)
         print(f"\nCatálogo guardado: {len(products)} productos")
+        guardar_dominios_nuevos(dominios_nuevos)
+
+
+def guardar_dominios_nuevos(nuevos):
+    """Suma los dominios de lo que entró a data/ml-dominios-producto.json
+    (el mismo archivo que llena dominios_ml.py). No pisa lo que ya estaba."""
+    if not nuevos:
+        return
+    from dominios_ml import SALIDA  # noqa: E402
+    try:
+        with open(SALIDA, encoding="utf-8") as f:
+            actual = json.load(f)
+    except FileNotFoundError:
+        actual = {}
+    n = 0
+    for mlm, dom in nuevos.items():
+        if not actual.get(mlm):
+            actual[mlm] = dom
+            n += 1
+    tmp = SALIDA + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(actual, f, ensure_ascii=False)
+    os.replace(tmp, SALIDA)
+    print(f"Dominio de Mercado Libre anotado para {n:,} fichas nuevas")
 
 
 if __name__ == "__main__":

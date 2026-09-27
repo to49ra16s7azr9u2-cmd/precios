@@ -2901,9 +2901,6 @@ LOTES['auditoria_1'] = [
 REGLAS += LOTES['auditoria_1']
 
 
-if __name__ == '__main__':
-    main()
-
 # ---- Lote auditoría 2 (27-sep-2026) ----
 # Segunda tanda de grupos de cabezas.py (del 71 al 140): relojes de juegos
 # entre los rompecabezas, compresores de aire entre las autopartes, cucharas
@@ -3832,3 +3829,12 @@ LOTES['auditoria_10'] = [
      None, 'Juguetes', 'Juguetes musicales', {'Percusión', 'Teclados electrónicos', 'Baterías acústicas'}),
 ]
 REGLAS += LOTES['auditoria_10']
+
+
+# Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que
+# se agregó debajo (reglas por marca, auditoria_2 a 10, sin_subcategoria_2:
+# ~6,000 fichas) no existía todavía cuando main() corría como script: la
+# regeneración aplicó sólo la mitad de las reglas, y la vista previa (que
+# importa el módulo entero) no lo mostraba.
+if __name__ == '__main__':
+    main()
