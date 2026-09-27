@@ -701,7 +701,7 @@ REGLAS = [
     ('Celulares', r'cobija electrica|manta termica|alfombrillas? de calefaccion', None,
      'Otros', 'Varios'),
     ('Celulares', r'silla reclinable', None, 'Muebles', 'Sillones y reclinables'),
-    ('Celulares', r'reposabrazos', None, 'Muebles', 'Accesorios y organizadores de escritorio'),
+    ('Celulares', r'reposabrazos', None, 'Muebles', 'Organizadores de escritorio'),
     ('Celulares', r'^(?:\S+ ){0,3}llaveros?\b', None, 'Otros', 'Varios'),
     ('Celulares', r'masticar|chirrido de peluche', None, 'Mascotas', 'Juguetes para perro'),
     ('Celulares', r'caja conmemorativa de mascotas', None, 'Mascotas', 'Higiene y limpieza'),
@@ -1446,7 +1446,13 @@ def main():
         for regla in reglas:
             cat, si, no, cat2, sub2 = regla[:5]
             subs = regla[5] if len(regla) > 5 else None   # subcategorías de origen a las que se limita
-            if p.get('category') != cat or not re.search(si, tn) or (no and re.search(no, tn)):
+            marca = regla[6] if len(regla) > 6 else None  # regla por marca (ver LOTES['marcas'])
+            if marca is not None and T(p.get('brand')) != marca:
+                continue
+            # cat '*' = cualquier categoría menos la de destino
+            if (p.get('category') == cat2) if cat == '*' else (p.get('category') != cat):
+                continue
+            if not re.search(si, tn) or (no and re.search(no, tn)):
                 continue
             # La ficha "sin subcategoría" viene de dos formas, None y cadena
             # vacía, según por dónde entró al catálogo. Comparar contra {None}
@@ -1465,7 +1471,7 @@ def main():
                 break
             # aplicar_movimientos normaliza la subcategoría vacía a "None":
             # sin esto la clave decía "" y ningún producto casaba.
-            k = f"{cat} | {p.get('subcategory') or None} | {cat2} | {s2}"
+            k = f"{p.get('category')} | {p.get('subcategory') or None} | {cat2} | {s2}"
             grupos[k].append(p['id'])
             if len(muestras[k]) < args.muestras:
                 muestras[k].append((p.get('name') or '')[:100])
@@ -1835,7 +1841,7 @@ LOTES['wb2'] = [
     ('Muebles', r'^sala \d', None, 'Muebles', 'Salas completas', {'Taburetes y bancos'}),
     ('Muebles', r'^box (queen|king|matrimonial|individual)', None, 'Muebles', 'Bases de cama y box',
      {'Colchones king size', 'Colchones queen size', 'Colchones matrimoniales', 'Colchones individuales'}),
-    ('Muebles', r'^soporte (para )?laptop', None, 'Muebles', 'Accesorios y organizadores de escritorio', {'Sillas de oficina'}),
+    ('Muebles', r'^soporte (para )?laptop', None, 'Muebles', 'Organizadores de escritorio', {'Sillas de oficina'}),
     # Otros
     ('Computadoras de escritorio', r'^disipador', None, 'Componentes y accesorios de PC', 'Disipadores de CPU', {'PC gamer'}),
     ('Deportes y fitness', r'^porteria', None, 'Deportes y fitness', 'Porterías y redes de fútbol', {'Balones de fútbol'}),
@@ -1917,7 +1923,7 @@ LOTES['wb3'] = [
     ('Muebles', r'^soporte angular|^bisagra', None, 'Muebles', 'Herrajes y refacciones de muebles'),
     ('Muebles', r'^lambrin|^piso (spc|autoadhesivo|laminado|vinilico)', None, 'Herramientas', 'Construcción'),
     ('Muebles', r'^litera', None, 'Muebles', 'Literas', {'Bases de cama y box'}),
-    ('Muebles', r'^(base )?soporte (para )?(laptop|tableta)', None, 'Muebles', 'Accesorios y organizadores de escritorio',
+    ('Muebles', r'^(base )?soporte (para )?(laptop|tableta)', None, 'Muebles', 'Organizadores de escritorio',
      {'Sillas de oficina'}),
     ('Muebles', r'^sala (\d|con \d)', None, 'Muebles', 'Salas completas', {'Taburetes y bancos'}),
     ('Muebles', r'^(set de \d+ |juego de )?buros?\b', None, 'Muebles', 'Burós', {'Mesas de comedor', 'Mesas auxiliares y laterales'}),
@@ -2044,7 +2050,7 @@ LOTES['wb4'] = [
     ('Herramientas', r'^esmeriladora', None, 'Herramientas', 'Esmeriladoras y pulidoras', {'Baterías y cargadores de herramienta', 'Motosierras'}),
     ('Herramientas', r'^sierra sable', None, 'Herramientas', 'Sierras', {'Neumáticas'}),
     ('Herramientas', r'^cautin', None, 'Herramientas', 'Cautines y estaciones de soldar', {'Desarmadores y puntas'}),
-    ('Herramientas', r'^sanitario', None, 'Herramientas', 'Sanitarios', {'Juegos de herramientas'}),
+    ('Herramientas', r'^sanitario', None, 'Herramientas', 'Sanitarios y accesorios de baño', {'Juegos de herramientas'}),
     ('Herramientas', r'^(enrutador|router) (madera|industrial)', None, 'Herramientas', 'Routers, fresadoras y multiherramientas',
      {'Routers, fresadoras y multiherramientas', 'Taladros y rotomartillos'}),
     ('Herramientas', r'^pintex|esmalte alquidalico', None, 'Herramientas', 'Construcción'),
@@ -2165,7 +2171,7 @@ LOTES['wb6'] = [
     ('Cocina y comedor', r'^(set de )?manteles', None, 'Cocina y comedor', 'Manteles y caminos de mesa', {'Vajillas'}),
     ('Cocina y comedor', r'^molde', None, 'Cocina y comedor', 'Repostería y moldes', {'Utensilios de cocina'}),
     ('Cocina y comedor', r'^empaque .{0,20}tanque', None, 'Herramientas', 'Sanitarios y accesorios de baño', {'Tazas'}),
-    ('Cocina y comedor', r'^tetera electrica', None, 'Electrodomésticos', 'Hervidores y teteras eléctricas',
+    ('Cocina y comedor', r'^tetera electrica', None, 'Electrodomésticos', 'Hervidores y teteras',
      {'Jarras y dispensadores de bebidas'}),
     # Autos y motos / autopartes
     ('Autos y motos', r'^cojin', None, 'Salud', 'Salud', {'Llantas para auto'}),
@@ -2417,7 +2423,7 @@ LOTES['wb10'] = [
     # Electrodomésticos
     ('Electrodomésticos', r'^(mini )?plancha', None, 'Electrodomésticos', 'Planchas', {'Máquinas de coser'}),
     ('Electrodomésticos', r'^olla de coccion lenta', None, 'Electrodomésticos', 'Arroceras y ollas multiusos', {'Hornos'}),
-    ('Electrodomésticos', r'^jarra electrica', None, 'Electrodomésticos', 'Hervidores y teteras eléctricas', {'Licuadoras'}),
+    ('Electrodomésticos', r'^jarra electrica', None, 'Electrodomésticos', 'Hervidores y teteras', {'Licuadoras'}),
     ('Electrodomésticos', r'^(mini )?procesador', None, 'Electrodomésticos', 'Molinos y procesadores', {'Extractores de jugo'}),
     ('Electrodomésticos', r'^aspas?\b', None, 'Electrodomésticos', 'Refacciones para licuadora y batidora', {'Licuadoras'}),
     ('Electrodomésticos', r'^sombrilla', None, 'Ropa y accesorios', 'Paraguas', {'Filtros y membranas de repuesto'}),
@@ -2453,7 +2459,7 @@ LOTES['wb10'] = [
     ('Muebles', r'^litera', None, 'Muebles', 'Literas', {'Cabeceras'}),
     ('Muebles', r'^portarrollos', None, 'Cocina y comedor', 'Organización de cocina', {'Alacenas y gabinetes de cocina'}),
     ('Muebles', r'^piston', None, 'Muebles', 'Accesorios y refacciones para sillas', {'Sillas de oficina'}),
-    ('Muebles', r'^"?base soporte laptop', None, 'Muebles', 'Mesas para laptop y de cama', {'Sillas ergonómicas'}),
+    ('Muebles', r'^"?base soporte laptop', None, 'Muebles', 'Mesas de cama y con ruedas', {'Sillas ergonómicas'}),
     ('Muebles', r'^espejo', None, 'Decoración de hogar y jardín', 'Espejos de cuerpo completo', {'Sillas de comedor'}),
     ('Muebles', r'^vela', None, 'Limpieza y hogar', 'Aromatizantes y velas', {'Sofás cama'}),
     ('Muebles', r'^"?especiero', None, 'Cocina y comedor', 'Organización de cocina', {'Alacenas y gabinetes de cocina'}),
@@ -2784,6 +2790,900 @@ LOTES['camaras_ajenas'] = [
 ]
 REGLAS += LOTES['camaras_ajenas']
 
+# ---- Lote sin subcategoría (27-sep-2026, pedido del usuario) ----
+# Lo que entra por la recorrida de Mercado Libre trae la categoría pero no el
+# tipo. En Cargadores, Componentes de PC y Cafeteras quedaban ~1,800 sin
+# subcategoría; varias no tenían dónde caer dentro de su categoría
+# (extensiones eléctricas, cables HDMI), por eso completar_subcategorias.py,
+# que sólo elige dentro de la categoría, no las ubicaba. Sólo fichas SIN
+# subcategoría; gana la primera regla que calza.
+_SIN = {None}
+LOTES['sin_subcategoria'] = [
+    # Cargadores y adaptadores
+    ('Cargadores y adaptadores', r'power ?bank|bateria portatil|bateria externa|cargador portatil.*\b\d{4,6} ?m?ah?\b', r'magsafe|magnetic|qi2',
+     'Baterías portátiles', 'De uso diario', _SIN),
+    ('Cargadores y adaptadores', r'power ?bank.*(magsafe|magnetic|qi2)|(magsafe|magnetic).*power ?bank', None,
+     'Baterías portátiles', 'Magnéticas (MagSafe y Qi2)', _SIN),
+    ('Cargadores y adaptadores', r'multicontacto|regleta|supresor de picos|\bsupresor\b|barra de contactos', None,
+     'Cargadores y adaptadores', 'Regletas y multicontactos', _SIN),
+    ('Cargadores y adaptadores', r'^(\S+ ){0,3}extension(es)?\b|cable de extension|extension electrica', r'\busb\b|hdmi',
+     'Herramientas', 'Cables y extensiones eléctricas', _SIN),
+    ('Cargadores y adaptadores', r'adaptador (de )?(enchufe|viaje|universal)|adaptador de corriente (de )?viaje', None,
+     'Cargadores y adaptadores', 'Adaptadores de enchufe y de viaje', _SIN),
+    ('Cargadores y adaptadores', r'cargador inalambrico|base de carga inalambrica|carga inalambrica', None,
+     'Cargadores y adaptadores', 'Inalámbrico', _SIN),
+    ('Cargadores y adaptadores', r'cargador (de |para )?(auto|coche|carro)|cargador vehicular', None,
+     'Cargadores y adaptadores', 'De auto', _SIN),
+    ('Cargadores y adaptadores', r'cargador (de |para )?(laptop|notebook)', None,
+     'Cargadores y adaptadores', 'Para laptop', _SIN),
+    ('Cargadores y adaptadores', r'^(\S+ ){0,2}cables?\b.*\blightning\b', None, 'Cargadores y adaptadores', 'Cables Lightning', _SIN),
+    ('Cargadores y adaptadores', r'^(\S+ ){0,2}cables?\b.*\b(usb-?c|tipo c)\b', None, 'Cargadores y adaptadores', 'Cables USB-C', _SIN),
+    ('Cargadores y adaptadores', r'^(\S+ ){0,2}cables?\b.*\bmicro ?usb\b', None, 'Cargadores y adaptadores', 'Cables micro USB', _SIN),
+    ('Cargadores y adaptadores', r'^(\S+ ){0,2}cargador(es)? (de pared|usb|rapido|tipo c|usb-c)', None,
+     'Cargadores y adaptadores', 'De pared', _SIN),
+    # Componentes y accesorios de PC
+    ('Componentes y accesorios de PC', r'\b(hdmi|vga|svga|displayport|dvi)\b|splitter|divisor hdmi|extensor hdmi|rca2hdmi',
+     r'tarjeta de video|monitor \d', 'Cargadores y adaptadores', 'Cables y adaptadores de video', _SIN),
+    ('Componentes y accesorios de PC', r'\bxlr\b', None, 'Instrumentos musicales', 'Cables para instrumentos', _SIN),
+    ('Componentes y accesorios de PC', r'cable (de )?(audio|auxiliar|bocina|rca|primario)|plug (macho )?3\.5|\bjack\b',
+     None, 'Bocinas', 'Cables para bocinas', _SIN),
+    ('Componentes y accesorios de PC', r'^(\S+ ){0,2}(micro)?procesador\b', None,
+     'Componentes y accesorios de PC', 'Procesadores', _SIN),
+    ('Componentes y accesorios de PC', r'\bhub\b|docking|\bdock\b|adaptador usb', None,
+     'Componentes y accesorios de PC', 'Hubs y docks para PC', _SIN),
+    # Cafeteras
+    ('Cafeteras', r'^(\S+ ){0,2}(cucharas?|medidor)\b', r'\bcafe|cafetera|medidora', 'Cocina y comedor', 'Utensilios de cocina', _SIN),
+    ('Cafeteras', r'^(\S+ ){0,2}(cucharas?|medidor)\b', None, 'Cafeteras', 'Cucharas para cafetera', _SIN),
+    ('Cafeteras', r'^(molino|molinillo)\b', None, 'Cafeteras', 'Molinillos de café', _SIN),
+    ('Cafeteras', r'capsulas?|keurig|k-?cups?|nespresso|dolce gusto|monodosis|una sola porcion', r'espresso.*molino',
+     'Cafeteras', 'De cápsulas', _SIN),
+    ('Cafeteras', r'espresso|expreso|capuchin|cappuccino|barista', None, 'Cafeteras', 'Espresso', _SIN),
+    ('Cafeteras', r'italiana|\bmoka\b|percoladora|prensa francesa|french press|aeropress|chemex|pour ?over|cold brew|v60|goteo manual',
+     None, 'Cafeteras', 'Manuales', _SIN),
+    ('Cafeteras', r'\bbunn\b|comercial|industrial|\burna\b|\b(40|50|60|100) tazas', None, 'Cafeteras', 'Uso comercial', _SIN),
+    ('Cafeteras', r'portatil|de viaje|para auto', None, 'Cafeteras', 'Portátiles', _SIN),
+    ('Cafeteras', r'goteo|programable|\b(4|5|8|10|12|14) tazas|jarra|de filtro|cafetera electrica', None,
+     'Cafeteras', 'De goteo', _SIN),
+]
+REGLAS += LOTES['sin_subcategoria']
+
+# ---- Lote auditoría 1 (27-sep-2026) ----
+# Revisión de cabezas de nombre fuera de lugar en todo el catálogo
+# (/tmp/.../auditoria/cabezas.py sobre los shards): de los grupos más
+# grandes, los que eran error y no una palabra de dos sentidos («base para
+# faro» sí es de Faros; «LEGO Star Wars - PS4» sí es un juego).
+# En «Motocicletas» (el vehículo) había cientos de piezas: se reparten por
+# la pieza que nombra el título.
+_MOTO_VEH = {'Motocicletas'}
+LOTES['auditoria_1'] = [
+    ('Joyería y bisutería', r'^(\S+ ){0,1}anillos? inteligentes?|smart ring', None,
+     'Relojes inteligentes', 'Anillos inteligentes', None),
+    ('Blancos y ropa de cama', r'^(\S+ ){0,1}cojin(es)?\b', r'cuello|viaje|lactancia|embarazo|piernas|rodillas|lumbar|bebe|peluche|relleno|^almohada',
+     'Decoración de hogar y jardín', 'Cojines', {'Almohadas'}),
+    ('Celulares', r'\brouter\b|fresadora|milwaukee', None,
+     'Herramientas', 'Routers, fresadoras y multiherramientas', {'Soportes y agarraderas'}),
+    ('Iluminación', r'^(\S+ ){0,1}lentes? de sol\b', None, 'Joyería y bisutería', 'Lentes de sol', None),
+    ('Iluminación', r'^(\S+ ){0,1}lentes?\b', r'lupa', 'Joyería y bisutería', 'Lentes oftálmicos y de lectura', None),
+    ('Herramientas', r'^(\S+ ){0,2}grifos?\b.*(drill america|carbon steel|high speed|\d+-\d+)|machuelo', None,
+     'Herramientas', 'Machuelos y tarrajas', {'Brocas'}),
+    ('Electrodomésticos', r'^(\S+ ){0,1}(tablas?|burro) de planchar', None,
+     'Electrodomésticos', 'Limpieza del hogar y lavandería', {'Planchas'}),
+    ('Belleza y cuidado personal', r'^(\S+ ){0,2}pestanas?\b', r'mascara|rimel|rizador|serum|suero|crecimiento|alargador|peine|cepillo',
+     'Belleza y cuidado personal', 'Pestañas postizas', {'Máscaras de pestañas y cejas'}),
+    ('Relojes inteligentes', r'^(\S+ ){0,2}(bandas?|correas?|extensibles?|pulsos?)\b', r'cardiaca|pecho|frecuencia|^smartwatch',
+     'Relojes inteligentes', 'Correas y extensibles', {'Smartwatches', 'Smartwatches para niños'}),
+    # Piezas dentro de Autos y motos / Motocicletas
+    ('Autos y motos', r'^(\S+ ){0,1}(direccional(es)?|focos?|luz|luces|faros?|calaveras?|stop)\b', None,
+     'Autopartes', 'Luces de moto', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}(caliper|calipers|discos? de freno|balatas?|pastillas? de freno|bomba de freno|freno)\b', None,
+     'Autopartes', 'Frenos de moto', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}(carburador|cilindro|piston|arbol de levas|arbol|junta|empaque|kit de (motor|cilindro)|escape|mofle)\b',
+     None, 'Autopartes', 'Motor, carburación y escape de moto', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}(cdi|estator|bateria|switch|boton(es)?|arnes|regulador|bobina|tablero|velocimetro|alarma)\b', None,
+     'Autopartes', 'Eléctrico y baterías de moto', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}(manijas?|punos?|espejos?|manubrio|acelerador|chicotes?|cables? de (clutch|freno|acelerador|velocimetro))\b',
+     None, 'Autopartes', 'Manubrios, espejos y controles', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}ejes?\b', None, 'Autopartes', 'Ejes para moto', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}(sprockets?|kit de arrastre|cadena|traccion)\b', None,
+     'Autopartes', 'Cadenas, sprockets y transmisión', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}(posapies?|posapie|reposapies)\b', None, 'Autopartes', 'Reposapiés para moto', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}(parador|pata lateral)\b', None, 'Autopartes', 'Soportes para moto', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}asientos?\b', r'bicicleta|bici\b', 'Autopartes', 'Asientos y respaldos de moto', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}(parrilla|porta ?equipaje|portaequipaje)\b', None,
+     'Autopartes', 'Asientos, parrillas y accesorios de moto', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}(tanque|salpicadera|carenado|tapa lateral)\b', None,
+     'Autopartes', 'Carenados, plásticos y tanques', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}(sliders?|protector(es)?|proteccion)\b', None, 'Autos y motos', 'Protectores para moto', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}(intercomunicador(es)?|red elastica|red para casco|cinturon)\b', None,
+     'Autos y motos', 'Accesorios para moto', _MOTO_VEH),
+    ('Autos y motos', r'^(\S+ ){0,1}rayos?\b', None, 'Autopartes', 'Suspensión y dirección de moto', _MOTO_VEH),
+]
+REGLAS += LOTES['auditoria_1']
+
 
 if __name__ == '__main__':
     main()
+
+# ---- Lote auditoría 2 (27-sep-2026) ----
+# Segunda tanda de grupos de cabezas.py (del 71 al 140): relojes de juegos
+# entre los rompecabezas, compresores de aire entre las autopartes, cucharas
+# cafeteras entre las cafeteras, bastones entre los taburetes, Funko Pop
+# entre las figuras de acción, velas «sin perfume» entre los perfumes.
+LOTES['auditoria_2'] = [
+    ('Juegos de mesa', r'^reloj (inteligente|de juegos)', None,
+     'Relojes inteligentes', 'Smartwatches para niños', {'Rompecabezas'}),
+    ('Autopartes', r'^(\S+ ){0,1}compresor(es)? (de aire )?electrico|^mini compresor de aire|^compresor (de aire )?\d', r'acondicionado|\ba/?c\b',
+     'Herramientas', 'Compresores y herramienta neumática', {'Enfriamiento y climatización'}),
+    ('Autopartes', r'^compresor(es)? de resortes?', None,
+     'Herramientas', 'Herramientas manuales', {'Enfriamiento y climatización'}),
+    ('Deportes y fitness', r'^(\S+ ){0,1}ferulas?\b', None, 'Salud', 'Movilidad y apoyo', {'Rodilleras, muñequeras y soportes'}),
+    ('Cargadores y adaptadores', r'^(\S+ ){0,1}clavijas?\b.*(adaptador|internacional|viaje|europeo)', None,
+     'Cargadores y adaptadores', 'Adaptadores de enchufe y de viaje', _SIN),
+    ('Cargadores y adaptadores', r'^(\S+ ){0,1}clavijas?\b', r'cargador|usb',
+     'Herramientas', 'Material eléctrico', _SIN),
+    ('Cafeteras', r'^(set |juego )?(de )?cucharas? cafeteras?.*(\d+ ?(piezas|pzas|pz)\b|cuberteria|moven|pack)', None, 'Cocina y comedor', 'Cubiertos', None),
+    ('Muebles', r'^(\S+ ){0,1}baston(es)?\b', None, 'Salud', 'Andaderas, bastones y muletas', None),
+    ('Audífonos', r'^(\d+ ?(pcs|pzs)? )?tapon(es)? (de |dormir |para |de silicona)', None,
+     'Salud', 'Salud', {'Earbuds inalámbricos'}),
+    ('Deportes y fitness', r'^(\S+ ){0,1}carrete\b.*(pesca|spinning|reel)|^carrete/reel', None,
+     'Deportes y fitness', 'Pesca', {'Otros deportes'}),
+    ('Juguetes', r'^pop (super|animation|heroes|marvel|star wars|movies|deluxe|winnie|television|tv|games|rocks|disney|anime|comics|ad icons|town|rides|moment)\b', None,
+     'Juguetes', 'Funko y coleccionables', {'Figuras de acción'}),
+    ('Belleza y cuidado personal', r'^(\S+ ){0,4}velas?\b', r'perfume para|eau de|parfum',
+     'Limpieza y hogar', 'Aromatizantes y velas', {'Perfumes', 'Perfumes para hombre', 'Perfumes para mujer'}),
+    ('Mascotas', r'^(\S+ ){0,1}bandanas?\b', None, 'Mascotas', 'Ropa para mascotas', {'Juguetes para perro'}),
+    ('Iluminación', r'^(\S+ ){0,3}faros?\b', None, 'Autopartes', 'Faros', {'Focos'}),
+    ('Herramientas', r'^motor (electrico|monofasico|trifasico)', None, 'Herramientas', 'Motores eléctricos', {'Plomería'}),
+    ('Teclados', r'^(kit|combo) (gamer|gaming)|^kit (de )?teclado y mouse|^combo (de )?teclado', None,
+     'Teclados', 'Combos con mouse', {'Membrana', 'Mecánicos'}),
+]
+REGLAS += LOTES['auditoria_2']
+
+# ---- Sin subcategoría, segunda pasada (27-sep-2026) ----
+# Lo que quedó sin subcategoría y sin regla después de «sin_subcategoria»,
+# leído categoría por categoría (sinsub.py). El orden importa: lo más
+# específico (lava alfombras, comercial, seco y húmedo) antes que lo general.
+LOTES['sin_subcategoria_2'] = [
+    # Aspiradoras
+    ('Aspiradoras', r'^hidrolavadora', None, 'Herramientas', 'Hidrolavadoras', _SIN),
+    ('Aspiradoras', r'lava(dora)? (de )?(alfombras|tapiceria|tapizados)|lava alfombras|lava tapizados|inyeccion|spotless|shampu|alfombras y manchas|\bvapor\b|fh1[14]\d{3}|px253', None,
+     'Aspiradoras', 'Lavadoras de alfombras y vapor', _SIN),
+    ('Aspiradoras', r'mochila|comercial|industrial|de espalda|hombro|portapower|proteam|powr-flite|prolux', None,
+     'Aspiradoras', 'Industriales y comerciales', _SIN),
+    ('Aspiradoras', r'robot', None, 'Aspiradoras', 'Robots aspiradores', _SIN),
+    ('Aspiradoras', r'floor one|trapeador|power mop|\bi ?floor\b', None, 'Aspiradoras', 'Verticales y de escoba', _SIN),
+    ('Aspiradoras', r'seco (y|/) ?humedo|humedo (y|/) ?seco|humeda seca|solidos (y|/) ?liquidos|liquidos? y solidos?|p/liquido|para liquidos|\bwd-? ?\d|tambor|galon(es)?\b|\bgal\b|cenizas|industria\b|\bwd-?\d+', None,
+     'Aspiradoras', 'Seco y húmedo', _SIN),
+    ('Aspiradoras', r'de mano|portatil|para auto|automotriz|colchon|de cama|aspirador de cama', r'vertical|3 en 1|2 en 1',
+     'Aspiradoras', 'De mano', _SIN),
+    ('Aspiradoras', r'trineo|canister|con bolsa|en bolsa|embolsado|recipiente|contenedor|miele c|complete c3|c1 ', None,
+     'Aspiradoras', 'De trineo y con bolsa', _SIN),
+    ('Aspiradoras', r'vertical|inalambric|stick|baston|escoba|windtunnel|cordzero|triflex|duoflex|x-?force|2 en 1|3 en 1|pure one|onepwr', None,
+     'Aspiradoras', 'Verticales y de escoba', _SIN),
+    # Cafeteras
+    ('Cafeteras', r'juego de te para ninos|melissa|bandai|juguete', None, 'Juguetes', 'Otros', _SIN),
+    ('Cafeteras', r'^(\S+ ){0,2}(tetera|hervidor)', None, 'Electrodomésticos', 'Hervidores y teteras', _SIN),
+    ('Cafeteras', r'^(\S+ ){0,4}(filtros?|bandejas?|contenedor de leche|cubierta|cepillo)\b|enfriador de cafe', r'^cafetera',
+     'Cafeteras', 'Accesorios para cafetera', _SIN),
+    ('Cafeteras', r'(molino|molinillo) (electrico )?de cafe', r'cafetera|maquina|espresso', 'Cafeteras', 'Molinillos de café', _SIN),
+    ('Cafeteras', r'\b(30|40|42|45|50|55|60|100) tazas|estacion 40|\burna\b', None, 'Cafeteras', 'Uso comercial', _SIN),
+    ('Cafeteras', r'vertuo|nespresso|capsula|single-serve|una (sola )?(porcion|racion)|individual|k-?cup|dolce gusto|\bcm401\b|\bpb051\b', None,
+     'Cafeteras', 'De cápsulas', _SIN),
+    ('Cafeteras', r'sifon|turca|ibrik|vertido|mizudashi|chemex|prensa francesa|embolo|moka|italiana|hario|melitta|manual|acampar|aeropress|cold brew', r'espresso|expres+o|espesseria|electrica',
+     'Cafeteras', 'Manuales', _SIN),
+    ('Cafeteras', r'espresso|expres+o|espesseria|cappuccin|capuccin|capuchin|super ?automatica|magnifica|specialista|delonghi|de.longhi|jura|miele cm|maquina de cafe|bes\d{3}|rivelia|primalatte|bares|espumador|latte|luxe|velvet|bambino', r'goteo',
+     'Cafeteras', 'Espresso', _SIN),
+    ('Cafeteras', r'cafetera|coffee maker|moccamaster|\d+ tazas|brew', None, 'Cafeteras', 'De goteo', _SIN),
+    # Audífonos
+    ('Audífonos', r'^reproductor', None, 'Bocinas', 'Radios y reproductores', _SIN),
+    ('Audífonos', r'earpads|almohadillas|cushions', None, 'Audífonos', 'Almohadillas y repuestos', _SIN),
+    ('Audífonos', r'open ?ear|oido abierto|shokz|openfit|openswim|conduccion osea|opendots', None, 'Audífonos', 'De oído abierto', _SIN),
+    ('Audífonos', r'gamer|gaming|headset', None, 'Audífonos', 'Gamer', _SIN),
+    ('Audífonos', r'ninos|infantil|kids|mzx250', None, 'Audífonos', 'Earbuds para niños', _SIN),
+    ('Audífonos', r'deportiv|gancho|\bsport\b|\bt1[56]\b|\bt59\b|\bt60\b', None, 'Audífonos', 'Earbuds deportivos', _SIN),
+    ('Audífonos', r'tras cuello|de cuello|neckband', None, 'Audífonos', 'Earbuds de cuello', _SIN),
+    ('Audífonos', r'diadema|over[- ]?ear|on[- ]?ear|headphone|nanophones?|quietcomfort|w820|monitor|estudio|plegable|foldable', r'inalambric|bluetooth|wireless|quietcomfort|w820',
+     'Audífonos', 'Diadema con cable', _SIN),
+    ('Audífonos', r'diadema|over[- ]?ear|on[- ]?ear|headphone|nanophones?|quietcomfort|w820|monitor|estudio|plegable|foldable', r'almohada',
+     'Audífonos', 'Diadema inalámbrica', _SIN),
+    ('Audífonos', r'alambric|tipo c microfono|se215|se535|aonic', r'inalambric', 'Audífonos', 'Earbuds con cable', _SIN),
+    ('Audífonos', r'tws|buds|in[- ]?ear|intraural|earbuds|drops|inalambric|bluetooth', r'almohada', 'Audífonos', 'Earbuds inalámbricos', _SIN),
+    # Bocinas
+    ('Bocinas', r'estereo para automovil', None, 'Autos y motos', 'Estéreos para auto', _SIN),
+    ('Bocinas', r'^(\d+ ?(pz|pzas)? )?(\S+ ){0,2}(conector(es)?|plug|jack|cople)\b.*(audio|bocina|bafle|banana|push|6\.3|3\.5|\brca\b|cannon|microfono|chasis|borne)|banana (a spade|para bocinas)|^(\d+ )?conectores? banana|^adaptador (de plug|2 jacks|jack hembra 3\.5)', None,
+     'Bocinas', 'Conectores para bocinas', _SIN),
+    ('Bocinas', r'karaoke|party|fiesta', None, 'Bocinas', 'De fiesta y karaoke', _SIN),
+    ('Bocinas', r'gemini|behringer|electro ?voice|bafle|profesional|\bpa\b', None, 'Bocinas', 'Bafles y audio profesional', _SIN),
+    ('Bocinas', r'subwoofer|woofer', None, 'Bocinas', 'Subwoofers', _SIN),
+    ('Bocinas', r'marinas|interiores y exteriores|owm3|atrium|empotrab', None, 'Bocinas', 'Empotrables y de exterior', _SIN),
+    ('Bocinas', r'torre|estanteria|monitor xt|polk|psb|de piso|canal central|sonos|hi-?fi|pasivas|reserve r', None,
+     'Bocinas', 'De estantería y Hi-Fi', _SIN),
+    ('Bocinas', r'para pc|barra de sonido', None, 'Bocinas', 'Para PC y escritorio', _SIN),
+    ('Bocinas', r'\bmini\b|pocket|\bcube\b', None, 'Bocinas', 'Mini bocinas y de llavero', _SIN),
+    ('Bocinas', r'bluetooth|portatil|altavo(z|ces)|parlante|inalambric', None, 'Bocinas', 'Bocinas Bluetooth', _SIN),
+    # Cargadores y adaptadores
+    ('Cargadores y adaptadores', r'adaptador(es)? (de )?viaje|adaptador(es)? (universal(es)? )?internacional|europe[oa]|american[oa]|para viajes?\b|tipo o\b|\b3 a 2\b|travelxpert|powerjourney', None,
+     'Cargadores y adaptadores', 'Adaptadores de enchufe y de viaje', _SIN),
+    ('Cargadores y adaptadores', r'\bextensiones?\b (electrica|de uso|uso)|kit de \d+ extensiones|extension (blanca|electrica)', None,
+     'Herramientas', 'Cables y extensiones eléctricas', _SIN),
+    ('Cargadores y adaptadores', r'multitoma|\bpdu\b|power strip|tira de alimentacion|protector (de voltaje|contra sobretensiones)|sup de picos|expansor multipuerto|toma de corriente|base carga elevable|rack socket|contacto multifuncional|adaptador movible|triple polarizado|power socket', None,
+     'Cargadores y adaptadores', 'Regletas y multicontactos', _SIN),
+    ('Cargadores y adaptadores', r'encendedor|\bpara auto\b', None, 'Cargadores y adaptadores', 'De auto', _SIN),
+    ('Cargadores y adaptadores', r'estacion de carga|multipuerto|cargador de escritorio|\d+ puertos usb', r'adaptador de viaje', 'Cargadores y adaptadores', 'Cargadores multipuerto y estaciones de carga', _SIN),
+    ('Cargadores y adaptadores', r'cargador de (muro|pared)|adaptador (de )?pared|cargar en la pared|cargador \d+w|cargador usb|carga rapida', None,
+     'Cargadores y adaptadores', 'De pared', _SIN),
+    ('Cargadores y adaptadores', r'adaptador (convertidor )?de corriente|eliminador', None, 'Cargadores y adaptadores', 'Adaptador de corriente', _SIN),
+    ('Cargadores y adaptadores', r'union (para )?riel', None, 'Iluminación', 'Rieles y spots', _SIN),
+    ('Cargadores y adaptadores', r'usb-?c a usb-?c|cable de poder', None, 'Cargadores y adaptadores', 'Cable', _SIN),
+]
+
+# Componentes / Herramientas / Autos y motos sin subcategoría: casi todo son
+# cables de audio, herramienta automotriz y llantas en paquete.
+_HERR_AUTO = r'tpms|escaneo vehicular|escaner|diagnostico|extractores? (y separadores )?(de|d/) ?(baleros|rodamientos)|extraccion de bieletas|opresor de resortes|separadora de mango|instalador retenes|reparacion del embrague|rodamientos de arbol|banda del serpentin|abolladura|parchado de llantas|espreas de carburador|rampas?( de servicio)?\b|curb ramp'
+LOTES['sin_subcategoria_2'] += [
+    ('Componentes y accesorios de PC', r'cable.*(instrumento|guitarra|\bbajo\b)|lennon|fender|strukture|puente de pedal', r'hdmi|auxiliar|3\.5',
+     'Instrumentos musicales', 'Cables para instrumentos', _SIN),
+    ('Componentes y accesorios de PC', r'kit (de )?(cables|instalacion)( para)? (amplificador|audio|de audio)|bloque d distribucion|kit instalacion audio|cassette adaptador|terminal para bateria', None,
+     'Autos y motos', 'Accesorios de audio para auto', _SIN),
+    ('Componentes y accesorios de PC', r'^(\S+ ){0,3}cables?\b.*(microfono|cannon|canon a canon|speakon|bocina|speaker|duplex)|cables para bocina', None,
+     'Bocinas', 'Cables para bocinas', _SIN),
+    ('Componentes y accesorios de PC', r'receptor|transmisor|adaptador bluetooth', None, 'Bocinas', 'Amplificadores y receptores', _SIN),
+    ('Componentes y accesorios de PC', r'display ?port|hd15|cable monitor', None, 'Componentes y accesorios de PC', 'Cables para monitor', _SIN),
+    ('Componentes y accesorios de PC', r'\brj45\b', None, 'Redes', 'Cables y adaptadores de red', _SIN),
+    ('Componentes y accesorios de PC', r'^cpu |procesador|core ?i[3579]\b|ryzen', r'blu link|audio', 'Componentes y accesorios de PC', 'Procesadores', _SIN),
+    ('Componentes y accesorios de PC', r'enfriamiento liquido|liquid \d{3}', None, 'Componentes y accesorios de PC', 'Enfriamiento líquido', _SIN),
+    ('Componentes y accesorios de PC', r'componente.*(ps3|ps2)|xbox', r'hdmi', 'Videojuegos', 'Cables y adaptadores', _SIN),
+    ('Componentes y accesorios de PC', r'cable usb tipo c', None, 'Cargadores y adaptadores', 'Cables USB-C', _SIN),
+    ('Componentes y accesorios de PC', r'usb-?c multiport|paralelo|ps2 macho a usb|cable impresora', None, 'Componentes y accesorios de PC', 'Adaptadores para PC', _SIN),
+    ('Componentes y accesorios de PC', r'^(\S+ ){0,3}(adaptador|divisor|conector|convertidor)\b.*(audio|rca|3\.5|6\.3|jack|plug|auricular|microfono|spdif)', r'hdmi|vga|video|usb|display',
+     'Bocinas', 'Conectores para bocinas', _SIN),
+    ('Componentes y accesorios de PC', r'^(\S+ ){0,3}cables?\b.*(audio|rca|3\.5|6\.3|jack|plug|toslink|optic|fibra optica|auricular|fio)|toslink', r'cctv|siames|dell emc|mtp',
+     'Bocinas', 'Cables para bocinas', _SIN),
+    # Herramientas
+    ('Herramientas', _HERR_AUTO, None, 'Autos y motos', 'Gatos y herramientas para auto', _SIN),
+    ('Herramientas', r'^aspiradora', None, 'Aspiradoras', 'Seco y húmedo', _SIN),
+    ('Herramientas', r'punzon|botador|barreta|calafateo|recogida magnetica|pop rivet|remachadora', None, 'Herramientas', 'Herramientas manuales', _SIN),
+    ('Herramientas', r'disco (de solapa|laminado)|cardas?|cepillo copa', None, 'Herramientas', 'Discos de corte y desbaste', _SIN),
+    ('Herramientas', r'grifo|monomando|cano de banera', None, 'Herramientas', 'Grifos y monomandos', _SIN),
+    ('Herramientas', r'destapacan|inodoro|balon de bano|sharkbite|manguera flexible|lavadora reductora|junta de armario', None, 'Herramientas', 'Plomería', _SIN),
+    ('Herramientas', r'pelar camarones|deshuesador|pozos de oliva|prelavado|bolas de masa', None, 'Cocina y comedor', 'Utensilios de cocina', _SIN),
+    ('Herramientas', r'engarzadora|peladora de alambres|ponchadora', None, 'Herramientas', 'Pinzas de electricista y ponchadoras', _SIN),
+    ('Herramientas', r'^alicates', None, 'Herramientas', 'Pinzas y alicates', _SIN),
+    ('Herramientas', r'multi ?herramienta|multifuncion', None, 'Herramientas', 'Routers, fresadoras y multiherramientas', _SIN),
+    ('Herramientas', r'play-?doh', None, 'Juguetes', 'Otros', _SIN),
+    ('Herramientas', r'placas? duplex', None, 'Herramientas', 'Placas y tapas eléctricas', _SIN),
+    ('Herramientas', r'^fusible', None, 'Herramientas', 'Interruptores, breakers y fusibles', _SIN),
+    # Autos y motos
+    ('Autos y motos', r'paquete de \d llantas|^llantas? \d{3}/\d{2}', None, 'Autos y motos', 'Llantas para auto', _SIN),
+    ('Autos y motos', r'coaxial|\bbnc\b|balun', None, 'Redes', 'Cables y adaptadores de red', _SIN),
+    ('Autos y motos', r'hdmi extractor', None, 'Cargadores y adaptadores', 'Cables y adaptadores de video', _SIN),
+    ('Autos y motos', r'camara (de )?reversa', None, 'Autos y motos', 'Cámaras para auto', _SIN),
+    ('Autos y motos', _HERR_AUTO, None, 'Autos y motos', 'Gatos y herramientas para auto', _SIN),
+    ('Autos y motos', r'bomba (de )?aire|bomba ozark', None, 'Autos y motos', 'Compresores e infladores', _SIN),
+    ('Autos y motos', r'bomba destapacan', None, 'Herramientas', 'Plomería', _SIN),
+    ('Autos y motos', r'majorette|giftpack', None, 'Juguetes', 'Vehículos de juguete', _SIN),
+    ('Autos y motos', r'bocinas? (de )?6\.5', None, 'Autos y motos', 'Bocinas coaxiales de 6.5 pulgadas', _SIN),
+    ('Autos y motos', r'intercomunicador|medidor .*motocicleta', None, 'Autos y motos', 'Accesorios para moto', _SIN),
+    ('Autos y motos', r'^polish|cera automotriz', None, 'Autos y motos', 'Limpieza y cuidado del auto', _SIN),
+    ('Autos y motos', r'pantalla android', None, 'Autos y motos', 'Estéreos para auto', _SIN),
+    ('Autos y motos', r'anticongelante', None, 'Autopartes', 'Anticongelante y refrigerante', _SIN),
+    ('Autos y motos', r'^camara motocicleta', None, 'Autos y motos', 'Cámaras y accesorios de llanta', _SIN),
+    ('Autos y motos', r'^gps|localizador|tracker', None, 'Autos y motos', 'Accesorios para auto', _SIN),
+    ('Autos y motos', r'^motocicleta infantil', None, 'Juguetes', 'Montables', _SIN),
+]
+
+# Belleza / Joyería / Juguetes / Cámaras / Autopartes sin subcategoría.
+LOTES['sin_subcategoria_2'] += [
+    ('Belleza y cuidado personal', r'grasa para baleros', None, 'Herramientas', 'Lubricantes y aflojatodo', _SIN),
+    ('Belleza y cuidado personal', r'tenaza engarzadora', None, 'Herramientas', 'Pinzas de electricista y ponchadoras', _SIN),
+    ('Belleza y cuidado personal', r'halloween|disfraz', None, 'Juguetes', 'Disfraces', _SIN),
+    ('Belleza y cuidado personal', r'para mascota', None, 'Mascotas', 'Higiene y limpieza', _SIN),
+    ('Belleza y cuidado personal', r'aceite para valvulas', None, 'Instrumentos musicales', 'Boquillas, cañas y accesorios de viento', _SIN),
+    ('Belleza y cuidado personal', r'^(\S+ ){0,1}plancha|waflera|hot tools', None, 'Belleza y cuidado personal', 'Planchas para cabello', _SIN),
+    ('Belleza y cuidado personal', r'navajas?|cuchillas|profoil|wahl|terminadora', None, 'Belleza y cuidado personal', 'Cortadoras de cabello', _SIN),
+    ('Belleza y cuidado personal', r'^shampoo', None, 'Belleza y cuidado personal', 'Shampoo', _SIN),
+    ('Belleza y cuidado personal', r'^acond', None, 'Belleza y cuidado personal', 'Acondicionadores', _SIN),
+    ('Belleza y cuidado personal', r'tratamiento.*cabello|kerastase|antifrizz|kerashine|termo-?protector|aceite de argan para cabello', None,
+     'Belleza y cuidado personal', 'Tratamientos y mascarillas capilares', _SIN),
+    ('Belleza y cuidado personal', r'(clips|pinzas) para (el )?cabello', None, 'Belleza y cuidado personal', 'Cuidado del cabello', _SIN),
+    ('Belleza y cuidado personal', r'dispositivo de belleza|alta frecuencia|arco luz led|medicube|recipiente de reemplazo', None,
+     'Belleza y cuidado personal', 'Dispositivos de cuidado facial', _SIN),
+    ('Belleza y cuidado personal', r'jabones', None, 'Belleza y cuidado personal', 'Jabones y geles de baño', _SIN),
+    ('Belleza y cuidado personal', r'pinzas (profesionales )?para depilar', None, 'Belleza y cuidado personal', 'Depilación', _SIN),
+    ('Belleza y cuidado personal', r'aceite de masaje|anticelulitico|quema grasa|foot bath', None, 'Belleza y cuidado personal', 'Aceites esenciales y de masaje', _SIN),
+    ('Belleza y cuidado personal', r'barba', None, 'Belleza y cuidado personal', 'Cuidado facial masculino', _SIN),
+    ('Belleza y cuidado personal', r'aloe vera|spray hidratante', None, 'Belleza y cuidado personal', 'Cremas y lociones corporales', _SIN),
+    ('Belleza y cuidado personal', r'cotton|algodon|toner|tonico', None, 'Belleza y cuidado personal', 'Limpiadores y tónicos', _SIN),
+    ('Belleza y cuidado personal', r'moisture surge|humectante|crema de jalea|piel acneica', None, 'Belleza y cuidado personal', 'Cremas faciales', _SIN),
+    ('Belleza y cuidado personal', r'cheek|blush', None, 'Belleza y cuidado personal', 'Polvos, rubores y bronceadores', _SIN),
+    ('Belleza y cuidado personal', r'aceite para labios', None, 'Belleza y cuidado personal', 'Bálsamos labiales', _SIN),
+    ('Belleza y cuidado personal', r'spray fijador', None, 'Belleza y cuidado personal', 'Primers y fijadores', _SIN),
+    ('Belleza y cuidado personal', r'club de nuit|eau de|parfum', None, 'Belleza y cuidado personal', 'Perfumes', _SIN),
+    # Joyería
+    ('Joyería y bisutería', r'adaptador .*6\.35', None, 'Bocinas', 'Conectores para bocinas', _SIN),
+    ('Joyería y bisutería', r'escala .*\d+ ?g\b|bascula', None, 'Cocina y comedor', 'Básculas y medidores', _SIN),
+    ('Joyería y bisutería', r'(juego|set) de bisuteria|mis deseos magicos|hatchrose|toy mark', None, 'Juguetes', 'Otros', _SIN),
+    ('Joyería y bisutería', r'etiqueta|tarjetas para precios|cuarzo perforado|aplicador|hojas de oro|piedras para bisuteria', None,
+     'Joyería y bisutería', 'Material para bisutería', _SIN),
+    ('Joyería y bisutería', r'bolsas? (de|con cordon para|para) (bisuteria|joyeria|terciopelo)|cajas de joyeria', None, 'Joyería y bisutería', 'Joyeros', _SIN),
+    ('Joyería y bisutería', r'^collar', None, 'Joyería y bisutería', 'Collares', _SIN),
+    ('Joyería y bisutería', r'atrapasuenos de plata|aleta joyeria', None, 'Joyería y bisutería', 'Dijes y charms', _SIN),
+    ('Joyería y bisutería', r'^arete huggie', None, 'Joyería y bisutería', 'Arracadas', _SIN),
+    # Juguetes
+    ('Juguetes', r'control remoto|remote control|\brc\b', None, 'Juguetes', 'Vehículos a control remoto', _SIN),
+    ('Juguetes', r'majorette|hot wheels|carritos|carro de coleccion|jada|vehiculos de juego|coche transformador|bloko loko', None,
+     'Juguetes', 'Vehículos de juguete', _SIN),
+    ('Juguetes', r'(casita|cochecito) (para|de) munecas', None, 'Juguetes', 'Muñecas', _SIN),
+    ('Juguetes', r'laser tag', None, 'Juguetes', 'Juguetes para exterior', _SIN),
+    ('Juguetes', r'smiski|dragon ball|figura', None, 'Juguetes', 'Figuras de acción', _SIN),
+    ('Juguetes', r'^peluca', None, 'Juguetes', 'Disfraces', _SIN),
+    ('Juguetes', r'mascota electronica', None, 'Juguetes', 'Juguetes educativos', _SIN),
+    ('Juguetes', r'mecedora .*montable', None, 'Juguetes', 'Montables', _SIN),
+    ('Juguetes', r'play-?doh|walkie', None, 'Juguetes', 'Otros', _SIN),
+    # Cámaras y fotografía
+    ('Cámaras y fotografía', r'gfx ?100', None, 'Cámaras y fotografía', 'Mirrorless', _SIN),
+    ('Cámaras y fotografía', r'fujifilm x[- ]?(half|100)', None, 'Cámaras y fotografía', 'Compactas', _SIN),
+    ('Cámaras y fotografía', r'gopro|gropro|de accion', None, 'Cámaras y fotografía', 'Cámaras de acción', _SIN),
+    ('Cámaras y fotografía', r'tipo foco 360|camara de monitoreo|nipcam|infant optics|para perro', None, 'Cámaras de seguridad', 'Cámaras interiores', _SIN),
+    ('Cámaras y fotografía', r'reversa|para coche', None, 'Autos y motos', 'Cámaras para auto', _SIN),
+    ('Cámaras y fotografía', r'espaciadora|aerochamber', None, 'Salud', 'Otros aparatos médicos', _SIN),
+    ('Cámaras y fotografía', r'kit de fotografia|disparador', None, 'Cámaras y fotografía', 'Accesorios', _SIN),
+    ('Cámaras y fotografía', r'shure|blx', None, 'Instrumentos musicales', 'Micrófonos inalámbricos', _SIN),
+    # Autopartes
+    ('Autopartes', r'^espejo.*(cgl|moto)', None, 'Autopartes', 'Manubrios, espejos y controles', _SIN),
+    ('Autopartes', r'^focos? delanteros?.*(cgl|moto)', None, 'Autopartes', 'Luces de moto', _SIN),
+    ('Autopartes', r'seguro de engrane .*moto', None, 'Autopartes', 'Engranes para moto', _SIN),
+    ('Autopartes', r'valvula secundaria .*italika', None, 'Autopartes', 'Motor, carburación y escape de moto', _SIN),
+    ('Autopartes', r'^(\S+ ){0,1}espejo|proyeccion de logo', None, 'Autopartes', 'Espejos laterales', _SIN),
+    ('Autopartes', r'^kit original ag para auto', None, 'Autopartes', 'Amortiguadores', _SIN),
+    ('Autopartes', r'^banda accesorios', None, 'Autopartes', 'Bandas', _SIN),
+    ('Autopartes', r'^metal de centro', None, 'Autopartes', 'Metales de biela y bancada', _SIN),
+    ('Autopartes', r'chicote', None, 'Autopartes', 'Chicotes de acelerador y cambios', _SIN),
+    ('Autopartes', r'cinceles de martillo', None, 'Herramientas', 'Accesorios para rotomartillo y demoledor', _SIN),
+]
+
+# El resto de las categorías sin subcategoría (televisores por pulgadas,
+# refrigeradores por tipo, tabletas, lavadoras, etc.).
+def _tv_pulgadas(tn):
+    m = re.search(r'\b(\d{2})\s*(pulgadas|pulg|plg|in\b|")', tn) or re.search(r'\b(\d{2})(?=[a-z]\d|h\d|s\d|q\d)', tn)
+    if not m:
+        return None
+    n = int(m.group(1))
+    return ('Hasta 32 pulgadas' if n <= 32 else '40 a 43 pulgadas' if n <= 43 else '50 a 55 pulgadas' if n <= 55
+            else '58 a 65 pulgadas' if n <= 65 else '70 pulgadas o más')
+def _tab_pulgadas(tn):
+    if re.search(r'kids|ninos', tn): return 'Tabletas para niños'
+    if re.search(r'rugged|industrial|win1[01]|windows|intel', tn): return 'Tabletas Windows y rugged'
+    m = re.search(r'(?<![\d.])(\d{1,2}(?:\.\d)?)\s*("|pulg|pulgadas|\b)', tn)
+    n = float(m.group(1)) if m and 6 <= float(m.group(1)) <= 14.6 else None
+    if n is None: return 'Tabletas Android'
+    return ('Tabletas Android de 8 pulgadas o menos' if n < 9.5 else 'Tabletas Android de 10 a 11 pulgadas' if n < 12
+            else 'Tabletas Android de 12 pulgadas o más')
+LOTES['sin_subcategoria_2'] += [
+    # Iluminación
+    ('Iluminación', r'diagnostico .*medico', None, 'Salud', 'Otros aparatos médicos', _SIN),
+    ('Iluminación', r'deshumidificador', None, 'Climatización', 'Deshumidificadores', _SIN),
+    ('Iluminación', r'para carro', None, 'Autos y motos', 'Luces LED para auto', _SIN),
+    ('Iluminación', r'inflable de navidad', None, 'Iluminación', 'Luces navideñas y guirnaldas', _SIN),
+    ('Iluminación', r'tactica|lighttech|de mano|acampar|recargables?', None, 'Iluminación', 'Lámparas de emergencia', _SIN),
+    ('Iluminación', r'sensor de movimiento|escalera', None, 'Iluminación', 'Lámparas de pared', _SIN),
+    ('Iluminación', r'de escritorio|velador', None, 'Iluminación', 'Lámparas de escritorio', _SIN),
+    ('Iluminación', r'de papel|de lava|decoracion|secuencia', None, 'Iluminación', 'Decorativa', _SIN),
+    ('Iluminación', r'con ventilador', None, 'Iluminación', 'Ventiladores con luz', _SIN),
+    ('Iluminación', r'industriales', None, 'Iluminación', 'Lámparas industriales y de nave', _SIN),
+    # Cocina y comedor
+    ('Cocina y comedor', r'leche materna|biberon|vaso infantil', None, 'Bebés', 'Alimentación y lactancia', _SIN),
+    ('Cocina y comedor', r'para mascota', None, 'Mascotas', 'Platos y tazones para mascotas', _SIN),
+    ('Cocina y comedor', r'deshumidificador de coche', None, 'Autos y motos', 'Accesorios para auto', _SIN),
+    ('Cocina y comedor', r'tarros? cervecer', None, 'Cocina y comedor', 'Vasos y copas', _SIN),
+    ('Cocina y comedor', r'taza y plato', None, 'Cocina y comedor', 'Tazas', _SIN),
+    ('Cocina y comedor', r'vasos desechable|bolsas reutilizables para congelador', None, 'Cocina y comedor', 'Desechables', _SIN),
+    ('Cocina y comedor', r'cooler', None, 'Cocina y comedor', 'Loncheras y termos para alimentos', _SIN),
+    ('Cocina y comedor', r'almacenador granos', None, 'Cocina y comedor', 'Contenedores herméticos', _SIN),
+    ('Cocina y comedor', r'cuchara para helados', None, 'Cocina y comedor', 'Utensilios de cocina', _SIN),
+    ('Cocina y comedor', r'arroceras', None, 'Cocina y comedor', 'Ollas y cacerolas', _SIN),
+    # Electrodomésticos
+    ('Electrodomésticos', r'palomitas', None, 'Electrodomésticos', 'Máquinas de palomitas y snacks', _SIN),
+    ('Electrodomésticos', r'helado|slush|raspados', None, 'Electrodomésticos', 'Máquinas de helados y postres', _SIN),
+    ('Electrodomésticos', r'citrus press|exprimidor', None, 'Electrodomésticos', 'Extractores de jugo', _SIN),
+    ('Electrodomésticos', r'filtro purificador para regadera', None, 'Electrodomésticos', 'Filtros para regadera', _SIN),
+    ('Electrodomésticos', r'filtro mantenimiento purificador', None, 'Electrodomésticos', 'Filtros y membranas de repuesto', _SIN),
+    ('Electrodomésticos', r'filtro de bomba .*lavadora', None, 'Electrodomésticos', 'Refacciones para lavadora y secadora', _SIN),
+    ('Electrodomésticos', r'frigidaire .*(motor|ventilador)', None, 'Electrodomésticos', 'Refacciones para refrigerador', _SIN),
+    ('Electrodomésticos', r'freidora', None, 'Electrodomésticos', 'Freidoras de aire', _SIN),
+    ('Electrodomésticos', r'^olla|olla multiple', None, 'Electrodomésticos', 'Arroceras y ollas multiusos', _SIN),
+    ('Electrodomésticos', r'horno tostador|asador electrico para pizza', None, 'Electrodomésticos', 'Hornos', _SIN),
+    ('Electrodomésticos', r'abridor de latas|bufetera', None, 'Electrodomésticos', 'Otros electrodomésticos de cocina', _SIN),
+    # Televisores
+    ('Televisores', r'pantalla|tv\b|televis', r'soporte|control', 'Televisores', _tv_pulgadas, _SIN),
+    # Muebles
+    ('Muebles', r'colchon .*plegable', None, 'Muebles', 'Colchones plegables y de sofá cama', _SIN),
+    ('Muebles', r'sobrecolchon', None, 'Muebles', 'Accesorios y refacciones de cama', _SIN),
+    ('Muebles', r'burro de planchar', None, 'Electrodomésticos', 'Limpieza del hogar y lavandería', _SIN),
+    ('Muebles', r'vanity|tocador', None, 'Muebles', 'Tocadores', _SIN),
+    ('Muebles', r'escritorio en l', None, 'Muebles', 'Escritorios en L y esquineros', _SIN),
+    # Refrigeradores
+    ('Refrigeradores', r'frigobar|115 latas', None, 'Refrigeradores', 'Frigobares', _SIN),
+    ('Refrigeradores', r'french door|family hub', None, 'Refrigeradores', 'French door', _SIN),
+    ('Refrigeradores', r'top mount|defrost|automatico|con freezer', None, 'Refrigeradores', 'Top mount', _SIN),
+    ('Refrigeradores', r'panelable', None, 'Refrigeradores', 'Bottom freezer', _SIN),
+    # Tabletas
+    ('Tabletas', r'tablet|tableta|\bpad\b', r'\bmg\b|\d+ tabletas|comprimidos|capsulas|\bml\b', 'Tabletas', _tab_pulgadas, _SIN),
+    # Lavadoras
+    ('Lavadoras', r'laboratorio', None, 'Salud', 'Otros aparatos médicos', _SIN),
+    ('Lavadoras', r'ensalada', None, 'Cocina y comedor', 'Utensilios de cocina', _SIN),
+    ('Lavadoras', r'centrifugadora', None, 'Lavadoras', 'Secadoras', _SIN),
+    ('Lavadoras', r'lavasecadora', None, 'Lavadoras', 'Lavasecadoras', _SIN),
+    ('Lavadoras', r'semi-?automatica', None, 'Lavadoras', 'Semiautomáticas', _SIN),
+    ('Lavadoras', r'frontal', None, 'Lavadoras', 'Carga frontal', _SIN),
+    ('Lavadoras', r'carga superior', None, 'Lavadoras', 'Carga superior', _SIN),
+    # Domótica
+    ('Domótica y hogar inteligente', r'nintendo', None, 'Videojuegos', 'Controles para Nintendo Switch', _SIN),
+    ('Domótica y hogar inteligente', r'desconexion de bateria', None, 'Autos y motos', 'Cables para auto', _SIN),
+    ('Domótica y hogar inteligente', r'contacto', None, 'Domótica y hogar inteligente', 'Enchufes inteligentes', _SIN),
+    ('Domótica y hogar inteligente', r'apagador', None, 'Domótica y hogar inteligente', 'Interruptores Wi-Fi', _SIN),
+    ('Domótica y hogar inteligente', r'teclado|chapa|pomo', None, 'Domótica y hogar inteligente', 'Cerraduras con teclado y código', _SIN),
+    # Celulares
+    ('Celulares', r'headset|receptor microfono|telefono celular receptor', None, 'Celulares', 'Accesorios', _SIN),
+    ('Celulares', r'shark|rugged', None, 'Celulares', 'Resistentes', _SIN),
+    ('Celulares', r'galaxy z|magic v|fold|flip', None, 'Celulares', 'Plegables', _SIN),
+    ('Celulares', r'xiaomi|poco|realme|nubia|vivo|smartphone|samsung galaxy|celular|redmagic|honor', None, 'Celulares', 'Android', _SIN),
+    # Teclados
+    ('Teclados', r'alfombrilla|reposamunecas', None, 'Mouse', 'Mousepads y tapetes', _SIN),
+    ('Teclados', r'limpieza|slime', None, 'Componentes y accesorios de PC', 'Accesorios', _SIN),
+    ('Teclados', r'sistema de llamadas', None, 'Domótica y hogar inteligente', 'Interruptores y botones inalámbricos', _SIN),
+    ('Teclados', r'(kit|combo).*(mouse|gladius)|teclado y (mouse|raton)|teclado inalambrico y raton', None, 'Teclados', 'Combos con mouse', _SIN),
+    ('Teclados', r'mecanico|switch|75%', None, 'Teclados', 'Mecánicos', _SIN),
+    ('Teclados', r'teclado', None, 'Teclados', 'Membrana', _SIN),
+    # Proyectores
+    ('Proyectores y accesorios', r'soporte montaje pared para pantalla tv', None, 'Televisores', 'Soportes para TV', _SIN),
+    ('Proyectores y accesorios', r'proyector', None, 'Proyectores y accesorios', 'Proyectores', _SIN),
+    # Bebés
+    ('Bebés', r'asiento .*(automovil|convertible)|car seat', None, 'Bebés', 'Sillas de auto', _SIN),
+    ('Bebés', r'cochecito .*asiento de coche', None, 'Bebés', 'Sistemas de viaje', _SIN),
+    ('Bebés', r'cochecito', None, 'Bebés', 'Carriolas', _SIN),
+    ('Bebés', r'botella|biberon|babero', None, 'Bebés', 'Alimentación y lactancia', _SIN),
+    ('Bebés', r'calzones entrenadores|panal', None, 'Bebés', 'Pañales y cambio', _SIN),
+    ('Bebés', r'banera', None, 'Bebés', 'Baño e higiene del bebé', _SIN),
+    # Impresoras
+    ('Impresoras', r'^tintas', None, 'Impresoras', 'Cartuchos de tinta', _SIN),
+    ('Impresoras', r'sublimacion|fotos', None, 'Impresoras', 'Fotográficas', _SIN),
+    ('Impresoras', r'm111w|laser|l5915|l5900', None, 'Impresoras', 'Láser', _SIN),
+    ('Impresoras', r'impresora|multifucional|multifuncional', None, 'Impresoras', 'Inyección de tinta', _SIN),
+    # Ropa, monitores, otros sueltos
+    ('Ropa y accesorios', r'overol maternidad', None, 'Ropa y accesorios', 'Pantalones y jeans', _SIN),
+    ('Monitores', r'curvo|ultrawide', None, 'Monitores', 'Ultrawide y curvos', _SIN),
+    ('Monitores', r'gamer|gaming|\d{3}hz', None, 'Monitores', 'Gaming', _SIN),
+    ('Monitores', r'\bpos\b|claa|vsdisplay|\b(5|7)"', None, 'Monitores', 'Táctiles e industriales', _SIN),
+    ('Monitores', r'^monitor', None, 'Monitores', 'Para casa y oficina', _SIN),
+    ('Videojuegos', r'xbox series|xbox one|ps[45]\b|nintendo switch', r'mando|control', 'Videojuegos', 'Juegos Xbox', _SIN),
+    ('Videojuegos', r'mando .*xbox', None, 'Videojuegos', 'Controles para Xbox', _SIN),
+    ('Videojuegos', r'steering wheel|volante', None, 'Videojuegos', 'Volantes, arcade y simuladores', _SIN),
+    ('Videojuegos', r'neogeo mini', None, 'Videojuegos', 'Consolas retro y portátiles', _SIN),
+    ('Bicicletas y movilidad', r'scooter|patin del diablo', None, 'Bicicletas y movilidad', 'Scooters eléctricos', _SIN),
+    ('Bicicletas y movilidad', r'tricycle|trike|triciclo', None, 'Bicicletas y movilidad', 'Triciclos y bicicletas de carga', _SIN),
+    ('Instrumentos musicales', r'microfono', None, 'Instrumentos musicales', 'Micrófonos de condensador y USB', _SIN),
+    ('Blancos y ropa de cama', r'desatascar', None, 'Herramientas', 'Plomería', _SIN),
+    ('Blancos y ropa de cama', r'persianas para ventanas de coche', None, 'Autos y motos', 'Tapetes, fundas y parasoles', _SIN),
+    ('Climatización', r'aires? acondicionados? portatil', None, 'Climatización', 'Aires acondicionados portátiles', _SIN),
+    ('Climatización', r'enfriador de cuello', None, 'Climatización', 'Mini enfriadores personales', _SIN),
+    ('Climatización', r'batidor .*leche', None, 'Cafeteras', 'Accesorios para cafetera', _SIN),
+    ('Cámaras de seguridad', r'espia', None, 'Cámaras de seguridad', 'Cámaras espía', _SIN),
+    ('Cámaras de seguridad', r'reflectores', None, 'Cámaras de seguridad', 'Cámaras exteriores', _SIN),
+    ('Almacenamiento', r'aceite multiuso wd', None, 'Herramientas', 'Lubricantes y aflojatodo', _SIN),
+    ('Mouse', r'reposamunecas', None, 'Mouse', 'Mousepads y tapetes', _SIN),
+    ('Energía solar', r'inversor', None, 'Energía solar', 'Inversores', _SIN),
+]
+
+# Mascotas sin subcategoría: lo que sí es de mascota va a su lugar; lo que
+# entró por la palabra «perro/gato/conejo» (libros, peluches, globos, gatos
+# hidráulicos) sale a su categoría.
+LOTES['sin_subcategoria_2'] += [
+    ('Mascotas', r'^gato (/ )?(elevador|neumatico|hidraulico)', None, 'Autos y motos', 'Gatos hidráulicos para auto', _SIN),
+    ('Mascotas', r'agitador whirlpool', None, 'Electrodomésticos', 'Refacciones para lavadora y secadora', _SIN),
+    ('Mascotas', r'una de gato .*capsulas', None, 'Suplementos', 'Herbolaria y superalimentos', _SIN),
+    ('Mascotas', r'antena de conejo', None, 'Televisores', 'Accesorios y soportes', _SIN),
+    ('Mascotas', r'pelicula|dvd|b de blok|yoyo books|timun mas|gandhi|el coloquio|stray dogs|el destino es un conejo', None,
+     'Libros', 'Hogar, manualidades y mascotas', _SIN),
+    ('Mascotas', r'exploding kittens|balance game', None, 'Juegos de mesa', 'De cartas', _SIN),
+    ('Mascotas', r'globos?\b|decoracion latex', None, 'Juguetes', 'Artículos para fiestas', _SIN),
+    ('Mascotas', r'mascaras?\b|antifaz|disfraz|traje', r'para (perro|gato|mascota)', 'Juguetes', 'Disfraces', _SIN),
+    ('Mascotas', r'cortador de galletas', None, 'Cocina y comedor', 'Repostería y moldes', _SIN),
+    ('Mascotas', r'audufonos|audifonos', None, 'Audífonos', 'Diadema inalámbrica', _SIN),
+    ('Mascotas', r'almohada de viaje', None, 'Blancos y ropa de cama', 'Almohadas', _SIN),
+    ('Mascotas', r'paraguas', None, 'Ropa y accesorios', 'Paraguas', _SIN),
+    ('Mascotas', r'^bols[oa]\b', None, 'Bolsas y mochilas', 'Bolsas para mujer', _SIN),
+    ('Mascotas', r'donas para cabello', None, 'Belleza y cuidado personal', 'Cuidado del cabello', _SIN),
+    ('Mascotas', r'caja organizadora', None, 'Muebles', 'Organizadores y almacenamiento', _SIN),
+    ('Mascotas', r'difusor', None, 'Limpieza y hogar', 'Aromatizantes y velas', _SIN),
+    ('Mascotas', r'cuadro canvas', None, 'Decoración de hogar y jardín', 'Cuadros y decoración de pared', _SIN),
+    ('Mascotas', r'lampara con bocina', None, 'Iluminación', 'Decorativa', _SIN),
+    ('Mascotas', r'key light', None, 'Cámaras y fotografía', 'Accesorios', _SIN),
+    ('Mascotas', r'protector (para|de) muebles', None, 'Muebles', 'Protectores para muebles', _SIN),
+    ('Mascotas', r'cubiertas para asientos', None, 'Autos y motos', 'Cubreasientos para auto', _SIN),
+    ('Mascotas', r'veterinari', None, 'Salud', 'Otros aparatos médicos', _SIN),
+    ('Mascotas', r'excavacion|colorea|disena tu|rasca y descubre|creativity for kids|ooly', None, 'Juguetes', 'Juguetes educativos', _SIN),
+    ('Mascotas', r'figuras mascotas futbol', None, 'Juguetes', 'Figuras de colección a escala', _SIN),
+    ('Mascotas', r'pets alive|fisher price|hape carrito|bitzee|mascota digital|maquina de sonido|maletin de juego|jolly pets', None,
+     'Juguetes', 'Otros', _SIN),
+    # lo que sí es de mascota
+    ('Mascotas', r'^mordedera', None, 'Bebés', 'Chupones y mordederas', _SIN),
+    ('Mascotas', r'arenero', None, 'Mascotas', 'Areneros', _SIN),
+    ('Mascotas', r'(comedero|dispensador de golosinas).*camara|furbo|camara para perros', None, 'Mascotas', 'Comederos automáticos', _SIN),
+    ('Mascotas', r'muelles|raton interactivo', None, 'Mascotas', 'Juguetes para gato', _SIN),
+    ('Mascotas', r'rascar|scratch|cat tower|estructura de actividad|arco para gato', None, 'Mascotas', 'Rascadores y torres', _SIN),
+    ('Mascotas', r'transportadora|trasnportadora|carrito multiusos', None, 'Mascotas', 'Transportadoras', _SIN),
+    ('Mascotas', r'gps|localizador', None, 'Mascotas', 'GPS y localizadores', _SIN),
+    ('Mascotas', r'atrayente|marcaje territorial|bozal|chewsafe', None, 'Mascotas', 'Adiestramiento', _SIN),
+    ('Mascotas', r'sofa termico|ventana para gatito', None, 'Mascotas', 'Camas', _SIN),
+    ('Mascotas', r'mantel individual', None, 'Mascotas', 'Tapetes y accesorios de alimentación', _SIN),
+    ('Mascotas', r'calcetin navideno', None, 'Mascotas', 'Disfraces para mascotas', _SIN),
+    ('Mascotas', r'nutricost|multivitaminico|chews|kaopet|fibra soluble|suero hidratante|mobility|pastilleros|real mushrooms|gelatina para perro|mantenimiento para perro', None,
+     'Mascotas', 'Alimento y premios', _SIN),
+    ('Mascotas', r'bolsitas sanitarias|desecho|porta bolsas|rastrillo de aseo|recortadora|guante limpieza|manguera para banar|pack bano|jabon|nose oil|paw balm|polvo para bano|desinfectante|bolas de pelo|aerokat|inhalador', None,
+     'Mascotas', 'Higiene y limpieza', _SIN),
+    ('Mascotas', r'escaleras? .*mascotas|escaleras? para (perro|gato)', None, 'Mascotas', 'Camas elevadas y colchonetas', _SIN),
+    ('Mascotas', r'palm pals|peluche', None, 'Juguetes', 'Peluches', _SIN),
+]
+
+# Última tanda de lo sin subcategoría (27-sep-2026, tercera lectura).
+LOTES['sin_subcategoria_2'] += [
+    ('Bocinas', r'coaxial|tipo f\b|\brg ?(59|6)\b|\bbnc\b|75 ohms', None, 'Redes', 'Cables y adaptadores de red', _SIN),
+    ('Bocinas', r'hdmi', None, 'Cargadores y adaptadores', 'Cables y adaptadores de video', _SIN),
+    ('Bocinas', r'mezcladora', None, 'Instrumentos musicales', 'Producción de audio', _SIN),
+    ('Juguetes', r'mochila|backpack|minibackpack', None, 'Bolsas y mochilas', 'Mochilas', _SIN),
+    ('Juguetes', r'^cartera', None, 'Bolsas y mochilas', 'Carteras y monederos', _SIN),
+    ('Juguetes', r'asiento elevador', None, 'Bebés', 'Sillas de auto', _SIN),
+    ('Juguetes', r'baby gate', None, 'Bebés', 'Seguridad para bebé', _SIN),
+    ('Juguetes', r'cochecito', None, 'Bebés', 'Carriolas', _SIN),
+    ('Juguetes', r'^llavero', None, 'Joyería y bisutería', 'Llaveros', _SIN),
+    ('Juguetes', r'^pulsera', None, 'Joyería y bisutería', 'Pulseras', _SIN),
+    ('Juguetes', r'^balon de basquetbol', None, 'Deportes y fitness', 'Balones de básquetbol', _SIN),
+    ('Juguetes', r'juguetes para mascotas', None, 'Mascotas', 'Peluches para perro', _SIN),
+    ('Cargadores y adaptadores', r'lampara (luminario )?(sanelec )?(de )?taller', None, 'Iluminación', 'Lámparas industriales y de nave', _SIN),
+    ('Cargadores y adaptadores', r'^(black\+decker|aksi|sanelec|volteck|steren|btk) \S+ - \S+( \S+)? \d+( - \d+ ?(m|cm))?$', None,
+     'Herramientas', 'Cables y extensiones eléctricas', _SIN),
+    ('Cargadores y adaptadores', r'placa de contacto', None, 'Herramientas', 'Apagadores y contactos', _SIN),
+    ('Cargadores y adaptadores', r'enchufe inteligente', None, 'Domótica y hogar inteligente', 'Enchufes inteligentes', _SIN),
+    ('Cargadores y adaptadores', r'sobretension tower', None, 'Cargadores y adaptadores', 'Regletas y multicontactos', _SIN),
+    ('Cargadores y adaptadores', r'banana a spade', None, 'Bocinas', 'Conectores para bocinas', _SIN),
+    ('Cargadores y adaptadores', r'cable extension activo usb', None, 'Componentes y accesorios de PC', 'Adaptadores para PC', _SIN),
+    ('Componentes y accesorios de PC', r'cctv|siames', None, 'Cámaras de seguridad', 'Accesorios de videovigilancia', _SIN),
+    ('Componentes y accesorios de PC', r'fibra optica .*mtp', None, 'Redes', 'Cables y adaptadores de red', _SIN),
+    ('Cafeteras', r'percolador', None, 'Cafeteras', 'Cafeteras de filtro', _SIN),
+    ('Aspiradoras', r'seco[- ]humedo|agua polvo', None, 'Aspiradoras', 'Seco y húmedo', _SIN),
+    ('Aspiradoras', r'sin bolsa|alfombras y pisos|mascotas', None, 'Aspiradoras', 'Verticales y de escoba', _SIN),
+    ('Audífonos', r'^auriculares', None, 'Audífonos', 'Diadema con cable', _SIN),
+    ('Muebles', r'camastro|loveseat .*acampar', None, 'Muebles', 'Sillas de exterior', _SIN),
+    ('Muebles', r'carrito de cocina', None, 'Muebles', 'Carros e islas de cocina', _SIN),
+    ('Muebles', r'mostrador', None, 'Equipo comercial', 'Carros de servicio', _SIN),
+    ('Muebles', r'estante .*organizador de pared', None, 'Cocina y comedor', 'Organización de cocina', _SIN),
+    ('Muebles', r'bolsas de almacenamiento', None, 'Muebles', 'Organizadores y almacenamiento', _SIN),
+    ('Belleza y cuidado personal', r'estuche de viaje', None, 'Bolsas y mochilas', 'Cosmetiqueras y neceseres', _SIN),
+    ('Belleza y cuidado personal', r'espejo de belleza', None, 'Decoración de hogar y jardín', 'Espejos de tocador y maquillaje', _SIN),
+    ('Belleza y cuidado personal', r'botella vacia|frasco vacio', None, 'Belleza y cuidado personal', 'Organizadores de maquillaje', _SIN),
+]
+
+REGLAS += LOTES['sin_subcategoria_2']
+
+# ---- Lote auditoría 3 (27-sep-2026): grupos 140-230 de cabezas.py ----
+def _tv_pulgadas_explicitas(tn):
+    m = re.search(r'\b(\d{2})\s*(pulgadas|pulg|plg|")', tn)
+    return _tv_pulgadas(tn) if m else None
+LOTES['auditoria_3'] = [
+    ('Muebles', r'^(\S+ ){0,1}toallero', None, 'Herramientas', 'Sanitarios y accesorios de baño', {'Repisas'}),
+    ('Herramientas', r'^(\S+ ){0,1}compresor(es)? de aire', None, 'Herramientas', 'Compresores y herramienta neumática', {'Medición'}),
+    ('Iluminación', r'foco led inteligente|foco inteligente|smart bulb', None, 'Domótica y hogar inteligente', 'Focos inteligentes', {'Focos'}),
+    ('Videojuegos', r'^combo xbox series|^consola xbox', None, 'Videojuegos', 'Consolas Xbox', {'Controles para Xbox'}),
+    ('Autopartes', r'^boxer', None, 'Ropa y accesorios', 'Ropa interior', {'Para autos'}),
+    ('Autopartes', r'^resortes? ag kit para auto', None, 'Autopartes', 'Resortes y muelles', {'Suspensión y dirección de moto'}),
+    ('Electrodomésticos', r'^peluche', None, 'Juguetes', 'Peluches', {'Microondas'}),
+    ('Juguetes', r'^(\S+ ){0,1}muneca', None, 'Juguetes', 'Muñecas', {'Peluches'}),
+    ('Proyectores y accesorios', r'^soporte', None, 'Proyectores y accesorios', 'Soportes para proyector', {'Proyectores'}),
+    ('Herramientas', r'^soporte magnetico para llaves', None, 'Herramientas', 'Organizadores de herramientas', {'Llaves y dados'}),
+    ('Joyería y bisutería', r'^soporte de anillo', None, 'Celulares', 'PopSockets y agarraderas', {'Anillos'}),
+    ('Joyería y bisutería', r'^dijes? para pulsera', None, 'Joyería y bisutería', 'Dijes y charms', {'Pulseras'}),
+    # Televisores con las pulgadas escritas y la subcategoría de otro tamaño
+    ('Televisores', r'\b\d{2}\s*(pulgadas|pulg|plg|")', r'soporte|control|funda|base',
+     'Televisores', _tv_pulgadas_explicitas, {'Hasta 32 pulgadas', '40 a 43 pulgadas', '50 a 55 pulgadas', '58 a 65 pulgadas', '70 pulgadas o más'}),
+]
+REGLAS += LOTES['auditoria_3']
+
+# ---- Lote auditoría 4 (27-sep-2026): grupos 230-360 de cabezas.py ----
+_COLCHONES = {'Colchones individuales', 'Colchones matrimoniales', 'Colchones queen size', 'Colchones king size'}
+LOTES['auditoria_4'] = [
+    ('Muebles', r'^box (base )?(para|de) colchon', None, 'Muebles', 'Bases de cama y box', _COLCHONES),
+    ('Muebles', r'^base de silla', None, 'Muebles', 'Accesorios y refacciones para sillas', {'Sillas de oficina'}),
+    ('Muebles', r'^set de cajonera', None, 'Muebles', 'Cómodas y cajoneras', {'Mesas de comedor', 'Burós'}),
+    ('Mascotas', r'^acondicionador|^molinillo de unas|^rastrillo', None, 'Mascotas', 'Higiene y limpieza', {'Juguetes para perro', 'Juguetes para gato'}),
+    ('Mascotas', r'^peluca', None, 'Mascotas', 'Disfraces para mascotas', {'Juguetes para perro', 'Juguetes para gato'}),
+    ('Mascotas', r'^jersey para (perro|gato)', None, 'Mascotas', 'Ropa para mascotas', {'Juguetes para perro', 'Juguetes para gato'}),
+    ('Mascotas', r'^cubre ?asiento', None, 'Autos y motos', 'Cubreasientos para auto', {'Impermeables y abrigos para mascotas', 'Transportadoras'}),
+    ('Herramientas', r'^hidrolavadora', None, 'Herramientas', 'Hidrolavadoras', {'Construcción'}),
+    ('Herramientas', r'^careta.*soldar', None, 'Herramientas', 'Caretas y cascos para soldar', {'Seguridad industrial'}),
+    ('Herramientas', r'^contacto duplex', None, 'Herramientas', 'Apagadores y contactos', {'Placas y tapas eléctricas'}),
+    ('Herramientas', r'^guia jalacable', None, 'Herramientas', 'Material eléctrico', {'Jardinería'}),
+    ('Juguetes', r'^lego\b', None, 'Juguetes', 'Bloques de construcción', {'Muñecas'}),
+    ('Juguetes', r'^pinypon', None, 'Juguetes', 'Muñecas', {'Figuras de acción'}),
+    ('Joyería y bisutería', r'^terminal de anillo', None, 'Herramientas', 'Material eléctrico', {'Anillos'}),
+    ('Joyería y bisutería', r'^medalla', None, 'Joyería y bisutería', 'Rosarios y medallas religiosas', {'Dijes y charms'}),
+    ('Blancos y ropa de cama', r'^cortina decorativa', None, 'Decoración de hogar y jardín', 'Cortinas', {'Colchas y cobertores'}),
+    ('Aspiradoras', r'^soplador', None, 'Herramientas', 'Sopladoras', {'Verticales y de escoba'}),
+    ('Iluminación', r'^direccionales', None, 'Autopartes', 'Cuartos y direccionales', {'Decorativa'}),
+    ('Iluminación', r'^tiras? de led', None, 'Iluminación', 'Tiras LED', {'Decorativa'}),
+    ('Iluminación', r'^proyector de luz', None, 'Iluminación', 'Proyectores de luz y efectos', {'Lámparas de escritorio'}),
+    ('Autopartes', r'^cdi\b', None, 'Autopartes', 'Eléctrico y baterías de moto', {'Bujías y encendido'}),
+    ('Autopartes', r'^repuesto de afeitar', None, 'Belleza y cuidado personal', 'Rastrillos y navajas', None),
+    ('Electrodomésticos', r'^kit de tapas para quemador', None, 'Electrodomésticos', 'Refacciones para estufa y horno', {'Estufas'}),
+    ('Electrodomésticos', r'^repuesto (socket|cople)', None, 'Electrodomésticos', 'Refacciones para licuadora y batidora', {'Licuadoras'}),
+    ('Videojuegos', r'^juego de herramientas', None, 'Herramientas', 'Juegos de desarmadores', None),
+]
+REGLAS += LOTES['auditoria_4']
+
+
+# ---- Reglas por marca (27-sep-2026) ----
+# Omamori (Walmart / Bodega Aurrera) vende dijes y pulseras con nombre de
+# objeto: «Balón futbol soccer», «Candado corazón», «Foco estrella», «Gato
+# con moño». Por el nombre caían en Deportes, Herramientas, Iluminación,
+# Mascotas... (≈130 fichas, todas a $423 o $723). La regla va por la marca:
+# categoría '*' = cualquiera, y no toca lo que ya está en Joyería.
+LOTES['marcas'] = [
+    ('*', r'cierre .*\d+ ?cm|pulsera|brazalete', None, 'Joyería y bisutería', 'Pulseras', None, 'omamori'),
+    ('*', r'.', None, 'Joyería y bisutería', 'Dijes y charms', None, 'omamori'),
+    # Canvas Revolution: cuadros decorativos cuyo tema («Guitarra dorada»,
+    # «Ajedrez de oro», «Copa del mundo», «Mesa con pan») los mandaba a
+    # Instrumentos, Juegos de mesa, Cocina, Muebles (228 en Muebles).
+    ('*', r'cuadro|canvas|triptico|lienzo', None, 'Decoración de hogar y jardín', 'Cuadros y decoración de pared', None, 'canvas revolution'),
+    # Kamite es editorial de cómics (Power Rangers, Archie, Spawn, Stray Dogs)
+    ('*', r'.', r'tijeras|pedal', 'Libros', 'Cómics y novela gráfica', None, 'kamite'),
+    ('Libros', r'.', r'tijeras|pedal', 'Libros', 'Cómics y novela gráfica', {'Novela contemporánea'}, 'kamite'),
+    # Sin marca: el cuadro decorativo nombra su tema y no es de esa categoría
+    ('*', r'^(\S+ ){0,2}cuadros? (decorativos?|canvas|en canvas|en lienzo)|^(\S+ ){0,3}canvas\b.*\d+ ?x ?\d+', r'bicicleta de|marco de bici',
+     'Decoración de hogar y jardín', 'Cuadros y decoración de pared', None, None),
+]
+# Primero que todo: una regla por nombre («globo», «taza», «candado») no debe
+# ganarle a la marca.
+REGLAS[:0] = LOTES['marcas']
+LOTES = {'marcas': LOTES.pop('marcas'), **LOTES}
+
+# ---- Lote auditoría 5 (27-sep-2026): cabezas de nombre que no son lo que nombran ----
+LOTES['auditoria_5'] = [
+    # «Papel tapiz» (66 en Muebles/Mesas de centro)
+    ('*', r'^(\S+ ){0,1}papel tapiz|^(\S+ ){0,1}tapiz (vinil|decorativo|adhesivo)|panel soft autoadhesivo', None,
+     'Decoración de hogar y jardín', 'Vinil decorativo', None),
+    # Disfraces de persona entre los de mascota
+    ('Mascotas', r'^(\S+ ){0,1}disfraz', r'perro|gato|mascota|\bpet\b|canino|felino|cachorro',
+     'Juguetes', 'Disfraces', {'Disfraces para mascotas'}),
+]
+REGLAS += LOTES['auditoria_5']
+
+# ---- Lote auditoría 6 (27-sep-2026): tipos de producto por nombre ----
+LOTES['auditoria_6'] = [
+    # Películas y series en DVD/Blu-ray entre los videojuegos (≈200). La
+    # subcategoría «Películas y series» vive en Libros (libros, cine y música).
+    ('Videojuegos', r'(pelicula|temporada|\bserie\b|volumen \d|4k ultra hd).*(blu-?ray|\bdvd\b)|(blu-?ray|\bdvd\b).*(pelicula|temporada|\bserie\b)|warner bros (dvd|blu)',
+     r'videojuego|\bjuego\b|consola|reparacion|playstation|\bps[345]\b|xbox|nintendo', 'Libros', 'Películas y series', None),
+    ('Mascotas', r'pelicula (dvd|blu)', None, 'Libros', 'Películas y series', None),
+    # Juegos de cuadros decorativos
+    ('*', r'^(set|juego) (de )?\d* ?cuadros', None, 'Decoración de hogar y jardín', 'Cuadros y decoración de pared', None),
+    # Alfombras de sala entre los tapetes de baño
+    ('Blancos y ropa de cama', r'^alfombra', r'bano|ducha|regadera|tina|banera', 'Decoración de hogar y jardín', 'Tapetes y alfombras', {'Tapetes de baño'}),
+    # Velas aromáticas y de masaje
+    ('Electrodomésticos', r'^(kit \d+ )?velas? de soya', None, 'Limpieza y hogar', 'Aromatizantes y velas', None),
+    ('Belleza y cuidado personal', r'^vela de aceite (de|para) masaje', None, 'Belleza y cuidado personal', 'Aceites esenciales y de masaje', None),
+    # Macetas con platillo entre los platillos de batería
+    ('Instrumentos musicales', r'^maceta', None, 'Jardín y exterior', 'Macetas y jardineras', {'Platillos'}),
+    # Rompecabezas fuera de Juegos de mesa
+    ('*', r'^rompecabezas \d+ ?x ?\d+ ?cm|^rompecabezas .*\b\d{3,4} (pzs|piezas|pcs|unidades)\b', r'tapete|3d de metal',
+     'Juegos de mesa', 'Rompecabezas', None),
+    ('Videojuegos', r'^perfume', None, 'Belleza y cuidado personal', 'Perfumes para hombre', None),
+    # Bocinas OEM de puerta (el altavoz, no el claxon) entre cofres y bisagras
+    ('Autopartes', r'bocinas? (oem )?de puertas?|bocinas? puerta', None, 'Autopartes', 'Bocinas para auto', {'Cofres, puertas y bisagras'}),
+    # Enfriadores de aceite (738) en «Filtros y aceites»: van con los radiadores
+    ('Autopartes', r'^enfriador (de )?aceite', None, 'Autopartes', 'Radiadores y condensadores', {'Filtros y aceites'}),
+    # «Esmalte ... acuario tecnobril»: «Acuario» es la línea de pintura, no la pecera
+    ('Mascotas', r'^(\S+ ){0,1}(esmalte|pintura|sellador|primer|impermeabilizante)\b', None, 'Herramientas', 'Construcción', {'Acuarios y terrarios'}),
+    ('Autos y motos', r'^micas? (de )?casco', None, 'Autos y motos', 'Micas y accesorios para casco', {'Cascos abatibles', 'Cascos integrales', 'Cascos abiertos', 'Motocicletas'}),
+    ('Mascotas', r'^dispensador de jabon', None, 'Herramientas', 'Sanitarios y accesorios de baño', {'Higiene y limpieza'}),
+]
+REGLAS += LOTES['auditoria_6']
+
+# ---- Lote auditoría 7 (27-sep-2026): muestra al azar por categoría ----
+# «Componentes y accesorios de PC / Componentes» era un cajón: entró todo lo
+# que dice «enfriador», «ventilador», «fuente», «tanque»... (bolsas para leche
+# materna, packs de hielo, ventiladores Lasko, no-breaks).
+_COMP = {'Componentes'}
+LOTES['auditoria_7'] = [
+    ('Componentes y accesorios de PC', r'leche materna|extractor de leche|biberon|evenflo', None, 'Bebés', 'Alimentación y lactancia', _COMP),
+    ('Componentes y accesorios de PC', r'ice packs?|bolsas? de hielo|packs? de hielo|paquetes de hielo|palitos de hielo|cool coolers|enfriadores? (cuddy|de repuesto)|tapones de drenaje para enfriadores', None,
+     'Cocina y comedor', 'Loncheras y termos para alimentos', _COMP),
+    ('Componentes y accesorios de PC', r'(bolsas|barra|cubeta) enfriadoras? .*(botellas|vino)|vacu vin', None, 'Cocina y comedor', 'Bar y coctelería', _COMP),
+    ('Componentes y accesorios de PC', r'no ?break|\bups\b|regulador de voltaje', None, 'Energía solar', 'Inversores', _COMP),
+    ('Componentes y accesorios de PC', r'noctua desatornillador', None, 'Herramientas', 'Desarmadores y puntas', _COMP),
+    ('Componentes y accesorios de PC', r'noctua kit de montaje|conductos de ventilacion noctua', None, 'Componentes y accesorios de PC', 'Disipadores de CPU', _COMP),
+    ('Componentes y accesorios de PC', r'kit (de )?\d ventiladores|ventiladores? (nzxt|gamer)|uni fan|light wings|fan noctua|separadores laterales .*ventiladores|controladora argb|kit yeyian argb', None,
+     'Componentes y accesorios de PC', 'Ventiladores para gabinete', _COMP),
+    ('Componentes y accesorios de PC', r'carcasa de ordenador|^case |chasis|itx case|pc case', r'fan|enclosure', 'Componentes y accesorios de PC', 'Gabinetes', _COMP),
+    ('Componentes y accesorios de PC', r'grasa termica|pasta termica', None, 'Componentes y accesorios de PC', 'Pasta térmica', _COMP),
+    ('Componentes y accesorios de PC', r'^fuente (de (alimentacion|poder) )?(corsair|msi|evga|xpg|thermaltake|gigabyte|asus|seasonic|cooler master|aerocool|antec|be quiet|nzxt|lian li|balam|game factor)|80 plus|\b(bronze|gold|platinum)\b.*\d{3,4} ?w|\d{3,4} ?w\b.*(bronze|gold|platinum|modular)|toughpower|cubiertas de cable de extension para fuente', None,
+     'Componentes y accesorios de PC', 'Fuentes de poder', _COMP),
+    ('Componentes y accesorios de PC', r'\bsata\b|molex|\bpcie|wireview|elevador pcie|cable elevador', r'^fuente|estatuilla|boton', 'Componentes y accesorios de PC', 'Adaptadores para PC', _COMP),
+    ('Componentes y accesorios de PC', r'base(s)? (soporte )?(enfriadora|para laptop|para portatil)|soporte para laptop', None,
+     'Componentes y accesorios de PC', 'Accesorios', _COMP),
+    ('Componentes y accesorios de PC', r'fuente de alimentacion (camara ip|telefono ip)|powerpoe|lan-poe', None, 'Cámaras de seguridad', 'Accesorios de videovigilancia', _COMP),
+    ('Componentes y accesorios de PC', r'estevez fuente', None, 'Iluminación', 'Tiras LED', _COMP),
+    ('Componentes y accesorios de PC', r'fuente de alimentacion para (pedal|pedalera)', None, 'Instrumentos musicales', 'Pedales y efectos', _COMP),
+    ('Componentes y accesorios de PC', r'mando a distancia de repuesto .*(ventilador|lasko|dyson)|protectores de seguridad para ventilador|repuesto de motor .*ventilador', None,
+     'Climatización', 'Aspas y refacciones de ventilador', _COMP),
+    ('Componentes y accesorios de PC', r'air mover|secador(a)? de alfombras|super monsoon', None, 'Climatización', 'Ventiladores de piso e industriales', _COMP),
+    ('Componentes y accesorios de PC', r'^lasko \d+ pedestal', None, 'Climatización', 'Ventiladores de pedestal', _COMP),
+    ('Componentes y accesorios de PC', r'miniventilador|misting fan|soplador aire usb|difusor usb|ventilador usb|ventilador almohadilla .*telefono', r'disfraz',
+     'Climatización', 'Ventiladores portátiles y de mano', _COMP),
+    ('Componentes y accesorios de PC', r'abanicos de moscas|repelente de moscas', None, 'Electrodomésticos', 'Control de plagas y mosquitos', _COMP),
+    ('Componentes y accesorios de PC', r'conducto .*ventilador|sistema de ventilacion|filtro de aire y carbono|splitter hub ac infinity', None, 'Climatización', 'Extractores y ventilación', _COMP),
+    ('Componentes y accesorios de PC', r'filtro de aire .*merv', None, 'Climatización', 'Filtros para aire acondicionado', _COMP),
+    ('Componentes y accesorios de PC', r'condensador .*ventilador|avellanador|purga de nitrogeno|recarga .*refrigeracion|bomba de vacio .*refrigeracion|soplete .*refrigeracion|calculadora hvac|hvaccharts', None,
+     'Climatización', 'Accesorios y refacciones de aire acondicionado', _COMP),
+    ('Componentes y accesorios de PC', r'fuente de alimentacion (de (mesa|sobremesa)|industrial|siglent)|modulo regulador', None, 'Herramientas', 'Material eléctrico', _COMP),
+    ('Componentes y accesorios de PC', r'trapeador de vapor', None, 'Aspiradoras', 'Lavadoras de alfombras y vapor', _COMP),
+    ('Componentes y accesorios de PC', r'heladera', None, 'Equipo comercial', 'Cocina industrial', _COMP),
+    ('Componentes y accesorios de PC', r'minirefrigerador', None, 'Refrigeradores', 'Frigobares', _COMP),
+    ('Componentes y accesorios de PC', r'dispensador de agua', None, 'Electrodomésticos', 'Dispensadores de agua', _COMP),
+    ('Componentes y accesorios de PC', r'arbol de navidad', None, 'Decoración de hogar y jardín', 'Navidad y temporada', _COMP),
+    ('Componentes y accesorios de PC', r'estatuilla', None, 'Decoración de hogar y jardín', 'Figuras y adornos', _COMP),
+    ('Componentes y accesorios de PC', r'tren electrico|carrera go', None, 'Juguetes', 'Vehículos de juguete', _COMP),
+    ('Componentes y accesorios de PC', r'casa hinchable', None, 'Juguetes', 'Juguetes para exterior', _COMP),
+    ('Componentes y accesorios de PC', r'ideacentre aio|^aio x\d+', None, 'Computadoras de escritorio', 'All in One', _COMP),
+    ('Componentes y accesorios de PC', r'summer cart|n64|controlador movil .*pubg', None, 'Videojuegos', 'Otros accesorios gamer', _COMP),
+    ('Componentes y accesorios de PC', r'colador para desague', None, 'Herramientas', 'Plomería', _COMP),
+    ('Componentes y accesorios de PC', r'mochila de hidratacion', None, 'Bicicletas y movilidad', 'Accesorios para bicicleta', _COMP),
+    ('Componentes y accesorios de PC', r'soporte completo de espalda', None, 'Salud', 'Movilidad y apoyo', _COMP),
+    ('Componentes y accesorios de PC', r'arduino|raspberry', None, 'Componentes y accesorios de PC', 'Accesorios', _COMP),
+    ('Componentes y accesorios de PC', r'soplador .*(carbon|parrilla)', None, 'Jardín y exterior', 'Asadores y parrillas', _COMP),
+    # Otras de la muestra
+    ('Televisores', r'^control', None, 'Televisores', 'Controles para TV',
+     {'Hasta 32 pulgadas', '40 a 43 pulgadas', '50 a 55 pulgadas', '58 a 65 pulgadas', '70 pulgadas o más', 'Dispositivos de streaming', 'Accesorios y soportes', None}),
+    ('Tabletas', r'smart folio|pencil|lector de tarjetas|adaptador para ipad', None, 'Tabletas', 'Accesorios para tableta', {'Apple'}),
+    ('Tabletas', r'^teclado para ipad', None, 'Tabletas', 'Teclados para tableta', {'Apple'}),
+    ('Mouse', r'^(\S+ ){0,1}(pad|mouse ?pad|alfombrilla|mousepad)\b|^gaming mouse pad|soft gaming mat|mouse control pad', r'^set |mouse inalambrico y pad',
+     'Mouse', 'Mousepads y tapetes', None),
+    ('Cargadores y adaptadores', r'bateria para laptop', None, 'Componentes y accesorios de PC', 'Baterías para laptop', {'Para laptop'}),
+    ('Cargadores y adaptadores', r'^(marcador|plumon|lapices|thumb tack)', None, 'Papelería y oficina', 'Escritura', {'Para laptop'}),
+    ('Bocinas', r'^tapa (trasera )?(alfombra )?(porta )?bocinas?', None, 'Autopartes', 'Interior y tapicería', {'Cables para bocinas'}),
+    ('Bocinas', r'correa de mango de altavoz', None, 'Bocinas', 'Accesorios para bocinas', {'Cables para bocinas'}),
+    ('Muebles', r'^silla de ducha', None, 'Salud', 'Movilidad y apoyo', None),
+    ('Iluminación', r'reptizoo', None, 'Mascotas', 'Acuarios y terrarios', None),
+    ('Refrigeradores', r'conservador vertical de congelados', None, 'Refrigeradores', 'Congeladores', None),
+    ('Mascotas', r'^reloj de pared', None, 'Decoración de hogar y jardín', 'Relojes de pared', None),
+    ('Mascotas', r'^cable de amarre', None, 'Mascotas', 'Correas', None),
+    ('Juguetes', r'^globos? ', None, 'Juguetes', 'Artículos para fiestas', {'Muñecas'}),
+    ('Proyectores y accesorios', r'^control compatible con tv stick', None, 'Televisores', 'Controles para TV', None),
+    ('Proyectores y accesorios', r'reloj despertador', None, 'Iluminación', 'Proyectores de luz y efectos', None),
+    # Otros / Varios
+    ('Otros', r'ventilador (para )?celular|mini ventilador celular|lupa de visualizacion', None, 'Celulares', 'Accesorios', None),
+    ('Otros', r'cabestrillo', None, 'Salud', 'Movilidad y apoyo', None),
+    ('Otros', r'antimosquitos', None, 'Electrodomésticos', 'Control de plagas y mosquitos', None),
+    ('Otros', r'alcoholimetro', None, 'Salud', 'Otros aparatos médicos', None),
+    ('Otros', r'espejo retrovisor', None, 'Autos y motos', 'Accesorios para auto', None),
+    ('Otros', r'inalambrico con soporte|estacion de carga inalambrica', None, 'Cargadores y adaptadores', 'Inalámbrico', None),
+    ('Otros', r'control para celular|gamepad', None, 'Videojuegos', 'Controles para PC y celular', None),
+]
+REGLAS += LOTES['auditoria_7']
+
+# ---- Lote auditoría 8 (27-sep-2026): subcategorías comodín ----
+LOTES['auditoria_8'] = [
+    # Autos y motos / Accesorios para auto
+    ('Autos y motos', r'aceite (para|de) moto|aceite .*\b\d{1,2}w-?\d{2}\b', None, 'Autopartes', 'Filtros y aceites de moto', {'Accesorios para auto'}),
+    ('Autos y motos', r'^gato (industrial )?hidraulico|^gato (de )?(botella|patin)', None, 'Autos y motos', 'Gatos hidráulicos para auto', {'Accesorios para auto', 'Autos'}),
+    ('Autos y motos', r'^generador', None, 'Herramientas', 'Generadores', {'Accesorios para auto'}),
+    ('Autos y motos', r'aromatizantes?|ambientador(es)?|california ?scents|kit aromas', None, 'Autos y motos', 'Aromatizantes para auto', {'Accesorios para auto'}),
+    ('Autos y motos', r'\brc\b|control remoto', None, 'Juguetes', 'Vehículos a control remoto', {'Accesorios para auto', 'Autos'}),
+    # Autos y motos / Autos (el vehículo): lo que no es un auto
+    ('Autos y motos', r'bocina de coche|car horn', None, 'Autopartes', 'Claxon', {'Autos'}),
+    ('Autos y motos', r'shock absorber', None, 'Autopartes', 'Amortiguadores', {'Autos'}),
+    ('Autos y motos', r'paraguas', None, 'Ropa y accesorios', 'Paraguas', {'Autos', 'Accesorios para auto'}),
+    ('Autos y motos', r'enrollador de manguera', None, 'Herramientas', 'Mangueras y riego', {'Autos'}),
+    ('Autos y motos', r'wall decal|sticker for home', None, 'Decoración de hogar y jardín', 'Vinil decorativo', {'Autos'}),
+    ('Autos y motos', r'wheel balancer', None, 'Autos y motos', 'Gatos y herramientas para auto', {'Autos'}),
+    ('Autos y motos', r'linea vida', None, 'Herramientas', 'Seguridad industrial', {'Autos'}),
+    ('Autos y motos', r'dog ramp', None, 'Mascotas', 'Camas elevadas y colchonetas', {'Autos'}),
+    ('Autos y motos', r'food stall|dining car', None, 'Equipo comercial', 'Carros de servicio', {'Autos'}),
+    ('Autos y motos', r'individuales de silicona', None, 'Cocina y comedor', 'Manteles y caminos de mesa', {'Autos'}),
+    ('Autos y motos', r'melissa.*(sketch|drawing|paper|pad)|guias oxford', None, 'Papelería y oficina', 'Organización', {'Autos'}),
+    ('Autos y motos', r'melissa', None, 'Juguetes', 'Vehículos de juguete', {'Autos'}),
+    ('Autos y motos', r'pendant|hanging ornament|correas de amarre|reloj de coche', None, 'Autos y motos', 'Accesorios para auto', {'Autos'}),
+    # Autopartes / Para autos
+    ('Autopartes', r'^tenis', None, 'Calzado', 'Tenis para hombre', {'Para autos'}),
+    ('Autopartes', r'^maleta herramienta cars', None, 'Juguetes', 'Otros', {'Para autos'}),
+    ('Autopartes', r'^flotador tanque', None, 'Autopartes', 'Bombas de gasolina', {'Para autos'}),
+    ('Autopartes', r'^peso adhesivo para rueda', None, 'Autos y motos', 'Cámaras y accesorios de llanta', {'Para autos'}),
+    ('Autopartes', r'^reflector petromax', None, 'Iluminación', 'Lámparas de emergencia', {'Para autos'}),
+    # Bebés / Juguetes para bebé
+    ('Bebés', r'pezon|pezones|tapones? para yogur', None, 'Bebés', 'Alimentación y lactancia', {'Juguetes para bebé'}),
+    ('Bebés', r'^cuna', None, 'Bebés', 'Cunas', {'Juguetes para bebé'}),
+    ('Bebés', r'^bata', None, 'Bebés', 'Ropa y calzado de bebé', {'Juguetes para bebé'}),
+    ('Bebés', r'portachupetes', None, 'Bebés', 'Chupones y mordederas', {'Juguetes para bebé'}),
+    ('Bebés', r'agua limpiadora|area del panal', None, 'Bebés', 'Baño e higiene del bebé', {'Juguetes para bebé'}),
+    ('Bebés', r'almohadilla de cambio|cambiador', None, 'Bebés', 'Pañales y cambio', {'Juguetes para bebé'}),
+    ('Bebés', r'squishy', None, 'Juguetes', 'Juguetes antiestrés', {'Juguetes para bebé'}),
+    # Herramientas / Herramientas eléctricas
+    ('Herramientas', r'^(mini )?soldadora', None, 'Herramientas', 'Soldadoras', {'Herramientas eléctricas'}),
+    ('Herramientas', r'^electrodo', None, 'Herramientas', 'Consumibles de soldadura', {'Herramientas eléctricas'}),
+    ('Herramientas', r'^cortapelos', None, 'Belleza y cuidado personal', 'Cortadoras de cabello', {'Herramientas eléctricas'}),
+    ('Herramientas', r'^destornillador', None, 'Herramientas', 'Atornilladores', {'Herramientas eléctricas'}),
+    ('Herramientas', r'^termofusor|barrena de desague', None, 'Herramientas', 'Plomería', {'Herramientas eléctricas'}),
+    ('Herramientas', r'^disco abrasivo', None, 'Herramientas', 'Discos de corte y desbaste', {'Herramientas eléctricas'}),
+    ('Herramientas', r'^mezcladora electrica', None, 'Herramientas', 'Construcción', {'Herramientas eléctricas'}),
+    ('Herramientas', r'^cepillo de banco', None, 'Herramientas', 'Herramientas de banco', {'Herramientas eléctricas'}),
+    ('Herramientas', r'^motor a gasolina', None, 'Herramientas', 'Generadores', {'Herramientas eléctricas'}),
+    ('Herramientas', r'^rampa', None, 'Autos y motos', 'Gatos y herramientas para auto', {'Herramientas eléctricas'}),
+]
+REGLAS += LOTES['auditoria_8']
+
+# ---- Lote auditoría 9 (27-sep-2026): perfumes y sets de perfume fuera de lugar ----
+# «Set de eau de parfum X + body lotion» caía en Cremas corporales (100),
+# Desodorantes (47), Jabones (18) por la segunda pieza del set.
+_B_NO_PERF = {'Cremas y lociones corporales', 'Desodorantes', 'Jabones y geles de baño', 'Corporales', 'Shampoo',
+              'Cremas faciales', 'Bases de maquillaje', 'Uñas', 'Rasuradoras'}
+_PERF = r'\b(edp|edt|eau de (parfum|toilette|cologne))\b'
+LOTES['auditoria_9'] = [
+    ('Belleza y cuidado personal', _PERF + r'.*(\bset\b|\+|\d ?pzs|piezas|kit|gift set|juego)|(^(set|kit|z\d set)\b|juego de regalo|gift set|set de regalo|\d piezas|\d ?pzs).*' + _PERF, r'recubrimiento',
+     'Belleza y cuidado personal', 'Sets de perfume', _B_NO_PERF),
+    ('Belleza y cuidado personal', _PERF, r'recubrimiento', 'Belleza y cuidado personal', 'Perfumes', _B_NO_PERF),
+    ('Videojuegos', r'escada .*\bedt\b', None, 'Belleza y cuidado personal', 'Perfumes para mujer', None),
+    ('Juguetes', _PERF + r'.*spray|spray.*' + _PERF, None, 'Belleza y cuidado personal', 'Perfumes', None),
+    ('Belleza y cuidado personal', r'body mist|rocio fragante|fragrance mist|\bsplash\b', None, 'Belleza y cuidado personal', 'Body mist y splash', {'Corporales', 'Cremas y lociones corporales'}),
+    # Deportes / Equipo de gimnasio
+    ('Deportes y fitness', r'^(trotadora|caminadora)', None, 'Deportes y fitness', 'Caminadoras', {'Equipo de gimnasio'}),
+    ('Deportes y fitness', r'eliptic', None, 'Deportes y fitness', 'Elípticas', {'Equipo de gimnasio'}),
+    ('Deportes y fitness', r'banco (de )?pesas', None, 'Deportes y fitness', 'Bancos y racks', {'Equipo de gimnasio'}),
+    ('Deportes y fitness', r'disco bumper|barra (crossfit|olimpica)', None, 'Deportes y fitness', 'Barras y discos', {'Equipo de gimnasio'}),
+    ('Deportes y fitness', r'massager|masajeador', None, 'Belleza y cuidado personal', 'Masajeadores', {'Equipo de gimnasio'}),
+    # Herramientas / Jardinería
+    ('Herramientas', r'^pistola (de gravedad para pintar|para sopletear)', None, 'Herramientas', 'Compresores y herramienta neumática', {'Jardinería'}),
+    ('Herramientas', r'^pistola lavadora', None, 'Herramientas', 'Hidrolavadoras', {'Jardinería'}),
+    ('Herramientas', r'^trituradora de papel', None, 'Papelería y oficina', 'Organización', {'Jardinería'}),
+    ('Herramientas', r'^control automatico para bomba', None, 'Herramientas', 'Bombas de agua', {'Jardinería'}),
+    ('Herramientas', r'para mascotas', None, 'Mascotas', 'Higiene y limpieza', {'Jardinería'}),
+]
+REGLAS += LOTES['auditoria_9']
+
+# ---- Lote auditoría 10 (27-sep-2026): palabras de dos sentidos ----
+LOTES['auditoria_10'] = [
+    # «Llave» de agua entre las llaves de herramienta (170)
+    ('Herramientas', r'^(paquete|kit)\b.*lavabo', None, 'Herramientas', 'Lavabos', {'Llaves y dados'}),
+    ('Herramientas', r'llave (mezcladora|monomando|de (lavabo|fregadero|tarja|cocina|regadera)|para (lavabo|fregadero|tarja|cocina|regadera))|grifo|monomando|nariz abajo', None,
+     'Herramientas', 'Grifos y monomandos', {'Llaves y dados'}),
+    ('Herramientas', r'empaques de hule para manguera', None, 'Herramientas', 'Plomería', {'Llaves y dados'}),
+    # «Apta para lavavajillas» entre los lavavajillas
+    ('Electrodomésticos', r'^(\S+ ){0,3}olla de coccion lenta|^olla', r'^lavavajilla', 'Electrodomésticos', 'Arroceras y ollas multiusos', {'Lavavajillas'}),
+    ('Electrodomésticos', r'freidora de aire', r'^lavavajilla', 'Electrodomésticos', 'Freidoras de aire', {'Lavavajillas'}),
+    ('Electrodomésticos', r'^pinzas', None, 'Cocina y comedor', 'Utensilios de cocina', {'Lavavajillas'}),
+    # «Mandolina» de cocina entre los instrumentos; «batería» que no es de tambores
+    ('Instrumentos musicales', r'^cortadora de mandolina|rebanadora', None, 'Cocina y comedor', 'Utensilios de cocina', None),
+    ('Instrumentos musicales', r'^raqueta electronica exterminadora', None, 'Electrodomésticos', 'Control de plagas y mosquitos', None),
+    ('Instrumentos musicales', r'^pistola de masaje', None, 'Belleza y cuidado personal', 'Masajeadores', None),
+    ('Instrumentos musicales', r'cuatrimoto montable', None, 'Juguetes', 'Montables', None),
+    ('Instrumentos musicales', r'^unidad de tambor', None, 'Impresoras', 'Consumibles', None),
+    ('Instrumentos musicales', r'telescopio', None, 'Cámaras y fotografía', 'Binoculares', None),
+    ('Instrumentos musicales', r'baterias? de cocina|bateria cocina|bateria \d+ piezas de cocina', None, 'Cocina y comedor', 'Baterías de cocina', None),
+    ('Instrumentos musicales', r'montable|carrito', None, 'Juguetes', 'Montables', {'Baterías acústicas', 'Baterías', 'Baterías electrónicas'}),
+    ('Instrumentos musicales', r'add-a-battery', None, 'Autos y motos', 'Arrancadores y cargadores de batería', None),
+    ('Mascotas', r'high monaco|catneck', None, 'Joyería y bisutería', 'Collares', {'Collares para mascotas'}),
+    ('Herramientas', r'^arenero', None, 'Mascotas', 'Areneros', None),
+    ('Herramientas', r'^sierra (de mesa|cortadora)', None, 'Herramientas', 'Sierras', {'Seguridad industrial', 'Neumáticas'}),
+    ('Herramientas', r'^motosierra', None, 'Herramientas', 'Motosierras', {'Sierras'}),
+    ('Mascotas', r'crema de cacahuete|polvo probiotico', None, 'Mascotas', 'Alimento y premios', {'Juguetes para perro'}),
+    ('Mascotas', r'^colcha', None, 'Mascotas', 'Cojines y mantas para mascotas', {'Juguetes para perro'}),
+    ('Deportes y fitness', r'^barco de pesca', None, 'Deportes y fitness', 'Pesca', None),
+    ('Bebés', r'^tope de puerta|^bloqueador de puertas', None, 'Bebés', 'Seguridad para bebé', {'Juguetes para bebé'}),
+    ('Bebés', r'panos para eructos', None, 'Bebés', 'Alimentación y lactancia', {'Juguetes para bebé'}),
+    ('Autos y motos', r'^cabeza cilindro', None, 'Autopartes', 'Motor, carburación y escape de moto', {'Motocicletas'}),
+    ('Autos y motos', r'^jgo punos', None, 'Autopartes', 'Manubrios, espejos y controles', {'Motocicletas'}),
+    ('Autos y motos', r'bandana|balaclava|pasamontanas', None, 'Autos y motos', 'Ropa para motociclista', {'Motocicletas'}),
+    ('Electrodomésticos', r'plancha .*(cabello|pelo)|secadora plancha pelo', None, 'Belleza y cuidado personal', 'Planchas para cabello', {'Planchas', 'Refacciones para lavadora y secadora'}),
+    ('Instrumentos musicales', r'budismo|atencion plena', None, 'Libros', 'Religión y espiritualidad', None),
+    ('Instrumentos musicales', r'(instrumentos musicales|instrumento musical electronico).*(ninos|baby|infantil|montessori|bebe|toddler|pequenos)|sonaja|memopares|baby toy',
+     None, 'Juguetes', 'Juguetes musicales', {'Percusión', 'Teclados electrónicos', 'Baterías acústicas'}),
+]
+REGLAS += LOTES['auditoria_10']
