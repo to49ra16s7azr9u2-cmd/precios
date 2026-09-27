@@ -12362,15 +12362,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $460",
-      "max": 460
+      "spec": "Hasta $450",
+      "max": 450
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$460 a $720",
-      "min": 460,
+      "spec": "$450 a $720",
+      "min": 450,
       "max": 720
      },
      {
@@ -12703,16 +12703,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$220 a $530",
+      "spec": "$220 a $520",
       "min": 220,
-      "max": 530
+      "max": 520
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $530",
-      "min": 530
+      "spec": "Más de $520",
+      "min": 520
      }
     ]
    }
@@ -12894,15 +12894,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $820",
-      "max": 820
+      "spec": "Hasta $840",
+      "max": 840
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$820 a $1,650",
-      "min": 820,
+      "spec": "$840 a $1,650",
+      "min": 840,
       "max": 1650
      },
      {
@@ -16347,41 +16347,6 @@
    }
   ]
  },
- "Muebles/Libreros": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,600",
-      "max": 1600
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,600 a $2,950",
-      "min": 1600,
-      "max": 2950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
-     }
-    ]
-   }
-  ]
- },
  "Muebles/Otros": {
   "axes": [
    {
@@ -16517,6 +16482,41 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,400",
       "min": 1400
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Libreros": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,600",
+      "max": 1600
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,600 a $2,950",
+      "min": 1600,
+      "max": 2950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,950",
+      "min": 2950
      }
     ]
    }
@@ -17499,16 +17499,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,450 a $3,400",
+      "spec": "$1,450 a $3,450",
       "min": 1450,
-      "max": 3400
+      "max": 3450
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,400",
-      "min": 3400
+      "spec": "Más de $3,450",
+      "min": 3450
      }
     ]
    }
@@ -22219,15 +22219,6 @@
       "values": [
        "Niño"
       ]
-     },
-     {
-      "id": "nina",
-      "name": "Niña",
-      "use": "",
-      "spec": "Niña",
-      "values": [
-       "Niña"
-      ]
      }
     ],
     "key": "level"
@@ -22250,16 +22241,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$280 a $570",
+      "spec": "$280 a $590",
       "min": 280,
-      "max": 570
+      "max": 590
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $570",
-      "min": 570
+      "spec": "Más de $590",
+      "min": 590
      }
     ]
    }
@@ -29206,16 +29197,16 @@
       "id": "rapida",
       "name": "Rápida",
       "use": "Carga rápida de teléfono y tablet",
-      "spec": "16 W a 22 W",
+      "spec": "16 W a 20 W",
       "min": 15,
-      "max": 22
+      "max": 20
      },
      {
       "id": "muy-rapida",
       "name": "Muy rápida",
       "use": "Laptop o varios equipos",
-      "spec": "Más de 22 W",
-      "min": 22
+      "spec": "Más de 20 W",
+      "min": 20
      }
     ],
     "key": "level"
@@ -38149,15 +38140,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,500",
-      "max": 1500
+      "spec": "Hasta $1,450",
+      "max": 1450
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,500 a $2,050",
-      "min": 1500,
+      "spec": "$1,450 a $2,050",
+      "min": 1450,
       "max": 2050
      },
      {
@@ -39508,7 +39499,7 @@
    }
   ]
  },
- "Cargadores y adaptadores/Regletas y multicontactos": {
+ "Cargadores y adaptadores/Cable": {
   "axes": [
    {
     "key": "size",
@@ -39521,23 +39512,58 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $450",
-      "max": 450
+      "spec": "Hasta $310",
+      "max": 310
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$450 a $860",
-      "min": 450,
-      "max": 860
+      "spec": "$310 a $540",
+      "min": 310,
+      "max": 540
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $860",
-      "min": 860
+      "spec": "Más de $540",
+      "min": 540
+     }
+    ]
+   }
+  ]
+ },
+ "Cargadores y adaptadores/Otros": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $420",
+      "max": 420
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$420 a $690",
+      "min": 420,
+      "max": 690
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $690",
+      "min": 690
      }
     ]
    }
@@ -39573,6 +39599,41 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $670",
       "min": 670
+     }
+    ]
+   }
+  ]
+ },
+ "Cargadores y adaptadores/Adaptador de corriente": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $890",
+      "min": 540,
+      "max": 890
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $890",
+      "min": 890
      }
     ]
    }
@@ -39626,29 +39687,29 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $630",
-      "max": 630
+      "spec": "Hasta $640",
+      "max": 640
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$630 a $1,050",
-      "min": 630,
-      "max": 1050
+      "spec": "$640 a $1,100",
+      "min": 640,
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
   ]
  },
- "Cargadores y adaptadores/Adaptador de corriente": {
+ "Cargadores y adaptadores/Base de carga": {
   "axes": [
    {
     "key": "size",
@@ -39661,128 +39722,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $400",
-      "max": 400
+      "spec": "Hasta $980",
+      "max": 980
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$400 a $700",
-      "min": 400,
-      "max": 700
+      "spec": "$980 a $1,350",
+      "min": 980,
+      "max": 1350
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cables y adaptadores de video": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $340",
-      "max": 340
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$340 a $620",
-      "min": 340,
-      "max": 620
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $620",
-      "min": 620
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cable": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $350",
-      "max": 350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$350 a $590",
-      "min": 350,
-      "max": 590
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $590",
-      "min": 590
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cargadores para reloj y accesorios pequeños": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $550",
-      "max": 550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$550 a $940",
-      "min": 550,
-      "max": 940
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $940",
-      "min": 940
+      "spec": "Más de $1,350",
+      "min": 1350
      }
     ]
    }
@@ -39808,296 +39764,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$290 a $580",
+      "spec": "$290 a $660",
       "min": 290,
-      "max": 580
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $580",
-      "min": 580
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cargadores multipuerto y estaciones de carga": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $650",
-      "max": 650
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$650 a $1,050",
-      "min": 650,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cables Lightning": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $300",
-      "max": 300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$300 a $510",
-      "min": 300,
-      "max": 510
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $510",
-      "min": 510
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cargadores para reloj y gadgets": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $550",
-      "max": 550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$550 a $970",
-      "min": 550,
-      "max": 970
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $970",
-      "min": 970
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Base de carga": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,000 a $1,350",
-      "min": 1000,
-      "max": 1350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,350",
-      "min": 1350
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cables USB-C": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $310",
-      "max": 310
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$310 a $520",
-      "min": 310,
-      "max": 520
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $520",
-      "min": 520
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Adaptadores de enchufe y de viaje": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $660",
       "max": 660
      },
      {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$660 a $1,000",
-      "min": 660,
-      "max": 1000
-     },
-     {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,000",
-      "min": 1000
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cables multiconector": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$430 a $510",
-      "min": 430,
-      "max": 510
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $510",
-      "min": 510
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cables micro USB": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $160",
-      "max": 160
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$160 a $350",
-      "min": 160,
-      "max": 350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $350",
-      "min": 350
+      "spec": "Más de $660",
+      "min": 660
      }
     ]
    }
@@ -41193,16 +40869,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$970 a $1,600",
+      "spec": "$970 a $1,650",
       "min": 970,
-      "max": 1600
+      "max": 1650
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,600",
-      "min": 1600
+      "spec": "Más de $1,650",
+      "min": 1650
      }
     ]
    }
@@ -51722,16 +51398,16 @@
       "id": "rapida",
       "name": "Rápida",
       "use": "Carga rápida de teléfono y tablet",
-      "spec": "21 W a 46 W",
+      "spec": "21 W a 45 W",
       "min": 20,
-      "max": 46
+      "max": 45
      },
      {
       "id": "muy-rapida",
       "name": "Muy rápida",
       "use": "Laptop o varios equipos",
-      "spec": "Más de 46 W",
-      "min": 46
+      "spec": "Más de 45 W",
+      "min": 45
      }
     ],
     "key": "level"
@@ -51747,23 +51423,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $610",
-      "max": 610
+      "spec": "Hasta $620",
+      "max": 620
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$610 a $1,150",
-      "min": 610,
-      "max": 1150
+      "spec": "$620 a $1,100",
+      "min": 620,
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -52478,23 +52154,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
+      "spec": "Hasta $420",
+      "max": 420
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$430 a $740",
-      "min": 430,
-      "max": 740
+      "spec": "$420 a $730",
+      "min": 420,
+      "max": 730
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $740",
-      "min": 740
+      "spec": "Más de $730",
+      "min": 730
      }
     ]
    }
