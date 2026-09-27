@@ -2587,6 +2587,162 @@ LOTES['camas'] = [
 ]
 REGLAS += LOTES['camas']
 
+# ---- Lote celulares ajenos (27-sep-2026, avisado por el usuario con capturas) ----
+# 145 bastones y muletas vivían en Celulares: «Bastón plegable» caía en
+# «Plegables», «resistente» en «Resistentes», «para personas mayores» en
+# «Básicos» (los celulares para adultos mayores). Junto a ellos, gatillos para
+# jugar en el celular, un rompecabezas para personas con demencia, y en
+# «iPhone» tripiés, lentes de clip y aros de luz «for iPhone». Se decide por
+# la CABEZA del nombre (lo que la cosa es), nunca por la compatibilidad.
+_CEL_TELEFONOS = r'\b(\d{2,4} ?gb|smartphone|celular (libre|desbloqueado)|dual sim|android 1\d)\b'
+LOTES['celulares_ajenos'] = [
+    ('Celulares', _P + r'(\S+ ){0,2}(baston(es)?|muletas?|andaderas?|walker)\b',
+     r'selfie|tripode|tripie|popsocket|\bgrip\b|\bpalo\b', 'Salud', 'Andaderas, bastones y muletas', None),
+    ('Celulares', _P + r'(\S+ ){0,3}(gatillos?|gamepad|joysticks?)\b|^control (de juego|recargable|gamepad)|\bkishi\b',
+     _CEL_TELEFONOS + r'|gaming kit', 'Videojuegos', 'Controles para PC y celular', None),
+    ('Celulares', _P + r'(\S+ ){0,2}(puzzles?|rompecabezas)\b', None, 'Juegos de mesa', 'Rompecabezas', None),
+    ('Celulares', _P + r'(\S+ ){0,1}micas?\b', _CEL_TELEFONOS, 'Celulares', 'Micas para celular',
+     {'Android', 'iPhone', 'Básicos', 'Resistentes', 'Plegables', 'Reacondicionados', None}),
+    ('Celulares', r'\b(tripod|tripode|tripie|ring ?light|aro de luz|selfie stick)\b', _CEL_TELEFONOS,
+     'Celulares', 'Tripiés y palos selfie', {'Android', 'iPhone', 'Básicos', 'Resistentes', 'Plegables', None}),
+    ('Celulares', r'\b(fisheye|fish eye|lens|lente (gran angular|macro|ojo de pez)|cpl filter|video rig|camera cage)\b',
+     _CEL_TELEFONOS, 'Cámaras y fotografía', 'Lentes', {'Android', 'iPhone', 'Básicos', None}),
+    ('Celulares', r'^(\S+ ){0,2}(cortador|recortadora|maquina de cortar)\b|\bwahl\b', None,
+     'Belleza y cuidado personal', 'Cortadoras de cabello', None),
+    ('Celulares', r'aumento para (wc|inodoro)|alcance de aluminio|\bpinza de alcance|elevador de (wc|inodoro)', None,
+     'Salud', 'Movilidad y apoyo', None),
+]
+REGLAS += LOTES['celulares_ajenos']
+
+# ---- Lote laptops y tabletas ajenas (27-sep-2026, capturas del usuario) ----
+# «Tableta» es también la pastilla: cloro para alberca, antipulgas, antiácido,
+# desincrustante para cafetera. Y «para laptop» / «portátil» traían baterías,
+# mochilas, licencias de Office, consolas portátiles y hasta bates («bate» leído
+# como batería).
+_EQUIPO = r'\b(\d{1,3} ?gb|ram|ssd|core i\d|core ultra|ryzen|celeron|intel n\d|android|ipados|windows 1\d (home|pro)\b.*\d ?gb)'
+LOTES['tabletas_laptops_ajenas'] = [
+    ('Tabletas', r'tricloro|\bcloro\b|clorador|chlorine|bromantes?|alberca|piscina|\bpool\b|\bspa essentials', _EQUIPO,
+     'Jardín y exterior', 'Albercas e inflables', None),
+    ('Tabletas', r'desincrustante|cafiza|dezcal|descalcific|limpieza (de )?maquina|limpiadora de cafetera', None,
+     'Limpieza y hogar', 'Limpiadores y desinfectantes', None),
+    ('Tabletas', r'bravecto|nexgard|simparica|pulgas|garrapatas|desparasit', None,
+     'Mascotas', 'Higiene y limpieza', None),
+    ('Tabletas', r'tableta (de|para el) aprendizaje|tablet de aprendizaje|\baprende\b|cocomelon|lexibook|hahaland|'
+                 r'\bdidactic|\bjuguete', _EQUIPO + r'|\bfire\b|kids one', 'Juguetes', 'Juguetes educativos', None),
+    ('Tabletas', r'^reloj\b', None, 'Relojes inteligentes', 'Smartwatches', None),
+    ('Tabletas', r'^procesador\b', None, 'Componentes y accesorios de PC', 'Procesadores', None),
+    ('Laptops', _P + r'(\S+ ){0,2}bateria\b', _EQUIPO, 'Componentes y accesorios de PC', 'Baterías para laptop', None),
+    ('Laptops', r'^(\S+ ){0,2}(mochila|backpack|portafolios?|maletin|bolsa|funda|estuche)\b|laptop (ba|backpack)\b', _EQUIPO,
+     'Bolsas y mochilas', 'Mochilas para laptop', None),
+    ('Laptops', r'\boffice (365|home|hogar|professional|2\d{3})|licencia|antivirus|absolute home|microsoft 365', _EQUIPO,
+     'Componentes y accesorios de PC', 'Software y licencias', None),
+    ('Laptops', r'^consola\b', None, 'Videojuegos', 'Consolas retro y portátiles', None),
+    ('Laptops', r'^(mini ?)?proyector|^miniproyector', None, 'Proyectores y accesorios', 'Proyectores', None),
+    ('Laptops', r'^bate de (beisbol|softbol)', None, 'Deportes y fitness', 'Béisbol y softbol', None),
+    ('Laptops', r'^triturador', None, 'Papelería y oficina', 'Artículos de oficina', None),
+    ('Laptops', r'^tarjeta de video', None, 'Componentes y accesorios de PC', 'Tarjetas de video', None),
+    ('Laptops', r'\bcharger\b|^cargador', _EQUIPO, 'Cargadores y adaptadores', 'Para laptop', None),
+]
+REGLAS += LOTES['tabletas_laptops_ajenas']
+
+# ---- Lote teclados y mouse ajenos (27-sep-2026, capturas del usuario) ----
+# «Teclado» es también el instrumento (controladores MIDI de 49/61/88 teclas)
+# y «Mouse» es también Minnie y Mickey. El mousepad y el mouse inalámbrico
+# tenían subcategoría propia y estaban en «Con cable».
+_MOUSE_EQUIPO = r'\b(inalambric|optico|dpi|usb|bluetooth|gamer|ergonomic|raton|rgb)'
+LOTES['teclados_mouse_ajenos'] = [
+    ('Teclados', r'\bpiano\b|\bp-\d{2,3}', r'mecanico|gam(er|ing)|switch|\brgb\b|\d ?%',
+     'Instrumentos musicales', 'Pianos digitales', None),
+    ('Teclados', r'komplete kontrol|\bmidi\b|numa compact|\bkeylab\b|launchkey|\bakai\b|\bkorg\b|'
+                 r'\b(25|32|37|49|61|76|88) teclas\b|teclado (controlador|maestro|musical)|controlador portatil',
+     r'mecanico|gam(er|ing)|switch|\brgb\b|\d ?%|numerico', 'Instrumentos musicales', 'Sintetizadores y controladores MIDI', None),
+    ('Mouse', r'\b(minnie|mickey) mouse\b.*|bright starts', _MOUSE_EQUIPO + r'|\bpad\b|^(\S+ ){0,2}(figura|peluche)|\bllaves?\b',
+     'Bebés', 'Juguetes para bebé', None),
+    ('Mouse', r'^(\S+ ){0,2}(figura|peluche|muneca|disfraz|juguete)\b', _MOUSE_EQUIPO + r'|\bpad\b|descansa|reposa|trackpad',
+     'Juguetes', 'Figuras de acción', None),
+    ('Mouse', r'\bmouse ?pads?\b|\bpad (antideslizante|para mouse|de mouse)|^(\S+ ){0,2}(tapete|alfombrilla)\b',
+     r'\bcon mouse\b|\by mouse\b|\+ ?mouse|touchpad|trackpad|\bkit\b|bundle|teclado|\bcombo\b',
+     'Mouse', 'Mousepads y tapetes',
+     {'Inalámbricos', 'Con cable', 'Gaming inalámbricos', 'Gaming con cable', 'Verticales y ergonómicos', None}),
+    ('Mouse', r'inalambric|bluetooth|\b2\.4 ?g\b|wireless', r'con cable|alambrico|\bwired\b|cable usb|\bpad\b',
+     'Mouse', 'Inalámbricos', {'Con cable'}),
+    ('Mouse', r'inalambric|bluetooth|\b2\.4 ?g\b|wireless', r'con cable|alambrico|\bwired\b|cable usb|\bpad\b',
+     'Mouse', 'Gaming inalámbricos', {'Gaming con cable'}),
+]
+REGLAS += LOTES['teclados_mouse_ajenos']
+
+# ---- Lote almacenamiento ajeno (27-sep-2026, capturas del usuario) ----
+# Gabinetes, cajas, cables SATA-USB y kits de montaje estaban repartidos entre
+# los discos (tienen «disco duro», «ssd» y «USB 3.0» en el nombre, pero son
+# el accesorio). «WD» es Western Digital y también WD-40 y las aspiradoras
+# Kärcher WD 1; «estado sólido» atrapó un libro («He estado pensando»).
+_GABINETE = (r'^(\S+ ){0,3}(gabinete|carcasa|carcaza|caja|case|cofre|enclosure|estacion|bahia|base|quickdock|docking|dock|'
+             r'convertidor|cable adaptador|adaptador|kit (de )?montaje|bracket|tarjeta adaptadora)\b|\bcubro\b')
+LOTES['almacenamiento_ajeno'] = [
+    ('Almacenamiento', _GABINETE, r'(con|incluye|c/|mas|\+) ?adaptador|^(\S+ ){0,2}(memoria|tarjeta (de memoria|micro))',
+     'Almacenamiento', 'Gabinetes y docks para disco',
+     {'SSD NVMe M.2', 'SSD SATA', 'Discos duros internos', 'SSD externos', 'Discos duros externos', 'Memorias USB', 'NAS', None}),
+] + [(c, r'\bwd-?40\b|aflojatodo|lubricante multiusos', None, 'Herramientas', 'Lubricantes y aflojatodo', None)
+     for c in ('Almacenamiento', 'Aspiradoras', 'Herramientas', 'Autopartes', 'Limpieza y hogar')] + [
+    # Las Koblenz WD-402/405 de 3 galones son de seco y húmedo, no de escoba.
+    ('Aspiradoras', r'seco (y )?mojado|seco (y )?humedo|\b\d+(\.\d+)? ?gal(ones)?\b|koblenz wd-?40\d',
+     r'escoba|vertical|stick|inalambrica de mano', 'Aspiradoras', 'Seco y húmedo', {'Verticales y de escoba'}),
+]
+REGLAS += LOTES['almacenamiento_ajeno']
+
+# ---- Lote lavadoras (27-sep-2026, capturas del usuario) ----
+# «Washer» traducido como «lavadora»: la arandela plana de zinc Hillman y el
+# empaque de manguera Danco. Y en la lista de lavadoras estaban sus
+# refacciones (tarjetas, electroválvulas, transmisiones), centrifugadoras de
+# lechuga, un secador de tenis y un lavapatas de perro. Las lavadoras
+# portátiles (cubeta plegable, mini, de émbolo) tienen su subcategoría.
+# El orden importa: gana la primera regla que calza.
+_LAV_PARTE = (r'^(\S+ ){0,1}(transmision|tuerca|flecha|bomba|motor|capacitor|banda|polea|chumacera|balero|sello|'
+              r'empaque|perilla|switch|sensor|refaccion|kit)\b')
+LOTES['lavadoras'] = [
+    ('Lavadoras', r'lavadoras? (plana|de manguera|de mangueras|de ducha)|\bwashers?\b|arandela plana|hillman', r'\bkit\b',
+     'Herramientas', 'Plomería', None),
+    ('Lavadoras', r'patas de perro|para (perros?|mascotas?)', r'\bciclo\b|\b\d+ ?(kg|kgs|kilos)\b',
+     'Mascotas', 'Higiene y limpieza', None),
+    ('Lavadoras', r'centrifugadora de (ensalada|lechuga|verdura)|escurridor|\blechuga\b', None,
+     'Cocina y comedor', 'Utensilios de cocina', None),
+    ('Lavadoras', r'secadora de (zapatos|tenis|calzado)', None,
+     'Electrodomésticos', 'Limpieza del hogar y lavandería', None),
+    ('Lavadoras', r'^(\S+ ){0,2}tarjeta\b|\bpcb\b', None, 'Electrodomésticos', 'Tarjetas para lavadora y secadora', None),
+    ('Lavadoras', r'electrovalvula|\bvalvula\b|entrada de agua', None,
+     'Electrodomésticos', 'Válvulas para lavadora y secadora', None),
+    ('Lavadoras', r'^(\S+ ){0,2}llave\b', None, 'Herramientas', 'Plomería', None),
+    ('Lavadoras', _LAV_PARTE, r'^(combo )?(lavadora|secadora|lavasecadora|centro de lavado)\b|^kit (lavadora|lavasecadora|secadora)\b.*\b\d+ ?(kg|kgs)\b',
+     'Electrodomésticos', 'Refacciones para lavadora y secadora',
+     {'Carga superior', 'Carga frontal', 'Semiautomáticas', 'Lavasecadoras', 'Secadoras', 'Centros de lavado', 'Automáticas', None}),
+    ('Lavadoras', r'portatil|mini lavadora|plegable|cubeta|lavadora (movil|manual)|respiracion|agitador de ropa|embolo',
+     r'secadora|lavasecadora', 'Lavadoras', 'Portátiles',
+     {'Carga superior', 'Carga frontal', 'Semiautomáticas', 'Automáticas', None}),
+]
+REGLAS += LOTES['lavadoras']
+
+# ---- Lote impresoras (27-sep-2026, capturas del usuario) ----
+# En «Inyección de tinta» estaban sus consumibles: tintas en botella, cajas de
+# mantenimiento, papel, cintas, rollos de fax, rodillos. Y una impresora de
+# tickets de 58 mm («IMP-58», térmica aunque el título diga «inyección»).
+# Se decide por la cabeza del nombre; el combo «impresora + tintas» se queda.
+_IMP_ORIGEN = {'Láser', 'Inyección de tinta', 'Térmica', 'Fotográficas', None}
+_IMP_EQUIPO = r'^(\S+ ){0,1}(combo |kit |set )?(impresoras?|multifuncional)\b'
+LOTES['impresoras'] = [
+    ('Impresoras', r'^(\S+ ){0,3}(papel|hojas|caja de papel|resma)\b', _IMP_EQUIPO + r'|termic[oa]|\brollos?\b',
+     'Papelería y oficina', 'Papel y sobres', _IMP_ORIGEN),
+    ('Impresoras', r'^(\S+ ){0,3}(rollos?|cintas?|ribbon|caja de mantenimiento|tanque de mantenimiento|almohadillas?)\b|'
+                   r'(caja|tanque) de mantenimiento', _IMP_EQUIPO, 'Impresoras', 'Consumibles', _IMP_ORIGEN),
+    ('Impresoras', r'^(\S+ ){0,3}(tintas?|cartuchos?)\b', _IMP_EQUIPO, 'Impresoras', 'Cartuchos de tinta', _IMP_ORIGEN),
+    ('Impresoras', r'^(\S+ ){0,2}toner\b', _IMP_EQUIPO, 'Impresoras', 'Tóner', _IMP_ORIGEN),
+    ('Impresoras', r'^(\S+ ){0,2}cabezal(es)?\b', _IMP_EQUIPO, 'Impresoras', 'Cabezales para impresora', _IMP_ORIGEN),
+    ('Impresoras', r'^(\S+ ){0,2}(rodillo|engrane|engranaje|fusor|unidad de imagen|tarjeta logica|refacci)', _IMP_EQUIPO,
+     'Impresoras', 'Cabezales y refacciones de impresión', _IMP_ORIGEN),
+    ('Impresoras', r'\bimp-?58\b|\b(58|80) ?mm\b|de tickets?\b|punto de venta|termica', r'\brollos?\b|papel|transferencia termica|selphy|\bfotos?\b',
+     'Impresoras', 'Térmica', {'Láser', 'Inyección de tinta', None}),
+]
+REGLAS += LOTES['impresoras']
+
 
 if __name__ == '__main__':
     main()

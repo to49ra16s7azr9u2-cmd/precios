@@ -645,7 +645,7 @@ _TIPOS_CRUDOS = {
  ("Deportes y fitness","Equipo de gimnasio"): [("Accesorios", r"\bguantes\b|\bcinturon\b|\bcuerda\b|\bbanda|\bcorrea\b|\bagarre|\bmuneque|\brodiller"),("Banco y soportes", r"\bbanco\b|\bsoporte\b|\brack\b|\btorre\b|\bestante"),("Máquinas", r"\bmaquina\b|\bmultigimnasio\b|\bpolea\b|\bprensa\b|\bremo\b|\beliptica\b|\bcaminadora\b|\bescaladora\b"),("Peso libre", r"\bmancuerna|\bbarra\b|\bdisco|\bpesas?\b|kettlebell"),("Calistenia", r"\bdominadas\b|\bparalelas\b|\bbarra fija\b|\banillas\b|\bfondos\b|\babdominal")],
  ("Belleza y cuidado personal","Rasuradoras"): [("Para barba", r"\bbarba\b|\brostro\b|facial|\bpatilla"),("Para cabello", r"\bcabello\b|\bpelo\b|\bcorte\b|\bmaquina de cortar\b|\bclipper\b"),("Corporal o depilación", r"\bcorporal\b|\bcuerpo\b|\bdepila|\bingle\b|\bpiernas\b|\baxila"),("Repuestos y accesorios", r"\brepuesto|\bcuchilla|\bcabezal|\bpeine\b|\baceite\b|\bcargador\b")],
  ("Otros","Soportes para dispositivos"): [("Para celular", r"celular|telefono|smartphone|\bmovil\b"),("Para tablet", r"tablet|tableta|\bipad\b"),("Para laptop", r"laptop|portatil|notebook|macbook"),("Para monitor o TV", r"monitor|\btv\b|television|pantalla"),("Para auto", r"\bauto\b|\bcoche\b|\bcarro\b|\brejilla\b|\bparabrisas\b|\bsalpicadero\b")],
- ("Teclados","Mecánicos"): [("Con cable", r"\bcable\b|alambric|\busb\b(?!.*inalambric)"),("Inalámbrico", r"inalambric|bluetooth|\b2\.4 ?g\b|\bwireless\b"),("Teclado numérico o compacto", r"\b60%|\b65%|\b75%|\btkl\b|compacto|numerico|\bnumpad\b"),("Accesorios", r"\bkeycaps?\b|\bswitch|\bteclas\b|\bmunequera\b|\blubricante\b|\bcable coiled\b")],
+ ("Teclados","Mecánicos"): [("Teclado numérico o compacto", r"\b60%|\b65%|\b75%|\btkl\b|compacto|numerico|\bnumpad\b"),("Accesorios", r"\bkeycaps?\b|\bswitch|\bteclas\b|\bmunequera\b|\blubricante\b|\bcable coiled\b")],
  ("Iluminación","Lámparas de techo"): [("Colgante", r"colgante|\bpendant\b|\bcolgantes\b"),("Plafón", r"\bplafon|\bplafones\b|\bempotra|\bsobreponer\b"),("Candil o araña", r"\bcandil|\barana\b|chandelier"),("Riel o track", r"\briel\b|\btrack\b|\bspot\b")],
  ("Equipo comercial","Punto de venta"): [("Terminal o caja registradora", r"terminal|caja registradora|\btpv\b|\bpos\b"),("Impresora de tickets", r"impresora|miniprinter|\btickets?\b|\brecibos?\b"),("Lector de códigos", r"lector|escaner|codigo de barras|\bscanner\b"),("Cajón de dinero", r"\bcajon\b|portamonedas|\befectivo\b"),("Consumibles", r"\brollos?\b|papel termico|\bcinta\b|\betiquetas\b")],
  ("Equipo comercial","Carros de servicio"): [("De acero inoxidable", r"acero inoxidable|\binox\b"),("De plástico", r"\bplastico\b|\bpolimero\b|\bresina\b"),("De madera", r"\bmadera\b|\bbambu\b"),("De metal o alambre", r"\bmetal\b|\balambre\b|\bhierro\b|\bacero\b")],
@@ -731,6 +731,22 @@ REGLAS_TITULO.setdefault("Herramientas", []).append(("pieces", lambda t: se.piec
 for _c in ("Electrodomésticos", "Aspiradoras", "Cafeteras", "Climatización"):
     REGLAS_TITULO.setdefault(_c, []).append(("power_w", _w(20, 6000)))
 REGLAS_TITULO.setdefault("Climatización", []).append(("ac_btu", se.ac_btu))
+# Rasgos que eran subcategorías y ahora son tarjetas de Compara calidad
+# (subcategorias_unidas.py, 26-sep): el nombre los dice o no.
+for _c in ("Bocinas", "Audífonos", "Relojes inteligentes", "Blancos y ropa de cama"):
+    REGLAS_TITULO.setdefault(_c, []).append(("water_resistant", st.impermeable))
+REGLAS_TITULO.setdefault("Decoración de hogar y jardín", []).append(("blackout", st.blackout))
+REGLAS_TITULO.setdefault("Joyería y bisutería", []).append(("polarized", st.polarizado))
+REGLAS_TITULO.setdefault("Relojes inteligentes", []).extend([("calls", st.llamadas), ("gps", st.gps)])
+REGLAS_TITULO.setdefault("Tabletas", []).append(("mobile_data", st.datos_moviles))
+REGLAS_TITULO.setdefault("Electrodomésticos", []).append(("dual_basket", st.doble_canasta))
+REGLAS_TITULO.setdefault("Blancos y ropa de cama", []).append(("memory_foam", st.memory_foam))
+REGLAS_TITULO.setdefault("Teclados", []).append(("audio_conn", st.conexion_audio))
+# La capacidad de las baterías portátiles era la subcategoría (Hasta 10,000
+# mAh...); ahora es la tarjeta, y casi ninguna tienda la publica como dato.
+from data_io import capacidad_mah as _mah  # noqa: E402
+REGLAS_TITULO.setdefault("Baterías portátiles", []).append(
+    ("battery_mah", lambda t: (lambda v: v if v and 1000 <= v <= 100000 else None)(_mah(t))))
 
 
 def _titulo(product, name, f):

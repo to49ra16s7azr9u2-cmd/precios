@@ -79,6 +79,7 @@ PRIORIDAD = [
     "speeds", "volt", "helmet_type", "size_label", "breed_size", "pet_stage",
     "bike_type", "filament", "tool_type", "rim_size", "wheel_size", "platform", "gender",
     "stone", "material", "water_resistant", "sport", "volume_ml",
+    "anc", "audio_conn", "calls", "gps", "mobile_data", "dual_basket", "blackout", "polarized", "memory_foam",
 ]
 
 # Donde el orden general no es el de la compra: en una bicicleta el tipo y
@@ -91,7 +92,33 @@ PRIORIDAD_ESPECIFICA = {
     "Mascotas/Bebederos": ["liters", "breed_size"],
     "Redes/Routers": ["wifi_std", "ports"], "Redes/Repetidores": ["wifi_std"], "Redes/Switches": ["ports", "wifi_std"],
     "Juegos de mesa": ["players_max", "age_min"],
+    # Rasgos que eran subcategorías (subcategorias_unidas.py, 26-sep): van
+    # primero en la subcategoría donde se juntaron, para que la tarjeta
+    # «Impermeable» esté donde antes estaba la lista de impermeables.
+    "Bocinas/Bocinas Bluetooth": ["water_resistant", "power_w", "battery_h"],
+    "Audífonos/Earbuds inalámbricos": ["anc", "water_resistant"],
+    "Audífonos/Diadema inalámbrica": ["anc"],
+    "Relojes inteligentes/Smartwatches": ["calls", "gps", "water_resistant"],
+    "Tabletas/Tabletas Android": ["mobile_data"],
+    "Electrodomésticos/Freidoras de aire": ["dual_basket"],
+    "Blancos y ropa de cama/Protectores de colchón": ["water_resistant"],
+    "Blancos y ropa de cama/Almohadas": ["memory_foam"],
+    "Decoración de hogar y jardín/Cortinas": ["blackout"],
+    "Joyería y bisutería/Lentes de sol": ["polarized"],
+    "Joyería y bisutería/Relojes": ["gender"],
+    "Teclados/Mecánicos": ["audio_conn"],
+    "Baterías portátiles/De uso diario": ["battery_mah", "charger_w"],
+    "Baterías portátiles": ["battery_mah", "charger_w"],
+    "Teclados/Membrana": ["audio_conn"],
 }
+
+# Rasgos: sólo existe el "Sí" (el nombre lo dice o no dice nada), así que el
+# eje es UNA tarjeta («Con cancelación de ruido») y basta con que la tengan
+# unos cuantos; exigirles el 15% de cobertura de los demás campos los
+# dejaba fuera justo donde son la pregunta.
+RASGOS = {"anc", "calls", "gps", "mobile_data", "dual_basket", "blackout", "polarized", "memory_foam",
+          "water_resistant"}
+MIN_COBERTURA_RASGO = 0.03
 
 # Lo que dice cada campo: etiqueta de la fila, criterio, unidad y los tres
 # nombres/usos genéricos de menor a mayor. Los específicos por subcategoría
@@ -264,9 +291,28 @@ CAMPOS = {
                   orden=["Sin piedra", "Zirconia", "Cristal", "Perla", "Moissanita", "Diamante"]),
     "material": dict(label="Material", criterion="según la ficha", ramp=False),
     "water_resistant": dict(label="Resistencia al agua", criterion="según la ficha", ramp=False,
-                            orden=["Sí", "No"],
+                            orden=["Sí", "No"], mostrar={"Sí": "Resistente al agua", "No": "No resiste agua"},
                             valores={"Sí": "Aguanta lluvia, sudor o regadera", "No": "Mantener seco"}),
     "sport": dict(label="Deporte", criterion="según la ficha", ramp=False),
+    "anc": dict(label="Cancelación de ruido", criterion="según el nombre", ramp=False, orden=["Sí"],
+                mostrar={"Sí": "Con cancelación de ruido"}, valores={"Sí": "Apaga el ruido de fondo"}),
+    "audio_conn": dict(label="Conexión", criterion="según el nombre", ramp=False, orden=["Inalámbrico", "Con cable"],
+                       valores={"Inalámbrico": "Sin cables en el escritorio", "Con cable": "Sin baterías ni retraso"}),
+    "calls": dict(label="Llamadas", criterion="según el nombre", ramp=False, orden=["Sí"],
+                  mostrar={"Sí": "Con llamadas"}, valores={"Sí": "Contestas desde el reloj"}),
+    "gps": dict(label="GPS", criterion="según la ficha", ramp=False, orden=["Sí", "No"],
+                mostrar={"Sí": "Con GPS", "No": "Sin GPS"},
+                valores={"Sí": "Marca tu ruta sin el celular", "No": "Usa el GPS del celular"}),
+    "mobile_data": dict(label="Datos móviles", criterion="según el nombre", ramp=False, orden=["Sí"],
+                        mostrar={"Sí": "Con 4G o 5G"}, valores={"Sí": "Internet sin Wi-Fi, con un chip"}),
+    "dual_basket": dict(label="Canastas", criterion="según el nombre", ramp=False, orden=["Sí"],
+                        mostrar={"Sí": "Doble canasta"}, valores={"Sí": "Dos cosas a la vez, cada una a su tiempo"}),
+    "blackout": dict(label="Luz", criterion="según el nombre", ramp=False, orden=["Sí"],
+                     mostrar={"Sí": "Blackout"}, valores={"Sí": "Oscurece el cuarto"}),
+    "polarized": dict(label="Lente", criterion="según el nombre", ramp=False, orden=["Sí"],
+                      mostrar={"Sí": "Polarizados"}, valores={"Sí": "Quitan el reflejo del agua y el asfalto"}),
+    "memory_foam": dict(label="Relleno", criterion="según el nombre", ramp=False, orden=["Sí"],
+                        mostrar={"Sí": "Memory foam"}, valores={"Sí": "Se amolda a la cabeza y al cuello"}),
     "filament": dict(label="Material", criterion="del filamento", ramp=False, valores={
         "PLA": "El más fácil de imprimir", "PLA+": "PLA más resistente", "PETG": "Resistente y algo flexible",
         "ABS": "Aguanta calor, pide cama caliente", "TPU": "Flexible", "ASA": "Para exterior", "Nylon": "Muy resistente"}),
@@ -293,7 +339,11 @@ CAMPO_SOLO_EN = {
                  "Viajes", "Otros", "Decoración de hogar y jardín", "Juguetes y bebés", "Mascotas",
                  "Belleza y cuidado personal/Mobiliario para salón"},
     "water_resistant": {"Relojes inteligentes", "Audífonos", "Bocinas", "Joyería y bisutería",
-                        "Salud", "Cámaras y fotografía"},
+                        "Salud", "Cámaras y fotografía", "Blancos y ropa de cama/Protectores de colchón"},
+    "anc": {"Audífonos"}, "calls": {"Relojes inteligentes"}, "gps": {"Relojes inteligentes"},
+    "mobile_data": {"Tabletas"}, "dual_basket": {"Electrodomésticos/Freidoras de aire"},
+    "blackout": {"Decoración de hogar y jardín/Cortinas"}, "polarized": {"Joyería y bisutería/Lentes de sol"},
+    "memory_foam": {"Blancos y ropa de cama/Almohadas"}, "audio_conn": {"Audífonos", "Teclados"},
     "volume_ml": {"Otros", "Salud", "Belleza y cuidado personal", "Juguetes y bebés"},
 }
 
@@ -387,6 +437,8 @@ USOS = {
         ("En casa, sin molestar", "Sala de ensayo", "Escenario y bocinas grandes")),
     ("Baterías portátiles", "charger_w"): (("Lenta", "Rápida", "Muy rápida"),
         ("Teléfono y audífonos", "Carga rápida de teléfono y tablet", "Laptop o varios equipos")),
+    ("Baterías portátiles", "battery_mah"): (("Chica", "Mediana", "Grande"),
+        ("Una carga de celular, cabe en el bolsillo", "Dos o tres cargas", "Varios días o para viajar")),
     ("Deportes y fitness/Pesas", "weight_kg"): (("Ligeras", "Medias", "Pesadas"),
         ("Para empezar y tonificar", "Fuerza general", "Fuerza avanzada")),
     ("Salud/Básculas", "load_kg"): (("Estándar", "Reforzada", "Alta capacidad"),
@@ -522,9 +574,12 @@ def tramos_categoricos(vals, campo):
     else:
         orden = [v for v, _ in cnt.most_common()]
     orden = [v for v in orden if cnt[v] / n >= cfg.get("min_tramo", MIN_TRAMO)][:6]
-    if len(orden) < 2 or cnt[orden[0]] / n > MAX_DOMINANTE and len(orden) < 3:
+    if campo in RASGOS and "Sí" in orden:
+        # «Resistente al agua» vale aunque casi nadie diga «no resiste».
+        orden = [v for v in orden if v == "Sí" or cnt[v] >= MIN_CON_DATO]
+    elif len(orden) < 2 or cnt[orden[0]] / n > MAX_DOMINANTE and len(orden) < 3:
         return None
-    if max(cnt[v] for v in orden) / n > MAX_DOMINANTE:
+    if campo not in RASGOS and max(cnt[v] for v in orden) / n > MAX_DOMINANTE:
         return None
     usos = cfg.get("valores", {})
     mostrar = cfg.get("mostrar", {})
@@ -678,7 +733,8 @@ def armar(products, a_mano):
         campos = (orden + [c for c in PRIORIDAD if c not in orden]) if orden else PRIORIDAD
         for campo in campos:
             vals = por_campo.get(campo)
-            if not vals or len(vals) < MIN_CON_DATO or len(vals) / len(ps) < MIN_COBERTURA:
+            cobertura = MIN_COBERTURA_RASGO if campo in RASGOS else MIN_COBERTURA
+            if not vals or len(vals) < MIN_CON_DATO or len(vals) / len(ps) < cobertura:
                 continue
             if campo in ya:
                 continue

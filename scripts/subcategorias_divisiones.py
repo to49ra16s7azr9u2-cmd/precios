@@ -295,13 +295,13 @@ DIVISIONES += [
     ("Joyería y bisutería", "Collares", ["Cadenas", "Rosarios y medallas religiosas"],
      _R(("Rosarios y medallas religiosas", r"\brosarios?\b|\bmedallas?\b|\bescapulario|\bvirgen\b|\bsan (benito|judas)"),
         ("Cadenas", r"^(\S+ ){0,1}cadenas?\b|\bcadena (torzal|cubana|rolo|gucci|singapur|figaro|italiana)"))),
-    ("Joyería y bisutería", "Dijes y charms", ["Charms"], _R(("Charms", r"\bcharms?\b"))),
-    ("Joyería y bisutería", "Relojes para hombre", ["Relojes de buceo", "Cronógrafos", "Relojes automáticos"],
+    # «Charms» se juntó con «Dijes y charms» (subcategorias_unidas.py, 26-sep).
+    # «Relojes para hombre/mujer» pasaron a «Relojes» + tarjeta de género.
+    ("Joyería y bisutería", "Relojes", ["Relojes de buceo", "Cronógrafos", "Relojes automáticos"],
      _R(("Relojes automáticos", r"\bautomatico|\bautomatic\b|\bmecanico\b"),
         ("Relojes de buceo", r"\bdiver\b|\bbuceo\b|\bsubmariner"),
         ("Cronógrafos", r"\bcronografo|\bchronograph"))),
-    ("Joyería y bisutería", "Lentes de sol", ["Lentes de sol polarizados"],
-     _R(("Lentes de sol polarizados", r"\bpolariz"))),
+    # Polarizados: tarjeta de Compara calidad, no subcategoría (26-sep).
     # ---- Iluminación
     ("Iluminación", "Plafones y lámparas de sobreponer",
      ["Lámparas colgantes", "Candiles y arañas", "Empotrada", "Rieles y spots"],
@@ -412,20 +412,18 @@ DIVISIONES += [
         ("Enfriamiento líquido", r"\bliquid|\baio\b|\bwater ?cool"),
         ("Disipadores de CPU", r"\bdisipador|\bcpu cooler|\bcooler (de|para) cpu|\bair cooler"),
         ("Ventiladores para gabinete", r"\bventilador(es)?\b|\bfans?\b|\bargb\b|\bpwm\b"))),
-    ("Audífonos", "Earbuds inalámbricos", ["Earbuds con cancelación de ruido"],
-     _R(("Earbuds con cancelación de ruido", r"\bcancelacion|\banc\b|\bnoise cancel"))),
+    # Cancelación de ruido: tarjeta de Compara calidad, no subcategoría (26-sep).
     ("Instrumentos musicales", "Micrófonos",
      ["Micrófonos inalámbricos", "Micrófonos de condensador y USB", "Micrófonos lavalier"],
      _R(("Micrófonos lavalier", r"\blavalier|\bsolapa|\bcorbata"),
         ("Micrófonos inalámbricos", r"\binalambric|\buhf\b|\bvhf\b"),
         ("Micrófonos de condensador y USB", r"\bcondensador|\busb\b|\bstreaming|\bpodcast"))),
-    ("Blancos y ropa de cama", "Cobijas", ["Cobertores", "Frazadas y mantas"],
-     _R(("Cobertores", r"^(\S+ ){0,1}cobertor"), ("Frazadas y mantas", r"^(\S+ ){0,1}(frazada|manta)s?\b"))),
+    ("Blancos y ropa de cama", "Cobijas", ["Colchas y cobertores", "Frazadas y mantas"],
+     _R(("Colchas y cobertores", r"^(\S+ ){0,1}cobertor"), ("Frazadas y mantas", r"^(\S+ ){0,1}(frazada|manta)s?\b"))),
     ("Blancos y ropa de cama", "Almohadas",
-     ["Almohadas de memory foam", "Almohadas de lactancia y embarazo", "Almohadas cervicales y ortopédicas"],
+     ["Almohadas de lactancia y embarazo", "Almohadas cervicales y ortopédicas"],
      _R(("Almohadas de lactancia y embarazo", r"\blactancia|\bembarazo|\bmaternidad"),
-        ("Almohadas cervicales y ortopédicas", r"\bcervical|\bortopedic"),
-        ("Almohadas de memory foam", r"\bmemory|\bviscoelast|\bfoam\b"))),
+        ("Almohadas cervicales y ortopédicas", r"\bcervical|\bortopedic"))),
     ("Bebés", "Carriolas", ["Sistemas de viaje", "Carriolas bastón"],
      _R(("Sistemas de viaje", r"\bsistema de viaje|\btravel system|\bcon portabebe"),
         ("Carriolas bastón", r"\bbaston\b|\bumbrella|\bparaguas"))),
@@ -455,8 +453,8 @@ DIVISIONES += [
         ("Tachones de fútbol", r"^(\S+ ){0,1}(tachones|taquetes|tacos)\b"))),
     ("Juegos de mesa", "De mesa clásicos", ["Dominó", "Lotería y bingo"],
      _R(("Dominó", r"\bdomino"), ("Lotería y bingo", r"\bloteria|\bbingo"))),
-    ("Decoración de hogar y jardín", "Cortinas", ["Persianas", "Cortinas blackout"],
-     _R(("Persianas", r"\bpersianas?\b|\benrollable"), ("Cortinas blackout", r"\bblackout|\bopacas?\b|\btermic"))),
+    ("Decoración de hogar y jardín", "Cortinas", ["Persianas"],
+     _R(("Persianas", r"\bpersianas?\b|\benrollable"))),
 ]
 
 

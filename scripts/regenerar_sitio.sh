@@ -64,6 +64,14 @@ grep -E "avisos:|se mueven|cola de|Firestore" /tmp/reportes-categoria.log || tru
 if python3 -c "import json,sys; sys.exit(0 if json.load(open('/tmp/reportes-categoria.json')) else 1)" 2>/dev/null; then
   python3 scripts/aplicar_movimientos.py /tmp/reportes-categoria.json --todos --motivo "avisos de visitantes" 2>&1 | tail -1
 fi
+# Subcategoría general -> la específica cuando el NOMBRE lo dice («woman»,
+# «R15», «broca para madera»); las subcategorías juntadas (subcategorias_unidas.py)
+# ya las aplica save_catalog. Ver unificar_subcategorias.py.
+echo "=== unificar subcategorías ==="
+python3 scripts/unificar_subcategorias.py --muestras 0 --salida /tmp/unificar-subcategorias.json 2>&1 | grep -E "^UNIR|^ATRIBUTOS" || true
+if python3 -c "import json,sys; sys.exit(0 if json.load(open('/tmp/unificar-subcategorias.json')) else 1)" 2>/dev/null; then
+  python3 scripts/aplicar_movimientos.py /tmp/unificar-subcategorias.json --todos --motivo "unificar subcategorías (automático)" 2>&1 | tail -1
+fi
 # Fusiones: sin esto el catálogo acumulaba duplicados desde el 17-sep (los
 # scripts existían pero nadie los corría). Van después de clasificar porque
 # casi todas exigen la misma categoría. Salidas completas en /tmp/fusiones.log.

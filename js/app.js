@@ -5555,7 +5555,7 @@
   }
 
   // Filtro "Tamaño" (Baterías portátiles): eje aparte de la capacidad, que
-  // ya se navega como subcategoría (Hasta 10,000 mAh / etc.) -- un power
+  // se elige en Compara calidad (mAh; hasta el 26-sep eran subcategorías) -- un power
   // bank puede ser chico en mAh pero seguir siendo un ladrillo grande, o
   // al revés, así que se ofrecen ambos por separado.
   function renderFilterSize() {

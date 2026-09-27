@@ -47,6 +47,8 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(AQUI)
+sys.path.insert(0, AQUI)
+from subcategorias_unidas import UNIR  # noqa: E402
 
 AUTOPARTES = "Autopartes"
 BEBES = "Bebés"
@@ -417,6 +419,12 @@ MUDANZAS2 = {
 
 
 def _destino2(cat, sub):
+    cat, sub = _destino2_mudanza(cat, sub)
+    # Revisión del árbol (26-sep): subcategorías juntadas con su gemela.
+    return UNIR.get((cat, sub), (cat, sub))
+
+
+def _destino2_mudanza(cat, sub):
     if cat == AUTOS_VIEJA:
         if sub in _SUBS_BICIS:
             return BICIS, sub
@@ -456,6 +464,8 @@ def redirecciones_sub2(slugify):
         out[f"{slugify('Autopartes')}/{slugify(s)}"] = f"{slugify(BICIS)}/{slugify(s)}"
     for s, (nc, ns) in LUJO_A.items():
         out[f"{slugify('Artículos de lujo (preowned)')}/{slugify(s)}"] = f"{slugify(nc)}/{slugify(ns)}"
+    for (c, s), (nc, ns) in UNIR.items():
+        out[f"{slugify(c)}/{slugify(s)}"] = f"{slugify(nc)}/{slugify(ns)}"
     return out
 
 

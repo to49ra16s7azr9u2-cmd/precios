@@ -262,7 +262,7 @@ def base_foco(nombre):
 def conexion_audio(nombre):
     n = _norm(nombre)
     inal = bool(re.search(r"inalambric|bluetooth|\btws\b|wireless|\bbt\b", n))
-    cable = bool(re.search(r"\bcon cable\b|alambric|\bjack 3\.?5|\b3\.5 ?mm\b|\busb-?c con cable\b|\bwired\b", n))
+    cable = bool(re.search(r"\bcon cable\b|\balambric|\bjack 3\.?5|\b3\.5 ?mm\b|\busb-?c con cable\b|\bwired\b", n))
     if inal and not cable:
         return "Inalámbrico"
     if cable and not inal:
@@ -273,6 +273,28 @@ def conexion_audio(nombre):
 def cancelacion_ruido(nombre):
     n = _norm(nombre)
     return "Sí" if re.search(r"cancelacion (activa )?de ruido|\banc\b|noise cancell", n) else None
+
+
+# ------------------------------------------------------------- rasgos
+# Lo que ANTES era una subcategoría («Bocinas Bluetooth impermeables»,
+# «Cortinas blackout», «Smartwatches con llamadas») y ahora es una tarjeta de
+# Compara calidad (26-sep-2026): un producto puede tener varios rasgos a la
+# vez, y con subcategorías tenía que caer en una sola. Sólo se afirma lo que
+# el nombre dice ("Sí"); que no lo diga no quiere decir que no lo tenga, así
+# que nunca se devuelve "No".
+def _rasgo(rx):
+    r = re.compile(rx)
+    return lambda nombre: "Sí" if r.search(_norm(nombre)) else None
+
+
+impermeable = _rasgo(r"impermeable|a prueba de agua|water ?proof|resistente al agua|\bipx?[4-8]\d?\b|sumergible")
+blackout = _rasgo(r"black ?out|\bopac[oa]s?\b|oscurecimiento|oscurecedora")
+polarizado = _rasgo(r"polariz")
+llamadas = _rasgo(r"llamadas?\b|bluetooth call|\bcall\b")
+gps = _rasgo(r"\bgps\b")
+datos_moviles = _rasgo(r"\b(4g|5g|lte)\b")
+doble_canasta = _rasgo(r"doble canasta|dos canastas|2 canastas|\bdual\b|doble cesta")
+memory_foam = _rasgo(r"memory ?foam|viscoelastic|espuma viscoel")
 
 
 # ------------------------------------------------------------- consumibles
