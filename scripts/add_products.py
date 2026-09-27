@@ -106,7 +106,19 @@ BULK_RE = re.compile(
 PRICE_IN_TITLE_RE = re.compile(r"\$\s*\d")
 
 
+# Medicamento por forma farmacéutica y dosis: «Crestor Tabletas 20 Mg, 30
+# Tabletas», «Flucoxan 1 cápsula de 150 mg». Entraban por el dominio de
+# medicamentos que se había confirmado para «Tabletas» (ver
+# DOMINIOS_VETADOS en ml_discover.py); «medicamento» y «pastillas» en BANNED
+# no los alcanzaban porque el título no dice ninguna de las dos.
+MEDICAMENTO_RE = re.compile(
+    r"\b(tabletas?|capsulas?|comprimidos?|grageas?|ampolletas?|ovulos?)\b[^,]*\b\d+([.,]\d+)? ?(mg|mcg|ui)\b"
+    r"|\b\d+([.,]\d+)? ?(mg|mcg)\b[^,]*,? *\d+ (tabletas|capsulas|comprimidos|grageas)\b")
+
+
 def is_junk_title(title):
+    if MEDICAMENTO_RE.search(norm(title)):
+        return True
     m = BULK_RE.search(norm(title))
     if m and int(next(g for g in m.groups() if g)) >= 10:
         return True

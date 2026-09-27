@@ -318,6 +318,36 @@ def guardar_dominios(ruta, dominios):
         json.dump(dominios, f, ensure_ascii=False, indent=1)
 
 
+# Dominios que nunca se recorren, y pares dominio -> categoría vetados.
+#
+# POR QUÉ (27-sep-2026): la confirmación de un dominio mide el acuerdo a
+# nivel CATEGORÍA contra nuestro propio catálogo, y eso se retroalimenta. Unos
+# medicamentos mal puestos en «Tabletas» (por la palabra «tabletas»)
+# confirmaron MLM-RX_CARDIOVASCULAR_MEDICINES para «Accesorios para tableta»
+# con 18 de 18 «conocidos», y cada recorrido traía más: 93 fichas de
+# Crestor, Micardis, Atacand... publicadas. Igual «Cucharas para cafetera»
+# confirmó MLM-KITCHEN_SPOONS y metía juegos de cubiertos en Cafeteras.
+DOMINIOS_VETADOS = re.compile(r"MEDICINE|MEDICAMENT|\bRX_|_RX_|DRUGS?\b|PHARMAC")
+VETO_DOMINIO_CATEGORIA = {
+    "MLM-KITCHEN_SPOONS": {"Cafeteras"},
+}
+
+
+def dominio_admisible(dom, dom_nombre, cat_id, cat_name, sub_name):
+    """False si el dominio no debe usarse para esta subcategoría: vetado en
+    general (medicamentos) o para esta categoría en particular.
+
+    Se probó además exigir que el nombre del dominio compartiera una raíz con
+    el de la categoría o la subcategoría: descartaba 21 de 310 pares, pero 19
+    eran buenos («Literas» -> Camas, «Love seats» -> Sofás, «Switches» ->
+    Interruptores de red). Los dos que traían productos de OTRA categoría son
+    los que quedan vetados arriba.
+    """
+    if DOMINIOS_VETADOS.search(dom or "") or DOMINIOS_VETADOS.search(sin_acentos(dom_nombre or "").upper()):
+        return False
+    return cat_id not in VETO_DOMINIO_CATEGORIA.get(dom, ())
+
+
 def targets_para(data, subs, marcas_por_sub, max_por_consulta=None, paginas=None,
                  marcas_desde=0, dominios=None, reusar_dominio=False, recorrer=False):
     conocidos = indice_conocidos(data["products"])
@@ -353,7 +383,11 @@ def targets_para(data, subs, marcas_por_sub, max_por_consulta=None, paginas=None
             else:
                 print(f"  -- {cat_name} / {sub_name}: ningún dominio confirmado")
                 continue
-        for dom, dom_nombre, n, acuerdo in elegidos:
+        admisibles = [e for e in elegidos if dominio_admisible(e[0], e[1], cat_id, cat_name, sub_name)]
+        for e in elegidos:
+            if e not in admisibles:
+                print(f"  xx {cat_name} / {sub_name}: se descarta {e[0]} ({e[1]}): vetado o sin relación con el nombre")
+        for dom, dom_nombre, n, acuerdo in admisibles:
             _agregar_consultas(data, targets, cat_id, cat_name, sub_id, sub_name, icono,
                                dom, dom_nombre, n, acuerdo, marcas_por_sub, marcas_desde,
                                max_por_consulta, paginas, recorrer)
