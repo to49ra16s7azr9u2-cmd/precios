@@ -265,10 +265,12 @@
       refreshLiveVariants(product),
     ]);
     let changed = variantsChanged;
+    if (variantsChanged) olvidarPrecio(product);
     let gotPhoto = false;
     results.forEach((liveOffer) => {
       if (!liveOffer) return;
       const idx = product.offers.findIndex((o) => o.storeId === liveOffer.storeId);
+      olvidarPrecio(product);
       if (idx >= 0) product.offers[idx] = { ...product.offers[idx], ...liveOffer };
       else product.offers.push(liveOffer);
       // La primera foto real que llegue se adopta como foto del producto. El
@@ -1350,13 +1352,53 @@
   // con un criterio ligeramente distinto, dos datos de la misma tarjeta
   // podrían contradecirse (el precio de una oferta arriba, el envío de otra
   // abajo).
+  // Memo por producto: ordenar o filtrar por precio pedía la oferta más
+  // barata en cada comparación, y cada vez se rearmaban TODAS las filas de
+  // vendedor (sellerRows copia cada oferta). En Herramientas eran ~0.5 s de
+  // cada clic en «Más baratos», «Más caros» o en la página siguiente
+  // (medido 28-sep-2026). Depende sólo del producto, del toggle de envío y
+  // del filtro de color; lo que cambia las ofertas de un producto (detalle,
+  // precio en vivo) lo saca del memo con olvidarPrecio().
+  // Se guarda en el propio producto con claves Symbol (JSON.stringify las
+  // ignora) y una "época" que cambia con el toggle de envío o el color: un
+  // WeakMap más una clave de texto por llamada costaban ~1.4 s al abrir
+  // Autopartes (364 mil fichas).
+  const PM_OFERTA = Symbol("oferta");
+  const PM_PRECIO = Symbol("precio");
+  const PM_EPOCA = Symbol("epoca");
+  const PM_VEND = Symbol("vendedores");
+  const PM_VEND_EPOCA = Symbol("epocaVendedores");
+  const PM_RANGO = Symbol("rango");
+  const PM_RANGO_EPOCA = Symbol("epocaRango");
+  let precioEpoca = 1;
+  let precioEnvio = null;
+  let precioColor = null;
+  function epocaPrecio() {
+    const envio = !!state.includeShipping;
+    const color = state.colorFilter || "";
+    if (envio !== precioEnvio || color !== precioColor) {
+      precioEnvio = envio; precioColor = color; precioEpoca++;
+    }
+    return precioEpoca;
+  }
+  function olvidarPrecio(product) {
+    if (product) { product[PM_EPOCA] = 0; product[PM_VEND_EPOCA] = 0; product[PM_RANGO_EPOCA] = 0; }
+  }
   function cheapestOffer(product) {
-    return sellerRows(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+    const e = epocaPrecio();
+    if (product[PM_EPOCA] !== e) {
+      const c = sellerRows(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+      product[PM_OFERTA] = c;
+      product[PM_PRECIO] = displayPrice(c);
+      product[PM_EPOCA] = e;
+    }
+    return product[PM_OFERTA];
   }
 
   function minPrice(product) {
     if (product.__stub) return product.__precio;
-    return displayPrice(cheapestOffer(product));
+    cheapestOffer(product);
+    return product[PM_PRECIO];
   }
 
   // true cuando, con "Incluir envío" activo, el precio "Desde" mostrado en
@@ -1387,7 +1429,13 @@
   // vendedores": son dos cosas distintas y juntas se leían como contradicción.
   function sellerTotal(product) {
     if (product.__stub) return product.__f >> 5;   // rango de popularidad, como desempate
-    return purchaseOptions(product).reduce((sum, o) => sum + (o.sellerCount || 1), 0);
+    // Mismo memo que cheapestOffer: depende del producto y del filtro de color.
+    const e = epocaPrecio();
+    if (product[PM_VEND_EPOCA] !== e) {
+      product[PM_VEND] = purchaseOptions(product).reduce((sum, o) => sum + (o.sellerCount || 1), 0);
+      product[PM_VEND_EPOCA] = e;
+    }
+    return product[PM_VEND];
   }
 
   // Compatibilidad con MagSafe (especificación "MagSafe: Sí" que agrega
@@ -1545,6 +1593,13 @@
 
   function popularityRank(p) {
     if (p.__stub) return p.__f >> 5;
+    const e = epocaPrecio();
+    if (p[PM_RANGO_EPOCA] === e) return p[PM_RANGO];
+    p[PM_RANGO] = rangoDePopularidad(p);
+    p[PM_RANGO_EPOCA] = e;
+    return p[PM_RANGO];
+  }
+  function rangoDePopularidad(p) {
     const vendedores = Math.min(sellerTotal(p) - 1, 2) * 2;   // 0, 2 o 4
     const ficha = (p.photo ? 2 : 0) + ((p.specs && p.specs.length) ? 1 : 0);
     const dto = bestDiscountPct(p);
@@ -1552,11 +1607,71 @@
     return vendedores + ficha + descuento;
   }
 
+  // Clave de orden de «más popular» (menor = más arriba). Lo guardado en
+  // este navegador se lee una sola vez por orden (antes, una vez por ficha).
+  function clavePopularidad() {
+    const clicks = readLS(LS_KEYS.storeClicks, {});
+    const views = readLS(LS_KEYS.productViews, {});
+    const favs = new Set(getFavorites());
+    const propias = getAllUserReviews();
+    const STAR_POINTS = { 5: 10, 4: 8, 3: 6 };
+    const estrellas = (rs) => {
+      let t = 0;
+      if (rs) for (let i = 0; i < rs.length; i++) t += STAR_POINTS[rs[i].rating] || 0;
+      return t;
+    };
+    return (p) => {
+      const score = (clicks[p.id] || 0) * 3 + (views[p.id] || 0) + (favs.has(p.id) ? 3 : 0)
+        + estrellas(propias[p.id]) + estrellas(p.reviews);
+      return -(score * 1024 + Math.min(1023, popularityRank(p)));
+    };
+  }
+
   function sortByPopularity(products) {
-    return products
-      .map((p) => ({ p, score: popularityScore(p), rank: popularityRank(p) }))
-      .sort((a, b) => b.score - a.score || b.rank - a.rank)
-      .map((x) => x.p);
+    return ordenarPorClave(products, clavePopularidad());
+  }
+
+  // El primero de sortByPopularity sin ordenar toda la lista.
+  function masPopular(products) {
+    const clave = clavePopularidad();
+    let mejor;
+    let mejorK = Infinity;
+    for (let i = 0; i < products.length; i++) {
+      const k = clave(products[i]);
+      if (k < mejorK) { mejorK = k; mejor = products[i]; }
+    }
+    return mejor;
+  }
+
+  // Orden estable por una clave numérica (de menor a mayor). Con claves
+  // enteras, clave e índice se empacan en un solo número y se ordena un
+  // Float64Array con el sort nativo, sin comparador en JS: en Autopartes
+  // (364 mil fichas) ordenar objetos con comparador eran ~0.4 s por clic.
+  function ordenarPorClave(list, clave) {
+    const n = list.length;
+    const claves = new Float64Array(n);
+    let maxAbs = 0;
+    let enteras = true;
+    for (let i = 0; i < n; i++) {
+      const k = clave(list[i]);
+      claves[i] = k;
+      if (!Number.isInteger(k)) enteras = false;
+      else if (Math.abs(k) > maxAbs) maxAbs = Math.abs(k);
+    }
+    let M = 1;
+    while (M < n) M *= 2;
+    const out = new Array(n);
+    if (enteras && (maxAbs + 1) * M < Number.MAX_SAFE_INTEGER) {
+      for (let i = 0; i < n; i++) claves[i] = claves[i] * M + i;
+      claves.sort();
+      for (let i = 0; i < n; i++) out[i] = list[((claves[i] % M) + M) % M];
+      return out;
+    }
+    const idx = new Uint32Array(n);
+    for (let i = 0; i < n; i++) idx[i] = i;
+    const orden = Array.from(idx).sort((a, b) => (claves[a] - claves[b]) || (a - b));
+    for (let i = 0; i < n; i++) out[i] = list[orden[i]];
+    return out;
   }
 
   // Descuento de la oferta más barata, si tiene listPrice (precio de lista)
@@ -2081,21 +2196,34 @@
   // ---------- Almacenamiento local (favoritos, perfil, reseñas propias) ----------
   // Todo esto vive solo en localStorage: no hay servidor ni cuentas reales.
 
+  // Memo de lo leído: ordenar por popularidad leía y parseaba
+  // localStorage (clics, vistas, favoritos, reseñas) UNA VEZ POR PRODUCTO --
+  // en Herramientas, 43 mil JSON.parse por cada clic en «Popularidad»
+  // (medido 28-sep-2026: ~150 ms de 1.9 s). Se invalida al escribir, y con
+  // el evento "storage" cuando otra pestaña cambia algo.
+  const lsMemo = new Map();
   function readLS(key, fallback) {
     try {
-      const raw = localStorage.getItem(key);
-      return raw ? JSON.parse(raw) : fallback;
+      let m = lsMemo.get(key);
+      if (!m) {
+        const raw = localStorage.getItem(key);
+        m = raw ? { ok: true, value: JSON.parse(raw) } : { ok: false };
+        lsMemo.set(key, m);
+      }
+      return m.ok ? m.value : fallback;
     } catch {
       return fallback;
     }
   }
   function writeLS(key, value) {
+    lsMemo.delete(key);
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch {
       /* almacenamiento no disponible (modo privado, etc.): se ignora */
     }
   }
+  window.addEventListener("storage", (e) => { if (e.key) lsMemo.delete(e.key); else lsMemo.clear(); });
 
   // "Más visto en este navegador" en Inicio: cuenta real de visitas a cada
   // ficha de producto EN ESTE navegador, nunca un número agregado de todo
@@ -2120,6 +2248,7 @@
     if (ids.length > 300) {
       ids.sort((a, b) => ultimas[a] - ultimas[b]).slice(0, ids.length - 300).forEach((k) => delete ultimas[k]);
     }
+    lsMemo.delete("comparamex.vistasEnviadas");
     try { localStorage.setItem("comparamex.vistasEnviadas", JSON.stringify(ultimas)); } catch (e) { /* modo privado */ }
     api.contarVista(p.category);
   }
@@ -2539,7 +2668,11 @@
     return p;
   }
 
+  // Sube cada vez que cambia el conjunto de fichas cargadas (se agrega o se
+  // reemplaza una): invalida los memos de alcance de los filtros.
+  let datosVersion = 0;
   function mergeProducts(list, catId) {
+    datosVersion++;
     list.forEach((p, i) => {
       conObvios(p, catId);
       // La posición dentro de la categoría es la que ubica el chunk de
@@ -2857,11 +2990,12 @@
               // Ya estaba, pero sin ubicación: es una ficha recortada de
               // Inicio (data/home.json, sin specs ni posición). La fila
               // completa la reemplaza.
-              if (sinUbicar) state.data.products[productIndexById.get(p.id)] = p;
+              if (sinUbicar) { state.data.products[productIndexById.get(p.id)] = p; datosVersion++; }
               return;
             }
             productIndexById.set(p.id, state.data.products.length);
             state.data.products.push(p);
+            datosVersion++;
           });
         }).catch(() => { bloquesFilas.delete(b); }));
       }
@@ -3269,6 +3403,7 @@
         }
       }
       product.__detailLoaded = true;
+      olvidarPrecio(product);
     } catch (e) {
       // Sin detalle la ficha se pinta igual (precio, specs, envío); lo único
       // que queda sin enlace es el botón de la tienda. Se reintenta en la
@@ -4283,7 +4418,36 @@
 
   // ---------- Vista: Lista (búsqueda / categoría) ----------
 
+  // Las fichas de la categoría activa. Los paneles de filtros (marcas,
+  // precio, cada faceta de specs) la recorrían cada uno por su cuenta sobre
+  // todo el catálogo cargado, en cada clic: en Autopartes eran más de una
+  // docena de pasadas por 364 mil fichas. Se guarda mientras no cambien la
+  // categoría ni las fichas cargadas.
+  let deCategoriaMemo = null;
+  function productosDeCategoria() {
+    const productos = state.data.products;
+    const m = deCategoriaMemo;
+    if (m && m.productos === productos && m.v === datosVersion && m.cat === state.category) return m.lista;
+    const lista = state.category ? productos.filter((p) => p.category === state.category) : productos;
+    deCategoriaMemo = { productos, v: datosVersion, cat: state.category, lista };
+    return lista;
+  }
+  // Memo genérico de un cálculo sobre el alcance actual (categoría,
+  // subcategorías, búsqueda y fichas cargadas).
+  function memoDeAlcance(fn, extra) {
+    const productos = state.data.products;
+    const clave = [state.category, state.subcategory.join("\u0001"), state.query, datosVersion,
+      modoIndice() ? 1 : 0, extra == null ? "" : extra].join("\u0000");
+    if (fn.memo && fn.memo.clave === clave && fn.memo.productos === productos) return fn.memo.valor;
+    const valor = fn();
+    fn.memo = { clave, productos, valor };
+    return valor;
+  }
+
   function brandsInScope() {
+    return memoDeAlcance(calcularMarcasEnAlcance);
+  }
+  function calcularMarcasEnAlcance() {
     // Antes esto solo miraba state.category, no state.subcategory: al
     // entrar a una subcategoría (p.ej. Celulares > Resistentes) el checkbox
     // de una marca sin ningún producto AHÍ (aunque sí tenga en otras
@@ -4291,7 +4455,7 @@
     // "No se encontraron productos con estos filtros" siempre, no por un
     // filtro real sino porque la combinación nunca podía tener resultados.
     let scoped = state.category
-      ? state.data.products.filter((p) => p.category === state.category)
+      ? productosDeCategoria()
       : modoIndice() ? state.busqueda.stubs : state.data.products;
     if (state.subcategory.length) scoped = scoped.filter((p) => state.subcategory.includes(p.subcategory));
     else scoped = scoped.filter((p) => !esOptIn(p));
@@ -4308,8 +4472,11 @@
   // que hay para ver en vez de un tope fijo global que sería inútil tanto
   // en una categoría barata como en una cara.
   function priceScopeBounds() {
+    return memoDeAlcance(calcularLimitesDePrecio, epocaPrecio());
+  }
+  function calcularLimitesDePrecio() {
     const scoped = state.category
-      ? state.data.products.filter((p) => p.category === state.category)
+      ? productosDeCategoria()
       : modoIndice() ? state.busqueda.stubs : state.data.products;
     if (scoped.length === 0) return { min: 0, max: 1000 };
     const prices = scoped.map(minPrice);
@@ -4391,18 +4558,6 @@
     return Array.isArray(v) ? v : [v];
   }
 
-  function matchesSpecFilters(p) {
-    for (const cfg of SPEC_FACETS) {
-      const sel = state.specFilters[cfg.key];
-      if (sel.size === 0) continue;
-      // Con varios valores basta que UNO coincida: quien filtra por su moto
-      // quiere las refacciones que le quedan a ella, no las que le quedan
-      // SOLO a ella.
-      if (!specValuesOf(cfg, p).some((v) => sel.has(v))) return false;
-    }
-    return true;
-  }
-
   // Subcategorías que NO entran en el listado por defecto: hay que elegirlas.
   // "Accesorios" son piezas sueltas (filtros, mopas, bolsas) que
   // se compran cuando ya se tiene el aparato. Mezcladas con el resto, el
@@ -4470,27 +4625,44 @@
     }
     const terms = queryTerms(state.query);
     const useFuzzy = terms.length > 0 && !state.data.products.some((p) => literalQueryMatch(p, terms));
+    // Cada condición corta en cuanto falla, de la más barata a la más cara,
+    // y lo que no depende de la ficha se decide una sola vez: antes se
+    // evaluaban las once condiciones en cada una de las fichas cargadas
+    // (~1.5 s al abrir Autopartes).
+    const cat = state.category;
+    const subs = state.subcategory.length ? new Set(state.subcategory) : null;
+    const sinOptIn = !subs && terms.length === 0;
+    const conPrecio = state.priceMin != null || state.priceMax != null;
+    const specsActivos = SPEC_FACETS
+      .map((cfg) => ({ cfg, sel: state.specFilters[cfg.key] }))
+      .filter((x) => x.sel.size > 0);
+    const calidadActiva = qualityAxes()
+      .map((axis) => ({ axis, sel: qualitySel(axis.key) }))
+      .filter((x) => x.sel.length > 0);
     return state.data.products.filter((p) => {
-      const matchesQuery = terms.length === 0
-        || (useFuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, terms));
-      const matchesCat = !state.category || p.category === state.category;
-      // Con una subcategoría elegida manda esa (aunque sea de las opt-in);
-      // sin ninguna, las opt-in quedan fuera. La búsqueda por texto sí las
-      // encuentra: quien escribe "filtro hepa" las está pidiendo.
-      const matchesSub = state.subcategory.length
-        ? state.subcategory.includes(p.subcategory)
-        : (terms.length > 0 || !esOptIn(p));
-      const price = minPrice(p);
-      const matchesPrice = (state.priceMin == null || price >= state.priceMin) && (state.priceMax == null || price <= state.priceMax);
-      const matchesBrand = state.brands.size === 0 || state.brands.has(p.brand);
+      if (cat && p.category !== cat) return false;
+      if (subs ? !subs.has(p.subcategory) : (sinOptIn && esOptIn(p))) return false;
+      if (state.brands.size && !state.brands.has(p.brand)) return false;
+      if (state.excludeUsed && isUsed(p)) return false;
+      if (state.magsafeOnly && !isMagSafe(p)) return false;
+      if (state.sizeFilter !== "all" && productSize(p) !== state.sizeFilter) return false;
+      if (conPrecio) {
+        const price = minPrice(p);
+        if ((state.priceMin != null && price < state.priceMin) || (state.priceMax != null && price > state.priceMax)) return false;
+      }
       // Redondeado a 1 decimal para que coincida con el valor mostrado en pantalla.
-      const matchesRating = Math.round(aggregateRating(p).avg * 10) / 10 >= ratingMin;
-      const matchesCondition = !state.excludeUsed || !isUsed(p);
-      const matchesMagsafe = !state.magsafeOnly || isMagSafe(p);
-      const matchesSize = state.sizeFilter === "all" || productSize(p) === state.sizeFilter;
-      const matchesSpec = matchesSpecFilters(p);
-      const matchesQual = matchesQuality(p);
-      return matchesQuery && matchesCat && matchesSub && matchesPrice && matchesBrand && matchesRating && matchesCondition && matchesMagsafe && matchesSize && matchesSpec && matchesQual;
+      if (ratingMin > 0 && Math.round(aggregateRating(p).avg * 10) / 10 < ratingMin) return false;
+      // Con varios valores basta que UNO coincida: quien filtra por su moto
+      // quiere las refacciones que le quedan a ella, no las que le quedan
+      // SOLO a ella.
+      for (const { cfg, sel } of specsActivos) {
+        if (!specValuesOf(cfg, p).some((v) => sel.has(v))) return false;
+      }
+      for (const { axis, sel } of calidadActiva) {
+        if (!sel.includes(qualityTierOf(axis, p))) return false;
+      }
+      return terms.length === 0
+        || (useFuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, terms));
     });
   }
 
@@ -4498,10 +4670,7 @@
   // decora una vez por producto en vez de llamar a sellerTotal dentro del
   // comparador (ver la nota de sortByPopularity).
   function sortBySellers(products) {
-    return products
-      .map((p) => ({ p, sellers: sellerTotal(p) }))
-      .sort((a, b) => b.sellers - a.sellers)
-      .map((x) => x.p);
+    return ordenarPorClave(products, (p) => -sellerTotal(p));
   }
 
   // Puntaje de qué tan bien matchea CADA palabra de la consulta contra este
@@ -4678,12 +4847,14 @@
     const list = products.slice();
     if (state.sort === "popularity") return sortByPopularity(list);
     else if (state.sort === "price_asc") {
-      return list
-        .map((p) => ({ p, pr: minPrice(p), a: p.a ? 1 : 0 }))
-        .sort((x, y) => x.a - y.a || x.pr - y.pr)
-        .map((x) => x.p);
+      // Las fichas marcadas con «a» van después de todas las demás.
+      const centavos = (p) => Math.round(minPrice(p) * 100);
+      return ordenarPorClave(list.filter((p) => !p.a), centavos)
+        .concat(ordenarPorClave(list.filter((p) => p.a), centavos));
     }
-    else if (state.sort === "price_desc") list.sort((a, b) => minPrice(b) - minPrice(a));
+    else if (state.sort === "price_desc") {
+      return ordenarPorClave(list, (p) => -Math.round(minPrice(p) * 100));
+    }
     // "Mejor calificados" empata igual de seguido que "más popular" (hoy
     // ninguna oferta del catálogo trae calificación), así que usa el mismo
     // desempate por número de vendedores.
@@ -4770,7 +4941,35 @@
     el.pagination.innerHTML = "";
   }
 
+  // Lo filtrado y lo ordenado se guardan hasta que cambie algo que los
+  // afecte: renderList() (filtros, categoría, búsqueda) sube listaVersion, y
+  // el orden se recuerda aparte. Antes cada clic en «Siguiente» o en un orden
+  // volvía a filtrar y ordenar la categoría entera y a rearmar el panel de
+  // filtros: en Herramientas (43 mil fichas) ~1 s por clic en una PC, varias
+  // veces más en un teléfono (medido 28-sep-2026).
+  let listaVersion = 0;
+  let listaMemo = null;
+  function listaFiltradaYOrdenada() {
+    const firma = `${listaVersion}\u0000${datosVersion}\u0000${state.includeShipping ? 1 : 0}\u0000${state.colorFilter || ""}`;
+    if (!listaMemo || listaMemo.firma !== firma) {
+      listaMemo = { firma, filtered: filteredProducts(), orden: null, sorted: null, porOrden: new Map() };
+    }
+    if (listaMemo.orden !== state.sort) {
+      // Cada orden ya calculado se guarda: ir y volver entre «Más baratos»
+      // y «Más populares» no vuelve a ordenar las mismas fichas.
+      let sorted = listaMemo.porOrden.get(state.sort);
+      if (!sorted) {
+        sorted = sortedProducts(listaMemo.filtered);
+        listaMemo.porOrden.set(state.sort, sorted);
+      }
+      listaMemo.sorted = sorted;
+      listaMemo.orden = state.sort;
+    }
+    return listaMemo;
+  }
+
   function renderList() {
+    listaVersion++;
     state.page = 1; // toda entrada "de cero" a la lista arranca en la página 1
     setActiveView("list");
 
@@ -4870,8 +5069,7 @@
     // texto, la lista se muestra como ranking numerado en vez de lista plana.
     const isCategoryRanking = !!state.category && !state.query;
 
-    const filtered = filteredProducts();
-    const sorted = sortedProducts(filtered);
+    const { filtered, sorted } = listaFiltradaYOrdenada();
     const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
     state.page = Math.min(Math.max(1, state.page), totalPages);
     const startIdx = (state.page - 1) * PAGE_SIZE;
@@ -4913,7 +5111,7 @@
       withCompare: hasQualityBlock(),
     });
     renderPagination(totalPages);
-    renderLocalRanking(sorted);
+    renderLocalRanking(filtered);
 
     const subLabel = subcategoryById(state.category, singleSub());
     // El título decía siempre "más populares" aunque el orden fuera otro:
@@ -5170,14 +5368,25 @@
     return aside;
   }
 
-  function renderLocalRanking(sorted) {
+  function renderLocalRanking(filtered) {
     const aside = localRankingEl();
-    const entradas = [];
-    sorted.forEach((p) => {
-      const ofs = localOffersFor(p);
-      if (!ofs.length) return;
-      const o = ofs.reduce((a, b) => (a.p <= b.p ? a : b));
-      entradas.push({ p, o, t: state.local.tiendas[o.t] });
+    // Las fichas con oferta local se buscan una vez por lista filtrada (son
+    // pocas) y se ordenan solo ellas: recorrer la lista entera en cada clic
+    // costaba ~0.2 s en Autopartes. sortedProducts es estable y compara de
+    // a pares, así que sobre el subconjunto da el mismo orden relativo.
+    const mun = state.municipio && state.municipio.id;
+    const m = renderLocalRanking.memo;
+    let base;
+    if (m && m.filtered === filtered && m.mun === mun && m.local === state.local) base = m.base;
+    else {
+      base = [];
+      const ofertas = state.local && state.local.ofertas;
+      if (ofertas) for (const p of filtered) if (ofertas[p.id] && localOffersFor(p).length) base.push(p);
+      renderLocalRanking.memo = { filtered, mun, local: state.local, base };
+    }
+    const entradas = sortedProducts(base).map((p) => {
+      const o = localOffersFor(p).reduce((a, b) => (a.p <= b.p ? a : b));
+      return { p, o, t: state.local.tiendas[o.t] };
     });
     aside.hidden = entradas.length === 0;
     aside.parentNode.classList.toggle("has-local", entradas.length > 0);
@@ -5641,9 +5850,10 @@
   }
 
   function categoryScopedProducts() {
-    let scoped = state.category
-      ? state.data.products.filter((p) => p.category === state.category)
-      : state.data.products;
+    return memoDeAlcance(calcularAlcanceDeCategoria);
+  }
+  function calcularAlcanceDeCategoria() {
+    let scoped = state.category ? productosDeCategoria() : state.data.products;
     if (state.subcategory.length) {
       scoped = scoped.filter((p) => state.subcategory.includes(p.subcategory));
     }
@@ -5721,6 +5931,7 @@
     return filas.join("");
   }
 
+  const facetValoresMemo = new WeakMap();
   function renderSpecFacetFilter(cfg) {
     if (!el[cfg.groupEl]) {
       el[cfg.groupEl] = document.getElementById(cfg.groupEl);
@@ -5734,10 +5945,23 @@
       return;
     }
     const scoped = categoryScopedProducts();
-    const values = new Set();
-    scoped.forEach((p) => {
-      specValuesOf(cfg, p).forEach((v) => values.add(v));
-    });
+    // Valores y cobertura de cada campo, una vez por alcance (el alcance
+    // viene memorizado: mismo arreglo mientras no cambie).
+    let porCampo = facetValoresMemo.get(scoped);
+    if (!porCampo) { porCampo = new Map(); facetValoresMemo.set(scoped, porCampo); }
+    let info = porCampo.get(cfg.key);
+    if (!info) {
+      const vs = new Set();
+      let conCampo = 0;
+      scoped.forEach((p) => {
+        const lista = specValuesOf(cfg, p);
+        if (lista.length) conCampo += 1;
+        lista.forEach((v) => vs.add(v));
+      });
+      info = { values: vs, con: conCampo };
+      porCampo.set(cfg.key, info);
+    }
+    const values = info.values;
     // Si un valor ya marcado deja de aplicar en el alcance actual, se
     // descarta (mismo criterio que brandsInScope()).
     [...state.specFilters[cfg.key]].forEach((v) => { if (!values.has(v)) state.specFilters[cfg.key].delete(v); });
@@ -5752,8 +5976,7 @@
       return;
     }
     if (cfg.cobertura && scoped.length) {
-      let con = 0;
-      scoped.forEach((p) => { if (specValuesOf(cfg, p).length) con += 1; });
+      const con = info.con;
       if (con / scoped.length < cfg.cobertura && !state.specFilters[cfg.key].size) {
         el[cfg.groupEl].classList.add("hidden");
         return;
@@ -5895,6 +6118,8 @@
     return fams.size === 1 ? [...fams][0] : null;
   }
 
+  const subcatPorSubMemo = new WeakMap();
+  const subcatMuestraMemo = new WeakMap();
   function renderSubcatPicker() {
     const cat = state.category ? categoryById(state.category) : null;
     const subs = (cat && cat.subcategories) || [];
@@ -5903,13 +6128,19 @@
     if (!relevant) return;
     renderSubcatMultiToggle();
 
-    const scoped = state.data.products.filter((p) => p.category === state.category);
-    const porSub = new Map();
-    scoped.forEach((p) => {
-      if (!p.subcategory) return;
-      if (!porSub.has(p.subcategory)) porSub.set(p.subcategory, []);
-      porSub.get(p.subcategory).push(p);
-    });
+    // Agrupado y foto de muestra se guardan mientras la categoría y sus
+    // fichas sean las mismas: cualquier filtro vuelve a pintar este bloque.
+    const scoped = productosDeCategoria();
+    let porSub = subcatPorSubMemo.get(scoped);
+    if (!porSub) {
+      porSub = new Map();
+      scoped.forEach((p) => {
+        if (!p.subcategory) return;
+        if (!porSub.has(p.subcategory)) porSub.set(p.subcategory, []);
+        porSub.get(p.subcategory).push(p);
+      });
+      subcatPorSubMemo.set(scoped, porSub);
+    }
     const conFichas = subs.filter((s) => (porSub.get(s.id) || []).length);
 
     // Con familias (en Deportes y fitness: el deporte), primero se elige la
@@ -5935,7 +6166,11 @@
           <span class="subcat-card-name">${nombre}</span>
           <span class="subcat-card-count">${items.length.toLocaleString("es-MX")} productos</span>
         </span>`;
-      const sample = sortByPopularity(items.filter((p) => p.photo))[0];
+      let sample = subcatMuestraMemo.get(items);
+      if (sample === undefined) {
+        sample = masPopular(items.filter((p) => p.photo)) || null;
+        subcatMuestraMemo.set(items, sample);
+      }
       if (sample) renderProductMedia(card.querySelector(".subcat-card-photo"), sample);
       card.onclick = onclick;
       el.subcatGrid.appendChild(card);
@@ -6694,15 +6929,6 @@
     return Array.isArray(v) ? v : v ? [v] : [];
   }
 
-  function matchesQuality(p) {
-    for (const axis of qualityAxes()) {
-      const sel = qualitySel(axis.key);
-      if (!sel.length) continue;
-      if (!sel.includes(qualityTierOf(axis, p))) return false;
-    }
-    return true;
-  }
-
   function clearQuality() {
     state.quality = { level: [], size: [], extra: [] };
   }
@@ -6734,12 +6960,6 @@
   // foto, la tarjeta cae a la ilustración por renderProductMedia; nunca se
   // recicla la foto de otro rango, que sería mostrar una laptop de 32 GB
   // ilustrando el rango de 8 GB.
-  function qualityTierSample(axis, tierId, scoped) {
-    const pool = scoped.filter((p) => p.photo && qualityTierOf(axis, p) === tierId);
-    if (!pool.length) return null;
-    return sortByPopularity(pool)[0];
-  }
-
   function renderQualityPicker() {
     const axes = qualityAxes();
     el.qualityRows.innerHTML = "";
@@ -6814,11 +7034,25 @@
       };
       row.appendChild(head);
 
+      // Cuenta y foto de muestra de todos los niveles en UNA pasada (antes,
+      // dos pasadas completas por nivel).
+      const cuenta = new Map();
+      const muestra = new Map();
+      const claveMuestra = new Map();
+      const clavePop = clavePopularidad();
+      for (const p of scoped) {
+        const t = qualityTierOf(axis, p);
+        cuenta.set(t, (cuenta.get(t) || 0) + 1);
+        if (!p.photo) continue;
+        const k = clavePop(p);
+        if (!muestra.has(t) || k < claveMuestra.get(t)) { muestra.set(t, p); claveMuestra.set(t, k); }
+      }
+
       const grid = document.createElement("div");
       grid.className = "quality-grid";
       axis.tiers.forEach((tier) => {
-        const n = scoped.filter((p) => qualityTierOf(axis, p) === tier.id).length;
-        const sample = qualityTierSample(axis, tier.id, scoped);
+        const n = cuenta.get(tier.id) || 0;
+        const sample = muestra.get(tier.id) || null;
         const isActive = qualitySel(axis.key).includes(tier.id);
         const card = document.createElement("button");
         card.type = "button";
@@ -6868,7 +7102,7 @@
 
   // Reubica los grupos de SPEC_FACETS DENTRO del modal (son los mismos
   // elementos del panel de Filtros de siempre, no una copia -- moverlos
-  // de contenedor no rompe renderSpecFacetFilter/matchesSpecFilters, que
+  // de contenedor no rompe renderSpecFacetFilter/filteredProducts, que
   // los referencian por id vía el[], no por dónde cuelgan en el DOM).
   // Todos se mueven, no solo los relevantes a la categoría actual: los
   // que no aplican ya quedan con la clase "hidden" (puesta por
@@ -9256,6 +9490,7 @@
     setConsentHeightVar();
     el.cookieConsentAccept.addEventListener("click", () => {
       try {
+        lsMemo.delete(COOKIE_CONSENT_KEY);
         localStorage.setItem(COOKIE_CONSENT_KEY, "accepted");
       } catch {}
       grantAnalyticsConsent();
@@ -9264,6 +9499,7 @@
     });
     el.cookieConsentReject.addEventListener("click", () => {
       try {
+        lsMemo.delete(COOKIE_CONSENT_KEY);
         localStorage.setItem(COOKIE_CONSENT_KEY, "rejected");
       } catch {}
       el.cookieConsent.classList.add("hidden");
@@ -9455,7 +9691,11 @@
       if (!btn || btn.dataset.sort === state.sort) return;
       state.sort = btn.dataset.sort;
       state.page = 1; // ordenar de nuevo y quedarse en la página 7 no tiene sentido
-      renderList();
+      // Ordenar no cambia qué fichas hay ni los conteos del panel de
+      // filtros: sólo se repinta la lista (antes renderList() rearmaba
+      // todo el panel en cada clic).
+      renderSortBar();
+      renderProductListPage();
     });
 
     // Todos los grupos del panel de Filtros son colapsables. Arrancan
