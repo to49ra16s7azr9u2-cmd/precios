@@ -5183,6 +5183,52 @@ tr.offer-compare-off { display: none; }
 /* «Buscar en Amazon» debajo de la tabla de precios (pintarBusquedaAmazon). */
 .amazon-busqueda { margin: 0 0 8px; font-size: 0.9rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .amazon-busqueda .btn-solo-enlace { font-size: 0.85rem; }
+/* Versión chica del botón grande (amazon-grande): misma píldora azul marino,
+   lupa naranja, divisor y círculo naranja con flecha, a la altura del botón
+   de texto que reemplaza (~30 px). Pedido del usuario, 28-sep-2026. */
+.amazon-mini {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 3px 3px 3px 11px; border-radius: 999px;
+  background: #1F2937; color: #fff; text-decoration: none;
+  font-size: 13px; font-weight: 600; line-height: 1.2;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.18);
+  transition: background .15s;
+}
+.amazon-mini:hover { background: #111827; color: #fff; }
+.amazon-mini:focus-visible { outline: 2px solid #F5A31A; outline-offset: 2px; }
+.amazon-mini-lupa { width: 14px; height: 14px; flex-shrink: 0; fill: none; stroke: #F5A31A; stroke-width: 2.6; stroke-linecap: round; }
+.amazon-mini-divisor { width: 1px; align-self: stretch; margin: 3px 0; background: #3B4757; flex-shrink: 0; }
+.amazon-mini-flecha {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 24px; height: 24px; border-radius: 50%; background: #F5A31A;
+}
+.amazon-mini-flecha svg { width: 13px; height: 13px; fill: none; stroke: #1F2937; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.amazon-mini:hover .amazon-mini-flecha { background: #FFB733; }
+/* Varios colores: una sola píldora con la leyenda adentro y un botón por
+   color, separados por divisores finos; al final la flecha naranja (busca
+   sin color). Pedido del usuario, 28-sep-2026. */
+.amazon-multi {
+  display: inline-flex; flex-wrap: wrap; align-items: center; max-width: 100%;
+  padding: 3px 3px 3px 12px; border-radius: 20px;
+  background: #1F2937; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.18);
+}
+.amazon-multi-cabeza {
+  display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px 5px 0;
+  color: #C9D1DB; font-size: 13px; font-weight: 500; line-height: 1.2;
+}
+.amazon-multi-opcion {
+  padding: 5px 11px; border-left: 1px solid #3B4757;
+  color: #fff; font-size: 13px; font-weight: 600; line-height: 1.2; text-decoration: none;
+  transition: background .15s;
+}
+.amazon-multi-opcion:hover { background: #374151; color: #fff; }
+.amazon-multi-opcion:focus-visible, .amazon-multi-flecha:focus-visible { outline: 2px solid #F5A31A; outline-offset: -2px; }
+.amazon-multi-flecha {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 24px; height: 24px; margin-left: 6px; border-radius: 50%; background: #F5A31A;
+}
+.amazon-multi-flecha svg { width: 13px; height: 13px; fill: none; stroke: #1F2937; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.amazon-multi-flecha:hover { background: #FFB733; }
 .amazon-busqueda .amazon-fuerte { flex-basis: 100%; font-size: 0.8rem; color: var(--muted); }
 /* El ícono de campana de los avisos de precio iba sin tamaño y se pintaba a
    ancho completo. */

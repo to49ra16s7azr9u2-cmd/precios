@@ -3142,7 +3142,10 @@ LOTES['sin_subcategoria_2'] += [
 # El resto de las categorías sin subcategoría (televisores por pulgadas,
 # refrigeradores por tipo, tabletas, lavadoras, etc.).
 def _tv_pulgadas(tn):
-    m = re.search(r'\b(\d{2})\s*(pulgadas|pulg|plg|in\b|")', tn) or re.search(r'\b(\d{2})(?=[a-z]\d|h\d|s\d|q\d)', tn)
+    # «43uq75» (la medida al principio del modelo LG) y «Led 27 Full Hd»
+    # (27-sep-2026: dos televisores quedaban sin subcategoría por esto).
+    m = (re.search(r'\b(\d{2})\s*(pulgadas|pulg|plg|in\b|")', tn) or re.search(r'\b(\d{2})(?=[a-z]{1,3}\d)', tn)
+         or re.search(r'\b(?:led|lcd|qled|oled|tv|pantalla)\s+(\d{2})\s+(?:full hd|fhd|hd|uhd|4k)\b', tn))
     if not m:
         return None
     n = int(m.group(1))
@@ -3958,6 +3961,96 @@ LOTES['auditoria_11'] += [
     ('Juguetes', r'^(set )?lego\b.*\b\d{5}\b', r'llavero|minifigura|figura coleccionable', 'Juguetes', 'Bloques de construcción', {'Figuras de acción'}),
 ]
 REGLAS += LOTES['auditoria_11']
+
+# Lo que quedaba sin subcategoría y en «Otros» el 27-sep-2026 (276 + 125
+# fichas). _M0 sólo dejaba UNA palabra antes del sustantivo y los títulos
+# dicen «Set De 4 Sillas», «Juego 2 Sillas Ejecutivas», «Offiho Set De 2
+# Sillas», «Cama Recamara Base Box Cabecera»; los juegos dicen «Play Station 5»
+# (con espacio), «Nsw», «3ds», «Pc».
+def _silla_set(tn):
+    if re.search(r'gamer|gaming|videojuegos|juegos\b', tn): return 'Sillas gamer'
+    if re.search(r'visita', tn): return 'Sillas de espera y visitas'
+    if re.search(r'ergonomica', tn): return 'Sillas ergonómicas'
+    if re.search(r'ejecutiva|gerente', tn): return 'Sillas ejecutivas'
+    if re.search(r'oficina|escritorio', tn): return 'Sillas de oficina'
+    if re.search(r'exterior|jardin|patio|playa|terraza|rattan|apilables', tn): return 'Sillas de exterior'
+    if re.search(r'plegable|camping', tn): return 'Sillas plegables y de camping'
+    if re.search(r'altas?|barra|bar\b|taburete', tn): return 'Taburetes y bancos'
+    return 'Sillas de comedor'
+
+
+_M4 = r'^(\S+ ){0,4}'
+_OT = {'Otros'}
+LOTES['auditoria_12'] = [
+    # Muebles sin subcategoría
+    ('Muebles', r'tela para silla', None, 'Muebles', 'Accesorios y refacciones para sillas', _SIN),
+    ('Muebles', r'cojines para sillas', None, 'Decoración de hogar y jardín', 'Cojines', _SIN),
+    ('Muebles', r'^(\S+ ){0,3}(mesa|desayunador)\b.*\bsillas\b|^set mesa y \d sillas|mesa de madera con sillas', None, 'Muebles', 'Juegos de comedor', _SIN),
+    ('Muebles', _M4 + r'sillas?\b', None, 'Muebles', _silla_set, _SIN),
+    ('Muebles', r'^(\S+ ){0,3}(cama recamara|base box|cama .*base box)', None, 'Muebles', 'Box con cabecera', _SIN),
+    ('Muebles', r'base (de )?cama.*cabecera|cama.*cabecera y base|base.*con cabecera', None, 'Muebles', 'Box con cabecera', _SIN),
+    ('Muebles', r'^(\S+ ){0,3}(base plegable|base (de )?cama)', None, 'Muebles', 'Bases de cama y box', _SIN),
+    ('Muebles', r'cama elevada|loft bed|cama doble individual', None, 'Muebles', 'Literas', _SIN),
+    ('Muebles', r'^(\S+ ){0,3}cabecer[oa]', None, 'Muebles', 'Cabeceras', _SIN),
+    ('Muebles', r'sobrecolchon', None, 'Blancos y ropa de cama', 'Toppers y sobrecolchones', _SIN),
+    ('Muebles', r'colchon(eta)? .*plegable|pack colchon', None, 'Muebles', 'Colchones plegables y de sofá cama', _SIN),
+    ('Muebles', r'^(\S+ ){0,3}colchon', None, 'Muebles', _colchon_medida, _SIN),
+    ('Muebles', r'(mueble|mesa|panel|rack|soporte|m\.)( \S+){0,3} (para )?(tv|televisor)\b|soporte tv', None, 'Muebles', 'Mesas para TV y consolas', _SIN),
+    ('Muebles', _M4 + r'escritorio|mesas de computacion|battlestation', None, 'Muebles', _escritorio, _SIN),
+    ('Muebles', _M4 + r'buro\b', None, 'Muebles', 'Burós', _SIN),
+    ('Muebles', r'barra (de |para )?cocina|barras para (el hogar|cocina)|isla con ruedas|carrito (de )?(almacenamiento|cocina)|cocina carrito|carrito de almacenamiento', None, 'Muebles', 'Carros e islas de cocina', _SIN),
+    ('Muebles', r'mesa (alta )?bar\b|mesa bar ajustable|mesa alta bar', None, 'Muebles', 'Mesas altas y de bar', _SIN),
+    ('Muebles', r'mini bar|cantinera|mueble bar', None, 'Muebles', 'Cavas y porta botellas', _SIN),
+    ('Muebles', r'aparador|bufetera|trinchador|^consola', None, 'Muebles', 'Aparadores y bufeteros', _SIN),
+    ('Muebles', r'comoda|cajonero|chifonier|mueble ropa con cajones', None, 'Muebles', 'Cómodas y cajoneras', _SIN),
+    ('Muebles', r'closet|ropero|armario|organizador de ropa', None, 'Muebles', 'Roperos', _SIN),
+    ('Muebles', r'sillon en caja|^(\S+ ){0,2}sofa', None, 'Muebles', _sofa, _SIN),
+    ('Muebles', r'loveseat', None, 'Muebles', 'Love seats', _SIN),
+    ('Muebles', r'silla de club|mid century modern fabric', None, 'Muebles', 'Sillones y reclinables', _SIN),
+    ('Muebles', r'ottoman|otomana', None, 'Muebles', 'Puffs y otomanas', _SIN),
+    ('Muebles', r'^banca\b|taburete', None, 'Muebles', 'Taburetes y bancos', _SIN),
+    ('Muebles', r'mesa (plegable )?(moderna )?comedor|mesa de comedor', None, 'Muebles', 'Mesas de comedor', _SIN),
+    ('Muebles', r'apoyapies', None, 'Muebles', 'Reposapiés de escritorio', _SIN),
+    ('Muebles', r'cocina modular', None, 'Muebles', 'Cocinas integrales', _SIN),
+    ('Muebles', r'gabinetes? bajos?|encimera', None, 'Muebles', 'Gabinetes de almacenamiento', _SIN),
+    ('Muebles', r'^fregadero', None, 'Muebles', 'Muebles de cocina', _SIN),
+    ('Muebles', r'libreria|juguetero|estante|organizador|cubeta', None, 'Muebles', 'Organizadores y almacenamiento', _SIN),
+    ('Muebles', r'bolsas de almacenamiento', None, 'Muebles', 'Organizadores y almacenamiento', _SIN),
+    # Videojuegos sin subcategoría: la plataforma escrita a su manera
+    ('Videojuegos', r'protector juegos retro', None, 'Videojuegos', 'Fundas, micas y protectores', _SIN),
+    ('Videojuegos', r'joy-?con grip|mando con cable', None, 'Videojuegos', 'Controles y gamepads', _SIN),
+    ('Videojuegos', r'consola .*reproductor|mini consola|lcd portatil', None, 'Videojuegos', 'Consolas retro y portátiles', _SIN),
+    ('Videojuegos', r'kit gaming para nintendo switch', None, 'Videojuegos', 'Otros accesorios gamer', _SIN),
+    ('Videojuegos', r'play ?station ?5|\bps5\b|play 5', None, 'Videojuegos', 'Juegos PS5', _SIN),
+    ('Videojuegos', r'play ?station ?4|\bps4\b', None, 'Videojuegos', 'Juegos PS4', _SIN),
+    ('Videojuegos', r'switch|\bnsw\b|para nintendo', None, 'Videojuegos', 'Juegos Nintendo Switch', _SIN),
+    ('Videojuegos', r'play ?station ?2|\bps2\b|game boy|\b3ds\b|wii u|playstation moves', None, 'Videojuegos', 'Juegos retro y otras plataformas', _SIN),
+    ('Videojuegos', r'- pc$|\bpc\b', None, 'Videojuegos', 'Juegos para PC', _SIN),
+    # «Otros» de Muebles, Juguetes, Joyería y Cargadores
+    ('Muebles', r'^espejo', None, 'Decoración de hogar y jardín', 'Espejos decorativos de pared', _OT),
+    ('Muebles', r'^almohada', None, 'Blancos y ropa de cama', 'Almohadas', _OT),
+    ('Muebles', r'^cojin', None, 'Decoración de hogar y jardín', 'Cojines', _OT),
+    ('Muebles', r'porta lapices|guillotina de papel', None, 'Muebles', 'Organizadores de escritorio', _OT),
+    ('Muebles', r'camastro', None, 'Muebles', 'Sillas de exterior', _OT),
+    ('Muebles', r'carro de (servicio|bar)', None, 'Muebles', 'Cavas y porta botellas', _OT),
+    ('Muebles', r'mueble .*p/ ?gato', None, 'Mascotas', 'Rascadores y torres', _OT),
+    ('Muebles', r'banito|inodoro entrenador', None, 'Bebés', 'Baño e higiene del bebé', _OT),
+    ('Muebles', r'filipina', None, 'Ropa y accesorios', 'Blusas y tops', _OT),
+    ('Muebles', r'chismecito literario|resumen literario', None, 'Libros', 'Clásicos', _OT),
+    ('Muebles', r'mostrador de madera|mueble para microondas', None, 'Muebles', 'Muebles de cocina', _OT),
+    ('Muebles', r'closetmaid|soporte para macetas|cesta de lavanderia|portaequipajes', None, 'Muebles', 'Organizadores y almacenamiento', _OT),
+    ('Muebles', r'sala de jardin', None, 'Muebles', 'Mesas de exterior', _OT),
+    ('Juguetes', r'bisuteria|joyeria|joyas', None, 'Juguetes', 'Juguetes educativos', _OT),
+    ('Juguetes', r'play-?doh|juego de te|cafetera', None, 'Juguetes', 'Juguetes educativos', _OT),
+    ('Juguetes', r'mascota (electronica|digital|de cumpleanos)|pets alive|jolly pets|mascotas apilables', None, 'Juguetes', 'Peluches', _OT),
+    ('Juguetes', r'mascara', None, 'Juguetes', 'Disfraces', _OT),
+    ('Juguetes', r'walkie talkies|arco flecha|maleta herramienta', None, 'Juguetes', 'Figuras de acción', _OT),
+    ('Joyería y bisutería', r'paraguas|sombrilla', None, 'Ropa y accesorios', 'Paraguas', _OT),
+    ('Joyería y bisutería', r'hip hop|grillz|premium set main stone|chapado en oro', None, 'Joyería y bisutería', 'Collares', _OT),
+    ('Joyería y bisutería', r'juego de disfraces de joyeria|juego bisuteria maquillaje', None, 'Juguetes', 'Juguetes educativos', _OT),
+    ('Cargadores y adaptadores', r'voltage regulator|regulador', None, 'Herramientas', 'Generadores', _OT),
+]
+REGLAS += LOTES['auditoria_12']
 
 # Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que
 # se agregó debajo (reglas por marca, auditoria_2 a 10, sin_subcategoria_2:

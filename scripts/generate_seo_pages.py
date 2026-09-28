@@ -395,7 +395,7 @@ def breadcrumb_json_ld(items):
             entry["item"] = url
         entries.append(entry)
     ld = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": entries}
-    return json.dumps(ld, ensure_ascii=False, indent=2)
+    return json.dumps(ld, ensure_ascii=False, separators=(',', ':'))
 
 
 def product_json_ld(product, data, canonical):
@@ -470,7 +470,7 @@ def product_json_ld(product, data, canonical):
             "ratingValue": avg,
             "reviewCount": count,
         }
-    return json.dumps(ld, ensure_ascii=False, indent=2)
+    return json.dumps(ld, ensure_ascii=False, separators=(',', ':'))
 
 
 _POR_CAT_CON_PAGINA = {}
@@ -998,16 +998,27 @@ def busqueda_amazon_html(product):
         if v.get("color") and v["color"] not in colores:
             colores.append(v["color"])
 
-    def enlace(texto, etiqueta):
-        url = "https://www.amazon.com.mx/s?" + urllib.parse.urlencode({"k": texto, "tag": AMAZON_TAG})
-        return (f'<a class="btn-solo-enlace" href="{html_escape(url)}" target="_blank" '
-                f'rel="nofollow sponsored noopener" title="{html_escape(texto)}">{html_escape(etiqueta)}</a>')
+    def url(texto):
+        return "https://www.amazon.com.mx/s?" + urllib.parse.urlencode({"k": texto, "tag": AMAZON_TAG})
     # Con un solo color, el botón grande de arriba (amazon_grande_html) ya
     # lleva a esa búsqueda: acá sólo quedan los colores cuando hay varios.
     if len(colores) <= 1:
         return ""
-    botones = " ".join(enlace(texto_busqueda_amazon(product, c), c) for c in colores)
-    return f'<p class="amazon-busqueda">Buscar este producto en Amazon por color: {botones}</p>'
+    # Una sola píldora con la leyenda adentro y un botón por color; la flecha
+    # busca sin color (css .amazon-multi; igual que pintarBusquedaAmazon en app.js).
+    opciones = "".join(
+        f'<a class="amazon-multi-opcion" href="{html_escape(url(t))}" target="_blank" '
+        f'rel="nofollow sponsored noopener" title="{html_escape(t)}">{html_escape(c)}</a>'
+        for c in colores for t in [texto_busqueda_amazon(product, c)])
+    general = texto_busqueda_amazon(product, None)
+    flecha = (f'<a class="amazon-multi-flecha" href="{html_escape(url(general))}" target="_blank" '
+              'rel="nofollow sponsored noopener" title="Buscar en Amazon sin elegir color" '
+              'aria-label="Buscar en Amazon sin elegir color"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>'
+              if general else "")
+    return ('<div class="amazon-busqueda"><div class="amazon-multi" role="group" aria-label="Buscar este producto en Amazon por color">'
+            '<span class="amazon-multi-cabeza"><svg class="amazon-mini-lupa" viewBox="0 0 24 24" aria-hidden="true">'
+            '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>Buscar este producto en Amazon:</span>'
+            f'{opciones}{flecha}</div></div>')
 
 
 # «Amazon fue más barato en el N%» (scripts/amazon_mas_barato.py). Sólo si el
@@ -1984,7 +1995,7 @@ def render_subcategory_page(cat, sub, products, data, pares_familia=None):
             }
             for i, p in enumerate([p for p in shown if tiene_pagina(p)], start=1)
         ],
-    }, ensure_ascii=False, indent=2)
+    }, ensure_ascii=False, separators=(',', ':'))
     extra_head = (
         f'<script type="application/ld+json">\n{breadcrumbs}\n</script>\n'
         f'<script type="application/ld+json">\n{lista_ld}\n</script>'
@@ -2226,7 +2237,7 @@ tienda corrigió.</p>
              "url": f"{SITE_URL}/producto/{p['id']}/", "name": p["name"]}
             for i, (_, p) in enumerate([x for x in mostrados if tiene_pagina(x[1])], start=1)
         ],
-    }, ensure_ascii=False, indent=2)
+    }, ensure_ascii=False, separators=(',', ':'))
     extra_head = (
         f'<script type="application/ld+json">\n{breadcrumbs}\n</script>\n'
         f'<script type="application/ld+json">\n{lista_ld}\n</script>'
@@ -2460,7 +2471,7 @@ def faq_categoria(cat, products, ejes, ranked, tiendas_cat):
              "acceptedAnswer": {"@type": "Answer", "text": r}}
             for p, r in qa
         ],
-    }, ensure_ascii=False, indent=2)
+    }, ensure_ascii=False, separators=(',', ':'))
     return (
         f'<div class="panel" id="preguntas">'
         f'<h2>{svg_icon("search")} Preguntas frecuentes</h2>{html}</div>'
@@ -2840,7 +2851,7 @@ def render_mejores_page(cat, sub, products, data):
                      "numberOfItems": len(lista_ld),
                      "itemListElement": [{"@type": "ListItem", "position": i, "name": p["name"],
                                           "url": f"{SITE_URL}/producto/{p['id']}/"}
-                                         for i, p in enumerate(lista_ld, 1)]}, ensure_ascii=False, indent=2)
+                                         for i, p in enumerate(lista_ld, 1)]}, ensure_ascii=False, separators=(',', ':'))
     faq_ld = json.dumps({"@context": "https://schema.org", "@type": "FAQPage",
                          "mainEntity": [{"@type": "Question", "name": q,
                                          "acceptedAnswer": {"@type": "Answer", "text": r}} for q, r in qa]},
@@ -2981,7 +2992,7 @@ confirma no sirve para decir qué es lo más barato.</p>
             for i, (_pr, p) in enumerate(
                 [x for x in mostrados if tiene_pagina(x[1])], start=1)
         ],
-    }, ensure_ascii=False, indent=2)
+    }, ensure_ascii=False, separators=(',', ':'))
     faq_ld = json.dumps({
         "@context": "https://schema.org",
         "@type": "FAQPage",
@@ -2990,7 +3001,7 @@ confirma no sirve para decir qué es lo más barato.</p>
              "acceptedAnswer": {"@type": "Answer", "text": r}}
             for p, r in qa
         ],
-    }, ensure_ascii=False, indent=2)
+    }, ensure_ascii=False, separators=(',', ':'))
     extra_head = (
         f'<script type="application/ld+json">\n{breadcrumbs}\n</script>\n'
         f'<script type="application/ld+json">\n{lista_ld}\n</script>\n'
@@ -3253,7 +3264,7 @@ def render_category_page(cat, products, data):
              "name": p["name"]}
             for i, p in enumerate([p for p in shown[:10] if tiene_pagina(p)], start=1)
         ],
-    }, ensure_ascii=False, indent=2)
+    }, ensure_ascii=False, separators=(',', ':'))
     extra_head = (
         f'<script type="application/ld+json">\n{breadcrumbs}\n</script>'
         f'<script type="application/ld+json">\n{item_list}\n</script>'
@@ -3465,6 +3476,13 @@ def write_if_changed(path, body):
     cada corrida sería ilegible. Comparando antes de escribir, el commit
     muestra exactamente qué páginas cambiaron de verdad.
     """
+    # Sin la sangría de las plantillas: el navegador la muestra igual (no hay
+    # <pre> ni <textarea> en estas páginas) y son ~1% del peso. Junto con el
+    # JSON-LD sin sangría (separators) baja ~30 MB: el 27-sep-2026 las
+    # fusiones sin código sumaron 2,552 páginas de producto y el sitio pasó
+    # de 1 GiB, el tope de GitHub Pages.
+    if path.endswith(".html"):
+        body = re.sub(r"\n[ \t]+", "\n", body)
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
             if f.read() == body:

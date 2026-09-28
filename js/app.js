@@ -8318,13 +8318,30 @@
     const nodo = document.getElementById("amazonBusqueda");
     if (!nodo) return;
     const colores = [...new Set((product.colorVariants || []).map((v) => v.color).filter(Boolean))];
+    // Misma píldora que el botón grande, en chico (css .amazon-mini).
     const enlace = (texto, etiqueta) =>
-      `<a class="btn-solo-enlace" href="${htmlEscapeAttr(urlBusquedaAmazon(texto))}" target="_blank" ` +
-      `rel="nofollow sponsored noopener" title="${htmlEscapeAttr(texto)}">${htmlEscapeAttr(etiqueta)}</a>`;
+      `<a class="amazon-mini" href="${htmlEscapeAttr(urlBusquedaAmazon(texto))}" target="_blank" ` +
+      `rel="nofollow sponsored noopener" title="${htmlEscapeAttr(texto)}">` +
+      `<svg class="amazon-mini-lupa" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>` +
+      `<span class="amazon-mini-divisor" aria-hidden="true"></span>${htmlEscapeAttr(etiqueta)}` +
+      `<span class="amazon-mini-flecha" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a>`;
     let html;
     if (colores.length > 1) {
-      html = `Buscar este producto en Amazon: ` +
-        colores.map((c) => enlace(textoBusquedaAmazon(product, c), c)).join(" ");
+      // Varios colores: una sola píldora con la leyenda adentro y un botón por
+      // color separado por divisores; la flecha busca sin color (pedido del
+      // usuario, 28-sep-2026: «que cada botón vaya embebido en una sola marca»).
+      const opcion = (c) => {
+        const t = textoBusquedaAmazon(product, c);
+        return `<a class="amazon-multi-opcion" href="${htmlEscapeAttr(urlBusquedaAmazon(t))}" target="_blank" ` +
+          `rel="nofollow sponsored noopener" title="${htmlEscapeAttr(t)}">${htmlEscapeAttr(c)}</a>`;
+      };
+      const general = textoBusquedaAmazon(product, null);
+      html = `<div class="amazon-multi" role="group" aria-label="Buscar este producto en Amazon por color">` +
+        `<span class="amazon-multi-cabeza"><svg class="amazon-mini-lupa" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>Buscar este producto en Amazon:</span>` +
+        colores.map(opcion).join("") +
+        (general ? `<a class="amazon-multi-flecha" href="${htmlEscapeAttr(urlBusquedaAmazon(general))}" target="_blank" rel="nofollow sponsored noopener" ` +
+          `title="Buscar en Amazon sin elegir color" aria-label="Buscar en Amazon sin elegir color"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>` : "") +
+        `</div>`;
     } else {
       const texto = textoBusquedaAmazon(product, colores[0] || null);
       if (!texto) { nodo.classList.add("hidden"); nodo.innerHTML = ""; return; }

@@ -132,6 +132,13 @@ _ESPECIFICACIONES = {
     # Marcas con dígitos en el nombre: las comparten TODOS sus productos.
     "8bitdo", "insta360", "1hora", "1more", "3doodler", "4moms", "1byone",
     "b1000", "3m",
+    # Conectores, sockets de foco, ley de la plata y tamaños de paquete: los
+    # comparten productos distintos de la misma marca («Switch PoE ... RJ45»
+    # contra «Panel de parcheo ... rj45», los dos Intellinet; 27-sep-2026).
+    "rj45", "rj11", "rj12", "gu10", "gu53", "gu5", "mr16", "mr11", "e27", "e26",
+    "e14", "e12", "g9", "g4", "t8", "t5", "s925", "925", "2pack", "3pack",
+    "4pack", "6pack", "12pack", "xlr", "sma", "rca", "cat5", "cat5e", "cat6",
+    "cat6a", "cat7", "cat8", "qc3", "pd20", "pd30", "pd65", "uv400",
 }
 # Clase de velocidad Wi-Fi ("AC1200", "AX3000", "BE6500", "N300"): la
 # comparten todos los routers y mesh de esa clase. Un Deco M3 se juntó con
@@ -262,7 +269,8 @@ def es_de_amazon(p):
 # Submarcas que las tiendas escriben como marca propia.
 ALIAS_MARCA = {"soundcore": "anker", "iem": "mabe", "redmi": "xiaomi", "poco": "xiaomi",
                "logitech g": "logitech", "black and decker": "black+decker",
-               "black & decker": "black+decker", "kärcher": "karcher"}
+               "black & decker": "black+decker", "kärcher": "karcher", "xpg": "adata",
+               "locknlock": "lock lock", "lock n lock": "lock lock"}
 
 
 # «Genérica» no es una marca: Coppel la pone en 22 mil fichas y Bodega en 9
@@ -281,11 +289,42 @@ def marca_de(p):
     return ALIAS_MARCA.get(m, m)
 
 
+# Palabras que dos marcas distintas comparten sin ser la misma («Spin Master
+# Games» / «Buffalo Games», «Total Parts» / «Ford Partes Originales»).
+_PALABRAS_DE_MARCA_COMUNES = {
+    "store", "tienda", "home", "hogar", "casa", "parts", "partes", "original", "originales",
+    "tire", "tires", "digital", "mexico", "company", "group", "brands", "games", "kids",
+    "baby", "tools", "tech", "electronics", "power", "sport", "sports", "audio", "pets",
+    "collection", "design", "international", "global", "products", "shop", "online",
+    "import", "imports", "industries", "internacional", "gaming", "smart", "world",
+    "muebles", "mueble", "furniture", "network", "solutions", "systems", "professional",
+}
+
+
+def _compacta(m):
+    return re.sub(r"[^a-z0-9]", "", m)
+
+
+def marcas_equivalentes(ma, mb):
+    """La misma marca escrita distinto por dos tiendas (27-sep-2026: de las
+    fichas que no se fusionaban sólo por «marca distinta» y tenían un
+    candidato de nombre y precio parecidos, fuera de autopartes, la mayoría
+    eran esto): «Game Factor» / «Gamefactor», «Lock & Lock» / «Locknlock»,
+    «Kumho Tire» / «Kumho», «Avera» / «Avera Digital», «Husky» / «Swedish
+    Husky». Igual sin espacios ni signos, o comparten una palabra propia
+    (>= 4 letras y no de las que cualquier marca lleva)."""
+    if ma == mb or _compacta(ma) == _compacta(mb):
+        return True
+    pa = {w for w in re.findall(r"[a-z0-9]+", ma) if len(w) >= 4} - _PALABRAS_DE_MARCA_COMUNES
+    pb = {w for w in re.findall(r"[a-z0-9]+", mb) if len(w) >= 4} - _PALABRAS_DE_MARCA_COMUNES
+    return bool(pa & pb)
+
+
 def marca_coincide(a, b):
     """(True/False, hace_falta_mas_parecido)."""
     ma, mb = marca_de(a), marca_de(b)
     if ma and mb:
-        return ma == mb, False
+        return marcas_equivalentes(ma, mb), False
     if ma or mb:
         marca = ma or mb
         otro = texto_plano(titulo_propio((b if ma else a).get("name") or ""))

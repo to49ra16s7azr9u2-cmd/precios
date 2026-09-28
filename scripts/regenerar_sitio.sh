@@ -84,6 +84,10 @@ echo "=== fusiones ==="
   python3 scripts/merge_cross_store.py
   python3 scripts/merge_amazon_cross_store.py --dry-run --todas-las-tiendas --muestra 0 --informe /tmp/fusion_amazon.json
   python3 scripts/fusionar_vetado.py /tmp/fusion_amazon.json --aplicar
+  # Sin código de modelo: misma marca y categoría, mismo nombre, números y
+  # tallas; siempre por el mismo filtro. Ver fusionar_sin_codigo.py.
+  python3 scripts/fusionar_sin_codigo.py --informe /tmp/fusion_sin_codigo.json --muestra 0
+  python3 scripts/fusionar_vetado.py /tmp/fusion_sin_codigo.json --aplicar
   python3 scripts/merge_by_color.py
   python3 scripts/merge_by_signature.py
   python3 scripts/merge_same_store.py --muestra 0
