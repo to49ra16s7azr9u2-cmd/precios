@@ -26,3 +26,28 @@ try {
 } catch (e) {}
 gtag('js', new Date());
 gtag('config', 'G-NZ0RG4S274');
+
+// Respaldo de las fotos: las páginas piden la miniatura al CDN de la tienda
+// (miniatura() en scripts/generate_seo_pages.py); si ese tamaño no existe,
+// se pide la original, sacada de la miniatura con las reglas inversas. Antes
+// cada <img> llevaba la URL original completa en su onerror (28-sep: el 9%
+// de una página de categoría, contra el límite de 1 GB de GitHub Pages).
+function fo(img) {
+  img.onerror = null;
+  var u = img.getAttribute('src') || '', o = u;
+  try {
+    if (/\/\/http2\.mlstatic\.com\//.test(u)) {
+      o = u.replace(/-[A-Z]\.(jpe?g|webp|png)(\?.*)?$/i, '-O.jpg');
+    } else if (/(vteximg\.com\.br|vtexassets\.com)\/arquivos\/ids\//.test(u)) {
+      o = u.replace(/(\/arquivos\/ids\/\d+)-\d+-\d+/, '$1');
+    } else if (/\/\/i5\.walmartimages\.com/.test(u)) {
+      var x = new URL(u);
+      x.searchParams.set('odnHeight', '2000');
+      x.searchParams.set('odnWidth', '2000');
+      o = x.toString();
+    } else if (/\/\/m\.media-amazon\.com\/images\/I\//.test(u)) {
+      o = u.replace(/\._AC_SL\d+_\./, '.');
+    }
+  } catch (e) {}
+  if (o !== u) img.src = o;
+}

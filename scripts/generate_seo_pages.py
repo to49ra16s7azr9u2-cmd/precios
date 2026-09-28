@@ -265,8 +265,11 @@ def product_photo_html(product, css_class="detail-icon"):
     foto = miniatura(foto, 600 if principal else 200)
     # Si el CDN no sirve el tamaño pedido, la original (estas páginas no
     # tienen app.js que reintente).
-    respaldo = (f' onerror="this.onerror=null;this.src=\'{html_escape(original)}\'"'
-                if foto != original else "")
+    # fo() vive en /js/ga.js (lo cargan todas estas páginas) y saca la
+    # original de la miniatura con las reglas inversas de miniatura(): la
+    # URL completa repetida en cada <img> era el 9% de una página de
+    # categoría (28-sep, límite de 1 GB).
+    respaldo = ' onerror="fo(this)"' if foto != original else ""
     carga = 'fetchpriority="high"' if principal else 'loading="lazy"'
     return (
         f'<div class="{css_class} has-photo">'
@@ -330,6 +333,12 @@ def _page_shell(title, description, canonical_path, body, depth, extra_head="", 
     og_image_tag = (
         f'<meta property="og:image" content="{html_escape(og_image)}">\n' if og_image else ""
     )
+    # Los preconnect adelantan el DNS + TLS de los dos CDN de fotos que
+    # cubren casi todo el catálogo: la primera foto es el elemento más grande
+    # de la página (el LCP que mide Google). Ese comentario iba en el HTML de
+    # cada página, igual que og:description (repetía la description, que es
+    # la que toman las redes sin og:description); se quitaron el 28-sep por
+    # el límite de 1 GB de GitHub Pages.
     return f"""<!DOCTYPE html>
 <html lang="es-MX">
 <head>
@@ -343,13 +352,8 @@ def _page_shell(title, description, canonical_path, body, depth, extra_head="", 
 <meta property="og:site_name" content="ComparaMEX">
 <meta property="og:locale" content="es_MX">
 <meta property="og:title" content="{html_escape(title)}">
-<meta property="og:description" content="{html_escape(description)}">
 <meta property="og:url" content="{canonical}">
 {og_image_tag}<meta name="theme-color" content="#FF0211">
-<!-- Las fotos salen de CDN de terceros. El preconnect adelanta el DNS + TLS
-     de los dos que cubren casi todo el catálogo, que si no se pagan recién
-     cuando el navegador encuentra el primer <img> -- y esa primera imagen es
-     justo el elemento más grande de la página (el LCP que mide Google). -->
 <link rel="preconnect" href="https://http2.mlstatic.com" crossorigin>
 <link rel="preconnect" href="https://elektra.vteximg.com.br" crossorigin>
 <link rel="icon" href="{prefix}icons/icon.svg" type="image/svg+xml">
@@ -1427,7 +1431,10 @@ SUBCATEGORIAS_SIN_PAGINA = {"otros", "otras", "otro", "otra", "varios", "general
 # se limita a un top fijo en vez de volcar la categoría entera: sin esto,
 # "Moda y accesorios" generaba un solo archivo HTML de ~4MB con miles de
 # filas. El resto queda a un clic con el link a la SPA, que sí pagina.
-STATIC_LIST_CAP = 100
+# 50 y no 100 desde el 28-sep: las páginas de categoría eran 166 MB del
+# sitio publicado (límite de 1 GB de GitHub Pages) y el ranking era el 80%
+# de cada una (pedido del usuario).
+STATIC_LIST_CAP = 50
 
 
 def subcategorias_con_pagina(cat, products_de_la_cat):
@@ -1698,7 +1705,7 @@ LIST_JS = """
       // números del ranking de popularidad al lado dice dos cosas
       // distintas a la vez. Con el orden original vuelve la corona.
       var b = f.querySelector('.rank-badge');
-      if (b) b.innerHTML = (orden === 'pop' && !claves.length && i === 0) ? f.getAttribute('data-corona') : String(i + 1);
+      if (b) b.innerHTML = (orden === 'pop' && !claves.length && i === 0) ? '<svg class="icon" aria-hidden="true"><use href="/icons/sprite.svg#i-crown"/></svg>' : String(i + 1);
       f.className = f.className.replace(/ ?rank-[234]/g, '') +
         ((orden === 'pop' && !claves.length && i >= 1 && i <= 3) ? ' rank-' + (i + 1) : '');
     });
@@ -1774,7 +1781,7 @@ document.addEventListener('DOMContentLoaded', function () {
       f.hidden = false;
       lista.appendChild(f);
       var b = f.querySelector('.rank-badge');
-      if (b) b.innerHTML = (original && i === 0) ? f.getAttribute('data-corona') : String(i + 1);
+      if (b) b.innerHTML = (original && i === 0) ? '<svg class="icon" aria-hidden="true"><use href="/icons/sprite.svg#i-crown"/></svg>' : String(i + 1);
       f.className = f.className.replace(/ ?rank-[234]/g, '') + ((original && i >= 1 && i <= 3) ? ' rank-' + (i + 1) : '');
     });
     if (cuenta) cuenta.textContent = (cat || q) ? (visibles.length ? visibles.length + ' de ' + filas.length + ' productos' : 'Ningún producto coincide.') : '';
@@ -1865,7 +1872,7 @@ def render_subcategory_page(cat, sub, products, data, pares_familia=None):
         rows.append(
             f'<div class="product-row has-rank{rank_class}"'
             f' data-price="{min_price(p)}" data-pop="{n_reviews}" data-rating="{rating}"'
-            f' data-sellers="{n_vendedores}" data-corona="{html_escape(corona)}"{q_attrs}>'
+            f' data-sellers="{n_vendedores}"{q_attrs}>'
             f'<span class="rank-badge">{rank_badge}</span>'
             f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
@@ -3086,7 +3093,7 @@ def render_category_page(cat, products, data):
         rows.append(
             f'<div class="product-row has-rank{rank_class}"'
             f' data-price="{min_price(p)}" data-pop="{n_reviews}" data-rating="{rating}"'
-            f' data-sellers="{n_vendedores}" data-corona="{html_escape(corona)}">'
+            f' data-sellers="{n_vendedores}">'
             f'<span class="rank-badge">{rank_badge}</span>'
             f'{product_photo_html(p, "row-icon")}'
             f'<div class="row-info">'
@@ -4100,7 +4107,7 @@ def render_brand_page(nombre, slug, products, data):
         rows.append(
             f'<div class="product-row has-rank{rank_class}"'
             f' data-price="{min_price(p)}" data-pop="{n_reviews}" data-rating="{rating}"'
-            f' data-sellers="{n_vendedores}" data-stores="{n_tiendas}" data-corona="{html_escape(corona)}"'
+            f' data-sellers="{n_vendedores}" data-stores="{n_tiendas}"'
             f' data-cat="{html_escape(p.get("category") or "")}">'
             f'<span class="rank-badge">{rank_badge}</span>'
             f'{product_photo_html(p, "row-icon")}'

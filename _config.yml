@@ -38,4 +38,8 @@ exclude:
   # capturas, no de la API de Amazon; no se publica hasta tener la API.
   - data/amazon-mas-barato.json
   - data/tiendas-ocultas.json.gz
+  # Solo los usan los scripts (origen_categorias.py; fusionadas.json lo lee
+  # build_retirados_index.py para armar data/retirados, que sí se publica).
+  - data/origen-categorias.json.gz
+  - data/fusionadas.json
   - data/vocabulario-cabeza.json
