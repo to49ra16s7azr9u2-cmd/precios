@@ -25,9 +25,12 @@ data/buscar/b/<pre>.json.gz     (pre = las 3 primeras letras de la raíz)
 POSTING = [ids, f, p, c, s], columnas del mismo largo:
     ids  número de ficha (p12345 -> 12345), en orden y como diferencias
     f    bits: 1 nombre, 2 categoría/subcategoría, 4 marca, 8 usado o
-         reacondicionado, 16 atípico (ver atipicos.py); + 32 * rango de
-         popularidad (popularityRank de js/app.js, 0-10)
-    p    precio más bajo, en pesos enteros (sin envío)
+         reacondicionado, 16 atípico (ver atipicos.py), 512 la palabra es
+         la CABEZA del nombre (ver cabeza_del_nombre); + 32 * rango de
+         popularidad (popularityRank de js/app.js, 0-10, bits 32-256)
+    p    precio más bajo, en pesos enteros (sin envío), con la regla de la
+         SPA (precio_como_la_spa): el orden por precio de la búsqueda coincide
+         con el precio que muestra la fila
     c    índice de categoría en meta.cats
     s    índice de subcategoría en meta.subs[c] (-1 sin subcategoría)
 
@@ -114,6 +117,39 @@ def raiz(w):
     return w
 
 
+# Palabras que abren un nombre sin ser lo que el producto ES («Mini lavadora
+# portátil», «Nuevo taladro»): la cabeza es la siguiente.
+# Lo mismo con los contenedores («Juego de sábanas», «Kit de limpieza»,
+# «2 piezas funda»): lo que se compra es lo de adentro. La SPA aplica la
+# misma regla a la consulta (CONTENEDORES_CONSULTA en js/app.js).
+NO_CABEZA = {"mini", "nuevo", "nueva", "nuevos", "nuevas", "original", "originales", "super", "gran",
+             "juego", "juegos", "set", "sets", "kit", "kits", "par", "pares", "paquete", "paquetes",
+             "pack", "packs", "lote", "combo", "combos", "pieza", "piezas", "pza", "pzas", "pz", "pzs"}
+BIT_CABEZA = 512
+
+
+def cabeza_del_nombre(nombre, marca):
+    """La raíz de lo que el producto ES: la primera palabra del nombre que no
+    es vacía, ni número, ni de la marca, ni de NO_CABEZA. «Secadora de ropa
+    Samsung 24 kg» -> secadora; «Sábanas para secadora Downy» -> sabana;
+    «Samsung secadora 24 kg» -> secadora. Buscar «secadora de ropa» y
+    ordenar por precio ponía arriba sábanas y soportes «para secadora»
+    (28-sep, captura del usuario): la SPA ordena primero lo que tiene la
+    palabra buscada como cabeza."""
+    de_marca = palabras(marca)
+    t = normalizar(nombre)
+    t = re.sub(r"([a-z])(\d)", r"\1 \2", t)
+    t = re.sub(r"(\d)([a-z])", r"\1 \2", t)
+    for w in re.findall(r"[a-z0-9]+", t):
+        if w in VACIAS or len(w) < 3 or any(c.isdigit() for c in w) or w in NO_CABEZA:
+            continue
+        r = raiz(w)
+        if r in de_marca:
+            continue
+        return r
+    return None
+
+
 def palabras(texto):
     t = normalizar(texto)
     t = re.sub(r"([a-z])(\d)", r"\1 \2", t)
@@ -134,19 +170,12 @@ def ofertas_de(p):
 
 
 def resumen(p):
-    ofs = [o for o in ofertas_de(p) if isinstance(o.get("price"), (int, float)) and o["price"] > 0]
-    if not ofs:
+    """(precio en pesos enteros, rango, usado), con las reglas de la SPA."""
+    r = precio_como_la_spa(p)
+    if r is None or r[0] <= 0:
         return None
-    en_stock = [o for o in ofs if o.get("stock") != "out_of_stock"] or ofs
-    barata = min(en_stock, key=lambda o: o["price"])
-    vendedores = sum(o.get("sellerCount") or 1 for o in (p.get("offers") or [])) or 1
-    lista = barata.get("listPrice")
-    dto = round((1 - barata["price"] / lista) * 100) if lista and lista > barata["price"] else 0
-    rango = (min(vendedores - 1, 2) * 2 + (2 if p.get("photo") else 0)
-             + (1 if p.get("specs") else 0) + (min(3, round(dto / 15)) if dto else 0))
-    usado = any(s.get("label") == "Condición" and USADO_RE.search(str(s.get("value") or ""))
-                for s in p.get("specs") or [])
-    return round(barata["price"]), rango, usado
+    precio, rango, _ = r
+    return _jsround(precio), rango, _es_usado(p)
 
 
 def _jsround(x):
@@ -390,9 +419,10 @@ def main():
                 nombre = palabras(p.get("name"))
                 marca = palabras(p.get("brand"))
                 base = (8 if usado else 0) + (16 if p.get("a") else 0) + 32 * rango
+                cabeza = cabeza_del_nombre(p.get("name"), p.get("brand"))
                 for w in nombre | marca | palabras_cat[clave_cat]:
                     f = base + (1 if w in nombre else 0) + (2 if w in palabras_cat[clave_cat] else 0) \
-                        + (4 if w in marca else 0)
+                        + (4 if w in marca else 0) + (BIT_CABEZA if w == cabeza else 0)
                     postings[w].append((num, f, precio, ci, si))
                 n += 1
         if con_resumen:

@@ -1446,7 +1446,7 @@
   function sellerTotal(product) {
     // Los del resumen de categoría traen los vendedores; los de la búsqueda
     // por índice, solo el rango de popularidad (como desempate).
-    if (product.__stub) return product.__vend ?? (product.__f >> 5);
+    if (product.__stub) return product.__vend ?? rangoDeF(product.__f);
     // Mismo memo que cheapestOffer: depende del producto y del filtro de color.
     const e = epocaPrecio();
     if (product[PM_VEND_EPOCA] !== e) {
@@ -1610,7 +1610,7 @@
   }
 
   function popularityRank(p) {
-    if (p.__stub) return p.__f >> 5;
+    if (p.__stub) return rangoDeF(p.__f);
     const e = epocaPrecio();
     if (p[PM_RANGO_EPOCA] === e) return p[PM_RANGO];
     p[PM_RANGO] = rangoDePopularidad(p);
@@ -3122,7 +3122,11 @@
         : (f & 1 ? 2 : 0) + (f & 2 ? 1 : 0) + (f & 4 ? 1 : 0);
       const previo = res.get(num);
       if (!previo) res.set(num, [pts, f, ps[i], cs[i], ss[i]]);
-      else if (pts > previo[0]) previo[0] = pts;
+      else {
+        if (pts > previo[0]) previo[0] = pts;
+        // Un sinónimo o un prefijo puede ser la cabeza aunque la raíz no.
+        previo[1] |= f & BIT_CABEZA;
+      }
     }
   }
 
@@ -3155,6 +3159,41 @@
     return res;
   }
 
+  // Rango de popularidad guardado en __f (bits 32-256, 0-10); el bit 512
+  // marca que la palabra es la cabeza del nombre (ver build_buscador.py).
+  function rangoDeF(f) {
+    return (f >> 5) & 15;
+  }
+  const BIT_CABEZA = 512;
+
+  // Palabras que abren una consulta sin ser lo que se busca («mini
+  // lavadora», «juego de sábanas», «kit de limpieza»): la cabeza es la que
+  // sigue. Misma lista que NO_CABEZA en scripts/build_buscador.py.
+  const NO_CABEZA_CONSULTA = new Set(["mini", "nuevo", "nueva", "nuevos", "nuevas", "original", "originales",
+    "super", "gran", "juego", "juegos", "set", "sets", "kit", "kits", "par", "pares", "paquete", "paquetes",
+    "pack", "packs", "lote", "combo", "combos", "pieza", "piezas", "pza", "pzas", "pz", "pzs"]);
+  const PREPOSICIONES_CONSULTA = new Set(["de", "para", "con", "sin"]);
+
+  // De la consulta: cuál término es la cabeza (lo que se busca) y cuáles
+  // son complementos (lo que va después de «de/para/con/sin» tras la
+  // cabeza: «secadora DE ROPA»). Índices en la lista de terminosIndice().
+  function estructuraDeConsulta(query) {
+    const palabras = splitAlphaNumeric(normalizeSearchText(query)).match(/[a-z0-9]+/g) || [];
+    let cabeza = -1;
+    let complementoDesde = -1;
+    let k = -1;   // índice del término (las vacías no cuentan)
+    for (const w of palabras) {
+      const esTermino = !PALABRAS_VACIAS.has(w) && (w.length > 1 || /\d/.test(w));
+      if (esTermino) k += 1;
+      if (cabeza < 0) {
+        if (esTermino && w.length >= 3 && !/\d/.test(w) && !NO_CABEZA_CONSULTA.has(w)) cabeza = k;
+      } else if (complementoDesde < 0 && PREPOSICIONES_CONSULTA.has(w)) {
+        complementoDesde = k + 1;
+      }
+    }
+    return { cabeza, complementoDesde };
+  }
+
   function interseccion(mapas) {
     if (!mapas.length) return new Map();
     const orden = mapas.slice().sort((a, b) => a.size - b.size);
@@ -3176,22 +3215,62 @@
   // sigue por el camino de las categorías.
   // ligera: para el autocompletado -- los prefijos no abren archivos de
   // palabras frecuentes (escribir «ref» no baja «refaccion» y compañía).
+  // Con menos resultados que esto, un complemento («de ropa») se vuelve
+  // opcional dentro de las categorías donde caen los resultados.
+  const EXPANDIR_BAJO = 60;
+
   async function buscarEnIndice(query, ligera) {
     const meta = await pedirBuscadorMeta();
     if (!meta) return null;
     const terms = terminosIndice(query);
     if (!terms.length) return null;
-    let res = interseccion(await Promise.all(terms.map((t) => coincidenciasDeTermino(t, false, ligera))));
+    const { cabeza, complementoDesde } = estructuraDeConsulta(query);
+    let mapas = await Promise.all(terms.map((t) => coincidenciasDeTermino(t, false, ligera)));
+    let res = interseccion(mapas);
     let difusa = false;
     if (!res.size && !ligera) {
-      res = interseccion(await Promise.all(terms.map((t) => coincidenciasDeTermino(t, true))));
+      mapas = await Promise.all(terms.map((t) => coincidenciasDeTermino(t, true)));
+      res = interseccion(mapas);
       difusa = res.size > 0;
     }
+    // «secadora de ropa» exigía «ropa» en el título: 32 resultados, y las
+    // secadoras de verdad («Secadora Whirlpool 7 kg») no salían (28-sep,
+    // captura del usuario). Con pocos resultados, en la SUBCATEGORÍA donde se
+    // juntan (30% o más, mínimo 3) también entra lo que ES lo buscado (la
+    // cabeza del nombre) aunque le falte el complemento, con menos puntos.
+    // Por subcategoría y solo cabezas: por categoría, «funda para iphone 15»
+    // sumaba todas las fundas de power bank de Cargadores.
+    const expandidas = new Set();
+    if (!ligera && !difusa && cabeza >= 0 && cabeza < complementoDesde && res.size && res.size < EXPANDIR_BAJO
+        && complementoDesde < terms.length) {
+      const porSub = new Map();
+      for (const v of res.values()) {
+        const k = `${v[3]}:${v[4]}`;
+        porSub.set(k, (porSub.get(k) || 0) + 1);
+      }
+      const subs = new Set([...porSub].filter(([, n]) => n >= Math.max(3, res.size * 0.3)).map(([k]) => k));
+      if (subs.size) {
+        const mapaCab = mapas[cabeza];
+        for (const [num, v] of interseccion(mapas.slice(0, complementoDesde))) {
+          if (res.has(num) || !subs.has(`${v[3]}:${v[4]}`)) continue;
+          const c = mapaCab.get(num);
+          if (!c || !(c[1] & BIT_CABEZA)) continue;
+          res.set(num, v);
+          expandidas.add(num);
+        }
+      }
+    }
+    const mapaCabeza = cabeza >= 0 ? mapas[cabeza] : null;
     const stubs = [];
     for (const [num, [pts, f, precio, c, sub]] of res) {
       const subs = meta.subs[c] || [];
+      const enCabeza = mapaCabeza ? mapaCabeza.get(num) : null;
+      // Lo buscado es lo que el producto ES («Secadora de ropa Samsung») y
+      // no algo que lo menciona («Sábanas para secadora»).
+      const esCabeza = !!(enCabeza && (enCabeza[1] & BIT_CABEZA));
       const stub = {
-        id: `p${num}`, __stub: true, __score: pts, __f: f, __precio: precio,
+        id: `p${num}`, __stub: true, __score: pts + (esCabeza ? 5 : 0), __f: f, __precio: precio,
+        __cabeza: esCabeza, __expandida: expandidas.has(num),
         category: meta.cats[c], subcategory: sub >= 0 ? subs[sub] || "" : "", brand: "", offers: [],
       };
       if (f & 16) stub.a = 1;
@@ -4953,9 +5032,10 @@
       }
       if (terms.length === 0) return true;
       if (resumen) {
-        const pts = coinc && coinc.get(p.id);
-        if (pts === undefined) return false;
-        p.__score = pts;   // para ordenar por relevancia (queryRelevanceScore)
+        const s = coinc && coinc.get(p.id);
+        if (!s) return false;
+        p.__score = s.__score;   // para ordenar por relevancia (queryRelevanceScore)
+        p.__cabeza = s.__cabeza;
         return true;
       }
       return useFuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, terms);
@@ -4969,7 +5049,7 @@
     const b = state.busqueda;
     if (!b || b.query !== state.query) return null;
     if (!coincidenciasMemo || coincidenciasMemo.b !== b) {
-      coincidenciasMemo = { b, mapa: new Map(b.stubs.map((x) => [x.id, x.__score])) };
+      coincidenciasMemo = { b, mapa: new Map(b.stubs.map((x) => [x.id, x])) };
     }
     return coincidenciasMemo.mapa;
   }
@@ -5154,14 +5234,19 @@
   function sortedProducts(products) {
     const list = products.slice();
     if (state.sort === "popularity") return sortByPopularity(list);
-    else if (state.sort === "price_asc") {
-      // Las fichas marcadas con «a» van después de todas las demás.
-      const centavos = (p) => Math.round(minPrice(p) * 100);
-      return ordenarPorClave(list.filter((p) => !p.a), centavos)
-        .concat(ordenarPorClave(list.filter((p) => p.a), centavos));
-    }
-    else if (state.sort === "price_desc") {
-      return ordenarPorClave(list, (p) => -Math.round(minPrice(p) * 100));
+    else if (state.sort === "price_asc" || state.sort === "price_desc") {
+      // Buscando texto, primero lo que ES lo buscado (la palabra es la
+      // cabeza del nombre) y después lo que solo lo menciona: «secadora de
+      // ropa» por «Más baratos» abría con sábanas y soportes «para
+      // secadora» (28-sep, captura del usuario). Las fichas marcadas con
+      // «a» (precio atípico) van al final del orden de menor a mayor.
+      const signo = state.sort === "price_asc" ? 1 : -1;
+      const centavos = (p) => signo * Math.round(minPrice(p) * 100);
+      const conCabeza = !!state.query && list.some((p) => p.__cabeza === true);
+      const grupo = (p) => (conCabeza && !p.__cabeza ? 1 : 0) + (signo > 0 && p.a ? 2 : 0);
+      const grupos = [[], [], [], []];
+      for (const p of list) grupos[grupo(p)].push(p);
+      return [].concat(...grupos.map((g) => (g.length ? ordenarPorClave(g, centavos) : g)));
     }
     // "Mejor calificados" empata igual de seguido que "más popular" (hoy
     // ninguna oferta del catálogo trae calificación), así que usa el mismo
@@ -9968,7 +10053,7 @@
             return buscarEnIndice(value, true).then((r) => {
               if (!r || !r.stubs.length) return;
               const top = r.stubs.slice()
-                .sort((a, b) => b.__score - a.__score || (b.__f >> 5) - (a.__f >> 5))
+                .sort((a, b) => b.__score - a.__score || rangoDeF(b.__f) - rangoDeF(a.__f))
                 .slice(0, 5);
               return cargarFilas(top.map((p) => p.id)).then(() => {
                 sugerenciasIndice = { q: value, ids: top.map((p) => p.id) };
