@@ -4052,6 +4052,27 @@ LOTES['auditoria_12'] = [
 ]
 REGLAS += LOTES['auditoria_12']
 
+# auditoria_13 (28-sep-2026): revisando a mano lo más barato de cada
+# subcategoría salieron familias enteras fuera de lugar que ninguna regla
+# alcanzaba: flotadores y sillones inflables de alberca en Muebles (27),
+# gorras de natación en Ropa (16), luces de alberca y de auto en Iluminación
+# (110) y películas en DVD/Blu-ray en Videojuegos (23). Medido sobre el
+# catálogo: 100% en las cinco reglas tras quitar las bases de cama
+# «flotantes» y el set de luces de LEGO.
+LOTES['auditoria_13'] = [
+    ('Muebles', r'\b(flotador|salvavidas)\b|\binflable\b.*\b(alberca|piscina|pool|acuatic\w*|playa)\b|'
+                r'\b(alberca|piscina)\b.*\binflable\b|\b(colchon(eta)?|tumbona|sillon|silla) flotante\b|'
+                r'\bflotante\b.*\b(intex|bestway)\b', r'\bbase\b', 'Jardín y exterior', 'Albercas e inflables'),
+    ('Ropa y accesorios', r'\bgorr[ao] (de )?natacion', None, 'Deportes y fitness', 'Gorros de natación'),
+    ('Iluminación', r'\b(para|de) (alberca|piscina)\b|\bluz piscina|\bsumergible\b.*\balberca', None,
+     'Jardín y exterior', 'Albercas e inflables'),
+    ('Iluminación', r'\binteriore?s? de (coche|auto)|\bpara (coche|carro)\b|\bunderglow\b|\brock lights?\b|'
+                    r'\bpara jeep\b|\btipo roca\b', r'\blego\b', 'Autos y motos', 'Luces LED para auto'),
+    ('Videojuegos', r'\b(dvd|blu ?ray)\b', r'lector|unidad|reproductor|drive|consola|\bps ?5\b|playstation|xbox|'
+                    r'nintendo|switch|juego|reparacion|protector|control', 'Libros', 'Películas y series'),
+]
+REGLAS += LOTES['auditoria_13']
+
 # Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que
 # se agregó debajo (reglas por marca, auditoria_2 a 10, sin_subcategoria_2:
 # ~6,000 fichas) no existía todavía cuando main() corría como script: la

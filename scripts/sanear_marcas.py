@@ -265,7 +265,10 @@ def main():
     vacias = sum(1 for _, _, n in cambios if not n)
     print(f"Marcas de Elektra que no son las del título: {len(cambios):,} "
           f"(corregidas por la del título {len(cambios) - vacias:,}, vaciadas {vacias:,})")
-    for p, vieja, nueva in cambios[:: max(1, len(cambios) // args.muestra)][: args.muestra]:
+    # Con --muestra 0 (la regeneración) no se muestra nada: el paso de la
+    # muestra dividía por cero y tiraba la regeneración entera.
+    muestra = cambios[:: max(1, len(cambios) // args.muestra)][: args.muestra] if args.muestra else []
+    for p, vieja, nueva in muestra:
         print(f"  {p['id']:>9}  {vieja[:18]:18} -> {nueva[:18] or '(vacía)':18}  {p['name'][:70]}")
     for p, _, nueva in cambios:
         p["brand"] = nueva
