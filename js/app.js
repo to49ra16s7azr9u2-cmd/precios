@@ -7,7 +7,15 @@
   // categoría más grande tardaba varios segundos en pintarse y "Todos"
   // llegaba a 200,000 nodos de DOM. Con paginación cada vista solo dibuja
   // PAGE_SIZE filas sin importar cuánto crezca el catálogo.
-  const PAGE_SIZE = 60;
+  // 60 por página era pesado de pintar y de recorrer en un teléfono (28-sep,
+  // pedido del usuario): como kakaku.com, 40 en computadora y 20 en pantalla
+  // angosta.
+  const PAGE_SIZE_ANCHA = 40;
+  const PAGE_SIZE_ANGOSTA = 20;
+  const pantallaAngosta = window.matchMedia("(max-width: 700px)");
+  function tamPagina() {
+    return pantallaAngosta.matches ? PAGE_SIZE_ANGOSTA : PAGE_SIZE_ANCHA;
+  }
 
   const RATING_FILTERS = [
     { id: "all", label: "Todas", min: 0 },
@@ -564,7 +572,7 @@
     // Se pueden combinar: "solo Amazon y Mercado Libre", "solo Elektra"...
     storeFilter: new Set(),
     qualityCategory: null, // categoría a la que pertenece `quality` (ver renderSpecsBanner)
-    page: 1, // página actual de la lista/ranking (ver PAGE_SIZE)
+    page: 1, // página actual de la lista/ranking (ver tamPagina)
     sort: "relevance",
     offerSort: "price", // 'price' | 'rating' — orden de la tabla de comparación
     brandCategory: null, // filtro activo en /marcas; null = todas las categorías
@@ -866,8 +874,11 @@
   };
 
 
+  // Un solo formateador: toLocaleString con opciones arma uno nuevo en cada
+  // llamada, y la lista pide cientos de precios por página.
+  const FORMATO_PESOS = new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 });
   function money(n) {
-    return n.toLocaleString("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 });
+    return FORMATO_PESOS.format(n);
   }
 
   // "1 tiendas"/"0 calificaciones" salían en cada fila del catálogo y en
@@ -1387,7 +1398,12 @@
   function cheapestOffer(product) {
     const e = epocaPrecio();
     if (product[PM_EPOCA] !== e) {
-      const c = sellerRows(product).reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
+      // Lo más común (sin colores ni vendedores sueltos): sellerRows
+      // devolvería las mismas ofertas, sin copiarlas; se evita armar la lista.
+      const simple = !(product.colorVariants && product.colorVariants.length)
+        && product.offers.every((o) => !o.sellers && !o.cheapestSeller);
+      const c = (simple ? product.offers : sellerRows(product))
+        .reduce((a, b) => (displayPrice(b) < displayPrice(a) ? b : a));
       product[PM_OFERTA] = c;
       product[PM_PRECIO] = displayPrice(c);
       product[PM_EPOCA] = e;
@@ -2662,10 +2678,20 @@
     if (p.brand == null) p.brand = "";
     if (p.specs == null) p.specs = [];
     if (p.image == null) {
-      const c = ((state.data && state.data.categories) || []).find((x) => x.id === catId);
-      if (c && c.icon) p.image = c.icon;
+      const icono = iconoDeCategoria(catId);
+      if (icono) p.image = icono;
     }
     return p;
+  }
+  // El icono de la categoría se buscaba recorriendo las categorías por cada
+  // ficha fusionada (43 mil búsquedas al abrir Herramientas).
+  const iconosDeCategoria = new Map();
+  function iconoDeCategoria(catId) {
+    if (!iconosDeCategoria.has(catId)) {
+      const c = ((state.data && state.data.categories) || []).find((x) => x.id === catId);
+      iconosDeCategoria.set(catId, (c && c.icon) || null);
+    }
+    return iconosDeCategoria.get(catId);
   }
 
   // Sube cada vez que cambia el conjunto de fichas cargadas (se agrega o se
@@ -2707,8 +2733,76 @@
     }
     return pakoPromesa;
   }
+  // Descomprimir en el hilo principal era lo más caro de abrir una
+  // categoría: Herramientas son 2.9 MB de .gz que se vuelven 18 MB de JSON,
+  // ~0.85 s de descompresión en un teléfono (CPU x4) con la pantalla
+  // congelada. Unos pocos workers bajan y descomprimen cada trozo en
+  // paralelo, fuera del hilo principal, y devuelven el texto; acá solo queda
+  // el JSON.parse. Sin Worker o sin DecompressionStream se sigue por el
+  // camino de siempre.
+  const CODIGO_DESCOMPRESOR = `self.onmessage = async (e) => {
+    const { id, url } = e.data;
+    try {
+      const r = await fetch(url);
+      if (!r.ok) { self.postMessage({ id, status: r.status }); return; }
+      const texto = await new Response(r.body.pipeThrough(new DecompressionStream("gzip"))).text();
+      self.postMessage({ id, texto });
+    } catch (err) { self.postMessage({ id, error: String(err) }); }
+  };`;
+  let descompresores = null;
+  let descompresorSiguiente = 0;
+  let pedidoSiguiente = 0;
+  const pedidosEnWorker = new Map();
+  function poolDescompresores() {
+    if (descompresores !== null) return descompresores;
+    descompresores = [];
+    try {
+      if (typeof Worker !== "function" || typeof DecompressionStream !== "function") return descompresores;
+      const url = URL.createObjectURL(new Blob([CODIGO_DESCOMPRESOR], { type: "text/javascript" }));
+      const n = Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 2) - 1));
+      for (let i = 0; i < n; i++) {
+        const w = new Worker(url);
+        w.onmessage = (e) => {
+          const pend = pedidosEnWorker.get(e.data.id);
+          if (!pend) return;
+          pedidosEnWorker.delete(e.data.id);
+          pend(e.data);
+        };
+        descompresores.push(w);
+      }
+    } catch (e) {
+      descompresores = [];
+    }
+    return descompresores;
+  }
+  function bajarGzEnWorker(url) {
+    const pool = poolDescompresores();
+    if (!pool.length) return null;
+    const w = pool[descompresorSiguiente++ % pool.length];
+    const id = ++pedidoSiguiente;
+    return new Promise((ok) => {
+      pedidosEnWorker.set(id, ok);
+      w.postMessage({ id, url: new URL(url, location.href).href });
+    });
+  }
+
   function pedirDatos(url, siFalta) {
     const gz = DATOS_GZ.test(url) && !/\/meta\.json$/.test(url);
+    const enWorker = gz ? bajarGzEnWorker(url + ".gz") : null;
+    if (enWorker) {
+      return enWorker.then((res) => {
+        if (res.texto !== undefined) return JSON.parse(res.texto);
+        if (res.status) {
+          if (siFalta !== undefined) return siFalta;
+          throw new Error(`${url}: HTTP ${res.status}`);
+        }
+        // El worker no pudo (red, formato): se intenta por el camino normal.
+        return pedirDatosDirecto(url, siFalta, gz);
+      });
+    }
+    return pedirDatosDirecto(url, siFalta, gz);
+  }
+  function pedirDatosDirecto(url, siFalta, gz) {
     return fetch(gz ? url + ".gz" : url).then((r) => {
       if (!r.ok) {
         if (siFalta !== undefined) return siFalta;
@@ -3551,9 +3645,32 @@
     else renderHome();
   }
 
+  // Volver de una ficha a la lista. Antes se rehacía todo desde la URL:
+  // el hash de la lista solo lleva la categoría, así que la subcategoría
+  // elegida con las tarjetas, la página y el orden se perdían (se volvía a
+  // la página 1 de la categoría entera) y además se repintaban todos los
+  // filtros (~1.7 s en un teléfono). Al salir de la lista hacia una ficha se
+  // guarda cómo estaba; al volver con ese mismo hash, se muestra tal cual.
+  let ultimoHashLista = null;
+  let listaGuardada = null;
+  function firmaLista() {
+    return JSON.stringify([state.category, state.subcategory, state.query, state.priceMin, state.priceMax,
+      [...state.brands], state.minRating, state.excludeUsed, state.magsafeOnly, state.sizeFilter,
+      Object.keys(state.specFilters).map((k) => [k, [...state.specFilters[k]]]), state.quality,
+      state.sort, state.includeShipping, state.colorFilter || "", datosVersion,
+      state.municipio && state.municipio.id]);
+  }
+  function esHashLista(hash) {
+    return hash === "#/list" || hash.startsWith("#/list?");
+  }
+
   function onHashChange() {
     if (!state.data) return;
     const hash = location.hash;
+    if (!el.viewList.classList.contains("hidden") && !esHashLista(hash) && ultimoHashLista) {
+      listaGuardada = { hash: ultimoHashLista, firma: firmaLista(), page: state.page, y: window.scrollY };
+    }
+    const vieneDeFicha = !el.viewDetail.classList.contains("hidden");
     const detailMatch = hash.match(/#\/p\/(.+)/);
     if (detailMatch) {
       // Se cuenta acá (no dentro de renderDetail) porque renderDetail()
@@ -3564,7 +3681,24 @@
       // a #/p/<id> (páginas SEO estáticas), o adelante/atrás del navegador.
       trackProductView(detailMatch[1]);
       renderDetail(detailMatch[1]);
-    } else if (hash === "#/list" || hash.startsWith("#/list?")) {
+    } else if (esHashLista(hash) && vieneDeFicha && listaGuardada && listaGuardada.hash === hash) {
+      const g = listaGuardada;
+      listaGuardada = null;
+      ultimoHashLista = hash;
+      if (g.firma === firmaLista() && el.productList.querySelector(".product-row")) {
+        // Lo mismo que se veía: solo se repintan las filas de esa página
+        // (un favorito o un precio pudo cambiar en la ficha).
+        setActiveView("list");
+        state.page = g.page;
+        renderProductListPage();
+      } else {
+        renderList();
+      }
+      window.scrollTo(0, g.y);
+      requestAnimationFrame(() => window.scrollTo(0, g.y));
+      return;
+    } else if (esHashLista(hash)) {
+      ultimoHashLista = hash;
       // Permite enlazar directo a una categoría filtrada (p. ej. desde las
       // páginas estáticas de SEO: #/list?cat=Celulares&sub=Celulares), sin
       // lo cual esos enlaces caían al inicio en vez de abrir el listado ya
@@ -5070,6 +5204,7 @@
     const isCategoryRanking = !!state.category && !state.query;
 
     const { filtered, sorted } = listaFiltradaYOrdenada();
+    const PAGE_SIZE = tamPagina();
     const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
     state.page = Math.min(Math.max(1, state.page), totalPages);
     const startIdx = (state.page - 1) * PAGE_SIZE;
@@ -5431,6 +5566,9 @@
       container.innerHTML = `<p class="empty-state">${opts.emptyText}</p>`;
       return;
     }
+    // Las filas se arman fuera del documento y entran de una vez.
+    const destino = container;
+    container = document.createDocumentFragment();
     products.forEach((p, i) => {
       const { avg, count } = aggregateRating(p);
       const rank = (opts.rankOffset || 0) + i + 1;
@@ -5510,8 +5648,9 @@
       // El sello va en la esquina de toda la tarjeta (.product-row), no
       // en la miniatura chica del ícono -- a pedido del usuario, ahí
       // pasaba desapercibido.
+      // renderProductMedia llama onSettled en el acto (y otra vez en cada
+      // reintento de la foto): el sello ya queda puesto sin repetirlo acá.
       renderProductMedia(rowIcon, p, undefined, () => attachDiscountRibbon(row, p));
-      attachDiscountRibbon(row, p);
       row.onclick = () => goDetail(p.id);
       bindFavToggle(row.querySelector(".row-fav-btn"), p.id, opts.onFavToggle);
       row.querySelector(".row-fav-btn").innerHTML = favIconHtml(p.id);
@@ -5521,12 +5660,13 @@
         label.onclick = (e) => e.stopPropagation();
         input.onchange = () => {
           toggleCompareItem(p);
-          refreshCompareCheckboxes(container);
+          refreshCompareCheckboxes(destino);
         };
       }
       container.appendChild(row);
     });
-    if (opts.withCompare) refreshCompareCheckboxes(container);
+    destino.appendChild(container);
+    if (opts.withCompare) refreshCompareCheckboxes(destino);
   }
 
   // Sincroniza los checkboxes "Comparar" ya pintados con el estado actual
@@ -5702,11 +5842,48 @@
     renderList();
   }
 
+  // Una categoría grande trae más de mil marcas: armarlas como mil <label>
+  // con su propio onclick, en cada clic de cualquier filtro, era de lo más
+  // caro de la lista (~5 mil nodos). Ahora es un solo innerHTML con un solo
+  // manejador delegado, y mientras el grupo esté cerrado no se arma: se
+  // arma al abrirlo (ver bindEvents).
+  function grupoCerrado(nodo) {
+    const g = nodo && nodo.closest(".filter-group");
+    return !!g && g.classList.contains("collapsed");
+  }
   function renderFilterBrand() {
-    el.filterBrand.innerHTML = "";
+    // Cerrado, sin búsqueda y sin marcas elegidas: ni siquiera hace falta
+    // saber qué marcas hay (en una categoría grande, recorrerla entera).
+    if (grupoCerrado(el.filterBrand) && !el.filterBrandSearch.value.trim() && !state.brands.size) {
+      el.filterBrand.innerHTML = "";
+      el.filterBrand.dataset.pendiente = "1";
+      return;
+    }
     const brands = brandsInScope();
     // Si una marca seleccionada ya no aplica en el alcance actual, se descarta.
-    [...state.brands].forEach((b) => { if (!brands.includes(b)) state.brands.delete(b); });
+    if (state.brands.size) {
+      const enAlcance = new Set(brands);
+      [...state.brands].forEach((b) => { if (!enAlcance.has(b)) state.brands.delete(b); });
+    }
+    if (!el.filterBrand.dataset.delegado) {
+      el.filterBrand.dataset.delegado = "1";
+      el.filterBrand.addEventListener("click", (e) => {
+        const opt = e.target.closest(".filter-option[data-b]");
+        if (!opt) return;
+        e.preventDefault();
+        const b = opt.dataset.b;
+        if (state.brands.has(b)) state.brands.delete(b);
+        else state.brands.add(b);
+        renderList();
+      });
+    }
+    // Cerrado y sin búsqueda escrita: no se ve nada, no se arma.
+    if (grupoCerrado(el.filterBrand) && !el.filterBrandSearch.value.trim()) {
+      el.filterBrand.innerHTML = "";
+      el.filterBrand.dataset.pendiente = "1";
+      return;
+    }
+    delete el.filterBrand.dataset.pendiente;
 
     // El cuadro de búsqueda solo filtra qué checkboxes se muestran; no toca
     // state.brands, así que una marca ya marcada sigue activa aunque quede
@@ -5715,26 +5892,15 @@
     const visibleBrands = query ? brands.filter((b) => b.toLowerCase().includes(query)) : brands;
 
     if (query && visibleBrands.length === 0) {
-      const empty = document.createElement("p");
-      empty.className = "filter-empty";
-      empty.textContent = `Sin marcas para "${el.filterBrandSearch.value.trim()}"`;
-      el.filterBrand.appendChild(empty);
+      el.filterBrand.innerHTML = `<p class="filter-empty">Sin marcas para "${htmlEscapeAttr(el.filterBrandSearch.value.trim())}"</p>`;
       return;
     }
 
-    visibleBrands.forEach((b) => {
-      const opt = document.createElement("label");
+    el.filterBrand.innerHTML = visibleBrands.map((b) => {
       const isActive = state.brands.has(b);
-      opt.className = "filter-option" + (isActive ? " active" : "");
-      opt.innerHTML = `<input type="checkbox" ${isActive ? "checked" : ""}> ${b}`;
-      opt.onclick = (e) => {
-        e.preventDefault();
-        if (state.brands.has(b)) state.brands.delete(b);
-        else state.brands.add(b);
-        renderList();
-      };
-      el.filterBrand.appendChild(opt);
-    });
+      const t = htmlEscapeAttr(b);
+      return `<label class="filter-option${isActive ? " active" : ""}" data-b="${t}"><input type="checkbox"${isActive ? " checked" : ""}> ${t}</label>`;
+    }).join("");
   }
 
   function renderFilterRating() {
@@ -5996,19 +6162,17 @@
       ? items.filter((i) => normalizeSearchText(String(i.label)).includes(filtro)
                          || normalizeSearchText(String(i.id)).includes(filtro))
       : items;
-    if (buscador && !visibles.length) {
-      const vacio = document.createElement("p");
-      vacio.className = "filter-empty muted small";
-      vacio.textContent = `Sin resultados para "${buscador.value.trim()}"`;
-      listEl.appendChild(vacio);
-    }
-    visibles.forEach((item) => {
-      const opt = document.createElement("label");
-      const isActive = state.specFilters[cfg.key].has(item.id);
-      opt.className = "filter-option" + (isActive ? " active" : "");
-      opt.innerHTML = `<input type="checkbox" ${isActive ? "checked" : ""}> ${item.label}`;
-      opt.onclick = (e) => {
+    // Un solo innerHTML y un manejador delegado por grupo (antes, un
+    // <label> con su onclick por opción, y hay grupos de cientos).
+    listEl.__opciones = visibles;
+    if (!listEl.dataset.delegado) {
+      listEl.dataset.delegado = "1";
+      listEl.addEventListener("click", (e) => {
+        const opt = e.target.closest(".filter-option[data-i]");
+        if (!opt) return;
         e.preventDefault();
+        const item = listEl.__opciones[+opt.dataset.i];
+        if (!item) return;
         const sel = state.specFilters[cfg.key];
         if (sel.has(item.id)) sel.delete(item.id);
         else {
@@ -6019,9 +6183,17 @@
           sel.add(item.id);
         }
         renderList();
-      };
-      listEl.appendChild(opt);
-    });
+      });
+    }
+    let html = "";
+    if (buscador && !visibles.length) {
+      html = `<p class="filter-empty muted small">Sin resultados para "${htmlEscapeAttr(buscador.value.trim())}"</p>`;
+    }
+    html += visibles.map((item, i) => {
+      const isActive = state.specFilters[cfg.key].has(item.id);
+      return `<label class="filter-option${isActive ? " active" : ""}" data-i="${i}"><input type="checkbox"${isActive ? " checked" : ""}> ${item.label}</label>`;
+    }).join("");
+    listEl.innerHTML = html;
   }
 
   // Interruptor de selección múltiple del modal de especificaciones. Se
@@ -9509,7 +9681,31 @@
 
   // ---------- Eventos globales ----------
 
+  // Precarga: la categoría se empieza a bajar al tocar (o al posar el
+  // mouse sobre) su tarjeta de Inicio, no recién al soltar el clic. En un
+  // teléfono entre tocar y soltar pasan ~100-200 ms, y en computadora el
+  // mouse se posa bastante antes del clic: ese tiempo se ahorra de la
+  // espera al abrir la categoría. Solo las tarjetas con data-cat (las que
+  // abren la lista en la propia página).
+  function bindPrecargaDeCategorias() {
+    let temporizador = null;
+    const catDe = (e) => {
+      const t = e.target && e.target.closest && e.target.closest("#homeCategoryGrid [data-cat]");
+      return t ? t.dataset.cat : null;
+    };
+    document.addEventListener("pointerdown", (e) => {
+      const id = catDe(e);
+      if (id) ensureCategory(id);
+    }, { passive: true });
+    document.addEventListener("mouseover", (e) => {
+      const id = catDe(e);
+      clearTimeout(temporizador);
+      if (id) temporizador = setTimeout(() => ensureCategory(id), 120);
+    }, { passive: true });
+  }
+
   function bindEvents() {
+    bindPrecargaDeCategorias();
     // buildSearchSuggestions ahora también recorre el catálogo completo
     // (~90 mil productos) para sugerir fichas concretas, no solo
     // categorías -- demasiado como para repetirlo en CADA tecla sin
@@ -9714,7 +9910,12 @@
 
     document.querySelectorAll(".filter-group-collapsible > h3").forEach((h3) => {
       h3.addEventListener("click", () => {
-        h3.closest(".filter-group").classList.toggle("collapsed");
+        const g = h3.closest(".filter-group");
+        g.classList.toggle("collapsed");
+        // Las marcas no se arman con el grupo cerrado (ver renderFilterBrand).
+        if (!g.classList.contains("collapsed") && g.contains(el.filterBrand) && el.filterBrand.dataset.pendiente) {
+          renderFilterBrand();
+        }
       });
     });
 
