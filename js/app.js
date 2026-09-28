@@ -1444,7 +1444,9 @@
   // el encabezado no diga "en 1 tienda" mientras la fila de abajo dice "2
   // vendedores": son dos cosas distintas y juntas se leían como contradicción.
   function sellerTotal(product) {
-    if (product.__stub) return product.__f >> 5;   // rango de popularidad, como desempate
+    // Los del resumen de categoría traen los vendedores; los de la búsqueda
+    // por índice, solo el rango de popularidad (como desempate).
+    if (product.__stub) return product.__vend ?? (product.__f >> 5);
     // Mismo memo que cheapestOffer: depende del producto y del filtro de color.
     const e = epocaPrecio();
     if (product[PM_VEND_EPOCA] !== e) {
@@ -1636,9 +1638,18 @@
       if (rs) for (let i = 0; i < rs.length; i++) t += STAR_POINTS[rs[i].rating] || 0;
       return t;
     };
+    // Lo guardado en este navegador toca a pocas fichas: se junta en un
+    // solo Map y la gran mayoría (que no está) cuesta una búsqueda, o
+    // ninguna si el navegador no tiene nada guardado.
+    const extra = new Map();
+    const sumar = (id, n) => { if (n) extra.set(id, (extra.get(id) || 0) + n); };
+    for (const id in clicks) sumar(id, (clicks[id] || 0) * 3);
+    for (const id in views) sumar(id, views[id] || 0);
+    favs.forEach((id) => sumar(id, 3));
+    for (const id in propias) sumar(id, estrellas(propias[id]));
+    const hayExtra = extra.size > 0;
     return (p) => {
-      const score = (clicks[p.id] || 0) * 3 + (views[p.id] || 0) + (favs.has(p.id) ? 3 : 0)
-        + estrellas(propias[p.id]) + estrellas(p.reviews);
+      const score = (hayExtra ? extra.get(p.id) || 0 : 0) + (p.reviews ? estrellas(p.reviews) : 0);
       return -(score * 1024 + Math.min(1023, popularityRank(p)));
     };
   }
@@ -2718,7 +2729,7 @@
   // sirve tal cual (application/gzip, sin Content-Encoding), así que por la
   // red viaja lo mismo que antes y el navegador los descomprime acá. El
   // manifiesto los sigue nombrando .json; el .gz se agrega solo aquí.
-  const DATOS_GZ = /^\/?data\/(cat|det|hist|retirados|buscar\/[bwf])\/[^/]+\.json$/;
+  const DATOS_GZ = /^\/?data\/(cat|det|hist|retirados|buscar\/[bwfc])\/[^/]+\.json$/;
   let pakoPromesa = null;
   function cargarPako() {
     // Solo para navegadores sin DecompressionStream (Safari < 16.4).
@@ -2939,6 +2950,134 @@
     }
     return buscadorMetaPromesa;
   }
+  // --- Resumen de las categorías enormes -------------------------------
+  // Autopartes son 364 mil fichas: sus 25 shards pesan 28 MB con gzip y
+  // 194 MB de JSON, más de lo que un teléfono aguanta (y ~10 s en una PC).
+  // Para esas categorías el build escribe data/buscar/c/<i>.json (ver
+  // scripts/build_buscador.py): una fila por ficha con precio, rango,
+  // vendedores, subcategoría, marca y las facetas, ~2.8 MB con gzip. La
+  // lista se arma con esos resúmenes (__stub, igual que la búsqueda por
+  // índice) y de cada página se bajan solo sus filas (cargarFilas). La
+  // categoría entera no se baja nunca desde la lista.
+  const resumenCargas = new Map();   // cat -> Promise
+  const resumenListo = new Map();    // cat -> [stubs]
+  // Todos los resúmenes con la misma forma (V8 los arma y los recorre más
+  // rápido) y un solo arreglo de ofertas vacío compartido: son 364 mil.
+  const SIN_OFERTAS = Object.freeze([]);
+  function StubResumen(num, R, i, cat, sub, marca) {
+    this.__num = num;
+    this.__stub = true;
+    this.__f = R.f[i];
+    this.__precio = R.p[i] / 100;
+    this.__vend = R.v[i];
+    this.__R = R;
+    this.__ri = i;
+    this.__local = false;
+    this.category = cat;
+    this.subcategory = sub;
+    this.brand = marca;
+    this.offers = SIN_OFERTAS;
+    this.a = (this.__f & 16) ? 1 : 0;
+  }
+  // El id se arma recién cuando alguien lo pide (la página, una búsqueda):
+  // armar 364 mil textos "p123" al cargar era lo más caro del resumen.
+  Object.defineProperty(StubResumen.prototype, "id", {
+    get() { return `p${this.__num}`; },
+  });
+  function usaResumen(meta, cat) {
+    return !!(meta && Array.isArray(meta.resumen) && meta.resumen.includes(cat));
+  }
+  function letraIndice(txt, i) {
+    const c = txt.charCodeAt(i);
+    if (c === 32) return -1;
+    return c < 127 ? c - 35 - (c > 92 ? 1 : 0) : 91 + (c - 0xa1);
+  }
+  function columnaIndice(col, i) {
+    return typeof col === "string" ? letraIndice(col, i) : col[i];
+  }
+  function cargarResumen(cat, meta) {
+    if (!resumenCargas.has(cat)) {
+      const ci = meta.cats.indexOf(cat);
+      resumenCargas.set(cat, pedirDatos(`data/buscar/c/${ci}.json`).then((R) => {
+        const subs = meta.subs[ci] || [];
+        const stubs = new Array(R.n);
+        const locales = (state.local && state.local.ofertas) || null;
+        let num = 0;
+        for (let i = 0; i < R.n; i++) {
+          num += R.id[i];
+          const si = columnaIndice(R.s, i);
+          const mi = columnaIndice(R.m, i);
+          const stub = new StubResumen(num, R, i, cat, si >= 0 ? subs[si] || "" : "", mi >= 0 ? R.marcas[mi] : "");
+          if (locales && locales[`p${num}`]) stub.__local = true;
+          stubs[i] = stub;
+        }
+        if (!state.busquedaMeta) state.busquedaMeta = meta;
+        resumenListo.set(cat, stubs);
+        datosVersion++;
+      }).catch((e) => {
+        resumenCargas.delete(cat);
+        throw e;
+      }));
+    }
+    return resumenCargas.get(cat);
+  }
+  // La lista de la categoría activa sale del resumen (no hay búsqueda por
+  // texto, o la hay y la resolvió el índice).
+  function modoResumen() {
+    return !!state.category && !loadedCategories.has(state.category) && resumenListo.has(state.category);
+  }
+  // Versión de "lo que hay para listar": en modo resumen no cambia al bajar
+  // las filas de cada página (datosVersion sí), así que filtrar y ordenar
+  // las 364 mil fichas no se repite en cada «Siguiente».
+  function versionDeAlcance() {
+    return modoResumen() ? `r${resumenListo.size}` : datosVersion;
+  }
+  // Valor de una faceta: del resumen para los stubs de categoría, de
+  // product.facets para las fichas completas.
+  function facetaDe(p, campo) {
+    if (p.__stub) {
+      const R = p.__R;
+      const fc = R && R.facetas[campo];
+      if (!fc) return null;
+      if (fc.txt !== undefined) {
+        const k = letraIndice(fc.txt, p.__ri);
+        return k < 0 ? null : fc.dic[k];
+      }
+      const e = fc.col[p.__ri];
+      if (e === -1 || e == null) return null;
+      if (!Array.isArray(e)) return fc.dic[e];
+      const out = [];
+      let prev = 0;
+      for (const x of e) {
+        if (x < 0) { for (let k = prev + 1; k <= -x; k++) out.push(fc.dic[k]); prev = -x; }
+        else { out.push(fc.dic[x]); prev = x; }
+      }
+      return out;
+    }
+    return p.facets ? p.facets[campo] ?? null : null;
+  }
+  // ¿Tiene foto? En el resumen es el bit 1 de __f.
+  function tieneFoto(p) {
+    return !!(p.photo || (p.__R && (p.__f & 1)));
+  }
+  // Foto de muestra (tarjetas de subcategoría y de Compara calidad): un
+  // stub no trae la URL, así que se baja su fila primero.
+  function pintarMuestra(contenedor, p) {
+    if (!contenedor || !p) return;
+    if (!p.__stub) { renderProductMedia(contenedor, p); return; }
+    cargarFilas([p.id]).then(() => {
+      const q = productIndexById.has(p.id) ? state.data.products[productIndexById.get(p.id)] : null;
+      if (q && !q.__stub && contenedor.isConnected) renderProductMedia(contenedor, q);
+    });
+  }
+  // Una categoría con resumen se prepara con el resumen; el resto, con sus
+  // shards (lo usan la lista y la precarga de Inicio).
+  function prepararCategoria(cat) {
+    if (loadedCategories.has(cat) || resumenListo.has(cat)) return Promise.resolve();
+    return pedirBuscadorMeta().then((meta) =>
+      (usaResumen(meta, cat) ? cargarResumen(cat, meta).catch(() => ensureCategory(cat)) : ensureCategory(cat)));
+  }
+
   const cubetasIndice = new Map();     // 3 primeras letras -> Promise<{raíz: posting | "*"}>
   const frecuentesIndice = new Map();  // raíz -> Promise<posting>
   function cubetaIndice(pre) {
@@ -3657,7 +3796,7 @@
     return JSON.stringify([state.category, state.subcategory, state.query, state.priceMin, state.priceMax,
       [...state.brands], state.minRating, state.excludeUsed, state.magsafeOnly, state.sizeFilter,
       Object.keys(state.specFilters).map((k) => [k, [...state.specFilters[k]]]), state.quality,
-      state.sort, state.includeShipping, state.colorFilter || "", datosVersion,
+      state.sort, state.includeShipping, state.colorFilter || "", versionDeAlcance(),
       state.municipio && state.municipio.id]);
   }
   function esHashLista(hash) {
@@ -4561,17 +4700,19 @@
   function productosDeCategoria() {
     const productos = state.data.products;
     const m = deCategoriaMemo;
-    if (m && m.productos === productos && m.v === datosVersion && m.cat === state.category) return m.lista;
-    const lista = state.category ? productos.filter((p) => p.category === state.category) : productos;
-    deCategoriaMemo = { productos, v: datosVersion, cat: state.category, lista };
+    const resumen = modoResumen();
+    if (m && m.productos === productos && m.v === versionDeAlcance() && m.cat === state.category && m.resumen === resumen) return m.lista;
+    const lista = resumen ? resumenListo.get(state.category)
+      : state.category ? productos.filter((p) => p.category === state.category) : productos;
+    deCategoriaMemo = { productos, v: versionDeAlcance(), cat: state.category, resumen, lista };
     return lista;
   }
   // Memo genérico de un cálculo sobre el alcance actual (categoría,
   // subcategorías, búsqueda y fichas cargadas).
   function memoDeAlcance(fn, extra) {
     const productos = state.data.products;
-    const clave = [state.category, state.subcategory.join("\u0001"), state.query, datosVersion,
-      modoIndice() ? 1 : 0, extra == null ? "" : extra].join("\u0000");
+    const clave = [state.category, state.subcategory.join("\u0001"), state.query, versionDeAlcance(),
+      modoIndice() ? 1 : 0, modoResumen() ? 1 : 0, extra == null ? "" : extra].join("\u0000");
     if (fn.memo && fn.memo.clave === clave && fn.memo.productos === productos) return fn.memo.valor;
     const valor = fn();
     fn.memo = { clave, productos, valor };
@@ -4679,7 +4820,7 @@
   // valor crudo de facets[facetField], o null si el producto no trae ese
   // campo en absoluto (nunca se adivina, ver compute_facets.py).
   function specValueOf(cfg, p) {
-    return p.facets ? p.facets[cfg.facetField] ?? null : null;
+    return facetaDe(p, cfg.facetField);
   }
 
   // Un producto puede tener VARIOS valores del mismo campo: una refacción le
@@ -4732,10 +4873,21 @@
     rolesCache = { cats, rol, propios };
     return rolesCache;
   }
+  // Se resuelve una vez por (categoría, subcategoría): armar la clave de
+  // texto por cada ficha costaba ~0.1 s en Autopartes.
+  let optInCache = null;
   function esOptIn(p) {
-    if (SUBCATEGORIAS_OPT_IN.has(p.subcategory)) return true;
     const r = rolesPorCategoria();
-    return r.rol.has(`${p.category}\u0000${p.subcategory}`) && r.propios.get(p.category) === true;
+    if (!optInCache || optInCache.r !== r) optInCache = { r, porCat: new Map() };
+    let porSub = optInCache.porCat.get(p.category);
+    if (!porSub) optInCache.porCat.set(p.category, (porSub = new Map()));
+    let v = porSub.get(p.subcategory);
+    if (v === undefined) {
+      v = SUBCATEGORIAS_OPT_IN.has(p.subcategory)
+        || (r.rol.has(`${p.category}\u0000${p.subcategory}`) && r.propios.get(p.category) === true);
+      porSub.set(p.subcategory, v);
+    }
+    return v;
   }
 
   // La ficha suelta MAL CLASIFICADA dentro de una subcategoría de producto
@@ -4758,7 +4910,11 @@
         && ratingMin <= 0);
     }
     const terms = queryTerms(state.query);
-    const useFuzzy = terms.length > 0 && !state.data.products.some((p) => literalQueryMatch(p, terms));
+    // Categoría enorme: la lista son los resúmenes (ver cargarResumen), y la
+    // búsqueda dentro de ella la resolvió el índice por palabra.
+    const resumen = modoResumen();
+    const coinc = resumen && terms.length ? coincidenciasDeBusqueda() : null;
+    const useFuzzy = !resumen && terms.length > 0 && !state.data.products.some((p) => literalQueryMatch(p, terms));
     // Cada condición corta en cuanto falla, de la más barata a la más cara,
     // y lo que no depende de la ficha se decide una sola vez: antes se
     // evaluaban las once condiciones en cada una de las fichas cargadas
@@ -4773,7 +4929,7 @@
     const calidadActiva = qualityAxes()
       .map((axis) => ({ axis, sel: qualitySel(axis.key) }))
       .filter((x) => x.sel.length > 0);
-    return state.data.products.filter((p) => {
+    return (resumen ? productosDeCategoria() : state.data.products).filter((p) => {
       if (cat && p.category !== cat) return false;
       if (subs ? !subs.has(p.subcategory) : (sinOptIn && esOptIn(p))) return false;
       if (state.brands.size && !state.brands.has(p.brand)) return false;
@@ -4795,9 +4951,27 @@
       for (const { axis, sel } of calidadActiva) {
         if (!sel.includes(qualityTierOf(axis, p))) return false;
       }
-      return terms.length === 0
-        || (useFuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, terms));
+      if (terms.length === 0) return true;
+      if (resumen) {
+        const pts = coinc && coinc.get(p.id);
+        if (pts === undefined) return false;
+        p.__score = pts;   // para ordenar por relevancia (queryRelevanceScore)
+        return true;
+      }
+      return useFuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, terms);
     });
+  }
+
+  // id -> puntaje de la búsqueda por índice actual (para filtrar los
+  // resúmenes de una categoría enorme por lo escrito).
+  let coincidenciasMemo = null;
+  function coincidenciasDeBusqueda() {
+    const b = state.busqueda;
+    if (!b || b.query !== state.query) return null;
+    if (!coincidenciasMemo || coincidenciasMemo.b !== b) {
+      coincidenciasMemo = { b, mapa: new Map(b.stubs.map((x) => [x.id, x.__score])) };
+    }
+    return coincidenciasMemo.mapa;
   }
 
   // Igual que sortByPopularity, pero solo por número de vendedores. Se
@@ -5039,7 +5213,23 @@
   let searchScope = { query: null, cats: null };
 
   function ensureListScope() {
-    if (listScopeKey() !== "*") return ensureCategory(state.category);
+    if (listScopeKey() !== "*") {
+      const cat = state.category;
+      const query = state.query;
+      return pedirBuscadorMeta().then((meta) => {
+        if (!usaResumen(meta, cat) || loadedCategories.has(cat)) return ensureCategory(cat);
+        // Con texto escrito, el índice por palabra dice qué fichas son; si
+        // no puede (sin palabras indexables), se baja la categoría entera.
+        const busca = queryTerms(query).length
+          ? buscarEnIndice(query).then((r) => {
+            if (!r) return ensureCategory(cat);
+            if (state.query === query) { state.busqueda = r; state.busquedaMeta = meta; }
+            return null;
+          })
+          : null;
+        return Promise.all([cargarResumen(cat, meta), busca]);
+      }).catch(() => ensureCategory(cat));
+    }
     // "Todas" sin búsqueda sigue bajando todo; con búsqueda, solo lo que el
     // índice señala.
     if (!state.query) return ensureAllProducts();
@@ -5062,7 +5252,11 @@
 
   function listScopeReady() {
     const key = listScopeKey();
-    if (key !== "*") return loadedCategories.has(key);
+    if (key !== "*") {
+      if (loadedCategories.has(key)) return true;
+      if (!resumenListo.has(key)) return false;
+      return !queryTerms(state.query).length || !!coincidenciasDeBusqueda();
+    }
     if (modoIndice()) return true;
     if (state.query && searchScope.query === state.query && Array.isArray(searchScope.cats)) {
       return searchScope.cats.every((c) => loadedCategories.has(c));
@@ -5084,7 +5278,7 @@
   let listaVersion = 0;
   let listaMemo = null;
   function listaFiltradaYOrdenada() {
-    const firma = `${listaVersion}\u0000${datosVersion}\u0000${state.includeShipping ? 1 : 0}\u0000${state.colorFilter || ""}`;
+    const firma = `${listaVersion}\u0000${versionDeAlcance()}\u0000${state.includeShipping ? 1 : 0}\u0000${state.colorFilter || ""}`;
     if (!listaMemo || listaMemo.firma !== firma) {
       listaMemo = { firma, filtered: filteredProducts(), orden: null, sorted: null, porOrden: new Map() };
     }
@@ -5216,12 +5410,12 @@
     let esperando = false;
     if (pageItems.some((p) => p.__stub)) {
       const faltan = pageItems.filter((p) => !productIndexById.has(p.id)).map((p) => p.id);
-      const clave = `${state.query}\u0000${state.page}\u0000${state.sort}`;
+      const clave = `${listaVersion}\u0000${state.category}\u0000${state.query}\u0000${state.page}\u0000${state.sort}`;
       if (faltan.length && renderProductListPage.intento !== clave) {
         renderProductListPage.intento = clave;
         esperando = true;
         cargarFilas(faltan).then(() => {
-          if (`${state.query}\u0000${state.page}\u0000${state.sort}` === clave
+          if (`${listaVersion}\u0000${state.category}\u0000${state.query}\u0000${state.page}\u0000${state.sort}` === clave
             && !el.viewList.classList.contains("hidden")) renderProductListPage();
         });
       }
@@ -5229,6 +5423,13 @@
         .filter(Boolean);
     }
 
+    // Con resúmenes, las filas de la página siguiente se bajan en cuanto
+    // esta queda pintada: «Siguiente» ya las encuentra listas.
+    if (!esperando && sorted.length > startIdx + PAGE_SIZE && sorted[startIdx].__stub) {
+      const siguiente = sorted.slice(startIdx + PAGE_SIZE, startIdx + 2 * PAGE_SIZE)
+        .filter((p) => p.__stub && !productIndexById.has(p.id)).map((p) => p.id);
+      if (siguiente.length) setTimeout(() => cargarFilas(siguiente), 300);
+    }
     if (esperando) el.productList.innerHTML = htmlCargando("Cargando productos…");
     else renderProductListInto(el.productList, pageItems, {
       emptyText: "No se encontraron productos con estos filtros.",
@@ -5516,7 +5717,11 @@
     else {
       base = [];
       const ofertas = state.local && state.local.ofertas;
-      if (ofertas) for (const p of filtered) if (ofertas[p.id] && localOffersFor(p).length) base.push(p);
+      if (ofertas) {
+        for (const p of filtered) {
+          if ((p.__R ? p.__local : ofertas[p.id]) && localOffersFor(p).length) base.push(p);
+        }
+      }
       renderLocalRanking.memo = { filtered, mun, local: state.local, base };
     }
     const entradas = sortedProducts(base).map((p) => {
@@ -6028,7 +6233,10 @@
     // las 4,415 laptops cuando la lista mostraba las 858 de "lenovo".
     if (state.query) {
       const terms = queryTerms(state.query);
-      if (terms.length) {
+      if (terms.length && modoResumen()) {
+        const coinc = coincidenciasDeBusqueda();
+        scoped = scoped.filter((p) => !!coinc && coinc.has(p.id));
+      } else if (terms.length) {
         const fuzzy = !scoped.some((p) => literalQueryMatch(p, terms));
         scoped = scoped.filter((p) => (fuzzy ? fuzzyQueryMatch(p, state.query) : literalQueryMatch(p, terms)));
       }
@@ -6116,6 +6324,22 @@
     let porCampo = facetValoresMemo.get(scoped);
     if (!porCampo) { porCampo = new Map(); facetValoresMemo.set(scoped, porCampo); }
     let info = porCampo.get(cfg.key);
+    // La categoría enorme entera (sin subcategoría ni búsqueda): los valores
+    // son el diccionario del resumen tal cual, y la cobertura se cuenta
+    // sobre la columna sin decodificar.
+    const R0 = !info && scoped.length && scoped[0].__R && scoped === resumenListo.get(state.category)
+      ? scoped[0].__R : null;
+    if (R0) {
+      const fc = R0.facetas[cfg.facetField];
+      let conCampo = 0;
+      if (fc && fc.txt !== undefined) {
+        for (let i = 0; i < fc.txt.length; i++) if (fc.txt.charCodeAt(i) !== 32) conCampo += 1;
+      } else if (fc) {
+        for (let i = 0; i < fc.col.length; i++) if (fc.col[i] !== -1) conCampo += 1;
+      }
+      info = { values: new Set(fc ? fc.dic : []), con: conCampo };
+      porCampo.set(cfg.key, info);
+    }
     if (!info) {
       const vs = new Set();
       let conCampo = 0;
@@ -6148,6 +6372,14 @@
         return;
       }
     }
+    // Grupo cerrado, sin nada elegido ni escrito: no se arman las opciones
+    // (en Autopartes «Compatible con» tiene 8,736). Se arman al abrirlo.
+    const buscadorPrevio = listEl.parentElement.querySelector(`[data-facet-search="${cfg.key}"]`);
+    if (grupoCerrado(listEl) && !state.specFilters[cfg.key].size && !(buscadorPrevio && buscadorPrevio.value.trim())) {
+      listEl.dataset.pendiente = "1";
+      return;
+    }
+    delete listEl.dataset.pendiente;
     let vals = [...values];
     vals = cfg.sortNum ? vals.sort((a, b) => a - b) : vals.sort((a, b) => String(a).localeCompare(String(b)));
     const items = vals.map((v) => ({ id: v, label: cfg.format(v) }));
@@ -6340,10 +6572,10 @@
         </span>`;
       let sample = subcatMuestraMemo.get(items);
       if (sample === undefined) {
-        sample = masPopular(items.filter((p) => p.photo)) || null;
+        sample = masPopular(items.filter(tieneFoto)) || null;
         subcatMuestraMemo.set(items, sample);
       }
-      if (sample) renderProductMedia(card.querySelector(".subcat-card-photo"), sample);
+      if (sample) pintarMuestra(card.querySelector(".subcat-card-photo"), sample);
       card.onclick = onclick;
       el.subcatGrid.appendChild(card);
     };
@@ -7085,7 +7317,7 @@
   // guarda: mañana el precio es otro.
   function qualityValueOf(axis, p) {
     if (axis.field === "price") return minPrice(p);
-    return p.facets ? p.facets[axis.field] ?? null : null;
+    return facetaDe(p, axis.field);
   }
 
   function qualityTierOf(axis, p) {
@@ -7215,7 +7447,7 @@
       for (const p of scoped) {
         const t = qualityTierOf(axis, p);
         cuenta.set(t, (cuenta.get(t) || 0) + 1);
-        if (!p.photo) continue;
+        if (!tieneFoto(p)) continue;
         const k = clavePop(p);
         if (!muestra.has(t) || k < claveMuestra.get(t)) { muestra.set(t, p); claveMuestra.set(t, k); }
       }
@@ -7247,7 +7479,7 @@
         // Por renderProductMedia y no con un <img> a mano: es la misma
         // función que usan las filas de la lista, con sus reintentos y su
         // caída a la ilustración si el CDN de la tienda falla.
-        if (sample) renderProductMedia(card.querySelector(".quality-card-photo"), sample);
+        if (sample) pintarMuestra(card.querySelector(".quality-card-photo"), sample);
         card.onclick = () => {
           const sel = qualitySel(axis.key);
           if (state.qualityMulti[axis.key]) {
@@ -9695,12 +9927,12 @@
     };
     document.addEventListener("pointerdown", (e) => {
       const id = catDe(e);
-      if (id) ensureCategory(id);
+      if (id) prepararCategoria(id);
     }, { passive: true });
     document.addEventListener("mouseover", (e) => {
       const id = catDe(e);
       clearTimeout(temporizador);
-      if (id) temporizador = setTimeout(() => ensureCategory(id), 120);
+      if (id) temporizador = setTimeout(() => prepararCategoria(id), 120);
     }, { passive: true });
   }
 
@@ -9912,9 +10144,12 @@
       h3.addEventListener("click", () => {
         const g = h3.closest(".filter-group");
         g.classList.toggle("collapsed");
-        // Las marcas no se arman con el grupo cerrado (ver renderFilterBrand).
-        if (!g.classList.contains("collapsed") && g.contains(el.filterBrand) && el.filterBrand.dataset.pendiente) {
-          renderFilterBrand();
+        // Marcas y facetas no se arman con el grupo cerrado (ver
+        // renderFilterBrand y renderSpecFacetFilter): se arman al abrirlo.
+        if (!g.classList.contains("collapsed")) {
+          if (g.contains(el.filterBrand) && el.filterBrand.dataset.pendiente) renderFilterBrand();
+          const cfg = SPEC_FACETS.find((c) => c.groupEl === g.id);
+          if (cfg && el[cfg.listEl] && el[cfg.listEl].dataset.pendiente) renderSpecFacetFilter(cfg);
         }
       });
     });
