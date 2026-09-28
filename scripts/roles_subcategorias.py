@@ -77,6 +77,12 @@ ROLES = {
     "Bocinas": {
         "Accesorios para bocinas": ACCESORIO,
     },
+    "Iluminación": {
+        # El líquido de la máquina de humo encabezaba la popularidad de toda
+        # la categoría (28-sep-2026).
+        "Líquidos y refacciones para efectos": CONSUMIBLE,
+        "Controladores DMX y accesorios de escenario": ACCESORIO,
+    },
     "Audífonos y auriculares": {
         "Almohadillas y repuestos": PARTE,
     },

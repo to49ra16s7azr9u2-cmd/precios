@@ -3933,7 +3933,36 @@ def sub_iluminacion(tn):
         return 'Decorativa'
     if re.search(r'lampara(s)? para entrada|lampara(s)? de entrada', tn): return 'Exterior'
     if re.search(r'\bfeit electric\b|\bsatco\b|adaptador de enchufe para bombil', tn): return 'Focos'
-    if re.search(r'cabeza (movil|robotica)|cabezas moviles|\bpar ?led\b|\bpar ?\d{2,3}\b|par (rgb|64|56|38)|'
+    # Lo que rodea al escenario sin ser luz de escenario (28-sep-2026: en
+    # «Escenario» había 25 líquidos y motores de máquina de humo, y el galón de
+    # líquido encabezaba la popularidad de TODA Iluminación). El líquido y la
+    # bomba van a una subcategoría de consumible, que las listas de la
+    # categoría no muestran (roles_subcategorias.py); las máquinas y los
+    # controladores DMX, a las suyas.
+    if re.search(r'liquido.{0,30}(humo|niebla|burbujas|haze)|galon(es)? (de )?(liquido )?(para )?(humo|burbujas|bubble)|\bbubblepro\b|'
+                 r'motor bomba.{0,20}maquina de humo|(bomba|refaccion|resistencia).{0,20}(para )?maquina de (humo|niebla)', tn) \
+            and not re.search(r'^(set )?(maquina|camara)\b', tn):
+        return 'Líquidos y refacciones para efectos'
+    if re.search(r'maquina (de )?(humo|niebla|nieve|burbujas|confeti|chispas|espuma)|camara (de )?humo|'
+                 r'generador (de )?(humo|burbujas|niebla)|\bhazer\b', tn):
+        return 'Máquinas de humo y efectos especiales'
+    if re.search(r'controlador(a)? (de )?(luces )?dmx|consola (de )?(iluminacion|dmx)|'
+                 r'splitter.{0,20}dmx|divisor.{0,20}dmx|cable dmx|dmx.{0,10}(driver|decodificador)|decodificador.{0,20}dmx|'
+                 r'pinza.{0,40}(iluminacion|alienpro)|hamburguesa.{0,15}soporte|\btruss\b|braguero|slip cover|'
+                 r'antenas? inalambricas?.{0,30}dmx|sistema (de )?elevacion.{0,25}iluminacion|'
+                 r'tripie (de |para )?(luces|iluminacion)', tn):
+        return 'Controladores DMX y accesorios de escenario'
+    # El foco PAR de casa (PAR20, PAR30, PAR38 con rosca E27) no es el «tacho
+    # PAR» de escenario: 12 packs de focos estaban en Escenario.
+    if re.search(r'\b(focos?|bombillas?|lampara de led)\b.{0,30}\bpar ?(16|20|30|38)\b|'
+                 r'\bpar ?(16|20|30|38)\b.{0,40}(\be27\b|luz (calida|de dia|blanca)|blanco (frio|calido)|atenuable|regulable|\d+ ?k\b)', tn) \
+            and not re.search(r'\bdmx\b|\brgb|escenario|\bdj\b', tn):
+        return 'Focos dicroicos (GU10 y MR16)' if re.search(r'\bgu ?10\b|\bmr ?16\b', tn) else 'Focos'
+    # El balastro de fluorescente no es de escenario (el de lámpara de
+    # descarga MSD de cabeza móvil, sí).
+    if re.search(r'\bbalastr?o\b', tn) and not re.search(r'\bmsd\b|\b[57]r\b|mad owl|cabeza', tn):
+        return 'Tubos LED y fluorescentes'
+    if re.search(r'cabezas? (movil(es)?|robotica(s)?)|jelly movil|destellador|\bstrobo\b|\bpar ?led\b|\bcanon\b.{0,20}\bpar\b|\bpar ?\d{2,3}\b|par (rgb|64|56|38)|'
                  r'\bestrobo|\bstrobe\b|\bdmx\b|\bwash\b|\bbeam\b|luz de escenario|moving head|'
                  r'maquina de humo|liquido (de |para )?humo|bola (de )?disco|luz disco|barra led (dancer|rgb|dj)|'
                  r'\bdj\b|\bderby\b|laser (de |para )?(fiesta|dj|show|escenario)|kaleidoscopio|\bblizzard\b|'

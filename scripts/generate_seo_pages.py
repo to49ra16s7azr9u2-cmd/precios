@@ -1464,7 +1464,7 @@ _NOMBRE_PROPIO = {"Android", "Windows", "Apple", "Bluetooth", "Chromebook", "Sma
 def nombre_completo_sub(cat, sub_name):
     """El nombre de la subcategoría que se entiende sin su categoría."""
     cat_name = cat["name"]
-    if cat_name == "Libros" and not sub_name.lower().startswith("libros"):
+    if cat["id"] == "Libros" and not sub_name.lower().startswith("libros"):
         return f"Libros de {sub_name[0].lower() + sub_name[1:]}"
     if not _MODIFICADOR.match(sub_name):
         return sub_name
@@ -1516,7 +1516,7 @@ def familias_con_pagina(cat, products_de_la_cat):
     # tabla puede juntar producto y accesorio (Llantas y rines). Las familias
     # que son sólo un papel («Accesorios», «Consumibles») no llevan página:
     # «Accesorios de Autos» no es algo que alguien busque así.
-    grupos = [(f, m) for f, m in agrupar_familias(cat["name"], list(por_nombre), cuenta)
+    grupos = [(f, m) for f, m in agrupar_familias(cat["id"], list(por_nombre), cuenta)
               if f and not es_familia_de_papel(f)]
     if len(grupos) < 2:
         return []
@@ -2427,7 +2427,7 @@ def faq_categoria(cat, products, ejes, ranked, tiendas_cat):
     baratos = _barato_listables(products, cat)
     if baratos:
         pr_b, p_b = baratos[0]
-        sing_b = SINGULAR.get(cat["name"], (None, None))[0]
+        sing_b = SINGULAR.get(cat["id"], (None, None))[0]
         qa.append((
             f"¿Cuál es {'el ' + sing_b if sing_b else 'el producto'} más barato en {nombre.lower()}?",
             f"Hoy es {p_b['name']}, en {money(pr_b)}"
@@ -2870,7 +2870,7 @@ def render_barato_page(cat, products, data):
     slug = slugify(cat["name"])
     nombre = cat["name"]
     plural = nombre.lower()
-    sing, art = SINGULAR.get(nombre, (None, None))
+    sing, art = SINGULAR.get(cat["id"], (None, None))
     # "la lavadora más barato" no lo escribe nadie. El artículo ya trae el
     # género, así que el adjetivo sale de ahí.
     bar = "barata" if art == "la" else "barato"
@@ -3039,7 +3039,7 @@ def render_category_page(cat, products, data):
     # publicar un ranking de cuatro filas.
     del_papel_producto = [
         p for p in productos_listables
-        if es_producto(cat["name"], p.get("subcategory"))
+        if es_producto(cat["id"], p.get("subcategory"))
     ]
     pool_ranking = (del_papel_producto
                     if len(del_papel_producto) >= MIN_PARA_RANKING_PROPIO
@@ -3145,7 +3145,7 @@ def render_category_page(cat, products, data):
         # («Accesorios», «Consumibles»). Así la página y la SPA muestran el
         # mismo árbol. Lo suelto va al final: primero los productos, sin
         # encabezado, y después cada papel con el suyo.
-        familias = agrupar_familias(cat["name"], list(chip_de), cuenta_sub)
+        familias = agrupar_familias(cat["id"], list(chip_de), cuenta_sub)
         con_pagina = {f for f, _, _ in familias_con_pagina(cat, products)}
         bloques = []
         for familia, miembros in familias:
@@ -3161,7 +3161,7 @@ def render_category_page(cat, products, data):
         sueltas = next((m for f, m in familias if f is None), [])
         por_rol = collections.OrderedDict((r, []) for r in ORDEN_ROLES)
         for m in sueltas:
-            por_rol[rol_de(cat["name"], m)].append(m)
+            por_rol[rol_de(cat["id"], m)].append(m)
         for i, rol in enumerate(ORDEN_ROLES):
             if not por_rol[rol]:
                 continue
@@ -3585,6 +3585,25 @@ def render_redireccion(destino):
 """
 
 
+_PUBLICADAS_GIT = None
+
+
+def _publicadas_en_git():
+    """Carpetas con index.html en el último commit (categoria/, barato/,
+    mejores/, ofertas/), como 'categoria/tabletas/'."""
+    global _PUBLICADAS_GIT
+    if _PUBLICADAS_GIT is None:
+        import subprocess
+        try:
+            salida = subprocess.run(["git", "ls-tree", "-r", "--name-only", "HEAD", "--",
+                                     "categoria", "barato", "mejores", "ofertas"],
+                                    cwd=ROOT, capture_output=True, text=True, check=True).stdout
+        except (OSError, subprocess.CalledProcessError):
+            salida = ""
+        _PUBLICADAS_GIT = {l[:-len("index.html")] for l in salida.splitlines() if l.endswith("/index.html")}
+    return _PUBLICADAS_GIT
+
+
 def escribir_redirecciones(data):
     """Escribe las páginas de data/redirecciones.json. Devuelve (escritas,
     rutas viejas a conservar)."""
@@ -3614,9 +3633,12 @@ def escribir_redirecciones(data):
             continue
         # Sólo las urls que llegaron a publicarse: una subcategoría que nunca
         # tuvo página (bajo el mínimo) no tiene nada que redirigir.
-        if not os.path.isdir(os.path.join(ROOT, vieja)):
+        # (Se mira también lo publicado en git: al renombrar una categoría,
+        # su carpeta vieja ya no existe cuando se llega acá.)
+        if not os.path.isdir(os.path.join(ROOT, vieja)) and vieja not in _publicadas_en_git():
             continue
         ruta = os.path.join(ROOT, vieja, "index.html")
+        os.makedirs(os.path.dirname(ruta), exist_ok=True)
         if write_if_changed(ruta, render_redireccion(nueva)):
             escritas.append(ruta)
         conservar.add(vieja)

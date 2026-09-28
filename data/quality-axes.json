@@ -344,23 +344,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $940",
-      "max": 940
+      "spec": "Hasta $950",
+      "max": 950
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$940 a $2,800",
-      "min": 940,
-      "max": 2800
+      "spec": "$950 a $2,600",
+      "min": 950,
+      "max": 2600
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,800",
-      "min": 2800
+      "spec": "Más de $2,600",
+      "min": 2600
      }
     ]
    }
@@ -11644,23 +11644,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $410",
-      "max": 410
+      "spec": "Hasta $430",
+      "max": 430
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$410 a $700",
-      "min": 410,
-      "max": 700
+      "spec": "$430 a $710",
+      "min": 430,
+      "max": 710
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
+      "spec": "Más de $710",
+      "min": 710
      }
     ]
    }
@@ -18105,23 +18105,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $380",
-      "max": 380
+      "spec": "Hasta $440",
+      "max": 440
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$380 a $740",
-      "min": 380,
-      "max": 740
+      "spec": "$440 a $790",
+      "min": 440,
+      "max": 790
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $740",
-      "min": 740
+      "spec": "Más de $790",
+      "min": 790
      }
     ]
    }
@@ -29613,23 +29613,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $540",
-      "max": 540
+      "spec": "Hasta $690",
+      "max": 690
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$540 a $1,700",
-      "min": 540,
-      "max": 1700
+      "spec": "$690 a $1,800",
+      "min": 690,
+      "max": 1800
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,700",
-      "min": 1700
+      "spec": "Más de $1,800",
+      "min": 1800
      }
     ]
    }
@@ -31119,16 +31119,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$550 a $970",
+      "spec": "$550 a $1,100",
       "min": 550,
-      "max": 970
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $970",
-      "min": 970
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -33924,16 +33924,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$480 a $780",
+      "spec": "$480 a $770",
       "min": 480,
-      "max": 780
+      "max": 770
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $780",
-      "min": 780
+      "spec": "Más de $770",
+      "min": 770
      }
     ]
    }
@@ -34020,23 +34020,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
+      "spec": "Hasta $420",
+      "max": 420
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$440 a $880",
-      "min": 440,
-      "max": 880
+      "spec": "$420 a $870",
+      "min": 420,
+      "max": 870
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $880",
-      "min": 880
+      "spec": "Más de $870",
+      "min": 870
      }
     ]
    }
@@ -34079,7 +34079,7 @@
   ],
   "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
  },
- "Iluminación/Escenario": {
+ "Iluminación/Máquinas de humo y efectos especiales": {
   "axes": [
    {
     "key": "level",
@@ -34092,23 +34092,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,250",
-      "max": 1250
+      "spec": "Hasta $1,550",
+      "max": 1550
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,250 a $3,750",
-      "min": 1250,
-      "max": 3750
+      "spec": "$1,550 a $3,150",
+      "min": 1550,
+      "max": 3150
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,750",
-      "min": 3750
+      "spec": "Más de $3,150",
+      "min": 3150
      }
     ]
    }
@@ -34181,6 +34181,42 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $370",
       "min": 370
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Escenario": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,700",
+      "max": 1700
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,700 a $4,400",
+      "min": 1700,
+      "max": 4400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,400",
+      "min": 4400
      }
     ]
    }
@@ -34367,42 +34403,6 @@
   ],
   "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
  },
- "Iluminación/Proyectores de luz y efectos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $600",
-      "max": 600
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$600 a $990",
-      "min": 600,
-      "max": 990
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $990",
-      "min": 990
-     }
-    ]
-   }
-  ],
-  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
- },
  "Iluminación/Luces navideñas y guirnaldas": {
   "axes": [
    {
@@ -34541,6 +34541,42 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $920",
       "min": 920
+     }
+    ]
+   }
+  ],
+  "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
+ },
+ "Iluminación/Proyectores de luz y efectos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $590",
+      "max": 590
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$590 a $840",
+      "min": 590,
+      "max": 840
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $840",
+      "min": 840
      }
     ]
    }
@@ -34778,117 +34814,55 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$230 a $540",
+      "spec": "$230 a $550",
       "min": 230,
-      "max": 540
+      "max": 550
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $540",
-      "min": 540
+      "spec": "Más de $550",
+      "min": 550
      }
     ]
    }
   ],
   "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
  },
- "Bicicletas y movilidad/Accesorios para bicicleta": {
+ "Instrumentos musicales/Tornamesas": {
   "axes": [
    {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
      {
-      "id": "computadoras-y-soportes",
-      "name": "Computadoras y soportes",
+      "id": "metal",
+      "name": "Metal",
       "use": "",
-      "spec": "Computadoras y soportes",
+      "spec": "Metal",
       "values": [
-       "Computadoras y soportes"
+       "Metal"
       ]
      },
      {
-      "id": "luces-y-seguridad",
-      "name": "Luces y seguridad",
+      "id": "plastico",
+      "name": "Plástico",
       "use": "",
-      "spec": "Luces y seguridad",
+      "spec": "Plástico",
       "values": [
-       "Luces y seguridad"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $330",
-      "max": 330
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$330 a $580",
-      "min": 330,
-      "max": 580
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $580",
-      "min": 580
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Llantas para bicicleta": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v20",
-      "name": "20 kg",
-      "use": "",
-      "spec": "20 kg",
-      "values": [
-       20
+       "Plástico"
       ]
      },
      {
-      "id": "v50",
-      "name": "50 kg",
+      "id": "madera",
+      "name": "Madera",
       "use": "",
-      "spec": "50 kg",
+      "spec": "Madera",
       "values": [
-       50
-      ]
-     },
-     {
-      "id": "v75",
-      "name": "75 kg",
-      "use": "",
-      "spec": "75 kg",
-      "values": [
-       75
+       "Madera"
       ]
      }
     ],
@@ -34905,1112 +34879,25 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $220",
-      "max": 220
+      "spec": "Hasta $2,300",
+      "max": 2300
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$220 a $650",
-      "min": 220,
-      "max": 650
+      "spec": "$2,300 a $5,450",
+      "min": 2300,
+      "max": 5450
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $650",
-      "min": 650
+      "spec": "Más de $5,450",
+      "min": 5450
      }
     ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Sillines y asientos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $330",
-      "max": 330
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$330 a $670",
-      "min": 330,
-      "max": 670
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $670",
-      "min": 670
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Bicicletas de montaña": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Velocidades",
-    "field": "speeds",
-    "criterion": "de la bicicleta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "sin-cambios",
-      "name": "Sin cambios",
-      "use": "Ciudad plana y niños",
-      "spec": "Hasta 10",
-      "max": 10
-     },
-     {
-      "id": "pocas",
-      "name": "Pocas",
-      "use": "Cerros suaves",
-      "spec": "11 a 21",
-      "min": 10,
-      "max": 21
-     },
-     {
-      "id": "muchas",
-      "name": "Muchas",
-      "use": "Montaña y ruta",
-      "spec": "Más de 21",
-      "min": 21
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Rodada",
-    "field": "wheel_size",
-    "criterion": "por medida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "r24",
-      "name": "R24",
-      "use": "",
-      "spec": "R24",
-      "values": [
-       "R24"
-      ]
-     },
-     {
-      "id": "r26",
-      "name": "R26",
-      "use": "",
-      "spec": "R26",
-      "values": [
-       "R26"
-      ]
-     },
-     {
-      "id": "r27-5",
-      "name": "R27.5",
-      "use": "",
-      "spec": "R27.5",
-      "values": [
-       "R27.5"
-      ]
-     },
-     {
-      "id": "r29",
-      "name": "R29",
-      "use": "",
-      "spec": "R29",
-      "values": [
-       "R29"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Bicicletas y movilidad/Ropa y calzado de ciclismo": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,300 a $1,550",
-      "min": 1300,
-      "max": 1550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,550",
-      "min": 1550
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Candados para bicicleta": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $460",
-      "max": 460
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$460 a $800",
-      "min": 460,
-      "max": 800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $800",
-      "min": 800
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Scooters eléctricos": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 500 W",
-      "max": 500
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "501 W a 800 W",
-      "min": 500,
-      "max": 800
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 800 W",
-      "min": 800
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Batería",
-    "field": "battery_ah",
-    "criterion": "en amperes-hora",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Trayectos cortos",
-      "spec": "Hasta 15 Ah",
-      "max": 15
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Uso de diario",
-      "spec": "16 Ah a 20 Ah",
-      "min": 15,
-      "max": 20
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Más autonomía",
-      "spec": "Más de 20 Ah",
-      "min": 20
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     },
-     {
-      "id": "bat36",
-      "name": "Batería grande",
-      "use": "Inalámbricas de uso rudo",
-      "spec": "36 V o más",
-      "min": 30,
-      "max": 100
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Bicicletas y movilidad/Para patinetas eléctricas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $350",
-      "max": 350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$350 a $680",
-      "min": 350,
-      "max": 680
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $680",
-      "min": 680
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Triciclos y bicicletas de carga": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,350",
-      "max": 1350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,350 a $2,150",
-      "min": 1350,
-      "max": 2150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,150",
-      "min": 2150
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Bicicletas urbanas y de paseo": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,800",
-      "max": 2800
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,800 a $5,650",
-      "min": 2800,
-      "max": 5650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,650",
-      "min": 5650
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Pedales, manubrios y puños": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $190",
-      "max": 190
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$190 a $520",
-      "min": 190,
-      "max": 520
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $520",
-      "min": 520
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Bicicletas infantiles": {
-  "axes": [
-   {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Rodada",
-    "field": "wheel_size",
-    "criterion": "por medida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "r12",
-      "name": "R12",
-      "use": "",
-      "spec": "R12",
-      "values": [
-       "R12"
-      ]
-     },
-     {
-      "id": "r16",
-      "name": "R16",
-      "use": "",
-      "spec": "R16",
-      "values": [
-       "R16"
-      ]
-     },
-     {
-      "id": "r20",
-      "name": "R20",
-      "use": "",
-      "spec": "R20",
-      "values": [
-       "R20"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Bicicletas y movilidad/Bombas e infladores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $530",
-      "max": 530
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$530 a $990",
-      "min": 530,
-      "max": 990
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $990",
-      "min": 990
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Luces para bicicleta": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $840",
-      "max": 840
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$840 a $1,300",
-      "min": 840,
-      "max": 1300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,300",
-      "min": 1300
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Bolsas, canastas y portabultos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $870",
-      "max": 870
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$870 a $1,900",
-      "min": 870,
-      "max": 1900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,900",
-      "min": 1900
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Cascos y protección para ciclismo": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $650",
-      "max": 650
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$650 a $1,100",
-      "min": 650,
-      "max": 1100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,100",
-      "min": 1100
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Refacciones y transmisión de bicicleta": {
-  "axes": [
-   {
-    "label": "Carga máxima",
-    "field": "load_kg",
-    "criterion": "en kilos que aguanta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v20",
-      "name": "20 kg",
-      "use": "",
-      "spec": "20 kg",
-      "values": [
-       20
-      ]
-     },
-     {
-      "id": "v30",
-      "name": "30 kg",
-      "use": "",
-      "spec": "30 kg",
-      "values": [
-       30
-      ]
-     },
-     {
-      "id": "v50",
-      "name": "50 kg",
-      "use": "",
-      "spec": "50 kg",
-      "values": [
-       50
-      ]
-     },
-     {
-      "id": "v75",
-      "name": "75 kg",
-      "use": "",
-      "spec": "75 kg",
-      "values": [
-       75
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $180",
-      "max": 180
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$180 a $400",
-      "min": 180,
-      "max": 400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $400",
-      "min": 400
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Portabicicletas y soportes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $700",
-      "max": 700
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$700 a $6,600",
-      "min": 700,
-      "max": 6600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,600",
-      "min": 6600
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Bicicletas de ruta": {
-  "axes": [
-   {
-    "label": "Velocidades",
-    "field": "speeds",
-    "criterion": "de la bicicleta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v1",
-      "name": "1",
-      "use": "",
-      "spec": "1",
-      "values": [
-       1
-      ]
-     },
-     {
-      "id": "v14",
-      "name": "14",
-      "use": "",
-      "spec": "14",
-      "values": [
-       14
-      ]
-     },
-     {
-      "id": "v20",
-      "name": "20",
-      "use": "",
-      "spec": "20",
-      "values": [
-       20
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Alimentación",
-    "field": "volt",
-    "criterion": "por voltaje",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "bat12",
-      "name": "Batería chica",
-      "use": "Ligeras, para la casa",
-      "spec": "Hasta 12 V",
-      "max": 14
-     },
-     {
-      "id": "bat20",
-      "name": "Batería 18–20 V",
-      "use": "El estándar inalámbrico",
-      "spec": "18 a 24 V",
-      "min": 14,
-      "max": 30
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Bicicletas y movilidad/Bicicletas BMX": {
-  "axes": [
-   {
-    "label": "Rodada",
-    "field": "wheel_size",
-    "criterion": "por medida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "r16",
-      "name": "R16",
-      "use": "",
-      "spec": "R16",
-      "values": [
-       "R16"
-      ]
-     },
-     {
-      "id": "r20",
-      "name": "R20",
-      "use": "",
-      "spec": "R20",
-      "values": [
-       "R20"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,650",
-      "max": 2650
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,650 a $4,850",
-      "min": 2650,
-      "max": 4850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,850",
-      "min": 4850
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Ciclocomputadoras y soportes para celular": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $500",
-      "max": 500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$500 a $930",
-      "min": 500,
-      "max": 930
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $930",
-      "min": 930
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Bicicletas sin pedales y balance": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,350",
-      "max": 1350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,350 a $1,650",
-      "min": 1350,
-      "max": 1650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,650",
-      "min": 1650
-     }
-    ]
-   }
-  ]
- },
- "Bicicletas y movilidad/Bicicletas eléctricas": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 350 W",
-      "max": 350
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "351 W a 650 W",
-      "min": 350,
-      "max": 650
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 650 W",
-      "min": 650
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Batería",
-    "field": "battery_ah",
-    "criterion": "en amperes-hora",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Trayectos cortos",
-      "spec": "Hasta 13 Ah",
-      "max": 13
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Uso de diario",
-      "spec": "14 Ah a 18 Ah",
-      "min": 13,
-      "max": 18
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Más autonomía",
-      "spec": "Más de 18 Ah",
-      "min": 18
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Velocidades",
-    "field": "speeds",
-    "criterion": "de la bicicleta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v3",
-      "name": "3",
-      "use": "",
-      "spec": "3",
-      "values": [
-       3
-      ]
-     },
-     {
-      "id": "v5",
-      "name": "5",
-      "use": "",
-      "spec": "5",
-      "values": [
-       5
-      ]
-     },
-     {
-      "id": "v27",
-      "name": "27",
-      "use": "",
-      "spec": "27",
-      "values": [
-       27
-      ]
-     }
-    ],
-    "key": "extra"
    }
   ]
  },
@@ -37132,77 +36019,6 @@
    }
   ]
  },
- "Instrumentos musicales/Tornamesas": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,300",
-      "max": 2300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,300 a $5,900",
-      "min": 2300,
-      "max": 5900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,900",
-      "min": 5900
-     }
-    ]
-   }
-  ]
- },
  "Instrumentos musicales/Baquetas y escobillas": {
   "axes": [
    {
@@ -37718,6 +36534,2620 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $10,000",
       "min": 10000
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Luces para bicicleta": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $840",
+      "max": 840
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$840 a $1,300",
+      "min": 840,
+      "max": 1300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,300",
+      "min": 1300
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Accesorios para bicicleta": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "computadoras-y-soportes",
+      "name": "Computadoras y soportes",
+      "use": "",
+      "spec": "Computadoras y soportes",
+      "values": [
+       "Computadoras y soportes"
+      ]
+     },
+     {
+      "id": "luces-y-seguridad",
+      "name": "Luces y seguridad",
+      "use": "",
+      "spec": "Luces y seguridad",
+      "values": [
+       "Luces y seguridad"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $330",
+      "max": 330
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$330 a $580",
+      "min": 330,
+      "max": 580
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $580",
+      "min": 580
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Llantas para bicicleta": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v20",
+      "name": "20 kg",
+      "use": "",
+      "spec": "20 kg",
+      "values": [
+       20
+      ]
+     },
+     {
+      "id": "v50",
+      "name": "50 kg",
+      "use": "",
+      "spec": "50 kg",
+      "values": [
+       50
+      ]
+     },
+     {
+      "id": "v75",
+      "name": "75 kg",
+      "use": "",
+      "spec": "75 kg",
+      "values": [
+       75
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $220",
+      "max": 220
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$220 a $650",
+      "min": 220,
+      "max": 650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $650",
+      "min": 650
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Sillines y asientos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $330",
+      "max": 330
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$330 a $670",
+      "min": 330,
+      "max": 670
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $670",
+      "min": 670
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Bicicletas de montaña": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Velocidades",
+    "field": "speeds",
+    "criterion": "de la bicicleta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "sin-cambios",
+      "name": "Sin cambios",
+      "use": "Ciudad plana y niños",
+      "spec": "Hasta 10",
+      "max": 10
+     },
+     {
+      "id": "pocas",
+      "name": "Pocas",
+      "use": "Cerros suaves",
+      "spec": "11 a 21",
+      "min": 10,
+      "max": 21
+     },
+     {
+      "id": "muchas",
+      "name": "Muchas",
+      "use": "Montaña y ruta",
+      "spec": "Más de 21",
+      "min": 21
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Rodada",
+    "field": "wheel_size",
+    "criterion": "por medida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "r24",
+      "name": "R24",
+      "use": "",
+      "spec": "R24",
+      "values": [
+       "R24"
+      ]
+     },
+     {
+      "id": "r26",
+      "name": "R26",
+      "use": "",
+      "spec": "R26",
+      "values": [
+       "R26"
+      ]
+     },
+     {
+      "id": "r27-5",
+      "name": "R27.5",
+      "use": "",
+      "spec": "R27.5",
+      "values": [
+       "R27.5"
+      ]
+     },
+     {
+      "id": "r29",
+      "name": "R29",
+      "use": "",
+      "spec": "R29",
+      "values": [
+       "R29"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Ropa y calzado de ciclismo": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,300",
+      "max": 1300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,300 a $1,550",
+      "min": 1300,
+      "max": 1550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,550",
+      "min": 1550
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Candados para bicicleta": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $460",
+      "max": 460
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$460 a $800",
+      "min": 460,
+      "max": 800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $800",
+      "min": 800
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Scooters eléctricos": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 500 W",
+      "max": 500
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "501 W a 800 W",
+      "min": 500,
+      "max": 800
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 800 W",
+      "min": 800
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Batería",
+    "field": "battery_ah",
+    "criterion": "en amperes-hora",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Trayectos cortos",
+      "spec": "Hasta 15 Ah",
+      "max": 15
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Uso de diario",
+      "spec": "16 Ah a 20 Ah",
+      "min": 15,
+      "max": 20
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Más autonomía",
+      "spec": "Más de 20 Ah",
+      "min": 20
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     },
+     {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Para patinetas eléctricas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $350",
+      "max": 350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$350 a $680",
+      "min": 350,
+      "max": 680
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $680",
+      "min": 680
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Triciclos y bicicletas de carga": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,350",
+      "max": 1350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,350 a $2,150",
+      "min": 1350,
+      "max": 2150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,150",
+      "min": 2150
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Bicicletas urbanas y de paseo": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,800",
+      "max": 2800
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,800 a $5,650",
+      "min": 2800,
+      "max": 5650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,650",
+      "min": 5650
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Pedales, manubrios y puños": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $190",
+      "max": 190
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$190 a $520",
+      "min": 190,
+      "max": 520
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $520",
+      "min": 520
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Bicicletas infantiles": {
+  "axes": [
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Rodada",
+    "field": "wheel_size",
+    "criterion": "por medida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "r12",
+      "name": "R12",
+      "use": "",
+      "spec": "R12",
+      "values": [
+       "R12"
+      ]
+     },
+     {
+      "id": "r16",
+      "name": "R16",
+      "use": "",
+      "spec": "R16",
+      "values": [
+       "R16"
+      ]
+     },
+     {
+      "id": "r20",
+      "name": "R20",
+      "use": "",
+      "spec": "R20",
+      "values": [
+       "R20"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Bombas e infladores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $530",
+      "max": 530
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$530 a $990",
+      "min": 530,
+      "max": 990
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $990",
+      "min": 990
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Bolsas, canastas y portabultos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $870",
+      "max": 870
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$870 a $1,900",
+      "min": 870,
+      "max": 1900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,900",
+      "min": 1900
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Cascos y protección para ciclismo": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $650",
+      "max": 650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$650 a $1,100",
+      "min": 650,
+      "max": 1100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,100",
+      "min": 1100
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Refacciones y transmisión de bicicleta": {
+  "axes": [
+   {
+    "label": "Carga máxima",
+    "field": "load_kg",
+    "criterion": "en kilos que aguanta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v20",
+      "name": "20 kg",
+      "use": "",
+      "spec": "20 kg",
+      "values": [
+       20
+      ]
+     },
+     {
+      "id": "v30",
+      "name": "30 kg",
+      "use": "",
+      "spec": "30 kg",
+      "values": [
+       30
+      ]
+     },
+     {
+      "id": "v50",
+      "name": "50 kg",
+      "use": "",
+      "spec": "50 kg",
+      "values": [
+       50
+      ]
+     },
+     {
+      "id": "v75",
+      "name": "75 kg",
+      "use": "",
+      "spec": "75 kg",
+      "values": [
+       75
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $180",
+      "max": 180
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$180 a $400",
+      "min": 180,
+      "max": 400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $400",
+      "min": 400
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Portabicicletas y soportes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $700",
+      "max": 700
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$700 a $6,600",
+      "min": 700,
+      "max": 6600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,600",
+      "min": 6600
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Bicicletas de ruta": {
+  "axes": [
+   {
+    "label": "Velocidades",
+    "field": "speeds",
+    "criterion": "de la bicicleta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v1",
+      "name": "1",
+      "use": "",
+      "spec": "1",
+      "values": [
+       1
+      ]
+     },
+     {
+      "id": "v14",
+      "name": "14",
+      "use": "",
+      "spec": "14",
+      "values": [
+       14
+      ]
+     },
+     {
+      "id": "v20",
+      "name": "20",
+      "use": "",
+      "spec": "20",
+      "values": [
+       20
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Alimentación",
+    "field": "volt",
+    "criterion": "por voltaje",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "bat12",
+      "name": "Batería chica",
+      "use": "Ligeras, para la casa",
+      "spec": "Hasta 12 V",
+      "max": 14
+     },
+     {
+      "id": "bat20",
+      "name": "Batería 18–20 V",
+      "use": "El estándar inalámbrico",
+      "spec": "18 a 24 V",
+      "min": 14,
+      "max": 30
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Bicicletas BMX": {
+  "axes": [
+   {
+    "label": "Rodada",
+    "field": "wheel_size",
+    "criterion": "por medida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "r16",
+      "name": "R16",
+      "use": "",
+      "spec": "R16",
+      "values": [
+       "R16"
+      ]
+     },
+     {
+      "id": "r20",
+      "name": "R20",
+      "use": "",
+      "spec": "R20",
+      "values": [
+       "R20"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,650",
+      "max": 2650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,650 a $4,850",
+      "min": 2650,
+      "max": 4850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,850",
+      "min": 4850
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Ciclocomputadoras y soportes para celular": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $500",
+      "max": 500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$500 a $930",
+      "min": 500,
+      "max": 930
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $930",
+      "min": 930
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Bicicletas sin pedales y balance": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,350",
+      "max": 1350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,350 a $1,650",
+      "min": 1350,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Bicicletas y movilidad/Bicicletas eléctricas": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 350 W",
+      "max": 350
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "351 W a 650 W",
+      "min": 350,
+      "max": 650
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 650 W",
+      "min": 650
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Batería",
+    "field": "battery_ah",
+    "criterion": "en amperes-hora",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Trayectos cortos",
+      "spec": "Hasta 13 Ah",
+      "max": 13
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Uso de diario",
+      "spec": "14 Ah a 18 Ah",
+      "min": 13,
+      "max": 18
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Más autonomía",
+      "spec": "Más de 18 Ah",
+      "min": 18
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Velocidades",
+    "field": "speeds",
+    "criterion": "de la bicicleta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v3",
+      "name": "3",
+      "use": "",
+      "spec": "3",
+      "values": [
+       3
+      ]
+     },
+     {
+      "id": "v5",
+      "name": "5",
+      "use": "",
+      "spec": "5",
+      "values": [
+       5
+      ]
+     },
+     {
+      "id": "v27",
+      "name": "27",
+      "use": "",
+      "spec": "27",
+      "values": [
+       27
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Climatización/Humidificadores": {
+  "axes": [
+   {
+    "label": "Capacidad",
+    "field": "liters",
+    "criterion": "en litros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Una o dos personas",
+      "spec": "Hasta 3.8 L",
+      "max": 3.8
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Para la familia",
+      "spec": "Más de 3.8 L, hasta 5 L",
+      "min": 3.8,
+      "max": 5
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Reuniones o uso intensivo",
+      "spec": "Más de 5 L",
+      "min": 5
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $820",
+      "max": 820
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$820 a $1,800",
+      "min": 820,
+      "max": 1800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,800",
+      "min": 1800
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Aspas y refacciones de ventilador": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "fan_in",
+    "criterion": "en pulgadas del aspa",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Escritorio y buró",
+      "spec": "Hasta 10\"",
+      "max": 10
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Recámara y sala",
+      "spec": "11\" a 18\"",
+      "min": 10,
+      "max": 18
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Espacios grandes",
+      "spec": "Más de 18\"",
+      "min": 18
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $760",
+      "max": 760
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$760 a $1,050",
+      "min": 760,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores portátiles y de mano": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $560",
+      "max": 560
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$560 a $1,250",
+      "min": 560,
+      "max": 1250
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,250",
+      "min": 1250
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Extractores y ventilación": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 38 W",
+      "max": 38
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "39 W a 78 W",
+      "min": 38,
+      "max": 78
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 78 W",
+      "min": 78
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,000",
+      "max": 1000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,000 a $2,900",
+      "min": 1000,
+      "max": 2900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,900",
+      "min": 2900
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de piso e industriales": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "fan_in",
+    "criterion": "en pulgadas del aspa",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Escritorio y buró",
+      "spec": "Hasta 16\"",
+      "max": 16
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Recámara y sala",
+      "spec": "17\" a 20\"",
+      "min": 16,
+      "max": 20
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Espacios grandes",
+      "spec": "Más de 20\"",
+      "min": 20
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,400",
+      "max": 1400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,400 a $4,000",
+      "min": 1400,
+      "max": 4000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,000",
+      "min": 4000
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de pedestal": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "fan_in",
+    "criterion": "en pulgadas del aspa",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Escritorio y buró",
+      "spec": "Hasta 16\"",
+      "max": 16
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Recámara y sala",
+      "spec": "17\" a 20\"",
+      "min": 16,
+      "max": 20
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Espacios grandes",
+      "spec": "Más de 20\"",
+      "min": 20
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 48 W",
+      "max": 48
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "49 W a 75 W",
+      "min": 48,
+      "max": 75
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 75 W",
+      "min": 75
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Climatización/Deshumidificadores": {
+  "axes": [
+   {
+    "label": "Capacidad",
+    "field": "liters",
+    "criterion": "en litros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Una o dos personas",
+      "spec": "Hasta 2.8 L",
+      "max": 2.8
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Para la familia",
+      "spec": "Más de 2.8 L, hasta 12 L",
+      "min": 2.8,
+      "max": 12
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Reuniones o uso intensivo",
+      "spec": "Más de 12 L",
+      "min": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,450",
+      "max": 1450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,450 a $3,350",
+      "min": 1450,
+      "max": 3350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,350",
+      "min": 3350
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de mesa y clip": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "fan_in",
+    "criterion": "en pulgadas del aspa",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Escritorio y buró",
+      "spec": "Hasta 9\"",
+      "max": 9
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Recámara y sala",
+      "spec": "10\" a 12\"",
+      "min": 9,
+      "max": 12
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Espacios grandes",
+      "spec": "Más de 12\"",
+      "min": 12
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $690",
+      "max": 690
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$690 a $1,600",
+      "min": 690,
+      "max": 1600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,600",
+      "min": 1600
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Purificadores de aire": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 29 W",
+      "max": 29
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "30 W a 56 W",
+      "min": 29,
+      "max": 56
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 56 W",
+      "min": 56
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,600",
+      "max": 2600
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,600 a $5,700",
+      "min": 2600,
+      "max": 5700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,700",
+      "min": 5700
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de techo": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "fan_in",
+    "criterion": "en pulgadas del aspa",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Escritorio y buró",
+      "spec": "Hasta 42\"",
+      "max": 42
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Recámara y sala",
+      "spec": "43\" a 52\"",
+      "min": 42,
+      "max": 52
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Espacios grandes",
+      "spec": "Más de 52\"",
+      "min": 52
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,800",
+      "max": 1800
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,800 a $3,500",
+      "min": 1800,
+      "max": 3500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,500",
+      "min": 3500
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Climatizadores evaporativos": {
+  "axes": [
+   {
+    "label": "Capacidad",
+    "field": "liters",
+    "criterion": "en litros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Una o dos personas",
+      "spec": "Hasta 8 L",
+      "max": 8
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Para la familia",
+      "spec": "9 L a 25 L",
+      "min": 8,
+      "max": 25
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Reuniones o uso intensivo",
+      "spec": "Más de 25 L",
+      "min": 25
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,350",
+      "max": 2350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,350 a $6,650",
+      "min": 2350,
+      "max": 6650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,650",
+      "min": 6650
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Minisplit": {
+  "axes": [
+   {
+    "label": "Capacidad",
+    "field": "ac_btu",
+    "criterion": "en BTU",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Recámara chica",
+      "spec": "Hasta 12,000 BTU",
+      "max": 12000
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Recámara o sala",
+      "spec": "12,001 BTU a 18,000 BTU",
+      "min": 12000,
+      "max": 18000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Sala grande o local",
+      "spec": "Más de 18,000 BTU",
+      "min": 18000
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $6,600",
+      "max": 6600
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$6,600 a $10,000",
+      "min": 6600,
+      "max": 10000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $10,000",
+      "min": 10000
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Calefactores cerámicos y de aire": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,300",
+      "max": 1300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,300 a $3,800",
+      "min": 1300,
+      "max": 3800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,800",
+      "min": 3800
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Aires acondicionados portátiles": {
+  "axes": [
+   {
+    "label": "Capacidad",
+    "field": "ac_btu",
+    "criterion": "en BTU",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Recámara chica",
+      "spec": "Hasta 10,000 BTU",
+      "max": 10000
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Recámara o sala",
+      "spec": "10,001 BTU a 12,000 BTU",
+      "min": 10000,
+      "max": 12000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Sala grande o local",
+      "spec": "Más de 12,000 BTU",
+      "min": 12000
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $6,750",
+      "max": 6750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$6,750 a $12,000",
+      "min": 6750,
+      "max": 12000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $12,000",
+      "min": 12000
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de torre": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "fan_in",
+    "criterion": "en pulgadas del aspa",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Escritorio y buró",
+      "spec": "Hasta 33\"",
+      "max": 33
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Recámara y sala",
+      "spec": "34\" a 40\"",
+      "min": 33,
+      "max": 40
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Espacios grandes",
+      "spec": "Más de 40\"",
+      "min": 40
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,450",
+      "max": 1450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,450 a $2,850",
+      "min": 1450,
+      "max": 2850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,850",
+      "min": 2850
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores de pared": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "fan_in",
+    "criterion": "en pulgadas del aspa",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Escritorio y buró",
+      "spec": "Hasta 16\"",
+      "max": 16
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Recámara y sala",
+      "spec": "17\" a 24\"",
+      "min": 16,
+      "max": 24
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Espacios grandes",
+      "spec": "Más de 24\"",
+      "min": 24
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 65 W",
+      "max": 65
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "66 W a 90 W",
+      "min": 65,
+      "max": 90
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 90 W",
+      "min": 90
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Climatización/Mini enfriadores personales": {
+  "axes": [
+   {
+    "label": "Capacidad",
+    "field": "ac_btu",
+    "criterion": "en BTU",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Recámara chica",
+      "spec": "Hasta 12,000 BTU",
+      "max": 12000
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Recámara o sala",
+      "spec": "12,001 BTU a 18,000 BTU",
+      "min": 12000,
+      "max": 18000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Sala grande o local",
+      "spec": "Más de 18,000 BTU",
+      "min": 18000
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,650",
+      "max": 5650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,650 a $10,500",
+      "min": 5650,
+      "max": 10500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $10,500",
+      "min": 10500
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Calefactores de pared y baño": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 380 W",
+      "max": 380
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "381 W a 1,500 W",
+      "min": 380,
+      "max": 1500
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 1,500 W",
+      "min": 1500
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $4,300",
+      "max": 4300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$4,300 a $10,500",
+      "min": 4300,
+      "max": 10500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $10,500",
+      "min": 10500
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Aires acondicionados de ventana": {
+  "axes": [
+   {
+    "label": "Capacidad",
+    "field": "ac_btu",
+    "criterion": "en BTU",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Recámara chica",
+      "spec": "Hasta 8,000 BTU",
+      "max": 8000
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Recámara o sala",
+      "spec": "8,001 BTU a 12,000 BTU",
+      "min": 8000,
+      "max": 12000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Sala grande o local",
+      "spec": "Más de 12,000 BTU",
+      "min": 12000
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $4,350",
+      "max": 4350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$4,350 a $5,500",
+      "min": 4350,
+      "max": 5500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,500",
+      "min": 5500
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Ventiladores nebulizadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,350",
+      "max": 1350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,350 a $2,950",
+      "min": 1350,
+      "max": 2950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,950",
+      "min": 2950
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Calefactores infrarrojos y de cuarzo": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 380 W",
+      "max": 380
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "381 W a 1,200 W",
+      "min": 380,
+      "max": 1200
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 1,200 W",
+      "min": 1200
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,450",
+      "max": 1450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,450 a $5,200",
+      "min": 1450,
+      "max": 5200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,200",
+      "min": 5200
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Calefactores para pies y personales": {
+  "axes": [
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 800 W",
+      "max": 800
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "801 W a 1,500 W",
+      "min": 800,
+      "max": 1500
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 1,500 W",
+      "min": 1500
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $950",
+      "max": 950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$950 a $2,650",
+      "min": 950,
+      "max": 2650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,650",
+      "min": 2650
+     }
+    ]
+   }
+  ]
+ },
+ "Climatización/Aires acondicionados": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,400",
+      "max": 1400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,400 a $5,400",
+      "min": 1400,
+      "max": 5400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,400",
+      "min": 5400
      }
     ]
    }
@@ -42020,1400 +43450,6 @@
      }
     ],
     "key": "level"
-   }
-  ]
- },
- "Climatización/Aspas y refacciones de ventilador": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 10\"",
-      "max": 10
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "11\" a 18\"",
-      "min": 10,
-      "max": 18
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 18\"",
-      "min": 18
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $760",
-      "max": 760
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$760 a $1,050",
-      "min": 760,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Ventiladores portátiles y de mano": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $560",
-      "max": 560
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$560 a $1,250",
-      "min": 560,
-      "max": 1250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,250",
-      "min": 1250
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Extractores y ventilación": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 38 W",
-      "max": 38
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "39 W a 78 W",
-      "min": 38,
-      "max": 78
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 78 W",
-      "min": 78
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,000 a $2,900",
-      "min": 1000,
-      "max": 2900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,900",
-      "min": 2900
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Ventiladores de piso e industriales": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 16\"",
-      "max": 16
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "17\" a 20\"",
-      "min": 16,
-      "max": 20
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 20\"",
-      "min": 20
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,400",
-      "max": 1400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,400 a $4,000",
-      "min": 1400,
-      "max": 4000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,000",
-      "min": 4000
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Ventiladores de pedestal": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 16\"",
-      "max": 16
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "17\" a 20\"",
-      "min": 16,
-      "max": 20
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 20\"",
-      "min": 20
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 48 W",
-      "max": 48
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "49 W a 75 W",
-      "min": 48,
-      "max": 75
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 75 W",
-      "min": 75
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Climatización/Deshumidificadores": {
-  "axes": [
-   {
-    "label": "Capacidad",
-    "field": "liters",
-    "criterion": "en litros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Una o dos personas",
-      "spec": "Hasta 2.8 L",
-      "max": 2.8
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Para la familia",
-      "spec": "Más de 2.8 L, hasta 12 L",
-      "min": 2.8,
-      "max": 12
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Reuniones o uso intensivo",
-      "spec": "Más de 12 L",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,450",
-      "max": 1450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,450 a $3,350",
-      "min": 1450,
-      "max": 3350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,350",
-      "min": 3350
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Ventiladores de mesa y clip": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 9\"",
-      "max": 9
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "10\" a 12\"",
-      "min": 9,
-      "max": 12
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 12\"",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $690",
-      "max": 690
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$690 a $1,600",
-      "min": 690,
-      "max": 1600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,600",
-      "min": 1600
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Purificadores de aire": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 29 W",
-      "max": 29
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "30 W a 56 W",
-      "min": 29,
-      "max": 56
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 56 W",
-      "min": 56
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,600",
-      "max": 2600
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,600 a $5,700",
-      "min": 2600,
-      "max": 5700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,700",
-      "min": 5700
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Ventiladores de techo": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 42\"",
-      "max": 42
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "43\" a 52\"",
-      "min": 42,
-      "max": 52
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 52\"",
-      "min": 52
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,800",
-      "max": 1800
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,800 a $3,500",
-      "min": 1800,
-      "max": 3500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,500",
-      "min": 3500
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Humidificadores": {
-  "axes": [
-   {
-    "label": "Capacidad",
-    "field": "liters",
-    "criterion": "en litros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Una o dos personas",
-      "spec": "Hasta 3.8 L",
-      "max": 3.8
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Para la familia",
-      "spec": "Más de 3.8 L, hasta 5 L",
-      "min": 3.8,
-      "max": 5
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Reuniones o uso intensivo",
-      "spec": "Más de 5 L",
-      "min": 5
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $830",
-      "max": 830
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$830 a $1,800",
-      "min": 830,
-      "max": 1800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,800",
-      "min": 1800
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Climatizadores evaporativos": {
-  "axes": [
-   {
-    "label": "Capacidad",
-    "field": "liters",
-    "criterion": "en litros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Una o dos personas",
-      "spec": "Hasta 8 L",
-      "max": 8
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Para la familia",
-      "spec": "9 L a 25 L",
-      "min": 8,
-      "max": 25
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Reuniones o uso intensivo",
-      "spec": "Más de 25 L",
-      "min": 25
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,350",
-      "max": 2350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,350 a $6,650",
-      "min": 2350,
-      "max": 6650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,650",
-      "min": 6650
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Minisplit": {
-  "axes": [
-   {
-    "label": "Capacidad",
-    "field": "ac_btu",
-    "criterion": "en BTU",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Recámara chica",
-      "spec": "Hasta 12,000 BTU",
-      "max": 12000
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Recámara o sala",
-      "spec": "12,001 BTU a 18,000 BTU",
-      "min": 12000,
-      "max": 18000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Sala grande o local",
-      "spec": "Más de 18,000 BTU",
-      "min": 18000
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $6,600",
-      "max": 6600
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$6,600 a $10,000",
-      "min": 6600,
-      "max": 10000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $10,000",
-      "min": 10000
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Calefactores cerámicos y de aire": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,300 a $3,800",
-      "min": 1300,
-      "max": 3800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,800",
-      "min": 3800
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Aires acondicionados portátiles": {
-  "axes": [
-   {
-    "label": "Capacidad",
-    "field": "ac_btu",
-    "criterion": "en BTU",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Recámara chica",
-      "spec": "Hasta 10,000 BTU",
-      "max": 10000
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Recámara o sala",
-      "spec": "10,001 BTU a 12,000 BTU",
-      "min": 10000,
-      "max": 12000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Sala grande o local",
-      "spec": "Más de 12,000 BTU",
-      "min": 12000
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $6,750",
-      "max": 6750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$6,750 a $12,000",
-      "min": 6750,
-      "max": 12000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $12,000",
-      "min": 12000
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Ventiladores de torre": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 33\"",
-      "max": 33
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "34\" a 40\"",
-      "min": 33,
-      "max": 40
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 40\"",
-      "min": 40
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,450",
-      "max": 1450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,450 a $2,850",
-      "min": 1450,
-      "max": 2850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,850",
-      "min": 2850
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Ventiladores de pared": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 16\"",
-      "max": 16
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "17\" a 24\"",
-      "min": 16,
-      "max": 24
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 24\"",
-      "min": 24
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 65 W",
-      "max": 65
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "66 W a 90 W",
-      "min": 65,
-      "max": 90
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 90 W",
-      "min": 90
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Climatización/Mini enfriadores personales": {
-  "axes": [
-   {
-    "label": "Capacidad",
-    "field": "ac_btu",
-    "criterion": "en BTU",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Recámara chica",
-      "spec": "Hasta 12,000 BTU",
-      "max": 12000
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Recámara o sala",
-      "spec": "12,001 BTU a 18,000 BTU",
-      "min": 12000,
-      "max": 18000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Sala grande o local",
-      "spec": "Más de 18,000 BTU",
-      "min": 18000
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $5,650",
-      "max": 5650
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$5,650 a $10,500",
-      "min": 5650,
-      "max": 10500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $10,500",
-      "min": 10500
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Calefactores de pared y baño": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 380 W",
-      "max": 380
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "381 W a 1,500 W",
-      "min": 380,
-      "max": 1500
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 1,500 W",
-      "min": 1500
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $4,300",
-      "max": 4300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$4,300 a $10,500",
-      "min": 4300,
-      "max": 10500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $10,500",
-      "min": 10500
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Aires acondicionados de ventana": {
-  "axes": [
-   {
-    "label": "Capacidad",
-    "field": "ac_btu",
-    "criterion": "en BTU",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Recámara chica",
-      "spec": "Hasta 8,000 BTU",
-      "max": 8000
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Recámara o sala",
-      "spec": "8,001 BTU a 12,000 BTU",
-      "min": 8000,
-      "max": 12000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Sala grande o local",
-      "spec": "Más de 12,000 BTU",
-      "min": 12000
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $4,350",
-      "max": 4350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$4,350 a $5,500",
-      "min": 4350,
-      "max": 5500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,500",
-      "min": 5500
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Ventiladores nebulizadores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,350",
-      "max": 1350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,350 a $2,950",
-      "min": 1350,
-      "max": 2950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Calefactores infrarrojos y de cuarzo": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 380 W",
-      "max": 380
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "381 W a 1,200 W",
-      "min": 380,
-      "max": 1200
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 1,200 W",
-      "min": 1200
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,450",
-      "max": 1450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,450 a $5,200",
-      "min": 1450,
-      "max": 5200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,200",
-      "min": 5200
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Calefactores para pies y personales": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 800 W",
-      "max": 800
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "801 W a 1,500 W",
-      "min": 800,
-      "max": 1500
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 1,500 W",
-      "min": 1500
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $950",
-      "max": 950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$950 a $2,650",
-      "min": 950,
-      "max": 2650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,650",
-      "min": 2650
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Aires acondicionados": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,400",
-      "max": 1400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,400 a $5,400",
-      "min": 1400,
-      "max": 5400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,400",
-      "min": 5400
-     }
-    ]
    }
   ]
  },
@@ -50992,16 +51028,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,250 a $6,100",
+      "spec": "$1,250 a $6,000",
       "min": 1250,
-      "max": 6100
+      "max": 6000
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $6,100",
-      "min": 6100
+      "spec": "Más de $6,000",
+      "min": 6000
      }
     ]
    }
@@ -51613,23 +51649,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $400",
-      "max": 400
+      "spec": "Hasta $410",
+      "max": 410
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$400 a $900",
-      "min": 400,
-      "max": 900
+      "spec": "$410 a $890",
+      "min": 410,
+      "max": 890
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $900",
-      "min": 900
+      "spec": "Más de $890",
+      "min": 890
      }
     ]
    }
@@ -51984,15 +52020,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $690",
-      "max": 690
+      "spec": "Hasta $710",
+      "max": 710
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$690 a $1,600",
-      "min": 690,
+      "spec": "$710 a $1,600",
+      "min": 710,
       "max": 1600
      },
      {
@@ -52232,6 +52268,41 @@
   ],
   "intro": "Elige por dónde va a ir la luz, no por la ficha técnica."
  },
+ "Instrumentos musicales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $4,250",
+      "min": 1050,
+      "max": 4250
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,250",
+      "min": 4250
+     }
+    ]
+   }
+  ]
+ },
  "Bicicletas y movilidad": {
   "axes": [
    {
@@ -52267,38 +52338,69 @@
    }
   ]
  },
- "Instrumentos musicales": {
+ "Climatización": {
   "axes": [
    {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
+    "label": "Tamaño",
+    "field": "fan_in",
+    "criterion": "en pulgadas del aspa",
     "ramp": true,
     "tiers": [
      {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,050",
-      "max": 1050
+      "id": "chico",
+      "name": "Chico",
+      "use": "Escritorio y buró",
+      "spec": "Hasta 18\"",
+      "max": 18
      },
      {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,050 a $4,250",
-      "min": 1050,
-      "max": 4250
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Recámara y sala",
+      "spec": "19\" a 33\"",
+      "min": 18,
+      "max": 33
      },
      {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,250",
-      "min": 4250
+      "id": "grande",
+      "name": "Grande",
+      "use": "Espacios grandes",
+      "spec": "Más de 33\"",
+      "min": 33
      }
-    ]
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 50 W",
+      "max": 50
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "51 W a 380 W",
+      "min": 50,
+      "max": 380
+     },
+     {
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 380 W",
+      "min": 380
+     }
+    ],
+    "key": "size"
    }
   ]
  },
@@ -52484,72 +52586,6 @@
       "min": 2550
      }
     ]
-   }
-  ]
- },
- "Climatización": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 18\"",
-      "max": 18
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "19\" a 33\"",
-      "min": 18,
-      "max": 33
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 33\"",
-      "min": 33
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 50 W",
-      "max": 50
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "51 W a 380 W",
-      "min": 50,
-      "max": 380
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 380 W",
-      "min": 380
-     }
-    ],
-    "key": "size"
    }
   ]
  },

@@ -9083,7 +9083,7 @@
     const catIconByName = new Map();
     const pool = [];
     state.data.categories.forEach((cat) => {
-      catIconByName.set(cat.name, cat.icon);
+      catIconByName.set(cat.id, cat.icon);
       pool.push({ type: "category", matchText: cat.name, label: cat.name, catLabel: null, catId: cat.id, subId: null, icon: cat.icon });
       (cat.subcategories || []).forEach((sub) => {
         pool.push({

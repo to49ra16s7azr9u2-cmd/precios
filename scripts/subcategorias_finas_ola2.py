@@ -108,12 +108,47 @@ _VJ_CONSOLA = re.compile(r'^(?:\S+ ){0,2}consola\b|\bconsola (de )?(videojuegos|
 _VJ_ACCESORIO_DE_CONSOLA = re.compile(r'\b(para|for|compatible con) (la )?(consola|ps\d|playstation|xbox|nintendo|switch)|\bcontrol|\bmando\b|\bfunda|\bcable|\bcargador|\bsoporte|\bbase\b|\bmica|\bskin|\badaptador|\bjuego\b|\bvideojuego')
 
 
+# Lo que nunca es el juego aunque el clasificador de capturas diga "Software"
+# («Amiibo Sora - Nintendo Switch», «Memoria microSDXC 1 TB para Nintendo
+# Switch», «Disc Drive for PS5 + juego»): 180 amiibos estaban en Juegos
+# Nintendo Switch porque la subcategoría vieja mandaba sobre el nombre.
+_VJ_NUNCA_JUEGO = [
+    ('Otros accesorios gamer', r'\bamiibo|\bfiguras?\b|\bnendoroid|\bestatua|\bdiadema\b|\bheadset|\bauriculares\b|'
+                               r'\baudifonos\b|\bdisc drive|\blector de discos|\bunidad (lector )?de discos?\b|'
+                               r'\b(paquete|kit|set) de accesorios'),
+    ('Cables y adaptadores', r'\bmemoria\b|\bmicro ?sd|\bdisco duro|\bssd de unidad|\btarjeta de expansion'),
+]
+# Hardware que distingue la consola del juego que la nombra: capacidad,
+# modelo, color. «Consola de videojuegos Nintendo Switch Sonic Frontiers» y
+# «Deathloop xbox series s digital» no traen nada de esto: son juegos (así
+# titulan algunas tiendas sus juegos; 60 estaban en Consolas).
+_VJ_HW = re.compile(r'\b\d+ ?(gb|tb)\b|\bslim\b|\boled\b|\blite\b|\bpro\b|\bportatil|\bhibrida|\bportal\b|\breproductor remoto|'
+                    r'\bblanc[oa]\b|\bnegr[oa]\b|\bgris\b|\bazul\b|\broj[oa]\b|\bturquesa\b|\bcoral\b|\bneon\b|\bmidnight\b|'
+                    r'\bjoy-?con|\bcontrol(es)?\b|\bmandos?\b|\breacondicionad|\baniversario\b|\bedicion limitada\b|'
+                    r'\bcfi \d|\bhdh \d|\bheg s|\bhad s|\bsobremesa|\bsegunda generacion')
+# (el nombre llega sin puntuación: «PRAGMATA - Nintendo Switch 2» es
+# «pragmata nintendo switch 2»)
+_VJ_JUEGO_DISFRAZADO = re.compile(r'^(?:\S+ ){0,2}consola (de )?(video ?)?juegos? |\b(xbox (one|series( [xs])?)|ps ?[45]) (y \S+ )?digital$|'
+                                  r'\bswitch 2 (juego|edition)\b|^(?!(?:\S+ )?consola\b).*\bnintendo switch 2$')
+
+
 def sub_videojuego(tn, sub_vieja=None):
+    for sub, rx in _VJ_NUNCA_JUEGO:
+        if sub_vieja in (None, 'Software', 'Consolas') and re.search(rx, tn) and not re.search(r'^(?:\S+ ){0,2}(consola|combo)\b', tn):
+            return sub
     # Primero lo que no es juego ni consola.
     acc = _primera(tn, _VJ, {'Otros accesorios gamer': 40, 'Cables y adaptadores': 10, 'Cargadores, bases y soportes': 5})
     es_consola = _VJ_CONSOLA.search(tn) and not re.search(r'\b(para|for|compatible con) (la )?(consola|ps\d|playstation|xbox|nintendo|switch)\b', tn)
-    if es_consola and not re.search(r'\bjuego\b|\bvideojuego\b|\bedicion (estandar|deluxe|coleccionista)\b', tn) and (sub_vieja == 'Consolas' or not acc):
-        if re.search(r'playstation|\bps ?\d\b|\bpsp\b', tn): return 'Consolas PlayStation'
+    if (es_consola and _VJ_JUEGO_DISFRAZADO.search(tn) and not _VJ_HW.search(tn)
+            and re.search(r'playstation|play station|\bps ?\d\b|\bxbox\b|\bnintendo\b|\bswitch\b', tn)
+            and not re.search(r'\bretro\b|\barcade\b|\batari\b|\bhyperkin|\blexibook|\bbolsillo|\bhdmi\b|\bmini\b', tn)):
+        es_consola = False
+        sub_vieja = 'Software'
+    # «Consola PS5 Slim 1 TB + juego NBA 2K26»: el juego viene de regalo; si
+    # el título abre con la consola y trae hardware, es la consola.
+    abre_con_consola = re.search(r'^(?:\S+ ){0,2}(consola|combo consola|paquete de consola)\b', tn) and _VJ_HW.search(tn)
+    if es_consola and (abre_con_consola or not re.search(r'\bjuego\b|\bvideojuego\b|\bedicion (estandar|standard|deluxe|coleccionista|especial|legado)\b', tn)) and (sub_vieja == 'Consolas' or not acc):
+        if re.search(r'playstation|play station|\bps ?\d\b|\bpsp\b', tn): return 'Consolas PlayStation'
         if re.search(r'\bxbox\b', tn): return 'Consolas Xbox'
         if re.search(r'\bnintendo\b|\bswitch\b|\bwii\b|\b3ds\b', tn): return 'Consolas Nintendo'
         return 'Consolas retro y portátiles'

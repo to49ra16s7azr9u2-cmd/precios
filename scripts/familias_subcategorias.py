@@ -225,7 +225,10 @@ FAMILIAS = {
         ("Exterior e industrial", [
             "Exterior", "Lámparas de techo para exterior",
             "Lámparas industriales y de nave", "Lámparas de emergencia"]),
-        ("Decorativa y de efecto", ["Tiras LED", "Decorativa", "Escenario"]),
+        ("Decorativa y de efecto", ["Tiras LED", "Decorativa", "Escenario",
+                                    "Máquinas de humo y efectos especiales",
+                                    "Controladores DMX y accesorios de escenario",
+                                    "Líquidos y refacciones para efectos"]),
     ],
     "Climatización": [
         # Mismo nombre que la familia deducida (y su página); la tabla sólo
