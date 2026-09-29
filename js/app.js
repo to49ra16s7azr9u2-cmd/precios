@@ -3100,8 +3100,11 @@
   // (sin signos: «refri,» es «refri»). Las vacías no están indexadas.
   function terminosIndice(query) {
     const palabras = splitAlphaNumeric(normalizeSearchText(query)).match(/[a-z0-9]+/g) || [];
-    return palabras
-      .filter((w) => !PALABRAS_VACIAS.has(w) && (w.length > 1 || /\d/.test(w)))
+    const utiles = palabras.filter((w) => !PALABRAS_VACIAS.has(w) && (w.length > 1 || /\d/.test(w)));
+    // Un dígito suelto sirve junto a otra palabra («iphone 1», «tv 4 k»),
+    // pero solo («1») coincide con más de medio millón de fichas.
+    if (utiles.every((w) => w.length === 1)) return [];
+    return utiles
       .map((w) => {
         const raiz = searchStem(w);
         return { word: w, stems: SYNONYM_INDEX.get(raiz) || [raiz] };
@@ -3223,7 +3226,11 @@
     const meta = await pedirBuscadorMeta();
     if (!meta) return null;
     const terms = terminosIndice(query);
-    if (!terms.length) return null;
+    // Sin palabras que buscar («a», «x», «de la», «1»): antes se devolvía
+    // null y la búsqueda caía al camino viejo, que baja el catálogo entero
+    // (860 mil fichas, ~900 MB de memoria, 25 s) y deja lenta cada búsqueda
+    // siguiente. Ahora es una búsqueda vacía con aviso (29-sep, bug hunt).
+    if (!terms.length) return { query, stubs: [], difusa: false, sinTerminos: true };
     const { cabeza, complementoDesde } = estructuraDeConsulta(query);
     let mapas = await Promise.all(terms.map((t) => coincidenciasDeTermino(t, false, ligera)));
     let res = interseccion(mapas);
@@ -4038,15 +4045,8 @@
     }
     el.homeCategoryGrid.innerHTML = "";
 
-    const allCard = document.createElement("button");
-    allCard.type = "button";
-    allCard.className = "category-card";
-    allCard.innerHTML = `
-      <span class="category-card-icon category-card-icon--photo">${icon("shopping-bag")}</span>
-      <span class="category-card-name">Todas</span>
-    `;
-    allCard.onclick = () => { state.sort = "relevance"; goList({ category: null, query: "" }); };
-    el.homeCategoryGrid.appendChild(allCard);
+    // La tarjeta «Todas» se quitó (29-sep): abría la lista del catálogo
+    // entero, ver renderList().
 
     const saleBadges = categorySaleBadges();
 
@@ -4739,7 +4739,7 @@
     // que siempre con topByPopularity, así que los clics/vistas/favoritos
     // de este navegador siguen pesando -- pero dentro del pool.
     const blocks = [
-      { title: `${icon("trophy")} Ranking general ComparaMEX`, products: homePool("general"), onMore: () => { state.sort = "popularity"; goList({ category: null, query: "" }); } },
+      { title: `${icon("trophy")} Ranking general ComparaMEX`, products: homePool("general"), onMore: null },
       ...topCategories.map(({ cat }) => ({
         title: `${icon(cat.icon, "cat-item-icon")} ${cat.name} — ranking`,
         products: homePool(cat.id),
@@ -4755,7 +4755,7 @@
       section.innerHTML = `
         <div class="ranking-block-head">${block.title}</div>
         <div class="ranking-block-list"></div>
-        <button type="button" class="ranking-block-more">Ver ranking completo →</button>
+        ${block.onMore ? '<button type="button" class="ranking-block-more">Ver ranking completo →</button>' : ""}
       `;
       renderProductListInto(section.querySelector(".ranking-block-list"), top3, {
         emptyText: "",
@@ -4763,7 +4763,7 @@
         medals: true,
         onFavToggle: renderHomeRankings,
       });
-      section.querySelector(".ranking-block-more").onclick = block.onMore;
+      if (block.onMore) section.querySelector(".ranking-block-more").onclick = block.onMore;
       el.homeRankings.appendChild(section);
     });
   }
@@ -5382,6 +5382,14 @@
   }
 
   function renderList() {
+    // «Todos los productos» (sin categoría ni búsqueda) bajaba las 865 mil
+    // fichas: ~830 MB de memoria, que en un teléfono cierra la pestaña. El
+    // catálogo completo se recorre desde Inicio, eligiendo categoría.
+    if (!state.category && !(state.query || "").trim()) {
+      if (location.hash === "#/") renderHome();
+      else location.replace("#/");
+      return;
+    }
     listaVersion++;
     state.page = 1; // toda entrada "de cero" a la lista arranca en la página 1
     setActiveView("list");
@@ -5517,7 +5525,9 @@
     }
     if (esperando) el.productList.innerHTML = htmlCargando("Cargando productos…");
     else renderProductListInto(el.productList, pageItems, {
-      emptyText: "No se encontraron productos con estos filtros.",
+      emptyText: state.busqueda && state.busqueda.query === state.query && state.busqueda.sinTerminos
+        ? "Escribe el nombre de lo que buscas: una sola letra o palabras como «de» no alcanzan."
+        : "No se encontraron productos con estos filtros.",
       onFavToggle: renderProductListPage,
       withRank: isCategoryRanking,
       // La corona y las medallas de color solo significan algo cuando la
@@ -10151,12 +10161,16 @@
         // resultado más vendido pero menos relevante (p. ej. un iPhone 14
         // buscando "iphone17") podía listarse antes que el que sí matchea
         // bien el término escrito.
+        // Vacío no es una búsqueda: abría «Todos los productos», que baja el
+        // catálogo entero (101 archivos, ~830 MB en el teléfono; 29-sep).
+        if (!el.searchInput.value.trim()) { el.searchInput.focus(); return; }
         state.sort = "relevance";
         goList({ query: el.searchInput.value.trim(), category: null });
       }
     });
     el.searchBtn.addEventListener("click", () => {
       hideSearchSuggestions();
+      if (!el.searchInput.value.trim()) { el.searchInput.focus(); return; }
       state.sort = "relevance";
       goList({ query: el.searchInput.value.trim(), category: null });
     });

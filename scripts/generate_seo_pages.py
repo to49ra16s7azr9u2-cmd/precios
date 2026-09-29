@@ -2211,6 +2211,13 @@ def render_ofertas_page(items, data, cat=None):
             f'<div class="chip-row">{chips}</div></div>' if chips else ""
         )
 
+    # El botón llevaba a «#/list» a secas, la lista del catálogo entero, que
+    # la SPA ya no abre (bajaba 865 mil fichas; 29-sep): con categoría va a
+    # la de esa categoría, y sin ella a Inicio, donde se elige una.
+    boton_catalogo = (
+        f'<a class="buy-btn" href="{prefijo}#/list?cat={quote(cat["id"])}">Ver todo {html_escape(cat["name"].lower())} con filtros →</a>'
+        if cat else f'<a class="buy-btn" href="{prefijo}">Elegir una categoría →</a>'
+    )
     body = f"""
 {migas}
 <div class="list-head"><h1>{svg_icon("chart")} {html_escape(titulo)}</h1></div>
@@ -2224,7 +2231,7 @@ tienda corrigió.</p>
 <div class="product-list">{filas}</div>
 {{otras}}
 <div class="panel" style="text-align:center; margin-top:20px">
-  <a class="buy-btn" href="{prefijo}#/list">Ver el catálogo completo con filtros →</a>
+  {boton_catalogo}
 </div>
 """
     body = body.replace("{otras}", otras)

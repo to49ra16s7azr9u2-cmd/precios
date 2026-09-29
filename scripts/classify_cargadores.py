@@ -24,10 +24,22 @@ las subcategorías nuevas en data.categories -- sin eso la interfaz no las
 ofrece. Este script además BORRA de esa lista las subcategorías de esta
 categoría que se quedaron sin productos.
 
+SOLO LO NUEVO (29-sep)
+---------------------
+El refresco diario corre este script. Antes re-partía la categoría ENTERA
+con las diez subcategorías de arriba, y el árbol ya había crecido (Cables
+USB-C, Regletas y multicontactos, Cables y adaptadores de video, familias
+Cargadores / Cables / Adaptadores): cada corrida devolvía 4,887 fichas al
+esquema viejo, mandaba 710 a «Otros» y borraba las familias. Ahora solo
+toca las fichas sin subcategoría o con una que la categoría ya no tiene
+(lo que acaba de entrar), y no quita subcategorías de la lista. La pasada
+completa de antes queda detrás de --todas.
+
 USO
 ---
     python3 scripts/classify_cargadores.py --dry-run
     python3 scripts/classify_cargadores.py
+    python3 scripts/classify_cargadores.py --todas   # re-parte todo (esquema viejo)
 """
 import argparse
 import os
@@ -115,10 +127,18 @@ def es_power_bank(nombre):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--todas", action="store_true",
+                    help="re-partir la categoría entera (borra la clasificación fina)")
     args = ap.parse_args()
 
     data = load_catalog()
     productos = [p for p in data["products"] if p.get("category") == CATEGORIA]
+    if not args.todas:
+        arbol = {s.get("id") or s.get("name")
+                 for c in data["categories"] if c.get("id") == CATEGORIA
+                 for s in c.get("subcategories") or []}
+        productos = [p for p in productos if not p.get("subcategory") or p["subcategory"] not in arbol]
+        print(f"Fichas de {CATEGORIA} sin subcategoría válida: {len(productos)}")
     antes = Counter(p.get("subcategory") for p in productos)
 
     # Primero se sacan los power banks: no son cargadores.
@@ -139,8 +159,11 @@ def main():
     print()
     cambios = 0
     for p in productos:
-        nueva = charger_type_of(p.get("name", "")) or RESIDUAL
-        if p.get("subcategory") != nueva:
+        # Sin tipo reconocible, lo nuevo queda sin subcategoría para que
+        # completar_subcategorias.py lo ubique por sus vecinos, en vez de
+        # volver a llenar «Otros».
+        nueva = charger_type_of(p.get("name", "")) or (RESIDUAL if args.todas else None)
+        if nueva and p.get("subcategory") != nueva:
             p["subcategory"] = nueva
             cambios += 1
     despues = Counter(p.get("subcategory") for p in productos)
@@ -158,7 +181,7 @@ def main():
     # interfaz las seguiría ofreciendo con cero resultados.
     vivas = set(despues)
     huerfanas = []
-    for c in data["categories"]:
+    for c in (data["categories"] if args.todas else []):
         if c.get("name") != CATEGORIA:
             continue
         subs = c.get("subcategories") or []
