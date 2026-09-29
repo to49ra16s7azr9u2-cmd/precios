@@ -9779,37 +9779,52 @@
 
   // Menor puntaje = mejor coincidencia; null = ni siquiera tolerando
   // errores de tipeo se parece lo suficiente como para sugerirlo.
-  function searchMatchScore(query, target) {
+  function searchMatchScore(query, target, tNorm, tWords) {
     const q = normalizeSearchText(query);
-    const t = normalizeSearchText(target);
+    const t = tNorm !== undefined ? tNorm : normalizeSearchText(target);
     if (!q) return null;
     if (t === q) return 0;
     if (t.startsWith(q)) return 1;
-    const words = t.split(/\s+/);
+    const words = tWords || t.split(/\s+/);
     if (words.some((w) => w.startsWith(q))) return 2;
     if (t.includes(q)) return 3;
-    let best = Infinity;
-    for (const candidate of [t, ...words]) {
-      const d = levenshteinDistance(q, candidate);
-      if (d < best) best = d;
-    }
     // Tolerancia proporcional al largo de lo escrito: con "tv" (2
     // caracteres) un solo error ya cambia demasiado la palabra, pero con
     // "audifonos" (9) sobran 2-3 errores para seguir siendo reconocible.
     const tolerance = Math.max(1, Math.floor(q.length * 0.34));
+    let best = Infinity;
+    const probar = (candidate) => {
+      // La distancia nunca es menor que la diferencia de largo: si ya
+      // supera la tolerancia no hace falta la tabla completa.
+      if (Math.abs(candidate.length - q.length) > tolerance) return;
+      const d = levenshteinDistance(q, candidate);
+      if (d < best) best = d;
+    };
+    probar(t);
+    for (const w of words) probar(w);
     return best <= tolerance ? 4 + best : null;
   }
 
   let sugerenciasIndice = null;   // {q, ids}: las fichas que el índice sugiere para q
-  function buildSearchSuggestions(query) {
-    if (!state.data || !normalizeSearchText(query)) return [];
+  // Las ~600 categorías y subcategorías, con su nombre ya normalizado y
+  // partido en palabras: antes se armaba y normalizaba todo en cada pausa
+  // de tipeo (29-sep: «buscar un nombre también es pesado»).
+  let poolSugerencias = null;
+  function poolDeSugerencias() {
+    const cats = state.data.categories;
+    if (poolSugerencias && poolSugerencias.cats === cats && poolSugerencias.n === cats.length) return poolSugerencias;
     const catIconByName = new Map();
     const pool = [];
-    state.data.categories.forEach((cat) => {
+    const agregar = (item) => {
+      item.norm = normalizeSearchText(item.matchText);
+      item.words = item.norm.split(/\s+/);
+      pool.push(item);
+    };
+    cats.forEach((cat) => {
       catIconByName.set(cat.id, cat.icon);
-      pool.push({ type: "category", matchText: cat.name, label: cat.name, catLabel: null, catId: cat.id, subId: null, icon: cat.icon });
+      agregar({ type: "category", matchText: cat.name, label: cat.name, catLabel: null, catId: cat.id, subId: null, icon: cat.icon });
       (cat.subcategories || []).forEach((sub) => {
-        pool.push({
+        agregar({
           type: "category",
           matchText: sub.name,
           label: sub.name,
@@ -9820,8 +9835,17 @@
         });
       });
     });
+    poolSugerencias = { cats, n: cats.length, pool, catIconByName };
+    return poolSugerencias;
+  }
+  // Texto normalizado de cada ficha para el recorrido de respaldo (sin
+  // índice por palabra), calculado una sola vez por ficha.
+  const textoSugerencia = new WeakMap();
+  function buildSearchSuggestions(query) {
+    if (!state.data || !normalizeSearchText(query)) return [];
+    const { pool, catIconByName } = poolDeSugerencias();
     const scored = pool
-      .map((item) => ({ ...item, score: searchMatchScore(query, item.matchText) }))
+      .map((item) => ({ ...item, score: searchMatchScore(query, item.matchText, item.norm, item.words) }))
       .filter((item) => item.score !== null)
       .sort((a, b) => a.score - b.score || a.matchText.length - b.matchText.length);
     const seen = new Set();
@@ -9860,9 +9884,16 @@
         });
       });
     }
-    if (!productOut.length && qWords.length && state.data.products) {
+    // Con el índice por palabra, las fichas llegan por sugerenciasIndice
+    // (ver bindEvents) y no hace falta recorrer todo lo bajado: con varias
+    // categorías abiertas eran cientos de miles de nombres por tecla.
+    if (!productOut.length && qWords.length && state.data.products && !state.busquedaMeta) {
       for (const p of state.data.products) {
-        const text = normalizeSearchText(`${p.name} ${p.brand} ${p.category} ${p.subcategory || ""}`);
+        let text = textoSugerencia.get(p);
+        if (text === undefined) {
+          text = normalizeSearchText(`${p.name} ${p.brand} ${p.category} ${p.subcategory || ""}`);
+          textoSugerencia.set(p, text);
+        }
         if (!qWords.every((w) => text.includes(w))) continue;
         productOut.push({
           type: "product",

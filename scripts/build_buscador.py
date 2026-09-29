@@ -90,7 +90,12 @@ sys.path.insert(0, AQUI)
 from data_io import ROOT, MANIFEST_PATH, leer_json, escribir_texto_json, nombre_logico  # noqa: E402
 
 SALIDA = os.path.join(ROOT, "data", "buscar")
-FILAS = 400         # fichas por bloque de filas (400 comprime ~6% mejor que 100)
+# Fichas por bloque de filas. Era 400 (comprime ~6% mejor que 100), pero
+# cada fila de una página de resultados cae en un bloque distinto: 20 filas
+# pedían 18 bloques de ~164 KB de JSON, ~3 MB a leer en el teléfono para
+# mostrar 20 fichas (29-sep: «buscar un nombre también es pesado»). Con 100
+# se lee la cuarta parte por página.
+FILAS = 100
 FRECUENTE = 1500      # desde cuántas fichas una palabra va en archivo propio
 RESUMEN_MIN_SHARDS = 8  # categorías con resumen propio (data/buscar/c)
 FACETA_MIN = 0.01     # un campo entra al resumen si lo tiene al menos el 1%
