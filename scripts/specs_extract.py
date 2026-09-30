@@ -853,14 +853,14 @@ def platform_of(name):
 # Lavadoras y refrigeradores: capacidad
 # ---------------------------------------------------------------------
 _WASH_KG_RE = re.compile(r"(\d{1,2}(?:[.,]\d)?)\s*(?:kg|kilos?)\b")
-_FRIDGE_FT_RE = re.compile(r"(\d{1,2}(?:[.,]\d)?)\s*(?:pies|p3|ft3|pies\s*c[uú]bicos)\b")
+_FRIDGE_FT_RE = re.compile(r"(?<!\d)(?<!\d\.)(\d{1,2}(?:[.,]\d{1,2})?)\s*(?:pies|p3|ft3|pies\s*c[uú]bicos)\b")
 # Lo que el patrón de arriba no leía (30-sep, repaso de Compara calidad):
 # «11p», «9 P», «22.8ft», «16cu», «454 lts», «311.49L», y la comilla que
 # en México se usa por «pies» («LG 20'», «9"»). Unos 230 refrigeradores de
 # casa quedaban sin capacidad y fuera de todos los tramos.
-_FRIDGE_FT2_RE = re.compile(r"(?<![\d.])(\d{1,2}(?:\.\d{1,2})?)\s*(?:pie|ft|cu(?:\.?\s*ft)?|p)\b")
-_FRIDGE_L_RE = re.compile(r"(?<![\d.])(\d{1,4}(?:\.\d{1,2})?)\s*(?:l|lt|lts|litros?)\b")
-_FRIDGE_COMILLA_RE = re.compile(r"(?<![\d.])(\d{1,2}(?:\.\d)?)\s*(?:\"|'|\u2019|\u201d|\u00b4)")
+_FRIDGE_FT2_RE = re.compile(r"(?<!\d)(?<!\d\.)(\d{1,2}(?:\.\d{1,2})?)\s*(?:pie|ft|cf|cu(?:\.?\s*ft)?|p)\b")
+_FRIDGE_L_RE = re.compile(r"(?<!\d)(?<!\d\.)(\d{1,4}(?:\.\d{1,2})?)\s*(?:l|lt|lts|litros?)\b")
+_FRIDGE_COMILLA_RE = re.compile(r"(?<!\d)(?<!\d\.)(\d{1,2}(?:\.\d)?)\s*(?:\"|'|\u2019|\u201d|\u00b4)")
 LITROS_POR_PIE3 = 28.3168
 
 

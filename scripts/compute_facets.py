@@ -24,6 +24,8 @@ Uso:
   python3 scripts/compute_facets.py              # aplica y guarda
 """
 import argparse
+import json
+import os
 import re
 import sys
 import unicodedata
@@ -807,12 +809,36 @@ def _generales(product, name, spec_map, f):
             f["kind"] = v
 
 
+# Datos revisados a mano (data/specs-a-mano.json): lo que el título y la
+# ficha técnica no dicen pero sí el modelo («Mabe RMS400» = 400 L, que Mabe
+# vende como 14 pies). {id: {campo: valor, ..., "por": "de dónde sale"}}.
+# Ganan sobre lo leído del título. Empezó con la capacidad de 32
+# refrigeradores (30-sep, «必要な場合はあなたの目で»).
+_A_MANO = None
+
+
+def _specs_a_mano():
+    global _A_MANO
+    if _A_MANO is None:
+        ruta = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "specs-a-mano.json")
+        try:
+            with open(ruta, encoding="utf-8") as fh:
+                _A_MANO = json.load(fh)
+        except OSError:
+            _A_MANO = {}
+    return _A_MANO
+
+
 def facets_for(product):
     """Los facets propios de la categoría (abajo) y, encima, los genéricos
-    que cualquier categoría puede tener. Ninguno de los dos pisa al otro."""
+    que cualquier categoría puede tener. Ninguno de los dos pisa al otro.
+    Lo revisado a mano (specs-a-mano.json) va último y gana."""
     f = _facets_propias(product) or {}
     _generales(product, product.get("name", ""), _spec_map(product), f)
     _titulo(product, product.get("name", ""), f)
+    for campo, valor in (_specs_a_mano().get(product.get("id")) or {}).items():
+        if campo != "por":
+            f[campo] = valor
     return f or None
 
 
