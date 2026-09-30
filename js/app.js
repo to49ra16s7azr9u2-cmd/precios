@@ -2729,7 +2729,7 @@
   // sirve tal cual (application/gzip, sin Content-Encoding), así que por la
   // red viaja lo mismo que antes y el navegador los descomprime acá. El
   // manifiesto los sigue nombrando .json; el .gz se agrega solo aquí.
-  const DATOS_GZ = /^\/?data\/(cat|det|hist|retirados|buscar\/[bwfc])\/[^/]+\.json$/;
+  const DATOS_GZ = /^\/?data\/(cat|det|hist|retirados|buscar\/[bwfcg])\/[^/]+\.json$/;
   let pakoPromesa = null;
   function cargarPako() {
     // Solo para navegadores sin DecompressionStream (Safari < 16.4).
@@ -10059,6 +10059,238 @@
     });
   }
 
+  // ---------- Búsqueda por código de barras ----------
+  //
+  // (30-sep, «Aだけ進めましょう».) El lector va enteramente en el teléfono:
+  // la cámara no manda imágenes a ningún lado. Donde el navegador trae
+  // BarcodeDetector (Chrome en Android) se usa ese; donde no (Safari en
+  // iPhone, Firefox) se baja una sola vez js/vendor/barcode-detector-
+  // ponyfill.js con ZXing en WebAssembly (~1 MB, solo quien toca el botón).
+  // El código se busca en data/buscar/g/<2 últimos dígitos>.json, que arma
+  // build_buscador.py con el GTIN de cada ficha.
+  const FORMATOS_BARRAS = ["ean_13", "ean_8", "upc_a", "upc_e"];
+  let detectorBarras = null;
+
+  function gtinNormal(codigo) {
+    let d = String(codigo || "").replace(/\D/g, "");
+    if (d.length === 8 && /^[01]/.test(d) && !gtinValido(d)) d = upcEaUpcA(d);
+    if (![8, 12, 13, 14].includes(d.length) || !gtinValido(d)) return null;
+    d = d.replace(/^0+/, "");
+    return d.length >= 6 ? d : null;
+  }
+  // Dígito verificador GTIN: pesos 3 y 1 desde la derecha.
+  function gtinValido(d) {
+    let suma = 0;
+    for (let i = d.length - 2, peso = 3; i >= 0; i--, peso = 4 - peso) suma += Number(d[i]) * peso;
+    return (10 - (suma % 10)) % 10 === Number(d[d.length - 1]);
+  }
+  // UPC-E (8 dígitos, el de las latas) a UPC-A, que es como lo publican
+  // las tiendas.
+  function upcEaUpcA(e) {
+    const [s, m, v] = [e[0], e.slice(1, 7), e[7]];
+    const ult = m[5];
+    let cuerpo;
+    if ("012".includes(ult)) cuerpo = m.slice(0, 2) + ult + "0000" + m.slice(2, 5);
+    else if (ult === "3") cuerpo = m.slice(0, 3) + "00000" + m.slice(3, 5);
+    else if (ult === "4") cuerpo = m.slice(0, 4) + "00000" + m[4];
+    else cuerpo = m.slice(0, 5) + "0000" + ult;
+    return s + cuerpo + v;
+  }
+
+  function buscarCodigo(codigo) {
+    const g = gtinNormal(codigo);
+    if (!g) return Promise.resolve(null);
+    return pedirBuscadorMeta().then((meta) => {
+      if (!meta || !meta.gtin) return [];
+      const parte = String(Number(g.slice(-2)) % meta.gtin).padStart(2, "0");
+      return pedirDatos(`data/buscar/g/${parte}.json`, {}).then((mapa) => mapa[g] || []);
+    });
+  }
+
+  function obtenerDetectorBarras() {
+    if (!detectorBarras) {
+      detectorBarras = (async () => {
+        if ("BarcodeDetector" in window) {
+          try {
+            const soportados = await window.BarcodeDetector.getSupportedFormats();
+            if (soportados.includes("ean_13")) return new window.BarcodeDetector({ formats: FORMATOS_BARRAS });
+          } catch {}
+        }
+        await new Promise((ok, falla) => {
+          const s = document.createElement("script");
+          s.src = "js/vendor/barcode-detector-ponyfill.js";
+          s.onload = ok;
+          s.onerror = () => falla(new Error("lector"));
+          document.head.appendChild(s);
+        });
+        const api = window.BarcodeDetectionAPI;
+        api.setZXingModuleOverrides({
+          locateFile: (ruta, prefijo) => (ruta.endsWith(".wasm")
+            ? new URL("js/vendor/zxing_reader.wasm", location.href).href : prefijo + ruta),
+        });
+        return new api.BarcodeDetector({ formats: FORMATOS_BARRAS });
+      })().catch((e) => { detectorBarras = null; throw e; });
+    }
+    return detectorBarras;
+  }
+
+  let lectorBarras = null;   // {modal, video, stream, activo}
+  function abrirLectorBarras() {
+    if (!lectorBarras) {
+      const modal = document.createElement("div");
+      modal.className = "barcode-modal hidden";
+      modal.setAttribute("role", "dialog");
+      modal.setAttribute("aria-modal", "true");
+      modal.setAttribute("aria-labelledby", "barcodeTitle");
+      modal.innerHTML = `
+        <div class="barcode-box">
+          <div class="barcode-head">
+            <h2 id="barcodeTitle">Buscar por código de barras</h2>
+            <button type="button" class="barcode-close" aria-label="Cerrar">×</button>
+          </div>
+          <div class="barcode-video-wrap"><video playsinline muted></video><div class="barcode-guide"></div></div>
+          <p class="barcode-status" aria-live="polite"></p>
+          <div class="barcode-results"></div>
+          <form class="barcode-manual">
+            <input id="barcodeManual" type="text" inputmode="numeric" autocomplete="off"
+              placeholder="O escribe el número del código" aria-label="Número del código de barras">
+            <button type="submit">Buscar</button>
+          </form>
+          <p class="barcode-privacy">La cámara se lee en tu teléfono: la imagen no se envía a ningún lado.</p>
+        </div>`;
+      document.body.appendChild(modal);
+      lectorBarras = { modal, video: modal.querySelector("video"), stream: null, activo: false };
+      modal.querySelector(".barcode-close").onclick = cerrarLectorBarras;
+      modal.addEventListener("click", (e) => { if (e.target === modal) cerrarLectorBarras(); });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) cerrarLectorBarras();
+      });
+      modal.querySelector(".barcode-manual").onsubmit = (e) => {
+        e.preventDefault();
+        const v = modal.querySelector("#barcodeManual").value;
+        if (!gtinNormal(v)) { estadoLector("Ese número no es un código de barras válido: revisa los dígitos.", true); return; }
+        detenerCamara();
+        mostrarCodigo(v);
+      };
+    }
+    lectorBarras.modal.classList.remove("hidden");
+    lectorBarras.modal.querySelector(".barcode-results").innerHTML = "";
+    lectorBarras.modal.querySelector("#barcodeManual").value = "";
+    iniciarCamara();
+  }
+
+  function estadoLector(texto, aviso) {
+    const p = lectorBarras.modal.querySelector(".barcode-status");
+    p.textContent = texto;
+    p.classList.toggle("aviso", !!aviso);
+  }
+
+  async function iniciarCamara() {
+    const L = lectorBarras;
+    const wrap = L.modal.querySelector(".barcode-video-wrap");
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      wrap.classList.add("hidden");
+      estadoLector("Este navegador no deja usar la cámara. Escribe el número que aparece bajo las barras.");
+      return;
+    }
+    wrap.classList.remove("hidden");
+    estadoLector("Abriendo la cámara…");
+    let detector;
+    try {
+      [L.stream, detector] = await Promise.all([
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: "environment" } }, audio: false }),
+        obtenerDetectorBarras(),
+      ]);
+    } catch (e) {
+      detenerCamara();
+      wrap.classList.add("hidden");
+      estadoLector(e && e.name === "NotAllowedError"
+        ? "Sin permiso para usar la cámara. Puedes escribir el número que aparece bajo las barras."
+        : "No pudimos abrir la cámara. Escribe el número que aparece bajo las barras.", true);
+      return;
+    }
+    if (L.modal.classList.contains("hidden")) { detenerCamara(); return; }
+    L.video.srcObject = L.stream;
+    try { await L.video.play(); } catch {}
+    estadoLector("Apunta al código de barras del producto o de su caja.");
+    L.activo = true;
+    const vistos = new Map();
+    const leer = async () => {
+      if (!L.activo) return;
+      try {
+        if (L.video.readyState >= 2) {
+          const hallados = await detector.detect(L.video);
+          for (const h of hallados) {
+            const leido = h.format === "upc_e" && /^\d{8}$/.test(h.rawValue) ? upcEaUpcA(h.rawValue) : h.rawValue;
+            if (!gtinNormal(leido)) continue;
+            // Dos lecturas iguales antes de aceptar: una sola a veces sale
+            // con un dígito mal leído que igual pasa el verificador.
+            const n = (vistos.get(leido) || 0) + 1;
+            vistos.set(leido, n);
+            if (n >= 2) {
+              detenerCamara();
+              if (navigator.vibrate) navigator.vibrate(60);
+              mostrarCodigo(leido);
+              return;
+            }
+          }
+        }
+      } catch {}
+      setTimeout(leer, 180);
+    };
+    leer();
+  }
+
+  function detenerCamara() {
+    if (!lectorBarras) return;
+    lectorBarras.activo = false;
+    if (lectorBarras.stream) lectorBarras.stream.getTracks().forEach((t) => t.stop());
+    lectorBarras.stream = null;
+    lectorBarras.video.srcObject = null;
+  }
+
+  function cerrarLectorBarras() {
+    detenerCamara();
+    if (lectorBarras) lectorBarras.modal.classList.add("hidden");
+  }
+
+  async function mostrarCodigo(codigo) {
+    const L = lectorBarras;
+    const limpio = String(codigo).replace(/\D/g, "");
+    L.modal.querySelector(".barcode-video-wrap").classList.add("hidden");
+    estadoLector(`Buscando el código ${limpio}…`);
+    const res = L.modal.querySelector(".barcode-results");
+    res.innerHTML = "";
+    let ids;
+    try { ids = await buscarCodigo(limpio); } catch { ids = null; }
+    if (ids && ids.length === 1) {
+      await cargarFilas(ids).catch(() => {});
+      cerrarLectorBarras();
+      goDetail(ids[0]);
+      return;
+    }
+    const otraVez = `<button type="button" class="barcode-again">Escanear otro</button>`;
+    if (!ids || !ids.length) {
+      estadoLector(`No encontramos el código ${limpio} en ComparaMEX. Prueba buscando el producto por su nombre.`, true);
+      res.innerHTML = otraVez;
+    } else {
+      await cargarFilas(ids).catch(() => {});
+      estadoLector(`El código ${limpio} está en ${ids.length} fichas. Elige una:`);
+      res.innerHTML = ids.map((id) => {
+        const i = productIndexById.get(id);
+        const p = i === undefined ? null : state.data.products[i];
+        return p ? `<button type="button" class="barcode-item" data-id="${htmlEscapeAttr(id)}">
+            <span class="barcode-item-name">${htmlEscapeAttr(p.name)}</span>
+            <span class="barcode-item-price">${money(minPrice(p))}</span></button>` : "";
+      }).join("") + otraVez;
+      res.querySelectorAll(".barcode-item").forEach((b) => {
+        b.onclick = () => { cerrarLectorBarras(); goDetail(b.dataset.id); };
+      });
+    }
+    const btn = res.querySelector(".barcode-again");
+    if (btn) btn.onclick = () => { res.innerHTML = ""; iniciarCamara(); };
+  }
+
   // ---------- Eventos globales ----------
 
   // Precarga: la categoría se empieza a bajar al tocar (o al posar el
@@ -10190,6 +10422,8 @@
         goList({ query: el.searchInput.value.trim(), category: null });
       }
     });
+    const barcodeBtn = document.getElementById("barcodeBtn");
+    if (barcodeBtn) barcodeBtn.addEventListener("click", abrirLectorBarras);
     el.searchBtn.addEventListener("click", () => {
       hideSearchSuggestions();
       if (!el.searchInput.value.trim()) { el.searchInput.focus(); return; }
