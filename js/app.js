@@ -6928,17 +6928,32 @@
         ],
       },
     ],
-    // Refrigeradores: mismo criterio, en pies cúbicos.
+    // Refrigeradores: por cuántos viven en casa, en pies cúbicos (repaso
+    // del 30-sep con el usuario). Cuatro tramos que reparten parejo el
+    // catálogo (7 a 32 pies). Solo cuentan los refrigeradores de casa: un
+    // frigobar de 4 pies o un congelador horizontal no son «para 1 o 2
+    // personas» -- esos llevan su propio eje (litros, capacidad del
+    // congelador) desde data/quality-axes.json.
     Refrigeradores: [
       {
-        key: "level", label: "Capacidad", field: "fridge_ft3", criterion: "por pies cúbicos",
+        key: "level", label: "Capacidad", field: "fridge_ft3", criterion: "por cuántos viven en casa",
+        subs: ["Top mount", "Bottom freezer", "Dúplex (side by side)", "French door", "Una puerta"],
         tiers: [
-          { id: "chico", name: "Chico", use: "Oficina, cuarto o una persona", spec: "Hasta 8 pies", match: (v) => v <= 8 },
-          { id: "mediano", name: "Mediano", use: "Familia de 3 o 4", spec: "9 a 15 pies", match: (v) => v > 8 && v <= 15 },
-          { id: "grande", name: "Grande", use: "Familia grande, despensa de la semana", spec: "16 pies o más", match: (v) => v > 15 },
+          { id: "p12", name: "1 o 2 personas", use: "Departamento o pareja", spec: "Hasta 10 pies", match: (v) => v < 11 },
+          { id: "p34", name: "3 o 4 personas", use: "Familia chica", spec: "11 a 15 pies", match: (v) => v >= 11 && v < 16 },
+          { id: "p5", name: "5 o más personas", use: "Familia grande", spec: "16 a 21 pies", match: (v) => v >= 16 && v < 22 },
+          { id: "xl", name: "Despensa grande", use: "Familia numerosa o compras de toda la semana", spec: "22 pies o más", match: (v) => v >= 22 },
         ],
       },
     ],
+    // Los que no son refrigerador de casa no heredan el eje de personas;
+    // sus ejes salen de data/quality-axes.json (litros en Frigobares,
+    // capacidad en Congeladores, precio en todos).
+    "Refrigeradores/Frigobares": [],
+    "Refrigeradores/Congeladores": [],
+    "Refrigeradores/Cavas de vino": [],
+    "Refrigeradores/Vitrinas y enfriadores comerciales": [],
+    "Refrigeradores/Refrigeradores comerciales": [],
     // La medida de cama es la primera pregunta al comprar ropa de cama:
     // unas sábanas queen no entran en una matrimonial.
     "Blancos y ropa de cama": [
@@ -7411,6 +7426,10 @@
   // reparta (libros, refacciones, cerraduras). Se lee en vivo, no se
   // guarda: mañana el precio es otro.
   function qualityValueOf(axis, p) {
+    // Un eje puede valer solo para algunas subcategorías (el de personas
+    // de Refrigeradores no aplica a frigobares ni congeladores): fuera de
+    // ellas el producto «no lo indica», igual que sin el dato.
+    if (axis.subs && !axis.subs.includes(p.subcategory)) return null;
     if (axis.field === "price") return minPrice(p);
     return facetaDe(p, axis.field);
   }
@@ -7507,6 +7526,9 @@
       const scoped = base.filter((p) =>
         other.every((a) => qualitySel(a.key).includes(qualityTierOf(a, p))));
       const withField = scoped.filter((p) => qualityValueOf(axis, p) != null).length;
+      // Con un eje de algunas subcategorías, el total es el de ellas: «604
+      // de 1,369» contaba frigobares y congeladores, que no pueden contestar.
+      const delAlcance = axis.subs ? scoped.filter((p) => axis.subs.includes(p.subcategory)).length : scoped.length;
 
       const row = document.createElement("div");
       row.className = "quality-row";
@@ -7514,7 +7536,7 @@
       head.className = "quality-row-head";
       const multi = !!state.qualityMulti[axis.key];
       head.innerHTML = `<span class="quality-row-label">${axis.label}</span>
-        <span class="quality-row-note">${axis.criterion} · ${withField.toLocaleString("es-MX")} de ${scoped.length.toLocaleString("es-MX")} productos lo indican</span>
+        <span class="quality-row-note">${axis.criterion} · ${withField.toLocaleString("es-MX")} de ${delAlcance.toLocaleString("es-MX")} productos lo indican</span>
         <button type="button" class="quality-multi${multi ? " active" : ""}" aria-pressed="${multi}"
           title="Con la selección múltiple activada puedes marcar varios ${axis.label.toLowerCase()}s a la vez, y cada producto de la lista muestra a cuál pertenece.">
           <span class="quality-multi-box">${multi ? "✓" : ""}</span>Varios a la vez</button>`;

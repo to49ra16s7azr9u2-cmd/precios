@@ -330,6 +330,11 @@ CAMPOS = {
 # Campos que solo son una decisión de compra en algunas categorías: el
 # material de un mueble o una joya sí, el de una licuadora no.
 CAMPO_SOLO_EN = {
+    # La capacidad en pies es de refrigeradores de casa y congeladores; un
+    # frigobar se compara en litros.
+    "fridge_ft3": {"Refrigeradores/Top mount", "Refrigeradores/Bottom freezer",
+                   "Refrigeradores/Dúplex (side by side)", "Refrigeradores/French door",
+                   "Refrigeradores/Una puerta", "Refrigeradores/Congeladores"},
     "chair_type": {"Muebles"},
     "bed_size": {"Muebles", "Blancos y ropa de cama"},
     "firmness": {"Muebles"},
@@ -705,7 +710,11 @@ def armar(products, a_mano):
         # Lo escrito a mano ya no TAPA a lo generado: app.js los suma
         # (mergeAxes). Lo que sí manda es el campo -- si el eje de mano ya
         # corta por almacenamiento, el generado no vuelve a ofrecerlo.
-        ya = set(a_mano.get(clave, [])) | set(a_mano.get(cat, []))
+        # En app.js lo de mano de la subcategoría REEMPLAZA al de su
+        # categoría (qualityAxes: sub || cat), no se suma: si la subcategoría
+        # declara el suyo (aunque sea vacío, como Refrigeradores/Frigobares),
+        # el de la categoría no cuenta acá.
+        ya = set(a_mano[clave]) if clave in a_mano else set(a_mano.get(cat, []))
         cupo = MAX_EJES - len(ya)
         if cupo <= 0:
             continue

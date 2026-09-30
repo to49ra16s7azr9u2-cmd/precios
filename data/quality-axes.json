@@ -9151,23 +9151,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
+      "spec": "Hasta $450",
+      "max": 450
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$440 a $600",
-      "min": 440,
-      "max": 600
+      "spec": "$450 a $610",
+      "min": 450,
+      "max": 610
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $600",
-      "min": 600
+      "spec": "Más de $610",
+      "min": 610
      }
     ]
    }
@@ -10468,16 +10468,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$550 a $900",
+      "spec": "$550 a $920",
       "min": 550,
-      "max": 900
+      "max": 920
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $900",
-      "min": 900
+      "spec": "Más de $920",
+      "min": 920
      }
     ]
    }
@@ -34600,23 +34600,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $530",
-      "max": 530
+      "spec": "Hasta $560",
+      "max": 560
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$530 a $960",
-      "min": 530,
-      "max": 960
+      "spec": "$560 a $1,100",
+      "min": 560,
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $960",
-      "min": 960
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -34673,16 +34673,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$560 a $930",
+      "spec": "$560 a $940",
       "min": 560,
-      "max": 930
+      "max": 940
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $930",
-      "min": 930
+      "spec": "Más de $940",
+      "min": 940
      }
     ]
    }
@@ -37187,15 +37187,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $450",
-      "max": 450
+      "spec": "Hasta $460",
+      "max": 460
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$450 a $670",
-      "min": 450,
+      "spec": "$460 a $670",
+      "min": 460,
       "max": 670
      },
      {
@@ -46237,23 +46237,23 @@
       "id": "chica",
       "name": "Chica",
       "use": "Una o dos personas",
-      "spec": "Hasta 60 L",
-      "max": 60
+      "spec": "Hasta 63 L",
+      "max": 63
      },
      {
       "id": "mediana",
       "name": "Mediana",
       "use": "Para la familia",
-      "spec": "61 L a 80 L",
-      "min": 60,
-      "max": 80
+      "spec": "64 L a 120 L",
+      "min": 63,
+      "max": 120
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Reuniones o uso intensivo",
-      "spec": "Más de 80 L",
-      "min": 80
+      "spec": "Más de 120 L",
+      "min": 120
      }
     ],
     "key": "level"
@@ -46269,23 +46269,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $2,950",
-      "max": 2950
+      "spec": "Hasta $4,950",
+      "max": 4950
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,950 a $22,500",
-      "min": 2950,
-      "max": 22500
+      "spec": "$4,950 a $33,500",
+      "min": 4950,
+      "max": 33500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $22,500",
-      "min": 22500
+      "spec": "Más de $33,500",
+      "min": 33500
      }
     ]
    }
@@ -48613,26 +48613,57 @@
       "id": "chico",
       "name": "Chico",
       "use": "Bebidas en la oficina",
-      "spec": "Hasta 48 L",
-      "max": 48
+      "spec": "Hasta 45 L",
+      "max": 45
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "Cuarto o estudio",
-      "spec": "49 L a 90 L",
-      "min": 48,
-      "max": 90
+      "spec": "46 L a 91 L",
+      "min": 45,
+      "max": 91
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Casi un refrigerador chico",
-      "spec": "Más de 90 L",
-      "min": 90
+      "spec": "Más de 91 L",
+      "min": 91
      }
     ],
-    "key": "size"
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,950",
+      "max": 2950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,950 a $4,900",
+      "min": 2950,
+      "max": 4900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,900",
+      "min": 4900
+     }
+    ]
    }
   ]
  },
@@ -48649,15 +48680,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $8,450",
-      "max": 8450
+      "spec": "Hasta $8,800",
+      "max": 8800
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$8,450 a $12,000",
-      "min": 8450,
+      "spec": "$8,800 a $12,000",
+      "min": 8800,
       "max": 12000
      },
      {
@@ -48674,7 +48705,7 @@
  "Refrigeradores/Cavas de vino": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -48684,23 +48715,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $3,500",
-      "max": 3500
+      "spec": "Hasta $3,550",
+      "max": 3550
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$3,500 a $5,750",
-      "min": 3500,
-      "max": 5750
+      "spec": "$3,550 a $6,200",
+      "min": 3550,
+      "max": 6200
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $5,750",
-      "min": 5750
+      "spec": "Más de $6,200",
+      "min": 6200
      }
     ]
    }
@@ -48743,6 +48774,37 @@
  },
  "Refrigeradores/Congeladores": {
   "axes": [
+   {
+    "label": "Capacidad",
+    "field": "fridge_ft3",
+    "criterion": "en pies cúbicos",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Soltero o pareja",
+      "spec": "Hasta 7 pies³",
+      "max": 7
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Familia de cuatro",
+      "spec": "8 pies³ a 11 pies³",
+      "min": 7,
+      "max": 11
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Familia grande o despensa",
+      "spec": "Más de 11 pies³",
+      "min": 11
+     }
+    ],
+    "key": "level"
+   },
    {
     "key": "size",
     "label": "Precio",
@@ -48789,15 +48851,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $19,000",
-      "max": 19000
+      "spec": "Hasta $19,500",
+      "max": 19500
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$19,000 a $24,500",
-      "min": 19000,
+      "spec": "$19,500 a $24,500",
+      "min": 19500,
       "max": 24500
      },
      {
@@ -48849,7 +48911,7 @@
  "Refrigeradores/Vitrinas y enfriadores comerciales": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -51559,16 +51621,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$360 a $750",
+      "spec": "$360 a $740",
       "min": 360,
-      "max": 750
+      "max": 740
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $750",
-      "min": 750
+      "spec": "Más de $740",
+      "min": 740
      }
     ]
    }
@@ -53145,16 +53207,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,100 a $3,400",
+      "spec": "$1,100 a $3,500",
       "min": 1100,
-      "max": 3400
+      "max": 3500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,400",
-      "min": 3400
+      "spec": "Más de $3,500",
+      "min": 3500
      }
     ]
    }
@@ -53344,15 +53406,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $5,950",
-      "max": 5950
+      "spec": "Hasta $6,250",
+      "max": 6250
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$5,950 a $13,000",
-      "min": 5950,
+      "spec": "$6,250 a $13,000",
+      "min": 6250,
       "max": 13000
      },
      {

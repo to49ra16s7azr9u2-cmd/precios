@@ -854,6 +854,14 @@ def platform_of(name):
 # ---------------------------------------------------------------------
 _WASH_KG_RE = re.compile(r"(\d{1,2}(?:[.,]\d)?)\s*(?:kg|kilos?)\b")
 _FRIDGE_FT_RE = re.compile(r"(\d{1,2}(?:[.,]\d)?)\s*(?:pies|p3|ft3|pies\s*c[uú]bicos)\b")
+# Lo que el patrón de arriba no leía (30-sep, repaso de Compara calidad):
+# «11p», «9 P», «22.8ft», «16cu», «454 lts», «311.49L», y la comilla que
+# en México se usa por «pies» («LG 20'», «9"»). Unos 230 refrigeradores de
+# casa quedaban sin capacidad y fuera de todos los tramos.
+_FRIDGE_FT2_RE = re.compile(r"(?<![\d.])(\d{1,2}(?:\.\d{1,2})?)\s*(?:pie|ft|cu(?:\.?\s*ft)?|p)\b")
+_FRIDGE_L_RE = re.compile(r"(?<![\d.])(\d{1,4}(?:\.\d{1,2})?)\s*(?:l|lt|lts|litros?)\b")
+_FRIDGE_COMILLA_RE = re.compile(r"(?<![\d.])(\d{1,2}(?:\.\d)?)\s*(?:\"|'|\u2019|\u201d|\u00b4)")
+LITROS_POR_PIE3 = 28.3168
 
 
 def wash_capacity_kg(name):
@@ -872,17 +880,42 @@ def wash_capacity_kg(name):
     return next(iter(vals)) if len(vals) == 1 else None
 
 
-def fridge_capacity_ft3(name):
-    """Capacidad de un refrigerador en pies cúbicos, o None. Rango 3-35."""
-    n = _norm(name).replace(",", ".")
+def _valores(rx, n, lo, hi):
     vals = set()
-    for m in _FRIDGE_FT_RE.finditer(n):
+    for m in rx.finditer(n):
         try:
             v = float(m.group(1))
         except ValueError:
             continue
-        if 3.0 <= v <= 35.0:
+        if lo <= v <= hi:
             vals.add(v)
+    return vals
+
+
+def fridge_liters(name):
+    """Capacidad declarada en litros («454 lts», «311.49L»), o None."""
+    n = _norm(name).replace(",", ".")
+    vals = _valores(_FRIDGE_L_RE, n, 3, 2000)
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+def fridge_capacity_ft3(name):
+    """Capacidad de un refrigerador en pies cúbicos, o None. Rango 3-35.
+
+    Primero lo que dice en pies; si no dice, los litros convertidos; y solo
+    si tampoco, la comilla («LG 20'»). Así «17 p³ + Estufa 20"» (un combo
+    con estufa) no se vuelve ambiguo por las pulgadas de la estufa.
+    """
+    n = _norm(name).replace(",", ".")
+    vals = _valores(_FRIDGE_FT_RE, n, 3.0, 35.0) or _valores(_FRIDGE_FT2_RE, n, 3.0, 35.0)
+    if not vals:
+        litros = fridge_liters(name)
+        if litros:
+            v = round(litros / LITROS_POR_PIE3, 1)
+            if 3.0 <= v <= 35.0:
+                vals = {v}
+    if not vals:
+        vals = _valores(_FRIDGE_COMILLA_RE, n, 3.0, 35.0)
     return next(iter(vals)) if len(vals) == 1 else None
 
 

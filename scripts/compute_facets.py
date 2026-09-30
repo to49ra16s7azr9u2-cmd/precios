@@ -916,6 +916,14 @@ def _facets_propias(product):
             ft3 = se.fridge_capacity_ft3(name)
         if ft3 is not None:
             f["fridge_ft3"] = ft3
+        # El frigobar se compra por litros (Compara calidad de Frigobares va
+        # en litros; 30-sep): si solo dice pies, se convierte.
+        if product.get("subcategory") == "Frigobares":
+            litros = se.fridge_liters(name)
+            if litros is None and ft3 is not None:
+                litros = round(ft3 * se.LITROS_POR_PIE3)
+            if litros is not None:
+                f["liters"] = litros
         return f or None
 
     # Los campos que la tienda declara tal cual valen para cualquier
