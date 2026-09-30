@@ -378,22 +378,6 @@ def resumen_de_categoria(fichas, idx_sub, subs_cat):
             "marcas": marcas, "facetas": salida}
 
 
-# Código de barras -> fichas, para el lector de la SPA (30-sep, «Aだけ進め
-# ましょう»). Las tiendas lo publican como GTIN-14, EAN-13, UPC-A (12) o
-# EAN-8, casi siempre con ceros a la izquierda de relleno: sin esos ceros
-# los cuatro coinciden con lo que lee la cámara. Partido por los dos últimos
-# dígitos (reparten parejo): la SPA baja un solo archivo de ~35 KB por código.
-GTIN_PARTES = 100
-
-
-def gtin_normal(g):
-    d = re.sub(r"\D", "", str(g or ""))
-    if len(d) not in (8, 12, 13, 14):
-        return None
-    d = d.lstrip("0")
-    return d if len(d) >= 6 else None
-
-
 def main():
     with open(MANIFEST_PATH, encoding="utf-8") as f:
         manifest = json.load(f)
@@ -408,7 +392,6 @@ def main():
     palabras_cat = {}
 
     postings = collections.defaultdict(list)   # raíz -> [(id, f, p, c, s)]
-    gtins = collections.defaultdict(list)       # código -> [(-tiendas, id)]
     filas = collections.defaultdict(dict)
     n = 0
     resumenes = {}
@@ -430,10 +413,6 @@ def main():
                 if r is None:
                     continue
                 precio, rango, usado = r
-                g = gtin_normal(p.get("gtin"))
-                if g:
-                    tiendas = len({o.get("storeId") for o in p.get("offers") or []})
-                    gtins[g].append((-tiendas, num))
                 sub = p.get("subcategory") or ""
                 si = idx_sub[ci].get(sub, -1)
                 if si == -1 and sub:
@@ -495,13 +474,6 @@ def main():
         escribir(f"f/{k}.json", fila)
     for ci, r in resumenes.items():
         escribir(f"c/{ci}.json", r)
-    # Varias fichas con el mismo código (colores que no se fusionaron, la
-    # misma publicación dos veces): primero la que más tiendas compara.
-    partes = collections.defaultdict(dict)
-    for g, lista in gtins.items():
-        partes[int(g[-2:]) % GTIN_PARTES][g] = [f"p{num}" for _, num in sorted(lista)]
-    for k in range(GTIN_PARTES):
-        escribir(f"g/{k:02d}.json", partes.get(k, {}))
 
     # Los .json.gz de rutas que ya no existen (una palabra que dejó de ser
     # frecuente, un bloque de fichas vaciado) se borran.
@@ -515,12 +487,11 @@ def main():
     # meta.json al final: la SPA solo usa el índice si está, y así nunca ve
     # un meta nuevo apuntando a archivos a medio escribir.
     escribir("meta.json", {"v": 1, "cats": cats, "subs": subs, "filas": FILAS,
-                           "resumen": sorted(cats[ci] for ci in resumenes), "gtin": GTIN_PARTES})
+                           "resumen": sorted(cats[ci] for ci in resumenes)})
     peso = sum(os.path.getsize(os.path.join(d, x)) for d, _, xs in os.walk(SALIDA) for x in xs)
     print(f"Índice de búsqueda: {n:,} fichas, {len(postings):,} raíces "
           f"({propios:,} con archivo propio), {len(cubetas):,} cubetas, {len(filas):,} bloques de filas; "
-          f"{peso / 1e6:.1f} MB en disco, {borrados} archivos viejos borrados; "
-          f"{len(gtins):,} códigos de barras")
+          f"{peso / 1e6:.1f} MB en disco, {borrados} archivos viejos borrados")
 
 
 if __name__ == "__main__":
