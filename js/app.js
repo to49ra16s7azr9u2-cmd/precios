@@ -3127,8 +3127,9 @@
       if (!previo) res.set(num, [pts, f, ps[i], cs[i], ss[i]]);
       else {
         if (pts > previo[0]) previo[0] = pts;
-        // Un sinónimo o un prefijo puede ser la cabeza aunque la raíz no.
-        previo[1] |= f & BIT_CABEZA;
+        // Un sinónimo o un prefijo puede ser la cabeza (o la marca) aunque
+        // la raíz no.
+        previo[1] |= f & (BIT_CABEZA | BIT_MARCA);
       }
     }
   }
@@ -3168,6 +3169,9 @@
     return (f >> 5) & 15;
   }
   const BIT_CABEZA = 512;
+  // La marca de la ficha ES esta palabra, entera («LEGO» para «lego»; no
+  // «Safonus TV» para «tv»). Ver build_buscador.py.
+  const BIT_MARCA = 1024;
 
   // Palabras que abren una consulta sin ser lo que se busca («mini
   // lavadora», «juego de sábanas», «kit de limpieza»): la cabeza es la que
@@ -3189,7 +3193,11 @@
       const esTermino = !PALABRAS_VACIAS.has(w) && (w.length > 1 || /\d/.test(w));
       if (esTermino) k += 1;
       if (cabeza < 0) {
-        if (esTermino && w.length >= 3 && !/\d/.test(w) && !NO_CABEZA_CONSULTA.has(w)) cabeza = k;
+        // Dos letras solo con sinónimos: «tv» es «televisor», que sí es
+        // cabeza de «Televisor LG 50"»; sin esto, buscar «tv» abría con un
+        // mueble y controles remotos (1-oct).
+        const larga = w.length >= 3 || SYNONYM_INDEX.has(searchStem(w));
+        if (esTermino && larga && !/\d/.test(w) && !NO_CABEZA_CONSULTA.has(w)) cabeza = k;
       } else if (complementoDesde < 0 && PREPOSICIONES_CONSULTA.has(w)) {
         complementoDesde = k + 1;
       }
@@ -3273,8 +3281,14 @@
       const subs = meta.subs[c] || [];
       const enCabeza = mapaCabeza ? mapaCabeza.get(num) : null;
       // Lo buscado es lo que el producto ES («Secadora de ropa Samsung») y
-      // no algo que lo menciona («Sábanas para secadora»).
-      const esCabeza = !!(enCabeza && (enCabeza[1] & BIT_CABEZA));
+      // no algo que lo menciona («Sábanas para secadora»). Buscando solo una
+      // marca, lo que ES de esa marca: «lego» abría con videojuegos «Lego
+      // Marvel» de Microsoft y Sony, porque en los sets LEGO la marca no
+      // cuenta como cabeza del nombre (1-oct). Solo la marca exacta y solo
+      // con una palabra: con «la marca contiene la palabra» subían correas
+      // de vendedores que ponen «Samsung» o «Smart TV» de marca.
+      const esCabeza = !!(enCabeza && ((enCabeza[1] & BIT_CABEZA)
+        || (terms.length === 1 && (enCabeza[1] & BIT_MARCA))));
       const stub = {
         id: `p${num}`, __stub: true, __score: pts + (esCabeza ? 5 : 0), __f: f, __precio: precio,
         __cabeza: esCabeza, __expandida: expandidas.has(num),

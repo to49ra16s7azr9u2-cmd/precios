@@ -131,6 +131,7 @@ NO_CABEZA = {"mini", "nuevo", "nueva", "nuevos", "nuevas", "original", "original
              "juego", "juegos", "set", "sets", "kit", "kits", "par", "pares", "paquete", "paquetes",
              "pack", "packs", "lote", "combo", "combos", "pieza", "piezas", "pza", "pzas", "pz", "pzs"}
 BIT_CABEZA = 512
+BIT_MARCA = 1024   # la marca de la ficha ES la palabra (ver resumen() y la SPA)
 
 
 def cabeza_del_nombre(nombre, marca):
@@ -423,11 +424,17 @@ def main():
                     palabras_cat[clave_cat] = palabras(f"{c} {sub}")
                 nombre = palabras(p.get("name"))
                 marca = palabras(p.get("brand"))
+                # 1024: la marca ES esta palabra («LEGO» para «lego»). La SPA
+                # sube esas fichas cuando se busca solo la marca; con «la
+                # marca contiene la palabra» subían correas de vendedores que
+                # ponen «Samsung» o «Smart TV» como marca (1-oct).
+                marca_sola = next(iter(marca)) if len(marca) == 1 else None
                 base = (8 if usado else 0) + (16 if p.get("a") else 0) + 32 * rango
                 cabeza = cabeza_del_nombre(p.get("name"), p.get("brand"))
                 for w in nombre | marca | palabras_cat[clave_cat]:
                     f = base + (1 if w in nombre else 0) + (2 if w in palabras_cat[clave_cat] else 0) \
-                        + (4 if w in marca else 0) + (BIT_CABEZA if w == cabeza else 0)
+                        + (4 if w in marca else 0) + (BIT_CABEZA if w == cabeza else 0) \
+                        + (BIT_MARCA if w == marca_sola else 0)
                     postings[w].append((num, f, precio, ci, si))
                 n += 1
         if con_resumen:
