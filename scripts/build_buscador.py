@@ -156,8 +156,15 @@ def cabeza_del_nombre(nombre, marca):
     return None
 
 
+# «ps5», «PS 4», «PlayStation 5» van también como una sola palabra. Partidas
+# en «ps» + «5», buscar «ps4» encontraba «Consola PS5 ... 4K» (1-oct). La SPA
+# junta igual lo que se escribe (palabrasDeConsulta en js/app.js).
+PLATAFORMA_RE = re.compile(r"\b(?:ps|playstation)\s?([1-5])\b")
+
+
 def palabras(texto):
     t = normalizar(texto)
+    compactas = {f"ps{m.group(1)}" for m in PLATAFORMA_RE.finditer(t)}
     t = re.sub(r"([a-z])(\d)", r"\1 \2", t)
     t = re.sub(r"(\d)([a-z])", r"\1 \2", t)
     salida = set()
@@ -165,7 +172,7 @@ def palabras(texto):
         if w in VACIAS or (len(w) == 1 and not w.isdigit()):
             continue
         salida.add(raiz(w))
-    return salida
+    return salida | compactas
 
 
 def ofertas_de(p):

@@ -3098,8 +3098,18 @@
 
   // Las palabras de la consulta, con la misma normalización que el índice
   // (sin signos: «refri,» es «refri»). Las vacías no están indexadas.
+  // Las palabras de la consulta como las parte el índice (palabras() en
+  // build_buscador.py): letras y números por separado, salvo «ps5» /
+  // «playstation 5», que van juntas para no confundir «ps4» con
+  // «Consola PS5 ... 4K».
+  function palabrasDeConsulta(query) {
+    const base = normalizeSearchText(query).replace(/\b(?:ps|playstation)\s?([1-5])\b/g, "ps$1");
+    return base.split(/\s+/).flatMap((w) => (/^ps[1-5]$/.test(w)
+      ? [w] : splitAlphaNumeric(w).match(/[a-z0-9]+/g) || []));
+  }
+
   function terminosIndice(query) {
-    const palabras = splitAlphaNumeric(normalizeSearchText(query)).match(/[a-z0-9]+/g) || [];
+    const palabras = palabrasDeConsulta(query);
     const utiles = palabras.filter((w) => !PALABRAS_VACIAS.has(w) && (w.length > 1 || /\d/.test(w)));
     // Un dígito suelto sirve junto a otra palabra («iphone 1», «tv 4 k»),
     // pero solo («1») coincide con más de medio millón de fichas.
@@ -3185,7 +3195,7 @@
   // son complementos (lo que va después de «de/para/con/sin» tras la
   // cabeza: «secadora DE ROPA»). Índices en la lista de terminosIndice().
   function estructuraDeConsulta(query) {
-    const palabras = splitAlphaNumeric(normalizeSearchText(query)).match(/[a-z0-9]+/g) || [];
+    const palabras = palabrasDeConsulta(query);
     let cabeza = -1;
     let complementoDesde = -1;
     let k = -1;   // índice del término (las vacías no cuentan)
@@ -3276,18 +3286,19 @@
       }
     }
     const mapaCabeza = cabeza >= 0 ? mapas[cabeza] : null;
-    // Buscar una plataforma («xbox», «playstation», «nintendo») es buscar
-    // primero la consola: abrían controles marca Xbox y juegos, y las
+    // Buscar una plataforma («xbox», «playstation», «nintendo», «ps5») es
+    // buscar primero la consola: abrían controles marca Xbox y juegos, y las
     // consolas quedaban abajo porque su nombre empieza con «Consola» y no
-    // con la palabra buscada (1-oct). Lo que está en una subcategoría
-    // «Consolas <palabra buscada>» va primero.
-    const palabraCabeza = cabeza >= 0 ? terms[cabeza].word : null;
+    // con la palabra buscada (1-oct). Solo si la búsqueda es SOLO la
+    // plataforma (más números o «series», «slim»...): «juego xbox» o
+    // «control xbox» piden otra cosa. «ps5» llega partido en «ps» + «5».
+    const plataforma = plataformaDeConsulta(terms);
     const esEquipoBuscado = new Map();   // "c:sub" -> bool
     const esEquipo = (c, sub) => {
       const k = `${c}:${sub}`;
       if (!esEquipoBuscado.has(k)) {
         const nom = sub >= 0 ? normalizeSearchText((meta.subs[c] || [])[sub] || "") : "";
-        esEquipoBuscado.set(k, !!palabraCabeza && /^consolas\b/.test(nom) && nom.split(/\s+/).includes(palabraCabeza));
+        esEquipoBuscado.set(k, !!plataforma && /^consolas\b/.test(nom) && nom.split(/\s+/).includes(plataforma));
       }
       return esEquipoBuscado.get(k);
     };
@@ -3314,6 +3325,20 @@
       stubs.push(stub);
     }
     return { query, stubs, difusa };
+  }
+
+  const PLATAFORMAS_CONSOLA = {
+    ps: "playstation", ps1: "playstation", ps2: "playstation", ps3: "playstation", ps4: "playstation", ps5: "playstation",
+    playstation: "playstation", xbox: "xbox", nintendo: "nintendo", switch: "nintendo",
+  };
+  const MODIFICADORES_CONSOLA = new Set(["series", "one", "slim", "pro", "oled", "lite", "digital", "portal", "edicion", "estandar", "standard"]);
+  function plataformaDeConsulta(terms) {
+    let plataforma = null;
+    for (const t of terms) {
+      if (PLATAFORMAS_CONSOLA[t.word]) plataforma = plataforma || PLATAFORMAS_CONSOLA[t.word];
+      else if (!/^\d+$/.test(t.word) && !MODIFICADORES_CONSOLA.has(t.word)) return null;
+    }
+    return plataforma;
   }
 
   function modoIndice() {
