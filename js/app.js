@@ -3276,6 +3276,21 @@
       }
     }
     const mapaCabeza = cabeza >= 0 ? mapas[cabeza] : null;
+    // Buscar una plataforma («xbox», «playstation», «nintendo») es buscar
+    // primero la consola: abrían controles marca Xbox y juegos, y las
+    // consolas quedaban abajo porque su nombre empieza con «Consola» y no
+    // con la palabra buscada (1-oct). Lo que está en una subcategoría
+    // «Consolas <palabra buscada>» va primero.
+    const palabraCabeza = cabeza >= 0 ? terms[cabeza].word : null;
+    const esEquipoBuscado = new Map();   // "c:sub" -> bool
+    const esEquipo = (c, sub) => {
+      const k = `${c}:${sub}`;
+      if (!esEquipoBuscado.has(k)) {
+        const nom = sub >= 0 ? normalizeSearchText((meta.subs[c] || [])[sub] || "") : "";
+        esEquipoBuscado.set(k, !!palabraCabeza && /^consolas\b/.test(nom) && nom.split(/\s+/).includes(palabraCabeza));
+      }
+      return esEquipoBuscado.get(k);
+    };
     const stubs = [];
     for (const [num, [pts, f, precio, c, sub]] of res) {
       const subs = meta.subs[c] || [];
@@ -3287,10 +3302,11 @@
       // cuenta como cabeza del nombre (1-oct). Solo la marca exacta y solo
       // con una palabra: con «la marca contiene la palabra» subían correas
       // de vendedores que ponen «Samsung» o «Smart TV» de marca.
-      const esCabeza = !!(enCabeza && ((enCabeza[1] & BIT_CABEZA)
+      const equipo = esEquipo(c, sub);
+      const esCabeza = equipo || !!(enCabeza && ((enCabeza[1] & BIT_CABEZA)
         || (terms.length === 1 && (enCabeza[1] & BIT_MARCA))));
       const stub = {
-        id: `p${num}`, __stub: true, __score: pts + (esCabeza ? 5 : 0), __f: f, __precio: precio,
+        id: `p${num}`, __stub: true, __score: pts + (esCabeza ? 5 : 0) + (equipo ? 10 : 0), __f: f, __precio: precio,
         __cabeza: esCabeza, __expandida: expandidas.has(num),
         category: meta.cats[c], subcategory: sub >= 0 ? subs[sub] || "" : "", brand: "", offers: [],
       };
