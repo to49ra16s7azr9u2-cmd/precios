@@ -784,23 +784,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $160",
-      "max": 160
+      "spec": "Hasta $140",
+      "max": 140
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$160 a $420",
-      "min": 160,
-      "max": 420
+      "spec": "$140 a $370",
+      "min": 140,
+      "max": 370
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $420",
-      "min": 420
+      "spec": "Más de $370",
+      "min": 370
      }
     ]
    }
@@ -928,25 +928,7 @@
  "Relojes inteligentes/Correas para Apple Watch": {
   "axes": [
    {
-    "label": "GPS",
-    "field": "gps",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Con GPS",
-      "use": "Marca tu ruta sin el celular",
-      "spec": "Con GPS",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -956,23 +938,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $250",
-      "max": 250
+      "spec": "Hasta $240",
+      "max": 240
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$250 a $590",
-      "min": 250,
-      "max": 590
+      "spec": "$240 a $550",
+      "min": 240,
+      "max": 550
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $590",
-      "min": 590
+      "spec": "Más de $550",
+      "min": 550
      }
     ]
    }
@@ -2667,34 +2649,7 @@
  "Joyería y bisutería/Cronógrafos": {
   "axes": [
    {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "hombre",
-      "name": "Hombre",
-      "use": "",
-      "spec": "Hombre",
-      "values": [
-       "Hombre"
-      ]
-     },
-     {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
-      "values": [
-       "Unisex"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -2928,33 +2883,6 @@
  "Joyería y bisutería/Relojes infantiles": {
   "axes": [
    {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
-      "values": [
-       "Unisex"
-      ]
-     },
-     {
-      "id": "nino",
-      "name": "Niño",
-      "use": "",
-      "spec": "Niño",
-      "values": [
-       "Niño"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
     "label": "Resistencia al agua",
     "field": "water_resistant",
     "criterion": "según la ficha",
@@ -2979,7 +2907,38 @@
       ]
      }
     ],
-    "key": "size"
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $500",
+      "max": 500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$500 a $780",
+      "min": 500,
+      "max": 780
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $780",
+      "min": 780
+     }
+    ]
    }
   ],
   "intro": "Elige por el material y la piedra: es lo que se ve y lo que dura."
@@ -22540,6 +22499,24 @@
     "ramp": false,
     "tiers": [
      {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
       "id": "unisex",
       "name": "Unisex",
       "use": "",
@@ -25533,16 +25510,16 @@
       "id": "media",
       "name": "Media",
       "use": "Taller y trabajos frecuentes",
-      "spec": "91 W a 1,200 W",
+      "spec": "91 W a 1,500 W",
       "min": 90,
-      "max": 1200
+      "max": 1500
      },
      {
       "id": "alta",
       "name": "Alta",
       "use": "Uso rudo o profesional",
-      "spec": "Más de 1,200 W",
-      "min": 1200
+      "spec": "Más de 1,500 W",
+      "min": 1500
      }
     ],
     "key": "level"
@@ -25640,23 +25617,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
+      "spec": "Hasta $990",
+      "max": 990
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,000 a $2,400",
-      "min": 1000,
-      "max": 2400
+      "spec": "$990 a $2,350",
+      "min": 990,
+      "max": 2350
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,400",
-      "min": 2400
+      "spec": "Más de $2,350",
+      "min": 2350
      }
     ]
    }
@@ -26012,23 +25989,23 @@
       "id": "ligera",
       "name": "Ligera",
       "use": "Uso en casa",
-      "spec": "Hasta 800 W",
-      "max": 800
+      "spec": "Hasta 780 W",
+      "max": 780
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Taller y trabajos frecuentes",
-      "spec": "801 W a 1,100 W",
-      "min": 800,
-      "max": 1100
+      "spec": "781 W a 1,200 W",
+      "min": 780,
+      "max": 1200
      },
      {
       "id": "alta",
       "name": "Alta",
       "use": "Uso rudo o profesional",
-      "spec": "Más de 1,100 W",
-      "min": 1100
+      "spec": "Más de 1,200 W",
+      "min": 1200
      }
     ],
     "key": "level"
@@ -26432,23 +26409,23 @@
       "id": "ligera",
       "name": "Ligera",
       "use": "Taladros y lijadoras chicas, uso en casa",
-      "spec": "Hasta 620 W",
-      "max": 620
+      "spec": "Hasta 720 W",
+      "max": 720
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Taller y trabajos frecuentes",
-      "spec": "621 W a 950 W",
-      "min": 620,
-      "max": 950
+      "spec": "721 W a 960 W",
+      "min": 720,
+      "max": 960
      },
      {
       "id": "alta",
       "name": "Alta",
       "use": "Rotomartillos, sierras y esmeriles grandes",
-      "spec": "Más de 950 W",
-      "min": 950
+      "spec": "Más de 960 W",
+      "min": 960
      }
     ],
     "key": "level"
@@ -26560,15 +26537,15 @@
       "id": "ligera",
       "name": "Ligera",
       "use": "Uso en casa",
-      "spec": "Hasta 980 W",
-      "max": 980
+      "spec": "Hasta 1,000 W",
+      "max": 1000
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Taller y trabajos frecuentes",
-      "spec": "981 W a 1,500 W",
-      "min": 980,
+      "spec": "1,001 W a 1,500 W",
+      "min": 1000,
       "max": 1500
      },
      {
@@ -26642,15 +26619,15 @@
       "id": "ligera",
       "name": "Ligera",
       "use": "Uso en casa",
-      "spec": "Hasta 240 W",
-      "max": 240
+      "spec": "Hasta 260 W",
+      "max": 260
      },
      {
       "id": "media",
       "name": "Media",
       "use": "Taller y trabajos frecuentes",
-      "spec": "241 W a 370 W",
-      "min": 240,
+      "spec": "261 W a 370 W",
+      "min": 260,
       "max": 370
      },
      {
@@ -27012,15 +26989,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $250",
-      "max": 250
+      "spec": "Hasta $230",
+      "max": 230
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$250 a $630",
-      "min": 250,
+      "spec": "$230 a $630",
+      "min": 230,
       "max": 630
      },
      {
@@ -27120,16 +27097,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,450 a $3,250",
+      "spec": "$1,450 a $3,200",
       "min": 1450,
-      "max": 3250
+      "max": 3200
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,250",
-      "min": 3250
+      "spec": "Más de $3,200",
+      "min": 3200
      }
     ]
    }
@@ -27363,23 +27340,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,350",
-      "max": 1350
+      "spec": "Hasta $1,400",
+      "max": 1400
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,350 a $2,850",
-      "min": 1350,
-      "max": 2850
+      "spec": "$1,400 a $3,000",
+      "min": 1400,
+      "max": 3000
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,850",
-      "min": 2850
+      "spec": "Más de $3,000",
+      "min": 3000
      }
     ]
    }
@@ -27554,6 +27531,14 @@
       "max": 30
      },
      {
+      "id": "bat36",
+      "name": "Batería grande",
+      "use": "Inalámbricas de uso rudo",
+      "spec": "36 V o más",
+      "min": 30,
+      "max": 100
+     },
+     {
       "id": "cable",
       "name": "De cable",
       "use": "Enchufe de casa",
@@ -27582,23 +27567,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,400",
-      "max": 1400
+      "spec": "Hasta $1,350",
+      "max": 1350
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,400 a $2,950",
-      "min": 1400,
-      "max": 2950
+      "spec": "$1,350 a $2,900",
+      "min": 1350,
+      "max": 2900
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
+      "spec": "Más de $2,900",
+      "min": 2900
      }
     ]
    }
@@ -29246,16 +29231,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$810 a $3,100",
+      "spec": "$810 a $2,850",
       "min": 810,
-      "max": 3100
+      "max": 2850
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,100",
-      "min": 3100
+      "spec": "Más de $2,850",
+      "min": 2850
      }
     ]
    }
@@ -56874,6 +56859,42 @@
  "Viajes/Maletas medianas": {
   "axes": [
    {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
     "label": "Material",
     "field": "material",
     "criterion": "según la ficha",
@@ -56898,38 +56919,7 @@
       ]
      }
     ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,400",
-      "max": 1400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,400 a $2,150",
-      "min": 1400,
-      "max": 2150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,150",
-      "min": 2150
-     }
-    ]
+    "key": "size"
    }
   ]
  },
@@ -60177,6 +60167,33 @@
  "Viajes": {
   "axes": [
    {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
     "label": "Material",
     "field": "material",
     "criterion": "según la ficha",
@@ -60201,38 +60218,7 @@
       ]
      }
     ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,000 a $1,750",
-      "min": 1000,
-      "max": 1750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,750",
-      "min": 1750
-     }
-    ]
+    "key": "size"
    }
   ]
  },

@@ -287,7 +287,14 @@ def _rasgo(rx):
     return lambda nombre: "Sí" if r.search(_norm(nombre)) else None
 
 
-impermeable = _rasgo(r"impermeable|a prueba de agua|water ?proof|resistente al agua|\bipx?[4-8]\d?\b|sumergible")
+_impermeable = _rasgo(r"impermeable|a prueba de agua|water ?proof|resistente al agua|\bipx?[4-8]\d?\b|sumergible")
+_NO_IMPERMEABLE = re.compile(r"\bno (?:es |son )?(?:resistentes? al agua|impermeables?|sumergibles?)")
+
+
+def impermeable(nombre):
+    """"Sí" si el nombre lo afirma; nada si lo niega ("no resistente al
+    agua" también contiene "resistente al agua")."""
+    return None if _NO_IMPERMEABLE.search(_norm(nombre)) else _impermeable(nombre)
 blackout = _rasgo(r"black ?out|\bopac[oa]s?\b|oscurecimiento|oscurecedora")
 polarizado = _rasgo(r"polariz")
 llamadas = _rasgo(r"llamadas?\b|bluetooth call|\bcall\b")

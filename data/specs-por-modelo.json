@@ -97,7 +97,7 @@
    "categorias": [
     "Bocinas"
    ],
-   "rx": "sound pocket",
+   "rx": "xiaomi\\b.{0,20}?\\bsound pocket",
    "fuente": "mi.com/us/product/xiaomi-sound-pocket",
    "battery_h": 10,
    "power_w": 5,
@@ -108,7 +108,7 @@
    "categorias": [
     "Bocinas"
    ],
-   "rx": "jbl flip ?7",
+   "rx": "jbl\\b.{0,30}?\\bflip ?7",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 14,
    "power_w": 35,
@@ -119,7 +119,7 @@
    "categorias": [
     "Bocinas"
    ],
-   "rx": "jbl flip ?6",
+   "rx": "jbl\\b.{0,30}?\\bflip ?6",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 12,
    "power_w": 30,
@@ -130,7 +130,7 @@
    "categorias": [
     "Bocinas"
    ],
-   "rx": "jbl flip ?5",
+   "rx": "jbl\\b.{0,30}?\\bflip ?5",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 12,
    "power_w": 20,
@@ -141,7 +141,7 @@
    "categorias": [
     "Bocinas"
    ],
-   "rx": "jbl charge ?6",
+   "rx": "jbl\\b.{0,30}?\\bcharge ?6",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 24,
    "power_w": 45,
@@ -152,7 +152,7 @@
    "categorias": [
     "Bocinas"
    ],
-   "rx": "jbl charge ?5",
+   "rx": "jbl\\b.{0,30}?\\bcharge ?5",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 20,
    "power_w": 40,
@@ -163,7 +163,7 @@
    "categorias": [
     "Bocinas"
    ],
-   "rx": "jbl go ?5",
+   "rx": "jbl\\b.{0,30}?\\bgo ?5",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 8,
    "power_w": 4.8,
@@ -174,7 +174,7 @@
    "categorias": [
     "Bocinas"
    ],
-   "rx": "jbl go ?4",
+   "rx": "jbl\\b.{0,30}?\\bgo ?4",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 7,
    "power_w": 4.2,
@@ -185,7 +185,7 @@
    "categorias": [
     "Bocinas"
    ],
-   "rx": "jbl go ?3",
+   "rx": "jbl\\b.{0,30}?\\bgo ?3",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 5,
    "power_w": 4.2,
@@ -196,7 +196,7 @@
    "categorias": [
     "Bocinas"
    ],
-   "rx": "jbl clip ?5",
+   "rx": "jbl\\b.{0,30}?\\bclip ?5",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 12,
    "power_w": 7,
@@ -207,7 +207,7 @@
    "categorias": [
     "Bocinas"
    ],
-   "rx": "jbl clip ?4",
+   "rx": "jbl\\b.{0,30}?\\bclip ?4",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 10,
    "power_w": 5,
@@ -218,7 +218,7 @@
    "categorias": [
     "Audífonos"
    ],
-   "rx": "tune ?520",
+   "rx": "jbl\\b.{0,30}?\\btune ?520(?! ?c\\b)",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 57
   },
@@ -227,7 +227,7 @@
    "categorias": [
     "Audífonos"
    ],
-   "rx": "tune ?720",
+   "rx": "jbl\\b.{0,30}?\\btune ?720(?! ?c\\b)",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 76
   },
@@ -611,6 +611,95 @@
    "rx": "poco c(?:61|65|71)\\b|redmi a[35]\\b|moto(?:rola)? (?:moto )?(?:g0[456]|g1[45]|g24|e1[3-5])\\b|galaxy a0[45]s?\\b",
    "fuente": "fichas de Xiaomi, Motorola y Samsung: modelos vendidos solo en versión 4G",
    "network_gen": "4g"
+  },
+  {
+   "modelo": "JBL Boombox 4",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "jbl\\b.{0,30}?\\bboombox ?4",
+   "fuente": "jbl.com/BOOMBOX-4.html (210 W en AC; 28 h sin Playtime Boost)",
+   "battery_h": 28,
+   "power_w": 210,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Marshall Emberton III",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "emberton (?:iii|3)\\b",
+   "fuente": "marshall.com (Emberton III: 32+ h, 2 x 10 W, IP67)",
+   "battery_h": 32,
+   "power_w": 20,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Beats Pill (2024)",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "beats pill(?! ?(?:\\+|plus))",
+   "fuente": "beatsbydre.com/speakers/beats-pill (24 h, IP67)",
+   "battery_h": 24,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Sony SRS-XB100",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "srs-?xb100|\\bxb100\\b",
+   "fuente": "sony-asia.com SRS-XB100 specifications (16 h, IP67)",
+   "battery_h": 16,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Ultimate Ears Miniroll",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "miniroll",
+   "fuente": "ultimateears.com/en-us/shop/p/miniroll (12 h, IP67)",
+   "battery_h": 12,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Skullcandy Kilo",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "skullcandy\\b.{0,30}?\\bkilo\\b",
+   "fuente": "skullcandy.com / ficha del fabricante (24 h, IPX7)",
+   "battery_h": 24,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Beats Studio Pro",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "beats studio pro",
+   "fuente": "beatsbydre.com/headphones/studio-pro-wireless (hasta 40 h)",
+   "battery_h": 40
+  },
+  {
+   "modelo": "Bose QuietComfort Headphones",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "bose quietcomfort (?:headphones|wireless noise|audifonos)(?!.*(?:ultra|earbuds))",
+   "fuente": "bose.com QuietComfort Headphones (24 h)",
+   "battery_h": 24
+  },
+  {
+   "modelo": "AirPods Max (1a gen)",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "airpods max(?! ?2)",
+   "fuente": "support.apple.com/en-us/111858 (20 h)",
+   "battery_h": 20
   }
  ]
 }

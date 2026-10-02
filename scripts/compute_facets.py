@@ -444,7 +444,14 @@ def _hogar_facets(product, name, spec_map, f):
         if cups:
             f["cups"] = cups
     elif category == "Audífonos":
-        h = _primero(se.battery_hours_of, spec_map.get("duracion de la bateria"), name)
+        # El nombre manda: dice el total con estuche ("42 Horas de Batería")
+        # y la ficha de Elektra suele dar el de un solo audífono, o un "8
+        # horas" de relleno (Marshall Monitor III, Sony WH-1000XM5 y FreeBuds
+        # SE 3 traían 8; son ~70, 30 y 42). Ese "8 horas" se descarta.
+        ficha_h = spec_map.get("duracion de la bateria")
+        if ficha_h and re.fullmatch(r"\s*8\s*horas\s*", ficha_h, re.I):
+            ficha_h = None
+        h = _primero(se.battery_hours_of, name, ficha_h)
         if h is not None:
             f["battery_h"] = h
     elif category == "Impresoras" and not re.search(r"consumible|t[oó]ner|cartucho|cabezal|refacci", sub or "", re.I):
@@ -758,10 +765,17 @@ REGLAS_TITULO.setdefault("Baterías portátiles", []).append(
     ("battery_mah", lambda t: (lambda v: v if v and 1000 <= v <= 100000 else None)(_mah(t))))
 
 
+# Lo que el nombre afirma en estos dos gana sobre la ficha de la tienda: la
+# ficha decía "Unisex" en «Reloj Fossil Riley ... para mujer» o "No" en
+# «Skullcandy Terrain ... IPX7 Impermeable» (174 relojes y joyas, 21 bocinas
+# y audífonos, 02-oct).
+NOMBRE_MANDA = {"gender", "water_resistant"}
+
+
 def _titulo(product, name, f):
     cat = product.get("category")
     for campo, fn in REGLAS_TITULO.get(cat, ()):
-        if campo in f:
+        if campo in f and campo not in NOMBRE_MANDA:
             continue
         try:
             v = fn(name)
@@ -860,6 +874,12 @@ def facets_for(product):
     f = _facets_propias(product) or {}
     _generales(product, product.get("name", ""), _spec_map(product), f)
     _titulo(product, product.get("name", ""), f)
+    if product.get("category") == "Herramientas" and isinstance(f.get("volt"), (int, float)) and f["volt"] <= 60:
+        # Una herramienta de batería se compara por voltaje («Alimentación»);
+        # los watts que trae su ficha son el voltaje copiado o el torque
+        # ("18 W" en una caladora de 18 V, "45 w" con "45 nm"), y la ponían
+        # entre las de cable de menor potencia.
+        f.pop("power_w", None)
     if product.get("category") == "Videojuegos":
         # La edad es de los juegos; en un control o una funda no significa nada.
         if (product.get("subcategory") or "").startswith("Juegos"):
@@ -1188,7 +1208,7 @@ def propagar_por_modelo(products):
 # Fichas técnicas verificadas a mano por modelo (data/specs-por-modelo.json,
 # 02-oct): ganan sobre la tienda y sobre lo copiado por modelo. No se
 # aplican en subcategorías de accesorios ni a nombres de fundas o repuestos.
-_SUBS_ACCESORIO = re.compile(r"accesorio|almohadilla|repuesto|cable|conector|soporte|funda|refacci", re.I)
+_SUBS_ACCESORIO = re.compile(r"accesorio|almohadilla|repuesto|cable|conector|soporte|funda|refacci|correa|protector|cargador", re.I)
 
 
 def aplicar_specs_por_modelo(products):
@@ -1209,10 +1229,15 @@ def aplicar_specs_por_modelo(products):
         if _SUBS_ACCESORIO.search(sub):
             continue
         n = se._norm(p.get("name") or "")
-        if excluir.search(n):
-            continue
         for m, rx in modelos:
-            if cat in m["categorias"] and rx.search(n):
+            hit = rx.search(n) if cat in m["categorias"] else None
+            # El accesorio va ANTES del modelo ("Funda para JBL Flip 7"); el
+            # paquete lo lleva después ("JBL Flip 7 con funda protectora") y
+            # ese sí es la bocina.
+            acc = excluir.search(n)
+            if hit and acc and acc.start() < hit.start():
+                break
+            if hit:
                 f = p.setdefault("facets", {})
                 for c in campos:
                     if c in m and f.get(c) != m[c]:
