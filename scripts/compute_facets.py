@@ -204,6 +204,14 @@ def _ram_storage(category, name, spec_map):
         if lbl in spec_map:
             storage = _gb_of(spec_map[lbl])
             break
+    if ram is not None:
+        # La ficha a veces pone el almacenamiento en «Memoria RAM»: una
+        # Chromebook «4 GB 64 GB» decía RAM 128 GB y Compara calidad la
+        # ponía con las de gama alta. Si el nombre separa las dos cifras y
+        # la de la ficha es justo la del almacenamiento, manda el nombre.
+        n_ram, n_storage = se.ram_storage_gb(name)
+        if n_ram is not None and n_storage is not None and ram != n_ram and ram >= n_storage:
+            ram = n_ram
     if ram is not None or storage is not None:
         # Lo que la ficha no diga se completa con el nombre, sin pisar lo que
         # sí vino confirmado por specs[].
@@ -775,6 +783,11 @@ def _titulo(product, name, f):
 # Campos que en esa subcategoría dicen otra cosa: el "material" de un
 # colchón es el de su box de madera.
 NO_GENERALES = {("Muebles", "Colchones"): {"material"}}
+# La raza es «por tamaño del perro»: en un arenero o un comedero de aves
+# «Chica» es la talla de la caja, no del animal.
+for _sub in ("Comederos para aves y roedores", "Juguetes para aves y roedores", "Juguetes para gato",
+             "Areneros", "Camas para gato", "Rascadores y torres"):
+    NO_GENERALES[("Mascotas", _sub)] = {"breed_size"}
 
 
 def _generales(product, name, spec_map, f):
@@ -793,6 +806,15 @@ def _generales(product, name, spec_map, f):
             v = fn(val)
         except (ValueError, AttributeError):
             v = None
+        if campo == "power_w" and v is not None:
+            # «Potencia en Watts: 1w» es un relleno de la tienda (licuadoras,
+            # planchas, tostadoras), y el rotomartillo «2200w» traía 5000 W en
+            # la ficha. Si el nombre dice una sola potencia, manda el nombre.
+            del_nombre = se.power_watts(name, 5, 30000)
+            if del_nombre is not None:
+                v = del_nombre
+            elif v < 5:
+                v = None
         if v is not None:
             f[campo] = v
     reglas = NOMBRE_GENERALES.get((cat, sub), []) + NOMBRE_GENERALES.get((cat, None), [])
@@ -889,14 +911,18 @@ def _facets_propias(product):
         # confianza en estas dos categorías. En el resto de Muebles
         # (escritorios, libreros...) simplemente no aparece y el producto
         # queda sin facet, como corresponde.
-        medida = None
-        for lbl in ("tamano de colchon", "tamano"):
-            if lbl in spec_map:
-                medida = se.bed_size_of(spec_map[lbl])
-                if medida:
-                    break
+        # El nombre manda cuando dice UNA sola medida: la ficha de la tienda
+        # traía "Tamaño: Matrimonial" en "Colchón Individual Spring Air +
+        # almohadas" y "Individual" en "Colchón Matrimonial Dormez", y
+        # Compara calidad los ponía en la medida equivocada. La ficha solo
+        # cuenta cuando el nombre no dice nada o dice dos medidas.
+        medida = se.bed_size_of(name)
         if not medida:
-            medida = se.bed_size_of(name)
+            for lbl in ("tamano de colchon", "tamano"):
+                if lbl in spec_map:
+                    medida = se.bed_size_of(spec_map[lbl])
+                    if medida:
+                        break
         if medida:
             f["bed_size"] = medida
         return f or None

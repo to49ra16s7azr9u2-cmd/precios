@@ -6845,6 +6845,9 @@
     // lea .quality-card las encuentra.
     if (relevant) renderQualityPicker();
     else el.qualityRows.innerHTML = "";
+    // Si ninguna fila pasó el filtro (pocas fichas con el dato, o todas en
+    // un mismo tramo), el bloque quedaba con el título y nada abajo.
+    if (relevant && !el.qualityRows.children.length) el.qualityPicker.classList.add("hidden");
   }
 
   // ---------- Compara calidad: nivel y tamaño en dos clics ----------
@@ -7004,6 +7007,15 @@
     // Los que no son refrigerador de casa no heredan el eje de personas;
     // sus ejes salen de data/quality-axes.json (litros en Frigobares,
     // capacidad en Congeladores, precio en todos).
+    // Los ejes de Televisores y Tabletas son de la pantalla: un control
+    // «compatible con 4K» caía en «Alto» (287 de 300) y un soporte para
+    // 55" en «Grande». En los accesorios no se heredan; el generador les
+    // busca un corte propio (precio, si nada más reparte).
+    "Televisores/Controles para TV": [],
+    "Televisores/Soportes para TV": [],
+    "Televisores/Accesorios y soportes": [],
+    "Tabletas/Accesorios para tableta": [],
+    "Tabletas/Teclados para tableta": [],
     "Refrigeradores/Frigobares": [],
     "Refrigeradores/Congeladores": [],
     "Refrigeradores/Cavas de vino": [],
@@ -7444,7 +7456,64 @@
     const mano = (sub && QUALITY_AXES[`${state.category}/${sub}`]) || QUALITY_AXES[state.category] || [];
     const gen = sub ? qualityAxesJson[`${state.category}/${sub}`] : null;
     const genCat = qualityAxesJson[state.category];
-    return mergeAxes(mano, gen ? gen.axes : null, genCat ? genCat.axes : null);
+    let deCat = genCat ? genCat.axes : null;
+    // El precio de la categoría no se hereda tal cual: sus tercios son los
+    // de TODA la categoría, y en Autopartes/Claxon ponía 3,501 de 3,512 en
+    // «Intermedios», o en Faros 1,691 de 2,066 en «Económicos». En una
+    // subcategoría se vuelve a cortar con sus propios precios, y si ahí no
+    // reparte, la fila no se muestra.
+    if (sub && deCat && deCat.some((a) => a.field === "price")) {
+      deCat = deCat.map((a) => (a.field === "price" ? ejePrecioDeSub(a, sub) : a)).filter(Boolean);
+    }
+    return mergeAxes(mano, gen ? gen.axes : null, deCat);
+  }
+
+  // Mismo corte que eje_precio() de compute_quality_axes.py: tercios reales
+  // redondeados hacia abajo, y nada si un tramo se lleva más del 85% o
+  // alguno queda con menos del 6%.
+  function redondoAbajo(v) {
+    if (v <= 0) return v;
+    const mag = 10 ** Math.floor(Math.log10(v));
+    const paso = v < 1 ? 0.05 : v < 5 ? 0.1 : v < 10 ? 0.5 : v < 1000 ? mag / 10 : mag / 20;
+    return Math.round(Math.floor(v / paso + 1e-9) * paso * 100) / 100;
+  }
+  const precioDeSubCache = new Map();
+  function ejePrecioDeSub(axisCat, sub) {
+    const ps = productosDeCategoria();
+    const clave = `${state.category}/${sub}`;
+    const c = precioDeSubCache.get(clave);
+    if (c && c.ps === ps) return c.eje;
+    const vals = [];
+    for (const p of ps) {
+      if (p.subcategory !== sub) continue;
+      const v = minPrice(p);
+      if (v > 0 && Number.isFinite(v)) vals.push(v);
+    }
+    vals.sort((a, b) => a - b);
+    let eje = null;
+    const n = vals.length;
+    if (n >= 12) {
+      const c1 = redondoAbajo(vals[Math.floor(n / 3)]);
+      const c2 = redondoAbajo(vals[Math.floor((2 * n) / 3)]);
+      if (c1 && c2 && c1 < c2) {
+        const tr = [0, 0, 0];
+        vals.forEach((v) => { tr[v <= c1 ? 0 : v <= c2 ? 1 : 2] += 1; });
+        if (Math.max(...tr) / n <= 0.85 && Math.min(...tr) / n >= 0.06) {
+          const pesos = (v) => "$" + Math.round(v).toLocaleString("en-US");
+          const [t0, t1, t2] = axisCat.tiers;
+          eje = {
+            ...axisCat,
+            tiers: [
+              { ...t0, spec: `Hasta ${pesos(c1)}`, min: undefined, max: c1, match: (v) => v <= c1 },
+              { ...t1, spec: `${pesos(c1)} a ${pesos(c2)}`, min: c1, max: c2, match: (v) => v > c1 && v <= c2 },
+              { ...t2, spec: `Más de ${pesos(c2)}`, min: c2, max: undefined, match: (v) => v > c2 },
+            ],
+          };
+        }
+      }
+    }
+    precioDeSubCache.set(clave, { ps, eje });
+    return eje;
   }
 
   // El bloque se muestra donde hay ejes definidos, no contra una lista
@@ -7572,8 +7641,20 @@
       // "0 de 43 productos lo indican" y tres tarjetas en cero. Se mide
       // contra el alcance completo (no contra la otra fila elegida) para
       // que una fila no aparezca y desaparezca según lo que se marque.
-      const contestan = base.filter((p) => qualityValueOf(axis, p) != null).length;
+      const enTramo = new Map();
+      let contestan = 0;
+      for (const p of base) {
+        if (qualityValueOf(axis, p) == null) continue;
+        contestan += 1;
+        const t = qualityTierOf(axis, p);
+        enTramo.set(t, (enTramo.get(t) || 0) + 1);
+      }
       if (contestan < 4 || contestan < base.length * 0.05) return;
+      // Tampoco la que no reparte: en «Sábanas king size» la medida ponía
+      // 1,540 de 1,540 en «King», y en «Juegos PS4» la consola 2,396 de
+      // 2,405 en «PlayStation 4». Repite lo que el nombre de la
+      // subcategoría ya dice y no ayuda a elegir.
+      if (Math.max(...enTramo.values()) >= contestan * 0.95) return;
       // Para contar y para elegir la foto, cada fila mira el alcance
       // filtrado por LA OTRA fila (el tamaño elegido sí acota los niveles
       // que se ofrecen, y al revés), pero nunca por sí misma.

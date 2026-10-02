@@ -1159,7 +1159,8 @@ def charger_type_of(name):
     return None
 
 
-_WATTS_RE = re.compile(r"(?<![\d.,])(\d{1,4}(?:\.\d)?)\s*w\b")
+# (?<![a-z]): «Spigen F301w» es un modelo, no 301 W.
+_WATTS_RE = re.compile(r"(?<![\d.,a-z])(\d{1,4}(?:\.\d)?)\s*w\b")
 
 
 def charger_watts(name):
@@ -1195,7 +1196,7 @@ def charger_watts(name):
 
 # "1,200 W", "1.200 W" (separador de miles) y "800 watts"/"1000 vatios".
 _HOME_WATTS_RE = re.compile(
-    r"(?<![\d.,])(\d{1,2}[.,]\d{3}|\d{1,5}(?:\.\d)?)\s*(?:w\b|watts?\b|vatios\b)"
+    r"(?<![\d.,a-z])(\d{1,2}[.,]\d{3}|\d{1,5}(?:\.\d)?)\s*(?:w\b|watts?\b|vatios\b)"
 )
 
 
@@ -1687,7 +1688,11 @@ def players_max_of(text):
     nums = [int(x) for x in re.findall(r"\d{1,2}", n)]
     abierto = bool(re.search(r"\+|o mas|en adelante|varios|multijugador|ilimitad", n))
     if abierto:
-        return 99
+        # "1+" o "2 o más" no dice cuántos caben: con 99 un rompecabezas
+        # o una casita de juego caían en «Grupo grande». Solo un mínimo de
+        # 5 o más asegura ese tramo.
+        piso = [x for x in nums if 1 <= x <= 30]
+        return 99 if piso and min(piso) >= 5 else None
     nums = [x for x in nums if 1 <= x <= 30]
     return max(nums) if nums else None
 

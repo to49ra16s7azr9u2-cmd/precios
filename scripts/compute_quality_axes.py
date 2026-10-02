@@ -168,7 +168,9 @@ CAMPOS = {
                          usos=("Ligeras y frescas", "Más tupidas y suaves", "Tacto de hotel")),
     "pieces": dict(label="Piezas", criterion="por número de piezas", unit=" piezas",
                    nombres=("Pocas", "Medias", "Muchas"),
-                   usos=("Para empezar o para niños", "Una tarde entera", "Un reto largo")),
+                   # El uso por defecto es neutro: el de rompecabezas («Un reto
+                   # largo») salía en vasos desechables y juegos de desarmadores.
+                   usos=("Juego básico", "Juego mediano", "Juego completo")),
     "volume_ml": dict(label="Contenido", criterion="en mililitros", unit=" ml",
                       nombres=("Chico", "Mediano", "Grande"),
                       usos=("Para probar o para viajar", "Uso de diario", "Rinde meses")),
@@ -246,8 +248,11 @@ CAMPOS = {
     "firmness": dict(label="Firmeza", criterion="del colchón", ramp=False,
                      orden=["Suave", "Medio", "Firme", "Extra firme"]),
     "storage_type": dict(label="Disco", criterion="por tipo", ramp=False,
-                         valores={"SSD": "Arranca y abre más rápido", "HDD": "Más espacio por el mismo precio",
-                                  "eMMC": "Básico, para tareas ligeras"}),
+                         # El facet llega en minúsculas («ssd», «emmc»): sin
+                         # «mostrar» la tarjeta decía «emmc» y sin uso.
+                         valores={"ssd": "Arranca y abre más rápido", "hdd": "Más espacio por el mismo precio",
+                                  "emmc": "Básico, para tareas ligeras"},
+                         mostrar={"ssd": "SSD", "hdd": "Disco duro (HDD)", "emmc": "eMMC"}),
     "cpu_family": dict(label="Procesador", criterion="por familia", ramp=False),
     "gpu": dict(label="Gráficos", criterion="según la ficha", ramp=False),
     "os": dict(label="Sistema", criterion="operativo", ramp=False),
@@ -350,6 +355,17 @@ CAMPO_SOLO_EN = {
     "blackout": {"Decoración de hogar y jardín/Cortinas"}, "polarized": {"Joyería y bisutería/Lentes de sol"},
     "memory_foam": {"Blancos y ropa de cama/Almohadas"}, "audio_conn": {"Audífonos", "Teclados"},
     "volume_ml": {"Otros", "Salud", "Belleza y cuidado personal", "Juguetes y bebés"},
+    # Batería contra cable es la pregunta en herramienta eléctrica. En una
+    # bomba de sentina, un apagador o un motor, 12 V es corriente directa de
+    # coche o lancha, no "batería chica", y 127/220 V es la instalación, no
+    # una elección de calidad.
+    "volt": {"Herramientas/Herramientas eléctricas", "Herramientas/Sierras", "Herramientas/Atornilladores",
+             "Herramientas/Taladros inalámbricos", "Herramientas/Rotomartillos",
+             "Herramientas/Esmeriladoras y pulidoras", "Herramientas/Lijadoras", "Herramientas/Sopladoras",
+             "Herramientas/Hidrolavadoras", "Herramientas/Baterías y cargadores de herramienta",
+             "Herramientas/Herramientas de banco", "Herramientas/Compresores y herramienta neumática",
+             "Herramientas/Soldadoras",
+             "Bicicletas y movilidad/Scooters eléctricos"},
 }
 
 # Tramos fijos: acá los cortes no salen de la distribución sino de cómo se
@@ -426,6 +442,14 @@ USOS = {
         ("Pocos juegos instalados", "Varios juegos a la vez", "Toda la biblioteca")),
     ("Juegos de mesa/Rompecabezas", "pieces"): (("Pocas", "Medias", "Muchas"),
         ("Para niños o una tarde", "Un fin de semana", "Un reto largo")),
+    ("Juguetes/Bloques de construcción", "pieces"): (("Pocos", "Medios", "Muchos"),
+        ("Para empezar", "Un modelo completo", "Sets grandes de colección")),
+    ("Juegos de mesa", "pieces"): (("Pocas", "Medias", "Muchas"),
+        ("Para niños o una tarde", "Un fin de semana", "Un reto largo")),
+    ("Cocina y comedor", "pieces"): (("Pocas", "Medias", "Muchas"),
+        ("Para pocas personas", "Para la familia", "Para fiestas y reuniones")),
+    ("Herramientas", "pieces"): (("Pocas", "Medias", "Muchas"),
+        ("Lo básico para la casa", "Casa y taller", "Juego completo de taller")),
     ("Juguetes y bebés/Bloques de construcción", "pieces"): (("Pocos", "Medios", "Muchos"),
         ("Para empezar", "Un modelo completo", "Sets grandes de colección")),
     ("Autos y motos/Motocicletas", "engine_cc"): (("Chica", "Mediana", "Grande"),
