@@ -20888,5 +20888,120 @@
    "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
    "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 1
   }
+ },
+ {
+  "fecha": "2026-10-02",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador 6a5fb6790ee26d06) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Autopartes | Para autos | Audífonos | Earbuds para niños": 1,
+   "Autopartes | Para autos | Cocina y comedor | Botellas de agua": 1,
+   "Autopartes | Para autos | Papelería y oficina | Papel y sobres": 1,
+   "Autopartes | Para autos | Ropa y accesorios | Playeras": 2,
+   "Autopartes | Para autos | Bolsas y mochilas | Bolsas para mujer": 1,
+   "Autopartes | Para autos | Electrodomésticos | Arroceras y ollas multiusos": 1
+  }
+ },
+ {
+  "fecha": "2026-10-02",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Herramientas | Herramientas eléctricas | Cocina y comedor | Afiladores de cuchillos": 1,
+   "Jardín y exterior | Albercas e inflables | Muebles | Sillones y reclinables": 1
+  }
+ },
+ {
+  "fecha": "2026-10-02",
+  "origen": "auditoria-mov.json",
+  "motivo": "reglas de auditoría (automático)",
+  "grupos": {
+   "Celulares | None | Celulares | Android": 22,
+   "Audífonos | None | Audífonos | Gamer": 9,
+   "Audífonos | None | Audífonos | Earbuds inalámbricos": 26,
+   "Audífonos | None | Audífonos | Diadema inalámbrica": 7,
+   "Audífonos | None | Audífonos | Earbuds con cable": 2,
+   "Audífonos | None | Audífonos | Earbuds para niños": 1,
+   "Audífonos | None | Audífonos | Diadema con cable": 1,
+   "Autopartes | Para autos | Ropa y accesorios | Ropa interior": 8,
+   "Autopartes | Para autos | Calzado | Tenis para hombre": 5,
+   "Electrodomésticos | None | Electrodomésticos | Wafleras, sandwicheras y creperas": 4,
+   "Electrodomésticos | None | Electrodomésticos | Calentadores de agua": 12,
+   "Electrodomésticos | None | Electrodomésticos | Campanas de cocina": 1,
+   "Muebles | None | Muebles | Sillas ejecutivas": 2,
+   "Muebles | None | Muebles | Sillas ergonómicas": 4,
+   "Muebles | None | Muebles | Sillas gamer": 1,
+   "Muebles | None | Muebles | Sillas de comedor": 2,
+   "Muebles | None | Muebles | Sillas de oficina": 1,
+   "Muebles | None | Muebles | Sillas plegables y de camping": 1,
+   "Muebles | None | Muebles | Escritorios de oficina": 1,
+   "Muebles | None | Muebles | Mesas para TV y consolas": 1,
+   "Muebles | None | Muebles | Libreros": 2,
+   "Muebles | None | Muebles | Tocadores": 2,
+   "Muebles | None | Muebles | Cabeceras": 1,
+   "Muebles | None | Muebles | Organizadores y almacenamiento": 1,
+   "Muebles | None | Muebles | Cómodas y cajoneras": 1,
+   "Muebles | None | Muebles | Colchones king size": 1,
+   "Muebles | None | Muebles | Colchones matrimoniales": 2,
+   "Muebles | None | Muebles | Sofás de 2 y 3 plazas": 1,
+   "Muebles | None | Muebles | Colchones individuales": 1,
+   "Muebles | None | Muebles | Roperos": 1,
+   "Muebles | None | Muebles | Mesas de comedor": 1,
+   "Muebles | None | Muebles | Sofás cama": 1,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Pesca": 18,
+   "Cargadores y adaptadores | None | Cargadores y adaptadores | Cables USB-C": 3,
+   "Cargadores y adaptadores | None | Cargadores y adaptadores | Regletas y multicontactos": 1,
+   "Cargadores y adaptadores | None | Herramientas | Cables y extensiones eléctricas": 1,
+   "Bocinas | None | Bocinas | Bocinas Bluetooth": 8,
+   "Bocinas | None | Bocinas | Para PC y escritorio": 1,
+   "Bocinas | None | Bocinas | Subwoofers": 2,
+   "Bocinas | None | Bocinas | Mini bocinas y de llavero": 1,
+   "Bocinas | None | Bocinas | Bafles y audio profesional": 1,
+   "Bocinas | None | Bocinas | De estantería y Hi-Fi": 1,
+   "Componentes y accesorios de PC | None | Componentes y accesorios de PC | Procesadores": 1,
+   "Videojuegos | None | Videojuegos | Juegos PS4": 4,
+   "Videojuegos | None | Videojuegos | Consolas PlayStation": 1,
+   "Videojuegos | None | Videojuegos | Juegos Nintendo Switch": 2,
+   "Videojuegos | None | Videojuegos | Juegos Xbox": 2,
+   "Videojuegos | None | Videojuegos | Juegos PS5": 4,
+   "Cafeteras | None | Cafeteras | Espresso": 7,
+   "Cafeteras | None | Cafeteras | Manuales": 6,
+   "Cafeteras | None | Cafeteras | De goteo": 5,
+   "Cafeteras | None | Cafeteras | Portátiles": 1,
+   "Mascotas | Disfraces para mascotas | Mascotas | Ropa para mascotas": 1,
+   "Televisores | None | Televisores | Controles para TV": 3,
+   "Teclados | None | Teclados | Membrana": 7,
+   "Teclados | None | Teclados | Mecánicos": 1,
+   "Teclados | None | Teclados | Combos con mouse": 3,
+   "Refrigeradores | None | Refrigeradores | Frigobares": 1,
+   "Aspiradoras | None | Aspiradoras | De mano": 1,
+   "Aspiradoras | None | Aspiradoras | Lavadoras de alfombras y vapor": 1,
+   "Aspiradoras | None | Aspiradoras | Verticales y de escoba": 1,
+   "Mouse | None | Mouse | Mousepads y tapetes": 8,
+   "Proyectores y accesorios | None | Proyectores y accesorios | Proyectores": 4,
+   "Lavadoras | None | Lavadoras | Carga frontal": 2,
+   "Lavadoras | None | Lavadoras | Lavasecadoras": 1
+  }
+ },
+ {
+  "fecha": "2026-10-02",
+  "origen": "juez-origen.json",
+  "motivo": "juez de origen (automático)",
+  "grupos": {
+   "Bolsas y mochilas | Bolsas para mujer | Muebles | Organizadores y almacenamiento": 1,
+   "Herramientas | Juegos de herramientas | Muebles | Taburetes y bancos": 1
+  }
+ },
+ {
+  "fecha": "2026-10-02",
+  "origen": "precio_atipico.py",
+  "motivo": "precio imposible para su subcategoría (vecinos + precio)",
+  "grupos": {
+   "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
+   "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 1,
+   "Impresión 3D | Boquillas y hotends | Impresión 3D | Impresoras FDM": 1
+  }
  }
 ]
