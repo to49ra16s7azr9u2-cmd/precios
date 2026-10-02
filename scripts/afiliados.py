@@ -99,12 +99,11 @@ BASES = {
     # 2026. Misma plataforma y mismo importador que Walmart.
     "bodega_aurrera": None,
 
-    # --- con programa confirmado, en espera a propósito ---------------------
-    # Elektra pide vistas mensuales en la solicitud, así que se pospone hasta
-    # que el sitio tenga tráfico que reportar. No es un olvido: solicitar con
-    # cifras flojas quema el intento, y Elektra es la tienda más grande del
-    # catálogo (69,864 ofertas, 20% del total).
-    "elektra": None,  # Admitad: /store/offers/elektra-mx/
+    # --- por Soicos, no por Admitad -----------------------------------------
+    # Elektra entra por Soicos (programa 10219, ver SOICOS_ELEKTRA abajo) y
+    # su url NO se envuelve al importar: se guarda la de elektra.mx y se
+    # envuelve al salir (url_salida). En Admitad la solicitud sigue sin hacer.
+    "elektra": None,
 
     # --- con programa confirmado, falta solicitarlo -------------------------
     "miniso":       None,  # Admitad: /store/offers/miniso-mx/
@@ -142,3 +141,21 @@ SOICOS_LEGO = "https://ad.soicos.com/-4Xrf?dl="
 # El programa tiene «Feed»: los productos y precios de lenovo.com/mx entran
 # de ahí (la url del feed NO se escribe en el repo).
 SOICOS_LENOVO = "https://ad.soicos.com/-4XB4?dl="
+
+# Elektra MX (Soicos, programa 10219, aceptado el 02-oct-2026): mismo formato,
+# ad.soicos.com/-5hYi?dl=<url de elektra.mx codificada>. Es el prefijo que
+# trae el feed del programa (198,987 productos). A diferencia de Walmart o
+# Sam's, las ofertas de Elektra NO guardan el deeplink: refresh_vtex.py,
+# merge_same_store.py, split_elektra_variants.py y los importadores comparan
+# la url de elektra.mx, así que se guarda esa y se envuelve al salir hacia la
+# tienda, acá y en urlSalida() de js/app.js.
+SOICOS_ELEKTRA = "https://ad.soicos.com/-5hYi?dl="
+
+
+def url_salida(url):
+    """La url a la que manda el botón: la de la oferta, envuelta en el
+    deeplink de afiliado si la tienda se envuelve al salir (Elektra)."""
+    if url and url.startswith("https://www.elektra.mx/"):
+        from urllib.parse import quote
+        return SOICOS_ELEKTRA + quote(url, safe="")
+    return url

@@ -50,6 +50,7 @@ from roles_subcategorias import ORDEN as ORDEN_ROLES, TITULOS as TITULOS_ROL, es
 from web_summary import productos_del_set, purchase_options, seller_rows, seller_total  # noqa: E402
 from lego_set import numero_set as lego_numero_set, url_lego_store  # noqa: E402
 from lenovo_link import url_lenovo_store  # noqa: E402
+from afiliados import url_salida  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ICONS_PATH = os.path.join(ROOT, "data", "icons.json")
@@ -1177,13 +1178,13 @@ def render_product_page(product, data, subs_con_pagina=None):
         variants_html = ""
         if variants:
             pills = "".join(
-                f'<a class="variant-pill" href="{v["url"]}" target="_blank" rel="nofollow noopener">'
+                f'<a class="variant-pill" href="{html_escape(url_salida(v["url"]))}" target="_blank" rel="nofollow noopener">'
                 f'<img src="{v["photo"]}" alt="" loading="lazy"><span>{html_escape(v["label"])}</span></a>'
                 for v in variants
             )
             variants_html = (
                 f'<div class="variant-pills"><span class="variant-pills-label">{svg_icon("palette")} {len(variants) + 1} variantes:</span>'
-                f'<a class="variant-pill active" href="{o["url"]}" target="_blank" rel="nofollow noopener">'
+                f'<a class="variant-pill active" href="{html_escape(url_salida(o["url"]))}" target="_blank" rel="nofollow noopener">'
                 f'<img src="{o.get("photo") or product.get("photo") or ""}" alt="" loading="lazy"><span>Esta</span></a>{pills}</div>'
             )
         # Alibaba es mayorista, a diferencia del resto de las tiendas del
@@ -1232,7 +1233,7 @@ def render_product_page(product, data, subs_con_pagina=None):
         store = store_by_id(data, e["storeId"])
         table_rows.insert(0, 
             f'<tr class="fila-solo-enlace"><td><span class="store-badge">{html_escape(store["name"])}</span></td>'
-            f'<td colspan="4"><a class="btn-solo-enlace" href="{html_escape(e["url"])}" target="_blank" '
+            f'<td colspan="4"><a class="btn-solo-enlace" href="{html_escape(url_salida(e["url"]))}" target="_blank" '
             f'rel="nofollow sponsored noopener">Ver precio en {html_escape(store["name"])}</a></td></tr>'
         )
 

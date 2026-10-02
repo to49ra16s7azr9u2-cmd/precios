@@ -8468,6 +8468,16 @@
   // automáticos y el programa no trae feed, así que no hay precio. Mismo
   // criterio que scripts/lenovo_link.py.
   const SOICOS_LENOVO = "https://ad.soicos.com/-4XB4?dl=";
+  // Elektra MX (Soicos, programa 10219): las ofertas se guardan con la url
+  // de elektra.mx tal cual -- el refresco diario (refresh_vtex.py), las
+  // fusiones y el corte de variantes comparan esa url --, y se envuelve
+  // recién al salir hacia la tienda. Mismo prefijo que trae el feed del
+  // programa (ad.soicos.com/-5hYi?dl=) y que usa scripts/afiliados.py para
+  // las páginas estáticas.
+  const SOICOS_ELEKTRA = "https://ad.soicos.com/-5hYi?dl=";
+  function urlSalida(url) {
+    return url && /^https:\/\/www\.elektra\.mx\//.test(url) ? SOICOS_ELEKTRA + encodeURIComponent(url) : url;
+  }
   const LENOVO_NO = /compatible|\bpara (lenovo|thinkpad|ideapad|legion|yoga)\b|\bfunda|\bmica\b|\bcargador|\bbateria para|\bprotector|\bcarcasa|\brepuesto|\breemplazo|\bteclado para|\bpantalla para/i;
   const LENOVO_PARTE = /\b(\d{2}[A-Z0-9]{2}\d{4}[A-Z]{2}|\d{2}[A-Z0-9]{2}[A-Z0-9]{6})\b/gi;
   const LENOVO_SERIE = /\b(ideapad(?: (?:slim|flex|gaming|pro|duet))?(?: \d{1,2}i?)?|thinkpad(?: [a-z]\d{1,2}[a-z]?)?|legion(?: (?:pro|slim|go|tower))?(?: \d{1,2}i?)?|yoga(?: (?:slim|pro|book|tab))?(?: \d{1,2}i?)?|thinkbook(?: \d{2}s?)?|loq(?: \d{2}i?)?|ideacentre(?: aio)?(?: \d)?|thinkcentre(?: [a-z]\d{2}[a-z]?)?|thinkvision(?: [a-z]\d{2}[a-z]?-?\d{0,2})?|tab (?:m|p|k)\d{1,2}(?: plus)?|legion go(?: s)?|chromebook(?: duet)?|v1[45](?= g\d| gen|\b))\b/i;
@@ -9220,14 +9230,14 @@
         else offerCompareSel.delete(tr.dataset.offerKey);
         applyOfferCompare(tbody);
       };
-      tr.querySelector(".buy-btn").onclick = () => { trackStoreClick(productId); window.open(r.url, "_blank"); };
+      tr.querySelector(".buy-btn").onclick = () => { trackStoreClick(productId); window.open(urlSalida(r.url), "_blank"); };
       tr.querySelectorAll(".variant-pill").forEach((btn) => {
         btn.onclick = (e) => {
           e.stopPropagation();
           tr.querySelectorAll(".variant-pill").forEach((b) => b.classList.remove("active"));
           btn.classList.add("active");
           trackStoreClick(productId);
-          window.open(btn.dataset.url, "_blank");
+          window.open(urlSalida(btn.dataset.url), "_blank");
         };
       });
       tbody.appendChild(tr);
@@ -9240,7 +9250,7 @@
       const tr = document.createElement("tr");
       tr.className = "fila-solo-enlace";
       tr.innerHTML = `<td><span class="store-badge">${htmlEscapeAttr(store.name)}</span></td>` +
-        `<td colspan="7"><a class="btn-solo-enlace" href="${htmlEscapeAttr(e.url)}" target="_blank" ` +
+        `<td colspan="7"><a class="btn-solo-enlace" href="${htmlEscapeAttr(urlSalida(e.url))}" target="_blank" ` +
         `rel="nofollow sponsored noopener">Ver precio en ${htmlEscapeAttr(store.name)}</a></td>`;
       tbody.insertBefore(tr, tbody.firstChild);
     });
@@ -9565,7 +9575,7 @@
       .join("");
     llenarAmazonMasBarato(el.detailTopOffers);
     el.detailTopOffers.querySelectorAll(".detail-top-offer-btn").forEach((btn, i) => {
-      btn.onclick = () => { trackStoreClick(product.id); window.open(top[i].url, "_blank"); };
+      btn.onclick = () => { trackStoreClick(product.id); window.open(urlSalida(top[i].url), "_blank"); };
     });
     const moreBtn = document.createElement("button");
     moreBtn.type = "button";
