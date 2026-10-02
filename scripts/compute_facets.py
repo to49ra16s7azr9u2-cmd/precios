@@ -349,19 +349,14 @@ SPEC_DIRECTAS = (
 # error más caro posible en este filtro.
 #
 # Por eso la tabla es EXPLÍCITA, valor por valor, y lo que no está en ella
-# no se clasifica: quedan fuera los 119 "C" a secas (no se sabe de qué
-# sistema es), los 26 "A 18 Años en adelante" (la A es "todo público": el
-# valor se contradice solo) y los "RP" sin clasificar.
+# no se clasifica. Y de lo que sí se entiende, casi nada es fiable: medido
+# contra la ESRB (20 juegos por código, 02-oct) la "B" a secas acierta 30%,
+# "B 12" 20%, "M 17" 40%, "E10" 50%, "A" y "E" 65%, "T 13" 60%, "B 15" 75%.
+# Solo pasan "C Adultos +18" (89%) y "C Infancia Temprana" (100%). El resto
+# lo pone la serie del juego (specs_extract.edad_por_serie), que gana sobre
+# la tienda.
 _EDADES = {
-    "a": "Todo público",
-    "e todas las edades": "Todo público",
     "c infancia temprana": "Todo público",
-    "e10 10 años en adelante": "10 años o más",
-    "b": "12 años o más",
-    "b 12 años en adelante": "12 años o más",
-    "t 13 años en adelante": "13 años o más",
-    "b 15 años en adelante": "15 años o más",
-    "m 17 años en adelante": "17 años o más",
     "c adultos +18": "18 años o más",
 }
 
@@ -452,7 +447,9 @@ def _hogar_facets(product, name, spec_map, f):
         h = _primero(se.battery_hours_of, spec_map.get("duracion de la bateria"), name)
         if h is not None:
             f["battery_h"] = h
-    elif category == "Impresoras" and sub != "Consumibles":
+    elif category == "Impresoras" and not re.search(r"consumible|t[oó]ner|cartucho|cabezal|refacci", sub or "", re.I):
+        # Un tóner "para multifuncional HP" no es multifuncional: el dato es
+        # de la impresora, no de lo que se le pone.
         mf = se.multifunction_of(name, spec_map.get("escanea"))
         if mf:
             f["multifunction"] = mf
@@ -857,9 +854,20 @@ def facets_for(product):
     """Los facets propios de la categoría (abajo) y, encima, los genéricos
     que cualquier categoría puede tener. Ninguno de los dos pisa al otro.
     Lo revisado a mano (specs-a-mano.json) va último y gana."""
+    nombre = se.decimales_perdidos(product.get("name", ""))
+    if nombre != product.get("name", ""):
+        product = {**product, "name": nombre}
     f = _facets_propias(product) or {}
     _generales(product, product.get("name", ""), _spec_map(product), f)
     _titulo(product, product.get("name", ""), f)
+    if product.get("category") == "Videojuegos":
+        # La edad es de los juegos; en un control o una funda no significa nada.
+        if (product.get("subcategory") or "").startswith("Juegos"):
+            edad = se.edad_por_serie(product.get("name", ""))
+            if edad:
+                f["age_rating"] = edad
+        else:
+            f.pop("age_rating", None)
     if product.get("category") in ("Autopartes", "Autos y motos") and "car_make" not in f:
         marca = se.car_make_of(product.get("name", ""))
         if marca:
@@ -1192,6 +1200,9 @@ def aplicar_specs_por_modelo(products):
     excluir = re.compile(doc.get("excluir") or r"(?!x)x")
     modelos = [(m, re.compile(m["rx"])) for m in doc.get("modelos") or []]
     campos = ("battery_h", "power_w", "screen_in", "storage_gb")
+    # Sí/No y 4g/5g solo llenan el hueco: si el nombre o la ficha ya lo
+    # dicen ("Galaxy A16 5G"), eso manda -- hay modelos con las dos versiones.
+    solo_hueco = ("water_resistant", "gps", "network_gen")
     hechos = Counter()
     for p in products:
         cat, sub = p.get("category"), p.get("subcategory") or ""
@@ -1205,6 +1216,10 @@ def aplicar_specs_por_modelo(products):
                 f = p.setdefault("facets", {})
                 for c in campos:
                     if c in m and f.get(c) != m[c]:
+                        f[c] = m[c]
+                        hechos[m["modelo"]] += 1
+                for c in solo_hueco:
+                    if c in m and f.get(c) is None:
                         f[c] = m[c]
                         hechos[m["modelo"]] += 1
                 break

@@ -7479,7 +7479,8 @@
     if (sub && deCat && deCat.some((a) => a.field === "price")) {
       deCat = deCat.map((a) => (a.field === "price" ? ejePrecioDeSub(a, sub) : a)).filter(Boolean);
     }
-    const ejes = mergeAxes(mano, gen ? gen.axes : null, deCat);
+    let ejes = mergeAxes(mano, gen ? gen.axes : null, deCat);
+    if (sub) ejes = ejes.map((a) => (a.field !== "price" && a.ramp !== false ? ejeNumericoDeSub(a, sub) || a : a));
     // Con lugar libre y sin precio, la subcategoría lleva su propio corte
     // por precio al final. En «Televisores/58 a 65 pulgadas» el nivel y el
     // tamaño ponen el 99-100% en un tramo y se ocultan; sin esto el bloque
@@ -7547,6 +7548,72 @@
       }
     }
     precioDeSubCache.set(clave, { ps, eje });
+    return eje;
+  }
+
+  // Un eje numérico de la categoría puede poner casi toda la subcategoría en
+  // un tramo: la medida de «Ventiladores de techo» dejaba 355 de 385 en
+  // «Grande», la potencia de «Cables USB-C» 309 de 332 en «46 W o más». Esa
+  // fila no ayuda a elegir. Cuando un tramo junta el 80% o más, se vuelve a
+  // cortar en tercios con los valores de la subcategoría, como el precio.
+  // Los nombres pasan a ser relativos: «Para fiesta» o «Grande» describían
+  // el corte de la categoría, no el nuevo.
+  const numericoDeSubCache = new Map();
+  function unidadDeEje(axis) {
+    for (const t of axis.tiers || []) {
+      for (const m of String(t.spec || "").matchAll(/\d[\d.,]*\s*([A-Za-zñ"”°]+)/g)) {
+        if (!/^(a|o|y|de|al|hasta|más|mas)$/i.test(m[1])) return m[1];
+      }
+    }
+    return "";
+  }
+  function ejeNumericoDeSub(axis, sub) {
+    const ps = productosDeCategoria();
+    const clave = `${state.category}/${sub}/${axis.field}`;
+    const c = numericoDeSubCache.get(clave);
+    if (c && c.ps === ps) return c.eje;
+    let eje = null;
+    const vals = [];
+    let numerico = true;
+    const porTramo = new Map();
+    for (const p of ps) {
+      if (p.subcategory !== sub) continue;
+      const v = qualityValueOf(axis, p);
+      if (v == null) continue;
+      if (typeof v !== "number" || !Number.isFinite(v)) { numerico = false; break; }
+      vals.push(v);
+      const t = axis.tiers.find((x) => x.match(v));
+      if (t) porTramo.set(t.id, (porTramo.get(t.id) || 0) + 1);
+    }
+    const n = vals.length;
+    if (numerico && n >= 12 && Math.max(0, ...porTramo.values()) / n >= 0.8) {
+      vals.sort((a, b) => a - b);
+      // Los cortes son valores que existen, sin redondear: los datos ya
+      // vienen en medidas comerciales (42", 1,024 GB) y redondear 1,024 a
+      // 1,000 dejaba fuera del primer tercio a todos los discos de 1 TB.
+      const c1 = vals[Math.floor(n / 3)];
+      const c2 = vals[Math.floor((2 * n) / 3)];
+      if (c1 > 0 && c2 > c1) {
+        const tr = [0, 0, 0];
+        vals.forEach((v) => { tr[v <= c1 ? 0 : v <= c2 ? 1 : 2] += 1; });
+        if (Math.max(...tr) / n <= 0.85 && Math.min(...tr) / n >= 0.06) {
+          const u = unidadDeEje(axis);
+          const num = (v) => (u === "GB" && v >= 1000
+            ? (Math.round((v / 1024) * 10) / 10).toLocaleString("en-US") + " TB"
+            : (Math.round(v * 10) / 10).toLocaleString("en-US") + (u ? (/^["”°]/.test(u) ? u : " " + u) : ""));
+          const lbl = String(axis.label || "").toLowerCase();
+          eje = {
+            ...axis,
+            tiers: [
+              { id: "sub-menor", name: "Menor", use: `Los de menos ${lbl} aquí`, spec: `Hasta ${num(c1)}`, max: c1, match: (v) => v <= c1 },
+              { id: "sub-medio", name: "Intermedio", use: "A media tabla", spec: `${num(c1)} a ${num(c2)}`, min: c1, max: c2, match: (v) => v > c1 && v <= c2 },
+              { id: "sub-mayor", name: "Mayor", use: `Los de más ${lbl} aquí`, spec: `Más de ${num(c2)}`, min: c2, match: (v) => v > c2 },
+            ],
+          };
+        }
+      }
+    }
+    numericoDeSubCache.set(clave, { ps, eje });
     return eje;
   }
 

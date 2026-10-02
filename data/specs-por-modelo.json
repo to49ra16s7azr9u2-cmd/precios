@@ -1,5 +1,5 @@
 {
- "_nota": "Datos fijos de cada modelo, verificados el 02-oct-2026 en la página o la ficha técnica del fabricante (columna fuente). Ganan sobre lo que diga la tienda: la misma JBL Charge 6 traía 5, 8, 24 o 28 horas según el anuncio. Horas = total que publica el fabricante (con el estuche en audífonos TWS; sin Playtime Boost en JBL). Solo se aplican a la subcategoría de producto, nunca a fundas o repuestos.",
+ "_nota": "Datos fijos de cada modelo, verificados el 02-oct-2026 en la página o la ficha técnica del fabricante (columna fuente). Ganan sobre lo que diga la tienda: la misma JBL Charge 6 traía 5, 8, 24 o 28 horas según el anuncio. Horas = total que publica el fabricante (con el estuche en audífonos TWS; sin Playtime Boost en JBL). Solo se aplican a la subcategoría de producto, nunca a fundas o repuestos. Agua, GPS y red (02-oct): Sí/No y 4g/5g solo se ponen donde falta el dato; nunca contradicen lo que diga el propio nombre.",
  "excluir": "funda|estuche|case\\b|carcasa|protector|cargador|cable|correa|tapones|eartips|almohadill|repuesto|skin|soporte|mica|compatible|para airpods|para galaxy buds|para jbl|para bose|bolsa|clip para|llavero|sticker|calcoman",
  "modelos": [
   {
@@ -9,7 +9,8 @@
    ],
    "rx": "airpods pro 3",
    "fuente": "support.apple.com / apple.com (tech specs)",
-   "battery_h": 24
+   "battery_h": 24,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "AirPods Pro 2",
@@ -18,7 +19,8 @@
    ],
    "rx": "airpods pro 2|airpods pro \\(?(2|segunda|2da)",
    "fuente": "support.apple.com / apple.com (tech specs)",
-   "battery_h": 30
+   "battery_h": 30,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "AirPods 4 con ANC",
@@ -27,7 +29,8 @@
    ],
    "rx": "airpods 4.*(anc|cancelaci)",
    "fuente": "support.apple.com / apple.com (tech specs)",
-   "battery_h": 20
+   "battery_h": 20,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "AirPods 4",
@@ -36,34 +39,38 @@
    ],
    "rx": "airpods 4(?!.*(anc|cancelaci))",
    "fuente": "support.apple.com / apple.com (tech specs)",
-   "battery_h": 30
+   "battery_h": 30,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Galaxy Buds3 Pro",
    "categorias": [
     "Audífonos"
    ],
-   "rx": "buds ?3 pro",
+   "rx": "(?:galaxy|samsung)\\b.{0,25}buds ?3 pro",
    "fuente": "samsung.com (Galaxy Buds battery FAQ) / gsmarena",
-   "battery_h": 26
+   "battery_h": 26,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Galaxy Buds3",
    "categorias": [
     "Audífonos"
    ],
-   "rx": "buds ?3(?! ?(pro|fe))",
+   "rx": "(?:galaxy|samsung)\\b.{0,25}buds ?3(?! ?(pro|fe))",
    "fuente": "samsung.com (Galaxy Buds battery FAQ) / gsmarena",
-   "battery_h": 24
+   "battery_h": 24,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Galaxy Buds FE",
    "categorias": [
     "Audífonos"
    ],
-   "rx": "buds fe\\b",
+   "rx": "(?:galaxy|samsung)\\b.{0,25}buds fe\\b|^buds fe\\b",
    "fuente": "samsung.com (Galaxy Buds battery FAQ) / gsmarena",
-   "battery_h": 21
+   "battery_h": 21,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Redmi Buds 6 Play",
@@ -72,7 +79,8 @@
    ],
    "rx": "redmi buds 6 play",
    "fuente": "mi.com (specs / FAQ)",
-   "battery_h": 36
+   "battery_h": 36,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Redmi Buds 6 Active",
@@ -81,7 +89,8 @@
    ],
    "rx": "redmi buds 6 active",
    "fuente": "mi.com (specs / FAQ)",
-   "battery_h": 30
+   "battery_h": 30,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Xiaomi Sound Pocket",
@@ -91,7 +100,8 @@
    "rx": "sound pocket",
    "fuente": "mi.com/us/product/xiaomi-sound-pocket",
    "battery_h": 10,
-   "power_w": 5
+   "power_w": 5,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Flip 7",
@@ -101,7 +111,8 @@
    "rx": "jbl flip ?7",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 14,
-   "power_w": 35
+   "power_w": 35,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Flip 6",
@@ -111,7 +122,8 @@
    "rx": "jbl flip ?6",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 12,
-   "power_w": 30
+   "power_w": 30,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Flip 5",
@@ -121,7 +133,8 @@
    "rx": "jbl flip ?5",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 12,
-   "power_w": 20
+   "power_w": 20,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Charge 6",
@@ -131,7 +144,8 @@
    "rx": "jbl charge ?6",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 24,
-   "power_w": 45
+   "power_w": 45,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Charge 5",
@@ -141,7 +155,8 @@
    "rx": "jbl charge ?5",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 20,
-   "power_w": 40
+   "power_w": 40,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Go 5",
@@ -151,7 +166,8 @@
    "rx": "jbl go ?5",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 8,
-   "power_w": 4.8
+   "power_w": 4.8,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Go 4",
@@ -161,7 +177,8 @@
    "rx": "jbl go ?4",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 7,
-   "power_w": 4.2
+   "power_w": 4.2,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Go 3",
@@ -171,7 +188,8 @@
    "rx": "jbl go ?3",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 5,
-   "power_w": 4.2
+   "power_w": 4.2,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Clip 5",
@@ -181,7 +199,8 @@
    "rx": "jbl clip ?5",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 12,
-   "power_w": 7
+   "power_w": 7,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Clip 4",
@@ -191,7 +210,8 @@
    "rx": "jbl clip ?4",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
    "battery_h": 10,
-   "power_w": 5
+   "power_w": 5,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Tune 520BT",
@@ -218,7 +238,8 @@
    ],
    "rx": "tune buds ?2",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
-   "battery_h": 48
+   "battery_h": 48,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JBL Vibe Beam",
@@ -227,7 +248,8 @@
    ],
    "rx": "vibe beam",
    "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
-   "battery_h": 32
+   "battery_h": 32,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Bose SoundLink Flex",
@@ -236,7 +258,8 @@
    ],
    "rx": "soundlink flex",
    "fuente": "bose.com / support.bose.com",
-   "battery_h": 12
+   "battery_h": 12,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Bose SoundLink Micro (2a gen)",
@@ -245,7 +268,8 @@
    ],
    "rx": "soundlink micro.*(2nd|2da|segunda|ii\\b|gen)",
    "fuente": "bose.com / support.bose.com",
-   "battery_h": 12
+   "battery_h": 12,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Bose SoundLink Micro",
@@ -254,7 +278,8 @@
    ],
    "rx": "soundlink micro(?!.*(2nd|2da|segunda|ii\\b|gen))",
    "fuente": "bose.com / support.bose.com",
-   "battery_h": 6
+   "battery_h": 6,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Bose SoundLink Max",
@@ -263,7 +288,8 @@
    ],
    "rx": "soundlink max",
    "fuente": "bose.com / support.bose.com",
-   "battery_h": 20
+   "battery_h": 20,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Bose SoundLink Plus",
@@ -272,7 +298,8 @@
    ],
    "rx": "soundlink plus",
    "fuente": "bose.com / support.bose.com",
-   "battery_h": 20
+   "battery_h": 20,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Sony ULT Field 1",
@@ -281,7 +308,8 @@
    ],
    "rx": "ult field ?1|srs-?ult10",
    "fuente": "sony.com (product pages)",
-   "battery_h": 12
+   "battery_h": 12,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Sony ULT Field 3",
@@ -290,7 +318,8 @@
    ],
    "rx": "ult field ?3",
    "fuente": "sony.com (product pages)",
-   "battery_h": 24
+   "battery_h": 24,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Sony WH-CH520",
@@ -326,7 +355,8 @@
    ],
    "rx": "wf-?c510",
    "fuente": "sony.com (product pages)",
-   "battery_h": 22
+   "battery_h": 22,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "UE Wonderboom 4",
@@ -335,7 +365,8 @@
    ],
    "rx": "wonderboom ?4",
    "fuente": "ultimateears.com",
-   "battery_h": 14
+   "battery_h": 14,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "Soundcore Select 4 Go",
@@ -345,7 +376,8 @@
    "rx": "select 4 go",
    "fuente": "soundcore / speakerranking (fabricante)",
    "battery_h": 20,
-   "power_w": 5
+   "power_w": 5,
+   "water_resistant": "Sí"
   },
   {
    "modelo": "JLab Go Air Pop",
@@ -354,7 +386,231 @@
    ],
    "rx": "go air pop",
    "fuente": "jlab.com",
-   "battery_h": 32
+   "battery_h": 32,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Pixel Buds 2a",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "pixel buds 2a",
+   "fuente": "store.google.com/product/pixel_buds_2a_specs",
+   "battery_h": 27,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Galaxy Buds4 Pro",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "(?:galaxy|samsung)\\b.{0,25}buds ?4 pro",
+   "fuente": "samsung.com / news.samsung.com (Galaxy Buds4 series)",
+   "battery_h": 30,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Galaxy Buds4",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "(?:galaxy|samsung)\\b.{0,25}buds ?4(?! ?pro)",
+   "fuente": "samsung.com / news.samsung.com (Galaxy Buds4 series)",
+   "battery_h": 30,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Bose QuietComfort Ultra Earbuds",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "(?:quietcomfort|qc) ultra.*(?:earbuds|in.?ear|true wireless)|(?:earbuds|in.?ear|true wireless).*(?:quietcomfort|qc) ultra",
+   "fuente": "bose.com (QuietComfort Ultra Earbuds 2nd Gen, ficha PDF)",
+   "battery_h": 24,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Bose QuietComfort Earbuds",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "(?:true wireless|earbuds|in.?ear).*bose quietcomfort(?! ultra)|bose quietcomfort earbuds",
+   "fuente": "bose.com (IPX4 en toda la línea QuietComfort Earbuds)",
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Huawei FreeBuds 7i",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "freebuds 7i",
+   "fuente": "consumer.huawei.com/uk/headphones/freebuds7i",
+   "battery_h": 35,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Moto Buds 2",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "moto buds 2\\b(?! ?(?:\\+|plus))",
+   "fuente": "motorolanews.com (MWC 2026: Moto Buds 2)",
+   "battery_h": 48,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Moto Buds",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "moto buds(?! ?(?:\\d|\\+|plus|bass|loop))",
+   "fuente": "motorola.com (Moto Buds XT2443: IP54)",
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Redmi Buds 6",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "redmi buds 6(?! ?(?:play|active|pro|lite))",
+   "fuente": "mi.com/global/product/redmi-buds-6",
+   "battery_h": 42,
+   "water_resistant": "Sí"
+  },
+  {
+   "modelo": "Samsung Galaxy Watch",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "galaxy watch",
+   "fuente": "samsung.com (specs Galaxy Watch4 a Watch8 y Ultra: GPS/Glonass/Beidou/Galileo)",
+   "gps": "Sí"
+  },
+  {
+   "modelo": "Apple Watch",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "apple watch (?:series|se|ultra|s\\d)",
+   "fuente": "apple.com/watch/compare (GPS en todos los modelos)",
+   "gps": "Sí"
+  },
+  {
+   "modelo": "Garmin deportivos",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "garmin.*(?:fenix|forerunner|instinct|venu|epix|enduro|vivoactive|descent|tactix|quatix)",
+   "fuente": "garmin.com (specs: GPS integrado)",
+   "gps": "Sí"
+  },
+  {
+   "modelo": "Google Pixel Watch",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "pixel watch",
+   "fuente": "store.google.com (specs Pixel Watch)",
+   "gps": "Sí"
+  },
+  {
+   "modelo": "Huawei Watch GT / Fit / Ultimate",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "huawei watch (?:gt|fit|ultimate|d2|[3-5]\\b)",
+   "fuente": "consumer.huawei.com (specs: GNSS integrado)",
+   "gps": "Sí"
+  },
+  {
+   "modelo": "Huawei Band",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "huawei band \\d",
+   "fuente": "consumer.huawei.com (Band: posicionamiento por el teléfono)",
+   "gps": "No"
+  },
+  {
+   "modelo": "Redmi Watch Active",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "redmi watch [35] active",
+   "fuente": "mi.com/global/support/faq (Redmi Watch 5 Active: sin GPS propio, usa el del teléfono)",
+   "gps": "No"
+  },
+  {
+   "modelo": "Redmi Watch 3/4/5 y 5 Lite",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "redmi watch [345](?! active)",
+   "fuente": "mi.com/global/product/redmi-watch-5-lite y redmi-watch-5/specs (GNSS integrado)",
+   "gps": "Sí"
+  },
+  {
+   "modelo": "Xiaomi Smart Band Pro",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "smart band \\d+ pro",
+   "fuente": "mi.com (Smart Band 8 Pro / 9 Pro: GNSS)",
+   "gps": "Sí"
+  },
+  {
+   "modelo": "Xiaomi Smart Band",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "(?:smart|mi) band \\d+(?! pro)",
+   "fuente": "mi.com (Smart Band: sin GPS propio)",
+   "gps": "No"
+  },
+  {
+   "modelo": "Amazfit con GPS",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "amazfit (?:gtr|gts|bip [56]|active|balance|t-rex|cheetah|falcon)",
+   "fuente": "amazfit.com (specs: GPS integrado)",
+   "gps": "Sí"
+  },
+  {
+   "modelo": "Fitbit con GPS",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "fitbit (?:charge [56]|versa [34]|sense)",
+   "fuente": "fitbit.com (GPS integrado)",
+   "gps": "Sí"
+  },
+  {
+   "modelo": "Fitbit sin GPS",
+   "categorias": [
+    "Relojes inteligentes"
+   ],
+   "rx": "fitbit (?:inspire|luxe|ace)",
+   "fuente": "fitbit.com (GPS del teléfono)",
+   "gps": "No"
+  },
+  {
+   "modelo": "Celulares solo 5G",
+   "categorias": [
+    "Celulares"
+   ],
+   "rx": "galaxy s2[1-6]|galaxy z (?:fold|flip)|galaxy a(?:2[6-9]|3[3-9]|5[3-9])\\b|pixel (?:[6-9]|10)(?:a\\b|\\b)|edge (?:20|30|40|50|60|70)\\b|poco f[3-7]\\b|poco x[67] pro|redmi note 1[3-5] pro ?(?:\\+|plus)|oneplus (?:1[0-5]|nord)",
+   "fuente": "fichas de Samsung, Google, Motorola, Xiaomi y OnePlus: modelos vendidos solo en versión 5G",
+   "network_gen": "5g"
+  },
+  {
+   "modelo": "Celulares solo 4G",
+   "categorias": [
+    "Celulares"
+   ],
+   "rx": "poco c(?:61|65|71)\\b|redmi a[35]\\b|moto(?:rola)? (?:moto )?(?:g0[456]|g1[45]|g24|e1[3-5])\\b|galaxy a0[45]s?\\b",
+   "fuente": "fichas de Xiaomi, Motorola y Samsung: modelos vendidos solo en versión 4G",
+   "network_gen": "4g"
   }
  ]
 }

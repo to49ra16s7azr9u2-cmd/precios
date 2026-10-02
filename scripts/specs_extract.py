@@ -1380,11 +1380,33 @@ _MULTI_RE = re.compile(
 )
 
 
+# Series cuya función es la misma en todos sus modelos (fichas de Epson,
+# Canon, HP y Brother): EcoTank L3xxx-L6xxx y Canon G2xxx-G7xxx copian y
+# escanean; L1xxx, L8050, L11050 y G1xxx solo imprimen; HL de Brother y las
+# LaserJet M1xx/M2xx/M4xx sin "MFP" solo imprimen.
+_MULTI_SERIE_RE = re.compile(
+    r"multifunci[oó]n\b|\becotank (?:l|et-?)[3-6]\d{3}\b|\bl[3-6]\d{3}\b(?=.*epson|.*ecotank)|(?<=epson )l[3-6]\d{3}\b"
+    r"|\bg[2-7]\d{3}\b(?=.*(?:canon|pixma|mega ?tank))|(?<=canon )(?:pixma )?g[2-7]\d{3}\b"
+    r"|smart ?tank (?:5\d{2}|6\d{2}|7\d{2})\b|deskjet (?:ink advantage )?(?:2[1-9]\d{2}|37\d{2}|41\d{2}|42\d{2})\b"
+    r"|laserjet (?:pro )?(?:mfp|m1[34]\d\w*fw?\b)|pixma (?:mg|ts|tr)\d|maxify mb\d|workforce wf-?2\d{3}\b")
+_SOLO_IMPRIME_RE = re.compile(
+    r"simple funci[oó]n|funci[oó]n simple|solo imprime|solo impresi[oó]n|single function"
+    r"|\becotank l1\d{2,3}\b|(?<=epson )l1\d{2,3}\b|\bl(?:8050|11050|18050)\b"
+    r"|\bg1\d{3}\b(?=.*(?:canon|pixma|mega ?tank))|(?<=canon )(?:pixma )?g1\d{3}\b"
+    r"|brother hl-?\w|\bhl-l\d|laserjet (?:pro )?m(?:1[01]\d|2[01]\d|40[0-9])\w*\b(?!.*mfp)"
+    r"|selphy|canon ivy|instax mini link|\bniimbot\b")
+
+
 def multifunction_of(name, scans_spec=None):
     """"Multifuncional" si imprime, copia y escanea; "Solo impresión" si la
     ficha dice que no escanea; None si no se sabe."""
-    if _MULTI_RE.search(_norm(name or "")):
+    n = _norm(name or "")
+    if _MULTI_RE.search(n):
         return "Multifuncional"
+    if _MULTI_SERIE_RE.search(n):
+        return "Multifuncional"
+    if _SOLO_IMPRIME_RE.search(n):
+        return "Solo impresión"
     v = _norm(scans_spec or "").strip()
     if re.match(r"s[i]\b", v):
         return "Multifuncional"
@@ -1924,3 +1946,89 @@ def car_make_of(name):
     n = _norm(name or "")
     hits = {m for m, rx in _CAR_MAKE_RES if rx.search(n)}
     return next(iter(hits)) if len(hits) == 1 else None
+
+
+# Edad recomendada de un videojuego por su serie. La clasificación que trae
+# la tienda (Elektra) no sirve casi nunca: medida contra la ESRB, la "B" a
+# secas acertó 12 de 40 y la mayoría de los códigos quedan entre 20% y 75%.
+# Esta tabla solo lleva series cuya clasificación ESRB es la misma en todas
+# sus entregas (verificado título por título en las que dudaban: lo que no
+# es parejo -- Ratchet & Clank, Metroid, Monster Hunter Stories, Persona 1-2,
+# Attack on Titan -- se queda fuera). Un paquete con dos juegos toma la
+# clasificación más alta de los dos.
+_ESRB_E, _ESRB_E10, _ESRB_T, _ESRB_M = "Todo público", "10 años o más", "13 años o más", "17 años o más"
+_ESRB_RANGO = {_ESRB_E: 0, _ESRB_E10: 1, _ESRB_T: 2, _ESRB_M: 3}
+_ESRB_SERIES = [
+    (_ESRB_M, r"grand theft auto|\bgta\b|red dead|call of duty|resident evil|silent hill|mortal kombat|god of war"
+              r"|the last of us|elden ring(?! nightreign)|dark souls|bloodborne|sekiro|demon'?s souls|assassin'?s creed(?! chronicles)|far ?cry"
+              r"|gears (?:of war|5|tactics)|battlefield|\bdoom\b|wolfenstein|fallout|elder scrolls|skyrim|cyberpunk"
+              r"|the witcher|dead space|dead island|dying light|\bdiablo\b|borderlands|bioshock|metal gear (?:solid|rising)(?!.*(?:peace walker|portable ops))|\bhitman\b"
+              r"|days gone|ghost of (?:tsushima|yotei)|death stranding|\bmafia\b|watch ?dogs|saints row"
+              r"|devil may cry|bayonetta(?! origins)|\byakuza\b|like a dragon|ghost recon|tom clancy'?s the division"
+              r"|\bthe division\b|rainbow six|splinter cell|\boutlast\b|alan wake|callisto protocol|\blies of p\b"
+              r"|stellar blade|atomic heart|starfield|dead rising|max payne|sniper elite"
+              r"|metro (?:exodus|redux|2033|last light)|texas chain ?saw|the evil within|alien:? isolation"
+              r"|dragon'?s dogma|kingdom come|\bpayday\b|\bnioh\b|mortal shell|lords of the fallen|the quarry"
+              r"|until dawn|the outer worlds|killzone|state of decay|wo long|black myth|dead by daylight"
+              r"|\bevil dead\b|the walking dead|south park|layers of fear|\bcrysis\b|deus ex|dishonored|homefront"
+              r"|\bresistance (?:fall|2|3)|mass effect|dragon age|vampyr|a plague tale|werewolf:? the apocalypse"
+              r"|hellblade|\bryse\b|quantum break|ghostrunner|ninja gaiden|shadow warrior|serious sam|bulletstorm"
+              r"|\brage 2\b|darksiders|\bthe surge\b|\bremnant\b|code vein|oddworld:? soulstorm|\bmanhunt\b"
+              r"|dead or alive|senran kagura|akiba'?s trip|wuchang|wanted:? dead|the order:? 1886"
+              r"|sleeping dogs|just cause|\bmad max\b|middle[- ]earth|shadow of (?:mordor|war)|batman:? arkham knight"
+              r"|lollipop chainsaw|no more heroes|\bcatherine\b|\bnier\b|stranger of paradise|lost judgment"
+              r"|final fantasy (?:xvi|16)\b|\bpersona ?[345]\b|the callisto|clair obscur"),
+    (_ESRB_T, r"dragon ?ball(?!.*(?:heroes|fusions))|\bnaruto\b|\bboruto\b|one piece|\bbleach\b|demon slayer"
+              r"|kimetsu|jujutsu|my hero (?:one'?s|academia)|uncharted|spider-?man|\bwwe\b|fortnite|overwatch"
+              r"|\bdestiny\b|street fighter|\btekken\b|guilty gear|soul ?calibur|blazblue|monster hunter(?! stories)"
+              r"|star wars jedi|star wars battlefront|star wars outlaws|los sims|the sims|horizon (?:zero|forbidden)"
+              r"|five nights at freddy|\bfnaf\b|fire emblem|xenoblade|ace combat|sword art online|super robot wars"
+              r"|\bhades\b|marvel'?s (?:avengers|guardians|midnight suns)|guardians of the galaxy|marvel vs\.? capcom"
+              r"|marvel ultimate alliance|immortals fenyx|\bsifu\b|star ocean"
+              r"|tales of (?:arise|berseria|vesperia|symphonia|zestiria|graces)|octopath|bravely|triangle strategy"
+              r"|trails (?:of|in|through|into|beyond)|the legend of heroes|neptunia|\batelier\b|scarlet nexus"
+              r"|\bdisgaea\b|\bhalo\b|hogwarts legacy|hyrule warriors|age of calamity|age of imprisonment"
+              r"|tony hawk|\binjustice\b|batman:? arkham (?:asylum|city|origins)|return to arkham|it takes two"
+              r"|(?<!lego )\brock band\b|guitar hero"),
+    (_ESRB_E10, r"\blego\b|minecraft|super smash|smash bros|splatoon|zelda(?!.*(?:hyrule warriors|age of))"
+                r"|crash bandicoot|crash team|\bspyro\b|astro bot|skylanders|mario \+ rabbids|plants vs\.? zombies"
+                r"|sonic (?:frontiers|forces|colors|origins|superstars|x shadow|mania|racing|generations)|team sonic"
+                r"|disney dreamlight|\bkirby\b|\bpikmin\b|paper mario|kingdom hearts|bayonetta origins"
+                r"|dragon ?ball.*(?:heroes|fusions)|ni no kuni|stardew|rune factory|\bnhl ?\d"),
+    (_ESRB_E, r"\bfifa\b|\bea (?:sports )?fc\b|\bmadden\b|\bmlb(?: \d+)?:? the show|\bpga tour\b|ea sports college"
+              r"|\bnba 2k|\bf1 ?(?:\d|manager)|gran turismo|forza (?:motorsport|horizon)"
+              r"|mario (?:kart|party|tennis|golf|strikers|odyssey|wonder|bros|maker|3d world|galaxy|sunshine|64)"
+              r"|super mario|mario (?:&|y) (?:sonic|luigi)|animal crossing|\bpokemon\b|\byoshi\b|donkey kong"
+              r"|luigi'?s mansion|princess peach|just dance|paw patrol|patrulla canina|\bpeppa\b|\bbluey\b"
+              r"|hello kitty|\bbarbie\b|my little pony|hot wheels|\bdisney\b(?! dreamlight)|\bfrozen\b|toy story"
+              r"|\bcars ?[23]?\b(?= |$)|bob esponja|spongebob|nickelodeon|\bdora\b|overcooked|\brayman\b"
+              r"|switch sports|wii sports|ring fit|1-2-switch|captain toad|wario ?ware|big brain|brain training"
+              r"|cooking mama|story of seasons|harvest moon|my fantastic ranch|my universe|\bgarfield\b"
+              r"|sonic the hedgehog|\bcrayola\b|\bmonopoly\b|\btetris\b|pac-?man|bubble bobble|\bpuyo\b|\btaiko\b"
+              r"|nba bounce|clubhouse games|kinect sports|wii fit|rocket league|fall guys|\bcuphead\b"
+              r"|hollow knight(?!:? silksong)|\bori and\b|sackboy|little ?big ?planet"),
+]
+_ESRB_RES = [(v, re.compile(rx)) for v, rx in _ESRB_SERIES]
+
+
+def edad_por_serie(name):
+    n = _norm(name or "")
+    hits = [v for v, rx in _ESRB_RES if rx.search(n)]
+    return max(hits, key=_ESRB_RANGO.get) if hits else None
+
+
+# Los nombres de "Venta Internacional" (Mercado Libre, traducidos) pierden el
+# punto decimal: "22 5 W" es 22.5 W, "1 5 L" es 1.5 L, "15 6 Pulgadas" es
+# 15.6". Leídos tal cual dan 5 W, 5 L y 6". Solo en esos nombres, y solo
+# delante de una unidad: en el resto "R16 1V" (rodada 16, una velocidad) o
+# "8 en 1 2 L" son dos números distintos. Sin GB/TB: "Android 13 8gb".
+_VENTA_INTERNACIONAL = re.compile(r"venta internaci", re.I)
+_DECIMAL_PERDIDO = re.compile(
+    r"(?<![\d.,/])(?<!\ben )(?<!\bx )(?<!\by )\b(\d{1,2}) (\d)"
+    r"(?= ?(?:w|watts?|pies|ft|l|litros|pulgadas|pulg|\"|v|kg|m|mts|metros|cm|mm|oz|mah|ah|hp|psi|hz)\b)", re.I)
+
+
+def decimales_perdidos(name):
+    if not name or not _VENTA_INTERNACIONAL.search(name):
+        return name
+    return _DECIMAL_PERDIDO.sub(r"\1.\2", name)
