@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -243,6 +243,10 @@ CAMPOS = {
     # Un tipo minoritario sigue siendo LA pregunta (la guitarra clásica es
     # el 4% de Guitarras porque las cuerdas son la mitad): tramo mínimo más bajo.
     "kind": dict(label="Tipo", criterion="según el nombre", ramp=False, min_tramo=0.025),
+    # Para la autoparte idéntica repetida por modelo de auto (claxon,
+    # limpiaparabrisas, tapetes) la decisión es si le queda al auto.
+    "car_make": dict(label="Para qué auto", criterion="por marca del vehículo", ramp=False, min_tramo=0.03, max_tramos=8,
+                     valores={}),
     "chair_type": dict(label="Tipo", criterion="de silla", ramp=False),
     "bed_size": dict(label="Medida", criterion="de la cama", ramp=False,
                      orden=["Individual", "Matrimonial", "Queen", "King", "King size"]),
@@ -356,6 +360,7 @@ CAMPO_SOLO_EN = {
     "blackout": {"Decoración de hogar y jardín/Cortinas"}, "polarized": {"Joyería y bisutería/Lentes de sol"},
     "memory_foam": {"Blancos y ropa de cama/Almohadas"}, "audio_conn": {"Audífonos", "Teclados"},
     "volume_ml": {"Otros", "Salud", "Belleza y cuidado personal", "Juguetes", "Bebés"},
+    "car_make": {"Autopartes", "Autos y motos"},
     # Batería contra cable es la pregunta en herramienta eléctrica. En una
     # bomba de sentina, un apagador o un motor, 12 V es corriente directa de
     # coche o lancha, no "batería chica", y 127/220 V es la instalación, no
@@ -626,7 +631,7 @@ def tramos_categoricos(vals, campo):
         orden = sorted(cnt, key=lambda v: float(re.sub(r"[^\d.]", "", v) or 0))
     else:
         orden = [v for v, _ in cnt.most_common()]
-    orden = [v for v in orden if cnt[v] / n >= cfg.get("min_tramo", MIN_TRAMO)][:6]
+    orden = [v for v in orden if cnt[v] / n >= cfg.get("min_tramo", MIN_TRAMO)][:cfg.get("max_tramos", 6)]
     if campo in RASGOS and "Sí" in orden:
         # «Resistente al agua» vale aunque casi nadie diga «no resiste».
         orden = [v for v in orden if v == "Sí" or cnt[v] >= MIN_CON_DATO]
@@ -788,9 +793,6 @@ def armar(products, a_mano):
             ya = set(a_mano[clave_fam])
         else:
             ya = set(a_mano.get(cat, []))
-        cupo = MAX_EJES - len(ya)
-        if cupo <= 0:
-            continue
         # Un producto entra en un campo si su facet trae ese dato.
         por_campo = collections.defaultdict(list)
         por_campo_sub = collections.defaultdict(collections.Counter)
@@ -800,6 +802,19 @@ def armar(products, a_mano):
                     continue
                 por_campo[k].append(v)
                 por_campo_sub[k][p.get("subcategory")] += 1
+        # Lo heredado de la categoría solo ocupa lugar si la subcategoría lo
+        # puede contestar: los tres ejes a mano de Celulares (almacenamiento,
+        # pantalla, red) no dicen nada de un soporte o un PopSocket, y como
+        # "ocupaban" los tres lugares, Soportes (1,206) o PopSockets (878) se
+        # quedaban sin ningún bloque. Mismo umbral que app.js para mostrar
+        # una fila (15% de las fichas con el dato).
+        omitir = []
+        if "/" in clave and clave not in a_mano and clave_fam not in a_mano:
+            omitir = sorted(c for c in ya if c != "price" and len(por_campo.get(c, ())) < 0.15 * len(ps))
+            ya = ya - set(omitir)
+        cupo = MAX_EJES - len(ya)
+        if cupo <= 0:
+            continue
         # Un eje de CATEGORÍA se hereda en todas sus subcategorías (app.js lo
         # suma al de cada una), así que solo vale si el campo está repartido:
         # la medida de cama vive en Colchones y en Sillas dejaba una fila de
@@ -847,7 +862,7 @@ def armar(products, a_mano):
             ep = eje_precio(ps)
             if ep:
                 axes.append(ep)
-        if not axes:
+        if not axes and not omitir:
             continue
         # La clave define qué selección guarda cada eje; app.js las vuelve a
         # asignar por posición al sumarlos, pero se dejan coherentes acá.
@@ -855,6 +870,10 @@ def armar(products, a_mano):
             e["key"] = ("level", "size", "extra")[min(i + len(ya), 2)]
         intro = INTROS.get(clave) or INTROS.get(cat)
         salida[clave] = {"axes": axes}
+        if omitir:
+            # app.js quita estos ejes a mano de la categoría en esta
+            # subcategoría, para que no ocupen los tres lugares.
+            salida[clave]["omitir"] = omitir
         if intro:
             salida[clave]["intro"] = intro
         resumen.append((clave, len(ps), axes, por_campo))

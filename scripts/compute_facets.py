@@ -860,6 +860,10 @@ def facets_for(product):
     f = _facets_propias(product) or {}
     _generales(product, product.get("name", ""), _spec_map(product), f)
     _titulo(product, product.get("name", ""), f)
+    if product.get("category") in ("Autopartes", "Autos y motos") and "car_make" not in f:
+        marca = se.car_make_of(product.get("name", ""))
+        if marca:
+            f["car_make"] = marca
     for campo, valor in (_specs_a_mano().get(product.get("id")) or {}).items():
         if campo != "por":
             f[campo] = valor
@@ -1173,6 +1177,40 @@ def propagar_por_modelo(products):
     return hechos
 
 
+# Fichas técnicas verificadas a mano por modelo (data/specs-por-modelo.json,
+# 02-oct): ganan sobre la tienda y sobre lo copiado por modelo. No se
+# aplican en subcategorías de accesorios ni a nombres de fundas o repuestos.
+_SUBS_ACCESORIO = re.compile(r"accesorio|almohadilla|repuesto|cable|conector|soporte|funda|refacci", re.I)
+
+
+def aplicar_specs_por_modelo(products):
+    ruta = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "specs-por-modelo.json")
+    try:
+        doc = json.load(open(ruta, encoding="utf-8"))
+    except (OSError, ValueError):
+        return Counter()
+    excluir = re.compile(doc.get("excluir") or r"(?!x)x")
+    modelos = [(m, re.compile(m["rx"])) for m in doc.get("modelos") or []]
+    campos = ("battery_h", "power_w", "screen_in", "storage_gb")
+    hechos = Counter()
+    for p in products:
+        cat, sub = p.get("category"), p.get("subcategory") or ""
+        if _SUBS_ACCESORIO.search(sub):
+            continue
+        n = se._norm(p.get("name") or "")
+        if excluir.search(n):
+            continue
+        for m, rx in modelos:
+            if cat in m["categorias"] and rx.search(n):
+                f = p.setdefault("facets", {})
+                for c in campos:
+                    if c in m and f.get(c) != m[c]:
+                        f[c] = m[c]
+                        hechos[m["modelo"]] += 1
+                break
+    return hechos
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
@@ -1207,6 +1245,11 @@ def main():
             p["facets"] = f
 
     if not args.dry_run:
+        # Primero lo verificado (corrige lo que la tienda puso mal), luego se
+        # copia por modelo a las fichas sin dato.
+        fichas = aplicar_specs_por_modelo(products)
+        if fichas:
+            print(f"Ficha técnica verificada: {sum(fichas.values())} datos en {len(fichas)} modelos")
         for (cat_p, sub_p, campo), n in propagar_por_modelo(products).items():
             print(f"Por modelo: {cat_p}/{sub_p or '*'} {campo} +{n}")
             per_field[(cat_p, campo)] += n

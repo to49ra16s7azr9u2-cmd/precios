@@ -7403,6 +7403,7 @@
     Object.entries(json || {}).forEach(([key, entry]) => {
       out[key] = {
         intro: entry.intro || null,
+        omitir: entry.omitir || [],
         axes: (entry.axes || []).map((a) => ({
           ...a,
           tiers: (a.tiers || []).map((t) => ({
@@ -7460,10 +7461,14 @@
     // su familia, luego la categoría.
     const cat = state.category ? categoryById(state.category) : null;
     const fam = cat ? familiaActiva(cat.subcategories || []) : null;
-    const mano = (sub && QUALITY_AXES[`${state.category}/${sub}`])
-      || (fam && QUALITY_AXES[`${state.category}/${fam}`])
-      || QUALITY_AXES[state.category] || [];
     const gen = sub ? qualityAxesJson[`${state.category}/${sub}`] : null;
+    // Los ejes a mano de la categoría que esta subcategoría no puede
+    // contestar (el almacenamiento en Soportes para celular) no ocupan
+    // lugar: el generador los lista en «omitir» y deja los suyos.
+    const omitir = new Set((gen && gen.omitir) || []);
+    const mano = ((sub && QUALITY_AXES[`${state.category}/${sub}`])
+      || (fam && QUALITY_AXES[`${state.category}/${fam}`])
+      || QUALITY_AXES[state.category] || []).filter((a) => !omitir.has(a.field));
     const genCat = qualityAxesJson[state.category];
     let deCat = genCat ? genCat.axes : null;
     // El precio de la categoría no se hereda tal cual: sus tercios son los
@@ -7474,8 +7479,28 @@
     if (sub && deCat && deCat.some((a) => a.field === "price")) {
       deCat = deCat.map((a) => (a.field === "price" ? ejePrecioDeSub(a, sub) : a)).filter(Boolean);
     }
-    return mergeAxes(mano, gen ? gen.axes : null, deCat);
+    const ejes = mergeAxes(mano, gen ? gen.axes : null, deCat);
+    // Con lugar libre y sin precio, la subcategoría lleva su propio corte
+    // por precio al final. En «Televisores/58 a 65 pulgadas» el nivel y el
+    // tamaño ponen el 99-100% en un tramo y se ocultan; sin esto el bloque
+    // desaparecía entero (y en 20 subcategorías más).
+    if (sub && ejes.length < QUALITY_KEYS.length && !ejes.some((a) => a.field === "price")) {
+      const precio = ejePrecioDeSub(PLANTILLA_PRECIO, sub);
+      if (precio) return mergeAxes(ejes, [precio]);
+    }
+    return ejes;
   }
+
+  // La misma forma que el eje de precio de compute_quality_axes.py; los
+  // cortes los pone ejePrecioDeSub con los precios de la subcategoría.
+  const PLANTILLA_PRECIO = {
+    key: "extra", label: "Precio", field: "price", criterion: "por lo que cuesta hoy", ramp: true,
+    tiers: [
+      { id: "economico", name: "Económicos", use: "Lo más barato del rango" },
+      { id: "intermedio", name: "Intermedios", use: "El precio más común" },
+      { id: "alto", name: "De gama alta", use: "Lo más caro del rango" },
+    ],
+  };
 
   // Mismo corte que eje_precio() de compute_quality_axes.py: tercios reales
   // redondeados hacia abajo, y nada si un tramo se lleva más del 85% o
@@ -7721,7 +7746,15 @@
 
       const grid = document.createElement("div");
       grid.className = "quality-grid";
+      // Una fila sin orden y con muchas opciones (Consola: 6) mostraba en
+      // «Controles para Xbox» las tarjetas de Switch y PlayStation en 0, que
+      // no son de esa subcategoría. Ahí se quitan las que no tienen nada en
+      // todo el alcance; en las escalas (chica/mediana/grande) la tarjeta en
+      // 0 se queda, apagada, para que se vea el rango completo.
+      const sinUso = (tier) => axis.ramp === false && axis.tiers.length > 4
+        && !enTramo.get(tier.id) && !qualitySel(axis.key).includes(tier.id);
       axis.tiers.forEach((tier) => {
+        if (sinUso(tier)) return;
         const n = cuenta.get(tier.id) || 0;
         const sample = muestra.get(tier.id) || null;
         const isActive = qualitySel(axis.key).includes(tier.id);

@@ -1,0 +1,360 @@
+{
+ "_nota": "Datos fijos de cada modelo, verificados el 02-oct-2026 en la página o la ficha técnica del fabricante (columna fuente). Ganan sobre lo que diga la tienda: la misma JBL Charge 6 traía 5, 8, 24 o 28 horas según el anuncio. Horas = total que publica el fabricante (con el estuche en audífonos TWS; sin Playtime Boost en JBL). Solo se aplican a la subcategoría de producto, nunca a fundas o repuestos.",
+ "excluir": "funda|estuche|case\\b|carcasa|protector|cargador|cable|correa|tapones|eartips|almohadill|repuesto|skin|soporte|mica|compatible|para airpods|para galaxy buds|para jbl|para bose|bolsa|clip para|llavero|sticker|calcoman",
+ "modelos": [
+  {
+   "modelo": "AirPods Pro 3",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "airpods pro 3",
+   "fuente": "support.apple.com / apple.com (tech specs)",
+   "battery_h": 24
+  },
+  {
+   "modelo": "AirPods Pro 2",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "airpods pro 2|airpods pro \\(?(2|segunda|2da)",
+   "fuente": "support.apple.com / apple.com (tech specs)",
+   "battery_h": 30
+  },
+  {
+   "modelo": "AirPods 4 con ANC",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "airpods 4.*(anc|cancelaci)",
+   "fuente": "support.apple.com / apple.com (tech specs)",
+   "battery_h": 20
+  },
+  {
+   "modelo": "AirPods 4",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "airpods 4(?!.*(anc|cancelaci))",
+   "fuente": "support.apple.com / apple.com (tech specs)",
+   "battery_h": 30
+  },
+  {
+   "modelo": "Galaxy Buds3 Pro",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "buds ?3 pro",
+   "fuente": "samsung.com (Galaxy Buds battery FAQ) / gsmarena",
+   "battery_h": 26
+  },
+  {
+   "modelo": "Galaxy Buds3",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "buds ?3(?! ?(pro|fe))",
+   "fuente": "samsung.com (Galaxy Buds battery FAQ) / gsmarena",
+   "battery_h": 24
+  },
+  {
+   "modelo": "Galaxy Buds FE",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "buds fe\\b",
+   "fuente": "samsung.com (Galaxy Buds battery FAQ) / gsmarena",
+   "battery_h": 21
+  },
+  {
+   "modelo": "Redmi Buds 6 Play",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "redmi buds 6 play",
+   "fuente": "mi.com (specs / FAQ)",
+   "battery_h": 36
+  },
+  {
+   "modelo": "Redmi Buds 6 Active",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "redmi buds 6 active",
+   "fuente": "mi.com (specs / FAQ)",
+   "battery_h": 30
+  },
+  {
+   "modelo": "Xiaomi Sound Pocket",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "sound pocket",
+   "fuente": "mi.com/us/product/xiaomi-sound-pocket",
+   "battery_h": 10,
+   "power_w": 5
+  },
+  {
+   "modelo": "JBL Flip 7",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "jbl flip ?7",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 14,
+   "power_w": 35
+  },
+  {
+   "modelo": "JBL Flip 6",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "jbl flip ?6",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 12,
+   "power_w": 30
+  },
+  {
+   "modelo": "JBL Flip 5",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "jbl flip ?5",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 12,
+   "power_w": 20
+  },
+  {
+   "modelo": "JBL Charge 6",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "jbl charge ?6",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 24,
+   "power_w": 45
+  },
+  {
+   "modelo": "JBL Charge 5",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "jbl charge ?5",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 20,
+   "power_w": 40
+  },
+  {
+   "modelo": "JBL Go 5",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "jbl go ?5",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 8,
+   "power_w": 4.8
+  },
+  {
+   "modelo": "JBL Go 4",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "jbl go ?4",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 7,
+   "power_w": 4.2
+  },
+  {
+   "modelo": "JBL Go 3",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "jbl go ?3",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 5,
+   "power_w": 4.2
+  },
+  {
+   "modelo": "JBL Clip 5",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "jbl clip ?5",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 12,
+   "power_w": 7
+  },
+  {
+   "modelo": "JBL Clip 4",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "jbl clip ?4",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 10,
+   "power_w": 5
+  },
+  {
+   "modelo": "JBL Tune 520BT",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "tune ?520",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 57
+  },
+  {
+   "modelo": "JBL Tune 720BT",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "tune ?720",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 76
+  },
+  {
+   "modelo": "JBL Tune Buds 2",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "tune buds ?2",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 48
+  },
+  {
+   "modelo": "JBL Vibe Beam",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "vibe beam",
+   "fuente": "jbl.com (spec sheet); horas sin Playtime Boost",
+   "battery_h": 32
+  },
+  {
+   "modelo": "Bose SoundLink Flex",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "soundlink flex",
+   "fuente": "bose.com / support.bose.com",
+   "battery_h": 12
+  },
+  {
+   "modelo": "Bose SoundLink Micro (2a gen)",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "soundlink micro.*(2nd|2da|segunda|ii\\b|gen)",
+   "fuente": "bose.com / support.bose.com",
+   "battery_h": 12
+  },
+  {
+   "modelo": "Bose SoundLink Micro",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "soundlink micro(?!.*(2nd|2da|segunda|ii\\b|gen))",
+   "fuente": "bose.com / support.bose.com",
+   "battery_h": 6
+  },
+  {
+   "modelo": "Bose SoundLink Max",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "soundlink max",
+   "fuente": "bose.com / support.bose.com",
+   "battery_h": 20
+  },
+  {
+   "modelo": "Bose SoundLink Plus",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "soundlink plus",
+   "fuente": "bose.com / support.bose.com",
+   "battery_h": 20
+  },
+  {
+   "modelo": "Sony ULT Field 1",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "ult field ?1|srs-?ult10",
+   "fuente": "sony.com (product pages)",
+   "battery_h": 12
+  },
+  {
+   "modelo": "Sony ULT Field 3",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "ult field ?3",
+   "fuente": "sony.com (product pages)",
+   "battery_h": 24
+  },
+  {
+   "modelo": "Sony WH-CH520",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "wh-?ch520",
+   "fuente": "sony.com (product pages)",
+   "battery_h": 50
+  },
+  {
+   "modelo": "Sony WH-1000XM5",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "wh-?1000 ?xm5",
+   "fuente": "sony.com (product pages)",
+   "battery_h": 30
+  },
+  {
+   "modelo": "Sony WH-1000XM6",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "wh-?1000 ?xm6",
+   "fuente": "sony.com (product pages)",
+   "battery_h": 30
+  },
+  {
+   "modelo": "Sony WF-C510",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "wf-?c510",
+   "fuente": "sony.com (product pages)",
+   "battery_h": 22
+  },
+  {
+   "modelo": "UE Wonderboom 4",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "wonderboom ?4",
+   "fuente": "ultimateears.com",
+   "battery_h": 14
+  },
+  {
+   "modelo": "Soundcore Select 4 Go",
+   "categorias": [
+    "Bocinas"
+   ],
+   "rx": "select 4 go",
+   "fuente": "soundcore / speakerranking (fabricante)",
+   "battery_h": 20,
+   "power_w": 5
+  },
+  {
+   "modelo": "JLab Go Air Pop",
+   "categorias": [
+    "Audífonos"
+   ],
+   "rx": "go air pop",
+   "fuente": "jlab.com",
+   "battery_h": 32
+  }
+ ]
+}

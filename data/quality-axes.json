@@ -265,8 +265,323 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "screen_in"
+  ]
+ },
+ "Celulares/Accesorios": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $460",
+      "max": 460
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$460 a $700",
+      "min": 460,
+      "max": 700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $700",
+      "min": 700
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "screen_in",
+   "storage_gb"
+  ]
+ },
+ "Celulares/Teléfonos fijos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $760",
+      "max": 760
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$760 a $1,400",
+      "min": 760,
+      "max": 1400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,400",
+      "min": 1400
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "screen_in",
+   "storage_gb"
+  ]
+ },
+ "Celulares/Soportes y agarraderas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $510",
+      "max": 510
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$510 a $720",
+      "min": 510,
+      "max": 720
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $720",
+      "min": 720
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "screen_in",
+   "storage_gb"
+  ]
+ },
+ "Celulares/PopSockets y agarraderas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $570",
+      "max": 570
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$570 a $850",
+      "min": 570,
+      "max": 850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $850",
+      "min": 850
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "screen_in",
+   "storage_gb"
+  ]
+ },
+ "Celulares/Protectores para celular": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $560",
+      "min": 430,
+      "max": 560
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $560",
+      "min": 560
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "screen_in",
+   "storage_gb"
+  ]
+ },
+ "Celulares/Radios de dos vías": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $820",
+      "max": 820
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$820 a $1,200",
+      "min": 820,
+      "max": 1200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,200",
+      "min": 1200
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "screen_in",
+   "storage_gb"
+  ]
+ },
+ "Celulares/Tripiés y palos selfie": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $700",
+      "max": 700
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$700 a $960",
+      "min": 700,
+      "max": 960
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $960",
+      "min": 960
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "screen_in",
+   "storage_gb"
+  ]
+ },
+ "Celulares/Micas para celular": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $170",
+      "max": 170
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$170 a $240",
+      "min": 170,
+      "max": 240
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $240",
+      "min": 240
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "screen_in",
+   "storage_gb"
   ]
  },
  "Relojes inteligentes/Smartwatches": {
@@ -2943,8 +3258,42 @@
       ]
      }
     ],
-    "key": "size"
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $600",
+      "min": 440,
+      "max": 600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $600",
+      "min": 600
+     }
+    ]
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Audífonos/Gamer": {
@@ -2974,7 +3323,7 @@
       ]
      }
     ],
-    "key": "size"
+    "key": "level"
    },
    {
     "label": "Cancelación de ruido",
@@ -2992,8 +3341,38 @@
       ]
      }
     ],
+    "key": "size"
+   },
+   {
+    "label": "Conexión",
+    "field": "audio_conn",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "inalambrico",
+      "name": "Inalámbrico",
+      "use": "Sin cables en el escritorio",
+      "spec": "Inalámbrico",
+      "values": [
+       "Inalámbrico"
+      ]
+     },
+     {
+      "id": "con-cable",
+      "name": "Con cable",
+      "use": "Sin baterías ni retraso",
+      "spec": "Con cable",
+      "values": [
+       "Con cable"
+      ]
+     }
+    ],
     "key": "extra"
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Audífonos/Earbuds inalámbricos": {
@@ -3048,7 +3427,7 @@
  "Audífonos/Almohadillas y repuestos": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -3078,6 +3457,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Audífonos/Earbuds con cable": {
@@ -3107,7 +3489,7 @@
       ]
      }
     ],
-    "key": "size"
+    "key": "level"
    },
    {
     "label": "Cancelación de ruido",
@@ -3125,8 +3507,11 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Audífonos/Diadema con cable": {
@@ -3156,7 +3541,7 @@
       ]
      }
     ],
-    "key": "size"
+    "key": "level"
    },
    {
     "label": "Cancelación de ruido",
@@ -3174,8 +3559,11 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Audífonos/De oído abierto": {
@@ -3196,7 +3584,7 @@
       ]
      }
     ],
-    "key": "size"
+    "key": "level"
    },
    {
     "label": "Cancelación de ruido",
@@ -3214,8 +3602,11 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Audífonos/Earbuds para niños": {
@@ -3245,8 +3636,42 @@
       ]
      }
     ],
-    "key": "size"
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $1,050",
+      "min": 430,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Audífonos/Earbuds deportivos": {
@@ -3336,7 +3761,88 @@
  "Autopartes/Para autos": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -3441,7 +3947,88 @@
  "Autopartes/Soportes de motor y transmisión": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -3616,7 +4203,88 @@
  "Autopartes/Baleros y mazas de rueda": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -3651,7 +4319,88 @@
  "Autopartes/Espejos laterales": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -3721,7 +4470,88 @@
  "Autopartes/Interior y tapicería": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -3756,7 +4586,88 @@
  "Autopartes/Bulbos, interruptores y relevadores": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "lincoln",
+      "name": "Lincoln",
+      "use": "",
+      "spec": "Lincoln",
+      "values": [
+       "Lincoln"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -3861,7 +4772,88 @@
  "Autopartes/Filtros y aceites": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     },
+     {
+      "id": "mazda",
+      "name": "Mazda",
+      "use": "",
+      "spec": "Mazda",
+      "values": [
+       "Mazda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -3896,7 +4888,70 @@
  "Autopartes/Clutch y embrague": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -3931,7 +4986,88 @@
  "Autopartes/Amortiguadores": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -3963,10 +5099,176 @@
    }
   ]
  },
+ "Autopartes/Limpiaparabrisas": {
+  "axes": [
+   {
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
  "Autopartes/Válvulas, punterías y árbol de levas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "hyundai",
+      "name": "Hyundai",
+      "use": "",
+      "spec": "Hyundai",
+      "values": [
+       "Hyundai"
+      ]
+     },
+     {
+      "id": "audi",
+      "name": "Audi",
+      "use": "",
+      "spec": "Audi",
+      "values": [
+       "Audi"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4001,7 +5303,88 @@
  "Autopartes/Manijas y chapas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "jeep",
+      "name": "Jeep",
+      "use": "",
+      "spec": "Jeep",
+      "values": [
+       "Jeep"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4036,7 +5419,88 @@
  "Autopartes/Llaves y cerraduras de auto": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4106,7 +5570,79 @@
  "Autopartes/Faros de niebla": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "mazda",
+      "name": "Mazda",
+      "use": "",
+      "spec": "Mazda",
+      "values": [
+       "Mazda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4141,7 +5677,88 @@
  "Autopartes/Faros": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4173,10 +5790,140 @@
    }
   ]
  },
+ "Autopartes/Faros y luces": {
+  "axes": [
+   {
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
  "Autopartes/Metales de biela y bancada": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4208,10 +5955,176 @@
    }
   ]
  },
+ "Autopartes/Anticongelante y refrigerante": {
+  "axes": [
+   {
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
  "Autopartes/Poleas y tensores": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4246,7 +6159,88 @@
  "Autopartes/Bobinas de encendido": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "buick",
+      "name": "Buick",
+      "use": "",
+      "spec": "Buick",
+      "values": [
+       "Buick"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4281,7 +6275,79 @@
  "Autopartes/Terminales de dirección": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4316,7 +6382,79 @@
  "Autopartes/Empaques, juntas y retenes": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4351,7 +6489,88 @@
  "Autopartes/Bandas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4386,7 +6605,88 @@
  "Autopartes/Sensores de detonación": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "buick",
+      "name": "Buick",
+      "use": "",
+      "spec": "Buick",
+      "values": [
+       "Buick"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "cadillac",
+      "name": "Cadillac",
+      "use": "",
+      "spec": "Cadillac",
+      "values": [
+       "Cadillac"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4421,7 +6721,79 @@
  "Autopartes/Sensores de presión y flujo (MAP, MAF)": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "buick",
+      "name": "Buick",
+      "use": "",
+      "spec": "Buick",
+      "values": [
+       "Buick"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4456,7 +6828,88 @@
  "Autopartes/Sensores de posición (CKP, CMP, TPS)": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4491,7 +6944,88 @@
  "Autopartes/Sensores de temperatura": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "audi",
+      "name": "Audi",
+      "use": "",
+      "spec": "Audi",
+      "values": [
+       "Audi"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4526,7 +7060,88 @@
  "Autopartes/Defensas, fascias y parrillas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "mazda",
+      "name": "Mazda",
+      "use": "",
+      "spec": "Mazda",
+      "values": [
+       "Mazda"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4561,7 +7176,88 @@
  "Autopartes/Depósitos de anticongelante": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "audi",
+      "name": "Audi",
+      "use": "",
+      "spec": "Audi",
+      "values": [
+       "Audi"
+      ]
+     },
+     {
+      "id": "jeep",
+      "name": "Jeep",
+      "use": "",
+      "spec": "Jeep",
+      "values": [
+       "Jeep"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4596,7 +7292,88 @@
  "Autopartes/Frenos": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4631,7 +7408,79 @@
  "Autopartes/Válvulas IAC y de marcha mínima": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "buick",
+      "name": "Buick",
+      "use": "",
+      "spec": "Buick",
+      "values": [
+       "Buick"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4666,7 +7515,88 @@
  "Autopartes/Elevadores y cristales": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4701,7 +7631,88 @@
  "Autopartes/Motoventiladores y aspas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4736,7 +7747,79 @@
  "Autopartes/Sistema eléctrico y sensores": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "audi",
+      "name": "Audi",
+      "use": "",
+      "spec": "Audi",
+      "values": [
+       "Audi"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4771,7 +7854,79 @@
  "Autopartes/Cofres, puertas y bisagras": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4806,7 +7961,88 @@
  "Autopartes/Molduras y emblemas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "mazda",
+      "name": "Mazda",
+      "use": "",
+      "spec": "Mazda",
+      "values": [
+       "Mazda"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "jeep",
+      "name": "Jeep",
+      "use": "",
+      "spec": "Jeep",
+      "values": [
+       "Jeep"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4841,7 +8077,88 @@
  "Autopartes/Barras estabilizadoras y bieletas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "mazda",
+      "name": "Mazda",
+      "use": "",
+      "spec": "Mazda",
+      "values": [
+       "Mazda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4876,7 +8193,88 @@
  "Autopartes/Bombas de agua": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4911,7 +8309,79 @@
  "Autopartes/Bujes y gomas de suspensión": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4946,7 +8416,88 @@
  "Autopartes/Horquillas y brazos de suspensión": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "mazda",
+      "name": "Mazda",
+      "use": "",
+      "spec": "Mazda",
+      "values": [
+       "Mazda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -4981,7 +8532,88 @@
  "Autopartes/Bujías": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "buick",
+      "name": "Buick",
+      "use": "",
+      "spec": "Buick",
+      "values": [
+       "Buick"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5016,7 +8648,88 @@
  "Autopartes/Cadenas y kits de distribución": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "buick",
+      "name": "Buick",
+      "use": "",
+      "spec": "Buick",
+      "values": [
+       "Buick"
+      ]
+     },
+     {
+      "id": "mitsubishi",
+      "name": "Mitsubishi",
+      "use": "",
+      "spec": "Mitsubishi",
+      "values": [
+       "Mitsubishi"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5051,7 +8764,88 @@
  "Autopartes/Radiadores y condensadores": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "volvo",
+      "name": "Volvo",
+      "use": "",
+      "spec": "Volvo",
+      "values": [
+       "Volvo"
+      ]
+     },
+     {
+      "id": "audi",
+      "name": "Audi",
+      "use": "",
+      "spec": "Audi",
+      "values": [
+       "Audi"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5086,7 +8880,88 @@
  "Autopartes/Cuartos y direccionales": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "mazda",
+      "name": "Mazda",
+      "use": "",
+      "spec": "Mazda",
+      "values": [
+       "Mazda"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5121,7 +8996,88 @@
  "Autopartes/Tolvas, salpicaderas y loderas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "mazda",
+      "name": "Mazda",
+      "use": "",
+      "spec": "Mazda",
+      "values": [
+       "Mazda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5156,7 +9112,79 @@
  "Autopartes/Alternadores y marchas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5191,7 +9219,79 @@
  "Autopartes/Bombas de aceite": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5226,7 +9326,88 @@
  "Autopartes/Bases y cubrepolvos de amortiguador": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5261,7 +9442,79 @@
  "Autopartes/Resortes y muelles": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5296,7 +9549,88 @@
  "Autopartes/Tapones de radiador": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "lincoln",
+      "name": "Lincoln",
+      "use": "",
+      "spec": "Lincoln",
+      "values": [
+       "Lincoln"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "audi",
+      "name": "Audi",
+      "use": "",
+      "spec": "Audi",
+      "values": [
+       "Audi"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5331,7 +9665,88 @@
  "Autopartes/Rótulas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "mazda",
+      "name": "Mazda",
+      "use": "",
+      "spec": "Mazda",
+      "values": [
+       "Mazda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5366,7 +9781,88 @@
  "Autopartes/Tomas de agua y termostatos": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5401,7 +9897,88 @@
  "Autopartes/Pistones, anillos y bielas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "mitsubishi",
+      "name": "Mitsubishi",
+      "use": "",
+      "spec": "Mitsubishi",
+      "values": [
+       "Mitsubishi"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5436,7 +10013,88 @@
  "Autopartes/Carrocería, espejos y molduras": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5471,7 +10129,70 @@
  "Autopartes/Coples, varillas y cajas de dirección": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "jeep",
+      "name": "Jeep",
+      "use": "",
+      "spec": "Jeep",
+      "values": [
+       "Jeep"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5506,7 +10227,88 @@
  "Autopartes/Tapas y rotores de distribuidor": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "buick",
+      "name": "Buick",
+      "use": "",
+      "spec": "Buick",
+      "values": [
+       "Buick"
+      ]
+     },
+     {
+      "id": "cadillac",
+      "name": "Cadillac",
+      "use": "",
+      "spec": "Cadillac",
+      "values": [
+       "Cadillac"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5678,10 +10480,234 @@
    }
   ]
  },
+ "Autopartes/Cilindros para auto": {
+  "axes": [
+   {
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "jeep",
+      "name": "Jeep",
+      "use": "",
+      "spec": "Jeep",
+      "values": [
+       "Jeep"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
+ "Autopartes/Claxon": {
+  "axes": [
+   {
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
  "Autopartes/Flechas y juntas homocinéticas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5751,7 +10777,70 @@
  "Autopartes/Motor y transmisión": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "lincoln",
+      "name": "Lincoln",
+      "use": "",
+      "spec": "Lincoln",
+      "values": [
+       "Lincoln"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5786,7 +10875,88 @@
  "Autopartes/Mangueras y tubos de enfriamiento": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5821,7 +10991,79 @@
  "Autopartes/Inyectores y carburadores": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5856,7 +11098,88 @@
  "Autopartes/Sensores de oxígeno": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5891,7 +11214,88 @@
  "Autopartes/Bombas de gasolina": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "jeep",
+      "name": "Jeep",
+      "use": "",
+      "spec": "Jeep",
+      "values": [
+       "Jeep"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5926,7 +11330,88 @@
  "Autopartes/Cuerpos de aceleración": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "infiniti",
+      "name": "Infiniti",
+      "use": "",
+      "spec": "Infiniti",
+      "values": [
+       "Infiniti"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -5996,7 +11481,34 @@
  "Autopartes/Bombas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -6066,7 +11578,79 @@
  "Autopartes/Enfriamiento y climatización": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -6098,10 +11682,176 @@
    }
   ]
  },
+ "Autopartes/Suspensión y dirección": {
+  "axes": [
+   {
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "subaru",
+      "name": "Subaru",
+      "use": "",
+      "spec": "Subaru",
+      "values": [
+       "Subaru"
+      ]
+     },
+     {
+      "id": "buick",
+      "name": "Buick",
+      "use": "",
+      "spec": "Buick",
+      "values": [
+       "Buick"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
  "Autopartes/Cables de bujía": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "buick",
+      "name": "Buick",
+      "use": "",
+      "spec": "Buick",
+      "values": [
+       "Buick"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "subaru",
+      "name": "Subaru",
+      "use": "",
+      "spec": "Subaru",
+      "values": [
+       "Subaru"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "cadillac",
+      "name": "Cadillac",
+      "use": "",
+      "spec": "Cadillac",
+      "values": [
+       "Cadillac"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     },
+     {
+      "id": "mitsubishi",
+      "name": "Mitsubishi",
+      "use": "",
+      "spec": "Mitsubishi",
+      "values": [
+       "Mitsubishi"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -6136,7 +11886,70 @@
  "Autopartes/Sensores de velocidad y ABS": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -6206,7 +12019,88 @@
  "Autopartes/Engranes, crucetas y diferencial": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "audi",
+      "name": "Audi",
+      "use": "",
+      "spec": "Audi",
+      "values": [
+       "Audi"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -6241,7 +12135,43 @@
  "Autopartes/Tapones, cárter y tapas de motor": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "lincoln",
+      "name": "Lincoln",
+      "use": "",
+      "spec": "Lincoln",
+      "values": [
+       "Lincoln"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -6273,10 +12203,104 @@
    }
   ]
  },
+ "Autopartes/Anillos para auto": {
+  "axes": [
+   {
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "lincoln",
+      "name": "Lincoln",
+      "use": "",
+      "spec": "Lincoln",
+      "values": [
+       "Lincoln"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
  "Autopartes/Bujías y encendido": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -6311,7 +12335,88 @@
  "Autopartes/Calaveras": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "honda",
+      "name": "Honda",
+      "use": "",
+      "spec": "Honda",
+      "values": [
+       "Honda"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -6521,7 +12626,88 @@
  "Autopartes/Chicotes de acelerador y cambios": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -27090,7 +33276,7 @@
  "Cargadores y adaptadores/Cable": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -27120,12 +33306,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "charger_w"
   ]
  },
  "Cargadores y adaptadores/Regletas y multicontactos": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -27155,12 +33344,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "charger_w"
   ]
  },
  "Cargadores y adaptadores/Cables y adaptadores de video": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -27190,6 +33382,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "charger_w"
   ]
  },
  "Cargadores y adaptadores/Cables USB-C": {
@@ -27230,7 +33425,7 @@
  "Cargadores y adaptadores/De pilas": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -27260,6 +33455,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "charger_w"
   ]
  },
  "Cargadores y adaptadores/Adaptadores de enchufe y de viaje": {
@@ -27370,7 +33568,7 @@
  "Cargadores y adaptadores/Adaptador de corriente": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -27400,6 +33598,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "charger_w"
   ]
  },
  "Cargadores y adaptadores/Cargadores para reloj y accesorios pequeños": {
@@ -27510,7 +33711,7 @@
  "Cargadores y adaptadores/Cables Lightning": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -27540,6 +33741,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "charger_w"
   ]
  },
  "Cargadores y adaptadores/Cargadores para reloj y gadgets": {
@@ -27580,7 +33784,7 @@
  "Cargadores y adaptadores/Base de carga": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -27610,6 +33814,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "charger_w"
   ]
  },
  "Cargadores y adaptadores/Cables multiconector": {
@@ -27650,7 +33857,7 @@
  "Cargadores y adaptadores/Cables micro USB": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -27680,6 +33887,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "charger_w"
   ]
  },
  "Baterías portátiles/De uso diario": {
@@ -28168,6 +34378,161 @@
    }
   ]
  },
+ "Bocinas/Cables para bocinas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $140",
+      "max": 140
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$140 a $540",
+      "min": 140,
+      "max": 540
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $540",
+      "min": 540
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Accesorios para bocinas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $410",
+      "max": 410
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$410 a $850",
+      "min": 410,
+      "max": 850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $850",
+      "min": 850
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Conectores para bocinas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $99",
+      "max": 99
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$99 a $160",
+      "min": 99,
+      "max": 160
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $160",
+      "min": 160
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Amplificadores y receptores": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,300",
+      "max": 2300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,300 a $8,650",
+      "min": 2300,
+      "max": 8650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $8,650",
+      "min": 8650
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
  "Bocinas/Mini bocinas y de llavero": {
   "axes": [
    {
@@ -28197,6 +34562,83 @@
     ],
     "key": "extra"
    }
+  ]
+ },
+ "Bocinas/Radios y reproductores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $2,600",
+      "min": 1050,
+      "max": 2600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,600",
+      "min": 2600
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Barras de sonido": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,900",
+      "max": 1900
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,900 a $5,150",
+      "min": 1900,
+      "max": 5150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,150",
+      "min": 5150
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Bocinas/Bocinas Bluetooth": {
@@ -28248,8 +34690,49 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Para PC y escritorio": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $1,400",
+      "min": 540,
+      "max": 1400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,400",
+      "min": 1400
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Bocinas/Bafles y audio profesional": {
@@ -28279,8 +34762,11 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Bocinas/Subwoofers": {
@@ -28301,8 +34787,11 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Bocinas/De estantería y Hi-Fi": {
@@ -28323,8 +34812,11 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Bocinas/Empotrables y de exterior": {
@@ -28354,8 +34846,11 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Bocinas/De fiesta y karaoke": {
@@ -28385,8 +34880,11 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Bocinas/Bocinas con luces LED": {
@@ -28416,8 +34914,11 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "battery_h"
   ]
  },
  "Autos y motos/Medios rangos y bocinas profesionales": {
@@ -28576,6 +35077,91 @@
       "min": 850
      }
     ]
+   }
+  ]
+ },
+ "Autos y motos/Cubreasientos para auto": {
+  "axes": [
+   {
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     }
+    ],
+    "key": "level"
    }
   ]
  },
@@ -29165,7 +35751,88 @@
  "Autos y motos/Bocinas para auto": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     },
+     {
+      "id": "land-rover",
+      "name": "Land Rover",
+      "use": "",
+      "spec": "Land Rover",
+      "values": [
+       "Land Rover"
+      ]
+     },
+     {
+      "id": "hyundai",
+      "name": "Hyundai",
+      "use": "",
+      "spec": "Hyundai",
+      "values": [
+       "Hyundai"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "volvo",
+      "name": "Volvo",
+      "use": "",
+      "spec": "Volvo",
+      "values": [
+       "Volvo"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -29757,6 +36424,91 @@
    }
   ]
  },
+ "Autos y motos/Cubrevolantes": {
+  "axes": [
+   {
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "bmw",
+      "name": "BMW",
+      "use": "",
+      "spec": "BMW",
+      "values": [
+       "BMW"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     }
+    ],
+    "key": "level"
+   }
+  ]
+ },
  "Autos y motos/Soportes para auto": {
   "axes": [
    {
@@ -29966,7 +36718,79 @@
  "Autos y motos/Tapetes, fundas y parasoles": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "jeep",
+      "name": "Jeep",
+      "use": "",
+      "spec": "Jeep",
+      "values": [
+       "Jeep"
+      ]
+     },
+     {
+      "id": "kia",
+      "name": "Kia",
+      "use": "",
+      "spec": "Kia",
+      "values": [
+       "Kia"
+      ]
+     },
+     {
+      "id": "hyundai",
+      "name": "Hyundai",
+      "use": "",
+      "spec": "Hyundai",
+      "values": [
+       "Hyundai"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -30591,6 +37415,91 @@
       "min": 1600
      }
     ]
+   }
+  ]
+ },
+ "Autos y motos/Tapetes para auto": {
+  "axes": [
+   {
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "mercedes-benz",
+      "name": "Mercedes-Benz",
+      "use": "",
+      "spec": "Mercedes-Benz",
+      "values": [
+       "Mercedes-Benz"
+      ]
+     },
+     {
+      "id": "audi",
+      "name": "Audi",
+      "use": "",
+      "spec": "Audi",
+      "values": [
+       "Audi"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "pontiac",
+      "name": "Pontiac",
+      "use": "",
+      "spec": "Pontiac",
+      "values": [
+       "Pontiac"
+      ]
+     }
+    ],
+    "key": "level"
    }
   ]
  },
@@ -31586,8 +38495,42 @@
       ]
      }
     ],
-    "key": "size"
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $220",
+      "max": 220
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$220 a $590",
+      "min": 220,
+      "max": 590
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $590",
+      "min": 590
+     }
+    ]
    }
+  ],
+  "omitir": [
+   "drive_gb"
   ]
  },
  "Almacenamiento/Discos duros externos": {
@@ -35417,6 +42360,44 @@
    }
   ]
  },
+ "Tabletas/Tabletas de dibujo y escritura": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,100",
+      "max": 1100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,100 a $4,950",
+      "min": 1100,
+      "max": 4950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,950",
+      "min": 4950
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "storage_gb"
+  ]
+ },
  "Tabletas/Tabletas Android de 12 pulgadas o más": {
   "axes": [
    {
@@ -35429,15 +42410,15 @@
       "id": "chica",
       "name": "Chica",
       "use": "Uso ligero",
-      "spec": "Hasta 8,300 mAh",
-      "max": 8300
+      "spec": "Hasta 8,800 mAh",
+      "max": 8800
      },
      {
       "id": "mediana",
       "name": "Mediana",
       "use": "Un día completo",
-      "spec": "8,301 mAh a 12,000 mAh",
-      "min": 8300,
+      "spec": "8,801 mAh a 12,000 mAh",
+      "min": 8800,
       "max": 12000
      },
      {
@@ -35506,16 +42487,16 @@
       "id": "mediana",
       "name": "Mediana",
       "use": "Un día completo",
-      "spec": "6,001 mAh a 7,600 mAh",
+      "spec": "6,001 mAh a 7,700 mAh",
       "min": 6000,
-      "max": 7600
+      "max": 7700
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Varios días sin cargar",
-      "spec": "Más de 7,600 mAh",
-      "min": 7600
+      "spec": "Más de 7,700 mAh",
+      "min": 7700
      }
     ],
     "key": "extra"
@@ -35627,6 +42608,425 @@
    }
   ]
  },
+ "Videojuegos/Cables y adaptadores": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $790",
+      "min": 440,
+      "max": 790
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $790",
+      "min": 790
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
+ "Videojuegos/Controles para PC y celular": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $820",
+      "min": 540,
+      "max": 820
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $820",
+      "min": 820
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
+ "Videojuegos/Controles para Xbox": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,000",
+      "max": 1000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,000 a $1,800",
+      "min": 1000,
+      "max": 1800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,800",
+      "min": 1800
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
+ "Videojuegos/Consolas PlayStation": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $10,000",
+      "max": 10000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$10,000 a $14,500",
+      "min": 10000,
+      "max": 14500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $14,500",
+      "min": 14500
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
+ "Videojuegos/Cargadores, bases y soportes": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $490",
+      "max": 490
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$490 a $780",
+      "min": 490,
+      "max": 780
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $780",
+      "min": 780
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
+ "Videojuegos/Fundas, micas y protectores": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $500",
+      "max": 500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$500 a $780",
+      "min": 500,
+      "max": 780
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $780",
+      "min": 780
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
+ "Videojuegos/Volantes, arcade y simuladores": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,750",
+      "max": 1750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,750 a $4,850",
+      "min": 1750,
+      "max": 4850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,850",
+      "min": 4850
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
+ "Videojuegos/Juegos retro y otras plataformas": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $990",
+      "max": 990
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$990 a $2,050",
+      "min": 990,
+      "max": 2050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,050",
+      "min": 2050
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "platform"
+  ]
+ },
+ "Videojuegos/Consolas retro y portátiles": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $820",
+      "max": 820
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$820 a $2,450",
+      "min": 820,
+      "max": 2450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,450",
+      "min": 2450
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating",
+   "platform"
+  ]
+ },
+ "Videojuegos/Controles y gamepads": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $640",
+      "max": 640
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$640 a $1,150",
+      "min": 640,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
+ "Videojuegos/Controles para Nintendo Switch": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $830",
+      "max": 830
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$830 a $1,450",
+      "min": 830,
+      "max": 1450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,450",
+      "min": 1450
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
  "Videojuegos/Consolas Nintendo": {
   "axes": [
    {
@@ -35663,8 +43063,11 @@
       ]
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "age_rating"
   ]
  },
  "Videojuegos/Consolas Xbox": {
@@ -35698,8 +43101,125 @@
       "min": 1000
      }
     ],
-    "key": "extra"
+    "key": "size"
    }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
+ "Videojuegos/Controles para PlayStation": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,150",
+      "max": 1150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,150 a $1,750",
+      "min": 1150,
+      "max": 1750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,750",
+      "min": 1750
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
+ "Videojuegos/Refacciones de consolas y controles": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $670",
+      "min": 390,
+      "max": 670
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $670",
+      "min": 670
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
+  ]
+ },
+ "Videojuegos/Otros accesorios gamer": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $940",
+      "max": 940
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$940 a $2,050",
+      "min": 940,
+      "max": 2050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,050",
+      "min": 2050
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "age_rating"
   ]
  },
  "Bebés/Seguridad para bebé": {
@@ -38784,7 +46304,7 @@
  "Cafeteras/Molinillos de café": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -38814,6 +46334,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "cups"
   ]
  },
  "Cafeteras/Manuales": {
@@ -38889,7 +46412,7 @@
  "Cafeteras/Portátiles": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -38919,12 +46442,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "cups"
   ]
  },
  "Cafeteras/Espresso": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -38954,6 +46480,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "cups"
   ]
  },
  "Cafeteras/Uso comercial": {
@@ -38994,7 +46523,7 @@
  "Cafeteras/De cápsulas": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -39024,6 +46553,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "cups"
   ]
  },
  "Impresión 3D/Refacciones y accesorios": {
@@ -42453,7 +49985,7 @@
  "Blancos y ropa de cama/Toallas de baño": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -42483,12 +50015,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Tapetes de baño": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -42518,12 +50053,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Almohadas cervicales y ortopédicas": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -42553,12 +50091,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Sábanas": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -42588,6 +50129,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Cobijas": {
@@ -42628,7 +50172,7 @@
  "Blancos y ropa de cama/Toallas de cocina y paños": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -42658,12 +50202,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Cortinas para baño": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -42693,6 +50240,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Sábanas queen size": {
@@ -42930,7 +50480,7 @@
  "Blancos y ropa de cama/Almohadas de lactancia y embarazo": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -42960,12 +50510,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Juegos de toallas": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -42995,6 +50548,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Cobijas eléctricas": {
@@ -43035,7 +50591,7 @@
  "Blancos y ropa de cama/Sábanas para cuna y bebé": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -43065,12 +50621,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Toallas de manos y faciales": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -43100,6 +50659,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Colchas y cobertores": {
@@ -43140,7 +50702,7 @@
  "Blancos y ropa de cama/Protectores para cuna": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -43170,12 +50732,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Toallas de microfibra y deportivas": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -43205,12 +50770,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Toallas de playa y alberca": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -43240,6 +50808,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Sábanas individuales": {
@@ -43373,7 +50944,7 @@
  "Blancos y ropa de cama/Almohadillas y cojines térmicos": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -43403,6 +50974,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Rellenos de edredón (duvet)": {
@@ -43443,7 +51017,7 @@
  "Blancos y ropa de cama/Ganchos para baño": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -43473,12 +51047,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Barras para baño": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -43508,12 +51085,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Blancos y ropa de cama/Forros para baño": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -43543,6 +51123,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "bed_size"
   ]
  },
  "Bicicletas y movilidad/Sillines y asientos": {
@@ -47095,7 +54678,7 @@
  "Impresoras/Consumibles": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -47125,12 +54708,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "multifunction"
   ]
  },
  "Impresoras/Tóner": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -47160,6 +54746,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "multifunction"
   ]
  },
  "Impresoras/Láser": {
@@ -47270,7 +54859,7 @@
  "Impresoras/Fotográficas": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -47300,12 +54889,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "multifunction"
   ]
  },
  "Impresoras/Cartuchos de tinta": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -47335,6 +54927,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "multifunction"
+  ]
+ },
+ "Impresoras/Cabezales para impresora": {
+  "axes": [],
+  "omitir": [
+   "multifunction"
   ]
  },
  "Energía solar/Inversores": {
@@ -48272,7 +55873,7 @@
  "Aspiradoras/Seco y húmedo": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -48302,12 +55903,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "power_w"
   ]
  },
  "Aspiradoras/Mangueras para aspiradora": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -48337,12 +55941,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "power_w"
   ]
  },
  "Aspiradoras/Filtros para aspiradora": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -48372,12 +55979,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "power_w"
   ]
  },
  "Aspiradoras/Robots aspiradores": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -48407,12 +56017,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "power_w"
   ]
  },
  "Aspiradoras/Accesorios": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -48442,12 +56055,21 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "power_w"
+  ]
+ },
+ "Aspiradoras/Baterías para aspiradora": {
+  "axes": [],
+  "omitir": [
+   "power_w"
   ]
  },
  "Aspiradoras/Verticales y de escoba": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -48477,12 +56099,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "power_w"
   ]
  },
  "Aspiradoras/Cepillos para aspiradora": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -48512,12 +56137,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "power_w"
   ]
  },
  "Aspiradoras/Bolsas para aspiradora": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -48547,12 +56175,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "power_w"
   ]
  },
  "Aspiradoras/Industriales y comerciales": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -48582,6 +56213,9 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "power_w"
   ]
  },
  "Aspiradoras/De trineo y con bolsa": {
@@ -49370,6 +57004,12 @@
    }
   ]
  },
+ "Proyectores y accesorios/Pantallas eléctricas motorizadas": {
+  "axes": [],
+  "omitir": [
+   "resolution"
+  ]
+ },
  "Proyectores y accesorios/Pantallas de proyección": {
   "axes": [
    {
@@ -49401,14 +57041,48 @@
       "min": 100
      }
     ],
-    "key": "size"
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,400",
+      "max": 1400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,400 a $2,850",
+      "min": 1400,
+      "max": 2850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,850",
+      "min": 2850
+     }
+    ]
    }
+  ],
+  "omitir": [
+   "resolution"
   ]
  },
  "Proyectores y accesorios/Pantallas con trípode y portátiles": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -49438,12 +57112,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "resolution"
   ]
  },
  "Proyectores y accesorios/Soportes para proyector": {
   "axes": [
    {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -49473,6 +57150,15 @@
      }
     ]
    }
+  ],
+  "omitir": [
+   "resolution"
+  ]
+ },
+ "Proyectores y accesorios/Controles para proyector": {
+  "axes": [],
+  "omitir": [
+   "resolution"
   ]
  },
  "Laptops/Para casa y oficina": {
@@ -50305,7 +57991,88 @@
  "Autopartes": {
   "axes": [
    {
-    "key": "level",
+    "label": "Para qué auto",
+    "field": "car_make",
+    "criterion": "por marca del vehículo",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "chevrolet",
+      "name": "Chevrolet",
+      "use": "",
+      "spec": "Chevrolet",
+      "values": [
+       "Chevrolet"
+      ]
+     },
+     {
+      "id": "ford",
+      "name": "Ford",
+      "use": "",
+      "spec": "Ford",
+      "values": [
+       "Ford"
+      ]
+     },
+     {
+      "id": "gmc",
+      "name": "GMC",
+      "use": "",
+      "spec": "GMC",
+      "values": [
+       "GMC"
+      ]
+     },
+     {
+      "id": "dodge",
+      "name": "Dodge",
+      "use": "",
+      "spec": "Dodge",
+      "values": [
+       "Dodge"
+      ]
+     },
+     {
+      "id": "nissan",
+      "name": "Nissan",
+      "use": "",
+      "spec": "Nissan",
+      "values": [
+       "Nissan"
+      ]
+     },
+     {
+      "id": "volkswagen",
+      "name": "Volkswagen",
+      "use": "",
+      "spec": "Volkswagen",
+      "values": [
+       "Volkswagen"
+      ]
+     },
+     {
+      "id": "toyota",
+      "name": "Toyota",
+      "use": "",
+      "spec": "Toyota",
+      "values": [
+       "Toyota"
+      ]
+     },
+     {
+      "id": "chrysler",
+      "name": "Chrysler",
+      "use": "",
+      "spec": "Chrysler",
+      "values": [
+       "Chrysler"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",

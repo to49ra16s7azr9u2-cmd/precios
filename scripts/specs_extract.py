@@ -1893,3 +1893,34 @@ def modelo_clave(name):
     toks=[t for t in n.split() if not re.fullmatch(_MODELO_COLORES + "|" + _MODELO_RUIDO,t)]
     if not toks: return None
     return " ".join(toks[:5])
+
+
+# ---------------------------------------------------------------------
+# Autopartes: para qué marca de auto es la pieza
+# ---------------------------------------------------------------------
+# En un claxon, unos limpiaparabrisas o unos tapetes el anuncio es el mismo
+# producto repetido por modelo de auto y casi al mismo precio: la pregunta
+# del comprador no es «cuál es mejor» sino «cuál le queda a mi auto». Una
+# sola marca en el nombre; dos o más («para Nissan y Chevrolet») no se
+# eligen. «Mini», «Smart» y «Seat» quedan fuera: en un nombre de autoparte
+# suelen ser otra cosa («mini», «seat cover»).
+_CAR_MAKES = (
+    ("Volkswagen", r"volkswagen|vw"), ("Nissan", r"nissan|datsun"), ("Chevrolet", r"chevrolet|chevy"),
+    ("Ford", r"ford"), ("Toyota", r"toyota"), ("Honda", r"honda"), ("Mazda", r"mazda"), ("Kia", r"kia"),
+    ("Hyundai", r"hyundai"), ("Dodge", r"dodge"), ("Ram", r"ram(?=\s*\d{3,4}\b)"), ("Jeep", r"jeep"),
+    ("Chrysler", r"chrysler"), ("Renault", r"renault"), ("Peugeot", r"peugeot"), ("Mitsubishi", r"mitsubishi"),
+    ("Suzuki", r"suzuki"), ("BMW", r"bmw"), ("Audi", r"audi"), ("Mercedes-Benz", r"mercedes(?:[\s-]*benz)?"),
+    ("Fiat", r"fiat"), ("GMC", r"gmc"), ("Buick", r"buick"), ("Cadillac", r"cadillac"), ("Volvo", r"volvo"),
+    ("Subaru", r"subaru"), ("Lexus", r"lexus"), ("Acura", r"acura"), ("Infiniti", r"infiniti"),
+    ("Land Rover", r"land\s*rover"), ("Jaguar", r"jaguar"), ("Porsche", r"porsche"), ("Alfa Romeo", r"alfa\s*romeo"),
+    ("Citroën", r"citroen"), ("Chirey", r"chirey"), ("MG", r"mg(?=\s+(?:zs|hs|rx|gt|3|5|one)\b)"),
+    ("Isuzu", r"isuzu"), ("Lincoln", r"lincoln"), ("Pontiac", r"pontiac"), ("Hummer", r"hummer"),
+    ("Tesla", r"tesla"), ("BYD", r"byd"), ("JAC", r"jac"),
+)
+_CAR_MAKE_RES = [(m, re.compile(r"\b(?:" + rx + r")\b")) for m, rx in _CAR_MAKES]
+
+
+def car_make_of(name):
+    n = _norm(name or "")
+    hits = {m for m, rx in _CAR_MAKE_RES if rx.search(n)}
+    return next(iter(hits)) if len(hits) == 1 else None
