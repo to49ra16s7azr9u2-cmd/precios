@@ -1905,34 +1905,7 @@
  "Joyería y bisutería/Arras y sets": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plata",
-      "name": "Plata",
-      "use": "",
-      "spec": "Plata",
-      "values": [
-       "Plata"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -2690,70 +2663,7 @@
  "Joyería y bisutería/Cuidado y herramientas": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "vidrio",
-      "name": "Vidrio",
-      "use": "",
-      "spec": "Vidrio",
-      "values": [
-       "Vidrio"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -11062,7 +10972,7 @@
  "Muebles/Sillas de exterior": {
   "axes": [
    {
-    "key": "level",
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -11345,7 +11255,7 @@
       "min": 59
      }
     ],
-    "key": "level"
+    "key": "size"
    },
    {
     "label": "Material",
@@ -11399,7 +11309,7 @@
       ]
      }
     ],
-    "key": "size"
+    "key": "extra"
    }
   ]
  },
@@ -11507,7 +11417,7 @@
  "Muebles/Sillas plegables y de camping": {
   "axes": [
    {
-    "key": "level",
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -11542,7 +11452,7 @@
  "Muebles/Sillas infantiles": {
   "axes": [
    {
-    "key": "level",
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -11609,86 +11519,6 @@
    }
   ]
  },
- "Muebles/Colchones plegables y de sofá cama": {
-  "axes": [
-   {
-    "label": "Medida",
-    "field": "bed_size",
-    "criterion": "de la cama",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "individual",
-      "name": "Individual",
-      "use": "",
-      "spec": "Individual",
-      "values": [
-       "Individual"
-      ]
-     },
-     {
-      "id": "matrimonial",
-      "name": "Matrimonial",
-      "use": "",
-      "spec": "Matrimonial",
-      "values": [
-       "Matrimonial"
-      ]
-     },
-     {
-      "id": "queen",
-      "name": "Queen",
-      "use": "",
-      "spec": "Queen",
-      "values": [
-       "Queen"
-      ]
-     },
-     {
-      "id": "king",
-      "name": "King",
-      "use": "",
-      "spec": "King",
-      "values": [
-       "King"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,500",
-      "max": 1500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,500 a $3,450",
-      "min": 1500,
-      "max": 3450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,450",
-      "min": 3450
-     }
-    ]
-   }
-  ]
- },
  "Muebles/Alacenas y gabinetes de cocina": {
   "axes": [
    {
@@ -11737,128 +11567,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $3,050",
-      "max": 3050
+      "spec": "Hasta $3,000",
+      "max": 3000
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$3,050 a $4,650",
-      "min": 3050,
-      "max": 4650
+      "spec": "$3,000 a $4,600",
+      "min": 3000,
+      "max": 4600
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,650",
-      "min": 4650
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Colchones individuales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,950",
-      "max": 3950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,950 a $6,250",
-      "min": 3950,
-      "max": 6250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,250",
-      "min": 6250
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Colchones matrimoniales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $5,750",
-      "max": 5750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$5,750 a $8,350",
-      "min": 5750,
-      "max": 8350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $8,350",
-      "min": 8350
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Colchones queen size": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $6,400",
-      "max": 6400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$6,400 a $9,050",
-      "min": 6400,
-      "max": 9050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $9,050",
-      "min": 9050
+      "spec": "Más de $4,600",
+      "min": 4600
      }
     ]
    }
@@ -11894,41 +11619,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $11,500",
       "min": 11500
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Colchones infantiles y de cuna": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,250",
-      "max": 1250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,250 a $1,800",
-      "min": 1250,
-      "max": 1800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,800",
-      "min": 1800
      }
     ]
    }
@@ -12112,45 +11802,14 @@
       ]
      }
     ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,650",
-      "max": 1650
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,650 a $3,450",
-      "min": 1650,
-      "max": 3450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,450",
-      "min": 3450
-     }
-    ]
+    "key": "size"
    }
   ]
  },
  "Muebles/Sillas gamer": {
   "axes": [
    {
-    "key": "level",
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -12220,7 +11879,7 @@
  "Muebles/Sillas ergonómicas": {
   "axes": [
    {
-    "key": "level",
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -12917,7 +12576,7 @@
  "Muebles/Sillas ejecutivas": {
   "axes": [
    {
-    "key": "level",
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -12979,41 +12638,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $4,400",
       "min": 4400
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Colchones king size": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $8,250",
-      "max": 8250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$8,250 a $12,000",
-      "min": 8250,
-      "max": 12000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $12,000",
-      "min": 12000
      }
     ]
    }
@@ -13507,7 +13131,7 @@
  "Muebles/Sillas de espera y visitas": {
   "axes": [
    {
-    "key": "level",
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -14052,15 +13676,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $2,550",
-      "max": 2550
+      "spec": "Hasta $2,650",
+      "max": 2650
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,550 a $12,000",
-      "min": 2550,
+      "spec": "$2,650 a $12,000",
+      "min": 2650,
       "max": 12000
      },
      {
@@ -20369,24 +19993,24 @@
     "ramp": true,
     "tiers": [
      {
-      "id": "ligera",
-      "name": "Ligera",
-      "use": "Uso en casa",
+      "id": "chico",
+      "name": "Chico",
+      "use": "Luces, teléfono y refrigerador",
       "spec": "Hasta 2,500 W",
       "max": 2500
      },
      {
-      "id": "media",
-      "name": "Media",
-      "use": "Taller y trabajos frecuentes",
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Casa chica en un apagón",
       "spec": "2,501 W a 5,500 W",
       "min": 2500,
       "max": 5500
      },
      {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o profesional",
+      "id": "grande",
+      "name": "Grande",
+      "use": "Local, taller o casa entera",
       "spec": "Más de 5,500 W",
       "min": 5500
      }
@@ -28230,24 +27854,24 @@
     "ramp": true,
     "tiers": [
      {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
+      "id": "chica",
+      "name": "Chica",
+      "use": "Teléfono, laptop y luces",
       "spec": "Hasta 300 W",
       "max": 300
      },
      {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Refrigerador y herramientas",
       "spec": "301 W a 800 W",
       "min": 300,
       "max": 800
      },
      {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
+      "id": "grande",
+      "name": "Grande",
+      "use": "Casa en un apagón",
       "spec": "Más de 800 W",
       "min": 800
      }
@@ -32806,43 +32430,7 @@
  "Instrumentos musicales/Accesorios": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -32947,34 +32535,7 @@
  "Instrumentos musicales/Producción de audio": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -33009,61 +32570,7 @@
  "Instrumentos musicales/Accesorios de guitarra": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "piel",
-      "name": "Piel",
-      "use": "",
-      "spec": "Piel",
-      "values": [
-       "Piel"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -33133,43 +32640,7 @@
  "Instrumentos musicales/Tornamesas": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -33204,52 +32675,7 @@
  "Instrumentos musicales/Fundas, soportes y atriles": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -33284,43 +32710,7 @@
  "Instrumentos musicales/Pedales y efectos": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -33845,34 +33235,7 @@
  "Instrumentos musicales/Trompetas, trombones y metales": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -34005,52 +33368,7 @@
  "Instrumentos musicales/Cuerdas de guitarra y bajo": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -34190,34 +33508,7 @@
  "Instrumentos musicales/Parches": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -34388,49 +33679,35 @@
     "key": "level"
    },
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
     "tiers": [
      {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,200",
+      "max": 5200
      },
      {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,200 a $9,450",
+      "min": 5200,
+      "max": 9450
      },
      {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,450",
+      "min": 9450
      }
-    ],
-    "key": "size"
+    ]
    }
   ]
  },
@@ -34572,7 +33849,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Peluches": {
   "axes": [
@@ -34585,14 +33863,14 @@
      {
       "id": "chico",
       "name": "Chico",
-      "use": "Cabe en cualquier lugar",
+      "use": "De bolsillo o llavero",
       "spec": "Hasta 20 cm",
       "max": 20
      },
      {
       "id": "mediano",
       "name": "Mediano",
-      "use": "El tamaño más común",
+      "use": "Para abrazar",
       "spec": "21 cm a 25 cm",
       "min": 20,
       "max": 25
@@ -34600,7 +33878,7 @@
      {
       "id": "grande",
       "name": "Grande",
-      "use": "Ocupa más espacio",
+      "use": "Para la cama",
       "spec": "Más de 25 cm",
       "min": 25
      }
@@ -34638,7 +33916,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Disfraces": {
   "axes": [
@@ -34673,7 +33952,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Artículos para fiestas": {
   "axes": [
@@ -34708,7 +33988,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Juguetes para exterior": {
   "axes": [
@@ -34789,8 +34070,36 @@
      }
     ],
     "key": "size"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     }
+    ],
+    "key": "extra"
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Juguetes educativos": {
   "axes": [
@@ -34834,37 +34143,34 @@
     "key": "level"
    },
    {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
     "tiers": [
      {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $420",
-      "max": 420
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
      },
      {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$420 a $710",
-      "min": 420,
-      "max": 710
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $710",
-      "min": 710
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
      }
-    ]
+    ],
+    "key": "size"
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Figuras de colección a escala": {
   "axes": [
@@ -34899,7 +34205,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Maquetas": {
   "axes": [
@@ -34934,7 +34241,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Juguetes musicales": {
   "axes": [
@@ -34969,7 +34277,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Muñecas": {
   "axes": [
@@ -35004,7 +34313,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Figuras de acción": {
   "axes": [
@@ -35015,16 +34325,16 @@
     "ramp": true,
     "tiers": [
      {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
+      "id": "chica",
+      "name": "Chica",
+      "use": "Para colección en repisa",
       "spec": "Hasta 15 cm",
       "max": 15
      },
      {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "La escala más común",
       "spec": "16 cm a 20 cm",
       "min": 15,
       "max": 20
@@ -35032,7 +34342,7 @@
      {
       "id": "grande",
       "name": "Grande",
-      "use": "Ocupa más espacio",
+      "use": "Para exhibir",
       "spec": "Más de 20 cm",
       "min": 20
      }
@@ -35070,7 +34380,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Vehículos de juguete": {
   "axes": [
@@ -35105,7 +34416,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Triciclos": {
   "axes": [
@@ -35140,12 +34452,40 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Vehículos a control remoto": {
   "axes": [
    {
-    "key": "level",
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -35175,7 +34515,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Funko y coleccionables": {
   "axes": [
@@ -35210,7 +34551,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Juguetes/Bloques de construcción": {
   "axes": [
@@ -35245,7 +34587,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Jardín y exterior/Albercas e inflables": {
   "axes": [
@@ -36335,14 +35678,14 @@
      {
       "id": "basico",
       "name": "Básico",
-      "use": "Pocos juegos a la vez",
+      "use": "Pocos juegos instalados",
       "spec": "Hasta 510 GB",
       "max": 510
      },
      {
       "id": "intermedio",
       "name": "Intermedio",
-      "use": "Varios juegos instalados",
+      "use": "Varios juegos a la vez",
       "spec": "511 GB a 1,000 GB",
       "min": 510,
       "max": 1000
@@ -36362,36 +35705,36 @@
  "Bebés/Seguridad para bebé": {
   "axes": [
    {
-    "label": "Para quién",
-    "field": "gender",
+    "label": "Material",
+    "field": "material",
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
      {
-      "id": "nino",
-      "name": "Niño",
+      "id": "silicona",
+      "name": "Silicona",
       "use": "",
-      "spec": "Niño",
+      "spec": "Silicona",
       "values": [
-       "Niño"
+       "Silicona"
       ]
      },
      {
-      "id": "nina",
-      "name": "Niña",
+      "id": "algodon",
+      "name": "Algodón",
       "use": "",
-      "spec": "Niña",
+      "spec": "Algodón",
       "values": [
-       "Niña"
+       "Algodón"
       ]
      },
      {
-      "id": "bebe",
-      "name": "Bebé",
+      "id": "acero",
+      "name": "Acero",
       "use": "",
-      "spec": "Bebé",
+      "spec": "Acero",
       "values": [
-       "Bebé"
+       "Acero"
       ]
      }
     ],
@@ -36433,34 +35776,7 @@
  "Bebés/Sillas de auto": {
   "axes": [
    {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "nino",
-      "name": "Niño",
-      "use": "",
-      "spec": "Niño",
-      "values": [
-       "Niño"
-      ]
-     },
-     {
-      "id": "bebe",
-      "name": "Bebé",
-      "use": "",
-      "spec": "Bebé",
-      "values": [
-       "Bebé"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -36495,36 +35811,27 @@
  "Bebés/Baño e higiene del bebé": {
   "axes": [
    {
-    "label": "Para quién",
-    "field": "gender",
+    "label": "Material",
+    "field": "material",
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
      {
-      "id": "unisex",
-      "name": "Unisex",
+      "id": "plastico",
+      "name": "Plástico",
       "use": "",
-      "spec": "Unisex",
+      "spec": "Plástico",
       "values": [
-       "Unisex"
+       "Plástico"
       ]
      },
      {
-      "id": "nino",
-      "name": "Niño",
+      "id": "silicona",
+      "name": "Silicona",
       "use": "",
-      "spec": "Niño",
+      "spec": "Silicona",
       "values": [
-       "Niño"
-      ]
-     },
-     {
-      "id": "bebe",
-      "name": "Bebé",
-      "use": "",
-      "spec": "Bebé",
-      "values": [
-       "Bebé"
+       "Silicona"
       ]
      }
     ],
@@ -36640,27 +35947,36 @@
     "key": "level"
    },
    {
-    "label": "Para quién",
-    "field": "gender",
+    "label": "Material",
+    "field": "material",
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
      {
-      "id": "nino",
-      "name": "Niño",
+      "id": "plastico",
+      "name": "Plástico",
       "use": "",
-      "spec": "Niño",
+      "spec": "Plástico",
       "values": [
-       "Niño"
+       "Plástico"
       ]
      },
      {
-      "id": "bebe",
-      "name": "Bebé",
+      "id": "silicona",
+      "name": "Silicona",
       "use": "",
-      "spec": "Bebé",
+      "spec": "Silicona",
       "values": [
-       "Bebé"
+       "Silicona"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
       ]
      }
     ],
@@ -36671,7 +35987,34 @@
  "Bebés/Cuidado y salud del bebé": {
   "axes": [
    {
-    "key": "level",
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -36737,62 +36080,85 @@
     "key": "level"
    },
    {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
     "tiers": [
      {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,200",
-      "max": 1200
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
      },
      {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,200 a $2,200",
-      "min": 1200,
-      "max": 2200
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
      },
      {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,200",
-      "min": 2200
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
      }
-    ]
+    ],
+    "key": "size"
    }
   ]
  },
  "Bebés/Alimentación y lactancia": {
   "axes": [
    {
-    "label": "Para quién",
-    "field": "gender",
+    "label": "Material",
+    "field": "material",
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
      {
-      "id": "nino",
-      "name": "Niño",
+      "id": "silicona",
+      "name": "Silicona",
       "use": "",
-      "spec": "Niño",
+      "spec": "Silicona",
       "values": [
-       "Niño"
+       "Silicona"
       ]
      },
      {
-      "id": "bebe",
-      "name": "Bebé",
+      "id": "plastico",
+      "name": "Plástico",
       "use": "",
-      "spec": "Bebé",
+      "spec": "Plástico",
       "values": [
-       "Bebé"
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
       ]
      }
     ],
@@ -36834,34 +36200,7 @@
  "Bebés/Carriolas": {
   "axes": [
    {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "nino",
-      "name": "Niño",
-      "use": "",
-      "spec": "Niño",
-      "values": [
-       "Niño"
-      ]
-     },
-     {
-      "id": "bebe",
-      "name": "Bebé",
-      "use": "",
-      "spec": "Bebé",
-      "values": [
-       "Bebé"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -36896,34 +36235,7 @@
  "Bebés/Portabebés y canguros": {
   "axes": [
    {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "nino",
-      "name": "Niño",
-      "use": "",
-      "spec": "Niño",
-      "values": [
-       "Niño"
-      ]
-     },
-     {
-      "id": "bebe",
-      "name": "Bebé",
-      "use": "",
-      "spec": "Bebé",
-      "values": [
-       "Bebé"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -36958,42 +36270,123 @@
  "Bebés/Biberones": {
   "axes": [
    {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "vidrio",
+      "name": "Vidrio",
+      "use": "",
+      "spec": "Vidrio",
+      "values": [
+       "Vidrio"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Contenido",
+    "field": "volume_ml",
+    "criterion": "en mililitros",
     "ramp": true,
     "tiers": [
      {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $470",
-      "max": 470
+      "id": "chico",
+      "name": "Chico",
+      "use": "Para probar o para viajar",
+      "spec": "Hasta 160 ml",
+      "max": 160
      },
      {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$470 a $840",
-      "min": 470,
-      "max": 840
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Uso de diario",
+      "spec": "161 ml a 250 ml",
+      "min": 160,
+      "max": 250
      },
      {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $840",
-      "min": 840
+      "id": "grande",
+      "name": "Grande",
+      "use": "Rinde meses",
+      "spec": "Más de 250 ml",
+      "min": 250
      }
-    ]
+    ],
+    "key": "size"
    }
   ]
  },
  "Bebés/Cunas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -37063,45 +36456,54 @@
  "Bebés/Pañales y cambio": {
   "axes": [
    {
-    "label": "Para quién",
-    "field": "gender",
+    "label": "Material",
+    "field": "material",
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
      {
-      "id": "unisex",
-      "name": "Unisex",
+      "id": "plastico",
+      "name": "Plástico",
       "use": "",
-      "spec": "Unisex",
+      "spec": "Plástico",
       "values": [
-       "Unisex"
+       "Plástico"
       ]
      },
      {
-      "id": "nino",
-      "name": "Niño",
+      "id": "poliester",
+      "name": "Poliéster",
       "use": "",
-      "spec": "Niño",
+      "spec": "Poliéster",
       "values": [
-       "Niño"
+       "Poliéster"
       ]
      },
      {
-      "id": "nina",
-      "name": "Niña",
+      "id": "algodon",
+      "name": "Algodón",
       "use": "",
-      "spec": "Niña",
+      "spec": "Algodón",
       "values": [
-       "Niña"
+       "Algodón"
       ]
      },
      {
-      "id": "bebe",
-      "name": "Bebé",
+      "id": "tela",
+      "name": "Tela",
       "use": "",
-      "spec": "Bebé",
+      "spec": "Tela",
       "values": [
-       "Bebé"
+       "Tela"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
       ]
      }
     ],
@@ -37310,16 +36712,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,000 a $4,100",
+      "spec": "$2,000 a $3,850",
       "min": 2000,
-      "max": 4100
+      "max": 3850
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,100",
-      "min": 4100
+      "spec": "Más de $3,850",
+      "min": 3850
      }
     ]
    }
@@ -37328,7 +36730,61 @@
  "Bebés/Corrales": {
   "axes": [
    {
-    "key": "level",
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -37512,15 +36968,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $570",
-      "max": 570
+      "spec": "Hasta $560",
+      "max": 560
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$570 a $830",
-      "min": 570,
+      "spec": "$560 a $830",
+      "min": 560,
       "max": 830
      },
      {
@@ -40630,43 +40086,7 @@
  "Mascotas/Comederos para aves y roedores": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "vidrio",
-      "name": "Vidrio",
-      "use": "",
-      "spec": "Vidrio",
-      "values": [
-       "Vidrio"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
+    "key": "level",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -41550,7 +40970,46 @@
  "Juegos de mesa/Rompecabezas": {
   "axes": [
    {
-    "key": "level",
+    "label": "Piezas",
+    "field": "pieces",
+    "criterion": "por número de piezas",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "p300",
+      "name": "Hasta 300",
+      "use": "Niños o para empezar",
+      "spec": "Hasta 300 piezas",
+      "max": 300
+     },
+     {
+      "id": "p500",
+      "name": "500 a 750",
+      "use": "Una o dos tardes",
+      "spec": "301 a 999 piezas",
+      "min": 300,
+      "max": 999
+     },
+     {
+      "id": "p1000",
+      "name": "1000",
+      "use": "El clásico para adultos",
+      "spec": "1000 piezas",
+      "min": 999,
+      "max": 1000
+     },
+     {
+      "id": "p1500",
+      "name": "Más de 1000",
+      "use": "Un reto largo",
+      "spec": "1500 piezas o más",
+      "min": 1000
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -43611,31 +43070,35 @@
  "Blancos y ropa de cama/Toallas de manos y faciales": {
   "axes": [
    {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
     "tiers": [
      {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $450",
+      "max": 450
      },
      {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$450 a $710",
+      "min": 450,
+      "max": 710
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $710",
+      "min": 710
      }
-    ],
-    "key": "size"
+    ]
    }
   ]
  },
@@ -44368,76 +43831,6 @@
  "Bicicletas y movilidad/Bicicletas de montaña": {
   "axes": [
    {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     },
-     {
-      "id": "adultos",
-      "name": "Jóvenes y adultos",
-      "use": "De 13 en adelante",
-      "spec": "13 años o más",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Velocidades",
-    "field": "speeds",
-    "criterion": "de la bicicleta",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "sin-cambios",
-      "name": "Sin cambios",
-      "use": "Ciudad plana y niños",
-      "spec": "Hasta 10",
-      "max": 10
-     },
-     {
-      "id": "pocas",
-      "name": "Pocas",
-      "use": "Cerros suaves",
-      "spec": "11 a 21",
-      "min": 10,
-      "max": 21
-     },
-     {
-      "id": "muchas",
-      "name": "Muchas",
-      "use": "Montaña y ruta",
-      "spec": "Más de 21",
-      "min": 21
-     }
-    ],
-    "key": "size"
-   },
-   {
     "label": "Rodada",
     "field": "wheel_size",
     "criterion": "por medida",
@@ -44478,6 +43871,76 @@
       "values": [
        "R29"
       ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Velocidades",
+    "field": "speeds",
+    "criterion": "de la bicicleta",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "sin-cambios",
+      "name": "Sin cambios",
+      "use": "Ciudad plana y niños",
+      "spec": "Hasta 10",
+      "max": 10
+     },
+     {
+      "id": "pocas",
+      "name": "Pocas",
+      "use": "Cerros suaves",
+      "spec": "11 a 21",
+      "min": 10,
+      "max": 21
+     },
+     {
+      "id": "muchas",
+      "name": "Muchas",
+      "use": "Montaña y ruta",
+      "spec": "Más de 21",
+      "min": 21
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
+     },
+     {
+      "id": "adultos",
+      "name": "Jóvenes y adultos",
+      "use": "De 13 en adelante",
+      "spec": "13 años o más",
+      "min": 12
      }
     ],
     "key": "extra"
@@ -44563,24 +44026,24 @@
     "ramp": true,
     "tiers": [
      {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
+      "id": "suave",
+      "name": "Suave",
+      "use": "Plano y trayectos cortos",
       "spec": "Hasta 500 W",
       "max": 500
      },
      {
       "id": "media",
       "name": "Media",
-      "use": "Uso de todos los días",
+      "use": "Subidas suaves y más velocidad",
       "spec": "501 W a 800 W",
       "min": 500,
       "max": 800
      },
      {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
+      "id": "fuerte",
+      "name": "Fuerte",
+      "use": "Cerros y dos personas",
       "spec": "Más de 800 W",
       "min": 800
      }
@@ -44795,38 +44258,6 @@
  "Bicicletas y movilidad/Bicicletas infantiles": {
   "axes": [
    {
-    "label": "Edad",
-    "field": "age_min",
-    "criterion": "recomendada",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "bebes",
-      "name": "Bebés",
-      "use": "Desde el nacimiento",
-      "spec": "0 a 2 años",
-      "max": 2
-     },
-     {
-      "id": "ninos",
-      "name": "Niños",
-      "use": "Preescolar y primaria",
-      "spec": "3 a 7 años",
-      "min": 2,
-      "max": 7
-     },
-     {
-      "id": "grandes",
-      "name": "Grandes",
-      "use": "De 8 a 12 años",
-      "spec": "8 a 12 años",
-      "min": 7,
-      "max": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
     "label": "Rodada",
     "field": "wheel_size",
     "criterion": "por medida",
@@ -44858,6 +44289,38 @@
       "values": [
        "R20"
       ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Edad",
+    "field": "age_min",
+    "criterion": "recomendada",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "bebes",
+      "name": "Bebés",
+      "use": "Desde el nacimiento",
+      "spec": "0 a 2 años",
+      "max": 2
+     },
+     {
+      "id": "ninos",
+      "name": "Niños",
+      "use": "Preescolar y primaria",
+      "spec": "3 a 7 años",
+      "min": 2,
+      "max": 7
+     },
+     {
+      "id": "grandes",
+      "name": "Grandes",
+      "use": "De 8 a 12 años",
+      "spec": "8 a 12 años",
+      "min": 7,
+      "max": 12
      }
     ],
     "key": "size"
@@ -45174,66 +44637,58 @@
  "Bicicletas y movilidad/Bicicletas eléctricas": {
   "axes": [
    {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
+    "label": "Rodada",
+    "field": "wheel_size",
+    "criterion": "por medida",
     "ramp": true,
     "tiers": [
      {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 350 W",
-      "max": 350
+      "id": "r10",
+      "name": "R10",
+      "use": "",
+      "spec": "R10",
+      "values": [
+       "R10"
+      ]
      },
      {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "351 W a 650 W",
-      "min": 350,
-      "max": 650
+      "id": "r14",
+      "name": "R14",
+      "use": "",
+      "spec": "R14",
+      "values": [
+       "R14"
+      ]
      },
      {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 650 W",
-      "min": 650
+      "id": "r20",
+      "name": "R20",
+      "use": "",
+      "spec": "R20",
+      "values": [
+       "R20"
+      ]
+     },
+     {
+      "id": "r26",
+      "name": "R26",
+      "use": "",
+      "spec": "R26",
+      "values": [
+       "R26"
+      ]
+     },
+     {
+      "id": "r27",
+      "name": "R27",
+      "use": "",
+      "spec": "R27",
+      "values": [
+       "R27"
+      ]
      }
     ],
     "key": "level"
-   },
-   {
-    "label": "Batería",
-    "field": "battery_ah",
-    "criterion": "en amperes-hora",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Trayectos cortos",
-      "spec": "Hasta 13 Ah",
-      "max": 13
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Uso de diario",
-      "spec": "14 Ah a 18 Ah",
-      "min": 13,
-      "max": 18
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Más autonomía",
-      "spec": "Más de 18 Ah",
-      "min": 18
-     }
-    ],
-    "key": "size"
    },
    {
     "label": "Velocidades",
@@ -45267,6 +44722,37 @@
       "values": [
        27
       ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "suave",
+      "name": "Suave",
+      "use": "Ayuda al pedaleo en plano",
+      "spec": "Hasta 350 W",
+      "max": 350
+     },
+     {
+      "id": "media",
+      "name": "Media",
+      "use": "Subidas suaves",
+      "spec": "351 W a 650 W",
+      "min": 350,
+      "max": 650
+     },
+     {
+      "id": "fuerte",
+      "name": "Fuerte",
+      "use": "Cerros y carga",
+      "spec": "Más de 650 W",
+      "min": 650
      }
     ],
     "key": "extra"
@@ -46938,41 +46424,6 @@
    }
   ]
  },
- "Climatización/Ventiladores portátiles y de mano": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $560",
-      "max": 560
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$560 a $1,250",
-      "min": 560,
-      "max": 1250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,250",
-      "min": 1250
-     }
-    ]
-   }
-  ]
- },
  "Climatización/Extractores y ventilación": {
   "axes": [
    {
@@ -47039,105 +46490,8 @@
    }
   ]
  },
- "Climatización/Ventiladores de piso e industriales": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 16\"",
-      "max": 16
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "17\" a 20\"",
-      "min": 16,
-      "max": 20
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 20\"",
-      "min": 20
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,400",
-      "max": 1400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,400 a $4,050",
-      "min": 1400,
-      "max": 4050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,050",
-      "min": 4050
-     }
-    ]
-   }
-  ]
- },
  "Climatización/Ventiladores de pedestal": {
   "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 16\"",
-      "max": 16
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "17\" a 20\"",
-      "min": 16,
-      "max": 20
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 20\"",
-      "min": 20
-     }
-    ],
-    "key": "level"
-   },
    {
     "label": "Potencia",
     "field": "power_w",
@@ -47167,7 +46521,7 @@
       "min": 75
      }
     ],
-    "key": "size"
+    "key": "extra"
    }
   ]
  },
@@ -47237,72 +46591,6 @@
    }
   ]
  },
- "Climatización/Ventiladores de mesa y clip": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 9\"",
-      "max": 9
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "10\" a 12\"",
-      "min": 9,
-      "max": 12
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 12\"",
-      "min": 12
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $690",
-      "max": 690
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$690 a $1,550",
-      "min": 690,
-      "max": 1550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,550",
-      "min": 1550
-     }
-    ]
-   }
-  ]
- },
  "Climatización/Purificadores de aire": {
   "axes": [
    {
@@ -47364,72 +46652,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $5,700",
       "min": 5700
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Ventiladores de techo": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 42\"",
-      "max": 42
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "43\" a 52\"",
-      "min": 42,
-      "max": 52
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 52\"",
-      "min": 52
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,800",
-      "max": 1800
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,800 a $3,500",
-      "min": 1800,
-      "max": 3500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,500",
-      "min": 3500
      }
     ]
    }
@@ -47567,41 +46789,6 @@
    }
   ]
  },
- "Climatización/Calefactores cerámicos y de aire": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,300 a $3,800",
-      "min": 1300,
-      "max": 3800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,800",
-      "min": 3800
-     }
-    ]
-   }
-  ]
- },
  "Climatización/Controles para aire acondicionado": {
   "axes": [
    {
@@ -47703,105 +46890,8 @@
    }
   ]
  },
- "Climatización/Ventiladores de torre": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 33\"",
-      "max": 33
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "34\" a 40\"",
-      "min": 33,
-      "max": 40
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 40\"",
-      "min": 40
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,450",
-      "max": 1450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,450 a $2,850",
-      "min": 1450,
-      "max": 2850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,850",
-      "min": 2850
-     }
-    ]
-   }
-  ]
- },
  "Climatización/Ventiladores de pared": {
   "axes": [
-   {
-    "label": "Tamaño",
-    "field": "fan_in",
-    "criterion": "en pulgadas del aspa",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Escritorio y buró",
-      "spec": "Hasta 16\"",
-      "max": 16
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara y sala",
-      "spec": "17\" a 24\"",
-      "min": 16,
-      "max": 24
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Espacios grandes",
-      "spec": "Más de 24\"",
-      "min": 24
-     }
-    ],
-    "key": "level"
-   },
    {
     "label": "Potencia",
     "field": "power_w",
@@ -47831,7 +46921,7 @@
       "min": 90
      }
     ],
-    "key": "size"
+    "key": "extra"
    }
   ]
  },
@@ -47888,72 +46978,6 @@
       "use": "El precio más común",
       "spec": "$5,650 a $10,500",
       "min": 5650,
-      "max": 10500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $10,500",
-      "min": 10500
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Calefactores de pared y baño": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 380 W",
-      "max": 380
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "381 W a 1,500 W",
-      "min": 380,
-      "max": 1500
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 1,500 W",
-      "min": 1500
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $4,300",
-      "max": 4300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$4,300 a $10,500",
-      "min": 4300,
       "max": 10500
      },
      {
@@ -48028,173 +47052,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $5,500",
       "min": 5500
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Ventiladores nebulizadores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,350",
-      "max": 1350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,350 a $2,950",
-      "min": 1350,
-      "max": 2950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Calefactores infrarrojos y de cuarzo": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 380 W",
-      "max": 380
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "381 W a 1,200 W",
-      "min": 380,
-      "max": 1200
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 1,200 W",
-      "min": 1200
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,450",
-      "max": 1450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,450 a $5,200",
-      "min": 1450,
-      "max": 5200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,200",
-      "min": 5200
-     }
-    ]
-   }
-  ]
- },
- "Climatización/Calefactores para pies y personales": {
-  "axes": [
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
-      "spec": "Hasta 800 W",
-      "max": 800
-     },
-     {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
-      "spec": "801 W a 1,500 W",
-      "min": 800,
-      "max": 1500
-     },
-     {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
-      "spec": "Más de 1,500 W",
-      "min": 1500
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $950",
-      "max": 950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$950 a $2,650",
-      "min": 950,
-      "max": 2650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,650",
-      "min": 2650
      }
     ]
    }
@@ -48489,24 +47346,24 @@
     "ramp": true,
     "tiers": [
      {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
+      "id": "chico",
+      "name": "Chico",
+      "use": "Laptop y teléfono",
       "spec": "Hasta 300 W",
       "max": 300
      },
      {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Televisión y herramientas chicas",
       "spec": "301 W a 900 W",
       "min": 300,
       "max": 900
      },
      {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
+      "id": "grande",
+      "name": "Grande",
+      "use": "Refrigerador y equipos grandes",
       "spec": "Más de 900 W",
       "min": 900
      }
@@ -48590,24 +47447,24 @@
     "ramp": true,
     "tiers": [
      {
-      "id": "baja",
-      "name": "Baja",
-      "use": "Trabajos ligeros y uso ocasional",
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cargar teléfono y luces",
       "spec": "Hasta 30 W",
       "max": 30
      },
      {
-      "id": "media",
-      "name": "Media",
-      "use": "Uso de todos los días",
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Estación de energía o cabaña",
       "spec": "31 W a 100 W",
       "min": 30,
       "max": 100
      },
      {
-      "id": "alta",
-      "name": "Alta",
-      "use": "Uso rudo o continuo",
+      "id": "grande",
+      "name": "Grande",
+      "use": "Instalación de casa",
       "spec": "Más de 100 W",
       "min": 100
      }
@@ -50491,23 +49348,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,450",
-      "max": 1450
+      "spec": "Hasta $2,300",
+      "max": 2300
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,450 a $7,250",
-      "min": 1450,
-      "max": 7250
+      "spec": "$2,300 a $9,950",
+      "min": 2300,
+      "max": 9950
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $7,250",
-      "min": 7250
+      "spec": "Más de $9,950",
+      "min": 9950
      }
     ]
    }
@@ -50525,15 +49382,15 @@
       "id": "chica",
       "name": "Chica",
       "use": "Recámara u oficina",
-      "spec": "Hasta 72\"",
-      "max": 72
+      "spec": "Hasta 84\"",
+      "max": 84
      },
      {
       "id": "mediana",
       "name": "Mediana",
       "use": "Sala",
-      "spec": "73\" a 100\"",
-      "min": 72,
+      "spec": "85\" a 100\"",
+      "min": 84,
       "max": 100
      },
      {
@@ -50613,41 +49470,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,300",
       "min": 1300
-     }
-    ]
-   }
-  ]
- },
- "Proyectores y accesorios/Controles para proyector": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $380",
-      "max": 380
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$380 a $450",
-      "min": 380,
-      "max": 450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $450",
-      "min": 450
      }
     ]
    }
@@ -52573,7 +51395,8 @@
      }
     ]
    }
-  ]
+  ],
+  "intro": "Elige por la edad de quien lo va a usar."
  },
  "Jardín y exterior": {
   "axes": [
@@ -52683,27 +51506,45 @@
  "Bebés": {
   "axes": [
    {
-    "label": "Para quién",
-    "field": "gender",
+    "label": "Material",
+    "field": "material",
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
      {
-      "id": "nino",
-      "name": "Niño",
+      "id": "plastico",
+      "name": "Plástico",
       "use": "",
-      "spec": "Niño",
+      "spec": "Plástico",
       "values": [
-       "Niño"
+       "Plástico"
       ]
      },
      {
-      "id": "bebe",
-      "name": "Bebé",
+      "id": "silicona",
+      "name": "Silicona",
       "use": "",
-      "spec": "Bebé",
+      "spec": "Silicona",
       "values": [
-       "Bebé"
+       "Silicona"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
       ]
      }
     ],
@@ -53306,35 +52147,35 @@
     "key": "level"
    },
    {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
     "ramp": true,
     "tiers": [
      {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,250",
-      "max": 1250
+      "id": "baja",
+      "name": "Baja",
+      "use": "Trabajos ligeros y uso ocasional",
+      "spec": "Hasta 50 W",
+      "max": 50
      },
      {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,250 a $4,300",
-      "min": 1250,
-      "max": 4300
+      "id": "media",
+      "name": "Media",
+      "use": "Uso de todos los días",
+      "spec": "51 W a 380 W",
+      "min": 50,
+      "max": 380
      },
      {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,300",
-      "min": 4300
+      "id": "alta",
+      "name": "Alta",
+      "use": "Uso rudo o continuo",
+      "spec": "Más de 380 W",
+      "min": 380
      }
-    ]
+    ],
+    "key": "size"
    }
   ]
  },
@@ -53677,23 +52518,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,150",
-      "max": 1150
+      "spec": "Hasta $1,400",
+      "max": 1400
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,150 a $4,450",
-      "min": 1150,
-      "max": 4450
+      "spec": "$1,400 a $5,300",
+      "min": 1400,
+      "max": 5300
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,450",
-      "min": 4450
+      "spec": "Más de $5,300",
+      "min": 5300
      }
     ]
    }

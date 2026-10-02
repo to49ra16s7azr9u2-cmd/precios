@@ -177,6 +177,8 @@ def _screen_in(category, name, spec_map):
                 break
     if val is None:
         val = se.screen_size_in(name)
+    if val is None and category == "Laptops":
+        val = se.laptop_screen_in(name)
     if val is None:
         return None
     lo, hi = _SCREEN_RANGE[category]
@@ -608,7 +610,7 @@ NOMBRE_GENERALES = {
     ("Juguetes y bebés", "Figuras de acción"): [("length_cm", lambda t: se.length_cm_of(t, 4, 120))],
     ("Juguetes y bebés", "Bloques de construcción"): [("pieces", lambda t: se.pieces_of(t, 10, 20000))],
     ("Juguetes y bebés", "Montables"): [("volt", lambda t: se.volts_of(t, 6, 48))],
-    ("Juegos de mesa", "Rompecabezas"): [("pieces", lambda t: se.pieces_of(t, 20, 60000))],
+    ("Juegos de mesa", "Rompecabezas"): [("pieces", lambda t: se.puzzle_pieces_of(t, 20, 60000))],
     ("Cámaras y fotografía", None): [("camera_mp", lambda t: se.megapixels_of(t, 2, 200))],
     ("Cámaras de seguridad", None): [("camera_mp", lambda t: se.megapixels_of(t, 1, 24))],
     ("Videojuegos", None): [("storage_gb", se.drive_capacity_gb)],
@@ -1114,6 +1116,63 @@ def _facets_propias(product):
     return f or None
 
 
+# Datos fijos del modelo que se copian entre fichas del mismo modelo
+# (ver specs_extract.modelo_clave). Acierto medido dejando cada ficha con
+# dato fuera y prediciéndola con las demás, al nivel del tramo de Compara
+# calidad: pantalla de celulares 95%, tabletas 94%, laptops 97%; potencia
+# de bocinas Bluetooth 89%. El almacenamiento NO (81%: varía por versión).
+_POR_MODELO = (
+    ("Celulares", None, "screen_in", 0.05),
+    ("Tabletas", None, "screen_in", 0.05),
+    ("Laptops", None, "screen_in", 0.05),
+    ("Bocinas", "Bocinas Bluetooth", "power_w", 0.0),
+    # 02-oct: mismo criterio (acierto al nivel del tramo / del valor):
+    # batería de audífonos 92%, resistencia al agua de audífonos 96% y de
+    # bocinas 98%, cancelación de ruido 100%, llamadas 100% y GPS 98% en
+    # relojes, potencia de aspiradoras 94% y de climatización 91%. La
+    # batería de bocinas (80%) y la pantalla de televisores (71%: el mismo
+    # modelo viene en varios tamaños) se quedan fuera.
+    ("Audífonos", None, "battery_h", 0.0),
+    ("Audífonos", None, "water_resistant", None),
+    ("Audífonos", None, "anc", None),
+    ("Bocinas", None, "water_resistant", None),
+    ("Relojes inteligentes", None, "calls", None),
+    ("Relojes inteligentes", None, "gps", None),
+    ("Aspiradoras", None, "power_w", 0.0),
+    ("Climatización", None, "power_w", 0.0),
+)
+
+
+def propagar_por_modelo(products):
+    """Copia el dato a las fichas sin él cuando TODAS las del mismo modelo
+    que lo traen coinciden (dentro de la tolerancia). Claves de una sola
+    palabra («blu g») no cuentan: no identifican un modelo."""
+    hechos = Counter()
+    for cat_p, sub_p, campo, tol in _POR_MODELO:
+        ps = [p for p in products if p.get("category") == cat_p and (sub_p is None or p.get("subcategory") == sub_p)]
+        valores = {}
+        for p in ps:
+            v = (p.get("facets") or {}).get(campo)
+            k = se.modelo_clave(p.get("name") or "")
+            if v is not None and k and len(k.split()) >= 2:
+                valores.setdefault(k, []).append(v)
+        for p in ps:
+            if (p.get("facets") or {}).get(campo) is not None:
+                continue
+            k = se.modelo_clave(p.get("name") or "")
+            vs = valores.get(k)
+            if not vs:
+                continue
+            if tol is None:
+                if len(set(vs)) > 1:   # dato de texto: todas iguales
+                    continue
+            elif max(vs) - min(vs) > tol:
+                continue
+            p.setdefault("facets", {})[campo] = Counter(vs).most_common(1)[0][0]
+            hechos[(cat_p, sub_p, campo)] += 1
+    return hechos
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
@@ -1146,6 +1205,11 @@ def main():
             changed += 1
         if not args.dry_run:
             p["facets"] = f
+
+    if not args.dry_run:
+        for (cat_p, sub_p, campo), n in propagar_por_modelo(products).items():
+            print(f"Por modelo: {cat_p}/{sub_p or '*'} {campo} +{n}")
+            per_field[(cat_p, campo)] += n
 
     print("Cobertura por campo:")
     for cat_name in sorted(per_cat_total):

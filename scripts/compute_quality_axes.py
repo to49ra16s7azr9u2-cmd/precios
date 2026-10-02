@@ -85,12 +85,13 @@ PRIORIDAD = [
 # Donde el orden general no es el de la compra: en una bicicleta el tipo y
 # la rodada van antes que la edad.
 PRIORIDAD_ESPECIFICA = {
-    "Bicicletas y movilidad/Bicicletas": ["bike_type", "wheel_size", "speeds", "age_min"],
-    "Juguetes y bebés/Peluches": ["length_cm", "age_min"],
-    "Videojuegos/Consolas": ["platform", "storage_gb"],
+    "Bicicletas y movilidad": ["bike_type", "wheel_size", "speeds", "age_min"],
+    "Juguetes/Peluches": ["length_cm", "age_min"],
+    "Videojuegos/Consolas PlayStation": ["storage_gb"], "Videojuegos/Consolas Xbox": ["storage_gb"],
+    "Videojuegos/Consolas Nintendo": ["platform", "storage_gb"],
     "Cámaras y fotografía/Cámaras de acción": ["camera_mp", "battery_mah"],
     "Mascotas/Bebederos": ["liters", "breed_size"],
-    "Redes/Routers": ["wifi_std", "ports"], "Redes/Repetidores": ["wifi_std"], "Redes/Switches": ["ports", "wifi_std"],
+    "Redes/Routers": ["wifi_std", "ports"], "Redes/Repetidores": ["wifi_std"], "Redes/Switches PoE": ["ports"], "Redes/Switches administrables": ["ports"], "Redes/Switches no administrables": ["ports"],
     "Juegos de mesa": ["players_max", "age_min"],
     # Rasgos que eran subcategorías (subcategorias_unidas.py, 26-sep): van
     # primero en la subcategoría donde se juntaron, para que la tarjeta
@@ -345,8 +346,8 @@ CAMPO_SOLO_EN = {
     "firmness": {"Muebles"},
     "fan_in": {"Climatización", "Componentes y accesorios de PC"},
     "fan_type": {"Climatización"},
-    "material": {"Muebles", "Joyería y bisutería", "Blancos y ropa de cama", "Instrumentos musicales",
-                 "Viajes", "Otros", "Decoración de hogar y jardín", "Juguetes y bebés", "Mascotas",
+    "material": {"Muebles", "Joyería y bisutería", "Blancos y ropa de cama",
+                 "Viajes", "Otros", "Decoración de hogar y jardín", "Juguetes", "Bebés", "Mascotas",
                  "Belleza y cuidado personal/Mobiliario para salón"},
     "water_resistant": {"Relojes inteligentes", "Audífonos", "Bocinas", "Joyería y bisutería",
                         "Salud", "Cámaras y fotografía", "Blancos y ropa de cama/Protectores de colchón"},
@@ -354,7 +355,7 @@ CAMPO_SOLO_EN = {
     "mobile_data": {"Tabletas"}, "dual_basket": {"Electrodomésticos/Freidoras de aire"},
     "blackout": {"Decoración de hogar y jardín/Cortinas"}, "polarized": {"Joyería y bisutería/Lentes de sol"},
     "memory_foam": {"Blancos y ropa de cama/Almohadas"}, "audio_conn": {"Audífonos", "Teclados"},
-    "volume_ml": {"Otros", "Salud", "Belleza y cuidado personal", "Juguetes y bebés"},
+    "volume_ml": {"Otros", "Salud", "Belleza y cuidado personal", "Juguetes", "Bebés"},
     # Batería contra cable es la pregunta en herramienta eléctrica. En una
     # bomba de sentina, un apagador o un motor, 12 V es corriente directa de
     # coche o lancha, no "batería chica", y 127/220 V es la instalación, no
@@ -366,6 +367,19 @@ CAMPO_SOLO_EN = {
              "Herramientas/Herramientas de banco", "Herramientas/Compresores y herramienta neumática",
              "Herramientas/Soldadoras",
              "Bicicletas y movilidad/Scooters eléctricos"},
+}
+
+# Y al revés: dónde un campo permitido en la categoría no ayuda a elegir.
+# «Material: Metal / Plástico» en un amplificador o un afinador, «Metal» en
+# toallas de manos, o «Para quién: Niño / Bebé» en carriolas y sillas de
+# auto (todas son para bebé) eran filas que no dicen nada.
+CAMPO_FUERA = {
+    "material": {"Blancos y ropa de cama/Toallas de manos y faciales", "Joyería y bisutería/Cuidado y herramientas",
+                 "Mascotas/Comederos para aves y roedores", "Joyería y bisutería/Arras y sets"},
+    "gender": {"Bebés", "Bebés/Alimentación y lactancia", "Bebés/Baño e higiene del bebé", "Bebés/Carriolas",
+               "Bebés/Juguetes para bebé", "Bebés/Pañales y cambio", "Bebés/Portabebés y canguros",
+               "Bebés/Seguridad para bebé", "Bebés/Sillas de auto", "Bebés/Cunas", "Bebés/Andaderas",
+               "Bebés/Sillas de comer y mecedoras", "Bebés/Sistemas de viaje", "Bebés/Carriolas bastón"},
 }
 
 # Tramos fijos: acá los cortes no salen de la distribución sino de cómo se
@@ -394,6 +408,17 @@ FIJOS = {
         ("n6", "No. 6", "Basquetbol femenil", "No. 6", 5, 6),
         ("n7", "No. 7", "Basquetbol varonil y futbol americano", "No. 7", 6, None)]),
 }
+# Tramos fijos solo para una subcategoría: en rompecabezas casi la mitad
+# son de 1000 piezas, los tercios caían todos ahí y el eje no salía (2,518
+# de 4,028 con dato y sin fila de piezas). Se corta por cómo se venden.
+FIJOS_POR_CLAVE = {
+    ("Juegos de mesa/Rompecabezas", "pieces"): ("Piezas", "por número de piezas", [
+        ("p300", "Hasta 300", "Niños o para empezar", "Hasta 300 piezas", None, 300),
+        ("p500", "500 a 750", "Una o dos tardes", "301 a 999 piezas", 300, 999),
+        ("p1000", "1000", "El clásico para adultos", "1000 piezas", 999, 1000),
+        ("p1500", "Más de 1000", "Un reto largo", "1500 piezas o más", 1000, None)]),
+}
+
 # Los de voltaje y balón no van de menos a más en el sentido de "mejor".
 FIJOS_SIN_RAMPA = {"volt", "ball_no"}
 
@@ -410,35 +435,35 @@ USOS = {
         ("Tweeters y puertas chicas", "La medida más común", "Woofers y subwoofers")),
     ("Autos y motos/Amplificadores para auto", "power_w"): (("Suave", "Media", "Fuerte"),
         ("Para mejorar el estéreo de fábrica", "Bocinas y un subwoofer", "Subwoofers grandes y competencia")),
-    ("Movilidad eléctrica/Patinetes eléctricos", "power_w"): (("Suave", "Media", "Fuerte"),
+    ("Bicicletas y movilidad/Scooters eléctricos", "power_w"): (("Suave", "Media", "Fuerte"),
         ("Plano y trayectos cortos", "Subidas suaves y más velocidad", "Cerros y dos personas")),
-    ("Movilidad eléctrica/Bicicletas eléctricas", "power_w"): (("Suave", "Media", "Fuerte"),
+    ("Bicicletas y movilidad/Bicicletas eléctricas", "power_w"): (("Suave", "Media", "Fuerte"),
         ("Ayuda al pedaleo en plano", "Subidas suaves", "Cerros y carga")),
     ("Iluminación", "power_w"): (("Suave", "Media", "Potente"),
         ("Ambiente, buró y decoración", "Cuarto, cocina y oficina", "Exterior, patio y naves")),
     ("Iluminación/Exterior", "power_w"): (("Suave", "Media", "Potente"),
         ("Jardín y pasillo", "Cochera y fachada", "Estacionamiento y nave")),
-    ("Viajes/Maletas", "size_in"): (("Cabina", "Mediana", "Grande"),
+    ("Viajes", "size_in"): (("Cabina", "Mediana", "Grande"),
         ("Va en el avión contigo", "Documentada, una semana", "Viaje largo o para dos")),
-    ("Juguetes y bebés/Peluches", "length_cm"): (("Chico", "Mediano", "Grande"),
+    ("Juguetes/Peluches", "length_cm"): (("Chico", "Mediano", "Grande"),
         ("De bolsillo o llavero", "Para abrazar", "Para la cama")),
-    ("Juguetes y bebés/Figuras de acción", "length_cm"): (("Chica", "Mediana", "Grande"),
+    ("Juguetes/Figuras de acción", "length_cm"): (("Chica", "Mediana", "Grande"),
         ("Para colección en repisa", "La escala más común", "Para exhibir")),
     ("Muebles/Escritorios", "length_cm"): (("Chico", "Mediano", "Grande"),
         ("Para una laptop", "Monitor y espacio para escribir", "Dos monitores o dos personas")),
-    ("Otros/Generadores", "power_w"): (("Chico", "Mediano", "Grande"),
+    ("Herramientas/Generadores", "power_w"): (("Chico", "Mediano", "Grande"),
         ("Luces, teléfono y refrigerador", "Casa chica en un apagón", "Local, taller o casa entera")),
-    ("Otros/Paneles solares", "power_w"): (("Chico", "Mediano", "Grande"),
+    ("Energía solar/Paneles solares", "power_w"): (("Chico", "Mediano", "Grande"),
         ("Cargar teléfono y luces", "Estación de energía o cabaña", "Instalación de casa")),
-    ("Otros/Estaciones de energía", "power_w"): (("Chica", "Mediana", "Grande"),
+    ("Baterías portátiles/Estaciones de energía", "power_w"): (("Chica", "Mediana", "Grande"),
         ("Teléfono, laptop y luces", "Refrigerador y herramientas", "Casa en un apagón")),
-    ("Otros/Inversores", "power_w"): (("Chico", "Mediano", "Grande"),
+    ("Energía solar/Inversores", "power_w"): (("Chico", "Mediano", "Grande"),
         ("Laptop y teléfono", "Televisión y herramientas chicas", "Refrigerador y equipos grandes")),
     ("Belleza y cuidado personal/Secadoras de cabello", "power_w"): (("Suave", "Media", "Potente"),
         ("Cabello corto o de viaje", "Uso de diario", "Cabello largo o grueso, secado rápido")),
     ("Cámaras y fotografía", "camera_mp"): (("Básica", "Media", "Alta"),
         ("Para redes y pantalla", "Fotos nítidas de diario", "Para imprimir en grande o recortar")),
-    ("Videojuegos/Consolas", "storage_gb"): (("Básico", "Intermedio", "Alto"),
+    ("Videojuegos", "storage_gb"): (("Básico", "Intermedio", "Alto"),
         ("Pocos juegos instalados", "Varios juegos a la vez", "Toda la biblioteca")),
     ("Juegos de mesa/Rompecabezas", "pieces"): (("Pocas", "Medias", "Muchas"),
         ("Para niños o una tarde", "Un fin de semana", "Un reto largo")),
@@ -450,8 +475,6 @@ USOS = {
         ("Para pocas personas", "Para la familia", "Para fiestas y reuniones")),
     ("Herramientas", "pieces"): (("Pocas", "Medias", "Muchas"),
         ("Lo básico para la casa", "Casa y taller", "Juego completo de taller")),
-    ("Juguetes y bebés/Bloques de construcción", "pieces"): (("Pocos", "Medios", "Muchos"),
-        ("Para empezar", "Un modelo completo", "Sets grandes de colección")),
     ("Autos y motos/Motocicletas", "engine_cc"): (("Chica", "Mediana", "Grande"),
         ("Ciudad y trámites", "Carretera ocasional", "Viajes largos")),
     ("Refrigeradores/Frigobares", "liters"): (("Chico", "Mediano", "Grande"),
@@ -468,7 +491,7 @@ USOS = {
         ("Teléfono y audífonos", "Carga rápida de teléfono y tablet", "Laptop o varios equipos")),
     ("Baterías portátiles", "battery_mah"): (("Chica", "Mediana", "Grande"),
         ("Una carga de celular, cabe en el bolsillo", "Dos o tres cargas", "Varios días o para viajar")),
-    ("Deportes y fitness/Pesas", "weight_kg"): (("Ligeras", "Medias", "Pesadas"),
+    ("Deportes y fitness", "weight_kg"): (("Ligeras", "Medias", "Pesadas"),
         ("Para empezar y tonificar", "Fuerza general", "Fuerza avanzada")),
     ("Salud/Básculas", "load_kg"): (("Estándar", "Reforzada", "Alta capacidad"),
         ("Hasta 150 kg", "Más margen", "Uso clínico o de carga")),
@@ -484,7 +507,7 @@ USOS = {
 
 INTROS = {
     "Juegos de mesa": "Elige por cuántos van a jugar y de qué edad, no por la ficha técnica.",
-    "Juguetes y bebés": "Elige por la edad de quien lo va a usar.",
+    "Juguetes": "Elige por la edad de quien lo va a usar.",
     "Viajes/Maletas": "Elige por el viaje que vas a hacer: la de cabina va contigo en el avión.",
     "Deportes y fitness/Pesas": "Elige por dónde estás: se empieza ligero y se sube.",
     "Herramientas/Herramientas eléctricas": "Elige por el trabajo que le vas a dar y si la quieres con o sin cable.",
@@ -573,8 +596,9 @@ def tramos_numericos(vals, campo, nombres, usos):
     return None
 
 
-def tramos_fijos(vals, campo):
-    label, criterion, defs = FIJOS[campo]
+def tramos_fijos(vals, campo, defs=None):
+    if defs is None:
+        label, criterion, defs = FIJOS[campo]
     n = len(vals)
     tiers = []
     for tid, name, use, spec, lo, hi in defs:
@@ -665,7 +689,12 @@ def eje_precio(ps):
 
 def eje(clave, campo, vals):
     cfg = CAMPOS.get(campo)
-    if campo in FIJOS:
+    fijo = FIJOS_POR_CLAVE.get((clave, campo))
+    if fijo:
+        label, criterion, defs = fijo
+        tiers = tramos_fijos(vals, campo, defs)
+        ramp = True
+    elif campo in FIJOS:
         label, criterion, _ = FIJOS[campo]
         tiers = tramos_fijos(vals, campo)
         ramp = campo not in FIJOS_SIN_RAMPA
@@ -716,6 +745,18 @@ def claves_a_mano():
     return out
 
 
+def _familias():
+    """{"Categoría/Subcategoría": familia} del manifiesto (data/data.json)."""
+    try:
+        cats = json.load(io.open(os.path.join(os.path.dirname(SALIDA), "data.json"), encoding="utf-8"))["categories"]
+    except (OSError, ValueError, KeyError):
+        return {}
+    return {f"{c['id']}/{s['id']}": s["fam"] for c in cats for s in c.get("subcategories") or [] if s.get("fam")}
+
+
+FAMILIA = _familias()
+
+
 def armar(products, a_mano):
     grupos = collections.defaultdict(list)
     for p in products:
@@ -738,7 +779,15 @@ def armar(products, a_mano):
         # categoría (qualityAxes: sub || cat), no se suma: si la subcategoría
         # declara el suyo (aunque sea vacío, como Refrigeradores/Frigobares),
         # el de la categoría no cuenta acá.
-        ya = set(a_mano[clave]) if clave in a_mano else set(a_mano.get(cat, []))
+        # Igual que qualityAxes() en app.js: subcategoría, luego su familia
+        # («Climatización/Ventiladores» quedó como familia), luego categoría.
+        clave_fam = f"{cat}/{FAMILIA.get(clave)}" if FAMILIA.get(clave) else None
+        if clave in a_mano:
+            ya = set(a_mano[clave])
+        elif clave_fam in a_mano:
+            ya = set(a_mano[clave_fam])
+        else:
+            ya = set(a_mano.get(cat, []))
         cupo = MAX_EJES - len(ya)
         if cupo <= 0:
             continue
@@ -778,6 +827,8 @@ def armar(products, a_mano):
             if not repartido(campo):
                 continue
             if campo in CAMPO_SOLO_EN and cat not in CAMPO_SOLO_EN[campo] and clave not in CAMPO_SOLO_EN[campo]:
+                continue
+            if clave in CAMPO_FUERA.get(campo, ()):
                 continue
             if campo in FIJOS or "unit" in CAMPOS.get(campo, {}):
                 nums = [v for v in vals if isinstance(v, (int, float))]

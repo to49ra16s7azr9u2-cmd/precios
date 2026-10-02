@@ -7170,7 +7170,7 @@
       {
         key: "level", label: "Nivel", field: "resolution", criterion: "por resolución",
         tiers: [
-          { id: "bajo", name: "Básico", use: "Películas casuales en un cuarto oscuro", spec: "HD (720p)", match: (v) => v === "HD" || v === "HD+" },
+          { id: "bajo", name: "Básico", use: "Películas casuales en un cuarto oscuro", spec: "HD (720p) o menos", match: (v) => ["HD", "HD+", "XGA", "SVGA"].includes(v) },
           { id: "medio", name: "Intermedio", use: "Series y juegos con buena nitidez", spec: "Full HD", match: (v) => ["FHD", "WFHD", "QHD"].includes(v) },
           { id: "alto", name: "Alto", use: "Cine en casa al máximo detalle", spec: "4K y 8K", match: (v) => ["4K UHD", "8K UHD"].includes(v) },
         ],
@@ -7453,7 +7453,16 @@
 
   function qualityAxes() {
     const sub = singleSub();
-    const mano = (sub && QUALITY_AXES[`${state.category}/${sub}`]) || QUALITY_AXES[state.category] || [];
+    // Los ejes a mano de «Climatización/Ventiladores», «Muebles/Sillas» y
+    // «Climatización/Calefactores» se escribieron cuando eran subcategorías;
+    // hoy son familias (Ventiladores de torre, de pedestal...) y la clave ya
+    // no coincidía con ninguna: se perdían. Se busca la subcategoría, luego
+    // su familia, luego la categoría.
+    const cat = state.category ? categoryById(state.category) : null;
+    const fam = cat ? familiaActiva(cat.subcategories || []) : null;
+    const mano = (sub && QUALITY_AXES[`${state.category}/${sub}`])
+      || (fam && QUALITY_AXES[`${state.category}/${fam}`])
+      || QUALITY_AXES[state.category] || [];
     const gen = sub ? qualityAxesJson[`${state.category}/${sub}`] : null;
     const genCat = qualityAxesJson[state.category];
     let deCat = genCat ? genCat.axes : null;
@@ -7649,7 +7658,12 @@
         const t = qualityTierOf(axis, p);
         enTramo.set(t, (enTramo.get(t) || 0) + 1);
       }
-      if (contestan < 4 || contestan < base.length * 0.05) return;
+      // Con menos del 15% que lo indica, elegir una tarjeta dejaba
+      // fuera a casi toda la lista: «Piezas» en Termos (329 de 2,388), «Para
+      // quién» en toda Belleza (5,164 de 32,010). Un eje de algunas
+      // subcategorías se mide contra ellas, no contra la categoría entera.
+      const alcanceEje = axis.subs ? base.filter((p) => axis.subs.includes(p.subcategory)).length : base.length;
+      if (contestan < 4 || contestan < alcanceEje * 0.15) return;
       // Tampoco la que no reparte: en «Sábanas king size» la medida ponía
       // 1,540 de 1,540 en «King», y en «Juegos PS4» la consola 2,396 de
       // 2,405 en «PlayStation 4». Repite lo que el nombre de la

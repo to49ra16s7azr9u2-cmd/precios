@@ -194,6 +194,25 @@ def screen_size_in(name):
     return None
 
 
+# Laptops que no ponen la comilla: «15.6 +», «14' amd», «pantalla 14 led»,
+# «IdeaPad Slim 3 15,3». Una cifra con decimal de las medidas en que se
+# fabrican laptops no tiene otra lectura en el nombre; un entero suelto sí
+# (núcleos, generación), así que el entero solo vale con «'» o tras
+# «pantalla».
+_LAPTOP_DEC = {11.6, 12.2, 12.4, 12.5, 13.3, 13.4, 13.5, 13.6, 14.1, 14.5, 15.3, 15.6, 16.1, 17.3}
+_LAPTOP_DEC_RE = re.compile(r"(?<![\d.,\-])(1[1-7][.,]\d)(?![\d.,]|\s*(?:ghz|gb|tb|mp|kg|cm|mm|v\b|w\b|mah|hrs?|horas))")
+_LAPTOP_INT_RE = re.compile(r"(?<![\d.,])(1[1-7])\s*'|pantalla\s+(?:de\s+)?(1[1-7](?:[.,]\d)?)\b")
+
+
+def laptop_screen_in(name):
+    n = _norm(name)
+    vals = {float(m.group(1).replace(",", ".")) for m in _LAPTOP_DEC_RE.finditer(n)}
+    vals = {v for v in vals if v in _LAPTOP_DEC}
+    for m in _LAPTOP_INT_RE.finditer(n):
+        vals.add(float((m.group(1) or m.group(2)).replace(",", ".")))
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
 _REFRESH_RE = re.compile(r"\b(60|90|120|144|165|180|240)\s*hz\b")
 
 
@@ -699,6 +718,10 @@ _RESOLUTION_PATTERNS = (
     ("HD+", re.compile(r"\bhd\+\b|\b1440\s*x\s*900\b")),
     # 720p y 1280x800 (WXGA) son los proyectores de entrada.
     ("HD", re.compile(r"\bhd\b|\b1366\s*x\s*768\b|\b1280\s*x\s*720\b|\b720p\b|\b1280\s*x\s*800\b|\bwxga\b")),
+    # Proyectores de oficina: «SVGA 800x600», «XGA 1024x768». Por debajo
+    # de HD; antes quedaban sin resolución (la mitad de los proyectores).
+    ("XGA", re.compile(r"\bxga\b|\b1024\s*x\s*768\b")),
+    ("SVGA", re.compile(r"\bsvga\b|\b800\s*x\s*600\b|\b480p\b")),
 )
 
 
@@ -818,8 +841,8 @@ _PLATFORM_PATTERNS = (
     ("Nintendo Switch", re.compile(r"\bnintendo\s*switch\b|\bswitch\b")),
     ("PlayStation 5", re.compile(r"\bps\s*5\b|\bplaystation\s*5\b")),
     ("PlayStation 4", re.compile(r"\bps\s*4\b|\bplaystation\s*4\b")),
-    ("Xbox Series X|S", re.compile(r"\bxbox\s*series\b")),
-    ("Xbox One", re.compile(r"\bxbox\s*one\b")),
+    ("Xbox Series X|S", re.compile(r"\bxbox[\s\-]*series\b|\bseries\s*[xs]\b|\bxsx\b|\bxbsx\b")),
+    ("Xbox One", re.compile(r"\bxbox[\s\-]*one\b|\bxb1\b|\bxbo\b|\bxone\b|\bxbxone\b")),
     ("PC", re.compile(r"\bpara\s*pc\b|\bpc\s*digital\b|\bsteam\b")),
 )
 
@@ -842,6 +865,11 @@ def platform_of(name):
     # Dos consolas que NO son una prefijo de la otra sí son ambigüedad real:
     # "compatible PS4 y PS5" no dice para cuál es. Con una regla por familia
     # ("PlayStation" para las dos) esto devolvía PS5 a ciegas.
+    # «Xbox One / Xbox Series X» es un juego que corre en las dos: la Series
+    # lee los de One. Se queda en One, que es la consola mínima que pide;
+    # antes no caía en ninguna tarjeta (823 juegos de Xbox sin consola).
+    if set(hits) == {"Xbox Series X|S", "Xbox One"}:
+        return "Xbox One"
     if len(hits) > 1:
         base = hits[0]
         if not all(h == base or base.startswith(h) or h.startswith(base) for h in hits):
@@ -1621,6 +1649,16 @@ def pieces_of(text, lo, hi):
     return _uno(vals)
 
 
+# En rompecabezas la tienda dice también «1000 Unidades» o «1000 p»: en
+# cualquier otro producto «unidades» es el paquete, acá son las piezas.
+_PUZZLE_RE = re.compile(r"(?<![\d.,])(\d{2,5})\s*(?:unidades\b|p\b|pzs?\.|piezas?\b|pzas?\b|pcs\b|pieces?\b)")
+
+
+def puzzle_pieces_of(text, lo=20, hi=60000):
+    vals = {int(m.group(1)) for m in _PUZZLE_RE.finditer(_norm(text or ""))}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
 _ML_RE = re.compile(r"(?<![\d.,])(\d{1,4}(?:[.,]\d)?)\s*(?:ml\b|mililitros?\b)")
 
 
@@ -1834,3 +1872,24 @@ def kind_of(text, tabla):
         if rx.search(n):
             return etiqueta
     return None
+
+
+# ---------------------------------------------------------------------
+# Clave de modelo: el nombre sin capacidad, color, operador ni relleno
+# («Samsung Galaxy A16 6gb ram 128gb light green» -> «samsung galaxy a16»).
+# Sirve para copiar un dato FIJO del modelo (la pantalla de un teléfono)
+# de las fichas que lo dicen a las que no: el 55% de los Android no
+# nombraba la pantalla. No sirve para lo que cambia entre variantes del
+# mismo modelo (almacenamiento): ahí el acierto bajó a 81%.
+# ---------------------------------------------------------------------
+_MODELO_COLORES = r"negro|negra|blanco|blanca|azul|rojo|roja|verde|gris|plata|plateado|dorado|oro|rosa|morado|lila|purpura|violeta|amarillo|naranja|cafe|marron|beige|grafito|titanio|natural|black|white|blue|green|gray|grey|silver|gold|pink|purple|midnight|starlight|cosmic|ocean|graphite|navy|sky|mint|lavanda|lavender|crema|cream|coral|menta|celeste|aqua|turquesa|cielo|noche|obsidiana|onyx|marino|oscuro|claro|space|espacial|dark|light|shadow"
+_MODELO_RUIDO = r"celular|smartphone|telefono|movil|liberado|desbloqueado|unlocked|telcel|at&t|att|movistar|bait|dual|sim|esim|nuevo|new|reacondicionado|renovado|grado|open|box|version|global|internacional|venta|color|de|con|y|en|para|el|la|ram|rom|memoria|almacenamiento|interno|pantalla|camara|bateria|amoled|lcd|ips|oled|hd|fhd|full|plus\+|4g|5g|lte|nfc|octa|core|android|ios|mp|mah|w|pulgadas|kit|incluye|cargador|funda|mica|audifonos|regalo|gratis|tienda|oficial|garantia|modelo|equipo|smart|phone|mobile|movil"
+def modelo_clave(name):
+    n=_norm(name)
+    n=re.split(r"\s(?:\+|mas|más|con|incluye|inc\.?)\s(?:cargador|funda|mica|audif|buds|regalo|smartwatch|reloj|band)",n)[0]
+    n=re.sub(r"\([^)]*\)|\[[^]]*\]"," ",n)
+    n=re.sub(r"\d+\s*(gb|tb|mb)\b|\d+\s*\+\s*\d+\s*(gb)?|\d+\s*/\s*\d+\s*(gb)?|\d+(\.\d+)?\s*(\"|pulgadas|in\b|mp|mah|w\b|hz)"," ",n)
+    n=re.sub(r"[^a-z0-9 ]"," ",n)
+    toks=[t for t in n.split() if not re.fullmatch(_MODELO_COLORES + "|" + _MODELO_RUIDO,t)]
+    if not toks: return None
+    return " ".join(toks[:5])
