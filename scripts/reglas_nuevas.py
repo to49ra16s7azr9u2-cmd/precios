@@ -215,6 +215,13 @@ def nueva_categoria(tn, sub_refaccion=None, sub_libro=None):
     # agregan al auto, no se montan (segunda reorganización del 25-sep).
     if es_auto and re.match(r'^(\S+ ){0,2}(tapetes?|cubrevolantes?|fundas?|cubreasientos?|cubre asientos?)\b', tn):
         return ('Autos, bicicletas y motos', 'Tapetes, fundas y parasoles', 'car')
+    # El estéreo y la antena «para Seat Ibiza 2018-2023» tampoco son
+    # autopartes: Elektra vende ~2 mil así y caían en Autopartes / Para autos
+    # (03-oct-2026).
+    if es_auto and re.match(r'^(\S+ ){0,2}(estereos?|autoestereos?|radios?|pantallas?|multimedias?)\b', tn):
+        return ('Autos, bicicletas y motos', 'Estéreos para auto', 'car')
+    if es_auto and re.match(r'^(\S+ ){0,2}antenas?\b', tn):
+        return ('Autos, bicicletas y motos', 'Accesorios de audio para auto', 'car')
     if es_auto or (not RX_NO_AUTO.search(tn) and RX_AUTO_PIEZA.search(tn) and RX_AUTO_MARCA.search(tn)
                    and re.match(r'^(?:\S+ ){0,3}(' + AUTO_PIEZA + r')\b', tn)):
         if True:

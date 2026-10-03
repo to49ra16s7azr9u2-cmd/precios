@@ -2394,7 +2394,7 @@ REGLAS = DEFINICIONES + [
  (re.compile(r'(altavo(z|ces)|bocinas?) internos? (de repuesto|izquierd|derech)|'
              r'(altavo(z|ces)|bocinas?) de repuesto (para|compatible)'),
   ('Bocinas', 'Accesorios para bocinas', 'speaker')),
- (re.compile(r'\bcoaxial|\b6 ?x ?9\b|(rango medio|medio rango)|'
+ (re.compile(r'(?<!cable )(?<!cables )\bcoaxial|\b6 ?x ?9\b|(rango medio|medio rango)|'
              r'(bocinas?|altavo(z|ces)|parlantes?|tweeters?|woofers?) (para|de) (auto|coche|carro|automovil|vehiculo)|'
              r'autoestereo|car audio|\bdoor speakers?\b|^(?:\S+ ){0,4}(altavoz de agudos|\btweeters?\b|super bullet)|'
              r'altavo(z|ces) (de )?componentes?|bocinas? (de )?componentes?|\bcomponent speakers?\b'),
@@ -2896,7 +2896,7 @@ REGLAS = DEFINICIONES + [
              # Inalámbrico 2.4G ... Diseño De Escritorio", que es un teclado.
              r'(escritorio|mesa) (ejecutiv|industrial|de pie|para computadora|de oficina|de trabajo|gamer|con cajon)|'
              r'convertidor de escritorio|bandeja (para|de) teclado|\brecepcion\b|'
-             r'\bips\b|\bhz\b|\bkindle\b))'
+             r'\bips\b|\bhz\b|\bkindle\b|^control\b))'
              # Lookahead, no coincidencia directa. Con "^(?!guarda)(teclado|
              # keyboard)" la palabra tenía que estar en la POSICIÓN 0 y solo
              # entraba lo que ABRE con "Teclado": el "Corsair K55 Core TKL
@@ -4020,6 +4020,13 @@ def sub_iluminacion(tn):
 
 
 def sub_vehiculo(tn):
+    # Elektra (03-oct-2026): «MEDIO RANGO 8 PULGADAS ... 80W» no dice
+    # «bocina», y el rastreador GPS para el coche no tenía rama: 79 fichas
+    # entraban sin subcategoría.
+    if re.search(r'^(?:\S+ ){0,2}(medio rango|rango medio)\b', tn):
+        return 'Medios rangos y bocinas profesionales'
+    if re.search(r'\b(rastreador|localizador|gps tracker|tracker gps)\b', tn):
+        return 'Accesorios para auto'
     # «Altavoz» es la palabra de España y el catálogo entero está escrito con
     # «bocina», así que ninguna rama los reconocía: 155 fichas de Coppel se
     # quedaron sin subcategoría por eso. Se reparten por el tamaño, que es
@@ -5843,7 +5850,11 @@ def sub_tv(tn):
     if re.search(r'(altavoz|altavoces|bocinas?).{0,40}(de repuesto|repuesto).{0,25}(tv|television)|'
                  r'(altavoz|altavoces).{0,15}(de|para) (tv|television)|magic remote|'
                  r'control(es)? remotos?.{0,30}(televisor|tv\b)', tn):
-        return 'Accesorios y soportes'
+        return 'Controles para TV' if re.search(r'control(es)? remoto|magic remote', tn) else 'Accesorios y soportes'
+    # El control remoto tiene subcategoría propia desde el 26-sep
+    # (mover_por_regla.py); el clasificador lo seguía mandando a Accesorios.
+    if re.search(r'^(?:\S+ ){0,1}control(es)? (remotos?|para|compatibles?|universal|teclado)\b|^mando (para|a distancia)', tn):
+        return 'Controles para TV'
     if re.search(r'altavoz|altavoces|barra de sonido|auricular|audifono|\bbook\b|\bguide\b|'
                  r'\bproduction\b|tableta grafica|\brepetidor\b', tn):
         return None
