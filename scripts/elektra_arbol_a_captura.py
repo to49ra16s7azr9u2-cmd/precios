@@ -34,6 +34,9 @@ USO
 ---
     python3 scripts/elektra_arbol_a_captura.py --salida /tmp/elektra-arbol.json
     python3 scripts/elektra_arbol_a_captura.py --salida /tmp/x.json --max-hojas 5   # prueba
+    python3 scripts/elektra_arbol_a_captura.py --salida /tmp/elektra-arbol.json --continuar
+        # sigue desde la última hoja guardada (el recorrido entero lleva ~5 h
+        # y un reinicio del contenedor lo corta)
     python3 scripts/importar_captura_tienda.py /tmp/elektra-arbol.json --dry-run
 """
 import argparse
@@ -144,6 +147,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--salida", required=True)
     ap.add_argument("--max-hojas", type=int, default=0, help="sólo las primeras N hojas (prueba)")
+    ap.add_argument("--continuar", action="store_true",
+                    help="retoma desde la última hoja guardada en <salida>.progreso")
     args = ap.parse_args()
     arbol = fetch_json(f"{BASE}/category/tree/4")
     if not arbol:
@@ -155,8 +160,21 @@ def main():
     if args.max_hojas:
         elegidas = elegidas[:args.max_hojas]
     print(f"hojas: {len(todas)}; a recorrer: {len(elegidas)}", flush=True)
-    vistos, salida, fuera = set(), [], {}
+    vistos, salida, fuera, desde = set(), [], {}, 0
+    progreso = args.salida + ".progreso"
+    if args.continuar and os.path.exists(progreso):
+        with open(progreso, encoding="utf-8") as f:
+            prog = json.load(f)
+        if prog.get("hojas") != [p for p, _ in elegidas]:
+            sys.exit("el árbol de categorías cambió desde el último corte: hay que empezar de cero")
+        with open(args.salida, encoding="utf-8") as f:
+            salida = json.load(f)
+        vistos = {it["id"] for it in salida}
+        desde = prog["hecho"]
+        print(f"se retoma tras la hoja {desde}: {len(salida):,} productos ya guardados", flush=True)
     for i, (path, nombres) in enumerate(elegidas, 1):
+        if i <= desde:
+            continue
         productos, tope = recorrer(path)
         if tope:
             for r in RANGOS:
@@ -175,8 +193,11 @@ def main():
             salida.append(it)
         if i % 25 == 0 or i == len(elegidas):
             print(f"  hoja {i}/{len(elegidas)}: {len(salida):,} productos", flush=True)
-            with open(args.salida, "w", encoding="utf-8") as f:
+            with open(args.salida + ".tmp", "w", encoding="utf-8") as f:
                 json.dump(salida, f, ensure_ascii=False)
+            os.replace(args.salida + ".tmp", args.salida)
+            with open(progreso, "w", encoding="utf-8") as f:
+                json.dump({"hecho": i, "hojas": [p for p, _ in elegidas]}, f)
     with open(args.salida, "w", encoding="utf-8") as f:
         json.dump(salida, f, ensure_ascii=False)
     print(f"productos distintos: {len(salida):,} -> {args.salida}")
