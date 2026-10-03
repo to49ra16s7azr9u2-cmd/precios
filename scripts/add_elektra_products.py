@@ -90,9 +90,11 @@ def vendedor_publicable(item):
                        str(s.get("sellerId")) != ELEKTRA_SELLER_ID),
     )
 
+# Nos presentamos como lo que somos. Con el User-Agent de Chrome que había
+# acá, Elektra empezó a contestar 403 a la API de catálogo (03-oct-2026), y
+# con éste contesta normal; Martí también.
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                  "(KHTML, like Gecko) Chrome/120.0 Safari/537.36",
+    "User-Agent": "ComparaMEX/1.0 (+https://comparamex.com; comparador de precios)",
     "Accept-Language": "es-MX,es;q=0.9",
     "Accept-Encoding": "gzip",
 }
