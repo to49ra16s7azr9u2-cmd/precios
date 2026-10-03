@@ -1,0 +1,56 @@
+# Baja el feed de productos de un programa de Soicos y lo deja como
+# artefacto, para importarlo después con importar_captura_tienda.py.
+#
+# POR QUÉ UN WORKFLOW: el token y el aid de Soicos viven sólo en los
+# secretos del repositorio (SOICOS_TOKEN, SOICOS_AID). Así no tienen que
+# estar en ninguna máquina para bajar un feed completo, como el de Elektra
+# (programa 10219, ~199 mil productos). La captura que sale no lleva el
+# token: sólo nombre, precio, foto y el deeplink público de cada producto.
+#
+# Se corre a mano (Actions -> Feed de Soicos -> Run workflow) o con
+#   gh api -X POST repos/<dueño>/precios/actions/workflows/feed-soicos.yml/dispatches \
+#     -f ref=main -f 'inputs[programa]=10219' -f 'inputs[tienda]=elektra'
+name: Feed de Soicos
+
+on:
+  workflow_dispatch:
+    inputs:
+      programa:
+        description: "Programa de Soicos (10219 = Elektra MX)"
+        required: true
+        default: "10219"
+      tienda:
+        description: "storeId del catálogo"
+        required: true
+        default: "elektra"
+
+permissions:
+  contents: read
+
+jobs:
+  bajar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Bajar el feed
+        env:
+          SOICOS_TOKEN: ${{ secrets.SOICOS_TOKEN }}
+          SOICOS_AID: ${{ secrets.SOICOS_AID }}
+          PROGRAMA: ${{ inputs.programa }}
+          TIENDA: ${{ inputs.tienda }}
+        run: |
+          python3 scripts/soicos_a_captura.py --programa "$PROGRAMA" --tienda "$TIENDA" \
+            --salida "$RUNNER_TEMP/captura-$TIENDA.json"
+          gzip -9 "$RUNNER_TEMP/captura-$TIENDA.json"
+          ls -la "$RUNNER_TEMP"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: captura-${{ inputs.tienda }}
+          path: ${{ runner.temp }}/captura-${{ inputs.tienda }}.json.gz
+          retention-days: 7
