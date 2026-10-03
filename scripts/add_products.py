@@ -126,9 +126,22 @@ def is_junk_title(title):
 
 
 def get(path):
-    req = urllib.request.Request(BASE + path, headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=45) as r:
-        return json.load(r)
+    # Mercado Libre contesta 502/503/504 a ratos (03-oct: dos de cada tres
+    # pedidos a /catalog durante un rato). Sin reintento, una subcategoría
+    # cuyo dominio no se pudo confirmar se saltaba entera. El 429 (tope
+    # diario del Worker) no se reintenta: no se arregla esperando segundos.
+    for espera in (1, 2, 4, 8, None):
+        req = urllib.request.Request(BASE + path, headers=HEADERS)
+        try:
+            with urllib.request.urlopen(req, timeout=45) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            if e.code < 500 or espera is None:
+                raise
+        except (urllib.error.URLError, TimeoutError):
+            if espera is None:
+                raise
+        time.sleep(espera)
 
 
 def catalog(domain, q, offset):
