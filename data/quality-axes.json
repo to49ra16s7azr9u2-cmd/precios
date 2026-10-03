@@ -16543,3350 +16543,6 @@
    }
   ]
  },
- "Muebles/Organizadores y almacenamiento": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $620",
-      "max": 620
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$620 a $1,050",
-      "min": 620,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Muebles de baño": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,650",
-      "max": 3650
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,650 a $5,100",
-      "min": 3650,
-      "max": 5100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,100",
-      "min": 5100
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Organizadores de escritorio": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $550",
-      "max": 550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$550 a $910",
-      "min": 550,
-      "max": 910
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $910",
-      "min": 910
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Repisas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $770",
-      "max": 770
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$770 a $1,450",
-      "min": 770,
-      "max": 1450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,450",
-      "min": 1450
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Herrajes y refacciones de muebles": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $560",
-      "max": 560
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$560 a $990",
-      "min": 560,
-      "max": 990
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $990",
-      "min": 990
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Muebles de cocina": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $4,500",
-      "max": 4500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$4,500 a $9,950",
-      "min": 4500,
-      "max": 9950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $9,950",
-      "min": 9950
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Mesas de centro": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,750",
-      "max": 1750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,750 a $3,800",
-      "min": 1750,
-      "max": 3800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,800",
-      "min": 3800
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Mesas auxiliares y laterales": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 45 cm",
-      "max": 45
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "46 cm a 53 cm",
-      "min": 45,
-      "max": 53
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 53 cm",
-      "min": 53
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     },
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Burós": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,600",
-      "max": 1600
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,600 a $1,950",
-      "min": 1600,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Tocadores": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,750",
-      "max": 2750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,750 a $6,950",
-      "min": 2750,
-      "max": 6950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,950",
-      "min": 6950
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Libreros": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,600",
-      "max": 1600
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,600 a $2,950",
-      "min": 1600,
-      "max": 2950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Percheros": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $510",
-      "max": 510
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$510 a $940",
-      "min": 510,
-      "max": 940
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $940",
-      "min": 940
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Accesorios y refacciones de cama": {
-  "axes": [
-   {
-    "label": "Medida",
-    "field": "bed_size",
-    "criterion": "de la cama",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "individual",
-      "name": "Individual",
-      "use": "",
-      "spec": "Individual",
-      "values": [
-       "Individual"
-      ]
-     },
-     {
-      "id": "queen",
-      "name": "Queen",
-      "use": "",
-      "spec": "Queen",
-      "values": [
-       "Queen"
-      ]
-     },
-     {
-      "id": "king",
-      "name": "King",
-      "use": "",
-      "spec": "King",
-      "values": [
-       "King"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $880",
-      "max": 880
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$880 a $1,300",
-      "min": 880,
-      "max": 1300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,300",
-      "min": 1300
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Mesas para TV y consolas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,750",
-      "max": 2750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,750 a $4,450",
-      "min": 2750,
-      "max": 4450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,450",
-      "min": 4450
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sillas de exterior": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,500",
-      "max": 2500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,500 a $5,400",
-      "min": 2500,
-      "max": 5400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,400",
-      "min": 5400
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Zapateras": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $640",
-      "max": 640
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$640 a $1,450",
-      "min": 640,
-      "max": 1450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,450",
-      "min": 1450
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Mesas de exterior": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,550",
-      "max": 3550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,550 a $9,200",
-      "min": 3550,
-      "max": 9200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $9,200",
-      "min": 9200
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Love seats": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $10,000",
-      "max": 10000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$10,000 a $13,500",
-      "min": 10000,
-      "max": 13500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $13,500",
-      "min": 13500
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Bases de cama y box": {
-  "axes": [
-   {
-    "label": "Medida",
-    "field": "bed_size",
-    "criterion": "de la cama",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "individual",
-      "name": "Individual",
-      "use": "",
-      "spec": "Individual",
-      "values": [
-       "Individual"
-      ]
-     },
-     {
-      "id": "matrimonial",
-      "name": "Matrimonial",
-      "use": "",
-      "spec": "Matrimonial",
-      "values": [
-       "Matrimonial"
-      ]
-     },
-     {
-      "id": "queen",
-      "name": "Queen",
-      "use": "",
-      "spec": "Queen",
-      "values": [
-       "Queen"
-      ]
-     },
-     {
-      "id": "king",
-      "name": "King",
-      "use": "",
-      "spec": "King",
-      "values": [
-       "King"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $4,250",
-      "max": 4250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$4,250 a $7,600",
-      "min": 4250,
-      "max": 7600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $7,600",
-      "min": 7600
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Taburetes y bancos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,450",
-      "max": 1450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,450 a $3,450",
-      "min": 1450,
-      "max": 3450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,450",
-      "min": 3450
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sillas de comedor": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 50 cm",
-      "max": 50
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "51 cm a 59 cm",
-      "min": 50,
-      "max": 59
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 59 cm",
-      "min": 59
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Muebles/Salas completas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $19,000",
-      "max": 19000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$19,000 a $22,000",
-      "min": 19000,
-      "max": 22000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $22,000",
-      "min": 22000
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sofás de 2 y 3 plazas": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 100 cm",
-      "max": 100
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "101 cm a 210 cm",
-      "min": 100,
-      "max": 210
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 210 cm",
-      "min": 210
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $11,000",
-      "max": 11000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$11,000 a $16,500",
-      "min": 11000,
-      "max": 16500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $16,500",
-      "min": 16500
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sillas plegables y de camping": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $970",
-      "max": 970
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$970 a $2,050",
-      "min": 970,
-      "max": 2050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,050",
-      "min": 2050
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sillas infantiles": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,050",
-      "max": 1050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,050 a $2,150",
-      "min": 1050,
-      "max": 2150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,150",
-      "min": 2150
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Mecedoras y colgantes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,500",
-      "max": 1500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,500 a $2,700",
-      "min": 1500,
-      "max": 2700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,700",
-      "min": 2700
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Alacenas y gabinetes de cocina": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,850",
-      "max": 3850
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,850 a $6,500",
-      "min": 3850,
-      "max": 6500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,500",
-      "min": 6500
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Gabinetes de almacenamiento": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,000",
-      "max": 3000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,000 a $4,600",
-      "min": 3000,
-      "max": 4600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,600",
-      "min": 4600
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Roperos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $7,850",
-      "max": 7850
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$7,850 a $11,500",
-      "min": 7850,
-      "max": 11500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $11,500",
-      "min": 11500
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Cabeceras": {
-  "axes": [
-   {
-    "label": "Medida",
-    "field": "bed_size",
-    "criterion": "de la cama",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "individual",
-      "name": "Individual",
-      "use": "",
-      "spec": "Individual",
-      "values": [
-       "Individual"
-      ]
-     },
-     {
-      "id": "matrimonial",
-      "name": "Matrimonial",
-      "use": "",
-      "spec": "Matrimonial",
-      "values": [
-       "Matrimonial"
-      ]
-     },
-     {
-      "id": "queen",
-      "name": "Queen",
-      "use": "",
-      "spec": "Queen",
-      "values": [
-       "Queen"
-      ]
-     },
-     {
-      "id": "king",
-      "name": "King",
-      "use": "",
-      "spec": "King",
-      "values": [
-       "King"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,050",
-      "max": 3050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,050 a $3,950",
-      "min": 3050,
-      "max": 3950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,950",
-      "min": 3950
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sillones reclinables": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $7,950",
-      "max": 7950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$7,950 a $10,000",
-      "min": 7950,
-      "max": 10000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $10,000",
-      "min": 10000
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sillas de oficina": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "piel",
-      "name": "Piel",
-      "use": "",
-      "spec": "Piel",
-      "values": [
-       "Piel"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Sillas gamer": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,550",
-      "max": 2550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,550 a $4,700",
-      "min": 2550,
-      "max": 4700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,700",
-      "min": 4700
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sillones y reclinables": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $5,550",
-      "max": 5550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$5,550 a $10,500",
-      "min": 5550,
-      "max": 10500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $10,500",
-      "min": 10500
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sillas ergonómicas": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,950",
-      "max": 1950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,950 a $3,400",
-      "min": 1950,
-      "max": 3400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,400",
-      "min": 3400
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sofás infantiles": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,600",
-      "max": 1600
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,600 a $2,750",
-      "min": 1600,
-      "max": 2750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,750",
-      "min": 2750
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Camas infantiles": {
-  "axes": [
-   {
-    "label": "Medida",
-    "field": "bed_size",
-    "criterion": "de la cama",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "individual",
-      "name": "Individual",
-      "use": "",
-      "spec": "Individual",
-      "values": [
-       "Individual"
-      ]
-     },
-     {
-      "id": "matrimonial",
-      "name": "Matrimonial",
-      "use": "",
-      "spec": "Matrimonial",
-      "values": [
-       "Matrimonial"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,550",
-      "max": 3550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,550 a $7,950",
-      "min": 3550,
-      "max": 7950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $7,950",
-      "min": 7950
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Puffs y otomanas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,500",
-      "max": 1500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,500 a $2,450",
-      "min": 1500,
-      "max": 2450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,450",
-      "min": 2450
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sofás cama": {
-  "axes": [
-   {
-    "label": "Medida",
-    "field": "bed_size",
-    "criterion": "de la cama",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "individual",
-      "name": "Individual",
-      "use": "",
-      "spec": "Individual",
-      "values": [
-       "Individual"
-      ]
-     },
-     {
-      "id": "matrimonial",
-      "name": "Matrimonial",
-      "use": "",
-      "spec": "Matrimonial",
-      "values": [
-       "Matrimonial"
-      ]
-     },
-     {
-      "id": "queen",
-      "name": "Queen",
-      "use": "",
-      "spec": "Queen",
-      "values": [
-       "Queen"
-      ]
-     },
-     {
-      "id": "king",
-      "name": "King",
-      "use": "",
-      "spec": "King",
-      "values": [
-       "King"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $5,450",
-      "max": 5450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$5,450 a $8,900",
-      "min": 5450,
-      "max": 8900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $8,900",
-      "min": 8900
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Mesas plegables y multiusos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,000 a $2,050",
-      "min": 1000,
-      "max": 2050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,050",
-      "min": 2050
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Escritorios de altura ajustable": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $4,100",
-      "max": 4100
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$4,100 a $8,350",
-      "min": 4100,
-      "max": 8350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $8,350",
-      "min": 8350
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Escritorios de oficina": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,950",
-      "max": 1950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,950 a $3,350",
-      "min": 1950,
-      "max": 3350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,350",
-      "min": 3350
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Escritorios en L y esquineros": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,700",
-      "max": 2700
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,700 a $4,350",
-      "min": 2700,
-      "max": 4350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,350",
-      "min": 4350
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Escritorios gamer": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,850",
-      "max": 1850
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,850 a $2,800",
-      "min": 1850,
-      "max": 2800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,800",
-      "min": 2800
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Literas": {
-  "axes": [
-   {
-    "label": "Medida",
-    "field": "bed_size",
-    "criterion": "de la cama",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "individual",
-      "name": "Individual",
-      "use": "",
-      "spec": "Individual",
-      "values": [
-       "Individual"
-      ]
-     },
-     {
-      "id": "matrimonial",
-      "name": "Matrimonial",
-      "use": "",
-      "spec": "Matrimonial",
-      "values": [
-       "Matrimonial"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $5,550",
-      "max": 5550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$5,550 a $9,500",
-      "min": 5550,
-      "max": 9500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $9,500",
-      "min": 9500
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Box con cabecera": {
-  "axes": [
-   {
-    "label": "Medida",
-    "field": "bed_size",
-    "criterion": "de la cama",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "individual",
-      "name": "Individual",
-      "use": "",
-      "spec": "Individual",
-      "values": [
-       "Individual"
-      ]
-     },
-     {
-      "id": "matrimonial",
-      "name": "Matrimonial",
-      "use": "",
-      "spec": "Matrimonial",
-      "values": [
-       "Matrimonial"
-      ]
-     },
-     {
-      "id": "queen",
-      "name": "Queen",
-      "use": "",
-      "spec": "Queen",
-      "values": [
-       "Queen"
-      ]
-     },
-     {
-      "id": "king",
-      "name": "King",
-      "use": "",
-      "spec": "King",
-      "values": [
-       "King"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $6,900",
-      "max": 6900
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$6,900 a $9,200",
-      "min": 6900,
-      "max": 9200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $9,200",
-      "min": 9200
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Clósets de tela y portátiles": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $590",
-      "max": 590
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$590 a $1,100",
-      "min": 590,
-      "max": 1100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,100",
-      "min": 1100
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Camas matrimoniales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $7,950",
-      "max": 7950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$7,950 a $9,950",
-      "min": 7950,
-      "max": 9950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $9,950",
-      "min": 9950
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sillas ejecutivas": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,150",
-      "max": 2150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,150 a $3,700",
-      "min": 2150,
-      "max": 3700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,700",
-      "min": 3700
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Mesas de juego": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,100",
-      "max": 2100
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,100 a $4,400",
-      "min": 2100,
-      "max": 4400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,400",
-      "min": 4400
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Escritorios plegables y compactos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,050",
-      "max": 1050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,050 a $2,100",
-      "min": 1050,
-      "max": 2100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,100",
-      "min": 2100
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Mesas de cama y con ruedas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $720",
-      "max": 720
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$720 a $1,200",
-      "min": 720,
-      "max": 1200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,200",
-      "min": 1200
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Camas queen y king": {
-  "axes": [
-   {
-    "label": "Medida",
-    "field": "bed_size",
-    "criterion": "de la cama",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "queen",
-      "name": "Queen",
-      "use": "",
-      "spec": "Queen",
-      "values": [
-       "Queen"
-      ]
-     },
-     {
-      "id": "king",
-      "name": "King",
-      "use": "",
-      "spec": "King",
-      "values": [
-       "King"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $10,000",
-      "max": 10000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$10,000 a $21,500",
-      "min": 10000,
-      "max": 21500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $21,500",
-      "min": 21500
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Camas individuales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $4,350",
-      "max": 4350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$4,350 a $9,250",
-      "min": 4350,
-      "max": 9250
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $9,250",
-      "min": 9250
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sofás seccionales y esquineros": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $11,000",
-      "max": 11000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$11,000 a $16,000",
-      "min": 11000,
-      "max": 16000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $16,000",
-      "min": 16000
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Camas": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $890",
-      "max": 890
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$890 a $6,900",
-      "min": 890,
-      "max": 6900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,900",
-      "min": 6900
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Camas plegables y catres": {
-  "axes": [
-   {
-    "label": "Medida",
-    "field": "bed_size",
-    "criterion": "de la cama",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "individual",
-      "name": "Individual",
-      "use": "",
-      "spec": "Individual",
-      "values": [
-       "Individual"
-      ]
-     },
-     {
-      "id": "matrimonial",
-      "name": "Matrimonial",
-      "use": "",
-      "spec": "Matrimonial",
-      "values": [
-       "Matrimonial"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,650",
-      "max": 1650
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,650 a $2,550",
-      "min": 1650,
-      "max": 2550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,550",
-      "min": 2550
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Mesas altas y de bar": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 60 cm",
-      "max": 60
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "61 cm a 72 cm",
-      "min": 60,
-      "max": 72
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 72 cm",
-      "min": 72
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Antecomedores y mesas de cocina": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 120 cm",
-      "max": 120
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "121 cm a 160 cm",
-      "min": 120,
-      "max": 160
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 160 cm",
-      "min": 160
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Escritorios infantiles y estudiantiles": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,400",
-      "max": 1400
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,400 a $2,400",
-      "min": 1400,
-      "max": 2400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,400",
-      "min": 2400
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Sillas de espera y visitas": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,550",
-      "max": 2550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,550 a $3,950",
-      "min": 2550,
-      "max": 3950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,950",
-      "min": 3950
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Mesas de comedor": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 120 cm",
-      "max": 120
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "121 cm a 150 cm",
-      "min": 120,
-      "max": 150
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 150 cm",
-      "min": 150
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Juegos de comedor": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 68 cm",
-      "max": 68
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "69 cm a 90 cm",
-      "min": 68,
-      "max": 90
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 90 cm",
-      "min": 90
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $5,900",
-      "max": 5900
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$5,900 a $12,000",
-      "min": 5900,
-      "max": 12000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $12,000",
-      "min": 12000
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Mesas de comedor extensibles": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 94 cm",
-      "max": 94
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "95 cm a 160 cm",
-      "min": 94,
-      "max": 160
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 160 cm",
-      "min": 160
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Mesas de comedor para exterior": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 71 cm",
-      "max": 71
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "72 cm a 100 cm",
-      "min": 71,
-      "max": 100
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 100 cm",
-      "min": 100
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Bancas de comedor": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 120 cm",
-      "max": 120
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "121 cm a 160 cm",
-      "min": 120,
-      "max": 160
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 160 cm",
-      "min": 160
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Muebles/Aparadores y bufeteros": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,750",
-      "max": 3750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,750 a $9,950",
-      "min": 3750,
-      "max": 9950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $9,950",
-      "min": 9950
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Cocinas integrales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $16,500",
-      "max": 16500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$16,500 a $29,000",
-      "min": 16500,
-      "max": 29000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $29,000",
-      "min": 29000
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Cómodas y cajoneras": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,000",
-      "max": 2000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,000 a $5,100",
-      "min": 2000,
-      "max": 5100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $5,100",
-      "min": 5100
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Carros e islas de cocina": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,650",
-      "max": 2650
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,650 a $12,000",
-      "min": 2650,
-      "max": 12000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $12,000",
-      "min": 12000
-     }
-    ]
-   }
-  ]
- },
- "Muebles/Fundas y accesorios para sofá": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $640",
-      "max": 640
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$640 a $1,100",
-      "min": 640,
-      "max": 1100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,100",
-      "min": 1100
-     }
-    ]
-   }
-  ]
- },
  "Electrodomésticos/Limpieza del hogar y lavandería": {
   "axes": [
    {
@@ -20385,16 +17041,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$890 a $2,000",
+      "spec": "$890 a $2,050",
       "min": 890,
-      "max": 2000
+      "max": 2050
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,000",
-      "min": 2000
+      "spec": "Más de $2,050",
+      "min": 2050
      }
     ]
    }
@@ -21546,15 +18202,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $670",
-      "max": 670
+      "spec": "Hasta $650",
+      "max": 650
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$670 a $1,500",
-      "min": 670,
+      "spec": "$650 a $1,500",
+      "min": 650,
       "max": 1500
      },
      {
@@ -21901,6 +18557,3350 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $880",
       "min": 880
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Organizadores y almacenamiento": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $620",
+      "max": 620
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$620 a $1,100",
+      "min": 620,
+      "max": 1100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,100",
+      "min": 1100
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Muebles de baño": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,650",
+      "max": 3650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,650 a $5,100",
+      "min": 3650,
+      "max": 5100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,100",
+      "min": 5100
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Organizadores de escritorio": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $550",
+      "max": 550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$550 a $910",
+      "min": 550,
+      "max": 910
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $910",
+      "min": 910
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Repisas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $770",
+      "max": 770
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$770 a $1,450",
+      "min": 770,
+      "max": 1450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,450",
+      "min": 1450
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Herrajes y refacciones de muebles": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $560",
+      "max": 560
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$560 a $990",
+      "min": 560,
+      "max": 990
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $990",
+      "min": 990
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Muebles de cocina": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $4,500",
+      "max": 4500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$4,500 a $9,950",
+      "min": 4500,
+      "max": 9950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,950",
+      "min": 9950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mesas de centro": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,750",
+      "max": 1750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,750 a $3,800",
+      "min": 1750,
+      "max": 3800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,800",
+      "min": 3800
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mesas auxiliares y laterales": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 45 cm",
+      "max": 45
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "46 cm a 53 cm",
+      "min": 45,
+      "max": 53
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 53 cm",
+      "min": 53
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     },
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Burós": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,600",
+      "max": 1600
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,600 a $1,950",
+      "min": 1600,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Tocadores": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,750",
+      "max": 2750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,750 a $6,950",
+      "min": 2750,
+      "max": 6950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,950",
+      "min": 6950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Libreros": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,600",
+      "max": 1600
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,600 a $2,950",
+      "min": 1600,
+      "max": 2950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,950",
+      "min": 2950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Percheros": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $510",
+      "max": 510
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$510 a $940",
+      "min": 510,
+      "max": 940
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $940",
+      "min": 940
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Accesorios y refacciones de cama": {
+  "axes": [
+   {
+    "label": "Medida",
+    "field": "bed_size",
+    "criterion": "de la cama",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "individual",
+      "name": "Individual",
+      "use": "",
+      "spec": "Individual",
+      "values": [
+       "Individual"
+      ]
+     },
+     {
+      "id": "queen",
+      "name": "Queen",
+      "use": "",
+      "spec": "Queen",
+      "values": [
+       "Queen"
+      ]
+     },
+     {
+      "id": "king",
+      "name": "King",
+      "use": "",
+      "spec": "King",
+      "values": [
+       "King"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $880",
+      "max": 880
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$880 a $1,300",
+      "min": 880,
+      "max": 1300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,300",
+      "min": 1300
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mesas para TV y consolas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,750",
+      "max": 2750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,750 a $4,450",
+      "min": 2750,
+      "max": 4450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,450",
+      "min": 4450
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas de exterior": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,500",
+      "max": 2500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,500 a $5,450",
+      "min": 2500,
+      "max": 5450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $5,450",
+      "min": 5450
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Zapateras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $640",
+      "max": 640
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$640 a $1,650",
+      "min": 640,
+      "max": 1650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,650",
+      "min": 1650
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mesas de exterior": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,550",
+      "max": 3550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,550 a $9,200",
+      "min": 3550,
+      "max": 9200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,200",
+      "min": 9200
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Love seats": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $10,000",
+      "max": 10000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$10,000 a $13,500",
+      "min": 10000,
+      "max": 13500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $13,500",
+      "min": 13500
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Bases de cama y box": {
+  "axes": [
+   {
+    "label": "Medida",
+    "field": "bed_size",
+    "criterion": "de la cama",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "individual",
+      "name": "Individual",
+      "use": "",
+      "spec": "Individual",
+      "values": [
+       "Individual"
+      ]
+     },
+     {
+      "id": "matrimonial",
+      "name": "Matrimonial",
+      "use": "",
+      "spec": "Matrimonial",
+      "values": [
+       "Matrimonial"
+      ]
+     },
+     {
+      "id": "queen",
+      "name": "Queen",
+      "use": "",
+      "spec": "Queen",
+      "values": [
+       "Queen"
+      ]
+     },
+     {
+      "id": "king",
+      "name": "King",
+      "use": "",
+      "spec": "King",
+      "values": [
+       "King"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $4,250",
+      "max": 4250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$4,250 a $7,600",
+      "min": 4250,
+      "max": 7600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,600",
+      "min": 7600
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Taburetes y bancos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,450",
+      "max": 1450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,450 a $3,450",
+      "min": 1450,
+      "max": 3450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,450",
+      "min": 3450
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas de comedor": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 50 cm",
+      "max": 50
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "51 cm a 59 cm",
+      "min": 50,
+      "max": 59
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 59 cm",
+      "min": 59
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Muebles/Salas completas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $19,000",
+      "max": 19000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$19,000 a $22,000",
+      "min": 19000,
+      "max": 22000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $22,000",
+      "min": 22000
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sofás de 2 y 3 plazas": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 100 cm",
+      "max": 100
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "101 cm a 210 cm",
+      "min": 100,
+      "max": 210
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 210 cm",
+      "min": 210
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $11,500",
+      "max": 11500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$11,500 a $19,500",
+      "min": 11500,
+      "max": 19500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $19,500",
+      "min": 19500
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas plegables y de camping": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $970",
+      "max": 970
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$970 a $2,050",
+      "min": 970,
+      "max": 2050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,050",
+      "min": 2050
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas infantiles": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $2,150",
+      "min": 1050,
+      "max": 2150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,150",
+      "min": 2150
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mecedoras y colgantes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,500",
+      "max": 1500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,500 a $2,700",
+      "min": 1500,
+      "max": 2700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,700",
+      "min": 2700
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Alacenas y gabinetes de cocina": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,850",
+      "max": 3850
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,850 a $6,500",
+      "min": 3850,
+      "max": 6500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,500",
+      "min": 6500
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Gabinetes de almacenamiento": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,850",
+      "max": 2850
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,850 a $4,650",
+      "min": 2850,
+      "max": 4650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,650",
+      "min": 4650
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Roperos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $7,850",
+      "max": 7850
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$7,850 a $11,500",
+      "min": 7850,
+      "max": 11500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $11,500",
+      "min": 11500
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Cabeceras": {
+  "axes": [
+   {
+    "label": "Medida",
+    "field": "bed_size",
+    "criterion": "de la cama",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "individual",
+      "name": "Individual",
+      "use": "",
+      "spec": "Individual",
+      "values": [
+       "Individual"
+      ]
+     },
+     {
+      "id": "matrimonial",
+      "name": "Matrimonial",
+      "use": "",
+      "spec": "Matrimonial",
+      "values": [
+       "Matrimonial"
+      ]
+     },
+     {
+      "id": "queen",
+      "name": "Queen",
+      "use": "",
+      "spec": "Queen",
+      "values": [
+       "Queen"
+      ]
+     },
+     {
+      "id": "king",
+      "name": "King",
+      "use": "",
+      "spec": "King",
+      "values": [
+       "King"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,050",
+      "max": 3050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,050 a $3,950",
+      "min": 3050,
+      "max": 3950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,950",
+      "min": 3950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillones reclinables": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $7,950",
+      "max": 7950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$7,950 a $10,000",
+      "min": 7950,
+      "max": 10000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $10,000",
+      "min": 10000
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas de oficina": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "piel",
+      "name": "Piel",
+      "use": "",
+      "spec": "Piel",
+      "values": [
+       "Piel"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Sillas gamer": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,550",
+      "max": 2550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,550 a $4,700",
+      "min": 2550,
+      "max": 4700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,700",
+      "min": 4700
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillones y reclinables": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,550",
+      "max": 5550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,550 a $10,500",
+      "min": 5550,
+      "max": 10500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $10,500",
+      "min": 10500
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas ergonómicas": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,950",
+      "max": 1950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,950 a $3,400",
+      "min": 1950,
+      "max": 3400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,400",
+      "min": 3400
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sofás infantiles": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,600",
+      "max": 1600
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,600 a $2,750",
+      "min": 1600,
+      "max": 2750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,750",
+      "min": 2750
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Camas infantiles": {
+  "axes": [
+   {
+    "label": "Medida",
+    "field": "bed_size",
+    "criterion": "de la cama",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "individual",
+      "name": "Individual",
+      "use": "",
+      "spec": "Individual",
+      "values": [
+       "Individual"
+      ]
+     },
+     {
+      "id": "matrimonial",
+      "name": "Matrimonial",
+      "use": "",
+      "spec": "Matrimonial",
+      "values": [
+       "Matrimonial"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,550",
+      "max": 3550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,550 a $7,950",
+      "min": 3550,
+      "max": 7950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,950",
+      "min": 7950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Puffs y otomanas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,500",
+      "max": 1500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,500 a $2,450",
+      "min": 1500,
+      "max": 2450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,450",
+      "min": 2450
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sofás cama": {
+  "axes": [
+   {
+    "label": "Medida",
+    "field": "bed_size",
+    "criterion": "de la cama",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "individual",
+      "name": "Individual",
+      "use": "",
+      "spec": "Individual",
+      "values": [
+       "Individual"
+      ]
+     },
+     {
+      "id": "matrimonial",
+      "name": "Matrimonial",
+      "use": "",
+      "spec": "Matrimonial",
+      "values": [
+       "Matrimonial"
+      ]
+     },
+     {
+      "id": "queen",
+      "name": "Queen",
+      "use": "",
+      "spec": "Queen",
+      "values": [
+       "Queen"
+      ]
+     },
+     {
+      "id": "king",
+      "name": "King",
+      "use": "",
+      "spec": "King",
+      "values": [
+       "King"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,450",
+      "max": 5450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,450 a $8,900",
+      "min": 5450,
+      "max": 8900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $8,900",
+      "min": 8900
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mesas plegables y multiusos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,000",
+      "max": 1000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,000 a $2,000",
+      "min": 1000,
+      "max": 2000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,000",
+      "min": 2000
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Escritorios de altura ajustable": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,950",
+      "max": 3950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,950 a $8,350",
+      "min": 3950,
+      "max": 8350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $8,350",
+      "min": 8350
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Escritorios de oficina": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,950",
+      "max": 1950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,950 a $3,350",
+      "min": 1950,
+      "max": 3350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,350",
+      "min": 3350
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Escritorios en L y esquineros": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,700",
+      "max": 2700
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,700 a $4,350",
+      "min": 2700,
+      "max": 4350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,350",
+      "min": 4350
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Escritorios gamer": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,850",
+      "max": 1850
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,850 a $2,800",
+      "min": 1850,
+      "max": 2800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,800",
+      "min": 2800
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Literas": {
+  "axes": [
+   {
+    "label": "Medida",
+    "field": "bed_size",
+    "criterion": "de la cama",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "individual",
+      "name": "Individual",
+      "use": "",
+      "spec": "Individual",
+      "values": [
+       "Individual"
+      ]
+     },
+     {
+      "id": "matrimonial",
+      "name": "Matrimonial",
+      "use": "",
+      "spec": "Matrimonial",
+      "values": [
+       "Matrimonial"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,750",
+      "max": 5750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,750 a $9,950",
+      "min": 5750,
+      "max": 9950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,950",
+      "min": 9950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Box con cabecera": {
+  "axes": [
+   {
+    "label": "Medida",
+    "field": "bed_size",
+    "criterion": "de la cama",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "individual",
+      "name": "Individual",
+      "use": "",
+      "spec": "Individual",
+      "values": [
+       "Individual"
+      ]
+     },
+     {
+      "id": "matrimonial",
+      "name": "Matrimonial",
+      "use": "",
+      "spec": "Matrimonial",
+      "values": [
+       "Matrimonial"
+      ]
+     },
+     {
+      "id": "queen",
+      "name": "Queen",
+      "use": "",
+      "spec": "Queen",
+      "values": [
+       "Queen"
+      ]
+     },
+     {
+      "id": "king",
+      "name": "King",
+      "use": "",
+      "spec": "King",
+      "values": [
+       "King"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $6,900",
+      "max": 6900
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$6,900 a $9,200",
+      "min": 6900,
+      "max": 9200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,200",
+      "min": 9200
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Clósets de tela y portátiles": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $590",
+      "max": 590
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$590 a $1,050",
+      "min": 590,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Camas matrimoniales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $7,950",
+      "max": 7950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$7,950 a $9,950",
+      "min": 7950,
+      "max": 9950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,950",
+      "min": 9950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas ejecutivas": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,150",
+      "max": 2150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,150 a $3,700",
+      "min": 2150,
+      "max": 3700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,700",
+      "min": 3700
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mesas de juego": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,100",
+      "max": 2100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,100 a $4,400",
+      "min": 2100,
+      "max": 4400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,400",
+      "min": 4400
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Escritorios plegables y compactos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $2,100",
+      "min": 1050,
+      "max": 2100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,100",
+      "min": 2100
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mesas de cama y con ruedas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $720",
+      "max": 720
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$720 a $1,200",
+      "min": 720,
+      "max": 1200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,200",
+      "min": 1200
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Camas queen y king": {
+  "axes": [
+   {
+    "label": "Medida",
+    "field": "bed_size",
+    "criterion": "de la cama",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "queen",
+      "name": "Queen",
+      "use": "",
+      "spec": "Queen",
+      "values": [
+       "Queen"
+      ]
+     },
+     {
+      "id": "king",
+      "name": "King",
+      "use": "",
+      "spec": "King",
+      "values": [
+       "King"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $10,000",
+      "max": 10000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$10,000 a $21,500",
+      "min": 10000,
+      "max": 21500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $21,500",
+      "min": 21500
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Camas individuales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $4,350",
+      "max": 4350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$4,350 a $9,250",
+      "min": 4350,
+      "max": 9250
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,250",
+      "min": 9250
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sofás seccionales y esquineros": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $11,500",
+      "max": 11500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$11,500 a $16,500",
+      "min": 11500,
+      "max": 16500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $16,500",
+      "min": 16500
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Camas": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $900",
+      "max": 900
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$900 a $7,950",
+      "min": 900,
+      "max": 7950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,950",
+      "min": 7950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Camas plegables y catres": {
+  "axes": [
+   {
+    "label": "Medida",
+    "field": "bed_size",
+    "criterion": "de la cama",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "individual",
+      "name": "Individual",
+      "use": "",
+      "spec": "Individual",
+      "values": [
+       "Individual"
+      ]
+     },
+     {
+      "id": "matrimonial",
+      "name": "Matrimonial",
+      "use": "",
+      "spec": "Matrimonial",
+      "values": [
+       "Matrimonial"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,650",
+      "max": 1650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,650 a $2,550",
+      "min": 1650,
+      "max": 2550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,550",
+      "min": 2550
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mesas altas y de bar": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 60 cm",
+      "max": 60
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "61 cm a 72 cm",
+      "min": 60,
+      "max": 72
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 72 cm",
+      "min": 72
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Antecomedores y mesas de cocina": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 120 cm",
+      "max": 120
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "121 cm a 160 cm",
+      "min": 120,
+      "max": 160
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 160 cm",
+      "min": 160
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Escritorios infantiles y estudiantiles": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,400",
+      "max": 1400
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,400 a $2,400",
+      "min": 1400,
+      "max": 2400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,400",
+      "min": 2400
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Sillas de espera y visitas": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,550",
+      "max": 2550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,550 a $3,950",
+      "min": 2550,
+      "max": 3950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,950",
+      "min": 3950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mesas de comedor": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 120 cm",
+      "max": 120
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "121 cm a 150 cm",
+      "min": 120,
+      "max": 150
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 150 cm",
+      "min": 150
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Juegos de comedor": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 68 cm",
+      "max": 68
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "69 cm a 90 cm",
+      "min": 68,
+      "max": 90
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 90 cm",
+      "min": 90
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $5,900",
+      "max": 5900
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$5,900 a $12,000",
+      "min": 5900,
+      "max": 12000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $12,000",
+      "min": 12000
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Mesas de comedor extensibles": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 94 cm",
+      "max": 94
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "95 cm a 160 cm",
+      "min": 94,
+      "max": 160
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 160 cm",
+      "min": 160
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Mesas de comedor para exterior": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 71 cm",
+      "max": 71
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "72 cm a 100 cm",
+      "min": 71,
+      "max": 100
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 100 cm",
+      "min": 100
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Bancas de comedor": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 120 cm",
+      "max": 120
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "121 cm a 160 cm",
+      "min": 120,
+      "max": 160
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 160 cm",
+      "min": 160
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Muebles/Aparadores y bufeteros": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,650",
+      "max": 3650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,650 a $9,950",
+      "min": 3650,
+      "max": 9950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $9,950",
+      "min": 9950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Cocinas integrales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $16,500",
+      "max": 16500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$16,500 a $29,000",
+      "min": 16500,
+      "max": 29000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $29,000",
+      "min": 29000
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Cómodas y cajoneras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,900",
+      "max": 1900
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,900 a $4,950",
+      "min": 1900,
+      "max": 4950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,950",
+      "min": 4950
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Carros e islas de cocina": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,650",
+      "max": 2650
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,650 a $12,000",
+      "min": 2650,
+      "max": 12000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $12,000",
+      "min": 12000
+     }
+    ]
+   }
+  ]
+ },
+ "Muebles/Fundas y accesorios para sofá": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $640",
+      "max": 640
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$640 a $1,100",
+      "min": 640,
+      "max": 1100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -24831,23 +24831,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $410",
-      "max": 410
+      "spec": "Hasta $400",
+      "max": 400
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$410 a $880",
-      "min": 410,
-      "max": 880
+      "spec": "$400 a $890",
+      "min": 400,
+      "max": 890
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $880",
-      "min": 880
+      "spec": "Más de $890",
+      "min": 890
      }
     ]
    }
@@ -32577,15 +32577,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $940",
-      "max": 940
+      "spec": "Hasta $950",
+      "max": 950
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$940 a $1,550",
-      "min": 940,
+      "spec": "$950 a $1,550",
+      "min": 950,
       "max": 1550
      },
      {
@@ -33302,23 +33302,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $220",
-      "max": 220
+      "spec": "Hasta $230",
+      "max": 230
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$220 a $480",
-      "min": 220,
-      "max": 480
+      "spec": "$230 a $490",
+      "min": 230,
+      "max": 490
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $480",
-      "min": 480
+      "spec": "Más de $490",
+      "min": 490
      }
     ]
    }
@@ -34331,23 +34331,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $140",
-      "max": 140
+      "spec": "Hasta $160",
+      "max": 160
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$140 a $540",
-      "min": 140,
-      "max": 540
+      "spec": "$160 a $680",
+      "min": 160,
+      "max": 680
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $540",
-      "min": 540
+      "spec": "Más de $680",
+      "min": 680
      }
     ]
    }
@@ -34416,16 +34416,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$99 a $160",
+      "spec": "$99 a $180",
       "min": 99,
-      "max": 160
+      "max": 180
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $160",
-      "min": 160
+      "spec": "Más de $180",
+      "min": 180
      }
     ]
    }
@@ -34556,23 +34556,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,900",
-      "max": 1900
+      "spec": "Hasta $1,950",
+      "max": 1950
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,900 a $5,150",
-      "min": 1900,
-      "max": 5150
+      "spec": "$1,950 a $5,250",
+      "min": 1950,
+      "max": 5250
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $5,150",
-      "min": 5150
+      "spec": "Más de $5,250",
+      "min": 5250
      }
     ]
    }
@@ -34650,23 +34650,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $540",
-      "max": 540
+      "spec": "Hasta $940",
+      "max": 940
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$540 a $1,400",
-      "min": 540,
-      "max": 1400
+      "spec": "$940 a $3,300",
+      "min": 940,
+      "max": 3300
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,400",
-      "min": 1400
+      "spec": "Más de $3,300",
+      "min": 3300
      }
     ]
    }
@@ -34859,6 +34859,532 @@
   ],
   "omitir": [
    "battery_h"
+  ]
+ },
+ "Redes/Cables y adaptadores de red": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $280",
+      "max": 280
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$280 a $670",
+      "min": 280,
+      "max": 670
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $670",
+      "min": 670
+     }
+    ]
+   }
+  ]
+ },
+ "Redes/Repetidores": {
+  "axes": [
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-4",
+      "name": "Wi-Fi 4",
+      "use": "Básico, para pocos equipos",
+      "spec": "Wi-Fi 4",
+      "values": [
+       "Wi-Fi 4"
+      ]
+     },
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $550",
+      "max": 550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$550 a $990",
+      "min": 550,
+      "max": 990
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $990",
+      "min": 990
+     }
+    ]
+   }
+  ]
+ },
+ "Redes/Routers": {
+  "axes": [
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     },
+     {
+      "id": "wi-fi-7",
+      "name": "Wi-Fi 7",
+      "use": "La generación más nueva",
+      "spec": "Wi-Fi 7",
+      "values": [
+       "Wi-Fi 7"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $890",
+      "max": 890
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$890 a $2,150",
+      "min": 890,
+      "max": 2150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,150",
+      "min": 2150
+     }
+    ]
+   }
+  ]
+ },
+ "Redes/Access points": {
+  "axes": [
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-4",
+      "name": "Wi-Fi 4",
+      "use": "Básico, para pocos equipos",
+      "spec": "Wi-Fi 4",
+      "values": [
+       "Wi-Fi 4"
+      ]
+     },
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     },
+     {
+      "id": "wi-fi-7",
+      "name": "Wi-Fi 7",
+      "use": "La generación más nueva",
+      "spec": "Wi-Fi 7",
+      "values": [
+       "Wi-Fi 7"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,150",
+      "max": 2150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,150 a $4,800",
+      "min": 2150,
+      "max": 4800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,800",
+      "min": 4800
+     }
+    ]
+   }
+  ]
+ },
+ "Redes/Sistemas mesh": {
+  "axes": [
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     },
+     {
+      "id": "wi-fi-7",
+      "name": "Wi-Fi 7",
+      "use": "La generación más nueva",
+      "spec": "Wi-Fi 7",
+      "values": [
+       "Wi-Fi 7"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,550",
+      "max": 1550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,550 a $3,750",
+      "min": 1550,
+      "max": 3750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,750",
+      "min": 3750
+     }
+    ]
+   }
+  ]
+ },
+ "Redes/Switches PoE": {
+  "axes": [
+   {
+    "label": "Puertos",
+    "field": "ports",
+    "criterion": "por número de puertos",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "pocos",
+      "name": "Pocos",
+      "use": "Un escritorio o una sala",
+      "spec": "Hasta 8 puertos",
+      "max": 8
+     },
+     {
+      "id": "medios",
+      "name": "Medios",
+      "use": "Casa u oficina chica",
+      "spec": "9 puertos a 20 puertos",
+      "min": 8,
+      "max": 20
+     },
+     {
+      "id": "muchos",
+      "name": "Muchos",
+      "use": "Oficina o rack",
+      "spec": "Más de 20 puertos",
+      "min": 20
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,000",
+      "max": 3000
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,000 a $8,700",
+      "min": 3000,
+      "max": 8700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $8,700",
+      "min": 8700
+     }
+    ]
+   }
+  ]
+ },
+ "Redes/Switches no administrables": {
+  "axes": [
+   {
+    "label": "Puertos",
+    "field": "ports",
+    "criterion": "por número de puertos",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "pocos",
+      "name": "Pocos",
+      "use": "Un escritorio o una sala",
+      "spec": "Hasta 5 puertos",
+      "max": 5
+     },
+     {
+      "id": "medios",
+      "name": "Medios",
+      "use": "Casa u oficina chica",
+      "spec": "6 puertos a 11 puertos",
+      "min": 5,
+      "max": 11
+     },
+     {
+      "id": "muchos",
+      "name": "Muchos",
+      "use": "Oficina o rack",
+      "spec": "Más de 11 puertos",
+      "min": 11
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $730",
+      "max": 730
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$730 a $3,600",
+      "min": 730,
+      "max": 3600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,600",
+      "min": 3600
+     }
+    ]
+   }
+  ]
+ },
+ "Redes/Switches administrables": {
+  "axes": [
+   {
+    "label": "Puertos",
+    "field": "ports",
+    "criterion": "por número de puertos",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "pocos",
+      "name": "Pocos",
+      "use": "Un escritorio o una sala",
+      "spec": "Hasta 16 puertos",
+      "max": 16
+     },
+     {
+      "id": "medios",
+      "name": "Medios",
+      "use": "Casa u oficina chica",
+      "spec": "17 puertos a 24 puertos",
+      "min": 16,
+      "max": 24
+     },
+     {
+      "id": "muchos",
+      "name": "Muchos",
+      "use": "Oficina o rack",
+      "spec": "Más de 24 puertos",
+      "min": 24
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $4,350",
+      "max": 4350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$4,350 a $11,500",
+      "min": 4350,
+      "max": 11500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $11,500",
+      "min": 11500
+     }
+    ]
+   }
   ]
  },
  "Bicicletas y movilidad/Bicicletas eléctricas": {
@@ -36852,16 +37378,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,650 a $5,300",
+      "spec": "$2,650 a $5,150",
       "min": 2650,
-      "max": 5300
+      "max": 5150
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $5,300",
-      "min": 5300
+      "spec": "Más de $5,150",
+      "min": 5150
      }
     ]
    }
@@ -38782,16 +39308,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$340 a $720",
+      "spec": "$340 a $690",
       "min": 340,
-      "max": 720
+      "max": 690
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $720",
-      "min": 720
+      "spec": "Más de $690",
+      "min": 690
      }
     ]
    }
@@ -39993,532 +40519,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $820",
       "min": 820
-     }
-    ]
-   }
-  ]
- },
- "Redes/Cables y adaptadores de red": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $280",
-      "max": 280
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$280 a $670",
-      "min": 280,
-      "max": 670
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $670",
-      "min": 670
-     }
-    ]
-   }
-  ]
- },
- "Redes/Repetidores": {
-  "axes": [
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-4",
-      "name": "Wi-Fi 4",
-      "use": "Básico, para pocos equipos",
-      "spec": "Wi-Fi 4",
-      "values": [
-       "Wi-Fi 4"
-      ]
-     },
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $550",
-      "max": 550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$550 a $990",
-      "min": 550,
-      "max": 990
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $990",
-      "min": 990
-     }
-    ]
-   }
-  ]
- },
- "Redes/Routers": {
-  "axes": [
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     },
-     {
-      "id": "wi-fi-7",
-      "name": "Wi-Fi 7",
-      "use": "La generación más nueva",
-      "spec": "Wi-Fi 7",
-      "values": [
-       "Wi-Fi 7"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $890",
-      "max": 890
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$890 a $2,150",
-      "min": 890,
-      "max": 2150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,150",
-      "min": 2150
-     }
-    ]
-   }
-  ]
- },
- "Redes/Access points": {
-  "axes": [
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-4",
-      "name": "Wi-Fi 4",
-      "use": "Básico, para pocos equipos",
-      "spec": "Wi-Fi 4",
-      "values": [
-       "Wi-Fi 4"
-      ]
-     },
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     },
-     {
-      "id": "wi-fi-7",
-      "name": "Wi-Fi 7",
-      "use": "La generación más nueva",
-      "spec": "Wi-Fi 7",
-      "values": [
-       "Wi-Fi 7"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,150",
-      "max": 2150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,150 a $4,800",
-      "min": 2150,
-      "max": 4800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,800",
-      "min": 4800
-     }
-    ]
-   }
-  ]
- },
- "Redes/Sistemas mesh": {
-  "axes": [
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     },
-     {
-      "id": "wi-fi-7",
-      "name": "Wi-Fi 7",
-      "use": "La generación más nueva",
-      "spec": "Wi-Fi 7",
-      "values": [
-       "Wi-Fi 7"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,550",
-      "max": 1550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,550 a $3,750",
-      "min": 1550,
-      "max": 3750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,750",
-      "min": 3750
-     }
-    ]
-   }
-  ]
- },
- "Redes/Switches PoE": {
-  "axes": [
-   {
-    "label": "Puertos",
-    "field": "ports",
-    "criterion": "por número de puertos",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "pocos",
-      "name": "Pocos",
-      "use": "Un escritorio o una sala",
-      "spec": "Hasta 8 puertos",
-      "max": 8
-     },
-     {
-      "id": "medios",
-      "name": "Medios",
-      "use": "Casa u oficina chica",
-      "spec": "9 puertos a 20 puertos",
-      "min": 8,
-      "max": 20
-     },
-     {
-      "id": "muchos",
-      "name": "Muchos",
-      "use": "Oficina o rack",
-      "spec": "Más de 20 puertos",
-      "min": 20
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,000",
-      "max": 3000
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,000 a $8,700",
-      "min": 3000,
-      "max": 8700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $8,700",
-      "min": 8700
-     }
-    ]
-   }
-  ]
- },
- "Redes/Switches no administrables": {
-  "axes": [
-   {
-    "label": "Puertos",
-    "field": "ports",
-    "criterion": "por número de puertos",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "pocos",
-      "name": "Pocos",
-      "use": "Un escritorio o una sala",
-      "spec": "Hasta 5 puertos",
-      "max": 5
-     },
-     {
-      "id": "medios",
-      "name": "Medios",
-      "use": "Casa u oficina chica",
-      "spec": "6 puertos a 11 puertos",
-      "min": 5,
-      "max": 11
-     },
-     {
-      "id": "muchos",
-      "name": "Muchos",
-      "use": "Oficina o rack",
-      "spec": "Más de 11 puertos",
-      "min": 11
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $730",
-      "max": 730
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$730 a $3,600",
-      "min": 730,
-      "max": 3600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,600",
-      "min": 3600
-     }
-    ]
-   }
-  ]
- },
- "Redes/Switches administrables": {
-  "axes": [
-   {
-    "label": "Puertos",
-    "field": "ports",
-    "criterion": "por número de puertos",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "pocos",
-      "name": "Pocos",
-      "use": "Un escritorio o una sala",
-      "spec": "Hasta 16 puertos",
-      "max": 16
-     },
-     {
-      "id": "medios",
-      "name": "Medios",
-      "use": "Casa u oficina chica",
-      "spec": "17 puertos a 24 puertos",
-      "min": 16,
-      "max": 24
-     },
-     {
-      "id": "muchos",
-      "name": "Muchos",
-      "use": "Oficina o rack",
-      "spec": "Más de 24 puertos",
-      "min": 24
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $4,350",
-      "max": 4350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$4,350 a $11,500",
-      "min": 4350,
-      "max": 11500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $11,500",
-      "min": 11500
      }
     ]
    }
@@ -41754,15 +41754,15 @@
       "id": "para-practicar",
       "name": "Para practicar",
       "use": "En casa, sin molestar",
-      "spec": "Hasta 300 W",
-      "max": 300
+      "spec": "Hasta 600 W",
+      "max": 600
      },
      {
       "id": "para-ensayar",
       "name": "Para ensayar",
       "use": "Sala de ensayo",
-      "spec": "301 W a 1,800 W",
-      "min": 300,
+      "spec": "601 W a 1,800 W",
+      "min": 600,
       "max": 1800
      },
      {
@@ -41786,15 +41786,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $5,200",
-      "max": 5200
+      "spec": "Hasta $5,550",
+      "max": 5550
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$5,200 a $9,450",
-      "min": 5200,
+      "spec": "$5,550 a $9,450",
+      "min": 5550,
       "max": 9450
      },
      {
@@ -42529,23 +42529,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
+      "spec": "Hasta $1,250",
+      "max": 1250
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,300 a $2,100",
-      "min": 1300,
-      "max": 2100
+      "spec": "$1,250 a $1,950",
+      "min": 1250,
+      "max": 1950
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,100",
-      "min": 2100
+      "spec": "Más de $1,950",
+      "min": 1950
      }
     ]
    }
@@ -42906,15 +42906,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $930",
-      "max": 930
+      "spec": "Hasta $890",
+      "max": 890
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$930 a $1,650",
-      "min": 930,
+      "spec": "$890 a $1,650",
+      "min": 890,
       "max": 1650
      },
      {
@@ -44041,15 +44041,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $990",
-      "max": 990
+      "spec": "Hasta $970",
+      "max": 970
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$990 a $2,050",
-      "min": 990,
+      "spec": "$970 a $2,050",
+      "min": 970,
       "max": 2050
      },
      {
@@ -44079,23 +44079,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $840",
-      "max": 840
+      "spec": "Hasta $820",
+      "max": 820
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$840 a $2,950",
-      "min": 840,
-      "max": 2950
+      "spec": "$820 a $2,450",
+      "min": 820,
+      "max": 2450
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
+      "spec": "Más de $2,450",
+      "min": 2450
      }
     ]
    }
@@ -47446,16 +47446,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$550 a $1,000",
+      "spec": "$550 a $970",
       "min": 550,
-      "max": 1000
+      "max": 970
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,000",
-      "min": 1000
+      "spec": "Más de $970",
+      "min": 970
      }
     ]
    }
@@ -48723,16 +48723,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$500 a $730",
+      "spec": "$500 a $720",
       "min": 500,
-      "max": 730
+      "max": 720
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $730",
-      "min": 730
+      "spec": "Más de $720",
+      "min": 720
      }
     ]
    }
@@ -55804,16 +55804,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$850 a $1,800",
+      "spec": "$850 a $1,850",
       "min": 850,
-      "max": 1800
+      "max": 1850
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,800",
-      "min": 1800
+      "spec": "Más de $1,850",
+      "min": 1850
      }
     ]
    }
@@ -58404,6 +58404,41 @@
    }
   ]
  },
+ "Electrodomésticos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $2,950",
+      "min": 1050,
+      "max": 2950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,950",
+      "min": 2950
+     }
+    ]
+   }
+  ]
+ },
  "Muebles": {
   "axes": [
    {
@@ -58479,41 +58514,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $7,950",
       "min": 7950
-     }
-    ]
-   }
-  ]
- },
- "Electrodomésticos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,050",
-      "max": 1050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,050 a $2,950",
-      "min": 1050,
-      "max": 2950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,950",
-      "min": 2950
      }
     ]
    }
@@ -58867,6 +58867,86 @@
    }
   ]
  },
+ "Redes": {
+  "axes": [
+   {
+    "label": "Puertos",
+    "field": "ports",
+    "criterion": "por número de puertos",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "pocos",
+      "name": "Pocos",
+      "use": "Un escritorio o una sala",
+      "spec": "Hasta 6 puertos",
+      "max": 6
+     },
+     {
+      "id": "medios",
+      "name": "Medios",
+      "use": "Casa u oficina chica",
+      "spec": "7 puertos a 16 puertos",
+      "min": 6,
+      "max": 16
+     },
+     {
+      "id": "muchos",
+      "name": "Muchos",
+      "use": "Oficina o rack",
+      "spec": "Más de 16 puertos",
+      "min": 16
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Wi-Fi",
+    "field": "wifi_std",
+    "criterion": "por generación",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "wi-fi-4",
+      "name": "Wi-Fi 4",
+      "use": "Básico, para pocos equipos",
+      "spec": "Wi-Fi 4",
+      "values": [
+       "Wi-Fi 4"
+      ]
+     },
+     {
+      "id": "wi-fi-5",
+      "name": "Wi-Fi 5",
+      "use": "Suficiente para streaming",
+      "spec": "Wi-Fi 5",
+      "values": [
+       "Wi-Fi 5"
+      ]
+     },
+     {
+      "id": "wi-fi-6",
+      "name": "Wi-Fi 6",
+      "use": "Muchos equipos a la vez",
+      "spec": "Wi-Fi 6",
+      "values": [
+       "Wi-Fi 6"
+      ]
+     },
+     {
+      "id": "wi-fi-7",
+      "name": "Wi-Fi 7",
+      "use": "La generación más nueva",
+      "spec": "Wi-Fi 7",
+      "values": [
+       "Wi-Fi 7"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
  "Bicicletas y movilidad": {
   "axes": [
    {
@@ -58996,86 +59076,6 @@
       "spec": "Disco duro (HDD)",
       "values": [
        "hdd"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Redes": {
-  "axes": [
-   {
-    "label": "Puertos",
-    "field": "ports",
-    "criterion": "por número de puertos",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "pocos",
-      "name": "Pocos",
-      "use": "Un escritorio o una sala",
-      "spec": "Hasta 6 puertos",
-      "max": 6
-     },
-     {
-      "id": "medios",
-      "name": "Medios",
-      "use": "Casa u oficina chica",
-      "spec": "7 puertos a 16 puertos",
-      "min": 6,
-      "max": 16
-     },
-     {
-      "id": "muchos",
-      "name": "Muchos",
-      "use": "Oficina o rack",
-      "spec": "Más de 16 puertos",
-      "min": 16
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Wi-Fi",
-    "field": "wifi_std",
-    "criterion": "por generación",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "wi-fi-4",
-      "name": "Wi-Fi 4",
-      "use": "Básico, para pocos equipos",
-      "spec": "Wi-Fi 4",
-      "values": [
-       "Wi-Fi 4"
-      ]
-     },
-     {
-      "id": "wi-fi-5",
-      "name": "Wi-Fi 5",
-      "use": "Suficiente para streaming",
-      "spec": "Wi-Fi 5",
-      "values": [
-       "Wi-Fi 5"
-      ]
-     },
-     {
-      "id": "wi-fi-6",
-      "name": "Wi-Fi 6",
-      "use": "Muchos equipos a la vez",
-      "spec": "Wi-Fi 6",
-      "values": [
-       "Wi-Fi 6"
-      ]
-     },
-     {
-      "id": "wi-fi-7",
-      "name": "Wi-Fi 7",
-      "use": "La generación más nueva",
-      "spec": "Wi-Fi 7",
-      "values": [
-       "Wi-Fi 7"
       ]
      }
     ],
@@ -60242,16 +60242,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,400 a $5,300",
+      "spec": "$1,400 a $5,350",
       "min": 1400,
-      "max": 5300
+      "max": 5350
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $5,300",
-      "min": 5300
+      "spec": "Más de $5,350",
+      "min": 5350
      }
     ]
    }
@@ -60366,16 +60366,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$6,950 a $12,000",
+      "spec": "$6,950 a $12,500",
       "min": 6950,
-      "max": 12000
+      "max": 12500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $12,000",
-      "min": 12000
+      "spec": "Más de $12,500",
+      "min": 12500
      }
     ]
    }

@@ -3245,7 +3245,7 @@ def render_category_page(cat, products, data):
     body = f"""
 <nav class="breadcrumb"><a href="../../">Inicio</a> &gt; {html_escape(cat['name'])}</nav>
 <div class="list-head"><h1>{svg_icon("trophy")} {html_escape(cat['name'])}: los más populares de {MES_ANIO}</h1></div>
-<p class="muted">{len(productos_listables)} productos comparados entre {len(tiendas_cat)} tiendas mexicanas. Precios actualizados el {HOY_LARGO}.</p>
+<p class="muted">{len(productos_listables):,} productos comparados entre {len(tiendas_cat)} tiendas mexicanas. Precios actualizados el {HOY_LARGO}.</p>
 {indice_html}
 {subs_html}
 {guia_html}
@@ -3287,7 +3287,7 @@ def render_category_page(cat, products, data):
     )
     title = f"{cat['name']}: ranking de los más populares — {MES_ANIO} | ComparaMEX"
     description = (
-        f"Ranking de {cat['name'].lower()} en México, {MES_ANIO}: {len(productos_listables)} "
+        f"Ranking de {cat['name'].lower()} en México, {MES_ANIO}: {len(productos_listables):,} "
         f"productos comparados entre {len(tiendas_cat)} tiendas, cómo elegir y precios desde "
         f"{money(min((pr for pr in (min_price(p) for p in products) if pr), default=0))}."
     )[:300]
