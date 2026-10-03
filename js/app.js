@@ -7527,9 +7527,19 @@
     vals.sort((a, b) => a - b);
     let eje = null;
     const n = vals.length;
-    if (n >= 12) {
-      const c1 = redondoAbajo(vals[Math.floor(n / 3)]);
-      const c2 = redondoAbajo(vals[Math.floor((2 * n) / 3)]);
+    // Primero tercios redondeados («Hasta $1,850»). Si un precio muy repetido
+    // queda del lado equivocado del redondeo (los vestidos a $199 con el corte
+    // en $190) o los dos tercios caen casi juntos (ropa de moto: $1,895 y
+    // $2,039), el tramo del medio se vacía y la fila no salía: 4 subcategorías
+    // sin bloque. Entonces se prueba con el precio exacto y con cuartos y
+    // quintos.
+    const candidatos = [];
+    for (const [qa, qb] of [[1 / 3, 2 / 3], [1 / 4, 3 / 4], [1 / 5, 4 / 5]]) {
+      const a = vals[Math.floor(n * qa)], b = vals[Math.floor(n * qb)];
+      candidatos.push([redondoAbajo(a), redondoAbajo(b)], [a, b]);
+    }
+    for (const [c1, c2] of n >= 12 ? candidatos : []) {
+      if (eje) break;
       if (c1 && c2 && c1 < c2) {
         const tr = [0, 0, 0];
         vals.forEach((v) => { tr[v <= c1 ? 0 : v <= c2 ? 1 : 2] += 1; });
@@ -7760,7 +7770,12 @@
       // 1,540 de 1,540 en «King», y en «Juegos PS4» la consola 2,396 de
       // 2,405 en «PlayStation 4». Repite lo que el nombre de la
       // subcategoría ya dice y no ayuda a elegir.
-      if (Math.max(...enTramo.values()) >= contestan * 0.95) return;
+      // Se cuenta sobre lo que cae en alguna tarjeta: los valores que el eje
+      // no muestra (la «Niña» de un eje heredado que sólo tiene Hombre,
+      // Unisex y Niño) bajaban la proporción y la fila salía igual.
+      const enAlguna = [...enTramo.entries()].filter(([t]) => t != null).map(([, n]) => n);
+      const repartidos = enAlguna.reduce((a, n) => a + n, 0);
+      if (repartidos < 4 || Math.max(...enAlguna) >= repartidos * 0.95) return;
       // Para contar y para elegir la foto, cada fila mira el alcance
       // filtrado por LA OTRA fila (el tamaño elegido sí acota los niveles
       // que se ofrecen, y al revés), pero nunca por sí misma.

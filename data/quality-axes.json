@@ -1742,6 +1742,15 @@
       "values": [
        "Unisex"
       ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
+      ]
      }
     ],
     "key": "level"
@@ -1947,12 +1956,30 @@
     "ramp": false,
     "tiers": [
      {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
       "id": "mujer",
       "name": "Mujer",
       "use": "",
       "spec": "Mujer",
       "values": [
        "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
       ]
      },
      {
@@ -2035,6 +2062,24 @@
       "values": [
        "Unisex"
       ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
+      ]
+     },
+     {
+      "id": "nina",
+      "name": "Niña",
+      "use": "",
+      "spec": "Niña",
+      "values": [
+       "Niña"
+      ]
      }
     ],
     "key": "level"
@@ -2082,12 +2127,30 @@
     "ramp": false,
     "tiers": [
      {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
       "id": "mujer",
       "name": "Mujer",
       "use": "",
       "spec": "Mujer",
       "values": [
        "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
       ]
      },
      {
@@ -2169,6 +2232,15 @@
       "spec": "Unisex",
       "values": [
        "Unisex"
+      ]
+     },
+     {
+      "id": "nina",
+      "name": "Niña",
+      "use": "",
+      "spec": "Niña",
+      "values": [
+       "Niña"
       ]
      }
     ],
@@ -2462,6 +2534,15 @@
       "spec": "Hombre",
       "values": [
        "Hombre"
+      ]
+     },
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
       ]
      },
      {
@@ -12768,6 +12849,15 @@
       "values": [
        "Mujer"
       ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
+      ]
      }
     ],
     "key": "size"
@@ -12910,6 +13000,15 @@
       "spec": "Mujer",
       "values": [
        "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
       ]
      }
     ],
@@ -13543,6 +13642,15 @@
     "ramp": false,
     "tiers": [
      {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     },
+     {
       "id": "nino",
       "name": "Niño",
       "use": "",
@@ -13754,6 +13862,15 @@
       "values": [
        "Niño"
       ]
+     },
+     {
+      "id": "nina",
+      "name": "Niña",
+      "use": "",
+      "spec": "Niña",
+      "values": [
+       "Niña"
+      ]
      }
     ],
     "key": "level"
@@ -13921,6 +14038,15 @@
       "spec": "Mujer",
       "values": [
        "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
       ]
      },
      {
@@ -16189,6 +16315,15 @@
     "ramp": false,
     "tiers": [
      {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
       "id": "mujer",
       "name": "Mujer",
       "use": "",
@@ -16285,6 +16420,15 @@
       "values": [
        "Mujer"
       ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
      }
     ],
     "key": "level"
@@ -16365,6 +16509,15 @@
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
      {
       "id": "mujer",
       "name": "Mujer",
@@ -21969,12 +22122,39 @@
       ]
      },
      {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
       "id": "unisex",
       "name": "Unisex",
       "use": "",
       "spec": "Unisex",
       "values": [
        "Unisex"
+      ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
+      ]
+     },
+     {
+      "id": "bebe",
+      "name": "Bebé",
+      "use": "",
+      "spec": "Bebé",
+      "values": [
+       "Bebé"
       ]
      }
     ],
@@ -22122,6 +22302,15 @@
       "values": [
        "Niña"
       ]
+     },
+     {
+      "id": "bebe",
+      "name": "Bebé",
+      "use": "",
+      "spec": "Bebé",
+      "values": [
+       "Bebé"
+      ]
      }
     ],
     "key": "level"
@@ -22258,6 +22447,24 @@
       "values": [
        "Unisex"
       ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
+      ]
+     },
+     {
+      "id": "bebe",
+      "name": "Bebé",
+      "use": "",
+      "spec": "Bebé",
+      "values": [
+       "Bebé"
+      ]
      }
     ],
     "key": "level"
@@ -22335,6 +22542,15 @@
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
      {
       "id": "unisex",
       "name": "Unisex",
@@ -22436,6 +22652,15 @@
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
      {
       "id": "unisex",
       "name": "Unisex",
@@ -22612,6 +22837,15 @@
       "spec": "Unisex",
       "values": [
        "Unisex"
+      ]
+     },
+     {
+      "id": "bebe",
+      "name": "Bebé",
+      "use": "",
+      "spec": "Bebé",
+      "values": [
+       "Bebé"
       ]
      }
     ],
@@ -22915,6 +23149,15 @@
     "ramp": false,
     "tiers": [
      {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
       "id": "mujer",
       "name": "Mujer",
       "use": "",
@@ -22948,6 +23191,15 @@
       "spec": "Niña",
       "values": [
        "Niña"
+      ]
+     },
+     {
+      "id": "bebe",
+      "name": "Bebé",
+      "use": "",
+      "spec": "Bebé",
+      "values": [
+       "Bebé"
       ]
      }
     ],
@@ -23417,6 +23669,15 @@
       ]
      },
      {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
       "id": "unisex",
       "name": "Unisex",
       "use": "",
@@ -23845,6 +24106,24 @@
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
      {
       "id": "unisex",
       "name": "Unisex",
@@ -24379,6 +24658,24 @@
     "ramp": false,
     "tiers": [
      {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
       "id": "unisex",
       "name": "Unisex",
       "use": "",
@@ -24394,6 +24691,15 @@
       "spec": "Niño",
       "values": [
        "Niño"
+      ]
+     },
+     {
+      "id": "nina",
+      "name": "Niña",
+      "use": "",
+      "spec": "Niña",
+      "values": [
+       "Niña"
       ]
      }
     ],
@@ -30994,6 +31300,15 @@
       "values": [
        "Mujer"
       ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
      }
     ],
     "key": "level"
@@ -31255,6 +31570,15 @@
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
      {
       "id": "mujer",
       "name": "Mujer",
@@ -31798,6 +32122,15 @@
     "ramp": false,
     "tiers": [
      {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
       "id": "mujer",
       "name": "Mujer",
       "use": "",
@@ -31813,6 +32146,15 @@
       "spec": "Unisex",
       "values": [
        "Unisex"
+      ]
+     },
+     {
+      "id": "nina",
+      "name": "Niña",
+      "use": "",
+      "spec": "Niña",
+      "values": [
+       "Niña"
       ]
      }
     ],
@@ -31919,6 +32261,15 @@
       "spec": "Unisex",
       "values": [
        "Unisex"
+      ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
       ]
      }
     ],
@@ -32517,6 +32868,24 @@
       "spec": "Mujer",
       "values": [
        "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
       ]
      },
      {
@@ -56704,6 +57073,15 @@
     "ramp": false,
     "tiers": [
      {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
       "id": "mujer",
       "name": "Mujer",
       "use": "",
@@ -57873,6 +58251,15 @@
       "values": [
        "Unisex"
       ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
+      ]
      }
     ],
     "key": "level"
@@ -58128,6 +58515,15 @@
       "values": [
        "Unisex"
       ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
+      ]
      }
     ],
     "key": "size"
@@ -58176,6 +58572,15 @@
       "spec": "Niño",
       "values": [
        "Niño"
+      ]
+     },
+     {
+      "id": "nina",
+      "name": "Niña",
+      "use": "",
+      "spec": "Niña",
+      "values": [
+       "Niña"
       ]
      }
     ],
@@ -58537,6 +58942,15 @@
       ]
      },
      {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
       "id": "unisex",
       "name": "Unisex",
       "use": "",
@@ -58552,6 +58966,15 @@
       "spec": "Niño",
       "values": [
        "Niño"
+      ]
+     },
+     {
+      "id": "nina",
+      "name": "Niña",
+      "use": "",
+      "spec": "Niña",
+      "values": [
+       "Niña"
       ]
      }
     ],
@@ -58658,6 +59081,24 @@
       "spec": "Unisex",
       "values": [
        "Unisex"
+      ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
+      ]
+     },
+     {
+      "id": "nina",
+      "name": "Niña",
+      "use": "",
+      "spec": "Niña",
+      "values": [
+       "Niña"
       ]
      }
     ],
@@ -60188,6 +60629,15 @@
       "spec": "Unisex",
       "values": [
        "Unisex"
+      ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
       ]
      }
     ],

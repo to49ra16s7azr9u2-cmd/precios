@@ -295,7 +295,10 @@ CAMPOS = {
     "wheel_size": dict(label="Rodada", criterion="por medida", ordinal=True),
     "platform": dict(label="Consola", criterion="a la que pertenece", ramp=False,
                      orden=["Nintendo Switch 2", "Nintendo Switch", "PlayStation 5", "PlayStation 4", "Xbox Series X|S", "Xbox One"]),
-    "gender": dict(label="Para quién", criterion="según la ficha", ramp=False,
+    # min_tramo bajo: en Deportes «Mujer» es el 3% (54 de 1,750) y con el
+    # 5% general la tarjeta no salía; quien busca algo de mujer no podía
+    # elegirlo (03-oct).
+    "gender": dict(label="Para quién", criterion="según la ficha", ramp=False, min_tramo=0.02,
                    orden=["Hombre", "Mujer", "Unisex", "Niño", "Niña"]),
     "stone": dict(label="Piedra", criterion="según la ficha", ramp=False,
                   orden=["Sin piedra", "Zirconia", "Cristal", "Perla", "Moissanita", "Diamante"]),
