@@ -132,6 +132,17 @@ TIENDAS = {
         "store": {"id": "sephora_mx", "name": "Sephora", "hubRegion": None, "color": "#000000",
                   "logo": "SE", "typicalShippingDays": [2, 6], "logoImg": "icons/stores/sephora_mx.png"},
     },
+    # Elektra entra por el feed de Soicos (programa 10219, ~199 mil productos)
+    # además del recorrido VTEX de add_elektra_products.py. A diferencia de
+    # Sam's o Walmart, su url se guarda SIN envolver (url_real del deeplink):
+    # refresh_vtex.py, merge_same_store.py y split_elektra_variants.py comparan
+    # la url de elektra.mx, y el deeplink se pone al salir (afiliados.url_salida
+    # y urlSalida() en js/app.js).
+    "elektra": {
+        "dominios": ("elektra.mx",),
+        "store": {"id": "elektra", "name": "Elektra", "hubRegion": None, "color": "#E30613",
+                  "logo": "EL", "typicalShippingDays": [3, 10], "logoImg": "icons/stores/elektra.png"},
+    },
     "coppel": {
         "dominios": ("coppel.com",),
         "store": {"id": "coppel", "name": "Coppel", "hubRegion": None, "color": "#FFD100",
@@ -144,6 +155,8 @@ RX_ID_URL = re.compile(r"/ip/(?:[^/?#]+/)*?(\d{6,})(?:[/?#]|$)")
 # vende la tienda y /pdp/<slug>-mkp-<id> lo que venden terceros en su
 # marketplace. El tipo queda pegado al id (ver coppel_sitemap.id_de).
 RX_ID_COPPEL = re.compile(r"/pdp/[^?#]*-(pm|mkp)-(\d+)(?:[/?#]|$)")
+# Elektra (VTEX): elektra.mx/<slug>-<id>/p
+RX_ID_ELEKTRA = re.compile(r"elektra\.mx/[^?#]*?-(\d{5,})/p(?:[/?#]|$)")
 
 
 def id_de_url(url):
@@ -153,7 +166,10 @@ def id_de_url(url):
     if m:
         return m.group(1)
     m = RX_ID_COPPEL.search(u)
-    return f"{m.group(1)}{m.group(2)}" if m else None
+    if m:
+        return f"{m.group(1)}{m.group(2)}"
+    m = RX_ID_ELEKTRA.search(u)
+    return m.group(1) if m else None
 
 
 def tienda_de_url(url):

@@ -3543,7 +3543,9 @@ def render_producto_retirado(product, data):
         for q in hermanos
     )
     salidas = []
-    if cat and sub_slug:
+    # Sólo si la subcategoría tiene página (30 productos o más): si no, el
+    # chip era un enlace roto (10 fichas retiradas, 03-oct).
+    if cat and sub_slug and os.path.exists(os.path.join(ROOT, "categoria", cat_slug, sub_slug, "index.html")):
         salidas.append(f'<a class="chip" href="../../categoria/{cat_slug}/{sub_slug}/">'
                        f'{html_escape(sub_nombre)}</a>')
     if cat:
