@@ -110,9 +110,10 @@ def titulos_de_entrada(ids, ogs):
               f"enlaces por emparejar: {len(faltan)}")
         if not faltan:
             break
+        # Ya no se corta por "tres bloques sin avance": los enlaces nuevos
+        # pueden venir de lotes de abajo. Leer los 3,000 cuesta 3,000 de los
+        # 100,000 pedidos diarios del worker.
         sin_avance = sin_avance + 1 if len(faltan) == antes else 0
-        if sin_avance >= 3:
-            break
     return api
 
 
@@ -130,6 +131,18 @@ def main():
     enlaces = [l.strip() for l in open(args.salida, encoding="utf-8")
                if l.strip().startswith("http")]
     print(f"urls de entrada: {len(urls)}   enlaces devueltos: {len(enlaces)}")
+
+    # salida.txt acumula los enlaces de todos los días: los que ya están en
+    # el mapa no se vuelven a leer ni a buscar. Contarlos como pendientes
+    # hacía que la búsqueda de títulos se cortara antes de llegar a los
+    # nuevos (03-oct: 563 de 566 estaban en las posiciones 1,795-2,394 y la
+    # búsqueda paró en 1,500).
+    ya = set()
+    if os.path.exists(args.mapa):
+        with open(args.mapa, encoding="utf-8") as f:
+            ya = set(json.load(f).values())
+    enlaces = [e for e in enlaces if e not in ya]
+    print(f"  nuevos (no están en {args.mapa}): {len(enlaces)}")
 
     with cf.ThreadPoolExecutor(max_workers=4) as ex:
         ogs = dict(ex.map(og_title, enlaces))
