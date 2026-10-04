@@ -1506,7 +1506,11 @@ def first_dimension_cm(text, lo, hi):
     return v if lo <= v <= hi else None
 
 
-_LEN_CM_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d)?)\s*cm\b")
+_LEN_CM_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d{1,2})?)\s*cm\b")
+# «Figura ... de 6 pulgadas», «5.5"»: las figuras de acción se venden por
+# pulgadas (la escala de 6" es la más común) y sólo se leían los cm: 642
+# figuras con la medida en el nombre quedaban sin «Tamaño» (04-oct-2026).
+_LEN_IN_RE = re.compile(r"(?<![\d.,x*])(\d{1,2}(?:[.,]\d{1,2})?)\s*(?:\"|''|pulgadas?\b|pulg\b|in\b|inch(?:es)?\b)")
 _DIMS_X_RE = re.compile(r"(\d{1,3}(?:[.,]\d)?)\s*(?:x|\*)\s*(\d{1,3}(?:[.,]\d)?)(?:\s*(?:x|\*)\s*(\d{1,3}(?:[.,]\d)?))?\s*cm\b")
 
 
@@ -1519,6 +1523,10 @@ def length_cm_of(text, lo, hi):
         v = max(_num(g) for g in m.groups() if g)
         return v if lo <= v <= hi else None
     vals = {_num(m.group(1)) for m in _LEN_CM_RE.finditer(n)}
+    if not vals:
+        # Más de 40" no es una figura ni un peluche: «4 75In» (4.75 in) se
+        # leía como 75 pulgadas.
+        vals = {round(_num(m.group(1)) * 2.54, 1) for m in _LEN_IN_RE.finditer(n) if _num(m.group(1)) <= 40}
     return _uno({v for v in vals if lo <= v <= hi})
 
 
