@@ -111,6 +111,16 @@ def recorrer(path, rango=None):
     return out, True
 
 
+def recorrer_entera(path):
+    """Todos los productos de una hoja, partiéndola por precio si llega al
+    tope de VTEX (lo usa también refresh_vtex.py)."""
+    productos, tope = recorrer(path)
+    if tope:
+        for r in RANGOS:
+            productos += recorrer(path, r)[0]
+    return productos
+
+
 def item_de(p, nombres):
     nombre = (p.get("productName") or "").strip()
     url = p.get("link") or ""
