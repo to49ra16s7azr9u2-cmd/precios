@@ -4152,6 +4152,21 @@ LOTES['auditoria_14'] = [
     # Gatos hidráulicos («Gato Patin 2.5 toneladas») sin subcategoría en Mascotas.
     ('Mascotas', r'\bgato (patin|hidraulico|de botella|de tijera|mecanico|de piso)|\btoneladas\b', None,
      'Autos y motos', 'Gatos y herramientas para auto', _SIN),
+    # Grupos chicos de la misma auditoría (20-45 fichas cada uno).
+    ('Iluminación', r'^italika\b', None, 'Autopartes', 'Luces de moto', {'Decorativa'}),
+    ('Autopartes', r'^italika\b', None, 'Autopartes', 'Frenos de moto', {'Frenos'}),
+    ('Autopartes', r'^eje (de )?rueda.*\b(honda|italika|yamaha|suzuki|bajaj|vento|moto|navi|cgl|dio|ft ?\d|dm ?\d|\d{3}z)\b', None,
+     'Autopartes', 'Ejes para moto', {'Baleros y mazas de rueda'}),
+    ('Tabletas', r'\bbromo\b|\bcloro\b|\bspa\b|alberca|piscina|jacuzzi', None, 'Jardín y exterior', 'Albercas e inflables',
+     {'Tabletas Android'}),
+    ('Muebles', r'^(set de \d |juego de \d )?buros?\b', None, 'Muebles', 'Burós', {'Cabeceras'}),
+    ('Muebles', r'^credenza.*\btv\b', None, 'Muebles', 'Mesas para TV y consolas', {'Roperos'}),
+    ('Muebles', r'^mantel(es)?\b', None, 'Cocina y comedor', 'Manteles y caminos de mesa', {'Mesas para TV y consolas'}),
+    ('Calzado', r'^polo\b', r'\btenis\b|zapat|calzado|sneaker|\bcod\b|\bclub\b', 'Ropa y accesorios', 'Playeras',
+     {'Tenis para hombre', 'Tenis para mujer', 'Tenis'}),
+    ('Blancos y ropa de cama', r'^panos? de limpieza|^panos?\b.*microfibra', None, 'Limpieza y hogar',
+     'Limpiadores y desinfectantes', {'Juegos de toallas'}),
+    ('Papelería y oficina', r'tractive|\bgps\b.*(perro|dog|mascota)', None, 'Mascotas', 'GPS y localizadores', {'Organización'}),
 ]
 REGLAS += LOTES['auditoria_14']
 
