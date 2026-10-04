@@ -4090,6 +4090,15 @@ def _llanta_en_rines(tn):
     return None
 
 
+_ESPEJOS = {'Espejos decorativos de pared', 'Espejos de cuerpo completo', 'Espejos de tocador y maquillaje',
+            'Espejos de baño con luz'}
+_DEPORTIVO = (r'(running|correr|deportiv|entrenamiento|training|trail|\btenis\b|voleibol|basquet|baloncesto|pickleball|padel'
+              r'|futbol|skate|gimnasio|caminar|walking|asics|brooks|new balance|adidas|nike|puma|reebok|under armour|skechers'
+              r'|hoka|saucony|mizuno|salomon|\bvans\b|converse|\bfila\b|on running|altra|merrell|k-?swiss|diadora|joma'
+              r'|umbro|\bcoach\b|lacoste|jordan|\bcourt\b|sneaker|tommy hilfiger|calvin klein|\bon (cloud|men|women|negro)'
+              r'|\bcloud\w*|\bveja\b|\becco\b|cole haan|steve madden|\blee\b|nautica|chasse|porristas|animacion|peloton'
+              r'|ciclismo|low-?top|high-?top|slip-?on|\bknit|bruno marc)')
+
 LOTES['auditoria_14'] = [
     ('Autos y motos', r'^(\d+ |paquete (de )?\d+ )?(llantas?|neumaticos?)\b', r'\b(rin|rines) (y|con) llantas?\b',
      'Autos y motos', _llanta_en_rines, {'Rines'}),
@@ -4116,15 +4125,33 @@ LOTES['auditoria_14'] = [
     # Espejos decorativos de pared (el repartidor de tres niveles los mandaba
     # ahí por omisión; ya no).
     ('Decoración de hogar y jardín', r'\bcuadros?\b|\bimpreso\b|\blienzo|\bcanvas\b|\boleo\b|\bposter|\blamina',
-     r'\bespejos?\b', 'Decoración de hogar y jardín', 'Cuadros y decoración de pared', {'Espejos decorativos de pared'}),
-    ('Decoración de hogar y jardín', r'\bpersianas?\b', r'\bespejos?\b', 'Decoración de hogar y jardín', 'Persianas',
-     {'Espejos decorativos de pared'}),
-    ('Decoración de hogar y jardín', r'\bcortinas?\b', r'\bespejos?\b', 'Decoración de hogar y jardín', 'Cortinas',
-     {'Espejos decorativos de pared'}),
-    ('Decoración de hogar y jardín', r'\bdicasa\b|\bcojin', r'\bespejos?\b', 'Decoración de hogar y jardín', 'Cojines',
-     {'Espejos decorativos de pared'}),
+     r'\bespejos?\b', 'Decoración de hogar y jardín', 'Cuadros y decoración de pared', _ESPEJOS),
+    ('Decoración de hogar y jardín', r'\bpersianas?\b', r'\bespejos?\b', 'Decoración de hogar y jardín', 'Persianas', _ESPEJOS),
+    ('Decoración de hogar y jardín', r'\bcortinas?\b', r'\bespejos?\b', 'Decoración de hogar y jardín', 'Cortinas', _ESPEJOS),
+    ('Decoración de hogar y jardín', r'\bdicasa\b|\bcojin', r'\bespejos?\b', 'Decoración de hogar y jardín', 'Cojines', _ESPEJOS),
     ('Decoración de hogar y jardín', r'papel tapiz', r'\bespejos?\b', 'Decoración de hogar y jardín', 'Vinil decorativo',
-     {'Espejos decorativos de pared'}),
+     _ESPEJOS),
+    # Más del árbol de Elektra (auditoría por primera palabra de lo que sólo
+    # vende Elektra contra el resto de la subcategoría, 04-oct-2026):
+    # 1,770 «Zapatillas de running ASICS ...» (tenis: en México «zapatilla»
+    # es el zapato de tacón, y la regla de Calzado los mandaba a vestir).
+    ('Calzado', r'\bzapatillas?\b.*' + _DEPORTIVO + r'|' + _DEPORTIVO + r'.*\bzapatillas?\b',
+     r'\btacon|stiletto|\bvestir\b|fiesta|codigo|\bcod\b|plataforma',
+     'Calzado', _tenis, {'Zapatos de vestir'}),
+    # 83 lápices stylus para tableta entre los lápices de escribir.
+    ('Papelería y oficina', r'stylus|capacitiv|apple pencil|lapiz (optico|digital|tactil)|para (ipad|tablet)', r'cricut',
+     'Tabletas', 'Accesorios para tableta', {'Escritura'}),
+    # 108 cascos y hombreras de fútbol americano entre los balones de fútbol.
+    ('Deportes y fitness', r'^(\S+ ){0,2}(casco|cascos|hombreras?|careta|barbiquejo)\b', None,
+     'Deportes y fitness', 'Fútbol americano', {'Balones de fútbol'}),
+    # 50 cojines «riñonera» (lumbares) de Dicasa entre las cangureras.
+    ('Bolsas y mochilas', r'\bcojin', None, 'Decoración de hogar y jardín', 'Cojines', {'Cangureras y bolsos cruzados'}),
+    # Aceites de fragancia y recargas de difusor entre los perfumes.
+    ('Belleza y cuidado personal', r'aceites? de fragancia|difusor|aromatizante|\bincienso', None,
+     'Limpieza y hogar', 'Aromatizantes y velas', {'Perfumes'}),
+    # Gatos hidráulicos («Gato Patin 2.5 toneladas») sin subcategoría en Mascotas.
+    ('Mascotas', r'\bgato (patin|hidraulico|de botella|de tijera|mecanico|de piso)|\btoneladas\b', None,
+     'Autos y motos', 'Gatos y herramientas para auto', _SIN),
 ]
 REGLAS += LOTES['auditoria_14']
 

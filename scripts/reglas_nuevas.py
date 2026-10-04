@@ -137,6 +137,14 @@ def sub_calzado(tn):
     if re.search(r'\b(sandalias?|huaraches?|chanclas?|crocs|zuecos|alpargatas?)\b', tn): return 'Sandalias'
     if re.search(r'\btenis\b', tn):
         return 'Tenis para niños' if RX_NINO.search(tn) else 'Tenis'
+    # «Zapatillas de running ASICS» (el árbol de Elektra, 04-oct-2026): en
+    # México la zapatilla es de tacón, pero con deporte o marca deportiva
+    # son tenis.
+    if re.search(r'\bzapatillas?\b', tn) and not re.search(r'\btacon|stiletto|\bvestir\b', tn) and re.search(
+            r'running|correr|deportiv|entrenamiento|training|trail|voleibol|basquet|pickleball|padel|futbol|skate|gimnasio'
+            r'|caminar|walking|asics|brooks|new balance|adidas|nike|puma|reebok|under armour|skechers|hoka|saucony|mizuno'
+            r'|salomon|\bvans\b|converse|\bfila\b|on running|merrell|\bcoach\b|sneaker', tn):
+        return 'Tenis para niños' if RX_NINO.search(tn) else 'Tenis'
     if re.search(r'\b(vestir|oxford|tacon(es)?|formal|zapatillas?|stiletto)\b', tn): return 'Zapatos de vestir'
     return 'Zapatos casuales'
 
