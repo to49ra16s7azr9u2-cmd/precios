@@ -182,6 +182,16 @@ def velocidad_llanta(nombre):
     return next(iter(tramos)) if len(tramos) == 1 else None
 
 
+_PUERTAS_RE = re.compile(r"\b(\d{1,2})\s*puertas?\b")
+
+
+def puertas(nombre):
+    """Puertas de un clóset o una alacena («Closet Madesa Venus 8 Puertas»):
+    es lo que dice su tamaño, y el 67% de los roperos lo trae en el nombre."""
+    vals = {int(m.group(1)) for m in _PUERTAS_RE.finditer(_norm(nombre)) if 1 <= int(m.group(1)) <= 12}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
 # ------------------------------------------------------------- moda y hogar
 _COLORES = (
     ("Multicolor", r"multicolor|arcoiris|arco iris|colores surtidos"),

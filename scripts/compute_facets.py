@@ -758,6 +758,11 @@ REGLAS_TITULO.setdefault("Climatización", []).append(("ac_btu", se.ac_btu))
 for _c in ("Bocinas", "Audífonos", "Relojes inteligentes", "Blancos y ropa de cama"):
     REGLAS_TITULO.setdefault(_c, []).append(("water_resistant", st.impermeable))
 REGLAS_TITULO.setdefault("Decoración de hogar y jardín", []).append(("blackout", st.blackout))
+# Roperos y alacenas: las puertas; cocinas integrales: el largo («Madesa
+# Glamy 260cm»). Sólo se comparaban por precio (04-oct-2026).
+for _s in ("Roperos", "Alacenas y gabinetes de cocina"):
+    NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("doors", st.puertas))
+NOMBRE_GENERALES.setdefault(("Muebles", "Cocinas integrales"), []).append(("length_cm", lambda t: se.length_cm_of(t, 80, 600)))
 # Los relojes de Joyería (no los aretes ni las cadenas, donde «resistente al
 # agua» es que no se oxida y «50 m» es el largo).
 for _s in ("Relojes", "Relojes de buceo", "Cronógrafos", "Relojes infantiles", "Relojes de bolsillo y de pared"):
