@@ -28,8 +28,8 @@ generate_seo_pages.py).
 
 CUÁNDO SE JUNTA
 ---------------
-  * misma tienda y ficha de UNA sola oferta (lo que ya se emparejó con otra
-    tienda es de un modelo concreto y no se toca); las fichas con colores
+  * todas las publicaciones de la ficha en la misma tienda (lo que ya se
+    emparejó con otra tienda es de un modelo concreto y no se toca); las fichas con colores
     (colorVariants) entran con todas sus publicaciones, y las variantes van en
     la oferta del primer color, que es con lo que se arma su tabla;
   * misma foto: el nombre del archivo cuando es propio («07503060608016.jpeg»,
@@ -234,10 +234,13 @@ def grupos_fusionables(data):
         ofs = p.get("offers") or []
         if not ofs or not ofs[0].get("price") or not ofs[0].get("url"):
             continue
-        # Una sola tienda, y sin colores una sola oferta: lo que ya se emparejó
-        # con otra tienda es de un modelo concreto. Las fichas con colores
-        # (las «Pantalla Techo Auto» de cada auto en negro y gris) entran.
-        if len({o.get("storeId") for o, _ in publicaciones(p)}) != 1 or (len(ofs) != 1 and not p.get("colorVariants")):
+        # Una sola tienda: lo que ya se emparejó con otra tienda es de un
+        # modelo concreto. Las fichas con colores (las «Pantalla Techo Auto»
+        # de cada auto en negro y gris) entran.
+        # Basta con que todas sus publicaciones sean de la misma tienda: el
+        # control de aire de Elektra «para Carrier» ya traía dos SKU juntos
+        # (merge_same_store) y con «una sola oferta» quedaba fuera.
+        if len({o.get("storeId") for o, _ in publicaciones(p)}) != 1:
             continue
         if _MEDIDA_LLANTA.search((p.get("name") or "").lower()) or _ES_LLANTA.search(norm(p.get("name"))) \
                 or "Llantas" in (p.get("subcategory") or "") or "Rines" in (p.get("subcategory") or ""):
