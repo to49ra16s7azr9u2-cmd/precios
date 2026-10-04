@@ -4176,6 +4176,17 @@ LOTES['auditoria_14'] = [
      r'\b(moto|motocicleta|suzuki|italika|yamaha|bajaj)\b', 'Autopartes', 'Espejos laterales', _ESPEJOS),
     ('Decoración de hogar y jardín', r'\b(moto|motocicleta|suzuki|italika|yamaha|bajaj|sparelli)\b', None,
      'Autopartes', 'Manubrios, espejos y controles', _ESPEJOS),
+    # De la misma auditoría con las demás tiendas: alimento Hill's que trae
+    # una pelota de regalo («Hill's Canino Adult 15 Kg + Pelota Spiny») en
+    # pelotas y juguetes (133); cubrepolvos de amortiguador de auto entre los
+    # carenados de moto; grapas de tapicería entre los faros.
+    ('Mascotas', r"^hill'?s\b", None, 'Mascotas',
+     lambda tn: 'Alimento para gato' if re.search(r'felin|\bgatos?\b|\bcat\b', tn) else 'Alimento para perro',
+     {'Pelotas y lanzadores para perro', 'Juguetes para perro', 'Juguetes para gato'}),
+    ('Autopartes', r'(cubre ?polvos?|guardapolvos?).*(amortiguador|macheta|strut)|(amortiguador|macheta).*(cubre ?polvos?|guardapolvos?)',
+     r'\b(moto|motocicleta|italika)\b', 'Autopartes', 'Bases y cubrepolvos de amortiguador', {'Carenados, plásticos y tanques'}),
+    ('Autopartes', r'^grapas? de tapiceria|^grapas? (para|de) (moldura|defensa|fascia|salpicadera|puerta)', None,
+     'Autopartes', 'Molduras y emblemas', {'Faros y luces'}),
 ]
 REGLAS += LOTES['auditoria_14']
 
