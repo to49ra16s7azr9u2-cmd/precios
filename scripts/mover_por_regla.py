@@ -4073,6 +4073,29 @@ LOTES['auditoria_13'] = [
 ]
 REGLAS += LOTES['auditoria_13']
 
+
+# auditoria_14 (04-oct-2026): 120 llantas de auto con su medida («Llanta
+# Cooper 225/60 Rin 16», casi todas de Coppel) estaban en Rines, donde la
+# regla de llantas por medida (sólo mira las subcategorías de llantas) no
+# llega. Van directo al tramo por rin («Llantas para auto rin 16»): esta
+# regla corre después de subcategorias_divisiones.py.
+def _llanta_en_rines(tn):
+    from subcategorias_divisiones import llanta_auto, llanta_suv
+    # «215/70 rin 15» es la medida «215/70 r15» que lee sub_llanta.
+    s = ola2.sub_llanta(re.sub(r'\b(\d{3}/\d{2}|\d{3}) rin (\d{2})\b', r'\1 r\2', tn))
+    if s == 'Llantas para auto':
+        return llanta_auto(tn) or s
+    if s == 'Llantas para camioneta y SUV':
+        return llanta_suv(tn) or s
+    return None
+
+
+LOTES['auditoria_14'] = [
+    ('Autos y motos', r'^(\d+ |paquete (de )?\d+ )?(llantas?|neumaticos?)\b', r'\b(rin|rines) (y|con) llantas?\b',
+     'Autos y motos', _llanta_en_rines, {'Rines'}),
+]
+REGLAS += LOTES['auditoria_14']
+
 # Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que
 # se agregó debajo (reglas por marca, auditoria_2 a 10, sin_subcategoria_2:
 # ~6,000 fichas) no existía todavía cuando main() corría como script: la

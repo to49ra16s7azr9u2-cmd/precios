@@ -779,6 +779,16 @@ for _s in ("Funko y coleccionables", "Figuras de acción", "Figuras de colecció
     NOMBRE_GENERALES.setdefault(("Juguetes", _s), []).append(("franchise", st.franquicia))
 NOMBRE_GENERALES.setdefault(("Juguetes", "Bloques de construcción"), []).append(("block_theme", st.tema_bloques))
 NOMBRE_GENERALES.setdefault(("Juguetes", "Muñecas"), []).append(("doll_line", st.linea_muneca))
+for _s in ("Sartenes y comales", "Comales y planchas"):
+    NOMBRE_GENERALES.setdefault(("Cocina y comedor", _s), []).append(("pan_cm", lambda t: se.length_cm_of(t, 10, 60)))
+for _s in ("Sartenes y comales", "Comales y planchas", "Ollas y cacerolas", "Baterías de cocina", "Juegos de sartenes"):
+    NOMBRE_GENERALES.setdefault(("Cocina y comedor", _s), []).append(("pan_material", st.material_sarten))
+NOMBRE_GENERALES.setdefault(("Relojes inteligentes", "Correas para Apple Watch"), []).append(("watch_band", st.caja_apple_watch))
+NOMBRE_GENERALES.setdefault(("Audífonos", "Earbuds con cable"), []).append(("plug", st.conector_audio))
+NOMBRE_GENERALES.setdefault(("Salud", "Básculas"), []).append(("scale_type", st.tipo_bascula))
+for _s in ("Libreros", "Zapateras"):
+    NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("shelves", st.niveles_mueble))
+NOMBRE_GENERALES.setdefault(("Muebles", "Cómodas y cajoneras"), []).append(("drawers", st.cajones_mueble))
 for _s in ("Tóner", "Cartuchos de tinta"):
     NOMBRE_GENERALES.setdefault(("Impresoras", _s), []).extend([("printer_brand", st.marca_impresora),
                                                               ("ink_color", st.color_tinta)])

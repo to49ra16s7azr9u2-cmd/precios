@@ -559,6 +559,89 @@ def linea_muneca(nombre):
     return next((nom for nom, rx in _LINEAS_MUNECA if rx.search(n)), None)
 
 
+# ------------------------------------------------- cocina, muebles y más
+# Lo que decide la compra y casi siempre dice el nombre (04-oct-2026: estas
+# subcategorías sólo se comparaban por precio).
+def material_sarten(nombre):
+    """La superficie de una sartén, comal u olla. Una de acero con
+    recubrimiento antiadherente cuenta como antiadherente (así se usa)."""
+    n = _norm(nombre)
+    if re.search(r"hierro (fundido|colado|vaciado)|cast iron|\bfundicion\b", n):
+        return "Hierro fundido"
+    if re.search(r"acero al carbono|carbon steel", n):
+        return "Acero al carbono"
+    if re.search(r"\bceramic", n):
+        return "Cerámica"
+    if re.search(r"antiadheren|antiadhesiv|teflon|granito|\bpiedra\b|marmol|titanio|non-?stick", n):
+        return "Antiadherente"
+    if re.search(r"acero inoxidable|\binox\b|stainless|tri-?ply|\b[35] capas\b|triple capa", n):
+        return "Acero inoxidable"
+    if re.search(r"\bcobre\b|copper", n):
+        return "Cobre"
+    return None
+
+
+_CAJA_WATCH_RE = re.compile(r"\b(38|40|41|42|44|45|46|49)(?=\s*mm\b|\s*/|\s*,|\s+y\s|\s*-\s*\d)")
+
+
+def caja_apple_watch(nombre):
+    """El tamaño de reloj para el que es una correa: «38/40/41 mm» o
+    «42/44/45/49 mm». Si nombra los dos (variantes), None. El Series 10 y 11
+    de 42 mm usa las chicas."""
+    n = _norm(nombre)
+    ms = {int(x) for x in _CAJA_WATCH_RE.findall(n)}
+    if not ms:
+        return None
+    if max(ms) <= 41 or (ms == {42} and re.search(r"\bseries? ?1[01]\b", n)):
+        return "38 a 41 mm"
+    if min(ms) >= 42:
+        return "42 a 49 mm"
+    return None
+
+
+def conector_audio(nombre):
+    """El conector de unos audífonos de cable."""
+    n = _norm(nombre)
+    if re.search(r"lightning", n):
+        return "Lightning"
+    if re.search(r"usb-? ?c\b|tipo-? ?c\b|type-? ?c\b|\busbc\b", n):
+        return "USB-C"
+    if re.search(r"3\.5 ?mm|\bjack\b|\baux(iliar)?\b|\bplug\b", n):
+        return "3.5 mm"
+    return None
+
+
+def tipo_bascula(nombre):
+    """Báscula de baño: inteligente (grasa, músculo, app), digital o
+    analógica."""
+    n = _norm(nombre)
+    if re.search(r"grasa|composicion|bluetooth|\bapp\b|\bimc\b|\bbmi\b|bioimpedancia|inteligente|smart|wi-?fi"
+                 r"|metricas|analizador|masa muscular|corporal (y|con) ", n):
+        return "Inteligente"
+    if re.search(r"digital|\blcd\b|electronica|\bled\b", n):
+        return "Digital"
+    if re.search(r"analogica|mecanica|de aguja|\bdial\b|de reloj", n):
+        return "Analógica"
+    return None
+
+
+_NIVELES_RE = re.compile(r"\b(\d{1,2})\s*(niveles|nichos|repisas|entrepanos|estantes|cubos|compartimentos|baldas"
+                         r"|anaqueles|pisos|charolas)\b")
+_CAJONES_RE = re.compile(r"\b(\d{1,2})\s*(cajones|gavetas)\b")
+
+
+def niveles_mueble(nombre):
+    """Niveles, repisas o nichos de un librero o una zapatera."""
+    vals = {int(m.group(1)) for m in _NIVELES_RE.finditer(_norm(nombre)) if 2 <= int(m.group(1)) <= 20}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+def cajones_mueble(nombre):
+    """Cajones de una cómoda o cajonera."""
+    vals = {int(m.group(1)) for m in _CAJONES_RE.finditer(_norm(nombre)) if 2 <= int(m.group(1)) <= 20}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}
