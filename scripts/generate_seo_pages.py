@@ -904,6 +904,15 @@ ETIQUETAS_FACETAS = [
     ("age_min", "Edad desde", lambda v: f"{v} años" if v else "Recién nacido"), ("load_kg", "Soporta hasta", _fmt(" kg")),
     ("engine_cc", "Cilindrada", _fmt(" cc")), ("stone", "Piedra", str), ("wifi_std", "Wi-Fi", str),
     ("dpi", "DPI", str), ("cups", "Tazas", str), ("burners", "Número de quemadores", str),
+    # Compara calidad, 04-oct-2026: lo que se lee del nombre en subcategorías
+    # que sólo se comparaban por precio.
+    ("tv_brand", "Para TV", str), ("printer_brand", "Para impresora", str), ("ink_color", "Color de tinta", str),
+    ("franchise", "Franquicia", str), ("block_theme", "Tema", str), ("doll_line", "Línea", str),
+    ("pan_material", "Material", str), ("pan_cm", "Diámetro", _fmt(" cm")), ("watch_band", "Para caja de", str),
+    ("plug", "Conector", str), ("scale_type", "Tipo de báscula", str), ("shelves", "Niveles", str),
+    ("drawers", "Cajones", str), ("cpu_socket", "Socket", str), ("case_ff", "Formato", str), ("truck_rim", "Rin", str),
+    ("plate_material", "Placas", str), ("monitors", "Monitores", str), ("stitches", "Puntadas", str),
+    ("metal", "Metal", str), ("pet_size", "Talla", str), ("kind", "Tipo", str),
 ]
 
 

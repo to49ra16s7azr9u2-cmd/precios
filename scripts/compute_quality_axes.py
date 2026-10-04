@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "cpu_socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -185,7 +185,7 @@ CAMPOS = {
                   orden=["Oro", "Plata .925", "Chapa de oro", "Acero inoxidable"],
                   valores={"Oro": "Oro de 10, 14 o 18 kilates", "Plata .925": "Plata de ley",
                            "Chapa de oro": "Baño o laminado de oro", "Acero inoxidable": "No se oxida ni mancha la piel"}),
-    "socket": dict(label="Socket", criterion="para qué procesador", ramp=False,
+    "cpu_socket": dict(label="Socket", criterion="para qué procesador", ramp=False,
                    orden=["AM5", "AM4", "LGA 1851", "LGA 1700", "LGA 1200", "LGA 1151"],
                    valores={"AM5": "AMD Ryzen 7000, 8000 y 9000", "AM4": "AMD Ryzen 1000 a 5000",
                             "LGA 1851": "Intel Core Ultra serie 200", "LGA 1700": "Intel Core de 12.ª a 14.ª generación",
@@ -457,7 +457,7 @@ CAMPO_SOLO_EN = {
     "scale_type": {"Salud/Básculas"},
     "shelves": {"Muebles/Libreros", "Muebles/Zapateras"},
     "drawers": {"Muebles/Cómodas y cajoneras"},
-    "socket": {"Componentes y accesorios de PC/Tarjetas madre"},
+    "cpu_socket": {"Componentes y accesorios de PC/Tarjetas madre"},
     "pet_size": {"Mascotas/" + _s for _s in ("Camas para perro", "Arneses y pecheras", "Correas", "Collares para mascotas",
                                               "Ropa para mascotas", "Impermeables y abrigos para mascotas",
                                               "Camas elevadas y colchonetas", "Transportadoras", "Juguetes para perro")},

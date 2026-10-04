@@ -917,7 +917,7 @@ NOMBRE_GENERALES.setdefault(("Salud", "Básculas"), []).append(("scale_type", st
 for _s in ("Libreros", "Zapateras"):
     NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("shelves", st.niveles_mueble))
 NOMBRE_GENERALES.setdefault(("Muebles", "Cómodas y cajoneras"), []).append(("drawers", st.cajones_mueble))
-NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Tarjetas madre"), []).append(("socket", st.socket_tarjeta))
+NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Tarjetas madre"), []).append(("cpu_socket", st.socket_tarjeta))
 NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Gabinetes"), []).append(("case_ff", st.formato_gabinete))
 NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Soportes para monitor"), []).append(("monitors", st.monitores_soporte))
 NOMBRE_GENERALES.setdefault(("Autos y motos", "Llantas para camión (rin 17.5 a 24.5)"), []).append(("truck_rim", st.rin_camion))
