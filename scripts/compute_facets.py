@@ -774,6 +774,10 @@ for _k in (("Herramientas", "Cables y extensiones eléctricas"), ("Cargadores y 
            ("Redes", "Cables y adaptadores de red")):
     NOMBRE_GENERALES.setdefault(_k, []).append(("length_m", lambda t: se.meters_of(t, 0.2, 100, pies=True)))
 NOMBRE_GENERALES.setdefault(("Herramientas", "Escaleras"), []).append(("steps", st.peldanos))
+NOMBRE_GENERALES.setdefault(("Televisores", "Controles para TV"), []).append(("tv_brand", st.marca_tv))
+for _s in ("Tóner", "Cartuchos de tinta"):
+    NOMBRE_GENERALES.setdefault(("Impresoras", _s), []).extend([("printer_brand", st.marca_impresora),
+                                                              ("ink_color", st.color_tinta)])
 NOMBRE_GENERALES.setdefault(("Electrodomésticos", "Parrillas de gas"), []).append(("burners", st.quemadores))
 NOMBRE_GENERALES.setdefault(("Electrodomésticos", "Arroceras y ollas multiusos"), []).append(("cups", se.cups_of))
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Mancuernas"), []).append(("weight_kg", lambda t: se.kg_of(t, 0.5, 60)))

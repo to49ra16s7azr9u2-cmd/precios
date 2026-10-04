@@ -348,6 +348,118 @@ def _norm_nutr(s):
     return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9+&/,.\- ]", " ", s)).strip()
 
 
+# ------------------------------------------------- controles y consumibles
+# «Control compatible con Samsung», «Tóner HP 105A»: la marca del aparato
+# para el que sirve es lo que se elige (04-oct-2026: Controles para TV,
+# Tóner y Cartuchos sólo se comparaban por precio; 63-75% la dice).
+_MARCAS_TV = (("Samsung", r"samsung"), ("LG", r"\blg\b"), ("Sony", r"\bsony\b|\bbravia\b"),
+              ("Hisense", r"hisense"), ("TCL", r"\btcl\b"), ("Roku", r"\broku\b"), ("Philips", r"philips"),
+              ("Panasonic", r"panasonic"), ("Sharp", r"\bsharp\b"), ("Vizio", r"vizio"), ("Sanyo", r"sanyo"),
+              ("JVC", r"\bjvc\b"), ("RCA", r"\brca\b"), ("Westinghouse", r"westinghouse"), ("Hyundai", r"hyundai"),
+              ("Polaroid", r"polaroid"), ("Insignia", r"insignia"), ("Onn", r"\bonn\b"), ("Toshiba", r"toshiba"),
+              ("Haier", r"\bhaier\b"), ("Apple TV", r"apple tv"), ("Fire TV", r"fire ?tv|fire stick"),
+              ("Xiaomi", r"xiaomi|\bmi box\b"), ("Motorola", r"motorola"), ("Atvio", r"atvio"), ("Daewoo", r"daewoo"),
+              ("Element", r"\belement\b"), ("Aiwa", r"\baiwa\b"), ("Vios", r"\bvios\b"), ("Kalley", r"kalley"))
+_MARCAS_TV_RX = [(n, re.compile(r)) for n, r in _MARCAS_TV]
+
+
+def marca_tv(nombre):
+    """Para qué marca de TV es un control: la que dice el nombre, o
+    «Universal» si dice universal o nombra tres marcas o más. En «TCL Roku
+    TV» la tele es TCL (Roku es el sistema)."""
+    n = _norm(nombre)
+    marcas = [nom for nom, rx in _MARCAS_TV_RX if rx.search(n)]
+    if re.search(r"\buniversal\b", n) or len(marcas) >= 3:
+        return "Universal"
+    if len(marcas) == 2 and "Roku" in marcas:
+        marcas.remove("Roku")
+    return marcas[0] if len(marcas) == 1 else None
+
+
+_MARCAS_IMPRESORA = (("HP", r"\bhp\b|hewlett"), ("Canon", r"\bcanon\b"), ("Epson", r"\bepson\b"),
+                     ("Brother", r"\bbrother\b"), ("Samsung", r"samsung|\bsamsng\b"), ("Lexmark", r"lexmark"),
+                     ("Xerox", r"xerox"), ("Ricoh", r"\bricoh\b"), ("Kyocera", r"kyocera"), ("Pantum", r"pantum"),
+                     ("Konica Minolta", r"konica|minolta|bizhub"), ("Dell", r"\bdell\b"), ("OKI", r"\boki(data)?\b"))
+_MARCAS_IMPRESORA_RX = [(n, re.compile(r)) for n, r in _MARCAS_IMPRESORA]
+# El genérico nombra la marca del tóner y la de la impresora: «Toner xerox
+# compatible hp laserjet» es para HP.
+_PARA_MARCA = re.compile(r"\b(para|compatibles?|con|for|en|p/)\s+(uso\s+en\s+|impresoras?\s+)?$")
+# Códigos de pieza de una sola marca (medido el 04-oct sobre los que no
+# nombran marca: 12 de 12 en cada grupo de la muestra).
+_CODIGOS_IMPRESORA = tuple((n, re.compile(r)) for n, r in (
+    ("HP", r"\b(c[bcefz]|q)\d{3,4}[a-z]{1,2}\b|\bw\d{4}[a-z]{1,2}\b"),
+    ("Brother", r"\b(tn|dr|lc)-? ?\d{2,4}|\bbtd?-?\d{2,4}"),
+    ("Samsung", r"\b(mlt|clt)-?[a-z]?\d{3}"),
+    ("Kyocera", r"\btk-? ?\d{3,4}\b"),
+    ("Xerox", r"\b(006|106|108|113|013|101)r\d{4,5}\b"),
+    ("Canon", r"\b(crg|pgi|cli|gi|pfi|pg|cl|gpr)-? ?\d{2,4}"),
+))
+# «12A», «206X» en un tóner: la numeración de HP LaserJet.
+_TONER_HP = re.compile(r"(?<![\w-])\d{2,3}[ax]\b")
+# «T544», «T504» en una tinta: Epson (no «dcp-t520w», que es Brother).
+_TINTA_EPSON = re.compile(r"(?<![\w-])t\d{3}[a-z0-9]{0,4}\b")
+# Modelos de Konica (bizhub c258...) con códigos TN que también usa Brother.
+_MODELO_KONICA = re.compile(r"\bc[2-6]\d{2}e?\b")
+
+
+def marca_impresora(nombre):
+    """Para qué marca de impresora es un tóner o un cartucho (también los
+    genéricos «compatible con HP», y por el código de la pieza)."""
+    n = _norm(nombre)
+    hallazgos = [(nom, m) for nom, rx in _MARCAS_IMPRESORA_RX for m in [rx.search(n)] if m]
+    marcas = {nom for nom, _ in hallazgos}
+    if len(marcas) == 1:
+        return marcas.pop()
+    if len(marcas) > 1:
+        para = {nom for nom, m in hallazgos if _PARA_MARCA.search(n[max(0, m.start() - 25):m.start()])}
+        if len(para) == 1:
+            return para.pop()
+    por_codigo = {nom for nom, rx in _CODIGOS_IMPRESORA if rx.search(n)}
+    if "toner" in n and _TONER_HP.search(n):
+        por_codigo.add("HP")
+    if "tinta" in n and _TINTA_EPSON.search(n):
+        por_codigo.add("Epson")
+    if "Brother" in por_codigo and _MODELO_KONICA.search(n):
+        por_codigo.discard("Brother")
+    if marcas:
+        por_codigo &= marcas
+    return por_codigo.pop() if len(por_codigo) == 1 else None
+
+
+# «Color negro», «color: cian» es la etiqueta, no la tinta de color; y hay
+# marcas y modelos con «color» en el nombre.
+_COLOR_ETIQUETA = re.compile(r"\bcolou?r(es)?\s*:?\s*(?=(negr[oa]|black|cian|cyan|magenta|amarillo|yellow|roj[oa]|azul)\b)"
+                             r"|\bcolou?r ?(print|make|vista)\b|\bcolor4\w*|\bprofessor colou?r\b|\brelcolor\b"
+                             r"|\blecolor\b|\bjustcolor\b|\bcolor ?laser ?jet\b|\blaser ?jet (pro )?colou?r\b")
+_LETRAS_CMY = re.compile(r"\bc\b\W{0,3}\bm\b\W{0,3}\by\b")
+
+
+def color_tinta(nombre):
+    """Negro, Color o Negro y color (paquetes)."""
+    n = _COLOR_ETIQUETA.sub(" ", _norm(nombre))
+    negro = bool(re.search(r"\bnegr[oa]s?\b|\bblack\b|\bbk\b|\bk\b(?=.*\b(c|m|y)\b)", n))
+    color = bool(re.search(r"\btri-?colou?r\b|\bcolou?r(es)?\b|\bcian\b|\bcyan\b|\bmagenta\b|\bamarill[oa]\b|\byellow\b"
+                           r"|\bcmy\b|\broj[oa]\b|\bred\b|\bnaranja\b|\borange\b|\bazul\b|\bblue\b", n)
+                 or _LETRAS_CMY.search(n)
+                 # «BT5001Y BT5001C BT5001M»: el color va pegado al código.
+                 or len(set(re.findall(r"\d([cmy])\b", n))) >= 2)
+    if re.search(r"\bcmyk|\b4 colores\b|negro y color|black (and|&|y) colou?r|\bkit\b.*\bcolor", n):
+        return "Negro y color"
+    if negro and color:
+        return "Negro y color"
+    if negro:
+        return "Negro"
+    if color:
+        return "Color"
+    # «PGI-250XL CLI-251XL», «240XL/241XL»: el negro y el de color de Canon.
+    if re.search(r"\b(pgi?)-? ?\d{2,3}.*\b(cli?)-? ?\d{2,3}", n):
+        return "Negro y color"
+    m = re.search(r"\b(\d{2,3})xl\s*/\s*(\d{2,3})xl\b", n)
+    if m and int(m.group(2)) == int(m.group(1)) + 1:
+        return "Negro y color"
+    return None
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}
