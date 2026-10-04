@@ -1019,6 +1019,55 @@ tr.offer-compare-off { display: none; }
    la categoría entera. */
 .quality-row-note { font-size: 11px; color: var(--muted); }
 
+/* Nutrientes (Suplementos): botones chicos, sin foto, que se eligen de a
+   varios. Un renglón de tarjetas con foto por cada vitamina sería una pared;
+   esto cabe en dos o tres líneas. */
+.nutriente-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.nutriente-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nutriente-chip:hover:not(:disabled) { border-color: var(--red); }
+.nutriente-chip.active {
+  border-color: var(--red);
+  background: var(--red-tint);
+  color: var(--red-dark, var(--red));
+  font-weight: 700;
+}
+.nutriente-chip:disabled { opacity: .45; cursor: default; }
+.nutriente-chip:focus-visible, .nutriente-mas:focus-visible, .nutrientes-quitar:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 1px;
+}
+.nutriente-n { font-size: 10.5px; color: var(--muted); font-weight: 400; }
+.nutriente-chip.active .nutriente-n { color: inherit; }
+.nutriente-mas, .nutrientes-quitar {
+  border: 0;
+  background: none;
+  padding: 3px 4px;
+  font: inherit;
+  font-size: 12px;
+  color: var(--red);
+  cursor: pointer;
+  text-decoration: underline;
+}
+.nutrientes-quitar { margin-left: auto; }
+
 /* auto-fit y no repeat(3): casi todas las filas tienen tres opciones, pero
    Videojuegos tiene una tarjeta por consola (seis) y con tres columnas fijas
    quedaban apretadas en dos filas irregulares. Con auto-fit, tres siguen

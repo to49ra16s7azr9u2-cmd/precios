@@ -738,7 +738,10 @@ REGLAS_TITULO.setdefault("Mascotas", []).append(("pet", st.mascota))
 for _c in ("Iluminación", "Domótica y hogar inteligente"):
     REGLAS_TITULO.setdefault(_c, []).extend([("light_temp", st.temperatura_luz), ("socket", st.base_foco)])
 REGLAS_TITULO.setdefault("Audífonos", []).extend([("audio_conn", st.conexion_audio), ("anc", st.cancelacion_ruido)])
-REGLAS_TITULO.setdefault("Suplementos", []).extend([("units", st.unidades), ("supp_form", st.forma_suplemento)])
+REGLAS_TITULO.setdefault("Suplementos", []).extend([("units", st.unidades), ("supp_form", st.forma_suplemento),
+                                                    # Lista: la fila de nutrientes de Compara calidad
+                                                    # (js/app.js, filaNutrientes) deja elegir varios.
+                                                    ("nutrients", st.nutrientes)])
 REGLAS_TITULO.setdefault("Herramientas", []).append(("power_source", st.inalambrico_herramienta))
 for _c in ("Belleza y cuidado personal", "Limpieza y hogar", "Suplementos"):
     REGLAS_TITULO.setdefault(_c, []).append(("volume_ml", lambda t: se.ml_of(t, 5, 5000)))

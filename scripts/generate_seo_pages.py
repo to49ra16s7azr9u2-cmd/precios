@@ -898,7 +898,7 @@ ETIQUETAS_FACETAS = [
     ("shoe_size", "Talla (MX)", str), ("size_label", "Talla", str), ("pet", "Mascota", str),
     ("light_temp", "Color de luz", str), ("socket", "Base del foco", str), ("lumens", "Lúmenes", _fmt(" lm")),
     ("audio_conn", "Conexión", str), ("anc", "Cancelación de ruido", str), ("units", "Cantidad", str),
-    ("supp_form", "Presentación", str), ("volume_ml", "Contenido", _fmt(" ml")), ("power_source", "Alimentación", str),
+    ("supp_form", "Presentación", str), ("nutrients", "Nutrientes", str), ("volume_ml", "Contenido", _fmt(" ml")), ("power_source", "Alimentación", str),
     ("liters", "Capacidad", _fmt(" L")), ("pieces", "Piezas", str), ("power_w", "Potencia", _fmt(" W")),
     ("material", "Material", str), ("volt", "Voltaje", _fmt(" V")), ("water_resistant", "Resistente al agua", str),
     ("age_min", "Edad desde", lambda v: f"{v} años" if v else "Recién nacido"), ("load_kg", "Soporta hasta", _fmt(" kg")),

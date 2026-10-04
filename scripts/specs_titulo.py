@@ -235,6 +235,119 @@ def peldanos(nombre):
     return next(iter(vals)) if len(vals) == 1 else None
 
 
+# ---------------------------------------------------------------- suplementos
+# Nutrientes e ingredientes de un suplemento, para elegir varios en Compara
+# calidad (04-oct-2026: los suplementos sólo se comparaban por precio y no
+# tienen ficha técnica; el 69% dice lo que trae en el nombre). (nombre que
+# se muestra, regex sobre el nombre normalizado).
+NUTRIENTES = [
+    ("Multivitamínico", r"\bmulti-? ?vitamin|\bmultivitaminico|\bmulti-?vitaminas?\b|vitaminas y minerales|vitamins and minerals"),
+    ("Vitamina A", r"\bretinol\b|\bbeta ?caroteno|\bbetacaroteno"),
+    ("Complejo B", r"\bcomplejo b\b|\bb ?complex\b|\bcomplejo de vitaminas b\b|\bvitaminas? (del )?complejo b\b|\bb-?(50|100)\b"),
+    ("Vitamina B6", r"\bpiridoxina\b|\bp5p\b"),
+    ("Vitamina B12", r"\bb-?12\b|cobalamina\b"),
+    ("Biotina", r"\bbiotina\b|\bbiotin\b"),
+    ("Ácido fólico", r"\bacido folico\b|\bfolato\b|\bmetilfolato\b|\bfolic\b|\bfolate\b"),
+    ("Vitamina C", r"\bacido ascorbico\b|\bascorbato\b"),
+    ("Vitamina D", r"\bd3\b|\bcolecalciferol\b"),
+    ("Vitamina E", r"\btocoferol"),
+    ("Vitamina K", r"\bk2\b|\bmk-?7\b|\bmenaquinona"),
+    ("Calcio", r"\bcalcio\b|\bcalcium\b"),
+    ("Magnesio", r"\bmagnesio\b|\bmagnesium\b"),
+    ("Zinc", r"\bzinc\b"),
+    ("Hierro", r"\bhierro\b|\biron\b|\bferroso\b|\bferrico\b"),
+    ("Potasio", r"\bpotasio\b|\bpotassium\b"),
+    ("Selenio", r"\bselenio\b|\bselenium\b"),
+    ("Yodo", r"\byodo\b|\biodine\b"),
+    ("Electrolitos", r"\belectrolit"),
+    ("Omega 3", r"\bomega ?-?3\b|\bepa\b|\bdha\b|aceite de pescado|\bfish oil\b|\bkrill\b|higado de bacalao"),
+    ("Colágeno", r"\bcolageno\b|\bcollagen\b"),
+    ("Ácido hialurónico", r"\bhialuronico\b|\bhyaluronic\b"),
+    ("Proteína", r"\bproteina\b|\bprotein\b|\bwhey\b|suero de leche|\bcaseina\b"),
+    ("Creatina", r"\bcreatina\b|\bcreatine\b"),
+    ("Aminoácidos", r"\bbcaa|\baminoacidos?\b|\bamino acids?\b|\bleucina\b|\beaa\b"),
+    ("Glutamina", r"\bglutamina\b|\bglutamine\b"),
+    ("L-Carnitina", r"\bcarnitina\b|\bcarnitine\b"),
+    ("Probióticos", r"\bprobiotic|\blactobacil|\bbifidobacter"),
+    ("Fibra y prebióticos", r"\bfibra\b|\bfiber\b|\bpsyllium\b|\binulina\b|\bprebiotic"),
+    ("Enzimas digestivas", r"\benzimas?\b|\benzymes?\b|\bbromelina\b|\bpapaina\b"),
+    ("Melatonina", r"\bmelatonina\b|\bmelatonin\b"),
+    ("Ashwagandha", r"\bashwagandha\b"),
+    ("Cúrcuma", r"\bcurcuma\b|\bturmeric\b|\bcurcumina\b"),
+    ("Jengibre", r"\bjengibre\b|\bginger\b"),
+    ("Ginseng", r"\bginseng\b"),
+    ("Maca", r"\bmaca\b"),
+    ("Moringa", r"\bmoringa\b"),
+    ("Espirulina", r"\bespirulina\b|\bspirulina\b|\bchlorella\b|\bclorela\b"),
+    ("Colina", r"\bcolina\b|\bcholine\b"),
+    ("Glucosamina", r"\bglucosamina\b|\bglucosamine\b"),
+    ("Condroitina", r"\bcondroitina\b|\bchondroitin\b"),
+    ("MSM", r"\bmsm\b|\bmetilsulfonilmetano\b"),
+    ("Coenzima Q10", r"\bq-?10\b|\bcoq-?10\b|\bcoenzima\b|\bubiquinol\b"),
+    ("Luteína", r"\bluteina\b|\blutein\b|\bzeaxantina\b"),
+    ("Resveratrol", r"\bresveratrol\b"),
+    ("Quercetina", r"\bquercetina\b|\bquercetin\b"),
+    ("Cafeína", r"\bcafeina\b|\bcaffeine\b"),
+    ("Vinagre de manzana", r"vinagre de manzana|apple cider vinegar"),
+    ("Cardo mariano", r"cardo mariano|milk thistle|\bsilimarina\b"),
+    ("Arándano", r"\barandanos?\b|\bcranberry\b"),
+    ("Equinácea", r"\bequinacea\b|\bechinacea\b"),
+    ("Saúco", r"\bsauco\b|\belderberry\b"),
+    ("Valeriana", r"\bvaleriana\b|\bvalerian\b"),
+    ("Hongos funcionales", r"melena de leon|lion.?s mane|\breishi\b|\bcordyceps\b|\bchaga\b|\bmushroom\b|\bhongos?\b"),
+    ("Calostro", r"\bcalostro\b|\bcolostrum\b"),
+    ("Ajo", r"\bajo\b|\bgarlic\b"),
+    ("Berberina", r"\bberberina\b|\bberberine\b"),
+    ("Ácido alfa lipoico", r"alfa lipoico|alpha lipoic"),
+    ("Isoflavonas", r"\bisoflavon"),
+    ("Té verde", r"\bte verde\b|\bgreen tea\b"),
+    ("Inositol", r"\binositol\b"),
+    ("D-Manosa", r"\bd-? ?manosa\b|\bd-? ?mannose\b"),
+    ("Shilajit", r"\bshilajit\b"),
+    ("Clorofila", r"\bclorofila\b|\bchlorophyll\b"),
+    ("Orégano", r"\boregano\b"),
+]
+_NUTRIENTES_RX = [(n, re.compile(r)) for n, r in NUTRIENTES]
+
+# «vitamina c», «vitaminas a, c y d», «vitamina d3 + k2», «vitaminas b6 y b12»
+_VIT_LISTA = re.compile(r"\bvit(?:amina|amin)?s?\.?\s+((?:(?:a|b|b\d{1,2}|c|d|d\d|e|k|k\d)\b(?:\s*(?:,|y|\+|&|/|-)\s*|\s+))*"
+                        r"(?:a|b|b\d{1,2}|c|d|d\d|e|k|k\d)\b)")
+_LETRA = {"a": "Vitamina A", "b": "Complejo B", "b1": "Complejo B", "b2": "Complejo B", "b3": "Complejo B",
+          "b5": "Complejo B", "b6": "Vitamina B6", "b7": "Biotina", "b9": "Ácido fólico", "b12": "Vitamina B12",
+          "c": "Vitamina C", "d": "Vitamina D", "d2": "Vitamina D", "d3": "Vitamina D", "e": "Vitamina E",
+          "k": "Vitamina K", "k1": "Vitamina K", "k2": "Vitamina K"}
+
+
+# «sin hierro», «libre de cafeína», «iron free»: lo que el nombre dice que NO trae.
+_SIN_ANTES = re.compile(r"\b(?:sin|libre de|no contiene|free of)\s+(?:\w+\s+)?$")
+_SIN_DESPUES = re.compile(r"^\s*-?\s*free\b")
+
+
+def _afirmado(n, m):
+    return not _SIN_ANTES.search(n[max(0, m.start() - 25):m.start()]) and not _SIN_DESPUES.search(n[m.end():m.end() + 8])
+
+
+def nutrientes(nombre):
+    """Lista ordenada de los nutrientes e ingredientes que el nombre de un
+    suplemento dice que trae («Vitamina d3 zinc vitamina c ajo negro» ->
+    Ajo, Vitamina C, Vitamina D, Zinc), o None."""
+    n = _norm_nutr(nombre)
+    out = {nom for nom, rx in _NUTRIENTES_RX if any(_afirmado(n, m) for m in rx.finditer(n))}
+    for m in _VIT_LISTA.finditer(n):
+        if not _afirmado(n, m):
+            continue
+        for tok in re.findall(r"[a-z]\d{0,2}", m.group(1)):
+            if tok in _LETRA:
+                out.add(_LETRA[tok])
+    return sorted(out) or None
+
+
+def _norm_nutr(s):
+    s = unicodedata.normalize("NFKD", (s or "").lower())
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9+&/,.\- ]", " ", s)).strip()
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}

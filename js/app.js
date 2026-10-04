@@ -552,6 +552,11 @@
     // un id suelto; con la selección múltiple pasa a ser lista para no
     // tener dos formas de representar lo mismo según el modo.
     quality: { level: [], size: [], extra: [] },
+    // Suplementos: los nutrientes elegidos en Compara calidad (ver
+    // renderFilaNutrientes). Varios a la vez; la lista muestra los que traen
+    // TODOS.
+    nutrientes: [],
+    nutrientesTodos: false,
     // Selección múltiple por eje, ENCENDIDA por defecto (a pedido del
     // usuario, igual que la del modal de especificaciones): elegir dos
     // niveles a la vez es lo normal -- "me sirve un Intermedio o un Alto" --
@@ -3936,7 +3941,7 @@
   function firmaLista() {
     return JSON.stringify([state.category, state.subcategory, state.query, state.priceMin, state.priceMax,
       [...state.brands], state.minRating, state.excludeUsed, state.magsafeOnly, state.sizeFilter,
-      Object.keys(state.specFilters).map((k) => [k, [...state.specFilters[k]]]), state.quality,
+      Object.keys(state.specFilters).map((k) => [k, [...state.specFilters[k]]]), state.quality, state.nutrientes,
       state.sort, state.includeShipping, state.colorFilter || "", versionDeAlcance(),
       state.municipio && state.municipio.id]);
   }
@@ -5065,6 +5070,7 @@
     const calidadActiva = qualityAxes()
       .map((axis) => ({ axis, sel: qualitySel(axis.key) }))
       .filter((x) => x.sel.length > 0);
+    const nutSel = nutrientesElegidos();
     return (resumen ? productosDeCategoria() : state.data.products).filter((p) => {
       if (cat && p.category !== cat) return false;
       if (subs ? !subs.has(p.subcategory) : (sinOptIn && esOptIn(p))) return false;
@@ -5086,6 +5092,10 @@
       }
       for (const { axis, sel } of calidadActiva) {
         if (!sel.includes(qualityTierOf(axis, p))) return false;
+      }
+      if (nutSel.length) {
+        const ns = nutrientesDe(p);
+        if (!nutSel.every((x) => ns.includes(x))) return false;
       }
       if (terms.length === 0) return true;
       if (resumen) {
@@ -7692,7 +7702,7 @@
   // aparte de categorías: así una subcategoría con ejes propios (Colchones)
   // lo tiene aunque su categoría no.
   function hasQualityBlock() {
-    return qualityAxes().length > 0;
+    return qualityAxes().length > 0 || aplicaNutrientes();
   }
 
   // Amarillo -> naranja -> rojo según en qué escalón del eje cae el nivel.
@@ -7745,6 +7755,113 @@
 
   function clearQuality() {
     state.quality = { level: [], size: [], extra: [] };
+    state.nutrientes = [];
+    state.nutrientesTodos = false;
+  }
+
+  // ---------- Compara calidad: nutrientes (Suplementos) ----------
+  // Un suplemento no se elige por un nivel en una escala sino por lo que
+  // trae, y quien busca uno suele querer varios a la vez («vitamina D y
+  // magnesio»). El facet «nutrients» es una LISTA por producto
+  // (st.nutrientes en scripts/specs_titulo.py, sacado del nombre: los
+  // suplementos no tienen ficha técnica), así que no cabe en una fila de
+  // tarjetas de un solo nivel: va como botones chicos, sin foto, y se
+  // eligen libremente. La lista muestra los que traen TODOS los elegidos;
+  // el número de cada botón dice cuántos quedarían al sumarlo.
+  const CATS_NUTRIENTES = new Set(["Suplementos"]);
+  const NUTRIENTES_VISIBLES = 16;
+  function aplicaNutrientes() {
+    return CATS_NUTRIENTES.has(state.category);
+  }
+  function nutrientesDe(p) {
+    const v = facetaDe(p, "nutrients");
+    return Array.isArray(v) ? v : v ? [v] : [];
+  }
+  function nutrientesElegidos() {
+    return aplicaNutrientes() ? state.nutrientes : [];
+  }
+
+  function renderFilaNutrientes(base, axes) {
+    // El alcance de la fila: la categoría/subcategoría con lo elegido en
+    // las filas de tarjetas, como cuenta cada una de ellas.
+    const conEjes = axes.filter((a) => qualitySel(a.key).length);
+    const alcance = conEjes.length
+      ? base.filter((p) => conEjes.every((a) => qualitySel(a.key).includes(qualityTierOf(a, p))))
+      : base;
+    const sel = state.nutrientes;
+    // Cuántos traen cada nutriente (el orden de los botones, que no salta
+    // al elegir) y cuántos quedarían si se suma a lo ya elegido.
+    const total = new Map();
+    const siSuma = new Map();
+    let conDato = 0;
+    let coinciden = 0;
+    for (const p of alcance) {
+      const ns = nutrientesDe(p);
+      if (!ns.length) continue;
+      conDato += 1;
+      const pasa = sel.every((x) => ns.includes(x));
+      if (pasa) coinciden += 1;
+      for (const x of ns) {
+        total.set(x, (total.get(x) || 0) + 1);
+        if (pasa) siSuma.set(x, (siSuma.get(x) || 0) + 1);
+      }
+    }
+    // Sin los que ya no se pueden sumar (0 con lo elegido): mostrados
+    // apagados eran ruido, igual que las tarjetas en 0.
+    const opciones = [...total.entries()]
+      .filter(([x, n]) => sel.includes(x) || (n >= 2 && (!sel.length || siSuma.get(x))))
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "es"))
+      .map(([x]) => x);
+    // Lo elegido siempre se ve (aunque el alcance ya no lo tenga), para
+    // poder quitarlo.
+    sel.forEach((x) => { if (!opciones.includes(x)) opciones.push(x); });
+    if (opciones.length < 2 && !sel.length) return;
+
+    const row = document.createElement("div");
+    row.className = "quality-row quality-row-nutrientes";
+    const head = document.createElement("div");
+    head.className = "quality-row-head";
+    const nota = sel.length
+      ? `${coinciden.toLocaleString("es-MX")} ${coinciden === 1 ? "producto trae" : "productos traen"} ${sel.length === 1 ? "el elegido" : `los ${sel.length} elegidos`}`
+      : `elige uno o varios · ${conDato.toLocaleString("es-MX")} de ${alcance.length.toLocaleString("es-MX")} productos lo indican`;
+    head.innerHTML = `<span class="quality-row-label">Nutrientes</span>
+      <span class="quality-row-note">${nota}</span>
+      ${sel.length ? '<button type="button" class="nutrientes-quitar">Quitar todos</button>' : ""}`;
+    const quitar = head.querySelector(".nutrientes-quitar");
+    if (quitar) quitar.onclick = () => { state.nutrientes = []; state.page = 1; renderList(); };
+    row.appendChild(head);
+
+    const visibles = state.nutrientesTodos ? opciones
+      : opciones.filter((x, i) => i < NUTRIENTES_VISIBLES || sel.includes(x));
+    const caja = document.createElement("div");
+    caja.className = "nutriente-chips";
+    visibles.forEach((x) => {
+      const activo = sel.includes(x);
+      const n = activo ? coinciden : (siSuma.get(x) || 0);
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "nutriente-chip" + (activo ? " active" : "");
+      b.setAttribute("aria-pressed", activo ? "true" : "false");
+      b.disabled = !activo && n === 0;
+      b.innerHTML = `${htmlEscapeAttr(x)}<span class="nutriente-n">${n.toLocaleString("es-MX")}</span>`;
+      b.title = activo ? "Quitar" : `${n.toLocaleString("es-MX")} ${n === 1 ? "producto lo trae" : "productos lo traen"}${sel.length ? " junto con lo elegido" : ""}`;
+      b.onclick = () => {
+        state.nutrientes = activo ? sel.filter((y) => y !== x) : sel.concat(x);
+        state.page = 1;
+        renderList();
+      };
+      caja.appendChild(b);
+    });
+    if (opciones.length > visibles.length || state.nutrientesTodos) {
+      const mas = document.createElement("button");
+      mas.type = "button";
+      mas.className = "nutriente-mas";
+      mas.textContent = state.nutrientesTodos ? "Ver menos" : `Ver todos (${opciones.length})`;
+      mas.onclick = () => { state.nutrientesTodos = !state.nutrientesTodos; renderQualityPicker(); };
+      if (opciones.length > NUTRIENTES_VISIBLES) caja.appendChild(mas);
+    }
+    row.appendChild(caja);
+    el.qualityRows.appendChild(row);
   }
 
   // Los sellos de nivel en las filas solo tienen sentido cuando el eje
@@ -7777,14 +7894,14 @@
   function renderQualityPicker() {
     const axes = qualityAxes();
     el.qualityRows.innerHTML = "";
-    if (!axes.length) return;
+    if (!axes.length && !aplicaNutrientes()) return;
     // Mismo alcance que las opciones del panel de filtros
     // (renderSpecFacetFilter): la categoría/subcategoría, sin los filtros de
     // calidad ya elegidos. Si contara el nivel elegido, las otras dos
     // tarjetas de esa misma fila dirían siempre "0 productos" y no se podría
     // cambiar de opinión.
     const base = categoryScopedProducts();
-    const active = axes.some((a) => qualitySel(a.key).length);
+    const active = axes.some((a) => qualitySel(a.key).length) || nutrientesElegidos().length > 0;
     el.qualitySub.textContent = active
       ? "Elige otra opción para cambiar, o toca la marcada para quitarla."
       : qualityIntro();
@@ -7807,6 +7924,9 @@
     );
     el.specsBannerLink.classList.toggle("hidden", !hayExtra);
 
+    // Suplementos: los nutrientes van primero, son LA pregunta ahí.
+    if (aplicaNutrientes()) renderFilaNutrientes(base, axes);
+
     axes.forEach((axis) => {
       // Una fila que casi nadie del alcance puede contestar no se dibuja:
       // el eje de Edad de Videojuegos, heredado por Consolas, mostraba
@@ -7819,8 +7939,12 @@
       // filtrado por LA OTRA fila (el tamaño elegido sí acota los niveles
       // que se ofrecen, y al revés), pero nunca por sí misma.
       const other = axes.filter((a) => a !== axis && qualitySel(a.key).length);
+      // Los nutrientes elegidos (Suplementos) también acotan: con «vitamina D
+      // y zinc» la fila de precio contaba los 778 suplementos.
+      const nutSel = nutrientesElegidos();
       const scoped = base.filter((p) =>
-        other.every((a) => qualitySel(a.key).includes(qualityTierOf(a, p))));
+        other.every((a) => qualitySel(a.key).includes(qualityTierOf(a, p)))
+        && (!nutSel.length || nutSel.every((x) => nutrientesDe(p).includes(x))));
       const withField = scoped.filter((p) => qualityValueOf(axis, p) != null).length;
       // Con un eje de algunas subcategorías, el total es el de ellas: «604
       // de 1,369» contaba frigobares y congeladores, que no pueden contestar.
