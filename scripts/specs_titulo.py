@@ -287,7 +287,8 @@ def _rasgo(rx):
     return lambda nombre: "Sí" if r.search(_norm(nombre)) else None
 
 
-_impermeable = _rasgo(r"impermeable|a prueba de agua|water ?proof|resistente al agua|\bipx?[4-8]\d?\b|sumergible")
+# «5ATM» es siempre una clasificación de resistencia al agua (smartwatches).
+_impermeable = _rasgo(r"impermeable|a prueba de agua|water ?proof|resistente al agua|\bipx?[4-8]\d?k?\b|sumergible|\b\d{1,2}\s*atm\b")
 _NO_IMPERMEABLE = re.compile(r"\bno (?:es |son )?(?:resistentes? al agua|impermeables?|sumergibles?)")
 
 
