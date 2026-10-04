@@ -100,7 +100,7 @@ echo "=== fusiones ==="
 grep -E "absorbidas|fusionados|Catálogo|catálogo" /tmp/fusiones.log | tail -12
 # La foto de la ficha, de una tienda que no la cambia de lugar (Elektra y
 # Chedraui vuelven a subir sus imágenes y la url vieja da 404).
-echo "=== foto_estable ==="; python3 scripts/foto_estable.py 2>&1 | head -1
+echo "=== foto_estable ==="; python3 scripts/foto_estable.py > /tmp/foto_estable.log 2>&1; head -1 /tmp/foto_estable.log
 echo "=== completar_subcategorias ==="; python3 scripts/completar_subcategorias.py --aplicar 2>&1 | tail -1
 echo "=== sync_subcategories ==="; python3 scripts/sync_subcategories.py 2>&1 | tail -3
 echo "=== compute_facets ==="; python3 scripts/compute_facets.py 2>&1 | tail -2
