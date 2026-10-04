@@ -460,6 +460,105 @@ def color_tinta(nombre):
     return None
 
 
+# ------------------------------------------------- juguetes por franquicia
+# Un Funko, una figura o un set de bloques se elige por la saga o la serie
+# (04-oct-2026: Funko, Bloques, Muñecas y Figuras a escala sólo se
+# comparaban por precio). En orden: la primera que aparece gana (Star Wars y
+# Marvel antes que Disney, que es dueña de las dos; Sanrio antes que anime).
+_FRANQUICIAS = (
+    ("Star Wars", r"star ?wars|mandalorian|darth vader|\byoda\b|grogu|stormtrooper|\bjedi\b|skywalker|boba fett"
+                  r"|chewbacca|\bandor\b|ahsoka|dark trooper|clone wars"),
+    ("Superhéroes", r"\bmarvel\b|spider-?man|hombre arana|avengers|vengadores|iron ?man\b|\bhulk\b|\bthor\b"
+                    r"|capitan america|captain america|x-?men\b|wolverine|deadpool|black panther|pantera negra"
+                    r"|guardianes de la galaxia|guardians of the galaxy|\bvenom|\bloki\b|\bgroot\b|thanos"
+                    r"|doctor strange|wakanda|wandavision|\bdc\b|batman|superman|wonder woman|mujer maravilla"
+                    r"|\bjoker\b|guason|harley quinn|aquaman|justice league|liga de la justicia|gotham|catwoman"
+                    r"|shazam|linterna verde|green lantern|super ?heroes|superheroe"),
+    ("Harry Potter", r"harry potter|hogwarts|wizarding world|fantastic beasts|animales fantasticos|hermione"
+                     r"|dumbledore|voldemort|quidditch"),
+    ("Pokémon", r"pokemon|pikachu"),
+    ("Sanrio", r"sanrio|hello kitty|kuromi|cinnamoroll|my melody|pompompurin|pochacco"),
+    ("Anime", r"dragon ball|\bgoku\b|\bvegeta\b|naruto|one piece|\bluffy\b|demon slayer|kimetsu|my hero academia"
+              r"|boku no hero|jujutsu|sailor moon|attack on titan|shingeki|saint seiya|caballeros del zodiaco"
+              r"|hunter x hunter|\bbleach\b|chainsaw man|pochita|spy x family|evangelion|death note|fairy tail"
+              r"|cowboy bebop|ghibli|totoro|\banime\b|boruto|tokyo revengers|haikyu"
+              r"|solo leveling|frieren|yu-?gi-?oh|digimon|siete pecados|seven deadly sins"),
+    ("Videojuegos", r"super mario|mario bros|mario kart|\bmario\b|nintendo|zelda|\bsonic\b|minecraft|fortnite"
+                    r"|\bhalo\b|overwatch|call of duty|five nights|\bfnaf\b|roblox|among us|\bkirby\b"
+                    r"|street fighter|mortal kombat|god of war|the last of us|resident evil|skibidi|playstation"
+                    r"|\bxbox\b|pop!? games|cuphead|hollow knight|genshin|league of legends|valorant"
+                    r"|assassin'?s creed|animal crossing|splatoon|poppy playtime|huggy wuggy|\bangry birds\b"),
+    ("Disney y Pixar", r"disney|pixar|frozen|\belsa\b|mickey|minnie|\bstitch\b|toy story|encanto|moana|sirenita"
+                       r"|little mermaid|cenicienta|cinderella|aladdin|rapunzel|enredados|\bariel\b|\blilo\b"
+                       r"|winnie|\bpooh\b|rey leon|lion king|monsters,? inc|buzz lightyear|\bwoody\b|\bnemo\b"
+                       r"|intensa-?mente|inside out|rayo mcqueen|lightning mcqueen|blancanieves|snow white"
+                       r"|maleficent|\bwish\b"),
+    ("Jurassic World", r"jurassic"),
+    ("Terror", r"stranger things|\bvecna\b|chucky|pennywise|freddy krueger|jason voorhees|viernes 13|halloween"
+               r"|\bscream\b|ghostface|merlina|wednesday|addams|annabelle|el conjuro|exorcista|beetlejuice"
+               r"|terrifier|art the clown|\bsaw\b|jigsaw|universal monsters|dracula|frankenstein"),
+    ("Series y películas", r"simpsons?\b|rick (and|y) morty|tmnt|tortugas ninja|ninja turtles|power rangers"
+                             r"|snoopy|peanuts|looney tunes|bugs bunny|bob esponja|spongebob|scooby|avatar|\baang\b"
+                             r"|star trek|breaking bad|game of thrones|juego de tronos|house of the dragon"
+                             r"|futurama|south park|hora de aventura|adventure time|gravity falls|steven universe"
+                             r"|he-?man|masters of the universe|thundercats|transformers|ghostbusters"
+                             r"|cazafantasmas|paw patrol|patrulla canina|peppa|\bbluey\b|granja de zenon"
+                             r"|chicas superpoderosas|powerpuff|plaza sesamo|sesame street|cocomelon|baby shark"
+                             r"|pocoyo|godzilla|king kong|\bkong\b|lord of the rings|senor de los anillos|hobbit"),
+    ("Música y deportes", r"\b(pop|funko)!? rocks\b|elvis|michael jackson|freddie mercury|\bkiss\b|metallica"
+                          r"|\bbts\b|\bk-?pop\b|\bnfl\b|\bnba\b|\bmlb\b|futbol|\bmessi\b|ronaldo|\bjordan\b|\bwwe\b"
+                          r"|lucha libre"),
+)
+_FRANQUICIAS_RX = [(n, re.compile(r)) for n, r in _FRANQUICIAS]
+
+
+def franquicia(nombre):
+    """La saga o la serie de un juguete de colección (Funko, figuras,
+    peluches), o None."""
+    n = _norm(nombre)
+    return next((nom for nom, rx in _FRANQUICIAS_RX if rx.search(n)), None)
+
+
+# Las líneas propias de LEGO, después de las franquicias («LEGO Star Wars»
+# es Star Wars). «Para adultos»: Icons, Botanicals, Architecture, Ideas.
+_TEMAS_BLOQUES = tuple((n, re.compile(r)) for n, r in (
+    ("City", r"\bcity\b"), ("Ninjago", r"ninjago"), ("Friends", r"\bfriends\b|heartlake"),
+    ("Technic", r"technic"), ("Creator", r"\bcreator\b(?! expert)"), ("Duplo", r"\bduplo\b"),
+    ("Speed Champions", r"speed champions"),
+    ("Para adultos", r"\bicons\b|creator expert|botanical|\bflores\b|ramo de|architecture|\blego ideas\b"
+                     r"|\blego art\b|\b18\+|para adultos"),
+))
+
+
+def tema_bloques(nombre):
+    """Franquicia o línea de un set de bloques."""
+    f = franquicia(nombre)
+    if f:
+        return f
+    n = _norm(nombre)
+    return next((nom for nom, rx in _TEMAS_BLOQUES if rx.search(n)), None)
+
+
+_LINEAS_MUNECA = tuple((n, re.compile(r)) for n, r in (
+    ("Barbie", r"barbie|\bkelly\b|chelsea|skipper|\bken\b"),
+    ("Monster High", r"monster high|draculaura|clawdeen|frankie stein"),
+    ("L.O.L. Surprise", r"\blol\b|l\.o\.l|\bomg\b"),
+    ("Rainbow High", r"rainbow high"),
+    ("Bratz", r"bratz"),
+    ("Polly Pocket", r"polly pocket"),
+    ("Gabby's Dollhouse", r"gabby"),
+    ("Disney", r"disney|princesa|frozen|\belsa\b|\banna\b|moana|\bariel\b|rapunzel|cenicienta"
+                         r"|\bwish\b|encanto|mirabel"),
+    ("Bebés", r"\bbebe|\bbaby\b|reborn|nenuco|cry ?babies|recien nacid|\bbebot"),
+))
+
+
+def linea_muneca(nombre):
+    """La línea de una muñeca (Barbie, Monster High...), o «Bebés»."""
+    n = _norm(nombre)
+    return next((nom for nom, rx in _LINEAS_MUNECA if rx.search(n)), None)
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}

@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -178,6 +178,9 @@ CAMPOS = {
                       usos=("Recámara", "La pantalla más común", "Pantallas grandes")),
     "tv_brand": dict(label="Para TV", criterion="de qué marca", ramp=False, max_tramos=8, min_tramo=0.02),
     "printer_brand": dict(label="Para impresora", criterion="de qué marca", ramp=False, max_tramos=6, min_tramo=0.02),
+    "franchise": dict(label="Franquicia", criterion="de qué saga o serie", ramp=False, max_tramos=8, min_tramo=0.02),
+    "block_theme": dict(label="Tema", criterion="de qué saga o línea", ramp=False, max_tramos=8, min_tramo=0.02),
+    "doll_line": dict(label="Línea", criterion="de qué colección", ramp=False, max_tramos=8, min_tramo=0.02),
     "ink_color": dict(label="Color", criterion="de la tinta", ramp=False, orden=["Negro", "Color", "Negro y color"],
                       valores={"Negro": "Sólo el negro", "Color": "Cian, magenta, amarillo o tricolor",
                                "Negro y color": "Paquete con los dos"}),
@@ -389,6 +392,10 @@ CAMPO_SOLO_EN = {
     "tv_brand": {"Televisores/Controles para TV"},
     "printer_brand": {"Impresoras/Tóner", "Impresoras/Cartuchos de tinta"},
     "ink_color": {"Impresoras/Tóner", "Impresoras/Cartuchos de tinta"},
+    "franchise": {"Juguetes/Funko y coleccionables", "Juguetes/Figuras de acción",
+                  "Juguetes/Figuras de colección a escala", "Juguetes/Peluches"},
+    "block_theme": {"Juguetes/Bloques de construcción"},
+    "doll_line": {"Juguetes/Muñecas"},
     # La capacidad en pies es de refrigeradores de casa y congeladores; un
     # frigobar se compara en litros.
     "fridge_ft3": {"Refrigeradores/Top mount", "Refrigeradores/Bottom freezer",
