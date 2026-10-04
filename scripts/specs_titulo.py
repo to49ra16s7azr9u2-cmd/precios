@@ -494,7 +494,7 @@ _FRANQUICIAS = (
                        r"|intensa-?mente|inside out|rayo mcqueen|lightning mcqueen|blancanieves|snow white"
                        r"|maleficent|\bwish\b"),
     ("Jurassic World", r"jurassic"),
-    ("Terror", r"stranger things|\bvecna\b|chucky|pennywise|freddy krueger|jason voorhees|viernes 13|halloween"
+    ("Terror", r"stranger things|\bvecna\b|chucky|pennywise|freddy krueger|jason voorhees|viernes 13|michael myers"
                r"|\bscream\b|ghostface|merlina|wednesday|addams|annabelle|el conjuro|exorcista|beetlejuice"
                r"|terrifier|art the clown|\bsaw\b|jigsaw|universal monsters|dracula|frankenstein"),
     ("Series y películas", r"simpsons?\b|rick (and|y) morty|tmnt|tortugas ninja|ninja turtles|power rangers"
@@ -823,6 +823,33 @@ def escala_modelo(nombre):
     """La escala de un auto o una figura a escala («1:64», «1/18»)."""
     vals = {int(x) for x in re.findall(r"\b1\s*[:/]\s*(\d{1,3})\b", _norm(nombre)) if 4 <= int(x) <= 150}
     return f"1:{vals.pop()}" if len(vals) == 1 else None
+
+
+# ------------------------------------------------- lámparas, cuadernos, cuadros
+def luces_lampara(nombre):
+    """Luces (focos o brazos) de un candil o una lámpara colgante."""
+    vals = {int(m.group(1)) for m in re.finditer(r"\b(\d{1,2})\s*(luces|focos|brazos|lamparas|bombillas)\b", _norm(nombre))
+            if 2 <= int(m.group(1)) <= 40}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+def hojas_cuaderno(nombre):
+    """Hojas de un cuaderno («100 hojas»); las páginas cuentan como media hoja."""
+    n = _norm(nombre)
+    vals = {int(m.group(1)) for m in re.finditer(r"\b(\d{2,3})\s*(hojas|h)\b", n) if 20 <= int(m.group(1)) <= 500}
+    if not vals:
+        vals = {int(m.group(1)) // 2 for m in re.finditer(r"\b(\d{2,3})\s*(paginas|pag)\b", n) if 40 <= int(m.group(1)) <= 1000}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+def tamano_cuadro(nombre):
+    """El lado más largo de un cuadro en cm («60x80cm» -> 80)."""
+    n = _norm(nombre)
+    m = re.search(r"\b(\d{2,3})\s*(?:cm)?\s*x\s*(\d{2,3})\s*cm\b", n)
+    if not m:
+        return None
+    v = max(int(m.group(1)), int(m.group(2)))
+    return v if 15 <= v <= 300 else None
 
 
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")

@@ -897,6 +897,95 @@ _TIPOS_04OCT.update({
         ("Cerámica", r"ceramica|ceramic"),
         ("Plástico y silicona", r"plastico|silicon|melamina|plegable")],
 })
+_TIPOS_04OCT.update({
+    ("Herramientas", "Cajas de herramientas"): [
+        ("Con ruedas", r"ruedas|rodante|\bcarro\b|trolley"),
+        ("Sistema modular", r"packout|tstak|toughsystem|apilable|modular|stackable"),
+        ("Metálica", r"metalic|\bmetal\b|\bacero\b"),
+        ("Organizadora", r"organizador|compartimentos|divisiones|gavetas|cajones|clasificador"),
+        ("Maletín o bolsa", r"maletin|maleta|\bbolsa|mochila|estuche"),
+        ("Plástica", r"plastic|polipropileno|resina")],
+    ("Herramientas", "Medición"): [
+        ("Medidores láser", r"laser|distanciometro"),
+        ("Multímetros y detectores", r"multimetro|\btester|detector|voltaje|amperimetr"),
+        ("Medidores de presión", r"manometro|presion|\bpsi\b|neumaticos|llantas"),
+        ("Calibradores", r"calibrador|vernier|micrometro"),
+        ("Niveles", r"\bnivel"),
+        ("Cintas y flexómetros", r"cinta metrica|flexometro|cinta de medir|\bmetro\b"),
+        ("Básculas", r"bascula")],
+    ("Herramientas", "Neumáticas"): [
+        ("Compresores", r"compresor"),
+        ("Llaves de impacto y matracas", r"impacto|matraca"),
+        ("Clavadoras y engrapadoras", r"clavadora|engrapadora|grapadora"),
+        ("Pistolas de pintura", r"pintar|pintura|aerografo|hvlp"),
+        ("Lijadoras y pulidoras", r"lijadora|pulidora|esmeriladora|amoladora"),
+        ("Martillos y cinceles", r"martillo|cincel|rompedor"),
+        ("Pistolas de aire e infladores", r"pistola de aire|sopladora|inflador|limpieza|sopletear"),
+        ("Mangueras y conexiones", r"manguera|conector|cople|acoplador|conexion|niple|regulador|filtro|lubricador")],
+    ("Herramientas", "Seguridad industrial"): [
+        ("Guantes", r"guante"),
+        ("Cascos", r"\bcasco"),
+        ("Lentes y caretas", r"\blentes|gafas|goggles|careta|protector facial|mascara (de|para) soldar"),
+        ("Respiradores y mascarillas", r"respirador|mascarilla|cubrebocas|\bn95\b|filtro"),
+        ("Protección auditiva", r"auditiv|tapones|orejeras|protector de oidos"),
+        ("Chalecos y ropa", r"chaleco|overol|\bbata|impermeable|reflejante|reflectante"),
+        ("Arneses y anticaídas", r"\barnes|linea de vida|anticaida|eslinga"),
+        ("Extintores y señalización", r"extintor|senal|\bcono|precaucion|letrero")],
+    ("Mascotas", "Juguetes para gato"): [
+        ("Rascadores", r"rascador"),
+        ("Interactivos y láser", r"interactiv|laser|electronic|automatic|recargable|robot|movimiento"),
+        ("Varitas y plumas", r"varita|\bpluma|cana de pescar|teaser"),
+        ("Ratones y pelotas", r"\braton|pelota|\bbola|\bballs?\b|cascabel"),
+        ("Túneles y casas", r"\btunel|\bcasa\b|\bcueva|\bcaja\b"),
+        ("Catnip", r"catnip|hierba gatera|\bgatera|valeriana|matatabi")],
+    ("Bocinas", "Radios y reproductores"): [
+        ("Tocadiscos", r"tocadiscos|vinilo|victrola|crosley|turntable"),
+        ("Reproductores de CD y casete", r"\bcd\b|casete|cassette|walkman|discman"),
+        ("Radio despertador", r"despertador|\breloj|alarma"),
+        ("Radio portátil", r"\bradio"),
+        ("Boombox", r"boombox|\bbocina|altavoz|parlante")],
+    ("Limpieza y hogar", "Aromatizantes y velas"): [
+        ("Para auto", r"\bauto\b|\bcoche|\bcarro\b|vehiculo|rejilla"),
+        ("Difusores", r"difusor|humidificador|varitas|aromaterapia"),
+        ("Velas", r"\bvelas?\b|\bcera\b"),
+        ("Inciensos", r"incienso|sahumerio"),
+        ("Spray y ambientadores", r"spray|aerosol|ambientador|aromatizante")],
+    ("Belleza y cuidado personal", "Rizadores"): [
+        ("Para pestañas", r"pestanas"),
+        ("Automáticos", r"automatic|giratori|rotat"),
+        ("Cepillos rizadores y de aire", r"cepillo|\baire\b|secador|airwrap|multistyler"),
+        ("Onduladores", r"ondulador|\bondas\b|waver|triple|barriles"),
+        ("Tenazas y varitas", r"tenaza|varita|\bwand\b|barril|rizador|rizadora|curling")],
+    ("Juguetes", "Vehículos de juguete"): [
+        ("Pistas y sets", r"\bpista|set de juego|playset|garage|garaje|estacionamiento|lanzador"),
+        ("Monster trucks", r"monster"),
+        ("Camiones y construcción", r"\bcamion|construccion|\bgrua|volteo|excavadora|bomberos|basura|tractor"),
+        ("Trenes", r"\btren"),
+        ("Aviones y helicópteros", r"\bavion|helicoptero|\bnave\b"),
+        ("Autos", r"\bauto|\bcoche|\bcarro|wheels|vehiculo")],
+    ("Papelería y oficina", "Organización"): [
+        ("Carpetas", r"carpeta|folder|portafolio|anillas"),
+        ("Archiveros y cajas", r"archivero|caja (de )?archivo|\bgaveta|cajonera|organizador de escritorio"),
+        ("Grapas y clips", r"\bgrapas|\bclips|\bbroches|sujetapapeles"),
+        ("Separadores y fundas", r"separador|\bfunda|protector de hojas|\bmica")],
+    ("Herramientas", "Tarjas y fregaderos"): [
+        ("Accesorios", r"^(\S+ ){0,2}(cespol|escurridor|tapon|coladera|\bkit\b|desague|rebosadero|contra|canastilla|rejilla)"),
+        ("Lavabos de baño", r"lavabo|\bbano\b|ovalin|vessel"),
+        ("Doble tina", r"\bdoble|2 tinas|dos tinas|1 1/2|1\.5 tinas"),
+        ("Una tina", r"sencilla|1 tina|una tina|\btarja|fregadero")],
+    ("Decoración de hogar y jardín", "Espejos decorativos de pared"): [
+        ("Con luz", r"\bled\b|\bluz\b|iluminad"),
+        ("Redondos", r"redond|circular"),
+        ("Ovalados", r"ovalad|\boval\b"),
+        ("De arco", r"\barco\b|arquead"),
+        ("Irregulares u orgánicos", r"irregular|organic|asimetric|ondulad"),
+        ("Rectangulares o cuadrados", r"rectangular|cuadrad")],
+    ("Decoración de hogar y jardín", "Espejos de cuerpo completo"): [
+        ("Con luz", r"\bled\b|\bluz\b|iluminad"),
+        ("De pie o de piso", r"de pie|de piso|\bpiso\b|soporte|\bstand\b|cheval"),
+        ("Para puerta", r"puerta"),
+        ("De pared", r"pared|colgar")],
+})
 TIPOS.update({k: [(et, re.compile(rx)) for et, rx in v] for k, v in _TIPOS_04OCT.items()})
 
 
@@ -988,6 +1077,11 @@ for _s in ("Mesas de centro", "Escritorios de oficina", "Repisas", "Burós", "Ta
            "Cómodas y cajoneras", "Mesas plegables y multiusos", "Percheros"):
     NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("material", st.material_mueble))
 NOMBRE_GENERALES.setdefault(("Decoración de hogar y jardín", "Persianas"), []).append(("blind_cm", st.ancho_persiana))
+for _s in ("Candiles y arañas", "Lámparas colgantes"):
+    NOMBRE_GENERALES.setdefault(("Iluminación", _s), []).append(("lights", st.luces_lampara))
+NOMBRE_GENERALES.setdefault(("Papelería y oficina", "Cuadernos"), []).append(("sheets", st.hojas_cuaderno))
+NOMBRE_GENERALES.setdefault(("Decoración de hogar y jardín", "Cuadros y decoración de pared"), []).append(("frame_cm", st.tamano_cuadro))
+NOMBRE_GENERALES.setdefault(("Juguetes", "Disfraces"), []).append(("franchise", st.franquicia))
 NOMBRE_GENERALES.setdefault(("Juguetes", "Maquetas"), []).append(("scale", st.escala_modelo))
 for _s in ("Sofás de 2 y 3 plazas", "Sofás seccionales y esquineros", "Sillones reclinables", "Puffs y otomanas", "Sofás cama"):
     NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("upholstery", st.tapizado))

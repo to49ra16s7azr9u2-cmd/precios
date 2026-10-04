@@ -914,6 +914,7 @@ ETIQUETAS_FACETAS = [
     ("plate_material", "Placas", str), ("monitors", "Monitores", str), ("stitches", "Puntadas", str),
     ("metal", "Metal", str), ("pet_size", "Talla", str), ("kind", "Tipo", str),
     ("upholstery", "Tapizado", str), ("scale", "Escala", str), ("blind_cm", "Ancho", _fmt(" cm")),
+    ("lights", "Luces", str), ("sheets", "Hojas", str), ("frame_cm", "Tamaño", _fmt(" cm")),
 ]
 
 

@@ -4167,6 +4167,15 @@ LOTES['auditoria_14'] = [
     ('Blancos y ropa de cama', r'^panos? de limpieza|^panos?\b.*microfibra', None, 'Limpieza y hogar',
      'Limpiadores y desinfectantes', {'Juegos de toallas'}),
     ('Papelería y oficina', r'tractive|\bgps\b.*(perro|dog|mascota)', None, 'Mascotas', 'GPS y localizadores', {'Organización'}),
+    # 105 espejos laterales de auto («Espejo de Puerta KarParts360 Chevy
+    # Sonic», «Par espejos ... ram laterales eléctrico») en los espejos de
+    # Decoración; el de moto («honda/suzuki») va a manubrios y espejos.
+    ('Decoración de hogar y jardín', r'karparts|lado (conductor|pasajero)|laterales?|retrovisor|\bc/(desemp|direcc)'
+                                    r'|\b(chevy|chevrolet|nissan|ford|toyota|volkswagen|vw|mazda|dodge|chrysler|jeep|kia|hyundai'
+                                    r'|bmw|audi|mercedes|lexus|subaru|buick|cadillac|gmc|ram|pathfinder|tsuru|sentra|versa|jetta)\b',
+     r'\b(moto|motocicleta|suzuki|italika|yamaha|bajaj)\b', 'Autopartes', 'Espejos laterales', _ESPEJOS),
+    ('Decoración de hogar y jardín', r'\b(moto|motocicleta|suzuki|italika|yamaha|bajaj|sparelli)\b', None,
+     'Autopartes', 'Manubrios, espejos y controles', _ESPEJOS),
 ]
 REGLAS += LOTES['auditoria_14']
 
