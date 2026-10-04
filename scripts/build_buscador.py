@@ -97,7 +97,11 @@ SALIDA = os.path.join(ROOT, "data", "buscar")
 # se lee la cuarta parte por página.
 FILAS = 100
 FRECUENTE = 1500      # desde cuántas fichas una palabra va en archivo propio
-RESUMEN_MIN_SHARDS = 8  # categorías con resumen propio (data/buscar/c)
+# Categorías con resumen propio (data/buscar/c). Era 8 (sólo Autopartes): con
+# Elektra (04-oct-2026) Belleza, Muebles, Autos y motos, Herramientas y Cocina
+# pasaron de 2.7 a 4.8 MB de shards cada una, que el navegador bajaba enteros
+# antes de mostrar la lista (5-8 s en un celular). Su resumen pesa 0.2-0.4 MB.
+RESUMEN_MIN_SHARDS = 3
 FACETA_MIN = 0.01     # un campo entra al resumen si lo tiene al menos el 1%
 VACIAS = {
     "de", "del", "la", "el", "los", "las", "para", "con", "sin", "por", "en",
@@ -310,12 +314,24 @@ def resumen_de_categoria(fichas, idx_sub, subs_cat):
             con_precio.append((p, r))
     fichas = [p for p, _ in con_precio]
     presentes = collections.Counter()
+    por_sub = collections.defaultdict(collections.Counter)
+    fichas_sub = collections.Counter()
     for p in fichas:
+        sub = p.get("subcategory")
+        fichas_sub[sub] += 1
         for k, v in (p.get("facets") or {}).items():
             if v not in (None, "", []):
                 presentes[k] += 1
+                por_sub[sub][k] += 1
     total = len(fichas) or 1
-    campos = sorted(k for k, n in presentes.items() if n / total >= FACETA_MIN)
+    # El 1% se mide también por subcategoría: la potencia de las «Bocinas
+    # para auto» es el 1% de Autos y motos, pero el bloque Compara calidad
+    # de esa subcategoría la usa. Con la categoría sola, el resumen la dejaba
+    # fuera y la fila desaparecía (04-oct-2026, al pasar Autos y motos a
+    # resumen).
+    campos = sorted(k for k, n in presentes.items()
+                    if n / total >= FACETA_MIN
+                    or any(fichas_sub[s] >= 20 and c[k] >= 0.10 * fichas_sub[s] for s, c in por_sub.items()))
     # Diccionarios ordenados (números de menor a mayor): así los años
     # seguidos quedan en índices seguidos y se pueden escribir como tramo.
     valores = {k: {} for k in campos}
