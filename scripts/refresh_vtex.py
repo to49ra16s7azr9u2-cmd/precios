@@ -35,6 +35,7 @@ USO
 """
 import argparse
 import os
+import re
 import sys
 import urllib.request
 
@@ -68,6 +69,23 @@ def current_offer(product):
     offer = vendedor.get("commertialOffer") or {}
     seller_id = str(vendedor["sellerId"]) if vendedor.get("sellerId") is not None else None
     return offer.get("Price"), offer.get("ListPrice"), True, ean, seller_id
+
+
+def foto_vigente(product):
+    """La primera imagen del primer SKU, como la guarda la importación."""
+    items = product.get("items") or []
+    imgs = (items[0].get("images") or []) if items else []
+    return imgs[0].get("imageUrl") if imgs else None
+
+
+def _asset(u):
+    m = re.search(r"/arquivos/ids/(\d+)", u or "")
+    return m.group(1) if m else (u or "").split("?")[0]
+
+
+def _host(u):
+    m = re.match(r"https?://([^/]+)/", u or "")
+    return m.group(1) if m else ""
 
 
 def walk_category(store_id, path):
@@ -160,7 +178,7 @@ def main(argv=None):
         print(f"ABORTA: la API de {tienda['nombre']} no responde desde aquí ({e!r}). No se escribió nada.")
         return 2
 
-    live, fichas = {}, {}
+    live, fichas, fotos = {}, {}, {}
     vacias = 0
     recorridos = [(path, None) for path in paths] + [(path, "arbol") for path in rotativas]
     for i, (path, modo) in enumerate(recorridos, 1):
@@ -172,6 +190,7 @@ def main(argv=None):
                 continue
             live[url] = current_offer(p)
             fichas[url] = specs_from(p)
+            fotos[url] = foto_vigente(p)
             seen += 1
         if not seen:
             vacias += 1
@@ -194,7 +213,7 @@ def main(argv=None):
               file=sys.stderr)
         sys.exit(2)
 
-    stats = {"revisados": 0, "precio": 0, "sin_cambio": 0, "agotado": 0, "no_visto": 0, "ficha_tecnica": 0}
+    stats = {"revisados": 0, "precio": 0, "sin_cambio": 0, "agotado": 0, "no_visto": 0, "ficha_tecnica": 0, "foto": 0}
     deltas = []
     dead_urls, missing_urls = set(), set()
     for p in data["products"]:
@@ -212,6 +231,23 @@ def main(argv=None):
             if ficha and len(ficha) > len(p.get("specs") or []) and p.get("specs") != ficha:
                 p["specs"] = ficha
                 stats["ficha_tecnica"] += 1
+            # La tienda vuelve a subir sus imágenes y la url vieja da 404 (el
+            # 04-oct eran 15 mil fichas de Elektra «sin foto»): la foto va al
+            # día con la de la API, la de la oferta y, si era de esta tienda,
+            # la de la ficha.
+            foto = fotos.get(url)
+            if foto:
+                cambio = False
+                if o.get("photo") and _asset(o["photo"]) != _asset(foto):
+                    o["photo"] = foto
+                    cambio = True
+                # Con colores, cada oferta trae la foto de su color: la de la
+                # ficha no se toca (quedaría la del último color recorrido).
+                if p.get("photo") and not p.get("colorVariants") and _host(p["photo"]) == _host(foto) \
+                        and _asset(p["photo"]) != _asset(foto):
+                    p["photo"] = foto
+                    cambio = True
+                stats["foto"] += cambio
             price, list_price, available, ean, seller_id = entry
             if not ean_utilizable(o):
                 # El código que publica la tienda en esta oferta no es el de
