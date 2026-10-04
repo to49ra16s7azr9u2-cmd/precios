@@ -752,6 +752,10 @@ REGLAS_TITULO.setdefault("Climatización", []).append(("ac_btu", se.ac_btu))
 for _c in ("Bocinas", "Audífonos", "Relojes inteligentes", "Blancos y ropa de cama"):
     REGLAS_TITULO.setdefault(_c, []).append(("water_resistant", st.impermeable))
 REGLAS_TITULO.setdefault("Decoración de hogar y jardín", []).append(("blackout", st.blackout))
+# Los relojes de Joyería (no los aretes ni las cadenas, donde «resistente al
+# agua» es que no se oxida y «50 m» es el largo).
+for _s in ("Relojes", "Relojes de buceo", "Cronógrafos", "Relojes infantiles", "Relojes de bolsillo y de pared"):
+    NOMBRE_GENERALES.setdefault(("Joyería y bisutería", _s), []).append(("water_resistant", st.impermeable_reloj))
 REGLAS_TITULO.setdefault("Joyería y bisutería", []).append(("polarized", st.polarizado))
 REGLAS_TITULO.setdefault("Relojes inteligentes", []).extend([("calls", st.llamadas), ("gps", st.gps)])
 REGLAS_TITULO.setdefault("Tabletas", []).append(("mobile_data", st.datos_moviles))

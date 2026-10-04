@@ -295,7 +295,18 @@ def impermeable(nombre):
     """"Sí" si el nombre lo afirma; nada si lo niega ("no resistente al
     agua" también contiene "resistente al agua")."""
     return None if _NO_IMPERMEABLE.search(_norm(nombre)) else _impermeable(nombre)
-blackout = _rasgo(r"black ?out|\bopac[oa]s?\b|oscurecimiento|oscurecedora")
+blackout = _rasgo(r"black ?out|\bopac[oa]s?\b|oscurecimiento|oscurecedora|para oscurecer|oscurecen")
+_RELOJ_AGUA = re.compile(r"\b\d{1,2}\s*atm\b|\b(?:30|50|100|200|300|500)\s*(?:m|metros)\b(?!\s*m)|\bwr\s?\d{2,3}\b|\b\d{1,2}\s*bar\b")
+
+
+def impermeable_reloj(nombre):
+    """Un reloj dice su resistencia al agua en ATM o metros («3 ATM», «100 m
+    Sumergible», «WR50»), además de «resistente al agua». Sólo para relojes:
+    en una cadena «50 m» es el largo (04-oct-2026: 145 relojes de Joyería
+    lo decían en el nombre y no lo tenían)."""
+    if _NO_IMPERMEABLE.search(_norm(nombre)):
+        return None
+    return impermeable(nombre) or ("Sí" if _RELOJ_AGUA.search(_norm(nombre)) else None)
 polarizado = _rasgo(r"polariz")
 llamadas = _rasgo(r"llamadas?\b|bluetooth call|\bcall\b")
 gps = _rasgo(r"\bgps\b")
