@@ -32,7 +32,7 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
-from data_io import FUSIONADAS_PATH, id_num, load_catalog, next_id, registrar_max_id, save_catalog  # noqa: E402
+from data_io import FUSIONADAS_PATH, id_num, load_catalog, next_id, registrar_max_id, save_catalog, url_real  # noqa: E402
 from merge_variantes_tienda import _ANIOS, _CODIGO_ALMACEN, _ES_LLANTA, nombre_familia, norm, palabras  # noqa: E402
 from subcategorias_divisiones import LLANTAS_SUV, llanta_auto, llanta_suv  # noqa: E402
 
@@ -97,7 +97,10 @@ def main():
     def nombres_del_grupo(p, o):
         ns = [p.get("nombreTienda") or p["name"]]
         ns += [publicados[a] for a in absorbidas.get(p["id"], []) if publicados.get(a)]
-        ns += [por_url[v["url"]] for v in o.get("variants") or [] if v.get("url") in por_url]
+        # La url de la variante ya puede venir envuelta en el enlace de
+        # afiliado: la de la captura es la real (04-oct: 0 renombradas).
+        reales = [url_real(v.get("url")) or v.get("url") for v in o.get("variants") or []]
+        ns += [por_url[u] for u in reales if u in por_url]
         return ns
 
     nid = next_id(data["products"], data)
