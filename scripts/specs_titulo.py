@@ -217,6 +217,24 @@ def tv_maxima(nombre):
     return max(vals) if vals else None
 
 
+_QUEMADORES_RE = re.compile(r"\b(\d{1,2})\s*quemadores?\b")
+
+
+def quemadores(nombre):
+    """Quemadores de una parrilla de gas («Asador 4 quemadores»)."""
+    vals = {int(m.group(1)) for m in _QUEMADORES_RE.finditer(_norm(nombre)) if 1 <= int(m.group(1)) <= 10}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+_PELDANOS_RE = re.compile(r"\b(\d{1,2})\s*(?:peldanos|escalones|pasos)\b")
+
+
+def peldanos(nombre):
+    """Peldaños de una escalera («Escalera de tijera 5 peldaños»)."""
+    vals = {int(m.group(1)) for m in _PELDANOS_RE.finditer(_norm(nombre)) if 2 <= int(m.group(1)) <= 30}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
 _PUERTAS_RE = re.compile(r"\b(\d{1,2})\s*puertas?\b")
 
 

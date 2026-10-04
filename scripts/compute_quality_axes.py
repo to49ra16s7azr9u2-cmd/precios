@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -176,6 +176,9 @@ CAMPOS = {
     "tv_max_in": dict(label="Para TV de", criterion="hasta cuántas pulgadas", unit='"',
                       nombres=("Chica", "Mediana", "Grande"),
                       usos=("Recámara", "La pantalla más común", "Pantallas grandes")),
+    "steps": dict(label="Peldaños", criterion="según el nombre", unit=" peldaños",
+                  nombres=("Chica", "Mediana", "Alta"),
+                  usos=("Alacenas y focos", "Techos de casa", "Fachadas y techos altos")),
     "doors": dict(label="Puertas", criterion="según el nombre", unit=" puertas",
                   nombres=("Chico", "Mediano", "Grande"),
                   usos=("Para un cuarto chico", "El tamaño más común", "Para guardar mucho")),
@@ -242,12 +245,14 @@ CAMPOS = {
                     nombres=("Angosta", "Estándar", "Ancha"),
                     usos=("Estufa de dos quemadores", "La medida más común", "Estufa de seis quemadores")),
     "burners": dict(label="Quemadores", criterion="por número de quemadores", unit=" quemadores",
-                    nombres=("Pocos", "Los de siempre", "Muchos")),
+                    nombres=("Pocos", "Los de siempre", "Muchos"),
+                    usos=("Para una pareja o balcón", "Para la familia", "Para reuniones grandes")),
     "cups": dict(label="Tazas", criterion="por tazas que prepara", unit=" tazas",
                  nombres=("Pocas", "Medias", "Muchas"),
                  usos=("Una o dos personas", "Para la familia", "Oficina o reuniones")),
     "speaker_count": dict(label="Canales", criterion="por número de bocinas", unit=" bocinas",
-                          nombres=("Pocas", "Medias", "Muchas")),
+                          nombres=("Pocas", "Medias", "Muchas"),
+                          usos=("Sonido básico", "Sonido envolvente", "Cine en casa completo")),
     "services": dict(label="Servicios", criterion="por piezas del juego", unit=" servicios",
                      nombres=("Pocos", "Medios", "Muchos"),
                      usos=("Una o dos personas", "Para la familia", "Reuniones")),
@@ -371,6 +376,7 @@ CAMPO_SOLO_EN = {
     "hp": {"Herramientas/Bombas de agua"},
     "outlets": {"Cargadores y adaptadores/Regletas y multicontactos"},
     "tv_max_in": {"Muebles/Mesas para TV y consolas"},
+    "steps": {"Herramientas/Escaleras"},
     # La capacidad en pies es de refrigeradores de casa y congeladores; un
     # frigobar se compara en litros.
     "fridge_ft3": {"Refrigeradores/Top mount", "Refrigeradores/Bottom freezer",
@@ -475,6 +481,12 @@ USOS = {
         ("Plano y trayectos cortos", "Subidas suaves y más velocidad", "Cerros y dos personas")),
     ("Bicicletas y movilidad/Bicicletas eléctricas", "power_w"): (("Suave", "Media", "Fuerte"),
         ("Ayuda al pedaleo en plano", "Subidas suaves", "Cerros y carga")),
+    ("Herramientas/Cables y extensiones eléctricas", "length_m"): (("Corta", "Mediana", "Larga"),
+        ("Junto al contacto", "De un cuarto a otro", "Patio, jardín u obra")),
+    ("Cargadores y adaptadores/Cables y adaptadores de video", "length_m"): (("Corta", "Mediana", "Larga"),
+        ("La tele junto al aparato", "Lo más común", "Proyector o al otro lado del cuarto")),
+    ("Redes/Cables y adaptadores de red", "length_m"): (("Corta", "Mediana", "Larga"),
+        ("Junto al módem", "En el mismo cuarto", "A otro cuarto o piso")),
     ("Mascotas/Alimento para perro", "weight_kg"): (("Chica", "Mediana", "Grande"),
         ("Para probar o perros chicos", "La bolsa más común", "Rinde más, sale más barato el kilo")),
     ("Mascotas/Alimento para gato", "weight_kg"): (("Chica", "Mediana", "Grande"),
@@ -743,7 +755,9 @@ def eje(clave, campo, vals):
         tiers = tramos_fijos(vals, campo)
         ramp = campo not in FIJOS_SIN_RAMPA
     elif cfg and "unit" in cfg:
-        nombres, usos = cfg["nombres"], cfg["usos"]
+        # Sin «usos» la tarjeta va sin subtítulo (antes: KeyError, y la
+        # regeneración entera se caía en cuanto un campo así llegaba a eje).
+        nombres, usos = cfg["nombres"], cfg.get("usos", ("", "", ""))
         esp = USOS.get((clave, campo)) or USOS.get((clave.split("/")[0], campo))
         if esp:
             nombres, usos = esp

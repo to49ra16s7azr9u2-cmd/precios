@@ -1908,8 +1908,14 @@ def dpi_of(text):
 _METERS_RE = re.compile(r"(?<![\d.,])(\d{1,2}(?:[.,]\d)?)\s*(?:m\b(?!m)|metros?\b|mts?\b)")
 
 
-def meters_of(text, lo, hi):
+_PIES_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d)?)\s*(?:pies\b|ft\b|feet\b)")
+
+
+def meters_of(text, lo, hi, pies=False):
+    """Metros; con pies=True, si no dice metros, «10 ft» / «25 pies» (cables)."""
     vals = {_num(m.group(1)) for m in _METERS_RE.finditer(_norm(text or ""))}
+    if not vals and pies:
+        vals = {round(_num(m.group(1)) * 0.3048, 1) for m in _PIES_RE.finditer(_norm(text or ""))}
     return _uno({v for v in vals if lo <= v <= hi})
 
 

@@ -767,6 +767,13 @@ NOMBRE_GENERALES.setdefault(("Muebles", "Cocinas integrales"), []).append(("leng
 NOMBRE_GENERALES.setdefault(("Herramientas", "Bombas de agua"), []).append(("hp", st.caballos))
 NOMBRE_GENERALES.setdefault(("Cargadores y adaptadores", "Regletas y multicontactos"), []).append(("outlets", st.contactos))
 NOMBRE_GENERALES.setdefault(("Muebles", "Mesas para TV y consolas"), []).append(("tv_max_in", st.tv_maxima))
+for _k in (("Herramientas", "Cables y extensiones eléctricas"), ("Cargadores y adaptadores", "Cables y adaptadores de video"),
+           ("Redes", "Cables y adaptadores de red")):
+    NOMBRE_GENERALES.setdefault(_k, []).append(("length_m", lambda t: se.meters_of(t, 0.2, 100, pies=True)))
+NOMBRE_GENERALES.setdefault(("Herramientas", "Escaleras"), []).append(("steps", st.peldanos))
+NOMBRE_GENERALES.setdefault(("Electrodomésticos", "Parrillas de gas"), []).append(("burners", st.quemadores))
+NOMBRE_GENERALES.setdefault(("Electrodomésticos", "Arroceras y ollas multiusos"), []).append(("cups", se.cups_of))
+NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Mancuernas"), []).append(("weight_kg", lambda t: se.kg_of(t, 0.5, 60)))
 for _s in ("Alimento para perro", "Alimento para gato"):
     NOMBRE_GENERALES.setdefault(("Mascotas", _s), []).append(("weight_kg", lambda t: se.kg_of(t, 0.3, 40)))
 # Los relojes de Joyería (no los aretes ni las cadenas, donde «resistente al
