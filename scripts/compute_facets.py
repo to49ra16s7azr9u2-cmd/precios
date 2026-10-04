@@ -774,6 +774,10 @@ NOMBRE_GENERALES.setdefault(("Herramientas", "Escaleras"), []).append(("steps", 
 NOMBRE_GENERALES.setdefault(("Electrodomésticos", "Parrillas de gas"), []).append(("burners", st.quemadores))
 NOMBRE_GENERALES.setdefault(("Electrodomésticos", "Arroceras y ollas multiusos"), []).append(("cups", se.cups_of))
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Mancuernas"), []).append(("weight_kg", lambda t: se.kg_of(t, 0.5, 60)))
+NOMBRE_GENERALES.setdefault(("Blancos y ropa de cama", "Juegos de toallas"), []).append(
+    ("pieces", lambda t: se.pieces_of(t, 2, 30) or se.pieces_set_of(t, 2, 30)))
+NOMBRE_GENERALES.setdefault(("Herramientas", "Martillos, cinceles y mazos"), []).append(("weight_kg", st.peso_martillo))
+NOMBRE_GENERALES.setdefault(("Aspiradoras", "Verticales y de escoba"), []).append(("power_source", st.inalambrico_herramienta))
 for _s in ("Alimento para perro", "Alimento para gato"):
     NOMBRE_GENERALES.setdefault(("Mascotas", _s), []).append(("weight_kg", lambda t: se.kg_of(t, 0.3, 40)))
 # Los relojes de Joyería (no los aretes ni las cadenas, donde «resistente al

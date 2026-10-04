@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -176,6 +176,9 @@ CAMPOS = {
     "tv_max_in": dict(label="Para TV de", criterion="hasta cuántas pulgadas", unit='"',
                       nombres=("Chica", "Mediana", "Grande"),
                       usos=("Recámara", "La pantalla más común", "Pantallas grandes")),
+    "power_source": dict(label="Alimentación", criterion="según el nombre", ramp=False,
+                         orden=["Inalámbrica", "Con cable"],
+                         valores={"Inalámbrica": "Sin cable, más cómoda", "Con cable": "Potencia sin límite de batería"}),
     "steps": dict(label="Peldaños", criterion="según el nombre", unit=" peldaños",
                   nombres=("Chica", "Mediana", "Alta"),
                   usos=("Alacenas y focos", "Techos de casa", "Fachadas y techos altos")),
@@ -377,6 +380,7 @@ CAMPO_SOLO_EN = {
     "outlets": {"Cargadores y adaptadores/Regletas y multicontactos"},
     "tv_max_in": {"Muebles/Mesas para TV y consolas"},
     "steps": {"Herramientas/Escaleras"},
+    "power_source": {"Aspiradoras/Verticales y de escoba"},
     # La capacidad en pies es de refrigeradores de casa y congeladores; un
     # frigobar se compara en litros.
     "fridge_ft3": {"Refrigeradores/Top mount", "Refrigeradores/Bottom freezer",
@@ -408,7 +412,7 @@ CAMPO_SOLO_EN = {
              "Herramientas/Hidrolavadoras", "Herramientas/Baterías y cargadores de herramienta",
              "Herramientas/Herramientas de banco", "Herramientas/Compresores y herramienta neumática",
              "Herramientas/Soldadoras",
-             "Bicicletas y movilidad/Scooters eléctricos"},
+             "Bicicletas y movilidad/Scooters eléctricos", "Juguetes/Montables"},
 }
 
 # Y al revés: dónde un campo permitido en la categoría no ayuda a elegir.
@@ -454,6 +458,13 @@ FIJOS = {
 # son de 1000 piezas, los tercios caían todos ahí y el eje no salía (2,518
 # de 4,028 con dato y sin fila de piezas). Se corta por cómo se venden.
 FIJOS_POR_CLAVE = {
+    # Montables eléctricos: la batería es lo que dice para qué edad y terreno
+    # (los tramos de herramienta, «18-20 V el estándar inalámbrico», no
+    # aplican). 35% lo dice y sólo se comparaban por precio (04-oct-2026).
+    ("Juguetes/Montables", "volt"): ("Batería", "por voltaje", [
+        ("v6", "6 V", "Para los más pequeños, en plano", "6 V", None, 6),
+        ("v12", "12 V", "Más fuerza, de 3 a 6 años", "12 V", 6, 12),
+        ("v24", "24 V o más", "Dos plazas o pasto y tierra", "24 V o más", 12, None)]),
     ("Juegos de mesa/Rompecabezas", "pieces"): ("Piezas", "por número de piezas", [
         ("p300", "Hasta 300", "Niños o para empezar", "Hasta 300 piezas", None, 300),
         ("p500", "500 a 750", "Una o dos tardes", "301 a 999 piezas", 300, 999),
@@ -487,6 +498,8 @@ USOS = {
         ("La tele junto al aparato", "Lo más común", "Proyector o al otro lado del cuarto")),
     ("Redes/Cables y adaptadores de red", "length_m"): (("Corta", "Mediana", "Larga"),
         ("Junto al módem", "En el mismo cuarto", "A otro cuarto o piso")),
+    ("Herramientas/Martillos, cinceles y mazos", "weight_kg"): (("Ligero", "Mediano", "Pesado"),
+        ("Clavos chicos y manualidades", "Uso general en casa", "Demolición y uso rudo")),
     ("Mascotas/Alimento para perro", "weight_kg"): (("Chica", "Mediana", "Grande"),
         ("Para probar o perros chicos", "La bolsa más común", "Rinde más, sale más barato el kilo")),
     ("Mascotas/Alimento para gato", "weight_kg"): (("Chica", "Mediana", "Grande"),
@@ -649,6 +662,14 @@ def tramos_numericos(vals, campo, nombres, usos):
              "min": c1, "max": c2},
             {"id": slug(nombres[2]), "name": nombres[2], "use": usos[2], "spec": f"Más de {fmt(c2, unit)}", "min": c2},
         ]
+    # Valores que se repiten mucho (juegos de toallas de 2, 3, 4, 6 y 12
+    # piezas): ningún corte en tercios deja tres tramos parejos, pero una
+    # tarjeta por valor frecuente sí reparte. Los raros no caen en ninguna.
+    frecuentes = [v for v in distintos if s.count(v) / n >= MIN_TRAMO]
+    if 2 <= len(frecuentes) <= 5 and sum(s.count(v) for v in frecuentes) / n >= 0.8 \
+            and max(s.count(v) for v in frecuentes) / n <= MAX_DOMINANTE:
+        return [{"id": slug(f"v{v}"), "name": fmt(v, unit), "use": "", "spec": fmt(v, unit), "values": [v]}
+                for v in frecuentes]
     return None
 
 

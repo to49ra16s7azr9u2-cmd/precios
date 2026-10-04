@@ -235,6 +235,19 @@ def peldanos(nombre):
     return next(iter(vals)) if len(vals) == 1 else None
 
 
+_PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
+_A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
+         "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}
+
+
+def peso_martillo(nombre):
+    """Peso de la cabeza de un martillo o un mazo («Martillo Truper 16 oz»,
+    «Marro 4 lb»), en kg. 57% de los martillos lo dice (04-oct-2026)."""
+    vals = {round(float(m.group(1)) * _A_KG[m.group(2)], 2) for m in _PESO_MARTILLO_RE.finditer(_norm(nombre))}
+    vals = {v for v in vals if 0.1 <= v <= 12}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
 _PUERTAS_RE = re.compile(r"\b(\d{1,2})\s*puertas?\b")
 
 

@@ -1708,7 +1708,7 @@ def pieces_of(text, lo, hi):
 # una cuchara medidora y «dado 12 puntas» la forma del dado, no piezas.
 _OBJETOS_SET = (r"vasos|copas|platos|bowls|tazones|jarras|contenedores|recipientes|tarros|frascos|"
                 r"cuchillos|cucharas|cucharitas|tenedores|cubiertos|sartenes|ollas|refractarios|charolas|"
-                r"tuppers?|botes|brocas|dados|llaves|desarmadores|discos|cinceles|cardas")
+                r"tuppers?|botes|brocas|dados|llaves|desarmadores|discos|cinceles|cardas|toallas")
 _SET_DE_RE = re.compile(r"\b(?:set|juego|kit|pack|paquete|vajilla|estuche)\s+(?:de\s+|con\s+)?(\d{1,3})\b(?!\s*(?:ml|l|lt|cm|mm|oz|g|kg|w|v|pulgadas?|\"|litros?|velocidades|niveles|en 1))")
 _N_OBJETOS_RE = re.compile(r"(?<![\d.,/])(\d{1,3})\s+(?:" + _OBJETOS_SET + r")\b")
 
