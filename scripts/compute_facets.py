@@ -715,6 +715,79 @@ def _al_dia(tabla):
 NOMBRE_GENERALES = _al_dia(NOMBRE_GENERALES)
 TIPOS = _al_dia(TIPOS)
 
+# Tipos para subcategorías que juntan cosas distintas y sólo se comparaban
+# por precio (04-oct-2026). La primera fila que casa gana: de lo específico
+# a lo general.
+_TIPOS_04OCT = {
+    ("Mascotas", "Juguetes para perro"): [
+        ("Interactivos y dispensadores", r"dispensador|interactiv|rompecabezas|puzzle|olfat|snuffle|\bbusy\b|premios|robot|automatic"),
+        ("Pelotas y lanzadores", r"pelota|\bbola\b|\bballs?\b|chuckit|lanzador|lanzapelotas|frisbee|disco volador|\btenis\b|tennis"),
+        ("Cuerdas", r"cuerda|\bropes?\b|\bsoga\b|tira y afloja"),
+        ("Peluches", r"peluche|plush|felpa"),
+        ("Mordederas y huesos", r"mordedera|mordedor|\bhueso|masticar|masticable|\bchew|dental|nylabone|\bkong\b|cuerno|\bgoma\b")],
+    ("Mascotas", "Higiene y limpieza"): [
+        ("Cortaúñas y limas", r"cortaunas|corta ?unas|\bunas\b|\blima\b|grinder"),
+        ("Cuidado dental", r"dental|dientes|aliento|enjuague bucal"),
+        ("Rasuradoras", r"rasuradora|cortadora|maquina (de|para) (cortar|rasurar)|clipper|trimmer|recortadora"),
+        ("Cepillos y deslanadores", r"cepillo|deslanador|\bpeine|carda|guante|furminator|quita ?pelo|removedor de pelo|rodillo|pelusa"),
+        ("Shampoo y baño", r"champu|shampoo|jabon|acondicionador|\bbano\b|toallitas?|perfume|colonia|\bbata\b|secador|\btina\b"),
+        ("Tapetes y bolsas", r"tapete|panal|entrenador|bolsas?|recogedor|\bpopo\b|desecho")],
+    ("Papelería y oficina", "Escritura"): [
+        ("Estuches y portalápices", r"^(\S+ ){0,2}(estuche|portalapices|porta ?lapices|porta ?boligrafos|lapicera|cartuchera)"),
+        ("Recargas y minas", r"recarga|repuesto|refill|\bminas?\b|puntillas"),
+        ("Plumas fuente", r"pluma fuente|fountain|estilografica|caligrafia"),
+        ("Correctores", r"corrector|cinta correctora"),
+        ("Marcadores y plumones", r"marcador|plumon|sharpie|resaltador|highlighter|rotulador|brush pen|\bpincel"),
+        ("Lápices de colores", r"(lapic\w*|lapiz) (de )?colou?r|prismacolor|colores .{0,20}lapic|acuarelable"),
+        ("Lápices y portaminas", r"\blapiz|\blapices|portaminas|lapicero|mecanico|grafito"),
+        ("Bolígrafos", r"boligrafo|\bpluma|\bpens?\b|\bgel\b|rollerball|energel|\bbic\b")],
+    ("Herramientas", "Llaves y dados"): [
+        ("Torquímetros", r"torquimetro|dinamometric|\btorque"),
+        ("Dados y vasos", r"\bdados?\b|\bvasos?\b|\bsockets?\b"),
+        ("Llaves de impacto", r"(llave|pistola) de impacto|impact wrench"),
+        ("Matracas", r"matraca|carraca|trinquete|ratchet"),
+        ("Llaves para filtro", r"filtro"),
+        ("Llaves de cruz", r"llave de cruz|llave cruz|\bbirlos?\b"),
+        ("Ajustables y stillson", r"perico|ajustable|stillson|steelson|llave inglesa|pico de loro|llave de tubo"),
+        ("Allen y Torx", r"\ballen\b|hexagonal|\btorx\b|tipo l\b"),
+        ("Combinadas y de estrella", r"combinad|espanola|estrella|mixta|de boca|juego de \d+ llaves|llaves? (std|estandar|milimetric|metric)"),
+        ("Extensiones y adaptadores", r"extension|adaptador|articulacion|nudo|cardan|maneral|\bmango\b")],
+    ("Electrodomésticos", "Wafleras, sandwicheras y creperas"): [
+        ("Multifunción", r"\b[2-5] en 1\b|multifuncion|intercambiable|placas (removibles|intercambiables)"),
+        ("Donas y cupcakes", r"\bdonas|donitas|cupcake|mini pastel|magdalenas|cake ?pop"),
+        ("Crepera", r"crepera|\bcrepas?\b|\bcrepes?\b|panqueque|hot ?cakes"),
+        ("Waflera", r"waflera|wafflera|waffle|gofre|\bwafles\b"),
+        ("Panini y sandwichera", r"panini|sandwichera|sandwich|parrilla|\bgrill")],
+    ("Bolsas y mochilas", "Bolsas para mujer"): [
+        ("Cosmetiqueras", r"cosmetiquer|maquillaje|neceser|makeup|cosmetic"),
+        ("Crossbody y bandolera", r"crossbody|cross body|bandolera|cruzad|messenger|mensajero|banana|rinonera|cangurera"),
+        ("Tote", r"\btote\b|shopper|de playa|\bplaya\b|\blona\b|mandado|reutilizable|promocional"),
+        ("De mano y clutch", r"de mano|clutch|\bsobre\b|de fiesta|minaudiere|pochette"),
+        ("De hombro", r"hombro|shoulder|\bhobo\b|baguette|satchel"),
+        ("Mochila", r"mochila|backpack")],
+    ("Herramientas", "Cerraduras y chapas de puerta"): [
+        ("Cajas fuertes", r"caja fuerte|caja de seguridad|\bsafe\b|\bcofre\b"),
+        ("Digitales e inteligentes", r"digital|inteligente|huella|biometric|\bsmart\b|wi-?fi|teclado|\bcodigo\b|bluetooth|tuya|\bapp\b"),
+        ("Para muebles", r"mueble|cajon|gabinete|armario|locker|buzon|vitrina|closet|ropero"),
+        ("Cerrojos", r"cerrojo|deadbolt|pasador|picaporte"),
+        ("Manijas y perillas", r"manija|perilla|\bpomo|jaladera|tirador|\bbola\b|palanca"),
+        ("Bisagras y herrajes", r"bisagra|herraje|\btope\b|cierrapuerta|brazo hidraulico|mirilla"),
+        ("Cerraduras de puerta", r"cerradura|\bchapa\b|cilindro|embutir|sobreponer|tubular|\bentrada\b|recamara|residencial|\block\b")],
+    ("Herramientas", "Regaderas y duchas"): [
+        ("Eléctricas", r"electrica|calentador|lorenzetti"),
+        ("Columnas y kits", r"columna|kit de ducha|sistema de ducha|set de ducha|\bpanel\b|\btorre\b|\bcombo\b|juego de regadera|manerales|mezcladora"),
+        ("De mano o teléfono", r"telefono|de mano|flexible|ducha de mano|desmontable"),
+        ("Brazos y accesorios", r"^(\S+ ){0,1}(brazo|chapeton|soporte|manguera|coladera|organizador|barra|cortina|repuesto|cartucho)"),
+        ("Regadera fija", r"regadera|lluvia|cabezal|\bducha")],
+    ("Herramientas", "Grifos y monomandos"): [
+        ("Repuestos", r"^(\S+ ){0,2}(cartucho|aireador|conector|manguera|empaque|vastago|maneral|desviador|repuesto|kit de reparacion)"),
+        ("Para cocina", r"cocina|fregadero|\btarja|extraible|cuello de ganso|resorte"),
+        ("Para lavabo", r"lavabo|lavamanos|\bbano\b|vanity"),
+        ("Para regadera y tina", r"regadera|\btina\b|banera|ducha"),
+        ("Para jardín y lavadero", r"jardin|lavadero|\bnariz\b|exterior|lavadora")],
+}
+TIPOS.update({k: [(et, re.compile(rx)) for et, rx in v] for k, v in _TIPOS_04OCT.items()})
+
 
 # Del NOMBRE, por categoría entera (specs_titulo.py, 26-sep): lo que en
 # Autopartes, Calzado, Ropa, Mascotas... la tienda casi nunca declara.

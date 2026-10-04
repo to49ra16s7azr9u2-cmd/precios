@@ -4093,6 +4093,25 @@ def _llanta_en_rines(tn):
 LOTES['auditoria_14'] = [
     ('Autos y motos', r'^(\d+ |paquete (de )?\d+ )?(llantas?|neumaticos?)\b', r'\b(rin|rines) (y|con) llantas?\b',
      'Autos y motos', _llanta_en_rines, {'Rines'}),
+    # 274 estampas del álbum Panini del Mundial 2026 (Walmart) entre las
+    # sandwicheras «panini».
+    ('Electrodomésticos', r'\bpanini\b.*(fifa|world cup|mundial|album|estampa|sticker|sobre|seleccion)'
+                          r'|(album|estampas?|stickers?)\b.*\bpanini\b', None,
+     'Juguetes', 'Funko y coleccionables', {'Wafleras, sandwicheras y creperas'}),
+    # 240 juegos de cerraduras de Italika (switch de encendido, asiento y
+    # tapón) entre las chapas de puerta.
+    ('Herramientas', r'italika', r'\basiento\b', 'Autopartes', 'Eléctrico y baterías de moto', {'Cerraduras y chapas de puerta'}),
+    ('Herramientas', r'italika.*\basiento\b|\basiento\b.*italika', None, 'Autopartes',
+     'Asientos, parrillas y accesorios de moto', {'Cerraduras y chapas de puerta'}),
+    # Bolsas que no son bolsa de mujer: de alimentos, de regalo (organza),
+    # de almacenamiento y de basura (~300 en «Bolsas para mujer»).
+    ('Bolsas y mochilas', r'ziploc|(almacenamiento|conservar|guardar) (de )?alimentos|para alimentos|hermetic', None,
+     'Cocina y comedor', 'Contenedores herméticos', {'Bolsas para mujer'}),
+    ('Bolsas y mochilas', r'organza|bolsas? (de|para) regalo|bolsa regalo|celofan', None,
+     'Juguetes', 'Artículos para fiestas', {'Bolsas para mujer'}),
+    ('Bolsas y mochilas', r'lavanderia|laundry|al vacio|\bvacio\b|ropa sucia|almacenamiento|guardar ropa|cobijas|edredones',
+     r'cosmetic|maquillaje|neceser', 'Muebles', 'Organizadores y almacenamiento', {'Bolsas para mujer'}),
+    ('Bolsas y mochilas', r'\bbasura\b', None, 'Limpieza y hogar', 'Bolsas de basura y desechables', {'Bolsas para mujer'}),
 ]
 REGLAS += LOTES['auditoria_14']
 
