@@ -770,6 +770,41 @@ def talla_mascota(nombre):
     return hits.pop() if len(hits) == 1 else None
 
 
+# ------------------------------------------------- muebles: material y tapizado
+# Del nombre, en el vocabulario de la ficha (04-oct-2026: mesas de centro,
+# escritorios, burós, repisas, taburetes... sólo se comparaban por precio y
+# la ficha dice el material en menos del 10%). «Color nogal», «tipo
+# mármol», «efecto madera» son el acabado, no el material; el MDF va antes
+# que la madera («madera MDF» es aglomerado).
+_NO_ES_MATERIAL = r"(?<!color )(?<!tono )(?<!tipo )(?<!acabado )(?<!imitacion )(?<!efecto )(?<!estilo )(?<!look )(?<!vinil )"
+_MATERIAL_MUEBLE = tuple((n, re.compile(r)) for n, r in (
+    ("Mármol", _NO_ES_MATERIAL + r"\b(marmol|marble)\b"),
+    ("Vidrio", _NO_ES_MATERIAL + r"\b(vidrio|cristal)\b"),
+    ("Ratán y mimbre", r"\bratt?an\b|\bmimbre|\bbejuco"),
+    ("Aglomerado (MDF/MDP)", r"\bmdf\b|\bmdp\b|melamin|aglomerado|\bparticulas\b"),
+    ("Madera", _NO_ES_MATERIAL + r"\bmaderas?\b|\bparota\b|\bteca\b|\bbambu\b|\b(pino|encino|roble|nogal|cedro) macizo"
+                                 r"|solid wood"),
+    ("Metal", _NO_ES_MATERIAL + r"\b(metal|metalic[oa]|acero|hierro|aluminio|forjad[oa]|herreria)\b"),
+    ("Plástico", _NO_ES_MATERIAL + r"\b(plastico|polipropileno|resina|pvc|acrilico)\b"),
+))
+_TAPIZADO = tuple((n, re.compile(r)) for n, r in (
+    ("Piel", r"\bpiel\b|\bcuero\b|vinipiel|\bvinil|\bpu\b|leather|curpiel"),
+    ("Terciopelo", r"terciopelo|velvet|\bpana\b|aterciopelad"),
+    ("Tela", r"\btela\b|\blino\b|poliester|chenille|boucle|textil|algodon|microfibra|\bfabric"),
+))
+
+
+def material_mueble(nombre):
+    n = _norm(nombre)
+    return next((nom for nom, rx in _MATERIAL_MUEBLE if rx.search(n)), None)
+
+
+def tapizado(nombre):
+    """Tela, terciopelo o piel (también la sintética) de un sofá o sillón."""
+    n = _norm(nombre)
+    return next((nom for nom, rx in _TAPIZADO if rx.search(n)), None)
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}

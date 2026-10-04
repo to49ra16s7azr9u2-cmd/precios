@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "cpu_socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "cpu_socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "upholstery", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -179,6 +179,9 @@ CAMPOS = {
                       usos=("Recámara", "La pantalla más común", "Pantallas grandes")),
     "tv_brand": dict(label="Para TV", criterion="de qué marca", ramp=False, max_tramos=8, min_tramo=0.02),
     "printer_brand": dict(label="Para impresora", criterion="de qué marca", ramp=False, max_tramos=6, min_tramo=0.02),
+    "upholstery": dict(label="Tapizado", criterion="según el nombre", ramp=False, orden=["Tela", "Terciopelo", "Piel"],
+                       valores={"Tela": "Lino, poliéster o chenille", "Terciopelo": "Suave, se ve elegante",
+                                "Piel": "Genuina o sintética, fácil de limpiar"}),
     "pet_size": dict(label="Talla", criterion="para qué tamaño de mascota", ramp=False, orden=["Chica", "Mediana", "Grande"],
                      valores={"Chica": "Mascota chica (XS, S)", "Mediana": "Mascota mediana (M)", "Grande": "Mascota grande (L, XL)"}),
     "metal": dict(label="Metal", criterion="de qué es", ramp=False,
@@ -458,6 +461,8 @@ CAMPO_SOLO_EN = {
     "shelves": {"Muebles/Libreros", "Muebles/Zapateras"},
     "drawers": {"Muebles/Cómodas y cajoneras"},
     "cpu_socket": {"Componentes y accesorios de PC/Tarjetas madre"},
+    "upholstery": {"Muebles/" + _s for _s in ("Sofás de 2 y 3 plazas", "Sofás seccionales y esquineros", "Sillones reclinables",
+                                               "Puffs y otomanas", "Sofás cama")},
     "pet_size": {"Mascotas/" + _s for _s in ("Camas para perro", "Arneses y pecheras", "Correas", "Collares para mascotas",
                                               "Ropa para mascotas", "Impermeables y abrigos para mascotas",
                                               "Camas elevadas y colchonetas", "Transportadoras", "Juguetes para perro")},

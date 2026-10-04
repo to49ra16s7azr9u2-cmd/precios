@@ -927,6 +927,12 @@ NOMBRE_GENERALES.setdefault(("Belleza y cuidado personal", "Planchas para cabell
 for _s in ("Cortadoras de cabello", "Recortadoras de barba"):
     NOMBRE_GENERALES.setdefault(("Belleza y cuidado personal", _s), []).append(("cordless", st.inalambrico_cuidado))
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Caminadoras"), []).append(("hp", st.caballos))
+for _s in ("Mesas de centro", "Escritorios de oficina", "Repisas", "Burós", "Taburetes y bancos",
+           "Organizadores y almacenamiento", "Sillas plegables y de camping", "Libreros", "Zapateras",
+           "Cómodas y cajoneras", "Mesas plegables y multiusos", "Percheros"):
+    NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("material", st.material_mueble))
+for _s in ("Sofás de 2 y 3 plazas", "Sofás seccionales y esquineros", "Sillones reclinables", "Puffs y otomanas", "Sofás cama"):
+    NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("upholstery", st.tapizado))
 for _s in ("Camas para perro", "Arneses y pecheras", "Correas", "Collares para mascotas", "Ropa para mascotas",
            "Impermeables y abrigos para mascotas", "Camas elevadas y colchonetas", "Transportadoras", "Juguetes para perro"):
     NOMBRE_GENERALES.setdefault(("Mascotas", _s), []).append(("pet_size", st.talla_mascota))
