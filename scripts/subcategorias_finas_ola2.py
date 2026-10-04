@@ -672,7 +672,7 @@ OLA2 += [
 def _tamano_cama(tn):
     if re.search(r'\bking\b|\bcalifornia king', tn): return 'king'
     if re.search(r'\bqueen\b', tn): return 'queen'
-    if re.search(r'\bmatrimonial|\bfull\b|\bdoble\b|\b135 ?x|\b140 ?x', tn): return 'matrimonial'
+    if re.search(r'\bmatrimonial|\bfull\b|\bdoble\b|\b135 ?x|\b140 ?x|\btamano completo|\bcama completa', tn): return 'matrimonial'
     if re.search(r'\bindividual|\btwin\b|\bsingle\b|\b90 ?x|\b100 ?x|\b105 ?x', tn): return 'individual'
     return None
 

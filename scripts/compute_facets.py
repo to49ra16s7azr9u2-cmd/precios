@@ -789,6 +789,16 @@ NOMBRE_GENERALES.setdefault(("Salud", "Básculas"), []).append(("scale_type", st
 for _s in ("Libreros", "Zapateras"):
     NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("shelves", st.niveles_mueble))
 NOMBRE_GENERALES.setdefault(("Muebles", "Cómodas y cajoneras"), []).append(("drawers", st.cajones_mueble))
+NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Tarjetas madre"), []).append(("socket", st.socket_tarjeta))
+NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Gabinetes"), []).append(("case_ff", st.formato_gabinete))
+NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Soportes para monitor"), []).append(("monitors", st.monitores_soporte))
+NOMBRE_GENERALES.setdefault(("Autos y motos", "Llantas para camión (rin 17.5 a 24.5)"), []).append(("truck_rim", st.rin_camion))
+NOMBRE_GENERALES.setdefault(("Aspiradoras", "Robots aspiradores"), []).append(("mop", st.trapea))
+NOMBRE_GENERALES.setdefault(("Electrodomésticos", "Máquinas de coser"), []).append(("stitches", st.puntadas))
+NOMBRE_GENERALES.setdefault(("Belleza y cuidado personal", "Planchas para cabello"), []).append(("plate_material", st.material_plancha))
+for _s in ("Cortadoras de cabello", "Recortadoras de barba"):
+    NOMBRE_GENERALES.setdefault(("Belleza y cuidado personal", _s), []).append(("cordless", st.inalambrico_cuidado))
+NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Caminadoras"), []).append(("hp", st.caballos))
 for _s in ("Tóner", "Cartuchos de tinta"):
     NOMBRE_GENERALES.setdefault(("Impresoras", _s), []).extend([("printer_brand", st.marca_impresora),
                                                               ("ink_color", st.color_tinta)])

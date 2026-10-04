@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -80,6 +80,7 @@ PRIORIDAD = [
     "bike_type", "filament", "tool_type", "rim_size", "wheel_size", "platform", "gender",
     "stone", "material", "water_resistant", "sport", "volume_ml",
     "anc", "audio_conn", "calls", "gps", "mobile_data", "dual_basket", "blackout", "polarized", "memory_foam",
+    "cordless",
 ]
 
 # Donde el orden general no es el de la compra: en una bicicleta el tipo y
@@ -118,7 +119,7 @@ PRIORIDAD_ESPECIFICA = {
 # unos cuantos; exigirles el 15% de cobertura de los demás campos los
 # dejaba fuera justo donde son la pregunta.
 RASGOS = {"anc", "calls", "gps", "mobile_data", "dual_basket", "blackout", "polarized", "memory_foam",
-          "water_resistant"}
+          "water_resistant", "mop", "cordless"}
 MIN_COBERTURA_RASGO = 0.03
 
 # Lo que dice cada campo: etiqueta de la fila, criterio, unidad y los tres
@@ -178,6 +179,30 @@ CAMPOS = {
                       usos=("Recámara", "La pantalla más común", "Pantallas grandes")),
     "tv_brand": dict(label="Para TV", criterion="de qué marca", ramp=False, max_tramos=8, min_tramo=0.02),
     "printer_brand": dict(label="Para impresora", criterion="de qué marca", ramp=False, max_tramos=6, min_tramo=0.02),
+    "socket": dict(label="Socket", criterion="para qué procesador", ramp=False,
+                   orden=["AM5", "AM4", "LGA 1851", "LGA 1700", "LGA 1200", "LGA 1151"],
+                   valores={"AM5": "AMD Ryzen 7000, 8000 y 9000", "AM4": "AMD Ryzen 1000 a 5000",
+                            "LGA 1851": "Intel Core Ultra serie 200", "LGA 1700": "Intel Core de 12.ª a 14.ª generación",
+                            "LGA 1200": "Intel Core de 10.ª y 11.ª generación", "LGA 1151": "Intel Core de 8.ª y 9.ª generación"}),
+    "case_ff": dict(label="Formato", criterion="la tarjeta madre más grande que cabe", ramp=False,
+                    orden=["Mini ITX", "Micro ATX", "ATX", "E-ATX"],
+                    valores={"Mini ITX": "El más compacto", "Micro ATX": "Mini torre", "ATX": "Media torre, el estándar",
+                             "E-ATX": "Torre completa"}),
+    "truck_rim": dict(label="Rin", criterion="medida del rin", ramp=False, orden=["17.5", "19.5", "22.5", "24.5"],
+                      valores={"17.5": "Camión ligero", "19.5": "Camión mediano", "22.5": "Tractocamión y autobús, la más común",
+                               "24.5": "Tractocamión"}),
+    "mop": dict(label="Trapea", criterion="según el nombre", ramp=False, orden=["Sí"],
+                mostrar={"Sí": "Aspira y trapea"}, valores={"Sí": "Trapea además de aspirar"}),
+    "cordless": dict(label="Inalámbrica", criterion="según el nombre", ramp=False, orden=["Sí"],
+                     mostrar={"Sí": "Inalámbrica"}, valores={"Sí": "Recargable, sin cable"}),
+    "plate_material": dict(label="Placas", criterion="de qué son", ramp=False, orden=["Cerámica", "Titanio", "Vapor"],
+                           valores={"Cerámica": "Calor parejo, cuida el cabello", "Titanio": "Calienta rápido, cabello grueso",
+                                    "Vapor": "Alacia con vapor"}),
+    "monitors": dict(label="Monitores", criterion="para cuántos", ramp=False, orden=["1 monitor", "2 monitores", "3 o más"],
+                     valores={"1 monitor": "Un brazo", "2 monitores": "Doble brazo", "3 o más": "Triple o más"}),
+    "stitches": dict(label="Puntadas", criterion="por número de puntadas", unit=" puntadas",
+                     nombres=("Básica", "Intermedia", "Completa"),
+                     usos=("Arreglos y dobladillos", "Costura en casa", "Proyectos y acolchados")),
     "pan_cm": dict(label="Diámetro", criterion="en centímetros", unit=" cm", nombres=("Chico", "Mediano", "Grande"),
                    usos=("Para uno o dos", "Para la familia", "Para cocinar en cantidad")),
     "pan_material": dict(label="Material", criterion="de la superficie", ramp=False,
@@ -404,11 +429,12 @@ CAMPO_SOLO_EN = {
     "speed_rating": {"Autos y motos"},
     "light_temp": {"Iluminación"},
     "doors": {"Muebles"},
-    "hp": {"Herramientas/Bombas de agua"},
+    "hp": {"Herramientas/Bombas de agua", "Deportes y fitness/Caminadoras"},
     "outlets": {"Cargadores y adaptadores/Regletas y multicontactos"},
     "tv_max_in": {"Muebles/Mesas para TV y consolas"},
     "steps": {"Herramientas/Escaleras"},
     "power_source": {"Aspiradoras/Verticales y de escoba"},
+    "cordless": {"Belleza y cuidado personal/Cortadoras de cabello", "Belleza y cuidado personal/Recortadoras de barba"},
     "tv_brand": {"Televisores/Controles para TV"},
     "printer_brand": {"Impresoras/Tóner", "Impresoras/Cartuchos de tinta"},
     "ink_color": {"Impresoras/Tóner", "Impresoras/Cartuchos de tinta"},
@@ -425,6 +451,13 @@ CAMPO_SOLO_EN = {
     "scale_type": {"Salud/Básculas"},
     "shelves": {"Muebles/Libreros", "Muebles/Zapateras"},
     "drawers": {"Muebles/Cómodas y cajoneras"},
+    "socket": {"Componentes y accesorios de PC/Tarjetas madre"},
+    "case_ff": {"Componentes y accesorios de PC/Gabinetes"},
+    "monitors": {"Componentes y accesorios de PC/Soportes para monitor"},
+    "truck_rim": {"Autos y motos/Llantas para camión (rin 17.5 a 24.5)"},
+    "mop": {"Aspiradoras/Robots aspiradores"},
+    "stitches": {"Electrodomésticos/Máquinas de coser"},
+    "plate_material": {"Belleza y cuidado personal/Planchas para cabello"},
     # La capacidad en pies es de refrigeradores de casa y congeladores; un
     # frigobar se compara en litros.
     "fridge_ft3": {"Refrigeradores/Top mount", "Refrigeradores/Bottom freezer",
@@ -509,6 +542,12 @@ FIJOS_POR_CLAVE = {
         ("v6", "6 V", "Para los más pequeños, en plano", "6 V", None, 6),
         ("v12", "12 V", "Más fuerza, de 3 a 6 años", "12 V", 6, 12),
         ("v24", "24 V o más", "Dos plazas o pasto y tierra", "24 V o más", 12, None)]),
+    # Caminadoras: el motor dice si es para caminar o para correr (los tramos
+    # de bomba de agua no aplican). 36% lo dice (04-oct-2026).
+    ("Deportes y fitness/Caminadoras", "hp"): ("Motor", "en caballos de fuerza", [
+        ("h2", "Hasta 2 HP", "Para caminar", "Hasta 2 HP", None, 2),
+        ("h3", "2.25 a 3 HP", "Caminar y trotar", "2.25 a 3 HP", 2, 3),
+        ("h4", "Más de 3 HP", "Correr a diario", "Más de 3 HP", 3, None)]),
     ("Juegos de mesa/Rompecabezas", "pieces"): ("Piezas", "por número de piezas", [
         ("p300", "Hasta 300", "Niños o para empezar", "Hasta 300 piezas", None, 300),
         ("p500", "500 a 750", "Una o dos tardes", "301 a 999 piezas", 300, 999),

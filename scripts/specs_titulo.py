@@ -642,6 +642,91 @@ def cajones_mueble(nombre):
     return next(iter(vals)) if len(vals) == 1 else None
 
 
+# ------------------------------------------------- PC, belleza y aparatos
+# Socket por chipset cuando el nombre no lo dice («B650M» es AM5): 96% de
+# las tarjetas madre dicen el chipset y 75% el socket (04-oct-2026).
+_CHIP = r"(?:[a-z]{0,2})\b"
+_SOCKET_RE = (("AM5", r"\bam5\b|\b(a620|b650|x670|b840|b850|x870)" + _CHIP),
+              ("AM4", r"\bam4\b|\b(a320|b350|x370|b450|x470|a520|b550|x570)" + _CHIP),
+              ("LGA 1851", r"\b(lga ?|socket ?)?1851\b|\b(h810|b860|z890)" + _CHIP),
+              ("LGA 1700", r"\b(lga ?|socket ?)?1700\b|\b(h610|b660|h670|z690|b760|h770|z790)" + _CHIP),
+              ("LGA 1200", r"\b(lga ?|socket ?)?1200\b|\b(h410|b460|h470|z490|h510|b560|h570|z590)" + _CHIP),
+              ("LGA 1151", r"\b(lga ?|socket ?)?1151\b|\b(h310|b360|b365|h370|z370|z390)" + _CHIP))
+_SOCKET_RX = [(n, re.compile(r)) for n, r in _SOCKET_RE]
+
+
+def socket_tarjeta(nombre):
+    """Socket de una tarjeta madre (AM5, AM4, LGA 1851, 1700, 1200)."""
+    n = _norm(nombre)
+    vals = {nom for nom, rx in _SOCKET_RX if rx.search(n)}
+    return vals.pop() if len(vals) == 1 else None
+
+
+def formato_gabinete(nombre):
+    """El formato más grande que admite un gabinete: E-ATX, ATX, Micro ATX
+    o Mini ITX («media torre» es ATX)."""
+    n = _norm(nombre)
+    if re.search(r"\be-? ?atx\b|full ?tower|torre completa|\bxl-?atx\b", n):
+        return "E-ATX"
+    if re.search(r"(?<!micro )(?<!micro-)(?<!\bm-)(?<!\bm)\batx\b|mid-? ?tower|media torre|mediana torre", n):
+        return "ATX"
+    if re.search(r"micro-? ?atx|\bm-?atx\b|mini ?torre|mini ?tower", n):
+        return "Micro ATX"
+    if re.search(r"\bmini-? ?itx\b|\bitx\b", n):
+        return "Mini ITX"
+    return None
+
+
+def rin_camion(nombre):
+    """El rin de una llanta de camión: 17.5, 19.5, 22.5 o 24.5."""
+    vals = set(re.findall(r"(?<![\d.])(17|19|22|24)\.5\b", _norm(nombre)))
+    return f"{vals.pop()}.5" if len(vals) == 1 else None
+
+
+def trapea(nombre):
+    """Robot que también trapea."""
+    n = _norm(nombre)
+    return "Sí" if re.search(r"trapea|\bmopa|\bmop\b|friega|aspira y (trapea|friega)|2 en 1|3 en 1", n) else None
+
+
+def puntadas(nombre):
+    """Puntadas de una máquina de coser («37 puntadas»)."""
+    vals = {int(m.group(1)) for m in re.finditer(r"\b(\d{1,4})\s*(puntadas|puntos|stitches)\b", _norm(nombre))
+            if 2 <= int(m.group(1)) <= 2000}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+def material_plancha(nombre):
+    """Las placas de una plancha para cabello."""
+    n = _norm(nombre)
+    if re.search(r"\bvapor\b|steam", n):
+        return "Vapor"
+    if re.search(r"titanio|titanium", n):
+        return "Titanio"
+    if re.search(r"ceramica|ceramic|turmalina|tourmaline", n):
+        return "Cerámica"
+    return None
+
+
+def inalambrico_cuidado(nombre):
+    """Cortadora o recortadora inalámbrica (recargable). Casi ninguna dice
+    «con cable», así que es un rasgo: «Sí» o nada."""
+    n = _norm(nombre)
+    return "Sí" if re.search(r"inalambric|recargable|cordless|\bbateria\b|sin cable|\busb\b", n) else None
+
+
+def monitores_soporte(nombre):
+    """Para cuántos monitores es un soporte."""
+    n = _norm(nombre)
+    if re.search(r"\b(triple|cuadruple|para (3|4|6|tres|cuatro|seis) (monitores|pantallas)|(3|4|6) (monitores|pantallas))\b", n):
+        return "3 o más"
+    if re.search(r"\b(doble|dual|para (2|dos) (monitores|pantallas)|2 (monitores|pantallas)|dos (monitores|pantallas))\b", n):
+        return "2 monitores"
+    if re.search(r"\b(sencillo|individual|un monitor|1 monitor|para (un|1) monitor|monitor unico)\b", n):
+        return "1 monitor"
+    return None
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}
