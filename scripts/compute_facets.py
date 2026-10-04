@@ -986,6 +986,32 @@ _TIPOS_04OCT.update({
         ("Para puerta", r"puerta"),
         ("De pared", r"pared|colgar")],
 })
+_TIPOS_04OCT.update({
+    ("Cocina y comedor", "Loncheras y termos para alimentos"): [
+        ("Termos para comida", r"termo (para|de) (comida|alimentos)|food jar|\bthermos\b|termo de acero"),
+        ("Bento y recipientes", r"\bbento|recipiente|fiambrera|contenedor|tupper|portacomida|portaviandas"),
+        ("Infantiles y escolares", r"escolar|infantil|\bninos?\b|\bninas?\b|\bkids\b|disney|marvel|paw patrol|personaje"
+                                   r"|princesa|hello kitty|stitch|spider"),
+        ("Para adulto", r"adulto|trabajo|oficina|hombre|mujer|ejecutiv|\bcooler|hielera")],
+    ("Belleza y cuidado personal", "Bálsamos labiales"): [
+        ("Con protección solar", r"\bspf|\bfps|protector solar"),
+        ("Con color", r"\btinte|tinted|con color"),
+        ("Exfoliantes", r"exfoliante|scrub"),
+        ("Mascarillas de noche", r"mascarilla|sleeping|nocturn|\bnoche\b")],
+    ("Muebles", "Muebles de baño"): [
+        ("Con lavabo", r"(?<!sin )\b(lavabo|ovalin|tarja|lavamanos)"),
+        ("Botiquines y con espejo", r"botiquin|espejo"),
+        ("Sobre el inodoro", r"sobre (el )?(inodoro|wc|sanitario|taza)|\bwc\b"),
+        ("Flotantes", r"flotante|de pared|colgante"),
+        ("Repisas y estantes", r"repisa|estante|anaquel|organizador|esquinero"),
+        ("Gabinetes", r"gabinete|mueble|cajonera|columna")],
+    ("Decoración de hogar y jardín", "Cojines"): [
+        ("Fundas", r"^(\S+ ){0,2}fundas?\b"),
+        ("Rectangulares o lumbares", r"rectangular|lumbar|rinonera"),
+        ("Redondos", r"redond|circular|\bdona\b"),
+        ("Cilíndricos", r"cilindr|\brollo|bolster"),
+        ("Cuadrados", r"cuadrad")],
+})
 TIPOS.update({k: [(et, re.compile(rx)) for et, rx in v] for k, v in _TIPOS_04OCT.items()})
 
 
