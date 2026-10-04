@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "cpu_socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "upholstery", "scale", "blind_cm", "lights", "sheets", "frame_cm", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "cpu_socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "upholstery", "scale", "blind_cm", "lights", "sheets", "frame_cm", "card_game", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -186,6 +186,7 @@ CAMPOS = {
                            "1:10": "Figura de unos 18 cm", "1:6": "Figura de unos 30 cm"}),
     "blind_cm": dict(label="Ancho", criterion="de la persiana", unit=" cm", nombres=("Angosta", "Mediana", "Ancha"),
                      usos=("Baño o ventana chica", "Recámara", "Sala o ventanal")),
+    "card_game": dict(label="Juego", criterion="qué cartas", ramp=False, max_tramos=8, min_tramo=0.015),
     "lights": dict(label="Luces", criterion="cuántos focos", unit=" luces", nombres=("Pocas", "Medias", "Muchas"),
                    usos=("Comedor o pasillo", "Sala o recámara", "Salas grandes y dobles alturas")),
     "sheets": dict(label="Hojas", criterion="por número de hojas", unit=" hojas", nombres=("Delgado", "Medio", "Grueso"),
@@ -477,6 +478,7 @@ CAMPO_SOLO_EN = {
     "scale": {"Juguetes/Maquetas"},
     "blind_cm": {"Decoración de hogar y jardín/Persianas"},
     "lights": {"Iluminación/Candiles y arañas", "Iluminación/Lámparas colgantes"},
+    "card_game": {"Juegos de mesa/De cartas"},
     "sheets": {"Papelería y oficina/Cuadernos"},
     "frame_cm": {"Decoración de hogar y jardín/Cuadros y decoración de pared"},
     "upholstery": {"Muebles/" + _s for _s in ("Sofás de 2 y 3 plazas", "Sofás seccionales y esquineros", "Sillones reclinables",

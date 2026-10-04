@@ -852,6 +852,22 @@ def tamano_cuadro(nombre):
     return v if 15 <= v <= 300 else None
 
 
+# ------------------------------------------------- juegos de cartas
+_JUEGO_CARTAS = tuple((n, re.compile(r)) for n, r in (
+    ("Pokémon", r"pokemon|pikachu"), ("Yu-Gi-Oh!", r"yu-?gi-?oh|yugioh"),
+    ("Magic", r"magic:? the gathering|\bmtg\b|magic gathering|\bmagic\b.*(booster|sobre|mazo|commander|draft)"),
+    ("One Piece", r"one piece"), ("Dragon Ball", r"dragon ball"), ("Lorcana", r"lorcana"), ("Star Wars", r"star wars"),
+    ("UNO", r"\buno\b"), ("Digimon", r"digimon"),
+    ("Deportes (Panini, Topps)", r"panini|topps|futbol|soccer|\bnba\b|\bnfl\b|baseball|beisbol"),
+))
+
+
+def juego_cartas(nombre):
+    """Qué juego o colección de cartas es (Pokémon, UNO, Magic...)."""
+    n = _norm(nombre)
+    return next((nom for nom, rx in _JUEGO_CARTAS if rx.search(n)), None)
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}

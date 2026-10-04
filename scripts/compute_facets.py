@@ -1082,6 +1082,7 @@ for _s in ("Candiles y arañas", "Lámparas colgantes"):
 NOMBRE_GENERALES.setdefault(("Papelería y oficina", "Cuadernos"), []).append(("sheets", st.hojas_cuaderno))
 NOMBRE_GENERALES.setdefault(("Decoración de hogar y jardín", "Cuadros y decoración de pared"), []).append(("frame_cm", st.tamano_cuadro))
 NOMBRE_GENERALES.setdefault(("Juguetes", "Disfraces"), []).append(("franchise", st.franquicia))
+NOMBRE_GENERALES.setdefault(("Juegos de mesa", "De cartas"), []).append(("card_game", st.juego_cartas))
 NOMBRE_GENERALES.setdefault(("Juguetes", "Maquetas"), []).append(("scale", st.escala_modelo))
 for _s in ("Sofás de 2 y 3 plazas", "Sofás seccionales y esquineros", "Sillones reclinables", "Puffs y otomanas", "Sofás cama"):
     NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("upholstery", st.tapizado))
