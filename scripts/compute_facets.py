@@ -747,6 +747,11 @@ REGLAS_TITULO.setdefault("Cocina y comedor", []).extend([("liters", lambda t: se
 REGLAS_TITULO.setdefault("Herramientas", []).append(("pieces", lambda t: se.pieces_of(t, 5, 1000) or se.pieces_set_of(t, 3, 1000)))
 for _c in ("Electrodomésticos", "Aspiradoras", "Cafeteras", "Climatización"):
     REGLAS_TITULO.setdefault(_c, []).append(("power_w", _w(20, 6000)))
+# Iluminación tenía sus nombres de tramo de potencia (compute_quality_axes:
+# Suave/Media/Potente) pero ninguna regla que la leyera: 1,243 focos dicen
+# «11 W» en el nombre y ninguno la tenía (04-oct-2026). «9W equivale a 60W»
+# trae dos y no se lee.
+REGLAS_TITULO.setdefault("Iluminación", []).append(("power_w", _w(1, 500)))
 REGLAS_TITULO.setdefault("Climatización", []).append(("ac_btu", se.ac_btu))
 # Rasgos que eran subcategorías y ahora son tarjetas de Compara calidad
 # (subcategorias_unidas.py, 26-sep): el nombre los dice o no.

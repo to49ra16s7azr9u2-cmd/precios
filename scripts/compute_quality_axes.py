@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -250,6 +250,12 @@ CAMPOS = {
     "chair_type": dict(label="Tipo", criterion="de silla", ramp=False),
     "bed_size": dict(label="Medida", criterion="de la cama", ramp=False,
                      orden=["Individual", "Matrimonial", "Queen", "King", "King size"]),
+    # La temperatura de la luz ya estaba en los facets de Iluminación (40% de
+    # los focos) y no era eje: los focos sólo se comparaban por precio.
+    "light_temp": dict(label="Luz", criterion="según el nombre", ramp=False,
+                       orden=["Cálida", "Neutra", "Fría", "RGB / colores"],
+                       valores={"Cálida": "Amarillenta, para recámara y sala", "Neutra": "Cocina y baño",
+                                "Fría": "Blanca, para estudiar o trabajar", "RGB / colores": "Cambia de color"}),
     "speed_rating": dict(label="Velocidad", criterion="máxima que aguanta (índice de velocidad)", ramp=False,
                          orden=["Hasta 190 km/h", "210 a 240 km/h", "270 km/h o más"],
                          valores={"Hasta 190 km/h": "Uso diario (Q a T)", "210 a 240 km/h": "Carretera (H y V)",
@@ -348,6 +354,7 @@ CAMPOS = {
 # material de un mueble o una joya sí, el de una licuadora no.
 CAMPO_SOLO_EN = {
     "speed_rating": {"Autos y motos"},
+    "light_temp": {"Iluminación"},
     # La capacidad en pies es de refrigeradores de casa y congeladores; un
     # frigobar se compara en litros.
     "fridge_ft3": {"Refrigeradores/Top mount", "Refrigeradores/Bottom freezer",
