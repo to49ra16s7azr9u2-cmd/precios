@@ -805,6 +805,26 @@ def tapizado(nombre):
     return next((nom for nom, rx in _TAPIZADO if rx.search(n)), None)
 
 
+# ------------------------------------------------- persianas y maquetas
+def ancho_persiana(nombre):
+    """El ancho de una persiana en cm: el que dice «ancho» o, en «140 x 220
+    cm», el primero (así se anuncian: ancho por alto). 72% lo dice."""
+    n = _norm(nombre)
+    m = re.search(r"\b(\d{2,3})\s*(cm)?\s*(de )?(ancho|an\b)", n) or re.search(r"\bancho:?\s*(?:de\s*)?(\d{2,3})", n)
+    if not m:
+        m = re.search(r"\b(\d{2,3})\s*(cm)?\s*x\s*\d{2,3}\s*cm\b", n)
+    if not m:
+        return None
+    v = int(m.group(1))
+    return v if 40 <= v <= 400 else None
+
+
+def escala_modelo(nombre):
+    """La escala de un auto o una figura a escala («1:64», «1/18»)."""
+    vals = {int(x) for x in re.findall(r"\b1\s*[:/]\s*(\d{1,3})\b", _norm(nombre)) if 4 <= int(x) <= 150}
+    return f"1:{vals.pop()}" if len(vals) == 1 else None
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}

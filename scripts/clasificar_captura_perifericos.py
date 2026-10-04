@@ -6635,8 +6635,13 @@ def _decidir_base(it, pistas=None):
     elif cat == 'Papelería y oficina': sub = reglas_nuevas.sub_papeleria(tn)
     elif cat == 'Otros': sub = sub_otros(tn) or sub
     sub = afinar_ola2(cat, sub, tn)
-    if via == 'departamento_walmart' and cat == 'Decoración de hogar y jardín':
-        sub = reglas_nuevas.sub_decoracion_nueva(tn)
+    if cat == 'Decoración de hogar y jardín':
+        # Para toda tienda, no sólo Walmart: sin esto los cuadros de Elektra
+        # caían en Espejos (04-oct-2026). La de Walmart manda aunque no diga
+        # nada (su departamento ya decidió la categoría).
+        nueva = reglas_nuevas.sub_decoracion_nueva(tn)
+        if nueva or via == 'departamento_walmart':
+            sub = nueva
     # Deportes va por deporte y después por equipo (23-sep): sub_deporte y
     # afinar_ola2 siguen devolviendo el tipo de equipo, y esto lo lleva a la
     # subcategoría del deporte.

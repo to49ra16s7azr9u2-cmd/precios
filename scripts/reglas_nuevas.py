@@ -106,6 +106,14 @@ RX_DECO = [
     (re.compile(r'^(?:\S+ ){0,2}(floreros?|jarrones?|centros? de mesa)\b'), 'Floreros y centros de mesa'),
     (re.compile(r'^(?:\S+ ){0,2}(portarretratos?|marcos? (para|de) fotos?)\b'), 'Portarretratos'),
     (re.compile(r'^(?:\S+ ){0,2}(vinil(o)? decorativo|stickers? de pared|calcomanias? de pared)\b'), 'Vinil decorativo'),
+    # 04-oct-2026: 848 «Cuadro Decorativo ...» y 39 persianas de Elektra
+    # quedaron en Espejos decorativos de pared (ver sub_decoracion en
+    # subcategorias_tres_niveles.py).
+    (re.compile(r'^(?:\S+ ){0,2}(cuadros?|lienzos?|posters?|laminas? decorativas?|arte de pared|pinturas? decorativas?)\b'
+                r'(?!.{0,30}\bespejo)'), 'Cuadros y decoración de pared'),
+    (re.compile(r'^(?:\S+ ){0,2}persianas?\b'), 'Persianas'),
+    (re.compile(r'^(?:\S+ ){0,3}(cortinas?|paneles? de cortinas?|visillos?)\b(?!.{0,15}\b(de bano|para bano|de ducha)\b)'),
+     'Cortinas'),
     (re.compile(r'^(?:\S+ ){0,2}(arbol(es)? de navidad|esferas? navidenas?|adornos? navidenos?|adornos? de arbol|'
                 r'nacimiento navideno|coronas? navidenas?|calabaza decorativa|decoracion de halloween|dia de muertos)\b'),
      'Navidad y temporada'),

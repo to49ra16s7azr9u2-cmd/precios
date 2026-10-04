@@ -449,7 +449,16 @@ _DEC = _c([
 
 
 def sub_decoracion(tn, sub_vieja=None):
-    return _primera(tn, _DEC, {}) or ('Asadores' if sub_vieja == 'Asadores' else 'Espejos decorativos de pared')
+    # Sólo lo que era «Espejos» cae por omisión en Espejos decorativos: con
+    # la omisión para todo, el gancho de la captura (afinar_ola2) mandaba ahí
+    # cualquier ficha de Decoración que no fuera espejo (848 cuadros y 39
+    # persianas de Elektra, 04-oct-2026).
+    # Y las ramas de espejo (la de baño casa con «baño» a secas) sólo para lo
+    # que dice espejo, tocador o botiquín: una cortina de baño no es espejo.
+    omision = {'Asadores': 'Asadores', 'Espejos': 'Espejos decorativos de pared'}.get(sub_vieja)
+    if not re.search(r'\bespejo|\btocador|\bvanity\b|\bbotiquin|\basador|\bparrilla|\bgrill\b|\bbbq\b', tn):
+        return omision
+    return _primera(tn, _DEC, {}) or omision
 
 
 # -------------------------------------------------------------- Impresión 3D

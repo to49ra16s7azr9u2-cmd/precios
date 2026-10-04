@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "cpu_socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "upholstery", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "cpu_socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "upholstery", "scale", "blind_cm", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -179,6 +179,13 @@ CAMPOS = {
                       usos=("Recámara", "La pantalla más común", "Pantallas grandes")),
     "tv_brand": dict(label="Para TV", criterion="de qué marca", ramp=False, max_tramos=8, min_tramo=0.02),
     "printer_brand": dict(label="Para impresora", criterion="de qué marca", ramp=False, max_tramos=6, min_tramo=0.02),
+    "scale": dict(label="Escala", criterion="del modelo", ramp=False, min_tramo=0.02,
+                  orden=["1:64", "1:43", "1:32", "1:24", "1:18", "1:12", "1:10", "1:6"],
+                  valores={"1:64": "Tamaño Hot Wheels, unos 7 cm", "1:43": "Unos 10 cm", "1:32": "Unos 14 cm",
+                           "1:24": "Unos 19 cm", "1:18": "Unos 25 cm, con más detalle", "1:12": "Unos 35 cm",
+                           "1:10": "Figura de unos 18 cm", "1:6": "Figura de unos 30 cm"}),
+    "blind_cm": dict(label="Ancho", criterion="de la persiana", unit=" cm", nombres=("Angosta", "Mediana", "Ancha"),
+                     usos=("Baño o ventana chica", "Recámara", "Sala o ventanal")),
     "upholstery": dict(label="Tapizado", criterion="según el nombre", ramp=False, orden=["Tela", "Terciopelo", "Piel"],
                        valores={"Tela": "Lino, poliéster o chenille", "Terciopelo": "Suave, se ve elegante",
                                 "Piel": "Genuina o sintética, fácil de limpiar"}),
@@ -461,6 +468,8 @@ CAMPO_SOLO_EN = {
     "shelves": {"Muebles/Libreros", "Muebles/Zapateras"},
     "drawers": {"Muebles/Cómodas y cajoneras"},
     "cpu_socket": {"Componentes y accesorios de PC/Tarjetas madre"},
+    "scale": {"Juguetes/Maquetas"},
+    "blind_cm": {"Decoración de hogar y jardín/Persianas"},
     "upholstery": {"Muebles/" + _s for _s in ("Sofás de 2 y 3 plazas", "Sofás seccionales y esquineros", "Sillones reclinables",
                                                "Puffs y otomanas", "Sofás cama")},
     "pet_size": {"Mascotas/" + _s for _s in ("Camas para perro", "Arneses y pecheras", "Correas", "Collares para mascotas",

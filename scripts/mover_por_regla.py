@@ -4112,6 +4112,19 @@ LOTES['auditoria_14'] = [
     ('Bolsas y mochilas', r'lavanderia|laundry|al vacio|\bvacio\b|ropa sucia|almacenamiento|guardar ropa|cobijas|edredones',
      r'cosmetic|maquillaje|neceser', 'Muebles', 'Organizadores y almacenamiento', {'Bolsas para mujer'}),
     ('Bolsas y mochilas', r'\bbasura\b', None, 'Limpieza y hogar', 'Bolsas de basura y desechables', {'Bolsas para mujer'}),
+    # 848 cuadros, 39 persianas y algunos cojines y cortinas de Elektra en
+    # Espejos decorativos de pared (el repartidor de tres niveles los mandaba
+    # ahí por omisión; ya no).
+    ('Decoración de hogar y jardín', r'\bcuadros?\b|\bimpreso\b|\blienzo|\bcanvas\b|\boleo\b|\bposter|\blamina',
+     r'\bespejos?\b', 'Decoración de hogar y jardín', 'Cuadros y decoración de pared', {'Espejos decorativos de pared'}),
+    ('Decoración de hogar y jardín', r'\bpersianas?\b', r'\bespejos?\b', 'Decoración de hogar y jardín', 'Persianas',
+     {'Espejos decorativos de pared'}),
+    ('Decoración de hogar y jardín', r'\bcortinas?\b', r'\bespejos?\b', 'Decoración de hogar y jardín', 'Cortinas',
+     {'Espejos decorativos de pared'}),
+    ('Decoración de hogar y jardín', r'\bdicasa\b|\bcojin', r'\bespejos?\b', 'Decoración de hogar y jardín', 'Cojines',
+     {'Espejos decorativos de pared'}),
+    ('Decoración de hogar y jardín', r'papel tapiz', r'\bespejos?\b', 'Decoración de hogar y jardín', 'Vinil decorativo',
+     {'Espejos decorativos de pared'}),
 ]
 REGLAS += LOTES['auditoria_14']
 

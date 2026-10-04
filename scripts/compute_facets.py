@@ -841,6 +841,62 @@ _TIPOS_04OCT.update({
         ("Con reposamuñecas", r"reposamunecas|\bmunecas?\b|\bgel\b|ergonomic|wrist"),
         ("Extendido", r"\bxxl\b|\bxl\b|extendid|extra grande|\bgrande\b|escritorio|desk ?mat|\b(70|80|90|100|120) ?x ?(30|35|40|50|60)\b")],
 })
+_TIPOS_04OCT.update({
+    ("Decoración de hogar y jardín", "Persianas"): [
+        ("Sheer o dúo", r"\bsheer|\bduo\b|elegance|zebra|doble capa"),
+        ("Blackout", r"blackout|black ?out|\bopaca|\bdense\b|dimout"),
+        ("Malla solar o screen", r"\bmalla|\bscreen|\bsolar\b|filtro (ligero|solar)|traslucid"),
+        ("Madera o tipo madera", r"\bwood|madera|bambu"),
+        ("Romana", r"\bromana")],
+    ("Instrumentos musicales", "Micrófonos"): [
+        ("Inalámbricos", r"inalambric|wireless|\buhf\b|\bvhf\b|bluetooth"),
+        ("Lavalier o diadema", r"lavalier|\bsolapa|corbata|diadema|headset|de cabeza"),
+        ("USB", r"\busb\b"),
+        ("Condensador", r"condensador|condenser"),
+        ("Para instrumento", r"instrumento|\bbateria\b|tambor|guitarra|amplificador|bombo"),
+        ("Dinámico", r"dinamico|dynamic|\bsm ?58\b|\bpga ?\d|\bvocal\b")],
+    ("Herramientas", "Apagadores y contactos"): [
+        ("Termomagnéticos", r"termomagnetic|breaker|pastilla"),
+        ("Con USB", r"\busb\b"),
+        ("Sensores, timers y dimmers", r"\bsensor|temporizador|\btimer|dimmer|regulador|atenuador"),
+        ("Placas y tapas", r"^(\S+ ){0,2}(placas?|tapas?|cubiertas?)\b"),
+        ("Contactos", r"contacto|tomacorriente|enchufe|receptaculo|\bduplex|clavija"),
+        ("Apagadores", r"apagador|interruptor|\bswitch|\bboton")],
+    ("Blancos y ropa de cama", "Toallas de baño"): [
+        ("Medio baño y manos", r"medio bano|de manos|facial|tocador|\bde mano\b"),
+        ("Playa y alberca", r"\bplaya|alberca|piscina"),
+        ("Para cabello", r"cabello|turbante|\bpelo\b"),
+        ("Juegos", r"\bjuego|\bset\b|\bpack\b|paquete|\d+ (piezas|pzas)\b"),
+        ("De baño completo", r"completo|cuerpo|grande|\bbano\b")],
+    ("Herramientas", "Construcción"): [
+        ("Impermeabilizantes", r"impermeabilizante|impercaucho|\bimper\b"),
+        ("Selladores y primarios", r"sellador|primario|\bprimer\b"),
+        ("Esmaltes y anticorrosivos", r"esmalte|anticorrosivo|alquidalic"),
+        ("Pintura", r"\bvinil|vinilica|acrilica|\bpintura"),
+        ("Cementos y resanadores", r"cemento|resanador|\bpasta\b|mortero|pegazulejo|adhesivo para (azulejo|piso)|\byeso\b|\bmezcla\b")],
+    ("Iluminación", "Lámparas de escritorio"): [
+        ("Nocturnas", r"nocturn|de noche|quitamiedo|\bbebe\b|infantil"),
+        ("Con brazo o clip", r"\bbrazo|flexo|\bclip\b|\bpinza|articulad|arquitecto"),
+        ("De escritorio y lectura", r"escritorio|lectura|estudio|oficina"),
+        ("De mesa o buró", r"\bmesa\b|\bburo|velador|decorativ|ceramica|pantalla")],
+    ("Iluminación", "Decorativa"): [
+        ("Kits para LEGO", r"\blego\b"),
+        ("Calentadores de velas", r"calentador\w* de velas|candle warmer"),
+        ("Velas LED", r"\bvelas?\b"),
+        ("Series y guirnaldas", r"\bseries?\b|guirnalda|cortina de luces|\bhadas?\b|cadena de luces|\bstring|\btira\b"),
+        ("Neón y letreros", r"\bneon|letrero|\bsign\b"),
+        ("Proyectores", r"proyector|galaxia|estrellas|aurora"),
+        ("Nocturnas y con sensor", r"nocturn|\bsensor|movimiento|de noche|quitamiedo"),
+        ("Lámparas 3D y figuras", r"\b3d\b|\bluna\b|esfera|holograf|\bfigura|paladone"),
+        ("Para exterior y solares", r"\bsolar|exterior|jardin")],
+    ("Mascotas", "Platos y tazones para mascotas"): [
+        ("Automáticos", r"automatic|programable|dispensador"),
+        ("Antivoracidad", r"\blent[ao]\b|antivoracidad|\bslow\b|anti ?voraz"),
+        ("Elevados", r"elevad|con soporte|\baltura"),
+        ("Acero inoxidable", r"\bacero|inoxidable|stainless"),
+        ("Cerámica", r"ceramica|ceramic"),
+        ("Plástico y silicona", r"plastico|silicon|melamina|plegable")],
+})
 TIPOS.update({k: [(et, re.compile(rx)) for et, rx in v] for k, v in _TIPOS_04OCT.items()})
 
 
@@ -931,6 +987,8 @@ for _s in ("Mesas de centro", "Escritorios de oficina", "Repisas", "Burós", "Ta
            "Organizadores y almacenamiento", "Sillas plegables y de camping", "Libreros", "Zapateras",
            "Cómodas y cajoneras", "Mesas plegables y multiusos", "Percheros"):
     NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("material", st.material_mueble))
+NOMBRE_GENERALES.setdefault(("Decoración de hogar y jardín", "Persianas"), []).append(("blind_cm", st.ancho_persiana))
+NOMBRE_GENERALES.setdefault(("Juguetes", "Maquetas"), []).append(("scale", st.escala_modelo))
 for _s in ("Sofás de 2 y 3 plazas", "Sofás seccionales y esquineros", "Sillones reclinables", "Puffs y otomanas", "Sofás cama"):
     NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("upholstery", st.tapizado))
 for _s in ("Camas para perro", "Arneses y pecheras", "Correas", "Collares para mascotas", "Ropa para mascotas",
