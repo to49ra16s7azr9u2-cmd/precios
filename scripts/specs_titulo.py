@@ -754,6 +754,22 @@ def metal_joya(nombre):
     return None
 
 
+# ------------------------------------------------- mascotas: talla
+# La talla de una cama, un arnés o un suéter («Talla M», «para perros
+# pequeños», «XL»): 24-57% la dice (04-oct-2026).
+_TALLA_CHICA = re.compile(r"\btalla:? ?(xxs|xs|s|ch|chica|p)\b|\b(xxs|xs)\b|\b(chic[oa]s?|pequen[oa]s?|mini|toy|small|petite)\b")
+_TALLA_MEDIANA = re.compile(r"\btalla:? ?(m|med|mediana)\b|\b(median[oa]s?|medium)\b")
+_TALLA_GRANDE = re.compile(r"\btalla:? ?(l|xl|xxl|xxxl|g|eg|grande)\b|\b(xl|xxl|xxxl|2xl|3xl)\b"
+                           r"|\b(grandes?|large|gigantes?|extra ?grande|jumbo)\b")
+
+
+def talla_mascota(nombre):
+    """Chica, Mediana o Grande; None si no dice o dice más de una."""
+    n = _norm(nombre)
+    hits = {t for t, rx in (("Chica", _TALLA_CHICA), ("Mediana", _TALLA_MEDIANA), ("Grande", _TALLA_GRANDE)) if rx.search(n)}
+    return hits.pop() if len(hits) == 1 else None
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}

@@ -786,6 +786,61 @@ _TIPOS_04OCT = {
         ("Para regadera y tina", r"regadera|\btina\b|banera|ducha"),
         ("Para jardín y lavadero", r"jardin|lavadero|\bnariz\b|exterior|lavadora")],
 }
+_TIPOS_04OCT.update({
+    ("Bebés", "Carriolas"): [
+        ("Accesorios", r"^(\S+ ){0,2}(organizador|cubierta|mosquitero|protector|plastico|funda|gancho|sombrilla|toldo|cojin"
+                       r"|ventilador|portavasos|tabla|plataforma|bolsa|manta|saco)"),
+        ("Sistema de viaje", r"sistema de viaje|travel system|autoasiento|porta ?bebe|silla (para|de) auto|\b[23] en 1\b"),
+        ("Doble", r"\bdoble\b|gemelar|\bdouble\b|\btwin\b|tandem|dos bebes|hermanos"),
+        ("Para correr", r"jogger|trotar|correr|3 ruedas|tres ruedas|todo terreno|all terrain"),
+        ("Ligera o de bastón", r"ligera|\bbaston|paraguas|umbrella|lightweight|compacta|compact|pocket|cabina")],
+    ("Electrodomésticos", "Filtros y membranas de repuesto"): [
+        ("Para fuente de mascotas", r"\bfuente\b|mascota|\bgatos?\b|\bperros?\b"),
+        ("Para humidificador", r"humidificador|\bmecha"),
+        ("Para aspiradora", r"aspiradora"),
+        ("Para cafetera", r"cafetera"),
+        ("Para regadera", r"regadera|ducha"),
+        ("Para jarra o dispensador", r"\bjarra|brita|pitcher|dispensador|garrafon|despachador"),
+        ("Para refrigerador", r"refrigerador|nevera|everydrop|ice ?maker|frigidaire"),
+        ("Para purificador de aire", r"purificador de aire|\bhepa\b|\baire\b|levoit|blueair|coway|winix"),
+        ("Para agua (ósmosis y cartuchos)", r"osmosis|membrana|bajo tarja|ultrafiltracion|etapas|sedimento|carbon activado"
+                                            r"|polipropileno|\bmicras\b|\bagua\b")],
+    ("Belleza y cuidado personal", "Polvos, rubores y bronceadores"): [
+        ("Rubor", r"\brubor|\bblush|colorete"),
+        ("Bronceador y contorno", r"bronceador|bronzer|contorno|contour"),
+        ("Iluminador", r"iluminador|highlighter|\bglow\b"),
+        ("Polvo fijador", r"fijador|tra(n)?slucido|setting|sellador"),
+        ("Polvo compacto", r"\bpolvo|powder|compacto")],
+    ("Belleza y cuidado personal", "Sombras y delineadores"): [
+        ("Para cejas", r"\bcejas?\b|\bbrow"),
+        ("Delineador de labios", r"\blabios\b|\blip\b"),
+        ("Delineador de ojos", r"delineador|\bliner|\bkohl\b|lapiz de ojos"),
+        ("Paleta de sombras", r"paleta|palette|\btonos\b|\d+ colores"),
+        ("Sombra individual", r"\bsombra|eyeshadow|shadow|pigmento")],
+    ("Belleza y cuidado personal", "Labiales"): [
+        ("Gloss y aceite", r"\bgloss|\bbrillo|\bshine\b|aceite|lip oil"),
+        ("Tinta", r"\btinta\b|\btint\b|\bstain\b"),
+        ("Mate", r"\bmate\b|\bmatte\b|velvet|terciopelo"),
+        ("Cremoso o satinado", r"satin|satinado|cremos|\bcrema\b|hidratante|rouge")],
+    ("Herramientas", "Candados"): [
+        ("Inteligentes", r"huella|bluetooth|inteligente|\bsmart\b|biometric|\bapp\b"),
+        ("De combinación", r"combinacion|digitos|\bclave\b|\bcodigo\b|numerico|\btsa\b"),
+        ("Para moto o bici", r"\bfreno|motocicleta|\bmoto\b|bicicleta|\bbici\b|u-?lock|en u\b|disc lock|de disco para"),
+        ("Para remolque", r"remolque|enganche|trailer"),
+        ("De cable o cadena", r"\bcable|\bcadena|guaya"),
+        ("De llave", r"\bllaves?\b|laminado|laton|antipalanca|cortina|gancho")],
+    ("Mascotas", "Transportadoras"): [
+        ("Carriola", r"carriola|stroller|ruedas"),
+        ("Mochila", r"mochila|backpack"),
+        ("Para auto", r"asiento|\bcoche\b|\bauto\b|cinturon|\bcarro\b"),
+        ("Jaula rígida", r"\bjaula|rigida|kennel|plastico|aprobad|aerolinea|\baerea\b|\biata\b"),
+        ("Bolsa", r"\bbolsa|\bbolso|maleta|transportin|\btela\b|plegable")],
+    ("Mouse", "Mousepads y tapetes"): [
+        ("Con carga inalámbrica", r"carga inalambrica|cargador|\bqi\b|wireless charg"),
+        ("RGB", r"\brgb\b|\bled\b|\bluz\b|iluminad"),
+        ("Con reposamuñecas", r"reposamunecas|\bmunecas?\b|\bgel\b|ergonomic|wrist"),
+        ("Extendido", r"\bxxl\b|\bxl\b|extendid|extra grande|\bgrande\b|escritorio|desk ?mat|\b(70|80|90|100|120) ?x ?(30|35|40|50|60)\b")],
+})
 TIPOS.update({k: [(et, re.compile(rx)) for et, rx in v] for k, v in _TIPOS_04OCT.items()})
 
 
@@ -872,6 +927,9 @@ NOMBRE_GENERALES.setdefault(("Belleza y cuidado personal", "Planchas para cabell
 for _s in ("Cortadoras de cabello", "Recortadoras de barba"):
     NOMBRE_GENERALES.setdefault(("Belleza y cuidado personal", _s), []).append(("cordless", st.inalambrico_cuidado))
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Caminadoras"), []).append(("hp", st.caballos))
+for _s in ("Camas para perro", "Arneses y pecheras", "Correas", "Collares para mascotas", "Ropa para mascotas",
+           "Impermeables y abrigos para mascotas", "Camas elevadas y colchonetas", "Transportadoras", "Juguetes para perro"):
+    NOMBRE_GENERALES.setdefault(("Mascotas", _s), []).append(("pet_size", st.talla_mascota))
 for _s in ("Collares", "Pulseras", "Aretes", "Dijes y charms", "Anillos", "Cadenas", "Arracadas", "Broqueles",
            "Anillos de compromiso"):
     NOMBRE_GENERALES.setdefault(("Joyería y bisutería", _s), []).append(("metal", st.metal_joya))
