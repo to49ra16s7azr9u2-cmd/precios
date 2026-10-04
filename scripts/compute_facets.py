@@ -732,7 +732,8 @@ for _c in ("Ropa y accesorios", "Deportes y fitness"):
     REGLAS_TITULO.setdefault(_c, []).append(("size_label", se.size_label_of))
 for _c in ("Autopartes", "Autos y motos"):
     REGLAS_TITULO.setdefault(_c, []).extend([("position", st.posicion), ("side", st.lado),
-                                             ("tire_size", st.medida_llanta)])
+                                             ("tire_size", st.medida_llanta),
+                                             ("speed_rating", st.velocidad_llanta)])
 REGLAS_TITULO.setdefault("Mascotas", []).append(("pet", st.mascota))
 for _c in ("Iluminación", "Domótica y hogar inteligente"):
     REGLAS_TITULO.setdefault(_c, []).extend([("light_temp", st.temperatura_luz), ("socket", st.base_foco)])

@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -250,6 +250,10 @@ CAMPOS = {
     "chair_type": dict(label="Tipo", criterion="de silla", ramp=False),
     "bed_size": dict(label="Medida", criterion="de la cama", ramp=False,
                      orden=["Individual", "Matrimonial", "Queen", "King", "King size"]),
+    "speed_rating": dict(label="Velocidad", criterion="máxima que aguanta (índice de velocidad)", ramp=False,
+                         orden=["Hasta 190 km/h", "210 a 240 km/h", "270 km/h o más"],
+                         valores={"Hasta 190 km/h": "Uso diario (Q a T)", "210 a 240 km/h": "Carretera (H y V)",
+                                  "270 km/h o más": "Alto desempeño (W, Y, Z)"}),
     "firmness": dict(label="Firmeza", criterion="del colchón", ramp=False,
                      orden=["Suave", "Medio", "Firme", "Extra firme"]),
     "storage_type": dict(label="Disco", criterion="por tipo", ramp=False,
@@ -343,6 +347,7 @@ CAMPOS = {
 # Campos que solo son una decisión de compra en algunas categorías: el
 # material de un mueble o una joya sí, el de una licuadora no.
 CAMPO_SOLO_EN = {
+    "speed_rating": {"Autos y motos"},
     # La capacidad en pies es de refrigeradores de casa y congeladores; un
     # frigobar se compara en litros.
     "fridge_ft3": {"Refrigeradores/Top mount", "Refrigeradores/Bottom freezer",

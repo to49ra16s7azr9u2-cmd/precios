@@ -162,6 +162,26 @@ def medida_llanta(nombre):
     return f"{m.group(1)}/{m.group(2)} R{m.group(3)}" if m else None
 
 
+# El índice de carga y de velocidad que va después de la medida: «185/65 R15
+# 88H», «LT265/70R17 121/118S». La letra es la velocidad máxima que la
+# llanta aguanta cargada, que es lo que la separa por desempeño: 41 mil
+# llantas sólo tenían el precio en Compara calidad (04-oct-2026) y el 87%
+# dice su letra.
+_VELOCIDAD_LLANTA_RE = re.compile(r"(?<![\d/.])(\d{2,3})(?:/\d{2,3})?\s?([qrsthvwyz])\b")
+VELOCIDADES_LLANTA = {"q": "Hasta 190 km/h", "r": "Hasta 190 km/h", "s": "Hasta 190 km/h", "t": "Hasta 190 km/h",
+                      "h": "210 a 240 km/h", "v": "210 a 240 km/h",
+                      "w": "270 km/h o más", "y": "270 km/h o más", "z": "270 km/h o más"}
+
+
+def velocidad_llanta(nombre):
+    n = _norm(nombre)
+    if not (_LLANTA_RE.search(n) or re.search(r"\bllantas?\b|\bneumaticos?\b", n)):
+        return None
+    tramos = {VELOCIDADES_LLANTA[m.group(2)] for m in _VELOCIDAD_LLANTA_RE.finditer(n)
+              if 50 <= int(m.group(1)) <= 130}
+    return next(iter(tramos)) if len(tramos) == 1 else None
+
+
 # ------------------------------------------------------------- moda y hogar
 _COLORES = (
     ("Multicolor", r"multicolor|arcoiris|arco iris|colores surtidos"),
