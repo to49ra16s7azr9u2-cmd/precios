@@ -742,8 +742,8 @@ REGLAS_TITULO.setdefault("Herramientas", []).append(("power_source", st.inalambr
 for _c in ("Belleza y cuidado personal", "Limpieza y hogar", "Suplementos"):
     REGLAS_TITULO.setdefault(_c, []).append(("volume_ml", lambda t: se.ml_of(t, 5, 5000)))
 REGLAS_TITULO.setdefault("Cocina y comedor", []).extend([("liters", lambda t: se.liters_of(t, 0.2, 60)),
-                                                        ("pieces", lambda t: se.pieces_of(t, 2, 200))])
-REGLAS_TITULO.setdefault("Herramientas", []).append(("pieces", lambda t: se.pieces_of(t, 5, 1000)))
+                                                        ("pieces", lambda t: se.pieces_of(t, 2, 200) or se.pieces_set_of(t, 2, 200))])
+REGLAS_TITULO.setdefault("Herramientas", []).append(("pieces", lambda t: se.pieces_of(t, 5, 1000) or se.pieces_set_of(t, 3, 1000)))
 for _c in ("Electrodomésticos", "Aspiradoras", "Cafeteras", "Climatización"):
     REGLAS_TITULO.setdefault(_c, []).append(("power_w", _w(20, 6000)))
 REGLAS_TITULO.setdefault("Climatización", []).append(("ac_btu", se.ac_btu))

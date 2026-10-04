@@ -1679,6 +1679,27 @@ def pieces_of(text, lo, hi):
     return _uno(vals)
 
 
+# «Set 4 vasos vidrio», «Vaso Bormioli 300 ml - Juego de 6», «12 platos
+# ovalados», «Kit 30 Brocas»: el número de piezas sin la palabra «piezas».
+# Sólo con «set/juego/kit/pack/paquete/vajilla (de) N» o con N delante del
+# objeto mismo, para no leer «10 velocidades» o «5 litros» (04-oct-2026:
+# ~1,100 vasos y platos con el número en el nombre no tenían «Piezas»).
+# «tazas» y «puntas» sólo después de set/juego: «4 tazas» es la capacidad de
+# una cuchara medidora y «dado 12 puntas» la forma del dado, no piezas.
+_OBJETOS_SET = (r"vasos|copas|platos|bowls|tazones|jarras|contenedores|recipientes|tarros|frascos|"
+                r"cuchillos|cucharas|cucharitas|tenedores|cubiertos|sartenes|ollas|refractarios|charolas|"
+                r"tuppers?|botes|brocas|dados|llaves|desarmadores|discos|cinceles|cardas")
+_SET_DE_RE = re.compile(r"\b(?:set|juego|kit|pack|paquete|vajilla|estuche)\s+(?:de\s+|con\s+)?(\d{1,3})\b(?!\s*(?:ml|l|lt|cm|mm|oz|g|kg|w|v|pulgadas?|\"|litros?|velocidades|niveles|en 1))")
+_N_OBJETOS_RE = re.compile(r"(?<![\d.,/])(\d{1,3})\s+(?:" + _OBJETOS_SET + r")\b")
+
+
+def pieces_set_of(text, lo, hi):
+    """Piezas de un set cuando el nombre no dice «piezas» (ver arriba)."""
+    n = _norm(text or "")
+    vals = {int(m.group(1)) for m in _SET_DE_RE.finditer(n)} | {int(m.group(1)) for m in _N_OBJETOS_RE.finditer(n)}
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
 # En rompecabezas la tienda dice también «1000 Unidades» o «1000 p»: en
 # cualquier otro producto «unidades» es el paquete, acá son las piezas.
 _PUZZLE_RE = re.compile(r"(?<![\d.,])(\d{2,5})\s*(?:unidades\b|p\b|pzs?\.|piezas?\b|pzas?\b|pcs\b|pieces?\b)")
