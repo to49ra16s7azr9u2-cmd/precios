@@ -727,6 +727,33 @@ def monitores_soporte(nombre):
     return None
 
 
+# ------------------------------------------------- joyería: de qué metal
+# Oro de kilates, plata .925, chapa (baño o laminado) o acero: es lo que
+# decide el precio de un collar o unos aretes. «Oro» y «plata» a secas son
+# casi siempre el color de la bisutería («4 Piezas Plata», «oro rosa» de
+# Swarovski): en una muestra de 25, menos de la mitad eran el metal. Por eso
+# sólo cuentan con kilates o con la ley (04-oct-2026).
+_PLATA_LEY = re.compile(r"\b925\b|\.925|\bs925\b|sterling|plata (de )?ley|plata esterlina|plata (pura|fina)\b")
+_CHAPA = re.compile(r"\bchapa|chapad|\bbano (de |en )?(oro|plata|rodio)|\bbanad[oa]s? (en |de )?(oro|plata|rodio)"
+                    r"|\blaminad|\blam\b|gold ?plated|gold ?filled|\bfilled\b|\bplated\b|\bvermeil|aleacion con oro")
+_KILATES = re.compile(r"\b(10|14|18|22|24) ?(k|kt|kts|ktes|kilates|quilates)\b|\boro (solido|macizo|puro)\b")
+_ACERO_JOYA = re.compile(r"acero inoxidable|\bacero\b|stainless|\btitanio\b|\btungsteno\b|\bsteel\b")
+
+
+def metal_joya(nombre):
+    """Plata .925, Chapa de oro, Oro (de kilates) o Acero inoxidable."""
+    n = _norm(nombre)
+    if _PLATA_LEY.search(n):
+        return "Plata .925"
+    if _CHAPA.search(n):
+        return "Chapa de oro"
+    if _KILATES.search(n):
+        return "Oro"
+    if _ACERO_JOYA.search(n):
+        return "Acero inoxidable"
+    return None
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}

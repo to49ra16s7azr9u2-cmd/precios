@@ -799,6 +799,9 @@ NOMBRE_GENERALES.setdefault(("Belleza y cuidado personal", "Planchas para cabell
 for _s in ("Cortadoras de cabello", "Recortadoras de barba"):
     NOMBRE_GENERALES.setdefault(("Belleza y cuidado personal", _s), []).append(("cordless", st.inalambrico_cuidado))
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Caminadoras"), []).append(("hp", st.caballos))
+for _s in ("Collares", "Pulseras", "Aretes", "Dijes y charms", "Anillos", "Cadenas", "Arracadas", "Broqueles",
+           "Anillos de compromiso"):
+    NOMBRE_GENERALES.setdefault(("Joyería y bisutería", _s), []).append(("metal", st.metal_joya))
 for _s in ("Tóner", "Cartuchos de tinta"):
     NOMBRE_GENERALES.setdefault(("Impresoras", _s), []).extend([("printer_brand", st.marca_impresora),
                                                               ("ink_color", st.color_tinta)])
