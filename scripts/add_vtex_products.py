@@ -131,7 +131,8 @@ def main():
         sys.exit(2)
 
     data = load_catalog()
-    existing_urls = {o.get("url") for p in data["products"] for o in (p.get("offers") or [])}
+    # + las publicaciones que quedaron como variantes (merge_variantes_tienda.py)
+    existing_urls = {u for p in data["products"] for o in (p.get("offers") or []) for u in [o.get("url")] + [v.get("url") for v in o.get("variants") or []]}
     existing_urls |= {
         urllib.parse.parse_qs(urllib.parse.urlparse(u).query).get("ulp", [u])[0]
         for u in existing_urls if u

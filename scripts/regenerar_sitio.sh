@@ -93,6 +93,9 @@ echo "=== fusiones ==="
   python3 scripts/merge_same_store.py --muestra 0
   python3 scripts/merge_by_spec_color.py --muestra 0
   python3 scripts/merge_misma_foto.py --muestra 0
+  # La misma publicación por modelo de auto, color o talla (misma foto y
+  # precio, otro final del nombre): una ficha con las demás como variantes.
+  python3 scripts/merge_variantes_tienda.py --muestra 0
 } > /tmp/fusiones.log 2>&1
 grep -E "absorbidas|fusionados|Catálogo|catálogo" /tmp/fusiones.log | tail -12
 echo "=== completar_subcategorias ==="; python3 scripts/completar_subcategorias.py --aplicar 2>&1 | tail -1

@@ -892,10 +892,49 @@ def facets_for(product):
         marca = se.car_make_of(product.get("name", ""))
         if marca:
             f["car_make"] = marca
+    if product.get("category") in ("Autopartes", "Autos y motos"):
+        _vehiculos_de_variantes(product, f)
     for campo, valor in (_specs_a_mano().get(product.get("id")) or {}).items():
         if campo != "por":
             f[campo] = valor
     return f or None
+
+
+def _vehiculos_de_variantes(product, f):
+    """Una ficha con las publicaciones de muchos autos como variantes
+    (merge_variantes_tienda.py: «Espejo Retrovisor para auto (varios
+    modelos)») es compatible con todos: «Compatible con» lleva los modelos de
+    todas, y la marca del vehículo sólo si es una sola. Sin esto la ficha
+    decía «Pontiac» por la primera publicación, o nada después de cambiarle
+    el nombre."""
+    textos = []
+    for o in product.get("offers") or []:
+        vs = [v for v in o.get("variants") or [] if not v.get("dup")]
+        if vs:
+            textos.append(product.get("nombreTienda") or product.get("name", ""))
+            textos += [v.get("label", "") for v in vs]
+    for c in product.get("colorVariants") or []:
+        for o in c.get("offers") or []:
+            vs = [v for v in o.get("variants") or [] if not v.get("dup")]
+            if vs:
+                textos.append(product.get("nombreTienda") or product.get("name", ""))
+                textos += [v.get("label", "") for v in vs]
+    if len(textos) < 2:
+        return
+    marcas, modelos = set(), set()
+    for t in textos:
+        marca, modelo, _anios = st.vehiculo(t)
+        if marca:
+            marcas.add(marca)
+        if modelo:
+            modelos.add(modelo)
+    if modelos:
+        f["compat_model"] = sorted(modelos)[:200]
+    if len(marcas) == 1:
+        f["veh_brand"] = f["car_make"] = next(iter(marcas))
+    elif marcas:
+        f.pop("veh_brand", None)
+        f.pop("car_make", None)
 
 
 def _facets_propias(product):

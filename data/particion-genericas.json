@@ -117,13 +117,17 @@
    "Seco y húmedo",
    "Verticales y de escoba"
   ],
+  "Audífonos|Accesorios": [
+   "Puntas para audífonos"
+  ],
   "Audífonos|Almohadillas y repuestos": [
    "Almohadillas para audífonos",
    "Diadema con cable",
    "Diadema inalámbrica",
    "Earbuds con cable",
    "Earbuds inalámbricos",
-   "Gamer"
+   "Gamer",
+   "Puntas para audífonos"
   ],
   "Autopartes|Asientos, parrillas y accesorios de moto": [
    "Asientos y respaldos de moto",
@@ -136,12 +140,15 @@
    "Bujías y encendido",
    "Carenados, plásticos y tanques",
    "Cilindros para auto",
+   "Cinturones para auto",
    "Enfriamiento y climatización",
    "Faros y luces",
    "Frenos",
    "Manubrios, espejos y controles",
+   "Pedales para auto",
    "Ruedas para auto",
    "Sistema eléctrico y sensores",
+   "Soportes para auto",
    "Suspensión y dirección"
   ],
   "Autopartes|Para motos": [
@@ -189,6 +196,7 @@
    "Arrancadores y cargadores de batería",
    "Autos",
    "Barras para auto",
+   "Barras para moto",
    "Baúles, alforjas y bolsas para moto",
    "Cascos para moto",
    "Cilindros para moto",
@@ -213,7 +221,8 @@
    "Válvulas para llanta"
   ],
   "Autos y motos|Micas y accesorios para casco": [
-   "Frenos para casco"
+   "Frenos para casco",
+   "Micas para casco"
   ],
   "Baterías portátiles|Accesorios y repuestos": [
    "Cargadores para batería portátil",
@@ -332,6 +341,7 @@
   ],
   "Componentes y accesorios de PC|Accesorios": [
    "Adaptadores para PC",
+   "Alfombrillas para PC",
    "Bases para PC",
    "Componentes",
    "Hubs y docks para PC",
@@ -481,6 +491,7 @@
   ],
   "Electrodomésticos|Accesorios y repuestos para freidora de aire": [
    "Arroceras y ollas multiusos",
+   "Forros para freidora de aire",
    "Freidoras de aire",
    "Hornos",
    "Hornos freidora y multifunción"
@@ -837,7 +848,8 @@
    "manguera": "Mangueras para aspiradora"
   },
   "Audífonos|Almohadillas y repuestos": {
-   "almohadilla": "Almohadillas para audífonos"
+   "almohadilla": "Almohadillas para audífonos",
+   "punta": "Puntas para audífonos"
   },
   "Autopartes|Asientos, parrillas y accesorios de moto": {
    "palanca": "Palancas para moto",
@@ -847,7 +859,10 @@
    "anillo": "Anillos para auto",
    "bocina": "Bocinas para auto",
    "cilindro": "Cilindros para auto",
-   "rueda": "Ruedas para auto"
+   "cinturon": "Cinturones para auto",
+   "pedal": "Pedales para auto",
+   "rueda": "Ruedas para auto",
+   "soporte": "Soportes para auto"
   },
   "Autopartes|Para motos": {
    "eje": "Ejes para moto",
@@ -872,6 +887,7 @@
    "soporte": "Soportes para auto"
   },
   "Autos y motos|Accesorios para moto": {
+   "barra": "Barras para moto",
    "cilindro": "Cilindros para moto",
    "escape": "Escapes para moto",
    "funda": "Fundas para moto",
@@ -885,7 +901,8 @@
    "valvula": "Válvulas para llanta"
   },
   "Autos y motos|Micas y accesorios para casco": {
-   "freno": "Frenos para casco"
+   "freno": "Frenos para casco",
+   "mica": "Micas para casco"
   },
   "Baterías portátiles|Accesorios y repuestos": {
    "cargador": "Cargadores para batería portátil"
@@ -939,6 +956,7 @@
   },
   "Componentes y accesorios de PC|Accesorios": {
    "adaptador": "Adaptadores para PC",
+   "alfombrilla": "Alfombrillas para PC",
    "base": "Bases para PC",
    "hub": "Hubs y docks para PC",
    "soporte": "Soportes para PC",
@@ -1016,6 +1034,9 @@
   },
   "Electrodomésticos|Accesorios de purificador": {
    "valvula": "Válvulas para purificador"
+  },
+  "Electrodomésticos|Accesorios y repuestos para freidora de aire": {
+   "forro": "Forros para freidora de aire"
   },
   "Electrodomésticos|Otros electrodomésticos de cocina": {
    "bascula": "Básculas de cocina",

@@ -80,7 +80,7 @@ def main():
         ci = idx.get(p.get("category"))
         if ci is None:
             continue
-        palabras = set(norm(p.get("name")).split()) | set(norm(p.get("brand")).split())
+        palabras = set(norm(p.get("name")).split()) | set(norm(p.get("brand")).split()) | set(norm(p.get("alias")).split())
         for w in palabras:
             if len(w) >= MIN_LARGO:
                 tokens[w].add(ci)

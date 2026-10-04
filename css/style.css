@@ -2170,6 +2170,25 @@ tr.offer-compare-off { display: none; }
   font-weight: 600;
   margin-right: 2px;
 }
+.variant-lista .variant-pills-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.variant-select {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink);
+  max-width: 100%;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  padding: 3px 6px;
+}
+.variant-select:focus-visible { outline: 2px solid var(--red); outline-offset: 1px; }
 .variant-pill {
   display: inline-flex;
   align-items: center;

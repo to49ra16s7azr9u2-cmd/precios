@@ -429,7 +429,9 @@ def main():
                 clave_cat = (c, sub)
                 if clave_cat not in palabras_cat:
                     palabras_cat[clave_cat] = palabras(f"{c} {sub}")
-                nombre = palabras(p.get("name"))
+                # alias: las palabras de sus variantes (el auto de cada espejo,
+                # merge_variantes_tienda.py) cuentan como del nombre.
+                nombre = palabras(p.get("name")) | palabras(p.get("alias"))
                 marca = palabras(p.get("brand"))
                 # 1024: la marca ES esta palabra («LEGO» para «lego»). La SPA
                 # sube esas fichas cuando se busca solo la marca; con «la

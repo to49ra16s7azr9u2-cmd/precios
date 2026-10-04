@@ -690,7 +690,8 @@ FUERA = [
              r'cargador (electrico )?(de|para) (valla|cerca|cerco)|baja impedancia|'
              r'\bbarcos?\b|(uso|motor|bateria|cargador) marin[oa]|\bmarine\b|vehiculos? electricos?|coches? electricos?|autos? electricos?|cargador(es)? ev\b|\bev\b (cargador|charger|adaptador)|\bevse\b|j1772|tipo 2 iec|iec 62196|wallbox|wall box|'
              r'ccs2|\bgbt\b|\d+ ?kw\b|victron|xantrex|samlex|\bmppt\b|ciclo profundo|plomo[- ]?acido|bateria agm|\bsla\b|cargador .{0,30}lifepo4|\blipo\b|'
-             r'^(?!.*(laptop|portatil|notebook|macbook|chromebook|\bdell\b|\bhp\b|lenovo|\basus\b|\bacer\b|\bmsi\b|thinkpad|inspiron|'
+             # «Llanta 195/65R15 91V»: el 91V es índice de carga y velocidad.
+             r'^(?!.*(\bllantas?\b|neumaticos?|\d{3}/\d{2} ?z?r ?\d|laptop|portatil|notebook|macbook|chromebook|\bdell\b|\bhp\b|lenovo|\basus\b|\bacer\b|\bmsi\b|thinkpad|inspiron|'
              r'pavilion|ideapad|vivobook|zenbook|latitude|omen|legion|surface|razer|alienware|imac|usb|tipo c|\bpd\b|\bqc\b|'
              r'magsafe|iphone|celular|telefono|smartphone|tablet|ipad|reloj|watch|mah|pilas|sobretension|supresor|regleta|multicontacto|\btomas?\b|enchufe|contacto|'
              r'interruptor|apagador|disyuntor|breaker|\brele\b|relevador|contactor|controlador ats|transferencia|temporizador|tomacorriente|termostato|dimmer|atenuador|placa de pared|modulo|cerradura|sensor|timbre))'
@@ -6646,6 +6647,12 @@ def _decidir_base(it, pistas=None):
     if cat == 'Bocinas' and sub == 'Bocinas para auto':
         cat = 'Autos, bicicletas y motos'
         sub = 'Bocinas marinas y para moto' if re.search(r'\bmoto|motocicleta|marin', tn) else 'Bocinas para auto'
+    # La llanta va a la subcategoría de su rin (subcategorias_divisiones):
+    # el sustantivo «llanta» las mandaba todas a «rin 19 o más», también las
+    # de rin 15 (Elektra, 03-oct-2026).
+    if cat == 'Autos y motos' and sub and sub.startswith('Llantas') and 'moto' not in sub:
+        from subcategorias_divisiones import LLANTAS_SUV, llanta_auto, llanta_suv
+        sub = (llanta_suv(tn) if sub in LLANTAS_SUV or sub == 'Llantas para camioneta y SUV' else llanta_auto(tn)) or sub
     mk = marca(it['title'])
     if cat == 'Celulares' and not mk: mk = marca_celular(tn)
     return {'estado': 'alta', 'brand': mk, 'category': cat, 'subcategory': sub,

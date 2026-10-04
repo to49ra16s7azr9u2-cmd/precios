@@ -1174,18 +1174,31 @@ def render_product_page(product, data, subs_con_pagina=None):
             )
         else:
             dot = f'<span class="store-dot" style="background:{store["color"]}">{store["logo"]}</span>'
-        variants = o.get("variants") or []
+        # «dup»: la misma publicación desde otro almacén (merge_variantes_tienda.py).
+        variants = [v for v in o.get("variants") or [] if not v.get("dup")]
         variants_html = ""
-        if variants:
+        if len(variants) >= 8:
+            # Muchas variantes (merge_variantes_tienda.py): una lista para
+            # elegir, como en el SPA (renderOfferRows en js/app.js).
+            opciones = "".join(
+                f'<option value="{html_escape(url_salida(v["url"]))}">{html_escape(v["label"])}</option>' for v in variants)
+            variants_html = (
+                f'<div class="variant-pills variant-lista"><label class="variant-pills-label">{svg_icon("palette")} '
+                f'{len(variants) + 1:,} variantes: <select class="variant-select" aria-label="Elegir variante" '
+                f'onchange="if(this.value)window.open(this.value,\'_blank\',\'noopener\')">'
+                f'<option value="">{html_escape(o.get("variantLabel") or "Esta")} (esta publicación)</option>{opciones}'
+                f'</select></label></div>'
+            )
+        elif variants:
             pills = "".join(
                 f'<a class="variant-pill" href="{html_escape(url_salida(v["url"]))}" target="_blank" rel="nofollow noopener">'
-                f'<img src="{v["photo"]}" alt="" loading="lazy"><span>{html_escape(v["label"])}</span></a>'
+                f'<img src="{v.get("photo") or o.get("photo") or product.get("photo") or ""}" alt="" loading="lazy"><span>{html_escape(v["label"])}</span></a>'
                 for v in variants
             )
             variants_html = (
                 f'<div class="variant-pills"><span class="variant-pills-label">{svg_icon("palette")} {len(variants) + 1} variantes:</span>'
                 f'<a class="variant-pill active" href="{html_escape(url_salida(o["url"]))}" target="_blank" rel="nofollow noopener">'
-                f'<img src="{o.get("photo") or product.get("photo") or ""}" alt="" loading="lazy"><span>Esta</span></a>{pills}</div>'
+                f'<img src="{o.get("photo") or product.get("photo") or ""}" alt="" loading="lazy"><span>{html_escape(o.get("variantLabel") or "Esta")}</span></a>{pills}</div>'
             )
         # Alibaba es mayorista, a diferencia del resto de las tiendas del
         # catálogo: mismo aviso que en el SPA (ver renderOfferRows en
@@ -3089,7 +3102,7 @@ def render_category_page(cat, products, data):
         corona = svg_icon("crown")
         rank_badge = corona if i == 1 else str(i)
         rank_class = f" rank-{i}" if 2 <= i <= 4 else ""
-        variant_count = max([len(o.get("variants") or []) for o in p["offers"]], default=0)
+        variant_count = max([len([v for v in o.get("variants") or [] if not v.get("dup")]) for o in p["offers"]], default=0)
         variant_badge = f'<span class="variant-count-badge" title="También disponible en otros colores/tallas">{svg_icon("palette")} +{variant_count}</span>' if variant_count else ""
         used_badge = f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>' if is_used(p) else ""
         # Mismos datos por fila que en la página de subcategoría: el orden y

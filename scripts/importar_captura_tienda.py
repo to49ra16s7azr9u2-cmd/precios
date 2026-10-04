@@ -272,10 +272,14 @@ def conocidos(products):
         for o in offers:
             if o.get("storeId") not in TIENDAS or not o.get("url"):
                 continue
-            urls.add(url_real(o["url"]) or o["url"])
-            pid = id_de_url(o["url"])
-            if pid:
-                ids.add((o["storeId"], pid))
+            # Las publicaciones que merge_variantes_tienda.py dejó como
+            # variantes de otra ficha también están: sin esto cada import
+            # las volvía a dar de alta y la regeneración las volvía a juntar.
+            for u in [o["url"]] + [v.get("url") for v in o.get("variants") or [] if v.get("url")]:
+                urls.add(url_real(u) or u)
+                pid = id_de_url(u)
+                if pid:
+                    ids.add((o["storeId"], pid))
     return ids, urls
 
 

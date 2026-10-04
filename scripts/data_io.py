@@ -199,7 +199,10 @@ def borrar_json(fname):
 # purchaseOptions() compara `v.url === base.url` para decidir a qué variante
 # le corresponde el listPrice, y eso corre también en el listado (son 286
 # productos, no mueve la aguja).
-DETAIL_OFFER_FIELDS = ("url", "sellers", "ean", "topReview", "photo", "sellerId")
+# "variants"/"variantLabel" (merge_variantes_tienda.py): el mismo espejo
+# publicado para 1,585 autos son 1,585 enlaces que sólo usa la tabla de la
+# ficha; en la shard queda su número (nVariants) para la marca de la lista.
+DETAIL_OFFER_FIELDS = ("url", "sellers", "ean", "topReview", "photo", "sellerId", "variants", "variantLabel")
 
 # Con colorVariants la url TIENE que quedarse en la shard (purchaseOptions()
 # compara `v.url === base.url` para saber a qué variante le toca cada
@@ -358,6 +361,12 @@ def _split_detail(product):
                 if light is o:
                     light = dict(o)
                 light["cheapestSeller"] = barato
+        if "variants" in campos and o.get("variants"):
+            if light is o:
+                light = dict(o)
+            n = sum(1 for v in o["variants"] if not v.get("dup"))
+            if n:
+                light["nVariants"] = n
         light_offers.append(light)
     if specs_pesadas:
         detail["_specs"] = specs
@@ -675,6 +684,7 @@ def load_catalog():
     for p in products:
         for o in p.get("offers") or []:
             o.pop("cheapestSeller", None)
+            o.pop("nVariants", None)
 
     manifest["products"] = products
     for key in (

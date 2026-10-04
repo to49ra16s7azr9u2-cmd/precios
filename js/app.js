@@ -4916,7 +4916,9 @@
   // -- esto ultimo mantiene vivo el que escribe a medias ("lapt").
   function literalQueryMatch(p, terms) {
     if (!terms.length) return false;
-    const text = normalizeSearchText(`${p.name} ${p.brand} ${p.category} ${p.subcategory || ""}`);
+    // p.alias: las palabras de sus variantes (el auto de cada espejo), ver
+    // merge_variantes_tienda.py.
+    const text = normalizeSearchText(`${p.name} ${p.brand} ${p.category} ${p.subcategory || ""} ${p.alias || ""}`);
     const st = productStems(p);
     return terms.every((t) =>
       t.stems.some((r) => st.nombre.has(r) || st.cat.has(r) || st.marca.has(r)) ||
@@ -5931,7 +5933,9 @@
       // de que este producto tiene más colores/tallas disponibles (los
       // pills completos, con link a cada uno, viven en la tabla de la
       // ficha de producto — ver renderOfferRows).
-      const variantCount = Math.max(0, ...p.offers.map((o) => (o.variants ? o.variants.length : 0)));
+      // En la lista las variantes no viajan (data_io.py las manda al detalle):
+      // queda su número en nVariants.
+      const variantCount = Math.max(0, ...p.offers.map((o) => (o.variants ? o.variants.filter((v) => !v.dup).length : o.nVariants || 0)));
       const usedBadge = conditionBadge(p);
       const commercialBadge = usageBadge(p);
       const row = document.createElement("div");
@@ -7452,6 +7456,55 @@
     return out;
   }
 
+  // Cuántos productos del alcance caen en cada tarjeta de la fila, o null
+  // si la fila no se dibuja (ver renderQualityPicker).
+  function repartoDeFila(axis, base) {
+    const enTramo = new Map();
+    let contestan = 0;
+    for (const p of base) {
+      if (qualityValueOf(axis, p) == null) continue;
+      contestan += 1;
+      const t = qualityTierOf(axis, p);
+      enTramo.set(t, (enTramo.get(t) || 0) + 1);
+    }
+    // Con menos del 15% que lo indica, elegir una tarjeta dejaba
+    // fuera a casi toda la lista: «Piezas» en Termos (329 de 2,388), «Para
+    // quién» en toda Belleza (5,164 de 32,010). Un eje de algunas
+    // subcategorías se mide contra ellas, no contra la categoría entera.
+    const alcanceEje = axis.subs ? base.filter((p) => axis.subs.includes(p.subcategory)).length : base.length;
+    if (contestan < 4 || contestan < alcanceEje * 0.15) return null;
+    // Tampoco la que no reparte: en «Sábanas king size» la medida ponía
+    // 1,540 de 1,540 en «King», y en «Juegos PS4» la consola 2,396 de
+    // 2,405 en «PlayStation 4». Repite lo que el nombre de la
+    // subcategoría ya dice y no ayuda a elegir.
+    // Se cuenta sobre lo que cae en alguna tarjeta: los valores que el eje
+    // no muestra (la «Niña» de un eje heredado que sólo tiene Hombre,
+    // Unisex y Niño) bajaban la proporción y la fila salía igual.
+    const enAlguna = [...enTramo.entries()].filter(([t]) => t != null).map(([, n]) => n);
+    const repartidos = enAlguna.reduce((a, n) => a + n, 0);
+    // La fila de un solo nivel («Resistente al agua», «Con GPS») es un
+    // filtro de «lo tiene» y no se reparte: no se le aplica el 95%. Sin
+    // esta excepción Smartwatches para niños (tres ejes así) se quedaba
+    // sin bloque.
+    if (repartidos < 4 || (axis.tiers.length > 1 && Math.max(...enAlguna) >= repartidos * 0.95)) return null;
+    return enTramo;
+  }
+
+  // Los campos de los ejes que en esta subcategoría no se dibujarían
+  // (casi nadie los indica o no reparten). qualityAxes() se llama por cada
+  // fila de la lista: se calcula una vez por subcategoría.
+  const ejesMuertosCache = new Map();
+  function ejesMuertos(ejes, sub) {
+    const ps = productosDeCategoria();
+    const clave = `${state.category}/${sub}/${ejes.map((a) => a.field).join(",")}`;
+    const c = ejesMuertosCache.get(clave);
+    if (c && c.ps === ps) return c.muertos;
+    const delSub = ps.filter((p) => p.subcategory === sub);
+    const muertos = new Set(ejes.filter((a) => a.field !== "price" && !repartoDeFila(a, delSub)).map((a) => a.field));
+    ejesMuertosCache.set(clave, { ps, muertos });
+    return muertos;
+  }
+
   function qualityAxes() {
     const sub = singleSub();
     // Los ejes a mano de «Climatización/Ventiladores», «Muebles/Sillas» y
@@ -7481,6 +7534,14 @@
     }
     let ejes = mergeAxes(mano, gen ? gen.axes : null, deCat);
     if (sub) ejes = ejes.map((a) => (a.field !== "price" && a.ramp !== false ? ejeNumericoDeSub(a, sub) || a : a));
+    // Un eje que aquí no se dibuja no ocupa lugar: en «Calefactores de gas»
+    // los tres ejes a mano de la familia (casi ninguno con el dato) se
+    // ocultaban, y como ocupaban los tres lugares el precio no entraba y la
+    // subcategoría se quedaba sin bloque.
+    if (sub && ejes.length) {
+      const muertos = ejesMuertos(ejes, sub);
+      if (muertos.size) ejes = mergeAxes(ejes.filter((a) => !muertos.has(a.field)));
+    }
     // Con lugar libre y sin precio, la subcategoría lleva su propio corte
     // por precio al final. En «Televisores/58 a 65 pulgadas» el nivel y el
     // tamaño ponen el 99-100% en un tramo y se ocultan; sin esto el bloque
@@ -7752,30 +7813,8 @@
       // "0 de 43 productos lo indican" y tres tarjetas en cero. Se mide
       // contra el alcance completo (no contra la otra fila elegida) para
       // que una fila no aparezca y desaparezca según lo que se marque.
-      const enTramo = new Map();
-      let contestan = 0;
-      for (const p of base) {
-        if (qualityValueOf(axis, p) == null) continue;
-        contestan += 1;
-        const t = qualityTierOf(axis, p);
-        enTramo.set(t, (enTramo.get(t) || 0) + 1);
-      }
-      // Con menos del 15% que lo indica, elegir una tarjeta dejaba
-      // fuera a casi toda la lista: «Piezas» en Termos (329 de 2,388), «Para
-      // quién» en toda Belleza (5,164 de 32,010). Un eje de algunas
-      // subcategorías se mide contra ellas, no contra la categoría entera.
-      const alcanceEje = axis.subs ? base.filter((p) => axis.subs.includes(p.subcategory)).length : base.length;
-      if (contestan < 4 || contestan < alcanceEje * 0.15) return;
-      // Tampoco la que no reparte: en «Sábanas king size» la medida ponía
-      // 1,540 de 1,540 en «King», y en «Juegos PS4» la consola 2,396 de
-      // 2,405 en «PlayStation 4». Repite lo que el nombre de la
-      // subcategoría ya dice y no ayuda a elegir.
-      // Se cuenta sobre lo que cae en alguna tarjeta: los valores que el eje
-      // no muestra (la «Niña» de un eje heredado que sólo tiene Hombre,
-      // Unisex y Niño) bajaban la proporción y la fila salía igual.
-      const enAlguna = [...enTramo.entries()].filter(([t]) => t != null).map(([, n]) => n);
-      const repartidos = enAlguna.reduce((a, n) => a + n, 0);
-      if (repartidos < 4 || Math.max(...enAlguna) >= repartidos * 0.95) return;
+      const enTramo = repartoDeFila(axis, base);
+      if (!enTramo) return;
       // Para contar y para elegir la foto, cada fila mira el alcance
       // filtrado por LA OTRA fila (el tamaño elegido sí acota los niveles
       // que se ofrecen, y al revés), pero nunca por sí misma.
@@ -7833,7 +7872,9 @@
       // no son de esa subcategoría. Ahí se quitan las que no tienen nada en
       // todo el alcance; en las escalas (chica/mediana/grande) la tarjeta en
       // 0 se queda, apagada, para que se vea el rango completo.
-      const sinUso = (tier) => axis.ramp === false && axis.tiers.length > 4
+      // Lo mismo en cualquier fila que no es escala: «Camisas» mostraba
+      // «Mujer: 0» y «Niño: 0» del eje Para quién de la categoría.
+      const sinUso = (tier) => axis.ramp === false
         && !enTramo.get(tier.id) && !qualitySel(axis.key).includes(tier.id);
       axis.tiers.forEach((tier) => {
         if (sinUso(tier)) return;
@@ -9158,10 +9199,25 @@
       // Cada pastilla lleva su propia foto en miniatura (como el selector de
       // color de Kakaku.com) para que la diferencia entre variantes se vea
       // de un vistazo, no solo se lea en texto.
-      const variantsHtml = r.variants && r.variants.length
+      // Con muchas variantes (merge_variantes_tienda.py: el mismo espejo
+      // publicado para 1,585 autos) las pastillas no caben: va una lista para
+      // elegir el modelo, que abre la publicación de ese modelo.
+      const MAX_PASTILLAS = 8;
+      // «dup»: la misma publicación desde otro almacén; se guarda para que el
+      // importador la reconozca, pero no es una opción.
+      const variantes = (r.variants || []).filter((v) => !v.dup);
+      const variantsHtml = variantes.length >= MAX_PASTILLAS
+        ? `<div class="variant-pills variant-lista">
+            <label class="variant-pills-label">${icon("palette")} ${(variantes.length + 1).toLocaleString("es-MX")} variantes:
+              <select class="variant-select" aria-label="Elegir variante">
+                <option value="">${htmlEscapeAttr(r.variantLabel || "Esta")} (esta publicación)</option>
+                ${variantes.map((v) => `<option value="${htmlEscapeAttr(v.url)}">${htmlEscapeAttr(v.label)}</option>`).join("")}
+              </select></label>
+          </div>`
+        : variantes.length
         ? `<div class="variant-pills" title="También disponible en otras variantes">
-            <span class="variant-pills-label">${icon("palette")} ${r.variants.length + 1} variantes:</span>
-            ${[{ label: "Esta", url: r.url, photo: r.photo || basePhoto }, ...r.variants].map(
+            <span class="variant-pills-label">${icon("palette")} ${variantes.length + 1} variantes:</span>
+            ${[{ label: r.variantLabel || "Esta", url: r.url, photo: r.photo || basePhoto }, ...variantes].map(
               (v, i) => `<button class="variant-pill${i === 0 ? " active" : ""}" data-url="${htmlEscapeAttr(v.url)}">${v.photo ? `<img src="${htmlEscapeAttr(miniatura(v.photo))}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${htmlEscapeAttr(v.photo)}'">` : ""}<span>${htmlEscapeAttr(v.label)}</span></button>`
             ).join("")}
           </div>`
@@ -9246,6 +9302,15 @@
         applyOfferCompare(tbody);
       };
       tr.querySelector(".buy-btn").onclick = () => { trackStoreClick(productId); window.open(urlSalida(r.url), "_blank"); };
+      const variantSelect = tr.querySelector(".variant-select");
+      if (variantSelect) {
+        variantSelect.onclick = (e) => e.stopPropagation();
+        variantSelect.onchange = () => {
+          if (!variantSelect.value) return;
+          trackStoreClick(productId);
+          window.open(urlSalida(variantSelect.value), "_blank");
+        };
+      }
       tr.querySelectorAll(".variant-pill").forEach((btn) => {
         btn.onclick = (e) => {
           e.stopPropagation();

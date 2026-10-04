@@ -98,7 +98,8 @@ def main():
     print(f"Candidatas en el sitemap: {len(urls)}")
 
     data = load_catalog()
-    existing_urls = {o["url"] for p in data["products"] for o in (p.get("offers") or [])}
+    # + las publicaciones que quedaron como variantes (merge_variantes_tienda.py)
+    existing_urls = {u for p in data["products"] for o in (p.get("offers") or []) for u in [o["url"]] + [v.get("url") for v in o.get("variants") or []]}
     existing_target_urls = {
         urllib.parse.parse_qs(urllib.parse.urlparse(u).query).get("ulp", [u])[0]
         for u in existing_urls
