@@ -763,6 +763,12 @@ REGLAS_TITULO.setdefault("Decoración de hogar y jardín", []).append(("blackout
 for _s in ("Roperos", "Alacenas y gabinetes de cocina"):
     NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("doors", st.puertas))
 NOMBRE_GENERALES.setdefault(("Muebles", "Cocinas integrales"), []).append(("length_cm", lambda t: se.length_cm_of(t, 80, 600)))
+# Más subcategorías grandes que sólo tenían precio (04-oct-2026).
+NOMBRE_GENERALES.setdefault(("Herramientas", "Bombas de agua"), []).append(("hp", st.caballos))
+NOMBRE_GENERALES.setdefault(("Cargadores y adaptadores", "Regletas y multicontactos"), []).append(("outlets", st.contactos))
+NOMBRE_GENERALES.setdefault(("Muebles", "Mesas para TV y consolas"), []).append(("tv_max_in", st.tv_maxima))
+for _s in ("Alimento para perro", "Alimento para gato"):
+    NOMBRE_GENERALES.setdefault(("Mascotas", _s), []).append(("weight_kg", lambda t: se.kg_of(t, 0.3, 40)))
 # Los relojes de Joyería (no los aretes ni las cadenas, donde «resistente al
 # agua» es que no se oxida y «50 m» es el largo).
 for _s in ("Relojes", "Relojes de buceo", "Cronógrafos", "Relojes infantiles", "Relojes de bolsillo y de pared"):

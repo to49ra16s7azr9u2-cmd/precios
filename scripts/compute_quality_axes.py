@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "light_temp", "doors", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "kind", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -167,6 +167,15 @@ CAMPOS = {
     "thread_count": dict(label="Hilos", criterion="por hilos por pulgada", unit=" hilos",
                          nombres=("Frescas", "Suaves", "De hotel"),
                          usos=("Ligeras y frescas", "Más tupidas y suaves", "Tacto de hotel")),
+    "hp": dict(label="Potencia", criterion="en caballos de fuerza", unit=" HP",
+               nombres=("Chica", "Media", "Alta"),
+               usos=("Una casa, poca altura", "Casa de dos pisos o cisterna", "Riego, edificios o pozos")),
+    "outlets": dict(label="Contactos", criterion="según el nombre", unit=" contactos",
+                    nombres=("Pocos", "Medios", "Muchos"),
+                    usos=("Buró o escritorio", "Centro de entretenimiento", "Oficina o taller")),
+    "tv_max_in": dict(label="Para TV de", criterion="hasta cuántas pulgadas", unit='"',
+                      nombres=("Chica", "Mediana", "Grande"),
+                      usos=("Recámara", "La pantalla más común", "Pantallas grandes")),
     "doors": dict(label="Puertas", criterion="según el nombre", unit=" puertas",
                   nombres=("Chico", "Mediano", "Grande"),
                   usos=("Para un cuarto chico", "El tamaño más común", "Para guardar mucho")),
@@ -359,6 +368,9 @@ CAMPO_SOLO_EN = {
     "speed_rating": {"Autos y motos"},
     "light_temp": {"Iluminación"},
     "doors": {"Muebles"},
+    "hp": {"Herramientas/Bombas de agua"},
+    "outlets": {"Cargadores y adaptadores/Regletas y multicontactos"},
+    "tv_max_in": {"Muebles/Mesas para TV y consolas"},
     # La capacidad en pies es de refrigeradores de casa y congeladores; un
     # frigobar se compara en litros.
     "fridge_ft3": {"Refrigeradores/Top mount", "Refrigeradores/Bottom freezer",
@@ -463,6 +475,10 @@ USOS = {
         ("Plano y trayectos cortos", "Subidas suaves y más velocidad", "Cerros y dos personas")),
     ("Bicicletas y movilidad/Bicicletas eléctricas", "power_w"): (("Suave", "Media", "Fuerte"),
         ("Ayuda al pedaleo en plano", "Subidas suaves", "Cerros y carga")),
+    ("Mascotas/Alimento para perro", "weight_kg"): (("Chica", "Mediana", "Grande"),
+        ("Para probar o perros chicos", "La bolsa más común", "Rinde más, sale más barato el kilo")),
+    ("Mascotas/Alimento para gato", "weight_kg"): (("Chica", "Mediana", "Grande"),
+        ("Para probar", "La bolsa más común", "Rinde más, sale más barato el kilo")),
     ("Muebles/Cocinas integrales", "length_cm"): (("Compacta", "Mediana", "Grande"),
         ("Cocinas chicas o departamento", "El largo más común", "Cocinas amplias o en escuadra")),
     ("Iluminación", "power_w"): (("Suave", "Media", "Potente"),

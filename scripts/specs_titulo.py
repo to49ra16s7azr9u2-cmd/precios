@@ -182,6 +182,41 @@ def velocidad_llanta(nombre):
     return next(iter(tramos)) if len(tramos) == 1 else None
 
 
+_HP_RE = re.compile(r"(?<![\d./])(\d+\s+\d/\d|\d/\d|\d{1,2}(?:\.\d{1,2})?)\s*(?:hp|caballos?(?: de fuerza)?)\b")
+
+
+def caballos(nombre):
+    """Caballos de fuerza de una bomba («Bomba Truper 1/2 HP», «1 1/2 hp»):
+    el 77% de las bombas de agua lo dice y sólo se comparaban por precio."""
+    vals = set()
+    for m in _HP_RE.finditer(_norm(nombre)):
+        t = m.group(1).split()
+        v = sum(float(a) / float(b) for a, b in (x.split("/") for x in t if "/" in x)) + sum(float(x) for x in t if "/" not in x)
+        if 0.1 <= v <= 30:
+            vals.add(round(v, 2))
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+_CONTACTOS_RE = re.compile(r"\b(\d{1,2})\s*(?:contactos|tomas|salidas|enchufes|tomacorrientes)\b")
+
+
+def contactos(nombre):
+    """Contactos de una regleta («Multicontacto 6 contactos»)."""
+    vals = {int(m.group(1)) for m in _CONTACTOS_RE.finditer(_norm(nombre)) if 2 <= int(m.group(1)) <= 24}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+_TV_MAX_RE = re.compile(r"(?:hasta|para (?:tvs?|televisor(?:es)?|pantallas?)(?: de)?(?: hasta)?|pantallas? de(?: hasta)?|tvs? de(?: hasta)?)"
+                        r"\s*(\d{2,3})\s*(?:\"|pulgadas|pulg\b|in\b)?")
+
+
+def tv_maxima(nombre):
+    """La pantalla más grande que aguanta un mueble para TV («Mesa para TV
+    de hasta 65 pulgadas»)."""
+    vals = {int(m.group(1)) for m in _TV_MAX_RE.finditer(_norm(nombre)) if 24 <= int(m.group(1)) <= 100}
+    return max(vals) if vals else None
+
+
 _PUERTAS_RE = re.compile(r"\b(\d{1,2})\s*puertas?\b")
 
 
