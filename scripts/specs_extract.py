@@ -1259,14 +1259,24 @@ _QUARTS_RE = re.compile(r"(?<![\d.,])(\d{1,2}(?:[.,]\d{1,2})?)\s*(?:qt\b|quarts?
 _CUBIC_FT_RE = re.compile(r"(?<![\d.,])(\d(?:[.,]\d{1,2})?)\s*(?:pies|ft|cu\s?ft|p3|cuft)")
 
 
-def liters_of(text, lo, hi, quarts=False, cubic_feet=False):
+_ML_LITROS_RE = re.compile(r"(?<![\d.,])(\d{2,4})\s*(?:ml\b|mililitros?\b)")
+_OZ_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d)?)\s*(?:oz\b|onzas?\b)")
+
+
+def liters_of(text, lo, hi, quarts=False, cubic_feet=False, ml=False):
     """Capacidad en litros dentro de [lo, hi], o None. Con quarts=True
     acepta "6 cuartos"/"8qt" (freidoras de aire, 0.946 L cada uno) y con
-    cubic_feet=True "1.1 pies cúbicos" (microondas, 28.3 L cada uno)."""
+    cubic_feet=True "1.1 pies cúbicos" (microondas, 28.3 L cada uno).
+    Con ml=True, si no dice litros, «710 ml» o «32 oz» (termos y botellas:
+    1,506 con la capacidad en el nombre no la tenían, 04-oct-2026)."""
     n = _norm(text or "").replace(",", ".")
     vals = set()
     for m in _LITERS_RE.finditer(n):
         vals.add(float(m.group(1)))
+    if not vals and ml:
+        vals = {round(float(m.group(1)) / 1000, 2) for m in _ML_LITROS_RE.finditer(n)}
+        if not vals:
+            vals = {round(float(m.group(1)) * 0.0296, 2) for m in _OZ_RE.finditer(n)}
     if not vals and quarts:
         for m in _QUARTS_RE.finditer(n):
             vals.add(round(float(m.group(1)) * 0.946, 1))
@@ -1468,7 +1478,7 @@ def inches_of(text, lo, hi):
 
 
 _TALLAS = (
-    (re.compile(r"\b(xxl|2xl|3xl|xxg|extra extra grande)\b"), "Extra grande"),
+    (re.compile(r"\b(xxl|xxxl|[2-6]xl|[2-6]x|xxg|extra extra grande)\b"), "Extra grande"),
     (re.compile(r"\b(xl|xg|extra grande|x-large|xlarge)\b"), "Extra grande"),
     (re.compile(r"\b(xs|xch|extra chica|x-small)\b"), "Chica"),
     (re.compile(r"\b(l|g|grande|large)\b"), "Grande"),
@@ -1484,10 +1494,20 @@ def size_label_of(text, bare=False):
     una spec (bare=True) la letra sola vale."""
     n = _norm(text or "")
     if not bare:
-        m = re.search(r"\btalla\s+([a-z\- ]{1,20})", n)
-        if not m:
-            return None
-        n = m.group(1)
+        # «talla 2XL», «talla 3X-Large»: la talla puede llevar número.
+        m = re.search(r"\btalla\s+([a-z0-9\- ]{1,20})", n)
+        if m:
+            n = m.group(1)
+        else:
+            # Sin «talla»: «#M» (así las escribe Nike) o una talla de dos o más
+            # letras (XS, XL, 2XL), que a diferencia de «L» o «M» suelta no se
+            # confunde con un modelo. 738 playeras con la talla en el nombre
+            # no la tenían (04-oct-2026).
+            m = re.search(r"#\s*(xxs|xs|s|m|l|xl|xxl|xxxl|[2-6]xl)\b", n) \
+                or re.search(r"\b(xxs|xs|xl|xxl|xxxl|[2-6]xl|x-large|x-small|xx-large)\b", n)
+            if not m:
+                return None
+            n = m.group(1)
     hits = {lbl for rx, lbl in _TALLAS if rx.search(n)}
     return next(iter(hits)) if len(hits) == 1 else None
 
