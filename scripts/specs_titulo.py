@@ -882,6 +882,25 @@ def rin_de_rin(nombre):
     return f'{vals.pop()}"' if len(vals) == 1 else None
 
 
+# ------------------------------------------------- cascos de moto
+_TALLAS_CASCO = {"xs": "XS", "s": "S", "ch": "S", "m": "M", "l": "L", "g": "L", "xl": "XL", "eg": "XL", "xxl": "XXL",
+                 "2xl": "XXL", "xxxl": "XXL", "3xl": "XXL"}
+
+
+def talla_casco(nombre):
+    """Talla de un casco («Talla L», «talla: xl»)."""
+    n = _norm(nombre)
+    vals = {_TALLAS_CASCO[m.group(1)] for m in re.finditer(r"\btalla:?\s*(xxxl|3xl|xxl|2xl|xl|xs|eg|ch|s|m|l|g)\b", n)}
+    return vals.pop() if len(vals) == 1 else None
+
+
+def certificacion_casco(nombre):
+    """DOT (EE. UU.), ECE (Europa) o las dos."""
+    n = _norm(nombre)
+    dot, ece = bool(re.search(r"\bdot\b", n)), bool(re.search(r"\bece\b|22\.0[56]", n))
+    return "DOT y ECE" if dot and ece else "ECE" if ece else "DOT" if dot else None
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}

@@ -1012,6 +1012,51 @@ _TIPOS_04OCT.update({
         ("Cilíndricos", r"cilindr|\brollo|bolster"),
         ("Cuadrados", r"cuadrad")],
 })
+_TIPOS_04OCT.update({
+    ('Herramientas', 'Pinzas y alicates'): [
+        ('De cocina', 'cocina|parrilla|asador|\\bbbq\\b|ensalada|hielo|servir|\\bchef\\b|alimentos|pan\\b'),
+        ('Para ropa', '\\bropa\\b|tender|colgar'),
+        ('Pelacables y ponchadoras', 'pelacable|pela ?cables|ponchador|crimp|terminales|engarzar|desforrador'),
+        ('De precisión y pinzetas', 'precision|relojer|electronic|antiestatic|depilar|cejas|punta fina|pinzetas?|tweezer'),
+        ('De presión', 'presion|vise ?grip|bloqueo|\\bperro\\b'),
+        ('De electricista', 'electricista|liniero|linesman'),
+        ('De corte', '\\bcorte\\b|cortador|diagonal|cortafrio'),
+        ('De punta', 'punta (larga|de aguja|plana|redonda|curva|recta)|de punta|chata|needle'),
+        ('De chofer y ajustables', 'chofer|extension|ajustable|perico|seguros|anillos de retencion|\\bpico de loro')],
+    ('Herramientas', 'Plomería'): [
+        ('Desagüe y destapadores', 'desague|destapa|sonda|snake|coladera|cespol|trampa|drenaje'),
+        ('Mangueras y conectores', 'manguera|flexible|conector|coflex|alimentador'),
+        ('Válvulas y llaves de paso', 'valvula|llave de paso|llave de esfera|llave de globo|check'),
+        ('Abrazaderas', 'abrazadera'),
+        ('Tubería y conexiones', '\\btubo|tuberia|\\bcodo|\\bcople|\\btee\\b|reduccion|\\bpvc\\b|cpvc|conduit|\\bniple|\\btuerca'),
+        ('Kits y repuestos', '\\bkit\\b|repuesto|empaque|cartucho|sello|teflon')],
+    ('Blancos y ropa de cama', 'Cortinas para baño'): [
+        ('Accesorios', '^(\\S+ ){0,2}(ganchos?|anillos?|barra|tubo|dispensador|organizador)\\b'),
+        ('De plástico o PEVA', '\\bpeva\\b|plastico|vinil|\\beva\\b|transparente'),
+        ('De tela', '\\btela\\b|poliester|waffle|\\blino\\b|algodon|textil')],
+    ('Celulares', 'PopSockets y agarraderas'): [
+        ('Cartera', 'cartera|wallet'),
+        ('MagSafe', 'magsafe|magnetic'),
+        ('Para tableta', 'tableta|tablet'),
+        ('Anillo', '\\banillo|\\bring\\b'),
+        ('Adhesivo', 'adhesivo|popgrip|popsocket|\\bgrip\\b|empunadura')],
+    ('Mascotas', 'Disfraces para mascotas'): [
+        ('Navidad', 'navidad|navideno|santa|\\breno\\b|duende|elfo|grinch|arbol'),
+        ('Halloween', 'halloween|calabaza|esqueleto|bruja|murcielago|diablo|vampir|catrina|fantasma|zombie|calavera|arana'),
+        ('Personajes y animales', 'unicornio|dinosaurio|cerdito|catarina|abeja|leon|tiburon|superheroe|batman|spider|hot ?dog|tacos?\\b|hamburguesa')],
+    ('Joyería y bisutería', 'Joyeros'): [
+        ('Exhibidores', 'exhibidor|display|\\bbusto|maniqui|arbol de joyeria'),
+        ('Con espejo o de pie', 'espejo|armario|gabinete|de pie|de pared|colgar'),
+        ('De viaje', 'de viaje|\\bviaje\\b|portatil|\\bmini\\b'),
+        ('Con cajones o niveles', 'cajones|niveles|capas|pisos'),
+        ('Bolsas y cajas de regalo', '\\bbolsas?|regalo|carton'),
+        ('Cajas', '\\bcaja|joyero')],
+    ('Herramientas', 'Herramientas manuales'): [
+        ('Polipastos y malacates', 'polipasto|malacate|\\btecle|garrucha|diferencial'),
+        ('Multiherramientas y navajas', 'multiherramienta|multi-?herramienta|navaja|multitool|leatherman'),
+        ('Palancas y barretas', 'palanca|barreta|pata de cabra'),
+        ('Gatos y prensas', '\\bgato\\b|prensa|sargento')],
+})
 TIPOS.update({k: [(et, re.compile(rx)) for et, rx in v] for k, v in _TIPOS_04OCT.items()})
 
 
@@ -1110,6 +1155,9 @@ NOMBRE_GENERALES.setdefault(("Decoración de hogar y jardín", "Cuadros y decora
 NOMBRE_GENERALES.setdefault(("Juguetes", "Disfraces"), []).append(("franchise", st.franquicia))
 NOMBRE_GENERALES.setdefault(("Juegos de mesa", "De cartas"), []).append(("card_game", st.juego_cartas))
 NOMBRE_GENERALES.setdefault(("Autos y motos", "Rines"), []).append(("wheel_rin", st.rin_de_rin))
+for _s in ("Cascos abatibles", "Cascos integrales", "Cascos abiertos", "Cascos para moto"):
+    NOMBRE_GENERALES.setdefault(("Autos y motos", _s), []).extend([("helmet_size", st.talla_casco),
+                                                                ("helmet_cert", st.certificacion_casco)])
 NOMBRE_GENERALES.setdefault(("Juguetes", "Maquetas"), []).append(("scale", st.escala_modelo))
 for _s in ("Sofás de 2 y 3 plazas", "Sofás seccionales y esquineros", "Sillones reclinables", "Puffs y otomanas", "Sofás cama"):
     NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("upholstery", st.tapizado))

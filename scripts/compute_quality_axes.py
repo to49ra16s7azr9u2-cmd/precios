@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "cpu_socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "upholstery", "scale", "blind_cm", "lights", "sheets", "frame_cm", "card_game", "wheel_rin", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "cpu_socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "upholstery", "scale", "blind_cm", "lights", "sheets", "frame_cm", "card_game", "wheel_rin", "helmet_size", "helmet_cert", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -186,6 +186,11 @@ CAMPOS = {
                            "1:10": "Figura de unos 18 cm", "1:6": "Figura de unos 30 cm"}),
     "blind_cm": dict(label="Ancho", criterion="de la persiana", unit=" cm", nombres=("Angosta", "Mediana", "Ancha"),
                      usos=("Baño o ventana chica", "Recámara", "Sala o ventanal")),
+    "helmet_size": dict(label="Talla", criterion="del casco", ramp=False, orden=["XS", "S", "M", "L", "XL", "XXL"],
+                        min_tramo=0.04),
+    "helmet_cert": dict(label="Certificación", criterion="según el nombre", ramp=False, orden=["DOT", "ECE", "DOT y ECE"],
+                        min_tramo=0.04, valores={"DOT": "Norma de EE. UU.", "ECE": "Norma europea, más exigente",
+                                                 "DOT y ECE": "Cumple las dos"}),
     "wheel_rin": dict(label="Rin", criterion="medida en pulgadas", ramp=False, ordinal=True, max_tramos=8, min_tramo=0.03),
     "card_game": dict(label="Juego", criterion="qué cartas", ramp=False, max_tramos=8, min_tramo=0.015),
     "lights": dict(label="Luces", criterion="cuántos focos", unit=" luces", nombres=("Pocas", "Medias", "Muchas"),
@@ -481,6 +486,9 @@ CAMPO_SOLO_EN = {
     "lights": {"Iluminación/Candiles y arañas", "Iluminación/Lámparas colgantes"},
     "card_game": {"Juegos de mesa/De cartas"},
     "wheel_rin": {"Autos y motos/Rines"},
+    # «Cascos para moto» ya tiene «Talla» (size_label, de la ficha).
+    "helmet_size": {"Autos y motos/" + _s for _s in ("Cascos abatibles", "Cascos integrales", "Cascos abiertos")},
+    "helmet_cert": {"Autos y motos/" + _s for _s in ("Cascos abatibles", "Cascos integrales", "Cascos abiertos", "Cascos para moto")},
     "sheets": {"Papelería y oficina/Cuadernos"},
     "frame_cm": {"Decoración de hogar y jardín/Cuadros y decoración de pared"},
     "upholstery": {"Muebles/" + _s for _s in ("Sofás de 2 y 3 plazas", "Sofás seccionales y esquineros", "Sillones reclinables",
