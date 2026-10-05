@@ -868,6 +868,20 @@ def juego_cartas(nombre):
     return next((nom for nom, rx in _JUEGO_CARTAS if rx.search(n)), None)
 
 
+# ------------------------------------------------- rines por medida
+# «Rin delantero 2.15x12», «17x8 6-139», «1.85/18 pulgadas», «21"» (04-oct-2026:
+# Rines sólo se comparaba por precio; 55% dice la medida).
+_RIN_RX = (re.compile(r"\b\d\.\d{1,2} ?(?:x|/) ?r?(1[0-9]|2[0-4])\b"), re.compile(r"\b(1[0-9]|2[0-4]) ?x ?\d(?:\.\d{1,2})?\b"),
+           re.compile(r"\brin (1[0-9]|2[0-4])\b"), re.compile(r"\b(1[0-9]|2[0-4]) ?(?:\"|pulgadas|pulg)"),
+           re.compile(r"\d-(1[0-9]|2[0-4])\b"))
+
+
+def rin_de_rin(nombre):
+    n = _norm(nombre)
+    vals = {int(m.group(1)) for rx in _RIN_RX for m in rx.finditer(n)}
+    return f'{vals.pop()}"' if len(vals) == 1 else None
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}
