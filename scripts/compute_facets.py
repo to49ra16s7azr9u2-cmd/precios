@@ -394,7 +394,12 @@ def _spec_directa(product, spec_map, f):
     cat, sub = product.get("category"), product.get("subcategory")
     for regla in SPEC_DIRECTAS:
         c, s_, etiqueta, campo = regla[:4]
-        if c != cat or (s_ is not None and s_ != sub):
+        # La subcategoría de la regla es un PREFIJO: «Colchones» y
+        # «Ventiladores» se partieron por medida y por tipo («Colchones
+        # king size», «Ventiladores de techo») y con la comparación exacta
+        # estas reglas dejaron de aplicarse en silencio (05-oct-2026: 10 mil
+        # colchones sin firmeza y todos los ventiladores sin tipo).
+        if c != cat or (s_ is not None and not (sub or "").startswith(s_)):
             continue
         val = spec_map.get(etiqueta)
         if not val:
@@ -1175,6 +1180,14 @@ NOMBRE_GENERALES.setdefault(("Muebles", "Mesas para TV y consolas"), []).append(
 for _k in (("Herramientas", "Cables y extensiones eléctricas"), ("Cargadores y adaptadores", "Cables y adaptadores de video"),
            ("Redes", "Cables y adaptadores de red")):
     NOMBRE_GENERALES.setdefault(_k, []).append(("length_m", lambda t: se.meters_of(t, 0.2, 100, pies=True)))
+# Cables de carga y de bocina: el largo (05-oct-2026, sólo precio hasta hoy;
+# 57-71% lo dice en el nombre). Los de celular se topan en 10 m: un «18 m»
+# ahí es un «1.8 m» al que la tienda le comió el punto.
+for _s in ("Cables Lightning", "Cables USB-C", "Cables micro USB", "Cables multiconector"):
+    NOMBRE_GENERALES.setdefault(("Cargadores y adaptadores", _s), []).append(
+        ("length_m", lambda t: se.meters_of(t, 0.2, 10, pies=True)))
+for _k in (("Cargadores y adaptadores", "Cable"), ("Bocinas", "Cables para bocinas")):
+    NOMBRE_GENERALES.setdefault(_k, []).append(("length_m", lambda t: se.meters_of(t, 0.2, 30, pies=True)))
 NOMBRE_GENERALES.setdefault(("Herramientas", "Escaleras"), []).append(("steps", st.peldanos))
 NOMBRE_GENERALES.setdefault(("Televisores", "Controles para TV"), []).append(("tv_brand", st.marca_tv))
 for _s in ("Funko y coleccionables", "Figuras de acción", "Figuras de colección a escala", "Peluches"):
