@@ -1122,6 +1122,33 @@ _TIPOS_04OCT.update({
 })
 TIPOS.update({k: [(et, re.compile(rx)) for et, rx in v] for k, v in _TIPOS_04OCT.items()})
 
+# Colchones (05-oct-2026): después de la medida, que ya es la subcategoría,
+# la pregunta es de qué está hecho. El 40% lo dice en el nombre; el pocket
+# antes que «resortes» a secas, y el memory foam antes que «espuma». Sólo
+# cuenta lo que va antes del primer «+»: «... + Almohada Memory Foam» es el
+# regalo, no el colchón. «Spring Air» es una marca, no un tipo.
+_COLCHON_TIPO = [
+    ("Híbrido", r"^[^+]*(hibrid|hybrid|(memory ?foam|espuma (de )?memoria).{0,40}resortes|resortes.{0,40}(memory ?foam|memoria))"),
+    ("Memory foam", r"^[^+]*(memory ?foam|viscoelastic|visco ?elastic|\bmemoria\b)"),
+    ("Resortes pocket", r"^[^+]*(pocket|embolsad|resortes? (independientes|encapsulad))"),
+    ("Resortes", r"^[^+]*(resorte|bonn?ell|offset)"),
+    ("Espuma", r"^[^+]*(espuma|\bfoam\b|\bhule\b|latex|poliuretano)"),
+]
+_TABLA_COLCHON = [(et, re.compile(rx)) for et, rx in _COLCHON_TIPO]
+for _s in ("Colchones individuales", "Colchones matrimoniales", "Colchones queen size", "Colchones king size"):
+    TIPOS[("Muebles", _s)] = _TABLA_COLCHON
+
+
+def _colchon_por_resortes(valor):
+    v = se._norm(valor) if valor else ""
+    if not v or re.search(r"\bno aplica\b|\bsin\b|^0$|^n/?a$", v):
+        return None
+    if re.search(r"embolsad|pocket|independiente|encapsulad", v):
+        return "Resortes pocket"
+    if re.search(r"bonn?ell|continu|offset|resorte|marshall", v):
+        return "Resortes"
+    return None
+
 
 # Del NOMBRE, por categoría entera (specs_titulo.py, 26-sep): lo que en
 # Autopartes, Calzado, Ropa, Mascotas... la tienda casi nunca declara.
@@ -1356,6 +1383,11 @@ def _generales(product, name, spec_map, f):
     tabla = TIPOS.get((cat, sub))
     if tabla and "kind" not in f:
         v = se.kind_of(name, tabla)
+        # Colchón: si el nombre no dice de qué está hecho, la ficha técnica
+        # de Elektra lo dice en «Tipo de resortes» (Bonell, Continuo,
+        # Embolsados...).
+        if v is None and tabla is _TABLA_COLCHON:
+            v = _colchon_por_resortes(spec_map.get("tipo de resortes"))
         if v is not None:
             f["kind"] = v
 
