@@ -925,6 +925,15 @@ ETIQUETAS_FACETAS = [
     ("metal", "Metal", str), ("pet_size", "Talla", str), ("kind", "Tipo", str),
     ("upholstery", "Tapizado", str), ("scale", "Escala", str), ("blind_cm", "Ancho", _fmt(" cm")),
     ("lights", "Luces", str), ("sheets", "Hojas", str), ("frame_cm", "Tamaño", _fmt(" cm")), ("card_game", "Juego", str), ("wheel_rin", "Rin", str),
+    # 05-oct-2026: los campos de Compara calidad que todavía no tenían fila.
+    ("helmet_size", "Talla del casco", str), ("helmet_cert", "Certificación", str), ("fan_mm", "Medida del ventilador", str),
+    ("cpu_class", "Gama del procesador", str), ("gpu_series", "Serie", str), ("vram_gb", "Memoria de video", _fmt(" GB")),
+    ("psu_w", "Potencia de la fuente", _fmt(" W")), ("psu_cert", "Certificación 80 Plus", str),
+    ("capsule", "Cápsulas", str), ("bar_in", "Largo de la espada", _fmt('"')), ("length_m", "Largo", _fmt(" m")),
+    ("pressure_bar", "Presión de la bomba", _fmt(" bar")),
+    ("players_max", "Jugadores", lambda v: "5 o más" if v == 99 else f"Hasta {v}"),
+    ("firmness", "Firmeza", str), ("fuel", "Funciona con", str), ("heater_type", "Tipo de calentador", str),
+    ("fan_type", "Tipo de ventilador", str),
 ]
 
 
