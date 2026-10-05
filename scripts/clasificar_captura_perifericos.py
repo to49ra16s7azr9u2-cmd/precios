@@ -1039,7 +1039,7 @@ DEFINICIONES = [
                 r'(?!.{0,60}\b(funda|mica|case|protector|cargador|cable|soporte|tab|ipad|watch|buds)\b)'
                 r'.{0,80}\b(reacondicionad[oa]|renewed|refurbished|seminuev[oa])\b'),
      ('Celulares', 'Reacondicionados', 'phone')),
-    (re.compile(r'^(?:\S+ ){0,2}(apple )?iphone (\d{1,2}|air|se|xr|xs)\b(?!.{0,50}\b(funda|mica|case|protector|cargador|cable|soporte|pantalla de repuesto)\b)'),
+    (re.compile(r'^(?:\S+ ){0,2}(apple )?iphone (\d{1,2}|air|se|xr|xs)\b(?!.{0,50}\b(funda|mica|case|protector|cargador|cable|soporte|pantalla de repuesto|rugged|transparente|bateria|display|lente)\b)'),
      ('Celulares', 'iPhone', 'phone')),
     (re.compile(r'^(?:\S+ ){0,2}(samsung )?galaxy z ?(fold|flip) ?\d(?!.{0,50}\b(funda|mica|case|protector|cargador|cable|soporte)\b)'),
      ('Celulares', 'Plegables', 'phone')),
@@ -6059,6 +6059,12 @@ def sub_celular(tn):
     # El reacondicionado antes que la marca: un iPhone reacondicionado no se
     # lista con los nuevos (feed de Reuse, 24-sep-2026).
     if re.search(r'\b(reacondicionad[oa]|renewed|refurbished|seminuev[oa])\b', tn): return 'Reacondicionados'
+    # La funda con nombre de modelo y sin almacenamiento («Rokform iPhone 16
+    # Plus rugged», «iPhone 17 Air Transparente Ultra Resistente») no es un
+    # iPhone (05-oct-2026).
+    if 'iphone' in tn and re.search(r'\b(rugged|rokform|transparente|bumper|carcasa)\b', tn) \
+            and not re.search(r'\d ?(gb|tb)\b', tn):
+        return 'Protectores para celular'
     if 'iphone' in tn: return 'iPhone'
     if re.search(r'resistente|rugged|robusto|todoterreno|\bip6[89]\b|a prueba de (golpes|agua)', tn): return 'Resistentes'
     # El teléfono básico (de tapa, de botones grandes, 2G) no es Android:

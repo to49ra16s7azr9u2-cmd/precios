@@ -4190,6 +4190,56 @@ LOTES['auditoria_14'] = [
 ]
 REGLAS += LOTES['auditoria_14']
 
+
+# auditoria_15 (05-oct-2026): accesorios y cosas ajenas entre los teléfonos
+# (iPhone ordenado por precio abría con «iPhone 17 Air Transparente Ultra
+# Resistente» a $474 y dos «rugged» de Rokform, que son fundas). Las reglas
+# de accesorio no tocan una ficha con almacenamiento en el título (los
+# combos «Moto G06 128GB con Audífonos y Smartwatch» sí son teléfonos).
+_FONOS = {'Android', 'Plegables', 'Reacondicionados', 'iPhone reacondicionados', 'iPhone', 'Resistentes', 'Básicos'}
+_CON_GB = r'\d ?(gb|tb)\b|\b\d+ ?\+ ?\d+ ?g\b|\b(64|128|256|512) ?g?\b'
+LOTES['auditoria_15'] = [
+    ('Celulares', r'\b(rugged|rokform|funda|fundas|case|carcasa|bumper|leather cover)\b|transparente ultra resistente',
+     r'^montaje para tablet|' + _CON_GB, 'Celulares', 'Protectores para celular', _FONOS - {'Resistentes'}),
+    ('Celulares', r'^bolsillo seguridad|\bbrazalete\b|\bcangurera\b.*smartphone|portafolios para telefono|wristlet wallet',
+     _CON_GB, 'Celulares', 'Bolsas para celular', _FONOS),
+    ('Celulares', r'^cartera adhesiva popsockets|\bagarre para (telefono|movil)\b|^empunadura de telefono', _CON_GB,
+     'Celulares', 'PopSockets y agarraderas', _FONOS),
+    ('Celulares', r'protector(es)? de lentes|cristal templado|vidrio templado|vasos de privacidad', _CON_GB,
+     'Celulares', 'Micas para celular', _FONOS),
+    ('Celulares', r'walkie|talkabout', r'rugged phone|' + _CON_GB, 'Celulares', 'Radios de dos vías', _FONOS),
+    ('Celulares', r'^telefono de pared|^telefonos inalambricos|^telefono teams|^celuar fijo', None,
+     'Celulares', 'Teléfonos fijos', _FONOS),
+    ('Celulares', r'tripod|\brig\b|camera cage|^montura\b|teleprompter|^disparador de telefono|obturador', _CON_GB,
+     'Celulares', 'Tripiés y palos selfie', _FONOS),
+    ('Celulares', r'fisheye|fish ?eye|^lupa\b|lupa de (pantalla|visualizacion)|amplificador de pantalla|'
+                  r'^bateria (para|qoutmcuy)|^display para|^pantalla para|separador (de pantalla )?lcd|^telefono separador|'
+                  r'pinzas?\b.*pantalla|gel magico limpieza|sanitizador de celular|^ventilador\b.*\b(celular|telefono)|'
+                  r'^teclado para telefono|receptor microfono|amplificador de senal|^weboost|^surecall|^antena amplificadora|'
+                  r'^cobertura de hasta|^receptor de carga inalambrico|^camara a-mind|\bs ?pen\b.*punta|^boligrafo de entrada|'
+                  r'dedales gamer',
+     _CON_GB, 'Celulares', 'Accesorios', _FONOS),
+    ('Celulares', r'^(motorola )?turbo ?power|wireless car charger', None, 'Cargadores y adaptadores',
+     lambda tn: 'De auto' if re.search(r'\bcar\b', tn) else 'De pared', _FONOS),
+    ('Celulares', r'gamepad|^control(ador)? (gamepad|de juegos)|gatillo de juego|^mando inalambrico celular', _CON_GB,
+     'Videojuegos', 'Controles para PC y celular', _FONOS),
+    ('Celulares', r'smart ?band|galaxy fit ?3|^samsung - galaxy fit', _CON_GB, 'Relojes inteligentes', 'Bandas de actividad',
+     _FONOS),
+    ('Celulares', r'\bwatch ?\d|moto watch|^huawei (gt ?\d|x honma)', r'\+|\bcon\b|' + _CON_GB, 'Relojes inteligentes',
+     'Smartwatches', _FONOS),
+    ('Celulares', r'^rastreador|smarttag|moto tag', None, 'Mascotas', 'GPS y localizadores', _FONOS),
+    ('Celulares', r'^(samsung )?galaxy buds|^huawei freeclip', None, 'Audífonos', 'Earbuds inalámbricos', _FONOS),
+    ('Celulares', r'^senal|^senalamiento', None, 'Papelería y oficina', 'Artículos de oficina', _FONOS),
+    ('Celulares', r'^blu-?ray', None, 'Libros', 'Películas y series', _FONOS),
+    ('Celulares', r'^adorno para pastel', None, 'Juguetes', 'Artículos para fiestas', _FONOS),
+    ('Celulares', r'portabebes', None, 'Bebés', 'Portabebés y canguros', _FONOS),
+    ('Celulares', r'^nupec felino|^nupec\b.*gato', None, 'Mascotas', 'Alimento para gato', _FONOS),
+    ('Celulares', r'^nupec|^maka receta', None, 'Mascotas', 'Alimento para perro', _FONOS),
+    ('Celulares', r'^vendelo todo desde tu celular|^la curacion a nivel celular', None, 'Libros',
+     lambda tn: 'Negocios y finanzas' if 'vendelo' in tn else 'Salud y bienestar', _FONOS),
+]
+REGLAS += LOTES['auditoria_15']
+
 # Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que
 # se agregó debajo (reglas por marca, auditoria_2 a 10, sin_subcategoria_2:
 # ~6,000 fichas) no existía todavía cuando main() corría como script: la
