@@ -1227,3 +1227,12 @@ def inalambrico_herramienta(nombre):
     if re.search(r"\balambric|\bcon cable\b|\belectrica\b.*\b\d{3,4} ?w\b|\b\d{3,4} ?w\b", n):
         return "Con cable"
     return None
+
+
+def presion_bar(nombre):
+    """Bares de la bomba de una cafetera espresso («20 bar», «3.5 Bares»).
+    Debajo de 5 es la de vapor (moka eléctrica), no una espresso de bomba."""
+    n = _norm(nombre)
+    vals = {float(m.group(1).replace(",", ".")) for m in re.finditer(r"(?<![\d.,])(\d{1,2}(?:[.,]\d)?) ?bar(?:es|s)?\b", n)}
+    vals = {int(v) if v == int(v) else v for v in vals if 1 <= v <= 25}
+    return next(iter(vals)) if len(vals) == 1 else None

@@ -1264,6 +1264,9 @@ for _s in ("RAM DDR4 para PC de escritorio", "RAM DDR5 para PC de escritorio", "
 NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Fuentes de poder"), []).extend([("psu_cert", st.certificacion_fuente),
                                                                                           ("psu_w", st.potencia_fuente)])
 NOMBRE_GENERALES.setdefault(("Cafeteras", "De cápsulas"), []).append(("capsule", st.sistema_capsulas))
+# Espresso: la presión de la bomba separa la de vapor (3.5 bar) de la de
+# bomba (15-20 bar), que es la que hace crema (05-oct-2026, sólo precio).
+NOMBRE_GENERALES.setdefault(("Cafeteras", "Espresso"), []).append(("pressure_bar", st.presion_bar))
 NOMBRE_GENERALES.setdefault(("Herramientas", "Motosierras"), []).append(("bar_in", st.espada_motosierra))
 NOMBRE_GENERALES.setdefault(("Aspiradoras", "Seco y húmedo"), []).append(("liters", st.capacidad_aspiradora))
 NOMBRE_GENERALES.setdefault(("Herramientas", "Mangueras y riego"), []).append(("length_m", lambda t: se.meters_of(t, 1, 100)))
