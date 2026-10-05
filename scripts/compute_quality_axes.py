@@ -67,7 +67,7 @@ MIN_TRAMO = 0.06       # cada tramo con al menos el 6% (o se funde)
 
 # Orden de preferencia: lo que decide la compra antes que lo descriptivo.
 PRIORIDAD = [
-    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "cpu_socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "upholstery", "scale", "blind_cm", "lights", "sheets", "frame_cm", "card_game", "wheel_rin", "helmet_size", "helmet_cert", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
+    "car_make", "speed_rating", "light_temp", "doors", "hp", "outlets", "tv_max_in", "steps", "power_source", "tv_brand", "printer_brand", "ink_color", "franchise", "block_theme", "doll_line", "pan_material", "pan_cm", "watch_band", "plug", "scale_type", "shelves", "drawers", "cpu_socket", "case_ff", "truck_rim", "mop", "plate_material", "monitors", "stitches", "metal", "kind", "pet_size", "upholstery", "scale", "blind_cm", "lights", "sheets", "frame_cm", "card_game", "wheel_rin", "helmet_size", "helmet_cert", "fan_mm", "ac_btu", "wash_kg", "fridge_ft3", "bed_size", "firmness", "chair_type",
     "battery_h", "storage_type", "cpu_family", "gpu", "panel_type", "refresh_hz",
     "network_gen", "os", "drive_gb", "fan_in", "fan_type", "heater_type",
     "hood_cm", "burners", "cups", "multifunction", "speaker_count", "services",
@@ -186,6 +186,8 @@ CAMPOS = {
                            "1:10": "Figura de unos 18 cm", "1:6": "Figura de unos 30 cm"}),
     "blind_cm": dict(label="Ancho", criterion="de la persiana", unit=" cm", nombres=("Angosta", "Mediana", "Ancha"),
                      usos=("Baño o ventana chica", "Recámara", "Sala o ventanal")),
+    "fan_mm": dict(label="Medida", criterion="del ventilador", ramp=False, orden=["80 mm", "92 mm", "120 mm", "140 mm", "200 mm"],
+                   min_tramo=0.03, valores={"120 mm": "La medida más común", "140 mm": "Mueve más aire con menos ruido"}),
     "helmet_size": dict(label="Talla", criterion="del casco", ramp=False, orden=["XS", "S", "M", "L", "XL", "XXL"],
                         min_tramo=0.04),
     "helmet_cert": dict(label="Certificación", criterion="según el nombre", ramp=False, orden=["DOT", "ECE", "DOT y ECE"],
@@ -486,6 +488,7 @@ CAMPO_SOLO_EN = {
     "lights": {"Iluminación/Candiles y arañas", "Iluminación/Lámparas colgantes"},
     "card_game": {"Juegos de mesa/De cartas"},
     "wheel_rin": {"Autos y motos/Rines"},
+    "fan_mm": {"Componentes y accesorios de PC/Ventiladores para gabinete"},
     # «Cascos para moto» ya tiene «Talla» (size_label, de la ficha).
     "helmet_size": {"Autos y motos/" + _s for _s in ("Cascos abatibles", "Cascos integrales", "Cascos abiertos")},
     "helmet_cert": {"Autos y motos/" + _s for _s in ("Cascos abatibles", "Cascos integrales", "Cascos abiertos", "Cascos para moto")},
@@ -607,6 +610,10 @@ FIJOS_SIN_RAMPA = {"volt", "ball_no"}
 # Nombres y usos específicos: (clave, campo) -> (nombres, usos). Cuando el
 # genérico ("Baja/Media/Alta potencia") no dice para qué sirve.
 USOS = {
+    ("Aspiradoras/Seco y húmedo", "liters"): (("Chica", "Mediana", "Grande"),
+        ("Auto y limpiezas rápidas", "Casa y cochera", "Taller u obra")),
+    ("Herramientas/Mangueras y riego", "length_m"): (("Corta", "Mediana", "Larga"),
+        ("Balcón o patio chico", "Jardín de casa", "Jardines grandes o terrenos")),
     ("Herramientas/Herramientas eléctricas", "power_w"): (("Ligera", "Media", "Alta"),
         ("Taladros y lijadoras chicas, uso en casa", "Taller y trabajos frecuentes", "Rotomartillos, sierras y esmeriles grandes")),
     ("Herramientas", "power_w"): (("Ligera", "Media", "Alta"),

@@ -901,6 +901,25 @@ def certificacion_casco(nombre):
     return "DOT y ECE" if dot and ece else "ECE" if ece else "DOT" if dot else None
 
 
+# ------------------------------------------------- ventiladores de PC y aspiradoras
+def ventilador_mm(nombre):
+    """Medida de un ventilador de gabinete (80, 92, 120, 140 mm...)."""
+    vals = {int(m.group(1)) for m in re.finditer(r"\b(40|50|60|70|80|92|120|140|180|200)\s*mm\b", _norm(nombre))}
+    return f"{vals.pop()} mm" if len(vals) == 1 else None
+
+
+def capacidad_aspiradora(nombre):
+    """Litros del tanque de una aspiradora de seco y húmedo; los galones
+    se pasan a litros («12 galones» = 45 L)."""
+    n = _norm(nombre)
+    m = re.search(r"\b(\d{1,2}(?:\.\d)?)\s*(galones|galon|gal)\b", n)
+    if m:
+        v = round(float(m.group(1)) * 3.785)
+        return v if 3 <= v <= 120 else None
+    m = re.search(r"\b(\d{1,3})\s*(l|lt|lts|litros)\b", n)
+    return int(m.group(1)) if m and 3 <= int(m.group(1)) <= 120 else None
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}

@@ -1057,6 +1057,64 @@ _TIPOS_04OCT.update({
         ('Palancas y barretas', 'palanca|barreta|pata de cabra'),
         ('Gatos y prensas', '\\bgato\\b|prensa|sargento')],
 })
+_TIPOS_04OCT.update({
+    ('Climatización', 'Ventiladores portátiles y de mano'): [
+        ('De cuello', 'de cuello|\\bcuello\\b|neck'),
+        ('De clip o carriola', '\\bclip|carriola|pinza'),
+        ('De mano', 'de mano|\\bmano\\b|handheld|portatil de bolsillo'),
+        ('De escritorio', 'escritorio|de mesa|\\bdesk')],
+    ('Aspiradoras', 'De mano'): [
+        ('Para auto', '\\bauto\\b|\\bcoche\\b|\\bcarro\\b|vehiculo|automovil'),
+        ('Para mascotas', 'mascota|\\bpelo\\b|\\bpet\\b'),
+        ('Para colchón y ácaros', 'colchon|acaros|\\buv\\b|cama'),
+        ('Sopladoras y multiusos', 'soplador|\\b[2-4] en 1\\b|multiusos')],
+    ('Instrumentos musicales', 'Micrófonos inalámbricos'): [
+        ('Para celular o cámara', 'celular|iphone|tipo c|usb-?c|lightning|camara|android'),
+        ('Lavalier o solapa', 'lavalier|solapa|corbata|\\bclip\\b'),
+        ('De diadema', 'diadema|headset|de cabeza'),
+        ('De mano', 'de mano|\\bmano\\b|vocal|karaoke|\\buhf\\b|\\bvhf\\b')],
+    ('Instrumentos musicales', 'Micrófonos de condensador y USB'): [
+        ('Para celular', 'celular|iphone|tipo c|usb-?c|lightning|android'),
+        ('USB', '\\busb\\b'),
+        ('XLR', '\\bxlr\\b|phantom|48 ?v')],
+    ('Deportes y fitness', 'Bandas de resistencia'): [
+        ('Ligas de tela para glúteo', 'tela|gluteo|booty|cadera'),
+        ('Con agarraderas o tubos', 'agarradera|manija|tubo|tubular|asas'),
+        ('Para dominadas (largas)', 'dominada|pull ?up|larga'),
+        ('Mini bandas', '\\bmini\\b|\\bloop')],
+    ('Cocina y comedor', 'Básculas y medidores'): [
+        ('Termómetros', 'termometro'),
+        ('Tazas y cucharas medidoras', 'taza|cuchara|medidor(as)? de|jarra medidora|vaso medidor'),
+        ('Temporizadores', 'temporizador|timer|cronometro'),
+        ('Básculas', 'bascula|balanza|\\bpeso\\b')],
+    ('Cocina y comedor', 'Tablas para picar'): [
+        ('De vidrio', 'vidrio|cristal'),
+        ('De acero inoxidable', 'acero|titanio|inoxidable'),
+        ('De bambú', 'bambu'),
+        ('De madera', 'madera|teca|acacia|nogal|olivo|parota|encino'),
+        ('De plástico', 'plastic|polietileno|polipropileno|silicon|flexible')],
+    ('Jardín y exterior', 'Albercas e inflables'): [
+        ('Bombas, filtros y accesorios', 'bomba|filtro|cloro|bromo|quimic|skimmer|aspiradora|limpia|lampara|\\bluz\\b|cobertor|cubierta|escalera|parche'),
+        ('Flotadores e inflables', 'flotador|salvavidas|colchoneta|camastro|\\bisla\\b|\\bdona\\b|chaleco|montable'),
+        ('Albercas', 'alberca|piscina|\\bpool\\b|jacuzzi|\\bspa\\b')],
+    ('Salud', 'Andaderas, bastones y muletas'): [
+        ('Bastones', 'baston'),
+        ('Muletas', 'muleta'),
+        ('Andaderas con ruedas', 'rollator|con ruedas|\\bruedas\\b|caminadora|andadera con'),
+        ('Andaderas', 'andadera|caminador')],
+    ('Deportes y fitness', 'Campismo'): [
+        ('Casas de campaña', 'casa de campana|tienda de campana|\\bcarpa'),
+        ('Bolsas de dormir y colchones', 'bolsa de dormir|sleeping|saco de dormir|colchon|catre|hamaca'),
+        ('Sillas y mesas', '\\bsilla|\\bmesa|banco'),
+        ('Linternas y lámparas', 'linterna|lampara|farol|\\bluz'),
+        ('Cocina y hieleras', 'estufa|hielera|parrilla|olla|cafetera|termo|\\bvaso'),
+        ('Mochilas', 'mochila')],
+    ('Domótica y hogar inteligente', 'Cerraduras con teclado y código'): [
+        ('Con huella', 'huella|biometric|fingerprint'),
+        ('Con reconocimiento facial', 'facial|rostro'),
+        ('Con Wi-Fi o app', 'wi-?fi|\\bapp\\b|tuya|bluetooth|alexa|google'),
+        ('Sólo código o tarjeta', 'codigo|teclado|tarjeta|\\brfid\\b|\\bpin\\b')],
+})
 TIPOS.update({k: [(et, re.compile(rx)) for et, rx in v] for k, v in _TIPOS_04OCT.items()})
 
 
@@ -1155,6 +1213,9 @@ NOMBRE_GENERALES.setdefault(("Decoración de hogar y jardín", "Cuadros y decora
 NOMBRE_GENERALES.setdefault(("Juguetes", "Disfraces"), []).append(("franchise", st.franquicia))
 NOMBRE_GENERALES.setdefault(("Juegos de mesa", "De cartas"), []).append(("card_game", st.juego_cartas))
 NOMBRE_GENERALES.setdefault(("Autos y motos", "Rines"), []).append(("wheel_rin", st.rin_de_rin))
+NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Ventiladores para gabinete"), []).append(("fan_mm", st.ventilador_mm))
+NOMBRE_GENERALES.setdefault(("Aspiradoras", "Seco y húmedo"), []).append(("liters", st.capacidad_aspiradora))
+NOMBRE_GENERALES.setdefault(("Herramientas", "Mangueras y riego"), []).append(("length_m", lambda t: se.meters_of(t, 1, 100)))
 for _s in ("Cascos abatibles", "Cascos integrales", "Cascos abiertos", "Cascos para moto"):
     NOMBRE_GENERALES.setdefault(("Autos y motos", _s), []).extend([("helmet_size", st.talla_casco),
                                                                 ("helmet_cert", st.certificacion_casco)])
