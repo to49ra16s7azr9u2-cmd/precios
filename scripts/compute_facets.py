@@ -1214,6 +1214,17 @@ NOMBRE_GENERALES.setdefault(("Juguetes", "Disfraces"), []).append(("franchise", 
 NOMBRE_GENERALES.setdefault(("Juegos de mesa", "De cartas"), []).append(("card_game", st.juego_cartas))
 NOMBRE_GENERALES.setdefault(("Autos y motos", "Rines"), []).append(("wheel_rin", st.rin_de_rin))
 NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Ventiladores para gabinete"), []).append(("fan_mm", st.ventilador_mm))
+NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Procesadores"), []).extend([("cpu_socket", st.socket_procesador),
+                                                                                      ("cpu_class", st.clase_procesador)])
+NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Tarjetas de video"), []).extend([("gpu_series", st.serie_gpu),
+                                                                                           ("vram_gb", st.vram_gb)])
+for _s in ("RAM DDR4 para PC de escritorio", "RAM DDR5 para PC de escritorio", "RAM DDR4 para laptop (SODIMM)",
+           "RAM DDR5 para laptop (SODIMM)", "RAM DDR3 y anteriores"):
+    NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", _s), []).append(("ram_gb", st.ram_total_gb))
+NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Fuentes de poder"), []).extend([("psu_cert", st.certificacion_fuente),
+                                                                                          ("psu_w", st.potencia_fuente)])
+NOMBRE_GENERALES.setdefault(("Cafeteras", "De cápsulas"), []).append(("capsule", st.sistema_capsulas))
+NOMBRE_GENERALES.setdefault(("Herramientas", "Motosierras"), []).append(("bar_in", st.espada_motosierra))
 NOMBRE_GENERALES.setdefault(("Aspiradoras", "Seco y húmedo"), []).append(("liters", st.capacidad_aspiradora))
 NOMBRE_GENERALES.setdefault(("Herramientas", "Mangueras y riego"), []).append(("length_m", lambda t: se.meters_of(t, 1, 100)))
 for _s in ("Cascos abatibles", "Cascos integrales", "Cascos abiertos", "Cascos para moto"):

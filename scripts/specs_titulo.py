@@ -920,6 +920,109 @@ def capacidad_aspiradora(nombre):
     return int(m.group(1)) if m and 3 <= int(m.group(1)) <= 120 else None
 
 
+# ------------------------------------------------- componentes de PC
+# Componentes de PC no tenía ni una faceta (05-oct-2026): procesadores,
+# tarjetas de video, RAM y fuentes de poder sólo se comparaban por precio.
+def socket_procesador(nombre):
+    """Socket de un procesador por su modelo («i5-12400» es LGA 1700,
+    «Ryzen 5 7600X» AM5, «Core Ultra 7 265K» LGA 1851)."""
+    n = _norm(nombre)
+    s = socket_tarjeta(nombre)
+    if s:
+        return s
+    if re.search(r"core ultra [3579] ?2\d{2}", n):
+        return "LGA 1851"
+    m = re.search(r"\bi[3579][- ]?(1[0-4])\d{3}", n)
+    if m:
+        gen = int(m.group(1))
+        return "LGA 1700" if gen >= 12 else "LGA 1200"
+    m = re.search(r"\bryzen [3579]\s*(?:pro\s*)?(\d)\d{3}", n)
+    if m:
+        return "AM5" if int(m.group(1)) >= 7 else "AM4"
+    return None
+
+
+def clase_procesador(nombre):
+    """i3/Ryzen 3 de entrada ... i9/Ryzen 9 tope de gama."""
+    n = _norm(nombre)
+    m = re.search(r"\bcore\s*(?:ultra\s*)?i?([3579])\b|\bi([3579])[- ]?\d{4,5}|\bryzen\s*([3579])\b|\bcore ultra ([3579])", n)
+    if not m:
+        return None
+    k = next(g for g in m.groups() if g)
+    return {"3": "Entrada", "5": "Media", "7": "Alta", "9": "Tope"}[k]
+
+
+def serie_gpu(nombre):
+    n = _norm(nombre)
+    m = re.search(r"\brtx\s*-?\s*([2-5])0[5-9]0", n)
+    if m:
+        return f"GeForce RTX {m.group(1)}0"
+    m = re.search(r"\brx\s*-?\s*([5-9])\d{3}", n)
+    if m:
+        return f"Radeon RX {m.group(1)}000"
+    if re.search(r"\bgtx\b|\bgt ?[17]\d{2,3}\b", n):
+        return "GeForce GTX/GT"
+    if re.search(r"\barc\s*[ab]\d{3}", n):
+        return "Intel Arc"
+    return None
+
+
+def vram_gb(nombre):
+    """Memoria de una tarjeta de video («8gb», «16G»)."""
+    n = _norm(nombre)
+    vals = {int(m.group(1)) for m in re.finditer(r"\b(2|3|4|6|8|10|12|16|20|24|32)\s*g(?:b)?(?![a-z0-9])", n)}
+    return vals.pop() if len(vals) == 1 else None
+
+
+def ram_total_gb(nombre):
+    """Capacidad total de un kit de RAM («32 GB (2 x 16 GB)», «2x8gb» = 16)."""
+    n = _norm(nombre)
+    m = re.search(r"\b([1-8])\s*x\s*(4|8|16|24|32|48|64)\s*gb?\b", n)
+    if m:
+        return int(m.group(1)) * int(m.group(2))
+    vals = {int(x) for x in re.findall(r"\b(4|8|16|24|32|48|64|96|128)\s*gb\b", n)}
+    return max(vals) if vals and len(vals) <= 2 else None
+
+
+def certificacion_fuente(nombre):
+    n = _norm(nombre)
+    m = re.search(r"\b(titanium|platinum|platino|gold|oro|silver|bronze|bronce)\b", n)
+    if m:
+        return {"titanium": "Titanium", "platinum": "Platinum", "platino": "Platinum", "gold": "Gold", "oro": "Gold",
+                "silver": "Silver", "bronze": "Bronze", "bronce": "Bronze"}[m.group(1)]
+    if re.search(r"80 ?\+|80 ?plus", n):
+        return "80 Plus"
+    return None
+
+
+def potencia_fuente(nombre):
+    vals = {int(m.group(1)) for m in re.finditer(r"\b(\d{3,4})\s*w\b", _norm(nombre)) if 300 <= int(m.group(1)) <= 2000}
+    return vals.pop() if len(vals) == 1 else None
+
+
+def sistema_capsulas(nombre):
+    """Qué cápsulas usa una cafetera."""
+    n = _norm(nombre)
+    if re.search(r"vertuo", n):
+        return "Nespresso Vertuo"
+    if re.search(r"dolce gusto|dolcegusto", n):
+        return "Dolce Gusto"
+    if re.search(r"keurig|k-?cup|k-?mini|k-?express|k-?supreme|k-?elite", n):
+        return "K-Cup (Keurig)"
+    if re.search(r"\b[2-5] en 1\b|multi ?capsula|varias capsulas", n):
+        return "Varias cápsulas"
+    if re.search(r"nespresso", n):
+        return "Nespresso Original"
+    return None
+
+
+def espada_motosierra(nombre):
+    """Largo de la espada (barra) de una motosierra en pulgadas."""
+    n = _norm(nombre)
+    vals = {int(m.group(1)) for m in re.finditer(r"\b(6|8|10|12|14|16|18|20|22|24|26|28)\s*(\"|pulgadas|pulg|pul|in)(?!\w)", n)}
+    return f'{vals.pop()}"' if len(vals) == 1 else None
+
+
 _PESO_MARTILLO_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d{1,2})?)\s*(oz|onzas?|lbs?|libras?|kg|kilos?|g|gr|gramos)\b")
 _A_KG = {"oz": 0.02835, "onza": 0.02835, "onzas": 0.02835, "lb": 0.4536, "lbs": 0.4536, "libra": 0.4536,
          "libras": 0.4536, "kg": 1, "kilo": 1, "kilos": 1, "g": 0.001, "gr": 0.001, "gramos": 0.001}
