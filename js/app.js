@@ -8610,6 +8610,7 @@
       ${shipHtml}
       ${legoHtml(product)}
       ${lenovoHtml(product)}
+      ${huaweiHtml(product)}
     `;
   }
 
@@ -8655,6 +8656,25 @@
   // programa (ad.soicos.com/-5hYi?dl=) y que usa scripts/afiliados.py para
   // las páginas estáticas.
   const SOICOS_ELEKTRA = "https://ad.soicos.com/-5hYi?dl=";
+  // Tienda oficial Huawei MX (Soicos): sólo el enlace a la búsqueda de la
+  // serie, como LEGO -- los términos de consumer.huawei.com prohíben
+  // reproducir su contenido con fines comerciales. Mismo criterio que
+  // scripts/huawei_link.py: si se cambia uno, se cambia el otro.
+  const SOICOS_HUAWEI = "https://ad.soicos.com/-5n7I?dl=";
+  const HUAWEI_NO = /\b(para|for|compatible( con)?) huawei\b|\bcorreas?\b|\bfundas?\b|\bmica\b|\bprotector|\bcargador|\bcable\b|\badaptador|\bcase\b|\brepuesto|\breacondicionad|\bchina version\b|\bgen[eé]ric/i;
+  const HUAWEI_SERIE = /\b(mate ?x\d+|mate ?\d{2}(?: (?:pro\+?|rs|pro max))?|pura ?\d{2}(?: (?:pro|ultra|pro max))?|nova ?y\d{2}s?|nova ?\d{1,2}(?: (?:pro|ultra|se|i))?|pocket ?\d|watch (?:gt ?runner ?\d?|gt ?\d(?: pro)?|fit ?\d(?: pro)?|fit special edition|ultimate(?: \d)?|kids ?\w+(?: pro)?|d2?|\d)|band ?\d{1,2}|free ?buds (?:pro ?\d|se ?\d|\d+i|studio|\d)|freeclip(?: ?\d)?|freearc|matebook (?:d ?\d{2}|x pro|\d{2})|matepad(?: (?:pro|air|se|\d{2}(?:\.\d)?))?)\b/i;
+  function huaweiDestino(product) {
+    const nombre = product.name || "";
+    if (product.category === "Redes" || HUAWEI_NO.test(nombre) || !/\bhuawei\b/i.test(nombre)) return null;
+    const s = nombre.match(HUAWEI_SERIE);
+    return s ? `https://consumer.huawei.com/mx/search/?keyword=${encodeURIComponent(s[1].replace(/\s+/g, " ").toLowerCase())}` : null;
+  }
+  function huaweiHtml(product) {
+    const d = huaweiDestino(product);
+    if (!d) return "";
+    const url = SOICOS_HUAWEI + encodeURIComponent(d);
+    return `<a class="official-store-link" href="${htmlEscapeAttr(url)}" target="_blank" rel="sponsored noopener">${icon("shopping-bag")} Ver en la tienda oficial Huawei</a>`;
+  }
   function urlSalida(url) {
     return url && /^https:\/\/www\.elektra\.mx\//.test(url) ? SOICOS_ELEKTRA + encodeURIComponent(url) : url;
   }

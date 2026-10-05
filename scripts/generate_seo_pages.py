@@ -50,6 +50,7 @@ from roles_subcategorias import ORDEN as ORDEN_ROLES, TITULOS as TITULOS_ROL, es
 from web_summary import productos_del_set, purchase_options, seller_rows, seller_total  # noqa: E402
 from lego_set import numero_set as lego_numero_set, url_lego_store  # noqa: E402
 from lenovo_link import url_lenovo_store  # noqa: E402
+from huawei_link import url_huawei_store  # noqa: E402
 from afiliados import url_salida  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -866,6 +867,15 @@ def lego_html(product):
             f'{svg_icon("shopping-bag")} Ver el set {lego_numero_set(product)} en LEGO Store</a></p>')
 
 
+def huawei_html(product):
+    """Enlace a consumer.huawei.com/mx (Soicos), sin precio. Mismo que huaweiHtml() en js/app.js."""
+    url = url_huawei_store(product)
+    if not url:
+        return ""
+    return (f'<p><a class="official-store-link" href="{html_escape(url)}" target="_blank" rel="sponsored noopener">'
+            f'{svg_icon("shopping-bag")} Ver en la tienda oficial Huawei</a></p>')
+
+
 def lenovo_html(product):
     """Enlace a lenovo.com/mx (Soicos), sin precio. Mismo que lenovoHtml() en js/app.js."""
     url = url_lenovo_store(product)
@@ -1373,6 +1383,7 @@ def render_product_page(product, data, subs_con_pagina=None):
     <p class="detail-fromprice">{'Desde ' if n_sellers > 1 else ''}<strong>{money(price)}</strong> en {plural(n_sellers, "vendedor", "vendedores")}</p>
     {lego_html(product)}
     {lenovo_html(product)}
+    {huawei_html(product)}
     {amazon_grande_html(product)}
     {NOTA_LAG_HTML}
   </div>

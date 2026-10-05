@@ -151,6 +151,11 @@ SOICOS_LENOVO = "https://ad.soicos.com/-4XB4?dl="
 # tienda, acá y en urlSalida() de js/app.js.
 SOICOS_ELEKTRA = "https://ad.soicos.com/-5hYi?dl="
 
+# Huawei MX (Soicos, implementación «COMPARAMEX» del 05-oct-2026): mismo
+# formato, ad.soicos.com/-5n7I?dl=<url de consumer.huawei.com codificada>.
+# Sólo enlace, como LEGO: ver huawei_link.py.
+SOICOS_HUAWEI = "https://ad.soicos.com/-5n7I?dl="
+
 
 def url_salida(url):
     """La url a la que manda el botón: la de la oferta, envuelta en el
