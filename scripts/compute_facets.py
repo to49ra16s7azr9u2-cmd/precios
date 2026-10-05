@@ -1267,6 +1267,8 @@ NOMBRE_GENERALES.setdefault(("Cafeteras", "De cápsulas"), []).append(("capsule"
 # Espresso: la presión de la bomba separa la de vapor (3.5 bar) de la de
 # bomba (15-20 bar), que es la que hace crema (05-oct-2026, sólo precio).
 NOMBRE_GENERALES.setdefault(("Cafeteras", "Espresso"), []).append(("pressure_bar", st.presion_bar))
+# Juegos de mesa: cuántos juegan, del nombre cuando la ficha no lo dice.
+NOMBRE_GENERALES.setdefault(("Juegos de mesa", None), []).append(("players_max", st.jugadores))
 NOMBRE_GENERALES.setdefault(("Herramientas", "Motosierras"), []).append(("bar_in", st.espada_motosierra))
 NOMBRE_GENERALES.setdefault(("Aspiradoras", "Seco y húmedo"), []).append(("liters", st.capacidad_aspiradora))
 NOMBRE_GENERALES.setdefault(("Herramientas", "Mangueras y riego"), []).append(("length_m", lambda t: se.meters_of(t, 1, 100)))

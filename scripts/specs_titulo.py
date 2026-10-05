@@ -1236,3 +1236,19 @@ def presion_bar(nombre):
     vals = {float(m.group(1).replace(",", ".")) for m in re.finditer(r"(?<![\d.,])(\d{1,2}(?:[.,]\d)?) ?bar(?:es|s)?\b", n)}
     vals = {int(v) if v == int(v) else v for v in vals if 1 <= v <= 25}
     return next(iter(vals)) if len(vals) == 1 else None
+
+
+def jugadores(nombre):
+    """Jugadores que dice el nombre de un juego de mesa («para 2 a 4
+    jugadores», «2-6 Jugadores», «Más De 4 Jugadores»), con el mismo
+    criterio que la ficha técnica (specs_extract.players_max_of)."""
+    import specs_extract as se
+    n = _norm(nombre)
+    m = re.search(r"((?:mas de |\+ ?)?\d{1,2}(?: ?(?:a|-|y|o) ?\d{1,2})?(?: ?(?:o mas|\+))?) ?(?:jugadores|players|personas)\b", n)
+    if not m:
+        return None
+    # «Más de 4» son cinco o más: el tramo de grupo grande, como «5+».
+    mas = re.match(r"mas de (\d{1,2})$", m.group(1))
+    if mas:
+        return se.players_max_of(f"{int(mas.group(1)) + 1}+")
+    return se.players_max_of(m.group(1))
