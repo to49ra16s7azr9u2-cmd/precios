@@ -3468,29 +3468,33 @@ def write_sitemaps(data, root, lastmod=None, ofertas_urls=(), marca_urls=(),
 # lo ofrece -- p. ej. el toggle "Block AI Bots" del panel de Cloudflare
 # (Security -> Bots), que huella la conexión en vez de confiar en el
 # nombre que el visitante dice tener.
+# 05-oct-2026: se bloquea sólo lo que ENTRENA modelos o junta datos en
+# masa. Los buscadores de IA y los agentes que leen una página porque un
+# usuario preguntó algo (OAI-SearchBot, ChatGPT-User, Claude-SearchBot,
+# Claude-User, PerplexityBot, Perplexity-User, MistralAI-User, YouBot,
+# Meta-ExternalFetcher) caen en el grupo general «*»: pueden leer las páginas
+# (y siguen sin poder leer /data/), igual que Googlebot. Bloquearlos dejaba
+# al comparador fuera de las respuestas de ChatGPT, Claude y Perplexity, que
+# es justo donde alguien pregunta «¿dónde está más barato...?».
 _AI_BOT_USER_AGENTS = [
-    # OpenAI
-    "GPTBot", "ChatGPT-User", "OAI-SearchBot",
-    # Anthropic
-    "ClaudeBot", "Claude-Web", "anthropic-ai", "Claude-SearchBot", "Claude-User",
+    # OpenAI (entrenamiento)
+    "GPTBot",
+    # Anthropic (entrenamiento y nombres viejos)
+    "ClaudeBot", "Claude-Web", "anthropic-ai",
     # Common Crawl (fuente de entrenamiento de facto para casi todo modelo grande)
     "CCBot",
     # Google (entrenamiento de modelos -- Googlebot normal, de búsqueda, NO se toca)
     "Google-Extended",
     # Apple (Apple Intelligence -- Applebot normal, de búsqueda, NO se toca)
     "Applebot-Extended",
-    # Meta / Facebook
-    "FacebookBot", "Meta-ExternalAgent", "Meta-ExternalFetcher",
+    # Meta / Facebook (entrenamiento)
+    "FacebookBot", "Meta-ExternalAgent",
     # ByteDance / TikTok
     "Bytespider",
-    # Perplexity
-    "PerplexityBot", "Perplexity-User",
     # Amazon
     "Amazonbot",
     # Cohere
     "cohere-ai", "cohere-training-data-crawler",
-    # You.com
-    "YouBot",
     # Diffbot
     "Diffbot",
     # webz.io (vende datos de entrenamiento)
@@ -3500,8 +3504,6 @@ _AI_BOT_USER_AGENTS = [
     "ImagesiftBot",
     # Allen Institute for AI (dataset Dolma/OLMo)
     "Ai2Bot", "Ai2Bot-Dolma",
-    # Mistral
-    "MistralAI-User",
 ]
 
 
