@@ -4480,5 +4480,31 @@ LOTES['auditoria_19'] += [
 # ~6,000 fichas) no existía todavía cuando main() corría como script: la
 # regeneración aplicó sólo la mitad de las reglas, y la vista previa (que
 # importa el módulo entero) no lo mostraba.
+
+# auditoria_20 (06-oct-2026): juegos de consolas viejas (Wii, 3DS, DS, N64,
+# PS2/PS3, Xbox 360, Game Boy) que estaban entre los de PS4/PS5/Xbox/Switch,
+# y juegos LEGO para esas consolas entre los bloques. Salió de cruzar la
+# categoría que Walmart pone en su url con la nuestra; 20 de 20 al azar bien.
+# «NES Edition» y amiibo no: son de Switch.
+_RETRO = (r'\b(ps3|ps2|playstation [23]|play station [23]|xbox 360|x360|wii u|wiiu|wii|nintendo 3ds|3ds|2ds|nintendo ds|'
+          r'n64|nintendo 64|snes|super nintendo|gamecube|game boy|gba|psp|ps vita)\b')
+_NO_RETRO = (r'\b(ps4|ps5|playstation [45]|play station [45]|xbox one|xbox series|series x|xone|switch)\b|'
+             r'amiibo|nes edition|world champions|balance board')
+LOTES['auditoria_20'] = [
+    ('Videojuegos', _RETRO, _NO_RETRO, 'Videojuegos', 'Juegos retro y otras plataformas',
+     {'Juegos PS4', 'Juegos PS5', 'Juegos Xbox', 'Juegos Nintendo Switch'}),
+    ('Juguetes', r'^(juego |videojuego )?lego\b.*\b(ps3|wii u|wiiu|wii|3ds|nintendo ds|xbox 360|game boy)\b', r'\bpzas?\b|piezas',
+     'Videojuegos', 'Juegos retro y otras plataformas', {'Bloques de construcción'}),
+    ('Blancos y ropa de cama', r'^(\S+ ){0,2}mameluco|conjunto termico para bebe|ropa termica para bebe', None,
+     'Bebés', 'Ropa y calzado de bebé', {'Cobijas', 'Colchas y cobertores'}),
+    ('Bebés', r'set de bienvenida para recien nacido|\bbody\b.*bebe|mamelucos?\b', r'carriola', 'Bebés', 'Ropa y calzado de bebé',
+     {'Carriolas'}),
+    ('Iluminación', r'lampara (uv )?(de |para )?(secado de )?unas?\b|lampara (de )?(una|unas) uv|uv gel', None,
+     'Belleza y cuidado personal', 'Uñas', {'Decorativa'}),
+    ('Equipo comercial', r'mano de practica', None, 'Belleza y cuidado personal', 'Uñas', {'Mobiliario'}),
+]
+REGLAS += LOTES['auditoria_20']
+
+
 if __name__ == '__main__':
     main()
