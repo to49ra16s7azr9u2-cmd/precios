@@ -61,7 +61,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ean_dudosos import ean_utilizable  # noqa: E402
-from data_io import load_catalog, save_catalog  # noqa: E402
+from data_io import load_catalog, save_catalog, url_real  # noqa: E402
 from phone_signature import condition_of  # noqa: E402  -- nuevo/reacondicionado
 
 # Códigos ya preguntados y qué día. Sin esto, cada corrida vuelve a
@@ -174,6 +174,37 @@ def guardar_consultados(mapa):
         json.dump(mapa, f, separators=(",", ":"), sort_keys=True)
 
 
+def digito_verificador(cuerpo):
+    """Dígito verificador GS1 (EAN-13, UPC-A, GTIN-14): pesos 3 y 1
+    alternados desde la derecha del cuerpo."""
+    suma = sum((3 if i % 2 == 0 else 1) * int(x) for i, x in enumerate(reversed(cuerpo)))
+    return str((10 - suma % 10) % 10)
+
+
+_ID_WALMEX = re.compile(r"/ip/[^?#]*/(\d{14})(?:[?#]|$)")
+TIENDAS_WALMEX = {"walmart_mx", "bodega_aurrera"}
+
+
+def gtin_de_walmex(url):
+    """Código de barras a partir de la url de Walmart o Bodega Aurrera.
+
+    El número final de «/ip/<categoría>/<nombre>/00693255445165» es el GTIN
+    SIN su dígito verificador, rellenado a 14: el Poco M7 es el EAN-13
+    6932554451651, el iPhone 17 (256 GB) «00019595064301» es el UPC-A
+    195950643014. Probado el 06-oct-2026 sobre 870 mil ofertas: tomado tal
+    cual, el número sólo pasa la comprobación del dígito verificador en ~10%
+    de los casos, lo que da el azar: le falta ese dígito. Las ofertas de
+    Walmart no traen `ean`, así que ésta es la única vía. Menos de 8 cifras
+    no es un código de fabricante (son consecutivos: «00000000050754»)."""
+    m = _ID_WALMEX.search(url or "")
+    if not m:
+        return None
+    cuerpo = m.group(1).lstrip("0")
+    if len(cuerpo) < 8 or len(cuerpo) > 13:
+        return None
+    return normalize_gtin((cuerpo + digito_verificador(cuerpo)).zfill(14))
+
+
 def candidates(products, store=None):
     """Productos que pueden ganar algo: tienen código de barras y todavía no
     tienen oferta de Mercado Libre. Con `store`, solo los que tienen oferta
@@ -185,15 +216,26 @@ def candidates(products, store=None):
         offers = p.get("offers") or []
         if any(o.get("storeId") == "mercadolibre" for o in offers):
             continue
-        if store and not any(o.get("storeId") == store for o in offers):
-            continue
-        for o in offers:
-            if not ean_utilizable(o):
+        if store == "walmex":
+            # Lo que sólo vende el grupo Walmart: ahí no hay con qué comparar.
+            if not offers or any(o.get("storeId") not in TIENDAS_WALMEX | {"sams_mx"} for o in offers):
                 continue
-            gtin = normalize_gtin(o.get("ean"))
-            if gtin:
-                out.append((p, gtin))
-                break
+        elif store and not any(o.get("storeId") == store for o in offers):
+            continue
+        gtin = None
+        for o in offers:
+            if ean_utilizable(o):
+                gtin = normalize_gtin(o.get("ean"))
+                if gtin:
+                    break
+        if not gtin and store in ("walmex",) + tuple(TIENDAS_WALMEX):
+            for o in offers:
+                if o.get("storeId") in TIENDAS_WALMEX:
+                    gtin = gtin_de_walmex(url_real(o.get("url") or "") or o.get("url"))
+                    if gtin:
+                        break
+        if gtin:
+            out.append((p, gtin))
     return out
 
 
@@ -275,6 +317,9 @@ def ml_offer_for(gtin, our_name=""):
             s["url"] = f"{base}?pdp_filters=item_id:{s['itemId']}"
     if detail.get("priceOriginal"):
         offer["listPrice"] = detail["priceOriginal"]
+    # La ficha técnica del producto de catálogo viaja aparte: no es parte
+    # de la oferta, la toma la ficha si no tiene ninguna.
+    ml = dict(ml, specs=detail.get("specs") or [])
     return offer, ml
 
 
@@ -284,7 +329,8 @@ def main():
     ap.add_argument("--offset", type=int, default=0)
     ap.add_argument("--concurrency", type=int, default=4)
     ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--store", help="solo productos con oferta de esta tienda (p. ej. chedraui)")
+    ap.add_argument("--store", help="solo productos con oferta de esta tienda (p. ej. chedraui); "
+                    "«walmex»: los que sólo vende Walmart/Bodega/Sam's, con el código sacado de la url")
     ap.add_argument("--todos", action="store_true",
                     help="no saltar los códigos ya preguntados (ignora data/gtin-consultados.json)")
     ap.add_argument("--reconsultar-dias", type=int, default=DIAS_RECONSULTA,
@@ -346,6 +392,9 @@ def main():
                 return
             product.setdefault("offers", []).append(offer)
             stats["unidos"] += 1
+            if info.get("specs") and not product.get("specs"):
+                product["specs"] = info["specs"]
+                stats["con_ficha_nueva"] = stats.get("con_ficha_nueva", 0) + 1
             unidos.append((product["id"], product["name"], gtin, info.get("name"), offer["price"]))
 
     preguntados = []
