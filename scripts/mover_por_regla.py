@@ -4640,6 +4640,28 @@ LOTES['auditoria_22'] = [
     ('Climatización', r'kit de instalacion|tuberia|tubo de cobre', None, 'Climatización',
      'Accesorios y refacciones de aire acondicionado', {'Minisplit'}),
 ]
+# Lo baratísimo entre lo caro (menos de 1/12 de la mediana): parasoles entre
+# los lentes, cables y conectores entre los bafles, tapas de quemador entre
+# las estufas, refacciones Italika entre las bombas de aceite de auto, un
+# archivo de oficina y un DVD entre los acordeones.
+LOTES['auditoria_22'] += [
+    ('Cámaras y fotografía', r'^(\S+ ){0,2}parasol', None, 'Cámaras y fotografía', 'Filtros y parasoles', {'Lentes'}),
+    ('Bocinas', r'^(\S+ ){0,2}(cables?|conectores?|adaptadores?|plug|jack)\b', r'^bocina|^(\S+ ){0,1}bafle|amplificador',
+     'Bocinas', 'Cables para bocinas', {'Bafles y audio profesional', 'De estantería y Hi-Fi', 'Subwoofers'}),
+    ('Electrodomésticos', r'tapas? (para |de )?quemador|protector(es)? (de |para )?quemador|cartucho (de )?gas|'
+     r'^(\S+ ){0,1}(perilla|quemador|parrilla para estufa)', r'^estufa', 'Electrodomésticos', 'Refacciones para estufa y horno',
+     {'Estufas'}),
+    ('Autopartes', r'\bitalika\b', None, 'Autopartes', 'Motor, carburación y escape de moto', {'Bombas de aceite'}),
+    ('Herramientas', r'^italika\b', None, 'Autopartes', 'Para motos', {'Herramientas eléctricas'}),
+    ('Instrumentos musicales', r'archivo expandible|carpeta', None, 'Papelería y oficina', 'Organización', {'Acordeones'}),
+    ('Instrumentos musicales', r'manguera.*lavadora|lavadora.*manguera', None, 'Electrodomésticos',
+     'Refacciones para lavadora y secadora', {'Acordeones'}),
+    ('Instrumentos musicales', r'\bdvd\b|videomusical|\bcd de musica', None, 'Libros', 'Películas y series',
+     {'Acordeones', 'Baterías acústicas'}),
+    ('Muebles', r'^(\S+ ){0,1}zapatera|organizador (de )?zapatos', r'closet|ropero|armario', 'Muebles', 'Zapateras', {'Roperos'}),
+    ('Muebles', r'^(\S+ ){0,1}(pata|patas|mecanismo|herraje|rueda|ruedas)\b', None, 'Muebles',
+     'Herrajes y refacciones de muebles', {'Sofás de 2 y 3 plazas', 'Sofás cama', 'Sillas de comedor'}),
+]
 REGLAS += LOTES['auditoria_22']
 
 if __name__ == '__main__':
