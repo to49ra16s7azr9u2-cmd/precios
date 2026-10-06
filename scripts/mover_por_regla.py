@@ -4284,6 +4284,14 @@ LOTES['auditoria_16'] = [
     ('Salud', r'^(\S+ ){0,1}(antivuelcos|cojin|extensores|reposapies|llanta|accesorio|asiento)\b', None,
      'Salud', 'Movilidad y apoyo', {'Sillas de ruedas'}),
 ]
+LOTES['auditoria_16'] += [
+    # Correas de Apple Watch («para apple i watch 42/44/45mm») entre las
+    # genéricas: tienen su propia subcategoría, con la caja como eje.
+    ('Relojes inteligentes', r'apple|i ?watch|\b(38|40|41) ?[/-] ?(40|41)\b|\b(42|44|45) ?[/-] ?(44|45|49)\b', r'garmin|fitbit|samsung|galaxy|huawei|xiaomi|amazfit',
+     'Relojes inteligentes', 'Correas para Apple Watch', {'Correas y extensibles'}),
+    ('Domótica y hogar inteligente', r'camara (espia|oculta)|spy cam|camara .{0,20}oculta', None,
+     'Cámaras de seguridad', 'Cámaras espía', {'Sensores'}),
+]
 REGLAS += LOTES['auditoria_16']
 
 # Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que

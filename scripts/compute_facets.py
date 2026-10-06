@@ -1139,6 +1139,28 @@ for _s in ("Colchones individuales", "Colchones matrimoniales", "Colchones queen
     TIPOS[("Muebles", _s)] = _TABLA_COLCHON
 
 
+# Más subcategorías que sólo se comparaban por precio (06-oct-2026): el tipo
+# es la primera pregunta y el nombre casi siempre lo dice.
+_TIPOS_06OCT = {
+    ("Domótica y hogar inteligente", "Sensores"): [
+        ("Humo y gas", r"humo|smoke|\bgas\b|monoxido|\bco2?\b|calor"),
+        ("Agua y fugas", r"fuga|inundacion|water leak|nivel de agua|tinaco|cisterna"),
+        ("Puerta y ventana", r"puerta|ventana|\bdoor\b|window|magnetic|magnetico"),
+        ("Movimiento y presencia", r"movimiento|motion|presencia|\bpir\b|infrarroj"),
+        ("Temperatura y humedad", r"temperatura|humedad|termometro|higrometro|clima")],
+    ("Salud", "Sillas de ruedas"): [
+        ("Eléctricas", r"electric|motorizad|\bmotor\b|bateria"),
+        ("De transporte y traslado", r"transporte|traslado|transit|comodo|ducha"),
+        ("Manuales", r"manual|plegable|aluminio|acero|estandar|todo terreno|ultraligera|ligera")],
+    ("Mascotas", "Areneros"): [
+        ("Automáticos", r"automatic|autolimpi|self[- ]?clean|inteligente"),
+        ("Cubiertos", r"cubierto|con tapa|\btapa\b|cerrado|techo|casita|covered|hooded|top entry|entrada superior"),
+        ("Abiertos", r"abierto|charola|bandeja|\bopen\b")],
+}
+for _k, _v in _TIPOS_06OCT.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+
+
 def _colchon_por_resortes(valor):
     v = se._norm(valor) if valor else ""
     if not v or re.search(r"\bno aplica\b|\bsin\b|^0$|^n/?a$", v):
