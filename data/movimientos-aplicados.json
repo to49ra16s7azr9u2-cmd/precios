@@ -23326,5 +23326,139 @@
    "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 2,
    "Tabletas | Tabletas Windows y rugged | Componentes y accesorios de PC | Hubs y docks para PC": 1
   }
+ },
+ {
+  "fecha": "2026-10-06",
+  "origen": "motos147.json",
+  "motivo": "06-oct: 147 refacciones, accesorios y juguetes de menos de $3,500 entre las motocicletas, revisadas una por una",
+  "grupos": {
+   "Autos y motos | Motocicletas | Jardín y exterior | Albercas e inflables": 2,
+   "Autos y motos | Motocicletas | Herramientas | Bombas de agua": 1,
+   "Autos y motos | Motocicletas | Autos y motos | Micas y accesorios para casco": 3,
+   "Autos y motos | Motocicletas | Autos y motos | Ropa para motociclista": 11,
+   "Autos y motos | Motocicletas | Autopartes | Motor, carburación y escape de moto": 31,
+   "Autos y motos | Motocicletas | Autos y motos | Accesorios para moto": 19,
+   "Autos y motos | Motocicletas | Autopartes | Sistema eléctrico y sensores": 2,
+   "Autos y motos | Motocicletas | Autopartes | Asientos, parrillas y accesorios de moto": 1,
+   "Autos y motos | Motocicletas | Autopartes | Luces de moto": 3,
+   "Autos y motos | Motocicletas | Decoración de hogar y jardín | Cuadros y decoración de pared": 1,
+   "Autos y motos | Motocicletas | Autopartes | Eléctrico y baterías de moto": 21,
+   "Autos y motos | Motocicletas | Juguetes | Montables": 14,
+   "Autos y motos | Motocicletas | Autopartes | Engranes para moto": 5,
+   "Autos y motos | Motocicletas | Autopartes | Frenos de moto": 6,
+   "Autos y motos | Motocicletas | Autopartes | Suspensión y dirección de moto": 6,
+   "Autos y motos | Motocicletas | Autopartes | Manubrios, espejos y controles": 3,
+   "Autos y motos | Motocicletas | Autopartes | Carenados, plásticos y tanques": 1,
+   "Autos y motos | Motocicletas | Autos y motos | Baúles, alforjas y bolsas para moto": 3,
+   "Autos y motos | Motocicletas | Autos y motos | Protectores para moto": 1,
+   "Autos y motos | Motocicletas | Autopartes | Asientos y respaldos de moto": 1,
+   "Autos y motos | Motocicletas | Joyería y bisutería | Llaveros": 4,
+   "Autos y motos | Motocicletas | Autos y motos | Accesorios para auto": 2,
+   "Autos y motos | Motocicletas | Herramientas | Compresores y herramienta neumática": 2,
+   "Autos y motos | Motocicletas | Juguetes | Vehículos de juguete": 1,
+   "Autos y motos | Motocicletas | Autos y motos | Limpieza y cuidado del auto": 1,
+   "Autos y motos | Motocicletas | Bicicletas y movilidad | Refacciones y transmisión de bicicleta": 1,
+   "Autos y motos | Motocicletas | Herramientas | Herramientas manuales": 1
+  }
+ },
+ {
+  "fecha": "2026-10-06",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador e5444e3549fe7bde) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Autopartes | Para autos | Juguetes | Artículos para fiestas": 1,
+   "Autopartes | Para autos | Juguetes | Bloques de construcción": 1,
+   "Autopartes | Para autos | Papelería y oficina | Pizarrones": 1,
+   "Autopartes | Para autos | Papelería y oficina | Cuadernos": 2,
+   "Autopartes | Para autos | Papelería y oficina | Organización": 1,
+   "Autopartes | Para autos | Papelería y oficina | Artículos de oficina": 7,
+   "Autopartes | Para autos | Audífonos | Earbuds para niños": 1,
+   "Autopartes | Para autos | Muebles | Mesas de centro": 1,
+   "Autopartes | Cadenas, sprockets y transmisión | Limpieza y hogar | Limpiadores y desinfectantes": 1,
+   "Autos y motos | Ropa para motociclista | Ropa y accesorios | Pantalones y jeans": 3,
+   "Herramientas | Bolsas para herramienta eléctrica | Bolsas y mochilas | Bolsas para mujer": 1,
+   "Impresoras | Consumibles | Papelería y oficina | Papel y sobres": 5
+  }
+ },
+ {
+  "fecha": "2026-10-06",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Autopartes | Para autos | Belleza y cuidado personal | Perfumes": 1,
+   "Muebles | Sillas de comedor | Decoración de hogar y jardín | Cuadros y decoración de pared": 4,
+   "Joyería y bisutería | Relojes | Cámaras de seguridad | Cámaras espía": 1,
+   "Libros | Salud y bienestar | Papelería y oficina | Cuadernos": 1,
+   "Bebés | Juguetes para bebé | Muebles | Otros": 1,
+   "Bicicletas y movilidad | Pedales, manubrios y puños | Autopartes | None": 1,
+   "Autos y motos | Tapetes para auto | Juguetes | None": 1,
+   "Autos y motos | Rines | Bicicletas y movilidad | None": 1,
+   "Autos y motos | Motocicletas | Ropa y accesorios | Playeras": 1,
+   "Autos y motos | Rines | Autopartes | None": 1,
+   "Cámaras y fotografía | Compactas | Cámaras de seguridad | Cámaras espía": 1
+  }
+ },
+ {
+  "fecha": "2026-10-06",
+  "origen": "auditoria-mov.json",
+  "motivo": "reglas de auditoría (automático)",
+  "grupos": {
+   "Mascotas | Disfraces para mascotas | Mascotas | Ropa para mascotas": 1,
+   "Autopartes | Sistema eléctrico y sensores | Autopartes | Empaques, juntas y retenes": 19,
+   "Juguetes | None | Juguetes | Vehículos de juguete": 1,
+   "Muebles | Camas queen y king | Blancos y ropa de cama | Protectores de colchón": 2,
+   "Muebles | Camas queen y king | Electrodomésticos | Control de plagas y mosquitos": 2,
+   "Muebles | Mesas de comedor | Herramientas | Construcción": 3,
+   "Muebles | Camas queen y king | Blancos y ropa de cama | Coordinados y juegos de edredón": 24,
+   "Muebles | Camas individuales | Blancos y ropa de cama | Coordinados y juegos de edredón": 15,
+   "Muebles | Camas matrimoniales | Blancos y ropa de cama | Coordinados y juegos de edredón": 5,
+   "Muebles | Otros | Blancos y ropa de cama | Almohadas": 1,
+   "Electrodomésticos | Lavavajillas | Electrodomésticos | Refacciones para otros electrodomésticos": 6,
+   "Electrodomésticos | Lavavajillas | Limpieza y hogar | Detergentes y suavizantes": 12,
+   "Electrodomésticos | Microondas | Electrodomésticos | Refacciones para microondas": 3,
+   "Electrodomésticos | Microondas | Cocina y comedor | Contenedores herméticos": 2,
+   "Electrodomésticos | Microondas | Belleza y cuidado personal | Depilación": 1,
+   "Electrodomésticos | Microondas | Cocina y comedor | Utensilios de cocina": 2,
+   "Autos y motos | Llantas para auto | Jardín y exterior | Albercas e inflables": 8,
+   "Autos y motos | Llantas para auto | Autos y motos | Llantas para carretilla y equipo": 2,
+   "Autos y motos | Llantas para auto | Autos y motos | Tapones para llanta": 5,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Pesca": 19,
+   "Bocinas | De estantería y Hi-Fi | Bocinas | Amplificadores y receptores": 2,
+   "Refrigeradores | Top mount | Electrodomésticos | Refacciones para refrigerador": 5,
+   "Refrigeradores | Top mount | Cocina y comedor | Contenedores herméticos": 1,
+   "Refrigeradores | Top mount | Electrodomésticos | Organizadores para refrigerador": 4
+  }
+ },
+ {
+  "fecha": "2026-10-06",
+  "origen": "juez-origen.json",
+  "motivo": "juez de origen (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Mascotas | Platos y tazones para mascotas": 1,
+   "Autopartes | Para autos | Juguetes | Muñecas": 1,
+   "Autopartes | Para autos | Juguetes | None": 1,
+   "Autopartes | Para autos | Belleza y cuidado personal | None": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | Cremas y bálsamos para afeitar": 2,
+   "Autopartes | Para autos | Muebles | Burós": 1,
+   "Autopartes | Para autos | Joyería y bisutería | Lentes oftálmicos y de lectura": 2,
+   "Autopartes | Para autos | Cocina y comedor | Básculas y medidores": 1,
+   "Autopartes | Para autos | Ropa y accesorios | Pantalones y jeans": 2,
+   "Electrodomésticos | Extractores de jugo | Belleza y cuidado personal | None": 1,
+   "Joyería y bisutería | Anillos | Herramientas | None": 1,
+   "Autos y motos | Motocicletas | Juguetes | Montables": 1,
+   "Autos y motos | Cámaras y accesorios de llanta | Herramientas | Compresores y herramienta neumática": 1,
+   "Autos y motos | Accesorios para auto | Herramientas | None": 1
+  }
+ },
+ {
+  "fecha": "2026-10-06",
+  "origen": "precio_atipico.py",
+  "motivo": "precio imposible para su subcategoría (vecinos + precio)",
+  "grupos": {
+   "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
+   "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 2
+  }
  }
 ]
