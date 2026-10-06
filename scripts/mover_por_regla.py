@@ -4503,6 +4503,18 @@ LOTES['auditoria_20'] = [
      'Belleza y cuidado personal', 'Uñas', {'Decorativa'}),
     ('Equipo comercial', r'mano de practica', None, 'Belleza y cuidado personal', 'Uñas', {'Mobiliario'}),
 ]
+# «Vaso» es también el dado de la matraca: juegos de vasos de 3/8" de
+# Williams, OEMTOOLS, Klein entre los vasos para beber. Y estufas completas
+# «con función freidora de aire» entre las freidoras. Salió de cruzar el
+# «Tipo de herramienta» de la ficha técnica con la subcategoría.
+LOTES['auditoria_20'] += [
+    ('Cocina y comedor', r'^(?=.*\bvasos?\b)(?=.*(\bdrive\b|impacto|impulso|traccion|carraca|tuerca|torx|spline|\bsae\b|\bmetric|'
+     r'\bcr-?(v|mo)\b|cromo|\d+ ?(puntos|puntas|pines)\b|encastre|sensor (de )?o(xigeno|2)|filtro de aceite|tapon de drenaje|'
+     r'de entrada|de cabeza|de avance|enganche|\beje\b|punta phillips))',
+     r'beber|bebida|vidrio|\bvino\b|tatuaje|tinta|velas?\b|papel|desechable|cafe|termic|quencher|tapa', 'Herramientas',
+     'Dados, matracas y autocles', {'Vasos y copas'}),
+    ('Electrodomésticos', r'^estufa\b', None, 'Electrodomésticos', 'Estufas', {'Freidoras de aire'}),
+]
 REGLAS += LOTES['auditoria_20']
 
 
