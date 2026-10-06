@@ -4713,6 +4713,23 @@ LOTES['auditoria_24'] = [
     ('Juguetes', r'^(\S+ ){0,1}torquimetro', None, 'Herramientas', 'Llaves y dados'),
     ('Celulares', r'para router|\brouter \d', None, 'Herramientas', 'Routers, fresadoras y multiherramientas', {'Soportes y agarraderas'}),
     ('Mascotas', r'\blego\b|minifigura', None, 'Juguetes', 'Bloques de construcción'),
+    # Más del barrido por marca: «lápiz labial» entre los lápices, «copa
+    # abrasiva» Austromex entre las copas, pinzas de cocina entre las de
+    # electricista, tapetes de auto entre las alfombras, juguetes entre las
+    # cosas para mascotas.
+    ('Papelería y oficina', r'^(\S+ ){0,1}(lapiz labial|labial|delineador de (labios|ojos)|lapiz de cejas)', None,
+     'Belleza y cuidado personal', lambda tn: 'Sombras y delineadores' if 'delineador' in tn or 'cejas' in tn else 'Labiales'),
+    ('Cocina y comedor', r'copa (abrasiva|de desbaste|diamantada|de alambre)|desbaste', None, 'Herramientas',
+     'Discos de corte y desbaste', {'Copas'}),
+    ('*', r'^cuadros? (spa|escalera|decorativ)', None, 'Decoración de hogar y jardín', 'Cuadros y decoración de pared',
+     {'Aceites esenciales y de masaje', 'Escaleras'}),
+    ('Decoración de hogar y jardín', r'(tapete|alfombra)s? (para|de) (vehiculo|auto|camion|camioneta|cajuela|caja)|weathertech|michelin',
+     None, 'Autos y motos', 'Tapetes, fundas y parasoles', {'Tapetes y alfombras'}),
+    ('Herramientas', r'^(\S+ ){0,1}pinzas? (para|de) (maiz|ensalada|cocina|asar|hielo|parrilla|servir|pan|pasta|espagueti)|chef craft',
+     None, 'Cocina y comedor', 'Utensilios de cocina'),
+    ('Mascotas', r'playmobil', None, 'Juguetes', 'Bloques de construcción'),
+    ('Mascotas', r'furreal|polly pocket|littlest pet shop|gabby|peluche .*para ninos', r'para (perro|gato|mascota)',
+     'Juguetes', 'Peluches'),
 ]
 REGLAS += LOTES['auditoria_24']
 
