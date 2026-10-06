@@ -1252,3 +1252,14 @@ def jugadores(nombre):
     if mas:
         return se.players_max_of(f"{int(mas.group(1)) + 1}+")
     return se.players_max_of(m.group(1))
+
+
+def modo_clima(texto):
+    """Minisplit o aire: sólo frío, o frío y calor (bomba de calor). Del
+    nombre o de «Tipo de climatización» de la ficha («Frío-Calor»)."""
+    n = _norm(texto)
+    if re.search(r"frio[ -/y]*calor|calor[ -/y]*frio|bomba de calor|heat pump|calefaccion", n):
+        return "Frío y calor"
+    if re.search(r"\bsolo frio\b|\bsolo enfriamiento\b|^frio$|\bfrio solo\b", n):
+        return "Solo frío"
+    return None

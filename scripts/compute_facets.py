@@ -339,7 +339,30 @@ SPEC_DIRECTAS = (
     ("Joyería y bisutería", "Relojes", "genero", "gender", "_gender"),
     ("Videojuegos", None, "clasificacion", "age_rating", "_age"),
     ("Electrodomésticos", "Estufas", "numero de quemadores", "burners", "_burners"),
+    # Ficha técnica de Elektra (06-oct-2026, 134 mil fichas nuevas): puertas y
+    # cajones de los muebles, y si el minisplit también calienta.
+    ("Muebles", None, "numero de puertas", "doors", "_puertas_spec"),
+    ("Muebles", None, "numero de cajones", "drawers", "_cajones_spec"),
+    ("Climatización", None, "tipo de climatizacion", "climate_mode", "_modo_clima_spec"),
 )
+
+
+def _entero_spec(valor, lo, hi):
+    m = re.fullmatch(r"\s*(\d{1,2})\s*(puertas?|cajones?)?\s*", str(valor or "").lower())
+    v = int(m.group(1)) if m else None
+    return v if v is not None and lo <= v <= hi else None
+
+
+def _puertas_spec(valor):
+    return _entero_spec(valor, 1, 12)
+
+
+def _cajones_spec(valor):
+    return _entero_spec(valor, 1, 20)
+
+
+def _modo_clima_spec(valor):
+    return st.modo_clima(valor)
 
 
 # La clasificación por edad mezcla DOS sistemas y el mismo código significa
@@ -1289,6 +1312,10 @@ NOMBRE_GENERALES.setdefault(("Cafeteras", "De cápsulas"), []).append(("capsule"
 # Espresso: la presión de la bomba separa la de vapor (3.5 bar) de la de
 # bomba (15-20 bar), que es la que hace crema (05-oct-2026, sólo precio).
 NOMBRE_GENERALES.setdefault(("Cafeteras", "Espresso"), []).append(("pressure_bar", st.presion_bar))
+for _s in ("Minisplit", "Aires acondicionados portátiles", "Aires acondicionados de ventana", "Aires acondicionados"):
+    NOMBRE_GENERALES.setdefault(("Climatización", _s), []).append(("climate_mode", st.modo_clima))
+for _s in ("Burós", "Alacenas y gabinetes de cocina", "Cocinas integrales", "Roperos"):
+    NOMBRE_GENERALES.setdefault(("Muebles", _s), []).append(("drawers", st.cajones_mueble))
 # Juegos de mesa: cuántos juegan, del nombre cuando la ficha no lo dice.
 NOMBRE_GENERALES.setdefault(("Juegos de mesa", None), []).append(("players_max", st.jugadores))
 NOMBRE_GENERALES.setdefault(("Herramientas", "Motosierras"), []).append(("bar_in", st.espada_motosierra))

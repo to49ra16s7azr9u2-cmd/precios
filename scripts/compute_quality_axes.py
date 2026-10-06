@@ -75,7 +75,7 @@ PRIORIDAD = [
     "power_w", "charger_w", "liters", "engine_cc", "range_km", "battery_ah", "weight_kg",
     "load_kg", "size_in", "screen_in", "length_cm", "length_m", "lumens", "battery_mah", "camera_mp",
     "resolution", "focal_mm", "storage_gb", "ram_gb", "dpi", "ports", "wifi_std", "thread_count",
-    "pressure_bar", "pieces", "ball_no", "glove_oz", "thickness_mm", "players_max", "age_min",
+    "pressure_bar", "climate_mode", "pieces", "ball_no", "glove_oz", "thickness_mm", "players_max", "age_min",
     "speeds", "volt", "helmet_type", "size_label", "breed_size", "pet_stage",
     "bike_type", "filament", "tool_type", "rim_size", "wheel_size", "platform", "gender",
     "stone", "material", "water_resistant", "sport", "volume_ml",
@@ -303,6 +303,8 @@ CAMPOS = {
     "battery_ah": dict(label="Batería", criterion="en amperes-hora", unit=" Ah",
                        nombres=("Chica", "Mediana", "Grande"),
                        usos=("Trayectos cortos", "Uso de diario", "Más autonomía")),
+    "climate_mode": dict(label="Modo", criterion="si también calienta", ramp=False, orden=["Solo frío", "Frío y calor"],
+                         valores={"Solo frío": "Para el calor de todo el año", "Frío y calor": "También calienta en invierno"}),
     "pressure_bar": dict(label="Presión", criterion="de la bomba", unit=" bar",
                          nombres=("Baja", "Media", "Alta"),
                          usos=("Café cargado, sin crema", "Espresso con crema", "Espresso de cafetería")),
@@ -504,7 +506,10 @@ CAMPO_SOLO_EN = {
     "plug": {"Audífonos/Earbuds con cable"},
     "scale_type": {"Salud/Básculas"},
     "shelves": {"Muebles/Libreros", "Muebles/Zapateras"},
-    "drawers": {"Muebles/Cómodas y cajoneras"},
+    "drawers": {"Muebles/Cómodas y cajoneras", "Muebles/Burós", "Muebles/Alacenas y gabinetes de cocina",
+                "Muebles/Cocinas integrales", "Muebles/Roperos"},
+    "climate_mode": {"Climatización/Minisplit", "Climatización/Aires acondicionados portátiles",
+                     "Climatización/Aires acondicionados de ventana", "Climatización/Aires acondicionados"},
     "cpu_socket": {"Componentes y accesorios de PC/Tarjetas madre", "Componentes y accesorios de PC/Procesadores"},
     "cpu_class": {"Componentes y accesorios de PC/Procesadores"},
     "gpu_series": {"Componentes y accesorios de PC/Tarjetas de video"},
@@ -801,6 +806,13 @@ def fmt(v, unit):
         s = f"{v:.1f}"
     else:
         s = f"{int(v):,}".replace(",", ",")
+    # «1 cajones», «1 puertas», «1 quemadores»: en singular cuando es uno.
+    if v == 1 and unit.strip() == "cajones":
+        return s + " cajón"
+    if v == 1 and unit.endswith("es") and unit[-3:-2] in "nrsl":
+        return s + unit[:-2]
+    if v == 1 and unit.endswith("s") and len(unit) > 3 and not unit.endswith("es"):
+        return s + unit[:-1]
     return s + unit
 
 
