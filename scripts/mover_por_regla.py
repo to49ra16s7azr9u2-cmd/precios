@@ -4240,6 +4240,52 @@ LOTES['auditoria_15'] = [
 ]
 REGLAS += LOTES['auditoria_15']
 
+
+# auditoria_16 (06-oct-2026): barrido de todo el catálogo por la palabra con
+# que arranca el nombre (la que dice qué ES el producto) contra la
+# subcategoría donde esa palabra vive casi siempre, más lo que salió al
+# revisar las subcategorías que sólo se comparaban por precio.
+LOTES['auditoria_16'] = [
+    # 35 tarjetas madre («Placa madre ASUS Prime B840M») entre la RAM DDR5.
+    ('Componentes y accesorios de PC', r'^(\S+ ){0,1}(placa|tarjeta) madre\b|^motherboard\b', None,
+     'Componentes y accesorios de PC', 'Tarjetas madre'),
+    ('Muebles', r'^(\S+ ){0,1}cuadros?\b', r'\bmesas?\b|\bsillas?\b', 'Decoración de hogar y jardín',
+     'Cuadros y decoración de pared', {'Mesas de comedor'}),
+    ('Libros', r'^(\S+ ){0,1}cuadernos?\b', r'trabajo|ejercicios|actividades|lectura|matematicas|ingles|caligrafia',
+     'Papelería y oficina', 'Cuadernos', {'Educación y texto escolar'}),
+    ('Herramientas', r'^(\S+ ){0,1}bisagras?\b', None, 'Muebles', 'Herrajes y refacciones de muebles', {'Brocas para madera'}),
+    ('Papelería y oficina', r'^lentes\b', None, 'Joyería y bisutería', 'Lentes de sol', {'Arte y dibujo'}),
+    ('Muebles', r'^(\S+ ){0,1}cabecera', r'sofa ?cama|futon', 'Muebles', 'Cabeceras', {'Sofás cama'}),
+    ('Autopartes', r'piston(es)? de caliper', None, 'Autopartes', 'Frenos', {'Pistones, anillos y bielas'}),
+    ('Ropa y accesorios', r'^camiseta\b', None, 'Ropa y accesorios', 'Playeras', {'Calcetines'}),
+    ('Herramientas', r'nasal|para bebe|\bbebes?\b', None, 'Bebés', 'Cuidado y salud del bebé', {'Pinzas de punta'}),
+    # Bocinas inteligentes: contactos, monitores de bebé y termostatos.
+    ('Domótica y hogar inteligente', r'smart plug|plug-?in outlet|wi-?fi plug|\bp100\b|enchufe|contacto inteligente', None,
+     'Domótica y hogar inteligente', 'Enchufes inteligentes', {'Bocinas inteligentes'}),
+    ('Domótica y hogar inteligente', r'baby (car )?monitor|monitor (inteligente )?(wifi )?(para|de) bebe|monitor de bebe', None,
+     'Bebés', 'Monitores de bebé', {'Bocinas inteligentes'}),
+    ('Domótica y hogar inteligente', r'termostato|thermostat', None, 'Domótica y hogar inteligente', 'Termostatos',
+     {'Bocinas inteligentes'}),
+    ('Domótica y hogar inteligente', r'^(\S+ ){0,2}timbre|chime|video ?portero', None, 'Cámaras de seguridad',
+     'Timbres inteligentes', {'Sensores'}),
+    # Areneros: 71 sacos de arena para gato, cortaúñas, aspiradoras y tinas.
+    ('Mascotas', r'^(\S+ ){0,3}(arena|pellets de arena|bolsas para arena)\b|litter pearls|cortaunas|vacuum|bathtub', r'arenero|caja de arena',
+     'Mascotas', 'Higiene y limpieza', {'Areneros'}),
+    # Desarmadores y puntas: dados, llaves, limas y atornilladores eléctricos.
+    ('Herramientas', r'^(\S+ ){0,2}dados?\b', r'desarmador|destornillador|tarraja',
+     'Herramientas', lambda tn: 'Puntas y dados de impacto' if 'impacto' in tn else 'Dados, matracas y autocles',
+     {'Desarmadores y puntas', 'Puntas para atornillar'}),
+    ('Herramientas', r'^(\S+ ){0,2}llaves? (torx|allen|hexagonal)', None, 'Herramientas', 'Llaves Allen y Torx',
+     {'Desarmadores y puntas'}),
+    ('Herramientas', r'^(\S+ ){0,3}(destornillador|desarmador|atornillador)\b.*\b(inalambric|electric|\d(\.\d)? ?v\b)',
+     None, 'Herramientas', 'Atornilladores', {'Desarmadores y puntas'}),
+    ('Herramientas', r'^(\S+ ){0,1}limas?\b', None, 'Herramientas', 'Herramientas manuales', {'Desarmadores y puntas'}),
+    # Sillas de ruedas: refacciones y accesorios a Movilidad y apoyo.
+    ('Salud', r'^(\S+ ){0,1}(antivuelcos|cojin|extensores|reposapies|llanta|accesorio|asiento)\b', None,
+     'Salud', 'Movilidad y apoyo', {'Sillas de ruedas'}),
+]
+REGLAS += LOTES['auditoria_16']
+
 # Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que
 # se agregó debajo (reglas por marca, auditoria_2 a 10, sin_subcategoria_2:
 # ~6,000 fichas) no existía todavía cuando main() corría como script: la
