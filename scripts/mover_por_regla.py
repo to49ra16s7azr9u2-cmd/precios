@@ -4294,6 +4294,88 @@ LOTES['auditoria_16'] += [
 ]
 REGLAS += LOTES['auditoria_16']
 
+
+# auditoria_17 (06-oct-2026): lo que cuesta menos del 12% de la mediana de
+# su subcategoría casi nunca es el producto: es su refacción, su accesorio o
+# un juguete con su forma. 343 «motocicletas» de menos de $3,500 eran
+# unidades de velocímetro, baterías, redes portabultos y motos de juguete.
+def _moto_parte(tn):
+    for sub, rx in (
+            ('Eléctrico y baterías de moto', r'bateria|cargador|unidad|conmutador|interruptor|instrumento|velocimetro|bulbo|claxon|'
+                                             r'\bcable|arnes|harness|bujia|alarma|\bgps\b|audio|stator|ignition'),
+            ('Frenos de moto', r'zapata|balata|pastas? de freno|varilla de freno|disco de freno|brake'),
+            ('Luces de moto', r'\bfaro|calavera|direccional|turn signal|\bled\b'),
+            ('Motor, carburación y escape de moto', r'caja de velocidades|empaque|junta|ciguenal|\barbo|arbol|piston|carburador|carburetor|escape|exhaust|'
+                                                    r'silenciador|mofle|sello|centrifugo|rodillos|contrapesos|\bbanda|clutch|pastas|filtro|intake'),
+            ('Suspensión y dirección de moto', r'yugo|\bmaza|gomas? de impacto|amortiguador|\brin\b|rayos|spoke|wheel'),
+            ('Manubrios, espejos y controles', r'espejo|manubrio|\bpunos?\b|maneta|palanca'),
+            ('Engranes para moto', r'engrane|cadena|kit de arrastre'),
+            ('Carenados, plásticos y tanques', r'cubiertas?|tanque|fuel tank|\btapas?\b|carenado|guardafango|salpicadera|tapones'),
+            ('Asientos y respaldos de moto', r'asiento|\bseat\b'),
+            ('Reposapiés para moto', r'estribo|reposapies')):
+        if re.search(rx, tn):
+            return sub
+    return 'Asientos, parrillas y accesorios de moto'
+
+
+_MOTO_PARTE = (r'^(\S+ ){0,1}(unidad|bateria|redes?|cajas?|bolsas?|toldo|cubre ?sol|caballete|rodilleras|aleron|defensa|numero de placa|'
+               r'gps|tapones|tapas?|gomas?|resortes?|sello|zapatas?|varilla|tuercas?|yugo|maza|llave de gasolina|rodillos|contrapesos|'
+               r'juntas|empaques?|ciguenal|arbo|arbol(es)?|conmutador|instrumento|cargador|seguro|grapa|bandas?|pastas|cinta|liga|repuestos|'
+               r'extractor|plantilla|sujetadores|knee pads|wheel hub|modified|parts|espejos?|manubrio|punos?|manetas?|faro|calavera|'
+               r'direccionales?|engranes?|cadena|kit de arrastre|carburador|piston|escape|silenciador|mofle|cubiertas?|tanque|asiento|'
+               r'parrilla|porta\w*|bulbo|claxon|filtro|bujia|cable|chicote|palanca|pedal|estribos?|guardafangos?|salpicadera|soporte|'
+               r'candado|alarma|barra|base|adaptador|audio|accesorio|pegatinas|suitable|motorcycle (engine|rear|spoke|fuel|riding)|'
+               r'juego extractor|1 set)\b')
+LOTES['auditoria_17'] = [
+    ('Autos y motos', r'montable|maisto|\b1[:/]\d{1,2}\b|a escala|juguete|\blego\b|playmobil|paw patrol|vtech|hot wheels|bworld',
+     r'\b\d{2,3} ?cc\b', 'Juguetes',
+     lambda tn: 'Montables' if re.search(r'montable|electrica|bateria|\b\d+ ?v\b', tn) else 'Vehículos de juguete',
+     {'Motocicletas'}),
+    ('Autos y motos', _MOTO_PARTE, r'^(motocicleta|moto|cuatrimoto|motoneta|trimoto|bicimoto)\b', 'Autopartes', _moto_parte,
+     {'Motocicletas'}),
+    ('Autos y motos', r'^moto ?tool\b', None, 'Herramientas', 'Routers, fresadoras y multiherramientas', {'Motocicletas'}),
+    ('Autos y motos', r'^moto ?bomba\b', None, 'Herramientas', 'Bombas de agua', {'Motocicletas'}),
+    # Televisores por pulgadas: series en DVD y controles remotos.
+    ('Televisores', r'\bdvd\b|serie de television|temporada|^pelicula|blu-?ray',
+     r'reproductor|^(\S+ ){0,1}(televisor|television|tv|pantalla|smart tv)\b|lector dvd|combo dvd', 'Libros', 'Películas y series',
+     {'32 pulgadas o menos', '40 a 43 pulgadas', '50 a 55 pulgadas', '58 a 65 pulgadas', '70 pulgadas o más'}),
+    ('Televisores', r'^(\S+ ){0,1}(mando|control remoto|control universal|control compatible)\b', None, 'Televisores', 'Controles para TV',
+     {'32 pulgadas o menos', '40 a 43 pulgadas', '50 a 55 pulgadas', '58 a 65 pulgadas', '70 pulgadas o más'}),
+    ('Electrodomésticos', r'^(\S+ ){0,1}(quemador|perillas?|tapas? (para )?quemador|deflectores|cubierta para estufa|parrilla para estufa)\b',
+     None, 'Electrodomésticos', 'Refacciones para estufa y horno', {'Estufas'}),
+    ('Electrodomésticos', r'^(\S+ ){0,1}(agujas|enhebrador)', None, 'Electrodomésticos', 'Accesorios y refacciones de máquina de coser',
+     {'Máquinas de coser'}),
+    ('Bocinas', r'^(\S+ ){0,2}(conector push|aumento|pata de|salida de aire|rejilla|terminal)', None, 'Bocinas', 'Accesorios para bocinas',
+     {'Bocinas Bluetooth', 'Bafles y audio profesional'}),
+    ('Bocinas', r'^(\S+ ){0,1}cables?\b', None, 'Bocinas', 'Cables para bocinas', {'Bocinas Bluetooth', 'Bafles y audio profesional'}),
+    ('Bocinas', r'^(\S+ ){0,2}(adaptador|receptor) (de audio )?bluetooth', None, 'Bocinas', 'Amplificadores y receptores',
+     {'Bocinas Bluetooth'}),
+    ('Climatización', r'^(\S+ ){0,1}control\b', None, 'Climatización', 'Controles para aire acondicionado', {'Minisplit'}),
+    ('Climatización', r'^(\S+ ){0,1}control\b', r'ventilador de techo con', 'Climatización', 'Aspas y refacciones de ventilador',
+     {'Ventiladores de techo'}),
+    ('Climatización', r'^italika\b', None, 'Autopartes', 'Motoventiladores y aspas', {'Ventiladores de pedestal'}),
+    ('Muebles', r'^paraguas\b', None, 'Ropa y accesorios', 'Paraguas', {'Sillones y reclinables'}),
+    ('Muebles', r'^protector(es)? (de|para) (sillon|sofa)', None, 'Muebles', 'Fundas y accesorios para sofá',
+     {'Sillones y reclinables', 'Sofás de 2 y 3 plazas'}),
+    ('Muebles', r'^(\S+ ){0,1}(zapatera|zapatero|organizador (de )?zapatos)', None, 'Muebles', 'Organizadores y almacenamiento',
+     {'Roperos'}),
+    ('Bicicletas y movilidad', r'^(\S+ ){0,2}(mirror|throttle|accelerator|rear foot|fork|display|controller|fender|kickstand|grip|'
+                               r'bolso|bag|brake|charger|tire|inner tube|camara|llanta|repuesto)', None,
+     'Bicicletas y movilidad', 'Accesorios de movilidad eléctrica', {'Scooters eléctricos'}),
+    ('Bicicletas y movilidad', r'^(\S+ ){0,1}(pivotes|baleros?|pancle|mazas?|rayos|cadena|pedal(es)?|camara|llanta|sillin|manubrio|'
+                               r'freno|cable|piston|desviador|multiplicacion|catarina|tensor)\b', None,
+     'Bicicletas y movilidad', 'Refacciones y transmisión de bicicleta', {'Bicicletas urbanas y de paseo'}),
+    ('Aspiradoras', r'^(\S+ ){0,1}(kit|bateria|cepillos?|mopas?|panos?|filtros?|repuesto|solucion|franja|reemplazo|bolsas?)\b',
+     r'robot aspirador(a)? \d|aspiradora robot(?! .*repuesto)', 'Electrodomésticos', 'Refacciones para aspiradora y robot',
+     {'Robots aspiradores'}),
+    ('Cámaras y fotografía', r'^(\S+ ){0,1}(tapa de objetivo|tapa frontal|boton de (disparo|obturador))', None,
+     'Cámaras y fotografía', 'Accesorios', {'Lentes'}),
+    ('Cámaras y fotografía', r'^for insta360|^(\S+ ){0,1}(soporte|mount|clip|carcasa|estuche|bolsa|wind muff)\b', None,
+     'Cámaras y fotografía', 'Accesorios', {'Cámaras de acción'}),
+    ('Joyería y bisutería', r'^mancuernillas', None, 'Joyería y bisutería', 'Mancuernillas y accesorios de hombre', {'Relojes'}),
+]
+REGLAS += LOTES['auditoria_17']
+
 # Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que
 # se agregó debajo (reglas por marca, auditoria_2 a 10, sin_subcategoria_2:
 # ~6,000 fichas) no existía todavía cuando main() corría como script: la
