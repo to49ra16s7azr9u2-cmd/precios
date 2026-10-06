@@ -4617,5 +4617,30 @@ LOTES['auditoria_21'] += [
 ]
 REGLAS += LOTES['auditoria_21']
 
+# auditoria_22 (06-oct-2026): refacciones y accesorios entre los aparatos
+# (vasos, tapas, cuchillas y motores de licuadora entre las licuadoras;
+# teclados y micas para iPad entre los iPad; correas, baterías y protectores
+# entre los smartwatches; jarras y filtros entre las cafeteras).
+_SW = {'Smartwatches', 'Smartwatches para niños', 'Bandas de actividad'}
+LOTES['auditoria_22'] = [
+    ('Electrodomésticos', r'^(\S+ ){0,1}(vasos?|tapas?|cuchillas?|jarras?|motor|protector|empaques?|anillo de sellado|repuesto|refaccion)\b|'
+     r'piezas de repuesto', r'^licuadora|licuadora de inmersion|portatil|recargable|\busb\b|procesadora', 'Electrodomésticos', 'Refacciones para licuadora y batidora',
+     {'Licuadoras'}),
+    ('Electrodomésticos', r'^(\S+ ){0,1}(tapa|plato|charola)\b|kit de interruptores', r'^(horno|microondas)\b',
+     'Electrodomésticos', 'Refacciones para microondas', {'Microondas'}),
+    ('Cafeteras', r'^(\S+ ){0,1}(jarra|filtros?)\b', r'^cafetera', 'Cafeteras', 'Accesorios para cafetera', {'De goteo'}),
+    ('Tabletas', r'^(\S+ ){0,1}(teclado|mica|funda|protector|soporte|cargador|cable|lapiz|pluma|stylus)\b', r'^(tablet|ipad)\b',
+     'Tabletas', 'Accesorios para tableta', {'Apple'}),
+    ('Relojes inteligentes', r'^(\S+ ){0,1}(correas?|pulseras? de repuesto|extensibles?)\b|kit de (pulsera|extension)', None,
+     'Relojes inteligentes', 'Correas y extensibles', _SW),
+    ('Relojes inteligentes', r'^(\S+ ){0,2}(protector|mica|bateria|soporte|cargador|cable|funda)\b|kit de pantalla',
+     r'^(smartwatch|reloj inteligente) ', 'Relojes inteligentes', 'Fundas, cargadores y protectores', _SW),
+    ('Aspiradoras', r'^(\S+ ){0,1}(soporte|cabezal)\b', None, 'Aspiradoras', 'Accesorios', {'Verticales y de escoba'}),
+    ('Audífonos', r'^(\S+ ){0,1}(cable|base)\b', None, 'Audífonos', 'Accesorios', {'Earbuds con cable', 'Gamer'}),
+    ('Climatización', r'kit de instalacion|tuberia|tubo de cobre', None, 'Climatización',
+     'Accesorios y refacciones de aire acondicionado', {'Minisplit'}),
+]
+REGLAS += LOTES['auditoria_22']
+
 if __name__ == '__main__':
     main()
