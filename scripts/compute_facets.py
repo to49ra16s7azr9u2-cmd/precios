@@ -1550,6 +1550,61 @@ _TIPOS_06OCT_G = {
 }
 for _k, _v in _TIPOS_06OCT_G.items():
     TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+# Séptima tanda del 06-oct-2026.
+_TIPOS_06OCT_H = {
+    ('Relojes inteligentes', 'Correas y extensibles'): [
+        ('Piel', '\\bpiel\\b|cuero|leather'),
+        ('Acero y metal', 'acero|metal|eslabon|milan|titanio|inoxidable'),
+        ('Silicón y caucho', 'silicon|caucho|\\bgoma\\b|rubber|\\bhule\\b|tpu'),
+        ('Nylon y tela', 'nylon|nailon|\\btela\\b|textil|loop|trenzad'),
+    ],
+    ('Decoración de hogar y jardín', 'Espejos de baño con luz'): [
+        ('Redondos', 'redond|circular'),
+        ('Ovalados', 'ovalad|ovalo'),
+        ('Cuadrados', 'cuadrad'),
+        ('Rectangulares', 'rectangular'),
+    ],
+    ('Herramientas', 'Interruptores, breakers y fusibles'): [
+        ('Centros de carga', 'centro de carga|tablero'),
+        ('Fusibles', 'fusible'),
+        ('Breakers y pastillas', 'breaker|pastilla|termomagnetic|interruptor termo|disyuntor|\\bpolo'),
+        ('Interruptores y apagadores', 'interruptor|apagador|switch|cuchilla|seccionador'),
+    ],
+    ('Autopartes', 'Filtros y aceites de moto'): [
+        ('Filtros', '^(\\S+ ){0,2}filtro'),
+        ('Aceites', 'aceite|lubricante|\\b\\d{1,2}w-?\\d{2}\\b'),
+    ],
+    ('Deportes y fitness', 'Bancos y racks'): [
+        ('Racks y jaulas', 'rack|jaula|power cage|sentadilla'),
+        ('Soportes', '^(\\S+ ){0,1}soporte'),
+        ('Bancos', 'banco|banca'),
+    ],
+    ('Belleza y cuidado personal', 'Brochas y esponjas'): [
+        ('Sets de brochas', '^(\\S+ ){0,2}(set|kit|juego)\\b|\\b\\d+ ?(pzas?|piezas|pcs)\\b'),
+        ('Esponjas', 'esponja|blender|puff'),
+        ('Brochas sueltas', 'brocha|pincel'),
+    ],
+}
+for _k, _v in _TIPOS_06OCT_H.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+# Hubs: cuántos puertos («4 puertos», «8 en 1»), lo que dice el 51%.
+_PUERTOS_HUB = re.compile(r"\b(\d{1,2}) ?(?:puertos|en 1|in 1|ports)\b")
+
+
+def _puertos_hub(t):
+    vals = {int(m.group(1)) for m in _PUERTOS_HUB.finditer(se._norm(t))}
+    vals = {v for v in vals if 2 <= v <= 20}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Hubs y docks para PC"), []).append(("ports", _puertos_hub))
+# Platillos: la medida en pulgadas es lo que distingue un crash de 16" de un
+# ride de 20"; el 57% la dice.
+NOMBRE_GENERALES.setdefault(("Instrumentos musicales", "Platillos"), []).append(
+    ("size_in", lambda t: se.inches_of(t, 6, 24)))
+# Bocinas coaxiales: los watts, como en «Bocinas para auto».
+NOMBRE_GENERALES.setdefault(("Autos y motos", "Bocinas coaxiales de 6.5 pulgadas"), []).append(
+    ("power_w", lambda t: se.power_watts(t, 20, 3000)))
 # Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
 # 60% lo dice en el nombre, muchas veces en libras.
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(
