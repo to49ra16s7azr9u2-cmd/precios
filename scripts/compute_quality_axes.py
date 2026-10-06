@@ -475,7 +475,7 @@ CAMPOS = {
                               "Wi-Fi 7": "La generación más nueva"}),
     "resolution": dict(label="Resolución", criterion="de la imagen",
                        orden=["HD", "HD+", "FHD", "WFHD", "QHD", "UWQHD", "DQHD", "4K UHD", "8K UHD"],
-                       valores={"HD": "Para videollamadas básicas", "FHD": "Nítida, la más común",
+                       valores={"HD": "Imagen básica (720p)", "FHD": "Nítida, la más común (1080p)",
                                 "QHD": "Más detalle que Full HD", "4K UHD": "El máximo detalle"}),
 }
 
@@ -690,6 +690,13 @@ USOS = {
         ("Splash y hi-hats", "Crash", "Ride y china")),
     ("Autos y motos/Bocinas coaxiales de 6.5 pulgadas", "power_w"): (("Suave", "Media", "Fuerte"),
         ("Para oír música con claridad", "Más presencia y bajos", "Para que se oiga desde afuera")),
+    # Los textos de «screen_in» son de televisión; en los accesorios de
+    # tableta la pantalla es la de la tableta.
+    ("Tabletas/Accesorios para tableta", "screen_in"): (("Chicos", "Medianos", "Grandes"),
+        ("Tabletas chicas y mini", "El tamaño más común", "Tabletas grandes y Pro")),
+    # Litros del tanque de agua, no de comida.
+    ("Climatización", "liters"): (("Chico", "Mediano", "Grande"),
+        ("Hay que rellenar seguido", "Aguanta toda la noche", "Uno o más días sin rellenar")),
     ("Herramientas/Llaves ajustables y stilson", "size_in"): (("Chica", "Mediana", "Grande"),
         ("Tuercas chicas y espacios reducidos", "Plomería y uso general", "Tubería y tuercas grandes")),
     ("Herramientas/Pinzas de corte", "size_in"): (("Chicas", "Medianas", "Grandes"),
