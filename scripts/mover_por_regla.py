@@ -4424,6 +4424,47 @@ LOTES['auditoria_18'] += [
      {'Papel higiénico y servilletas'}),
 ]
 
+
+# auditoria_19 (06-oct-2026): al revés que la 17 -- lo que cuesta más de 12
+# veces la mediana de una subcategoría de accesorios casi siempre es el
+# aparato (relojes Stührling entre las correas, aspiradoras Shark entre los
+# filtros, roperos Madesa entre los herrajes), más lo que salió del barrido
+# por palabra de arranque dentro de cada categoría.
+LOTES['auditoria_19'] = [
+    ('Bebés', r'^(\S+ ){0,2}(carriola|cochecito)|sistema de viaje|travel system', None, 'Bebés',
+     lambda tn: 'Sistemas de viaje' if re.search(r'portabebe|autoasiento|canastilla|sistema de viaje|travel', tn)
+                else ('Carriolas bastón' if 'baston' in tn else 'Carriolas'),
+     {'Portabebés y canguros'}),
+    ('Ropa y accesorios', r'jersey miniatura|camiseta miniatura|con diorama', None, 'Juguetes', 'Funko y coleccionables',
+     {'Ropa deportiva', 'Playeras'}),
+    ('Computadoras de escritorio', r'\b(i3|celeron|pentium|athlon|ryzen 3)\b', r'gamer|gaming|\brtx\b|\bgtx\b|radeon rx|geforce',
+     'Computadoras de escritorio', 'Torres de casa y oficina', {'PC gamer'}),
+    ('Celulares', r'soporte para tablet|vidamount|\bipad\b|surface pro', None, 'Tabletas', 'Accesorios para tableta',
+     {'Soportes y agarraderas'}),
+    ('Joyería y bisutería', r'^(\S+ ){0,1}reloj\b', r'^(\S+ ){0,1}(correa|extensible|pulso|banda)', 'Joyería y bisutería',
+     lambda tn: 'Relojes automáticos' if 'automatic' in tn else 'Relojes', {'Correas para reloj'}),
+    ('Herramientas', r'^(\S+ ){0,2}(destornillador|desarmador|atornillador) de impacto|\bm18\b|\bfuel\b|\b\d(\.\d)? ?ah\b', None,
+     'Herramientas', 'Atornilladores', {'Desarmadores y puntas'}),
+    ('Herramientas', r'^trompo\b', None, 'Herramientas', 'Routers, fresadoras y multiherramientas', {'Desarmadores y puntas'}),
+    ('Bicicletas y movilidad', r'^bicicleta electrica', None, 'Bicicletas y movilidad', 'Bicicletas eléctricas',
+     {'Refacciones y transmisión de bicicleta'}),
+    ('Bicicletas y movilidad', r'^bicicleta\b', r'para bicicleta|electrica', 'Bicicletas y movilidad', 'Bicicletas urbanas y de paseo',
+     {'Refacciones y transmisión de bicicleta'}),
+    ('Bicicletas y movilidad', r'\bgm parts\b|\bonix\b|para auto', None, 'Autos y motos', 'Rines',
+     {'Refacciones y transmisión de bicicleta'}),
+    ('Muebles', r'^(\S+ ){0,1}(ropero|closet|armario)\b', r'jig|plantilla|herramienta', 'Muebles', 'Roperos',
+     {'Herrajes y refacciones de muebles'}),
+    ('Autos y motos', r'bipap|cpap|resmed', None, 'Salud', 'Otros aparatos médicos', {'Accesorios para auto'}),
+    ('Autos y motos', r'^(\S+ ){0,1}gato (industrial )?hidraulico', None, 'Autos y motos', 'Gatos hidráulicos para auto',
+     {'Accesorios para auto'}),
+    ('Autos y motos', r'cochecito|carriola', None, 'Bebés', 'Carriolas', {'Accesorios para auto'}),
+    ('Aspiradoras', r'^(\S+ ){0,1}aspirador(a)?\b', r'^filtro|para aspiradora|repuesto|compatible', 'Aspiradoras',
+     lambda tn: 'Verticales y de escoba' if re.search(r'vertical|escoba|inalambric|stick', tn) else
+                ('Seco y húmedo' if re.search(r'agua|humed|wet|\bwd-?\d|\bgal\b', tn) else 'De trineo y con bolsa'),
+     {'Filtros para aspiradora'}),
+]
+REGLAS += LOTES['auditoria_19']
+
 # Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que
 # se agregó debajo (reglas por marca, auditoria_2 a 10, sin_subcategoria_2:
 # ~6,000 fichas) no existía todavía cuando main() corría como script: la
