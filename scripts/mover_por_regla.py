@@ -4609,6 +4609,12 @@ LOTES['auditoria_21'] = [
      {'Llantas para auto rin 19 o más', 'Llantas para auto', 'Llantas para camioneta y SUV', 'Llantas para auto rin 17',
       'Llantas para auto rin 18', 'Llantas para auto rin 16', 'Llantas para auto rin 15', 'Llantas para auto rin 13 y 14'}),
 ]
+# Reguladores de voltaje Renard («1-Regulador bel air 1981 chevrolet»): van
+# con el alternador, no en Enfriamiento.
+LOTES['auditoria_21'] += [
+    ('Autopartes', r'^(\S+ ){0,1}(\d-)?regulador\b', r'presion|gasolina|combustible|ventana|elevador|cristal|vacio|aire',
+     'Autopartes', 'Alternadores y marchas', {'Enfriamiento y climatización'}),
+]
 REGLAS += LOTES['auditoria_21']
 
 if __name__ == '__main__':
