@@ -4692,5 +4692,30 @@ LOTES['auditoria_23'] = [
 ]
 REGLAS += LOTES['auditoria_23']
 
+# auditoria_24 (06-oct-2026): de ver qué marcas casi siempre caen en una
+# categoría y dónde quedaron sus fichas sueltas.
+#   - «Gato» es también el gato hidráulico: 32 gatos de patín, de botella y
+#     de tijera entre las cosas para gato (uno en «Camas para gato»).
+#   - Italika fuera de moto: juegos de cerraduras, platos de clutch, pasadores.
+#   - Orejeras y torquímetros Urrea entre los montables y maquetas.
+LOTES['auditoria_24'] = [
+    ('Mascotas', r'^(\S+ ){0,2}gatos? (hidraulic|hidroneumatic|de patin|patin|de botella|tijera|neumatic|mecanic|para auto|'
+     r'de piso|carretilla|movil|elevador)|\b\d+(\.\d)? ?(ton|toneladas)\b|plataformas? elevadoras?|para gatos hidraulicos',
+     r'juguete|rascador|torre para gato|transportadora|alimento|bebedero|filtro|comedero|inflable|arena',
+     'Autos y motos', 'Gatos y herramientas para auto'),
+] + [
+    (_c, r'.', r'^(motocicleta|motoneta|cuatrimoto|moto)\b|llanta|neumatic|camara|casco|chamarra|rodillera|guante',
+     'Autopartes', _moto_parte_cod, None, 'italika')
+    for _c in ('Herramientas', 'Cocina y comedor', 'Electrodomésticos', 'Bicicletas y movilidad', 'Joyería y bisutería',
+               'Decoración de hogar y jardín', 'Iluminación', 'Cargadores y adaptadores', 'Componentes y accesorios de PC')
+] + [
+    ('Juguetes', r'^(\S+ ){0,1}orejeras?\b', None, 'Herramientas', 'Seguridad industrial'),
+    ('Juguetes', r'^(\S+ ){0,1}torquimetro', None, 'Herramientas', 'Llaves y dados'),
+    ('Celulares', r'para router|\brouter \d', None, 'Herramientas', 'Routers, fresadoras y multiherramientas', {'Soportes y agarraderas'}),
+    ('Mascotas', r'\blego\b|minifigura', None, 'Juguetes', 'Bloques de construcción'),
+]
+REGLAS += LOTES['auditoria_24']
+
+
 if __name__ == '__main__':
     main()
