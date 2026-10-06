@@ -1779,6 +1779,15 @@ for _sub in ("Comederos para aves y roedores", "Juguetes para aves y roedores", 
 def _generales(product, name, spec_map, f):
     cat, sub = product.get("category"), product.get("subcategory")
     fuera = NO_GENERALES.get((cat, sub), ())
+    # Etapa de vida y tamaño de raza: el nombre manda sobre la ficha. La
+    # tienda llena «Todas las etapas / Todas las razas» de oficio, y así
+    # «Nupec Senior 15 kg» quedaba en «Todas las etapas».
+    if cat in ("Mascotas", "Suplementos"):
+        for campo, fn in (("pet_stage", se.pet_stage_of), ("breed_size", se.breed_size_of)):
+            if campo not in f and campo not in fuera:
+                v = fn(name)
+                if v is not None:
+                    f[campo] = v
     for regla in SPEC_GENERALES:
         etiqueta, campo, fn = regla[:3]
         if campo in f or campo in fuera:

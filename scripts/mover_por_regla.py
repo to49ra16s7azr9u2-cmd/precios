@@ -4555,5 +4555,61 @@ LOTES['auditoria_20'] += [
 REGLAS += LOTES['auditoria_20']
 
 
+# auditoria_21 (06-oct-2026): de agrupar fichas con el mismo arranque de
+# nombre y ver cuáles quedaron en otra subcategoría.
+#   - «Vento» es moto (Italika/Vento) y es auto (Volkswagen Vento): resortes,
+#     amortiguadores, faros de niebla y bombas de gasolina del VW Vento, y
+#     chicotes de Dina y Ford F-150, estaban en las subcategorías de moto.
+#   - Chicotes de acelerador y de selector (Cahsa) en «Enfriamiento».
+#   - Muebles para TV Madesa entre los muebles de cocina.
+#   - Llantas de moto (140/70-17, 2.75-18) entre las de auto.
+_AUTO_NO_MOTO = (r'volkswagen|\bvw\b|chevrolet|nissan|\bford\b|dodge|toyota|hyundai|\bkia\b|mazda|chrysler|jeep|\bgmc\b|'
+                 r'renault|peugeot|\bdina\b|camion|para auto\b|microbus')
+_SUBS_MOTO = {'Carenados, plásticos y tanques', 'Eléctrico y baterías de moto', 'Luces de moto',
+              'Motor, carburación y escape de moto', 'Manubrios, espejos y controles', 'Frenos de moto',
+              'Suspensión y dirección de moto', 'Filtros y aceites de moto', 'Asientos, parrillas y accesorios de moto'}
+
+
+def _pieza_de_auto(tn):
+    for rx, sub in ((r'chicote.*(cofre|tapa)|liberador de cofre', 'Cofres, puertas y bisagras'),
+                    (r'^(\S+ ){0,1}parrilla', 'Defensas, fascias y parrillas'),
+                    (r'bomba de aceite', 'Bombas de aceite'),
+                    (r'chicote', 'Chicotes de acelerador y cambios'),
+                    (r'resorte', 'Resortes y muelles'),
+                    (r'amortiguador', 'Amortiguadores'),
+                    (r'niebla', 'Faros de niebla'),
+                    (r'calavera', 'Calaveras'),
+                    (r'direccional|\bcuartos?\b', 'Cuartos y direccionales'),
+                    (r'^(\S+ ){0,3}faros?\b', 'Faros'),
+                    (r'bomba de agua', 'Bombas de agua'),
+                    (r'bomba (de )?gasolina', 'Bombas de gasolina'),
+                    (r'sensor (cmp|ckp|tps)', 'Sensores de posición (CKP, CMP, TPS)'),
+                    (r'afinacion|filtro|aceite', 'Filtros y aceites'),
+                    (r'manija|cilindro de puerta|chapa', 'Manijas y chapas'),
+                    (r'salpicadera|lodera', 'Tolvas, salpicaderas y loderas'),
+                    (r'^(\S+ ){0,2}espejo', 'Espejos laterales')):
+        if re.search(rx, tn):
+            return sub
+    return None
+
+
+LOTES['auditoria_21'] = [
+    ('Autopartes', _AUTO_NO_MOTO, r'\bmoto|motocicleta|italika|cuatrimoto|\batv\b|scooter|motoneta|varios modelos', 'Autopartes',
+     _pieza_de_auto,
+     _SUBS_MOTO),
+    ('Autopartes', r'chicote (para|de) tapa|chicote de cofre|liberador de cofre', None, 'Autopartes', 'Cofres, puertas y bisagras',
+     {'Frenos', 'Enfriamiento y climatización'}),
+    ('Autopartes', r'chicote', r'calefaccion|clima|heater|aire acondicionado|ventila', 'Autopartes', 'Chicotes de acelerador y cambios',
+     {'Enfriamiento y climatización'}),
+    ('Muebles', r'\b(tv|television|pantalla)\b|\brack\b', r'cocina|alacena|despensa|microondas|cafetera', 'Muebles',
+     'Mesas para TV y consolas', {'Muebles de cocina'}),
+    ('Autos y motos', r'\b\d{2,3}/\d{2,3}-\d{2}\b|\b[1-4]\.\d{2}[- ]?r?\d{2}\b|\bmoto|scooter|motoneta',
+     r'camioneta|remolque|carretilla|\bst\b|\batv\b|cuatrimoto|\d{2}-\d{1,2}-\d{2}|\blt\b',
+     'Autos y motos', 'Llantas para moto',
+     {'Llantas para auto rin 19 o más', 'Llantas para auto', 'Llantas para camioneta y SUV', 'Llantas para auto rin 17',
+      'Llantas para auto rin 18', 'Llantas para auto rin 16', 'Llantas para auto rin 15', 'Llantas para auto rin 13 y 14'}),
+]
+REGLAS += LOTES['auditoria_21']
+
 if __name__ == '__main__':
     main()

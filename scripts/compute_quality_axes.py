@@ -587,6 +587,11 @@ CAMPO_FUERA = {
                "Bebés/Juguetes para bebé", "Bebés/Pañales y cambio", "Bebés/Portabebés y canguros",
                "Bebés/Seguridad para bebé", "Bebés/Sillas de auto", "Bebés/Cunas", "Bebés/Andaderas",
                "Bebés/Sillas de comer y mecedoras", "Bebés/Sistemas de viaje", "Bebés/Carriolas bastón"},
+    # «Capacidad de carga: 20 kg» en una llanta o un desviador de bicicleta es
+    # relleno del vendedor (los mismos 20/50/75 kg en piezas sin relación),
+    # no algo con qué comparar.
+    "load_kg": {"Bicicletas y movilidad/Llantas para bicicleta",
+                "Bicicletas y movilidad/Refacciones y transmisión de bicicleta"},
 }
 
 # Tramos fijos: acá los cortes no salen de la distribución sino de cómo se
