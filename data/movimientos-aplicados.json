@@ -23552,5 +23552,91 @@
   "grupos": {
    "Bicicletas y movilidad | Candados para bicicleta | Autopartes | Engranes para moto": 83
   }
+ },
+ {
+  "fecha": "2026-10-06",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador e5444e3549fe7bde) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Autopartes | Para autos | Juguetes | Artículos para fiestas": 1,
+   "Autopartes | Para autos | Juguetes | Bloques de construcción": 1,
+   "Autopartes | Para autos | Papelería y oficina | Pizarrones": 1,
+   "Autopartes | Para autos | Papelería y oficina | Cuadernos": 2,
+   "Autopartes | Para autos | Papelería y oficina | Organización": 1,
+   "Autopartes | Para autos | Papelería y oficina | Artículos de oficina": 7,
+   "Autopartes | Para autos | Audífonos | Earbuds para niños": 1,
+   "Autopartes | Para autos | Muebles | Mesas de centro": 1,
+   "Autopartes | Cadenas, sprockets y transmisión | Limpieza y hogar | Limpiadores y desinfectantes": 1,
+   "Impresoras | Consumibles | Papelería y oficina | Papel y sobres": 4,
+   "Teclados | Membrana | Tabletas | Apple": 1
+  }
+ },
+ {
+  "fecha": "2026-10-06",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Herramientas | Material eléctrico | Autopartes | Eléctrico y baterías de moto": 1,
+   "Autopartes | Alternadores y marchas | Herramientas | Regaderas y duchas": 1,
+   "Autopartes | Bulbos, interruptores y relevadores | Herramientas | Juegos de herramientas": 1,
+   "Autopartes | Metales de biela y bancada | Videojuegos | Juegos retro y otras plataformas": 1,
+   "Papelería y oficina | Artículos de oficina | Herramientas | None": 1,
+   "Muebles | Camas | Blancos y ropa de cama | Sábanas matrimoniales": 2,
+   "Bebés | Juguetes para bebé | Herramientas | Llaves y dados": 1,
+   "Electrodomésticos | Microondas | Belleza y cuidado personal | None": 1,
+   "Electrodomésticos | Pequeños electrodomésticos de cocina | Herramientas | None": 1,
+   "Bicicletas y movilidad | Ciclocomputadoras y soportes para celular | Autopartes | None": 1,
+   "Bicicletas y movilidad | Candados para bicicleta | Autopartes | Cadenas, sprockets y transmisión": 1,
+   "Autos y motos | Soportes para auto | Herramientas | None": 2,
+   "Iluminación | Decorativa | Belleza y cuidado personal | Uñas": 1,
+   "Cámaras y fotografía | Binoculares | Cámaras de seguridad | None": 1,
+   "Cargadores y adaptadores | Para laptop | Herramientas | Pinzas de punta": 1,
+   "Equipo comercial | Mobiliario | Herramientas | None": 1
+  }
+ },
+ {
+  "fecha": "2026-10-06",
+  "origen": "auditoria-mov.json",
+  "motivo": "reglas de auditoría (automático)",
+  "grupos": {
+   "Mascotas | Disfraces para mascotas | Mascotas | Ropa para mascotas": 1,
+   "Autopartes | None | Autopartes | Chicotes de acelerador y cambios": 1,
+   "Limpieza y hogar | Papel higiénico y servilletas | Herramientas | Sanitarios y accesorios de baño": 25,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Pesca": 19,
+   "Cargadores y adaptadores | De pilas | Herramientas | Baterías y cargadores de herramienta": 7
+  }
+ },
+ {
+  "fecha": "2026-10-06",
+  "origen": "juez-origen.json",
+  "motivo": "juez de origen (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Mascotas | Platos y tazones para mascotas": 1,
+   "Autopartes | Bombas de gasolina | Herramientas | None": 1,
+   "Autopartes | Para autos | Juguetes | Muñecas": 1,
+   "Autopartes | Para autos | Juguetes | None": 1,
+   "Autopartes | Para autos | Muebles | Burós": 1,
+   "Autopartes | Para autos | Belleza y cuidado personal | None": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | Cremas y bálsamos para afeitar": 2,
+   "Autopartes | Para autos | Joyería y bisutería | Lentes oftálmicos y de lectura": 2,
+   "Autopartes | Para autos | Cocina y comedor | Básculas y medidores": 1,
+   "Autopartes | Para autos | Ropa y accesorios | Pantalones y jeans": 2,
+   "Belleza y cuidado personal | Uñas | Herramientas | Brocas": 1,
+   "Joyería y bisutería | Relojes | Herramientas | None": 1,
+   "Cocina y comedor | Vasos y copas | Herramientas | Dados, matracas y autocles": 1,
+   "Autos y motos | Limpieza y cuidado del auto | Herramientas | Esmeriladoras y pulidoras": 1
+  }
+ },
+ {
+  "fecha": "2026-10-06",
+  "origen": "precio_atipico.py",
+  "motivo": "precio imposible para su subcategoría (vecinos + precio)",
+  "grupos": {
+   "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
+   "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 2,
+   "Instrumentos musicales | Guitarras acústicas | Juguetes | Funko y coleccionables": 1
+  }
  }
 ]

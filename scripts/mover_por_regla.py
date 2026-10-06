@@ -4664,5 +4664,33 @@ LOTES['auditoria_22'] += [
 ]
 REGLAS += LOTES['auditoria_22']
 
+# auditoria_23 (06-oct-2026): refacciones Italika con su número de parte
+# («F14010294», «E08010180») regadas por todo el catálogo: «Juego Anillos
+# Piston» entre los anillos de joyería, «Camara 90/80-17» (la cámara de la
+# llanta) entre las cámaras fotográficas, «Plato Embrague» entre los platos,
+# «Collar Manubrio» entre los collares, cargadores USB, cojines de tanque...
+_COD_ITALIKA = r'\b[efk]\d{8}\b|\b[ef]\d{4}[a-z]{2}\d{2}\b'
+
+
+def _moto_parte_cod(tn):
+    for sub, rx in (('Ejes para moto', r'^(\S+ ){0,1}eje\b'),
+                    ('Soportes para moto', r'^(\S+ ){0,2}soporte'),
+                    ('Engranes para moto', r'engrane|pinon|tensor|guia tensora')):
+        if re.search(rx, tn):
+            return sub
+    return _moto_parte(tn)
+
+
+LOTES['auditoria_23'] = [
+    ('*', r'^(?=.*(' + _COD_ITALIKA + r'))(\S+ ){0,1}camara\b', None, 'Autos y motos', 'Cámaras y accesorios de llanta'),
+    ('*', _COD_ITALIKA, r'^(motocicleta|moto|cuatrimoto|motoneta)\b|^(\S+ ){0,1}(camara|llanta|neumatico)\b', 'Autopartes', _moto_parte_cod),
+    ('Autopartes', _COD_ITALIKA, None, 'Autopartes', _moto_parte_cod,
+     {'Empaques, juntas y retenes', 'Bombas de aceite', 'Soportes de motor y transmisión', 'Sensores de posición (CKP, CMP, TPS)',
+      'Frenos', 'Bobinas de encendido', 'Faros', 'Baleros y mazas de rueda', 'Bases y cubrepolvos de amortiguador',
+      'Cadenas y kits de distribución', 'Poleas y tensores', 'Motoventiladores y aspas', 'Focos y bombillas para auto',
+      'Bulbos, interruptores y relevadores', 'Tapones de radiador'}),
+]
+REGLAS += LOTES['auditoria_23']
+
 if __name__ == '__main__':
     main()
