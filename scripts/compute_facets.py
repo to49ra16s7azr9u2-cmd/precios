@@ -1183,6 +1183,58 @@ _TIPOS_06OCT = {
 for _k, _v in _TIPOS_06OCT.items():
     TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
 
+# Segunda tanda del 06-oct-2026 (rascadores, portabebés, pilas, bicicletas
+# fijas, papel, prensas y bolsas para herramienta).
+_TIPOS_06OCT_B = {
+    ('Mascotas', 'Rascadores y torres'): [
+        ('De cartón', 'carton|corrugado'),
+        ('De pared y ventana', 'pared|ventana|muro|wall|tapiz|adherible|alfombra'),
+        ('Árboles y torres', 'torre|arbol|condominio|\\bniveles?\\b|\\bpisos\\b|cat tree|hamaca|casa'),
+        ('Postes', 'poste|columna|sisal'),
+    ],
+    ('Bebés', 'Portabebés y canguros'): [
+        ('Rebozos y fulares', 'rebozo|fular|wrap|elastic'),
+        ('Bandoleras y asiento de cadera', 'bandolera|sling|hip ?seat|asiento de cadera'),
+        ('Ergonómicos', 'ergonomic|canguro|mochila|carrier|ergobaby|tula|osprey|deuter'),
+    ],
+    ('Cargadores y adaptadores', 'De pilas'): [
+        ('Cargadores con pilas', 'cargador.*(incluye|con|\\+) ?\\d* ?pilas|kit.*cargador'),
+        ('Cargadores', '^(\\S+ ){0,2}cargador'),
+        ('Pilas recargables', 'recargable|ni-?mh|\\b1[.,]2 ?v\\b'),
+        ('Pilas alcalinas y de litio', 'alcalin|litio|lithium|pila|bateria'),
+    ],
+    ('Deportes y fitness', 'Bicicletas fijas'): [
+        ('Pedaleadores', 'pedaleador|pedalera|mini bicicleta|bajo escritorio|under desk'),
+        ('Recumbentes', 'recumben|reclinada|reclinable'),
+        ('Spinning', 'spinning|indoor cycling|cycling|volante de inercia'),
+        ('Estáticas', 'estatica|fija|magnetica|vertical'),
+    ],
+    ('Limpieza y hogar', 'Papel higiénico y servilletas'): [
+        ('Dispensadores y portarrollos', 'dispensador|despachador|porta ?rollos?|portarrollo|porta ?panuelos|porta ?servilletas|servilletero'),
+        ('Papel higiénico', 'higienico|toilet'),
+        ('Toallas de papel', 'toallas? de papel|toalla interdoblada|rollo de cocina|papel toalla'),
+        ('Servilletas', 'servilleta'),
+        ('Pañuelos', 'panuelos|faciales|kleenex'),
+    ],
+    ('Herramientas', 'Prensas y sujeción'): [
+        ('Tornillos de banco', 'tornillo de banco|tornillo para banco|morsa|bench vise|\\bvise\\b'),
+        ('Prensas en C', 'prensa (en |tipo )?c\\b|prensa c |c-clamp'),
+        ('Sargentos y prensas rápidas', 'sargento|prensa rapida|de barra|quick|clamp|prensa de apriete|pinza de apriete'),
+        ('Prensas esquineras', 'esquin|angulo|90'),
+    ],
+    ('Herramientas', 'Bolsas y cinturones portaherramientas'): [
+        ('Mochilas', 'mochila|backpack'),
+        ('Cinturones y portaherramientas', 'cinturon|cinto|porta ?herramienta|faja|tirantes|bolsa de cintura|mandil|delantal'),
+        ('Bolsas y maletines', 'bolsa|maletin|estuche|tote'),
+    ],
+}
+for _k, _v in _TIPOS_06OCT_B.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+# Llaves ajustables y pinzas de corte: el largo en pulgadas es lo primero que
+# se pide en la ferretería («perica de 10»), y el 40% lo dice en el nombre.
+for _s in ("Llaves ajustables y stilson", "Pinzas de corte"):
+    NOMBRE_GENERALES.setdefault(("Herramientas", _s), []).append(("size_in", lambda t: se.inches_of(t, 4, 48)))
+
 
 def _colchon_por_resortes(valor):
     v = se._norm(valor) if valor else ""
