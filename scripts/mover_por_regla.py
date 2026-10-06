@@ -4515,6 +4515,37 @@ LOTES['auditoria_20'] += [
      'Dados, matracas y autocles', {'Vasos y copas'}),
     ('Electrodomésticos', r'^estufa\b', None, 'Electrodomésticos', 'Estufas', {'Freidoras de aire'}),
 ]
+# «Acuario» es también un color de pintura vinílica (Pintex, Color Price):
+# 44 cubetas de pintura estaban entre las peceras.
+LOTES['auditoria_20'] += [
+    ('Mascotas', r'pintura|vinil|impermeabilizante|color para cemento|sellador', None, 'Herramientas', 'Construcción',
+     {'Acuarios y terrarios'}),
+    ('Mascotas', r'^impermeable\b', None, 'Mascotas', 'Impermeables y abrigos para mascotas', {'Acuarios y terrarios'}),
+    ('Mascotas', r'^tijeras?\b', None, 'Mascotas', 'Higiene y limpieza', {'Acuarios y terrarios'}),
+    ('Domótica y hogar inteligente', r'door lock|cerradura', None, 'Domótica y hogar inteligente',
+     'Accesorios y refacciones de cerradura', {'Focos inteligentes'}),
+]
+# Lo que no es guitarra eléctrica entre las guitarras eléctricas: los
+# controles CRKD de Guitar Hero «Gibson SG», bajos «SG bass», ukeleles
+# «Telecaster», paquetes de guitarra acústica y refacciones (pastillas,
+# selectores, palancas de trémolo).
+LOTES['auditoria_20'] += [
+    ('Instrumentos musicales', r'controlador de guitarra|\bcrkd\b|guitar hero', None, 'Videojuegos', 'Controles y gamepads',
+     {'Guitarras eléctricas'}),
+    ('Instrumentos musicales', r'\bbajo electrico\b|\bbass\b', r'guitarra electrica', 'Instrumentos musicales', 'Bajos',
+     {'Guitarras eléctricas'}),
+    ('Instrumentos musicales', r'ukelele|ukulele', None, 'Instrumentos musicales', 'Ukuleles', {'Guitarras eléctricas'}),
+    ('Instrumentos musicales', r'guitarra (acustica|electroacustica)|acustica-?electrica|dreadnought', r'guitarra electrica',
+     'Instrumentos musicales',
+     lambda tn: 'Guitarras electroacústicas' if re.search(r'electroacustica|acustica[-/ ]?electrica|\bsce\b', tn) else 'Guitarras acústicas',
+     {'Guitarras eléctricas'}),
+    ('Instrumentos musicales', r'^(\S+ ){0,1}pastillas?\b', None, 'Instrumentos musicales', 'Pastillas para guitarra',
+     {'Guitarras eléctricas'}),
+    ('Instrumentos musicales', r'^(\S+ ){0,1}(interruptor|selector|tremolo arm|palanca|perilla|golpeador|pickguard)', None,
+     'Instrumentos musicales', 'Accesorios de guitarra', {'Guitarras eléctricas'}),
+    ('Instrumentos musicales', r'^(\S+ ){0,3}cable\b', None, 'Instrumentos musicales', 'Cables para guitarra',
+     {'Guitarras eléctricas'}),
+]
 REGLAS += LOTES['auditoria_20']
 
 

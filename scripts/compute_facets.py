@@ -504,7 +504,7 @@ def _hogar_facets(product, name, spec_map, f):
         if tipo:
             f["chair_type"] = tipo
     elif category == "Electrodomésticos":
-        if sub == "Campanas de cocina":
+        if sub in ("Campanas de cocina", "Combos de campana y parrilla"):
             cm = _primero(se.hood_width_cm, name, spec_map.get("tamano en pulgadas"))
             if cm is not None:
                 f["hood_cm"] = cm
@@ -1288,6 +1288,49 @@ _TIPOS_06OCT_C = {
 }
 for _k, _v in _TIPOS_06OCT_C.items():
     TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+# Cuarta tanda del 06-oct-2026: subcategorías que en Compara calidad sólo
+# tenían el precio.
+_TIPOS_06OCT_D = {
+    ('Domótica y hogar inteligente', 'Focos inteligentes'): [
+        ('Tiras LED', '\\btiras?\\b|strip'),
+        ('Sockets y adaptadores', '^(\\S+ ){0,1}(socket|adaptador|enchufe)'),
+        ('Spots GU10 y MR16', 'gu10|mr16|gu5'),
+        ('Reflectores BR30', 'br30|br40|par ?(20|30|38)|reflector'),
+        ('Vela y filamento', 'vela|filamento|edison|\\bg(80|95|125)\\b|\\bst64\\b'),
+        ('Foco estándar', 'foco|bombilla|bulb|\\ba19\\b|\\ba60\\b|e2[67]'),
+    ],
+    ('Instrumentos musicales', 'Guitarras eléctricas'): [
+        ('Paquetes con amplificador', 'paquete|kit\\b|combo|amplificador|\\bamp\\b'),
+        ('Tipo Les Paul', 'les paul|\\blp\\b'),
+        ('Tipo Telecaster', 'telecaster|\\btele\\b'),
+        ('Tipo SG', '\\bsg\\b'),
+        ('Offset (Jazzmaster, Jaguar, Mustang)', 'jazzmaster|jaguar|mustang'),
+        ('Semi hueca', 'hollow|semi ?hueca|semi-?acustica|\\b335\\b'),
+        ('Tipo Stratocaster', 'stratocaster|\\bstrat\\b'),
+    ],
+    ('Juegos de mesa', 'Ajedrez'): [
+        ('Relojes de ajedrez', 'reloj|clock|timer|temporizador'),
+        ('Electrónicos', 'electronic|inteligente|intelligent|computer|computadora|\\bai\\b'),
+        ('De colección', 'harry potter|tronos|marvel|star wars|simpson|coleccion|eaglemoss|usaopoly'),
+        ('Magnéticos', 'magnet'),
+        ('De mármol y metal', 'marmol|marble|metal'),
+        ('De madera', 'madera|wood'),
+    ],
+    ('Deportes y fitness', 'Barras y discos'): [
+        ('Racks y soportes', '^(\\S+ ){0,1}(rack|soporte|organizador|arbol)'),
+        ('Seguros y topes', '^(\\S+ ){0,2}(seguros?|topes?|abrazaderas?|collarines?|clips?|sujetador)\\b|clamp'),
+        ('Protectores para cuello', '^(\\S+ ){0,5}(cojin|protector|almohadilla|esponja)'),
+        ('Kits de barra y discos', '(kit|set|juego) de (pesas|barra)|con discos|barra y discos'),
+        ('Discos', '\\bdiscos?\\b|bumper'),
+        ('Barras', '\\bbarras?\\b'),
+    ],
+}
+for _k, _v in _TIPOS_06OCT_D.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+# Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
+# 60% lo dice en el nombre, muchas veces en libras.
+NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(
+    ("weight_kg", lambda t: se.kg_of(t, 0.5, 60)))
 # Llaves ajustables y pinzas de corte: el largo en pulgadas es lo primero que
 # se pide en la ferretería («perica de 10»), y el 40% lo dice en el nombre.
 for _s in ("Llaves ajustables y stilson", "Pinzas de corte"):
