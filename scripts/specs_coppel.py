@@ -33,6 +33,7 @@ Las que vende Coppel («-pm-», ~5,000) sí traen modelo, capacidad, piezas,
 funciones: por omisión se bajan sólo ésas (--todas para el resto).
 """
 import argparse
+import re
 import concurrent.futures
 import json
 import os
@@ -48,6 +49,11 @@ from elektra_specs import MAX_SPECS, MAX_VALOR, _limpia  # noqa: E402
 CACHE = "/tmp/coppel_specs/specs_por_url.jsonl"
 OMITIR = {"marca"}
 GENERICOS = {"medidas", "material", "color"}
+# Lo que el vendedor pone de oficio para llenar el campo: «N/A», «No aplica»,
+# «0», y medidas con los tres lados iguales y redondos («10x10x10»,
+# «1x1x1»), que no son las de ningún producto real.
+_RELLENO = re.compile(r"^(n/?a|no aplica|na|sin dato|ninguno|ninguna|-+|0|\.)$", re.I)
+_MEDIDA_RELLENO = re.compile(r"^\s*(\d{1,3})\s*(cm)?\s*x\s*\1\s*(cm)?\s*x\s*\1\s*(cm)?\s*$", re.I)
 _DEC = json.JSONDecoder()
 
 
@@ -67,13 +73,13 @@ def specs_de_html(html):
         if not nombre or nombre.lower() in OMITIR or len(valores) != 1:
             continue
         valor = _limpia(valores[0].get("value") or valores[0].get("name") or "")
-        if not valor or len(valor) > MAX_VALOR:
+        if not valor or len(valor) > MAX_VALOR or _RELLENO.search(valor):
+            continue
+        if nombre.lower() == "medidas" and _MEDIDA_RELLENO.match(valor):
             continue
         out.append({"label": nombre, "value": valor})
         if len(out) >= MAX_SPECS:
             break
-    if all(x["label"].lower() in GENERICOS for x in out):
-        return []
     return out
 
 
@@ -138,13 +144,13 @@ def bajar(urls, tanda_n, paralelas, pausa, limite):
     print(f"Bajado: {len(pendientes):,} fichas, {con:,} con ficha técnica; sin respuesta {sin_html:,}")
 
 
-def aplicar(data, mapa, dry_run):
+def aplicar(data, mapa, dry_run, con_genericos=False):
     cache = leer_cache()
     por_id = {p["id"]: p for p in data["products"]}
     llenas = campos = 0
     for u, ids in mapa.items():
         ficha = cache.get(u)
-        if not ficha or all(x["label"].lower() in GENERICOS for x in ficha):
+        if not ficha or (not con_genericos and all(x["label"].lower() in GENERICOS for x in ficha)):
             continue
         for pid in ids:
             p = por_id[pid]
@@ -172,6 +178,8 @@ def main():
     ap.add_argument("--pausa", type=float, default=0.4)
     ap.add_argument("--limite", type=int, default=0, help="sólo las primeras N fichas (prueba)")
     ap.add_argument("--todas", action="store_true", help="también las del marketplace (-mkp-)")
+    ap.add_argument("--con-genericos", action="store_true",
+                    help="aplicar también las fichas que sólo traen medidas, material y color (sin relleno)")
     args = ap.parse_args()
     if not (args.bajar or args.aplicar):
         ap.error("--bajar y/o --aplicar")
@@ -181,7 +189,7 @@ def main():
         urls = sorted(u for u in mapa if args.todas or "-pm-" in u)
         bajar(urls, args.tanda, args.paralelas, args.pausa, args.limite)
     if args.aplicar:
-        aplicar(data, mapa, args.dry_run)
+        aplicar(data, mapa, args.dry_run, args.con_genericos)
     return 0
 
 
