@@ -4733,6 +4733,44 @@ LOTES['auditoria_24'] = [
 ]
 REGLAS += LOTES['auditoria_24']
 
+# auditoria_25 (06-oct-2026): «Autopartes / Para autos» se volvió un cajón de
+# sastre por marcas con nombre de autoparte: cinta Walker para pelucas,
+# grifos Kingston Brass, cuadernos King Jim, tijeras Pilot, mancuernas
+# Champion. ~180 de sus 482 fichas no eran de auto.
+_PA = {'Para autos'}
+LOTES['auditoria_25'] = [
+    ('Autopartes', r'walker tape|cinta (adhesiva )?(para )?(extensiones|cabello|pelucas)|pegamento para pelucas|\bwalker\b.*(ml|cinta)',
+     None, 'Belleza y cuidado personal', 'Extensiones de cabello', _PA),
+    ('Autopartes', r'^(\S+ ){0,2}(grifo|aireador)|codo giratorio para banera|^(\S+ ){0,1}brazo de ducha|kingston brass', None,
+     'Herramientas', lambda tn: 'Regaderas y duchas' if 'ducha' in tn and 'grifo' not in tn else 'Grifos y monomandos', _PA),
+    ('Autopartes', r'^(\S+ ){0,1}(lavabo|fregadero)', None, 'Herramientas', 'Tarjas y fregaderos', _PA),
+    ('Autopartes', r'^(\S+ ){0,1}(cuaderno|carpeta|engrapadora|tijera|perfume pilot)', None, 'Papelería y oficina',
+     lambda tn: 'Cuadernos' if 'cuaderno' in tn else ('Organización' if 'carpeta' in tn else
+                ('Escritura' if 'perfume' in tn else 'Artículos de oficina')), _PA),
+    ('Autopartes', r'^(\S+ ){0,1}(silla ejecutiva|librero|tocador)', None, 'Muebles',
+     lambda tn: 'Sillas ejecutivas' if 'silla' in tn else ('Libreros' if 'librero' in tn else 'Tocadores'), _PA),
+    ('Autopartes', r'(perros?|gatos?|mascotas)\b', r'auto|vehiculo|cajuela|hidraulic|prensa|\bton\b|robot', 'Mascotas',
+     lambda tn: 'Platos y tazones para mascotas' if re.search(r'tazon|plato', tn) else 'Higiene y limpieza', _PA),
+    ('Autopartes', r'^(\S+ ){0,1}(figura de accion|bloques de construccion|pizarra magnetica|globos de agua)', None, 'Juguetes',
+     lambda tn: 'Figuras de acción' if 'figura' in tn else ('Bloques de construcción' if 'bloques' in tn else
+                ('Juguetes para exterior' if 'globos' in tn else 'Juguetes educativos')), _PA),
+    ('Autopartes', r'mancuerna|kettlebell|barra de agarre olimpica|jump rope|medicine ball', None, 'Deportes y fitness',
+     'Equipo de gimnasio', _PA),
+    ('Autopartes', r'^(\S+ ){0,1}masajeador', None, 'Belleza y cuidado personal', 'Masajeadores', _PA),
+    ('Autopartes', r'toallitas nasales|dermatitis del panal', None, 'Bebés', 'Baño e higiene del bebé', _PA),
+    ('Autopartes', r'cartucho de toner|^(\S+ ){0,1}toner', None, 'Impresoras', 'Tóner', _PA),
+    ('Autopartes', r'^(\S+ ){0,1}filamento', None, 'Impresión 3D', 'Filamentos', _PA),
+    ('Autopartes', r'soporte de pared para televisores', None, 'Televisores', 'Soportes para TV', _PA),
+    ('Autopartes', r'olla a presion electrica', None, 'Electrodomésticos', 'Arroceras y ollas multiusos', _PA),
+    ('Autopartes', r'cuchara medidora|tarro de dulces', None, 'Cocina y comedor',
+     lambda tn: 'Básculas y medidores' if 'medidora' in tn else 'Tarros y frascos', _PA),
+    ('Autopartes', r'sintetizador', None, 'Instrumentos musicales', 'Sintetizadores y controladores MIDI', _PA),
+    ('Autopartes', r'^(\S+ ){0,1}(orejeras|diadema walker)', None, 'Herramientas', 'Seguridad industrial', _PA),
+    ('Autopartes', r'walkie', None, 'Celulares', 'Radios de dos vías', _PA),
+    ('Autopartes', r'walex|tratamiento para inodoros|deo-?discs', None, 'Limpieza y hogar', 'Limpiadores y desinfectantes', _PA),
+]
+REGLAS += LOTES['auditoria_25']
+
 
 if __name__ == '__main__':
     main()
