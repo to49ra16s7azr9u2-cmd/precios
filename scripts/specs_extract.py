@@ -108,11 +108,25 @@ def ram_storage_gb(name):
         pos = caps[0][1]
         tail = n[pos:pos + 20]
         if _RAM_HINT.search(tail):
-            return val, None
+            return _ram_real(n, val), None
         return None, val
     if len(nums) == 2:
-        return nums[0], nums[1]
+        return _ram_real(n, nums[0]), nums[1]
     return None, None
+
+
+# «24GB RAM (12+12)», «12GB RAM (4+8) Boost»: la cifra grande suma la RAM
+# «virtual» (almacenamiento usado como RAM). La RAM del equipo es el primer
+# sumando: un Moto G06 con «12GB (4+8)» tiene 4 GB (06-oct-2026; 88% de
+# acuerdo con la ficha técnica de Elektra antes de esto).
+_RAM_BOOST = re.compile(r"\b(\d{1,2}) ?gb[^()]{0,25}\( ?(\d{1,2}) ?(?:gb)? ?\+ ?(\d{1,2}) ?(?:gb)? ?\)")
+
+
+def _ram_real(n, ram):
+    m = _RAM_BOOST.search(n)
+    if m and int(m.group(1)) == ram and int(m.group(2)) + int(m.group(3)) == ram:
+        return int(m.group(2))
+    return ram
 
 
 _STORAGE_TYPE_RE = (
