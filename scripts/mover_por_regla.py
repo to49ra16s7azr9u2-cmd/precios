@@ -4465,6 +4465,16 @@ LOTES['auditoria_19'] = [
 ]
 REGLAS += LOTES['auditoria_19']
 
+LOTES['auditoria_19'] += [
+    ('Cámaras y fotografía', r'^paraguas', None, 'Ropa y accesorios', 'Paraguas', {'Filtros y parasoles'}),
+    ('Cámaras y fotografía', r'parasol para (ventanilla|parabrisas|auto|coche|carro)|ventanillas de coche', None,
+     'Autos y motos', 'Tapetes, fundas y parasoles', {'Filtros y parasoles'}),
+    ('Autos y motos', r'arrancador de fuego|encendedor de (carbon|fuego)', None, 'Jardín y exterior', 'Asadores y parrillas',
+     {'Arrancadores y cargadores de batería'}),
+    ('Autos y motos', r'arrancador de cuerda|\bstihl\b', None, 'Herramientas', 'Refacciones de herramientas eléctricas',
+     {'Arrancadores y cargadores de batería'}),
+]
+
 # Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que
 # se agregó debajo (reglas por marca, auditoria_2 a 10, sin_subcategoria_2:
 # ~6,000 fichas) no existía todavía cuando main() corría como script: la

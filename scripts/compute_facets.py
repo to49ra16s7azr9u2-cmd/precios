@@ -1230,6 +1230,64 @@ _TIPOS_06OCT_B = {
 }
 for _k, _v in _TIPOS_06OCT_B.items():
     TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+
+# Tercera tanda del 06-oct-2026.
+_TIPOS_06OCT_C = {
+    ('Herramientas', 'Desarmadores y puntas'): [
+        ('Juegos', '^(\\S+ ){0,2}(juego|set|kit|estuche)\\b|\\b\\d+ ?(pzas?|piezas|pcs|en 1)\\b'),
+        ('De precisión', 'precision|relojero|joyero|electronica'),
+        ('Torx y hexagonales', 'torx|hexagonal|allen|\\bhex\\b|spline|ribe'),
+        ('Phillips', 'phillips|cruz|\\bph ?\\d'),
+        ('Planos', 'plano|paleta|ranura|\\bslot'),
+    ],
+    ('Belleza y cuidado personal', 'Masajeadores'): [
+        ('Pistolas de masaje', 'pistola|percusion|gun'),
+        ('Cuello y espalda', 'cuello|hombro|espalda|cervical|shiatsu|lumbar'),
+        ('Pies y piernas', '\\bpies?\\b|piernas|pantorrilla'),
+        ('Ojos y cara', 'ojos|facial|cara|rostro'),
+        ('De mano y corporales', 'mano|corporal|vibrador|eléctrico|electrico|rodillo'),
+    ],
+    ('Blancos y ropa de cama', 'Tapetes de baño'): [
+        ('Diatomita', 'diatom|tierra de diatom'),
+        ('Memory foam', 'memory|memoria|foam'),
+        ('Microfibra y chenille', 'microfibra|chenille|felpa|shaggy'),
+        ('Algodón', 'algodon|cotton'),
+    ],
+    ('Cámaras y fotografía', 'Filtros y parasoles'): [
+        ('Parasoles', 'parasol|lens hood'),
+        ('ND y variables', '\\bnd\\b|nd\\d|densidad neutra|variable'),
+        ('Polarizadores', 'cpl|polariza'),
+        ('UV y protectores', '\\buv\\b|protector'),
+    ],
+    ('Autos y motos', 'Limpieza y cuidado del auto'): [
+        ('Pulidoras y aspiradoras', 'pulidora|aspiradora|hidrolavadora'),
+        ('Shampoo y jabón', 'shampoo|champu|jabon|espuma'),
+        ('Ceras y pulidores', 'cera|pulidor|abrillant|compuesto|sellador|ceramic'),
+        ('Microfibras y esponjas', 'microfibra|esponja|guante|toalla|gamuza|franela'),
+    ],
+    ('Belleza y cuidado personal', 'Pestañas postizas'): [
+        ('Magnéticas', 'magnetic'),
+        ('Individuales y en racimos', 'individual|racimo|cluster|extension|pelo a pelo'),
+        ('De tira', 'tira|strip|pares|par\\b|3d|mink|visón|vison'),
+    ],
+    ('Autos y motos', 'Arrancadores y cargadores de batería'): [
+        ('Cables pasacorriente', 'pasacorriente|cables? (de|para) (corriente|arranque|bateria)|jumper'),
+        ('Arrancadores', 'arrancador|jump|booster'),
+        ('Cargadores y mantenedores', 'cargador|mantenedor|charger'),
+    ],
+    ('Bebés', 'Sillas de auto'): [
+        ('Elevadores (booster)', 'booster|elevador|asiento elevado'),
+        ('Convertibles', 'convertible|3 en 1|4 en 1|2 en 1|todo en uno|multietapa'),
+        ('Portabebé (0+)', 'portabebe|bebe ?0|grupo 0|recien nacido|infant'),
+    ],
+    ('Libros', 'Películas y series'): [
+        ('4K Ultra HD', '4k|ultra hd|uhd'),
+        ('Blu-ray', 'blu-?ray'),
+        ('DVD', '\\bdvd\\b'),
+    ],
+}
+for _k, _v in _TIPOS_06OCT_C.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
 # Llaves ajustables y pinzas de corte: el largo en pulgadas es lo primero que
 # se pide en la ferretería («perica de 10»), y el 40% lo dice en el nombre.
 for _s in ("Llaves ajustables y stilson", "Pinzas de corte"):
