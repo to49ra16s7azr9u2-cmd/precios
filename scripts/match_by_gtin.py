@@ -346,6 +346,11 @@ def main():
         antes = len(todo)
         todo = [(p, g) for p, g in todo if consultados.get(g, "") < corte]
         print(f"Ya preguntados hace menos de {args.reconsultar_dias} días: {antes - len(todo)}   quedan: {len(todo)}")
+    if args.store == "walmex":
+        # La mitad son refacciones de auto del marketplace de Walmart, con
+        # códigos del vendedor que Mercado Libre casi nunca tiene: al final,
+        # para que la cuota diaria se gaste primero donde hay coincidencias.
+        todo.sort(key=lambda pg: pg[0].get("category") in ("Autopartes", "Autos y motos"))
     todo = todo[args.offset:]
     if args.limit:
         todo = todo[: args.limit]
