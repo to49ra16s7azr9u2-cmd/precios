@@ -4518,7 +4518,7 @@ LOTES['auditoria_20'] += [
 # «Acuario» es también un color de pintura vinílica (Pintex, Color Price):
 # 44 cubetas de pintura estaban entre las peceras.
 LOTES['auditoria_20'] += [
-    ('Mascotas', r'pintura|vinil|impermeabilizante|color para cemento|sellador', None, 'Herramientas', 'Construcción',
+    ('Mascotas', r'pintura|vinil|impermeabilizante|color(ante)? (para )?cemento|sellador', None, 'Herramientas', 'Construcción',
      {'Acuarios y terrarios'}),
     ('Mascotas', r'^impermeable\b', None, 'Mascotas', 'Impermeables y abrigos para mascotas', {'Acuarios y terrarios'}),
     ('Mascotas', r'^tijeras?\b', None, 'Mascotas', 'Higiene y limpieza', {'Acuarios y terrarios'}),

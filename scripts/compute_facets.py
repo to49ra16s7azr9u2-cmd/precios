@@ -1650,6 +1650,113 @@ for _k, _v in _TIPOS_06OCT_I.items():
 for _s in ("Bocinas coaxiales 6x9 y 6x8", "Tweeters", "Medios rangos y bocinas profesionales"):
     NOMBRE_GENERALES.setdefault(("Autos y motos", _s), []).append(("power_w", lambda t: se.power_watts(t, 20, 5000)))
 NOMBRE_GENERALES.setdefault(("Instrumentos musicales", "Parches"), []).append(("size_in", lambda t: se.inches_of(t, 6, 28)))
+# Novena tanda del 06-oct-2026.
+_TIPOS_06OCT_J = {
+    ('Mascotas', 'Acuarios y terrarios'): [
+        ('Peceras y terrarios', '^(\\S+ ){0,1}(acuario|pecera|terrario)'),
+        ('Bombas y oxigenadores', 'bomba|oxigenador|aireador|piedra difusora'),
+        ('Filtros', 'filtro|esponja|repuesto|cartucho'),
+        ('Calentadores y termómetros', 'calentador|termostato|termometro'),
+        ('Cuidado del agua', 'acondicionador|colorante|tratamiento|bacteria|\\bph\\b|sifon|limpia|cambiador de agua'),
+        ('Plantas y decoración', 'planta|decoracion|adorno|piedras?\\b|sustrato|arena|fondo|grava'),
+    ],
+    ('Belleza y cuidado personal', 'Dispositivos de cuidado facial'): [
+        ('Dermarollers', 'derma ?roller|derma ?pen|microaguja|\\bderma\\b'),
+        ('Rodillos y gua sha', 'rodillo|gua ?sha|jade|cuarzo'),
+        ('Máscaras LED', 'mascara|\\bled\\b|luz roja|fototerapia'),
+        ('Cepillos limpiadores', 'cepillo|limpiador|limpieza|exfolia'),
+        ('Masajeadores y microcorriente', 'masaje|microcorriente|radiofrecuencia|\\bems\\b|dispositivo|maquina|varita'),
+    ],
+    ('Bicicletas y movilidad', 'Refacciones y transmisión de bicicleta'): [
+        ('Frenos', 'freno|balata|caliper'),
+        ('Rines y ruedas', '\\brin\\b|rueda|rayos|maza|balero'),
+        ('Transmisión', 'multiplicacion|cassette|desviador|pinon|cadena|cambio|shifter|biela|pedalier|tazas|caja de centro|estrella'),
+        ('Postes y manubrios', 'poste|manubrio|tijera|stem'),
+        ('Salpicaderas y patas', 'salpicadera|pata|parador|tope'),
+    ],
+    ('Salud', 'Movilidad y apoyo'): [
+        ('Férulas y soportes', 'ferula|tobillera|rodillera|munequera|inmovilizador|^(\\S+ ){0,1}soporte'),
+        ('Fajas y correctores', 'faja|corrector|cinturon|collarin|cabestrillo'),
+        ('Camas y camillas', '\\bcama|camilla|colchon'),
+        ('Sillas y elevadores', 'silla|elevador|asiento|antivuelcos'),
+    ],
+    ('Herramientas', 'Escuadras y reglas'): [
+        ('Escalímetros', 'escalimetro'),
+        ('Escuadras', 'escuadra'),
+        ('Guías y plantillas', 'guia|plantilla'),
+        ('Reglas', 'regla'),
+    ],
+    ('Herramientas', 'Tuberías y conexiones'): [
+        ('Válvulas', 'valvula|llave de paso'),
+        ('Pegamentos y selladores', 'pegamento|cemento|cinta|sellador|teflon'),
+        ('Tubos y mangueras', '^(\\S+ ){0,1}(tubo|tuberia|manguera)'),
+        ('Conexiones', 'cople|codo|\\btee\\b|adaptador|tapon|reduccion|niple|conector|abrazadera'),
+    ],
+    ('Impresoras', 'Consumibles'): [
+        ('Sistemas de tinta continua', 'sistema (continuo|de tinta)|tinta continua'),
+        ('Cartuchos', 'cartucho'),
+        ('Tinta en botella', 'botella|tinta|recarga|tanque'),
+        ('Papel', 'papel|hojas|fotografic'),
+        ('Etiquetas y cintas', 'etiqueta|cinta|rollo'),
+    ],
+    ('Muebles', 'Herrajes y refacciones de muebles'): [
+        ('Bisagras', 'bisagra'),
+        ('Pomos y jaladeras', 'pomo|tirador|jaladera|manija|perilla'),
+        ('Patas y ruedas', '\\bpatas?\\b|rueda|nivelador'),
+        ('Correderas', 'corredera|riel|guia'),
+        ('Soportes y ménsulas', 'soporte|mensula|escuadra'),
+    ],
+    ('Componentes y accesorios de PC', 'Adaptadores para PC'): [
+        ('Hubs y multipuerto', '\\bhub\\b|multipuerto|\\b\\d+ en 1\\b|\\d+ puertos'),
+        ('SATA y M.2', '\\bsata\\b|\\bide\\b|m\\.2|nvme'),
+        ('Red', 'ethernet|rj-?45|\\blan\\b|wi-?fi|bluetooth'),
+        ('DisplayPort', 'displayport|\\bdp\\b'),
+        ('HDMI', 'hdmi'),
+        ('VGA y DVI', '\\bvga\\b|\\bdvi\\b'),
+        ('USB y USB-C', 'usb|tipo c|type-c|thunderbolt'),
+    ],
+    ('Belleza y cuidado personal', 'Paletas y sets de maquillaje'): [
+        ('Sets completos', '^(\\S+ ){0,2}(set|kit|estuche)|maquillaje completo|regalo'),
+        ('Correctores', 'corrector|concealer'),
+        ('Rostro', 'rubor|contorno|iluminador|bronceador|\\bcara\\b|rostro|blush'),
+        ('Sombras', 'sombra|ojos|eyeshadow|paleta'),
+    ],
+    ('Aspiradoras', 'Accesorios'): [
+        ('Bolsas', 'bolsa'),
+        ('Filtros', 'filtro'),
+        ('Baterías y cargadores', 'bateria|cargador'),
+        ('Mopas y paños', 'mopa|trapeador|pano'),
+        ('Soportes', 'soporte|base|organizador'),
+        ('Cepillos y boquillas', 'cepillo|boquilla|cabezal|accesorio|tubo|manguera|repuesto'),
+    ],
+    ('Herramientas', 'Grabado láser'): [
+        ('Accesorios', '\\blente|\\bmodulo|\\bcama\\b|rodillo|purificador|extension|gafas|panal|honeycomb|\\bpcs\\b|\\bfor\\b|guillotina'),
+        ('Grabadoras y cortadoras', 'grabador|grabadora|laser|cortadora|maquina|plotter'),
+    ],
+    ('Papelería y oficina', 'Útiles escolares'): [
+        ('Juegos de geometría', 'geometria|compas|brujula|transportador|escuadra|regla'),
+        ('Sacapuntas', 'sacapuntas'),
+        ('Pegamento y silicón', 'pegamento|\\bbarras?\\b|pistola|silicon|resistol|lapiz adhesivo'),
+        ('Lapiceras y estuches', 'lapicera|estuche|cartuchera'),
+    ],
+    ('Limpieza y hogar', 'Limpiadores y desinfectantes'): [
+        ('Destapacaños', 'destapa'),
+        ('Lavatrastes', 'lavatrastes|trastes'),
+        ('Limpiavidrios', 'vidrio'),
+        ('Desengrasantes', 'desengras'),
+        ('Desinfectantes y cloro', 'desinfect|cloro|tricloro|dicloro|estericide|sanitiz|antibacterial|\\btabletas\\b'),
+        ('Multiusos', 'limpiador|multiusos|\\bpanos?\\b|spray'),
+    ],
+    ('Autos y motos', 'Luces LED para auto'): [
+        ('Barras y estrobos', '\\bbarras?\\b|estrobo|torreta'),
+        ('Proyectores de logo', 'proyector|logo|cortesia|puerta'),
+        ('Tiras y ambientales', 'tiras?\\b|ambiental|rgb|neon'),
+        ('Plafones de interior', 'plafon|interior|domo|lectura'),
+        ('Focos y faros LED', 'faro|foco|\\bh[1-9]\\b|\\bh1[13]\\b|900[5-7]|bulbo|luces'),
+    ],
+}
+for _k, _v in _TIPOS_06OCT_J.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
 # Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
 # 60% lo dice en el nombre, muchas veces en libras.
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(
