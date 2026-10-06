@@ -1605,6 +1605,51 @@ NOMBRE_GENERALES.setdefault(("Instrumentos musicales", "Platillos"), []).append(
 # Bocinas coaxiales: los watts, como en «Bocinas para auto».
 NOMBRE_GENERALES.setdefault(("Autos y motos", "Bocinas coaxiales de 6.5 pulgadas"), []).append(
     ("power_w", lambda t: se.power_watts(t, 20, 3000)))
+# Octava tanda del 06-oct-2026.
+_TIPOS_06OCT_I = {
+    ('Cafeteras', 'Molinillos de café'): [
+        ('Manuales', 'manual|de manivela|hand'),
+        ('Eléctricos de muela', 'muela|conico|burr|plano'),
+        ('Eléctricos', 'electric|automatic|\\d+ ?w\\b'),
+    ],
+    ('Cámaras y fotografía', 'Drones'): [
+        ('Para niños y juguete', 'nino|juguete|infantil|toy'),
+        ('FPV y carreras', '\\bfpv\\b|carreras|racing'),
+        ('Con cámara 4K', '\\b4k\\b|\\b6k\\b|\\b8k\\b'),
+        ('Mini', '\\bmini\\b|249 ?g|250 ?g|plegable|bolsillo'),
+    ],
+    ('Herramientas', 'Podadoras y cortacésped'): [
+        ('Robot', 'robot'),
+        ('Manuales', 'manual|helicoidal|de empuje sin motor'),
+        ('A batería', 'bateria|inalambric|\\b\\d{2} ?v\\b'),
+        ('Eléctricas', 'electric'),
+        ('A gasolina', 'gasolina|\\b\\d{3} ?cc\\b|\\bhp\\b'),
+    ],
+    ('Muebles', 'Escritorios de altura ajustable'): [
+        ('Convertidores de escritorio', 'convertidor|sobre escritorio|elevador de escritorio|riser'),
+        ('Eléctricos', 'electric|motor'),
+        ('Manuales', 'manual|manivela|neumatic|gas'),
+    ],
+    ('Cámaras y fotografía', 'Trípodes y soportes'): [
+        ('Estabilizadores y gimbals', 'estabilizador|gimbal'),
+        ('Cabezales y rótulas', '^(\\S+ ){0,1}(cabezal|rotula)'),
+        ('Monopies', 'monopie'),
+        ('Tripiés', 'tripie|tripode|tripod'),
+        ('Soportes y brazos', 'soporte|brazo|abrazadera|clamp|montura'),
+    ],
+    ('Cámaras y fotografía', 'Baterías y cargadores de cámara'): [
+        ('Grips de batería', '\\bgrip\\b|empunadura'),
+        ('Cargadores', '^(\\S+ ){0,2}cargador'),
+        ('Baterías', 'bateria|pila'),
+    ],
+}
+for _k, _v in _TIPOS_06OCT_I.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+# Watts en el resto del audio para auto, y pulgadas en los parches de batería
+# (el 88% las dice: «parche de 14 pulgadas»).
+for _s in ("Bocinas coaxiales 6x9 y 6x8", "Tweeters", "Medios rangos y bocinas profesionales"):
+    NOMBRE_GENERALES.setdefault(("Autos y motos", _s), []).append(("power_w", lambda t: se.power_watts(t, 20, 5000)))
+NOMBRE_GENERALES.setdefault(("Instrumentos musicales", "Parches"), []).append(("size_in", lambda t: se.inches_of(t, 6, 28)))
 # Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
 # 60% lo dice en el nombre, muchas veces en libras.
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(
