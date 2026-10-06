@@ -4376,6 +4376,47 @@ LOTES['auditoria_17'] = [
 ]
 REGLAS += LOTES['auditoria_17']
 
+
+# auditoria_18 (06-oct-2026): más del mismo barrido (lo que cuesta menos del
+# 12% de la mediana de su subcategoría).
+_TAMANOS_TV = {'32 pulgadas o menos', '40 a 43 pulgadas', '50 a 55 pulgadas', '58 a 65 pulgadas', '70 pulgadas o más'}
+LOTES['auditoria_18'] = [
+    ('Electrodomésticos', r'^(\S+ ){0,1}(jabon|detergente|pastillas|capsulas)\b|^lavavajillas attitude', None,
+     'Limpieza y hogar', 'Detergentes y suavizantes', {'Lavavajillas'}),
+    ('Electrodomésticos', r'^(\S+ ){0,2}(iman|cable|soporte|ruedas?|cesta|canastilla|repuesto|filtro|manguera|brazo)\b', None,
+     'Electrodomésticos', 'Refacciones para otros electrodomésticos', {'Lavavajillas'}),
+    ('Electrodomésticos', r'^cera\b.*depila', None, 'Belleza y cuidado personal', 'Depilación', {'Microondas'}),
+    ('Electrodomésticos', r'^(\S+ ){0,2}toppers?\b|^(\S+ ){0,2}contenedor', None, 'Cocina y comedor', 'Contenedores herméticos',
+     {'Microondas'}),
+    ('Electrodomésticos', r'^tortillero', None, 'Cocina y comedor', 'Utensilios de cocina', {'Microondas'}),
+    ('Electrodomésticos', r'^(\S+ ){0,1}(motor|plato giratorio|magnetron|fusible|placa de mica|mica)\b', None,
+     'Electrodomésticos', 'Refacciones para microondas', {'Microondas'}),
+    ('Muebles', r'^(\S+ ){0,1}falda (para|de) cama', None, 'Blancos y ropa de cama', 'Protectores de colchón',
+     {'Camas queen y king', 'Camas matrimoniales', 'Camas individuales'}),
+    ('Muebles', r'mosquitero', None, 'Electrodomésticos', 'Control de plagas y mosquitos',
+     {'Camas queen y king', 'Camas matrimoniales', 'Camas individuales'}),
+    ('Muebles', r'^(\S+ ){0,1}(juego|set) de cama', None, 'Blancos y ropa de cama', 'Coordinados y juegos de edredón',
+     {'Camas queen y king', 'Camas matrimoniales', 'Camas individuales'}),
+    ('Muebles', r'^protector lasur|^(\S+ ){0,1}(barniz|sellador)\b', None, 'Herramientas', 'Construcción', {'Mesas de comedor'}),
+    ('Muebles', r'cuadro canvas|de foto a cuadro', None, 'Decoración de hogar y jardín', 'Cuadros y decoración de pared',
+     {'Mesas de comedor'}),
+    ('Refrigeradores', r'iman(es)?|magnetic|planificador|pizarr|letras', None, 'Electrodomésticos', 'Organizadores para refrigerador',
+     {'Top mount', 'Bottom freezer', 'Dúplex (side by side)', 'French door', 'Una puerta', 'Frigobares'}),
+    ('Refrigeradores', r'ziploc|bolsas', None, 'Cocina y comedor', 'Contenedores herméticos',
+     {'Top mount', 'Bottom freezer', 'Dúplex (side by side)', 'French door', 'Una puerta', 'Frigobares'}),
+    ('Refrigeradores', r'cepillos? de limpieza|protector de voltaje|regulador', None, 'Electrodomésticos', 'Refacciones para refrigerador',
+     {'Top mount', 'Bottom freezer', 'Dúplex (side by side)', 'French door', 'Una puerta', 'Frigobares'}),
+    ('Autos y motos', r'salvavidas|inflable|\bdona\b', None, 'Jardín y exterior', 'Albercas e inflables', {'Llantas para auto', 'Llantas'}),
+    ('Autos y motos', r'^tapones|tapas de valvulas', None, 'Autos y motos', 'Tapones para llanta', {'Llantas para auto', 'Llantas'}),
+    ('Autos y motos', r'^ensamble rueda|carretilla|diablito', None, 'Autos y motos', 'Llantas para carretilla y equipo',
+     {'Llantas para auto', 'Llantas'}),
+    ('Autopartes', r'^italika juego sellos aceite|sellos? de aceite', None, 'Autopartes', 'Empaques, juntas y retenes',
+     {'Sistema eléctrico y sensores'}),
+    ('Bocinas', r'^(\S+ ){0,1}cable\b', None, 'Bocinas', 'Cables para bocinas', {'De estantería y Hi-Fi', 'De fiesta y karaoke'}),
+    ('Bocinas', r'^(\S+ ){0,1}(transmisor|receptor)\b', None, 'Bocinas', 'Amplificadores y receptores', {'De estantería y Hi-Fi'}),
+]
+REGLAS += LOTES['auditoria_18']
+
 # Al FINAL del archivo, siempre. El 27-sep-2026 estaba en medio y todo lo que
 # se agregó debajo (reglas por marca, auditoria_2 a 10, sin_subcategoria_2:
 # ~6,000 fichas) no existía todavía cuando main() corría como script: la
