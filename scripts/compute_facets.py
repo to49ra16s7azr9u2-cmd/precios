@@ -1386,6 +1386,84 @@ _TIPOS_06OCT_E = {
 }
 for _k, _v in _TIPOS_06OCT_E.items():
     TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+# Quinta tanda del 06-oct-2026: más subcategorías que sólo tenían precio.
+_TIPOS_06OCT_F = {
+    ('Celulares', 'Soportes y agarraderas'): [
+        ('Carteras y tarjeteros', 'cartera|tarjetero|wallet|billetera'),
+        ('Para moto y bicicleta', '\\bmotos?\\b|motocicleta|bici|bicicleta|manubrio|scooter'),
+        ('Para auto', '\\bauto\\b|\\bcarro\\b|coche|vehiculo|rejilla|tablero|parabrisas|ventila|cd slot'),
+        ('Anillos y agarraderas', 'anillo|\\bring\\b|popsocket|pop socket|agarradera|grip'),
+        ('Tripiés y brazos', 'tripie|tripode|brazo|cuello de ganso|flexible|selfie|monopie|aro de luz'),
+        ('De escritorio', 'escritorio|\\bmesa\\b|plegable|base|stand|ajustable|cama'),
+        ('Magnéticos', 'magnetic|magsafe|\\biman'),
+    ],
+    ('Joyería y bisutería', 'Correas para reloj'): [
+        ('Piel', '\\bpiel\\b|cuero|leather'),
+        ('Acero y metal', 'acero|metal|eslabon|milan|titanio|inoxidable'),
+        ('Silicón y caucho', 'silicon|caucho|\\bgoma\\b|rubber|\\bhule\\b|fkm'),
+        ('Nylon y tela', 'nylon|\\btela\\b|\\bnato\\b|textil|loop|lona'),
+    ],
+    ('Herramientas', 'Puntas para atornillar'): [
+        ('Juegos', '^(\\S+ ){0,2}(juego|set|kit|estuche)\\b|\\b\\d+ ?(pzas?|piezas|pcs)\\b'),
+        ('De impacto', 'impacto'),
+        ('Phillips', 'phillips|cruz|\\bph ?\\d|pozi|\\bpz ?\\d'),
+        ('Planas', 'plana|plano|ranura|\\bslot'),
+        ('Torx y hexagonales', 'torx|hexagonal|allen|\\bhex\\b|spline|\\bt\\d{2}\\b'),
+        ('Desarmadores y portapuntas', 'destornillador|desarmador|porta ?puntas|portapuntas'),
+    ],
+    ('Juegos de mesa', 'Dominó'): [
+        ('Mesas para dominó', '^(\\S+ ){0,2}mesas?\\b'),
+        ('Cubiletes', 'cubilete'),
+        ('Tren mexicano', 'tren mexicano|mexican train|\\btren\\b'),
+        ('Doble 12 o más', 'doble (12|doce|15|quince|18)'),
+        ('Doble 9', 'doble (9|nueve)'),
+        ('Dominós clásicos', '\\bdomino'),
+    ],
+    ('Muebles', 'Puffs y otomanas'): [
+        ('Otomanas y reposapiés', 'otomana|ottoman|reposapies|banco|baul'),
+        ('Sillones puff', '^(\\S+ ){0,1}sillon'),
+        ('Puffs', '\\bpuff?s?\\b|baggy|bean ?bag|pera'),
+    ],
+    ('Equipo comercial', 'Mobiliario'): [
+        ('Maniquíes y cabezas', 'maniqui|cabeza'),
+        ('Lockers y casilleros', 'locker|casillero'),
+        ('Exhibidores y vitrinas', 'exhibidor|vitrina|mostrador|display'),
+        ('Mesas', '^(\\S+ ){0,2}mesas?\\b'),
+        ('Estantes, anaqueles y racks', 'estante|anaquel|rack|repisa|organizador|librero'),
+    ],
+    ('Papelería y oficina', 'Arte y dibujo'): [
+        ('Caballetes', 'caballete'),
+        ('Pinceles', 'pincel'),
+        ('Acuarelas y pinturas', 'acuarela|pintura|oleo|acrilic|gouache|tempera'),
+        ('Crayones y colores', 'crayon|colores|lapices de color|pastel|gis'),
+        ('Marcadores', 'marcador|plumon'),
+        ('Carpetas y portafolios', 'carpeta|portafolio'),
+        ('Papel, blocs y lienzos', 'papel|lienzo|bloc|block|bloque|canvas|cuaderno'),
+    ],
+    ('Papelería y oficina', 'Papel y sobres'): [
+        ('Engrapadoras y perforadoras', 'engrapadora|perforadora|grapas|clips?\\b'),
+        ('Guillotinas, trituradoras y enmicadoras', 'guillotina|trituradora|laminadora|enmicadora|cizalla'),
+        ('Sobres', 'sobres?\\b'),
+        ('Carpetas', 'carpeta|folder|archivero'),
+        ('Papel y cartulina', 'papel|cartulina|hojas|opalina|bond|rollo'),
+    ],
+    ('Domótica y hogar inteligente', 'Bocinas inteligentes'): [
+        ('Soportes y bases', '^(\\S+ ){0,2}(soporte|base|montaje|stand|funda|carcasa)|galaxystand|para echo|para google|compatible con'),
+        ('Con pantalla', 'pantalla|\\bshow\\b|\\bhub\\b|display'),
+        ('Bocinas inteligentes', 'echo|alexa|google|nest|homepod|bocina|altavoz|asistente|parlante'),
+    ],
+    ('Autos y motos', 'Gatos y herramientas para auto'): [
+        ('Torres', '^(\\S+ ){0,2}torres?\\b'),
+        ('Plumas y grúas', 'pluma|grua|malacate'),
+        ('Probadores y medidores', 'probador|comprobador|medidor|tester|multimetro'),
+        ('Extractores', 'extractor|saca'),
+        ('Gatos de patín', 'gato.*(patin|carrito)|patin'),
+        ('Gatos de botella', 'gato.*botella|botella'),
+        ('Gatos de tijera y otros', '^(\\S+ ){0,2}gato|\\bjack\\b'),
+    ],
+}
+for _k, _v in _TIPOS_06OCT_F.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
 # Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
 # 60% lo dice en el nombre, muchas veces en libras.
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(
