@@ -1464,6 +1464,92 @@ _TIPOS_06OCT_F = {
 }
 for _k, _v in _TIPOS_06OCT_F.items():
     TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+# Sexta tanda del 06-oct-2026.
+_TIPOS_06OCT_G = {
+    ('Muebles', 'Sillas ergonómicas'): [
+        ('Malla', '\\bmalla\\b|mesh'),
+        ('Piel sintética', '\\bpiel\\b|vinipiel|cuero|\\bpu\\b|leather'),
+        ('Tela', '\\btela\\b|tapizad|fabric'),
+    ],
+    ('Muebles', 'Sillas ejecutivas'): [
+        ('Malla', '\\bmalla\\b|mesh'),
+        ('Piel sintética', '\\bpiel\\b|vinipiel|cuero|\\bpu\\b|leather'),
+        ('Tela', '\\btela\\b|tapizad|fabric'),
+    ],
+    ('Instrumentos musicales', 'Cuerdas de guitarra y bajo'): [
+        ('Para bajo', '\\bbajo\\b|\\bbass\\b'),
+        ('Para guitarra clásica', 'clasica|nylon|nailon|classical'),
+        ('Para guitarra acústica', 'acustica|acoustic|bronce|phosphor|fosforo'),
+        ('Para guitarra eléctrica', 'electrica|electric|niquel|nickel'),
+    ],
+    ('Bicicletas y movilidad', 'Candados para bicicleta'): [
+        ('En U', '\\bu\\b|forma de u|\\bu-?lock|herradura'),
+        ('Plegables', 'plegable|folding'),
+        ('De disco y con alarma', 'disco|alarma'),
+        ('De cadena', 'cadena|chain'),
+        ('De cable', 'cable|espiral|\\bguaya|candado'),
+    ],
+    ('Jardín y exterior', 'Sombrillas, toldos y carpas'): [
+        ('Gazebos y pérgolas', 'gazebo|pergola|cenador'),
+        ('Carpas', 'carpa|tienda'),
+        ('Toldos y velarias', 'toldo|velaria|vela de sombra|malla sombra'),
+        ('Bases para sombrilla', '^(\\S+ ){0,1}base'),
+        ('Sombrillas', 'sombrilla|parasol|umbrella'),
+    ],
+    ('Jardín y exterior', 'Riego y mangueras'): [
+        ('Temporizadores y riego automático', 'temporizador|programador|controlador|timer|goteo'),
+        ('Aspersores', 'aspersor|regadera|rociador'),
+        ('Mangueras', 'manguera'),
+        ('Pistolas y boquillas', 'pistola|boquilla|lanza'),
+        ('Carretes y soportes', 'carrete|enrollador|soporte|porta ?manguera'),
+        ('Conectores', 'conector|cople|adaptador|llave'),
+    ],
+    ('Domótica y hogar inteligente', 'Interruptores Wi-Fi'): [
+        ('De 3 o 4 botones', '\\b(3|4|tres|cuatro) (botones|teclas|canales|apagadores|gang)|\\b[34] ?gang|triple|cuadruple'),
+        ('De 2 botones', '\\b(2|dos) (botones|teclas|canales|apagadores|gang)|\\b2 ?gang|doble'),
+        ('Atenuadores', 'atenuador|dimmer|regulador'),
+        ('Módulos y relevadores', 'modulo|mini|rele|relevador|breaker'),
+        ('De 1 botón', 'interruptor|apagador|switch'),
+    ],
+    ('Herramientas', 'Caretas y cascos para soldar'): [
+        ('Fotosensibles', 'fotosensible|automatic|auto ?oscurec|electronica|lcd|solar'),
+        ('Lentes y gafas', 'lente|gafa|goggle'),
+        ('Cristales y repuestos', 'cristal|mica|repuesto|filtro'),
+        ('Fijas', 'careta|casco|mascara'),
+    ],
+    ('Herramientas', 'Multímetros y probadores'): [
+        ('Pinzas amperimétricas', 'pinza|gancho|amperimetr'),
+        ('Probadores de voltaje', 'probador|detector|desarmador|tester|buscapolo'),
+        ('Medidores de tierra y aislamiento', 'tierra|aislamiento|megohm|megger'),
+        ('Puntas y cables', '^(\\S+ ){0,1}(puntas?|cables?)\\b'),
+        ('Multímetros', 'multimetro|multimeter|voltimetro'),
+    ],
+    ('Herramientas', 'Timbres'): [
+        ('Con cámara', 'camara|video|wifi|wi-fi|smart|inteligente'),
+        ('Inalámbricos', 'inalambric|wireless'),
+        ('Alámbricos', 'alambric|zumbador|campana|timbre'),
+    ],
+    ('Celulares', 'Tripiés y palos selfie'): [
+        ('Estabilizadores', 'estabilizador|gimbal'),
+        ('Aros de luz', 'aro|anillo de luz|ring light'),
+        ('Palos selfie', 'selfie|monopie'),
+        ('Tripiés', 'tripie|tripode|tripod'),
+    ],
+    ('Domótica y hogar inteligente', 'Enchufes inteligentes'): [
+        ('Para exterior', 'exterior|outdoor|intemperie'),
+        ('Multicontactos y extensiones', 'multicontacto|regleta|extension|power strip|\\b[3-6] (contactos|tomas)'),
+        ('Enchufes sencillos', 'enchufe|contacto|plug|toma'),
+    ],
+    ('Herramientas', 'Sierras de copa y cortacírculos'): [
+        ('Juegos', '^(\\S+ ){0,2}(juego|set|kit|estuche)\\b|\\b\\d+ ?(pzas?|piezas|pcs)\\b'),
+        ('Diamante', 'diamant'),
+        ('Carburo', 'carburo|tungsteno|tct'),
+        ('Bimetálicas', 'bimetal|bi-?metal|hss'),
+        ('Cortacírculos y mandriles', 'cortacirculo|mandril|adaptador|broca guia'),
+    ],
+}
+for _k, _v in _TIPOS_06OCT_G.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
 # Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
 # 60% lo dice en el nombre, muchas veces en libras.
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(

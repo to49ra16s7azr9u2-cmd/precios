@@ -4546,6 +4546,12 @@ LOTES['auditoria_20'] += [
     ('Instrumentos musicales', r'^(\S+ ){0,3}cable\b', None, 'Instrumentos musicales', 'Cables para guitarra',
      {'Guitarras eléctricas'}),
 ]
+# Cadenas de transmisión de moto («Cadena 428h-136l») entre los candados
+# de bicicleta: salió al armar el tipo de candado para Compara calidad.
+LOTES['auditoria_20'] += [
+    ('Bicicletas y movilidad', r'^(\S+ ){0,1}cadena\b|ajustador de cadena|kit de arrastre', r'candado|antirrobo|seguridad|\bbici',
+     'Autopartes', 'Engranes para moto', {'Candados para bicicleta'}),
+]
 REGLAS += LOTES['auditoria_20']
 
 
