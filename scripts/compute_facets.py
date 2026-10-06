@@ -1327,6 +1327,65 @@ _TIPOS_06OCT_D = {
 }
 for _k, _v in _TIPOS_06OCT_D.items():
     TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+# Refacciones de moto: la marca no sirve para comparar (Italika es el 85%
+# de los carenados) y la cilindrada casi nunca viene en el nombre; lo que
+# distingue una de otra es QUÉ pieza es, y la primera palabra lo dice.
+_P = "^(\\S+ ){0,2}"
+_TIPOS_06OCT_E = {
+    ('Autopartes', 'Carenados, plásticos y tanques'): [
+        ('Calcomanías', _P + '(etiquetas?|calcomanias?|stickers?)\\b'),
+        ('Salpicaderas y loderas', _P + '(salpicaderas?|loderas?)\\b'),
+        ('Tanques y tapones', _P + '(tanque|tapon)'),
+        ('Parrillas y portabultos', _P + '(parrilla|porta)'),
+        ('Parabrisas', _P + 'parabrisas'),
+        ('Defensas y protectores', _P + '(defensa|parachoque|protector)'),
+        ('Soportes y paradores', _P + '(soporte|base|parador)'),
+        ('Cubiertas y tapas', _P + '(cubiertas?|tapas?|panel|cubre)\\b'),
+    ],
+    ('Autopartes', 'Eléctrico y baterías de moto'): [
+        ('Baterías', _P + 'bateria'),
+        ('Claxon', _P + 'claxon'),
+        ('Alarmas y GPS', _P + '(alarma|gps|rastreador)'),
+        ('Cerraduras y switches', _P + '(cerraduras?|switch|interruptor|boton)'),
+        ('Velocímetros y tableros', _P + '(velocimetro|tablero|medidor|tacometro)'),
+        ('Encendido', _P + '(bobina|cdi|bujia|estator|rotor|unidad|regulador|rectificador|relevador)'),
+        ('Arneses y cables', _P + '(arnes|chicote|cable)'),
+    ],
+    ('Autopartes', 'Luces de moto'): [
+        ('Calaveras', _P + '(calaveras?|stop)\\b'),
+        ('Faros', _P + 'faros?\\b'),
+        ('Direccionales', _P + 'direccional'),
+        ('Focos y LED', _P + '(focos?|led|lampara|luz|luces|tira|barra|secuencial)\\b'),
+        ('Cubiertas y soportes', _P + '(cubierta|soporte|goma|base|protector)'),
+    ],
+    ('Autopartes', 'Motor, carburación y escape de moto'): [
+        ('Empaques y retenes', _P + '(empaques?|juntas?|retenes|reten)\\b'),
+        ('Válvulas y balancines', _P + '(valvulas?|balancin|arbol)'),
+        ('Carburadores', _P + 'carburador'),
+        ('Escapes', _P + '(escape|silenciador|mofle)'),
+        ('Cilindros y pistones', _P + '(cilindro|piston|cabeza|monoblock|anillos)'),
+        ('Clutch', _P + '(clutch|pastas|embrague|centro)'),
+        ('Cubiertas de motor', _P + 'cubierta'),
+        ('Bombas, ejes y engranes', _P + '(bomba|eje|engrane|cigue|banda|cadena)'),
+    ],
+    ('Autopartes', 'Manubrios, espejos y controles'): [
+        ('Espejos', _P + 'espejos?\\b'),
+        ('Chicotes y cables', _P + '(chicote|cable)'),
+        ('Puños y contrapesos', _P + '(punos?|contrapesos?)\\b'),
+        ('Manubrios', _P + 'manubrio'),
+        ('Manijas y palancas', _P + '(manijas?|palancas?)\\b'),
+    ],
+    ('Autopartes', 'Frenos de moto'): [
+        ('Cálipers', _P + '(caliper|mordaza)'),
+        ('Balatas y zapatas', _P + '(balatas?|zapatas?)\\b'),
+        ('Discos', _P + 'disco'),
+        ('Bombas y mangueras', _P + '(bomba|manguera|deposito)'),
+        ('Pedales, varillas y chicotes', _P + '(pedal|varilla|chicote|cable|leva|resorte)'),
+        ('Sistemas completos', _P + '(sistema|conjunto|ensamble)'),
+    ],
+}
+for _k, _v in _TIPOS_06OCT_E.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
 # Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
 # 60% lo dice en el nombre, muchas veces en libras.
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(
