@@ -4817,6 +4817,62 @@ LOTES['auditoria_27'] = [
 ]
 REGLAS += LOTES['auditoria_27']
 
+# auditoria_28 (07-oct-2026): muestra al azar de 300 fichas (≈4% mal puestas,
+# casi todas fuera de autopartes): aro de luz entre las lámparas decorativas,
+# puerta de seguridad entre los juguetes de bebé, cornhole entre las bolsas de
+# mujer, la máquina de helados Ninja entre el equipo comercial, etc.
+LOTES['auditoria_28'] = [
+    ('Belleza y cuidado personal', r'gel en aerosol|\bspray (para|de) (el )?(cabello|pelo)', r'\b(facial|rostro|ojos|piel|maquillaje)\b',
+     'Belleza y cuidado personal', 'Cuidado del cabello', {'Cremas faciales'}),
+    ('Belleza y cuidado personal', r'\b(esponja|sponge|puff)\b', r'\bbase (de|liquida|en|con)|corrector|serum|crema|cushion|\bset\b',
+     'Belleza y cuidado personal', 'Brochas y esponjas', {'Bases de maquillaje'}),
+    ('Bocinas', r'celestion|(bocina|altavoz|woofer) (de |para )?guitarra', None, 'Instrumentos musicales', 'Accesorios de guitarra',
+     {'Bocinas Bluetooth', 'Bocinas Bluetooth con radio, USB y'}),
+    ('Electrodomésticos', r'\bparrilla electrica|\bestufa electrica|\bplancha electrica', r'\bgas\b|\bbutano|\bpropano',
+     'Electrodomésticos', 'Parrillas y planchas eléctricas', {'Parrillas de gas'}),
+    ('Iluminación', r'\bluz(es)? (para )?(vehiculo|auto|camioneta|camion|jeep|moto)\b|\bled pods?\b|\bbarra led\b.*\b(auto|camioneta|jeep|offroad|off-road)',
+     r'\bhabitacion|\bsala\b|\bcasa\b', 'Autos y motos', 'Luces LED para auto', {'Focos', 'Decorativa', 'Exterior', 'Reflectores'}),
+    ('Bebés', r'puerta (de )?seguridad|reja (de )?seguridad|barrera (de )?seguridad', None, 'Bebés', 'Seguridad para bebé', {'Juguetes para bebé'}),
+    ('Iluminación', r'\baro de luz|\bring ?light', None, 'Cámaras y fotografía', 'Accesorios', {'Decorativa', 'Escenario', 'Lámparas de escritorio'}),
+    ('Herramientas', r'estacion meteorologica|\bbarometro|\bhigrometro|\btermohigrometro|anemometro', None, 'Herramientas', 'Medición',
+     {'Herramientas eléctricas'}),
+    ('Domótica y hogar inteligente', r'conmutador hdmi|switch hdmi|selector hdmi|divisor hdmi|splitter hdmi', None, 'Cargadores y adaptadores',
+     'Cables y adaptadores de video', {'Interruptores y botones inalámbricos', 'Sensores'}),
+    ('Bolsas y mochilas', r'\bcornhole\b', None, 'Deportes y fitness', 'Otros deportes', {'Bolsas para mujer'}),
+    ('Equipo comercial', r'\bcreami\b', None, 'Electrodomésticos', 'Máquinas de helados y postres', {'Cocina industrial'}),
+    ('Iluminación', r'antimosquito|atrapa ?mosquitos|mata ?mosquitos|lampara.*mosquito', None, 'Electrodomésticos',
+     'Control de plagas y mosquitos', {'Decorativa', 'Lámparas de escritorio', 'Exterior'}),
+]
+REGLAS += LOTES['auditoria_28']
+
+# auditoria_29 (07-oct-2026): segunda muestra al azar (260 fichas fuera de
+# autopartes, ≈4% mal puestas): probiótico entre los juguetes de perro,
+# discos de corte entre las pinzas, trampa para ratones entre los mouse de PC,
+# faros antiniebla entre las lámparas decorativas, etc.
+LOTES['auditoria_29'] = [
+    ('Mascotas', r'probiotico|suplemento (para )?(perro|gato)|vitaminas? (para )?(perro|gato)', None, 'Mascotas', 'Alimento para perro',
+     {'Juguetes para perro'}),
+    ('Mascotas', r'inhibidor de olores|eliminador de olores|antipulgas|champu|shampoo', r'\bjuguete\b', 'Mascotas', 'Higiene y limpieza',
+     {'Juguetes para perro', 'Juguetes para gato'}),
+    ('Belleza y cuidado personal', r'\bmascarilla (facial|de arcilla|de tela|de barro|de hidrogel|peel)|\bmascarilla.*(arcilla|clay|sheet|hidrogel)',
+     r'cabello|capilar|pelo\b|rizos|labio|pestan|ojo|cuerpo|manos|pies|\bkit\b|noche|night|\bduo\b|\bpads?\b',
+     'Belleza y cuidado personal', 'Mascarillas faciales', {'Cremas faciales'}),
+    ('Belleza y cuidado personal', r'serum (hidratante )?(corporal|para el cuerpo)|corporal.*serum', None, 'Belleza y cuidado personal',
+     'Cremas y lociones corporales', {'Sérums faciales'}),
+    ('Herramientas', r'^disco (para |de )?(corte|desbaste)|^disco (abrasivo|diamantado)', None, 'Herramientas', 'Discos de corte y desbaste',
+     {'Pinzas y alicates', 'Pinzas de corte', 'Herramientas manuales', 'Llaves y dados'}),
+    ('Muebles', r'silla (hidraulica )?(de )?(corte|barbero|barberia|peluqueria|salon)\b|sillon (de )?(barbero|peluqueria)\b|silla barberia', None,
+     'Belleza y cuidado personal', 'Mobiliario para salón', {'Sillas de comedor', 'Sillones y reclinables', 'Sillas de oficina'}),
+    ('Electrodomésticos', r'magdalenas|cupcake', r'maquina|horno|batidora|moldeadora', 'Cocina y comedor', 'Repostería y moldes',
+     {'Pequeños electrodomésticos de cocina'}),
+    ('Relojes inteligentes', r'^reloj .*\b\d{2} ?mm\b.*para (galaxy|samsung) watch', None, 'Relojes inteligentes', 'Correas para Galaxy Watch',
+     {'Smartwatches'}),
+    ('Mouse', r'trampa.*(roedor|raton|ratones|rata)|ratonera', None, 'Limpieza y hogar', 'Insecticidas y repelentes', {'Con cable', 'Inalámbricos'}),
+    ('Iluminación', r'antiniebla|\bfaros? led\b|\bh(4|7|11|13)\b.*\bled\b|\bled\b.*\bh(4|7|11|13)\b',
+     r'escritorio|habitacion|\bsala\b|\bfoco(s)? de casa', 'Autos y motos', 'Luces LED para auto', {'Decorativa', 'Focos', 'Exterior'}),
+]
+REGLAS += LOTES['auditoria_29']
+
 
 if __name__ == '__main__':
     main()

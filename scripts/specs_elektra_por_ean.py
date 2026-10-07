@@ -53,6 +53,10 @@ from phone_signature import condition_of  # noqa: E402
 
 API = "https://www.elektra.mx/api/catalog_system/pub/products/search"
 CACHE = "/tmp/elektra/specs_por_ean.jsonl"
+# Más exigente que el 0.34 de match_by_gtin: acá el código de Walmart lo
+# armamos nosotros y una ficha con otra figura de la misma colección («Red
+# Hulk» contra «Capitán América», 0.375) heredaría una ficha técnica ajena.
+MIN_PARECIDO = 0.5
 MAX_FORMAS = 40  # fq= por pedido: con 60 la API responde 400 (url larga)
 
 
@@ -162,7 +166,7 @@ def aplicar(data, mapa, dry_run):
             if p.get("specs"):
                 continue
             parecido = similitud(p.get("name", ""), d.get("nombre", ""))
-            if parecido is not None and parecido < MIN_SIMILITUD:
+            if parecido is not None and parecido < max(MIN_SIMILITUD, MIN_PARECIDO):
                 nombre_no += 1
                 continue
             if condition_of(p.get("name", "")) != condition_of(d.get("nombre", "")):

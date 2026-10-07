@@ -54,6 +54,9 @@ def _gb_of(value):
         return None
     num = float(m.group(1).replace(",", "."))
     if m.group(2).lower() == "tb":
+        # «1.024 TB» es el «1,024 GB» de un 1 TB mal escrito (no existe un
+        # disco de 1.02 TB): daba 1048 GB y no igualaba al 1024 del nombre.
+        num = 1.0 if 1.0 < num < 1.05 else num
         num *= 1024
     return int(num)
 
@@ -189,7 +192,7 @@ def _screen_in(category, name, spec_map):
     return None
 
 
-def _ram_storage(category, name, spec_map):
+def _ram_storage(category, name, spec_map, spec_confiable=True):
     # Caso más confiable: la tienda separó RAM y Almacenamiento en dos
     # campos propios -- no hay ambigüedad alguna que resolver.
     ram = None
@@ -214,6 +217,20 @@ def _ram_storage(category, name, spec_map):
         n_ram, n_storage = se.ram_storage_gb(name)
         if n_ram is not None and n_storage is not None and ram != n_ram and ram >= n_storage:
             ram = n_ram
+    if (ram is not None or storage is not None) and not spec_confiable:
+        # Medido el 07-oct-2026 contra el nombre (fichas con specs): donde la
+        # ficha viene de Mercado Libre (campos propios) coincide 98-99%, pero
+        # la de Elektra/Coppel coincide 79% en RAM y 96% en almacenamiento:
+        # «Portátil 8 GB RAM» con «Memoria RAM: 3 GB», un iPhone 11 de 256 GB
+        # con «Memoria interna: 16 GB». Sin respaldo de Mercado Libre manda lo
+        # que el título dice con todas sus letras.
+        # Con un solo número sin «RAM» al lado el nombre no dice cuál es
+        # (se lee como almacenamiento): ahí no se pisa la ficha.
+        n_ram, n_storage = se.ram_storage_gb(name)
+        if n_ram is not None:
+            ram = n_ram
+        if n_storage is not None and n_ram is not None:
+            storage = n_storage
     if ram is not None or storage is not None:
         # Lo que la ficha no diga se completa con el nombre, sin pisar lo que
         # sí vino confirmado por specs[].
@@ -2058,6 +2075,32 @@ def _specs_a_mano():
     return _A_MANO
 
 
+# (categoría, prefijo de subcategoría o None, campos): el nombre, si lo dice, manda
+# sobre la ficha técnica. Medido el 07-oct-2026 (acuerdo ficha/nombre por
+# campo): «Ropero 2 Puertas» con «Número de puertas: 3 / 8» (Madesa), cocinas
+# integrales de «180 cm» con una medida de 50 cm (la profundidad) y proyectores
+# «XGA» con «Resolución: 4K UHD» en la ficha.
+NOMBRE_MANDA_AQUI = (
+    ("Muebles", "Cocinas integrales", ("length_cm",)),
+    ("Muebles", None, ("doors", "material")),
+    ("Proyectores y accesorios", "Proyectores", ("resolution",)),
+)
+
+
+def _nombre_manda(product, f):
+    cat, sub = product.get("category"), product.get("subcategory") or ""
+    campos = [c for k, s_, cs in NOMBRE_MANDA_AQUI if k == cat and (s_ is None or sub.startswith(s_)) for c in cs]
+    if not campos or not product.get("specs"):
+        return
+    solo_nombre = {k: v for k, v in product.items() if k != "specs"}
+    g = _facets_propias(solo_nombre) or {}
+    _generales(solo_nombre, solo_nombre.get("name", ""), {}, g)
+    _titulo(solo_nombre, solo_nombre.get("name", ""), g)
+    for c in campos:
+        if g.get(c) is not None:
+            f[c] = g[c]
+
+
 def facets_for(product):
     """Los facets propios de la categoría (abajo) y, encima, los genéricos
     que cualquier categoría puede tener. Ninguno de los dos pisa al otro.
@@ -2071,6 +2114,7 @@ def facets_for(product):
     # Piezas iguales por ficha («Paquete con 24 piezas de termo»): con esto la
     # lista pone «≈ $X c/u» junto al precio y los tramos de precio cortan por
     # pieza, no por lo que cuesta el paquete (compute_quality_axes.precio_de).
+    _nombre_manda(product, f)
     paquete = se.pack_count(product.get("name", ""))
     if paquete:
         f["pack_n"] = paquete
@@ -2317,7 +2361,8 @@ def _facets_propias(product):
                 f["fan_in"] = pulg
         return f or None
 
-    ram, storage = _ram_storage(category, name, spec_map)
+    ram, storage = _ram_storage(category, name, spec_map,
+                                spec_confiable=any(o.get("storeId") == "mercadolibre" for o in product.get("offers") or []))
     ram = _in_range(ram, _RAM_RANGE, category)
     storage = _in_range(storage, _STORAGE_RANGE, category)
     if ram is not None:
