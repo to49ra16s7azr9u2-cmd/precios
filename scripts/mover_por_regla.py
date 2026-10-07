@@ -4797,6 +4797,7 @@ LOTES['auditoria_26'] = [
     ('Muebles', r'cama de hospital|camilla electrica|mesa de exploracion', None, 'Salud', 'Movilidad y apoyo',
      {'Mesas de centro', 'Mesas plegables y multiusos', 'Sillas de comedor', 'Sillones reclinables'}),
     ('Muebles', r'cuna facial para mesa de masaje', None, 'Belleza y cuidado personal', 'Mobiliario para salón', {'Mesas de centro'}),
+    ('Bocinas', r'line ?array|sistema lineal', None, 'Bocinas', 'Bafles y audio profesional', {'Bocinas Bluetooth'}),
     ('Herramientas', r'^contadora de (monedas|billetes)', None, 'Equipo comercial', 'Punto de venta', {'Jardinería'}),
     ('Iluminación', r'detector de billetes', r'^linterna', 'Equipo comercial', 'Punto de venta', {'Decorativa', 'Lámparas de emergencia'}),
 ]
