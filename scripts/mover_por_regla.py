@@ -4771,6 +4771,37 @@ LOTES['auditoria_25'] = [
 ]
 REGLAS += LOTES['auditoria_25']
 
+# auditoria_26 (07-oct-2026): de ver lo CARO entre lo barato de cada
+# subcategoría (más de 15 veces la mediana): tinas de baño de bebé entre las
+# carriolas, discos abrasivos entre las brocas, carretes y conectores de
+# fibra óptica entre las mangueras de riego, rampas y desmontadoras de llantas
+# de taller entre las llaves, camas de hospital entre los muebles.
+_DISCO_NO = r'dientes|carburo|madera|\bsierra\b|\bcircular\b|diamantad.*(copa|par)'
+_HERR_SUBS = {'Brocas', 'Brocas para metal', 'Brocas para concreto y SDS', 'Jardinería', 'Cerraduras y chapas de puerta',
+              'Juegos de herramientas', 'Pinzas y alicates', 'Llaves y dados', 'Herramientas de banco'}
+LOTES['auditoria_26'] = [
+    ('*', r'^(tina|banera|bañera)\b.*(bebe|plegable|baby|prinsel|infantil)|^(tina|banera) (de )?bebe|banera (para )?bebe', r'perro|mascota|gato|chinchilla|pie|spa',
+     'Bebés', 'Baño e higiene del bebé', {'Carriolas', 'Juguetes para bebé', 'Cojines', 'Pelotas y accesorios de raqueta',
+                                           'Sillas de comedor', 'Sillas infantiles', 'Muñecas'}),
+    ('Herramientas', r'^(disco|discos) (flap|abrasivo|de corte|de desbaste|laminado)', _DISCO_NO, 'Herramientas',
+     'Discos de corte y desbaste', _HERR_SUBS),
+    ('Cocina y comedor', r'disco diamantado|disco abrasivo', None, 'Herramientas', 'Discos de corte y desbaste', {'Copas'}),
+    ('Herramientas', r'carrete de \d+ ?(km|kilometros)|\badss\b|conector (rapido|mecanico) (sc|lc)|\bftth\b|fibra optica (monomodo|aerea)|'
+     r'cable de fibra optica monomodo', r'luces|iluminacion|decorat|starlight', 'Redes', 'Cables y adaptadores de red',
+     {'Jardinería', 'Mangueras y riego', 'Material eléctrico', 'Cables y extensiones eléctricas'}),
+    ('Herramientas', r'rampa de \d postes|rampa automotriz|elevador (automotriz|de \d)|torno rectificador|alineadora|'
+     r'desmontadora de llantas|balanceadora de llantas', None, 'Autos y motos', 'Gatos y herramientas para auto',
+     {'Juegos de herramientas', 'Llaves y dados', 'Medición', 'Herramientas de banco'}),
+    ('Autos y motos', r'desmontadora de llantas|balanceadora de llantas', None, 'Autos y motos', 'Gatos y herramientas para auto',
+     {'Rines', 'Llantas para auto'}),
+    ('Muebles', r'cama de hospital|camilla electrica|mesa de exploracion', None, 'Salud', 'Movilidad y apoyo',
+     {'Mesas de centro', 'Mesas plegables y multiusos', 'Sillas de comedor', 'Sillones reclinables'}),
+    ('Muebles', r'cuna facial para mesa de masaje', None, 'Belleza y cuidado personal', 'Mobiliario para salón', {'Mesas de centro'}),
+    ('Herramientas', r'^contadora de (monedas|billetes)', None, 'Equipo comercial', 'Punto de venta', {'Jardinería'}),
+    ('Iluminación', r'detector de billetes', r'^linterna', 'Equipo comercial', 'Punto de venta', {'Decorativa', 'Lámparas de emergencia'}),
+]
+REGLAS += LOTES['auditoria_26']
+
 
 if __name__ == '__main__':
     main()
