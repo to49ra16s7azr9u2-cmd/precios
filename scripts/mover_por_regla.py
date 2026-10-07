@@ -4910,6 +4910,27 @@ LOTES['auditoria_30'] = [
 ]
 REGLAS += LOTES['auditoria_30']
 
+# auditoria_31 (07-oct-2026): cuarta muestra (subcategorías «Accesorios» y
+# «Refacciones», ≈7% mal puestas): power banks entre accesorios, detailer de
+# autos entre cuidado del cabello, teclados entre keycaps, etc.
+LOTES['auditoria_31'] = [
+    ('Baterías portátiles', r'power ?bank|bateria portatil', r'^(cable|funda|estuche|bolsa|carcasa|case)\b|\bcable\b.*\bpara\b', 'Baterías portátiles',
+     'De uso diario', {'Accesorios y repuestos'}),
+    ('Belleza y cuidado personal', r'meguiar|detailer|cera para (auto|coche)|abrillantador de llantas|car wash', None, 'Autos y motos',
+     'Limpieza y cuidado del auto', {'Cuidado del cabello'}),
+    ('Climatización', r'enfriador de aire|climatizador evaporativo|aire frio portatil', r'refaccion|filtro|tanque', 'Climatización',
+     'Climatizadores evaporativos', {'Accesorios y refacciones de aire acondicionado'}),
+    ('Muebles', r'^cama\b.*(casa|montessori|cercada|barandal)|cama casa', None, 'Muebles', 'Bases de cama y box',
+     {'Accesorios y refacciones de cama'}),
+    ('Cámaras y fotografía', r'\bshure\b|\bblx\d|sistema de microfono inalambrico', None, 'Instrumentos musicales', 'Micrófonos inalámbricos',
+     {'Accesorios'}),
+    ('Teclados', r'^teclado\b', r'kit|switches? (para|de)|keycaps? (para|de)|cubre|funda|reposamunecas|soporte', 'Teclados', 'Mecánicos',
+     {'Switches, keycaps y accesorios'}),
+    ('Bicicletas y movilidad', r'motocicleta|\bmoto\b', r'bicicleta|scooter|patineta', 'Autos y motos', 'Accesorios para moto',
+     {'Herramientas y mantenimiento de bicicleta'}),
+]
+REGLAS += LOTES['auditoria_31']
+
 
 if __name__ == '__main__':
     main()
