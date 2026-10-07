@@ -4873,6 +4873,43 @@ LOTES['auditoria_29'] = [
 ]
 REGLAS += LOTES['auditoria_29']
 
+# auditoria_30 (07-oct-2026): tercera muestra, ahora sólo de subcategorías
+# comodín (≈20% mal puestas en ellas): hilo de pesca entre jardinería,
+# jeringas y marbles entre los juguetes de perro, portaminas entre plomería,
+# snack de bebé entre juguetes, enjuague bucal entre cremas faciales...
+LOTES['auditoria_30'] = [
+    ('Herramientas', r'hilo (para )?(pesca|nylon)|\bcana de pescar|anzuelo|carrete de pesca', None, 'Deportes y fitness', 'Otros deportes', {'Jardinería'}),
+    ('Mascotas', r'jeringa|veterinari|calming|calmante|tranquilizante', r'^juguete', 'Mascotas', 'Higiene y limpieza', {'Juguetes para perro'}),
+    ('Mascotas', r'crema hidratante|balsamo|locion|spray desodorante', None, 'Mascotas', 'Higiene y limpieza', {'Juguetes para perro'}),
+    ('Mascotas', r'\bnici\b', None, 'Juguetes', 'Peluches', {'Juguetes para perro'}),
+    ('Mascotas', r'\b(glass )?marbles\b|canicas', None, 'Juguetes', 'Juguetes educativos', {'Juguetes para perro'}),
+    ('Mascotas', r'colgador de fotos|\bhillman\b', None, 'Herramientas', 'Construcción', {'Juguetes para perro'}),
+    ('Herramientas', r'\bitalika\b', None, 'Autopartes', 'Para motos', {'Material eléctrico', 'Medición', 'Herramientas eléctricas', 'Jardinería', 'Plomería'}),
+    ('Herramientas', r'\b(portaminas|boligrafo|lapiz|lapicero|marcador|pluma)\b', r'\b(soldador|pintar pared)\b', 'Papelería y oficina', 'Escritura',
+     {'Plomería', 'Medición', 'Herramientas manuales'}),
+    ('Herramientas', r'fijador de cables|organizador de cables|sujetacables|cinta velcro', None, 'Herramientas', 'Material eléctrico', {'Medición'}),
+    ('Bebés', r'\bgerber\b|snack inflado|papilla|cereal infantil|puffs?\b', r'^juguete', 'Bebés', 'Alimentación y lactancia', {'Juguetes para bebé'}),
+    ('Herramientas', r'pistola de silicon|pistola (de )?pegamento|pistola termica', None, 'Herramientas', 'Pistolas de calor, engrapadoras y clavadoras',
+     {'Jardinería'}),
+    ('Belleza y cuidado personal', r'enjuague bucal|listerine|pasta dental|cepillo dental|hilo dental', None, 'Belleza y cuidado personal', 'Cuidado personal',
+     {'Cremas faciales'}),
+    ('Belleza y cuidado personal', r'crema para peinar|pomada|cera para (el )?cabello|styling cream|leave.?in', r'\b(facial|rostro)\b',
+     'Belleza y cuidado personal', 'Cuidado del cabello', {'Cremas faciales'}),
+    ('Belleza y cuidado personal', r'locion(es)? corporal|crema corporal|body lotion|body butter|lavado corporal', None, 'Belleza y cuidado personal',
+     'Cremas y lociones corporales', {'Cremas faciales'}),
+    ('Belleza y cuidado personal', r'(mascarilla|crema|exfoliante|lima|limador).*\bpies\b|\bpies\b.*(mascarilla|exfoliante)', None, 'Belleza y cuidado personal',
+     'Cuidado personal', {'Cremas faciales'}),
+    ('Belleza y cuidado personal', r'\bmillet\b|alpiste|semillas? para aves|comida para aves', None, 'Mascotas', 'Alimento y premios', {'Cuidado del cabello'}),
+    ('Equipo comercial', r'palomera.*(disney|toy story|mickey|nino)|(disney|toy story|mickey).*palomera', None, 'Electrodomésticos',
+     'Máquinas de palomitas y snacks', {'Cocina industrial'}),
+    ('Electrodomésticos', r'^pasador\b|^cerrojo\b|\block lock\b', None, 'Herramientas', 'Cerraduras y chapas de puerta', {'Pequeños electrodomésticos de cocina'}),
+    ('Electrodomésticos', r'tetera.*(silbido|silbato|estufa)', None, 'Cocina y comedor', 'Utensilios de cocina', {'Pequeños electrodomésticos de cocina'}),
+    ('Electrodomésticos', r'fiesta de te|juego de te (para )?(ninos|nina)', None, 'Juguetes', 'Juguetes educativos', {'Pequeños electrodomésticos de cocina'}),
+    ('Iluminación', r'\b(nilight|auxbeam|rough country|offroad|off-road)\b|cobertura amarilla', r'habitacion|escritorio', 'Autos y motos', 'Luces LED para auto',
+     {'Decorativa', 'Focos', 'Exterior', 'Reflectores'}),
+]
+REGLAS += LOTES['auditoria_30']
+
 
 if __name__ == '__main__':
     main()
