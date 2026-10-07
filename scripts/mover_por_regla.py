@@ -4807,6 +4807,10 @@ REGLAS += LOTES['auditoria_26']
 # balones entre los dijes, bufandas del Mundial entre las gorras.
 LOTES['auditoria_27'] = [
     ('Juguetes', r'^bota\b.*(nina|nino|disney|toy story|vaquera|casual)', None, 'Calzado', 'Botas', {'Figuras de acción', 'Muñecas'}),
+    ('Bolsas y mochilas', r'^(\S+ ){0,1}(wallet|billetera|cartera|monedero|tarjetero)\b', None, 'Bolsas y mochilas',
+     'Carteras y monederos', {'Bolsas para mujer'}),
+    ('Calzado', r'\bpara mujer\b|\bwomen\b', r'\b(nino|nina|kids|junior)\b', 'Calzado', 'Tenis para mujer', {'Tenis para niños'}),
+    ('Calzado', r'\bpara hombre\b|\bmen\b', r'\b(nino|nina|kids|junior)\b', 'Calzado', 'Tenis para hombre', {'Tenis para niños'}),
     ('Blancos y ropa de cama', r'^bota\b.*(nina|nino|invierno|afelpad)', None, 'Calzado', 'Botas', {'Cobijas'}),
     ('Joyería y bisutería', r'^balon\b', None, 'Deportes y fitness',
      lambda tn: 'Fútbol americano' if 'americano' in tn else 'Balones de fútbol', {'Dijes y charms'}),
