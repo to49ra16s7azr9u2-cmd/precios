@@ -725,8 +725,10 @@ async function handleReviews(url, env) {
     // entre las que bajamos (vienen ordenadas por relevancia) sin traer
     // miles.
     data = await mlGet(token, `/reviews/item/${id}?limit=50`);
-  } catch {
-    return json({ id, total: 0, average: null, top: null, found: false });
+  } catch (e) {
+    // found:false NO significa «sin reseñas»: el origen falló. Se devuelve el
+    // motivo (p. ej. «HTTP 429») para que quien llama no anote un cero falso.
+    return json({ id, total: 0, average: null, top: null, found: false, upstream: String(e?.message || e).slice(0, 120) });
   }
   const reviews = Array.isArray(data?.reviews) ? data.reviews : [];
   let top = null;

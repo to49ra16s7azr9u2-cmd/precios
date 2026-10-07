@@ -35,9 +35,9 @@ producto de catálogo -- el que va en la url de la oferta -- responde 404.
 Las reseñas igual son del producto: dos publicaciones del mismo producto
 devuelven las mismas. Por eso alcanza con el itemId de cualquier vendedor.
 
-Las ofertas sin ningún itemId guardado se saltan y se informan: pedir el
-detalle para conseguirlo sería duplicar las peticiones, y se puede hacer
-después con refresh_prices.py, que ya baja vendedores.
+Las ofertas sin ningún itemId guardado se saltan y se informan; sus itemId
+los consigue aparte ml_itemids.py (los guarda en offer.itemIds, sin tocar
+offer.sellers), y esta corrida los usa también.
 
 USO
 ---
@@ -140,6 +140,22 @@ def _revisada_reciente(offer, hoy):
         return False
 
 
+def sonda_reseñas(products):
+    """¿Contesta /reviews de verdad? Se pregunta por una publicación que YA
+    sabemos que tiene muchas reseñas. 07-oct-2026: el Worker contestó
+    `{"total":0,"found":false}` a TODO (incluida una con 20 mil reseñas) y las
+    corridas del día anotaron ~14 mil ofertas como «sin reseñas»: ceros falsos.
+    Devuelve True/False, o None si no hay con qué probar."""
+    for p in products:
+        for o in _ofertas_de(p):
+            if o.get("storeId") == "mercadolibre" and (o.get("reviewCount") or 0) >= 100:
+                for s in o.get("sellers") or []:
+                    if s.get("itemId"):
+                        r = get_json(f"{REVIEWS}?id={s['itemId']}")
+                        return bool(r and (r.get("total") or 0) > 0)
+    return None
+
+
 def ml_offers_with_items(products, skip_existing=False):
     """(producto, oferta, [itemIds]) de cada oferta de Mercado Libre que
     tenga con qué consultar las reseñas."""
@@ -154,9 +170,8 @@ def ml_offers_with_items(products, skip_existing=False):
             if skip_existing and (o.get("reviewCount") is not None or _revisada_reciente(o, hoy)):
                 continue
             items = []
-            for s in o.get("sellers") or []:
-                it = s.get("itemId")
-                if it and it not in items:
+            for it in [s.get("itemId") for s in o.get("sellers") or []] + list(o.get("itemIds") or []):
+                if it and it not in items:       # itemIds: los trae ml_itemids.py
                     items.append(it)
             if items:
                 out.append((p, o, items[:MAX_ITEMS_POR_OFERTA]))
@@ -178,6 +193,10 @@ def main():
     args = ap.parse_args()
 
     data = load_catalog()
+    if sonda_reseñas(data["products"]) is False:
+        print("ABORTADO: /reviews no devuelve reseñas ni de publicaciones que sabemos que las tienen "
+              "(el Worker o el origen están caídos). No se anota nada para no guardar ceros falsos.")
+        return 3
     todo, sin_item = ml_offers_with_items(data["products"], args.skip_existing)
     print(f"Ofertas de Mercado Libre con itemId: {len(todo)}")
     print(f"Ofertas de Mercado Libre SIN itemId (se saltan): {sin_item}")
@@ -203,7 +222,9 @@ def main():
         res = None
         for iid in item_ids:
             r = get_json(f"{REVIEWS}?id={iid}")
-            if r and not r.get("error"):
+            # found:false = el Worker no pudo leer a Mercado Libre (error de
+            # origen, cuota, 404): NO es «sin reseñas» y no se anota como tal.
+            if r and not r.get("error") and r.get("found") is not False:
                 res = r
                 if r.get("total"):
                     break
@@ -217,8 +238,14 @@ def main():
                       f"{stats['con_reseñas']} con reseñas · {hechas:.1f}/s · "
                       f"faltan ~{faltan:.0f} min", flush=True)
             if args.save_every and not args.dry_run and n % args.save_every == 0:
-                save_catalog(data)
-                print(f"  [guardado parcial en {n}]", flush=True)
+                if stats["con_reseñas"] == 0 and sonda_reseñas(data["products"]) is False:
+                    stats["roto"] = True
+                    print("  ¡la sonda falla a media corrida! se dejan de anotar ceros", flush=True)
+                else:
+                    save_catalog(data)
+                    print(f"  [guardado parcial en {n}]", flush=True)
+            if stats.get("roto"):
+                return
             if not res:
                 stats["sin_respuesta"] += 1
                 return
@@ -254,6 +281,10 @@ def main():
 
     with ThreadPoolExecutor(max_workers=args.concurrency) as pool:
         list(pool.map(work, todo))
+    if stats.get("roto"):
+        # Lo anotado desde el último guardado se descarta: no se guarda nada.
+        print("ABORTADO sin guardar: /reviews dejó de contestar.")
+        return 3
 
     print("=== Resumen ===")
     for k, v in stats.items():
@@ -275,4 +306,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
