@@ -4952,6 +4952,24 @@ LOTES['auditoria_32'] = [
 ]
 REGLAS += LOTES['auditoria_32']
 
+# auditoria_33 (07-oct-2026): sexta muestra al azar (300 fichas, ≈4% mal puestas
+# fuera de autopartes ≈6%): filtro de café entre los filtros de cámara,
+# extractor entre los plafones, sala entre las sillas de comedor...
+LOTES['auditoria_33'] = [
+    ('Cámaras y fotografía', r'filtro (de )?cafe|cafetera', None, 'Cafeteras', 'Accesorios para cafetera', {'Filtros y parasoles'}),
+    ('Belleza y cuidado personal', r'spray termico|protector termico|proteccion termica', r'eau de|parfum|\bedp\b|\bedt\b', 'Belleza y cuidado personal',
+     'Cuidado del cabello', {'Aceites esenciales y de masaje', 'Aceites faciales', 'Cremas faciales'}),
+    ('Belleza y cuidado personal', r'^acondicionador\b', None, 'Belleza y cuidado personal', 'Acondicionadores', {'Aceites faciales', 'Cremas faciales'}),
+    ('Iluminación', r'^extractor\b|\bextractor (de aire|industrial)', r'\bjugos?\b', 'Climatización', 'Extractores y ventilación',
+     {'Plafones y lámparas de sobreponer', 'Decorativa'}),
+    ('Muebles', r'^sala\b', r'comedor|juego de comedor|jardin|exterior', 'Muebles', 'Salas completas', {'Sillas de comedor'}),
+    ('Electrodomésticos', r'induccion', r'\bgas\b', 'Electrodomésticos', 'Parrillas de inducción y eléctricas', {'Parrillas de gas'}),
+    ('Bocinas', r'separador para (parlantes|bocinas)|alza (plastica )?(radox )?para bocinas|adaptador para (parlante|bocina)s? de auto', None,
+     'Autos y motos', 'Accesorios de audio para auto', {'Bocinas Bluetooth'}),
+    ('Iluminación', r'reptil|terrario', None, 'Mascotas', 'Acuarios y terrarios', {'Decorativa', 'Lámparas de escritorio'}),
+]
+REGLAS += LOTES['auditoria_33']
+
 
 if __name__ == '__main__':
     main()
