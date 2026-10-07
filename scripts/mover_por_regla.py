@@ -4931,6 +4931,27 @@ LOTES['auditoria_31'] = [
 ]
 REGLAS += LOTES['auditoria_31']
 
+# auditoria_32 (07-oct-2026): quinta muestra, Belleza/Salud/Limpieza (≈10% mal
+# puestas): cosas de cabello entre las cremas faciales, bases entre los
+# protectores solares, jabón entre los polvos, shampoo de autos...
+B = 'Belleza y cuidado personal'
+LOTES['auditoria_32'] = [
+    (B, r'cabello|\bpelo\b|capilar|rizos|peinar|peinado|\blaca\b', r'facial|rostro|pestana|ceja|barba|\bojos\b|\bpiel\b|corporal|\bcuerpo\b|manos|labios|pies',
+     B, 'Cuidado del cabello', {'Cremas faciales'}),
+    (B, r'pasta de dientes|crema dental', None, B, 'Cuidado personal', {'Cremas faciales'}),
+    (B, r'crema de manos|hand cream|gel reductivo|anticelulit|reductor', None, B, 'Cremas y lociones corporales', {'Cremas faciales'}),
+    (B, r'moroccanoil|proteccion termica|protector termico|spray termico', r'eau de|parfum|\bedp\b|\bedt\b|fragancia', B, 'Cuidado del cabello', {'Perfumes'}),
+    (B, r'\bcera\b|\bgel\b|pomada', r'extension|trenza|clip|tinte', B, 'Ceras, geles y fijadores', {'Extensiones de cabello'}),
+    (B, r'tinte|color temporal|decolorante', r'extension|trenza|clip', B, 'Cuidado del cabello', {'Extensiones de cabello'}),
+    (B, r'^jabon\b|jabon en barra|gel de ducha|gel de bano', r'eau de|parfum|\bedp\b|\bedt\b|perfume|colonia|fragancia|\bset\b', B, 'Jabones y geles de baño', {'Polvos, rubores y bronceadores', 'Sets de perfume'}),
+    (B, r'base de maquillaje|\bbase\b.*\bmaquillaje|foundation|corrector', r'protector solar|spf 5\d \w+ crema', B, 'Bases de maquillaje', {'Protección solar'}),
+    (B, r'delineador', None, B, 'Sombras y delineadores', {'Polvos, rubores y bronceadores'}),
+    (B, r'\bprimer\b', None, B, 'Primers y fijadores', {'Polvos, rubores y bronceadores'}),
+    (B, r'meguiar|\b(auto|coche|carro|vehiculo|automotriz)\b', None, 'Autos y motos', 'Limpieza y cuidado del auto', {'Shampoo'}),
+    (B, r'cepillo desenredante|\bpeine\b|cepillo para (el )?(cabello|pelo)', r'plancha|alaciad|secad', B, 'Cuidado del cabello', {'Planchas para cabello'}),
+]
+REGLAS += LOTES['auditoria_32']
+
 
 if __name__ == '__main__':
     main()
