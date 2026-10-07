@@ -46,6 +46,7 @@ USO
     python3 scripts/refresh_ml_reviews.py
 """
 import argparse
+import datetime
 import json
 import os
 import subprocess
@@ -121,17 +122,36 @@ def _ofertas_de(product):
     return out
 
 
+# Una oferta cuyas publicaciones respondieron «0 reseñas» se anota con la
+# fecha (offer.reviewChecked) y no se vuelve a preguntar hasta pasados estos
+# días. Sin esto, cada corrida diaria gastaba la mitad de la cuota del Worker
+# en las mismas ~11,500 ofertas sin reseñas (07-oct-2026: 11,536 consultadas,
+# 0 con reseñas, y mañana otra vez las mismas).
+DIAS_RECONSULTA = 30
+
+
+def _revisada_reciente(offer, hoy):
+    d = offer.get("reviewChecked")
+    if not d:
+        return False
+    try:
+        return (hoy - datetime.date.fromisoformat(d)).days < DIAS_RECONSULTA
+    except ValueError:
+        return False
+
+
 def ml_offers_with_items(products, skip_existing=False):
     """(producto, oferta, [itemIds]) de cada oferta de Mercado Libre que
     tenga con qué consultar las reseñas."""
     out, sin_item = [], 0
+    hoy = datetime.date.today()
     for p in products:
         for o in _ofertas_de(p):
             if o.get("storeId") != "mercadolibre":
                 continue
             # Reanudar sin repetir: una corrida cortada a la mitad se
             # continúa sin volver a pedir lo que ya trajo respuesta.
-            if skip_existing and o.get("reviewCount") is not None:
+            if skip_existing and (o.get("reviewCount") is not None or _revisada_reciente(o, hoy)):
                 continue
             items = []
             for s in o.get("sellers") or []:
@@ -206,6 +226,7 @@ def main():
             avg = res.get("average")
             if not total:
                 stats["sin_reseñas"] += 1
+                offer["reviewChecked"] = datetime.date.today().isoformat()
                 return
             # Sin promedio publicado no se inventa uno con la página que
             # bajamos: se guarda el conteo y la reseña destacada, y el
@@ -245,9 +266,10 @@ def main():
     if args.dry_run:
         print("\n(--dry-run: no se guardó nada)")
         return
-    if stats["con_reseñas"]:
+    if stats["con_reseñas"] or stats["sin_reseñas"]:
         save_catalog(data)
-        print(f"\nGuardado: {stats['con_reseñas']} ofertas con calificación de Mercado Libre.")
+        print(f"\nGuardado: {stats['con_reseñas']} ofertas con calificación de Mercado Libre; "
+              f"{stats['sin_reseñas']} anotadas como «sin reseñas» (no se vuelven a pedir en {DIAS_RECONSULTA} días).")
     else:
         print("\nNada que guardar.")
 
