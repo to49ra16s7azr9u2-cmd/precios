@@ -4803,6 +4803,16 @@ LOTES['auditoria_26'] = [
 ]
 REGLAS += LOTES['auditoria_26']
 
+# auditoria_27 (07-oct-2026): botas de niña entre figuras de acción y cobijas,
+# balones entre los dijes, bufandas del Mundial entre las gorras.
+LOTES['auditoria_27'] = [
+    ('Juguetes', r'^bota\b.*(nina|nino|disney|toy story|vaquera|casual)', None, 'Calzado', 'Botas', {'Figuras de acción', 'Muñecas'}),
+    ('Blancos y ropa de cama', r'^bota\b.*(nina|nino|invierno|afelpad)', None, 'Calzado', 'Botas', {'Cobijas'}),
+    ('Joyería y bisutería', r'^balon\b', None, 'Deportes y fitness',
+     lambda tn: 'Fútbol americano' if 'americano' in tn else 'Balones de fútbol', {'Dijes y charms'}),
+]
+REGLAS += LOTES['auditoria_27']
+
 
 if __name__ == '__main__':
     main()
