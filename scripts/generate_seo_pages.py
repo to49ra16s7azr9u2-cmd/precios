@@ -140,6 +140,21 @@ def money(n):
     return "$" + format(round(n), ",d")
 
 
+def money_unidad(n):
+    """Precio por pieza: con centavos cuando es chico («$4.50 c/u»)."""
+    return "$" + (format(n, ",.2f") if n < 100 else format(round(n), ",d"))
+
+
+def unidad_html(product):
+    """«≈ $4.50 c/u · paquete de 24» bajo el precio de un paquete de piezas
+    iguales (facets.pack_n, specs_extract.pack_count), o nada."""
+    n = (product.get("facets") or {}).get("pack_n")
+    if not isinstance(n, int) or n < 2:
+        return ""
+    return (f'<span class="row-unit">≈ {money_unidad(min_price(product) / n)} c/u '
+            f'<span class="row-unit-n">· paquete de {n}</span></span>')
+
+
 def plural(n, singular, plural_form):
     """Mismo criterio que plural() en js/app.js: con casi todos los productos
     en una sola tienda, "1 tiendas" salía en cada ficha y cada ranking."""
@@ -1390,6 +1405,7 @@ def render_product_page(product, data, subs_con_pagina=None):
     <h1>{set_badge_html(product)}{html_escape(product['name'])}{f'<span class="used-badge" title="Producto usado/preowned">{svg_icon("rotate")} Usado</span>' if is_used(product) else ''}</h1>
     <p class="detail-rating">{f'{avg} / 5 ({plural(count, "calificación", "calificaciones")})' if count else 'Sin calificaciones todavía'}</p>
     <p class="detail-fromprice">{'Desde ' if n_sellers > 1 else ''}<strong>{money(price)}</strong> en {plural(n_sellers, "vendedor", "vendedores")}</p>
+    {unidad_html(product)}
     {lego_html(product)}
     {lenovo_html(product)}
     {huawei_html(product)}
@@ -1599,7 +1615,8 @@ def _valor_eje(p, campo):
     """El dato por el que corta un eje. "price" no es un facet: es el precio
     más barato de hoy, el mismo que imprime la fila (min_price)."""
     if campo == "price":
-        return min_price(p)
+        n = (p.get("facets") or {}).get("pack_n")
+        return min_price(p) / n if isinstance(n, int) and n > 1 else min_price(p)
     return (p.get("facets") or {}).get(campo)
 
 
@@ -1937,6 +1954,7 @@ def render_subcategory_page(cat, sub, products, data, pares_familia=None):
             # unas filas dijeran otra cosa que las demás.
             f'<div class="row-from">Desde</div>'
             f'<div class="row-price">{money(min_price(p))}</div>'
+            f'{unidad_html(p)}'
             f'<div class="row-sellers">{svg_icon("shopping-bag")} '
             f'{plural(n_vendedores, "vendedor", "vendedores")}</div>'
             f'</div>'
@@ -3158,6 +3176,7 @@ def render_category_page(cat, products, data):
             f'<div class="row-priceblock">'
             f'<div class="row-from">Desde</div>'
             f'<div class="row-price">{money(min_price(p))}</div>'
+            f'{unidad_html(p)}'
             f'<div class="row-sellers">{svg_icon("shopping-bag")} '
             f'{plural(n_vendedores, "vendedor", "vendedores")}</div>'
             f'</div>'
@@ -4177,6 +4196,7 @@ def render_brand_page(nombre, slug, products, data):
             f'<div class="row-priceblock">'
             f'<div class="row-from">Desde</div>'
             f'<div class="row-price">{money(min_price(p))}</div>'
+            f'{unidad_html(p)}'
             f'<div class="row-sellers">{svg_icon("shopping-bag")} {vendedores}</div>'
             f'</div>'
             f'</div>'

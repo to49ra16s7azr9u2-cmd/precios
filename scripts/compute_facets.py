@@ -2068,6 +2068,12 @@ def facets_for(product):
     f = _facets_propias(product) or {}
     _generales(product, product.get("name", ""), _spec_map(product), f)
     _titulo(product, product.get("name", ""), f)
+    # Piezas iguales por ficha («Paquete con 24 piezas de termo»): con esto la
+    # lista pone «≈ $X c/u» junto al precio y los tramos de precio cortan por
+    # pieza, no por lo que cuesta el paquete (compute_quality_axes.precio_de).
+    paquete = se.pack_count(product.get("name", ""))
+    if paquete:
+        f["pack_n"] = paquete
     if product.get("category") == "Herramientas" and isinstance(f.get("volt"), (int, float)) and f["volt"] <= 60:
         # Una herramienta de batería se compara por voltaje («Alimentación»);
         # los watts que trae su ficha son el voltaje copiado o el torque

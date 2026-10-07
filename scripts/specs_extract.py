@@ -2101,3 +2101,60 @@ def decimales_perdidos(name):
     if not name or not _VENTA_INTERNACIONAL.search(name):
         return name
     return _DECIMAL_PERDIDO.sub(r"\1.\2", name)
+
+
+# ---------------------------------------------------------------------
+# Paquetes: cuántas piezas IGUALES vienen en una sola ficha
+# ---------------------------------------------------------------------
+# «Paquete con 24 piezas de termo», «Pack de 40 pelotas», «lote de 12
+# sobres», «Caja con 1000 piezas»: la ficha cuesta lo de 24 termos y, en la
+# misma lista que un termo suelto de $90, parecía carísima (07-oct-2026: ~290
+# fichas de 10 a 1,000 piezas junto a las de una pieza). Con el número se
+# puede poner «≈ $X c/u» junto al precio y comparar por pieza.
+#
+# Sólo con palabra de paquete (paquete, pack, lote, caja, bolsa, bulto): «set
+# de 40 piezas» o «kit de herramientas 150 pzs» es UN producto con varias
+# piezas distintas, y dividir su precio no significaría nada.
+_U_PIEZA = r"(?:piezas?|pzas?|pzs|pz|pcs|pc|uds?|unidades|unids?|und)"
+_MEDIDA_DESPUES = r"(?!\s*(?:ml|l\b|lt|lts|litros?|cm|mm|m\b|metros?|oz|g\b|gr\b|kg|w\b|watts?|v\b|volts?|gb|tb|mah|hz|\"|pulgadas?|"
+_MEDIDA_DESPUES += r"x\s*\d|en\s*1|in\s*1|%|dias|meses|anos|horas|niveles|velocidades|colores|modos|puertos|capas|hojas|botones))"
+_PACK_UNIDAD_RE = re.compile(r"\b(?:paquete|paq|pack|lote|bulto|caja|bolsa)s?\s*(?:de|con|x|c/)?\s*(\d{1,4})\s*" + _U_PIEZA + r"\b")
+_PACK_N_RE = re.compile(r"\b(?:paquete|paq|pack|lote|bulto)s?\s*(?:de|con|x)\s*(\d{1,4})\b" + _MEDIDA_DESPUES)
+_N_PACK_RE = re.compile(r"(?<![\d.,])(\d{1,3})\s*[- ]?pack\b")
+_PACK_PALABRA_RE = re.compile(r"\b(?:paquete|paq|pack|lote|bulto|caja|bolsa)s?\b")
+_N_UNIDADES_PAREN_RE = re.compile(r"[\(\[]\s*(\d{2,4})\s*" + _U_PIEZA + r"\s*[\)\]]")
+# «Paquete de 2 sobres de 85 g»: el 85 es de otra cosa; y «set de 4 + pack»
+_NO_PACK_RE = re.compile(r"\b(?:set|juego|kit|vajilla|bateria de cocina)\s+(?:de\s+)?\d")
+
+
+# «Sábanas queen ... pack de 2 almohadas», «Colchón + Box + Almohada 2Pack»:
+# el paquete es de OTRA cosa que lo que dice la ficha, no de la ficha.
+_PACK_DE_ACCESORIO_RE = re.compile(
+    r"^(?:de\s+)?(?:almohadas?|fundas?|cojines?|bateria|baterias|pilas?|controles?|accesorios?|regalos?|extras?|cargadores?)\b")
+
+
+def pack_count(name, lo=2, hi=2000):
+    """Piezas iguales por ficha (2 a 2000) según el nombre, o None."""
+    n = _norm(name or "")
+    vals = set()
+    for rx in (_PACK_UNIDAD_RE, _PACK_N_RE, _N_PACK_RE):
+        for m in rx.finditer(n):
+            v = int(m.group(1))
+            if not lo <= v <= hi:
+                continue
+            if "+" in n[max(0, m.start() - 14):m.start()]:
+                continue
+            if m.start() > 15 and _PACK_DE_ACCESORIO_RE.match(n[m.end():].lstrip()) and not _PACK_DE_ACCESORIO_RE.match(n):
+                continue
+            vals.add(v)
+    if not vals:
+        return None
+    # «Mascarilla Pack de 2 (10 unidades)»: el total es el entre paréntesis.
+    if _PACK_PALABRA_RE.search(n):
+        for m in _N_UNIDADES_PAREN_RE.finditer(n):
+            v = int(m.group(1))
+            if lo <= v <= hi:
+                vals.add(v)
+    if len(vals) > 1 and max(vals) % min(vals) != 0:
+        return None      # «paquete de 12 ... caja de 20»: no se sabe cuál es
+    return max(vals)

@@ -942,10 +942,17 @@ PRECIO_USOS = ("Lo más barato del rango", "El precio más común", "Lo más car
 
 
 def precio_de(p):
-    """El precio más barato de sus ofertas, como lo muestra la lista."""
+    """El precio más barato de sus ofertas, como lo muestra la lista. En un
+    paquete («Paquete con 24 piezas de termo») es el precio POR PIEZA: junto
+    al termo suelto el paquete de 24 salía en el tramo «De gama alta» sólo por
+    ser 24 (07-oct-2026). Igual que qualityValueOf() de js/app.js y
+    _valor_eje() de generate_seo_pages.py."""
     precios = [o.get("price") for o in (p.get("offers") or [])
                if isinstance(o.get("price"), (int, float)) and o.get("price") > 0]
-    return min(precios) if precios else None
+    if not precios:
+        return None
+    n = (p.get("facets") or {}).get("pack_n")
+    return min(precios) / n if isinstance(n, int) and n > 1 else min(precios)
 
 
 def eje_precio(ps):

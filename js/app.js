@@ -886,6 +886,11 @@
     return FORMATO_PESOS.format(n);
   }
 
+  // Precio por pieza de un paquete: con centavos cuando es chico («$4.50»).
+  function moneyUnidad(n) {
+    return n < 100 ? "$" + n.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : money(n);
+  }
+
   // "1 tiendas"/"0 calificaciones" salían en cada fila del catálogo y en
   // cada ficha: con casi todos los productos en una sola tienda, el plural
   // mal puesto era lo primero que se veía al entrar.
@@ -1420,6 +1425,20 @@
     if (product.__stub) return product.__precio;
     cheapestOffer(product);
     return product[PM_PRECIO];
+  }
+
+  // Piezas iguales por ficha («Paquete con 24 piezas de termo»), de
+  // facets.pack_n (specs_extract.pack_count). Junto a un termo suelto de $90
+  // el paquete de 24 parecía carísimo: se muestra «≈ $X c/u» y los tramos de
+  // precio de Compara calidad cortan por pieza (qualityValueOf).
+  function packN(p) {
+    const n = facetaDe(p, "pack_n");
+    return typeof n === "number" && n > 1 ? n : 0;
+  }
+  function unitPriceHtml(p) {
+    const n = packN(p);
+    if (!n) return "";
+    return `<span class="row-unit" title="Precio del paquete entre ${n} piezas">≈ ${moneyUnidad(minPrice(p) / n)} c/u <span class="row-unit-n">· paquete de ${n}</span></span>`;
   }
 
   // true cuando, con "Incluir envío" activo, el precio "Desde" mostrado en
@@ -4696,6 +4715,7 @@
         <p class="detail-fromprice">
           ${sellerTotal(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(sellerTotal(product), "vendedor", "vendedores")}
           ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
+          ${unitPriceHtml(product)}
         </p>
       </div>
       <div class="most-viewed-action">
@@ -5992,6 +6012,7 @@
         <div class="row-priceblock">
           ${sellerTotal(p) > 1 ? `<div class="row-from">Desde</div>` : ""}
           <div class="row-price">${money(minPrice(p))}${bestDiscountPct(p) ? `<span class="discount-badge">-${bestDiscountPct(p)}%</span>` : ""}</div>
+          ${unitPriceHtml(p)}
           ${
             // Siempre visible (no solo con el toggle "Incluir envío" activo):
             // a diferencia del monto sumado al precio, esta leyenda es la
@@ -7736,7 +7757,10 @@
     // de Refrigeradores no aplica a frigobares ni congeladores): fuera de
     // ellas el producto «no lo indica», igual que sin el dato.
     if (axis.subs && !axis.subs.includes(p.subcategory)) return null;
-    if (axis.field === "price") return minPrice(p);
+    if (axis.field === "price") {
+      const n = packN(p);
+      return n ? minPrice(p) / n : minPrice(p);
+    }
     return facetaDe(p, axis.field);
   }
 
@@ -8607,6 +8631,7 @@
     el.detailFromPrice.innerHTML = `
       ${offerCount(product) > 1 ? "Desde " : ""}<strong>${money(minPrice(product))}</strong>${discountPct ? `<span class="discount-badge">-${discountPct}%</span>` : ""} en ${plural(offerCount(product), "tienda", "tiendas")}${sellerTotal(product) > offerCount(product) ? ` · ${plural(sellerTotal(product), "vendedor", "vendedores")}` : ""}
       ${savings ? `<span class="save-amount">Ahorras ${money(savings)}</span>` : ""}
+      ${unitPriceHtml(product)}
       ${shipHtml}
       ${legoHtml(product)}
       ${lenovoHtml(product)}

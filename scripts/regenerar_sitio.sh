@@ -98,6 +98,11 @@ echo "=== fusiones ==="
   python3 scripts/merge_variantes_tienda.py --muestra 0
 } > /tmp/fusiones.log 2>&1
 grep -E "absorbidas|fusionados|Catálogo|catálogo" /tmp/fusiones.log | tail -12
+# Precios de relleno («$99,999» de un vendedor de Walmart que no quiere vender,
+# «$9,999» en Mercado Libre) y errores de captura de millones: después de las
+# fusiones, para que otra tienda de la misma ficha pueda confirmar el precio.
+# Ver sanear_precios.py.
+echo "=== sanear precios ==="; python3 scripts/sanear_precios.py --aplicar 2>&1 | grep -E "Ofertas con|Guardado"
 # La foto de la ficha, de una tienda que no la cambia de lugar (Elektra y
 # Chedraui vuelven a subir sus imágenes y la url vieja da 404).
 echo "=== foto_estable ==="; python3 scripts/foto_estable.py > /tmp/foto_estable.log 2>&1; head -1 /tmp/foto_estable.log

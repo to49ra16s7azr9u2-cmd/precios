@@ -332,6 +332,12 @@ def resumen_de_categoria(fichas, idx_sub, subs_cat):
     campos = sorted(k for k, n in presentes.items()
                     if n / total >= FACETA_MIN
                     or any(fichas_sub[s] >= 20 and c[k] >= 0.10 * fichas_sub[s] for s, c in por_sub.items()))
+    # «pack_n» (piezas iguales por paquete) viaja siempre que exista: la lista
+    # pone «≈ $X c/u» y los tramos de precio cortan por pieza (js/app.js,
+    # qualityValueOf), y con un resumen que no lo trae, una fila saldría con
+    # el precio del paquete y otra del mismo tramo con el de la pieza.
+    if presentes.get("pack_n") and "pack_n" not in campos:
+        campos = sorted(campos + ["pack_n"])
     # Diccionarios ordenados (números de menor a mayor): así los años
     # seguidos quedan en índices seguidos y se pueden escribir como tramo.
     valores = {k: {} for k in campos}
