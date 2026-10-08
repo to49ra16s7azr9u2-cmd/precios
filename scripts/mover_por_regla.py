@@ -5220,5 +5220,25 @@ LOTES['auditoria_41'] = [
 ]
 REGLAS += LOTES['auditoria_41']
 
+# auditoria_42 (08-oct-2026): llantas de moto, cuatrimoto y scooter metidas en las subcategorías de llantas
+# de auto/camioneta (Bridgestone Battlax «r17m/C», Metzeler, Pirelli Diablo/Angel, Michelin Road/Anakee, ATV Motocore),
+# y los «asiento resorte» (asientos de resorte de suspensión) que caían en Interior y tapicería.
+_LLANTAS_NO_MOTO = {
+    'Llantas para auto', 'Llantas para auto rin 13 y 14', 'Llantas para auto rin 15', 'Llantas para auto rin 16',
+    'Llantas para auto rin 17', 'Llantas para auto rin 18', 'Llantas para auto rin 19 o más',
+    'Llantas para camioneta rin 15 y 16', 'Llantas para camioneta rin 17', 'Llantas para camioneta rin 18',
+    'Llantas para camioneta rin 20 o más', 'Llantas para camioneta y SUV', 'Llantas para camión (rin 17.5 a 24.5)',
+    'Llantas para carretilla y equipo', 'Llantas',
+}
+_ES_LLANTA = r'^(paquete de \d+ |paq\.? \d+ |pack de \d+ |par de |juego de |set de |\d+ )?(llantas?|neumaticos?)\b'
+LOTES['auditoria_42'] = [
+    ('Autos y motos',
+     _ES_LLANTA + r'.*(\batv\b|cuatrimoto|motocore|\bm/c(tl)?\b|\dm/c\b|\bscooter\b|\bmotos?\b|motocicleta|metzeler|rinaldi|vee rubber|battlax|karoo|anakee|city extra|city demon|city road|scorcher|sportec|sportmax|roadsmart|scootsmart|trailmax|conti ?twist|contigo|diablo ?(rosso|supercorsa|scooter|strada)|diablosuper|angel (gt|st)|road ?[56]\b|pilot (street|power|road)|scorpion (rally|mx|trail)|ceat (zoom|secura)|\bmt\d{2}b\d{2})',
+     r'bicicleta|\bbici\b|patineta|monopatin|scooter electrico|carretilla de|remolque|podadora|cortacesped|tractor|montable|juguete|equilibrio|para ninos|plegable',
+     'Autos y motos', 'Llantas para moto', _LLANTAS_NO_MOTO),
+    ('Autopartes', r'^asiento resorte', None, 'Autopartes', 'Resortes y muelles', {'Interior y tapicería'}),
+]
+REGLAS += LOTES['auditoria_42']
+
 if __name__ == '__main__':
     main()
