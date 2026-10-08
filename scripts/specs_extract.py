@@ -1493,7 +1493,7 @@ def kg_of(text, lo, hi):
     return _uno(vals)
 
 
-_VOLT_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d)?)\s*v(?:olts?|oltios)?\b")
+_VOLT_RE = re.compile(r"(?<![\d.,])(?<![a-z]-)(\d{1,3}(?:[.,]\d)?)\s*v(?:olts?|oltios)?\b")
 
 
 def volts_of(text, lo, hi):

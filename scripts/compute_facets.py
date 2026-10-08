@@ -2415,6 +2415,126 @@ _TIPOS_08OCT_C = {
 }
 for _k, _v in _TIPOS_08OCT_C.items():
     TIPOS[_k] = TIPOS.get(_k, []) + [(et, re.compile(rx)) for et, rx in _v]
+# Quinta tanda del 08-oct-2026 (cascos, guantes, cargadores inalámbricos, almohadas, aretes, mochilas...). Misma regla de suma que las anteriores.
+_TIPOS_08OCT_D = {
+    ('Autos y motos', 'Cascos integrales'): [
+        ('Infantil', 'infantil|ninos|ninas|\\bkids?\\b|youth|junior|bebe'),
+        ('Cross y todoterreno', 'cross|motocross|enduro|\\bmx\\b|off.?road|trail|adventure'),
+        ('Con Bluetooth o intercomunicador', 'bluetooth|intercom|sena\\b|comunicador|audifono'),
+        ('Con diseño de personaje', 'looney|marvel|avengers|dc comics|superman|batman|hulk|spider|disney|star wars|hello kitty|minnie|mickey|zombie|cartoon|joker|calavera|skull|catrina|mariachi|alebrije'),
+        ('Con doble visor', 'doble visor|visor doble|sun visor|visor solar|gafas|lente solar|visor interno'),
+        ('Con luz LED', 'con luz|\\bled\\b|luz stop'),
+        ('Para mujer', 'mujer|dama|lady|women|femenin'),
+    ],
+    ('Autos y motos', 'Cascos abatibles'): [
+        ('Infantil', 'infantil|ninos|ninas|\\bkids?\\b|youth|junior|bebe'),
+        ('Cross y todoterreno', 'cross|motocross|enduro|\\bmx\\b|off.?road|trail|adventure'),
+        ('Con Bluetooth o intercomunicador', 'bluetooth|intercom|sena\\b|comunicador|audifono'),
+        ('Con diseño de personaje', 'looney|marvel|avengers|dc comics|superman|batman|hulk|spider|disney|star wars|hello kitty|minnie|mickey|zombie|cartoon|joker|calavera|skull|catrina|mariachi|alebrije'),
+        ('Con doble visor', 'doble visor|visor doble|sun visor|visor solar|gafas|lente solar|visor interno'),
+        ('Con luz LED', 'con luz|\\bled\\b|luz stop'),
+        ('Para mujer', 'mujer|dama|lady|women|femenin'),
+    ],
+    ('Autos y motos', 'Guantes para moto'): [
+        ('Para bicicleta o uso mixto', '\\bbicicleta|\\bbici\\b|\\bciclismo|\\bciclista'),
+        ('Infantiles', 'chicos|ninos|infantil|\\bkids?\\b'),
+        ('Térmicos e impermeables', 'invierno|termic|calefa|impermeable|waterproof|frio|acolchado|gore.?tex'),
+        ('Táctiles (pantalla táctil)', 'tactil|touchscreen|touch screen|pantalla|touch\\b'),
+        ('Tácticos y sin dedos', 'tacticos|tactico|medio dedo|sin dedos|half finger|militar'),
+        ('De piel', '\\bpiel\\b|cuero|leather'),
+        ('Con protecciones', 'protecc|knuckle|nudillos|armor|sensores|carbono|fibra de carbono'),
+        ('De malla (ventilados)', 'mesh|malla|verano|\\bair\\b|ventilad|perforad'),
+        ('De textil', 'textil|textile|poliester|nylon'),
+    ],
+    ('Cargadores y adaptadores', 'Inalámbrico'): [
+        ('Estación 4 en 1', '4 en 1|4 in 1|4en1|cuatro en 1'),
+        ('Estación 3 en 1', '3 en 1|3 in 1|3en1|tres en 1|tres en uno'),
+        ('Estación 2 en 1', '2 en 1|2 in 1|2en1|dual\\b|duo\\b|dos en 1|doble'),
+        ('Cargador para reloj', 'apple watch|reloj|smartwatch|galaxy watch|\\bwatch\\b'),
+        ('Batería portátil con carga inalámbrica', 'power ?bank|bateria (externa|portatil)|\\bmah\\b'),
+        ('Soporte con carga (auto o escritorio)', 'soporte|stand\\b|holder|vehiculo|coche|auto\\b|ventila|rejilla|tablero'),
+        ('Accesorio magnético (anillo o kit)', 'anillo|sticker|kit accesorios|funda|case\\b|halolock|placa magnetica'),
+        ('Base o almohadilla de carga', 'base|almohadilla|\\bpad\\b|alfombrilla|tapete|disco'),
+        ('Cargador MagSafe o Qi2', 'magsafe|mag-?safe|qi2|magnetic'),
+        ('Cargador inalámbrico', 'cargador|charger|carga rapida|wireless'),
+    ],
+    ('Blancos y ropa de cama', 'Almohadas'): [
+        ('Paquete con sábanas o protectores', 'sabanas|paquete de blancos|protector de colchon|juego de blancos|\\+ ?(sab|prot)'),
+        ('Cervical y ortopédica', 'cervical|ortoped|cuello|contorno|ergonomica|dona\\b|donut|cunita|coxis|cóccix|apnea'),
+        ('Para embarazo y lactancia', 'embarazo|maternidad|lactancia|nursing'),
+        ('De viaje', 'viaje|travel|inflable|camping'),
+        ('Corporal', 'corporal|body pillow|body'),
+        ('Decorativa (cojín y relleno)', 'decorativ|cojin|relleno para cojin|relleno de cojin|funda de cojin'),
+        ('Viscoelástica (memory foam)', 'viscoelastic|memory foam|memory\\b|foam\\b|espuma de memoria'),
+        ('De pluma o plumón', 'pluma|plumon|\\bdown\\b'),
+        ('De gel', '\\bgel\\b|microgel|cooling|fresca|refrigerante'),
+        ('De látex', 'latex'),
+        ('De microfibra', 'microfibra|fibra|poliester|hueca|siliconada'),
+        ('De algodón', 'algodon|cotton'),
+        ('De bambú', 'bambu|bamboo'),
+        ('De peluche o infantil', 'peluche|infantil|ninos|kids|oso\\b|personaje|character|disney|bebe'),
+    ],
+    ('Juguetes', 'Juguetes educativos'): [
+        ('Masa moldeable (Play-Doh)', 'play.?doh|masa moldeable|masas moldeables|\\bmasas?\\b|plastilina|moldeable'),
+        ('Slime y arena cinética', 'slime|kinetic|arena magica|arena cinetica|\\bsand\\b|squish'),
+        ('Juguete de ciencia y STEM', 'cientific|ciencia|\\bstem\\b|experiment|microscopio|geoda|cristales|volcan|osmo|robot|codigo|programa'),
+        ('Kit de manualidades', 'manualidad|kit creativo|resina|\\bdiy\\b|bisuteria|cuentitas|pegatina|sticker|pintar|dibujo|proyector de dibujo|ceramica|pinturas|crea tu|haz tu|fabrica'),
+        ('Aprendizaje electrónico', 'aprendizaje|laptop|tablet|ipad|aprende|electronic|abc|numeros|letras|sonido'),
+        ('Tablero y juego de madera', 'madera|tangram|melissa|tablero de actividades|cubo de actividades|rompecabezas'),
+        ('Juego de rol (cocina, doctor, tienda)', 'cocina|doctor|veterinario|supermercado|tienda|rol\\b|herramientas de juguete|casita|carrito'),
+    ],
+    ('Joyería y bisutería', 'Aretes'): [
+        ('Piercing y sin perforar', 'piercing|\\bclip\\b|sin perforar|no piercing|cartilago|helix|tragus|ear cuff|cuff'),
+        ('Set de varios pares', '\\bset\\b|juego|\\bkit\\b|\\b[2-9] ?pares\\b|\\b[2-9] ?(pzs?|pzas|piezas|pcs)\\b|pack'),
+        ('Argollas y aros', 'argolla|\\baros?\\b|hoop|huggie'),
+        ('Con perla', 'perla|pearl'),
+        ('Largos y colgantes', 'gota|colgante|\\bdrop\\b|largos?|dangle|plumas|chandelier|candil|cascada'),
+        ('Broqueles y botones', 'broquel|boton|\\bstud|puntas|pequen|mini'),
+        ('Con zirconia o cristal', 'zirconia|zircon|circon|cristal|swarovski|cubica|diamante|piedra|esmeralda|rubi|topacio|amatista'),
+        ('Infantiles', 'bebe|\\bnina|infantil|kids|jovenes'),
+    ],
+    ('Bolsas y mochilas', 'Mochilas'): [
+        ('Con ruedas', 'ruedas|trolley|carrito|baston'),
+        ('Preescolar y kinder', 'kinder|preescolar|chica\\b|pequena|mini\\b|20 ?l\\b|14 ?l\\b|16 ?l\\b'),
+        ('Escolar primaria', 'primaria|escolar|escuela|grande\\b'),
+        ('Para laptop y trabajo', 'laptop|oficina|negocios|ejecutiv|antirrobo|trabajo|portatil'),
+        ('Deportiva y de viaje', 'deportiv|viaje|senderismo|camping|gym|hiking|tactica|militar'),
+        ('Casual y juvenil', 'casual|juvenil|mujer|moda|dama|hombre|unisex|backpack'),
+    ],
+    ('Herramientas', 'Hidrolavadoras'): [
+        ('Accesorio, detergente o repuesto', '^(\\S+ ){0,2}(detergente|lanza|boquilla|manguera|espuma|kit de|accesorio|cañon|canon de espuma|pistola de repuesto|cepillo|extension)\\b|^(accesorio|repuesto)'),
+        ('Pistola de lavado portátil', '^pistola|pistola (hidrolavadora|de lavado)|pistola portatil'),
+        ('Inalámbrica (de batería)', 'inalambric|bateria|litio|recargable|\\b18 ?v\\b|\\b20 ?v\\b|\\b36 ?v\\b|cordless'),
+        ('A gasolina', 'gasolina|motor a gasolina|\\bhp\\b|axial|g ?x ?\\d{3}'),
+        ('Industrial', 'industrial|trifasic|bifasic|220 ?v|profesional|twin|placa'),
+        ('Eléctrica', 'electrica|127 ?v|120 ?v|110 ?v|\\b\\d{3,4} ?w\\b|portatil|compacta'),
+    ],
+    ('Blancos y ropa de cama', 'Colchas y cobertores'): [
+        ('Juego con sábanas o almohadas', 'sabanas|almohada|\\bjuego\\b|\\bset\\b|\\+ ?(sab|alm|prot)|edrecolcha'),
+        ('Cobertor borrega o sherpa', 'borrega|sherpa|esquimal|polar|fleece|peluche'),
+        ('Cobertor térmico', 'termic|pachicalientito|calientito|invernal|cobertor ultra ?suave'),
+        ('Cobertor ligero', 'ligero|ligera|liviano|veraniego|fresco'),
+        ('Edredón', 'edredon|duvet|comforter|plumon'),
+        ('Colcha', 'colcha|bedspread|quilt|cubrecama|cubre cama'),
+        ('Frazada', 'frazada|cobija|manta\\b'),
+        ('Cobertor', 'cobertor'),
+    ],
+    ('Joyería y bisutería', 'Pulseras'): [
+        ('Exhibidor o accesorio', 'exhibidor|porta pulseras|organizador|soporte para pulseras|caja para'),
+        ('Neón y de fiesta', 'neon|cyalume|fiesta|glow|luminos|brilla'),
+        ('Esclava', 'esclava|identificacion'),
+        ('Con dije o charm', 'dije|charm|colgante|pandora'),
+        ('De cuentas y piedras naturales', 'cuentas|piedras|piedra natural|natural|amatista|perlas|cristal|beads|ojo de tigre|obsidiana|turquesa|jade|cuarzo'),
+        ('De cuero', '\\bcuero\\b|\\bpiel\\b|leather'),
+        ('Tejida, de hilo o de cuerda', 'hilo|tejid|trenzad|cuerda|macrame|cordon|braided|string'),
+        ('Brazalete rígido', 'brazalete|rigid|bangle|esposa|puño|punho'),
+        ('De cadena', 'cadena|eslabon|cubana|florentino|figaro|malla|rolo|singapur|barbada'),
+        ('Magnética y de terapia', 'magnetic|iman|salud|energia|ionic|terapia|turmalina'),
+        ('Para parejas', 'pareja|parejas|couple|novia|amistad'),
+    ],
+}
+for _k, _v in _TIPOS_08OCT_D.items():
+    TIPOS[_k] = TIPOS.get(_k, []) + [(et, re.compile(rx)) for et, rx in _v]
 # Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
 # 60% lo dice en el nombre, muchas veces en libras.
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(
@@ -2445,6 +2565,15 @@ _HOGAR = ("Muebles", "Decoración de hogar y jardín", "Blancos y ropa de cama",
 REGLAS_TITULO = {}
 for _c in _MODA + _HOGAR + ("Relojes inteligentes", "Audífonos", "Celulares", "Bebés"):
     REGLAS_TITULO.setdefault(_c, []).append(("color", st.color))
+# Color de aparatos, papelería, mascotas...: sólo con las palabras que no chocan con una marca
+# ni con otro producto (st.color_seguro); 08-oct-2026: 100 mil fichas no decían su color.
+_COLOR_APARATOS = ("Electrodomésticos", "Cafeteras", "Aspiradoras", "Bocinas", "Cargadores y adaptadores",
+                   "Baterías portátiles", "Mouse", "Teclados", "Laptops", "Tabletas", "Cámaras y fotografía",
+                   "Climatización", "Bicicletas y movilidad", "Papelería y oficina", "Deportes y fitness", "Mascotas",
+                   "Instrumentos musicales", "Componentes y accesorios de PC", "Domótica y hogar inteligente",
+                   "Impresoras")
+for _c in _COLOR_APARATOS:
+    REGLAS_TITULO.setdefault(_c, []).append(("color", st.color_seguro))
 for _c in _MODA + ("Deportes y fitness", "Belleza y cuidado personal", "Relojes inteligentes", "Bebés"):
     REGLAS_TITULO.setdefault(_c, []).append(("gender", st.genero))
 REGLAS_TITULO.setdefault("Calzado", []).append(("shoe_size", st.talla_calzado))
@@ -2532,6 +2661,7 @@ for _s in ("Funko y coleccionables", "Figuras de acción", "Figuras de colecció
     NOMBRE_GENERALES.setdefault(("Juguetes", _s), []).append(("franchise", st.franquicia))
 NOMBRE_GENERALES.setdefault(("Juguetes", "Bloques de construcción"), []).append(("block_theme", st.tema_bloques))
 NOMBRE_GENERALES.setdefault(("Juguetes", "Bloques de construcción"), []).append(("set_num", st.numero_set))
+NOMBRE_GENERALES.setdefault(("Herramientas", "Hidrolavadoras"), []).append(("pressure_psi", st.presion_psi))
 NOMBRE_GENERALES.setdefault(("Juguetes", "Funko y coleccionables"), []).extend([("funko_ed", st.edicion_funko), ("funko_num", st.numero_funko)])
 NOMBRE_GENERALES.setdefault(("Juguetes", "Muñecas"), []).append(("doll_line", st.linea_muneca))
 for _s in ("Sartenes y comales", "Comales y planchas"):

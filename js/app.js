@@ -419,7 +419,11 @@
     const txt = (v) => v;
     const num = (suf) => (v) => `${v}${suf}`;
     const EXTRA = [
-      ["color", "Color", [...MODA, ...HOGAR, "Relojes inteligentes", "Audífonos", "Celulares", "Bebés"], txt],
+      ["color", "Color", [...MODA, ...HOGAR, "Relojes inteligentes", "Audífonos", "Celulares", "Bebés",
+        "Electrodomésticos", "Cafeteras", "Aspiradoras", "Bocinas", "Cargadores y adaptadores", "Baterías portátiles", "Mouse",
+        "Teclados", "Laptops", "Tabletas", "Cámaras y fotografía", "Climatización", "Bicicletas y movilidad", "Papelería y oficina",
+        "Deportes y fitness", "Mascotas", "Instrumentos musicales", "Componentes y accesorios de PC",
+        "Domótica y hogar inteligente", "Impresoras"], txt],
       ["gender", "Para quién", [...MODA, "Deportes y fitness", "Belleza y cuidado personal", "Relojes inteligentes", "Bebés"], txt],
       ["shoe_size", "Talla (MX)", ["Calzado"], txt, true],
       ["size_label", "Talla", ["Ropa y accesorios", "Deportes y fitness", "Autos y motos", "Mascotas"], txt],
@@ -432,6 +436,7 @@
       ["tire_cam", "Cámara", AUTOS, txt],
       ["book_format", "Formato del libro", ["Libros"], txt],
       ["funko_ed", "Edición", ["Juguetes"], txt],
+      ["pressure_psi", "Presión máxima", ["Herramientas"], (v) => `${Number(v).toLocaleString("es-MX")} PSI`, true],
       ["skin_type", "Tipo de piel", ["Belleza y cuidado personal"], txt],
       ["actives", "Ingrediente destacado", ["Belleza y cuidado personal"], txt],
       ["pet", "Mascota", ["Mascotas"], txt],

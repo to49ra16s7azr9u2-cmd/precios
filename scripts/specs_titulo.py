@@ -465,6 +465,23 @@ def tipo_piel(nombre):
     return tipos[:3] or None
 
 
+def presion_psi(nombre):
+    """Presión máxima de una hidrolavadora o un compresor, en PSI («2600 psi», «2,600 PSI»;
+    «130 bar» = 1,885 psi, redondeado a 50). Se pide en PSI porque así se vende."""
+    n = _norm(nombre)
+    vals = set()
+    for m in re.finditer(r"(?<![\d.,])(\d{1,2}[.,]\d{3}|\d{3,4})\s*psi\b", n):
+        v = int(re.sub(r"[.,]", "", m.group(1)))
+        if 300 <= v <= 9000:
+            vals.add(v)
+    if not vals:
+        for m in re.finditer(r"(?<![\d.,])(\d{2,3})\s*bar\b", n):
+            v = int(m.group(1))
+            if 30 <= v <= 400:
+                vals.add(int(round(v * 14.5 / 50.0)) * 50)
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
 _HP_RE = re.compile(r"(?<![\d./])(\d+\s+\d/\d|\d/\d|\d{1,2}(?:\.\d{1,2})?)\s*(?:hp|caballos?(?: de fuerza)?)\b")
 
 
@@ -1388,6 +1405,36 @@ def color(nombre):
     # pieza; tampoco lo que va después de "compatible con".
     n = re.split(r"\bcompatible (?:con|para)\b", n)[0]
     hits = [lbl for lbl, rx in _COLOR_RX if rx.search(n)]
+    if "Multicolor" in hits:
+        return "Multicolor"
+    return hits[0] if len(hits) == 1 else None
+
+
+# El color de un aparato, una herramienta, un artículo de papelería: sólo palabras en español y
+# las pocas en inglés que nunca son otra cosa, sin las que chocan con una marca o con otro
+# producto («Black+Decker», «cable de red», «exprimidor de naranja», «crema», «cristal templado»).
+_COLORES_SEGUROS = (
+    ("Multicolor", r"multicolor|arcoiris|arco iris|colores surtidos|multicolores"),
+    ("Negro", r"negr[oa]s?|matte black|space black"), ("Blanco", r"blanc[oa]s?"),
+    ("Gris", r"gris(es)?|grafito|space gr[ae]y"), ("Plata", r"platead[oa]s?|plata(?! de ley)"),
+    ("Dorado", r"dorad[oa]s?|oro rosa"),
+    ("Azul", r"azul(es)?|navy"), ("Rojo", r"roj[oa]s?"),
+    ("Rosa", r"rosad[oa]s?|fucsia|rosa(?! mosqueta| de los vientos| silvestre)(?! ?(?:y|con) ?(?:vainilla|jazmin))|rosas? (?:pastel|claro|palo|neon|fuerte)"),
+    ("Verde", r"verdes?(?! limon)"), ("Amarillo", r"amarill[oa]s?"),
+    ("Naranja", r"(?<!de )(?<!para )(?<!sabor )(?<!jugo de )(?<!jugo )(?<!exprimidor )naranja(?!s\b)|anaranjad[oa]s?"),
+    ("Morado", r"morad[oa]s?|lila|violeta"), ("Café", r"color cafe|marron|cafe oscuro"),
+    ("Beige", r"beige|hueso|marfil"), ("Transparente", r"transparente"),
+)
+_COLOR_SEGURO_RX = [(lbl, re.compile(r"(?<![a-z])(?:" + rx + r")(?![a-z])")) for lbl, rx in _COLORES_SEGUROS]
+_MARCAS_COLOR = re.compile(r"black ?\+ ?decker|black ?& ?decker|black and decker|green cell|silver buffalo|white mountain|pink floyd|"
+                           r"red bull|red dragon|blue yeti|blue\w*|space ?gray")
+
+
+def color_seguro(nombre):
+    n = _norm(nombre)
+    n = re.split(r"\bcompatible (?:con|para)\b", n)[0]
+    n = re.sub(r"\bpara (?:mujer|hombre|ninos?|ninas?|dama|caballero)\b", " ", n)
+    hits = [lbl for lbl, rx in _COLOR_SEGURO_RX if rx.search(n)]
     if "Multicolor" in hits:
         return "Multicolor"
     return hits[0] if len(hits) == 1 else None

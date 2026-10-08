@@ -951,6 +951,7 @@ ETIQUETAS_FACETAS = [
     ("psu_w", "Potencia de la fuente", _fmt(" W")), ("psu_cert", "Certificación 80 Plus", str),
     ("capsule", "Cápsulas", str), ("bar_in", "Largo de la espada", _fmt('"')), ("length_m", "Largo", _fmt(" m")),
     ("pressure_bar", "Presión de la bomba", _fmt(" bar")),
+    ("pressure_psi", "Presión máxima", _fmt(" PSI")),
     ("players_max", "Jugadores", lambda v: "5 o más" if v == 99 else ("1" if v == 1 else f"Hasta {v}")),
     ("firmness", "Firmeza", str), ("fuel", "Funciona con", str), ("heater_type", "Tipo de calentador", str),
     ("fan_type", "Tipo de ventilador", str),
