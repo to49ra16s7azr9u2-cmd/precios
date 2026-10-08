@@ -2535,6 +2535,132 @@ _TIPOS_08OCT_D = {
 }
 for _k, _v in _TIPOS_08OCT_D.items():
     TIPOS[_k] = TIPOS.get(_k, []) + [(et, re.compile(rx)) for et, rx in _v]
+# Sexta tanda del 08-oct-2026 (platos, cremas corporales, compresores, taburetes, discos, cocina industrial, pinzas, barras de sonido...). Misma regla de suma.
+_TIPOS_08OCT_E = {
+    ('Cocina y comedor', 'Platos y bowls'): [
+        ('Salero y pimentero', 'salero|pimentero|sal y pimienta'),
+        ('Desechable', 'desechable|ecologico|biodegradable|berry green|\\b\\d{2,3} platos'),
+        ('Para bebé y niños', 'bebe|munchkin|ventosa|infantil|ninos|toddler|kids'),
+        ('Plato giratorio para microondas', 'giratorio|rotatorio|plato para microondas'),
+        ('Bowl para mezclar', 'mezclar|mezcla\\b|batir|mixing'),
+        ('Tazón o ensaladera', 'tazon|tazones|ensaladera|\\bbol\\b|bowl|cuenco|ramen|cerealero'),
+        ('Plato de postre', 'postre|\\bpan\\b|entrada'),
+        ('Plato hondo (sopa o pasta)', 'hondo|sopa|pasta'),
+        ('Plato para servir', 'servir|bandeja|charola|fuente|platon'),
+        ('Plato trinche (cena)', 'trinche|\\bcena\\b|llano|coupe|extendido|plano'),
+    ],
+    ('Belleza y cuidado personal', 'Cremas y lociones corporales'): [
+        ('Con protección solar', 'solar|\\bspf\\b|\\bfps\\b|bronceador'),
+        ('Crema de manos', 'manos|hand cream|\\bhand\\b'),
+        ('Crema para pies', '\\bpies\\b|talones|callos'),
+        ('Manteca corporal', 'manteca|butter'),
+        ('Exfoliante corporal', 'exfoliant|scrub|polish'),
+        ('Reafirmante y anticelulitis', 'reafirm|anticelul|reductor|celulitis|estrias|slim|moldeador|gua sha'),
+        ('Aceite o sérum corporal', 'aceite|serum'),
+        ('Bruma corporal', 'mist|bruma|splash|spray corporal'),
+        ('Loción hidratante', 'locion|lotion|leche corporal|body milk|emulsion'),
+    ],
+    ('Electrodomésticos', 'Extractores de jugo'): [
+        ('Extractor en frío (prensado lento)', 'en frio|cold press|prensado lento|masticacion|slow juicer|lento'),
+        ('Extractor centrífugo', 'centrifug'),
+        ('Exprimidor de cítricos', 'citricos|exprimidor de (naranja|limon|toronja)|exprimidor manual|exprimidor electrico|prensa de'),
+    ],
+    ('Herramientas', 'Compresores y herramienta neumática'): [
+        ('Inflador y compresor de 12 V', 'inflador|12 ?v|bomba de aire|mini compresor|para llantas|neumaticos|portatil.*auto'),
+        ('Compresor para pintar (aerógrafo)', 'aerografo|airbrush|pistola para pintar|pulverizador|hvlp'),
+        ('Cabezal, tanque y refacción', 'cabezal|tanque|pulmon|refaccion|filtro regulador|manguera|acople'),
+        ('Pistola y herramienta neumática', 'pistola|llave neumatica|impacto|engrapadora|clavadora|moto-?tool|esmeril|taladro neumatico|cincel|neum'),
+        ('Compresor industrial (bifásico o trifásico)', 'bifasic|trifasic|industrial|220 ?v|de banda|banda\\b'),
+        ('Compresor libre de aceite', 'libre de aceite|oil.?free|sin aceite|silencioso|libre aceite'),
+        ('Compresor lubricado', 'lubricad|con aceite'),
+        ('Compresor portátil', 'portatil|hamburguesa|mini|\\b(6|8|10|12|24|25) ?(l|lts|litros)\\b'),
+    ],
+    ('Muebles', 'Taburetes y bancos'): [
+        ('Banco de almacenamiento o zapatero', 'almacenamiento|zapat|baul|entrada|organizador'),
+        ('Escalón o banquito', 'escalon|peldanos|escalera|\\bstep\\b|de paso'),
+        ('Banco de baño o ducha', '\\bbano\\b|ducha|lavabo|wc'),
+        ('Taburete infantil', 'ninos|infantil|\\bkids\\b|\\bnino\\b|toddler|montessori'),
+        ('Banco plegable, de jardín o campismo', 'plegable|jardin|camping|exterior|picnic'),
+        ('Banco alto de bar', '\\bbar\\b|barra|desayunador|\\balto\\b|\\baltos\\b|counter'),
+        ('Taburete giratorio', 'giratori'),
+        ('Taburete tapizado', 'terciopelo|tapizad|piel|boucle|acolchad|respaldo|velvet'),
+        ('Taburete de madera', 'madera'),
+        ('Taburete de metal', 'metal|acero|hierro|aluminio'),
+    ],
+    ('Herramientas', 'Discos de corte y desbaste'): [
+        ('Cortador anular', 'anular'),
+        ('Disco de diamante', 'diamante|diamantad|austrodiam'),
+        ('Disco laminado (flap)', 'laminado|solapa|flap'),
+        ('Disco de lija', 'lija|lijado|pulido|autoadherible'),
+        ('Copa de desbaste', 'copa|\\bdesbaste\\b'),
+        ('Almohadilla de pulido', 'almohadilla|\\bpad\\b|lana\\b'),
+        ('Disco de corte', 'corte|abrasivo|discos? de'),
+    ],
+    ('Equipo comercial', 'Cocina industrial'): [
+        ('Máquina de hielo', 'hielo|\\bice\\b'),
+        ('Máquina de helados', 'helado|nieves|yogurt|malteada'),
+        ('Palomitas, algodón de azúcar y churros', 'palomit|palomer|algodon de azucar|churros|crepas'),
+        ('Batidora y amasadora industrial', 'batidora|amasadora|planetaria|\\bbati\\b|amasa'),
+        ('Licuadora industrial', 'licuadora'),
+        ('Dispensador y enfriador de bebidas', 'dispensador|vitrolero|enfriador de bebidas|refrigerador de bebidas|jugos'),
+        ('Horno industrial', 'horno|conveccion|pizza|microondas'),
+        ('Procesamiento de carne', 'carne|molino|rebanadora|embutidora|hamburguesa|cortadora de'),
+        ('Freidora industrial', 'freidora'),
+        ('Laminadora y empacadora', 'laminadora|enmicad|selladora|empacadora|vacio'),
+        ('Estación de planchado industrial', 'plancha|vapor|caldera'),
+    ],
+    ('Iluminación', 'Luces navideñas y guirnaldas'): [
+        ('Árbol de Navidad', 'arbol de navidad|arbol navideno|arbol artificial|arbol nevado|arbol espiral|pino artificial|arbol de alambre|arbol (de )?pueblo'),
+        ('Esferas y adornos', 'esferas|adornos|decoracion de arbol|candelabro|figura|muneco|escaparate'),
+        ('Cascada o cortina de luces', 'cascada|cortina'),
+        ('Luces de Halloween', 'halloween|calabaza|telarana|bruja'),
+        ('Guirnalda', 'guirnalda'),
+        ('Serie de luces', 'serie|luces navidenas|cadena de luces|mini luces|\\bc9\\b|microfono|luces led|luces'),
+        ('Lámpara decorativa navideña', 'lampara|luz nocturna|moon|nocturna'),
+    ],
+    ('Herramientas', 'Pinzas y alicates'): [
+        ('Pinza pelacables', 'pela cables|pelacables|stripper|desforrador'),
+        ('Pinza de cocodrilo (eléctrica)', 'cocodrilo|caiman'),
+        ('Alicate de corte', 'alicate de corte|pinza de corte|corte lateral|cortacables|corta cables|diagonal|cutting|cortadora de cable'),
+        ('Pinza de presión (mordaza)', 'presion|mordaza|bloqueo|locking|\\bgrip\\b'),
+        ('Alicate de extensión', 'extension|ranura|canal|bomba de agua|channel|pico de loro'),
+        ('Pinza de punta', 'punta|needle|precision'),
+        ('Pinza de pelo o ceja', '\\bpelo\\b|ceja|depilar|tweezer|cabello'),
+        ('Pinza de ropa o cocina', '\\bropa\\b|cocina|pastel|gourmet|tenazas|servir|parrilla|alimentos|hielo'),
+        ('Multiherramienta', 'multiuso|multiherramienta|multitool|25 en 1|navaja'),
+        ('Juego de pinzas', 'juego|\\bset\\b|\\bkit\\b'),
+    ],
+    ('Bocinas', 'Barras de sonido'): [
+        ('Home theater (sistema completo)', 'home theater|teatro en casa|sistema de sonido|7\\.1|amplificador|receptor|cine en casa'),
+        ('Con Dolby Atmos', 'atmos'),
+        ('Con subwoofer', 'subwoofer|woofer|2\\.1|3\\.1|5\\.1|con sub'),
+        ('Para PC y gamers', 'gamer|gaming|\\bpc\\b|monitor|rgb|escritorio|usb'),
+        ('Compacta (2.0)', '2\\.0|compacta|mini|portatil'),
+        ('Bluetooth o inalámbrica', 'bluetooth|inalambric|wifi'),
+    ],
+    ('Muebles', 'Mesas de centro'): [
+        ('Juego de mesas', 'juego de|set de|\\b2 mesas|mesas nido|nesting|conjunto'),
+        ('Con almacenamiento', 'compartimento|almacenamiento|cajones|repisa|niveles|elevable'),
+        ('Infantil', 'ninos|infantil|montessori'),
+        ('De vidrio', 'vidrio|cristal'),
+        ('De mármol o piedra', 'marmol|piedra|granito'),
+        ('Redonda', 'redonda|circular'),
+        ('Metálica o industrial', 'metal|hierro|acero|industrial'),
+        ('De madera', 'madera|nogal|parota|pino|mdf|melamin|roble'),
+    ],
+    ('Belleza y cuidado personal', 'Cortadoras de cabello'): [
+        ('Cuchillas y peines de repuesto', 'cuchilla|blade|peines de|guia|protector|recambio|repuesto|peine'),
+        ('Tijeras de peluquería', 'tijera'),
+        ('Recortadora de nariz y orejas', 'nariz|orejas|vello nasal'),
+        ('Para mascotas', 'mascota|perro|\\bpet\\b'),
+        ('Combo (clipper y trimmer)', 'combo|\\bkit\\b|set de|\\bjuego\\b|clipper.*trimmer|trimmer.*shaver'),
+        ('Afeitadora', 'afeitadora|rasuradora|shaver|foil'),
+        ('Recortadora de barba (trimmer)', 'trimmer|recortadora|detailer|barba|perfiladora|recortador'),
+        ('Cortadora profesional', 'profesional|barber|clipper|wahl|andis|babyliss'),
+    ],
+}
+for _k, _v in _TIPOS_08OCT_E.items():
+    TIPOS[_k] = TIPOS.get(_k, []) + [(et, re.compile(rx)) for et, rx in _v]
 # Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
 # 60% lo dice en el nombre, muchas veces en libras.
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(
@@ -2662,6 +2788,7 @@ for _s in ("Funko y coleccionables", "Figuras de acción", "Figuras de colecció
 NOMBRE_GENERALES.setdefault(("Juguetes", "Bloques de construcción"), []).append(("block_theme", st.tema_bloques))
 NOMBRE_GENERALES.setdefault(("Juguetes", "Bloques de construcción"), []).append(("set_num", st.numero_set))
 NOMBRE_GENERALES.setdefault(("Herramientas", "Hidrolavadoras"), []).append(("pressure_psi", st.presion_psi))
+NOMBRE_GENERALES.setdefault(("Bocinas", "Barras de sonido"), []).append(("channels", st.canales_sonido))
 NOMBRE_GENERALES.setdefault(("Juguetes", "Funko y coleccionables"), []).extend([("funko_ed", st.edicion_funko), ("funko_num", st.numero_funko)])
 NOMBRE_GENERALES.setdefault(("Juguetes", "Muñecas"), []).append(("doll_line", st.linea_muneca))
 for _s in ("Sartenes y comales", "Comales y planchas"):

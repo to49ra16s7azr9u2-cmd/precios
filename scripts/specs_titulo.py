@@ -482,6 +482,16 @@ def presion_psi(nombre):
     return next(iter(vals)) if len(vals) == 1 else None
 
 
+def canales_sonido(nombre):
+    """Canales de una barra de sonido o un home theater («2.1», «5.1», «5.1.2», «7.1.4»)."""
+    n = _norm(nombre)
+    if not re.search(r"barra|soundbar|sound bar|home theater|teatro en casa|canales|\bch\b|\d\.\d ?ch", n):
+        return None
+    vals = {m.group(1) for m in re.finditer(r"(?<![\d.,/x-])([2-9]\.[0-2](?:\.[0-4])?)(?![\d.,]|\s*(?:mm|cm|pulg|in\b|\"|ghz|v\b|w\b|mp\b|l\b))", n)
+            if m.group(1) in ("2.0", "2.1", "3.0", "3.1", "3.1.2", "5.0", "5.1", "5.1.2", "5.1.4", "7.1", "7.1.2", "7.1.4", "9.1.4")}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
 _HP_RE = re.compile(r"(?<![\d./])(\d+\s+\d/\d|\d/\d|\d{1,2}(?:\.\d{1,2})?)\s*(?:hp|caballos?(?: de fuerza)?)\b")
 
 
