@@ -5250,7 +5250,7 @@ _BELLEZA_MAL_JABON = {'Shampoo', 'Cremas faciales', 'Corporales', 'Cuidado perso
 LOTES['auditoria_43'] = [
     # R0 geles/jabones de baño
     ('Belleza y cuidado personal', r'\bgel (de|para) (bano|ducha)|\bgeles? de (bano|ducha)|body wash|shower gel|jabon (liquido|en barra|de barra)\b|barra de jabon',
-     r'shampoo|champu|facial|rostro|\bcara\b|dental|trastes|loza|ropa|detergente|mascota|perro|gato|afeitar|barba|\b2 en 1\b|\b3 en 1\b|\b2-en-1\b|\b3-en-1\b|bano de burbujas|sales|\\bedt\\b|\\bedp\\b|eau de|parfum|body mist|body lotion|locion corporal|crema corporal|set |kit |estuche',
+     r'shampoo|champu|facial|rostro|\bcara\b|dental|trastes|loza|ropa|detergente|mascota|perro|gato|afeitar|barba|\b2 en 1\b|\b3 en 1\b|\b2-en-1\b|\b3-en-1\b|bano de burbujas|sales|\\bedt\\b|\\bedp\\b|eau de|parfum|dish|clinique|caja de|vajilla|body mist|body lotion|locion corporal|crema corporal|set |kit |estuche',
      'Belleza y cuidado personal', 'Jabones y geles de baño', _BELLEZA_MAL_JABON),
     # R1 parches para ojos
     ('Belleza y cuidado personal', r'parches? (para|de|con) (los )?ojos|eye patch|under.?eye (patch|mask)|parches? (de )?(hidrogel|colageno) (para )?(los )?ojos|parches? ojeras|mascarillas? (para|de) (los )?ojos',
@@ -5258,7 +5258,7 @@ LOTES['auditoria_43'] = [
      'Belleza y cuidado personal', 'Contorno de ojos y labios', {'Mascarillas faciales', 'Cremas faciales', 'Polvos, rubores y bronceadores', 'Sérums faciales', 'Maquillaje', 'Cuidado personal'}),
     # R2 cepillos de pelo
     ('Belleza y cuidado personal', r'cepillo (para|de) (el )?(cabello|pelo|cuero cabelludo)|cepillo desenredante|cepillo para desenredar|peine (para|de) (cabello|pelo)',
-     r'electric|termic|alaciador|secador|secadora|aire caliente|calor|plancha|rizador|mascota|perro|gato|barba|dientes|dental|pestana|ceja|maquillaje|base de|polvo|brocha|ionic|iones|ceramic',
+     r'caliente|calefactable|hot tools|\\bghd\\b|estilizador|styler|vapor|electric|termic|alaciador|secador|secadora|aire caliente|calor|plancha|rizador|mascota|perro|gato|barba|dientes|dental|pestana|ceja|maquillaje|base de|polvo|brocha|ionic|iones|ceramic',
      'Belleza y cuidado personal', 'Cuidado del cabello', {'Secadoras de cabello', 'Planchas para cabello', 'Rizadores', 'Afeitadoras eléctricas'}),
     # R3 post-tatuaje
     ('Belleza y cuidado personal', r'(after|post) ?(care )?tattoo|post.?tatu|despues del tatuaje|posterior al tatuaje|tattoo (balm|aftercare|lotion|cream)|balsamo para tatuaje|crema (para )?tatuaje|pomada.*tatu',
@@ -5280,7 +5280,7 @@ LOTES['auditoria_43'] = [
     ('Iluminación', r'high ?bay|campana (led )?industrial|luminario (led )?(tipo )?ufo|lampara ufo|bodega ufo|campana ufo',
      None, 'Iluminación', 'Lámparas industriales y de nave', {'Exterior', 'Plafones y lámparas de sobreponer', 'Focos', 'Decorativa', 'Lámparas colgantes', 'Reflectores', 'Empotrada'}),
     # R9 lonas
-    ('Herramientas', r'^lona\b|\blona (de polietileno|impermeable|azul|plastica|uso rudo|rafia|termosellada)|toldo de polietileno', r'funda|cubierta para|tienda',
+    ('Herramientas', r'^lona\b|\blona (de polietileno|impermeable|azul|plastica|uso rudo|rafia|termosellada)|toldo de polietileno', r'funda|cubierta para|tienda|mandil|delantal|apron|bolsa',
      'Herramientas', 'Construcción', {'Bolsas y cinturones portaherramientas', 'Jardinería', 'Organizadores de herramientas', 'Herramientas manuales'}),
     # R10 cinta vinil/aislante
     ('Herramientas', r'cinta (de )?(vinil|aislante|aislar|electrica|para aislar)|vinitape|vynitape|cinta azul vinil|cinta amarilla vinil', None,
