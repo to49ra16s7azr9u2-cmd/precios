@@ -57,7 +57,8 @@ def slug(nombre):
 def cargar_categoria(nombre):
     """[(id, nombre, sub)] de todos los fragmentos de la categoría."""
     out = []
-    for fn in sorted(glob.glob(os.path.join(ROOT, "data", "cat", slug(nombre) + "-*.json.gz"))):
+    carpeta = os.environ.get("CAT_DIR") or os.path.join(ROOT, "data", "cat")
+    for fn in sorted(glob.glob(os.path.join(carpeta, slug(nombre) + "-*.json.gz"))):
         try:
             with gzip.open(fn, "rt", encoding="utf-8") as f:
                 for p in json.load(f):

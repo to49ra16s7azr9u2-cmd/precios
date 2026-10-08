@@ -5209,5 +5209,16 @@ LOTES['auditoria_40'] = [
 ]
 REGLAS += LOTES['auditoria_40']
 
+# auditoria_41 (08-oct-2026): los aspiradores nasales (58 fichas) y los calentadores de biberones, que
+# la palabra «aspirador» o «calentador» mandaba a Aspiradoras y a Electrodomésticos.
+LOTES['auditoria_41'] = [
+    ('Aspiradoras', r'aspirador(a)? nasal|succionador nasal|aspirador de mocos|limpiador nasal', None, 'Bebés', 'Cuidado y salud del bebé'),
+    ('Electrodomésticos', r'calentador(es)? (y esterilizador )?de biberon|esterilizador(es)? de biberon', None, 'Bebés', 'Alimentación y lactancia',
+     {'Calentadores de agua', 'Microondas'}),
+    ('Climatización', r'calentador de biberon', None, 'Bebés', 'Alimentación y lactancia'),
+    ('Computadoras de escritorio', r'calentador y esterilizador de biberon', None, 'Bebés', 'Alimentación y lactancia'),
+]
+REGLAS += LOTES['auditoria_41']
+
 if __name__ == '__main__':
     main()
