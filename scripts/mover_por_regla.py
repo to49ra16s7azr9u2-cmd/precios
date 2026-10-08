@@ -5005,5 +5005,116 @@ LOTES['auditoria_35'] = [
 REGLAS += LOTES['auditoria_35']
 
 
+# auditoria_36 (08-oct-2026): novena muestra al azar (300 fichas, 14 mal: 4.7%) y lo que
+# se vio al hacer las tablas de tipo: refacciones y accesorios dentro de las
+# subcategorías de llantas, bancas de gimnasio entre las sillas de comedor, discos y
+# cinceles entre las brocas, aparatos de cocina en cortadoras de cabello...
+_LLANTAS_AUTO = {'Llantas para auto', 'Llantas para auto rin 13 y 14', 'Llantas para auto rin 15', 'Llantas para auto rin 16',
+                 'Llantas para auto rin 17', 'Llantas para auto rin 18', 'Llantas para auto rin 19 o más',
+                 'Llantas para camioneta rin 15 y 16', 'Llantas para camioneta rin 17', 'Llantas para camioneta rin 18',
+                 'Llantas para camioneta rin 20 o más', 'Llantas para camioneta y SUV'}
+_LLANTAS_TODAS = _LLANTAS_AUTO | {'Llantas para moto', 'Llantas para carretilla y equipo'}
+LOTES['auditoria_36'] = [
+    ('*', r'rotulador (alimentario|comestible)|marcador (alimentario|comestible)|pluma comestible|tinta comestible', None,
+     'Cocina y comedor', 'Repostería y moldes', {'Para laptop', 'Escritura'}),
+    ('Muebles', r'munecas?\b', r'closet|gabinete|mueble para munecas|ropero', 'Juguetes', 'Muñecas',
+     {'Camas infantiles', 'Sofás infantiles', 'Literas', 'Camas'}),
+    ('Autos y motos', r'casco (de |para )?(bicicleta|bici|ciclismo|ciclista)|bicycle helmet|bike helmet', None,
+     'Bicicletas y movilidad', 'Cascos y protección para ciclismo',
+     {'Cascos para moto', 'Cascos abiertos', 'Cascos integrales', 'Cascos abatibles'}),
+    ('Mascotas', r'\b(sueter|chamarra|abrigo)\b.*\bpara (mujer|hombre|dama|caballero)\b', r'perro|gato|mascota|cachorro|canin|felin|\bpet\b',
+     'Ropa y accesorios', 'Chamarras y suéteres', {'Impermeables y abrigos para mascotas', 'Ropa para mascotas'}),
+    ('Autos y motos', r'cables? (usb )?(de |para )?carplay|cable carplay', r'estereo|autoestereo|pantalla', 'Cargadores y adaptadores', 'Cable',
+     {'Estéreos para auto'}),
+    ('Joyería y bisutería', r'banda sonora|soundtrack', None, 'Libros', 'Música y cine', {'Anillos', 'Pulseras', 'Collares', 'Aretes'}),
+    ('Bicicletas y movilidad', r'inflador de neumaticos|inflador (para )?(auto|carro|coche|moto)\b|compresor (de aire )?(para )?(auto|carro|coche)',
+     r'bicicleta|\bbici\b|ciclismo', 'Autos y motos', 'Infladores para llanta', {'Bombas e infladores'}),
+    ('Belleza y cuidado personal', r'cortador de (alimentos|verduras|queso)|cortadora de (verduras|vegetales|alimentos|queso)|rebanador|mandolina', None,
+     'Cocina y comedor', 'Utensilios de cocina', {'Cortadoras de cabello'}),
+    ('Muebles', r'mecedora.*(bebe|bebes|musical|temporizador)|(bebe|bebes).*mecedora', None, 'Bebés', 'Sillas de comer y mecedoras',
+     {'Mecedoras y colgantes'}),
+    # Llantas: refacciones y accesorios dentro de las subcategorías de llantas.
+    ('Autos y motos', r'(tapon(es)?|tapas?) (para |de )(llanta|valvula|rueda)|tapones? de valvula|cubre ?valvulas?|valve caps?', None,
+     'Autos y motos', 'Tapones para llanta', _LLANTAS_TODAS),
+    ('Autos y motos', r'bomba de aire|inflador|compresor de aire|bomba (electrica |manual )?para (llantas|neumaticos)', r'^llanta \d',
+     'Autos y motos', 'Infladores para llanta', _LLANTAS_AUTO | {'Llantas para moto'}),
+    ('Autos y motos', r'gel para llantas|aposito|abrillantador de (llantas|neumaticos)|brillo para (llantas|neumaticos)|limpiador de (llantas|neumaticos)|tire shine|neumaticos? .*(gloss|insane)',
+     None, 'Autos y motos', 'Limpieza y cuidado del auto', _LLANTAS_TODAS),
+    ('Autos y motos', r'^(\S+ ){0,1}(camara|camaras|valvula|parche|desmontador|espatula|kit de parche)\b|camara (p/|para|de) (llanta|moto)|camaras? para moto',
+     r'^llanta', 'Autos y motos', 'Cámaras y accesorios de llanta', {'Llantas para moto', 'Llantas para auto'}),
+    ('Autos y motos', r'\bm/c\b|\b\d{2,3}/\d{2,3} ?b ?-?\d{2}\b', r'camioneta|remolque|carretilla|\batv\b|cuatrimoto|\blt\b|\bst\b',
+     'Autos y motos', 'Llantas para moto', _LLANTAS_AUTO),
+    ('Autos y motos', r'\bslider\b|eje (de )?llanta universal', None, 'Autos y motos', 'Accesorios para moto', {'Llantas para moto'}),
+    ('Autos y motos', r'patinete|scooter electrico', r'\bmoto\b|motoneta', 'Bicicletas y movilidad', 'Accesorios de movilidad eléctrica',
+     {'Llantas para auto'}),
+    ('Autos y motos', r'llantas? .*patines|patines', None, 'Deportes y fitness', 'Accesorios de patinaje', {'Llantas para auto'}),
+    ('Autos y motos', r'\bdolly\b|elevacion de llantas', None, 'Autos y motos', 'Gatos y herramientas para auto', {'Llantas para auto'}),
+    ('Autos y motos', r'banco neumatico|punzon neumatico|accesorios neumaticos|neumaticos? .*(sierra de cinta|herramienta)|rodillo de ducha',
+     None, 'Herramientas', 'Compresores y herramienta neumática', {'Llantas para auto'}),
+    # Ventiladores
+    ('Climatización', r'^(control remoto|mando a distancia)\b|repuesto para (lasko|ventilador)', None, 'Climatización',
+     'Aspas y refacciones de ventilador', {'Ventiladores de pedestal', 'Ventiladores de piso e industriales', 'Ventiladores de torre'}),
+    ('Climatización', r'abanico (grande )?pericon|\bpericon\b', None, 'Juguetes', 'Artículos para fiestas', {'Ventiladores de pedestal'}),
+    # Muebles
+    ('Muebles', r'banca (multifuncional )?(de |para )(ejercicio|pesas|gimnasio)|banco (de |para )(ejercicio|pesas|gimnasio)|banca .*predicador',
+     None, 'Deportes y fitness', 'Bancos y racks', {'Sillas de comedor', 'Taburetes y bancos'}),
+    ('Muebles', r'piso (para )?(gimnasio|gym)|pisos? de (goma|hule) .*(gimnasio|gym)|tapete (para )?gimnasio', None,
+     'Deportes y fitness', 'Equipo de gimnasio', {'Sillas de comedor', 'Taburetes y bancos'}),
+    ('Muebles', r'silla (de |para )?(ducha|bano)|banco (de |para )?(ducha|bano)|silla ducha|asiento (de |para )?(ducha|bano)|taburete (de |para )?(ducha|bano)',
+     r'bebe|infantil|\bnino', 'Salud', 'Movilidad y apoyo', {'Sillas de comedor', 'Taburetes y bancos'}),
+    ('Muebles', r'^portallaves|\bportallaves\b', None, 'Muebles', 'Percheros', {'Sillas de comedor'}),
+    ('Muebles', r'tapiz colgante|tapiz de pared|tapiz boho', None, 'Decoración de hogar y jardín', 'Cuadros y decoración de pared',
+     {'Sillas de comedor'}),
+    ('Muebles', r'piso (lvt|vinilico|laminado|autoadherible|de vinil)', None, 'Herramientas', 'Construcción', {'Sillas de comedor'}),
+    # Herramientas
+    ('Herramientas', r'^(marker|marcador|plumon)\b|marcador de pintura', r'broca|taladro', 'Papelería y oficina', 'Escritura', {'Brocas', 'Llaves y dados'}),
+    ('Herramientas', r'\bcinceles?\b', r'broca|sds|\bpunta\b', 'Herramientas', 'Martillos, cinceles y mazos', {'Brocas'}),
+    ('Herramientas', r'^sierra\b.*dientes|serrucho|sierra de mano', r'copa|corona|cinta|circular', 'Herramientas', 'Sierras', {'Brocas'}),
+    ('Herramientas', r'^disco (de )?(corte|desbaste|lija|solapa|alambre|diamante)|^discos? ', r'broca', 'Herramientas', 'Discos de corte y desbaste', {'Brocas'}),
+    ('Herramientas', r'condulet|cinta (para )?aislar|cinta aislante', None, 'Herramientas', 'Material eléctrico', {'Brocas', 'Llaves y dados'}),
+    ('Herramientas', r'^lima\b|escofina', None, 'Herramientas', 'Herramientas manuales', {'Brocas'}),
+    ('Herramientas', r'router recortador|recortador router', None, 'Herramientas', 'Routers, fresadoras y multiherramientas', {'Brocas'}),
+]
+REGLAS += LOTES['auditoria_36']
+
+# auditoria_37 (08-oct-2026): las fichas genéricas «... para auto (varios modelos)» (14 mil)
+# heredaron la subcategoría de una variante cualquiera y varias familias quedaron en otra
+# (cilindros de rueda entre las bujías, varillas de dirección entre las bujías...). Salió de
+# cruzar los nombres repetidos que estaban en dos subcategorías.
+LOTES['auditoria_37'] = [
+    ('Autopartes', r'cilindros? ruedas?', r'moto', 'Autopartes', 'Frenos', {'Bujías y encendido', 'Enfriamiento y climatización'}),
+    ('Autopartes', r'varillas? (central |lateral )?(de )?direccion|varilla central|varilla lateral', r'moto',
+     'Autopartes', 'Coples, varillas y cajas de dirección', {'Bujías y encendido', 'Frenos', 'Enfriamiento y climatización'}),
+    ('Autopartes', r'gomas? (de )?(la )?(varilla|barra) estabilizadora|goma varilla estabilizadora', None,
+     'Autopartes', 'Bujes y gomas de suspensión', {'Frenos', 'Carrocería, espejos y molduras', 'Enfriamiento y climatización'}),
+    ('Autopartes', r'bobina de ignicion.*(varios modelos|para auto)', None, 'Autopartes', 'Bobinas de encendido', {'Eléctrico y baterías de moto'}),
+    ('Autopartes', r'amortiguador de suspension.*(varios modelos|para auto)', None, 'Autopartes', 'Amortiguadores',
+     {'Suspensión y dirección de moto'}),
+    ('Autopartes', r'valvulas? escape de motor para auto', None, 'Autopartes', 'Válvulas, punterías y árbol de levas',
+     {'Motor, carburación y escape de moto'}),
+    ('Autopartes', r'gomas? para tirantes|gomas? (de )?tirante', r'moto', 'Autopartes', 'Bujes y gomas de suspensión',
+     {'Enfriamiento y climatización', 'Para autos', 'Frenos'}),
+    ('Autopartes', r'topes? (de )?rebote', r'moto', 'Autopartes', 'Bases y cubrepolvos de amortiguador',
+     {'Enfriamiento y climatización', 'Para autos', 'Bujías y encendido', 'Motor y transmisión'}),
+    # Mismos casos con otras subcategorías «paraguas» (cruce de la cabeza del nombre con la subcategoría dominante).
+    ('Autopartes', r'cilindros? ruedas?', r'moto', 'Autopartes', 'Frenos', {'Sistema eléctrico y sensores', 'Para autos'}),
+    ('Autopartes', r'cable chicote', None, 'Autopartes', 'Chicotes de acelerador y cambios',
+     {'Bujías y encendido', 'Sistema eléctrico y sensores', 'Frenos', 'Manubrios, espejos y controles', 'Eléctrico y baterías de moto',
+      'Suspensión y dirección de moto', 'Interior y tapicería', 'Carrocería, espejos y molduras'}),
+    ('Autopartes', r'valvulas? (de )?purga|valvulas? pcv', r'moto', 'Autopartes', 'Válvulas, punterías y árbol de levas',
+     {'Bujías y encendido', 'Enfriamiento y climatización'}),
+    ('Autopartes', r'porta ?placas?', r'moto', 'Autopartes', 'Carenados, plásticos y tanques', {'Carrocería, espejos y molduras', 'Cofres, puertas y bisagras'}),
+    ('Autopartes', r'junta lado (caja|rueda)', None, 'Autopartes', 'Flechas y juntas homocinéticas', {'Enfriamiento y climatización'}),
+    ('Autopartes', r'cubre ?polvos? (de )?direccion|cubre ?polvos? macheta', None, 'Autopartes', 'Bases y cubrepolvos de amortiguador',
+     {'Bujías y encendido', 'Motor y transmisión', 'Enfriamiento y climatización', 'Flechas y juntas homocinéticas'}),
+    ('Autopartes', r'^(\S+ ){0,1}bomba (de )?agua\b', r'moto', 'Autopartes', 'Bombas de agua', {'Motor y transmisión'}),
+    ('Autopartes', r'pluma limpiaparabrisas', None, 'Autopartes', 'Limpiaparabrisas', {'Motor y transmisión'}),
+    ('Autopartes', r'^(\S+ ){0,1}rin (delantero|trasero|completo)\b', None, 'Autos y motos', 'Rines',
+     {'Suspensión y dirección de moto', 'Para autos'}),
+    ('Autopartes', r'casco de soldadura|careta (para )?soldar', None, 'Herramientas', 'Caretas y cascos para soldar', {'Para autos'}),
+    ('Autopartes', r'bomba presurizadora', None, 'Herramientas', 'Bombas de agua', {'Bombas', 'Bombas de agua'}),
+]
+REGLAS += LOTES['auditoria_37']
+
 if __name__ == '__main__':
     main()
