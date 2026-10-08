@@ -24314,5 +24314,161 @@
    "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
    "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 2
   }
+ },
+ {
+  "fecha": "2026-10-08",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador e5444e3549fe7bde) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Autopartes | Para autos | Papelería y oficina | Artículos de oficina": 1,
+   "Autopartes | Para autos | Audífonos | Earbuds para niños": 1,
+   "Autopartes | Para autos | Muebles | Mesas de centro": 1,
+   "Autopartes | Cadenas, sprockets y transmisión | Limpieza y hogar | Limpiadores y desinfectantes": 1
+  }
+ },
+ {
+  "fecha": "2026-10-08",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Electrodomésticos | Pequeños electrodomésticos de cocina | Herramientas | None": 1,
+   "Electrodomésticos | Microondas | Cocina y comedor | Platos y bowls": 1
+  }
+ },
+ {
+  "fecha": "2026-10-08",
+  "origen": "auditoria-mov.json",
+  "motivo": "reglas de auditoría (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Celulares | Radios de dos vías": 1,
+   "Autopartes | Para autos | Juguetes | Figuras de acción": 2,
+   "Autopartes | Para autos | Juguetes | Juguetes para exterior": 1,
+   "Autopartes | Para autos | Juguetes | Bloques de construcción": 1,
+   "Autopartes | Para autos | Juguetes | Juguetes educativos": 1,
+   "Autopartes | Para autos | Papelería y oficina | Cuadernos": 10,
+   "Autopartes | Para autos | Papelería y oficina | Organización": 1,
+   "Autopartes | Para autos | Belleza y cuidado personal | Extensiones de cabello": 25,
+   "Autopartes | Para autos | Belleza y cuidado personal | Masajeadores": 3,
+   "Autopartes | Para autos | Mascotas | Higiene y limpieza": 3,
+   "Autopartes | Para autos | Herramientas | Grifos y monomandos": 12,
+   "Autopartes | Para autos | Herramientas | Seguridad industrial": 2,
+   "Autopartes | Para autos | Herramientas | Regaderas y duchas": 1,
+   "Autopartes | Para autos | Cocina y comedor | Tarros y frascos": 1,
+   "Autopartes | Para autos | Cocina y comedor | Básculas y medidores": 2,
+   "Autopartes | Para autos | Instrumentos musicales | Sintetizadores y controladores MIDI": 1,
+   "Autopartes | Para autos | Impresoras | Tóner": 1,
+   "Autopartes | Para autos | Televisores | Soportes para TV": 1,
+   "Autopartes | Para autos | Electrodomésticos | Arroceras y ollas multiusos": 1,
+   "Muebles | Sillas de comedor | Muebles | Salas completas": 101,
+   "Belleza y cuidado personal | Aceites faciales | Belleza y cuidado personal | Acondicionadores": 1,
+   "Belleza y cuidado personal | Aceites esenciales y de masaje | Belleza y cuidado personal | Cuidado del cabello": 1,
+   "Mascotas | Disfraces para mascotas | Mascotas | Ropa para mascotas": 1,
+   "Electrodomésticos | Parrillas de gas | Electrodomésticos | Parrillas de inducción y eléctricas": 117,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Pesca": 19,
+   "Iluminación | Plafones y lámparas de sobreponer | Climatización | Extractores y ventilación": 11,
+   "Iluminación | Decorativa | Climatización | Extractores y ventilación": 7,
+   "Iluminación | Decorativa | Mascotas | Acuarios y terrarios": 1,
+   "Cámaras y fotografía | Filtros y parasoles | Cafeteras | Accesorios para cafetera": 6,
+   "Bocinas | Bocinas Bluetooth | Autos y motos | Accesorios de audio para auto": 2
+  }
+ },
+ {
+  "fecha": "2026-10-08",
+  "origen": "juez-origen.json",
+  "motivo": "juez de origen (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Juguetes | Muñecas": 1,
+   "Autopartes | Para autos | Juguetes | None": 1,
+   "Autopartes | Para autos | Muebles | Burós": 1,
+   "Autopartes | Para autos | Belleza y cuidado personal | None": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | Cremas y bálsamos para afeitar": 2,
+   "Autopartes | Para autos | Ropa y accesorios | None": 1,
+   "Autopartes | Para autos | Ropa y accesorios | Pantalones y jeans": 2,
+   "Autopartes | Para autos | Joyería y bisutería | Lentes oftálmicos y de lectura": 2
+  }
+ },
+ {
+  "fecha": "2026-10-08",
+  "origen": "precio_atipico.py",
+  "motivo": "precio imposible para su subcategoría (vecinos + precio)",
+  "grupos": {
+   "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
+   "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 2
+  }
+ },
+ {
+  "fecha": "2026-10-08",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador e5444e3549fe7bde) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Autopartes | Para autos | Papelería y oficina | Artículos de oficina": 1,
+   "Autopartes | Para autos | Audífonos | Earbuds para niños": 1,
+   "Autopartes | Para autos | Muebles | Mesas de centro": 1,
+   "Autopartes | Cadenas, sprockets y transmisión | Limpieza y hogar | Limpiadores y desinfectantes": 1
+  }
+ },
+ {
+  "fecha": "2026-10-08",
+  "origen": "auditoria-mov.json",
+  "motivo": "reglas de auditoría (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Celulares | Radios de dos vías": 1,
+   "Autopartes | Para autos | Juguetes | Figuras de acción": 2,
+   "Autopartes | Para autos | Juguetes | Juguetes para exterior": 1,
+   "Autopartes | Para autos | Juguetes | Bloques de construcción": 1,
+   "Autopartes | Para autos | Juguetes | Juguetes educativos": 1,
+   "Autopartes | Para autos | Papelería y oficina | Cuadernos": 10,
+   "Autopartes | Para autos | Papelería y oficina | Organización": 1,
+   "Autopartes | Para autos | Belleza y cuidado personal | Extensiones de cabello": 25,
+   "Autopartes | Para autos | Belleza y cuidado personal | Masajeadores": 3,
+   "Autopartes | Para autos | Mascotas | Higiene y limpieza": 3,
+   "Autopartes | Para autos | Herramientas | Grifos y monomandos": 12,
+   "Autopartes | Para autos | Herramientas | Seguridad industrial": 2,
+   "Autopartes | Para autos | Herramientas | Regaderas y duchas": 1,
+   "Autopartes | Para autos | Cocina y comedor | Tarros y frascos": 1,
+   "Autopartes | Para autos | Cocina y comedor | Básculas y medidores": 2,
+   "Autopartes | Para autos | Instrumentos musicales | Sintetizadores y controladores MIDI": 1,
+   "Autopartes | Para autos | Impresoras | Tóner": 1,
+   "Autopartes | Para autos | Televisores | Soportes para TV": 1,
+   "Autopartes | Para autos | Electrodomésticos | Arroceras y ollas multiusos": 1,
+   "Joyería y bisutería | Anillos | Mascotas | Acuarios y terrarios": 4,
+   "Joyería y bisutería | Arras y sets | Mascotas | Correas": 1,
+   "Mascotas | Jaulas para perro | Juguetes | Juguetes educativos": 1,
+   "Mascotas | Juguetes para gato | Mascotas | Alimento para gato": 4,
+   "Mascotas | Puertas para mascotas | Herramientas | Construcción": 14,
+   "Mascotas | Disfraces para mascotas | Mascotas | Ropa para mascotas": 1,
+   "Cocina y comedor | Repostería y moldes | Deportes y fitness | Otros deportes": 14,
+   "Cocina y comedor | Termos y botellas térmicas | Bolsas y mochilas | Cosmetiqueras y neceseres": 15,
+   "Bebés | Carriolas | Juguetes | Triciclos": 10,
+   "Bebés | Carriolas bastón | Juguetes | Triciclos": 9,
+   "Bebés | Andaderas | Salud | Andaderas, bastones y muletas": 23
+  }
+ },
+ {
+  "fecha": "2026-10-08",
+  "origen": "juez-origen.json",
+  "motivo": "juez de origen (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Juguetes | Muñecas": 1,
+   "Autopartes | Para autos | Juguetes | None": 1,
+   "Autopartes | Para autos | Muebles | Burós": 1,
+   "Autopartes | Para autos | Belleza y cuidado personal | None": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | Cremas y bálsamos para afeitar": 2,
+   "Autopartes | Para autos | Ropa y accesorios | None": 1,
+   "Autopartes | Para autos | Ropa y accesorios | Pantalones y jeans": 2,
+   "Autopartes | Para autos | Joyería y bisutería | Lentes oftálmicos y de lectura": 2
+  }
+ },
+ {
+  "fecha": "2026-10-08",
+  "origen": "precio_atipico.py",
+  "motivo": "precio imposible para su subcategoría (vecinos + precio)",
+  "grupos": {
+   "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
+   "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 2
+  }
  }
 ]

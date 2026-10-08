@@ -44,6 +44,14 @@ _MARCAS_AUTO = {
     "kawasaki": "Kawasaki", "ktm": "KTM", "harley": "Harley-Davidson", "harley-davidson": "Harley-Davidson",
     "pontiac": "Pontiac", "land rover": "Land Rover", "porsche": "Porsche", "lexus": "Lexus",
     "cupra": "Cupra", "opel": "Opel", "isuzu": "Isuzu", "hino": "Hino", "kenworth": "Kenworth",
+    # 08-oct-2026: marcas viejas que traen las refacciones importadas (Oldsmobile,
+    # Plymouth, Mercury...) y que dejaban la ficha sin ninguna fila.
+    "oldsmobile": "Oldsmobile", "plymouth": "Plymouth", "mercury": "Mercury", "saturn": "Saturn",
+    "daewoo": "Daewoo", "studebaker": "Studebaker", "hummer": "Hummer", "datsun": "Datsun",
+    "saab": "Saab", "daihatsu": "Daihatsu", "ssangyong": "SsangYong", "tesla": "Tesla", "scion": "Scion",
+    "jaguar": "Jaguar", "citroen": "Citroën", "skoda": "Škoda", "lada": "Lada", "mahindra": "Mahindra",
+    "maserati": "Maserati", "alfa romeo": "Alfa Romeo", "range rover": "Land Rover", "geo": "Geo",
+    "mack": "Mack", "foton": "Foton", "changan": "Changan", "geely": "Geely", "dina": "Dina",
 }
 _MARCA_RE = re.compile(r"(?<![a-z0-9])(" + "|".join(sorted((re.escape(k) for k in _MARCAS_AUTO if _MARCAS_AUTO[k]),
                                                         key=len, reverse=True)) + r")(?![a-z0-9])")
@@ -58,7 +66,12 @@ _NO_MODELO = {"para", "de", "del", "con", "y", "a", "al", "compatible", "origina
               # Marcas de la PIEZA y palabras de catálogo que caen donde iría el modelo.
               "walker", "green", "keep", "syd", "moog", "dai", "trw", "gates", "bosch", "polyway", "generica",
               "nueva", "generacion", "soporte", "caja", "porta", "monroe", "gonher", "kyb", "ngk", "denso",
-              "cardic", "garanti", "clemex", "beco", "fiamm", "prestone", "partech", "husky", "star", "linea"}
+              "cardic", "garanti", "clemex", "beco", "fiamm", "prestone", "partech", "husky", "star", "linea",
+              # Más marcas de la pieza (08-oct-2026): «Bobina ... oldsmobile intran-flotamex».
+              "melling", "fallone", "rexite", "intran-flotamex", "intran", "flotamex", "k-nadian", "nadian", "tyc",
+              "depo", "spq", "king", "dorman", "delco", "mopar", "acdelco", "tong", "yang", "trw", "sachs", "kayaba",
+              "boge", "gabriel", "bogas", "walker", "rodatech", "rodatec", "cooltech", "geba", "premium", "dc",
+              "gasket", "gaskets", "reakosound", "hivoz", "interautomex", "valucraft", "ag", "oem"}
 
 
 def _fmt_modelo(palabras):
@@ -130,16 +143,19 @@ def vehiculo(nombre):
             anios = set(sueltos)
     anios = sorted(a for a in anios if 1950 <= a <= 2027)
     # Un año solo sin marca de auto al lado es más seguido un modelo o un
-    # código de pieza que un año del vehículo.
-    if not marca:
+    # código de pieza que un año del vehículo. Un RANGO («2012 a 2015») sí es
+    # de años aunque la marca no esté en el nombre («Faro niebla sandero 2012 a
+    # 2015»): 19 mil refacciones se quedaban sin ninguna fila (08-oct-2026).
+    if not marca and not _RANGO_RE.search(n):
         anios = []
     return marca, modelo, anios
 
 
 def posicion(nombre):
     n = _norm(nombre)
-    d = bool(re.search(r"\bdelanter[oa]s?\b|\bfrontal(es)?\b", n))
-    t = bool(re.search(r"\btraser[oa]s?\b|\bposterior(es)?\b", n))
+    # «del izq», «tra der»: abreviaturas de los catálogos de refacciones.
+    d = bool(re.search(r"\bdelanter[oa]s?\b|\bfrontal(es)?\b|\bdel\.? (izq|der|inf|sup|secc)", n))
+    t = bool(re.search(r"\btraser[oa]s?\b|\bposterior(es)?\b|\btras?\.? (izq|der|inf|sup)", n))
     if d and t:
         return "Delantero y trasero"
     return "Delantero" if d else "Trasero" if t else None
@@ -147,8 +163,8 @@ def posicion(nombre):
 
 def lado(nombre):
     n = _norm(nombre)
-    i = bool(re.search(r"\bizquierd[oa]s?\b|\bpiloto\b|\blado conductor\b", n))
-    r = bool(re.search(r"\bderech[oa]s?\b|\bcopiloto\b|\bpasajero\b", n))
+    i = bool(re.search(r"\bizquierd[oa]s?\b|\bpiloto\b|\blado conductor\b|\bizq\b", n))
+    r = bool(re.search(r"\bderech[oa]s?\b|\bcopiloto\b|\bpasajero\b|\bder\b", n))
     if i and r:
         return "Ambos lados"
     return "Izquierdo" if i else "Derecho" if r else None

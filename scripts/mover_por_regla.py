@@ -4970,6 +4970,24 @@ LOTES['auditoria_33'] = [
 ]
 REGLAS += LOTES['auditoria_33']
 
+# auditoria_34 (08-oct-2026): séptima muestra (hogar, moda, mascotas, salud):
+# comida de gato entre los juguetes, pintura entre las puertas para mascotas,
+# triciclo entre las carriolas, andadera de adulto entre las de bebé...
+LOTES['auditoria_34'] = [
+    ('Mascotas', r'comida para gato|alimento para gato|croquetas para gato', r'^juguete', 'Mascotas', 'Alimento para gato', {'Juguetes para gato'}),
+    ('*', r'\bpintura (vinil|vinilica|para pared|acrilica|esmalte|de esmalte|multisuperficie)|^pintex\b|impermeabilizante',
+     r'spray|aerosol|acuarela|facial|unas|tempera|cabello|coche|auto\b', 'Herramientas', 'Construcción', {'Puertas para mascotas', 'Camas para perro', 'Juguetes para perro'}),
+    ('Cocina y comedor', r'cosmetiquera|neceser', None, 'Bolsas y mochilas', 'Cosmetiqueras y neceseres', {'Termos y botellas térmicas', 'Organización de cocina'}),
+    ('Bebés', r'\btriciclo', None, 'Juguetes', 'Triciclos', {'Carriolas bastón', 'Carriolas', 'Juguetes para bebé'}),
+    ('Cocina y comedor', r'rodillo de espuma|foam roller|rodillo (de )?masaje|rodillo muscular', None, 'Deportes y fitness', 'Otros deportes',
+     {'Repostería y moldes', 'Utensilios de cocina'}),
+    ('Joyería y bisutería', r'alimentacion de peces|\bpeces\b|pecera', None, 'Mascotas', 'Acuarios y terrarios', {'Anillos'}),
+    ('Mascotas', r'set de juego veterinario|kit (de )?(doctor|veterinario)|doctor kit', None, 'Juguetes', 'Juguetes educativos', {'Jaulas para perro'}),
+    ('Bebés', r'andadera.*(adulto|ortopedica|ancianos|mayores)', r'bebe|nino', 'Salud', 'Andaderas, bastones y muletas', {'Andaderas'}),
+    ('Joyería y bisutería', r'correa .*collar|arnes|para perro|para mascota', None, 'Mascotas', 'Correas', {'Arras y sets'}),
+]
+REGLAS += LOTES['auditoria_34']
+
 
 if __name__ == '__main__':
     main()
