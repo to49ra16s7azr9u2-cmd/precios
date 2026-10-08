@@ -1290,6 +1290,7 @@ _CUBIC_FT_RE = re.compile(r"(?<![\d.,])(\d(?:[.,]\d{1,2})?)\s*(?:pies|ft|cu\s?ft
 
 _ML_LITROS_RE = re.compile(r"(?<![\d.,])(\d{2,4})\s*(?:ml\b|mililitros?\b)")
 _OZ_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:\.\d)?)\s*(?:oz\b|onzas?\b)")
+_GALON_RE = re.compile(r"(?<![\d.,])(\d{1,2}(?:\.\d)?)\s*(?:gal\b|galon(?:es)?\b)")
 
 
 def liters_of(text, lo, hi, quarts=False, cubic_feet=False, ml=False):
@@ -1306,6 +1307,8 @@ def liters_of(text, lo, hi, quarts=False, cubic_feet=False, ml=False):
         vals = {round(float(m.group(1)) / 1000, 2) for m in _ML_LITROS_RE.finditer(n)}
         if not vals:
             vals = {round(float(m.group(1)) * 0.0296, 2) for m in _OZ_RE.finditer(n)}
+        if not vals:
+            vals = {round(float(m.group(1)) * 3.785, 1) for m in _GALON_RE.finditer(n)}
     if not vals and quarts:
         for m in _QUARTS_RE.finditer(n):
             vals.add(round(float(m.group(1)) * 0.946, 1))
@@ -1899,11 +1902,11 @@ def gb_of(text, lo, hi):
     return _uno({v for v in vals if lo <= v <= hi})
 
 
-_OZ_RE = re.compile(r"(?<![\d.,])(\d{1,2})\s*oz\b")
+_OZ_ENTERO_RE = re.compile(r"(?<![\d.,])(\d{1,2})\s*oz\b")
 
 
 def oz_of(text, lo, hi):
-    vals = {int(m.group(1)) for m in _OZ_RE.finditer(_norm(text or ""))}
+    vals = {int(m.group(1)) for m in _OZ_ENTERO_RE.finditer(_norm(text or ""))}
     return _uno({v for v in vals if lo <= v <= hi})
 
 
