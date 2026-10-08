@@ -1053,7 +1053,12 @@ def ac_btu(name):
 # extractor de baño de 6" y un ventilador de techo de 52" son el mismo
 # renglón de catálogo y no se comparan entre sí.
 _FAN_IN_RE = re.compile(
-    r"(?<![\d./-])(\d{1,2})\s*(?:\"|''|”|″|pulgadas?\b|pulg\.?)")
+    r"(?<![\d./-])(\d{1,2})\s*(?:\"|''|”|″|pulgadas?\b|pulg\.?|plgs?\b)")
+# «Ventilador de pedestal 24p» y «Ventilador 46 cm»: 21 mil fichas de
+# ventilador no traían las comillas ni la palabra «pulgadas» (08-oct-2026).
+_FAN_P_RE = re.compile(r"(?<![\d./-])(\d{2})p\b")
+_FAN_CM_RE = re.compile(r"(?<![\d./-])(\d{2})\s*cm\b")
+_FAN_NO_CM = re.compile(r"(altura|alto|hasta|cable|largo|base|cordon|distancia)\W*(?:\w+\W+){0,2}$")
 
 
 def fan_size_in(name):
@@ -1069,6 +1074,16 @@ def fan_size_in(name):
         v = int(m.group(1))
         if 4 <= v <= 60:
             vals.add(v)
+    if not vals:
+        for m in _FAN_P_RE.finditer(n):
+            if 10 <= int(m.group(1)) <= 30:
+                vals.add(int(m.group(1)))
+    if not vals:
+        # Centímetros del aspa («46 cm» = 18"), no la altura ni el cable.
+        for m in _FAN_CM_RE.finditer(n):
+            cm = int(m.group(1))
+            if 25 <= cm <= 76 and not _FAN_NO_CM.search(n[:m.start()]):
+                vals.add(int(round(cm / 2.54)))
     return next(iter(vals)) if len(vals) == 1 else None
 
 

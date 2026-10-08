@@ -12,6 +12,8 @@ cosas distintas (dos colores, dos géneros, dos marcas de auto) no se elige
 ninguna. compute_facets.py las aplica DESPUÉS de las propias de cada
 categoría y nunca pisa un campo que ya tenga valor.
 """
+import json
+import os
 import re
 import unicodedata
 
@@ -74,6 +76,31 @@ _NO_MODELO = {"para", "de", "del", "con", "y", "a", "al", "compatible", "origina
               "gasket", "gaskets", "reakosound", "hivoz", "interautomex", "valucraft", "ag", "oem"}
 
 
+# Modelo -> marca, aprendido del propio catálogo (data/modelos-vehiculo.json: modelos que
+# salieron junto a UNA sola marca en 20 fichas o más, revisados a mano). 47 mil
+# refacciones decían «Calavera tsuru iii 01-04» o «Faro beetle 2012 al 2017» sin la marca
+# y se quedaban sin marca del vehículo, modelo ni años (08-oct-2026).
+def _cargar_modelos():
+    try:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "modelos-vehiculo.json"),
+                  encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+_MODELOS = _cargar_modelos()
+_MODELOS_RE = (re.compile(r"(?<![a-z0-9])(" + "|".join(re.escape(k) for k in sorted(_MODELOS, key=len, reverse=True)) + r")(?![a-z0-9])")
+               if _MODELOS else None)
+# «07-14», «01-04»: años de dos cifras; no «12-24 v» ni «20-25 mm».
+_RANGO_CORTO_RE = re.compile(r"(?<![\d./,-])(\d{2})\s*-\s*(\d{2})(?![\d./,-])(?!\s*(?:mm|cm|pulg|in\b|v\b|w\b|a\b|hp|psi|lb|kg|l\b|x|\"|'|%))")
+
+
+def _anio2(x):
+    x = int(x)
+    return 2000 + x if x <= 27 else 1900 + x
+
+
 def _fmt_modelo(palabras):
     return " ".join(p.upper() if (len(p) <= 3 or re.search(r"\d", p)) else p.capitalize() for p in palabras)
 
@@ -131,12 +158,25 @@ def vehiculo(nombre):
                 break
             if palabras:
                 modelo = marca + " " + _fmt_modelo(palabras)
+    if not marca and _MODELOS_RE is not None and (_RANGO_RE.search(n) or _SUELTO_RE.search(n) or _RANGO_CORTO_RE.search(n)):
+        # Sin marca en el nombre: el modelo la dice (sólo con un año al lado, porque
+        # «fit», «edge» o «journey» son también palabras comunes).
+        ms2 = list(_MODELOS_RE.finditer(n))
+        marcas2 = {_MODELOS[m.group(1)] for m in ms2}
+        if len(marcas2) == 1:
+            marca = next(iter(marcas2))
+            modelo = marca + " " + _fmt_modelo(ms2[0].group(1).split())
     anios = set()
     for a, b in _RANGO_RE.findall(n):
         a = int(a)
         b = int(b) if len(b) == 4 else int(str(a)[:2] + b)
         if a <= b <= 2027 and b - a <= 45:
             anios.update(range(a, b + 1))
+    if not anios and marca:
+        for a, b in _RANGO_CORTO_RE.findall(n):
+            a, b = _anio2(a), _anio2(b)
+            if a <= b <= 2027 and b - a <= 30:
+                anios.update(range(a, b + 1))
     if not anios:
         sueltos = sorted({int(x) for x in _SUELTO_RE.findall(n)})
         if sueltos and (len(sueltos) <= 3 or sueltos[-1] - sueltos[0] + 1 == len(sueltos)):
@@ -173,9 +213,55 @@ def lado(nombre):
 _LLANTA_RE = re.compile(r"\b(1[3-9]\d|2\d\d|3[0-4]\d)\s*/\s*([2-8]\d)\s*z?r?\s*-?\s*(1[2-9]|2[0-6])\b")
 
 
+# Las otras formas en que se escribe una medida (08-oct-2026; la expresión de arriba
+# sólo veía «205/55R16» y dejaba sin medida 4 de cada 10 llantas de camioneta):
+# «185 60 r14», «p195/75r14», «lt265/75 r16», «225/55z r16», «255/50rf19»,
+# «245 65/ R 17», «175/70 Rin 14», las de furgoneta sin perfil «185r14c», las de
+# flotación «31x10.50r15» y las de camión «11r22.5». Las sueltas piden que el
+# nombre diga «llanta» para no tomar un rin de «17x7.5» o un cable por llanta.
+_TIRE_GUARDIA = re.compile(r"\bllantas?\b|llantas?\d|neumaticos?|\btyres?\b|\btires?\b|\bll\b")
+_RIN_FIN = r"(?=\d{2,3}[a-z]\b|(?![\d]|\.5))"
+_LLANTA_ESP_RE = re.compile(
+    r"(?<![\d./x-])(?:p|lt|t)?(\d{3})(?:\s*/\s*|\s+)([2-8]\d)\s*/?\s*(?:z\s*rf?|rf?|b|-|rin)\s*-?\s*(?:rin\s*)?(1[2-9]|2[0-6])" + _RIN_FIN)
+_LLANTA_PEGADA_RE = re.compile(
+    r"(?<![\d./x-])(1[3-9]\d|2\d\d|3[0-4]\d)([3-8]\d)\s?(?:z\s*)?r\s?(1[2-9]|2[0-6])" + _RIN_FIN)
+_LLANTA_VAN_RE = re.compile(r"(?<![\d./x-])(?:p|lt|t)?(1[3-9]\d|2\d\d|3[0-4]\d)\s*-?\s*r\s*(1[2-9]|2[0-6])(c?)(?![\d.])")
+_LLANTA_FLOT_RE = re.compile(r"(?<![\d./])(?:lt)?(2\d|3\d|4\d)\s*[x×]\s*(\d{1,2}(?:[.,]\d{1,2})?)\s*-?\s*r\s*(1[2-9]|2[0-6])" + _RIN_FIN)
+_LLANTA_CAMION_RE = re.compile(r"(?<![\d./])(\d{2}|\d\.\d{2})\s*/?\s*(?:(\d{2})\s*)?r\s*(17|19|22|24)\.5(?!\d)")
+_LLANTA_CAMION_METRICA_RE = re.compile(r"(?<![\d./])(\d{3})\s*/\s*(\d{2})\s*(?:z\s*)?r\s*(17|19|22|24)\.5(?!\d)")
+_LLANTA_DECIMAL_RE = re.compile(r"(?<![\d./])(\d\.\d{2})\s*(?:-\s*|r\s*)(1[2-9]|2[0-6])(?!\d)")
+
+
 def medida_llanta(nombre):
-    m = _LLANTA_RE.search(_norm(nombre))
-    return f"{m.group(1)}/{m.group(2)} R{m.group(3)}" if m else None
+    n = _norm(nombre)
+    m = _LLANTA_RE.search(n)
+    if m and not re.match(r"\.5", n[m.end():]):
+        return f"{m.group(1)}/{m.group(2)} R{m.group(3)}"
+    if not _TIRE_GUARDIA.search(n):
+        return None
+    vals = {f"{a}/{b} R{c}" for a, b, c in _LLANTA_ESP_RE.findall(n)
+            if 135 <= int(a) <= 355 and 25 <= int(b) <= 85}
+    if not vals:
+        vals = {f"{a}/{b} R{c}.5" for a, b, c in _LLANTA_CAMION_METRICA_RE.findall(n)}
+    if not vals:
+        vals = {f"{a}/{b} R{c}" for a, b, c in _LLANTA_PEGADA_RE.findall(n)
+                if 25 <= int(b) <= 85}
+    if not vals:
+        vals = {f"{a}x{float(b.replace(',', '.')):g} R{c}" for a, b, c in _LLANTA_FLOT_RE.findall(n)
+                if 6 <= float(b.replace(',', '.')) <= 18}
+    if not vals:
+        vals = {f"{a}/{b} R{c}.5" if b else f"{a} R{c}.5" for a, b, c in _LLANTA_CAMION_RE.findall(n)}
+    if not vals:
+        vals = {f"{a} R{b}" if "r" in n[n.find(a):n.find(a) + len(a) + 4] else f"{a}-{b}" for a, b in _LLANTA_DECIMAL_RE.findall(n)}
+    if not vals:
+        vals = {f"{a} R{b}{'C' if c else ''}" for a, b, c in _LLANTA_VAN_RE.findall(n) if 135 <= int(a) <= 355}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+def rin_de_medida(medida):
+    """«205/55 R16» -> «R16»; «11 R22.5» -> «R22.5»; «31x10.5 R15» -> «R15»."""
+    m = re.search(r"R(\d{2}(?:\.5)?)C?$", medida or "") or re.search(r"-(\d{2})$", medida or "")
+    return f"R{m.group(1)}" if m else None
 
 
 # El índice de carga y de velocidad que va después de la medida: «185/65 R15
@@ -196,6 +282,127 @@ def velocidad_llanta(nombre):
     tramos = {VELOCIDADES_LLANTA[m.group(2)] for m in _VELOCIDAD_LLANTA_RE.finditer(n)
               if 50 <= int(m.group(1)) <= 130}
     return next(iter(tramos)) if len(tramos) == 1 else None
+
+
+# Llantas de moto: «110/70-17», «120/70 ZR17», «140/80B17», «120/70/15» y las de
+# pulgadas «2.75-17», «350-10». La expresión de auto pide un ancho de 130 mm o
+# más y se quedaba con 240 de las 1,456 llantas de moto (08-oct-2026).
+_LLANTA_MOTO_RE = re.compile(r"(?<![\d./])(\d{2,3})\s*/\s*(\d{2,3})\s*(?:z?r|b)?\s*[-/]?\s*(\d{2})(?!\d)")
+_LLANTA_MOTO_IN_RE = re.compile(r"(?<![\d./-])([2-5])[.,](\d{2})\s*-\s*(\d{2})(?!\d)")
+_LLANTA_MOTO_IN3_RE = re.compile(r"(?<![\d./-])(225|250|275|300|325|350|400|410|450|460|500)\s*-\s*(\d{2})(?!\d)")
+
+
+def _llantas_moto(nombre):
+    """Medidas distintas del nombre como (texto, rin)."""
+    n = _norm(nombre)
+    vals = {}
+    for m in _LLANTA_MOTO_RE.finditer(n):
+        ancho, perfil, rin = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        if 60 <= ancho <= 260 and 30 <= perfil <= 120 and 8 <= rin <= 23:
+            vals[f"{ancho}/{perfil} R{rin}"] = rin
+    for m in _LLANTA_MOTO_IN_RE.finditer(n):
+        rin = int(m.group(3))
+        if 8 <= rin <= 23:
+            vals[f"{m.group(1)}.{m.group(2)}-{rin}"] = rin
+    for m in _LLANTA_MOTO_IN3_RE.finditer(n):
+        rin = int(m.group(2))
+        if 8 <= rin <= 23:
+            vals[f"{m.group(1)[0]}.{m.group(1)[1:]}-{rin}"] = rin
+    return vals
+
+
+def medida_llanta_moto(nombre):
+    """«110/70 R17» (también «110/70-17») o «2.75-17»; None si el nombre trae
+    dos medidas distintas (un juego delantera + trasera)."""
+    vals = _llantas_moto(nombre)
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+def rin_moto(nombre):
+    """El rin de la llanta de moto («R17»); si el juego trae delantera y
+    trasera con el mismo rin, ese; con rines distintos, None."""
+    rines = set(_llantas_moto(nombre).values())
+    return f"R{rines.pop()}" if len(rines) == 1 else None
+
+
+def camara_llanta(nombre):
+    """Llanta sin cámara (tubeless, «TL») o con cámara («TT»). Sólo si el
+    nombre lo dice y no dice las dos cosas."""
+    n = _norm(nombre)
+    sin = re.search(r"tubeless|sin camara|\btl\b|\btubeless type\b", n)
+    con = re.search(r"con camara|\btt\b|tube type|requiere camara|\bt/t\b", n)
+    if sin and not con:
+        return "Sin cámara (tubeless)"
+    if con and not sin:
+        return "Con cámara"
+    return None
+
+
+# ---------------------------------------------------------------- libros
+# El título de un libro casi nunca trae datos, pero cuando los trae son los que
+# lo identifican: ISBN, formato, editorial y autor (08-oct-2026).
+def isbn(nombre):
+    """ISBN-13 válido (978/979), con o sin guiones; None si hay dos distintos."""
+    vals = set()
+    for m in re.finditer(r"(?<![\d-])(97[89](?:[ -]?\d){10})(?![\d-])", nombre or ""):
+        d = re.sub(r"\D", "", m.group(1))
+        if len(d) == 13 and (10 - sum(int(c) * (1 if i % 2 == 0 else 3) for i, c in enumerate(d[:12])) % 10) % 10 == int(d[12]):
+            vals.add(d)
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+def formato_libro(nombre):
+    n = _norm(nombre)
+    tipos = set()
+    if re.search(r"tapa dura|pasta dura|hardcover|hard cover|empastado|\bcartone\b", n):
+        tipos.add("Tapa dura")
+    if re.search(r"tapa blanda|pasta blanda|paperback|\brustic[oa]\b", n):
+        tipos.add("Tapa blanda")
+    if re.search(r"\bbolsillo\b|\bpocket\b|mass market|\bde ?bolsillo\b", n):
+        tipos.add("Bolsillo")
+    return next(iter(tipos)) if len(tipos) == 1 else None
+
+
+_PARTE_NOMBRE = r"[a-z\u00e0-\u00ff][a-z\u00e0-\u00ff'\u2019.\-]*"
+_STOP_LIBRO = r"(?=\s*[,;(\[|]|\s+(?:editorial|editoria|edit|ed\.|ediciones|autor|tapa|pasta|papel|isbn|libro|serie|tomo|vol)\b|\s*\d|\s*$)"
+_NO_NOMBRE = r"(?!(?:editorial|editoria|edit|autor|tapa|pasta|papel|isbn|libro|serie|tomo|vol)\b)"
+
+
+def _titular(texto):
+    palabras = []
+    for w in texto.split():
+        palabras.append(w if w in ("de", "del", "la", "las", "los", "y", "e", "and", "of", "van", "von", "da", "di") else w[:1].upper() + w[1:])
+    return " ".join(palabras)
+
+
+def autor_libro(nombre):
+    """El autor cuando el título lo dice («autor Kevin Eastman», «Autor: Markus Zusak»)."""
+    n = (nombre or "").lower()
+    m = re.search(r"\bautor(?:a|es)?\s*:?\s*(" + _PARTE_NOMBRE + r"(?:\s+" + _NO_NOMBRE + r"(?:de |del |la |y |van |von )?" + _PARTE_NOMBRE + r"){0,3})" + _STOP_LIBRO, n)
+    if not m:
+        return None
+    cand = m.group(1).strip(" .-")
+    palabras = cand.split()
+    if not (1 < len(palabras) <= 4) or len(cand) < 5 or len(n) >= 100 and m.end() >= len(n.rstrip()) - 1:
+        return None
+    if re.search(r"\b(editorial|editoria|libro|tapa|isbn|varios|anonimo|desconocido)\b", cand):
+        return None
+    return _titular(cand)
+
+
+def editorial_libro(nombre):
+    """La editorial cuando el título la dice («editorial Satori», «Libro HarperCollins – Título»)."""
+    texto = nombre or ""
+    n = texto.lower()
+    m = re.search(r"\beditorial\s*:?\s*(" + _PARTE_NOMBRE + r"(?:\s+" + _NO_NOMBRE + r"(?:de |del |la |y |and |of )?" + _PARTE_NOMBRE + r"){0,3})" + _STOP_LIBRO, n)
+    if m and not (len(n) >= 100 and m.end() >= len(n.rstrip()) - 1):
+        cand = m.group(1).strip(" .-")
+        if len(cand) >= 3 and not re.search(r"\b(autor|tapa|libro|isbn)\b", cand):
+            return _titular(cand)
+    m = re.match(r"(?i:libro)\s+((?:[A-Z\u00c0-\u00dd][\w'\u2019.&-]*)(?:\s+(?:and |of |&\s*)?[A-Z\u00c0-\u00dd][\w'\u2019.&-]*){0,3})\s+[\u2013\u2014]\s+\S", texto)
+    if m:
+        return m.group(1).strip()
+    return None
 
 
 _HP_RE = re.compile(r"(?<![\d./])(\d+\s+\d/\d|\d/\d|\d{1,2}(?:\.\d{1,2})?)\s*(?:hp|caballos?(?: de fuerza)?)\b")

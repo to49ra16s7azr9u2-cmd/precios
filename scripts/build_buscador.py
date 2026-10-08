@@ -303,7 +303,7 @@ def _valor_orden(v):
 
 # Facetas que sólo se muestran en la ficha y no sirven para filtrar: «dims»
 # («244 × 264 cm») tiene miles de valores distintos y llenaría el diccionario.
-NO_EN_RESUMEN = {"dims"}
+NO_EN_RESUMEN = {"dims", "isbn", "author", "publisher"}
 
 
 def resumen_de_categoria(fichas, idx_sub, subs_cat):

@@ -429,6 +429,8 @@
       ["position", "Posición", AUTOS, txt],
       ["side", "Lado", AUTOS, txt],
       ["tire_size", "Medida de llanta", AUTOS, txt],
+      ["tire_cam", "Cámara", AUTOS, txt],
+      ["book_format", "Formato del libro", ["Libros"], txt],
       ["pet", "Mascota", ["Mascotas"], txt],
       ["pet_stage", "Etapa", ["Mascotas"], txt],
       ["breed_size", "Tamaño de raza", ["Mascotas"], txt],

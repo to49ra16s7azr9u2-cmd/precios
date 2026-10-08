@@ -2207,6 +2207,214 @@ _TIPOS_08OCT_A = {
 }
 for _k, _v in _TIPOS_08OCT_A.items():
     TIPOS[_k] = TIPOS.get(_k, []) + [(et, re.compile(rx)) for et, rx in _v]
+# Cuarta tanda del 08-oct-2026 (subcategorías con más fichas sin filas: bloques, juegos de mesa,
+# brocas, llantas de moto...). Se SUMA a lo que la subcategoría ya tuviera (gana lo anterior),
+# por eso en las que ya tenían tabla sólo van los tipos que faltaban y con el MISMO nombre cuando
+# es el mismo concepto.
+_TIPOS_08OCT_C = {
+    ('Juguetes', 'Bloques de construcción'): [
+        ('Minifigura coleccionable', 'minifigur|minifigure|minifig\\b|polybag|bolsa sorpresa'),
+        ('Kit de luces o accesorio', 'kit de luces|light kit|luces para lego|placa base|baseplate|base plate|vitrina|caja de exhibicion|display case|organizador|soporte para'),
+        ('Bloques de otras marcas', 'mega bloks|megabloks|mega construx|construx|nanoblock|mould king|\\bcobi\\b|blokees|kre-?o|sluban|banbao|compatible con lego|qman|lepin|\\bcada\\b|jaki|keeppley|brickheadz|bloques magneticos|magnetic'),
+        ('Set de vehículos', 'speed champions|vehiculo|\\bauto\\b|coche|camion|autobus|avion|barco|carrera|\\bmoto\\b|nave\\b|tractor|\\btren\\b|helicoptero|submarino|racer|bugatti|ferrari|lamborghini|porsche|mercedes|\\bford\\b|mclaren'),
+    ],
+    ('Juegos de mesa', 'De estrategia'): [
+        ('Expansión', 'expansion|\\bexp\\b|faction pack|add.?on|ampliacion|\\bpack\\b|refuerzo|unit expansion|squad pack'),
+        ('Miniaturas y wargames', 'miniatur|legion|shatterpoint|warhammer|battletech|zombicide|\\bcmon\\b|steamforged|atomic mass|marvel crisis|armada|x-wing|conquest|kill team'),
+        ('Escape room', 'escape'),
+        ('Cooperativo', 'cooperativ|co-?op\\b|cooperation'),
+        ('Puzzle y lógica', 'logica|smart ?games|puzle|puzzle|\\biq\\b|kanoodle|desafio|retos|brain|\\breto\\b|1 jugador|solitario'),
+        ('De cartas', 'deck.?build|deckbuilding|mazo|cartas|card game|dobble|sequence|\\bnaipes\\b'),
+        ('Para fiestas y adultos', 'party|fiesta|adivin|preguntas|trivia|dibuj|mimica|charadas|drink|shot|beber|\\bhumor'),
+        ('Para dos jugadores', '(?<![\\d-])2 jugadores|solo 2\\b|for 2\\b|duelo|two.?player|\\b2p\\b|1-2 jugadores|(?<![\\d-])2 players'),
+        ('Familiar e infantil', 'familiar|family|\\bnino|\\bkids|infantil|junior|\\bjr\\b'),
+    ],
+    ('Juegos de mesa', 'De mesa clásicos'): [
+        ('Monopoly y de bienes raíces', 'monopol|real estate|dinero|banco|drinkopoly|opoly'),
+        ('Bingo y lotería', 'loteria|bingo'),
+        ('Dominó y mahjong', 'domino|mahjong'),
+        ('Ajedrez, damas y backgammon', 'ajedrez|damas|backgammon|ludo|serpientes|chinos'),
+        ('Cubos y rompecabezas mecánicos', '\\bcubo\\b|rubik|3x3|speed cube|yj'),
+        ('De preguntas y trivia', 'trivia|preguntas|conocimiento|trivial|quiz'),
+        ('De dados', 'dados|yahtzee|yatzy|farkle|perudo'),
+        ('Juegos de habilidad', 'jenga|torre|equilibrio|destreza|punteria|tiro|monos locos|hungry hippos|pesca|balance|palitos'),
+        ('Palabras, adivinar y dibujar', 'hedbanz|pictionary|charadas|dibuj|adivin|mimica|telestrations|cranium|dobble|palabras|scrabble|crossword'),
+        ('De fiesta o para beber', 'shot|drink|ruleta|fiesta|party|reto|pedas|adultos|beber|tragos|bebida'),
+        ('Clásicos de tablero', 'clue|risk|stratego|battleship|conecta|connect|mastermind|operacion|operation|candy|trouble|sorry|uno\\b|twister'),
+    ],
+    ('Juegos de mesa', 'Rompecabezas'): [
+        ('3D y mecánicos', '\\b3d\\b|3 d\\b|tridimensional|metal|mecanic|ensamble|model kit'),
+        ('De madera o con luz', 'madera|wood|wooden'),
+        ('De ingenio y lógica', 'ingenio|logica|kanoodle|brain|tangram|laberinto|puzzle box|cubo|rubik|smart ?games|iq\\b'),
+        ('Para bebés y preescolar', 'bebe|baby|preescolar|montessori|educatodo|mi primer|primeras|a partir de [1-3] a|sensorial|de perillas|con perillas'),
+        ('Infantiles', 'ninos|infantil|kids|bluey|peppa|fisher|melissa|disney|junior|\\bnino\\b|\\bnina\\b|a partir de [4-8]'),
+        ('De piso o gigante', 'piso|floor|gigante|jumbo|xxl'),
+        ('Panorámico', 'panoramic'),
+        ('Para adultos', 'adultos|mayores'),
+    ],
+    ('Juegos de mesa', 'De cartas'): [
+        ('Cartas coleccionables (TCG)', '\\btcg\\b|coleccionable|booster|pokemon|magic|\\bmtg\\b|yu-?gi-?oh|digimon|one piece card|lorcana|starter deck|trading|sobre|flesh and blood'),
+        ('Tarot y oráculo', 'tarot|oraculo|rider|lenormand'),
+        ('Baraja de póker o naipes', 'poker|baraja|naipes|bicycle|pinochle|bridge|barajas'),
+        ('Accesorios (tapetes, fundas, fichas)', 'tapete|\\bfundas?\\b|protector|mesa poker|ficha|portamazos|deck box|carpeta|album|dados|mesa de|estuche'),
+        ('Expansión', 'expansion|\\bexp\\b'),
+        ('Uno y similares', '\\buno\\b|dobble|skip-?bo|phase 10|flip|exploding|blokus'),
+        ('De fiesta y adultos', 'adultos|fiesta|bebida|party|sucia|insanity|against humanity|humor|reto|shot|drinking|pedas'),
+        ('Trivia y preguntas', 'trivia|preguntas|conocimiento'),
+        ('Para niños y memoria', 'ninos|kids|infantil|junior|memoria|memorama|animal match|orchard|learning'),
+        ('De estrategia', 'estrategia|strategy|deck-?building|duelo|kingdom|catan|arkham|noir|case|investig'),
+    ],
+    ('Belleza y cuidado personal', 'Cuidado personal'): [
+        ('Toallas sanitarias y protectores', 'toalla|sanitaria|femenina|protectores? diarios?|pantiprotector|laurier|kotex|always|whisper|saba'),
+        ('Copa menstrual y tampones', 'copa menstrual|tampon|disco menstrual|menstrual'),
+        ('Pasta dental', 'pasta (de )?dient|pasta dental|dentifrico|crema dental|toms? of maine|hidroxiapatita|colgate'),
+        ('Enjuague bucal', 'enjuague|listerine|colutorio'),
+        ('Cepillos e higiene dental', 'cepillo dental|cepillo de dientes|hilo dental|irrigador|interdental|blanqueador dental|tiras blanqueadoras'),
+        ('Cuidado de pies', '\\bpies\\b|talon|callos|urea|pedicure'),
+        ('Afeitado y barba', 'afeitar|barba|rastrillo|navaja|rasur|after ?shave|bigote|razor'),
+        ('Cortadoras y recortadoras', 'cortadora|recortadora|trimmer|clipper|andis|wahl|oster|peine guia|maquina recorta|peluqueria'),
+        ('Peinado', 'peinar|texturizante|polvo texturizador|pomada|cera para|gel para cabello|espuma para peinar|gomina|spray fijador'),
+        ('Tinta y accesorios de tatuaje', 'tatuaje|tattoo'),
+        ('Pinzas, tijeras y limas', 'pinza|tijera|cortaunas|lima\\b|cortaplumas|unas'),
+    ],
+    ('Deportes y fitness', 'Bandas de resistencia'): [
+        ('Para yoga y pilates', 'yoga|pilates|barre'),
+        ('Liga plana terapéutica', 'theraband|flossband|\\bplana\\b|terapia|fisioterapia|rehabilita|cando|sin latex|flossing'),
+        ('Ejercitador de mano o antebrazo', 'ejercitador|antebrazo|dedos|hand grip|gripper'),
+        ('Set de bandas', '\\bset\\b|\\bkit\\b|\\b[2-9] ?(pz|pcs|piezas|ligas|bandas|niveles)\\b|\\b1[0-9] ?(pz|pcs|piezas)\\b|juego de'),
+    ],
+    ('Belleza y cuidado personal', 'Planchas para cabello'): [
+        ('Accesorio o funda térmica', 'alfombrilla|funda|estuche|bolsa|cubierta|guante|soporte|protector termico|repuesto|placas de repuesto'),
+        ('Cepillo alaciador o eléctrico', 'cepillo|brush'),
+        ('Rizador', 'rizador|rizadora|curl|\\btong\\b|ondulador|waver'),
+        ('Secadora o combo', 'secadora|combo|multi ?styler|[2-5] en 1|set de plancha|kit de plancha|kit alaciad'),
+        ('Plancha de vapor', 'vapor|steam'),
+        ('Plancha de titanio', 'titanio|titanium'),
+        ('Plancha de turmalina', 'turmalina|tourmaline'),
+        ('Plancha de cerámica', 'ceramic|ceramica'),
+        ('Plancha infrarroja o iónica', 'infrarroj|ionic|iones|\\bion\\b'),
+        ('Mini plancha de viaje', '\\bmini\\b|viaje|portatil|travel|pencil|compacta'),
+        ('Plancha inalámbrica', 'inalambric|cordless|recargable|usb'),
+        ('Plancha alaciadora', 'plancha|alaciadora|alisadora|alaciador|alisador|flat ?iron|straightener|alisar|alaciar'),
+    ],
+    ('Iluminación', 'Lámparas de emergencia'): [
+        ('Linterna de cabeza', 'cabeza|frontal|diadema|headlamp|tiara'),
+        ('Linterna táctica', 'tactica|tactical|militar|\\bzoom\\b|swat'),
+        ('Lámpara solar', '\\bsolar\\b'),
+        ('Lámpara de minero', 'minera|minero'),
+        ('Lámpara de camping', 'camping|acampar|campismo|carpa|farol'),
+        ('Lámpara de trabajo', 'trabajo|taller|mecanico|reflector|work ?light|obra'),
+        ('Foco de emergencia', 'foco|bulbo|\\be27\\b|\\bbombilla'),
+        ('Linterna de llavero o mini', 'llavero|\\bmini\\b|pluma|boligrafo|bolsillo'),
+        ('Luz ultravioleta', 'ultravioleta|\\buv\\b|luz negra'),
+        ('Linterna de mano', 'linterna'),
+        ('Lámpara de emergencia', 'emergencia|apagon'),
+    ],
+    ('Electrodomésticos', 'Arroceras y ollas multiusos'): [
+        ('Accesorio o repuesto', 'alfombrilla|bolsa de viaje|cubierta para|anillo de sellado|empaque|junta|funda para|repuesto|juntas|tapa de repuesto|accesorios? para'),
+        ('Olla de cocción lenta', 'coccion lenta|lenta coccion|slow cooker|crock-?pot|cazuela de coccion|olla de coccion|coccion interna'),
+        ('Olla de presión eléctrica', 'presion|instant pot|pressure'),
+        ('Arrocera', 'arrocera|rice cooker|rice'),
+        ('Vaporera eléctrica', 'vaporera|steamer|\\bvapor\\b'),
+        ('Olla multiusos', 'multiusos|multicooker|multifuncion|[5-9] en 1|10 en 1|\\bduo\\b|\\bpot\\b|olla electrica|olla de arroz'),
+    ],
+    ('Herramientas', 'Brocas'): [
+        ('Sierra copa', 'sierra copa|sierra de copa|hole ?saw|perforadora de copa|broca de corona|broca corona|corona\\b'),
+        ('Broca para madera', 'madera|\\bpala\\b|paleta|espada|forstner|plana\\b|wood|spade|rectas? sicwood'),
+        ('Broca para concreto y mampostería', 'concreto|mamposter|ladrillo|\\bsds\\b|masonry|\\bpared\\b|muro'),
+        ('Broca para vidrio y azulejo', 'vidrio|azulejo|ceramica|porcelanato|marmol|granito|brocas? (de )?diamante|diamantad'),
+        ('Broca para router (fresa)', 'router|fresa|fresas'),
+        ('Broca escalonada o avellanadora', 'avellanad|escalonad|\\bstep\\b|countersink|unibit'),
+        ('Puntas de atornillar', 'puntas? (de )?(atornillar|destornillador|impacto|phillips|torx|ph\\d|pz\\d|cruz|plana)|torx|phillips|destornillador|atornillador|screwdriver bit|insert bit|\\bph[123]\\b|\\bpz[123]\\b'),
+        ('Broca para metal', 'metal|\\bhss\\b|cobalto|titanio|nitruro|oxido|helicoidal|acero rapido'),
+        ('Juego de brocas surtidas', 'juego|set\\b|kit\\b|\\bpiezas\\b|pzas|pcs'),
+    ],
+    ('Electrodomésticos', 'Batidoras y amasadoras'): [
+        ('Accesorio o repuesto', '^accesorios?\\b|^(juego|kit|set) de accesorios|accesorio para|rallador|repuesto|bowl para|tazon para|gancho amasador|varillas|^batidor\\b|^grasa\\b'),
+        ('Fuente de sodas', 'fuente de sodas|malteada|milkshake'),
+        ('Batidora de inmersión', 'inmersion|licuadora de mano|stick'),
+        ('Batidora de pedestal', 'pedestal|de pie|\\bpie\\b|planetaria|tazon|bowl|ksm|stand|artisan|de mesa|mesa\\b'),
+        ('Batidora de mano', 'de mano|manual|\\bmano\\b|hand mixer|inalambrica|portatil'),
+        ('Amasadora', 'amasadora|amasar|masa\\b|bread'),
+        ('Batidora eléctrica', 'batidora|batidor|mixer|\\bvel\\b|velocidades'),
+    ],
+    ('Juguetes', 'Figuras de colección a escala'): [
+        ('Estatua o busto', 'estatua|estatuilla|statue|resina|busto|diorama'),
+        ('Escala 1/6 (12 pulgadas)', 'hot toys|sixth|1/6|1:6|escala 1/6|12 pulgadas|12 inch|12"|one:12 collective'),
+        ('Escala de 7 pulgadas (1/12)', '\\b7 ?(pulgadas|pulg|in|inch)\\b|\\b7"|\\b7\\\'|\\b7in\\b|18 cm|17 cm|1/12|1:12|\\b6 ?(pulgadas|in|inch)\\b|\\b6in\\b|15 cm|16 cm|escala de 7'),
+        ('Figura de anime (PVC)', 'banpresto|bandai|figuarts|tamashii|one piece|dragon ball|naruto|demon slayer|my hero|ichiban|dxf|grandista'),
+        ('Figura articulada de colección', 'ultimate|articulad|neca|mcfarlane|legends|super7|mezco|deluxe'),
+    ],
+    ('Herramientas', 'Llaves y dados'): [
+        ('Combinadas y de estrella', 'combinada|espanola|boca abierta|estrias|doble estrella|obstruccion|estrella|abierta|corona|milimetrica|llaves mixtas|artilleria|un tope'),
+        ('Llave para plomería', 'mezcladora|lavabo|fregadero|sifon|tarja|plomero|cuello de ganso|empotrar|regadera|tanque|llave de nariz|llave de paso'),
+        ('Juego de llaves', '(juego|set|kit)( de| con)?( \\d+( pzas?| pz| piezas)?)? (llaves|vasos|dados|matraca)|llaves (en )?(juego|set)'),
+    ],
+    ('Muebles', 'Sillas de comedor'): [
+        ('Silla de plástico', 'plastico|polipropileno|\\bpp\\b|apilable|origami'),
+        ('Silla tapizada', 'tapizad|terciopelo|velvet|piel sintetica|\\btela\\b|lino|boucle|chenille'),
+        ('Silla tipo Eames', 'eames'),
+        ('Silla de ratán o mimbre', 'ratan|rattan|mimbre|bambu|palma'),
+        ('Silla de madera', 'madera|parota|nogal|roble|pino|encino|cedro'),
+        ('Silla de metal', '\\bmetal\\b|acero|hierro|cromada|cromado'),
+        ('Juego de comedor', 'juego de comedor|comedor \\d|antecomedor|mesa con \\d? ?sillas|mesa y \\d sillas'),
+        ('Silla de oficina o gamer', 'oficina|gerente|ejecutiv|escritorio|gamer'),
+    ],
+    ('Iluminación', 'Decorativa'): [
+        ('Nocturnas y con sensor', 'noche|nocturna|infantil|nino|unicornio|dinosaurio|bebe|sensor|movimiento|closet|armario'),
+        ('Series y guirnaldas', 'cortina|serie|guirnalda|string|hada|cascada|lucecitas|fairy'),
+        ('Tira o cinta LED', '\\btira\\b|\\bcinta\\b|strip|neon|rgb'),
+        ('Velas LED', '\\bvelas?\\b|candle|portavelas'),
+        ('Lámpara proyector y de ambiente', 'proyector|galaxia|estrellas|atardecer|ambiente|lava|aurora|sunset|ambiental'),
+        ('Pantalla o base de lámpara', 'pantalla (de|para) lampara|base de lampara|pantalla de lamp|bases? de lampara'),
+        ('Lámpara de pared', 'lampara de pared|aplique|arbotante|para pared|de pared'),
+        ('Lámpara de pie', 'de pie\\b|\\bpiso\\b|floor|torchiere'),
+        ('Lámpara de licencia o coleccionable', 'lego|minecraft|star wars|paladone|pokemon|disney|marvel|harry potter|mario|zelda|hello kitty'),
+        ('Lámparas de mesa y escritorio', 'de mesa|buro|escritorio|\\bmesa\\b|lectura'),
+    ],
+    ('Herramientas', 'Jardinería'): [
+        ('Pistola de pintura', 'pistola (de|para) (pintura|pintar)|pistola pulverizadora|hvlp|pistola de gravedad|pistola de pulverizacion|pistola electrica para pintar'),
+        ('Pulverizador y rociador', 'pulverizador|pulverizadora|aspersor|rociador|atomizador|fumigador'),
+        ('Hidrolavadora y presión', 'hidrolavad|lavadora (a|de) presion|lavado a presion|karcher'),
+        ('Bomba', '\\bbomba\\b'),
+        ('Manguera y riego', 'manguera|riego|goteo|boquilla (de|para) (manguera|riego|jardin)|conector de manguera|grifo'),
+        ('Tijeras y podadoras', 'tijera|podadora|cortasetos|sierra de poda|serrucho|cizalla'),
+        ('Motoperforadora y motor', 'motoperforadora|barrena|hoyadora|gasolina|2 tiempos'),
+        ('Cortadora, bordeadora y desbrozadora', 'cortacesped|cortadora de cesped|bordeadora|desbrozadora|recortadora|orilladora|linea de (recorte|recambio)|cuerda para recortadora'),
+        ('Césped (aireadores y accesorios)', 'cesped|pasto|aireador'),
+        ('Herramienta manual de jardín', '\\bpala\\b|rastrillo|azadon|escoba|\\bpico\\b|machete|carretilla|cultivador|trasplantador'),
+        ('Lona y malla', '\\blona\\b|\\bmalla\\b|sombra|cobertor'),
+        ('Maceta y cultivo', 'maceta|planta|jardinera|semilla|hidroponic|sustrato|estacas'),
+    ],
+    ('Climatización', 'Ventiladores de pedestal'): [
+        ('3 en 1 (pedestal, piso y pared)', '3 en 1|2 en 1|multiposicion|piso y pared|mesa y pedestal|pedestal y'),
+        ('Con humidificador', 'humidific|humificador|nebuliz|hydromist|neblina'),
+        ('Circulador de aire', 'circulador|turbo|vortex|alta velocidad'),
+        ('De torre', '\\btorre\\b'),
+        ('Industrial o utilitario', 'industrial|utilitario|trabajo pesado|pesado|malla metalica'),
+        ('Calefactor y otros', 'calefactor|calentador|heater'),
+        ('De pie oscilante', 'oscilante|oscilacion|de pie|\\bpie\\b|abanico'),
+        ('Ventilador de pedestal', 'pedestal|ventilador'),
+    ],
+    ('Autos y motos', 'Llantas para moto'): [
+        ('Cámara o accesorio de llanta', '^(camara|baseno camara|valvula|tapon|parche|desmontador|inflador|espatula|slider|kit de parche|juego de camaras|llave para llanta)|camara (p/|para|de) (llanta|moto)|camaras? para moto|valvula schrader'),
+        ('Llanta de scooter y motoneta', 'scooter|motoneta|citygrip|city grip|city demon|reggae|\\bzoom\\b'),
+        ('Llanta deportiva o de pista', 'sport|sportec|sportmax|racetec|supercorsa|slick|battlax|diablo|rosso|power|angel gt|m7 rr|\\bzr\\b'),
+        ('Llanta doble propósito', 'doble proposito|trail|adventure|anakee|tkc|karoo|scorpion|terra\\b|dual|enduro|tourance|montana'),
+        ('Llanta todoterreno (cross)', 'cross|\\bmx\\b|off.?road|motocross|knobby|tracker'),
+        ('Llanta reforzada (6 capas o más)', '6 capas|6 ?pr\\b|8 ?pr\\b|10 ?pr\\b|reforzad|trabajo'),
+        ('Llanta de calle', 'street|calle|urbano|touring|commander|city road|p918'),
+    ],
+    ('Autos y motos', 'Llantas para auto'): [
+        ('Llanta para ATV o UTV', '\\batv\\b|\\butv\\b|at\\d{2}x|forerunner|cuatrimoto'),
+        ('Llanta para remolque', '\\bst\\d|trailer|remolque|turnpike|7\\.\\d0-1\\d'),
+        ('Llanta todoterreno (MT y AT)', 'mont-?pro|\\bmud\\b|\\bmt\\b|\\bat\\b|all terrain|a/t|m/t|\\blt\\d|todoterreno|lt\\d{2}x'),
+        ('Llanta de carretera (HT)', '\\bht\\d|\\bht\\b|highway'),
+        ('Llanta de auto', '\\d{3}/\\d{2}|\\d{3}\\d{2}r\\d{2}|\\br1[2-9]\\b|\\br2[0-4]\\b'),
+    ],
+}
+for _k, _v in _TIPOS_08OCT_C.items():
+    TIPOS[_k] = TIPOS.get(_k, []) + [(et, re.compile(rx)) for et, rx in _v]
 # Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
 # 60% lo dice en el nombre, muchas veces en libras.
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(
@@ -2246,6 +2454,9 @@ for _c in ("Autopartes", "Autos y motos"):
     REGLAS_TITULO.setdefault(_c, []).extend([("position", st.posicion), ("side", st.lado),
                                              ("tire_size", st.medida_llanta),
                                              ("speed_rating", st.velocidad_llanta)])
+# Libros: lo que el título dice del ejemplar (ISBN, formato, editorial, autor).
+REGLAS_TITULO.setdefault("Libros", []).extend([("isbn", st.isbn), ("book_format", st.formato_libro),
+                                              ("publisher", st.editorial_libro), ("author", st.autor_libro)])
 REGLAS_TITULO.setdefault("Mascotas", []).append(("pet", st.mascota))
 for _c in ("Iluminación", "Domótica y hogar inteligente"):
     REGLAS_TITULO.setdefault(_c, []).extend([("light_temp", st.temperatura_luz), ("socket", st.base_foco)])
@@ -2332,6 +2543,10 @@ NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Tarjetas madre")
 NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Gabinetes"), []).append(("case_ff", st.formato_gabinete))
 NOMBRE_GENERALES.setdefault(("Componentes y accesorios de PC", "Soportes para monitor"), []).append(("monitors", st.monitores_soporte))
 NOMBRE_GENERALES.setdefault(("Autos y motos", "Llantas para camión (rin 17.5 a 24.5)"), []).append(("truck_rim", st.rin_camion))
+# Llantas de moto: la medida («110/70-17»), el rin y si lleva cámara salen del nombre
+# (el 16% tenía medida; 08-oct-2026).
+NOMBRE_GENERALES.setdefault(("Autos y motos", "Llantas para moto"), []).extend([
+    ("tire_size", st.medida_llanta_moto), ("rim_size", st.rin_moto), ("tire_cam", st.camara_llanta)])
 NOMBRE_GENERALES.setdefault(("Aspiradoras", "Robots aspiradores"), []).append(("mop", st.trapea))
 NOMBRE_GENERALES.setdefault(("Electrodomésticos", "Máquinas de coser"), []).append(("stitches", st.puntadas))
 NOMBRE_GENERALES.setdefault(("Belleza y cuidado personal", "Planchas para cabello"), []).append(("plate_material", st.material_plancha))
@@ -2600,12 +2815,27 @@ def facets_for(product):
         marca = se.car_make_of(product.get("name", ""))
         if marca:
             f["car_make"] = marca
+        elif f.get("veh_brand"):
+            # La marca que se dedujo del modelo («calavera tsuru» -> Nissan; specs_titulo.vehiculo).
+            marca = "Ram" if f["veh_brand"] == "RAM" else f["veh_brand"]
+            if marca in _MARCAS_CAR_MAKE:
+                f["car_make"] = marca
     if product.get("category") in ("Autopartes", "Autos y motos"):
         _vehiculos_de_variantes(product, f)
+    if (product.get("category") == "Autos y motos" and (product.get("subcategory") or "").startswith("Llantas")
+            and f.get("tire_size") and "rim_size" not in f):
+        # El rin es la mitad de la medida («205/55 R16»): sólo el 2 al 17% de las llantas
+        # de auto lo traía como dato propio, y es lo que se filtra primero.
+        rin = st.rin_de_medida(f["tire_size"])
+        if rin:
+            f["rim_size"] = rin
     for campo, valor in (_specs_a_mano().get(product.get("id")) or {}).items():
         if campo != "por":
             f[campo] = valor
     return f or None
+
+
+_MARCAS_CAR_MAKE = {m for m, _ in se._CAR_MAKE_RES}
 
 
 def _vehiculos_de_variantes(product, f):
