@@ -2020,7 +2020,193 @@ _TIPOS_07OCT_B = {
     ],
 }
 for _k, _v in _TIPOS_07OCT_B.items():
-    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+    TIPOS[_k] = TIPOS.get(_k, []) + [(et, re.compile(rx)) for et, rx in _v]
+# Tercera tanda del 08-oct-2026 (las siguientes 23 subcategorías con más fichas sin filas).
+# Se SUMA a lo que la subcategoría ya tuviera (gana lo anterior); sin comodines que repitan
+# el nombre de la subcategoría («Tipo: Rompecabezas» no dice nada).
+_TIPOS_08OCT_A = {
+    ('Iluminación', 'Lámparas de pared'): [
+        ('Arbotante', 'arbotante'),
+        ('Aplique de camerino o espejo', 'camerino|espejo|tocador'),
+        ('Exterior o farol', 'exterior|int/ext|jardin|terraza|farol|impermeable|hermetic'),
+        ('Con sensor o recargable', 'sensor|movimiento|inteligente|recargable|solar'),
+        ('Lámpara de pared de interior', 'interior|decorativa|vintage|moderna|pared|aplique|led'),
+    ],
+    ('Iluminación', 'Lámparas colgantes'): [
+        ('Colgante de cuerda o ratán', 'cuerda|canamo|ratan|yute|mimbre|bambu|cesta'),
+        ('Colgante de vidrio', 'vidrio|cristal|globo|soplado'),
+        ('Colgante múltiple (3 o más luces)', '\\b[3-9] ?luces|\\b[3-9] ?(pcs|pz|pzas|piezas)|multiple|arana|candil'),
+        ('Colgante LED o de aros', '\\bled\\b|\\baros?\\b|infinitum|anillo|lineal|barra'),
+        ('Colgante de metal o industrial', 'metal|industrial|jaula|acero|bronce|vintage'),
+        ('Colgante de una luz', 'una luz|1 luz|\\bcolgante\\b|luminaria|luminario|lampara'),
+    ],
+    ('Iluminación', 'Decorativa'): [
+        ('Lámparas de trabajo e inspección', 'trabajo|inspeccion|taller|clip|clamp|linterna'),
+        ('Luz piloto y señalización', 'luz piloto|\\bpiloto\\b|senal|indicador'),
+        ('Luz de espejo y camerino', 'espejo|camerino|tocador'),
+        ('Luces para foto y video', 'fotografia|video|estudio|aro de luz|ring light|softbox|tripie'),
+        ('Decoración de Halloween y Navidad', 'halloween|calabaza|fantasma|navid|arana|esqueleto|noche de brujas'),
+        ('Lámparas de lava', '\\blava\\b'),
+        ('Lámparas de techo (plafón)', 'iluminacion luz vic|plafon|techo|satinado'),
+        ('Lámparas de mesa y escritorio', '\\bmesa\\b|escritorio|\\bburo\\b|lectura'),
+        ('Lámparas de pared', '\\bpared\\b|arbotante|aplique'),
+        ('Lámparas colgantes', 'colgante|pendiente|candil'),
+        ('Lámparas LED de clóset', 'closet|\\bpilas\\b|\\baaa\\b'),
+    ],
+    ('Belleza y cuidado personal', 'Máscaras de pestañas y cejas'): [
+        ('Serum y tratamiento de pestañas y cejas', 'serum|tratamiento|crecimiento|alargador|regenera'),
+        ('Brochas y accesorios de pestañas', 'brocha|cepillo|rizador|peine|pinza|cepillos'),
+        ('Lápiz y gel de cejas', 'lapiz para cejas|lapiz de cejas|brow pencil|gel (para )?cejas|color para cejas|pomada (para )?cejas|\\bbrow\\b|\\bcejas?\\b'),
+        ('Rímel / máscara de pestañas', 'rimel|mascara|mascaras|pestanas'),
+    ],
+    ('Belleza y cuidado personal', 'Afeitadoras eléctricas'): [
+        ('Repuestos y láminas', 'lamina|cuchilla|repuesto|cartucho|casete|cabezal|rejilla'),
+        ('Rasuradora de mascotas', 'mascota|\\bpet\\b|perro'),
+        ('Cortadora de cabello y barba', 'cortadora|cortapelo|corta pelo|trimmer|recortadora|cabello'),
+        ('Afeitadora rotativa', 'rotativ|rotary|\\b3d\\b'),
+        ('Afeitadora de lámina', '\\bfoil\\b'),
+        ('Rasuradora 3 en 1 (barba, nariz y cabello)', '\\b[2-5] en 1\\b|multifunc|nariz'),
+    ],
+    ('Joyería y bisutería', 'Collares'): [
+        ('Sets de collar y aretes o pulsera', '(collar|set|juego).*(aretes|pendientes|pulsera)|aretes y collar|collar y aretes|collar y pulsera'),
+        ('Collares de perlas', 'perla'),
+        ('Cadenas y gargantillas', 'cadena|cordon|gargantilla|choker|eslabon'),
+        ('Collares de pareja', 'pareja|imanes?|couple'),
+        ('Collares étnicos y bohemios', 'boho|bohemi|etnico|ratan|turca|mal de ojo|ojo turco'),
+        ('Collares con dije', 'dije|colgante|pendant|corazon|estrella|letra|inicial|cruz|mariposa|buho|collar'),
+    ],
+    ('Deportes y fitness', 'Rodilleras, muñequeras y soportes'): [
+        ('Rodilleras', 'rodillera|\\bknee'),
+        ('Muñequeras', 'munequera|\\bwrist'),
+        ('Tobilleras y polainas', 'tobillera|polaina|\\bankle'),
+        ('Coderas', 'codera|\\belbow'),
+        ('Fajas y soporte lumbar', 'faja|lumbar|espalda|cintura'),
+        ('Mangas, mediás y muslera de compresión', '\\bmedia\\b|manga|muslera|sleeve|compresion'),
+        ('Redes y otros', 'red de|canasta'),
+    ],
+    ('Cargadores y adaptadores', 'De pared'): [
+        ('Adaptadores USB y de datos', 'adaptador (usb|de usb|hembra|otg)|usb.*(hembra|macho)|\\botg\\b|a sata|rj-?45|conector'),
+        ('Cargadores para reloj o accesorio', 'reloj|watch|cortapelo|afeitadora|bocina|gadget'),
+        ('Cargador múltiple (varios puertos)', '\\b[2-9] ?(puertos|salidas|usb)|multipuerto|dual|\\btri\\b'),
+        ('Cargador con cable incluido', 'con cable|cable 1|cable tipo|cable lightning|\\bcombo\\b|cable de'),
+        ('Cargador rápido PD/QC', '\\bpd\\b|\\bqc\\b|rapid|\\bfast\\b|turbo|\\b[2-9]\\d ?w'),
+    ],
+    ('Juguetes', 'Disfraces'): [
+        ('Máscaras y caretas', 'mascara|careta|\\bmask'),
+        ('Maquillaje y prótesis (FX)', 'maquillaje|\\bfx\\b|aplicacion|latex|protesis|colmillos|sangre'),
+        ('Disfraz inflable', 'inflable'),
+        ('Accesorios de disfraz', 'accesorio|peluca|sombrero|\\bcapa\\b|guantes|alas|corona|diadema|gorro|bigote|espada|varita'),
+        ('Disfraces para niños', '\\bnino|\\bnina|bebe|infantil|\\bkids'),
+        ('Disfraces para adultos', 'adult|hombre|mujer|dama|caballero'),
+    ],
+    ('Juegos de mesa', 'De estrategia'): [
+        ('Expansión', 'expansion'),
+        ('Cooperativo', 'cooperativ'),
+        ('De cartas', 'cartas|\\bcard\\b|baraja'),
+        ('Miniaturas y wargames', 'miniatura|warhammer|blood bowl|dungeon|d&d|wargame'),
+        ('Puzzle y lógica', 'puzzle|logic|logico|rompecabezas|kanoodle|rubik|equilibrio|tetris'),
+        ('Para fiestas y adultos', 'fiesta|party|adultos|humor'),
+        ('Familiar e infantil', 'familia|family|\\bkids|ninos|infantil'),
+    ],
+    ('Juegos de mesa', 'De mesa clásicos'): [
+        ('Ajedrez, damas y backgammon', 'ajedrez|chess|damas|backgammon|\\bgo\\b|checkers'),
+        ('Dominó y mahjong', 'domino|mahjong|mahyong'),
+        ('Bingo y lotería', 'bingo|loteria'),
+        ('Futbolito, hockey y billar de mesa', 'futbolito|hockey|billar|tejo|curling|ping'),
+        ('Naipes y póker', 'poker|naipe|baraja|cartas'),
+        ('Juegos de habilidad', 'habilidad|destreza|jenga|equilibrio|pesca|torre'),
+        ('Clásicos de tablero', 'monopoly|turista|serpientes|escaleras|ludo|\\boca\\b|clue|\\brisk\\b|scrabble|\\buno\\b'),
+    ],
+    ('Juegos de mesa', 'Rompecabezas'): [
+        ('3D y mecánicos', '\\b3d\\b|mecanic|metal|modelo para armar|armar|brain|cubo|puzzle box'),
+        ('Marco, tapete y accesorios', '\\bmarco\\b|tapete|tablero|pegamento|fijador|mesa para|\\bbolsa\\b'),
+        ('De madera o con luz', 'madera|wooden|\\bluz\\b|\\bled\\b'),
+        ('Infantiles', 'infantil|ninos|\\bkids|progresivo|\\bmini\\b'),
+    ],
+    ('Juguetes', 'Montables'): [
+        ('Scooter y patín del diablo', 'scooter|patin|\\bkick\\b'),
+        ('Correpasillos y andadera', 'correpasillos|andadera|caminador|empujador'),
+        ('Inflable (brincolín)', 'inflable|brincolin|intex'),
+        ('Moto y cuatrimoto', '\\bmoto\\b|cuatrimoto|\\batv\\b'),
+        ('Montable eléctrico', 'electric|bateria|\\b(6|12|24) ?v\\b'),
+        ('Animal montable o mecedora', 'dinosaurio|caballo|unicornio|animal|oveja|pony|mecedora'),
+        ('Carrito montable', 'carrito|carro|auto|coche|jeep|camioneta|tractor|go ?kart|montable'),
+    ],
+    ('Autos y motos', 'Cascos para moto'): [
+        ('Casco para bicicleta o patineta', '\\bbici|ciclis|\\bmtb\\b|montana|urbano|skate|scooter|patineta|giro|ciclo|bicicleta'),
+        ('Casco abatible', 'abatible|modular|\\bflip'),
+        ('Casco integral', 'integral|full face|\\bfull\\b|shaft pro|\\bff\\b'),
+        ('Casco abierto (cachucha)', 'abierto|cachucha|open face|\\bjet\\b|3/4'),
+        ('Casco cross / off-road', '\\bcross\\b|enduro|off.?road|\\bmx\\b|motocross|\\batv\\b'),
+    ],
+    ('Autos y motos', 'Estéreos para auto'): [
+        ('Navegador GPS', '\\bgps\\b|navegador'),
+        ('Ecualizador y procesador', 'ecualizador|procesador|crossover|\\bdsp\\b'),
+        ('Transmisor y adaptador', 'transmisor|adaptador|\\baux\\b|\\bfm\\b|cassette'),
+        ('Autoestéreo con pantalla / CarPlay', 'pantalla|carplay|android auto|multimedia|touch|\\b(7|9|10)"'),
+        ('Kit de instalación y accesorios', '\\bkit\\b|arnes|marco|fascia|conector|antena|control'),
+        ('Autoestéreo con Bluetooth y USB', 'bluetooth|\\busb\\b|mp3|autoestereo|radio|receptor|estereo'),
+    ],
+    ('Electrodomésticos', 'Planchas'): [
+        ('Central de vapor', 'central de vapor|estacion'),
+        ('Plancha de cocina (asador)', 'asar|quemador|grill|press|comal|parrilla|asador|tortilla|teppanyaki|yakiniku|hotcake|panini'),
+        ('Plancha de vapor', 'vapor|steam'),
+        ('Plancha en seco', 'en seco|\\bseco\\b'),
+        ('Plancha de viaje o portátil', 'viaje|portatil|\\bmini\\b|compacta|travel'),
+    ],
+    ('Calzado', 'Calzado de seguridad'): [
+        ('Bota de hule (PVC)', 'hule|\\bpvc\\b'),
+        ('Dieléctrico', 'dielectric'),
+        ('Con casquillo o puntera', 'casquillo|puntera|punta'),
+        ('Zapato de seguridad', 'zapato'),
+        ('Bota de seguridad', 'bota'),
+    ],
+    ('Belleza y cuidado personal', 'Mascarillas faciales'): [
+        ('Mascarilla para pies y manos', 'pies|talones|manos|guantes|calcetines'),
+        ('Parches', '\\bparches?\\b|\\bpatch|microbrush'),
+        ('Antifaz y compresa', 'antifaz|compresa'),
+        ('Mascarilla de noche', 'noche|sleeping|overnight|nocturn'),
+        ('Mascarilla de arcilla o barro', 'arcilla|barro|\\bclay\\b|lodo|carbon'),
+        ('Mascarilla exfoliante / peel', 'exfoli|\\bpeel|peeling|\\baha\\b|\\bbha\\b'),
+        ('Mascarilla de hidrogel', 'hidrogel|jelly'),
+        ('Mascarilla de tela (sheet)', 'sheet|tela|hoja|individual|\\bpack\\b'),
+    ],
+    ('Belleza y cuidado personal', 'Tratamientos y mascarillas capilares'): [
+        ('Gorro térmico', 'gorro|vaporizador|termico'),
+        ('Aceite capilar', 'aceite|\\boil\\b|huile|serum'),
+        ('Tratamiento de keratina / alaciado', 'keratina|queratina|alaciado|botox|brasileno'),
+        ('Ampolletas y tónicos', 'ampolla|tonico|locion|crecimiento|anticaida'),
+        ('Mascarilla capilar', 'mascarilla|masque|\\bmask|hair mask'),
+        ('Crema de peinado y tratamiento', 'crema|leave|sin enjuague|bruma'),
+    ],
+    ('Cocina y comedor', 'Loncheras y termos para alimentos'): [
+        ('Lonchera térmica', 'lonchera termica|loncheras termicas|termica'),
+    ],
+    ('Componentes y accesorios de PC', 'Soportes para monitor'): [
+        ('Soporte para laptop', 'laptop|portatil|notebook|macbook'),
+        ('Soporte elevador (riser)', 'elevador|riser|plataforma|madera'),
+        ('Brazo articulado para monitor', 'brazo|articulado|piston|\\bgas\\b|escritorio'),
+        ('Soporte de pared para TV o monitor', 'pared|fijo|\\btv\\b|pantallas?'),
+    ],
+    ('Belleza y cuidado personal', 'Brillos labiales (gloss)'): [
+        ('Lip oil (aceite labial)', 'lip oil|aceite|\\boil\\b'),
+        ('Gloss voluminizador', 'volumin|plump'),
+        ('Gloss con glitter', 'glitter|brillantina|shimmer'),
+        ('Gloss en barra o lápiz', '\\bbarra\\b|\\bstick\\b|lapiz|crayon|lipstick'),
+        ('Gloss con color o tinte', '\\bcolor\\b|\\btint|tinte'),
+    ],
+    ('Belleza y cuidado personal', 'Cuidado del cabello'): [
+        ('Cepillos y peines', 'cepillo|peine|\\bbrush|paddle|desenredante'),
+        ('Pomadas, ceras y geles', 'pomad|\\bcera\\b|\\bgel\\b|fijador|\\blaca\\b'),
+        ('Tijeras y accesorios', 'tijera|navaja|herramienta|\\bclip|pinza|\\bliga|diadema|\\bdona|accesorios para'),
+        ('Fibras y polvos capilares', 'fibras|polvo|toppik|relleno'),
+        ('Crecimiento y anticaída', 'crecimiento|anticaida|tonico|crece'),
+        ('Crema para rizos y peinado', 'crema|rizos|curl|definidor|mousse|\\bleave'),
+        ('Jabón y shampoo artesanal', 'jabon|shampoo'),
+    ],
+}
+for _k, _v in _TIPOS_08OCT_A.items():
+    TIPOS[_k] = TIPOS.get(_k, []) + [(et, re.compile(rx)) for et, rx in _v]
 # Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
 # 60% lo dice en el nombre, muchas veces en libras.
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(
@@ -2076,6 +2262,14 @@ for _c in ("Belleza y cuidado personal", "Limpieza y hogar", "Suplementos"):
 # Factor de protección solar: el dato que decide un protector, una base o un
 # bálsamo con filtro, y el nombre siempre lo dice («SPF 50+», «FPS 30»).
 REGLAS_TITULO.setdefault("Belleza y cuidado personal", []).append(("spf", se.spf_of))
+# Consola de los juegos retro («Perfect Dark N64», «Warhawk PS3»): 1,998 fichas
+# sin consola y la consola es lo primero que se mira (08-oct-2026).
+for _s in ("Juegos retro y otras plataformas", "Consolas retro y portátiles", "Otros accesorios gamer"):
+    NOMBRE_GENERALES.setdefault(("Videojuegos", _s), []).append(("platform", st.plataforma_retro))
+# Rodada de la bicicleta desde el nombre («r20», «rodada 26», «12R»).
+for _s in ("Bicicletas de montaña", "Bicicletas infantiles", "Bicicletas urbanas y de paseo", "Bicicletas de ruta", "Bicicletas BMX",
+           "Bicicletas plegables", "Bicicletas eléctricas", "Bicicletas sin pedales y balance", "Bicicletas de gravel y ciclocross"):
+    NOMBRE_GENERALES.setdefault(("Bicicletas y movilidad", _s), []).append(("wheel_size", st.rodada_titulo))
 # Sets de perfume: el contenido es el del perfume grande, no el de las miniaturas.
 NOMBRE_GENERALES.setdefault(("Belleza y cuidado personal", "Sets de perfume"), []).append(
     ("volume_ml", lambda t: se.ml_max_of(t, 20, 500)))

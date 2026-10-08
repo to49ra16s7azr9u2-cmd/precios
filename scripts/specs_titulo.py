@@ -1279,3 +1279,53 @@ def modo_clima(texto):
     if re.search(r"\bsolo frio\b|\bsolo enfriamiento\b|^frio$|\bfrio solo\b", n):
         return "Solo frío"
     return None
+
+
+# ----------------------------------------------- videojuegos retro, bicicletas
+_PLATAFORMAS_RETRO = [
+    ("Nintendo Wii U", r"\bwii ?u\b"), ("Nintendo Wii", r"\bwii\b"), ("Nintendo 3DS", r"\b3ds\b|\bn3ds\b"),
+    ("Nintendo DS", r"\bnds\b|nintendo ds\b|\bds lite\b|\bdsi\b|\bds\b"),
+    ("Game Boy", r"game ?boy|\bgba\b|\bgbc\b"), ("Nintendo 64", r"\bn64\b|nintendo 64"),
+    ("GameCube", r"game ?cube|\bngc\b"), ("Super Nintendo", r"\bsnes\b|super nintendo|super nes"),
+    ("NES", r"\bnes\b|\bfamicom\b"),
+    ("PlayStation 3", r"\bps3\b|playstation ?3"), ("PlayStation 2", r"\bps2\b|playstation ?2"),
+    ("PlayStation Vita", r"\bvita\b|\bpsvita\b"), ("PSP", r"\bpsp\b"),
+    ("PlayStation", r"\bps1\b|\bpsx\b|\bpsone\b|playstation ?(1|one)\b|ps one"),
+    ("Xbox 360", r"xbox ?360|\b360\b"), ("Xbox", r"xbox (clasico|original|classic)|\bxbox\b"),
+    ("Sega", r"\bsega\b|genesis|dreamcast|saturn|mega ?drive|master system"), ("Atari", r"\batari\b"),
+    ("PC", r"\bpc\b|windows|steam"),
+]
+
+
+def plataforma_retro(nombre):
+    """Consola de un juego o accesorio retro («Perfect dark n64», «Warhawk ps3»).
+    Gana la primera de la tabla, que va de lo específico a lo general («Wii U»
+    antes que «Wii»). Un nombre con dos consolas distintas no se lee."""
+    n = _norm(nombre)
+    hay = [et for et, rx in _PLATAFORMAS_RETRO if re.search(rx, n)]
+    if not hay:
+        return None
+    # «360/One» (Xbox 360 y Xbox One): la 360 manda; dos consolas de marcas
+    # distintas, ninguna.
+    marcas = {"Nintendo" if h.startswith(("Nintendo", "Game", "Super", "NES")) else
+              "Sony" if h.startswith(("PlayStation", "PSP")) else
+              "Microsoft" if h.startswith("Xbox") else h for h in hay}
+    return hay[0] if len(marcas) == 1 else None
+
+
+_RODADAS = {"10", "12", "14", "16", "18", "20", "24", "26", "27.5", "28", "29", "700"}
+
+
+def rodada_titulo(nombre):
+    """Rodada de una bicicleta del nombre («r20», «rodada 26», «12R»): el mismo
+    formato que la ficha («R20»). Sólo si el nombre habla de una bicicleta."""
+    n = _norm(nombre)
+    if not re.search(r"bicicleta|\bbici\b|\bmtb\b|rodada|montana|\bcross\b|\bbmx\b", n):
+        return None
+    vals = set()
+    for rx in (r"\brodada\s*(?:r\s*)?(\d{2}(?:\.5)?|700)\b", r"(?<![\w.])r\s?(\d{2}(?:\.5)?|700)\b(?!\s*[x/]|\s*(?:cm|mm|v|w|gb))",
+               r"(?<![\w.])(\d{2}(?:\.5)?)\s?r\b"):
+        for m in re.finditer(rx, n):
+            if m.group(1) in _RODADAS:
+                vals.add(m.group(1))
+    return "R" + next(iter(vals)) if len(vals) == 1 else None
