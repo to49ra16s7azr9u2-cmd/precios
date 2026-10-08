@@ -5240,5 +5240,85 @@ LOTES['auditoria_42'] = [
 ]
 REGLAS += LOTES['auditoria_42']
 
+# auditoria_43 (08-oct-2026): quinta ronda de revisión a mano (SVM + Bayes de acuerdo, 78 trozos de ~140 grupos).
+# Los patrones que se repetían en los movimientos aceptados, vueltos regla para que alcancen a toda la base:
+# geles y jabones de baño en Shampoo/Cremas faciales, parches de ojos, cepillos de pelo y de dientes en Belleza,
+# bálsamo post-tatuaje, aromatizantes y ceras de auto, luminarios high bay, lonas, cinta aislante, pistolas de pintura,
+# camillas de masaje, juegos de plataformas viejas, kits de afinación, vasos de vidrio, alimentación del bebé,
+# tanques hidroneumáticos y dispensadores de agua.
+_BELLEZA_MAL_JABON = {'Shampoo', 'Cremas faciales', 'Corporales', 'Cuidado personal', 'Tratamientos y mascarillas capilares', 'Body mist y splash', 'Acondicionadores'}
+LOTES['auditoria_43'] = [
+    # R0 geles/jabones de baño
+    ('Belleza y cuidado personal', r'\bgel (de|para) (bano|ducha)|\bgeles? de (bano|ducha)|body wash|shower gel|jabon (liquido|en barra|de barra)\b|barra de jabon',
+     r'shampoo|champu|facial|rostro|\bcara\b|dental|trastes|loza|ropa|detergente|mascota|perro|gato|afeitar|barba|\b2 en 1\b|\b3 en 1\b|\b2-en-1\b|\b3-en-1\b|bano de burbujas|sales|\\bedt\\b|\\bedp\\b|eau de|parfum|body mist|body lotion|locion corporal|crema corporal|set |kit |estuche',
+     'Belleza y cuidado personal', 'Jabones y geles de baño', _BELLEZA_MAL_JABON),
+    # R1 parches para ojos
+    ('Belleza y cuidado personal', r'parches? (para|de|con) (los )?ojos|eye patch|under.?eye (patch|mask)|parches? (de )?(hidrogel|colageno) (para )?(los )?ojos|parches? ojeras|mascarillas? (para|de) (los )?ojos',
+     r'pestana|lash|cejas|acne|granos|mascota|perro|gato|nasal|piel muerta|calentador|termic|dolor|dormir|antifaz|vapor',
+     'Belleza y cuidado personal', 'Contorno de ojos y labios', {'Mascarillas faciales', 'Cremas faciales', 'Polvos, rubores y bronceadores', 'Sérums faciales', 'Maquillaje', 'Cuidado personal'}),
+    # R2 cepillos de pelo
+    ('Belleza y cuidado personal', r'cepillo (para|de) (el )?(cabello|pelo|cuero cabelludo)|cepillo desenredante|cepillo para desenredar|peine (para|de) (cabello|pelo)',
+     r'electric|termic|alaciador|secador|secadora|aire caliente|calor|plancha|rizador|mascota|perro|gato|barba|dientes|dental|pestana|ceja|maquillaje|base de|polvo|brocha|ionic|iones|ceramic',
+     'Belleza y cuidado personal', 'Cuidado del cabello', {'Secadoras de cabello', 'Planchas para cabello', 'Rizadores', 'Afeitadoras eléctricas'}),
+    # R3 post-tatuaje
+    ('Belleza y cuidado personal', r'(after|post) ?(care )?tattoo|post.?tatu|despues del tatuaje|posterior al tatuaje|tattoo (balm|aftercare|lotion|cream)|balsamo para tatuaje|crema (para )?tatuaje|pomada.*tatu',
+     r'tinta|maquina|aguja|stencil|cartucho|pigmento|removedor|anestesi|jabon|limpiador',
+     'Belleza y cuidado personal', 'Cremas y lociones corporales', {'Cuidado personal', 'Cuidado del cabello', 'Ceras, geles y fijadores', 'Bálsamos labiales', 'Cremas faciales'}),
+    # R4 cepillo de dientes manual / electrico mal puesto en Belleza
+    ('Belleza y cuidado personal', r'cepillo (de )?dientes|cepillo dental|toothbrush', r'electric|sonic|oscilante|recargable|cabezal(es)?|cabezas|recambio|repuesto|\bpara perro|mascota',
+     'Salud', 'Cuidado dental', None),
+    ('Belleza y cuidado personal', r'cepillo (de )?dientes electric|cepillo dental electric|electric toothbrush|cepillo electrico (de )?dientes', r'cabezal(es)?|recambio|repuesto',
+     'Salud', 'Cepillos de dientes eléctricos', None),
+    # R6 aromatizantes de auto
+    ('Autos y motos', r'aromatizante|ambientador|air freshener|desodorante para (auto|carro|coche)|perfume para (auto|carro|coche)|aroma para (auto|carro|coche)',
+     r'hogar|casa|cuarto|bano|difusor|humidificador|aceite esencial|electrico',
+     'Autos y motos', 'Aromatizantes para auto', {'Accesorios para auto', 'Autos', 'Limpieza y cuidado del auto', 'Tapetes, fundas y parasoles'}),
+    # R7 limpieza/cuidado de auto
+    ('Autos y motos', r'\bcera (liquida|en pasta|para (auto|coche|carro))|recubrimiento ceramico|ceramic coating|detail(er|ing)|limpia ?llantas|limpiador de llantas|acondicionador de llantas|abrillantador (de )?(llantas|auto)|pulidor(a)? de (auto|pintura)|shampoo para (auto|coche|carro)|lava(do)? de auto|microfibra para (auto|coche|carro)|toalla de secado de (auto|coche|carro)|quitamanchas para (auto|coche|carro)',
+     r'moto casco|casco|motocicleta', 'Autos y motos', 'Limpieza y cuidado del auto', {'Autos', 'Accesorios para auto', 'Llantas para auto', 'Tapetes, fundas y parasoles'}),
+    # R8 high bay
+    ('Iluminación', r'high ?bay|campana (led )?industrial|luminario (led )?(tipo )?ufo|lampara ufo|bodega ufo|campana ufo',
+     None, 'Iluminación', 'Lámparas industriales y de nave', {'Exterior', 'Plafones y lámparas de sobreponer', 'Focos', 'Decorativa', 'Lámparas colgantes', 'Reflectores', 'Empotrada'}),
+    # R9 lonas
+    ('Herramientas', r'^lona\b|\blona (de polietileno|impermeable|azul|plastica|uso rudo|rafia|termosellada)|toldo de polietileno', r'funda|cubierta para|tienda',
+     'Herramientas', 'Construcción', {'Bolsas y cinturones portaherramientas', 'Jardinería', 'Organizadores de herramientas', 'Herramientas manuales'}),
+    # R10 cinta vinil/aislante
+    ('Herramientas', r'cinta (de )?(vinil|aislante|aislar|electrica|para aislar)|vinitape|vynitape|cinta azul vinil|cinta amarilla vinil', None,
+     'Herramientas', 'Material eléctrico', {'Juegos de herramientas', 'Sierras', 'Apagadores y contactos', 'Cables y extensiones eléctricas', 'Plomería', 'Herramientas manuales', 'Medición', 'Pinzas y alicates', 'Jardinería'}),
+    # R11 pistola para pintar
+    ('Herramientas', r'pistola (para|de) pintar|pistola de pintura|pulverizador (de )?pintura|pistola gravedad|\bhvlp\b|pintar(a)? pistola|pistola pulverizadora',
+     r'repuesto|boquilla|vaso|reparacion|refaccion|aerografo|agua|agropecuario|fumig|riego|manguera|valvula|aguja|liqui moly|diesel|particulas|limpieza|desinfecc|sanitiz',
+     'Herramientas', 'Compresores y herramienta neumática', {'Jardinería', 'Pistolas de calor, engrapadoras y clavadoras', 'Llaves y dados', 'Herramientas eléctricas', 'Soldadura', 'Juegos de herramientas', 'Herramientas manuales'}),
+    # R12 camillas de masaje
+    ('Muebles', r'camilla (de )?(masaje|para masaje|portatil|lashista|estetica|facial|cosmetologia)|mesa de masaje|cama (de )?masaje|silla de pedicura|camilla lashista', r'veterinari|mascota|ambulancia|hospital|perro|gato',
+     'Belleza y cuidado personal', 'Mobiliario para salón', None),
+    # R13 juegos de plataformas viejas
+    ('Videojuegos', r'playstation ?3|\bps ?3\b|xbox 360|nintendo wii\b|\bwii u?\b|nintendo ds\b|\b3ds\b|\bpsp\b|ps vita|playstation vita|game ?cube|nintendo 64|\bps ?2\b|playstation 2',
+     r'switch|ps ?4|ps ?5|playstation ?[45]|xbox (one|series)|series [xs]|\bpc\b|compatible con (ps|playstation|xbox)',
+     'Videojuegos', 'Juegos retro y otras plataformas', {'Juegos PS4', 'Juegos PS5', 'Juegos Xbox', 'Juegos Nintendo Switch'}),
+    # R15 kit de afinacion
+    ('Autopartes', r'kit de afinaci(on)?|kit afinacion|afinacion (mayor|menor)|\bkit de afinacin\b', None,
+     'Autopartes', 'Filtros y aceites', {'Motor y transmisión', 'Bujías y encendido', 'Para autos', 'Frenos', 'Enfriamiento y climatización', 'Sistema eléctrico y sensores', 'Bombas', 'Empaques, juntas y retenes'}),
+    # R16 vasos de vidrio
+    ('Cocina y comedor', r'^(set de |juego de |paquete de |pack de )?\d* ?vasos? (de )?vidrio|^vasos? .* de vidrio|^vaso de vidrio', r'termo|termico|tapa|popote|\bjarra\b|medidor|shot|tequilero',
+     'Cocina y comedor', 'Vasos y copas', {'Botellas de vidrio y plástico', 'Utensilios de cocina', 'Vasos térmicos y de viaje'}),
+
+    # R17 alimentación del bebé
+    ('Bebés', r'vasos? (de )?(entrenamiento|transicion)|tazon (de|para) alimentacion|cuchara(s)? (para|de) bebe|pajita .*(bebe|ninos pequenos)|plato (para|de) bebe|dispensador (apilable )?para formula|\bleche materna|extractor de leche|sacaleches',
+     r'juguete|sonaja|mordedera',
+     'Bebés', 'Alimentación y lactancia', {'Juguetes para bebé', 'Seguridad para bebé', 'Baño e higiene del bebé', 'Carriolas', 'Ropa y calzado de bebé'}),
+    # R18 pestañas postizas y pegamento
+    ('Belleza y cuidado personal', r'adhesivo para pestanas|pegamento para pestanas|pestanas (postizas|falsas)|kit de pestanas|lash glue|lash kit|natural lash kit',
+     r'serum|crecimiento|aceite|rizador|^mascara|\\bmascara\\b|rimel|delineador',
+     'Belleza y cuidado personal', 'Pestañas postizas', {'Máscaras de pestañas y cejas', 'Tratamientos y mascarillas capilares', 'Bases de maquillaje', 'Sombras y delineadores', 'Cuidado personal', 'Cremas faciales'}),
+    # R19 tanques hidroneumáticos
+    ('Herramientas', r'hidroneumatic|presurizador', r'compresor',
+     'Herramientas', 'Bombas de agua', {'Neumáticas', 'Plomería', 'Jardinería', 'Herramientas eléctricas'}),
+    # R20 dispensadores de agua
+    ('Electrodomésticos', r'dispensador (de )?agua|despachador de agua|dispensador de garrafon|dispensador (para )?garrafon', r'perro|gato|mascota|jabon|cereal|croqueta|bebedero|jugos|vidrio|jarra|limonada|bebidas|ecofiltro|purificador y|^filtro',
+     'Electrodomésticos', 'Dispensadores de agua', {'Purificadores bajo tarja', 'Hervidores y teteras', 'Filtros y membranas de repuesto', 'Refacciones para refrigerador', 'Pequeños electrodomésticos de cocina'}),
+]
+REGLAS += LOTES['auditoria_43']
+
 if __name__ == '__main__':
     main()
