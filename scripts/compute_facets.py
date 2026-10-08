@@ -2535,6 +2535,64 @@ _TIPOS_08OCT_D = {
 }
 for _k, _v in _TIPOS_08OCT_D.items():
     TIPOS[_k] = TIPOS.get(_k, []) + [(et, re.compile(rx)) for et, rx in _v]
+# Séptima tanda del 08-oct-2026 (sillones, cables y extensiones, lámparas solares, estufas, desbrozadoras...). Misma regla de suma.
+_TIPOS_08OCT_F = {
+    ('Muebles', 'Sillones y reclinables'): [
+        ('Sillón reclinable', 'reclinable|reclinomatic|recliner|relax'),
+        ('Sillón giratorio o mecedor', 'giratori|mecedor|columpio'),
+        ('Puff o sillón de piso', '\\bpuff\\b|sillon de piso|inflable|saco\\b|bean bag|piso\\b'),
+        ('Chaise y modular', 'chaise|modular|seccional|esquinero|l-?shape'),
+        ('Sillón infantil', 'infantil|ninos|\\bkids\\b|bebe'),
+        ('Sofá de 2 o 3 plazas', '[23] plazas|love ?seat|\\bsofa\\b|\\bsofas\\b'),
+        ('Sillón de piel', '\\bpiel\\b|cuero|chesterfield|confortopiel|leather'),
+        ('Sillón de terciopelo', 'terciopelo|velvet|boucle|chenille'),
+        ('Sillón de tela o lino', '\\btela\\b|lino|tapizad|algodon'),
+        ('Sillón individual', 'individual|1 plaza|un plaza|ocasional|una plaza'),
+    ],
+    ('Herramientas', 'Cables y extensiones eléctricas'): [
+        ('Terminal, conector y pinza', 'terminal|conector|clavija|caiman|pinza|zapata|empalme|ficha'),
+        ('Extensión de uso rudo', 'uso rudo|rudo|industrial|reforzada'),
+        ('Extensión doméstica', 'domestica|\\bextension\\b|extensiones|multicontacto'),
+        ('Cable por rollo o por metro', 'rollo|thw|thhw|\\bcca\\b|cal(ibre)? ?\\d|\\d+ ?awg|metro|alambre|conductores|por metro'),
+        ('Cable de pruebas o de arranque', 'prueba|pasa corriente|pasacorriente|arranque|jumper|multimetro'),
+    ],
+    ('Iluminación', 'Lámparas solares'): [
+        ('Alumbrado público solar (poste)', 'suburbana|poste|publico|alumbrado|luminaria|luminario|calle|farola|farol led'),
+        ('Reflector solar', 'reflector|proyector|flood|\\b\\d{2,3} ?w\\b|foco solar|focos solares'),
+        ('Serie de luces solares', 'serie|cadena|guirnalda|string|hadas'),
+        ('Lámpara de pared con sensor', 'pared|muro|aplique|sensor de movimiento|con sensor'),
+        ('Luces de suelo o estaca (jardín)', 'suelo|estaca|jardin|camino|piso|spike|\\bluces solares\\b'),
+        ('Farol solar decorativo', 'farol|lantern|linterna'),
+        ('Luz decorativa solar (figuras)', 'decorativ|luna|estrella|mariposa|flor|animal|figura|globo|esfera|bola|libelula'),
+        ('Para cerca, escalones y terraza', 'cerca|escalon|valla|deck|terraza|poste de'),
+    ],
+    ('Iluminación', 'Series y guirnaldas de exterior'): [
+        ('Árbol y esferas', 'arbol|esferas|ornaments|adornos'),
+        ('Cascada o cortina', 'cascada|cortina|carambano|icicle'),
+        ('Manguera de luz', 'manguera|neon flex|cuerda de luz|rope light|tubo'),
+        ('Solar', 'solar'),
+        ('Guirnalda de focos (vintage o G40)', 'guirnalda|g40|st38|vintage|edison|bombilla|inastillable'),
+        ('Cadena de luces (hadas)', 'cadena|hadas|cobre|fairy|alambre'),
+        ('Serie navideña', 'serie|navidena|christmas|navidad'),
+    ],
+    ('Electrodomésticos', 'Estufas'): [
+        ('Refacciones y accesorios', 'kit de|repuesto|piezas|quemadores? (sofdesk|de repuesto)|encendedor|hervidor|rejilla|perilla|valvula|plancha reversible|plancha de hierro'),
+        ('Combo con campana', 'combo|campana'),
+        ('Estufa de gas portátil o exterior', 'portatil|exterior|aire libre|camping|\\b\\d{2,3} ?000 ?btu'),
+        ('Estufa empotrable', 'empotr'),
+        ('Parrilla de mesa', 'parrilla|\\bmesa\\b|cubierta|tope'),
+        ('Estufa de piso', 'piso|\\b(20|24|30|36|40)\\b ?(pulgadas|"|plg)|al piso|76 ?cm|50 ?cm'),
+        ('Estufa eléctrica o de inducción', 'electrica|induccion|vitroceramica|resistencia'),
+    ],
+    ('Herramientas', 'Desbrozadoras y desmalezadoras'): [
+        ('Hilo, cuchillas y repuestos', '^(hilo|linea|cabezal|cuchilla|resorte|campana|tuerca|cable acelerador|maneral|diafragma|gatillo|recambio|disco|arnes|carburador|filtro|bujia|kit|nylon|cable de|clip|\\d+ )|hilo para|linea para|cuchillas? para|repuesto|recambio|compatible con|refaccion|carrete'),
+        ('A gasolina', 'gasolina|\\d+ ?cc\\b|2 tiempos|\\bhp\\b|\\bgas\\b'),
+        ('Inalámbrica (de batería)', 'inalambric|bateria|\\b\\d{2} ?v\\b|cordless|litio'),
+        ('Eléctrica (de cable)', 'electrica|\\b\\d{3,4} ?w\\b|127 ?v|con cable'),
+    ],
+}
+for _k, _v in _TIPOS_08OCT_F.items():
+    TIPOS[_k] = TIPOS.get(_k, []) + [(et, re.compile(rx)) for et, rx in _v]
 # Sexta tanda del 08-oct-2026 (platos, cremas corporales, compresores, taburetes, discos, cocina industrial, pinzas, barras de sonido...). Misma regla de suma.
 _TIPOS_08OCT_E = {
     ('Cocina y comedor', 'Platos y bowls'): [
@@ -2789,6 +2847,8 @@ NOMBRE_GENERALES.setdefault(("Juguetes", "Bloques de construcción"), []).append
 NOMBRE_GENERALES.setdefault(("Juguetes", "Bloques de construcción"), []).append(("set_num", st.numero_set))
 NOMBRE_GENERALES.setdefault(("Herramientas", "Hidrolavadoras"), []).append(("pressure_psi", st.presion_psi))
 NOMBRE_GENERALES.setdefault(("Bocinas", "Barras de sonido"), []).append(("channels", st.canales_sonido))
+NOMBRE_GENERALES.setdefault(("Herramientas", "Cables y extensiones eléctricas"), []).extend(
+    [("awg", st.calibre_awg), ("outlets", st.contactos)])
 NOMBRE_GENERALES.setdefault(("Juguetes", "Funko y coleccionables"), []).extend([("funko_ed", st.edicion_funko), ("funko_num", st.numero_funko)])
 NOMBRE_GENERALES.setdefault(("Juguetes", "Muñecas"), []).append(("doll_line", st.linea_muneca))
 for _s in ("Sartenes y comales", "Comales y planchas"):

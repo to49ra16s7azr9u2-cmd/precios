@@ -908,6 +908,11 @@ def _fmt(suf):
     return lambda v: f"{v}{suf}"
 
 
+def _g(suf):
+    """Como _fmt pero sin el «.0» de los enteros que vienen como float (1.0 HP -> 1 HP)."""
+    return lambda v: (f"{v:g}" if isinstance(v, (int, float)) and not isinstance(v, bool) else str(v)) + suf
+
+
 ETIQUETAS_FACETAS = [
     ("ram_gb", "Memoria RAM", _fmt(" GB")), ("storage_gb", "Almacenamiento", _fmt(" GB")),
     ("screen_in", "Tamaño de pantalla", _fmt('"')), ("refresh_hz", "Frecuencia de actualización", _fmt(" Hz")),
@@ -953,11 +958,31 @@ ETIQUETAS_FACETAS = [
     ("pressure_bar", "Presión de la bomba", _fmt(" bar")),
     ("pressure_psi", "Presión máxima", _fmt(" PSI")),
     ("channels", "Canales", str),
+    ("awg", "Calibre", _fmt(" AWG")),
     ("players_max", "Jugadores", lambda v: "5 o más" if v == 99 else ("1" if v == 1 else f"Hasta {v}")),
     ("firmness", "Firmeza", str), ("fuel", "Funciona con", str), ("heater_type", "Tipo de calentador", str),
     ("fan_type", "Tipo de ventilador", str),
     ("spf", "Factor de protección solar", lambda v: f"FPS {v}"),
     ("dims", "Medidas", str),
+    # Lo que ya se calculaba y la ficha nunca mostraba (08-oct-2026: ~50 campos, 120 mil datos).
+    ("speed_rating", "Índice de velocidad", str), ("length_cm", "Largo", _g(" cm")),
+    ("pack_n", "Piezas en el paquete", str), ("age_rating", "Clasificación por edad", str),
+    ("doors", "Puertas", str), ("storage_type", "Tipo de almacenamiento", lambda v: str(v).upper()),
+    ("tool_type", "Tipo de herramienta", str), ("breed_size", "Tamaño de raza", str), ("pet_stage", "Etapa de vida", str),
+    ("gps", "GPS", str), ("battery_h", "Duración de la batería", _g(" h")), ("weight_kg", "Peso", _g(" kg")),
+    ("network_gen", "Red", lambda v: str(v).upper()), ("size_in", "Tamaño", _g(" pulgadas")),
+    ("model_name", "Modelo", str), ("hood_cm", "Ancho de la campana", _g(" cm")), ("blackout", "Blackout (bloquea la luz)", str),
+    ("fan_in", "Tamaño del aspa", _g(" pulgadas")), ("os_compat", "Compatible con", str), ("hp", "Potencia del motor", _g(" HP")),
+    ("sport", "Deporte", str), ("thread_count", "Hilos por pulgada", str), ("wheel_size", "Rodada", str),
+    ("speeds", "Velocidades", str), ("memory_foam", "Memory foam", str), ("speaker_count", "Número de bocinas", str),
+    ("tv_max_in", "Para TV de hasta", _g(" pulgadas")), ("climate_mode", "Modo", str), ("outlets", "Contactos", str),
+    ("multifunction", "Función", str), ("ports", "Puertos", str), ("heart_rate", "Ritmo cardiaco", str),
+    ("helmet_type", "Tipo de casco", str), ("focal_mm", "Distancia focal", _g(" mm")), ("services", "Servicios (baños)", _g("")),
+    ("ball_no", "Número de balón", str), ("polarized", "Polarizado", str), ("calls", "Llamadas", str),
+    ("steps", "Escalones", str), ("curved", "Pantalla curva", str), ("cordless", "Inalámbrico", str),
+    ("filament", "Material del filamento", str), ("battery_ah", "Batería", _g(" Ah")), ("mop", "Trapea", str),
+    ("thickness_mm", "Grosor", _g(" mm")), ("glove_oz", "Peso del guante", _g(" oz")), ("mobile_data", "Datos móviles", str),
+    ("bike_type", "Tipo de bicicleta", str), ("dual_basket", "Doble canasta", str), ("range_km", "Autonomía", _g(" km")),
 ]
 
 

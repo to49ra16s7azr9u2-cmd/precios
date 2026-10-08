@@ -492,6 +492,16 @@ def canales_sonido(nombre):
     return next(iter(vals)) if len(vals) == 1 else None
 
 
+def calibre_awg(nombre):
+    """Calibre de un cable o una extensión («calibre 12», «14 AWG», «cal. 16»): lo que dice
+    cuánta corriente aguanta (más bajo = más grueso)."""
+    n = _norm(nombre)
+    vals = {int(m.group(1)) for m in re.finditer(r"(?<![\d.,/x-])(\d{1,2})\s*awg\b", n)}
+    vals |= {int(m.group(1)) for m in re.finditer(r"\bcal(?:ibre|\.)?\s*:?\s*(\d{1,2})(?![\d.]|,\d|\s*(?:mm|cm|m\b|pulg|v\b|w\b))", n)}
+    vals = {v for v in vals if 4 <= v <= 26}
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
 _HP_RE = re.compile(r"(?<![\d./])(\d+\s+\d/\d|\d/\d|\d{1,2}(?:\.\d{1,2})?)\s*(?:hp|caballos?(?: de fuerza)?)\b")
 
 
