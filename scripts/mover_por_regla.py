@@ -5113,8 +5113,101 @@ LOTES['auditoria_37'] = [
      {'Suspensión y dirección de moto', 'Para autos'}),
     ('Autopartes', r'casco de soldadura|careta (para )?soldar', None, 'Herramientas', 'Caretas y cascos para soldar', {'Para autos'}),
     ('Autopartes', r'bomba presurizadora', None, 'Herramientas', 'Bombas de agua', {'Bombas', 'Bombas de agua'}),
+    # Décima muestra al azar (300 fichas, 13 mal: 4.3%).
+    ('Belleza y cuidado personal', r'barra de labios|labial|lipstick', r'balsamo|brillo', 'Belleza y cuidado personal', 'Labiales',
+     {'Vaporizadores y equipo de spa'}),
+    ('Belleza y cuidado personal', r'\b(cc|bb|dd) cream|crema (cc|bb)\b', None, 'Belleza y cuidado personal', 'Bases de maquillaje',
+     {'Protección solar'}),
+    ('Cargadores y adaptadores', r'^cable\b', r'cargador \+|con cargador', 'Cargadores y adaptadores', 'Cable', {'De pared', 'Adaptador de corriente'}),
+    ('Bebés', r'cuna moises|\bmoises\b|cuna colecho|cuna de viaje', None, 'Bebés', 'Cunas', {'Carriolas', 'Sistemas de viaje', 'Seguridad para bebé'}),
+    ('Herramientas', r'conector (curvo|recto) para tubo|tubo flexible|manguera flexible para (lavabo|wc|tarja)', None, 'Herramientas', 'Plomería',
+     {'Llaves ajustables y stilson', 'Llaves y dados', 'Pinzas y alicates'}),
+    ('Cargadores y adaptadores', r'eliminador de obstrucciones|drain snake|destapacanos|destapa canos|zip-?it', None, 'Herramientas', 'Plomería',
+     {'Adaptador de corriente', 'De pared'}),
+    ('Mascotas', r'tapete sanitario|pads? (sanitarios?|de entrenamiento)|empapador', None, 'Mascotas', 'Higiene y limpieza',
+     {'Camas elevadas y colchonetas', 'Camas para perro', 'Cojines y mantas para mascotas'}),
+    ('Muebles', r'mesa periquera|periquera\b', r'bebe|silla', 'Muebles', 'Mesas altas y de bar', {'Mesas de centro'}),
+    ('Herramientas', r'pinzas? (generic )?para retirar grapas|quitagrapas|saca grapas', None, 'Herramientas', 'Pinzas y alicates',
+     {'Pistolas de calor, engrapadoras y clavadoras'}),
 ]
 REGLAS += LOTES['auditoria_37']
+
+# auditoria_38 (08-oct-2026): lo que salió de revisar a mano 836 grupos que propone el bayesiano
+# sin el voto de la propia ficha (auditoria_nb_sub.py) más la cabeza de dos palabras. Los grupos que
+# bastaba mover una vez se aplicaron por aplicar_movimientos; acá van los que conviene que sean regla
+# (entran fichas nuevas con el mismo error).
+LOTES['auditoria_38'] = [
+    ('Autopartes', r'^manguera moldeada', r'moto', 'Autopartes', 'Mangueras y tubos de enfriamiento',
+     {'Frenos', 'Motor y transmisión', 'Bujías y encendido'}),
+    ('Belleza y cuidado personal', r'pasta (dental|de dientes)|crema dental|enjuague bucal',
+     r'perro|gato|mascota|exprimidor|\btapas?\b|tapon|dispensador|salero|organizador', 'Belleza y cuidado personal', 'Cuidado personal',
+     {'Cuidado del cabello', 'Cremas y lociones corporales', 'Tratamientos y mascarillas capilares', 'Aceites esenciales y de masaje',
+      'Corporales', 'Uñas', 'Labiales', 'Perfumes', 'Sérums faciales', 'Cremas faciales'}),
+    ('Tabletas', r'tabletas de pasta de dientes', None, 'Belleza y cuidado personal', 'Cuidado personal', {'Tabletas Android'}),
+    ('Iluminación', r'cascada navidena|serie navidena|manguera decorativa navidena', None, 'Iluminación', 'Luces navideñas y guirnaldas',
+     {'Exterior', 'Focos'}),
+    ('Herramientas', r'apagadores? (de )?escalera|apagadores? escalera', None, 'Herramientas', 'Apagadores y contactos',
+     {'Escaleras', 'Placas y tapas eléctricas'}),
+    ('Muebles', r'\bsillas?\b', r'\bmesas?\b|comedor de|juego de comedor|\bbancos?\b', 'Muebles', 'Sillas de exterior', {'Mesas de exterior'}),
+    ('Ropa y accesorios', r'^playera|^camiseta', None, 'Ropa y accesorios', 'Playeras', {'Gorras y sombreros'}),
+    ('Belleza y cuidado personal', r'^jabon (liquido|de tocador|en barra|de manos|corporal|perfumado|natural|artesanal)',
+     r'afeitar|facial|cara\b|rostro|mascota|perro|gato|trastes|platos|lavaplatos|ropa|dish|tatuaje', 'Belleza y cuidado personal',
+     'Jabones y geles de baño', {'Shampoo', 'Cuidado del cabello', 'Cremas y lociones corporales', 'Perfumes', 'Aceites esenciales y de masaje',
+                                  'Sérums faciales'}),
+]
+REGLAS += LOTES['auditoria_38']
+
+# auditoria_39 (08-oct-2026): fichas sin subcategoría cuya CATEGORÍA está mal, vistas con el bayesiano de
+# categoría (2,318 fichas sin subcategoría, 208 con otro destino claro): el «gato» hidráulico en Mascotas,
+# las cámaras de llanta en Cámaras y fotografía, los suplementos para animales en Suplementos.
+LOTES['auditoria_39'] = [
+    ('Suplementos', r'(para|de) (caballos?|perros?|gatos?|animales|mascotas?)\b|\bcaninos?\b|\bfelinos?\b|\bequinos?\b',
+     r'humanos?|personas|una de gato|cat.?s claw', 'Mascotas', 'Alimento y premios'),
+    ('Cámaras y fotografía', r'^camara \d+([.,]\d+)?\s*[-/]\s*\d+|\btr(4|13|15|87)\b', r'fotograf|digital|lente', 'Autos y motos',
+     'Cámaras y accesorios de llanta', {None}),
+    ('Cámaras y fotografía', r'camara (de )?(retroceso|reversa|trasera|respaldo|punto ciego)', None, 'Autos y motos', 'Cámaras para auto', {None}),
+    ('Autos y motos', r'^lona\b', None, 'Herramientas', 'Construcción', {None}),
+    ('Mascotas', r'^inflable .*halloween|^inflable halloween', None, 'Decoración de hogar y jardín', 'Navidad y temporada', {None}),
+    ('Mascotas', r'estatua de jardin', None, 'Decoración de hogar y jardín', 'Figuras y adornos', {None}),
+    ('Mascotas', r'fiesta|cumpleanos|banner de|tatuajes temporales|papeleria', r'alimento|croqueta|premio', 'Juguetes',
+     'Artículos para fiestas', {None}),
+    ('Mascotas', r'\bgato (para|botella|hidraulico|de botella|tijera)|soporte para gato|bloques? de gato|gato para transmision',
+     r'comida|alimento|arena|cama|rascador|juguete|fiesta|papeleria|tematica|cumpleanos', 'Autos y motos', 'Gatos y herramientas para auto', {None}),
+    ('Instrumentos musicales', r'(set|conjunto) de (mini )?instrumentos musicales|instrumentos musicales (de madera|para ni)', None,
+     'Juguetes', 'Juguetes educativos', {None}),
+    ('Herramientas', r'gua ?sha|herramienta de (peinado|masaje)|herramienta de trenzado', None, 'Belleza y cuidado personal',
+     'Masajeadores', {None}),
+    ('Cargadores y adaptadores', r'receptor (de )?audio bluetooth|receptor bluetooth', None, 'Bocinas', 'Amplificadores y receptores', {None}),
+]
+REGLAS += LOTES['auditoria_39']
+
+# auditoria_40 (08-oct-2026): undécima muestra al azar (300 fichas, 20 mal: 6.7%, a mitad de la regeneración).
+LOTES['auditoria_40'] = [
+    ('Electrodomésticos', r'aceite de (ricino|coco|argan|rosa mosqueta|almendras)|aceite esencial', None, 'Belleza y cuidado personal',
+     'Aceites esenciales y de masaje', {'Extractores de jugo'}),
+    ('Herramientas', r'aceite de cocina|aceite de oliva|rociador de aceite|pulverizador de aceite', None, 'Cocina y comedor',
+     'Utensilios de cocina', {'Jardinería', 'Fumigadoras y pulverizadores'}),
+    ('Instrumentos musicales', r'pistola (de )?(masaj|percusion)|masajeador de percusion|masaje de percusion', None, 'Belleza y cuidado personal',
+     'Masajeadores', {'Percusión'}),
+    ('Videojuegos', r'cubiertas? (verdes|negras|de|para)|agarres? para pulgares|thumb ?grips?|carcasa|\bskins?\b',
+     r'videojuego|edition|edicion', 'Videojuegos', 'Fundas, micas y protectores',
+     {'Juegos PS5', 'Juegos PS4', 'Juegos Xbox', 'Juegos Nintendo Switch', 'Juegos retro y otras plataformas'}),
+    ('Juguetes', r'figuras? de accion|figuras? de vinil', r'lego|mega|bloques|construc|armable|brick|playmobil|duplo|technic', 'Juguetes',
+     'Figuras de acción', {'Bloques de construcción'}),
+    ('Cargadores y adaptadores', r'\bps link\b|para playstation|para ps[345]\b|para xbox|para nintendo switch', None, 'Videojuegos',
+     'Cables y adaptadores', {None}),
+    ('Autos y motos', r'vulcanizador instantaneo|sellador (de )?llantas?|infla ?llantas?', None, 'Autos y motos', 'Infladores para llanta',
+     {'Llantas para moto', 'Llantas para auto', 'Llantas'}),
+    ('Belleza y cuidado personal', r'mascarillas? de hoja|mascarillas? (facial )?de tela|sheet mask|mascarillas? facial',
+     r'cabello|capilar|pelo|hair', 'Belleza y cuidado personal', 'Mascarillas faciales', {'Cremas faciales', 'Sérums faciales', 'Limpiadores y tónicos'}),
+    ('Bocinas', r'yamaha dxr|yamaha dbr|yamaha dzr|jbl eon|jbl prx|jbl srx|jbl irx|qsc k\d|bafle activo', None, 'Bocinas',
+     'Bafles y audio profesional', {'Bocinas Bluetooth'}),
+    ('Muebles', r'organizador (para|de) bano|sobre (el )?inodoro|sobre el wc', None, 'Muebles', 'Muebles de baño',
+     {'Libreros', 'Repisas', 'Organizadores y almacenamiento'}),
+    ('Electrodomésticos', r'^plancha (para|de) ropa', r'vertical|vaporizador|vapor portatil|portatil de mano', 'Electrodomésticos', 'Planchas',
+     {'Vaporizadores de ropa'}),
+]
+REGLAS += LOTES['auditoria_40']
 
 if __name__ == '__main__':
     main()
