@@ -617,6 +617,12 @@ FIJOS = {
         ("bat36", "Batería grande", "Inalámbricas de uso rudo", "36 V o más", 30, 100),
         ("cable", "De cable", "Enchufe de casa", "110 a 127 V", 100, 150),
         ("cable220", "De 220 V", "Instalación de 220 V", "220 V", 150, None)]),
+    # FPS: el 61% de los protectores dice 50 y los tercios caen todos ahí; se
+    # corta por cómo se habla del producto (08-oct-2026).
+    "spf": ("Protección solar", "por factor (FPS)", [
+        ("baja", "Baja", "Sol suave o uso ocasional", "FPS 15 o menos", None, 15),
+        ("media", "Media", "Uso diario en la ciudad", "FPS 16 a 30", 15, 30),
+        ("alta", "Alta", "Playa, alberca o sol intenso", "FPS 31 o más", 30, None)]),
     "ball_no": ("Número", "del balón", [
         ("n3", "No. 3", "Niños chicos", "No. 3", None, 3),
         ("n4", "No. 4", "Juvenil", "No. 4", 3, 4),
