@@ -5362,5 +5362,49 @@ LOTES['auditoria_45'] = [
 ]
 REGLAS += LOTES['auditoria_45']
 
+# auditoria_46 (08-oct-2026): muestra de DelSol/Farmatodo/Avera (220 fichas, 15 mal): cartuchos de afeitar, mandolinas de cocina,
+# humectantes labiales, sérums corporales, toallas, tapetes de baño, agua de colonia, geles limpiadores, contorno de ojos,
+# delineadores de labios, sets de vehículos y teteras eléctricas.
+B = 'Belleza y cuidado personal'
+LOTES['auditoria_46'] = [
+ (B, r'cartucho(s)? (para|de) (afeitar|rasurar)|cartuchos? .*(mach ?3|fusion|prestobarba|quattro|hydro)|repuesto(s)? (para )?(rastrillo|afeitar)', r'impresora|tinta|toner|filtro', B, 'Rastrillos y navajas', {'Rasuradoras','Afeitadoras eléctricas','Cuidado personal','Cremas faciales'}),
+ ('Instrumentos musicales', r'mandolina', r'cuerdas|instrumento|acustica|electroacustica|guitarra|bandurria|\bkit\b.*cuerdas|afinador|funda', 'Cocina y comedor', 'Utensilios de cocina', {'Violines, mandolinas y otras cuerdas'}),
+ (B, r'humectante labial|hidratante labial|protector labial|cuidado labial|lip balm|lip treat|lip care', r'labial (en barra|liquido|mate)|tinta|lapiz|delineador|kit|set de', B, 'Bálsamos labiales', {'Labiales','Brillos labiales (gloss)','Cremas faciales','Cuidado personal'}),
+ (B, r'serum corporal|suero corporal|serums corporales', None, B, 'Cremas y lociones corporales', {'Sérums faciales'}),
+ ('Juguetes', r'^toalla\b|\btoalla de (bano|playa|mano)', r'juguete|peluche|figura|set de|kit', 'Blancos y ropa de cama', 'Toallas de baño', {'Funko y coleccionables','Figuras de acción','Peluches','Muñecas'}),
+ ('Blancos y ropa de cama', r'tapete de bano|alfombra de bano|tapete para bano', None, 'Blancos y ropa de cama', 'Tapetes de baño', {'Cortinas para baño','Forros para baño','Ganchos para baño','Barras para baño','Toallas de baño'}),
+ (B, r'agua de colonia|agua fresca|colonia (para )?(bebe|nino|ninos)', r'set|kit|estuche|cuerpo y|jabon|crema|shampoo', B, 'Perfumes', {'Cremas y lociones corporales','Body mist y splash','Cuidado personal'}),
+ (B, r'gel (de )?limpieza|gel limpiador|gel de limpieza|espuma limpiadora|limpiador facial|jabon facial', r'bucal|dental|manos|intimo|kit|set\b', B, 'Limpiadores y tónicos', {'Cremas faciales','Jabones y geles de baño','Exfoliantes y peelings'}),
+ (B, r'serum de ojos|suero de ojos|sérum de ojos|crema de ojos|contorno de ojos|gel de ojos', r'pestana|ceja|maquillaje|delineador|sombra|mascara|kit|set\b', B, 'Contorno de ojos y labios', {'Sérums faciales','Cremas faciales','Mascarillas faciales'}),
+ (B, r'delineador (para|de) labios|lip ?liner|lapiz labial|lapiz para labios', None, B, 'Delineadores de labios', {'Sombras y delineadores','Labiales'}),
+ ('Juguetes', r'set de vehiculos|vehiculos de (bomberos|policia|rescate|construccion)|set de carros|pista de (autos|carreras)', r'montable|ride|electric|bateria|pedal', 'Juguetes', 'Vehículos de juguete', {'Montables'}),
+ ('Cocina y comedor', r'tetera electrica|hervidor electrico|hervidor de agua|jarra electrica', r'infusor|manual|estufa|sin electric', 'Electrodomésticos', 'Hervidores y teteras', {'Jarras y dispensadores de bebidas','Termos y botellas térmicas','Organización de cocina'}),
+]
+REGLAS += LOTES['auditoria_46']
+
+# auditoria_47 (08-oct-2026): muestra de Coppel (230 fichas, ~22 mal): cilindros y pastillas de encendido en Bobinas, regletas,
+# pañaleros de personajes en Figuras de acción y cortadores de tubo en Brocas.
+LOTES['auditoria_47'] = [
+ ('Autopartes', r'cilindro (de )?(llave|encendido|chapa)|cilindro llave|switch (de )?encendido|llave (de )?encendido|interruptor (de )?encendido', r'bobina|bujia|distribuidor', 'Autopartes', 'Llaves y cerraduras de auto', {'Bobinas de encendido','Sistema eléctrico y sensores','Bujías y encendido','Bulbos, interruptores y relevadores'}),
+ ('Cargadores y adaptadores', r'power strip|regleta|multicontacto|barra de enchufes|supresor de picos|extension (electrica|multicontacto)', r'cable usb|usb-c a|lightning', 'Cargadores y adaptadores', 'Regletas y multicontactos', {'Cables USB-C','De pared','Cable','Cables Lightning'}),
+ ('Juguetes', r'panalero|pañalero', None, 'Bebés', 'Pañales y cambio', {'Figuras de acción','Peluches','Funko y coleccionables','Muñecas'}),
+ ('Herramientas', r'doblador de tubos|dobladora de tubos|cortador de tubos|speed square|escuadra de carpintero', None, 'Herramientas', 'Herramientas manuales', {'Brocas','Juegos de herramientas','Plomería'}),
+]
+REGLAS += LOTES['auditoria_47']
+
+# auditoria_48 (08-oct-2026): muestra 14 (300 fichas, 14 mal): cubretetera, bolsas de almacenaje, aspiradores de flemas,
+# mamelucos, Hot Wheels en Maquetas, calcomanías, llaves de encendido y casas de Calico Critters.
+LOTES['auditoria_48'] = [
+ ('Blancos y ropa de cama', r'cobertor para tetera|funda para tetera|cubre ?tetera|tea cozy', None, 'Cocina y comedor', 'Utensilios de cocina', None),
+ ('Bolsas y mochilas', r'bolsas? (para|de) (ropa|almacenamiento|almacenaje|vacio)|bolsas? absorbentes?|bolsas? (de )?compresion', None, 'Muebles', 'Organizadores y almacenamiento', {'Bolsas para mujer'}),
+ ('Aspiradoras', r'aspirador (quirurgico|de flemas|nasal|de secreciones)|aspirador de secreciones', None, 'Salud', 'Otros aparatos médicos', None),
+ ('Juguetes', r'\bmameluco|\bbody (para )?bebe|pijama (para )?(bebe|nino)', r'muneca|barbie|peluche|muneco|figura de accion', 'Bebés', 'Ropa y calzado de bebé', {'Figuras de acción','Peluches','Muñecas'}),
+ ('Juguetes', r'hot wheels|toy cars|autos de juguete|carritos de juguete|matchbox', r'maqueta|armar|kit de construccion|pista', 'Juguetes', 'Vehículos de juguete', {'Maquetas'}),
+ ('Autos y motos', r'\bdecal\b|decals|calcomania|stickers?|pegatinas?', r'carro|auto\b|moto|coche|vehiculo|parabrisas', 'Decoración de hogar y jardín', 'Vinil decorativo', {'Autos','Accesorios para auto'}),
+ ('Herramientas', r'llave de (interruptor de )?encendido|interruptor de encendido|llave para encendido', r'dado|matraca|allen', 'Autopartes', 'Llaves y cerraduras de auto', {'Llaves y dados'}),
+ ('Blancos y ropa de cama', r'calico critters|sylvanian|litera.*(muneca|miniatura|figura)', None, 'Juguetes', 'Muñecas', {'Edredones','Coordinados y juegos de edredón'}),
+]
+REGLAS += LOTES['auditoria_48']
+
 if __name__ == '__main__':
     main()

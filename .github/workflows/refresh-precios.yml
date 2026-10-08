@@ -180,6 +180,20 @@ jobs:
             python3 scripts/refresh_vtex.py --store "$TIENDA" $ARGS || echo "AVISO: el refresco de $TIENDA no se aplicó (salida $?)"
           done
 
+      - name: Actualizar precios de DelSol, Avera y Farmatodo
+        # Entraron el 08-oct-2026 por tiendas_soicos_a_captura.py (catálogo
+        # abierto de cada sitio) y se refrescan por el mismo camino, con las
+        # mismas reglas que VTEX: lo que no aparece se deja como estaba y,
+        # si el recorrido ve menos de la mitad de sus ofertas, no se escribe
+        # nada. No necesita secretos. Reuse no va acá: su feed de Soicos ya
+        # lo actualiza arriba.
+        continue-on-error: true
+        run: |
+          for TIENDA in avera farmatodo delsol; do
+            echo "Corriendo: refrescar_tiendas_soicos.py --store $TIENDA"
+            python3 scripts/refrescar_tiendas_soicos.py --store "$TIENDA" || echo "AVISO: el refresco de $TIENDA no se aplicó (salida $?)"
+          done
+
       - name: Actualizar precios de las demás tiendas
         # GeekBuying, SUNSKY, Whirlpool, theluxurycloset y Glasseslit: 1,679
         # productos (2% del catálogo) que hasta ahora solo se refrescaban a

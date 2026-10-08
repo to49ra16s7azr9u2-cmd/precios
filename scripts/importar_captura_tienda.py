@@ -150,17 +150,17 @@ TIENDAS = {
     "avera": {
         "dominios": ("avera.mx",),
         "store": {"id": "avera", "name": "Avera", "hubRegion": None, "color": "#1F3A5F",
-                  "logo": "AV", "typicalShippingDays": [3, 8]},
+                  "logo": "AV", "typicalShippingDays": [3, 8], "logoImg": "icons/stores/avera.png"},
     },
     "farmatodo": {
         "dominios": ("farmatodo.com.mx",),
         "store": {"id": "farmatodo", "name": "Farmatodo", "hubRegion": None, "color": "#E4002B",
-                  "logo": "FT", "typicalShippingDays": [1, 4]},
+                  "logo": "FT", "typicalShippingDays": [1, 4], "logoImg": "icons/stores/farmatodo.png"},
     },
     "delsol": {
         "dominios": ("delsol.com.mx",),
         "store": {"id": "delsol", "name": "DelSol", "hubRegion": None, "color": "#F39200",
-                  "logo": "DS", "typicalShippingDays": [3, 8]},
+                  "logo": "DS", "typicalShippingDays": [3, 8], "logoImg": "icons/stores/delsol.png"},
     },
     "coppel": {
         "dominios": ("coppel.com",),

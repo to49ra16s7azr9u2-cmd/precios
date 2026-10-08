@@ -44,6 +44,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from data_io import load_catalog, next_id, registrar_max_id, save_catalog  # noqa: E402
 from merge_same_store import AMAZON, MAX_RATIO  # noqa: E402
 
+# Tope con el que se decide separar; --ratio lo sube (ver main). Con 1.6 no
+# choca con merge_misma_foto (1.5), que si no volvería a juntar lo separado.
+TOPE = MAX_RATIO
+
 # Campos que la ficha nueva hereda de la que la contenía.
 CAMPOS = ("name", "brand", "category", "subcategory", "image", "photo",
           "specs", "reviews", "gtin", "mlQuery")
@@ -76,7 +80,7 @@ def hay_que_separar(p):
     for t in repetidas:
         precios = [o.get("price") for o in ofertas
                    if o.get("storeId") == t and o.get("price")]
-        if len(precios) > 1 and max(precios) / min(precios) > MAX_RATIO:
+        if len(precios) > 1 and max(precios) / min(precios) > TOPE:
             return True, f"precios a {max(precios) / min(precios):.1f}x dentro de {t}"
     return False, None
 
@@ -85,7 +89,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--muestra", type=int, default=12)
+    ap.add_argument("--ratio", type=float, help="separar sólo con precios a más de esta razón (por defecto MAX_RATIO)")
     args = ap.parse_args()
+    global TOPE
+    if args.ratio:
+        TOPE = args.ratio
 
     data = load_catalog()
     products = data["products"]
