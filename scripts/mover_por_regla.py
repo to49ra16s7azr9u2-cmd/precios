@@ -5320,5 +5320,33 @@ LOTES['auditoria_43'] = [
 ]
 REGLAS += LOTES['auditoria_43']
 
+# auditoria_44 (08-oct-2026): lo que dejó la entrada de DelSol y Farmatodo (sus títulos no dicen la palabra que busca el
+# clasificador: pasta dental en Cremas faciales, acondicionador en Shampoo, tintes en Máscaras de pestañas...) y los casos
+# afines que ya estaban en el catálogo.
+B = 'Belleza y cuidado personal'
+LOTES['auditoria_44'] = [
+ (B, r'\bacondicionador', r'shampoo|champu|2 en 1|3 en 1|\bset\b|\bkit\b', B, 'Acondicionadores', {'Shampoo','Cuidado del cabello','Cremas faciales','Cuidado personal'}),
+ (B, r'pasta dental|crema dental|enjuague bucal|colutorio|cepillo dental|hilo dental|dentifric|blanqueador dental|pasta de dientes|cepillo de dientes',
+     r'electric|recargable|sonico|sonicare|oscilante|irrigador|irrigacion|\bkit\b.*(viaje|facial)|funda|azucar|dulce|candy|\bbraun\b', 'Salud', 'Cuidado dental', {'Cuidado personal','Cremas faciales','Shampoo','Labiales','Corporales','Aceites esenciales y de masaje','Jabones y geles de baño','Cuidado del cabello'}),
+ (B, r'gel fijador|cera para (el )?cabello|pomada para (el )?cabello|gel para peinar|gel .*para peinar|spray fijador|laca para (el )?cabello|fijador (para|de) cabello|mousse (para|de) (el )?cabello',
+     r'pestana|ceja|maquillaje', B, 'Ceras, geles y fijadores', {'Máscaras de pestañas y cejas','Shampoo','Cuidado del cabello','Cremas faciales','Cuidado personal'}),
+ (B, r'\btinte\b|coloracion permanente|tinte para cabello', r'labios|labial|ceja|pestana|tinta para|ropa|tela', B, 'Tintes para cabello', {'Máscaras de pestañas y cejas','Sombras y delineadores','Cremas faciales','Cuidado del cabello','Shampoo'}),
+ (B, r'\bcorrector', r'base (de maquillaje|y)|\bbase\b|bb cream|cc cream|postural|de postura|dedos|juanete|ortopedic', B, 'Correctores', {'Bases de maquillaje','Polvos, rubores y bronceadores'}),
+ (B, r'\bcorrector.*(liquido|en barra|crayon|cobertura|maquillaje|concealer|ojeras)|concealer', r'manchas|poros|dark spot|tone repair|crema|postural|serum|tratamiento', B, 'Correctores', {'Cremas faciales'}),
+ (B, r'bronceador (compacto|liquido|en barra|en polvo|mate)|\brubor|iluminador|\bcontour|polvo compacto|polvos? (compactos?|sueltos?|traslucid)', r'crema|solar|protector|\bspf\b|\bfps\b|bloqueador|base de maquillaje|brocha|esponja|mascarilla|tonico|desmaquillante|hidratante|pads|serum|corrector', B, 'Polvos, rubores y bronceadores', {'Bases de maquillaje'}),
+ (B, r'\bprimer\b|fijador de maquillaje|setting spray|spray fijador de maquillaje', r'gel|cabello|pestana|unas|esmalte|barniz|pintura|pared|crema para ojos|esponja|puff|brocha', B, 'Primers y fijadores', {'Bases de maquillaje','Cremas faciales','Polvos, rubores y bronceadores'}),
+ (B, r'\bjabon (en barra|liquido|de tocador|de manos|neutro|antibacterial|de avena|de glicerina|de tocador)|jabon .*barra|\bbarra de jabon', r'dispensador|porta|jabonera|facial|rostro|cara\b|lavatrastes|trastes|loza|ropa|detergente|\bkit\b', B, 'Jabones y geles de baño', {'Cremas faciales','Cuidado personal','Cuidado del cabello','Shampoo'}),
+ (B, r'after ?shave|loci[o]n despues de afeitar|balsamo despues de afeitar|post ?afeitado', r'\bset\b|\bkit\b|gift|estuche', B, 'Cremas y bálsamos para afeitar', {'Sets de perfume','Perfumes','Perfumes para hombre','Cuidado personal'}),
+ (B, r'gel podos|ureadin|crema (de|para) (las )?(manos|pies)|manos pieza|anti-?pigment manos|crema manos', None, B, 'Cremas y lociones corporales', {'Cremas faciales'}),
+ (B, r'shampoo intimo|jabon intimo|higiene intima|lavado intimo', None, B, 'Cuidado personal', {'Shampoo','Jabones y geles de baño','Cremas faciales'}),
+ (B, r'body mist|body splash|brisa corporal|fragancia corporal|splash corporal|bruma corporal', r'\bset\b|\bkit\b|gift|estuche|perfume', B, 'Body mist y splash', {'Perfumes','Cremas y lociones corporales','Desodorantes'}),
+ (B, r'cepillo (para|de) (el )?cabello|cepillo (acolchado|de nylon|redondo|plano|desenredante)|\bpeine', r'secador|electric|calor|aire|ion\b|ionic|plancha|alaciad|termico|dyson|airwrap', B, 'Cuidado del cabello', {'Secadoras de cabello','Estilizadores'}),
+ ('Refrigeradores', r'hielera|\bcooler\b|nevera portatil', r'refrigerador con|electric', 'Deportes y fitness', 'Campismo', None),
+ ('Cocina y comedor', r'silla plegable|silla de campo|silla de playa', None, 'Muebles', 'Sillas plegables y de camping', None),
+ ('Juguetes', r'\bmanta\b|\bcobija\b|cobertor|\bsabana', r'peluche|muneca|juguete|aquaman|figura|spin master|black manta', 'Blancos y ropa de cama', 'Frazadas y mantas', {'Figuras de acción','Peluches','Muñecas'}),
+ ('Blancos y ropa de cama', r'portarrollos|portarollos|dispensador de jabon|jabonera|cepillera|vaso para bano|escobilla|basurero para bano|organizador de bano|repisa de bano', r'cortina', 'Blancos y ropa de cama', 'Organizadores para baño', {'Cortinas para baño','Forros para baño','Ganchos para baño','Barras para baño'}),
+]
+REGLAS += LOTES['auditoria_44']
+
 if __name__ == '__main__':
     main()

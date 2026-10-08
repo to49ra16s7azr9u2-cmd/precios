@@ -75,6 +75,7 @@ from add_amazon_standalone import FACTOR_PRECIO_ABSURDO, techos_por_subcategoria
 from soicos_a_captura import ALCOHOL_TITULO, _NO_BEBIDA  # noqa: E402
 from data_io import load_catalog, next_id, registrar_max_id, save_catalog, url_real  # noqa: E402
 from origen_categorias import registrar as registrar_origen  # noqa: E402
+from deptos_tiendas import fijar as fijar_por_depto, permitida as depto_permite  # noqa: E402
 
 # storeId -> cómo se registra en data.json (stores) la primera vez que entra
 # un producto suyo. El id walmart_mx ya lo usaban js/app.js (LIVE_API_CONFIG)
@@ -142,6 +143,24 @@ TIENDAS = {
         "dominios": ("elektra.mx",),
         "store": {"id": "elektra", "name": "Elektra", "hubRegion": None, "color": "#E30613",
                   "logo": "EL", "typicalShippingDays": [3, 10], "logoImg": "icons/stores/elektra.png"},
+    },
+    # Avera (electrodomésticos de cocina, Shopify), Farmatodo (farmacia y
+    # cuidado personal, VTEX) y DelSol (tienda departamental) entran por
+    # tiendas_soicos_a_captura.py, con el deeplink de Soicos ya puesto.
+    "avera": {
+        "dominios": ("avera.mx",),
+        "store": {"id": "avera", "name": "Avera", "hubRegion": None, "color": "#1F3A5F",
+                  "logo": "AV", "typicalShippingDays": [3, 8]},
+    },
+    "farmatodo": {
+        "dominios": ("farmatodo.com.mx",),
+        "store": {"id": "farmatodo", "name": "Farmatodo", "hubRegion": None, "color": "#E4002B",
+                  "logo": "FT", "typicalShippingDays": [1, 4]},
+    },
+    "delsol": {
+        "dominios": ("delsol.com.mx",),
+        "store": {"id": "delsol", "name": "DelSol", "hubRegion": None, "color": "#F39200",
+                  "logo": "DS", "typicalShippingDays": [3, 8]},
     },
     "coppel": {
         "dominios": ("coppel.com",),
@@ -342,6 +361,9 @@ def dar_de_alta(data, clasificados, originales):
             saltados.append((it["title"], "bebida con alcohol"))
             continue
         cat, sub = it.get("category"), it.get("subcategory")
+        if orig.get("dept") and not depto_permite(orig["store"], orig["dept"], cat):
+            saltados.append((it["title"], f"{cat} no cuadra con el departamento «{orig['dept']}» de la tienda"))
+            continue
         libro = libro_por_departamento(orig, it.get("title") or orig.get("title"))
         if libro:
             cat, sub = libro
@@ -447,9 +469,24 @@ def main():
     # 2. clasificar (el clasificador identifica por `asin`: va el id de la tienda)
     base = os.path.splitext(args.capturas[0] if args.capturas else (args.feed_file or f"feed-{args.tienda}"))[0]
     ruta_nuevos, ruta_alta = base + ".nuevos.json", base + ".alta.json"
+    # Los departamentos que son una sola cosa (deptos_tiendas.FIJOS) no pasan
+    # por el clasificador: van directo a su subcategoría.
+    fijos = []
+    for it in list(nuevos):
+        f = fijar_por_depto(it["store"], it.get("dept"), it["title"]) if it.get("dept") else None
+        if f:
+            fijos.append({"asin": it["id"], "title": it["title"], "price": it["price"], "photo": it.get("photo"),
+                          "url": it["url"], "brand": it.get("brand") or "", "category": f[0],
+                          "subcategory": f[1], "image": "box"})
+    if fijos:
+        ids_fijos = {f["asin"] for f in fijos}
+        nuevos_clasif = [it for it in nuevos if it["id"] not in ids_fijos]
+        print(f"Con subcategoría fijada por el departamento de la tienda: {len(fijos)}")
+    else:
+        nuevos_clasif = nuevos
     para_clasificar = [{"asin": it["id"], "title": it["title"], "price": it["price"], "photo": it.get("photo"),
                         "url": it["url"], **({"dept": it["dept"]} if args.usar_departamento and it.get("dept") else {})}
-                       for it in nuevos]
+                       for it in nuevos_clasif]
     json.dump(para_clasificar, io.open(ruta_nuevos, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"\n== clasificar_captura_perifericos.py ({len(nuevos)} productos) ==")
     env = {**os.environ, "PYTHONPATH": AQUI}
@@ -457,7 +494,7 @@ def main():
     if r.returncode:
         sys.exit("el clasificador falló")
     os.remove(ruta_nuevos)
-    clasificados = json.load(io.open(ruta_alta, encoding="utf-8"))
+    clasificados = json.load(io.open(ruta_alta, encoding="utf-8")) + fijos
     if args.solo_clasificar:
         print(f"\nClasificados en {ruta_alta}. Revísalo y vuelve a correr sin --solo-clasificar.")
         return

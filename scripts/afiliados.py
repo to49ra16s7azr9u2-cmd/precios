@@ -156,6 +156,19 @@ SOICOS_ELEKTRA = "https://ad.soicos.com/-5hYi?dl="
 # Sólo enlace, como LEGO: ver huawei_link.py.
 SOICOS_HUAWEI = "https://ad.soicos.com/-5n7I?dl="
 
+# DelSol, Reuse, Avera y Farmatodo (Soicos, implementación «COMPARAMEX» del
+# 08-oct-2026): mismo formato, ad.soicos.com/-XXXX?dl=<url de la tienda
+# codificada> (implementaciones 1296048, 1296053, 1296055 y 1296058). Sus
+# ofertas se guardan YA envueltas, como las de Sam's o Walmart (ver
+# tiendas_soicos_a_captura.py). Reuse además tiene otras ofertas con la base
+# del feed (-4XCl): las dos son válidas.
+SOICOS_TIENDAS = {
+    "delsol": "https://ad.soicos.com/-5ra0?dl=",
+    "reuse_mx": "https://ad.soicos.com/-5ra5?dl=",
+    "avera": "https://ad.soicos.com/-5ra7?dl=",
+    "farmatodo": "https://ad.soicos.com/-5raa?dl=",
+}
+
 
 def url_salida(url):
     """La url a la que manda el botón: la de la oferta, envuelta en el
