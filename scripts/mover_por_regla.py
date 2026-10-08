@@ -4988,6 +4988,22 @@ LOTES['auditoria_34'] = [
 ]
 REGLAS += LOTES['auditoria_34']
 
+# auditoria_35 (08-oct-2026): octava muestra (electrónica, herramientas, hogar):
+# tarjetas Panini entre las wafleras, cinta de teflón entre los taladros, tren de
+# juguete entre las webcams, enfriador de celular entre los ventiladores de PC...
+LOTES['auditoria_35'] = [
+    ('*', r'panini (fifa|prizm|nascar|nba|mundial|adrenalyn|select|donruss)|\bprizm\b|\btopps\b|tarjetas? (coleccionables?|paralelas)|sobres? (de )?(estampas|tarjetas)',
+     r'sandwich|waflera|grill|parrilla|maker|plancha', 'Juguetes', 'Funko y coleccionables', {'Wafleras, sandwicheras y creperas', 'Fútbol americano', 'Otros deportes'}),
+    ('Herramientas', r'cinta de teflon|cinta teflon|sellador de roscas', None, 'Herramientas', 'Plomería', {'Taladros y rotomartillos', 'Herramientas manuales', 'Juegos de herramientas'}),
+    ('Herramientas', r'\bcarda (circular|de alambre)|cepillo (circular )?de alambre', None, 'Herramientas', 'Accesorios para herramientas eléctricas',
+     {'Brocas', 'Herramientas manuales', 'Juegos de herramientas'}),
+    ('Componentes y accesorios de PC', r'(enfriador|cooler|disipador|ventilador) .*(telefono|celular|movil|smartphone)', None, 'Celulares', 'Accesorios',
+     {'Enfriamiento y ventiladores'}),
+    ('Componentes y accesorios de PC', r'\btoy\b.*\b(train|tren)|tren de juguete|brio world', r'webcam|camara|usb', 'Juguetes', 'Vehículos de juguete', {'Webcams'}),
+    ('Componentes y accesorios de PC', r'dispensador (de )?agua|bomba (de agua )?.*(botella|garrafon)|garrafon', None, 'Electrodomésticos', 'Dispensadores de agua', {'Webcams'}),
+]
+REGLAS += LOTES['auditoria_35']
+
 
 if __name__ == '__main__':
     main()
