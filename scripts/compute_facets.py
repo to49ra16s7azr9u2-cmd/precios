@@ -1774,6 +1774,253 @@ _TIPOS_06OCT_J = {
 }
 for _k, _v in _TIPOS_06OCT_J.items():
     TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+# Tipo de producto (kind) de las 20 subcategorías con más fichas sin ninguna fila (07-oct-2026,
+# medido con el catálogo: 96,879 fichas con 0 filas). Misma mecánica que las tablas
+# _TIPOS_06OCT_*: gana la primera que calce con el nombre sin acentos.
+_TIPOS_07OCT_A = {
+    ('Belleza y cuidado personal', 'Cremas faciales'): [
+        ('Protector solar', 'protector solar|bloqueador|\\bspf\\b|\\bfps\\b|sunscreen'),
+        ('Contorno de ojos', 'contorno de ojos|ojeras|eye cream|eye contour|eye gel|bolsas de los ojos|\\bojos\\b.*crema|crema.*\\bojos\\b'),
+        ('Tónico, esencia y bruma', 'tonico|toner|esencia|\\bbruma|\\bmist\\b|agua micelar|micelar|hidrolato|spray facial'),
+        ('Limpiador y exfoliante', 'limpiador|desmaquillante|cleanser|espuma|exfoliante|peeling|scrub|jabon|gel de limpieza|balsamo limpiador'),
+        ('Mascarilla y parches', 'mascarilla|\\bmask\\b|\\bparches?\\b|\\bpatch\\b|sleeping pack|\\bsheet'),
+        ('Sérum y ampolleta', 'serum|suero|ampolla|ampolleta|concentrado|booster|\\bdrops\\b|gotas'),
+        ('Aceite y bálsamo', 'aceite|\\boil\\b|balsamo|baume|\\bbalm\\b'),
+        ('Antiarrugas y reafirmante', 'antiarrugas|anti-?edad|antiedad|anti-?age|reafirmante|retinol|lifting|peptid|colageno|collagen|firming|sculpting|rejuven|wrinkle|renergie|alisadora'),
+        ('Crema de noche', '\\bnoche\\b|night'),
+        ('Crema de día', '\\bdia\\b|\\bday\\b|diaria'),
+        ('Hidratante', 'hidrat|humect|moistur|hydra|emoliente|crema|cream|gel'),
+    ],
+    ('Belleza y cuidado personal', 'Sérums faciales'): [
+        ('Para cabello', 'cabello|capilar|\\bpelo\\b|\\bhair\\b|scalp'),
+        ('Crecimiento de pestañas y cejas', 'pestana|\\bceja|\\blash|\\bbrow'),
+        ('Vitamina C', 'vitamina c|vit\\.? ?c\\b|vit-c|ascorb|vitamin c'),
+        ('Ácido hialurónico', 'hialuron|hyaluron|\\bha\\b'),
+        ('Retinol', 'retinol|retinal|bakuchiol'),
+        ('Niacinamida', 'niacinamid|niacin'),
+        ('Péptidos y colágeno', 'peptid|colageno|collagen|pdrn'),
+        ('Ácidos exfoliantes (AHA/BHA)', '\\baha\\b|\\bbha\\b|salicilic|glicolic|mandelic|exfoli|peeling'),
+        ('Contorno de ojos', '\\bojos\\b|ojeras|\\beyes?\\b'),
+        ('Antimanchas e iluminador', 'mancha|ilumin|brillo|glow|bright|aclarador|despigment|dark spot'),
+        ('Anti-acné y poros', 'acne|poros|\\bpore|imperfecc|blemish'),
+        ('Hidratante', 'hidrat|moistur|hydra|humect'),
+    ],
+    ('Belleza y cuidado personal', 'Perfumes'): [
+        ('Velas y ambientadores', '\\bvelas?\\b|candle|ambientador|aromatizante|difusor|incienso'),
+        ('Body mist y bruma', 'body mist|body spray|bruma|splash|\\bmist\\b|body fragrance|fragancia corporal'),
+        ('Perfume sólido y roll-on', 'solido|roll.?on|\\bstick\\b|barra de perfume|perfume en barra'),
+        ('Eau de parfum', 'eau de parfum|\\bedp\\b|agua de perfume|eau parfum|e\\.d\\.p'),
+        ('Eau de toilette', 'eau de toilette|\\bedt\\b|toilette|agua de tocador|tocador|e\\.d\\.t'),
+        ('Colonia', 'colonia|cologne|\\bedc\\b|eau fraiche'),
+        ('Extracto de perfume', 'extrait|extracto|(?<!eau de )\\bparfum\\b|pure perfume'),
+        ('Aceite perfumado', 'aceite|\\boil\\b|attar|concentrad'),
+    ],
+    ('Belleza y cuidado personal', 'Bases de maquillaje'): [
+        ('Esponjas y aplicadores', 'esponja|sponge|\\bpuff\\b|aplicador|brocha|beauty ?blender|\\bblender\\b'),
+        ('Desmaquillante', 'desmaquill|makeup remover|\\bremover\\b'),
+        ('Primer y fijador', 'primer|prebase|fijador|setting'),
+        ('Corrector', 'corrector|concealer'),
+        ('Iluminador, rubor y bronzer', 'ilumin|highlight|blush|rubor|glow|bronzer|bronceador|contour'),
+        ('Cushion', 'cushion'),
+        ('BB / CC cream', '\\bbb\\b|\\bcc\\b'),
+        ('Base en polvo o compacta', 'polvo|powder|compacta|compact|mineral'),
+        ('Base en barra', '\\bstick\\b|\\bbarra\\b'),
+        ('Base líquida', 'liquid|fluid|foundation|base de maquillaje|\\bbase\\b'),
+    ],
+    ('Joyería y bisutería', 'Lentes de sol'): [
+        ('Infantiles', '\\bnino|\\bnina|infantil|\\bkids|junior|bebe'),
+        ('Armazón oftálmico', 'oftalmic|armazon|graduado|optic|receta'),
+        ('Deportivos', 'deportiv|ciclis|\\bsport|running|esqu[ií]|\\bski\\b|pesca|fishing|\\bbike|moto'),
+        ('Aviador', 'aviador|aviator|\\bpilot'),
+        ('Cat eye (mariposa)', 'cat ?eye|mariposa|ojo de gato|butterfly'),
+        ('Redondos', 'redond|\\bround\\b|panto'),
+        ('Cuadrados y rectangulares', 'cuadrad|rectang|square|wayfarer|clubmaster|browline'),
+        ('Oversize y máscara', 'oversize|mascara|shield'),
+    ],
+    ('Belleza y cuidado personal', 'Uñas'): [
+        ('Lámparas UV/LED', 'lampara|\\buv\\b|\\bled\\b|secador de unas|cabina'),
+        ('Taladro y torno', 'taladro|torno|\\bfresa|\\bdrill|lima electrica|pulidora electrica'),
+        ('Gel semipermanente', 'semipermanente|semi permanente|\\bgel|gelesh|gelish|soak off|poligel|polygel|acrigel'),
+        ('Uñas postizas', 'postiza|press.?on|acrilic|\\btips\\b|falsas|stickers?|calcoman|pegatina|\\bwraps?\\b'),
+        ('Esmalte', 'esmalte|nail polish|barniz|top coat|base coat|lacquer|\\bpolish'),
+        ('Removedor y cuidado', 'removedor|quitaesmalte|acetona|cuticula|cuticle|aceite|endurecedor|fortalecedor|tratamiento|hongos'),
+        ('Limas y pulidores', '\\blima|pulidor|\\blija|buffer|buffing'),
+        ('Cortaúñas y pinzas', 'cortaunas|cortador|corta unas|pinza|tijera|clipper|nipper|empujador'),
+        ('Decoración (nail art)', 'nail art|decoracion|glitter|brillantina|diamantes|stamping|pedreria|\\bimanes?\\b|cristales|pincel'),
+        ('Kit de manicure', '\\bkit\\b|\\bset\\b|manicur|pedicur|estuche'),
+    ],
+    ('Belleza y cuidado personal', 'Secadoras de cabello'): [
+        ('Cepillo secador y styler', 'cepillo|brush|styler|rotativ|airwrap|moldeador|rizador|multistyler'),
+        ('Difusor y accesorios', 'difusor|diffuser|boquilla|concentrador|accesorio|\\bcapo\\b|capucha|soporte|filtro'),
+        ('Secadora de pared', 'de pared|\\bpared\\b|\\bwall\\b'),
+        ('Secadora de viaje', 'viaje|travel|\\bmini\\b|plegable|compacta|portatil'),
+        ('Secadora profesional', 'profesional|salon|\\bpro\\b|ionic|tourmaline|ceramic|\\b2[0-9]00 ?w'),
+        ('Secadora de mano', 'secador|secadora|dryer|blower'),
+    ],
+    ('Juguetes', 'Peluches'): [
+        ('Navidad y fechas especiales', 'navid|santa|\\breno\\b|noel|christmas|halloween|calabaza|san valentin|pascua|grinch'),
+        ('Almohadas y cojines', 'almohada|cojin|pillow'),
+        ('Llaveros y mini', 'llavero|keychain|\\bmini\\b|colgante'),
+        ('Unicornios', 'unicornio|unicorn'),
+        ('Osos', '\\boso|teddy|\\bbears?\\b|osito'),
+        ('Conejos', 'conejo|bunny|rabbit|conejito'),
+        ('Perros y gatos', 'perro|perrito|cachorro|\\bgato|gatito|\\bdog\\b|puppy|\\bcat\\b|kitten'),
+        ('Dinosaurios y dragones', 'dinosaurio|\\bdino\\b|dragon|t-?rex'),
+        ('Animales marinos', 'tiburon|shark|pulpo|octopus|delfin|ballena|whale|\\bpez\\b|pinguino|penguin|tortuga|medusa|foca'),
+        ('Otros animales', 'elefante|jirafa|\\bleon\\b|tigre|\\bmono\\b|vaca|cerdo|\\bpig\\b|oveja|llama|zorro|panda|koala|\\brana\\b|\\bfrog\\b|\\bpato\\b|\\bduck\\b|pollo|gallina|zebra|hipopotamo|capibara|\\braton\\b|erizo|animal'),
+        ('Personajes con licencia', 'disney|marvel|pokemon|sanrio|hello kitty|stitch|mickey|minnie|peppa|bluey|paw patrol|sonic|mario|harry potter|star wars|spider|hulk|batman|superman|squishmallow|kawaii|care bears|jellycat'),
+        ('Gigantes', 'gigante|jumbo|\\bxxl\\b|\\b1 ?m\\b|metro'),
+    ],
+    ('Belleza y cuidado personal', 'Shampoo'): [
+        ('Para mascotas', 'perro|gato|mascota|\\bpet\\b'),
+        ('Shampoo íntimo', 'intimo'),
+        ('Shampoo sólido', 'solido|en barra|\\bbar\\b'),
+        ('Infantil', 'bebe|\\bnino|\\bnina|\\bkids|\\bbaby|infantil'),
+        ('Anticaspa', 'caspa|dandruff|seborre|picazon|head ?& ?shoulders|nizoral|ketoconazol'),
+        ('Anticaída y crecimiento', 'caida|crecimiento|fortalec|engrosa|densidad|hair loss|biotina|growth'),
+        ('Para cabello rizado', 'rizo|rizado|curl|chino|ondulad'),
+        ('Matizador y tonificante', 'matizador|violeta|purple|silver|plata|tonifica|rojizo|canas|color depositing'),
+        ('Para cabello teñido', 'tenid|color|colored'),
+        ('Para cabello graso', 'graso|oil control|purific|detox|clarific|profunda|limpieza'),
+        ('Hidratante y reparador', 'hidrat|nutri|repar|argan|keratina|queratina|reconstru|moisture|repair|brillo|suave|seco|danado|frizz|liso|smooth|sedoso'),
+        ('Para hombre', 'hombre|\\bmen\\b|barba|caballero'),
+        ('Set o combo', '\\bset\\b|\\bkit\\b|\\bduo\\b|combo|acondicionador'),
+    ],
+    ('Belleza y cuidado personal', 'Protección solar'): [
+        ('Después del sol', 'after sun|despues del sol|aftersun|post sol'),
+        ('Bronceador y autobronceador', 'bronceador|autobronceador|self.?tan|bronzing|tanning|bronze'),
+        ('Labial y bálsamo con FPS', 'labial|labios|\\blip\\b'),
+        ('Para niños', '\\bnino|\\bbebe|\\bkids|\\bbaby|infantil|pediatr'),
+        ('Aerosol y spray', 'aerosol|spray|bruma|\\bmist\\b'),
+        ('En barra', '\\bbarra\\b|\\bstick\\b'),
+        ('Para rostro', 'facial|rostro|\\bcara\\b|\\bface\\b|fluido|pigment|tinted|mineral|oil.?free'),
+        ('Para el cuerpo', 'corporal|cuerpo|\\bbody\\b|locion|crema|leche|lotion|gel'),
+    ],
+    ('Juguetes', 'Muñecas'): [
+        ('Ropa y accesorios para muñecas', 'ropa|outfit|vestido|accesorios|zapatos|mochila para|casa de munecas|mueble'),
+        ('Casas y playsets', '\\bcasa\\b|playset|set de juego|castillo|cocina|escenario'),
+        ('Muñecas bebé', 'bebe|\\bbaby|recien nacid|reborn|newborn|nenuco|lactante|babies'),
+        ('Interactivas y mascotas', 'interactiv|furreal|mascota|\\bpets?\\b|baila|habla|canta|robot|peluche'),
+        ('Muñecas de moda', 'barbie|\\bmoda\\b|fashion|monster high|ever after|bratz|\\blol\\b|rainbow high|dress to|fashionista|\\bken\\b'),
+        ('Muñecas articuladas y coleccionables', 'articulad|coleccion|collector|porcelana|american girl|glitter girls|wellie|our generation|sophia'),
+        ('Muñecas clásicas', 'muneca|doll'),
+    ],
+    ('Calzado', 'Tenis'): [
+        ('Infantiles', '\\bnino|\\bnina|\\bkids|infantil|\\bjr\\b|junior|toddler|preescolar'),
+        ('Running', 'running|correr|\\brun\\b|runfalcon|ultraboost|pegasus|clifton|novablast|kayano|ride|speed'),
+        ('Fútbol y turf', 'futbol|soccer|turf|\\btacos?\\b|cleats?|botines?|predator|mercurial|\\bfg\\b'),
+        ('Básquetbol', 'basquet|basket|baloncesto|jordan|lebron|kyrie|\\bdunk\\b'),
+        ('Entrenamiento y gym', 'training|entrenamiento|\\bgym\\b|crossfit|trainer'),
+        ('Skate y lona', 'skate|vulc|\\bvans\\b|old skool|sk8|converse|chuck|canvas|lona|suede'),
+        ('Senderismo y outdoor', 'senderismo|trail|hiking|outdoor|montana|gore-?tex|trekking'),
+        ('Voleibol y raqueta', 'voleibol|volley|padel|tennis'),
+        ('Casual y urbano', 'casual|urban|retro|classic|clasico|samba|gazelle|forum|stan smith|superstar|air force|campus|rebound|court|lifestyle|sneaker|cloud|plataforma|platform'),
+    ],
+    ('Juguetes', 'Funko y coleccionables'): [
+        ('Llaveros', 'keychain|llavero'),
+        ('Pins, imanes y cromos', '\\bpins?\\b|iman|sticker|estampita|album|panini|cromo|trading|tarjeta'),
+        ('Deluxe y jumbo', 'deluxe|jumbo|18"|10"|12"|super sized|\\bmega\\b'),
+        ('Soda, Bitty Pop y mini', '\\bsoda\\b|bitty|\\bmini\\b|mystery|blind|pocket|vynl|paka'),
+        ('Edición especial', 'exclusiv|chase|glow|metallic|metalico|flocked|diamond|gold|convention|nycc|sdcc|ecc|special edition|shared'),
+        ('Figura Pop! estándar', 'funko|\\bpop\\b|vinil|vinyl|figura'),
+    ],
+    ('Electrodomésticos', 'Licuadoras'): [
+        ('Repuestos y vasos', '\\bvasos?\\b|jarra|repuesto|\\baspa\\b|cuchilla|\\btapa\\b|cople|\\bjunta|refaccion|accesorio|empaque'),
+        ('Espumador de leche', 'espumador|frother|batidor de leche'),
+        ('Batidora de inmersión y de mano', 'inmersion|de mano|varita|handheld|hand blender|minipimer'),
+        ('Licuadora personal o portátil', 'personal|portatil|recargable|\\busb\\b|botella|to go|\\bmini\\b|shaker|smoothie|bullet|batidos'),
+        ('Procesadora y multifunción', 'procesador|multifunc|\\b[2-5] en 1\\b|all in one|robot de cocina|picadora'),
+        ('Licuadora de alto rendimiento', 'alto rendimiento|profesional|vitamix|blendtec|ninja|\\b(1[2-9]|2[0-9])00 ?w|alta potencia|vacio'),
+        ('Licuadora de vaso', 'licuadora|blender|vaso'),
+    ],
+    ('Herramientas', 'Dados, matracas y autocles'): [
+        ('Cuadro de 3/4″', '\\b(dados?|matraca|extension|cardan|adaptador|llave de impacto)\\b[^0-9]{0,24}\\b3/4\\b'),
+        ('Cuadro de 1/2″', '\\b(dados?|matraca|extension|cardan|adaptador|llave de impacto)\\b[^0-9]{0,24}\\b1/2\\b'),
+        ('Cuadro de 3/8″', '\\b(dados?|matraca|extension|cardan|adaptador|llave de impacto)\\b[^0-9]{0,24}\\b3/8\\b'),
+        ('Cuadro de 1/4″', '\\b(dados?|matraca|extension|cardan|adaptador|llave de impacto)\\b[^0-9]{0,24}\\b1/4\\b'),
+        ('Cuadro de 1″', '\\b(dados?|matraca|extension|cardan|adaptador|llave de impacto)\\b[^0-9]{0,24}\\b1 ?("|plg|pulg|in)\\b'),
+        ('Juegos de dados y matracas', 'juego|\\bset\\b|\\bkit\\b|estuche|\\b\\d+ ?(pzs?|piezas|pcs)\\b'),
+        ('Matracas y mangos', 'matraca|ratchet|mango|maneral|t de|extension'),
+    ],
+    ('Bocinas', 'Bocinas Bluetooth'): [
+        ('Repuesto o driver', 'repuesto|reemplazo|replacement|driver|altavoz interno|woofer|tweeter|bobina|membrana|conjunto de altavoz|satelite|pasiv'),
+        ('Barra de sonido', 'barra de sonido|soundbar|sound bar'),
+        ('Inteligente (asistente de voz)', 'alexa|\\becho\\b|google home|\\bnest\\b|asistente|homepod|siri|smart speaker|inteligente'),
+        ('Para ducha o exterior', 'ducha|shower|impermeable|\\bip[67]\\d?\\b|waterproof|exterior|playa|alberca|kayak'),
+        ('De fiesta y karaoke', 'fiesta|party|karaoke|torre|trolley|\\bdj\\b|microfono|\\b[5-9]00 ?w|1000 ?w|doble|\\bdual\\b|\\b2 x|15"|12"|10"|8"'),
+        ('Con luces', '\\bluz\\b|luces|\\bled\\b|\\brgb\\b|lampara|flama|iluminad'),
+        ('Mini y de llavero', '\\bmini\\b|pequena|compacta|llavero|bolsillo|\\bclip\\b|pocket'),
+        ('Para TV y PC', '\\btv\\b|televisor|\\bpc\\b|computadora|escritorio|gaming|gamer'),
+        ('Portátil', 'portatil|bluetooth|inalambric|recargable|wireless|portable|altavoz|parlante|bocina'),
+    ],
+    ('Iluminación', 'Plafones y lámparas de sobreponer'): [
+        ('Panel LED', '\\bpanel\\b|slim|ultra delgad|downlight|empotr'),
+        ('Lámpara de pie', 'lampara de pie|\\bde pie\\b|tripode|torchiere|\\bpie\\b'),
+        ('Lámpara de mesa o buró', '\\bmesa\\b|\\bburo\\b|escritorio|lectura|noche|velador'),
+        ('Farol y exterior', 'farol|exterior|arbotante|jardin|terraza|\\bbarda\\b|hermetic'),
+        ('Aplique de pared', 'aplique|sconce|\\bpared\\b|\\bmuro\\b'),
+        ('Colgante y candil', 'colgante|candil|arana|pendiente|chandelier|suspension|pendant'),
+        ('Ventilador con luz', 'ventilador'),
+        ('Plafón de techo', 'plafon|techo|sobreponer|sobrepuesto|luminario|luminaria|\\bdomo\\b|ceiling|galleta|redondo|cuadrado|\\bled\\b'),
+    ],
+}
+for _k, _v in _TIPOS_07OCT_A.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
+# Segunda tanda del 07-oct-2026: sets de perfume, labiales, bálsamos, acondicionadores y tenis (más patrones).
+_TIPOS_07OCT_B = {
+    ('Belleza y cuidado personal', 'Sets de perfume'): [
+        ('Set de miniaturas o viaje', 'miniatura|\\bmini\\b|travel|viaje|discovery|descubrimiento|coffret|\\d ?x ?\\d{1,2} ?ml|\\b(5|7[.,]5|10) ?ml'),
+        ('Set con crema o loción corporal', 'crema|locion|body lotion|body cream|body milk|leche corporal|\\bbdy\\b'),
+        ('Set con gel de baño', 'gel de ducha|gel de bano|shower|jabon'),
+        ('Set con desodorante', 'desodorante|\\bdeo\\b|deodorant'),
+        ('Set con spray corporal', 'body mist|body spray|bruma|spray corporal'),
+        ('Set de varios perfumes', '\\b[2-9] ?(pzas?|pzs|piezas|pcs|pz)\\b|\\bduo\\b|\\btrio\\b|set de [2-9]|\\+'),
+        ('Set de regalo', '\\bset\\b|estuche|regalo|coffret|\\bkit\\b|gift'),
+    ],
+    ('Belleza y cuidado personal', 'Labiales'): [
+        ('Delineador de labios', 'delineador|lip liner|lapiz labial|lapiz de labios|lip pencil'),
+        ('Set de labiales', '\\bset\\b|\\bkit\\b|paleta|\\b\\d{1,2} ?(pzas?|pzs|piezas|pcs|pz)\\b|\\bduo\\b|\\btrio\\b'),
+        ('Labial líquido o tinta', 'liquid|\\btint|\\btinta|velvet|lip cream|crema labial|lip color|liquido'),
+        ('Aceite y gloss labial', 'aceite|\\boil\\b|gloss|brillo|plumping'),
+        ('Bálsamo labial', 'balsamo|\\bbalm\\b|hidratante labial|lip care'),
+        ('Labial mate', '\\bmate\\b|matte'),
+        ('Labial cremoso o satinado', 'cremos|satin|brillante|glossy|sheer|hidratante'),
+        ('Labial en barra', 'labial|lipstick|\\blip\\b|barra'),
+    ],
+    ('Belleza y cuidado personal', 'Bálsamos labiales'): [
+        ('Con FPS', '\\bspf\\b|\\bfps\\b'),
+        ('Bálsamo con color', '\\btint|\\bcolor|rosa|rojo|tenid|cereza|berry|frambuesa|nude'),
+        ('Máscara y tratamiento de labios', 'mascara|\\bmask\\b|tratamiento|sleeping|nocturn|overnight|exfoli|scrub'),
+        ('Bálsamo en tarro', 'tarro|\\bjar\\b|\\bpot\\b'),
+        ('Bálsamo en barra', 'barra|\\bstick\\b|chapstick|carmex'),
+        ('Bálsamo clásico', 'balsamo|\\bbalm\\b|\\blip\\b'),
+    ],
+    ('Belleza y cuidado personal', 'Acondicionadores'): [
+        ('Sin enjuague', 'sin enjuague|leave.?in|sin enjuagar'),
+        ('Para cabello rizado', 'rizo|rizado|curl|chino|ondulad'),
+        ('Para cabello teñido', 'tenid|color|colored'),
+        ('Matizador', 'matizador|violeta|purple|silver'),
+        ('Anticaída', 'caida|fortalec|crecimiento|biotina'),
+        ('Hidratante y reparador', 'hidrat|nutri|repar|argan|keratina|queratina|reconstru|moisture|repair|brillo|suave|seco|danado|frizz|liso|smooth|sedoso'),
+        ('Infantil', 'bebe|\\bnino|\\bnina|\\bkids|\\bbaby|infantil'),
+        ('Para hombre', 'hombre|\\bmen\\b|caballero'),
+        ('Set o combo', '\\bset\\b|\\bkit\\b|\\bduo\\b|combo|shampoo'),
+        ('Acondicionador clásico', 'acondicionador|conditioner|crema para peinar'),
+    ],
+    ('Calzado', 'Tenis'): [
+        ('Infantiles', '\\bnino|\\bnina|\\bkids|infantil|\\bjr\\b|junior|toddler|preescolar'),
+        ('Running', 'running|correr|\\brun\\b|runfalcon|ultraboost|pegasus|clifton|novablast|kayano|\\bride\\b|speed|switch move|duramo|response|galaxy|tensaur|racer'),
+        ('Fútbol y turf', 'futbol|soccer|turf|\\btacos?\\b|cleats?|botines?|predator|mercurial|\\bfg\\b'),
+        ('Básquetbol', 'basquet|basket|baloncesto|jordan|lebron|kyrie|\\bdunk\\b'),
+        ('Entrenamiento y gym', 'training|entrenamiento|\\bgym\\b|crossfit|trainer'),
+        ('Skate y lona', 'skate|vulc|\\bvans\\b|old skool|sk8|converse|chuck|canvas|lona|suede'),
+        ('Senderismo y outdoor', 'senderismo|trail|hiking|outdoor|montana|gore-?tex|trekking'),
+        ('Voleibol y raqueta', 'voleibol|volley|padel|tennis'),
+        ('Casual y urbano', 'casual|urban|retro|classic|clasico|samba|gazelle|forum|stan smith|superstar|air force|campus|rebound|court|lifestyle|sneaker|cloud|plataforma|platform|lacoste|\\bfila\\b|kappa|reebok classic|new balance \\d|\\bpony\\b|\\bgola\\b|lotto|puma (suede|carina|smash|cali|mayze|vikky|rbd)|advantage|breaknet|grand court|vs pace|barreda|hoops|carnaby|break start'),
+    ],
+}
+for _k, _v in _TIPOS_07OCT_B.items():
+    TIPOS[_k] = [(et, re.compile(rx)) for et, rx in _v]
 # Discos y barras: el peso es lo que se pide («par de discos de 10 kg»), y el
 # 60% lo dice en el nombre, muchas veces en libras.
 NOMBRE_GENERALES.setdefault(("Deportes y fitness", "Barras y discos"), []).append(
@@ -1823,7 +2070,18 @@ REGLAS_TITULO.setdefault("Suplementos", []).extend([("units", st.unidades), ("su
                                                     ("nutrients", st.nutrientes)])
 REGLAS_TITULO.setdefault("Herramientas", []).append(("power_source", st.inalambrico_herramienta))
 for _c in ("Belleza y cuidado personal", "Limpieza y hogar", "Suplementos"):
-    REGLAS_TITULO.setdefault(_c, []).append(("volume_ml", lambda t: se.ml_of(t, 5, 5000)))
+    # ml_oz_of: «3.4 oz» y «1 litro» cuando el nombre no trae ml (perfumes y
+    # cremas importadas; 07-oct-2026).
+    REGLAS_TITULO.setdefault(_c, []).append(("volume_ml", lambda t: se.ml_oz_of(t, 5, 5000)))
+# Factor de protección solar: el dato que decide un protector, una base o un
+# bálsamo con filtro, y el nombre siempre lo dice («SPF 50+», «FPS 30»).
+REGLAS_TITULO.setdefault("Belleza y cuidado personal", []).append(("spf", se.spf_of))
+# Sets de perfume: el contenido es el del perfume grande, no el de las miniaturas.
+NOMBRE_GENERALES.setdefault(("Belleza y cuidado personal", "Sets de perfume"), []).append(
+    ("volume_ml", lambda t: se.ml_max_of(t, 20, 500)))
+# Licuadoras: la capacidad del vaso («1.25 lt», «2 litros») casi nunca está en la ficha.
+NOMBRE_GENERALES.setdefault(("Electrodomésticos", "Licuadoras"), []).append(
+    ("liters", lambda t: se.liters_of(t, 0.2, 6)))
 REGLAS_TITULO.setdefault("Cocina y comedor", []).extend([("liters", lambda t: se.liters_of(t, 0.2, 60, ml=True)),
                                                         ("pieces", lambda t: se.pieces_of(t, 2, 200) or se.pieces_set_of(t, 2, 200))])
 REGLAS_TITULO.setdefault("Herramientas", []).append(("pieces", lambda t: se.pieces_of(t, 5, 1000) or se.pieces_set_of(t, 3, 1000)))

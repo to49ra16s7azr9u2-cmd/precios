@@ -1752,6 +1752,59 @@ def ml_of(text, lo, hi):
     return _uno({v for v in vals if lo <= v <= hi})
 
 
+_OZ_ML_RE = re.compile(r"(?<![\d.,])(\d{1,3}(?:[.,]\d{1,2})?)\s*(?:fl\.?\s*oz|oz|onzas?(?:\s+liquidas?)?)\b")
+_LT_ML_RE = re.compile(r"(?<![\d.,])(\d{1,2}(?:[.,]\d{1,2})?)\s*(?:lts?|litros?)\b")
+
+
+def ml_oz_of(text, lo, hi):
+    """Contenido en ml de un producto de belleza o limpieza. Primero «100 ml»;
+    sólo si el nombre no trae ningún ml, «3.4 oz» / «1.7 fl oz» (perfumes y
+    cremas importadas: 3,000 fichas de belleza lo decían en onzas, 07-oct-2026)
+    o «1 litro». Las onzas se redondean al tamaño comercial («3.4 oz» = 100 ml,
+    no 101)."""
+    n = _norm(text or "")
+    if _ML_RE.search(n):
+        return ml_of(n, lo, hi)
+    vals = set()
+    for m in _OZ_ML_RE.finditer(n):
+        ml = float(m.group(1).replace(",", ".")) * 29.5735
+        vals.add(int(5 * round(ml / 5)) if ml >= 20 else int(round(ml)))
+    if not vals:
+        for m in _LT_ML_RE.finditer(n):
+            vals.add(int(round(float(m.group(1).replace(",", ".")) * 1000)))
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
+def ml_max_of(text, lo, hi):
+    """El mayor contenido en ml del nombre (sets: «perfume 100 ml + loción 50 ml
+    + gel 50 ml» es un set de 100 ml). También «3.4 oz»."""
+    n = _norm(text or "")
+    vals = {_num(m.group(1)) for m in _ML_RE.finditer(n)}
+    if not vals:
+        for m in _OZ_ML_RE.finditer(n):
+            ml = float(m.group(1).replace(",", ".")) * 29.5735
+            vals.add(int(5 * round(ml / 5)) if ml >= 20 else int(round(ml)))
+    vals = {v for v in vals if lo <= v <= hi}
+    if not vals:
+        return None
+    v = max(vals)
+    return int(v) if v == int(v) else v
+
+
+_SPF_RE = re.compile(r"(?<![a-z0-9])(?:spf|fps|f\.?p\.?s\.?)\s*[:\-]?\s*(\d{1,3})\b|(?<![\d.,])(\d{2,3})\s*\+?\s*(?:spf|fps)\b|"
+                     r"factor(?: de proteccion(?: solar)?)?\s*[:\-]?\s*(\d{2,3})\b")
+
+
+def spf_of(text, lo=6, hi=100):
+    """Factor de protección solar («SPF 50+», «FPS 30», «fps50», «50 spf»), o
+    None. Dos factores distintos en el nombre («SPF 30 y SPF 50») no se leen."""
+    vals = set()
+    for m in _SPF_RE.finditer(_norm(text or "")):
+        g = next(x for x in m.groups() if x)
+        vals.add(int(g))
+    return _uno({v for v in vals if lo <= v <= hi})
+
+
 _KM_RE = re.compile(r"(?<![\d.,])(\d{2,3})\s*km\b(?!\s*/?\s*h)")
 
 

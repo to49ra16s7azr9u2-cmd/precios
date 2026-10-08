@@ -451,6 +451,7 @@
         "Refrigeradores", "Lavadoras", "Salud", "Equipo comercial", "Bolsas y mochilas", "Calzado"], txt],
       ["volt", "Voltaje", ["Herramientas", "Electrodomésticos", "Climatización", "Autos y motos", "Iluminación", "Equipo comercial"], num(" V"), true],
       ["age_min", "Edad desde", ["Juguetes", "Juegos de mesa", "Bebés", "Bicicletas y movilidad"], (v) => (v ? `${v} años` : "Recién nacido"), true],
+      ["spf", "Factor de protección", ["Belleza y cuidado personal"], (v) => `FPS ${v}`, true],
       ["players_max", "Jugadores", ["Juegos de mesa"], (v) => (v >= 99 ? "Sin límite" : `Hasta ${v}`), true],
       ["load_kg", "Soporta hasta", ["Muebles", "Deportes y fitness", "Salud", "Bebés", "Bicicletas y movilidad"], num(" kg"), true],
       ["water_resistant", "Resistente al agua", ["Relojes inteligentes", "Audífonos", "Bocinas", "Joyería y bisutería", "Cámaras y fotografía"], txt],

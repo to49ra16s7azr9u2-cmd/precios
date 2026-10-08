@@ -949,6 +949,7 @@ ETIQUETAS_FACETAS = [
     ("players_max", "Jugadores", lambda v: "5 o más" if v == 99 else ("1" if v == 1 else f"Hasta {v}")),
     ("firmness", "Firmeza", str), ("fuel", "Funciona con", str), ("heater_type", "Tipo de calentador", str),
     ("fan_type", "Tipo de ventilador", str),
+    ("spf", "Factor de protección solar", lambda v: f"FPS {v}"),
 ]
 
 
