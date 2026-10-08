@@ -3,6 +3,10 @@
 #
 #   bash scripts/ronda_ml_recorrido.sh 0 1 2 3 > /tmp/ronda_recorrido_$(date -u +%m%d).log 2>&1
 #
+# MARCAS=20 baja las marcas consultadas por subcategoría (60 por defecto): la ventana 2
+# anunció 10,626 consultas (5 a 9 h; las ventanas 0 y 1 tuvieron ~4,000) y ml_discover
+# guarda el catálogo SÓLO al final, así que una ventana interrumpida pierde todo.
+#
 # Cada ventana corre ml_discover.py en modo --recorrer (agota los dominios
 # confirmados de cada subcategoría) y agrega lo nuevo al catálogo. Antes de
 # cada ventana se mira el Worker: si contesta 429 (tope diario de 100,000
@@ -30,7 +34,7 @@ for V in "$@"; do
     break
   fi
   echo "########## RECORRIDO ventana $V ##########"
-  python3 scripts/ml_discover.py --dia "$V" --ventana 100 --marcas 60 --max 400 --pages 45 \
+  python3 scripts/ml_discover.py --dia "$V" --ventana 100 --marcas "${MARCAS:-60}" --max 400 --pages 45 \
     --dominios-json "$DOMINIOS" --reusar-dominio --recorrer 2>&1 \
     | grep -E --line-buffered "^Día|consultas de catálogo|Agregados|Traceback|Error|^  -- " || true
   echo "########## ventana $V LISTA: $(cuantos) productos ##########"
