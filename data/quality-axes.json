@@ -2701,6 +2701,1963 @@
   ],
   "intro": "Elige por la edad de quien lo va a usar."
  },
+ "Blancos y ropa de cama/Frazadas y mantas": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Sábanas matrimoniales": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Protectores de colchón": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Coordinados y juegos de edredón": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Sábanas king size": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Almohadas": {
+  "axes": [
+   {
+    "label": "Relleno",
+    "field": "memory_foam",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Memory foam",
+      "use": "Se amolda a la cabeza y al cuello",
+      "spec": "Memory foam",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "viscoelastica-memory-foam",
+      "name": "Viscoelástica (memory foam)",
+      "use": "",
+      "spec": "Viscoelástica (memory foam)",
+      "values": [
+       "Viscoelástica (memory foam)"
+      ]
+     },
+     {
+      "id": "de-pluma-o-plumon",
+      "name": "De pluma o plumón",
+      "use": "",
+      "spec": "De pluma o plumón",
+      "values": [
+       "De pluma o plumón"
+      ]
+     },
+     {
+      "id": "de-peluche-o-infantil",
+      "name": "De peluche o infantil",
+      "use": "",
+      "spec": "De peluche o infantil",
+      "values": [
+       "De peluche o infantil"
+      ]
+     },
+     {
+      "id": "de-microfibra",
+      "name": "De microfibra",
+      "use": "",
+      "spec": "De microfibra",
+      "values": [
+       "De microfibra"
+      ]
+     },
+     {
+      "id": "cervical-y-ortopedica",
+      "name": "Cervical y ortopédica",
+      "use": "",
+      "spec": "Cervical y ortopédica",
+      "values": [
+       "Cervical y ortopédica"
+      ]
+     },
+     {
+      "id": "decorativa-cojin-y-relleno",
+      "name": "Decorativa (cojín y relleno)",
+      "use": "",
+      "spec": "Decorativa (cojín y relleno)",
+      "values": [
+       "Decorativa (cojín y relleno)"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Sábanas": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $770",
+      "max": 770
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$770 a $1,400",
+      "min": 770,
+      "max": 1400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,400",
+      "min": 1400
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Sábanas queen size": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Almohadas cervicales y ortopédicas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $620",
+      "max": 620
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$620 a $910",
+      "min": 620,
+      "max": 910
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $910",
+      "min": 910
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Sábanas individuales": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Organizadores para baño": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "vidrio",
+      "name": "Vidrio",
+      "use": "",
+      "spec": "Vidrio",
+      "values": [
+       "Vidrio"
+      ]
+     },
+     {
+      "id": "ceramica",
+      "name": "Cerámica",
+      "use": "",
+      "spec": "Cerámica",
+      "values": [
+       "Cerámica"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $550",
+      "max": 550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$550 a $850",
+      "min": 550,
+      "max": 850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $850",
+      "min": 850
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Toallas de baño": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "de-bano-completo",
+      "name": "De baño completo",
+      "use": "",
+      "spec": "De baño completo",
+      "values": [
+       "De baño completo"
+      ]
+     },
+     {
+      "id": "medio-bano-y-manos",
+      "name": "Medio baño y manos",
+      "use": "",
+      "spec": "Medio baño y manos",
+      "values": [
+       "Medio baño y manos"
+      ]
+     },
+     {
+      "id": "juegos",
+      "name": "Juegos",
+      "use": "",
+      "spec": "Juegos",
+      "values": [
+       "Juegos"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Tapetes de baño": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "microfibra-y-chenille",
+      "name": "Microfibra y chenille",
+      "use": "",
+      "spec": "Microfibra y chenille",
+      "values": [
+       "Microfibra y chenille"
+      ]
+     },
+     {
+      "id": "memory-foam",
+      "name": "Memory foam",
+      "use": "",
+      "spec": "Memory foam",
+      "values": [
+       "Memory foam"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Cobijas": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Toallas de cocina y paños": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $260",
+      "max": 260
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$260 a $580",
+      "min": 260,
+      "max": 580
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $580",
+      "min": 580
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Cortinas para baño": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "de-tela",
+      "name": "De tela",
+      "use": "",
+      "spec": "De tela",
+      "values": [
+       "De tela"
+      ]
+     },
+     {
+      "id": "de-plastico-o-peva",
+      "name": "De plástico o PEVA",
+      "use": "",
+      "spec": "De plástico o PEVA",
+      "values": [
+       "De plástico o PEVA"
+      ]
+     },
+     {
+      "id": "accesorios",
+      "name": "Accesorios",
+      "use": "",
+      "spec": "Accesorios",
+      "values": [
+       "Accesorios"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Edredones": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Toppers y sobrecolchones": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,350",
+      "max": 1350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,350 a $2,150",
+      "min": 1350,
+      "max": 2150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,150",
+      "min": 2150
+     }
+    ]
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Almohadas de lactancia y embarazo": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $980",
+      "max": 980
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$980 a $1,100",
+      "min": 980,
+      "max": 1100
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,100",
+      "min": 1100
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Juegos de toallas": {
+  "axes": [
+   {
+    "label": "Piezas",
+    "field": "pieces",
+    "criterion": "por número de piezas",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v2",
+      "name": "2 piezas",
+      "use": "",
+      "spec": "2 piezas",
+      "values": [
+       2
+      ]
+     },
+     {
+      "id": "v3",
+      "name": "3 piezas",
+      "use": "",
+      "spec": "3 piezas",
+      "values": [
+       3
+      ]
+     },
+     {
+      "id": "v4",
+      "name": "4 piezas",
+      "use": "",
+      "spec": "4 piezas",
+      "values": [
+       4
+      ]
+     },
+     {
+      "id": "v6",
+      "name": "6 piezas",
+      "use": "",
+      "spec": "6 piezas",
+      "values": [
+       6
+      ]
+     },
+     {
+      "id": "v12",
+      "name": "12 piezas",
+      "use": "",
+      "spec": "12 piezas",
+      "values": [
+       12
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Cobijas eléctricas": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,300",
+      "max": 1300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,300 a $2,050",
+      "min": 1300,
+      "max": 2050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,050",
+      "min": 2050
+     }
+    ]
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Sábanas para cuna y bebé": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $460",
+      "max": 460
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$460 a $850",
+      "min": 460,
+      "max": 850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $850",
+      "min": 850
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Toallas de manos y faciales": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $610",
+      "min": 290,
+      "max": 610
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $610",
+      "min": 610
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Colchas y cobertores": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "juego-con-sabanas-o-almohadas",
+      "name": "Juego con sábanas o almohadas",
+      "use": "",
+      "spec": "Juego con sábanas o almohadas",
+      "values": [
+       "Juego con sábanas o almohadas"
+      ]
+     },
+     {
+      "id": "colcha",
+      "name": "Colcha",
+      "use": "",
+      "spec": "Colcha",
+      "values": [
+       "Colcha"
+      ]
+     },
+     {
+      "id": "cobertor-termico",
+      "name": "Cobertor térmico",
+      "use": "",
+      "spec": "Cobertor térmico",
+      "values": [
+       "Cobertor térmico"
+      ]
+     },
+     {
+      "id": "cobertor-ligero",
+      "name": "Cobertor ligero",
+      "use": "",
+      "spec": "Cobertor ligero",
+      "values": [
+       "Cobertor ligero"
+      ]
+     },
+     {
+      "id": "cobertor",
+      "name": "Cobertor",
+      "use": "",
+      "spec": "Cobertor",
+      "values": [
+       "Cobertor"
+      ]
+     },
+     {
+      "id": "cobertor-borrega-o-sherpa",
+      "name": "Cobertor borrega o sherpa",
+      "use": "",
+      "spec": "Cobertor borrega o sherpa",
+      "values": [
+       "Cobertor borrega o sherpa"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Toallas de microfibra y deportivas": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $490",
+      "min": 290,
+      "max": 490
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $490",
+      "min": 490
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Toallas de playa y alberca": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $370",
+      "max": 370
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$370 a $700",
+      "min": 370,
+      "max": 700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $700",
+      "min": 700
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Fundas de almohada": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Protectores de almohada": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $210",
+      "max": 210
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$210 a $470",
+      "min": 210,
+      "max": 470
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $470",
+      "min": 470
+     }
+    ]
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Almohadillas y cojines térmicos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $470",
+      "max": 470
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$470 a $710",
+      "min": 470,
+      "max": 710
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $710",
+      "min": 710
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Rellenos de edredón (duvet)": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Blancos y ropa de cama/Ganchos para baño": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $360",
+      "max": 360
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$360 a $480",
+      "min": 360,
+      "max": 480
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $480",
+      "min": 480
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Barras para baño": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $710",
+      "max": 710
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$710 a $900",
+      "min": 710,
+      "max": 900
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $900",
+      "min": 900
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
+ "Blancos y ropa de cama/Forros para baño": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $530",
+      "max": 530
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$530 a $590",
+      "min": 530,
+      "max": 590
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $590",
+      "min": 590
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "bed_size"
+  ]
+ },
  "Juegos de mesa/De cartas": {
   "axes": [
    {
@@ -38113,21 +40070,21 @@
       ]
      },
      {
-      "id": "afeitado-y-barba",
-      "name": "Afeitado y barba",
-      "use": "",
-      "spec": "Afeitado y barba",
-      "values": [
-       "Afeitado y barba"
-      ]
-     },
-     {
       "id": "cuidado-de-pies",
       "name": "Cuidado de pies",
       "use": "",
       "spec": "Cuidado de pies",
       "values": [
        "Cuidado de pies"
+      ]
+     },
+     {
+      "id": "afeitado-y-barba",
+      "name": "Afeitado y barba",
+      "use": "",
+      "spec": "Afeitado y barba",
+      "values": [
+       "Afeitado y barba"
       ]
      },
      {
@@ -38159,16 +40116,16 @@
       "id": "mediano",
       "name": "Mediano",
       "use": "Uso de diario",
-      "spec": "101 ml a 170 ml",
+      "spec": "101 ml a 200 ml",
       "min": 100,
-      "max": 170
+      "max": 200
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Rinde meses",
-      "spec": "Más de 170 ml",
-      "min": 170
+      "spec": "Más de 200 ml",
+      "min": 200
      }
     ],
     "key": "size"
@@ -38194,16 +40151,16 @@
       "id": "mediano",
       "name": "Mediano",
       "use": "Uso de diario",
-      "spec": "101 ml a 200 ml",
+      "spec": "101 ml a 170 ml",
       "min": 100,
-      "max": 200
+      "max": 170
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Rinde meses",
-      "spec": "Más de 200 ml",
-      "min": 200
+      "spec": "Más de 170 ml",
+      "min": 170
      }
     ],
     "key": "level"
@@ -38219,23 +40176,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
+      "spec": "Hasta $420",
+      "max": 420
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$430 a $580",
-      "min": 430,
-      "max": 580
+      "spec": "$420 a $570",
+      "min": 420,
+      "max": 570
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $580",
-      "min": 580
+      "spec": "Más de $570",
+      "min": 570
      }
     ]
    }
@@ -38507,15 +40464,6 @@
       ]
      },
      {
-      "id": "iluminador-rubor-y-bronzer",
-      "name": "Iluminador, rubor y bronzer",
-      "use": "",
-      "spec": "Iluminador, rubor y bronzer",
-      "values": [
-       "Iluminador, rubor y bronzer"
-      ]
-     },
-     {
       "id": "base-en-polvo-o-compacta",
       "name": "Base en polvo o compacta",
       "use": "",
@@ -38525,30 +40473,39 @@
       ]
      },
      {
-      "id": "corrector",
-      "name": "Corrector",
-      "use": "",
-      "spec": "Corrector",
-      "values": [
-       "Corrector"
-      ]
-     },
-     {
-      "id": "primer-y-fijador",
-      "name": "Primer y fijador",
-      "use": "",
-      "spec": "Primer y fijador",
-      "values": [
-       "Primer y fijador"
-      ]
-     },
-     {
       "id": "base-en-barra",
       "name": "Base en barra",
       "use": "",
       "spec": "Base en barra",
       "values": [
        "Base en barra"
+      ]
+     },
+     {
+      "id": "iluminador-rubor-y-bronzer",
+      "name": "Iluminador, rubor y bronzer",
+      "use": "",
+      "spec": "Iluminador, rubor y bronzer",
+      "values": [
+       "Iluminador, rubor y bronzer"
+      ]
+     },
+     {
+      "id": "cushion",
+      "name": "Cushion",
+      "use": "",
+      "spec": "Cushion",
+      "values": [
+       "Cushion"
+      ]
+     },
+     {
+      "id": "esponjas-y-aplicadores",
+      "name": "Esponjas y aplicadores",
+      "use": "",
+      "spec": "Esponjas y aplicadores",
+      "values": [
+       "Esponjas y aplicadores"
       ]
      }
     ],
@@ -38903,21 +40860,21 @@
       ]
      },
      {
-      "id": "limpiador-y-exfoliante",
-      "name": "Limpiador y exfoliante",
-      "use": "",
-      "spec": "Limpiador y exfoliante",
-      "values": [
-       "Limpiador y exfoliante"
-      ]
-     },
-     {
       "id": "tonico-esencia-y-bruma",
       "name": "Tónico, esencia y bruma",
       "use": "",
       "spec": "Tónico, esencia y bruma",
       "values": [
        "Tónico, esencia y bruma"
+      ]
+     },
+     {
+      "id": "limpiador-y-exfoliante",
+      "name": "Limpiador y exfoliante",
+      "use": "",
+      "spec": "Limpiador y exfoliante",
+      "values": [
+       "Limpiador y exfoliante"
       ]
      },
      {
@@ -38949,16 +40906,16 @@
       "id": "mediano",
       "name": "Mediano",
       "use": "Uso de diario",
-      "spec": "51 ml a 120 ml",
+      "spec": "51 ml a 110 ml",
       "min": 50,
-      "max": 120
+      "max": 110
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Rinde meses",
-      "spec": "Más de 120 ml",
-      "min": 120
+      "spec": "Más de 110 ml",
+      "min": 110
      }
     ],
     "key": "size"
@@ -39305,16 +41262,16 @@
       "id": "mediano",
       "name": "Mediano",
       "use": "Uso de diario",
-      "spec": "201 ml a 290 ml",
+      "spec": "201 ml a 280 ml",
       "min": 200,
-      "max": 290
+      "max": 280
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Rinde meses",
-      "spec": "Más de 290 ml",
-      "min": 290
+      "spec": "Más de 280 ml",
+      "min": 280
      }
     ],
     "key": "size"
@@ -39461,15 +41418,6 @@
       "spec": "Colonia",
       "values": [
        "Colonia"
-      ]
-     },
-     {
-      "id": "body-mist-y-bruma",
-      "name": "Body mist y bruma",
-      "use": "",
-      "spec": "Body mist y bruma",
-      "values": [
-       "Body mist y bruma"
       ]
      }
     ],
@@ -40039,16 +41987,16 @@
       "id": "mediano",
       "name": "Mediano",
       "use": "Uso de diario",
-      "spec": "9 ml a 11 ml",
+      "spec": "9 ml a 10 ml",
       "min": 8,
-      "max": 11
+      "max": 10
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Rinde meses",
-      "spec": "Más de 11 ml",
-      "min": 11
+      "spec": "Más de 10 ml",
+      "min": 10
      }
     ],
     "key": "size"
@@ -40246,21 +42194,21 @@
       ]
      },
      {
-      "id": "polvo-fijador",
-      "name": "Polvo fijador",
-      "use": "",
-      "spec": "Polvo fijador",
-      "values": [
-       "Polvo fijador"
-      ]
-     },
-     {
       "id": "iluminador",
       "name": "Iluminador",
       "use": "",
       "spec": "Iluminador",
       "values": [
        "Iluminador"
+      ]
+     },
+     {
+      "id": "polvo-fijador",
+      "name": "Polvo fijador",
+      "use": "",
+      "spec": "Polvo fijador",
+      "values": [
+       "Polvo fijador"
       ]
      }
     ],
@@ -40284,16 +42232,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$300 a $680",
+      "spec": "$300 a $690",
       "min": 300,
-      "max": 680
+      "max": 690
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $680",
-      "min": 680
+      "spec": "Más de $690",
+      "min": 690
      }
     ]
    }
@@ -40397,21 +42345,21 @@
     "ramp": false,
     "tiers": [
      {
-      "id": "aparatos",
-      "name": "Aparatos",
-      "use": "",
-      "spec": "Aparatos",
-      "values": [
-       "Aparatos"
-      ]
-     },
-     {
       "id": "cremas-y-lociones",
       "name": "Cremas y lociones",
       "use": "",
       "spec": "Cremas y lociones",
       "values": [
        "Cremas y lociones"
+      ]
+     },
+     {
+      "id": "aparatos",
+      "name": "Aparatos",
+      "use": "",
+      "spec": "Aparatos",
+      "values": [
+       "Aparatos"
       ]
      },
      {
@@ -40716,15 +42664,6 @@
       ]
      },
      {
-      "id": "sin-enjuague",
-      "name": "Sin enjuague",
-      "use": "",
-      "spec": "Sin enjuague",
-      "values": [
-       "Sin enjuague"
-      ]
-     },
-     {
       "id": "anticaida",
       "name": "Anticaída",
       "use": "",
@@ -40734,12 +42673,12 @@
       ]
      },
      {
-      "id": "para-cabello-tenido",
-      "name": "Para cabello teñido",
+      "id": "sin-enjuague",
+      "name": "Sin enjuague",
       "use": "",
-      "spec": "Para cabello teñido",
+      "spec": "Sin enjuague",
       "values": [
-       "Para cabello teñido"
+       "Sin enjuague"
       ]
      },
      {
@@ -40749,6 +42688,15 @@
       "spec": "Para cabello rizado",
       "values": [
        "Para cabello rizado"
+      ]
+     },
+     {
+      "id": "para-cabello-tenido",
+      "name": "Para cabello teñido",
+      "use": "",
+      "spec": "Para cabello teñido",
+      "values": [
+       "Para cabello teñido"
       ]
      }
     ],
@@ -40764,23 +42712,23 @@
       "id": "chico",
       "name": "Chico",
       "use": "Para probar o para viajar",
-      "spec": "Hasta 250 ml",
-      "max": 250
+      "spec": "Hasta 270 ml",
+      "max": 270
      },
      {
       "id": "mediano",
       "name": "Mediano",
       "use": "Uso de diario",
-      "spec": "251 ml a 450 ml",
-      "min": 250,
-      "max": 450
+      "spec": "271 ml a 500 ml",
+      "min": 270,
+      "max": 500
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Rinde meses",
-      "spec": "Más de 450 ml",
-      "min": 450
+      "spec": "Más de 500 ml",
+      "min": 500
      }
     ],
     "key": "size"
@@ -41266,23 +43214,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
+      "spec": "Hasta $260",
+      "max": 260
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$290 a $560",
-      "min": 290,
-      "max": 560
+      "spec": "$260 a $540",
+      "min": 260,
+      "max": 540
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $560",
-      "min": 560
+      "spec": "Más de $540",
+      "min": 540
      }
     ]
    }
@@ -41412,23 +43360,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $270",
-      "max": 270
+      "spec": "Hasta $260",
+      "max": 260
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$270 a $530",
-      "min": 270,
-      "max": 530
+      "spec": "$260 a $540",
+      "min": 260,
+      "max": 540
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $530",
-      "min": 530
+      "spec": "Más de $540",
+      "min": 540
      }
     ]
    }
@@ -41558,23 +43506,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $350",
-      "max": 350
+      "spec": "Hasta $220",
+      "max": 220
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$350 a $650",
-      "min": 350,
-      "max": 650
+      "spec": "$220 a $620",
+      "min": 220,
+      "max": 620
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $650",
-      "min": 650
+      "spec": "Más de $620",
+      "min": 620
      }
     ]
    }
@@ -41736,16 +43684,16 @@
       "id": "mediano",
       "name": "Mediano",
       "use": "Uso de diario",
-      "spec": "31 ml a 50 ml",
+      "spec": "31 ml a 60 ml",
       "min": 30,
-      "max": 50
+      "max": 60
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Rinde meses",
-      "spec": "Más de 50 ml",
-      "min": 50
+      "spec": "Más de 60 ml",
+      "min": 60
      }
     ],
     "key": "level"
@@ -41761,23 +43709,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $360",
-      "max": 360
+      "spec": "Hasta $320",
+      "max": 320
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$360 a $610",
-      "min": 360,
-      "max": 610
+      "spec": "$320 a $540",
+      "min": 320,
+      "max": 540
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $610",
-      "min": 610
+      "spec": "Más de $540",
+      "min": 540
      }
     ]
    }
@@ -42603,7 +44551,38 @@
  "Belleza y cuidado personal/Tintes para cabello": {
   "axes": [
    {
-    "key": "level",
+    "label": "Contenido",
+    "field": "volume_ml",
+    "criterion": "en mililitros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Para probar o para viajar",
+      "spec": "Hasta 60 ml",
+      "max": 60
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Uso de diario",
+      "spec": "61 ml a 230 ml",
+      "min": 60,
+      "max": 230
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Rinde meses",
+      "spec": "Más de 230 ml",
+      "min": 230
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
     "label": "Precio",
     "field": "price",
     "criterion": "por lo que cuesta hoy",
@@ -42630,6 +44609,41 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $190",
       "min": 190
+     }
+    ]
+   }
+  ]
+ },
+ "Salud/Cuidado dental": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $77",
+      "max": 77
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$77 a $270",
+      "min": 77,
+      "max": 270
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $270",
+      "min": 270
      }
     ]
    }
@@ -42665,41 +44679,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,500",
       "min": 1500
-     }
-    ]
-   }
-  ]
- },
- "Salud/Cuidado dental": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $99",
-      "max": 99
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$99 a $390",
-      "min": 99,
-      "max": 390
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $390",
-      "min": 390
      }
     ]
    }
@@ -71682,1871 +73661,6 @@
    }
   ]
  },
- "Blancos y ropa de cama/Sábanas matrimoniales": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Blancos y ropa de cama/Protectores de colchón": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Blancos y ropa de cama/Coordinados y juegos de edredón": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Blancos y ropa de cama/Sábanas king size": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Blancos y ropa de cama/Almohadas": {
-  "axes": [
-   {
-    "label": "Relleno",
-    "field": "memory_foam",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Memory foam",
-      "use": "Se amolda a la cabeza y al cuello",
-      "spec": "Memory foam",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "viscoelastica-memory-foam",
-      "name": "Viscoelástica (memory foam)",
-      "use": "",
-      "spec": "Viscoelástica (memory foam)",
-      "values": [
-       "Viscoelástica (memory foam)"
-      ]
-     },
-     {
-      "id": "de-pluma-o-plumon",
-      "name": "De pluma o plumón",
-      "use": "",
-      "spec": "De pluma o plumón",
-      "values": [
-       "De pluma o plumón"
-      ]
-     },
-     {
-      "id": "de-peluche-o-infantil",
-      "name": "De peluche o infantil",
-      "use": "",
-      "spec": "De peluche o infantil",
-      "values": [
-       "De peluche o infantil"
-      ]
-     },
-     {
-      "id": "de-microfibra",
-      "name": "De microfibra",
-      "use": "",
-      "spec": "De microfibra",
-      "values": [
-       "De microfibra"
-      ]
-     },
-     {
-      "id": "cervical-y-ortopedica",
-      "name": "Cervical y ortopédica",
-      "use": "",
-      "spec": "Cervical y ortopédica",
-      "values": [
-       "Cervical y ortopédica"
-      ]
-     },
-     {
-      "id": "decorativa-cojin-y-relleno",
-      "name": "Decorativa (cojín y relleno)",
-      "use": "",
-      "spec": "Decorativa (cojín y relleno)",
-      "values": [
-       "Decorativa (cojín y relleno)"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Blancos y ropa de cama/Sábanas": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $770",
-      "max": 770
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$770 a $1,400",
-      "min": 770,
-      "max": 1400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,400",
-      "min": 1400
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Sábanas queen size": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Blancos y ropa de cama/Almohadas cervicales y ortopédicas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $620",
-      "max": 620
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$620 a $910",
-      "min": 620,
-      "max": 910
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $910",
-      "min": 910
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Sábanas individuales": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Blancos y ropa de cama/Frazadas y mantas": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Blancos y ropa de cama/Toallas de baño": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "de-bano-completo",
-      "name": "De baño completo",
-      "use": "",
-      "spec": "De baño completo",
-      "values": [
-       "De baño completo"
-      ]
-     },
-     {
-      "id": "medio-bano-y-manos",
-      "name": "Medio baño y manos",
-      "use": "",
-      "spec": "Medio baño y manos",
-      "values": [
-       "Medio baño y manos"
-      ]
-     },
-     {
-      "id": "juegos",
-      "name": "Juegos",
-      "use": "",
-      "spec": "Juegos",
-      "values": [
-       "Juegos"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Tapetes de baño": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "microfibra-y-chenille",
-      "name": "Microfibra y chenille",
-      "use": "",
-      "spec": "Microfibra y chenille",
-      "values": [
-       "Microfibra y chenille"
-      ]
-     },
-     {
-      "id": "memory-foam",
-      "name": "Memory foam",
-      "use": "",
-      "spec": "Memory foam",
-      "values": [
-       "Memory foam"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Cobijas": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Blancos y ropa de cama/Toallas de cocina y paños": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $260",
-      "max": 260
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$260 a $580",
-      "min": 260,
-      "max": 580
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $580",
-      "min": 580
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Cortinas para baño": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "de-tela",
-      "name": "De tela",
-      "use": "",
-      "spec": "De tela",
-      "values": [
-       "De tela"
-      ]
-     },
-     {
-      "id": "de-plastico-o-peva",
-      "name": "De plástico o PEVA",
-      "use": "",
-      "spec": "De plástico o PEVA",
-      "values": [
-       "De plástico o PEVA"
-      ]
-     },
-     {
-      "id": "accesorios",
-      "name": "Accesorios",
-      "use": "",
-      "spec": "Accesorios",
-      "values": [
-       "Accesorios"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Edredones": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Blancos y ropa de cama/Toppers y sobrecolchones": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,350",
-      "max": 1350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,350 a $2,150",
-      "min": 1350,
-      "max": 2150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,150",
-      "min": 2150
-     }
-    ]
-   }
-  ]
- },
- "Blancos y ropa de cama/Almohadas de lactancia y embarazo": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $980",
-      "max": 980
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$980 a $1,100",
-      "min": 980,
-      "max": 1100
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,100",
-      "min": 1100
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Juegos de toallas": {
-  "axes": [
-   {
-    "label": "Piezas",
-    "field": "pieces",
-    "criterion": "por número de piezas",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v2",
-      "name": "2 piezas",
-      "use": "",
-      "spec": "2 piezas",
-      "values": [
-       2
-      ]
-     },
-     {
-      "id": "v3",
-      "name": "3 piezas",
-      "use": "",
-      "spec": "3 piezas",
-      "values": [
-       3
-      ]
-     },
-     {
-      "id": "v4",
-      "name": "4 piezas",
-      "use": "",
-      "spec": "4 piezas",
-      "values": [
-       4
-      ]
-     },
-     {
-      "id": "v6",
-      "name": "6 piezas",
-      "use": "",
-      "spec": "6 piezas",
-      "values": [
-       6
-      ]
-     },
-     {
-      "id": "v12",
-      "name": "12 piezas",
-      "use": "",
-      "spec": "12 piezas",
-      "values": [
-       12
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Cobijas eléctricas": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,300 a $2,050",
-      "min": 1300,
-      "max": 2050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,050",
-      "min": 2050
-     }
-    ]
-   }
-  ]
- },
- "Blancos y ropa de cama/Sábanas para cuna y bebé": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $460",
-      "max": 460
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$460 a $850",
-      "min": 460,
-      "max": 850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $850",
-      "min": 850
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Toallas de manos y faciales": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $610",
-      "min": 290,
-      "max": 610
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $610",
-      "min": 610
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Colchas y cobertores": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "juego-con-sabanas-o-almohadas",
-      "name": "Juego con sábanas o almohadas",
-      "use": "",
-      "spec": "Juego con sábanas o almohadas",
-      "values": [
-       "Juego con sábanas o almohadas"
-      ]
-     },
-     {
-      "id": "colcha",
-      "name": "Colcha",
-      "use": "",
-      "spec": "Colcha",
-      "values": [
-       "Colcha"
-      ]
-     },
-     {
-      "id": "cobertor-termico",
-      "name": "Cobertor térmico",
-      "use": "",
-      "spec": "Cobertor térmico",
-      "values": [
-       "Cobertor térmico"
-      ]
-     },
-     {
-      "id": "cobertor-ligero",
-      "name": "Cobertor ligero",
-      "use": "",
-      "spec": "Cobertor ligero",
-      "values": [
-       "Cobertor ligero"
-      ]
-     },
-     {
-      "id": "cobertor",
-      "name": "Cobertor",
-      "use": "",
-      "spec": "Cobertor",
-      "values": [
-       "Cobertor"
-      ]
-     },
-     {
-      "id": "cobertor-borrega-o-sherpa",
-      "name": "Cobertor borrega o sherpa",
-      "use": "",
-      "spec": "Cobertor borrega o sherpa",
-      "values": [
-       "Cobertor borrega o sherpa"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Blancos y ropa de cama/Toallas de microfibra y deportivas": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $490",
-      "min": 290,
-      "max": 490
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $490",
-      "min": 490
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Toallas de playa y alberca": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $370",
-      "max": 370
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$370 a $700",
-      "min": 370,
-      "max": 700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Fundas de almohada": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Blancos y ropa de cama/Protectores de almohada": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $210",
-      "max": 210
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$210 a $470",
-      "min": 210,
-      "max": 470
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $470",
-      "min": 470
-     }
-    ]
-   }
-  ]
- },
- "Blancos y ropa de cama/Almohadillas y cojines térmicos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $470",
-      "max": 470
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$470 a $710",
-      "min": 470,
-      "max": 710
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $710",
-      "min": 710
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Rellenos de edredón (duvet)": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Blancos y ropa de cama/Ganchos para baño": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $360",
-      "max": 360
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$360 a $480",
-      "min": 360,
-      "max": 480
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $480",
-      "min": 480
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Barras para baño": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $710",
-      "max": 710
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$710 a $900",
-      "min": 710,
-      "max": 900
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $900",
-      "min": 900
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
- "Blancos y ropa de cama/Forros para baño": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $530",
-      "max": 530
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$530 a $590",
-      "min": 530,
-      "max": 590
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $590",
-      "min": 590
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "bed_size"
-  ]
- },
  "Cámaras de seguridad/Cámaras espía": {
   "axes": [
    {
@@ -80592,15 +80706,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $9,150",
-      "max": 9150
+      "spec": "Hasta $9,250",
+      "max": 9250
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$9,150 a $12,000",
-      "min": 9150,
+      "spec": "$9,250 a $12,000",
+      "min": 9250,
       "max": 12000
      },
      {
@@ -82249,6 +82363,55 @@
   ],
   "intro": "Elige por la edad de quien lo va a usar."
  },
+ "Blancos y ropa de cama": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
  "Juegos de mesa": {
   "axes": [
    {
@@ -83192,23 +83355,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $580",
-      "max": 580
+      "spec": "Hasta $500",
+      "max": 500
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$580 a $1,850",
-      "min": 580,
-      "max": 1850
+      "spec": "$500 a $1,750",
+      "min": 500,
+      "max": 1750
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,850",
-      "min": 1850
+      "spec": "Más de $1,750",
+      "min": 1750
      }
     ]
    }
@@ -84521,55 +84684,6 @@
    }
   ]
  },
- "Blancos y ropa de cama": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
  "Cámaras de seguridad": {
   "axes": [
    {
@@ -85134,15 +85248,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $6,250",
-      "max": 6250
+      "spec": "Hasta $6,400",
+      "max": 6400
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$6,250 a $13,500",
-      "min": 6250,
+      "spec": "$6,400 a $13,500",
+      "min": 6400,
       "max": 13500
      },
      {
