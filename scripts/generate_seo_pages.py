@@ -950,6 +950,7 @@ ETIQUETAS_FACETAS = [
     ("firmness", "Firmeza", str), ("fuel", "Funciona con", str), ("heater_type", "Tipo de calentador", str),
     ("fan_type", "Tipo de ventilador", str),
     ("spf", "Factor de protección solar", lambda v: f"FPS {v}"),
+    ("dims", "Medidas", str),
 ]
 
 

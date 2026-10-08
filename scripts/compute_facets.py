@@ -2553,6 +2553,10 @@ def _nombre_manda(product, f):
             f[c] = g[c]
 
 
+_CAMPOS_TAMANO = {"length_cm", "size_in", "frame_cm", "blind_cm", "pan_cm", "screen_in", "fan_in", "hood_cm", "bar_in",
+                  "length_m", "fan_mm", "sheets"}
+
+
 def facets_for(product):
     """Los facets propios de la categoría (abajo) y, encima, los genéricos
     que cualquier categoría puede tener. Ninguno de los dos pisa al otro.
@@ -2567,6 +2571,14 @@ def facets_for(product):
     # lista pone «≈ $X c/u» junto al precio y los tramos de precio cortan por
     # pieza, no por lo que cuesta el paquete (compute_quality_axes.precio_de).
     _nombre_manda(product, f)
+    # Medidas del título («244 × 264 cm»): sólo si la ficha no tiene ya un
+    # tamaño más específico. No en iluminación («2 x 7.5 m» son dos tiras) ni en
+    # autos (llantas y bocinas «6x9»).
+    if product.get("category") not in ("Iluminación", "Autopartes", "Autos y motos") and not (
+            f.keys() & _CAMPOS_TAMANO):
+        dim = st.medidas(product.get("name", ""))
+        if dim:
+            f["dims"] = dim
     paquete = se.pack_count(product.get("name", ""))
     if paquete:
         f["pack_n"] = paquete

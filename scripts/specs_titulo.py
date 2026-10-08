@@ -1329,3 +1329,32 @@ def rodada_titulo(nombre):
             if m.group(1) in _RODADAS:
                 vals.add(m.group(1))
     return "R" + next(iter(vals)) if len(vals) == 1 else None
+
+
+# ------------------------------------------------------------------ medidas
+_MEDIDAS_RE = re.compile(
+    r"(?<![\d.,x×])(\d{1,3}(?:[.,]\d{1,2})?)\s*(?:x|×|por)\s*(\d{1,3}(?:[.,]\d{1,2})?)"
+    r"(?:\s*(?:x|×|por)\s*(\d{1,3}(?:[.,]\d{1,2})?))?\s*(cm|mm|m|mts?|metros?|pulgadas?|plg|pulg|in|\")(?![a-z0-9])")
+
+
+def medidas(nombre):
+    """«244 × 264 cm», «41 × 33 × 8 cm»: las medidas que el nombre dice con su
+    unidad (cm, mm, m, pulgadas). 14 mil fichas las traen en el título y nada
+    las leía (08-oct-2026). Si el nombre trae dos medidas distintas («18x8 cm /
+    20x18 cm») no se elige ninguna."""
+    n = _norm(nombre).replace("\u202f", " ")
+    vistas = set()
+    for m in _MEDIDAS_RE.finditer(n):
+        nums = [g for g in m.groups()[:3] if g]
+        unidad = m.group(4)
+        unidad = {"cm": "cm", "mm": "mm", "m": "m", "mt": "m", "mts": "m", "metro": "m", "metros": "m"}.get(unidad, "pulgadas")
+        vals = [float(x.replace(",", ".")) for x in nums]
+        if unidad == "m" and max(vals) > 100:
+            continue
+        if unidad == "cm" and max(vals) > 600:
+            continue
+        if unidad == "pulgadas" and max(vals) > 200:
+            continue
+        txt = " × ".join(str(int(v)) if v == int(v) else str(v) for v in vals)
+        vistas.add(f"{txt} {unidad}")
+    return next(iter(vistas)) if len(vistas) == 1 else None

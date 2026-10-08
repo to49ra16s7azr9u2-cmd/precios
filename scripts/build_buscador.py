@@ -301,6 +301,11 @@ def _valor_orden(v):
     return (0, v, "") if _es_num(v) else (1, 0, str(v))
 
 
+# Facetas que sólo se muestran en la ficha y no sirven para filtrar: «dims»
+# («244 × 264 cm») tiene miles de valores distintos y llenaría el diccionario.
+NO_EN_RESUMEN = {"dims"}
+
+
 def resumen_de_categoria(fichas, idx_sub, subs_cat):
     """El resumen de data/buscar/c para una categoría (ver arriba)."""
     ids, fs, ps, vs, ss, ms = [], [], [], [], [], []
@@ -330,8 +335,9 @@ def resumen_de_categoria(fichas, idx_sub, subs_cat):
     # fuera y la fila desaparecía (04-oct-2026, al pasar Autos y motos a
     # resumen).
     campos = sorted(k for k, n in presentes.items()
-                    if n / total >= FACETA_MIN
-                    or any(fichas_sub[s] >= 20 and c[k] >= 0.10 * fichas_sub[s] for s, c in por_sub.items()))
+                    if k not in NO_EN_RESUMEN
+                    and (n / total >= FACETA_MIN
+                         or any(fichas_sub[s] >= 20 and c[k] >= 0.10 * fichas_sub[s] for s, c in por_sub.items())))
     # «pack_n» (piezas iguales por paquete) viaja siempre que exista: la lista
     # pone «≈ $X c/u» y los tramos de precio cortan por pieza (js/app.js,
     # qualityValueOf), y con un resumen que no lo trae, una fila saldría con
