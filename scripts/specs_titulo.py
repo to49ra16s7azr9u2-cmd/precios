@@ -405,6 +405,66 @@ def editorial_libro(nombre):
     return None
 
 
+# ---------------------------------------------------------------- belleza
+# Lo que decide un producto de cuidado de la piel y el cabello casi nunca está en una
+# ficha: la piel a la que va y el activo que lo hace (08-oct-2026).
+_ACTIVOS = tuple((n, re.compile(r)) for n, r in (
+    ("Ácido hialurónico", r"hialuron|hyaluron"),
+    ("Vitamina C", r"vitamina c\b|\bvit\.? ?c\b|ascorbic|vitamin c\b"),
+    ("Retinol", r"retinol|retinal\b|retinoico|\bretinoid"),
+    ("Niacinamida", r"niacinamid"),
+    ("Colágeno", r"colageno|collagen"),
+    ("Péptidos", r"peptid|peptide|matrixyl"),
+    ("Ceramidas", r"ceramida|ceramide"),
+    ("Ácido salicílico", r"salicilic|salicylic|\bbha\b"),
+    ("Ácido glicólico", r"glicolic|glycolic|\baha\b"),
+    ("Centella asiática", r"centella|\bcica\b"),
+    ("Aloe vera", r"\baloe\b"),
+    ("Té verde", r"te verde|green tea"),
+    ("Vitamina E", r"vitamina e\b|tocoferol|vitamin e\b"),
+    ("Bakuchiol", r"bakuchiol"),
+    ("Ácido azelaico", r"azelaic|azelaico"),
+    ("Baba de caracol", r"caracol|snail"),
+    ("Rosa mosqueta", r"mosqueta"),
+    ("Árbol de té", r"arbol de te|tea tree"),
+    ("Argán", r"\bargan\b"),
+    ("Karité", r"karite|\bshea\b"),
+    ("Keratina", r"keratina|queratina|keratin\b"),
+    ("Biotina", r"biotina|biotin\b"),
+    ("Ácido kójico", r"kojic|kojico"),
+    ("Glutatión", r"glutation|glutathione"),
+    ("Aceite de coco", r"aceite de coco|coconut oil"),
+    ("Carbón activado", r"carbon activado|charcoal"),
+    ("Arcilla", r"arcilla|\bclay\b"),
+))
+
+
+def ingredientes_destacados(nombre):
+    """Los activos que el nombre presume («sérum con ácido hialurónico y vitamina C»)."""
+    n = _norm(nombre)
+    return [nom for nom, rx in _ACTIVOS if rx.search(n)][:4] or None
+
+
+_PIELES = tuple((n, re.compile(r)) for n, r in (
+    ("Piel grasa", r"pieles? (muy )?(grasa|grasas|oleosa|oleosas)|oily skin"),
+    ("Piel seca", r"pieles? (muy )?(seca|secas|deshidratada|deshidratadas)|dry skin"),
+    ("Piel sensible", r"pieles? (muy )?(sensible|sensibles|reactiva|reactivas|atopica|atopicas)|sensitive skin"),
+    ("Piel mixta", r"pieles? (mixta|mixtas|combinada|combinadas)|combination skin"),
+    ("Piel madura", r"pieles? (madura|maduras)|mature skin"),
+    ("Piel normal", r"pieles? (normal|normales)"),
+    ("Piel con acné", r"pieles? (con )?(acne|acneica|acneicas|imperfecciones)|tendencia acneica|acneic"),
+))
+
+
+def tipo_piel(nombre):
+    """Tipos de piel a los que el nombre dice que va; «todo tipo de piel» si lo dice."""
+    n = _norm(nombre)
+    if re.search(r"(todo|todos|cualquier) (los )?tipos? de pieles?|all skin types?|toda piel", n):
+        return ["Todo tipo de piel"]
+    tipos = [nom for nom, rx in _PIELES if rx.search(n)]
+    return tipos[:3] or None
+
+
 _HP_RE = re.compile(r"(?<![\d./])(\d+\s+\d/\d|\d/\d|\d{1,2}(?:\.\d{1,2})?)\s*(?:hp|caballos?(?: de fuerza)?)\b")
 
 
@@ -740,6 +800,44 @@ def franquicia(nombre):
     peluches), o None."""
     n = _norm(nombre)
     return next((nom for nom, rx in _FRANQUICIAS_RX if rx.search(n)), None)
+
+
+# El número de set (LEGO, Playmobil, Duplo): lo que identifica una caja sin dudar
+# («75582», «60407»). 5 cifras y no las piezas («10000 piezas») ni los códigos de barras.
+_SET_NUM_RE = re.compile(r"(?<![\d.,/#-])([1-9]\d{4})(?!\d|[./]\d|,\d)(?!\s*(?:pzs?|pzas?|piezas?|pcs|pieces|bloques|mah|mm|cm|w\b|v\b|ml|g\b))")
+
+
+def numero_set(nombre):
+    n = _norm(nombre)
+    if not re.search(r"lego|playmobil|duplo|bricks?|bloques|minifig", n):
+        return None
+    vals = set(_SET_NUM_RE.findall(n))
+    return next(iter(vals)) if len(vals) == 1 else None
+
+
+# Funko: lo que los coleccionistas buscan primero es la edición («Chase», «Exclusivo»,
+# «Brilla en la oscuridad») y el número de la caja.
+_FUNKO_ED = tuple((n, re.compile(r)) for n, r in (
+    ("Chase", r"\bchase\b"), ("Exclusivo", r"exclusiv[eo]|\bexc\b|\bsdcc\b|\bnycc\b|\bsccc\b|\beccc\b|convention"),
+    ("Brilla en la oscuridad", r"\bglow\b|brilla en la oscuridad|glows"), ("Flocked", r"flocked|afelpado"),
+    ("Diamond", r"\bdiamond\b|\bdiamante\b"), ("Metálico", r"metallic|metalico"),
+    ("Mystery", r"mystery|misterio"),
+))
+
+
+def edicion_funko(nombre):
+    n = _norm(nombre)
+    if "funko" not in n and "pop" not in n:
+        return None
+    return [nom for nom, rx in _FUNKO_ED if rx.search(n)][:3] or None
+
+
+def numero_funko(nombre):
+    n = _norm(nombre)
+    if "funko" not in n and "pop" not in n:
+        return None
+    vals = set(re.findall(r"(?<![\w&])#\s?(\d{1,4})\b", n))
+    return next(iter(vals)) if len(vals) == 1 else None
 
 
 # Las líneas propias de LEGO, después de las franquicias («LEGO Star Wars»

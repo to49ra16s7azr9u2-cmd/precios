@@ -2466,6 +2466,9 @@ REGLAS_TITULO.setdefault("Suplementos", []).extend([("units", st.unidades), ("su
                                                     # (js/app.js, filaNutrientes) deja elegir varios.
                                                     ("nutrients", st.nutrientes)])
 REGLAS_TITULO.setdefault("Herramientas", []).append(("power_source", st.inalambrico_herramienta))
+# Belleza: los activos que el nombre presume y el tipo de piel al que va.
+REGLAS_TITULO.setdefault("Belleza y cuidado personal", []).extend([("actives", st.ingredientes_destacados),
+                                                                  ("skin_type", st.tipo_piel)])
 for _c in ("Belleza y cuidado personal", "Limpieza y hogar", "Suplementos"):
     # ml_oz_of: «3.4 oz» y «1 litro» cuando el nombre no trae ml (perfumes y
     # cremas importadas; 07-oct-2026).
@@ -2528,6 +2531,8 @@ NOMBRE_GENERALES.setdefault(("Televisores", "Controles para TV"), []).append(("t
 for _s in ("Funko y coleccionables", "Figuras de acción", "Figuras de colección a escala", "Peluches"):
     NOMBRE_GENERALES.setdefault(("Juguetes", _s), []).append(("franchise", st.franquicia))
 NOMBRE_GENERALES.setdefault(("Juguetes", "Bloques de construcción"), []).append(("block_theme", st.tema_bloques))
+NOMBRE_GENERALES.setdefault(("Juguetes", "Bloques de construcción"), []).append(("set_num", st.numero_set))
+NOMBRE_GENERALES.setdefault(("Juguetes", "Funko y coleccionables"), []).extend([("funko_ed", st.edicion_funko), ("funko_num", st.numero_funko)])
 NOMBRE_GENERALES.setdefault(("Juguetes", "Muñecas"), []).append(("doll_line", st.linea_muneca))
 for _s in ("Sartenes y comales", "Comales y planchas"):
     NOMBRE_GENERALES.setdefault(("Cocina y comedor", _s), []).append(("pan_cm", lambda t: se.length_cm_of(t, 10, 60)))
