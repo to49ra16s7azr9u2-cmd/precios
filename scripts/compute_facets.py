@@ -2763,6 +2763,7 @@ for _c in _MODA + ("Deportes y fitness", "Belleza y cuidado personal", "Relojes 
 REGLAS_TITULO.setdefault("Calzado", []).append(("shoe_size", st.talla_calzado))
 for _c in ("Ropa y accesorios", "Deportes y fitness"):
     REGLAS_TITULO.setdefault(_c, []).append(("size_label", se.size_label_of))
+REGLAS_TITULO.setdefault("Autopartes", []).append(("part_num", st.numero_parte))
 for _c in ("Autopartes", "Autos y motos"):
     REGLAS_TITULO.setdefault(_c, []).extend([("position", st.posicion), ("side", st.lado),
                                              ("tire_size", st.medida_llanta),

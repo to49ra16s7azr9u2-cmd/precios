@@ -502,6 +502,15 @@ def calibre_awg(nombre):
     return next(iter(vals)) if len(vals) == 1 else None
 
 
+def numero_parte(nombre):
+    """El número de parte que el nombre trae: los códigos de Italika («F13011645», «E14010221»)."""
+    n = nombre or ""
+    if not re.search(r"italika", n, re.I):
+        return None
+    vals = set(re.findall(r"(?<![\w-])([FEfe]\d{8})(?!\w)", n))
+    return next(iter(vals)).upper() if len(vals) == 1 else None
+
+
 _HP_RE = re.compile(r"(?<![\d./])(\d+\s+\d/\d|\d/\d|\d{1,2}(?:\.\d{1,2})?)\s*(?:hp|caballos?(?: de fuerza)?)\b")
 
 

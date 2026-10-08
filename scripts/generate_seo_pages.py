@@ -965,7 +965,7 @@ ETIQUETAS_FACETAS = [
     ("spf", "Factor de protección solar", lambda v: f"FPS {v}"),
     ("dims", "Medidas", str),
     # Lo que ya se calculaba y la ficha nunca mostraba (08-oct-2026: ~50 campos, 120 mil datos).
-    ("speed_rating", "Índice de velocidad", str), ("length_cm", "Largo", _g(" cm")),
+    ("part_num", "Número de parte", str), ("speed_rating", "Índice de velocidad", str), ("length_cm", "Largo", _g(" cm")),
     ("pack_n", "Piezas en el paquete", str), ("age_rating", "Clasificación por edad", str),
     ("doors", "Puertas", str), ("storage_type", "Tipo de almacenamiento", lambda v: str(v).upper()),
     ("tool_type", "Tipo de herramienta", str), ("breed_size", "Tamaño de raza", str), ("pet_stage", "Etapa de vida", str),
