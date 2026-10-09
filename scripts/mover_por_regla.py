@@ -5457,5 +5457,17 @@ LOTES['auditoria_49'] = [
 ]
 REGLAS += LOTES['auditoria_49']
 
+# auditoria_50 (09-oct-2026): revisión de las categorías más chicas (Energía solar, Impresión 3D, Proyectores, Suplementos,
+# Lavadoras, Refrigeradores, Tabletas...): suplementos veterinarios, antenas de TV en Proyectores, tabletas dentales, etc.
+LOTES['auditoria_50'] = [
+ ('Suplementos', r'\b(perros?|caninos?|gatos?|felinos?|mascotas?|reptiles?|caballos?)\b|\bpets?\b|veterinar', None, 'Mascotas', 'Alimento y premios', None),
+ ('Suplementos', r'enjuague bucal|pasta de dientes|gel dental|probioticos? orales?|blanqueador dental|tabletas? (reveladoras|para dentadura)', None, 'Salud', 'Cuidado dental', None),
+ ('Proyectores y accesorios', r'\bantenas? (de )?(tv|pvc|digital|hdtv|hd)\b', None, 'Televisores', 'Accesorios y soportes', None),
+ ('Tabletas', r'tabletas? (para dentadura|reveladoras|dentales)|pasta de dientes en tabletas', None, 'Salud', 'Cuidado dental', {'Tabletas Android'}),
+ ('Lavadoras', r'lavadoras? de (frutas|botellas|biberones)', None, 'Cocina y comedor', 'Utensilios de cocina', None),
+ ('Refrigeradores', r'\b(desodorizador|dispensador de agua|temporizador de descongelacion|tuberia de agua)\b', None, 'Electrodomésticos', 'Refacciones para refrigerador', None),
+]
+REGLAS += LOTES['auditoria_50']
+
 if __name__ == '__main__':
     main()

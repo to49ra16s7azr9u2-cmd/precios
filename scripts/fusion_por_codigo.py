@@ -83,7 +83,8 @@ def claves_de(nombre):
 
 def ficha(p):
     return {"id": p["id"], "nombre": p.get("name"), "tiendas": ",".join(tiendas(p)), "precio": precio_min(p),
-            "brand": p.get("brand"), "categoria": p.get("category")}
+            "brand": p.get("brand"), "categoria": p.get("category"),
+            "facets": p.get("facets") or {}}
 
 
 PULG_RE = re.compile(r"(?<![\d.,x])(\d{1,3}(?:[.,]\d{1,2})?)\s*(?:\"|''|”|pulgadas?|pulg\b|in\b|inch)")
@@ -223,6 +224,49 @@ def informe_firma(prods, cat):
     return informe
 
 
+def _facetas_en_conflicto(a, b):
+    """Una faceta que las dos fichas declaran y no dicen igual (color, talla, capacidad...): son dos productos."""
+    fa, fb = a.get("facets") or {}, b.get("facets") or {}
+    for k in fa.keys() & fb.keys():
+        if k == "pack_n":
+            continue
+        va, vb = fa[k], fb[k]
+        if isinstance(va, list) or isinstance(vb, list):
+            continue
+        if va != vb:
+            return True
+    return False
+
+
+def informe_misma(prods, cat):
+    """El MISMO nombre exacto (sin acentos ni puntuación) dentro de una subcategoría, también dentro de una misma
+    tienda (publicaciones repetidas de vendedores distintos). Precio a menos de 1.5x y ninguna faceta en conflicto."""
+    grupos = collections.defaultdict(list)
+    for p in prods:
+        n = " ".join(re.findall(r"[a-z0-9]+", FV.norm(p.get("name"))))
+        if len(n.split()) >= 4 and len(n) >= 24 and "varios modelos" not in n:
+            grupos[(p.get("subcategory"), n)].append(p)
+    informe = []
+    for fichas in grupos.values():
+        if not (2 <= len(fichas) <= 15):
+            continue
+        fs = [ficha(p) for p in fichas]
+        cliques = []
+        for f in fs:
+            for g in cliques:
+                if all(FV.motivo([a, f]) is None and not _facetas_en_conflicto(a, f)
+                       and max(a["precio"] or 1, f["precio"] or 1) / max(1, min(a["precio"] or 1, f["precio"] or 1))
+                       < (1.07 if set(a["tiendas"].split(",")) & set(f["tiendas"].split(",")) else 1.12)
+                       for a in g):
+                    g.append(f)
+                    break
+            else:
+                cliques.append([f])
+        informe += [g for g in cliques if len(g) >= 2]
+    informe.sort(key=lambda g: -len(g))
+    return informe
+
+
 def informe_de(prods, cat):
     mx = collections.defaultdict(list)
     gen = collections.defaultdict(list)
@@ -265,7 +309,7 @@ def main():
     ap.add_argument("categorias", nargs="+")
     ap.add_argument("--informe", required=True, help="ruta del informe; con {cat} se escribe uno por categoría")
     ap.add_argument("--muestra", type=int, default=6)
-    ap.add_argument("--modo", choices=["codigo", "firma"], default="codigo")
+    ap.add_argument("--modo", choices=["codigo", "firma", "misma"], default="codigo")
     args = ap.parse_args()
     data = load_catalog()
     if args.categorias == ["todas"]:
@@ -277,7 +321,8 @@ def main():
     todos = []
     for cat in args.categorias:
         prods = por_cat.get(cat, [])
-        final = informe_firma(prods, cat) if args.modo == 'firma' else informe_de(prods, cat)
+        final = (informe_firma(prods, cat) if args.modo == 'firma' else informe_misma(prods, cat) if args.modo == 'misma'
+                 else informe_de(prods, cat))
         print(f"## {cat}: {len(prods):,} fichas; grupos propuestos: {len(final)} con {sum(len(g) for g in final)} fichas")
         for g in final[:args.muestra]:
             print("  ·", len(g), "fichas")
