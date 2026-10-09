@@ -5469,5 +5469,46 @@ LOTES['auditoria_50'] = [
 ]
 REGLAS += LOTES['auditoria_50']
 
+# auditoria_51 (09-oct-2026): revisión ascendente (Impresoras): papel/etiquetas dentro de Impresoras, refacciones internas.
+LOTES['auditoria_51'] = [
+ ('Impresoras', r'\betiquetas?\b.*(impresor|adhesiv|envio|direccion|labelwriter|avery|dymo)|\b(papel|hojas|postales|tarjetas de presentacion|calcomanias)\b.*(imprimibl|impresora|inyeccion|laser|transferencia|fotografic|termic)|papel (fotografico|de transferencia|termico|bond)|rollos? (de )?papel', r'^(foto )?impresora|\b(tinta|toner|cartucho|cabezal|mini impresora)\b', 'Papelería y oficina', 'Papel y sobres', {'Inyección de tinta', 'Térmica', 'Láser', 'Consumibles', 'Fotográficas'}),
+ ('Impresoras', r'\b(engrane|clutch|ensamble|rodillo|correa de transmision|kit de mantenimiento|kit de limpieza|cable de alimentacion)\b', r'^(foto )?impresora|boligrafo', 'Impresoras', 'Cabezales y refacciones de impresión', {'Tóner', 'Inyección de tinta', 'Láser', 'Térmica'}),
+ ('Laptops', r'\b(bolsa|funda|estuche|maletin|mochila|case|sleeve|munga)\b', r'^(laptop|notebook|macbook|chromebook)\b|\b(ram|ssd|intel|ryzen|celeron|core i\d)\b', 'Bolsas y mochilas', 'Mochilas para laptop', None),
+ ('Laptops', r'\bcubre ?teclados?\b|\bprotector de teclado\b', None, 'Teclados', 'Switches, keycaps y accesorios', None),
+ ('Laptops', r'\b(laptop|computadora) (de actividades|didactica|para ninos|infantil|de juguete|educativ[ao])|\bkidi|vtech|toy scratcher', None, 'Juguetes', 'Juguetes educativos', None),
+ ('Bolsas y mochilas', r'costalitos?|detalles de fiesta|bolsas? para dulces|bolsas? de (adornos|accesorios) para eventos', None, 'Juguetes', 'Artículos para fiestas', {'Bolsas para mujer'}),
+ ('Bolsas y mochilas', r'bolsas? (mini )?(de |para )?(joyeria|bisuteria)|mini bolsas? de joyeria|bolsa mini bisuteria|bolsas? para (accesorios|lentes) .*(velv|pouch)', None, 'Joyería y bisutería', 'Joyeros', {'Bolsas para mujer'}),
+ ('Bolsas y mochilas', r'recolectora de orina|compresa bolsa agua caliente', None, 'Salud', 'Salud', {'Bolsas para mujer'}),
+ ('Bolsas y mochilas', r'maletin portaherramientas|\bportaherramientas\b', None, 'Herramientas', 'Cajas de herramientas', {'Bolsas para mujer'}),
+ ('Celulares', r'(personas|adultos) mayores|ancianos', r'celular|telefono|smartphone|\bgb\b|flip phone|\bmb\b', 'Salud', 'Salud', {'Android', 'Básicos'}),
+ ('Videojuegos', r'(new animated|amazing) adventures \d\w?\b|\btomo #?\d+\b|\bcomic\b', r'switch|ps[345]|xbox|playstation|nintendo|videojuego', 'Libros', 'Cómics y novela gráfica', None),
+
+ ('Electrodomésticos', r'^(rosca|cuchillas?|vaso|junta|jarra|tapa|aspas?|base)s?\b.*(licuadora|batidora|blender|oster)|\b(blender blade|blade replacement)\b|^short \d.blade', r'^(licuadora|batidora|kit de)|portatil', 'Electrodomésticos', 'Refacciones para licuadora y batidora', {'Licuadoras', 'Batidoras y amasadoras', 'Refacciones para otros electrodomésticos'}),
+ ('Electrodomésticos', r'^(kit (de )?\d? ?(tapas|perillas)|kit \d perillas|perillas?|bandeja para horno|sensor de temperatura para horno|resistencia para horno|quemador de repuesto|tapas? (para )?quemador)\b', None, 'Electrodomésticos', 'Refacciones para estufa y horno', {'Estufas', 'Hornos', 'Parrillas de gas', 'Refacciones para otros electrodomésticos'}),
+ ('Electrodomésticos', r'\b(microswitch|micro switch)\b.*microondas|^(plato|guia de onda|fusible) .*microondas', None, 'Electrodomésticos', 'Refacciones para microondas', {'Microondas'}),
+ ('Electrodomésticos', r'^(switch (de )?encendido|raspador de plancha|suela|tanque de agua).*plancha|^(switch|raspador) .*plancha', None, 'Electrodomésticos', 'Refacciones para otros electrodomésticos', {'Planchas', 'Vaporizadores de ropa'}),
+ ('Electrodomésticos', r'^(for ninja|para ninja)?.*\b(freidora de aire|air fryers?|crispi)\b.*(mat|tapete|cubierta|funda|rack|basket|rejilla|hojas|liners?|papel|forros)|^cubierta para freidora|^(hojas|set de hojas).*freidora', r'^freidora|air fryer oven|oven|^rca', 'Electrodomésticos', 'Accesorios y repuestos para freidora de aire', {'Freidoras de aire', 'Freidoras de aire de 5.5 a 7 L', 'Freidoras de aire de 3.5 a 5 L', 'Freidoras de aire de 8 L o más'}),
+ ('Electrodomésticos', r'tabletas? para lavavajillas|pastillas? para lavavajillas', None, 'Limpieza y hogar', 'Detergentes y suavizantes', {'Lavavajillas'}),
+ ('Electrodomésticos', r'^(kit de conectores|juego de \d ruedas|ruedas?|canasta|cesta|brazo rociador|filtro).* (lavavajillas)|lavavajillas.* (rueda|canasta)', r'^lavavajillas', 'Electrodomésticos', 'Refacciones para otros electrodomésticos', {'Lavavajillas'}),
+ ('Iluminación', r'flores artificiales|plantas? artificiales?|glicina|wisteria|hiedra artificial|follaje artificial', r'\b(luz|luces|led|lampara)\b', 'Jardín y exterior', 'Plantas artificiales', None),
+ ('Muebles', r'^rodillo\b.*(hule espuma|foam pro|pintura)|\blasur\b', None, 'Herramientas', 'Construcción', None),
+ ('Muebles', r'notas adhesivas|caja (para )?archivo|archivero oxford', r'\bmueble\b', 'Papelería y oficina', 'Organización', None),
+ ('Muebles', r'^portafolio\b', r'\bmueble\b', 'Bolsas y mochilas', 'Mochilas para laptop', None),
+ ('Muebles', r'protector(es)? (de )?(esquinas?|esquineros)|esquineros? (de )?(foamy|espuma|seguridad)|kit protector esquin', None, 'Bebés', 'Seguridad para bebé', None),
+ ('Muebles', r'^(posavasos|mantel|camino de mesa|servilleta|individual)\b', r'\bmuebles?\b', 'Cocina y comedor', 'Manteles y caminos de mesa', None),
+ ('Muebles', r'\bplantillas?\b.*(zapato|calzado|ortopedic|espuma|memory)|plantillas? (comfort|sunerme)', None, 'Salud', 'Movilidad y apoyo', None),
+
+ ('Juguetes', r'\b(salvavidas|flotadores?|pelota de playa|dona inflable)\b', r'peluche|figura|lego|mu[nñ]eca|barbie|baby alive|pinypon|set de juego|super soaker|soaker', 'Jardín y exterior', 'Albercas e inflables', None),
+ ('Juguetes', r'^(palomera|batidor globo)|\bpalomera\b', None, 'Cocina y comedor', 'Utensilios de cocina', None),
+ ('Juguetes', r'^(playera|camiseta|sudadera) ', r'peluche|american girl|mu[nñ]eca|\b\d+ ?cm\b|juguete|dollhouse|gabby', 'Ropa y accesorios', 'Playeras', None),
+ ('Juguetes', r'soportes? nano stick|nano stick de gel', None, 'Celulares', 'Accesorios', None),
+
+ ('Autopartes', r'^pastilla (de )?encendido|^pastilla encendido', None, 'Autopartes', 'Bobinas de encendido', None),
+ ('Autopartes', r'^aceite (de )?(motor|semisintetico|sintetico|mineral)|^aceite .*\b(5w|10w|15w|20w)[ -]?\d{2}\b', r'\bpara\b.*\b(filtro|bomba)\b', 'Autopartes', 'Filtros y aceites', {'Bombas de aceite', 'Anticongelante y refrigerante', 'Empaques, juntas y retenes'}),
+ ('Autopartes', r'^emblema\b', None, 'Autopartes', 'Molduras y emblemas', {'Motoventiladores y aspas', 'Faros y luces', 'Defensas, fascias y parrillas'}),
+ ('Autopartes', r'rodaja (de )?hule|ruedas? giratorias?|\bmueble silla\b', None, 'Herramientas', 'Herramientas manuales', None),
+]
+REGLAS += LOTES['auditoria_51']
+
 if __name__ == '__main__':
     main()

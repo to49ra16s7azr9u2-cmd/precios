@@ -5350,6 +5350,79 @@
     });
   }
 
+  // Botones «Abrir categoría ...» a la derecha del título de una búsqueda
+  // (a pedido del usuario, con captura): según dónde caen los resultados que
+  // de verdad son lo buscado, ofrecen saltar a la categoría (y, si casi todo
+  // es de un solo tipo, a ese tipo) sin la búsqueda, con su ranking, filtros
+  // y «¿Qué tipo buscas?». Con «circlacion» -> «Abrir categoría Climatización».
+  function renderSearchOpenCat(filtered) {
+    let box = document.getElementById("searchOpenCat");
+    if (!box && el.listTitle) {
+      box = document.createElement("div");
+      box.id = "searchOpenCat";
+      box.className = "search-open-cat hidden";
+      el.listTitle.insertAdjacentElement("afterend", box);
+    }
+    if (!box) return;
+    if (!state.query || !filtered.length) {
+      box.classList.add("hidden");
+      box.innerHTML = "";
+      return;
+    }
+    const terms = queryTerms(state.query);
+    let base = filtered;
+    if (terms.length) {
+      const puntos = filtered.map((p) => queryRelevanceScore(p, terms));
+      let tope = 0;
+      puntos.forEach((x) => { if (x > tope) tope = x; });
+      if (tope > 0) base = filtered.filter((p, i) => puntos[i] >= tope * 0.7);
+    }
+    const porCat = new Map();
+    const porSub = new Map();
+    base.forEach((p) => {
+      porCat.set(p.category, (porCat.get(p.category) || 0) + 1);
+      const k = `${p.category}\u0000${p.subcategory || ""}`;
+      porSub.set(k, (porSub.get(k) || 0) + 1);
+    });
+    const minimo = Math.max(2, Math.round(base.length * 0.08));
+    const botones = [];
+    [...porCat.entries()].sort((a, b) => b[1] - a[1]).forEach(([catId, n]) => {
+      if (botones.length >= 3 || n < minimo) return;
+      const cat = categoryById(catId);
+      if (!cat) return;
+      botones.push({ catId, subId: null, texto: `Abrir categoría ${cat.name}`, n });
+      // Casi todo lo de la categoría es de un solo tipo: se ofrece también.
+      const top = [...porSub.entries()]
+        .filter(([k]) => k.startsWith(catId + "\u0000"))
+        .sort((a, b) => b[1] - a[1])[0];
+      if (botones.length < 3 && top && top[1] >= n * 0.6) {
+        const subId = top[0].split("\u0000")[1];
+        const sub = subId ? subcategoryById(catId, subId) : null;
+        if (sub) botones.push({ catId, subId, texto: `Abrir ${sub.name}`, n: top[1] });
+      }
+    });
+    if (!botones.length) {
+      box.classList.add("hidden");
+      box.innerHTML = "";
+      return;
+    }
+    box.innerHTML = botones.map((b, i) =>
+      `<button type="button" class="search-open-cat-btn" data-i="${i}"><span>${htmlEscapeAttr(b.texto)}</span> <span class="muted">(${b.n})</span> <span aria-hidden="true">›</span></button>`
+    ).join("");
+    box.classList.remove("hidden");
+    box.querySelectorAll(".search-open-cat-btn").forEach((b) => {
+      b.onclick = () => {
+        const s = botones[+b.dataset.i];
+        state.brands.clear();
+        state.specFilters = buildSpecFilterState();
+        clearQuality();
+        const input = document.getElementById("searchInput");
+        if (input) input.value = "";
+        goCategoryRanking(s.catId, s.subId);
+      };
+    });
+  }
+
   function renderSearchNote() {
     if (!el.searchNote) return;
     const extras = [];
@@ -5700,6 +5773,7 @@
     const sortLabel = SORT_LABELS[state.sort] || SORT_LABELS.relevance;
     renderSearchNote();
     renderSearchCqSuggest(filtered);
+    renderSearchOpenCat(filtered);
     el.listTitle.textContent = state.query
       ? `Resultados para "${state.query}" (${filtered.length})`
       : state.category
