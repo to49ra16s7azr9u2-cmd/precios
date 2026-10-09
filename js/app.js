@@ -3866,6 +3866,17 @@
   // Devuelve el <svg> en línea para `key` (clave de data/icons.json). Se usa
   // en vez de emoji en toda la interfaz: mismo trazo/color en cualquier
   // sistema operativo, en vez de depender de la fuente de emoji instalada.
+  // Ficha con menos del 20% de los datos técnicos que suele traer su
+  // subcategoría, en CUALQUIERA de las tiendas que la venden (la marca la
+  // pone scripts/compute_spec_fill.py). Quien compara debe saber que la
+  // lista de al lado no se puede leer como equivalente.
+  const SPARSE_TITULO = "Ninguna de las tiendas que la venden publica casi nada de sus especificaciones (menos del 20% de lo que suele indicar este tipo de producto). Compara con cuidado y confirma los datos en la tienda.";
+  function sparseNoteHtml(p) {
+    return p && p.sparse
+      ? `<div class="row-sparse" title="${htmlEscapeAttr(SPARSE_TITULO)}">${icon("alert-triangle")} Pocos datos técnicos</div>`
+      : "";
+  }
+
   function icon(key, cls) {
     const inner = (state.icons && state.icons[key]) || ICON_FALLBACK;
     return `<svg class="icon${cls ? " " + cls : ""}" viewBox="0 0 24 24" aria-hidden="true">${inner}</svg>`;
@@ -6034,6 +6045,7 @@
               : shippingCaptionHtml(cheapestOffer(p))
           }
           <div class="row-stores">${plural(sellerTotal(p), "vendedor", "vendedores")}</div>
+          ${sparseNoteHtml(p)}
         </div>
         ${
           // Comparador de specs: solo tiene sentido con una categoría
@@ -8934,6 +8946,11 @@
     el.specTable.innerHTML = product.specs
       .map((s) => `<tr><th>${s.label}</th><td>${s.value}</td></tr>`)
       .join("") + filasDeFacetas(product);
+    const sparseEl = document.getElementById("specSparseNote");
+    if (sparseEl) {
+      sparseEl.classList.toggle("hidden", !product.sparse);
+      sparseEl.textContent = product.sparse ? SPARSE_TITULO : "";
+    }
 
     renderStoreReviews(product);
     renderPriceHistory(product);

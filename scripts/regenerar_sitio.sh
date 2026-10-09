@@ -109,6 +109,7 @@ echo "=== foto_estable ==="; python3 scripts/foto_estable.py > /tmp/foto_estable
 echo "=== completar_subcategorias ==="; python3 scripts/completar_subcategorias.py --aplicar 2>&1 | tail -1
 echo "=== sync_subcategories ==="; python3 scripts/sync_subcategories.py 2>&1 | tail -3
 echo "=== compute_facets ==="; python3 scripts/compute_facets.py 2>&1 | tail -2
+echo "=== compute_spec_fill ==="; python3 scripts/compute_spec_fill.py 2>&1 | tail -3
 echo "=== compute_quality_axes ==="; python3 scripts/compute_quality_axes.py 2>&1 | tail -2
 echo "=== politicas_tiendas ==="; python3 scripts/politicas_tiendas.py 2>&1 | tail -1
 echo "=== enlaces_manuales ==="; python3 scripts/aplicar_enlaces_manuales.py 2>&1 | tail -1

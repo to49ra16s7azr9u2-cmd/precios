@@ -1417,6 +1417,18 @@ tr.offer-compare-off { display: none; }
   font-variant-numeric: tabular-nums;
 }
 .product-row .row-stores { font-size: 11px; color: var(--muted); }
+/* Aviso de ficha con casi ningún dato técnico (compute_spec_fill.py). */
+.product-row .row-sparse {
+  display: inline-flex; align-items: center; gap: 3px; margin-top: 3px;
+  font-size: 11px; line-height: 1.2; color: #8a5a00; background: #fff6e0;
+  border: 1px solid #f0d9a0; padding: 1px 6px; white-space: nowrap;
+}
+.product-row .row-sparse .icon { width: 11px; height: 11px; }
+.spec-sparse-note {
+  margin: 0 0 10px; padding: 8px 10px; font-size: 13px; color: #8a5a00;
+  background: #fff6e0; border: 1px solid #f0d9a0;
+}
+
 /* En pantallas de teléfono el precio se llevaba casi todo el ancho de la
    fila -- medido con datos reales en un iPhone SE: el bloque de precio
    ocupaba 110-122px de 320px y dejaba el nombre del producto en 0-53px,

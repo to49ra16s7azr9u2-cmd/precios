@@ -241,6 +241,7 @@ jobs:
         # quedarían contando productos que ya no están.
         run: |
           python3 scripts/compute_facets.py
+          python3 scripts/compute_spec_fill.py
           python3 scripts/compute_quality_axes.py
 
       - name: Regenerar páginas estáticas SEO
@@ -306,6 +307,7 @@ jobs:
           python3 scripts/precios_de_ofertas.py --aplicar "$RUNNER_TEMP/precios-corrida.json"
           python3 scripts/record_price_history.py
           python3 scripts/compute_facets.py
+          python3 scripts/compute_spec_fill.py
           python3 scripts/compute_quality_axes.py
           python3 scripts/generate_seo_pages.py
           python3 scripts/build_search_index.py
