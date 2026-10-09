@@ -99,6 +99,9 @@ echo "=== fusiones ==="
   # Mismo código de modelo en el nombre (MXSUC-003, GY6347...) en tiendas distintas: ver fusion_por_codigo.py.
   python3 scripts/fusion_por_codigo.py todas --informe /tmp/fusion_codigo.json --muestra 0
   python3 scripts/fusionar_vetado.py /tmp/fusion_codigo.json --aplicar
+  # El mismo nombre con otro orden, otra puntuación o sin el color, entre tiendas distintas.
+  python3 scripts/fusion_por_codigo.py todas --modo firma --informe /tmp/fusion_firma.json --muestra 0
+  python3 scripts/fusionar_vetado.py /tmp/fusion_firma.json --aplicar
 } > /tmp/fusiones.log 2>&1
 grep -E "absorbidas|fusionados|Catálogo|catálogo" /tmp/fusiones.log | tail -12
 # Precios de relleno («$99,999» de un vendedor de Walmart que no quiere vender,

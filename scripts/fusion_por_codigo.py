@@ -168,7 +168,7 @@ def compatibles(a, b, estricto=False):
         return False
     ca = {w for w in re.findall(r"[a-z]+", na) if w in COLORES}
     cb = {w for w in re.findall(r"[a-z]+", nb) if w in COLORES}
-    if ca and cb and not (ca & cb):
+    if ca and cb and ca != cb:
         return False
     for x, y in OPUESTOS:
         if (any(k in na for k in x) and any(k in nb for k in y)) or (any(k in nb for k in x) and any(k in na for k in y)):
@@ -187,6 +187,40 @@ def subgrupos(fichas, estricto=False):
         else:
             out.append([f])
     return [g for g in out if len(g) >= 2]
+
+
+FIRMA_STOP = set("de del la el los las para con sin por en al y o e un una unos unas que su sus the and for of with pza pzas "
+                 "pieza piezas pz pzs color colores modelo mod tipo marca nuevo nueva original originales envio gratis oferta "
+                 "venta internacional".split())
+FIRMA_NUM_RE = re.compile(r"\d+(?:[.,]\d+)?")
+
+
+def firma_de(nombre):
+    """Las palabras y los números del nombre (1.5 es UN número), sin colores ni relleno."""
+    n = FV.norm(nombre).replace("+", " mas ")
+    nums = {m.replace(",", ".") for m in FIRMA_NUM_RE.findall(n)}
+    cuenta = collections.Counter(w for w in re.findall(r"[a-z]+", n)
+                                 if w not in FIRMA_STOP and w not in COLORES and (len(w) > 1 or w not in "ayoeu"))
+    cods = {t.replace("-", "") for t in TOKEN_RE.findall(n)}
+    # con la cuenta de cada palabra: «USB-C a USB-C» no es «USB-C a USB A»
+    return tuple(sorted({f"{w}#{c}" for w, c in cuenta.items()} | nums | cods))
+
+
+def informe_firma(prods, cat):
+    """Agrupa por (subcategoría, firma del nombre): el mismo nombre con otro orden, otra puntuación o sin el color."""
+    grupos = collections.defaultdict(list)
+    for p in prods:
+        f = firma_de(p.get("name"))
+        if len(f) >= 4:
+            grupos[(p.get("subcategory"), f)].append(p)
+    informe = []
+    for fichas in grupos.values():
+        if not (2 <= len(fichas) <= MAX_GRUPO):
+            continue
+        for g in subgrupos([ficha(p) for p in fichas], estricto=True):
+            informe.append(g)
+    informe.sort(key=lambda g: -len(g))
+    return informe
 
 
 def informe_de(prods, cat):
@@ -231,6 +265,7 @@ def main():
     ap.add_argument("categorias", nargs="+")
     ap.add_argument("--informe", required=True, help="ruta del informe; con {cat} se escribe uno por categoría")
     ap.add_argument("--muestra", type=int, default=6)
+    ap.add_argument("--modo", choices=["codigo", "firma"], default="codigo")
     args = ap.parse_args()
     data = load_catalog()
     if args.categorias == ["todas"]:
@@ -242,7 +277,7 @@ def main():
     todos = []
     for cat in args.categorias:
         prods = por_cat.get(cat, [])
-        final = informe_de(prods, cat)
+        final = informe_firma(prods, cat) if args.modo == 'firma' else informe_de(prods, cat)
         print(f"## {cat}: {len(prods):,} fichas; grupos propuestos: {len(final)} con {sum(len(g) for g in final)} fichas")
         for g in final[:args.muestra]:
             print("  ·", len(g), "fichas")
