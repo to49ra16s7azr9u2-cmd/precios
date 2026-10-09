@@ -5507,6 +5507,13 @@ LOTES['auditoria_51'] = [
  ('Autopartes', r'^aceite (de )?(motor|semisintetico|sintetico|mineral)|^aceite .*\b(5w|10w|15w|20w)[ -]?\d{2}\b', r'\bpara\b.*\b(filtro|bomba)\b', 'Autopartes', 'Filtros y aceites', {'Bombas de aceite', 'Anticongelante y refrigerante', 'Empaques, juntas y retenes'}),
  ('Autopartes', r'^emblema\b', None, 'Autopartes', 'Molduras y emblemas', {'Motoventiladores y aspas', 'Faros y luces', 'Defensas, fascias y parrillas'}),
  ('Autopartes', r'rodaja (de )?hule|ruedas? giratorias?|\bmueble silla\b', None, 'Herramientas', 'Herramientas manuales', None),
+
+ ('Ropa y accesorios', r'^camiseta .*(\bfip\b|\bmip\b|brass|laton|anderson|smith cooper|pulgadas)', None, 'Herramientas', 'Plomería', {'Playeras'}),
+ ('Electrodomésticos', r'^aceite (de|esencial)\b', None, 'Belleza y cuidado personal', 'Aceites esenciales y de masaje', None),
+ ('Belleza y cuidado personal', r'\b(pin nails|nails senco|anillo nails)\b|extractor de unas con forma', None, 'Herramientas', 'Construcción', {'Uñas'}),
+ ('Joyería y bisutería', r'^abrazadera\b|cortador de anillos', None, 'Herramientas', 'Plomería', {'Anillos'}),
+ ('Joyería y bisutería', r'adaptador de filtro con anillo', None, 'Cámaras y fotografía', 'Filtros y parasoles', {'Anillos'}),
+ ('Autopartes', r'bomba de agua (electrica )?(hyundai|evans|iusa|truper|pretul)|bomba .*\b(monofasic[ao]|pozo)\b', None, 'Herramientas', 'Bombas de agua', {'Bombas de agua'}),
 ]
 REGLAS += LOTES['auditoria_51']
 
