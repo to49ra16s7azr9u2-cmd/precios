@@ -1867,8 +1867,8 @@ _TIPOS_07OCT_A = {
         ('Perros y gatos', 'perro|perrito|cachorro|\\bgato|gatito|\\bdog\\b|puppy|\\bcat\\b|kitten'),
         ('Dinosaurios y dragones', 'dinosaurio|\\bdino\\b|dragon|t-?rex'),
         ('Animales marinos', 'tiburon|shark|pulpo|octopus|delfin|ballena|whale|\\bpez\\b|pinguino|penguin|tortuga|medusa|foca'),
-        ('Otros animales', 'elefante|jirafa|\\bleon\\b|tigre|\\bmono\\b|vaca|cerdo|\\bpig\\b|oveja|llama|zorro|panda|koala|\\brana\\b|\\bfrog\\b|\\bpato\\b|\\bduck\\b|pollo|gallina|zebra|hipopotamo|capibara|\\braton\\b|erizo|animal'),
-        ('Personajes con licencia', 'disney|marvel|pokemon|sanrio|hello kitty|stitch|mickey|minnie|peppa|bluey|paw patrol|sonic|mario|harry potter|star wars|spider|hulk|batman|superman|squishmallow|kawaii|care bears|jellycat'),
+        ('Otros animales', 'elefante|jirafa|\\bleon\\b|tigre|\\bmono\\b|vaca|cerdo|\\bpig\\b|oveja|llama|zorro|panda|koala|\\brana\\b|\\bfrog\\b|\\bpato\\b|\\bduck\\b|pollo|gallina|zebra|hipopotamo|capibara|\\braton\\b|erizo|animal|cerdito|mapache|raccoon|leopardo|guepardo|cheetah|chango|changuito|monito|monkey|ardilla|squirrel|buho|\\bowl\\b|lobo|\\bwolf\\b|cabra|burro|caballo|\\bhorse\\b|\\bpony\\b|vaquita|mariposa|\\babeja|\\bbee\\b|\\bfox\\b|\\blion\\b|\\btiger\\b|giraffe|elephant|perezoso|\\bsloth\\b|nutria|otter|alpaca|cocodrilo|serpiente|lagarto|hamster|murcielago|\\bbat\\b|pollito|gansito|cisne|swan|flamingo|loro|\\bave\\b|\\bpajaro|\\bbird\\b|camello|rinoceronte|gorila|\\bcuy\\b|mofeta|\\bciervo|\\bvenado|\\balce\\b|\\bmoose\\b|\\barana\\b'),
+        ('Personajes con licencia', 'disney|marvel|pokemon|sanrio|hello kitty|stitch|mickey|minnie|peppa|bluey|paw patrol|sonic|mario|harry potter|star wars|spider|hulk|batman|superman|squishmallow|kawaii|care bears|jellycat|snoopy|peanuts|minecraft|kirby|furby|plaza sesamo|sesame|bob esponja|spongebob|hello kitty|pusheen|totoro|pikachu|baby yoda|grogu|mandalorian|frozen|elsa|moana|encanto|lilo|toy story|buzz|woody|cars\\b|barney|winnie|pooh|tigger|dumbo|bambi|simba|nemo|dory|garfield|looney|tom y jerry|scooby|batman|flash|wonder woman|transformers|my little pony|gabby|pelusos|cuddlekins'),
         ('Gigantes', 'gigante|jumbo|\\bxxl\\b|\\b1 ?m\\b|metro'),
     ],
     ('Belleza y cuidado personal', 'Shampoo'): [
@@ -2869,6 +2869,8 @@ _HOGAR = ("Muebles", "Decoración de hogar y jardín", "Blancos y ropa de cama",
 REGLAS_TITULO = {}
 for _c in _MODA + _HOGAR + ("Relojes inteligentes", "Audífonos", "Celulares", "Bebés"):
     REGLAS_TITULO.setdefault(_c, []).append(("color", st.color))
+# Muebles: el acabado se nombra por la madera («parota», «wengue», «miel»), no por el color.
+REGLAS_TITULO.setdefault("Muebles", []).append(("color", st.color_madera))
 # Color de aparatos, papelería, mascotas...: sólo con las palabras que no chocan con una marca
 # ni con otro producto (st.color_seguro); 08-oct-2026: 100 mil fichas no decían su color.
 _COLOR_APARATOS = ("Electrodomésticos", "Cafeteras", "Aspiradoras", "Bocinas", "Cargadores y adaptadores",

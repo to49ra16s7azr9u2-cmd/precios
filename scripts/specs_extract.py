@@ -1754,12 +1754,22 @@ def pieces_set_of(text, lo, hi):
 
 # En rompecabezas la tienda dice también «1000 Unidades» o «1000 p»: en
 # cualquier otro producto «unidades» es el paquete, acá son las piezas.
-_PUZZLE_RE = re.compile(r"(?<![\d.,])(\d{2,5})\s*(?:unidades\b|p\b|pzs?\.|piezas?\b|pzas?\b|pcs\b|pieces?\b)")
+_PUZZLE_RE = re.compile(r"(?<![\d.,])(\d{2,5})\s*(?:unidades\b|p\b|pzs?\b|piezas?\b|pzas?\b|pcs\b|pieces?\b|pc\b|pz\.)")
+# «Rompecabezas ... de 1000» / «puzzle 500»: sin la palabra piezas, pero sólo con los
+# tamaños que existen de verdad (4906 es un código, 1000 una caja).
+_PUZZLE_TAMANOS = {100, 120, 150, 180, 200, 250, 260, 300, 400, 500, 520, 540, 600, 750, 800, 1000, 1500, 2000,
+                   3000, 4000, 5000, 6000, 9000, 13200}
+_PUZZLE_SIN_UNIDAD_RE = re.compile(r"(?:rompecabezas|puzzle|puzle)\b[^\n]*?(?<![\d.,x])\b(\d{3,5})\b(?![\d.,]|\s*(?:x|cm|mm|ml|gr?\b|kg|mah|w\b))")
 
 
 def puzzle_pieces_of(text, lo=20, hi=60000):
-    vals = {int(m.group(1)) for m in _PUZZLE_RE.finditer(_norm(text or ""))}
-    return _uno({v for v in vals if lo <= v <= hi})
+    n = _norm(text or "")
+    vals = {int(m.group(1)) for m in _PUZZLE_RE.finditer(n)}
+    vals = {v for v in vals if lo <= v <= hi}
+    if not vals:
+        vals = {int(m.group(1)) for m in _PUZZLE_SIN_UNIDAD_RE.finditer(n)}
+        vals = {v for v in vals if v in _PUZZLE_TAMANOS and lo <= v <= hi}
+    return _uno(vals)
 
 
 _ML_RE = re.compile(r"(?<![\d.,])(\d{1,4}(?:[.,]\d)?)\s*(?:ml\b|mililitros?\b)")

@@ -2764,7 +2764,7 @@
   // sirve tal cual (application/gzip, sin Content-Encoding), así que por la
   // red viaja lo mismo que antes y el navegador los descomprime acá. El
   // manifiesto los sigue nombrando .json; el .gz se agrega solo aquí.
-  const DATOS_GZ = /^\/?data\/(cat|det|hist|retirados|buscar\/[bwfc])\/[^/]+\.json$/;
+  const DATOS_GZ = /^\/?data\/(cat|det|hist|retirados|buscar\/[bwfcz])\/[^/]+\.json$/;
   let pakoPromesa = null;
   function cargarPako() {
     // Solo para navegadores sin DecompressionStream (Safari < 16.4).
@@ -3144,7 +3144,8 @@
   }
 
   function terminosIndice(query) {
-    const palabras = palabrasDeConsulta(query);
+    const mod = modificadorTamano(query);
+    const palabras = palabrasDeConsulta(query).filter((w) => !(mod.palabras && mod.palabras.has(w)));
     const utiles = palabras.filter((w) => !PALABRAS_VACIAS.has(w) && (w.length > 1 || /\d/.test(w)));
     // Un dígito suelto sirve junto a otra palabra («iphone 1», «tv 4 k»),
     // pero solo («1») coincide con más de medio millón de fichas.
@@ -3166,7 +3167,7 @@
       num += ids[i];
       const f = fs[i];
       const pts = entera
-        ? (f & 1 ? 4 : 0) + (f & 2 ? 3 : 0) + (f & 4 ? 2 : 0)
+        ? (f & 1 ? 4 : 0) + (f & 2 ? 3 : 0) + (f & 4 ? 2 : 0) + (f & BIT_SPEC ? 1 : 0)
         : (f & 1 ? 2 : 0) + (f & 2 ? 1 : 0) + (f & 4 ? 1 : 0);
       const previo = res.get(num);
       if (!previo) res.set(num, [pts, f, ps[i], cs[i], ss[i]]);
@@ -3217,6 +3218,9 @@
   // La marca de la ficha ES esta palabra, entera («LEGO» para «lego»; no
   // «Safonus TV» para «tv»). Ver build_buscador.py.
   const BIT_MARCA = 1024;
+  // La palabra sale de una faceta de la ficha técnica (color, material, tipo...),
+  // no del nombre: cuenta 1 punto. Ver palabras_de_specs en build_buscador.py.
+  const BIT_SPEC = 2048;
 
   // Palabras que abren una consulta sin ser lo que se busca («mini
   // lavadora», «juego de sábanas», «kit de limpieza»): la cabeza es la que
@@ -4968,11 +4972,13 @@
     const text = normalizeSearchText(`${p.name} ${p.brand} ${p.category} ${p.subcategory || ""} ${p.alias || ""}`);
     const st = productStems(p);
     return terms.every((t) =>
-      t.stems.some((r) => st.nombre.has(r) || st.cat.has(r) || st.marca.has(r)) ||
+      t.stems.some((r) => st.nombre.has(r) || st.cat.has(r) || st.marca.has(r) || st.spec.has(r)) ||
       text.includes(t.word));
   }
   function fuzzyQueryMatch(p, query) {
-    const nq = splitAlphaNumeric(normalizeSearchText(query));
+    const mod = modificadorTamano(query);
+    const nq = splitAlphaNumeric(normalizeSearchText(query)).split(/\s+/)
+      .filter((w) => !(mod.palabras && mod.palabras.has(w))).join(" ");
     if (!nq) return true;
     const qWords = nq.split(/\s+/).filter(Boolean);
     if (qWords.length === 0) return false;
@@ -5080,7 +5086,24 @@
   // nombre que no arranca como sus productos). No se oculta: se manda al
   // final del orden por precio.
 
+  // «mochila grande», «peluche chico»: el tamaño no se busca en el nombre sino que se
+  // compara con las demás fichas de su subcategoría (data/buscar/z, ver tamano_relativo.py).
+  // Con pocas fichas de tamaño conocido (menos de 5) se deja la lista como estaba.
+  const TAMANO_MIN_RESULTADOS = 5;
   function filteredProducts() {
+    const lista = filteredProductsBase();
+    const mod = modificadorTamano(state.query);
+    if (!mod.dir) return lista;
+    const pasan = lista.filter((p) => {
+      const z = zDe(p);
+      return z !== undefined && (mod.dir > 0 ? z >= 6 : z <= 3);
+    });
+    tamanoAplicado = pasan.length >= TAMANO_MIN_RESULTADOS;
+    return tamanoAplicado ? pasan : lista;
+  }
+  let tamanoAplicado = false;
+
+  function filteredProductsBase() {
     const ratingMin = (RATING_FILTERS.find((r) => r.id === state.minRating) || RATING_FILTERS[0]).min;
     if (modoIndice()) {
       // Resúmenes del índice: ya coinciden con la búsqueda; quedan los
@@ -5178,7 +5201,7 @@
   // "iPhone 17" y "iPhone 14" queden empatados solo por matchear la
   // consulta, quedando el orden librado a la popularidad de cada uno.
   function queryRelevanceScore(p, terms) {
-    if (p.__stub) return p.__score;
+    if (p.__stub) return p.__score + bonoTamano(p);
     const name = normalizeSearchText(p.name);
     const rest = normalizeSearchText(`${p.brand} ${p.category} ${p.subcategory || ""}`);
     const st = productStems(p);
@@ -5195,8 +5218,10 @@
       if (t.stems.some((r) => st.cat.has(r))) score += 3;
       if (t.stems.some((r) => st.marca.has(r))) score += 2;
       else if (rest.includes(t.word)) score += 1;
+      if (t.stems.some((r) => st.spec.has(r)) && !t.stems.some((r) => st.nombre.has(r))) score += 1;
     }
-    return score;
+    // «mochila grande»: entre las que coinciden, primero las más grandes de su tipo.
+    return score + bonoTamano(p);
   }
 
   // Aviso de que la búsqueda se amplió, al estilo del "también se muestran
@@ -5333,11 +5358,16 @@
         t.stems.forEach((r) => { if (r !== t.stem && !extras.includes(r)) extras.push(r); });
       });
     }
-    el.searchNote.classList.toggle("hidden", extras.length === 0);
-    if (extras.length) {
-      el.searchNote.textContent =
-        `Tambi\u00e9n se incluyen resultados de: ${extras.map((r) => SYNONYM_LABEL.get(r) || r).join(", ")}.`;
+    const mod = modificadorTamano(state.query);
+    const nota = [];
+    if (extras.length) nota.push(`Tambi\u00e9n se incluyen resultados de: ${extras.map((r) => SYNONYM_LABEL.get(r) || r).join(", ")}.`);
+    if (mod.dir) {
+      nota.push(tamanoAplicado
+        ? `Tama\u00f1o relativo: se muestran los ${mod.dir > 0 ? "m\u00e1s grandes" : "m\u00e1s chicos"} de cada tipo de producto (comparados con los de su misma subcategor\u00eda).`
+        : `No hay suficientes fichas con tama\u00f1o conocido para filtrar por \u00abgrande/chico\u00bb; se muestran ordenadas por relevancia.`);
     }
+    el.searchNote.classList.toggle("hidden", nota.length === 0);
+    if (nota.length) el.searchNote.textContent = nota.join(" ");
   }
 
   function sortedProducts(products) {
@@ -5514,6 +5544,7 @@
       });
       return;
     }
+    asegurarTamano();
 
     el.listBreadcrumb.innerHTML = `<a href="#/">Inicio</a>`;
     if (state.category) {
@@ -10295,13 +10326,89 @@
   // Cada palabra escrita se convierte en el conjunto de raices que la
   // satisfacen: la suya y las de sus sinonimos.
   function queryTerms(query) {
+    const mod = modificadorTamano(query);
     return splitAlphaNumeric(normalizeSearchText(query))
       .split(/\s+/)
-      .filter(Boolean)
+      .filter((w) => w && !(mod.palabras && mod.palabras.has(w)))
       .map((w) => {
         const raiz = searchStem(w);
         return { word: w, stem: raiz, stems: SYNONYM_INDEX.get(raiz) || [raiz] };
       });
+  }
+
+  // ---------- Tama\u00f1o relativo: «mochila grande», «peluche chico» ----------
+  const MODIFICADORES_TAMANO = new Map([
+    ["grande", 1], ["grandes", 1], ["gigante", 1], ["gigantes", 1], ["enorme", 1], ["enormes", 1],
+    ["chico", -1], ["chica", -1], ["chicos", -1], ["chicas", -1], ["pequeno", -1], ["pequena", -1],
+    ["pequenos", -1], ["pequenas", -1], ["compacto", -1], ["compacta", -1], ["chiquito", -1], ["chiquita", -1],
+  ]);
+  const ACOMPANANTES_TAMANO = new Set(["talla", "tamano", "size", "extra", "muy", "mas"]);
+  // «Ariana Grande», «Rio Grande»: son nombres, no un tama\u00f1o.
+  const NO_MODIFICADOR_TAMANO = /\b(ariana grande|rio grande|casa grande|gran turismo|grande ma|grandes ligas)\b/;
+  const modTamanoMemo = new Map();
+  function modificadorTamano(query) {
+    const q = query || "";
+    if (!q) return NINGUN_MODIFICADOR;
+    let res = modTamanoMemo.get(q);
+    if (res) return res;
+    res = NINGUN_MODIFICADOR;
+    const n = normalizeSearchText(q);
+    if (!NO_MODIFICADOR_TAMANO.test(n)) {
+      const ws = n.split(/\s+/).filter(Boolean);
+      const mods = ws.filter((w) => MODIFICADORES_TAMANO.has(w));
+      const otras = ws.filter((w) => !MODIFICADORES_TAMANO.has(w) && !ACOMPANANTES_TAMANO.has(w)
+        && !PALABRAS_VACIAS.has(w) && w.length > 1);
+      const dirs = new Set(mods.map((w) => MODIFICADORES_TAMANO.get(w)));
+      if (mods.length && otras.length && dirs.size === 1) {
+        res = { dir: [...dirs][0], palabras: new Set([...mods, ...ws.filter((w) => ACOMPANANTES_TAMANO.has(w))]) };
+      }
+    }
+    modTamanoMemo.set(q, res);
+    return res;
+  }
+  const NINGUN_MODIFICADOR = { dir: 0, palabras: null };
+
+  // data/buscar/z/<n>.json: un car\u00e1cter por ficha (0-9 percentil de tama\u00f1o en su subcategor\u00eda, " " sin dato).
+  let zTrozo = 20000;
+  const zTamano = new Map();      // trozo -> cadena
+  const zPendiente = new Map();   // trozo -> promesa
+  function zDe(p) {
+    const num = +String(p.id).slice(1);
+    const s = zTamano.get(Math.floor(num / zTrozo));
+    if (!s) return undefined;
+    const c = s[num % zTrozo];
+    return c === undefined || c === " " ? undefined : +c;
+  }
+  function bonoTamano(p) {
+    const mod = modificadorTamano(state.query);
+    if (!mod.dir) return 0;
+    const z = zDe(p);
+    return z === undefined ? 0 : (mod.dir > 0 ? z : 9 - z) / 6;
+  }
+  function asegurarTamano() {
+    const mod = modificadorTamano(state.query);
+    if (!mod.dir) return;
+    const fichas = modoIndice() ? state.busqueda.stubs : state.data.products;
+    const faltan = new Set();
+    for (const p of fichas) {
+      const k = Math.floor(+String(p.id).slice(1) / zTrozo);
+      if (!zTamano.has(k)) faltan.add(k);
+    }
+    if (!faltan.size) return;
+    const query = state.query;
+    pedirBuscadorMeta().then((meta) => {
+      if (meta && meta.z) zTrozo = meta.z;
+      return Promise.all([...faltan].map((k) => {
+        if (!zPendiente.has(k)) {
+          zPendiente.set(k, pedirDatos(`data/buscar/z/${k}.json`, null)
+            .then((d) => { zTamano.set(k, (d && d.s) || ""); })
+            .catch(() => { zTamano.set(k, ""); }));
+        }
+        return zPendiente.get(k);
+      }));
+    }).then(() => {
+      if (state.query === query && !el.viewList.classList.contains("hidden")) renderList();
+    });
   }
 
   // Raices de un producto, separadas por donde aparecen, para poder pesar
@@ -10313,7 +10420,29 @@
       nombre: raices(p.name),
       cat: raices(`${p.category} ${p.subcategory || ""}`),
       marca: raices(p.brand || ""),
+      spec: raices(textoDeSpecs(p)),
     };
+  }
+
+  // Los valores de texto de las facetas de la ficha («Negro», «Memory foam», «Queen»):
+  // la ficha técnica también se busca. Se calcula una vez por ficha.
+  const textoSpecsMemo = new WeakMap();
+  function textoDeSpecs(p) {
+    let t = textoSpecsMemo.get(p);
+    if (t === undefined) {
+      const partes = [];
+      const f = p.facets;
+      if (f) {
+        for (const k in f) {
+          if (k === "dims" || k === "isbn" || k === "author" || k === "publisher") continue;
+          const v = f[k];
+          (Array.isArray(v) ? v.slice(0, 12) : [v]).forEach((x) => { if (typeof x === "string" && x.length <= 48) partes.push(x); });
+        }
+      }
+      t = partes.join(" ");
+      textoSpecsMemo.set(p, t);
+    }
+    return t;
   }
 
   function splitAlphaNumeric(s) {

@@ -5406,5 +5406,56 @@ LOTES['auditoria_48'] = [
 ]
 REGLAS += LOTES['auditoria_48']
 
+# auditoria_49 (09-oct-2026): revisión a ojo de los 20 más baratos de cada subcategoría de Deportes y fitness y de
+# Bicicletas y movilidad (1,500 fichas, 18% mal): refacciones y accesorios dentro de las bicicletas, partes de
+# patinetes eléctricos, andaderas de bebé en Caminadoras, fajas lumbares en Otros deportes, pelotas antiestrés,
+# fingerboards, bombas de acuario, chicotes de moto, etc.
+LOTES['auditoria_49'] = [
+ ('Bicicletas y movilidad', '^ ?(par de |pares de |juego de |kit de |set de |paquete de |\\d+ )?(salpicaderas?|tijera|ajustador|tuercas?|tornillos?|conos?|ejes?|mazas?|cadena|taza|baleros?|zapatas?|pivotes?|poste|desviador|biela|plato|cassette|pinon|rin|ruedas?|horquilla|suspension|abrazadera)\\b', 'infantil|triciclo|con ruedas|patinete|scooter', 'Bicicletas y movilidad', 'Refacciones y transmisión de bicicleta', {'Bicicletas BMX', 'Bicicletas de gravel y ciclocross', 'Bicicletas de montaña', 'Bicicletas de ruta', 'Bicicletas eléctricas', 'Bicicletas infantiles', 'Bicicletas plegables', 'Bicicletas sin pedales y balance', 'Bicicletas urbanas y de paseo', 'Triciclos y bicicletas de carga'}),
+ ('Bicicletas y movilidad', '^ ?(par de |pares de |juego de |kit de |set de |paquete de |\\d+ )?(llantas?|camaras?|tubos?|cinta antiponch\\w*|cinta anti|sellador)\\b', None, 'Bicicletas y movilidad', 'Llantas para bicicleta', {'Bicicletas BMX', 'Bicicletas de gravel y ciclocross', 'Bicicletas de montaña', 'Bicicletas de ruta', 'Bicicletas eléctricas', 'Bicicletas infantiles', 'Bicicletas plegables', 'Bicicletas sin pedales y balance', 'Bicicletas urbanas y de paseo', 'Triciclos y bicicletas de carga'}),
+ ('Bicicletas y movilidad', '^ ?(par de |pares de |juego de |kit de |set de |paquete de |\\d+ )?(timbre|anforas?|porta ?anfora|portabotellas?|exhibidor|espejo|protectores?|cinta reflectiva|tapon|adornos?)\\b', None, 'Bicicletas y movilidad', 'Accesorios para bicicleta', {'Bicicletas BMX', 'Bicicletas de gravel y ciclocross', 'Bicicletas de montaña', 'Bicicletas de ruta', 'Bicicletas eléctricas', 'Bicicletas infantiles', 'Bicicletas plegables', 'Bicicletas sin pedales y balance', 'Bicicletas urbanas y de paseo', 'Triciclos y bicicletas de carga'}),
+ ('Bicicletas y movilidad', '^ ?(par de |pares de |juego de |kit de |set de |paquete de |\\d+ )?(canastilla|alforjas?|bolsa)\\b', None, 'Bicicletas y movilidad', 'Bolsas, canastas y portabultos', {'Bicicletas BMX', 'Bicicletas de gravel y ciclocross', 'Bicicletas de montaña', 'Bicicletas de ruta', 'Bicicletas eléctricas', 'Bicicletas infantiles', 'Bicicletas plegables', 'Bicicletas sin pedales y balance', 'Bicicletas urbanas y de paseo', 'Triciclos y bicicletas de carga'}),
+ ('Bicicletas y movilidad', '^ ?(par de |pares de |juego de |kit de |set de |paquete de |\\d+ )?(guantes?|maillot|jersey|short|culotte|calcetas|calcetines|cubrebocas)\\b', None, 'Bicicletas y movilidad', 'Ropa y calzado de ciclismo', {'Bicicletas BMX', 'Bicicletas de gravel y ciclocross', 'Bicicletas de montaña', 'Bicicletas de ruta', 'Bicicletas eléctricas', 'Bicicletas infantiles', 'Bicicletas plegables', 'Bicicletas sin pedales y balance', 'Bicicletas urbanas y de paseo', 'Triciclos y bicicletas de carga'}),
+ ('Bicicletas y movilidad', '^ ?(par de |pares de |juego de |kit de |set de |paquete de |\\d+ )?(casco|rodilleras?|coderas?)\\b', None, 'Bicicletas y movilidad', 'Cascos y protección para ciclismo', {'Bicicletas BMX', 'Bicicletas de gravel y ciclocross', 'Bicicletas de montaña', 'Bicicletas de ruta', 'Bicicletas eléctricas', 'Bicicletas infantiles', 'Bicicletas plegables', 'Bicicletas sin pedales y balance', 'Bicicletas urbanas y de paseo', 'Triciclos y bicicletas de carga'}),
+ ('Bicicletas y movilidad', '^ ?(par de |pares de |juego de |kit de |set de |paquete de |\\d+ )?(asiento|sillin|cubre asiento)\\b', 'infantil|bebe|nino|remolque', 'Bicicletas y movilidad', 'Sillines y asientos', {'Bicicletas BMX', 'Bicicletas de gravel y ciclocross', 'Bicicletas de montaña', 'Bicicletas de ruta', 'Bicicletas eléctricas', 'Bicicletas infantiles', 'Bicicletas plegables', 'Bicicletas sin pedales y balance', 'Bicicletas urbanas y de paseo', 'Triciclos y bicicletas de carga'}),
+ ('Bicicletas y movilidad', '^ ?(par de |pares de |juego de |kit de |set de |paquete de |\\d+ )?(pedales?|punos?|manubrio|extensiones? de manubrio)\\b', None, 'Bicicletas y movilidad', 'Pedales, manubrios y puños', {'Bicicletas BMX', 'Bicicletas de gravel y ciclocross', 'Bicicletas de montaña', 'Bicicletas de ruta', 'Bicicletas eléctricas', 'Bicicletas infantiles', 'Bicicletas plegables', 'Bicicletas sin pedales y balance', 'Bicicletas urbanas y de paseo', 'Triciclos y bicicletas de carga'}),
+ ('Bicicletas y movilidad', '^ ?(par de |pares de |juego de |kit de |set de |paquete de |\\d+ )?(luz|luces|faro|lampara)\\b', 'scooter|patinete|hoverboard', 'Bicicletas y movilidad', 'Luces para bicicleta', {'Bicicletas BMX', 'Bicicletas de gravel y ciclocross', 'Bicicletas de montaña', 'Bicicletas de ruta', 'Bicicletas eléctricas', 'Bicicletas infantiles', 'Bicicletas plegables', 'Bicicletas sin pedales y balance', 'Bicicletas urbanas y de paseo', 'Triciclos y bicicletas de carga'}),
+ ('Bicicletas y movilidad', '\\b(throttle|controller|instrument display|lcd display|front fork|handlebar|shock absorb\\w*|accelerator|rear trunk|top case|scooter (parts|accessor\\w+|seat|saddle)|replacement parts|spare parts?)\\b', '^ ?(scooter|patineta|patinete|bicicleta)', 'Bicicletas y movilidad', 'Para patinetas eléctricas', {'Scooters eléctricos'}),
+ ('Bicicletas y movilidad', 'tech ?deck|fingerboard|patinete de dedo|hot wheels skate', None, 'Juguetes', 'Vehículos de juguete', None),
+ ('Bicicletas y movilidad', '\\b(candado|eslabon) (de )?cadena (para|de) moto|\\bcadena (para )?moto\\b', None, 'Autopartes', 'Cadenas, sprockets y transmisión', {'Candados para bicicleta'}),
+ ('Bicicletas y movilidad', 'cable (de )?velocimetro|chicote.*velocimetro|arana velocimetro|eje de horquilla para moto', None, 'Autos y motos', 'Accesorios para moto', {'Ciclocomputadoras y soportes para celular', 'Cuadros para bicicleta', 'Ejes para bicicleta'}),
+ ('Bicicletas y movilidad', 'bomba de aire (para )?(acuario|pecera)|aquajet|hagen|bomba de aire (de pilas )?lomas|bomba (para )?peceras?', None, 'Mascotas', 'Acuarios y terrarios', {'Bombas e infladores'}),
+ ('Bicicletas y movilidad', 'bomba de aire (bestway|intex)|quick ?fill', None, 'Jardín y exterior', 'Albercas e inflables', {'Bombas e infladores'}),
+ ('Bicicletas y movilidad', '(compresor|inflador) (de aire )?(portatil )?(para )?(auto|llantas)|inflador portatil para auto', None, 'Autos y motos', 'Infladores para llanta', {'Bombas e infladores'}),
+ ('Deportes y fitness', '\\bandader\\w+|andaderas?', 'adulto|aluminio|ancianos|rehabilit', 'Bebés', 'Andaderas', {'Caminadoras'}),
+ ('Deportes y fitness', '\\bbrujula\\b', None, 'Deportes y fitness', 'Campismo', None),
+ ('Deportes y fitness', 'pelota antiestres|pelota squishy', None, 'Juguetes', 'Juguetes antiestrés', None),
+ ('Deportes y fitness', 'pelotas? (de repuesto )?(para )?(de )?futbolito|futbol de mesa', None, 'Juegos de mesa', 'Otros juegos', {'Balones de fútbol'}),
+ ('Deportes y fitness', 'ejercitador (de )?(mano|dedos|agarre|antebrazo)|agarre de (la )?mano|hand ?grip|fortalecer el agarre|ejercitador de mano', None, 'Deportes y fitness', 'Accesorios de fuerza', {'Bandas de resistencia', 'Bicicletas fijas', 'Mancuernas', 'Máquinas multifuncionales y poleas'}),
+ ('Deportes y fitness', 'pelotas? de tenis', None, 'Deportes y fitness', 'Pelotas y accesorios de raqueta', {'Bandas de resistencia', 'Raquetas de pádel'}),
+ ('Deportes y fitness', 'faja (de carga )?(lumbar|cinturon|sacro)|faja sacro|cinturon lumbar', None, 'Deportes y fitness', 'Fajas lumbares', {'Otros deportes'}),
+ ('Deportes y fitness', 'corrector(a)? de postura', None, 'Deportes y fitness', 'Correctores de postura', {'Otros deportes'}),
+ ('Deportes y fitness', '(brazalete|bolsa (de )?brazo|arm ?band|arm bag)', 'tension|presion', 'Celulares', 'Bolsas para celular', None),
+ ('Deportes y fitness', 'tarjeta de felicitacion', None, 'Papelería y oficina', 'Papel y sobres', None),
+ ('Deportes y fitness', '\\bposters?\\b|wall art|metal tin|vinyl decal|banner wall|wall chart', None, 'Decoración de hogar y jardín', 'Cuadros y decoración de pared', {'Bicicletas fijas', 'Equipo de gimnasio', 'Máquinas multifuncionales y poleas'}),
+ ('Deportes y fitness', 'protector de cuello|almohadilla para (barra|levantamiento)|cojin protector (de )?barra|almohadilla de barra', None, 'Deportes y fitness', 'Barras y discos', {'Bancos y racks', 'Bicicletas fijas', 'Equipo de gimnasio'}),
+ ('Deportes y fitness', '\\bdiscos? (de peso|para barra|olimpico)|\\bbarras? de peso ligero|\\bbarra recta', 'banco|kit de pesas|mancuerna', 'Deportes y fitness', 'Barras y discos', {'Bancos y racks', 'Máquinas multifuncionales y poleas'}),
+ ('Deportes y fitness', '^ ?set de \\d+ discos', None, 'Deportes y fitness', 'Barras y discos', {'Sets de pesas'}),
+ ('Deportes y fitness', 'leggins?|leggings|calceta', None, 'Ropa y accesorios', 'Ropa deportiva', {'Accesorios y ropa de yoga'}),
+ ('Deportes y fitness', 'manta mexicana|manta de yoga mexicana', None, 'Blancos y ropa de cama', 'Frazadas y mantas', {'Accesorios y ropa de yoga'}),
+ ('Deportes y fitness', 'bata toalla', None, 'Blancos y ropa de cama', 'Toallas de baño', None),
+ ('Deportes y fitness', 'panal(es)? (de )?natacion|panal para alberca', None, 'Bebés', 'Pañales y cambio', None),
+ ('Deportes y fitness', 'visor de natacion|googles? para natacion|antiparras', None, 'Deportes y fitness', 'Goggles de natación', {'Tapones y accesorios de natación'}),
+ ('Deportes y fitness', '(inflable|hinchable)', 'adulto', 'Juguetes', 'Juguetes para exterior', {'Costales, peras y entrenadores', 'Protección, vendas y artes marciales'}),
+ ('Deportes y fitness', 'resbaladilla', None, 'Juguetes', 'Juguetes para exterior', {'Escaladoras y steppers'}),
+ ('Deportes y fitness', 'beer pong|gopong', None, 'Juegos de mesa', 'De fiesta', None),
+ ('Deportes y fitness', 'aztron', 'tabla|kayak|remo|correa|bomba|asiento|adaptador', 'Deportes y fitness', 'Paddle, surf y kayak', {'Snorkel y buceo'}),
+ ('Deportes y fitness', '\\bdardos? (de )?espuma|dardos soft tip', None, 'Deportes y fitness', 'Dardos y accesorios', {'Tableros de dardos'}),
+ ('Deportes y fitness', 'playmobil|schleich', None, 'Juguetes', 'Figuras de acción', None),
+ ('Deportes y fitness', 'decoracion (para )?(tarta|pastel)|topper', None, 'Juguetes', 'Artículos para fiestas', None),
+ ('Deportes y fitness', 'pilates yoga editorial|editora y distribuidora|tratado original', None, 'Libros', 'Salud y bienestar', None),
+]
+REGLAS += LOTES['auditoria_49']
+
 if __name__ == '__main__':
     main()

@@ -54,6 +54,8 @@ _MARCAS_AUTO = {
     "jaguar": "Jaguar", "citroen": "Citroën", "skoda": "Škoda", "lada": "Lada", "mahindra": "Mahindra",
     "maserati": "Maserati", "alfa romeo": "Alfa Romeo", "range rover": "Land Rover", "geo": "Geo",
     "mack": "Mack", "foton": "Foton", "changan": "Changan", "geely": "Geely", "dina": "Dina",
+    # 09-oct-2026: abreviaturas de las refacciones importadas Cardic («Para Olds Cutlass 3.1 1995 1996»).
+    "olds": "Oldsmobile", "amc": "AMC", "american motors": "AMC",
 }
 _MARCA_RE = re.compile(r"(?<![a-z0-9])(" + "|".join(sorted((re.escape(k) for k in _MARCAS_AUTO if _MARCAS_AUTO[k]),
                                                         key=len, reverse=True)) + r")(?![a-z0-9])")
@@ -177,16 +179,20 @@ def vehiculo(nombre):
             a, b = _anio2(a), _anio2(b)
             if a <= b <= 2027 and b - a <= 30:
                 anios.update(range(a, b + 1))
+    lista_anios = False
     if not anios:
         sueltos = sorted({int(x) for x in _SUELTO_RE.findall(n)})
         if sueltos and (len(sueltos) <= 3 or sueltos[-1] - sueltos[0] + 1 == len(sueltos)):
             anios = set(sueltos)
+            # «... 3.8 1998 1999 2000»: dos o más años seguidos son los del vehículo
+            # aunque no se nombre la marca (un año solo puede ser un código).
+            lista_anios = len(sueltos) >= 2 and sueltos[-1] - sueltos[0] + 1 == len(sueltos)
     anios = sorted(a for a in anios if 1950 <= a <= 2027)
     # Un año solo sin marca de auto al lado es más seguido un modelo o un
     # código de pieza que un año del vehículo. Un RANGO («2012 a 2015») sí es
     # de años aunque la marca no esté en el nombre («Faro niebla sandero 2012 a
     # 2015»): 19 mil refacciones se quedaban sin ninguna fila (08-oct-2026).
-    if not marca and not _RANGO_RE.search(n):
+    if not marca and not _RANGO_RE.search(n) and not lista_anios:
         anios = []
     return marca, modelo, anios
 
@@ -1437,6 +1443,24 @@ def color(nombre):
     if "Multicolor" in hits:
         return "Multicolor"
     return hits[0] if len(hits) == 1 else None
+
+
+# El acabado de un mueble por el nombre de la madera («Mesa de TV parota», «Cava wengue»,
+# «Librero miel»): sólo se lee cuando el nombre no dice un color y nombra un solo tono.
+_TONOS_MADERA = (
+    ("Café", r"parota|caoba|wengue|wenge|cerezo|tabaco|nuez|castano|moka|mocha|expreso|espresso|tabaco|cumaru|oscuro natural"),
+    ("Beige", r"maple|miel|pino|haya|bambu|vainilla|almendra|arce|oak|sonoma|avellana|cedro"),
+    ("Gris", r"ceniza|cemento|concreto|plomo|humo"),
+    ("Blanco", r"polar|nieve|artico|perla|blanqueado"),
+    ("Negro", r"ebano|onix|carbon"),
+)
+_TONO_RX = [(lbl, re.compile(r"(?<![a-z])(?:" + rx + r")(?![a-z])")) for lbl, rx in _TONOS_MADERA]
+
+
+def color_madera(nombre):
+    n = re.split(r"\bcompatible (?:con|para)\b", _norm(nombre))[0]
+    hits = {lbl for lbl, rx in _TONO_RX if rx.search(n)}
+    return next(iter(hits)) if len(hits) == 1 else None
 
 
 # El color de un aparato, una herramienta, un artículo de papelería: sólo palabras en español y

@@ -88,6 +88,7 @@ import unicodedata
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
 from data_io import ROOT, MANIFEST_PATH, leer_json, escribir_texto_json, nombre_logico  # noqa: E402
+import tamano_relativo  # noqa: E402
 
 SALIDA = os.path.join(ROOT, "data", "buscar")
 # Fichas por bloque de filas. Era 400 (comprime ~6% mejor que 100), pero
@@ -136,6 +137,8 @@ NO_CABEZA = {"mini", "nuevo", "nueva", "nuevos", "nuevas", "original", "original
              "pack", "packs", "lote", "combo", "combos", "pieza", "piezas", "pza", "pzas", "pz", "pzs"}
 BIT_CABEZA = 512
 BIT_MARCA = 1024   # la marca de la ficha ES la palabra (ver resumen() y la SPA)
+BIT_SPEC = 2048    # la palabra sale de la ficha técnica (faceta), no del nombre (ver palabras_de_specs)
+ZCHUNK = 20000     # fichas por archivo de data/buscar/z (tamaño relativo, ver tamano_relativo.py)
 
 
 def cabeza_del_nombre(nombre, marca):
@@ -177,6 +180,40 @@ def palabras(texto):
             continue
         salida.add(raiz(w))
     return salida | compactas
+
+
+# Facetas que no se indexan: identificadores, medidas que ya dicen las cifras del
+# nombre y letras sueltas sin sentido para quien busca.
+NO_INDEXAR = {"dims", "isbn", "author", "publisher", "set_num", "funko_num", "part_num", "speed_rating",
+              "age_rating", "tire_cam", "pack_n"}
+# «Sí» en una faceta de sí/no: la palabra con la que la gente lo busca.
+SI_PALABRAS = {
+    "water_resistant": "impermeable resistente agua", "gps": "gps", "calls": "llamadas", "anc": "anc cancelacion ruido",
+    "heart_rate": "cardiaca pulso", "memory_foam": "memory foam viscoelastica", "blackout": "blackout opaca",
+    "polarized": "polarizado", "multifunction": "multifuncion", "wifi": "wifi", "bluetooth": "bluetooth",
+    "nfc": "nfc", "foldable": "plegable", "magsafe": "magsafe", "led": "led",
+}
+
+
+def palabras_de_specs(p):
+    """Palabras de los valores de texto de las facetas de la ficha (color, material,
+    tipo, talla, vehículos compatibles...): la ficha técnica también se busca.
+    «Sí» se traduce con SI_PALABRAS; los números no se indexan."""
+    out = set()
+    for k, v in (p.get("facets") or {}).items():
+        if k in NO_INDEXAR or v in (None, "", []):
+            continue
+        valores = v if isinstance(v, list) else [v]
+        for x in valores[:12]:
+            if not isinstance(x, str) or len(x) > 48:
+                continue
+            if x.strip().lower() in ("sí", "si", "yes", "true"):
+                out |= palabras(SI_PALABRAS.get(k, ""))
+            elif x.strip().lower() in ("no", "false", "n/a"):
+                continue
+            else:
+                out |= palabras(x)
+    return out
 
 
 def ofertas_de(p):
@@ -428,6 +465,7 @@ def main():
     palabras_cat = {}
 
     postings = collections.defaultdict(list)   # raíz -> [(id, f, p, c, s)]
+    tamanos = tamano_relativo.Calculador()
     filas = collections.defaultdict(dict)
     n = 0
     resumenes = {}
@@ -468,11 +506,13 @@ def main():
                 marca_sola = next(iter(marca)) if len(marca) == 1 else None
                 base = (8 if usado else 0) + (16 if p.get("a") else 0) + 32 * rango
                 cabeza = cabeza_del_nombre(p.get("name"), p.get("brand"))
-                for w in nombre | marca | palabras_cat[clave_cat]:
+                specs = palabras_de_specs(p) - nombre - marca - palabras_cat[clave_cat]
+                for w in nombre | marca | palabras_cat[clave_cat] | specs:
                     f = base + (1 if w in nombre else 0) + (2 if w in palabras_cat[clave_cat] else 0) \
                         + (4 if w in marca else 0) + (BIT_CABEZA if w == cabeza else 0) \
-                        + (BIT_MARCA if w == marca_sola else 0)
+                        + (BIT_MARCA if w == marca_sola else 0) + (BIT_SPEC if w in specs else 0)
                     postings[w].append((num, f, precio, ci, si))
+                tamanos.recoger(num, c, sub, p)
                 n += 1
         if con_resumen:
             resumenes[ci] = resumen_de_categoria(fichas_cat, idx_sub[ci], subs[ci])
@@ -519,6 +559,16 @@ def main():
     for ci, r in resumenes.items():
         escribir(f"c/{ci}.json", r)
 
+    # Tamaño relativo (data/buscar/z/<n>.json): un carácter por ficha, n = id // ZCHUNK,
+    # «0»-«9» el percentil dentro de su subcategoría y « » sin medida.
+    z = tamanos.calcular()
+    por_chunk = collections.defaultdict(dict)
+    for num, d in z.items():
+        por_chunk[num // ZCHUNK][num % ZCHUNK] = str(d)
+    for k, cols in por_chunk.items():
+        ultimo = max(cols)
+        escribir(f"z/{k}.json", {"s": "".join(cols.get(i, " ") for i in range(ultimo + 1))})
+
     # Los .json.gz de rutas que ya no existen (una palabra que dejó de ser
     # frecuente, un bloque de fichas vaciado) se borran.
     borrados = 0
@@ -531,11 +581,12 @@ def main():
     # meta.json al final: la SPA solo usa el índice si está, y así nunca ve
     # un meta nuevo apuntando a archivos a medio escribir.
     escribir("meta.json", {"v": 1, "cats": cats, "subs": subs, "filas": FILAS,
-                           "resumen": sorted(cats[ci] for ci in resumenes)})
+                           "resumen": sorted(cats[ci] for ci in resumenes), "z": ZCHUNK})
     peso = sum(os.path.getsize(os.path.join(d, x)) for d, _, xs in os.walk(SALIDA) for x in xs)
     print(f"Índice de búsqueda: {n:,} fichas, {len(postings):,} raíces "
           f"({propios:,} con archivo propio), {len(cubetas):,} cubetas, {len(filas):,} bloques de filas; "
-          f"{peso / 1e6:.1f} MB en disco, {borrados} archivos viejos borrados")
+          f"{peso / 1e6:.1f} MB en disco, {borrados} archivos viejos borrados; "
+          f"tamaño relativo de {len(z):,} fichas")
 
 
 if __name__ == "__main__":
