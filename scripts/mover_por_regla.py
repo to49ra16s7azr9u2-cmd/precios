@@ -5515,6 +5515,9 @@ LOTES['auditoria_51'] = [
  ('Joyería y bisutería', r'adaptador de filtro con anillo', None, 'Cámaras y fotografía', 'Filtros y parasoles', {'Anillos'}),
  ('Autopartes', r'bomba de agua (electrica )?(hyundai|evans|iusa|truper|pretul)|bomba .*\b(monofasic[ao]|pozo)\b', None, 'Herramientas', 'Bombas de agua', {'Bombas de agua'}),
  ('Monitores', r'\b(16 ?x ?2|1602|2004)\b.*(lcd|i2c|iic)|\bmodulo de visualizacion lcd\b|display lcd pantalla 16x2', None, 'Componentes y accesorios de PC', 'Componentes', None),
+ ('Deportes y fitness', r'^sujetador deportivo|^top deportivo|^bra deportivo', None, 'Ropa y accesorios', 'Ropa deportiva', None),
+ ('Componentes y accesorios de PC', r'\btv box\b|\bandroid tv box\b', None, 'Televisores', 'Dispositivos de streaming', None),
+ ('Cocina y comedor', r'\b(pintura|crayola|acuarela|plastilina)\b.*\b(botella|exprimible)\b|botella exprimible de pintura', None, 'Papelería y oficina', 'Arte y dibujo', None),
 ]
 REGLAS += LOTES['auditoria_51']
 
