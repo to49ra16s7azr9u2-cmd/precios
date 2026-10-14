@@ -5525,6 +5525,14 @@ LOTES['auditoria_51'] = [
  ('Muebles', r'^piso (tipo|de) (madera|eva|goma)|\btapete(s)? eva\b|pisos? (de )?eva|foami', r'\bsilla|mesa\b', 'Decoración de hogar y jardín', 'Tapetes y alfombras', None),
  ('Libros', r'^partituras?\b|\bpartitura\b', None, 'Libros', 'Música y cine', {'Novela contemporánea', 'Arte, diseño y fotografía', 'Hogar, manualidades y mascotas', 'Infantil'}),
  ('Cámaras y fotografía', r'^impresora (instantanea|fotografica|de fotos)|impresora instax|instax (link|mini link)', None, 'Impresoras', 'Fotográficas', {'Instantáneas', 'Accesorios', 'Compactas'}),
+ ('Deportes y fitness', r'\b(bateo|beisbol|baseball|softbol|softball|bate de)\b|guante de bateo|guantes de bateo', r'\bfutbol americano\b', 'Deportes y fitness', 'Otros deportes', {'Balones de fútbol', 'Guantes de portero', 'Balones de voleibol', 'Balones de básquetbol', 'Ropa y accesorios de fútbol'}),
+ ('Limpieza y hogar', r'\b(cloro|tricloro|clorador)\b.*\b(granular|tabletas|piscina|alberca)\b|\bcloro granular\b', None, 'Jardín y exterior', 'Albercas e inflables', None),
+ ('Limpieza y hogar', r'^(juego de )?\d* ?servilletas de tela', None, 'Cocina y comedor', 'Manteles y caminos de mesa', {'Papel higiénico y servilletas'}),
+ ('Mouse', r'^reposamunecas', None, 'Teclados', 'Switches, keycaps y accesorios', None),
+ ('Papelería y oficina', r'divisores de carpeta|separadores de carpeta|divisores? (de )?indice', None, 'Papelería y oficina', 'Organización', {'Arte y dibujo', 'Cuadernos', 'Útiles escolares'}),
+ ('Muebles', r'\b(silla|asiento) vibradora?\b|mecedora (de|para) bebe|\bmecedora bebe\b', None, 'Bebés', 'Sillas de comer y mecedoras', None),
+ ('Joyería y bisutería', r'^binder\b|\bbinder\b.*(anillos|avery)', None, 'Papelería y oficina', 'Organización', {'Anillos'}),
+ ('Audífonos', r'\bintercomunicador(es)?\b', None, 'Autos y motos', 'Accesorios para moto', None),
 ]
 REGLAS += LOTES['auditoria_51']
 
