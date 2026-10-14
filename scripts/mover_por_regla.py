@@ -5518,6 +5518,13 @@ LOTES['auditoria_51'] = [
  ('Deportes y fitness', r'^sujetador deportivo|^top deportivo|^bra deportivo', None, 'Ropa y accesorios', 'Ropa deportiva', None),
  ('Componentes y accesorios de PC', r'\btv box\b|\bandroid tv box\b', None, 'Televisores', 'Dispositivos de streaming', None),
  ('Cocina y comedor', r'\b(pintura|crayola|acuarela|plastilina)\b.*\b(botella|exprimible)\b|botella exprimible de pintura', None, 'Papelería y oficina', 'Arte y dibujo', None),
+
+ ('Limpieza y hogar', r'\b(dental|dientes|blanqueador dental|blanqueamiento dental)\b', None, 'Salud', 'Cuidado dental', None),
+ ('Baterías portátiles', r'^ventilador\b|\bventilador (portatil|de mano|para cochecito)\b', r'power ?bank|bateria portatil', 'Climatización', 'Ventiladores portátiles y de mano', None),
+ ('Libros', r'^libro de (cuentas|visitas|firmas|registro|contabilidad|recetas en blanco)\b|^libro (diario|mayor)\b', None, 'Papelería y oficina', 'Libretas y agendas', None),
+ ('Muebles', r'^piso (tipo|de) (madera|eva|goma)|\btapete(s)? eva\b|pisos? (de )?eva|foami', r'\bsilla|mesa\b', 'Decoración de hogar y jardín', 'Tapetes y alfombras', None),
+ ('Libros', r'^partituras?\b|\bpartitura\b', None, 'Libros', 'Música y cine', {'Novela contemporánea', 'Arte, diseño y fotografía', 'Hogar, manualidades y mascotas', 'Infantil'}),
+ ('Cámaras y fotografía', r'^impresora (instantanea|fotografica|de fotos)|impresora instax|instax (link|mini link)', None, 'Impresoras', 'Fotográficas', {'Instantáneas', 'Accesorios', 'Compactas'}),
 ]
 REGLAS += LOTES['auditoria_51']
 
