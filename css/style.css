@@ -5400,3 +5400,35 @@ tr.offer-compare-off { display: none; }
 /* Puntos de la gráfica del precio más bajo: fecha, precio y tienda al pasar el ratón. */
 .price-spark .spark-dot { fill: var(--red); stroke: #fff; stroke-width: 1; cursor: default; }
 .price-spark .spark-dot:hover { r: 5; }
+
+/* Pantalla de entrada (primera visita de la sesión) */
+.entrada-overlay { z-index: 150; }
+.entrada-modal { max-width: 460px; }
+.entrada-titulo { margin: 0 0 14px; font-size: 19px; color: var(--ink); }
+.entrada-opciones { display: grid; gap: 8px; }
+.entrada-op {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  padding: 12px 14px; text-align: left; cursor: pointer;
+  background: var(--card); color: var(--ink);
+  border: 1.5px solid var(--border); border-radius: var(--radius);
+}
+.entrada-op:hover, .entrada-op.is-on { border-color: var(--red, #e60012); }
+.entrada-op-t { font-weight: 700; font-size: 15px; }
+.entrada-op-s { font-size: 12px; color: var(--muted); }
+.entrada-op-quiet { border-style: dashed; }
+.entrada-cats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; max-height: 36vh; overflow-y: auto; }
+.entrada-cat {
+  padding: 6px 11px; font-size: 13px; cursor: pointer; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--card); color: var(--ink);
+}
+.entrada-cat:hover, .entrada-cat.is-on { border-color: var(--red, #e60012); color: var(--red, #e60012); }
+.entrada-cq { margin-top: 14px; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); background: var(--bg); }
+.entrada-cq-logo { height: 26px; width: auto; display: block; margin-bottom: 6px; }
+.entrada-cq-q { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: var(--ink); }
+.entrada-cq-btns { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.entrada-saltar { background: none; border: none; padding: 6px 2px; cursor: pointer; color: var(--muted); text-decoration: underline; font-size: 13px; }
+.entrada-pop { transform-origin: top center; animation: entrada-pop .38s cubic-bezier(.2,1.4,.4,1); }
+@keyframes entrada-pop { from { opacity: 0; transform: translateY(-10px) scaleY(.6); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .entrada-pop { animation: none; } }
+.entrada-overlay { padding-bottom: calc(16px + var(--consent-h, 0px)); }
+.entrada-modal { max-height: calc(100vh - 32px - var(--consent-h, 0px)); }

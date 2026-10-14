@@ -5541,6 +5541,10 @@ LOTES['auditoria_51'] = [
  ('Cocina y comedor', r'^lapicera\b', None, 'Papelería y oficina', 'Útiles escolares', None),
  ('Monitores', r'^monitor para bebe|\bmonitor para bebe\b|baby monitor', None, 'Bebés', 'Monitores de bebé', None),
  ('Mascotas', r'^bolsa en forma de|^set de \d+ piezas: bolsa y monedero', None, 'Bolsas y mochilas', 'Carteras y monederos', {'Correas'}),
+ ('Bolsas y mochilas', r'^bolsas? (de )?(maquillaje|cosmeticos?|cosmetica)\b|\bbolsa de maquillaje\b', None, 'Bolsas y mochilas', 'Cosmetiqueras y neceseres', {'Bolsas para mujer'}),
+ ('Bolsas y mochilas', r'\bstasher\b|bolsa de alimentos|bolsa(s)? reutilizables? (de )?(silicona|alimentos)', None, 'Cocina y comedor', 'Contenedores herméticos', None),
+ ('Cocina y comedor', r'\b(scented )?candles?\b|^vela aromatica', None, 'Limpieza y hogar', 'Aromatizantes y velas', None),
+ ('Joyería y bisutería', r'\b(playeras?|camisetas?|sudaderas?|jersey)\b', r'\bdije\b|collar|pulsera|reloj', 'Ropa y accesorios', 'Playeras', {'Relojes'}),
 ]
 REGLAS += LOTES['auditoria_51']
 

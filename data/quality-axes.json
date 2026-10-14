@@ -2757,14 +2757,14 @@
       "use": "Para la familia",
       "spec": "Más de 0.5 L, hasta 0.7 L",
       "min": 0.45,
-      "max": 0.65
+      "max": 0.7
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Reuniones o uso intensivo",
       "spec": "Más de 0.7 L",
-      "min": 0.65
+      "min": 0.7
      }
     ],
     "key": "level"
@@ -2998,21 +2998,21 @@
       ]
      },
      {
-      "id": "contenedor-de-vidrio",
-      "name": "Contenedor de vidrio",
-      "use": "",
-      "spec": "Contenedor de vidrio",
-      "values": [
-       "Contenedor de vidrio"
-      ]
-     },
-     {
       "id": "bolsa-o-molde",
       "name": "Bolsa o molde",
       "use": "",
       "spec": "Bolsa o molde",
       "values": [
        "Bolsa o molde"
+      ]
+     },
+     {
+      "id": "contenedor-de-vidrio",
+      "name": "Contenedor de vidrio",
+      "use": "",
+      "spec": "Contenedor de vidrio",
+      "values": [
+       "Contenedor de vidrio"
       ]
      },
      {
@@ -5292,384 +5292,7 @@
    }
   ]
  },
- "Papelería y oficina/Cuadernos": {
-  "axes": [
-   {
-    "label": "Hojas",
-    "field": "sheets",
-    "criterion": "por número de hojas",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "delgado",
-      "name": "Delgado",
-      "use": "Una materia o apuntes",
-      "spec": "Hasta 80 hojas",
-      "max": 80
-     },
-     {
-      "id": "medio",
-      "name": "Medio",
-      "use": "Todo el semestre",
-      "spec": "81 hojas a 100 hojas",
-      "min": 80,
-      "max": 100
-     },
-     {
-      "id": "grueso",
-      "name": "Grueso",
-      "use": "Varias materias",
-      "spec": "Más de 100 hojas",
-      "min": 100
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $360",
-      "max": 360
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$360 a $530",
-      "min": 360,
-      "max": 530
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $530",
-      "min": 530
-     }
-    ]
-   }
-  ]
- },
- "Papelería y oficina/Organización": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "carpetas",
-      "name": "Carpetas",
-      "use": "",
-      "spec": "Carpetas",
-      "values": [
-       "Carpetas"
-      ]
-     },
-     {
-      "id": "grapas-y-clips",
-      "name": "Grapas y clips",
-      "use": "",
-      "spec": "Grapas y clips",
-      "values": [
-       "Grapas y clips"
-      ]
-     },
-     {
-      "id": "archiveros-y-cajas",
-      "name": "Archiveros y cajas",
-      "use": "",
-      "spec": "Archiveros y cajas",
-      "values": [
-       "Archiveros y cajas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$440 a $800",
-      "min": 440,
-      "max": 800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $800",
-      "min": 800
-     }
-    ]
-   }
-  ]
- },
- "Papelería y oficina/Útiles escolares": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "lapiceras-y-estuches",
-      "name": "Lapiceras y estuches",
-      "use": "",
-      "spec": "Lapiceras y estuches",
-      "values": [
-       "Lapiceras y estuches"
-      ]
-     },
-     {
-      "id": "pegamento-y-silicon",
-      "name": "Pegamento y silicón",
-      "use": "",
-      "spec": "Pegamento y silicón",
-      "values": [
-       "Pegamento y silicón"
-      ]
-     },
-     {
-      "id": "sacapuntas",
-      "name": "Sacapuntas",
-      "use": "",
-      "spec": "Sacapuntas",
-      "values": [
-       "Sacapuntas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $450",
-      "min": 290,
-      "max": 450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $450",
-      "min": 450
-     }
-    ]
-   }
-  ]
- },
- "Papelería y oficina/Arte y dibujo": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "crayones-y-colores",
-      "name": "Crayones y colores",
-      "use": "",
-      "spec": "Crayones y colores",
-      "values": [
-       "Crayones y colores"
-      ]
-     },
-     {
-      "id": "acuarelas-y-pinturas",
-      "name": "Acuarelas y pinturas",
-      "use": "",
-      "spec": "Acuarelas y pinturas",
-      "values": [
-       "Acuarelas y pinturas"
-      ]
-     },
-     {
-      "id": "papel-blocs-y-lienzos",
-      "name": "Papel, blocs y lienzos",
-      "use": "",
-      "spec": "Papel, blocs y lienzos",
-      "values": [
-       "Papel, blocs y lienzos"
-      ]
-     },
-     {
-      "id": "pinceles",
-      "name": "Pinceles",
-      "use": "",
-      "spec": "Pinceles",
-      "values": [
-       "Pinceles"
-      ]
-     },
-     {
-      "id": "caballetes",
-      "name": "Caballetes",
-      "use": "",
-      "spec": "Caballetes",
-      "values": [
-       "Caballetes"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $470",
-      "max": 470
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$470 a $780",
-      "min": 470,
-      "max": 780
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $780",
-      "min": 780
-     }
-    ]
-   }
-  ]
- },
- "Papelería y oficina/Papel y sobres": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "papel-y-cartulina",
-      "name": "Papel y cartulina",
-      "use": "",
-      "spec": "Papel y cartulina",
-      "values": [
-       "Papel y cartulina"
-      ]
-     },
-     {
-      "id": "carpetas",
-      "name": "Carpetas",
-      "use": "",
-      "spec": "Carpetas",
-      "values": [
-       "Carpetas"
-      ]
-     },
-     {
-      "id": "sobres",
-      "name": "Sobres",
-      "use": "",
-      "spec": "Sobres",
-      "values": [
-       "Sobres"
-      ]
-     },
-     {
-      "id": "engrapadoras-y-perforadoras",
-      "name": "Engrapadoras y perforadoras",
-      "use": "",
-      "spec": "Engrapadoras y perforadoras",
-      "values": [
-       "Engrapadoras y perforadoras"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $420",
-      "max": 420
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$420 a $760",
-      "min": 420,
-      "max": 760
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $760",
-      "min": 760
-     }
-    ]
-   }
-  ]
- },
- "Papelería y oficina/Libretas y agendas": {
+ "Autopartes/Cadenas, sprockets y transmisión": {
   "axes": [
    {
     "key": "level",
@@ -5682,261 +5305,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $310",
-      "max": 310
+      "spec": "Hasta $220",
+      "max": 220
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$310 a $500",
-      "min": 310,
-      "max": 500
+      "spec": "$220 a $320",
+      "min": 220,
+      "max": 320
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $500",
-      "min": 500
-     }
-    ]
-   }
-  ]
- },
- "Papelería y oficina/Escritura": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "boligrafos",
-      "name": "Bolígrafos",
-      "use": "",
-      "spec": "Bolígrafos",
-      "values": [
-       "Bolígrafos"
-      ]
-     },
-     {
-      "id": "lapices-y-portaminas",
-      "name": "Lápices y portaminas",
-      "use": "",
-      "spec": "Lápices y portaminas",
-      "values": [
-       "Lápices y portaminas"
-      ]
-     },
-     {
-      "id": "marcadores-y-plumones",
-      "name": "Marcadores y plumones",
-      "use": "",
-      "spec": "Marcadores y plumones",
-      "values": [
-       "Marcadores y plumones"
-      ]
-     },
-     {
-      "id": "estuches-y-portalapices",
-      "name": "Estuches y portalápices",
-      "use": "",
-      "spec": "Estuches y portalápices",
-      "values": [
-       "Estuches y portalápices"
-      ]
-     },
-     {
-      "id": "recargas-y-minas",
-      "name": "Recargas y minas",
-      "use": "",
-      "spec": "Recargas y minas",
-      "values": [
-       "Recargas y minas"
-      ]
-     },
-     {
-      "id": "lapices-de-colores",
-      "name": "Lápices de colores",
-      "use": "",
-      "spec": "Lápices de colores",
-      "values": [
-       "Lápices de colores"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $330",
-      "max": 330
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$330 a $510",
-      "min": 330,
-      "max": 510
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $510",
-      "min": 510
-     }
-    ]
-   }
-  ]
- },
- "Papelería y oficina/Artículos de oficina": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $420",
-      "max": 420
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$420 a $600",
-      "min": 420,
-      "max": 600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $600",
-      "min": 600
-     }
-    ]
-   }
-  ]
- },
- "Papelería y oficina/Pizarrones": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$430 a $770",
-      "min": 430,
-      "max": 770
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $770",
-      "min": 770
-     }
-    ]
-   }
-  ]
- },
- "Papelería y oficina/Embalaje": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $350",
-      "max": 350
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$350 a $1,000",
-      "min": 350,
-      "max": 1000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,000",
-      "min": 1000
-     }
-    ]
-   }
-  ]
- },
- "Papelería y oficina/Calculadoras": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$440 a $1,150",
-      "min": 440,
-      "max": 1150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
+      "spec": "Más de $320",
+      "min": 320
      }
     ]
    }
@@ -6370,41 +5755,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $3,700",
       "min": 3700
-     }
-    ]
-   }
-  ]
- },
- "Autopartes/Cadenas, sprockets y transmisión": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $220",
-      "max": 220
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$220 a $320",
-      "min": 220,
-      "max": 320
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $320",
-      "min": 320
      }
     ]
    }
@@ -24192,91 +23542,6 @@
    }
   ]
  },
- "Ropa y accesorios/Ropa interior": {
-  "axes": [
-   {
-    "label": "Talla",
-    "field": "size_label",
-    "criterion": "según la ficha",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "",
-      "spec": "Chica",
-      "values": [
-       "Chica"
-      ]
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "",
-      "spec": "Mediana",
-      "values": [
-       "Mediana"
-      ]
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "",
-      "spec": "Grande",
-      "values": [
-       "Grande"
-      ]
-     },
-     {
-      "id": "extra-grande",
-      "name": "Extra grande",
-      "use": "",
-      "spec": "Extra grande",
-      "values": [
-       "Extra grande"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "hombre",
-      "name": "Hombre",
-      "use": "",
-      "spec": "Hombre",
-      "values": [
-       "Hombre"
-      ]
-     },
-     {
-      "id": "mujer",
-      "name": "Mujer",
-      "use": "",
-      "spec": "Mujer",
-      "values": [
-       "Mujer"
-      ]
-     },
-     {
-      "id": "nino",
-      "name": "Niño",
-      "use": "",
-      "spec": "Niño",
-      "values": [
-       "Niño"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
  "Ropa y accesorios/Playeras": {
   "axes": [
    {
@@ -24355,6 +23620,91 @@
       "spec": "Unisex",
       "values": [
        "Unisex"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Ropa y accesorios/Ropa interior": {
+  "axes": [
+   {
+    "label": "Talla",
+    "field": "size_label",
+    "criterion": "según la ficha",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "",
+      "spec": "Chica",
+      "values": [
+       "Chica"
+      ]
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "",
+      "spec": "Mediana",
+      "values": [
+       "Mediana"
+      ]
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "",
+      "spec": "Grande",
+      "values": [
+       "Grande"
+      ]
+     },
+     {
+      "id": "extra-grande",
+      "name": "Extra grande",
+      "use": "",
+      "spec": "Extra grande",
+      "values": [
+       "Extra grande"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
       ]
      }
     ],
@@ -31964,6 +31314,656 @@
    }
   ],
   "intro": "Elige por la edad de quien lo va a usar."
+ },
+ "Papelería y oficina/Cuadernos": {
+  "axes": [
+   {
+    "label": "Hojas",
+    "field": "sheets",
+    "criterion": "por número de hojas",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "delgado",
+      "name": "Delgado",
+      "use": "Una materia o apuntes",
+      "spec": "Hasta 80 hojas",
+      "max": 80
+     },
+     {
+      "id": "medio",
+      "name": "Medio",
+      "use": "Todo el semestre",
+      "spec": "81 hojas a 100 hojas",
+      "min": 80,
+      "max": 100
+     },
+     {
+      "id": "grueso",
+      "name": "Grueso",
+      "use": "Varias materias",
+      "spec": "Más de 100 hojas",
+      "min": 100
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $360",
+      "max": 360
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$360 a $530",
+      "min": 360,
+      "max": 530
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $530",
+      "min": 530
+     }
+    ]
+   }
+  ]
+ },
+ "Papelería y oficina/Organización": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "carpetas",
+      "name": "Carpetas",
+      "use": "",
+      "spec": "Carpetas",
+      "values": [
+       "Carpetas"
+      ]
+     },
+     {
+      "id": "grapas-y-clips",
+      "name": "Grapas y clips",
+      "use": "",
+      "spec": "Grapas y clips",
+      "values": [
+       "Grapas y clips"
+      ]
+     },
+     {
+      "id": "archiveros-y-cajas",
+      "name": "Archiveros y cajas",
+      "use": "",
+      "spec": "Archiveros y cajas",
+      "values": [
+       "Archiveros y cajas"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $800",
+      "min": 440,
+      "max": 800
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $800",
+      "min": 800
+     }
+    ]
+   }
+  ]
+ },
+ "Papelería y oficina/Útiles escolares": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "lapiceras-y-estuches",
+      "name": "Lapiceras y estuches",
+      "use": "",
+      "spec": "Lapiceras y estuches",
+      "values": [
+       "Lapiceras y estuches"
+      ]
+     },
+     {
+      "id": "pegamento-y-silicon",
+      "name": "Pegamento y silicón",
+      "use": "",
+      "spec": "Pegamento y silicón",
+      "values": [
+       "Pegamento y silicón"
+      ]
+     },
+     {
+      "id": "sacapuntas",
+      "name": "Sacapuntas",
+      "use": "",
+      "spec": "Sacapuntas",
+      "values": [
+       "Sacapuntas"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $450",
+      "min": 290,
+      "max": 450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $450",
+      "min": 450
+     }
+    ]
+   }
+  ]
+ },
+ "Papelería y oficina/Arte y dibujo": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "crayones-y-colores",
+      "name": "Crayones y colores",
+      "use": "",
+      "spec": "Crayones y colores",
+      "values": [
+       "Crayones y colores"
+      ]
+     },
+     {
+      "id": "acuarelas-y-pinturas",
+      "name": "Acuarelas y pinturas",
+      "use": "",
+      "spec": "Acuarelas y pinturas",
+      "values": [
+       "Acuarelas y pinturas"
+      ]
+     },
+     {
+      "id": "papel-blocs-y-lienzos",
+      "name": "Papel, blocs y lienzos",
+      "use": "",
+      "spec": "Papel, blocs y lienzos",
+      "values": [
+       "Papel, blocs y lienzos"
+      ]
+     },
+     {
+      "id": "pinceles",
+      "name": "Pinceles",
+      "use": "",
+      "spec": "Pinceles",
+      "values": [
+       "Pinceles"
+      ]
+     },
+     {
+      "id": "caballetes",
+      "name": "Caballetes",
+      "use": "",
+      "spec": "Caballetes",
+      "values": [
+       "Caballetes"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $470",
+      "max": 470
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$470 a $780",
+      "min": 470,
+      "max": 780
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $780",
+      "min": 780
+     }
+    ]
+   }
+  ]
+ },
+ "Papelería y oficina/Papel y sobres": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "papel-y-cartulina",
+      "name": "Papel y cartulina",
+      "use": "",
+      "spec": "Papel y cartulina",
+      "values": [
+       "Papel y cartulina"
+      ]
+     },
+     {
+      "id": "carpetas",
+      "name": "Carpetas",
+      "use": "",
+      "spec": "Carpetas",
+      "values": [
+       "Carpetas"
+      ]
+     },
+     {
+      "id": "sobres",
+      "name": "Sobres",
+      "use": "",
+      "spec": "Sobres",
+      "values": [
+       "Sobres"
+      ]
+     },
+     {
+      "id": "engrapadoras-y-perforadoras",
+      "name": "Engrapadoras y perforadoras",
+      "use": "",
+      "spec": "Engrapadoras y perforadoras",
+      "values": [
+       "Engrapadoras y perforadoras"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $420",
+      "max": 420
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$420 a $760",
+      "min": 420,
+      "max": 760
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $760",
+      "min": 760
+     }
+    ]
+   }
+  ]
+ },
+ "Papelería y oficina/Libretas y agendas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $310",
+      "max": 310
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$310 a $500",
+      "min": 310,
+      "max": 500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $500",
+      "min": 500
+     }
+    ]
+   }
+  ]
+ },
+ "Papelería y oficina/Escritura": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "boligrafos",
+      "name": "Bolígrafos",
+      "use": "",
+      "spec": "Bolígrafos",
+      "values": [
+       "Bolígrafos"
+      ]
+     },
+     {
+      "id": "lapices-y-portaminas",
+      "name": "Lápices y portaminas",
+      "use": "",
+      "spec": "Lápices y portaminas",
+      "values": [
+       "Lápices y portaminas"
+      ]
+     },
+     {
+      "id": "marcadores-y-plumones",
+      "name": "Marcadores y plumones",
+      "use": "",
+      "spec": "Marcadores y plumones",
+      "values": [
+       "Marcadores y plumones"
+      ]
+     },
+     {
+      "id": "estuches-y-portalapices",
+      "name": "Estuches y portalápices",
+      "use": "",
+      "spec": "Estuches y portalápices",
+      "values": [
+       "Estuches y portalápices"
+      ]
+     },
+     {
+      "id": "recargas-y-minas",
+      "name": "Recargas y minas",
+      "use": "",
+      "spec": "Recargas y minas",
+      "values": [
+       "Recargas y minas"
+      ]
+     },
+     {
+      "id": "lapices-de-colores",
+      "name": "Lápices de colores",
+      "use": "",
+      "spec": "Lápices de colores",
+      "values": [
+       "Lápices de colores"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $330",
+      "max": 330
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$330 a $510",
+      "min": 330,
+      "max": 510
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $510",
+      "min": 510
+     }
+    ]
+   }
+  ]
+ },
+ "Papelería y oficina/Artículos de oficina": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $420",
+      "max": 420
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$420 a $600",
+      "min": 420,
+      "max": 600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $600",
+      "min": 600
+     }
+    ]
+   }
+  ]
+ },
+ "Papelería y oficina/Pizarrones": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $770",
+      "min": 430,
+      "max": 770
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $770",
+      "min": 770
+     }
+    ]
+   }
+  ]
+ },
+ "Papelería y oficina/Embalaje": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $350",
+      "max": 350
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$350 a $1,000",
+      "min": 350,
+      "max": 1000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,000",
+      "min": 1000
+     }
+    ]
+   }
+  ]
+ },
+ "Papelería y oficina/Calculadoras": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $1,150",
+      "min": 440,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
  },
  "Herramientas/Grifos y monomandos": {
   "axes": [
@@ -45494,433 +45494,7 @@
    "multifunction"
   ]
  },
- "Bebés/Sillas de comer y mecedoras": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,300 a $2,050",
-      "min": 1300,
-      "max": 2050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,050",
-      "min": 2050
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Alimentación y lactancia": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $390",
-      "max": 390
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$390 a $660",
-      "min": 390,
-      "max": 660
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $660",
-      "min": 660
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Seguridad para bebé": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $450",
-      "max": 450
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$450 a $620",
-      "min": 450,
-      "max": 620
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $620",
-      "min": 620
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Baño e higiene del bebé": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $420",
-      "max": 420
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$420 a $700",
-      "min": 420,
-      "max": 700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Chupones y mordederas": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $220",
-      "max": 220
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$220 a $430",
-      "min": 220,
-      "max": 430
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $430",
-      "min": 430
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Andaderas": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $990",
-      "max": 990
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$990 a $1,350",
-      "min": 990,
-      "max": 1350
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,350",
-      "min": 1350
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Portabebés y canguros": {
+ "Limpieza y hogar/Aromatizantes y velas": {
   "axes": [
    {
     "label": "Tipo",
@@ -45929,312 +45503,39 @@
     "ramp": false,
     "tiers": [
      {
-      "id": "ergonomicos",
-      "name": "Ergonómicos",
+      "id": "velas",
+      "name": "Velas",
       "use": "",
-      "spec": "Ergonómicos",
+      "spec": "Velas",
       "values": [
-       "Ergonómicos"
+       "Velas"
       ]
      },
      {
-      "id": "rebozos-y-fulares",
-      "name": "Rebozos y fulares",
+      "id": "spray-y-ambientadores",
+      "name": "Spray y ambientadores",
       "use": "",
-      "spec": "Rebozos y fulares",
+      "spec": "Spray y ambientadores",
       "values": [
-       "Rebozos y fulares"
+       "Spray y ambientadores"
       ]
      },
      {
-      "id": "bandoleras-y-asiento-de-cadera",
-      "name": "Bandoleras y asiento de cadera",
+      "id": "difusores",
+      "name": "Difusores",
       "use": "",
-      "spec": "Bandoleras y asiento de cadera",
+      "spec": "Difusores",
       "values": [
-       "Bandoleras y asiento de cadera"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
+       "Difusores"
       ]
      },
      {
-      "id": "algodon",
-      "name": "Algodón",
+      "id": "para-auto",
+      "name": "Para auto",
       "use": "",
-      "spec": "Algodón",
+      "spec": "Para auto",
       "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "microfibra",
-      "name": "Microfibra",
-      "use": "",
-      "spec": "Microfibra",
-      "values": [
-       "Microfibra"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Bebés/Sillas de auto": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "elevadores-booster",
-      "name": "Elevadores (booster)",
-      "use": "",
-      "spec": "Elevadores (booster)",
-      "values": [
-       "Elevadores (booster)"
-      ]
-     },
-     {
-      "id": "portabebe-0",
-      "name": "Portabebé (0+)",
-      "use": "",
-      "spec": "Portabebé (0+)",
-      "values": [
-       "Portabebé (0+)"
-      ]
-     },
-     {
-      "id": "convertibles",
-      "name": "Convertibles",
-      "use": "",
-      "spec": "Convertibles",
-      "values": [
-       "Convertibles"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Bebés/Ropa y calzado de bebé": {
-  "axes": [
-   {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
-      "values": [
-       "Unisex"
-      ]
-     },
-     {
-      "id": "nino",
-      "name": "Niño",
-      "use": "",
-      "spec": "Niño",
-      "values": [
-       "Niño"
-      ]
-     },
-     {
-      "id": "nina",
-      "name": "Niña",
-      "use": "",
-      "spec": "Niña",
-      "values": [
-       "Niña"
-      ]
-     },
-     {
-      "id": "bebe",
-      "name": "Bebé",
-      "use": "",
-      "spec": "Bebé",
-      "values": [
-       "Bebé"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     },
-     {
-      "id": "algodon-y-poliester",
-      "name": "Algodón y poliéster",
-      "use": "",
-      "spec": "Algodón y poliéster",
-      "values": [
-       "Algodón y poliéster"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Bebés/Juguetes para bebé": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
+       "Para auto"
       ]
      }
     ],
@@ -46251,667 +45552,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
+      "spec": "Hasta $340",
+      "max": 340
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$440 a $770",
-      "min": 440,
-      "max": 770
+      "spec": "$340 a $670",
+      "min": 340,
+      "max": 670
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $770",
-      "min": 770
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Pañales y cambio": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $490",
-      "max": 490
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$490 a $1,000",
-      "min": 490,
-      "max": 1000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,000",
-      "min": 1000
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Corrales": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,700",
-      "max": 1700
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,700 a $2,050",
-      "min": 1700,
-      "max": 2050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,050",
-      "min": 2050
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Cunas": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,950",
-      "max": 1950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,950 a $3,650",
-      "min": 1950,
-      "max": 3650
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $3,650",
-      "min": 3650
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Cuidado y salud del bebé": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $410",
-      "max": 410
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$410 a $980",
-      "min": 410,
-      "max": 980
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $980",
-      "min": 980
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Carriolas": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "ligera-o-de-baston",
-      "name": "Ligera o de bastón",
-      "use": "",
-      "spec": "Ligera o de bastón",
-      "values": [
-       "Ligera o de bastón"
-      ]
-     },
-     {
-      "id": "doble",
-      "name": "Doble",
-      "use": "",
-      "spec": "Doble",
-      "values": [
-       "Doble"
-      ]
-     },
-     {
-      "id": "sistema-de-viaje",
-      "name": "Sistema de viaje",
-      "use": "",
-      "spec": "Sistema de viaje",
-      "values": [
-       "Sistema de viaje"
-      ]
-     },
-     {
-      "id": "para-correr",
-      "name": "Para correr",
-      "use": "",
-      "spec": "Para correr",
-      "values": [
-       "Para correr"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Bebés/Biberones": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "vidrio",
-      "name": "Vidrio",
-      "use": "",
-      "spec": "Vidrio",
-      "values": [
-       "Vidrio"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Contenido",
-    "field": "volume_ml",
-    "criterion": "en mililitros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Para probar o para viajar",
-      "spec": "Hasta 160 ml",
-      "max": 160
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Uso de diario",
-      "spec": "161 ml a 250 ml",
-      "min": 160,
-      "max": 250
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Rinde meses",
-      "spec": "Más de 250 ml",
-      "min": 250
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Bebés/Monitores de bebé": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $2,100",
-      "max": 2100
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$2,100 a $4,950",
-      "min": 2100,
-      "max": 4950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $4,950",
-      "min": 4950
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Sistemas de viaje": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $3,750",
-      "max": 3750
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$3,750 a $6,400",
-      "min": 3750,
-      "max": 6400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $6,400",
-      "min": 6400
-     }
-    ]
-   }
-  ]
- },
- "Bebés/Carriolas bastón": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,150",
-      "max": 1150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,150 a $2,050",
-      "min": 1150,
-      "max": 2050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,050",
-      "min": 2050
+      "spec": "Más de $670",
+      "min": 670
      }
     ]
    }
@@ -47045,86 +45702,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $710",
       "min": 710
-     }
-    ]
-   }
-  ]
- },
- "Limpieza y hogar/Aromatizantes y velas": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "velas",
-      "name": "Velas",
-      "use": "",
-      "spec": "Velas",
-      "values": [
-       "Velas"
-      ]
-     },
-     {
-      "id": "spray-y-ambientadores",
-      "name": "Spray y ambientadores",
-      "use": "",
-      "spec": "Spray y ambientadores",
-      "values": [
-       "Spray y ambientadores"
-      ]
-     },
-     {
-      "id": "difusores",
-      "name": "Difusores",
-      "use": "",
-      "spec": "Difusores",
-      "values": [
-       "Difusores"
-      ]
-     },
-     {
-      "id": "para-auto",
-      "name": "Para auto",
-      "use": "",
-      "spec": "Para auto",
-      "values": [
-       "Para auto"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $300",
-      "max": 300
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$300 a $590",
-      "min": 300,
-      "max": 590
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $590",
-      "min": 590
      }
     ]
    }
@@ -47280,128 +45857,57 @@
    }
   ]
  },
- "Audífonos/Earbuds inalámbricos": {
+ "Autos y motos/Accesorios para auto": {
   "axes": [
    {
-    "label": "Cancelación de ruido",
-    "field": "anc",
+    "label": "Tipo",
+    "field": "kind",
     "criterion": "según el nombre",
     "ramp": false,
     "tiers": [
      {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
+      "id": "audio-y-electronica",
+      "name": "Audio y electrónica",
+      "use": "",
+      "spec": "Audio y electrónica",
       "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
+       "Audio y electrónica"
       ]
      },
      {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
+      "id": "interior",
+      "name": "Interior",
+      "use": "",
+      "spec": "Interior",
       "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Audífonos/Diadema inalámbrica": {
-  "axes": [
-   {
-    "label": "Cancelación de ruido",
-    "field": "anc",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
+       "Interior"
       ]
      },
      {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
+      "id": "exterior",
+      "name": "Exterior",
+      "use": "",
+      "spec": "Exterior",
       "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Audífonos/Accesorios": {
-  "axes": [
-   {
-    "label": "Conexión",
-    "field": "audio_conn",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "inalambrico",
-      "name": "Inalámbrico",
-      "use": "Sin cables en el escritorio",
-      "spec": "Inalámbrico",
-      "values": [
-       "Inalámbrico"
+       "Exterior"
       ]
      },
      {
-      "id": "con-cable",
-      "name": "Con cable",
-      "use": "Sin baterías ni retraso",
-      "spec": "Con cable",
+      "id": "mecanica",
+      "name": "Mecánica",
+      "use": "",
+      "spec": "Mecánica",
       "values": [
-       "Con cable"
+       "Mecánica"
+      ]
+     },
+     {
+      "id": "herramienta-y-emergencia",
+      "name": "Herramienta y emergencia",
+      "use": "",
+      "spec": "Herramienta y emergencia",
+      "values": [
+       "Herramienta y emergencia"
       ]
      }
     ],
@@ -47418,486 +45924,26 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $480",
-      "max": 480
+      "spec": "Hasta $520",
+      "max": 520
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$480 a $630",
-      "min": 480,
-      "max": 630
+      "spec": "$520 a $800",
+      "min": 520,
+      "max": 800
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $630",
-      "min": 630
+      "spec": "Más de $800",
+      "min": 800
      }
     ]
    }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Audífonos/Gamer": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Cancelación de ruido",
-    "field": "anc",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Conexión",
-    "field": "audio_conn",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "inalambrico",
-      "name": "Inalámbrico",
-      "use": "Sin cables en el escritorio",
-      "spec": "Inalámbrico",
-      "values": [
-       "Inalámbrico"
-      ]
-     },
-     {
-      "id": "con-cable",
-      "name": "Con cable",
-      "use": "Sin baterías ni retraso",
-      "spec": "Con cable",
-      "values": [
-       "Con cable"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Audífonos/Almohadillas y repuestos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $410",
-      "max": 410
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$410 a $550",
-      "min": 410,
-      "max": 550
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $550",
-      "min": 550
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Audífonos/Earbuds con cable": {
-  "axes": [
-   {
-    "label": "Conector",
-    "field": "plug",
-    "criterion": "del cable",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "3-5-mm",
-      "name": "3.5 mm",
-      "use": "Entrada de audífonos clásica",
-      "spec": "3.5 mm",
-      "values": [
-       "3.5 mm"
-      ]
-     },
-     {
-      "id": "usb-c",
-      "name": "USB-C",
-      "use": "Celulares sin entrada de audífonos",
-      "spec": "USB-C",
-      "values": [
-       "USB-C"
-      ]
-     },
-     {
-      "id": "lightning",
-      "name": "Lightning",
-      "use": "iPhone hasta el 14",
-      "spec": "Lightning",
-      "values": [
-       "Lightning"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Cancelación de ruido",
-    "field": "anc",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Audífonos/Diadema con cable": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Cancelación de ruido",
-    "field": "anc",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Audífonos/De oído abierto": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Cancelación de ruido",
-    "field": "anc",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Audífonos/Earbuds para niños": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Conexión",
-    "field": "audio_conn",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "inalambrico",
-      "name": "Inalámbrico",
-      "use": "Sin cables en el escritorio",
-      "spec": "Inalámbrico",
-      "values": [
-       "Inalámbrico"
-      ]
-     },
-     {
-      "id": "con-cable",
-      "name": "Con cable",
-      "use": "Sin baterías ni retraso",
-      "spec": "Con cable",
-      "values": [
-       "Con cable"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Audífonos/Earbuds deportivos": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Cancelación de ruido",
-    "field": "anc",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Audífonos/Earbuds de cuello": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $390",
-      "max": 390
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$390 a $1,200",
-      "min": 390,
-      "max": 1200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,200",
-      "min": 1200
-     }
-    ]
-   }
-  ]
- },
- "Audífonos/Puntas para audífonos": {
-  "axes": [],
-  "omitir": [
-   "battery_h"
   ]
  },
  "Autos y motos/Accesorios para moto": {
@@ -48614,95 +46660,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,050",
       "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Autos y motos/Accesorios para auto": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "audio-y-electronica",
-      "name": "Audio y electrónica",
-      "use": "",
-      "spec": "Audio y electrónica",
-      "values": [
-       "Audio y electrónica"
-      ]
-     },
-     {
-      "id": "interior",
-      "name": "Interior",
-      "use": "",
-      "spec": "Interior",
-      "values": [
-       "Interior"
-      ]
-     },
-     {
-      "id": "exterior",
-      "name": "Exterior",
-      "use": "",
-      "spec": "Exterior",
-      "values": [
-       "Exterior"
-      ]
-     },
-     {
-      "id": "mecanica",
-      "name": "Mecánica",
-      "use": "",
-      "spec": "Mecánica",
-      "values": [
-       "Mecánica"
-      ]
-     },
-     {
-      "id": "herramienta-y-emergencia",
-      "name": "Herramienta y emergencia",
-      "use": "",
-      "spec": "Herramienta y emergencia",
-      "values": [
-       "Herramienta y emergencia"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $520",
-      "max": 520
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$520 a $800",
-      "min": 520,
-      "max": 800
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $800",
-      "min": 800
      }
     ]
    }
@@ -51928,39 +49885,128 @@
    }
   ]
  },
- "Bolsas y mochilas/Carteras y monederos": {
+ "Audífonos/Earbuds inalámbricos": {
   "axes": [
    {
-    "label": "Para quién",
-    "field": "gender",
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
     "criterion": "según la ficha",
     "ramp": false,
     "tiers": [
      {
-      "id": "hombre",
-      "name": "Hombre",
-      "use": "",
-      "spec": "Hombre",
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
       "values": [
-       "Hombre"
+       "Sí"
       ]
      },
      {
-      "id": "mujer",
-      "name": "Mujer",
-      "use": "",
-      "spec": "Mujer",
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
       "values": [
-       "Mujer"
+       "No"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Audífonos/Diadema inalámbrica": {
+  "axes": [
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
       ]
      },
      {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
       "values": [
-       "Unisex"
+       "No"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Audífonos/Accesorios": {
+  "axes": [
+   {
+    "label": "Conexión",
+    "field": "audio_conn",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "inalambrico",
+      "name": "Inalámbrico",
+      "use": "Sin cables en el escritorio",
+      "spec": "Inalámbrico",
+      "values": [
+       "Inalámbrico"
+      ]
+     },
+     {
+      "id": "con-cable",
+      "name": "Con cable",
+      "use": "Sin baterías ni retraso",
+      "spec": "Con cable",
+      "values": [
+       "Con cable"
       ]
      }
     ],
@@ -51977,23 +50023,1906 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $570",
-      "max": 570
+      "spec": "Hasta $480",
+      "max": 480
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$570 a $890",
-      "min": 570,
-      "max": 890
+      "spec": "$480 a $630",
+      "min": 480,
+      "max": 630
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $890",
-      "min": 890
+      "spec": "Más de $630",
+      "min": 630
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/Gamer": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Conexión",
+    "field": "audio_conn",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "inalambrico",
+      "name": "Inalámbrico",
+      "use": "Sin cables en el escritorio",
+      "spec": "Inalámbrico",
+      "values": [
+       "Inalámbrico"
+      ]
+     },
+     {
+      "id": "con-cable",
+      "name": "Con cable",
+      "use": "Sin baterías ni retraso",
+      "spec": "Con cable",
+      "values": [
+       "Con cable"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/Almohadillas y repuestos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $410",
+      "max": 410
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$410 a $550",
+      "min": 410,
+      "max": 550
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $550",
+      "min": 550
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/Earbuds con cable": {
+  "axes": [
+   {
+    "label": "Conector",
+    "field": "plug",
+    "criterion": "del cable",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "3-5-mm",
+      "name": "3.5 mm",
+      "use": "Entrada de audífonos clásica",
+      "spec": "3.5 mm",
+      "values": [
+       "3.5 mm"
+      ]
+     },
+     {
+      "id": "usb-c",
+      "name": "USB-C",
+      "use": "Celulares sin entrada de audífonos",
+      "spec": "USB-C",
+      "values": [
+       "USB-C"
+      ]
+     },
+     {
+      "id": "lightning",
+      "name": "Lightning",
+      "use": "iPhone hasta el 14",
+      "spec": "Lightning",
+      "values": [
+       "Lightning"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/Diadema con cable": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/De oído abierto": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Audífonos/Earbuds para niños": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Conexión",
+    "field": "audio_conn",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "inalambrico",
+      "name": "Inalámbrico",
+      "use": "Sin cables en el escritorio",
+      "spec": "Inalámbrico",
+      "values": [
+       "Inalámbrico"
+      ]
+     },
+     {
+      "id": "con-cable",
+      "name": "Con cable",
+      "use": "Sin baterías ni retraso",
+      "spec": "Con cable",
+      "values": [
+       "Con cable"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/Earbuds deportivos": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Audífonos/Earbuds de cuello": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $1,200",
+      "min": 390,
+      "max": 1200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,200",
+      "min": 1200
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Puntas para audífonos": {
+  "axes": [],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bebés/Juguetes para bebé": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $770",
+      "min": 440,
+      "max": 770
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $770",
+      "min": 770
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Sillas de comer y mecedoras": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,300",
+      "max": 1300
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,300 a $2,050",
+      "min": 1300,
+      "max": 2050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,050",
+      "min": 2050
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Alimentación y lactancia": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $660",
+      "min": 390,
+      "max": 660
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $660",
+      "min": 660
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Seguridad para bebé": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $450",
+      "max": 450
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$450 a $620",
+      "min": 450,
+      "max": 620
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $620",
+      "min": 620
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Baño e higiene del bebé": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $420",
+      "max": 420
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$420 a $700",
+      "min": 420,
+      "max": 700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $700",
+      "min": 700
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Chupones y mordederas": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $220",
+      "max": 220
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$220 a $430",
+      "min": 220,
+      "max": 430
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $430",
+      "min": 430
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Andaderas": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $990",
+      "max": 990
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$990 a $1,350",
+      "min": 990,
+      "max": 1350
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,350",
+      "min": 1350
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Portabebés y canguros": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ergonomicos",
+      "name": "Ergonómicos",
+      "use": "",
+      "spec": "Ergonómicos",
+      "values": [
+       "Ergonómicos"
+      ]
+     },
+     {
+      "id": "rebozos-y-fulares",
+      "name": "Rebozos y fulares",
+      "use": "",
+      "spec": "Rebozos y fulares",
+      "values": [
+       "Rebozos y fulares"
+      ]
+     },
+     {
+      "id": "bandoleras-y-asiento-de-cadera",
+      "name": "Bandoleras y asiento de cadera",
+      "use": "",
+      "spec": "Bandoleras y asiento de cadera",
+      "values": [
+       "Bandoleras y asiento de cadera"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "microfibra",
+      "name": "Microfibra",
+      "use": "",
+      "spec": "Microfibra",
+      "values": [
+       "Microfibra"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Bebés/Sillas de auto": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "elevadores-booster",
+      "name": "Elevadores (booster)",
+      "use": "",
+      "spec": "Elevadores (booster)",
+      "values": [
+       "Elevadores (booster)"
+      ]
+     },
+     {
+      "id": "portabebe-0",
+      "name": "Portabebé (0+)",
+      "use": "",
+      "spec": "Portabebé (0+)",
+      "values": [
+       "Portabebé (0+)"
+      ]
+     },
+     {
+      "id": "convertibles",
+      "name": "Convertibles",
+      "use": "",
+      "spec": "Convertibles",
+      "values": [
+       "Convertibles"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Bebés/Ropa y calzado de bebé": {
+  "axes": [
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
+      ]
+     },
+     {
+      "id": "nina",
+      "name": "Niña",
+      "use": "",
+      "spec": "Niña",
+      "values": [
+       "Niña"
+      ]
+     },
+     {
+      "id": "bebe",
+      "name": "Bebé",
+      "use": "",
+      "spec": "Bebé",
+      "values": [
+       "Bebé"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     },
+     {
+      "id": "algodon-y-poliester",
+      "name": "Algodón y poliéster",
+      "use": "",
+      "spec": "Algodón y poliéster",
+      "values": [
+       "Algodón y poliéster"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Bebés/Pañales y cambio": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $490",
+      "max": 490
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$490 a $1,000",
+      "min": 490,
+      "max": 1000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,000",
+      "min": 1000
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Corrales": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,700",
+      "max": 1700
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,700 a $2,050",
+      "min": 1700,
+      "max": 2050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,050",
+      "min": 2050
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Cunas": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,950",
+      "max": 1950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,950 a $3,650",
+      "min": 1950,
+      "max": 3650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $3,650",
+      "min": 3650
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Cuidado y salud del bebé": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $410",
+      "max": 410
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$410 a $980",
+      "min": 410,
+      "max": 980
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $980",
+      "min": 980
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Carriolas": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "ligera-o-de-baston",
+      "name": "Ligera o de bastón",
+      "use": "",
+      "spec": "Ligera o de bastón",
+      "values": [
+       "Ligera o de bastón"
+      ]
+     },
+     {
+      "id": "doble",
+      "name": "Doble",
+      "use": "",
+      "spec": "Doble",
+      "values": [
+       "Doble"
+      ]
+     },
+     {
+      "id": "sistema-de-viaje",
+      "name": "Sistema de viaje",
+      "use": "",
+      "spec": "Sistema de viaje",
+      "values": [
+       "Sistema de viaje"
+      ]
+     },
+     {
+      "id": "para-correr",
+      "name": "Para correr",
+      "use": "",
+      "spec": "Para correr",
+      "values": [
+       "Para correr"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Bebés/Biberones": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "vidrio",
+      "name": "Vidrio",
+      "use": "",
+      "spec": "Vidrio",
+      "values": [
+       "Vidrio"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Contenido",
+    "field": "volume_ml",
+    "criterion": "en mililitros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Para probar o para viajar",
+      "spec": "Hasta 160 ml",
+      "max": 160
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Uso de diario",
+      "spec": "161 ml a 250 ml",
+      "min": 160,
+      "max": 250
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Rinde meses",
+      "spec": "Más de 250 ml",
+      "min": 250
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Bebés/Monitores de bebé": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $2,100",
+      "max": 2100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$2,100 a $4,950",
+      "min": 2100,
+      "max": 4950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $4,950",
+      "min": 4950
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Sistemas de viaje": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $3,750",
+      "max": 3750
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$3,750 a $6,400",
+      "min": 3750,
+      "max": 6400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $6,400",
+      "min": 6400
+     }
+    ]
+   }
+  ]
+ },
+ "Bebés/Carriolas bastón": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,150",
+      "max": 1150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,150 a $2,050",
+      "min": 1150,
+      "max": 2050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,050",
+      "min": 2050
      }
     ]
    }
@@ -52066,15 +51995,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $790",
-      "max": 790
+      "spec": "Hasta $780",
+      "max": 780
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$790 a $1,450",
-      "min": 790,
+      "spec": "$780 a $1,450",
+      "min": 780,
       "max": 1450
      },
      {
@@ -52083,6 +52012,77 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,450",
       "min": 1450
+     }
+    ]
+   }
+  ]
+ },
+ "Bolsas y mochilas/Carteras y monederos": {
+  "axes": [
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $570",
+      "max": 570
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$570 a $890",
+      "min": 570,
+      "max": 890
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $890",
+      "min": 890
      }
     ]
    }
@@ -52226,137 +52226,25 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $580",
-      "max": 580
+      "spec": "Hasta $560",
+      "max": 560
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$580 a $830",
-      "min": 580,
-      "max": 830
+      "spec": "$560 a $820",
+      "min": 560,
+      "max": 820
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $830",
-      "min": 830
+      "spec": "Más de $820",
+      "min": 820
      }
     ]
-   }
-  ]
- },
- "Bolsas y mochilas/Bolsas para mujer": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tote",
-      "name": "Tote",
-      "use": "",
-      "spec": "Tote",
-      "values": [
-       "Tote"
-      ]
-     },
-     {
-      "id": "de-hombro",
-      "name": "De hombro",
-      "use": "",
-      "spec": "De hombro",
-      "values": [
-       "De hombro"
-      ]
-     },
-     {
-      "id": "de-mano-y-clutch",
-      "name": "De mano y clutch",
-      "use": "",
-      "spec": "De mano y clutch",
-      "values": [
-       "De mano y clutch"
-      ]
-     },
-     {
-      "id": "crossbody-y-bandolera",
-      "name": "Crossbody y bandolera",
-      "use": "",
-      "spec": "Crossbody y bandolera",
-      "values": [
-       "Crossbody y bandolera"
-      ]
-     },
-     {
-      "id": "cosmetiqueras",
-      "name": "Cosmetiqueras",
-      "use": "",
-      "spec": "Cosmetiqueras",
-      "values": [
-       "Cosmetiqueras"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Para quién",
-    "field": "gender",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "hombre",
-      "name": "Hombre",
-      "use": "",
-      "spec": "Hombre",
-      "values": [
-       "Hombre"
-      ]
-     },
-     {
-      "id": "mujer",
-      "name": "Mujer",
-      "use": "",
-      "spec": "Mujer",
-      "values": [
-       "Mujer"
-      ]
-     },
-     {
-      "id": "unisex",
-      "name": "Unisex",
-      "use": "",
-      "spec": "Unisex",
-      "values": [
-       "Unisex"
-      ]
-     },
-     {
-      "id": "nino",
-      "name": "Niño",
-      "use": "",
-      "spec": "Niño",
-      "values": [
-       "Niño"
-      ]
-     },
-     {
-      "id": "bebe",
-      "name": "Bebé",
-      "use": "",
-      "spec": "Bebé",
-      "values": [
-       "Bebé"
-      ]
-     }
-    ],
-    "key": "size"
    }
   ]
  },
@@ -52465,6 +52353,109 @@
       "spec": "Niña",
       "values": [
        "Niña"
+      ]
+     },
+     {
+      "id": "bebe",
+      "name": "Bebé",
+      "use": "",
+      "spec": "Bebé",
+      "values": [
+       "Bebé"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Bolsas y mochilas/Bolsas para mujer": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tote",
+      "name": "Tote",
+      "use": "",
+      "spec": "Tote",
+      "values": [
+       "Tote"
+      ]
+     },
+     {
+      "id": "de-hombro",
+      "name": "De hombro",
+      "use": "",
+      "spec": "De hombro",
+      "values": [
+       "De hombro"
+      ]
+     },
+     {
+      "id": "de-mano-y-clutch",
+      "name": "De mano y clutch",
+      "use": "",
+      "spec": "De mano y clutch",
+      "values": [
+       "De mano y clutch"
+      ]
+     },
+     {
+      "id": "crossbody-y-bandolera",
+      "name": "Crossbody y bandolera",
+      "use": "",
+      "spec": "Crossbody y bandolera",
+      "values": [
+       "Crossbody y bandolera"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Para quién",
+    "field": "gender",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "hombre",
+      "name": "Hombre",
+      "use": "",
+      "spec": "Hombre",
+      "values": [
+       "Hombre"
+      ]
+     },
+     {
+      "id": "mujer",
+      "name": "Mujer",
+      "use": "",
+      "spec": "Mujer",
+      "values": [
+       "Mujer"
+      ]
+     },
+     {
+      "id": "unisex",
+      "name": "Unisex",
+      "use": "",
+      "spec": "Unisex",
+      "values": [
+       "Unisex"
+      ]
+     },
+     {
+      "id": "nino",
+      "name": "Niño",
+      "use": "",
+      "spec": "Niño",
+      "values": [
+       "Niño"
       ]
      },
      {
@@ -54163,16 +54154,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,250 a $2,700",
+      "spec": "$1,250 a $2,750",
       "min": 1250,
-      "max": 2700
+      "max": 2750
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,700",
-      "min": 2700
+      "spec": "Más de $2,750",
+      "min": 2750
      }
     ]
    }
@@ -81626,16 +81617,16 @@
       "id": "mediana",
       "name": "Mediana",
       "use": "Para la familia",
-      "spec": "Más de 0.5 L, hasta 0.8 L",
+      "spec": "Más de 0.5 L, hasta 0.9 L",
       "min": 0.5,
-      "max": 0.85
+      "max": 0.9
      },
      {
       "id": "grande",
       "name": "Grande",
       "use": "Reuniones o uso intensivo",
-      "spec": "Más de 0.8 L",
-      "min": 0.85
+      "spec": "Más de 0.9 L",
+      "min": 0.9
      }
     ],
     "key": "level"
@@ -81670,41 +81661,6 @@
      }
     ],
     "key": "size"
-   }
-  ]
- },
- "Papelería y oficina": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $370",
-      "max": 370
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$370 a $620",
-      "min": 370,
-      "max": 620
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $620",
-      "min": 620
-     }
-    ]
    }
   ]
  },
@@ -82325,6 +82281,41 @@
   ],
   "intro": "Elige por la edad de quien lo va a usar."
  },
+ "Papelería y oficina": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $370",
+      "max": 370
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$370 a $620",
+      "min": 370,
+      "max": 620
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $620",
+      "min": 620
+     }
+    ]
+   }
+  ]
+ },
  "Herramientas": {
   "axes": [
    {
@@ -82574,95 +82565,6 @@
    }
   ]
  },
- "Bebés": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "silicona",
-      "name": "Silicona",
-      "use": "",
-      "spec": "Silicona",
-      "values": [
-       "Silicona"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "algodon",
-      "name": "Algodón",
-      "use": "",
-      "spec": "Algodón",
-      "values": [
-       "Algodón"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $540",
-      "max": 540
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$540 a $1,300",
-      "min": 540,
-      "max": 1300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,300",
-      "min": 1300
-     }
-    ]
-   }
-  ]
- },
  "Limpieza y hogar": {
   "axes": [
    {
@@ -82676,56 +82578,25 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $310",
-      "max": 310
+      "spec": "Hasta $330",
+      "max": 330
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$310 a $630",
-      "min": 310,
-      "max": 630
+      "spec": "$330 a $680",
+      "min": 330,
+      "max": 680
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $630",
-      "min": 630
+      "spec": "Más de $680",
+      "min": 680
      }
     ]
-   }
-  ]
- },
- "Audífonos": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
    }
   ]
  },
@@ -82829,6 +82700,126 @@
      }
     ],
     "key": "size"
+   }
+  ]
+ },
+ "Audífonos": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Bebés": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "silicona",
+      "name": "Silicona",
+      "use": "",
+      "spec": "Silicona",
+      "values": [
+       "Silicona"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "algodon",
+      "name": "Algodón",
+      "use": "",
+      "spec": "Algodón",
+      "values": [
+       "Algodón"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $540",
+      "max": 540
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$540 a $1,300",
+      "min": 540,
+      "max": 1300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,300",
+      "min": 1300
+     }
+    ]
    }
   ]
  },
