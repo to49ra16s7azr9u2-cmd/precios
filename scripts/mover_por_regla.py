@@ -5533,6 +5533,14 @@ LOTES['auditoria_51'] = [
  ('Muebles', r'\b(silla|asiento) vibradora?\b|mecedora (de|para) bebe|\bmecedora bebe\b', None, 'Bebés', 'Sillas de comer y mecedoras', None),
  ('Joyería y bisutería', r'^binder\b|\bbinder\b.*(anillos|avery)', None, 'Papelería y oficina', 'Organización', {'Anillos'}),
  ('Audífonos', r'\bintercomunicador(es)?\b', None, 'Autos y motos', 'Accesorios para moto', None),
+ ('Audífonos', r'\bpara casco (de )?motos?\b|\bcasco (de )?motos?\b.*bluetooth', None, 'Autos y motos', 'Accesorios para moto', None),
+ ('Cámaras y fotografía', r'^filtro para acuario|filtro (para )?acuario', None, 'Mascotas', 'Acuarios y terrarios', None),
+ ('Bolsas y mochilas', r'^panalera|\bpanalera\b', None, 'Bebés', 'Pañales y cambio', None),
+ ('Aspiradoras', r'aspiradora de piscina|\bpiscina\b.*aspiradora', None, 'Jardín y exterior', 'Albercas e inflables', None),
+ ('Bolsas y mochilas', r'\bbolsas? de envio\b|bolsas? (de )?mensajeria|bolsas? autoadhesivas? (para )?envio', None, 'Papelería y oficina', 'Embalaje', None),
+ ('Cocina y comedor', r'^lapicera\b', None, 'Papelería y oficina', 'Útiles escolares', None),
+ ('Monitores', r'^monitor para bebe|\bmonitor para bebe\b|baby monitor', None, 'Bebés', 'Monitores de bebé', None),
+ ('Mascotas', r'^bolsa en forma de|^set de \d+ piezas: bolsa y monedero', None, 'Bolsas y mochilas', 'Carteras y monederos', {'Correas'}),
 ]
 REGLAS += LOTES['auditoria_51']
 
