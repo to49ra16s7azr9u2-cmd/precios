@@ -401,6 +401,7 @@ def _page_shell(title, description, canonical_path, body, depth, extra_head="", 
     ComparaMEX — comparador de precios para México, para que compres sin arrepentimientos (colores inspirados en Mercari). Los precios pueden cambiar en cualquier momento. Algunos enlaces de este sitio son de afiliado: si compras a través de ellos, podemos recibir una comisión, sin costo adicional para ti. Como Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.
   </div>
 </footer>
+<script src="{prefijo}js/entrada.js" defer></script>
 </body>
 </html>
 """

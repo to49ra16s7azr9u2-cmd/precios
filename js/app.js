@@ -11252,96 +11252,6 @@
     });
   }
 
-  // ---------- Pantalla de entrada ----------
-  // Pedido del usuario (14-oct): al llegar por primera vez, desde la pantalla
-  // que sea, se pregunta cómo quiere empezar: buscar por nombre, elegir
-  // categoría (y, ya elegida, «Compara calidad» asoma con su pregunta, se
-  // puede saltar), ir a Inicio o mirar la pantalla actual. Cada vez que se abre el sitio.
-
-  function initEntrada() {
-    // Pedido del usuario (14-oct): se muestra CADA VEZ que se abre ComparaMEX
-    // (cada carga de página desde fuera: escribir la dirección, un marcador,
-    // Google, otra app). No se guarda nada. Única excepción: cuando la carga
-    // viene de otra página del propio sitio (p. ej. una ficha estática
-    // /producto/… que vuelve a la app), para no preguntar en medio de la navegación.
-    try {
-      if (document.referrer && new URL(document.referrer).origin === location.origin) return;
-    } catch {}
-    if (navigator.webdriver || /bot|crawl|spider|lighthouse/i.test(navigator.userAgent)) return;
-    if (!state.data || !state.data.categories) return;
-
-    const ov = document.createElement("div");
-    ov.id = "entradaModal";
-    ov.className = "modal-overlay entrada-overlay";
-    ov.innerHTML = `
-      <div class="modal entrada-modal" role="dialog" aria-modal="true" aria-labelledby="entradaTitulo">
-        <h2 id="entradaTitulo" class="entrada-titulo">¿Cómo quieres empezar?</h2>
-        <div class="entrada-opciones">
-          <button type="button" class="entrada-op" data-op="nombre"><span class="entrada-op-t">Buscar por nombre</span><span class="entrada-op-s">Escribe el producto: iPhone, licuadora…</span></button>
-          <button type="button" class="entrada-op" data-op="categoria"><span class="entrada-op-t">Buscar por categoría</span><span class="entrada-op-s">Elige un rubro y afina con Compara calidad</span></button>
-          <button type="button" class="entrada-op" data-op="inicio"><span class="entrada-op-t">Ir a Inicio</span><span class="entrada-op-s">Lo más visto y todas las categorías</span></button>
-          <button type="button" class="entrada-op entrada-op-quiet" data-op="mirar"><span class="entrada-op-t">Mirar esta pantalla</span><span class="entrada-op-s">Cerrar y seguir donde estás</span></button>
-        </div>
-        <div class="entrada-cats hidden" id="entradaCats"></div>
-        <div class="entrada-cq hidden" id="entradaCq"></div>
-      </div>`;
-    document.body.appendChild(ov);
-    const cerrar = () => { ov.remove(); document.removeEventListener("keydown", onKey); };
-    const onKey = (e) => { if (e.key === "Escape") cerrar(); };
-    document.addEventListener("keydown", onKey);
-    ov.addEventListener("click", (e) => { if (e.target === ov) cerrar(); });
-
-    const catsBox = ov.querySelector("#entradaCats");
-    const cqBox = ov.querySelector("#entradaCq");
-    const mostrarCq = (cat) => {
-      cqBox.innerHTML = `
-        <img class="entrada-cq-logo" src="icons/logo-comparacalidad.png" alt="Compara calidad">
-        <p class="entrada-cq-q">En <strong>${htmlEscapeAttr(cat.name)}</strong>: ¿cuál te alcanza para lo que haces? Elige nivel y tamaño en la siguiente pantalla.</p>
-        <div class="entrada-cq-btns">
-          <button type="button" class="buy-btn" data-go="cq">Afinar con Compara calidad</button>
-          <button type="button" class="entrada-saltar" data-go="saltar">Saltar y ver la lista</button>
-        </div>`;
-      cqBox.classList.remove("hidden");
-      cqBox.classList.remove("entrada-pop"); void cqBox.offsetWidth; cqBox.classList.add("entrada-pop");
-      cqBox.querySelector('[data-go="cq"]').onclick = () => {
-        cerrar();
-        goCategoryRanking(cat.id);
-        setTimeout(() => { const q = document.getElementById("qualityPicker"); if (q && !q.classList.contains("hidden")) q.scrollIntoView({ behavior: "smooth", block: "start" }); }, 700);
-      };
-      cqBox.querySelector('[data-go="saltar"]').onclick = () => { cerrar(); goCategoryRanking(cat.id); };
-    };
-    ov.querySelectorAll(".entrada-op").forEach((b) => {
-      b.onclick = () => {
-        const op = b.dataset.op;
-        if (op === "mirar") return cerrar();
-        if (op === "inicio") { cerrar(); return goHome(); }
-        if (op === "nombre") {
-          cerrar();
-          if (el.searchInput) { el.searchInput.scrollIntoView({ block: "center" }); el.searchInput.focus(); }
-          return;
-        }
-        // categoría: se despliega la lista de rubros dentro de la misma ventana
-        if (!catsBox.dataset.listo) {
-          catsBox.dataset.listo = "1";
-          const cats = state.data.categories.slice().sort((a, c) => a.name.localeCompare(c.name, "es"));
-          catsBox.innerHTML = cats.map((c) => `<button type="button" class="entrada-cat" data-cat="${htmlEscapeAttr(c.id)}">${htmlEscapeAttr(c.name)}</button>`).join("");
-          catsBox.querySelectorAll(".entrada-cat").forEach((cb) => {
-            cb.onclick = () => {
-              catsBox.querySelectorAll(".entrada-cat.is-on").forEach((x) => x.classList.remove("is-on"));
-              cb.classList.add("is-on");
-              mostrarCq(cats.find((c) => c.id === cb.dataset.cat));
-            };
-          });
-        }
-        catsBox.classList.remove("hidden");
-        catsBox.classList.remove("entrada-pop"); void catsBox.offsetWidth; catsBox.classList.add("entrada-pop");
-        b.classList.add("is-on");
-      };
-    });
-    const primero = ov.querySelector(".entrada-op");
-    if (primero) primero.focus();
-  }
-
   async function main() {
     initCookieConsent();
     initSpecsMultiToggle();
@@ -11349,7 +11259,6 @@
     await loadData();
     bindEvents();
     onHashChange();
-    initEntrada();
 
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").catch(() => {});
