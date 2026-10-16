@@ -5558,6 +5558,14 @@ LOTES['auditoria_51'] = [
  ('Electrodomésticos', r'carrito exprimidor|cubeta (industrial )?.*trapear|trapear.*cubeta', None, 'Limpieza y hogar', 'Limpiadores y desinfectantes', None),
  ('Mascotas', r'\brepelente para mascotas', None, 'Mascotas', 'Higiene y limpieza', {'Juguetes para perro'}),
  ('Mascotas', r'tapete (para )?lamer|\blick mat\b', None, 'Mascotas', 'Comederos lentos y antivoracidad', {'Camas elevadas y colchonetas'}),
+ ('Joyería y bisutería', r'anillo(s)? (adaptador|de paso)|step.?up ring|anillo adaptador de paso', None, 'Cámaras y fotografía', 'Filtros y parasoles', {'Anillos'}),
+ ('Instrumentos musicales', r'corneta de aire|claxon (de )?aire|bocina de aire', None, 'Autopartes', 'Claxon', None),
+ ('Bebés', r'autosiento|auto-asiento|autoasiento', r'carriola|doona|travel|sistema de viaje', 'Bebés', 'Sillas de auto', {'Carriolas'}),
+ ('Videojuegos', r'turtle beach|headset|diadema', r'juego|\bnsw\b.*(edition|collection)', 'Videojuegos', 'Otros accesorios gamer', {'Juegos Nintendo Switch','Juegos PS5'}),
+ ('Joyería y bisutería', r'compresor (para |de )?anillos', None, 'Herramientas', 'Herramientas manuales', {'Anillos'}),
+ ('Blancos y ropa de cama', r'\bremera\b', None, 'Ropa y accesorios', 'Playeras', None),
+ ('Aspiradoras', r'limpiador(a)? (robotic[oa] |robot )?(de )?(piscina|alberca)|robot (limpia ?fondos|de piscina|limpiador de piscina)', None, 'Jardín y exterior', 'Albercas e inflables', None),
+ ('Herramientas', r'supresor de picos|protector contra sobretensiones', None, 'Cargadores y adaptadores', 'Regletas y multicontactos', None),
 ]
 REGLAS += LOTES['auditoria_51']
 
