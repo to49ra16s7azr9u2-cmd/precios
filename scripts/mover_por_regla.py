@@ -5548,6 +5548,16 @@ LOTES['auditoria_51'] = [
  ('Instrumentos musicales', r'\b(tambor|drum)\b.*\b(brother|compatible|laser)\b|\bdr-?\d{3,4}\b.*\b(brother|tambor)\b', None, 'Impresoras', 'Tóner', None),
  ('Limpieza y hogar', r'desinfectante.*\b(piscinas?|albercas?)\b|\b(piscinas?|albercas?)\b.*desinfectante|\bcloro\b.*\b(piscinas?|albercas?)\b', None, 'Jardín y exterior', 'Albercas e inflables', {'Limpiadores y desinfectantes'}),
  ('Electrodomésticos', r'exprimidor de pasta de dientes|\bpasador de bloqueo\b|herramienta de embrague', None, 'Herramientas', 'Herramientas manuales', None),
+ ('Cocina y comedor', r'(botellas?|bolsas?|contenedor(es)?) (de )?almacenamiento (de )?leche materna|leche materna', None, 'Bebés', 'Alimentación y lactancia', None),
+ ('Limpieza y hogar', r'papel aluminio para cabello|papel aluminio.*(mechas|tinte)', None, 'Belleza y cuidado personal', 'Cuidado del cabello', None),
+ ('Cámaras de seguridad', r'\bc[aá]mara corporal\b|\bbody ?cam\b', None, 'Cámaras y fotografía', 'Cámaras de acción', None),
+ ('Ropa y accesorios', r'\bpantalones de noche\b.*pa[nñ]ales|\bpa[nñ]ales (desechables )?bambo\b|bambo nature', None, 'Bebés', 'Pañales y cambio', None),
+ ('Iluminación', r'\b(foco|lampara|luz)\b.*\b(terrario|reptil)', None, 'Mascotas', 'Acuarios y terrarios', None),
+ ('Libros', r'depuracion hepatica', None, 'Libros', 'Salud y bienestar', None),
+ ('Deportes y fitness', r'faja (de soporte |de apoyo )?(lumbar|sacro)|soporte lumbar.*faja', None, 'Deportes y fitness', 'Fajas lumbares', {'Otros deportes'}),
+ ('Electrodomésticos', r'carrito exprimidor|cubeta (industrial )?.*trapear|trapear.*cubeta', None, 'Limpieza y hogar', 'Limpiadores y desinfectantes', None),
+ ('Mascotas', r'\brepelente para mascotas', None, 'Mascotas', 'Higiene y limpieza', {'Juguetes para perro'}),
+ ('Mascotas', r'tapete (para )?lamer|\blick mat\b', None, 'Mascotas', 'Comederos lentos y antivoracidad', {'Camas elevadas y colchonetas'}),
 ]
 REGLAS += LOTES['auditoria_51']
 

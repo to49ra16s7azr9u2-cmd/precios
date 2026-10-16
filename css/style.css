@@ -5401,34 +5401,70 @@ tr.offer-compare-off { display: none; }
 .price-spark .spark-dot { fill: var(--red); stroke: #fff; stroke-width: 1; cursor: default; }
 .price-spark .spark-dot:hover { r: 5; }
 
-/* Pantalla de entrada (primera visita de la sesión) */
-.entrada-overlay { z-index: 150; }
-.entrada-modal { max-width: 460px; }
-.entrada-titulo { margin: 0 0 14px; font-size: 19px; color: var(--ink); }
-.entrada-opciones { display: grid; gap: 8px; }
-.entrada-op {
-  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
-  padding: 12px 14px; text-align: left; cursor: pointer;
-  background: var(--card); color: var(--ink);
-  border: 1.5px solid var(--border); border-radius: var(--radius);
+/* Pantalla de entrada (js/entrada.js): negro y rojo del logo, en cualquier página */
+html.ent-abierto { overflow: hidden; }
+.ent-overlay {
+  position: fixed; inset: 0; z-index: 150;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px 16px calc(16px + var(--consent-h, 0px));
+  background: rgba(0, 0, 0, 0.78);
 }
-.entrada-op:hover, .entrada-op.is-on { border-color: var(--red, #e60012); }
-.entrada-op-t { font-weight: 700; font-size: 15px; }
-.entrada-op-s { font-size: 12px; color: var(--muted); }
-.entrada-op-quiet { border-style: dashed; }
-.entrada-cats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; max-height: 36vh; overflow-y: auto; }
-.entrada-cat {
+.ent-card {
+  width: 100%; max-width: 540px;
+  max-height: calc(100vh - 32px - var(--consent-h, 0px));
+  overflow-y: auto; overscroll-behavior: contain;
+  padding: 20px 20px 18px;
+  background: #121212; color: #fff;
+  border-top: 5px solid #FF0211; border-radius: 6px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.6);
+  font-family: inherit;
+}
+.ent-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.ent-logo { flex: none; border-radius: 6px; }
+.ent-marca { font-size: 13px; font-weight: 800; letter-spacing: .02em; color: #fff; }
+.ent-marca span { color: #FF0211; }
+.ent-titulo { margin: 2px 0 0; font-size: 20px; line-height: 1.2; color: #fff; }
+.ent-x {
+  margin-left: auto; align-self: flex-start; width: 32px; height: 32px;
+  border: 0; border-radius: 50%; background: transparent; color: #bbb; font-size: 16px; cursor: pointer;
+}
+.ent-x:hover { background: #2a2a2a; color: #fff; }
+.ent-bloque { margin: 0 0 16px; }
+.ent-label { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #ff6a73; }
+.ent-fila { display: flex; gap: 8px; }
+.ent-input {
+  flex: 1; min-width: 0; width: 100%; box-sizing: border-box;
+  padding: 11px 12px; font-size: 16px; color: #111; background: #fff;
+  border: 2px solid #fff; border-radius: 4px;
+}
+.ent-input:focus { outline: none; border-color: #FF0211; }
+.ent-btn { padding: 11px 16px; font-size: 14px; font-weight: 700; border-radius: 4px; cursor: pointer; border: 2px solid transparent; white-space: nowrap; }
+.ent-btn-rojo { background: #FF0211; color: #fff; }
+.ent-btn-rojo:hover { background: #d40009; }
+.ent-btn-borde { background: transparent; color: #fff; border-color: #FF0211; }
+.ent-btn-borde:hover { background: #FF0211; }
+.ent-btn-fantasma { background: transparent; color: #ccc; border-color: #444; }
+.ent-btn-fantasma:hover { color: #fff; border-color: #888; }
+.ent-cats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; max-height: 26vh; overflow-y: auto; }
+.ent-chip {
   padding: 6px 11px; font-size: 13px; cursor: pointer; border-radius: 999px;
-  border: 1px solid var(--border); background: var(--card); color: var(--ink);
+  color: #fff; background: #242424; border: 1px solid #3a3a3a;
 }
-.entrada-cat:hover, .entrada-cat.is-on { border-color: var(--red, #e60012); color: var(--red, #e60012); }
-.entrada-cq { margin-top: 14px; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); background: var(--bg); }
-.entrada-cq-logo { height: 26px; width: auto; display: block; margin-bottom: 6px; }
-.entrada-cq-q { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: var(--ink); }
-.entrada-cq-btns { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
-.entrada-saltar { background: none; border: none; padding: 6px 2px; cursor: pointer; color: var(--muted); text-decoration: underline; font-size: 13px; }
-.entrada-pop { transform-origin: top center; animation: entrada-pop .38s cubic-bezier(.2,1.4,.4,1); }
-@keyframes entrada-pop { from { opacity: 0; transform: translateY(-10px) scaleY(.6); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .entrada-pop { animation: none; } }
-.entrada-overlay { padding-bottom: calc(16px + var(--consent-h, 0px)); }
-.entrada-modal { max-height: calc(100vh - 32px - var(--consent-h, 0px)); }
+.ent-chip:hover { border-color: #FF0211; }
+.ent-chip.ent-on { background: #FF0211; border-color: #FF0211; }
+.ent-chip-sub span { color: #aaa; font-size: 11px; }
+.ent-chip-sub.ent-on span { color: #fff; }
+.ent-vacio { margin: 6px 0 0; font-size: 13px; color: #aaa; }
+.ent-oculto { display: none; }
+.ent-cq { margin-top: 12px; padding: 12px 14px; background: #1d1d1d; border: 1px solid #FF0211; border-radius: 4px; }
+.ent-cq-logo { display: block; height: 26px; width: auto; margin-bottom: 8px; background: #fff; padding: 3px 8px; border-radius: 3px; }
+.ent-cq-q { margin: 0 0 10px; font-size: 14px; line-height: 1.5; color: #eee; }
+.ent-cq-btns { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.ent-saltar { background: none; border: 0; padding: 6px 2px; color: #bbb; text-decoration: underline; font-size: 13px; cursor: pointer; }
+.ent-saltar:hover { color: #fff; }
+.ent-pie { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 14px; border-top: 1px solid #2e2e2e; }
+.ent-pie .ent-btn { flex: 1 1 140px; }
+.ent-pop { transform-origin: top center; animation: ent-pop .38s cubic-bezier(.2, 1.4, .4, 1); }
+@keyframes ent-pop { from { opacity: 0; transform: translateY(-10px) scaleY(.6); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .ent-pop { animation: none; } }
+@media (max-width: 420px) { .ent-fila { flex-direction: column; } .ent-titulo { font-size: 18px; } }
