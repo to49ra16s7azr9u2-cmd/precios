@@ -5566,6 +5566,10 @@ LOTES['auditoria_51'] = [
  ('Blancos y ropa de cama', r'\bremera\b', None, 'Ropa y accesorios', 'Playeras', None),
  ('Aspiradoras', r'limpiador(a)? (robotic[oa] |robot )?(de )?(piscina|alberca)|robot (limpia ?fondos|de piscina|limpiador de piscina)', None, 'Jardín y exterior', 'Albercas e inflables', None),
  ('Herramientas', r'supresor de picos|protector contra sobretensiones', None, 'Cargadores y adaptadores', 'Regletas y multicontactos', None),
+ ('Papelería y oficina', r'^carpetas? de anillas|^carpetas? (de )?(3|tres) anillas|\bbinders?\b', None, 'Papelería y oficina', 'Organización', {'Arte y dibujo'}),
+ ('Jardín y exterior', r'tararium|filtro (de )?(acuario|pecera)', None, 'Mascotas', 'Acuarios y terrarios', {'Albercas e inflables'}),
+ ('Limpieza y hogar', r'servilletas? .*(algodon|bordad|lino|tela)|(algodon|bordad).*servilletas', r'papel|desechabl', 'Cocina y comedor', 'Manteles y caminos de mesa', {'Papel higiénico y servilletas'}),
+ ('Papelería y oficina', r'blanqueador dental', None, 'Salud', 'Cuidado dental', None),
 ]
 REGLAS += LOTES['auditoria_51']
 
