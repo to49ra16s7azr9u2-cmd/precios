@@ -5570,6 +5570,14 @@ LOTES['auditoria_51'] = [
  ('Jardín y exterior', r'tararium|filtro (de )?(acuario|pecera)', None, 'Mascotas', 'Acuarios y terrarios', {'Albercas e inflables'}),
  ('Limpieza y hogar', r'servilletas? .*(algodon|bordad|lino|tela)|(algodon|bordad).*servilletas', r'papel|desechabl', 'Cocina y comedor', 'Manteles y caminos de mesa', {'Papel higiénico y servilletas'}),
  ('Papelería y oficina', r'blanqueador dental', None, 'Salud', 'Cuidado dental', None),
+ ('Cámaras y fotografía', r'filtro (de )?(acuario|pecera)|tararium', None, 'Mascotas', 'Acuarios y terrarios', None),
+ ('Limpieza y hogar', r'^papel aluminio|rollo de aluminio|aluminio alurey', r'cabello|pelo|styletek', 'Cocina y comedor', 'Utensilios de cocina', {'Bolsas de basura y desechables'}),
+ ('Ropa y accesorios', r'gorro (de )?(ducha|baño)', None, 'Belleza y cuidado personal', 'Cuidado personal', None),
+ ('Papelería y oficina', r'engrapadora.*(pistola|tapiceria)|pistola.*grapas', None, 'Herramientas', 'Herramientas manuales', None),
+ ('Limpieza y hogar', r'styletek.*aluminio|aluminio.*styletek|papel aluminio.*(pata de gallo|estampado)', None, 'Belleza y cuidado personal', 'Cuidado del cabello', None),
+ ('Deportes y fitness', r'faja (de soporte |de apoyo |comoda |ajustable )?.*lumbar|faja lumbar', None, 'Deportes y fitness', 'Fajas lumbares', {'Rodilleras, muñequeras y soportes'}),
+ ('Cocina y comedor', r'bolsas? (de )?(decoracion|pastelera)|manga pastelera', None, 'Cocina y comedor', 'Repostería y moldes', None),
+ ('Salud', r'concentrador de oxigeno', None, 'Salud', 'Otros aparatos médicos', {'Nebulizadores'}),
 ]
 REGLAS += LOTES['auditoria_51']
 
