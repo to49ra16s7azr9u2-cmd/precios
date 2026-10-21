@@ -5578,6 +5578,7 @@ LOTES['auditoria_51'] = [
  ('Deportes y fitness', r'faja (de soporte |de apoyo |comoda |ajustable )?.*lumbar|faja lumbar', None, 'Deportes y fitness', 'Fajas lumbares', {'Rodilleras, muñequeras y soportes'}),
  ('Cocina y comedor', r'bolsas? (de )?(decoracion|pastelera)|manga pastelera', None, 'Cocina y comedor', 'Repostería y moldes', None),
  ('Salud', r'concentrador de oxigeno', None, 'Salud', 'Otros aparatos médicos', {'Nebulizadores'}),
+ ('Equipo comercial', r'\b(laminadora|enmicadora)\b', r'masa|pizza|harina|pasta|panader|cocina|vevor|joyer|rolling|metal', 'Papelería y oficina', 'Artículos de oficina', {'Cocina industrial'}),
 ]
 REGLAS += LOTES['auditoria_51']
 
