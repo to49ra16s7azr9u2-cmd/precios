@@ -5579,6 +5579,8 @@ LOTES['auditoria_51'] = [
  ('Cocina y comedor', r'bolsas? (de )?(decoracion|pastelera)|manga pastelera', None, 'Cocina y comedor', 'Repostería y moldes', None),
  ('Salud', r'concentrador de oxigeno', None, 'Salud', 'Otros aparatos médicos', {'Nebulizadores'}),
  ('Equipo comercial', r'\b(laminadora|enmicadora)\b', r'masa|pizza|harina|pasta|panader|cocina|vevor|joyer|rolling|metal', 'Papelería y oficina', 'Artículos de oficina', {'Cocina industrial'}),
+ ('Belleza y cuidado personal', r'\b(pasta|crema|gel) (dental|de dientes)\b|\bpasta dental\b|\benjuague bucal\b|\bhilo dental\b', r'mascota|perro|gato', 'Salud', 'Cuidado dental', {'Cuidado personal'}),
+ ('Limpieza y hogar', r'\b(auto|coche|carro|vehiculo)\b', r'casa|hogar|cuarto|bano|cocina|sala|oficina', 'Autos y motos', 'Aromatizantes para auto', {'Aromatizantes y velas'}),
 ]
 REGLAS += LOTES['auditoria_51']
 

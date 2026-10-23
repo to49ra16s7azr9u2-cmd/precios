@@ -34236,5 +34236,153 @@
    "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
    "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 2
   }
+ },
+ {
+  "fecha": "2026-10-23",
+  "origen": "mov_asc39.json",
+  "motivo": "auditoria asc39: muestra aleatoria 348",
+  "grupos": {
+   "Instrumentos musicales | Accesorios de guitarra | Videojuegos | Otros accesorios gamer": 1,
+   "Belleza y cuidado personal | Cuidado personal | Salud | Cuidado dental": 1,
+   "Joyería y bisutería | Pulseras | Belleza y cuidado personal | Organizadores de maquillaje": 1,
+   "Electrodomésticos | Filtros y membranas de repuesto | Libros | Cocina y gastronomía": 1,
+   "Electrodomésticos | Freidoras de aire | Libros | Cocina y gastronomía": 2,
+   "Limpieza y hogar | Aromatizantes y velas | Autos y motos | Aromatizantes para auto": 1,
+   "Libros | Educación y texto escolar | Papelería y oficina | Cuadernos": 1,
+   "Libros | Novela contemporánea | Libros | Cómics y novela gráfica": 1,
+   "Bebés | Alimentación y lactancia | Bebés | Pañales y cambio": 1,
+   "Blancos y ropa de cama | Juegos de toallas | Cocina y comedor | Utensilios de cocina": 1,
+   "Equipo comercial | Carros de servicio | Blancos y ropa de cama | Organizadores para baño": 1,
+   "Equipo comercial | Carros de servicio | Juguetes | Juguetes educativos": 1,
+   "Computadoras de escritorio | All in One | Componentes y accesorios de PC | Accesorios": 1,
+   "Bocinas | Bocinas Bluetooth | Bocinas | Bafles y audio profesional": 1
+  }
+ },
+ {
+  "fecha": "2026-10-23",
+  "origen": "mov_asc40.json",
+  "motivo": "auditoria asc40: muestra prona 364 + dental/ducha",
+  "grupos": {
+   "Belleza y cuidado personal | Cuidado personal | Salud | Cuidado dental": 185,
+   "Equipo comercial | Carros de servicio | Blancos y ropa de cama | Organizadores para baño": 29,
+   "Muebles | Camas plegables y catres | Salud | Movilidad y apoyo": 1,
+   "Joyería y bisutería | Anillos | Jardín y exterior | Decoración de jardín": 1,
+   "Electrodomésticos | Calentadores de agua | Electrodomésticos | Dispensadores de agua": 1,
+   "Limpieza y hogar | Limpiadores y desinfectantes | Jardín y exterior | Albercas e inflables": 1,
+   "Jardín y exterior | Albercas e inflables | Bebés | Juguetes para bebé": 1,
+   "Bebés | Carriolas | Bebés | Baño e higiene del bebé": 1,
+   "Bolsas y mochilas | Bolsas para mujer | Cámaras y fotografía | Trípodes y soportes": 1,
+   "Bolsas y mochilas | Carteras y monederos | Joyería y bisutería | Joyeros": 1,
+   "Bolsas y mochilas | Bolsas para mujer | Aspiradoras | Bolsas para aspiradora": 1,
+   "Blancos y ropa de cama | Cortinas para baño | Blancos y ropa de cama | Tapetes de baño": 1,
+   "Climatización | Mini enfriadores personales | Climatización | Minisplit": 1,
+   "Equipo comercial | Cocina industrial | Equipo comercial | Punto de venta": 1
+  }
+ },
+ {
+  "fecha": "2026-10-23",
+  "origen": "mov_asc41.json",
+  "motivo": "auditoria asc41: muestra prona seed 40 + cloro piscina + bolsas filtro",
+  "grupos": {
+   "Limpieza y hogar | Limpiadores y desinfectantes | Jardín y exterior | Albercas e inflables": 25,
+   "Bolsas y mochilas | Bolsas para mujer | Aspiradoras | Bolsas para aspiradora": 8,
+   "Bolsas y mochilas | Bolsas para mujer | Bebés | Alimentación y lactancia": 2,
+   "Bebés | Juguetes para bebé | Bebés | Alimentación y lactancia": 1,
+   "Bolsas y mochilas | Bolsas para mujer | Mascotas | Acuarios y terrarios": 2,
+   "Jardín y exterior | Plantas artificiales | Mascotas | Acuarios y terrarios": 1,
+   "Belleza y cuidado personal | Corporales | Electrodomésticos | Control de plagas y mosquitos": 1,
+   "Joyería y bisutería | Anillos | Papelería y oficina | Organización": 1,
+   "Joyería y bisutería | Argollas de matrimonio | Joyería y bisutería | Joyeros": 1,
+   "Papelería y oficina | Escritura | Belleza y cuidado personal | Uñas": 1,
+   "Bebés | Juguetes para bebé | Bebés | Seguridad para bebé": 2,
+   "Cámaras y fotografía | Filtros y parasoles | Autos y motos | Accesorios para auto": 1,
+   "Deportes y fitness | Campismo | Climatización | Mini enfriadores personales": 1,
+   "Bolsas y mochilas | Bolsas para mujer | Deportes y fitness | Campismo": 1,
+   "Equipo comercial | Mobiliario | Juguetes | Artículos para fiestas": 1,
+   "Libros | Novela contemporánea | Libros | Manga": 1,
+   "Libros | Novela contemporánea | Libros | Arte, diseño y fotografía": 1
+  }
+ },
+ {
+  "fecha": "2026-10-23",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador e5444e3549fe7bde) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Autopartes | Cadenas, sprockets y transmisión | Limpieza y hogar | Limpiadores y desinfectantes": 1,
+   "Autopartes | Para autos | Papelería y oficina | Artículos de oficina": 1,
+   "Autopartes | Para autos | Muebles | Mesas de centro": 1,
+   "Autopartes | Para autos | Audífonos | Earbuds para niños": 1
+  }
+ },
+ {
+  "fecha": "2026-10-23",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Audífonos | Earbuds inalámbricos | Videojuegos | Controles para Xbox": 1,
+   "Libros | Cocina y gastronomía | Electrodomésticos | None": 1,
+   "Climatización | Humidificadores | Electrodomésticos | None": 1,
+   "Bolsas y mochilas | Bolsas para mujer | Bebés | None": 1,
+   "Bolsas y mochilas | Mochilas | Bebés | None": 1,
+   "Equipo comercial | Cocina industrial | Electrodomésticos | None": 1
+  }
+ },
+ {
+  "fecha": "2026-10-23",
+  "origen": "auditoria-mov.json",
+  "motivo": "reglas de auditoría (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Celulares | Radios de dos vías": 1,
+   "Autopartes | Para autos | Instrumentos musicales | Sintetizadores y controladores MIDI": 1,
+   "Autopartes | Para autos | Papelería y oficina | Cuadernos": 10,
+   "Autopartes | Para autos | Papelería y oficina | Organización": 1,
+   "Autopartes | Para autos | Juguetes | Figuras de acción": 2,
+   "Autopartes | Para autos | Juguetes | Juguetes para exterior": 1,
+   "Autopartes | Para autos | Juguetes | Bloques de construcción": 1,
+   "Autopartes | Para autos | Juguetes | Juguetes educativos": 1,
+   "Autopartes | Para autos | Belleza y cuidado personal | Extensiones de cabello": 25,
+   "Autopartes | Para autos | Belleza y cuidado personal | Masajeadores": 2,
+   "Autopartes | Para autos | Electrodomésticos | Arroceras y ollas multiusos": 1,
+   "Autopartes | Para autos | Mascotas | Higiene y limpieza": 3,
+   "Autopartes | Para autos | Herramientas | Grifos y monomandos": 12,
+   "Autopartes | Para autos | Herramientas | Seguridad industrial": 2,
+   "Autopartes | Para autos | Herramientas | Regaderas y duchas": 1,
+   "Autopartes | Para autos | Impresoras | Tóner": 1,
+   "Autopartes | Para autos | Televisores | Soportes para TV": 1,
+   "Autopartes | Para autos | Cocina y comedor | Tarros y frascos": 1,
+   "Autopartes | Para autos | Cocina y comedor | Básculas y medidores": 2,
+   "Limpieza y hogar | Aromatizantes y velas | Autos y motos | Aromatizantes para auto": 36,
+   "Electrodomésticos | None | Electrodomésticos | Freidoras de aire": 1,
+   "Mascotas | Disfraces para mascotas | Mascotas | Ropa para mascotas": 1,
+   "Herramientas | Cables y extensiones eléctricas | Herramientas | Material eléctrico": 2,
+   "Bebés | None | Bebés | Carriolas": 1,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Pesca": 17,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Fajas lumbares": 2
+  }
+ },
+ {
+  "fecha": "2026-10-23",
+  "origen": "juez-origen.json",
+  "motivo": "juez de origen (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Muebles | Burós": 1,
+   "Autopartes | Para autos | Juguetes | None": 2,
+   "Autopartes | Para autos | Ropa y accesorios | None": 1,
+   "Autopartes | Para autos | Ropa y accesorios | Pantalones y jeans": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | None": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | Cremas y bálsamos para afeitar": 2,
+   "Autopartes | Para autos | Joyería y bisutería | Lentes oftálmicos y de lectura": 2
+  }
+ },
+ {
+  "fecha": "2026-10-23",
+  "origen": "precio_atipico.py",
+  "motivo": "precio imposible para su subcategoría (vecinos + precio)",
+  "grupos": {
+   "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
+   "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 2
+  }
  }
 ]
