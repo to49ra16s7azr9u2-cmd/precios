@@ -1754,15 +1754,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $3,950",
-      "max": 3950
+      "spec": "Hasta $3,850",
+      "max": 3850
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$3,950 a $11,500",
-      "min": 3950,
+      "spec": "$3,850 a $11,500",
+      "min": 3850,
       "max": 11500
      },
      {
@@ -1796,16 +1796,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$840 a $4,550",
+      "spec": "$840 a $4,700",
       "min": 840,
-      "max": 4550
+      "max": 4700
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,550",
-      "min": 4550
+      "spec": "Más de $4,700",
+      "min": 4700
      }
     ]
    }
@@ -25433,16 +25433,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$200 a $570",
+      "spec": "$200 a $560",
       "min": 200,
-      "max": 570
+      "max": 560
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $570",
-      "min": 570
+      "spec": "Más de $560",
+      "min": 560
      }
     ]
    }
@@ -30193,15 +30193,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $650",
-      "max": 650
+      "spec": "Hasta $660",
+      "max": 660
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$650 a $1,250",
-      "min": 650,
+      "spec": "$660 a $1,250",
+      "min": 660,
       "max": 1250
      },
      {
@@ -30336,16 +30336,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,750 a $5,200",
+      "spec": "$2,750 a $5,350",
       "min": 2750,
-      "max": 5200
+      "max": 5350
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $5,200",
-      "min": 5200
+      "spec": "Más de $5,350",
+      "min": 5350
      }
     ]
    }
@@ -31452,23 +31452,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $800",
-      "max": 800
+      "spec": "Hasta $820",
+      "max": 820
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$800 a $1,450",
-      "min": 800,
-      "max": 1450
+      "spec": "$820 a $1,500",
+      "min": 820,
+      "max": 1500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,450",
-      "min": 1450
+      "spec": "Más de $1,500",
+      "min": 1500
      }
     ]
    }
@@ -45422,6 +45422,2688 @@
    }
   ]
  },
+ "Bocinas/Bafles y audio profesional": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Amplificadores y receptores": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,950",
+      "max": 1950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,950 a $7,200",
+      "min": 1950,
+      "max": 7200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,200",
+      "min": 7200
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Cables para bocinas": {
+  "axes": [
+   {
+    "label": "Largo",
+    "field": "length_m",
+    "criterion": "en metros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "corto",
+      "name": "Corto",
+      "use": "Junto al equipo",
+      "spec": "Hasta 2 m",
+      "max": 2
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Bocinas en el mismo cuarto",
+      "spec": "Más de 2 m, hasta 5.5 m",
+      "min": 2,
+      "max": 5.5
+     },
+     {
+      "id": "largo",
+      "name": "Largo",
+      "use": "Bocinas lejos o en exterior",
+      "spec": "Más de 5.5 m",
+      "min": 5.5
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $190",
+      "max": 190
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$190 a $680",
+      "min": 190,
+      "max": 680
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $680",
+      "min": 680
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Bocinas Bluetooth": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Bocinas/Bocinas con luces LED": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/De fiesta y karaoke": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/De estantería y Hi-Fi": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Accesorios para bocinas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $600",
+      "min": 290,
+      "max": 600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $600",
+      "min": 600
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Radios y reproductores": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tocadiscos",
+      "name": "Tocadiscos",
+      "use": "",
+      "spec": "Tocadiscos",
+      "values": [
+       "Tocadiscos"
+      ]
+     },
+     {
+      "id": "reproductores-de-cd-y-casete",
+      "name": "Reproductores de CD y casete",
+      "use": "",
+      "spec": "Reproductores de CD y casete",
+      "values": [
+       "Reproductores de CD y casete"
+      ]
+     },
+     {
+      "id": "radio-portatil",
+      "name": "Radio portátil",
+      "use": "",
+      "spec": "Radio portátil",
+      "values": [
+       "Radio portátil"
+      ]
+     },
+     {
+      "id": "radio-despertador",
+      "name": "Radio despertador",
+      "use": "",
+      "spec": "Radio despertador",
+      "values": [
+       "Radio despertador"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,150",
+      "max": 1150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,150 a $2,450",
+      "min": 1150,
+      "max": 2450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,450",
+      "min": 2450
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Barras de sonido": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "con-subwoofer",
+      "name": "Con subwoofer",
+      "use": "",
+      "spec": "Con subwoofer",
+      "values": [
+       "Con subwoofer"
+      ]
+     },
+     {
+      "id": "home-theater-sistema-completo",
+      "name": "Home theater (sistema completo)",
+      "use": "",
+      "spec": "Home theater (sistema completo)",
+      "values": [
+       "Home theater (sistema completo)"
+      ]
+     },
+     {
+      "id": "bluetooth-o-inalambrica",
+      "name": "Bluetooth o inalámbrica",
+      "use": "",
+      "spec": "Bluetooth o inalámbrica",
+      "values": [
+       "Bluetooth o inalámbrica"
+      ]
+     },
+     {
+      "id": "con-dolby-atmos",
+      "name": "Con Dolby Atmos",
+      "use": "",
+      "spec": "Con Dolby Atmos",
+      "values": [
+       "Con Dolby Atmos"
+      ]
+     },
+     {
+      "id": "para-pc-y-gamers",
+      "name": "Para PC y gamers",
+      "use": "",
+      "spec": "Para PC y gamers",
+      "values": [
+       "Para PC y gamers"
+      ]
+     },
+     {
+      "id": "compacta-2-0",
+      "name": "Compacta (2.0)",
+      "use": "",
+      "spec": "Compacta (2.0)",
+      "values": [
+       "Compacta (2.0)"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Conectores para bocinas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $99",
+      "max": 99
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$99 a $170",
+      "min": 99,
+      "max": 170
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $170",
+      "min": 170
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Mini bocinas y de llavero": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Bocinas/Bocinas Bluetooth con radio, USB y micrófono": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Para PC y escritorio": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $590",
+      "max": 590
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$590 a $1,500",
+      "min": 590,
+      "max": 1500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,500",
+      "min": 1500
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Subwoofers": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Empotrables y de exterior": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Limpieza y hogar/Limpiadores y desinfectantes": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "desinfectantes-y-cloro",
+      "name": "Desinfectantes y cloro",
+      "use": "",
+      "spec": "Desinfectantes y cloro",
+      "values": [
+       "Desinfectantes y cloro"
+      ]
+     },
+     {
+      "id": "multiusos",
+      "name": "Multiusos",
+      "use": "",
+      "spec": "Multiusos",
+      "values": [
+       "Multiusos"
+      ]
+     },
+     {
+      "id": "desengrasantes",
+      "name": "Desengrasantes",
+      "use": "",
+      "spec": "Desengrasantes",
+      "values": [
+       "Desengrasantes"
+      ]
+     },
+     {
+      "id": "destapacanos",
+      "name": "Destapacaños",
+      "use": "",
+      "spec": "Destapacaños",
+      "values": [
+       "Destapacaños"
+      ]
+     },
+     {
+      "id": "limpiavidrios",
+      "name": "Limpiavidrios",
+      "use": "",
+      "spec": "Limpiavidrios",
+      "values": [
+       "Limpiavidrios"
+      ]
+     },
+     {
+      "id": "lavatrastes",
+      "name": "Lavatrastes",
+      "use": "",
+      "spec": "Lavatrastes",
+      "values": [
+       "Lavatrastes"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $250",
+      "max": 250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$250 a $600",
+      "min": 250,
+      "max": 600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $600",
+      "min": 600
+     }
+    ]
+   }
+  ]
+ },
+ "Limpieza y hogar/Aromatizantes y velas": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "velas",
+      "name": "Velas",
+      "use": "",
+      "spec": "Velas",
+      "values": [
+       "Velas"
+      ]
+     },
+     {
+      "id": "spray-y-ambientadores",
+      "name": "Spray y ambientadores",
+      "use": "",
+      "spec": "Spray y ambientadores",
+      "values": [
+       "Spray y ambientadores"
+      ]
+     },
+     {
+      "id": "difusores",
+      "name": "Difusores",
+      "use": "",
+      "spec": "Difusores",
+      "values": [
+       "Difusores"
+      ]
+     },
+     {
+      "id": "para-auto",
+      "name": "Para auto",
+      "use": "",
+      "spec": "Para auto",
+      "values": [
+       "Para auto"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $320",
+      "max": 320
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$320 a $660",
+      "min": 320,
+      "max": 660
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $660",
+      "min": 660
+     }
+    ]
+   }
+  ]
+ },
+ "Limpieza y hogar/Insecticidas y repelentes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $190",
+      "max": 190
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$190 a $440",
+      "min": 190,
+      "max": 440
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $440",
+      "min": 440
+     }
+    ]
+   }
+  ]
+ },
+ "Limpieza y hogar/Bolsas de basura y desechables": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $510",
+      "max": 510
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$510 a $1,050",
+      "min": 510,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Limpieza y hogar/Papel higiénico y servilletas": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "dispensadores-y-portarrollos",
+      "name": "Dispensadores y portarrollos",
+      "use": "",
+      "spec": "Dispensadores y portarrollos",
+      "values": [
+       "Dispensadores y portarrollos"
+      ]
+     },
+     {
+      "id": "servilletas",
+      "name": "Servilletas",
+      "use": "",
+      "spec": "Servilletas",
+      "values": [
+       "Servilletas"
+      ]
+     },
+     {
+      "id": "toallas-de-papel",
+      "name": "Toallas de papel",
+      "use": "",
+      "spec": "Toallas de papel",
+      "values": [
+       "Toallas de papel"
+      ]
+     },
+     {
+      "id": "papel-higienico",
+      "name": "Papel higiénico",
+      "use": "",
+      "spec": "Papel higiénico",
+      "values": [
+       "Papel higiénico"
+      ]
+     },
+     {
+      "id": "panuelos",
+      "name": "Pañuelos",
+      "use": "",
+      "spec": "Pañuelos",
+      "values": [
+       "Pañuelos"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $740",
+      "min": 430,
+      "max": 740
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $740",
+      "min": 740
+     }
+    ]
+   }
+  ]
+ },
+ "Limpieza y hogar/Detergentes y suavizantes": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $720",
+      "min": 390,
+      "max": 720
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $720",
+      "min": 720
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Earbuds inalámbricos": {
+  "axes": [
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Audífonos/Diadema con cable": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/Diadema inalámbrica": {
+  "axes": [
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Audífonos/Accesorios": {
+  "axes": [
+   {
+    "label": "Conexión",
+    "field": "audio_conn",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "inalambrico",
+      "name": "Inalámbrico",
+      "use": "Sin cables en el escritorio",
+      "spec": "Inalámbrico",
+      "values": [
+       "Inalámbrico"
+      ]
+     },
+     {
+      "id": "con-cable",
+      "name": "Con cable",
+      "use": "Sin baterías ni retraso",
+      "spec": "Con cable",
+      "values": [
+       "Con cable"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $490",
+      "max": 490
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$490 a $650",
+      "min": 490,
+      "max": 650
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $650",
+      "min": 650
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/Gamer": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Conexión",
+    "field": "audio_conn",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "inalambrico",
+      "name": "Inalámbrico",
+      "use": "Sin cables en el escritorio",
+      "spec": "Inalámbrico",
+      "values": [
+       "Inalámbrico"
+      ]
+     },
+     {
+      "id": "con-cable",
+      "name": "Con cable",
+      "use": "Sin baterías ni retraso",
+      "spec": "Con cable",
+      "values": [
+       "Con cable"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/Almohadillas y repuestos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $430",
+      "max": 430
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$430 a $570",
+      "min": 430,
+      "max": 570
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $570",
+      "min": 570
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/Earbuds con cable": {
+  "axes": [
+   {
+    "label": "Conector",
+    "field": "plug",
+    "criterion": "del cable",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "3-5-mm",
+      "name": "3.5 mm",
+      "use": "Entrada de audífonos clásica",
+      "spec": "3.5 mm",
+      "values": [
+       "3.5 mm"
+      ]
+     },
+     {
+      "id": "usb-c",
+      "name": "USB-C",
+      "use": "Celulares sin entrada de audífonos",
+      "spec": "USB-C",
+      "values": [
+       "USB-C"
+      ]
+     },
+     {
+      "id": "lightning",
+      "name": "Lightning",
+      "use": "iPhone hasta el 14",
+      "spec": "Lightning",
+      "values": [
+       "Lightning"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/De oído abierto": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Audífonos/Earbuds para niños": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Conexión",
+    "field": "audio_conn",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "inalambrico",
+      "name": "Inalámbrico",
+      "use": "Sin cables en el escritorio",
+      "spec": "Inalámbrico",
+      "values": [
+       "Inalámbrico"
+      ]
+     },
+     {
+      "id": "con-cable",
+      "name": "Con cable",
+      "use": "Sin baterías ni retraso",
+      "spec": "Con cable",
+      "values": [
+       "Con cable"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Audífonos/Earbuds deportivos": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Cancelación de ruido",
+    "field": "anc",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Con cancelación de ruido",
+      "use": "Apaga el ruido de fondo",
+      "spec": "Con cancelación de ruido",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Audífonos/Earbuds de cuello": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $270",
+      "max": 270
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$270 a $1,050",
+      "min": 270,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
+     }
+    ]
+   }
+  ]
+ },
+ "Audífonos/Puntas para audífonos": {
+  "axes": [],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Decoración de hogar y jardín/Vinil decorativo": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $340",
+      "max": 340
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$340 a $540",
+      "min": 340,
+      "max": 540
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $540",
+      "min": 540
+     }
+    ]
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Tapetes y alfombras": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 45 cm",
+      "max": 45
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "46 cm a 85 cm",
+      "min": 45,
+      "max": 85
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 85 cm",
+      "min": 85
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $950",
+      "max": 950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$950 a $1,850",
+      "min": 950,
+      "max": 1850
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,850",
+      "min": 1850
+     }
+    ]
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Figuras y adornos": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $390",
+      "max": 390
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$390 a $740",
+      "min": 390,
+      "max": 740
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $740",
+      "min": 740
+     }
+    ]
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Cuadros y decoración de pared": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "frame_cm",
+    "criterion": "el lado más largo",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Pasillo o repisa",
+      "spec": "Hasta 80 cm",
+      "max": 80
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Recámara",
+      "spec": "81 cm a 120 cm",
+      "min": 80,
+      "max": 120
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Sala o comedor",
+      "spec": "Más de 120 cm",
+      "min": 120
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,250",
+      "max": 1250
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,250 a $2,400",
+      "min": 1250,
+      "max": 2400
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,400",
+      "min": 2400
+     }
+    ]
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Cojines": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "cuadrados",
+      "name": "Cuadrados",
+      "use": "",
+      "spec": "Cuadrados",
+      "values": [
+       "Cuadrados"
+      ]
+     },
+     {
+      "id": "rectangulares-o-lumbares",
+      "name": "Rectangulares o lumbares",
+      "use": "",
+      "spec": "Rectangulares o lumbares",
+      "values": [
+       "Rectangulares o lumbares"
+      ]
+     },
+     {
+      "id": "fundas",
+      "name": "Fundas",
+      "use": "",
+      "spec": "Fundas",
+      "values": [
+       "Fundas"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Portarretratos": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $550",
+      "max": 550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$550 a $790",
+      "min": 550,
+      "max": 790
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $790",
+      "min": 790
+     }
+    ]
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Navidad y temporada": {
+  "axes": [
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 49 cm",
+      "max": 49
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "50 cm a 96 cm",
+      "min": 49,
+      "max": 96
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 96 cm",
+      "min": 96
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "piel-sintetica",
+      "name": "Piel sintética",
+      "use": "",
+      "spec": "Piel sintética",
+      "values": [
+       "Piel sintética"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     },
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Espejos de cuerpo completo": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "de-pie-o-de-piso",
+      "name": "De pie o de piso",
+      "use": "",
+      "spec": "De pie o de piso",
+      "values": [
+       "De pie o de piso"
+      ]
+     },
+     {
+      "id": "con-luz",
+      "name": "Con luz",
+      "use": "",
+      "spec": "Con luz",
+      "values": [
+       "Con luz"
+      ]
+     },
+     {
+      "id": "de-pared",
+      "name": "De pared",
+      "use": "",
+      "spec": "De pared",
+      "values": [
+       "De pared"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 60 cm",
+      "max": 60
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "61 cm a 100 cm",
+      "min": 60,
+      "max": 100
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 100 cm",
+      "min": 100
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Cortinas": {
+  "axes": [
+   {
+    "label": "Luz",
+    "field": "blackout",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Blackout",
+      "use": "Oscurece el cuarto",
+      "spec": "Blackout",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $780",
+      "max": 780
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$780 a $1,150",
+      "min": 780,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Espejos decorativos de pared": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "rectangulares-o-cuadrados",
+      "name": "Rectangulares o cuadrados",
+      "use": "",
+      "spec": "Rectangulares o cuadrados",
+      "values": [
+       "Rectangulares o cuadrados"
+      ]
+     },
+     {
+      "id": "redondos",
+      "name": "Redondos",
+      "use": "",
+      "spec": "Redondos",
+      "values": [
+       "Redondos"
+      ]
+     },
+     {
+      "id": "ovalados",
+      "name": "Ovalados",
+      "use": "",
+      "spec": "Ovalados",
+      "values": [
+       "Ovalados"
+      ]
+     },
+     {
+      "id": "irregulares-u-organicos",
+      "name": "Irregulares u orgánicos",
+      "use": "",
+      "spec": "Irregulares u orgánicos",
+      "values": [
+       "Irregulares u orgánicos"
+      ]
+     },
+     {
+      "id": "de-arco",
+      "name": "De arco",
+      "use": "",
+      "spec": "De arco",
+      "values": [
+       "De arco"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Tamaño",
+    "field": "length_cm",
+    "criterion": "por largo en cm",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chico",
+      "name": "Chico",
+      "use": "Cabe en cualquier lugar",
+      "spec": "Hasta 60 cm",
+      "max": 60
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "El tamaño más común",
+      "spec": "61 cm a 80 cm",
+      "min": 60,
+      "max": 80
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Ocupa más espacio",
+      "spec": "Más de 80 cm",
+      "min": 80
+     }
+    ],
+    "key": "size"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "madera",
+      "name": "Madera",
+      "use": "",
+      "spec": "Madera",
+      "values": [
+       "Madera"
+      ]
+     },
+     {
+      "id": "vidrio",
+      "name": "Vidrio",
+      "use": "",
+      "spec": "Vidrio",
+      "values": [
+       "Vidrio"
+      ]
+     },
+     {
+      "id": "acero",
+      "name": "Acero",
+      "use": "",
+      "spec": "Acero",
+      "values": [
+       "Acero"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Floreros y centros de mesa": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "metal",
+      "name": "Metal",
+      "use": "",
+      "spec": "Metal",
+      "values": [
+       "Metal"
+      ]
+     },
+     {
+      "id": "vidrio",
+      "name": "Vidrio",
+      "use": "",
+      "spec": "Vidrio",
+      "values": [
+       "Vidrio"
+      ]
+     },
+     {
+      "id": "ceramica",
+      "name": "Cerámica",
+      "use": "",
+      "spec": "Cerámica",
+      "values": [
+       "Cerámica"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $910",
+      "min": 440,
+      "max": 910
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $910",
+      "min": 910
+     }
+    ]
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Espejos de tocador y maquillaje": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $510",
+      "max": 510
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$510 a $920",
+      "min": 510,
+      "max": 920
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $920",
+      "min": 920
+     }
+    ]
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Espejos de baño con luz": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "redondos",
+      "name": "Redondos",
+      "use": "",
+      "spec": "Redondos",
+      "values": [
+       "Redondos"
+      ]
+     },
+     {
+      "id": "rectangulares",
+      "name": "Rectangulares",
+      "use": "",
+      "spec": "Rectangulares",
+      "values": [
+       "Rectangulares"
+      ]
+     },
+     {
+      "id": "ovalados",
+      "name": "Ovalados",
+      "use": "",
+      "spec": "Ovalados",
+      "values": [
+       "Ovalados"
+      ]
+     },
+     {
+      "id": "cuadrados",
+      "name": "Cuadrados",
+      "use": "",
+      "spec": "Cuadrados",
+      "values": [
+       "Cuadrados"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "vidrio",
+      "name": "Vidrio",
+      "use": "",
+      "spec": "Vidrio",
+      "values": [
+       "Vidrio"
+      ]
+     },
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "aluminio",
+      "name": "Aluminio",
+      "use": "",
+      "spec": "Aluminio",
+      "values": [
+       "Aluminio"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Decoración de hogar y jardín/Persianas": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "sheer-o-duo",
+      "name": "Sheer o dúo",
+      "use": "",
+      "spec": "Sheer o dúo",
+      "values": [
+       "Sheer o dúo"
+      ]
+     },
+     {
+      "id": "malla-solar-o-screen",
+      "name": "Malla solar o screen",
+      "use": "",
+      "spec": "Malla solar o screen",
+      "values": [
+       "Malla solar o screen"
+      ]
+     },
+     {
+      "id": "blackout",
+      "name": "Blackout",
+      "use": "",
+      "spec": "Blackout",
+      "values": [
+       "Blackout"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Ancho",
+    "field": "blind_cm",
+    "criterion": "de la persiana",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "angosta",
+      "name": "Angosta",
+      "use": "Baño o ventana chica",
+      "spec": "Hasta 120 cm",
+      "max": 120
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Recámara",
+      "spec": "121 cm a 160 cm",
+      "min": 120,
+      "max": 160
+     },
+     {
+      "id": "ancha",
+      "name": "Ancha",
+      "use": "Sala o ventanal",
+      "spec": "Más de 160 cm",
+      "min": 160
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
  "Videojuegos/Otros accesorios gamer": {
   "axes": [
    {
@@ -45974,378 +48656,6 @@
   "axes": [],
   "omitir": [
    "age_rating"
-  ]
- },
- "Limpieza y hogar/Limpiadores y desinfectantes": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "desinfectantes-y-cloro",
-      "name": "Desinfectantes y cloro",
-      "use": "",
-      "spec": "Desinfectantes y cloro",
-      "values": [
-       "Desinfectantes y cloro"
-      ]
-     },
-     {
-      "id": "multiusos",
-      "name": "Multiusos",
-      "use": "",
-      "spec": "Multiusos",
-      "values": [
-       "Multiusos"
-      ]
-     },
-     {
-      "id": "desengrasantes",
-      "name": "Desengrasantes",
-      "use": "",
-      "spec": "Desengrasantes",
-      "values": [
-       "Desengrasantes"
-      ]
-     },
-     {
-      "id": "destapacanos",
-      "name": "Destapacaños",
-      "use": "",
-      "spec": "Destapacaños",
-      "values": [
-       "Destapacaños"
-      ]
-     },
-     {
-      "id": "limpiavidrios",
-      "name": "Limpiavidrios",
-      "use": "",
-      "spec": "Limpiavidrios",
-      "values": [
-       "Limpiavidrios"
-      ]
-     },
-     {
-      "id": "lavatrastes",
-      "name": "Lavatrastes",
-      "use": "",
-      "spec": "Lavatrastes",
-      "values": [
-       "Lavatrastes"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $250",
-      "max": 250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$250 a $600",
-      "min": 250,
-      "max": 600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $600",
-      "min": 600
-     }
-    ]
-   }
-  ]
- },
- "Limpieza y hogar/Aromatizantes y velas": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "velas",
-      "name": "Velas",
-      "use": "",
-      "spec": "Velas",
-      "values": [
-       "Velas"
-      ]
-     },
-     {
-      "id": "spray-y-ambientadores",
-      "name": "Spray y ambientadores",
-      "use": "",
-      "spec": "Spray y ambientadores",
-      "values": [
-       "Spray y ambientadores"
-      ]
-     },
-     {
-      "id": "difusores",
-      "name": "Difusores",
-      "use": "",
-      "spec": "Difusores",
-      "values": [
-       "Difusores"
-      ]
-     },
-     {
-      "id": "para-auto",
-      "name": "Para auto",
-      "use": "",
-      "spec": "Para auto",
-      "values": [
-       "Para auto"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $320",
-      "max": 320
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$320 a $660",
-      "min": 320,
-      "max": 660
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $660",
-      "min": 660
-     }
-    ]
-   }
-  ]
- },
- "Limpieza y hogar/Insecticidas y repelentes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $190",
-      "max": 190
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$190 a $440",
-      "min": 190,
-      "max": 440
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $440",
-      "min": 440
-     }
-    ]
-   }
-  ]
- },
- "Limpieza y hogar/Bolsas de basura y desechables": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $510",
-      "max": 510
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$510 a $1,050",
-      "min": 510,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Limpieza y hogar/Papel higiénico y servilletas": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "dispensadores-y-portarrollos",
-      "name": "Dispensadores y portarrollos",
-      "use": "",
-      "spec": "Dispensadores y portarrollos",
-      "values": [
-       "Dispensadores y portarrollos"
-      ]
-     },
-     {
-      "id": "servilletas",
-      "name": "Servilletas",
-      "use": "",
-      "spec": "Servilletas",
-      "values": [
-       "Servilletas"
-      ]
-     },
-     {
-      "id": "toallas-de-papel",
-      "name": "Toallas de papel",
-      "use": "",
-      "spec": "Toallas de papel",
-      "values": [
-       "Toallas de papel"
-      ]
-     },
-     {
-      "id": "papel-higienico",
-      "name": "Papel higiénico",
-      "use": "",
-      "spec": "Papel higiénico",
-      "values": [
-       "Papel higiénico"
-      ]
-     },
-     {
-      "id": "panuelos",
-      "name": "Pañuelos",
-      "use": "",
-      "spec": "Pañuelos",
-      "values": [
-       "Pañuelos"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$430 a $740",
-      "min": 430,
-      "max": 740
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $740",
-      "min": 740
-     }
-    ]
-   }
-  ]
- },
- "Limpieza y hogar/Detergentes y suavizantes": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $390",
-      "max": 390
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$390 a $720",
-      "min": 390,
-      "max": 720
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $720",
-      "min": 720
-     }
-    ]
-   }
   ]
  },
  "Autos y motos/Aromatizantes para auto": {
@@ -50376,180 +52686,201 @@
    }
   ]
  },
- "Audífonos/Earbuds inalámbricos": {
+ "Cargadores y adaptadores/Cargadores multipuerto y estaciones de carga": {
   "axes": [
    {
-    "label": "Cancelación de ruido",
-    "field": "anc",
-    "criterion": "según el nombre",
-    "ramp": false,
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
     "tiers": [
      {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $630",
+      "max": 630
      },
      {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$630 a $1,050",
+      "min": 630,
+      "max": 1050
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,050",
+      "min": 1050
      }
-    ],
-    "key": "extra"
+    ]
    }
   ]
  },
- "Audífonos/Diadema con cable": {
+ "Cargadores y adaptadores/Regletas y multicontactos": {
   "axes": [
    {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
+    "label": "Contactos",
+    "field": "outlets",
+    "criterion": "según el nombre",
+    "ramp": true,
     "tiers": [
      {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
+      "id": "pocos",
+      "name": "Pocos",
+      "use": "Buró o escritorio",
+      "spec": "Hasta 4 contactos",
+      "max": 4
      },
      {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
+      "id": "medios",
+      "name": "Medios",
+      "use": "Centro de entretenimiento",
+      "spec": "5 contactos a 7 contactos",
+      "min": 4,
+      "max": 7
+     },
+     {
+      "id": "muchos",
+      "name": "Muchos",
+      "use": "Oficina o taller",
+      "spec": "Más de 7 contactos",
+      "min": 7
      }
     ],
     "key": "level"
    },
    {
-    "label": "Cancelación de ruido",
-    "field": "anc",
-    "criterion": "según el nombre",
-    "ramp": false,
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
     "tiers": [
      {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
-      "values": [
-       "Sí"
-      ]
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $340",
+      "max": 340
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$340 a $750",
+      "min": 340,
+      "max": 750
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $750",
+      "min": 750
      }
-    ],
-    "key": "size"
+    ]
    }
   ],
   "omitir": [
-   "battery_h"
+   "charger_w"
   ]
  },
- "Audífonos/Diadema inalámbrica": {
+ "Cargadores y adaptadores/De pared": {
   "axes": [
    {
-    "label": "Cancelación de ruido",
-    "field": "anc",
+    "label": "Tipo",
+    "field": "kind",
     "criterion": "según el nombre",
     "ramp": false,
     "tiers": [
      {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
+      "id": "cargador-rapido-pd-qc",
+      "name": "Cargador rápido PD/QC",
+      "use": "",
+      "spec": "Cargador rápido PD/QC",
       "values": [
-       "Sí"
+       "Cargador rápido PD/QC"
+      ]
+     },
+     {
+      "id": "cargador-con-cable-incluido",
+      "name": "Cargador con cable incluido",
+      "use": "",
+      "spec": "Cargador con cable incluido",
+      "values": [
+       "Cargador con cable incluido"
+      ]
+     },
+     {
+      "id": "cargador-multiple-varios-puertos",
+      "name": "Cargador múltiple (varios puertos)",
+      "use": "",
+      "spec": "Cargador múltiple (varios puertos)",
+      "values": [
+       "Cargador múltiple (varios puertos)"
+      ]
+     },
+     {
+      "id": "adaptadores-usb-y-de-datos",
+      "name": "Adaptadores USB y de datos",
+      "use": "",
+      "spec": "Adaptadores USB y de datos",
+      "values": [
+       "Adaptadores USB y de datos"
       ]
      }
     ],
     "key": "size"
-   },
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "extra"
    }
   ]
  },
- "Audífonos/Accesorios": {
+ "Cargadores y adaptadores/De pilas": {
   "axes": [
    {
-    "label": "Conexión",
-    "field": "audio_conn",
+    "label": "Tipo",
+    "field": "kind",
     "criterion": "según el nombre",
     "ramp": false,
     "tiers": [
      {
-      "id": "inalambrico",
-      "name": "Inalámbrico",
-      "use": "Sin cables en el escritorio",
-      "spec": "Inalámbrico",
+      "id": "pilas-alcalinas-y-de-litio",
+      "name": "Pilas alcalinas y de litio",
+      "use": "",
+      "spec": "Pilas alcalinas y de litio",
       "values": [
-       "Inalámbrico"
+       "Pilas alcalinas y de litio"
       ]
      },
      {
-      "id": "con-cable",
-      "name": "Con cable",
-      "use": "Sin baterías ni retraso",
-      "spec": "Con cable",
+      "id": "cargadores",
+      "name": "Cargadores",
+      "use": "",
+      "spec": "Cargadores",
       "values": [
-       "Con cable"
+       "Cargadores"
+      ]
+     },
+     {
+      "id": "pilas-recargables",
+      "name": "Pilas recargables",
+      "use": "",
+      "spec": "Pilas recargables",
+      "values": [
+       "Pilas recargables"
+      ]
+     },
+     {
+      "id": "cargadores-con-pilas",
+      "name": "Cargadores con pilas",
+      "use": "",
+      "spec": "Cargadores con pilas",
+      "values": [
+       "Cargadores con pilas"
       ]
      }
     ],
@@ -50566,397 +52897,131 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $490",
-      "max": 490
+      "spec": "Hasta $340",
+      "max": 340
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$490 a $650",
-      "min": 490,
-      "max": 650
+      "spec": "$340 a $680",
+      "min": 340,
+      "max": 680
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $650",
-      "min": 650
+      "spec": "Más de $680",
+      "min": 680
      }
     ]
    }
   ],
   "omitir": [
-   "battery_h"
+   "charger_w"
   ]
  },
- "Audífonos/Gamer": {
+ "Cargadores y adaptadores/Inalámbrico": {
   "axes": [
    {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Cancelación de ruido",
-    "field": "anc",
+    "label": "Tipo",
+    "field": "kind",
     "criterion": "según el nombre",
     "ramp": false,
     "tiers": [
      {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
+      "id": "estacion-3-en-1",
+      "name": "Estación 3 en 1",
+      "use": "",
+      "spec": "Estación 3 en 1",
       "values": [
-       "Sí"
+       "Estación 3 en 1"
+      ]
+     },
+     {
+      "id": "cargador-inalambrico",
+      "name": "Cargador inalámbrico",
+      "use": "",
+      "spec": "Cargador inalámbrico",
+      "values": [
+       "Cargador inalámbrico"
+      ]
+     },
+     {
+      "id": "cargador-magsafe-o-qi2",
+      "name": "Cargador MagSafe o Qi2",
+      "use": "",
+      "spec": "Cargador MagSafe o Qi2",
+      "values": [
+       "Cargador MagSafe o Qi2"
+      ]
+     },
+     {
+      "id": "soporte-con-carga-auto-o-escritorio",
+      "name": "Soporte con carga (auto o escritorio)",
+      "use": "",
+      "spec": "Soporte con carga (auto o escritorio)",
+      "values": [
+       "Soporte con carga (auto o escritorio)"
+      ]
+     },
+     {
+      "id": "base-o-almohadilla-de-carga",
+      "name": "Base o almohadilla de carga",
+      "use": "",
+      "spec": "Base o almohadilla de carga",
+      "values": [
+       "Base o almohadilla de carga"
+      ]
+     },
+     {
+      "id": "estacion-2-en-1",
+      "name": "Estación 2 en 1",
+      "use": "",
+      "spec": "Estación 2 en 1",
+      "values": [
+       "Estación 2 en 1"
       ]
      }
     ],
     "key": "size"
-   },
-   {
-    "label": "Conexión",
-    "field": "audio_conn",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "inalambrico",
-      "name": "Inalámbrico",
-      "use": "Sin cables en el escritorio",
-      "spec": "Inalámbrico",
-      "values": [
-       "Inalámbrico"
-      ]
-     },
-     {
-      "id": "con-cable",
-      "name": "Con cable",
-      "use": "Sin baterías ni retraso",
-      "spec": "Con cable",
-      "values": [
-       "Con cable"
-      ]
-     }
-    ],
-    "key": "extra"
    }
-  ],
-  "omitir": [
-   "battery_h"
   ]
  },
- "Audífonos/Almohadillas y repuestos": {
+ "Cargadores y adaptadores/Cable": {
   "axes": [
    {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
+    "label": "Largo",
+    "field": "length_m",
+    "criterion": "en metros",
     "ramp": true,
     "tiers": [
      {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
+      "id": "corto",
+      "name": "Corto",
+      "use": "Junto a la computadora",
+      "spec": "Hasta 1.8 m",
+      "max": 1.8
      },
      {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$430 a $570",
-      "min": 430,
-      "max": 570
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Lo más común",
+      "spec": "Más de 1.8 m, hasta 3 m",
+      "min": 1.8,
+      "max": 3
      },
      {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $570",
-      "min": 570
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Audífonos/Earbuds con cable": {
-  "axes": [
-   {
-    "label": "Conector",
-    "field": "plug",
-    "criterion": "del cable",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "3-5-mm",
-      "name": "3.5 mm",
-      "use": "Entrada de audífonos clásica",
-      "spec": "3.5 mm",
-      "values": [
-       "3.5 mm"
-      ]
-     },
-     {
-      "id": "usb-c",
-      "name": "USB-C",
-      "use": "Celulares sin entrada de audífonos",
-      "spec": "USB-C",
-      "values": [
-       "USB-C"
-      ]
-     },
-     {
-      "id": "lightning",
-      "name": "Lightning",
-      "use": "iPhone hasta el 14",
-      "spec": "Lightning",
-      "values": [
-       "Lightning"
-      ]
+      "id": "largo",
+      "name": "Largo",
+      "use": "Extensión a otro lado del cuarto",
+      "spec": "Más de 3 m",
+      "min": 3
      }
     ],
     "key": "level"
    },
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Cancelación de ruido",
-    "field": "anc",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Audífonos/De oído abierto": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Cancelación de ruido",
-    "field": "anc",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Audífonos/Earbuds para niños": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Conexión",
-    "field": "audio_conn",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "inalambrico",
-      "name": "Inalámbrico",
-      "use": "Sin cables en el escritorio",
-      "spec": "Inalámbrico",
-      "values": [
-       "Inalámbrico"
-      ]
-     },
-     {
-      "id": "con-cable",
-      "name": "Con cable",
-      "use": "Sin baterías ni retraso",
-      "spec": "Con cable",
-      "values": [
-       "Con cable"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Audífonos/Earbuds deportivos": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Cancelación de ruido",
-    "field": "anc",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Con cancelación de ruido",
-      "use": "Apaga el ruido de fondo",
-      "spec": "Con cancelación de ruido",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Audífonos/Earbuds de cuello": {
-  "axes": [
    {
     "key": "size",
     "label": "Precio",
@@ -50975,25 +53040,559 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$270 a $1,050",
+      "spec": "$270 a $540",
       "min": 270,
-      "max": 1050
+      "max": 540
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
+      "spec": "Más de $540",
+      "min": 540
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "charger_w"
+  ]
+ },
+ "Cargadores y adaptadores/Cables USB-C": {
+  "axes": [
+   {
+    "label": "Largo",
+    "field": "length_m",
+    "criterion": "en metros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "corto",
+      "name": "Corto",
+      "use": "Para el auto o la batería portátil",
+      "spec": "Hasta 1.2 m",
+      "max": 1.2
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Junto a la cama o el escritorio",
+      "spec": "Más de 1.2 m, hasta 2 m",
+      "min": 1.2,
+      "max": 2
+     },
+     {
+      "id": "largo",
+      "name": "Largo",
+      "use": "Para usarlo mientras carga",
+      "spec": "Más de 2 m",
+      "min": 2
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Cargadores y adaptadores/Cables y adaptadores de video": {
+  "axes": [
+   {
+    "label": "Largo",
+    "field": "length_m",
+    "criterion": "en metros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "corta",
+      "name": "Corta",
+      "use": "La tele junto al aparato",
+      "spec": "Hasta 2 m",
+      "max": 2
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Lo más común",
+      "spec": "3 m a 5 m",
+      "min": 2,
+      "max": 5
+     },
+     {
+      "id": "larga",
+      "name": "Larga",
+      "use": "Proyector o al otro lado del cuarto",
+      "spec": "Más de 5 m",
+      "min": 5
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $240",
+      "max": 240
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$240 a $540",
+      "min": 240,
+      "max": 540
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $540",
+      "min": 540
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "charger_w"
+  ]
+ },
+ "Cargadores y adaptadores/Cables micro USB": {
+  "axes": [
+   {
+    "label": "Largo",
+    "field": "length_m",
+    "criterion": "en metros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "corto",
+      "name": "Corto",
+      "use": "Para el auto o la batería portátil",
+      "spec": "Hasta 1 m",
+      "max": 1
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Junto a la cama o el escritorio",
+      "spec": "Más de 1 m, hasta 1.5 m",
+      "min": 1,
+      "max": 1.5
+     },
+     {
+      "id": "largo",
+      "name": "Largo",
+      "use": "Para usarlo mientras carga",
+      "spec": "Más de 1.5 m",
+      "min": 1.5
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $100",
+      "max": 100
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$100 a $200",
+      "min": 100,
+      "max": 200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $200",
+      "min": 200
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "charger_w"
+  ]
+ },
+ "Cargadores y adaptadores/Cables Lightning": {
+  "axes": [
+   {
+    "label": "Largo",
+    "field": "length_m",
+    "criterion": "en metros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "corto",
+      "name": "Corto",
+      "use": "Para el auto o la batería portátil",
+      "spec": "Hasta 1 m",
+      "max": 1
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Junto a la cama o el escritorio",
+      "spec": "Más de 1 m, hasta 1.8 m",
+      "min": 1,
+      "max": 1.8
+     },
+     {
+      "id": "largo",
+      "name": "Largo",
+      "use": "Para usarlo mientras carga",
+      "spec": "Más de 1.8 m",
+      "min": 1.8
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $270",
+      "max": 270
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$270 a $460",
+      "min": 270,
+      "max": 460
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $460",
+      "min": 460
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "charger_w"
+  ]
+ },
+ "Cargadores y adaptadores/Adaptador de corriente": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $420",
+      "max": 420
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$420 a $740",
+      "min": 420,
+      "max": 740
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $740",
+      "min": 740
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "charger_w"
+  ]
+ },
+ "Cargadores y adaptadores/Adaptadores de enchufe y de viaje": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $560",
+      "max": 560
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$560 a $890",
+      "min": 560,
+      "max": 890
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $890",
+      "min": 890
      }
     ]
    }
   ]
  },
- "Audífonos/Puntas para audífonos": {
+ "Cargadores y adaptadores/De auto": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $440",
+      "max": 440
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$440 a $700",
+      "min": 440,
+      "max": 700
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $700",
+      "min": 700
+     }
+    ]
+   }
+  ]
+ },
+ "Cargadores y adaptadores/Cables para reloj y gadgets": {
   "axes": [],
   "omitir": [
-   "battery_h"
+   "charger_w"
+  ]
+ },
+ "Cargadores y adaptadores/Para laptop": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $500",
+      "max": 500
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$500 a $830",
+      "min": 500,
+      "max": 830
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $830",
+      "min": 830
+     }
+    ]
+   }
+  ]
+ },
+ "Cargadores y adaptadores/Cargadores para reloj y gadgets": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $520",
+      "max": 520
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$520 a $970",
+      "min": 520,
+      "max": 970
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $970",
+      "min": 970
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "charger_w"
+  ]
+ },
+ "Cargadores y adaptadores/Base de carga": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $980",
+      "max": 980
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$980 a $1,300",
+      "min": 980,
+      "max": 1300
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,300",
+      "min": 1300
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "charger_w"
+  ]
+ },
+ "Cargadores y adaptadores/Cargadores para reloj y accesorios pequeños": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $550",
+      "max": 550
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$550 a $1,000",
+      "min": 550,
+      "max": 1000
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,000",
+      "min": 1000
+     }
+    ]
+   }
+  ]
+ },
+ "Cargadores y adaptadores/Cables multiconector": {
+  "axes": [
+   {
+    "label": "Largo",
+    "field": "length_m",
+    "criterion": "en metros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "corto",
+      "name": "Corto",
+      "use": "Para el auto o la batería portátil",
+      "spec": "Hasta 1.2 m",
+      "max": 1.2
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Junto a la cama o el escritorio",
+      "spec": "Más de 1.2 m, hasta 1.5 m",
+      "min": 1.2,
+      "max": 1.5
+     },
+     {
+      "id": "largo",
+      "name": "Largo",
+      "use": "Para usarlo mientras carga",
+      "spec": "Más de 1.5 m",
+      "min": 1.5
+     }
+    ],
+    "key": "size"
+   }
   ]
  },
  "Salud/Movilidad y apoyo": {
@@ -52255,23 +54854,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $300",
-      "max": 300
+      "spec": "Hasta $290",
+      "max": 290
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$300 a $820",
-      "min": 300,
-      "max": 820
+      "spec": "$290 a $720",
+      "min": 290,
+      "max": 720
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $820",
-      "min": 820
+      "spec": "Más de $720",
+      "min": 720
      }
     ]
    }
@@ -53415,16 +56014,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$290 a $960",
+      "spec": "$290 a $990",
       "min": 290,
-      "max": 960
+      "max": 990
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $960",
-      "min": 960
+      "spec": "Más de $990",
+      "min": 990
      }
     ]
    }
@@ -56416,915 +59015,6 @@
    }
   ]
  },
- "Cargadores y adaptadores/Regletas y multicontactos": {
-  "axes": [
-   {
-    "label": "Contactos",
-    "field": "outlets",
-    "criterion": "según el nombre",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "pocos",
-      "name": "Pocos",
-      "use": "Buró o escritorio",
-      "spec": "Hasta 4 contactos",
-      "max": 4
-     },
-     {
-      "id": "medios",
-      "name": "Medios",
-      "use": "Centro de entretenimiento",
-      "spec": "5 contactos a 7 contactos",
-      "min": 4,
-      "max": 7
-     },
-     {
-      "id": "muchos",
-      "name": "Muchos",
-      "use": "Oficina o taller",
-      "spec": "Más de 7 contactos",
-      "min": 7
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $340",
-      "max": 340
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$340 a $750",
-      "min": 340,
-      "max": 750
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $750",
-      "min": 750
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "charger_w"
-  ]
- },
- "Cargadores y adaptadores/De pared": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "cargador-rapido-pd-qc",
-      "name": "Cargador rápido PD/QC",
-      "use": "",
-      "spec": "Cargador rápido PD/QC",
-      "values": [
-       "Cargador rápido PD/QC"
-      ]
-     },
-     {
-      "id": "cargador-con-cable-incluido",
-      "name": "Cargador con cable incluido",
-      "use": "",
-      "spec": "Cargador con cable incluido",
-      "values": [
-       "Cargador con cable incluido"
-      ]
-     },
-     {
-      "id": "cargador-multiple-varios-puertos",
-      "name": "Cargador múltiple (varios puertos)",
-      "use": "",
-      "spec": "Cargador múltiple (varios puertos)",
-      "values": [
-       "Cargador múltiple (varios puertos)"
-      ]
-     },
-     {
-      "id": "adaptadores-usb-y-de-datos",
-      "name": "Adaptadores USB y de datos",
-      "use": "",
-      "spec": "Adaptadores USB y de datos",
-      "values": [
-       "Adaptadores USB y de datos"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Cargadores y adaptadores/De pilas": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "pilas-alcalinas-y-de-litio",
-      "name": "Pilas alcalinas y de litio",
-      "use": "",
-      "spec": "Pilas alcalinas y de litio",
-      "values": [
-       "Pilas alcalinas y de litio"
-      ]
-     },
-     {
-      "id": "cargadores",
-      "name": "Cargadores",
-      "use": "",
-      "spec": "Cargadores",
-      "values": [
-       "Cargadores"
-      ]
-     },
-     {
-      "id": "pilas-recargables",
-      "name": "Pilas recargables",
-      "use": "",
-      "spec": "Pilas recargables",
-      "values": [
-       "Pilas recargables"
-      ]
-     },
-     {
-      "id": "cargadores-con-pilas",
-      "name": "Cargadores con pilas",
-      "use": "",
-      "spec": "Cargadores con pilas",
-      "values": [
-       "Cargadores con pilas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $340",
-      "max": 340
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$340 a $680",
-      "min": 340,
-      "max": 680
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $680",
-      "min": 680
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "charger_w"
-  ]
- },
- "Cargadores y adaptadores/Inalámbrico": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "estacion-3-en-1",
-      "name": "Estación 3 en 1",
-      "use": "",
-      "spec": "Estación 3 en 1",
-      "values": [
-       "Estación 3 en 1"
-      ]
-     },
-     {
-      "id": "cargador-inalambrico",
-      "name": "Cargador inalámbrico",
-      "use": "",
-      "spec": "Cargador inalámbrico",
-      "values": [
-       "Cargador inalámbrico"
-      ]
-     },
-     {
-      "id": "cargador-magsafe-o-qi2",
-      "name": "Cargador MagSafe o Qi2",
-      "use": "",
-      "spec": "Cargador MagSafe o Qi2",
-      "values": [
-       "Cargador MagSafe o Qi2"
-      ]
-     },
-     {
-      "id": "soporte-con-carga-auto-o-escritorio",
-      "name": "Soporte con carga (auto o escritorio)",
-      "use": "",
-      "spec": "Soporte con carga (auto o escritorio)",
-      "values": [
-       "Soporte con carga (auto o escritorio)"
-      ]
-     },
-     {
-      "id": "base-o-almohadilla-de-carga",
-      "name": "Base o almohadilla de carga",
-      "use": "",
-      "spec": "Base o almohadilla de carga",
-      "values": [
-       "Base o almohadilla de carga"
-      ]
-     },
-     {
-      "id": "estacion-2-en-1",
-      "name": "Estación 2 en 1",
-      "use": "",
-      "spec": "Estación 2 en 1",
-      "values": [
-       "Estación 2 en 1"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Cargadores y adaptadores/Cable": {
-  "axes": [
-   {
-    "label": "Largo",
-    "field": "length_m",
-    "criterion": "en metros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "corto",
-      "name": "Corto",
-      "use": "Junto a la computadora",
-      "spec": "Hasta 1.8 m",
-      "max": 1.8
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Lo más común",
-      "spec": "Más de 1.8 m, hasta 3 m",
-      "min": 1.8,
-      "max": 3
-     },
-     {
-      "id": "largo",
-      "name": "Largo",
-      "use": "Extensión a otro lado del cuarto",
-      "spec": "Más de 3 m",
-      "min": 3
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $270",
-      "max": 270
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$270 a $540",
-      "min": 270,
-      "max": 540
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $540",
-      "min": 540
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "charger_w"
-  ]
- },
- "Cargadores y adaptadores/Cables USB-C": {
-  "axes": [
-   {
-    "label": "Largo",
-    "field": "length_m",
-    "criterion": "en metros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "corto",
-      "name": "Corto",
-      "use": "Para el auto o la batería portátil",
-      "spec": "Hasta 1.2 m",
-      "max": 1.2
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Junto a la cama o el escritorio",
-      "spec": "Más de 1.2 m, hasta 2 m",
-      "min": 1.2,
-      "max": 2
-     },
-     {
-      "id": "largo",
-      "name": "Largo",
-      "use": "Para usarlo mientras carga",
-      "spec": "Más de 2 m",
-      "min": 2
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Cargadores y adaptadores/Cables y adaptadores de video": {
-  "axes": [
-   {
-    "label": "Largo",
-    "field": "length_m",
-    "criterion": "en metros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "corta",
-      "name": "Corta",
-      "use": "La tele junto al aparato",
-      "spec": "Hasta 2 m",
-      "max": 2
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Lo más común",
-      "spec": "3 m a 5 m",
-      "min": 2,
-      "max": 5
-     },
-     {
-      "id": "larga",
-      "name": "Larga",
-      "use": "Proyector o al otro lado del cuarto",
-      "spec": "Más de 5 m",
-      "min": 5
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $240",
-      "max": 240
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$240 a $540",
-      "min": 240,
-      "max": 540
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $540",
-      "min": 540
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "charger_w"
-  ]
- },
- "Cargadores y adaptadores/Cables micro USB": {
-  "axes": [
-   {
-    "label": "Largo",
-    "field": "length_m",
-    "criterion": "en metros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "corto",
-      "name": "Corto",
-      "use": "Para el auto o la batería portátil",
-      "spec": "Hasta 1 m",
-      "max": 1
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Junto a la cama o el escritorio",
-      "spec": "Más de 1 m, hasta 1.5 m",
-      "min": 1,
-      "max": 1.5
-     },
-     {
-      "id": "largo",
-      "name": "Largo",
-      "use": "Para usarlo mientras carga",
-      "spec": "Más de 1.5 m",
-      "min": 1.5
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $100",
-      "max": 100
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$100 a $200",
-      "min": 100,
-      "max": 200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $200",
-      "min": 200
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "charger_w"
-  ]
- },
- "Cargadores y adaptadores/Cables Lightning": {
-  "axes": [
-   {
-    "label": "Largo",
-    "field": "length_m",
-    "criterion": "en metros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "corto",
-      "name": "Corto",
-      "use": "Para el auto o la batería portátil",
-      "spec": "Hasta 1 m",
-      "max": 1
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Junto a la cama o el escritorio",
-      "spec": "Más de 1 m, hasta 1.8 m",
-      "min": 1,
-      "max": 1.8
-     },
-     {
-      "id": "largo",
-      "name": "Largo",
-      "use": "Para usarlo mientras carga",
-      "spec": "Más de 1.8 m",
-      "min": 1.8
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $270",
-      "max": 270
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$270 a $460",
-      "min": 270,
-      "max": 460
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $460",
-      "min": 460
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "charger_w"
-  ]
- },
- "Cargadores y adaptadores/Adaptador de corriente": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $420",
-      "max": 420
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$420 a $740",
-      "min": 420,
-      "max": 740
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $740",
-      "min": 740
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "charger_w"
-  ]
- },
- "Cargadores y adaptadores/Adaptadores de enchufe y de viaje": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $560",
-      "max": 560
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$560 a $890",
-      "min": 560,
-      "max": 890
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $890",
-      "min": 890
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/De auto": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$440 a $700",
-      "min": 440,
-      "max": 700
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cargadores multipuerto y estaciones de carga": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $630",
-      "max": 630
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$630 a $1,050",
-      "min": 630,
-      "max": 1050
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cables para reloj y gadgets": {
-  "axes": [],
-  "omitir": [
-   "charger_w"
-  ]
- },
- "Cargadores y adaptadores/Para laptop": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $500",
-      "max": 500
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$500 a $830",
-      "min": 500,
-      "max": 830
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $830",
-      "min": 830
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cargadores para reloj y gadgets": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $520",
-      "max": 520
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$520 a $970",
-      "min": 520,
-      "max": 970
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $970",
-      "min": 970
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "charger_w"
-  ]
- },
- "Cargadores y adaptadores/Base de carga": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $980",
-      "max": 980
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$980 a $1,300",
-      "min": 980,
-      "max": 1300
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,300",
-      "min": 1300
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "charger_w"
-  ]
- },
- "Cargadores y adaptadores/Cargadores para reloj y accesorios pequeños": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $550",
-      "max": 550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$550 a $1,000",
-      "min": 550,
-      "max": 1000
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,000",
-      "min": 1000
-     }
-    ]
-   }
-  ]
- },
- "Cargadores y adaptadores/Cables multiconector": {
-  "axes": [
-   {
-    "label": "Largo",
-    "field": "length_m",
-    "criterion": "en metros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "corto",
-      "name": "Corto",
-      "use": "Para el auto o la batería portátil",
-      "spec": "Hasta 1.2 m",
-      "max": 1.2
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Junto a la cama o el escritorio",
-      "spec": "Más de 1.2 m, hasta 1.5 m",
-      "min": 1.2,
-      "max": 1.5
-     },
-     {
-      "id": "largo",
-      "name": "Largo",
-      "use": "Para usarlo mientras carga",
-      "spec": "Más de 1.5 m",
-      "min": 1.5
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
  "Baterías portátiles/De uso diario": {
   "axes": [
    {
@@ -57785,675 +59475,6 @@
    }
   ]
  },
- "Bocinas/Amplificadores y receptores": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,950",
-      "max": 1950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,950 a $7,200",
-      "min": 1950,
-      "max": 7200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $7,200",
-      "min": 7200
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Cables para bocinas": {
-  "axes": [
-   {
-    "label": "Largo",
-    "field": "length_m",
-    "criterion": "en metros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "corto",
-      "name": "Corto",
-      "use": "Junto al equipo",
-      "spec": "Hasta 2 m",
-      "max": 2
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Bocinas en el mismo cuarto",
-      "spec": "Más de 2 m, hasta 5.5 m",
-      "min": 2,
-      "max": 5.5
-     },
-     {
-      "id": "largo",
-      "name": "Largo",
-      "use": "Bocinas lejos o en exterior",
-      "spec": "Más de 5.5 m",
-      "min": 5.5
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $190",
-      "max": 190
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$190 a $680",
-      "min": 190,
-      "max": 680
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $680",
-      "min": 680
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h",
-   "power_w"
-  ]
- },
- "Bocinas/Bocinas Bluetooth": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Bocinas/Bocinas con luces LED": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/De fiesta y karaoke": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/De estantería y Hi-Fi": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Accesorios para bocinas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $600",
-      "min": 290,
-      "max": 600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $600",
-      "min": 600
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h",
-   "power_w"
-  ]
- },
- "Bocinas/Radios y reproductores": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tocadiscos",
-      "name": "Tocadiscos",
-      "use": "",
-      "spec": "Tocadiscos",
-      "values": [
-       "Tocadiscos"
-      ]
-     },
-     {
-      "id": "reproductores-de-cd-y-casete",
-      "name": "Reproductores de CD y casete",
-      "use": "",
-      "spec": "Reproductores de CD y casete",
-      "values": [
-       "Reproductores de CD y casete"
-      ]
-     },
-     {
-      "id": "radio-portatil",
-      "name": "Radio portátil",
-      "use": "",
-      "spec": "Radio portátil",
-      "values": [
-       "Radio portátil"
-      ]
-     },
-     {
-      "id": "radio-despertador",
-      "name": "Radio despertador",
-      "use": "",
-      "spec": "Radio despertador",
-      "values": [
-       "Radio despertador"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,150",
-      "max": 1150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,150 a $2,450",
-      "min": 1150,
-      "max": 2450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,450",
-      "min": 2450
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h",
-   "power_w"
-  ]
- },
- "Bocinas/Barras de sonido": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "con-subwoofer",
-      "name": "Con subwoofer",
-      "use": "",
-      "spec": "Con subwoofer",
-      "values": [
-       "Con subwoofer"
-      ]
-     },
-     {
-      "id": "home-theater-sistema-completo",
-      "name": "Home theater (sistema completo)",
-      "use": "",
-      "spec": "Home theater (sistema completo)",
-      "values": [
-       "Home theater (sistema completo)"
-      ]
-     },
-     {
-      "id": "bluetooth-o-inalambrica",
-      "name": "Bluetooth o inalámbrica",
-      "use": "",
-      "spec": "Bluetooth o inalámbrica",
-      "values": [
-       "Bluetooth o inalámbrica"
-      ]
-     },
-     {
-      "id": "con-dolby-atmos",
-      "name": "Con Dolby Atmos",
-      "use": "",
-      "spec": "Con Dolby Atmos",
-      "values": [
-       "Con Dolby Atmos"
-      ]
-     },
-     {
-      "id": "para-pc-y-gamers",
-      "name": "Para PC y gamers",
-      "use": "",
-      "spec": "Para PC y gamers",
-      "values": [
-       "Para PC y gamers"
-      ]
-     },
-     {
-      "id": "compacta-2-0",
-      "name": "Compacta (2.0)",
-      "use": "",
-      "spec": "Compacta (2.0)",
-      "values": [
-       "Compacta (2.0)"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Conectores para bocinas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $99",
-      "max": 99
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$99 a $170",
-      "min": 99,
-      "max": 170
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $170",
-      "min": 170
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h",
-   "power_w"
-  ]
- },
- "Bocinas/Mini bocinas y de llavero": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Bocinas/Bocinas Bluetooth con radio, USB y micrófono": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Para PC y escritorio": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $590",
-      "max": 590
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$590 a $1,500",
-      "min": 590,
-      "max": 1500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,500",
-      "min": 1500
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Subwoofers": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Empotrables y de exterior": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Bafles y audio profesional": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
  "Tabletas/Accesorios para tableta": {
   "axes": [
    {
@@ -58901,15 +59922,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $570",
-      "max": 570
+      "spec": "Hasta $560",
+      "max": 560
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$570 a $980",
-      "min": 570,
+      "spec": "$560 a $980",
+      "min": 560,
       "max": 980
      },
      {
@@ -59710,16 +60731,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$600 a $960",
+      "spec": "$600 a $950",
       "min": 600,
-      "max": 960
+      "max": 950
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $960",
-      "min": 960
+      "spec": "Más de $950",
+      "min": 950
      }
     ]
    }
@@ -67950,21 +68971,21 @@
       ]
      },
      {
-      "id": "con-cable",
-      "name": "Con cable",
-      "use": "",
-      "spec": "Con cable",
-      "values": [
-       "Con cable"
-      ]
-     },
-     {
       "id": "de-mano-o-portatil",
       "name": "De mano o portátil",
       "use": "",
       "spec": "De mano o portátil",
       "values": [
        "De mano o portátil"
+      ]
+     },
+     {
+      "id": "con-cable",
+      "name": "Con cable",
+      "use": "",
+      "spec": "Con cable",
+      "values": [
+       "Con cable"
       ]
      },
      {
@@ -68273,23 +69294,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $4,950",
-      "max": 4950
+      "spec": "Hasta $5,400",
+      "max": 5400
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$4,950 a $10,500",
-      "min": 4950,
-      "max": 10500
+      "spec": "$5,400 a $11,500",
+      "min": 5400,
+      "max": 11500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $10,500",
-      "min": 10500
+      "spec": "Más de $11,500",
+      "min": 11500
      }
     ]
    }
@@ -68355,15 +69376,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $4,800",
-      "max": 4800
+      "spec": "Hasta $4,850",
+      "max": 4850
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$4,800 a $12,000",
-      "min": 4800,
+      "spec": "$4,850 a $12,000",
+      "min": 4850,
       "max": 12000
      },
      {
@@ -68390,15 +69411,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $2,400",
-      "max": 2400
+      "spec": "Hasta $2,450",
+      "max": 2450
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,400 a $7,500",
-      "min": 2400,
+      "spec": "$2,450 a $7,500",
+      "min": 2450,
       "max": 7500
      },
      {
@@ -68409,1027 +69430,6 @@
       "min": 7500
      }
     ]
-   }
-  ]
- },
- "Decoración de hogar y jardín/Vinil decorativo": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $340",
-      "max": 340
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$340 a $540",
-      "min": 340,
-      "max": 540
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $540",
-      "min": 540
-     }
-    ]
-   }
-  ]
- },
- "Decoración de hogar y jardín/Tapetes y alfombras": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 45 cm",
-      "max": 45
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "46 cm a 85 cm",
-      "min": 45,
-      "max": 85
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 85 cm",
-      "min": 85
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $950",
-      "max": 950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$950 a $1,850",
-      "min": 950,
-      "max": 1850
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,850",
-      "min": 1850
-     }
-    ]
-   }
-  ]
- },
- "Decoración de hogar y jardín/Figuras y adornos": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $390",
-      "max": 390
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$390 a $740",
-      "min": 390,
-      "max": 740
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $740",
-      "min": 740
-     }
-    ]
-   }
-  ]
- },
- "Decoración de hogar y jardín/Cuadros y decoración de pared": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "frame_cm",
-    "criterion": "el lado más largo",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Pasillo o repisa",
-      "spec": "Hasta 80 cm",
-      "max": 80
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Recámara",
-      "spec": "81 cm a 120 cm",
-      "min": 80,
-      "max": 120
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Sala o comedor",
-      "spec": "Más de 120 cm",
-      "min": 120
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,250",
-      "max": 1250
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,250 a $2,400",
-      "min": 1250,
-      "max": 2400
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,400",
-      "min": 2400
-     }
-    ]
-   }
-  ]
- },
- "Decoración de hogar y jardín/Cojines": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "cuadrados",
-      "name": "Cuadrados",
-      "use": "",
-      "spec": "Cuadrados",
-      "values": [
-       "Cuadrados"
-      ]
-     },
-     {
-      "id": "rectangulares-o-lumbares",
-      "name": "Rectangulares o lumbares",
-      "use": "",
-      "spec": "Rectangulares o lumbares",
-      "values": [
-       "Rectangulares o lumbares"
-      ]
-     },
-     {
-      "id": "fundas",
-      "name": "Fundas",
-      "use": "",
-      "spec": "Fundas",
-      "values": [
-       "Fundas"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Decoración de hogar y jardín/Portarretratos": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $550",
-      "max": 550
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$550 a $790",
-      "min": 550,
-      "max": 790
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $790",
-      "min": 790
-     }
-    ]
-   }
-  ]
- },
- "Decoración de hogar y jardín/Navidad y temporada": {
-  "axes": [
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 49 cm",
-      "max": 49
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "50 cm a 96 cm",
-      "min": 49,
-      "max": 96
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 96 cm",
-      "min": 96
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "piel-sintetica",
-      "name": "Piel sintética",
-      "use": "",
-      "spec": "Piel sintética",
-      "values": [
-       "Piel sintética"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     },
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Decoración de hogar y jardín/Espejos de cuerpo completo": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "de-pie-o-de-piso",
-      "name": "De pie o de piso",
-      "use": "",
-      "spec": "De pie o de piso",
-      "values": [
-       "De pie o de piso"
-      ]
-     },
-     {
-      "id": "con-luz",
-      "name": "Con luz",
-      "use": "",
-      "spec": "Con luz",
-      "values": [
-       "Con luz"
-      ]
-     },
-     {
-      "id": "de-pared",
-      "name": "De pared",
-      "use": "",
-      "spec": "De pared",
-      "values": [
-       "De pared"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 60 cm",
-      "max": 60
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "61 cm a 100 cm",
-      "min": 60,
-      "max": 100
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 100 cm",
-      "min": 100
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Decoración de hogar y jardín/Cortinas": {
-  "axes": [
-   {
-    "label": "Luz",
-    "field": "blackout",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Blackout",
-      "use": "Oscurece el cuarto",
-      "spec": "Blackout",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $780",
-      "max": 780
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$780 a $1,150",
-      "min": 780,
-      "max": 1150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
-     }
-    ]
-   }
-  ]
- },
- "Decoración de hogar y jardín/Espejos decorativos de pared": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "rectangulares-o-cuadrados",
-      "name": "Rectangulares o cuadrados",
-      "use": "",
-      "spec": "Rectangulares o cuadrados",
-      "values": [
-       "Rectangulares o cuadrados"
-      ]
-     },
-     {
-      "id": "redondos",
-      "name": "Redondos",
-      "use": "",
-      "spec": "Redondos",
-      "values": [
-       "Redondos"
-      ]
-     },
-     {
-      "id": "ovalados",
-      "name": "Ovalados",
-      "use": "",
-      "spec": "Ovalados",
-      "values": [
-       "Ovalados"
-      ]
-     },
-     {
-      "id": "irregulares-u-organicos",
-      "name": "Irregulares u orgánicos",
-      "use": "",
-      "spec": "Irregulares u orgánicos",
-      "values": [
-       "Irregulares u orgánicos"
-      ]
-     },
-     {
-      "id": "de-arco",
-      "name": "De arco",
-      "use": "",
-      "spec": "De arco",
-      "values": [
-       "De arco"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Tamaño",
-    "field": "length_cm",
-    "criterion": "por largo en cm",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chico",
-      "name": "Chico",
-      "use": "Cabe en cualquier lugar",
-      "spec": "Hasta 60 cm",
-      "max": 60
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "El tamaño más común",
-      "spec": "61 cm a 80 cm",
-      "min": 60,
-      "max": 80
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Ocupa más espacio",
-      "spec": "Más de 80 cm",
-      "min": 80
-     }
-    ],
-    "key": "size"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "madera",
-      "name": "Madera",
-      "use": "",
-      "spec": "Madera",
-      "values": [
-       "Madera"
-      ]
-     },
-     {
-      "id": "vidrio",
-      "name": "Vidrio",
-      "use": "",
-      "spec": "Vidrio",
-      "values": [
-       "Vidrio"
-      ]
-     },
-     {
-      "id": "acero",
-      "name": "Acero",
-      "use": "",
-      "spec": "Acero",
-      "values": [
-       "Acero"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Decoración de hogar y jardín/Floreros y centros de mesa": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "metal",
-      "name": "Metal",
-      "use": "",
-      "spec": "Metal",
-      "values": [
-       "Metal"
-      ]
-     },
-     {
-      "id": "vidrio",
-      "name": "Vidrio",
-      "use": "",
-      "spec": "Vidrio",
-      "values": [
-       "Vidrio"
-      ]
-     },
-     {
-      "id": "ceramica",
-      "name": "Cerámica",
-      "use": "",
-      "spec": "Cerámica",
-      "values": [
-       "Cerámica"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $440",
-      "max": 440
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$440 a $910",
-      "min": 440,
-      "max": 910
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $910",
-      "min": 910
-     }
-    ]
-   }
-  ]
- },
- "Decoración de hogar y jardín/Espejos de tocador y maquillaje": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $510",
-      "max": 510
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$510 a $920",
-      "min": 510,
-      "max": 920
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $920",
-      "min": 920
-     }
-    ]
-   }
-  ]
- },
- "Decoración de hogar y jardín/Espejos de baño con luz": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "redondos",
-      "name": "Redondos",
-      "use": "",
-      "spec": "Redondos",
-      "values": [
-       "Redondos"
-      ]
-     },
-     {
-      "id": "rectangulares",
-      "name": "Rectangulares",
-      "use": "",
-      "spec": "Rectangulares",
-      "values": [
-       "Rectangulares"
-      ]
-     },
-     {
-      "id": "ovalados",
-      "name": "Ovalados",
-      "use": "",
-      "spec": "Ovalados",
-      "values": [
-       "Ovalados"
-      ]
-     },
-     {
-      "id": "cuadrados",
-      "name": "Cuadrados",
-      "use": "",
-      "spec": "Cuadrados",
-      "values": [
-       "Cuadrados"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "vidrio",
-      "name": "Vidrio",
-      "use": "",
-      "spec": "Vidrio",
-      "values": [
-       "Vidrio"
-      ]
-     },
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "aluminio",
-      "name": "Aluminio",
-      "use": "",
-      "spec": "Aluminio",
-      "values": [
-       "Aluminio"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Decoración de hogar y jardín/Persianas": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "sheer-o-duo",
-      "name": "Sheer o dúo",
-      "use": "",
-      "spec": "Sheer o dúo",
-      "values": [
-       "Sheer o dúo"
-      ]
-     },
-     {
-      "id": "malla-solar-o-screen",
-      "name": "Malla solar o screen",
-      "use": "",
-      "spec": "Malla solar o screen",
-      "values": [
-       "Malla solar o screen"
-      ]
-     },
-     {
-      "id": "blackout",
-      "name": "Blackout",
-      "use": "",
-      "spec": "Blackout",
-      "values": [
-       "Blackout"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Ancho",
-    "field": "blind_cm",
-    "criterion": "de la persiana",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "angosta",
-      "name": "Angosta",
-      "use": "Baño o ventana chica",
-      "spec": "Hasta 120 cm",
-      "max": 120
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Recámara",
-      "spec": "121 cm a 160 cm",
-      "min": 120,
-      "max": 160
-     },
-     {
-      "id": "ancha",
-      "name": "Ancha",
-      "use": "Sala o ventanal",
-      "spec": "Más de 160 cm",
-      "min": 160
-     }
-    ],
-    "key": "size"
    }
   ]
  },
@@ -78874,15 +78874,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $870",
-      "max": 870
+      "spec": "Hasta $890",
+      "max": 890
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$870 a $2,150",
-      "min": 870,
+      "spec": "$890 a $2,150",
+      "min": 890,
       "max": 2150
      },
      {
@@ -79134,16 +79134,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,450 a $7,450",
+      "spec": "$2,450 a $7,550",
       "min": 2450,
-      "max": 7450
+      "max": 7550
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $7,450",
-      "min": 7450
+      "spec": "Más de $7,550",
+      "min": 7550
      }
     ]
    }
@@ -80281,16 +80281,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,950 a $4,750",
+      "spec": "$2,950 a $4,850",
       "min": 2950,
-      "max": 4750
+      "max": 4850
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,750",
-      "min": 4750
+      "spec": "Más de $4,850",
+      "min": 4850
      }
     ]
    }
@@ -80386,16 +80386,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$19,500 a $28,000",
+      "spec": "$19,500 a $27,500",
       "min": 19500,
-      "max": 28000
+      "max": 27500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $28,000",
-      "min": 28000
+      "spec": "Más de $27,500",
+      "min": 27500
      }
     ]
    }
@@ -82472,6 +82472,117 @@
    }
   ]
  },
+ "Audífonos": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Decoración de hogar y jardín": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "material",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "plastico",
+      "name": "Plástico",
+      "use": "",
+      "spec": "Plástico",
+      "values": [
+       "Plástico"
+      ]
+     },
+     {
+      "id": "poliester",
+      "name": "Poliéster",
+      "use": "",
+      "spec": "Poliéster",
+      "values": [
+       "Poliéster"
+      ]
+     },
+     {
+      "id": "aglomerado-mdf-mdp",
+      "name": "Aglomerado (MDF/MDP)",
+      "use": "",
+      "spec": "Aglomerado (MDF/MDP)",
+      "values": [
+       "Aglomerado (MDF/MDP)"
+      ]
+     },
+     {
+      "id": "tela",
+      "name": "Tela",
+      "use": "",
+      "spec": "Tela",
+      "values": [
+       "Tela"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,050",
+      "max": 1050
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,050 a $1,950",
+      "min": 1050,
+      "max": 1950
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,950",
+      "min": 1950
+     }
+    ]
+   }
+  ]
+ },
  "Autos y motos": {
   "axes": [
    {
@@ -82575,31 +82686,35 @@
    }
   ]
  },
- "Audífonos": {
+ "Cargadores y adaptadores": {
   "axes": [
    {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
+    "label": "Largo",
+    "field": "length_m",
+    "criterion": "en metros",
+    "ramp": true,
     "tiers": [
      {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
+      "id": "corta",
+      "name": "Corta",
+      "use": "Un mueble o un marco",
+      "spec": "Hasta 1.5 m",
+      "max": 1.5
      },
      {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Una pared",
+      "spec": "Más de 1.5 m, hasta 2 m",
+      "min": 1.5,
+      "max": 2
+     },
+     {
+      "id": "larga",
+      "name": "Larga",
+      "use": "Un cuarto entero",
+      "spec": "Más de 2 m",
+      "min": 2
      }
     ],
     "key": "size"
@@ -82899,41 +83014,6 @@
       "min": 1300
      }
     ]
-   }
-  ]
- },
- "Cargadores y adaptadores": {
-  "axes": [
-   {
-    "label": "Largo",
-    "field": "length_m",
-    "criterion": "en metros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "corta",
-      "name": "Corta",
-      "use": "Un mueble o un marco",
-      "spec": "Hasta 1.5 m",
-      "max": 1.5
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Una pared",
-      "spec": "Más de 1.5 m, hasta 2 m",
-      "min": 1.5,
-      "max": 2
-     },
-     {
-      "id": "larga",
-      "name": "Larga",
-      "use": "Un cuarto entero",
-      "spec": "Más de 2 m",
-      "min": 2
-     }
-    ],
-    "key": "size"
    }
   ]
  },
@@ -83500,103 +83580,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,200",
-      "max": 1200
+      "spec": "Hasta $1,250",
+      "max": 1250
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,200 a $3,800",
-      "min": 1200,
-      "max": 3800
+      "spec": "$1,250 a $3,950",
+      "min": 1250,
+      "max": 3950
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,800",
-      "min": 3800
-     }
-    ]
-   }
-  ]
- },
- "Decoración de hogar y jardín": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "material",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "plastico",
-      "name": "Plástico",
-      "use": "",
-      "spec": "Plástico",
-      "values": [
-       "Plástico"
-      ]
-     },
-     {
-      "id": "poliester",
-      "name": "Poliéster",
-      "use": "",
-      "spec": "Poliéster",
-      "values": [
-       "Poliéster"
-      ]
-     },
-     {
-      "id": "aglomerado-mdf-mdp",
-      "name": "Aglomerado (MDF/MDP)",
-      "use": "",
-      "spec": "Aglomerado (MDF/MDP)",
-      "values": [
-       "Aglomerado (MDF/MDP)"
-      ]
-     },
-     {
-      "id": "tela",
-      "name": "Tela",
-      "use": "",
-      "spec": "Tela",
-      "values": [
-       "Tela"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,050",
-      "max": 1050
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,050 a $1,950",
-      "min": 1050,
-      "max": 1950
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,950",
-      "min": 1950
+      "spec": "Más de $3,950",
+      "min": 3950
      }
     ]
    }
