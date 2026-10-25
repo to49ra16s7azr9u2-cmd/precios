@@ -13606,15 +13606,6 @@
       "values": [
        "Acero inoxidable"
       ]
-     },
-     {
-      "id": "vidrio",
-      "name": "Vidrio",
-      "use": "",
-      "spec": "Vidrio",
-      "values": [
-       "Vidrio"
-      ]
      }
     ],
     "key": "extra"
@@ -17238,16 +17229,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,600 a $4,250",
+      "spec": "$2,600 a $3,850",
       "min": 2600,
-      "max": 4250
+      "max": 3850
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,250",
-      "min": 4250
+      "spec": "Más de $3,850",
+      "min": 3850
      }
     ]
    }
@@ -31452,15 +31443,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $820",
-      "max": 820
+      "spec": "Hasta $840",
+      "max": 840
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$820 a $1,500",
-      "min": 820,
+      "spec": "$840 a $1,500",
+      "min": 840,
       "max": 1500
      },
      {
@@ -35809,16 +35800,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$370 a $790",
+      "spec": "$370 a $780",
       "min": 370,
-      "max": 790
+      "max": 780
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $790",
-      "min": 790
+      "spec": "Más de $780",
+      "min": 780
      }
     ]
    }
@@ -41044,15 +41035,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $180",
-      "max": 180
+      "spec": "Hasta $170",
+      "max": 170
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$180 a $470",
-      "min": 180,
+      "spec": "$170 a $470",
+      "min": 170,
       "max": 470
      },
      {
@@ -42994,6 +42985,86 @@
    }
   ]
  },
+ "Cocina y comedor/Ollas y cacerolas": {
+  "axes": [
+   {
+    "label": "Material",
+    "field": "pan_material",
+    "criterion": "de la superficie",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "antiadherente",
+      "name": "Antiadherente",
+      "use": "No se pega, fácil de lavar",
+      "spec": "Antiadherente",
+      "values": [
+       "Antiadherente"
+      ]
+     },
+     {
+      "id": "ceramica",
+      "name": "Cerámica",
+      "use": "Antiadherente sin teflón",
+      "spec": "Cerámica",
+      "values": [
+       "Cerámica"
+      ]
+     },
+     {
+      "id": "acero-inoxidable",
+      "name": "Acero inoxidable",
+      "use": "Para dorar y sellar; dura años",
+      "spec": "Acero inoxidable",
+      "values": [
+       "Acero inoxidable"
+      ]
+     },
+     {
+      "id": "hierro-fundido",
+      "name": "Hierro fundido",
+      "use": "Guarda el calor; dura toda la vida",
+      "spec": "Hierro fundido",
+      "values": [
+       "Hierro fundido"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Capacidad",
+    "field": "liters",
+    "criterion": "en litros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Una o dos personas",
+      "spec": "Hasta 5 L",
+      "max": 5
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Para la familia",
+      "spec": "6 L a 11 L",
+      "min": 5,
+      "max": 11
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Reuniones o uso intensivo",
+      "spec": "Más de 11 L",
+      "min": 11
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
  "Cocina y comedor/Utensilios de cocina": {
   "axes": [
    {
@@ -44572,86 +44643,6 @@
    }
   ]
  },
- "Cocina y comedor/Ollas y cacerolas": {
-  "axes": [
-   {
-    "label": "Material",
-    "field": "pan_material",
-    "criterion": "de la superficie",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "antiadherente",
-      "name": "Antiadherente",
-      "use": "No se pega, fácil de lavar",
-      "spec": "Antiadherente",
-      "values": [
-       "Antiadherente"
-      ]
-     },
-     {
-      "id": "ceramica",
-      "name": "Cerámica",
-      "use": "Antiadherente sin teflón",
-      "spec": "Cerámica",
-      "values": [
-       "Cerámica"
-      ]
-     },
-     {
-      "id": "acero-inoxidable",
-      "name": "Acero inoxidable",
-      "use": "Para dorar y sellar; dura años",
-      "spec": "Acero inoxidable",
-      "values": [
-       "Acero inoxidable"
-      ]
-     },
-     {
-      "id": "hierro-fundido",
-      "name": "Hierro fundido",
-      "use": "Guarda el calor; dura toda la vida",
-      "spec": "Hierro fundido",
-      "values": [
-       "Hierro fundido"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Capacidad",
-    "field": "liters",
-    "criterion": "en litros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Una o dos personas",
-      "spec": "Hasta 5 L",
-      "max": 5
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Para la familia",
-      "spec": "6 L a 11 L",
-      "min": 5,
-      "max": 11
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Reuniones o uso intensivo",
-      "spec": "Más de 11 L",
-      "min": 11
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
  "Cocina y comedor/Juegos de tazas": {
   "axes": [
    {
@@ -45420,675 +45411,6 @@
      }
     ]
    }
-  ]
- },
- "Bocinas/Bafles y audio profesional": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Amplificadores y receptores": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,950",
-      "max": 1950
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,950 a $7,200",
-      "min": 1950,
-      "max": 7200
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $7,200",
-      "min": 7200
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Cables para bocinas": {
-  "axes": [
-   {
-    "label": "Largo",
-    "field": "length_m",
-    "criterion": "en metros",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "corto",
-      "name": "Corto",
-      "use": "Junto al equipo",
-      "spec": "Hasta 2 m",
-      "max": 2
-     },
-     {
-      "id": "mediano",
-      "name": "Mediano",
-      "use": "Bocinas en el mismo cuarto",
-      "spec": "Más de 2 m, hasta 5.5 m",
-      "min": 2,
-      "max": 5.5
-     },
-     {
-      "id": "largo",
-      "name": "Largo",
-      "use": "Bocinas lejos o en exterior",
-      "spec": "Más de 5.5 m",
-      "min": 5.5
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $190",
-      "max": 190
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$190 a $680",
-      "min": 190,
-      "max": 680
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $680",
-      "min": 680
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h",
-   "power_w"
-  ]
- },
- "Bocinas/Bocinas Bluetooth": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Bocinas/Bocinas con luces LED": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/De fiesta y karaoke": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/De estantería y Hi-Fi": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Accesorios para bocinas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $290",
-      "max": 290
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$290 a $600",
-      "min": 290,
-      "max": 600
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $600",
-      "min": 600
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h",
-   "power_w"
-  ]
- },
- "Bocinas/Radios y reproductores": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "tocadiscos",
-      "name": "Tocadiscos",
-      "use": "",
-      "spec": "Tocadiscos",
-      "values": [
-       "Tocadiscos"
-      ]
-     },
-     {
-      "id": "reproductores-de-cd-y-casete",
-      "name": "Reproductores de CD y casete",
-      "use": "",
-      "spec": "Reproductores de CD y casete",
-      "values": [
-       "Reproductores de CD y casete"
-      ]
-     },
-     {
-      "id": "radio-portatil",
-      "name": "Radio portátil",
-      "use": "",
-      "spec": "Radio portátil",
-      "values": [
-       "Radio portátil"
-      ]
-     },
-     {
-      "id": "radio-despertador",
-      "name": "Radio despertador",
-      "use": "",
-      "spec": "Radio despertador",
-      "values": [
-       "Radio despertador"
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $1,150",
-      "max": 1150
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$1,150 a $2,450",
-      "min": 1150,
-      "max": 2450
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $2,450",
-      "min": 2450
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h",
-   "power_w"
-  ]
- },
- "Bocinas/Barras de sonido": {
-  "axes": [
-   {
-    "label": "Tipo",
-    "field": "kind",
-    "criterion": "según el nombre",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "con-subwoofer",
-      "name": "Con subwoofer",
-      "use": "",
-      "spec": "Con subwoofer",
-      "values": [
-       "Con subwoofer"
-      ]
-     },
-     {
-      "id": "home-theater-sistema-completo",
-      "name": "Home theater (sistema completo)",
-      "use": "",
-      "spec": "Home theater (sistema completo)",
-      "values": [
-       "Home theater (sistema completo)"
-      ]
-     },
-     {
-      "id": "bluetooth-o-inalambrica",
-      "name": "Bluetooth o inalámbrica",
-      "use": "",
-      "spec": "Bluetooth o inalámbrica",
-      "values": [
-       "Bluetooth o inalámbrica"
-      ]
-     },
-     {
-      "id": "con-dolby-atmos",
-      "name": "Con Dolby Atmos",
-      "use": "",
-      "spec": "Con Dolby Atmos",
-      "values": [
-       "Con Dolby Atmos"
-      ]
-     },
-     {
-      "id": "para-pc-y-gamers",
-      "name": "Para PC y gamers",
-      "use": "",
-      "spec": "Para PC y gamers",
-      "values": [
-       "Para PC y gamers"
-      ]
-     },
-     {
-      "id": "compacta-2-0",
-      "name": "Compacta (2.0)",
-      "use": "",
-      "spec": "Compacta (2.0)",
-      "values": [
-       "Compacta (2.0)"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Conectores para bocinas": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $99",
-      "max": 99
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$99 a $170",
-      "min": 99,
-      "max": 170
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $170",
-      "min": 170
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h",
-   "power_w"
-  ]
- },
- "Bocinas/Mini bocinas y de llavero": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "extra"
-   }
-  ]
- },
- "Bocinas/Bocinas Bluetooth con radio, USB y micrófono": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Para PC y escritorio": {
-  "axes": [
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $590",
-      "max": 590
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$590 a $1,500",
-      "min": 590,
-      "max": 1500
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,500",
-      "min": 1500
-     }
-    ]
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Subwoofers": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
-  ]
- },
- "Bocinas/Empotrables y de exterior": {
-  "axes": [
-   {
-    "label": "Resistencia al agua",
-    "field": "water_resistant",
-    "criterion": "según la ficha",
-    "ramp": false,
-    "tiers": [
-     {
-      "id": "si",
-      "name": "Resistente al agua",
-      "use": "Aguanta lluvia, sudor o regadera",
-      "spec": "Resistente al agua",
-      "values": [
-       "Sí"
-      ]
-     },
-     {
-      "id": "no",
-      "name": "No resiste agua",
-      "use": "Mantener seco",
-      "spec": "No resiste agua",
-      "values": [
-       "No"
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ],
-  "omitir": [
-   "battery_h"
   ]
  },
  "Limpieza y hogar/Limpiadores y desinfectantes": {
@@ -47079,6 +46401,675 @@
  },
  "Audífonos/Puntas para audífonos": {
   "axes": [],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Bafles y audio profesional": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Amplificadores y receptores": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,950",
+      "max": 1950
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,950 a $7,200",
+      "min": 1950,
+      "max": 7200
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $7,200",
+      "min": 7200
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Cables para bocinas": {
+  "axes": [
+   {
+    "label": "Largo",
+    "field": "length_m",
+    "criterion": "en metros",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "corto",
+      "name": "Corto",
+      "use": "Junto al equipo",
+      "spec": "Hasta 2 m",
+      "max": 2
+     },
+     {
+      "id": "mediano",
+      "name": "Mediano",
+      "use": "Bocinas en el mismo cuarto",
+      "spec": "Más de 2 m, hasta 5.5 m",
+      "min": 2,
+      "max": 5.5
+     },
+     {
+      "id": "largo",
+      "name": "Largo",
+      "use": "Bocinas lejos o en exterior",
+      "spec": "Más de 5.5 m",
+      "min": 5.5
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $190",
+      "max": 190
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$190 a $680",
+      "min": 190,
+      "max": 680
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $680",
+      "min": 680
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Bocinas Bluetooth": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Bocinas/Bocinas con luces LED": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/De fiesta y karaoke": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/De estantería y Hi-Fi": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Accesorios para bocinas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $290",
+      "max": 290
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$290 a $600",
+      "min": 290,
+      "max": 600
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $600",
+      "min": 600
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Radios y reproductores": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "tocadiscos",
+      "name": "Tocadiscos",
+      "use": "",
+      "spec": "Tocadiscos",
+      "values": [
+       "Tocadiscos"
+      ]
+     },
+     {
+      "id": "reproductores-de-cd-y-casete",
+      "name": "Reproductores de CD y casete",
+      "use": "",
+      "spec": "Reproductores de CD y casete",
+      "values": [
+       "Reproductores de CD y casete"
+      ]
+     },
+     {
+      "id": "radio-portatil",
+      "name": "Radio portátil",
+      "use": "",
+      "spec": "Radio portátil",
+      "values": [
+       "Radio portátil"
+      ]
+     },
+     {
+      "id": "radio-despertador",
+      "name": "Radio despertador",
+      "use": "",
+      "spec": "Radio despertador",
+      "values": [
+       "Radio despertador"
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $1,150",
+      "max": 1150
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$1,150 a $2,450",
+      "min": 1150,
+      "max": 2450
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $2,450",
+      "min": 2450
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Barras de sonido": {
+  "axes": [
+   {
+    "label": "Tipo",
+    "field": "kind",
+    "criterion": "según el nombre",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "con-subwoofer",
+      "name": "Con subwoofer",
+      "use": "",
+      "spec": "Con subwoofer",
+      "values": [
+       "Con subwoofer"
+      ]
+     },
+     {
+      "id": "home-theater-sistema-completo",
+      "name": "Home theater (sistema completo)",
+      "use": "",
+      "spec": "Home theater (sistema completo)",
+      "values": [
+       "Home theater (sistema completo)"
+      ]
+     },
+     {
+      "id": "bluetooth-o-inalambrica",
+      "name": "Bluetooth o inalámbrica",
+      "use": "",
+      "spec": "Bluetooth o inalámbrica",
+      "values": [
+       "Bluetooth o inalámbrica"
+      ]
+     },
+     {
+      "id": "con-dolby-atmos",
+      "name": "Con Dolby Atmos",
+      "use": "",
+      "spec": "Con Dolby Atmos",
+      "values": [
+       "Con Dolby Atmos"
+      ]
+     },
+     {
+      "id": "para-pc-y-gamers",
+      "name": "Para PC y gamers",
+      "use": "",
+      "spec": "Para PC y gamers",
+      "values": [
+       "Para PC y gamers"
+      ]
+     },
+     {
+      "id": "compacta-2-0",
+      "name": "Compacta (2.0)",
+      "use": "",
+      "spec": "Compacta (2.0)",
+      "values": [
+       "Compacta (2.0)"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Conectores para bocinas": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $99",
+      "max": 99
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$99 a $170",
+      "min": 99,
+      "max": 170
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $170",
+      "min": 170
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h",
+   "power_w"
+  ]
+ },
+ "Bocinas/Mini bocinas y de llavero": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "extra"
+   }
+  ]
+ },
+ "Bocinas/Bocinas Bluetooth con radio, USB y micrófono": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Para PC y escritorio": {
+  "axes": [
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $590",
+      "max": 590
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$590 a $1,500",
+      "min": 590,
+      "max": 1500
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,500",
+      "min": 1500
+     }
+    ]
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Subwoofers": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
+  "omitir": [
+   "battery_h"
+  ]
+ },
+ "Bocinas/Empotrables y de exterior": {
+  "axes": [
+   {
+    "label": "Resistencia al agua",
+    "field": "water_resistant",
+    "criterion": "según la ficha",
+    "ramp": false,
+    "tiers": [
+     {
+      "id": "si",
+      "name": "Resistente al agua",
+      "use": "Aguanta lluvia, sudor o regadera",
+      "spec": "Resistente al agua",
+      "values": [
+       "Sí"
+      ]
+     },
+     {
+      "id": "no",
+      "name": "No resiste agua",
+      "use": "Mantener seco",
+      "spec": "No resiste agua",
+      "values": [
+       "No"
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ],
   "omitir": [
    "battery_h"
   ]
@@ -53595,6 +53586,466 @@
    }
   ]
  },
+ "Baterías portátiles/De uso diario": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Una carga de celular, cabe en el bolsillo",
+      "spec": "Hasta 10,000 mAh",
+      "max": 10000
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Dos o tres cargas",
+      "spec": "10,001 mAh a 20,000 mAh",
+      "min": 10000,
+      "max": 20000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Varios días o para viajar",
+      "spec": "Más de 20,000 mAh",
+      "min": 20000
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 20 W",
+      "max": 20
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "21 W a 30 W",
+      "min": 20,
+      "max": 30
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 30 W",
+      "min": 30
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Baterías portátiles/Magnéticas (MagSafe y Qi2)": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v5000",
+      "name": "5,000 mAh",
+      "use": "",
+      "spec": "5,000 mAh",
+      "values": [
+       5000
+      ]
+     },
+     {
+      "id": "v10000",
+      "name": "10,000 mAh",
+      "use": "",
+      "spec": "10,000 mAh",
+      "values": [
+       10000
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 15 W",
+      "max": 15
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "16 W a 22 W",
+      "min": 15,
+      "max": 22
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 22 W",
+      "min": 22
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Baterías portátiles/Solares": {
+  "axes": [
+   {
+    "key": "level",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $790",
+      "max": 790
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$790 a $990",
+      "min": 790,
+      "max": 990
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $990",
+      "min": 990
+     }
+    ]
+   }
+  ]
+ },
+ "Baterías portátiles/Estaciones de energía": {
+  "axes": [
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 300 W",
+      "max": 300
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "301 W a 600 W",
+      "min": 300,
+      "max": 600
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 600 W",
+      "min": 600
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Potencia",
+    "field": "power_w",
+    "criterion": "en watts",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Teléfono, laptop y luces",
+      "spec": "Hasta 300 W",
+      "max": 300
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Refrigerador y herramientas",
+      "spec": "301 W a 1,000 W",
+      "min": 300,
+      "max": 1000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Casa en un apagón",
+      "spec": "Más de 1,000 W",
+      "min": 1000
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Baterías portátiles/Con cable integrado o enchufe": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v10000",
+      "name": "10,000 mAh",
+      "use": "",
+      "spec": "10,000 mAh",
+      "values": [
+       10000
+      ]
+     },
+     {
+      "id": "v20000",
+      "name": "20,000 mAh",
+      "use": "",
+      "spec": "20,000 mAh",
+      "values": [
+       20000
+      ]
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v20",
+      "name": "20 W",
+      "use": "",
+      "spec": "20 W",
+      "values": [
+       20
+      ]
+     },
+     {
+      "id": "v22-5",
+      "name": "22.5 W",
+      "use": "",
+      "spec": "22.5 W",
+      "values": [
+       22.5
+      ]
+     },
+     {
+      "id": "v40",
+      "name": "40 W",
+      "use": "",
+      "spec": "40 W",
+      "values": [
+       40
+      ]
+     },
+     {
+      "id": "v45",
+      "name": "45 W",
+      "use": "",
+      "spec": "45 W",
+      "values": [
+       45
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Baterías portátiles/Inalámbricas": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Una carga de celular, cabe en el bolsillo",
+      "spec": "Hasta 10,000 mAh",
+      "max": 10000
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Dos o tres cargas",
+      "spec": "10,001 mAh a 20,000 mAh",
+      "min": 10000,
+      "max": 20000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Varios días o para viajar",
+      "spec": "Más de 20,000 mAh",
+      "min": 20000
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "v10",
+      "name": "10 W",
+      "use": "",
+      "spec": "10 W",
+      "values": [
+       10
+      ]
+     },
+     {
+      "id": "v15",
+      "name": "15 W",
+      "use": "",
+      "spec": "15 W",
+      "values": [
+       15
+      ]
+     },
+     {
+      "id": "v20",
+      "name": "20 W",
+      "use": "",
+      "spec": "20 W",
+      "values": [
+       20
+      ]
+     },
+     {
+      "id": "v22-5",
+      "name": "22.5 W",
+      "use": "",
+      "spec": "22.5 W",
+      "values": [
+       22.5
+      ]
+     },
+     {
+      "id": "v25",
+      "name": "25 W",
+      "use": "",
+      "spec": "25 W",
+      "values": [
+       25
+      ]
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
+ "Baterías portátiles/Para laptop (60 W o más)": {
+  "axes": [
+   {
+    "label": "Batería",
+    "field": "battery_mah",
+    "criterion": "en mAh",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "chica",
+      "name": "Chica",
+      "use": "Una carga de celular, cabe en el bolsillo",
+      "spec": "Hasta 20,000 mAh",
+      "max": 20000
+     },
+     {
+      "id": "mediana",
+      "name": "Mediana",
+      "use": "Dos o tres cargas",
+      "spec": "20,001 mAh a 25,000 mAh",
+      "min": 20000,
+      "max": 25000
+     },
+     {
+      "id": "grande",
+      "name": "Grande",
+      "use": "Varios días o para viajar",
+      "spec": "Más de 25,000 mAh",
+      "min": 25000
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 100 W",
+      "max": 100
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "101 W a 130 W",
+      "min": 100,
+      "max": 130
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 130 W",
+      "min": 130
+     }
+    ],
+    "key": "size"
+   }
+  ]
+ },
  "Salud/Movilidad y apoyo": {
   "axes": [
    {
@@ -59012,466 +59463,6 @@
       "min": 2000
      }
     ]
-   }
-  ]
- },
- "Baterías portátiles/De uso diario": {
-  "axes": [
-   {
-    "label": "Batería",
-    "field": "battery_mah",
-    "criterion": "en mAh",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Una carga de celular, cabe en el bolsillo",
-      "spec": "Hasta 10,000 mAh",
-      "max": 10000
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Dos o tres cargas",
-      "spec": "10,001 mAh a 20,000 mAh",
-      "min": 10000,
-      "max": 20000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Varios días o para viajar",
-      "spec": "Más de 20,000 mAh",
-      "min": 20000
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 20 W",
-      "max": 20
-     },
-     {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "21 W a 30 W",
-      "min": 20,
-      "max": 30
-     },
-     {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 30 W",
-      "min": 30
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Baterías portátiles/Magnéticas (MagSafe y Qi2)": {
-  "axes": [
-   {
-    "label": "Batería",
-    "field": "battery_mah",
-    "criterion": "en mAh",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v5000",
-      "name": "5,000 mAh",
-      "use": "",
-      "spec": "5,000 mAh",
-      "values": [
-       5000
-      ]
-     },
-     {
-      "id": "v10000",
-      "name": "10,000 mAh",
-      "use": "",
-      "spec": "10,000 mAh",
-      "values": [
-       10000
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 15 W",
-      "max": 15
-     },
-     {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "16 W a 22 W",
-      "min": 15,
-      "max": 22
-     },
-     {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 22 W",
-      "min": 22
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Baterías portátiles/Solares": {
-  "axes": [
-   {
-    "key": "level",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $790",
-      "max": 790
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$790 a $990",
-      "min": 790,
-      "max": 990
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $990",
-      "min": 990
-     }
-    ]
-   }
-  ]
- },
- "Baterías portátiles/Estaciones de energía": {
-  "axes": [
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 300 W",
-      "max": 300
-     },
-     {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "301 W a 600 W",
-      "min": 300,
-      "max": 600
-     },
-     {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 600 W",
-      "min": 600
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Potencia",
-    "field": "power_w",
-    "criterion": "en watts",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Teléfono, laptop y luces",
-      "spec": "Hasta 300 W",
-      "max": 300
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Refrigerador y herramientas",
-      "spec": "301 W a 1,000 W",
-      "min": 300,
-      "max": 1000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Casa en un apagón",
-      "spec": "Más de 1,000 W",
-      "min": 1000
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Baterías portátiles/Con cable integrado o enchufe": {
-  "axes": [
-   {
-    "label": "Batería",
-    "field": "battery_mah",
-    "criterion": "en mAh",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v10000",
-      "name": "10,000 mAh",
-      "use": "",
-      "spec": "10,000 mAh",
-      "values": [
-       10000
-      ]
-     },
-     {
-      "id": "v20000",
-      "name": "20,000 mAh",
-      "use": "",
-      "spec": "20,000 mAh",
-      "values": [
-       20000
-      ]
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v20",
-      "name": "20 W",
-      "use": "",
-      "spec": "20 W",
-      "values": [
-       20
-      ]
-     },
-     {
-      "id": "v22-5",
-      "name": "22.5 W",
-      "use": "",
-      "spec": "22.5 W",
-      "values": [
-       22.5
-      ]
-     },
-     {
-      "id": "v40",
-      "name": "40 W",
-      "use": "",
-      "spec": "40 W",
-      "values": [
-       40
-      ]
-     },
-     {
-      "id": "v45",
-      "name": "45 W",
-      "use": "",
-      "spec": "45 W",
-      "values": [
-       45
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Baterías portátiles/Inalámbricas": {
-  "axes": [
-   {
-    "label": "Batería",
-    "field": "battery_mah",
-    "criterion": "en mAh",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Una carga de celular, cabe en el bolsillo",
-      "spec": "Hasta 10,000 mAh",
-      "max": 10000
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Dos o tres cargas",
-      "spec": "10,001 mAh a 20,000 mAh",
-      "min": 10000,
-      "max": 20000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Varios días o para viajar",
-      "spec": "Más de 20,000 mAh",
-      "min": 20000
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "v10",
-      "name": "10 W",
-      "use": "",
-      "spec": "10 W",
-      "values": [
-       10
-      ]
-     },
-     {
-      "id": "v15",
-      "name": "15 W",
-      "use": "",
-      "spec": "15 W",
-      "values": [
-       15
-      ]
-     },
-     {
-      "id": "v20",
-      "name": "20 W",
-      "use": "",
-      "spec": "20 W",
-      "values": [
-       20
-      ]
-     },
-     {
-      "id": "v22-5",
-      "name": "22.5 W",
-      "use": "",
-      "spec": "22.5 W",
-      "values": [
-       22.5
-      ]
-     },
-     {
-      "id": "v25",
-      "name": "25 W",
-      "use": "",
-      "spec": "25 W",
-      "values": [
-       25
-      ]
-     }
-    ],
-    "key": "size"
-   }
-  ]
- },
- "Baterías portátiles/Para laptop (60 W o más)": {
-  "axes": [
-   {
-    "label": "Batería",
-    "field": "battery_mah",
-    "criterion": "en mAh",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "chica",
-      "name": "Chica",
-      "use": "Una carga de celular, cabe en el bolsillo",
-      "spec": "Hasta 20,000 mAh",
-      "max": 20000
-     },
-     {
-      "id": "mediana",
-      "name": "Mediana",
-      "use": "Dos o tres cargas",
-      "spec": "20,001 mAh a 25,000 mAh",
-      "min": 20000,
-      "max": 25000
-     },
-     {
-      "id": "grande",
-      "name": "Grande",
-      "use": "Varios días o para viajar",
-      "spec": "Más de 25,000 mAh",
-      "min": 25000
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 100 W",
-      "max": 100
-     },
-     {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "101 W a 130 W",
-      "min": 100,
-      "max": 130
-     },
-     {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 130 W",
-      "min": 130
-     }
-    ],
-    "key": "size"
    }
   ]
  },
@@ -73862,16 +73853,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$750 a $1,750",
+      "spec": "$750 a $1,800",
       "min": 750,
-      "max": 1750
+      "max": 1800
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,750",
-      "min": 1750
+      "spec": "Más de $1,800",
+      "min": 1800
      }
     ]
    }
@@ -82457,16 +82448,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$310 a $670",
+      "spec": "$310 a $660",
       "min": 310,
-      "max": 670
+      "max": 660
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $670",
-      "min": 670
+      "spec": "Más de $660",
+      "min": 660
      }
     ]
    }
@@ -82718,6 +82709,72 @@
      }
     ],
     "key": "size"
+   }
+  ]
+ },
+ "Baterías portátiles": {
+  "axes": [
+   {
+    "label": "Carga",
+    "field": "charger_w",
+    "criterion": "en watts de salida",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "lenta",
+      "name": "Lenta",
+      "use": "Teléfono y audífonos",
+      "spec": "Hasta 22 W",
+      "max": 22
+     },
+     {
+      "id": "rapida",
+      "name": "Rápida",
+      "use": "Carga rápida de teléfono y tablet",
+      "spec": "23 W a 65 W",
+      "min": 22,
+      "max": 65
+     },
+     {
+      "id": "muy-rapida",
+      "name": "Muy rápida",
+      "use": "Laptop o varios equipos",
+      "spec": "Más de 65 W",
+      "min": 65
+     }
+    ],
+    "key": "level"
+   },
+   {
+    "key": "size",
+    "label": "Precio",
+    "field": "price",
+    "criterion": "por lo que cuesta hoy",
+    "ramp": true,
+    "tiers": [
+     {
+      "id": "economico",
+      "name": "Económicos",
+      "use": "Lo más barato del rango",
+      "spec": "Hasta $600",
+      "max": 600
+     },
+     {
+      "id": "intermedio",
+      "name": "Intermedios",
+      "use": "El precio más común",
+      "spec": "$600 a $1,150",
+      "min": 600,
+      "max": 1150
+     },
+     {
+      "id": "alto",
+      "name": "De gama alta",
+      "use": "Lo más caro del rango",
+      "spec": "Más de $1,150",
+      "min": 1150
+     }
+    ]
    }
   ]
  },
@@ -83012,72 +83069,6 @@
       "use": "Lo más caro del rango",
       "spec": "Más de $1,300",
       "min": 1300
-     }
-    ]
-   }
-  ]
- },
- "Baterías portátiles": {
-  "axes": [
-   {
-    "label": "Carga",
-    "field": "charger_w",
-    "criterion": "en watts de salida",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "lenta",
-      "name": "Lenta",
-      "use": "Teléfono y audífonos",
-      "spec": "Hasta 22 W",
-      "max": 22
-     },
-     {
-      "id": "rapida",
-      "name": "Rápida",
-      "use": "Carga rápida de teléfono y tablet",
-      "spec": "23 W a 65 W",
-      "min": 22,
-      "max": 65
-     },
-     {
-      "id": "muy-rapida",
-      "name": "Muy rápida",
-      "use": "Laptop o varios equipos",
-      "spec": "Más de 65 W",
-      "min": 65
-     }
-    ],
-    "key": "level"
-   },
-   {
-    "key": "size",
-    "label": "Precio",
-    "field": "price",
-    "criterion": "por lo que cuesta hoy",
-    "ramp": true,
-    "tiers": [
-     {
-      "id": "economico",
-      "name": "Económicos",
-      "use": "Lo más barato del rango",
-      "spec": "Hasta $600",
-      "max": 600
-     },
-     {
-      "id": "intermedio",
-      "name": "Intermedios",
-      "use": "El precio más común",
-      "spec": "$600 a $1,150",
-      "min": 600,
-      "max": 1150
-     },
-     {
-      "id": "alto",
-      "name": "De gama alta",
-      "use": "Lo más caro del rango",
-      "spec": "Más de $1,150",
-      "min": 1150
      }
     ]
    }
