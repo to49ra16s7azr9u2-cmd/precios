@@ -472,16 +472,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$500 a $740",
+      "spec": "$500 a $730",
       "min": 500,
-      "max": 740
+      "max": 730
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $740",
-      "min": 740
+      "spec": "Más de $730",
+      "min": 730
      }
     ]
    }
@@ -854,16 +854,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,450 a $3,200",
+      "spec": "$1,450 a $3,250",
       "min": 1450,
-      "max": 3200
+      "max": 3250
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,200",
-      "min": 3200
+      "spec": "Más de $3,250",
+      "min": 3250
      }
     ]
    }
@@ -1050,23 +1050,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $430",
-      "max": 430
+      "spec": "Hasta $420",
+      "max": 420
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$430 a $580",
-      "min": 430,
-      "max": 580
+      "spec": "$420 a $570",
+      "min": 420,
+      "max": 570
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $580",
-      "min": 580
+      "spec": "Más de $570",
+      "min": 570
      }
     ]
    }
@@ -1225,15 +1225,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $2,100",
-      "max": 2100
+      "spec": "Hasta $2,000",
+      "max": 2000
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,100 a $4,600",
-      "min": 2100,
+      "spec": "$2,000 a $4,600",
+      "min": 2000,
       "max": 4600
      },
      {
@@ -1532,16 +1532,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$800 a $2,850",
+      "spec": "$800 a $2,900",
       "min": 800,
-      "max": 2850
+      "max": 2900
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,850",
-      "min": 2850
+      "spec": "Más de $2,900",
+      "min": 2900
      }
     ]
    }
@@ -1560,15 +1560,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $800",
-      "max": 800
+      "spec": "Hasta $750",
+      "max": 750
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$800 a $1,950",
-      "min": 800,
+      "spec": "$750 a $1,950",
+      "min": 750,
       "max": 1950
      },
      {
@@ -1637,16 +1637,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$5,850 a $18,000",
+      "spec": "$5,850 a $17,000",
       "min": 5850,
-      "max": 18000
+      "max": 17000
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $18,000",
-      "min": 18000
+      "spec": "Más de $17,000",
+      "min": 17000
      }
     ]
    }
@@ -1726,16 +1726,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$4,050 a $7,850",
+      "spec": "$4,050 a $8,000",
       "min": 4050,
-      "max": 7850
+      "max": 8000
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $7,850",
-      "min": 7850
+      "spec": "Más de $8,000",
+      "min": 8000
      }
     ]
    }
@@ -1789,15 +1789,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $840",
-      "max": 840
+      "spec": "Hasta $820",
+      "max": 820
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$840 a $4,650",
-      "min": 840,
+      "spec": "$820 a $4,650",
+      "min": 820,
       "max": 4650
      },
      {
@@ -1939,15 +1939,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,800",
-      "max": 1800
+      "spec": "Hasta $1,850",
+      "max": 1850
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,800 a $2,700",
-      "min": 1800,
+      "spec": "$1,850 a $2,700",
+      "min": 1850,
       "max": 2700
      },
      {
@@ -2051,16 +2051,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$630 a $1,250",
+      "spec": "$630 a $1,300",
       "min": 630,
-      "max": 1250
+      "max": 1300
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,250",
-      "min": 1250
+      "spec": "Más de $1,300",
+      "min": 1300
      }
     ]
    }
@@ -2316,15 +2316,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $6,200",
-      "max": 6200
+      "spec": "Hasta $6,050",
+      "max": 6050
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$6,200 a $10,000",
-      "min": 6200,
+      "spec": "$6,050 a $10,000",
+      "min": 6050,
       "max": 10000
      },
      {
@@ -2389,16 +2389,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$3,350 a $8,950",
+      "spec": "$3,350 a $8,750",
       "min": 3350,
-      "max": 8950
+      "max": 8750
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $8,950",
-      "min": 8950
+      "spec": "Más de $8,750",
+      "min": 8750
      }
     ]
    }
@@ -2417,15 +2417,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $5,150",
-      "max": 5150
+      "spec": "Hasta $5,050",
+      "max": 5050
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$5,150 a $7,450",
-      "min": 5150,
+      "spec": "$5,050 a $7,450",
+      "min": 5050,
       "max": 7450
      },
      {
@@ -3913,15 +3913,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $220",
-      "max": 220
+      "spec": "Hasta $210",
+      "max": 210
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$220 a $360",
-      "min": 220,
+      "spec": "$210 a $360",
+      "min": 210,
       "max": 360
      },
      {
@@ -7199,15 +7199,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $750",
-      "max": 750
+      "spec": "Hasta $770",
+      "max": 770
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$750 a $4,050",
-      "min": 750,
+      "spec": "$770 a $4,050",
+      "min": 770,
       "max": 4050
      },
      {
@@ -10157,16 +10157,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$750 a $1,100",
+      "spec": "$750 a $1,150",
       "min": 750,
-      "max": 1100
+      "max": 1150
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,100",
-      "min": 1100
+      "spec": "Más de $1,150",
+      "min": 1150
      }
     ]
    }
@@ -13445,16 +13445,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$4,700 a $8,750",
+      "spec": "$4,700 a $8,200",
       "min": 4700,
-      "max": 8750
+      "max": 8200
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $8,750",
-      "min": 8750
+      "spec": "Más de $8,200",
+      "min": 8200
      }
     ]
    }
@@ -15171,16 +15171,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,500 a $4,450",
+      "spec": "$2,500 a $4,400",
       "min": 2500,
-      "max": 4450
+      "max": 4400
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,450",
-      "min": 4450
+      "spec": "Más de $4,400",
+      "min": 4400
      }
     ]
    }
@@ -16354,16 +16354,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$590 a $1,200",
+      "spec": "$590 a $1,100",
       "min": 590,
-      "max": 1200
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,200",
-      "min": 1200
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -16489,15 +16489,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,000",
-      "max": 1000
+      "spec": "Hasta $1,050",
+      "max": 1050
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,000 a $1,950",
-      "min": 1000,
+      "spec": "$1,050 a $1,950",
+      "min": 1050,
       "max": 1950
      },
      {
@@ -19382,15 +19382,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $330",
-      "max": 330
+      "spec": "Hasta $320",
+      "max": 320
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$330 a $490",
-      "min": 330,
+      "spec": "$320 a $490",
+      "min": 320,
       "max": 490
      },
      {
@@ -19794,15 +19794,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $640",
-      "max": 640
+      "spec": "Hasta $670",
+      "max": 670
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$640 a $1,050",
-      "min": 640,
+      "spec": "$670 a $1,050",
+      "min": 670,
       "max": 1050
      },
      {
@@ -20497,16 +20497,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$550 a $790",
+      "spec": "$550 a $820",
       "min": 550,
-      "max": 790
+      "max": 820
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $790",
-      "min": 790
+      "spec": "Más de $820",
+      "min": 820
      }
     ]
    }
@@ -20908,23 +20908,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $710",
-      "max": 710
+      "spec": "Hasta $740",
+      "max": 740
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$710 a $1,050",
-      "min": 710,
-      "max": 1050
+      "spec": "$740 a $1,100",
+      "min": 740,
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -20988,23 +20988,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $480",
-      "max": 480
+      "spec": "Hasta $490",
+      "max": 490
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$480 a $1,050",
-      "min": 480,
-      "max": 1050
+      "spec": "$490 a $1,100",
+      "min": 490,
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -22963,16 +22963,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$230 a $560",
+      "spec": "$230 a $600",
       "min": 230,
-      "max": 560
+      "max": 600
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $560",
-      "min": 560
+      "spec": "Más de $600",
+      "min": 600
      }
     ]
    }
@@ -23512,15 +23512,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $830",
-      "max": 830
+      "spec": "Hasta $820",
+      "max": 820
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$830 a $1,450",
-      "min": 830,
+      "spec": "$820 a $1,450",
+      "min": 820,
       "max": 1450
      },
      {
@@ -23839,16 +23839,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$210 a $570",
+      "spec": "$210 a $580",
       "min": 210,
-      "max": 570
+      "max": 580
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $570",
-      "min": 570
+      "spec": "Más de $580",
+      "min": 580
      }
     ]
    }
@@ -24197,16 +24197,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$420 a $780",
+      "spec": "$420 a $790",
       "min": 420,
-      "max": 780
+      "max": 790
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $780",
-      "min": 780
+      "spec": "Más de $790",
+      "min": 790
      }
     ]
    }
@@ -24826,16 +24826,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$310 a $610",
+      "spec": "$310 a $630",
       "min": 310,
-      "max": 610
+      "max": 630
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $610",
-      "min": 610
+      "spec": "Más de $630",
+      "min": 630
      }
     ]
    }
@@ -25251,16 +25251,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$190 a $350",
+      "spec": "$190 a $370",
       "min": 190,
-      "max": 350
+      "max": 370
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $350",
-      "min": 350
+      "spec": "Más de $370",
+      "min": 370
      }
     ]
    }
@@ -25844,15 +25844,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $910",
-      "max": 910
+      "spec": "Hasta $920",
+      "max": 920
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$910 a $1,600",
-      "min": 910,
+      "spec": "$920 a $1,600",
+      "min": 920,
       "max": 1600
      },
      {
@@ -27389,16 +27389,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$610 a $940",
+      "spec": "$610 a $950",
       "min": 610,
-      "max": 940
+      "max": 950
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $940",
-      "min": 940
+      "spec": "Más de $950",
+      "min": 950
      }
     ]
    }
@@ -27517,15 +27517,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $490",
-      "max": 490
+      "spec": "Hasta $480",
+      "max": 480
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$490 a $660",
-      "min": 490,
+      "spec": "$480 a $660",
+      "min": 480,
       "max": 660
      },
      {
@@ -30202,16 +30202,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$940 a $2,150",
+      "spec": "$940 a $2,100",
       "min": 940,
-      "max": 2150
+      "max": 2100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,150",
-      "min": 2150
+      "spec": "Más de $2,100",
+      "min": 2100
      }
     ]
    }
@@ -30826,16 +30826,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,400 a $2,750",
+      "spec": "$1,400 a $2,800",
       "min": 1400,
-      "max": 2750
+      "max": 2800
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,750",
-      "min": 2750
+      "spec": "Más de $2,800",
+      "min": 2800
      }
     ]
    }
@@ -31323,16 +31323,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$420 a $880",
+      "spec": "$420 a $870",
       "min": 420,
-      "max": 880
+      "max": 870
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $880",
-      "min": 880
+      "spec": "Más de $870",
+      "min": 870
      }
     ]
    }
@@ -33039,16 +33039,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$540 a $950",
+      "spec": "$540 a $1,100",
       "min": 540,
-      "max": 950
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $950",
-      "min": 950
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -33269,16 +33269,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$290 a $650",
+      "spec": "$290 a $640",
       "min": 290,
-      "max": 650
+      "max": 640
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $650",
-      "min": 650
+      "spec": "Más de $640",
+      "min": 640
      }
     ]
    }
@@ -33679,15 +33679,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $350",
-      "max": 350
+      "spec": "Hasta $340",
+      "max": 340
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$350 a $630",
-      "min": 350,
+      "spec": "$340 a $630",
+      "min": 340,
       "max": 630
      },
      {
@@ -35247,15 +35247,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $420",
-      "max": 420
+      "spec": "Hasta $410",
+      "max": 410
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$420 a $840",
-      "min": 420,
+      "spec": "$410 a $840",
+      "min": 410,
       "max": 840
      },
      {
@@ -35282,23 +35282,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,250",
-      "max": 1250
+      "spec": "Hasta $1,200",
+      "max": 1200
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,250 a $2,000",
-      "min": 1250,
-      "max": 2000
+      "spec": "$1,200 a $2,050",
+      "min": 1200,
+      "max": 2050
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,000",
-      "min": 2000
+      "spec": "Más de $2,050",
+      "min": 2050
      }
     ]
    }
@@ -35573,15 +35573,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $460",
-      "max": 460
+      "spec": "Hasta $470",
+      "max": 470
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$460 a $1,000",
-      "min": 460,
+      "spec": "$470 a $1,000",
+      "min": 470,
       "max": 1000
      },
      {
@@ -36689,16 +36689,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$370 a $820",
+      "spec": "$370 a $800",
       "min": 370,
-      "max": 820
+      "max": 800
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $820",
-      "min": 820
+      "spec": "Más de $800",
+      "min": 800
      }
     ]
    }
@@ -36724,16 +36724,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$490 a $960",
+      "spec": "$490 a $920",
       "min": 490,
-      "max": 960
+      "max": 920
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $960",
-      "min": 960
+      "spec": "Más de $920",
+      "min": 920
      }
     ]
    }
@@ -36759,16 +36759,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$590 a $850",
+      "spec": "$590 a $860",
       "min": 590,
-      "max": 850
+      "max": 860
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $850",
-      "min": 850
+      "spec": "Más de $860",
+      "min": 860
      }
     ]
    }
@@ -42446,15 +42446,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $400",
-      "max": 400
+      "spec": "Hasta $390",
+      "max": 390
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$400 a $650",
-      "min": 400,
+      "spec": "$390 a $650",
+      "min": 390,
       "max": 650
      },
      {
@@ -42778,15 +42778,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $190",
-      "max": 190
+      "spec": "Hasta $180",
+      "max": 180
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$190 a $330",
-      "min": 190,
+      "spec": "$180 a $330",
+      "min": 180,
       "max": 330
      },
      {
@@ -43838,16 +43838,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$480 a $740",
+      "spec": "$480 a $750",
       "min": 480,
-      "max": 740
+      "max": 750
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $740",
-      "min": 740
+      "spec": "Más de $750",
+      "min": 750
      }
     ]
    }
@@ -43963,23 +43963,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $680",
-      "max": 680
+      "spec": "Hasta $710",
+      "max": 710
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$680 a $1,050",
-      "min": 680,
-      "max": 1050
+      "spec": "$710 a $1,100",
+      "min": 710,
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -44127,15 +44127,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $360",
-      "max": 360
+      "spec": "Hasta $370",
+      "max": 370
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$360 a $770",
-      "min": 360,
+      "spec": "$370 a $770",
+      "min": 370,
       "max": 770
      },
      {
@@ -45022,16 +45022,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$650 a $1,000",
+      "spec": "$650 a $1,050",
       "min": 650,
-      "max": 1000
+      "max": 1050
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,000",
-      "min": 1000
+      "spec": "Más de $1,050",
+      "min": 1050
      }
     ]
    }
@@ -45483,16 +45483,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$250 a $600",
+      "spec": "$250 a $590",
       "min": 250,
-      "max": 600
+      "max": 590
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $600",
-      "min": 600
+      "spec": "Más de $590",
+      "min": 590
      }
     ]
    }
@@ -45962,15 +45962,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $500",
-      "max": 500
+      "spec": "Hasta $490",
+      "max": 490
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$500 a $650",
-      "min": 500,
+      "spec": "$490 a $650",
+      "min": 490,
       "max": 650
      },
      {
@@ -46466,16 +46466,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$530 a $830",
+      "spec": "$530 a $840",
       "min": 530,
-      "max": 830
+      "max": 840
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $830",
-      "min": 830
+      "spec": "Más de $840",
+      "min": 840
      }
     ]
    }
@@ -47140,16 +47140,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,150 a $2,850",
+      "spec": "$1,150 a $2,900",
       "min": 1150,
-      "max": 2850
+      "max": 2900
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,850",
-      "min": 2850
+      "spec": "Más de $2,900",
+      "min": 2900
      }
     ]
    }
@@ -49900,15 +49900,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $2,200",
-      "max": 2200
+      "spec": "Hasta $2,300",
+      "max": 2300
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,200 a $4,450",
-      "min": 2200,
+      "spec": "$2,300 a $4,450",
+      "min": 2300,
       "max": 4450
      },
      {
@@ -51175,16 +51175,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$950 a $1,900",
+      "spec": "$950 a $1,850",
       "min": 950,
-      "max": 1900
+      "max": 1850
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,900",
-      "min": 1900
+      "spec": "Más de $1,850",
+      "min": 1850
      }
     ]
    }
@@ -52123,15 +52123,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $820",
-      "max": 820
+      "spec": "Hasta $830",
+      "max": 830
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$820 a $1,650",
-      "min": 820,
+      "spec": "$830 a $1,650",
+      "min": 830,
       "max": 1650
      },
      {
@@ -52476,15 +52476,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,850",
-      "max": 1850
+      "spec": "Hasta $1,750",
+      "max": 1750
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,850 a $4,700",
-      "min": 1850,
+      "spec": "$1,750 a $4,700",
+      "min": 1750,
       "max": 4700
      },
      {
@@ -52514,15 +52514,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $820",
-      "max": 820
+      "spec": "Hasta $830",
+      "max": 830
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$820 a $1,350",
-      "min": 820,
+      "spec": "$830 a $1,350",
+      "min": 830,
       "max": 1350
      },
      {
@@ -52684,16 +52684,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$630 a $1,050",
+      "spec": "$630 a $1,100",
       "min": 630,
-      "max": 1050
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -53336,16 +53336,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$560 a $900",
+      "spec": "$560 a $890",
       "min": 560,
-      "max": 900
+      "max": 890
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $900",
-      "min": 900
+      "spec": "Más de $890",
+      "min": 890
      }
     ]
    }
@@ -53371,16 +53371,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$440 a $700",
+      "spec": "$440 a $710",
       "min": 440,
-      "max": 700
+      "max": 710
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $700",
-      "min": 700
+      "spec": "Más de $710",
+      "min": 710
      }
     ]
    }
@@ -53405,23 +53405,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $500",
-      "max": 500
+      "spec": "Hasta $510",
+      "max": 510
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$500 a $840",
-      "min": 500,
-      "max": 840
+      "spec": "$510 a $870",
+      "min": 510,
+      "max": 870
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $840",
-      "min": 840
+      "spec": "Más de $870",
+      "min": 870
      }
     ]
    }
@@ -54662,16 +54662,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$530 a $760",
+      "spec": "$530 a $770",
       "min": 530,
-      "max": 760
+      "max": 770
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $760",
-      "min": 760
+      "spec": "Más de $770",
+      "min": 770
      }
     ]
    }
@@ -55155,15 +55155,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
+      "spec": "Hasta $1,250",
+      "max": 1250
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,300 a $2,000",
-      "min": 1300,
+      "spec": "$1,250 a $2,000",
+      "min": 1250,
       "max": 2000
      },
      {
@@ -56398,16 +56398,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$450 a $690",
+      "spec": "$450 a $710",
       "min": 450,
-      "max": 690
+      "max": 710
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $690",
-      "min": 690
+      "spec": "Más de $710",
+      "min": 710
      }
     ]
    }
@@ -56757,16 +56757,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$420 a $580",
+      "spec": "$420 a $590",
       "min": 420,
-      "max": 580
+      "max": 590
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $580",
-      "min": 580
+      "spec": "Más de $590",
+      "min": 590
      }
     ]
    }
@@ -56827,16 +56827,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$390 a $500",
+      "spec": "$390 a $490",
       "min": 390,
-      "max": 500
+      "max": 490
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $500",
-      "min": 500
+      "spec": "Más de $490",
+      "min": 490
      }
     ]
    }
@@ -56925,15 +56925,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $460",
-      "max": 460
+      "spec": "Hasta $470",
+      "max": 470
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$460 a $650",
-      "min": 460,
+      "spec": "$470 a $650",
+      "min": 470,
       "max": 650
      },
      {
@@ -57484,16 +57484,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$600 a $1,050",
+      "spec": "$600 a $1,100",
       "min": 600,
-      "max": 1050
+      "max": 1100
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,050",
-      "min": 1050
+      "spec": "Más de $1,100",
+      "min": 1100
      }
     ]
    }
@@ -59907,16 +59907,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$560 a $980",
+      "spec": "$560 a $990",
       "min": 560,
-      "max": 980
+      "max": 990
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $980",
-      "min": 980
+      "spec": "Más de $990",
+      "min": 990
      }
     ]
    }
@@ -62242,15 +62242,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $9,800",
-      "max": 9800
+      "spec": "Hasta $9,850",
+      "max": 9850
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$9,800 a $18,500",
-      "min": 9800,
+      "spec": "$9,850 a $18,500",
+      "min": 9850,
       "max": 18500
      },
      {
@@ -64329,16 +64329,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,550 a $3,850",
+      "spec": "$1,550 a $3,800",
       "min": 1550,
-      "max": 3850
+      "max": 3800
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,850",
-      "min": 3850
+      "spec": "Más de $3,800",
+      "min": 3800
      }
     ]
    }
@@ -65246,15 +65246,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $6,600",
-      "max": 6600
+      "spec": "Hasta $6,750",
+      "max": 6750
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$6,600 a $14,500",
-      "min": 6600,
+      "spec": "$6,750 a $14,500",
+      "min": 6750,
       "max": 14500
      },
      {
@@ -66010,16 +66010,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$350 a $670",
+      "spec": "$350 a $680",
       "min": 350,
-      "max": 670
+      "max": 680
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $670",
-      "min": 670
+      "spec": "Más de $680",
+      "min": 680
      }
     ]
    }
@@ -66554,16 +66554,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$620 a $690",
+      "spec": "$620 a $680",
       "min": 620,
-      "max": 690
+      "max": 680
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $690",
-      "min": 690
+      "spec": "Más de $680",
+      "min": 680
      }
     ]
    }
@@ -66695,16 +66695,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$660 a $780",
+      "spec": "$660 a $790",
       "min": 660,
-      "max": 780
+      "max": 790
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $780",
-      "min": 780
+      "spec": "Más de $790",
+      "min": 790
      }
     ]
    }
@@ -67120,16 +67120,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,950 a $4,900",
+      "spec": "$2,950 a $4,850",
       "min": 2950,
-      "max": 4900
+      "max": 4850
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $4,900",
-      "min": 4900
+      "spec": "Más de $4,850",
+      "min": 4850
      }
     ]
    }
@@ -67670,15 +67670,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $1,300",
-      "max": 1300
+      "spec": "Hasta $1,250",
+      "max": 1250
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,300 a $5,450",
-      "min": 1300,
+      "spec": "$1,250 a $5,450",
+      "min": 1250,
       "max": 5450
      },
      {
@@ -68221,15 +68221,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $4,450",
-      "max": 4450
+      "spec": "Hasta $4,650",
+      "max": 4650
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$4,450 a $5,600",
-      "min": 4450,
+      "spec": "$4,650 a $5,600",
+      "min": 4650,
       "max": 5600
      },
      {
@@ -68697,23 +68697,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $570",
-      "max": 570
+      "spec": "Hasta $590",
+      "max": 590
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$570 a $830",
-      "min": 570,
-      "max": 830
+      "spec": "$590 a $840",
+      "min": 590,
+      "max": 840
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $830",
-      "min": 830
+      "spec": "Más de $840",
+      "min": 840
      }
     ]
    }
@@ -69150,16 +69150,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,550 a $3,450",
+      "spec": "$1,550 a $3,300",
       "min": 1550,
-      "max": 3450
+      "max": 3300
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,450",
-      "min": 3450
+      "spec": "Más de $3,300",
+      "min": 3300
      }
     ]
    }
@@ -69178,23 +69178,23 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $700",
-      "max": 700
+      "spec": "Hasta $640",
+      "max": 640
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$700 a $1,200",
-      "min": 700,
-      "max": 1200
+      "spec": "$640 a $1,150",
+      "min": 640,
+      "max": 1150
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $1,200",
-      "min": 1200
+      "spec": "Más de $1,150",
+      "min": 1150
      }
     ]
    }
@@ -71530,15 +71530,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $830",
-      "max": 830
+      "spec": "Hasta $840",
+      "max": 840
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$830 a $1,950",
-      "min": 830,
+      "spec": "$840 a $1,950",
+      "min": 840,
       "max": 1950
      },
      {
@@ -71891,16 +71891,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$740 a $3,350",
+      "spec": "$740 a $3,400",
       "min": 740,
-      "max": 3350
+      "max": 3400
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $3,350",
-      "min": 3350
+      "spec": "Más de $3,400",
+      "min": 3400
      }
     ]
    }
@@ -73063,15 +73063,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $850",
-      "max": 850
+      "spec": "Hasta $840",
+      "max": 840
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$850 a $1,900",
-      "min": 850,
+      "spec": "$840 a $1,900",
+      "min": 840,
       "max": 1900
      },
      {
@@ -73487,16 +73487,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$300 a $510",
+      "spec": "$300 a $520",
       "min": 300,
-      "max": 510
+      "max": 520
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $510",
-      "min": 510
+      "spec": "Más de $520",
+      "min": 520
      }
     ]
    }
@@ -74675,16 +74675,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,450 a $10,000",
+      "spec": "$2,450 a $10,500",
       "min": 2450,
-      "max": 10000
+      "max": 10500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $10,000",
-      "min": 10000
+      "spec": "Más de $10,500",
+      "min": 10500
      }
     ]
    }
@@ -76186,15 +76186,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $320",
-      "max": 320
+      "spec": "Hasta $310",
+      "max": 310
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$320 a $660",
-      "min": 320,
+      "spec": "$310 a $660",
+      "min": 310,
       "max": 660
      },
      {
@@ -76442,15 +76442,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $790",
-      "max": 790
+      "spec": "Hasta $780",
+      "max": 780
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$790 a $1,250",
-      "min": 790,
+      "spec": "$780 a $1,250",
+      "min": 780,
       "max": 1250
      },
      {
@@ -76477,15 +76477,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $280",
-      "max": 280
+      "spec": "Hasta $300",
+      "max": 300
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$280 a $590",
-      "min": 280,
+      "spec": "$300 a $590",
+      "min": 300,
       "max": 590
      },
      {
@@ -76788,16 +76788,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$330 a $600",
+      "spec": "$330 a $590",
       "min": 330,
-      "max": 600
+      "max": 590
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $600",
-      "min": 600
+      "spec": "Más de $590",
+      "min": 590
      }
     ]
    }
@@ -76823,16 +76823,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$240 a $360",
+      "spec": "$240 a $370",
       "min": 240,
-      "max": 360
+      "max": 370
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $360",
-      "min": 360
+      "spec": "Más de $370",
+      "min": 370
      }
     ]
    }
@@ -79112,16 +79112,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$2,600 a $7,550",
+      "spec": "$2,600 a $7,450",
       "min": 2600,
-      "max": 7550
+      "max": 7450
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $7,550",
-      "min": 7550
+      "spec": "Más de $7,450",
+      "min": 7450
      }
     ]
    }
@@ -79784,15 +79784,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $7,800",
-      "max": 7800
+      "spec": "Hasta $7,850",
+      "max": 7850
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$7,800 a $13,000",
-      "min": 7800,
+      "spec": "$7,850 a $13,000",
+      "min": 7850,
       "max": 13000
      },
      {
@@ -80287,15 +80287,15 @@
       "id": "economico",
       "name": "Económicos",
       "use": "Lo más barato del rango",
-      "spec": "Hasta $9,250",
-      "max": 9250
+      "spec": "Hasta $9,300",
+      "max": 9300
      },
      {
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$9,250 a $12,000",
-      "min": 9250,
+      "spec": "$9,300 a $12,000",
+      "min": 9300,
       "max": 12000
      },
      {
@@ -80873,16 +80873,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$10,000 a $20,000",
+      "spec": "$10,000 a $20,500",
       "min": 10000,
-      "max": 20000
+      "max": 20500
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $20,000",
-      "min": 20000
+      "spec": "Más de $20,500",
+      "min": 20500
      }
     ]
    }
@@ -82085,16 +82085,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$380 a $640",
+      "spec": "$380 a $650",
       "min": 380,
-      "max": 640
+      "max": 650
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $640",
-      "min": 640
+      "spec": "Más de $650",
+      "min": 650
      }
     ]
    }
@@ -82334,16 +82334,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$840 a $2,650",
+      "spec": "$840 a $2,700",
       "min": 840,
-      "max": 2650
+      "max": 2700
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $2,650",
-      "min": 2650
+      "spec": "Más de $2,700",
+      "min": 2700
      }
     ]
    }
@@ -84007,16 +84007,16 @@
       "id": "intermedio",
       "name": "Intermedios",
       "use": "El precio más común",
-      "spec": "$1,600 a $6,200",
+      "spec": "$1,600 a $6,350",
       "min": 1600,
-      "max": 6200
+      "max": 6350
      },
      {
       "id": "alto",
       "name": "De gama alta",
       "use": "Lo más caro del rango",
-      "spec": "Más de $6,200",
-      "min": 6200
+      "spec": "Más de $6,350",
+      "min": 6350
      }
     ]
    }
