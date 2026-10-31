@@ -35097,5 +35097,107 @@
    "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
    "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 2
   }
+ },
+ {
+  "fecha": "2026-10-31",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador e5444e3549fe7bde) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Autopartes | Cadenas, sprockets y transmisión | Limpieza y hogar | Limpiadores y desinfectantes": 1,
+   "Autopartes | Para autos | Papelería y oficina | Artículos de oficina": 1,
+   "Autopartes | Para autos | Muebles | Mesas de centro": 1,
+   "Autopartes | Para autos | Audífonos | Earbuds para niños": 1
+  }
+ },
+ {
+  "fecha": "2026-10-31",
+  "origen": "auditoria-mov.json",
+  "motivo": "reglas de auditoría (automático)",
+  "grupos": {
+   "Celulares | None | Celulares | Android": 2,
+   "Autopartes | Para autos | Celulares | Radios de dos vías": 1,
+   "Autopartes | Para autos | Instrumentos musicales | Sintetizadores y controladores MIDI": 1,
+   "Autopartes | Para autos | Papelería y oficina | Cuadernos": 10,
+   "Autopartes | Para autos | Papelería y oficina | Organización": 1,
+   "Autopartes | Para autos | Juguetes | Figuras de acción": 2,
+   "Autopartes | Para autos | Juguetes | Juguetes para exterior": 1,
+   "Autopartes | Para autos | Juguetes | Bloques de construcción": 1,
+   "Autopartes | Para autos | Juguetes | Juguetes educativos": 1,
+   "Autopartes | Para autos | Belleza y cuidado personal | Extensiones de cabello": 25,
+   "Autopartes | Para autos | Belleza y cuidado personal | Masajeadores": 2,
+   "Autopartes | Para autos | Herramientas | Grifos y monomandos": 12,
+   "Autopartes | Para autos | Herramientas | Seguridad industrial": 2,
+   "Autopartes | Para autos | Herramientas | Regaderas y duchas": 1,
+   "Autopartes | Para autos | Electrodomésticos | Arroceras y ollas multiusos": 1,
+   "Autopartes | Para autos | Mascotas | Higiene y limpieza": 3,
+   "Autopartes | Para autos | Impresoras | Tóner": 1,
+   "Autopartes | Para autos | Televisores | Soportes para TV": 1,
+   "Autopartes | Para autos | Cocina y comedor | Tarros y frascos": 1,
+   "Autopartes | Para autos | Cocina y comedor | Básculas y medidores": 2,
+   "Muebles | None | Muebles | Escritorios de oficina": 10,
+   "Muebles | None | Muebles | Escritorios de altura ajustable": 1,
+   "Muebles | None | Muebles | Escritorios en L y esquineros": 1,
+   "Muebles | None | Muebles | Mesas de centro": 1,
+   "Muebles | None | Muebles | Bases de cama y box": 1,
+   "Muebles | None | Muebles | Sillas plegables y de camping": 1,
+   "Muebles | None | Muebles | Sillas ejecutivas": 1,
+   "Muebles | None | Muebles | Colchones king size": 1,
+   "Muebles | None | Muebles | Organizadores y almacenamiento": 1,
+   "Muebles | None | Muebles | Mesas para TV y consolas": 2,
+   "Muebles | None | Muebles | Sofás cama": 4,
+   "Audífonos | None | Audífonos | Diadema con cable": 3,
+   "Audífonos | None | Audífonos | Earbuds inalámbricos": 20,
+   "Audífonos | None | Audífonos | Earbuds deportivos": 3,
+   "Audífonos | None | Audífonos | Diadema inalámbrica": 4,
+   "Audífonos | None | Audífonos | De oído abierto": 1,
+   "Herramientas | Cables y extensiones eléctricas | Herramientas | Material eléctrico": 2,
+   "Mascotas | Disfraces para mascotas | Mascotas | Ropa para mascotas": 1,
+   "Bocinas | None | Bocinas | Bocinas Bluetooth": 10,
+   "Bocinas | None | Bocinas | Mini bocinas y de llavero": 4,
+   "Bocinas | None | Bocinas | Para PC y escritorio": 2,
+   "Bocinas | None | Instrumentos musicales | Producción de audio": 1,
+   "Bocinas | None | Bocinas | Subwoofers": 5,
+   "Bocinas | None | Bocinas | Bafles y audio profesional": 4,
+   "Videojuegos | None | Videojuegos | Juegos PS5": 2,
+   "Videojuegos | None | Videojuegos | Juegos Xbox": 5,
+   "Videojuegos | None | Videojuegos | Juegos Nintendo Switch": 2,
+   "Cargadores y adaptadores | None | Baterías portátiles | De uso diario": 2,
+   "Cargadores y adaptadores | None | Cargadores y adaptadores | De pared": 2,
+   "Cargadores y adaptadores | None | Herramientas | Cables y extensiones eléctricas": 1,
+   "Cargadores y adaptadores | None | Cargadores y adaptadores | Inalámbrico": 1,
+   "Tabletas | None | Tabletas | Tabletas Android": 3,
+   "Tabletas | None | Tabletas | Tabletas Android de 10 a 11 pulgadas": 3,
+   "Tabletas | None | Tabletas | Tabletas Windows y rugged": 1,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Pesca": 17,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Fajas lumbares": 2,
+   "Teclados | None | Teclados | Mecánicos": 1,
+   "Teclados | None | Teclados | Combos con mouse": 1,
+   "Monitores | None | Monitores | Para casa y oficina": 1,
+   "Monitores | None | Monitores | Gaming": 1
+  }
+ },
+ {
+  "fecha": "2026-10-31",
+  "origen": "juez-origen.json",
+  "motivo": "juez de origen (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Muebles | Burós": 1,
+   "Autopartes | Para autos | Juguetes | None": 2,
+   "Autopartes | Para autos | Ropa y accesorios | None": 1,
+   "Autopartes | Para autos | Ropa y accesorios | Pantalones y jeans": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | None": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | Cremas y bálsamos para afeitar": 2,
+   "Autopartes | Para autos | Joyería y bisutería | Lentes oftálmicos y de lectura": 2
+  }
+ },
+ {
+  "fecha": "2026-10-31",
+  "origen": "precio_atipico.py",
+  "motivo": "precio imposible para su subcategoría (vecinos + precio)",
+  "grupos": {
+   "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
+   "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 2
+  }
  }
 ]
