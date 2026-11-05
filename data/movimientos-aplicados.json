@@ -35272,5 +35272,114 @@
    "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
    "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 2
   }
+ },
+ {
+  "fecha": "2026-11-04",
+  "origen": "mov_a51.json",
+  "motivo": "auditoria a51: muestra seed 51 + california scents + soportes de monitor de bebe",
+  "grupos": {
+   "Belleza y cuidado personal | Cremas faciales | Belleza y cuidado personal | Cuidado del cabello": 1,
+   "Electrodomésticos | Refacciones para aspiradora y robot | Aspiradoras | Bolsas para aspiradora": 1,
+   "Mascotas | Juguetes para perro | Mascotas | Comederos automáticos": 1,
+   "Impresoras | Cartuchos de tinta | Papelería y oficina | Arte y dibujo": 1,
+   "Cocina y comedor | Tazas | Decoración de hogar y jardín | Floreros y centros de mesa": 1,
+   "Cocina y comedor | Platos y bowls | Cocina y comedor | Desechables": 1,
+   "Limpieza y hogar | Aromatizantes y velas | Autos y motos | Aromatizantes para auto": 38,
+   "Bocinas | De fiesta y karaoke | Instrumentos musicales | Producción de audio": 1,
+   "Decoración de hogar y jardín | Tapetes y alfombras | Blancos y ropa de cama | Tapetes de baño": 1,
+   "Videojuegos | Juegos PS4 | Videojuegos | Controles para PlayStation": 1,
+   "Cargadores y adaptadores | Inalámbrico | Relojes inteligentes | Fundas, cargadores y protectores": 1,
+   "Cargadores y adaptadores | Regletas y multicontactos | Componentes y accesorios de PC | Hubs y docks para PC": 1,
+   "Componentes y accesorios de PC | Enfriamiento y ventiladores | Herramientas | Medición": 1,
+   "Iluminación | Decorativa | Domótica y hogar inteligente | Sensores": 1,
+   "Cámaras y fotografía | Videocámaras | Componentes y accesorios de PC | Webcams": 1,
+   "Bolsas y mochilas | Bolsas para mujer | Juguetes | Bloques de construcción": 1,
+   "Blancos y ropa de cama | Toallas de baño | Blancos y ropa de cama | Ganchos para baño": 1,
+   "Blancos y ropa de cama | Almohadas | Decoración de hogar y jardín | Cojines": 1,
+   "Juegos de mesa | Rompecabezas | Juguetes | Juguetes educativos": 1,
+   "Cámaras de seguridad | Cámaras interiores | Bebés | Monitores de bebé": 8,
+   "Componentes y accesorios de PC | Soportes para monitor | Bebés | Monitores de bebé": 42
+  }
+ },
+ {
+  "fecha": "2026-11-05",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador e5444e3549fe7bde) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Autopartes | Cadenas, sprockets y transmisión | Limpieza y hogar | Limpiadores y desinfectantes": 1,
+   "Autopartes | Para autos | Papelería y oficina | Artículos de oficina": 1,
+   "Autopartes | Para autos | Muebles | Mesas de centro": 1,
+   "Autopartes | Para autos | Audífonos | Earbuds para niños": 1,
+   "Cargadores y adaptadores | Para laptop | Papelería y oficina | Organización": 1,
+   "Cargadores y adaptadores | Para laptop | Cocina y comedor | Utensilios de cocina": 1,
+   "Cargadores y adaptadores | Inalámbrico | Autopartes | Tomas de agua y termostatos": 1
+  }
+ },
+ {
+  "fecha": "2026-11-05",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Impresoras | Consumibles | Papelería y oficina | Papel y sobres": 1
+  }
+ },
+ {
+  "fecha": "2026-11-05",
+  "origen": "auditoria-mov.json",
+  "motivo": "reglas de auditoría (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Celulares | Radios de dos vías": 1,
+   "Autopartes | Para autos | Instrumentos musicales | Sintetizadores y controladores MIDI": 1,
+   "Autopartes | Para autos | Papelería y oficina | Cuadernos": 10,
+   "Autopartes | Para autos | Papelería y oficina | Organización": 1,
+   "Autopartes | Para autos | Juguetes | Figuras de acción": 2,
+   "Autopartes | Para autos | Juguetes | Juguetes para exterior": 1,
+   "Autopartes | Para autos | Juguetes | Bloques de construcción": 1,
+   "Autopartes | Para autos | Juguetes | Juguetes educativos": 1,
+   "Autopartes | Para autos | Belleza y cuidado personal | Extensiones de cabello": 25,
+   "Autopartes | Para autos | Belleza y cuidado personal | Masajeadores": 2,
+   "Autopartes | Para autos | Herramientas | Grifos y monomandos": 12,
+   "Autopartes | Para autos | Herramientas | Seguridad industrial": 2,
+   "Autopartes | Para autos | Herramientas | Regaderas y duchas": 1,
+   "Autopartes | Para autos | Electrodomésticos | Arroceras y ollas multiusos": 1,
+   "Autopartes | Para autos | Mascotas | Higiene y limpieza": 3,
+   "Autopartes | Para autos | Impresoras | Tóner": 1,
+   "Autopartes | Para autos | Televisores | Soportes para TV": 1,
+   "Autopartes | Para autos | Cocina y comedor | Tarros y frascos": 1,
+   "Autopartes | Para autos | Cocina y comedor | Básculas y medidores": 2,
+   "Herramientas | Cables y extensiones eléctricas | Herramientas | Material eléctrico": 2,
+   "Mascotas | Disfraces para mascotas | Mascotas | Ropa para mascotas": 1,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Pesca": 17,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Fajas lumbares": 2,
+   "Climatización | None | Climatización | Aires acondicionados portátiles": 4
+  }
+ },
+ {
+  "fecha": "2026-11-05",
+  "origen": "juez-origen.json",
+  "motivo": "juez de origen (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Muebles | Burós": 1,
+   "Autopartes | Para autos | Juguetes | None": 2,
+   "Autopartes | Para autos | Ropa y accesorios | None": 1,
+   "Autopartes | Para autos | Ropa y accesorios | Pantalones y jeans": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | None": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | Cremas y bálsamos para afeitar": 2,
+   "Autopartes | Para autos | Joyería y bisutería | Lentes oftálmicos y de lectura": 2
+  }
+ },
+ {
+  "fecha": "2026-11-05",
+  "origen": "precio_atipico.py",
+  "motivo": "precio imposible para su subcategoría (vecinos + precio)",
+  "grupos": {
+   "Celulares | Android | Iluminación | Empotrada": 1,
+   "Celulares | Android | Belleza y cuidado personal | Aceites esenciales y de masaje": 1,
+   "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
+   "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 1,
+   "Herramientas | Escaleras | Herramientas | Apagadores y contactos": 1
+  }
  }
 ]
