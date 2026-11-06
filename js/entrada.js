@@ -7,7 +7,7 @@
  * todas las páginas estáticas de SEO (ver page_shell en
  * scripts/generate_seo_pages.py).
  *
- * Colores: negro y rojo del logo. Los dos buscadores (producto y categoría)
+ * Colores: blanco y rojo del logo. Los dos buscadores (producto y categoría)
  * están a la vista desde el principio. Al elegir una categoría asoma
  * «Compara calidad» para esa categoría; se puede saltar.
  *

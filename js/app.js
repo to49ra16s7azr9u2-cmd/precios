@@ -5334,7 +5334,7 @@
             <img class="search-cq-logo" src="icons/logo-comparacalidad.png" alt="Compara calidad">
             <span>de ${htmlEscapeAttr(s.nombre)} <span class="muted">(${s.n})</span></span>
           </span>
-          <span class="search-cq-aplicar">Aplicar a esta búsqueda →</span>
+          <span class="search-cq-aplicar">Encuentra más rápido el producto ideal para ti →</span>
         </button>`).join("");
     box.classList.remove("hidden");
     box.querySelectorAll(".search-cq-btn").forEach((b) => {
@@ -6013,8 +6013,19 @@
     return aside;
   }
 
+  // Apagado a pedido del usuario (6-nov-2026): el panel «Tiendas locales» del
+  // lado de la lista, con datos de demostración, se oculta por ahora. Para
+  // volver a mostrarlo basta poner esta constante en true.
+  const LOCAL_PANEL_VISIBLE = false;
+
   function renderLocalRanking(filtered) {
     const aside = localRankingEl();
+    if (!LOCAL_PANEL_VISIBLE) {
+      aside.hidden = true;
+      aside.innerHTML = "";
+      aside.parentNode.classList.remove("has-local");
+      return;
+    }
     // Las fichas con oferta local se buscan una vez por lista filtrada (son
     // pocas) y se ordenan solo ellas: recorrer la lista entera en cada clic
     // costaba ~0.2 s en Autopartes. sortedProducts es estable y compara de
