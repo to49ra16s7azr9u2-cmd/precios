@@ -5334,7 +5334,7 @@
             <img class="search-cq-logo" src="icons/logo-comparacalidad.png" alt="Compara calidad">
             <span>de ${htmlEscapeAttr(s.nombre)} <span class="muted">(${s.n})</span></span>
           </span>
-          <span class="search-cq-aplicar">Aplicar a esta búsqueda →</span>
+          <span class="search-cq-aplicar">Encuentra más rápido el producto ideal para ti →</span>
         </button>`).join("");
     box.classList.remove("hidden");
     box.querySelectorAll(".search-cq-btn").forEach((b) => {
