@@ -5584,5 +5584,28 @@ LOTES['auditoria_51'] = [
 ]
 REGLAS += LOTES['auditoria_51']
 
+# Lote auditoría 10-nov: teclados mecánicos en Membrana/Numéricos/Combos y consolas/controles dentro de juegos.
+LOTES['auditoria_58'] = [
+ ('Teclados', r'mecanic|hot.?swap|switch(es)? (red|brown|blue|rojo|azul|marron)', r'numeric|number ?pad|numpad|combo|\bkit\b.*(mouse|raton)|mouse|raton', 'Teclados', 'Mecánicos', {'Membrana'}),
+ ('Teclados', r'mecanic|hot.?swap', r'numeric|number ?pad|numpad|combo|mouse|raton', 'Teclados', 'Mecánicos', {'Numéricos', 'Ergonómicos'}),
+ ('Teclados', r'^(kit )?(de )?teclado mecanic[oa]s?( gamer)?( \w+)? ?(65|75|60|80|tkl)|kit de teclado mecanico', r'mouse|raton|combo', 'Teclados', 'Mecánicos', {'Combos con mouse'}),
+ ('Videojuegos', r'estacion de recarga|base de carga|cargador', None, 'Videojuegos', 'Cargadores, bases y soportes', {'Juegos PS5', 'Juegos PS4'}),
+ ('Videojuegos', r'^dualsense|^dualshock|controlador playstation|control(ador)? (inalambrico )?(dualsense|dualshock)', r'estacion|cargador|base|funda|cubierta', 'Videojuegos', 'Controles para PlayStation', {'Juegos PS5', 'Juegos PS4'}),
+ ('Videojuegos', r'placas frontales|caratulas? para consola|cubierta antipolvo', None, 'Videojuegos', 'Fundas, micas y protectores', {'Juegos PS5', 'Juegos PS4'}),
+ ('Videojuegos', r'^joysticks? y cubiertas|kontrolfreek', None, 'Videojuegos', 'Otros accesorios gamer', {'Juegos Nintendo Switch', 'Juegos PS5', 'Juegos PS4', 'Juegos Xbox'}),
+ ('Videojuegos', r'thrustmaster|joystick de vuelo|hotas', None, 'Videojuegos', 'Volantes, arcade y simuladores', {'Juegos Xbox', 'Juegos PS4', 'Juegos PS5'}),
+ ('Videojuegos', r'^consola (portatil )?(evercade|nintendo 64|game stick|nintendo game and watch|nintendo game & watch)|nintendo 64 reacondicionada|playstation ps one|consola de videojuegos game stick|tecnobits game station', r'juego', 'Videojuegos', 'Consolas retro y portátiles', {'Juegos retro y otras plataformas', 'Juegos PS4', 'Juegos Nintendo Switch'}),
+]
+REGLAS += LOTES['auditoria_58']
+
+LOTES['auditoria_59'] = [
+ ('Libros', r'\bviz media\b|\bkodansha\b|\bkamite\b|\btomo \d+\b.*(editorial|vol)|\bvol(umen)?\.? ?\d+\b.*viz|viz.*\bvol(umen)?\.? ?\d+\b', r'novela|cuento|poesia', 'Libros', 'Manga', {'Novela contemporánea'}),
+ ('Impresión 3D', r'^impresora 3d (creality|elegoo|flashforge|bambu)|^creality k2|^impresora 3d (plegable|creality sonic)|^impresora 3d [a-z0-9 ]*(saturn|photon)', r'resina|saturn|photon|filtro|embudo', 'Impresión 3D', 'Impresoras FDM', {'Filamentos', 'Refacciones y accesorios', 'Boquillas y hotends'}),
+ ('Impresión 3D', r'^impresora 3d [a-z0-9 ]*(saturn|photon)|^impresora 3d anycubic photon|photon mono', None, 'Impresión 3D', 'Impresoras de resina', {'Refacciones y accesorios', 'Filamentos'}),
+ ('Belleza y cuidado personal', r'(crema|ungüento|unguento|pomada).*(panal|rozaduras)|panal.*(crema|ungüento|unguento|pomada)|butt paste', r'panalab', 'Bebés', 'Cuidado y salud del bebé', {'Cremas faciales', 'Cremas y lociones corporales'}),
+ ('Cámaras y fotografía', r'^(lente|objetivo) ', None, 'Cámaras y fotografía', 'Lentes', {'Mirrorless'}),
+]
+REGLAS += LOTES['auditoria_59']
+
 if __name__ == '__main__':
     main()
