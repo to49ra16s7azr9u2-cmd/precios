@@ -35834,5 +35834,111 @@
    "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
    "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 1
   }
+ },
+ {
+  "fecha": "2026-11-12",
+  "origen": "mov_a62.json",
+  "motivo": "Auditoría 12-nov: muestra 60",
+  "grupos": {
+   "Celulares | Soportes y agarraderas | Tabletas | Accesorios para tableta": 1,
+   "Juguetes | Figuras de acción | Juguetes | Maquetas": 1,
+   "Herramientas | Taladros y rotomartillos | Herramientas | Grifos y monomandos": 1,
+   "Mascotas | Juguetes para perro | Mascotas | Premios y snacks para mascotas": 1,
+   "Bebés | Juguetes para bebé | Bebés | Alimentación y lactancia": 1,
+   "Teclados | Membrana | Teclados | Mecánicos": 1,
+   "Cargadores y adaptadores | Adaptador de corriente | Limpieza y hogar | Aromatizantes y velas": 1,
+   "Libros | Ciencia y divulgación | Libros | Infantil": 1,
+   "Libros | Cocina y gastronomía | Libros | Infantil": 1,
+   "Climatización | Ventiladores de pedestal | Climatización | Ventiladores de piso e industriales": 1,
+   "Calzado | Zapatos de vestir | Celulares | Protectores para celular": 1,
+   "Deportes y fitness | Patines de 4 ruedas | Deportes y fitness | Patinetas y scooters": 1,
+   "Bolsas y mochilas | Bolsas para mujer | Juguetes | Artículos para fiestas": 1,
+   "Juegos de mesa | Rompecabezas | Juguetes | Juguetes educativos": 1,
+   "Juegos de mesa | Rompecabezas | Juguetes | Bloques de construcción": 1,
+   "Equipo comercial | Carros de servicio | Juguetes | Vehículos de juguete": 1
+  }
+ },
+ {
+  "fecha": "2026-11-13",
+  "origen": "mov_a63.json",
+  "motivo": "Auditoría 13-nov: muestra 61",
+  "grupos": {
+   "Celulares | Soportes y agarraderas | Instrumentos musicales | Fundas, soportes y atriles": 1,
+   "Papelería y oficina | Útiles escolares | Impresión 3D | Camas y superficies": 1,
+   "Electrodomésticos | Wafleras, sandwicheras y creperas | Libros | Cómics y novela gráfica": 1,
+   "Mascotas | Camas elevadas y colchonetas | Mascotas | Tapetes y accesorios de alimentación": 1,
+   "Bebés | Pañales y cambio | Mascotas | Higiene y limpieza": 1,
+   "Cargadores y adaptadores | Base de carga | Videojuegos | Refacciones de consolas y controles": 1,
+   "Iluminación | Lámparas solares | Iluminación | Reflectores": 1,
+   "Libros | Cocina y gastronomía | Libros | Infantil": 1,
+   "Autos y motos | Bocinas coaxiales de 6.5 pulgadas | Autos y motos | Subwoofers para auto": 1,
+   "Domótica y hogar inteligente | Bocinas inteligentes | Domótica y hogar inteligente | Hubs": 1,
+   "Bolsas y mochilas | Bolsas para mujer | Aspiradoras | Bolsas para aspiradora": 1
+  }
+ },
+ {
+  "fecha": "2026-11-14",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador e5444e3549fe7bde) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Autopartes | Cadenas, sprockets y transmisión | Limpieza y hogar | Limpiadores y desinfectantes": 1,
+   "Autopartes | Para autos | Papelería y oficina | Artículos de oficina": 1,
+   "Autopartes | Para autos | Muebles | Mesas de centro": 1,
+   "Autopartes | Para autos | Audífonos | Earbuds para niños": 1
+  }
+ },
+ {
+  "fecha": "2026-11-14",
+  "origen": "auditoria-mov.json",
+  "motivo": "reglas de auditoría (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Celulares | Radios de dos vías": 1,
+   "Autopartes | Para autos | Instrumentos musicales | Sintetizadores y controladores MIDI": 1,
+   "Autopartes | Para autos | Belleza y cuidado personal | Extensiones de cabello": 25,
+   "Autopartes | Para autos | Belleza y cuidado personal | Masajeadores": 2,
+   "Autopartes | Para autos | Papelería y oficina | Cuadernos": 10,
+   "Autopartes | Para autos | Papelería y oficina | Organización": 1,
+   "Autopartes | Para autos | Juguetes | Figuras de acción": 2,
+   "Autopartes | Para autos | Juguetes | Juguetes para exterior": 1,
+   "Autopartes | Para autos | Juguetes | Bloques de construcción": 1,
+   "Autopartes | Para autos | Juguetes | Juguetes educativos": 1,
+   "Autopartes | Para autos | Herramientas | Grifos y monomandos": 12,
+   "Autopartes | Para autos | Herramientas | Seguridad industrial": 2,
+   "Autopartes | Para autos | Herramientas | Regaderas y duchas": 1,
+   "Autopartes | Para autos | Electrodomésticos | Arroceras y ollas multiusos": 1,
+   "Autopartes | Para autos | Cocina y comedor | Tarros y frascos": 1,
+   "Autopartes | Para autos | Cocina y comedor | Básculas y medidores": 2,
+   "Autopartes | Para autos | Mascotas | Higiene y limpieza": 3,
+   "Autopartes | Para autos | Impresoras | Tóner": 1,
+   "Autopartes | Para autos | Televisores | Soportes para TV": 1,
+   "Herramientas | Cables y extensiones eléctricas | Herramientas | Material eléctrico": 2,
+   "Mascotas | Disfraces para mascotas | Mascotas | Ropa para mascotas": 1,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Pesca": 17,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Fajas lumbares": 2
+  }
+ },
+ {
+  "fecha": "2026-11-14",
+  "origen": "juez-origen.json",
+  "motivo": "juez de origen (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Belleza y cuidado personal | None": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | Cremas y bálsamos para afeitar": 2,
+   "Autopartes | Para autos | Muebles | Burós": 1,
+   "Autopartes | Para autos | Juguetes | None": 2,
+   "Autopartes | Para autos | Ropa y accesorios | None": 1,
+   "Autopartes | Para autos | Ropa y accesorios | Pantalones y jeans": 2,
+   "Autopartes | Para autos | Joyería y bisutería | Lentes oftálmicos y de lectura": 2
+  }
+ },
+ {
+  "fecha": "2026-11-14",
+  "origen": "precio_atipico.py",
+  "motivo": "precio imposible para su subcategoría (vecinos + precio)",
+  "grupos": {
+   "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
+   "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 1
+  }
  }
 ]
