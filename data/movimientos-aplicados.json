@@ -36152,5 +36152,146 @@
    "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
    "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 1
   }
+ },
+ {
+  "fecha": "2026-11-16",
+  "origen": "mov_a69.json",
+  "motivo": "Auditoría 16-nov (muestra 63): mantel, transformador de timbre, clip de visera, libretas y otros",
+  "grupos": {
+   "Papelería y oficina | Organización | Autos y motos | Accesorios para auto": 1,
+   "Electrodomésticos | Filtros y membranas de repuesto | Cocina y comedor | Organización de cocina": 1,
+   "Tabletas | Tabletas Android | Papelería y oficina | Pizarrones": 1,
+   "Libros | Manga | Papelería y oficina | Libretas y agendas": 1,
+   "Suplementos | Probióticos y prebióticos | Mascotas | Higiene y limpieza": 1,
+   "Cafeteras | De goteo | Cocina y comedor | Cubiertos": 1,
+   "Videojuegos | Juegos retro y otras plataformas | Videojuegos | Refacciones de consolas y controles": 1,
+   "Herramientas | Pinzas y alicates | Herramientas | Herramientas de corte manual": 1,
+   "Herramientas | Pinzas y alicates | Herramientas | Construcción": 1,
+   "Muebles | Mesas de centro | Cocina y comedor | Manteles y caminos de mesa": 10,
+   "Muebles | Mesas de comedor | Cocina y comedor | Manteles y caminos de mesa": 2,
+   "Muebles | Sillas de comedor | Cocina y comedor | Manteles y caminos de mesa": 1,
+   "Joyería y bisutería | Anillos | Herramientas | Timbres": 3
+  }
+ },
+ {
+  "fecha": "2026-11-17",
+  "origen": "mov_a70.json",
+  "motivo": "Auditoría 17-nov (muestra 64): cera calzado, motor, reloj, báscula de cocina, camera y otros",
+  "grupos": {
+   "Belleza y cuidado personal | Brillos labiales (gloss) | Limpieza y hogar | Limpiadores y desinfectantes": 1,
+   "Belleza y cuidado personal | Aceites esenciales y de masaje | Limpieza y hogar | Detergentes y suavizantes": 1,
+   "Autopartes | Metales de biela y bancada | Herramientas | Motores eléctricos": 1,
+   "Joyería y bisutería | Relojes | Decoración de hogar y jardín | Relojes de pared": 1,
+   "Componentes y accesorios de PC | Componentes | Aspiradoras | Accesorios": 1,
+   "Bebés | Juguetes para bebé | Bebés | Alimentación y lactancia": 1,
+   "Bebés | Carriolas | Bebés | Chupones y mordederas": 1,
+   "Libros | Cómics y novela gráfica | Ropa y accesorios | Shorts y bermudas": 1,
+   "Mouse | Con cable | Decoración de hogar y jardín | Figuras y adornos": 1,
+   "Salud | Básculas | Cocina y comedor | Básculas y medidores": 1,
+   "Bolsas y mochilas | Bolsas para mujer | Salud | Otros aparatos médicos": 1,
+   "Suplementos | Herbolaria y superalimentos | Mascotas | Acuarios y terrarios": 1,
+   "Equipo comercial | Cocina industrial | Electrodomésticos | Máquinas de coser": 1
+  }
+ },
+ {
+  "fecha": "2026-11-17",
+  "origen": "mov_a71.json",
+  "motivo": "Auditoría 17-nov: bolsas autoclave, betún de calzado, shorts y otros fuera de Libros",
+  "grupos": {
+   "Bolsas y mochilas | Bolsas para mujer | Salud | Otros aparatos médicos": 10,
+   "Bolsas y mochilas | Bolsas para mujer | Bebés | Alimentación y lactancia": 1,
+   "Belleza y cuidado personal | Bases de maquillaje | Limpieza y hogar | Limpiadores y desinfectantes": 4,
+   "Belleza y cuidado personal | Brochas y esponjas | Limpieza y hogar | Limpiadores y desinfectantes": 1,
+   "Belleza y cuidado personal | Shampoo | Limpieza y hogar | Limpiadores y desinfectantes": 1,
+   "Belleza y cuidado personal | Cuidado del cabello | Limpieza y hogar | Limpiadores y desinfectantes": 1,
+   "Libros | Cómics y novela gráfica | Ropa y accesorios | Shorts y bermudas": 3,
+   "Libros | Cómics y novela gráfica | Calzado | Botas": 1,
+   "Libros | Cómics y novela gráfica | Jardín y exterior | Macetas y jardineras": 1,
+   "Libros | Cómics y novela gráfica | Videojuegos | Juegos para PC": 1
+  }
+ },
+ {
+  "fecha": "2026-11-17",
+  "origen": "mov_a72.json",
+  "motivo": "Corrección: cómic de Larry Hama, no videojuego",
+  "grupos": {
+   "Videojuegos | Juegos para PC | Libros | Cómics y novela gráfica": 1
+  }
+ },
+ {
+  "fecha": "2026-11-18",
+  "origen": "reaplicar_reglas.py",
+  "motivo": "reglas de hoy (clasificador e5444e3549fe7bde) aplicadas al catálogo",
+  "automatico": true,
+  "grupos": {
+   "Autopartes | Cadenas, sprockets y transmisión | Limpieza y hogar | Limpiadores y desinfectantes": 1,
+   "Autopartes | Para autos | Papelería y oficina | Artículos de oficina": 1,
+   "Autopartes | Para autos | Muebles | Mesas de centro": 1,
+   "Autopartes | Para autos | Audífonos | Earbuds para niños": 1
+  }
+ },
+ {
+  "fecha": "2026-11-18",
+  "origen": "reclasificar_hibrido.py",
+  "motivo": "modelo del catálogo + sustantivo + reglas",
+  "automatico": true,
+  "grupos": {
+   "Papelería y oficina | Útiles escolares | Herramientas | Baterías y cargadores de herramienta": 1,
+   "Suplementos | Herbolaria y superalimentos | Mascotas | None": 1,
+   "Suplementos | Herbolaria y superalimentos | Mascotas | Acuarios y terrarios": 1
+  }
+ },
+ {
+  "fecha": "2026-11-18",
+  "origen": "auditoria-mov.json",
+  "motivo": "reglas de auditoría (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Celulares | Radios de dos vías": 1,
+   "Autopartes | Para autos | Instrumentos musicales | Sintetizadores y controladores MIDI": 1,
+   "Autopartes | Para autos | Belleza y cuidado personal | Extensiones de cabello": 25,
+   "Autopartes | Para autos | Belleza y cuidado personal | Masajeadores": 2,
+   "Autopartes | Para autos | Papelería y oficina | Cuadernos": 10,
+   "Autopartes | Para autos | Papelería y oficina | Organización": 1,
+   "Autopartes | Para autos | Herramientas | Grifos y monomandos": 12,
+   "Autopartes | Para autos | Herramientas | Seguridad industrial": 2,
+   "Autopartes | Para autos | Herramientas | Regaderas y duchas": 1,
+   "Autopartes | Para autos | Cocina y comedor | Tarros y frascos": 1,
+   "Autopartes | Para autos | Cocina y comedor | Básculas y medidores": 2,
+   "Autopartes | Para autos | Juguetes | Figuras de acción": 2,
+   "Autopartes | Para autos | Juguetes | Juguetes para exterior": 1,
+   "Autopartes | Para autos | Juguetes | Bloques de construcción": 1,
+   "Autopartes | Para autos | Juguetes | Juguetes educativos": 1,
+   "Autopartes | Para autos | Mascotas | Higiene y limpieza": 3,
+   "Autopartes | Para autos | Electrodomésticos | Arroceras y ollas multiusos": 1,
+   "Autopartes | Para autos | Impresoras | Tóner": 1,
+   "Autopartes | Para autos | Televisores | Soportes para TV": 1,
+   "Herramientas | Cables y extensiones eléctricas | Herramientas | Material eléctrico": 2,
+   "Mascotas | Disfraces para mascotas | Mascotas | Ropa para mascotas": 1,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Pesca": 17,
+   "Deportes y fitness | Otros deportes | Deportes y fitness | Fajas lumbares": 2
+  }
+ },
+ {
+  "fecha": "2026-11-18",
+  "origen": "juez-origen.json",
+  "motivo": "juez de origen (automático)",
+  "grupos": {
+   "Autopartes | Para autos | Belleza y cuidado personal | None": 2,
+   "Autopartes | Para autos | Belleza y cuidado personal | Cremas y bálsamos para afeitar": 2,
+   "Autopartes | Para autos | Ropa y accesorios | None": 1,
+   "Autopartes | Para autos | Ropa y accesorios | Pantalones y jeans": 2,
+   "Autopartes | Para autos | Muebles | Burós": 1,
+   "Autopartes | Para autos | Juguetes | None": 2,
+   "Autopartes | Para autos | Joyería y bisutería | Lentes oftálmicos y de lectura": 2
+  }
+ },
+ {
+  "fecha": "2026-11-18",
+  "origen": "precio_atipico.py",
+  "motivo": "precio imposible para su subcategoría (vecinos + precio)",
+  "grupos": {
+   "Joyería y bisutería | Anillos de compromiso | Joyería y bisutería | Anillos": 1,
+   "Joyería y bisutería | Anillos de promesa | Joyería y bisutería | Anillos": 1
+  }
  }
 ]
